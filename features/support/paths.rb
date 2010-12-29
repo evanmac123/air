@@ -10,6 +10,8 @@ module NavigationHelpers
 
     when /the home\s?page/
       '/'
+    when /the admin page/
+      page_path("admin")
 
     # Add more mappings here.
     when /the sign up page/i
