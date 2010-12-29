@@ -1,14 +1,21 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+  <meta charset="utf-8" />
   <title>health</title>
   <%= stylesheet_link_tag :flutie, 'screen', :media => 'all' %>
   <%= csrf_meta_tag %>
 </head>
 <body class="<%= body_class %>">
+  <div class="header">
+    <div class="inner-header">
+      <h1><%= yield :header %></h1>
+    </div>
+  </div>
   <%= render :partial => 'shared/flashes' -%>
-  <%= yield %>
+  <div class="content">
+    <%= yield %>
+  </div>
   <%= render :partial => 'shared/javascript' %>
 </body>
 </html>

@@ -1,0 +1,38 @@
+body {
+  background: #353535;
+  font-size: 14px;
+}
+
+.header {
+  -webkit-box-shadow: black 0px -2px 8px inset;
+  background: rgba(0, 0, 0, 0.4);
+  font-size: 15px;
+  .inner-header {
+    margin: 0px auto;
+    padding: 20px 0;
+    width: 960px;
+    h1 {
+      color: #eee;
+    }
+  }
+}
+
+.explanation {
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  margin: 20px auto;
+  background: #eee;
+  width: 960px;
+  padding: 20px 20px 15px 10px; }
+
+.content {
+  margin: 20px auto;
+  background: #fff;
+  width: 960px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  padding: 20px 20px 5px 20px; }
+
+.demos {
+  margin-top: 20px;
+}
