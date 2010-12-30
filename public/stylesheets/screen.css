@@ -51,3 +51,7 @@ form li {
   padding: 4px 0px;
   text-align: center;
   width: 358px; }
+
+#flash {
+  margin: 20px auto;
+  width: 1000px; }

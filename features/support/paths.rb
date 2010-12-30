@@ -11,23 +11,13 @@ module NavigationHelpers
     when /the home\s?page/
       '/'
     when /the admin page/
-      page_path("admin")
+      admin_path
+    when /the admin "(.*)" demo page$/i
+      admin_demo_path(Demo.find_by_company_name($1))
     when /the invite page/
       page_path("invite")
     when /the accept page/
       page_path("accept")
-
-    # Add more mappings here.
-    when /the sign up page/i
-      sign_up_path
-    when /the sign in page/i
-      sign_in_path
-    when /the password reset request page/i
-      new_password_path
-    # Here is an example that pulls values out of the Regexp:
-    #
-    #   when /^(.*)'s profile page$/i
-    #     user_profile_path(User.find_by_login($1))
 
     else
       begin

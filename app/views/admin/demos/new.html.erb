@@ -1,0 +1,13 @@
+<%= content_for :header, "New Demo" %>
+
+<p class="explanation"><%= translate('admin.demos.new.explanation', :default => "Create a new demo for a prospective customer.") %></p>
+
+<%= semantic_form_for [:admin, @demo] do |form| %>
+  <%= form.inputs do %>
+    <%= form.input :company_name %>
+  <% end %>
+
+  <%= form.buttons do %>
+    <%= form.submit 'Submit', :disable_with => 'Please wait' %>
+  <% end %>
+<% end %>
