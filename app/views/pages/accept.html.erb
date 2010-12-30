@@ -1,6 +1,6 @@
 <%= content_for :header, "Accept Invite" %>
 
-<p class="explanation">Thanks for accepting our invite to try H Engage. If you'd like to demo the service, please enter your mobile number. We'll send you an SMS with instructions on the next step.</p>
+<p class="explanation"><%= translate('accept.explanation', :default => "Thanks for accepting our invite to try H Engage. If you'd like to demo the service, please enter your mobile number. We'll send you an SMS with instructions on the next step.") %></p>
 
 <%= semantic_form_for :phone do |form| %>
   <%= form.input :number, :label => "Enter your mobile number", :required => false %>
