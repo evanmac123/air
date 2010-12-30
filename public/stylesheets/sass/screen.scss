@@ -1,10 +1,26 @@
+$light-blue: #add9ef;
+$white: #eee;
+$black: #111;
+
+@mixin rounded-corners($radius: 1em) {
+  -moz-border-radius: $radius;
+  -webkit-border-radius: $radius;
+  border-radius: $radius;
+}
+
+@mixin box-shadow ($x: 5px, $y: 5px, $blur: 5px, $spread: 5px, $color: #ccc) {
+  -webkit-box-shadow: $x $y $blur $spread $color;
+  -moz-box-shadow: $x $y $blur $spread $color;
+  box-shadow: $x $y $blur $spread $color;
+}
+
 body {
-  background: #353535;
+  background: $light-blue;
   font-size: 14px;
 }
 
 .header {
-  -webkit-box-shadow: black 0px -2px 8px inset;
+  @include box-shadow (0, -2px, 8px, 5px, $black);
   background: rgba(0, 0, 0, 0.4);
   font-size: 15px;
   .inner-header {
@@ -12,7 +28,7 @@ body {
     padding: 20px 0;
     width: 960px;
     h1 {
-      color: #eee;
+      color: $white;
     }
   }
 }
@@ -21,12 +37,11 @@ body {
   padding: 10px 0; }
 
 .content {
+  @include rounded-corners;
   margin: 20px auto;
-  background: #fff;
+  background: $white;
   width: 960px;
-  -moz-border-radius: 5px;
-  border-radius: 5px;
-  padding: 20px 20px 5px 20px; }
+  padding: 20px; }
 
 ul, ol {
   margin-top: 20px;
@@ -47,8 +62,8 @@ form li {
     text-align: center;
   }
   input {
-    border: 1px solid #222;
-    color: #222;
+    border: 1px solid $black;
+    color: $black;
     display: block;
     font-family: Georgia, serif;
     font-size: 38px;

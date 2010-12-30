@@ -1,9 +1,11 @@
 body {
-  background: #353535;
+  background: #add9ef;
   font-size: 14px; }
 
 .header {
-  -webkit-box-shadow: black 0px -2px 8px inset;
+  -webkit-box-shadow: 0 -2px 8px 5px #111111;
+  -moz-box-shadow: 0 -2px 8px 5px #111111;
+  box-shadow: 0 -2px 8px 5px #111111;
   background: rgba(0, 0, 0, 0.4);
   font-size: 15px; }
   .header .inner-header {
@@ -11,18 +13,19 @@ body {
     padding: 20px 0;
     width: 960px; }
     .header .inner-header h1 {
-      color: #eee; }
+      color: #eeeeee; }
 
 .explanation {
   padding: 10px 0; }
 
 .content {
+  -moz-border-radius: 1em;
+  -webkit-border-radius: 1em;
+  border-radius: 1em;
   margin: 20px auto;
-  background: #fff;
+  background: #eeeeee;
   width: 960px;
-  -moz-border-radius: 5px;
-  border-radius: 5px;
-  padding: 20px 20px 5px 20px; }
+  padding: 20px; }
 
 ul, ol {
   margin-top: 20px; }
@@ -39,8 +42,8 @@ form li {
   width: 358px;
   text-align: center; }
 #phone_number_input input {
-  border: 1px solid #222;
-  color: #222;
+  border: 1px solid #111111;
+  color: #111111;
   display: block;
   font-family: Georgia, serif;
   font-size: 38px;
