@@ -26,3 +26,25 @@ body {
 
 ul, ol {
   margin-top: 20px; }
+
+form li {
+  list-style: none; }
+
+#phone_number_input label {
+  display: block;
+  font-size: 13px;
+  font-weight: bold;
+  line-height: 1.4;
+  margin: 5px auto;
+  width: 358px;
+  text-align: center; }
+#phone_number_input input {
+  border: 1px solid #222;
+  color: #222;
+  display: block;
+  font-family: Georgia, serif;
+  font-size: 38px;
+  margin: 0px auto;
+  padding: 4px 0px;
+  text-align: center;
+  width: 358px; }

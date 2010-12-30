@@ -14,6 +14,8 @@ module NavigationHelpers
       page_path("admin")
     when /the invite page/
       page_path("invite")
+    when /the accept page/
+      page_path("accept")
 
     # Add more mappings here.
     when /the sign up page/i
