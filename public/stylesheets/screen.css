@@ -24,5 +24,5 @@ body {
   border-radius: 5px;
   padding: 20px 20px 5px 20px; }
 
-.demos {
+ul, ol {
   margin-top: 20px; }
