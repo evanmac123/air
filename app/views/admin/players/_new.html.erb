@@ -1,0 +1,12 @@
+<div class="hidden-form">
+  <%= semantic_remote_form_for [:admin, @demo, Player.new] do |form| %>
+    <%= form.inputs do %>
+      <%= form.input :name,  :label => "Name" %>
+      <%= form.input :email, :label => "Email" %>
+    <% end %>
+
+    <%= form.buttons do %>
+      <%= form.submit 'Submit', :disable_with => 'Please wait' %>
+    <% end %>
+  <% end %>
+</div>

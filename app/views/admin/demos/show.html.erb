@@ -2,11 +2,14 @@
   <%= link_to "Admin", admin_path %>: <%= @demo.company_name %>
 <% end %>
 
-<p class="explanation"><%= translate('admin.demos.show.explanation', :default => "Add HR people from %{company} to this demo, then send them an invitation to the demo.", :company => @demo.company_name) %></p>
+<p class="explanation"><%= translate('.explanation', :default => "Add HR people from %{company} to this demo, then send them an invitation to the demo.", :company => @demo.company_name) %></p>
 
-<a href="#">New person</a>
+<a href="#" id="add-new-player">Add new player</a>
 
-<ul class="participants">
-  <li>Bob Jones, bob@example.com</li>
+<%= render :partial => 'admin/players/new', :locals => { :demo => @demo } %>
+
+<ul id="demo-players">
+  <% @players.each do |player| %>
+    <li><%= player.name %>, <%= player.email %></li>
+  <% end %>
 </ul>
-

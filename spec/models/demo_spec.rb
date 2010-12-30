@@ -1,5 +1,9 @@
 require 'spec_helper'
 
+describe Demo do
+  it { should have_many(:players) }
+end
+
 describe Demo, ".alphabetical" do
   before do
     @red_sox  = Factory(:demo, :company_name => "Red Sox")

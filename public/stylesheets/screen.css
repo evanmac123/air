@@ -30,7 +30,8 @@ body {
   margin: 20px auto;
   background: #eeeeee;
   width: 960px;
-  padding: 20px; }
+  padding: 20px;
+  padding-bottom: 5px; }
 
 ul, ol {
   margin-top: 20px; }
@@ -60,3 +61,7 @@ form li {
 #flash {
   margin: 20px auto;
   width: 1000px; }
+
+.hidden-form {
+  display: none;
+  margin-top: 20px; }

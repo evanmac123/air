@@ -11,6 +11,7 @@ class Admin::DemosController < ApplicationController
   end
 
   def show
-    @demo = Demo.find(params[:id])
+    @demo    = Demo.find(params[:id])
+    @players = @demo.players
   end
 end
