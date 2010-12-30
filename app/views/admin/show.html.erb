@@ -3,7 +3,7 @@
 <%= link_to 'New Demo', new_admin_demo_path %>
 
 <ul class="demos">
-  <li><%= link_to '3M', page_path('invite') %></li>
-  <li><%= link_to 'Fidelity', page_path('invite') %></li>
-  <li><%= link_to 'Mastercard', page_path('invite') %></li>
+  <% @demos.each do |demo| %>
+    <li><%= link_to demo.company_name, admin_demo_path(demo) %></li>
+  <% end %>
 </ul>

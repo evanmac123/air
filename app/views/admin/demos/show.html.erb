@@ -1,4 +1,12 @@
-<%= content_for :header, @demo.company_name %>
+<%= content_for :header do %>
+  <%= link_to "Admin", admin_path %>: <%= @demo.company_name %>
+<% end %>
 
-<p class="explanation"><%= translate('admin.demos.show.explanation', :default => "Add HR people to this demo, then send them an invitation to the demo.") %></p>
+<p class="explanation"><%= translate('admin.demos.show.explanation', :default => "Add HR people from %{company} to this demo, then send them an invitation to the demo.", :company => @demo.company_name) %></p>
+
+<a href="#">New person</a>
+
+<ul class="participants">
+  <li>Bob Jones, bob@example.com</li>
+</ul>
 

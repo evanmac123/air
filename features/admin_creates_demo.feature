@@ -6,3 +6,5 @@ Feature: Admin creates demo
     And I fill in "Company name" with "3M"
     And I press "Submit"
     Then I should be on the admin "3M" demo page
+    When I follow "Admin"
+    Then I should see "3M"
