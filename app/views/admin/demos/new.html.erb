@@ -1,4 +1,6 @@
-<%= content_for :header, "New Demo" %>
+<%= content_for :header do %>
+  <%= link_to "Admin", admin_path %>: New Demo
+<% end %>
 
 <p class="explanation"><%= translate('admin.demos.new.explanation', :default => "Create a new demo for a prospective customer.") %></p>
 

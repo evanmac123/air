@@ -14,6 +14,11 @@ body {
     width: 960px; }
     .header .inner-header h1 {
       color: #eeeeee; }
+      .header .inner-header h1 a, .header .inner-header h1 a:visited {
+        color: #eeeeee;
+        text-decoration: none; }
+      .header .inner-header h1 a:hover {
+        color: #add9ef; }
 
 .explanation {
   padding: 10px 0; }
