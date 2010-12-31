@@ -27,11 +27,13 @@ describe Player, "#invite" do
 
     before do
       Mailer.stubs(:invitation => invitation)
+      invitation.stubs(:deliver)
       subject.invite
     end
 
     it "sends invitation to player" do
-      Mailer.should have_received(:invitation).with(subject)
+      Mailer.should     have_received(:invitation).with(subject)
+      invitation.should have_received(:deliver)
     end
 
     it { should be_invited }

@@ -6,7 +6,7 @@ class Player < ActiveRecord::Base
   end
 
   def invite
-    Mailer.invitation(self)
+    Mailer.invitation(self).deliver
     update_attribute(:invited, true)
   end
 end
