@@ -13,4 +13,8 @@ Health::Application.routes.draw do
       resources :invitations, :only => [:create]
     end
   end
+
+  resources :players, :only => [] do
+    resources :joins, :only => [:new, :create]
+  end
 end

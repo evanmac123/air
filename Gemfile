@@ -13,13 +13,13 @@ gem "pg"
 gem "flutie"
 gem "dynamic_form"
 
-group :development, :test, :cucumber do
+group :development, :test do
   gem "rspec-rails", "~> 2.0.0"
   gem "ruby-debug", :platforms => :mri_18
   gem "ruby-debug19", :platforms => :mri_19
 end
 
-group :test, :cucumber do
+group :test do
   gem "cucumber-rails"
   gem "factory_girl_rails"
   gem "bourne"

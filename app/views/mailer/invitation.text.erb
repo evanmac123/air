@@ -1,3 +1,12 @@
-Mailer#invitation
+<%= @player.name %>,
 
-<%= @greeting %>, find me in app/views/app/views/mailer/invitation.text.erb
+I invite you demo the H Engage service at this link:
+
+<%= new_player_join_url(@player) %>
+
+In the demo, you're playing for a 10% discount on an H Engage
+deployment at <%= @player.demo.company_name %>.
+
+Have fun and good luck!
+
+Vlad

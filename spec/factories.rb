@@ -3,6 +3,7 @@ Factory.define :demo do |factory|
 end
 
 Factory.define :player do |factory|
+  factory.association(:demo)
   factory.name  { "James Earl Jones" }
   factory.email { "james@example.com" }
 end
