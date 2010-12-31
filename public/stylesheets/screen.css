@@ -65,3 +65,10 @@ form li {
 .hidden-form {
   display: none;
   margin-top: 20px; }
+
+.invite-link {
+  margin-left: 4px; }
+  .invite-link a, .invite-link a:visited {
+    color: #666666; }
+  .invite-link a:hover {
+    color: #888888; }

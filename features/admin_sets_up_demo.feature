@@ -13,7 +13,7 @@ Feature: Admin sets up demo
   # something's wrong with this step
   # need to ask thoughtbot team
   # @akephalos
-  # Scenario: Admin adds demo player
+  # Scenario: Admin adds player
   #   Given a demo exists with a company name of "3M"
   #   And I am on the admin "3M" demo page
   #   When I follow "Add new player"
