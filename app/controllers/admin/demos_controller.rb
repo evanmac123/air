@@ -12,6 +12,6 @@ class Admin::DemosController < ApplicationController
 
   def show
     @demo    = Demo.find(params[:id])
-    @players = @demo.players
+    @players = @demo.players.alphabetical
   end
 end

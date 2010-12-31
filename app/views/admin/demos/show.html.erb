@@ -6,10 +6,10 @@
 
 <a href="#" id="add-new-player">Add new player</a>
 
-<%= render :partial => 'admin/players/new', :locals => { :demo => @demo } %>
+<div id="new-player-form">
+  <%= render :partial => 'admin/players/new', :locals => { :demo => @demo } %>
+</div>
 
 <ul id="demo-players">
-  <% @players.each do |player| %>
-    <li><%= player.name %>, <%= player.email %></li>
-  <% end %>
+  <%= render :partial => 'admin/players/player', :collection => @players %>
 </ul>

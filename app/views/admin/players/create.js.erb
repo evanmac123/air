@@ -1,5 +1,5 @@
 $('#demo-players').prepend(<%= raw render(@player).to_json %>);
-$('#<%= dom_id(@player) %>').highlightFade();
-$('.demo-player-form').replaceWith(
+$('#<%= dom_id(@player) %>').effect("highlight", {}, 1500);
+$('#new-player-form').replaceWith(
   <%= raw render(:partial => 'admin/players/new', :locals => { :demo => @demo }).to_json %>
 );
