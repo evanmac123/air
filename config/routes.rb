@@ -1,4 +1,6 @@
 Health::Application.routes.draw do
+  get "invitations/show"
+
   get "invitations/create"
 
   root :to => 'high_voltage/pages#show', :id => 'wireframes'
@@ -14,7 +16,5 @@ Health::Application.routes.draw do
     end
   end
 
-  resources :players, :only => [] do
-    resources :joins, :only => [:new, :create]
-  end
+  resources :invitations, :only => [:show]
 end

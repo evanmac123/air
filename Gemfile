@@ -33,4 +33,5 @@ group :test do
   gem "launchy"
   gem "akephalos", :git => "git://github.com/thoughtbot/akephalos.git"
   gem "thin"
+  gem "email_spec", "~> 1.1"
 end

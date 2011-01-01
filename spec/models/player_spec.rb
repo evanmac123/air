@@ -4,6 +4,19 @@ describe Player do
   it { should belong_to(:demo) }
 end
 
+describe Player, "#invitation_code" do
+  before do
+    Timecop.travel("1/1/11") do
+      @player   = Factory(:player)
+      @expected = Digest::SHA1.hexdigest("--#{Time.now.utc}--#{@player.email}--")
+    end
+  end
+
+  it "should create unique invitation code" do
+    @player.invitation_code.should == @expected
+  end
+end
+
 describe Player, ".alphabetical" do
   before do
     @jobs  = Factory(:player, :name => "Steve Jobs")

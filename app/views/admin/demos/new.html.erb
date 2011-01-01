@@ -2,7 +2,7 @@
   <%= link_to "Admin", admin_path %>: New Demo
 <% end %>
 
-<p class="explanation"><%= translate('admin.demos.new.explanation', :default => "Create a new demo for a prospective customer.") %></p>
+<p class="explanation"><%= translate('.explanation', :default => "Create a new demo for a prospective customer.") %></p>
 
 <%= semantic_form_for [:admin, @demo] do |form| %>
   <%= form.inputs do %>

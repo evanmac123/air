@@ -2,7 +2,7 @@
 
 I'm pleased to invite you to demo H Engage. To demo it, follow:
 
-<%= new_player_join_url(@player) %>
+<%= invitation_url(@player.invitation_code) %>
 
 In the demo, you're playing for a 10% discount on the H Engage
 deployment at <%= @player.demo.company_name %>.
