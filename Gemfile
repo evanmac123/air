@@ -13,6 +13,7 @@ gem "pg"
 gem "flutie"
 gem "dynamic_form"
 gem "twilio-rb", :git => "git://github.com/stevegraham/twilio-rb.git", :require => 'twilio'
+gem "sinatra", "~> 1.0"
 
 group :development, :test do
   gem "rspec-rails", "~> 2.0.0"
