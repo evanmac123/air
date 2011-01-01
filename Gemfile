@@ -12,6 +12,7 @@ gem "formtastic"
 gem "pg"
 gem "flutie"
 gem "dynamic_form"
+gem "twilio-rb", :git => "git://github.com/stevegraham/twilio-rb.git", :require => 'twilio'
 
 group :development, :test do
   gem "rspec-rails", "~> 2.0.0"

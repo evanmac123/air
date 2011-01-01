@@ -1,4 +1,14 @@
 GIT
+  remote: git://github.com/stevegraham/twilio-rb.git
+  revision: 69b71bf6a1a9cfc7f8d495c8fd15c1a95163d8a2
+  specs:
+    twilio-rb (1.0beta)
+      activesupport (>= 3.0.0)
+      builder (>= 2.1.2)
+      httparty (>= 0.6.1)
+      yajl-ruby (>= 0.7.7)
+
+GIT
   remote: git://github.com/thoughtbot/akephalos.git
   revision: b2f056db59844209dac4c77ca386e7ef36f8f560
   specs:
@@ -52,6 +62,7 @@ GEM
       ffi (~> 0.6.3)
     columnize (0.3.2)
     configuration (1.2.0)
+    crack (0.1.8)
     cucumber (0.10.0)
       builder (>= 2.1.2)
       diff-lcs (~> 1.1.2)
@@ -90,6 +101,8 @@ GEM
     hoptoad_notifier (2.3.12)
       activesupport
       builder
+    httparty (0.6.1)
+      crack (= 0.1.8)
     i18n (0.5.0)
     jruby-jars (1.5.6)
     json (1.4.6)
@@ -179,6 +192,7 @@ GEM
     tzinfo (0.3.23)
     validation_reflection (1.0.0)
     will_paginate (2.3.15)
+    yajl-ruby (0.7.8)
 
 PLATFORMS
   ruby
@@ -211,5 +225,6 @@ DEPENDENCIES
   thin
   timecop
   treetop
+  twilio-rb!
   validation_reflection
   will_paginate
