@@ -52,3 +52,21 @@ describe Player, "#invite" do
     it { should be_invited }
   end
 end
+
+describe Player, "#send_welcome_sms" do
+  subject { Factory(:player) }
+  let(:phone_number) { "(508) 740-7520" }
+
+  before do
+    Twilio::SMS.stubs(:create)
+    subject.join_game(phone_number)
+  end
+
+  it "normalizes and saves the phone number" do
+    subject.reload.phone_number.should == "+15087407520"
+  end
+
+  it "sends welcome SMS" do
+    Twilio::SMS.should have_received(:create)
+  end
+end

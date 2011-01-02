@@ -1,4 +1,6 @@
 Health::Application.routes.draw do
+  get "phones/create"
+
   get "invitations/show"
 
   get "invitations/create"
@@ -17,4 +19,5 @@ Health::Application.routes.draw do
   end
 
   resources :invitations, :only => [:show]
+  resources :phones,      :only => [:create]
 end

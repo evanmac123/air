@@ -36,4 +36,5 @@ group :test do
   gem "akephalos", :git => "git://github.com/thoughtbot/akephalos.git"
   gem "thin"
   gem "email_spec", "~> 1.1"
+  gem "sham_rack"
 end

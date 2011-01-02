@@ -5,10 +5,6 @@ When /^I invite "([^"]*)"$/ do |player_name|
   end
 end
 
-Then /^"([^"]*)" should receive an invitation email to "([^"]*)"$/ do |email, name|
-  demo = Demo.find_by_company_name(name)
-end
-
 When /^"([^"]*)" has received an invitation$/ do |email|
   player = Player.find_by_email(email)
   Mailer.invitation(player).deliver

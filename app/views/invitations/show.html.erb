@@ -4,6 +4,10 @@
 
 <p class="explanation"><%= translate('.explanation', :default => "Thanks for accepting our invite to try H Engage. If you'd like to demo the service, please enter your mobile number. We'll send you an SMS with instructions on the next step.") %></p>
 
-<%= semantic_form_for [@player, :phone] do |form| %>
+<%= semantic_form_for :phone, :url => phones_path(:player_id => @player) do |form| %>
   <%= form.input :number, :label => "Enter your mobile number", :required => false %>
+
+  <%= form.buttons do %>
+    <%= form.submit 'Submit', :disable_with => 'Please wait...' %>
+  <% end %>
 <% end %>
