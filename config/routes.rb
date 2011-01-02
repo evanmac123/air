@@ -1,9 +1,8 @@
 Health::Application.routes.draw do
-  get "phones/create"
+  match "sms" => "sms#create", :via => :post
 
-  get "invitations/show"
-
-  get "invitations/create"
+  resources :phones,      :only => [:create]
+  resources :invitations, :only => [:show]
 
   root :to => 'high_voltage/pages#show', :id => 'wireframes'
 
@@ -17,7 +16,4 @@ Health::Application.routes.draw do
       resources :invitations, :only => [:create]
     end
   end
-
-  resources :invitations, :only => [:show]
-  resources :phones,      :only => [:create]
 end
