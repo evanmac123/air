@@ -18,12 +18,7 @@ class Player < ActiveRecord::Base
 
   def join_game(number)
     update_attribute(:phone_number, PhoneNumber.normalize(number))
-    send_welcome_sms
-  end
-
-  def send_welcome_sms
-    Twilio::SMS.create(:to   => phone_number,
-                       :from => TWILIO_PHONE_NUMBER,
-                       :body => "You've joined the #{demo.company_name} game!")
+    SMS.send(phone_number,
+             "You've joined the #{demo.company_name} game!")
   end
 end
