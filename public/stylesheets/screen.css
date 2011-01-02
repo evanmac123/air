@@ -35,7 +35,7 @@ h2 {
       margin-top: 2px;
       font-size: 13px;
       float: right;
-      width: 260px; }
+      width: 220px; }
       .header .inner-header #account a, .header .inner-header #account a:visited {
         color: #f0f0f0;
         text-decoration: none; }
@@ -126,22 +126,22 @@ pre {
     line-height: 1.4;
     overflow: hidden;
     padding: 8px 0px; }
+    #secondary ul li img {
+      background: #f0f0f0;
+      border: 1px solid #999999;
+      float: left;
+      margin: 0px 6px 0px 0px;
+      padding: 3px;
+      vertical-align: middle;
+      width: 24px; }
+    #secondary ul li a:link, #secondary ul li a:visited {
+      color: #103245;
+      outline: none;
+      text-decoration: none;
+      font-weight: bold; }
   #secondary ul li:last-child {
     border-bottom: none; }
 
-#top-players li img {
-  background: #f0f0f0;
-  border: 1px solid #999999;
-  float: left;
-  margin: 0px 6px 0px 0px;
-  padding: 3px;
-  vertical-align: middle;
-  width: 24px; }
-#top-players li a:link, #top-players li a:visited {
-  color: #103245;
-  outline: none;
-  text-decoration: none;
-  font-weight: bold; }
 #top-players li span {
   color: #999999;
   display: block;

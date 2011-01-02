@@ -63,7 +63,7 @@ h2 {
       margin-top: 2px;
       font-size: 13px;
       float: right;
-      width: 260px;
+      width: 220px;
       a, a:visited {
         color: $white;
         text-decoration: none;
@@ -171,14 +171,6 @@ pre {
     line-height: 1.4;
     overflow: hidden;
     padding: 8px 0px;
-  }
-  li:last-child {
-    border-bottom: none;
-  }
-}
-
-#top-players {
-  li {
     img {
       background: $white;
       border: 1px solid $light-gray;
@@ -194,6 +186,14 @@ pre {
       text-decoration: none;
       font-weight: bold;
     }
+  }
+  li:last-child {
+    border-bottom: none;
+  }
+}
+
+#top-players {
+  li {
     span {
       color: $light-gray;
       display: block;
