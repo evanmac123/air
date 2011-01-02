@@ -1,2 +1,0 @@
-require 'copycopter_client'
-
