@@ -1,10 +1,13 @@
 Health::Application.routes.draw do
+  get "players/new"
+
   match "sms" => "sms#create", :via => :post
 
   resources :phones,      :only => [:create]
   resources :invitations, :only => [:show]
+  resources :players,     :only => [:new, :index]
 
-  root :to => 'high_voltage/pages#show', :id => 'wireframes'
+  root :to => 'players#new'
 
   resource :admin, :only => :show
 

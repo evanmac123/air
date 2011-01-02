@@ -1,8 +1,12 @@
-$light-blue: #add9ef;
-$white: #eee;
-$light-gray: #888;
-$dark-gray: #666;
-$black: #111;
+$blue:   #103245;
+$green:  #298f35;
+$yellow: #ffea96;
+$orange: #ff6a37;
+$white:  #f0f0f0;
+$black:  #111111;
+$gray:   #333333;
+
+$light-gray: #999999;
 
 @mixin rounded-corners($radius: 1em) {
   -moz-border-radius: $radius;
@@ -10,33 +14,62 @@ $black: #111;
   border-radius: $radius;
 }
 
-@mixin box-shadow ($x: 5px, $y: 5px, $blur: 5px, $spread: 5px, $color: #ccc) {
+@mixin box-shadow ($x: 5px, $y: 5px, $blur: 5px, $spread: 5px, $color: $gray) {
   -webkit-box-shadow: $x $y $blur $spread $color;
   -moz-box-shadow: $x $y $blur $spread $color;
   box-shadow: $x $y $blur $spread $color;
 }
 
 body {
-  background: $light-blue;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-size: 14px;
+  background: $white;
+}
+
+h1 {
+  font-family: 'Chunk';
+}
+
+h1 {
+  font-size: 24px;
+  color: $orange;
+}
+h2 {
+  margin: 0 0 20px 0;
+  font-size: 14px;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: $gray;
 }
 
 .header {
-  @include box-shadow (0, -2px, 8px, 5px, $black);
-  background: rgba(0, 0, 0, 0.4);
-  font-size: 15px;
+  background: $blue;
+  height: 50px;
   .inner-header {
     margin: 0px auto;
-    padding: 20px 0;
+    padding: 15px 0 10px 0;
     width: 960px;
-    h1 {
-      color: $white;
+    #header-and-slogan {
+      width: 700px;
+      float: left;
+      h1 {
+        color: $white;
+        .slogan {
+          color: $orange;
+        }
+      }
+    }
+    #account {
+      margin-top: 2px;
+      font-size: 13px;
+      float: right;
+      width: 260px;
       a, a:visited {
         color: $white;
         text-decoration: none;
       }
       a:hover {
-        color: $light-blue;
+        color: $orange;
       }
     }
   }
@@ -47,7 +80,7 @@ body {
 
 .content {
   @include rounded-corners;
-  margin: 20px auto;
+  margin: 10px auto;
   background: $white;
   width: 960px;
   padding: 20px;
@@ -97,9 +130,78 @@ form li {
 .invite-link {
   margin-left: 4px;
   a, a:visited {
-    color: $dark-gray;
+    color: $gray;
   }
   a:hover {
-    color: $light-gray;
+    color: $black;
+  }
+}
+
+#main {
+  float: left;
+  width: 700px;
+}
+
+#secondary {
+  float: right;
+  width: 220px;
+}
+
+pre {
+  background: $black;
+  color: $white;
+}
+code, pre {
+  overflow-x: auto;
+  margin: 1.5em 0px;
+  white-space: pre;
+  line-height: 1.5;
+}
+pre {
+  -webkit-box-shadow: #555 0px 2px 4px;
+  border: 3px solid #DDD;
+  padding: 10px;
+}
+
+#secondary ul {
+  list-style: none;
+  margin: -8px 0px 20px;
+  li {
+    border-bottom: 1px solid #DDD;
+    line-height: 1.4;
+    overflow: hidden;
+    padding: 8px 0px;
+  }
+  li:last-child {
+    border-bottom: none;
+  }
+}
+
+#top-players {
+  li {
+    img {
+      background: $white;
+      border: 1px solid $light-gray;
+      float: left;
+      margin: 0px 6px 0px 0px;
+      padding: 3px;
+      vertical-align: middle;
+      width: 24px;
+    }
+    a:link, a:visited {
+      color: $blue;
+      outline: none;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    span {
+      color: $light-gray;
+      display: block;
+      font-size: 11px;
+      font-weight: normal;
+      line-height: 1.2;
+      margin: 0px;
+      padding: 0px;
+    }
   }
 }

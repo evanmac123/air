@@ -3,15 +3,11 @@
 <head>
   <meta charset="utf-8" />
   <title>H Engage</title>
-  <%= stylesheet_link_tag :flutie, 'screen', :media => 'all' %>
+  <%= stylesheet_link_tag 'http://fistface.heroku.com/chunk.css', :flutie, 'screen' %>
   <%= csrf_meta_tag %>
 </head>
 <body class="<%= body_class %>">
-  <div class="header">
-    <div class="inner-header">
-      <h1><%= yield :header %></h1>
-    </div>
-  </div>
+  <%= render :partial => 'shared/header' %>
   <%= render :partial => 'shared/flashes' -%>
   <div class="content">
     <%= yield %>

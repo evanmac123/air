@@ -1,24 +1,46 @@
 body {
-  background: #add9ef;
-  font-size: 14px; }
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  background: #f0f0f0; }
+
+h1 {
+  font-family: 'Chunk'; }
+
+h1 {
+  font-size: 24px;
+  color: #ff6a37; }
+
+h2 {
+  margin: 0 0 20px 0;
+  font-size: 14px;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: #333333; }
 
 .header {
-  -webkit-box-shadow: 0 -2px 8px 5px #111111;
-  -moz-box-shadow: 0 -2px 8px 5px #111111;
-  box-shadow: 0 -2px 8px 5px #111111;
-  background: rgba(0, 0, 0, 0.4);
-  font-size: 15px; }
+  background: #103245;
+  height: 50px; }
   .header .inner-header {
     margin: 0px auto;
-    padding: 20px 0;
+    padding: 15px 0 10px 0;
     width: 960px; }
-    .header .inner-header h1 {
-      color: #eeeeee; }
-      .header .inner-header h1 a, .header .inner-header h1 a:visited {
-        color: #eeeeee;
+    .header .inner-header #header-and-slogan {
+      width: 700px;
+      float: left; }
+      .header .inner-header #header-and-slogan h1 {
+        color: #f0f0f0; }
+        .header .inner-header #header-and-slogan h1 .slogan {
+          color: #ff6a37; }
+    .header .inner-header #account {
+      margin-top: 2px;
+      font-size: 13px;
+      float: right;
+      width: 260px; }
+      .header .inner-header #account a, .header .inner-header #account a:visited {
+        color: #f0f0f0;
         text-decoration: none; }
-      .header .inner-header h1 a:hover {
-        color: #add9ef; }
+      .header .inner-header #account a:hover {
+        color: #ff6a37; }
 
 .explanation {
   padding: 10px 0; }
@@ -27,8 +49,8 @@ body {
   -moz-border-radius: 1em;
   -webkit-border-radius: 1em;
   border-radius: 1em;
-  margin: 20px auto;
-  background: #eeeeee;
+  margin: 10px auto;
+  background: #f0f0f0;
   width: 960px;
   padding: 20px;
   padding-bottom: 5px; }
@@ -69,6 +91,62 @@ form li {
 .invite-link {
   margin-left: 4px; }
   .invite-link a, .invite-link a:visited {
-    color: #666666; }
+    color: #333333; }
   .invite-link a:hover {
-    color: #888888; }
+    color: #111111; }
+
+#main {
+  float: left;
+  width: 700px; }
+
+#secondary {
+  float: right;
+  width: 220px; }
+
+pre {
+  background: #111111;
+  color: #f0f0f0; }
+
+code, pre {
+  overflow-x: auto;
+  margin: 1.5em 0px;
+  white-space: pre;
+  line-height: 1.5; }
+
+pre {
+  -webkit-box-shadow: #555 0px 2px 4px;
+  border: 3px solid #DDD;
+  padding: 10px; }
+
+#secondary ul {
+  list-style: none;
+  margin: -8px 0px 20px; }
+  #secondary ul li {
+    border-bottom: 1px solid #DDD;
+    line-height: 1.4;
+    overflow: hidden;
+    padding: 8px 0px; }
+  #secondary ul li:last-child {
+    border-bottom: none; }
+
+#top-players li img {
+  background: #f0f0f0;
+  border: 1px solid #999999;
+  float: left;
+  margin: 0px 6px 0px 0px;
+  padding: 3px;
+  vertical-align: middle;
+  width: 24px; }
+#top-players li a:link, #top-players li a:visited {
+  color: #103245;
+  outline: none;
+  text-decoration: none;
+  font-weight: bold; }
+#top-players li span {
+  color: #999999;
+  display: block;
+  font-size: 11px;
+  font-weight: normal;
+  line-height: 1.2;
+  margin: 0px;
+  padding: 0px; }
