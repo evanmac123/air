@@ -98,6 +98,9 @@ form li {
 #main {
   float: left;
   width: 700px; }
+  #main p {
+    line-height: 1.4em;
+    margin-bottom: 20px; }
 
 #secondary {
   float: right;
