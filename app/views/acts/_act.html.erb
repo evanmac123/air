@@ -1,0 +1,14 @@
+<li id="<%= dom_id(act) %>" class="act">
+  <div class="avatar48">
+    <div class="shadow48"></div>
+    <%= image_tag act.player.gravatar_url(48), :alt => h(act.player.name) %>
+  </div>
+  <p>
+    <span class="player"><%= h(act.player.name) %>:</span>
+    <%= h(act.text) %>
+    <br />
+    <span class="when">
+      <%= time_ago_in_words(act.created_at) %> ago
+    </span>
+  </p>
+</li>

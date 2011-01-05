@@ -5,8 +5,8 @@ module SMS
                        :body => body)
   end
 
-  def self.parse_and_reply(body)
-    case body.downcase
+  def self.parse_and_reply(text)
+    case text.downcase
     when "broccoli"
       "Yum. +2 points. Broccoli helps your body fight cancer. You're now in 1st place."
     when /^#plu/

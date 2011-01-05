@@ -21,4 +21,8 @@ class Player < ActiveRecord::Base
     SMS.send(phone_number,
              "You've joined the #{demo.company_name} game!")
   end
+
+  def gravatar_url(size)
+    Gravatar.new(email).url(size)
+  end
 end
