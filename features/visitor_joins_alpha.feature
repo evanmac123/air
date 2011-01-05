@@ -1,7 +1,7 @@
 Feature: Visitor joins alpha
 
   Scenario: Visitor joins alpha
-    Given a demo exists with company name "Alpha"
+    Given a demo exists with a company name "Alpha"
     And I am on the homepage
     When I fill in "Name" with "Dan Croak"
     And I fill in "Email" with "dcroak@thoughtbot.com"
