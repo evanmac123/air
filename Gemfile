@@ -16,7 +16,7 @@ gem "twilio-rb", :git => "git://github.com/stevegraham/twilio-rb.git", :require 
 gem "sinatra", "~> 1.0"
 
 group :development, :test do
-  gem "rspec-rails", "~> 2.0.0"
+  gem "rspec-rails", "~> 2.4.0"
   gem "ruby-debug", :platforms => :mri_18
   gem "ruby-debug19", :platforms => :mri_19
 end
