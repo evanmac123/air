@@ -25,7 +25,7 @@ class FakeTwilioApp < Sinatra::Base
   end
 end
 
-ShamRack.at('api.twilio.com').rackup do
+ShamRack.at('api.twilio.com', 443).rackup do
   run FakeTwilioApp
 end
 

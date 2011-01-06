@@ -161,7 +161,7 @@ ul#acts {
     border-bottom: 1px solid #DDD;
     float: left;
     width: 700px;
-    padding: 7px 0;
+    padding: 7px 0 0 0;
     position: relative; }
     ul#acts li.act .avatar48 {
       width: 48px;
