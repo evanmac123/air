@@ -37,7 +37,6 @@ Health::Application.configure do
 
   FAKE_TWILIO_ACCOUNT_SID  = "12345"
   FAKE_TWILIO_AUTH_TOKEN   = "abcde"
-  FAKE_TWILIO_PHONE_NUMBER = "+6175551234"
 
   Twilio::Config.setup do
     account_sid FAKE_TWILIO_ACCOUNT_SID

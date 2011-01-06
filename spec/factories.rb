@@ -7,3 +7,13 @@ Factory.define :player do |factory|
   factory.name  { "James Earl Jones" }
   factory.email { "james@example.com" }
 end
+
+Factory.define :rule do |factory|
+  factory.association(:key)
+  factory.value  { "banana" }
+  factory.points { 2 }
+end
+
+Factory.define :key do |factory|
+  factory.name { "ate" }
+end
