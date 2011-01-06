@@ -11,6 +11,10 @@ class Player < ActiveRecord::Base
     order("name asc")
   end
 
+  def self.top
+    order("points desc")
+  end
+
   def invite
     Mailer.invitation(self).deliver
     update_attribute(:invited, true)
@@ -24,5 +28,13 @@ class Player < ActiveRecord::Base
 
   def gravatar_url(size)
     Gravatar.new(email).url(size)
+  end
+
+  def update_points(new_points)
+    if new_points > 0
+      increment!(:points, new_points)
+    else
+      decrement!(:points, new_points)
+    end
   end
 end

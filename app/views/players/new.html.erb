@@ -42,18 +42,17 @@
   <h2>Top Players</h2>
 
   <ul id="top-players">
-    <li>
-      <a href="#"><img src="http://avatar.statusok.com/Croaky?size=24" />Dan Croak</a>
-      <span class="player-points">
-        <strong>145</strong> points
-      </span>
-    </li>
-    <li>
-      <a href="#"><img src="http://avatar.statusok.com/vladig17?size=24" />Vlad Gyster</a>
-      <span class="player-points">
-        <strong>132</strong> points
-      </span>
-    </li>
+    <% @players.each do |player| %>
+      <li>
+        <a href="#">
+          <%= image_tag player.gravatar_url(48), :alt => h(player.name) %>
+          <%= player.name %>
+        </a>
+        <span class="player-points">
+          <strong><%= player.points %></strong> points
+        </span>
+      </li>
+    <% end %>
   </ul>
 
   <%= link_to "Recent Activity", acts_path %>

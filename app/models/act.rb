@@ -2,6 +2,10 @@ class Act < ActiveRecord::Base
   belongs_to :player
   belongs_to :rule
 
+  after_create do
+    player.update_points(rule.points)
+  end
+
   def self.recent
     order('created_at desc')
   end

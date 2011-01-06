@@ -56,6 +56,10 @@ describe Act, ".parse" do
         it "creates an act" do
           Act.should be_exists(:player_id => player.id, :text => good_sms, :rule_id => rule.id)
         end
+
+        it "updates players points" do
+          player.reload.points.should == rule.points
+        end
       end
     end
   end
