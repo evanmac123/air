@@ -249,12 +249,15 @@ ul#acts {
       a:hover {
         text-decoration: underline;
       }
-      span.when {
+      span.when, span.points {
         font-weight: normal;
         font-style: italic;
         color: $light-gray;
         font-size: 11px;
         padding: 5px 0;
+      }
+      span.points {
+        color: #666;
       }
     }
   }
