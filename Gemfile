@@ -18,11 +18,21 @@ gem "copycopter_client", "~> 1.0.0.beta6"
 
 group :development, :test do
   gem "rspec-rails", "~> 2.4.0"
-  gem "ruby-debug", :platforms => :mri_18
-  gem "ruby-debug19", :platforms => :mri_19
+
+  platforms :mri_18 do
+    gem "ruby-debug", "~> 0.10.4"
+    gem "linecache",  "~> 0.43"
+  end
+
+  platforms :mri_19 do
+    gem "ruby-debug19", "~> 0.11.6"
+    gem "linecache19",  "~> 0.5.11"
+  end
 end
 
 group :test do
+  gem "akephalos", :git => "git://github.com/thoughtbot/akephalos.git"
+
   gem "cucumber-rails"
   gem "factory_girl_rails"
   gem "bourne"
@@ -31,11 +41,7 @@ group :test do
   gem "fakeweb"
   gem "nokogiri"
   gem "timecop"
-  gem "treetop"
   gem "shoulda"
-  gem "launchy"
-  gem "akephalos", :git => "git://github.com/thoughtbot/akephalos.git"
-  gem "thin"
   gem "email_spec", "~> 1.1"
   gem "sham_rack"
 end

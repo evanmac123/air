@@ -23,7 +23,7 @@ namespace :heroku do
   task :dependencies do
     `heroku`
     unless $?.success?
-      puts "Heroku gem is not installed.  Try: sudo gem install heroku"
+      puts "Heroku gem is not installed.  Try: gem install heroku"
       exit 1
     end
 
