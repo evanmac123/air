@@ -4,7 +4,8 @@ body {
   background: #f0f0f0; }
 
 h1 {
-  font-family: 'Chunk'; }
+  font-family: 'Chunk';
+  font-weight: lighter; }
 
 h1 {
   font-size: 24px;
