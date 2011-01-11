@@ -1,4 +1,4 @@
-class AdminsController < ApplicationController
+class AdminsController < AdminBaseController
   def show
     @demos = Demo.alphabetical
     render :template => 'admin/show'

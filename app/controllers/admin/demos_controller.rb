@@ -1,4 +1,4 @@
-class Admin::DemosController < ApplicationController
+class Admin::DemosController < AdminBaseController
   def new
     @demo = Demo.new
   end
