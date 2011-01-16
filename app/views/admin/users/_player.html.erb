@@ -1,0 +1,7 @@
+<li id="<%= dom_id(user) %>">
+  <%= user.name %>, <%= user.email %>
+  <span class="invite-link">
+    <%= render :partial => 'admin/invitations/new',
+               :locals  => { :user => user } %>
+  </span>
+</li>

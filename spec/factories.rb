@@ -1,11 +1,17 @@
-Factory.define :demo do |factory|
-  factory.company_name { "Gillette" }
+Factory.sequence :email do |n|
+  "user#{n}@example.com"
 end
 
-Factory.define :player do |factory|
+Factory.define :user do |factory|
   factory.association(:demo)
-  factory.name  { "James Earl Jones" }
-  factory.email { "james@example.com" }
+  factory.name                  { "James Earl Jones" }
+  factory.email                 { Factory.next :email }
+  factory.password              { "password" }
+  factory.password_confirmation { "password" }
+end
+
+Factory.define :demo do |factory|
+  factory.company_name { "Gillette" }
 end
 
 Factory.define :rule do |factory|

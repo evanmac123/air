@@ -1,32 +1,32 @@
 require 'spec_helper'
 
 describe Act do
-  it { should belong_to(:player) }
+  it { should belong_to(:user) }
   it { should belong_to(:rule) }
 end
 
 describe Act, ".parse" do
-  context "when player has not been invited to the game" do
+  context "when user has not been invited to the game" do
     it "tells them" do
       reply = "You haven't been invited to the game."
       Act.parse("+15555555555", "hello?").should == reply
     end
   end
 
-  context "when player is in the game" do
-    let(:player) { Factory(:player) }
+  context "when user is in the game" do
+    let(:user) { Factory(:user) }
 
     context "and asks for help" do
       it "helps them" do
         reply = "Score points by texting us your latest act. The format is: key value"
-        Act.parse(player.phone_number, "help").should == reply
+        Act.parse(user.phone_number, "help").should == reply
       end
     end
 
     context "and types a bad key" do
       it "prompts them to ask for help" do
         reply = "We didn't understand. Try: help"
-        Act.parse(player.phone_number, "wakka").should == reply
+        Act.parse(user.phone_number, "wakka").should == reply
       end
     end
 
@@ -38,7 +38,7 @@ describe Act, ".parse" do
       context "with a bad value" do
         it "prompts them with a good value" do
           reply = "Bad value for that key. Try: #{key.name} #{good_value}"
-          Act.parse(player.phone_number, "#{key.name} bad value").should == reply
+          Act.parse(user.phone_number, "#{key.name} bad value").should == reply
         end
       end
 
@@ -46,7 +46,7 @@ describe Act, ".parse" do
         let(:good_sms) { "#{key.name} #{good_value}" }
 
         before do
-          @result = Act.parse(player.phone_number, good_sms)
+          @result = Act.parse(user.phone_number, good_sms)
         end
 
         it "replies with the rule's reply" do
@@ -54,11 +54,11 @@ describe Act, ".parse" do
         end
 
         it "creates an act" do
-          Act.should be_exists(:player_id => player.id, :text => good_sms, :rule_id => rule.id)
+          Act.should be_exists(:user_id => user.id, :text => good_sms, :rule_id => rule.id)
         end
 
-        it "updates players points" do
-          player.reload.points.should == rule.points
+        it "updates users points" do
+          user.reload.points.should == rule.points
         end
       end
     end

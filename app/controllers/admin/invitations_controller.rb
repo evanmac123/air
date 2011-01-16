@@ -1,6 +1,6 @@
 class Admin::InvitationsController < AdminBaseController
   def create
-    @player = Player.find(params[:player_id])
-    @player.invite
+    @user = User.find(params[:user_id])
+    @user.invite
   end
 end

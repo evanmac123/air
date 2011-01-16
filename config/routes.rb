@@ -3,18 +3,19 @@ Health::Application.routes.draw do
 
   resources :phones,      :only => [:create]
   resources :invitations, :only => [:show]
-  resources :players,     :only => [:new, :index]
+  resources :users,       :only => [:index]
   resources :acts,        :only => [:index]
 
-  root :to => 'players#new'
+  root :to => 'homes#show'
 
+  resource :home,  :only => :show
   resource :admin, :only => :show
 
   namespace :admin do
     resources :demos, :only => [:new, :create, :show] do
-      resources :players, :only => [:create]
+      resources :users, :only => [:create]
     end
-    resources :players, :only => [] do
+    resources :users, :only => [] do
       resources :invitations, :only => [:create]
     end
   end

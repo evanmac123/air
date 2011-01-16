@@ -1,5 +1,5 @@
 <div id="main">
-  <h2>A social game played via SMS</h2>
+  <h2 class="first">A social game played via SMS</h2>
 
   <p>While you eat a banana and cereal for breakfast, you send an SMS to H Engage:</p>
   <pre><code>#ate banana</code></pre>
@@ -15,10 +15,7 @@
 
   <h2>When it gets really interesting</h2>
 
-  <p>We're actively working with employers to get you discounts on your health insurance costs. The more H Engage points you score, the less you pay.</p>
-  <p>If your employer isn't using H Engage yet, please share this link with them:</p>
-
-  <p><%= link_to page_url('employers'), page_url('employers') %></p>
+  <p>We're actively working with employers to get you discounts on your health insurance costs. The more H Engage points you score, the less you pay. Please share <%= link_to "this page", page_url('employers') %> with your employer to get them on board.</p>
 </div>
 
 <div id="secondary">
@@ -39,17 +36,17 @@
     </li>
   </ul>
 
-  <h2>Top Players</h2>
+  <h2>Top users</h2>
 
-  <ul id="top-players">
-    <% @players.each do |player| %>
+  <ul id="top-users">
+    <% @users.each do |user| %>
       <li>
         <a href="#">
-          <%= image_tag player.gravatar_url(48), :alt => h(player.name) %>
-          <%= player.name %>
+          <%= image_tag user.gravatar_url(48), :alt => h(user.name) %>
+          <%= user.name %>
         </a>
-        <span class="player-points">
-          <strong><%= player.points %></strong> points
+        <span class="user-points">
+          <strong><%= user.points %></strong> points
         </span>
       </li>
     <% end %>

@@ -1,7 +1,7 @@
-Feature: Player accepts invitation
+Feature: User accepts invitation
 
-  Scenario: Player accepts invitation
-    Given the following player exists:
+  Scenario: User accepts invitation
+    Given the following user exists:
       | email           | name | demo             |
       | dan@example.com | Dan  | company name: 3M |
     And "dan@example.com" has received an invitation

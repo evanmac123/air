@@ -2,12 +2,12 @@
 
 <p class="explanation"><%= translate('.explanation', :default => "Add HR people from %{company} to this demo, then send them an invitation to the demo.", :company => @demo.company_name) %></p>
 
-<a href="#" id="add-new-player">Add new player</a>
+<a href="#" id="add-new-user">Add new user</a>
 
-<div id="new-player-form">
-  <%= render :partial => 'admin/players/new', :locals => { :demo => @demo } %>
+<div id="new-user-form">
+  <%= render :partial => 'admin/users/new', :locals => { :demo => @demo } %>
 </div>
 
-<ul id="demo-players">
-  <%= render :partial => 'admin/players/player', :collection => @players %>
+<ul id="demo-users">
+  <%= render :partial => 'admin/users/user', :collection => @users %>
 </ul>

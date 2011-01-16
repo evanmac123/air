@@ -1,8 +1,8 @@
-<% if player.invited? %>
+<% if user.invited? %>
   Invited
-  <%= link_to 'Re-send invitation', admin_player_invitations_path(player),
+  <%= link_to 'Re-send invitation', admin_user_invitations_path(user),
               :method => :post, :remote => true %>
 <% else %>
-  <%= link_to 'Invite', admin_player_invitations_path(player),
+  <%= link_to 'Invite', admin_user_invitations_path(user),
               :method => :post, :remote => true %>
 <% end %>

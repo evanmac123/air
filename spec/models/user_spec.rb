@@ -1,35 +1,35 @@
 require 'spec_helper'
 
-describe Player do
+describe User do
   it { should belong_to(:demo) }
 end
 
-describe Player, "#invitation_code" do
+describe User, "#invitation_code" do
   before do
     Timecop.travel("1/1/11") do
-      @player   = Factory(:player)
-      @expected = Digest::SHA1.hexdigest("--#{Time.now.utc}--#{@player.email}--")
+      @user     = Factory(:user)
+      @expected = Digest::SHA1.hexdigest("--#{Time.now.utc}--#{@user.email}--")
     end
   end
 
   it "should create unique invitation code" do
-    @player.invitation_code.should == @expected
+    @user.invitation_code.should == @expected
   end
 end
 
-describe Player, ".alphabetical" do
+describe User, ".alphabetical" do
   before do
-    @jobs  = Factory(:player, :name => "Steve Jobs")
-    @gates = Factory(:player, :name => "Bill Gates")
+    @jobs  = Factory(:user, :name => "Steve Jobs")
+    @gates = Factory(:user, :name => "Bill Gates")
   end
 
-  it "finds all players, sorted alphaetically" do
-    Player.alphabetical.should == [@gates, @jobs]
+  it "finds all users, sorted alphaetically" do
+    User.alphabetical.should == [@gates, @jobs]
   end
 end
 
-describe Player, "#invite" do
-  subject { Factory(:player) }
+describe User, "#invite" do
+  subject { Factory(:user) }
 
   context "when added to demo" do
     it { should_not be_invited }
@@ -44,7 +44,7 @@ describe Player, "#invite" do
       subject.invite
     end
 
-    it "sends invitation to player" do
+    it "sends invitation to user" do
       Mailer.should     have_received(:invitation).with(subject)
       invitation.should have_received(:deliver)
     end
@@ -53,8 +53,8 @@ describe Player, "#invite" do
   end
 end
 
-describe Player, "#send_welcome_sms" do
-  subject { Factory(:player) }
+describe User, "#send_welcome_sms" do
+  subject { Factory(:user) }
   let(:phone_number) { "(508) 740-7520" }
 
   before do

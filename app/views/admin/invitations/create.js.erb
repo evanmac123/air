@@ -1,5 +1,5 @@
-$('#<%= dom_id(@player) %> .invite-link').html(
+$('#<%= dom_id(@user) %> .invite-link').html(
   <%= raw render(:partial => 'admin/invitations/new',
-                 :locals  => { :player => @player }).to_json %>
+                 :locals  => { :user => @user }).to_json %>
 );
-$('#<%= dom_id(@player) %>').effect("highlight", {}, 1500);
+$('#<%= dom_id(@user) %>').effect("highlight", {}, 1500);

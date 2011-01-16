@@ -15,8 +15,8 @@ module NavigationHelpers
     when /the admin "(.*)" demo page$/i
       admin_demo_path(Demo.find_by_company_name($1))
     when /the invitation page for "(.*)"/
-      player = Player.find_by_email($1)
-      invitation_path(player.invitation_code)
+      user = User.find_by_email($1)
+      invitation_path(user.invitation_code)
 
     else
       begin

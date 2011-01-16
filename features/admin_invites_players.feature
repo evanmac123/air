@@ -1,9 +1,9 @@
-Feature: Admin invites players
+Feature: Admin invites users
 
   # more akephalos issues. need help from thoughtbot buddies
   # @akephalos
-  # Scenario: Admin invites players
-  #   Given the following player exists:
+  # Scenario: Admin invites users
+  #   Given the following user exists:
   #     | demo                     | name | email            |
   #     | company name: Mastercard | Greg | greg@example.com |
   #   And I am on the admin "Mastercard" demo page

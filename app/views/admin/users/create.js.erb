@@ -1,0 +1,6 @@
+$('#new-user-form').html(
+  <%= raw render(:partial => 'admin/users/new',
+                 :locals  => { :demo => @demo }).to_json %>
+);
+$('#demo-users').prepend(<%= raw render(@user).to_json %>);
+$('#<%= dom_id(@user) %>').effect("highlight", {}, 1500);

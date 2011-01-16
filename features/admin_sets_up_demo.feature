@@ -13,10 +13,10 @@ Feature: Admin sets up demo
   # something's wrong with this step
   # need to ask thoughtbot team
   # @akephalos
-  # Scenario: Admin adds player
+  # Scenario: Admin adds user
   #   Given a demo exists with a company name of "3M"
   #   And I am on the admin "3M" demo page
-  #   When I follow "Add new player"
+  #   When I follow "Add new user"
   #   And I fill in "Name" with "Bobby Jones"
   #   And I fill in "Email" with "bobby@example.com"
   #   And I press "Submit"

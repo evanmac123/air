@@ -1,7 +1,0 @@
-<li id="<%= dom_id(player) %>">
-  <%= player.name %>, <%= player.email %>
-  <span class="invite-link">
-    <%= render :partial => 'admin/invitations/new',
-               :locals  => { :player => player } %>
-  </span>
-</li>

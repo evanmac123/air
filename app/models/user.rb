@@ -1,6 +1,8 @@
 require 'digest/sha1'
 
-class Player < ActiveRecord::Base
+class User < ActiveRecord::Base
+  include Clearance::User
+
   belongs_to :demo
 
   before_create do

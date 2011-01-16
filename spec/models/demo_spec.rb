@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Demo do
-  it { should have_many(:players) }
+  it { should have_many(:users) }
 end
 
 describe Demo, ".alphabetical" do

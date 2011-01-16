@@ -1,7 +1,7 @@
-Feature: Player acts
+Feature: User acts
 
-  Scenario: Player acts
-    Given the following player exists:
+  Scenario: User acts
+    Given the following user exists:
       | name | phone number |
       | Dan  | +15087407520 |
     And a key exists with a name of "ate"

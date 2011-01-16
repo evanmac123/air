@@ -1,11 +1,11 @@
-When /^I invite "([^"]*)"$/ do |player_name|
-  player = Player.find_by_name(player_name)
-  within("##{dom_id(player)}") do
+When /^I invite "([^"]*)"$/ do |user_name|
+  user = User.find_by_name(user_name)
+  within("##{dom_id(user)}") do
     click_link "Invite"
   end
 end
 
 When /^"([^"]*)" has received an invitation$/ do |email|
-  player = Player.find_by_email(email)
-  Mailer.invitation(player).deliver
+  user = User.find_by_email(email)
+  Mailer.invitation(user).deliver
 end
