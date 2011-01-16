@@ -28,12 +28,17 @@ body {
 
 h1 {
   font-family: 'Chunk';
+  font-weight: normal;
+  font-size: 24px;
+  a, a:visited, a:link {
+    color: $white;
+    text-decoration: none;
+    span {
+      color: $orange;
+    }
+  }
 }
 
-h1 {
-  font-size: 24px;
-  color: $orange;
-}
 h2 {
   margin: 0 0 20px 0;
   font-size: 14px;
@@ -159,6 +164,10 @@ form li {
 #secondary {
   float: right;
   width: 220px;
+  p {
+    line-height: 1.4em;
+    margin-bottom: 10px;
+  }
 }
 
 pre {
@@ -177,32 +186,40 @@ pre {
   padding: 10px;
 }
 
-#secondary ul {
-  list-style: none;
-  margin: -8px 0px 20px;
-  li {
-    border-bottom: 1px solid #DDD;
-    line-height: 1.4;
-    overflow: hidden;
-    padding: 8px 0px;
-    img {
-      background: $white;
-      border: 1px solid $light-gray;
-      float: left;
-      margin: 0px 6px 0px 0px;
-      padding: 3px;
-      vertical-align: middle;
-      width: 24px;
-    }
-    a:link, a:visited {
-      color: $blue;
-      outline: none;
-      text-decoration: none;
-      font-weight: bold;
-    }
+#secondary {
+  h2.first {
+    margin: 0 0 20px 0;
   }
-  li:last-child {
-    border-bottom: none;
+  h2 {
+    margin: 20px 0;
+  }
+  ul {
+    list-style: none;
+    margin: 10px 0;
+    li {
+      border-bottom: 1px solid #DDD;
+      line-height: 1.4;
+      overflow: hidden;
+      padding: 8px 0px;
+      img {
+        background: $white;
+        border: 1px solid $light-gray;
+        float: left;
+        margin: 0px 6px 0px 0px;
+        padding: 3px;
+        vertical-align: middle;
+        width: 24px;
+      }
+      a:link, a:visited {
+        color: $blue;
+        outline: none;
+        text-decoration: none;
+        font-weight: bold;
+      }
+    }
+    li:last-child {
+      border-bottom: none;
+    }
   }
 }
 
@@ -269,6 +286,29 @@ ul#acts {
       span.points {
         color: #666;
       }
+    }
+  }
+  li:last-child {
+    border-bottom: none;
+  }
+}
+
+.examples {
+  li.example {
+    .points {
+      border: 1px solid $light-gray;
+      float: left;
+      margin: 0px 6px 0px 0px;
+      width: 24px;
+      height: 24px;
+      float: left;
+      position: relative;
+      text-align: center;
+      padding: 3px 2px 0 2px;
+      vertical-align: middle;
+    }
+    p {
+      float: left;
     }
   }
   li:last-child {

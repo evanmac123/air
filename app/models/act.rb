@@ -6,8 +6,8 @@ class Act < ActiveRecord::Base
     player.update_points(rule.points)
   end
 
-  def self.recent
-    order('created_at desc')
+  def self.recent(limit)
+    order('created_at desc').limit(limit)
   end
 
   def self.parse(from, body)

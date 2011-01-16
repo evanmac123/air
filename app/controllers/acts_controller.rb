@@ -1,5 +1,7 @@
 class ActsController < ApplicationController
   def index
-    @acts = Act.recent
+    @acts              = Act.recent(10)
+    @positive_examples = Rule.positive(5)
+    @negative_examples = Rule.negative(5)
   end
 end

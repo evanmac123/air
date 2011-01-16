@@ -4,11 +4,14 @@ body {
   background: #f0f0f0; }
 
 h1 {
-  font-family: 'Chunk'; }
-
-h1 {
-  font-size: 24px;
-  color: #ff6a37; }
+  font-family: 'Chunk';
+  font-weight: normal;
+  font-size: 24px; }
+  h1 a, h1 a:visited, h1 a:link {
+    color: #f0f0f0;
+    text-decoration: none; }
+    h1 a span, h1 a:visited span, h1 a:link span {
+      color: #ff6a37; }
 
 h2 {
   margin: 0 0 20px 0;
@@ -112,6 +115,9 @@ form li {
 #secondary {
   float: right;
   width: 220px; }
+  #secondary p {
+    line-height: 1.4em;
+    margin-bottom: 10px; }
 
 pre {
   background: #111111;
@@ -128,9 +134,13 @@ pre {
   border: 3px solid #DDD;
   padding: 10px; }
 
+#secondary h2.first {
+  margin: 0 0 20px 0; }
+#secondary h2 {
+  margin: 20px 0; }
 #secondary ul {
   list-style: none;
-  margin: -8px 0px 20px; }
+  margin: 10px 0; }
   #secondary ul li {
     border-bottom: 1px solid #DDD;
     line-height: 1.4;
@@ -205,3 +215,19 @@ ul#acts {
         color: #666; }
   ul#acts li:last-child {
     border-bottom: none; }
+
+.examples li.example .points {
+  border: 1px solid #999999;
+  float: left;
+  margin: 0px 6px 0px 0px;
+  width: 24px;
+  height: 24px;
+  float: left;
+  position: relative;
+  text-align: center;
+  padding: 3px 2px 0 2px;
+  vertical-align: middle; }
+.examples li.example p {
+  float: left; }
+.examples li:last-child {
+  border-bottom: none; }

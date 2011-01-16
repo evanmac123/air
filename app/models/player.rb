@@ -11,8 +11,8 @@ class Player < ActiveRecord::Base
     order("name asc")
   end
 
-  def self.top
-    order("points desc")
+  def self.top(limit)
+    order("points desc").limit(limit)
   end
 
   def invite

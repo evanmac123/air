@@ -7,5 +7,21 @@
 </div>
 
 <div id="secondary">
+  <h2 class="first">How to score</h2>
 
+  <p>Text what do in the real world to (617) 506-3824.</p>
+
+  <h2>Examples</h2>
+
+  <p>Healthy lifestyles are rewarded.</p>
+
+  <ul class="examples">
+    <%= render :partial => 'examples/example', :collection => @positive_examples %>
+  </ul>
+
+  <p>Others are punished.</p>
+
+  <ul class="examples">
+    <%= render :partial => 'examples/example', :collection => @negative_examples %>
+  </ul>
 </div>
