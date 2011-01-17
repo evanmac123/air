@@ -8,7 +8,6 @@ describe User do
   it { should belong_to(:demo) }
 
   it { should validate_uniqueness_of(:slug) }
-  it { should validate_uniqueness_of(:invitation_code) }
 end
 
 describe User, "#invitation_code" do

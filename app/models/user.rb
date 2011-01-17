@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
     set_slug
   end
 
-  validates_uniqueness_of :slug, :invitation_code
+  validates_uniqueness_of :slug
 
   def to_param
     slug
