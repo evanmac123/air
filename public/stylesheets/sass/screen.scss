@@ -249,25 +249,12 @@ pre {
 
 ul#acts {
   list-style: none;
-  li.act {
+  li.act, li.small-act {
     border-bottom: 1px solid #DDD;
     float: left;
     width: 700px;
     padding: 7px 0 0 0;
     position: relative;
-    .avatar48 {
-      width: 48px;
-      height: 48px;
-      float: left;
-      position: relative;
-      margin: 0 10px;
-      .shadow48 {
-        background: url(/images/shadow48.png) 0px 0px no-repeat;
-        width: 48px;
-        height: 48px;
-        position: absolute;
-      }
-    }
     p {
       float: left;
       width: 400px;
@@ -296,8 +283,27 @@ ul#acts {
       }
     }
   }
+  li.small-act {
+    p {
+      margin-bottom: 0px;
+    }
+  }
   li:last-child {
     border-bottom: none;
+  }
+}
+
+.avatar48 {
+  width: 48px;
+  height: 48px;
+  float: left;
+  position: relative;
+  margin: 0 10px 0 0;
+  .shadow48 {
+    background: url(/images/shadow48.png) 0px 0px no-repeat;
+    width: 48px;
+    height: 48px;
+    position: absolute;
   }
 }
 
@@ -343,3 +349,30 @@ button:hover, input[type=submit]:hover, .examples .points:hover {
   margin-right: 0px;
 }
 
+#profile-stats {
+  display: block;
+  clear: both;
+  margin-top: 25px;
+  .stat {
+    float: left;
+    display: inline;
+  }
+  #points {
+    width: 38px;
+    padding-right: 10px;
+  }
+  #following-count {
+    width: 56px;
+    padding: 0 10px;
+    border-left: 1px solid $light-gray;
+    border-right: 1px solid $light-gray;
+  }
+  #followers-count {
+    width: 60px;
+    padding-left: 10px;
+  }
+}
+
+#follow-button {
+  display: inline;
+}

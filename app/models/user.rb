@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
   include Clearance::User
 
   belongs_to :demo
+  has_many   :acts
 
   before_create do
     set_invitation_code

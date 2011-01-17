@@ -6,7 +6,7 @@
 
     <div id="account">
       <% if signed_in? %>
-        <%= link_to current_user.name, user_path(current_user) %>
+        <%= link_to current_user.name, current_user %>
         <%= link_to "Sign out", sign_out_path, :method => :delete %>
       <% else %>
         <%= link_to "By invitation only", page_path('invitation') %>

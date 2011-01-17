@@ -1,0 +1,47 @@
+<div id="main">
+  <h2 class="first">Recent Activity</h2>
+
+  <ul id="acts">
+    <% @acts.each do |act| %>
+      <li id="<%= dom_id(act) %>" class="small-act">
+        <p>
+          <%= (act.text) %>
+          <br />
+          <span class="when">
+            <%= time_ago_in_words(act.created_at) %> ago
+          </span>
+          <span class="points">
+            <%= points(act.rule) %> points
+          </span>
+        </p>
+      </li>
+    <% end %>
+  </ul>
+</div>
+
+<div id="secondary">
+  <h2 class="first"><%= @user.name %></h2>
+
+  <div class="avatar48">
+    <div class="shadow48"></div>
+    <%= image_tag @user.gravatar_url(48), :alt => (@user.name) %>
+  </div>
+
+  <%= form_for :follow do |form| %>
+    <div class="submit-input" id="follow-button">
+      <%= form.submit 'Follow' %>
+    </div>
+  <% end %>
+
+  <div id="profile-stats">
+    <div id="points" class="stat">
+      <strong><%= @user.points %></strong> <br />points
+    </div>
+    <div id="following-count" class="stat">
+      <strong>108</strong> <br />following
+    </div>
+    <div id="followers-count" class="stat">
+      <strong>3</strong> <br />followers
+    </div>
+  </div>
+</div>

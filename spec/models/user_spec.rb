@@ -6,6 +6,7 @@ describe User do
   end
 
   it { should belong_to(:demo) }
+  it { should have_many(:acts) }
 
   it { should validate_uniqueness_of(:slug) }
 end

@@ -182,24 +182,13 @@ pre {
 /* Activity Feed */
 ul#acts {
   list-style: none; }
-  ul#acts li.act {
+  ul#acts li.act, ul#acts li.small-act {
     border-bottom: 1px solid #DDD;
     float: left;
     width: 700px;
     padding: 7px 0 0 0;
     position: relative; }
-    ul#acts li.act .avatar48 {
-      width: 48px;
-      height: 48px;
-      float: left;
-      position: relative;
-      margin: 0 10px; }
-      ul#acts li.act .avatar48 .shadow48 {
-        background: url(/images/shadow48.png) 0px 0px no-repeat;
-        width: 48px;
-        height: 48px;
-        position: absolute; }
-    ul#acts li.act p {
+    ul#acts li.act p, ul#acts li.small-act p {
       float: left;
       width: 400px;
       font-size: 14px;
@@ -207,22 +196,36 @@ ul#acts {
       color: #363636;
       position: relative;
       line-height: 18px; }
-      ul#acts li.act p a, ul#acts li.act p span.user {
+      ul#acts li.act p a, ul#acts li.act p span.user, ul#acts li.small-act p a, ul#acts li.small-act p span.user {
         font-weight: bold;
         text-decoration: none;
         color: #103245; }
-      ul#acts li.act p a:hover {
+      ul#acts li.act p a:hover, ul#acts li.small-act p a:hover {
         text-decoration: underline; }
-      ul#acts li.act p span.when, ul#acts li.act p span.points {
+      ul#acts li.act p span.when, ul#acts li.act p span.points, ul#acts li.small-act p span.when, ul#acts li.small-act p span.points {
         font-weight: normal;
         font-style: italic;
         color: #999999;
         font-size: 11px;
         padding: 5px 0; }
-      ul#acts li.act p span.points {
+      ul#acts li.act p span.points, ul#acts li.small-act p span.points {
         color: #666; }
+  ul#acts li.small-act p {
+    margin-bottom: 0px; }
   ul#acts li:last-child {
     border-bottom: none; }
+
+.avatar48 {
+  width: 48px;
+  height: 48px;
+  float: left;
+  position: relative;
+  margin: 0 10px 0 0; }
+  .avatar48 .shadow48 {
+    background: url(/images/shadow48.png) 0px 0px no-repeat;
+    width: 48px;
+    height: 48px;
+    position: absolute; }
 
 .examples li.example .points {
   border: 1px solid #999999;
@@ -255,3 +258,25 @@ button:hover, input[type=submit]:hover, .examples .points:hover {
 
 #phone_submit {
   margin-right: 0px; }
+
+#profile-stats {
+  display: block;
+  clear: both;
+  margin-top: 25px; }
+  #profile-stats .stat {
+    float: left;
+    display: inline; }
+  #profile-stats #points {
+    width: 38px;
+    padding-right: 10px; }
+  #profile-stats #following-count {
+    width: 56px;
+    padding: 0 10px;
+    border-left: 1px solid #999999;
+    border-right: 1px solid #999999; }
+  #profile-stats #followers-count {
+    width: 60px;
+    padding-left: 10px; }
+
+#follow-button {
+  display: inline; }
