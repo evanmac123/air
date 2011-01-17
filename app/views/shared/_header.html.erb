@@ -5,7 +5,11 @@
     </div>
 
     <div id="account">
-      <%= link_to "Sign up", sign_up_path %>
+      <% if signed_in? %>
+        <%= link_to "Sign out", sign_out_path, :method => :delete %>
+      <% else %>
+        <%= link_to "By invitation only", page_path('invitation') %>
+      <% end %>
     </div>
   </div>
 </div>

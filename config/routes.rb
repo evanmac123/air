@@ -1,5 +1,6 @@
 Health::Application.routes.draw do
-  match "sms" => "sms#create", :via => :post
+  match "sms"      => "sms#create", :via => :post
+  match "activity" => "acts#index"
 
   resources :phones,      :only => [:create]
   resources :invitations, :only => [:show]

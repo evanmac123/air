@@ -1,4 +1,4 @@
-<h2><%= @user.name %>: Accept Invitation</h2>
+<h2 class="first"><%= @user.name %>: Accept Invitation</h2>
 
 <p class="explanation"><%= translate('.explanation', :default => "Thanks for accepting our invite to try H Engage. If you'd like to demo the service, please enter your mobile number. We'll send you an SMS with instructions on the next step.") %></p>
 
@@ -6,6 +6,8 @@
   <%= form.input :number, :label => "Enter your mobile number", :required => false %>
 
   <%= form.buttons do %>
-    <%= form.submit 'Submit', :disable_with => 'Please wait...' %>
+    <div class="submit-input">
+      <%= form.submit 'Submit' %>
+    </div>
   <% end %>
 <% end %>

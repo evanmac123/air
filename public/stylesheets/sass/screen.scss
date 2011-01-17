@@ -136,6 +136,14 @@ form li {
   }
 }
 
+form .submit-input {
+  text-align: right;
+  margin: 0px auto;
+  position: relative;
+  top: 5px;
+  width: 358px;
+}
+
 #flash {
   margin: 20px auto;
   width: 1000px;
@@ -312,4 +320,23 @@ ul#acts {
   li:last-child {
     border-bottom: none;
   }
+}
+
+button, input[type=submit], .examples .points {
+  font-size: 14px;
+  text-transform: uppercase;
+  font-weight: bold;
+  padding: 8px 12px;
+  color: $white;
+  background: $blue;
+  border: 0px solid $gray
+}
+
+button:hover, input[type=submit]:hover, .examples .points:hover {
+  background: $orange;
+  cursor: pointer;
+}
+
+#phone_submit {
+  margin-right: 0px;
 }

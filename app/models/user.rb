@@ -39,4 +39,8 @@ class User < ActiveRecord::Base
       decrement!(:points, new_points)
     end
   end
+
+  def password_optional?
+    true
+  end
 end
