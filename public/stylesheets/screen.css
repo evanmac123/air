@@ -41,10 +41,12 @@ h2.first {
       margin-top: 2px;
       font-size: 13px;
       float: right;
+      text-align: right;
       width: 220px; }
-      .header .inner-header #account a, .header .inner-header #account a:visited {
+      .header .inner-header #account a, .header .inner-header #account a:visited, .header .inner-header #account a:link {
         color: #f0f0f0;
-        text-decoration: none; }
+        text-decoration: none;
+        margin: 0 10px; }
       .header .inner-header #account a:hover {
         color: #ff6a37; }
 

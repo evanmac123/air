@@ -25,7 +25,7 @@ class User < ActiveRecord::Base
   def join_game(number)
     update_attribute(:phone_number, PhoneNumber.normalize(number))
     SMS.send(phone_number,
-             "You've joined the #{demo.company_name} game!")
+             "You've joined the #{demo.company_name} game! To play, send texts to this number. Send a text HELP if you want help.")
   end
 
   def gravatar_url(size)
