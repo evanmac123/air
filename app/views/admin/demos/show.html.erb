@@ -1,4 +1,4 @@
-<h3><%= link_to "Admin", admin_path %>: <%= @demo.company_name %></h3>
+<h2 class="first"><%= link_to "Admin", admin_path %>: <%= @demo.company_name %></h2>
 
 <p class="explanation"><%= translate('.explanation', :default => "Add HR people from %{company} to this demo, then send them an invitation to the demo.", :company => @demo.company_name) %></p>
 
