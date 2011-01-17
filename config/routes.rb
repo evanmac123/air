@@ -4,7 +4,7 @@ Health::Application.routes.draw do
 
   resources :phones,      :only => [:create]
   resources :invitations, :only => [:show]
-  resources :users,       :only => [:index]
+  resources :users,       :only => [:index, :show]
   resources :acts,        :only => [:index]
 
   root :to => 'homes#show'
