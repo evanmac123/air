@@ -27,21 +27,25 @@
     <%= image_tag @user.gravatar_url(48), :alt => (@user.name) %>
   </div>
 
-  <%= form_for :follow do |form| %>
-    <div class="submit-input" id="follow-button">
-      <%= form.submit 'Follow' %>
-    </div>
-  <% end %>
+  <div id="follow-target">
+    <% if signed_in? && current_user != @user %>
+      <% if current_user.following?(@user) %>
+        <%= render 'friendships/unfollow', :user => @user %>
+      <% else %>
+        <%= render 'friendships/follow',   :user => @user %>
+      <% end %>
+    <% end %>
+  </div>
 
   <div id="profile-stats">
     <div id="points" class="stat">
       <strong><%= @user.points %></strong> <br />points
     </div>
     <div id="following-count" class="stat">
-      <strong>108</strong> <br />following
+      <strong><%= @user.following_count %></strong> <br />following
     </div>
     <div id="followers-count" class="stat">
-      <strong>3</strong> <br />followers
+      <strong><%= @user.followers_count %></strong> <br />followers
     </div>
   </div>
 </div>

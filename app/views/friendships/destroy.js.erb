@@ -1,0 +1,5 @@
+$('#follow-target').html(
+  <%= raw render('friendships/follow', :user => @user).to_json %>
+);
+$('#followers-count strong').text(<%= @user.followers_count %>);
+$('#following-count strong').text(<%= @user.following_count %>);

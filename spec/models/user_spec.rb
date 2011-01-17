@@ -7,6 +7,8 @@ describe User do
 
   it { should belong_to(:demo) }
   it { should have_many(:acts) }
+  it { should have_many(:friendships) }
+  it { should have_many(:friends).through(:friendships) }
 
   it { should validate_uniqueness_of(:slug) }
 end

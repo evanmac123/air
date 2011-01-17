@@ -5,6 +5,8 @@ class User < ActiveRecord::Base
 
   belongs_to :demo
   has_many   :acts
+  has_many   :friendships
+  has_many   :friends, :through => :friendships, :foreign_key => :friend_id
 
   before_create do
     set_invitation_code
@@ -71,5 +73,17 @@ class User < ActiveRecord::Base
                 else
                   cleaned
                 end
+  end
+
+  def following?(other)
+    friends.include?(other)
+  end
+
+  def followers_count
+    Friendship.where(:friend_id => id).count
+  end
+
+  def following_count
+    Friendship.where(:user_id => id).count
   end
 end
