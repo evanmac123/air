@@ -6,7 +6,14 @@ class User < ActiveRecord::Base
   belongs_to :demo
 
   before_create do
-    self.invitation_code = Digest::SHA1.hexdigest("--#{Time.now.utc}--#{email}--")
+    set_invitation_code
+    set_slug
+  end
+
+  validates_uniqueness_of :slug, :invitation_code
+
+  def to_param
+    slug
   end
 
   def self.alphabetical
@@ -42,5 +49,26 @@ class User < ActiveRecord::Base
 
   def password_optional?
     true
+  end
+
+  def set_invitation_code
+    self.invitation_code = Digest::SHA1.hexdigest("--#{Time.now.utc}--#{email}--")
+  end
+
+  def set_slug
+    cleaned = name.remove_mid_word_characters.
+                   replace_non_words_with_spaces.
+                   strip.
+                   replace_spaces_with_hyphens
+
+    same_name = User.first(:conditions => ["slug LIKE ?", "#{cleaned}%"],
+                           :order      => "created_at desc")
+
+    self.slug = if same_name
+                  counter = same_name.slug.first_digit + 1
+                  "#{cleaned}-#{counter}"
+                else
+                  cleaned
+                end
   end
 end

@@ -19,7 +19,7 @@ class Act < ActiveRecord::Base
     key_name, value = body.downcase.split(' ', 2)
 
     if key_name == "help"
-      return "Score points by texting us your latest act. The format is: key value"
+      return "Score points by texting this number your latest lifestyle act. Examples: ate clementines, listened to Pearl Jam, smoked a cigarette, played basketball"
     end
 
     if key = Key.where(:name => key_name).first
@@ -28,7 +28,7 @@ class Act < ActiveRecord::Base
         return rule.reply
       else
         good_value = key.rules.first.value
-        return "Bad value for that key. Try: #{key_name} #{good_value}"
+        return "We understand #{key_name} but not #{value}. Try: #{key_name} #{good_value}"
       end
     else
       return "We didn't understand. Try: help"

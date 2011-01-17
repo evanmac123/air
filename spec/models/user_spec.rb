@@ -1,7 +1,14 @@
 require 'spec_helper'
 
 describe User do
+  before do
+    Factory(:user)
+  end
+
   it { should belong_to(:demo) }
+
+  it { should validate_uniqueness_of(:slug) }
+  it { should validate_uniqueness_of(:invitation_code) }
 end
 
 describe User, "#invitation_code" do
@@ -68,5 +75,37 @@ describe User, "#send_welcome_sms" do
 
   it "sends welcome SMS" do
     Twilio::SMS.should have_received(:create)
+  end
+end
+
+describe User, "#slug" do
+  context "when John Smith is created" do
+    before do
+      @first = Factory(:user, :name => "John Smith")
+    end
+
+    it "has a text-only slug" do
+      @first.slug.should == "John-Smith"
+    end
+
+    context "and another John Smith is created" do
+      before do
+        @second = Factory(:user, :name => "John Smith")
+      end
+
+      it "has a text-and-digit slug" do
+        @second.slug.should == "John-Smith-1"
+      end
+
+      context "and another John Smith is created" do
+        before do
+          @third = Factory(:user, :name => "John Smith")
+        end
+
+        it "has a text-and-digit slug" do
+          @third.slug.should == "John-Smith-2"
+        end
+      end
+    end
   end
 end
