@@ -259,10 +259,15 @@ button:hover, input[type=submit]:hover, .examples .points:hover {
 #phone_submit {
   margin-right: 0px; }
 
+#follow-target {
+  height: 48px; }
+  #follow-target input {
+    margin-top: 8px; }
+
 #profile-stats {
   display: block;
   clear: both;
-  margin-top: 25px; }
+  margin-top: 20px; }
   #profile-stats .stat {
     float: left;
     display: inline; }
