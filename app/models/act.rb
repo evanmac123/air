@@ -19,7 +19,7 @@ class Act < ActiveRecord::Base
     key_name, value = body.downcase.split(' ', 2)
 
     if key_name == "help"
-      return "Score points by texting this number your latest lifestyle act. Examples: ate clementines, listened to Pearl Jam, smoked a cigarette, played basketball"
+      return "Score points by texting this number your latest lifestyle act. Examples: ate a banana, smoked a cigarette, played basketball"
     end
 
     if key = Key.where(:name => key_name).first

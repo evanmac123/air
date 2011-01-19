@@ -221,7 +221,7 @@ DEPENDENCIES
   paperclip
   pg
   rack
-  rails (~> 3.0)
+  rails (~> 3.0.3)
   rspec-rails (~> 2.4.0)
   ruby-debug (~> 0.10.4)
   ruby-debug19 (~> 0.11.6)

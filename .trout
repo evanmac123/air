@@ -13,8 +13,8 @@
   Gemfile: 
     :filename: Gemfile
     :git_url: git://github.com/thoughtbot/suspenders.git
+    :version: 813f6fb8cf6eab722cceefa088afa5ad5436ae72
     :source_root: template/trout
-    :version: 2ac40816bf6051326994525afb76270e1f7494c4
   public/javascripts/jquery-ui.js: 
     :filename: public/javascripts/jquery-ui.js
     :git_url: git://github.com/thoughtbot/suspenders.git
