@@ -15,4 +15,8 @@ class Rule < ActiveRecord::Base
   def self.negative(limit)
     where("points < 0").limit(limit)
   end
+
+  def self.neutral(limit)
+    where("points = 0").limit(limit)
+  end
 end

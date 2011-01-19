@@ -13,15 +13,21 @@
 
   <h2>Examples</h2>
 
-  <p>Healthy lifestyles are rewarded.</p>
+  <p>Healthy lifestyles win points.</p>
 
   <ul class="examples">
     <%= render :partial => 'examples/example', :collection => @positive_examples %>
   </ul>
 
-  <p>Others are punished.</p>
+  <p>Others lose points.</p>
 
   <ul class="examples">
     <%= render :partial => 'examples/example', :collection => @negative_examples %>
+  </ul>
+
+  <p>Some depend on context.</p>
+
+  <ul class="examples">
+    <%= render :partial => 'examples/example', :collection => @neutral_examples %>
   </ul>
 </div>
