@@ -13,12 +13,14 @@ class Act < ActiveRecord::Base
   def self.parse(from, body)
     user = User.find_by_phone_number(from)
     if user.nil?
+      # record this somewhere
       return "You haven't been invited to the game."
     end
 
     key_name, value = body.downcase.split(' ', 2)
 
     if key_name == "help"
+      # record this somewhere
       return "Score points by texting this number your latest lifestyle act. Examples: ate a banana, smoked a cigarette, played basketball"
     end
 
@@ -27,10 +29,12 @@ class Act < ActiveRecord::Base
         create(:user => user, :text => body.downcase, :rule => rule)
         return rule.reply
       else
+        # record this somewhere
         good_value = key.rules.first.value
         return "We understand #{key_name} but not #{value}. Try: #{key_name} #{good_value}"
       end
     else
+      # record this somewhere
       return "We didn't understand. Try: help"
     end
   end
