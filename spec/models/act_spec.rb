@@ -18,7 +18,7 @@ describe Act, ".parse" do
 
     context "and asks for help" do
       it "helps them" do
-        reply = "Score points by texting us your latest act. The format is: key value"
+        reply = "Score points by texting this number your latest lifestyle act. Examples: ate a banana, smoked a cigarette, played basketball"
         Act.parse(user.phone_number, "help").should == reply
       end
     end
@@ -37,7 +37,7 @@ describe Act, ".parse" do
 
       context "with a bad value" do
         it "prompts them with a good value" do
-          reply = "Bad value for that key. Try: #{key.name} #{good_value}"
+          reply = "We understand #{key.name} but not bad value. Try: #{key.name} #{good_value}"
           Act.parse(user.phone_number, "#{key.name} bad value").should == reply
         end
       end

@@ -23,6 +23,26 @@ class FakeTwilioApp < Sinatra::Base
       :uri          => "/2010-04-01/Accounts/AC5ef872f6da5a21de157d80997a64bd33/SMS/Messages/SM90c6fc909d8504d45ecdb3a3d5b3556e.json"
     }.to_json
   end
+
+  post "/2010-04-01/Accounts/#{FAKE_TWILIO_ACCOUNT_SID}/SMS/Messages.json" do
+    FakeTwilio::SMS.post(params)
+
+    {
+      "account_sid"  => "AC5ef872f6da5a21de157d80997a64bd33",
+      "api_version"  => "2010-04-01",
+      "body"         => "Jenny please?! I love you <3",
+      "date_created" => "Wed, 18 Aug 2010 20:01:40 +0000",
+      "date_sent"    => nil,
+      "date_updated" => "Wed, 18 Aug 2010 20:01:40 +0000",
+      "direction"    => "outbound-api",
+      "from"         => "+14158141829",
+      "price"        => nil,
+      "sid"          => "SM90c6fc909d8504d45ecdb3a3d5b3556e",
+      "status"       => "queued",
+      "to"           => "+14159352345",
+      "uri"          => "/2010-04-01/Accounts/AC5ef872f6da5a21de157d80997a64bd33/SMS/Messages/SM90c6fc909d8504d45ecdb3a3d5b3556e.json"
+    }.to_json
+  end
 end
 
 ShamRack.at('api.twilio.com', 443).rackup do
@@ -44,9 +64,10 @@ module FakeTwilio
     end
 
     def self.has_text?(phone, body)
+        #debugger
       @@messages.any? do |message|
-        message["to"]   == phone &&
-        message["body"] == body
+        message["To"]   == phone &&
+        message["Body"] == body
       end
     end
   end
