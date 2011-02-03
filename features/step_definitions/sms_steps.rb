@@ -3,5 +3,5 @@ Then /^"([^"]*)" should have received an SMS "([^"]*)"$/ do |phone_number, text_
 end
 
 When /^"([^"]*)" sends SMS "([^"]*)"$/ do |phone_number, sms_body|
-  pending
+  post sms_path, 'From' => phone_number, 'To' => FAKE_TWILIO_ACCOUNT_SID, 'Body' => sms_body
 end

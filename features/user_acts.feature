@@ -12,4 +12,4 @@ Feature: User acts
     And I go to the acts page
     Then I should see the following act:
       | name | act         | points |
-      | Dan  | #ate banana | 2      |
+      | Dan  | ate banana  | 2      |
