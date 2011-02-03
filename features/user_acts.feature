@@ -8,7 +8,7 @@ Feature: User acts
     And the following rule exists:
       | key       | value  | points |
       | name: ate | banana | 2      |
-    When "+5087407520" sends SMS "#ate banana"
+    When "+15087407520" sends SMS "ate banana"
     And I go to the acts page
     Then I should see the following act:
       | name | act         | points |

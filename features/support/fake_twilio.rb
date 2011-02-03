@@ -51,21 +51,20 @@ end
 
 module FakeTwilio
   class SMS
-    @@messages = []
+    @@sent_messages = []
 
     def self.post(message)
-      @@messages << message
+      @@sent_messages << message
       Rails.logger.info "SMS: --------- #{message} ---------"
     end
 
     def self.clear_all
-      @@messages = []
+      @@sent_messages = []
       Rails.logger.info "SMS: --------- RESET ---------"
     end
 
-    def self.has_text?(phone, body)
-        #debugger
-      @@messages.any? do |message|
+    def self.has_sent_text?(phone, body)
+      @@sent_messages.any? do |message|
         message["To"]   == phone &&
         message["Body"] == body
       end
