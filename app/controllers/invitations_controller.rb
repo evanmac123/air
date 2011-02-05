@@ -1,4 +1,6 @@
 class InvitationsController < ApplicationController
+  skip_before_filter :authenticate
+
   def show
     @user = User.find_by_invitation_code(params[:id])
     if @user

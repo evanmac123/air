@@ -47,4 +47,5 @@ group :test do
   gem "shoulda"
   gem "email_spec", "~> 1.1"
   gem "sham_rack"
+  gem "show_me_the_cookies"
 end
