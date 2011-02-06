@@ -5,9 +5,12 @@ Health::Application.routes.draw do
   resources :phones,      :only => [:create]
   resources :invitations, :only => [:show]
   resources :acts,        :only => [:index]
-  resources :users,       :only => [:index, :show] do
+  resources :users,       :only => [:new, :index, :show] do
     resource :friendship, :only => [:create, :destroy]
   end
+
+  # Override Clearance's sign_up routes
+  match "sign_up"  => "users#new"
 
   root :to => 'homes#show'
 

@@ -7,3 +7,7 @@ When /^I sign in via the login page as "(.*?)"$/ do |login_string|
   fill_in 'session[password]', :with => password
   click_button 'Sign in'
 end
+
+When /^I am not logged in$/ do
+  delete sign_out_path
+end

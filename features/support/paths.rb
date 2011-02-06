@@ -20,6 +20,9 @@ module NavigationHelpers
       user = User.find_by_email($1)
       invitation_path(user.invitation_code)
 
+    when /the static (.*) page/
+      "/pages/#{$1}"
+
     else
       begin
         page_name =~ /the (.*) page/
