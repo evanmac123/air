@@ -14,6 +14,8 @@ Health::Application.routes.draw do
   resource :home,  :only => :show
   resource :admin, :only => :show
 
+  resources :pages
+
   namespace :admin do
     resources :demos, :only => [:new, :create, :show] do
       resources :users, :only => [:create]
