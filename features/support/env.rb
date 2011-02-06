@@ -60,3 +60,7 @@ if defined?(ActiveRecord::Base)
 end
 
 World(ShowMeTheCookies)
+
+Before do
+  Factory :demo, :company_name => 'Alpha'
+end
