@@ -19,6 +19,9 @@ module NavigationHelpers
     when /the invitation page for "(.*)"/
       user = User.find_by_email($1)
       invitation_path(user.invitation_code)
+    when /the profile page for "(.*)"/
+      user = User.find_by_name($1)
+      user_path(user)
 
     when /the static (.*) page/
       "/pages/#{$1}"
