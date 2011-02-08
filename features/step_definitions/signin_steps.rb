@@ -8,6 +8,11 @@ When /^I sign in via the login page as "(.*?)"$/ do |login_string|
   click_button 'Sign in'
 end
 
+When /^I sign in via the login page$/ do
+  user = Factory :user, :password => 'foo', :password_confirmation => 'foo'
+  Then "I sign in via the login page as \"#{user.name}/foo\""
+end
+
 When /^I am not logged in$/ do
   delete sign_out_path
 end

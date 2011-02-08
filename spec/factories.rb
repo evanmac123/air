@@ -22,5 +22,5 @@ Factory.define :rule do |factory|
 end
 
 Factory.define :key do |factory|
-  factory.name { "ate" }
+  factory.sequence(:name) { |n| "ate_#{n}" }
 end

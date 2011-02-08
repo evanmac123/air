@@ -31,6 +31,8 @@ group :development, :test do
     gem "ruby-debug19", "~> 0.11.6"
     gem "linecache19",  "~> 0.5.11"
   end
+
+  gem "factory_girl_rails"
 end
 
 group :test do
