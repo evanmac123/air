@@ -13,4 +13,13 @@ Then /^I should see a scoreboard for demo "(.*?)"$/ do |demo_name|
       page.should have_content("#{expected_user.points} points")
     end
   end
+
+  # Make sure they're in the right order
+  sorted_expected_users = expected_users.sort_by(&:points).reverse
+
+  0.upto(sorted_expected_users.length - 2) do |i|
+    first_user = sorted_expected_users[i]
+    second_user = sorted_expected_users[i + 1]
+    page.body.should match(/#{first_user.name}.*#{second_user.name}/m)
+  end
 end
