@@ -1,7 +1,7 @@
 class ActsController < ApplicationController
   def index
     @demo              = current_user.demo
-    @users             = @demo.users.top(5)
+    @users             = @demo.users
     @acts              = @demo.acts.order('created_at DESC').limit(10)
     @positive_examples = Rule.positive(5)
     @negative_examples = Rule.negative(5)
