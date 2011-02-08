@@ -1,7 +1,7 @@
 Feature: User accepts invitation
 
   Scenario: User accepts invitation
-    Given the following user exists:
+    Given the following users exist:
       | email           | name | demo             |
       | dan@example.com | Dan  | company name: 3M |
     And "dan@example.com" has received an invitation

@@ -6,6 +6,8 @@ class Act < ActiveRecord::Base
     user.update_points(rule.points)
   end
 
+  scope :recent, lambda {|max| order('created_at DESC').limit(max)}
+
   def self.recent(limit)
     order('created_at desc').limit(limit)
   end

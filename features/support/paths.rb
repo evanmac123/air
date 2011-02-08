@@ -21,7 +21,7 @@ module NavigationHelpers
       invitation_path(user.invitation_code)
     when /the profile page for "(.*)"/
       user = User.find_by_name($1)
-      user_path(user)
+      user_path(user.slug)
 
     when /the static (.*) page/
       "/pages/#{$1}"

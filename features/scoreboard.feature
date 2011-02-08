@@ -9,7 +9,8 @@ Feature: Scoreboard
       | Vlad | 17     | company_name: Alpha |
       | Tony | 24     | company_name: Alpha |
       | Phil | 634923 | company_name: Alpha |
-    When I sign in via the login page
+    And "Lazy" has the password "foobar"
+    When I sign in via the login page as "Lazy/foobar"
     And I go to the acts page
     Then I should see a scoreboard
 
