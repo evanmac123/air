@@ -30,4 +30,6 @@
   <ul class="examples">
     <%= render :partial => 'examples/example', :collection => @neutral_examples %>
   </ul>
+
+  <%= render :partial => 'shared/scoreboard', :locals => {:users => @users} %>
 </div>

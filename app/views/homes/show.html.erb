@@ -32,21 +32,7 @@
     </li>
   </ul>
 
-  <h2>Top users</h2>
-
-  <ul id="top-users">
-    <% @users.each do |user| %>
-      <li>
-        <% link_to user do %>
-          <%= image_tag user.gravatar_url(48), :alt => h(user.name) %>
-          <%= user.name %>
-        <% end %>
-        <span class="user-points">
-          <strong><%= user.points %></strong> points
-        </span>
-      </li>
-    <% end %>
-  </ul>
+  <%= render :partial => 'shared/scoreboard', :locals => {:users => @users} %>
 
   <%= link_to "Recent Activity", "/activity" %>
 </div>
