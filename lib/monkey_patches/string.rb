@@ -7,6 +7,10 @@ class String
     gsub(/[\W]/, ' ')
   end
 
+  def remove_non_words
+    gsub(/[\W]/, '')
+  end
+
   def replace_spaces_with_hyphens
     gsub(/\ +/, '-')
   end

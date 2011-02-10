@@ -1,5 +1,9 @@
 <li id="<%= dom_id(user) %>">
   <%= user.name %>, <%= user.email %>
+  <% if user.claim_code %>
+    <strong>(<%= user.claim_code%>)</strong>
+  <% end %>
+
   <span class="invite-link">
     <%= render :partial => 'admin/invitations/new',
                :locals  => { :user => user } %>

@@ -94,4 +94,26 @@ class User < ActiveRecord::Base
   def following_count
     Friendship.where(:user_id => id).count
   end
+
+  def generate_unique_claim_code!
+    potential_claim_code = nil
+
+    User.transaction do
+      names = name.split
+      last_name = names.pop
+      initials = names.map(&:first)
+      claim_code_prefix = (initials.join('') + last_name).remove_non_words.downcase
+
+      suffix = rand(100)
+
+      begin
+        suffix += rand(50)
+        potential_claim_code = claim_code_prefix + suffix.to_s
+      end while User.find_by_claim_code(potential_claim_code)
+
+      self.update_attributes(:claim_code => potential_claim_code)
+    end
+
+    potential_claim_code
+  end
 end

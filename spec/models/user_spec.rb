@@ -149,3 +149,32 @@ describe User, "#slug" do
     end
   end
 end
+
+describe User, '#generate_unique_claim_code!' do
+  before(:each) do
+    @first = Factory :user
+  end
+
+  it "should set the claim code" do
+    @first.claim_code.should be_nil
+    @first.generate_unique_claim_code!
+    @first.claim_code.should_not be_nil
+  end
+
+  context "for multiple users with the same name" do
+    before(:each) do
+      @second = Factory :user, :name => @first.name
+      @third = Factory :user, :name => @first.name
+    end
+
+    it "should generate unique claim codes" do
+      @first.generate_unique_claim_code!
+      @second.generate_unique_claim_code!
+      @third.generate_unique_claim_code!
+
+      @first.claim_code.should_not == @second.claim_code
+      @first.claim_code.should_not == @third.claim_code
+      @first.claim_code.should_not == @third.claim_code
+    end
+  end
+end
