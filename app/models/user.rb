@@ -28,6 +28,8 @@ class User < ActiveRecord::Base
   end
 
   def self.claim_account(from, claim_code)
+    return nil if User.find_by_phone_number(from)
+
     normalized_claim_code = claim_code.strip
     users = User.find(:all, :conditions => ["claim_code ILIKE ?", normalized_claim_code])
 
