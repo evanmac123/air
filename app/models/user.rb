@@ -27,6 +27,14 @@ class User < ActiveRecord::Base
     order("points desc").limit(limit)
   end
 
+  def self.claim_account(from, claim_code)
+    user = User.where(:claim_code => claim_code.strip.downcase).first
+    return nil unless user
+
+    user.update_attributes(:phone_number => from, :claim_code => nil)
+    "Welcome to the #{user.demo.company_name} game!"
+  end
+
   def invite
     Mailer.invitation(self).deliver
     update_attribute(:invited, true)

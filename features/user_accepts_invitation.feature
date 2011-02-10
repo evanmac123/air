@@ -13,3 +13,11 @@ Feature: User accepts invitation
     And I press "Join the game"
     Then "+15087407520" should have received an SMS "You've joined the 3M game! To play, send texts to this number. Send a text HELP if you want help."
     And I should be on the activity page
+
+  Scenario: User claims account
+    Given the following user exists:
+      | name | claim_code | demo                               |
+      | Dan  | croaky23   | company_name: Global Tetrahedron |
+    When "+14155551212" sends SMS "croaky23"
+    Then "Dan" should be claimed by "+14155551212"
+    And "+14155551212" should have received an SMS "Welcome to the Global Tetrahedron game!"

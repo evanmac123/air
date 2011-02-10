@@ -50,6 +50,10 @@ ShamRack.at('api.twilio.com', 443).rackup do
 end
 
 module FakeTwilio
+  def self.sent_messages
+    SMS.sent_messages
+  end
+
   class SMS
     @@sent_messages = []
 
@@ -69,6 +73,8 @@ module FakeTwilio
         message["Body"] == body
       end
     end
+
+    cattr_reader :sent_messages
   end
 end
 

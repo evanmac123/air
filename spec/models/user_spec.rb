@@ -37,6 +37,44 @@ describe User, ".alphabetical" do
   end
 end
 
+describe User, ".claim_account" do
+  before do
+    @from       = "+14155551212"
+    @claim_code = "gwendt17"
+  end
+
+  context "when no user with a matching claim code exists" do
+    it "should return nil" do
+      User.find_by_claim_code(@claim_code).should be_nil
+
+      User.claim_account(@from, @claim_code).should be_nil
+    end
+  end
+
+  context "when a user with a matching claim code exists" do
+    before(:each) do
+      @user = Factory :user, :claim_code => @claim_code
+    end
+
+    it "should set that user's phone number and clear their claim code" do
+      @user.phone_number.should be_blank
+      @user.claim_code.should_not be_blank
+
+      User.claim_account(@from, @claim_code)
+
+      @user.reload
+      @user.phone_number.should == @from
+      @user.claim_code.should be_nil
+    end
+
+    it "should return some text" do
+      text_response = User.claim_account(@from, @claim_code)
+      text_response.should be_a_kind_of(String)
+      text_response.should_not be_blank
+    end
+  end
+end
+
 describe User, "#invite" do
   subject { Factory(:user) }
 
