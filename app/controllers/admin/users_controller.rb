@@ -5,7 +5,7 @@ class Admin::UsersController < AdminBaseController
     @user.save
 
     if params[:set_claim_code]
-      @user.generate_unique_claim_code!
+      @user.generate_simple_claim_code!
     end
   end
 end

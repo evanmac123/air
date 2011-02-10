@@ -28,7 +28,14 @@ class User < ActiveRecord::Base
   end
 
   def self.claim_account(from, claim_code)
-    user = User.where(:claim_code => claim_code.strip.downcase).first
+    normalized_claim_code = claim_code.strip
+    users = User.find(:all, :conditions => ["claim_code ILIKE ?", normalized_claim_code])
+
+    if users.count > 1
+      return "We found multiple people with your first initial and last name. Please try sending us your e-mail address instead."
+    end
+
+    user = users.first || User.find(:first, :conditions => ["email ILIKE ? AND claim_code != ''", normalized_claim_code])
     return nil unless user
 
     user.update_attributes(:phone_number => from, :claim_code => nil)
@@ -95,15 +102,14 @@ class User < ActiveRecord::Base
     Friendship.where(:user_id => id).count
   end
 
+  def generate_simple_claim_code!
+    update_attributes(:claim_code => claim_code_prefix)
+  end
+
   def generate_unique_claim_code!
     potential_claim_code = nil
 
     User.transaction do
-      names = name.split
-      last_name = names.pop
-      initials = names.map(&:first)
-      claim_code_prefix = (initials.join('') + last_name).remove_non_words.downcase
-
       suffix = rand(100)
 
       begin
@@ -115,5 +121,14 @@ class User < ActiveRecord::Base
     end
 
     potential_claim_code
+  end
+
+  private
+
+  def claim_code_prefix
+    names = name.split
+    last_name = names.pop
+    initials = names.map(&:first)
+    (initials.join('') + last_name).remove_non_words.downcase
   end
 end
