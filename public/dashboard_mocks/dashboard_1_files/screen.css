@@ -21,16 +21,17 @@ h2 {
   font-size: 18px;
   font-weight: bold;
   color: #333333; }
+  
+h2 a {
+  font-size: 12px;
+  margin-left: 6px;
+}
 
 h2.first {
   margin: 0 0 20px 0; }
-  h2.first a {
-    font-size: 12px;
-    margin-left: 6px;
-  }
 
-h2.first#activity {
-  display: inline;}
+h2.first#activity, h2.first#scoreboard {
+  display: inline; }
 
 .add-friends {
   color: #73AF5E;
@@ -141,10 +142,32 @@ form .submit-input {
 
 #secondary {
   float: right;
-  width: 220px; }
+  width: 440px; }
   #secondary p {
     line-height: 1.4em;
     margin-bottom: 10px; }
+
+  #secondary p.prize {
+    color: #73AF5E;
+    background-color: #FFFFFF;
+  }
+
+ol.top-scores { }
+  ol.top-scores li {
+    height: 28px;
+    padding: 0 5px;
+    background-color: #d2d2d2; 
+    margin-bottom: 1px;
+    line-height: 22px;
+    padding-top: 4px;
+  }
+  ol.top-scores .name { 
+    }
+  ol.top-scores .score { 
+    color: #73af5e; 
+    float: right; }
+    ol.top-scores .score .score-value {
+      font-size: 22px; }
 
 pre {
   background: #111111;
@@ -183,6 +206,19 @@ pre {
       font-weight: bold; }
   #secondary ul li:last-child {
     border-bottom: none; }
+
+table#your-score {
+  background-color: #FFFFFF;
+}
+  table#your-score td {
+    font-size: 18px;
+  }
+  table#your-score td.points {
+    color: #73AF5E;
+  }
+  table#your-score td, table#your-score th {
+    border-bottom: 1px solid #DDDDDD;
+  }
 
 #top-users li span {
   color: #999999;
