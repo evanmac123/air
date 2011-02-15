@@ -26,6 +26,9 @@ module NavigationHelpers
     when /the static (.*) page/
       "/pages/#{$1}"
 
+    when /the password reset request page/
+      new_password_path
+
     else
       begin
         page_name =~ /the (.*) page/

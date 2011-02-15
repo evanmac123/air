@@ -6,10 +6,18 @@ Health::Application.routes.draw do
   resources :invitations, :only => [:show]
   resources :acts,        :only => [:index]
   resources :users,       :only => [:new, :index, :show] do
+    resource :password,
+      :controller => 'passwords',
+      :only       => [:create, :edit, :update]
+
     resource :friendship, :only => [:create, :destroy]
   end
 
-  # Override Clearance's sign_up routes
+  # Override Clearance's sign_up and password routes
+  resources :passwords,
+    :controller => 'passwords',
+    :only       => [:new, :create]
+
   match "sign_up"  => "users#new"
 
   root :to => 'homes#show'

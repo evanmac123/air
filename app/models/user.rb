@@ -81,15 +81,17 @@ class User < ActiveRecord::Base
                    strip.
                    replace_spaces_with_hyphens
 
-    same_name = User.first(:conditions => ["slug LIKE ?", "#{cleaned}%"],
-                           :order      => "created_at desc")
+    User.transaction do
+      same_name = User.first(:conditions => ["slug LIKE ?", "#{cleaned}%"],
+                             :order      => "created_at desc")
 
-    self.slug = if same_name
-                  counter = same_name.slug.first_digit + 1
-                  "#{cleaned}-#{counter}"
-                else
-                  cleaned
-                end
+      self.slug = if same_name
+                    counter = same_name.slug.first_digit + 1
+                    "#{cleaned}-#{counter}"
+                  else
+                    cleaned
+                  end
+    end
   end
 
   def following?(other)
