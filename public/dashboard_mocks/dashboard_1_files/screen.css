@@ -2,6 +2,9 @@ a, a:link {
   color: #929292; 
   text-decoration: none;}
 
+a:hover {
+  color: #ff6a37; }
+
 body {
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-size: 14px;
@@ -61,10 +64,10 @@ h2.first#activity, h2.first#scoreboard {
         color: #929292;
         display: block;
         }
-      .header .inner-header #account a:hover {
-        color: #ff6a37; }
       .header .inner-header #account #self-link {
         color: #73af5e; }
+      .header .inner-header #account a:hover, .header .inner-header #account #self-link:hover {
+        color: #ff6a37; }
 
 .explanation {
   padding: 10px 0; }
