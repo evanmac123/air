@@ -206,3 +206,20 @@ describe User, '#generate_unique_claim_code!' do
     end
   end
 end
+
+describe User, "#ranking_in_demo" do
+  before(:each) do
+    @demo = Factory :demo
+
+    @user = Factory :user, :points => 5, :demo => @demo
+    1.upto(4) {|points| Factory :user, :points => points, :demo => @demo}
+    6.upto(10) {|points| Factory :user, :points => points, :demo => @demo}
+
+    # Some users from a different demo, shouldn't figure in
+    10.times {Factory :user, :points => 200}
+  end
+
+  it "should return the correct ranking" do
+    @user.ranking_in_demo.should == 6
+  end
+end

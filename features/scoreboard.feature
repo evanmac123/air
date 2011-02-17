@@ -20,3 +20,13 @@ Feature: Scoreboard
   Scenario: Scoreboard on home page
     When I go to the home page
     Then I should see a scoreboard for demo "Alpha"
+
+  Scenario: Scoreboard with tied users
+    Given the following user exists:
+      | name | points | demo                |
+      | Sven | 24     | company_name: Alpha |
+    When I go to the acts page
+    Then I dump the page
+    Then I should see "Tony" with ranking "2"
+    And I should see "Sven" with ranking "2"
+    And I should see "Vlad" with ranking "4"

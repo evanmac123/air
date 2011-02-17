@@ -1,5 +1,10 @@
 <div id="main">
-  <h2 class="first">Recent Activity</h2>
+  <div class="column-header">
+    <h2 class="first" id="activity">
+      Activity
+    </h2>
+
+  </div>  
 
   <ul id="acts">
     <%= render @acts %>
@@ -7,17 +12,21 @@
 </div>
 
 <div id="secondary">
-  <h2 class="first">How to score</h2>
+  <div class="column-header">
+    <h2 class="first">Your Snapshot</h2>
+  </div>
 
-  <p>Text what you do in the real world to +1 (617) 506-3824.</p>
+  <table id="your-score">
+    <tr>
+      <th>Points</th>
+      <th>Place</th>
+    </tr>
 
-  <%= render :partial => 'shared/scoreboard', :locals => {:users => @users} %>
-
-  <h2>Examples</h2>
-
-  <p>Healthy lifestyles win points.</p>
-
-  <ul class="examples">
-    <%= render :partial => 'examples/example', :collection => @positive_examples %>
-  </ul>
+    <tr>
+      <td class="points"><%= current_user.points %></td>
+      <td><%= @ranking_in_demo.ordinalize %> out of <%= @demo_user_count %></td>
+    </tr>
+  </table>  
+  
+  <%= render :partial => 'shared/scoreboard', :locals => {:users => @users, :user_rankings => @user_rankings} %>
 </div>

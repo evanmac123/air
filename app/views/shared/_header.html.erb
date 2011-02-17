@@ -1,12 +1,14 @@
 <div class="header">
   <div class="inner-header">
     <div id="header-and-slogan">
-      <h1><a href="/">H Engage: <span class="slogan">to your health!</span></a></h1>
+      <%= link_to '/' do %>
+        <%= image_tag 'textlogo.png', :alt => 'H Engage logo' %>
+      <% end %>
     </div>
 
     <div id="account">
       <% if signed_in? %>
-        <%= link_to current_user.name, current_user %>
+        <%= link_to current_user.name, current_user, :id => 'self-link' %>
         <%= link_to "Sign out", sign_out_path, :method => :delete %>
       <% else %>
         <%= link_to "By invitation only", page_path('invitation') %>

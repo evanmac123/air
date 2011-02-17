@@ -127,6 +127,10 @@ class User < ActiveRecord::Base
     potential_claim_code
   end
 
+  def ranking_in_demo
+    self.demo.users.where('points > ?', self.points).count + 1
+  end
+
   private
 
   def claim_code_prefix

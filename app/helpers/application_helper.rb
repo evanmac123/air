@@ -5,6 +5,9 @@ module ApplicationHelper
     else
       ""
     end
-    "#{prefix}#{rule.points}"
+    
+    content_tag 'span', :class => 'point-value' do
+      "#{prefix}#{rule.points}"
+    end
   end
 end
