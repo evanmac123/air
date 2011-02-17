@@ -37,12 +37,14 @@ h2.first#activity, h2.first#scoreboard {
   display: inline; }
 
 .add-friends {
-  color: #73AF5E;
-  float: right;}
+  color: #55950D;
+  float: right;
+  font-weight: bold; }
 
 .header {
   background: #444343;
-  height: 100px; }
+  height: 70px; 
+  -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5) }
   .header .inner-header {
     margin: 0px auto;
     padding: 0 0 10px 0;
@@ -63,11 +65,16 @@ h2.first#activity, h2.first#scoreboard {
     .header .inner-header #add-action .enter-code {
       font-size: 12px;
       color: #929292;
-    }
+      vertical-align: middle; }
 
     .header .inner-header #add-action .enter-code input[type="text"] {
       width: 78px;
     }
+
+    .header .inner-header #add-action input[type="submit"] { 
+      border-radius: 3px;
+      -moz-border-radius: 3px;
+      padding: 4px 5px 6px 5px; }
 
     .header .inner-header #account {
       margin-top: 15px;
@@ -169,8 +176,12 @@ form .submit-input {
     margin-bottom: 10px; }
 
   #secondary p.prize {
-    color: #73AF5E;
+    color: #55950D;
     background-color: #FFFFFF;
+    font-weight: bold;
+    padding: 2px 8px;
+    border-radius: 6px;
+    -moz-border-radius: 6px;
   }
 
 ol.top-scores { }
@@ -181,6 +192,8 @@ ol.top-scores { }
     margin-bottom: 1px;
     line-height: 22px;
     padding-top: 4px;
+    border-radius: 6px;
+    -moz-border-radius: 6px;
   }
   ol.top-scores .name { 
     }
@@ -229,17 +242,19 @@ pre {
     border-bottom: none; }
 
 table#your-score {
-  background-color: #FFFFFF;
-}
+  border-radius: 6px;
+  -moz-border-radius: 6px;
+  background-color: #FFFFFF; }
   table#your-score td {
     font-size: 18px;
+    font-weight: bold;
   }
   table#your-score td.points {
-    color: #73AF5E;
+    color: #55950D;
   }
   table#your-score td, table#your-score th {
-    padding-left: 10px;
     border-bottom: 1px solid #DDDDDD;
+    padding: 2px 8px;
   }
 
 #top-users li span {
@@ -262,7 +277,10 @@ ul#acts {
     width: 440px;
     padding: 15px 4px 0px 10px;
     min-height: 60px;
-    position: relative; }
+    position: relative; 
+    border-radius: 6px;
+    -moz-border-radius: 6px;
+    }
     ul#acts li.act p, ul#acts li.small-act p {
       float: right;
       width: 380px;
@@ -400,3 +418,11 @@ button:hover, input[type=submit]:hover, .examples .points:hover {
 .column-header {
   line-height: 22px;
 }
+
+select {
+  font-weight: bold;
+  border-radius: 1px;
+  -moz-border-radius: 1px; }
+
+a.current {
+  text-decoration: underline; }
