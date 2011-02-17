@@ -1,6 +1,6 @@
 a, a:link {
-  color: #929292; 
-  text-decoration: none;}
+  color: #999999;
+  text-decoration: none; }
 
 a:hover {
   color: #ff6a37; }
@@ -24,11 +24,9 @@ h2 {
   font-size: 18px;
   font-weight: bold;
   color: #333333; }
-  
-h2 a {
-  font-size: 12px;
-  margin-left: 6px;
-}
+  h2 a {
+    font-size: 12px;
+    margin-left: 6px; }
 
 h2.first {
   margin: 0 0 20px 0; }
@@ -37,14 +35,16 @@ h2.first#activity, h2.first#scoreboard {
   display: inline; }
 
 .add-friends {
-  color: #55950D;
+  color: #55950d;
   float: right;
   font-weight: bold; }
 
 .header {
+  -webkit-box-shadow: 0 1px 2px 1px rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: 0 1px 2px 1px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 1px 2px 1px rgba(0, 0, 0, 0.5);
   background: #444343;
-  height: 70px; 
-  -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5) }
+  height: 70px; }
   .header .inner-header {
     margin: 0px auto;
     padding: 0 0 10px 0;
@@ -53,29 +53,6 @@ h2.first#activity, h2.first#scoreboard {
       width: 150px;
       margin-top: 15px;
       float: left; }
-
-    .header .inner-header #add-action {
-      margin-left: 65px;
-      margin-top: 15px;
-      float: left;
-      color: #FFFFFF;
-      font-size: 22px;
-    }
-
-    .header .inner-header #add-action .enter-code {
-      font-size: 12px;
-      color: #929292;
-      vertical-align: middle; }
-
-    .header .inner-header #add-action .enter-code input[type="text"] {
-      width: 78px;
-    }
-
-    .header .inner-header #add-action input[type="submit"] { 
-      border-radius: 3px;
-      -moz-border-radius: 3px;
-      padding: 4px 5px 6px 5px; }
-
     .header .inner-header #account {
       margin-top: 15px;
       font-size: 13px;
@@ -83,15 +60,16 @@ h2.first#activity, h2.first#scoreboard {
       text-align: right;
       width: 220px; }
       .header .inner-header #account a, .header .inner-header #account a:visited, .header .inner-header #account a:link {
+        color: #999999;
         text-decoration: none;
-        margin: 0 10px; 
+        display: block;
+        margin: 0 10px;
         font-size: 12px;
         color: #929292;
-        display: block;
-        }
+        display: block; }
       .header .inner-header #account #self-link {
-        color: #73af5e; }
-      .header .inner-header #account a:hover, .header .inner-header #account #self-link:hover {
+        color: #55950d; }
+      .header .inner-header #account a:hover {
         color: #ff6a37; }
 
 .explanation {
@@ -174,34 +152,30 @@ form .submit-input {
   #secondary p {
     line-height: 1.4em;
     margin-bottom: 10px; }
+    #secondary p .prize {
+      color: #55950d;
+      background-color: white;
+      font-weight: bold;
+      padding: 2px 8px;
+      -moz-border-radius: 6px;
+      -webkit-border-radius: 6px;
+      border-radius: 6px; }
 
-  #secondary p.prize {
-    color: #55950D;
-    background-color: #FFFFFF;
-    font-weight: bold;
-    padding: 2px 8px;
-    border-radius: 6px;
-    -moz-border-radius: 6px;
-  }
-
-ol.top-scores { }
-  ol.top-scores li {
-    height: 28px;
-    padding: 0 5px;
-    background-color: #d2d2d2; 
-    margin-bottom: 1px;
-    line-height: 22px;
-    padding-top: 4px;
-    border-radius: 6px;
-    -moz-border-radius: 6px;
-  }
-  ol.top-scores .name { 
-    }
-  ol.top-scores .score { 
-    color: #73af5e; 
-    float: right; }
-    ol.top-scores .score .score-value {
-      font-size: 22px; }
+ol.top-scores li {
+  height: 28px;
+  padding: 0 5px;
+  background-color: #d2d2d2;
+  margin-bottom: 1px;
+  line-height: 22px;
+  padding-top: 4px;
+  -moz-border-radius: 6px;
+  -webkit-border-radius: 6px;
+  border-radius: 6px; }
+ol.top-scores .score {
+  color: #55950d;
+  float: right; }
+  ol.top-scores .score .score-value {
+    font-size: 22px; }
 
 pre {
   background: #111111;
@@ -227,7 +201,7 @@ pre {
     overflow: hidden;
     padding: 8px 0px; }
     #secondary ul li img {
-      background: #f0f0f0;
+      background: white;
       border: 1px solid #999999;
       float: left;
       margin: 0px 6px 0px 0px;
@@ -242,20 +216,20 @@ pre {
     border-bottom: none; }
 
 table#your-score {
-  border-radius: 6px;
   -moz-border-radius: 6px;
-  background-color: #FFFFFF; }
+  -webkit-border-radius: 6px;
+  border-radius: 6px;
+  background-color: white; }
   table#your-score td {
     font-size: 18px;
-    font-weight: bold;
-  }
+    font-weight: bold; }
   table#your-score td.points {
-    color: #55950D;
-  }
+    color: #55950d; }
   table#your-score td, table#your-score th {
     border-bottom: 1px solid #DDDDDD;
-    padding: 2px 8px;
-  }
+    padding: 2px 8px; }
+  table#your-score td:last-child, table#your-score th:last-child {
+    border-bottom: none; }
 
 #top-users li span {
   color: #999999;
@@ -268,19 +242,19 @@ table#your-score {
 
 /* Activity Feed */
 ul#acts {
-  background-color: #FFFFFF;
+  background-color: white;
   list-style: none; }
   ul#acts li.act, ul#acts li.small-act {
-    background-color: #FFFFFF;
+    background-color: white;
     border-bottom: 1px solid #DDD;
     float: left;
     width: 440px;
-    padding: 15px 4px 0px 10px;
+    padding: 15px 4px 0 10px;
+    position: relative;
     min-height: 60px;
-    position: relative; 
-    border-radius: 6px;
     -moz-border-radius: 6px;
-    }
+    -webkit-border-radius: 6px;
+    border-radius: 6px; }
     ul#acts li.act p, ul#acts li.small-act p {
       float: right;
       width: 380px;
@@ -296,49 +270,45 @@ ul#acts {
       ul#acts li.act p a:hover, ul#acts li.small-act p a:hover {
         text-decoration: underline; }
       ul#acts li.act p span.description a, ul#acts li.small-act p span.description a {
-        color: #3142e5;
+        color: #103245;
         text-decoration: underline; }
       ul#acts li.act p span.description a:hover, ul#acts li.small-act p span.description a:hover {
         text-decoration: none; }
-      ul#acts li.act p span.description, ul#acts li.small-act p span.description, ul#acts li.act p span.when, ul#acts li.small-act p span.when {
+      ul#acts li.act p span.description, ul#acts li.act p span.when, ul#acts li.small-act p span.description, ul#acts li.small-act p span.when {
         display: block;
-        width: 70%;
-      }
-        ul#acts li.act p span.description:first-letter, ul#acts li.small-act p span.description:first-letter, ul#acts li.act p span.when:first-letter, ul#acts li.small-act p span.when:first-letter {
-          text-transform: capitalize;
-        }
+        width: 70%; }
+        ul#acts li.act p span.description :first-letter, ul#acts li.act p span.when :first-letter, ul#acts li.small-act p span.description :first-letter, ul#acts li.small-act p span.when :first-letter {
+          text-transform: capitalize; }
       ul#acts li.act p span.when, ul#acts li.act p span.points, ul#acts li.small-act p span.when, ul#acts li.small-act p span.points {
         font-weight: normal;
         color: #999999;
-        font-size: 11px;}
+        font-size: 11px; }
       ul#acts li.act p span.points, ul#acts li.small-act p span.points {
         height: 25px;
         width: 55px;
         background-color: #55950d;
-        color: #FFFFFF; 
+        color: white;
         position: absolute;
         top: 0;
         right: 0;
-        text-align: center; 
+        text-align: center;
         padding: 5px 0;
         font-size: 10px;
-        line-height: 14px;}
-        ul#acts li.act p span.points span.point-value, ul#acts li.small-act p span.points span.point-value {
-          font-size: 14px;
-          display: block;}
-
+        line-height: 14px; }
+      ul#acts li.act p span.point-value, ul#acts li.small-act p span.point-value {
+        font-size: 14px;
+        display: block; }
       ul#acts li.act p span.ranking, ul#acts li.small-act p span.ranking {
         position: absolute;
         right: 0;
         top: 45px;
-        padding-right: 5px; 
+        padding-right: 5px;
         font-size: 10px;
         text-align: center;
-        line-height: 14px;}
+        line-height: 14px; }
         ul#acts li.act p span.ranking span.ranking-value, ul#acts li.small-act p span.ranking span.ranking-value {
-          display: block; 
-          font-size: 14px;}
-
+          display: block;
+          font-size: 14px; }
   ul#acts li.small-act p {
     margin-bottom: 0px; }
   ul#acts li:last-child {
@@ -377,7 +347,7 @@ button, input[type=submit], .examples .points {
   text-transform: uppercase;
   font-weight: bold;
   padding: 8px 12px;
-  color: #f0f0f0;
+  color: white;
   background: #103245;
   border: 0px solid #333333; }
 
@@ -416,13 +386,13 @@ button:hover, input[type=submit]:hover, .examples .points:hover {
   display: inline; }
 
 .column-header {
-  line-height: 22px;
-}
+  line-height: 22px; }
 
 select {
   font-weight: bold;
-  border-radius: 1px;
-  -moz-border-radius: 1px; }
+  -moz-border-radius: 1px;
+  -webkit-border-radius: 1px;
+  border-radius: 1px; }
 
 a.current {
   text-decoration: underline; }

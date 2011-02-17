@@ -16,6 +16,7 @@ gem "twilio-rb", :git => "git://github.com/stevegraham/twilio-rb.git", :require 
 gem "sinatra", "~> 1.0"
 gem "copycopter_client", "~> 1.0.0.beta6"
 gem "clearance", "~> 0.10.0"
+gem "sass"
 
 # RSpec needs to be in :development group to expose generators
 # and rake tasks without having to type RAILS_ENV=test.

@@ -13,3 +13,4 @@ tags
 !.keep
 vendor/bundler_gems
 .rvmrc
+.sass-cache
