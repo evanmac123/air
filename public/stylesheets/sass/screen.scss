@@ -108,6 +108,10 @@ h2.first#activity, h2.first#scoreboard {
 
       #self-link {
         color: $green;
+
+        :hover {
+          color: $orange;
+        }
       }
 
       a:hover {
@@ -307,8 +311,10 @@ table#your-score {
     border-bottom: 1px solid #DDDDDD;
     padding: 2px 8px;
   }
-  td:last-child, th:last-child {
-    border-bottom: none;
+  tr:last-child {
+    td, th {
+      border-bottom: none;
+    }
   } 
 }
 

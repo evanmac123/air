@@ -69,6 +69,8 @@ h2.first#activity, h2.first#scoreboard {
         display: block; }
       .header .inner-header #account #self-link {
         color: #55950d; }
+        .header .inner-header #account #self-link :hover {
+          color: #ff6a37; }
       .header .inner-header #account a:hover {
         color: #ff6a37; }
 
@@ -228,7 +230,7 @@ table#your-score {
   table#your-score td, table#your-score th {
     border-bottom: 1px solid #DDDDDD;
     padding: 2px 8px; }
-  table#your-score td:last-child, table#your-score th:last-child {
+  table#your-score tr:last-child td, table#your-score tr:last-child th {
     border-bottom: none; }
 
 #top-users li span {
