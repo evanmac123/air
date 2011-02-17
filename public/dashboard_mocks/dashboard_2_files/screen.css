@@ -179,6 +179,9 @@ form .submit-input {
     color: #55950D;
     background-color: #FFFFFF;
     font-weight: bold;
+    padding: 2px 8px;
+    border-radius: 6px;
+    -moz-border-radius: 6px;
   }
 
 ol.top-scores { }
@@ -189,6 +192,8 @@ ol.top-scores { }
     margin-bottom: 1px;
     line-height: 22px;
     padding-top: 4px;
+    border-radius: 6px;
+    -moz-border-radius: 6px;
   }
   ol.top-scores .name { 
     }
@@ -237,6 +242,8 @@ pre {
     border-bottom: none; }
 
 table#your-score {
+  border-radius: 6px;
+  -moz-border-radius: 6px;
   background-color: #FFFFFF; }
   table#your-score td {
     font-size: 18px;
@@ -247,6 +254,7 @@ table#your-score {
   }
   table#your-score td, table#your-score th {
     border-bottom: 1px solid #DDDDDD;
+    padding: 2px 8px;
   }
 
 #top-users li span {
@@ -269,7 +277,10 @@ ul#acts {
     width: 440px;
     padding: 15px 4px 0px 10px;
     min-height: 60px;
-    position: relative; }
+    position: relative; 
+    border-radius: 6px;
+    -moz-border-radius: 6px;
+    }
     ul#acts li.act p, ul#acts li.small-act p {
       float: right;
       width: 380px;
