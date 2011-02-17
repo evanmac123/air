@@ -395,3 +395,7 @@ button:hover, input[type=submit]:hover, .examples .points:hover {
 
 #follow-button {
   display: inline; }
+
+.column-header {
+  line-height: 22px;
+}
