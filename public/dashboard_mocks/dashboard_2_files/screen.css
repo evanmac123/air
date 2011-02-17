@@ -37,8 +37,9 @@ h2.first#activity, h2.first#scoreboard {
   display: inline; }
 
 .add-friends {
-  color: #73AF5E;
-  float: right;}
+  color: #55950D;
+  float: right;
+  font-weight: bold; }
 
 .header {
   background: #444343;
@@ -175,8 +176,9 @@ form .submit-input {
     margin-bottom: 10px; }
 
   #secondary p.prize {
-    color: #73AF5E;
+    color: #55950D;
     background-color: #FFFFFF;
+    font-weight: bold;
   }
 
 ol.top-scores { }
@@ -235,13 +237,13 @@ pre {
     border-bottom: none; }
 
 table#your-score {
-  background-color: #FFFFFF;
-}
+  background-color: #FFFFFF; }
   table#your-score td {
     font-size: 18px;
+    font-weight: bold;
   }
   table#your-score td.points {
-    color: #73AF5E;
+    color: #55950D;
   }
   table#your-score td, table#your-score th {
     border-bottom: 1px solid #DDDDDD;
@@ -410,3 +412,6 @@ select {
   font-weight: bold;
   border-radius: 1px;
   -moz-border-radius: 1px; }
+
+a.current {
+  text-decoration: underline; }
