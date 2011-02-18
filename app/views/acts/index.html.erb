@@ -24,9 +24,9 @@
 
     <tr>
       <td class="points"><%= current_user.points %></td>
-      <td><%= @ranking_in_demo.ordinalize %> out of <%= @demo_user_count %></td>
+      <td><%= current_user.ranking.ordinalize %> out of <%= @demo_user_count %></td>
     </tr>
   </table>  
   
-  <%= render :partial => 'shared/scoreboard', :locals => {:users => @users, :user_rankings => @user_rankings} %>
+  <%= render :partial => 'shared/scoreboard', :locals => {:users => @users} %>
 </div>

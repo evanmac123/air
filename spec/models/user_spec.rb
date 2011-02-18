@@ -207,19 +207,34 @@ describe User, '#generate_unique_claim_code!' do
   end
 end
 
-describe User, "#ranking_in_demo" do
+describe User, "#ranking" do
   before(:each) do
     @demo = Factory :demo
-
+    10.downto(6) {|i| Factory :user, :points => i, :demo => @demo}
+    1.upto(4) {|i| Factory :user, :points => i, :demo => @demo}
     @user = Factory :user, :points => 5, :demo => @demo
-    1.upto(4) {|points| Factory :user, :points => points, :demo => @demo}
-    6.upto(10) {|points| Factory :user, :points => points, :demo => @demo}
-
-    # Some users from a different demo, shouldn't figure in
-    10.times {Factory :user, :points => 200}
   end
 
-  it "should return the correct ranking" do
-    @user.ranking_in_demo.should == 6
+  context "when a user is created" do
+    it "should set their ranking appropriately" do
+      @user.ranking.should == 6
+    end
+  end
+
+  context "when a user gains points" do
+    it "should reset their ranking" do
+      @user.update_points(3)
+      @user.reload.ranking.should == 3
+    end
+
+    it "should reset the ranking of all users who are now below them but weren't before" do
+      @twin = Factory :user, :points => 5, :demo => @demo
+      @twin.ranking.should == @user.ranking
+
+      @user.update_points(3)
+
+      users_by_points = @demo.users.order('points DESC').all
+      users_by_points.map(&:ranking).should == [1, 2, 3, 3, 5, 6, 7, 8, 9, 10, 11]
+    end
   end
 end

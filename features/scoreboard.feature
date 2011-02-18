@@ -10,23 +10,20 @@ Feature: Scoreboard
       | Vlad | 17     | company_name: Alpha |
       | Dan  | 10     | company_name: Alpha |
       | Who  | 44     | company_name: Enron |
+      | Sven | 24     | company_name: Alpha |
     And "Lazy" has the password "foobar"
     And I sign in via the login page as "Lazy/foobar"
 
   Scenario: Scoreboard on acts page
     When I go to the acts page
     Then I should see a scoreboard for demo "Alpha"
+    And I should see "Tony" with ranking "2"
+    And I should see "Sven" with ranking "2"
+    And I should see "Vlad" with ranking "4"
 
   Scenario: Scoreboard on home page
     When I go to the home page
     Then I should see a scoreboard for demo "Alpha"
-
-  Scenario: Scoreboard with tied users
-    Given the following user exists:
-      | name | points | demo                |
-      | Sven | 24     | company_name: Alpha |
-    When I go to the acts page
-    Then I dump the page
-    Then I should see "Tony" with ranking "2"
+    And I should see "Tony" with ranking "2"
     And I should see "Sven" with ranking "2"
     And I should see "Vlad" with ranking "4"

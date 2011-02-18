@@ -11,6 +11,11 @@ class User < ActiveRecord::Base
   before_create do
     set_invitation_code
     set_slug
+    set_rankings
+  end
+
+  before_update do
+    set_rankings if changed.include?('points')
   end
 
   validates_uniqueness_of :slug
@@ -60,11 +65,7 @@ class User < ActiveRecord::Base
   end
 
   def update_points(new_points)
-    if new_points > 0
-      increment!(:points, new_points)
-    else
-      decrement!(:points, new_points)
-    end
+    increment!(:points, new_points)
   end
 
   def password_optional?
@@ -127,8 +128,14 @@ class User < ActiveRecord::Base
     potential_claim_code
   end
 
-  def ranking_in_demo
-    self.demo.users.where('points > ?', self.points).count + 1
+  def set_rankings
+    User.transaction do
+      self.ranking = self.demo.users.where('points > ?', points).count + 1
+      old_point_value = self.changed_attributes['points']
+      new_point_value = self.points
+
+      self.demo.users.update_all('ranking = ranking + 1', ['points < ? AND points >= ?', new_point_value, old_point_value])
+    end
   end
 
   private
