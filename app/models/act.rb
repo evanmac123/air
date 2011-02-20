@@ -19,7 +19,7 @@ class Act < ActiveRecord::Base
       return "You haven't been invited to the game."
     end
 
-    key_name, value = body.downcase.gsub(/\.$/, '').split(' ', 2)
+    key_name, value = body.downcase.gsub(/\.$/, '').gsub(/\s+$/, '').split(' ', 2)
 
     if key_name == "help"
       # record this somewhere
