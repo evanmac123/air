@@ -1,13 +1,13 @@
 <h2 class="first"><%= @user.name %>: Accept Invitation</h2>
 
-<p class="explanation"><%= translate('.explanation', :default => "Thanks for accepting our invite to try H Engage. If you'd like to demo the service, please enter your mobile number. We'll send you an SMS with instructions on the next step.") %></p>
+<p class="explanation"><%= translate('.explanation', :default => "Thanks for accepting our invite to try H Engage. If you'd like to demo the service, please enter your mobile number and choose a password. We'll send you an SMS with instructions on the next step.") %></p>
 
 <%= semantic_form_for :phone, :url => phones_path(:user_id => @user) do |form| %>
   <%= form.input :number, :label => "Enter your mobile number", :required => false %>
 
   <%= form.semantic_fields_for :user do |user| %>
-    <%= user.input :password, :label => "Choose a password", :required => true %>
-    <%= user.input :password_confirmation, :label => "And confirm that password", :required => true %>
+    <%= user.input :password, :label => "Choose a password", :required => false %>
+    <%= user.input :password_confirmation, :label => "And confirm that password", :required => false %>
   <% end %>
 
   <%= form.buttons do %>

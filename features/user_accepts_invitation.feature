@@ -30,5 +30,5 @@ Feature: User accepts invitation
     When I fill in "Enter your mobile number" with "508-740-7520"
     And I press "Join the game"
     Then I should be on the invitation page for "dan@example.com"
-    And I should not see "Signed in."
+    And I should not see "You're now signed in."
     And I should see "Please choose a password."

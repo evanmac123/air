@@ -100,7 +100,7 @@ ul, ol {
 form li {
   list-style: none; }
 
-#phone_number_input label {
+#phone_number_input label, #phone_user_password_input label, #phone_user_password_confirmation_input label {
   display: block;
   font-size: 13px;
   font-weight: bold;
@@ -108,7 +108,7 @@ form li {
   margin: 5px auto;
   width: 358px;
   text-align: center; }
-#phone_number_input input {
+#phone_number_input input, #phone_user_password_input input, #phone_user_password_confirmation_input input {
   border: 1px solid #111111;
   color: #111111;
   display: block;
