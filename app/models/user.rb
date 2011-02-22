@@ -66,6 +66,7 @@ class User < ActiveRecord::Base
 
   def update_points(new_points)
     increment!(:points, new_points)
+    check_for_victory
   end
 
   def password_optional?
@@ -155,5 +156,19 @@ class User < ActiveRecord::Base
     last_name = names.pop
     initials = names.map(&:first)
     (initials.join('') + last_name).remove_non_words.downcase
+  end
+
+  def check_for_victory
+    return unless (victory_threshold = self.demo.victory_threshold)
+
+    if !self.won_at && self.points >= victory_threshold
+      self.won_at = Time.now
+      self.save!
+
+      SMS.send(
+        self.phone_number,
+        "Congratulations! You've scored #{self.points} points and won the game!"
+      )
+    end
   end
 end
