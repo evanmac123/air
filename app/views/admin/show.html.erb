@@ -4,6 +4,8 @@
 
 <ul class="demos">
   <% @demos.each do |demo| %>
-    <li><%= link_to demo.company_name, admin_demo_path(demo) %></li>
+    <% link_text = demo.company_name %>
+    <% link_text += " (#{demo.victory_threshold} points to win)" if demo.victory_threshold %>
+    <li><%= link_to link_text, admin_demo_path(demo) %></li>
   <% end %>
 </ul>
