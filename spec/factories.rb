@@ -2,6 +2,10 @@ Factory.sequence :email do |n|
   "user#{n}@example.com"
 end
 
+Factory.sequence :phone do |n|
+  "+1" + (4155550000 + n).to_s
+end
+
 Factory.define :user do |factory|
   factory.association(:demo)
   factory.name                  { "James Earl Jones" }

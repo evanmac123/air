@@ -9,3 +9,12 @@ When /^"([^"]*)" has received an invitation$/ do |email|
   user = User.find_by_email(email)
   Mailer.invitation(user).deliver
 end
+
+When /^I accept the invitation$/ do
+  phone = Factory.next(:phone)
+
+  When "I fill in \"Enter your mobile number\" with \"#{phone}\""
+  And "I fill in \"Choose a password\" with \"foobar\""
+  And "I fill in \"And confirm that password\" with \"foobar\""
+  And "I press \"Join the game\""
+end

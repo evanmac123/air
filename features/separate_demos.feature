@@ -9,8 +9,7 @@ Feature: Demos are kept separate
   Scenario: User accepting invitation sees other users in the same demo    
     Given "dan@example.com" has received an invitation
     And I go to the invitation page for "dan@example.com"
-    When I fill in "Enter your mobile number" with "508-740-7520"
-    And I press "Join the game"
+    When I accept the invitation
     Then I should be on the activity page
     And I should see a link to the profile page for "Bob"
     And I should not see a link to the profile page for "Ned"
