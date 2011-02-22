@@ -134,7 +134,17 @@ class User < ActiveRecord::Base
       old_point_value = self.changed_attributes['points']
       new_point_value = self.points
 
-      self.demo.users.update_all('ranking = ranking + 1', ['points < ? AND points >= ?', new_point_value, old_point_value])
+      # Remember, we haven't saved the new point value yet, so if self isn't a
+      # new record (hence already has a database ID), we need to specifically
+      # exempt it from this update.
+
+      if self.id
+        where_conditions = ['points < ? AND points >= ? AND id != ?', new_point_value, old_point_value, self.id]
+      else
+        where_conditions = ['points < ? AND points >= ?', new_point_value, old_point_value]
+      end
+
+      self.demo.users.update_all('ranking = ranking + 1', where_conditions)
     end
   end
 

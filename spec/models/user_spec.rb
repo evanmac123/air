@@ -217,6 +217,9 @@ describe User, "#ranking" do
 
   context "when a user is created" do
     it "should set their ranking appropriately" do
+      users_by_points = @demo.users.order('points DESC').all
+      users_by_points.map(&:ranking).should == [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
       @user.ranking.should == 6
     end
   end
@@ -235,6 +238,21 @@ describe User, "#ranking" do
 
       users_by_points = @demo.users.order('points DESC').all
       users_by_points.map(&:ranking).should == [1, 2, 3, 3, 5, 6, 7, 8, 9, 10, 11]
+    end
+
+    it "should work when breaking ties" do
+      User.delete_all
+      @first = Factory :user, :points => 10, :demo => @demo
+      @second = Factory :user, :points => 10, :demo => @demo
+      @third = Factory :user, :points => 10, :demo => @demo
+
+      @first.reload.ranking.should == @second.reload.ranking
+      @first.reload.ranking.should == @third.reload.ranking
+
+      @first.update_points(1)
+      @first.reload.ranking.should == 1
+      @second.reload.ranking.should == 2
+      @third.reload.ranking.should == 2
     end
   end
 end
