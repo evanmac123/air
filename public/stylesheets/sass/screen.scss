@@ -541,3 +541,8 @@ a.current {
   text-decoration: underline; 
 }
 
+#winning-time {
+  @include rounded-corners(6px);
+  background-color: $white;
+  font-weight: bold;
+}

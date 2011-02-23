@@ -398,3 +398,10 @@ select {
 
 a.current {
   text-decoration: underline; }
+
+#winning-time {
+  -moz-border-radius: 6px;
+  -webkit-border-radius: 6px;
+  border-radius: 6px;
+  background-color: white;
+  font-weight: bold; }

@@ -27,6 +27,10 @@
       <td><%= current_user.ranking.ordinalize %> out of <%= @demo_user_count %></td>
     </tr>
   </table>  
-  
+
+  <% if current_user.won_at %>
+    <div id="winning-time">You won on <%= current_user.won_at.winning_time_format%>. Congratulations!</div>
+  <% end %>
+
   <%= render :partial => 'shared/scoreboard', :locals => {:users => @users} %>
 </div>

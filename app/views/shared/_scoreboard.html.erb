@@ -9,6 +9,9 @@
       <span class="score">
         <span class="score-value"><%= user.points %></span> points
       </span>
+      <% if user.won_at %>
+        <span class="other-user-winning-time">won on <%= user.won_at.winning_time_format %></span>
+      <% end %>
     </li>
   <% end %>
 </ul>
