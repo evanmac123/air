@@ -164,7 +164,7 @@ form .submit-input {
       border-radius: 6px; }
 
 ol.top-scores li {
-  height: 28px;
+  height: 40px;
   padding: 0 5px;
   background-color: #d2d2d2;
   margin-bottom: 1px;
@@ -405,3 +405,8 @@ a.current {
   border-radius: 6px;
   background-color: white;
   font-weight: bold; }
+
+.other-user-winning-time {
+  font-size: 10px;
+  display: block;
+  line-height: 12px; }
