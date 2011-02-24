@@ -27,6 +27,10 @@ Health::Application.routes.draw do
 
   resources :pages
 
+  namespace :account do
+    resource :phone, :only => [:edit, :update]
+  end
+
   namespace :admin do
     resources :demos, :only => [:new, :create, :show] do
       resources :users, :only => [:create]

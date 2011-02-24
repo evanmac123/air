@@ -67,6 +67,12 @@ h2.first#activity, h2.first#scoreboard {
   display: inline; 
 }
 
+h2.your-mobile-number {
+  a {
+    margin-left: 0px;
+  }
+}
+
 .add-friends {
   color: $green;
   float: right;
