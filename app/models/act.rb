@@ -29,7 +29,13 @@ class Act < ActiveRecord::Base
     if key = Key.where(:name => key_name).first
       if rule = Rule.where(:key_id => key.id, :value => value).first
         create(:user => user, :text => body.downcase, :rule => rule)
-        return rule.reply
+
+        reply = rule.reply
+        if (victory_threshold = user.demo.victory_threshold)
+          reply += " You have #{user.points} out of #{victory_threshold} points."
+        end
+
+        return reply
       else
         # record this somewhere
         good_value = key.rules.first.value
