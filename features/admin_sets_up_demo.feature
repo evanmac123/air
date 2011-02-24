@@ -5,11 +5,13 @@ Feature: Admin sets up demo
     When I follow "New Demo"
     And I fill in "Company name" with "3M"
     And I fill in "Victory threshold" with "100"
+    And I fill in "Victory verification email" with "lucille@example.com"
+    And I fill in "Victory verification SMS number" with "415-867-5309"
     And I press "Submit"
     Then I should be on the admin "3M" demo page
     When I follow "Admin"
     Then I should be on the admin page
-    Then I should see "3M (100 points to win)"
+    Then I should see "3M (100 points to win, victory email to lucille@example.com, victory SMS to +14158675309)"
 
   # something's wrong with this step
   # need to ask thoughtbot team

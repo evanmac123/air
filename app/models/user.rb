@@ -165,10 +165,21 @@ class User < ActiveRecord::Base
       self.won_at = Time.now
       self.save!
 
-      SMS.send(
-        self.phone_number,
-        "Congratulations! You've scored #{self.points} points and won the game!"
-      )
+      send_victory_notices
     end
+  end
+
+  def send_victory_notices
+    SMS.send(
+      self.phone_number,
+      "Congratulations! You've scored #{self.points} points and won the game!"
+    )
+
+    SMS.send(
+      self.demo.victory_verification_sms_number,
+      "#{self.name} (#{self.email}) won with #{self.points} points"
+    ) if self.demo.victory_verification_sms_number
+
+    Mailer.victory(self).deliver if self.demo.victory_verification_email
   end
 end

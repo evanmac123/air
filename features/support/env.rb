@@ -64,3 +64,7 @@ World(ShowMeTheCookies)
 Before do
   Factory :demo, :company_name => 'Alpha'
 end
+
+After do
+  Timecop.return
+end

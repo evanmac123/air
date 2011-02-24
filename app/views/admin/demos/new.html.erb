@@ -8,6 +8,12 @@
     <%= form.input :victory_threshold, :label => "Victory threshold" %>
   <% end %>
 
+  <%= form.inputs :name => "Victory Notifications" do %>
+    You can specify an e-mail address and/or SMS number that gets notified if and who someone wins this game.
+    <%= form.input :victory_verification_email %>
+    <%= form.input :victory_verification_sms_number, :label => 'Victory verification SMS number' %>
+  <% end %>
+
   <%= form.buttons do %>
     <%= form.submit 'Submit', :disable_with => 'Please wait...' %>
   <% end %>
