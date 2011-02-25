@@ -29,8 +29,8 @@
 
   <% if signed_in? && current_user == @user %>
     <h2 class="your-mobile-number">
-      Your mobile number: <%= @user.phone_number %><br/>
-      <%= link_to "change your mobile number", edit_account_phone_path %>
+      Your mobile number: <span class="number"><%= @user.phone_number %></span><br/>
+      <%= link_to "change your mobile number", edit_account_phone_path, :class => 'change-number-link' %>
     </h2>
   <% end %>
 

@@ -1,0 +1,4 @@
+<%= semantic_form_for current_user, :url => account_phone_path do |form| %>
+  <%= form.input :phone_number, :label => 'Enter your new mobile number'%>
+  <%= form.commit_button :label => 'Save new mobile number' %>
+<% end %>

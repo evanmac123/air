@@ -25,3 +25,5 @@ Scenario: User can change your their own mobile number
   Then I should be on the profile page for "Bob"
   And I should see "Your mobile number was updated."
   And I should see "Your mobile number: +19009394956"
+
+# TODO: check JS flow with Akephalos or whatnot
