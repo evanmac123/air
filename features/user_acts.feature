@@ -37,6 +37,17 @@ Feature: User acts
       | name | act         | points |
       | Dan  | ate banana  | 2      |
 
+  Scenario: User acts with a coded rule
+    Given the following coded rule exists:
+      | value | points | description                                     |
+      | ZXCVB | 15     | Looked at our poster about healthful practices. |
+    When "+15087407520" sends SMS "ZXCVB"
+    And I sign in via the login page as "Dan/foo"
+    And I go to the acts page
+    Then I should see the following act:
+      | name | act                                             | points |
+      | Dan  | Looked at our poster about healthful practices. | 15     |
+
   Scenario: Returning to acts page from someone else's profile
     Given the following user exists:
       | name |

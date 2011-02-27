@@ -26,6 +26,19 @@ class Act < ActiveRecord::Base
       return "Score points by texting this number your latest lifestyle act. Examples: ate a banana, smoked a cigarette, played basketball"
     end
 
+    if value.nil?
+      if rule = CodedRule.where('value ILIKE ?', key_name).first
+        create(:user => user, :text => rule.to_s, :rule => rule)
+
+        reply = rule.reply
+        if (victory_threshold = user.demo.victory_threshold)
+          reply += " You have #{user.points} out of #{victory_threshold} points."
+        end
+
+        return reply
+      end
+    end
+
     if key = Key.where(:name => key_name).first
       if rule = Rule.where(:key_id => key.id, :value => value).first
         create(:user => user, :text => body.downcase, :rule => rule)

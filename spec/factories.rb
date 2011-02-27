@@ -25,6 +25,12 @@ Factory.define :rule do |factory|
   factory.reply  { "Yum. +2 points. Bananas help you fight cancer." }
 end
 
+Factory.define :coded_rule do |factory|
+  factory.value  { "zxcvb" }
+  factory.points { 2 }
+  factory.reply  { "Very good. +2 points." }
+end
+
 Factory.define :key do |factory|
   factory.sequence(:name) { |n| "ate_#{n}" }
 end
