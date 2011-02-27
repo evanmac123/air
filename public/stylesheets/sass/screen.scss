@@ -94,6 +94,28 @@ h2.your-mobile-number {
       float: left;
     }
 
+    #add-action {
+      margin-left: 65px;
+      margin-top: 15px;
+      float: left;
+      color: $white;
+      font-size: 22px;
+
+      .enter-code {
+        font-size: 12px;
+        color: $light-gray;
+        vertical-align: middle; 
+
+        input[type="text"] {
+          width: 78px;
+        }
+
+        input[type="submit"] { 
+          @include rounded-corners(3px);
+          padding: 4px 5px 6px 5px; 
+        }
+      }
+    }
 
     #account {
       margin-top: 15px;

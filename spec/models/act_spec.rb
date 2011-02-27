@@ -9,7 +9,7 @@ describe Act, ".parse" do
   context "when user has not been invited to the game" do
     it "tells them" do
       reply = "You haven't been invited to the game."
-      Act.parse("+15555555555", "hello?").should == reply
+      Act.parse(nil, "hello?").should == reply
     end
   end
 
@@ -19,14 +19,14 @@ describe Act, ".parse" do
     context "and asks for help" do
       it "helps them" do
         reply = "Score points by texting this number your latest lifestyle act. Examples: ate a banana, smoked a cigarette, played basketball"
-        Act.parse(user.phone_number, "help").should == reply
+        Act.parse(user, "help").should == reply
       end
     end
 
     context "and types a bad key" do
       it "prompts them to ask for help" do
         reply = "We didn't understand. Try: help"
-        Act.parse(user.phone_number, "wakka").should == reply
+        Act.parse(user, "wakka").should == reply
       end
     end
 
@@ -38,7 +38,7 @@ describe Act, ".parse" do
       context "with a bad value" do
         it "prompts them with a good value" do
           reply = "We understand #{key.name} but not bad value. Try: #{key.name} #{good_value}"
-          Act.parse(user.phone_number, "#{key.name} bad value").should == reply
+          Act.parse(user, "#{key.name} bad value").should == reply
         end
       end
 
@@ -46,7 +46,7 @@ describe Act, ".parse" do
         let(:good_sms) { "#{key.name} #{good_value}" }
 
         before do
-          @result = Act.parse(user.phone_number, good_sms)
+          @result = Act.parse(user, good_sms)
         end
 
         it "replies with the rule's reply" do

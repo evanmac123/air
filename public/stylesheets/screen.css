@@ -56,6 +56,23 @@ h2.your-mobile-number a {
       width: 150px;
       margin-top: 15px;
       float: left; }
+    .header .inner-header #add-action {
+      margin-left: 65px;
+      margin-top: 15px;
+      float: left;
+      color: white;
+      font-size: 22px; }
+      .header .inner-header #add-action .enter-code {
+        font-size: 12px;
+        color: #999999;
+        vertical-align: middle; }
+        .header .inner-header #add-action .enter-code input[type="text"] {
+          width: 78px; }
+        .header .inner-header #add-action .enter-code input[type="submit"] {
+          -moz-border-radius: 3px;
+          -webkit-border-radius: 3px;
+          border-radius: 3px;
+          padding: 4px 5px 6px 5px; }
     .header .inner-header #account {
       margin-top: 15px;
       font-size: 13px;

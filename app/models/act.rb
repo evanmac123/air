@@ -12,18 +12,19 @@ class Act < ActiveRecord::Base
     order('created_at desc').limit(limit)
   end
 
-  def self.parse(from, body)
-    user = User.find_by_phone_number(from)
+  def self.parse(user, body, options = {})
+    @return_message_type = options.delete(:return_message_type)
+
     if user.nil?
       # record this somewhere
-      return "You haven't been invited to the game."
+      return parsing_error_message("You haven't been invited to the game.")
     end
 
     key_name, value = body.downcase.gsub(/\.$/, '').gsub(/\s+$/, '').split(' ', 2)
 
     if key_name == "help"
       # record this somewhere
-      return "Score points by texting this number your latest lifestyle act. Examples: ate a banana, smoked a cigarette, played basketball"
+      return parsing_success_message("Score points by texting this number your latest lifestyle act. Examples: ate a banana, smoked a cigarette, played basketball")
     end
 
     rule = if value.nil?
@@ -33,12 +34,12 @@ class Act < ActiveRecord::Base
            end
 
     if rule
-      return record_act(user, rule)
-    elsif error_message = generate_helpful_error(key_name, value)
-      return error_message
+      return parsing_success_message(record_act(user, rule))
+    elsif helpful_error_message = generate_helpful_error(key_name, value)
+      return parsing_error_message(helpful_error_message)
     else
       # TODO: record this somewhere
-      return "We didn't understand. Try: help"
+      return parsing_error_message("We didn't understand. Try: help")
     end
   end
 
@@ -71,5 +72,21 @@ class Act < ActiveRecord::Base
     end
 
     reply
+  end
+
+  def self.parsing_error_message(message)
+    parsing_message(message, :failure)
+  end
+
+  def self.parsing_success_message(message)
+    parsing_message(message, :success)
+  end
+
+  def self.parsing_message(message, message_type)
+    if @return_message_type
+      [message, message_type]
+    else
+      message
+    end
   end
 end

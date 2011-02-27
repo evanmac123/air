@@ -7,4 +7,16 @@ class ActsController < ApplicationController
 
     @users             = @demo.users.order('points DESC')
   end
+
+  def create
+    action_string = if params[:act][:code].present?
+                      params[:act][:code]
+                    else
+                      [params[:act][:key_name], params[:act][:value]].join(' ')
+                    end
+
+    parsing_message, parsing_message_type = Act.parse(current_user, action_string, :return_message_type => true)
+    flash[parsing_message_type] = parsing_message
+    redirect_to :back
+  end
 end

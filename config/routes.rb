@@ -4,7 +4,7 @@ Health::Application.routes.draw do
 
   resources :phones,      :only => [:create]
   resources :invitations, :only => [:show]
-  resources :acts,        :only => [:index]
+  resources :acts,        :only => [:index, :create]
   resources :users,       :only => [:new, :index, :show] do
     resource :password,
       :controller => 'passwords',
