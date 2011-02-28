@@ -1,10 +1,12 @@
 class ApplicationController < ActionController::Base
-  # In here temporarily until we have enough for people to look at. 
+  # In here temporarily until we have enough for people to look at.
   before_filter :authenticate
   before_filter :load_act_entry_select_values
 
   include Clearance::Authentication
   protect_from_forgery
+
+  has_mobile_fu
 
   private
 
