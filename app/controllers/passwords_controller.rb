@@ -2,6 +2,9 @@ class PasswordsController < Clearance::PasswordsController
   # We monkeypatch this stuff since the regular Clearance::PasswordsController
   # expects us to identify users by ID, when we're actually using the slug.
 
+  before_filter :force_html_format
+  layout :determine_layout
+
   def edit
     @user = ::User.find_by_slug_and_confirmation_token(
                    params[:user_id], params[:token])

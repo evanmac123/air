@@ -19,4 +19,16 @@ class ApplicationController < ActionController::Base
     @act_entry_key_names = keys.map(&:name).sort
     @act_entry_rule_values = keys.inject([]) {|acc, key| acc + key.rules.map(&:value)}.uniq.sort
   end
+
+  def determine_layout
+    if request.xhr?
+      'ajax'
+    else
+      'application'
+    end
+  end
+
+  def force_html_format
+    request.format = :html
+  end
 end
