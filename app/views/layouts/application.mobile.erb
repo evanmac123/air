@@ -6,7 +6,9 @@
   <%= render :partial => 'shared/head' %>
 </head>
 <body>
-  <%= yield %>
+  <div data-role="page">
+    <%= yield %>
+  </div>
   <%= render :partial => 'shared/javascript' %>
 </body>
 </html>
