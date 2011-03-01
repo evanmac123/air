@@ -45,7 +45,14 @@ class User < ActiveRecord::Base
     user = users.first || User.find(:first, :conditions => ["email ILIKE ? AND claim_code != ''", normalized_claim_code])
     return nil unless user
 
-    user.update_attributes(:phone_number => from, :claim_code => nil)
+    new_password = claim_code_prefix(user)
+    user.update_attributes(
+      :phone_number          => from, 
+      :claim_code            => nil, 
+      :password              => new_password,
+      :password_confirmation => new_password
+    )
+
     user.get_seed_points
     user.demo.welcome_message
   end
@@ -160,11 +167,15 @@ class User < ActiveRecord::Base
 
   private
 
-  def claim_code_prefix
-    names = name.split
+  def self.claim_code_prefix(user)
+    names = user.name.split
     last_name = names.pop
     initials = names.map(&:first)
     (initials.join('') + last_name).remove_non_words.downcase
+  end
+
+  def claim_code_prefix
+    self.class.claim_code_prefix(self)
   end
 
   def check_for_victory
