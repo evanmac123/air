@@ -22,6 +22,7 @@ Health::Application.routes.draw do
     :only       => [:new, :create]
 
   match "sign_up"  => "users#new"
+  match "sign_out" => "clearance/sessions#destroy"
 
   root :to => 'homes#show'
 

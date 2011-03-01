@@ -3,8 +3,7 @@
     <h2 class="first" id="activity">
       Activity
     </h2>
-
-  </div>  
+  </div>
 
   <ul id="acts">
     <%= render @acts %>
@@ -26,7 +25,7 @@
       <td class="points"><%= current_user.points %></td>
       <td><%= current_user.ranking.ordinalize %> out of <%= @demo_user_count %></td>
     </tr>
-  </table>  
+  </table>
 
   <% if current_user.won_at %>
     <div id="winning-time">You won on <%= current_user.won_at.winning_time_format%>. Congratulations!</div>

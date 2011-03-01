@@ -28,6 +28,14 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def mobile_if_ajax
+    if request.xhr?
+      request.format = :mobile
+    else
+      request.format = :html
+    end
+  end
+
   def force_html_format
     request.format = :html
   end
