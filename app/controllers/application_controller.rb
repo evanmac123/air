@@ -1,7 +1,6 @@
 class ApplicationController < ActionController::Base
   has_mobile_fu
   before_filter :mobile_if_mobile_device
-
   before_filter :authenticate
   before_filter :load_act_entry_select_values
 
