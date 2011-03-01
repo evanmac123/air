@@ -2,3 +2,28 @@ en:
   mailer:
     invitation:
       subject: "Play the game"
+  datetime:
+    distance_in_words:
+      less_than_x_seconds:
+        other: '1 sec'
+      x_seconds:
+        one: '1 sec'
+        other: '%{count} secs'
+      half_a_minute: '1 min'
+      less_than_x_minutes:
+        one: '1 min'
+      x_minutes:
+        one: '1 min'
+        other: '{{count}} mins'
+      about_x_hours:
+        one: '1 hour'
+        other: '{{count}} hours'
+      about_x_months:
+        one: '1 month'
+        other: '{{count}} months'
+      about_x_years:
+        one: '1 year'
+        other: '{{count}} years'
+      over_x_years:
+        one: '>1 year'
+        other: '>{{count}} years'
