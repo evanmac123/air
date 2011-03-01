@@ -12,6 +12,8 @@
   <p>Victory SMS to <%= @demo.victory_verification_sms_number %></p>
 <% end %>
 
+<p>New players start with <%= @demo.seed_points %> points.</p>
+
 <p>Welcome message: <%= @demo.welcome_message %></p>
 
 <p class="explanation"><%= translate('.explanation', :default => "Add HR people from %{company} to this demo, then send them an invitation to the demo.", :company => @demo.company_name) %></p>

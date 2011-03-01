@@ -2,13 +2,14 @@ Feature: User accepts invitation
 
   Background:
     Given the following demos exist:
-      | company_name | custom_welcome_message       |
-      | FooCo        | Let's play a game.           |
+      | company_name | custom_welcome_message       | seed_points |
+      | FooCo        | Let's play a game.           | 10          |
     And the following users exist:
       | email            | name | demo                |
       | dan@example.com  | Dan  | company name: 3M    |
       | phil@example.com | Phil | company_name: FooCo |
     And "dan@example.com" has received an invitation
+    And "phil@example.com" has received an invitation
     When "dan@example.com" opens the email
     And I click the first link in the email
 
@@ -23,14 +24,23 @@ Feature: User accepts invitation
     And I should be on the activity page
 
   Scenario: User accepts invitation to game with a custom message
-    Given "phil@example.com" has received an invitation
-    And "phil@example.com" opens the email
+    When "phil@example.com" opens the email
     And I click the first link in the email
-    When I fill in "Enter your mobile number" with "415-261-3077"
+    And I fill in "Enter your mobile number" with "415-261-3077"
     And I fill in "Choose a password" with "whowho"
     And I fill in "And confirm that password" with "whowho"
     And I press "Join the game"
     Then "+14152613077" should have received an SMS "Let's play a game."
+
+  Scenario: User accepts invitation to game with seed points
+    When "phil@example.com" opens the email
+    And I click the first link in the email
+    And I fill in "Enter your mobile number" with "415-261-3077"
+    And I fill in "Choose a password" with "whowho"
+    And I fill in "And confirm that password" with "whowho"
+    And I press "Join the game"
+    Then I should be on the activity page
+    And I should see "Phil 10 points"
 
   Scenario: User sets password when accepting invitation
     When I fill in "Enter your mobile number" with "508-740-7520"

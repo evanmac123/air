@@ -17,7 +17,19 @@ Feature: User claims account via SMS
       | Dan Croak | dcroak     | company_name: FooCo |
     When "+14155551212" sends SMS "Dcroak"
     Then "+14155551212" should have received an SMS "Let's play a game."
-      
+
+  Scenario: User claims account for demo with seed points
+    Given the following demo exists:
+      | company_name | seed_points |
+      | FooCo        | 10          |
+    And the following user exists:
+      | name      | claim_code | demo                |
+      | Dan Croak | dcroak     | company_name: FooCo |
+    And "Dan Croak" has the password "foo"
+    When "+14155551212" sends SMS "Dcroak"
+    And I sign in via the login page as "Dan Croak/foo"
+    Then I should see "Dan Croak 10 points"
+
   Scenario: User claims account with e-mail address (but only if they've got a claim code)
     Given the following users exist:
       | name       | email              |

@@ -46,6 +46,7 @@ class User < ActiveRecord::Base
     return nil unless user
 
     user.update_attributes(:phone_number => from, :claim_code => nil)
+    user.get_seed_points
     user.demo.welcome_message
   end
 
@@ -56,6 +57,7 @@ class User < ActiveRecord::Base
 
   def join_game(number)
     update_attribute(:phone_number, PhoneNumber.normalize(number))
+    get_seed_points
     SMS.send(phone_number, demo.welcome_message)
   end
 
@@ -147,6 +149,12 @@ class User < ActiveRecord::Base
       end
 
       self.demo.users.update_all('ranking = ranking + 1', where_conditions)
+    end
+  end
+
+  def get_seed_points
+    if demo.seed_points > 0
+      update_points(demo.seed_points)
     end
   end
 
