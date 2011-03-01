@@ -79,20 +79,22 @@ class User < ActiveRecord::Base
 
   def set_slug
     cleaned = name.remove_mid_word_characters.
-                   replace_non_words_with_spaces.
-                   strip.
-                   replace_spaces_with_hyphens
+                replace_non_words_with_spaces.
+                strip.
+                replace_spaces_with_hyphens
+    possible_slug = cleaned
 
     User.transaction do
-      same_name = User.first(:conditions => ["slug LIKE ?", "#{cleaned}%"],
-                             :order      => "created_at desc")
+      same_name = find_same_name(possible_slug)
+      counter = same_name && same_name.slug.first_digit
 
-      self.slug = if same_name
-                    counter = same_name.slug.first_digit + 1
-                    "#{cleaned}-#{counter}"
-                  else
-                    cleaned
-                  end
+      while same_name
+        counter += rand(20)
+        possible_slug = "#{cleaned}-#{counter}"
+        same_name = find_same_name(possible_slug)
+      end
+
+      self.slug = possible_slug
     end
   end
 
@@ -181,5 +183,10 @@ class User < ActiveRecord::Base
     ) if self.demo.victory_verification_sms_number
 
     Mailer.victory(self).deliver if self.demo.victory_verification_email
+  end
+
+  def find_same_name(cleaned)
+    User.first(:conditions => ["slug LIKE ?", "#{cleaned}%"],
+               :order      => "created_at desc")
   end
 end

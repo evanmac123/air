@@ -134,7 +134,7 @@ describe User, "#slug" do
       end
 
       it "has a text-and-digit slug" do
-        @second.slug.should == "John-Smith-1"
+        @second.slug.should match(/^John-Smith-\d+$/)
       end
 
       context "and another John Smith is created" do
@@ -142,8 +142,9 @@ describe User, "#slug" do
           @third = Factory(:user, :name => "John Smith")
         end
 
-        it "has a text-and-digit slug" do
-          @third.slug.should == "John-Smith-2"
+        it "has a unique text-and-digit slug" do
+          @third.slug.should match(/^John-Smith-\d+$/)
+          @third.slug.should_not == @second.slug
         end
       end
     end

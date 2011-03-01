@@ -1,0 +1,22 @@
+<div id="main">
+  <div class="column-header">
+    <h2 class="first" id="activity">
+      Activity
+    </h2>
+
+  </div>  
+
+  <ul id="acts">
+    <%= render @acts %>
+  </ul>
+</div>
+
+<div id="secondary">
+  <%= render :partial => 'shared/scoreboard', :locals => {:users => @users} %>
+</div>
+
+<% content_for :javascript do %>
+  <%= javascript_tag do %> 
+    window.setTimeout(function() {window.location.reload()}, 60000);
+  <% end %>
+<% end %>
