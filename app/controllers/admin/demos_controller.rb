@@ -4,6 +4,12 @@ class Admin::DemosController < AdminBaseController
   end
 
   def create
+    %w(custom_welcome_message victory_threshold victory_verification_email victory_verification_sms_number).each do |field_name|
+      if params[:demo][field_name].blank?
+        params[:demo].delete(field_name)
+      end
+    end
+
     if (raw_number = params[:demo][:victory_verification_sms_number])
       params[:demo][:victory_verification_sms_number] = PhoneNumber.normalize(raw_number)
     end

@@ -7,11 +7,26 @@ Feature: Admin sets up demo
     And I fill in "Victory threshold" with "100"
     And I fill in "Victory verification email" with "lucille@example.com"
     And I fill in "Victory verification SMS number" with "415-867-5309"
+    And I fill in "Custom welcome message" with "3M will rule you all!"
+    And I fill in "Starting player score" with "5"
     And I press "Submit"
     Then I should be on the admin "3M" demo page
-    When I follow "Admin"
-    Then I should be on the admin page
-    Then I should see "3M (100 points to win, victory email to lucille@example.com, victory SMS to +14158675309)"
+    And I should see "100 points to win"
+    And I should see "Victory email to lucille@example.com"
+    And I should see "Victory SMS to +14158675309"
+    And I should see "Welcome message: 3M will rule you all!"
+    And I should see "New players start with 5 points"
+
+  Scenario: Correct default welcome message and seed points, and no default email, SMS or victory threshold
+    Given I am on the admin page
+    When I follow "New Demo"
+    And I fill in "Company name" with "3M"
+    And I press "Submit"
+    Then I should see "Welcome message: You've joined the 3M game! To play, send texts to this number. Send a text HELP if you want help."
+    And I should see "New players start with 0 points"
+    And I should not see "points to win"
+    And I should not see "Victory email to"
+    And I should not see "Victory SMS to"
 
   # something's wrong with this step
   # need to ask thoughtbot team
