@@ -1,13 +1,12 @@
 class ApplicationController < ActionController::Base
-  # In here temporarily until we have enough for people to look at.
+  has_mobile_fu
   before_filter :mobile_if_mobile_device
+
   before_filter :authenticate
   before_filter :load_act_entry_select_values
 
   include Clearance::Authentication
   protect_from_forgery
-
-  has_mobile_fu
 
   private
 
@@ -26,14 +25,6 @@ class ApplicationController < ActionController::Base
       'ajax'
     else
       'application'
-    end
-  end
-
-  def mobile_if_ajax
-    if request.xhr?
-      request.format = :mobile
-    else
-      request.format = :html
     end
   end
 

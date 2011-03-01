@@ -1,5 +1,5 @@
 class UsersController < Clearance::UsersController
-  before_filter :mobile_if_ajax
+  layout :determine_layout
 
   def new
     redirect_to page_path(:id => 'invitation')

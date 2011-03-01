@@ -1,5 +1,5 @@
 class ActsController < ApplicationController
-  before_filter :mobile_if_ajax
+  layout :determine_layout
 
   def index
     @demo              = current_user.demo
