@@ -1,6 +1,4 @@
 class HomesController < ApplicationController
-  before_filter :mobile_if_mobile_device
-
   def show
     @demo  = current_user.demo
     @user  = @demo.users.build
