@@ -4,6 +4,8 @@
     <strong>(<%= user.claim_code%>)</strong>
   <% end %>
 
+  <span class="edit-link"><%= link_to "(edit #{user.name})", edit_admin_demo_user_path(user.demo, user) %></span>
+
   <span class="invite-link">
     <%= render :partial => 'admin/invitations/new',
                :locals  => { :user => user } %>

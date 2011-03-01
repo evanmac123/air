@@ -37,7 +37,7 @@ Health::Application.routes.draw do
 
   namespace :admin do
     resources :demos, :only => [:new, :create, :show] do
-      resources :users, :only => [:create]
+      resources :users, :only => [:create, :edit, :update]
     end
     resources :users, :only => [] do
       resources :invitations, :only => [:create]
