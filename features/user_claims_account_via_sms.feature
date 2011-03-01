@@ -6,8 +6,18 @@ Feature: User claims account via SMS
       | Dan Croak | dcroak     | company_name: Global Tetrahedron |
     When "+14155551212" sends SMS "Dcroak"
     Then "Dan Croak" should be claimed by "+14155551212"
-    And "+14155551212" should have received an SMS "Welcome to the Global Tetrahedron game!"
+    And "+14155551212" should have received an SMS "You've joined the Global Tetrahedron game! To play, send texts to this number. Send a text HELP if you want help."
 
+  Scenario: User claims account for demo with custom welcome message
+    Given the following demo exists:
+      | company_name | custom_welcome_message    |
+      | FooCo        | Let's play a game.        |
+    And the following user exists:
+      | name      | claim_code | demo                |
+      | Dan Croak | dcroak     | company_name: FooCo |
+    When "+14155551212" sends SMS "Dcroak"
+    Then "+14155551212" should have received an SMS "Let's play a game."
+      
   Scenario: User claims account with e-mail address (but only if they've got a claim code)
     Given the following users exist:
       | name       | email              |

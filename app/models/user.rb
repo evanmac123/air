@@ -46,7 +46,7 @@ class User < ActiveRecord::Base
     return nil unless user
 
     user.update_attributes(:phone_number => from, :claim_code => nil)
-    "Welcome to the #{user.demo.company_name} game!"
+    user.demo.welcome_message
   end
 
   def invite
@@ -56,8 +56,7 @@ class User < ActiveRecord::Base
 
   def join_game(number)
     update_attribute(:phone_number, PhoneNumber.normalize(number))
-    SMS.send(phone_number,
-             "You've joined the #{demo.company_name} game! To play, send texts to this number. Send a text HELP if you want help.")
+    SMS.send(phone_number, demo.welcome_message)
   end
 
   def gravatar_url(size)

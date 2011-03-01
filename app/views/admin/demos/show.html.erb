@@ -1,5 +1,19 @@
 <h2 class="first"><%= link_to "Admin", admin_path %>: <%= @demo.company_name %></h2>
 
+<% if @demo.victory_threshold %>
+  <p><%= @demo.victory_threshold %> points to win.</p>
+<% end %>
+
+<% if @demo.victory_verification_email %>
+  <p>Victory email to <%= @demo.victory_verification_email %></p>
+<% end %>
+
+<% if @demo.victory_verification_sms_number %>
+  <p>Victory SMS to <%= @demo.victory_verification_sms_number %></p>
+<% end %>
+
+<p>Welcome message: <%= @demo.welcome_message %></p>
+
 <p class="explanation"><%= translate('.explanation', :default => "Add HR people from %{company} to this demo, then send them an invitation to the demo.", :company => @demo.company_name) %></p>
 
 <a href="#" id="add-new-user">Add new user</a>
