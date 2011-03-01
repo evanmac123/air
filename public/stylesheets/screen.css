@@ -283,7 +283,8 @@ ul#acts {
       padding-bottom: 12px;
       color: #363636;
       position: relative;
-      line-height: 18px; }
+      line-height: 18px;
+      margin-bottom: 0; }
       ul#acts li.act p a, ul#acts li.act p span.user, ul#acts li.small-act p a, ul#acts li.small-act p span.user {
         font-weight: bold;
         text-decoration: none;
