@@ -37,10 +37,12 @@ Health::Application.routes.draw do
 
   namespace :admin do
     resources :demos, :only => [:new, :create, :show] do
+      # TODO: move :edit and :update onto resources :users below
       resources :users, :only => [:create, :edit, :update]
     end
     resources :users, :only => [] do
       resources :invitations, :only => [:create]
     end
+    resources :bad_messages, :only => [:index]
   end
 end

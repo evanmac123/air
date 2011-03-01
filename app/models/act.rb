@@ -12,11 +12,19 @@ class Act < ActiveRecord::Base
     order('created_at desc').limit(limit)
   end
 
-  def self.parse(user, body, options = {})
+  def self.parse(user_or_phone, body, options = {})
     @return_message_type = options.delete(:return_message_type)
 
+    if user_or_phone.kind_of?(User)
+      user = user_or_phone
+      phone_number = user.phone_number
+    else
+      user = User.find_by_phone_number(user_or_phone)
+      phone_number = user_or_phone
+    end
+
     if user.nil?
-      # record this somewhere
+      record_bad_message(nil, phone_number, body)
       return parsing_error_message("You haven't been invited to the game.")
     end
 
@@ -38,7 +46,7 @@ class Act < ActiveRecord::Base
     elsif helpful_error_message = generate_helpful_error(key_name, value)
       return parsing_error_message(helpful_error_message)
     else
-      # TODO: record this somewhere
+      record_bad_message(user, phone_number, body)
       return parsing_error_message("We didn't understand. Try: help")
     end
   end
@@ -88,5 +96,9 @@ class Act < ActiveRecord::Base
     else
       message
     end
+  end
+
+  def self.record_bad_message(user, phone_number, body)
+    BadMessage.create!(:user => user, :phone_number => phone_number, :body => body, :received_at => Time.now)
   end
 end

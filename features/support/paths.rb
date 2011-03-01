@@ -22,6 +22,8 @@ module NavigationHelpers
     when /the profile page for "(.*)"/
       user = User.find_by_name($1)
       user_path(user.slug)
+    when /the bad message log page/
+      admin_bad_messages_path
 
     when /the static (.*) page/
       "/pages/#{$1}"

@@ -1,0 +1,27 @@
+<h2 class="first"><%= link_to "Admin", admin_path %>: Bad Message Log</h2>
+
+<table id="bad_messages">
+  <tr>
+    <th>User name</th>
+    <th>Sender's number</th>
+    <th>Body</th>
+    <th>Received at</th>
+  </tr>
+
+  <% @messages.each do |message| %>
+    <tr>
+      <td>
+        <%= message.user ? message.user.name : 'unknown' %>
+      </td>
+      <td>
+        <%= message.phone_number %>
+      </td>
+      <td>
+        <%= message.body %>
+      </td>
+      <td>
+        <%= message.received_at.localtime %>
+      </td>
+    </tr>
+  <% end %>
+</table>
