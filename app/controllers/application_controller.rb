@@ -39,4 +39,8 @@ class ApplicationController < ActionController::Base
   def force_html_format
     request.format = :html
   end
+
+  def mobile_if_mobile_device
+    request.format = :mobile if is_mobile_device?
+  end
 end
