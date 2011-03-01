@@ -14,7 +14,7 @@ gem "flutie"
 gem "dynamic_form"
 gem "twilio-rb", :git => "git://github.com/stevegraham/twilio-rb.git", :require => 'twilio'
 gem "sinatra", "~> 1.0"
-gem "copycopter_client", "~> 1.0.0.beta6"
+gem "copycopter_client", "~> 1.0.1"
 gem "clearance", "~> 0.10.0"
 gem "sass"
 

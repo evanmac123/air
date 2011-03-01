@@ -1,0 +1,23 @@
+<div data-role="header">
+  <h1>Accept Invitation</h1>
+</div>
+
+<div data-role="content">
+  <p class="explanation"><%= @user.name %>, <%= translate('.explanation', :default => "thanks for accepting our invite to try H Engage. If you'd like to demo the service, please enter your mobile number and choose a password.") %></p>
+
+  <%= form_for :phone, :url => phones_path(:user_id => @user) do |form| %>
+    <%= form.label "Enter your mobile number" %>
+    <%= form.telephone_field :number %>
+
+    <%= form.fields_for :user do |user| %>
+      <%= user.label "Choose a password" %>
+      <%= user.password_field :password %>
+      <%= user.label "And confirm that password" %>
+      <%= user.password_field :password_confirmation %>
+    <% end %>
+
+    <div class="submit-input">
+      <%= form.submit 'Join the game' %>
+    </div>
+  <% end %>
+</div>

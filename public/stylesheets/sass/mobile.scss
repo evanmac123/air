@@ -2,3 +2,28 @@
   margin-top: 25px;
   text-align: center;
 }
+
+li.act {
+  .user {
+    display: block;
+    font-size: 13px;
+    margin-top: 3px;
+    .when {
+      font-weight: lighter;
+      font-size: 10px;
+      text-align: right;
+      float: right;
+      margin-top: 2px;
+      color: #999;
+    }
+  }
+  .description {
+    font-size: 13px;
+    font-weight: normal;
+    display: block;
+    margin: 7px 0 5px 0;
+  }
+  .points {
+    font-size: 10px;
+  }
+}

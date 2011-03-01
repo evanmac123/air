@@ -1,4 +1,5 @@
 Feature: User accepts invitation
+
   Background:
     Given the following demos exist:
       | company_name | custom_welcome_message       |

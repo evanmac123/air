@@ -1,0 +1,34 @@
+<div data-role="header">
+  <h2><%= @user.name %></h2>
+</div>
+
+<div data-role="content">
+  <% if signed_in? && current_user == @user %>
+    <h2 class="your-mobile-number">
+      Your mobile number: <span class="number"><%= @user.phone_number %></span><br/>
+      <%= link_to "change your mobile number", edit_account_phone_path, :class => 'change-number-link' %>
+    </h2>
+  <% end %>
+
+  <div id="follow-target">
+    <% if signed_in? && current_user != @user %>
+      <% if current_user.following?(@user) %>
+        <%= unfollow(@user) %>
+      <% else %>
+        <%= follow(@user) %>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div id="profile-stats">
+    <div id="points" class="stat">
+      <strong><%= @user.points %></strong> points
+    </div>
+    <div id="following-count" class="stat">
+      <strong><%= @user.following_count %></strong> following
+    </div>
+    <div id="followers-count" class="stat">
+      <strong><%= @user.followers_count %></strong> followers
+    </div>
+  </div>
+</div>

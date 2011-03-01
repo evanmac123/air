@@ -1,0 +1,11 @@
+<li id="<%= dom_id(act) %>" class="act">
+  <div class="user">
+    <%= link_to(act.user.name, act.user) %>
+    <span class="when">
+      <%= time_ago_in_words(act.created_at) %>
+    </span>
+  </div>
+  <span class="description">
+    <%= (act.text) %>
+  </span>
+</li>

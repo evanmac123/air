@@ -1,4 +1,6 @@
 class ActsController < ApplicationController
+  before_filter :mobile_if_ajax
+
   def index
     @demo              = current_user.demo
     @demo_user_count   = @demo.users.count
