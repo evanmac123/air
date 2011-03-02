@@ -80,8 +80,12 @@ class Act < ActiveRecord::Base
 
     reply = rule.reply
     if (victory_threshold = user.demo.victory_threshold)
-      reply += " You have #{user.points} out of #{victory_threshold} points."
+      reply += " Points #{user.points}/#{victory_threshold}, r"
+    else
+      reply += " R"
     end
+
+    reply += "ank #{user.ranking}/#{user.demo.users.count}."
 
     reply
   end

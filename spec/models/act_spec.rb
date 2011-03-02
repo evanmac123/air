@@ -50,7 +50,7 @@ describe Act, ".parse" do
         end
 
         it "replies with the rule's reply" do
-          @result.should == rule.reply
+          @result.should include(rule.reply)
         end
 
         it "creates an act" do

@@ -4,9 +4,12 @@ Feature: User acts
     Given the following demo exists:
       | company_name | victory_threshold |
       | FooCorp      | 50                |
-    Given the following user exists:
-      | name | phone number | demo                  |
-      | Dan  | +15087407520 | company_name: FooCorp |
+    Given the following users exist:
+      | name | phone number | demo                  | points | ranking |
+      | Dan  | +15087407520 | company_name: FooCorp | 0      | 3       |
+      | Paul | +15088675309 | company_name: FooCorp | 0      | 3       |
+      | Fred | +14155551212 | company_name: FooCorp | 1      | 2       |
+      | Bob  | +18085551212 | company_name: FooCorp | 3      | 1       |
     And "Dan" has the password "foo"
     And the following rules exist:
       | key          | value  | points | reply                     | alltime_limit |
@@ -83,9 +86,9 @@ Feature: User acts
     And I follow "Back To Activity Stream"
     Then I should be on the activity page
 
-  Scenario: User gets a reply from the game on acting
+  Scenario: User gets a reply from the game on acting with points and ranking information
     When "+15087407520" sends SMS "ate banana"
-    Then "+15087407520" should have received an SMS "Bananas are good for you. You have 2 out of 50 points."
+    Then "+15087407520" should have received an SMS "Bananas are good for you. Points 2/50, rank 2/4."
 
   Scenario: User can only get credit for rules up to their limits
     When "+15087407520" sends SMS "saw poster"
@@ -94,7 +97,7 @@ Feature: User acts
     And I sign in via the login page as "Dan/foo"
     And I go to the acts page
     Then I should see "Dan 40 points"
-    And "+15087407520" should have received an SMS "Congratulations! You have 20 out of 50 points."
-    And "+15087407520" should have received an SMS "Congratulations! You have 40 out of 50 points."
-    And "+15087407520" should not have received an SMS "Congratulations! You have 60 out of 50 points."
+    And "+15087407520" should have received an SMS "Congratulations! Points 20/50, rank 1/4."
+    And "+15087407520" should have received an SMS "Congratulations! Points 40/50, rank 1/4."
+    And "+15087407520" should not have received an SMS "Congratulations! Points 60/50, rank 1/4."
     And "+15087407520" should have received an SMS "Sorry, you've already done that action."
