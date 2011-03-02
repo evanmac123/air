@@ -22,6 +22,7 @@ Feature: User accepts invitation
     And I press "Join the game"
     Then "+15087407520" should have received an SMS "You've joined the 3M game! To play, send texts to this number. Send a text HELP if you want help."
     And I should be on the activity page
+    And I should see "Dan joined the game"
 
   Scenario: User accepts invitation to game with a custom message
     When "phil@example.com" opens the email

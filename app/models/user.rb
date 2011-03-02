@@ -54,6 +54,7 @@ class User < ActiveRecord::Base
     )
 
     user.get_seed_points
+    add_joining_to_activity_stream(user)
     user.demo.welcome_message
   end
 
@@ -65,6 +66,7 @@ class User < ActiveRecord::Base
   def join_game(number)
     update_attribute(:phone_number, PhoneNumber.normalize(number))
     get_seed_points
+    add_joining_to_activity_stream
     SMS.send(phone_number, demo.welcome_message)
   end
 
@@ -174,8 +176,19 @@ class User < ActiveRecord::Base
     (initials.join('') + last_name).remove_non_words.downcase
   end
 
+  def self.add_joining_to_activity_stream(user)
+    Act.create!(
+      :user => user,
+      :text => 'joined the game'
+    )
+  end
+
   def claim_code_prefix
     self.class.claim_code_prefix(self)
+  end
+
+  def add_joining_to_activity_stream
+    self.class.add_joining_to_activity_stream(self)
   end
 
   def check_for_victory

@@ -3,7 +3,7 @@ class Act < ActiveRecord::Base
   belongs_to :rule
 
   after_create do
-    user.update_points(rule.points)
+    user.update_points(rule.points) if rule
   end
 
   scope :recent, lambda {|max| order('created_at DESC').limit(max)}
