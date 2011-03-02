@@ -42,7 +42,11 @@ class Act < ActiveRecord::Base
            end
 
     if rule
-      return parsing_success_message(record_act(user, rule))
+      if rule.user_hit_limit?(user)
+        return parsing_error_message("Sorry, you've already done that action.")
+      else
+        return parsing_success_message(record_act(user, rule))
+      end
     elsif helpful_error_message = generate_helpful_error(key_name, value)
       return parsing_error_message(helpful_error_message)
     else

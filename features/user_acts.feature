@@ -9,9 +9,10 @@ Feature: User acts
       | Dan  | +15087407520 | company_name: FooCorp |
     And "Dan" has the password "foo"
     And the following rules exist:
-      | key          | value  | points | reply                     |
-      | name: ate    | banana | 2      | Bananas are good for you. |
-      | name: worked | out    | 5      | Working out is nice.      |
+      | key          | value  | points | reply                     | alltime_limit |
+      | name: ate    | banana | 2      | Bananas are good for you. |               |
+      | name: worked | out    | 5      | Working out is nice.      |               |
+      | name: saw    | poster | 20     | Congratulations!          | 2             |
     And the following coded rule exists:
       | value | points | description                                     | reply                  |
       | ZXCVB | 15     | Looked at our poster about healthful practices. | Good show. +15 points. |
@@ -85,3 +86,15 @@ Feature: User acts
   Scenario: User gets a reply from the game on acting
     When "+15087407520" sends SMS "ate banana"
     Then "+15087407520" should have received an SMS "Bananas are good for you. You have 2 out of 50 points."
+
+  Scenario: User can only get credit for rules up to their limits
+    When "+15087407520" sends SMS "saw poster"
+    And "+15087407520" sends SMS "saw poster"
+    And "+15087407520" sends SMS "saw poster"
+    And I sign in via the login page as "Dan/foo"
+    And I go to the acts page
+    Then I should see "Dan 40 points"
+    And "+15087407520" should have received an SMS "Congratulations! You have 20 out of 50 points."
+    And "+15087407520" should have received an SMS "Congratulations! You have 40 out of 50 points."
+    And "+15087407520" should not have received an SMS "Congratulations! You have 60 out of 50 points."
+    And "+15087407520" should have received an SMS "Sorry, you've already done that action."

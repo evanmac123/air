@@ -4,6 +4,7 @@ describe Rule do
   subject { Factory(:rule) }
 
   it { should belong_to(:key) }
+  it { should have_many(:acts) }
 
   it { should validate_presence_of(:key_id) }
   it { should validate_presence_of(:value) }

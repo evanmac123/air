@@ -1,5 +1,6 @@
 class Rule < ActiveRecord::Base
   belongs_to :key
+  has_many   :acts
 
   validates_presence_of   :key_id, :if => :require_key?
   validates_presence_of   :value
@@ -7,6 +8,12 @@ class Rule < ActiveRecord::Base
 
   def to_s
     description || "#{key.name} #{value}"
+  end
+
+  def user_hit_limit?(user)
+    return false unless self.alltime_limit
+
+    self.acts.where(:user_id => user.id).count >= self.alltime_limit
   end
 
   def self.positive(limit)
