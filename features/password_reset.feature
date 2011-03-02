@@ -14,6 +14,12 @@ Feature: Password reset
       Then I should see "instructions for changing your password"
       And a password reset message should be sent to "email@person.com"
 
+    Scenario: Asking for a password reset is case insensitive
+      Given I signed up with "email@person.com/password"
+      When I request password reset link to be sent to "EmAIl@peRSOn.cOm"
+      Then I should see "instructions for changing your password"
+      And a password reset message should be sent to "email@person.com"
+
     Scenario: User is signed up updated his password and types wrong confirmation
       Given I signed up with "email@person.com/password"
       And I go to the password reset request page

@@ -30,4 +30,10 @@ Feature: Sign in
       Given I am signed up as "email@person.com/password"
       When I go to the sign in page
       And I sign in as "email@person.com/password"
-      And I should be on the activity page
+      Then I should be on the activity page
+
+   Scenario: Signing in is case insensitive
+      Given I am signed up as "dude@example.com/foo"
+      When I go to the sign in page
+      And I sign in as "Dude@example.com/foo"
+      Then I should see "Signed in"

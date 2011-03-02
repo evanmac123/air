@@ -18,6 +18,10 @@ class User < ActiveRecord::Base
     set_rankings if changed.include?('points')
   end
 
+  before_save do
+    downcase_email
+  end
+
   validates_uniqueness_of :slug
 
   def to_param
@@ -165,6 +169,12 @@ class User < ActiveRecord::Base
     if demo.seed_points > 0
       update_points(demo.seed_points)
     end
+  end
+
+  protected
+
+  def downcase_email
+    self.email = email.to_s.downcase
   end
 
   private

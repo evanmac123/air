@@ -257,3 +257,11 @@ describe User, "#ranking" do
     end
   end
 end
+
+describe User, "on save" do
+  it "should downcase email" do
+    @user = Factory.build(:user, :email => 'YELLING_GUY@Uppercase.cOm')
+    @user.save!
+    @user.reload.email.should == 'yelling_guy@uppercase.com'
+  end
+end
