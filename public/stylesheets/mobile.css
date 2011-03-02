@@ -2,21 +2,21 @@
   margin-top: 25px;
   text-align: center; }
 
-li.act .user {
+li.act .user, li.leader .user {
   display: block;
   font-size: 13px;
   margin-top: 3px; }
-  li.act .user .when {
+  li.act .user .when, li.act .user .score, li.leader .user .when, li.leader .user .score {
     font-weight: lighter;
     font-size: 10px;
     text-align: right;
     float: right;
     margin-top: 2px;
     color: #999; }
-li.act .description {
+li.act .description, li.leader .description {
   font-size: 13px;
   font-weight: normal;
   display: block;
   margin: 7px 0 5px 0; }
-li.act .points {
+li.act .points, li.leader .points {
   font-size: 10px; }

@@ -32,7 +32,7 @@
     </li>
   </ul>
 
-  <%= render :partial => 'shared/scoreboard', :locals => {:users => @users} %>
+  <%= render 'shared/scoreboard', :users => @users %>
 
   <%= link_to "Recent Activity", "/activity" %>
 </div>
