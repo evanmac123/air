@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
   private
 
   def load_act_entry_select_values
-    # TODO: cache this. 
+    # TODO: cache this.
     keys = Key.includes(:rules)
 
     # We don't do "Rule.all" because we want to skip coded rules.
