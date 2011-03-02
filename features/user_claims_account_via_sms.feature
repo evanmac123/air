@@ -16,12 +16,21 @@ Feature: User claims account via SMS
     And I sign in via the login page as "Dan Croak/dcroak"
     Then I should see "Signed in"
 
-  Scenario: Claiming account show in activity stream as joining the game
+  Scenario: Claiming account shows in activity stream as joining the game
     Given the following user exists:
       | name      | claim_code | demo                             |
       | Dan Croak | dcroak     | company_name: Global Tetrahedron |
     When "+14155551212" sends SMS "Dcroak"
     And I sign in via the login page as "Dan Croak/dcroak"
+    Then I should see "Dan Croak joined the game"
+
+  Scenario: Claiming account shows on profile page as joining the game
+    Given the following user exists:
+      | name      | claim_code | demo                             |
+      | Dan Croak | dcroak     | company_name: Global Tetrahedron |
+    When "+14155551212" sends SMS "Dcroak"
+    And I sign in via the login page as "Dan Croak/dcroak"
+    And I go to the profile page for "Dan Croak"
     Then I should see "Dan Croak joined the game"
 
   Scenario: User claims account for demo with custom welcome message

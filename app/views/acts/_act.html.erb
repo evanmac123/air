@@ -6,16 +6,6 @@
   <p>
     <span class="user"><%= link_to(act.user.name, act.user) %></span>
     <br />
-    <span class="description">
-      <%= (act.text) %>
-    </span>
-    <span class="when">
-      <%= time_ago_in_words(act.created_at) %> ago
-    </span>
-    <% if act.rule %>
-      <span class="points">
-        <%= points(act.rule) %> points
-      </span>
-    <% end %>
+    <%= render :partial => 'shared/act_details', :locals => {:act => act} %>
   </p>
 </li>

@@ -5,14 +5,7 @@
     <% @acts.each do |act| %>
       <li id="<%= dom_id(act) %>" class="small-act">
         <p>
-          <%= (act.text) %>
-          <br />
-          <span class="when">
-            <%= time_ago_in_words(act.created_at) %> ago
-          </span>
-          <span class="points">
-            <%= points(act.rule) %> points
-          </span>
+          <%= render :partial => 'shared/act_details', :locals => {:act => act} %>
         </p>
       </li>
     <% end %>

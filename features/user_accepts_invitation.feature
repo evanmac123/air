@@ -24,6 +24,14 @@ Feature: User accepts invitation
     And I should be on the activity page
     And I should see "Dan joined the game"
 
+  Scenario: User accepting invitation shows on profile page as joining the game
+    When I fill in "Enter your mobile number" with "508-740-7520"
+    And I fill in "Choose a password" with "whatwhat"
+    And I fill in "And confirm that password" with "whatwhat"
+    And I press "Join the game"
+    And I go to the profile page for "Dan"
+    Then I should see "Dan joined the game"
+
   Scenario: User accepts invitation to game with a custom message
     When "phil@example.com" opens the email
     And I click the first link in the email

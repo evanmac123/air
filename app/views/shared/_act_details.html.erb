@@ -1,0 +1,11 @@
+<span class="description">
+  <%= (act.text) %>
+</span>
+<span class="when">
+  <%= time_ago_in_words(act.created_at) %> ago
+</span>
+<% if act.rule %>
+  <span class="points">
+    <%= points(act.rule) %> points
+  </span>
+<% end %>
