@@ -2,6 +2,8 @@ Health::Application.routes.draw do
   match "sms"      => "sms#create", :via => :post
   match "activity" => "acts#index"
 
+  resource :session, :controller => 'sessions'
+
   # REMOVE this after conference
   resource  :conference_feed, :only => [:show]
 

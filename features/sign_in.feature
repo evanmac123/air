@@ -25,3 +25,9 @@ Feature: Sign in
       And I should be signed in
       When I return next time
       Then I should be signed in
+
+   Scenario: Signing in goes to the activity page
+      Given I am signed up as "email@person.com/password"
+      When I go to the sign in page
+      And I sign in as "email@person.com/password"
+      And I should be on the activity page

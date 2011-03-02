@@ -17,6 +17,6 @@ Feature: Demos are kept separate
   Scenario: User logging in sees other users in the same demo
     Given "Dan" has the password "foobar"
     When I sign in via the login page as "Dan/foobar"
-    Then I should be on the home page
+    Then I should be on the activity page
     And I should see a link to the profile page for "Bob"
     And I should not see a link to the profile page for "Ned"
