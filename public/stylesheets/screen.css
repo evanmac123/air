@@ -57,7 +57,7 @@ h2.your-mobile-number a {
       margin-top: 15px;
       float: left; }
     .header .inner-header #add-action {
-      margin-left: 130px;
+      margin-left: 100px;
       margin-top: 15px;
       float: left;
       color: white;
@@ -67,7 +67,7 @@ h2.your-mobile-number a {
         color: #999999;
         vertical-align: middle; }
         .header .inner-header #add-action .enter-code input[type="text"] {
-          width: 300px;
+          width: 330px;
           margin-left: 5px; }
         .header .inner-header #add-action .enter-code input[type="submit"] {
           padding: 3px 5px 6px 5px; }
