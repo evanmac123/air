@@ -24,20 +24,20 @@ Feature: User acts
       | name | act         | points |
       | Dan  | ate banana  | 2      |
 
-  Scenario: User acts via the website
-    When I sign in via the login page as "Dan/foo"
-    And I go to the acts page
-    And I enter the act "ate banana" via the dropdown
-    And I enter the act "worked out" via the dropdown
-    Then I should see the following acts:
-      | name | act         | points |
-      | Dan  | ate banana  | 2      |
-      | Dan  | worked out  | 5      |
-    And I should see the success message "Working out is nice. You have 7 out of 50 points."
+  #Scenario: User acts via the website
+  #  When I sign in via the login page as "Dan/foo"
+  #  And I go to the acts page
+  #  And I enter the act "ate banana" via the dropdown
+  #  And I enter the act "worked out" via the dropdown
+  #  Then I should see the following acts:
+  #    | name | act         | points |
+  #    | Dan  | ate banana  | 2      |
+  #    | Dan  | worked out  | 5      |
+  #  And I should see the success message "Working out is nice. You have 7 out of 50 points."
 
   Scenario: User enters bad act via the website
     When I sign in via the login page as "Dan/foo"
-    And I enter the act "worked banana" via the dropdown
+    And I enter the act code "worked banana"
     Then I should see the error "We understand worked but not banana. Try: worked out"
 
   Scenario: User acts, with a trailing period

@@ -1,24 +1,17 @@
 <div id="add-action">
   <%# TODO: fragment cache this form %>
   <%= form_tag acts_path do %>
-    i
-    <select name="act[key_name]">
-      <option value="">did</option>
+    <span class="enter-code">
+      Play:<input type="text" class="with-hint-text" name="act[code]" value="enter a command, action, or an answer to a question">
+      <input type="submit" value="add">
+    </span>
+  <% end %>
 
-      <% @act_entry_key_names.each do |key_name| %>
-        <option><%= key_name %></option>
-      <% end %>
-    </select>
-
-    <select name="act[value]">
-      <option value="">something</option>
-
-      <% @act_entry_rule_values.each do |rule_value| %>
-        <option><%= rule_value %></option>
-      <% end %>
-    </select>
-
-    <span class="enter-code">or enter a code:<input type="text" name="act[code]"></span>
-    <input type="submit" value="add">
+  <% content_for :javascript do %>
+    <%= javascript_tag do %>
+      $('.enter-code .with-hint-text').live('focus', (function(e) {
+        $(this).attr('value', '').removeClass('with-hint-text');
+      }));
+    <% end %>
   <% end %>
 </div>
