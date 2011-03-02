@@ -3,7 +3,12 @@
 </div>
 
 <div data-role="content">
-  <h2 class="first">A social game played via SMS</h2>
+  <ul data-role="listview">
+    <li><%= link_to "Recent Activity", "/activity" %></li>
+    <li><%= link_to "Scoreboard", "/scoreboard" %></li>
+  </ul>
+
+  <br />
 
   <p>While you eat a banana and cereal for breakfast, you send an SMS to H Engage:</p>
   <pre><code>ate banana</code></pre>
@@ -16,7 +21,4 @@
 
   <p>A few seconds later, you get a reply:</p>
   <pre><code>Nice job. +1 point. Walking improves bone health.</code></pre>
-
-  <%= link_to "Recent Activity", "/activity" %> | 
-  <%= link_to "Scoreboard", "/scoreboard" %>
 </div>
