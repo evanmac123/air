@@ -33,6 +33,40 @@ li.act .points, li.leader .points {
   text-align: center;
   margin: 0; }
 
+#flash {
+  text-align: center; }
+  #flash div.error, #flash div.notice, #flash div.success,
+  #flash #flash_failure, #flash #flash_success, #flash #flash_notice {
+    border: 1px solid #ddd;
+    -moz-border-radius: 8px;
+    -webkit-border-radius: 8px;
+    margin-bottom: 1em;
+    padding: 0.8em; }
+  #flash div.error,
+  #flash #flash_failure {
+    background: #FBE3E4;
+    border-color: #FBC2C4;
+    color: #D12F19; }
+  #flash div.error a,
+  #flash #flash_failure a {
+    color: #D12F19; }
+  #flash div.notice,
+  #flash #flash_notice {
+    background: #FFF6BF;
+    border-color: #FFD324;
+    color: #817134; }
+  #flash div.notice a,
+  #flash #flash_notice a {
+    color: #817134; }
+  #flash div.success,
+  #flash #flash_success {
+    background: #E6EFC2;
+    border-color: #C6D880;
+    color: #529214; }
+  #flash div.success a,
+  #flash #flash_success a {
+    color: #529214; }
+
 .other-user-winning-time {
   font-size: 10px;
   font-weight: lighter;
