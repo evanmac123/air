@@ -8,7 +8,7 @@ end
 describe Act, ".parse" do
   context "when user has not been invited to the game" do
     it "tells them" do
-      reply = "You haven't been invited to the game."
+      reply = "I can't find your number in my records. Did you claim your account yet? If not, text your first initial and last name (if you are John Smith, text \"jsmith\")."      
       Act.parse(nil, "hello?").should == reply
     end
   end
