@@ -6,7 +6,8 @@ class FriendshipsController < ApplicationController
 
     respond_to do |format|
       format.mobile do
-        render :partial => 'create', :user => @user
+        @acts = @user.acts.recent(10)
+        render :partial => 'create'
       end
     end
   end
@@ -18,7 +19,8 @@ class FriendshipsController < ApplicationController
 
     respond_to do |format|
       format.mobile do
-        render :partial => 'destroy', :user => @user
+        @acts = @user.acts.recent(10)
+        render :partial => 'destroy'
       end
     end
   end
