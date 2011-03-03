@@ -180,10 +180,18 @@ class User < ActiveRecord::Base
   private
 
   def self.claim_code_prefix(user)
-    names = user.name.downcase.split.map(&:remove_non_words)
-    first_name = names.shift
-    last_name = names.pop
-    first_name[0] + last_name
+    begin
+      names = user.name.downcase.split.map(&:remove_non_words)
+      first_name = names.first
+      last_name = names.last
+      first_name[0] + last_name
+    rescue StandardError => e
+      Rails.logger.error("ERROR IN .CLAIM_CODE_PREFIX")
+      Rails.logger.error("FULL NAME: #{names.inspect}")
+      Rails.logger.error("FIRST NAME: #{first_name}")
+      Rails.logger.error("LAST NAME: #{last_name}")
+      raise e
+    end
   end
 
   def self.add_joining_to_activity_stream(user)
