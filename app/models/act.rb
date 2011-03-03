@@ -32,7 +32,7 @@ class Act < ActiveRecord::Base
 
     if key_name == "help"
       # record this somewhere
-      return parsing_success_message("Score points by texting this number your latest lifestyle act. Examples: ate a banana, smoked a cigarette, played basketball")
+      return parsing_success_message('Earn points, text: "went to gym", "ate fruit", "ate vegetables", "walked stairs", "ran outside", "walked outside" - provided you did those things, of course.')
     end
 
     rule = if value.nil?

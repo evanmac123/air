@@ -184,7 +184,7 @@ class User < ActiveRecord::Base
       names = user.name.downcase.split.map(&:remove_non_words)
       first_name = names.first
       last_name = names.last
-      first_name[0] + last_name
+      [first_name[0], last_name].join('')
     rescue StandardError => e
       Rails.logger.error("ERROR IN .CLAIM_CODE_PREFIX")
       Rails.logger.error("FULL NAME: #{names.inspect}")
