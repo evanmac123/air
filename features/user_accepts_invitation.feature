@@ -32,6 +32,7 @@ Feature: User accepts invitation
     And I go to the profile page for "Dan"
     Then I should see "Dan joined the game"
 
+
   Scenario: User accepts invitation to game with a custom message
     When "phil@example.com" opens the email
     And I click the first link in the email

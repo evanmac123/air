@@ -180,10 +180,10 @@ class User < ActiveRecord::Base
   private
 
   def self.claim_code_prefix(user)
-    names = user.name.split
+    names = user.name.downcase.split.map(&:remove_non_words)
+    first_name = names.shift
     last_name = names.pop
-    initials = names.map(&:first)
-    (initials.join('') + last_name).remove_non_words.downcase
+    first_name[0] + last_name
   end
 
   def self.add_joining_to_activity_stream(user)

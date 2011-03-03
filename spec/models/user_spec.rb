@@ -177,6 +177,24 @@ describe User, '#generate_simple_claim_code!' do
       @first.claim_code.should == @third.claim_code
     end
   end
+
+  context "for a user with middle names" do
+    before(:each) do
+      @first = Factory :user, :name => "Lyndon Baines Johnson"
+      @second = Factory :user, :name => "Arthur Andrew Alabama Anderson"
+      @third = Factory :user, :name => "Elizabeth II, Queen of England"
+    end
+
+    it "should use just first and last name" do
+      @first.generate_simple_claim_code!
+      @second.generate_simple_claim_code!
+      @third.generate_simple_claim_code!
+
+      @first.claim_code.should == 'ljohnson'
+      @second.claim_code.should == 'aanderson'
+      @third.claim_code.should == 'eengland'
+    end
+  end
 end
 
 describe User, '#generate_unique_claim_code!' do
