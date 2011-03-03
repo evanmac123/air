@@ -1,0 +1,17 @@
+<p><%= @success_message %></p>
+
+<% unless @errored_users.blank? %>
+  <p>
+    Unable to load the following users:
+    <ul>
+      <% @errored_users.each do |errored_user| %>
+        <li><%= errored_user.name %>: <%= errored_user.errors.full_messages.join(', ') %></li>
+      <% end %>
+    </ul>
+    </p>
+<% end %>
+
+<%= form_tag admin_demo_bulk_load_path(@demo) do %>
+  <%= text_area_tag :bulk_user_data %>
+  <%= submit_tag %>
+<% end %>

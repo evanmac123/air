@@ -41,7 +41,8 @@ Health::Application.routes.draw do
   namespace :admin do
     resources :demos, :only => [:new, :create, :show] do
       # TODO: move :edit and :update onto resources :users below
-      resources :users, :only => [:create, :edit, :update]
+      resources :users, :only => [:create, :edit, :update] 
+      resource :bulk_load, :only => [:new, :create]
     end
     resources :users, :only => [] do
       resources :invitations, :only => [:create]
