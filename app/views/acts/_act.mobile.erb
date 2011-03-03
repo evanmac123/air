@@ -7,5 +7,10 @@
   </div>
   <span class="description">
     <%= (act.text) %>
+    <% if act.rule %>
+      <span class="points">
+        <%= points(act.rule) %> pts
+      </span>
+    <% end %>
   </span>
 </li>

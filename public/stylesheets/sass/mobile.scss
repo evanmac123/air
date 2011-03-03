@@ -8,6 +8,9 @@ body {
 }
 
 li.act, li.leader {
+  .ui-btn-inner {
+    padding-right: 40px;
+  }
   .user {
     display: block;
     font-size: 13px;
@@ -27,9 +30,11 @@ li.act, li.leader {
     display: block;
     margin: 7px 0 5px 0;
     white-space: normal;
-  }
-  .points {
-    font-size: 10px;
+    .points {
+      font-weight: lighter;
+      font-size: 10px;
+      color: #999;
+    }
   }
 }
 

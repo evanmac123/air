@@ -5,6 +5,8 @@ body {
   margin-top: 25px;
   text-align: center; }
 
+li.act .ui-btn-inner, li.leader .ui-btn-inner {
+  padding-right: 40px; }
 li.act .user, li.leader .user {
   display: block;
   font-size: 13px;
@@ -22,8 +24,10 @@ li.act .description, li.leader .description {
   display: block;
   margin: 7px 0 5px 0;
   white-space: normal; }
-li.act .points, li.leader .points {
-  font-size: 10px; }
+  li.act .description .points, li.leader .description .points {
+    font-weight: lighter;
+    font-size: 10px;
+    color: #999; }
 
 #profile-stats {
   text-align: center;
