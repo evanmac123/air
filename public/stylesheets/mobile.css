@@ -5,6 +5,8 @@ body {
   margin-top: 25px;
   text-align: center; }
 
+li.act .ui-btn-text, li.leader .ui-btn-text {
+  width: 110%; }
 li.act .user, li.leader .user {
   display: block;
   font-size: 13px;
@@ -20,7 +22,8 @@ li.act .description, li.leader .description {
   font-size: 13px;
   font-weight: normal;
   display: block;
-  margin: 7px 0 5px 0; }
+  margin: 7px 0 5px 0;
+  white-space: normal; }
 li.act .points, li.leader .points {
   font-size: 10px; }
 
