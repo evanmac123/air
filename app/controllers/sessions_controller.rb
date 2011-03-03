@@ -8,7 +8,7 @@ class SessionsController < Clearance::SessionsController
   protected
 
   def downcase_email
-    if params[:session] && params[:session][:email].present? 
+    if params[:session] && params[:session][:email].present?
       params[:session][:email].downcase!
     end
   end

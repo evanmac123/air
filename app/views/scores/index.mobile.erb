@@ -14,7 +14,7 @@
           </span>
         </div>
         <% if user.won_at %>
-          <span class="other-user-winning-time">won on <%= user.won_at.winning_time_format %></span>
+          <span class="other-user-winning-time">won <%= time_ago_in_words(user.won_at) %> ago</span>
         <% end %>
       </li>
     <% end %>

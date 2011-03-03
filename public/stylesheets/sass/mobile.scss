@@ -1,3 +1,7 @@
+body {
+  background-color: #ddd;
+}
+
 #alt-authentication-links {
   margin-top: 25px;
   text-align: center;
@@ -31,4 +35,12 @@ li.act, li.leader {
 #profile-stats {
   text-align: center;
   margin: 10px 0 25px 0;
+}
+
+.other-user-winning-time {
+  font-size: 10px;
+  font-weight: lighter;
+  display: block;
+  line-height: 12px;
+  color: #999;
 }
