@@ -32,7 +32,11 @@ class ApplicationController < ActionController::Base
     request.format = :html
   end
 
+  def not_ipad?
+    request.user_agent.to_s.downcase != 'ipad'
+  end
+
   def mobile_if_mobile_device
-    request.format = :mobile if is_mobile_device?
+    request.format = :mobile if not_ipad? && is_mobile_device?
   end
 end
