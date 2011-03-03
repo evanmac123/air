@@ -1,6 +1,6 @@
 Feature: Demos are kept separate
   Background:
-    Given the following users exist:
+    Given the following user with phones exist:
       | email           | name | demo             |
       | dan@example.com | Dan  | company name: 3M |
       | bob@example.com | Bob  | company name: 3M |

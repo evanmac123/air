@@ -14,6 +14,10 @@ Factory.define :user do |factory|
   factory.password_confirmation { "password" }
 end
 
+Factory.define :user_with_phone, :parent => :user do |factory|
+  factory.phone_number {Factory.next :phone}
+end
+
 Factory.define :demo do |factory|
   factory.company_name { "Gillette" }
 end

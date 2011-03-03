@@ -85,7 +85,7 @@ class Act < ActiveRecord::Base
       reply += " R"
     end
 
-    reply += "ank #{user.ranking}/#{user.demo.users.count}."
+    reply += "ank #{user.ranking}/#{user.demo.users.ranked.count}."
 
     reply
   end

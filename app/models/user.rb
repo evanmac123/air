@@ -36,6 +36,10 @@ class User < ActiveRecord::Base
     order("points desc").limit(limit)
   end
 
+  def self.ranked
+    where("phone_number IS NOT NULL AND phone_number != ''")
+  end
+
   def self.claim_account(from, claim_code)
     normalized_claim_code = claim_code.strip
     users = User.find(:all, :conditions => ["claim_code ILIKE ?", normalized_claim_code])

@@ -6,13 +6,14 @@ Feature: Your score display
 
   Scenario: Your score displayed on dashboard
     Given the following users exist:
-      | name | points | demo                |
-      | Lazy | 0      | company_name: Alpha |
-      | Tony | 24     | company_name: Alpha |
-      | Bleh | 2      | company_name: Alpha |
-      | Phil | 634923 | company_name: Alpha |
-      | Vlad | 17     | company_name: Alpha |
-      | Dan  | 10     | company_name: Alpha |
+      | name | points | demo                | phone_number |
+      | Lazy | 0      | company_name: Alpha | +19435034923 |
+      | Tony | 24     | company_name: Alpha | +15893948923 |
+      | Bleh | 2      | company_name: Alpha | +15892384923 |
+      | Phil | 634923 | company_name: Alpha | +19895834234 |
+      | Vlad | 17     | company_name: Alpha | +19839582934 |
+      | Dan  | 10     | company_name: Alpha | +15893842334 |
+      | Bob  | 0      | company_name: Alpha |              |
     And "Tony" has the password "whatnot"
     And I sign in via the login page as "Tony/whatnot"
     When I go to the acts page

@@ -42,7 +42,7 @@ Feature: Player can win the game
     And "+14155551212" should not have received an SMS "Congratulations! You've scored 103 points and won the game!"
 
   Scenario: Other players have won
-    Given the following users exist:
+    Given the following user with phones exist:
       | demo                | name | won_at              |
       | company_name: BobCo | Dan  | 2005-12-31 06:00:00 |
     When I go to the activity page
