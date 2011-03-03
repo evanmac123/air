@@ -25,7 +25,7 @@ class Act < ActiveRecord::Base
 
     if user.nil?
       record_bad_message(nil, phone_number, body)
-      return parsing_error_message("You haven't been invited to the game.")
+      return parsing_error_message("I can't find your number in my records. Did you claim your account yet? If not, text your first initial and last name (if you are John Smith, text \"jsmith\").")
     end
 
     key_name, value = body.downcase.gsub(/\.$/, '').gsub(/\s+$/, '').split(' ', 2)
