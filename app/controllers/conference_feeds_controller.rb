@@ -4,7 +4,7 @@ class ConferenceFeedsController < ApplicationController
 
   def show
     @demo  = Demo.find_by_company_name('Employee Health Care Conference')
-    @users = @demo.users.order('ranking ASC')
+    @users = @demo.users.ranked.order('ranking ASC')
     @acts  = @demo.acts.order('created_at DESC')
   end
 
