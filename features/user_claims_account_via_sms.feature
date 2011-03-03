@@ -85,3 +85,16 @@ Feature: User claims account via SMS
     And "+14152613077" sends SMS "peter@darnowsky.com"
     Then "Paul Darnowsky" should not be claimed
     And "Peter Darnowsky" should not be claimed
+    And "+14152613077" should have received an SMS "You've already claimed your account, and currently have 0 points."
+
+  Scenario: If user claims twice, they get a helpful error message
+    Given the following demo exists:
+      | company_name | seed_points |
+      | W00t!        | 5           |
+    Given the following user exists:
+      | name            | claim_code  | demo                |
+      | Phil Darnowsky  | pdarnowsky  | company_name: W00t! |
+    When "+14152613077" sends SMS "pdarnowsky"
+    And "+14152613077" sends SMS "pdarnowsky"
+    Then "+14152613077" should have received an SMS "You've joined the W00t! game! To play, send texts to this number. Send a text HELP if you want help."
+    And "+14152613077" should have received an SMS "You've already claimed your account, and currently have 5 points."

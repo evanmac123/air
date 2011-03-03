@@ -37,8 +37,6 @@ class User < ActiveRecord::Base
   end
 
   def self.claim_account(from, claim_code)
-    return nil if User.find_by_phone_number(from)
-
     normalized_claim_code = claim_code.strip
     users = User.find(:all, :conditions => ["claim_code ILIKE ?", normalized_claim_code])
 
@@ -49,10 +47,13 @@ class User < ActiveRecord::Base
     user = users.first || User.find(:first, :conditions => ["email ILIKE ? AND claim_code != ''", normalized_claim_code])
     return nil unless user
 
+    if (existing_user = User.find_by_phone_number(from))
+      return "You've already claimed your account, and currently have #{existing_user.points} points."
+    end
+
     new_password = claim_code_prefix(user)
     user.update_attributes(
       :phone_number          => from, 
-      :claim_code            => nil, 
       :password              => new_password,
       :password_confirmation => new_password
     )

@@ -56,7 +56,7 @@ describe User, ".claim_account" do
       @user = Factory :user, :claim_code => @claim_code
     end
 
-    it "should set that user's phone number and clear their claim code" do
+    it "should set that user's phone number" do
       @user.phone_number.should be_blank
       @user.claim_code.should_not be_blank
 
@@ -64,7 +64,6 @@ describe User, ".claim_account" do
 
       @user.reload
       @user.phone_number.should == @from
-      @user.claim_code.should be_nil
     end
 
     it "should return some text" do
