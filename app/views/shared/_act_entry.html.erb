@@ -2,7 +2,7 @@
   <%# TODO: fragment cache this form %>
   <%= form_tag acts_path do %>
     <span class="enter-code">
-      Play:<input type="text" class="with-hint-text" name="act[code]" value="enter a command, action, or an answer to a question">
+      <span class="prompt">Play:</span><input type="text" class="with-hint-text" name="act[code]" value="enter a command, action, or an answer to a question">
       <input type="submit" value="add">
     </span>
   <% end %>

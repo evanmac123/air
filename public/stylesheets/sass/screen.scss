@@ -32,7 +32,10 @@ a:hover {
 body {
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-size: 14px;
-  background: $offwhite;
+  background-repeat:no-repeat;
+  background-color:#55950d;
+  background-image:-webkit-gradient(radial, center 10%, 0, center 10%, 800, from(#80d422), to(#55950d));
+  background-image:-moz-radial-gradient(center 10%, circle closest-side, #80d422 0, #55950d 800px);
 }
 
 h1 {
@@ -81,8 +84,8 @@ h2.your-mobile-number {
 
 .header {
   @include box-shadow(0, 1px, 2px, 1px, rgba(0, 0, 0, 0.5));
-  background: #444343;
-  height: 70px;
+  background: #3C4244;
+  height: 65px;
   .inner-header {
     margin: 0px auto;
     padding: 0 0 10px 0;
@@ -105,6 +108,11 @@ h2.your-mobile-number {
         font-size: 12px;
         color: $light-gray;
         vertical-align: middle; 
+
+        .prompt {
+          font-size: 18px;
+          vertical-align: middle;
+        }
 
         input[type="text"] {
           width: 330px;
@@ -155,8 +163,10 @@ h2.your-mobile-number {
 .content {
   @include rounded-corners;
   margin: 10px auto;
-  background: $offwhite;
-  width: 960px;
+  background-repeat:no-repeat;
+  background-color:#55950d;
+  background-image:-webkit-gradient(radial, center 10%, 0, center 10%, 800, from(#80d422), to(#55950d));
+  background-image:-moz-radial-gradient(center 10%, circle closest-side, #80d422 0, #55950d 800px);width: 960px;
   padding: 20px;
   padding-bottom: 5px;
   #secondary, #main {
@@ -259,7 +269,7 @@ ol.top-scores {
   li {
     height: 40px;
     padding: 14px 5px 0;
-    background-color: #d2d2d2; 
+    background-color: white; 
     margin-bottom: 1px;
     line-height: 22px;
     @include rounded-corners(6px);
@@ -272,6 +282,11 @@ ol.top-scores {
     .score-value {
       font-size: 22px; 
     }
+  }
+
+  .name {
+    color: $blue;
+    font-weight: bold;
   }
 }
 

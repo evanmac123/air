@@ -8,7 +8,10 @@ a:hover {
 body {
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-size: 14px;
-  background: #f0f0f0; }
+  background-repeat: no-repeat;
+  background-color: #55950d;
+  background-image: -webkit-gradient(radial, center 10%, 0, center 10%, 800, from(#80d422), to(#55950d));
+  background-image: -moz-radial-gradient(center 10%, circle closest-side, #80d422 0, #55950d 800px); }
 
 h1 {
   font-family: 'Chunk';
@@ -46,8 +49,8 @@ h2.your-mobile-number a {
   -webkit-box-shadow: 0 1px 2px 1px rgba(0, 0, 0, 0.5);
   -moz-box-shadow: 0 1px 2px 1px rgba(0, 0, 0, 0.5);
   box-shadow: 0 1px 2px 1px rgba(0, 0, 0, 0.5);
-  background: #444343;
-  height: 70px; }
+  background: #3C4244;
+  height: 65px; }
   .header .inner-header {
     margin: 0px auto;
     padding: 0 0 10px 0;
@@ -66,6 +69,9 @@ h2.your-mobile-number a {
         font-size: 12px;
         color: #999999;
         vertical-align: middle; }
+        .header .inner-header #add-action .enter-code .prompt {
+          font-size: 18px;
+          vertical-align: middle; }
         .header .inner-header #add-action .enter-code input[type="text"] {
           width: 330px;
           margin-left: 5px; }
@@ -100,7 +106,10 @@ h2.your-mobile-number a {
   -webkit-border-radius: 1em;
   border-radius: 1em;
   margin: 10px auto;
-  background: #f0f0f0;
+  background-repeat: no-repeat;
+  background-color: #55950d;
+  background-image: -webkit-gradient(radial, center 10%, 0, center 10%, 800, from(#80d422), to(#55950d));
+  background-image: -moz-radial-gradient(center 10%, circle closest-side, #80d422 0, #55950d 800px);
   width: 960px;
   padding: 20px;
   padding-bottom: 5px; }
@@ -184,7 +193,7 @@ form .submit-input {
 ol.top-scores li {
   height: 40px;
   padding: 14px 5px 0;
-  background-color: #d2d2d2;
+  background-color: white;
   margin-bottom: 1px;
   line-height: 22px;
   -moz-border-radius: 6px;
@@ -195,6 +204,9 @@ ol.top-scores .score {
   float: right; }
   ol.top-scores .score .score-value {
     font-size: 22px; }
+ol.top-scores .name {
+  color: #103245;
+  font-weight: bold; }
 
 pre {
   background: #111111;
