@@ -20,3 +20,7 @@ li.act .description, li.leader .description {
   margin: 7px 0 5px 0; }
 li.act .points, li.leader .points {
   font-size: 10px; }
+
+#profile-stats {
+  text-align: center;
+  margin: 10px 0 25px 0; }

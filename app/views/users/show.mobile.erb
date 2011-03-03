@@ -1,1 +1,43 @@
-<%= render @user %>
+<div data-role="header">
+  <h2><%= @user.name %></h2>
+</div>
+
+<div data-role="content">
+  <% if signed_in? && current_user == @user %>
+    <h2 class="your-mobile-number">
+      Your mobile number: <span class="number"><%= @user.phone_number %></span><br/>
+      <%= link_to "change your mobile number", edit_account_phone_path, :class => 'change-number-link' %>
+    </h2>
+  <% end %>
+
+  <div id="follow-target">
+    <% if signed_in? && current_user != @user %>
+      <% if current_user.following?(@user) %>
+        <%= unfollow(@user) %>
+      <% else %>
+        <%= follow(@user) %>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div id="profile-stats">
+    <strong><%= @user.points %></strong> points, 
+    <strong><%= @user.following_count %></strong> following, 
+    <strong><%= @user.followers_count %></strong> followers
+  </div>
+
+  <ul id="acts" data-role="listview">
+    <% @acts.each do |act| %>
+      <li id="<%= dom_id(act) %>" class="act">
+        <div class="user">
+          <span class="when">
+            <%= time_ago_in_words(act.created_at) %>
+          </span>
+        </div>
+        <span class="description">
+          <%= (act.text) %>
+        </span>
+      </li>
+    <% end %>
+  </ul>
+</div>
