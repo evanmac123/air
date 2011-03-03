@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
-  has_mobile_fu
   before_filter :mobile_if_mobile_device
+
+  has_mobile_fu
 
   before_filter :authenticate
   before_filter :load_act_entry_select_values
@@ -32,11 +33,21 @@ class ApplicationController < ActionController::Base
     request.format = :html
   end
 
+  def ipad?
+    request.user_agent.to_s.downcase.include?('ipad')
+  end
+
   def not_ipad?
-    request.user_agent.to_s.downcase != 'ipad'
+    !ipad?
   end
 
   def mobile_if_mobile_device
-    request.format = :mobile if not_ipad? && is_mobile_device?
+    if ipad?
+      session[:mobile_view] = false
+    end
+
+    if is_mobile_device? && not_ipad?
+      request.format = :mobile
+    end
   end
 end
