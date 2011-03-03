@@ -3,7 +3,7 @@ require 'csv'
 # TODO: Either remove this controller, or go back and do it properly,
 # including tests. Right now it just has to work once.
 
-class BulkLoadsController < ApplicationController
+class Admin::BulkLoadsController < ApplicationController
   before_filter :find_demo
 
   def new
