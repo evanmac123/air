@@ -4,6 +4,7 @@
 
 <div data-role="content">
   <%= form_for :session, :url => session_path do |form| %>
+    <%= form.error_messages %>
     <%= form.label :email %>
     <%= form.email_field :email %>
     <%= form.label :password %>
