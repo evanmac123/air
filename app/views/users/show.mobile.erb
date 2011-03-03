@@ -4,10 +4,7 @@
 
 <div data-role="content">
   <% if signed_in? && current_user == @user %>
-    <h2 class="your-mobile-number">
-      Your mobile number: <span class="number"><%= @user.phone_number %></span><br/>
-      <%= link_to "change your mobile number", edit_account_phone_path, :class => 'change-number-link' %>
-    </h2>
+    <p id="your-mobile-number">Your mobile number: <span class="number"><%= @user.phone_number %></span></p>
   <% end %>
 
   <div id="follow-target">

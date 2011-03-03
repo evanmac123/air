@@ -5,8 +5,6 @@ body {
   margin-top: 25px;
   text-align: center; }
 
-li.act .ui-btn-text, li.leader .ui-btn-text {
-  width: 110%; }
 li.act .user, li.leader .user {
   display: block;
   font-size: 13px;
@@ -30,6 +28,10 @@ li.act .points, li.leader .points {
 #profile-stats {
   text-align: center;
   margin: 10px 0 25px 0; }
+
+#your-mobile-number {
+  text-align: center;
+  margin: 0; }
 
 .other-user-winning-time {
   font-size: 10px;
