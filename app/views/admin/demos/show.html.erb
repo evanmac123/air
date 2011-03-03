@@ -1,5 +1,7 @@
 <h2 class="first"><%= link_to "Admin", admin_path %>: <%= @demo.company_name %></h2>
 
+<h2><%= @user_with_mobile_count %> users have added mobile numbers to their accounts</h2>
+
 <% if @demo.victory_threshold %>
   <p><%= @demo.victory_threshold %> points to win.</p>
 <% end %>

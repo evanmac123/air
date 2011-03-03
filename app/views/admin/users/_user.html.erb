@@ -1,5 +1,8 @@
 <li id="<%= dom_id(user) %>">
   <%= user.name %>, <%= user.email %>
+  <% if user.phone_number.present? %>
+    (<%= user.phone_number %>)
+  <% end %>
   <% if user.claim_code %>
     <strong>(<%= user.claim_code%>)</strong>
   <% end %>

@@ -18,7 +18,7 @@ describe Act, ".parse" do
 
     context "and asks for help" do
       it "helps them" do
-        reply = "Score points by texting this number your latest lifestyle act. Examples: ate a banana, smoked a cigarette, played basketball"
+        reply = 'Earn points, text: "went to gym", "ate fruit", "ate vegetables", "walked stairs", "ran outside", "walked outside" - provided you did those things, of course.'
         Act.parse(user, "help").should == reply
       end
     end
