@@ -8,10 +8,7 @@ a:hover {
 body {
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-size: 14px;
-  background-repeat: no-repeat;
-  background-color: #55950d;
-  background-image: -webkit-gradient(radial, center 10%, 0, center 10%, 800, from(#80d422), to(#55950d));
-  background-image: -moz-radial-gradient(center 10%, circle closest-side, #80d422 0, #55950d 800px); }
+  background: #f0f0f0; }
 
 h1 {
   font-family: 'Chunk';
@@ -106,12 +103,8 @@ h2.your-mobile-number a {
   -webkit-border-radius: 1em;
   border-radius: 1em;
   margin: 10px auto;
-  background-repeat: no-repeat;
-  background-color: #55950d;
-  background-image: -webkit-gradient(radial, center 10%, 0, center 10%, 800, from(#80d422), to(#55950d));
-  background-image: -moz-radial-gradient(center 10%, circle closest-side, #80d422 0, #55950d 800px);
+  background: #f0f0f0;
   width: 960px;
-  padding: 20px;
   padding-bottom: 5px; }
   .content #secondary, .content #main {
     margin-bottom: 10px; }

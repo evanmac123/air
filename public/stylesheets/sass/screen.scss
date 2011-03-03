@@ -32,10 +32,7 @@ a:hover {
 body {
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-size: 14px;
-  background-repeat:no-repeat;
-  background-color:#55950d;
-  background-image:-webkit-gradient(radial, center 10%, 0, center 10%, 800, from(#80d422), to(#55950d));
-  background-image:-moz-radial-gradient(center 10%, circle closest-side, #80d422 0, #55950d 800px);
+  background: $offwhite;
 }
 
 h1 {
@@ -163,11 +160,8 @@ h2.your-mobile-number {
 .content {
   @include rounded-corners;
   margin: 10px auto;
-  background-repeat:no-repeat;
-  background-color:#55950d;
-  background-image:-webkit-gradient(radial, center 10%, 0, center 10%, 800, from(#80d422), to(#55950d));
-  background-image:-moz-radial-gradient(center 10%, circle closest-side, #80d422 0, #55950d 800px);width: 960px;
-  padding: 20px;
+  background: $offwhite;
+  width: 960px;
   padding-bottom: 5px;
   #secondary, #main {
     margin-bottom: 10px;
