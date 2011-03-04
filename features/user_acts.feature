@@ -111,6 +111,6 @@ Feature: User acts
     And "+15088675309" sends SMS "help"
     And "+15088675309" sends SMS "more"
     Then "+15088675309" should have received an SMS "The game is now closed! Thanks for playing. If you would like to learn more information about H Engage, please respond with "more"" 
-    And "+15088675309" should not have received an SMS "Great, we'll be in touch. Stay healthy!"
+    And "+15088675309" should have received an SMS "Great, we'll be in touch. Stay healthy!"
     And "+15087407520" should not have received an SMS "The game is now closed! Thanks for playing. If you would like to learn more information about H Engage, please respond with "more""
-    And "+15088675309" should not have received an SMS "Great, we'll be in touch. Stay healthy!"
+    And "+15087407520" should not have received an SMS "Great, we'll be in touch. Stay healthy!"

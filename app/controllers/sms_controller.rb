@@ -4,8 +4,10 @@ class SmsController < ActionController::Metal
 
     # REMOVE this ridiculous hack after the conference
 
-   if Time.now.utc >= Time.utc(2011, 03, 04, 15, 30, 00)
-      self.response_body = 'The game is now closed! Thanks for playing. If you would like to learn more information about H Engage, please respond with "more"'
+    if Time.now.utc >= Time.utc(2011, 03, 04, 15, 30, 00)
+      self.response_body = (params['Body'].strip.downcase == 'more') ? 
+        "Great, we'll be in touch. Stay healthy!" :
+        'The game is now closed! Thanks for playing. If you would like to learn more information about H Engage, please respond with "more"'
       return
     end
 
