@@ -1,8 +1,8 @@
-Then /^"([^"]*)" should have received an SMS "([^"]*)"$/ do |phone_number, text_message|
+Then /^"([^"]*)" should have received an SMS "(.*)"$/ do |phone_number, text_message|
   FakeTwilio::SMS.should have_sent_text(phone_number, text_message)
 end
 
-Then /^"([^"]*)" should not have received an SMS "([^"]*)"$/ do |phone_number, text_message|
+Then /^"([^"]*)" should not have received an SMS "(.*)"$/ do |phone_number, text_message|
   FakeTwilio::SMS.should_not have_sent_text(phone_number, text_message)
 end
 
