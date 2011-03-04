@@ -109,7 +109,7 @@ Feature: User acts
     And "+15087407520" sends SMS "more"
     And time is frozen at "2011-03-04 15:30:00 UTC"
     And "+15088675309" sends SMS "help"
-    And "+15088675309" sends SMS "more"
+    And "+15088675309" sends SMS "yes"
     Then "+15088675309" should have received an SMS "The game is now closed! Thanks for playing. If you would like to learn more information about H Engage, please respond with "more"" 
     And "+15088675309" should have received an SMS "Great, we'll be in touch. Stay healthy!"
     And "+15087407520" should not have received an SMS "The game is now closed! Thanks for playing. If you would like to learn more information about H Engage, please respond with "more""
