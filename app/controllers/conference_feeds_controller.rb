@@ -3,9 +3,9 @@ class ConferenceFeedsController < ApplicationController
   before_filter :set_conference_feed_page
 
   def show
-    @demo  = Demo.find_by_company_name('Employee Health Care Conference')
+    @demo  = Demo.includes(:users, :acts).where(:company_name => 'Employee Health Care Conference').first
     @users = @demo.users.ranked.order('ranking ASC')
-    @acts  = @demo.acts.order('created_at DESC')
+    @acts  = @demo.acts.order('created_at DESC').limit(20).includes(:user, {:rule => :key})
   end
 
   protected
