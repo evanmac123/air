@@ -5,9 +5,12 @@ class SmsController < ActionController::Metal
     # REMOVE this ridiculous hack after the conference
 
     if Time.now.utc >= Time.utc(2011, 03, 04, 15, 30, 00)
-      self.response_body = (params['Body'].strip.downcase == 'more') ? 
-        "Great, we'll be in touch. Stay healthy!" :
-        'The game is now closed! Thanks for playing. If you would like to learn more information about H Engage, please respond with "more"'
+      self.response_body = if (params['Body'].strip.downcase == 'more') 
+                             MoreInfoRequest.create(:phone_number => params['From'])
+                             "Great, we'll be in touch. Stay healthy!" 
+                           else
+                             'The game is now closed! Thanks for playing. If you would like to learn more information about H Engage, please respond with "more"'
+                           end
       return
     end
 
