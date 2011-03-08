@@ -1,0 +1,117 @@
+<!DOCTYPE HTML>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+
+  <meta charset="utf-8">
+  <title>H Engage</title>
+  <link href="commands_files/chunk.css" media="screen" rel="stylesheet" type="text/css">
+<link href="commands_files/flutie.css" media="screen" rel="stylesheet" type="text/css">
+<link href="commands_files/screen.css" media="screen" rel="stylesheet" type="text/css">
+  <meta name="csrf-param" content="authenticity_token">
+<meta name="csrf-token" content="Uhuity5321IYX+vNfh5s+tnspZae9Ac2sV3+ff8RIKc=">
+</head><body class="admin-demos admin-demos-show">
+  <div class="header">
+  <div class="inner-header">
+    <div id="header-and-slogan">
+      <a href="http://localhost:3000/">
+        <img alt="H Engage logo" src="commands_files/textlogo.png">
+</a>    </div>
+
+        <div id="add-action">
+  <form accept-charset="UTF-8" action="/acts" method="post"><div style="margin: 0pt; padding: 0pt; display: inline;"><input name="utf8" value="✓" type="hidden"><input name="authenticity_token" value="Uhuity5321IYX+vNfh5s+tnspZae9Ac2sV3+ff8RIKc=" type="hidden"></div>
+    <span class="enter-code">
+      <span class="prompt">Play:</span><input class="with-hint-text" name="act[code]" value="enter a command, action, or an answer to a question" type="text">
+      <input value="add" type="submit">
+    </span>
+</form>
+</div>
+
+
+      <div id="account">
+          <a href="http://localhost:3000/users/Phil-Darnowsky" id="self-link">Phil Darnowsky</a>
+          <a href="http://localhost:3000/sign_out" data-method="delete" rel="nofollow">Sign out</a>
+      </div>
+  </div>
+</div>
+
+    <div class="content">
+      <h2 class="first"><a href="http://localhost:3000/admin">Admin</a>: <a href="http://localhost:3000/admin/demos/105">Employee Health Care Conference</a>: <a href="#">Commands</a>: ate an entire pizza</h2>
+
+      <form action="#">
+        <fieldset>
+          <legend>Basics</legend>
+            <label for="command_name">Command text: </label>
+            <input type="text" name="command_name" value="ate an entire pizza">
+            <br/>Don't worry about case or extra whitespace, we'll clean this up before we save it.
+
+            <br/><br/>
+            <label for="command_points">Points: </label>
+            <input type="text" name="command_points" value="10">
+
+            <br/><br/>
+            <label for="command_reply">Reply: </label>
+            <textarea name="command_reply" rows="2" cols="90">Good for you! +{{action_points}} points. New research shows that eating an entire pizza every day helps prevent a serious deficiency of milkfat and tomato sauce.</textarea>
+          </fieldset>
+
+          <fieldset>
+            <legend>Activity Stream</legend>
+            Show in activity stream: <input type="checkbox" checked="checked">
+
+            <br/><br/>
+            <label for="command_description">Description in the activity stream: </label>
+            <textarea type="text" name="command_description">I absorbed the power of cheese and challenge you to do the same!</textarea>
+            <br/>If you leave this field blank, we'll use the command text above as the description too.
+          </fieldset>
+
+          <fieldset>
+            <legend>Rule Family</legend>
+            You can choose a family for this rule to belong to. At the moment this just means that this rule might be used as a suggestion if we can't properly parse a message from the user.<br/>
+            <select>
+              <option></option>
+              <option selected="selected">ate</option>
+              <option>lifted</option>
+              <option>walked</option>
+              <option>went to</option>
+            </select>
+          </fieldset>
+
+          <fieldset class="who">
+            <legend>Who Can Use This</legend>
+            <input type="radio" name="command_who_can_use">Anyone with a phone<br/>
+            <input type="radio" name="command_who_can_use" checked="checked">Any known user<br/>
+          </fieldset>
+
+          <fieldset class="when">
+            <legend>When Can This Be Used</legend>
+            <input type="checkbox"><strong>BEFORE</strong> the game starts<br/>
+            <input type="checkbox" checked="checked"><strong>DURING</strong> the game<br/>
+            <input type="checkbox"><strong>AFTER</strong> the game ends<br/>
+          </fieldset>
+
+        <input type="submit" value="Save Command">
+      </form>
+    </div>
+
+  <div id="footer">
+  </div>
+  <script src="commands_files/ga.js" async="" type="text/javascript"></script><script src="commands_files/ga_002.js" type="text/javascript"></script>
+<script src="commands_files/jquery.js" type="text/javascript"></script>
+<script src="commands_files/jquery-ui.js" type="text/javascript"></script>
+<script src="commands_files/rails.js" type="text/javascript"></script>
+<script src="commands_files/prefilled_input.js" type="text/javascript"></script>
+<script src="commands_files/jquery_002.js" type="text/javascript"></script>
+<script src="commands_files/application.js" type="text/javascript"></script>
+
+    <script type="text/javascript">
+//<![CDATA[
+
+      $('.enter-code .with-hint-text').live('focus', (function(e) {
+        $(this).attr('value', '').removeClass('with-hint-text');
+      }));
+
+//]]>
+</script>
+
+
+</body></html>
