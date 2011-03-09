@@ -6,22 +6,17 @@
       <% end %>
     </div>
 
-    <%# REMOVE this after conference %>
-    <% if @conference_feed_page %>
-      <span id="conference-header">@ Employee Health Care Conference</span>
-    <% else %>
-      <% if signed_in? %>
-        <%= render :partial => 'shared/act_entry' %>
-      <% end %>
-
-      <div id="account">
-        <% if signed_in? %>
-          <%= link_to current_user.name, current_user, :id => 'self-link' %>
-          <%= link_to "Sign out", sign_out_path, :method => :delete %>
-        <% else %>
-          <%= link_to "By invitation only", page_path('invitation') %>
-        <% end %>
-      </div>
+    <% if signed_in? %>
+      <%= render :partial => 'shared/act_entry' %>
     <% end %>
+
+    <div id="account">
+      <% if signed_in? %>
+        <%= link_to current_user.name, current_user, :id => 'self-link' %>
+        <%= link_to "Sign out", sign_out_path, :method => :delete %>
+      <% else %>
+        <%= link_to "By invitation only", page_path('invitation') %>
+      <% end %>
+    </div>
   </div>
 </div>
