@@ -38,3 +38,14 @@ end
 Factory.define :key do |factory|
   factory.sequence(:name) { |n| "ate_#{n}" }
 end
+
+Factory.define :bad_message do |factory|
+  factory.phone_number { Factory.next :phone }
+  factory.received_at  { Time.now }
+end
+
+Factory.define :bad_message_reply do |factory|
+  factory.association :sender, :factory => :user
+  factory.association :bad_message
+end
+

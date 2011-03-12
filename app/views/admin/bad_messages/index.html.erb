@@ -6,6 +6,8 @@
     <th>Sender's number</th>
     <th>Body</th>
     <th>Received at</th>
+    <th></th>
+    <th></th>
   </tr>
 
   <% @messages.each do |message| %>
@@ -21,6 +23,18 @@
       </td>
       <td>
         <%= message.received_at.localtime %>
+      </td>
+      <td>
+        <%= link_to "Reply", new_admin_bad_message_reply_path(message) %>
+      </td>
+      <td>
+        <% prefix = '' %>
+        <% message.replies.each do |reply| %>
+          <%= prefix %>
+          <% prefix = content_tag 'br' %>
+          <% sender_name = reply.sender == current_user ? "you" : reply.sender.name %>
+          Replied to by <%= sender_name %>, <%= reply.created_at.winning_time_format %>
+        <% end %>
       </td>
     </tr>
   <% end %>

@@ -1,0 +1,4 @@
+<%= semantic_form_for @bad_message_reply, :url => admin_bad_message_replies_path(@bad_message) do |form| %>
+  <%= form.input :body, :as => :text, :label => 'Say to user:' %>
+  <%= form.commit_button 'Send' %>
+<% end %>

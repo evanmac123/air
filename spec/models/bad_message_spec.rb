@@ -1,5 +1,6 @@
 require 'spec_helper'
 
 describe BadMessage do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it { should validate_presence_of(:phone_number) }
+  it { should validate_presence_of(:received_at) }
 end

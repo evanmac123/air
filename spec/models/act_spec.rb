@@ -8,13 +8,16 @@ end
 describe Act, ".parse" do
   context "when user has not been invited to the game" do
     it "tells them" do
+      number = "+14155551212"
+      User.find_by_phone_number(number).should be_nil
+
       reply = "I can't find your number in my records. Did you claim your account yet? If not, text your first initial and last name (if you are John Smith, text \"jsmith\")."      
-      Act.parse(nil, "hello?").should == reply
+      Act.parse(number, "hello?").should == reply
     end
   end
 
   context "when user is in the game" do
-    let(:user) { Factory(:user) }
+    let(:user) { Factory(:user, :phone_number => '+16175551212') }
 
     context "and asks for help" do
       it "helps them" do
