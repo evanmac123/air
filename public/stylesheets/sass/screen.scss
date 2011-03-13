@@ -609,3 +609,24 @@ input.with-hint-text {
 textarea#bad_message_reply_body {
   height: 55px;
 }
+
+.bad-message-thread {
+  width: 100%;
+  padding: 10px 0;
+  border-top: solid black 1px;
+  border-bottom: solid black 1px;
+
+  .message-sender {
+    font-weight: bold;
+    color: blue;
+  }
+
+  .message-replier {
+    font-weight: bold;
+    color: orange;
+  }
+
+  .message-reply, .message-details {
+    margin-bottom: 15px;
+  }
+}

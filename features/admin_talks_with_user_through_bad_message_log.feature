@@ -35,3 +35,19 @@ Feature: Admin can talk with a user via the bad message log
     Then I should be on the bad message log page
     And I should see "Couldn't send message: Body is too long (maximum is 160 characters)"
     And I should not see "Replied to by you, May 01, 2010 at 06:00 PM Eastern"
+
+  Scenario: Admin sees conversations as threads
+    Given time is unfrozen
+    And the following bad messages with replies exist:
+      | phone_number | body                                       | reply                             |
+      | +14152613077 | help                                       | It looks like you asked for help. |
+      | +14152613077 | No kidding, Clippy.                        | Are you writing a letter?         |
+      | +14152613077 | No, I wanna play an SMS-based health game. | Oh. Please hold.                  |
+    When I go to the bad message log page
+    Then I should see a thread:
+      | Oh. Please hold.                           |
+      | No, I wanna play an SMS-based health game. | 
+      | Are you writing a letter?                  |
+      | No kidding, Clippy.                        | 
+      | It looks like you asked for help.          |
+      | help                                       | 

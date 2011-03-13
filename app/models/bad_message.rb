@@ -2,7 +2,7 @@ class BadMessage < ActiveRecord::Base
   GROUPING_TIMEOUT = 1.hour
 
   belongs_to :user
-  belongs_to :thread, :class_name => 'BadMessageThread'
+  belongs_to :thread, :class_name => 'BadMessageThread', :touch => true
   has_many   :replies, :class_name => 'BadMessageReply'
 
   validates_presence_of :phone_number, :received_at

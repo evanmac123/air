@@ -1,5 +1,5 @@
 class Admin::BadMessagesController < AdminBaseController
   def index
-    @messages = BadMessage.most_recent_first.all(:include => [:user, {:replies => :sender}])
+    @threads = BadMessageThread.most_recent_first.all(:include => {:messages => [:user, {:replies => :sender}]})
   end
 end

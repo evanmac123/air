@@ -448,3 +448,17 @@ input.with-hint-text {
 
 textarea#bad_message_reply_body {
   height: 55px; }
+
+.bad-message-thread {
+  width: 100%;
+  padding: 10px 0;
+  border-top: solid black 1px;
+  border-bottom: solid black 1px; }
+  .bad-message-thread .message-sender {
+    font-weight: bold;
+    color: blue; }
+  .bad-message-thread .message-replier {
+    font-weight: bold;
+    color: orange; }
+  .bad-message-thread .message-reply, .bad-message-thread .message-details {
+    margin-bottom: 15px; }
