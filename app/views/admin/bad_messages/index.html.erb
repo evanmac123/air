@@ -9,3 +9,16 @@
     <%= submit_tag 'Send' %>
   <% end %>
 </div>
+
+<% content_for :javascript do %>
+  <%= javascript_tag do %>
+    function refreshThreads(lastUpdatedAt) {
+      $.ajax({
+        data: {since: lastUpdatedAt},
+        success: function(data) {console.log(data)}
+      });
+    };
+
+    refreshThreads('<%= @last_updated_at %>');
+  <% end %>
+<% end %>

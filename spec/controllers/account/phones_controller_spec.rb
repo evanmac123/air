@@ -8,8 +8,6 @@ describe Account::PhonesController do
 
     context "in response to an XHR" do
       before(:each) do
-        request.headers['X-Requested-With'] = 'XMLHttpRequest'
-
         @params = {:user => {:phone_number => '(415) 261-3077'}}
       end
 

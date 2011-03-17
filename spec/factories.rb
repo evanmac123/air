@@ -49,3 +49,5 @@ Factory.define :bad_message_reply do |factory|
   factory.association :bad_message
 end
 
+Factory.define :bad_message_thread do |factory|
+end
