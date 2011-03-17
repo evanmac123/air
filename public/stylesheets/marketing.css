@@ -3,20 +3,21 @@
   .marketing #header {
     margin: 10px auto;
     width: 960px;
-    height: 60px; }
+    height: 80px; }
     .marketing #header #logo {
       width: 440px;
-      height: 60px;
+      height: 80px;
       float: left; }
       .marketing #header #logo h1 {
         color: white;
-        width: 110px;
-        height: 50px;
+        width: 186px;
+        height: 80px;
         margin: 0;
         text-indent: -9999px;
         background: url(/images/logo.png); }
     .marketing #header #nav {
       float: right;
+      margin-top: 20px;
       width: 520px;
       height: 40px;
       background: #eeeeee;
