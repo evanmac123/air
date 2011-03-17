@@ -11,16 +11,16 @@
     <div id="logo">
       <h1>H Engage</h1>
     </div>
-    <ul id="nav">
-      <li><button class="cupid-green">Our Team</button></li>
-      <li><a href="http://hengage.tumblr.com"><button class="cupid-green">Blog</button></a></li>
-      <li><button class="cupid-green">Our Story</button></li>
-      <li>
-        <%= link_to sign_in_path do %>
-          <button class="cupid-green">Sign In</button>
-        <% end %>
-      </li>
-    </ul>
+    <div id="nav">
+      <ul>
+        <li><button class="cupid-green">Our Team</button></li>
+        <li><a href="http://hengage.tumblr.com"><button class="cupid-green">Blog</button></a></li>
+        <li><button class="cupid-green">Our Story</button></li>
+        <li>
+          <%= link_to "Sign In", sign_in_path, :class => "authentication" %>
+        </li>
+      </ul>
+    </div>
   </div>
   <%= yield %>
 </body>

@@ -1,14 +1,20 @@
+$white: #fff;
+$gray: #eee;
+$green: #7fbf4d;
+$dark-green: #63a62f;
+
 .marketing {
+  background: $white;
   #header {
-    margin: 0px auto;
+    margin: 10px auto;
     width: 960px;
-    height: 50px;
+    height: 60px;
     #logo {
       width: 440px;
-      height: 50px;
+      height: 60px;
       float: left;
       h1 {
-        color: #fff;
+        color: $white;
         width: 110px;
         height: 50px;
         margin: 0;
@@ -16,24 +22,39 @@
         background: url(/images/logo.png);
       }
     }
-    ul#nav {
-      list-style-type: none;
-      li {
-        display: inline-block;
-        margin-top: 3px;
-        font-size: 12px;
-        font-weight: bold;
-        &:first-child {
-          margin-left: 10px;
+    #nav {
+      float: right;
+      width: 520px;
+      height: 40px;
+      background: $gray;
+      padding: 5px 0;
+      ul {
+        width: 520px;
+        margin: 0;
+        list-style-type: none;
+        li {
+          display: inline-block;
+          margin: 3px;
+          font-size: 12px;
+          font-weight: bold;
+          &:first-child {
+            margin-left: 10px;
+          }
+          a, a:active, a:link {
+            text-decoration: none;
+          }
+          .authentication {
+            color: $dark-green;
+            font-size: 12px;
+            text-transform: uppercase;
+            margin-left: 30px;
+            line-height: 14px;
+          }
+          .authentication:hover {
+            text-decoration: underline;
+            color: $green;
+          }
         }
-        a, a:active, a:link {
-          text-decoration: none;
-        }
-        a:hover {
-        }
-      }
-      li:last-child {
-        margin-left: 10px;
       }
     }
   }
@@ -53,6 +74,14 @@
   p {
     font-size: 18px;
     line-height: 24px;
+    margin-bottom: 14px;
+    a, a:visited, a:link {
+      color: $dark-green;
+    }
+    a:hover {
+      text-decoration: underline;
+      color: $green;
+    }
   }
   .inner-wrapper {
     margin: 0px auto;
@@ -82,9 +111,9 @@
 
 /* cupid green (inspired by okcupid.com)
 *******************************************************************************/
-button.cupid-green, ul#nav li:last-child button:hover {
-  background: #7fbf4d;
-  background: -moz-linear-gradient(top, #7fbf4d 0%, #63a62f 100%);
+button.cupid-green {
+  background: $green;
+  background: -moz-linear-gradient(top, #7fbf4d 0%, $dark-green 100%);
   background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#7fbf4d), to(#63a62f));
   border: 1px solid #63a62f;
   border-bottom: 1px solid #5b992b;
@@ -105,7 +134,7 @@ button.cupid-green, ul#nav li:last-child button:hover {
   width: 120px;
 }
 
-button.cupid-green:hover, ul#nav li:last-child button {
+button.cupid-green:hover {
   background: #76b347;
   background: -moz-linear-gradient(top, #76b347 0%, #5e9e2e 100%);
   background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#76b347), to(#5e9e2e));
