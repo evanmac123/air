@@ -1,10 +1,18 @@
 .marketing #header {
   margin: 0px auto;
-  width: 960px; }
+  width: 960px;
+  height: 50px; }
   .marketing #header #logo {
     width: 440px;
     height: 50px;
     float: left; }
+    .marketing #header #logo h1 {
+      color: #fff;
+      width: 110px;
+      height: 50px;
+      margin: 0;
+      text-indent: -9999px;
+      background: url(/images/logo.png); }
   .marketing #header ul#nav {
     list-style-type: none; }
     .marketing #header ul#nav li {
@@ -19,17 +27,17 @@
     .marketing #header ul#nav li:last-child {
       margin-left: 10px; }
 .marketing .content #healthy-business-dude {
-  width: 450px;
-  float: left; }
+  width: 430px;
+  float: left;
+  margin-right: 20px; }
 .marketing .content #why-hengage {
-  margin-left: 450px;
   width: 480px;
   float: left; }
   .marketing .content #why-hengage h2 {
     font-size: 50px; }
   .marketing .content #why-hengage h3 {
     font-size: 23px;
-    line-height: 28px;
+    line-height: 30px;
     margin-bottom: 25px; }
   .marketing .content #why-hengage p {
     font-size: 18px;
