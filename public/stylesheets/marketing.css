@@ -26,22 +26,37 @@
         text-decoration: none; }
     .marketing #header ul#nav li:last-child {
       margin-left: 10px; }
-.marketing .content #healthy-business-dude {
-  width: 430px;
-  float: left;
-  margin-right: 20px; }
-.marketing .content #why-hengage {
-  width: 480px;
-  float: left; }
-  .marketing .content #why-hengage h2 {
-    font-size: 50px; }
-  .marketing .content #why-hengage h3 {
-    font-size: 23px;
-    line-height: 30px;
-    margin-bottom: 25px; }
-  .marketing .content #why-hengage p {
-    font-size: 18px;
-    line-height: 24px; }
+.marketing .section {
+  clear: both;
+  margin: 0px auto;
+  width: 100%; }
+.marketing h2 {
+  font-size: 50px; }
+.marketing h3 {
+  font-size: 23px;
+  line-height: 30px;
+  margin-bottom: 25px; }
+.marketing p {
+  font-size: 18px;
+  line-height: 24px; }
+.marketing .inner-wrapper {
+  margin: 0px auto;
+  width: 960px;
+  padding: 10px; }
+.marketing #about-wrapper {
+  margin: 0px auto;
+  width: 960px; }
+  .marketing #about-wrapper #healthy-business-dude {
+    width: 430px;
+    float: left;
+    margin-right: 20px; }
+  .marketing #about-wrapper #why-hengage {
+    width: 480px;
+    float: left; }
+.marketing #risks {
+  background-color: #0072bc; }
+  .marketing #risks .inner-wrapper {
+    background-color: #abc9dc; }
 
 /* cupid green (inspired by okcupid.com)
 *******************************************************************************/
