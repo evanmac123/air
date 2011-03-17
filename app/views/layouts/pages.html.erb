@@ -13,9 +13,21 @@
     </div>
     <div id="nav">
       <ul>
-        <li><button class="cupid-green">Our Team</button></li>
-        <li><a href="http://hengage.tumblr.com"><button class="cupid-green">Blog</button></a></li>
-        <li><button class="cupid-green">Our Story</button></li>
+        <li>
+          <%= link_to page_path('our_team') do %>
+            <button class="cupid-green">Our Team</button>
+          <% end %>
+        </li>
+        <li>
+          <%= link_to "http://hengage.tumblr.com" do %>
+            <button class="cupid-green">Blog</button>
+          <% end %>
+        </li>
+        <li>
+          <%= link_to page_path('our_story') do %>
+            <button class="cupid-green">Our Story</button>
+          <% end %>
+        </li>
         <li>
           <%= link_to "Sign In", sign_in_path, :class => "authentication" %>
         </li>
