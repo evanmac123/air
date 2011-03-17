@@ -24,12 +24,12 @@ Health::Application.routes.draw do
   match "sign_up"  => "users#new"
   match "sign_out" => "clearance/sessions#destroy"
 
-  root :to => 'homes#show'
+  root :to => 'pages#show', :id => 'marketing'
 
   resource :home,  :only => :show
   resource :admin, :only => :show
 
-  resources :pages
+  resources :pages, :only => :show
 
   namespace :account do
     resource :phone, :only => [:edit, :update]
