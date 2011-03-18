@@ -4,6 +4,10 @@ class Time
   end
 
   def with_us
-    strftime("%Y-%m-%d %H:%M:%S.%6N %Z")
+    # 1.8.7 doesn't recognize %N directive for fractional part of seconds, and
+    # we're running REE 1.8.7 in production & staging
+    result = strftime("%Y-%m-%d %H:%M:%S.")
+    result += usec.to_s
+    result += strftime(" %Z")
   end
 end
