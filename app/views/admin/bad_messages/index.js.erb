@@ -6,11 +6,21 @@ updatedThreads = {
   <% end %>
 }
 
+var windowScroll;
+
+windowScroll = $(document).scrollTop();
+
 $.each(updatedThreads, function(div_id, new_html) {
-  $('#' + div_id).remove();
+  var dom_id = '#' + div_id;
+
+  windowScroll -= $(dom_id).innerHeight();
+  $(dom_id).remove();
   $('#threads').prepend(new_html);
-  $('#' + div_id).hide().fadeIn('fast');
+  $(dom_id).hide().fadeIn('fast');
+  windowScroll += $(dom_id).innerHeight();
 });
+
+$(document).scrollTop(windowScroll);
 
 <%# The gsub here is a hack to remove starting & ending <script> tags from
     the JS content, which we do need. %>
