@@ -1,0 +1,18 @@
+lastUpdatedAt = '<%= @last_updated_at %>';
+
+updatedThreads = {
+  <% @threads.reverse.each do |thr| %>
+    <%= dom_id(thr) %>: '<%= escape_javascript(render :partial => 'thread', :object => thr) %>',
+  <% end %>
+}
+
+$.each(updatedThreads, function(div_id, new_html) {
+  $('#' + div_id).remove();
+  $('#threads').prepend(new_html);
+  $('#' + div_id).hide().fadeIn('fast');
+});
+
+<%# The gsub here is a hack to remove starting & ending <script> tags from
+    the JS content, which we do need. %>
+
+<%= (yield :javascript).gsub(/<\/?script.*?>/, '') %>

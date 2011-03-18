@@ -1,6 +1,8 @@
-<h2 class="first"><%= link_to "Admin", admin_path %>: Bad Message Log</h2>
+<h2 class="first"><%= link_to "Admin", admin_path %>: Bad Message Log <span id="loading-message"> </span> </h2>
 
-<%= render :partial => 'thread', :collection => @threads %>
+<div id="threads">
+  <%= render :partial => 'thread', :collection => @threads %>
+</div>
 
 <div id="reply-dialog" style="display: none">
   <%= form_tag '#' do %>
@@ -12,13 +14,19 @@
 
 <% content_for :javascript do %>
   <%= javascript_tag do %>
-    function refreshThreads(lastUpdatedAt) {
+    var lastUpdatedAt = '<%= @last_updated_at %>';
+
+    function refreshThreads() {
       $.ajax({
+        url: '<%= admin_bad_messages_path(:format => :js) %>',
         data: {since: lastUpdatedAt},
-        success: function(data) {console.log(data)}
+        beforeSend: function() { $('#loading-message').html('Checking for new messages...')},
+        success: function() {$('#loading-message').html('')},
+        error: function() {$('#loading-message').html('Error contacting server!')},
+        complete: function() {setTimeout(refreshThreads, 3000)}
       });
     };
 
-    refreshThreads('<%= @last_updated_at %>');
+    refreshThreads();
   <% end %>
 <% end %>

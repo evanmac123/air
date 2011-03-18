@@ -463,3 +463,6 @@ textarea#bad_message_reply_body {
     color: orange; }
   .bad-message-thread .message-reply, .bad-message-thread .message-details {
     margin-bottom: 15px; }
+
+#loading-message {
+  float: right; }

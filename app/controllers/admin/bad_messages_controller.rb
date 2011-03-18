@@ -9,20 +9,12 @@ class Admin::BadMessagesController < AdminBaseController
     end
 
     @threads = BadMessageThread.most_recent_first.all(thread_options)
-    @last_updated_at = @threads.first.updated_at
+    @last_updated_at = @threads.first ? @threads.first.updated_at.with_us : Time.zone.now.utc.with_us
 
     respond_to do |format|
       format.html
 
-      format.json do
-        thread_content = @threads.map {|thr| threaded_messages(thr)}
-        render json: {
-          'last_updated_at' => @last_updated_at,
-          'updated_threads' => thread_content
-        }
-
-        debugger
-      end
+      format.js 
     end
   end
 end
