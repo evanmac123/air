@@ -9,7 +9,7 @@ class Admin::BadMessagesController < AdminBaseController
     end
 
     @threads = BadMessageThread.most_recent_first.all(thread_options)
-    @last_updated_at = @threads.first ? @threads.first.updated_at.with_us : Time.zone.now.utc.with_us
+    @last_updated_at = @threads.first ? @threads.first.updated_at.with_us : Time.zone.now.utc.with_ms
 
     respond_to do |format|
       format.html
