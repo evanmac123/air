@@ -1,5 +1,5 @@
 class BadMessageReply < ActiveRecord::Base
-  belongs_to :bad_message
+  belongs_to :bad_message, :counter_cache => 'reply_count'
   belongs_to :sender, :class_name => 'User'
 
   validates_length_of :body, :maximum => 160

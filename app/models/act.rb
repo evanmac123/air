@@ -24,7 +24,7 @@ class Act < ActiveRecord::Base
     end
 
     if user.nil?
-      record_bad_message(nil, phone_number, body)
+      record_bad_message(phone_number, body)
       return parsing_error_message("I can't find your number in my records. Did you claim your account yet? If not, text your first initial and last name (if you are John Smith, text \"jsmith\").")
     end
 
@@ -50,7 +50,7 @@ class Act < ActiveRecord::Base
     elsif helpful_error_message = generate_helpful_error(key_name, value)
       return parsing_error_message(helpful_error_message)
     else
-      record_bad_message(user, phone_number, body)
+      record_bad_message(phone_number, body)
       return parsing_error_message("We didn't understand. Try: help")
     end
   end
@@ -106,7 +106,7 @@ class Act < ActiveRecord::Base
     end
   end
 
-  def self.record_bad_message(user, phone_number, body)
-    BadMessage.create!(:user => user, :phone_number => phone_number, :body => body, :received_at => Time.now)
+  def self.record_bad_message(phone_number, body)
+    BadMessage.create!(:phone_number => phone_number, :body => body, :received_at => Time.now)
   end
 end

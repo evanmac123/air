@@ -1,0 +1,39 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>H Engage</title>
+  <%= stylesheet_link_tag :flutie, 'screen', 'marketing' %>
+  <%= csrf_meta_tag %>
+</head>
+<body class="<%= body_class %> marketing">
+  <div id="header">
+    <div id="logo">
+      <a href="/"><h1>H Engage</h1></a>
+    </div>
+    <div id="nav">
+      <ul>
+        <li>
+          <%= link_to page_path('our_team') do %>
+            <button class="cupid-green">Our Team</button>
+          <% end %>
+        </li>
+        <li>
+          <%= link_to "http://hengage.tumblr.com" do %>
+            <button class="cupid-green">Blog</button>
+          <% end %>
+        </li>
+        <li>
+          <%= link_to page_path('our_story') do %>
+            <button class="cupid-green">Our Story</button>
+          <% end %>
+        </li>
+        <li>
+          <%= link_to "Sign in", sign_in_path, :class => "authentication" %>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <%= yield %>
+</body>
+</html>

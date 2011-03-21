@@ -44,10 +44,17 @@ Factory.define :bad_message do |factory|
   factory.received_at  { Time.now }
 end
 
+Factory.define :new_bad_message, :parent => :bad_message do |factory|
+  factory.is_new true
+end
+
+Factory.define :watchlisted_bad_message, :parent => :bad_message do |factory|
+  factory.after_create do |bad_message|
+    bad_message.update_attributes(:is_new => false, :on_watch_list => true)
+  end
+end
+
 Factory.define :bad_message_reply do |factory|
   factory.association :sender, :factory => :user
   factory.association :bad_message
-end
-
-Factory.define :bad_message_thread do |factory|
 end

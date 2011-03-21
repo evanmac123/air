@@ -466,3 +466,37 @@ textarea#bad_message_reply_body {
 
 #loading-message {
   float: right; }
+
+.message {
+  margin-top: 5px;
+  margin-bottom: 35px;
+  width: 500px;
+  font-size: 16px; }
+  .message .message-header {
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+    background-color: #6c7868;
+    color: white; }
+  .message .message-body {
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+    background-color: white;
+    color: #111111; }
+  .message .reply {
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+    background-color: #d2e8b9;
+    color: #111111; }
+  .message form {
+    display: inline; }
+    .message form input[type="submit"] {
+      background-color: inherit;
+      border: none;
+      color: #999999;
+      font-size: inherit;
+      text-transform: none;
+      font-weight: normal;
+      padding: 0; }

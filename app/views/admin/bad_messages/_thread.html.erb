@@ -1,23 +1,3 @@
-<div id="<%= dom_id(thread) %>" class="bad-message-thread">
-<% thread.messages.sort_by(&:received_at).reverse.each do |message| %>
-  <% message.replies.sort_by(&:created_at).reverse.each do |reply| %>
-    <div class='message-reply'>
-      <% replier_name = (current_user == reply.sender) ? 'you' : reply.sender.name %>
-      <span class='message-replier'>Replied to by <%= replier_name %></span>, <%= reply.created_at.winning_time_format %>:
-      <br/>
-      <%= reply.body %>
-    </div>
-  <% end %>
-
-  <% sender_name = message.user.try(:name) || 'unknown' %>
-  <div class='message-details'>
-    <span class="message-sender"><%= message.phone_number %> (<%= sender_name %>)</span> sent at <%= message.received_at.winning_time_format %>:
-    <br/>
-    <%= message.body %>
-
-    <% reply_link_dom_id = "reply-link-#{dom_id(message)}" %>
-    <%= link_to 'Reply', new_admin_bad_message_reply_path(:bad_message_id => message.id), :class => 'reply-link', :id => reply_link_dom_id %>
-
     <% content_for :javascript do %>
       <%= javascript_tag do %>
         $('#<%=reply_link_dom_id%>').click(function(e) { 

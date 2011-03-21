@@ -1,7 +1,21 @@
 <h2 class="first"><%= link_to "Admin", admin_path %>: Bad Message Log <span id="loading-message"> </span> </h2>
 
-<div id="threads">
-  <%= render :partial => 'thread', :collection => @threads %>
+<div id="new-messages">
+  <h2>New Bad Messages</h2>
+  <%= pluralize @new_messages.count, 'new bad message' %>
+  <%= render :partial => 'new_message', :collection => @new_messages, :as => :message %>
+</div>
+
+<div id="watch-listed-messages">
+  <h2>People we're helping or keeping an eye on</h2>
+  <%= pluralize @needing_reply_count, 'new message' %> to reply to
+  <%= render :partial => 'watch_listed_message', :collection => @watch_listed_messages, :as => :message %>
+</div>
+
+<div id="all-messages">
+  <h2>All Messages</h2>
+  <%= pluralize @all_messages.count, "message" %> total
+  <%= render :partial => 'generic_message', :collection => @all_messages, :as => :message %>
 </div>
 
 <div id="reply-dialog" style="display: none">
@@ -11,26 +25,3 @@
     <%= submit_tag 'Send' %>
   <% end %>
 </div>
-
-<% content_for :javascript do %>
-  <%= javascript_tag do %>
-    var lastUpdatedAt = '<%= @last_updated_at %>';
-
-    function loadingMessage(message) {
-      $('#loading-message').html(message);
-    }
-
-    function refreshThreads() {
-      $.ajax({
-        url: '<%= admin_bad_messages_path(:format => :js) %>',
-        data: {since: lastUpdatedAt},
-        beforeSend: function() { loadingMessage('Checking for new messages...');},
-        success: function() {loadingMessage('');},
-        error: function() {loadingMessage('Error contacting server!')},
-        complete: function() {setTimeout(refreshThreads, 3000)}
-      });
-    };
-
-    refreshThreads();
-  <% end %>
-<% end %>
