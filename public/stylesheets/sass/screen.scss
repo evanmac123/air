@@ -10,6 +10,10 @@ $black:     #111111;
 $gray:      #333333;
 $light-gray: #999999;
 
+$message-header-background-color: #6c7868;
+$new-message-header-background-color: #ba7d3b;
+$message-reply-background-color: #d2e8b9;
+
 @mixin rounded-corners($radius: 1em) {
   -moz-border-radius: $radius;
   -webkit-border-radius: $radius;
@@ -636,3 +640,43 @@ textarea#bad_message_reply_body {
 #loading-message {
   float: right;
 }
+
+.message {
+  margin-top: 5px;
+  margin-bottom: 35px;
+  width: 500px;
+  font-size: 16px;
+
+  .message-header {
+    @include rounded-corners(2px);
+    background-color: $message-header-background-color;
+    color: $white;
+  }
+
+  .message-body {
+    @include rounded-corners(2px);
+    background-color: $white;
+    color: $black;
+  }
+
+  .reply {
+    @include rounded-corners(2px);
+    background-color: $message-reply-background-color;
+    color: $black;
+  }
+
+  form {
+    display: inline;
+
+    input[type="submit"] {
+      background-color: inherit;
+      border: none;
+      color: $light-gray;
+      font-size: inherit;
+      text-transform: none;
+      font-weight: normal;
+      padding: 0;
+    }
+  }
+}
+

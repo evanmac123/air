@@ -1,0 +1,11 @@
+<div class='message' id='<%= dom_id(message) %>'>
+  <%= render 'message_header', :message => message %>
+
+  <%= render 'message_body', :message => message %>
+
+  <%= render 'message_replies', :message => message %>
+
+  <%= reply_link 'Send message', message %>
+
+  <%= render 'dismiss_button', :message => message %>
+</div>

@@ -12,6 +12,7 @@ class Admin::BadMessageRepliesController < AdminBaseController
     if reply.save
       if reply.send_to_bad_message_originator
         flash[:notice] = "Message sent to #{@bad_message.phone_number}"
+        @bad_message.put_on_watch_list
       end
     else
       flash[:failure] = "Couldn't send message: #{reply.errors.full_messages.join(', ')}"
@@ -23,6 +24,6 @@ class Admin::BadMessageRepliesController < AdminBaseController
   protected
 
   def find_bad_message
-    @bad_message = BadMessage.find(params[:bad_message_id])
+    @bad_message = BadMessage.find(params[:bad_message_id], :include => :user)
   end
 end

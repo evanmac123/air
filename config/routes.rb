@@ -44,7 +44,7 @@ Health::Application.routes.draw do
     resources :users, :only => [] do
       resources :invitations, :only => [:create]
     end
-    resources :bad_messages, :only => [:index] do
+    resources :bad_messages, :only => [:index, :update] do
       resources :replies, :only => [:new, :create], :controller => 'bad_message_replies'
     end
   end
