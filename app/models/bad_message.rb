@@ -45,7 +45,7 @@ class BadMessage < ActiveRecord::Base
   protected
 
   def set_watch_list_flag
-    self.on_watch_list = (BadMessage.where(:phone_number => phone_number, :on_watch_list => true).limit(1).count == 1)
+    self.on_watch_list = !(BadMessage.where(:phone_number => phone_number, :on_watch_list => true).limit(1).empty?)
     true
   end
 end

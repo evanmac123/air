@@ -17,9 +17,10 @@ Feature: Bad message log
     And I should see "2 new bad messages"
 
   Scenario: New unparseable message from a number on the watch list gets logged
-    Given the following watchlisted bad message exists:
-      | phone_number | body   | received_at          |
-      | +14155551212 | First! | 2010-05-01 17:00 UTC |
+    Given the following watchlisted bad messages exist:
+      | phone_number | body    | received_at          |
+      | +14155551212 | First!  | 2010-05-01 17:00 UTC |
+      | +14155551212 | Second! | 2010-05-01 17:01 UTC |
     And time is frozen at "2010-05-01 18:00 UTC"
     And "+14155551212" sends SMS "FOO BAR"
     When I sign in via the login page
@@ -27,8 +28,9 @@ Feature: Bad message log
     Then I should see the following watchlisted bad SMS messages:
       | phone_number | message_body | received_at          |
       | +14155551212 | First!       | 2010-05-01 17:00 UTC |
+      | +14155551212 | Second!      | 2010-05-01 17:01 UTC |
       | +14155551212 | FOO BAR      | 2010-05-01 18:00 UTC |
-    And I should see "2 new messages to reply to"
+    And I should see "3 new messages to reply to"
     And I should not see any new bad messages
 
   Scenario: All bad messages appear in the appropriate section
