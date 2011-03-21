@@ -680,3 +680,8 @@ textarea#bad_message_reply_body {
   }
 }
 
+.new-watchlisted-message {
+  .message-header {
+    background-color: $new-message-header-background-color
+  }
+}

@@ -500,3 +500,6 @@ textarea#bad_message_reply_body {
       text-transform: none;
       font-weight: normal;
       padding: 0; }
+
+.new-watchlisted-message .message-header {
+  background-color: #ba7d3b; }

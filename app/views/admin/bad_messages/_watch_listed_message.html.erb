@@ -1,4 +1,5 @@
-<div class='message' id='<%= dom_id(message) %>'>
+<% dom_class = (message.is_new ? 'message new-watchlisted-message' : 'message') %>
+<div class='<%= dom_class %>' id='<%= dom_id(message) %>'>
   <%= render 'message_header', :message => message %>
 
   <%= render 'message_body', :message => message %>
