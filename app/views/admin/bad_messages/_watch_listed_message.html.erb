@@ -2,11 +2,13 @@
 <div class='<%= dom_class %>' id='<%= dom_id(message) %>'>
   <%= render 'message_header', :message => message %>
 
-  <%= render 'message_body', :message => message %>
+  <div class="hideable-parts">
+    <%= render 'message_body', :message => message %>
 
-  <%= render 'message_replies', :message => message %>
+    <%= render 'message_replies', :message => message %>
 
-  <%= reply_link 'Send message', message %>
+    <%= reply_link 'Send message', message %>
 
-  <%= render 'dismiss_button', :message => message %>
+    <%= render 'dismiss_button', :message => message %>
+  </div>
 </div>

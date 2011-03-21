@@ -1,3 +1,16 @@
+<% message_dom_id ||= dom_id(message) %>
 <div class='message-header'>
+  <% collapse_control_dom_id = "collapse-control-#{message_dom_id}" %>
+
+  <a href="#" class="collapse-control" id="<%= collapse_control_dom_id %>" data-collapsed="true">[+]</a>
   <%= message.username %> (<%= message.phone_number %>) <%= message.received_at.winning_time_format %>
 </div>
+
+<% content_for :javascript do %>
+  <%= javascript_tag do %>
+    $('#<%= collapse_control_dom_id %>').click(function(e) {
+      toggleMessageVisibility('#<%= message_dom_id %>');
+      e.preventDefault();
+    });
+  <% end %>
+<% end %>

@@ -25,3 +25,32 @@
     <%= submit_tag 'Send' %>
   <% end %>
 </div>
+
+<% content_for :javascript do %>
+  <%= javascript_tag do %>
+    $('.hideable-parts').hide();
+
+    function uncollapse(message, collapseControl) {
+      message.find('.hideable-parts').show();
+      
+      collapseControl.data('collapsed', false).html('[-]');
+    }
+
+    function collapse(message, collapseControl) {
+      message.find('.hideable-parts').hide();
+
+      collapseControl.data('collapsed', true).html('[+]');
+    }
+
+    function toggleMessageVisibility(selector) {
+      var message = $(selector);
+      var collapseControl = $(selector).find('.collapse-control');
+
+      if(collapseControl.data('collapsed')) {
+        uncollapse(message, collapseControl);
+      } else {
+        collapse(message, collapseControl);
+      }
+    }
+  <% end %>
+<% end %>
