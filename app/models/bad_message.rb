@@ -34,6 +34,10 @@ class BadMessage < ActiveRecord::Base
     self.where(:on_watch_list => true)
   end
 
+  def self.not_watch_listed
+    self.where(:on_watch_list => false)
+  end
+
   def self.without_replies
     self.where(:reply_count => 0)
   end

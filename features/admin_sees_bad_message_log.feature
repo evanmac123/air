@@ -29,6 +29,7 @@ Feature: Bad message log
       | +14155551212 | First!       | 2010-05-01 17:00 UTC |
       | +14155551212 | FOO BAR      | 2010-05-01 18:00 UTC |
     And I should see "2 new messages to reply to"
+    And I should not see any new bad messages
 
   Scenario: All bad messages appear in the appropriate section
     Given the following new bad message exists:
