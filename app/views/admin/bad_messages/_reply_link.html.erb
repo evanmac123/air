@@ -16,7 +16,9 @@
         find('form').
           attr('action', '<%= admin_bad_message_replies_path(message, :format => 'js') %>').
         end().
-      dialog({width: 500});
+        dialog({width: 500}).
+        find('textarea').val('').focus();
+      ;
 
       click_event.preventDefault();
     });
