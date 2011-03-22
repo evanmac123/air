@@ -3,7 +3,7 @@
   <% collapse_control_dom_id = "collapse-control-#{message_dom_id}" %>
 
   <a href="#" class="collapse-control" id="<%= collapse_control_dom_id %>" data-collapsed="true">[+]</a>
-  <%= message.username %> (<%= message.phone_number %>) <%= message.received_at.winning_time_format %>
+  <%= message.username %> (<%= message.phone_number %>) about <%= time_ago_in_words(message.received_at) %> ago
 </div>
 
 <% content_for :javascript do %>

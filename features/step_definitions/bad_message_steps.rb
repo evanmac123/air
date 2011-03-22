@@ -1,10 +1,12 @@
+include ActionView::Helpers::DateHelper 
+
 def expect_messages_from_table(table)
   table.hashes.each do |row_hash|
     %w(phone_number message_body).each do |field_name|
       page.should have_content(row_hash[field_name])
     end
 
-    page.should have_content(Time.parse(row_hash['received_at']).winning_time_format)
+    page.should have_content(time_ago_in_words(Time.parse(row_hash['received_at'])))
 
     if row_hash['name'].present?
       page.should have_content(row_hash['name'])
