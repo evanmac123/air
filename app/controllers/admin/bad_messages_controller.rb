@@ -11,6 +11,10 @@ class Admin::BadMessagesController < AdminBaseController
   def update
     @message = BadMessage.find(params[:id])
     @message.update_attributes(params[:message])
-    redirect_to admin_bad_messages_path
+
+    respond_to do |format|
+      format.html {redirect_to admin_bad_messages_path}
+      format.js
+    end
   end
 end

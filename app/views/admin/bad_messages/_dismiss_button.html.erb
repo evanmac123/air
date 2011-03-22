@@ -1,5 +1,20 @@
-<%= form_tag admin_bad_message_path(message), :method => :put, :id => "dismiss-#{dom_id(message)}" do %>
+<% dismiss_id = "dismiss-#{dom_id(message)}" %>
+
+<%= form_tag admin_bad_message_path(message), :method => :put, :id => dismiss_id do %>
   <%= hidden_field_tag 'message[is_new]', false %>
   <%= hidden_field_tag 'message[on_watch_list]', false %>
   <%= submit_tag 'Dismiss' %>
+<% end %>
+
+<% content_for :javascript do %>
+  <%= javascript_tag do %>
+    $('#<%= dismiss_id%>').submit(function(e) {
+      $.post(
+        $(this).attr('action') + '.js',
+        $(this).serialize()
+      );
+
+      e.preventDefault();
+    });
+  <% end %>
 <% end %>

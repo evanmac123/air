@@ -14,7 +14,11 @@ describe BadMessage do
       end
 
       it "should put this message on the watch list" do
-        (Factory :bad_message, :phone_number => @phone_number).on_watch_list.should be_true
+        second = Factory :bad_message, :phone_number => @phone_number
+        third = Factory :bad_message, :phone_number => @phone_number
+
+        second.on_watch_list.should be_true
+        third.on_watch_list.should be_true
       end
     end
   end

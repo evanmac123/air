@@ -1,0 +1,9 @@
+<% unless @message.is_new %>
+  $('#new-messages #<%= dom_id(@message) %>').remove();
+  updateMessageCount($('#new-messages'), 'new bad message');
+<% end %>
+
+<% unless @message.on_watch_list %>
+  $('#watch-listed-messages #<%= dom_id(@message) %>').remove();
+  updateMessageCount($('#watch-listed-messages'), 'new message', 'to reply to', '.new-watchlisted-message');
+<% end %>
