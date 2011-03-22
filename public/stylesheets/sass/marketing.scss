@@ -35,6 +35,7 @@ $dark-green: #63a62f;
         list-style-type: none;
         li {
           display: inline-block;
+          float: left;
           margin: 3px;
           font-size: 12px;
           font-weight: bold;
@@ -43,6 +44,7 @@ $dark-green: #63a62f;
           }
           a, a:active, a:link {
             text-decoration: none;
+            float: left;
           }
           .authentication {
             color: $dark-green;

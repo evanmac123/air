@@ -28,13 +28,15 @@
         list-style-type: none; }
         .marketing #header #nav ul li {
           display: inline-block;
+          float: left;
           margin: 3px;
           font-size: 12px;
           font-weight: bold; }
           .marketing #header #nav ul li:first-child {
             margin-left: 10px; }
           .marketing #header #nav ul li a, .marketing #header #nav ul li a:active, .marketing #header #nav ul li a:link {
-            text-decoration: none; }
+            text-decoration: none;
+            float: left; }
           .marketing #header #nav ul li .authentication {
             color: #63a62f;
             font-size: 12px;
