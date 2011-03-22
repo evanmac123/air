@@ -12,7 +12,7 @@
   $('#all-messages .messages').prepend(genericMessageContent);
 <% end %>
 
-<%= (yield :javascript).gsub(/<\/?script.*?>/, '') %>
+<%= render 'shared/yield_stripped_javascript' %>
 
 var newVersions = $('#<%= main_dom_id %>').add('#<%= generic_dom_id %>');
 

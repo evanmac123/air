@@ -1,28 +1,31 @@
-lastUpdatedAt = '<%= @last_updated_at %>';
+<% [
+  %w(new_messages new_message),
+  %w(watch_listed_messages watch_listed_message),
+  %w(all_messages generic_message)
+].each do |message_type, partial_name| %> 
 
-updatedThreads = {
-  <% @threads.reverse.each do |thr| %>
-    <%= dom_id(thr) %>: '<%= escape_javascript(render :partial => 'thread', :object => thr) %>',
+  <% messages = instance_variable_get("@#{message_type}") %>
+  <% message_div_selector = "##{message_type.dasherize} .messages" %>
+
+  <% messages.each do |message| %>
+    <% message_content = escape_javascript(render partial_name, :message => message) %>
+    var messageContent = '<%=  message_content %>';
+    $('<%= message_div_selector %>').prepend(messageContent);
   <% end %>
-}
+<% end %>
 
-var windowScroll;
 
-windowScroll = $(document).scrollTop();
 
-$.each(updatedThreads, function(div_id, new_html) {
-  var dom_id = '#' + div_id;
+<% @all_messages.each do |message| %>
+  collapse($('#<%= dom_id(message) %>'));
+  collapse($('#generic_<%= dom_id(message) %>'));
+<% end %>
 
-  windowScroll -= $(dom_id).innerHeight();
-  $(dom_id).remove();
-  $('#threads').prepend(new_html);
-  $(dom_id).hide().fadeIn('fast');
-  windowScroll += $(dom_id).innerHeight();
-});
+<%= render 'shared/yield_stripped_javascript' %>
 
-$(document).scrollTop(windowScroll);
+updateNewMessageCount();
+updateWatchlistedMessageCount();
+updateAllMessageCount();
 
-<%# The gsub here is a hack to remove starting & ending <script> tags from
-    the JS content, which we do need. %>
-
-<%= (yield :javascript).gsub(/<\/?script.*?>/, '') %>
+newestMessageId = <%= @newest_message_id %>;
+scheduleMessagePoll();

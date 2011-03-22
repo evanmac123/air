@@ -34,6 +34,8 @@
 
 <% content_for :javascript do %>
   <%= javascript_tag do %>
+    var newestMessageId = <%= @newest_message_id %>;
+
     $('#reply-dialog form').submit(function(e) {
       $.post(
         $(this).attr('action'), 
@@ -46,16 +48,16 @@
 
     $('.hideable-parts').hide();
 
-    function uncollapse(message, collapseControl) {
-      message.find('.hideable-parts').show();
-      
-      collapseControl.data('collapsed', false).html('[-]');
+    function uncollapse(message) {
+      message.
+        find('.hideable-parts').show().end().
+        find('.collapse-control').data('collapsed', false).html('[-]');
     }
 
-    function collapse(message, collapseControl) {
-      message.find('.hideable-parts').hide();
-
-      collapseControl.data('collapsed', true).html('[+]');
+    function collapse(message) {
+      message.
+        find('.hideable-parts').hide().end().
+        find('.collapse-control').data('collapsed', true).html('[+]');
     }
 
     function toggleMessageVisibility(selector) {
@@ -63,9 +65,9 @@
       var collapseControl = $(selector).find('.collapse-control');
 
       if(collapseControl.data('collapsed')) {
-        uncollapse(message, collapseControl);
+        uncollapse(message);
       } else {
-        collapse(message, collapseControl);
+        collapse(message);
       }
     }
 
@@ -85,5 +87,29 @@
 
       $(selector).find('.message-count').html(updatedText);
     };
+
+
+    function updateNewMessageCount() {
+      updateMessageCount($('#new-messages'), 'new bad message');
+    }
+
+    function updateWatchlistedMessageCount() {
+      updateMessageCount($('#watch-listed-messages'), 'new message', 'to reply to', '.new-watchlisted-message');
+    }
+
+    function updateAllMessageCount() {
+      updateMessageCount($('#all-messages'), 'message', 'total');
+    }
+
+    function pollForNewMessages() {
+      $.get('/admin/bad_messages.js',
+            {newest_message_id: newestMessageId});
+    }
+
+    function scheduleMessagePoll() {
+      setTimeout(pollForNewMessages, 3000);
+    }
+
+    scheduleMessagePoll();
   <% end %>
 <% end %>
