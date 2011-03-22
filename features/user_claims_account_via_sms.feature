@@ -98,3 +98,19 @@ Feature: User claims account via SMS
     And "+14152613077" sends SMS "pdarnowsky"
     Then "+14152613077" should have received an SMS "You've joined the W00t! game! To play, send texts to this number. Send a text HELP if you want help."
     And "+14152613077" should have received an SMS "You've already claimed your account, and currently have 5 points."
+
+  Scenario: Some variability allowed in how users send their claim codes
+    Given the following users exist:
+      | name           | claim code |
+      | Phil Darnowsky | pdarnowsky |
+      | Dan Croak      | dcroak     |
+      | Vlad Gyster    | vgyster    |
+      | Kelli Peterson | kpeterson  |
+    When "+14152613077" sends SMS "p darnowsky"
+    And "+16175551212" sends SMS "d. croak"
+    And "+12125551212" sends SMS '"vgyster"'
+    And "+18085551212" sends SMS "    K. Peterson       "
+    Then "Phil Darnowsky" should be claimed by "+14152613077"
+    And "Dan Croak" should be claimed by "+16175551212"
+    And "Vlad Gyster" should be claimed by "+12125551212"
+    And "Kelli Peterson" should be claimed by "+18085551212"

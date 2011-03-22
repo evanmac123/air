@@ -41,14 +41,19 @@ class User < ActiveRecord::Base
   end
 
   def self.claim_account(from, claim_code)
-    normalized_claim_code = claim_code.strip
+    normalized_claim_code = claim_code.gsub(/\W+/, '')
     users = User.find(:all, :conditions => ["claim_code ILIKE ?", normalized_claim_code])
 
     if users.count > 1
       return "We found multiple people with your first initial and last name. Please try sending us your e-mail address instead."
     end
 
-    user = users.first || User.find(:first, :conditions => ["email ILIKE ? AND claim_code != ''", normalized_claim_code])
+    user = users.first 
+    unless user
+      normalized_email = claim_code.gsub(/\s+/, '')
+      user = User.find(:first, :conditions => ["email ILIKE ? AND claim_code != ''", normalized_email])
+    end
+
     return nil unless user
 
     if (existing_user = User.find_by_phone_number(from))

@@ -1,12 +1,4 @@
-Then /^"([^"]*)" should have received an SMS "(.*)"$/ do |phone_number, text_message|
-  FakeTwilio::SMS.should have_sent_text(phone_number, text_message)
-end
-
-Then /^"([^"]*)" should not have received an SMS "(.*)"$/ do |phone_number, text_message|
-  FakeTwilio::SMS.should_not have_sent_text(phone_number, text_message)
-end
-
-When /^"([^"]*)" sends SMS "([^"]*)"$/ do |phone_number, sms_body|
+def mobile_originated_message_received(phone_number, sms_body)
   post sms_path, 'From' => phone_number, 'To' => FAKE_TWILIO_ACCOUNT_SID, 'Body' => sms_body
 
   # When Twilio posts a message to us, if the response is plaintext, it sends
@@ -16,4 +8,20 @@ When /^"([^"]*)" sends SMS "([^"]*)"$/ do |phone_number, sms_body|
   if response.content_type == 'text/plain'
     FakeTwilio::SMS.post('To' => phone_number, 'Body' => response.body)
   end
+end
+
+Then /^"([^"]*)" should have received an SMS "(.*)"$/ do |phone_number, text_message|
+  FakeTwilio::SMS.should have_sent_text(phone_number, text_message)
+end
+
+Then /^"([^"]*)" should not have received an SMS "(.*)"$/ do |phone_number, text_message|
+  FakeTwilio::SMS.should_not have_sent_text(phone_number, text_message)
+end
+
+When /^"([^"]*)" sends SMS "([^"]*)"$/ do |phone_number, sms_body|
+  mobile_originated_message_received(phone_number, sms_body)
+end
+
+When /^"([^"]*)" sends SMS '([^']*)'$/ do |phone_number, sms_body|
+  mobile_originated_message_received(phone_number, sms_body)
 end
