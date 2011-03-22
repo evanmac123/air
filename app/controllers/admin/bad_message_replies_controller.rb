@@ -10,7 +10,9 @@ class Admin::BadMessageRepliesController < AdminBaseController
     reply.sender = current_user
     
     if reply.save
-      if reply.send_to_bad_message_originator
+      @sent = (Rails.env == 'development') || reply.send_to_bad_message_originator
+
+      if @sent
         flash[:notice] = "Message sent to #{@bad_message.phone_number}"
         @bad_message.put_on_watch_list
       end
@@ -18,7 +20,10 @@ class Admin::BadMessageRepliesController < AdminBaseController
       flash[:failure] = "Couldn't send message: #{reply.errors.full_messages.join(', ')}"
     end
 
-    redirect_to admin_bad_messages_path
+    respond_to do |format|
+      format.html {redirect_to admin_bad_messages_path}
+      format.js
+    end
   end
 
   protected

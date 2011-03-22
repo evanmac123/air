@@ -1,0 +1,22 @@
+<% if @sent %>
+  <% main_dom_id = dom_id(@bad_message) %>
+  <% generic_dom_id = "generic_" + main_dom_id %>
+
+  $('#watch-listed-messages #<%= main_dom_id%>').add('#new-messages #<%= main_dom_id%>').add('#all-messages #<%= generic_dom_id %>').remove();
+
+  var watchedMessageContent = '<%= escape_javascript(render :partial => 'admin/bad_messages/watch_listed_message.html', :locals => {:message => @bad_message})%>';
+
+  var genericMessageContent = '<%= escape_javascript(render :partial => 'admin/bad_messages/generic_message.html', :locals => {:message => @bad_message}) %>';
+
+  $('#watch-listed-messages .messages').prepend(watchedMessageContent);
+  $('#all-messages .messages').prepend(genericMessageContent);
+<% end %>
+
+<%= (yield :javascript).gsub(/<\/?script.*?>/, '') %>
+
+var newVersions = $('#<%= main_dom_id %>').add('#<%= generic_dom_id %>');
+
+uncollapse(newVersions, newVersions.find('.collapse-control'));
+
+var newMessageCount = $('#new-messages .message').length;
+$('#new-messages .message-count').html('' + newMessageCount + ' new bad message' + (newMessageCount != 1 ? 's' : ''));

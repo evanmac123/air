@@ -1,0 +1,24 @@
+<% link_text ||= 'Reply and move to watch list' %>
+<% message_dom_id ||= dom_id(message) %>
+
+<% reply_link_dom_id = "reply-link-#{message_dom_id}" %>
+
+<%= link_to link_text, 
+  new_admin_bad_message_reply_path(:bad_message_id => message.id), 
+  :class => 'reply-link', 
+  :id => reply_link_dom_id
+%>
+
+<% content_for :javascript do %>
+  <%= javascript_tag do %>
+    $('#<%= reply_link_dom_id%>').click(function(click_event) {
+      $('#reply-dialog').
+        find('form').
+          attr('action', '<%= admin_bad_message_replies_path(message, :format => 'js') %>').
+        end().
+      dialog({width: 500});
+
+      click_event.preventDefault();
+    });
+  <% end %>
+<% end %>

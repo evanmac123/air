@@ -1,12 +1,13 @@
 <% message_dom_id = "generic_" + dom_id(message) %>
 <div class='message' id='<%= message_dom_id %>'>
-  <%= render 'message_header', :message => message, :message_dom_id => message_dom_id %>
+  <%# Explicit paths here so that this'll work when we call it from bad_message_replies/create.js.erb %>
+  <%= render 'admin/bad_messages/message_header', :message => message, :message_dom_id => message_dom_id %>
 
   <div class="hideable-parts">
-    <%= render 'message_body', :message => message %>
+    <%= render 'admin/bad_messages/message_body', :message => message %>
 
-    <%= render 'message_replies', :message => message %>
+    <%= render 'admin/bad_messages/message_replies', :message => message %>
 
-    <%= reply_link 'Reply and move to watch list', message %>
+    <%= render 'admin/bad_messages/reply_link', :message => message, :message_dom_id => message_dom_id %>
   </div>
 </div>
