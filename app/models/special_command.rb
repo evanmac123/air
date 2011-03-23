@@ -20,6 +20,8 @@ module SpecialCommand
     user_to_follow = User.find_by_sms_slug(sms_slug_to_follow)
     return "Sorry, we couldn't find a user with the unique ID #{sms_slug_to_follow}." unless user_to_follow
 
+    return "You're already following #{user_to_follow.name}." if user_following.friendships.where(:friend_id => user_to_follow.id).first
+
     user_following.friendships.create(:friend_id => user_to_follow.id)
     "OK, you're now following #{user_to_follow.name}."
   end

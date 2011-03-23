@@ -13,6 +13,14 @@ Feature: User can follow another user by SMS
     Then I should see "1 followers"
     And "+16178675309" should have received an SMS "OK, you're now following Dan Croak."
 
+  Scenario: User tries to follow the same user twice
+    When "+16178675309" sends SMS "follow dancroak"
+    And "+16178675309" sends SMS "follow dancroak"
+    And I sign in via the login page
+    And I go to the profile page for "Vlad Gyster"
+    Then I should see "1 following"
+    And "+16178675309" should have received an SMS "You're already following Dan Croak."
+
   Scenario: User tries to follow another user who doesn't exist
     When "+16178675309" sends SMS "follow mrnobody"
     And I sign in via the login page
