@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
 
   before_create do
     set_invitation_code
-    set_slug
+    set_slugs
     set_rankings
   end
 
@@ -101,7 +101,7 @@ class User < ActiveRecord::Base
     self.invitation_code = Digest::SHA1.hexdigest("--#{Time.now.utc}--#{email}--")
   end
 
-  def set_slug
+  def set_slugs
     cleaned = name.remove_mid_word_characters.
                 replace_non_words_with_spaces.
                 strip.
@@ -119,6 +119,7 @@ class User < ActiveRecord::Base
       end
 
       self.slug = possible_slug
+      self.sms_slug = possible_slug.downcase.gsub(/\W+/, '')
     end
   end
 
