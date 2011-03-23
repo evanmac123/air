@@ -37,6 +37,12 @@
     <% end %>
   </div>
 
+  <% content_for :javascript do %>
+    <%= javascript_tag do %>
+      $('#follow-target form').live('ajax:beforeSend', function(e) {$('#follow-target').html('<%= image_tag 'spinner.gif' %>')});
+    <% end %>
+  <% end %>
+
   <div id="profile-stats">
     <div id="points" class="stat">
       <strong><%= @user.points %></strong> <br />points

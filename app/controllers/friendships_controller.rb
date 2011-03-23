@@ -5,6 +5,8 @@ class FriendshipsController < ApplicationController
     @user.reload
 
     respond_to do |format|
+      format.js
+
       format.mobile do
         @acts = @user.acts.recent(10)
         render :partial => 'create'
@@ -18,6 +20,8 @@ class FriendshipsController < ApplicationController
     @user.reload
 
     respond_to do |format|
+      format.js
+
       format.mobile do
         @acts = @user.acts.recent(10)
         render :partial => 'destroy'
