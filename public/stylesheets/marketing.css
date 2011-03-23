@@ -86,7 +86,7 @@
 
 /* cupid green (inspired by okcupid.com)
 *******************************************************************************/
-button.cupid-green {
+div.cupid-green {
   background: #7fbf4d;
   background: -moz-linear-gradient(top, #7fbf4d 0%, #63a62f 100%);
   background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#7fbf4d), to(#63a62f));
