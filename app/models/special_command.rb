@@ -4,7 +4,7 @@ module SpecialCommand
     command_name, *args = normalized_command.split
 
     case command_name
-    when 'follow'
+    when 'follow', 'connect'
       self.follow(from, args.first)
     when 'myid'
       self.myid(from)
