@@ -6,6 +6,8 @@ module SpecialCommand
     case command_name
     when 'follow'
       self.follow(from, args.first)
+    when 'myid'
+      self.myid(from)
     end
   end
 
@@ -20,5 +22,11 @@ module SpecialCommand
 
     user_following.friendships.create(:friend_id => user_to_follow.id)
     "OK, you're now following #{user_to_follow.name}."
+  end
+
+  def self.myid(from)
+    user = User.find_by_phone_number(from)
+    return nil unless user
+    "Your unique ID is #{user.sms_slug}."
   end
 end
