@@ -44,6 +44,7 @@ Feature: User accepts invitation
     Then "+14152613077" should have received an SMS "Let's play a game."
 
   Scenario: User accepts invitation to game with seed points
+    Given time is frozen
     When "phil@example.com" opens the email
     And I click the first link in the email
     And I fill in "Enter your mobile number" with "415-261-3077"
@@ -52,6 +53,7 @@ Feature: User accepts invitation
     And I press "Join the game"
     Then I should be on the activity page
     And I should see "Phil 10 points"
+    And I should see "Phil joined the game less than a minute ago +10 points"
 
   Scenario: User sets password when accepting invitation
     When I fill in "Enter your mobile number" with "508-740-7520"

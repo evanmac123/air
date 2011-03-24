@@ -48,12 +48,14 @@ Feature: User claims account via SMS
     Given the following demo exists:
       | company_name | seed_points |
       | FooCo        | 10          |
+    And time is frozen
     And the following user exists:
       | name      | claim_code | demo                |
       | Dan Croak | dcroak     | company_name: FooCo |
     When "+14155551212" sends SMS "Dcroak"
     And I sign in via the login page as "Dan Croak/dcroak"
     Then I should see "Dan Croak 10 points"
+    And I should see "Dan Croak joined the game less than a minute ago +10 points"
 
   Scenario: User claims account with e-mail address (but only if they've got a claim code)
     Given the following users exist:

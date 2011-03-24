@@ -67,7 +67,6 @@ class User < ActiveRecord::Base
       :password_confirmation => new_password
     )
 
-    user.get_seed_points
     add_joining_to_activity_stream(user)
     user.demo.welcome_message(user)
   end
@@ -79,7 +78,6 @@ class User < ActiveRecord::Base
 
   def join_game(number)
     update_attribute(:phone_number, PhoneNumber.normalize(number))
-    get_seed_points
     add_joining_to_activity_stream
     SMS.send(phone_number, demo.welcome_message(self))
   end
@@ -178,12 +176,6 @@ class User < ActiveRecord::Base
     end
   end
 
-  def get_seed_points
-    if demo.seed_points > 0
-      update_points(demo.seed_points)
-    end
-  end
-
   def point_and_ranking_summary
     result = if (victory_threshold = self.demo.victory_threshold)
       "Points #{self.points}/#{victory_threshold}, r"
@@ -226,8 +218,9 @@ class User < ActiveRecord::Base
 
   def self.add_joining_to_activity_stream(user)
     Act.create!(
-      :user => user,
-      :text => 'joined the game'
+      :user            => user,
+      :text            => 'joined the game',
+      :inherent_points => user.demo.seed_points
     )
   end
 
