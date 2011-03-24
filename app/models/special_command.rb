@@ -8,7 +8,7 @@ module SpecialCommand
       self.follow(from, args.first)
     when 'myid'
       self.myid(from)
-    when 'moreinfo'
+    when 'moreinfo', 'more'
       self.moreinfo(from)
     end
   end
