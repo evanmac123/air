@@ -5,6 +5,8 @@ Health::Application.routes.draw do
 
   resource :session, :controller => 'sessions'
 
+  resource  :conference_feed, :only => [:show]
+
   resources :phones,      :only => [:create]
   resources :invitations, :only => [:show]
   resources :acts,        :only => [:index, :create]
