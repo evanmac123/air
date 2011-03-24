@@ -6,6 +6,10 @@ class Demo < ActiveRecord::Base
     self.custom_welcome_message || "You've joined the #{self.company_name} game! Your unique ID is #{user.sms_slug} (text MYID for a reminder). To play, send texts to this #. Send a text HELP for help."
   end
 
+  def game_over?
+    self.ends_at && Time.now >= self.ends_at
+  end
+
   def self.alphabetical
     order("company_name asc")
   end

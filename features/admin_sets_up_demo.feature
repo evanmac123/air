@@ -9,6 +9,11 @@ Feature: Admin sets up demo
     And I fill in "Victory verification SMS number" with "415-867-5309"
     And I fill in "Custom welcome message" with "3M will rule you all!"
     And I fill in "Starting player score" with "5"
+    And I select "2010" from "Year"
+    And I select "May" from "Month"
+    And I select "1" from "Day"
+    And I select "12" from "Hour"
+    And I select "00" from "Minute"
     And I press "Submit"
     Then I should be on the admin "3M" demo page
     And I should see "100 points to win"
@@ -16,6 +21,7 @@ Feature: Admin sets up demo
     And I should see "Victory SMS to +14158675309"
     And I should see "Welcome message: 3M will rule you all!"
     And I should see "New players start with 5 points"
+    And I should see "Game ends at May 01, 2010 at 08:00 AM Eastern"
 
   Scenario: Correct default welcome message and seed points, and no default email, SMS or victory threshold
     Given I am on the admin page
@@ -27,6 +33,7 @@ Feature: Admin sets up demo
     And I should not see "points to win"
     And I should not see "Victory email to"
     And I should not see "Victory SMS to"
+    And I should see "Game goes on indefinitely"
 
   # something's wrong with this step
   # need to ask thoughtbot team

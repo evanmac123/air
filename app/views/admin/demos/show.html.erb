@@ -2,6 +2,15 @@
 
 <h2><%= @user_with_mobile_count %> users have added mobile numbers to their accounts</h2>
 
+<p>
+Game
+<% if @demo.ends_at %>
+  ends at <%= @demo.ends_at.winning_time_format %>
+<% else %>
+  goes on indefinitely.
+<% end %>
+</p>
+
 <% if @demo.victory_threshold %>
   <p><%= @demo.victory_threshold %> points to win.</p>
 <% end %>

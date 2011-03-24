@@ -34,9 +34,15 @@ class Act < ActiveRecord::Base
 
     key_name, value = body.downcase.gsub(/\.$/, '').gsub(/\s+$/, '').gsub(/\s+/, ' ').split(' ', 2)
 
+    # TODO: perhaps move this to SpecialCommand
+    
     if key_name == "help"
       # record this somewhere
       return parsing_success_message('Earn points, text: "went to gym", "ate fruit", "ate vegetables", "walked stairs", "ran outside", "walked outside" - provided you did those things, of course.')
+    end
+
+    if user.demo.game_over?
+      return parsing_success_message("Thanks for playing! The game is now over. If you'd like more information e-mailed to you, please text MORE INFO.")
     end
 
     rule = look_up_rule_by_key_and_value(key_name, value)
