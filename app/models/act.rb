@@ -51,6 +51,10 @@ class Act < ActiveRecord::Base
       if (rule && !referring_user)
         return parsing_error_message("We understood what you did, but not the user who referred you. Perhaps you could have them check their unique ID with the myid command?")
       end
+
+      if referring_user == user
+        return "Now now. It wouldn't be fair to try to get extra points by referring yourself."
+      end
     end
 
     if rule

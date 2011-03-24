@@ -123,3 +123,10 @@ Feature: User acts
     And I go to the acts page
     Then I should see "Dan 0 points"
     And "+15087407520" should have received an SMS "We understood what you did, but not the user who referred you. Perhaps you could have them check their unique ID with the myid command?"
+
+  Scenario: A helpful and slightly snarky error message if you say you referred yourself
+     When "+15087407520" sends SMS "ate banana dan"
+    And I sign in via the login page as "Dan/foo"
+    And I go to the acts page
+    Then I should see "Dan 0 points"
+    And "+15087407520" should have received an SMS "Now now. It wouldn't be fair to try to get extra points by referring yourself."
