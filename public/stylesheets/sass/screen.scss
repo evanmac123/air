@@ -685,3 +685,9 @@ textarea#bad_message_reply_body {
     background-color: $new-message-header-background-color
   }
 }
+
+#see-more-spinner {
+  display: none;
+  margin: 0;
+  vertical-align: middle;
+}

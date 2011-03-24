@@ -7,7 +7,15 @@ class ActsController < ApplicationController
     # TODO: the next two lines are ugly, wrote them in a big hurry
     @acts              = @demo.acts.order('created_at DESC').limit(10)
 
-    @users             = @demo.users.ranked.order('points DESC')
+    respond_to do |format|
+      format.html do 
+        @users = @demo.users.ranked.order('points DESC')
+      end
+
+      format.js do
+        @acts = @acts.offset(params[:offset])
+      end
+    end
   end
 
   def create

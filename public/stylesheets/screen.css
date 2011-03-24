@@ -503,3 +503,8 @@ textarea#bad_message_reply_body {
 
 .new-watchlisted-message .message-header {
   background-color: #ba7d3b; }
+
+#see-more-spinner {
+  display: none;
+  margin: 0;
+  vertical-align: middle; }

@@ -8,6 +8,21 @@
   <ul id="acts">
     <%= render @acts %>
   </ul>
+
+  <%= link_to "See more", "#", :id => 'see-more' %>
+  <%= image_tag 'spinner.gif', :id => 'see-more-spinner' %>
+
+  <% content_for :javascript do %>
+    <%= javascript_tag do %>
+      var actOffset = <%= @acts.length %>;
+
+      $('#see-more').bind('click', function(e) {
+        $('#see-more-spinner').show();
+        $.get('activity.js', {offset: actOffset});
+        e.preventDefault();
+      });
+    <% end %>
+  <% end %>
 </div>
 
 <div id="secondary">
