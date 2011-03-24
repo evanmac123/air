@@ -17,7 +17,7 @@ class Admin::BulkLoadsController < AdminBaseController
       name = row[0].to_s
       email = row[1].to_s
 
-      User.where(:email => email).destroy_all
+      User.where(:email => email.downcase).destroy_all
 
       user = @demo.users.build(:name => name, :email => email)
 
