@@ -14,7 +14,12 @@ class Admin::BulkLoadsController < AdminBaseController
     @errored_users = []
 
     CSV.parse(params[:bulk_user_data]).each do |row|
-      user = @demo.users.build(:name => row[0].to_s, :email => row[1].to_s)
+      name = row[0].to_s
+      email = row[1].to_s
+
+      User.where(:email => email).destroy_all
+
+      user = @demo.users.build(:name => name, :email => email)
 
       if user.save
         user.generate_simple_claim_code!
