@@ -4,8 +4,9 @@ Feature: User requests their unique ID by SMS
     Given the following user exists:
       | name           | phone number |
       | Phil Darnowsky | +14152613077 |
+    And "Phil Darnowsky" has the SMS slug "iamgod"
     When "+14152613077" sends SMS "myid"
-    Then "+14152613077" should have received an SMS "Your unique ID is phildarnowsky."
+    Then "+14152613077" should have received an SMS "Your unique ID is iamgod."
 
   Scenario: Nonexistent user requests their unique ID by SMS
     When "+14152613077" sends SMS "myid"

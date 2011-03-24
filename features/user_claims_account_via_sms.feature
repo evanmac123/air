@@ -4,9 +4,10 @@ Feature: User claims account via SMS
     Given the following user exists:
       | name      | claim_code | demo                             |
       | Dan Croak | dcroak     | company_name: Global Tetrahedron |
+    And "Dan Croak" has the SMS slug "dcroak4444"
     When "+14155551212" sends SMS "Dcroak"
     Then "Dan Croak" should be claimed by "+14155551212"
-    And "+14155551212" should have received an SMS "You've joined the Global Tetrahedron game! To play, send texts to this number. Send a text HELP if you want help."
+    And "+14155551212" should have received an SMS "You've joined the Global Tetrahedron game! Your unique ID is dcroak4444 (text MYID for a reminder). To play, send texts to this #. Send a text HELP for help."
 
   Scenario: Claiming account sets password so user can log in via Web
     Given the following user exists:
@@ -91,12 +92,13 @@ Feature: User claims account via SMS
     Given the following demo exists:
       | company_name | seed_points |
       | W00t!        | 5           |
-    Given the following user exists:
+    And the following user exists:
       | name            | claim_code  | demo                |
       | Phil Darnowsky  | pdarnowsky  | company_name: W00t! |
+    And "Phil Darnowsky" has the SMS slug "pdarnowsky99"
     When "+14152613077" sends SMS "pdarnowsky"
     And "+14152613077" sends SMS "pdarnowsky"
-    Then "+14152613077" should have received an SMS "You've joined the W00t! game! To play, send texts to this number. Send a text HELP if you want help."
+    Then "+14152613077" should have received an SMS "You've joined the W00t! game! Your unique ID is pdarnowsky99 (text MYID for a reminder). To play, send texts to this #. Send a text HELP for help."
     And "+14152613077" should have received an SMS "You've already claimed your account, and currently have 5 points."
 
   Scenario: Some variability allowed in how users send their claim codes

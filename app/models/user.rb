@@ -69,7 +69,7 @@ class User < ActiveRecord::Base
 
     user.get_seed_points
     add_joining_to_activity_stream(user)
-    user.demo.welcome_message
+    user.demo.welcome_message(user)
   end
 
   def invite
@@ -81,7 +81,7 @@ class User < ActiveRecord::Base
     update_attribute(:phone_number, PhoneNumber.normalize(number))
     get_seed_points
     add_joining_to_activity_stream
-    SMS.send(phone_number, demo.welcome_message)
+    SMS.send(phone_number, demo.welcome_message(self))
   end
 
   def gravatar_url(size)
@@ -107,19 +107,21 @@ class User < ActiveRecord::Base
                 strip.
                 replace_spaces_with_hyphens
     possible_slug = cleaned
+    possible_sms_slug = self.claim_code_prefix
 
     User.transaction do
-      same_name = find_same_name(possible_slug)
+      same_name = find_same_slug(possible_slug, possible_sms_slug)
       counter = same_name && same_name.slug.first_digit
 
       while same_name
         counter += rand(20)
         possible_slug = "#{cleaned}-#{counter}"
-        same_name = find_same_name(possible_slug)
+        possible_sms_slug = self.claim_code_prefix + counter.to_s
+        same_name = find_same_slug(possible_slug, possible_sms_slug)
       end
 
       self.slug = possible_slug
-      self.sms_slug = possible_slug.downcase.gsub(/\W+/, '')
+      self.sms_slug = possible_sms_slug
     end
   end
 
@@ -194,13 +196,9 @@ class User < ActiveRecord::Base
     result
   end
 
-  protected
-
-  def downcase_email
-    self.email = email.to_s.downcase
+  def claim_code_prefix
+    self.class.claim_code_prefix(self)
   end
-
-  private
 
   def self.claim_code_prefix(user)
     begin
@@ -217,15 +215,20 @@ class User < ActiveRecord::Base
     end
   end
 
+
+  protected
+
+  def downcase_email
+    self.email = email.to_s.downcase
+  end
+
+  private
+
   def self.add_joining_to_activity_stream(user)
     Act.create!(
       :user => user,
       :text => 'joined the game'
     )
-  end
-
-  def claim_code_prefix
-    self.class.claim_code_prefix(self)
   end
 
   def add_joining_to_activity_stream
@@ -257,8 +260,8 @@ class User < ActiveRecord::Base
     Mailer.victory(self).deliver if self.demo.victory_verification_email
   end
 
-  def find_same_name(cleaned)
-    User.first(:conditions => ["slug LIKE ?", "#{cleaned}%"],
+  def find_same_slug(possible_slug, possible_sms_slug)
+    User.first(:conditions => ["slug = ? OR sms_slug = ?", possible_slug, possible_sms_slug],
                :order      => "created_at desc")
   end
 end

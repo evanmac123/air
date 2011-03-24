@@ -7,6 +7,7 @@ end
 describe Demo, "#welcome_message" do
   before(:each) do
     @demo = Factory :demo
+    @user = Factory :user, :demo => @demo
   end
 
   context "when the demo has no custom welcome message" do
@@ -15,7 +16,7 @@ describe Demo, "#welcome_message" do
     end
 
     it "should return a reasonable default" do
-      @demo.welcome_message.should == "You've joined the #{@demo.company_name} game! To play, send texts to this number. Send a text HELP if you want help."    
+      @demo.welcome_message(@user).should == "You've joined the #{@demo.company_name} game! Your unique ID is #{@user.sms_slug} (text MYID for a reminder). To play, send texts to this #. Send a text HELP for help."    
     end
   end
 
@@ -25,7 +26,7 @@ describe Demo, "#welcome_message" do
     end
 
     it "should use that" do
-      @demo.welcome_message.should == "Derp derp! Let's play!"
+      @demo.welcome_message(@user).should == "Derp derp! Let's play!"
     end
   end
 end

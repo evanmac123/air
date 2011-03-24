@@ -117,7 +117,7 @@ describe User, "#send_welcome_sms" do
   end
 end
 
-describe User, "slugs" do
+describe User, "#slug" do
   context "when John Smith is created" do
     before do
       @first = Factory(:user, :name => "John Smith")
@@ -125,7 +125,7 @@ describe User, "slugs" do
 
     it "has text-only slugs" do
       @first.slug.should == "John-Smith"
-      @first.sms_slug.should == "johnsmith"
+      @first.sms_slug.should == "jsmith"
     end
 
     context "and another John Smith is created" do
@@ -135,7 +135,7 @@ describe User, "slugs" do
 
       it "has text-and-digit slugs" do
         @second.slug.should match(/^John-Smith-\d+$/)
-        @second.sms_slug.should match(/^johnsmith\d+$/)
+        @second.sms_slug.should match(/^jsmith\d+$/)
       end
 
       context "and another John Smith is created" do
@@ -145,7 +145,7 @@ describe User, "slugs" do
 
         it "has a unique text-and-digit slug" do
           @third.slug.should match(/^John-Smith-\d+$/)
-          @third.sms_slug.should match(/^johnsmith\d+$/)
+          @third.sms_slug.should match(/^jsmith\d+$/)
           @third.slug.should_not == @second.slug
           @third.sms_slug.should_not == @second.sms_slug
         end

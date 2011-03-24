@@ -11,6 +11,8 @@ Feature: User acts
       | Fred | +14155551212 | company_name: FooCorp | 1      | 2       |
       | Bob  | +18085551212 | company_name: FooCorp | 3      | 1       |
     And "Dan" has the password "foo"
+    And "Paul" has the SMS slug "paul55"
+    And "Fred" has the SMS slug "fred666"
     And the following rules exist:
       | key          | value  | points | referral points | reply                     | alltime_limit | 
       | name: ate    | banana | 2      |                 | Bananas are good for you. |               |
@@ -104,8 +106,8 @@ Feature: User acts
     And "+15087407520" should have received an SMS "Sorry, you've already done that action."
 
   Scenario: Another user gets points for referring you to a command
-    When "+15087407520" sends SMS "ate banana paul"
-    And "+15087407520" sends SMS "worked out fred"
+    When "+15087407520" sends SMS "ate banana paul55"
+    And "+15087407520" sends SMS "worked out fred666"
     And I sign in via the login page as "Dan/foo"
     And I go to the acts page
     Then I should see "Paul 1 point"
@@ -125,7 +127,8 @@ Feature: User acts
     And "+15087407520" should have received an SMS "We understood what you did, but not the user who referred you. Perhaps you could have them check their unique ID with the myid command?"
 
   Scenario: A helpful and slightly snarky error message if you say you referred yourself
-     When "+15087407520" sends SMS "ate banana dan"
+    Given "Dan" has the SMS slug "dan4444"
+    When "+15087407520" sends SMS "ate banana dan4444"
     And I sign in via the login page as "Dan/foo"
     And I go to the acts page
     Then I should see "Dan 0 points"

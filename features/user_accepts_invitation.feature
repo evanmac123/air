@@ -9,6 +9,7 @@ Feature: User accepts invitation
       | dan@example.com  | Dan  | company name: 3M    |
       | phil@example.com | Phil | company_name: FooCo |
     And "dan@example.com" has received an invitation
+    And "Dan" has the SMS slug "dan4444"
     And "phil@example.com" has received an invitation
     When "dan@example.com" opens the email
     And I click the first link in the email
@@ -20,7 +21,7 @@ Feature: User accepts invitation
     And I fill in "Choose a password" with "whatwhat"
     And I fill in "And confirm that password" with "whatwhat"
     And I press "Join the game"
-    Then "+15087407520" should have received an SMS "You've joined the 3M game! To play, send texts to this number. Send a text HELP if you want help."
+    Then "+15087407520" should have received an SMS "You've joined the 3M game! Your unique ID is dan4444 (text MYID for a reminder). To play, send texts to this #. Send a text HELP for help."
     And I should be on the activity page
     And I should see "Dan joined the game"
 
