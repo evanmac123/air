@@ -8,6 +8,8 @@ module SpecialCommand
       self.follow(from, args.first)
     when 'myid'
       self.myid(from)
+    when 'moreinfo'
+      self.moreinfo(from)
     end
   end
 
@@ -30,5 +32,14 @@ module SpecialCommand
     user = User.find_by_phone_number(from)
     return nil unless user
     "Your unique ID is #{user.sms_slug}."
+  end
+
+  def self.moreinfo(from)
+    MoreInfoRequest.create!(
+      :phone_number => from,
+      :command      => 'moreinfo'
+    )
+
+    "Great, we'll be in touch. Stay healthy!"
   end
 end
