@@ -70,8 +70,6 @@ class Act < ActiveRecord::Base
         credit_referring_user(referring_user, user, rule)
         return parsing_success_message(record_act(user, rule, referring_user))
       end
-    elsif helpful_error_message = generate_helpful_error(key_name, value)
-      return parsing_error_message(helpful_error_message)
     else
       record_bad_message(phone_number, body)
       return parsing_error_message("We didn't understand. Try: help")

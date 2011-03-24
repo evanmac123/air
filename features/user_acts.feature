@@ -45,7 +45,7 @@ Feature: User acts
   Scenario: User enters bad act via the website
     When I sign in via the login page as "Dan/foo"
     And I enter the act code "worked banana"
-    Then I should see the error "We understand worked but not banana. Try: worked out"
+    Then I should see the error "We didn't understand. Try: help"
 
   Scenario: User acts, with a trailing period
     When "+15087407520" sends SMS "ate banana."

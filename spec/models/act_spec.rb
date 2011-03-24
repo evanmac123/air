@@ -60,9 +60,9 @@ describe Act, ".parse" do
       let(:good_value) { rule; key.rules.first.value }
 
       context "with a bad value" do
-        it "prompts them with a good value" do
-          reply = "We understand #{key.name} but not bad value. Try: #{key.name} #{good_value}"
-          Act.parse(user, "#{key.name} bad value").should == reply
+        it "prompts them to ask for help" do
+          reply = "We didn't understand. Try: help"
+          Act.parse(user, "wakka").should == reply
         end
       end
 
