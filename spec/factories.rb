@@ -58,3 +58,7 @@ Factory.define :bad_message_reply do |factory|
   factory.association :sender, :factory => :user
   factory.association :bad_message
 end
+
+Factory.define :act do |factory|
+  factory.association :user
+end

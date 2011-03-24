@@ -7,7 +7,11 @@ class Rule < ActiveRecord::Base
   validates_uniqueness_of :value, :scope => :key_id
 
   def to_s
-    description || "#{key.name} #{value}"
+    description || full_name
+  end
+
+  def full_name
+    "#{key.name} #{value}"
   end
 
   def user_hit_limit?(user)

@@ -182,6 +182,18 @@ class User < ActiveRecord::Base
     end
   end
 
+  def point_and_ranking_summary
+    result = if (victory_threshold = self.demo.victory_threshold)
+      "Points #{self.points}/#{victory_threshold}, r"
+    else
+      "R"
+    end
+
+    result += "ank #{self.ranking}/#{self.demo.users.ranked.count}."
+
+    result
+  end
+
   protected
 
   def downcase_email

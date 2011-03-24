@@ -5,8 +5,8 @@
 <span class="when">
   <%= time_ago_in_words(act.created_at) %> ago
 </span>
-<% if act.rule %>
+<% if act.points %>
   <span class="points">
-    <%= points(act.rule) %> points
+    <%= points(act.points) %> points
   </span>
 <% end %>

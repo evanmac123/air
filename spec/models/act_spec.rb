@@ -5,6 +5,27 @@ describe Act do
   it { should belong_to(:rule) }
 end
 
+describe Act, "#points" do
+  context "for an Act with inherent points" do
+    it "should return that value" do
+      (Factory :act, :inherent_points => 5).points.should == 5
+    end
+  end
+
+  context "for an act with no inherent points that belongs to a Rule" do
+    it "should return that Rule's point value" do
+      rule = Factory(:rule, :points => 12)
+      (Factory :act, :rule => rule).points.should == 12
+    end
+  end
+
+  context "for an act with no inherent points or Rule" do
+    it "should return nil" do
+      (Factory :act).points.should be_nil
+    end
+  end
+end
+
 describe Act, ".parse" do
   context "when user has not been invited to the game" do
     it "tells them" do
