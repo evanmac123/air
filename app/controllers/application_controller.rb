@@ -39,8 +39,4 @@ class ApplicationController < ActionController::Base
       request.format = :mobile
     end
   end
-
-  def is_mobile_device?
-    false
-  end
 end
