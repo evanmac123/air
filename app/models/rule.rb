@@ -11,7 +11,11 @@ class Rule < ActiveRecord::Base
   end
 
   def full_name
-    "#{key.name} #{value}"
+    if key
+      "#{key.name} #{value}"
+    else
+      value
+    end
   end
 
   def user_hit_limit?(user)
