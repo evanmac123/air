@@ -1,0 +1,19 @@
+<li class="associate" id="<%=dom_id(associate)%>">
+  <span class="associate-name"><%= link_to(associate.name, associate) %></span>
+  <div class="avatar48">
+    <div class="shadow48"></div>
+    <%= image_tag associate.gravatar_url(48), :alt => (associate.name) %>
+  </div>
+
+  <br/>
+
+  <strong><%= associate.points %></strong> points,
+  <strong><%= associate.following_count %></strong> following,
+  <strong><%= associate.followers_count %></strong> followers
+
+  <% if button_type == :unfollow %>
+    <%= button_to "Unfollow", user_friendship_path(associate), :method => :delete %>
+  <% else %>
+    <%= button_to "Follow", user_friendship_path(associate) %>
+  <% end %>
+</li>

@@ -37,6 +37,8 @@ Health::Application.routes.draw do
     resource :phone, :only => [:edit, :update]
   end
 
+  resource :friends, :only => [:show]
+
   namespace :admin do
     resources :demos, :only => [:new, :create, :show] do
       # TODO: move :edit and :update onto resources :users below

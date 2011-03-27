@@ -280,6 +280,12 @@ ul#acts {
     -moz-border-radius: 6px;
     -webkit-border-radius: 6px;
     border-radius: 6px; }
+    ul#acts li.act a, ul#acts li.act span.user, ul#acts li.small-act a, ul#acts li.small-act span.user {
+      font-weight: bold;
+      text-decoration: none;
+      color: #103245; }
+    ul#acts li.act a:hover, ul#acts li.small-act a:hover {
+      text-decoration: underline; }
     ul#acts li.act p, ul#acts li.small-act p {
       float: right;
       width: 380px;
@@ -289,12 +295,6 @@ ul#acts {
       position: relative;
       line-height: 18px;
       margin-bottom: 0; }
-      ul#acts li.act p a, ul#acts li.act p span.user, ul#acts li.small-act p a, ul#acts li.small-act p span.user {
-        font-weight: bold;
-        text-decoration: none;
-        color: #103245; }
-      ul#acts li.act p a:hover, ul#acts li.small-act p a:hover {
-        text-decoration: underline; }
       ul#acts li.act p span.description a, ul#acts li.small-act p span.description a {
         color: #103245;
         text-decoration: underline; }
@@ -508,3 +508,32 @@ textarea#bad_message_reply_body {
   display: none;
   margin: 0;
   vertical-align: middle; }
+
+ul#followings, ul#followers {
+  list-style: none; }
+  ul#followings li.associate, ul#followers li.associate {
+    background-color: white;
+    border-bottom: 1px solid #DDD;
+    float: left;
+    width: 440px;
+    padding: 15px 4px 0 10px;
+    position: relative;
+    min-height: 60px;
+    -moz-border-radius: 6px;
+    -webkit-border-radius: 6px;
+    border-radius: 6px; }
+    ul#followings li.associate a, ul#followings li.associate span.user, ul#followers li.associate a, ul#followers li.associate span.user {
+      font-weight: bold;
+      text-decoration: none;
+      color: #103245; }
+    ul#followings li.associate a:hover, ul#followers li.associate a:hover {
+      text-decoration: underline; }
+    ul#followings li.associate form, ul#followers li.associate form {
+      position: relative;
+      left: 270px;
+      bottom: 40px; }
+    ul#followings li.associate img, ul#followers li.associate img {
+      width: 48px;
+      height: 48px;
+      padding: 0;
+      border: none; }

@@ -31,6 +31,9 @@ module NavigationHelpers
     when /the password reset request page/
       new_password_path
 
+    when /the friends page/
+      friends_path
+
     else
       begin
         page_name =~ /the (.*) page/

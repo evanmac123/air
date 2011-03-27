@@ -62,3 +62,8 @@ end
 Factory.define :act do |factory|
   factory.association :user
 end
+
+Factory.define :friendship do |factory|
+  factory.association :user
+  factory.association :friend, :factory => :user
+end

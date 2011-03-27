@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
   belongs_to :demo
   has_many   :acts
   has_many   :friendships
-  has_many   :friends, :through => :friendships, :foreign_key => :friend_id
+  has_many   :friends, :through => :friendships
 
   before_create do
     set_invitation_code
@@ -23,6 +23,13 @@ class User < ActiveRecord::Base
   end
 
   validates_uniqueness_of :slug
+
+  def followers
+    # You'd think you could do this with an association, and if you can figure
+    # out how to get that to work, please, be my guest.
+
+    self.class.joins("INNER JOIN friendships on users.id = friendships.user_id").where('friendships.friend_id = ?', self.id)
+  end
 
   def to_param
     slug

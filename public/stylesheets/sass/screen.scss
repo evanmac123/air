@@ -26,6 +26,26 @@ $message-reply-background-color: #d2e8b9;
   box-shadow: $x $y $blur $spread $color;
 }
 
+@mixin white-li {
+  background-color: $white;
+  border-bottom: 1px solid #DDD;
+  float: left;
+  width: 440px;
+  padding: 15px 4px 0 10px;
+  position: relative;
+  min-height: 60px;
+  @include rounded-corners(6px);
+
+  a, span.user {
+    font-weight: bold;
+    text-decoration: none;
+    color: $blue;
+  }
+  a:hover {
+    text-decoration: underline;
+  }
+}
+
 a, a:link {
   color: $light-gray;
   text-decoration: none;
@@ -381,14 +401,7 @@ ul#acts {
   list-style: none;
 
   li.act, li.small-act {
-    background-color: $white;
-    border-bottom: 1px solid #DDD;
-    float: left;
-    width: 440px;
-    padding: 15px 4px 0 10px;
-    position: relative;
-    min-height: 60px;
-    @include rounded-corners(6px);
+    @include white-li;
 
     p {
       float: right;
@@ -399,15 +412,6 @@ ul#acts {
       position: relative;
       line-height: 18px;
       margin-bottom: 0;
-
-      a, span.user {
-        font-weight: bold;
-        text-decoration: none;
-        color: $blue;
-      }
-      a:hover {
-        text-decoration: underline;
-      }
 
       span.description {
         a {
@@ -690,4 +694,25 @@ textarea#bad_message_reply_body {
   display: none;
   margin: 0;
   vertical-align: middle;
+}
+
+ul#followings, ul#followers {
+  list-style: none;
+
+  li.associate {
+    @include white-li;
+
+    form {
+      position: relative;
+      left: 270px;
+      bottom: 40px;
+    }
+
+    img {
+      width: 48px;
+      height: 48px;
+      padding: 0;
+      border: none;
+    }
+  }
 }
