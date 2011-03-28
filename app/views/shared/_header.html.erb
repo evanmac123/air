@@ -17,6 +17,7 @@
       <div id="account">
         <% if signed_in? %>
           <%= link_to current_user.name, current_user, :id => 'self-link' %>
+          <%= link_to 'Connections', friends_path %>
           <%= link_to "Sign out", sign_out_path, :method => :delete %>
         <% else %>
           <%= link_to "By invitation only", page_path('invitation') %>

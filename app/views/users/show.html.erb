@@ -17,7 +17,7 @@
 
   <div class="avatar48">
     <div class="shadow48"></div>
-    <%= image_tag @user.gravatar_url(48), :alt => (@user.name) %>
+    <%= default_avatar_tag :alt => (@user.name) %>
   </div>
 
   <% if signed_in? && current_user == @user %>
