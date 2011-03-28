@@ -22,36 +22,36 @@ Feature: Following and follower lists
 
   Scenario: Follower list
     Then I should see these followers:
-      | name    | button_type |
-      | Colby   | follow      |
-      | Dirk    | unfollow    |
+      | name    | button_type  |
+      | Colby   | connect      |
+      | Dirk    | unconnect    |
 
   Scenario: Following list
     Then I should see these people I am following:
-      | name    | button_type |
-      | Bertram | unfollow    |
-      | Dirk    | unfollow    |
+      | name    | button_type  |
+      | Bertram | unconnect    |
+      | Dirk    | unconnect    |
 
   Scenario: Unollowing user from follower list
     When I unfollow "Dirk"
     Then I should be on the friends page
     And I should see these people I am following:
-      | name    | button_type |
-      | Bertram | unfollow    |
+      | name    | button_type  |
+      | Bertram | unconnect    |
     And I should see these followers:
-      | name    | button_type |
-      | Colby   | follow      |
-      | Dirk    | follow      |
+      | name    | button_type  |
+      | Colby   | connect      |
+      | Dirk    | connect      |
 
   Scenario: Following user from following list
-    When I press "Follow"
+    When I press "Connect"
     Then I should be on the friends page
     And I should see these people I am following:
-      | name    | button_type |
-      | Bertram | unfollow    |
-      | Colby   | unfollow    |
-      | Dirk    | unfollow    |
+      | name    | button_type  |
+      | Bertram | unconnect    |
+      | Colby   | unconnect    |
+      | Dirk    | unconnect    |
     And I should see these followers:
-      | name    | button_type |
-      | Colby   | unfollow    |
-      | Dirk    | unfollow    |
+      | name    | button_type  |
+      | Colby   | unconnect    |
+      | Dirk    | unconnect    |

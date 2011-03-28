@@ -108,7 +108,7 @@ h2.your-mobile-number {
 .header {
   @include box-shadow(0, 1px, 2px, 1px, rgba(0, 0, 0, 0.5));
   background: #3C4244;
-  height: 80px;
+  height: 65px;
   .inner-header {
     margin: 0px auto;
     padding: 0 0 10px 0;
@@ -118,6 +118,10 @@ h2.your-mobile-number {
       width: 150px;
       margin-top: 15px;
       float: left;
+
+      img {
+        margin: 3px 0 0 0;
+      }
     }
 
     #add-action {
@@ -149,20 +153,17 @@ h2.your-mobile-number {
     }
 
     #account {
-      margin-top: 15px;
+      margin-top: 22px;
       font-size: 13px;
       float: right;
       text-align: right;
-      width: 170px;
 
       a, a:visited, a:link {
         color: $light-gray;
         text-decoration: none;
-        display: block;
-        margin: 0 10px; 
         font-size: 12px;
         color: #929292;
-        display: block;
+        margin-left: 5px;
       }
 
       #self-link {
@@ -704,7 +705,7 @@ ul#followings, ul#followers {
 
     form {
       position: relative;
-      left: 270px;
+      left: 260px;
       bottom: 40px;
     }
 

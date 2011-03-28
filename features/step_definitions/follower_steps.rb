@@ -15,7 +15,7 @@ When /^I unfollow "(.*?)"$/ do |username|
   user = User.find_by_name(username)
 
   with_scope "##{dom_id(user)}" do
-    click_button "Unfollow"
+    click_button "Unconnect"
   end
 end
 

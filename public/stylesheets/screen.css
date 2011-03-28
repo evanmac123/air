@@ -48,7 +48,7 @@ h2.your-mobile-number a {
   -moz-box-shadow: 0 1px 2px 1px rgba(0, 0, 0, 0.5);
   box-shadow: 0 1px 2px 1px rgba(0, 0, 0, 0.5);
   background: #3C4244;
-  height: 80px; }
+  height: 65px; }
   .header .inner-header {
     margin: 0px auto;
     padding: 0 0 10px 0;
@@ -57,6 +57,8 @@ h2.your-mobile-number a {
       width: 150px;
       margin-top: 15px;
       float: left; }
+      .header .inner-header #header-and-slogan img {
+        margin: 3px 0 0 0; }
     .header .inner-header #add-action {
       margin-left: 100px;
       margin-top: 15px;
@@ -76,19 +78,16 @@ h2.your-mobile-number a {
         .header .inner-header #add-action .enter-code input[type="submit"] {
           padding: 3px 5px 6px 5px; }
     .header .inner-header #account {
-      margin-top: 15px;
+      margin-top: 22px;
       font-size: 13px;
       float: right;
-      text-align: right;
-      width: 170px; }
+      text-align: right; }
       .header .inner-header #account a, .header .inner-header #account a:visited, .header .inner-header #account a:link {
         color: #999999;
         text-decoration: none;
-        display: block;
-        margin: 0 10px;
         font-size: 12px;
         color: #929292;
-        display: block; }
+        margin-left: 5px; }
       .header .inner-header #account #self-link {
         color: #55950d; }
         .header .inner-header #account #self-link :hover {
@@ -530,7 +529,7 @@ ul#followings, ul#followers {
       text-decoration: underline; }
     ul#followings li.associate form, ul#followers li.associate form {
       position: relative;
-      left: 270px;
+      left: 260px;
       bottom: 40px; }
     ul#followings li.associate img, ul#followers li.associate img {
       width: 48px;
