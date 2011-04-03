@@ -32,13 +32,21 @@
 
   <table id="your-score">
     <tr>
+      <th></th>
       <th>Points</th>
       <th>Place</th>
     </tr>
 
-    <tr>
+    <tr id="recent-average">
+      <th>7 Day</th>
+      <td class="points"><%= current_user.recent_average_points %></td>
+      <td class="ranking"><%= ranking_phrase(current_user.recent_average_ranking, @demo_user_count) %></td>
+    </tr>
+
+    <tr id="alltime">
+      <th>Total</th>
       <td class="points"><%= current_user.points %></td>
-      <td><%= current_user.ranking.ordinalize %> out of <%= @demo_user_count %></td>
+      <td class="ranking"><%= ranking_phrase(current_user.ranking, @demo_user_count) %></td>
     </tr>
   </table>
 

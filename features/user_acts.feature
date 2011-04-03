@@ -18,6 +18,7 @@ Feature: User acts
       | name: ate    | banana | 2      |                 | Bananas are good for you. |               |
       | name: worked | out    | 5      | 200             | Working out is nice.      |               |
       | name: saw    | poster | 20     |                 | Congratulations!          | 2             |
+      | name: made   | toast  | 8      |                 | So you made toast.        |               |
     And the following coded rule exists:
       | value | points | description                                     | reply                  |
       | ZXCVB | 15     | Looked at our poster about healthful practices. | Good show. +15 points. |

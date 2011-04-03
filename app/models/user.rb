@@ -1,6 +1,10 @@
 require 'digest/sha1'
 
 class User < ActiveRecord::Base
+  # Maximum number of days back we will consider acts in the moving average
+  # (counting today as day 0)
+  MAX_RECENT_AVERAGE_HISTORY_DEPTH = 6
+
   include Clearance::User
 
   belongs_to :demo
@@ -11,11 +15,13 @@ class User < ActiveRecord::Base
   before_create do
     set_invitation_code
     set_slugs
-    set_rankings
+    set_alltime_rankings
+    set_recent_average_rankings
   end
 
   before_update do
-    set_rankings if changed.include?('points')
+    set_alltime_rankings if changed.include?('points')
+    set_recent_average_rankings if changed.include?('recent_average_points')
   end
 
   before_save do
@@ -95,7 +101,14 @@ class User < ActiveRecord::Base
 
   def update_points(new_points)
     increment!(:points, new_points)
+    update_recent_average_points(new_points)
     check_for_victory
+  end
+
+  def update_recent_average_points(new_points)
+    point_gain_factor = (recent_average_history_depth + 1).to_f / (1..(recent_average_history_depth + 1)).sum.to_f
+    actual_point_gain = (new_points * point_gain_factor).ceil
+    increment!(:recent_average_points, actual_point_gain)
   end
 
   def password_optional?
@@ -163,24 +176,33 @@ class User < ActiveRecord::Base
     potential_claim_code
   end
 
-  def set_rankings
+  def set_ranking(points_column, ranking_column)
     User.transaction do
-      self.ranking = self.demo.users.where('points > ?', points).count + 1
-      old_point_value = self.changed_attributes['points']
-      new_point_value = self.points
+      new_point_value = self[points_column]
+
+      self[ranking_column] = self.demo.users.where("#{points_column} > ?", new_point_value).count + 1
+      old_point_value = self.changed_attributes[points_column]
 
       # Remember, we haven't saved the new point value yet, so if self isn't a
       # new record (hence already has a database ID), we need to specifically
       # exempt it from this update.
 
       if self.id
-        where_conditions = ['points < ? AND points >= ? AND id != ?', new_point_value, old_point_value, self.id]
+        where_conditions = ["#{points_column} < ? AND #{points_column} >= ? AND id != ?", new_point_value, old_point_value, self.id]
       else
-        where_conditions = ['points < ? AND points >= ?', new_point_value, old_point_value]
+        where_conditions = ["#{points_column} < ? AND #{points_column} >= ?", new_point_value, old_point_value]
       end
 
-      self.demo.users.update_all('ranking = ranking + 1', where_conditions)
+      self.demo.users.update_all("#{ranking_column} = #{ranking_column} + 1", where_conditions)
     end
+  end
+
+  def set_alltime_rankings
+    set_ranking('points', 'ranking')
+  end
+
+  def set_recent_average_rankings
+    set_ranking('recent_average_points', 'recent_average_ranking')
   end
 
   def point_and_ranking_summary

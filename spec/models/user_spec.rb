@@ -229,54 +229,105 @@ describe User, '#generate_unique_claim_code!' do
   end
 end
 
-describe User, "#ranking" do
+share_examples_for "a ranking method" do
   before(:each) do
     @demo = Factory :demo
-    10.downto(6) {|i| Factory :user, :points => i, :demo => @demo}
-    1.upto(4) {|i| Factory :user, :points => i, :demo => @demo}
-    @user = Factory :user, :points => 5, :demo => @demo
+    10.downto(6) {|i| Factory :user, points_column => i, :demo => @demo}
+    1.upto(4) {|i| Factory :user, points_column => i, :demo => @demo}
+    @user = Factory :user, points_column => 5, :demo => @demo
   end
 
   context "when a user is created" do
     it "should set their ranking appropriately" do
-      users_by_points = @demo.users.order('points DESC').all
-      users_by_points.map(&:ranking).should == [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+      users_by_points = @demo.users.order("#{points_column} DESC").all
+      users_by_points.map(&ranking_column).should == [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
-      @user.ranking.should == 6
+      @user[ranking_column].should == 6
     end
   end
 
   context "when a user gains points" do
     it "should reset their ranking" do
-      @user.update_points(3)
-      @user.reload.ranking.should == 3
+      @user.send(update_points_method, 3)
+      @user.reload[ranking_column].should == 3
     end
 
     it "should reset the ranking of all users who are now below them but weren't before" do
-      @twin = Factory :user, :points => 5, :demo => @demo
-      @twin.ranking.should == @user.ranking
+      @twin = Factory :user, points_column => 5, :demo => @demo
+      @twin[ranking_column].should == @user[ranking_column]
 
-      @user.update_points(3)
+      @user.send(update_points_method, 3)
 
-      users_by_points = @demo.users.order('points DESC').all
-      users_by_points.map(&:ranking).should == [1, 2, 3, 3, 5, 6, 7, 8, 9, 10, 11]
+      users_by_points = @demo.users.order("#{points_column} DESC").all
+      users_by_points.map(&ranking_column).should == [1, 2, 3, 3, 5, 6, 7, 8, 9, 10, 11]
     end
 
     it "should work when breaking ties" do
       User.delete_all
-      @first = Factory :user, :points => 10, :demo => @demo
-      @second = Factory :user, :points => 10, :demo => @demo
-      @third = Factory :user, :points => 10, :demo => @demo
+      @first = Factory :user, points_column => 10, :demo => @demo
+      @second = Factory :user, points_column => 10, :demo => @demo
+      @third = Factory :user, points_column => 10, :demo => @demo
 
-      @first.reload.ranking.should == @second.reload.ranking
-      @first.reload.ranking.should == @third.reload.ranking
+      @first.reload[ranking_column].should == @second[ranking_column]
+      @first.reload[ranking_column].should == @third.reload[ranking_column]
 
-      @first.update_points(1)
-      @first.reload.ranking.should == 1
-      @second.reload.ranking.should == 2
-      @third.reload.ranking.should == 2
+      @first.send(update_points_method, 1)
+      @first.reload[ranking_column].should == 1
+      @second.reload[ranking_column].should == 2
+      @third.reload[ranking_column].should == 2
     end
   end
+end
+
+describe User, "#update_recent_average_points" do
+  # The correct formula to calculate the actual point gain is
+  # A = ceil(P * (D + 1) / sum(1..D + 1)) where
+  # A is the actual point gain,
+  # P is the nominal point gain (i.e. the unweighted amount as added to the full score),
+  # D is the depth of the history (0 <= D <= 6).
+  # 
+  # For the values of D we're concerned with, we multiply A by the factor below
+  # and round up to the next integer:
+  #
+  # D = 0: Factor of 1
+  # D = 1: Factor of 2/3
+  # D = 2: Factor of 1/2
+  # D = 3: Factor of 2/5
+  # D = 4: Factor of 1/3
+  # D = 5: Factor of 2/7
+  # D = 6: Factor of 1/4
+  [
+    [0,1,1], [0,2,2], [0,3,3],
+    [1,1,1], [1,2,2], [1,3,2], [1,4,3], [1,5,4],
+    [2,1,1], [2,2,1], [2,3,2], [2,4,2], [2,5,3],
+    [3,1,1], [3,2,1], [3,3,2], [3,4,2], [3,5,2], [3,6,3],
+    [4,1,1], [4,2,1], [4,3,1], [4,4,2], [4,5,2], [4,6,2], [4,7,3],
+    [5,1,1], [5,2,1], [5,3,1], [5,4,2], [5,5,2], [5,6,2], [5,7,2], [5,8,3],
+    [6,1,1], [6,2,1], [6,3,1], [6,4,1], [6,5,2], [6,6,2], [6,7,2], [6,8,2], [6,9,3]
+  ].each do |history_depth, points_added, expected_point_gain|
+    it "should increase #recent_average_points by #{expected_point_gain} points when adding #{points_added} points and history depth is #{history_depth}" do
+      user = Factory :user, :recent_average_history_depth => history_depth
+      user.update_recent_average_points(points_added)
+
+      user.reload.recent_average_points.should == expected_point_gain
+    end
+  end
+end
+
+describe User, "#ranking" do
+  let(:points_column) {:points}
+  let(:ranking_column) {:ranking}
+  let(:update_points_method) {:update_points}
+
+  it_should_behave_like 'a ranking method'
+end
+
+describe User, "#recent_average_ranking" do
+  let(:points_column) {:recent_average_points}
+  let(:ranking_column) {:recent_average_ranking}
+  let(:update_points_method) {:update_recent_average_points}
+
+  it_should_behave_like 'a ranking method'
 end
 
 describe User, "on save" do
