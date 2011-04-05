@@ -37,6 +37,16 @@ class Demo < ActiveRecord::Base
     end
   end
 
+  def self.recalculate_all_moving_averages!
+    Demo.all.each do |demo|
+      begin
+        demo.recalculate_all_moving_averages!
+      rescue StandardError => e
+        HoptoadNotifier.notify(e)
+      end
+    end
+  end
+
   def self.alphabetical
     order("company_name asc")
   end

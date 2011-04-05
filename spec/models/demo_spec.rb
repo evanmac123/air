@@ -129,6 +129,42 @@ describe Demo, '#recalculate_all_moving_averages!' do
   end
 end
 
+describe Demo, ".recalculate_all_moving_averages!" do
+  before(:each) do
+    @demos = []
+    10.times do
+      demo = Factory :demo
+      demo.stubs(:recalculate_all_moving_averages!)
+      @demos << demo
+    end
+    Demo.stubs(:all).returns(@demos)
+  end
+
+  it "should call #recalculate_all_moving_averages! on all existing Demos" do
+    Demo.recalculate_all_moving_averages!
+    @demos.each {|demo| demo.should have_received(:recalculate_all_moving_averages!)}
+  end
+
+  context "when a demo raises an error on #recalculate_all_moving_averages!" do
+    before(:each) do
+      @recalculation_error = RuntimeError.new("Something TERRIBLE happened")
+      @demos.first.stubs(:recalculate_all_moving_averages!).raises(@recalculation_error)
+
+      HoptoadNotifier.stubs(:notify).with(anything)
+
+      Demo.recalculate_all_moving_averages!
+    end
+
+    it "should keep going even if one demo has errors" do
+      @demos.each {|demo| demo.should have_received(:recalculate_all_moving_averages!)}
+    end
+
+    it "should report the error to Hoptoad" do
+      HoptoadNotifier.should have_received(:notify).with(@recalculation_error)
+    end
+  end
+end
+
 describe Demo, ".alphabetical" do
   before do
     @red_sox  = Factory(:demo, :company_name => "Red Sox")
