@@ -21,7 +21,7 @@ class User < ActiveRecord::Base
 
   before_update do
     set_alltime_rankings if changed.include?('points')
-    set_recent_average_rankings if changed.include?('recent_average_points')
+    set_recent_average_rankings if (!batch_updating_recent_averages && changed.include?('recent_average_points'))
   end
 
   before_save do
@@ -29,6 +29,8 @@ class User < ActiveRecord::Base
   end
 
   validates_uniqueness_of :slug
+
+  attr_reader :batch_updating_recent_averages
 
   def followers
     # You'd think you could do this with an association, and if you can figure
@@ -219,6 +221,42 @@ class User < ActiveRecord::Base
 
   def claim_code_prefix
     self.class.claim_code_prefix(self)
+  end
+
+  # This is meant to be called by a cron job just after midnight, to
+  # recalculate this user's moving average score. Note that this does _not_
+  # update the user's ranking, since it's expected that this will be called on
+  # a whole batch of users at once, and it'll be more efficient to recalculate
+  # all rankings at once afterwards.
+  
+  def recalculate_moving_average!
+    acts_in_horizon = acts.where('created_at >= ?', (Date.today - MAX_RECENT_AVERAGE_HISTORY_DEPTH.days).midnight).order(:created_at)
+    oldest_act_in_horizon = acts_in_horizon.first
+
+    self.recent_average_history_depth = if oldest_act_in_horizon
+                             # Date#- returns not an integer, but a Rational, 
+                             # for doubtless the best of reasons.
+                             (Date.today - oldest_act_in_horizon.created_at.to_date).numerator
+                           else
+                             0
+                           end
+
+    grouped_acts = acts_in_horizon.group_by{|act| act.created_at.to_date}
+
+    point_numerator = 0
+    grouped_acts.each do |date_of_act, acts_on_date|
+      date_weight = self.recent_average_history_depth - (Date.today - date_of_act).numerator + 1
+      point_numerator += date_weight * acts_on_date.map(&:points).compact.sum
+    end
+
+    point_denominator = (1..self.recent_average_history_depth + 1).sum
+    self.recent_average_points = (point_numerator.to_f / point_denominator).ceil
+
+    # Remember we're deliberately skipping callbacks here because we
+    # anticipate updating rankings all in a batch.
+    @batch_updating_recent_averages = true
+    self.save
+    @batch_updating_recent_averages = false
   end
 
   def self.claim_code_prefix(user)

@@ -1,5 +1,17 @@
 require 'spec_helper'
 
+class RecalculateMovingAverageSideEffect
+  def initialize(user, score)
+    @user = user
+    @score = score
+  end
+
+  def perform
+    User.update_all({:recent_average_points => @score}, {:id => @user.id})
+    @user.reload
+  end
+end
+
 describe Demo do
   it { should have_many(:users) }
 end
@@ -74,6 +86,46 @@ describe Demo, "#game_over?" do
         @demo.game_over?.should be_true
       end
     end
+  end
+end
+
+describe Demo, '#recalculate_all_moving_averages!' do
+  before(:each) do
+    @demo = Factory :demo
+
+    @first = Factory :user, :demo => @demo
+    @second_tie_1 = Factory :user, :demo => @demo
+    @second_tie_2 = Factory :user, :demo => @demo
+    @fourth = Factory :user, :demo => @demo
+    @fifth_tie_1 = Factory :user, :demo => @demo
+    @fifth_tie_2 = Factory :user, :demo => @demo
+    @fifth_tie_3 = Factory :user, :demo => @demo
+    @eighth = Factory :user, :demo => @demo
+
+    @all_users = [@first, @second_tie_1, @second_tie_2, @fourth, @fifth_tie_1, @fifth_tie_2, @fifth_tie_3, @eighth]
+    @demo.stubs(:users).returns(@all_users)
+    @all_users.stubs(:order).with('recent_average_points DESC').returns(@all_users)
+
+    @scores_to_update_to = [100, 95, 95, 90, 85, 85, 85, 80]
+    @all_users.each_with_index do |user, i| 
+      score_to_update_to = @scores_to_update_to[i]
+      user.expects(:recalculate_moving_average!).add_side_effect(RecalculateMovingAverageSideEffect.new(user, score_to_update_to))
+    end
+  end
+
+  it "should recalculate moving average scores on all users in the demo and rank them appropriately" do
+    @demo.recalculate_all_moving_averages!
+
+    @all_users.each_with_index {|user, i| user.recent_average_points.should == @scores_to_update_to[i]}
+
+    @first.recent_average_ranking.should == 1
+    @second_tie_1.recent_average_ranking.should == 2
+    @second_tie_2.recent_average_ranking.should == 2
+    @fourth.recent_average_ranking.should == 4
+    @fifth_tie_1.recent_average_ranking.should == 5
+    @fifth_tie_2.recent_average_ranking.should == 5
+    @fifth_tie_3.recent_average_ranking.should == 5
+    @eighth.recent_average_ranking.should == 8
   end
 end
 

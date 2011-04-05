@@ -330,6 +330,108 @@ describe User, "#recent_average_ranking" do
   it_should_behave_like 'a ranking method'
 end
 
+describe User, "#recalculate_moving_average!" do
+  before(:each) do
+    Timecop.freeze(Time.parse('2011-05-01 00:05 -0500'))
+  end
+
+  after(:each) do
+    Timecop.return
+  end
+
+  context "for a user with no acts" do
+    it "should leave their recent_average_history_depth at 0" do
+      user = Factory :user
+      user.recalculate_moving_average!
+      user.reload.recent_average_history_depth.should == 0
+    end
+  end
+
+  context "for a user with an act today but none in the past" do
+    it "should leave their recent_average_history_depth at 0" do
+      user = Factory :user
+      Factory :act, :user => user, :created_at => Date.today.midnight + 1.minute
+
+      user.recalculate_moving_average!
+      user.reload.recent_average_history_depth.should == 0
+    end
+  end
+
+  1.upto(User::MAX_RECENT_AVERAGE_HISTORY_DEPTH) do |expected_history_depth|
+    context "for a user with earliest act #{expected_history_depth} days ago" do
+      it "should set their recent_average_history_depth to #{expected_history_depth}" do
+        user = Factory :user
+
+        # Guaranteed to have at least one act expected_history_depth days ago
+        Factory :act, :user => user, :created_at => sometime_on(expected_history_depth.days.ago)
+
+        # Might have some more recent acts too
+        expected_history_depth.downto(1) do |past_day_offset|
+          rand(5).times {Factory :act, :user => user, :created_at => sometime_on(past_day_offset.days.ago)}
+        end
+
+        user.recalculate_moving_average!
+        user.reload.recent_average_history_depth.should == expected_history_depth
+      end
+    end
+  end
+
+  context "for a user with an act #{User::MAX_RECENT_AVERAGE_HISTORY_DEPTH} days ago and one #{User::MAX_RECENT_AVERAGE_HISTORY_DEPTH + 1} days ago" do
+    it "should set their recent_average_history_depth to #{User::MAX_RECENT_AVERAGE_HISTORY_DEPTH}" do
+      user = Factory :user
+      Factory :act, :user => user, :created_at => sometime_on(User::MAX_RECENT_AVERAGE_HISTORY_DEPTH.days.ago)
+      Factory :act, :user => user, :created_at => sometime_on((User::MAX_RECENT_AVERAGE_HISTORY_DEPTH + 1).days.ago)
+
+      user.recalculate_moving_average!
+      user.reload.recent_average_history_depth.should == User::MAX_RECENT_AVERAGE_HISTORY_DEPTH
+    end
+  end
+
+  context "for a user with all acts more than #{User::MAX_RECENT_AVERAGE_HISTORY_DEPTH} days ago" do
+    it "should set their recent_average_history_depth to 0" do
+      user = Factory :user
+      1.upto(10) do |days_beyond_horizon|
+        3.times {Factory :act, :user => user, :created_at => sometime_on((User::MAX_RECENT_AVERAGE_HISTORY_DEPTH + days_beyond_horizon).days.ago)}
+      end
+
+      user.recalculate_moving_average!
+      user.reload.recent_average_history_depth.should == 0
+    end
+  end
+
+  {
+    [] => 0,
+    [[0, 10]] => 10,
+    [[0, 10], [0, 15]] => 25,
+    [[0, 10], [1, 14]] => 12,
+    [[0, 10], [0, 15], [1, 7], [1, 12], [2, 6]] => 20,
+    [[1, 7], [1, 12], [2, 6]] => 8,
+    [[0, 7], [0, 12], [2, 6]] => 11
+  }.each do |act_signatures, expected_score|
+    context "for a user with recent act signatures #{act_signatures}" do
+      it "should set their recent_average_points to #{expected_score}" do
+        user = Factory :user
+        act_signatures.each do |days_ago, points|
+          Factory :act, :user => user, :inherent_points => points, :created_at => sometime_on(Date.today - days_ago.days)
+        end
+
+        user.recalculate_moving_average!
+        user.reload.recent_average_points.should == expected_score
+      end
+    end
+  end
+
+  it "should not touch the user's recent average ranking" do
+    user = Factory :user, :recent_average_points => 100000
+    user.update_attribute(:recent_average_ranking, 1000)
+    user.reload.recent_average_ranking.should == 1000
+
+    user.recalculate_moving_average!
+    user.reload.recent_average_ranking.should == 1000
+  end
+
+end
+
 describe User, "on save" do
   it "should downcase email" do
     @user = Factory.build(:user, :email => 'YELLING_GUY@Uppercase.cOm')
