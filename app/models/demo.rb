@@ -38,7 +38,7 @@ class Demo < ActiveRecord::Base
   end
 
   def fix_user_rankings!(points_column, ranking_column)
-    ordered_users = self.users.order("#{points_column} DESC")
+    ordered_users = self.users.ranked.order("#{points_column} DESC")
     ordered_users.each_with_index do |user, i|
       user[ranking_column] = if i == 0
                                       1
