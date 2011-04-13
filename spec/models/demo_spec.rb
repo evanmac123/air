@@ -104,6 +104,7 @@ describe Demo, '#recalculate_all_moving_averages!' do
 
     @all_users = [@first, @second_tie_1, @second_tie_2, @fourth, @fifth_tie_1, @fifth_tie_2, @fifth_tie_3, @eighth]
     @demo.stubs(:users).returns(@all_users)
+    @all_users.stubs(:ranked).returns(@all_users)
     @all_users.stubs(:order).with('recent_average_points DESC').returns(@all_users)
 
     @scores_to_update_to = [100, 95, 95, 90, 85, 85, 85, 80]
