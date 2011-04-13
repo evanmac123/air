@@ -6,6 +6,17 @@ Given /^"(.*?)" has the SMS slug "(.*?)"$/ do |username, sms_slug|
   User.find_by_name(username).update_attributes(:sms_slug => sms_slug)
 end
 
+When /^an admin moves "(.*?)" to the demo "(.*?)"$/ do |username, company_name|
+  When "I sign in via the login page"
+
+  user = User.find_by_name(username)
+
+  visit(edit_admin_demo_user_path(user.demo, user))
+
+  select(company_name, :from => 'user[demo_id]')
+  click_button "Move User"
+end
+
 Then /^"(.*?)" should be claimed by "(.*?)"$/ do |username, phone_number|
   user = User.find_by_name(username)
   user.phone_number.should == phone_number

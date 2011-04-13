@@ -421,6 +421,18 @@ describe User, "#recalculate_moving_average!" do
     end
   end
 
+  it "should ignore acts that took place in a Demo other than the current one" do
+    user = Factory :user
+    Factory :act, :user => user, :inherent_points => 10
+    Factory :act, :user => user, :inherent_points => 3, :demo_id => (Factory :demo).id, :created_at => Date.yesterday.midnight
+
+    user.recalculate_moving_average!
+    user.reload
+
+    user.recent_average_history_depth.should == 0
+    user.recent_average_points.should == 10
+  end
+
   it "should not touch the user's recent average ranking" do
     user = Factory :user, :recent_average_points => 100000
     user.update_attribute(:recent_average_ranking, 1000)

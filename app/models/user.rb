@@ -230,7 +230,8 @@ class User < ActiveRecord::Base
   # all rankings at once afterwards.
   
   def recalculate_moving_average!
-    acts_in_horizon = acts.where('created_at >= ?', (Date.today - MAX_RECENT_AVERAGE_HISTORY_DEPTH.days).midnight).order(:created_at)
+    horizon = (Date.today - MAX_RECENT_AVERAGE_HISTORY_DEPTH.days).midnight
+    acts_in_horizon = acts.where('created_at >= ? AND demo_id = ?', horizon, self.demo_id).order(:created_at)
     oldest_act_in_horizon = acts_in_horizon.first
 
     self.recent_average_history_depth = if oldest_act_in_horizon
@@ -274,6 +275,16 @@ class User < ActiveRecord::Base
     end
   end
 
+  def move_to_new_demo(new_demo_id)
+    new_demo = Demo.find(new_demo_id)
+    self.demo = new_demo
+    self.points = self.acts.where(:demo_id => new_demo_id).map(&:points).sum
+    self.save!
+    self.recalculate_moving_average!
+
+    new_demo.fix_total_user_rankings!
+    new_demo.fix_recent_average_user_rankings!
+  end
 
   protected
 

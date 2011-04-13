@@ -29,3 +29,9 @@ Then /^I should see "(.*?)" with ranking "(.*?)"$/ do |name, ranking|
     page.should have_css("li[@value=\"#{ranking}\"]", :text => name)
   end
 end
+
+Then /^I should not see "(.*?)" in the scoreboard$/ do |name|
+  with_scope '.top-scores' do
+    page.should have_no_content(name)
+  end
+end

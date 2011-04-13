@@ -2,6 +2,10 @@ class Act < ActiveRecord::Base
   belongs_to :user
   belongs_to :rule
 
+  before_create do
+    self.demo_id ||= user.demo_id
+  end
+
   after_create do
     user.update_points(points) if points
   end
