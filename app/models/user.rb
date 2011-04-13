@@ -276,14 +276,18 @@ class User < ActiveRecord::Base
   end
 
   def move_to_new_demo(new_demo_id)
+    old_demo = self.demo
     new_demo = Demo.find(new_demo_id)
+
     self.demo = new_demo
     self.points = self.acts.where(:demo_id => new_demo_id).map(&:points).sum
     self.save!
     self.recalculate_moving_average!
 
-    new_demo.fix_total_user_rankings!
-    new_demo.fix_recent_average_user_rankings!
+    [old_demo, new_demo].each do |demo|
+      demo.fix_total_user_rankings!
+      demo.fix_recent_average_user_rankings!
+    end
   end
 
   protected
