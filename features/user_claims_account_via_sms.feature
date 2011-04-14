@@ -7,7 +7,7 @@ Feature: User claims account via SMS
     And "Dan Croak" has the SMS slug "dcroak4444"
     When "+14155551212" sends SMS "Dcroak"
     Then "Dan Croak" should be claimed by "+14155551212"
-    And "+14155551212" should have received an SMS "You've joined the Global Tetrahedron game! Your unique ID is dcroak4444 (text MYID for a reminder). To play, send texts to this #. Send a text HELP for help."
+    And "+14155551212" should have received an SMS "You've joined the Global Tetrahedron game! Your unique ID is dcroak4444 (text MYID if you forget). To play, text to this #. Text HELP for help."
 
   Scenario: Claiming account sets password so user can log in via Web
     Given the following user exists:
@@ -100,7 +100,7 @@ Feature: User claims account via SMS
     And "Phil Darnowsky" has the SMS slug "pdarnowsky99"
     When "+14152613077" sends SMS "pdarnowsky"
     And "+14152613077" sends SMS "pdarnowsky"
-    Then "+14152613077" should have received an SMS "You've joined the W00t! game! Your unique ID is pdarnowsky99 (text MYID for a reminder). To play, send texts to this #. Send a text HELP for help."
+    Then "+14152613077" should have received an SMS "You've joined the W00t! game! Your unique ID is pdarnowsky99 (text MYID if you forget). To play, text to this #. Text HELP for help."
     And "+14152613077" should have received an SMS "You've already claimed your account, and currently have 5 points."
 
   Scenario: Some variability allowed in how users send their claim codes

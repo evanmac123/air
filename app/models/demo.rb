@@ -17,7 +17,7 @@ class Demo < ActiveRecord::Base
   alias_method_chain :acts, :current_demo_checked
 
   def welcome_message(user)
-    self.custom_welcome_message || "You've joined the #{self.company_name} game! Your unique ID is #{user.sms_slug} (text MYID for a reminder). To play, send texts to this #. Send a text HELP for help."
+    self.custom_welcome_message || "You've joined the #{self.company_name} game! Your unique ID is #{user.sms_slug} (text MYID if you forget). To play, text to this #. Text HELP for help."
   end
 
   def game_over?

@@ -28,7 +28,7 @@ Feature: Admin sets up demo
     When I follow "New Demo"
     And I fill in "Company name" with "3M"
     And I press "Submit"
-    Then I should see "Welcome message: You've joined the 3M game! Your unique ID is [sms slug] (text MYID for a reminder). To play, send texts to this #. Send a text HELP for help."
+    Then I should see "Welcome message: You've joined the 3M game! Your unique ID is [sms slug] (text MYID if you forget). To play, text to this #. Text HELP for help."
     And I should see "New players start with 0 points"
     And I should not see "points to win"
     And I should not see "Victory email to"
