@@ -14,11 +14,11 @@ Feature: User acts
     And "Paul" has the SMS slug "paul55"
     And "Fred" has the SMS slug "fred666"
     And the following rules exist:
-      | key          | value  | points | referral points | reply                     | alltime_limit | 
-      | name: ate    | banana | 2      |                 | Bananas are good for you. |               |
-      | name: worked | out    | 5      | 200             | Working out is nice.      |               |
-      | name: saw    | poster | 20     |                 | Congratulations!          | 2             |
-      | name: made   | toast  | 8      |                 | So you made toast.        |               |
+      | value      | points | referral points | reply                     | alltime_limit | 
+      | ate banana | 2      |                 | Bananas are good for you. |               |
+      | worked out | 5      | 200             | Working out is nice.      |               |
+      | saw poster | 20     |                 | Congratulations!          | 2             |
+      | made toast | 8      |                 | So you made toast.        |               |
     And the following coded rule exists:
       | value | points | description                                     | reply                  |
       | ZXCVB | 15     | Looked at our poster about healthful practices. | Good show. +15 points. |

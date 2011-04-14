@@ -23,8 +23,7 @@ Factory.define :demo do |factory|
 end
 
 Factory.define :rule do |factory|
-  factory.association(:key)
-  factory.value  { "banana" }
+  factory.value  { "ate banana" }
   factory.points { 2 }
   factory.reply  { "Yum. +2 points. Bananas help you fight cancer." }
 end

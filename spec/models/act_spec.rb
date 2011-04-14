@@ -47,27 +47,11 @@ describe Act, ".parse" do
       end
     end
 
-    context "and types a bad key" do
-      it "prompts them to ask for help" do
-        reply = "We didn't understand. Try: help"
-        Act.parse(user, "wakka").should == reply
-      end
-    end
-
-    context "and types a good key" do
-      let(:key)        { Factory(:key) }
-      let(:rule)       { Factory(:rule, :key => key) }
-      let(:good_value) { rule; key.rules.first.value }
-
-      context "with a bad value" do
-        it "prompts them to ask for help" do
-          reply = "We didn't understand. Try: help"
-          Act.parse(user, "wakka").should == reply
-        end
-      end
+    context "and types a good value" do
+      let(:rule)       { Factory(:rule) }
 
       context "with a good value" do
-        let(:good_sms) { "#{key.name} #{good_value}" }
+        let(:good_sms) { rule.value }
 
         before do
           @result = Act.parse(user, good_sms)

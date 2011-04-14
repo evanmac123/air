@@ -6,8 +6,8 @@ Feature: Moving average of points and ranking based on it
       | Dan  | 20                    | 0                            | +14155551212 | company_name: FooCorp |
       | Bob  | 18                    | 3                            | +16178675309 | company_name: FooCorp |
     And the following rule exists:
-      | key        | value | points |
-      | name: made | toast | 7      |
+      | value      | points |
+      | made toast | 7      |
     And "Bob" has the password "foo"
     When "+16178675309" sends SMS "made toast"
     And I sign in via the login page as "Bob/foo"

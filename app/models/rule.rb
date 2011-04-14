@@ -1,21 +1,13 @@
 class Rule < ActiveRecord::Base
-  belongs_to :key
   has_many   :acts
 
-  validates_presence_of   :key_id, :if => :require_key?
   validates_presence_of   :value
-  validates_uniqueness_of :value, :scope => :key_id
+  validates_uniqueness_of :value
+
+  before_save :normalize_value
 
   def to_s
-    description || full_name
-  end
-
-  def full_name
-    if key
-      "#{key.name} #{value}"
-    else
-      value
-    end
+    description || value
   end
 
   def user_hit_limit?(user)
@@ -38,10 +30,7 @@ class Rule < ActiveRecord::Base
 
   protected
 
-  # This gives us an easy way to turn off key validation in the CodedRule
-  # subclass.
-  
-  def require_key?
-    true
+  def normalize_value
+    self.value = self.value.strip.downcase.gsub(/\s+/, ' ')
   end
 end
