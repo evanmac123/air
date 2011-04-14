@@ -3,17 +3,14 @@ require 'spec_helper'
 describe Rule do
   subject { Factory(:rule) }
 
-  it { should belong_to(:key) }
   it { should have_many(:acts) }
 
-  it { should validate_presence_of(:key_id) }
   it { should validate_presence_of(:value) }
-  it { should validate_uniqueness_of(:value).scoped_to(:key_id) }
+  it { should validate_uniqueness_of(:value) }
 
   describe "#to_s" do
     before(:each) do
-      @key = Factory :key, :name => 'engendered'
-      @rule = Factory :rule, :value => 'healthificity', :key => @key
+      @rule = Factory :rule, :value => 'engendered healthificity'
     end
 
     context "when no description is set" do
@@ -27,6 +24,14 @@ describe Rule do
         @rule.description = "Made health"
         @rule.to_s.should == "Made health"
       end
+    end
+  end
+
+  describe "before save" do
+    it "should normalize the value" do
+      rule = Factory.build :rule, :value => '   FoO    BaR '
+      rule.save!
+      rule.value.should == 'foo bar'
     end
   end
 end
