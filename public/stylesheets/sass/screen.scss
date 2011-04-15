@@ -26,6 +26,14 @@ $message-reply-background-color: #d2e8b9;
   box-shadow: $x $y $blur $spread $color;
 }
 
+@mixin background-gradient($startColor, $endColor, $fallbackColor) {
+  background: $fallbackColor; /* for non-css3 browsers */
+
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$startColor', endColorstr='$endColor'); /* for IE */
+  background: -webkit-gradient(linear, left top, left bottom, from($startColor), to($endColor)); /* for webkit browsers */
+  background: -moz-linear-gradient(top,  $startColor,  $endColor); /* for firefox 3.6+ */ 
+}
+
 @mixin white-li {
   background-color: $white;
   border-bottom: 1px solid #DDD;
@@ -107,7 +115,8 @@ h2.your-mobile-number {
 
 .header {
   @include box-shadow(0, 1px, 2px, 1px, rgba(0, 0, 0, 0.5));
-  background: #3C4244;
+  @include background-gradient(#3C4244, #222222, #3C4244);
+
   height: 65px;
   .inner-header {
     margin: 0px auto;
