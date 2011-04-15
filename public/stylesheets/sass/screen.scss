@@ -1,14 +1,17 @@
 @import "flick/jquery-ui-1.8.10.custom.css";
 
-$blue:      #103245;
-$green:     #55950D;
-$yellow:    #ffea96;
-$orange:    #ff6a37;
-$offwhite:  #f0f0f0;
-$white:     #ffffff;
-$black:     #111111;
-$gray:      #333333;
-$light-gray: #999999;
+$blue:        #103245;
+$light-green: #80d422;
+$green:       #55950D;
+$yellow:      #ffea96;
+$orange:      #ff6a37;
+$offwhite:    #f0f0f0;
+$white:       #ffffff;
+$black:       #111111;
+$gray:        #333333;
+$light-gray:  #999999;
+$dark-gray:   #2d2d2b;
+$aqua:        #22d4a8;
 
 $message-header-background-color: #6c7868;
 $new-message-header-background-color: #ba7d3b;
@@ -34,11 +37,11 @@ $message-reply-background-color: #d2e8b9;
   background: -moz-linear-gradient(top,  $startColor,  $endColor); /* for firefox 3.6+ */ 
 }
 
-@mixin white-li {
+@mixin white-li($width=$main-column-width - 14px) {
   background-color: $white;
   border-bottom: 1px solid #DDD;
   float: left;
-  width: 440px;
+  width: $width;
   padding: 15px 4px 0 10px;
   position: relative;
   min-height: 60px;
@@ -57,10 +60,6 @@ $message-reply-background-color: #d2e8b9;
 a, a:link {
   color: $light-gray;
   text-decoration: none;
-}
-
-a:hover {
-  color: $orange;
 }
 
 body {
@@ -94,7 +93,7 @@ h2 {
 }
 
 h2.first {
-  margin: 0 0 20px 0;
+  margin: 0 0 10px 0;
 }
 
 h2.first#activity, h2.first#scoreboard {
@@ -114,35 +113,36 @@ h2.your-mobile-number {
 }
 
 .header {
-  @include box-shadow(0, 1px, 2px, 1px, rgba(0, 0, 0, 0.5));
-  @include background-gradient(#3C4244, #222222, #3C4244);
+  @include box-shadow(0, 1px, 2px, 1px, $light-green);
+  @include background-gradient($green, $light-green, $light-green);
 
   height: 65px;
+
+  #logo {
+    width: 75px;
+    float: left;
+
+    padding-top: 4px;
+    margin-left: -22px;
+
+    img {
+      margin: 0px;
+    }
+  }
+
   .inner-header {
     margin: 0px auto;
     padding: 0 0 10px 0;
     width: 960px;
 
-    #header-and-slogan {
-      width: 150px;
-      margin-top: 15px;
-      float: left;
-
-      img {
-        margin: 3px 0 0 0;
-      }
-    }
-
     #add-action {
-      margin-left: 100px;
-      margin-top: 15px;
+      margin-top: 30px;
       float: left;
-      color: $white;
+      color: $blue;
       font-size: 22px;
 
       .enter-code {
         font-size: 12px;
-        color: $light-gray;
         vertical-align: middle; 
 
         .prompt {
@@ -151,40 +151,32 @@ h2.your-mobile-number {
         }
 
         input[type="text"] {
-          width: 330px;
+          width: 387px;
+          height: 20px;
           margin-left: 5px;
         }
 
         input[type="submit"] { 
-          padding: 3px 5px 6px 5px; 
+          padding: 5px 5px 7px;
         }
       }
     }
 
     #account {
-      margin-top: 22px;
+      margin-top: 45px;
       font-size: 13px;
       float: right;
       text-align: right;
 
       a, a:visited, a:link {
-        color: $light-gray;
         text-decoration: none;
-        font-size: 12px;
-        color: #929292;
+        font-weight: bold;
         margin-left: 5px;
-      }
-
-      #self-link {
-        color: $green;
-
-        :hover {
-          color: $orange;
-        }
+        color: $dark-gray;
       }
 
       a:hover {
-        color: $orange;
+        border-bottom: solid $dark-gray 1px;
       }
     }
   }
@@ -195,7 +187,7 @@ h2.your-mobile-number {
 
 .content {
   @include rounded-corners;
-  margin: 10px auto;
+  margin: 30px auto;
   background: $offwhite;
   width: 960px;
   padding-bottom: 5px;
@@ -269,9 +261,11 @@ form .submit-input {
   }
 }
 
+$main-column-width: 505px;
+
 #main {
   float: left;
-  width: 454px;
+  width: $main-column-width;
   p {
     line-height: 1.4em;
     margin-bottom: 20px;
@@ -280,7 +274,7 @@ form .submit-input {
 
 #secondary {
   float: right;
-  width: 440px;
+  width: 389px;
   p {
     line-height: 1.4em;
     margin-bottom: 10px;
@@ -409,13 +403,13 @@ table#your-score {
 ul#acts {
   background-color: $white;
   list-style: none;
+  margin-top: 8px;
 
   li.act, li.small-act {
     @include white-li;
 
     p {
-      float: right;
-      width: 380px;
+      width: 483px;
       font-size: 14px;
       padding-bottom: 12px;
       color: #363636;
@@ -537,12 +531,12 @@ button, input[type=submit], .examples .points {
   font-weight: bold;
   padding: 8px 12px;
   color: $white;
-  background: $blue;
+  background: $dark-gray;
   border: 0px solid $gray;
 }
 
 button:hover, input[type=submit]:hover, .examples .points:hover {
-  background: $orange;
+  background: $aqua;
   cursor: pointer;
 }
 
