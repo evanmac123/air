@@ -3,9 +3,6 @@ a, a:link {
   color: #999999;
   text-decoration: none; }
 
-a:hover {
-  color: #ff6a37; }
-
 body {
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-size: 14px;
@@ -30,7 +27,7 @@ h2 {
     margin-left: 6px; }
 
 h2.first {
-  margin: 0 0 20px 0; }
+  margin: 0 0 10px 0; }
 
 h2.first#activity, h2.first#scoreboard {
   display: inline; }
@@ -44,63 +41,58 @@ h2.your-mobile-number a {
   font-weight: bold; }
 
 .header {
-  -webkit-box-shadow: 0 1px 2px 1px rgba(0, 0, 0, 0.5);
-  -moz-box-shadow: 0 1px 2px 1px rgba(0, 0, 0, 0.5);
-  box-shadow: 0 1px 2px 1px rgba(0, 0, 0, 0.5);
-  background: #3c4244;
+  -webkit-box-shadow: 0 1px 2px 1px #80d422;
+  -moz-box-shadow: 0 1px 2px 1px #80d422;
+  box-shadow: 0 1px 2px 1px #80d422;
+  background: #80d422;
   /* for non-css3 browsers */
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$startColor', endColorstr='$endColor');
   /* for IE */
-  background: -webkit-gradient(linear, left top, left bottom, from(#3c4244), to(#222222));
+  background: -webkit-gradient(linear, left top, left bottom, from(#55950d), to(#80d422));
   /* for webkit browsers */
-  background: -moz-linear-gradient(top, #3c4244, #222222);
+  background: -moz-linear-gradient(top, #55950d, #80d422);
   /* for firefox 3.6+ */
   height: 65px; }
+  .header #logo {
+    width: 75px;
+    float: left;
+    padding-top: 4px;
+    margin-left: -22px; }
+    .header #logo img {
+      margin: 0px; }
   .header .inner-header {
     margin: 0px auto;
     padding: 0 0 10px 0;
     width: 960px; }
-    .header .inner-header #header-and-slogan {
-      width: 150px;
-      margin-top: 15px;
-      float: left; }
-      .header .inner-header #header-and-slogan img {
-        margin: 3px 0 0 0; }
     .header .inner-header #add-action {
-      margin-left: 100px;
-      margin-top: 15px;
+      margin-top: 30px;
       float: left;
-      color: white;
+      color: #103245;
       font-size: 22px; }
       .header .inner-header #add-action .enter-code {
         font-size: 12px;
-        color: #999999;
         vertical-align: middle; }
         .header .inner-header #add-action .enter-code .prompt {
           font-size: 18px;
           vertical-align: middle; }
         .header .inner-header #add-action .enter-code input[type="text"] {
-          width: 330px;
+          width: 387px;
+          height: 20px;
           margin-left: 5px; }
         .header .inner-header #add-action .enter-code input[type="submit"] {
-          padding: 3px 5px 6px 5px; }
+          padding: 5px 5px 7px; }
     .header .inner-header #account {
-      margin-top: 22px;
+      margin-top: 45px;
       font-size: 13px;
       float: right;
       text-align: right; }
       .header .inner-header #account a, .header .inner-header #account a:visited, .header .inner-header #account a:link {
-        color: #999999;
         text-decoration: none;
-        font-size: 12px;
-        color: #929292;
-        margin-left: 5px; }
-      .header .inner-header #account #self-link {
-        color: #55950d; }
-        .header .inner-header #account #self-link :hover {
-          color: #ff6a37; }
+        font-weight: bold;
+        margin-left: 5px;
+        color: #2d2d2b; }
       .header .inner-header #account a:hover {
-        color: #ff6a37; }
+        border-bottom: solid #2d2d2b 1px; }
 
 .explanation {
   padding: 10px 0; }
@@ -109,7 +101,7 @@ h2.your-mobile-number a {
   -moz-border-radius: 1em;
   -webkit-border-radius: 1em;
   border-radius: 1em;
-  margin: 10px auto;
+  margin: 30px auto;
   background: #f0f0f0;
   width: 960px;
   padding-bottom: 5px; }
@@ -170,14 +162,14 @@ form .submit-input {
 
 #main {
   float: left;
-  width: 454px; }
+  width: 505px; }
   #main p {
     line-height: 1.4em;
     margin-bottom: 20px; }
 
 #secondary {
   float: right;
-  width: 440px; }
+  width: 389px; }
   #secondary p {
     line-height: 1.4em;
     margin-bottom: 10px; }
@@ -274,12 +266,13 @@ table#your-score {
 /* Activity Feed */
 ul#acts {
   background-color: white;
-  list-style: none; }
+  list-style: none;
+  margin-top: 8px; }
   ul#acts li.act, ul#acts li.small-act {
     background-color: white;
     border-bottom: 1px solid #DDD;
     float: left;
-    width: 440px;
+    width: 491px;
     padding: 15px 4px 0 10px;
     position: relative;
     min-height: 60px;
@@ -293,8 +286,7 @@ ul#acts {
     ul#acts li.act a:hover, ul#acts li.small-act a:hover {
       text-decoration: underline; }
     ul#acts li.act p, ul#acts li.small-act p {
-      float: right;
-      width: 380px;
+      width: 481px;
       font-size: 14px;
       padding-bottom: 12px;
       color: #363636;
@@ -380,11 +372,11 @@ button, input[type=submit], .examples .points {
   font-weight: bold;
   padding: 8px 12px;
   color: white;
-  background: #103245;
+  background: #2d2d2b;
   border: 0px solid #333333; }
 
 button:hover, input[type=submit]:hover, .examples .points:hover {
-  background: #ff6a37;
+  background: #22d4a8;
   cursor: pointer; }
 
 #phone_submit {
@@ -521,7 +513,7 @@ ul#followings, ul#followers {
     background-color: white;
     border-bottom: 1px solid #DDD;
     float: left;
-    width: 440px;
+    width: 491px;
     padding: 15px 4px 0 10px;
     position: relative;
     min-height: 60px;
