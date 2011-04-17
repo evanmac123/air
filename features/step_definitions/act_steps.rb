@@ -8,7 +8,7 @@ end
 
 When /^I enter the act code "(.*?)"$/ do |act_code|
   Then "I fill in \"act[code]\" with \"#{act_code}\""
-  Then "I press \"add\""
+  Then "I press \"Play\""
 end
 
 Then /^I should( not)? see the following act(s?):$/ do |sense, _nothing, table|
