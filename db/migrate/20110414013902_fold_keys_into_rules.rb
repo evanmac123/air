@@ -1,7 +1,14 @@
 class FoldKeysIntoRules < ActiveRecord::Migration
   def self.up
     Rule.all.each do |rule|
-      rule.update_attribute(:value, rule.full_name)
+      full_name = if (key_id = rule['key_id'])
+                      k = Key.find(key_id)
+                      "#{k.name} #{rule.value}"
+                  else
+                    rule.value
+                  end
+
+      rule.update_attribute(:value, full_name)
     end
 
     remove_column :rules, :key_id
