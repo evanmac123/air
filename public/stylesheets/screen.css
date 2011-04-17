@@ -286,7 +286,7 @@ ul#acts {
     ul#acts li.act a:hover, ul#acts li.small-act a:hover {
       text-decoration: underline; }
     ul#acts li.act p, ul#acts li.small-act p {
-      width: 481px;
+      width: 483px;
       font-size: 14px;
       padding-bottom: 12px;
       color: #363636;
@@ -308,20 +308,16 @@ ul#acts {
         color: #999999;
         font-size: 11px; }
       ul#acts li.act p span.points, ul#acts li.small-act p span.points {
-        height: 25px;
-        width: 55px;
-        background-color: #55950d;
-        color: white;
+        color: #55950d;
         position: absolute;
         top: 0;
         right: 0;
         text-align: center;
         padding: 5px 0;
-        font-size: 10px;
-        line-height: 14px; }
-      ul#acts li.act p span.point-value, ul#acts li.small-act p span.point-value {
-        font-size: 14px;
-        display: block; }
+        line-height: 14px;
+        font-size: 14px; }
+        ul#acts li.act p span.points span.point-value, ul#acts li.small-act p span.points span.point-value {
+          font-size: 22px; }
       ul#acts li.act p span.ranking, ul#acts li.small-act p span.ranking {
         position: absolute;
         right: 0;
