@@ -19,7 +19,7 @@ module SpecialCommand
     user_following = User.find_by_phone_number(number_following)
     return nil unless user_following
 
-    user_to_follow = User.find_by_sms_slug(sms_slug_to_follow)
+    user_to_follow = User.where(:sms_slug => sms_slug_to_follow, :demo_id => user_following.demo_id).first
     return "Sorry, we couldn't find a user with the unique ID #{sms_slug_to_follow}." unless user_to_follow
 
     return "You're already following #{user_to_follow.name}." if user_following.friendships.where(:friend_id => user_to_follow.id).first

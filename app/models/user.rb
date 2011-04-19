@@ -39,6 +39,20 @@ class User < ActiveRecord::Base
     self.class.joins("INNER JOIN friendships on users.id = friendships.user_id").where('friendships.friend_id = ?', self.id)
   end
 
+  # See comment by Demo#acts_with_current_demo_checked for an explanation of 
+  # why we do this.
+
+  def friends_with_in_current_demo
+    friends_without_in_current_demo.where(:demo_id => self.demo_id)
+  end
+
+  def followers_with_in_current_demo
+    followers_without_in_current_demo.where(:demo_id => self.demo_id)
+  end
+
+  alias_method_chain :friends, :in_current_demo
+  alias_method_chain :followers, :in_current_demo
+
   def to_param
     slug
   end
@@ -150,11 +164,11 @@ class User < ActiveRecord::Base
   end
 
   def followers_count
-    Friendship.where(:friend_id => id).count
+    followers.count
   end
 
   def following_count
-    Friendship.where(:user_id => id).count
+    friends.count
   end
 
   def generate_simple_claim_code!

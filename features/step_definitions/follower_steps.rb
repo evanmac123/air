@@ -11,6 +11,13 @@ def expect_user_details(name, button_type)
   page.should have_button(button_type.capitalize)
 end
 
+Given /^"(.*?)" follows "(.*?)"$/ do |follower_name, followed_name|
+  follower = User.find_by_name(follower_name)
+  followed = User.find_by_name(followed_name)
+
+  Friendship.create(:user => follower, :friend => followed)
+end
+
 When /^I unfollow "(.*?)"$/ do |username|
   user = User.find_by_name(username)
 

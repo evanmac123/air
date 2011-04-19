@@ -2,20 +2,24 @@ Feature: Following and follower lists
 
   Background:
     Given the following users exist:
-      | name    | points |
-      | Arturo  | 50     |
-      | Bertram | 20     |
-      | Colby   | 35     |
-      | Dirk    | 90     |
+      | name    | points | demo                              |
+      | Arturo  | 50     | company_name: Amalgamated Widgets |
+      | Bertram | 20     | company_name: Amalgamated Widgets |
+      | Colby   | 35     | company_name: Amalgamated Widgets |
+      | Dirk    | 90     | company_name: Amalgamated Widgets |
+      | Evan    | 44     | company_name: Synthetic Persons   |
+      | Fred    | 44     | company_name: Synthetic Persons   |
     And the following friendships exist:
       | user         | friend        |
       | name: Arturo | name: Bertram |
       | name: Arturo | name: Dirk    |
+      | name: Arturo | name: Evan    |
       | name: Colby  | name: Arturo  |
       | name: Colby  | name: Bertram |
       | name: Dirk   | name: Arturo  |
       | name: Dirk   | name: Bertram |
       | name: Dirk   | name: Colby   |
+      | name: Fred   | name: Arturo  |
     And "Arturo" has the password "foo"
     And I sign in via the login page as "Arturo/foo"
     And I go to the friends page
@@ -25,12 +29,14 @@ Feature: Following and follower lists
       | name    | button_type  |
       | Colby   | connect      |
       | Dirk    | unconnect    |
+    And I should not see "Fred"
 
   Scenario: Following list
     Then I should see these people I am following:
       | name    | button_type  |
       | Bertram | unconnect    |
       | Dirk    | unconnect    |
+    And I should not see "Evan"
 
   Scenario: Unollowing user from follower list
     When I unfollow "Dirk"

@@ -2,9 +2,10 @@ Feature: User can follow another user by SMS
 
   Background:
     Given the following users exist:
-      | name        | phone number |
-      | Dan Croak   | +16175551212 |
-      | Vlad Gyster | +16178675309 |
+      | name        | phone number | demo                   |
+      | Dan Croak   | +16175551212 | company name: Yoyodyne |
+      | Vlad Gyster | +16178675309 | company name: Yoyodyne |
+      | John Smith  | +12125551212 | company name: BigCorp  |
     And "Dan Croak" has the SMS slug "dan4444"
 
   Scenario: User follows another by SMS
@@ -29,6 +30,13 @@ Feature: User can follow another user by SMS
     Then I should see "0 following"
     And "+16178675309" should have received an SMS "Sorry, we couldn't find a user with the unique ID mrnobody."
 
+  Scenario: User tries to follow another user in a different demo
+    When "+16178675309" sends SMS "follow jsmith"
+    And I sign in via the login page
+    And I go to the profile page for "Vlad Gyster"
+    Then I should see "0 following"
+    And "+16178675309" should have received an SMS "Sorry, we couldn't find a user with the unique ID jsmith."
+  
   Scenario: Request to follow from a user who isn't registered
     When "+18085551212" sends SMS "follow dan4444"
     Then "+18085551212" should have received an SMS 'I can't find your number in my records. Did you claim your account yet? If not, text your first initial and last name (if you are John Smith, text "jsmith").'
