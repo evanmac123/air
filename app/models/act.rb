@@ -63,7 +63,7 @@ class Act < ActiveRecord::Base
       end
 
       if referring_user == user
-        return "Now now. It wouldn't be fair to try to get extra points by referring yourself."
+        return parsing_error_message("Now now. It wouldn't be fair to try to get extra points by referring yourself.")
       end
     end
 
@@ -74,9 +74,11 @@ class Act < ActiveRecord::Base
         credit_referring_user(referring_user, user, rule)
         return parsing_success_message(record_act(user, rule, referring_user))
       end
+    elsif (suggestion = Rule.find_rule_suggestion(value))
+      return parsing_error_message("I didn't quite get what you meant. Maybe try #{suggestion}?")
     else
       record_bad_message(phone_number, body)
-      return parsing_error_message("We didn't understand. Try: help")
+      return parsing_error_message("Sorry, I don't understand what that means.")
     end
   end
 

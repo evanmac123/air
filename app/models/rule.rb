@@ -28,9 +28,21 @@ class Rule < ActiveRecord::Base
     where("points = 0").limit(limit)
   end
 
+  def self.partially_matching_value(value)
+    query_string = Rule.connection.quote_string(value.gsub(/\s+/, '|'))
+    self.select("*, ts_rank(to_tsvector('english', value), query) AS rank").from("rules, to_tsquery('#{query_string}') query").where("to_tsvector('english', value) @@ query")
+  end
+
   protected
 
   def normalize_value
     self.value = self.value.strip.downcase.gsub(/\s+/, ' ')
+  end
+
+  def self.find_rule_suggestion(attempted_value)
+    matches = self.partially_matching_value(attempted_value).limit(3).order('rank DESC, lower(value)')
+    return nil if matches.empty?
+
+    matches.map{|match| "\"#{match.value}\""}.join(' or ')
   end
 end

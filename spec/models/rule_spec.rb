@@ -34,4 +34,39 @@ describe Rule do
       rule.value.should == 'foo bar'
     end
   end
+
+  describe Rule, ".find_rule_suggestion" do
+    before(:each) do
+      [
+        'ate banana',
+        'ate kitten',
+        'ate an entire pizza',
+        'ate Sheboygan',
+        'worked out',
+        'drank beer',
+        'drank whiskey',
+        'went for a walk',
+        'took a walk',
+        'walked outside'
+      ].each {|value| Factory :rule, :value => value}
+    end
+
+    context "when nothing matches well" do
+      it "should return nil" do
+        Rule.send(:find_rule_suggestion, 'played guitar').should be_nil
+      end
+    end
+
+    context "when one thing matches well" do
+      it "should return an appropriate phrase" do
+        Rule.send(:find_rule_suggestion, 'pet kitten').should == '"ate kitten"'
+      end
+    end
+
+    context "when more than one thing matches well" do
+      it "should return an appropriate phrase" do
+        Rule.send(:find_rule_suggestion, 'ate raisins').should == '"ate an entire pizza" or "ate banana" or "ate kitten"'
+      end
+    end
+  end
 end
