@@ -124,6 +124,7 @@ h2.your-mobile-number {
 
     padding-top: 4px;
     margin-left: -22px;
+    margin-right: 10px;
 
     img {
       margin: 0px;
@@ -151,9 +152,10 @@ h2.your-mobile-number {
         }
 
         input[type="text"] {
-          width: 387px;
+          width: 377px;
           height: 20px;
           margin-left: 5px;
+          font-size: 14px;
         }
 
         input[type="submit"] { 
@@ -454,7 +456,8 @@ ul#acts {
         font-size: 14px;
 
         span.point-value {
-          font-size: 22px;
+          font-size: 18px;
+          font-weight: bold;
         }
       }
 
