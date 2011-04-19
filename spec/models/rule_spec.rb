@@ -68,5 +68,13 @@ describe Rule do
         Rule.send(:find_rule_suggestion, 'ate raisins').should == '"ate an entire pizza" or "ate banana" or "ate kitten"'
       end
     end
+
+    it "should ignore rules that are marked as not \"suggestible\"" do
+      rule = Rule.find_by_value('ate an entire pizza')
+      rule.suggestible = false
+      rule.save!
+
+      Rule.send(:find_rule_suggestion, 'ate raisins').should_not include('ate an entire pizza')
+    end
   end
 end

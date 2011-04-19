@@ -2,10 +2,11 @@ Feature: Full text rule search
 
   Background:
     Given the following rules exist:
-      | value      |
-      | ate banana |
-      | ate kitten |
-      | worked out |
+      | value      | suggestible |
+      | ate banana | true        |
+      | ate kitten | true        |
+      | ate poison | false       |
+      | worked out | true        |
     And the following user exists:
       | name | phone number |
       | Dan  | +16175551212 |

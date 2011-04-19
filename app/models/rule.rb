@@ -30,7 +30,7 @@ class Rule < ActiveRecord::Base
 
   def self.partially_matching_value(value)
     query_string = Rule.connection.quote_string(value.gsub(/\s+/, '|'))
-    self.select("*, ts_rank(to_tsvector('english', value), query) AS rank").from("rules, to_tsquery('#{query_string}') query").where("to_tsvector('english', value) @@ query")
+    self.select("*, ts_rank(to_tsvector('english', value), query) AS rank").from("rules, to_tsquery('#{query_string}') query").where("suggestible = true AND to_tsvector('english', value) @@ query")
   end
 
   protected
