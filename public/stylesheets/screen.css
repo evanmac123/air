@@ -57,7 +57,8 @@ h2.your-mobile-number a {
     width: 75px;
     float: left;
     padding-top: 4px;
-    margin-left: -22px; }
+    margin-left: -22px;
+    margin-right: 10px; }
     .header #logo img {
       margin: 0px; }
   .header .inner-header {
@@ -76,9 +77,10 @@ h2.your-mobile-number a {
           font-size: 18px;
           vertical-align: middle; }
         .header .inner-header #add-action .enter-code input[type="text"] {
-          width: 387px;
+          width: 377px;
           height: 20px;
-          margin-left: 5px; }
+          margin-left: 5px;
+          font-size: 14px; }
         .header .inner-header #add-action .enter-code input[type="submit"] {
           padding: 5px 5px 7px; }
     .header .inner-header #account {
@@ -317,7 +319,8 @@ ul#acts {
         line-height: 14px;
         font-size: 14px; }
         ul#acts li.act p span.points span.point-value, ul#acts li.small-act p span.points span.point-value {
-          font-size: 22px; }
+          font-size: 18px;
+          font-weight: bold; }
       ul#acts li.act p span.ranking, ul#acts li.small-act p span.ranking {
         position: absolute;
         right: 0;
