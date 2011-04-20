@@ -20,6 +20,7 @@ Feature: Full text rule search
     And I should see the following new bad SMS messages:
       | name | phone_number | message_body     | received_at         |
       | Dan  | +16175551212 | ate baked alaska | 2010-05-01 17:00:00 |
+    And I should see "(has automated suggestion)"
     And I should see `System automatically replied: I didn't quite get what you meant. Maybe try "ate banana" or "ate kitten"?`
 
   Scenario: User comes nowhere near a command
@@ -29,4 +30,5 @@ Feature: Full text rule search
     And I should see the following new bad SMS messages:
       | name | phone_number | message_body          | received_at         |
       | Dan  | +16175551212 | fought eighteen bears | 2010-05-01 17:00:00 |
+    And I should not see "(has automated suggestion)"
     And I should not see "Sorry, I don't understand what that means."
