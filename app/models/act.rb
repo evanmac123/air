@@ -32,8 +32,9 @@ class Act < ActiveRecord::Base
     end
 
     if user.nil?
+      reply = "I can't find your number in my records. Did you claim your account yet? If not, text your first initial and last name (if you are John Smith, text \"jsmith\")."
       record_bad_message(phone_number, body)
-      return parsing_error_message("I can't find your number in my records. Did you claim your account yet? If not, text your first initial and last name (if you are John Smith, text \"jsmith\").")
+      return parsing_error_message(reply)
     end
 
     value = body.downcase.gsub(/\.$/, '').gsub(/\s+$/, '').gsub(/\s+/, ' ')
@@ -74,11 +75,18 @@ class Act < ActiveRecord::Base
         credit_referring_user(referring_user, user, rule)
         return parsing_success_message(record_act(user, rule, referring_user))
       end
-    elsif (suggestion = Rule.find_rule_suggestion(value))
-      return parsing_error_message("I didn't quite get what you meant. Maybe try #{suggestion}?")
-    else
-      record_bad_message(phone_number, body)
-      return parsing_error_message("Sorry, I don't understand what that means.")
+    else 
+      suggestion_phrase = Rule.find_rule_suggestion(value)
+
+      if suggestion_phrase
+        reply = "I didn't quite get what you meant. Maybe try #{suggestion_phrase}?"
+        record_bad_message(phone_number, body, reply)
+      else
+        reply = "Sorry, I don't understand what that means."
+        record_bad_message(phone_number, body)
+      end
+
+      return parsing_error_message(reply)
     end
   end
 
@@ -114,8 +122,8 @@ class Act < ActiveRecord::Base
     end
   end
 
-  def self.record_bad_message(phone_number, body)
-    BadMessage.create!(:phone_number => phone_number, :body => body, :received_at => Time.now)
+  def self.record_bad_message(phone_number, body, reply = '')
+    BadMessage.create!(:phone_number => phone_number, :body => body, :received_at => Time.now, :automated_reply => reply)
   end
 
   def self.credit_referring_user(referring_user, referred_user, rule)

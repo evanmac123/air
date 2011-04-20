@@ -37,7 +37,7 @@ $message-reply-background-color: #d2e8b9;
   background: -moz-linear-gradient(top,  $startColor,  $endColor); /* for firefox 3.6+ */ 
 }
 
-@mixin white-li($width=$main-column-width - 14px) {
+@mixin white-li($width: $main-column-width - 14px) {
   background-color: $white;
   border-bottom: 1px solid #DDD;
   float: left;
@@ -664,6 +664,12 @@ textarea#bad_message_reply_body {
   .message-body {
     @include rounded-corners(2px);
     background-color: $white;
+    color: $black;
+  }
+
+  .automated-reply {
+    @include rounded-corners(2px);
+    background-color: yellow;
     color: $black;
   }
 

@@ -481,6 +481,12 @@ textarea#bad_message_reply_body {
     border-radius: 2px;
     background-color: white;
     color: #111111; }
+  .message .automated-reply {
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+    background-color: yellow;
+    color: #111111; }
   .message .reply {
     -moz-border-radius: 2px;
     -webkit-border-radius: 2px;
