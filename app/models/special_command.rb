@@ -10,6 +10,8 @@ module SpecialCommand
       self.myid(from)
     when 'moreinfo', 'more'
       self.moreinfo(from)
+    when 's', 'suggest'
+      self.suggestion(from, args)
     end
   end
 
@@ -41,5 +43,21 @@ module SpecialCommand
     )
 
     "Great, we'll be in touch. Stay healthy!"
+  end
+
+  def self.suggestion(from, words)
+    user = User.find_by_phone_number(from)
+    return nil unless user
+
+    if words.empty?
+      words = BadMessage.where(:phone_number => user.phone_number).order('created_at DESC').limit(1).first.body.split
+    end
+
+    if User.find_by_sms_slug(words.last)
+      words.pop
+    end
+
+    Suggestion.create!(:user => user, :value => words.join(' '))
+    "Thanks! We'll take your suggestion into consideration."
   end
 end

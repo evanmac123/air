@@ -79,10 +79,10 @@ class Act < ActiveRecord::Base
       suggestion_phrase = Rule.find_rule_suggestion(value)
 
       if suggestion_phrase
-        reply = "I didn't quite get what you meant. Maybe try #{suggestion_phrase}?"
+        reply = "I didn't quite get what you meant. Maybe try #{suggestion_phrase}? Or text S to suggest we add what you sent."
         record_bad_message(phone_number, body, reply)
       else
-        reply = "Sorry, I don't understand what that means."
+        reply = "Sorry, I don't understand what that means. Text S to suggest we add what you sent."
         record_bad_message(phone_number, body)
       end
 
