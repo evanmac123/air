@@ -1,4 +1,4 @@
-When /^I sign in via the login page as "(.*?)"$/ do |login_string|
+When /^I sign in via the login page (as|with) "(.*?)"$/ do |_nothing, login_string|
   username, password = login_string.split('/')
   user = User.find_by_name(username)
 

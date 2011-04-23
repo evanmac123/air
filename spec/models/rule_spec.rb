@@ -35,7 +35,7 @@ describe Rule do
     end
   end
 
-  describe Rule, ".find_rule_suggestion" do
+  describe Rule, ".find_and_record_rule_suggestion" do
     before(:each) do
       [
         'ate banana',
@@ -49,23 +49,47 @@ describe Rule do
         'took a walk',
         'walked outside'
       ].each {|value| Factory :rule, :value => value}
+
+      @user = Factory :user
     end
 
     context "when nothing matches well" do
       it "should return nil" do
-        Rule.send(:find_rule_suggestion, 'played guitar').should be_nil
+        Rule.send(:find_and_record_rule_suggestion, 'played guitar', @user).should be_nil
       end
     end
 
     context "when one thing matches well" do
+      before(:each) do
+        @result = Rule.send(:find_and_record_rule_suggestion, 'pet kitten', @user)
+      end
+
       it "should return an appropriate phrase" do
-        Rule.send(:find_rule_suggestion, 'pet kitten').should == '"ate kitten"'
+        @result.should == '(1) "ate kitten"'
+      end
+
+      it "should set the user's last suggested rules" do
+        @user.reload.last_suggested_items.should == Rule.find_by_value('ate kitten').id.to_s
       end
     end
 
     context "when more than one thing matches well" do
+      before(:each) do
+        @result = Rule.send(:find_and_record_rule_suggestion, 'ate raisins', @user)
+      end
+
       it "should return an appropriate phrase" do
-        Rule.send(:find_rule_suggestion, 'ate raisins').should == '"ate an entire pizza" or "ate banana" or "ate kitten"'
+        @result.should == '(1) "ate an entire pizza" or (2) "ate banana" or (3) "ate kitten"'
+      end
+
+      it "should set the user's last suggested rules" do
+        expected_indices = [
+          'ate an entire pizza', 
+          'ate banana', 
+          'ate kitten'
+        ].map{|value| Rule.find_by_value(value)}.map(&:id)
+        
+        @user.reload.last_suggested_items.should == expected_indices.map(&:to_s).join('|')
       end
     end
 
@@ -74,7 +98,7 @@ describe Rule do
       rule.suggestible = false
       rule.save!
 
-      Rule.send(:find_rule_suggestion, 'ate raisins').should_not include('ate an entire pizza')
+      Rule.send(:find_and_record_rule_suggestion, 'ate raisins', @user).should_not include('ate an entire pizza')
     end
   end
 end

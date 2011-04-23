@@ -26,6 +26,11 @@ Then /^"([^"]*)" should have received the fallback error message SMS$/ do |phone
   Then "\"#{phone_number}\" should have received the SMS 'I can't find your number in my records. Did you claim your account yet? If not, text your first initial and last name (if you are John Smith, text \"jsmith\").'"
 end
 
+Then /^"([^"]*)" should have received an SMS including "(.*)"$/ do |phone_number, text_message|
+  FakeTwilio::SMS.should have_sent_text_including(phone_number, text_message)
+end
+
+
 When /^"([^"]*)" sends SMS "([^"]*)"$/ do |phone_number, sms_body|
   mobile_originated_message_received(phone_number, sms_body)
 end

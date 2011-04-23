@@ -67,11 +67,16 @@ module FakeTwilio
       Rails.logger.info "SMS: --------- RESET ---------"
     end
 
+    def self.messages_to(phone)
+      @@sent_messages.select{|sent_message| sent_message['To'] == phone}
+    end
+
     def self.has_sent_text?(phone, body)
-      @@sent_messages.any? do |message|
-        message["To"]   == phone &&
-        message["Body"] == body
-      end
+      messages_to(phone).any? { |message| message["Body"] == body}
+    end
+
+    def self.has_sent_text_including?(phone, body)
+      messages_to(phone).any? { |message| message["Body"].include? body}
     end
 
     cattr_reader :sent_messages

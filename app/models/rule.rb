@@ -39,10 +39,22 @@ class Rule < ActiveRecord::Base
     self.value = self.value.strip.downcase.gsub(/\s+/, ' ')
   end
 
-  def self.find_rule_suggestion(attempted_value)
+  def self.find_and_record_rule_suggestion(attempted_value, user)
     matches = self.partially_matching_value(attempted_value).limit(3).order('rank DESC, lower(value)')
     return nil if matches.empty?
 
-    matches.map{|match| "\"#{match.value}\""}.join(' or ')
+    # Why is there no #map_with_index? Srsly.
+
+    match_index = 1
+    match_strings = matches.map do |match| 
+      substring = "(#{match_index}) \"#{match.value}\""
+      match_index += 1
+      substring
+    end
+
+    user.last_suggested_items = matches.map(&:id).map(&:to_s).join('|')
+    user.save!
+
+    match_strings.join(' or ')
   end
 end

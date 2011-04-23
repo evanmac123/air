@@ -12,6 +12,8 @@ module SpecialCommand
       self.moreinfo(from)
     when 's', 'suggest'
       self.suggestion(from, args)
+    when /^\d+$/
+      self.use_suggested_item(from, command_name)
     end
   end
 
@@ -59,5 +61,17 @@ module SpecialCommand
 
     Suggestion.create!(:user => user, :value => words.join(' '))
     "Thanks! We'll take your suggestion into consideration."
+  end
+
+  def self.use_suggested_item(from, item_index)
+    user = User.find_by_phone_number(from)
+    return nil unless user
+
+    chosen_index = item_index.to_i
+    suggested_item_indices = user.last_suggested_items.split('|')
+    return nil unless suggested_item_indices.length >= chosen_index
+
+    rule = Rule.find(suggested_item_indices[chosen_index - 1])
+    (user.act_on_rule(rule)).first # throw away error code in this case
   end
 end

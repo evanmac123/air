@@ -69,14 +69,14 @@ class Act < ActiveRecord::Base
     end
 
     if rule
-      if rule.user_hit_limit?(user)
-        return parsing_error_message("Sorry, you've already done that action.")
+      reply, error_code = user.act_on_rule(rule, referring_user)
+      if error_code == :success
+        return parsing_success_message(reply)
       else
-        credit_referring_user(referring_user, user, rule)
-        return parsing_success_message(record_act(user, rule, referring_user))
+        return parsing_error_message(reply)
       end
     else 
-      suggestion_phrase = Rule.find_rule_suggestion(value)
+      suggestion_phrase = Rule.find_and_record_rule_suggestion(value, user)
 
       if suggestion_phrase
         reply = "I didn't quite get what you meant. Maybe try #{suggestion_phrase}? Or text S to suggest we add what you sent."
@@ -90,9 +90,6 @@ class Act < ActiveRecord::Base
     end
   end
 
-
-  private
-
   def self.record_act(user, rule, referring_user = nil)
     text = rule.to_s
     if referring_user
@@ -105,6 +102,9 @@ class Act < ActiveRecord::Base
 
     reply
   end
+
+
+  private
 
   def self.parsing_error_message(message)
     parsing_message(message, :failure)
@@ -124,18 +124,5 @@ class Act < ActiveRecord::Base
 
   def self.record_bad_message(phone_number, body, reply = '')
     BadMessage.create!(:phone_number => phone_number, :body => body, :received_at => Time.now, :automated_reply => reply)
-  end
-
-  def self.credit_referring_user(referring_user, referred_user, rule)
-    return unless referring_user
-
-    Act.create!(
-      :user => referring_user,
-      :text => "told #{referred_user.name} about the #{rule.value} command",
-      :inherent_points => (rule.referral_points) || (rule.points / 2)
-    )
-
-    sms_text = "Thanks for referring #{referred_user.name} to the #{rule.value} command. " + referring_user.point_and_ranking_summary
-    SMS.send(referring_user.phone_number, sms_text)
   end
 end

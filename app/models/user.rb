@@ -304,6 +304,22 @@ class User < ActiveRecord::Base
     end
   end
 
+  # Returns a list [reply, reply_type] where reply_type should be :success if
+  # the action was successful, or an error code if the action failed. As of
+  # now the only error code we use is :over_alltime_limit.
+
+  def act_on_rule(rule, referring_user=nil)
+    self.last_suggested_items = ''
+    self.save!
+
+    if rule.user_hit_limit?(self)
+      return ["Sorry, you've already done that action.", :over_alltime_limit]
+    else
+      credit_referring_user(referring_user, rule)
+      return [Act.record_act(self, rule, referring_user), :success]
+    end
+  end
+
   protected
 
   def downcase_email
@@ -352,5 +368,18 @@ class User < ActiveRecord::Base
   def find_same_slug(possible_slug, possible_sms_slug)
     User.first(:conditions => ["slug = ? OR sms_slug = ?", possible_slug, possible_sms_slug],
                :order      => "created_at desc")
+  end
+
+  def credit_referring_user(referring_user, rule)
+    return unless referring_user
+
+    Act.create!(
+      :user => referring_user,
+      :text => "told #{self.name} about the #{rule.value} command",
+      :inherent_points => (rule.referral_points) || (rule.points / 2)
+    )
+
+    sms_text = "Thanks for referring #{self.name} to the #{rule.value} command. " + referring_user.point_and_ranking_summary
+    SMS.send(referring_user.phone_number, sms_text)
   end
 end
