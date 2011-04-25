@@ -2,14 +2,15 @@ Feature: Full text rule search
 
   Background:
     Given the following rules exist:
-      | value      | suggestible | reply  |
-      | ate banana | true        |        |
-      | ate kitten | true        | Gross. |
-      | ate poison | false       |        |
-      | worked out | true        |        |
+      | value        | suggestible | reply  | demo                  |
+      | ate banana   | true        |        | company_name: FooCorp |
+      | ate kitten   | true        | Gross. | company_name: FooCorp |
+      | ate poison   | false       |        | company_name: FooCorp |
+      | worked out   | true        |        | company_name: FooCorp |
+      | rode bicycle | true        |        | company_name: BarCorp |
     And the following user exists:
-      | name | phone number | 
-      | Dan  | +16175551212 | 
+      | name | phone number | demo                  |
+      | Dan  | +16175551212 | company_name: FooCorp |
     And "Dan" has the password "foo"
     And I sign in via the login page with "Dan/foo"
     And time is frozen at "2010-05-01 17:00:00"
@@ -55,3 +56,8 @@ Feature: Full text rule search
       | Dan  | +16175551212 | fought eighteen bears | 2010-05-01 17:00:00 |
     And I should not see "(has automated suggestion)"
     And I should not see "Sorry, I don't understand what that means."
+
+    Scenario: User doesn't get a suggestion from a different demo
+      When "+16175551212" sends SMS "rode unicycle"
+      Then "+16175551212" should have received an SMS "Sorry, I don't understand what that means. Text S to suggest we add what you sent."    
+

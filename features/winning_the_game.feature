@@ -11,8 +11,8 @@ Feature: Player can win the game
       | Bob  | bob@example.com | +14155551212 | 97     | company_name: BobCo |
     And "Bob" has the password "LOL"
     And the following rule exists:
-      | points | value        | 
-      | 3      | ate a kitten |
+      | points | value        | demo                |
+      | 3      | ate a kitten | company_name: BobCo |
     And I sign in via the login page as "Bob/LOL"
 
   Scenario: Player hasn't won yet

@@ -11,6 +11,7 @@ Then /^I should see an avatar "(.*?)" for "(.*?)"$/ do |filename, username|
     S3_AVATAR_BUCKET,
     'avatars',
     user.id,
+    'thumb',
     filename
   ].join('/')
 
@@ -18,5 +19,5 @@ Then /^I should see an avatar "(.*?)" for "(.*?)"$/ do |filename, username|
 end
 
 Then /^I should see the default avatar for "(.*?)"$/ do |username|
-  page.should have_css("img[src^='/avatars/original/missing.png']")
+  page.should have_css("img[src^='/avatars/thumb/missing.png']")
 end

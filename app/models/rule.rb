@@ -1,8 +1,10 @@
 class Rule < ActiveRecord::Base
+  belongs_to :demo
+
   has_many   :acts
 
   validates_presence_of   :value
-  validates_uniqueness_of :value
+  validates_uniqueness_of :value, :scope => :demo_id
 
   before_save :normalize_value
 
@@ -33,6 +35,10 @@ class Rule < ActiveRecord::Base
     self.select("*, ts_rank(to_tsvector('english', value), query) AS rank").from("rules, to_tsquery('#{query_string}') query").where("suggestible = true AND to_tsvector('english', value) @@ query")
   end
 
+  def self.in_same_demo_as(other)
+    where(:demo_id => other.demo_id)
+  end
+
   protected
 
   def normalize_value
@@ -40,7 +46,7 @@ class Rule < ActiveRecord::Base
   end
 
   def self.find_and_record_rule_suggestion(attempted_value, user)
-    matches = self.partially_matching_value(attempted_value).limit(3).order('rank DESC, lower(value)')
+    matches = self.in_same_demo_as(user).partially_matching_value(attempted_value).limit(3).order('rank DESC, lower(value)')
     return nil if matches.empty?
 
     # Why is there no #map_with_index? Srsly.

@@ -48,25 +48,33 @@ describe Act, ".parse" do
     end
 
     context "and types a good value" do
-      let(:rule)       { Factory(:rule) }
+      let(:rule)       { Factory(:rule, :demo => user.demo) }
+      let(:good_sms) { rule.value }
 
-      context "with a good value" do
-        let(:good_sms) { rule.value }
+      before do
+        @result = Act.parse(user, good_sms)
+      end
 
-        before do
-          @result = Act.parse(user, good_sms)
+      it "replies with the rule's reply" do
+        @result.should include(rule.reply)
+      end
+
+      it "creates an act" do
+        Act.should be_exists(:user_id => user.id, :text => good_sms, :rule_id => rule.id, :demo_id => user.demo_id)
+      end
+
+      it "updates users points" do
+        user.reload.points.should == rule.points
+      end
+
+      context "that belongs to a different demo" do
+        before(:each) do
+          rule.demo = Factory :demo
+          rule.save!
         end
 
-        it "replies with the rule's reply" do
-          @result.should include(rule.reply)
-        end
-
-        it "creates an act" do
-          Act.should be_exists(:user_id => user.id, :text => good_sms, :rule_id => rule.id, :demo_id => user.demo_id)
-        end
-
-        it "updates users points" do
-          user.reload.points.should == rule.points
+        it "should decline to recognize that" do
+          Act.parse(user, good_sms).should include("Sorry, I don't understand what that means.")
         end
       end
     end

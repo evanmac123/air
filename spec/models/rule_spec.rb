@@ -3,10 +3,11 @@ require 'spec_helper'
 describe Rule do
   subject { Factory(:rule) }
 
+  it { should belong_to(:demo) }
   it { should have_many(:acts) }
 
   it { should validate_presence_of(:value) }
-  it { should validate_uniqueness_of(:value) }
+  it { should validate_uniqueness_of(:value).scoped_to(:demo_id) }
 
   describe "#to_s" do
     before(:each) do
@@ -37,6 +38,8 @@ describe Rule do
 
   describe Rule, ".find_and_record_rule_suggestion" do
     before(:each) do
+      @demo = Factory :demo
+
       [
         'ate banana',
         'ate kitten',
@@ -48,13 +51,22 @@ describe Rule do
         'went for a walk',
         'took a walk',
         'walked outside'
-      ].each {|value| Factory :rule, :value => value}
+      ].each {|value| Factory :rule, :value => value, :demo => @demo}
 
-      @user = Factory :user
+      @user = Factory :user, :demo => @demo
     end
 
     context "when nothing matches well" do
       it "should return nil" do
+        Rule.send(:find_and_record_rule_suggestion, 'played guitar', @user).should be_nil
+      end
+    end
+
+    context "when something matches but it's not in the same demo" do
+      it "should return nil" do
+        rule = Factory :rule, :value => 'played football'
+        rule.demo.should_not == @demo
+
         Rule.send(:find_and_record_rule_suggestion, 'played guitar', @user).should be_nil
       end
     end

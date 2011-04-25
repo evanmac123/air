@@ -26,12 +26,14 @@ Factory.define :rule do |factory|
   factory.value  { "ate banana" }
   factory.points { 2 }
   factory.reply  { "Yum. +2 points. Bananas help you fight cancer." }
+  factory.association :demo
 end
 
 Factory.define :coded_rule do |factory|
   factory.value  { "zxcvb" }
   factory.points { 2 }
   factory.reply  { "Very good. +2 points." }
+  factory.association :demo
 end
 
 Factory.define :key do |factory|
