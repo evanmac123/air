@@ -18,7 +18,7 @@ class User < ActiveRecord::Base
     #:processors => [:png],
     :storage => :s3,
     :s3_credentials => S3_CREDENTIALS,
-    :path => "/avatars/:id/:filename",
+    :path => "/avatars/:id/:style/:filename",
     :bucket => S3_AVATAR_BUCKET
 
   before_create do
