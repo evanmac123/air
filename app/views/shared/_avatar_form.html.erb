@@ -1,0 +1,16 @@
+
+
+<%= semantic_form_for user, :url => account_avatar_path, :html => {:multipart => true} do |form| %>
+  <%= form.input :avatar, :label => 'Choose an image for your avatar. Avatars will automatically be resized to a 48x48 square. Please exercise common sense and good taste.' %>
+  <%= form.submit 'Set Avatar' %>
+<% end %>
+
+<% if user.avatar_file_name %>
+  <%= semantic_form_for user, :url => account_avatar_path, :html => {:multipart => true, :method => :delete, :class => 'clear-avatar'} do |form| %>
+    Delete the avatar you've got and revert to the default avatar.
+    <br/>
+    <%= form.submit 'Clear Avatar' %>
+  <% end %>
+<% end %>
+
+<%= link_to "Never mind, I don't want to change my avatar.", user, :class => 'cancel-avatar-change' %>

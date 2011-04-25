@@ -12,6 +12,14 @@ class User < ActiveRecord::Base
   has_many   :friendships
   has_many   :friends, :through => :friendships
 
+  has_attached_file :avatar, 
+    :styles => {:thumb => "48x48#"}, 
+    #:processors => [:png],
+    :storage => :s3,
+    :s3_credentials => S3_CREDENTIALS,
+    :path => "/avatars/:id/:filename",
+    :bucket => S3_AVATAR_BUCKET
+
   before_create do
     set_invitation_code
     set_slugs

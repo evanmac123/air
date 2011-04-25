@@ -17,15 +17,22 @@
 
   <div class="avatar48">
     <div class="shadow48"></div>
-    <%= default_avatar_tag :alt => (@user.name) %>
+    <%= default_avatar_tag @user, :alt => @user.name %>
   </div>
 
-  <% if signed_in? && current_user == @user %>
-    <h2 class="your-mobile-number">
-      Your mobile number: <span class="number"><%= @user.phone_number %></span><br/>
-      <%= link_to "change your mobile number", edit_account_phone_path, :class => 'change-number-link' %>
-    </h2>
-  <% end %>
+  <div class="account-controls">
+    <% if signed_in? && current_user == @user %>
+      <h2 class="your-mobile-number">
+        Your mobile number: <span class="number"><%= @user.phone_number %></span><br/>
+        <%= link_to "change your mobile number", edit_account_phone_path, :class => 'change-number-link' %><br/>
+        <%= link_to "change your avatar", edit_account_avatar_path, :class => 'change-avatar-link' %>
+      </h2>
+
+      <div class="avatar-controls" style="display: none">
+        <%= render :partial => 'shared/avatar_form', :locals => {:user => @user} %>
+      </div>
+    <% end %>
+  </div>
 
   <div id="follow-target">
     <% if signed_in? && current_user != @user %>
@@ -40,6 +47,11 @@
   <% content_for :javascript do %>
     <%= javascript_tag do %>
       $('#follow-target form').live('ajax:beforeSend', function(e) {$('#follow-target').html('<%= image_tag 'spinner.gif' %>')});
+
+      $('.cancel-avatar-change').click(function(e) {
+        $('.avatar-controls').hide();
+        e.preventDefault();
+      });
     <% end %>
   <% end %>
 

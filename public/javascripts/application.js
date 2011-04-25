@@ -5,6 +5,17 @@ $(function() {
     return false;
   });
 
+  $('.clear-avatar').submit(function(e) {
+    if(confirm("Are you sure you want to clear your avatar?") == false) {
+      e.preventDefault();
+    }
+  });
+
+  $('.your-mobile-number .change-avatar-link').click(function(e) {
+    $('.avatar-controls').show();
+    e.preventDefault();
+  });
+
   $('.your-mobile-number .change-number-link').click(function(e) {
     $('.your-mobile-number .number').click();
     e.preventDefault();

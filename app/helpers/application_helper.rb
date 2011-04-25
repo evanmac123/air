@@ -11,13 +11,13 @@ module ApplicationHelper
     end
   end
 
-  def default_avatar_tag(options={})
+  def default_avatar_tag(user, options={})
     alt = options[:alt]
 
     if alt
-      image_tag 'default_avatar.png', :alt => alt
+      image_tag user.avatar.url, :alt => alt
     else
-      image_tag 'default_avatar.png'
+      image_tag user.avatar.url
     end
   end
 end

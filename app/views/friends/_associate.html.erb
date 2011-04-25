@@ -2,7 +2,7 @@
   <span class="associate-name"><%= link_to(associate.name, associate) %></span>
   <div class="avatar48">
     <div class="shadow48"></div>
-    <%= default_avatar_tag :alt => (associate.name) %>
+    <%= default_avatar_tag associate, :alt => associate.name %>
   </div>
 
   <br/>
