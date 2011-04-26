@@ -14,12 +14,13 @@ Feature: User acts
     And "Paul" has the SMS slug "paul55"
     And "Fred" has the SMS slug "fred666"
     And the following rules exist:
-      | value      | points | referral points | reply                     | alltime_limit | demo                  |
-      | ate banana | 2      |                 | Bananas are good for you. |               | company_name: FooCorp |
-      | worked out | 5      | 200             | Working out is nice.      |               | company_name: FooCorp |
-      | saw poster | 20     |                 | Congratulations!          | 2             | company_name: FooCorp |
-      | made toast | 8      |                 | So you made toast.        |               | company_name: FooCorp |
-      | up the bar | 8      |                 | BarCorp rulez!            |               | company_name: BarCorp |
+      | value         | points | referral points | reply                     | alltime_limit | demo                  |
+      | ate banana    | 2      |                 | Bananas are good for you. |               | company_name: FooCorp |
+      | worked out    | 5      | 200             | Working out is nice.      |               | company_name: FooCorp |
+      | saw poster    | 20     |                 | Congratulations!          | 2             | company_name: FooCorp |
+      | made toast    | 8      |                 | So you made toast.        |               | company_name: FooCorp |
+      | up the bar    | 8      |                 | BarCorp rulez!            |               | company_name: BarCorp |
+      | do good thing | 10     |                 | Good for you.             |               |                       |
     And the following coded rule exists:
       | value | points | description                                     | reply                  | demo                  |
       | ZXCVB | 15     | Looked at our poster about healthful practices. | Good show. +15 points. | company_name: FooCorp |
@@ -68,6 +69,15 @@ Feature: User acts
   Scenario: User tries to act with an act belonging to a different demo
     When "+15087407520" sends SMS "up the bar"
     Then "+15087407520" should have received an SMS including "Sorry, I don't understand what that means."
+
+  Scenario: User can act with a standard playbook rule (belonging to no demo)
+    When "+15087407520" sends SMS "do good thing"
+    And I sign in via the login page as "Dan/foo"
+    And I go to the acts page
+    Then "+15087407520" should have received an SMS including "Good for you."
+    And I should see the following act:
+      | name | act                             | points |
+      | Dan  | do good thing  | 10     |
 
   Scenario: User acts with a coded rule
     When "+15087407520" sends SMS "ZXCVB"

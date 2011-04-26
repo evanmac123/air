@@ -36,7 +36,7 @@ class Rule < ActiveRecord::Base
   end
 
   def self.in_same_demo_as(other)
-    where(:demo_id => other.demo_id)
+    where("rules.demo_id IS NULL or (rules.demo_id = ?)",  other.demo_id)
   end
 
   protected

@@ -8,6 +8,7 @@ Feature: Full text rule search
       | ate poison   | false       |        | company_name: FooCorp |
       | worked out   | true        |        | company_name: FooCorp |
       | rode bicycle | true        |        | company_name: BarCorp |
+      | made risotto | true        |        |                       |
     And the following user exists:
       | name | phone number | demo                  |
       | Dan  | +16175551212 | company_name: FooCorp |
@@ -61,3 +62,6 @@ Feature: Full text rule search
       When "+16175551212" sends SMS "rode unicycle"
       Then "+16175551212" should have received an SMS "Sorry, I don't understand what that means. Text S to suggest we add what you sent."    
 
+    Scenario: User can get a suggestion from a standard playbook rule (belonging to no demo)
+      When "+16175551212" sends SMS "made toast"
+      Then "+16175551212" should have received an SMS including "made risotto"
