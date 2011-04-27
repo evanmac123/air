@@ -1,5 +1,5 @@
 <div id="main">
-  <div class="column-header">
+  <div class="column-header activity-header">
     <h2 class="first" id="activity">
       Activity
     </h2>
@@ -9,7 +9,7 @@
     <%= render @acts %>
   </ul>
 
-  <%= link_to "See more", "#", :id => 'see-more' %>
+  <%= button_to "See more", "#", :id => 'see-more' %>
   <%= image_tag 'spinner.gif', :id => 'see-more-spinner' %>
 
   <% content_for :javascript do %>

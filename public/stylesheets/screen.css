@@ -6,7 +6,7 @@ a, a:link {
 body {
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-size: 14px;
-  background: #f0f0f0; }
+  background: #e7f0dd; }
 
 h1 {
   font-family: 'Chunk';
@@ -113,7 +113,7 @@ h2.first#activity, h2.first#scoreboard {
   -webkit-border-radius: 1em;
   border-radius: 1em;
   margin: 30px auto;
-  background: #f0f0f0;
+  background: #e7f0dd;
   width: 960px;
   padding-bottom: 5px; }
   .content #secondary, .content #main {
@@ -275,10 +275,23 @@ table#your-score {
   padding: 0px; }
 
 /* Activity Feed */
+.activity-header {
+  -moz-border-radius: 6px;
+  -webkit-border-radius: 6px;
+  border-radius: 6px;
+  height: 30px;
+  background: #333333;
+  padding-left: 10px; }
+  .activity-header h2 {
+    color: #f0f0f0;
+    margin: 0;
+    line-height: 30px;
+    vertical-align: middle; }
+
 ul#acts {
   background-color: white;
   list-style: none;
-  margin-top: 8px; }
+  margin-top: 0; }
   ul#acts li.act, ul#acts li.small-act {
     background-color: white;
     border-bottom: 1px solid #DDD;
@@ -296,51 +309,56 @@ ul#acts {
       color: #103245; }
     ul#acts li.act a:hover, ul#acts li.small-act a:hover {
       text-decoration: underline; }
-    ul#acts li.act p, ul#acts li.small-act p {
-      width: 483px;
-      font-size: 14px;
-      padding-bottom: 12px;
-      color: #363636;
-      position: relative;
-      line-height: 18px;
-      margin-bottom: 0; }
-      ul#acts li.act p span.description a, ul#acts li.small-act p span.description a {
-        color: #103245;
-        text-decoration: underline; }
-      ul#acts li.act p span.description a:hover, ul#acts li.small-act p span.description a:hover {
-        text-decoration: none; }
-      ul#acts li.act p span.description, ul#acts li.act p span.when, ul#acts li.small-act p span.description, ul#acts li.small-act p span.when {
-        display: block;
-        width: 70%; }
-        ul#acts li.act p span.description :first-letter, ul#acts li.act p span.when :first-letter, ul#acts li.small-act p span.description :first-letter, ul#acts li.small-act p span.when :first-letter {
-          text-transform: capitalize; }
-      ul#acts li.act p span.when, ul#acts li.act p span.points, ul#acts li.small-act p span.when, ul#acts li.small-act p span.points {
-        font-weight: normal;
-        color: #999999;
-        font-size: 11px; }
-      ul#acts li.act p span.points, ul#acts li.small-act p span.points {
-        color: #55950d;
-        position: absolute;
-        top: 0;
-        right: 0;
-        text-align: center;
-        padding: 5px 0;
-        line-height: 14px;
-        font-size: 14px; }
-        ul#acts li.act p span.points span.point-value, ul#acts li.small-act p span.points span.point-value {
-          font-size: 18px;
-          font-weight: bold; }
-      ul#acts li.act p span.ranking, ul#acts li.small-act p span.ranking {
-        position: absolute;
-        right: 0;
-        top: 45px;
-        padding-right: 5px;
-        font-size: 10px;
-        text-align: center;
-        line-height: 14px; }
-        ul#acts li.act p span.ranking span.ranking-value, ul#acts li.small-act p span.ranking span.ranking-value {
+    ul#acts li.act .act-details, ul#acts li.small-act .act-details {
+      float: right; }
+      ul#acts li.act .act-details p, ul#acts li.small-act .act-details p {
+        font-size: 14px;
+        padding-bottom: 12px;
+        color: #363636;
+        position: relative;
+        line-height: 18px;
+        margin-bottom: 0; }
+        ul#acts li.act .act-details p span.description a, ul#acts li.small-act .act-details p span.description a {
+          color: #103245;
+          text-decoration: underline; }
+        ul#acts li.act .act-details p span.description a:hover, ul#acts li.small-act .act-details p span.description a:hover {
+          text-decoration: none; }
+        ul#acts li.act .act-details p span.description, ul#acts li.act .act-details p span.when, ul#acts li.small-act .act-details p span.description, ul#acts li.small-act .act-details p span.when {
           display: block;
+          width: 78%; }
+          ul#acts li.act .act-details p span.description :first-letter, ul#acts li.act .act-details p span.when :first-letter, ul#acts li.small-act .act-details p span.description :first-letter, ul#acts li.small-act .act-details p span.when :first-letter {
+            text-transform: capitalize; }
+        ul#acts li.act .act-details p span.when, ul#acts li.act .act-details p span.points, ul#acts li.small-act .act-details p span.when, ul#acts li.small-act .act-details p span.points {
+          font-weight: normal;
+          color: #999999;
+          font-size: 11px; }
+        ul#acts li.act .act-details p span.points, ul#acts li.small-act .act-details p span.points {
+          color: #55950d;
+          position: absolute;
+          top: 0;
+          right: 0;
+          text-align: center;
+          padding: 5px 0;
+          line-height: 14px;
           font-size: 14px; }
+          ul#acts li.act .act-details p span.points span.point-value, ul#acts li.small-act .act-details p span.points span.point-value {
+            font-size: 18px;
+            font-weight: bold; }
+        ul#acts li.act .act-details p span.ranking, ul#acts li.small-act .act-details p span.ranking {
+          position: absolute;
+          right: 0;
+          top: 45px;
+          padding-right: 5px;
+          font-size: 10px;
+          text-align: center;
+          line-height: 14px; }
+          ul#acts li.act .act-details p span.ranking span.ranking-value, ul#acts li.small-act .act-details p span.ranking span.ranking-value {
+            display: block;
+            font-size: 14px; }
+  ul#acts li.act .act-details {
+    width: 430px; }
+  ul#acts li.small-act .act-details {
+    width: 478px; }
   ul#acts li.small-act p {
     margin-bottom: 0px; }
   ul#acts li:last-child {
@@ -350,10 +368,8 @@ ul#acts {
   width: 48px;
   height: 48px;
   float: left;
-  position: relative;
   margin: 0 10px 0 0; }
   .avatar48 .shadow48 {
-    background: url(/images/shadow48.png) 0px 0px no-repeat;
     width: 48px;
     height: 48px;
     position: absolute; }
@@ -520,6 +536,9 @@ textarea#bad_message_reply_body {
 
 .new-watchlisted-message .message-header {
   background-color: #ba7d3b; }
+
+#see-more {
+  margin-top: 10px; }
 
 #see-more-spinner {
   display: none;

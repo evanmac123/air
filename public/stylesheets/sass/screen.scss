@@ -13,6 +13,8 @@ $light-gray:  #999999;
 $dark-gray:   #2d2d2b;
 $aqua:        #22d4a8;
 
+$overall-background: #e7f0dd;
+ 
 $message-header-background-color: #6c7868;
 $new-message-header-background-color: #ba7d3b;
 $message-reply-background-color: #d2e8b9;
@@ -65,7 +67,7 @@ a, a:link {
 body {
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-size: 14px;
-  background: $offwhite;
+  background: $overall-background;
 }
 
 h1 {
@@ -205,7 +207,7 @@ h2.first#activity, h2.first#scoreboard {
 .content {
   @include rounded-corners;
   margin: 30px auto;
-  background: $offwhite;
+  background: $overall-background;
   width: 960px;
   padding-bottom: 5px;
   #secondary, #main {
@@ -417,87 +419,115 @@ table#your-score {
 
 /* Activity Feed */
 
+.activity-header {
+  @include rounded-corners(6px);
+  height: 30px;
+  background: $gray;
+  padding-left: 10px;
+
+  h2 {
+    color: $offwhite;
+    margin: 0;
+    line-height: 30px;
+    vertical-align: middle;
+  }
+}
+
 ul#acts {
   background-color: $white;
   list-style: none;
-  margin-top: 8px;
+  margin-top: 0;
 
   li.act, li.small-act {
     @include white-li;
 
-    p {
-      width: 483px;
-      font-size: 14px;
-      padding-bottom: 12px;
-      color: #363636;
-      position: relative;
-      line-height: 18px;
-      margin-bottom: 0;
+    .act-details {
+      float: right;
 
-      span.description {
-        a {
-          color: $blue;
-          text-decoration: underline;
-        }
-
-        a:hover {
-          text-decoration: none;
-        }
-      }
-
-      span.description, span.when {
-        display: block;
-        width: 70%;
-
-        :first-letter {
-          text-transform: capitalize;
-        }
-      }
-
-      span.when, span.points {
-        font-weight: normal;
-        color: $light-gray;
-        font-size: 11px;
-      }
-
-      span.points {
-        color: $green; 
-        position: absolute;
-        top: 0;
-        right: 0;
-        text-align: center; 
-        padding: 5px 0;
-        line-height: 14px;
+      p {
         font-size: 14px;
+        padding-bottom: 12px;
+        color: #363636;
+        position: relative;
+        line-height: 18px;
+        margin-bottom: 0;
 
-        span.point-value {
-          font-size: 18px;
-          font-weight: bold;
+        span.description {
+          a {
+            color: $blue;
+            text-decoration: underline;
+          }
+
+          a:hover {
+            text-decoration: none;
+          }
         }
-      }
 
-        span.ranking {
+        span.description, span.when {
+          display: block;
+          width: 78%;
+
+          :first-letter {
+            text-transform: capitalize;
+          }
+        }
+
+        span.when, span.points {
+          font-weight: normal;
+          color: $light-gray;
+          font-size: 11px;
+        }
+
+        span.points {
+          color: $green; 
           position: absolute;
+          top: 0;
           right: 0;
-          top: 45px;
-          padding-right: 5px; 
-          font-size: 10px;
-          text-align: center;
+          text-align: center; 
+          padding: 5px 0;
           line-height: 14px;
+          font-size: 14px;
 
-          span.ranking-value {
-            display: block; 
-            font-size: 14px;
+          span.point-value {
+            font-size: 18px;
+            font-weight: bold;
+          }
+        }
+
+          span.ranking {
+            position: absolute;
+            right: 0;
+            top: 45px;
+            padding-right: 5px; 
+            font-size: 10px;
+            text-align: center;
+            line-height: 14px;
+
+            span.ranking-value {
+              display: block; 
+              font-size: 14px;
+            }
           }
         }
       }
     }
 
+    li.act {
+      .act-details {
+        width: 430px;
+      }
+    }
+
     li.small-act {
+      .act-details {
+        width: 478px;
+      }
+
       p {
         margin-bottom: 0px;
       }
     }
+
     li:last-child {
       border-bottom: none;
     }
@@ -507,10 +537,8 @@ ul#acts {
   width: 48px;
   height: 48px;
   float: left;
-  position: relative;
   margin: 0 10px 0 0;
   .shadow48 {
-    background: url(/images/shadow48.png) 0px 0px no-repeat;
     width: 48px;
     height: 48px;
     position: absolute;
@@ -719,6 +747,10 @@ textarea#bad_message_reply_body {
   .message-header {
     background-color: $new-message-header-background-color
   }
+}
+
+#see-more {
+  margin-top: 10px;
 }
 
 #see-more-spinner {

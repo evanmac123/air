@@ -2,7 +2,9 @@
   <div class="avatar48">
     <%= default_avatar_tag act.user, :alt => act.user.name %>
   </div>
-  <p>
-    <%= render :partial => 'shared/act_details', :locals => {:act => act} %>
-  </p>
+  <div class="act-details">
+    <p>
+      <%= render :partial => 'shared/act_details', :locals => {:act => act} %>
+    </p>
+  </div>
 </li>
