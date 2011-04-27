@@ -5,6 +5,11 @@ $(function() {
     return false;
   });
 
+  $('.set-avatar').submit(function(e) {
+    $('.set-avatar-submit').attr('disabled', 'disabled');
+    $(this).children('.loading-message').show();
+  });
+
   $('.clear-avatar').submit(function(e) {
     if(confirm("Are you sure you want to clear your avatar?") == false) {
       e.preventDefault();

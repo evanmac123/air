@@ -387,6 +387,10 @@ button:hover, input[type=submit]:hover, .examples .points:hover {
   background: #22d4a8;
   cursor: pointer; }
 
+button:disabled, input[type=submit]:disabled {
+  background: #999999;
+  cursor: pointer; }
+
 #phone_submit {
   margin-right: 0px; }
 
@@ -470,8 +474,9 @@ textarea#bad_message_reply_body {
   .bad-message-thread .message-reply, .bad-message-thread .message-details {
     margin-bottom: 15px; }
 
-#loading-message {
-  float: right; }
+.loading-message {
+  display: none;
+  font-weight: bold; }
 
 .message {
   margin-top: 5px;
