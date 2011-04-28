@@ -26,32 +26,39 @@
 </div>
 
 <div id="secondary">
-  <div class="column-header">
-    <h2 class="first">Your Snapshot</h2>
+  <!--<div class="column-header">-->
+    <!--<h2 class="first">Your Scores</h2>-->
+  <!--</div>-->
+
+  <div class="column-section">
+    <table id="your-score">
+      <tr>
+        <th>Your Score</th>
+        <th>Your Points</th>
+        <th>Place</th>
+      </tr>
+
+      <tr id="recent-average">
+        <th>7 Day</th>
+        <td class="points"><%= current_user.recent_average_points %></td>
+        <td class="ranking"><%= ranking_phrase(current_user.recent_average_ranking, @demo_user_count) %></td>
+      </tr>
+
+      <tr id="alltime">
+        <th>Total</th>
+        <td class="points"><%= current_user.points %></td>
+        <td class="ranking"><%= ranking_phrase(current_user.ranking, @demo_user_count) %></td>
+      </tr>
+    </table>
   </div>
 
-  <table id="your-score">
-    <tr>
-      <th></th>
-      <th>Points</th>
-      <th>Place</th>
-    </tr>
-
-    <tr id="recent-average">
-      <th>7 Day</th>
-      <td class="points"><%= current_user.recent_average_points %></td>
-      <td class="ranking"><%= ranking_phrase(current_user.recent_average_ranking, @demo_user_count) %></td>
-    </tr>
-
-    <tr id="alltime">
-      <th>Total</th>
-      <td class="points"><%= current_user.points %></td>
-      <td class="ranking"><%= ranking_phrase(current_user.ranking, @demo_user_count) %></td>
-    </tr>
-  </table>
-
   <% if current_user.won_at %>
-    <div id="winning-time">You won on <%= current_user.won_at.winning_time_format%>. Congratulations!</div>
+    <div class="column-section">
+      <div class="column-header">
+        <h2>Achievements</h2>
+      </div>
+      <div id="winning-time">You won on <%= current_user.won_at.winning_time_format%>. Congratulations!</div>
+    </div>
   <% end %>
 
   <%= render :partial => 'shared/scoreboard', :locals => {:users => @users} %>

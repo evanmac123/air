@@ -10,11 +10,14 @@ $white:       #ffffff;
 $black:       #111111;
 $gray:        #333333;
 $light-gray:  #999999;
+$medium-gray: #a7a7a7;
 $dark-gray:   #2d2d2b;
 $aqua:        #22d4a8;
 
 $overall-background: #e7f0dd;
- 
+
+$column-subheader: $medium-gray;
+
 $message-header-background-color: #6c7868;
 $new-message-header-background-color: #ba7d3b;
 $message-reply-background-color: #d2e8b9;
@@ -309,6 +312,8 @@ $main-column-width: 505px;
 }
 
 ol.top-scores { 
+  margin-top: 0px;
+
   li {
     height: 40px;
     padding: 14px 5px 0;
@@ -380,25 +385,60 @@ pre {
 }
 
 table#your-score {
-  @include rounded-corners(6px);
-  background-color: $white; 
-  
+  $table-corner-radius: 6px;
+
+  font-size: 18px;
+
+  margin-bottom: 0;
+
+  td, th {
+    text-align: center;
+  }
+
   td {
-    font-size: 18px;
     font-weight: bold;
   }
 
-  td.points {
+  tr#recent-average {
     color: $green;
   }
 
   td, th {
+    background-color: $white;
     border-bottom: 1px solid #DDDDDD;
     padding: 2px 8px;
   }
+
+  tr:first-child {
+    td, th {
+      background-color: $gray;
+      color: $aqua;
+      font-size: 14px;
+    }
+
+    td:first-child, th:first-child {
+      color: $offwhite;
+      -moz-border-radius-topleft: $table-corner-radius;
+      font-size: 18px;
+      text-align: left;
+    }
+
+    td:last-child, th:last-child {
+      -moz-border-radius-topright: $table-corner-radius;
+    }
+  }
+
   tr:last-child {
     td, th {
       border-bottom: none;
+    }
+
+    td:first-child, th:first-child {
+      -moz-border-radius-bottomleft: $table-corner-radius;
+    }
+
+    td:last-child, th:last-child {
+      -moz-border-radius-bottomright: $table-corner-radius;
     }
   } 
 }
@@ -419,19 +459,6 @@ table#your-score {
 
 /* Activity Feed */
 
-.activity-header {
-  @include rounded-corners(6px);
-  height: 30px;
-  background: $gray;
-  padding-left: 10px;
-
-  h2 {
-    color: $offwhite;
-    margin: 0;
-    line-height: 30px;
-    vertical-align: middle;
-  }
-}
 
 ul#acts {
   background-color: $white;
@@ -568,6 +595,10 @@ ul#acts {
   }
 }
 
+button, input[type=submit] {
+  @include rounded-corners(4px);
+}
+
 button, input[type=submit], .examples .points {
   font-size: 14px;
   text-transform: uppercase;
@@ -629,7 +660,22 @@ button:disabled, input[type=submit]:disabled {
 
 
 .column-header {
+  @include rounded-corners(6px);
   line-height: 22px;
+  height: 30px;
+  background: $gray;
+  padding-left: 10px;
+
+  h2 {
+    color: $offwhite;
+    margin: 0;
+    line-height: 30px;
+    vertical-align: middle;
+  }
+}
+
+.column-section {
+  margin-bottom: 17px;
 }
 
 select {
