@@ -13,4 +13,4 @@ Feature: Moving average of points and ranking based on it
     And I sign in via the login page as "Bob/foo"
     And I go to the acts page
     Then I should see "21" recent average points
-    And I should see "1st out of 2" recent average ranking
+    And I should see "1 of 2" recent average ranking

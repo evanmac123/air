@@ -80,10 +80,10 @@ Feature: Admin moves a user to a new demo
   Scenario: Other users' rankings are correct in the old demo after the move
     When I sign in via the login page as "Fred/baz"
     And I go to the activity page
-    Then I should see "1st out of 1" alltime ranking
+    Then I should see "1 of 1" alltime ranking
 
   Scenario: Other users' rankings are correct in the new demo after moving back to the original demo
     When an admin moves "Dan" to the demo "The Thoughtbots"
     And I sign in via the login page as "Tom/quux"
     And I go to the activity page
-    Then I should see "2nd out of 2" alltime ranking
+    Then I should see "2 of 2" alltime ranking
