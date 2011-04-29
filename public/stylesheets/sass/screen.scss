@@ -23,9 +23,33 @@ $new-message-header-background-color: #ba7d3b;
 $message-reply-background-color: #d2e8b9;
 
 @mixin rounded-corners($radius: 1em) {
-  -moz-border-radius: $radius;
   -webkit-border-radius: $radius;
+  -moz-border-radius: $radius;
   border-radius: $radius;
+}
+
+@mixin rounded-corner-topleft($radius: 1em) {
+  -webkit-border-top-left-radius: $radius;
+  -moz-border-radius-topleft: $radius;
+  border-radius-topleft: $radius;
+}
+
+@mixin rounded-corner-topright($radius: 1em) {
+  -webkit-border-top-right-radius: $radius;
+  -moz-border-radius-topright: $radius;
+  border-radius-topright: $radius;
+}
+
+@mixin rounded-corner-bottomleft($radius: 1em) {
+  -webkit-border-bottom-left-radius: $radius;
+  -moz-border-radius-bottomleft: $radius;
+  border-radius-bottomleft: $radius;
+}
+
+@mixin rounded-corner-bottomright($radius: 1em) {
+  -webkit-border-bottom-right-radius: $radius;
+  -moz-border-radius-bottomright: $radius;
+  border-radius-bottomright: $radius;
 }
 
 @mixin box-shadow ($x: 5px, $y: 5px, $blur: 5px, $spread: 5px, $color: $gray) {
@@ -418,13 +442,13 @@ table#your-score {
 
     td:first-child, th:first-child {
       color: $offwhite;
-      -moz-border-radius-topleft: $table-corner-radius;
+      @include rounded-corner-topleft($table-corner-radius);
       font-size: 18px;
       text-align: left;
     }
 
     td:last-child, th:last-child {
-      -moz-border-radius-topright: $table-corner-radius;
+      @include rounded-corner-topright($table-corner-radius);
     }
   }
 
@@ -434,11 +458,11 @@ table#your-score {
     }
 
     td:first-child, th:first-child {
-      -moz-border-radius-bottomleft: $table-corner-radius;
+      @include rounded-corner-bottomleft($table-corner-radius);
     }
 
     td:last-child, th:last-child {
-      -moz-border-radius-bottomright: $table-corner-radius;
+      @include rounded-corner-bottomright($table-corner-radius);
     }
   } 
 }

@@ -109,8 +109,8 @@ h2.first#activity, h2.first#scoreboard {
   padding: 10px 0; }
 
 .content {
-  -moz-border-radius: 1em;
   -webkit-border-radius: 1em;
+  -moz-border-radius: 1em;
   border-radius: 1em;
   margin: 30px auto;
   background: #e7f0dd;
@@ -189,8 +189,8 @@ form .submit-input {
       background-color: white;
       font-weight: bold;
       padding: 2px 8px;
-      -moz-border-radius: 6px;
       -webkit-border-radius: 6px;
+      -moz-border-radius: 6px;
       border-radius: 6px; }
 
 ol.top-scores {
@@ -201,8 +201,8 @@ ol.top-scores {
     background-color: white;
     margin-bottom: 1px;
     line-height: 22px;
-    -moz-border-radius: 6px;
     -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
     border-radius: 6px; }
   ol.top-scores .score {
     color: #55950d;
@@ -270,17 +270,25 @@ table#your-score {
     font-size: 14px; }
   table#your-score tr:first-child td:first-child, table#your-score tr:first-child th:first-child {
     color: #f0f0f0;
+    -webkit-border-top-left-radius: 6px;
     -moz-border-radius-topleft: 6px;
+    border-radius-topleft: 6px;
     font-size: 18px;
     text-align: left; }
   table#your-score tr:first-child td:last-child, table#your-score tr:first-child th:last-child {
-    -moz-border-radius-topright: 6px; }
+    -webkit-border-top-right-radius: 6px;
+    -moz-border-radius-topright: 6px;
+    border-radius-topright: 6px; }
   table#your-score tr:last-child td, table#your-score tr:last-child th {
     border-bottom: none; }
   table#your-score tr:last-child td:first-child, table#your-score tr:last-child th:first-child {
-    -moz-border-radius-bottomleft: 6px; }
+    -webkit-border-bottom-left-radius: 6px;
+    -moz-border-radius-bottomleft: 6px;
+    border-radius-bottomleft: 6px; }
   table#your-score tr:last-child td:last-child, table#your-score tr:last-child th:last-child {
-    -moz-border-radius-bottomright: 6px; }
+    -webkit-border-bottom-right-radius: 6px;
+    -moz-border-radius-bottomright: 6px;
+    border-radius-bottomright: 6px; }
 
 #top-users li span {
   color: #999999;
@@ -304,8 +312,8 @@ ul#acts {
     padding: 15px 4px 0 10px;
     position: relative;
     min-height: 60px;
-    -moz-border-radius: 6px;
     -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
     border-radius: 6px; }
     ul#acts li.act a, ul#acts li.act span.user, ul#acts li.small-act a, ul#acts li.small-act span.user {
       font-weight: bold;
@@ -395,8 +403,8 @@ ul#acts {
   border-bottom: none; }
 
 button, input[type=submit] {
-  -moz-border-radius: 4px;
   -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
   border-radius: 4px; }
 
 button, input[type=submit], .examples .points {
@@ -447,8 +455,8 @@ button:disabled, input[type=submit]:disabled {
   display: inline; }
 
 .column-header {
-  -moz-border-radius: 6px;
   -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
   border-radius: 6px;
   line-height: 22px;
   height: 30px;
@@ -465,16 +473,16 @@ button:disabled, input[type=submit]:disabled {
 
 select {
   font-weight: bold;
-  -moz-border-radius: 1px;
   -webkit-border-radius: 1px;
+  -moz-border-radius: 1px;
   border-radius: 1px; }
 
 a.current {
   text-decoration: underline; }
 
 #winning-time {
-  -moz-border-radius: 6px;
   -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
   border-radius: 6px;
   background-color: white;
   font-weight: bold; }
@@ -523,26 +531,26 @@ textarea#bad_message_reply_body {
   width: 500px;
   font-size: 16px; }
   .message .message-header {
-    -moz-border-radius: 2px;
     -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
     border-radius: 2px;
     background-color: #6c7868;
     color: white; }
   .message .message-body {
-    -moz-border-radius: 2px;
     -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
     border-radius: 2px;
     background-color: white;
     color: #111111; }
   .message .automated-reply {
-    -moz-border-radius: 2px;
     -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
     border-radius: 2px;
     background-color: yellow;
     color: #111111; }
   .message .reply {
-    -moz-border-radius: 2px;
     -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
     border-radius: 2px;
     background-color: #d2e8b9;
     color: #111111; }
@@ -578,8 +586,8 @@ ul#followings, ul#followers {
     padding: 15px 4px 0 10px;
     position: relative;
     min-height: 60px;
-    -moz-border-radius: 6px;
     -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
     border-radius: 6px; }
     ul#followings li.associate a, ul#followings li.associate span.user, ul#followers li.associate a, ul#followers li.associate span.user {
       font-weight: bold;
