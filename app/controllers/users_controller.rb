@@ -8,5 +8,7 @@ class UsersController < Clearance::UsersController
   def show
     @user = User.find_by_slug(params[:id])
     @acts = @user.acts.recent(10)
+    @viewing_self = signed_in? && current_user == @user
+    @viewing_other = signed_in? && current_user != @user
   end
 end

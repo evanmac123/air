@@ -2,18 +2,19 @@
   <h2 class="first">Scoreboard</h2>
 </div>
 
-<ol class="top-scores">
+<ul class="top-scores">
   <% users.each do |user| %>
-    <li value="<%= user.ranking %>">
+    <li>
+      <%= user.ranking %>.
       <%= link_to user do %>
         <span class="name"><%= user.name %></span>
+        <% if user.won_at %>
+          <span class="other-user-winning-time">Won Game!</span>
+        <% end %>
       <% end %>
       <span class="score">
         <span class="score-value"><%= user.points %></span> points
       </span>
-      <% if user.won_at %>
-        <span class="other-user-winning-time">Won Game</span>
-      <% end %>
     </li>
   <% end %>
 </ul>

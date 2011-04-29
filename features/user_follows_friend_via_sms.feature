@@ -12,7 +12,7 @@ Feature: User can follow another user by SMS
     When "+16178675309" sends SMS "follow dan4444"
     And I sign in via the login page
     And I go to the profile page for "Dan Croak"
-    Then I should see "1 followers"
+    Then I should see "has 1 fan"
     And "+16178675309" should have received an SMS "OK, you're now following Dan Croak."
 
   Scenario: User tries to follow the same user twice
@@ -20,21 +20,21 @@ Feature: User can follow another user by SMS
     And "+16178675309" sends SMS "follow dan4444"
     And I sign in via the login page
     And I go to the profile page for "Vlad Gyster"
-    Then I should see "1 following"
+    Then I should see "fan of 1 person"
     And "+16178675309" should have received an SMS "You're already following Dan Croak."
 
   Scenario: User tries to follow another user who doesn't exist
     When "+16178675309" sends SMS "follow mrnobody"
     And I sign in via the login page
     And I go to the profile page for "Vlad Gyster"
-    Then I should see "0 following"
+    Then I should see "fan of 0 people"
     And "+16178675309" should have received an SMS "Sorry, we couldn't find a user with the unique ID mrnobody."
 
   Scenario: User tries to follow another user in a different demo
     When "+16178675309" sends SMS "follow jsmith"
     And I sign in via the login page
     And I go to the profile page for "Vlad Gyster"
-    Then I should see "0 following"
+    Then I should see "fan of 0 people"
     And "+16178675309" should have received an SMS "Sorry, we couldn't find a user with the unique ID jsmith."
   
   Scenario: Request to follow from a user who isn't registered
@@ -45,5 +45,5 @@ Feature: User can follow another user by SMS
     When "+16178675309" sends SMS "connect dan4444"
     And I sign in via the login page
     And I go to the profile page for "Dan Croak"
-    Then I should see "1 followers"
+    Then I should see "has 1 fan"
     And "+16178675309" should have received an SMS "OK, you're now following Dan Croak."

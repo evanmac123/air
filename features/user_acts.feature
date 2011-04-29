@@ -96,15 +96,6 @@ Feature: User acts
       | Dan  | Looked at our poster about healthful practices. | 15     |
     And I should see the success message "Good show. +15 points."
 
-  Scenario: Returning to acts page from someone else's profile
-    Given the following user exists:
-      | name |
-      | Fred |
-    When I sign in via the login page
-    And I go to the profile page for "Fred"
-    And I follow "Back To Activity Stream"
-    Then I should be on the activity page
-
   Scenario: User gets a reply from the game on acting with points and ranking information
     When "+15087407520" sends SMS "ate banana"
     Then "+15087407520" should have received an SMS "Bananas are good for you. Points 2/50, rank 2/4."
@@ -127,7 +118,7 @@ Feature: User acts
     And I sign in via the login page as "Dan/foo"
     And I go to the acts page
     Then I should see "Paul 1 point"
-    And I should see "Fred 201 points"
+    And I should see "Fred Won Game! 201 points"
     And I should see "Dan ate banana (thanks Paul for the referral) less than a minute ago +2 points"
     And I should see "Dan worked out (thanks Fred for the referral) less than a minute ago +5 points"
     And I should see "Paul told Dan about the ate banana command less than a minute ago +1 point"

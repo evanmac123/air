@@ -1,3 +1,5 @@
+include ActionView::Helpers::TextHelper 
+
 def expect_user_details(name, button_type)
   user = User.find_by_name(name)
   user.should_not be_nil
@@ -5,8 +7,8 @@ def expect_user_details(name, button_type)
   page.should have_link(user.name)
 
   page.should have_content("#{user.points} points")
-  page.should have_content("#{user.following_count} following")
-  page.should have_content("#{user.followers_count} followers")
+  page.should have_content("fan of " + pluralize(user.following_count, 'person'))
+  page.should have_content("has " + pluralize(user.followers_count, 'fan'))
 
   page.should have_button(button_type.capitalize)
 end

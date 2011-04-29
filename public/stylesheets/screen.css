@@ -35,10 +35,6 @@ h2.first#activity, h2.first#scoreboard {
 .account-controls {
   width: 311px;
   float: right; }
-  .account-controls h2.your-mobile-number {
-    margin-top: 0px; }
-    .account-controls h2.your-mobile-number a {
-      margin-left: 0px; }
   .account-controls .avatar-controls {
     margin-bottom: 20px; }
     .account-controls .avatar-controls form {
@@ -100,7 +96,7 @@ h2.first#activity, h2.first#scoreboard {
       .header .inner-header #account a, .header .inner-header #account a:visited, .header .inner-header #account a:link {
         text-decoration: none;
         font-weight: bold;
-        margin-left: 5px;
+        margin-left: 10px;
         color: #2d2d2b; }
       .header .inner-header #account a:hover {
         border-bottom: solid #2d2d2b 1px; }
@@ -193,26 +189,6 @@ form .submit-input {
       -moz-border-radius: 6px;
       border-radius: 6px; }
 
-ol.top-scores {
-  margin-top: 0px; }
-  ol.top-scores li {
-    height: 40px;
-    padding: 14px 5px 0;
-    background-color: white;
-    margin-bottom: 1px;
-    line-height: 22px;
-    -webkit-border-radius: 6px;
-    -moz-border-radius: 6px;
-    border-radius: 6px; }
-  ol.top-scores .score {
-    color: #55950d;
-    float: right; }
-    ol.top-scores .score .score-value {
-      font-size: 22px; }
-  ol.top-scores .name {
-    color: #103245;
-    font-weight: bold; }
-
 pre {
   background: #111111;
   color: #f0f0f0; }
@@ -250,6 +226,23 @@ pre {
       font-weight: bold; }
   #secondary ul li:last-child {
     border-bottom: none; }
+
+#secondary ul.top-scores {
+  margin-top: 0px; }
+  #secondary ul.top-scores li {
+    padding: 4px 5px 4px 10px;
+    background-color: white;
+    line-height: 22px;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    border-radius: 6px; }
+  #secondary ul.top-scores .score {
+    color: #55950d;
+    float: right;
+    font-weight: bold; }
+  #secondary ul.top-scores .name {
+    color: #103245;
+    font-weight: bold; }
 
 table#your-score {
   font-size: 18px;
@@ -485,12 +478,15 @@ a.current {
   -moz-border-radius: 6px;
   border-radius: 6px;
   background-color: white;
-  font-weight: bold; }
+  font-weight: bold;
+  padding-left: 12px;
+  padding-top: 5px;
+  padding-bottom: 5px; }
 
 .other-user-winning-time {
-  font-size: 10px;
-  display: block;
-  line-height: 12px; }
+  font-weight: bold;
+  color: #55950d;
+  margin-left: 1ex; }
 
 #conference-header {
   color: white;
@@ -607,3 +603,27 @@ ul#followings, ul#followers {
 
 .clear-avatar {
   margin-top: 20px; }
+
+.secondary-column-section {
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  border-radius: 6px;
+  padding-top: 17px;
+  padding-left: 15px;
+  background-color: white;
+  margin-bottom: 10px; }
+  .secondary-column-section a, .secondary-column-section a:link, .secondary-column-section a:visited {
+    text-decoration: none;
+    font-weight: bold;
+    color: #2d2d2b; }
+  .secondary-column-section a:hover {
+    text-decoration: underline; }
+
+#main-profile-section {
+  height: 90px; }
+
+.fan-count {
+  font-weight: bold; }
+
+#connections {
+  padding-bottom: 17px; }

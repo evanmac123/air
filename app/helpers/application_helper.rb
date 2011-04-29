@@ -20,4 +20,12 @@ module ApplicationHelper
       image_tag user.avatar.url
     end
   end
+
+  def following_count_phrase(user)
+    pluralize(user.following_count, 'person')   
+  end
+
+  def followers_count_phrase(user)
+    pluralize(user.followers_count, 'fan')
+  end
 end

@@ -16,31 +16,35 @@ $(function() {
     }
   });
 
-  $('.your-mobile-number .change-avatar-link').click(function(e) {
+  $('.change-avatar-link').click(function(e) {
+    mainProfileHeight = $('#main-profile-section').height();
+
+    $('#main-profile-section').data('original-height', mainProfileHeight);
+    $('#main-profile-section').height(mainProfileHeight + $('.avatar-controls').height() + 100);
     $('.avatar-controls').show();
     e.preventDefault();
   });
 
-  $('.your-mobile-number .change-number-link').click(function(e) {
-    $('.your-mobile-number .number').click();
-    e.preventDefault();
-  });
+/*  $('.change-number-link').click(function(e) {*/
+    //$('.number').click();
+    //e.preventDefault();
+  //});
 
-  $('.your-mobile-number .number').editable(
-    '/account/phone', {
-      method:   'PUT',
-      name:     'user[phone_number]',
-      data:     function(value, settings) {
-        // This is kind of a hack, since we don't change the data in the form
-        // at all, but AFAIK this is the only thing remotely like a pre-edit
-        // callback, so our only chance to hide the link.
-        $('.your-mobile-number .change-number-link').hide();
-        return value;
-      },
-      callback: function(value, settings) {
-        $('.your-mobile-number .change-number-link').show();
-      }
-  });
+/*  $('.number').editable(*/
+    //'/account/phone', {
+      //method:   'PUT',
+      //name:     'user[phone_number]',
+      //data:     function(value, settings) {
+        //// This is kind of a hack, since we don't change the data in the form
+        //// at all, but AFAIK this is the only thing remotely like a pre-edit
+        //// callback, so our only chance to hide the link.
+        //$('.change-number-link').hide();
+        //return value;
+      //},
+      //callback: function(value, settings) {
+        //$('.change-number-link').show();
+      //}
+  /*});*/
 
   $('.button_to').live('click', function() {
     $(this).hide();

@@ -1,5 +1,7 @@
 <div id="main">
-  <h2 class="first">Recent Activity</h2>
+  <div class="column-header">
+    <h2 class="first">Recent Activity</h2>
+  </div>
 
   <ul id="acts">
     <% @acts.each do |act| %>
@@ -15,61 +17,62 @@
 </div>
 
 <div id="secondary">
-  <h2 class="first"><%= @user.name %></h2>
-
-  <div class="avatar48">
-    <%= default_avatar_tag @user, :alt => @user.name %>
+  <div class="column-header">
+    <h2 class="first"><%= @user.name %></h2>
   </div>
 
-  <div class="account-controls">
-    <% if signed_in? && current_user == @user %>
-      <h2 class="your-mobile-number">
+  <div id="main-profile-section" class="secondary-column-section">
+    <div class="avatar48">
+      <%= default_avatar_tag @user, :alt => @user.name %>
+    </div>
+
+    <div class="account-controls">
+      <% if @viewing_self %>
         Your mobile number: <span class="number"><%= @user.phone_number %></span><br/>
-        <%= link_to "change your mobile number", edit_account_phone_path, :class => 'change-number-link' %><br/>
-        <%= link_to "change your picture", edit_account_avatar_path, :class => 'change-avatar-link' %>
-      </h2>
+        <%= link_to "Change your mobile number", edit_account_phone_path, :class => 'change-number-link' %><br/>
+        <%= link_to "Change your picture", edit_account_avatar_path, :class => 'change-avatar-link' %>
 
-      <div class="avatar-controls" style="display: none">
-        <%= render :partial => 'shared/avatar_form', :locals => {:user => @user} %>
-      </div>
-    <% end %>
-  </div>
+        <div class="avatar-controls" style="display: none">
+          <%= render :partial => 'shared/avatar_form', :locals => {:user => @user} %>
+        </div>
+      <% end %>
+    </div>
 
-  <div id="follow-target">
-    <% if signed_in? && current_user != @user %>
-      <% if current_user.following?(@user) %>
-        <%= render 'friendships/unfollow', :user => @user %>
-      <% else %>
-        <%= render 'friendships/follow',   :user => @user %>
+    <div id="follow-target">
+      <% if @viewing_other %>
+        <% if current_user.following?(@user) %>
+          <%= render 'friendships/unfollow', :user => @user %>
+        <% else %>
+          <%= render 'friendships/follow',   :user => @user %>
+        <% end %>
+      <% end %>
+    </div>
+
+    <% content_for :javascript do %>
+      <%= javascript_tag do %>
+        $('#follow-target form').live('ajax:beforeSend', function(e) {$('#follow-target').html('<%= image_tag 'spinner.gif' %>')});
+
+        $('.cancel-avatar-change').click(function(e) {
+          $('.avatar-controls').hide();
+          $('#main-profile-section').height($('#main-profile-section').data('original-height'));
+          e.preventDefault();
+        });
       <% end %>
     <% end %>
   </div>
 
-  <% content_for :javascript do %>
-    <%= javascript_tag do %>
-      $('#follow-target form').live('ajax:beforeSend', function(e) {$('#follow-target').html('<%= image_tag 'spinner.gif' %>')});
-
-      $('.cancel-avatar-change').click(function(e) {
-        $('.avatar-controls').hide();
-        e.preventDefault();
-      });
-    <% end %>
-  <% end %>
-
-  <div id="profile-stats">
-    <div id="points" class="stat">
-      <strong><%= @user.points %></strong> <br />points
-    </div>
-    <div id="following-count" class="stat">
-      <strong><%= @user.following_count %></strong> <br />following
-    </div>
-    <div id="followers-count" class="stat">
-      <strong><%= @user.followers_count %></strong> <br />followers
-    </div>
+  <div class="column-header">
+    <h2>Connections</h2>
   </div>
 
-  <br />
-  <div id="activity-return">
-    <%= link_to "Back To Activity Stream", activity_path %>
+  <div id="connections" class="secondary-column-section">
+    <% fan_of_phrase, fans_had_phrase = if @viewing_self
+                                          ["You're", "You have"]
+                                        else
+                                          [@user.name + ' is', @user.name + ' has']
+                                        end
+                                      %>
+
+    <%= fan_of_phrase %> a fan of <span class="fan-count" id="following-count"><%= following_count_phrase(@user)%></span>.<br/>
+    <%= fans_had_phrase%> <span class="fan-count" id="followers-count"><%= followers_count_phrase(@user) %></span>.
   </div>
-</div>

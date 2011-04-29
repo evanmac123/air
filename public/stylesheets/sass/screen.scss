@@ -133,14 +133,6 @@ h2.first#activity, h2.first#scoreboard {
   width: 311px;
   float: right;
 
-  h2.your-mobile-number {
-    margin-top: 0px;
-
-    a {
-      margin-left: 0px;
-    }
-  }
-
   .avatar-controls {
     margin-bottom: 20px;
 
@@ -217,7 +209,7 @@ h2.first#activity, h2.first#scoreboard {
       a, a:visited, a:link {
         text-decoration: none;
         font-weight: bold;
-        margin-left: 5px;
+        margin-left: 10px;
         color: $dark-gray;
       }
 
@@ -335,32 +327,6 @@ $main-column-width: 505px;
   }
 }
 
-ol.top-scores { 
-  margin-top: 0px;
-
-  li {
-    height: 40px;
-    padding: 14px 5px 0;
-    background-color: white; 
-    margin-bottom: 1px;
-    line-height: 22px;
-    @include rounded-corners(6px);
-  }
-
-  .score { 
-    color: $green; 
-    float: right; 
-    
-    .score-value {
-      font-size: 22px; 
-    }
-  }
-
-  .name {
-    color: $blue;
-    font-weight: bold;
-  }
-}
 
 pre {
   background: $black;
@@ -405,6 +371,31 @@ pre {
     li:last-child {
       border-bottom: none;
     }
+  }
+}
+
+#secondary ul.top-scores { 
+  margin-top: 0px;
+
+  li {
+    padding: 4px 5px 4px 10px;
+    background-color: white; 
+    line-height: 22px;
+    @include rounded-corners(6px);
+  }
+
+  .score { 
+    color: $green; 
+    float: right;
+    font-weight: bold;
+    
+    .score-value {
+    }
+  }
+
+  .name {
+    color: $blue;
+    font-weight: bold;
   }
 }
 
@@ -715,12 +706,15 @@ a.current {
   @include rounded-corners(6px);
   background-color: $white;
   font-weight: bold;
+  padding-left: 12px;
+  padding-top: 5px;
+  padding-bottom: 5px;
 }
 
 .other-user-winning-time {
-  font-size: 10px;
-  display: block;
-  line-height: 12px;
+  font-weight: bold;
+  color: $green;
+  margin-left: 1ex;
 }
 
 #conference-header {
@@ -852,4 +846,34 @@ ul#followings, ul#followers {
 
 .clear-avatar {
   margin-top: 20px;
+}
+
+.secondary-column-section {
+  @include rounded-corners(6px);
+  padding-top: 17px;
+  padding-left: 15px;
+  background-color: white;
+  margin-bottom: 10px;
+
+  a, a:link, a:visited {
+    text-decoration: none;
+    font-weight: bold;
+    color: $dark-gray;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+}
+
+#main-profile-section {
+  height: 90px;
+}
+
+.fan-count {
+  font-weight: bold;
+}
+
+#connections {
+  padding-bottom: 17px;
 }

@@ -25,8 +25,8 @@ Then /^I should see a scoreboard for demo "(.*?)"$/ do |demo_name|
 end
 
 Then /^I should see "(.*?)" with ranking "(.*?)"$/ do |name, ranking|
-  with_scope '.top-scores' do
-    page.should have_css("li[@value=\"#{ranking}\"]", :text => name)
+  with_scope '.top-scores li' do
+    page.should have_content("#{ranking}. #{name}")
   end
 end
 
