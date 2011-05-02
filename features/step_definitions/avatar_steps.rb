@@ -1,12 +1,5 @@
-When /^I attach the avatar "(.*?)"$/ do |filename|
-  path = Rails.root.join('features/support/fixtures/avatars', filename)
-  attach_file "user[avatar]", path
-end
-
-Then /^I should see an avatar "(.*?)" for "(.*?)"$/ do |filename, username|
-  user = User.find_by_name(username)
-
-  expected_image_url = [
+def expected_avatar_url(user, filename)
+  [
     'http://s3.amazonaws.com',
     S3_AVATAR_BUCKET,
     'avatars',
@@ -14,8 +7,30 @@ Then /^I should see an avatar "(.*?)" for "(.*?)"$/ do |filename, username|
     'thumb',
     filename
   ].join('/')
+end
 
-  page.should have_css("img[src^='#{expected_image_url}']")
+Given /^"(.*?)" has no avatar$/ do |username|
+  user = User.find_by_name(username)
+  user.avatar_file_name = user.avatar_content_type = user.avatar_file_size = user.avatar_updated_at = nil
+  user.save!
+end
+
+When /^I attach the avatar "(.*?)"$/ do |filename|
+  path = Rails.root.join('features/support/fixtures/avatars', filename)
+  attach_file "user[avatar]", path
+end
+
+Then /^I should( not)? see an avatar "(.*?)" for "(.*?)"$/ do |sense, filename, username|
+  sense = !sense
+  user = User.find_by_name(username)
+
+  expected_img_src = expected_avatar_url(user, filename)
+
+  if sense
+    page.should have_css("img[src^='#{expected_img_src}']")
+  else
+    page.should have_no_css("img[src^='#{expected_img_src}']")
+  end
 end
 
 Then /^I should see the default avatar for "(.*?)"$/ do |username|

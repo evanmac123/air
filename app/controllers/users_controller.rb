@@ -1,6 +1,11 @@
 class UsersController < Clearance::UsersController
   layout :determine_layout
 
+  def index
+    @friend_ids = current_user.friend_ids
+    @other_users = User.where(['demo_id = ? AND id != ?', current_user.demo_id, current_user.id]).alphabetical
+  end
+
   def new
     redirect_to page_path(:id => 'invitation')
   end

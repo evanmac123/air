@@ -1,0 +1,9 @@
+<div id="main">
+  <div class="column-header"><h2>User Directory</h2></div>
+  <ul id="other-users">
+    <% @other_users.each do |other_user| %>
+      <% button_type = @friend_ids.include?(other_user.id) ? :unfollow : :follow %>
+      <%= render :partial => 'shared/associate', :object => other_user, :locals => {:button_type => button_type} %>
+    <% end %>
+  </ul>
+</div>

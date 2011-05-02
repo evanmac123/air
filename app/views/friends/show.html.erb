@@ -1,16 +1,16 @@
 <div id="main">
-  <h2>People You're Following</h2>
+  <div class="column-header"><h2>People You're Following</h2></div>
   <ul id="followings">
-    <%= render :partial => 'associate', :collection => @friends, :locals => {:button_type => :unfollow} %>
+    <%= render :partial => 'shared/associate', :collection => @friends, :locals => {:button_type => :unfollow} %>
   </ul>
 </div>
 
 <div id="secondary">
-  <h2>People Who Follow You</h2>
+  <div class="column-header"><h2>People Who Follow You</h2></div>
   <ul id="followers">
     <% @followers.each do |follower| %>
       <% button_type = @friends.include?(follower) ? :unfollow : :follow %>
-      <%= render :partial => 'associate', :object => follower, :locals => {:button_type => button_type} %>
+      <%= render :partial => 'shared/associate', :object => follower, :locals => {:button_type => button_type} %>
     <% end %>
   </ul>
 </div>

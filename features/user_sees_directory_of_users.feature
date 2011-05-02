@@ -8,6 +8,7 @@ Feature: Directory of other users
       | Phil | phil.png         | company_name: AlphaCo |
       | Vlad | vlad.png         | company_name: AlphaCo |
       | Mort | mort.png        | company_name: BetaCo  |
+    And "Sven" has no avatar
     And the following friendships exist:
       | user       | friend     |
       | name: Dan  | name: Phil |
@@ -25,12 +26,16 @@ Feature: Directory of other users
   Scenario: Avatars appear for other users
     Then I should see an avatar "phil.png" for "Phil"
     And I should see an avatar "vlad.png" for "Vlad"
+    And I should see the default avatar for "Sven"
     And I should not see an avatar "mort.png" for "Mort"
   
   Scenario: Follow controls appear for other users
     Then I should see a follow button for "Sven"
+    And I should not see an unfollow button for "Sven"
     And I should see an unfollow button for "Vlad"
+    And I should not see a follow button for "Vlad"
     And I should see an unfollow button for "Phil"
+    And I should not see a follow button for "Phil"
     And I should not see a follow button for "Mort"
     And I should not see an unfollow button for "Mort"
 

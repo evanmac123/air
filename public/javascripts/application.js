@@ -45,8 +45,4 @@ $(function() {
         //$('.change-number-link').show();
       //}
   /*});*/
-
-  $('.button_to').live('click', function() {
-    $(this).hide();
-  });
 });

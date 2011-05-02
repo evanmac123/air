@@ -13,6 +13,27 @@ def expect_user_details(name, button_type)
   page.should have_button(button_type.capitalize)
 end
 
+def expect_user_friendship_path_button(user, method, text, sense)
+  expected_path = user_friendship_path(user)
+
+  main_form_selector = "form[@action='#{expected_path}']" 
+
+  follow_button_selector = "#{main_form_selector} input[@type='submit'][@value='#{text}']"
+  
+  method_field_selector = if (method.downcase == 'post')
+                            nil
+                          else
+                            "#{main_form_selector} input[@type='hidden'][@name='_method'][@value='#{method}']"
+                          end
+
+  if sense
+    page.should have_css(follow_button_selector)
+    page.should have_css(method_field_selector) if method_field_selector
+  else
+    page.should have_no_css(follow_button_selector)
+  end
+end
+
 Given /^"(.*?)" follows "(.*?)"$/ do |follower_name, followed_name|
   follower = User.find_by_name(follower_name)
   followed = User.find_by_name(followed_name)
@@ -43,3 +64,18 @@ Then /^I should see these people I am following:$/ do |table|
     end
   end
 end
+
+Then /^I should( not)? see an? (un)?follow button for "(.*?)"$/ do |sense, unfollow_expected, user_name|
+  sense = !sense
+
+  user = User.find_by_name(user_name)
+
+  method, text = if unfollow_expected
+                   ['delete', 'Unconnect']
+                 else
+                   ['post', 'Connect']
+                 end
+
+  expect_user_friendship_path_button(user, method, text, sense)
+end
+

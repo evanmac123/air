@@ -7,8 +7,8 @@
   <br/>
 
   <strong><%= associate.points %></strong> points,
-  fan of <span class="fan-count" id="following_count"><%= following_count_phrase(associate) %></span>,
-  has <span class="fan-count" id="followers-count"><%= followers_count_phrase(associate) %></span>.
+  fan of <span class="fan-count" id="followers-count-<%= associate.id %>"><%= following_count_phrase(associate) %></span>,
+  has <span class="fan-count" id="followers-count-<%= associate.id %>"><%= followers_count_phrase(associate) %></span>.
 
   <% if button_type == :unfollow %>
     <%= button_to "Unconnect", user_friendship_path(associate), :method => :delete %>

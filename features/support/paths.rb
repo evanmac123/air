@@ -34,6 +34,12 @@ module NavigationHelpers
     when /the friends page/
       friends_path
 
+    when /the user directory page/
+      users_path
+
+    when /the user page for "(.*?)"/
+      user_path(User.find_by_name($1))
+
     else
       begin
         page_name =~ /the (.*) page/

@@ -234,6 +234,16 @@ h2.first#activity, h2.first#scoreboard {
   }
 }
 
+.friends {
+  .content {
+    width: 1080px;
+  }
+
+  #secondary {
+    width: 505px;
+  }
+}
+
 #footer {
   height: 10px;
   margin: 10px 0;
@@ -687,6 +697,12 @@ button:disabled, input[type=submit]:disabled {
     line-height: 30px;
     vertical-align: middle;
   }
+
+  a, a:link, a:hover, a:visited {
+    color: $offwhite;
+    float: right;
+    padding-right: 4px;
+  }
 }
 
 .column-section {
@@ -823,8 +839,9 @@ textarea#bad_message_reply_body {
   vertical-align: middle;
 }
 
-ul#followings, ul#followers {
+ul#followings, ul#followers, ul#other-users {
   list-style: none;
+  margin-top: 0;
 
   li.associate {
     @include white-li;
