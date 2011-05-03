@@ -847,9 +847,9 @@ ul#followings, ul#followers, ul#other-users {
     @include white-li;
 
     form {
-      position: relative;
-      left: 260px;
-      bottom: 40px;
+      position: absolute;
+      top: 15px;
+      right: 15px;
     }
 
     img {
