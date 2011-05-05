@@ -44,6 +44,11 @@ Health::Application.routes.draw do
     resources :demos, :only => [:new, :create, :show] do
       # TODO: move :edit and :update onto resources :users below
       resources :users, :only => [:create, :edit, :update] 
+      resources :rules, :only => [:index, :create, :edit]
+      namespace :rules do
+        resource :bulk_load, :only => [:create]
+      end
+
       resource :bulk_load, :only => [:new, :create]
     end
     resources :users, :only => [] do

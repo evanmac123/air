@@ -39,6 +39,10 @@ class Rule < ActiveRecord::Base
     where("rules.demo_id IS NULL or (rules.demo_id = ?)",  other.demo_id)
   end
 
+  def self.alphabetical
+    order(:value)
+  end
+
   protected
 
   def normalize_value

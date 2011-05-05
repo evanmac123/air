@@ -40,6 +40,9 @@ module NavigationHelpers
     when /the user page for "(.*?)"/
       user_path(User.find_by_name($1))
 
+    when /the admin rules page for "(.*?)"/
+      admin_demo_rules_path(Demo.find_by_company_name($1))
+
     else
       begin
         page_name =~ /the (.*) page/

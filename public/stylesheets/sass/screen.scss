@@ -894,3 +894,18 @@ ul#followings, ul#followers, ul#other-users {
 #connections {
   padding-bottom: 17px;
 }
+
+#existing-rules {
+  td, th {
+    border: 2px solid black;
+  }
+}
+
+.rule-warning {
+  background-color: yellow;
+  color: red;
+}
+
+#existing-rules, #add-rule, #bulk-load {
+  margin-bottom: 90px;
+}

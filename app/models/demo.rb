@@ -1,6 +1,7 @@
 class Demo < ActiveRecord::Base
   has_many :users
   has_many :acts, :through => :users
+  has_many :rules
 
   # We go through this rigamarole since we can move a user from one demo to
   # another, and usually we will only be concerned with acts belonging to the

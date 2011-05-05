@@ -14,6 +14,7 @@ end
 
 describe Demo do
   it { should have_many(:users) }
+  it { should have_many(:rules) }
 end
 
 describe Demo, "#welcome_message" do

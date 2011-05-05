@@ -27,6 +27,8 @@ Game
 
 <p>Welcome message: <%= @demo.welcome_message(@dummy_user) %></p>
 
+<%= link_to "Rules for this demo", admin_demo_rules_path(@demo) %>
+
 <p class="explanation"><%= translate('.explanation', :default => "Add HR people from %{company} to this demo, then send them an invitation to the demo.", :company => @demo.company_name) %></p>
 
 <a href="#" id="add-new-user">Add new user</a>

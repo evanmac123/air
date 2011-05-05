@@ -1,0 +1,28 @@
+<% rule_warnings ||= {} %>
+
+<%= form_tag admin_demo_rules_path(demo) do %>
+  <% new_rules.each_with_index do |rule, i| %>
+
+    <%= fields_for rule do |rule_fields| %>
+      <fieldset>
+
+        <% if rule_warnings[rule] %>
+          <div class="rule-warning">
+            <%= rule_warnings[rule] %>
+          </div>
+        <% end %>
+
+        <% %w(value points reply description alltime_limit referral_points).each do |ar_field_name| %>
+          <% html_field_name = "rule[#{i}][#{ar_field_name}]" %>
+          <%= label_tag html_field_name, ar_field_name.humanize %>
+          <%= rule_fields.text_field ar_field_name, :name => html_field_name, :id => "rule_#{i}_#{ar_field_name}" %>
+        <% end %>
+
+        <%= label_tag "rule[#{i}][suggestible]", "Suggestible" %>
+        <%= rule_fields.check_box :suggestible, :name => "rule[#{i}][suggestible]", :id => "rule_#{i}_suggestible" %>
+      </fieldset>
+    <% end %>
+  <% end %>
+
+  <%= submit_tag 'Create Rules' %>
+<% end %>

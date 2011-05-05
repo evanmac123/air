@@ -1,0 +1,50 @@
+<h2 class="first"><%= link_to "Admin", admin_path %>: <%= link_to @demo.company_name, admin_demo_path(@demo) %>: Rules</h2>
+
+<div id="existing-rules">
+  <h2>Existing Rules</h2>
+  <%= link_to 'Jump to add-rule form', "#add-rule" %>
+
+  <table>
+    <tr>
+      <th>Value</th>
+      <th>Points</th>
+      <th>Reply</th>
+      <th>Description</th>
+      <th>Alltime limit</th>
+      <th>Referral points</th>
+      <th>Suggestible</th>
+    </tr>
+
+    <% @existing_rules.each do |existing_rule| %>
+      <tr>
+        <% [:value, :points, :reply, :description, :alltime_limit, :referral_points, :suggestible].each do |field_name| %>
+          <%= content_tag 'td', existing_rule[field_name] %>
+        <% end %>
+
+        <td>
+          <%= link_to 'Edit Rule', edit_admin_demo_rule_path(@demo, existing_rule, :anchor => 'add-rule') %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+</div>
+
+<div id="add-rule">
+  <a name='add-rule'></a>
+  <h2>Add Rule</h2>
+  <%= render :partial => 'shared/rule_form_fields', :locals => {:demo => @demo, :new_rules => @new_rules, :rule_warnings => @rule_warnings} %>
+</div>
+
+<div id="bulk-load">
+  <h2>Upload rules in bulk</h2>
+  <p>Upload a CSV file with columns in this order: value, points, reply, description, all-time limit, referral points, suggestible.</p>
+  <p>You'll have a chance to review and edit the values before you save the rules.</p>
+  <p>If you upload a rule with a value that's already in the database for this demo, you'll be warned that saving it will overwrite the existing rule. This lets you update existing rules via CSV.</p>
+  <p>Only "value" is required.</p>
+  <p>"Suggestible" is a true/false value. Unless you have the word "false" in this column, it'll be considered to be true.</p>
+  <%= form_tag admin_demo_rules_bulk_load_path(@demo, :anchor => 'add-rule'), :multipart => true do %>
+    <label for="bulk_rules_file">Bulk rules CSV</label><br>
+    <%= file_field_tag 'bulk_rules_file' %>
+    <%= submit_tag 'Upload Rules' %>
+  <% end %>
+</div>
