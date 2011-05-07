@@ -10,7 +10,7 @@ class Admin::Rules::BulkLoadsController < AdminBaseController
 
     new_rule_data.each do |new_rule_datum|
       value, points, reply, description, alltime_limit, referral_points, suggestible = new_rule_datum
-      suggestible = (suggestible.downcase == 'false' ? false : true)
+      suggestible = (suggestible.try(:downcase) == 'false' ? false : true)
 
       new_rule = Rule.new(:value => value, :points => points, :reply => reply, :description => description, :alltime_limit => alltime_limit, :referral_points => referral_points, :suggestible => suggestible)
       @new_rules << new_rule
