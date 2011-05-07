@@ -150,8 +150,9 @@ h2.first#activity, h2.first#scoreboard {
 
 .header {
   @include box-shadow(0, 1px, 2px, 1px, $light-green);
-  @include background-gradient($green, $light-green, $light-green);
+  /*@include background-gradient($green, $light-green, $light-green);*/
 
+  background-color: $light-green;
   height: 65px;
 
   #logo {
