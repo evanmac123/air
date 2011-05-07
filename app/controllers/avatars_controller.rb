@@ -1,4 +1,4 @@
-class Account::AvatarsController < ApplicationController
+class AvatarsController < ApplicationController
 
   def edit
   end

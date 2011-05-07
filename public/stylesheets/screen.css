@@ -253,19 +253,15 @@ table#your-score {
   font-size: 18px;
   margin-bottom: 0; }
   table#your-score td, table#your-score th {
-    text-align: center; }
-  table#your-score td {
+    text-align: center;
+    border: none; }
+  table#your-score th {
     font-weight: bold; }
-  table#your-score tr#recent-average {
-    color: #55950d; }
+  table#your-score td {
+    font-weight: normal; }
   table#your-score td, table#your-score th {
     background-color: white;
-    border-bottom: 1px solid #DDDDDD;
     padding: 2px 8px; }
-  table#your-score tr:first-child td, table#your-score tr:first-child th {
-    background-color: #333333;
-    color: #22d4a8;
-    font-size: 14px; }
   table#your-score tr:first-child td:first-child, table#your-score tr:first-child th:first-child {
     color: #f0f0f0;
     -webkit-border-top-left-radius: 6px;
@@ -277,8 +273,6 @@ table#your-score {
     -webkit-border-top-right-radius: 6px;
     -moz-border-radius-topright: 6px;
     border-radius-topright: 6px; }
-  table#your-score tr:last-child td, table#your-score tr:last-child th {
-    border-bottom: none; }
   table#your-score tr:last-child td:first-child, table#your-score tr:last-child th:first-child {
     -webkit-border-bottom-left-radius: 6px;
     -moz-border-radius-bottomleft: 6px;
@@ -493,8 +487,8 @@ a.current {
   padding-bottom: 5px; }
 
 .other-user-winning-time {
-  font-weight: bold;
-  color: #55950d;
+  font-weight: normal;
+  color: #103245;
   margin-left: 1ex; }
 
 #conference-header {

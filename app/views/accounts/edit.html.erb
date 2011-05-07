@@ -1,0 +1,4 @@
+<%= semantic_form_for current_user, :url => account_path do |form| %>
+  <%= form.input :send_follow_notification_sms, :label => 'Send me an SMS when somebody follows me' %>
+  <%= form.commit_button 'Update' %>
+<% end %>

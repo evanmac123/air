@@ -418,27 +418,27 @@ table#your-score {
 
   td, th {
     text-align: center;
+    border: none;
   }
 
-  td {
+  th {
     font-weight: bold;
   }
 
+  td {
+    font-weight: normal;
+  }
+
   tr#recent-average {
-    color: $green;
   }
 
   td, th {
     background-color: $white;
-    border-bottom: 1px solid #DDDDDD;
     padding: 2px 8px;
   }
 
   tr:first-child {
     td, th {
-      background-color: $gray;
-      color: $aqua;
-      font-size: 14px;
     }
 
     td:first-child, th:first-child {
@@ -455,7 +455,6 @@ table#your-score {
 
   tr:last-child {
     td, th {
-      border-bottom: none;
     }
 
     td:first-child, th:first-child {
@@ -728,8 +727,8 @@ a.current {
 }
 
 .other-user-winning-time {
-  font-weight: bold;
-  color: $green;
+  font-weight: normal;
+  color: $blue;
   margin-left: 1ex;
 }
 

@@ -30,7 +30,9 @@
       <% if @viewing_self %>
         Your mobile number: <span class="number"><%= @user.phone_number %></span><br/>
         <%= link_to "Change your mobile number", edit_account_phone_path, :class => 'change-number-link' %><br/>
-        <%= link_to "Change your picture", edit_account_avatar_path, :class => 'change-avatar-link' %>
+        <%= link_to "Change your picture", edit_account_avatar_path, :class => 'change-avatar-link' %><br/>
+
+        <%= link_to "Change your account settings", edit_account_path, :class => 'change-account-settings-link' %>
 
         <div class="avatar-controls" style="display: none">
           <%= render :partial => 'shared/avatar_form', :locals => {:user => @user} %>

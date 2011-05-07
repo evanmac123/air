@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Account::PhonesController do
+describe PhonesController do
   context "#update" do
     before(:each) do
       @controller.current_user = Factory :user

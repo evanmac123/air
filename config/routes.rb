@@ -33,7 +33,7 @@ Health::Application.routes.draw do
 
   resources :pages, :only => :show
 
-  namespace :account do
+  resource :account do
     resource :phone, :only => [:edit, :update]
     resource :avatar, :only => [:edit, :update, :destroy]
   end
