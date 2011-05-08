@@ -52,6 +52,7 @@ Feature: User accepts invitation
     And I fill in "And confirm that password" with "whowho"
     And I press "Join the game"
     Then I should be on the activity page
+    And I dump the page
     And I should see "Phil 10 points"
     And I should see "Phil joined the game less than a minute ago +10 points"
 

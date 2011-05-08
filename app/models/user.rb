@@ -5,6 +5,7 @@ class User < ActiveRecord::Base
   # (counting today as day 0)
   MAX_RECENT_AVERAGE_HISTORY_DEPTH = 6
 
+  DEFAULT_RANKING_CUTOFF = 10
   include Clearance::User
 
   belongs_to :demo
@@ -76,6 +77,10 @@ class User < ActiveRecord::Base
 
   def self.ranked
     where("phone_number IS NOT NULL AND phone_number != ''")
+  end
+
+  def self.with_ranking_cutoff(cutoff = DEFAULT_RANKING_CUTOFF)
+    where("ranking <= #{cutoff}")
   end
 
   def self.claim_account(from, claim_code)

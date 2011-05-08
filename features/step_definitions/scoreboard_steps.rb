@@ -1,7 +1,7 @@
 Then /^I should see a scoreboard for demo "(.*?)"$/ do |demo_name|
 
   demo = Demo.find_by_company_name(demo_name)
-  expected_users = demo.users.ranked
+  expected_users = demo.users.ranked.with_ranking_cutoff
   unexpected_users = User.all - expected_users
 
   page.should have_content("Scoreboard") 
@@ -20,6 +20,8 @@ Then /^I should see a scoreboard for demo "(.*?)"$/ do |demo_name|
   0.upto(sorted_expected_users.length - 2) do |i|
     first_user = sorted_expected_users[i]
     second_user = sorted_expected_users[i + 1]
+    next if first_user.points == second_user.points
+
     page.body.should match(/#{first_user.name}.*#{second_user.name}/m)
   end
 end

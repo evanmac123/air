@@ -9,7 +9,7 @@ class ActsController < ApplicationController
 
     respond_to do |format|
       format.html do 
-        @users = @demo.users.ranked.order('points DESC')
+        @users = @demo.users.ranked.with_ranking_cutoff.order('points DESC')
       end
 
       format.js do
