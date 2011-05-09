@@ -12,8 +12,8 @@ module SpecialCommand
       self.moreinfo(from)
     when 's', 'suggest'
       self.suggestion(from, args)
-    when /^\d+$/
-      self.use_suggested_item(from, command_name)
+    when 'meant'
+      self.use_suggested_item(from, args.first)
     end
   end
 

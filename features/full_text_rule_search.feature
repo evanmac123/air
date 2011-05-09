@@ -28,7 +28,7 @@ Feature: Full text rule search
 
   Scenario: User picks a suggested command
     When "+16175551212" sends SMS "ate baked alaska"
-    And "+16175551212" sends SMS "2"
+    And "+16175551212" sends SMS "meant 2"
     And I go to the activity page
     Then I should see "Dan ate kitten"
     And "+16175551212" should have received an SMS 'I didn't quite get what you meant. Maybe try (1) "ate banana" or (2) "ate kitten"? Or text S to suggest we add what you sent.'
@@ -36,15 +36,15 @@ Feature: Full text rule search
 
   Scenario: User can't pick a suggested command twice
     When "+16175551212" sends SMS "ate baked alaska"
-    And "+16175551212" sends SMS "2"
-    And "+16175551212" sends SMS "2"
+    And "+16175551212" sends SMS "meant 2"
+    And "+16175551212" sends SMS "meant 2"
     And "+16175551212" should have received an SMS 'I didn't quite get what you meant. Maybe try (1) "ate banana" or (2) "ate kitten"? Or text S to suggest we add what you sent.'
     And "+16175551212" should have received an SMS including "Gross."
     And "+16175551212" should have received an SMS "Sorry, I don't understand what that means. Text S to suggest we add what you sent."    
 
   Scenario: User picks a suggested command index out of range
     When "+16175551212" sends SMS "ate baked alaska"
-    And "+16175551212" sends SMS "3"
+    And "+16175551212" sends SMS "meant 3"
     Then "+16175551212" should have received an SMS 'I didn't quite get what you meant. Maybe try (1) "ate banana" or (2) "ate kitten"? Or text S to suggest we add what you sent.'
     And "+16175551212" should have received an SMS "Sorry, I don't understand what that means. Text S to suggest we add what you sent."    
 
