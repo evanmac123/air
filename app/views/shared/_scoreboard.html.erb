@@ -4,7 +4,7 @@
 
 <%= render 'shared/scoreboard_list', :users => users %>
 
-<%= link_to 'Show all ranked players', '#', :id => 'show-all-ranked-players' %>
+<%= button_to 'See all', '#', :id => 'show-all-ranked-players' %>
 
 <% content_for :javascript do %>
   <%= javascript_tag do %>
