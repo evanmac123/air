@@ -32,7 +32,7 @@
 <div id="add-rule">
   <a name='add-rule'></a>
   <h2>Add Rule</h2>
-  <%= render :partial => 'shared/rule_form_fields', :locals => {:demo => @demo, :new_rules => @new_rules, :rule_warnings => @rule_warnings} %>
+  <%= render(:partial => 'shared/rule_form_fields', :locals => {:demo => @demo, :new_rules => @new_rules, :rule_warnings => @rule_warnings}).force_encoding('utf-8')  %>
 </div>
 
 <div id="bulk-load">

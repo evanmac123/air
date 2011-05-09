@@ -38,3 +38,8 @@ Then /^I should see the following rules in a form:$/ do |table|
     end
   end
 end
+
+Then /^I should not see a rule with the value "([^"]*)" in a form$/ do |value|
+  value_field = page.find(:css, "input[@value='#{value}']")
+  value_field.should be_nil
+end

@@ -15,7 +15,7 @@ class Admin::RulesController < AdminBaseController
   def create
     Rule.transaction do
       params[:rule].values.each do |rule_values|
-        rule = Rule.where(:value => rule_values['value'], :demo_id => @demo.id).first
+        rule = Rule.where(:value => rule_values['value'].downcase, :demo_id => @demo.id).first
 
         if rule
           rule.attributes = rule_values
