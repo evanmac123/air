@@ -12,6 +12,7 @@ class User < ActiveRecord::Base
   has_many   :acts
   has_many   :friendships
   has_many   :friends, :through => :friendships
+  has_many   :survey_answers
 
   has_attached_file :avatar, 
     :styles => {:thumb => "48x48#"}, 
@@ -332,6 +333,10 @@ class User < ActiveRecord::Base
       credit_referring_user(referring_user, rule)
       return [Act.record_act(self, rule, referring_user), :success]
     end
+  end
+
+  def open_survey
+    self.demo.surveys.open.first
   end
 
   protected
