@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
-  before_filter :mobile_if_mobile_device
+  #before_filter :mobile_if_mobile_device
 
-  has_mobile_fu
+  #has_mobile_fu
 
   before_filter :authenticate
 

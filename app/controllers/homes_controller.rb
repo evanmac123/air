@@ -1,5 +1,5 @@
 class HomesController < ApplicationController
-  before_filter :redirect_to_activity, :unless => :is_mobile_device?
+  before_filter :redirect_to_activity#, :unless => :is_mobile_device?
 
   def show
     @demo  = current_user.demo
