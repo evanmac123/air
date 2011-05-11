@@ -77,4 +77,7 @@
 
     <%= fan_of_phrase %> a fan of <span class="fan-count" id="following-count"><%= following_count_phrase(@user)%></span>.<br/>
     <%= fans_had_phrase%> <span class="fan-count" id="followers-count"><%= followers_count_phrase(@user) %></span>.
+    <% if @viewing_self %>
+      <br/><%= link_to 'View my connections', friends_path %>
+    <% end %>
   </div>
