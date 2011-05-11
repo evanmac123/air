@@ -33,7 +33,7 @@ class Admin::Rules::BulkLoadsController < AdminBaseController
     end
 
     @existing_rules = @demo.rules.alphabetical
-    render :action => 'admin/rules/index'
+    render :template => 'admin/rules/index'
   end
 
   protected
