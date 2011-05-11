@@ -17,7 +17,7 @@ When /^I am not logged in$/ do
   delete sign_out_path
 end
 
-Given /^"(.*?)" has the password "(.*?)"$/ do |username, new_password|
+Given /^"(.*?)" has( the)? password "(.*?)"$/ do |username, _nothing, new_password|
   user = User.find_by_name(username)
   user.password = user.password_confirmation = new_password
   user.save!
