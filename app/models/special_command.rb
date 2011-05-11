@@ -14,6 +14,10 @@ module SpecialCommand
       self.suggestion(from, args)
     when 'meant'
       self.use_suggested_item(from, args.first)
+    when /^\d+$/
+      self.respond_to_survey(from, command_name)
+    when 'lastquestion'
+      self.remind_last_question(from)
     end
   end
 
@@ -73,5 +77,36 @@ module SpecialCommand
 
     rule = Rule.find(suggested_item_indices[chosen_index - 1])
     (user.act_on_rule(rule)).first # throw away error code in this case
+  end
+
+  def self.respond_to_survey(from, choice)
+    user = User.find_by_phone_number(from)
+    return nil unless user
+
+    survey = user.open_survey
+    return nil unless survey
+
+    question = survey.latest_question_for(user)
+
+    if question
+      question.respond(user, survey, choice)
+    else
+      "Thanks, we've got all of your survey answers already."
+    end
+  end
+
+  def self.remind_last_question(from)
+    user = User.find_by_phone_number(from)
+    return nil unless user
+
+    survey = user.open_survey
+    return "You're not currently taking a survey" unless survey
+
+    question = survey.latest_question_for(user)
+    if question
+      "The last question was: #{question.text}"
+    else
+      "You've already answered all of the questions in the survey."
+    end
   end
 end

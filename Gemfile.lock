@@ -80,7 +80,11 @@ GEM
     cucumber-rails (0.3.2)
       cucumber (>= 0.8.0)
     culerity (0.2.13)
+    daemons (1.1.3)
     database_cleaner (0.6.0)
+    delayed_job (2.1.4)
+      activesupport (~> 3.0)
+      daemons
     diff-lcs (1.1.2)
     dynamic_form (1.1.3)
     email_spec (1.1.1)
@@ -214,6 +218,7 @@ DEPENDENCIES
   copycopter_client (~> 1.0.1)
   cucumber-rails
   database_cleaner
+  delayed_job
   dynamic_form
   email_spec (~> 1.1)
   factory_girl_rails

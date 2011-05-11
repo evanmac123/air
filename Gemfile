@@ -18,6 +18,7 @@ gem "copycopter_client", "~> 1.0.1"
 gem "clearance", "~> 0.10.0"
 gem "sass"
 gem "aws-s3"
+gem "delayed_job"
 
 # RSpec needs to be in :development group to expose generators
 # and rake tasks without having to type RAILS_ENV=test.
