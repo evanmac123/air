@@ -20,6 +20,10 @@ class Act < ActiveRecord::Base
     order('created_at desc').limit(limit)
   end
 
+  def self.in_demo(demo)
+    where(:demo_id => demo.id)
+  end
+
   def self.parse(user_or_phone, body, options = {})
     @return_message_type = options.delete(:return_message_type)
 

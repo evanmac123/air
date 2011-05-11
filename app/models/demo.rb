@@ -14,7 +14,7 @@ class Demo < ActiveRecord::Base
   # sure the demo_id there gets set appropriately.
 
   def acts_with_current_demo_checked
-    self.acts_without_current_demo_checked.where(:demo_id => self.id)
+    self.acts_without_current_demo_checked.in_demo(self)
   end
 
   alias_method_chain :acts, :current_demo_checked

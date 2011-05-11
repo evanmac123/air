@@ -45,6 +45,17 @@ Feature: Admin moves a user to a new demo
       | Dan  | went running | 10     |
     And I should not see "Dan" in the scoreboard
 
+  Scenario: In user's profile page, only new acts appear
+    When I sign in via the login page as "Fred/baz"
+    And I go to the profile page for "Dan"
+    Then I should see the following act:
+      | name | act          | points |
+      | Dan  | went running | 10     |
+    And I should not see the following acts:
+      | name | act          | points |
+      | Dan  | ate banana   | 7      |
+      | Dan  | walked dog   | 9      |
+
   Scenario: User's old acts, correct score and ranking reappear when moved back to the original demo
     When an admin moves "Dan" to the demo "The Thoughtbots"
     And I sign in via the login page as "Fred/baz"
