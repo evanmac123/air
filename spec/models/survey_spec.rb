@@ -7,6 +7,7 @@ describe Survey do
   it {should validate_presence_of :close_at}
   it {should have_many :survey_questions}
   it {should have_many :survey_valid_answers}
+  it {should have_many :survey_prompts}
 
   it "should require the close time to be after the open time" do
     survey = Factory :survey

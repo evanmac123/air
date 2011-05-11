@@ -2,6 +2,7 @@ class Survey < ActiveRecord::Base
   belongs_to :demo
   has_many :survey_questions
   has_many :survey_valid_answers, :through => :survey_questions
+  has_many :survey_prompts
 
   validates_presence_of :name, :open_at, :close_at
 

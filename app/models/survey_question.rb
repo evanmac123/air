@@ -4,6 +4,7 @@ class SurveyQuestion < ActiveRecord::Base
 
   validates_presence_of :text
   validates_presence_of :survey_id
+  validates_presence_of :index
   validates_uniqueness_of :index, :scope => :survey_id
 
   def respond(user, survey, choice)
