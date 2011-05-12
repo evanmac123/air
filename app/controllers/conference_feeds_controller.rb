@@ -3,7 +3,8 @@ class ConferenceFeedsController < ApplicationController
   before_filter :set_conference_feed_page
 
   def show
-    @demo  = Demo.includes(:users, :acts).where(:company_name => 'EHCC San Diego').first
+    # TODO: I shouldn't have to tell you what's wrong with this next line.
+    @demo  = Demo.includes(:users, :acts).where(:company_name => 'Highmark Health Personality').first
     @users = @demo.users.ranked.order('ranking ASC')
     @acts  = @demo.acts.order('created_at DESC').limit(20).includes(:user, {:rule => :key})
   end
