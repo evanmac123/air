@@ -7,7 +7,7 @@
     </div>
 
     <% if @conference_feed_page %>
-      <span id="conference-header">@ Employee Health Care Conference</span>
+      <span id="conference-header">@ <%= @demo.name %></span>
     <% else %>
       <% if signed_in? %>
         <%= render :partial => 'shared/act_entry' %>
