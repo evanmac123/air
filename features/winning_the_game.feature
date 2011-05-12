@@ -46,4 +46,4 @@ Feature: Player can win the game
       | demo                | name | won_at              |
       | company_name: BobCo | Dan  | 2005-12-31 06:00:00 |
     When I go to the activity page
-    Then I should see "Won Game"
+    Then I should see "Qualified for drawing"
