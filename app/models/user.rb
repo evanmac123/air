@@ -309,7 +309,7 @@ class User < ActiveRecord::Base
     new_demo = Demo.find(new_demo_id)
 
     self.demo = new_demo
-    self.points = self.acts.where(:demo_id => new_demo_id).map(&:points).sum
+    self.points = self.acts.where(:demo_id => new_demo_id).map(&:points).compact.sum
     self.save!
     self.recalculate_moving_average!
 

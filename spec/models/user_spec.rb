@@ -452,3 +452,24 @@ describe User, "on save" do
     @user.reload.email.should == 'yelling_guy@uppercase.com'
   end
 end
+
+describe User, "#move_to_new_demo" do
+  before(:each) do
+    @user = Factory :user
+    @new_demo = Factory :demo
+  end
+
+  describe "when the user has acts (plural) in the new demo with nil points" do
+    before(:each) do
+      2.times do
+        act = Factory :act, :user => @user, :demo_id => @new_demo.id
+        act.points.should be_nil
+      end
+    end
+
+    it "should not raise an exception" do
+      lambda{@user.move_to_new_demo(@new_demo.id)}.should_not raise_exception
+      @user.reload.points.should == 0
+    end
+  end
+end
