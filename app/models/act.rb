@@ -47,7 +47,7 @@ class Act < ActiveRecord::Base
     
     if value == "help"
       # record this somewhere
-      return parsing_success_message('Earn points, text: "went to gym", "ate fruit", "ate vegetables", "walked stairs", "ran outside", "walked outside" - provided you did those things, of course.')
+      return parsing_success_message('Earn points by texting the healthy things you do and answering the occasional question.')
     end
 
     if user.demo.game_over?
