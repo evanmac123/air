@@ -13,8 +13,7 @@ class SurveyQuestion < ActiveRecord::Base
 
     record_answer(user, valid_answer)
 
-    next_question = self.survey.survey_questions.after_index(self.index).first
-
+    next_question = survey.latest_question_for(user)
     unless next_question
       user.acts.create(:text => 'completed a health personality survey')
     end
@@ -28,7 +27,6 @@ class SurveyQuestion < ActiveRecord::Base
                     where(['survey_questions.survey_id = ?', survey.id]).
                     order('survey_questions.index DESC').
                     limit(1).
-                    includes(:survey_question).
                     first
     
     last_answer_index = if last_answer
@@ -37,7 +35,7 @@ class SurveyQuestion < ActiveRecord::Base
                           -1
                         end
 
-    after_index(last_answer_index)
+    survey.survey_questions.after_index(last_answer_index)
   end
 
   def self.after_index(index)
