@@ -91,6 +91,7 @@ module SpecialCommand
     if question
       question.respond(user, survey, choice)
     else
+      return nil if survey.demo.has_rule_matching?(choice) # Give Act.parse a crack at it
       "Thanks, we've got all of your survey answers already."
     end
   end

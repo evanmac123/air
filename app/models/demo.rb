@@ -66,6 +66,10 @@ class Demo < ActiveRecord::Base
     fix_user_rankings!('recent_average_points', 'recent_average_ranking')
   end
 
+  def has_rule_matching?(value)
+    self.rules.where(:value => value).present?
+  end
+
   def self.recalculate_all_moving_averages!
     Demo.all.each do |demo|
       begin
