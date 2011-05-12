@@ -73,9 +73,38 @@ Scenario: Survey sends second prompt to everyone in the demo who hasn't answered
   And "+14155551212" should not have received any SMSes
   And "+19995551212" should not have received any SMSes
 
+Scenario: No questions from old surveys show up
+  Given the following survey exists:
+    | name                | open_at              | close_at             | demo                |
+    | Old Health Survey   | 2010-05-01 13:00 UTC | 2010-05-01 21:00 UTC | company_name: FooCo |
+  And the following survey questions exist:
+    | text                                    | index | points | survey                  |
+    | Where are the snowfalls of yesteryear?  |     1 |        | name: Old Health Survey |
+    | What's the matter with kids these days? |     2 |        | name: Old Health Survey |
+    | Whither Canada?                         |     3 |        | name: Old Health Survey |
+  And time is frozen at "2011-05-01 15:00 UTC"
+  And "+14155551212" sends SMS "1"
+  Then "+14155551212" should not have received an SMS "Got it! Next question: What's the matter with kids these days?"
+
+Scenario: Answers from old surveys shouldn't count against current surveys
+  Given the following survey exists:
+    | name                | open_at              | close_at             | demo                |
+    | Old Health Survey   | 2010-05-01 13:00 UTC | 2010-05-01 21:00 UTC | company_name: FooCo |
+  And the following survey questions exist:
+    | text                                    | index | points | survey                  |
+    | Where are the snowfalls of yesteryear?  |     1 |        | name: Old Health Survey |
+    | What's the matter with kids these days? |     2 |        | name: Old Health Survey |
+    | Whither Canada?                         |     3 |        | name: Old Health Survey |
+  And the following survey answers exist:
+    | user       | survey question                             |
+    | name: Dan  | text: Where are the snowfals of yesteryear? |
+  And time is frozen at "2011-05-01 15:00 UTC"
+  When "+14155551212" sends SMS "1"
+  Then "+14155551212" should not have received an SMS including "How important is doing what you're told?"
+
 Scenario: User responds to question during the window with a good value
   Given time is frozen at "2011-05-01 15:00 UTC"
-  And "+14155551212" sends SMS "1"
+  When "+14155551212" sends SMS "1"
   And I sign in via the login page with "Dan/foo"
   And I go to the activity page
   Then "+14155551212" should have received an SMS "Got it! Next question: Do you like cheese?"

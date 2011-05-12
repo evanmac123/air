@@ -30,8 +30,14 @@ Then /^"([^"]*)" should have received the fallback error message SMS$/ do |phone
   Then "\"#{phone_number}\" should have received the SMS 'I can't find your number in my records. Did you claim your account yet? If not, text your first initial and last name (if you are John Smith, text \"jsmith\").'"
 end
 
-Then /^"([^"]*)" should have received an SMS including "(.*)"$/ do |phone_number, text_message|
-  FakeTwilio::SMS.should have_sent_text_including(phone_number, text_message)
+Then /^"([^"]*)" should( not)? have received an SMS including "(.*)"$/ do |phone_number, sense, text_message|
+  sense = !sense
+
+  if sense
+    FakeTwilio::SMS.should have_sent_text_including(phone_number, text_message)
+  else
+    FakeTwilio::SMS.should_not have_sent_text_including(phone_number, text_message)
+  end
 end
 
 Then /^"([^"]*)" should not have received any SMSes$/ do |phone_number|

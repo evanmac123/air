@@ -11,28 +11,21 @@ class SurveyQuestion < ActiveRecord::Base
     valid_answer = self.survey_valid_answers.where(:value => choice).first
     return bad_answer_error(choice) unless valid_answer
 
-    SurveyAnswer.create(:user => user, :survey_question => self, :survey_valid_answer => valid_answer)
-    user.acts.create(:inherent_points => self.points, :text => "answered a health personality question")
+    record_answer(user, valid_answer)
 
-    points_phrase = self.points ? 
-                      "(And you get #{self.points} points.) " :
-                      ''
-
-    next_question = self.class.questions_after(self.index).first
-    next_question_phrase = next_question ?
-                             "Next question: #{next_question.text}" :
-                             "That was the last question. Thanks for completing the survey!"
+    next_question = self.survey.survey_questions.after_index(self.index).first
 
     unless next_question
       user.acts.create(:text => 'completed a health personality survey')
     end
 
-    "Got it! #{points_phrase}#{next_question_phrase}"
+    "Got it! #{points_phrase}#{next_question_phrase(next_question)}"
   end
 
-  def self.unanswered_by(user)
+  def self.unanswered_by(user, survey)
     last_answer = user.survey_answers.
                     joins('INNER JOIN survey_questions ON survey_answers.survey_question_id = survey_questions.id').
+                    where(['survey_questions.survey_id = ?', survey.id]).
                     order('survey_questions.index DESC').
                     limit(1).
                     includes(:survey_question).
@@ -44,10 +37,10 @@ class SurveyQuestion < ActiveRecord::Base
                           -1
                         end
 
-    questions_after(last_answer_index)
+    after_index(last_answer_index)
   end
 
-  def self.questions_after(index)
+  def self.after_index(index)
     self.where(['index > ?', index]).order('index ASC')
   end
 
@@ -56,5 +49,22 @@ class SurveyQuestion < ActiveRecord::Base
   def bad_answer_error(choice)
     valid_answer_phrase = self.survey_valid_answers.map(&:value).sort.join(', ')
     "Sorry, I don't understand \"#{choice}\" as an answer to that question. Valid answers are: #{valid_answer_phrase}."
+  end
+
+  def record_answer(user, valid_answer)
+    SurveyAnswer.create(:user => user, :survey_question => self, :survey_valid_answer => valid_answer)
+    user.acts.create(:inherent_points => self.points, :text => "answered a health personality question")
+  end
+
+  def points_phrase
+    self.points ? 
+      "(And you get #{self.points} points.) " :
+      ''
+  end
+
+  def next_question_phrase(next_question)
+    next_question ?
+      "Next question: #{next_question.text}" :
+      "That was the last question. Thanks for completing the survey!"
   end
 end

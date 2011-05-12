@@ -32,7 +32,7 @@ class SurveyPrompt < ActiveRecord::Base
   def text_prompt_to_user(user_id, prompt_id)
     user = User.find(user_id)
 
-    unanswered_questions = self.survey.survey_questions.unanswered_by(user)
+    unanswered_questions = SurveyQuestion.unanswered_by(user, self.survey)
     return if unanswered_questions.length == 0
 
     next_unanswered_question = unanswered_questions.first

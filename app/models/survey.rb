@@ -15,7 +15,7 @@ class Survey < ActiveRecord::Base
   end
 
   def latest_question_for(user)
-    self.survey_questions.unanswered_by(user).first
+    SurveyQuestion.unanswered_by(user, self).first
   end
 
   def self.open
