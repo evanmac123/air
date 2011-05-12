@@ -4,7 +4,7 @@
 
 <%= render 'shared/scoreboard_list', :users => users %>
 
-<%= button_to 'See all', '#', :id => 'show-all-ranked-players' %>
+<%= button_to('See all', '#', :id => 'show-all-ranked-players') unless @conference_feed_page %>
 
 <% content_for :javascript do %>
   <%= javascript_tag do %>
