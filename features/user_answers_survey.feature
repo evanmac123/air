@@ -129,6 +129,15 @@ Scenario: User responds to question during the window with a bad value
   And "+14155551212" sends SMS "3"
   Then "+14155551212" should have received an SMS `Sorry, I don't understand "3" as an answer to that question. Valid answers are: 1, 2.`
 
+Scenario: User responds to question during the window with a bad value, but there's an actual rule with that value
+  Given time is frozen at "2011-05-01 15:00 UTC"
+  And the following rule exists:
+    | value | reply                  | points | demo                |
+    | 200   | That's a numeric rule. | 10     | company_name: FooCo |
+  And "+14155551212" sends SMS "200"
+  Then "+14155551212" should not have received an SMS including "Sorry, I don't understand "200" as an answer to that question."
+  And "+14155551212" should have received an SMS including "That's a numeric rule"
+
 Scenario: User responds to question when the survey is not yet open
   Given time is frozen at "2011-05-01 12:59 UTC"
   And "+14155551212" sends SMS "1"
@@ -169,4 +178,3 @@ Scenario: User asks for reminder of last question
   And time is frozen at "2011-05-01 15:00 UTC"
   And "+14155551212" sends SMS "LASTQUESTION"
   Then "+14155551212" should have received an SMS "The last question was: How important is doing what you're told?"
-

@@ -9,7 +9,15 @@ class SurveyQuestion < ActiveRecord::Base
 
   def respond(user, survey, choice)
     valid_answer = self.survey_valid_answers.where(:value => choice).first
-    return bad_answer_error(choice) unless valid_answer
+    unless valid_answer
+      # If a rule with the chosen value exists, punt on answering questions
+      # so we can parse it normally.
+      if survey.demo.rules.where(:value => choice).present?
+        return nil
+      else
+        return bad_answer_error(choice) unless valid_answer
+      end
+    end
 
     record_answer(user, valid_answer)
 
