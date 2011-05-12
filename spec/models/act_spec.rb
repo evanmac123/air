@@ -42,7 +42,7 @@ describe Act, ".parse" do
 
     context "and asks for help" do
       it "helps them" do
-        reply = 'Earn points, text: "went to gym", "ate fruit", "ate vegetables", "walked stairs", "ran outside", "walked outside" - provided you did those things, of course.'
+        reply = 'Earn points by texting the healthy things you do and answering the occasional question.'
         Act.parse(user, "help").should == reply
       end
     end

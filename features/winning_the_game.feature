@@ -22,7 +22,7 @@ Feature: Player can win the game
   Scenario: Player wins by scoring enough points
     When "+14155551212" sends SMS "ate a kitten"
     And I go to the activity page
-    Then "+14155551212" should have received an SMS "Congratulations! You've scored 100 points and won the game!"
+    Then "+14155551212" should have received an SMS "Congratulations! You've got 100 points and have qualified for the drawing!"
     And I should see "You won on"
     
   Scenario: Victory admin gets SMS notification
@@ -38,8 +38,8 @@ Feature: Player can win the game
   Scenario: Player wins just once
     When "+14155551212" sends SMS "ate a kitten"
     And "+14155551212" sends SMS "ate a kitten"
-    Then "+14155551212" should have received an SMS "Congratulations! You've scored 100 points and won the game!"
-    And "+14155551212" should not have received an SMS "Congratulations! You've scored 103 points and won the game!"
+    Then "+14155551212" should have received an SMS "Congratulations! You've got 100 points and have qualified for the drawing!"
+    And "+14155551212" should not have received an SMS "Congratulations! You've got 103 points and have qualified for the drawing!"
 
   Scenario: Other players have won
     Given the following user with phones exist:
