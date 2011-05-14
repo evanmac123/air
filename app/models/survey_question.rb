@@ -12,7 +12,7 @@ class SurveyQuestion < ActiveRecord::Base
     unless valid_answer
       # If a rule with the chosen value exists, punt on answering questions
       # so we can parse it normally.
-      if survey.demo.rules.where(:value => choice).present?
+      if survey.demo.has_rule_matching?(choice)
         return nil
       else
         return bad_answer_error(choice) unless valid_answer

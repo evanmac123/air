@@ -12,6 +12,18 @@ describe User do
   it { should have_many(:survey_answers) }
 
   it { should validate_uniqueness_of(:slug) }
+
+  it "should validate uniqueness of phone number when not blank" do
+    user1 = Factory :user, :phone_number => '+14152613077'
+    user2 = Factory :user, :phone_number => ''
+    user3 = Factory.build :user, :phone_number => '+14152613077'
+    user4 = Factory.build :user, :phone_number => ''
+
+    user1.should be_valid
+    user2.should be_valid
+    user3.should_not be_valid
+    user4.should be_valid
+  end
 end
 
 describe User, "#invitation_code" do

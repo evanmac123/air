@@ -14,6 +14,9 @@ class User < ActiveRecord::Base
   has_many   :friends, :through => :friendships
   has_many   :survey_answers
 
+  validates_uniqueness_of :phone_number, :allow_blank => true
+  validates_uniqueness_of :slug
+
   has_attached_file :avatar, 
     :styles => {:thumb => "48x48#"}, 
     :default_style => :thumb,
@@ -38,8 +41,6 @@ class User < ActiveRecord::Base
   before_save do
     downcase_email
   end
-
-  validates_uniqueness_of :slug
 
   attr_reader :batch_updating_recent_averages
 
