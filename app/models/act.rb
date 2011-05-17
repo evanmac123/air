@@ -97,7 +97,11 @@ class Act < ActiveRecord::Base
   def self.record_act(user, rule, referring_user = nil)
     text = rule.to_s
     if referring_user
-      text += " (thanks #{referring_user.name} for the referral)"
+      text += I18n.translate(
+        '.thanks_from_referred_user',
+        :default => " (thanks %{name} for the referral)",
+        :name    => referring_user.name
+      )
     end
 
     create(:user => user, :text => text, :rule => rule)

@@ -394,13 +394,26 @@ class User < ActiveRecord::Base
   def credit_referring_user(referring_user, rule)
     return unless referring_user
 
+    act_text = I18n.translate(
+      '.referred_a_command_act', 
+      :default    => "told %{name} about the %{rule_value} command", 
+      :name       => self.name, 
+      :rule_value => rule.value
+    )
+
     Act.create!(
       :user => referring_user,
-      :text => "told #{self.name} about the #{rule.value} command",
+      :text => act_text,
       :inherent_points => (rule.referral_points) || (rule.points / 2)
     )
 
-    sms_text = "Thanks for referring #{self.name} to the #{rule.value} command. " + referring_user.point_and_ranking_summary
+    sms_text = I18n.translate(
+      '.thanks_for_referring_sms', 
+      :default                   => 'Thanks for referring %{name} to the %{rule_value} command. %{point_and_ranking_summary}', 
+      :name                      => self.name, 
+      :rule_value                => rule.value, 
+      :point_and_ranking_summary => referring_user.point_and_ranking_summary
+    )
     SMS.send(referring_user.phone_number, sms_text)
   end
 end
