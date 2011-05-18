@@ -99,6 +99,7 @@ class Act < ActiveRecord::Base
     if referring_user
       text += I18n.translate(
         '.thanks_from_referred_user',
+        :scope   => [:activerecord, :models, :act],
         :default => " (thanks %{name} for the referral)",
         :name    => referring_user.name
       )
