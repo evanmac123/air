@@ -1,4 +1,6 @@
 class Act < ActiveRecord::Base
+  extend ParsingMessage
+
   belongs_to :user
   belongs_to :rule
 
@@ -25,7 +27,7 @@ class Act < ActiveRecord::Base
   end
 
   def self.parse(user_or_phone, body, options = {})
-    @return_message_type = options.delete(:return_message_type)
+    set_return_message_type!(options)
 
     if user_or_phone.kind_of?(User)
       user = user_or_phone
@@ -114,22 +116,6 @@ class Act < ActiveRecord::Base
 
 
   private
-
-  def self.parsing_error_message(message)
-    parsing_message(message, :failure)
-  end
-
-  def self.parsing_success_message(message)
-    parsing_message(message, :success)
-  end
-
-  def self.parsing_message(message, message_type)
-    if @return_message_type
-      [message, message_type]
-    else
-      message
-    end
-  end
 
   def self.record_bad_message(phone_number, body, reply = '')
     BadMessage.create!(:phone_number => phone_number, :body => body, :received_at => Time.now, :automated_reply => reply)

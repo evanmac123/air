@@ -34,6 +34,11 @@ Feature: Full text rule search
     And "+16175551212" should have received an SMS 'I didn't quite get what you meant. Maybe try (1) "ate banana" or (2) "ate kitten"? Or text S to suggest we add what you sent.'
     And "+16175551212" should have received an SMS including "Gross."
 
+  Scenario: User can pick suggested command via the website
+    When I enter the act code "ate baked alaska"
+    And I enter the special command "meant 2"
+    Then I should see the success message "Gross."
+
   Scenario: User can't pick a suggested command twice
     When "+16175551212" sends SMS "ate baked alaska"
     And "+16175551212" sends SMS "meant 2"

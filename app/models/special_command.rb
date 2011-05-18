@@ -1,60 +1,61 @@
 module SpecialCommand
-  def self.parse(from, text)
+  extend ParsingMessage
+
+  def self.parse(user_or_phone, text, options)
+    set_return_message_type!(options)
+
+    user = user_or_phone.kind_of?(User) ?
+             user_or_phone :
+             User.find_by_phone_number(user_or_phone)
+    return nil unless user
+
     normalized_command = text.strip.downcase.gsub(/\s+/, ' ')
     command_name, *args = normalized_command.split
 
     case command_name
     when 'follow', 'connect'
-      self.follow(from, args.first)
+      self.follow(user, args.first)
     when 'myid'
-      self.myid(from)
+      self.myid(user)
     when 'moreinfo', 'more'
-      self.moreinfo(from)
+      self.moreinfo(user)
     when 's', 'suggest'
-      self.suggestion(from, args)
+      self.suggestion(user, args)
     when 'meant'
-      self.use_suggested_item(from, args.first)
+      self.use_suggested_item(user, args.first)
     when /^\d+$/
-      self.respond_to_survey(from, command_name)
+      self.respond_to_survey(user, command_name)
     when 'lastquestion'
-      self.remind_last_question(from)
+      self.remind_last_question(user)
     end
   end
 
   private
 
-  def self.follow(number_following, sms_slug_to_follow)
-    user_following = User.find_by_phone_number(number_following)
-    return nil unless user_following
-
+  def self.follow(user_following, sms_slug_to_follow)
     user_to_follow = User.where(:sms_slug => sms_slug_to_follow, :demo_id => user_following.demo_id).first
-    return "Sorry, we couldn't find a user with the unique ID #{sms_slug_to_follow}." unless user_to_follow
+    return parsing_error_message("Sorry, we couldn't find a user with the unique ID #{sms_slug_to_follow}.") unless user_to_follow
 
-    return "You're already following #{user_to_follow.name}." if user_following.friendships.where(:friend_id => user_to_follow.id).first
+    return parsing_success_message("You're already following #{user_to_follow.name}.") if user_following.friendships.where(:friend_id => user_to_follow.id).first
 
     user_following.friendships.create(:friend_id => user_to_follow.id)
-    "OK, you're now following #{user_to_follow.name}."
+    parsing_success_message("OK, you're now following #{user_to_follow.name}.")
   end
 
-  def self.myid(from)
-    user = User.find_by_phone_number(from)
-    return nil unless user
-    "Your unique ID is #{user.sms_slug}."
+  def self.myid(user)
+    parsing_success_message("Your unique ID is #{user.sms_slug}.")
   end
 
-  def self.moreinfo(from)
+  def self.moreinfo(user)
     MoreInfoRequest.create!(
-      :phone_number => from,
+      :phone_number => user.phone_number,
       :command      => 'moreinfo'
     )
 
-    "Great, we'll be in touch. Stay healthy!"
+    parsing_success_message("Great, we'll be in touch. Stay healthy!")
   end
 
-  def self.suggestion(from, words)
-    user = User.find_by_phone_number(from)
-    return nil unless user
-
+  def self.suggestion(user, words)
     if words.empty?
       words = BadMessage.where(:phone_number => user.phone_number).order('created_at DESC').limit(1).first.body.split
     end
@@ -64,25 +65,19 @@ module SpecialCommand
     end
 
     Suggestion.create!(:user => user, :value => words.join(' '))
-    "Thanks! We'll take your suggestion into consideration."
+    parsing_success_message("Thanks! We'll take your suggestion into consideration.")
   end
 
-  def self.use_suggested_item(from, item_index)
-    user = User.find_by_phone_number(from)
-    return nil unless user
-
+  def self.use_suggested_item(user, item_index)
     chosen_index = item_index.to_i
     suggested_item_indices = user.last_suggested_items.split('|')
     return nil unless suggested_item_indices.length >= chosen_index
 
     rule = Rule.find(suggested_item_indices[chosen_index - 1])
-    (user.act_on_rule(rule)).first # throw away error code in this case
+    parsing_success_message((user.act_on_rule(rule)).first) # throw away error code in this case
   end
 
-  def self.respond_to_survey(from, choice)
-    user = User.find_by_phone_number(from)
-    return nil unless user
-
+  def self.respond_to_survey(user, choice)
     survey = user.open_survey
     return nil unless survey
 
@@ -92,22 +87,19 @@ module SpecialCommand
       question.respond(user, survey, choice)
     else
       return nil if survey.demo.has_rule_matching?(choice) # Give Act.parse a crack at it
-      "Thanks, we've got all of your survey answers already."
+      parsing_success_message("Thanks, we've got all of your survey answers already.")
     end
   end
 
-  def self.remind_last_question(from)
-    user = User.find_by_phone_number(from)
-    return nil unless user
-
+  def self.remind_last_question(user)
     survey = user.open_survey
-    return "You're not currently taking a survey" unless survey
+    return parsing_error_message("You're not currently taking a survey") unless survey
 
     question = survey.latest_question_for(user)
     if question
-      "The last question was: #{question.text}"
+      parsing_success_message("The last question was: #{question.text}")
     else
-      "You've already answered all of the questions in the survey."
+      parsing_success_message("You've already answered all of the questions in the survey.")
     end
   end
 end

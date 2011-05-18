@@ -6,7 +6,7 @@ When /^I enter the act "(.*?)" via the dropdown$/ do |act_string|
   Then "I press \"add\""
 end
 
-When /^I enter the act code "(.*?)"$/ do |act_code|
+When /^I enter the (act code|special command) "(.*?)"$/ do |_nothing, act_code|
   Then "I fill in \"act[code]\" with \"#{act_code}\""
   Then "I press \"Play\""
 end

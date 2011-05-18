@@ -5,6 +5,7 @@ Feature: User suggests command
       | name           | phone number | demo                   |
       | Vlad Gyster    | +16175551212 | company_name: H Engage |
       | Phil Darnowsky | +14155551212 | company_name: H Engage |
+    And "Vlad Gyster" has the password "foo"
 
   Scenario: User suggests we add the last bad command they sent
     When "+16175551212" sends SMS "ate pasta"
@@ -32,3 +33,7 @@ Feature: User suggests command
     Then we should have recorded that "Vlad Gyster" suggested "ate pasta"
     And "+16175551212" should have received an SMS "Thanks! We'll take your suggestion into consideration."
 
+  Scenario: User suggests a command through the website
+    When I sign in via the login page with "Vlad Gyster/foo"
+    And I enter the special command "suggest ate kitten"
+    Then I should see the success message "Thanks! We'll take your suggestion into consideration."

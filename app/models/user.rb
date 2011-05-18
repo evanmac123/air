@@ -85,7 +85,7 @@ class User < ActiveRecord::Base
     where("ranking <= #{cutoff}")
   end
 
-  def self.claim_account(from, claim_code)
+  def self.claim_account(from, claim_code, options={})
     normalized_claim_code = claim_code.gsub(/\W+/, '')
     users = User.find(:all, :conditions => ["claim_code ILIKE ?", normalized_claim_code])
 
