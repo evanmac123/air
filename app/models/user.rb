@@ -398,8 +398,7 @@ class User < ActiveRecord::Base
     return unless referring_user
 
     act_text = I18n.translate(
-      '.referred_a_command_act', 
-      :scope      => [:activerecord, :models, :user],
+      'activerecord.models.user.referred_a_command_act', 
       :default    => "told %{name} about the %{rule_value} command", 
       :name       => self.name, 
       :rule_value => rule.value
@@ -412,8 +411,7 @@ class User < ActiveRecord::Base
     )
 
     sms_text = I18n.translate(
-      '.thanks_for_referring_sms', 
-      :scope      => [:activerecord, :models, :user],
+      'activerecord.models.user.thanks_for_referring_sms', 
       :default                   => 'Thanks for referring %{name} to the %{rule_value} command. %{point_and_ranking_summary}', 
       :name                      => self.name, 
       :rule_value                => rule.value, 
