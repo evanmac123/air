@@ -16,9 +16,8 @@ Feature: User gets notified when someone follows them
     Given "Dan" has the password "foo"
     When I sign in via the login page as "Dan/foo"
     And I go to the profile page for "Dan"
-    And I follow "Change your account settings"
     And I uncheck "Send me an SMS when somebody follows me"
-    And I press "Update"
+    And I press "Change Settings"
     And I sign out
     And I sign in via the login page as "Vlad/foo"
     And I go to the user directory page

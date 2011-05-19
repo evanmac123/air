@@ -32,14 +32,6 @@ h2.first {
 h2.first#activity, h2.first#scoreboard {
   display: inline; }
 
-.account-controls {
-  width: 311px;
-  float: right; }
-  .account-controls .avatar-controls {
-    margin-bottom: 20px; }
-    .account-controls .avatar-controls form {
-      margin-bottom: 20px; }
-
 .add-friends {
   color: #55950d;
   float: right;
@@ -618,7 +610,16 @@ ul#followings, ul#followers, ul#other-users {
     text-decoration: underline; }
 
 #main-profile-section {
-  height: 90px; }
+  padding-right: 15px; }
+  #main-profile-section .own-number {
+    width: 290px;
+    float: left; }
+  #main-profile-section .account-controls {
+    clear: both; }
+    #main-profile-section .account-controls h3 {
+      margin-top: 30px; }
+    #main-profile-section .account-controls h3:first-child {
+      padding-top: 30px; }
 
 .fan-count {
   font-weight: bold; }

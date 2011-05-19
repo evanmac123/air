@@ -1,8 +1,4 @@
 class AvatarsController < ApplicationController
-
-  def edit
-  end
-
   def update
     if params[:user].blank? || params[:user][:avatar].blank?
       flash[:failure] = "Please choose a file to use for your avatar."

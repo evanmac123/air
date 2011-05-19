@@ -10,9 +10,6 @@ class PhonesController < ApplicationController
     redirect_to "/activity"
   end
 
-  def edit
-  end
-
   def update
     current_user.phone_number = PhoneNumber.normalize(params[:user][:phone_number])
     if current_user.save

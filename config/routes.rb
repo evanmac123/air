@@ -33,9 +33,9 @@ Health::Application.routes.draw do
 
   resources :pages, :only => :show
 
-  resource :account do
-    resource :phone, :only => [:edit, :update]
-    resource :avatar, :only => [:edit, :update, :destroy]
+  resource :account, :only => [:update] do
+    resource :phone, :only => [:update]
+    resource :avatar, :only => [:update, :destroy]
   end
 
   resource :friends, :only => [:show]

@@ -1,7 +1,4 @@
 class AccountsController < ApplicationController
-  def edit
-  end
-
   def update
     current_user.attributes = params[:user]
     current_user.save!
