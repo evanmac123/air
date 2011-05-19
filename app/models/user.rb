@@ -16,6 +16,9 @@ class User < ActiveRecord::Base
 
   validates_uniqueness_of :phone_number, :allow_blank => true
   validates_uniqueness_of :slug
+  validates_uniqueness_of :sms_slug, :message => "Sorry, that unique ID is already taken."
+
+  validates_presence_of :sms_slug, :message => "Sorry, you can't choose a blank unique ID."
 
   has_attached_file :avatar, 
     :styles => {:thumb => "48x48#"}, 

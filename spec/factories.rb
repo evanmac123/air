@@ -12,6 +12,7 @@ Factory.define :user do |factory|
   factory.email                 { Factory.next :email }
   factory.password              { "password" }
   factory.password_confirmation { "password" }
+  factory.sequence(:sms_slug)   { |n| "jej#{n}" }
 end
 
 Factory.define :user_with_phone, :parent => :user do |factory|

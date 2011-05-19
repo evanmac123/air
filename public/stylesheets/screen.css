@@ -615,11 +615,16 @@ ul#followings, ul#followers, ul#other-users {
     width: 290px;
     float: left; }
   #main-profile-section .account-controls {
-    clear: both; }
+    clear: both;
+    /* Fuck you, Formtastic. */ }
     #main-profile-section .account-controls h3 {
       margin-top: 30px; }
     #main-profile-section .account-controls h3:first-child {
       padding-top: 30px; }
+    #main-profile-section .account-controls .required label {
+      font-weight: normal; }
+    #main-profile-section .account-controls abbr[title="required"] {
+      display: none; }
 
 .fan-count {
   font-weight: bold; }

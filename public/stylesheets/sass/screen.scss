@@ -888,6 +888,15 @@ ul#followings, ul#followers, ul#other-users {
     h3:first-child {
       padding-top: 30px;
     }
+
+    /* Fuck you, Formtastic. */    
+    .required label { 
+      font-weight: normal;
+    }
+
+    abbr[title="required"] {
+      display: none;
+    }
   }
 }
 

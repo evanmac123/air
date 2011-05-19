@@ -35,32 +35,7 @@
 
     <div class="account-controls">
       <% if @viewing_self %>
-        <h3>Change your mobile number</h3>
-        <%= semantic_form_for current_user, :url => account_phone_path do |form| %>
-          <%= form.input :phone_number, :label => 'Enter your new mobile number'%>
-          <%= form.commit_button :label => 'Save new mobile number' %>
-        <% end %>
-
-        <h3>Change your picture</h3>
-        <%= semantic_form_for current_user, :url => account_avatar_path, :html => {:multipart => true, :class => 'set-avatar'} do |form| %>
-          <%= form.input :avatar, :label => 'Choose an image for your picture. Pictures will automatically be resized to a 48x48 square. Please exercise common sense and good taste.' %>
-          <%= form.commit_button 'Set Picture', :button_html => {:class => 'set-avatar-submit'} %>
-          <p class="loading-message">Uploading, this may take a minute.</p>
-        <% end %>
-
-        <% if current_user.avatar_file_name %>
-          <%= semantic_form_for current_user, :url => account_avatar_path, :html => {:multipart => true, :method => :delete, :class => 'clear-avatar'} do |form| %>
-            Delete the picture you've got and revert to the default picture.
-            <br/>
-            <%= form.commit_button 'Clear Picture' %>
-          <% end %>
-        <% end %>
-
-        <h3>Change your account settings</h3>
-        <%= semantic_form_for current_user, :url => account_path do |form| %>
-          <%= form.input :send_follow_notification_sms, :label => 'Send me an SMS when somebody follows me' %>
-          <%= form.commit_button 'Change Settings' %>
-        <% end %>
+        <%= render 'account_controls' %>
       <% end %>
     </div>
 

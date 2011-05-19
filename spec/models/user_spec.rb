@@ -13,6 +13,8 @@ describe User do
 
   it { should validate_uniqueness_of(:slug) }
 
+  it { should validate_presence_of(:sms_slug).with_message("Sorry, you can't choose a blank unique ID.") }
+
   it "should validate uniqueness of phone number when not blank" do
     user1 = Factory :user, :phone_number => '+14152613077'
     user2 = Factory :user, :phone_number => ''
@@ -23,6 +25,12 @@ describe User do
     user2.should be_valid
     user3.should_not be_valid
     user4.should be_valid
+  end
+
+  it "should validate uniqueness of SMS slug when not blank" do
+    user1 = Factory(:user)
+    user2 = Factory.build(:user, :sms_slug => user1.sms_slug)
+    user2.should_not be_valid
   end
 end
 
