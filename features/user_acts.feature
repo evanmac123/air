@@ -118,7 +118,7 @@ Feature: User acts
     And I sign in via the login page as "Dan/foo"
     And I go to the acts page
     Then I should see "Paul 1 point"
-    And I should see "Fred Qualified for drawing! 201 points"
+    And I should see "Fred Won game! 201 points"
     And I should see "Dan ate banana (thanks Paul for the referral) less than a minute ago +2 points"
     And I should see "Dan worked out (thanks Fred for the referral) less than a minute ago +5 points"
     And I should see "Paul told Dan about the ate banana command less than a minute ago +1 point"

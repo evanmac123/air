@@ -375,10 +375,9 @@ class User < ActiveRecord::Base
   end
 
   def send_victory_notices
-    # TODO: make this configurable per demo
     SMS.send(
       self.phone_number,
-      "Congratulations! You've got #{self.points} points and have qualified for the drawing!"
+      self.demo.victory_sms(self)
     )
 
     SMS.send(

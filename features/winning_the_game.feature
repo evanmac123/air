@@ -6,13 +6,19 @@ Feature: Player can win the game
     Given the following demo exists:
       | company_name | victory_threshold | victory_verification_email | victory_verification_sms_number |
       | BobCo        | 100               | lucille@example.com        | +16179876543                    |
-    Given the following user exists:
-      | name | email           | phone_number | points | demo                |
-      | Bob  | bob@example.com | +14155551212 | 97     | company_name: BobCo |
+    And the following demo exists:
+      | company name | victory threshold | custom victory achievement message | custom victory sms                     | custom victory scoreboard message |
+      | CustomCo     | 100               | You did it at %{winning_time}!     | You go boy with your %{points} points! | Did a big thing!                  |
+    And the following users exist:
+      | name | email           | phone_number | points | demo                   |
+      | Bob  | bob@example.com | +14155551212 | 97     | company_name: BobCo    |
+      | Jim  | jim@example.com | +16175551212 | 97     | company_name: CustomCo |
     And "Bob" has the password "LOL"
-    And the following rule exists:
-      | points | value        | demo                |
-      | 3      | ate a kitten | company_name: BobCo |
+    And "Jim" has the password "LOL"
+    And the following rules exist:
+      | points | value        | demo                   |
+      | 3      | ate a kitten | company_name: BobCo    |
+      | 3      | ate a kitten | company_name: CustomCo |
     And I sign in via the login page as "Bob/LOL"
 
   Scenario: Player hasn't won yet
@@ -46,4 +52,20 @@ Feature: Player can win the game
       | demo                | name | won_at              |
       | company_name: BobCo | Dan  | 2005-12-31 06:00:00 |
     When I go to the activity page
-    Then I should see "Qualified for drawing"
+    Then I should see "Won game!"
+
+  Scenario: Player wins a game with custom victory messages
+    Given I sign in via the login page as "Jim/LOL"
+    And time is frozen at "2011-05-01 13:25:00 EDT"
+    And "+16175551212" sends SMS "ate a kitten"
+    When I go to the activity page
+    Then I should see "You did it at May 01, 2011 at 01:25 PM Eastern!"
+    And "+16175551212" should have received SMS "You go boy with your 100 points!"
+
+  Scenario: Looking at another player with a custom scoreboard victory message
+    Given the following user with phones exist:
+      | demo                   | name | won_at              |
+      | company_name: CustomCo | Dan  | 2005-12-31 06:00:00 |
+    When I sign in via the login page as "Jim/LOL"
+    And I go to the activity page
+    Then I should see "Did a big thing!"

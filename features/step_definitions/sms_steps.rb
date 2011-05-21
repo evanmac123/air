@@ -10,19 +10,19 @@ def mobile_originated_message_received(phone_number, sms_body)
   end
 end
 
-Then /^"([^"]*)" should have received an SMS "(.*)"$/ do |phone_number, text_message|
+Then /^"([^"]*)" should have received( an)? SMS "(.*)"$/ do |phone_number, _nothing, text_message|
   FakeTwilio::SMS.should have_sent_text(phone_number, text_message)
 end
 
-Then /^"([^"]*)" should have received an SMS '(.*)'$/ do |phone_number, text_message|
+Then /^"([^"]*)" should have received( an)? SMS '(.*)'$/ do |phone_number, _nothing, text_message|
   FakeTwilio::SMS.should have_sent_text(phone_number, text_message)
 end
 
-Then /^"([^"]*)" should have received an SMS `(.*)`$/ do |phone_number, text_message|
+Then /^"([^"]*)" should have received( an)? SMS `(.*)`$/ do |phone_number, _nothing, text_message|
   FakeTwilio::SMS.should have_sent_text(phone_number, text_message)
 end
 
-Then /^"([^"]*)" should not have received an SMS "(.*)"$/ do |phone_number, text_message|
+Then /^"([^"]*)" should not have received( an)? SMS "(.*)"$/ do |phone_number, _nothing, text_message|
   FakeTwilio::SMS.should_not have_sent_text(phone_number, text_message)
 end
 
@@ -30,7 +30,7 @@ Then /^"([^"]*)" should have received the fallback error message SMS$/ do |phone
   Then "\"#{phone_number}\" should have received the SMS 'I can't find your number in my records. Did you claim your account yet? If not, text your first initial and last name (if you are John Smith, text \"jsmith\").'"
 end
 
-Then /^"([^"]*)" should( not)? have received an SMS including "(.*)"$/ do |phone_number, sense, text_message|
+Then /^"([^"]*)" should( not)? have received( an)? SMS including "(.*)"$/ do |phone_number, sense, _nothing, text_message|
   sense = !sense
 
   if sense

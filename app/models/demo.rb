@@ -23,6 +23,35 @@ class Demo < ActiveRecord::Base
     self.custom_welcome_message || "You've joined the #{self.company_name} game! Your unique ID is #{user.sms_slug} (text MYID if you forget). To play, text to this #. Text HELP for help."
   end
 
+  def victory_achievement_message(user = nil)
+    custom_message_about_user(
+      :custom_victory_achievement_message,
+      'default_victory_achievement_message',
+      'You won on %{winning_time}. Congratulations!',
+      user,
+      :winning_time => [:won_at, :winning_time_format]
+    )
+  end
+
+  def victory_sms(user = nil)
+    custom_message_about_user(
+      :custom_victory_sms,
+      'default_victory_sms',
+      "Congratulations! You've got %{points} points and have qualified for the drawing!",
+      user,
+      :points => [:points]
+    )
+  end
+
+  def victory_scoreboard_message(user = nil)
+    custom_message_about_user(
+      :custom_victory_scoreboard_message,
+      'default_victory_scoreboard_message',
+      "Won game!",
+      user
+    )
+  end
+
   def game_over?
     self.ends_at && Time.now >= self.ends_at
   end
@@ -83,4 +112,27 @@ class Demo < ActiveRecord::Base
   def self.alphabetical
     order("company_name asc")
   end
+
+  protected
+
+  def custom_message_about_user(custom_message_method_name, default_message_key, default_default_message, user = nil, method_chains_for_interpolation = {})
+    custom_message_text = self.send(custom_message_method_name)
+
+    uninterpolated_text = if custom_message_text.blank?
+      I18n.translate("activerecord.demo.#{default_message_key}", :default => default_default_message)
+    else
+      custom_message_text
+    end
+
+    if user
+      interpolations = {}
+      method_chains_for_interpolation.each do |key, method_chain|
+        interpolations[key] = method_chain.inject(user) {|result, method_name| result.try(method_name)}
+      end
+      I18n.interpolate(uninterpolated_text, interpolations)
+    else
+      uninterpolated_text
+    end
+  end
+
 end

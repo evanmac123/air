@@ -59,9 +59,9 @@
       <div class="column-header">
         <h2>Achievements</h2>
       </div>
-      <div id="winning-time">You won on <%= current_user.won_at.winning_time_format%>. Congratulations!</div>
+      <div id="winning-time"><%= current_user.demo.victory_achievement_message(current_user) %></div>
     </div>
   <% end %>
 
-  <%= render :partial => 'shared/scoreboard', :locals => {:users => @users} %>
+  <%= render 'shared/scoreboard', :users => @users %>
 </div>

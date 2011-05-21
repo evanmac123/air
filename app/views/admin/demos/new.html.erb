@@ -8,6 +8,9 @@
     <%= form.input :victory_threshold, :label => "Victory threshold" %>
     <%= form.input :seed_points, :label => "Starting player score" %>
     <%= form.input :custom_welcome_message, :length => 140 %>
+    <%= form.input :custom_victory_achievement_message %>
+    <%= form.input :custom_victory_sms, :label => "Custom victory SMS", :length => 150 %>
+    <%= form.input :custom_victory_scoreboard_message %>
     <%= form.input :ends_at, :label => "Game ends at" %>
   <% end %>
 
