@@ -610,7 +610,8 @@ ul#followings, ul#followers, ul#other-users {
     text-decoration: underline; }
 
 #main-profile-section {
-  padding-right: 15px; }
+  padding-right: 15px;
+  padding-bottom: 15px; }
   #main-profile-section .own-number {
     width: 290px;
     float: left; }
