@@ -101,10 +101,11 @@ h2.first#activity, h2.first#scoreboard {
   .content #secondary, .content #main {
     margin-bottom: 10px; }
 
-.friends .content {
-  width: 1080px; }
-.friends #secondary {
-  width: 505px; }
+.friends #main, .friends #secondary {
+  width: 454px; }
+.friends input[type="submit"] {
+  font-size: 10px;
+  padding: 4px 6px; }
 
 #footer {
   height: 10px;
@@ -582,14 +583,21 @@ ul#followings, ul#followers, ul#other-users {
     ul#followings li.associate a:hover, ul#followers li.associate a:hover, ul#other-users li.associate a:hover {
       text-decoration: underline; }
     ul#followings li.associate form, ul#followers li.associate form, ul#other-users li.associate form {
-      position: absolute;
-      top: 15px;
-      right: 15px; }
+      margin-top: 2px;
+      margin-bottom: 10px; }
     ul#followings li.associate img, ul#followers li.associate img, ul#other-users li.associate img {
       width: 48px;
       height: 48px;
       padding: 0;
       border: none; }
+
+ul#followings li.associate, ul#followers li.associate {
+  width: 440px; }
+
+ul#other-users li.associate form {
+  position: absolute;
+  top: 15px;
+  right: 15px; }
 
 .clear-avatar {
   margin-top: 20px; }
