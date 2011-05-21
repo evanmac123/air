@@ -618,7 +618,8 @@ ul#other-users li.associate form {
     text-decoration: underline; }
 
 #main-profile-section {
-  padding-right: 15px; }
+  padding-right: 15px;
+  padding-bottom: 15px; }
   #main-profile-section .own-number {
     width: 290px;
     float: left; }

@@ -33,21 +33,19 @@
       </div>
     <% end %>
 
-    <div class="account-controls">
-      <% if @viewing_self %>
-        <%= render 'account_controls' %>
-      <% end %>
-    </div>
+    <% if @viewing_self %>
+      <%= render 'account_controls' %>
+    <% end %>
 
-    <div id="follow-target">
-      <% if @viewing_other %>
-        <% if current_user.following?(@user) %>
-          <%= render 'friendships/unfollow', :user => @user %>
-        <% else %>
-          <%= render 'friendships/follow',   :user => @user %>
-        <% end %>
-      <% end %>
-    </div>
+    <% if @viewing_other %>
+      <div id="follow-target">
+          <% if current_user.following?(@user) %>
+            <%= render 'friendships/unfollow', :user => @user %>
+          <% else %>
+            <%= render 'friendships/follow',   :user => @user %>
+          <% end %>
+      </div>
+    <% end %>
 
     <% content_for :javascript do %>
       <%= javascript_tag do %>
