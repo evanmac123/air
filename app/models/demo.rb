@@ -19,8 +19,15 @@ class Demo < ActiveRecord::Base
 
   alias_method_chain :acts, :current_demo_checked
 
-  def welcome_message(user)
-    self.custom_welcome_message || "You've joined the #{self.company_name} game! Your unique ID is #{user.sms_slug} (text MYID if you forget). To play, text to this #. Text HELP for help."
+  def welcome_message(user=nil)
+    custom_message_about_user(
+      :custom_welcome_message,
+      'default_welcome_sms',
+      "You've joined the %{company_name} game! Your unique ID is %{unique_id} (text MYID if you forget). To play, text to this #.",
+      user,
+      :company_name => [:demo, :company_name],
+      :unique_id    => [:sms_slug]
+    )
   end
 
   def victory_achievement_message(user = nil)

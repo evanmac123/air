@@ -31,17 +31,17 @@ describe Demo, "#welcome_message" do
     end
 
     it "should return a reasonable default" do
-      @demo.welcome_message(@user).should == "You've joined the #{@demo.company_name} game! Your unique ID is #{@user.sms_slug} (text MYID if you forget). To play, text to this #. Text HELP for help."
+      @demo.welcome_message(@user).should == "You've joined the #{@demo.company_name} game! Your unique ID is #{@user.sms_slug} (text MYID if you forget). To play, text to this #."
     end
   end
 
   context "when the demo has a custom welcome message" do
     before(:each) do
-      @demo.custom_welcome_message = "Derp derp! Let's play!"
+      @demo.custom_welcome_message = "Derp derp! Let's play! You are %{unique_id}, we are %{company_name}!"
     end
 
     it "should use that" do
-      @demo.welcome_message(@user).should == "Derp derp! Let's play!"
+      @demo.welcome_message(@user).should == "Derp derp! Let's play! You are #{@user.sms_slug}, we are #{@demo.company_name}!"
     end
   end
 end

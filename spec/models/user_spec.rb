@@ -482,7 +482,7 @@ describe User, "#move_to_new_demo" do
   describe "when the user has acts (plural) in the new demo with nil points" do
     before(:each) do
       2.times do
-        act = Factory :act, :user => @user, :demo_id => @new_demo.id
+        act = Factory :act, :user => @user, :demo_id => @new_demo.id, :created_at => Date.today
         act.points.should be_nil
       end
     end

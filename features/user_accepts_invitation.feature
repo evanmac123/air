@@ -2,8 +2,8 @@ Feature: User accepts invitation
 
   Background:
     Given the following demos exist:
-      | company_name | custom_welcome_message       | seed_points |
-      | FooCo        | Let's play a game.           | 10          |
+      | company_name | custom_welcome_message                              | seed_points |
+      | FooCo        | You, %{unique_id}, are in the %{company_name} game. | 10          |
     And the following users exist:
       | email            | name | demo                |
       | dan@example.com  | Dan  | company name: 3M    |
@@ -21,7 +21,7 @@ Feature: User accepts invitation
     And I fill in "Choose a password" with "whatwhat"
     And I fill in "And confirm that password" with "whatwhat"
     And I press "Join the game"
-    Then "+15087407520" should have received an SMS "You've joined the 3M game! Your unique ID is dan4444 (text MYID if you forget). To play, text to this #. Text HELP for help."
+    Then "+15087407520" should have received an SMS "You've joined the 3M game! Your unique ID is dan4444 (text MYID if you forget). To play, text to this #."
     And I should be on the activity page
     And I should see "Dan joined the game"
 
@@ -33,7 +33,6 @@ Feature: User accepts invitation
     And I go to the profile page for "Dan"
     Then I should see "Dan joined the game"
 
-
   Scenario: User accepts invitation to game with a custom message
     When "phil@example.com" opens the email
     And I click the first link in the email
@@ -41,7 +40,7 @@ Feature: User accepts invitation
     And I fill in "Choose a password" with "whowho"
     And I fill in "And confirm that password" with "whowho"
     And I press "Join the game"
-    Then "+14152613077" should have received an SMS "Let's play a game."
+    Then "+14152613077" should have received an SMS "You, pphil, are in the FooCo game."
 
   Scenario: User accepts invitation to game with seed points
     Given time is frozen

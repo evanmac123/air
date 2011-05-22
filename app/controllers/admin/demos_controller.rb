@@ -24,6 +24,5 @@ class Admin::DemosController < AdminBaseController
     @demo  = Demo.find(params[:id])
     @users = @demo.users.alphabetical
     @user_with_mobile_count = @demo.users.where("phone_number IS NOT NULL AND phone_number != ''").count
-    @dummy_user = User.new(:sms_slug => '[sms slug]')
   end
 end
