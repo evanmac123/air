@@ -8,11 +8,11 @@ describe Admin::UsersController do
     describe "with claim code requested" do
       before(:each) do
         @params[:set_claim_code] = true
+        request.env["HTTP_REFERER"] = '/' # since we use redirect :back
       end
 
       it "should set a claim code" do
-        # TODO: Get the features for this working in Akephalos or similar
-        xhr :post, :create, @params
+        post :create, @params
 
         user = User.order('created_at DESC').first
         user.claim_code.should_not be_nil

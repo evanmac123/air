@@ -11,9 +11,19 @@ describe User do
   it { should have_many(:friends).through(:friendships) }
   it { should have_many(:survey_answers) }
 
+  it { should validate_presence_of(:name) }
+
   it { should validate_uniqueness_of(:slug) }
 
-  it { should validate_presence_of(:sms_slug).with_message("Sorry, you can't choose a blank unique ID.") }
+  it "should validate presence of the SMS slug on update" do
+    user = Factory :user
+    user.sms_slug.should_not be_nil # set by a callback on create
+    user.should be_valid
+
+    user.sms_slug = ''
+    user.should_not be_valid
+    user.errors[:sms_slug].should include("Sorry, you can't choose a blank unique ID.")
+  end
 
   it "should validate uniqueness of phone number when not blank" do
     user1 = Factory :user, :phone_number => '+14152613077'
@@ -29,7 +39,8 @@ describe User do
 
   it "should validate uniqueness of SMS slug when not blank" do
     user1 = Factory(:user)
-    user2 = Factory.build(:user, :sms_slug => user1.sms_slug)
+    user2 = Factory(:user)
+    user2.sms_slug = user1.sms_slug
     user2.should_not be_valid
   end
 end

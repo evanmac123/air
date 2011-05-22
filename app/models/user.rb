@@ -18,6 +18,7 @@ class User < ActiveRecord::Base
   validates_uniqueness_of :slug
   validates_uniqueness_of :sms_slug, :message => "Sorry, that unique ID is already taken."
 
+  validates_presence_of :name
   validates_presence_of :sms_slug, :message => "Sorry, you can't choose a blank unique ID."
 
   has_attached_file :avatar, 
@@ -29,9 +30,12 @@ class User < ActiveRecord::Base
     :path => "/avatars/:id/:style/:filename",
     :bucket => S3_AVATAR_BUCKET
 
+  before_validation(:on => :create) do
+    set_slugs
+  end
+
   before_create do
     set_invitation_code
-    set_slugs
     set_alltime_rankings
     set_recent_average_rankings
   end
@@ -155,6 +159,8 @@ class User < ActiveRecord::Base
   end
 
   def set_slugs
+    return nil unless name.present?
+
     cleaned = name.remove_mid_word_characters.
                 replace_non_words_with_spaces.
                 strip.
