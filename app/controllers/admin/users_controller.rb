@@ -9,6 +9,8 @@ class Admin::UsersController < AdminBaseController
     if params[:set_claim_code]
       @user.generate_simple_claim_code!
     end
+
+    redirect_to :back
   end
 
   def edit
