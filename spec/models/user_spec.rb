@@ -504,3 +504,21 @@ describe User, "#move_to_new_demo" do
     end
   end
 end
+
+describe User, "#credit_referring_user" do
+  describe "when the referring user has no phone number" do
+    before :each do
+      @user = Factory :user
+      @referring_user = Factory :user, :phone_number => ''
+      @rule = Factory :rule
+    end
+
+    it "should not try to send an SMS to that blank number" do
+      Twilio::SMS.stubs(:create)
+
+      @user.send(:credit_referring_user, @referring_user, @rule)
+
+      Twilio::SMS.should_not have_received(:create)
+    end
+  end
+end
