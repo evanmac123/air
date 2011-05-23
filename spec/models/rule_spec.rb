@@ -77,7 +77,7 @@ describe Rule do
       end
 
       it "should return an appropriate phrase" do
-        @result.should == '(1) "ate kitten"'
+        @result.should == "I didn't quite get what you meant. Maybe try (1) \"ate kitten\"? Or text S to suggest we add what you sent."
       end
 
       it "should set the user's last suggested rules" do
@@ -91,7 +91,7 @@ describe Rule do
       end
 
       it "should return an appropriate phrase" do
-        @result.should == '(1) "ate an entire pizza" or (2) "ate banana" or (3) "ate kitten"'
+        @result.should == "I didn't quite get what you meant. Maybe try (1) \"ate an entire pizza\" or (2) \"ate banana\" or (3) \"ate kitten\"? Or text S to suggest we add what you sent."
       end
 
       it "should set the user's last suggested rules" do

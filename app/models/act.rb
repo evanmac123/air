@@ -81,11 +81,8 @@ class Act < ActiveRecord::Base
       else
         return parsing_error_message(reply)
       end
-    else 
-      suggestion_phrase = Rule.find_and_record_rule_suggestion(value, user)
-
-      if suggestion_phrase
-        reply = "I didn't quite get what you meant. Maybe try #{suggestion_phrase}? Or text S to suggest we add what you sent."
+    else
+      if reply = Rule.find_and_record_rule_suggestion(value, user)
         record_bad_message(phone_number, body, reply)
       else
         reply = "Sorry, I don't understand what that means. Text S to suggest we add what you sent."

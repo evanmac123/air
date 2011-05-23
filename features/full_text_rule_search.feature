@@ -63,10 +63,10 @@ Feature: Full text rule search
     And I should not see "(has automated suggestion)"
     And I should not see "Sorry, I don't understand what that means."
 
-    Scenario: User doesn't get a suggestion from a different demo
-      When "+16175551212" sends SMS "rode unicycle"
-      Then "+16175551212" should have received an SMS "Sorry, I don't understand what that means. Text S to suggest we add what you sent."    
+  Scenario: User doesn't get a suggestion from a different demo
+    When "+16175551212" sends SMS "rode unicycle"
+    Then "+16175551212" should have received an SMS "Sorry, I don't understand what that means. Text S to suggest we add what you sent."    
 
-    Scenario: User can get a suggestion from a standard playbook rule (belonging to no demo)
-      When "+16175551212" sends SMS "made toast"
-      Then "+16175551212" should have received an SMS including "made risotto"
+  Scenario: User can get a suggestion from a standard playbook rule (belonging to no demo)
+    When "+16175551212" sends SMS "made toast"
+    Then "+16175551212" should have received an SMS including "made risotto"
