@@ -1,0 +1,141 @@
+<!DOCTYPE HTML>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+
+  <meta charset="utf-8">
+  <title>H Engage</title>
+  <link href="rules_files/chunk.css" media="screen" rel="stylesheet" type="text/css">
+<link href="rules_files/flutie.css" media="screen" rel="stylesheet" type="text/css">
+<link href="rules_files/screen.css" media="screen" rel="stylesheet" type="text/css">
+  <meta name="csrf-param" content="authenticity_token">
+<meta name="csrf-token" content="Y5Q9U1UuRd6mfVi4fwrnXpyfsm4lpw/pV50M7Spgei0=">
+</head><body class="admin-rules admin-rules-index">
+  <div class="header">
+  <div class="inner-header">
+    <div id="logo">
+      <a href="#">
+        <img alt="H Engage tree" src="rules_files/justtree.png">
+</a>    </div>
+
+        <div id="add-action">
+  <form accept-charset="UTF-8" action="/acts" method="post"><div style="margin: 0pt; padding: 0pt; display: inline;"><input name="utf8" value="✓" type="hidden"><input name="authenticity_token" value="Y5Q9U1UuRd6mfVi4fwrnXpyfsm4lpw/pV50M7Spgei0=" type="hidden"></div>
+    <span class="enter-code">
+      <input class="with-hint-text" name="act[code]" value="enter a command, action, or an answer to a question" type="text">
+      <input value="Play" type="submit">
+    </span>
+</form>
+</div>
+
+
+
+      <div id="account">
+          <a href="#">Home</a>
+          <a href="#" id="self-link">My Profile</a>
+          <a href="#">Connections</a>
+          <a href="#" data-method="delete" rel="nofollow">Sign out</a>
+      </div>
+  </div>
+</div>
+
+    <div class="content">
+    <h2 class="first"><a href="#">Admin</a>: <a href="#">3M</a>: Rules</h2>
+    <img src="rules_files/right_triangle.png" style="display: none">
+    <img src="rules_files/down_triangle.png" style="display: none">
+<div id="existing-rules">
+  <h2>Existing Rules</h2>
+
+  <table>
+    <tbody><tr>
+      <th>Primary Value</th>
+      <th>Points</th>
+      <th>Reply</th>
+      <th>Description</th>
+      <th>Alltime limit</th>
+      <th>Referral points</th>
+      <th>Suggestible</th>
+    </tr>
+
+    <tr>
+      <td>ate fruit <img src="rules_files/right_triangle.png" data-row-to-toggle="tr#aliases_0" data-other-graphic-path="rules_files/down_triangle.png" class="row-toggle-button"></td>
+      <td>10</td>
+      <td>+10 points. Fruit is exceedingly salubrious.</td>
+      <td>I ate tasty fruit.</td>
+      <td>5</td>
+      <td>6</td>
+      <td>true</td>
+      <td><a href="edit.html">Edit Rule</a></td>
+    </tr>
+
+    <tr class="aliases" id="aliases_0">
+      <td colspan="8">ate fruits, consumed fruit</td>
+    </tr>
+
+    <tr>
+      <td>ate kitten <img src="rules_files/right_triangle.png" data-row-to-toggle="tr#aliases_1" data-other-graphic-path="rules_files/down_triangle.png" class="row-toggle-button"></td>
+      <td>10</td>
+      <td>+10 points. Be sure and floss to get the fur out of your teeth.</td>
+      <td>I ate a kitten.</td>
+      <td>5</td>
+      <td>6</td>
+      <td>true</td>
+      <td><a href="edit.html">Edit Rule</a></td>
+    </tr>
+
+    <tr class="aliases" id="aliases_1">
+      <td colspan="8">ate kitty, ate kittycat, consumed kitten</td>
+    </tr>
+  </tbody></table>
+</div>
+
+<div id="bulk-load">
+  <h2>Upload rules in bulk</h2>
+  <p>Upload a CSV file with columns in this order: value, points, reply, description, all-time limit, referral points, suggestible.</p>
+  <p>Don't include the column headers, just start right in with the first line of data.</p>
+  <p>You'll have a chance to review and edit the values before you save the rules.</p>
+  <p>If you upload a rule with a value that's already in the database 
+for this demo, you'll be warned that saving it will overwrite the 
+existing rule. This lets you update existing rules via CSV.</p>
+  <p>Only "value" is required.</p>
+  <p>"Suggestible" is a true/false value. Unless you have the word "false" in this column, it'll be considered to be true.</p>
+  <form accept-charset="UTF-8" action="/admin/demos/1/rules/bulk_load#add-rule" enctype="multipart/form-data" method="post"><div style="margin: 0pt; padding: 0pt; display: inline;"><input name="utf8" value="✓" type="hidden"><input name="authenticity_token" value="Y5Q9U1UuRd6mfVi4fwrnXpyfsm4lpw/pV50M7Spgei0=" type="hidden"></div>
+    <label for="bulk_rules_file">Bulk rules CSV</label><br>
+    <input id="bulk_rules_file" name="bulk_rules_file" type="file">
+    <input name="commit" value="Upload Rules" type="submit">
+</form></div>
+
+  </div>
+  <div id="footer">
+  </div>
+  <script src="rules_files/ga.js" async="" type="text/javascript"></script><script src="rules_files/ga_002.js" type="text/javascript"></script>
+<script src="rules_files/jquery_002.js" type="text/javascript"></script>
+<script src="rules_files/jquery-ui.js" type="text/javascript"></script>
+<script src="rules_files/rails.js" type="text/javascript"></script>
+<script src="rules_files/prefilled_input.js" type="text/javascript"></script>
+<script src="rules_files/jquery.js" type="text/javascript"></script>
+<script src="rules_files/application.js" type="text/javascript"></script>
+
+    <script type="text/javascript">
+//<![CDATA[
+
+      $('.enter-code .with-hint-text').live('focus', (function(e) {
+        $(this).attr('value', '').removeClass('with-hint-text');
+      }));
+
+//]]>
+</script>
+
+<script type="text/javascript">
+  $('.row-toggle-button').click(function(e) {
+    var clicked_button = $(e.target);
+    var row_id_to_toggle = clicked_button.data('row-to-toggle');
+    var other_graphic_path = clicked_button.data('other-graphic-path')
+    var tmp_path = clicked_button.attr('src');
+
+    $(row_id_to_toggle).toggle();
+    clicked_button.attr('src', other_graphic_path);
+    clicked_button.data('other-graphic-path', tmp_path);
+  });
+</script>
+
+</body></html>

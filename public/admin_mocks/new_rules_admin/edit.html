@@ -1,0 +1,138 @@
+<!DOCTYPE HTML>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+
+  <meta charset="utf-8">
+  <title>H Engage</title>
+  <link href="rules_files/chunk.css" media="screen" rel="stylesheet" type="text/css">
+<link href="rules_files/flutie.css" media="screen" rel="stylesheet" type="text/css">
+<link href="rules_files/screen.css" media="screen" rel="stylesheet" type="text/css">
+  <meta name="csrf-param" content="authenticity_token">
+<meta name="csrf-token" content="Y5Q9U1UuRd6mfVi4fwrnXpyfsm4lpw/pV50M7Spgei0=">
+</head><body class="admin-rules admin-rules-index">
+  <div class="header">
+  <div class="inner-header">
+    <div id="logo">
+      <a href="#">
+        <img alt="H Engage tree" src="rules_files/justtree.png">
+</a>    </div>
+
+        <div id="add-action">
+  <form accept-charset="UTF-8" action="/acts" method="post"><div style="margin: 0pt; padding: 0pt; display: inline;"><input name="utf8" value="✓" type="hidden"><input name="authenticity_token" value="Y5Q9U1UuRd6mfVi4fwrnXpyfsm4lpw/pV50M7Spgei0=" type="hidden"></div>
+    <span class="enter-code">
+      <input class="with-hint-text" name="act[code]" value="enter a command, action, or an answer to a question" type="text">
+      <input value="Play" type="submit">
+    </span>
+</form>
+</div>
+
+
+
+      <div id="account">
+          <a href="#">Home</a>
+          <a href="#" id="self-link">My Profile</a>
+          <a href="#">Connections</a>
+          <a href="#" data-method="delete" rel="nofollow">Sign out</a>
+      </div>
+  </div>
+</div>
+
+    <div class="content">
+      <h2 class="first"><a href="#">Admin</a>: <a href="#">3M</a>: <a href="rules.html">Rules</a></h2>
+<div id="add-rule">
+  <a name="add-rule"></a>
+  <h2>Edit Rule</h2>
+  
+<form accept-charset="UTF-8" action="#" method="post" id="edit-rule-form"><div style="margin: 0pt; padding: 0pt; display: inline;"><input name="utf8" value="✓" type="hidden"><input name="authenticity_token" value="Y5Q9U1UuRd6mfVi4fwrnXpyfsm4lpw/pV50M7Spgei0=" type="hidden"></div>
+
+    
+      <fieldset>
+
+
+        <label for="rule_0_value">Primary Value</label> 
+        <a href="#">(show secondary values)</a><br/>
+        <input value="ate fruit" id="rule_0_value" name="rule[0][value]" size="30" type="text">
+        <fieldset id="secondary-values">
+          <legend>Secondary values</legend>
+          <span class="secondary-value-container">
+            <input value="ate tasty fruit" id="rule_0_secondary_value_0" name="rule[0][secondary_value][0]" size="30" type="text">
+            <input type="submit" value="Delete this value" class="delete-value-button" data-value-to-delete="ate tasty fruit">
+          </span>
+          <br/>
+          <span class="secondary-value-container">
+            <input value="consumed fruit" id="rule_0_secondary_value_1" name="rule[0][secondary_value][1]" size="30" type="text">
+            <input type="submit" value="Delete this value" class="delete-value-button" data-value-to-delete="consumed fruit">
+          </span>
+          <br/>
+
+          <input type="submit" value="Add another value" id="add-value-row-button" data-next-value-index="2">
+        </fieldset>
+          <label for="rule_0_points">Points</label>
+          <input value="10" id="rule_0_points" name="rule[0][points]" size="30" type="text">
+          <label for="rule_0_reply">Reply</label>
+          <input value="+10 points. Fruit is exceedingly salubrious." id="rule_0_reply" name="rule[0][reply]" size="30" type="text">
+          <label for="rule_0_description">Description</label>
+          <input value="I ate tasty fruit." id="rule_0_description" name="rule[0][description]" size="30" type="text">
+          <label for="rule_0_alltime_limit">Alltime limit</label>
+          <input value="5" id="rule_0_alltime_limit" name="rule[0][alltime_limit]" size="30" type="text">
+          <label for="rule_0_referral_points">Referral points</label>
+          <input value="6" id="rule_0_referral_points" name="rule[0][referral_points]" size="30" type="text">
+
+        <label for="rule_0_suggestible">Suggestible</label>
+        <input name="rule[0][suggestible]" value="0" type="hidden"><input checked="checked" id="rule_0_suggestible" name="rule[0][suggestible]" value="1" type="checkbox">
+      </fieldset>
+
+  <input name="commit" value="Create Rules" type="submit">
+</form>
+</div>
+
+
+  </div>
+  <div id="footer">
+  </div>
+  <script src="rules_files/ga.js" async="" type="text/javascript"></script><script src="rules_files/ga_002.js" type="text/javascript"></script>
+<script src="rules_files/jquery_002.js" type="text/javascript"></script>
+<script src="rules_files/jquery-ui.js" type="text/javascript"></script>
+<script src="rules_files/rails.js" type="text/javascript"></script>
+<script src="rules_files/prefilled_input.js" type="text/javascript"></script>
+<script src="rules_files/jquery.js" type="text/javascript"></script>
+<script src="rules_files/application.js" type="text/javascript"></script>
+
+    <script type="text/javascript">
+//<![CDATA[
+
+      $('.enter-code .with-hint-text').live('focus', (function(e) {
+        $(this).attr('value', '').removeClass('with-hint-text');
+      }));
+
+//]]>
+</script>
+
+<script type="text/javascript">
+  $('.delete-value-button').click(function(e) {
+    var clicked_button = $(e.target);
+    var value_to_delete = clicked_button.data('value-to-delete');
+    if(confirm('Are you sure you want to delete the value "' + value_to_delete + '"? (Since this is a mockup, we\'ll just pretend.)')) {
+      var container = clicked_button.closest('.secondary-value-container');
+      container.html('<img src="rules_files/spinner.gif">');
+      setTimeout(function() {container.remove()}, 2000);
+    }
+
+    e.preventDefault();
+  });
+
+  $('#add-value-row-button').click(function(e) {
+    var clicked_button = $(e.target);
+    var next_value_index = parseInt(clicked_button.data('next-value-index'));
+
+    var new_input_id = 'rule_0_secondary_value_' + next_value_index;
+    var new_input_name = 'rule[0][secondary_value][' + next_value_index + ']';
+    //<input value="consumed fruit" id="rule_0_secondary_value_1" name="rule[0][secondary_value][1]" size="30" type="text">
+    $(clicked_button).before('<input value="" id="' + new_input_id + '" name="' + new_input_name + '" size="30" type="text"><br/>');
+    clicked_button.data('next-value-index', next_value_index + 1);
+    e.preventDefault();
+  });
+</script>
+
+</body></html>
