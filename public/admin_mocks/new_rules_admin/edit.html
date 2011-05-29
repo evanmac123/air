@@ -128,11 +128,17 @@
 
     var new_input_id = 'rule_0_secondary_value_' + next_value_index;
     var new_input_name = 'rule[0][secondary_value][' + next_value_index + ']';
-    //<input value="consumed fruit" id="rule_0_secondary_value_1" name="rule[0][secondary_value][1]" size="30" type="text">
     $(clicked_button).before('<input value="" id="' + new_input_id + '" name="' + new_input_name + '" size="30" type="text"><br/>');
     clicked_button.data('next-value-index', next_value_index + 1);
     e.preventDefault();
-  });
+    });
+
+    $('#rule_0_points').blur(function(e) {
+      var reply_field = $('#rule_0_reply');
+      if (reply_field.val().trim().length == 0) {
+        reply_field.val('+' + $(this).val() + ' points. ');
+      }
+    });
 </script>
 
 </body></html>
