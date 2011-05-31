@@ -506,17 +506,30 @@ describe User, "#move_to_new_demo" do
 end
 
 describe User, "#credit_referring_user" do
+  before :each do
+    Twilio::SMS.stubs(:create)
+
+    @user = Factory :user
+    @rule_value = Factory :rule_value
+    @referring_user = Factory :user
+  end
+
+  it "should create an Act with the appropriate values" do
+    @user.send(:credit_referring_user, @referring_user, @rule_value.rule, @rule_value)
+
+    latest_act = @referring_user.reload.acts.last
+    latest_act.text.should include(@user.name)
+    latest_act.text.should include(@rule_value.value)
+    latest_act.inherent_points.should == @rule_value.rule.points / 2
+  end
+
   describe "when the referring user has no phone number" do
     before :each do
-      @user = Factory :user
-      @referring_user = Factory :user, :phone_number => ''
-      @rule = Factory :rule
+      @referring_user.phone_number.should be_blank
     end
 
     it "should not try to send an SMS to that blank number" do
-      Twilio::SMS.stubs(:create)
-
-      @user.send(:credit_referring_user, @referring_user, @rule)
+      @user.send(:credit_referring_user, @referring_user, @rule_value.rule, @rule_value)
 
       Twilio::SMS.should_not have_received(:create)
     end

@@ -2,20 +2,50 @@ class Rule < ActiveRecord::Base
   belongs_to :demo
 
   has_many   :acts
-
-  validates_presence_of   :value
-  validates_uniqueness_of :value, :scope => :demo_id
-
-  before_save :normalize_value
+  has_one    :primary_value, :class_name => "RuleValue", :conditions => {:is_primary => true}
+  has_many   :secondary_values, :class_name => "RuleValue", :conditions => {:is_primary => false}
+  has_many   :rule_values
 
   def to_s
-    description || value
+    description || self.primary_value.try(:value) || self.rule_values.oldest.first.value
   end
 
   def user_hit_limit?(user)
     return false unless self.alltime_limit
 
     self.acts.where(:user_id => user.id).count >= self.alltime_limit
+  end
+
+  # Convenience methods to set the primary and secondary values from a string
+  # or array of strings, respectively.
+
+  def set_primary_value!(new_value)
+    value = self.primary_value || self.rule_values.build(:is_primary => true)
+    value.value = new_value
+    value.save!
+  end
+
+  def set_secondary_values!(new_values)
+    _new_values = new_values.reject(&:blank?)
+    self.secondary_values.where(["value NOT IN (?)", _new_values]).delete_all
+    existing_values = self.secondary_values.map(&:value)
+    (_new_values - existing_values).each {|new_value| self.secondary_values.create!(:value => new_value)}
+  end
+
+  def update_with_rule_values(new_attributes, primary_value, secondary_values)
+    self.attributes = new_attributes
+
+    Rule.transaction do
+      self.save || (return false)
+
+      self.set_primary_value! primary_value
+      self.set_secondary_values! secondary_values
+    end
+  end
+
+  def self.create_with_rule_values(new_attributes, demo_id, primary_value, secondary_values)
+    rule = Rule.new(:demo_id => demo_id)
+    rule.update_with_rule_values(new_attributes, primary_value, secondary_values)
   end
 
   def self.positive(limit)
@@ -28,53 +58,5 @@ class Rule < ActiveRecord::Base
 
   def self.neutral(limit)
     where("points = 0").limit(limit)
-  end
-
-  def self.partially_matching_value(value)
-    query_string = Rule.connection.quote_string(value.gsub(/\s+/, '|'))
-    self.select("*, ts_rank(to_tsvector('english', value), query) AS rank").from("rules, to_tsquery('#{query_string}') query").where("suggestible = true AND to_tsvector('english', value) @@ query")
-  end
-
-  def self.in_same_demo_as(other)
-    where("rules.demo_id IS NULL or (rules.demo_id = ?)",  other.demo_id)
-  end
-
-  def self.alphabetical
-    order(:value)
-  end
-
-  protected
-
-  def normalize_value
-    self.value = self.value.strip.downcase.gsub(/\s+/, ' ')
-  end
-
-  def self.find_and_record_rule_suggestion(attempted_value, user)
-    matches = self.in_same_demo_as(user).partially_matching_value(attempted_value).limit(3).order('rank DESC, lower(value)')
-
-    begin
-      result = "I didn't quite get what you meant. Maybe try #{suggestion_phrase(matches)}? Or text S to suggest we add what you sent."
-      matches.pop if result.length > 160
-    end while (matches.present? && result.length > 160) 
-
-    return nil if matches.empty?
-
-    user.last_suggested_items = matches.map(&:id).map(&:to_s).join('|')
-    user.save!
-
-    result
-  end
-
-  def self.suggestion_phrase(matches)
-    # Why is there no #map_with_index? Srsly.
-
-    match_index = 1
-    match_strings = matches.map do |match| 
-      substring = "(#{match_index}) \"#{match.value}\""
-      match_index += 1
-      substring
-    end
-
-    match_strings.join(' or ')
   end
 end

@@ -5,18 +5,33 @@ describe Rule do
 
   it { should belong_to(:demo) }
   it { should have_many(:acts) }
-
-  it { should validate_presence_of(:value) }
-  it { should validate_uniqueness_of(:value).scoped_to(:demo_id) }
+  it { should have_many(:rule_values) }
 
   describe "#to_s" do
     before(:each) do
-      @rule = Factory :rule, :value => 'engendered healthificity'
+      @rule = Factory :rule
+      rv1 = Factory :rule_value, :value => 'engendered healthificity', :rule => @rule
+      rv2 = Factory :rule_value, :value => 'made a healthiness', :rule => @rule, :is_primary => true
+
+      (rv1.created_at < rv2.created_at).should be_true
     end
 
     context "when no description is set" do
-      it "should be made from the name of the key and the value of the rule" do
-        @rule.to_s.should == "engendered healthificity"
+      context "but a primary RuleValue exists" do
+        it "should use the value of the primary RuleValue" do
+          @rule.to_s.should == "made a healthiness"
+        end
+      end
+
+      context "and no primary RuleValue exists" do
+        it "should use the value of the oldest RuleValue" do
+          primary_value = @rule.primary_value
+          primary_value.is_primary = false
+          primary_value.save!
+
+          @rule.reload.primary_value.should be_nil
+          @rule.to_s.should == "engendered healthificity"
+        end
       end
     end
 
@@ -28,89 +43,40 @@ describe Rule do
     end
   end
 
-  describe "before save" do
-    it "should normalize the value" do
-      rule = Factory.build :rule, :value => '   FoO    BaR '
-      rule.save!
-      rule.value.should == 'foo bar'
-    end
-  end
-
-  describe Rule, ".find_and_record_rule_suggestion" do
+  describe "#primary_value" do
     before(:each) do
-      @demo = Factory :demo
-
-      [
-        'ate banana',
-        'ate kitten',
-        'ate an entire pizza',
-        'ate Sheboygan',
-        'worked out',
-        'drank beer',
-        'drank whiskey',
-        'went for a walk',
-        'took a walk',
-        'walked outside'
-      ].each {|value| Factory :rule, :value => value, :demo => @demo}
-
-      @user = Factory :user, :demo => @demo
+      @rule = Factory :rule
     end
 
-    context "when nothing matches well" do
-      it "should return nil" do
-        Rule.send(:find_and_record_rule_suggestion, 'played guitar', @user).should be_nil
-      end
-    end
-
-    context "when something matches but it's not in the same demo" do
-      it "should return nil" do
-        rule = Factory :rule, :value => 'played football'
-        rule.demo.should_not == @demo
-
-        Rule.send(:find_and_record_rule_suggestion, 'played guitar', @user).should be_nil
-      end
-    end
-
-    context "when one thing matches well" do
+    context "when the rule has no values" do
       before(:each) do
-        @result = Rule.send(:find_and_record_rule_suggestion, 'pet kitten', @user)
+        @rule.rule_values.should be_empty
       end
 
-      it "should return an appropriate phrase" do
-        @result.should == "I didn't quite get what you meant. Maybe try (1) \"ate kitten\"? Or text S to suggest we add what you sent."
-      end
-
-      it "should set the user's last suggested rules" do
-        @user.reload.last_suggested_items.should == Rule.find_by_value('ate kitten').id.to_s
+      it "should return nil" do
+        @rule.primary_value.should be_nil
       end
     end
 
-    context "when more than one thing matches well" do
+    context "when the rule has values, none of which are primary" do
       before(:each) do
-        @result = Rule.send(:find_and_record_rule_suggestion, 'ate raisins', @user)
+        3.times {Factory :rule_value, :is_primary => false, :rule => @rule}
       end
 
-      it "should return an appropriate phrase" do
-        @result.should == "I didn't quite get what you meant. Maybe try (1) \"ate an entire pizza\" or (2) \"ate banana\" or (3) \"ate kitten\"? Or text S to suggest we add what you sent."
-      end
-
-      it "should set the user's last suggested rules" do
-        expected_indices = [
-          'ate an entire pizza', 
-          'ate banana', 
-          'ate kitten'
-        ].map{|value| Rule.find_by_value(value)}.map(&:id)
-        
-        @user.reload.last_suggested_items.should == expected_indices.map(&:to_s).join('|')
+      it "should return nil" do
+        @rule.primary_value.should be_nil
       end
     end
 
-    it "should ignore rules that are marked as not \"suggestible\"" do
-      rule = Rule.find_by_value('ate an entire pizza')
-      rule.suggestible = false
-      rule.save!
+    context "when the rule has a primary value" do
+      before(:each) do
+        3.times {Factory :rule_value, :is_primary => false, :rule => @rule}
+        @primary_value = Factory :rule_value, :is_primary => true, :rule => @rule
+      end
 
-      Rule.send(:find_and_record_rule_suggestion, 'ate raisins', @user).should_not include('ate an entire pizza')
+      it "should return that value" do
+        @rule.primary_value.should == @primary_value
+      end
     end
   end
 end

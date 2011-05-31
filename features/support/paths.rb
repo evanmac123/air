@@ -43,6 +43,14 @@ module NavigationHelpers
     when /the admin rules page for "(.*?)"/
       admin_demo_rules_path(Demo.find_by_company_name($1))
 
+    when /the rule edit page for "(.*?)"/
+      rule_value = RuleValue.find_by_value($1)
+      rule = rule_value.rule
+      edit_admin_rule_path(rule)
+
+    when /the admin rules page for the standard rulebook/
+      admin_rules_path
+
     else
       begin
         page_name =~ /the (.*) page/

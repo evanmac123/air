@@ -15,6 +15,7 @@ end
 describe Demo do
   it { should have_many(:users) }
   it { should have_many(:rules) }
+  it { should have_many(:rule_values).through(:rules) }
   it { should have_many(:surveys) }
   it { should have_many(:survey_questions).through(:surveys) }
 end

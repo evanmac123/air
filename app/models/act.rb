@@ -56,16 +56,16 @@ class Act < ActiveRecord::Base
       return parsing_success_message("Thanks for playing! The game is now over. If you'd like more information e-mailed to you, please text MORE INFO.")
     end
 
-    rule = Rule.in_same_demo_as(user).where(:value => value).first
+    rule_value = RuleValue.in_same_demo_as(user).where(:value => value).first
 
-    if rule.nil? && value
+    if rule_value.nil? && value
       value_tokens = value.split(' ')
       referring_user_sms_slug = value_tokens.pop
       truncated_value = value_tokens.join(' ')
 
-      rule = Rule.in_same_demo_as(user).where(:value => truncated_value).first
+      rule_value = RuleValue.in_same_demo_as(user).where(:value => truncated_value).first
       referring_user = User.find_by_sms_slug(referring_user_sms_slug)
-      if (rule && !referring_user)
+      if (rule_value && !referring_user)
         return parsing_error_message("We understood what you did, but not the user who referred you. Perhaps you could have them check their unique ID with the myid command?")
       end
 
@@ -74,15 +74,17 @@ class Act < ActiveRecord::Base
       end
     end
 
+    rule = rule_value.try(:rule)
+
     if rule
-      reply, error_code = user.act_on_rule(rule, referring_user)
+      reply, error_code = user.act_on_rule(rule, rule_value, referring_user)
       if error_code == :success
         return parsing_success_message(reply)
       else
         return parsing_error_message(reply)
       end
     else
-      if reply = Rule.find_and_record_rule_suggestion(value, user)
+      if reply = RuleValue.find_and_record_rule_suggestion(value, user)
         record_bad_message(phone_number, body, reply)
       else
         reply = "Sorry, I don't understand what that means. Text S to suggest we add what you sent."

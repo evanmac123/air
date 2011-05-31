@@ -8,9 +8,13 @@ Feature: Game has an end
       | phone number | demo                 |
       | +14152613077 | company_name: BarInc |
     And the following rules exist:
-      | value      | reply          | points | demo                 |
-      | ate fruit  | You ate fruit. | 2      | company_name: BarInc |
-      | went gym   | Worked out.    | 3      | company_name: BarInc |
+      | reply          | points | demo                 | 
+      | You ate fruit. | 2      | company_name: BarInc | 
+      | Worked out.    | 3      | company_name: BarInc | 
+    And the following rule values exist:
+      | value      | rule                  |
+      | ate fruit  | reply: You ate fruit. |
+      | went gym   | reply: Worked out.    |
     When time is frozen at "2010-05-01 11:59:59 UTC"
     And "+14152613077" sends SMS "ate fruit"
     And time is frozen at "2010-05-01 12:00:00 UTC"

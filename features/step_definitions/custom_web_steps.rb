@@ -1,3 +1,14 @@
+# This file is for utility steps about the rendered output, things that would 
+# not be out of place in web_steps.rb. We don't want to edit that file
+# directly, so here we are.
+
+# Overwriting the contents of a text field that we find by its current content
+When /^I replace "([^"]*)" with "([^"]*)"$/ do |old_value, new_value|
+  text_field = page.find(:css, "input[value='#{old_value}']")
+  text_field.should_not be_nil
+  fill_in text_field['name'], :with => new_value
+end
+
 Then /^(?:|I )should see `([^`]*)`(?: within "([^"]*)")?$/ do |text, selector|
   with_scope(selector) do
     if page.respond_to? :should

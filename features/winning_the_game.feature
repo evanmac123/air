@@ -16,9 +16,13 @@ Feature: Player can win the game
     And "Bob" has the password "LOL"
     And "Jim" has the password "LOL"
     And the following rules exist:
-      | points | value        | demo                   |
-      | 3      | ate a kitten | company_name: BobCo    |
-      | 3      | ate a kitten | company_name: CustomCo |
+      | points | reply    | demo                   |
+      | 3      | kitten 1 | company_name: BobCo    |
+      | 3      | kitten 2 | company_name: CustomCo |
+    And the following rule values exist:
+      | value        | rule            |
+      | ate a kitten | reply: kitten 1 |
+      | ate a kitten | reply: kitten 2 |
     And I sign in via the login page as "Bob/LOL"
 
   Scenario: Player hasn't won yet

@@ -2,13 +2,24 @@ Feature: Full text rule search
 
   Background:
     Given the following rules exist:
-      | value        | suggestible | reply  | demo                  |
-      | ate banana   | true        |        | company_name: FooCorp |
-      | ate kitten   | true        | Gross. | company_name: FooCorp |
-      | ate poison   | false       |        | company_name: FooCorp |
-      | worked out   | true        |        | company_name: FooCorp |
-      | rode bicycle | true        |        | company_name: BarCorp |
-      | made risotto | true        |        |                       |
+      | reply   | demo                  | suggestible |  
+      | banana  | company_name: FooCorp | true        |  
+      | Gross.  | company_name: FooCorp | true        |  
+      | poison  | company_name: FooCorp | false       |  
+      | workout | company_name: FooCorp | true        |  
+      | cycled  | company_name: BarCorp | true        |  
+      | risotto |                       | true        |  
+      | happy   | company_name: FooCorp | true        |  
+    And the following rule values exist: 
+      | value        | is_primary | rule           |
+      | ate banana   | true       | reply: banana  |
+      | ate kitten   | true       | reply: Gross.  |
+      | ate poison   | true       | reply: poison  |
+      | worked out   | true       | reply: workout |
+      | rode bicycle | true       | reply: cycled  |
+      | made risotto | true       | reply: risotto |
+      | feel happy   | true       | reply: happy   |
+      | feel great   | false      | reply: happy   |
     And the following user exists:
       | name | phone number | demo                  |
       | Dan  | +16175551212 | company_name: FooCorp |
@@ -70,3 +81,8 @@ Feature: Full text rule search
   Scenario: User can get a suggestion from a standard playbook rule (belonging to no demo)
     When "+16175551212" sends SMS "made toast"
     Then "+16175551212" should have received an SMS including "made risotto"
+
+  Scenario: Only primary rule values are suggested
+    When "+16175551212" sends SMS "feeling like a million bucks"
+    Then "+16175551212" should have received an SMS including "feel happy"
+    And "+16175551212" should not have received an SMS including "feel great"

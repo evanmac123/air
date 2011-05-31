@@ -132,8 +132,11 @@ Scenario: User responds to question during the window with a bad value
 Scenario: User responds to question during the window with a bad value, but there's an actual rule with that value
   Given time is frozen at "2011-05-01 15:00 UTC"
   And the following rule exists:
-    | value | reply                  | points | demo                |
-    | 200   | That's a numeric rule. | 10     | company_name: FooCo |
+    | reply                  | points | demo                | 
+    | That's a numeric rule. | 10     | company_name: FooCo | 
+  And the following rule value exists:
+    | value | rule                          |
+    | 200   | reply: That's a numeric rule. |
   And "+14155551212" sends SMS "200"
   Then "+14155551212" should not have received an SMS including "Sorry, I don't understand "200" as an answer to that question."
   And "+14155551212" should have received an SMS including "That's a numeric rule"
@@ -141,8 +144,11 @@ Scenario: User responds to question during the window with a bad value, but ther
 Scenario: User responds to question during the window with a bad value, but there's an actual rule with that value, and the user has finished the survey
   Given time is frozen at "2011-05-01 15:00 UTC"
   And the following rule exists:
-    | value | reply                  | points | demo                |
-    | 200   | That's a numeric rule. | 10     | company_name: FooCo |
+    | reply                  | points | demo                |
+    | That's a numeric rule. | 10     | company_name: FooCo |
+  And the following rule value exists:
+    | value | rule                          |
+    | 200   | reply: That's a numeric rule. |
   And the following survey answers exist:
     | user       | survey question |
     | name: Dan  | index: 1        |

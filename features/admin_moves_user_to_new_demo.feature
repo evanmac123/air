@@ -17,8 +17,11 @@ Feature: Admin moves a user to a new demo
       | name: Dan  | ate banana | 7               | 2010-04-30 12:00 EST |
       | name: Dan  | walked dog | 9               |                      |
     And the following rule exists:
-      | value        | points | demo              |
-      | went running | 10     | company_name: IBM |
+      | reply   | points | demo              |
+      | run run | 10     | company_name: IBM |
+    And the following rule values exists:
+      | value        | rule           |
+      | went running | reply: run run |
     And an admin moves "Dan" to the demo "IBM"
     And "+14155551212" sends SMS "went running"
 

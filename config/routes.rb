@@ -42,10 +42,14 @@ Health::Application.routes.draw do
   resource :friends, :only => [:show]
 
   namespace :admin do
+    resources :rules, :only => [:index, :new, :create, :edit, :update]
+
+    resources :rule_values, :only => [:destroy]
+
     resources :demos, :only => [:new, :create, :show] do
       # TODO: move :edit and :update onto resources :users below
-      resources :users, :only => [:create, :edit, :update] 
-      resources :rules, :only => [:index, :create, :edit]
+      resources :users, :only => [:edit, :update, :create] 
+      resources :rules, :only => [:index, :new, :create]
       namespace :rules do
         resource :bulk_load, :only => [:create]
       end

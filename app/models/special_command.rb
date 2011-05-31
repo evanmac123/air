@@ -73,8 +73,8 @@ module SpecialCommand
     suggested_item_indices = user.last_suggested_items.split('|')
     return nil unless suggested_item_indices.length >= chosen_index
 
-    rule = Rule.find(suggested_item_indices[chosen_index - 1])
-    parsing_success_message((user.act_on_rule(rule)).first) # throw away error code in this case
+    rule_value = RuleValue.find(suggested_item_indices[chosen_index - 1])
+    parsing_success_message((user.act_on_rule(rule_value.rule, rule_value)).first) # throw away error code in this case
   end
 
   def self.respond_to_survey(user, choice)
@@ -86,7 +86,7 @@ module SpecialCommand
     if question
       question.respond(user, survey, choice)
     else
-      return nil if survey.demo.has_rule_matching?(choice) # Give Act.parse a crack at it
+      return nil if survey.demo.has_rule_value_matching?(choice) # Give Act.parse a crack at it
       parsing_success_message("Thanks, we've got all of your survey answers already.")
     end
   end

@@ -1,45 +1,45 @@
+def expect_rule_rows(rule_or_hash)
+  primary_value, secondary_values = (rule_or_hash.respond_to?(:primary_value)) ?
+    [rule_or_hash.primary_value.value, rule_or_hash.secondary_values.map(&:value)] :
+    [rule_or_hash['primary_value'], rule_or_hash['secondary_values'].split(',')]
+
+  primary_value_cell = page.find(:css, 'td', :text => primary_value)
+  primary_value_cell.should_not be_nil, "Found no rule row for \"#{primary_value}\""
+
+  main_rule_row = primary_value_cell.find(:xpath, '..')
+  cell_path = main_rule_row.path + "/td"
+
+  %w(points reply description alltime_limit referral_points suggestible).each do |field_name|
+    expected_value = rule_or_hash[field_name].to_s
+    page.find(:xpath, cell_path, :text => expected_value).should_not be_nil, "Found no cell containing #{field_name} (expected value \"#{expected_value}\")"
+  end
+
+  secondary_values_cell_path = main_rule_row.path + "/following-sibling::tr/td"
+  secondary_values.each do |secondary_value|
+    page.find(:xpath, secondary_values_cell_path, :text => secondary_value).should_not be_nil, "Didn't find secondary value \"#{secondary_value}\""
+  end
+end
+
+When /^I fill in secondary value field \#(\d+) with "([^"]*)"$/ do |index_plus_one, value| 
+  index = index_plus_one.to_i - 1
+  field_name = "rule[secondary_values][#{index}]"
+  fill_in field_name, :with => value
+end
+
 Then /^I should see the following rules?:$/ do |table|
-  table.hashes.each do |row_hash|
-    row_hash.values.each do |value|
-      next if value.to_s.blank?
+  table.hashes.each {|row_hash| expect_rule_rows(row_hash)}
+end
 
-      page.should have_content(value.to_s)
-    end
+Then /^I should see all existing rules for (.*)$/ do |company_name|
+  demo = Demo.find_by_company_name company_name
 
-    rule = Rule.find_by_value(row_hash['value'])
-    expected_path = edit_admin_demo_rule_path(rule.demo, rule, :anchor => 'add-rule')
-    page.should have_css("a[@href='#{expected_path}']")
+  demo.rules.each do |rule|
+    expect_rule_rows(rule)
   end
 end
 
-Then /^I should see the following rules in a form:$/ do |table|
-  table.hashes.each do |row_hash|
-    suggestible = row_hash.delete('suggestible') == 'true'
-    value_field = page.find(:css, "input[@value='#{row_hash['value']}']")
-    value_field.should_not be_nil
-
-    enclosing_path = value_field.path + '/ancestor::fieldset'
-
-    within(:xpath, enclosing_path) do
-      %w(points reply description alltime_limit referral_points).each do |field_name|
-        input_selector = "/input[contains(@name, '[#{field_name}]')]"
-        unless row_hash[field_name].blank?
-          input_selector += "[@value='#{row_hash[field_name]}']"
-        end
-        page.should have_xpath(input_selector)
-      end
-
-      suggestible_selector = "/input[@type='checkbox']"
-      if suggestible
-        suggestible_selector += "[@checked='checked']"
-      end
-
-      page.should have_xpath(suggestible_selector)
-    end
+Then /^I should see all the standard rulebook rules$/ do
+  Rule.where(:demo_id => nil).each do |rule|
+    expect_rule_rows(rule)
   end
-end
-
-Then /^I should not see a rule with the value "([^"]*)" in a form$/ do |value|
-  value_field = page.find(:css, "input[@value='#{value}']")
-  value_field.should be_nil
 end

@@ -333,14 +333,14 @@ class User < ActiveRecord::Base
   # the action was successful, or an error code if the action failed. As of
   # now the only error code we use is :over_alltime_limit.
 
-  def act_on_rule(rule, referring_user=nil)
+  def act_on_rule(rule, rule_value, referring_user=nil)
     self.last_suggested_items = ''
     self.save!
 
     if rule.user_hit_limit?(self)
       return ["Sorry, you've already done that action.", :over_alltime_limit]
     else
-      credit_referring_user(referring_user, rule)
+      credit_referring_user(referring_user, rule, rule_value)
       return [Act.record_act(self, rule, referring_user), :success]
     end
   end
@@ -399,14 +399,14 @@ class User < ActiveRecord::Base
                :order      => "created_at desc")
   end
 
-  def credit_referring_user(referring_user, rule)
+  def credit_referring_user(referring_user, rule, rule_value)
     return unless referring_user
 
     act_text = I18n.translate(
       'activerecord.models.user.referred_a_command_act', 
       :default    => "told %{name} about the %{rule_value} command", 
       :name       => self.name, 
-      :rule_value => rule.value
+      :rule_value => rule_value.value
     )
 
     Act.create!(
@@ -419,7 +419,7 @@ class User < ActiveRecord::Base
       'activerecord.models.user.thanks_for_referring_sms', 
       :default                   => 'Thanks for referring %{name} to the %{rule_value} command. %{point_and_ranking_summary}', 
       :name                      => self.name, 
-      :rule_value                => rule.value, 
+      :rule_value                => rule_value.value, 
       :point_and_ranking_summary => referring_user.point_and_ranking_summary
     )
     SMS.send(referring_user.phone_number, sms_text)

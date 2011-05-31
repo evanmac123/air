@@ -48,8 +48,9 @@ describe Act, ".parse" do
     end
 
     context "and types a good value" do
-      let(:rule)       { Factory(:rule, :demo => user.demo) }
-      let(:good_sms) { rule.value }
+      let(:rule_value) { Factory :rule_value, :is_primary => true, :rule => (Factory :rule, :demo => user.demo) }
+      let(:rule)       { rule_value.rule }
+      let(:good_sms)   { rule.primary_value.value }
 
       before do
         @result = Act.parse(user, good_sms)
@@ -60,7 +61,7 @@ describe Act, ".parse" do
       end
 
       it "creates an act" do
-        Act.should be_exists(:user_id => user.id, :text => good_sms, :rule_id => rule.id, :demo_id => user.demo_id)
+        Act.exists?(:user_id => user.id, :text => good_sms, :rule_id => rule.id, :demo_id => user.demo_id).should be_true
       end
 
       it "updates users points" do

@@ -939,4 +939,25 @@ ul#other-users {
 
 #existing-rules, #add-rule, #bulk-load {
   margin-bottom: 90px;
+
+  td, th {
+    padding-left: 5px;
+  }
+
+  img.row-toggle-button  {
+    margin: 0;
+    cursor: pointer;
+  }
+
+  tr.aliases {
+    display: none;
+  }
+}
+
+fieldset#secondary-values {
+  display: none;
+
+  .spinner {
+    margin: 0;
+  }
 }

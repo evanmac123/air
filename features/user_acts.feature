@@ -14,16 +14,22 @@ Feature: User acts
     And "Paul" has the SMS slug "paul55"
     And "Fred" has the SMS slug "fred666"
     And the following rules exist:
-      | value         | points | referral points | reply                     | alltime_limit | demo                  |
-      | ate banana    | 2      |                 | Bananas are good for you. |               | company_name: FooCorp |
-      | worked out    | 5      | 200             | Working out is nice.      |               | company_name: FooCorp |
-      | saw poster    | 20     |                 | Congratulations!          | 2             | company_name: FooCorp |
-      | made toast    | 8      |                 | So you made toast.        |               | company_name: FooCorp |
-      | up the bar    | 8      |                 | BarCorp rulez!            |               | company_name: BarCorp |
-      | do good thing | 10     |                 | Good for you.             |               |                       |
-    And the following coded rule exists:
-      | value | points | description                                     | reply                  | demo                  |
-      | ZXCVB | 15     | Looked at our poster about healthful practices. | Good show. +15 points. | company_name: FooCorp |
+      | points | referral points | reply                     | alltime_limit | demo                  |
+      | 2      |                 | Bananas are good for you. |               | company_name: FooCorp |
+      | 5      | 200             | Working out is nice.      |               | company_name: FooCorp |
+      | 20     |                 | Congratulations!          | 2             | company_name: FooCorp |
+      | 8      |                 | So you made toast.        |               | company_name: FooCorp |
+      | 8      |                 | BarCorp rulez!            |               | company_name: BarCorp |
+      | 10     |                 | Good for you.             |               |                       |
+    And the following rule values exist:
+      | value         | rule                             |
+      | ate banana    | reply: Bananas are good for you. |
+      | ate bananas   | reply: Bananas are good for you. |
+      | worked out    | reply: Working out is nice.      |
+      | saw poster    | reply: Congratulations!          |
+      | made toast    | reply: So you made toast.        |
+      | up the bar    | reply: BarCorp rulez!            |
+      | do good thing | reply: Good for you.             |
     And time is frozen at "2011-05-23 00:00 UTC"
 
   Scenario: User acts via SMS
@@ -34,16 +40,11 @@ Feature: User acts
       | name | act         | points |
       | Dan  | ate banana  | 2      |
 
-  #Scenario: User acts via the website
-  #  When I sign in via the login page as "Dan/foo"
-  #  And I go to the acts page
-  #  And I enter the act "ate banana" via the dropdown
-  #  And I enter the act "worked out" via the dropdown
-  #  Then I should see the following acts:
-  #    | name | act         | points |
-  #    | Dan  | ate banana  | 2      |
-  #    | Dan  | worked out  | 5      |
-  #  And I should see the success message "Working out is nice. You have 7 out of 50 points."
+  Scenario: User can use any rule value to refer to a rule
+    When "+15087407520" sends SMS "ate banana"
+    And "+15087407520" sends SMS "ate bananas"
+    Then "+15087407520" should have received SMS "Bananas are good for you. Points 2/50, rank 2/4."
+    And "+15087407520" should have received SMS "Bananas are good for you. Points 4/50, rank 1/4."
 
   Scenario: User enters bad act via the website
     When I sign in via the login page as "Dan/foo"
@@ -78,23 +79,6 @@ Feature: User acts
     And I should see the following act:
       | name | act                             | points |
       | Dan  | do good thing  | 10     |
-
-  Scenario: User acts with a coded rule
-    When "+15087407520" sends SMS "ZXCVB"
-    And I sign in via the login page as "Dan/foo"
-    And I go to the acts page
-    Then I should see the following act:
-      | name | act                                             | points |
-      | Dan  | Looked at our poster about healthful practices. | 15     |
-
-  Scenario: User enters a coded rule into the website
-    When I sign in via the login page as "Dan/foo"
-    And I go to the acts page
-    And I enter the act code "zxcvb"
-    Then I should see the following act:
-      | name | act                                             | points |
-      | Dan  | Looked at our poster about healthful practices. | 15     |
-    And I should see the success message "Good show. +15 points."
 
   Scenario: User gets a reply from the game on acting with points and ranking information
     When "+15087407520" sends SMS "ate banana"

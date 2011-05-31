@@ -2,6 +2,7 @@ class Demo < ActiveRecord::Base
   has_many :users
   has_many :acts, :through => :users
   has_many :rules
+  has_many :rule_values, :through => :rules
   has_many :surveys
   has_many :survey_questions, :through => :surveys
 
@@ -102,8 +103,8 @@ class Demo < ActiveRecord::Base
     fix_user_rankings!('recent_average_points', 'recent_average_ranking')
   end
 
-  def has_rule_matching?(value)
-    self.rules.where(:value => value).present?
+  def has_rule_value_matching?(value)
+    self.rule_values.where(:value => value).present?
   end
 
   def self.recalculate_all_moving_averages!

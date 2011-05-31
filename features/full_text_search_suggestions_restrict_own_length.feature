@@ -2,14 +2,23 @@ Feature: Full text search suggestions restrict their own length (to under 160 ch
 
   Background:
     Given the following rules exist:
-      | value                                                                 | demo                  |
-      | a modest proposal                                                     | company_name: WordyCo |
-      | an indecent proposal                                                  | company_name: WordyCo |
-      | the creation of a lengthly proposal of an overlength rule             | company_name: WordyCo |
-      | a brief suggestion                                                    | company_name: WordyCo |
-      | a suggestion of incredible length that should not actually happen     | company_name: WordyCo |
-      | the merest suggestion of a sliver of a thing happening                | company_name: WordyCo |
-      | surely nobody would ever write a rule of length 65 characters or more | company_name: WordyCo |
+      | reply      | demo                  | 
+      | modest     | company_name: WordyCo | 
+      | indecent   | company_name: WordyCo | 
+      | lengthly   | company_name: WordyCo | 
+      | brief      | company_name: WordyCo | 
+      | incredible | company_name: WordyCo | 
+      | merest     | company_name: WordyCo | 
+      | surely     | company_name: WordyCo | 
+    And the following rule values exist:
+      | value                                                                 | is_primary | rule              |
+      | a modest proposal                                                     | true       | reply: modest     |
+      | an indecent proposal                                                  | true       | reply: indecent   |
+      | the creation of a lengthly proposal of an overlength rule             | true       | reply: lengthly   |
+      | a brief suggestion                                                    | true       | reply: brief      |
+      | a suggestion of incredible length that should not actually happen     | true       | reply: incredible |
+      | the merest suggestion of a sliver of a thing happening                | true       | reply: merest     |
+      | surely nobody would ever write a rule of length 65 characters or more | true       | reply: surely     |
     And the following user exists:
       | phone number | demo                  |
       | +14155551212 | company_name: WordyCo |

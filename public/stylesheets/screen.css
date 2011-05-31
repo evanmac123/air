@@ -650,3 +650,15 @@ ul#other-users li.associate form {
 
 #existing-rules, #add-rule, #bulk-load {
   margin-bottom: 90px; }
+  #existing-rules td, #existing-rules th, #add-rule td, #add-rule th, #bulk-load td, #bulk-load th {
+    padding-left: 5px; }
+  #existing-rules img.row-toggle-button, #add-rule img.row-toggle-button, #bulk-load img.row-toggle-button {
+    margin: 0;
+    cursor: pointer; }
+  #existing-rules tr.aliases, #add-rule tr.aliases, #bulk-load tr.aliases {
+    display: none; }
+
+fieldset#secondary-values {
+  display: none; }
+  fieldset#secondary-values .spinner {
+    margin: 0; }
