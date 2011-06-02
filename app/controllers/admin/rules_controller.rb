@@ -1,4 +1,6 @@
 class Admin::RulesController < AdminBaseController
+  include Admin::RulesHelper
+
   before_filter :find_demo, :only => [:index, :new]
   before_filter :find_existing_rules, :only => [:index]
   before_filter :find_rule, :only => [:edit, :update]
@@ -39,44 +41,6 @@ class Admin::RulesController < AdminBaseController
     redirect_to rules_index(@rule.demo)
   end
 
-  #def create
-    #Rule.transaction do
-      #params[:rule].values.each do |rule_params|
-        #raw_rule_value_values = rule_params.delete('values')
-        #rule_value_values = raw_rule_value_values.split(/,/).map(&:strip).map(&:downcase)
-        #rule_values = @demo.rule_values.with_value_in(rule_value_values)
-
-        #rule_ids = rule_values.map(&:rule_id).flatten.uniq
-
-        #if rule_ids.length > 1
-          #flash[:failure] ||= ''
-          #flash[:failure] += "Ambiguous rule values #{raw_rule_value_values} refer to multiple rules, skipped."
-          #next
-        #end
-
-        #rule_id = rule_ids.first
-        #rule = rule_id ?
-          #Rule.where(:id => rule_id).first :
-          #nil
-
-        #if rule
-          #rule.attributes = rule_params
-        #else
-          #rule = Rule.new(rule_params)
-        #end
-
-        #rule.save!
-
-        #rule_value_values.each do |rule_value_value|
-          #next if @demo.rule_values.where(:value => rule_value_value).first
-          #@demo.rule_values.create!(:value => rule_value_value, :rule => rule)
-        #end
-      #end 
-    #end
-
-    #redirect_to :action => :index
-  #end
-  
   protected
 
   def find_demo
@@ -100,19 +64,5 @@ class Admin::RulesController < AdminBaseController
     end
 
     @secondary_values = params[:rule].delete(:secondary_values)
-  end
-
-  # Convenience methods that allows us to choose the proper path while
-  # glossing over if @demo is nil or not.
-  def rules_index(demo)
-    demo ? admin_demo_rules_path(demo) : admin_rules_path
-  end
-
-  def new_rule(demo)
-    demo ? new_admin_demo_rule_path(demo) : new_admin_rule_path
-  end
-
-  def create_rule(demo)
-    demo ? admin_demo_rules_path(demo) : admin_rules_path
   end
 end

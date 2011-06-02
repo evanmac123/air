@@ -138,3 +138,13 @@ Feature: Admin adds and edits rules
     And I should see the following rule:
       | primary_value | secondary_values | points | reply                     | description                    | alltime_limit | referral_points | suggestible |
       | ate oatmeal   | ate some oatmeal | 55     | 55 points for you, bucko. | I ate a big ol bowl of oatmeal | 5             | 19              | false       |
+
+  Scenario: Cancel link from demo rule edit goes to proper place
+    When I go to the rule edit page for "ate banana"
+    And I follow "Cancel"
+    Then I should be on the admin rules page for "FooCorp"
+    
+  Scenario: Cancel link from standard playbook rule edit goes to proper place
+    When I go to the rule edit page for "went jogging"
+    And I follow "Cancel"
+    Then I should be on the admin rules page for the standard playbook

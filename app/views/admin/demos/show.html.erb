@@ -2,6 +2,8 @@
 
 <h2><%= @user_with_mobile_count %> users have added mobile numbers to their accounts</h2>
 
+<%= link_to "Rules for this demo", admin_demo_rules_path(@demo) %>
+
 <p>
 Game
 <% if @demo.ends_at %>
@@ -32,8 +34,6 @@ Game
 <p>Victory SMS: <%= @demo.victory_sms %></p>
 
 <p>Victory scoreboard message: <%= @demo.victory_scoreboard_message %></p>
-
-<%= link_to "Rules for this demo", admin_demo_rules_path(@demo) %>
 
 <p class="explanation"><%= translate('.explanation', :default => "Add HR people from %{company} to this demo, then send them an invitation to the demo.", :company => @demo.company_name) %></p>
 

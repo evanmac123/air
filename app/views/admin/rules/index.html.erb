@@ -15,9 +15,11 @@
 <div id="existing-rules">
   <h2>Existing Rules</h2>
 
+  <a href="#" id="show-all-secondary-values">Show all secondary values</a>
+
   <table>
     <tr>
-      <th>Primary Value</th>
+      <th>Rules</th>
       <th>Points</th>
       <th>Reply</th>
       <th>Description</th>
@@ -29,8 +31,8 @@
     <% @existing_rules.each_with_index do |existing_rule, rule_index| %>
       <tr>
         <td>
-          <%= existing_rule.primary_value.value %>
           <img src="/images/right_triangle.png" data-row-to-toggle="tr#aliases_<%=rule_index%>" data-other-graphic-path="/images/down_triangle.png" class="row-toggle-button">        
+          <%= existing_rule.primary_value.value %>
         </td>
 
         <% %w(points reply description alltime_limit referral_points suggestible).each do |field_name| %>
@@ -64,6 +66,12 @@
       $(row_id_to_toggle).toggle();
       clicked_button.attr('src', other_graphic_path);
       clicked_button.data('other-graphic-path', tmp_path);
+    });
+
+    $('#show-all-secondary-values').click(function(e) {
+      $('.row-toggle-button').attr('src', '/images/down_triangle.png').data('other-graphic-path', '/images/right_triangle.png');
+      $('.aliases').show();
+      e.preventDefault();
     });
   <% end %>
 <% end %>

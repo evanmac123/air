@@ -17,7 +17,7 @@
 
     </div>
 
-    <a href="#" id="add-secondary-value-row">Add another secondary value</a>
+    <a href="#" id="add-secondary-value-row">Add secondary value</a>
   <% end %>
 
   <%= form.input :points %>
@@ -27,6 +27,7 @@
   <%= form.input :referral_points %>
   <%= form.input :suggestible %>
   <%= form.commit_button %>
+  <%= link_to 'Cancel', rules_index(rule.demo) %>
 <% end %>
 
 <% content_for :javascript do %>

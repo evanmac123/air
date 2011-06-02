@@ -944,6 +944,10 @@ ul#other-users {
     padding-left: 5px;
   }
 
+  th:first-child {
+    width: 200px;
+  }
+
   img.row-toggle-button  {
     margin: 0;
     cursor: pointer;
