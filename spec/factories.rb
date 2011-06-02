@@ -102,3 +102,9 @@ Factory.define :survey_valid_answer do |survey_valid_answer|
   survey_valid_answer.sequence(:value) {|n| n.to_s}
   survey_valid_answer.association(:survey_question)
 end
+
+Factory.define :bonus_threshold do |bonus_threshold|
+  bonus_threshold.threshold 50
+  bonus_threshold.max_points 5
+  bonus_threshold.association :demo
+end

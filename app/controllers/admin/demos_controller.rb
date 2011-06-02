@@ -1,6 +1,7 @@
 class Admin::DemosController < AdminBaseController
   def new
     @demo = Demo.new
+    @demo.bonus_thresholds = [BonusThreshold.new]
   end
 
   def create
@@ -14,8 +15,19 @@ class Admin::DemosController < AdminBaseController
       params[:demo][:victory_verification_sms_number] = PhoneNumber.normalize(raw_number)
     end
 
-    @demo = Demo.new(params[:demo])
-    @demo.save
+    bonus_thresholds_params = params[:demo].delete(:bonus_thresholds)
+
+    Demo.transaction do
+      @demo = Demo.new(params[:demo])
+      @demo.save
+
+      bonus_thresholds_params.values.each do |value|
+        next if value[:threshold].blank? || value[:max_points].blank?
+
+        @demo.bonus_thresholds.create!(value)
+      end
+    end
+
     flash[:success] = "Demo created."
     redirect_to admin_demo_path(@demo)
   end
@@ -24,5 +36,6 @@ class Admin::DemosController < AdminBaseController
     @demo  = Demo.find(params[:id])
     @users = @demo.users.alphabetical
     @user_with_mobile_count = @demo.users.where("phone_number IS NOT NULL AND phone_number != ''").count
+    @bonus_thresholds = @demo.bonus_thresholds.in_threshold_order
   end
 end

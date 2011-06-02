@@ -5,6 +5,8 @@ Feature: Admin sets up demo
     When I follow "New Demo"
     And I fill in "Company name" with "3M"
     And I fill in "Victory threshold" with "100"
+    And I fill in "Threshold" with "10"
+    And I fill in "Max points" with "3"
     And I fill in "Victory verification email" with "lucille@example.com"
     And I fill in "Victory verification SMS number" with "415-867-5309"
     And I fill in "Custom welcome message" with "3M will rule you all!"
@@ -28,6 +30,7 @@ Feature: Admin sets up demo
     And I should see "Victory scoreboard message: is the person!"
     And I should see "New players start with 5 points"
     And I should see "Game ends at May 01, 2010 at 08:00 AM Eastern"
+    And I should see "Bonus thresholds: 10 points (up to 3 points awarded)"
 
   Scenario: Correct defaults
     Given I am on the admin page
@@ -43,6 +46,7 @@ Feature: Admin sets up demo
     And I should not see "Victory email to"
     And I should not see "Victory verification SMS to"
     And I should see "Game goes on indefinitely"
+    And I should see "No bonus thresholds"
 
    Scenario: Admin adds user
      Given a demo exists with a company name of "3M"

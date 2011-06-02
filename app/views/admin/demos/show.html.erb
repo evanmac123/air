@@ -27,6 +27,17 @@ Game
 
 <p>New players start with <%= @demo.seed_points %> points.</p>
 
+<% if @bonus_thresholds.empty? %>
+  <p>No bonus thresholds.</p>
+<% else %>
+  <p>Bonus thresholds:
+    <ul>
+      <% @bonus_thresholds.each do |bonus_threshold| %>
+        <li><%= bonus_threshold.threshold %> points (up to <%= bonus_threshold.max_points %> points awarded)</li>
+      <% end %>
+    </ul>
+<% end %>
+
 <p>Welcome message: <%= @demo.welcome_message %></p>
 
 <p>Victory achievement message: <%= @demo.victory_achievement_message %></p>

@@ -5,6 +5,7 @@ class Demo < ActiveRecord::Base
   has_many :rule_values, :through => :rules
   has_many :surveys
   has_many :survey_questions, :through => :surveys
+  has_many :bonus_thresholds
 
   # We go through this rigamarole since we can move a user from one demo to
   # another, and usually we will only be concerned with acts belonging to the
