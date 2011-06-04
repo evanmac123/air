@@ -13,6 +13,7 @@ class User < ActiveRecord::Base
   has_many   :friendships
   has_many   :friends, :through => :friendships
   has_many   :survey_answers
+  has_and_belongs_to_many :bonus_thresholds
 
   validates_uniqueness_of :phone_number, :allow_blank => true
   validates_uniqueness_of :slug
@@ -142,7 +143,7 @@ class User < ActiveRecord::Base
     old_points = self.points
     increment!(:points, new_points)
     update_recent_average_points(new_points)
-    check_for_bonus_threshold_crossed(old_points)
+    BonusThreshold.consider_awarding_points_for_crossed_bonus_thresholds(old_points, self)
     check_for_victory
   end
 
@@ -369,36 +370,6 @@ class User < ActiveRecord::Base
 
   def add_joining_to_activity_stream
     self.class.add_joining_to_activity_stream(self)
-  end
-
-  def check_for_bonus_threshold_crossed(old_points)
-    crossed_bonus_thresholds = self.demo.bonus_thresholds.crossed(old_points, self.points)
-    crossed_bonus_thresholds.each do |crossed_bonus_threshold|
-      award = crossed_bonus_threshold.points_awarded
-
-      act_text = I18n.translate(
-        'activerecord.models.user.crossed_bonus_threshold_act', 
-        :default   => "got some bonus points for hitting the %{threshold}-point threshold", 
-        :threshold => crossed_bonus_threshold.threshold
-      )
-
-      sms_text = I18n.translate(
-        'activerecord.models.user.crossed_bonus_threshold_sms', 
-        :default        => "You got %{awarded_points} bonus points for passing the %{threshold}-point threshold! Nice going!",
-        :awarded_points => award,
-        :threshold      => crossed_bonus_threshold.threshold
-      )
-
-      self.acts.create(
-        :text            => act_text,
-        :inherent_points => award
-      )
-
-      SMS.send(
-        self.phone_number,
-        sms_text
-      )
-    end
   end
 
   def check_for_victory

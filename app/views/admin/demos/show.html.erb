@@ -33,7 +33,7 @@ Game
   <p>Bonus thresholds:
     <ul>
       <% @bonus_thresholds.each do |bonus_threshold| %>
-        <li><%= bonus_threshold.threshold %> points (up to <%= bonus_threshold.max_points %> points awarded)</li>
+        <li>Between <%= bonus_threshold.min_points %> and <%= bonus_threshold.max_points %> points: <%= bonus_threshold.award %> points awarded</li>
       <% end %>
     </ul>
 <% end %>

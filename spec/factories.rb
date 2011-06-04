@@ -41,6 +41,10 @@ Factory.define :rule_value do |factory|
   factory.association :rule
 end
 
+Factory.define :primary_value, :parent => :rule_value do |factory|
+  factory.is_primary true
+end
+
 Factory.define :key do |factory|
   factory.sequence(:name) { |n| "ate_#{n}" }
 end
@@ -104,7 +108,8 @@ Factory.define :survey_valid_answer do |survey_valid_answer|
 end
 
 Factory.define :bonus_threshold do |bonus_threshold|
-  bonus_threshold.threshold 50
-  bonus_threshold.max_points 5
+  bonus_threshold.min_points 5
+  bonus_threshold.max_points 7
+  bonus_threshold.award 2
   bonus_threshold.association :demo
 end

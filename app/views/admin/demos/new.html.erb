@@ -25,10 +25,12 @@
     accept_nested_attributes_for along with certain options on form.inputs
     to do this nicely. As usual, the formtastic docs are full of shit. %>
     <% @demo.bonus_thresholds.each_with_index do |bonus_threshold, bonus_threshold_index| %>
-      <%= label_tag "demo_bonus_thresholds_#{bonus_threshold_index}_threshold", "Threshold" %>
-      <%= text_field_tag "demo[bonus_thresholds][#{bonus_threshold_index}][threshold]" %>
+      <%= label_tag "demo_bonus_thresholds_#{bonus_threshold_index}_min_points", "Min points" %>
+      <%= text_field_tag "demo[bonus_thresholds][#{bonus_threshold_index}][min_points]" %>
       <%= label_tag "demo_bonus_thresholds_#{bonus_threshold_index}_max_points", "Max points" %>
       <%= text_field_tag "demo[bonus_thresholds][#{bonus_threshold_index}][max_points]" %>
+      <%= label_tag "demo_bonus_thresholds_#{bonus_threshold_index}_award", "Award" %>
+      <%= text_field_tag "demo[bonus_thresholds][#{bonus_threshold_index}][award]" %>
       <br/>
     <% end %>
 
@@ -50,17 +52,22 @@
       fieldIdPrefix = 'demo_bonus_thresholds_' + nextBonusThresholdIndex + '_';
       fieldNamePrefix = 'demo[bonus_thresholds][' + nextBonusThresholdIndex + '][';
 
-      thresholdFieldId = fieldIdPrefix + 'threshold'; 
-      thresholdFieldName = fieldNamePrefix + 'threshold' + ']';
+      minPointsFieldId = fieldIdPrefix + 'min_points';
+      minPointsFieldName = fieldNamePrefix + 'min_points' + ']';
 
       maxPointsFieldId = fieldIdPrefix + 'max_points';
       maxPointsFieldName = fieldNamePrefix + 'max_points' + ']';
 
+      awardFieldId = fieldIdPrefix + 'award';
+      awardFieldName = fieldNamePrefix + 'award' + ']';
+
       newHTML = [
-        '<label for="' + thresholdFieldId + '">Threshold</label>',
-        '<input type="text" id="' + thresholdFieldId + '" name="' + thresholdFieldName + '">',
+        '<label for="' + minPointsFieldId + '">Min points</label>',
+        '<input type="text" id="' + minPointsFieldId + '" name="' + minPointsFieldName + '">',
         '<label for="' + maxPointsFieldId + '">Max points</label>',
         '<input type="text" id="' + maxPointsFieldId + '" name="' + maxPointsFieldName + '">',
+        '<label for="' + awardFieldId + '">Award</label>',
+        '<input type="text" id="' + awardFieldId + '" name="' + awardFieldName + '">',
         '<br/>'
       ].join('');
 

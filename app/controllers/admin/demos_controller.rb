@@ -22,7 +22,7 @@ class Admin::DemosController < AdminBaseController
       @demo.save
 
       bonus_thresholds_params.values.each do |value|
-        next if value[:threshold].blank? || value[:max_points].blank?
+        next if value.values.all?(&:blank?)
 
         @demo.bonus_thresholds.create!(value)
       end
