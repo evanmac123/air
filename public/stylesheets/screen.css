@@ -667,3 +667,5 @@ fieldset#secondary-values {
 
 fieldset#bonus-thresholds label {
   display: inline; }
+fieldset#bonus-thresholds input {
+  width: 50px; }
