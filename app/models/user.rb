@@ -14,6 +14,7 @@ class User < ActiveRecord::Base
   has_many   :friends, :through => :friendships
   has_many   :survey_answers
   has_and_belongs_to_many :bonus_thresholds
+  has_and_belongs_to_many :levels
 
   validates_uniqueness_of :phone_number, :allow_blank => true
   validates_uniqueness_of :slug
@@ -144,6 +145,7 @@ class User < ActiveRecord::Base
     increment!(:points, new_points)
     update_recent_average_points(new_points)
     BonusThreshold.consider_awarding_points_for_crossed_bonus_thresholds(old_points, self)
+    Level.check_for_level_up(old_points, self)
     check_for_victory
   end
 

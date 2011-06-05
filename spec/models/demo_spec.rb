@@ -18,6 +18,7 @@ describe Demo do
   it { should have_many(:rule_values).through(:rules) }
   it { should have_many(:surveys) }
   it { should have_many(:survey_questions).through(:surveys) }
+  it { should have_many(:levels) }
 end
 
 describe Demo, "#welcome_message" do

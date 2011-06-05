@@ -6,6 +6,7 @@ class Demo < ActiveRecord::Base
   has_many :surveys
   has_many :survey_questions, :through => :surveys
   has_many :bonus_thresholds
+  has_many :levels
 
   # We go through this rigamarole since we can move a user from one demo to
   # another, and usually we will only be concerned with acts belonging to the

@@ -76,6 +76,5 @@ Feature: User gets bonus points at thresholds with some randomness built in
     Given the RNG is predisposed to hand out bonus points
     When "+16175551212" sends SMS "ate cheese"
     And I go to the activity page
-    And I dump the page
     Then I should see "Dan 36 points"
     And I should see "Dan got 5 bonus points for passing a bonus threshold"

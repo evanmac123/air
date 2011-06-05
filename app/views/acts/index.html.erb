@@ -54,14 +54,7 @@
     </table>
   </div>
 
-  <% if current_user.won_at %>
-    <div class="column-section">
-      <div class="column-header">
-        <h2>Achievements</h2>
-      </div>
-      <div id="winning-time"><%= current_user.demo.victory_achievement_message(current_user) %></div>
-    </div>
-  <% end %>
+  <%= render 'user_achievements', :won_at => current_user.won_at, :levels => @levels %>
 
   <%= render 'shared/scoreboard', :users => @users %>
 </div>

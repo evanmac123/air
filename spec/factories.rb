@@ -113,3 +113,9 @@ Factory.define :bonus_threshold do |bonus_threshold|
   bonus_threshold.award 2
   bonus_threshold.association :demo
 end
+
+Factory.define :level do |level|
+  level.name "Level"
+  level.sequence(:threshold) {|n| n}
+  level.association :demo
+end
