@@ -8,6 +8,8 @@ Feature: Admin sets up demo
     And I fill in "Min points" with "5"
     And I fill in "Max points" with "8"
     And I fill in "Award" with "7"
+    And I fill in "Name" with "level 1 (N00b)"
+    And I fill in "Threshold" with "10"
     And I fill in "Victory verification email" with "lucille@example.com"
     And I fill in "Victory verification SMS number" with "415-867-5309"
     And I fill in "Custom welcome message" with "3M will rule you all!"
@@ -32,6 +34,7 @@ Feature: Admin sets up demo
     And I should see "New players start with 5 points"
     And I should see "Game ends at May 01, 2010 at 08:00 AM Eastern"
     And I should see "Bonus thresholds: Between 5 and 8 points: 7 points awarded"
+    And I should see "Levels: level 1 (N00b) at 10 points"
 
   Scenario: Correct defaults
     Given I am on the admin page
@@ -48,6 +51,7 @@ Feature: Admin sets up demo
     And I should not see "Victory verification SMS to"
     And I should see "Game goes on indefinitely"
     And I should see "No bonus thresholds"
+    And I should see "No levels"
 
    Scenario: Admin adds user
      Given a demo exists with a company name of "3M"

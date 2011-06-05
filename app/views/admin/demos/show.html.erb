@@ -38,6 +38,18 @@ Game
     </ul>
 <% end %>
 
+<% if @levels.empty? %>
+  <p>No levels.</p>
+<% else %>
+  <p>Levels:
+    <ul>
+      <% @levels.each do |level| %>
+        <li><%= level.name %> at <%= level.threshold %> points.</li>
+      <% end %>
+    </ul>
+  </p>
+<% end %>
+
 <p>Welcome message: <%= @demo.welcome_message %></p>
 
 <p>Victory achievement message: <%= @demo.victory_achievement_message %></p>

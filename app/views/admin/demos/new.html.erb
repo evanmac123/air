@@ -37,6 +37,15 @@
     <%= link_to 'Add another', '#', :id => 'add-bonus-threshold-row' %>
   <% end %>
 
+  <%= form.inputs :name => "Levels", :id => 'levels' do %>
+    <% @demo.levels.each_with_index do |level, level_index| %>
+      <%= label_tag "demo_levels_#{level_index}_threshold", "Threshold" %>
+      <%= text_field_tag "demo[levels][#{level_index}][threshold]" %>
+      <%= label_tag "demo_levels_#{level_index}_name", "Name" %>
+      <%= text_field_tag "demo[levels][#{level_index}][name]" %>
+      <br/>
+    <% end %>
+  <% end %>
   <%= form.buttons do %>
     <%= form.submit 'Submit', :disable_with => 'Please wait...' %>
   <% end %>
