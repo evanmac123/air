@@ -27,15 +27,15 @@ Feature: Following and follower lists
   Scenario: Follower list
     Then I should see these followers:
       | name    | button_type  |
-      | Colby   | connect      |
-      | Dirk    | unconnect    |
+      | Colby   | be a fan      |
+      | Dirk    | de-fan    |
     And I should not see "Fred"
 
   Scenario: Following list
     Then I should see these people I am following:
       | name    | button_type  |
-      | Bertram | unconnect    |
-      | Dirk    | unconnect    |
+      | Bertram | de-fan    |
+      | Dirk    | de-fan    |
     And I should not see "Evan"
 
   Scenario: Unollowing user from follower list
@@ -43,21 +43,21 @@ Feature: Following and follower lists
     Then I should be on the friends page
     And I should see these people I am following:
       | name    | button_type  |
-      | Bertram | unconnect    |
+      | Bertram | de-fan    |
     And I should see these followers:
       | name    | button_type  |
-      | Colby   | connect      |
-      | Dirk    | connect      |
+      | Colby   | be a fan      |
+      | Dirk    | be a fan      |
 
   Scenario: Following user from following list
-    When I press "Connect"
+    When I press "Be a fan"
     Then I should be on the friends page
     And I should see these people I am following:
       | name    | button_type  |
-      | Bertram | unconnect    |
-      | Colby   | unconnect    |
-      | Dirk    | unconnect    |
+      | Bertram | de-fan    |
+      | Colby   | de-fan    |
+      | Dirk    | de-fan    |
     And I should see these followers:
       | name    | button_type  |
-      | Colby   | unconnect    |
-      | Dirk    | unconnect    |
+      | Colby   | de-fan    |
+      | Dirk    | de-fan    |

@@ -45,7 +45,7 @@ When /^I unfollow "(.*?)"$/ do |username|
   user = User.find_by_name(username)
 
   with_scope "##{dom_id(user)}" do
-    click_button "Unconnect"
+    click_button "De-fan"
   end
 end
 
@@ -71,9 +71,9 @@ Then /^I should( not)? see an? (un)?follow button for "(.*?)"$/ do |sense, unfol
   user = User.find_by_name(user_name)
 
   method, text = if unfollow_expected
-                   ['delete', 'Unconnect']
+                   ['delete', 'De-fan']
                  else
-                   ['post', 'Connect']
+                   ['post', 'Be a fan']
                  end
 
   expect_user_friendship_path_button(user, method, text, sense)

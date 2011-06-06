@@ -12,8 +12,8 @@
 
   <br/>
   <% if button_type == :unfollow %>
-    <%= button_to "Unconnect", user_friendship_path(associate), :method => :delete %>
+    <%= button_to "De-fan", user_friendship_path(associate), :method => :delete %>
   <% else %>
-    <%= button_to "Connect", user_friendship_path(associate) %>
+    <%= button_to "Be a fan", user_friendship_path(associate) %>
   <% end %>
 </li>
