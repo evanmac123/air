@@ -46,6 +46,7 @@ class Admin::DemosController < AdminBaseController
      
       params[:demo][:bonus_thresholds] = bonus_thresholds_params
       params[:demo][:levels] = levels_params
+
       raise e
     end
   end
