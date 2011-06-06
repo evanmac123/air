@@ -669,3 +669,8 @@ fieldset#bonus-thresholds label {
   display: inline; }
 fieldset#bonus-thresholds input {
   width: 50px; }
+
+fieldset#levels label {
+  display: inline; }
+fieldset#levels input {
+  width: 250px; }

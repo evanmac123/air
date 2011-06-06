@@ -975,3 +975,13 @@ fieldset#bonus-thresholds {
     width: 50px;
   }
 }
+
+fieldset#levels {
+  label {
+    display: inline;
+  }
+
+  input {
+    width: 250px;
+  }
+}

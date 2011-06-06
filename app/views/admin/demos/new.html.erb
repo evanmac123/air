@@ -45,6 +45,8 @@
       <%= text_field_tag "demo[levels][#{level_index}][name]" %>
       <br/>
     <% end %>
+
+    <%= link_to 'Add another', '#', :id => 'add-level-row' %>
   <% end %>
   <%= form.buttons do %>
     <%= form.submit 'Submit', :disable_with => 'Please wait...' %>
@@ -54,34 +56,58 @@
 <% content_for :javascript do %>
   <%= javascript_tag do %>
     var nextBonusThresholdIndex = <%= @demo.bonus_thresholds.length %>;
+    var nextLevelIndex = <%= @demo.levels.length %>;
+
+    function humanize(fieldName) {
+      var unUnderscored = fieldName.replace('_', ' ');
+      return unUnderscored[0].toUpperCase() + unUnderscored.substr(1);
+    }
+
+    function addInputRow(fieldObjectPrefix, index, fieldNames, addingAnchor) {
+      fieldIdPrefix = ['demo', '_', fieldObjectPrefix, '_', index, '_'].join('')
+      fieldNamePrefix = ['demo[', fieldObjectPrefix, '][', index, ']['].join('');
+
+      newHTML = $.map(fieldNames, function(fieldName) {
+        return [
+
+          '<label for="', fieldIdPrefix, fieldName, '">', humanize(fieldName), '</label>',
+          '<input type="text" id="', fieldIdPrefix, fieldName, '" name="', fieldNamePrefix, fieldName, ']">'
+        ].join('')
+      }).join('') + "<br/>";
+
+      addingAnchor.before(newHTML);
+    };
+
+    function addBonusThresholdRow(addingAnchor) {
+      addInputRow(
+        'bonus_thresholds', 
+        nextBonusThresholdIndex, 
+        ['min_points', 'max_points', 'award'], 
+        addingAnchor
+      );
+
+      nextBonusThresholdIndex++;  
+    };
+
+    function addLevelRow(addingAnchor) {
+      addInputRow(
+        'levels',
+        nextLevelIndex,
+        ['threshold', 'name'],
+        addingAnchor
+      );
+
+      nextLevelIndex++;
+    };
 
     $('#add-bonus-threshold-row').click(function(e) {
       e.preventDefault();
+      addBonusThresholdRow($(this));
+    });
 
-      fieldIdPrefix = 'demo_bonus_thresholds_' + nextBonusThresholdIndex + '_';
-      fieldNamePrefix = 'demo[bonus_thresholds][' + nextBonusThresholdIndex + '][';
-
-      minPointsFieldId = fieldIdPrefix + 'min_points';
-      minPointsFieldName = fieldNamePrefix + 'min_points' + ']';
-
-      maxPointsFieldId = fieldIdPrefix + 'max_points';
-      maxPointsFieldName = fieldNamePrefix + 'max_points' + ']';
-
-      awardFieldId = fieldIdPrefix + 'award';
-      awardFieldName = fieldNamePrefix + 'award' + ']';
-
-      newHTML = [
-        '<label for="' + minPointsFieldId + '">Min points</label>',
-        '<input type="text" id="' + minPointsFieldId + '" name="' + minPointsFieldName + '">',
-        '<label for="' + maxPointsFieldId + '">Max points</label>',
-        '<input type="text" id="' + maxPointsFieldId + '" name="' + maxPointsFieldName + '">',
-        '<label for="' + awardFieldId + '">Award</label>',
-        '<input type="text" id="' + awardFieldId + '" name="' + awardFieldName + '">',
-        '<br/>'
-      ].join('');
-
-      $(this).before(newHTML);
-      nextBonusThresholdIndex++;
+    $('#add-level-row').click(function(e) {
+      e.preventDefault();
+      addLevelRow($(this));
     });
   <% end %>
 <% end %>
