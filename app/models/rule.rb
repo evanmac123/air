@@ -22,14 +22,27 @@ class Rule < ActiveRecord::Base
   def set_primary_value!(new_value)
     value = self.primary_value || self.rule_values.build(:is_primary => true)
     value.value = new_value
-    value.save!
+    unless value.save 
+      self.errors.add(:base, "Problem with primary value: #{value.errors.full_messages}")
+      return false
+    end
+
+    true
   end
 
   def set_secondary_values!(new_values)
     _new_values = new_values.reject(&:blank?)
     self.secondary_values.where(["value NOT IN (?)", _new_values]).delete_all
     existing_values = self.secondary_values.map(&:value)
-    (_new_values - existing_values).each {|new_value| self.secondary_values.create!(:value => new_value)}
+    (_new_values - existing_values).each do |new_value| 
+      value = self.secondary_values.build(:value => new_value)
+      unless value.save 
+        self.errors.add(:base, "Problem with secondary value #{new_value}: #{value.errors.full_messages}") 
+        return false
+      end
+    end
+
+    true
   end
 
   def update_with_rule_values(new_attributes, primary_value, secondary_values)
@@ -38,9 +51,11 @@ class Rule < ActiveRecord::Base
     Rule.transaction do
       self.save || (return false)
 
-      self.set_primary_value! primary_value
-      self.set_secondary_values! secondary_values
+      self.set_primary_value!(primary_value) || (return false)
+      self.set_secondary_values!(secondary_values) || (return false)
     end
+
+    true
   end
 
   def self.create_with_rule_values(new_attributes, demo_id, primary_value, secondary_values)
