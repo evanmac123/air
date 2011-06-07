@@ -78,16 +78,53 @@ class User < ActiveRecord::Base
     slug
   end
 
+  def short_rankings_page!(options={})
+    more_rankings_prompt = I18n.t('activerecord.models.user.more_rankings_prompt', :default => 'Send MORERANKINGS for more.')
+
+    _ranking_query_offset = !(options[:use_offset] == false) ? ranking_query_offset : nil
+    rankings_strings = self.demo.users.
+                          ranked.
+                          in_canonical_ranking_order.
+                          offset(_ranking_query_offset).
+                          map{|user| "#{user.ranking}. #{user.name} (#{user.points})"}
+
+    if rankings_strings.empty?
+      # back to the top
+      self.ranking_query_offset = 0
+      self.save!
+      return I18n.translate('activerecord.models.user.end_of_rankings', :default => "That's everybody! Send RANKINGS to start over from the top.")
+    end
+
+    while(rankings_strings.map(&:length).sum > 159 - more_rankings_prompt.length)
+      rankings_strings.pop
+    end
+
+    rankings_string = rankings_strings.join("\n")
+    response = rankings_string + "\n" + more_rankings_prompt
+
+    if options[:reset_offset] || self.ranking_query_offset.nil?
+      self.ranking_query_offset = 0
+    end
+    self.ranking_query_offset += rankings_strings.length
+    self.save!
+
+    response
+  end
+
   def self.alphabetical
     order("name asc")
   end
 
-  def self.top(limit)
+  def self.top(limit=10)
     order("points desc").limit(limit)
   end
 
   def self.ranked
     where("phone_number IS NOT NULL AND phone_number != ''")
+  end
+
+  def self.in_canonical_ranking_order
+    order("points DESC, name ASC")
   end
 
   def self.with_ranking_cutoff(cutoff = DEFAULT_RANKING_CUTOFF)

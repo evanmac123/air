@@ -27,6 +27,10 @@ module SpecialCommand
       self.respond_to_survey(user, command_name)
     when 'lastquestion'
       self.remind_last_question(user)
+    when 'rankings'
+      self.send_rankings_page(user, :use_offset => false, :reset_offset => true)
+    when 'morerankings'
+      self.send_rankings_page(user)
     end
   end
 
@@ -101,5 +105,9 @@ module SpecialCommand
     else
       parsing_success_message("You've already answered all of the questions in the survey.")
     end
+  end
+
+  def self.send_rankings_page(user, options={})
+    user.short_rankings_page!(options)
   end
 end

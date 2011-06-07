@@ -6,6 +6,10 @@ Given /^"(.*?)" has the SMS slug "(.*?)"$/ do |username, sms_slug|
   User.find_by_name(username).update_attributes(:sms_slug => sms_slug)
 end
 
+Given /^"(.*?)" has ranking query offset (\d+)$/ do |username, offset|
+  User.find_by_name(username).update_attributes(:ranking_query_offset => offset.to_i)
+end
+
 When /^an admin moves "(.*?)" to the demo "(.*?)"$/ do |username, company_name|
   When "I sign in via the login page"
 
