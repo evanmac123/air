@@ -1,0 +1,9 @@
+<% append_target ||= '#acts' %>
+<% act_partial_path ||= 'acts/act.html' %>
+
+actOffset += <%= acts.length %>;
+var newActContent = '<%= escape_javascript(render :partial => act_partial_path, :collection => acts, :as => :act) %>';
+
+$('<%= append_target %>').append(newActContent);
+$('#see-more-spinner').hide();
+$('#see-more').parents('form.button_to').show();

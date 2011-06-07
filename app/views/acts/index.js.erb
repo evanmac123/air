@@ -1,6 +1,0 @@
-actOffset += <%= @acts.length %>;
-var newActContent = '<%= escape_javascript(render :partial => 'acts/act.html', :collection => @acts) %>';
-
-$('#acts').append(newActContent);
-$('#see-more-spinner').hide();
-$('#see-more').parents('form.button_to').show();

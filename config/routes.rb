@@ -16,6 +16,8 @@ Health::Application.routes.draw do
       :only       => [:create, :edit, :update]
 
     resource :friendship, :only => [:create, :destroy]
+
+    resources :acts, :only => [:index], :controller => "users/acts"
   end
 
   # Override Clearance's sign_up and password routes

@@ -4,8 +4,7 @@ class ActsController < ApplicationController
   def index
     @demo              = current_user.demo
     @demo_user_count   = @demo.users.ranked.count
-    # TODO: the next two lines are ugly, wrote them in a big hurry
-    @acts              = @demo.acts.order('created_at DESC').limit(10)
+    @acts              = @demo.acts.recent(10)
 
     respond_to do |format|
       format.html do 
@@ -15,6 +14,7 @@ class ActsController < ApplicationController
 
       format.js do
         @acts = @acts.offset(params[:offset])
+        render :partial => 'shared/acts', :locals => {:acts => @acts}
       end
     end
   end

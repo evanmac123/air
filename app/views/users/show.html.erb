@@ -4,16 +4,23 @@
   </div>
 
   <ul id="acts">
-    <% @acts.each do |act| %>
-      <li id="<%= dom_id(act) %>" class="small-act">
-        <div class='act-details'>
-          <p>
-            <%= render :partial => 'shared/act_details', :locals => {:act => act} %>
-          </p>
-        </div>
-      </li>
-    <% end %>
+    <%= render :partial => 'users/small_act', :collection => @acts, :as => :act %>
   </ul>
+
+  <%= button_to "See more", "#", :id => 'see-more' %>
+  <%= image_tag 'spinner.gif', :id => 'see-more-spinner' %>
+
+  <% content_for :javascript do %>
+    <%= javascript_tag do %>
+      var actOffset = <%= @acts.length %>;
+
+      $('#see-more').bind('click', function(e) {
+        $('#see-more-spinner').show();
+        $.get('<%= user_acts_path(:user_id => @user.id, :format => :js) %>', {offset: actOffset});
+        e.preventDefault();
+      });
+    <% end %>
+  <% end %>
 </div>
 
 <div id="secondary">
