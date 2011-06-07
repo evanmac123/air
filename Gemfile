@@ -36,6 +36,11 @@ group :development, :test do
   end
 
   gem "factory_girl_rails"
+
+  gem "reek"
+  gem "flay"
+  gem "flog"
+  gem "rcov"
 end
 
 group :test do

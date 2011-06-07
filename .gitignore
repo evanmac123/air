@@ -16,3 +16,4 @@ vendor/bundler_gems
 .sass-cache
 gemset
 db/dumps/*.sql
+coverage.features
