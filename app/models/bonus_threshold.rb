@@ -5,6 +5,7 @@ class BonusThreshold < ActiveRecord::Base
   validates_presence_of :min_points, :max_points, :award, :demo_id
 
   validate :max_points_gte_min_points
+  validate :no_overlap
 
   def points_awarded
     rand(self.max_points) + 1
@@ -15,6 +16,19 @@ class BonusThreshold < ActiveRecord::Base
 
     if self.min_points > self.max_points
       self.errors.add(:min_points, "Max points must be greater than or equal to min points")
+    end
+  end
+
+  def no_overlap
+    {:min_points => min_points, :max_points => max_points}.each do |field_name, points|
+      overlapped = self.class.where(['? BETWEEN min_points AND max_points', points]).where(:demo_id => self.demo_id)
+      unless self.new_record?
+        overlapped = overlapped.where(['id != ?', self.id])
+      end
+
+      if conflicting = overlapped.first
+        self.errors.add(field_name, "of #{points} would overlap with another threshold (#{conflicting.min_points}-#{conflicting.max_points})")
+      end
     end
   end
 

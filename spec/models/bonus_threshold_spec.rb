@@ -18,6 +18,21 @@ describe BonusThreshold do
     min_points_greater.errors[:min_points].should_not be_empty
   end
 
+  it "should validate no overlaps" do
+    demo = Factory :demo
+
+    Factory :bonus_threshold, :min_points => 10, :max_points => 20, :demo => demo
+
+    overlap_from_below = Factory.build(:bonus_threshold, :min_points => 5, :max_points => 10, :demo => demo)
+    overlap_from_above = Factory.build(:bonus_threshold, :min_points => 20, :max_points => 30, :demo => demo)
+
+    overlap_from_below.should_not be_valid
+    overlap_from_above.should_not be_valid
+
+    overlap_from_below.errors[:max_points].should include("of 10 would overlap with another threshold (10-20)")
+    overlap_from_above.errors[:min_points].should include("of 20 would overlap with another threshold (10-20)")
+  end
+
   describe "#award_points?" do
     context "when a user has already passed this threshold" do
       it "should always return false" do
@@ -34,6 +49,7 @@ describe BonusThreshold do
         1.upto(10) do |i|
           bonus_threshold = Factory :bonus_threshold, :min_points => i, :max_points => 20
           bonus_threshold.award_points?(Factory :user, :points => i - 1).should be_false
+          bonus_threshold.destroy
         end
       end
     end
@@ -44,6 +60,7 @@ describe BonusThreshold do
           bonus_threshold = Factory :bonus_threshold, :min_points => 0, :max_points => i
           bonus_threshold.award_points?(Factory :user, :points => i).should be_true
           bonus_threshold.award_points?(Factory :user, :points => i + 1).should be_true
+          bonus_threshold.destroy
         end
       end
     end

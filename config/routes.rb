@@ -52,15 +52,24 @@ Health::Application.routes.draw do
       # TODO: move :edit and :update onto resources :users below
       resources :users, :only => [:edit, :update, :create] 
       resources :rules, :only => [:index, :new, :create]
+
+      resources :bonus_thresholds, :only => [:edit, :update, :destroy], :shallow => true
+      resources :bonus_thresholds, :only => [:new, :create]
+      
+      resources :levels, :only => [:edit, :update, :destroy], :shallow => true
+      resources :levels, :only => [:new, :create]
+
       namespace :rules do
         resource :bulk_load, :only => [:create]
       end
 
       resource :bulk_load, :only => [:new, :create]
     end
+
     resources :users, :only => [] do
       resources :invitations, :only => [:create]
     end
+
     resources :bad_messages, :only => [:index, :update] do
       resources :replies, :only => [:new, :create], :controller => 'bad_message_replies'
     end

@@ -33,10 +33,16 @@ Game
   <p>Bonus thresholds:
     <ul>
       <% @bonus_thresholds.each do |bonus_threshold| %>
-        <li>Between <%= bonus_threshold.min_points %> and <%= bonus_threshold.max_points %> points: <%= bonus_threshold.award %> points awarded</li>
+        <li>
+          Between <%= bonus_threshold.min_points %> and <%= bonus_threshold.max_points %> points: <%= bonus_threshold.award %> points awarded
+          <%= link_to '(edit bonus threshold)', edit_admin_bonus_threshold_path(bonus_threshold) %>
+          <%= button_to 'Delete bonus threshold', admin_bonus_threshold_path(bonus_threshold), :method => :delete, :confirm => "Really delete this bonus threshold (#{bonus_threshold.min_points}-#{bonus_threshold.max_points})?" %>
+        </li>
       <% end %>
     </ul>
 <% end %>
+
+<p><%= link_to 'Add bonus threshold', new_admin_demo_bonus_threshold_path(@demo) %></p>
 
 <% if @levels.empty? %>
   <p>No levels.</p>
@@ -44,11 +50,17 @@ Game
   <p>Levels:
     <ul>
       <% @levels.each do |level| %>
-        <li><%= level.name %> at <%= level.threshold %> points.</li>
+        <li>
+          <%= level.name %> at <%= level.threshold %> points
+          <%= link_to '(edit level)', edit_admin_level_path(level.id) %>
+          <%= button_to 'Delete level', admin_level_path(level), :method => :delete, :confirm => "Really delete this level (#{level.name})?" %>
+        </li>
       <% end %>
     </ul>
   </p>
 <% end %>
+
+<p><%= link_to 'Add level', new_admin_demo_level_path(@demo) %></p>
 
 <p>Welcome message: <%= @demo.welcome_message %></p>
 

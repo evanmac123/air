@@ -1,0 +1,10 @@
+<%= 
+  semantic_form_for @bonus_threshold, 
+    :url => (@bonus_threshold.new_record? ? 
+              admin_demo_bonus_thresholds_path(@demo.id) :
+              admin_bonus_threshold_path(@bonus_threshold)) do |form| %>
+  <%= form.input :min_points %>
+  <%= form.input :max_points %>
+  <%= form.input :award %>
+  <%= form.commit_button %>
+<% end %>

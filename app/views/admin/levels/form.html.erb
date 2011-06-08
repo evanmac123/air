@@ -1,0 +1,10 @@
+<%= 
+  semantic_form_for @level, 
+    :url => (@level.new_record? ? 
+              admin_demo_levels_path(@demo) :
+              admin_level_path(@level.id)
+            ) do |form| %>
+  <%= form.input :name %>
+  <%= form.input :threshold %>
+  <%= form.commit_button %>
+<% end %>
