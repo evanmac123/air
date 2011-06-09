@@ -37,6 +37,14 @@ Feature: Full text rule search
     And I should see "(has automated suggestion)"
     And I should see `System automatically replied: I didn't quite get what you meant. Maybe try (1) "ate banana" or (2) "ate kitten"? Or text S to suggest we add what you sent.`
 
+  Scenario: User can throw in punctuation all damn day and it won't break
+    When "+16175551212" sends SMS "ate baked alaska!"
+    And "+16175551212" sends SMS "worked out (at the gym)."
+    And "+16175551212" sends SMS "ate banana's"
+    And "+16175551212" sends SMS "worked out @ gym"
+    Then "+16175551212" should have received an SMS 'I didn't quite get what you meant. Maybe try (1) "ate banana" or (2) "ate kitten"? Or text S to suggest we add what you sent.'
+    Then "+16175551212" should have received an SMS 'I didn't quite get what you meant. Maybe try (1) "worked out"? Or text S to suggest we add what you sent.'
+
   Scenario: User picks a suggested command
     When "+16175551212" sends SMS "ate baked alaska"
     And "+16175551212" sends SMS "meant 2"
