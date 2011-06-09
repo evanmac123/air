@@ -7,7 +7,7 @@ class Friendship < ActiveRecord::Base
   after_create :create_former_friendship
 
   def send_follow_notification
-    SMS.send(self.friend.phone_number, "#{self.user.name} is now your fan on HEngage.") if self.friend.send_follow_notification_sms
+    SMS.send_message(self.friend.phone_number, "#{self.user.name} is now your fan on HEngage.") if self.friend.send_follow_notification_sms
   end
 
   def record_follow_act

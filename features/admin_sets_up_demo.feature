@@ -13,6 +13,8 @@ Feature: Admin sets up demo
     And I fill in "Victory verification email" with "lucille@example.com"
     And I fill in "Victory verification SMS number" with "415-867-5309"
     And I fill in "Custom welcome message" with "3M will rule you all!"
+    And I fill in "Followup welcome message" with "That's right."
+    And I fill in "Followup welcome message delay (in minutes)" with "30"
     And I fill in "Custom victory achievement message" with "Congratulations as of %{winning_time}!"
     And I fill in "Custom victory SMS" with "You did it with %{points} points!"
     And I fill in "Custom victory scoreboard message" with "is the person!"
@@ -28,6 +30,7 @@ Feature: Admin sets up demo
     And I should see "Victory email to lucille@example.com"
     And I should see "Victory verification SMS to +14158675309"
     And I should see "Welcome message: 3M will rule you all!"
+    And I should see "Followup welcome message: That's right. (send 30 minutes after invitation accepted)"
     And I should see "Victory achievement message: Congratulations as of %{winning_time}!"
     And I should see "Victory SMS: You did it with %{points} points!"
     And I should see "Victory scoreboard message: is the person!"
@@ -52,6 +55,7 @@ Feature: Admin sets up demo
     And I should see "Game goes on indefinitely"
     And I should see "No bonus thresholds"
     And I should see "No levels"
+    And I should see "No followup message"
 
    Scenario: Admin adds user
      Given a demo exists with a company name of "3M"

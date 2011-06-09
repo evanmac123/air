@@ -70,6 +70,14 @@ Game
 
 <p>Victory scoreboard message: <%= @demo.victory_scoreboard_message %></p>
 
+<p>
+  <% if @demo.followup_welcome_message.present? %>
+    Followup welcome message: <%= @demo.followup_welcome_message %> (send <%= @demo.followup_welcome_message_delay %> minutes after invitation accepted)
+  <% else %>
+    No followup message.
+  <% end %>
+</p>
+
 <p class="explanation"><%= translate('.explanation', :default => "Add HR people from %{company} to this demo, then send them an invitation to the demo.", :company => @demo.company_name) %></p>
 
 <a href="#" id="add-new-user">Add new user</a>

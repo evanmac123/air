@@ -17,7 +17,7 @@ class Level < ActiveRecord::Base
       :level_name => self.name
     )
 
-    SMS.send(
+    SMS.send_message(
       user.phone_number,
       sms_text
     )

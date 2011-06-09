@@ -41,7 +41,7 @@ class SurveyPrompt < ActiveRecord::Base
       next_unanswered_question.text
     ].join(' ')
 
-    SMS.send(user.phone_number, text)
+    SMS.send_message(user.phone_number, text)
   end
 
   def interpolated_text(unanswered_questions)

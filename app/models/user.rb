@@ -153,13 +153,11 @@ class User < ActiveRecord::Base
 
     new_password = claim_code_prefix(user)
     user.update_attributes(
-      :phone_number          => from, 
       :password              => new_password,
       :password_confirmation => new_password
     )
 
-    add_joining_to_activity_stream(user)
-    user.demo.welcome_message(user)
+    user.join_game(from)
   end
 
   def invite
@@ -167,10 +165,19 @@ class User < ActiveRecord::Base
     update_attribute(:invited, true)
   end
 
-  def join_game(number)
+  def join_game(number, reply_mode = :string)
     update_attribute(:phone_number, PhoneNumber.normalize(number))
     add_joining_to_activity_stream
-    SMS.send(phone_number, demo.welcome_message(self))
+    schedule_followup_welcome_message
+
+    welcome_message = demo.welcome_message(self)
+
+    case reply_mode
+    when :send
+      SMS.send_message(phone_number, welcome_message)
+    when :string
+      welcome_message
+    end
   end
 
   def gravatar_url(size)
@@ -423,12 +430,12 @@ class User < ActiveRecord::Base
   end
 
   def send_victory_notices
-    SMS.send(
+    SMS.send_message(
       self.phone_number,
       self.demo.victory_sms(self)
     )
 
-    SMS.send(
+    SMS.send_message(
       self.demo.victory_verification_sms_number,
       "#{self.name} (#{self.email}) won with #{self.points} points"
     ) if self.demo.victory_verification_sms_number
@@ -464,6 +471,12 @@ class User < ActiveRecord::Base
       :rule_value                => rule_value.value, 
       :point_and_ranking_summary => referring_user.point_and_ranking_summary
     )
-    SMS.send(referring_user.phone_number, sms_text)
+    SMS.send_message(referring_user.phone_number, sms_text)
+  end
+
+  def schedule_followup_welcome_message
+    return if (message = self.demo.followup_welcome_message).blank?
+
+    SMS.delay(:run_at => Time.now + demo.followup_welcome_message_delay.minutes).send_message(self.phone_number, message)
   end
 end
