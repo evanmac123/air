@@ -44,8 +44,10 @@ module SpecialCommand
 
     return parsing_success_message("You're already following #{user_to_follow.name}.") if user_following.friendships.where(:friend_id => user_to_follow.id).first
 
-    user_following.friendships.create(:friend_id => user_to_follow.id)
-    parsing_success_message("OK, you're now following #{user_to_follow.name}.")
+    return (user_following.befriend(user_to_follow) ?
+              parsing_success_message("OK, you're now following #{user_to_follow.name}.") :
+              nil
+           )
   end
 
   def self.myid(user)

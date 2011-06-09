@@ -55,3 +55,7 @@ Then /^I should see "(.*?)" just once$/ do |text|
   match_second_time = (match_first_time.post_match.match(quoted_text))
   match_second_time.should be_nil
 end
+
+Then /^"(.*?)" should be disabled$/ do |input_text|
+  page.find(:css, "input[value='#{input_text}'][disabled='disabled']").should_not be_nil
+end

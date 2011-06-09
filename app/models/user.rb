@@ -401,6 +401,11 @@ class User < ActiveRecord::Base
     self.demo.surveys.open.first
   end
 
+  def befriend(other)
+    return nil if self.demo.game_over?
+    self.friendships.create(:friend_id => other.id)
+  end
+
   protected
 
   def downcase_email

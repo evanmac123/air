@@ -1,7 +1,7 @@
 class FriendshipsController < ApplicationController
   def create
     @user = User.find_by_slug(params[:user_id])
-    current_user.friendships.create(:friend_id => @user.id)
+    current_user.befriend(@user)
     @user.reload
 
     respond_to do |format|
