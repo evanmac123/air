@@ -3,6 +3,7 @@
   <%= form.input :email %>
   <%= form.input :claim_code %>
   <%= form.commit_button %>
+  <%= form.input :connection_bounty %>
 <% end %>
 
 <%= semantic_form_for @user, :url => admin_demo_user_path(@user.demo, @user) do |form| %>

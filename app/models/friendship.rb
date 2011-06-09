@@ -16,6 +16,10 @@ class Friendship < ActiveRecord::Base
                       possible_points : 
                       nil
 
+    if actual_points
+      actual_points += friend.connection_bounty
+    end
+
     self.user.acts.create(:text => "is now a fan of #{self.friend.name}", :inherent_points => actual_points)
   end
 

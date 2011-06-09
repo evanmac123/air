@@ -13,9 +13,10 @@ Feature: Admin edits users
     When I fill in "Name" with "Bobby"
     And I fill in "Email" with "bobby@bp.com"
     And I fill in "Claim code" with "bp_bobby"
+    And I fill in "Connection bounty" with "7"
     And I press "Update User"
     Then I should be on the admin "British Petroleum" demo page
-    And I should see "Bobby, bobby@bp.com (bp_bobby)"
+    And I should see "Bobby, bobby@bp.com (bp_bobby) (connection bounty: 7 points)"
 
   Scenario: Admin removes claim code
     When I fill in "Claim code" with ""
