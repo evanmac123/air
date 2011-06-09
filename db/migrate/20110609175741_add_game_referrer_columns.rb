@@ -4,6 +4,9 @@ class AddGameReferrerColumns < ActiveRecord::Migration
     add_column :demos, :game_referrer_bonus, :integer
     add_column :users, :accepted_invitation_at, :datetime
     add_column :users, :game_referrer_id, :integer
+
+    User.reset_column_information
+    User.all.each {|u| u.update_attribute(:accepted_invitation_at, Time.now)}
   end
 
   def self.down
