@@ -31,6 +31,8 @@ module SpecialCommand
       self.send_rankings_page(user, :use_offset => false, :reset_offset => true)
     when 'morerankings'
       self.send_rankings_page(user)
+    else
+      self.credit_game_referrer(user, command_name)
     end
   end
 
@@ -109,5 +111,43 @@ module SpecialCommand
 
   def self.send_rankings_page(user, options={})
     user.short_rankings_page!(options)
+  end
+
+  def self.credit_game_referrer(user, referring_user_sms_slug)
+    demo = user.demo
+    return nil unless demo.credit_game_referrer_threshold && demo.game_referrer_bonus
+
+    referral_deadline = user.accepted_invitation_at + demo.credit_game_referrer_threshold.minutes 
+    if Time.now > referral_deadline
+      return I18n.t('special_command.credit_game_referrer.too_late_for_game_referral_sms', :default => 'Sorry, the time when you can credit someone for referring you to the game is over.')
+    end
+
+    if referring_user_sms_slug == user.sms_slug
+      return I18n.t('special_command.credit_game_referrer.cannot_refer_yourself_sms', :default => 'Nice try. But would it be fair to give you points for referring yourself?')
+    end
+
+    referring_user = demo.users.find_by_sms_slug(referring_user_sms_slug)
+    return nil unless referring_user
+
+    if user.game_referrer
+      return I18n.t('special_command.credit_game_referrer.already_referred', :default => "You've already told us that %{referrer_name} referred you to the game.", :referrer_name => user.game_referrer.name)
+    end
+
+    # If we make it here, we finally know it's OK to credit the referring user.
+
+    act_text = I18n.t('special_command.credit_game_referrer.activity_feed_text', :default => "got credit for referring %{referred_name} to the game", :referred_name => user.name)
+    referrer_sms_text = I18n.t('special_command.credit_game_referrer.referrer_sms', :default => "%{referred_name} gave you credit for referring him to the game. Many thanks and %{points} bonus points!", :referred_name => user.name, :points => demo.game_referrer_bonus)
+    referred_sms_text = I18n.t('special_command.credit_game_referrer.referred_sms', :default => "Got it, %{referrer_name} referred you to the game. Thanks for letting us know.", :referrer_name => referring_user.name)
+
+    user.update_attribute(:game_referrer_id, referring_user.id)
+
+    referring_user.acts.create!(
+      :text            => act_text,
+      :inherent_points => demo.game_referrer_bonus
+    )
+
+    SMS.send_message(referring_user.phone_number, referrer_sms_text)
+
+    referred_sms_text
   end
 end

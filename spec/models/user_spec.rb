@@ -517,3 +517,21 @@ describe User, "#credit_referring_user" do
     end
   end
 end
+
+describe "#join_game" do
+  before(:each) do
+    @user = Factory :user
+    Timecop.freeze
+  end
+
+  after(:each) do
+    Timecop.return
+  end
+
+  it "should set the user's accepted_invitation_at timestamp" do
+    @user.accepted_invitation_at.should be_nil
+    @user.join_game '+14158675309'
+    @user.reload.accepted_invitation_at.should == Time.now
+  end
+end
+

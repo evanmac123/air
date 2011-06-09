@@ -78,6 +78,14 @@ Game
   <% end %>
 </p>
 
+<p>
+  <% if @demo.credit_game_referrer_threshold && @demo.game_referrer_bonus %>
+    Bonus for referring another user to the game: <%= @demo.game_referrer_bonus %> points (with a <%= @demo.credit_game_referrer_threshold %> minute threshold)
+  <% else %>
+    No bonus for referring another user to the game.
+  <% end %>
+</p>
+
 <p class="explanation"><%= translate('.explanation', :default => "Add HR people from %{company} to this demo, then send them an invitation to the demo.", :company => @demo.company_name) %></p>
 
 <a href="#" id="add-new-user">Add new user</a>

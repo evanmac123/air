@@ -53,6 +53,12 @@
 
     <%= link_to 'Add another', '#', :id => 'add-level-row' %>
   <% end %>
+
+  <%= form.inputs :name => "Referral Bonus" do %>
+    <%= form.input :game_referrer_bonus, :label => 'Bonus for referring another to the game' %>
+    <%= form.input :credit_game_referrer_threshold, :label => "Threshold to credit user who referred you to the game (in minutes)" %>
+  <% end %>
+
   <%= form.buttons do %>
     <%= form.submit 'Submit', :disable_with => 'Please wait...' %>
   <% end %>

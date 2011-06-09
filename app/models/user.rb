@@ -9,6 +9,7 @@ class User < ActiveRecord::Base
   include Clearance::User
 
   belongs_to :demo
+  belongs_to :game_referrer, :class_name => "User"
   has_many   :acts
   has_many   :friendships
   has_many   :friends, :through => :friendships
@@ -167,6 +168,8 @@ class User < ActiveRecord::Base
 
   def join_game(number, reply_mode = :string)
     update_attribute(:phone_number, PhoneNumber.normalize(number))
+    update_attribute(:accepted_invitation_at, Time.now)
+
     add_joining_to_activity_stream
     schedule_followup_welcome_message
 
