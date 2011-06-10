@@ -1,4 +1,4 @@
-class Admin::LevelsController < ApplicationController
+class Admin::LevelsController < AdminBaseController
   before_filter :find_demo, :only => [:new, :create]
   before_filter :find_level, :only => [:edit, :update, :destroy]
 

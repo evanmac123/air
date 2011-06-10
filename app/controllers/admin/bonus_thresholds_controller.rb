@@ -1,4 +1,4 @@
-class Admin::BonusThresholdsController < ApplicationController
+class Admin::BonusThresholdsController < AdminBaseController
   before_filter :find_demo, :only => [:new, :create]
   before_filter :find_bonus_threshold, :only => [:edit, :update, :destroy]
 

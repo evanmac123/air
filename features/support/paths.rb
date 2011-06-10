@@ -51,6 +51,9 @@ module NavigationHelpers
     when /the admin rules page for the standard rulebook/
       admin_rules_path
 
+    when /the blast SMS page for "(.*?)"/
+      new_admin_demo_blast_sms_path(Demo.find_by_company_name($1))
+
     else
       begin
         page_name =~ /the (.*) page/

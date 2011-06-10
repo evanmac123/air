@@ -9,6 +9,19 @@ When /^I replace "([^"]*)" with "([^"]*)"$/ do |old_value, new_value|
   fill_in text_field['name'], :with => new_value
 end
 
+When /^I set the datetime selector for "(.*?)" to "(.*?)"$/ do |prefix, date_string|
+  year, month, day, time = date_string.split
+  hour, minute = time.split(/:/)
+  _prefix = prefix.gsub(/\s+/, '_')
+  # This isn't great code, but it works, and how much time is it worth 
+  # spending on this?
+  select year, :from => "#{_prefix}[year]"
+  select month, :from => "#{_prefix}[month]"
+  select day, :from => "#{_prefix}[day]"
+  select hour, :from => "#{_prefix}[hour]"
+  select minute, :from => "#{_prefix}[minute]"
+end
+
 Then /^(?:|I )should see `([^`]*)`(?: within "([^"]*)")?$/ do |text, selector|
   with_scope(selector) do
     if page.respond_to? :should

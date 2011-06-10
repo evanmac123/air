@@ -123,6 +123,14 @@ class Demo < ActiveRecord::Base
     order("company_name asc")
   end
 
+  def schedule_blast_sms(text, send_time)
+    delay(:run_at => send_time).send_blast_sms(text)
+  end
+
+  def send_blast_sms(text)
+    users.ranked.each {|user| SMS.delay.send_message(user.phone_number, text)}
+  end
+
   protected
 
   def custom_message_about_user(custom_message_method_name, default_message_key, default_default_message, user = nil, method_chains_for_interpolation = {})
