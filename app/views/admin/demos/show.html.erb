@@ -86,6 +86,13 @@ Game
   <% end %>
 </p>
 
+<p>
+  <% if @demo.points_for_connecting %>
+    Points for connecting to another user: <%= @demo.points_for_connecting %>
+  <% else %>
+    No points for connecting to another user.
+  <% end %>
+</p>
 <p class="explanation"><%= translate('.explanation', :default => "Add HR people from %{company} to this demo, then send them an invitation to the demo.", :company => @demo.company_name) %></p>
 
 <a href="#" id="add-new-user">Add new user</a>

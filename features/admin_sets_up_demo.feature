@@ -26,6 +26,7 @@ Feature: Admin sets up demo
     And I select "00" from "Minute"
     And I fill in "Threshold to credit user who referred you to the game (in minutes)" with "60"
     And I fill in "Bonus for referring another to the game" with "5"
+    And I fill in "Points for connecting to another player" with "10"
     And I press "Submit"
     Then I should be on the admin "3M" demo page
     And I should see "100 points to win"
@@ -41,6 +42,7 @@ Feature: Admin sets up demo
     And I should see "Bonus thresholds: Between 5 and 8 points: 7 points awarded"
     And I should see "Levels: level 1 (N00b) at 10 points"
     And I should see "Bonus for referring another user to the game: 5 points (with a 60 minute threshold)"
+    And I should see "Points for connecting to another user: 10"
 
   Scenario: Correct defaults
     Given I am on the admin page
@@ -60,6 +62,7 @@ Feature: Admin sets up demo
     And I should see "No levels"
     And I should see "No followup message"
     And I should see "No bonus for referring another user to the game"
+    And I should see "No points for connecting to another user"
 
    Scenario: Admin adds user
      Given a demo exists with a company name of "3M"
