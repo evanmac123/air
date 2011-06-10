@@ -6,7 +6,11 @@ class AddGameReferrerColumns < ActiveRecord::Migration
     add_column :users, :game_referrer_id, :integer
 
     User.reset_column_information
-    User.all.each {|u| u.update_attribute(:accepted_invitation_at, Time.now)}
+    User.all.each do |user|
+      next unless user.phone_number.present?
+      user.accepted_invitation_at = Time.now
+      user.save!
+    end
   end
 
   def self.down
