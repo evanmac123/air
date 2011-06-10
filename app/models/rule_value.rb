@@ -4,6 +4,7 @@ class RuleValue < ActiveRecord::Base
 
   validates_presence_of :value, :rule_id
 
+  validate :value_has_more_than_one_character
   validate :at_most_one_primary_rule_value_per_rule
   validate :value_unique_within_demo
 
@@ -30,6 +31,8 @@ class RuleValue < ActiveRecord::Base
 
   def self.with_value_in(value_array)
     # This may be the silliest code I write all year. But it works fine.
+    # TODO: I was seriously sleep-deprived when I wrote this. There's a
+    # saner way to do it.
     mess_of_question_marks = "?," * value_array.length
     where_string = "value IN (#{mess_of_question_marks}"
     where_string[-1] = ')'
@@ -65,11 +68,17 @@ class RuleValue < ActiveRecord::Base
     end
   end
 
+  def value_has_more_than_one_character
+    if self.value.try(:length) == 1
+      self.errors.add(:value, "Can't have a single-character value, those are reserved for other purposes.")
+    end
+  end
+
   def self.find_and_record_rule_suggestion(attempted_value, user)
     matches = self.in_same_demo_as(user).partially_matching_value(attempted_value).limit(3).order('rank DESC, lower(value)')
 
     begin
-      result = "I didn't quite get what you meant. Maybe try #{suggestion_phrase(matches)}? Or text S to suggest we add what you sent."
+      result = "I didn't quite get what you meant. Text #{suggestion_phrase(matches)}, or \"S\" to suggest we add what you sent."
       matches.pop if result.length > 160
     end while (matches.present? && result.length > 160) 
 
@@ -84,13 +93,15 @@ class RuleValue < ActiveRecord::Base
   def self.suggestion_phrase(matches)
     # Why is there no #map_with_index? Srsly.
 
-    match_index = 1
+    alphabet = ('A'..'Z').to_a
+    match_index = 0
     match_strings = matches.map do |match| 
-      substring = "(#{match_index}) \"#{match.value}\""
+      letter = alphabet[match_index]
+      substring = "\"#{letter}\" for \"#{match.value}\""
       match_index += 1
       substring
     end
 
-    match_strings.join(' or ')
+    match_strings.join(', ')
   end
 end

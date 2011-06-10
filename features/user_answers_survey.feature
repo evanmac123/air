@@ -161,12 +161,12 @@ Scenario: User responds to question during the window with a bad value, but ther
 Scenario: User responds to question when the survey is not yet open
   Given time is frozen at "2011-05-01 12:59 UTC"
   And "+14155551212" sends SMS "1"
-  Then "+14155551212" should have received an SMS "Sorry, I don't understand what that means. Text S to suggest we add what you sent."
+  Then "+14155551212" should have received an SMS `Sorry, I don't understand what that means. Text "S" to suggest we add what you sent.`
 
 Scenario: User resonds to a question after the survey is closed
   Given time is frozen at "2011-05-01 21:01 UTC"
   And "+14155551212" sends SMS "1"
-  Then "+14155551212" should have received an SMS "Sorry, I don't understand what that means. Text S to suggest we add what you sent."
+  Then "+14155551212" should have received an SMS `Sorry, I don't understand what that means. Text "S" to suggest we add what you sent.`
 
 Scenario: User responds to last question in the survey
   Given the following survey answers exist:

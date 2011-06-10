@@ -30,52 +30,52 @@ Feature: Full text rule search
   Scenario: User almost gets a command right
     When "+16175551212" sends SMS "ate baked alaska"
     And I go to the bad message log page
-    Then "+16175551212" should have received an SMS 'I didn't quite get what you meant. Maybe try (1) "ate banana" or (2) "ate kitten"? Or text S to suggest we add what you sent.'
+    Then "+16175551212" should have received an SMS 'I didn't quite get what you meant. Text "A" for "ate banana", "B" for "ate kitten", or "S" to suggest we add what you sent.'
     And I should see the following new bad SMS messages:
       | name | phone_number | message_body     | received_at         |
       | Dan  | +16175551212 | ate baked alaska | 2010-05-01 17:00:00 |
     And I should see "(has automated suggestion)"
-    And I should see `System automatically replied: I didn't quite get what you meant. Maybe try (1) "ate banana" or (2) "ate kitten"? Or text S to suggest we add what you sent.`
+    And I should see `System automatically replied: I didn't quite get what you meant. Text "A" for "ate banana", "B" for "ate kitten", or "S" to suggest we add what you sent.`
 
   Scenario: User can throw in punctuation all damn day and it won't break
     When "+16175551212" sends SMS "ate baked alaska!"
     And "+16175551212" sends SMS "worked out (at the gym)."
     And "+16175551212" sends SMS "ate banana's"
     And "+16175551212" sends SMS "worked out @ gym"
-    Then "+16175551212" should have received an SMS 'I didn't quite get what you meant. Maybe try (1) "ate banana" or (2) "ate kitten"? Or text S to suggest we add what you sent.'
-    Then "+16175551212" should have received an SMS 'I didn't quite get what you meant. Maybe try (1) "worked out"? Or text S to suggest we add what you sent.'
+    Then "+16175551212" should have received an SMS 'I didn't quite get what you meant. Text "A" for "ate banana", "B" for "ate kitten", or "S" to suggest we add what you sent.'
+    Then "+16175551212" should have received an SMS 'I didn't quite get what you meant. Text "A" for "worked out", or "S" to suggest we add what you sent.'
 
   Scenario: User picks a suggested command
     When "+16175551212" sends SMS "ate baked alaska"
-    And "+16175551212" sends SMS "meant 2"
+    And "+16175551212" sends SMS "B"
     And I go to the activity page
     Then I should see "Dan ate kitten"
-    And "+16175551212" should have received an SMS 'I didn't quite get what you meant. Maybe try (1) "ate banana" or (2) "ate kitten"? Or text S to suggest we add what you sent.'
+    Then "+16175551212" should have received an SMS 'I didn't quite get what you meant. Text "A" for "ate banana", "B" for "ate kitten", or "S" to suggest we add what you sent.'
     And "+16175551212" should have received an SMS including "Gross."
 
   Scenario: User can pick suggested command via the website
     When I enter the act code "ate baked alaska"
-    And I enter the special command "meant 2"
+    And I enter the special command "B"
     Then I should see the success message "Gross."
 
   Scenario: User can't pick a suggested command twice
     When "+16175551212" sends SMS "ate baked alaska"
-    And "+16175551212" sends SMS "meant 2"
-    And "+16175551212" sends SMS "meant 2"
-    And "+16175551212" should have received an SMS 'I didn't quite get what you meant. Maybe try (1) "ate banana" or (2) "ate kitten"? Or text S to suggest we add what you sent.'
+    And "+16175551212" sends SMS "B"
+    And "+16175551212" sends SMS "B"
+    Then "+16175551212" should have received an SMS 'I didn't quite get what you meant. Text "A" for "ate banana", "B" for "ate kitten", or "S" to suggest we add what you sent.'
     And "+16175551212" should have received an SMS including "Gross."
-    And "+16175551212" should have received an SMS "Sorry, I don't understand what that means. Text S to suggest we add what you sent."    
+    And "+16175551212" should have received an SMS "Sorry, I don't understand what that means. Text "S" to suggest we add what you sent."    
 
   Scenario: User picks a suggested command index out of range
     When "+16175551212" sends SMS "ate baked alaska"
-    And "+16175551212" sends SMS "meant 3"
-    Then "+16175551212" should have received an SMS 'I didn't quite get what you meant. Maybe try (1) "ate banana" or (2) "ate kitten"? Or text S to suggest we add what you sent.'
-    And "+16175551212" should have received an SMS "Sorry, I don't understand what that means. Text S to suggest we add what you sent."    
+    And "+16175551212" sends SMS "C"
+    Then "+16175551212" should have received an SMS 'I didn't quite get what you meant. Text "A" for "ate banana", "B" for "ate kitten", or "S" to suggest we add what you sent.'
+    And "+16175551212" should have received an SMS "Sorry, I don't understand what that means. Text "S" to suggest we add what you sent."    
 
   Scenario: User comes nowhere near a command
     When "+16175551212" sends SMS "fought eighteen bears"
     And I go to the bad message log page
-    Then "+16175551212" should have received an SMS "Sorry, I don't understand what that means. Text S to suggest we add what you sent."    
+    Then "+16175551212" should have received an SMS "Sorry, I don't understand what that means. Text "S" to suggest we add what you sent."    
     And I should see the following new bad SMS messages:
       | name | phone_number | message_body          | received_at         |
       | Dan  | +16175551212 | fought eighteen bears | 2010-05-01 17:00:00 |
@@ -84,7 +84,7 @@ Feature: Full text rule search
 
   Scenario: User doesn't get a suggestion from a different demo
     When "+16175551212" sends SMS "rode unicycle"
-    Then "+16175551212" should have received an SMS "Sorry, I don't understand what that means. Text S to suggest we add what you sent."    
+    Then "+16175551212" should have received an SMS "Sorry, I don't understand what that means. Text "S" to suggest we add what you sent."    
 
   Scenario: User can get a suggestion from a standard playbook rule (belonging to no demo)
     When "+16175551212" sends SMS "made toast"

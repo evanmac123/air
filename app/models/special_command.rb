@@ -21,10 +21,10 @@ module SpecialCommand
       self.moreinfo(user)
     when 's', 'suggest'
       self.suggestion(user, args)
-    when 'meant'
-      self.use_suggested_item(user, args.first)
     when /^\d+$/
       self.respond_to_survey(user, command_name)
+    when /^[a-z]$/
+      self.use_suggested_item(user, command_name)
     when 'lastquestion'
       self.remind_last_question(user)
     when 'rankings'
@@ -76,12 +76,12 @@ module SpecialCommand
     parsing_success_message("Thanks! We'll take your suggestion into consideration.")
   end
 
-  def self.use_suggested_item(user, item_index)
-    chosen_index = item_index.to_i
+  def self.use_suggested_item(user, letter_code)
+    chosen_index = letter_code.ord - 'a'.ord
     suggested_item_indices = user.last_suggested_items.split('|')
-    return nil unless suggested_item_indices.length >= chosen_index
+    return nil unless suggested_item_indices.length > chosen_index
 
-    rule_value = RuleValue.find(suggested_item_indices[chosen_index - 1])
+    rule_value = RuleValue.find(suggested_item_indices[chosen_index])
     parsing_success_message((user.act_on_rule(rule_value.rule, rule_value)).first) # throw away error code in this case
   end
 
