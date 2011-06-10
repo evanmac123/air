@@ -45,7 +45,7 @@ class Rule < ActiveRecord::Base
     true
   end
 
-  def update_with_rule_values(new_attributes, primary_value, secondary_values)
+  def update_with_rule_values(new_attributes, primary_value, secondary_values=[])
     self.attributes = new_attributes
 
     Rule.transaction do

@@ -33,7 +33,7 @@ class Admin::RulesController < AdminBaseController
   end
 
   def update
-    if @rule.update_with_rule_values(params[:rule], @primary_value, @secondary_values.values)
+    if @rule.update_with_rule_values(params[:rule], @primary_value, (@secondary_values.try(:values) || []))
       flash[:success] = 'Rule updated'
     else
       flash[:failure] = "Couldn't update rule: #{@rule.errors.full_messages}"
