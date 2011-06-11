@@ -87,7 +87,7 @@ class Act < ActiveRecord::Base
       if reply = RuleValue.find_and_record_rule_suggestion(value, user)
         record_bad_message(phone_number, body, reply)
       else
-        reply = "Sorry, I don't understand what that means. Text \"S\" to suggest we add what you sent."
+        reply = "Sorry, I don't understand what that means. Text \"s\" to suggest we add what you sent."
         record_bad_message(phone_number, body)
       end
 

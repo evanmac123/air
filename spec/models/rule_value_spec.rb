@@ -91,7 +91,7 @@ describe RuleValue, ".find_and_record_rule_suggestion" do
     end
 
     it "should return an appropriate phrase" do
-      @result.should == "I didn't quite get what you meant. Text \"A\" for \"ate kitten\", or \"S\" to suggest we add what you sent."
+      @result.should == "I didn't quite get what you meant. Text \"a\" for \"ate kitten\", or \"s\" to suggest we add what you sent."
     end
 
     it "should set the user's last suggested rules" do
@@ -105,7 +105,7 @@ describe RuleValue, ".find_and_record_rule_suggestion" do
 
     it "should return an appropriate phrase" do
       @result = RuleValue.send(:find_and_record_rule_suggestion, 'ate raisins', @user)
-      @result.should == "I didn't quite get what you meant. Text \"A\" for \"ate an entire pizza\", \"B\" for \"ate banana\", \"C\" for \"ate kitten\", or \"S\" to suggest we add what you sent."
+      @result.should == "I didn't quite get what you meant. Text \"a\" for \"ate an entire pizza\", \"b\" for \"ate banana\", \"c\" for \"ate kitten\", or \"s\" to suggest we add what you sent."
     end
 
     it "should set the user's last suggested rules" do

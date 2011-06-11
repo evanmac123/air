@@ -78,7 +78,7 @@ class RuleValue < ActiveRecord::Base
     matches = self.in_same_demo_as(user).partially_matching_value(attempted_value).limit(3).order('rank DESC, lower(value)')
 
     begin
-      result = "I didn't quite get what you meant. Text #{suggestion_phrase(matches)}, or \"S\" to suggest we add what you sent."
+      result = "I didn't quite get what you meant. Text #{suggestion_phrase(matches)}, or \"s\" to suggest we add what you sent."
       matches.pop if result.length > 160
     end while (matches.present? && result.length > 160) 
 
@@ -93,7 +93,7 @@ class RuleValue < ActiveRecord::Base
   def self.suggestion_phrase(matches)
     # Why is there no #map_with_index? Srsly.
 
-    alphabet = ('A'..'Z').to_a
+    alphabet = ('a'..'z').to_a
     match_index = 0
     match_strings = matches.map do |match| 
       letter = alphabet[match_index]
