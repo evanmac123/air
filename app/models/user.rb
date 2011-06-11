@@ -406,6 +406,34 @@ class User < ActiveRecord::Base
     self.friendships.create(:friend_id => other.id)
   end
 
+  def follow_message
+    message = I18n.t(
+      "activerecord.models.user.base_follow_message",
+      :default => "OK, you're now following %{followed_user_name}.",
+      :followed_user_name => self.name
+    )
+
+    points_from_demo = self.demo.points_for_connecting
+    return message if points_from_demo.nil?
+
+    if points_from_demo > 0 && self.connection_bounty > 0
+      message += I18n.t(
+        "activerecord.models.follow_message_with_split_bonus",
+        :default => " You've collected %{points_from_demo} bonus points for the connection, plus another %{points_from_user} bonus points.",
+        :points_from_demo => points_from_demo,
+        :points_from_user => self.connection_bounty
+      )
+    elsif (bonus_points = [points_from_demo, self.connection_bounty].max) > 0
+      message += I18n.t(
+        "activerecord.models.follow_message_with_single_bonus",
+        :default => " You've collected %{bonus_points} bonus points for the connection.",
+        :bonus_points => bonus_points
+      )
+    end
+
+    message
+  end
+
   protected
 
   def downcase_email

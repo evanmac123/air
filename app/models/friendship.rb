@@ -11,16 +11,16 @@ class Friendship < ActiveRecord::Base
   end
 
   def record_follow_act
-    possible_points = user.demo.points_for_connecting
-    actual_points = (possible_points && first_time_friendship?(user, friend)) ? 
-                      possible_points : 
-                      nil
+    points_from_demo = user.demo.points_for_connecting
+    points_from_friend = friend.connection_bounty
 
-    if actual_points
-      actual_points += friend.connection_bounty
-    end
+    award = if points_from_demo && first_time_friendship?(user, friend)
+              points_from_demo + points_from_friend
+            else
+              nil
+            end
 
-    self.user.acts.create(:text => "is now a fan of #{self.friend.name}", :inherent_points => actual_points)
+    self.user.acts.create(:text => "is now a fan of #{self.friend.name}", :inherent_points => award)
   end
 
   def create_former_friendship
