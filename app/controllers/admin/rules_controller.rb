@@ -18,10 +18,12 @@ class Admin::RulesController < AdminBaseController
   end
 
   def create
-    if Rule.create_with_rule_values(params[:rule], params[:demo_id], @primary_value, @secondary_values.values)
+    rule = Rule.create_with_rule_values(params[:rule], params[:demo_id], @primary_value, @secondary_values.values)
+
+    if rule.errors.empty?
       flash[:success] = "Rule created."
     else
-      flash[:failure] = "Couldn't create rule: #{@rule.errors.full_messages}"
+      flash[:failure] = "Couldn't create rule: #{rule.errors.full_messages}"
     end
 
     redirect_to rules_index(params[:demo_id])
