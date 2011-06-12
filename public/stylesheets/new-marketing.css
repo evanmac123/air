@@ -1,0 +1,88 @@
+@font-face {
+  font-family: 'Chunk';
+  font-weight: normal;
+  font-style: normal;
+  src: url("http://font.thoughtbot.com/chunk/chunk.otf");
+  src: local("☺"), url("http://font.thoughtbot.com/chunk/chunk.ttf") format("truetype"); }
+
+body {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  background-image: url(/images/new_marketing/background.png); }
+
+#wrapper {
+  width: 1050px;
+  padding-left: 80px;
+  padding-right: 80px; }
+
+#login-form {
+  float: right; }
+  #login-form #login-prompt {
+    color: white;
+    font-size: 12pt; }
+  #login-form input {
+    font-size: 8pt;
+    width: 110px; }
+  #login-form input[type="submit"] {
+    padding-top: 4px;
+    padding-bottom: 4px; }
+
+#header {
+  width: 940px;
+  float: right; }
+  #header #subscribers-arrow {
+    position: relative;
+    top: -50px;
+    left: 570px; }
+  #header #tree-logo {
+    position: relative;
+    left: -155px;
+    top: 20px; }
+
+#main-content {
+  width: 890px;
+  float: right; }
+
+#slideshow {
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  -webkit-box-shadow: 2px 2px 10px 2px #999999;
+  -moz-box-shadow: 2px 2px 10px 2px #999999;
+  box-shadow: 2px 2px 10px 2px #999999;
+  background-color: white;
+  padding: 40px 0 50px 25px; }
+  #slideshow #engagement-header {
+    font-family: 'Chunk';
+    font-size: 28pt;
+    color: #55950d;
+    width: 400px;
+    line-height: 1.2em; }
+  #slideshow #engagement-subheader {
+    font-size: 21pt;
+    color: #2d2d2b;
+    width: 400px;
+    line-height: 0.9em; }
+  #slideshow #tech-they-love {
+    font-size: 14pt;
+    font-family: 'Chunk';
+    color: #6b6b6b;
+    margin-top: 25px;
+    width: 400px; }
+    #slideshow #tech-they-love span {
+      padding-right: 25px; }
+  #slideshow #factoid {
+    height: 25px;
+    margin-top: 15px;
+    color: #22d4a8;
+    font-size: 14pt; }
+    #slideshow #factoid #lead {
+      font-size: 24pt;
+      font-weight: bold; }
+
+#jump-buttons {
+  position: relative;
+  right: -515px;
+  bottom: 50px; }
+  #jump-buttons img {
+    margin-left: 20px;
+    margin-bottom: 0; }

@@ -1,0 +1,49 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>H Engage</title>
+  <%= stylesheet_link_tag :flutie, 'screen', 'new-marketing' %>
+  <%= javascript_include_tag 'jquery' %>
+  <%= csrf_meta_tag %>
+</head>
+<body class="<%= body_class %> new-marketing">
+  <div id="wrapper">
+    <%= form_tag session_path, :id => 'login-form' do %>
+      <span id="login-prompt">Login</span>
+      <%= text_field_tag "session[username]", 'username', :class => 'with-placeholder' %>
+      <%= password_field_tag "session[password]", 'password', :class => 'with-placeholder' %>
+      <%= submit_tag 'log in' %>
+    <% end %>
+
+    <div id="header">
+      <%= image_tag 'new_marketing/subscribers.png', :id => 'subscribers-arrow' %>
+      <%= image_tag 'new_marketing/logo_web.png', :alt => "HEngage Logo", :id => 'tree-logo' %>
+
+      <%= yield :jump_buttons %>
+    </div>
+
+    <div id="main-content">
+      <%= yield %>
+    </div>
+  </div>
+
+  <%= javascript_include_tag 'ga-marketing' %>
+
+  <%= content_for :javascript do %>
+    <%= javascript_tag do %>
+      function removePlaceholder(event) {
+        var field = $(event.target);
+        $(field).removeClass('with-placeholder');
+        $(field).val('');
+      };
+
+      $(document).ready(function() {
+        $('.with-placeholder').focus(removePlaceholder)
+      });
+    <% end %>
+  <% end %>
+
+  <%= yield :javascript %>
+</body>
+</html>

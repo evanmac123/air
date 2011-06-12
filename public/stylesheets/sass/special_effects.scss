@@ -1,0 +1,45 @@
+@mixin rounded-corners($radius: 1em) {
+  -webkit-border-radius: $radius;
+  -moz-border-radius: $radius;
+  border-radius: $radius;
+}
+
+@mixin rounded-corner-topleft($radius: 1em) {
+  -webkit-border-top-left-radius: $radius;
+  -moz-border-radius-topleft: $radius;
+  border-radius-topleft: $radius;
+}
+
+@mixin rounded-corner-topright($radius: 1em) {
+  -webkit-border-top-right-radius: $radius;
+  -moz-border-radius-topright: $radius;
+  border-radius-topright: $radius;
+}
+
+@mixin rounded-corner-bottomleft($radius: 1em) {
+  -webkit-border-bottom-left-radius: $radius;
+  -moz-border-radius-bottomleft: $radius;
+  border-radius-bottomleft: $radius;
+}
+
+@mixin rounded-corner-bottomright($radius: 1em) {
+  -webkit-border-bottom-right-radius: $radius;
+  -moz-border-radius-bottomright: $radius;
+  border-radius-bottomright: $radius;
+}
+
+@mixin box-shadow ($x: 5px, $y: 5px, $blur: 5px, $spread: 5px, $color: $dark-gray) {
+  -webkit-box-shadow: $x $y $blur $spread $color;
+  -moz-box-shadow: $x $y $blur $spread $color;
+  box-shadow: $x $y $blur $spread $color;
+}
+
+@mixin background-gradient($startColor, $endColor, $fallbackColor) {
+  background: $fallbackColor; /* for non-css3 browsers */
+
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$startColor', endColorstr='$endColor'); /* for IE */
+  background: -webkit-gradient(linear, left top, left bottom, from($startColor), to($endColor)); /* for webkit browsers */
+  background: -moz-linear-gradient(top,  $startColor,  $endColor); /* for firefox 3.6+ */ 
+}
+
+
