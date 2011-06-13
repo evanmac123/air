@@ -43,6 +43,8 @@ Health::Application.routes.draw do
 
   resource :friends, :only => [:show]
 
+  resources :email_info_requests, :only => [:create]
+
   namespace :admin do
     resources :rules, :only => [:index, :new, :create, :edit, :update]
 

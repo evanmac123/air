@@ -1,0 +1,2 @@
+module EmailInfoRequestsHelper
+end
