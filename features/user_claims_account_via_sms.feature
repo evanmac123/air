@@ -97,7 +97,7 @@ Feature: User claims account via SMS
     And "+14152613077" sends SMS "peter@darnowsky.com"
     Then "Paul Darnowsky" should not be claimed
     And "Peter Darnowsky" should not be claimed
-    And "+14152613077" should have received an SMS "You've already claimed your account, and currently have 0 points."
+    And "+14152613077" should have received an SMS "You've already claimed ur account, and have 0 pts. If you're trying to credit another user, ask them to check their unique ID with the MYID command."
 
   Scenario: If user claims twice, they get a helpful error message
     Given the following demo exists:
@@ -110,7 +110,7 @@ Feature: User claims account via SMS
     When "+14152613077" sends SMS "pdarnowsky"
     And "+14152613077" sends SMS "pdarnowsky"
     Then "+14152613077" should have received an SMS "You've joined the W00t! game! Your unique ID is pdarnowsky99 (text MYID if you forget). To play, text to this #."
-    And "+14152613077" should have received an SMS "You've already claimed your account, and currently have 5 points."
+    And "+14152613077" should have received an SMS "You've already claimed ur account, and have 5 pts. If you're trying to credit another user, ask them to check their unique ID with the MYID command."
 
   Scenario: Some variability allowed in how users send their claim codes
     Given the following users exist:

@@ -145,7 +145,11 @@ class User < ActiveRecord::Base
     return nil unless user
 
     if (existing_user = User.find_by_phone_number(from))
-      return "You've already claimed your account, and currently have #{existing_user.points} points."
+      return I18n.t(
+        'activerecord.models.user.claim_account.already_claimed_sms',
+        :default => "You've already claimed ur account, and have %{current_points} pts. If you're trying to credit another user, ask them to check their unique ID with the MYID command.",
+        :current_points => existing_user.points
+      )
     end
 
     new_password = claim_code_prefix(user)
