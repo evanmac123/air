@@ -1,5 +1,6 @@
 $white: #fff;
 $gray: #eee;
+$medium-gray: #aaa;
 $green: #7fbf4d;
 $dark-green: #63a62f;
 
@@ -164,5 +165,10 @@ button.cupid-green:active {
 
   #thanks-message {
     display: none;
+  }
+
+  .with-placeholder {
+    color: $medium-gray;
+    width: 270px;
   }
 }

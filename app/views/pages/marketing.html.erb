@@ -9,8 +9,7 @@
     <h3><%= t('.why-h3', :default => "They're too busy playing games and using social media on their mobile phones.") %></h3>
     <p><%= t('.why-p', :default => "H Engage transforms your existing wellness communications programs into a memorable, game-like, social experience that rewards employees for engagement.") %></p>
     <%= form_tag '#', :id => 'email-info-request' do %>
-      <%= label_tag 'email', 'Enter email address' %>
-      <%= text_field_tag 'email' %>
+      <%= text_field_tag 'email', 'enter email address', :class => 'with-placeholder' %>
       <%= submit_tag 'Request more info' %>
       <%= image_tag 'spinner.gif', :id => 'spinner' %>
       <span id="thanks-message">Thanks, got it!</span>
@@ -18,6 +17,10 @@
 
     <%= javascript_tag do %>
       $(document).ready(function() {
+        $('.with-placeholder').focus(function(e) {
+          $(this).removeClass('with-placeholder').val('');
+        });
+
         $('#email-info-request').submit(function(e) {
           e.preventDefault();
 
