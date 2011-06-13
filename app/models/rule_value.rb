@@ -78,7 +78,11 @@ class RuleValue < ActiveRecord::Base
     matches = self.in_same_demo_as(user).partially_matching_value(attempted_value).limit(3).order('rank DESC, lower(value)')
 
     begin
-      result = "I didn't quite get what you meant. Text #{suggestion_phrase(matches)}, or \"s\" to suggest we add what you sent."
+      result = I18n.t(
+        'activerecord.models.rule_value.suggestion_sms',
+        :default => "I didn't quite get that. Text %{suggestion_phrase}, or \"s\" to suggest we add what you sent.",
+        :suggestion_phrase => suggestion_phrase(matches)
+      )
       matches.pop if result.length > 160
     end while (matches.present? && result.length > 160) 
 
