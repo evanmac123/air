@@ -5,7 +5,7 @@
       <%= link_to user do %>
         <span class="name"><%= user.name %></span>
         <% if user.won_at %>
-          <span class="other-user-winning-time"><%= current_user.demo.victory_scoreboard_message(user) %></span>
+          <span class="other-user-winning-time"><%= user.demo.victory_scoreboard_message(user) %></span>
         <% end %>
       <% end %>
       <span class="score">
