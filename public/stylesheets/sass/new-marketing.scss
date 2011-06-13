@@ -56,9 +56,21 @@ body {
   }
 }
 
+#jump-buttons {
+  position: relative;
+  right: -515px;
+  bottom: 50px;
+
+  img {
+    margin-left: 20px;
+    margin-bottom: 0;
+  }
+}
+
 #main-content {
   width: 890px;
   float: right;
+  margin-bottom: 100px;
 }
 
 $slideshow-left-half-width: 400px;
@@ -109,13 +121,138 @@ $slideshow-left-half-width: 400px;
   }
 }
 
-#jump-buttons {
-  position: relative;
-  right: -515px;
-  bottom: 50px;
+#secondary-boxes-and-sidebar {
+  width: 100%;
+}
 
-  img {
-    margin-left: 20px;
+$secondary-box-background: #f2f4f3;
+$secondary-box-width: 640px;
+
+.secondary-box {
+  @include box-shadow(2px, 0, 0, 0, $light-gray);
+  background: $secondary-box-background;
+  width: 540px;
+  padding: 0 50px 10px 50px;
+  margin-top: 6px;
+
+  color: $dark-gray;
+  font-size: 12pt;
+  line-height: 15pt;
+
+  .banner {
+    position: relative;
+    left: -47px;
+  }
+
+  .engagement-point {
+    margin-bottom: 40px;
+  }
+
+  .numeral {
+    position: relative;
+    left: -26px;
     margin-bottom: 0;
   }
+
+  h1 {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-style: italic;
+    display: inline;
+    position: relative;
+    left: -28px;
+    top: -4px;
+  }
+
+  .engagement-images {
+    padding-left: 30px;
+    padding-right: 70px;
+    margin-top: 30px;
+
+    img {
+      margin-bottom: 0;
+    }
+
+    img.singular {
+      width: 100%;
+    }
+
+    img.double {
+      width: 207px;
+      height: 72px;
+    }
+
+    img.double:first-child {
+      margin-right: 20px;
+    }
+
+    img.triple {
+      width: 127px;
+      height: 72px;
+    }
+
+    $triple-image-margin: 23px;
+    img.triple:first-child {
+      margin-right: $triple-image-margin;
+    }
+
+    img.triple:last-child {
+      margin-left: $triple-image-margin;
+    }
+  }
+
+  .small-bullet {
+    position: relative;
+    left: 582px;
+    top: -25px;
+    img { margin: 0; }
+  }
+}
+
+#sidebar {
+  float: right;
+  width: 230px;
+  padding-top: 50px;
+}
+
+#page-footer {
+  clear: both;
+  text-align: center;
+  color: white;
+  background-color: #9bbd66;
+}
+
+#about-us {
+  padding-bottom: 18px;
+  line-height: 1.4em;
+
+  p {
+    margin-bottom: 32px;
+  }
+}
+
+#blog {
+  .post {
+    width: 45%;
+
+    line-height: 20pt;
+
+    h2 a {
+      font-size: 18pt;
+      line-height: 15pt;
+      color: $dark-gray;
+      margin-left: 0;
+    }
+  }
+
+  #first-post {
+    float: left;
+  }
+
+  #second-post {
+    float: right;
+  }
+}
+
+.clearfix {
+  clear: both;
 }

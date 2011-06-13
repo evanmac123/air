@@ -38,9 +38,18 @@ body {
     left: -155px;
     top: 20px; }
 
+#jump-buttons {
+  position: relative;
+  right: -515px;
+  bottom: 50px; }
+  #jump-buttons img {
+    margin-left: 20px;
+    margin-bottom: 0; }
+
 #main-content {
   width: 890px;
-  float: right; }
+  float: right;
+  margin-bottom: 100px; }
 
 #slideshow {
   -webkit-border-radius: 4px;
@@ -79,10 +88,92 @@ body {
       font-size: 24pt;
       font-weight: bold; }
 
-#jump-buttons {
-  position: relative;
-  right: -515px;
-  bottom: 50px; }
-  #jump-buttons img {
-    margin-left: 20px;
+#secondary-boxes-and-sidebar {
+  width: 100%; }
+
+.secondary-box {
+  -webkit-box-shadow: 2px 0 0 0 #999999;
+  -moz-box-shadow: 2px 0 0 0 #999999;
+  box-shadow: 2px 0 0 0 #999999;
+  background: #f2f4f3;
+  width: 540px;
+  padding: 0 50px 10px 50px;
+  margin-top: 6px;
+  color: #2d2d2b;
+  font-size: 12pt;
+  line-height: 15pt; }
+  .secondary-box .banner {
+    position: relative;
+    left: -47px; }
+  .secondary-box .engagement-point {
+    margin-bottom: 40px; }
+  .secondary-box .numeral {
+    position: relative;
+    left: -26px;
     margin-bottom: 0; }
+  .secondary-box h1 {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-style: italic;
+    display: inline;
+    position: relative;
+    left: -28px;
+    top: -4px; }
+  .secondary-box .engagement-images {
+    padding-left: 30px;
+    padding-right: 70px;
+    margin-top: 30px; }
+    .secondary-box .engagement-images img {
+      margin-bottom: 0; }
+    .secondary-box .engagement-images img.singular {
+      width: 100%; }
+    .secondary-box .engagement-images img.double {
+      width: 207px;
+      height: 72px; }
+    .secondary-box .engagement-images img.double:first-child {
+      margin-right: 20px; }
+    .secondary-box .engagement-images img.triple {
+      width: 127px;
+      height: 72px; }
+    .secondary-box .engagement-images img.triple:first-child {
+      margin-right: 23px; }
+    .secondary-box .engagement-images img.triple:last-child {
+      margin-left: 23px; }
+  .secondary-box .small-bullet {
+    position: relative;
+    left: 582px;
+    top: -25px; }
+    .secondary-box .small-bullet img {
+      margin: 0; }
+
+#sidebar {
+  float: right;
+  width: 230px;
+  padding-top: 50px; }
+
+#page-footer {
+  clear: both;
+  text-align: center;
+  color: white;
+  background-color: #9bbd66; }
+
+#about-us {
+  padding-bottom: 18px;
+  line-height: 1.4em; }
+  #about-us p {
+    margin-bottom: 32px; }
+
+#blog .post {
+  width: 45%;
+  line-height: 20pt; }
+  #blog .post h2 a {
+    font-size: 18pt;
+    line-height: 15pt;
+    color: #2d2d2b;
+    margin-left: 0; }
+#blog #first-post {
+  float: left; }
+#blog #second-post {
+  float: right; }
+
+.clearfix {
+  clear: both; }

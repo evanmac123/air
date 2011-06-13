@@ -17,5 +17,54 @@
   <div id="factoid">
     <span id="lead">70.5%</span> of Internet users are on Facebook.
   </div>
+</div>
+
+<div id="secondary-boxes-and-sidebar">
+  <div id="sidebar">
+    <h1>Sidebar!</h1>
+  </div>
+
+  <%# We really shouldn't render this via a partial (until we get around to
+  page caching, which on Heroku involves Memcache, etc.). But this is 
+  disabled for now, and so rather than comment out a bunch of HTML here, I
+  just extracted it to a partial and commented out the render :partial, 
+    leaving it here as a placeholder for when we do restore this content. %>
+  <%# render :partial => 'how_we_engage' %>
+
+  <div id="about-us" class="secondary-box">
+    <%= image_tag 'new_marketing/banner_2.png', :alt => 'About us', :class => 'banner' %>
+    <p>
+    For the past five years Vlad Gyster, H Engage's Founder and CEO, has consulted for Fortune 1000 companies. He has seen employers invest billions of dollars per year in wellness programs intended to encourage employees to adopt healthier behaviors. The problem? The money is being wasted because employee's don't use them.
+    </p>
+    <p>
+    Typical wellness programs simply aren't engaging. They depend on outdated communication mediums such as telephone coaching, newsletters, and static web portals. Meanwhile, employees are spending more time than ever on social media, online games, and text messaging on their mobile phones.
+    </p>
+    <p>
+    Vlad's clients were enthusiastic about trying new communication channels to engage employees in their health. The problem was that vendors that could help simply didn't exist. Vlad created H Engage to be the solution that he and his clients wished they could have.
+    </p>
+  </div>
+
+  <div id="blog" class="secondary-box">
+    <%= image_tag 'new_marketing/banner_3.png', :alt => 'Blog', :class => 'banner' %>
+    <div id="first-post" class="post">
+      <h2><%= link_to "I'm launching a wellness technology company.", "http://hengage.tumblr.com/post/3189002528/im-launching-a-wellness-technology-company" %></h2>
+      <p>Everyone has a place where their mind drifts and they do their best thinking.  For me, it seems to be the shower. Over the past 4.5 years, more often than not, it’s been my work on social media at Towers Watson that got me yelled at for using too much water.</p>
+
+      <p>Then, something changed. My mind started drifting to a related, but different topic: “How could social media and games be used to help people get healthier?”</p>
+      <%= link_to image_tag("new_marketing/read_more.png", :alt => "Read more"), "http://hengage.tumblr.com/post/3189002528/im-launching-a-wellness-technology-company" %>
+    </div>
+
+    <div id="second-post" class="post">
+      <h2><%= link_to "H Engage launch @ the Conference Board", "http://hengage.tumblr.com/post/3970866166/h-engage-launch-the-conference-board" %></h2>
+
+      <p>I’m excited to announce that on March 3rd H Engage officially launched at the Conference Board Employee Health Care Conference in New York City!</p> 
+
+      <p>We were invited to the Conference Board by Towers Watson, which wanted to provide an experiential opportunity for conference attendees to learn about new ways to engage employees in their health.</p>
+
+      <p>As an alum, it makes me proud that Towers Watson would take on the extra effort to introduce a company like H Engage. For me, it reinforces Towers Watson as the type of place that implements innovation, rather than just talking about it.</p>
+      <%= link_to image_tag("new_marketing/read_more.png", :alt => "Read more"), "http://hengage.tumblr.com/post/3970866166/h-engage-launch-the-conference-board" %>
+    </div>
+
+    <div class="clearfix"></div>
   </div>
 </div>
