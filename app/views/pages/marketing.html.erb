@@ -6,7 +6,9 @@
     <h2><%= t('.why-h2', :default => "Employees aren't paying attention to wellness programs.") %></h2>
     <h3><%= t('.why-h3', :default => "They're too busy playing games and using social media on their mobile phones.") %></h3>
     <p><%= t('.why-p', :default => "H Engage transforms your existing wellness communications programs into a memorable, game-like, social experience that rewards employees for engagement.") %></p>
-    <p><%= mail_to "info@hengage.com", "Email us", :encode => "hex" %> for more information.</p>
+    <p><%= t('.email-comeon', :default => "Learn more: sign up for our mailing list.") %></p>
+    <%= render :partial => 'mailchimp_form' %>
+    <!--<p><%= mail_to "info@hengage.com", "Email us", :encode => "hex" %> for more information.</p>-->
   </div>
 </div>
 <!--
