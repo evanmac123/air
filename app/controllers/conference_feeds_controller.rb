@@ -4,7 +4,7 @@ class ConferenceFeedsController < ApplicationController
 
   def show
     # TODO: I shouldn't have to tell you what's wrong with this next line.
-    @demo  = Demo.where(:company_name => 'Healthbuzz').first
+    @demo  = Demo.where(:company_name => 'IABC Game').first
     @users = @demo.users.ranked.order('ranking ASC')
     @acts  = @demo.acts.order('created_at DESC').limit(20).includes(:user, :rule)
   end
