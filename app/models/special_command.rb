@@ -118,17 +118,17 @@ module SpecialCommand
     demo = user.demo
     return nil unless demo.credit_game_referrer_threshold && demo.game_referrer_bonus
 
+    referring_user = demo.users.find_by_sms_slug(referring_user_sms_slug)
+    return nil unless referring_user
+
+    if referring_user == user
+      return I18n.t('special_command.credit_game_referrer.cannot_refer_yourself_sms', :default => 'Nice try. But would it be fair to give you points for referring yourself?')
+    end
+
     referral_deadline = user.accepted_invitation_at + demo.credit_game_referrer_threshold.minutes 
     if Time.now > referral_deadline
       return I18n.t('special_command.credit_game_referrer.too_late_for_game_referral_sms', :default => 'Sorry, the time when you can credit someone for referring you to the game is over.')
     end
-
-    if referring_user_sms_slug == user.sms_slug
-      return I18n.t('special_command.credit_game_referrer.cannot_refer_yourself_sms', :default => 'Nice try. But would it be fair to give you points for referring yourself?')
-    end
-
-    referring_user = demo.users.find_by_sms_slug(referring_user_sms_slug)
-    return nil unless referring_user
 
     if user.game_referrer
       return I18n.t('special_command.credit_game_referrer.already_referred', :default => "You've already told us that %{referrer_name} referred you to the game.", :referrer_name => user.game_referrer.name)

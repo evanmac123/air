@@ -9,6 +9,12 @@ Feature: User can credit another user who got them into the game
       | Phil | +14155551212 | 2011-05-01 12:00 EST   | company_name: FooCorp |
       | Vlad | +16175551212 | 2011-05-01 11:59 EST   | company_name: FooCorp |
       | Dan  | +18085551212 | 2011-05-01 12:00 EST   | company_name: FooCorp |
+    And the following rule exists:
+      | reply  | points | demo                  |
+      | kitten | 5      | company_name: FooCorp |
+    And the following primary value exists:
+      | value      | rule          |
+      | ate kitten | reply: kitten |
     And time is frozen at "2011-05-01 13:00 EST"
     And "Dan" has the password "foo"
     And "Dan" has the SMS slug "dcroak"
@@ -64,3 +70,20 @@ Feature: User can credit another user who got them into the game
     Then I should see "Kristina 0 points"
     And "+13055551212" should have received an SMS including "Sorry, I don't understand what that means"
     And "+14105551212" should not have received an SMS including "Kelli gave you credit"
+
+  Scenario: User sends valid rule during their credit period
+    Given "+14155551212" sends SMS "ate kitten"
+    Then "+14155551212" should have received an SMS including "kitten"
+
+  Scenario: User sends valid rule after their credit period
+    Given "+16175551212" sends SMS "ate kitten"
+    Then "+16175551212" should have received an SMS including "kitten"
+
+  Scenario: User sends invalid rule during their credit period
+    Given "+14155551212" sends SMS "ate pizza"
+    Then "+14155551212" should have received an SMS including "ate kitten"
+
+  Scenario: User sends invalid rule after their credit period
+    Given "+16175551212" sends SMS "ate pizza"
+    Then "+16175551212" should have received an SMS including "ate kitten"
+
