@@ -79,57 +79,26 @@ $slideshow-left-half-width: 400px;
   @include rounded-corners(4px);
   @include box-shadow(2px, 2px, 10px, 2px, $light-gray);
   background-color: white;
-  padding: 40px 0 50px 25px;
 
-  #engagement-header {
-    font-family: 'Chunk';
-    font-size: 28pt;
-    color: $green;
-    width: $slideshow-left-half-width;
-    line-height: 1.2em;
-  }
-
-  #engagement-subheader {
-    font-size: 21pt;
-    color: $dark-gray;
-    width: $slideshow-left-half-width;
-    line-height: 0.9em;
-  }
-
-  #tech-they-love {
-    font-size: 14pt;
-    font-family: 'Chunk';
-    color: #6b6b6b;
-    margin-top: 25px;
-    width: $slideshow-left-half-width;
-
-    span {
-      padding-right: 25px;
-    }
-  }
-
-  #factoid {
-    height: 25px;
-    margin-top: 15px;
-    color: $aqua;
-    font-size: 14pt;
-
-    #lead {
-      font-size: 24pt;
-      font-weight: bold;
-    }
-  }
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 2px;
+  width: 100%;
 }
 
 #secondary-boxes-and-sidebar {
   width: 100%;
 }
 
+#secondary-boxes {
+  width: 640px;
+  @include box-shadow(2px, 0, 0, 0, $light-gray);
+}
+
 $secondary-box-background: #f2f4f3;
 $secondary-box-width: 640px;
 
 .secondary-box {
-  @include box-shadow(2px, 0, 0, 0, $light-gray);
   background: $secondary-box-background;
   width: 540px;
   padding: 0 50px 10px 50px;
@@ -211,7 +180,7 @@ $secondary-box-width: 640px;
 #sidebar {
   float: right;
   width: 230px;
-  padding-top: 50px;
+  padding-left: 20px;
 }
 
 #page-footer {
@@ -222,6 +191,7 @@ $secondary-box-width: 640px;
 }
 
 #about-us {
+  margin-top: 50px;
   padding-bottom: 18px;
   line-height: 1.4em;
 
@@ -255,4 +225,32 @@ $secondary-box-width: 640px;
 
 .clearfix {
   clear: both;
+}
+
+#email-form {
+  #email-box {
+    padding-top: 30px;
+    padding-left: 12px;
+    padding-bottom: 35px;
+
+    h2 {
+      margin-top: 0;
+      font-family: 'Chunk';
+      font-size: 24pt;
+      font-weight: normal;
+    }
+
+    background-color: #c2cdbd;
+
+    input {
+      width: 190px;
+      margin-bottom: 5px;
+    }
+  }
+
+  input[type="submit"] {
+    margin-top: 20px;
+    margin-left: 69px;
+    width: 92px;
+  }
 }

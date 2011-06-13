@@ -59,42 +59,21 @@ body {
   -moz-box-shadow: 2px 2px 10px 2px #999999;
   box-shadow: 2px 2px 10px 2px #999999;
   background-color: white;
-  padding: 40px 0 50px 25px; }
-  #slideshow #engagement-header {
-    font-family: 'Chunk';
-    font-size: 28pt;
-    color: #55950d;
-    width: 400px;
-    line-height: 1.2em; }
-  #slideshow #engagement-subheader {
-    font-size: 21pt;
-    color: #2d2d2b;
-    width: 400px;
-    line-height: 0.9em; }
-  #slideshow #tech-they-love {
-    font-size: 14pt;
-    font-family: 'Chunk';
-    color: #6b6b6b;
-    margin-top: 25px;
-    width: 400px; }
-    #slideshow #tech-they-love span {
-      padding-right: 25px; }
-  #slideshow #factoid {
-    height: 25px;
-    margin-top: 15px;
-    color: #22d4a8;
-    font-size: 14pt; }
-    #slideshow #factoid #lead {
-      font-size: 24pt;
-      font-weight: bold; }
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 2px;
+  width: 100%; }
 
 #secondary-boxes-and-sidebar {
   width: 100%; }
 
-.secondary-box {
+#secondary-boxes {
+  width: 640px;
   -webkit-box-shadow: 2px 0 0 0 #999999;
   -moz-box-shadow: 2px 0 0 0 #999999;
-  box-shadow: 2px 0 0 0 #999999;
+  box-shadow: 2px 0 0 0 #999999; }
+
+.secondary-box {
   background: #f2f4f3;
   width: 540px;
   padding: 0 50px 10px 50px;
@@ -148,7 +127,7 @@ body {
 #sidebar {
   float: right;
   width: 230px;
-  padding-top: 50px; }
+  padding-left: 20px; }
 
 #page-footer {
   clear: both;
@@ -157,6 +136,7 @@ body {
   background-color: #9bbd66; }
 
 #about-us {
+  margin-top: 50px;
   padding-bottom: 18px;
   line-height: 1.4em; }
   #about-us p {
@@ -177,3 +157,21 @@ body {
 
 .clearfix {
   clear: both; }
+
+#email-form #email-box {
+  padding-top: 30px;
+  padding-left: 12px;
+  padding-bottom: 35px;
+  background-color: #c2cdbd; }
+  #email-form #email-box h2 {
+    margin-top: 0;
+    font-family: 'Chunk';
+    font-size: 24pt;
+    font-weight: normal; }
+  #email-form #email-box input {
+    width: 190px;
+    margin-bottom: 5px; }
+#email-form input[type="submit"] {
+  margin-top: 20px;
+  margin-left: 69px;
+  width: 92px; }
