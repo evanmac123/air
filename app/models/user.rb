@@ -137,14 +137,10 @@ class User < ActiveRecord::Base
     users = User.find(:all, :conditions => ["claim_code ILIKE ?", normalized_claim_code])
 
     if users.count > 1
-      return "We found multiple people with your first initial and last name. Please try sending us your e-mail address instead."
+      return "There's more than one person with that code. Please try sending us your first name along with the code (for example: John Smith enters \"john jsmith\")."
     end
 
-    user = users.first 
-    unless user
-      normalized_email = claim_code.gsub(/\s+/, '')
-      user = User.find(:first, :conditions => ["email ILIKE ? AND claim_code != ''", normalized_email])
-    end
+    user = users.first || User.claimable_by_email_address(claim_code) || User.claimable_by_first_name_and_claim_code(claim_code)
 
     return nil unless user
 
@@ -438,6 +434,18 @@ class User < ActiveRecord::Base
 
   def downcase_email
     self.email = email.to_s.downcase
+  end
+
+  def self.claimable_by_email_address(claim_string)
+    normalized_email = claim_string.gsub(/\s+/, '')
+    User.find(:first, :conditions => ["email ILIKE ? AND claim_code != ''", normalized_email])
+  end
+
+  def self.claimable_by_first_name_and_claim_code(claim_string)
+    normalized_claim_string = claim_string.downcase.gsub(/\s+/, ' ').strip
+    first_name, claim_code = normalized_claim_string.split
+    return nil unless (first_name && claim_code)
+    User.where(["name ILIKE ? AND claim_code = ?", first_name + '%', claim_code]).first
   end
 
   private

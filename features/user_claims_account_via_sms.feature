@@ -76,7 +76,16 @@ Feature: User claims account via SMS
     When "+14155551212" sends SMS "jsmith"
     Then "John Smith" should not be claimed
     And "Jack Smith" should not be claimed
-    And "+14155551212" should have received an SMS "We found multiple people with your first initial and last name. Please try sending us your e-mail address instead."
+    And "+14155551212" should have received an SMS 'There's more than one person with that code. Please try sending us your first name along with the code (for example: John Smith enters "john jsmith").'
+
+  Scenario: User claims ambiguous code with their first name
+    Given the following users exist:
+      | name       | claim code |
+      | John Smith | jsmith     |
+      | Jack Smith | jsmith     |
+    When "+14155551212" sends SMS "john jsmith"
+    And I sign in via the login page as "John Smith/jsmith"
+    Then I should see "John Smith joined the game"
 
   Scenario: User can't claim if their number is already assigned to an account
     Given the following users exist:
