@@ -18,7 +18,13 @@
     <%= javascript_tag do %>
       $(document).ready(function() {
         $('.with-placeholder').focus(function(e) {
-          $(this).removeClass('with-placeholder').val('');
+          if($(this).data('cleared')) {
+            return;
+          }
+
+          $(this).removeClass('with-placeholder');
+          $(this).data('cleared', true);
+          $(this).val('');
         });
 
         $('#email-info-request').submit(function(e) {

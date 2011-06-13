@@ -167,8 +167,11 @@ button.cupid-green:active {
     display: none;
   }
 
+  input[type="text"] {
+    width: 270px;
+  }
+
   .with-placeholder {
     color: $medium-gray;
-    width: 270px;
   }
 }

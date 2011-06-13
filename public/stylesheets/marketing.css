@@ -130,6 +130,7 @@ button.cupid-green:active {
   margin: 0; }
 #email-info-request #thanks-message {
   display: none; }
-#email-info-request .with-placeholder {
-  color: #aaaaaa;
+#email-info-request input[type="text"] {
   width: 270px; }
+#email-info-request .with-placeholder {
+  color: #aaaaaa; }
