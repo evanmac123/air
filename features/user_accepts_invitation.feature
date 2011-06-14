@@ -54,6 +54,22 @@ Feature: User accepts invitation
     And I should see "Phil 10 points"
     And I should see "Phil joined the game less than a minute ago +10 points"
 
+  Scenario: User doesn't get seed points twice
+    Given time is frozen
+    When "phil@example.com" opens the email
+    And I click the first link in the email
+    And I fill in "Enter your mobile number" with "415-261-3077"
+    And I fill in "Choose a password" with "whowho"
+    And I fill in "And confirm that password" with "whowho"
+    And I press "Join the game"
+    And I click the first link in the email
+    And I fill in "Enter your mobile number" with "415-261-3077"
+    And I fill in "Choose a password" with "whowho"
+    And I fill in "And confirm that password" with "whowho"
+    And I press "Join the game"
+    Then I should be on the activity page
+    And I should not see "Phil 20 points"
+
   Scenario: User sets password when accepting invitation
     When I fill in "Enter your mobile number" with "508-740-7520"
     And I fill in "Choose a password" with "whatwhat"

@@ -4,9 +4,13 @@ class PhonesController < ApplicationController
   def create
     @user = User.find_by_slug(params[:user_id])
     @user.update_password(params[:phone][:user][:password], params[:phone][:user][:password_confirmation])
-    @user.join_game(params[:phone][:number], :send)
 
-    flash[:success] = "Welcome to the game! Players' activity is below to the left. The scoreboard is below to the right."
+    unless @user.accepted_invitation_at
+      @user.join_game(params[:phone][:number], :send) 
+
+      flash[:success] = "Welcome to the game! Players' activity is below to the left. The scoreboard is below to the right."
+    end
+
     redirect_to "/activity"
   end
 
