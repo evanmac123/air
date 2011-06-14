@@ -136,5 +136,15 @@ describe RuleValue, ".find_and_record_rule_suggestion" do
 
     RuleValue.send(:find_and_record_rule_suggestion, 'ate raisins', @user).should_not include('ate an entire pizza')
   end
+
+  context "with sloppy value entry" do
+    [ " pet kitten", "pet kitten ", "pet: kitten" "pet! kitten!" ].each do |sloppy_value|
+      context "like \"#{sloppy_value}\"" do
+        it "should return the right thing and not raise an error" do
+          RuleValue.send(:find_and_record_rule_suggestion, sloppy_value, @user).should include("ate kitten")
+        end
+      end
+    end
+  end
 end
 

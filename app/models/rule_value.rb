@@ -16,7 +16,7 @@ class RuleValue < ActiveRecord::Base
 
 
   def self.partially_matching_value(value)
-    normalized_value = value.gsub(/[^[:alnum:][:space:]]/, '')
+    normalized_value = value.gsub(/[^[:alnum:][:space:]]/, '').strip
     query_string = Rule.connection.quote_string(normalized_value.gsub(/\s+/, '|'))
     self.select("rule_values.*, ts_rank(to_tsvector('english', value), query) AS rank").from("to_tsquery('#{query_string}') query, rule_values").where("suggestible = true AND is_primary = true AND to_tsvector('english', value) @@ query")
   end
