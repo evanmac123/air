@@ -7,6 +7,10 @@ class CreateWins < ActiveRecord::Migration
       t.timestamps
     end
 
+    User.where('won_at IS NOT NULL').each do |user|
+      user.wins.create(:demo => user.demo, :created_at => user.won_at)
+    end
+
     add_index :wins, :demo_id
     add_index :wins, :user_id
   end
