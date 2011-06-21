@@ -13,8 +13,10 @@ class Report::Activity
     lines = @demo.acts.order('created_at ASC').map do |act|
       description = (act.rule.try(:primary_value).try(:value)) || act.text
       date = act.created_at.strftime("%Y-%m-%d")
-      time = act.created_at.strftime("%H:%M:%S %Z")
-      data = [date, time, act.user.name, description]
+      hour = act.created_at.strftime("%H")
+      minute = act.created_at.strftime("%M")
+      second = act.created_at.strftime("%S")
+      data = [date, hour, minute, second, act.user.name, description]
       CSV.generate_line(data)
     end
 

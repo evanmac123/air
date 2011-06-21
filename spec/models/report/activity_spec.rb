@@ -23,10 +23,10 @@ describe Report::Activity do
     describe "#report_csv" do
       it "should return what we expect" do
         expected_csv = <<-END_CSV
-2011-05-01,11:00:00 UTC,Bob Smith,joined the game
-2011-05-01,11:15:00 UTC,Ann Jones,joined the game
-2011-05-01,12:00:00 UTC,Ann Jones,ate sausage
-2011-05-01,12:30:00 UTC,Bob Smith,ate kitten
+2011-05-01,11,00,00,Bob Smith,joined the game
+2011-05-01,11,15,00,Ann Jones,joined the game
+2011-05-01,12,00,00,Ann Jones,ate sausage
+2011-05-01,12,30,00,Bob Smith,ate kitten
         END_CSV
 
         @report.report_csv.should == expected_csv
