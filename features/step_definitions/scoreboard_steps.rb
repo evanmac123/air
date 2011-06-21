@@ -37,3 +37,7 @@ Then /^I should not see "(.*?)" in the scoreboard$/ do |name|
     page.should have_no_content(name)
   end
 end
+
+Then /^I should see the following user rankings:$/ do |table|
+  table.hashes.each {|row_hash| Then "I should see \"#{row_hash['name']}\" with ranking \"#{row_hash['ranking']}\""}
+end
