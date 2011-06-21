@@ -14,6 +14,7 @@ class User < ActiveRecord::Base
   has_many   :friendships
   has_many   :friends, :through => :friendships
   has_many   :survey_answers
+  has_many   :wins
   has_and_belongs_to_many :bonus_thresholds
   has_and_belongs_to_many :levels
 
@@ -371,6 +372,7 @@ class User < ActiveRecord::Base
     new_demo = Demo.find(new_demo_id)
 
     self.demo = new_demo
+    self.won_at = self.wins.where(:demo_id => new_demo_id).first.try(:created_at)
     self.points = self.acts.where(:demo_id => new_demo_id).map(&:points).compact.sum
     self.save!
     self.recalculate_moving_average!
@@ -472,6 +474,8 @@ class User < ActiveRecord::Base
     if !self.won_at && self.points >= victory_threshold
       self.won_at = Time.now
       self.save!
+
+      self.wins.create!(:demo_id => self.demo_id, :created_at => self.won_at)
 
       send_victory_notices
     end
