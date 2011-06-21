@@ -54,7 +54,9 @@ group :test do
   gem "sham_rack"
   gem "nokogiri"
   gem "timecop"
-  gem "shoulda"
+  gem "shoulda", :git => "git://github.com/thoughtbot/shoulda", :require => 'shoulda'
+  gem "shoulda-matchers", :git => "git://github.com/thoughtbot/shoulda-matchers", :require => 'shoulda-matchers'
+  #gem "shoulda"
   gem "email_spec", "~> 1.1"
   gem "sham_rack"
   gem "show_me_the_cookies"
