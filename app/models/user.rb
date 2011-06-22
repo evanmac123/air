@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
   # (counting today as day 0)
   MAX_RECENT_AVERAGE_HISTORY_DEPTH = 6
 
-  DEFAULT_RANKING_CUTOFF = 25
+  DEFAULT_RANKING_CUTOFF = 15
   include Clearance::User
 
   belongs_to :demo

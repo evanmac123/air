@@ -58,15 +58,24 @@ Feature: Scoreboard
       | Paula  | 14      | 
       | Jan    | 15      | 
       | Gaston | 15      | 
-      | Mikey  | 17      | 
-      | Rudy   | 18      | 
-      | Bert   | 19      | 
-      | Charly | 20      | 
-      | Kitty  | 21      | 
-      | Stacey | 21      | 
-      | Irene  | 23      | 
-      | Donna  | 24      | 
-      | Jess   | 24      | 
+#      | Mikey  | 17      | 
+#      | Rudy   | 18      | 
+#      | Bert   | 19      | 
+#      | Charly | 20      | 
+#      | Kitty  | 21      | 
+#      | Stacey | 21      | 
+#      | Irene  | 23      | 
+#      | Donna  | 24      | 
+#      | Jess   | 24      | 
+    And I should not see "Mikey"
+    And I should not see "Rudy"
+    And I should not see "Bert"
+    And I should not see "Charly"
+    And I should not see "Kitty"
+    And I should not see "Stacey"
+    And I should not see "Irene"
+    And I should not see "Donna"
+    And I should not see "Jess"
     And I should not see "Lucas"
     And I should not see "Lou"
     And I should not see "Who"
@@ -93,15 +102,24 @@ Feature: Scoreboard
       | Paula  | 14      | 
       | Jan    | 15      | 
       | Gaston | 15      | 
-      | Mikey  | 17      | 
-      | Rudy   | 18      | 
-      | Bert   | 19      | 
-      | Charly | 20      | 
-      | Kitty  | 21      | 
-      | Stacey | 21      | 
-      | Irene  | 23      | 
-      | Donna  | 24      | 
-      | Jess   | 24      | 
+#      | Mikey  | 17      | 
+#      | Rudy   | 18      | 
+#      | Bert   | 19      | 
+#      | Charly | 20      | 
+#      | Kitty  | 21      | 
+#      | Stacey | 21      | 
+#      | Irene  | 23      | 
+#      | Donna  | 24      | 
+#      | Jess   | 24      | 
+    And I should not see "Mikey"
+    And I should not see "Rudy"
+    And I should not see "Bert"
+    And I should not see "Charly"
+    And I should not see "Kitty"
+    And I should not see "Stacey"
+    And I should not see "Irene"
+    And I should not see "Donna"
+    And I should not see "Jess"
     And I should not see "Lucas"
     And I should not see "Lou"
     And I should not see "Who"
