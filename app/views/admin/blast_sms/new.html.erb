@@ -17,7 +17,8 @@
 
 <%= form_tag admin_demo_blast_sms_path(@demo), :method => :post do %>
   <%= label_tag 'message_body' %>
-  <%= text_field_tag :message_body, '', :size => 160, :length => 160 %>
+  <%= text_field_tag :message_body, '', :size => 160, :maxlength => 160 %>
+  <%= add_byte_counter_for 'Message body' %>
   <%= field_set_tag do %>
     <p>You can choose a time to send the blast at: default is the current time (i.e. send as soon as possible.)</p>
     <%= select_datetime Time.current.localtime, :prefix => 'send_at' %> (Eastern time)

@@ -7,9 +7,11 @@
     <%= form.input :company_name, :label => "Company name" %>
     <%= form.input :victory_threshold, :label => "Victory threshold" %>
     <%= form.input :seed_points, :label => "Starting player score" %>
-    <%= form.input :custom_welcome_message, :length => 140 %>
+    <%= form.input :custom_welcome_message, {:maxlength => 160} %>
+    <%= add_byte_counter_for 'Custom welcome message' %>
     <%= form.input :custom_victory_achievement_message %>
-    <%= form.input :custom_victory_sms, :label => "Custom victory SMS", :length => 150 %>
+    <%= form.input :custom_victory_sms, :label => "Custom victory SMS", :input_html => {:maxlength => 160} %>
+    <%= add_byte_counter_for 'Custom victory SMS' %>
     <%= form.input :custom_victory_scoreboard_message %>
     <%= form.input :ends_at, :label => "Game ends at" %>
     <%= form.input :points_for_connecting, :label => "Points for connecting to another player" %>
@@ -17,6 +19,7 @@
 
   <%= form.inputs :name => "Followup welcome message" do %>
     <%= form.input :followup_welcome_message %>
+    <%= add_byte_counter_for 'Followup welcome message' %>
     <%= form.input :followup_welcome_message_delay, :label => "Followup welcome message delay (in minutes)" %>
   <% end %>
 
@@ -48,7 +51,8 @@
       <%= label_tag "demo_levels_#{level_index}_threshold", "Threshold" %>
       <%= text_field_tag "demo[levels][#{level_index}][threshold]" %>
       <%= label_tag "demo_levels_#{level_index}_name", "Name" %>
-      <%= text_field_tag "demo[levels][#{level_index}][name]" %>
+      <%= text_field_tag "demo[levels][#{level_index}][name]", nil, :maxlength => 140 %>
+      <%= add_byte_counter_for('Name') %>
       <br/>
     <% end %>
 
@@ -108,6 +112,10 @@
         ['threshold', 'name'],
         addingAnchor
       );
+
+      nameFieldId = '#demo_levels_' + nextLevelIndex + '_name';
+      $(nameFieldId).attr('maxlength', 140);
+      addByteCounterFor(nameFieldId);
 
       nextLevelIndex++;
     };

@@ -64,6 +64,14 @@ Feature: Admin sets up demo
     And I should see "No bonus for referring another user to the game"
     And I should see "No points for connecting to another user"
 
+  Scenario: Appropriate restrictions on text that gets SMSed
+    Given I am on the admin page
+    When I follow "New Demo"
+    Then I should see a restricted text field "Custom welcome message"
+    And I should see a restricted text field "Custom victory SMS"
+    And I should see a restricted text field "Followup welcome message"
+    And I should see a restricted text field "Name" with length 140
+
    Scenario: Admin adds user
      Given a demo exists with a company name of "3M"
      And I am on the admin "3M" demo page

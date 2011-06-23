@@ -28,4 +28,16 @@ module ApplicationHelper
   def followers_count_phrase(user)
     pluralize(user.followers_count, 'fan')
   end
+
+  def add_byte_counter_for(field_label)
+    content_for :javascript do
+      javascript_tag <<-END_JAVASCRIPT
+        (function(){
+          var label = $('label:contains(#{field_label})').first();
+          var field_id = '#' + label.attr('for');
+          addByteCounterFor(field_id);
+        })()
+      END_JAVASCRIPT
+    end
+  end
 end

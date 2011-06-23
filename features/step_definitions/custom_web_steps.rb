@@ -72,3 +72,14 @@ end
 Then /^"(.*?)" should be disabled$/ do |input_text|
   page.find(:css, "input[value='#{input_text}'][disabled='disabled']").should_not be_nil
 end
+
+Then /^I should see a restricted text field "([^"]*)" with length (\d+)$/ do |locator, length|
+  field = page.find_field(locator)
+  field.should_not be_nil
+  field['maxlength'].should == length
+end
+
+Then /^I should see a restricted text field "([^"]*)"$/ do |selector|
+  Then "I should see a restricted text field \"#{selector}\" with length 160"
+end
+

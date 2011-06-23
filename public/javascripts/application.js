@@ -24,25 +24,34 @@ $(function() {
     $('.avatar-controls').show();
     e.preventDefault();
   });
-
-/*  $('.change-number-link').click(function(e) {*/
-    //$('.number').click();
-    //e.preventDefault();
-  //});
-
-/*  $('.number').editable(*/
-    //'/account/phone', {
-      //method:   'PUT',
-      //name:     'user[phone_number]',
-      //data:     function(value, settings) {
-        //// This is kind of a hack, since we don't change the data in the form
-        //// at all, but AFAIK this is the only thing remotely like a pre-edit
-        //// callback, so our only chance to hide the link.
-        //$('.change-number-link').hide();
-        //return value;
-      //},
-      //callback: function(value, settings) {
-        //$('.change-number-link').show();
-      //}
-  /*});*/
 });
+
+function lengthInBytes(string) {
+  var result = 0;
+  for(i = 0; i < string.length; i++) {
+    var code = string.charCodeAt(i);
+    if(code < 128) {
+      result += 0.875;
+    } else {
+      while(code > 0) {
+        result += 1;
+        code >>= 8;
+      }
+    }
+  }
+
+  return result;
+}
+
+function updateCharacterCounter(from, to) {
+  maxLength = $(from).attr('maxlength');
+  currentLength = lengthInBytes($(from).val());
+  $(to).text('' + ((maxLength * 7 / 8) - currentLength) + ' bytes left');
+}
+
+function addByteCounterFor(locator) {
+  var ghettoUniqueId = "counter_" + Math.round(Math.random() * 10000000);
+  $(locator).after('<span class="character-counter" id="' + ghettoUniqueId + '"></span>');
+  updateCharacterCounter(locator, '#'+ghettoUniqueId);
+  $(locator).keypress(function() {updateCharacterCounter(locator, '#'+ghettoUniqueId)});
+}

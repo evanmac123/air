@@ -21,7 +21,8 @@
   <% end %>
 
   <%= form.input :points %>
-  <%= form.input :reply %>
+  <%= form.input :reply, :input_html => {:maxlength => 125} %>
+  <%= add_byte_counter_for 'Reply' %>
   <%= form.input :description %>
   <%= form.input :alltime_limit %>
   <%= form.input :referral_points %>

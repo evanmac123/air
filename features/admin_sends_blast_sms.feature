@@ -35,3 +35,6 @@ Feature: Admin sends blast SMS
     And "+16175551212" should have received SMS "Are we having fun yet?"
     And "+18085551212" should have received SMS "Are we having fun yet?"
     And "+13055551212" should not have received any SMSes
+
+  Scenario: Restriction on blast SMS length
+    Then I should see a restricted text field "Message body"
