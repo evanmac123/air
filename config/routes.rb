@@ -68,6 +68,8 @@ Health::Application.routes.draw do
       resource :bulk_load, :only => [:new, :create]
 
       resource :blast_sms, :only => [:new, :create]
+
+      resource :send_activity_dump, :only => [:create]
     end
 
     resources :users, :only => [] do

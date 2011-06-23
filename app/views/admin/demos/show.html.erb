@@ -1,5 +1,7 @@
 <h2 class="first"><%= link_to "Admin", admin_path %>: <%= @demo.company_name %></h2>
 
+<%= button_to "Send activity dump to Vlad", admin_demo_send_activity_dump_path(@demo.id) %>
+
 <h2><%= @user_with_mobile_count %> users have added mobile numbers to their accounts <%= link_to '(send them a blast SMS)', new_admin_demo_blast_sms_path(@demo) %></h2>
 
 <%= link_to "Rules for this demo", admin_demo_rules_path(@demo) %>

@@ -24,7 +24,7 @@ class Mailer < ActionMailer::Base
     attachment_name = [
       normalized_company_name,
       '-',
-      report_time.strftime("%Y_%m_%d_%H%m"),
+      report_time.strftime("%Y_%m_%d_%H%M"),
       '.csv'
     ].join('')
 
