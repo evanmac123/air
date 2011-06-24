@@ -1,5 +1,5 @@
 def mobile_originated_message_received(phone_number, sms_body)
-  post sms_path, 'From' => phone_number, 'To' => FAKE_TWILIO_ACCOUNT_SID, 'Body' => sms_body
+  post sms_path, 'From' => phone_number, 'To' => FAKE_TWILIO_ACCOUNT_SID, 'Body' => sms_body, 'AccountSid' => Twilio::ACCOUNT_SID
 
   # When Twilio posts a message to us, if the response is plaintext, it sends
   # a reply with that text back to the original sender. We want to capture
