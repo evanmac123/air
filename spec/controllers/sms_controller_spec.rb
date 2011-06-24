@@ -24,7 +24,15 @@ describe SmsController do
       end
     end
 
-    context "when authentication as Twilio fails" do
+    context "when properly authenticated as the heartbeat" do
+      it "should return a short code with a 200 status" do
+        post 'create', @params.merge({'Heartbeat' => SmsController::HEARTBEAT_CODE})
+        response.status.should == 200
+        response.body.should == 'ok'
+      end
+    end
+
+    context "when authentication as Twilio or the heartbeat fails" do
       it "should return a blank 404" do
         post :create, @params.merge({'AccountSid' => Twilio::ACCOUNT_SID + "youbrokeit"})
 
