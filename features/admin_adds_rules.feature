@@ -121,6 +121,21 @@ Feature: Admin adds and edits rules
       | primary_value | secondary_values | points | reply                     | description                    | alltime_limit | referral_points | suggestible |
       | ate oatmeal   | ate some oatmeal | 55     | 55 points for you, bucko. | I ate a big ol bowl of oatmeal | 5             | 19              | false       |
 
+  Scenario: "Smart" punctuation gets transliterated into normal characters.
+    When I go to the admin rules page for the standard playbook
+    And I follow "Add new rule"
+    And I fill in the following:
+      | Primary value   | I added this with “smart punctuation”—can you tell? |
+      | Points          | 55                                                  |
+      | Reply           | 55 points for you, bucko.                           |
+      | Description     | “Smart” punctuation is a scourge—is it not?         |
+    And I press "Create Rule"
+    Then I should be on the admin rules page for the standard playbook
+    And I should see the following rule:
+      | primary_value                                       | secondary_values | points | reply                     | description                                 | alltime_limit | referral_points | suggestible |
+      | i added this with "smart punctuation"-can you tell? |                  | 55     | 55 points for you, bucko. | "Smart" punctuation is a scourge-is it not? |               |                 | true        |
+
+
   Scenario: Admin can add a single rule to standard playbook
     When I go to the admin rules page for the standard playbook
     And I follow "Add new rule"

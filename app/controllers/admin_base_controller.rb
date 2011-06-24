@@ -1,5 +1,6 @@
 class AdminBaseController < ApplicationController
   before_filter :authenticate
+  before_filter :strip_smart_punctuation!
 
   protected
 
@@ -9,6 +10,30 @@ class AdminBaseController < ApplicationController
     authenticate_or_request_with_http_basic do |username, password|
       username == "demo" && password == "salud"
     end
+  end
+
+  def strip_smart_punctuation!
+    strip_smart_punctuation_from_hash!(params)
+  end
+
+  def strip_smart_punctuation_from_hash!(hsh)
+    hsh.each do |key, value|
+      new_value = case value
+                  when String
+                    strip_smart_punctuation_from_string(value)
+                  when Hash
+                    strip_smart_punctuation_from_hash!(value)
+                  else
+                    value
+                  end
+      hsh[key] = new_value
+    end
+  end
+
+  def strip_smart_punctuation_from_string(str)
+    str.gsub(/(“|”)/, '"').
+        gsub(/(‘|’)/, '\'').
+        gsub(/(–|—)/, '-')
   end
 
   def group_rules_and_values
