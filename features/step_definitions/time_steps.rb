@@ -27,3 +27,7 @@ When /^time moves ahead (.*?)$/ do |advancement|
 
   Timecop.freeze(Time.now + _hours.hours + _minutes.minutes + _seconds.seconds)
 end
+
+When /^a decent interval has passed$/ do
+  When "time moves ahead 00:00:60"
+end

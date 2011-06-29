@@ -6,6 +6,9 @@ class User < ActiveRecord::Base
   MAX_RECENT_AVERAGE_HISTORY_DEPTH = 6
 
   DEFAULT_RANKING_CUTOFF = 15
+
+  VICTORY_CONGRATULATION_SMS_DELAY = 60
+
   include Clearance::User
 
   belongs_to :demo
@@ -484,7 +487,8 @@ class User < ActiveRecord::Base
   def send_victory_notices
     SMS.send_message(
       self.phone_number,
-      self.demo.victory_sms(self)
+      self.demo.victory_sms(self),
+      Time.now + VICTORY_CONGRATULATION_SMS_DELAY.seconds
     )
 
     SMS.send_message(

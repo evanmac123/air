@@ -24,6 +24,7 @@ Feature: Player can win the game
       | ate a kitten | reply: kitten 1 |
       | ate a kitten | reply: kitten 2 |
     And I sign in via the login page as "Bob/LOL"
+    And time is frozen
 
   Scenario: Player hasn't won yet
     When I go to the activity page
@@ -31,7 +32,8 @@ Feature: Player can win the game
 
   Scenario: Player wins by scoring enough points
     When "+14155551212" sends SMS "ate a kitten"
-    And DJ cranks once
+    And a decent interval has passed
+    And DJ cranks 2 times
     And I go to the activity page
     Then "+14155551212" should have received an SMS "Congratulations! You've got 100 points and have qualified for the drawing!"
     And I should see "You won on"
@@ -50,6 +52,7 @@ Feature: Player can win the game
   Scenario: Player wins just once
     When "+14155551212" sends SMS "ate a kitten"
     And "+14155551212" sends SMS "ate a kitten"
+    And a decent interval has passed
     And DJ cranks 10 times
     Then "+14155551212" should have received an SMS "Congratulations! You've got 100 points and have qualified for the drawing!"
     And "+14155551212" should not have received an SMS "Congratulations! You've got 103 points and have qualified for the drawing!"
@@ -63,11 +66,11 @@ Feature: Player can win the game
 
   Scenario: Player wins a game with custom victory messages
     Given I sign in via the login page as "Jim/LOL"
-    And time is frozen at "2011-05-01 13:25:00 EDT"
     And "+16175551212" sends SMS "ate a kitten"
-    And DJ cranks once
+    And a decent interval has passed
+    And DJ cranks 2 times
     When I go to the activity page
-    Then I should see "You did it at May 01, 2011 at 01:25 PM Eastern!"
+    Then I should see "You did it at December 31, 2009 at 07:00 PM Eastern!"
     And "+16175551212" should have received SMS "You go boy with your 100 points!"
 
   Scenario: Looking at another player with a custom scoreboard victory message

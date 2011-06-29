@@ -31,6 +31,7 @@ Feature: User gets bonus points at thresholds with some randomness built in
 
   Scenario: User hits max points for a threshold
     When "+14155551212" sends SMS "ate kitten"
+    And a decent interval has passed
     And DJ cranks once
     And I go to the activity page
     Then I should see "Vlad 14 points"
@@ -40,6 +41,7 @@ Feature: User gets bonus points at thresholds with some randomness built in
   Scenario: User gets in between min and max points for a threshold and the RNG favors them
     Given the RNG is predisposed to hand out bonus points
     When "+14155551212" sends SMS "ate cheese"
+    And a decent interval has passed
     And DJ cranks once
     And I go to the activity page
     Then I should see "Vlad 13 points"
@@ -49,6 +51,7 @@ Feature: User gets bonus points at thresholds with some randomness built in
   Scenario: User gets in between min and max points for a threshold but the RNG favors them not
     Given the RNG is not predisposed to hand out bonus points
     When "+14155551212" sends SMS "ate cheese"
+    And a decent interval has passed
     And DJ cranks once
     And I go to the activity page
     Then I should see "Vlad 10 points"
@@ -59,6 +62,7 @@ Feature: User gets bonus points at thresholds with some randomness built in
     Given the RNG is predisposed to hand out bonus points
     When "+14155551212" sends SMS "was awesome"
     And I go to the activity page
+    And a decent interval has passed
     And DJ cranks 10 times
     Then I should see "Vlad 29 points"
     And I should see "Vlad got 3 bonus points for passing a bonus threshold"
@@ -69,6 +73,7 @@ Feature: User gets bonus points at thresholds with some randomness built in
   Scenario: User passes one threshold and hits within another, but the RNG frowns upon them
     Given the RNG is not predisposed to hand out bonus points
     When "+14155551212" sends SMS "was awesome"
+    And a decent interval has passed
     And DJ cranks 10 times
     And I go to the activity page
     Then I should see "Vlad 24 points"

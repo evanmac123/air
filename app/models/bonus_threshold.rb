@@ -7,6 +7,8 @@ class BonusThreshold < ActiveRecord::Base
   validate :max_points_gte_min_points
   validate :no_overlap
 
+  CROSSING_SMS_DELAY = 60
+
   def points_awarded
     rand(self.max_points) + 1
   end
@@ -76,7 +78,8 @@ class BonusThreshold < ActiveRecord::Base
 
       SMS.send_message(
         user.phone_number,
-        sms_text
+        sms_text,
+        Time.now + CROSSING_SMS_DELAY.seconds
       )
     end  
   end
