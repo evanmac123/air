@@ -21,6 +21,7 @@ Feature: User accepts invitation
     And I fill in "Choose a password" with "whatwhat"
     And I fill in "And confirm that password" with "whatwhat"
     And I press "Join the game"
+    And DJ cranks once
     Then "+15087407520" should have received an SMS "You've joined the 3M game! Your unique ID is dan4444 (text MYID if you forget). To play, text to this #."
     And I should be on the activity page
     And I should see "Dan joined the game"
@@ -40,6 +41,7 @@ Feature: User accepts invitation
     And I fill in "Choose a password" with "whowho"
     And I fill in "And confirm that password" with "whowho"
     And I press "Join the game"
+    And DJ cranks once
     Then "+14152613077" should have received an SMS "You, pphil, are in the FooCo game."
 
   Scenario: User accepts invitation to game with seed points

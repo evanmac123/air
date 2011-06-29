@@ -128,7 +128,7 @@ class Demo < ActiveRecord::Base
   end
 
   def send_blast_sms(text)
-    users.ranked.each {|user| SMS.delay.send_message(user.phone_number, text)}
+    users.ranked.each {|user| SMS.send_message(user.phone_number, text)}
   end
 
   protected

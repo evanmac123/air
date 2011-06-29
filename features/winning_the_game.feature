@@ -31,12 +31,14 @@ Feature: Player can win the game
 
   Scenario: Player wins by scoring enough points
     When "+14155551212" sends SMS "ate a kitten"
+    And DJ cranks once
     And I go to the activity page
     Then "+14155551212" should have received an SMS "Congratulations! You've got 100 points and have qualified for the drawing!"
     And I should see "You won on"
     
   Scenario: Victory admin gets SMS notification
     When "+14155551212" sends SMS "ate a kitten"
+    And DJ cranks 10 times
     Then "+16179876543" should have received an SMS "Bob (bob@example.com) won with 100 points"
 
   Scenario: Victory admin gets email notification
@@ -48,6 +50,7 @@ Feature: Player can win the game
   Scenario: Player wins just once
     When "+14155551212" sends SMS "ate a kitten"
     And "+14155551212" sends SMS "ate a kitten"
+    And DJ cranks 10 times
     Then "+14155551212" should have received an SMS "Congratulations! You've got 100 points and have qualified for the drawing!"
     And "+14155551212" should not have received an SMS "Congratulations! You've got 103 points and have qualified for the drawing!"
 
@@ -62,6 +65,7 @@ Feature: Player can win the game
     Given I sign in via the login page as "Jim/LOL"
     And time is frozen at "2011-05-01 13:25:00 EDT"
     And "+16175551212" sends SMS "ate a kitten"
+    And DJ cranks once
     When I go to the activity page
     Then I should see "You did it at May 01, 2011 at 01:25 PM Eastern!"
     And "+16175551212" should have received SMS "You go boy with your 100 points!"

@@ -19,6 +19,7 @@ Feature: Admin can talk with a user via the bad message log
   Scenario: Admin replies to bad SMS
     When I fill in "Say to user:" with "It looks like you're having trouble."
     And I press "Send"
+    And DJ cranks once
     Then I should be on the bad message log page
     And "+14152613077" should have received an SMS "It looks like you're having trouble."
     And I should see "Message sent to +14152613077"

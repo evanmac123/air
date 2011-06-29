@@ -66,7 +66,7 @@ Scenario: Survey sends second prompt to everyone in the demo who hasn't answered
     | name: Vlad | index: 2        |
     | name: Tom  | index: 1        |
   When DJ cranks once
-  And DJ cranks 10 times
+  And DJ cranks 20 times
   Then "+16175551212" should have received an SMS "Answer the remaining question: How important is doing what you're told?"
   And "+18085551212" should have received an SMS "Answer the remaining 2 questions: Do you like cheese?"
   And "+14105551212" should have received an SMS "Answer the remaining 3 questions: Do you smoke crack?"

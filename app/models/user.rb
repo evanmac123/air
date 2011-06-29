@@ -529,6 +529,6 @@ class User < ActiveRecord::Base
   def schedule_followup_welcome_message
     return if (message = self.demo.followup_welcome_message).blank?
 
-    SMS.delay(:run_at => Time.now + demo.followup_welcome_message_delay.minutes).send_message(self.phone_number, message)
+    SMS.send_message(self.phone_number, message, Time.now + demo.followup_welcome_message_delay.minutes)
   end
 end

@@ -10,6 +10,7 @@ Feature: User gets notified when someone follows them
     When I sign in via the login page as "Vlad/foo"
     And I go to the user directory page
     And I press "Be a fan"
+    And DJ cranks once
     Then "+14155551212" should have received an SMS "Vlad is now your fan on HEngage."
 
   Scenario: User can switch off follow notifications

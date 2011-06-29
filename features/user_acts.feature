@@ -99,6 +99,7 @@ Feature: User acts
   Scenario: Another user gets points for referring you to a command
     When "+15087407520" sends SMS "ate banana paul55"
     And "+15087407520" sends SMS "worked out fred666"
+    And DJ cranks 10 times
     And I sign in via the login page as "Dan/foo"
     And I go to the acts page
     Then I should see "Paul 1 point"

@@ -24,6 +24,7 @@ Feature: User can credit another user who got them into the game
 
   Scenario: User credits another
     When "+14155551212" sends SMS "dcroak"
+    And DJ cranks once
     And I go to the activity page
     Then I should see "Dan 5 points"
     And I should see "Dan got credit for referring Phil to the game"

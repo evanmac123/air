@@ -28,12 +28,14 @@ Feature: User levels up
 
   Scenario: User levels when hitting point threshold
     When "+14155551212" sends SMS "did good"
+    And DJ cranks once
     And I go to the activity page
     Then I should see "Level: level 1 (N00b)"
     And "+14155551212" should have received an SMS "You've reached level 1 (N00b)!"
 
   Scenario: User levels multiply when passing multiple point thresholds
     When "+14155551212" sends SMS "did best"
+    And DJ cranks 10 times
     And I go to the activity page
     Then I should see "Level: level 1 (N00b)"
     Then I should see "Level: level 2 (Pawn)"
@@ -41,12 +43,14 @@ Feature: User levels up
 
   Scenario: User levels when passing point threshold
     When "+14155551212" sends SMS "did better"
+    And DJ cranks once
     And I go to the activity page
     Then I should see "Level: level 1 (N00b)"
     And "+14155551212" should have received an SMS "You've reached level 1 (N00b)!"
 
   Scenario: User doesn't level when not passing point threshold
     When "+14155551212" sends SMS "did blah"
+    And DJ cranks 10 times
     And I go to the activity page
     Then I should not see "level 1 (N00b)"
     And "+14155551212" should not have received an SMS including "level 1 (N00b)"
