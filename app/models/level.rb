@@ -8,8 +8,6 @@ class Level < ActiveRecord::Base
 
   validates_uniqueness_of :threshold, :scope => :demo_id
 
-  LEVEL_UP_SMS_DELAY = 60
-
   def level_up(user)
     user.levels << self
 
@@ -19,10 +17,9 @@ class Level < ActiveRecord::Base
       :level_name => self.name
     )
 
-    SMS.send_message(
+    SMS.send_side_message(
       user.phone_number,
-      sms_text,
-      Time.now + LEVEL_UP_SMS_DELAY.seconds
+      sms_text
     )
   end
 

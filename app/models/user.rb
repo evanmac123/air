@@ -7,8 +7,6 @@ class User < ActiveRecord::Base
 
   DEFAULT_RANKING_CUTOFF = 15
 
-  VICTORY_CONGRATULATION_SMS_DELAY = 60
-
   include Clearance::User
 
   belongs_to :demo
@@ -485,10 +483,9 @@ class User < ActiveRecord::Base
   end
 
   def send_victory_notices
-    SMS.send_message(
+    SMS.send_side_message(
       self.phone_number,
-      self.demo.victory_sms(self),
-      Time.now + VICTORY_CONGRATULATION_SMS_DELAY.seconds
+      self.demo.victory_sms(self)
     )
 
     SMS.send_message(
