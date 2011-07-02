@@ -5,8 +5,10 @@ Feature: User can follow another user by SMS
       | name        | phone number | demo                   |
       | Dan Croak   | +16175551212 | company name: Yoyodyne |
       | Vlad Gyster | +16178675309 | company name: Yoyodyne |
+      | Joe Bob     |              | company name: Yoyodyne |
       | John Smith  | +12125551212 | company name: BigCorp  |
     And "Dan Croak" has the SMS slug "dan4444"
+    And "Joe Bob" has the SMS slug "jbob"
 
   Scenario: User follows another by SMS
     When "+16178675309" sends SMS "follow dan4444"
@@ -37,6 +39,13 @@ Feature: User can follow another user by SMS
     Then I should see "fan of 0 people"
     And "+16178675309" should have received an SMS "Sorry, we couldn't find a user with the unique ID jsmith."
   
+  Scenario: Request to follow a user who hasn't claimed their account
+    When "+16178675309" sends SMS "follow jbob"
+    And I sign in via the login page
+    And I go to the profile page for "Vlad Gyster"
+    Then I should see "fan of 0 people"
+    And "+16178675309" should have received an SMS "Sorry, we couldn't find a user with the unique ID jbob."
+
   Scenario: Request to follow from a user who isn't registered
     When "+18085551212" sends SMS "follow dan4444"
     Then "+18085551212" should have received an SMS 'I can't find your number in my records. Did you claim your account yet? If not, text your first initial and last name (if you are John Smith, text "jsmith").'

@@ -39,7 +39,7 @@ module SpecialCommand
   private
 
   def self.follow(user_following, sms_slug_to_follow)
-    user_to_follow = User.where(:sms_slug => sms_slug_to_follow, :demo_id => user_following.demo_id).first
+    user_to_follow = User.ranked.where(:sms_slug => sms_slug_to_follow, :demo_id => user_following.demo_id).first
     return parsing_error_message("Sorry, we couldn't find a user with the unique ID #{sms_slug_to_follow}.") unless user_to_follow
 
     return parsing_success_message("You're already following #{user_to_follow.name}.") if user_following.friendships.where(:friend_id => user_to_follow.id).first
