@@ -1,5 +1,5 @@
 class Admin::UsersController < AdminBaseController
-  before_filter :find_user, :only => [:edit, :update]
+  before_filter :find_user, :only => [:edit, :update, :destroy]
 
   def create
     @demo = Demo.find(params[:demo_id])
@@ -33,6 +33,12 @@ class Admin::UsersController < AdminBaseController
     end
 
     redirect_to admin_demo_path(@demo)
+  end
+
+  def destroy
+    @user.destroy
+    flash[:success] = "All records on #{@user.name} destroyed"
+    redirect_to admin_demo_path(@user.demo)
   end
 
   protected

@@ -52,7 +52,7 @@ Health::Application.routes.draw do
 
     resources :demos, :only => [:new, :create, :show] do
       # TODO: move :edit and :update onto resources :users below
-      resources :users, :only => [:edit, :update, :create] 
+      resources :users, :only => [:edit, :update, :create, :destroy] 
       resources :rules, :only => [:index, :new, :create]
 
       resources :bonus_thresholds, :only => [:edit, :update, :destroy], :shallow => true

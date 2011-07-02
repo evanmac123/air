@@ -44,6 +44,35 @@ describe User do
     user2.sms_slug = user1.sms_slug
     user2.should_not be_valid
   end
+
+  it "should destroy any Friendships where this user is the friend on destroy" do
+    user1 = Factory(:user)
+    user2 = Factory(:user)
+    Friendship.create!(:user => user1, :friend => user2)
+
+    user2.destroy
+    user1.reload.friendships.should be_empty
+  end
+
+  it "should fix the rankings of this user's demo after it's destroyed" do
+    demo = Factory :demo
+    user1 = Factory :user_with_phone, :demo => demo
+    user2 = Factory :user_with_phone, :demo => demo
+    user3 = Factory :user_with_phone, :demo => demo
+
+    user1.update_points(10)
+    user2.update_points(5)
+    user3.update_points(2)
+
+    user1.reload.ranking.should == 1
+    user2.reload.ranking.should == 2
+    user3.reload.ranking.should == 3
+
+    user2.destroy
+
+    user1.reload.ranking.should == 1
+    user3.reload.ranking.should == 2
+  end
 end
 
 describe User, "#invitation_code" do

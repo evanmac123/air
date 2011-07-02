@@ -11,11 +11,11 @@ class User < ActiveRecord::Base
 
   belongs_to :demo
   belongs_to :game_referrer, :class_name => "User"
-  has_many   :acts
-  has_many   :friendships
+  has_many   :acts, :dependent => :destroy
+  has_many   :friendships, :dependent => :destroy
   has_many   :friends, :through => :friendships
   has_many   :survey_answers
-  has_many   :wins
+  has_many   :wins, :dependent => :destroy
   has_and_belongs_to_many :bonus_thresholds
   has_and_belongs_to_many :levels
 
@@ -52,6 +52,11 @@ class User < ActiveRecord::Base
 
   before_save do
     downcase_email
+  end
+
+  after_destroy do
+    destroy_friendships_where_secondary
+    fix_demo_rankings
   end
 
   attr_reader :batch_updating_recent_averages
@@ -441,6 +446,15 @@ class User < ActiveRecord::Base
 
   def downcase_email
     self.email = email.to_s.downcase
+  end
+
+  def destroy_friendships_where_secondary
+    Friendship.destroy_all(:friend_id => self.id)
+  end
+
+  def fix_demo_rankings
+    self.demo.fix_total_user_rankings!
+    self.demo.fix_recent_average_user_rankings!
   end
 
   def self.claimable_by_email_address(claim_string)
