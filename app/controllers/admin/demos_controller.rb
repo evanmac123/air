@@ -58,4 +58,11 @@ class Admin::DemosController < AdminBaseController
     @bonus_thresholds = @demo.bonus_thresholds.in_threshold_order
     @levels = @demo.levels.in_threshold_order
   end
+
+  def destroy
+    @demo = Demo.find(params[:id])
+    @demo.destroy
+    flash[:success] = "#{@demo.company_name} game destroyed"
+    redirect_to admin_path
+  end
 end

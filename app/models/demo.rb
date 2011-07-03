@@ -1,12 +1,12 @@
 class Demo < ActiveRecord::Base
-  has_many :users
+  has_many :users, :dependent => :destroy
   has_many :acts, :through => :users
-  has_many :rules
+  has_many :rules, :dependent => :destroy
   has_many :rule_values, :through => :rules
-  has_many :surveys
+  has_many :surveys, :dependent => :destroy
   has_many :survey_questions, :through => :surveys
-  has_many :bonus_thresholds
-  has_many :levels
+  has_many :bonus_thresholds, :dependent => :destroy
+  has_many :levels, :dependent => :destroy
 
   # We go through this rigamarole since we can move a user from one demo to
   # another, and usually we will only be concerned with acts belonging to the

@@ -19,6 +19,6 @@
   <fieldset>
     <legend>Delete User</legend>
     Deleting users is <strong>irrevocable</strong>. There is <strong>no undo</strong>. All the history we have on this user (activities, friendships, everything) will be <strong>gone forever</strong> if you push this button.
-    <%= submit_tag 'Destroy user', :confirm => "Don't say I didn't warn you. Are you sure?" %>
+    <%= submit_tag 'Destroy user', :confirm => "Don't say I didn't warn you. Are you sure you want to delete #{@user.name}?" %>
   </fieldset>
 <% end %>
