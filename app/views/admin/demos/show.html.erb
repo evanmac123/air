@@ -97,6 +97,8 @@ Game
 </p>
 <p class="explanation"><%= translate('.explanation', :default => "Add HR people from %{company} to this demo, then send them an invitation to the demo.", :company => @demo.company_name) %></p>
 
+<p><%= link_to "Edit basic settings for this game", edit_admin_demo_path(@demo) %></p>
+
 <a href="#" id="add-new-user">Add new user</a>
 
 <div id="new-user-form">

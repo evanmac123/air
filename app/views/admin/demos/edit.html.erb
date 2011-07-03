@@ -1,0 +1,5 @@
+<h2 class="first"><%= link_to "Admin", admin_path %>: Edit <%= @demo.company_name %></h2>
+
+<p class="explanation"><%= translate('.edit_explanation', :default => "Edit the %{name} demo", :name => @demo.company_name) %></p>
+
+<%= render 'admin/demos/form', :demo => @demo %>

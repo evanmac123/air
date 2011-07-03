@@ -1,4 +1,6 @@
 class Admin::DemosController < AdminBaseController
+  before_filter :find_demo, :only => [:show, :edit, :update, :destroy]
+
   def new
     @demo = Demo.new
     @demo.bonus_thresholds = [BonusThreshold.new]
@@ -52,17 +54,36 @@ class Admin::DemosController < AdminBaseController
   end
 
   def show
-    @demo  = Demo.find(params[:id])
     @users = @demo.users.alphabetical
     @user_with_mobile_count = @demo.users.where("phone_number IS NOT NULL AND phone_number != ''").count
     @bonus_thresholds = @demo.bonus_thresholds.in_threshold_order
     @levels = @demo.levels.in_threshold_order
   end
 
+  def edit
+  end
+
+  def update
+    %w(victory_verification_email victory_verification_sms_number).each do |nullable_field_name|
+      params[:demo][nullable_field_name] = nil if params[:demo][nullable_field_name].blank?
+    end
+
+    @demo.attributes = params[:demo]
+    @demo.save!
+
+    flash[:success] = "Demo updated"
+    redirect_to admin_demo_path(@demo)
+  end
+
   def destroy
-    @demo = Demo.find(params[:id])
     @demo.destroy
     flash[:success] = "#{@demo.company_name} game destroyed"
     redirect_to admin_path
+  end
+
+  protected
+
+  def find_demo
+    @demo = Demo.find(params[:id])
   end
 end

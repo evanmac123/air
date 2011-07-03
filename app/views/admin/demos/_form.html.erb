@@ -1,0 +1,40 @@
+<%= semantic_form_for [:admin, demo] do |form| %>
+  <%= form.inputs do %>
+    <%= form.input :company_name, :label => "Company name" %>
+    <%= form.input :victory_threshold, :label => "Victory threshold" %>
+    <%= form.input :seed_points, :label => "Starting player score" %>
+    <%= form.input :custom_welcome_message, {:maxlength => 160} %>
+    <%= add_byte_counter_for 'Custom welcome message' %>
+    <%= form.input :custom_victory_achievement_message %>
+    <%= form.input :custom_victory_sms, :label => "Custom victory SMS", :input_html => {:maxlength => 160} %>
+    <%= add_byte_counter_for 'Custom victory SMS' %>
+    <%= form.input :custom_victory_scoreboard_message %>
+    <%= form.input :ends_at, :label => "Game ends at" %>
+    <%= form.input :points_for_connecting, :label => "Points for connecting to another player" %>
+  <% end %>
+
+  <%= form.inputs :name => "Followup welcome message" do %>
+    <%= form.input :followup_welcome_message %>
+    <%= add_byte_counter_for 'Followup welcome message' %>
+    <%= form.input :followup_welcome_message_delay, :label => "Followup welcome message delay (in minutes)" %>
+  <% end %>
+
+  <%= form.inputs :name => "Victory Notifications" do %>
+    You can specify an e-mail address and/or SMS number that gets notified if and who someone wins this game.
+    <%= form.input :victory_verification_email %>
+    <%= form.input :victory_verification_sms_number, :label => 'Victory verification SMS number' %>
+  <% end %>
+
+  <% if demo.new_record? %>
+    <%= render 'admin/demos/bonus_thresholds_and_levels', :form => form, :demo => demo %>
+  <% end %>
+
+  <%= form.inputs :name => "Referral Bonus" do %>
+    <%= form.input :game_referrer_bonus, :label => 'Bonus for referring another to the game' %>
+    <%= form.input :credit_game_referrer_threshold, :label => "Threshold to credit user who referred you to the game (in minutes)" %>
+  <% end %>
+
+  <%= form.buttons do %>
+    <%= form.submit 'Submit', :disable_with => 'Please wait...' %>
+  <% end %>
+<% end %>
