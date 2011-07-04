@@ -15,6 +15,8 @@ class SmsController < ActionController::Metal
       return
     end
 
+    RawSms.create!(:from => params['From'], :body => params['Body'], :twilio_sid => params['SmsSid'])
+
     self.response_body = Command.parse(params['From'], params['Body'], :allow_claim_account => true)
   end
 
