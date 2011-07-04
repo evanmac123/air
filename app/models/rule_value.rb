@@ -64,7 +64,7 @@ class RuleValue < ActiveRecord::Base
             end
 
     if other.first && other.first != self
-      self.errors.add(:value, "Value must be unique within its demo")
+      self.errors.add(:value, "must be unique within its demo")
     end
   end
 
