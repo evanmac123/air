@@ -2,15 +2,19 @@ class Admin::UsersController < AdminBaseController
   before_filter :find_user, :only => [:edit, :update, :destroy]
 
   def create
+    redirect_to :back
+
     @demo = Demo.find(params[:demo_id])
     @user = @demo.users.build(params[:user])
-    @user.save!
+    
+    unless @user.save
+      flash[:failure] = "Cannot create that user: #{@user.errors.full_messages}"
+      return
+    end
 
     if params[:set_claim_code]
       @user.generate_simple_claim_code!
     end
-
-    redirect_to :back
   end
 
   def edit
