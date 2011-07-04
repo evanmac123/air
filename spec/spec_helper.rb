@@ -26,4 +26,8 @@ RSpec.configure do |config|
   config.use_transactional_fixtures = true
 end
 
+require 'capybara-webkit'
+Capybara.javascript_driver = :webkit
+
+
 require 'ruby-debug'

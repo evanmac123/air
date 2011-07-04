@@ -44,11 +44,12 @@ group :development, :test do
 end
 
 group :test do
-  gem "akephalos", :git => "git://github.com/thoughtbot/akephalos.git"
+  #gem "akephalos", :git => "git://github.com/thoughtbot/akephalos.git"
+  #gem 'akephalos'
   gem "cucumber-rails"
   gem "factory_girl_rails"
   gem "bourne"
-  gem "capybara"
+  gem "capybara", "~> 0.4.1"
   gem "database_cleaner"
   gem "fakeweb"
   gem "sham_rack"
@@ -60,4 +61,5 @@ group :test do
   gem "email_spec", "~> 1.1"
   gem "sham_rack"
   gem "show_me_the_cookies"
+  gem "capybara-webkit"
 end

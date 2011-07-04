@@ -22,7 +22,7 @@ require 'capybara/session'
 # prefer to use XPath just remove this line and adjust any selectors in your
 # steps to use the XPath syntax.
 Capybara.save_and_open_page_path = 'tmp'
-Capybara.javascript_driver = :akephalos
+Capybara.javascript_driver = :webkit
 Capybara.default_selector = :css
 
 # If you set this to false, any error raised from within your app will bubble 

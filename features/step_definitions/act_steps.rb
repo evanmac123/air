@@ -20,9 +20,8 @@ Then /^I should( not)? see the following act(s?):$/ do |sense, _nothing, table|
 
     within 'ul#acts' do
       if sense
-        within 'li' do
+        within 'li', :text => act_hash['act'] do
           page.should have_css("a[href='#{expected_user_url}']", :text => user.name)
-          page.should have_content(act_hash['act'])
           page.should have_content(act_hash['points'])
         end
       else
