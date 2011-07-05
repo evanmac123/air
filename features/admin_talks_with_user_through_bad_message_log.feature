@@ -11,7 +11,7 @@ Feature: Admin can talk with a user via the bad message log
     And the following bad messages exist:
       | phone_number | body        | received_at         |
       | +14152613077 | I need help | 2010-05-01 17:00:00 |
-    And time is frozen at "2010-05-01 17:00:00 -0500"
+    And time is frozen at "2010-05-01 17:00:00"
     When I sign in via the login page
     And I go to the bad message log page
     And I follow "Reply and move to watch list"
@@ -27,7 +27,7 @@ Feature: Admin can talk with a user via the bad message log
     And I should not see any new bad messages
     And I should see the following watchlisted bad SMS messages:
       | name | phone_number | message_body  | received_at             |
-      | Bob  | +14152613077 | I need help   | 2010-05-01 17:00:00 UTC |
+      | Bob  | +14152613077 | I need help   | 2010-05-01 21:00:00 UTC |
     And I should see "0 new messages to reply to"
 
   Scenario: Admin tries to send over-length reply

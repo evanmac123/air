@@ -38,7 +38,7 @@ Feature: Admin sets up demo
     And I should see "Victory SMS: You did it with %{points} points!"
     And I should see "Victory scoreboard message: is the person!"
     And I should see "New players start with 5 points"
-    And I should see "Game ends at May 01, 2010 at 08:00 AM Eastern"
+    And I should see "Game ends at May 01, 2010 at 12:00 PM Eastern"
     And I should see "Bonus thresholds: Between 5 and 8 points: 7 points awarded"
     And I should see "Levels: level 1 (N00b) at 10 points"
     And I should see "Bonus for referring another user to the game: 5 points (with a 60 minute threshold)"
