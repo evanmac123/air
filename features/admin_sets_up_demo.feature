@@ -22,7 +22,7 @@ Feature: Admin sets up demo
     And I select "2010" from "Year"
     And I select "May" from "Month"
     And I select "1" from "Day"
-    And I select "12" from "Hour"
+    And I select "12 PM" from "Hour"
     And I select "00" from "Minute"
     And I fill in "Threshold to credit user who referred you to the game (in minutes)" with "60"
     And I fill in "Bonus for referring another to the game" with "5"

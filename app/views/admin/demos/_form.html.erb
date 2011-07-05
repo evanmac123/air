@@ -9,7 +9,7 @@
     <%= form.input :custom_victory_sms, :label => "Custom victory SMS", :input_html => {:maxlength => 160} %>
     <%= add_byte_counter_for 'Custom victory SMS' %>
     <%= form.input :custom_victory_scoreboard_message %>
-    <%= form.input :ends_at, :label => "Game ends at" %>
+    <%= form.input :ends_at, :label => "Game ends at", :twelve_hour => true %>
     <%= form.input :points_for_connecting, :label => "Points for connecting to another player" %>
   <% end %>
 

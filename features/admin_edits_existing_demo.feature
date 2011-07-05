@@ -26,11 +26,11 @@ Feature: Admin edits existing demo
     And I select "2010" from "Year"
     And I select "June" from "Month"
     And I select "20" from "Day"
-    And I select "11" from "Hour"
+    And I select "7 AM" from "Hour"
     And I select "30" from "Minute"
     And I press "Submit"
     Then I should be on the admin "BarCo" demo page
-    And I should see "Game ends at June 20, 2010 at 11:30 AM Eastern"
+    And I should see "Game ends at June 20, 2010 at 07:30 AM Eastern"
     And I should see "90 points to win"
     And I should see "Victory email to phil@barco.com"
     And I should see "Victory verification SMS to +16175551212"
