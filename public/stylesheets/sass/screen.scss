@@ -651,7 +651,7 @@ a.current {
   text-decoration: underline; 
 }
 
-#winning-time {
+#achievements .achievement {
   @include rounded-corners(6px);
   background-color: $white;
   font-weight: bold;

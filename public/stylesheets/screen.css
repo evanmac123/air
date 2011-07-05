@@ -463,7 +463,7 @@ select {
 a.current {
   text-decoration: underline; }
 
-#winning-time {
+#achievements .achievement {
   -webkit-border-radius: 6px;
   -moz-border-radius: 6px;
   border-radius: 6px;

@@ -1,15 +1,15 @@
 <% if won_at || @levels.present? %>
-  <div class="column-section">
+  <div class="column-section" id="achievements">
     <div class="column-header">
       <h2>Achievements</h2>
     </div>
 
     <% if won_at %>
-      <div id="winning-time"><%= current_user.demo.victory_achievement_message(current_user) %></div>
+      <div id="winning-time" class="achievement"><%= current_user.demo.victory_achievement_message(current_user) %></div>
     <% end %>
 
     <% @levels.each do |level| %>
-      <div class="level-achievement">Level: <%= level.name %></div>
+      <div class="level achievement">Level: <%= level.name %></div>
     <% end %>
   </div>
 <% end %>
