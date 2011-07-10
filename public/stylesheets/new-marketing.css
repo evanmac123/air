@@ -11,8 +11,8 @@ body {
 
 #wrapper {
   width: 1050px;
-  padding-left: 80px;
-  padding-right: 80px; }
+  padding-left: 25px;
+  padding-right: 25px; }
 
 #login-form {
   float: right; }
@@ -27,151 +27,20 @@ body {
     padding-bottom: 4px; }
 
 #header {
-  width: 940px;
-  float: right; }
-  #header #subscribers-arrow {
-    position: relative;
-    top: -50px;
-    left: 570px; }
-  #header #tree-logo {
-    position: relative;
-    left: -155px;
-    top: 20px; }
-
-#jump-buttons {
-  position: relative;
-  right: -515px;
-  bottom: 50px; }
-  #jump-buttons img {
-    margin-left: 20px;
-    margin-bottom: 0; }
+  width: 100%;
+  background-image: url(/images/new_marketing/b_tealtop_tile.png);
+  background-repeat: repeat-x; }
 
 #main-content {
   width: 890px;
   float: right;
   margin-bottom: 100px; }
 
-#slideshow {
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
-  border-radius: 4px;
-  -webkit-box-shadow: 2px 2px 10px 2px #999999;
-  -moz-box-shadow: 2px 2px 10px 2px #999999;
-  box-shadow: 2px 2px 10px 2px #999999;
-  background-color: white;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  padding-left: 2px;
-  width: 100%; }
-
-#secondary-boxes-and-sidebar {
-  width: 100%; }
-
-#secondary-boxes {
-  width: 640px;
-  -webkit-box-shadow: 2px 0 0 0 #999999;
-  -moz-box-shadow: 2px 0 0 0 #999999;
-  box-shadow: 2px 0 0 0 #999999; }
-
-.secondary-box {
-  background: #f2f4f3;
-  width: 540px;
-  padding: 0 50px 10px 50px;
-  margin-top: 6px;
-  color: #2d2d2b;
-  font-size: 12pt;
-  line-height: 15pt; }
-  .secondary-box .banner {
-    position: relative;
-    left: -47px; }
-  .secondary-box .engagement-point {
-    margin-bottom: 40px; }
-  .secondary-box .numeral {
-    position: relative;
-    left: -26px;
-    margin-bottom: 0; }
-  .secondary-box h1 {
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    font-style: italic;
-    display: inline;
-    position: relative;
-    left: -28px;
-    top: -4px; }
-  .secondary-box .engagement-images {
-    padding-left: 30px;
-    padding-right: 70px;
-    margin-top: 30px; }
-    .secondary-box .engagement-images img {
-      margin-bottom: 0; }
-    .secondary-box .engagement-images img.singular {
-      width: 100%; }
-    .secondary-box .engagement-images img.double {
-      width: 207px;
-      height: 72px; }
-    .secondary-box .engagement-images img.double:first-child {
-      margin-right: 20px; }
-    .secondary-box .engagement-images img.triple {
-      width: 127px;
-      height: 72px; }
-    .secondary-box .engagement-images img.triple:first-child {
-      margin-right: 23px; }
-    .secondary-box .engagement-images img.triple:last-child {
-      margin-left: 23px; }
-  .secondary-box .small-bullet {
-    position: relative;
-    left: 582px;
-    top: -25px; }
-    .secondary-box .small-bullet img {
-      margin: 0; }
-
-#sidebar {
-  float: right;
-  width: 230px;
-  padding-left: 20px; }
-
 #page-footer {
+  height: 50px;
+  line-height: 50px;
+  vertical-align: middle;
+  color: white;
   clear: both;
   text-align: center;
-  color: white;
-  background-color: #9bbd66; }
-
-#about-us {
-  margin-top: 50px;
-  padding-bottom: 18px;
-  line-height: 1.4em; }
-  #about-us p {
-    margin-bottom: 32px; }
-
-#blog .post {
-  width: 45%;
-  line-height: 20pt; }
-  #blog .post h2 a {
-    font-size: 18pt;
-    line-height: 15pt;
-    color: #2d2d2b;
-    margin-left: 0; }
-#blog #first-post {
-  float: left; }
-#blog #second-post {
-  float: right; }
-
-.clearfix {
-  clear: both; }
-
-#email-form #email-box {
-  padding-top: 30px;
-  padding-left: 12px;
-  padding-bottom: 35px;
-  background-color: #c2cdbd; }
-  #email-form #email-box h2 {
-    margin-top: 0;
-    font-family: 'Chunk';
-    font-size: 24pt;
-    font-weight: normal; }
-  #email-form #email-box input {
-    width: 190px;
-    margin-bottom: 5px; }
-#email-form input[type="submit"] {
-  margin-top: 20px;
-  margin-left: 69px;
-  width: 92px; }
+  background-image: url(/images/new_marketing/b_tealbottom.png); }

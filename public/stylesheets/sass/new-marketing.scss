@@ -16,8 +16,8 @@ body {
 
 #wrapper {
   width: 1050px;
-  padding-left: 80px;
-  padding-right: 80px;
+  padding-left: 25px;
+  padding-right: 25px;
 }
 
 #login-form {
@@ -40,31 +40,9 @@ body {
 }
 
 #header {
-  width: 940px;
-  float: right;
-
-  #subscribers-arrow {
-    position: relative;
-    top: -50px;
-    left: 570px;
-  }
-
-  #tree-logo {
-    position: relative;
-    left: -155px;
-    top: 20px;
-  }
-}
-
-#jump-buttons {
-  position: relative;
-  right: -515px;
-  bottom: 50px;
-
-  img {
-    margin-left: 20px;
-    margin-bottom: 0;
-  }
+  width: 100%;
+  background-image: url(/images/new_marketing/b_tealtop_tile.png);
+  background-repeat: repeat-x;
 }
 
 #main-content {
@@ -73,184 +51,13 @@ body {
   margin-bottom: 100px;
 }
 
-$slideshow-left-half-width: 400px;
-
-#slideshow {
-  @include rounded-corners(4px);
-  @include box-shadow(2px, 2px, 10px, 2px, $light-gray);
-  background-color: white;
-
-  padding-top: 5px;
-  padding-bottom: 5px;
-  padding-left: 2px;
-  width: 100%;
-}
-
-#secondary-boxes-and-sidebar {
-  width: 100%;
-}
-
-#secondary-boxes {
-  width: 640px;
-  @include box-shadow(2px, 0, 0, 0, $light-gray);
-}
-
-$secondary-box-background: #f2f4f3;
-$secondary-box-width: 640px;
-
-.secondary-box {
-  background: $secondary-box-background;
-  width: $secondary-box-width - 100px;
-  padding: 0 50px 10px 50px;
-  margin-top: 6px;
-
-  color: $dark-gray;
-  font-size: 12pt;
-  line-height: 15pt;
-
-  .banner {
-    position: relative;
-    left: -47px;
-  }
-
-  .engagement-point {
-    margin-bottom: 40px;
-  }
-
-  .numeral {
-    position: relative;
-    left: -26px;
-    margin-bottom: 0;
-  }
-
-  h1 {
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    font-style: italic;
-    display: inline;
-    position: relative;
-    left: -28px;
-    top: -4px;
-  }
-
-  .engagement-images {
-    padding-left: 30px;
-    padding-right: 70px;
-    margin-top: 30px;
-
-    img {
-      margin-bottom: 0;
-    }
-
-    img.singular {
-      width: 100%;
-    }
-
-    img.double {
-      width: 207px;
-      height: 72px;
-    }
-
-    img.double:first-child {
-      margin-right: 20px;
-    }
-
-    img.triple {
-      width: 127px;
-      height: 72px;
-    }
-
-    $triple-image-margin: 23px;
-    img.triple:first-child {
-      margin-right: $triple-image-margin;
-    }
-
-    img.triple:last-child {
-      margin-left: $triple-image-margin;
-    }
-  }
-
-  .small-bullet {
-    position: relative;
-    left: 582px;
-    top: -25px;
-    img { margin: 0; }
-  }
-}
-
-#sidebar {
-  float: right;
-  width: 230px;
-  padding-left: 20px;
-}
 
 #page-footer {
+  height: 50px;
+  line-height: 50px;
+  vertical-align: middle;
+  color: white;
   clear: both;
   text-align: center;
-  color: white;
-  background-color: #9bbd66;
-}
-
-#about-us {
-  margin-top: 50px;
-  padding-bottom: 18px;
-  line-height: 1.4em;
-
-  p {
-    margin-bottom: 32px;
-  }
-}
-
-#blog {
-  .post {
-    width: 45%;
-
-    line-height: 20pt;
-
-    h2 a {
-      font-size: 18pt;
-      line-height: 15pt;
-      color: $dark-gray;
-      margin-left: 0;
-    }
-  }
-
-  #first-post {
-    float: left;
-  }
-
-  #second-post {
-    float: right;
-  }
-}
-
-.clearfix {
-  clear: both;
-}
-
-#email-form {
-  #email-box {
-    padding-top: 30px;
-    padding-left: 12px;
-    padding-bottom: 35px;
-
-    h2 {
-      margin-top: 0;
-      font-family: 'Chunk';
-      font-size: 24pt;
-      font-weight: normal;
-    }
-
-    background-color: #c2cdbd;
-
-    input {
-      width: 190px;
-      margin-bottom: 5px;
-    }
-  }
-
-  input[type="submit"] {
-    margin-top: 20px;
-    margin-left: 69px;
-    width: 92px;
-  }
+  background-image: url(/images/new_marketing/b_tealbottom.png);
 }
