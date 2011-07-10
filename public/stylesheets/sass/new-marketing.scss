@@ -13,7 +13,7 @@ img {
   src: local('☺'), url('http://font.thoughtbot.com/chunk/chunk.ttf') format('truetype');
 }
 
-$standard-section-width: 918px;
+$slide-width: 879px;
 
 body {
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -23,6 +23,8 @@ body {
 #login-form {
   margin-top: 6px;
   float: right;
+  position: relative;
+  right: 11px;
 
   #login-prompt {
     color: white;
@@ -47,22 +49,25 @@ body {
   background-repeat: repeat-x;
 
   #header-contents {
-    width: $standard-section-width;
+    width: $slide-width;
     margin: 0 auto;
 
     #subscriber-arrow {
       float: right;
+      margin-right: 10px;
     }
   }
 }
 
 #main-content {
-  width: $standard-section-width;
+  width: 900px;
   margin: 0 auto;
   margin-bottom: 60px;
 }
 
 #navbar {
+  width: $slide-width;
+
   #buttons {
     float: right;
     position: relative;

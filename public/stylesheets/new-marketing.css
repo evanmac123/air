@@ -14,7 +14,9 @@ body {
 
 #login-form {
   margin-top: 6px;
-  float: right; }
+  float: right;
+  position: relative;
+  right: 11px; }
   #login-form #login-prompt {
     color: white;
     font-size: 12pt; }
@@ -31,25 +33,28 @@ body {
   background-image: url(/images/new_marketing/b_tealtop_tile.png);
   background-repeat: repeat-x; }
   #header #header-contents {
-    width: 918px;
+    width: 879px;
     margin: 0 auto; }
     #header #header-contents #subscriber-arrow {
-      float: right; }
+      float: right;
+      margin-right: 10px; }
 
 #main-content {
-  width: 918px;
+  width: 900px;
   margin: 0 auto;
   margin-bottom: 60px; }
 
-#navbar #buttons {
-  float: right;
-  position: relative;
-  top: 50px;
-  font-size: 20px;
-  font-weight: bold; }
-  #navbar #buttons a {
-    margin-left: 36px;
-    color: #7ba53c; }
+#navbar {
+  width: 879px; }
+  #navbar #buttons {
+    float: right;
+    position: relative;
+    top: 50px;
+    font-size: 20px;
+    font-weight: bold; }
+    #navbar #buttons a {
+      margin-left: 36px;
+      color: #7ba53c; }
 
 #page-footer {
   height: 50px;
