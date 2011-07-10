@@ -31,7 +31,7 @@ body {
     font-size: 12pt;
   }
 
-  input {
+  input[type="text"], input[type="password"] {
     font-size: 8pt;
     width: 110px;
   }
