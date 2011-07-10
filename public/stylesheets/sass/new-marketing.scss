@@ -9,6 +9,8 @@
   src: local('☺'), url('http://font.thoughtbot.com/chunk/chunk.ttf') format('truetype');
 }
 
+$standard-section-width: 918px;
+
 body {
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   background-image: url(/images/new_marketing/background.png);
@@ -21,6 +23,7 @@ body {
 }
 
 #login-form {
+  margin-top: 6px;
   float: right;
 
   #login-prompt {
@@ -41,8 +44,18 @@ body {
 
 #header {
   width: 100%;
+  height: 222px;
   background-image: url(/images/new_marketing/b_tealtop_tile.png);
   background-repeat: repeat-x;
+
+  #header-contents {
+    width: $standard-section-width;
+    margin: 0 auto;
+
+    #subscriber-arrow {
+      float: right;
+    }
+  }
 }
 
 #main-content {

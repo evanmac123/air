@@ -17,17 +17,21 @@
 <body class="<%= body_class %> new-marketing">
 
   <div id="header">
-    <%= image_tag 'new_marketing/b_tealtop_01.png' %>
+    <div id="header-contents">
+      <%= form_tag session_path, :id => 'login-form' do %>
+        <span id="login-prompt">Login</span>
+        <%= text_field_tag "session[username]", 'username', :class => 'with-placeholder' %>
+        <%= password_field_tag "session[password]", 'password', :class => 'with-placeholder' %>
+        <%= submit_tag 'log in' %>
+      <% end %>
+
+      <%= image_tag 'new_marketing/b_tealtop_01.png', :id => 'subscriber-arrow' %>
+
+    </div>
+    &nbsp;
   </div>
 
   <div id="wrapper">
-<!--    <%= form_tag session_path, :id => 'login-form' do %>-->
-      <!--<span id="login-prompt">Login</span>-->
-      <!--<%= text_field_tag "session[username]", 'username', :class => 'with-placeholder' %>-->
-      <!--<%= password_field_tag "session[password]", 'password', :class => 'with-placeholder' %>-->
-      <!--<%= submit_tag 'log in' %>-->
-    <!--<% end %>-->
-
     <div id="main-content">
       <%= yield %>
     </div>
