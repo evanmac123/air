@@ -26,4 +26,22 @@
 
     <%= text_field_tag "", 'email', :class => 'with-placeholder' %>
     <%= image_submit_tag 'new_marketing/btn_submit.png' %>
+  </form>
 </div>
+
+<div id="postits">
+  <% %w(play engage track roi).each do |postit_name| %>
+    <%= image_tag "new_marketing/img_h_#{postit_name}1.png", :id => "postit-#{postit_name}" %>
+  <% end %>
+  <div id="postit-text">
+    <span class="word-equation-term">Play</span>
+    <span class="word-equation-term">+</span>
+    <span class="word-equation-term">Engage</span>
+    <span class="word-equation-term">+</span>
+    <span class="word-equation-term">Track</span>
+    <span class="word-equation-term">=</span>
+    <span class="word-equation-term last">Increase ROI</span>
+  </div>
+</div>
+
+

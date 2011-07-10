@@ -63,6 +63,7 @@ body {
   width: 740px;
   height: 43px;
   margin: 0 auto;
+  margin-bottom: 25px;
   background-color: #e0e2dd;
   padding: 24px 30px 20px 30px; }
   #request-consultation-bar #request-consultation {
@@ -81,6 +82,23 @@ body {
   #request-consultation-bar img {
     position: relative;
     top: 4px; }
+
+#postits {
+  width: 670px;
+  margin: 0 auto; }
+  #postits #postit-engage {
+    margin-left: 50px; }
+  #postits #postit-track {
+    margin-left: 80px; }
+  #postits #postit-roi {
+    margin-left: 90px; }
+  #postits .word-equation-term {
+    color: #7ba53c;
+    font-weight: bold;
+    font-size: 33px;
+    margin-right: 18px; }
+  #postits .last {
+    margin-right: 0; }
 
 #page-footer {
   height: 50px;

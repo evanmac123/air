@@ -17,6 +17,8 @@ $slide-width: 879px;
 
 $email-box-background: #e0e2dd;
 
+$clickable-green: #7ba53c;
+
 body {
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   background-image: url(/images/new_marketing/background.png);
@@ -79,7 +81,7 @@ body {
 
     a {
       margin-left: 36px;
-      color: #7ba53c;
+      color: $clickable-green;
     }
   }
 }
@@ -92,6 +94,7 @@ body {
   width: 740px;
   height: 43px;
   margin: 0 auto;
+  margin-bottom: 25px;
   background-color: $email-box-background;
   padding: 24px 30px 20px 30px;
 
@@ -117,6 +120,35 @@ body {
   img {
     position: relative;
     top: 4px;
+  }
+}
+
+#postits {
+  width: 670px;
+  margin: 0 auto;
+
+  #postit-engage {
+    margin-left: 50px;
+  }
+
+  #postit-track {
+    margin-left: 80px;
+  }
+
+  #postit-roi {
+    margin-left: 90px;
+  }
+
+  .word-equation-term {
+    color: $clickable-green;
+    font-weight: bold;
+    font-size: 33px;
+
+    margin-right: 18px;
+  }
+
+  .last {
+    margin-right: 0;
   }
 }
 
