@@ -34,6 +34,12 @@
   box-shadow: $x $y $blur $spread $color;
 }
 
+@mixin left-right-box-shadow ($x: 5px, $blur: 5px, $spread: 5px, $color: $dark-gray) {
+  -webkit-box-shadow: $x 0 $blur $spread $color, -$x 0 $blur $spread $color;
+  -moz-box-shadow: $x 0 $blur $spread $color, -$x 0 $blur $spread $color;
+  box-shadow: $x 0 $blur $spread $color, -$x 0 $blur $spread $color;
+}
+
 @mixin background-gradient($startColor, $endColor, $fallbackColor) {
   background: $fallbackColor; /* for non-css3 browsers */
 

@@ -127,6 +127,7 @@ body {
 #postits {
   width: 670px;
   margin: 0 auto;
+  margin-bottom: 30px;
 
   #postit-engage {
     margin-left: 50px;
@@ -164,6 +165,69 @@ body {
     a {
       color: $link-blue;
     }
+  }
+}
+
+#double-column {
+  width: 920px;
+  margin: 0 auto;
+
+  .sidebar-section {
+    float: left;
+    width: 230px;
+    background-color: orange;
+  }
+
+  .main-section {
+    float: right;
+    width: 575px;
+    padding-top: 25px;
+    padding-left: 76px;
+    padding-bottom: 65px;
+    padding-right: 25px;
+    color: $dark-gray;
+    font-size: 16px;
+    background-image: url(/images/new_marketing/b_double_dropshadow.png);
+
+    img.banner {
+      position: relative;
+      left: -79px;
+      margin-bottom: 30px;
+    }
+
+    .point {
+      font-size: 20px;
+      color: $link-blue;
+    }
+
+    .top-point {
+      margin-bottom: 40px;
+    }
+
+    .subpoint {
+      font-weight: bold;
+    }
+
+    .illustrated-text {
+      margin-bottom: 30px;
+
+      .text {
+        float: left;
+        width: 260px;
+      }
+
+      .illustration {
+        height: 255px;
+      }
+    }
+  }
+
+  .shim {
+    clear: both;
+    width: 676px;
+    background-image: url(/images/new_marketing/b_double_dropshadow.png);
+    height: 1px;
+    margin-left: 244px;
   }
 }
 

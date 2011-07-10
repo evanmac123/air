@@ -85,7 +85,8 @@ body {
 
 #postits {
   width: 670px;
-  margin: 0 auto; }
+  margin: 0 auto;
+  margin-bottom: 30px; }
   #postits #postit-engage {
     margin-left: 50px; }
   #postits #postit-track {
@@ -107,6 +108,48 @@ body {
       color: #2d2d2b; }
     #postits #value-proposition a {
       color: #38a1a3; }
+
+#double-column {
+  width: 920px;
+  margin: 0 auto; }
+  #double-column .sidebar-section {
+    float: left;
+    width: 230px;
+    background-color: orange; }
+  #double-column .main-section {
+    float: right;
+    width: 575px;
+    padding-top: 25px;
+    padding-left: 76px;
+    padding-bottom: 65px;
+    padding-right: 25px;
+    color: #2d2d2b;
+    font-size: 16px;
+    background-image: url(/images/new_marketing/b_double_dropshadow.png); }
+    #double-column .main-section img.banner {
+      position: relative;
+      left: -79px;
+      margin-bottom: 30px; }
+    #double-column .main-section .point {
+      font-size: 20px;
+      color: #38a1a3; }
+    #double-column .main-section .top-point {
+      margin-bottom: 40px; }
+    #double-column .main-section .subpoint {
+      font-weight: bold; }
+    #double-column .main-section .illustrated-text {
+      margin-bottom: 30px; }
+      #double-column .main-section .illustrated-text .text {
+        float: left;
+        width: 260px; }
+      #double-column .main-section .illustrated-text .illustration {
+        height: 255px; }
+  #double-column .shim {
+    clear: both;
+    width: 676px;
+    background-image: url(/images/new_marketing/b_double_dropshadow.png);
+    height: 1px;
+    margin-left: 244px; }
 
 #page-footer {
   height: 50px;
