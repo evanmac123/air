@@ -8,7 +8,22 @@
   </span>
 </div>
 
-<div class="slideshow">
+<div id="slideshow">
   <!-- TODO: change static slide to slideshow -->
   <%= image_tag 'new_marketing/slide1.png' %>
+</div>
+
+<div id="request-consultation-bar">
+  <!-- TODO: make this a live form. -->
+  <form>
+    <span id="request-consultation">
+      request a<br/>consultation
+    </span>
+
+    <%= text_field_tag "", 'name', :class => 'with-placeholder' %>
+
+    <%= image_tag 'new_marketing/img_ampersand.png', :alt => 'and' %>
+
+    <%= text_field_tag "", 'email', :class => 'with-placeholder' %>
+    <%= image_submit_tag 'new_marketing/btn_submit.png' %>
 </div>

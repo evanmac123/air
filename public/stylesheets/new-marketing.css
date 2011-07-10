@@ -56,6 +56,32 @@ body {
       margin-left: 36px;
       color: #7ba53c; }
 
+#slideshow {
+  margin-bottom: 20px; }
+
+#request-consultation-bar {
+  width: 740px;
+  height: 43px;
+  margin: 0 auto;
+  background-color: #e0e2dd;
+  padding: 24px 30px 20px 30px; }
+  #request-consultation-bar #request-consultation {
+    float: left;
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 1;
+    margin-right: 22px; }
+  #request-consultation-bar input[type="text"] {
+    width: 213px;
+    height: 23px;
+    padding-top: 10px;
+    padding-bottom: 10px; }
+  #request-consultation-bar input[type="image"] {
+    margin-left: 5px; }
+  #request-consultation-bar img {
+    position: relative;
+    top: 4px; }
+
 #page-footer {
   height: 50px;
   line-height: 50px;
