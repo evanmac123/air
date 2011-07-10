@@ -1,0 +1,9 @@
+<div id="navbar">
+  <%= image_tag 'new_marketing/logo.png', :alt => "H Engage logo" %>
+
+  <span id="buttons">
+    <% %w(process engage track video blog).each do |link_title| %>
+      <%= link_to link_title.capitalize, "#" + link_title %>
+    <% end %>
+  </span>
+</div>
