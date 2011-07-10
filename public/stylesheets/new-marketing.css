@@ -99,6 +99,14 @@ body {
     margin-right: 18px; }
   #postits .last {
     margin-right: 0; }
+  #postits #value-proposition {
+    margin-top: 30px;
+    font-size: 16px; }
+    #postits #value-proposition #headline {
+      font-weight: bold;
+      color: #2d2d2b; }
+    #postits #value-proposition a {
+      color: #38a1a3; }
 
 #page-footer {
   height: 50px;

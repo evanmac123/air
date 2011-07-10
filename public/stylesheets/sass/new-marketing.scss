@@ -18,6 +18,7 @@ $slide-width: 879px;
 $email-box-background: #e0e2dd;
 
 $clickable-green: #7ba53c;
+$link-blue: #38a1a3;
 
 body {
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -149,6 +150,20 @@ body {
 
   .last {
     margin-right: 0;
+  }
+
+  #value-proposition {
+    margin-top: 30px;
+    font-size: 16px;
+
+    #headline {
+      font-weight: bold;
+      color: $dark-gray;
+    }
+
+    a {
+      color: $link-blue;
+    }
   }
 }
 
