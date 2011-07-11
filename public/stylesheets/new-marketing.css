@@ -140,6 +140,10 @@ body {
     #double-column .main-section .subcolumns .left {
       float: left;
       width: 260px; }
+      #double-column .main-section .subcolumns .left ol {
+        margin-top: 0; }
+        #double-column .main-section .subcolumns .left ol li {
+          margin-bottom: 10px; }
     #double-column .main-section .subcolumns .right {
       margin-bottom: 30px; }
       #double-column .main-section .subcolumns .right img {

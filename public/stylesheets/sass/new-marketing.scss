@@ -212,6 +212,14 @@ body {
       .left {
         float: left;
         width: 260px;
+
+        ol {
+          margin-top: 0;
+
+          li {
+            margin-bottom: 10px;
+          }
+        }
       }
 
       .right {
