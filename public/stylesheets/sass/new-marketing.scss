@@ -20,6 +20,8 @@ $email-box-background: #e0e2dd;
 $clickable-green: #7ba53c;
 $link-blue: #38a1a3;
 
+$single-column-right-padding: 30px;
+
 body {
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   background-image: url(/images/new_marketing/background.png);
@@ -152,19 +154,19 @@ body {
   .last {
     margin-right: 0;
   }
+}
 
-  #value-proposition {
-    margin-top: 30px;
-    font-size: 16px;
+.value-proposition {
+  margin-top: 30px;
+  font-size: 16px;
 
-    #headline {
-      font-weight: bold;
-      color: $dark-gray;
-    }
+  .headline {
+    font-weight: bold;
+    color: $dark-gray;
+  }
 
-    a {
-      color: $link-blue;
-    }
+  a {
+    color: $link-blue;
   }
 }
 
@@ -246,8 +248,8 @@ body {
     }
 
     .blog-section {
-      padding-right: 30px;
       margin-bottom: 60px;
+      padding-right: $single-column-right-padding;
 
       .post {
         margin-bottom: 50px;
@@ -266,6 +268,10 @@ body {
           }
         }
       }
+    }
+
+    .value-proposition {
+      padding-right: $single-column-right-padding;
     }
   }
 

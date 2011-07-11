@@ -100,14 +100,15 @@ body {
     margin-right: 18px; }
   #postits .last {
     margin-right: 0; }
-  #postits #value-proposition {
-    margin-top: 30px;
-    font-size: 16px; }
-    #postits #value-proposition #headline {
-      font-weight: bold;
-      color: #2d2d2b; }
-    #postits #value-proposition a {
-      color: #38a1a3; }
+
+.value-proposition {
+  margin-top: 30px;
+  font-size: 16px; }
+  .value-proposition .headline {
+    font-weight: bold;
+    color: #2d2d2b; }
+  .value-proposition a {
+    color: #38a1a3; }
 
 #double-column {
   width: 920px;
@@ -158,8 +159,8 @@ body {
       clear: both;
       height: 30px; }
     #double-column .main-section .blog-section {
-      padding-right: 30px;
-      margin-bottom: 60px; }
+      margin-bottom: 60px;
+      padding-right: 30px; }
       #double-column .main-section .blog-section .post {
         margin-bottom: 50px; }
         #double-column .main-section .blog-section .post .title {
@@ -168,6 +169,8 @@ body {
             color: #38a1a3; }
         #double-column .main-section .blog-section .post .body a {
           color: #38a1a3; }
+    #double-column .main-section .value-proposition {
+      padding-right: 30px; }
   #double-column .shim {
     clear: both;
     width: 676px;
