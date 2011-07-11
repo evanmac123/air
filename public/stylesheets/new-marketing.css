@@ -137,13 +137,17 @@ body {
       margin-bottom: 40px; }
     #double-column .main-section .subpoint {
       font-weight: bold; }
-    #double-column .main-section .illustrated-text {
+    #double-column .main-section .subcolumns {
       margin-bottom: 30px; }
-      #double-column .main-section .illustrated-text .text {
+      #double-column .main-section .subcolumns .left {
         float: left;
         width: 260px; }
-      #double-column .main-section .illustrated-text .illustration {
+      #double-column .main-section .subcolumns .right {
         height: 255px; }
+      #double-column .main-section .subcolumns .right-text {
+        float: right;
+        width: 240px;
+        padding-right: 45px; }
   #double-column .shim {
     clear: both;
     width: 676px;

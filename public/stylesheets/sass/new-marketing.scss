@@ -208,16 +208,22 @@ body {
       font-weight: bold;
     }
 
-    .illustrated-text {
+    .subcolumns {
       margin-bottom: 30px;
 
-      .text {
+      .left {
         float: left;
         width: 260px;
       }
 
-      .illustration {
+      .right {
         height: 255px;
+      }
+
+      .right-text {
+        float: right;
+        width: 240px;
+        padding-right: 45px;
       }
     }
   }
