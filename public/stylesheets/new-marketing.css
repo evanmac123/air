@@ -133,6 +133,8 @@ body {
     #double-column .main-section .point {
       font-size: 20px;
       color: #38a1a3; }
+      #double-column .main-section .point a {
+        color: #38a1a3; }
     #double-column .main-section .top-point {
       margin-bottom: 40px; }
     #double-column .main-section .subpoint {
@@ -155,6 +157,17 @@ body {
     #double-column .main-section .subcolumns-separator {
       clear: both;
       height: 30px; }
+    #double-column .main-section .blog-section {
+      padding-right: 30px;
+      margin-bottom: 60px; }
+      #double-column .main-section .blog-section .post {
+        margin-bottom: 50px; }
+        #double-column .main-section .blog-section .post .title {
+          margin-bottom: 5px; }
+          #double-column .main-section .blog-section .post .title a {
+            color: #38a1a3; }
+        #double-column .main-section .blog-section .post .body a {
+          color: #38a1a3; }
   #double-column .shim {
     clear: both;
     width: 676px;

@@ -198,6 +198,10 @@ body {
     .point {
       font-size: 20px;
       color: $link-blue;
+
+      a {
+        color: $link-blue;
+      }
     }
 
     .top-point {
@@ -239,6 +243,29 @@ body {
     .subcolumns-separator {
       clear: both;
       height: 30px;
+    }
+
+    .blog-section {
+      padding-right: 30px;
+      margin-bottom: 60px;
+
+      .post {
+        margin-bottom: 50px;
+
+        .title {
+          margin-bottom: 5px;
+
+          a { 
+            color: $link-blue; 
+          }
+        }
+
+        .body {
+          a {
+            color: $link-blue;
+          }
+        }
+      }
     }
   }
 
