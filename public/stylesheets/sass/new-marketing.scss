@@ -209,15 +209,16 @@ body {
     }
 
     .subcolumns {
-      margin-bottom: 30px;
-
       .left {
         float: left;
         width: 260px;
       }
 
       .right {
-        height: 255px;
+        margin-bottom: 30px;
+        img {
+          float: right;
+        }
       }
 
       .right-text {
@@ -225,6 +226,11 @@ body {
         width: 240px;
         padding-right: 45px;
       }
+    }
+
+    .subcolumns-separator {
+      clear: both;
+      height: 30px;
     }
   }
 

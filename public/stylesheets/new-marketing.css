@@ -137,17 +137,20 @@ body {
       margin-bottom: 40px; }
     #double-column .main-section .subpoint {
       font-weight: bold; }
-    #double-column .main-section .subcolumns {
+    #double-column .main-section .subcolumns .left {
+      float: left;
+      width: 260px; }
+    #double-column .main-section .subcolumns .right {
       margin-bottom: 30px; }
-      #double-column .main-section .subcolumns .left {
-        float: left;
-        width: 260px; }
-      #double-column .main-section .subcolumns .right {
-        height: 255px; }
-      #double-column .main-section .subcolumns .right-text {
-        float: right;
-        width: 240px;
-        padding-right: 45px; }
+      #double-column .main-section .subcolumns .right img {
+        float: right; }
+    #double-column .main-section .subcolumns .right-text {
+      float: right;
+      width: 240px;
+      padding-right: 45px; }
+    #double-column .main-section .subcolumns-separator {
+      clear: both;
+      height: 30px; }
   #double-column .shim {
     clear: both;
     width: 676px;
