@@ -61,6 +61,10 @@ body {
 
 #slideshow {
   margin-bottom: 20px; }
+  #slideshow img {
+    display: none; }
+  #slideshow img.first {
+    display: block; }
 
 #request-consultation-bar {
   width: 740px;

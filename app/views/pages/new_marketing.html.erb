@@ -1,3 +1,5 @@
+<%= javascript_include_tag 'jquery.cycle.all' %>
+
 <div id="navbar">
   <%= image_tag 'new_marketing/logo.png', :alt => "H Engage logo" %>
 
@@ -9,8 +11,11 @@
 </div>
 
 <div id="slideshow">
-  <!-- TODO: change static slide to slideshow -->
-  <%= image_tag 'new_marketing/slide1.png' %>
+  <%= image_tag 'new_marketing/slide1.png', :class => "first" %>
+  <%= image_tag 'new_marketing/slide2.png' %>
+  <%= image_tag 'new_marketing/slide3.png' %>
+  <%= image_tag 'new_marketing/slide4.png' %>
+  <%= image_tag 'new_marketing/slide5.png' %>
 </div>
 
 <div id="request-consultation-bar">
@@ -316,6 +321,10 @@
 
 <% content_for :javascript do %>
   <%= javascript_tag do %>
+    $('#slideshow').cycle({
+      fx: 'scrollLeft'
+    });
+
     $('.request-info').submit(function(e) {
       e.preventDefault();
 

@@ -99,6 +99,14 @@ body {
 
 #slideshow {
   margin-bottom: 20px;
+
+  img {
+    display: none;
+  }
+
+  img.first {
+    display: block;
+  }
 }
 
 #request-consultation-bar {
