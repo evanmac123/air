@@ -119,18 +119,30 @@ body {
     padding-top: 120px; }
     #double-column .sidebar-section .pullquote {
       font-size: 18px;
-      padding-right: 45px;
-      position: relative; }
+      padding-left: 10px;
+      padding-right: 30px;
+      position: relative;
+      margin-bottom: 80px; }
       #double-column .sidebar-section .pullquote img {
         margin: 0;
         position: absolute;
-        left: -12px;
+        left: -2px;
         top: -20px; }
       #double-column .sidebar-section .pullquote .attribution {
         padding-left: 1em; }
+    #double-column .sidebar-section form {
+      background-color: #e0e2dd;
+      padding: 20px; }
+      #double-column .sidebar-section form .copy {
+        font-size: 30px; }
+      #double-column .sidebar-section form input[type="text"] {
+        width: 186px;
+        height: 20px;
+        margin-bottom: 5px; }
   #double-column .main-section {
     float: right;
     width: 575px;
+    min-height: 418px;
     padding-top: 25px;
     padding-left: 76px;
     padding-bottom: 65px;

@@ -181,13 +181,15 @@ body {
 
     .pullquote {
       font-size: 18px;
-      padding-right: 45px;
+      padding-left: 10px;
+      padding-right: 30px;
       position: relative;
+      margin-bottom: 80px;
 
       img {
         margin: 0;
         position: absolute;
-        left: -12px;
+        left: -2px;
         top: -20px;
       }
 
@@ -195,11 +197,28 @@ body {
         padding-left: 1em;
       }
     }
+
+    form {
+      background-color: $email-box-background;
+      padding: 20px;
+
+      .copy {
+        font-size: 30px;
+      }
+
+      input[type="text"] {
+        width: 186px;
+        height: 20px;
+        margin-bottom: 5px;
+      }
+
+    }
   }
 
   .main-section {
     float: right;
     width: 575px;
+    min-height: 418px;
     padding-top: 25px;
     padding-left: 76px;
     padding-bottom: 65px;
