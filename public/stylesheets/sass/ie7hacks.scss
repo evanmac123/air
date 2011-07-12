@@ -1,18 +1,8 @@
 @import "standard_colors";
 
-#sidebar {
-  padding-top: 50px;
-}
-
-#secondary-boxes {
-  border-right: solid 2px $light-gray;
-  width: 638px;
-}
-
-.secondary-box {
-  width: 538px;
-
-  .banner {
-    left: -49px;
+#navbar {
+  #buttons {
+    position: static;
+    top: 0;
   }
 }
