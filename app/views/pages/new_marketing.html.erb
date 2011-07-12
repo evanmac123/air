@@ -38,9 +38,21 @@
 </div>
 
 <div id="postits">
-  <% %w(play engage track roi).each do |postit_name| %>
-    <%= image_tag "new_marketing/img_h_#{postit_name}1.png", :id => "postit-#{postit_name}" %>
+  <% %w(process engage track roi).each do |postit_name| %>
+    <% original_path = "new_marketing/img_h_#{postit_name}1.png" %>
+    <% hover_path = "new_marketing/img_h_#{postit_name}2.png" %>
+    <% image_id = "postit-#{postit_name}" %>
+
+    <%= link_to image_tag(original_path, :id => image_id), "##{postit_name}" %>
+    <%= image_tag hover_path, :style => "display: none" %>
+
+    <%= javascript_tag do %>
+      $(document).ready(function(e) {
+        makePostitJiggle('<%= image_id %>', '/images/' + '<%= original_path %>', '/images/' + '<%= hover_path %>');
+      });
+    <% end %>
   <% end %>
+
   <div id="postit-text">
     <span class="word-equation-term">Play</span>
     <span class="word-equation-term">+</span>
@@ -321,6 +333,12 @@
 
 <% content_for :javascript do %>
   <%= javascript_tag do %>
+    function makePostitJiggle(imageId, originalPath, hoverPath) {
+      $('#' + imageId).
+        mouseover(function(e) {$(this).attr('src', hoverPath)}).
+        mouseout(function(e) {$(this).attr('src', originalPath)});
+    }
+
     $('#slideshow').cycle({
       fx: 'scrollLeft'
     });
