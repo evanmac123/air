@@ -214,7 +214,13 @@ body {
   margin: 0 auto; }
   #marketing-footer #sm-buttons {
     width: 230px;
-    float: left; }
+    float: left;
+    padding-top: 30px; }
+    #marketing-footer #sm-buttons a img {
+      margin-bottom: 4px; }
+    #marketing-footer #sm-buttons a .sm-action {
+      vertical-align: top;
+      font-size: 12px; }
   #marketing-footer #about-us {
     width: 575px;
     float: right;
