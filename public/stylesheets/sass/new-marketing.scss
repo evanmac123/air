@@ -103,7 +103,7 @@ body {
 
 #request-consultation-bar {
   width: 740px;
-  height: 43px;
+  height: 63px;
   margin: 0 auto;
   margin-bottom: 25px;
   background-color: $email-box-background;
@@ -131,6 +131,14 @@ body {
   img {
     position: relative;
     top: 4px;
+  }
+
+  .thanks-message {
+    float: left;
+  }
+
+  .spinner {
+    float: right;
   }
 }
 

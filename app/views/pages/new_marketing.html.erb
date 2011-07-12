@@ -14,18 +14,21 @@
 </div>
 
 <div id="request-consultation-bar">
-  <!-- TODO: make this a live form. -->
-  <form>
+  <form method="post" action="#" class="request-info">
     <span id="request-consultation">
       request a<br/>consultation
     </span>
 
-    <%= text_field_tag "", 'name', :class => 'with-placeholder' %>
+    <%= text_field_tag "name", 'name', :class => 'with-placeholder' %>
 
     <%= image_tag 'new_marketing/img_ampersand.png', :alt => 'and' %>
 
-    <%= text_field_tag "", 'email', :class => 'with-placeholder' %>
-    <%= image_submit_tag 'new_marketing/btn_submit.png' %>
+    <%= text_field_tag "email", 'email', :class => 'with-placeholder' %>
+    <%= image_submit_tag 'new_marketing/btn_submit.png' %><br/>
+
+    <span class="thanks-message" style="display: none">Thanks, we'll be in touch.</span>
+    <%= image_tag 'spinner.gif', :class => 'spinner', :style => 'display: none' %>
+
   </form>
 </div>
 
@@ -309,4 +312,26 @@
       <div class="clear">&nbsp;</div>
     </div>
   </div>
+<% end %>
+
+<% content_for :javascript do %>
+  <%= javascript_tag do %>
+    $('.request-info').submit(function(e) {
+      e.preventDefault();
+
+      var submitForm = $(this);
+
+      submitForm.find('.thanks-message').hide();
+      submitForm.find('.spinner').show();
+
+      $.post(
+        '<%= email_info_requests_path %>',
+        submitForm.serialize(),
+        function() {
+          submitForm.find('.spinner').hide();
+          submitForm.find('.thanks-message').show();
+        }
+      )
+    });
+  <% end %>
 <% end %>

@@ -5,7 +5,10 @@ class EmailInfoRequestsController < ApplicationController
     @email = params[:email].blank? ?
                nil :
                params[:email]
+    @name  = params[:name].blank? ?
+               nil :
+               params[:name]
 
-    EmailInfoRequest.create!(:email => @email) if @email
+    EmailInfoRequest.create!(:name => @name, :email => @email) if (@name && @email)
   end
 end

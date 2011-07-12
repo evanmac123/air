@@ -64,7 +64,7 @@ body {
 
 #request-consultation-bar {
   width: 740px;
-  height: 43px;
+  height: 63px;
   margin: 0 auto;
   margin-bottom: 25px;
   background-color: #e0e2dd;
@@ -85,6 +85,10 @@ body {
   #request-consultation-bar img {
     position: relative;
     top: 4px; }
+  #request-consultation-bar .thanks-message {
+    float: left; }
+  #request-consultation-bar .spinner {
+    float: right; }
 
 #postits {
   width: 670px;
