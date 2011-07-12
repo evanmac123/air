@@ -52,9 +52,7 @@
 
 <div id="double-column">
   <a name="process"></a>
-  <div class="sidebar-section">
-    <!-- TODO: sidebar contents -->
-  </div>
+  <%= render :partial => 'sidebar_section' %>
 
   <div class="main-section">
     <%= image_tag 'new_marketing/h_play.png', :alt => 'Play', :class => 'banner' %>
@@ -115,9 +113,8 @@
   </div>
 
   <a name="engage"></a>
-  <div class="sidebar-section">
-    <!-- TODO: sidebar content -->
-  </div>
+
+  <%= render :partial => 'sidebar_section' %>
 
   <div class="main-section">
     <%= image_tag 'new_marketing/h_engage.png', :alt => 'Engage', :class => 'banner' %>
@@ -153,8 +150,6 @@
   </div>
 
   <a name="track"></a>
-  <div class="sidebar-section">
-  </div>
   <div class="main-section">
     <%= image_tag 'new_marketing/h_track.png', :alt => 'Track', :class => 'banner' %>
     <div class="subcolumns">
@@ -195,8 +190,7 @@
   <div class="shim">
   </div>
 
-  <div class="sidebar-section">
-  </div>
+  <%= render :partial => 'sidebar_section' %>
 
   <a name="roi"></a>
   <div class="main-section">
@@ -223,8 +217,7 @@
   </div>
 
   <a name="blog"></a>
-  <div class="sidebar-section">
-  </div>
+  <%= render :partial => 'sidebar_section' %>
 
   <div class="main-section">
     <%= image_tag 'new_marketing/h_blog.png', :alt => 'Read our blog', :class => 'banner' %>
@@ -284,9 +277,7 @@
   </div>
 
   <a name="video"></a>
-  <div class="sidebar-section">
-  </div>
-
+  <%= render :partial => 'sidebar_section' %>
   <div class="main-section">
     <%= image_tag 'new_marketing/h_video.png', :alt => 'Why we created H Engage', :class => 'banner' %>
     <p class="value-proposition">

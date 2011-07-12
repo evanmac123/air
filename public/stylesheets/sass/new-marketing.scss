@@ -177,7 +177,24 @@ body {
   .sidebar-section {
     float: left;
     width: 230px;
-    background-color: orange;
+    padding-top: 120px;
+
+    .pullquote {
+      font-size: 18px;
+      padding-right: 45px;
+      position: relative;
+
+      img {
+        margin: 0;
+        position: absolute;
+        left: -12px;
+        top: -20px;
+      }
+
+      .attribution {
+        padding-left: 1em;
+      }
+    }
   }
 
   .main-section {
@@ -271,6 +288,7 @@ body {
     }
 
     .value-proposition {
+      margin-top: 0;
       padding-right: $single-column-right-padding;
     }
   }
