@@ -61,6 +61,8 @@ body {
     #navbar #buttons a {
       margin-left: 36px;
       color: #7ba53c; }
+    #navbar #buttons a:hover {
+      color: #2d2d2b; }
 
 #slideshow {
   margin-bottom: 20px; }
@@ -69,13 +71,24 @@ body {
   #slideshow img.first {
     display: block; }
 
+#upper-box {
+  background-color: #f7f7f7;
+  width: 879px;
+  padding-bottom: 24px;
+  margin-bottom: 56px; }
+
 #request-consultation-bar {
-  width: 740px;
+  width: 819px;
   height: 63px;
   margin: 0 auto;
   margin-bottom: 25px;
   background-color: #e0e2dd;
-  padding: 24px 30px 20px 30px; }
+  padding-top: 24px;
+  padding-right: 30px;
+  padding-bottom: 20px;
+  padding-left: 30px; }
+  #request-consultation-bar form {
+    width: 819px; }
   #request-consultation-bar #request-consultation {
     float: left;
     font-size: 20px;
@@ -83,6 +96,7 @@ body {
     line-height: 1;
     margin-right: 22px; }
   #request-consultation-bar input[type="text"] {
+    font-size: 20px;
     width: 213px;
     height: 23px;
     padding-top: 10px;
@@ -98,26 +112,36 @@ body {
     float: right; }
 
 #postits {
-  width: 670px;
-  margin: 0 auto;
-  margin-bottom: 30px; }
+  width: 550px;
+  margin: 0 auto; }
   #postits #postit-engage {
     margin-left: 50px; }
   #postits #postit-track {
     margin-left: 80px; }
   #postits #postit-roi {
-    margin-left: 90px; }
+    margin-left: 49px; }
   #postits .word-equation-term {
     color: #7ba53c;
     font-weight: bold;
     font-size: 33px;
     margin-right: 18px; }
+    #postits .word-equation-term a {
+      color: #7ba53c; }
+    #postits .word-equation-term a:hover {
+      color: #2d2d2b;
+      text-decoration: underline; }
   #postits .last {
     margin-right: 0; }
+  #postits #postit-text {
+    width: 550px; }
 
 .value-proposition {
+  width: 830px;
   margin-top: 30px;
-  font-size: 16px; }
+  margin-bottom: 56px;
+  padding-left: 30px;
+  padding-right: 30px;
+  font-size: 22px; }
   .value-proposition .headline {
     font-weight: bold;
     color: #2d2d2b; }

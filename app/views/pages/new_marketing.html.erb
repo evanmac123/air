@@ -18,56 +18,57 @@
   <%= image_tag 'new_marketing/slide5.png' %>
 </div>
 
-<div id="request-consultation-bar">
-  <form method="post" action="#" class="request-info">
-    <span id="request-consultation">
-      request a<br/>consultation
-    </span>
+<div id="upper-box">
+  <div id="request-consultation-bar">
+    <form method="post" action="#" class="request-info">
+      <span id="request-consultation">
+        request a<br/>consultation
+      </span>
 
-    <%= text_field_tag "name", 'name', :class => 'with-placeholder' %>
+      <%= text_field_tag "name", 'name', :class => 'with-placeholder' %>
 
-    <%= image_tag 'new_marketing/img_ampersand.png', :alt => 'and' %>
+      <%= image_tag 'new_marketing/img_ampersand.png', :alt => 'and' %>
 
-    <%= text_field_tag "email", 'email', :class => 'with-placeholder' %>
-    <%= image_submit_tag 'new_marketing/btn_submit.png' %><br/>
+      <%= text_field_tag "email", 'email', :class => 'with-placeholder' %>
+      <%= image_submit_tag 'new_marketing/btn_submit.png' %><br/>
 
-    <span class="thanks-message" style="display: none">Thanks, we'll be in touch.</span>
-    <%= image_tag 'spinner.gif', :class => 'spinner', :style => 'display: none' %>
+      <span class="thanks-message" style="display: none">Thanks, we'll be in touch.</span>
+      <%= image_tag 'spinner.gif', :class => 'spinner', :style => 'display: none' %>
 
-  </form>
-</div>
-
-<div id="postits">
-  <% %w(process engage track roi).each do |postit_name| %>
-    <% original_path = "new_marketing/img_h_#{postit_name}1.png" %>
-    <% hover_path = "new_marketing/img_h_#{postit_name}2.png" %>
-    <% image_id = "postit-#{postit_name}" %>
-
-    <%= link_to image_tag(original_path, :id => image_id), "##{postit_name}" %>
-    <%= image_tag hover_path, :style => "display: none" %>
-
-    <%= javascript_tag do %>
-      $(document).ready(function(e) {
-        makePostitJiggle('<%= image_id %>', '/images/' + '<%= original_path %>', '/images/' + '<%= hover_path %>');
-      });
-    <% end %>
-  <% end %>
-
-  <div id="postit-text">
-    <span class="word-equation-term">Play</span>
-    <span class="word-equation-term">+</span>
-    <span class="word-equation-term">Engage</span>
-    <span class="word-equation-term">+</span>
-    <span class="word-equation-term">Track</span>
-    <span class="word-equation-term">=</span>
-    <span class="word-equation-term last">Increase ROI</span>
+    </form>
   </div>
 
   <p class="value-proposition">
-  <span class="headline">H Engage is a wellness engagement platform.</span><br/>
-  We spark excitement in health, make corporate communications interactive, and increase participation in wellness programs using a fun mobile game that drives ROI.<br/>
-  <a href="#video">Watch our video</a>
+    <span class="headline">H Engage is a wellness engagement platform.</span><br/>
+    We spark excitement in health, make corporate communications interactive, and increase participation in wellness programs using a fun mobile game that drives ROI.<br/>
   </p>
+
+  <div id="postits">
+    <% %w(process engage track roi).each do |postit_name| %>
+      <% original_path = "new_marketing/img_h_#{postit_name}1.png" %>
+      <% hover_path = "new_marketing/img_h_#{postit_name}2.png" %>
+      <% image_id = "postit-#{postit_name}" %>
+
+      <%= link_to image_tag(original_path, :id => image_id), "##{postit_name}" %>
+      <%= image_tag hover_path, :style => "display: none" %>
+
+      <%= javascript_tag do %>
+        $(document).ready(function(e) {
+          makePostitJiggle('<%= image_id %>', '/images/' + '<%= original_path %>', '/images/' + '<%= hover_path %>');
+        });
+      <% end %>
+    <% end %>
+
+    <div id="postit-text">
+      <span class="word-equation-term"><a href="#process">Play</a></span>
+      <span class="word-equation-term">+</span>
+      <span class="word-equation-term"><a href="#engage">Engage</a></span>
+      <span class="word-equation-term">+</span>
+      <span class="word-equation-term"><a href="#track">Track</a></span>
+      <span class="word-equation-term">=</span>
+      <span class="word-equation-term last"><a href="#roi">ROI</a></span>
+    </div>
+  </div>
 </div>
 
 <div id="double-column">

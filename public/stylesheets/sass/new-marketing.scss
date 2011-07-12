@@ -97,6 +97,10 @@ body {
       margin-left: 36px;
       color: $clickable-green;
     }
+
+    a:hover {
+      color: $dark-gray;
+    }
   }
 }
 
@@ -112,13 +116,27 @@ body {
   }
 }
 
+#upper-box {
+  background-color: #f7f7f7;
+  width: 879px;
+  padding-bottom: 24px;
+  margin-bottom: 56px;
+}
+
 #request-consultation-bar {
-  width: 740px;
+  width: 819px;
   height: 63px;
   margin: 0 auto;
   margin-bottom: 25px;
   background-color: $email-box-background;
-  padding: 24px 30px 20px 30px;
+  padding-top: 24px;
+  padding-right: 30px;
+  padding-bottom: 20px; 
+  padding-left: 30px;
+
+  form {
+    width: 819px;
+  }
 
   #request-consultation {
     float: left;
@@ -129,6 +147,7 @@ body {
   }
 
   input[type="text"] {
+    font-size: 20px;
     width: 213px;
     height: 23px;
     padding-top: 10px;
@@ -154,9 +173,8 @@ body {
 }
 
 #postits {
-  width: 670px;
+  width: 550px;
   margin: 0 auto;
-  margin-bottom: 30px;
 
   #postit-engage {
     margin-left: 50px;
@@ -167,7 +185,7 @@ body {
   }
 
   #postit-roi {
-    margin-left: 90px;
+    margin-left: 49px;
   }
 
   .word-equation-term {
@@ -176,16 +194,36 @@ body {
     font-size: 33px;
 
     margin-right: 18px;
+
+    a {
+      color: $clickable-green;
+    }
+
+    a:hover {
+      color: $dark-gray;
+      text-decoration: underline;
+    }
   }
 
   .last {
     margin-right: 0;
   }
+
+  #postit-text {
+    width: 550px;
+  }
 }
 
 .value-proposition {
+  width: 830px;
+
   margin-top: 30px;
-  font-size: 16px;
+  margin-bottom: 56px;
+
+  padding-left: 30px;
+  padding-right: 30px;
+
+  font-size: 22px;
 
   .headline {
     font-weight: bold;
