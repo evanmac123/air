@@ -1,6 +1,9 @@
 img {
   margin: 0; }
 
+.clear {
+  clear: both; }
+
 @font-face {
   font-family: 'Chunk';
   font-weight: normal;
@@ -201,6 +204,28 @@ body {
     background-image: url(/images/new_marketing/b_double_dropshadow.png);
     height: 1px;
     margin-left: 244px; }
+
+#marketing-footer-wrapper {
+  background-color: #e0e2dd;
+  width: 100%; }
+
+#marketing-footer {
+  width: 900px;
+  margin: 0 auto; }
+  #marketing-footer #sm-buttons {
+    width: 230px;
+    float: left; }
+  #marketing-footer #about-us {
+    width: 575px;
+    float: right;
+    padding-top: 20px;
+    padding-bottom: 20px; }
+    #marketing-footer #about-us p {
+      font-size: 12px;
+      line-height: 1.6; }
+    #marketing-footer #about-us .title {
+      font-weight: bold;
+      font-size: 18px; }
 
 #page-footer {
   height: 50px;

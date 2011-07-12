@@ -5,6 +5,10 @@ img {
   margin: 0;
 }
 
+.clear {
+  clear: both;
+}
+
 @font-face {
   font-family: 'Chunk';
   font-weight: normal;
@@ -21,6 +25,10 @@ $clickable-green: #7ba53c;
 $link-blue: #38a1a3;
 
 $single-column-right-padding: 30px;
+
+$content-width: 900px;
+$sidebar-width: 230px;
+$main-section-width: 575px;
 
 body {
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -67,7 +75,7 @@ body {
 }
 
 #main-content {
-  width: 900px;
+  width: $content-width;
   margin: 0 auto;
   margin-bottom: 60px;
 }
@@ -176,7 +184,7 @@ body {
 
   .sidebar-section {
     float: left;
-    width: 230px;
+    width: $sidebar-width;
     padding-top: 120px;
 
     .pullquote {
@@ -217,7 +225,7 @@ body {
 
   .main-section {
     float: right;
-    width: 575px;
+    width: $main-section-width;
     min-height: 418px;
     padding-top: 25px;
     padding-left: 76px;
@@ -318,6 +326,38 @@ body {
     background-image: url(/images/new_marketing/b_double_dropshadow.png);
     height: 1px;
     margin-left: 244px;
+  }
+}
+
+#marketing-footer-wrapper {
+  background-color: $email-box-background;
+  width: 100%;
+}
+
+#marketing-footer {
+  width: $content-width;
+  margin: 0 auto;
+
+  #sm-buttons {
+    width: $sidebar-width;
+    float: left;
+  }
+
+  #about-us {
+    width: $main-section-width;
+    float: right;
+    padding-top: 20px;
+    padding-bottom: 20px;
+
+    p {
+      font-size: 12px;
+      line-height: 1.6;
+    }
+
+    .title { 
+      font-weight: bold;
+      font-size: 18px;
+    }
   }
 }
 
