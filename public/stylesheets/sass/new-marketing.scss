@@ -201,7 +201,6 @@ body {
 
     a:hover {
       color: $dark-gray;
-      text-decoration: underline;
     }
   }
 
@@ -223,10 +222,11 @@ body {
   padding-left: 30px;
   padding-right: 30px;
 
-  font-size: 22px;
+  font-size: 21px;
 
   .headline {
     font-weight: bold;
+    font-size: 23px;
     color: $dark-gray;
   }
 

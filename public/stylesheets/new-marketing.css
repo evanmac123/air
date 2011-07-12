@@ -128,8 +128,7 @@ body {
     #postits .word-equation-term a {
       color: #7ba53c; }
     #postits .word-equation-term a:hover {
-      color: #2d2d2b;
-      text-decoration: underline; }
+      color: #2d2d2b; }
   #postits .last {
     margin-right: 0; }
   #postits #postit-text {
@@ -141,9 +140,10 @@ body {
   margin-bottom: 56px;
   padding-left: 30px;
   padding-right: 30px;
-  font-size: 22px; }
+  font-size: 21px; }
   .value-proposition .headline {
     font-weight: bold;
+    font-size: 23px;
     color: #2d2d2b; }
   .value-proposition a {
     color: #38a1a3; }
