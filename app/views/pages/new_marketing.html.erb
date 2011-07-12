@@ -244,28 +244,16 @@
 
     <div class="blog-section">
       <p class="point top">
-        <a href="#">Under the Node Tree</a>
+        <a href="http://hengage.tumblr.com">Under the Node Tree</a>
       </p>
       <p>
         News about H Engage, analysis, and statistics.
       </p>
 
-      <!-- TODO: pull in actual blog posts via Tumblr API -->
+      <% 3.times do %>
+        <%= render 'tumblr_post_target', :post_class => 'recent-post' %>
+      <% end %>
 
-      <div class="post">
-        <div class="title"><a href="#">Lorem ipsum dolor sic amet</a></div>
-        <div class="body">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur...<a href="#">read more</a></div>
-      </div>
-
-      <div class="post">
-        <div class="title"><a href="#">Lorem ipsum dolor sic amet</a></div>
-        <div class="body">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur...<a href="#">read more</a></div>
-      </div>
-
-      <div class="post">
-        <div class="title"><a href="#">Lorem ipsum dolor sic amet</a></div>
-        <div class="body">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur...<a href="#">read more</a></div>
-      </div>
     </div>
 
     <div class="blog-section">
@@ -276,20 +264,9 @@
         Meeting coming up? Review recent stats.
       </p>
 
-      <div class="post">
-        <div class="title"><a href="#">Lorem ipsum dolor sic amet</a></div>
-        <div class="body">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur...<a href="#">read more</a></div>
-      </div>
-
-      <div class="post">
-        <div class="title"><a href="#">Lorem ipsum dolor sic amet</a></div>
-        <div class="body">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur...<a href="#">read more</a></div>
-      </div>
-
-      <div class="post">
-        <div class="title"><a href="#">Lorem ipsum dolor sic amet</a></div>
-        <div class="body">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur...<a href="#">read more</a></div>
-      </div>
+      <% 3.times do %>
+        <%= render 'tumblr_post_target', :post_class => 'stats-post', :suppress_link => true %>
+      <% end %>
     </div>
   </div>
 
@@ -332,6 +309,44 @@
 <% end %>
 
 <% content_for :javascript do %>
+  <%= javascript_tag do %>
+    function bodyExcerpt(body) {
+      var words = body.split(/\s+/);
+      return words.slice(0, 30).join(' ') + '...';
+    }
+
+    function populatePost(postElement, title, body, url) {
+      $(postElement).
+        find('.title a').
+          text(title).
+          attr('href', url).
+          end().
+        find('.body').
+          text(body).
+          end().
+        find('a.read-more').
+          attr('href', url);
+    }
+
+    function populateRecentPosts(tumblrData) {
+      postElements = $('.recent-post');
+      $.each(tumblrData.posts, function(index, post) {
+        populatePost(postElements[index], post['regular-title'], bodyExcerpt(post['regular-body']), post['url']);
+      });
+    }
+
+    function populateStatsPosts(tumblrData) {
+      postElements = $('.stats-post');
+      $.each(tumblrData.posts, function(index, post) {
+        populatePost(postElements[index], '', post['quote-text'], '');
+      });
+    }
+  <% end %>
+
+  <script src="http://hengage.tumblr.com/api/read/json?start=0&num=3&filter=text&type=text&callback=populateRecentPosts"></script>
+
+  <script src="http://hengage.tumblr.com/api/read/json?start=0&num=3&filter=text&tagged=stats&type=quote&callback=populateStatsPosts"></script>
+
   <%= javascript_tag do %>
     function makePostitJiggle(imageId, originalPath, hoverPath) {
       $('#' + imageId).
