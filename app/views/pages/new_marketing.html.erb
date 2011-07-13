@@ -60,13 +60,13 @@
     <% end %>
 
     <div id="postit-text">
-      <span class="word-equation-term"><a href="#process">Play</a></span>
+      <span class="word-equation-term"><a href="#process" id="link-process">Play</a></span>
       <span class="word-equation-term">+</span>
-      <span class="word-equation-term"><a href="#engage">Engage</a></span>
+      <span class="word-equation-term"><a href="#engage" id="link-engage">Engage</a></span>
       <span class="word-equation-term">+</span>
-      <span class="word-equation-term"><a href="#track">Track</a></span>
+      <span class="word-equation-term"><a href="#track" id="link-track">Track</a></span>
       <span class="word-equation-term">=</span>
-      <span class="word-equation-term last"><a href="#roi">ROI</a></span>
+      <span class="word-equation-term last"><a href="#roi" id="link-roi">ROI</a></span>
     </div>
   </div>
 </div>
@@ -349,8 +349,8 @@
   <script src="http://hengage.tumblr.com/api/read/json?start=0&num=3&filter=text&tagged=stats&type=quote&callback=populateStatsPosts"></script>
 
   <%= javascript_tag do %>
-    function makePostitJiggle(imageId, originalPath, hoverPath) {
-      $('#' + imageId).
+    function makePostitJiggle(elementId, originalPath, hoverPath) {
+      $('#' + elementId).
         mouseover(function(e) {$(this).attr('src', hoverPath)}).
         mouseout(function(e) {$(this).attr('src', originalPath)});
     }

@@ -60,7 +60,9 @@ body {
     font-weight: bold; }
     #navbar #buttons a {
       margin-left: 36px;
-      color: #7ba53c; }
+      color: #7ba53c;
+      -webkit-transition: color 0.4s linear;
+      -moz-transition: color 0.4s linear; }
     #navbar #buttons a:hover {
       color: #2d2d2b; }
 
@@ -127,6 +129,8 @@ body {
     font-size: 33px;
     margin-right: 18px; }
     #postits .word-equation-term a {
+      -webkit-transition: color 0.4s linear;
+      -moz-transition: color 0.4s linear;
       color: #7ba53c; }
     #postits .word-equation-term a:hover {
       color: #2d2d2b; }

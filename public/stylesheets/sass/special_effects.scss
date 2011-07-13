@@ -47,3 +47,8 @@
   background: -webkit-gradient(linear, left top, left bottom, from($startColor), to($endColor)); /* for webkit browsers */
   background: -moz-linear-gradient(top,  $startColor,  $endColor); /* for firefox 3.6+ */ 
 }
+
+@mixin transition($trans) {
+  -webkit-transition: $trans;
+  -moz-transition: $trans;
+}
