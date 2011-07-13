@@ -64,16 +64,15 @@ body {
     #navbar #buttons a:hover {
       color: #2d2d2b; }
 
-#slideshow {
-  margin-bottom: 20px; }
-  #slideshow img {
-    display: none; }
-  #slideshow img.first {
-    display: block; }
+#slideshow img {
+  display: none; }
+#slideshow img.first {
+  display: block; }
 
 #upper-box {
   background-color: #f7f7f7;
   width: 879px;
+  padding-top: 24px;
   padding-bottom: 24px;
   margin-bottom: 56px; }
 
@@ -86,7 +85,9 @@ body {
   padding-top: 24px;
   padding-right: 30px;
   padding-bottom: 20px;
-  padding-left: 30px; }
+  padding-left: 30px;
+  position: relative;
+  right: 10px; }
   #request-consultation-bar form {
     width: 819px; }
   #request-consultation-bar #request-consultation {
@@ -136,7 +137,6 @@ body {
 
 .value-proposition {
   width: 830px;
-  margin-top: 30px;
   margin-bottom: 56px;
   padding-left: 30px;
   padding-right: 30px;
@@ -179,7 +179,7 @@ body {
         margin-bottom: 5px; }
   #double-column .main-section {
     float: right;
-    width: 575px;
+    width: 540px;
     min-height: 418px;
     padding-top: 25px;
     padding-left: 76px;
@@ -187,7 +187,9 @@ body {
     padding-right: 25px;
     color: #2d2d2b;
     font-size: 16px;
-    background-image: url(/images/new_marketing/b_double_dropshadow.png); }
+    background-color: white;
+    position: relative;
+    right: 40px; }
     #double-column .main-section img.banner {
       position: relative;
       left: -79px;
@@ -257,7 +259,7 @@ body {
       vertical-align: top;
       font-size: 12px; }
   #marketing-footer #about-us {
-    width: 575px;
+    width: 540px;
     float: right;
     padding-top: 20px;
     padding-bottom: 20px; }
