@@ -86,7 +86,7 @@ body {
   background-color: #e0e2dd;
   padding-top: 24px;
   padding-right: 30px;
-  padding-bottom: 20px;
+  padding-bottom: 10px;
   padding-left: 30px;
   position: relative;
   right: 10px; }
@@ -110,7 +110,7 @@ body {
     position: relative;
     top: 4px; }
   #request-consultation-bar .thanks-message {
-    float: left; }
+    font-size: 40px; }
   #request-consultation-bar .spinner {
     float: right; }
 
@@ -131,9 +131,12 @@ body {
     #postits .word-equation-term a {
       -webkit-transition: color 0.4s linear;
       -moz-transition: color 0.4s linear;
+      -webkit-transition: opacity 0.4s linear;
+      -moz-transition: opacity 0.4s linear;
+      opacity: 0.5;
       color: #7ba53c; }
     #postits .word-equation-term a:hover {
-      color: #2d2d2b; }
+      opacity: 1; }
   #postits .last {
     margin-right: 0; }
   #postits #postit-text {

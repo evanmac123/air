@@ -135,7 +135,7 @@ body {
   background-color: $email-box-background;
   padding-top: 24px;
   padding-right: 30px;
-  padding-bottom: 20px; 
+  padding-bottom: 10px; 
   padding-left: 30px;
   position: relative;
   right: 10px;
@@ -170,7 +170,7 @@ body {
   }
 
   .thanks-message {
-    float: left;
+    font-size: 40px;
   }
 
   .spinner {
@@ -203,11 +203,13 @@ body {
 
     a {
       @include link-transition;
+      @include transition(opacity 0.4s linear);
+      opacity: 0.5;
       color: $clickable-green;
     }
 
     a:hover {
-      color: $dark-gray;
+      opacity: 1;
     }
   }
 

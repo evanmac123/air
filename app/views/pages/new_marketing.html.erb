@@ -30,9 +30,6 @@
       <%= text_field_tag "email", 'email', :class => 'with-placeholder' %>
       <%= image_submit_tag 'new_marketing/btn_submit.png' %><br/>
 
-      <span class="thanks-message" style="display: none">Thanks, we'll be in touch.</span>
-      <%= image_tag 'spinner.gif', :class => 'spinner', :style => 'display: none' %>
-
     </form>
   </div>
 
@@ -360,22 +357,44 @@
       timeout: 8000
     });
 
-    $('.request-info').submit(function(e) {
-      e.preventDefault();
+    function sidebarRequestBeforePost(form) {
+      form.find('.thanks-message').hide();
+      form.find('.spinner').show();
+    }
+  
+    function sidebarRequestAfterPost(form) {
+      form.find('.spinner').hide();
+      form.find('.thanks-message').show();
+    }
 
-      var submitForm = $(this);
+    function topbarRequestBeforePost(form) {
+      form.find('input').attr('disabled', 'disabled');
+    }
 
-      submitForm.find('.thanks-message').hide();
-      submitForm.find('.spinner').show();
+    function topbarRequestAfterPost(form) {
+      form.html('<span class="thanks-message">Thanks, we\'ll be in touch.</span>');
+    }
 
-      $.post(
-        '<%= email_info_requests_path %>',
-        submitForm.serialize(),
-        function() {
-          submitForm.find('.spinner').hide();
-          submitForm.find('.thanks-message').show();
-        }
-      )
-    });
+    function addRequestFormCallbacks(selector, beforePost, afterPost) {
+      $(selector).submit(function(e) {
+        e.preventDefault();
+
+        var submitForm = $(this);
+
+        beforePost(submitForm);
+
+        $.post(
+          '<%= email_info_requests_path %>',
+          submitForm.serialize(),
+          function() {afterPost(submitForm)}
+        )
+      });
+    }
+
+    addRequestFormCallbacks('.sidebar-section .request-info', sidebarRequestBeforePost, sidebarRequestAfterPost);
+    addRequestFormCallbacks('#request-consultation-bar .request-info', topbarRequestBeforePost, topbarRequestAfterPost);
+
+    // reloads on Firefox are stupid
+    $('#request-consultation-bar input').removeAttr('disabled');
   <% end %>
 <% end %>
