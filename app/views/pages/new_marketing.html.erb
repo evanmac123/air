@@ -244,7 +244,7 @@
     <%= image_tag 'new_marketing/h_blog.png', :alt => 'Read our blog', :class => 'banner' %>
 
     <div class="blog-section">
-      <p class="point top">
+      <p id="blog-name" class="point top">
         <a href="http://hengage.tumblr.com">Under the Node Tree</a>
       </p>
       <p>
@@ -258,14 +258,14 @@
     </div>
 
     <div class="blog-section">
-      <p class="point">
+      <p id="blog-name" class="point">
         Facts and Statistics
       </p> 
       <p>
         Meeting coming up? Review recent stats.
       </p>
 
-      <% 3.times do %>
+      <% 7.times do %>
         <%= render 'tumblr_post_target', :post_class => 'stats-post', :suppress_link => true %>
       <% end %>
     </div>
@@ -278,10 +278,6 @@
   <%= render :partial => 'sidebar_section' %>
   <div class="main-section">
     <%= image_tag 'new_marketing/h_video.png', :alt => 'Why we created H Engage', :class => 'banner' %>
-    <p class="value-proposition">
-      <span class="headline">H Engage is a wellness engagement platform.</span><br/>
-      We spark excitement in health, make corporate communications interactive, and increase participation in wellness programs using a fun mobile game that drives ROI.<br/>
-    </p>
     <%= image_tag 'new_marketing/fpo2.png', :alt => 'TODO: embed video' %>
   </div>
 
@@ -300,8 +296,12 @@
       </div>
 
       <div id="about-us">
-        <p class="title">About H Engage</p>
-        <p>Typical wellness programs simply aren't engaging. They depend on outdated communication media such as telephone coaching, newsletters, and static web pages. Meanwhile, employees are spending more time than ever on social media, online games, and text messaging on their mobile phones. Vlad's clients were enthusiastic about trying new communication channels to engage employees in their health. The problem was that vendors that could help didn't exist.</p>
+        <p class="title">
+          H Engage is a wellness engagement platform.
+        </p>
+        <p>
+          We spark excitement in health, make corporate communications interactive, and increase participation in wellness programs using a fun mobile game that drives ROI.
+        </p>
       </div>
 
       <div class="clear">&nbsp;</div>
