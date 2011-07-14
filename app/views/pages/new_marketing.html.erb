@@ -357,21 +357,11 @@
       timeout: 8000
     });
 
-    function sidebarRequestBeforePost(form) {
-      form.find('.thanks-message').hide();
-      form.find('.spinner').show();
-    }
-  
-    function sidebarRequestAfterPost(form) {
-      form.find('.spinner').hide();
-      form.find('.thanks-message').show();
-    }
-
-    function topbarRequestBeforePost(form) {
+    function requestInfoBeforePost(form) {
       form.find('input').attr('disabled', 'disabled');
     }
 
-    function topbarRequestAfterPost(form) {
+    function requestInfoAfterPost(form) {
       form.html('<span class="thanks-message">Thanks, we\'ll be in touch.</span>');
     }
 
@@ -391,10 +381,9 @@
       });
     }
 
-    addRequestFormCallbacks('.sidebar-section .request-info', sidebarRequestBeforePost, sidebarRequestAfterPost);
-    addRequestFormCallbacks('#request-consultation-bar .request-info', topbarRequestBeforePost, topbarRequestAfterPost);
+    addRequestFormCallbacks('.request-info', requestInfoBeforePost, requestInfoAfterPost);
 
     // reloads on Firefox are stupid
-    $('#request-consultation-bar input').removeAttr('disabled');
+    $('.request-info input').removeAttr('disabled');
   <% end %>
 <% end %>
