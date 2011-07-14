@@ -161,7 +161,8 @@ body {
   #double-column .sidebar-section {
     float: left;
     width: 230px;
-    padding-top: 120px; }
+    padding-top: 120px;
+    top: 0; }
     #double-column .sidebar-section .pullquote {
       font-size: 18px;
       padding-left: 10px;

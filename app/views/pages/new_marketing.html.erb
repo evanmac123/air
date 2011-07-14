@@ -132,8 +132,6 @@
 
   <a name="engage"></a>
 
-  <%= render :partial => 'sidebar_section' %>
-
   <div class="main-section">
     <%= image_tag 'new_marketing/h_engage.png', :alt => 'Engage', :class => 'banner' %>
     <p class="point top-point">
@@ -208,8 +206,6 @@
   <div class="shim">
   </div>
 
-  <%= render :partial => 'sidebar_section' %>
-
   <a name="roi"></a>
   <div class="main-section">
     <%= image_tag "new_marketing/h_roi.png", :alt => 'Return On Investment', :class => 'banner' %>
@@ -235,8 +231,6 @@
   </div>
 
   <a name="blog"></a>
-  <%= render :partial => 'sidebar_section' %>
-
   <div class="main-section">
     <%= image_tag 'new_marketing/h_blog.png', :alt => 'Read our blog', :class => 'banner' %>
 
@@ -272,7 +266,6 @@
   </div>
 
   <a name="video"></a>
-  <%= render :partial => 'sidebar_section' %>
   <div class="main-section">
     <%= image_tag 'new_marketing/h_video.png', :alt => 'Why we created H Engage', :class => 'banner' %>
     <%= image_tag 'new_marketing/fpo2.png', :alt => 'TODO: embed video' %>
@@ -385,5 +378,20 @@
 
     // reloads on Firefox are stupid
     $('.request-info input').removeAttr('disabled');
+
+    function positionSidebarRequestBox() {
+      var sidebarRequestBox = $('.sidebar-section').eq(0);
+      var mainSection = $('.main-section').eq(0);
+
+      return (function() {
+        if($(window).scrollTop() > mainSection.offset().top) {
+          sidebarRequestBox.css('position', 'fixed');
+        } else {
+          sidebarRequestBox.css('position', 'static');
+        }
+      })
+    }
+
+    setInterval(positionSidebarRequestBox(), 50);
   <% end %>
 <% end %>
