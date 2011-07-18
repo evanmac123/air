@@ -39,7 +39,7 @@ body {
   background-image: url(/images/new_marketing/b_tealtop_tile.png);
   background-repeat: repeat-x; }
   #header #header-contents {
-    width: 879px;
+    width: 900px;
     margin: 0 auto; }
     #header #header-contents #subscriber-arrow {
       float: right;
@@ -51,25 +51,14 @@ body {
   margin-bottom: 60px; }
 
 #navbar {
-  width: 879px; }
+  display: inline-block;
+  padding-top: 8px; }
   #navbar #buttons {
-    float: right;
-    position: relative;
-    top: 50px;
-    font-size: 20px;
-    font-weight: bold; }
+    font-weight: bold;
+    font-size: 16px; }
     #navbar #buttons a {
-      margin-left: 36px;
-      color: #7ba53c;
-      -webkit-transition: color 0.4s linear;
-      -moz-transition: color 0.4s linear; }
-    #navbar #buttons a:hover {
-      color: #2d2d2b; }
-
-#slideshow img {
-  display: none; }
-#slideshow img.first {
-  display: block; }
+      margin-right: 36px;
+      color: white; }
 
 #upper-box {
   background-color: #f7f7f7;

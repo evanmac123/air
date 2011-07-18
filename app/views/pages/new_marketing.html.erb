@@ -1,37 +1,26 @@
-<%= javascript_include_tag 'jquery.cycle.all' %>
-
-<div id="navbar">
-  <%= image_tag 'new_marketing/logo.png', :alt => "H Engage logo" %>
-
+<% content_for :navbar do %> 
   <span id="buttons">
     <% %w(process engage track video blog).each do |link_title| %>
       <%= link_to link_title.capitalize, "#" + link_title %>
     <% end %>
   </span>
+<% end %>
+
+<div id="request-consultation-bar">
+  <form method="post" action="#" class="request-info">
+    <span id="request-consultation">
+      request a<br/>consultation
+    </span>
+
+    <%= text_field_tag "email[name]", 'name', :class => 'with-placeholder fat-email-field' %>
+
+    <%= image_tag 'new_marketing/img_ampersand.png', :alt => 'and' %>
+
+    <%= text_field_tag "email[email]", 'email', :class => 'with-placeholder fat-email-field' %>
+    <%= image_submit_tag 'new_marketing/btn_submit.png' %><br/>
+
+  </form>
 </div>
-
-<div id="slideshow">
-  <%= image_tag 'new_marketing/slide1.png', :class => "first" %>
-  <%= image_tag 'new_marketing/slide2.png' %>
-  <%= image_tag 'new_marketing/slide3.png' %>
-  <%= image_tag 'new_marketing/slide4.png' %>
-  <%= image_tag 'new_marketing/slide5.png' %>
-</div>
-  <div id="request-consultation-bar">
-    <form method="post" action="#" class="request-info">
-      <span id="request-consultation">
-        request a<br/>consultation
-      </span>
-
-      <%= text_field_tag "email[name]", 'name', :class => 'with-placeholder fat-email-field' %>
-
-      <%= image_tag 'new_marketing/img_ampersand.png', :alt => 'and' %>
-
-      <%= text_field_tag "email[email]", 'email', :class => 'with-placeholder fat-email-field' %>
-      <%= image_submit_tag 'new_marketing/btn_submit.png' %><br/>
-
-    </form>
-  </div>
 
 
 <div id="upper-box">
@@ -70,7 +59,6 @@
 
 <div id="double-column">
   <a name="process"></a>
-  <%= render :partial => 'sidebar_section' %>
 
   <div class="main-section">
     <%= image_tag 'new_marketing/h_play.png', :alt => 'Play', :class => 'banner' %>
@@ -273,20 +261,6 @@
 
   <div class="shim">
   </div>
-  <div id="bottom-request-info-box">
-    <form method="post" action="#" class="request-info">
-      <%= text_field_tag "email[name]", 'name', :class => 'with-placeholder fat-email-field' %>
-
-      <%= image_tag 'new_marketing/img_ampersand.png', :alt => 'and' %>
-
-      <%= text_field_tag "email[email]", 'email', :class => 'with-placeholder fat-email-field' %>
-      <%= text_area_tag "email[comment]", 'message', :class => 'with-placeholder' %>
-      <%= image_submit_tag 'new_marketing/btn_submit.png' %><br/>
-
-    </form>
-  </div>
-  <div class="shim">
-  </div>
 </div>
 
 <% content_for :page_footer do %>
@@ -359,11 +333,6 @@
         mouseout(function(e) {$(this).attr('src', originalPath)});
     }
 
-    $('#slideshow').cycle({
-      fx: 'scrollLeft',
-      timeout: 8000
-    });
-
     function requestInfoBeforePost(form) {
       form.find('input').attr('disabled', 'disabled');
     }
@@ -393,20 +362,5 @@
 
     // reloads on Firefox are stupid
     $('.request-info input').removeAttr('disabled');
-
-    function positionSidebarRequestBox() {
-      var sidebarRequestBox = $('.sidebar-section').eq(0);
-      var mainSection = $('.main-section').eq(0);
-
-      return (function() {
-        if($(window).scrollTop() > mainSection.offset().top) {
-          sidebarRequestBox.css('position', 'fixed');
-        } else {
-          sidebarRequestBox.css('position', 'static');
-        }
-      })
-    }
-
-    setInterval(positionSidebarRequestBox(), 50);
   <% end %>
 <% end %>

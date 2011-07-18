@@ -27,8 +27,6 @@ img {
   float: right;
 }
 
-$slide-width: 879px;
-
 $email-box-background: #e0e2dd;
 
 $clickable-green: #7ba53c;
@@ -77,7 +75,7 @@ body {
   background-repeat: repeat-x;
 
   #header-contents {
-    width: $slide-width;
+    width: $content-width;
     margin: 0 auto;
 
     #subscriber-arrow {
@@ -94,34 +92,17 @@ body {
 }
 
 #navbar {
-  width: $slide-width;
+  display: inline-block;
+  padding-top: 8px;
 
   #buttons {
-    float: right;
-    position: relative;
-    top: 50px;
-    font-size: 20px;
     font-weight: bold;
+    font-size: 16px;
 
     a {
-      margin-left: 36px;
-      color: $clickable-green;
-      @include link-transition;
+      margin-right: 36px;
+      color: white;
     }
-
-    a:hover {
-      color: $dark-gray;
-    }
-  }
-}
-
-#slideshow {
-  img {
-    display: none;
-  }
-
-  img.first {
-    display: block;
   }
 }
 
