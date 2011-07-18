@@ -1,59 +1,43 @@
 <% content_for :navbar do %> 
   <span id="buttons">
-    <% %w(process engage track video blog).each do |link_title| %>
+    <% %w(process engage track video blog contact).each do |link_title| %>
       <%= link_to link_title.capitalize, "#" + link_title %>
     <% end %>
   </span>
 <% end %>
 
-<div id="request-consultation-bar">
-  <form method="post" action="#" class="request-info">
-    <span id="request-consultation">
-      request a<br/>consultation
-    </span>
-
-    <%= text_field_tag "email[name]", 'name', :class => 'with-placeholder fat-text-field' %>
-
-    <%= image_tag 'new_marketing/img_ampersand.png', :alt => 'and' %>
-
-    <%= text_field_tag "email[email]", 'email', :class => 'with-placeholder fat-text-field' %>
-    <%= image_submit_tag 'new_marketing/btn_submit.png' %><br/>
-
-  </form>
+<div id="upper-box">
+  <div class="marketing-content">
+    <%= image_tag 'new_marketing/logo.png', :alt => 'H Engage logo', :id => 'logo' %>
+    <%= image_tag 'new_marketing/img_spark_engagement.png', :alt => 'Spark engagement in health and wellness using the technology people love', :id => 'spark-engagement' %>
+    <%= image_tag 'new_marketing/img_phones_scoring.png', :alt => 'Get healthy, +10 points. Eat right, +5 points. Play H Engage, +25 points.', :id => 'phones-scoring' %>
+  </div>
 </div>
 
+<div id="postits">
+  <% %w(process engage track roi).each do |postit_name| %>
+    <% original_path = "new_marketing/img_h_#{postit_name}1.png" %>
+    <% hover_path = "new_marketing/img_h_#{postit_name}2.png" %>
+    <% image_id = "postit-#{postit_name}" %>
 
-<div id="upper-box">
-  <p class="value-proposition">
-    <span class="headline">H Engage is a wellness engagement platform.</span><br/>
-    We spark excitement in health, make corporate communications interactive, and increase participation in wellness programs using a fun mobile game that drives ROI.<br/>
-  </p>
+    <%= link_to image_tag(original_path, :id => image_id), "##{postit_name}" %>
+    <%= image_tag hover_path, :style => "display: none" %>
 
-  <div id="postits">
-    <% %w(process engage track roi).each do |postit_name| %>
-      <% original_path = "new_marketing/img_h_#{postit_name}1.png" %>
-      <% hover_path = "new_marketing/img_h_#{postit_name}2.png" %>
-      <% image_id = "postit-#{postit_name}" %>
-
-      <%= link_to image_tag(original_path, :id => image_id), "##{postit_name}" %>
-      <%= image_tag hover_path, :style => "display: none" %>
-
-      <%= javascript_tag do %>
-        $(document).ready(function(e) {
-          makePostitJiggle('<%= image_id %>', '/images/' + '<%= original_path %>', '/images/' + '<%= hover_path %>');
-        });
-      <% end %>
+    <%= javascript_tag do %>
+      $(document).ready(function(e) {
+        makePostitJiggle('<%= image_id %>', '/images/' + '<%= original_path %>', '/images/' + '<%= hover_path %>');
+      });
     <% end %>
+  <% end %>
 
-    <div id="postit-text">
-      <span class="word-equation-term"><a href="#process" id="link-process">Play</a></span>
-      <span class="word-equation-term">+</span>
-      <span class="word-equation-term"><a href="#engage" id="link-engage">Engage</a></span>
-      <span class="word-equation-term">+</span>
-      <span class="word-equation-term"><a href="#track" id="link-track">Track</a></span>
-      <span class="word-equation-term">=</span>
-      <span class="word-equation-term last"><a href="#roi" id="link-roi">ROI</a></span>
-    </div>
+  <div id="postit-text">
+    <span class="word-equation-term"><a href="#process" id="link-process">Play</a></span>
+    <span class="word-equation-term">+</span>
+    <span class="word-equation-term"><a href="#engage" id="link-engage">Engage</a></span>
+    <span class="word-equation-term">+</span>
+    <span class="word-equation-term"><a href="#track" id="link-track">Track</a></span>
+    <span class="word-equation-term">=</span>
+    <span class="word-equation-term last"><a href="#roi" id="link-roi">ROI</a></span>
   </div>
 </div>
 
@@ -261,6 +245,23 @@
 
   <div class="shim">
   </div>
+</div>
+
+<div id="request-consultation-bar">
+  <a name="contact"></a>
+  <form method="post" action="#" class="request-info">
+    <span id="request-consultation">
+      request a<br/>consultation
+    </span>
+
+    <%= text_field_tag "email[name]", 'name', :class => 'with-placeholder fat-text-field' %>
+
+    <%= image_tag 'new_marketing/img_ampersand.png', :alt => 'and' %>
+
+    <%= text_field_tag "email[email]", 'email', :class => 'with-placeholder fat-text-field' %>
+    <%= image_submit_tag 'new_marketing/btn_submit.png' %><br/>
+
+  </form>
 </div>
 
 <% content_for :page_footer do %>

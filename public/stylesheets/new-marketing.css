@@ -41,7 +41,7 @@ body {
 
 #header {
   width: 100%;
-  height: 42px;
+  height: 37px;
   background-image: url(/images/new_marketing/b_tealtop_tile.png);
   background-repeat: repeat-x; }
   #header #header-contents {
@@ -53,11 +53,6 @@ body {
       float: right;
       margin-top: 8px; }
 
-#main-content {
-  width: 900px;
-  margin: 0 auto;
-  margin-bottom: 60px; }
-
 #navbar {
   display: inline-block;
   padding-top: 8px; }
@@ -68,12 +63,26 @@ body {
       margin-right: 36px;
       color: white; }
 
+.marketing-content {
+  width: 900px;
+  margin: 0 auto;
+  position: relative; }
+
 #upper-box {
-  background-color: #f7f7f7;
-  width: 879px;
-  padding-top: 24px;
-  padding-bottom: 24px;
-  margin-bottom: 56px; }
+  background-color: white;
+  width: 100%;
+  height: 320px; }
+  #upper-box img {
+    position: absolute; }
+  #upper-box #logo {
+    top: 30px;
+    left: 65px; }
+  #upper-box #spark-engagement {
+    top: 135px;
+    left: 100px; }
+  #upper-box #phones-scoring {
+    top: 45px;
+    left: 625px; }
 
 input.fat-text-field {
   font-size: 20px;
@@ -81,36 +90,6 @@ input.fat-text-field {
   height: 23px;
   padding-top: 10px;
   padding-bottom: 10px; }
-
-#request-consultation-bar {
-  width: 819px;
-  height: 63px;
-  margin: 0 auto;
-  margin-bottom: 25px;
-  background-color: #e0e2dd;
-  padding-top: 24px;
-  padding-right: 30px;
-  padding-bottom: 10px;
-  padding-left: 30px;
-  position: relative;
-  right: 10px; }
-  #request-consultation-bar form {
-    width: 819px; }
-  #request-consultation-bar #request-consultation {
-    float: left;
-    font-size: 20px;
-    font-weight: bold;
-    line-height: 1;
-    margin-right: 22px; }
-  #request-consultation-bar input[type="image"] {
-    margin-left: 5px; }
-  #request-consultation-bar img {
-    position: relative;
-    top: 4px; }
-  #request-consultation-bar .thanks-message {
-    font-size: 40px; }
-  #request-consultation-bar .spinner {
-    float: right; }
 
 #postits {
   width: 550px;
@@ -139,19 +118,6 @@ input.fat-text-field {
     margin-right: 0; }
   #postits #postit-text {
     width: 550px; }
-
-.value-proposition {
-  width: 830px;
-  margin-bottom: 56px;
-  padding-left: 30px;
-  padding-right: 30px;
-  font-size: 21px; }
-  .value-proposition .headline {
-    font-weight: bold;
-    font-size: 23px;
-    color: #2d2d2b; }
-  .value-proposition a {
-    color: #38a1a3; }
 
 #double-column {
   width: 920px;
@@ -300,6 +266,36 @@ input.fat-text-field {
     #marketing-footer #about-us .title {
       font-weight: bold;
       font-size: 18px; }
+
+#request-consultation-bar {
+  width: 819px;
+  height: 63px;
+  margin: 0 auto;
+  margin-bottom: 25px;
+  background-color: #e0e2dd;
+  padding-top: 24px;
+  padding-right: 30px;
+  padding-bottom: 10px;
+  padding-left: 30px;
+  position: relative;
+  right: 10px; }
+  #request-consultation-bar form {
+    width: 819px; }
+  #request-consultation-bar #request-consultation {
+    float: left;
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 1;
+    margin-right: 22px; }
+  #request-consultation-bar input[type="image"] {
+    margin-left: 5px; }
+  #request-consultation-bar img {
+    position: relative;
+    top: 4px; }
+  #request-consultation-bar .thanks-message {
+    font-size: 40px; }
+  #request-consultation-bar .spinner {
+    float: right; }
 
 #page-footer {
   height: 50px;
