@@ -23,11 +23,11 @@
         request a<br/>consultation
       </span>
 
-      <%= text_field_tag "name", 'name', :class => 'with-placeholder' %>
+      <%= text_field_tag "email[name]", 'name', :class => 'with-placeholder fat-email-field' %>
 
       <%= image_tag 'new_marketing/img_ampersand.png', :alt => 'and' %>
 
-      <%= text_field_tag "email", 'email', :class => 'with-placeholder' %>
+      <%= text_field_tag "email[email]", 'email', :class => 'with-placeholder fat-email-field' %>
       <%= image_submit_tag 'new_marketing/btn_submit.png' %><br/>
 
     </form>
@@ -273,6 +273,20 @@
 
   <div class="shim">
   </div>
+  <div id="bottom-request-info-box">
+    <form method="post" action="#" class="request-info">
+      <%= text_field_tag "email[name]", 'name', :class => 'with-placeholder fat-email-field' %>
+
+      <%= image_tag 'new_marketing/img_ampersand.png', :alt => 'and' %>
+
+      <%= text_field_tag "email[email]", 'email', :class => 'with-placeholder fat-email-field' %>
+      <%= text_area_tag "email[comment]", 'message', :class => 'with-placeholder' %>
+      <%= image_submit_tag 'new_marketing/btn_submit.png' %><br/>
+
+    </form>
+  </div>
+  <div class="shim">
+  </div>
 </div>
 
 <% content_for :page_footer do %>
@@ -363,12 +377,13 @@
         e.preventDefault();
 
         var submitForm = $(this);
+        var formValues = submitForm.serialize();
 
         beforePost(submitForm);
 
         $.post(
           '<%= email_info_requests_path %>',
-          submitForm.serialize(),
+          formValues,
           function() {afterPost(submitForm)}
         )
       });

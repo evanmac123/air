@@ -21,6 +21,12 @@ img {
   @include transition(color 0.4s linear);
 }
 
+@mixin main-section-positioning {
+  position: relative;
+  right: 40px;
+  float: right;
+}
+
 $slide-width: 879px;
 
 $email-box-background: #e0e2dd;
@@ -127,6 +133,14 @@ body {
   margin-bottom: 56px;
 }
 
+input.fat-email-field {
+  font-size: 20px;
+  width: 213px;
+  height: 23px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
 #request-consultation-bar {
   width: 819px;
   height: 63px;
@@ -150,14 +164,6 @@ body {
     font-weight: bold;
     line-height: 1;
     margin-right: 22px;
-  }
-
-  input[type="text"] {
-    font-size: 20px;
-    width: 213px;
-    height: 23px;
-    padding-top: 10px;
-    padding-bottom: 10px;
   }
 
   input[type="image"] {
@@ -290,8 +296,8 @@ body {
   }
 
   .main-section {
+    @include main-section-positioning;
     @include box-shadow(1px, 1px, 6px, 2px, #8b8b8b);
-    float: right;
     width: $main-section-width;
     min-height: 418px;
     padding-top: 25px;
@@ -301,8 +307,6 @@ body {
     color: $dark-gray;
     font-size: 16px;
     background-color: white;
-    position: relative;
-    right: 40px;
 
     img.banner {
       position: relative;
@@ -404,6 +408,27 @@ body {
   }
 }
 
+#bottom-request-info-box {
+  @include main-section-positioning;
+  width: $main-section-width;
+  background-color: $email-box-background;
+  padding: 25px 55px 35px 76px;
+
+  textarea {
+    font-size: 20px;
+    margin-top: 15px;
+    margin-bottom: 30px;
+    width: 459px;
+    height: 70px;
+  }
+
+  input[type="image"] {
+    float: right;
+    position: relative;
+    right: 36px;
+  }
+}
+
 #marketing-footer-wrapper {
   background-color: $email-box-background;
   width: 100%;
@@ -447,6 +472,7 @@ body {
     }
   }
 }
+
 
 #page-footer {
   height: 50px;

@@ -54,6 +54,9 @@ module NavigationHelpers
     when /the blast SMS page for "(.*?)"/
       new_admin_demo_blast_sms_path(Demo.find_by_company_name($1))
 
+    when /the new marketing page/
+      page_path(:id => 'new_marketing')
+
     else
       begin
         page_name =~ /the (.*) page/

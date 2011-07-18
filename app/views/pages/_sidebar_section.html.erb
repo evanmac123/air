@@ -1,8 +1,8 @@
 <div class="sidebar-section">
   <form class="request-info" action='#' method='post'>
     <span class="copy"> interested?<br/> request a trial</span>
-    <input type="text" name="name" value="name" class="with-placeholder">
-    <input type="text" name="email" value="email" class="with-placeholder">
+    <input type="text" name="email[name]" value="name" class="with-placeholder">
+    <input type="text" name="email[email]" value="email" class="with-placeholder">
     <%= image_submit_tag "new_marketing/btn_demo.png", :alt => 'Request demo' %>
     <%= image_tag 'spinner.gif', :class => 'spinner', :style => 'display: none' %>
     <span class="thanks-message" style="display: none">Thanks, we'll be in touch.</span>

@@ -78,6 +78,13 @@ body {
   padding-bottom: 24px;
   margin-bottom: 56px; }
 
+input.fat-email-field {
+  font-size: 20px;
+  width: 213px;
+  height: 23px;
+  padding-top: 10px;
+  padding-bottom: 10px; }
+
 #request-consultation-bar {
   width: 819px;
   height: 63px;
@@ -98,12 +105,6 @@ body {
     font-weight: bold;
     line-height: 1;
     margin-right: 22px; }
-  #request-consultation-bar input[type="text"] {
-    font-size: 20px;
-    width: 213px;
-    height: 23px;
-    padding-top: 10px;
-    padding-bottom: 10px; }
   #request-consultation-bar input[type="image"] {
     margin-left: 5px; }
   #request-consultation-bar img {
@@ -186,10 +187,12 @@ body {
         height: 20px;
         margin-bottom: 5px; }
   #double-column .main-section {
+    position: relative;
+    right: 40px;
+    float: right;
     -webkit-box-shadow: 1px 1px 6px 2px #8b8b8b;
     -moz-box-shadow: 1px 1px 6px 2px #8b8b8b;
     box-shadow: 1px 1px 6px 2px #8b8b8b;
-    float: right;
     width: 510px;
     min-height: 418px;
     padding-top: 25px;
@@ -198,9 +201,7 @@ body {
     padding-right: 55px;
     color: #2d2d2b;
     font-size: 16px;
-    background-color: white;
-    position: relative;
-    right: 40px; }
+    background-color: white; }
     #double-column .main-section img.banner {
       position: relative;
       left: -79px;
@@ -256,6 +257,24 @@ body {
     width: 676px;
     height: 85px;
     margin-left: 244px; }
+
+#bottom-request-info-box {
+  position: relative;
+  right: 40px;
+  float: right;
+  width: 510px;
+  background-color: #e0e2dd;
+  padding: 25px 55px 35px 76px; }
+  #bottom-request-info-box textarea {
+    font-size: 20px;
+    margin-top: 15px;
+    margin-bottom: 30px;
+    width: 459px;
+    height: 70px; }
+  #bottom-request-info-box input[type="image"] {
+    float: right;
+    position: relative;
+    right: 36px; }
 
 #marketing-footer-wrapper {
   background-color: #e0e2dd;
