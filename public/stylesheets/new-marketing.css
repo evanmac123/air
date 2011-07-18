@@ -16,22 +16,28 @@ body {
   background-image: url(/images/new_marketing/background.png); }
 
 #login-form {
-  margin-top: 6px;
-  float: right;
-  position: relative;
-  right: 11px; }
-  #login-form #login-prompt {
-    color: white;
-    font-size: 12pt;
-    padding-right: 4px; }
+  position: absolute;
+  width: 174px;
+  height: 93px;
+  padding: 12px 15px 24px 11px;
+  background-color: #e0e3dd;
+  border: solid 1px #70846b;
+  top: 31px;
+  right: 0;
+  z-index: 1;
+  display: none; }
   #login-form input[type="text"], #login-form input[type="password"] {
-    font-size: 8pt;
-    width: 110px;
-    position: relative;
-    top: -1px; }
-  #login-form input[type="submit"] {
-    padding-top: 4px;
-    padding-bottom: 4px; }
+    font-size: 12px;
+    width: 170px;
+    height: 30px;
+    padding: 0;
+    margin-bottom: 4px; }
+  #login-form a {
+    display: inline-block;
+    padding-top: 5px;
+    font-size: 12px; }
+  #login-form input[type="image"] {
+    float: right; }
 
 #header {
   width: 100%;
@@ -40,10 +46,12 @@ body {
   background-repeat: repeat-x; }
   #header #header-contents {
     width: 900px;
-    margin: 0 auto; }
-    #header #header-contents #subscriber-arrow {
+    margin: 0 auto;
+    position: relative; }
+    #header #header-contents #activate-login-form {
+      display: inline-block;
       float: right;
-      margin-right: 10px; }
+      margin-top: 8px; }
 
 #main-content {
   width: 900px;
@@ -67,7 +75,7 @@ body {
   padding-bottom: 24px;
   margin-bottom: 56px; }
 
-input.fat-email-field {
+input.fat-text-field {
   font-size: 20px;
   width: 213px;
   height: 23px;

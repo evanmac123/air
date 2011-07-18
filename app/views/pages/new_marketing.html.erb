@@ -12,11 +12,11 @@
       request a<br/>consultation
     </span>
 
-    <%= text_field_tag "email[name]", 'name', :class => 'with-placeholder fat-email-field' %>
+    <%= text_field_tag "email[name]", 'name', :class => 'with-placeholder fat-text-field' %>
 
     <%= image_tag 'new_marketing/img_ampersand.png', :alt => 'and' %>
 
-    <%= text_field_tag "email[email]", 'email', :class => 'with-placeholder fat-email-field' %>
+    <%= text_field_tag "email[email]", 'email', :class => 'with-placeholder fat-text-field' %>
     <%= image_submit_tag 'new_marketing/btn_submit.png' %><br/>
 
   </form>
@@ -362,5 +362,12 @@
 
     // reloads on Firefox are stupid
     $('.request-info input').removeAttr('disabled');
+
+    var loginForm = $('#login-form');
+
+    $('#activate-login-form').submit(function(e) {
+      e.preventDefault();
+      $('#login-form').toggle();
+    });
   <% end %>
 <% end %>
