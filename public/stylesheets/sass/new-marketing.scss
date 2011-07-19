@@ -10,11 +10,35 @@ img {
 }
 
 @font-face {
-  font-family: 'Chunk';
-  font-weight: normal;
+  font-family: 'Droid Sans';
   font-style: normal;
-  src: url('http://font.thoughtbot.com/chunk/chunk.otf');
-  src: local('☺'), url('http://font.thoughtbot.com/chunk/chunk.ttf') format('truetype');
+  font-weight: bold;
+  src: local('Droid Sans Bold'), local('DroidSans-Bold'), url('http://themes.googleusercontent.com/font?kit=EFpQQyG9GqCrobXxL-KRMQFhaRv2pGgT5Kf0An0s4MM') format('woff');
+}
+
+@font-face {
+  font-family: 'The Girl Next Door';
+  font-style: normal;
+  font-weight: normal;
+  src: local('The Girl Next Door'), local('TheGirlNextDoor'), url('http://themes.googleusercontent.com/font?kit=cWRA4JVGeEcHGcPl5hmX7rOFxJ5Ig03puUh67ume3us') format('woff');
+}
+
+@font-face {
+  font-family: 'Varela Round';
+  font-style: normal;
+  font-weight: normal;
+  src: local('Varela Round'), local('VarelaRound-Regular'), url('http://themes.googleusercontent.com/font?kit=APH4jr0uSos5wiut5cpjrnhCUOGz7vYGh680lGh-uXM') format('woff');
+}
+
+@font-face {
+  font-family: 'Droid Sans';
+  font-style: normal;
+  font-weight: normal;
+  src: local('Droid Sans'), local('DroidSans'), url('http://themes.googleusercontent.com/font?kit=s-BiyweUPV0v-yRb-cjciBsxEYwM7FgeyaSgU71cLG0') format('woff');
+}
+
+@mixin droid-sans {
+  font-family: 'Droid Sans', sans-serif;
 }
 
 @mixin link-transition {
@@ -39,7 +63,7 @@ $sidebar-width: 230px;
 $main-section-width: 510px;
 
 body {
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: 'Varela Round', sans-serif;
   background-image: url(/images/new_marketing/background.png);
 }
 
@@ -152,7 +176,7 @@ body {
 }
 
 #factoids {
-  margin-bottom: 75px;
+  margin-bottom: 45px;
 
   .marketing-content {
     padding-left: 90px;
@@ -173,48 +197,29 @@ input.fat-text-field {
   padding-bottom: 10px;
 }
 
-
-#postits {
-  width: 550px;
-  margin: 0 auto;
-
-  #postit-engage {
-    margin-left: 50px;
+#how-it-works {
+  h1, h2 a {
+    text-align: center;
+    font-family: 'Droid Sans', sans-serif;
+    font-size: 40px;
   }
 
-  #postit-track {
-    margin-left: 80px;
+  h1 {
+    color: #1d8c0a;
   }
 
-  #postit-roi {
-    margin-left: 49px;
-  }
-
-  .word-equation-term {
-    color: $clickable-green;
-    font-weight: bold;
-    font-size: 33px;
-
-    margin-right: 18px;
+  h2 {
+    color: #999999;
+    text-align: center;
 
     a {
       @include link-transition;
-      @include transition(opacity 0.4s linear);
-      opacity: 0.5;
-      color: $clickable-green;
+      color: #999999;
     }
 
     a:hover {
-      opacity: 1;
+      color: #1d8c0a;
     }
-  }
-
-  .last {
-    margin-right: 0;
-  }
-
-  #postit-text {
-    width: 550px;
   }
 }
 

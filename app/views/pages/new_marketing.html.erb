@@ -23,30 +23,10 @@
   </div>
 </div>
 
-<div id="postits">
-  <% %w(process engage track roi).each do |postit_name| %>
-    <% original_path = "new_marketing/img_h_#{postit_name}1.png" %>
-    <% hover_path = "new_marketing/img_h_#{postit_name}2.png" %>
-    <% image_id = "postit-#{postit_name}" %>
-
-    <%= link_to image_tag(original_path, :id => image_id), "##{postit_name}" %>
-    <%= image_tag hover_path, :style => "display: none" %>
-
-    <%= javascript_tag do %>
-      $(document).ready(function(e) {
-        makePostitJiggle('<%= image_id %>', '/images/' + '<%= original_path %>', '/images/' + '<%= hover_path %>');
-      });
-    <% end %>
-  <% end %>
-
-  <div id="postit-text">
-    <span class="word-equation-term"><a href="#process" id="link-process">Play</a></span>
-    <span class="word-equation-term">+</span>
-    <span class="word-equation-term"><a href="#engage" id="link-engage">Engage</a></span>
-    <span class="word-equation-term">+</span>
-    <span class="word-equation-term"><a href="#track" id="link-track">Track</a></span>
-    <span class="word-equation-term">=</span>
-    <span class="word-equation-term last"><a href="#roi" id="link-roi">ROI</a></span>
+<div id="how-it-works">
+  <div class="marketing-content">
+    <h1>How It Works</h1>
+    <h2><a href="#process">Play +</a> <a href="#engage">Engage +</a> <a href="#track">Measure =</a> <a href="#roi">ROI</a></h2>
   </div>
 </div>
 

@@ -5,14 +5,31 @@ img {
   clear: both; }
 
 @font-face {
-  font-family: 'Chunk';
-  font-weight: normal;
+  font-family: 'Droid Sans';
   font-style: normal;
-  src: url("http://font.thoughtbot.com/chunk/chunk.otf");
-  src: local("☺"), url("http://font.thoughtbot.com/chunk/chunk.ttf") format("truetype"); }
+  font-weight: bold;
+  src: local("Droid Sans Bold"), local("DroidSans-Bold"), url("http://themes.googleusercontent.com/font?kit=EFpQQyG9GqCrobXxL-KRMQFhaRv2pGgT5Kf0An0s4MM") format("woff"); }
+
+@font-face {
+  font-family: 'The Girl Next Door';
+  font-style: normal;
+  font-weight: normal;
+  src: local("The Girl Next Door"), local("TheGirlNextDoor"), url("http://themes.googleusercontent.com/font?kit=cWRA4JVGeEcHGcPl5hmX7rOFxJ5Ig03puUh67ume3us") format("woff"); }
+
+@font-face {
+  font-family: 'Varela Round';
+  font-style: normal;
+  font-weight: normal;
+  src: local("Varela Round"), local("VarelaRound-Regular"), url("http://themes.googleusercontent.com/font?kit=APH4jr0uSos5wiut5cpjrnhCUOGz7vYGh680lGh-uXM") format("woff"); }
+
+@font-face {
+  font-family: 'Droid Sans';
+  font-style: normal;
+  font-weight: normal;
+  src: local("Droid Sans"), local("DroidSans"), url("http://themes.googleusercontent.com/font?kit=s-BiyweUPV0v-yRb-cjciBsxEYwM7FgeyaSgU71cLG0") format("woff"); }
 
 body {
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: 'Varela Round', sans-serif;
   background-image: url(/images/new_marketing/background.png); }
 
 #login-form {
@@ -96,7 +113,7 @@ body {
     z-index: 1; }
 
 #factoids {
-  margin-bottom: 75px; }
+  margin-bottom: 45px; }
   #factoids .marketing-content {
     padding-left: 90px;
     padding-top: 6px; }
@@ -111,33 +128,21 @@ input.fat-text-field {
   padding-top: 10px;
   padding-bottom: 10px; }
 
-#postits {
-  width: 550px;
-  margin: 0 auto; }
-  #postits #postit-engage {
-    margin-left: 50px; }
-  #postits #postit-track {
-    margin-left: 80px; }
-  #postits #postit-roi {
-    margin-left: 49px; }
-  #postits .word-equation-term {
-    color: #7ba53c;
-    font-weight: bold;
-    font-size: 33px;
-    margin-right: 18px; }
-    #postits .word-equation-term a {
-      -webkit-transition: color 0.4s linear;
-      -moz-transition: color 0.4s linear;
-      -webkit-transition: opacity 0.4s linear;
-      -moz-transition: opacity 0.4s linear;
-      opacity: 0.5;
-      color: #7ba53c; }
-    #postits .word-equation-term a:hover {
-      opacity: 1; }
-  #postits .last {
-    margin-right: 0; }
-  #postits #postit-text {
-    width: 550px; }
+#how-it-works h1, #how-it-works h2 a {
+  text-align: center;
+  font-family: 'Droid Sans', sans-serif;
+  font-size: 40px; }
+#how-it-works h1 {
+  color: #1d8c0a; }
+#how-it-works h2 {
+  color: #999999;
+  text-align: center; }
+  #how-it-works h2 a {
+    -webkit-transition: color 0.4s linear;
+    -moz-transition: color 0.4s linear;
+    color: #999999; }
+  #how-it-works h2 a:hover {
+    color: #1d8c0a; }
 
 #double-column {
   width: 920px;
