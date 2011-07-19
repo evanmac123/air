@@ -312,7 +312,6 @@ input.fat-text-field {
       font-size: 18px; }
 
 #request-consultation-bar {
-  width: 819px;
   height: 63px;
   margin: 0 auto;
   margin-bottom: 25px;
@@ -320,26 +319,22 @@ input.fat-text-field {
   padding-top: 24px;
   padding-right: 30px;
   padding-bottom: 10px;
-  padding-left: 30px;
-  position: relative;
-  right: 10px; }
+  padding-left: 30px; }
   #request-consultation-bar form {
-    width: 819px; }
-  #request-consultation-bar #request-consultation {
-    float: left;
-    font-size: 20px;
-    font-weight: bold;
-    line-height: 1;
-    margin-right: 22px; }
-  #request-consultation-bar input[type="image"] {
-    margin-left: 5px; }
-  #request-consultation-bar img {
-    position: relative;
-    top: 4px; }
-  #request-consultation-bar .thanks-message {
-    font-size: 40px; }
-  #request-consultation-bar .spinner {
-    float: right; }
+    margin: 0 auto;
+    width: 900px; }
+    #request-consultation-bar form #request-consultation {
+      float: left;
+      font-size: 20px;
+      font-weight: bold;
+      line-height: 1;
+      margin-right: 25px; }
+    #request-consultation-bar form input[type="text"] {
+      margin-right: 25px; }
+    #request-consultation-bar form img {
+      position: relative;
+      top: 4px;
+      margin-right: 25px; }
 
 #page-footer {
   height: 50px;

@@ -475,7 +475,6 @@ input.fat-text-field {
 }
 
 #request-consultation-bar {
-  width: 819px;
   height: 63px;
   margin: 0 auto;
   margin-bottom: 25px;
@@ -484,36 +483,28 @@ input.fat-text-field {
   padding-right: 30px;
   padding-bottom: 10px; 
   padding-left: 30px;
-  position: relative;
-  right: 10px;
 
   form {
-    width: 819px;
-  }
+    margin: 0 auto;
+    width: 900px;
 
-  #request-consultation {
-    float: left;
-    font-size: 20px;
-    font-weight: bold;
-    line-height: 1;
-    margin-right: 22px;
-  }
+    #request-consultation {
+      float: left;
+      font-size: 20px;
+      font-weight: bold;
+      line-height: 1;
+      margin-right: 25px;
+    }
 
-  input[type="image"] {
-    margin-left: 5px;
-  }
+    input[type="text"] {
+      margin-right: 25px;
+    }
 
-  img {
-    position: relative;
-    top: 4px;
-  }
-
-  .thanks-message {
-    font-size: 40px;
-  }
-
-  .spinner {
-    float: right;
+    img {
+      position: relative;
+      top: 4px;
+      margin-right: 25px;
+    }
   }
 }
 
