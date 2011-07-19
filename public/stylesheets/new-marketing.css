@@ -128,40 +128,105 @@ input.fat-text-field {
   padding-top: 10px;
   padding-bottom: 10px; }
 
-#how-it-works h1, #how-it-works h2 a {
-  text-align: center;
-  font-family: 'Droid Sans', sans-serif;
-  font-size: 40px; }
-#how-it-works h1 {
-  color: #1d8c0a; }
-#how-it-works h2 {
-  color: #999999;
-  text-align: center; }
-  #how-it-works h2 a {
-    -webkit-transition: color 0.4s linear;
-    -moz-transition: color 0.4s linear;
-    color: #999999; }
-  #how-it-works h2 a:hover {
-    color: #1d8c0a; }
-#how-it-works #cycling-quote-box {
-  width: 100%;
-  height: 65px;
-  background-color: #fcfcfc;
-  margin-bottom: 45px;
-  border: solid #d5dfd4 2px;
-  position: relative; }
-  #how-it-works #cycling-quote-box #pointer {
-    position: absolute;
-    top: -22px;
-    left: 180px; }
-  #how-it-works #cycling-quote-box #quote-text {
-    font-family: Georgia, sans-serif;
-    font-size: 24px;
-    color: #333333;
+#how-it-works {
+  margin-bottom: 50px; }
+  #how-it-works h1, #how-it-works h2 a {
     text-align: center;
-    padding-top: 16px; }
-    #how-it-works #cycling-quote-box #quote-text a {
-      color: #006699; }
+    font-family: 'Droid Sans', sans-serif;
+    font-size: 40px; }
+  #how-it-works h1 {
+    color: #1d8c0a; }
+  #how-it-works h2 {
+    color: #999999;
+    text-align: center; }
+    #how-it-works h2 a {
+      -webkit-transition: color 0.4s linear;
+      -moz-transition: color 0.4s linear;
+      color: #999999; }
+    #how-it-works h2 a:hover {
+      color: #1d8c0a; }
+  #how-it-works #cycling-quote-box {
+    width: 100%;
+    height: 65px;
+    background-color: #fcfcfc;
+    margin-bottom: 45px;
+    border: solid #d5dfd4 2px;
+    position: relative; }
+    #how-it-works #cycling-quote-box #pointer {
+      position: absolute;
+      top: -22px;
+      left: 180px; }
+    #how-it-works #cycling-quote-box #quote-text {
+      font-family: Georgia, sans-serif;
+      font-size: 24px;
+      color: #333333;
+      text-align: center;
+      padding-top: 16px; }
+      #how-it-works #cycling-quote-box #quote-text a {
+        color: #006699; }
+
+.subsection {
+  margin: 0 auto;
+  width: 855px; }
+  .subsection .subsection-header {
+    margin-bottom: 25px; }
+    .subsection .subsection-header h2 {
+      font-family: 'Droid Sans', sans-serif;
+      font-size: 40px;
+      color: #999999;
+      text-align: center;
+      margin: 0; }
+      .subsection .subsection-header h2 .current-section {
+        font-weight: bold;
+        color: #1d8c0a; }
+      .subsection .subsection-header h2 img {
+        position: relative;
+        top: 35px; }
+  .subsection .two-column h3 {
+    font-family: "Varela Round", sans-serif;
+    font-size: 26px;
+    font-weight: normal;
+    color: #38a1a3;
+    margin-bottom: 25px; }
+  .subsection .two-column p {
+    font-size: 16px;
+    line-height: 1.4; }
+    .subsection .two-column p img {
+      display: inline-block;
+      margin: 0;
+      float: none;
+      vertical-align: text-top; }
+  .subsection .two-column .also {
+    font-family: "The Girl Next Door", cursive;
+    font-size: 18px;
+    color: #2d2d2b; }
+  .subsection .two-column .left {
+    float: left; }
+  .subsection .two-column .right {
+    float: right; }
+  .subsection .two-column .shim {
+    width: 855px;
+    height: 50px;
+    clear: both; }
+  .subsection .two-column #play-text-1 {
+    width: 315px;
+    padding-left: 85px; }
+    .subsection .two-column #play-text-1 img {
+      margin-left: 85px; }
+  .subsection .two-column #play-graphic-1 {
+    width: 455px; }
+  .subsection .two-column #play-text-2 {
+    width: 300px;
+    padding-left: 35px; }
+  .subsection .two-column #play-graphic-2 {
+    width: 515px; }
+    .subsection .two-column #play-graphic-2 img {
+      float: right; }
+  .subsection .two-column #play-text-3 {
+    width: 350px;
+    padding-left: 50px; }
+  .subsection .two-column #play-graphic-3 {
+    width: 455px; }
 
 #marketing-footer-wrapper {
   background-color: #e0e2dd;
