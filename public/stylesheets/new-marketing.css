@@ -233,6 +233,9 @@ input.fat-text-field {
   .subsection .two-column #measure-graphic-1 {
     padding-right: 20px;
     width: 320px; }
+  .subsection .two-column #roi-text-1 {
+    width: 385px;
+    padding-left: 125px; }
 
 #marketing-footer-wrapper {
   background-color: #e0e2dd;
