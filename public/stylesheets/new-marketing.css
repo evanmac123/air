@@ -227,6 +227,12 @@ input.fat-text-field {
     padding-left: 50px; }
   .subsection .two-column #play-graphic-3 {
     width: 455px; }
+  .subsection .two-column #measure-text-1 {
+    width: 385px;
+    padding-left: 125px; }
+  .subsection .two-column #measure-graphic-1 {
+    padding-right: 20px;
+    width: 320px; }
 
 #marketing-footer-wrapper {
   background-color: #e0e2dd;
