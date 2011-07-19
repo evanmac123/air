@@ -90,6 +90,8 @@ body {
   height: 37px;
   background-image: url(/images/new_marketing/b_tealtop_tile.png);
   background-repeat: repeat-x;
+  position: fixed;
+  z-index: +10;
 
   #header-contents {
     width: $content-width;
@@ -135,6 +137,7 @@ body {
   background-color: white;
   width: 100%;
   height: 320px;
+  padding-top: 20px;
 
   img {
     position: absolute;

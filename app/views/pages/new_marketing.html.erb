@@ -1,7 +1,9 @@
+<%= javascript_include_tag 'jquery.easing.1.3' %>
+
 <% content_for :navbar do %> 
   <span id="buttons">
     <% %w(process engage track video blog contact).each do |link_title| %>
-      <%= link_to link_title.capitalize, "#" + link_title %>
+      <%= link_to link_title.capitalize, "#" + link_title, :class => 'nav' %>
     <% end %>
   </span>
 <% end %>
@@ -273,6 +275,18 @@
     $('#activate-login-form').submit(function(e) {
       e.preventDefault();
       $('#login-form').toggle();
+    });
+
+    $('a.nav').click(function(e) {
+      var name = $(this).attr('href');
+      name = name.slice(1, name.length);
+
+      var targetSelector = 'a[name="' + name + '"]';
+
+      $('html, body').stop().animate({
+        scrollTop: $(targetSelector).offset().top
+      }, 1500,'easeInOutExpo');
+      e.preventDefault();
     });
   <% end %>
 <% end %>
