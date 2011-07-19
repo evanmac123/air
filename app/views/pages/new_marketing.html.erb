@@ -17,9 +17,9 @@
 
 <div id="factoids">
   <div class="marketing-content">
-    <%= image_tag "new_marketing/drop_media.png", :class => 'factoid' %>
-    <%= image_tag "new_marketing/drop_games.png", :class => 'factoid' %>
-    <%= image_tag "new_marketing/drop_text.png", :class => 'factoid' %>
+    <%= image_tag "new_marketing/drop_media.png", :class => 'factoid', :alt => "Over 70% of Internet users are on Facebook." %>
+    <%= image_tag "new_marketing/drop_games.png", :class => 'factoid', :alt => "43yr female is the average age of a social gamer" %>
+    <%= image_tag "new_marketing/drop_text.png", :class => 'factoid', :alt => "323 texts sent monthly by 45-54 year olds." %>
   </div>
 </div>
 
@@ -27,6 +27,10 @@
   <div class="marketing-content">
     <h1>How It Works</h1>
     <h2><a href="#process">Play +</a> <a href="#engage">Engage +</a> <a href="#track">Measure =</a> <a href="#roi">ROI</a></h2>
+    <div id="cycling-quote-box">
+      <%= image_tag "new_marketing/img_green_up_pointer.png", :id => "pointer" %>
+      <div id="quote-text"></div>
+    </div>
   </div>
 </div>
 
@@ -317,11 +321,32 @@
   <script src="http://hengage.tumblr.com/api/read/json?start=0&num=3&filter=text&tagged=stats&type=quote&callback=populateStatsPosts"></script>
 
   <%= javascript_tag do %>
-    function makePostitJiggle(elementId, originalPath, hoverPath) {
-      $('#' + elementId).
-        mouseover(function(e) {$(this).attr('src', hoverPath)}).
-        mouseout(function(e) {$(this).attr('src', originalPath)});
-    }
+    var quoteCyclingParams = [
+      {leftOffset: 180, html: 'Employees play a game that makes getting healthy feel fun! <a href="#process">See how to play.</a>'},
+      {leftOffset: 348, html: 'Increase engagement in existing initiatives and communications. <a href="#engage">See it in action.</a>'},
+      {leftOffset: 531, html: 'Measure what works and what doesn\'t through tracking. <a href="#track">See example.</a>'},
+      {leftOffset: 697, html: 'Increased engagement helps prove ROI quickly. <a href="#roi">See the math.</a>'}
+    ];
+
+    var quoteCyclingIndex = 0;
+    var quoteText = $('#cycling-quote-box #quote-text');
+    var quotePointer = $('#cycling-quote-box #pointer');
+
+    function cycleQuote() {
+      var params = quoteCyclingParams[quoteCyclingIndex];
+      quoteText.fadeOut('fast', function() {
+        quoteText.html(params.html);
+        quotePointer.css('left', params.leftOffset);
+        quoteText.fadeIn();
+
+        quoteCyclingIndex += 1;
+        quoteCyclingIndex = quoteCyclingIndex % 4;
+
+        setTimeout(cycleQuote, 3000);
+      });
+    };
+
+    cycleQuote();
 
     function requestInfoBeforePost(form) {
       form.find('input').attr('disabled', 'disabled');
