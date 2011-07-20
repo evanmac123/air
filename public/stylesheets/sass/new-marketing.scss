@@ -9,6 +9,10 @@ img {
   clear: both;
 }
 
+input, textarea {
+  font-family: "Helvetica Neue", Arial, sans-serif;
+}
+
 @font-face {
   font-family: 'Droid Sans';
   font-style: normal;
@@ -451,13 +455,59 @@ input.fat-text-field {
   }
 }
 
-#engage-section-wrapper, #roi-wrapper {
+#engage-section-wrapper, #roi-wrapper, #bottom-comment-box-wrapper {
   background-image: url(/images/new_marketing/tile_2.png);
   width: 100%;
 }
 
 #blog-wrapper {
   width: 100%;
+}
+
+#bottom-comment-box {
+  margin: 0 auto;
+  width: 640px;
+  height: 175px;
+  padding-top: 25px;
+  padding-bottom: 40px;
+
+  h2 {
+    font-family: "Varela Round",sans-serif;
+    font-size: 20px;
+    margin: 0 0 15px 95px;
+  }
+
+  form {
+    position: relative;
+
+    input[type="text"] {
+      margin-bottom: 15px;
+    }
+
+    img {
+      margin: 0 11px;
+    }
+
+    textarea {
+      font-size: 20px;
+      width: 490px;
+      height: 80px;
+      padding: 0;
+      padding-left: 2px;
+    }
+
+    .submit-wrapper {
+      width: 120px;
+      height: 90px;
+      position: relative;
+      float: right;
+    }
+
+    input[type="image"] {
+      position: absolute;
+      bottom: 0;
+    }
+  }
 }
 
 #marketing-footer-wrapper {
@@ -521,6 +571,7 @@ input.fat-text-field {
 
     #request-consultation {
       float: left;
+      font-family: "Varela Round", sans-serif;
       font-size: 20px;
       font-weight: bold;
       line-height: 1;

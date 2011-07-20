@@ -56,7 +56,6 @@
 </div>
 
 <div id="request-consultation-bar">
-  <a name="contact"></a>
   <form method="post" action="#" class="request-info">
     <span id="request-consultation">
       request a<br/>consultation
@@ -230,6 +229,24 @@
   </div>
 </div>
 
+<div id="bottom-comment-box-wrapper">
+  <a name="contact"></a>
+  <div id="bottom-comment-box">
+    <h2>Got a Comment or Question?</h2>
+    <form method="post" action="#" class="request-info">
+      <%= text_field_tag "email[name]", 'name', :class => 'with-placeholder fat-text-field' %>
+
+      <%= image_tag 'new_marketing/img_ampersand.png', :alt => 'and' %>
+
+      <%= text_field_tag "email[email]", 'email', :class => 'with-placeholder fat-text-field' %>
+      <%= text_area_tag "email[comment]", 'message', :class => 'with-placeholder' %>
+      <div class="submit-wrapper">
+        <%= image_submit_tag 'new_marketing/btn_submit.png' %><br/>
+      </div>
+    </form>
+  </div>
+</div>
+
 <% content_for :page_footer do %>
   <div id="marketing-footer-wrapper">
     <div id="marketing-footer">
@@ -323,7 +340,7 @@
     cycleQuote();
 
     function requestInfoBeforePost(form) {
-      form.find('input').attr('disabled', 'disabled');
+      form.find('input, textarea').attr('disabled', 'disabled');
     }
 
     function requestInfoAfterPost(form) {
