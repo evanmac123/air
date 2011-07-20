@@ -480,6 +480,10 @@ input.fat-text-field {
   form {
     position: relative;
 
+    input, textarea {
+      color: #666666;
+    }
+
     input[type="text"] {
       margin-bottom: 15px;
     }

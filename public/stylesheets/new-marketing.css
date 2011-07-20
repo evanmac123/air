@@ -317,6 +317,8 @@ input.fat-text-field {
     margin: 0 0 15px 95px; }
   #bottom-comment-box form {
     position: relative; }
+    #bottom-comment-box form input, #bottom-comment-box form textarea {
+      color: #666666; }
     #bottom-comment-box form input[type="text"] {
       margin-bottom: 15px; }
     #bottom-comment-box form img {

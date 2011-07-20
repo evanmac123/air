@@ -367,7 +367,7 @@
     addRequestFormCallbacks('.request-info', requestInfoBeforePost, requestInfoAfterPost);
 
     // reloads on Firefox are stupid
-    $('.request-info input').removeAttr('disabled');
+    $('.request-info input, .request-info textarea').removeAttr('disabled');
 
     var loginForm = $('#login-form');
 
