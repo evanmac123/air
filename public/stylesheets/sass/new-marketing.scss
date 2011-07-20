@@ -402,6 +402,23 @@ input.fat-text-field {
   }
 }
 
+#play-section {
+  #secondary-play {
+    img {
+      margin: 0 0 40px 190px;
+    }
+
+    .left, .right {
+      text-align: center;
+      width: 285px;
+
+      p {
+        font-size: 19px;
+      }
+    }
+  }
+}
+
 #engage-section {
   h2 {
     img {

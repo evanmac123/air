@@ -265,6 +265,14 @@ input.fat-text-field {
     width: 385px;
     padding-left: 125px; }
 
+#play-section #secondary-play img {
+  margin: 0 0 40px 190px; }
+#play-section #secondary-play .left, #play-section #secondary-play .right {
+  text-align: center;
+  width: 285px; }
+  #play-section #secondary-play .left p, #play-section #secondary-play .right p {
+    font-size: 19px; }
+
 #engage-section h2 img {
   margin-left: 20px; }
 
