@@ -40,7 +40,7 @@ body {
   background-color: #e0e3dd;
   border: solid 1px #70846b;
   top: 31px;
-  right: 0;
+  left: 0;
   z-index: 1;
   display: none; }
   #login-form input[type="text"], #login-form input[type="password"] {
@@ -69,19 +69,20 @@ body {
     position: relative; }
     #header #header-contents #activate-login-form {
       display: inline-block;
-      float: right;
+      float: left;
       margin-top: 8px; }
 
 #navbar {
   display: inline-block;
-  padding-top: 8px; }
+  padding-top: 8px;
+  float: right; }
   #navbar #buttons {
     font-weight: bold;
     font-size: 16px; }
     #navbar #buttons a {
       -webkit-transition: color 0.4s linear;
       -moz-transition: color 0.4s linear;
-      margin-right: 36px;
+      margin-right: 20px;
       color: white; }
     #navbar #buttons a:hover {
       color: #ffff60; }
@@ -132,22 +133,40 @@ input.fat-text-field {
   padding-bottom: 10px; }
 
 #how-it-works {
-  margin-bottom: 50px; }
+  padding-top: 35px;
+  padding-bottom: 15px;
+  background-image: url(/images/new_marketing/tile_2.png); }
   #how-it-works h1, #how-it-works h2 a {
     text-align: center;
-    font-family: 'Droid Sans', sans-serif;
-    font-size: 40px; }
+    font-family: 'Droid Sans', sans-serif; }
   #how-it-works h1 {
-    color: #1d8c0a; }
+    color: #1d8c0a;
+    font-size: 36px;
+    font-weight: bold; }
   #how-it-works h2 {
     color: #999999;
-    text-align: center; }
+    text-align: center;
+    font-weight: normal;
+    font-size: 36px; }
     #how-it-works h2 a {
       -webkit-transition: color 0.4s linear;
       -moz-transition: color 0.4s linear;
-      color: #999999; }
+      font-size: 36px;
+      color: #999999;
+      margin-left: 38px;
+      margin-right: 38px; }
     #how-it-works h2 a:hover {
       color: #1d8c0a; }
+  #how-it-works #postits {
+    margin-top: 35px; }
+    #how-it-works #postits #play-postit {
+      margin-left: 100px; }
+    #how-it-works #postits #engage-postit {
+      margin-left: 95px; }
+    #how-it-works #postits #measure-postit {
+      margin-left: 112px; }
+    #how-it-works #postits #roi-postit {
+      margin-left: 93px; }
   #how-it-works #cycling-quote-box {
     width: 100%;
     height: 65px;
@@ -158,7 +177,7 @@ input.fat-text-field {
     #how-it-works #cycling-quote-box #pointer {
       position: absolute;
       top: -22px;
-      left: 180px; }
+      left: 126px; }
     #how-it-works #cycling-quote-box #quote-text {
       font-family: Georgia, sans-serif;
       font-size: 24px;
@@ -175,10 +194,13 @@ input.fat-text-field {
     margin-bottom: 25px; }
     .subsection .subsection-header h2 {
       font-family: 'Droid Sans', sans-serif;
-      font-size: 40px;
+      font-size: 36px;
+      font-weight: normal;
       color: #999999;
       text-align: center;
       margin: 0; }
+      .subsection .subsection-header h2 .non-current-section {
+        opacity: 0.5; }
       .subsection .subsection-header h2 .current-section {
         font-weight: bold;
         color: #1d8c0a; }
@@ -213,7 +235,7 @@ input.fat-text-field {
     clear: both; }
   .subsection .two-column #play-text-1 {
     width: 315px;
-    padding-left: 85px; }
+    padding-left: 50px; }
     .subsection .two-column #play-text-1 img {
       margin-left: 85px; }
   .subsection .two-column #play-graphic-1 {
@@ -240,6 +262,46 @@ input.fat-text-field {
     width: 385px;
     padding-left: 125px; }
 
+#engage-section h2 img {
+  margin-left: 20px; }
+
+#blog-section {
+  font-size: 16px;
+  margin-top: 50px;
+  margin-bottom: 100px; }
+  #blog-section h2 {
+    font-weight: normal;
+    font-family: 'Droid Sans', sans-serif;
+    font-size: 36px;
+    color: #999999;
+    text-align: center;
+    margin-bottom: 0; }
+    #blog-section h2 strong {
+      font-weight: bold;
+      color: #1d8c0a; }
+  #blog-section #blog-name {
+    font-family: 'Valera Round', sans-serif;
+    font-size: 26px;
+    color: #38a1a3;
+    margin-top: 25px;
+    margin-bottom: 0; }
+    #blog-section #blog-name a {
+      color: #38A1A3; }
+  #blog-section #blog-subname {
+    margin-bottom: 30px; }
+  #blog-section .blog-subsection {
+    padding-left: 75px;
+    padding-right: 200px; }
+    #blog-section .blog-subsection .body-wrapper {
+      margin-bottom: 20px; }
+
+#engage-section-wrapper, #roi-wrapper {
+  background-image: url(/images/new_marketing/tile_2.png);
+  width: 100%; }
+
+#blog-wrapper {
+  width: 100%; }
+
 #marketing-footer-wrapper {
   background-color: #e0e2dd;
   width: 100%; }
@@ -252,17 +314,18 @@ input.fat-text-field {
     float: left;
     padding-top: 30px; }
     #marketing-footer #sm-buttons a img {
-      margin-bottom: 4px; }
+      margin-bottom: 4px;
+      margin-right: 10px; }
     #marketing-footer #sm-buttons a .sm-action {
       vertical-align: top;
-      font-size: 12px; }
+      font-size: 16px; }
   #marketing-footer #about-us {
-    width: 510px;
+    width: 610px;
     float: right;
     padding-top: 20px;
     padding-bottom: 20px; }
     #marketing-footer #about-us p {
-      font-size: 12px;
+      font-size: 16px;
       line-height: 1.6; }
     #marketing-footer #about-us .title {
       font-weight: bold;

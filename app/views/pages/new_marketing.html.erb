@@ -2,8 +2,8 @@
 
 <% content_for :navbar do %> 
   <span id="buttons">
-    <% %w(process engage track video blog contact).each do |link_title| %>
-      <%= link_to link_title.capitalize, "#" + link_title, :class => 'nav' %>
+    <% %w(Play Engage Measure ROI Blog Contact).each do |link_title| %>
+      <%= link_to link_title, "#" + link_title.downcase, :class => 'nav' %>
     <% end %>
   </span>
 <% end %>
@@ -28,7 +28,26 @@
 <div id="how-it-works">
   <div class="marketing-content">
     <h1>How It Works</h1>
-    <h2><a href="#process">Play +</a> <a href="#engage">Engage +</a> <a href="#track">Measure =</a> <a href="#roi">ROI</a></h2>
+    <div id="postits">
+      <% %w(play engage measure roi).each do |postit_name| %>
+        <% unhover_path = image_path("new_marketing/img_h_#{postit_name}1.png") %>
+        <% hover_path = image_path("new_marketing/img_h_#{postit_name}2.png") %>
+        <% image_id = "#{postit_name}-postit" %>
+
+        <%= link_to image_tag(unhover_path, :id => image_id), "##{postit_name}", :class => 'nav' %>
+        <%= image_tag hover_path, :style => "display: none" %>
+
+        <% content_for :javascript do %>
+          <%= javascript_tag do %>
+            $('#<%= image_id %>').hover(
+              function() {$(this).attr('src', '<%= hover_path %>')},
+              function() {$(this).attr('src', '<%= unhover_path %>')}
+            );
+          <% end %>
+        <% end %>
+      <% end %>
+    </div>
+    <h2><a href="#process">Play</a>+<a href="#engage">Engage</a>+<a href="#track">Measure</a>=<a href="#roi">ROI</a></h2>
     <div id="cycling-quote-box">
       <%= image_tag "new_marketing/img_green_up_pointer.png", :id => "pointer" %>
       <div id="quote-text"></div>
@@ -36,10 +55,27 @@
   </div>
 </div>
 
+<div id="request-consultation-bar">
+  <a name="contact"></a>
+  <form method="post" action="#" class="request-info">
+    <span id="request-consultation">
+      request a<br/>consultation
+    </span>
+
+    <%= text_field_tag "email[name]", 'name', :class => 'with-placeholder fat-text-field' %>
+
+    <%= image_tag 'new_marketing/img_ampersand.png', :alt => 'and' %>
+
+    <%= text_field_tag "email[email]", 'email', :class => 'with-placeholder fat-text-field' %>
+    <%= image_submit_tag 'new_marketing/btn_submit.png' %><br/>
+
+  </form>
+</div>
+
 <div id="play-section" class="subsection">
   <div class="subsection-header">
     <a name="process"></a>
-    <h2><%= image_tag 'new_marketing/img_h_process1.png' %><span class="current-section">Play</span> + Engage + Measure = ROI</h2>
+    <h2><%= image_tag 'new_marketing/img_h_process1.png' %><span class="current-section">Play</span><span class="non-current-section"> + Engage + Measure = ROI</span></h2>
     <%= image_tag 'new_marketing/divide.png' %>
   </div>
 
@@ -86,10 +122,35 @@
   </div>
 </div>
 
+<div id="engage-section-wrapper">
+  <div id="engage-section" class="subsection">
+    <div class="subsection-header">
+      <a name="engage"></a>
+      <h2><span class="non-current-section">Play +</span><%= image_tag 'new_marketing/img_h_engage1.png' %><span class="current-section"> Engage + </span><span class="non-current-section">Measure</span><span class="non-current-section"> = ROI</span></h2>
+      <%= image_tag 'new_marketing/divide.png' %>
+    </div>
+
+    <div class="two-column">
+      <div class="left" id="measure-text-1">
+        <h3>Measure results</h3>
+        <p>We provide you with data that helps track<br/>engagement in your communications<br/>and wellness programs, and helps you prove ROI.</p>
+      </div>
+
+      <div class="right" id="measure-graphic-1">
+        <!-- TODO: Get real graphic for here -->
+        <%= image_tag 'new_marketing/fpo3.png' %>
+      </div>
+
+      <div class="shim">
+      </div>
+    </div>
+  </div>
+</div>
+
 <div id="measure-section" class="subsection">
   <div class="subsection-header">
     <a name="track"></a>
-    <h2>Play + Engage + <%= image_tag 'new_marketing/img_h_track1.png' %><span class="current-section">Measure</span> = ROI</h2>
+    <h2><span class="non-current-section">Play + Engage + </span><%= image_tag 'new_marketing/img_h_track1.png' %><span class="current-section">Measure</span><span class="non-current-section"> = ROI</span></h2>
     <%= image_tag 'new_marketing/divide.png' %>
   </div>
 
@@ -109,44 +170,64 @@
   </div>
 </div>
 
-<div id="roi-section" class="subsection">
-  <div class="subsection-header">
-    <h2>Play + Engage + Measure = <%= image_tag 'new_marketing/img_h_roi1.png' %><span class="current-section">ROI</span></h2>
-    <%= image_tag 'new_marketing/divide.png' %>
-  </div>
-
-  <div class="two-column">
-    <div class="left" id="roi-text-1">
-      <h3>We provide a measurable<br/> ROI in months, not years, by<br/> maximizing the returns of your<br/> existing investments:</h3>
-      <p>Increase participation rates in wellness programs</p>
-      <p>Increase engagement in communications</p>
+<div id="roi-wrapper">
+  <div id="roi-section" class="subsection">
+    <div class="subsection-header">
+      <h2><span class="non-current-section">Play + Engage + Measure = </span><%= image_tag 'new_marketing/img_h_roi1.png' %><span class="current-section">ROI</span></h2>
+      <%= image_tag 'new_marketing/divide.png' %>
     </div>
 
-    <div class="right" id="roi-graphic-1">
-      <!-- TODO: Get real graphic for here -->
-      <%= image_tag 'new_marketing/img_roi.png' %>
-    </div>
+    <div class="two-column">
+      <div class="left" id="roi-text-1">
+        <h3>We provide a measurable<br/> ROI in months, not years, by<br/> maximizing the returns of your<br/> existing investments:</h3>
+        <p>Increase participation rates in wellness programs</p>
+        <p>Increase engagement in communications</p>
+      </div>
 
-    <div class="shim">
+      <div class="right" id="roi-graphic-1">
+        <!-- TODO: Get real graphic for here -->
+        <%= image_tag 'new_marketing/img_roi.png' %>
+      </div>
+
+      <div class="shim">
+      </div>
     </div>
   </div>
 </div>
 
-<div id="request-consultation-bar">
-  <a name="contact"></a>
-  <form method="post" action="#" class="request-info">
-    <span id="request-consultation">
-      request a<br/>consultation
-    </span>
+<div id="blog-wrapper">
+  <div id="blog-section" class="subsection">
+    <h2>Read our <strong>Blog</strong></h2>
+    <%= image_tag 'new_marketing/divide.png' %>
 
-    <%= text_field_tag "email[name]", 'name', :class => 'with-placeholder fat-text-field' %>
+    <div class="blog-subsection">
+      <p id="blog-name" class="point top">
+        <a href="http://hengage.tumblr.com">Under the Node Tree</a>
+      </p>
+      <p id="blog-subname">
+        News about H Engage, analysis, and statistics.
+      </p>
 
-    <%= image_tag 'new_marketing/img_ampersand.png', :alt => 'and' %>
+      <% 3.times do %>
+        <%= render 'tumblr_post_target', :post_class => 'recent-post' %>
+      <% end %>
 
-    <%= text_field_tag "email[email]", 'email', :class => 'with-placeholder fat-text-field' %>
-    <%= image_submit_tag 'new_marketing/btn_submit.png' %><br/>
+    </div>
 
-  </form>
+    <div class="blog-subsection">
+      <p id="blog-name" class="point">
+        Facts and Statistics
+      </p> 
+      <p>
+        Meeting coming up? Review recent stats.
+      </p>
+
+      <% 7.times do %>
+        <%= render 'tumblr_post_target', :post_class => 'stats-post', :suppress_link => true %>
+      <% end %>
+    </div>
+
+  </div>
 </div>
 
 <% content_for :page_footer do %>
@@ -187,10 +268,7 @@
           attr('href', url).
           end().
         find('.body').
-          text(body).
-          end().
-        find('a.read-more').
-          attr('href', url);
+          text(body);
     }
 
     function populateRecentPosts(tumblrData) {
@@ -214,21 +292,25 @@
 
   <%= javascript_tag do %>
     var quoteCyclingParams = [
-      {leftOffset: 180, html: 'Employees play a game that makes getting healthy feel fun! <a href="#process">See how to play.</a>'},
-      {leftOffset: 348, html: 'Increase engagement in existing initiatives and communications. <a href="#engage">See it in action.</a>'},
-      {leftOffset: 531, html: 'Measure what works and what doesn\'t through tracking. <a href="#track">See example.</a>'},
-      {leftOffset: 697, html: 'Increased engagement helps prove ROI quickly. <a href="#roi">See the math.</a>'}
+      {leftOffset: 126, html: 'Employees play a game that makes getting healthy feel fun! <a href="#process">See how to play.</a>'},
+      {leftOffset: 328, html: 'Increase engagement in existing initiatives and communications. <a href="#engage">See it in action.</a>'},
+      {leftOffset: 547, html: 'Measure what works and what doesn\'t through tracking. <a href="#track">See example.</a>'},
+      {leftOffset: 744, html: 'Increased engagement helps prove ROI quickly. <a href="#roi">See the math.</a>'}
     ];
 
     var quoteCyclingIndex = 0;
     var quoteText = $('#cycling-quote-box #quote-text');
     var quotePointer = $('#cycling-quote-box #pointer');
+    var pointedAtLinks = $('#how-it-works h2 a');
 
     function cycleQuote() {
       var params = quoteCyclingParams[quoteCyclingIndex];
       quoteText.fadeOut('fast', function() {
+        pointedAtLinks.css('font-weight', 'normal').css('color', '#999999');
+
         quoteText.html(params.html);
         quotePointer.css('left', params.leftOffset);
+        pointedAtLinks.eq(quoteCyclingIndex).css('font-weight', 'bold').css('color', '#1d8c0a');
         quoteText.fadeIn();
 
         quoteCyclingIndex += 1;
@@ -281,11 +363,11 @@
       var name = $(this).attr('href');
       name = name.slice(1, name.length);
 
+      <!-- TODO: change this to use attr('href'), which means changing a bunch of shit around. -->
       var targetSelector = 'a[name="' + name + '"]';
+      var scrollOffset = $(targetSelector).offset().top;
 
-      $('html, body').stop().animate({
-        scrollTop: $(targetSelector).offset().top
-      }, 1500,'easeInOutExpo');
+      $('html, body').stop().animate({scrollTop: scrollOffset}, 1500, 'easeInOutExpo');
       e.preventDefault();
     });
   <% end %>

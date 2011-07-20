@@ -62,7 +62,7 @@ body {
   background-color: #e0e3dd;
   border: solid 1px #70846b;
   top: 31px;
-  right: 0;
+  left: 0;
   z-index: +1;
   display: none;
 
@@ -100,7 +100,7 @@ body {
 
     #activate-login-form {
       display: inline-block;
-      float: right;
+      float: left;
       margin-top: 8px;
     }
   }
@@ -109,6 +109,7 @@ body {
 #navbar {
   display: inline-block;
   padding-top: 8px;
+  float: right;
 
   #buttons {
     font-weight: bold;
@@ -116,7 +117,7 @@ body {
 
     a {
       @include link-transition;
-      margin-right: 36px;
+      margin-right: 20px;
       color: white;
     }
 
@@ -188,29 +189,57 @@ input.fat-text-field {
 }
 
 #how-it-works {
-  margin-bottom: 50px;
+  padding-top: 35px;
+  padding-bottom: 15px;
+  background-image: url(/images/new_marketing/tile_2.png);
 
   h1, h2 a {
     text-align: center;
     font-family: 'Droid Sans', sans-serif;
-    font-size: 40px;
   }
 
   h1 {
     color: #1d8c0a;
+    font-size: 36px;
+    font-weight: bold;
   }
 
   h2 {
     color: #999999;
     text-align: center;
+    font-weight: normal;
+    font-size: 36px;
 
     a {
       @include link-transition;
+      font-size: 36px;
       color: #999999;
+      margin-left: 38px;
+      margin-right: 38px;
     }
 
     a:hover {
       color: #1d8c0a;
+    }
+  }
+
+  #postits {
+    margin-top: 35px;
+
+    #play-postit {
+      margin-left: 100px;
+    }
+
+    #engage-postit {
+      margin-left: 95px;
+    }
+
+    #measure-postit {
+      margin-left: 112px;
+    }
+
+    #roi-postit {
+      margin-left: 93px;
     }
   }
 
@@ -225,7 +254,7 @@ input.fat-text-field {
     #pointer {
       position: absolute;
       top: -22px;
-      left: 180px;
+      left: 126px;
     }
 
     #quote-text {
@@ -251,10 +280,15 @@ input.fat-text-field {
 
     h2 {
       font-family: 'Droid Sans', sans-serif;
-      font-size: 40px;
+      font-size: 36px;
+      font-weight: normal;
       color: #999999;
       text-align: center;
       margin: 0;
+
+      .non-current-section {
+        opacity: 0.5;
+      }
 
       .current-section {
         font-weight: bold;
@@ -311,7 +345,7 @@ input.fat-text-field {
 
     #play-text-1 {
       width: 315px;
-      padding-left: 85px;
+      padding-left: 50px;
 
       img {
         margin-left: 85px;
@@ -364,6 +398,68 @@ input.fat-text-field {
   }
 }
 
+#engage-section {
+  h2 {
+    img {
+      margin-left: 20px;
+    }
+  }
+}
+
+#blog-section {
+  font-size: 16px;
+  margin-top: 50px;
+  margin-bottom: 100px;
+
+  h2 {
+    font-weight: normal;
+    font-family: 'Droid Sans', sans-serif;
+    font-size: 36px;
+    color: #999999;
+    text-align: center;
+    margin-bottom: 0;
+
+    strong {
+      font-weight: bold;
+      color: #1d8c0a;
+    }
+  }
+
+  #blog-name {
+    font-family: 'Valera Round', sans-serif;
+    font-size: 26px;
+    color: #38a1a3;
+    margin-top: 25px;
+    margin-bottom: 0;
+
+    a {
+      color: #38A1A3;
+    }
+  }
+
+  #blog-subname {
+    margin-bottom: 30px;
+  }
+
+  .blog-subsection {
+    padding-left: 75px;
+    padding-right: 200px;
+
+    .body-wrapper {
+      margin-bottom: 20px;
+    }
+  }
+}
+
+#engage-section-wrapper, #roi-wrapper {
+  background-image: url(/images/new_marketing/tile_2.png);
+  width: 100%;
+}
+
+#blog-wrapper {
+  width: 100%;
+}
+
 #marketing-footer-wrapper {
   background-color: $email-box-background;
   width: 100%;
@@ -381,23 +477,24 @@ input.fat-text-field {
     a {
       img {
         margin-bottom: 4px;
+        margin-right: 10px;
       }
 
       .sm-action {
         vertical-align: top;
-        font-size: 12px;
+        font-size: 16px;
       }
     }
   }
 
   #about-us {
-    width: 510px;
+    width: 610px;
     float: right;
     padding-top: 20px;
     padding-bottom: 20px;
 
     p {
-      font-size: 12px;
+      font-size: 16px;
       line-height: 1.6;
     }
 
