@@ -31,6 +31,12 @@ input, textarea {
   font-weight: normal;
   src: local("Droid Sans"), local("DroidSans"), url("http://themes.googleusercontent.com/font?kit=s-BiyweUPV0v-yRb-cjciBsxEYwM7FgeyaSgU71cLG0") format("woff"); }
 
+@font-face {
+  font-family: 'Oswald';
+  font-style: normal;
+  font-weight: normal;
+  src: local("Oswald "), local("Oswald"), url("http://themes.googleusercontent.com/static/fonts/oswald/v1/-g5pDUSRgvxvOl5u-a_WHw.woff") format("woff"); }
+
 body {
   font-family: 'Helvetica Neue', Arial, sans-serif;
   background-image: url(/images/new_marketing/background.png); }
@@ -43,7 +49,7 @@ body {
   background-color: #e0e3dd;
   border: solid 1px #70846b;
   top: 31px;
-  left: 0;
+  right: 0;
   z-index: 1;
   display: none; }
   #login-form input[type="text"], #login-form input[type="password"] {
@@ -72,13 +78,13 @@ body {
     position: relative; }
     #header #header-contents #activate-login-form {
       display: inline-block;
-      float: left;
+      float: right;
       margin-top: 8px; }
 
 #navbar {
   display: inline-block;
   padding-top: 8px;
-  float: right; }
+  float: left; }
   #navbar #buttons {
     font-weight: bold;
     font-size: 16px; }
@@ -88,7 +94,7 @@ body {
       margin-right: 20px;
       color: white; }
     #navbar #buttons a:hover {
-      color: #ffff60; }
+      color: #2d2d2d; }
 
 .marketing-content {
   width: 900px;
@@ -160,6 +166,11 @@ input.fat-text-field {
       margin-right: 38px; }
     #how-it-works h2 a:hover {
       color: #1d8c0a; }
+  #how-it-works #what-it-does {
+    font-size: 22px;
+    margin-left: 100px;
+    margin-right: 25px;
+    margin-bottom: 75px; }
   #how-it-works #postits {
     margin-top: 35px; }
     #how-it-works #postits #play-postit {
@@ -192,7 +203,9 @@ input.fat-text-field {
 
 .subsection {
   margin: 0 auto;
-  width: 855px; }
+  width: 855px;
+  padding-top: 50px;
+  padding-bottom: 150px; }
   .subsection .subsection-header {
     margin-bottom: 25px; }
     .subsection .subsection-header h2 {
@@ -200,8 +213,7 @@ input.fat-text-field {
       font-size: 36px;
       font-weight: normal;
       color: #999999;
-      text-align: center;
-      margin: 0; }
+      margin: 0 0 0 45px; }
       .subsection .subsection-header h2 .non-current-section {
         opacity: 0.5; }
       .subsection .subsection-header h2 .current-section {
@@ -211,7 +223,7 @@ input.fat-text-field {
         position: relative;
         top: 35px; }
   .subsection .two-column h3 {
-    font-family: "Varela Round", sans-serif;
+    font-family: "Oswald", sans-serif;
     font-size: 26px;
     font-weight: normal;
     color: #38a1a3;
@@ -234,7 +246,6 @@ input.fat-text-field {
     float: right; }
   .subsection .two-column .shim {
     width: 855px;
-    height: 50px;
     clear: both; }
   .subsection .two-column #play-text-1 {
     width: 315px;
@@ -244,12 +255,11 @@ input.fat-text-field {
   .subsection .two-column #play-graphic-1 {
     width: 455px; }
   .subsection .two-column #play-text-2 {
-    width: 300px;
-    padding-left: 35px; }
+    width: 285px;
+    padding-left: 50px; }
   .subsection .two-column #play-graphic-2 {
-    width: 515px; }
-    .subsection .two-column #play-graphic-2 img {
-      float: right; }
+    width: 455px;
+    padding-left: 20px; }
   .subsection .two-column #play-text-3 {
     width: 350px;
     padding-left: 50px; }
@@ -265,6 +275,8 @@ input.fat-text-field {
     width: 385px;
     padding-left: 125px; }
 
+#play-section .shim {
+  height: 50px; }
 #play-section #secondary-play img {
   margin: 0 0 40px 190px; }
 #play-section #secondary-play .left, #play-section #secondary-play .right {
@@ -272,6 +284,10 @@ input.fat-text-field {
   width: 285px; }
   #play-section #secondary-play .left p, #play-section #secondary-play .right p {
     font-size: 19px; }
+#play-section #secondary-play .left {
+  margin-left: 100px; }
+#play-section #secondary-play .right {
+  margin-right: 100px; }
 
 #engage-section h2 img {
   margin-left: 20px; }
@@ -285,8 +301,8 @@ input.fat-text-field {
     font-family: 'Droid Sans', sans-serif;
     font-size: 36px;
     color: #999999;
-    text-align: center;
-    margin-bottom: 0; }
+    margin-bottom: 0;
+    margin-left: 55px; }
     #blog-section h2 strong {
       font-weight: bold;
       color: #1d8c0a; }
@@ -301,7 +317,7 @@ input.fat-text-field {
   #blog-section #blog-subname {
     margin-bottom: 30px; }
   #blog-section .blog-subsection {
-    padding-left: 75px;
+    padding-left: 125px;
     padding-right: 200px; }
     #blog-section .blog-subsection .body-wrapper {
       margin-bottom: 20px; }
@@ -320,7 +336,7 @@ input.fat-text-field {
   padding-top: 25px;
   padding-bottom: 40px; }
   #bottom-comment-box h2 {
-    font-family: "Varela Round",sans-serif;
+    font-family: "Oswald",sans-serif;
     font-size: 20px;
     margin: 0 0 15px 95px; }
   #bottom-comment-box form {
@@ -389,7 +405,7 @@ input.fat-text-field {
     width: 900px; }
     #request-consultation-bar form #request-consultation {
       float: left;
-      font-family: "Varela Round", sans-serif;
+      font-family: "Oswald", sans-serif;
       font-size: 20px;
       font-weight: bold;
       line-height: 1;

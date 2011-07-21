@@ -28,6 +28,9 @@
 <div id="how-it-works">
   <div class="marketing-content">
     <h1>How It Works</h1>
+    <p id="what-it-does">
+      <%= I18n.t("marketing.what_hengage_does", :default => "H Engage sparks excitement in health, makes corporate communications interactive, and increases participation in wellness programs using a text message based game that drives ROI.") %>
+    </p>
     <div id="postits">
       <% %w(play engage measure roi).each do |postit_name| %>
         <% unhover_path = image_path("new_marketing/img_h_#{postit_name}1.png") %>
@@ -74,7 +77,7 @@
 <div id="play-section" class="subsection">
   <div class="subsection-header">
     <a name="process"></a>
-    <h2><%= image_tag 'new_marketing/img_h_process1.png' %><span class="current-section">Play</span><span class="non-current-section"> + Engage + Measure = ROI</span></h2>
+    <h2><%= image_tag 'new_marketing/img_h_process1.png' %><span class="current-section">Play</span></h2>
     <%= image_tag 'new_marketing/divide.png' %>
   </div>
 
@@ -93,14 +96,14 @@
     <div class="shim">
     </div>
 
-    <div class="left" id="play-graphic-2">
-      <%= image_tag 'new_marketing/img_play2.png' %>
-    </div>
-
-    <div class="right" id="play-text-2">
+    <div class="left" id="play-text-2">
       <h3>Earn points</h3>
       <p>Amy has fun earning points, so she makes healthier choices.<%= image_tag 'new_marketing/teal_arrow.png' %></p>
       <p class="also">Game mechanics make<br/>earning points feel fun.</p>
+    </div>
+
+    <div class="right" id="play-graphic-2">
+      <%= image_tag 'new_marketing/img_play2.png' %>
     </div>
 
     <div class="shim">
@@ -144,7 +147,7 @@
   <div id="engage-section" class="subsection">
     <div class="subsection-header">
       <a name="engage"></a>
-      <h2><span class="non-current-section">Play +</span><%= image_tag 'new_marketing/img_h_engage1.png' %><span class="current-section"> Engage + </span><span class="non-current-section">Measure</span><span class="non-current-section"> = ROI</span></h2>
+      <h2><%= image_tag 'new_marketing/img_h_engage1.png' %><span class="current-section"> Engage</span></h2>
       <%= image_tag 'new_marketing/divide.png' %>
     </div>
 
@@ -168,7 +171,7 @@
 <div id="measure-section" class="subsection">
   <div class="subsection-header">
     <a name="track"></a>
-    <h2><span class="non-current-section">Play + Engage + </span><%= image_tag 'new_marketing/img_h_track1.png' %><span class="current-section">Measure</span><span class="non-current-section"> = ROI</span></h2>
+    <h2><%= image_tag 'new_marketing/img_h_track1.png' %><span class="current-section">Measure</span></h2>
     <%= image_tag 'new_marketing/divide.png' %>
   </div>
 
@@ -191,7 +194,7 @@
 <div id="roi-wrapper">
   <div id="roi-section" class="subsection">
     <div class="subsection-header">
-      <h2><span class="non-current-section">Play + Engage + Measure = </span><%= image_tag 'new_marketing/img_h_roi1.png' %><span class="current-section">ROI</span></h2>
+      <h2><%= image_tag 'new_marketing/img_h_roi1.png' %><span class="current-section">ROI</span></h2>
       <%= image_tag 'new_marketing/divide.png' %>
     </div>
 
@@ -352,7 +355,7 @@
         quoteCyclingIndex += 1;
         quoteCyclingIndex = quoteCyclingIndex % 4;
 
-        setTimeout(cycleQuote, 3000);
+        setTimeout(cycleQuote, 4000);
       });
     };
 
