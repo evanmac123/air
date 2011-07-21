@@ -474,9 +474,31 @@ input.fat-text-field {
   .right {
     width: 380px;
 
-    #teal-arrow-right{
+    #teal-arrow-right {
       position: absolute;
       left: -75px;
+    }
+
+    #poster-points {
+      margin-left: 50px;
+      line-height: 2;
+      padding-bottom: 30px;
+
+      .action {
+        float: left;
+        clear: both;
+      }
+
+      .reward {
+        float: right;
+        margin-right: 55px;
+        font-weight: bold;
+      }
+    }
+
+    #key-points {
+      clear: both;
+      padding-top: 30px;
     }
   }
 
