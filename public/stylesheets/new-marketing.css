@@ -311,19 +311,13 @@ input.fat-text-field {
     position: absolute;
     left: -75px; }
   #engage-section .right #poster-points {
-    margin-left: 50px;
-    line-height: 2;
+    margin: 30px 0;
+    line-height: 1.6;
     padding-bottom: 30px; }
-    #engage-section .right #poster-points .action {
-      float: left;
-      clear: both; }
+    #engage-section .right #poster-points td {
+      border-bottom: 0; }
     #engage-section .right #poster-points .reward {
-      float: right;
-      margin-right: 55px;
       font-weight: bold; }
-  #engage-section .right #key-points {
-    clear: both;
-    padding-top: 30px; }
 #engage-section #we-add-game-mechanics {
   font-family: "The Girl Next Door", cursive;
   font-size: 18px;

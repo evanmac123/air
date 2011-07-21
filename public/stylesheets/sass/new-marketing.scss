@@ -480,25 +480,20 @@ input.fat-text-field {
     }
 
     #poster-points {
-      margin-left: 50px;
-      line-height: 2;
+      margin: 30px 0;
+      line-height: 1.6;
       padding-bottom: 30px;
 
+      td {
+        border-bottom: 0;
+      }
+
       .action {
-        float: left;
-        clear: both;
       }
 
       .reward {
-        float: right;
-        margin-right: 55px;
         font-weight: bold;
       }
-    }
-
-    #key-points {
-      clear: both;
-      padding-top: 30px;
     }
   }
 

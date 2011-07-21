@@ -6,3 +6,20 @@
     top: 0;
   }
 }
+
+#green-arrow {
+  display: none;
+}
+
+#we-add-game-mechanics {
+  margin-top: -230px;
+}
+
+#bottom-comment-box {
+  form {
+    input[type="image"] {
+      position: static;
+      margin-top: -60px;
+    }
+  }
+}
