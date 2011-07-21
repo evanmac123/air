@@ -94,7 +94,7 @@ body {
       margin-right: 20px;
       color: white; }
     #navbar #buttons a:hover {
-      color: #2d2d2d; }
+      color: #3ef4a8; }
 
 .marketing-content {
   width: 900px;
@@ -122,11 +122,17 @@ body {
     left: 625px; }
   #upper-box #green-arrow {
     top: 285px;
-    left: 265px;
+    left: 560px;
     z-index: 1; }
 
 #factoids {
   margin-bottom: 45px; }
+  #factoids h1 {
+    text-align: center;
+    font-family: 'Droid Sans', sans-serif;
+    color: #1d8c0a;
+    font-size: 30px;
+    font-weight: bold; }
   #factoids .marketing-content {
     padding-left: 90px;
     padding-top: 6px; }
@@ -292,7 +298,9 @@ input.fat-text-field {
 #engage-section h3 {
   text-align: center;
   font-size: 30px;
-  margin-bottom: 35px; }
+  margin-bottom: 35px;
+  font-family: "Oswald", sans-serif;
+  color: #38A1A3; }
 #engage-section .left, #engage-section .right {
   position: relative; }
   #engage-section .left h3, #engage-section .right h3 {
@@ -325,14 +333,12 @@ input.fat-text-field {
   width: 180px;
   margin-right: 65px;
   line-height: 1.2;
-  position: relative;
-  top: -30px; }
+  position: relative; }
   #engage-section #we-add-game-mechanics img {
     margin-left: 50px; }
 #engage-section #help-drive-traffic {
   font-family: "The Girl Next Door", cursive;
-  position: relative;
-  top: -45px; }
+  position: relative; }
   #engage-section #help-drive-traffic img {
     margin-left: 135px; }
 
