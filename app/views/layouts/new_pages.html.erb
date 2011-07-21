@@ -25,13 +25,13 @@
         <%= image_submit_tag 'new_marketing/btn_go.png' %>
       <% end %>
 
-      <div id="navbar">
-        <%= yield :navbar %>
-      </div>
-
       <%= form_tag new_session_path, :method => :get, :id => 'activate-login-form' do %>
         <%= image_submit_tag 'new_marketing/btn_login.png' %>
       <% end %>
+
+      <div id="navbar">
+        <%= yield :navbar %>
+      </div>
     </div>
     &nbsp;
   </div>

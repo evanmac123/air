@@ -84,7 +84,7 @@ body {
 #navbar {
   display: inline-block;
   padding-top: 8px;
-  float: left; }
+  float: right; }
   #navbar #buttons {
     font-weight: bold;
     font-size: 16px; }
@@ -267,13 +267,13 @@ input.fat-text-field {
     width: 455px; }
   .subsection .two-column #measure-text-1 {
     width: 385px;
-    padding-left: 125px; }
+    padding-left: 50px; }
   .subsection .two-column #measure-graphic-1 {
     padding-right: 20px;
     width: 320px; }
   .subsection .two-column #roi-text-1 {
     width: 385px;
-    padding-left: 125px; }
+    padding-left: 50px; }
 
 #play-section .shim {
   height: 50px; }
@@ -302,7 +302,7 @@ input.fat-text-field {
     font-size: 36px;
     color: #999999;
     margin-bottom: 0;
-    margin-left: 55px; }
+    margin-left: 48px; }
     #blog-section h2 strong {
       font-weight: bold;
       color: #1d8c0a; }
@@ -317,10 +317,12 @@ input.fat-text-field {
   #blog-section #blog-subname {
     margin-bottom: 30px; }
   #blog-section .blog-subsection {
-    padding-left: 125px;
+    padding-left: 50px;
     padding-right: 200px; }
     #blog-section .blog-subsection .body-wrapper {
-      margin-bottom: 20px; }
+      margin-bottom: 40px; }
+  #blog-section #facts-and-stats {
+    margin-top: 60px; }
 
 #engage-section-wrapper, #roi-wrapper, #bottom-comment-box-wrapper {
   background-image: url(/images/new_marketing/tile_2.png);

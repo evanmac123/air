@@ -120,7 +120,7 @@ body {
 #navbar {
   display: inline-block;
   padding-top: 8px;
-  float: left;
+  float: right;
 
   #buttons {
     font-weight: bold;
@@ -395,7 +395,7 @@ input.fat-text-field {
 
     #measure-text-1 {
       width: 385px;
-      padding-left: 125px;
+      padding-left: 50px;
     }
 
     #measure-graphic-1 {
@@ -405,7 +405,7 @@ input.fat-text-field {
 
     #roi-text-1 {
       width: 385px;
-      padding-left: 125px;
+      padding-left: 50px;
     }
 
     #roi-graphic-1 {
@@ -461,7 +461,7 @@ input.fat-text-field {
     font-size: 36px;
     color: #999999;
     margin-bottom: 0;
-    margin-left: 55px;
+    margin-left: 48px;
 
     strong {
       font-weight: bold;
@@ -486,12 +486,16 @@ input.fat-text-field {
   }
 
   .blog-subsection {
-    padding-left: 125px;
+    padding-left: 50px;
     padding-right: 200px;
 
     .body-wrapper {
-      margin-bottom: 20px;
+      margin-bottom: 40px;
     }
+  }
+
+  #facts-and-stats {
+    margin-top: 60px;
   }
 }
 
