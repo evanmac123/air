@@ -76,7 +76,7 @@
 
 <div id="play-section" class="subsection">
   <div class="subsection-header">
-    <a name="play"></a>
+    <a name="play" id="play">&nbsp;</a>
     <h2><%= image_tag 'new_marketing/img_h_process1.png' %><span class="current-section">Play</span></h2>
     <%= image_tag 'new_marketing/divide.png' %>
   </div>
@@ -146,7 +146,7 @@
 <div id="engage-section-wrapper">
   <div id="engage-section" class="subsection">
     <div class="subsection-header">
-      <a name="engage"></a>
+      <a name="engage" id="engage">&nbsp;</a>
       <h2><%= image_tag 'new_marketing/img_h_engage1.png' %><span class="current-section"> Engage</span></h2>
       <%= image_tag 'new_marketing/divide.png' %>
     </div>
@@ -166,7 +166,7 @@
 
 <div id="measure-section" class="subsection">
   <div class="subsection-header">
-    <a name="measure"></a>
+    <a name="measure" id="measure">&nbsp;</a>
     <h2><%= image_tag 'new_marketing/img_h_track1.png' %><span class="current-section">Measure</span></h2>
     <%= image_tag 'new_marketing/divide.png' %>
   </div>
@@ -188,7 +188,7 @@
 
 <div id="roi-wrapper">
   <div id="roi-section" class="subsection">
-    <a name="roi"></a>
+    <a name="roi" id="roi">&nbsp;</a>
     <div class="subsection-header">
       <h2><%= image_tag 'new_marketing/img_h_roi1.png' %><span class="current-section">ROI</span></h2>
       <%= image_tag 'new_marketing/divide.png' %>
@@ -213,7 +213,7 @@
 </div>
 
 <div id="blog-wrapper">
-  <a name="blog"></a>
+  <a name="blog" id="blog">&nbsp;</a>
   <div id="blog-section" class="subsection">
     <h2>Read our <strong>Blog</strong></h2>
     <%= image_tag 'new_marketing/divide.png' %>
@@ -249,7 +249,7 @@
 </div>
 
 <div id="bottom-comment-box-wrapper">
-  <a name="contact"></a>
+  <a name="contact" id="contact">&nbsp;</a>
   <div id="bottom-comment-box">
     <h2>Got a Comment or Question?</h2>
     <form method="post" action="#" class="request-info">
@@ -396,11 +396,9 @@
     });
 
     $('a.nav').live('click', function(e) {
-      var name = $(this).attr('href');
-      name = name.slice(1, name.length);
-
       <!-- TODO: change this to use attr('href'), which means changing a bunch of shit around. -->
-      var targetSelector = 'a[name="' + name + '"]';
+      var targetSelector = $(this).attr('href');
+      console.log(targetSelector);
       var scrollOffset = $(targetSelector).offset().top;
 
       $('html, body').stop().animate({scrollTop: scrollOffset}, 1500, 'easeInOutExpo');
