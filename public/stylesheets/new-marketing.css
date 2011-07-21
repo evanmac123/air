@@ -150,7 +150,7 @@ input.fat-text-field {
     font-family: 'Droid Sans', sans-serif; }
   #how-it-works h1 {
     color: #1d8c0a;
-    font-size: 36px;
+    font-size: 30px;
     font-weight: bold; }
   #how-it-works h2 {
     color: #999999;
@@ -167,10 +167,10 @@ input.fat-text-field {
     #how-it-works h2 a:hover {
       color: #1d8c0a; }
   #how-it-works #what-it-does {
-    font-size: 22px;
+    font-size: 18px;
     margin-left: 100px;
     margin-right: 25px;
-    margin-bottom: 75px; }
+    margin-bottom: 50px; }
   #how-it-works #postits {
     margin-top: 35px; }
     #how-it-works #postits #play-postit {
@@ -283,7 +283,7 @@ input.fat-text-field {
   text-align: center;
   width: 285px; }
   #play-section #secondary-play .left p, #play-section #secondary-play .right p {
-    font-size: 19px; }
+    font-size: 16px; }
 #play-section #secondary-play .left {
   margin-left: 100px; }
 #play-section #secondary-play .right {
