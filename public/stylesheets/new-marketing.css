@@ -7,6 +7,9 @@ img {
 input, textarea {
   font-family: "Helvetica Neue", Arial, sans-serif; }
 
+li {
+  font-size: 16px; }
+
 @font-face {
   font-family: 'Droid Sans';
   font-style: normal;

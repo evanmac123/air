@@ -2,11 +2,6 @@
 <%= javascript_include_tag 'facebox' %>
 <%= stylesheet_link_tag 'facebox' %>
 
-<% content_for :javascript do %>
-  <%= javascript_tag do %>
-  <% end %>
-<% end %>
-
 <a name="home" id="home"></a>
 
 <% content_for :navbar do %> 
@@ -216,7 +211,13 @@
   <div class="two-column">
     <div class="left" id="measure-text-1">
       <h3>Measure results</h3>
-      <p>We provide you with data that helps track<br/>engagement in your communications<br/>and wellness programs, and helps you prove ROI.</p>
+      <p>We provide you with data that helps track<br/>engagement in your communications<br/>and wellness programs, to help prove ROI:
+        <ul>
+          <li>Track how much users are interacting with different communications;</li>
+          <li>Identify which communications are most effective;</li>
+          <li>Measure program engagement to help drive real time improvements.</li>
+        </ul>
+      </p>
     </div>
 
     <div class="right" id="measure-graphic-1">
@@ -238,9 +239,15 @@
 
     <div class="two-column">
       <div class="left" id="roi-text-1">
-        <h3>We provide a measurable<br/> ROI in months, not years, by<br/> maximizing the returns of your<br/> existing investments:</h3>
-        <p>Increase participation rates in wellness programs</p>
-        <p>Increase engagement in communications</p>
+        <h3><%= t('marketing.roi-header', :default => "We provide a measurable<br/> ROI in months, not years.")%></h3>
+        <p><%= t('marketing.roi-benefits', :default => "H Engage helps maximize engagement in your existing programs, which drives incremental ROI from your existing investments:") %>
+          <ul>
+            <li>Increase participation rates in wellness programs.</li>
+            <li>Increase engagement in communications.</li>
+          </ul>
+        </p>
+
+        <p><a href="#contact" class="nav"><%= t('marketing.roi-contact-link-text', :default => "We can help you calculate potential savings. Contact us to find out how.") %></a></p>
       </div>
 
       <div class="right" id="roi-graphic-1">
@@ -459,7 +466,6 @@
 
     $('a.nav').live('click', function(e) {
       var targetSelector = $(this).attr('href');
-      console.log(targetSelector);
       var scrollOffset = $(targetSelector).offset().top;
 
       $('html, body').stop().animate({scrollTop: scrollOffset}, 1500, 'easeInOutExpo');
