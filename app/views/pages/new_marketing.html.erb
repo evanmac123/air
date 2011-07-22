@@ -1,8 +1,10 @@
 <%= javascript_include_tag 'jquery.easing.1.3' %>
 
+<a name="home" id="home">
+
 <% content_for :navbar do %> 
   <span id="buttons">
-    <% %w(Play Engage Measure ROI Blog Contact).each do |link_title| %>
+    <% %w(Home Play Engage Measure ROI Blog Contact).each do |link_title| %>
       <%= link_to link_title, "#" + link_title.downcase, :class => 'nav' %>
     <% end %>
   </span>
@@ -176,7 +178,7 @@
         <h3>Communication Materials</h3>
         <h4>We make existing communication<br/>materials interactive.</h4>
         <p id="h-engage-enhances">H Engage enhances your commuications by adding game mechanics.  When Amy looks for a poster she earns points by completing tasks and texting H Engage:</p>
-        <%= image_tag 'new_marketing/img_engage_circle.jpg', :id => 'sheep-poster' %>
+        <%= image_tag 'new_marketing/img_engage_circle.png', :id => 'sheep-poster' %>
 
         <p id="key-points">
           Key points from the communication are repeated in Amy's activity stream, giving the content visibility to people who are connected to Amy.
