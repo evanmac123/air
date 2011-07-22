@@ -342,8 +342,10 @@ input.fat-text-field {
 #engage-section #help-drive-traffic {
   font-family: "The Girl Next Door", cursive;
   position: relative; }
-  #engage-section #help-drive-traffic img {
-    margin-left: 135px; }
+  #engage-section #help-drive-traffic #teal-arrow-bottom {
+    position: absolute;
+    top: -45px;
+    right: 140px; }
 
 #blog-section {
   font-size: 16px;

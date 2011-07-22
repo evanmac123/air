@@ -527,8 +527,10 @@ input.fat-text-field {
     font-family: "The Girl Next Door", cursive;
     position: relative;
 
-    img {
-      margin-left: 135px;
+    #teal-arrow-bottom {
+      position: absolute;
+      top: -45px;
+      right: 140px;
     }
   }
 }
