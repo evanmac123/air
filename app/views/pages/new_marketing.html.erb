@@ -31,7 +31,7 @@
         <% hover_path = image_path("new_marketing/img_h_#{postit_name}2.png") %>
         <% image_id = "#{postit_name}-postit" %>
 
-        <%= link_to image_tag(unhover_path, :id => image_id), "##{postit_name}", :class => 'nav' %>
+        <%= link_to image_tag(unhover_path, :id => image_id), "##{postit_name}", :class => 'quote-control postit' %>
         <%= image_tag hover_path, :style => "display: none" %>
 
         <% content_for :javascript do %>
@@ -366,6 +366,7 @@
     var quoteText = $('#cycling-quote-box #quote-text');
     var quotePointer = $('#cycling-quote-box #pointer');
     var pointedAtLinks = $('#how-it-works h2 a');
+    var postitLinks = $('#how-it-works .postit img');
     var quoteCycleTimeoutId = null;
 
     function setCurrentQuote(quoteIndex) {
@@ -397,7 +398,12 @@
         clearTimeout(quoteCycleTimeoutId);
       }
 
-      setCurrentQuote($.inArray(e.target, pointedAtLinks));
+      quoteIndex = $.inArray(e.target, pointedAtLinks);
+      if (quoteIndex == -1) {
+        quoteIndex = $.inArray(e.target, postitLinks);
+      }
+
+      setCurrentQuote(quoteIndex);
     });
 
     function requestInfoBeforePost(form) {
