@@ -499,6 +499,10 @@ input.fat-text-field {
   .right {
     width: 380px;
 
+    a img {
+      margin-top: 25px;
+    }
+
     #teal-arrow-right {
       position: absolute;
       left: -75px;
@@ -509,7 +513,12 @@ input.fat-text-field {
     }
 
     #key-points {
-      margin: 50px 0;
+    }
+
+    #winning-points-from-poster {
+      ul {
+        margin-bottom: 0;
+      }
     }
   }
 

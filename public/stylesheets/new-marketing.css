@@ -325,13 +325,15 @@ input.fat-text-field {
     margin-bottom: 55px; }
 #engage-section .right {
   width: 380px; }
+  #engage-section .right a img {
+    margin-top: 25px; }
   #engage-section .right #teal-arrow-right {
     position: absolute;
     left: -75px; }
   #engage-section .right #h-engage-enhances {
     margin-bottom: 25px; }
-  #engage-section .right #key-points {
-    margin: 50px 0; }
+  #engage-section .right #winning-points-from-poster ul {
+    margin-bottom: 0; }
 #engage-section #we-add-game-mechanics {
   font-family: "The Girl Next Door", cursive;
   font-size: 18px;
