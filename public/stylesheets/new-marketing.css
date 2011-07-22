@@ -307,6 +307,7 @@ input.fat-text-field {
   position: relative; }
   #engage-section .left h3, #engage-section .right h3 {
     text-align: left;
+    margin-top: 35px;
     margin-bottom: 25px; }
   #engage-section .left p, #engage-section .right p {
     margin: 30px 0; }
