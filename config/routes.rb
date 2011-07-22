@@ -28,7 +28,7 @@ Health::Application.routes.draw do
   match "sign_up"  => "users#new"
   match "sign_out" => "clearance/sessions#destroy"
 
-  root :to => 'pages#show', :id => 'marketing'
+  root :to => 'pages#show', :id => 'new_marketing'
 
   resource :home,  :only => :show
   resource :admin, :only => :show
