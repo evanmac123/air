@@ -108,7 +108,8 @@ body {
   background-color: white;
   width: 100%;
   height: 320px;
-  padding-top: 20px; }
+  padding-top: 20px;
+  margin-bottom: 5px; }
   #upper-box img {
     position: absolute; }
   #upper-box #logo {
@@ -126,7 +127,8 @@ body {
     z-index: 1; }
 
 #factoids {
-  margin-bottom: 45px; }
+  margin-bottom: 45px;
+  background-image: url(/images/new_marketing/tile_2.png); }
   #factoids h1 {
     text-align: center;
     font-family: 'Droid Sans', sans-serif;
@@ -313,19 +315,17 @@ input.fat-text-field {
   #engage-section .left #teal-arrow-left {
     position: absolute;
     right: 55px; }
+  #engage-section .left #amy-participates {
+    margin-bottom: 55px; }
 #engage-section .right {
   width: 380px; }
   #engage-section .right #teal-arrow-right {
     position: absolute;
     left: -75px; }
-  #engage-section .right #poster-points {
-    margin: 30px 0;
-    line-height: 1.6;
-    padding-bottom: 30px; }
-    #engage-section .right #poster-points td {
-      border-bottom: 0; }
-    #engage-section .right #poster-points .reward {
-      font-weight: bold; }
+  #engage-section .right #h-engage-enhances {
+    margin-bottom: 25px; }
+  #engage-section .right #key-points {
+    margin: 50px 0; }
 #engage-section #we-add-game-mechanics {
   font-family: "The Girl Next Door", cursive;
   font-size: 18px;
