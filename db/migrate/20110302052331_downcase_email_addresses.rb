@@ -1,8 +1,9 @@
 class DowncaseEmailAddresses < ActiveRecord::Migration
   def self.up
-    User.all.each do |user|
-      user.email = user.email.downcase
-      user.save!
+    users = select_all "select * from users"
+    
+    users.each do |user|
+      update "update users set email = #{quote(user['email'].downcase)} where id = #{user['id']}"
     end
   end
 
