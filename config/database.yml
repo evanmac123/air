@@ -1,7 +1,5 @@
 development: &default
   adapter: postgresql
-  username: postgres
-  password: postgres
   min_messages: warning
   database: health_development
   host: localhost
