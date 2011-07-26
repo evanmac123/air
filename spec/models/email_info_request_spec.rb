@@ -5,6 +5,8 @@ describe EmailInfoRequest do
 
   describe "after create" do
     before(:each) do
+      ActionMailer::Base.deliveries.clear
+
       EmailInfoRequest.create!(:name => 'Dude Duderson', :email => 'dude@bigco.com', :comment => 'Hot shit!')
     end
 
