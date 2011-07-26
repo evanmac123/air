@@ -95,6 +95,28 @@ Open up the Github repo, change into your feature-branch branch. Press the "Pull
     git mm
     git push origin master
 
+Running the app
+---------------
+
+To run the app locally:
+
+    rails s
+    
+Running the tests
+-----------------
+
+To run the whole suite:
+
+    be rake
+
+To run an individual spec file:
+
+    s spec/models/user_spec.rb
+    
+To run an individual Cucumber file:
+
+    cuc features/admin_adds_rules.feature
+
 Deploying
 ---------
 
