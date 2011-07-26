@@ -25,6 +25,9 @@
     <p id="what-it-does">
       <%= I18n.t("marketing.what_hengage_does", :default => "We use a social text message based game to engage employees in health and wellness, make traditional communications interactive, and increase participation in programs.") %>
     </p>
+  
+    <%# image_tag 'new_marketing/img_green_arrow.png', :alt => 'arrow', :id => 'green-arrow' %>
+    
     <div id="postits">
       <% %w(play engage measure roi).each do |postit_name| %>
         <% unhover_path = image_path("new_marketing/img_h_#{postit_name}1.png") %>
