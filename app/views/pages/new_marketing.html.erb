@@ -25,7 +25,6 @@
     <p id="what-it-does">
       <%= I18n.t("marketing.what_hengage_does", :default => "We use a social text message based game to engage employees in health and wellness, make traditional communications interactive, and increase participation in programs.") %>
     </p>
-    <h1>How It Works</h1>
     <div id="postits">
       <% %w(play engage measure roi).each do |postit_name| %>
         <% unhover_path = image_path("new_marketing/img_h_#{postit_name}1.png") %>
@@ -369,8 +368,6 @@
       {leftOffset: 547, html: 'Real-time tracking tools measure effectiveness. <a href="#measure" class="nav">See example.</a>'},
       {leftOffset: 744, html: 'Tracking of increased engagement helps prove ROI quickly. <a href="#roi" class="nav">See how.</a>'}
     ];
-
-    
     
     var quoteCyclingIndex = 0;
     var quoteText = $('#cycling-quote-box #quote-text');

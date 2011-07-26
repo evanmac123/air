@@ -52,6 +52,13 @@ li {
   src: local('Oswald '), local('Oswald'), url('http://themes.googleusercontent.com/static/fonts/oswald/v1/-g5pDUSRgvxvOl5u-a_WHw.woff') format('woff');
 }
 
+@font-face {
+  font-family: 'Lato';
+  font-style: italic;
+  font-weight: 900;
+  src: local('Lato Black Italic'), local('Lato-BlackItalic'), url('http://themes.googleusercontent.com/static/fonts/lato/v1/VNUH7ZAcagYBWsAiBBCEY7O3LdcAZYWl9Si6vvxL-qU.woff') format('woff');
+}
+
 @mixin droid-sans {
   font-family: 'Droid Sans', sans-serif;
 }
@@ -249,10 +256,13 @@ input.fat-text-field {
   }
 
   #what-it-does {
-    font-size: 22px;
+    font-size: 26px;
     margin-left: 100px;
     margin-right: 25px;
     margin-bottom: 50px;
+    font-family: Lato, Georgia, sans-serif;
+    font-style: italic;
+    font-weight: 900;
   }
 
   #postits {
