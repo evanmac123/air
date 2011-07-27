@@ -456,6 +456,13 @@
       $('#login-form').toggle();
     });
 
+    $('body').click(function(e) {
+      if($(e.target).closest('#activate-login-form').length > 0) { return; }
+      if($(e.target).closest('#login-form').length > 0) { return; }
+
+      $('#login-form').hide();
+    });
+
     $('a.nav').live('click', function(e) {
       var targetSelector = $(this).attr('href');
       var scrollOffset = $(targetSelector).offset().top;
