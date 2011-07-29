@@ -88,6 +88,10 @@ body {
   background-image: url(/images/new_marketing/background.png);
 }
 
+.thanks-message {
+  font-size: 22px;
+}
+
 #login-form {
   position: absolute;
   width: 174px;
@@ -776,6 +780,10 @@ input.fat-text-field {
       top: 8px;
       margin-right: 25px;
     }
+  }
+
+  .thanks-message {
+    margin-left: 60px;
   }
 }
 
