@@ -50,6 +50,12 @@ li {
   font-weight: 900;
   src: local("Lato Black Italic"), local("Lato-BlackItalic"), url("http://themes.googleusercontent.com/static/fonts/lato/v1/VNUH7ZAcagYBWsAiBBCEY7O3LdcAZYWl9Si6vvxL-qU.woff") format("woff"); }
 
+@font-face {
+  font-family: 'Istok Web';
+  font-style: normal;
+  font-weight: 400;
+  src: local("Istok Web Regular"), local("IstokWeb-Regular"), url("http://themes.googleusercontent.com/font?kit=EvPKapBawcLZ3hbihjhqAT8E0i7KZn-EPnyo3HZu7kw") format("woff"); }
+
 body {
   font-family: 'Helvetica Neue', Arial, sans-serif;
   background-image: url(/images/new_marketing/background.png); }
@@ -231,8 +237,19 @@ input.fat-text-field {
   width: 855px;
   padding-top: 50px;
   padding-bottom: 150px; }
+  .subsection h3 {
+    font-family: "Istok Web", sans-serif;
+    font-size: 26px;
+    font-weight: bold;
+    color: #666666; }
+  .subsection h4 {
+    font-family: "Istok Web", sans-serif;
+    font-size: 18px;
+    font-weight: normal;
+    color: #666666;
+    margin-bottom: 30px; }
   .subsection .subsection-header {
-    margin-bottom: 25px; }
+    margin-bottom: 30px; }
     .subsection .subsection-header h2 {
       font-family: 'Droid Sans', sans-serif;
       font-size: 36px;
@@ -247,12 +264,6 @@ input.fat-text-field {
       .subsection .subsection-header h2 img {
         position: relative;
         top: 35px; }
-  .subsection .two-column h3 {
-    font-family: "Oswald", sans-serif;
-    font-size: 26px;
-    font-weight: normal;
-    color: #38a1a3;
-    margin-bottom: 25px; }
   .subsection .two-column p {
     font-size: 16px;
     line-height: 1.4; }
@@ -314,27 +325,23 @@ input.fat-text-field {
 #play-section #secondary-play .right {
   margin-right: 100px; }
 
-#engage-section h3 {
-  text-align: center;
-  font-size: 30px;
-  margin-bottom: 50px;
-  font-family: "Oswald", sans-serif;
-  color: #38A1A3; }
-#engage-section h4 {
-  font-size: 16px; }
+#engage-section h3, #engage-section h4 {
+  text-align: center; }
 #engage-section .left, #engage-section .right {
   position: relative; }
   #engage-section .left h3, #engage-section .right h3 {
     text-align: left;
     margin-top: 35px;
     margin-bottom: 25px; }
+  #engage-section .left h4, #engage-section .right h4 {
+    text-align: left; }
   #engage-section .left p, #engage-section .right p {
     margin: 30px 0; }
 #engage-section .left {
   width: 370px; }
   #engage-section .left #teal-arrow-left {
     position: absolute;
-    right: 55px; }
+    right: 35px; }
   #engage-section .left #amy-participates {
     margin-bottom: 55px; }
 #engage-section .right {
@@ -412,7 +419,7 @@ input.fat-text-field {
   padding-top: 25px;
   padding-bottom: 40px; }
   #bottom-comment-box h2 {
-    font-family: "Oswald",sans-serif;
+    font-family: "Istok Web",sans-serif;
     font-size: 20px;
     margin: 0 0 15px 95px; }
   #bottom-comment-box form {
@@ -481,7 +488,7 @@ input.fat-text-field {
     width: 900px; }
     #request-consultation-bar form #request-consultation {
       float: left;
-      font-family: "Oswald", sans-serif;
+      font-family: "Istok Web", sans-serif;
       font-size: 20px;
       font-weight: bold;
       line-height: 1;

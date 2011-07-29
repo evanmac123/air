@@ -64,6 +64,13 @@ li {
   src: local('Lato Black Italic'), local('Lato-BlackItalic'), url('http://themes.googleusercontent.com/static/fonts/lato/v1/VNUH7ZAcagYBWsAiBBCEY7O3LdcAZYWl9Si6vvxL-qU.woff') format('woff');
 }
 
+@font-face {
+  font-family: 'Istok Web';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Istok Web Regular'), local('IstokWeb-Regular'), url('http://themes.googleusercontent.com/font?kit=EvPKapBawcLZ3hbihjhqAT8E0i7KZn-EPnyo3HZu7kw') format('woff');
+}
+
 @mixin droid-sans {
   font-family: 'Droid Sans', sans-serif;
 }
@@ -327,8 +334,23 @@ input.fat-text-field {
   padding-top: 50px;
   padding-bottom: 150px;
 
+  h3 {
+    font-family: "Istok Web", sans-serif;
+    font-size: 26px;
+    font-weight: bold;
+    color: #666666;
+  }
+
+  h4 {
+    font-family: "Istok Web", sans-serif;
+    font-size: 18px;
+    font-weight: normal;
+    color: #666666;
+    margin-bottom: 30px;
+  }
+
   .subsection-header {
-    margin-bottom: 25px;
+    margin-bottom: 30px;
 
     h2 {
       font-family: 'Droid Sans', sans-serif;
@@ -354,14 +376,6 @@ input.fat-text-field {
   }
 
   .two-column {
-    h3 {
-      font-family: "Oswald", sans-serif;
-      font-size: 26px;
-      font-weight: normal;
-      color: #38a1a3;
-      margin-bottom: 25px;
-    }
-
     p {
       font-size: 16px;
       line-height: 1.4;
@@ -475,16 +489,8 @@ input.fat-text-field {
 }
 
 #engage-section {
-  h3 {
+  h3, h4 {
     text-align: center;
-    font-size: 30px;
-    margin-bottom: 50px;
-    font-family: "Oswald", sans-serif;
-    color: #38A1A3;
-  }
-
-  h4 {
-    font-size: 16px;
   }
 
   .left, .right {
@@ -494,6 +500,10 @@ input.fat-text-field {
       text-align: left;
       margin-top: 35px;
       margin-bottom: 25px;
+    }
+
+    h4 {
+      text-align: left;
     }
 
     p {
@@ -506,7 +516,7 @@ input.fat-text-field {
 
     #teal-arrow-left {
       position: absolute;
-      right: 55px;
+      right: 35px;
     }
 
     #amy-participates {
@@ -632,7 +642,7 @@ input.fat-text-field {
   padding-bottom: 40px;
 
   h2 {
-    font-family: "Oswald",sans-serif;
+    font-family: "Istok Web",sans-serif;
     font-size: 20px;
     margin: 0 0 15px 95px;
   }
@@ -735,7 +745,7 @@ input.fat-text-field {
 
     #request-consultation {
       float: left;
-      font-family: "Oswald", sans-serif;
+      font-family: "Istok Web", sans-serif;
       font-size: 20px;
       font-weight: bold;
       line-height: 1;
