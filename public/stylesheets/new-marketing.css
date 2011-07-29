@@ -251,7 +251,7 @@ input.fat-text-field {
   .subsection .subsection-header {
     margin-bottom: 30px; }
     .subsection .subsection-header h2 {
-      font-family: 'Droid Sans', sans-serif;
+      font-family: 'Istok Web', sans-serif;
       font-size: 36px;
       font-weight: normal;
       color: #999999;
@@ -377,33 +377,39 @@ input.fat-text-field {
   font-size: 16px;
   margin-top: 50px;
   margin-bottom: 100px; }
-  #blog-section h2 {
-    font-weight: normal;
-    font-family: 'Droid Sans', sans-serif;
-    font-size: 36px;
-    color: #999999;
-    margin-bottom: 0;
-    margin-left: 48px; }
-    #blog-section h2 strong {
-      font-weight: bold;
-      color: #1d8c0a; }
+  #blog-section #blog-header {
+    vertical-align: bottom; }
+    #blog-section #blog-header h2 {
+      font-weight: normal;
+      font-family: 'Istok Web', sans-serif;
+      font-size: 36px;
+      color: #1d8c0a;
+      margin: 0;
+      display: inline-block; }
   #blog-section #blog-name {
-    font-family: 'Valera Round', sans-serif;
+    font-family: 'Istok Web', sans-serif;
     font-size: 26px;
-    color: #38a1a3;
-    margin-top: 25px;
+    color: #1d8c0a;
+    margin-top: 45px;
     margin-bottom: 0; }
     #blog-section #blog-name a {
-      color: #38A1A3; }
+      color: #1d8c0a; }
   #blog-section #blog-subname {
-    margin-bottom: 30px; }
+    margin-bottom: 45px; }
   #blog-section .blog-subsection {
-    padding-left: 50px;
+    padding-left: 58px;
     padding-right: 200px; }
     #blog-section .blog-subsection .body-wrapper {
-      margin-bottom: 40px; }
-  #blog-section #facts-and-stats {
-    margin-top: 60px; }
+      margin-bottom: 45px; }
+  #blog-section .post .title {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 18px;
+    font-weight: bold;
+    text-transform: uppercase; }
+    #blog-section .post .title a, #blog-section .post .title a:hover, #blog-section .post .title a:visited {
+      color: #2d2d2b; }
+  #blog-section .post a.read-more, #blog-section .post a.read-more:hover, #blog-section .post a.read-more:visited {
+    color: #006699; }
 
 #engage-section-wrapper, #roi-wrapper, #bottom-comment-box-wrapper {
   background-image: url(/images/new_marketing/tile_2.png);

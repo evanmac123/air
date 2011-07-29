@@ -270,8 +270,11 @@
 <div id="blog-wrapper">
   <a name="blog" id="blog">&nbsp;</a>
   <div id="blog-section" class="subsection">
-    <h2>Read our <strong>Blog</strong></h2>
-    <%= image_tag 'new_marketing/divide.png' %>
+    <div id="blog-header">
+      <%= image_tag 'new_marketing/img_tree.png', :id => 'blog-logo' %>
+      <h2>H Engage Blog</h2>
+      <%= image_tag 'new_marketing/divide.png' %>
+    </div>
 
     <div class="blog-subsection">
       <p id="blog-name" class="point top">
@@ -346,7 +349,7 @@
           attr('href', url).
           end().
         find('.body').
-          text(body);
+          html(body + '<a href="' + url + '" class="read-more">read more</a>');
     }
 
     function populateRecentPosts(tumblrData) {
