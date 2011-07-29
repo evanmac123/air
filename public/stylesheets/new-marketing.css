@@ -493,7 +493,8 @@ input.fat-text-field {
       font-size: 25px;
       font-weight: bold;
       line-height: 1;
-      margin-right: 25px; }
+      margin-right: 25px;
+      padding-top: 5px; }
     #request-consultation-bar form input[type="text"] {
       margin-right: 25px; }
     #request-consultation-bar form img {
