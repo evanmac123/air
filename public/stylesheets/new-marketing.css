@@ -168,6 +168,8 @@ input.fat-text-field {
   padding-top: 35px;
   padding-bottom: 15px;
   background-image: url(/images/new_marketing/tile_2.png); }
+  #how-it-works .marketing-content {
+    width: 1000px; }
   #how-it-works #green-arrow {
     position: absolute;
     top: 80px;
@@ -190,8 +192,8 @@ input.fat-text-field {
       -moz-transition: color 0.4s linear;
       font-size: 36px;
       color: #999999;
-      margin-left: 38px;
-      margin-right: 38px; }
+      margin-left: 55px;
+      margin-right: 55px; }
     #how-it-works h2 a:hover {
       text-decoration: underline; }
   #how-it-works #what-it-does {
@@ -205,11 +207,11 @@ input.fat-text-field {
   #how-it-works #postits {
     margin-top: 35px; }
     #how-it-works #postits #play-postit {
-      margin-left: 100px; }
+      margin-left: 80px; }
     #how-it-works #postits #engage-postit {
-      margin-left: 95px; }
+      margin-left: 90px; }
     #how-it-works #postits #measure-postit {
-      margin-left: 112px; }
+      margin-left: 135px; }
     #how-it-works #postits #roi-postit {
       margin-left: 93px; }
   #how-it-works #cycling-quote-box {
