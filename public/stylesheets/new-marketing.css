@@ -478,18 +478,19 @@ input.fat-text-field {
   height: 63px;
   margin: 0 auto;
   margin-bottom: 25px;
-  background-color: #e0e2dd;
+  background-color: #007673;
   padding-top: 24px;
   padding-right: 30px;
   padding-bottom: 10px;
-  padding-left: 30px; }
+  padding-left: 30px;
+  color: white; }
   #request-consultation-bar form {
     margin: 0 auto;
-    width: 900px; }
+    width: 925px; }
     #request-consultation-bar form #request-consultation {
       float: left;
       font-family: "Istok Web", sans-serif;
-      font-size: 20px;
+      font-size: 25px;
       font-weight: bold;
       line-height: 1;
       margin-right: 25px; }
@@ -497,7 +498,7 @@ input.fat-text-field {
       margin-right: 25px; }
     #request-consultation-bar form img {
       position: relative;
-      top: 4px;
+      top: 8px;
       margin-right: 25px; }
 
 #page-footer {

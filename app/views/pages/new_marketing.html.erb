@@ -22,10 +22,6 @@
 
 <div id="how-it-works">
   <div class="marketing-content">
-    <p id="what-it-does">
-      <%= I18n.t("marketing.what_hengage_does", :default => "We use a social text message based game to engage employees in health and wellness, make traditional communications interactive, and increase participation in programs.") %>
-    </p>
-  
     <%# image_tag 'new_marketing/img_green_arrow.png', :alt => 'arrow', :id => 'green-arrow' %>
     
     <div id="postits">
@@ -75,8 +71,8 @@
     <%= image_tag 'new_marketing/img_ampersand.png', :alt => 'and' %>
 
     <%= text_field_tag "email[email]", 'email', :class => 'with-placeholder fat-text-field' %>
-    <%= image_submit_tag 'new_marketing/btn_submit.png' %><br/>
-
+    <%= image_submit_tag 'new_marketing/btn_submit_1.png', :class => 'submit-button' %><br/>
+    <%= image_tag 'new_marketing/btn_submit_2.png', :style => 'display: none' %>
   </form>
 </div>
 
@@ -306,7 +302,7 @@
       <%= text_field_tag "email[email]", 'email', :class => 'with-placeholder fat-text-field' %>
       <%= text_area_tag "email[comment]", 'message', :class => 'with-placeholder' %>
       <div class="submit-wrapper">
-        <%= image_submit_tag 'new_marketing/btn_submit.png' %><br/>
+        <%= image_submit_tag 'new_marketing/btn_submit_1.png', :class => 'submit-button' %><br/>
       </div>
     </form>
   </div>
@@ -481,5 +477,14 @@
 
     $('a[rel*=facebox]').facebox();
 
+    $('.submit-button').hover(
+      function(e) {
+        $(this).attr('src', '<%= image_path "new_marketing/btn_submit_2.png" %>');
+      },
+
+      function(e) {
+        $(this).attr('src', '<%= image_path "new_marketing/btn_submit_1.png" %>');
+      }
+    );
   <% end %>
 <% end %>
