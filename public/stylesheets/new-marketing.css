@@ -153,9 +153,14 @@ body {
     color: #1d8c0a;
     font-size: 30px;
     font-weight: bold; }
+  #factoids #factoids-subheader {
+    text-align: center;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 16px;
+    color: #2d2d2b; }
   #factoids .marketing-content {
     padding-left: 90px;
-    padding-top: 6px; }
+    padding-top: 25px; }
   #factoids .factoid {
     display: inline-block;
     margin-right: 35px; }

@@ -211,10 +211,17 @@ body {
     font-size: 30px;
     font-weight: bold;
   } 
+
+  #factoids-subheader {
+    text-align: center;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 16px;
+    color: $dark-gray;
+  }
   
   .marketing-content {
     padding-left: 90px;
-    padding-top: 6px;
+    padding-top: 25px;
   }
 
   .factoid {
