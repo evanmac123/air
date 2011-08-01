@@ -1,7 +1,10 @@
 Feature: Admin sets up demo
 
+  Background:
+    Given I sign in as an admin via the login page
+
   Scenario: Admin sets up demo
-    Given I am on the admin page
+    When I go to the admin page
     When I follow "New Demo"
     And I fill in "Company name" with "3M"
     And I fill in "Victory threshold" with "100"

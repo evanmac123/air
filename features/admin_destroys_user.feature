@@ -4,7 +4,7 @@ Feature: Admin destroys a user
     Given the following users exist:
       | name | email           | phone number | demo                |
       | Vlad | vlad@engage.com | +16175551212 | company name: FooCo |
-    When I sign in via the login page
+    When I sign in as an admin via the login page
     And I go to the admin "FooCo" demo page
     Then I should see "1 users have added mobile numbers"
     When I follow "(edit Vlad)"

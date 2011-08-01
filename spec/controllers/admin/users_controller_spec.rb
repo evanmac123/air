@@ -3,6 +3,7 @@ describe Admin::UsersController do
     before(:each) do
       @demo = Factory :demo
       @params = {:demo_id => @demo.id, :user => Factory.attributes_for(:user)}
+      @controller.current_user = Factory :site_admin
     end
 
     describe "with claim code requested" do

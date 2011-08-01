@@ -4,7 +4,7 @@ Feature: Admin adds and edits rules
     Given the following demo exists:
       | company name |
       | FooCorp      |
-    And I sign in via the login page
+    And I sign in as an admin via the login page
     And the following rules exist:
       | points | reply   | description      | alltime limit | referral points | suggestible | demo                  |
       | 12     | banana  | I ate a banana   | 15            | 10              | true        | company_name: FooCorp |

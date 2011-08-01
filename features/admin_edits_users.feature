@@ -6,6 +6,7 @@ Feature: Admin edits users
     And the following users exist:
       | name | email      | claim_code | demo                            |
       | Bob  | bob@bp.com | bp_bob     | company_name: British Petroleum |
+    And I sign in as an admin via the login page
     And I am on the admin "British Petroleum" demo page
     And I follow "(edit Bob)"
 

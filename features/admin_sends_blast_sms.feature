@@ -7,7 +7,7 @@ Feature: Admin sends blast SMS
       | Vlad | +16175551212 | company_name: FooCo |
       | Dan  | +18085551212 | company_name: FooCo |
       | Sven | +13055551212 | company_name: BarCo |
-    And I sign in
+    And I sign in as an admin via the login page
     And I go to the blast SMS page for "FooCo"
 
   Scenario: Admin sends immediate blast SMS

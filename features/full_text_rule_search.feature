@@ -29,6 +29,7 @@ Feature: Full text rule search
 
   Scenario: User almost gets a command right
     When "+16175551212" sends SMS "ate baked alaska"
+    And I sign in as an admin via the login page
     And I go to the bad message log page
     Then "+16175551212" should have received an SMS 'I didn't quite get that. Text "a" for "ate banana", "b" for "ate kitten", or "s" to suggest we add what you sent.'
     And I should see the following new bad SMS messages:
@@ -74,6 +75,7 @@ Feature: Full text rule search
 
   Scenario: User comes nowhere near a command
     When "+16175551212" sends SMS "fought eighteen bears"
+    And I sign in as an admin via the login page
     And I go to the bad message log page
     Then "+16175551212" should have received an SMS "Sorry, I don't understand what that means. Text "s" to suggest we add what you sent."    
     And I should see the following new bad SMS messages:

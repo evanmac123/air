@@ -61,6 +61,8 @@ class User < ActiveRecord::Base
 
   attr_reader :batch_updating_recent_averages
 
+  attr_protected :is_site_admin
+
   def followers
     # You'd think you could do this with an association, and if you can figure
     # out how to get that to work, please, be my guest.

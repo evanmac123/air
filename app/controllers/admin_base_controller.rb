@@ -1,14 +1,13 @@
 class AdminBaseController < ApplicationController
-  before_filter :authenticate
+  before_filter :require_site_admin
   before_filter :strip_smart_punctuation!
 
   protected
 
-  def authenticate
-    return true if Rails.env.test?
-
-    authenticate_or_request_with_http_basic do |username, password|
-      username == "demo" && password == "salud"
+  def require_site_admin
+    unless current_user.is_site_admin
+      redirect_to '/'
+      return false
     end
   end
 

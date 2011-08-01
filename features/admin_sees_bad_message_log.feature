@@ -8,7 +8,7 @@ Feature: Bad message log
     And "+14155551212" sends SMS "FOO BAR I SAY"
     And time is frozen at "2010-05-01 17:05:00"
     And "+16178675309" sends SMS "a/s/l?"
-    When I sign in via the login page
+    When I sign in as an admin via the login page
     And I go to the bad message log page
     Then I should see the following new bad SMS messages:
       | name | phone_number | message_body  | received_at         |
@@ -23,7 +23,7 @@ Feature: Bad message log
       | +14155551212 | Second! | 2010-05-01 17:01 UTC |
     And time is frozen at "2010-05-01 18:00 UTC"
     And "+14155551212" sends SMS "FOO BAR"
-    When I sign in via the login page
+    When I sign in as an admin via the login page
     And I go to the bad message log page
     Then I should see the following watchlisted bad SMS messages:
       | phone_number | message_body | received_at          |
@@ -49,7 +49,7 @@ Feature: Bad message log
     And the following bad message reply exists:
       | bad message            | body    |
       | body: Nothing special. | Agreed. |
-    When I sign in via the login page
+    When I sign in as an admin via the login page
     And I go to the bad message log page
     Then I should see the following messages in the all-message section:
       | phone_number | message_body     | received_at          |
