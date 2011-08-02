@@ -239,8 +239,12 @@ input.fat-text-field {
       color: #333333;
       text-align: center;
       padding-top: 16px; }
-      #how-it-works #cycling-quote-box #quote-text a {
-        color: #006699; }
+      #how-it-works #cycling-quote-box #quote-text a, #how-it-works #cycling-quote-box #quote-text a:hover, #how-it-works #cycling-quote-box #quote-text a:visited {
+        color: #6c8f00; }
+      #how-it-works #cycling-quote-box #quote-text img {
+        position: relative;
+        top: 5px;
+        left: 5px; }
 
 .subsection {
   margin: 0 auto;

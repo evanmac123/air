@@ -336,8 +336,14 @@ input.fat-text-field {
       text-align: center;
       padding-top: 16px;
 
-      a {
-        color: #006699;
+      a, a:hover, a:visited {
+        color: #6c8f00;
+      }
+
+      img {
+        position: relative;
+        top: 5px;
+        left: 5px;
       }
     }
   }
