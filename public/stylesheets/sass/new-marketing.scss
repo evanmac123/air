@@ -125,15 +125,16 @@ body {
 
 #header {
   width: 100%;
-  height: 37px;
+  height: 55px;
   background-image: url(/images/new_marketing/b_tealtop_tile.png);
   background-repeat: repeat-x;
   position: fixed;
   z-index: +10;
 
   #header-contents {
-    width: $content-width;
+    width: 1030px;
     margin: 0 auto;
+    padding-top: 7px;
     position: relative;
 
     #activate-login-form {
@@ -176,28 +177,39 @@ body {
   background-color: white;
   width: 100%;
   height: 320px;
-  padding-top: 20px;
+  padding-top: 45px;
   margin-bottom: 5px;
 
-  img {
+  img, h1, p {
     position: absolute;
   }
 
   #logo {
     top: 15px;
-    left: 65px;
+    left: -64px;
   }
 
   #spark-engagement {
+    font-family: "Istok Web", sans-serif;
+    font-size: 32px;
+    font-weight: bold;
+    color: #52910c;
     top: 110px;
-    left: 50px;
+    left: -25px;
+  }
+
+  #short-explanation {
+    font-family: "Istok Web", sans-serif;
+    font-size: 20px;
+    color: $dark-gray;
+    left: -25px;
+    top: 200px;
   }
 
   #phones-scoring {
     top: 45px;
     left: 625px;
   }
-
 }
 
 #factoids {
