@@ -88,6 +88,10 @@ body {
   background-image: url(/images/new_marketing/background.png);
 }
 
+.thanks-message {
+  font-size: 22px;
+}
+
 #login-form {
   position: absolute;
   width: 174px;
@@ -135,7 +139,7 @@ body {
     #activate-login-form {
       display: inline-block;
       float: right;
-      margin-top: 8px;
+      margin-top: 2px;
     }
   }
 }
@@ -207,10 +211,17 @@ body {
     font-size: 30px;
     font-weight: bold;
   } 
+
+  #factoids-subheader {
+    text-align: center;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 16px;
+    color: $dark-gray;
+  }
   
   .marketing-content {
     padding-left: 90px;
-    padding-top: 6px;
+    padding-top: 25px;
   }
 
   .factoid {
@@ -357,7 +368,7 @@ input.fat-text-field {
     margin-bottom: 30px;
 
     h2 {
-      font-family: 'Droid Sans', sans-serif;
+      font-family: 'Istok Web', sans-serif;
       font-size: 36px;
       font-weight: normal;
       color: #999999;
@@ -585,47 +596,60 @@ input.fat-text-field {
   margin-top: 50px;
   margin-bottom: 100px;
 
-  h2 {
-    font-weight: normal;
-    font-family: 'Droid Sans', sans-serif;
-    font-size: 36px;
-    color: #999999;
-    margin-bottom: 0;
-    margin-left: 48px;
 
-    strong {
-      font-weight: bold;
+  #blog-header {
+    vertical-align: bottom;
+
+    h2 {
+      font-weight: normal;
+      font-family: 'Istok Web', sans-serif;
+      font-size: 36px;
       color: #1d8c0a;
+      margin: 0;
+      display: inline-block;
     }
   }
 
   #blog-name {
-    font-family: 'Valera Round', sans-serif;
+    font-family: 'Istok Web', sans-serif;
     font-size: 26px;
-    color: #38a1a3;
-    margin-top: 25px;
+    color: #1d8c0a;
+    margin-top: 45px;
     margin-bottom: 0;
 
     a {
-      color: #38A1A3;
+      color: #1d8c0a;
     }
   }
 
   #blog-subname {
-    margin-bottom: 30px;
+    margin-bottom: 45px;
   }
 
   .blog-subsection {
-    padding-left: 50px;
+    padding-left: 58px;
     padding-right: 200px;
 
     .body-wrapper {
-      margin-bottom: 40px;
+      margin-bottom: 45px;
     }
   }
 
-  #facts-and-stats {
-    margin-top: 60px;
+  .post {
+    .title {
+      font-family: "Helvetica Neue", Arial, sans-serif;
+      font-size: 18px;
+      font-weight: bold;
+      text-transform: uppercase;
+
+      a, a:hover, a:visited {
+        color: $dark-gray;
+      }
+    }
+
+    a.read-more, a.read-more:hover, a.read-more:visited {
+      color: #006699;
+    }
   }
 }
 
@@ -737,23 +761,25 @@ input.fat-text-field {
   height: 63px;
   margin: 0 auto;
   margin-bottom: 25px;
-  background-color: $email-box-background;
+  background-color: #007673;
   padding-top: 24px;
   padding-right: 30px;
   padding-bottom: 10px; 
   padding-left: 30px;
+  color: white;
 
   form {
     margin: 0 auto;
-    width: 900px;
+    width: 925px;
 
     #request-consultation {
       float: left;
       font-family: "Istok Web", sans-serif;
-      font-size: 20px;
+      font-size: 25px;
       font-weight: bold;
       line-height: 1;
       margin-right: 25px;
+      padding-top: 5px;
     }
 
     input[type="text"] {
@@ -762,9 +788,13 @@ input.fat-text-field {
 
     img {
       position: relative;
-      top: 4px;
+      top: 8px;
       margin-right: 25px;
     }
+  }
+
+  .thanks-message {
+    margin-left: 60px;
   }
 }
 

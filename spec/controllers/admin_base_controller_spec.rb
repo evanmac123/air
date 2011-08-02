@@ -18,7 +18,7 @@ describe DummyController do
   end
 
   before(:each) do
-    @controller.current_user = Factory :user
+    @controller.current_user = Factory :site_admin
   end
 
   describe "#strip_smart_punctuation" do

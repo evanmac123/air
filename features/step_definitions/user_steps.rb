@@ -11,7 +11,7 @@ Given /^"(.*?)" has ranking query offset (\d+)$/ do |username, offset|
 end
 
 When /^an admin moves "(.*?)" to the demo "(.*?)"$/ do |username, company_name|
-  When "I sign in via the login page"
+  When "I sign in as an admin via the login page"
 
   user = User.find_by_name(username)
 

@@ -19,6 +19,11 @@ Factory.define :user_with_phone, :parent => :user do |factory|
   factory.phone_number {Factory.next :phone}
 end
 
+Factory.define :site_admin, :parent => :user do |factory|
+  factory.name {"Joe-Bob McAdmin"}
+  factory.is_site_admin {true}
+end
+
 Factory.define :demo do |factory|
   factory.company_name { "Gillette" }
 end

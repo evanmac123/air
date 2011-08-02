@@ -5,7 +5,7 @@ Feature: Admin destroys demo
       | company name |
       | FooCo        |
       | BarCo        |
-    When I sign in via the login page
+    When I sign in as an admin via the login page
     When I go to the admin "FooCo" demo page
     And I press "Destroy game"
     Then I should be on the admin page

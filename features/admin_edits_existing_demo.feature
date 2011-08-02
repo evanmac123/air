@@ -4,6 +4,7 @@ Feature: Admin edits existing demo
     Given the following demo exists:
       | company_name | victory_threshold | victory_verification_email | victory_verification_sms_number | seed_points | custom_welcome_message | ends_at                 | points_for_connecting | custom_victory_achievement_message | custom_victory_sms | custom_victory_scoreboard_message | followup_welcome_message | followup_welcome_message_delay | credit_game_referrer_threshold | game_referrer_bonus |
       | FooCo        | 50                | phil@fooco.com             | +14155551212                    | 10          | Hi there               | 2011-05-01 12:00:00 UTC | 5                     | You won.                           | You won by SMS     | Won a bunch                       | Hi again.                | 20                             | 60                             | 5                   |
+    And I sign in as an admin via the login page
     And I go to the admin "FooCo" demo page
     And I follow "Edit basic settings for this game"
 

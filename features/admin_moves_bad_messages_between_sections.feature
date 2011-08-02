@@ -11,7 +11,7 @@ Feature: Admin can move bad messages between sections
     And the following bad message exists:
       | phone_number | body             | received at          |
       | +14155551215 | I matter again.  | 2011-01-04 15:03 UTC |
-    When I sign in via the login page
+    When I sign in as an admin via the login page
     And I go to the bad message log page
     And I reply to the message "I bear watching."
     And I dismiss the message "I don't matter."

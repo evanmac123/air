@@ -9,7 +9,7 @@ Feature: Admin edits bonus thresholds and rules
       | name | threshold | demo                  |
       | N00b | 5         | company_name: FooCorp |
       | Pawn | 10        | company_name: FooCorp |
-    And I sign in
+    And I sign in as an admin via the login page
     And I go to the admin "FooCorp" demo page
   
   Scenario: Admin edits bonus threshold

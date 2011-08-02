@@ -5,7 +5,7 @@ Feature: Admin sends activity dump
       | company name |
       | H Engage     |
     And time is frozen at "2011-05-01 15:00 EDT"
-    And I sign in
+    And I sign in as an admin via the login page
     When I go to the admin "H Engage" demo page
     And I press "Send activity dump to Vlad"
     Then "vlad@hengage.com" should receive an email

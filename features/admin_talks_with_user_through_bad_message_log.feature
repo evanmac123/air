@@ -12,7 +12,7 @@ Feature: Admin can talk with a user via the bad message log
       | phone_number | body        | received_at         |
       | +14152613077 | I need help | 2010-05-01 17:00:00 |
     And time is frozen at "2010-05-01 17:00:00"
-    When I sign in via the login page
+    When I sign in as an admin via the login page
     And I go to the bad message log page
     And I follow "Reply and move to watch list"
 

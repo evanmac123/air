@@ -60,6 +60,9 @@ body {
   font-family: 'Helvetica Neue', Arial, sans-serif;
   background-image: url(/images/new_marketing/background.png); }
 
+.thanks-message {
+  font-size: 22px; }
+
 #login-form {
   position: absolute;
   width: 174px;
@@ -98,7 +101,7 @@ body {
     #header #header-contents #activate-login-form {
       display: inline-block;
       float: right;
-      margin-top: 8px; }
+      margin-top: 2px; }
 
 #navbar {
   display: inline-block;
@@ -150,9 +153,14 @@ body {
     color: #1d8c0a;
     font-size: 30px;
     font-weight: bold; }
+  #factoids #factoids-subheader {
+    text-align: center;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 16px;
+    color: #2d2d2b; }
   #factoids .marketing-content {
     padding-left: 90px;
-    padding-top: 6px; }
+    padding-top: 25px; }
   #factoids .factoid {
     display: inline-block;
     margin-right: 35px; }
@@ -253,7 +261,7 @@ input.fat-text-field {
   .subsection .subsection-header {
     margin-bottom: 30px; }
     .subsection .subsection-header h2 {
-      font-family: 'Droid Sans', sans-serif;
+      font-family: 'Istok Web', sans-serif;
       font-size: 36px;
       font-weight: normal;
       color: #999999;
@@ -379,33 +387,39 @@ input.fat-text-field {
   font-size: 16px;
   margin-top: 50px;
   margin-bottom: 100px; }
-  #blog-section h2 {
-    font-weight: normal;
-    font-family: 'Droid Sans', sans-serif;
-    font-size: 36px;
-    color: #999999;
-    margin-bottom: 0;
-    margin-left: 48px; }
-    #blog-section h2 strong {
-      font-weight: bold;
-      color: #1d8c0a; }
+  #blog-section #blog-header {
+    vertical-align: bottom; }
+    #blog-section #blog-header h2 {
+      font-weight: normal;
+      font-family: 'Istok Web', sans-serif;
+      font-size: 36px;
+      color: #1d8c0a;
+      margin: 0;
+      display: inline-block; }
   #blog-section #blog-name {
-    font-family: 'Valera Round', sans-serif;
+    font-family: 'Istok Web', sans-serif;
     font-size: 26px;
-    color: #38a1a3;
-    margin-top: 25px;
+    color: #1d8c0a;
+    margin-top: 45px;
     margin-bottom: 0; }
     #blog-section #blog-name a {
-      color: #38A1A3; }
+      color: #1d8c0a; }
   #blog-section #blog-subname {
-    margin-bottom: 30px; }
+    margin-bottom: 45px; }
   #blog-section .blog-subsection {
-    padding-left: 50px;
+    padding-left: 58px;
     padding-right: 200px; }
     #blog-section .blog-subsection .body-wrapper {
-      margin-bottom: 40px; }
-  #blog-section #facts-and-stats {
-    margin-top: 60px; }
+      margin-bottom: 45px; }
+  #blog-section .post .title {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 18px;
+    font-weight: bold;
+    text-transform: uppercase; }
+    #blog-section .post .title a, #blog-section .post .title a:hover, #blog-section .post .title a:visited {
+      color: #2d2d2b; }
+  #blog-section .post a.read-more, #blog-section .post a.read-more:hover, #blog-section .post a.read-more:visited {
+    color: #006699; }
 
 #engage-section-wrapper, #roi-wrapper, #bottom-comment-box-wrapper {
   background-image: url(/images/new_marketing/tile_2.png);
@@ -480,27 +494,31 @@ input.fat-text-field {
   height: 63px;
   margin: 0 auto;
   margin-bottom: 25px;
-  background-color: #e0e2dd;
+  background-color: #007673;
   padding-top: 24px;
   padding-right: 30px;
   padding-bottom: 10px;
-  padding-left: 30px; }
+  padding-left: 30px;
+  color: white; }
   #request-consultation-bar form {
     margin: 0 auto;
-    width: 900px; }
+    width: 925px; }
     #request-consultation-bar form #request-consultation {
       float: left;
       font-family: "Istok Web", sans-serif;
-      font-size: 20px;
+      font-size: 25px;
       font-weight: bold;
       line-height: 1;
-      margin-right: 25px; }
+      margin-right: 25px;
+      padding-top: 5px; }
     #request-consultation-bar form input[type="text"] {
       margin-right: 25px; }
     #request-consultation-bar form img {
       position: relative;
-      top: 4px;
+      top: 8px;
       margin-right: 25px; }
+  #request-consultation-bar .thanks-message {
+    margin-left: 60px; }
 
 #page-footer {
   height: 50px;

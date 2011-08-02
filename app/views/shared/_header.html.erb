@@ -19,6 +19,7 @@
           <%= link_to 'Home', acts_path %>
           <%= link_to 'My Profile', current_user, :id => 'self-link' %>
           <%= link_to 'Connections', friends_path %>
+          <%= link_to 'Admin', admin_path if current_user.is_site_admin %>
           <%= link_to "Sign out", sign_out_path, :method => :delete %>
         <% else %>
           <%= link_to "By invitation only", page_path('invitation') %>
