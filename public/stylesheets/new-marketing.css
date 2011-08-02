@@ -261,7 +261,7 @@ input.fat-text-field {
   margin: 0 auto;
   width: 855px;
   padding-top: 50px;
-  padding-bottom: 150px; }
+  padding-bottom: 40px; }
   .subsection h3 {
     font-family: "Istok Web", sans-serif;
     font-size: 26px;
@@ -335,6 +335,10 @@ input.fat-text-field {
   .subsection .two-column #roi-text-1 {
     width: 385px;
     padding-left: 50px; }
+
+.next-section-link {
+  position: relative;
+  left: 880px; }
 
 #play-section .shim {
   height: 50px; }
