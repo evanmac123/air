@@ -133,7 +133,7 @@ body {
   height: 320px;
   padding-top: 45px;
   margin-bottom: 5px; }
-  #upper-box img, #upper-box h1, #upper-box p {
+  #upper-box img, #upper-box h1, #upper-box p, #upper-box object {
     position: absolute; }
   #upper-box #logo {
     top: 15px;
@@ -151,9 +151,9 @@ body {
     color: #2d2d2b;
     left: -25px;
     top: 200px; }
-  #upper-box #phones-scoring {
+  #upper-box #wistia_415349 {
     top: 45px;
-    left: 625px; }
+    left: 542px; }
 
 #factoids {
   margin-bottom: 45px;
