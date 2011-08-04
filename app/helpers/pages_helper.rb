@@ -1,9 +1,9 @@
 module PagesHelper
-  def next_section_link(target)
+  def back_to_top_link
     link_to(
-      image_tag("new_marketing/circle_big.png"),
-      "##{target}",
-      :class => "nav next-section-link"
+      image_tag("new_marketing/img_back_to_top.png"),
+      "#home",
+      :class => "nav back-to-top-link"
     )
   end
 end
