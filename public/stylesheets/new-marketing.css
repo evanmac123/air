@@ -340,6 +340,9 @@ input.fat-text-field {
   position: relative;
   left: 800px; }
 
+#engage-section .back-to-top-link {
+  top: 20px; }
+
 #play-section .shim {
   height: 50px; }
 #play-section #secondary-play img {
