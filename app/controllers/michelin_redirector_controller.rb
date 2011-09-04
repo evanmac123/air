@@ -4,6 +4,7 @@ class MichelinRedirectorController < ActionController::Metal
   def show
     self.status = 302
     self.headers['Location'] = "#{MICHELIN_URL}?#{reserialize_params}"
+    self.response_body = "Redirecting..."
   end
 
   protected

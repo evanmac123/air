@@ -14,6 +14,7 @@ describe MichelinRedirectorController do
 
       response.status.should == 302
       response.headers['Location'].should == "#{MichelinRedirectorController::MICHELIN_URL}?baz=quux&foo=bar"
+      response.body.should == "Redirecting..."
     end
   end
 end
