@@ -2,6 +2,7 @@ Health::Application.routes.draw do
   match "sms"        => "sms#create", :via => :post
   match "activity"   => "acts#index"
   match "scoreboard" => "scores#index"
+  match "mr"         => "michelin_redirector#show", :via => :get
 
   resource :session, :controller => 'sessions'
 

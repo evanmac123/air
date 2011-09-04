@@ -1,13 +1,6 @@
 require 'spec_helper'
 
-# Hack to allow us to use regular controller tests to test SmsController 
-# (which is an ActionController::Metal).
-class SmsController
-  include ActionController::UrlFor
-  include ActionController::Testing
-  include Rails.application.routes.url_helpers
-  include ActionController::Compatibility
-end
+metal_testing_hack(SmsController)
 
 describe SmsController do
   describe "#create" do
