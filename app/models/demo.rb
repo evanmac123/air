@@ -114,7 +114,7 @@ class Demo < ActiveRecord::Base
       begin
         demo.recalculate_all_moving_averages!
       rescue StandardError => e
-        HoptoadNotifier.notify(e)
+        Airbrake.notify(e)
       end
     end
   end

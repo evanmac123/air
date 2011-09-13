@@ -52,6 +52,9 @@ GEM
       activemodel (= 3.0.3)
       activesupport (= 3.0.3)
     activesupport (3.0.3)
+    airbrake (3.0.4)
+      activesupport
+      builder
     archive-tar-minitar (0.5.2)
     arel (2.0.6)
     aws-s3 (0.6.2)
@@ -123,9 +126,6 @@ GEM
       json (~> 1.4.6)
     haml (3.0.25)
     high_voltage (0.9.3)
-    hoptoad_notifier (2.3.12)
-      activesupport
-      builder
     httparty (0.6.1)
       crack (= 0.1.8)
     i18n (0.5.0)
@@ -238,6 +238,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  airbrake
   aws-s3
   bourne
   capybara (~> 0.4.1)
@@ -257,7 +258,6 @@ DEPENDENCIES
   formtastic
   haml
   high_voltage
-  hoptoad_notifier
   linecache (~> 0.43)
   linecache19 (~> 0.5.11)
   nokogiri

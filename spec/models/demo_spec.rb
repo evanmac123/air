@@ -156,7 +156,7 @@ describe Demo, ".recalculate_all_moving_averages!" do
       @recalculation_error = RuntimeError.new("Something TERRIBLE happened")
       @demos.first.stubs(:recalculate_all_moving_averages!).raises(@recalculation_error)
 
-      HoptoadNotifier.stubs(:notify).with(anything)
+      Airbrake.stubs(:notify).with(anything)
 
       Demo.recalculate_all_moving_averages!
     end
@@ -165,8 +165,8 @@ describe Demo, ".recalculate_all_moving_averages!" do
       @demos.each {|demo| demo.should have_received(:recalculate_all_moving_averages!)}
     end
 
-    it "should report the error to Hoptoad" do
-      HoptoadNotifier.should have_received(:notify).with(@recalculation_error)
+    it "should report the error to Airbrake" do
+      Airbrake.should have_received(:notify).with(@recalculation_error)
     end
   end
 end
