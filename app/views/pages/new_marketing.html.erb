@@ -2,71 +2,20 @@
 <%= javascript_include_tag 'facebox' %>
 <%= stylesheet_link_tag 'facebox' %>
 
-<a name="home" id="home">&nbsp;</a>
-
-<% content_for :navbar do %> 
-  <span id="buttons">
-    <% %w(Home Play Engage Measure ROI Blog Contact).each do |link_title| %>
-      <%= link_to link_title, "#" + link_title.downcase, :class => 'nav' %>
-    <% end %>
-  </span>
-<% end %>
-
 <div id="upper-box">
   <div class="marketing-content">
     <%= image_tag 'new_marketing/logo.jpg', :alt => 'H Engage logo', :id => 'logo' %>
-    <h1 id="spark-engagement">Spark engagement in health<br/>using technology people love.</h1> 
-    <p id="short-explanation">H Engage is a social, text message based game<br/>that engages employees in health and wellness.</p>
+    <h1 id="spark-engagement">Spark employee engagement in<br/> benefits and wellness using the<br/> tools people love.</h1> 
+    <p id="short-explanation">Use social media, games and mobile phones to increase ROI<br/> and optimize communications spend.</p>
     <%# image_tag 'new_marketing/banner_cell.png', :alt => 'Get healthy, +10 points. Eat right, +5 points. Play H Engage, +25 points.', :id => 'phone-and-screenshot' %>
     <%= render :partial => 'marketing_page_video' %>
-  </div>
-</div>
-
-<div id="how-it-works">
-  <div class="marketing-content">
-    <%# image_tag 'new_marketing/img_green_arrow.png', :alt => 'arrow', :id => 'green-arrow' %>
-    
-    <div id="postits">
-      <% %w(play engage measure roi).each do |postit_name| %>
-        <% unhover_path = image_path("new_marketing/img_h_#{postit_name}1.png") %>
-        <% hover_path = image_path("new_marketing/img_h_#{postit_name}2.png") %>
-        <% image_id = "#{postit_name}-postit" %>
-
-        <%= link_to image_tag(unhover_path, :id => image_id), "##{postit_name}", :class => 'quote-control postit' %>
-        <%= image_tag hover_path, :style => "display: none" %>
-
-        <% content_for :javascript do %>
-          <%= javascript_tag do %>
-            $('#<%= image_id %>').hover(
-              function() {$(this).attr('src', '<%= hover_path %>')},
-              function() {$(this).attr('src', '<%= unhover_path %>')}
-            );
-          <% end %>
-        <% end %>
-      <% end %>
-    </div>
-    <h2><a href="#play" class="quote-control">Play</a>+<a href="#engage" class="quote-control">Engage</a>+<a href="#measure" class="quote-control">Measure</a>=<a href="#roi" class="quote-control">ROI</a></h2>
-    <div id="cycling-quote-box">
-      <%= image_tag "new_marketing/img_green_up_pointer.png", :id => "pointer" %>
-      <div id="quote-text"></div>
-    </div>
-  </div>
-</div>
-
-<div id="factoids">
-  <h1><%= t('marketing.factoids-header', :default => 'We use the communication channels people love!') %></h1>
-  <p id="factoids-subheader">Want to view more stats? Visit the H Engage blog: <%= link_to "Under the Node Tree", "#blog", :class => "nav" %></p>
-  <div class="marketing-content">
-    <%= image_tag "new_marketing/drop_media.png", :class => 'factoid', :alt => "Over 70% of Internet users are on Facebook." %>
-    <%= image_tag "new_marketing/drop_games.png", :class => 'factoid', :alt => "43yr female is the average age of a social gamer" %>
-    <%= image_tag "new_marketing/drop_text.png", :class => 'factoid', :alt => "323 texts sent monthly by 45-54 year olds." %>
   </div>
 </div>
 
 <div id="request-consultation-bar">
   <form method="post" action="#" class="request-info">
     <span id="request-consultation">
-      request a<br/>consultation
+      request more<br/>information
     </span>
 
     <%= text_field_tag "email[name]", 'name', :class => 'with-placeholder fat-text-field' %>
@@ -79,217 +28,18 @@
   </form>
 </div>
 
-<div id="play-section" class="subsection">
-  <div class="subsection-header">
-    <a name="play" id="play">&nbsp;</a>
-    <h2><%= image_tag 'new_marketing/img_h_play_small.png' %><span class="current-section">Play</span></h2>
-    <%= image_tag 'new_marketing/divide.png' %>
-  </div>
 
-  <div class="two-column">
-    <div class="left" id="play-text-1">
-      <h3>Do healthy behaviors</h3>
-      <h4>Employees play a game that makes getting healthy feel fun.</h4>
-
-      <p>Whenever Amy makes a healthy decision, she sends a text message.</p>
-      <p class="also">She can also use email<br/>or a website.</p>
-    </div>
-
-    <div class="right" id="play-graphic-1">
-      <%= image_tag 'new_marketing/img_play1.png' %>
-    </div>
-
-    <div class="shim">
-    </div>
-
-    <div class="left" id="play-text-2">
-      <h3>Earn points</h3>
-      <p>Amy has fun earning points, so she makes healthier choices.<%= image_tag 'new_marketing/teal_arrow.png' %></p>
-      <p class="also">Game mechanics make<br/>earning points feel fun.</p>
-    </div>
-
-    <div class="right" id="play-graphic-2">
-      <%= image_tag 'new_marketing/img_play2.png' %>
-    </div>
-
-    <div class="shim">
-    </div>
-
-    <div class="left" id="play-text-3">
-      <h3>Socialize and compete</h3>
-      <p>Amy's game activity is posted to a private social networking site where players compete and learn new healthy behaviors.<%= image_tag 'new_marketing/teal_arrow.png' %></p>
-      <p class="also">H Engage adds information<br/>about why an activity is<br/>healthy right into the posting.</p>
-    </div>
-
-    <div class="right">
-      <%= image_tag 'new_marketing/img_play3.png' %>
-    </div>
-
-    <div class="shim">
-    </div>
-  </div>
-
-  <div id="secondary-play">
-    <%= image_tag 'new_marketing/secondary_divider.png' %>
-
-    <div class="two-column">
-      <div class="left">
-        <h3>No computer or <br/>smartphone needed</h3>
-        <p>It can be deployed entirely via text messaging to reach your employees wherever they are.</p>
-      </div>
-
-      <div class="right">
-        <h3>Stay in control of<br/>your social media</h3>
-        <p>H Engage automatically promotes positive messaging and stops inappropriate content.</p>
-      </div>
-
-      <div class="shim">
-      </div>
-    </div>
-  </div>
-
-  <%= back_to_top_link %>
-</div>
-
-<div id="engage-section-wrapper">
-  <div id="engage-section" class="subsection">
-    <div class="subsection-header">
-      <a name="engage" id="engage">&nbsp;</a>
-      <h2><%= image_tag 'new_marketing/img_h_engage_small.png' %><span class="current-section"> Engage</span></h2>
-      <%= image_tag 'new_marketing/divide.png' %>
-    </div>
-
-    <h3>Increase engagement in existing programs</h3>
-    <h4>The game engages employees in existing communications and initiatives.</h4>
-    <div class="two-column">
-      <div class="left">
-        <%= image_tag 'new_marketing/engage_teal_arrow_left.png', :id => 'teal-arrow-left' %>
-        <h3>Wellness Initiatives</h3>
-        <h4>We integrate your programs<br/>into the game.</h4>
-        <p id="amy-participates"><%= t('marketing.initiative-integration-example', :default => "For example, Amy participates in her employer's on-site gym program.  Each time she goes, she earns points.") %></p>
-        <%= image_tag 'new_marketing/img_on_site_gym_phone.png', :id => 'on-site-gym-phone' %>
-        <div id="we-add-game-mechanics">
-          We add game mechanics to keep Amy coming back!
-        </div>
-
-        <p>Amy's connections learn about the program. Now they're more likely to participate because they know Amy is participating.</p>
-        <%= image_tag 'new_marketing/img_activity_feed_entry.png' %>
-        <p id="help-drive-traffic">
-          <%= image_tag 'new_marketing/teal_arrow.png', :id => 'teal-arrow-bottom' %>
-          Links to pages on your intranet</br>
-          help drive traffic and visibility.
-        </p>
-        <p>
-          H Engage can integrate with feeds from other service providers to validate actions.
-        </p>
-      </div>
-
-      <div class="right">
-        <%= image_tag 'new_marketing/engage_teal_arrow_right.png', :id => 'teal-arrow-right' %>
-        <h3>Communication Materials</h3>
-        <h4>We make existing communication<br/>materials interactive.</h4>
-        <%= link_to image_tag('new_marketing/img_sheep_poster.png'), "/images/new_marketing/img_sheep_poster_large.png", :rel => 'facebox' %>
-
-        <p id="h-engage-enhances"><%= t('marketing.communications-materials-example', :default => "For example, Amy's employer has added H Engage into posters around campus. Amy can interact with the posters using text messaging, and earn points for: ") %></p>
-
-        <ul id="winning-points-from-poster">
-          <li>Spotting the poster</li>
-          <li>Reading the poster</li>
-          <li>Answering a question about the poster's content</li>
-        </ul>
-
-        <p id="key-points">
-          Key points from the communication are repeated in Amy's activity stream, giving the content visibility to people who are connected to Amy.
-        </p>
-        <%= image_tag 'new_marketing/img_activity_feed_entry_closeup.png' %>
-      </div>
-
-      <div class="shim">
-      </div>
-    </div>
-
-    <%= back_to_top_link %>
-  </div>
-</div>
-
-<div id="measure-section" class="subsection">
-  <div class="subsection-header">
-    <a name="measure" id="measure">&nbsp;</a>
-    <h2><%= image_tag 'new_marketing/img_h_measure_small.png' %><span class="current-section">Measure</span></h2>
-    <%= image_tag 'new_marketing/divide.png' %>
-  </div>
-
-  <div class="two-column">
-    <div class="left" id="measure-text-1">
-      <h3>Measure results</h3>
-      <h4>Real-time tracking tools measure effectiveness.</h4>
-      <p>We provide you with data that helps track<br/>engagement in your communications<br/>and wellness programs, to help prove ROI:
-        <ul>
-          <li>Track how much users are interacting with different communications</li>
-          <li>Identify which communications are most effective</li>
-          <li>Measure program engagement to help drive real time improvements</li>
-        </ul>
-      </p>
-    </div>
-
-    <div class="right" id="measure-graphic-1">
-      <%= image_tag 'new_marketing/measure_chart.png' %>
-    </div>
-
-    <div class="shim">
-    </div>
-  </div>
-  <%= back_to_top_link %>
-</div>
-
-<div id="roi-wrapper">
-  <div id="roi-section" class="subsection">
-    <a name="roi" id="roi">&nbsp;</a>
-    <div class="subsection-header">
-      <h2><%= image_tag 'new_marketing/img_h_roi_small.png' %><span class="current-section">ROI</span></h2>
-      <%= image_tag 'new_marketing/divide.png' %>
-    </div>
-
-    <div class="two-column">
-      <div class="left" id="roi-text-1">
-        <h3><%= t('marketing.roi-header', :default => "We provide a measurable<br/> ROI in months, not years.")%></h3>
-        <h4>Tracking of increased engagement helps prove ROI quickly.</h4>
-        <p><%= t('marketing.roi-benefits', :default => "H Engage helps maximize engagement in your existing programs, which drives incremental ROI from your existing investments:") %>
-          <ul>
-            <li>Increase participation rates in wellness programs.</li>
-            <li>Increase engagement in communications.</li>
-          </ul>
-        </p>
-
-        <p><a href="#contact" class="nav"><%= t('marketing.roi-contact-link-text', :default => "We can help you calculate potential savings. Contact us to find out how.") %></a></p>
-      </div>
-
-      <div class="right" id="roi-graphic-1">
-        <!-- TODO: Get real graphic for here -->
-        <%= image_tag 'new_marketing/img_roi.png' %>
-      </div>
-
-      <div class="shim">
-      </div>
-    </div>
-
-    <%= back_to_top_link %>
-  </div>
-</div>
 
 <div id="blog-wrapper">
   <a name="blog" id="blog">&nbsp;</a>
   <div id="blog-section" class="subsection">
     <div id="blog-header">
       <%= image_tag 'new_marketing/img_tree.png', :id => 'blog-logo' %>
-      <h2>H Engage Blog</h2>
+      <h2>Under the Node Tree</h2>
       <%= image_tag 'new_marketing/divide.png' %>
     </div>
 
     <div class="blog-subsection">
-      <p id="blog-name" class="point top">
-        <a href="http://hengage.tumblr.com">Under the Node Tree</a>
-      </p>
       <p id="blog-subname">
         News about H Engage, analysis, and statistics.
       </p>
@@ -299,8 +49,6 @@
       <% end %>
 
     </div>
-    <%= back_to_top_link %>
-
   </div>
 
 </div>
@@ -335,10 +83,10 @@
 
       <div id="about-us">
         <p class="title">
-          H Engage is a wellness engagement platform.
+          Spark employee engagement in benefits and wellness<br/> using the tools people love.
         </p>
+          Use social media, games and mobile phones to increase ROI and optimize communications spend.
         <p>
-          We spark excitement in health, make corporate communications interactive, and increase participation in wellness programs using a fun mobile game that drives ROI.
         </p>
       </div>
 
