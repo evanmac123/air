@@ -1,4 +1,5 @@
 class Act < ActiveRecord::Base
+  include DemoScope
   extend ParsingMessage
 
   belongs_to :user
@@ -20,10 +21,6 @@ class Act < ActiveRecord::Base
 
   def self.recent(limit)
     order('created_at desc').limit(limit)
-  end
-
-  def self.in_demo(demo)
-    where(:demo_id => demo.id)
   end
 
   def self.parse(user_or_phone, body, options = {})

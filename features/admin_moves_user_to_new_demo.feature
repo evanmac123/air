@@ -25,6 +25,12 @@ Feature: Admin moves a user to a new demo
     And the following rule values exists:
       | value        | rule           |
       | went running | reply: run run |
+    And the following levels exist:
+      | name        | demo                          |
+      | AwesomeStar | company_name: The Thoughtbots |
+      | Some Pig!   | company_name: The Thoughtbots |
+    And "Dan" has level "AwesomeStar"
+    And "Dan" has level "Some Pig!"
     And an admin moves "Dan" to the demo "IBM"
     And "+14155551212" sends SMS "went running"
 
@@ -71,6 +77,15 @@ Feature: Admin moves a user to a new demo
       | Dan  | ate banana | 7      |
       | Dan  | walked dog | 9      |
     And I should see "Dan" with ranking "1"
+
+  Scenario: User's achievements appear only in the appropriate demo
+    When I sign in via the login page as "Dan/foo"
+    Then I should not see "AwesomeStar"
+    And I should not see "Some Pig!"
+    When an admin moves "Dan" to the demo "The Thoughtbots"
+    And I sign in via the login page as "Dan/foo"
+    Then I should see "AwesomeStar"
+    And I should see "Some Pig!"
 
   Scenario: User disappears from view in the new demo when moved back to the original demo
     When an admin moves "Dan" to the demo "The Thoughtbots"

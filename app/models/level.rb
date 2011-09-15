@@ -1,4 +1,6 @@
 class Level < ActiveRecord::Base
+  include DemoScope
+
   belongs_to :demo
   has_and_belongs_to_many :users
 

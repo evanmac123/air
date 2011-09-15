@@ -10,6 +10,12 @@ Given /^"(.*?)" has ranking query offset (\d+)$/ do |username, offset|
   User.find_by_name(username).update_attributes(:ranking_query_offset => offset.to_i)
 end
 
+Given /^"([^"]*)" has level "([^"]*)"$/ do |user_name, level_name|
+  user = User.where(:name => user_name).first
+  level = Level.where(:name => level_name).first
+  user.levels << level
+end
+
 When /^an admin moves "(.*?)" to the demo "(.*?)"$/ do |username, company_name|
   When "I sign in as an admin via the login page"
 
