@@ -40,4 +40,15 @@ module ApplicationHelper
       END_JAVASCRIPT
     end
   end
+
+  def navbar_link_to(link_text, path, options={})
+    last = options.delete(:last)
+
+    output = link_to(link_text, path, options)
+    unless last
+      output += image_tag('new_activity/navbar_separator.png', :class => 'navbar-separator')
+    end
+
+    output
+  end
 end
