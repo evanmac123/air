@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <title>H Engage</title>
-  <%= stylesheet_link_tag 'http://font.thoughtbot.com/chunk.css', :flutie, 'screen' %>
+  <%= stylesheet_link_tag 'http://font.thoughtbot.com/chunk.css', :flutie %>
+  <%= stylesheet_link_tag (@new_appearance ? 'new_activity_page' : 'screen' ) %>
   <%= csrf_meta_tag %>
 </head>
 <body class="<%= body_class %>">
-  <%= render :partial => 'shared/header' %>
+  <%= render :partial => (@new_appearance ? 'shared/new_header' : 'shared/header') %>
   <%= render :partial => 'shared/flashes' -%>
   <div class="content">
     <%= yield %>

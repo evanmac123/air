@@ -2,6 +2,8 @@ class ActsController < ApplicationController
   layout :determine_layout
 
   def index
+    @new_appearance = true
+
     @demo              = current_user.demo
     @demo_user_count   = @demo.users.ranked.count
     @acts              = @demo.acts.recent(10)
