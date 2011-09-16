@@ -3,7 +3,7 @@
   <%= form_tag acts_path do %>
     <span class="enter-code">
       <input type="text" class="with-hint-text" name="act[code]" value="enter a command or action">
-      <input type="submit" value="Play">
+      <%= image_submit_tag 'new_activity/btn_playnow.png' %>
     </span>
   <% end %>
 
