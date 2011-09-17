@@ -97,9 +97,10 @@ img {
         }
 
         input[type="image"] {
-          position: relative;
+          position: absolute;
           z-index: +10;
-          right: 108px;
+          top: 19px;
+          left: 493px;
         }
       }
     }

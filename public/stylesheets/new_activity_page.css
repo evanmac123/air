@@ -64,9 +64,10 @@ img {
           padding: 10px 115px 10px 10px;
           font-size: 15px; }
         .header .inner-header #add-action .enter-code input[type="image"] {
-          position: relative;
+          position: absolute;
           z-index: 10;
-          right: 108px; }
+          top: 19px;
+          left: 493px; }
     .header .inner-header #account {
       margin-top: 35px;
       font-size: 15px;
