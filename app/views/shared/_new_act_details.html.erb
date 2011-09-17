@@ -1,0 +1,10 @@
+<% if act.points %>
+  <div class="points">
+    <span class="point-value"><%= act.points %></span> pts
+  </div>
+<% end %>
+<div class="user"><%= link_to(act.user.name, act.user) %></div>
+<div class="description"><%= (act.text) %></div>
+<div class="when">
+  <%= time_ago_in_words(act.created_at) %> ago
+</div>

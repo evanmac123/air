@@ -10,28 +10,6 @@ $message-header-background-color: #6c7868;
 $new-message-header-background-color: #ba7d3b;
 $message-reply-background-color: #d2e8b9;
 
-$content-width: 1002px;
-
-@mixin white-li($width: $main-column-width - 14px) {
-  background-color: $white;
-  border-bottom: 1px solid #DDD;
-  float: left;
-  width: $width;
-  padding: 15px 4px 0 10px;
-  position: relative;
-  min-height: 60px;
-  @include rounded-corners(6px);
-
-  a, span.user {
-    font-weight: bold;
-    text-decoration: none;
-    color: $blue;
-  }
-  a:hover {
-    text-decoration: underline;
-  }
-}
-
 a, a:link {
   color: $light-gray;
   text-decoration: none;
@@ -56,23 +34,16 @@ h1 {
 }
 
 h2 {
-  margin: 20px 0;
+  font-family: "Trebuchet MS", sans-serif;
   font-size: 18px;
   font-weight: bold;
-  color: $gray;
+  color: #58585a;
 
-  a {
-    font-size: 12px;
-    margin-left: 6px;
-  }
+  margin-bottom: 10px;
 }
 
-h2.first {
-  margin: 0 0 10px 0;
-}
-
-h2.first#activity, h2.first#scoreboard {
-  display: inline; 
+img {
+  margin: 0;
 }
 
 .add-friends {
@@ -84,24 +55,21 @@ h2.first#activity, h2.first#scoreboard {
 .header {
   background: url(/images/new_activity/header_gradient.png);
   height: 63px;
+  width: 100%;
+
+  padding-left: 75px;
 
   #logo {
-    width: 75px;
+    display: inline-block;
     float: left;
-
-    padding-top: 4px;
-    margin-left: -22px;
-    margin-right: 10px;
-
     img {
       margin: 0px;
     }
   }
 
   .inner-header {
-    margin: 0px auto;
     padding: 0 0 10px 0;
-    width: $content-width;
+    width: 930px;
 
     #add-action {
       margin-top: 10px;
@@ -112,6 +80,7 @@ h2.first#activity, h2.first#scoreboard {
       .enter-code {
         font-size: 12px;
         vertical-align: middle; 
+        width: 478px;
 
         .prompt {
           font-size: 18px;
@@ -137,14 +106,14 @@ h2.first#activity, h2.first#scoreboard {
 
     #account {
       margin-top: 35px;
-      font-size: 16px;
+      font-size: 15px;
       float: right;
       text-align: right;
 
       a, a:visited, a:link {
         text-decoration: none;
         font-weight: bold;
-        color: $dark-gray;
+        color: #33873e;
       }
 
       a.last {
@@ -169,14 +138,7 @@ h2.first#activity, h2.first#scoreboard {
   padding: 10px 0; }
 
 .content {
-  @include rounded-corners;
-  margin: 30px auto;
-  background: $overall-background;
-  width: $content-width;
-  padding-bottom: 5px;
-  #secondary, #main {
-    margin-bottom: 10px;
-  }
+  width: 1000px;
 }
 
 $friends-page-column-width: 454px;
@@ -256,20 +218,22 @@ form .submit-input {
   }
 }
 
-$main-column-width: 505px;
+#main-wrapper {
+  background-color: #ffffff;
+  padding: 25px 25px 0 75px;
+  width: 495px;
+  float: left;
+}
 
 #main {
-  float: left;
-  width: $main-column-width;
-  p {
-    line-height: 1.4em;
-    margin-bottom: 20px;
-  }
+  width: 495px;
 }
 
 #secondary {
   float: right;
-  width: 389px;
+  width: 335px;
+  padding-left: 25px;
+
   p {
     line-height: 1.4em;
     margin-bottom: 10px;
@@ -432,116 +396,92 @@ table#your-score {
 
 
 ul#acts {
-  background-color: $white;
   list-style: none;
   margin-top: 0;
 
   li.act, li.small-act {
-    @include white-li;
+    clear: both;
 
-    .act-details {
-      float: right;
+    padding: 10px 25px 20px 10px;
 
-      p {
-        font-size: 14px;
-        padding-bottom: 12px;
-        color: #363636;
-        position: relative;
-        line-height: 18px;
-        margin-bottom: 0;
+    .avatar48 {
+      float: left;
 
-        span.description {
-          a {
-            color: $blue;
-            text-decoration: underline;
-          }
-
-          a:hover {
-            text-decoration: none;
-          }
-        }
-
-        span.description, span.when {
-          display: block;
-          width: 78%;
-
-          :first-letter {
-            text-transform: capitalize;
-          }
-        }
-
-        span.when, span.points {
-          font-weight: normal;
-          color: $light-gray;
-          font-size: 11px;
-        }
-
-        span.points {
-          color: $green; 
-          position: absolute;
-          top: 0;
-          right: 0;
-          text-align: center; 
-          padding: 5px 0;
-          line-height: 14px;
-          font-size: 14px;
-
-          span.point-value {
-            font-size: 18px;
-            font-weight: bold;
-          }
-        }
-
-          span.ranking {
-            position: absolute;
-            right: 0;
-            top: 45px;
-            padding-right: 5px; 
-            font-size: 10px;
-            text-align: center;
-            line-height: 14px;
-
-            span.ranking-value {
-              display: block; 
-              font-size: 14px;
-            }
-          }
-        }
+      img {
+        width: 43px;
+        height: 43px;
       }
-    }
-
-    li.act {
-      .act-details {
-        width: 430px;
-      }
-    }
-
-    li.small-act {
-      .act-details {
-        width: 478px;
-      }
-
-      p {
-        margin-bottom: 0px;
-      }
-    }
-
-    li:last-child {
-      border-bottom: none;
     }
   }
 
-.avatar48 {
-  width: 48px;
-  height: 48px;
-  float: left;
-  margin: 0 10px 0 0;
-  .shadow48 {
-    width: 48px;
-    height: 48px;
-    position: absolute;
+  li.act {
+    .act-details {
+      float: left;
+
+      width: 400px;
+
+      $main-detail-block-width: 315px;
+
+      .user {
+        width: $main-detail-block-width;
+      }
+
+      .user a, .user a:link, .user a:visited {
+        font-size: 12px;
+        color: #355997;
+        font-weight: bold;
+        line-height: 16px;
+
+        vertical-align: top;
+
+        position: relative;
+        top: -2px;
+      }
+
+      .description {
+        font-size: 14px;
+        color: #58585a;
+        width: $main-detail-block-width;
+        padding-bottom: 4px;
+      }
+
+      .when {
+        font-size: 10px;
+        color: #92a1aa;
+        width: $main-detail-block-width;
+      }
+
+      .points {
+        float: right;
+
+        font-size: 17px;
+        font-weight: bold;
+        color: #339e3e;
+      }
+    }
+
+    .avatar43 {
+      float: left;
+      padding: 0 10px 20px 0;
+
+      img {
+        width: 43px;
+        height: 43px;
+      }
+    }
+  }
+
+  li.small-act {
+    .act-details {
+      width: 478px;
+    }
+
+    p {
+      margin-bottom: 0px;
+    }
   }
 }
+
 
 .examples {
   li.example {
@@ -790,8 +730,6 @@ ul#followings, ul#followers, ul#other-users {
   margin-top: 0;
 
   li.associate {
-    @include white-li;
-
     form {
       margin-top: 2px;
       margin-bottom: 10px;

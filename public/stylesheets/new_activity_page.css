@@ -18,19 +18,14 @@ h1 {
       color: #ff6a37; }
 
 h2 {
-  margin: 20px 0;
+  font-family: "Trebuchet MS", sans-serif;
   font-size: 18px;
   font-weight: bold;
-  color: #333333; }
-  h2 a {
-    font-size: 12px;
-    margin-left: 6px; }
+  color: #58585a;
+  margin-bottom: 10px; }
 
-h2.first {
-  margin: 0 0 10px 0; }
-
-h2.first#activity, h2.first#scoreboard {
-  display: inline; }
+img {
+  margin: 0; }
 
 .add-friends {
   color: #55950d;
@@ -39,19 +34,17 @@ h2.first#activity, h2.first#scoreboard {
 
 .header {
   background: url(/images/new_activity/header_gradient.png);
-  height: 63px; }
+  height: 63px;
+  width: 100%;
+  padding-left: 75px; }
   .header #logo {
-    width: 75px;
-    float: left;
-    padding-top: 4px;
-    margin-left: -22px;
-    margin-right: 10px; }
+    display: inline-block;
+    float: left; }
     .header #logo img {
       margin: 0px; }
   .header .inner-header {
-    margin: 0px auto;
     padding: 0 0 10px 0;
-    width: 1002px; }
+    width: 930px; }
     .header .inner-header #add-action {
       margin-top: 10px;
       float: left;
@@ -59,7 +52,8 @@ h2.first#activity, h2.first#scoreboard {
       font-size: 22px; }
       .header .inner-header #add-action .enter-code {
         font-size: 12px;
-        vertical-align: middle; }
+        vertical-align: middle;
+        width: 478px; }
         .header .inner-header #add-action .enter-code .prompt {
           font-size: 18px;
           vertical-align: middle; }
@@ -75,13 +69,13 @@ h2.first#activity, h2.first#scoreboard {
           right: 108px; }
     .header .inner-header #account {
       margin-top: 35px;
-      font-size: 16px;
+      font-size: 15px;
       float: right;
       text-align: right; }
       .header .inner-header #account a, .header .inner-header #account a:visited, .header .inner-header #account a:link {
         text-decoration: none;
         font-weight: bold;
-        color: #2d2d2b; }
+        color: #33873e; }
       .header .inner-header #account a.last {
         border-right: 0;
         padding-right: 0; }
@@ -96,15 +90,7 @@ h2.first#activity, h2.first#scoreboard {
   padding: 10px 0; }
 
 .content {
-  -webkit-border-radius: 1em;
-  -moz-border-radius: 1em;
-  border-radius: 1em;
-  margin: 30px auto;
-  background: #e7f0dd;
-  width: 1002px;
-  padding-bottom: 5px; }
-  .content #secondary, .content #main {
-    margin-bottom: 10px; }
+  width: 1000px; }
 
 .friends #main, .friends #secondary {
   width: 454px; }
@@ -164,16 +150,19 @@ form .submit-input {
   .invite-link a:hover {
     color: #111111; }
 
+#main-wrapper {
+  background-color: #ffffff;
+  padding: 25px 25px 0 75px;
+  width: 495px;
+  float: left; }
+
 #main {
-  float: left;
-  width: 505px; }
-  #main p {
-    line-height: 1.4em;
-    margin-bottom: 20px; }
+  width: 495px; }
 
 #secondary {
   float: right;
-  width: 389px; }
+  width: 335px;
+  padding-left: 25px; }
   #secondary p {
     line-height: 1.4em;
     margin-bottom: 10px; }
@@ -285,90 +274,53 @@ table#your-score {
 
 /* Activity Feed */
 ul#acts {
-  background-color: white;
   list-style: none;
   margin-top: 0; }
   ul#acts li.act, ul#acts li.small-act {
-    background-color: white;
-    border-bottom: 1px solid #DDD;
-    float: left;
-    width: 491px;
-    padding: 15px 4px 0 10px;
-    position: relative;
-    min-height: 60px;
-    -webkit-border-radius: 6px;
-    -moz-border-radius: 6px;
-    border-radius: 6px; }
-    ul#acts li.act a, ul#acts li.act span.user, ul#acts li.small-act a, ul#acts li.small-act span.user {
-      font-weight: bold;
-      text-decoration: none;
-      color: #103245; }
-    ul#acts li.act a:hover, ul#acts li.small-act a:hover {
-      text-decoration: underline; }
-    ul#acts li.act .act-details, ul#acts li.small-act .act-details {
-      float: right; }
-      ul#acts li.act .act-details p, ul#acts li.small-act .act-details p {
-        font-size: 14px;
-        padding-bottom: 12px;
-        color: #363636;
-        position: relative;
-        line-height: 18px;
-        margin-bottom: 0; }
-        ul#acts li.act .act-details p span.description a, ul#acts li.small-act .act-details p span.description a {
-          color: #103245;
-          text-decoration: underline; }
-        ul#acts li.act .act-details p span.description a:hover, ul#acts li.small-act .act-details p span.description a:hover {
-          text-decoration: none; }
-        ul#acts li.act .act-details p span.description, ul#acts li.act .act-details p span.when, ul#acts li.small-act .act-details p span.description, ul#acts li.small-act .act-details p span.when {
-          display: block;
-          width: 78%; }
-          ul#acts li.act .act-details p span.description :first-letter, ul#acts li.act .act-details p span.when :first-letter, ul#acts li.small-act .act-details p span.description :first-letter, ul#acts li.small-act .act-details p span.when :first-letter {
-            text-transform: capitalize; }
-        ul#acts li.act .act-details p span.when, ul#acts li.act .act-details p span.points, ul#acts li.small-act .act-details p span.when, ul#acts li.small-act .act-details p span.points {
-          font-weight: normal;
-          color: #999999;
-          font-size: 11px; }
-        ul#acts li.act .act-details p span.points, ul#acts li.small-act .act-details p span.points {
-          color: #55950d;
-          position: absolute;
-          top: 0;
-          right: 0;
-          text-align: center;
-          padding: 5px 0;
-          line-height: 14px;
-          font-size: 14px; }
-          ul#acts li.act .act-details p span.points span.point-value, ul#acts li.small-act .act-details p span.points span.point-value {
-            font-size: 18px;
-            font-weight: bold; }
-        ul#acts li.act .act-details p span.ranking, ul#acts li.small-act .act-details p span.ranking {
-          position: absolute;
-          right: 0;
-          top: 45px;
-          padding-right: 5px;
-          font-size: 10px;
-          text-align: center;
-          line-height: 14px; }
-          ul#acts li.act .act-details p span.ranking span.ranking-value, ul#acts li.small-act .act-details p span.ranking span.ranking-value {
-            display: block;
-            font-size: 14px; }
+    clear: both;
+    padding: 10px 25px 20px 10px; }
+    ul#acts li.act .avatar48, ul#acts li.small-act .avatar48 {
+      float: left; }
+      ul#acts li.act .avatar48 img, ul#acts li.small-act .avatar48 img {
+        width: 43px;
+        height: 43px; }
   ul#acts li.act .act-details {
-    width: 430px; }
+    float: left;
+    width: 400px; }
+    ul#acts li.act .act-details .user {
+      width: 315px; }
+    ul#acts li.act .act-details .user a, ul#acts li.act .act-details .user a:link, ul#acts li.act .act-details .user a:visited {
+      font-size: 12px;
+      color: #355997;
+      font-weight: bold;
+      line-height: 16px;
+      vertical-align: top;
+      position: relative;
+      top: -2px; }
+    ul#acts li.act .act-details .description {
+      font-size: 14px;
+      color: #58585a;
+      width: 315px;
+      padding-bottom: 4px; }
+    ul#acts li.act .act-details .when {
+      font-size: 10px;
+      color: #92a1aa;
+      width: 315px; }
+    ul#acts li.act .act-details .points {
+      float: right;
+      font-size: 17px;
+      font-weight: bold;
+      color: #339e3e; }
+  ul#acts li.act .avatar43 {
+    float: left;
+    padding: 0 10px 20px 0; }
+    ul#acts li.act .avatar43 img {
+      width: 43px;
+      height: 43px; }
   ul#acts li.small-act .act-details {
     width: 478px; }
   ul#acts li.small-act p {
     margin-bottom: 0px; }
-  ul#acts li:last-child {
-    border-bottom: none; }
-
-.avatar48 {
-  width: 48px;
-  height: 48px;
-  float: left;
-  margin: 0 10px 0 0; }
-  .avatar48 .shadow48 {
-    width: 48px;
-    height: 48px;
-    position: absolute; }
 
 .examples li.example .points {
   border: 1px solid #999999;
@@ -570,31 +522,14 @@ textarea#bad_message_reply_body {
 ul#followings, ul#followers, ul#other-users {
   list-style: none;
   margin-top: 0; }
-  ul#followings li.associate, ul#followers li.associate, ul#other-users li.associate {
-    background-color: white;
-    border-bottom: 1px solid #DDD;
-    float: left;
-    width: 491px;
-    padding: 15px 4px 0 10px;
-    position: relative;
-    min-height: 60px;
-    -webkit-border-radius: 6px;
-    -moz-border-radius: 6px;
-    border-radius: 6px; }
-    ul#followings li.associate a, ul#followings li.associate span.user, ul#followers li.associate a, ul#followers li.associate span.user, ul#other-users li.associate a, ul#other-users li.associate span.user {
-      font-weight: bold;
-      text-decoration: none;
-      color: #103245; }
-    ul#followings li.associate a:hover, ul#followers li.associate a:hover, ul#other-users li.associate a:hover {
-      text-decoration: underline; }
-    ul#followings li.associate form, ul#followers li.associate form, ul#other-users li.associate form {
-      margin-top: 2px;
-      margin-bottom: 10px; }
-    ul#followings li.associate img, ul#followers li.associate img, ul#other-users li.associate img {
-      width: 48px;
-      height: 48px;
-      padding: 0;
-      border: none; }
+  ul#followings li.associate form, ul#followers li.associate form, ul#other-users li.associate form {
+    margin-top: 2px;
+    margin-bottom: 10px; }
+  ul#followings li.associate img, ul#followers li.associate img, ul#other-users li.associate img {
+    width: 48px;
+    height: 48px;
+    padding: 0;
+    border: none; }
 
 ul#followings li.associate, ul#followers li.associate {
   width: 440px; }

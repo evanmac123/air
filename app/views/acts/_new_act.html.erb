@@ -1,0 +1,8 @@
+<li id="<%= dom_id(act) %>" class="act">
+  <div class="avatar43">
+    <%= default_avatar_tag act.user, :alt => act.user.name %>
+  </div>
+  <div class="act-details">
+    <%= render :partial => 'shared/new_act_details', :locals => {:act => act} %>
+  </div>
+</li>

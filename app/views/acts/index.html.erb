@@ -1,29 +1,26 @@
-<div id="main">
-  <div class="column-header activity-header">
-    <h2 class="first" id="activity">
-      Activity
-      <%= link_to 'Lonely? Make some connections', users_path %>
-    </h2>
-  </div>
+<div id="main-wrapper">
+  <div id="main">
+    <h2>Recent Activity</h2>
 
-  <ul id="acts">
-    <%= render @acts %>
-  </ul>
+    <ul id="acts">
+      <%= render :partial => "new_act", :collection => @acts, :as => :act %>
+    </ul>
 
-  <%= button_to "See more", "#", :id => 'see-more' %>
-  <%= image_tag 'spinner.gif', :id => 'see-more-spinner' %>
+    <%= button_to "See more", "#", :id => 'see-more' %>
+    <%= image_tag 'spinner.gif', :id => 'see-more-spinner' %>
 
-  <% content_for :javascript do %>
-    <%= javascript_tag do %>
-      var actOffset = <%= @acts.length %>;
+    <% content_for :javascript do %>
+      <%= javascript_tag do %>
+        var actOffset = <%= @acts.length %>;
 
-      $('#see-more').bind('click', function(e) {
-        $('#see-more-spinner').show();
-        $.get('activity.js', {offset: actOffset});
-        e.preventDefault();
-      });
+        $('#see-more').bind('click', function(e) {
+          $('#see-more-spinner').show();
+          $.get('activity.js', {offset: actOffset});
+          e.preventDefault();
+        });
+      <% end %>
     <% end %>
-  <% end %>
+  </div>
 </div>
 
 <div id="secondary">
