@@ -8,7 +8,7 @@ end
 
 When /^I enter the (act code|special command) "(.*?)"$/ do |_nothing, act_code|
   Then "I fill in \"act[code]\" with \"#{act_code}\""
-  Then "I press \"Play\""
+  find(:css, ".enter-code input[@type=image]").click
 end
 
 Then /^I should( not)? see the following act(s?):$/ do |sense, _nothing, table|

@@ -1,6 +1,6 @@
 <% if act.points %>
   <div class="points">
-    <span class="point-value"><%= act.points %></span> pts
+    <span class="point-value"><%= pluralize act.points, 'pt' %></span>
   </div>
 <% end %>
 <div class="user"><%= link_to(act.user.name, act.user) %></div>

@@ -122,7 +122,7 @@ Scenario: User responds to a question with bonus points attached
   And I sign in via the login page with "Dan/foo"
   And I go to the activity page
   Then "+14155551212" should have received an SMS "Got it! (And you get 5 points.) Next question: How important is doing what you're told?"
-  And I should see "Dan answered a health personality question less than a minute ago +5 points"
+  And I should see "5 pts Dan answered a health personality question less than a minute ago"
 
 Scenario: User responds to question during the window with a bad value
   Given time is frozen at "2011-05-01 15:00 UTC"

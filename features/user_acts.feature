@@ -104,10 +104,10 @@ Feature: User acts
     And I go to the acts page
     Then I should see "Paul 1 point"
     And I should see "Fred Won game! 201 points"
-    And I should see "Dan ate banana (thanks Paul for the referral) less than a minute ago +2 points"
-    And I should see "Dan worked out (thanks Fred for the referral) less than a minute ago +5 points"
-    And I should see "Paul told Dan about the ate banana command less than a minute ago +1 point"
-    And I should see "Fred told Dan about the worked out command less than a minute ago +200 points"
+    And I should see "2 pts Dan ate banana (thanks Paul for the referral) less than a minute"
+    And I should see "5 pts Dan worked out (thanks Fred for the referral) less than a minute"
+    And I should see "1 pt Paul told Dan about the ate banana command less than a minute ago"
+    And I should see "200 pts Fred told Dan about the worked out command less than a minute ago"
     And "+15088675309" should have received an SMS "Thanks for referring Dan to the ate banana command. Points 1/50, rank 2/4."
     And "+14155551212" should have received an SMS "Thanks for referring Dan to the worked out command. Points 201/50, rank 1/4."
 

@@ -23,14 +23,14 @@ Feature: User gets points for connecting to another (if demo configured for it)
     And I press "Be a fan"
     And I go to the activity page
     Then I should see "Dan is now a fan of Vlad"
-    And I should see "+5 points"
+    And I should see "5 points"
 
   Scenario: User gets extra points for connection to a user with a bounty
     When I go to the profile page for "Phil"
     And I press "Be a fan"
     And I go to the activity page
     Then I should see "Dan is now a fan of Phil"
-    And I should see "+12 points"
+    And I should see "12 points"
 
   Scenario: User gets points for connecting just once
     When I go to the profile page for "Vlad"
@@ -38,7 +38,7 @@ Feature: User gets points for connecting to another (if demo configured for it)
     And I press "De-fan"
     And I press "Be a fan"
     And I go to the activity page
-    Then I should see "+5 points" just once
+    Then I should see "5 points" just once
 
   Scenario: User gets message for connecting to a user with a bounty when demo has bounty
     When "+14155551212" sends SMS "follow pphil"
