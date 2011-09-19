@@ -2,13 +2,15 @@
 @import "special_effects";
 @import "flick/jquery-ui-1.8.10.custom.css";
 
-$overall-background: #e7f0dd;
+$overall-background: #dfe3e6;
 
 $column-subheader: $medium-gray;
 
 $message-header-background-color: #6c7868;
 $new-message-header-background-color: #ba7d3b;
 $message-reply-background-color: #d2e8b9;
+
+$left-gutter: 75px;
 
 a, a:link {
   color: $light-gray;
@@ -57,7 +59,7 @@ img {
   height: 63px;
   width: 100%;
 
-  padding-left: 75px;
+  padding-left: $left-gutter;
 
   #logo {
     display: inline-block;
@@ -139,7 +141,7 @@ img {
   padding: 10px 0; }
 
 .content {
-  width: 1000px;
+  width: 925px + $left-gutter;
 }
 
 $friends-page-column-width: 454px;
@@ -221,9 +223,10 @@ form .submit-input {
 
 #main-wrapper {
   background-color: #ffffff;
-  padding: 25px 25px 0 75px;
-  width: 495px;
+  padding: 25px 25px 0 $left-gutter;
+  width: 570px - $left-gutter;
   float: left;
+  border-right: solid #b9c2c7 1px;
 }
 
 #main {
@@ -233,7 +236,9 @@ form .submit-input {
 #secondary {
   float: right;
   width: 335px;
-  padding-left: 25px;
+  padding: 25px 0 0 25px;
+
+  background-color: #dfe3e6;
 
   p {
     line-height: 1.4em;
@@ -296,6 +301,46 @@ pre {
   }
 }
 
+#secondary #my-score {
+  background-color: #94a1a9;
+  color: #ffffff;
+  font-weight: bold;
+  font-size: 15px;
+
+  th, td {
+    text-align: center;
+
+    padding-top: 10px;
+    padding-bottom: 10px;
+
+    .top-row {
+      font-size: 26px;
+    }
+  }
+
+  th {
+    font-size: 24px;
+    line-height: 1;
+  }
+
+  td.points {
+    border-left: solid #ffffff 1px;
+    border-right: solid #ffffff 1px;
+  }
+
+  td.ranking {
+    .rank-number {
+      font-size: 26px;
+    }
+
+    .ordinal-particle {
+      vertical-align: super;
+      position: relative;
+      top: -3px;
+    }
+  }
+}
+
 #secondary ul.top-scores { 
   margin-top: 0px;
 
@@ -319,64 +364,6 @@ pre {
     color: $blue;
     font-weight: bold;
   }
-}
-
-table#your-score {
-  $table-corner-radius: 6px;
-
-  font-size: 18px;
-
-  margin-bottom: 0;
-
-  td, th {
-    text-align: center;
-    border: none;
-  }
-
-  th {
-    font-weight: bold;
-  }
-
-  td {
-    font-weight: normal;
-  }
-
-  tr#recent-average {
-  }
-
-  td, th {
-    background-color: $white;
-    padding: 2px 8px;
-  }
-
-  tr:first-child {
-    td, th {
-    }
-
-    td:first-child, th:first-child {
-      color: $offwhite;
-      @include rounded-corner-topleft($table-corner-radius);
-      font-size: 18px;
-      text-align: left;
-    }
-
-    td:last-child, th:last-child {
-      @include rounded-corner-topright($table-corner-radius);
-    }
-  }
-
-  tr:last-child {
-    td, th {
-    }
-
-    td:first-child, th:first-child {
-      @include rounded-corner-bottomleft($table-corner-radius);
-    }
-
-    td:last-child, th:last-child {
-      @include rounded-corner-bottomright($table-corner-radius);
-    }
-  } 
 }
 
 #top-users {

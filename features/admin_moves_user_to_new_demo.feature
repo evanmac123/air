@@ -96,29 +96,16 @@ Feature: Admin moves a user to a new demo
       | Dan  | went running | 10     |
     And I should not see "Dan" in the scoreboard
 
-  Scenario: User has the correct recent average points and ranking after moving to new demo
-    When I sign in via the login page as "Dan/foo"
-    And I go to the activity page
-    Then I should see "10" recent average points
-    And I should see "1" recent average ranking
-
-  Scenario: User has the correct recent average points and ranking after moving back to original demo
-    When an admin moves "Dan" to the demo "The Thoughtbots"
-    And I sign in via the login page as "Dan/foo"
-    And I go to the activity page
-    Then I should see "9" recent average points
-    And I should see "2" recent average ranking
-
   Scenario: Other users' rankings are correct in the old demo after the move
     When I sign in via the login page as "Fred/baz"
     And I go to the activity page
-    Then I should see "1 of 1" alltime ranking
+    Then I should see "1st out of 1" ranking
 
   Scenario: Other users' rankings are correct in the new demo after moving back to the original demo
     When an admin moves "Dan" to the demo "The Thoughtbots"
     And I sign in via the login page as "Tom/quux"
     And I go to the activity page
-    Then I should see "2 of 2" alltime ranking
+    Then I should see "2nd out of 2" ranking
 
   Scenario: "Won at" should be set appropriately per demo
     When I sign in via the login page as "Dan/foo"

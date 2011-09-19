@@ -17,7 +17,5 @@ Feature: Your score display
     And "Tony" has the password "whatnot"
     And I sign in via the login page as "Tony/whatnot"
     When I go to the acts page
-    Then I should see "24" alltime points
-    And I should see "2 of 6" alltime ranking
-    And I should see "41" recent average points
-    And I should see "3 of 6" recent average ranking
+    Then I should see "24" points
+    And I should see "2nd out of 6" ranking
