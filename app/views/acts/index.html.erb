@@ -8,7 +8,10 @@
       <%= render :partial => "new_act", :collection => @acts, :as => :act %>
     </ul>
 
-    <%= button_to "See more", "#", :id => 'see-more' %>
+    <%= form_tag '#' do %>
+      <%= image_submit_tag "new_activity/btn_seemore.png", :id => 'see-more' %>
+    <% end %>
+
     <%= image_tag 'spinner.gif', :id => 'see-more-spinner' %>
 
     <% content_for :javascript do %>

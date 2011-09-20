@@ -1,3 +1,3 @@
-var newScoreboardContent = '<%= escape_javascript(render 'shared/scoreboard_list', :users => @users)%>';
+var newScoreboardContent = '<%= escape_javascript(render 'shared/new_scoreboard_list', :users => @users)%>';
 $('#scoreboard-spinner').remove();
 $('.top-scores').replaceWith(newScoreboardContent);

@@ -2,7 +2,9 @@
 
 <%= render 'shared/new_scoreboard_list', :users => users %>
 
-<%= button_to('See all', '#', :id => 'show-all-ranked-players') unless @conference_feed_page %>
+<%= form_tag '#' do %>
+  <%= image_submit_tag("new_activity/btn_seemore.png", :id => 'show-all-ranked-players') unless @conference_feed_page %>
+<% end %>
 
 <% content_for :javascript do %>
   <%= javascript_tag do %>
