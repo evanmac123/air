@@ -9,7 +9,7 @@
 </head>
 <body class="<%= body_class %>">
   <%= render :partial => (@new_appearance ? 'shared/new_header' : 'shared/header') %>
-  <%= render :partial => 'shared/flashes' -%>
+  <%= render :partial => 'shared/flashes' unless @new_appearance -%>
   <div class="content">
     <%= yield %>
   </div>

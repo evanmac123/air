@@ -140,8 +140,13 @@ form .submit-input {
   width: 358px; }
 
 #flash {
-  margin: 20px auto;
-  width: 1000px; }
+  margin: 20px 0 20px 75px;
+  width: 925px; }
+
+#flash_failure, #flash_success, #flash_notice {
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0; }
 
 .hidden-form {
   display: none;
