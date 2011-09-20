@@ -1,0 +1,14 @@
+<ul class="top-scores">
+  <% users.each do |user| %>
+    <li class="<%= cycle 'dark', 'light' %>">
+      <span class="ranking"><%= user.ranking %></span>
+      <%= link_to user do %>
+        <span class="name"><%= user.name %></span>
+        <% if user.won_at %>
+          <%= image_tag "new_activity/img_bluestar_18.png" %>
+        <% end %>
+      <% end %>
+      <span class="score"><%= pluralize user.points, 'pt' %></span>
+    </li>
+  <% end %>
+</ul>

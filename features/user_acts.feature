@@ -90,7 +90,7 @@ Feature: User acts
     And "+15087407520" sends SMS "saw poster"
     And I sign in via the login page as "Dan/foo"
     And I go to the acts page
-    Then I should see "Dan 40 points"
+    Then I should see "Dan 40 pts"
     And "+15087407520" should have received an SMS "Congratulations! Points 20/50, rank 1/4."
     And "+15087407520" should have received an SMS "Congratulations! Points 40/50, rank 1/4."
     And "+15087407520" should not have received an SMS "Congratulations! Points 60/50, rank 1/4."
@@ -102,8 +102,8 @@ Feature: User acts
     And DJ cranks 10 times
     And I sign in via the login page as "Dan/foo"
     And I go to the acts page
-    Then I should see "Paul 1 point"
-    And I should see "Fred Won game! 201 points"
+    Then I should see "Paul 1 pt"
+    And I should see "Fred 201 pts"
     And I should see "2 pts Dan ate banana (thanks Paul for the referral) less than a minute"
     And I should see "5 pts Dan worked out (thanks Fred for the referral) less than a minute"
     And I should see "1 pt Paul told Dan about the ate banana command less than a minute ago"
@@ -115,7 +115,7 @@ Feature: User acts
     When "+15087407520" sends SMS "ate banana mrnobody"
     And I sign in via the login page as "Dan/foo"
     And I go to the acts page
-    Then I should see "Dan 0 points"
+    Then I should see "Dan 0 pts"
     And "+15087407520" should have received an SMS "We understood what you did, but not the user who referred you. Perhaps you could have them check their unique ID with the myid command?"
 
   Scenario: A helpful and slightly snarky error message if you say you referred yourself
@@ -123,5 +123,5 @@ Feature: User acts
     When "+15087407520" sends SMS "ate banana dan4444"
     And I sign in via the login page as "Dan/foo"
     And I go to the acts page
-    Then I should see "Dan 0 points"
+    Then I should see "Dan 0 pts"
     And "+15087407520" should have received an SMS "Now now. It wouldn't be fair to try to get extra points by referring yourself."

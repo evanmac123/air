@@ -26,7 +26,7 @@ Feature: User can credit another user who got them into the game
     When "+14155551212" sends SMS "dcroak"
     And DJ cranks once
     And I go to the activity page
-    Then I should see "Dan 5 points"
+    Then I should see "Dan 5 pts"
     And I should see "Dan got credit for referring Phil to the game"
     And "+14155551212" should have received SMS "Got it, Dan referred you to the game. Thanks for letting us know."
     And "+18085551212" should have received an SMS including "Phil gave you credit for referring him to the game. Many thanks and 5 bonus points!"
@@ -35,20 +35,20 @@ Feature: User can credit another user who got them into the game
     When "+14155551212" sends SMS "dcroak"
     And "+14155551212" sends SMS "vgyster"
     And I go to the activity page
-    Then I should see "Vlad 0 points"
+    Then I should see "Vlad 0 pts"
     And "+14155551212" should have received SMS "You've already told us that Dan referred you to the game."
     And "+16175551212" should not have received an SMS including "Phil gave you credit for referring him to the game."
 
   Scenario: User tries to credit themself
     When "+14155551212" sends SMS "pdarnowsky"
     And I go to the activity page
-    Then I should see "Phil 0 points"
+    Then I should see "Phil 0 pts"
     And "+14155551212" should have received an SMS "Nice try. But would it be fair to give you points for referring yourself?"
 
   Scenario: User credits another but it's too late
     When "+16175551212" sends SMS "dcroak"
     And I go to the activity page
-    Then I should see "Dan 0 points"
+    Then I should see "Dan 0 pts"
     And "+16175551212" should have received an SMS "Sorry, the time when you can credit someone for referring you to the game is over."
     And "+18085551212" should not have received an SMS including "Vlad gave you credit"
 
@@ -68,7 +68,7 @@ Feature: User can credit another user who got them into the game
     And "Kristina" has the SMS slug "krikantis"
     And "+13055551212" sends SMS "krikantis"
     And I sign in via the login page with "Kelli/foo"
-    Then I should see "Kristina 0 points"
+    Then I should see "Kristina 0 pts"
     And "+13055551212" should have received an SMS including "Sorry, I don't understand what that means"
     And "+14105551212" should not have received an SMS including "Kelli gave you credit"
 

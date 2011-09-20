@@ -62,7 +62,7 @@ Feature: Player can win the game
       | demo                | name | won_at              |
       | company_name: BobCo | Dan  | 2005-12-31 06:00:00 |
     When I go to the activity page
-    Then I should see "Won game!"
+    Then I should see the winning graphic
 
   Scenario: Player wins a game with custom victory messages
     Given I sign in via the login page as "Jim/LOL"
@@ -72,11 +72,3 @@ Feature: Player can win the game
     When I go to the activity page
     Then I should see "You did it at December 31, 2009 at 07:00 PM Eastern!"
     And "+16175551212" should have received SMS "You go boy with your 100 points!"
-
-  Scenario: Looking at another player with a custom scoreboard victory message
-    Given the following user with phones exist:
-      | demo                   | name | won_at              |
-      | company_name: CustomCo | Dan  | 2005-12-31 06:00:00 |
-    When I sign in via the login page as "Jim/LOL"
-    And I go to the activity page
-    Then I should see "Did a big thing!"

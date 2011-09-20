@@ -318,27 +318,44 @@ pre {
 
 #secondary ul.top-scores { 
   margin-top: 0px;
+  list-style-type: none;
+  border: solid 3px #b9c2c7;
 
   li {
-    padding: 4px 5px 4px 10px;
-    background-color: white; 
-    line-height: 22px;
-    @include rounded-corners(6px);
-  }
-
-  .score { 
-    color: $green; 
-    float: right;
-    font-weight: bold;
-    
-    .score-value {
+    padding: 10px 20px 7px 0;
+    img {
+      margin-left: 10px;
+      vertical-align: middle;
     }
   }
 
-  .name {
-    color: $blue;
-    font-weight: bold;
+  .dark {
+    background-color: #e9eaec;
   }
+
+  .light {
+    background-color: #ffffff;
+  }
+
+  .ranking {
+    display: inline-block;
+    width: 30px;
+    padding-left: 10px;
+  }
+
+  .name {
+    font-size: 12px;
+    font-weight: bold;
+    color: #355997;
+    line-height: 16px;
+  }
+
+  .score { 
+    float: right;
+    font-size: 16px;
+    color: #339e3e;
+  }
+
 }
 
 #top-users {
@@ -585,12 +602,6 @@ a.current {
 
     padding: 15px 15px 0 15px;
   }
-}
-
-.other-user-winning-time {
-  font-weight: normal;
-  color: $blue;
-  margin-left: 1ex;
 }
 
 #conference-header {

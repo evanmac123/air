@@ -7,14 +7,14 @@ Feature: User gets points for connecting to another (if demo configured for it)
       | Towers Watson | 0                     |
       | LameCo        |                       |
     And the following users exist:
-      | name | phone number | connection bounty | demo                        |
-      | Dan  | +14155551212 | 0                 | company_name: HMFEngage     |
-      | Phil | +18085551212 | 7                 | company_name: HMFEngage     |
-      | Vlad | +16175551212 | 0                 | company_name: HMFEngage     |
-      | Tom  | +13055551212 | 0                 | company_name: Towers Watson |
-      | Fred | +12125551212 | 7                 | company_name: Towers Watson |
-      | Bleh | +14085551212 | 0                 | company_name: LameCo        |
-      | Feh  | +16505551212 | 7                 | company_name: LameCo        |
+      | name | phone number | connection bounty | points | demo                        |
+      | Dan  | +14155551212 | 0                 | 1      | company_name: HMFEngage     |
+      | Phil | +18085551212 | 7                 | 0      | company_name: HMFEngage     |
+      | Vlad | +16175551212 | 0                 | 0      | company_name: HMFEngage     |
+      | Tom  | +13055551212 | 0                 | 0      | company_name: Towers Watson |
+      | Fred | +12125551212 | 7                 | 0      | company_name: Towers Watson |
+      | Bleh | +14085551212 | 0                 | 0      | company_name: LameCo        |
+      | Feh  | +16505551212 | 7                 | 0      | company_name: LameCo        |
     And "Dan" has password "foo"
     When I sign in via the login page as "Dan/foo"
 
@@ -23,14 +23,14 @@ Feature: User gets points for connecting to another (if demo configured for it)
     And I press "Be a fan"
     And I go to the activity page
     Then I should see "Dan is now a fan of Vlad"
-    And I should see "5 points"
+    And I should see "5 pts"
 
   Scenario: User gets extra points for connection to a user with a bounty
     When I go to the profile page for "Phil"
     And I press "Be a fan"
     And I go to the activity page
     Then I should see "Dan is now a fan of Phil"
-    And I should see "12 points"
+    And I should see "12 pts"
 
   Scenario: User gets points for connecting just once
     When I go to the profile page for "Vlad"
@@ -38,7 +38,7 @@ Feature: User gets points for connecting to another (if demo configured for it)
     And I press "De-fan"
     And I press "Be a fan"
     And I go to the activity page
-    Then I should see "5 points" just once
+    Then I should see "5 pts" just once
 
   Scenario: User gets message for connecting to a user with a bounty when demo has bounty
     When "+14155551212" sends SMS "follow pphil"

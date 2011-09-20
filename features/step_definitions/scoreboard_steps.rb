@@ -10,7 +10,7 @@ Then /^I should see a scoreboard for demo "(.*?)"$/ do |demo_name|
    expected_users.each do |expected_user|
       expected_path = user_path(expected_user)
       page.should have_css("a[href=\"#{expected_path}\"]", :text => expected_user.name)
-      page.should have_content("#{expected_user.points} points")
+      page.should have_content("#{expected_user.points} pts")
     end
   end
 
@@ -28,7 +28,7 @@ end
 
 Then /^I should see "(.*?)" with ranking "(.*?)"$/ do |name, ranking|
   with_scope '.top-scores' do
-    page.should have_content("#{ranking}. #{name}")
+    page.should have_content("#{ranking} #{name}")
   end
 end
 
@@ -40,4 +40,8 @@ end
 
 Then /^I should see the following user rankings:$/ do |table|
   table.hashes.each {|row_hash| Then "I should see \"#{row_hash['name']}\" with ranking \"#{row_hash['ranking']}\""}
+end
+
+Then /^I should see the winning graphic$/ do
+  page.should have_css("img[@alt='Img_bluestar_18']")
 end

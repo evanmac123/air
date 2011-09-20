@@ -220,21 +220,31 @@ pre {
     top: -3px; }
 
 #secondary ul.top-scores {
-  margin-top: 0px; }
+  margin-top: 0px;
+  list-style-type: none;
+  border: solid 3px #b9c2c7; }
   #secondary ul.top-scores li {
-    padding: 4px 5px 4px 10px;
-    background-color: white;
-    line-height: 22px;
-    -webkit-border-radius: 6px;
-    -moz-border-radius: 6px;
-    border-radius: 6px; }
-  #secondary ul.top-scores .score {
-    color: #55950d;
-    float: right;
-    font-weight: bold; }
+    padding: 10px 20px 7px 0; }
+    #secondary ul.top-scores li img {
+      margin-left: 10px;
+      vertical-align: middle; }
+  #secondary ul.top-scores .dark {
+    background-color: #e9eaec; }
+  #secondary ul.top-scores .light {
+    background-color: #ffffff; }
+  #secondary ul.top-scores .ranking {
+    display: inline-block;
+    width: 30px;
+    padding-left: 10px; }
   #secondary ul.top-scores .name {
-    color: #103245;
-    font-weight: bold; }
+    font-size: 12px;
+    font-weight: bold;
+    color: #355997;
+    line-height: 16px; }
+  #secondary ul.top-scores .score {
+    float: right;
+    font-size: 16px;
+    color: #339e3e; }
 
 #top-users li span {
   color: #999999;
@@ -406,11 +416,6 @@ a.current {
     font-size: 14px;
     line-height: 15px;
     padding: 15px 15px 0 15px; }
-
-.other-user-winning-time {
-  font-weight: normal;
-  color: #103245;
-  margin-left: 1ex; }
 
 #conference-header {
   color: white;

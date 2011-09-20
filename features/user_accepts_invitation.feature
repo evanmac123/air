@@ -53,7 +53,7 @@ Feature: User accepts invitation
     And I fill in "And confirm that password" with "whowho"
     And I press "Join the game"
     Then I should be on the activity page
-    And I should see "Phil 10 points"
+    And I should see "Phil 10 pts"
     And I should see "10 pts Phil joined the game less than a minute ago"
 
   Scenario: User doesn't get seed points twice
