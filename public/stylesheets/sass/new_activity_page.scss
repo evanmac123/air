@@ -2,7 +2,7 @@
 @import "special_effects";
 @import "flick/jquery-ui-1.8.10.custom.css";
 
-$overall-background: #dfe3e6;
+$overall-background: #ffffff;
 
 $column-subheader: $medium-gray;
 
@@ -66,6 +66,8 @@ img {
     float: left;
     img {
       margin: 0px;
+      position: relative;
+      top: 7px;
     }
   }
 
@@ -112,6 +114,7 @@ img {
       font-size: 15px;
       float: right;
       text-align: right;
+      padding-right: 5px;
 
       a, a:visited, a:link {
         text-decoration: none;
@@ -222,7 +225,6 @@ form .submit-input {
 }
 
 #main-wrapper {
-  background-color: #ffffff;
   padding: 25px 25px 0 $left-gutter;
   width: 570px - $left-gutter;
   float: left;
@@ -238,19 +240,14 @@ form .submit-input {
   width: 335px;
   padding: 25px 0 0 25px;
 
-  background-color: #dfe3e6;
-
   p {
     line-height: 1.4em;
     margin-bottom: 10px;
+  }
 
-    .prize {
-      color: $green;
-      background-color: $white;
-      font-weight: bold;
-      padding: 2px 8px;
-      @include rounded-corners(6px);
-    }
+  h2 {
+    background: #afe073;
+    padding: 10px 0 5px 15px;
   }
 }
 
@@ -259,46 +256,18 @@ pre {
   background: $black;
   color: $offwhite;
 }
+
 code, pre {
   overflow-x: auto;
   margin: 1.5em 0px;
   white-space: pre;
   line-height: 1.5;
 }
+
 pre {
   -webkit-box-shadow: #555 0px 2px 4px;
   border: 3px solid #DDD;
   padding: 10px;
-}
-
-#secondary {
-  ul {
-    list-style: none;
-    margin: 10px 0;
-    li {
-      border-bottom: 1px solid #DDD;
-      line-height: 1.4;
-      overflow: hidden;
-      padding: 8px 0px;
-      img {
-        background: $white;
-        border: 1px solid $light-gray;
-        float: left;
-        margin: 0px 6px 0px 0px;
-        padding: 3px;
-        vertical-align: middle;
-        width: 24px;
-      }
-      a:link, a:visited {
-        outline: none;
-        text-decoration: none;
-        font-weight: bold;
-      }
-    }
-    li:last-child {
-      border-bottom: none;
-    }
-  }
 }
 
 #secondary #my-score {
@@ -306,6 +275,8 @@ pre {
   color: #ffffff;
   font-weight: bold;
   font-size: 15px;
+
+  margin-bottom: 30px;
 
   th, td {
     text-align: center;
@@ -437,6 +408,7 @@ ul#acts {
         font-size: 10px;
         color: #92a1aa;
         width: $main-detail-block-width;
+        margin-bottom: 20px;
       }
 
       .points {
@@ -457,6 +429,11 @@ ul#acts {
         height: 43px;
       }
     }
+  }
+
+  li.act-shim {
+    clear: both;
+    border-bottom: solid #d7d7d7 1px;
   }
 
   li.small-act {
@@ -592,13 +569,18 @@ a.current {
   text-decoration: underline; 
 }
 
-#achievements .achievement {
-  @include rounded-corners(6px);
-  background-color: $white;
-  font-weight: bold;
-  padding-left: 12px;
-  padding-top: 5px;
-  padding-bottom: 5px;
+#achievements  {
+  border: solid 3px #b9c2c7;
+  margin-bottom: 30px;
+  padding-bottom: 15px;
+
+  .achievement {
+    color: #58585a;
+    font-size: 14px;
+    line-height: 15px;
+
+    padding: 15px 15px 0 15px;
+  }
 }
 
 .other-user-winning-time {

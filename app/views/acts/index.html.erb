@@ -30,7 +30,7 @@
     <td class="ranking"><%= raw ranking_phrase(current_user.ranking, @demo_user_count) %></td>
   </table>
 
-  <%= render 'user_achievements', :won_at => current_user.won_at, :levels => @levels %>
+  <%= render 'new_user_achievements', :won_at => current_user.won_at, :levels => @levels %>
 
-  <%= render 'shared/scoreboard', :users => @users %>
+  <%= render 'shared/new_scoreboard', :users => @users %>
 </div>
