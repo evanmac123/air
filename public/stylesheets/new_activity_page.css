@@ -6,7 +6,7 @@ a, a:link {
 body {
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-size: 14px;
-  background: white; }
+  background: #dfe3e6; }
 
 h1 {
   font-family: 'Chunk';
@@ -19,7 +19,7 @@ h1 {
 
 h2 {
   font-family: "Trebuchet MS", sans-serif;
-  font-size: 18px;
+  font-size: 20px;
   font-weight: bold;
   color: #58585a;
   margin-bottom: 10px; }
@@ -34,7 +34,7 @@ img {
 
 .header {
   background: url(/images/new_activity/header_gradient.png);
-  height: 63px;
+  height: 73px;
   width: 100%;
   padding-left: 75px; }
   .header #logo {
@@ -48,7 +48,7 @@ img {
     padding: 0 0 10px 0;
     width: 930px; }
     .header .inner-header #add-action {
-      margin-top: 10px;
+      margin-top: 18px;
       float: left;
       color: #103245;
       font-size: 22px; }
@@ -61,17 +61,17 @@ img {
           vertical-align: middle; }
         .header .inner-header #add-action .enter-code input[type="text"] {
           width: 349px;
-          height: 20px;
+          height: 14px;
           margin-left: 5px;
-          padding: 10px 115px 10px 10px;
+          padding: 10px 95px 10px 10px;
           font-size: 15px; }
         .header .inner-header #add-action .enter-code input[type="image"] {
           position: absolute;
           z-index: 10;
-          top: 19px;
+          top: 24px;
           left: 493px; }
     .header .inner-header #account {
-      margin-top: 35px;
+      margin-top: 40px;
       font-size: 15px;
       float: right;
       text-align: right;
@@ -103,8 +103,8 @@ img {
   padding: 4px 6px; }
 
 #footer {
-  height: 10px;
-  margin: 10px 0;
+  height: 0px;
+  margin: 0;
   clear: both; }
 
 ul, ol {
@@ -160,9 +160,10 @@ form .submit-input {
     color: #111111; }
 
 #main-wrapper {
-  padding: 25px 25px 0 75px;
+  padding: 25px 50px 25px 75px;
   width: 495px;
   float: left;
+  background-color: #ffffff;
   border-right: solid #b9c2c7 1px; }
 
 #main {
@@ -177,7 +178,8 @@ form .submit-input {
     margin-bottom: 10px; }
   #secondary h2 {
     background: #afe073;
-    padding: 10px 0 5px 15px; }
+    padding: 10px 0 5px 15px;
+    margin-bottom: 0; }
 
 pre {
   background: #111111;
@@ -199,51 +201,59 @@ pre {
   color: #ffffff;
   font-weight: bold;
   font-size: 15px;
-  margin-bottom: 30px; }
+  margin-bottom: 30px;
+  border: solid 1px #b9c2c7; }
   #secondary #my-score th, #secondary #my-score td {
     text-align: center;
-    padding-top: 10px;
-    padding-bottom: 10px; }
-    #secondary #my-score th .top-row, #secondary #my-score td .top-row {
-      font-size: 26px; }
-  #secondary #my-score th {
-    font-size: 24px;
+    padding-top: 0;
+    padding-bottom: 0;
+    border: 0;
+    height: 70px;
     line-height: 1; }
+    #secondary #my-score th .top-row, #secondary #my-score td .top-row {
+      font-size: 30px; }
+  #secondary #my-score th {
+    font-size: 20px; }
   #secondary #my-score td.points {
     border-left: solid #ffffff 1px;
-    border-right: solid #ffffff 1px; }
-  #secondary #my-score td.ranking .rank-number {
-    font-size: 26px; }
-  #secondary #my-score td.ranking .ordinal-particle {
-    vertical-align: super;
-    position: relative;
-    top: -3px; }
+    border-right: solid #ffffff 1px;
+    font-size: 18px; }
+  #secondary #my-score td.ranking {
+    font-size: 18px; }
+    #secondary #my-score td.ranking .rank-number {
+      font-size: 30px; }
+    #secondary #my-score td.ranking .ordinal-particle {
+      vertical-align: super;
+      position: relative;
+      top: -3px; }
 
 #secondary ul.top-scores {
   margin-top: 0px;
+  margin-bottom: 10px;
   list-style-type: none;
-  border: solid 3px #b9c2c7; }
+  border: solid 1px #b9c2c7; }
   #secondary ul.top-scores li {
     padding: 10px 20px 7px 0; }
     #secondary ul.top-scores li img {
       margin-left: 10px;
       vertical-align: middle; }
   #secondary ul.top-scores .dark {
-    background-color: #e9eaec; }
+    background-color: #efefef; }
   #secondary ul.top-scores .light {
     background-color: #ffffff; }
   #secondary ul.top-scores .ranking {
     display: inline-block;
+    font-size: 16px;
     width: 30px;
     padding-left: 10px; }
   #secondary ul.top-scores .name {
-    font-size: 12px;
+    font-size: 14px;
     font-weight: bold;
     color: #355997;
     line-height: 16px; }
   #secondary ul.top-scores .score {
     float: right;
-    font-size: 16px;
+    font-size: 18px;
     color: #339e3e; }
 
 #top-users li span {
@@ -258,10 +268,11 @@ pre {
 /* Activity Feed */
 ul#acts {
   list-style: none;
-  margin-top: 0; }
+  margin-top: 0;
+  margin-bottom: 0; }
   ul#acts li.act, ul#acts li.small-act {
     clear: both;
-    padding: 10px 25px 20px 10px; }
+    padding: 20px 25px 20px 10px; }
     ul#acts li.act .avatar48, ul#acts li.small-act .avatar48 {
       float: left; }
       ul#acts li.act .avatar48 img, ul#acts li.small-act .avatar48 img {
@@ -273,31 +284,32 @@ ul#acts {
     ul#acts li.act .act-details .user {
       width: 315px; }
     ul#acts li.act .act-details .user a, ul#acts li.act .act-details .user a:link, ul#acts li.act .act-details .user a:visited {
-      font-size: 12px;
+      font-size: 14px;
       color: #355997;
       font-weight: bold;
       line-height: 16px;
-      vertical-align: top;
-      position: relative;
-      top: -2px; }
+      vertical-align: top; }
     ul#acts li.act .act-details .description {
-      font-size: 14px;
+      font-size: 16px;
       color: #58585a;
       width: 315px;
-      padding-bottom: 4px; }
+      padding-bottom: 4px;
+      position: relative;
+      top: -2px;
+      line-height: 1.2; }
     ul#acts li.act .act-details .when {
-      font-size: 10px;
+      font-size: 12px;
       color: #92a1aa;
       width: 315px;
       margin-bottom: 20px; }
     ul#acts li.act .act-details .points {
       float: right;
-      font-size: 17px;
+      font-size: 20px;
       font-weight: bold;
       color: #339e3e; }
   ul#acts li.act .avatar43 {
     float: left;
-    padding: 0 10px 20px 0; }
+    padding: 0 15px 20px 0; }
     ul#acts li.act .avatar43 img {
       width: 43px;
       height: 43px; }
@@ -408,9 +420,10 @@ a.current {
   text-decoration: underline; }
 
 #achievements {
-  border: solid 3px #b9c2c7;
+  border: solid 1px #b9c2c7;
   margin-bottom: 30px;
-  padding-bottom: 15px; }
+  padding-bottom: 15px;
+  background-color: #ffffff; }
   #achievements .achievement {
     color: #58585a;
     font-size: 14px;

@@ -5,6 +5,8 @@
     <h2>Recent Activity</h2>
 
     <ul id="acts">
+      <li class="act-shim">
+      </li>
       <%= render :partial => "new_act", :collection => @acts, :as => :act %>
     </ul>
 
@@ -30,9 +32,11 @@
 
 <div id="secondary">
   <table id="my-score">
-    <th>My<br/>Score</th> 
-    <td class="points"><span class="top-row"><%= current_user.points %></span><br/>points</td>
-    <td class="ranking"><%= raw ranking_phrase(current_user.ranking, @demo_user_count) %></td>
+    <tr>
+      <th>your<br/>score</th> 
+      <td class="points"><span class="top-row"><%= current_user.points %></span><br/>points</td>
+      <td class="ranking"><%= raw ranking_phrase(current_user.ranking, @demo_user_count) %></td>
+    </tr>
   </table>
 
   <%= render 'new_user_achievements', :won_at => current_user.won_at, :levels => @levels %>

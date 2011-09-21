@@ -2,7 +2,7 @@
 @import "special_effects";
 @import "flick/jquery-ui-1.8.10.custom.css";
 
-$overall-background: #ffffff;
+$overall-background: #dfe3e6;
 
 $column-subheader: $medium-gray;
 
@@ -37,7 +37,7 @@ h1 {
 
 h2 {
   font-family: "Trebuchet MS", sans-serif;
-  font-size: 18px;
+  font-size: 20px;
   font-weight: bold;
   color: #58585a;
 
@@ -56,7 +56,7 @@ img {
 
 .header {
   background: url(/images/new_activity/header_gradient.png);
-  height: 63px;
+  height: 73px;
   width: 100%;
 
   padding-left: $left-gutter;
@@ -76,7 +76,7 @@ img {
     width: 930px;
 
     #add-action {
-      margin-top: 10px;
+      margin-top: 18px;
       float: left;
       color: $blue;
       font-size: 22px;
@@ -93,9 +93,9 @@ img {
 
         input[type="text"] {
           width: 349px;
-          height: 20px;
+          height: 14px;
           margin-left: 5px;
-          padding: 10px 115px 10px 10px;
+          padding: 10px 95px 10px 10px;
 
           font-size: 15px;
         }
@@ -103,14 +103,14 @@ img {
         input[type="image"] {
           position: absolute;
           z-index: +10;
-          top: 19px;
+          top: 24px;
           left: 493px;
         }
       }
     }
 
     #account {
-      margin-top: 35px;
+      margin-top: 40px;
       font-size: 15px;
       float: right;
       text-align: right;
@@ -160,8 +160,8 @@ $friends-page-column-width: 454px;
 }
 
 #footer {
-  height: 10px;
-  margin: 10px 0;
+  height: 0px;
+  margin: 0;
   clear: both;
 }
 
@@ -229,9 +229,11 @@ form .submit-input {
 }
 
 #main-wrapper {
-  padding: 25px 25px 0 $left-gutter;
+  padding: 25px 50px 25px $left-gutter;
   width: 570px - $left-gutter;
   float: left;
+
+  background-color: #ffffff;
   border-right: solid #b9c2c7 1px;
 }
 
@@ -252,6 +254,7 @@ form .submit-input {
   h2 {
     background: #afe073;
     padding: 10px 0 5px 15px;
+    margin-bottom: 0;
   }
 }
 
@@ -282,30 +285,40 @@ pre {
 
   margin-bottom: 30px;
 
+  border: solid 1px #b9c2c7;
+
   th, td {
     text-align: center;
 
-    padding-top: 10px;
-    padding-bottom: 10px;
+    padding-top: 0;
+    padding-bottom: 0;
+
+    border: 0;
+
+    height: 70px;
+
+    line-height: 1;
 
     .top-row {
-      font-size: 26px;
+      font-size: 30px;
     }
   }
 
   th {
-    font-size: 24px;
-    line-height: 1;
+    font-size: 20px;
   }
 
   td.points {
     border-left: solid #ffffff 1px;
     border-right: solid #ffffff 1px;
+    font-size: 18px;
   }
 
   td.ranking {
+    font-size: 18px;
+
     .rank-number {
-      font-size: 26px;
+      font-size: 30px;
     }
 
     .ordinal-particle {
@@ -318,8 +331,9 @@ pre {
 
 #secondary ul.top-scores { 
   margin-top: 0px;
+  margin-bottom: 10px;
   list-style-type: none;
-  border: solid 3px #b9c2c7;
+  border: solid 1px #b9c2c7;
 
   li {
     padding: 10px 20px 7px 0;
@@ -330,7 +344,7 @@ pre {
   }
 
   .dark {
-    background-color: #e9eaec;
+    background-color: #efefef;
   }
 
   .light {
@@ -339,12 +353,13 @@ pre {
 
   .ranking {
     display: inline-block;
+    font-size: 16px;
     width: 30px;
     padding-left: 10px;
   }
 
   .name {
-    font-size: 12px;
+    font-size: 14px;
     font-weight: bold;
     color: #355997;
     line-height: 16px;
@@ -352,7 +367,7 @@ pre {
 
   .score { 
     float: right;
-    font-size: 16px;
+    font-size: 18px;
     color: #339e3e;
   }
 
@@ -378,11 +393,12 @@ pre {
 ul#acts {
   list-style: none;
   margin-top: 0;
+  margin-bottom: 0;
 
   li.act, li.small-act {
     clear: both;
 
-    padding: 10px 25px 20px 10px;
+    padding: 20px 25px 20px 10px;
 
     .avatar48 {
       float: left;
@@ -407,26 +423,26 @@ ul#acts {
       }
 
       .user a, .user a:link, .user a:visited {
-        font-size: 12px;
+        font-size: 14px;
         color: #355997;
         font-weight: bold;
         line-height: 16px;
 
         vertical-align: top;
-
-        position: relative;
-        top: -2px;
       }
 
       .description {
-        font-size: 14px;
+        font-size: 16px;
         color: #58585a;
         width: $main-detail-block-width;
         padding-bottom: 4px;
+        position: relative;
+        top: -2px;
+        line-height: 1.2;
       }
 
       .when {
-        font-size: 10px;
+        font-size: 12px;
         color: #92a1aa;
         width: $main-detail-block-width;
         margin-bottom: 20px;
@@ -435,7 +451,7 @@ ul#acts {
       .points {
         float: right;
 
-        font-size: 17px;
+        font-size: 20px;
         font-weight: bold;
         color: #339e3e;
       }
@@ -443,7 +459,7 @@ ul#acts {
 
     .avatar43 {
       float: left;
-      padding: 0 10px 20px 0;
+      padding: 0 15px 20px 0;
 
       img {
         width: 43px;
@@ -591,9 +607,10 @@ a.current {
 }
 
 #achievements  {
-  border: solid 3px #b9c2c7;
+  border: solid 1px #b9c2c7;
   margin-bottom: 30px;
   padding-bottom: 15px;
+  background-color: #ffffff;
 
   .achievement {
     color: #58585a;
