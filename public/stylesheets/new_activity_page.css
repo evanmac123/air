@@ -3,10 +3,13 @@ a, a:link {
   color: #999999;
   text-decoration: none; }
 
+a:hover {
+  text-decoration: underline; }
+
 body {
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-size: 14px;
-  background: #dfe3e6; }
+  background-image: url(/images/new_marketing/background.png); }
 
 h1 {
   font-family: 'Chunk';
@@ -35,7 +38,6 @@ img {
 .header {
   background: url(/images/new_activity/header_gradient.png);
   height: 73px;
-  width: 100%;
   padding-left: 75px; }
   .header #logo {
     display: inline-block;
@@ -68,7 +70,7 @@ img {
         .header .inner-header #add-action .enter-code input[type="image"] {
           position: absolute;
           z-index: 10;
-          top: 24px;
+          top: 25px;
           left: 493px; }
     .header .inner-header #account {
       margin-top: 40px;
@@ -89,6 +91,8 @@ img {
         margin: 0;
         position: relative;
         top: 3px; }
+    .header .inner-header #account.with-admin {
+      font-size: 13px; }
 
 .explanation {
   padding: 10px 0; }

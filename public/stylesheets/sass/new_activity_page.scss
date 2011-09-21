@@ -17,10 +17,15 @@ a, a:link {
   text-decoration: none;
 }
 
+a:hover {
+  text-decoration: underline;
+}
+
 body {
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-size: 14px;
-  background: $overall-background;
+  background-image: url(/images/new_marketing/background.png);
+  // background: $overall-background;
 }
 
 h1 {
@@ -57,7 +62,6 @@ img {
 .header {
   background: url(/images/new_activity/header_gradient.png);
   height: 73px;
-  width: 100%;
 
   padding-left: $left-gutter;
 
@@ -103,7 +107,7 @@ img {
         input[type="image"] {
           position: absolute;
           z-index: +10;
-          top: 24px;
+          top: 25px;
           left: 493px;
         }
       }
@@ -136,6 +140,10 @@ img {
         position: relative;
         top: 3px;
       }
+    }
+
+    #account.with-admin {
+      font-size: 13px;
     }
   }
 }

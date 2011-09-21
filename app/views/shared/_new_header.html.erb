@@ -14,7 +14,7 @@
       <% end %>
 
 
-      <div id="account">
+      <%= content_tag 'div', :id => 'account', :class => (current_user.is_site_admin ? 'with-admin' : '') do %>
         <% if signed_in? %>
           <%= navbar_link_to 'Home', acts_path %>
           <%= navbar_link_to 'My Profile', current_user, :id => 'self-link' %>
@@ -24,7 +24,7 @@
         <% else %>
           <%= link_to "By invitation only", page_path('invitation') %>
         <% end %>
-      </div>
+      <% end %>
     <% end %>
   </div>
 </div>
