@@ -7,6 +7,8 @@ class ConferenceFeedsController < ApplicationController
     @demo  = Demo.where(:company_name => 'FUJIFILM').first
     @users = @demo.users.ranked.order('ranking ASC')
     @acts  = @demo.acts.order('created_at DESC').limit(20).includes(:user, :rule)
+
+    @new_appearance = true
   end
 
   protected

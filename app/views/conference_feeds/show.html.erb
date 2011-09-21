@@ -1,18 +1,19 @@
-<div id="main">
-  <div class="column-header">
-    <h2 class="first" id="activity">
-      Activity
-    </h2>
+<%= render :partial => 'shared/flashes' -%>
 
-  </div>  
+<div id="main-wrapper">
+  <div id="main">
+    <h2>Recent Activity</h2>
 
-  <ul id="acts">
-    <%= render @acts %>
-  </ul>
+    <ul id="acts">
+      <li class="act-shim">
+      </li>
+      <%= render :partial => "acts/new_act", :collection => @acts, :as => :act %>
+    </ul>
+
+  </div>
 </div>
 
 <div id="secondary">
-  <%= render :partial => 'shared/scoreboard', :locals => {:users => @users} %>
 </div>
 
 <% content_for :javascript do %>
