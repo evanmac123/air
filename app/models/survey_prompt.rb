@@ -3,6 +3,8 @@ class SurveyPrompt < ActiveRecord::Base
 
   has_one :demo, :through => :survey
 
+  after_save :schedule_text_to_users_with_answers_left
+
   protected
 
   # We split up bulk SMS sending into many jobs like this for two reasons:

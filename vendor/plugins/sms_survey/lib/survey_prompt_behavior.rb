@@ -6,8 +6,6 @@ module SmsSurvey
       belongs_to :survey
 
       validates_presence_of :send_time, :text, :survey_id
-
-      after_save :schedule_text_to_users_with_answers_left
     end
 
     module InstanceMethods
