@@ -9,7 +9,7 @@ module SmsSurvey
     end
 
     module InstanceMethods
-      def text_prompt_to_user(user_id, prompt_id)
+      def text_prompt_to_user(user_id, prompt_id, mode=:outbound)
         user = User.find(user_id)
 
         unanswered_questions = SurveyQuestion.unanswered_by(user, self.survey)
@@ -21,7 +21,12 @@ module SmsSurvey
           next_unanswered_question.text
         ].join(' ')
 
-        SMS.send_message(user[self.class.user_phone_column_name], text)
+        case mode
+        when :outbound
+          SMS.send_message(user[self.class.user_phone_column_name], text)
+        when :reply
+          text
+        end
       end
 
       def interpolated_text(unanswered_questions)
