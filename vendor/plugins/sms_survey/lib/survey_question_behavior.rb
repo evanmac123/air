@@ -18,10 +18,10 @@ module SmsSurvey
         unless valid_answer
           # If a rule with the chosen value exists, punt on answering questions
           # so we can parse it normally.
-          if survey.demo.has_rule_value_matching?(choice)
+          if alternative_handling_possible?(choice)
             return nil
           else
-            return bad_answer_error(choice) unless valid_answer
+            return bad_answer_error(choice)
           end
         end
 
@@ -29,10 +29,10 @@ module SmsSurvey
 
         next_question = survey.latest_question_for(user)
         unless next_question
-          user.acts.create(:text => 'completed a health personality survey')
+          after_final_question_hook(user)
         end
 
-        "Got it! #{points_phrase}#{next_question_phrase(next_question)}"
+        question_acknowledgement_phrase(next_question)
       end
 
       protected
@@ -44,19 +44,29 @@ module SmsSurvey
 
       def record_answer(user, valid_answer)
         SurveyAnswer.create(:user => user, :survey_question => self, :survey_valid_answer => valid_answer)
-        user.acts.create(:inherent_points => self.points, :text => "answered a health personality question")
+        after_question_hook(user)
       end
 
-      def points_phrase
-        self.points ? 
-          "(And you get #{self.points} points.) " :
-          ''
+      def alternative_handling_possible?(choice)
+        false
+      end
+
+      def question_acknowledgement_phrase(next_question)
+        "Got it! #{next_question_phrase(next_question)}"
       end
 
       def next_question_phrase(next_question)
         next_question ?
           "Next question: #{next_question.text}" :
           "That was the last question. Thanks for completing the survey!"
+      end
+
+      def after_question_hook(user)
+        nil
+      end
+
+      def after_final_question_hook(user)
+        nil
       end
     end
 

@@ -3,7 +3,6 @@ module SmsSurvey
     extend ActiveSupport::Concern
 
     included do
-      belongs_to :demo
       has_many :survey_questions
       has_many :survey_valid_answers, :through => :survey_questions
       has_many :survey_prompts
