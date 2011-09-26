@@ -105,6 +105,8 @@ Game
   <%= render :partial => 'admin/users/new', :locals => { :demo => @demo } %>
 </div>
 
+<%= link_to "Bulk load users", new_admin_demo_bulk_load_path(@demo) %>
+
 <ul id="demo-users">
   <%= render :partial => 'admin/users/user', :collection => @users %>
 </ul>

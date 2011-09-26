@@ -1,8 +1,5 @@
 require 'csv'
 
-# TODO: Either remove this controller, or go back and do it properly,
-# including tests. Right now it just has to work once.
-
 class Admin::BulkLoadsController < AdminBaseController
   before_filter :find_demo
 

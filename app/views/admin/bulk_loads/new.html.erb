@@ -11,7 +11,18 @@
     </p>
 <% end %>
 
+<p>
+  Enter user information in CSV format:
+  <ul>
+    <li>1st column: Full name</li>
+    <li>2nd column: E-mail address</li>
+    <li>3rd column: Claim code (optional--if not set explicitly, one will automatically be generated)</li>
+  </ul>
+</p>
+
 <%= form_tag admin_demo_bulk_load_path(@demo) do %>
   <%= text_area_tag :bulk_user_data %>
   <%= submit_tag "Upload Users" %>
 <% end %>
+
+<%= link_to "Back to #{@demo.company_name}", admin_demo_path(@demo) %>

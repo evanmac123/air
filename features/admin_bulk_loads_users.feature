@@ -38,3 +38,8 @@ Fred Robinson,frobinson@example.com,345345
     Then I should see "John Smith, jsmith@example.com (123123)"
     And I should see "Bob Jones, bjones@example.com (234234)"
     And I should see "Fred Robinson, frobinson@example.com (345345)"
+
+  Scenario: Linked to from demo page
+    Given I am on the admin "H Engage" demo page
+    And I follow "Bulk load users"
+    Then I should be on the user bulk upload page for "H Engage"
