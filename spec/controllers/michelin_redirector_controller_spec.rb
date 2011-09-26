@@ -3,6 +3,8 @@ require 'spec_helper'
 metal_testing_hack(MichelinRedirectorController)
 
 describe MichelinRedirectorController do
+  it { should route(:get, "/mr/thiskindoflink").to(:controller => "michelin_redirector", :action => "show", :link_type => "thiskindoflink") }
+
   describe "#show" do
     {"et" => MichelinRedirectorController::MICHELIN_ENROLLMENT_URL,
      "ie"  => MichelinRedirectorController::MICHELIN_INCENTIVE_URL
