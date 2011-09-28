@@ -6,7 +6,7 @@ class ActsController < ApplicationController
 
     @demo              = current_user.demo
     @demo_user_count   = @demo.users.ranked.count
-    @acts              = @demo.acts.recent(10)
+    @acts              = @demo.acts.recent(10).includes(:user).includes(:rule)
 
     respond_to do |format|
       format.html do 
