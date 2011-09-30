@@ -29,7 +29,7 @@ Feature: User can credit another user who got them into the game
     Then I should see "Dan 5 pts"
     And I should see "Dan got credit for referring Phil to the game"
     And "+14155551212" should have received SMS "Got it, Dan referred you to the game. Thanks for letting us know."
-    And "+18085551212" should have received an SMS including "Phil gave you credit for referring him to the game. Many thanks and 5 bonus points!"
+    And "+18085551212" should have received an SMS including "Phil gave you credit for referring them to the game. Many thanks and 5 bonus points!"
     
   Scenario: User can't credit someone twice
     When "+14155551212" sends SMS "dcroak"
@@ -37,7 +37,7 @@ Feature: User can credit another user who got them into the game
     And I go to the activity page
     Then I should see "Vlad 0 pts"
     And "+14155551212" should have received SMS "You've already told us that Dan referred you to the game."
-    And "+16175551212" should not have received an SMS including "Phil gave you credit for referring him to the game."
+    And "+16175551212" should not have received an SMS including "Phil gave you credit for referring them to the game."
 
   Scenario: User tries to credit themself
     When "+14155551212" sends SMS "pdarnowsky"

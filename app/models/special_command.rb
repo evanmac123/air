@@ -137,7 +137,7 @@ module SpecialCommand
     # If we make it here, we finally know it's OK to credit the referring user.
 
     act_text = I18n.t('special_command.credit_game_referrer.activity_feed_text', :default => "got credit for referring %{referred_name} to the game", :referred_name => user.name)
-    referrer_sms_text = I18n.t('special_command.credit_game_referrer.referrer_sms', :default => "%{referred_name} gave you credit for referring him to the game. Many thanks and %{points} bonus points!", :referred_name => user.name, :points => demo.game_referrer_bonus)
+    referrer_sms_text = I18n.t('special_command.credit_game_referrer.referrer_sms', :default => "%{referred_name} gave you credit for referring them to the game. Many thanks and %{points} bonus points!", :referred_name => user.name, :points => demo.game_referrer_bonus)
     referred_sms_text = I18n.t('special_command.credit_game_referrer.referred_sms', :default => "Got it, %{referrer_name} referred you to the game. Thanks for letting us know.", :referrer_name => referring_user.name)
 
     user.update_attribute(:game_referrer_id, referring_user.id)
