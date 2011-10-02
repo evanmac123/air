@@ -180,10 +180,11 @@ form .submit-input {
   #secondary p {
     line-height: 1.4em;
     margin-bottom: 10px; }
-  #secondary h2 {
-    background: #afe073;
-    padding: 10px 0 5px 15px;
-    margin-bottom: 0; }
+
+body.acts #secondary h2 {
+  background: #afe073;
+  padding: 10px 0 5px 15px;
+  margin-bottom: 0; }
 
 pre {
   background: #111111;
@@ -371,6 +372,43 @@ button:disabled, input[type=submit]:disabled {
   #follow-target input {
     margin-top: 8px; }
 
+body.users-show h3 {
+  color: #4a833f;
+  font-size: 16px; }
+body.users-show #connections a {
+  margin-top: 10px;
+  display: inline-block; }
+
+#profile-head {
+  position: relative; }
+  #profile-head .avatar48 {
+    width: 50; }
+  #profile-head .own-number {
+    position: absolute;
+    left: 65px;
+    top: 45px; }
+
+.account-controls {
+  padding-top: 30px; }
+  .account-controls form {
+    margin-bottom: 30px;
+    position: relative;
+    /* Work around some stupidity in Formtastic */ }
+    .account-controls form input[type="text"], .account-controls form input[type="tel"], .account-controls form input[type="file"] {
+      width: 220px; }
+    .account-controls form input[type="image"] {
+      position: absolute;
+      top: 20px;
+      right: 30px; }
+    .account-controls form label[for="user_send_follow_notification_sms"] {
+      width: 220px; }
+    .account-controls form .required label {
+      font-weight: normal; }
+    .account-controls form abbr {
+      display: none; }
+  .account-controls form[action="/account"] input[type="image"] {
+    top: 0; }
+
 #profile-stats {
   display: block;
   clear: both;
@@ -555,24 +593,6 @@ ul#other-users li.associate form {
     color: #2d2d2b; }
   .secondary-column-section a:hover {
     text-decoration: underline; }
-
-#main-profile-section {
-  padding-right: 15px;
-  padding-bottom: 15px; }
-  #main-profile-section .own-number {
-    width: 290px;
-    float: left; }
-  #main-profile-section .account-controls {
-    clear: both;
-    /* Fuck you, Formtastic. */ }
-    #main-profile-section .account-controls h3 {
-      margin-top: 30px; }
-    #main-profile-section .account-controls h3:first-child {
-      padding-top: 30px; }
-    #main-profile-section .account-controls .required label {
-      font-weight: normal; }
-    #main-profile-section .account-controls abbr[title="required"] {
-      display: none; }
 
 .fan-count {
   font-weight: bold; }

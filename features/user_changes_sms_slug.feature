@@ -9,8 +9,8 @@ Feature: User can choose a different SMS slug
     And I go to the profile page for "Phil"
 
   Scenario: User changes SMS slug
-    When I fill in "Enter a new unique ID" with "awesomed00d"
-    And I press "Change Unique ID"
+    When I fill in "Enter a new username" with "awesomed00d"
+    And I press the button to submit a new unique ID
     And "+14155551212" sends SMS "myid"
     Then I should see "Your unique ID was changed to awesomed00d"
     And "+14155551212" should have received an SMS "Your unique ID is awesomed00d."
@@ -20,13 +20,13 @@ Feature: User can choose a different SMS slug
       | name | phone number | 
       | Vlad | +14156171212 | 
     And "Vlad" has the SMS slug "awesomed00d"
-    When I fill in "Enter a new unique ID" with "awesomed00d"
-    And I press "Change Unique ID"
+    When I fill in "Enter a new username" with "awesomed00d"
+    And I press the button to submit a new unique ID
     And "+14155551212" sends SMS "myid"
     Then I should see "Sorry, that unique ID is already taken."
     And "+14155551212" should not have received an SMS including "awesomed00d"
 
   Scenario: User tries a blank SMS slug
-    When I fill in "Enter a new unique ID" with ""
-    And I press "Change Unique ID"
+    When I fill in "Enter a new username" with ""
+    And I press the button to submit a new unique ID
     Then I should see "Sorry, you can't choose a blank unique ID."

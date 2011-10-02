@@ -258,11 +258,15 @@ form .submit-input {
     line-height: 1.4em;
     margin-bottom: 10px;
   }
+}
 
-  h2 {
-    background: #afe073;
-    padding: 10px 0 5px 15px;
-    margin-bottom: 0;
+body.acts {
+  #secondary {
+    h2 {
+      background: #afe073;
+      padding: 10px 0 5px 15px;
+      margin-bottom: 0;
+    }
   }
 }
 
@@ -551,6 +555,74 @@ button:disabled, input[type=submit]:disabled {
   }
 }
 
+body.users-show {
+  h3 {
+    color: #4a833f;
+    font-size: 16px;
+  }
+
+  #connections {
+    a {
+      margin-top: 10px;
+      display: inline-block;
+    }
+  }
+}
+
+#profile-head {
+  position: relative;
+
+  .avatar48 {
+    width: 50;
+  }
+
+  .own-number {
+    position: absolute;
+
+    left: 65px;
+    top: 45px;
+  }
+}
+
+.account-controls {
+  padding-top: 30px;
+
+  form {
+    margin-bottom: 30px;
+
+    position: relative;
+
+    input[type="text"], input[type="tel"], input[type="file"] {
+      width: 220px;
+    }
+
+    input[type="image"] {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+    }
+
+    label[for="user_send_follow_notification_sms"] {
+      width: 220px;
+    }
+
+    /* Work around some stupidity in Formtastic */
+    .required label {
+      font-weight: normal;
+    }
+
+    abbr {
+      display: none;
+    }
+  }
+
+  form[action="/account"] {
+    input[type="image"] {
+      top: 0;
+    }
+  }
+}
+
 #profile-stats {
   display: block;
   clear: both;
@@ -789,37 +861,6 @@ ul#other-users {
 
   a:hover {
     text-decoration: underline;
-  }
-}
-
-#main-profile-section {
-  padding-right: 15px;
-  padding-bottom: 15px;
-
-  .own-number {
-    width: 290px;
-    float: left;
-  }
-
-  .account-controls {
-    clear: both;
-
-    h3 {
-      margin-top: 30px;
-    }
-
-    h3:first-child {
-      padding-top: 30px;
-    }
-
-    /* Fuck you, Formtastic. */    
-    .required label { 
-      font-weight: normal;
-    }
-
-    abbr[title="required"] {
-      display: none;
-    }
   }
 }
 

@@ -1,77 +1,72 @@
-<div id="main">
-  <div class="column-header">
-    <h2 class="first">Recent Activity</h2>
-  </div>
+<%= render :partial => 'shared/flashes' -%>
 
-  <ul id="acts">
-    <%= render :partial => 'users/small_act', :collection => @acts, :as => :act %>
-  </ul>
+<div id="main-wrapper">
+  <div id="main">
+    <h2>Recent Activity</h2>
 
-  <%= button_to "See more", "#", :id => 'see-more' %>
-  <%= image_tag 'spinner.gif', :id => 'see-more-spinner' %>
+    <ul id="acts">
+      <%= render :partial => 'shared/new_act', :collection => @acts, :as => :act %>
+    </ul>
 
-  <% content_for :javascript do %>
-    <%= javascript_tag do %>
-      var actOffset = <%= @acts.length %>;
-
-      $('#see-more').bind('click', function(e) {
-        $('#see-more-spinner').show();
-        $.get('<%= user_acts_path(:user_id => @user.id, :format => :js) %>', {offset: actOffset});
-        e.preventDefault();
-      });
+    <%= form_tag '#' do %>
+      <%= image_submit_tag "new_activity/btn_seemore.png", :id => 'see-more' %>
     <% end %>
-  <% end %>
+    <%= image_tag 'spinner.gif', :id => 'see-more-spinner' %>
+
+    <% content_for :javascript do %>
+      <%= javascript_tag do %>
+        var actOffset = <%= @acts.length %>;
+
+        $('#see-more').bind('click', function(e) {
+          $('#see-more-spinner').show();
+          $.get('<%= user_acts_path(:user_id => @user.id, :format => :js) %>', {offset: actOffset});
+          e.preventDefault();
+        });
+      <% end %>
+    <% end %>
+  </div>
 </div>
 
 <div id="secondary">
-  <div class="column-header">
-    <h2 class="first"><%= @user.name %></h2>
-  </div>
+  <div id="profile-head">
+    <h2><%= @user.name %></h2>
 
-  <div id="main-profile-section" class="secondary-column-section">
     <div class="avatar48">
       <%= default_avatar_tag @user, :alt => @user.name %>
     </div>
 
     <% if @viewing_self %>
       <div class="own-number">
-        <h3><%= @user.phone_number %></h3>
-        (Don't worry, nobody else sees your number.)
+        <h3><%= @user.phone_number.as_pretty_phone %></h3>
       </div>
     <% end %>
 
-    <% if @viewing_self %>
-      <%= render 'account_controls' %>
-    <% end %>
-
-    <% if @viewing_other %>
-      <div id="follow-target">
-          <% if current_user.following?(@user) %>
-            <%= render 'friendships/unfollow', :user => @user %>
-          <% else %>
-            <%= render 'friendships/follow',   :user => @user %>
-          <% end %>
-      </div>
-    <% end %>
-
-    <% content_for :javascript do %>
-      <%= javascript_tag do %>
-        $('#follow-target form').live('ajax:beforeSend', function(e) {$('#follow-target').html('<%= image_tag 'spinner.gif' %>')});
-
-        $('.cancel-avatar-change').click(function(e) {
-          $('.avatar-controls').hide();
-          $('#main-profile-section').height($('#main-profile-section').data('original-height'));
-          e.preventDefault();
-        });
-      <% end %>
-    <% end %>
   </div>
 
-  <div class="column-header">
+  <% if @viewing_self %>
+    <%= render 'account_controls' %>
+  <% end %>
+
+  <% if @viewing_other %>
+    <div id="follow-target">
+        <% if current_user.following?(@user) %>
+          <%= render 'friendships/unfollow', :user => @user %>
+        <% else %>
+          <%= render 'friendships/follow',   :user => @user %>
+        <% end %>
+    </div>
+  <% end %>
+
+  <% content_for :javascript do %>
+    <%= javascript_tag do %>
+      $('#follow-target form').live('ajax:beforeSend', function(e) {$('#follow-target').html('<%= image_tag 'spinner.gif' %>')});
+    <% end %>
+  <% end %>
+
+
+  <div id="connections">
     <h2>Connections</h2>
-  </div>
 
-  <div id="connections" class="secondary-column-section">
     <% fan_of_phrase, fans_had_phrase = if @viewing_self
                                           ["You're", "You have"]
                                         else
@@ -85,3 +80,4 @@
       <br/><%= link_to 'View my connections', friends_path %>
     <% end %>
   </div>
+</div>

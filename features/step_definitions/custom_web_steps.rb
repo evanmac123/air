@@ -22,6 +22,18 @@ When /^I set the datetime selector for "(.*?)" to "(.*?)"$/ do |prefix, date_str
   select minute, :from => "#{_prefix}[minute]"
 end
 
+When /^I press the button to submit the mobile number$/ do
+  page.find(:css, "form[@action='/account/phone'] input[@type=image]").click
+end
+
+When /^I press the button to submit a new unique ID$/ do
+  page.find(:css, "form[@action='/account/sms_slug'] input[@type=image]").click
+end
+
+When /^I press the button to update follow notification status$/ do
+  page.find(:css, "form.text-settings input[@type=image]").click
+end
+
 Then /^(?:|I )should see `([^`]*)`(?: within "([^"]*)")?$/ do |text, selector|
   with_scope(selector) do
     if page.respond_to? :should

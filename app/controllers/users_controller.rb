@@ -11,6 +11,8 @@ class UsersController < Clearance::UsersController
   end
 
   def show
+    @new_appearance = true
+
     @user = User.find_by_slug(params[:id])
     @acts = @user.acts.in_user_demo.recent(10)
     @viewing_self = signed_in? && current_user == @user

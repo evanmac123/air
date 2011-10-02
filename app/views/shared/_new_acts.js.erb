@@ -1,5 +1,5 @@
 <% append_target ||= '#acts' %>
-<% act_partial_path ||= 'acts/new_act.html' %>
+<% act_partial_path ||= 'shared/new_act.html' %>
 
 actOffset += <%= acts.length %>;
 var newActContent = '<%= escape_javascript(render :partial => act_partial_path, :collection => acts, :as => :act) %>';

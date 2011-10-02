@@ -18,7 +18,7 @@ Feature: User gets notified when someone follows them
     When I sign in via the login page as "Dan/foo"
     And I go to the profile page for "Dan"
     And I uncheck "Send me an SMS when somebody follows me"
-    And I press "Change Settings"
+    And I press the button to update follow notification status
     And I sign out
     And I sign in via the login page as "Vlad/foo"
     And I go to the user directory page

@@ -4,7 +4,7 @@ class Users::ActsController < ApplicationController
       format.js do
         user = User.find(params[:user_id])
         acts = user.acts.in_user_demo.recent(10).offset(params[:offset])
-        render :partial => 'shared/acts', :locals => {:acts => acts, :act_partial_path => 'users/small_act'}
+        render :partial => 'shared/new_acts', :locals => {:acts => acts}
       end
     end
   end
