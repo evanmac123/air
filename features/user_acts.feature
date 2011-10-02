@@ -71,7 +71,19 @@ Feature: User acts
     When "+15087407520" sends SMS "up the bar"
     Then "+15087407520" should have received an SMS including "Sorry, I don't understand what that means."
 
-  Scenario: User can act with a standard playbook rule (belonging to no demo)
+  Scenario: User can act with a standard playbook rule (belonging to no demo) if demo supports it
+    Given the following demo exists:
+      | company name | use_standard_playbook |
+      | CustomCo     | false                 |
+    And the following user exists:
+      | phone_number | demo                   |
+      | +14152613077 | company_name: CustomCo |
+    And the following rule exists:
+      | demo                   | reply                     |
+      | company_name: CustomCo | Headcheese is disgusting. |
+    And the following rule value exists:
+      | value          | rule                             |
+      | ate headcheese | reply: Headcheese is disgusting. |
     When "+15087407520" sends SMS "do good thing"
     And I sign in via the login page as "Dan/foo"
     And I go to the acts page
@@ -79,6 +91,10 @@ Feature: User acts
     And I should see the following act:
       | name | act                             | points |
       | Dan  | do good thing  | 10     |
+    When "+14152613077" sends SMS "do good thing"
+    Then "+14152613077" should not have received an SMS including "Good for you."
+    When "+14152613077" sends SMS "ate headcheese"
+    Then "+14152613077" should have received an SMS including "Headcheese is disgusting."
 
   Scenario: User gets a reply from the game on acting with points and ranking information
     When "+15087407520" sends SMS "ate banana"

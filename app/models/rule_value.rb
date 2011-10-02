@@ -22,7 +22,12 @@ class RuleValue < ActiveRecord::Base
   end
 
   def self.in_same_demo_as(other)
-    select('rule_values.*').joins('INNER JOIN rules ON rules.id = rule_values.rule_id').where("rules.demo_id IS NULL or (rules.demo_id = ?)",  other.demo_id)
+    where_clause = "(rules.demo_id = ?)"
+    if other.demo.use_standard_playbook
+      where_clause += " OR rules.demo_id IS NULL"
+    end
+
+    select('rule_values.*').joins('INNER JOIN rules ON rules.id = rule_values.rule_id').where(where_clause, other.demo_id)
   end
 
   def self.oldest

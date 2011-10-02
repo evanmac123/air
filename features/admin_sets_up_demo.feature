@@ -30,6 +30,7 @@ Feature: Admin sets up demo
     And I fill in "Threshold to credit user who referred you to the game (in minutes)" with "60"
     And I fill in "Bonus for referring another to the game" with "5"
     And I fill in "Points for connecting to another player" with "10"
+    And I uncheck "Use standard playbook rules"
     And I press "Submit"
     Then I should be on the admin "3M" demo page
     And I should see "100 points to win"
@@ -46,6 +47,7 @@ Feature: Admin sets up demo
     And I should see "Levels: level 1 (N00b) at 10 points"
     And I should see "Bonus for referring another user to the game: 5 points (with a 60 minute threshold)"
     And I should see "Points for connecting to another user: 10"
+    And I should see "Game will not use standard playbook rules, only custom rules."
 
   Scenario: Correct defaults
     Given I am on the admin page
@@ -66,6 +68,7 @@ Feature: Admin sets up demo
     And I should see "No followup message"
     And I should see "No bonus for referring another user to the game"
     And I should see "No points for connecting to another user"
+    And I should see "Game will use standard playbook rules as well as custom rules."
 
   Scenario: Appropriate restrictions on text that gets SMSed
     Given I am on the admin page

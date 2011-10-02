@@ -95,6 +95,15 @@ Game
     No points for connecting to another user.
   <% end %>
 </p>
+
+<p>
+  <% if @demo.use_standard_playbook %>
+    Game will use standard playbook rules as well as custom rules.
+  <% else %>
+    Game will not use standard playbook rules, only custom rules.
+  <% end %>
+</p>
+
 <p class="explanation"><%= translate('.explanation', :default => "Add HR people from %{company} to this demo, then send them an invitation to the demo.", :company => @demo.company_name) %></p>
 
 <p><%= link_to "Edit basic settings for this game", edit_admin_demo_path(@demo) %></p>

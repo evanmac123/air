@@ -34,6 +34,8 @@
     <%= form.input :credit_game_referrer_threshold, :label => "Threshold to credit user who referred you to the game (in minutes)" %>
   <% end %>
 
+  <%= form.input :use_standard_playbook, :label => "Use standard playbook rules" %>
+
   <%= form.buttons do %>
     <%= form.submit 'Submit', :disable_with => 'Please wait...' %>
   <% end %>
