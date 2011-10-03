@@ -2,13 +2,13 @@
   <h3>Mobile Number</h3>
   <%= semantic_form_for current_user, :url => account_phone_path do |form| %>
     <%= form.input :phone_number, :label => 'Enter your new mobile number', :input_html => {:value => current_user.phone_number.as_pretty_phone} %>
-    <%= image_submit_tag "new_activity/btn_save.png" %>
+    <%= image_with_hover_submit_tag "new_activity/btn_save.png", '#save-phone', :id => 'save-phone' %>
   <% end %>
 
   <h3>Profile Picture</h3>
   <%= semantic_form_for current_user, :url => account_avatar_path, :html => {:multipart => true, :class => 'set-avatar'} do |form| %>
     <%= form.input :avatar, :label => 'Choose an image for your picture.' %>
-    <%= image_submit_tag "new_activity/btn_save.png" %>
+    <%= image_with_hover_submit_tag "new_activity/btn_save.png", '#save-avatar', :id => 'save-avatar' %>
     <p class="loading-message">Uploading, this may take a minute.</p>
   <% end %>
 
@@ -23,12 +23,12 @@
   <h3>Username (Unique ID)</h3>
   <%= semantic_form_for current_user, :url => account_sms_slug_path do |form| %>
     <%= form.input :sms_slug, :label => 'Enter a new username' %>
-    <%= image_submit_tag "new_activity/btn_save.png" %>
+    <%= image_with_hover_submit_tag "new_activity/btn_save.png", '#save-username', :id => 'save-username' %>
   <% end %>
 
   <h3>Text Settings</h3>
   <%= semantic_form_for current_user, :url => account_path, :html => {:class => 'text-settings'} do |form| %>
     <%= form.input :send_follow_notification_sms, :label => 'Send me an SMS when somebody follows me' %>
-    <%= image_submit_tag "new_activity/btn_save.png" %>
+    <%= image_with_hover_submit_tag "new_activity/btn_save.png", '#save-text-settings', :id => 'save-text-settings' %>
   <% end %>
 </div>
