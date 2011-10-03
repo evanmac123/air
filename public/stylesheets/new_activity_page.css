@@ -640,24 +640,26 @@ fieldset#levels input {
     list-style: none;
     border: solid 2px #bebebe; }
     #fans-wrapper ul li {
-      padding: 30px 15px 15px 10px;
+      padding: 15px 15px 15px 10px;
       border-bottom: solid 1px #bebebe;
       position: relative; }
       #fans-wrapper ul li .associate-details {
         position: absolute;
-        top: 25px;
+        top: 10px;
         left: 75px;
+        color: #58585a;
         font-size: 14px; }
         #fans-wrapper ul li .associate-details .associate-name a, #fans-wrapper ul li .associate-details .associate-name a:link, #fans-wrapper ul li .associate-details .associate-name a:visited {
-          color: #3e5d94; }
+          color: #3e5d94;
+          font-weight: bold; }
       #fans-wrapper ul li .associate-points {
         font-size: 20px;
         font-weight: bold;
         color: #339e3e;
         position: absolute;
-        top: 22px;
+        top: 7px;
         left: 210px; }
       #fans-wrapper ul li form {
         position: absolute;
-        top: 25px;
+        top: 10px;
         right: 15px; }
