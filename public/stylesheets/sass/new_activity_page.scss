@@ -243,6 +243,7 @@ form .submit-input {
 #main-wrapper {
   padding: 25px 50px 25px $left-gutter;
   width: 570px - $left-gutter;
+  min-height: 800px;
   float: left;
 
   background-color: #ffffff;
@@ -405,6 +406,10 @@ pre {
 
 /* Activity Feed */
 
+li.act-shim {
+  clear: both;
+  border-bottom: solid #d7d7d7 1px;
+}
 
 ul#acts {
   list-style: none;
@@ -482,11 +487,6 @@ ul#acts {
         height: 43px;
       }
     }
-  }
-
-  li.act-shim {
-    clear: both;
-    border-bottom: solid #d7d7d7 1px;
   }
 
   li.small-act {
@@ -595,6 +595,10 @@ body.users-show {
     margin-bottom: 30px;
 
     position: relative;
+
+    label {
+      margin-bottom: 5px;
+    }
 
     input[type="text"], input[type="tel"], input[type="file"] {
       width: 220px;

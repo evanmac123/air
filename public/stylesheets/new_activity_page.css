@@ -169,6 +169,7 @@ form .submit-input {
 #main-wrapper {
   padding: 25px 50px 25px 75px;
   width: 495px;
+  min-height: 800px;
   float: left;
   background-color: #ffffff;
   border-right: solid #b9c2c7 1px; }
@@ -274,6 +275,10 @@ pre {
   padding: 0px; }
 
 /* Activity Feed */
+li.act-shim {
+  clear: both;
+  border-bottom: solid #d7d7d7 1px; }
+
 ul#acts {
   list-style: none;
   margin-top: 0;
@@ -321,9 +326,6 @@ ul#acts {
     ul#acts li.act .avatar43 img {
       width: 43px;
       height: 43px; }
-  ul#acts li.act-shim {
-    clear: both;
-    border-bottom: solid #d7d7d7 1px; }
   ul#acts li.small-act .act-details {
     width: 478px; }
   ul#acts li.small-act p {
@@ -397,6 +399,8 @@ body.users-show #connections a {
     margin-bottom: 30px;
     position: relative;
     /* Work around some stupidity in Formtastic */ }
+    .account-controls form label {
+      margin-bottom: 5px; }
     .account-controls form input[type="text"], .account-controls form input[type="tel"], .account-controls form input[type="file"] {
       width: 220px; }
     .account-controls form input[type="image"] {
