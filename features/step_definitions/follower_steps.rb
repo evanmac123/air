@@ -49,6 +49,14 @@ When /^I unfollow "(.*?)"$/ do |username|
   end
 end
 
+When /^I press the button to see more people I am following$/ do
+  page.find(:css, '#fans-of .see-more').click
+end
+
+When /^I press the button to see more followers$/ do
+  page.find(:css, '#fans .see-more').click
+end
+
 Then /^I should see these followers:$/ do |table|
   with_scope '#followers' do
     table.hashes.each do |row_hash|

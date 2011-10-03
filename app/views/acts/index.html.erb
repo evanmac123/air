@@ -16,17 +16,13 @@
 
     <%= image_tag 'spinner.gif', :id => 'see-more-spinner' %>
 
-    <% content_for :javascript do %>
-      <%= javascript_tag do %>
-        var actOffset = <%= @acts.length %>;
-
-        $('#see-more').bind('click', function(e) {
-          $('#see-more-spinner').show();
-          $.get('activity.js', {offset: actOffset});
-          e.preventDefault();
-        });
-      <% end %>
-    <% end %>
+    <%= render 'shared/bind_see_more', 
+      :offset_var_name => 'actOffset', 
+      :current_offset => @acts.length,
+      :button_selector => '#see-more',
+      :spinner_selector => '#see-more-spinner',
+      :path => 'activity.js'
+    %>
   </div>
 </div>
 

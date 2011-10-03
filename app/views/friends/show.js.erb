@@ -1,0 +1,9 @@
+<%= render "shared/append",
+  :offset_var_name    => 'friendsOffset',
+  :new_content_length => @friends.length,
+  :new_content        => (render :partial => 'shared/new_associate', :collection => @friends, :as => :associate, :locals => {:button_type => :unfollow}),
+  :append_target      => "#followings",
+  :spinner_selector   => "#fans-of .spinner"
+%>
+
+$('#fans-of .see-more').hide();

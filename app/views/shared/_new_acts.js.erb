@@ -1,9 +1,9 @@
-<% append_target ||= '#acts' %>
-<% act_partial_path ||= 'shared/new_act.html' %>
+<%= render 'shared/append',
+  :offset_var_name => 'actOffset',
+  :new_content_length => acts.length,
+  :append_target => '#acts',
+  :new_content => (render :partial => 'shared/new_act.html', :collection => acts, :as => :act),
+  :spinner_selector => '#see-more-spinner'
+%>
 
-actOffset += <%= acts.length %>;
-var newActContent = '<%= escape_javascript(render :partial => act_partial_path, :collection => acts, :as => :act) %>';
-
-$('<%= append_target %>').append(newActContent);
-$('#see-more-spinner').hide();
 $('#see-more').parents('form.button_to').show();

@@ -1,0 +1,11 @@
+<% content_for :javascript do %>
+  <%= javascript_tag do %>
+    var <%= offset_var_name %> = <%= current_offset %>;
+
+    $('<%= button_selector %>').bind('click', function(e) {
+      $('<%= spinner_selector %>').show();
+      $.get('<%= path %>', {offset: <%= offset_var_name %>});
+      e.preventDefault();
+    });
+  <% end %>
+<% end %>

@@ -155,6 +155,10 @@ img {
   width: 925px + $left-gutter;
 }
 
+.spinner {
+  display: none;
+}
+
 $friends-page-column-width: 454px;
 .friends {
   #main, #secondary {
