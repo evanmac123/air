@@ -807,31 +807,6 @@ textarea#bad_message_reply_body {
   vertical-align: middle;
 }
 
-ul#followings, ul#followers, ul#other-users {
-  list-style: none;
-  margin-top: 0;
-
-  li.associate {
-    form {
-      margin-top: 2px;
-      margin-bottom: 10px;
-    }
-
-    img {
-      width: 48px;
-      height: 48px;
-      padding: 0;
-      border: none;
-    }
-  }
-}
-
-ul#followings, ul#followers {
-  li.associate {
-    width: $friends-page-column-width - 14px;
-  }
-}
-
 ul#other-users {
   li.associate {
     form {
@@ -929,5 +904,70 @@ fieldset#levels {
 
   input {
     width: 250px;
+  }
+}
+
+#fans-wrapper {
+  position: relative;
+
+  h2 {
+    padding-left: 10px;
+  }
+
+  #fans-of, #fans {
+    position: absolute;
+    top: 25px;
+  }
+
+  #fans-of {
+    left: 80px;
+  }
+
+  #fans {
+    left: 610px;
+  }
+
+  ul {
+    width: 390px;
+    margin-top: 10px;
+    background: #ffffff;
+    list-style: none;
+    border: solid 2px #bebebe;
+
+    li {
+      padding: 30px 15px 15px 10px;
+      border-bottom: solid 1px #bebebe;
+      position: relative;
+
+      .associate-details {
+        position: absolute;
+        top: 25px;
+        left: 75px;
+
+        font-size: 14px;
+
+        .associate-name {
+          a, a:link, a:visited {
+            color: #3e5d94;
+          }
+        }
+      }
+
+      .associate-points {
+        font-size: 20px;
+        font-weight: bold;
+        color: #339e3e;
+
+        position: absolute;
+        top: 22px;
+        left: 210px;
+      }
+
+      form {
+        position: absolute;
+        top: 25px;
+        right: 15px;
+      }
+    }
   }
 }

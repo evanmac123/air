@@ -1,0 +1,23 @@
+<li class="associate" id="<%=dom_id(associate)%>">
+  <div class="avatar48">
+    <%= default_avatar_tag associate, :alt => associate.name %>
+  </div>
+
+  <div class="associate-details">
+    <span class="associate-name"><%= link_to(associate.name, associate) %></span>
+    <br/>
+
+    Fan of <span class="fan-count" id="followers-count-<%= associate.id %>"><%= following_count_phrase(associate) %></span><br/>
+    Has <span class="fan-count" id="followers-count-<%= associate.id %>"><%= followers_count_phrase(associate) %></span>.
+  </div>
+
+  <div class="associate-points">
+    <%= pluralize associate.points, "pt" %>
+  </div>
+
+  <% if button_type == :unfollow %>
+    <%= unfollow_button associate %>
+  <% else %>
+    <%= follow_button associate %>
+  <% end %>
+</li>

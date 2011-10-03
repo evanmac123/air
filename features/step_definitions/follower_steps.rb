@@ -6,9 +6,9 @@ def expect_user_details(name, button_type)
 
   page.should have_link(user.name)
 
-  page.should have_content("#{user.points} points")
-  page.should have_content("fan of " + pluralize(user.following_count, 'person'))
-  page.should have_content("has " + pluralize(user.followers_count, 'fan'))
+  page.should have_content("#{user.points} pts")
+  page.should have_content("Fan of " + pluralize(user.following_count, 'person'))
+  page.should have_content("Has " + pluralize(user.followers_count, 'fan'))
 
   page.should have_button(button_type.capitalize)
 end

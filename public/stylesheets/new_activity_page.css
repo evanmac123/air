@@ -556,21 +556,6 @@ textarea#bad_message_reply_body {
   margin: 0;
   vertical-align: middle; }
 
-ul#followings, ul#followers, ul#other-users {
-  list-style: none;
-  margin-top: 0; }
-  ul#followings li.associate form, ul#followers li.associate form, ul#other-users li.associate form {
-    margin-top: 2px;
-    margin-bottom: 10px; }
-  ul#followings li.associate img, ul#followers li.associate img, ul#other-users li.associate img {
-    width: 48px;
-    height: 48px;
-    padding: 0;
-    border: none; }
-
-ul#followings li.associate, ul#followers li.associate {
-  width: 440px; }
-
 ul#other-users li.associate form {
   position: absolute;
   top: 15px;
@@ -633,3 +618,43 @@ fieldset#levels label {
   display: inline; }
 fieldset#levels input {
   width: 250px; }
+
+#fans-wrapper {
+  position: relative; }
+  #fans-wrapper h2 {
+    padding-left: 10px; }
+  #fans-wrapper #fans-of, #fans-wrapper #fans {
+    position: absolute;
+    top: 25px; }
+  #fans-wrapper #fans-of {
+    left: 80px; }
+  #fans-wrapper #fans {
+    left: 610px; }
+  #fans-wrapper ul {
+    width: 390px;
+    margin-top: 10px;
+    background: #ffffff;
+    list-style: none;
+    border: solid 2px #bebebe; }
+    #fans-wrapper ul li {
+      padding: 30px 15px 15px 10px;
+      border-bottom: solid 1px #bebebe;
+      position: relative; }
+      #fans-wrapper ul li .associate-details {
+        position: absolute;
+        top: 25px;
+        left: 75px;
+        font-size: 14px; }
+        #fans-wrapper ul li .associate-details .associate-name a, #fans-wrapper ul li .associate-details .associate-name a:link, #fans-wrapper ul li .associate-details .associate-name a:visited {
+          color: #3e5d94; }
+      #fans-wrapper ul li .associate-points {
+        font-size: 20px;
+        font-weight: bold;
+        color: #339e3e;
+        position: absolute;
+        top: 22px;
+        left: 210px; }
+      #fans-wrapper ul li form {
+        position: absolute;
+        top: 25px;
+        right: 15px; }
