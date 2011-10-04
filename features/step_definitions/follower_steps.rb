@@ -4,21 +4,28 @@ def expect_user_details(name, button_type)
   user = User.find_by_name(name)
   user.should_not be_nil
 
-  page.should have_link(user.name)
+  with_scope "##{dom_id(user)}" do
+    page.should have_link(user.name)
 
-  page.should have_content("#{user.points} pts")
-  page.should have_content("Fan of " + pluralize(user.following_count, 'person'))
-  page.should have_content("Has " + pluralize(user.followers_count, 'fan'))
+    page.should have_content("#{user.points} pts")
+    page.should have_content("Fan of " + pluralize(user.following_count, 'person'))
+    page.should have_content("Has " + pluralize(user.followers_count, 'fan'))
 
-  page.should have_button(button_type.capitalize)
+    case button_type
+    when 'be a fan'
+      page.should have_css('.be-a-fan')
+    when 'de-fan'
+      page.should have_css('.defan')
+    end
+  end
 end
 
-def expect_user_friendship_path_button(user, method, text, sense)
+def expect_user_friendship_path_button(user, method, dom_class, sense)
   expected_path = user_friendship_path(user)
 
   main_form_selector = "form[@action='#{expected_path}']" 
 
-  follow_button_selector = "#{main_form_selector} input[@type='submit'][@value='#{text}']"
+  follow_button_selector = "#{main_form_selector} input.#{dom_class}[@type='image']"
   
   method_field_selector = if (method.downcase == 'post')
                             nil
@@ -41,11 +48,20 @@ Given /^"(.*?)" follows "(.*?)"$/ do |follower_name, followed_name|
   Friendship.create(:user => follower, :friend => followed)
 end
 
+# "When I follow" was taken by web_steps.rb, for links
+When /^I fan "(.*?)"$/ do |username|
+  user = User.find_by_name(username)
+
+  with_scope "##{dom_id(user)}" do
+    find(:css, '.be-a-fan').click
+  end
+end
+
 When /^I unfollow "(.*?)"$/ do |username|
   user = User.find_by_name(username)
 
   with_scope "##{dom_id(user)}" do
-    click_button "De-fan"
+    find(:css, '.defan').click
   end
 end
 
@@ -78,12 +94,16 @@ Then /^I should( not)? see an? (un)?follow button for "(.*?)"$/ do |sense, unfol
 
   user = User.find_by_name(user_name)
 
-  method, text = if unfollow_expected
-                   ['delete', 'De-fan']
+  method, dom_class = if unfollow_expected
+                   ['delete', 'defan']
                  else
-                   ['post', 'Be a fan']
+                   ['post', 'be-a-fan']
                  end
 
-  expect_user_friendship_path_button(user, method, text, sense)
+  expect_user_friendship_path_button(user, method, dom_class, sense)
+end
+
+Then /^all follow buttons should be disabled$/ do
+  page.all(:css, 'input.be-a-fan').each{|follow_button| follow_button['disabled'].should be_present}
 end
 

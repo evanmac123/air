@@ -60,7 +60,7 @@ Feature: Following and follower lists
       | Dirk    | be a fan      |
 
   Scenario: Following user from following list
-    When I press "Be a fan"
+    When I fan "Colby"
     Then I should be on the friends page
     And I should see these people I am following:
       | name    | button_type  |

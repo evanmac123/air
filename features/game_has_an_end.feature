@@ -34,22 +34,22 @@ Feature: Game has an end
   Scenario: Following after the game ends via site does nothing
     Given time is frozen at "2010-05-01 12:00:00 UTC"
     When I go to the profile page for "Vlad"
-    And I press "Be a fan"
+    And I follow "Vlad"
     And I go to the user directory page
-    And I press "Be a fan"
+    And I follow "Vlad"
     And I go to the friends page
-    And I press "Be a fan"
+    And I follow "Vlad"
     And I go to the activity page
     Then I should not see "Phil is now a fan of Vlad"
 
   Scenario: After the game ends friending buttons are disabled
     Given time is frozen at "2010-05-01 12:00:00 UTC"
     When I go to the profile page for "Vlad"
-    Then "Be a fan" should be disabled
+    Then all follow buttons should be disabled
     When I go to the user directory page
-    Then "Be a fan" should be disabled
+    Then all follow buttons should be disabled
     When I go to the friends page
-    Then "Be a fan" should be disabled
+    Then all follow buttons should be disabled
 
   Scenario: Following after the game ends via SMS does nothing
     Given time is frozen at "2010-05-01 12:00:00 UTC"

@@ -19,24 +19,24 @@ Feature: User gets points for connecting to another (if demo configured for it)
     When I sign in via the login page as "Dan/foo"
 
   Scenario: User gets points for connecting
-    When I go to the profile page for "Vlad"
-    And I press "Be a fan"
+    When I go to the user directory page
+    And I fan "Vlad"
     And I go to the activity page
     Then I should see "Dan is now a fan of Vlad"
     And I should see "5 pts"
 
   Scenario: User gets extra points for connection to a user with a bounty
-    When I go to the profile page for "Phil"
-    And I press "Be a fan"
+    When I go to the user directory page
+    And I fan "Phil"
     And I go to the activity page
     Then I should see "Dan is now a fan of Phil"
     And I should see "12 pts"
 
   Scenario: User gets points for connecting just once
-    When I go to the profile page for "Vlad"
-    And I press "Be a fan"
-    And I press "De-fan"
-    And I press "Be a fan"
+    When I go to the user directory page
+    And I fan "Vlad"
+    And I unfollow "Vlad"
+    And I fan "Vlad"
     And I go to the activity page
     Then I should see "5 pts" just once
 

@@ -1,10 +1,14 @@
 module FollowHelper
-  def follow_button(user, button_to_options={})
-    button_to "Be a fan", user_friendship_path(user), button_to_options.merge(disabled_hash(user))
+  def follow_button(user, scope)
+    form_tag user_friendship_path(user) do
+      image_with_hover_submit_tag "new_activity/btn_beafan.png", "#{scope} .be-a-fan", :class => "be-a-fan", :disabled => user.demo.game_over?
+    end
   end
 
-  def unfollow_button(user, button_to_options={})
-    button_to "De-fan", user_friendship_path(user), button_to_options.merge(disabled_hash(user)).merge(:method => :delete)
+  def unfollow_button(user, scope)
+    form_tag user_friendship_path(user), :method => :delete do
+      image_with_hover_submit_tag "new_activity/btn_defan.png", "#{scope} .defan", :class => "defan", :disabled => user.demo.game_over?
+    end
   end
 
   protected

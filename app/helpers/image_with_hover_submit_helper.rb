@@ -1,4 +1,4 @@
-module ActionView::Helpers::FormTagHelper
+module ImageWithHoverSubmitHelper
   def image_with_hover_submit_tag(src, selector, options={})
     clipped_src = src.gsub(/\.png$/, '')
     hover_src = clipped_src + '_hover.png'

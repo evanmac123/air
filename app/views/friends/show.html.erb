@@ -5,7 +5,7 @@
       <%= render :partial => 'shared/new_associate', :collection => @friends, :as => :associate, :locals => {:button_type => :unfollow} %>
     </ul>
 
-    <%= render 'see_more' %>
+    <%= render 'see_more', :scope => '#fans-of' %>
 
     <%= render 'shared/bind_see_more', 
       :offset_var_name => 'friendsOffset', 
@@ -25,7 +25,7 @@
       <% end %>
     </ul>
 
-    <%= render 'see_more' %>
+    <%= render 'see_more', :scope => "#fans" %>
 
     <%= render 'shared/bind_see_more', 
       :offset_var_name  => 'followersOffset', 

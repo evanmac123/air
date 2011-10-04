@@ -51,11 +51,11 @@
 
   <% if @viewing_other %>
     <div id="follow-target">
-        <% if current_user.following?(@user) %>
-          <%= render 'friendships/unfollow', :user => @user %>
-        <% else %>
-          <%= render 'friendships/follow',   :user => @user %>
-        <% end %>
+      <% if current_user.following?(@user) %>
+        <%= unfollow_button @user, "#follow-target" %>
+      <% else %>
+        <%= follow_button @user, "#follow-target" %>
+      <% end %>
     </div>
   <% end %>
 

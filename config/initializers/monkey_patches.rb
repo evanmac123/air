@@ -5,4 +5,3 @@ Dir.glob(ruby_files).each do |file|
 end
 
 require Rails.root.join('lib', 'monkey_patches', 'active_record', 'relation')
-require Rails.root.join('lib', 'monkey_patches', 'action_view', 'helpers', 'form_tag_helper')

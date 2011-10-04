@@ -16,8 +16,8 @@
   </div>
 
   <% if button_type == :unfollow %>
-    <%= unfollow_button associate %>
+    <%= unfollow_button associate, "##{dom_id(associate)}" %>
   <% else %>
-    <%= follow_button associate %>
+    <%= follow_button associate, "##{dom_id(associate)}"  %>
   <% end %>
 </li>
