@@ -592,22 +592,16 @@ body.users-show {
   padding-top: 30px;
 
   form {
-    margin-bottom: 30px;
+    margin-bottom: 40px;
 
     position: relative;
-
-    label {
-      margin-bottom: 5px;
-    }
 
     input[type="text"], input[type="tel"], input[type="file"] {
       width: 220px;
     }
 
     input[type="image"] {
-      position: absolute;
-      top: 20px;
-      right: -35px;
+      margin-top: 10px;
     }
 
     label[for="user_send_follow_notification_sms"] {
