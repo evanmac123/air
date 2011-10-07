@@ -2,6 +2,8 @@ class ActsController < ApplicationController
   layout :determine_layout
 
   def index
+    @current_link_text = "Home"
+
     @new_appearance = true
 
     @demo              = current_user.demo

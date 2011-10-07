@@ -1,18 +1,18 @@
 <div id="fans-wrapper">
   <div id="fans-of" class="fan-column">
-    <h2>People You're A Fan Of</h2>
     <ul id="followings">
+      <h2>People You're A Fan Of</h2>
       <%= render :partial => 'shared/new_associate', :collection => @friends, :as => :associate, :locals => {:button_type => :unfollow} %>
     </ul>
 
     <%= render 'see_more', :scope => '#fans-of' %>
 
     <%= render 'shared/bind_see_more', 
-      :offset_var_name => 'friendsOffset', 
-      :current_offset => @friends.length,
-      :button_selector => '#fans-of .see-more',
+      :offset_var_name  => 'friendsOffset', 
+      :current_offset   => @friends.length,
+      :button_selector  => '#fans-of .see-more',
       :spinner_selector => '#fans-of .spinner',
-      :path => 'friends.js'
+      :path             => 'friends.js'
     %>
   </div>
 
@@ -32,7 +32,8 @@
       :current_offset   => @followers.length,
       :button_selector  => '#fans .see-more',
       :spinner_selector => '#fans .spinner',
-      :path             => 'followers.js'
+      :path             => 'followers.js',
+      :after            => "resizeFansOf()"
     %>
   </div>
 </div>

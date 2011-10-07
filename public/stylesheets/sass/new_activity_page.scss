@@ -131,6 +131,10 @@ img {
         padding-right: 0;
       }
 
+      a.current-section {
+        color: #ffffff;
+      }
+
       a:hover {
         border-bottom: solid $dark-gray 1px;
       }
@@ -146,6 +150,10 @@ img {
       font-size: 13px;
     }
   }
+}
+
+.clear {
+  clear: both;
 }
 
 .explanation {
@@ -910,68 +918,71 @@ fieldset#levels {
 }
 
 #fans-wrapper {
-  position: relative;
+  margin: 20px 0 0 70px;
+  width: 930px;
+  background: #ffffff;
 
-  h2 {
-    padding-left: 10px;
-  }
+  .fan-column {
+    width: 390px;
+    display: inline-block;
+    vertical-align: top;
+    padding-bottom: 20px;
 
-  #fans-of, #fans {
-    position: absolute;
-    top: 25px;
+    h2 {
+      padding-left: 10px;
+      padding-top: 10px;
+    }
+
+    ul {
+      margin-top: 0;
+      list-style: none;
+
+      li {
+        padding: 15px 15px 15px 10px;
+        border-bottom: solid 1px #bebebe;
+        position: relative;
+
+        .associate-details {
+          position: absolute;
+          top: 12px;
+          left: 75px;
+
+          color: #58585a;
+          font-size: 14px;
+
+          .associate-name {
+            a, a:link, a:visited {
+              color: #3e5d94;
+              font-weight: bold;
+            }
+          }
+        }
+
+        .associate-points {
+          font-size: 20px;
+          font-weight: bold;
+          color: #339e3e;
+
+          position: absolute;
+          top: 9px;
+          left: 210px;
+        }
+
+        form {
+          position: absolute;
+          top: 13px;
+          right: 15px;
+        }
+      }
+    }
   }
 
   #fans-of {
-    left: 80px;
+    margin-left: 10px;
+    padding-right: 62px;
   }
 
   #fans {
-    left: 610px;
-  }
-
-  ul {
-    width: 390px;
-    margin-top: 10px;
-    background: #ffffff;
-    list-style: none;
-    border: solid 2px #bebebe;
-
-    li {
-      padding: 15px 15px 15px 10px;
-      border-bottom: solid 1px #bebebe;
-      position: relative;
-
-      .associate-details {
-        position: absolute;
-        top: 10px;
-        left: 75px;
-
-        color: #58585a;
-        font-size: 14px;
-
-        .associate-name {
-          a, a:link, a:visited {
-            color: #3e5d94;
-            font-weight: bold;
-          }
-        }
-      }
-
-      .associate-points {
-        font-size: 20px;
-        font-weight: bold;
-        color: #339e3e;
-
-        position: absolute;
-        top: 7px;
-        left: 210px;
-      }
-
-      form {
-        position: absolute;
-        top: 10px;
-        right: 15px;
-      }
-    }
+    margin-left: 63px;
   }
 }

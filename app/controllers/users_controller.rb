@@ -17,5 +17,7 @@ class UsersController < Clearance::UsersController
     @acts = @user.acts.in_user_demo.recent(10)
     @viewing_self = signed_in? && current_user == @user
     @viewing_other = signed_in? && current_user != @user
+
+    @current_link_text = "My Profile" if @viewing_self
   end
 end

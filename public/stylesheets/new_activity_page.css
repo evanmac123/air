@@ -85,6 +85,8 @@ img {
       .header .inner-header #account a.last {
         border-right: 0;
         padding-right: 0; }
+      .header .inner-header #account a.current-section {
+        color: #ffffff; }
       .header .inner-header #account a:hover {
         border-bottom: solid #2d2d2b 1px; }
       .header .inner-header #account img.navbar-separator {
@@ -93,6 +95,9 @@ img {
         top: 3px; }
     .header .inner-header #account.with-admin {
       font-size: 13px; }
+
+.clear {
+  clear: both; }
 
 .explanation {
   padding: 10px 0; }
@@ -623,43 +628,46 @@ fieldset#levels input {
   width: 250px; }
 
 #fans-wrapper {
-  position: relative; }
-  #fans-wrapper h2 {
-    padding-left: 10px; }
-  #fans-wrapper #fans-of, #fans-wrapper #fans {
-    position: absolute;
-    top: 25px; }
-  #fans-wrapper #fans-of {
-    left: 80px; }
-  #fans-wrapper #fans {
-    left: 610px; }
-  #fans-wrapper ul {
+  margin: 20px 0 0 70px;
+  width: 930px;
+  background: #ffffff; }
+  #fans-wrapper .fan-column {
     width: 390px;
-    margin-top: 10px;
-    background: #ffffff;
-    list-style: none;
-    border: solid 2px #bebebe; }
-    #fans-wrapper ul li {
-      padding: 15px 15px 15px 10px;
-      border-bottom: solid 1px #bebebe;
-      position: relative; }
-      #fans-wrapper ul li .associate-details {
-        position: absolute;
-        top: 10px;
-        left: 75px;
-        color: #58585a;
-        font-size: 14px; }
-        #fans-wrapper ul li .associate-details .associate-name a, #fans-wrapper ul li .associate-details .associate-name a:link, #fans-wrapper ul li .associate-details .associate-name a:visited {
-          color: #3e5d94;
-          font-weight: bold; }
-      #fans-wrapper ul li .associate-points {
-        font-size: 20px;
-        font-weight: bold;
-        color: #339e3e;
-        position: absolute;
-        top: 7px;
-        left: 210px; }
-      #fans-wrapper ul li form {
-        position: absolute;
-        top: 10px;
-        right: 15px; }
+    display: inline-block;
+    vertical-align: top;
+    padding-bottom: 20px; }
+    #fans-wrapper .fan-column h2 {
+      padding-left: 10px;
+      padding-top: 10px; }
+    #fans-wrapper .fan-column ul {
+      margin-top: 0;
+      list-style: none; }
+      #fans-wrapper .fan-column ul li {
+        padding: 15px 15px 15px 10px;
+        border-bottom: solid 1px #bebebe;
+        position: relative; }
+        #fans-wrapper .fan-column ul li .associate-details {
+          position: absolute;
+          top: 12px;
+          left: 75px;
+          color: #58585a;
+          font-size: 14px; }
+          #fans-wrapper .fan-column ul li .associate-details .associate-name a, #fans-wrapper .fan-column ul li .associate-details .associate-name a:link, #fans-wrapper .fan-column ul li .associate-details .associate-name a:visited {
+            color: #3e5d94;
+            font-weight: bold; }
+        #fans-wrapper .fan-column ul li .associate-points {
+          font-size: 20px;
+          font-weight: bold;
+          color: #339e3e;
+          position: absolute;
+          top: 9px;
+          left: 210px; }
+        #fans-wrapper .fan-column ul li form {
+          position: absolute;
+          top: 13px;
+          right: 15px; }
+  #fans-wrapper #fans-of {
+    margin-left: 10px;
+    padding-right: 62px; }
+  #fans-wrapper #fans {
+    margin-left: 63px; }

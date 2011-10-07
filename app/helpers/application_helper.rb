@@ -32,6 +32,11 @@ module ApplicationHelper
   def navbar_link_to(link_text, path, options={})
     last = options.delete(:last)
 
+    if link_text == @current_link_text
+      options[:class] ||= ""
+      options[:class] += "current-section"
+    end
+
     output = link_to(link_text, path, options)
     unless last
       output += image_tag('new_activity/navbar_separator.png', :class => 'navbar-separator')
