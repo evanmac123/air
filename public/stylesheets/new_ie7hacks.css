@@ -1,0 +1,13 @@
+#secondary ul.top-scores .score {
+  position: relative;
+  top: -32px;
+  right: 5px; }
+
+.account-controls label {
+  position: relative;
+  left: -16px; }
+.account-controls input[type=image] {
+  display: block; }
+
+#fans-wrapper #fans {
+  margin-left: 10px; }

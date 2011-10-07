@@ -5,6 +5,14 @@
   <title>H Engage</title>
   <%= stylesheet_link_tag 'http://font.thoughtbot.com/chunk.css', :flutie %>
   <%= stylesheet_link_tag (@new_appearance ? 'new_activity_page' : 'screen' ) %>
+  <% if @new_appearance %>
+    <!--[if IE 7]>
+      <%= stylesheet_link_tag 'new_ie7hacks' %>
+    <![endif]-->
+    <!--[if IE 8]>
+      <%= stylesheet_link_tag 'new_ie8hacks' %>
+    <![endif]-->
+  <% end %>
   <%= csrf_meta_tag %>
 </head>
 <body class="<%= body_class %>">
