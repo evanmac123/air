@@ -31,6 +31,8 @@ module SpecialCommand
       self.send_rankings_page(user, :use_offset => false, :reset_offset => true)
     when 'morerankings'
       self.send_rankings_page(user)
+    when 'help'
+      self.send_help_response(user)
     else
       self.credit_game_referrer(user, command_name)
     end
@@ -150,5 +152,23 @@ module SpecialCommand
     SMS.send_message(referring_user.phone_number, referrer_sms_text)
 
     referred_sms_text
+  end
+
+  def self.send_help_response(user)
+    # This is bad style, but doing it in a more correct style resulted in
+    # interpreter crashes that I am not interested in investigating.
+
+    time = Time.now.in_time_zone("Eastern Time (US & Canada)")
+    hour = time.hour
+
+    response_text = if hour >= 9 and hour < 21
+                      "Got it. We'll have someone get back to you shortly."
+                    else
+                      "Got it. We'll have someone get back to you during our business hours, 9 AM to 9 PM Eastern time."
+                    end
+
+    user.send_support_request
+
+    parsing_success_message(response_text)
   end
 end

@@ -40,13 +40,6 @@ describe Act, ".parse" do
   context "when user is in the game" do
     let(:user) { Factory(:user, :phone_number => '+16175551212') }
 
-    context "and asks for help" do
-      it "helps them" do
-        reply = 'Earn points by texting the healthy things you do and answering the occasional question.'
-        Act.parse(user, "help").should == reply
-      end
-    end
-
     context "and types a good value" do
       let(:rule_value) { Factory :rule_value, :is_primary => true, :rule => (Factory :rule, :demo => user.demo) }
       let(:rule)       { rule_value.rule }

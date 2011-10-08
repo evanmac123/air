@@ -33,4 +33,15 @@ class Mailer < ActionMailer::Base
     mail :to      => address,
          :subject => subject_line
   end
+
+  def support_request(user_name, user_email, user_phone, game_name, sms_bodies)
+    @user_name = user_name
+    @user_email = user_email
+    @user_phone = user_phone
+    @game_name = game_name
+    @sms_bodies = sms_bodies
+
+    mail :to      => "support@hengage.com",
+         :subject => "Help request from core app for #{@user_name} of #{@game_name} (#{@user_email}, #{@user_phone})"
+  end
 end

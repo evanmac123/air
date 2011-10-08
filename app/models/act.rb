@@ -42,13 +42,6 @@ class Act < ActiveRecord::Base
 
     value = body.downcase.gsub(/\.$/, '').gsub(/\s+$/, '').gsub(/\s+/, ' ')
 
-    # TODO: perhaps move this to SpecialCommand
-    
-    if value == "help"
-      # record this somewhere
-      return parsing_success_message('Earn points by texting the healthy things you do and answering the occasional question.')
-    end
-
     if user.demo.game_over?
       return parsing_success_message("Thanks for playing! The game is now over. If you'd like more information e-mailed to you, please text MORE INFO.")
     end

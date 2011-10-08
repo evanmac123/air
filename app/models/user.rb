@@ -121,6 +121,12 @@ class User < ActiveRecord::Base
     response
   end
 
+  def send_support_request
+    latest_act_descriptions = RawSms.where(:from => self.phone_number).order("created_at DESC").limit(5).map(&:body)
+
+    Mailer.delay.support_request(self.name, self.email, self.phone_number, self.demo.company_name, latest_act_descriptions)
+  end
+
   def self.alphabetical
     order("name asc")
   end
