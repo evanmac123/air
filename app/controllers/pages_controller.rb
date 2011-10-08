@@ -1,5 +1,7 @@
 class PagesController < HighVoltage::PagesController
   skip_before_filter :authenticate
+  skip_before_filter :force_ssl
+
   before_filter :force_html_format
   before_filter :signed_out_only
 

@@ -3,10 +3,32 @@ class ApplicationController < ActionController::Base
 
   #has_mobile_fu
 
+  before_filter :force_ssl 
   before_filter :authenticate
 
   include Clearance::Authentication
   protect_from_forgery
+
+  protected
+
+  def force_ssl
+    if (Rails.env.development? || Rails.env.test?) && !$test_force_ssl
+      return
+    end
+
+    unless request.ssl?
+      redirect_hostname = request.subdomain.present? ? request.host : "www." + request.host
+      redirection_parameters = {
+        :protocol   => 'https', 
+        :host       => redirect_hostname, 
+        :action     => action_name, 
+        :controller => controller_name
+      }.reverse_merge(params)
+
+      redirect_to redirection_parameters
+      return false
+    end
+  end
 
   private
 
