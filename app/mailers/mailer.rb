@@ -42,6 +42,9 @@ class Mailer < ActionMailer::Base
     @sms_bodies = sms_bodies
 
     mail :to      => "support@hengage.com",
+         :from    => "support@hengage.com",
          :subject => "Help request from core app for #{@user_name} of #{@game_name} (#{@user_email}, #{@user_phone})"
+
+    headers['Reply-To'] = @user_email
   end
 end
