@@ -17,7 +17,7 @@ class ApplicationController < ActionController::Base
     end
 
     unless request.ssl?
-      redirect_hostname = request.subdomain.present? ? request.host : "www." + request.host
+      redirect_hostname = hostname_with_subdomain
       redirection_parameters = {
         :protocol   => 'https', 
         :host       => redirect_hostname, 
@@ -60,5 +60,10 @@ class ApplicationController < ActionController::Base
     if is_mobile_device? && not_ipad?
       request.format = :mobile
     end
+  end
+
+  # Used since our *.hengage.com SSL cert does not cover plain hengage.com.
+  def hostname_with_subdomain
+    request.subdomain.present? ? request.host : "www." + request.host
   end
 end
