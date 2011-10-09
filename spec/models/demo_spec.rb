@@ -21,6 +21,12 @@ describe Demo do
   it { should have_many(:levels) }
 end
 
+describe Demo, "when both begins_at and ends_at are set" do
+  it "should validate that ends_at is later than begins_at" do
+    Factory.build(:demo, :begins_at => Time.now + 2.hours, :ends_at => Time.now).should_not be_valid
+  end
+end
+
 describe Demo, "#welcome_message" do
   before(:each) do
     @demo = Factory :demo
@@ -72,9 +78,9 @@ describe Demo, "#game_over?" do
       Timecop.return
     end
 
-    context "before the ending time" do
+    context "at or before the ending time" do
       before(:each) do
-        Timecop.freeze(Time.parse("2010-05-01 11:59:59 UTC"))
+        Timecop.freeze(Time.parse("2010-05-01 12:00:00 UTC"))
       end
 
       it "should return false" do
@@ -84,7 +90,7 @@ describe Demo, "#game_over?" do
 
     context "after that ending time" do
       before(:each) do
-        Timecop.freeze(Time.parse("2010-05-01 12:00:00 UTC"))
+        Timecop.freeze(Time.parse("2010-05-01 12:00:01 UTC"))
       end
 
       it "should return true" do

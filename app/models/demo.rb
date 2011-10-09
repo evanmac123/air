@@ -8,6 +8,8 @@ class Demo < ActiveRecord::Base
   has_many :bonus_thresholds, :dependent => :destroy
   has_many :levels, :dependent => :destroy
 
+  validate :end_after_beginning
+
   # We go through this rigamarole since we can move a user from one demo to
   # another, and usually we will only be concerned with acts belonging to the
   # current demo. The :conditions option on has_many isn't quite flexible
@@ -62,8 +64,20 @@ class Demo < ActiveRecord::Base
     )
   end
 
+  def game_not_yet_begun?
+    self.begins_at && Time.now < self.begins_at
+  end
+
   def game_over?
-    self.ends_at && Time.now >= self.ends_at
+    self.ends_at && Time.now > self.ends_at
+  end
+
+  def game_open?
+    !game_not_yet_begun? && !game_over?
+  end
+
+  def game_closed?
+    !game_open?
   end
 
   # This is meant to be called by a cron job just after midnight, to update
@@ -153,4 +167,9 @@ class Demo < ActiveRecord::Base
     end
   end
 
+  def end_after_beginning
+    if begins_at && ends_at && ends_at <= begins_at
+      errors.add(:begins_at, "must come before the ending time")
+    end
+  end
 end

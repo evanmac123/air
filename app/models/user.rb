@@ -418,7 +418,7 @@ class User < ActiveRecord::Base
   end
 
   def befriend(other)
-    return nil if self.demo.game_over?
+    return nil unless self.demo.game_open?
     self.friendships.create(:friend_id => other.id)
   end
 

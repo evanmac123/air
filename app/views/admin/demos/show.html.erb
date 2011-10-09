@@ -8,6 +8,15 @@
 
 <p>
 Game
+<% if @demo.begins_at %>
+  begins at <%= @demo.begins_at.winning_time_format %>
+<% else %>
+  began immediately upon creation
+<% end %>
+</p>
+
+<p>
+Game
 <% if @demo.ends_at %>
   ends at <%= @demo.ends_at.winning_time_format %>
 <% else %>

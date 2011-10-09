@@ -42,6 +42,10 @@ class Act < ActiveRecord::Base
 
     value = body.downcase.gsub(/\.$/, '').gsub(/\s+$/, '').gsub(/\s+/, ' ')
 
+    if user.demo.game_not_yet_begun?
+      return parsing_success_message("The game will begin #{user.demo.begins_at.winning_time_format}. Please try again after that time.")
+    end
+
     if user.demo.game_over?
       return parsing_success_message("Thanks for playing! The game is now over. If you'd like more information e-mailed to you, please text MORE INFO.")
     end

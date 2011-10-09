@@ -2,8 +2,8 @@ Feature: Admin edits existing demo
 
   Background:
     Given the following demo exists:
-      | company_name | victory_threshold | victory_verification_email | victory_verification_sms_number | seed_points | custom_welcome_message | ends_at                 | points_for_connecting | custom_victory_achievement_message | custom_victory_sms | custom_victory_scoreboard_message | followup_welcome_message | followup_welcome_message_delay | credit_game_referrer_threshold | game_referrer_bonus |
-      | FooCo        | 50                | phil@fooco.com             | +14155551212                    | 10          | Hi there               | 2011-05-01 12:00:00 UTC | 5                     | You won.                           | You won by SMS     | Won a bunch                       | Hi again.                | 20                             | 60                             | 5                   |
+      | company_name | victory_threshold | victory_verification_email | victory_verification_sms_number | seed_points | custom_welcome_message | begins_at               | ends_at                 | points_for_connecting | custom_victory_achievement_message | custom_victory_sms | custom_victory_scoreboard_message | followup_welcome_message | followup_welcome_message_delay | credit_game_referrer_threshold | game_referrer_bonus |
+      | FooCo        | 50                | phil@fooco.com             | +14155551212                    | 10          | Hi there               | 2011-04-01 12:00:00 UTC | 2011-05-01 12:00:00 UTC | 5                     | You won.                           | You won by SMS     | Won a bunch                       | Hi again.                | 20                             | 60                             | 5                   |
     And I sign in as an admin via the login page
     And I go to the admin "FooCo" demo page
     And I follow "Edit basic settings for this game"
@@ -24,13 +24,11 @@ Feature: Admin edits existing demo
       | Victory verification SMS number                       | +16175551212                 |
       | Bonus for referring another to the game               | 60                           |
       | Threshold to credit user who referred you to the game | 90                           |
-    And I select "2012" from "Year"
-    And I select "June" from "Month"
-    And I select "20" from "Day"
-    And I select "7 AM" from "Hour"
-    And I select "30" from "Minute"
+    And I set the start time to "April/20/2011/6 AM/25"
+    And I set the end time to "June/20/2012/7 AM/30"
     And I press "Submit"
     Then I should be on the admin "BarCo" demo page
+    And I should see "Game begins at April 20, 2011 at 06:25 AM Eastern"
     And I should see "Game ends at June 20, 2012 at 07:30 AM Eastern"
     And I should see "90 points to win"
     And I should see "Victory email to phil@barco.com"

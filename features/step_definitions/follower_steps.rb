@@ -103,7 +103,26 @@ Then /^I should( not)? see an? (un)?follow button for "(.*?)"$/ do |sense, unfol
   expect_user_friendship_path_button(user, method, dom_class, sense)
 end
 
-Then /^all follow buttons should be disabled$/ do
+Then /^all follow buttons on the page should be disabled$/ do
   page.all(:css, 'input.be-a-fan').each{|follow_button| follow_button['disabled'].should be_present}
 end
 
+Then /^"(.*?)" should not be able to follow "([^"]*)"$/ do |follower, followed|
+  When "I go to the profile page for \"#{followed}\""
+  And "I follow \"#{followed}\""
+  And "I go to the user directory page"
+  And "I follow \"#{followed}\""
+  And "I go to the friends page"
+  And "I follow \"#{followed}\""
+  And "I go to the activity page"
+  Then "I should not see \"#{follower} is now a fan of #{followed}\""
+end
+
+Then /^all follow buttons for "(.*?)" should be disabled$/ do |username|
+  When "I go to the profile page for \"#{username}\""
+  Then 'all follow buttons on the page should be disabled'
+  When 'I go to the user directory page'
+  Then 'all follow buttons on the page should be disabled'
+  When 'I go to the friends page'
+  Then 'all follow buttons on the page should be disabled'
+end
