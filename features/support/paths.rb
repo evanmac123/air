@@ -60,6 +60,9 @@ module NavigationHelpers
     when /the user bulk upload page for "(.*?)"/
       new_admin_demo_bulk_load_path(Demo.find_by_company_name($1))
 
+    when /the forbidden rule admin page/
+      admin_forbidden_rules_path
+
     else
       begin
         page_name =~ /the (.*) page/

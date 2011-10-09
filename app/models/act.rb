@@ -50,14 +50,14 @@ class Act < ActiveRecord::Base
       return parsing_success_message("Thanks for playing! The game is now over. If you'd like more information e-mailed to you, please text MORE INFO.")
     end
 
-    rule_value = RuleValue.in_same_demo_as(user).where(:value => value).first
+    rule_value = user.first_eligible_rule_value(value)
 
     if rule_value.nil? && value
       value_tokens = value.split(' ')
       referring_user_sms_slug = value_tokens.pop
       truncated_value = value_tokens.join(' ')
 
-      rule_value = RuleValue.in_same_demo_as(user).where(:value => truncated_value).first
+      rule_value = user.first_eligible_rule_value(truncated_value)
       referring_user = User.find_by_sms_slug(referring_user_sms_slug)
       if (rule_value && !referring_user)
         return parsing_error_message("We understood what you did, but not the user who referred you. Perhaps you could have them check their unique ID with the myid command?")
@@ -66,6 +66,10 @@ class Act < ActiveRecord::Base
       if referring_user == user
         return parsing_error_message("Now now. It wouldn't be fair to try to get extra points by referring yourself.")
       end
+    end
+
+    if rule_value && rule_value.forbidden?
+      return parsing_error_message("Sorry, that's not a valid command.")
     end
 
     rule = rule_value.try(:rule)

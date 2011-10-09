@@ -30,6 +30,9 @@ Feature: User acts
       | made toast    | reply: So you made toast.        |
       | up the bar    | reply: BarCorp rulez!            |
       | do good thing | reply: Good for you.             |
+    And the following forbidden rule values exist:
+      | value       |
+      | was naughty | 
     And time is frozen at "2011-05-23 00:00 UTC"
 
   Scenario: User acts via SMS
@@ -99,6 +102,26 @@ Feature: User acts
   Scenario: User gets a reply from the game on acting with points and ranking information
     When "+15087407520" sends SMS "ate banana"
     Then "+15087407520" should have received an SMS "Bananas are good for you. Points 2/50, rank 2/4."
+
+  Scenario: User tries an act that we've specifically forbidden
+    When "+15087407520" sends SMS "was naughty"
+    Then "+15087407520" should have received an SMS "Sorry, that's not a valid command."
+
+  Scenario: Acts allowed in demo take precedence over forbidden acts
+    Given the following demo exists:
+      | company name | victory threshold |
+      | NaughtyCo    | 200               |
+    And the following user exists:
+      | phone number | demo                    |
+      | +13025551212 | company_name: NaughtyCo |
+    And the following rule exists:
+      | reply            | points | demo                    |
+      | Naughty is good. | 10     | company_name: NaughtyCo |
+    And the following rule value exists:
+      | value       | rule                    |
+      | was naughty | reply: Naughty is good. |
+    When "+13025551212" sends SMS "was naughty"
+    Then "+13025551212" should have received an SMS including "Naughty is good. Points 10/200"
 
   Scenario: User can only get credit for rules up to their limits
     When "+15087407520" sends SMS "saw poster"

@@ -2,7 +2,7 @@ class RuleValue < ActiveRecord::Base
   belongs_to :rule
   has_one :demo, :through => :rule
 
-  validates_presence_of :value, :rule_id
+  validates_presence_of :value
 
   validate :value_has_more_than_one_character
   validate :at_most_one_primary_rule_value_per_rule
@@ -14,6 +14,13 @@ class RuleValue < ActiveRecord::Base
     self.value = self.value.strip.downcase.gsub(/\s+/, ' ')
   end
 
+  def forbidden?
+    self.rule_id.nil?
+  end
+
+  def not_forbidden?
+    !self.forbidden?
+  end
 
   def self.partially_matching_value(value)
     normalized_value = value.gsub(/[^[:alnum:][:space:]]/, '').strip
@@ -21,13 +28,13 @@ class RuleValue < ActiveRecord::Base
     self.select("rule_values.*, ts_rank(to_tsvector('english', value), query) AS rank").from("to_tsquery('#{query_string}') query, rule_values").where("suggestible = true AND is_primary = true AND to_tsvector('english', value) @@ query")
   end
 
-  def self.in_same_demo_as(other)
+  def self.visible_from_demo(other)
     where_clause = "(rules.demo_id = ?)"
     if other.demo.use_standard_playbook
       where_clause += " OR rules.demo_id IS NULL"
     end
 
-    select('rule_values.*').joins('INNER JOIN rules ON rules.id = rule_values.rule_id').where(where_clause, other.demo_id)
+    select('rule_values.*').joins('LEFT JOIN rules ON rules.id = rule_values.rule_id').where(where_clause, other.demo_id)
   end
 
   def self.oldest
@@ -49,6 +56,10 @@ class RuleValue < ActiveRecord::Base
     order('rule_values.value ASC')
   end
 
+  def self.forbidden
+    where(:rule_id => nil)
+  end
+
   protected
 
   def at_most_one_primary_rule_value_per_rule
@@ -62,7 +73,7 @@ class RuleValue < ActiveRecord::Base
   def value_unique_within_demo
     other = self.class.joins('INNER JOIN rules ON rules.id = rule_values.rule_id').where(:value => self.value)
 
-    other = if self.rule.demo
+    other = if self.rule.try(:demo)
               other.where(["rules.demo_id = ?", self.rule.demo.id])
             else
               other.where('rules.demo_id IS NULL')
@@ -80,7 +91,7 @@ class RuleValue < ActiveRecord::Base
   end
 
   def self.find_and_record_rule_suggestion(attempted_value, user)
-    matches = self.in_same_demo_as(user).partially_matching_value(attempted_value).limit(3).order('rank DESC, lower(value)')
+    matches = self.visible_from_demo(user).partially_matching_value(attempted_value).where("rule_id IS NOT NULL").limit(3).order('rank DESC, lower(value)')
 
     begin
       result = I18n.t(

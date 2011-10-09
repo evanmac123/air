@@ -43,11 +43,15 @@ end
 
 Factory.define :rule_value do |factory|
   factory.sequence(:value)  {|n| "ate banana #{n}" }
-  factory.association :rule
+  factory.association(:rule)
 end
 
 Factory.define :primary_value, :parent => :rule_value do |factory|
   factory.is_primary true
+end
+
+Factory.define :forbidden_rule_value, :class => RuleValue do |factory|
+  factory.sequence(:value) { |n| "drank beer #{n}" }
 end
 
 Factory.define :key do |factory|

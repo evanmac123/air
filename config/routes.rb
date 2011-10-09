@@ -52,6 +52,8 @@ Health::Application.routes.draw do
 
     resources :rule_values, :only => [:destroy]
 
+    resources :forbidden_rules, :only => [:index, :create, :destroy]
+
     resources :demos, :only => [:new, :create, :show, :destroy, :edit, :update] do
       # TODO: move :edit and :update onto resources :users below
       resources :users, :only => [:edit, :update, :create, :destroy] 

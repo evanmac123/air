@@ -127,6 +127,11 @@ class User < ActiveRecord::Base
     Mailer.delay.support_request(self.name, self.email, self.phone_number, self.demo.company_name, latest_act_descriptions)
   end
 
+  def first_eligible_rule_value(value)
+    matching_rule_values = RuleValue.visible_from_demo(self).where(:value => value)
+    matching_rule_values.select{|rule_value| rule_value.not_forbidden?}.first || matching_rule_values.first  
+  end
+
   def self.alphabetical
     order("name asc")
   end
