@@ -80,6 +80,7 @@ end
 
 Factory.define :act do |factory|
   factory.association :user
+  factory.association :demo
 end
 
 Factory.define :friendship do |factory|

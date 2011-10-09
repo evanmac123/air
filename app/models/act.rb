@@ -4,6 +4,7 @@ class Act < ActiveRecord::Base
 
   belongs_to :user
   belongs_to :rule
+  belongs_to :demo
 
   before_create do
     self.demo_id ||= user.demo_id

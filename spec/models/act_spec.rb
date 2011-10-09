@@ -3,6 +3,7 @@ require 'spec_helper'
 describe Act do
   it { should belong_to(:user) }
   it { should belong_to(:rule) }
+  it { should belong_to(:demo) }
 end
 
 describe Act, "#points" do
