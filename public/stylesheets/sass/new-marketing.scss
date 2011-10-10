@@ -130,7 +130,7 @@ body {
   background-repeat: repeat-x;
 
   #header-contents {
-    width: 1030px;
+    width: 950px;
     margin: 0 auto;
     padding-top: 7px;
     position: relative;
@@ -176,13 +176,13 @@ body {
   height: 320px;
   padding-top: 45px;
 
-  img, h1, p, object {
+  img, h1, p, object, video {
     position: absolute;
   }
 
   #logo {
     top: 15px;
-    left: -64px;
+    left: -25px;
   }
 
   #spark-engagement {
@@ -202,9 +202,9 @@ body {
     top: 220px;
   }
 
-  #wistia_415349 {
+  #wistia_415349, video {
     top: 45px;
-    left: 542px;
+    left: 500px;
   }
 }
 
@@ -620,7 +620,7 @@ input.fat-text-field {
   #blog-header {
     vertical-align: bottom;
 
-    h2 {
+    h2, h2 a {
       font-weight: normal;
       font-family: 'Istok Web', sans-serif;
       font-size: 36px;
