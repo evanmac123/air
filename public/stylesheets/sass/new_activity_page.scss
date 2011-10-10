@@ -10,7 +10,7 @@ $message-header-background-color: #6c7868;
 $new-message-header-background-color: #ba7d3b;
 $message-reply-background-color: #d2e8b9;
 
-$left-gutter: 75px;
+$left-gutter: 35px;
 
 a, a:link {
   color: $light-gray;
@@ -108,7 +108,7 @@ img {
           position: absolute;
           z-index: +10;
           top: 25px;
-          left: 493px;
+          left: 455px;
         }
       }
     }
@@ -250,7 +250,7 @@ form .submit-input {
 
 #main-wrapper {
   padding: 25px 50px 25px $left-gutter;
-  width: 570px - $left-gutter;
+  width: 530px - $left-gutter;
   min-height: 800px;
   float: left;
 
@@ -918,7 +918,7 @@ fieldset#levels {
 }
 
 #fans-wrapper {
-  margin: 20px 0 0 70px;
+  margin: 20px 0 0 30px;
   width: 930px;
   background: #ffffff;
 

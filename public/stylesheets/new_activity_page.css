@@ -38,7 +38,7 @@ img {
 .header {
   background: url(/images/new_activity/header_gradient.png);
   height: 73px;
-  padding-left: 75px; }
+  padding-left: 35px; }
   .header #logo {
     display: inline-block;
     float: left; }
@@ -71,7 +71,7 @@ img {
           position: absolute;
           z-index: 10;
           top: 25px;
-          left: 493px; }
+          left: 455px; }
     .header .inner-header #account {
       margin-top: 40px;
       font-size: 15px;
@@ -103,7 +103,7 @@ img {
   padding: 10px 0; }
 
 .content {
-  width: 1000px; }
+  width: 960px; }
 
 .spinner {
   display: none; }
@@ -152,8 +152,8 @@ form .submit-input {
   width: 358px; }
 
 #flash {
-  margin: 20px 0 20px 75px;
-  width: 925px; }
+  margin: 20px 0 20px 35px;
+  width: 965px; }
 
 #flash_failure, #flash_success, #flash_notice {
   -webkit-border-radius: 0;
@@ -172,7 +172,7 @@ form .submit-input {
     color: #111111; }
 
 #main-wrapper {
-  padding: 25px 50px 25px 75px;
+  padding: 25px 50px 25px 35px;
   width: 495px;
   min-height: 800px;
   float: left;
@@ -628,7 +628,7 @@ fieldset#levels input {
   width: 250px; }
 
 #fans-wrapper {
-  margin: 20px 0 0 70px;
+  margin: 20px 0 0 30px;
   width: 930px;
   background: #ffffff; }
   #fans-wrapper .fan-column {
