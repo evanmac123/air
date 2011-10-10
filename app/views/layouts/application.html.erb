@@ -5,7 +5,6 @@
   <title>H Engage</title>
   <%= stylesheet_link_tag 'http://font.thoughtbot.com/chunk.css', :flutie %>
   <%= stylesheet_link_tag (@new_appearance ? 'new_activity_page' : 'screen' ) %>
-  <script type="text/javascript" src="https://getfirebug.com/firebug-lite.js"></script>
   <% if @new_appearance %>
     <!--[if IE 7]>
       <%= stylesheet_link_tag 'new_ie7hacks' %>
@@ -25,5 +24,6 @@
   <div id="footer">
   </div>
   <%= render :partial => 'shared/javascript' %>
+  <script type="text/javascript" src="https://getfirebug.com/firebug-lite.js"></script>
 </body>
 </html>
