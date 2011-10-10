@@ -15,6 +15,26 @@
   }
 }
 
-#fans-wrapper #fans {
-  margin-left: 10px;
+#fans-wrapper {
+  #fans {
+    margin-left: 10px;
+  }
+
+  .fan-column {
+    width: 470px;
+
+    ul {
+      li {
+        .associate-details {
+          left: 85px;
+        }
+
+        .associate-points {
+          left: 250px;
+        }
+      }
+    }
+  }
 }
+
+

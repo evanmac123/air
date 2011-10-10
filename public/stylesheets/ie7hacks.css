@@ -11,3 +11,10 @@
 #bottom-comment-box form input[type="image"] {
   position: static;
   margin-top: -60px; }
+
+#login-form {
+  top: 10px;
+  right: 97px; }
+  #login-form input[type='image'] {
+    position: relative;
+    top: -17px; }

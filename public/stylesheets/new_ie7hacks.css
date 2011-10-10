@@ -11,3 +11,9 @@
 
 #fans-wrapper #fans {
   margin-left: 10px; }
+#fans-wrapper .fan-column {
+  width: 470px; }
+  #fans-wrapper .fan-column ul li .associate-details {
+    left: 85px; }
+  #fans-wrapper .fan-column ul li .associate-points {
+    left: 250px; }
