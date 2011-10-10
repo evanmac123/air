@@ -9,8 +9,8 @@ Feature: Skinnable pages
       | Joe  | 10     | +14155551212 | 1999-05-01 12:00:00 UTC | company_name: BlargCo |
       | Bob  | 40     | +14155551213 | 1999-05-01 12:00:00 UTC | company_name: BlargCo |
     And the following acts exist:
-      | text       | inherent points | user       | demo                  |
-      | Ate cheese | 15              | name: Joe  | company_name: BlargCo |
+      | text       | inherent points | user       | 
+      | Ate cheese | 15              | name: Joe  | 
     And the following friendships exist:
       | user      | friend    |
       | name: Bob | name: Joe |
