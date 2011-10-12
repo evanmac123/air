@@ -35,6 +35,6 @@ Feature: Avatars shown and updatable
     When I go to the profile page for "Dan"
     And I attach the avatar "alistair.jpg"
     And I press the avatar submit button
-    When I press "Clear Picture"
+    When I press the avatar clear button
     Then I should be on the profile page for "Dan"
     And I should see the default avatar for "Dan"

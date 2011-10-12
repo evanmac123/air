@@ -16,7 +16,7 @@
     <%= semantic_form_for current_user, :url => account_avatar_path, :html => {:multipart => true, :method => :delete, :class => 'clear-avatar'} do |form| %>
       Delete the picture you've got and revert to the default picture.
       <br/>
-      <%= form.commit_button 'Clear Picture' %>
+      <%= image_with_hover_submit_tag clear_button_skinned, '#clear-picture', :id => 'clear-picture' %>
     <% end %>
   <% end %>
 

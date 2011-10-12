@@ -44,7 +44,10 @@ Feature: Skinnable pages
     And profile links should have element color "#222222"
     And activity feed points should have element color "#444444"
     And the save button should have src "save.gif"
-    #And clear picture button should have the right src
+
+    When I attach the avatar "maggie.jpg"
+    And I press the avatar submit button
+    And the clear picture button should have src "clear.gif"
 
     When I go to the profile page for "Bob"
     Then the logo should have src "logo.gif"
@@ -108,7 +111,10 @@ Feature: Skinnable pages
     And profile links should have no element color
     And activity feed points should have no element color
     And the save button should have src "new_activity/btn_save.png"
-    #And clear picture button graphics should have the right src
+
+    When I attach the avatar "maggie.jpg"
+    And I press the avatar submit button
+    Then the clear picture button should have src "new_activity/btn_clear.png"
 
     When I go to the profile page for "Bob"
     Then the logo should have src "new_activity/img_logo.png"

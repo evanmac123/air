@@ -24,6 +24,10 @@ When /^I press the avatar submit button$/ do
   page.find(:css, ".set-avatar input[@type=image]").click
 end
 
+When /^I press the avatar clear button$/ do
+  page.find(:css, ".clear-avatar input[@type=image]").click
+end
+
 Then /^I should( not)? see an avatar "(.*?)" for "(.*?)"$/ do |sense, filename, username|
   sense = !sense
   user = User.find_by_name(username)

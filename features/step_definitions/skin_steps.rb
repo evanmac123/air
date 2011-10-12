@@ -47,6 +47,7 @@ def selector_for_elements(element_type)
     'play now button'      => "#add-action input[type=image]",
     'see more button'      => "input#see-more, input#show-all-ranked-players, .see-more",
     'save button'          => "#save-phone, #save-avatar, #save-username, #save-text-settings",
+    'clear picture button' => "#clear-picture",
     'victory graphics'     => '.top-scores img',
     'fan button'           => '.be-a-fan',
     'de-fan button'        => '.defan',

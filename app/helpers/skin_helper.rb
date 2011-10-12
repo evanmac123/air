@@ -47,4 +47,8 @@ module SkinHelper
   def defan_button_skinned
     skinned("defan_button_url", "new_activity/btn_defan.png")
   end
+
+  def clear_button_skinned
+    skinned('clear_button_url', "new_activity/btn_clear.png")
+  end
 end
