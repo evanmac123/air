@@ -38,6 +38,10 @@ When /^I press the fan button$/ do
   find(:css, '.be-a-fan').click
 end
 
+When /^I press the de\-fan button$/ do
+  find(:css, '.defan').click
+end
+
 Then /^(?:|I )should see `([^`]*)`(?: within "([^"]*)")?$/ do |text, selector|
   with_scope(selector) do
     if page.respond_to? :should

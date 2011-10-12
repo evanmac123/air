@@ -8,6 +8,8 @@ class Demo < ActiveRecord::Base
   has_many :bonus_thresholds, :dependent => :destroy
   has_many :levels, :dependent => :destroy
 
+  has_one :skin
+
   validate :end_after_beginning
 
   # We go through this rigamarole since we can move a user from one demo to

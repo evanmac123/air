@@ -3,7 +3,7 @@
 <%= render 'shared/new_scoreboard_list', :users => users %>
 
 <%= form_tag '#' do %>
-  <%= image_with_hover_submit_tag("new_activity/btn_seemore.png", '#show-all-ranked-players', :id => 'show-all-ranked-players') unless @conference_feed_page %>
+  <%= image_with_hover_submit_tag(see_more_button_skinned, '#show-all-ranked-players', :id => 'show-all-ranked-players') unless @conference_feed_page %>
 <% end %>
 
 <% content_for :javascript do %>

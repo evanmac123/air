@@ -128,3 +128,7 @@ Factory.define :level do |level|
   level.sequence(:threshold) {|n| n}
   level.association :demo
 end
+
+Factory.define :skin do |skin|
+  skin.association :demo
+end

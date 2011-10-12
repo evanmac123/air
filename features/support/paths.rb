@@ -31,7 +31,7 @@ module NavigationHelpers
     when /the password reset request page/
       new_password_path
 
-    when /the friends page/
+    when /the (friends|connections) page/
       friends_path
 
     when /the user directory page/

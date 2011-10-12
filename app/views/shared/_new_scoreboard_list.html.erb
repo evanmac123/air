@@ -5,7 +5,7 @@
       <%= link_to user do %>
         <span class="name"><%= user.name %></span>
         <% if user.won_at %>
-          <%= image_tag "new_activity/img_bluestar_18.png" %>
+          <%= image_tag skinned('victory_graphic_url', "new_activity/img_bluestar_18.png") %>
         <% end %>
       <% end %>
       <span class="score"><%= pluralize user.points, 'pt' %></span>
