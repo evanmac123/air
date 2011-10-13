@@ -9,10 +9,7 @@ module Reply
 
   module ClassMethods
     def construct_reply(raw_reply)
-      I18n.t(
-        :generic_reply, # this is a hack
-        {:default => raw_reply}.merge(channel_specific_translations)
-      )
+      I18n.interpolate(raw_reply, channel_specific_translations)
     end
   end
 end
