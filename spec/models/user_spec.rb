@@ -45,33 +45,57 @@ describe User do
     user2.should_not be_valid
   end
 
-  it "should destroy any Friendships where this user is the friend on destroy" do
-    user1 = Factory(:user)
-    user2 = Factory(:user)
-    Friendship.create!(:user => user1, :friend => user2)
+  describe "on destroy" do
+    it "should destroy any Friendships where this user is the friend on destroy" do
+      user1 = Factory(:user)
+      user2 = Factory(:user)
+      Friendship.create!(:user => user1, :friend => user2)
 
-    user2.destroy
-    user1.reload.friendships.should be_empty
-  end
+      user2.destroy
+      user1.reload.friendships.should be_empty
+    end
 
-  it "should fix the rankings of this user's demo after it's destroyed" do
-    demo = Factory :demo
-    user1 = Factory :user_with_phone, :demo => demo
-    user2 = Factory :user_with_phone, :demo => demo
-    user3 = Factory :user_with_phone, :demo => demo
+    it "should fix the rankings of this user's demo after it's destroyed" do
+      demo = Factory :demo
+      user1 = Factory :user_with_phone, :demo => demo
+      user2 = Factory :user_with_phone, :demo => demo
+      user3 = Factory :user_with_phone, :demo => demo
 
-    user1.update_points(10)
-    user2.update_points(5)
-    user3.update_points(2)
+      user1.update_points(10)
+      user2.update_points(5)
+      user3.update_points(2)
 
-    user1.reload.ranking.should == 1
-    user2.reload.ranking.should == 2
-    user3.reload.ranking.should == 3
+      user1.reload.ranking.should == 1
+      user2.reload.ranking.should == 2
+      user3.reload.ranking.should == 3
 
-    user2.destroy
+      user2.destroy
 
-    user1.reload.ranking.should == 1
-    user3.reload.ranking.should == 2
+      user1.reload.ranking.should == 1
+      user3.reload.ranking.should == 2
+    end
+
+    context "when user has a non-blank phone number" do
+      it "should decrement the associated demo's ranked_user_count" do
+        demo = Factory :demo
+
+        3.times {|i| Factory :user, :demo => demo, :phone_number => "+1415555121#{i}"}
+        
+        demo.users.last.destroy
+        demo.reload.ranked_user_count.should == 2
+      end
+    end
+
+    context "when user has a blank phone number" do
+      it "should not change the associated demo's ranked_user_count" do
+        demo = Factory :demo
+
+        3.times {|i| Factory :user, :demo => demo}
+        
+        demo.users.last.destroy
+        demo.reload.ranked_user_count.should == 0
+      end
+    end
   end
 end
 
@@ -565,3 +589,77 @@ describe "#join_game" do
   end
 end
 
+describe User, "when phone number changes" do
+  context "from blank to non-blank" do
+    it "should increment the associated Demo's ranked_user_count" do
+      user = Factory :user
+      user.phone_number.should be_blank
+      user.demo.ranked_user_count.should == 0
+
+      user.phone_number = "+14155551212"
+      user.save!
+
+      user.demo.reload.ranked_user_count.should == 1
+    end
+  end
+
+  context "from non-blank to blank" do
+    it "should decrement the associated Demo's ranked_user_count" do
+      demo = Factory :demo
+      3.times {|i| Factory :user, :demo => demo, :phone_number => "+1415555121#{i}"}
+
+      user = demo.users.last
+      user.phone_number = ""
+      user.save!
+
+      demo.reload.ranked_user_count.should == 2
+    end
+  end
+
+  context "from non-blank to non-blank" do
+    it "should not change the associated Demo's ranked_user_count" do
+      demo = Factory :demo
+      3.times {|i| Factory :user, :demo => demo, :phone_number => "+1415555121#{i}"}
+
+      user = demo.users.last
+      user.phone_number = "+16178675309"
+      user.save!
+
+      demo.reload.ranked_user_count.should == 3
+    end
+  end
+end
+
+describe User, "when demo_id changes" do
+  context "and user has a non-blank phone number" do
+    it "should decrement the old demo's ranked_user_count and increment the new demo's" do
+      demo = Factory :demo
+      new_demo = Factory :demo
+
+      3.times {|i| Factory :user, :demo => demo, :phone_number => "+1415555121#{i}"}
+
+      user = demo.users.last
+      user.demo = new_demo
+      user.save!
+
+      demo.reload.ranked_user_count.should == 2
+      new_demo.reload.ranked_user_count.should == 1
+    end
+  end
+
+  context "when user has a blank phone number" do
+    it "should not change either demo's ranked_user_count" do
+      demo = Factory :demo
+      new_demo = Factory :demo
+
+      3.times {|i| Factory :user, :demo => demo}
+
+      user = demo.users.last
+      user.demo = new_demo
+      user.save!
+
+      demo.reload.ranked_user_count.should == 0
+      new_demo.reload.ranked_user_count.should == 0
+    end
+  end
+end

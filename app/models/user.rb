@@ -52,11 +52,13 @@ class User < ActiveRecord::Base
 
   before_save do
     downcase_email
+    update_demo_ranked_user_count
   end
 
   after_destroy do
     destroy_friendships_where_secondary
     fix_demo_rankings
+    decrement_demo_ranked_user_count
   end
 
   attr_reader :batch_updating_recent_averages
@@ -558,5 +560,39 @@ class User < ActiveRecord::Base
     return if (message = self.demo.followup_welcome_message).blank?
 
     SMS.send_message(self.phone_number, message, Time.now + demo.followup_welcome_message_delay.minutes)
+  end
+
+  def update_demo_ranked_user_count
+    return unless (changes['phone_number'] || changes['demo_id'])
+
+    old_number, new_number = changes['phone_number']
+    old_demo_id, new_demo_id = changes['demo_id']
+
+    if (!old_number.nil? && !new_number.nil?)
+      update_demo_ranked_user_count_based_on_phone_number(old_number, new_number)
+    else
+      update_demo_ranked_user_count_based_on_demo_id(old_demo_id, new_demo_id)
+    end
+  end
+
+  def update_demo_ranked_user_count_based_on_phone_number(old_number, new_number)
+    case [old_number.present?, new_number.present?]
+    when [false, true]
+      Demo.increment_counter(:ranked_user_count, demo_id)
+    when [true, false]
+      Demo.decrement_counter(:ranked_user_count, demo_id)
+    end
+  end
+
+  def update_demo_ranked_user_count_based_on_demo_id(old_demo_id, new_demo_id)
+    return unless phone_number.present?
+
+    Demo.increment_counter(:ranked_user_count, new_demo_id)
+    Demo.decrement_counter(:ranked_user_count, old_demo_id)
+  end
+
+  def decrement_demo_ranked_user_count
+    return unless phone_number.present?
+    Demo.decrement_counter(:ranked_user_count, demo_id)
   end
 end
