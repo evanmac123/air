@@ -83,18 +83,57 @@ class Act < ActiveRecord::Base
         return parsing_error_message(reply)
       end
     else
-      if reply = RuleValue.find_and_record_rule_suggestion(value, user)
+      if reply = find_and_record_rule_suggestion(value, user)
         record_bad_message(phone_number, body, reply)
       else
         reply = I18n.t(
           'activerecord.models.act.parse.no_suggestion_sms',
-          :default => "Sorry, I don't understand what that means. Text \"s\" to suggest we add what you sent."
+          :default => "Sorry, I don't understand what that means. \%{say} \"s\" to suggest we add what you sent."
         )
         record_bad_message(phone_number, body)
       end
 
       return parsing_error_message(reply)
     end
+  end
+
+  def self.find_and_record_rule_suggestion(attempted_value, user)
+    matches = RuleValue.suggestible_for(attempted_value, user)
+
+    begin
+      # Note that the % in %{say} is escaped: we're going to re-interpolate
+      # this later at the level that knows by what method (flash or SMS) we're
+      # replying.
+
+      result = I18n.t(
+        'activerecord.models.rule_value.suggestion_sms',
+        :default => "I didn't quite get that. %%{say} %{suggestion_phrase}, or \"s\" to suggest we add what you sent.",
+        :suggestion_phrase => suggestion_phrase(matches)
+      )
+      matches.pop if result.length > 160
+    end while (matches.present? && result.length > 160) 
+
+    return nil if matches.empty?
+
+    user.last_suggested_items = matches.map(&:id).map(&:to_s).join('|')
+    user.save!
+
+    result
+  end
+
+  def self.suggestion_phrase(matches)
+    # Why is there no #map_with_index? Srsly.
+
+    alphabet = ('a'..'z').to_a
+    match_index = 0
+    match_strings = matches.map do |match| 
+      letter = alphabet[match_index]
+      substring = "\"#{letter}\" for \"#{match.value}\""
+      match_index += 1
+      substring
+    end
+
+    match_strings.join(', ')
   end
 
   def self.record_act(user, rule, referring_user = nil)

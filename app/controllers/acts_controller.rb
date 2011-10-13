@@ -1,4 +1,6 @@
 class ActsController < ApplicationController
+  include Reply
+
   layout :determine_layout
 
   def index
@@ -25,7 +27,13 @@ class ActsController < ApplicationController
 
   def create
     parsing_message, parsing_message_type = Command.parse(current_user, params[:act][:code], :return_message_type => true)
-    flash[parsing_message_type] = parsing_message
+    flash[parsing_message_type] = construct_reply(parsing_message)
     redirect_to :back
+  end
+
+  protected
+
+  def self.channel_specific_translations
+    {:say => "Type"}
   end
 end

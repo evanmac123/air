@@ -90,38 +90,7 @@ class RuleValue < ActiveRecord::Base
     end
   end
 
-  def self.find_and_record_rule_suggestion(attempted_value, user)
-    matches = self.visible_from_demo(user).partially_matching_value(attempted_value).where("rule_id IS NOT NULL").limit(3).order('rank DESC, lower(value)')
-
-    begin
-      result = I18n.t(
-        'activerecord.models.rule_value.suggestion_sms',
-        :default => "I didn't quite get that. Text %{suggestion_phrase}, or \"s\" to suggest we add what you sent.",
-        :suggestion_phrase => suggestion_phrase(matches)
-      )
-      matches.pop if result.length > 160
-    end while (matches.present? && result.length > 160) 
-
-    return nil if matches.empty?
-
-    user.last_suggested_items = matches.map(&:id).map(&:to_s).join('|')
-    user.save!
-
-    result
-  end
-
-  def self.suggestion_phrase(matches)
-    # Why is there no #map_with_index? Srsly.
-
-    alphabet = ('a'..'z').to_a
-    match_index = 0
-    match_strings = matches.map do |match| 
-      letter = alphabet[match_index]
-      substring = "\"#{letter}\" for \"#{match.value}\""
-      match_index += 1
-      substring
-    end
-
-    match_strings.join(', ')
+  def self.suggestible_for(attempted_value, user)
+    self.visible_from_demo(user).partially_matching_value(attempted_value).where("rule_id IS NOT NULL").limit(3).order('rank DESC, lower(value)')  
   end
 end

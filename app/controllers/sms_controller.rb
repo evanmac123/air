@@ -1,4 +1,6 @@
 class SmsController < ActionController::Metal
+  include Reply
+
   HEARTBEAT_CODE = '738a718e819a07289df0fd0cf573e337'
 
   def create
@@ -17,12 +19,16 @@ class SmsController < ActionController::Metal
 
     RawSms.create!(:from => params['From'], :body => params['Body'], :twilio_sid => params['SmsSid'])
 
-    self.response_body = Command.parse(params['From'], params['Body'], :allow_claim_account => true)
+    self.response_body = construct_reply(Command.parse(params['From'], params['Body'], :allow_claim_account => true))
   end
 
   protected
 
   def heartbeat_request?
     params['Heartbeat'] == HEARTBEAT_CODE
+  end
+
+  def self.channel_specific_translations
+    {:say => "Text"}
   end
 end

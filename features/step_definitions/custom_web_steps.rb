@@ -103,3 +103,6 @@ Then /^I should see a restricted text field "([^"]*)"$/ do |selector|
   Then "I should see a restricted text field \"#{selector}\" with length 160"
 end
 
+Then /^I should see '(.*?)'$/ do |expected_text|
+  page.should have_content(expected_text)
+end
