@@ -327,7 +327,7 @@ class User < ActiveRecord::Base
       "R"
     end
 
-    result += "ank #{self.ranking}/#{self.demo.users.ranked.count}."
+    result += "ank #{self.ranking}/#{self.demo.ranked_user_count}."
 
     result
   end
