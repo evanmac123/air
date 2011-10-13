@@ -33,6 +33,8 @@ module SpecialCommand
       self.send_rankings_page(user)
     when 'help'
       self.send_help_response(user)
+    when 'survey'
+      self.send_next_survey_question(user)
     else
       self.credit_game_referrer(user, command_name)
     end
@@ -96,7 +98,7 @@ module SpecialCommand
       question.respond(user, survey, choice)
     else
       return nil if survey.demo.has_rule_value_matching?(choice) # Give Act.parse a crack at it
-      parsing_success_message("Thanks, we've got all of your survey answers already.")
+      parsing_success_message(survey.all_answers_already_message)
     end
   end
 
@@ -170,5 +172,20 @@ module SpecialCommand
     user.send_support_request
 
     parsing_success_message(response_text)
+  end
+
+  def self.send_next_survey_question(user)
+    survey = Survey.open.where(:demo_id => user.demo_id).first
+
+    unless survey.present?
+      return parsing_error_message("Sorry, there is not currently a survey open.")
+    end
+
+    question = survey.latest_question_for(user)
+    if question
+      parsing_success_message(survey.latest_question_for(user).text)
+    else
+      parsing_success_message(survey.all_answers_already_message)
+    end
   end
 end

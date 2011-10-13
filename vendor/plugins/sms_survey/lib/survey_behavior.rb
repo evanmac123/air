@@ -31,7 +31,5 @@ module SmsSurvey
         self.where(['? BETWEEN open_at AND close_at', Time.now])
       end
     end
-
-
   end
 end
