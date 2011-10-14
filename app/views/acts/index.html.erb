@@ -4,8 +4,13 @@
   <div id="main">
     <h2>Recent Activity</h2>
 
+    <ul class="tabs">
+      <%= tab "All", acts_path, @active_tab %>
+      <%= tab "Following", acts_path(:show_only => 'following'), @active_tab %>
+      <%= tab "Mine", acts_path(:show_only => 'mine'), @active_tab %>
+    </ul>
+
     <ul id="acts">
-      <li class="act-shim">
       </li>
       <%= render :partial => "shared/new_act", :collection => @acts, :as => :act %>
     </ul>
@@ -21,7 +26,7 @@
       :current_offset => @acts.length,
       :button_selector => '#see-more',
       :spinner_selector => '#see-more-spinner',
-      :path => 'activity.js'
+      :path => acts_path(:format => :js, :show_only => @show_only)
     %>
   </div>
 </div>

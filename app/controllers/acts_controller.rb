@@ -10,7 +10,10 @@ class ActsController < ApplicationController
 
     @demo              = current_user.demo
     @demo_user_count   = @demo.ranked_user_count
-    @acts              = @demo.acts.recent(10).includes(:user).includes(:rule)
+    @acts              = find_requested_acts(@demo)
+
+    @show_only = params[:show_only]
+    @active_tab = params[:show_only].try(:capitalize) || "All"
 
     respond_to do |format|
       format.html do 
@@ -32,6 +35,19 @@ class ActsController < ApplicationController
   end
 
   protected
+
+  def find_requested_acts(demo)
+    acts = demo.acts.recent(10).includes(:user).includes(:rule)
+
+    case params[:show_only]
+    when 'following'
+      acts.joins("INNER JOIN friendships ON friendships.friend_id = acts.user_id").where(["friendships.user_id = ?", current_user.id])
+    when 'mine'
+      acts.where(["user_id = ?", current_user.id])
+    else
+      acts
+    end
+  end
 
   def self.channel_specific_translations
     {:say => "Type"}
