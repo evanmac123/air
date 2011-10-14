@@ -23,7 +23,11 @@ class ActsController < ApplicationController
 
       format.js do
         @acts = @acts.offset(params[:offset])
-        render :partial => 'shared/new_acts', :locals => {:acts => @acts}
+        if params[:mode] == 'see-more'
+          render :partial => 'shared/more_acts', :locals => {:acts => @acts}
+        else
+          render :partial => "refiltered_acts", :locals => {:acts => @acts, :active_tab => @active_tab}
+        end
       end
     end
   end

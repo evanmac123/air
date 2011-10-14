@@ -5,13 +5,28 @@
     <h2>Recent Activity</h2>
 
     <ul class="tabs">
-      <%= tab "All", acts_path, @active_tab %>
-      <%= tab "Following", acts_path(:show_only => 'following'), @active_tab %>
-      <%= tab "Mine", acts_path(:show_only => 'mine'), @active_tab %>
+      <%= tab "All", acts_path(:format => :js), @active_tab %>
+      <%= tab "Following", acts_path(:show_only => 'following', :format => :js), @active_tab %>
+      <%= tab "Mine", acts_path(:show_only => 'mine', :format => :js), @active_tab %>
     </ul>
 
+    <% content_for :javascript do %>
+      <%= javascript_tag do %>
+        function updateShownActs(url) {
+          $('#acts').html('<%= image_tag("spinner.gif") %>');
+          $.get(url, function(data) {
+            $('#acts').html(data);
+          });
+        }
+
+        $("#main .tabs a").click(function(e) {
+          updateShownActs($(this).attr('href'));
+          e.preventDefault();
+        });
+      <% end %>
+    <% end %>
+
     <ul id="acts">
-      </li>
       <%= render :partial => "shared/new_act", :collection => @acts, :as => :act %>
     </ul>
 
@@ -22,11 +37,12 @@
     <%= image_tag 'spinner.gif', :id => 'see-more-spinner' %>
 
     <%= render 'shared/bind_see_more', 
-      :offset_var_name => 'actOffset', 
-      :current_offset => @acts.length,
-      :button_selector => '#see-more',
+      :offset_var_name  => 'actOffset', 
+      :current_offset   => @acts.length,
+      :button_selector  => '#see-more',
       :spinner_selector => '#see-more-spinner',
-      :path => acts_path(:format => :js, :show_only => @show_only)
+      :original_path    => acts_path(:format => :js, :show_only => @show_only, :mode => 'see-more'),
+      :path_var_name    => 'actsPath'
     %>
   </div>
 </div>

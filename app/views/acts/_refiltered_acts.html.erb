@@ -1,0 +1,9 @@
+<%= javascript_tag do %>
+  actOffset = <%= acts.length %>;
+  actsPath = '<%= raw acts_path(:format => :js, :show_only => @show_only, :mode => 'see-more') %>';
+
+  $('ul.tabs li').removeClass('active');
+  $('ul.tabs li:contains(<%= @active_tab %>)').addClass('active');
+<% end %>
+
+<%= render :partial => "shared/new_act", :collection => acts, :as => :act %>
