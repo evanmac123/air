@@ -9,7 +9,16 @@ module Reply
 
   module ClassMethods
     def construct_reply(raw_reply)
-      I18n.interpolate(raw_reply, channel_specific_translations)
+      result = raw_reply
+
+      # Works like I18n.interpolate, but with interpolation keys set off by
+      # @{key} rather than %{key}.
+
+      channel_specific_translations.each do |translation_key, translation_value|
+        result.gsub!(/@\{#{translation_key}\}/, translation_value)
+      end
+
+      result
     end
   end
 end

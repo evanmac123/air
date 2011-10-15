@@ -36,7 +36,7 @@ Feature: Full text rule search
       | name | phone_number | message_body     | received_at         |
       | Dan  | +16175551212 | ate baked alaska | 2010-05-01 17:00:00 |
     And I should see "(has automated suggestion)"
-    And I should see `System automatically replied: I didn't quite get that. %{say} "a" for "ate banana", "b" for "ate kitten", or "s" to suggest we add what you sent.`
+    And I should see `System automatically replied: I didn't quite get that. @{say} "a" for "ate banana", "b" for "ate kitten", or "s" to suggest we add what you sent.`
 
   Scenario: User can throw in punctuation all damn day and it won't break
     When "+16175551212" sends SMS "ate baked alaska!"

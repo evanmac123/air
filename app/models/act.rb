@@ -88,7 +88,7 @@ class Act < ActiveRecord::Base
       else
         reply = I18n.t(
           'activerecord.models.act.parse.no_suggestion_sms',
-          :default => "Sorry, I don't understand what that means. \%{say} \"s\" to suggest we add what you sent."
+          :default => "Sorry, I don't understand what that means. @{say} \"s\" to suggest we add what you sent."
         )
         record_bad_message(phone_number, body)
       end
@@ -101,13 +101,9 @@ class Act < ActiveRecord::Base
     matches = RuleValue.suggestible_for(attempted_value, user)
 
     begin
-      # Note that the % in %{say} is escaped: we're going to re-interpolate
-      # this later at the level that knows by what method (flash or SMS) we're
-      # replying.
-
       result = I18n.t(
         'activerecord.models.rule_value.suggestion_sms',
-        :default => "I didn't quite get that. %%{say} %{suggestion_phrase}, or \"s\" to suggest we add what you sent.",
+        :default => "I didn't quite get that. @{say} %{suggestion_phrase}, or \"s\" to suggest we add what you sent.",
         :suggestion_phrase => suggestion_phrase(matches)
       )
       matches.pop if result.length > 160
