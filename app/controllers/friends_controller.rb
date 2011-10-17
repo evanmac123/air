@@ -4,13 +4,14 @@ class FriendsController < ApplicationController
 
     @new_appearance = true
 
-    @friends = current_user.friends
+    @friends = current_user.accepted_friends
 
     respond_to do |format|
       format.html do
         @friends = @friends.most_recent(4)
-        @all_friend_ids = current_user.friendships.map(&:friend_id)
-        @followers = current_user.followers.most_recent(4)
+        @all_friend_ids = current_user.accepted_friendships.map(&:friend_id)
+        @accepted_followers = current_user.accepted_followers.most_recent(4)
+        @pending_followers = current_user.pending_followers
       end
 
       format.js do

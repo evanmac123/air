@@ -2,13 +2,13 @@ Feature: Following and follower lists
 
   Background:
     Given the following users exist:
-      | name    | points | demo                              |
-      | Arturo  | 50     | company_name: Amalgamated Widgets |
-      | Bertram | 20     | company_name: Amalgamated Widgets |
-      | Colby   | 35     | company_name: Amalgamated Widgets |
-      | Dirk    | 90     | company_name: Amalgamated Widgets |
-      | Evan    | 44     | company_name: Synthetic Persons   |
-      | Fred    | 44     | company_name: Synthetic Persons   |
+      | name    | points | demo                              | phone number |
+      | Arturo  | 50     | company_name: Amalgamated Widgets | +14155551212 |
+      | Bertram | 20     | company_name: Amalgamated Widgets | +14155551213 |
+      | Colby   | 35     | company_name: Amalgamated Widgets | +14155551214 |
+      | Dirk    | 90     | company_name: Amalgamated Widgets | +14155551215 |
+      | Evan    | 44     | company_name: Synthetic Persons   | +14155551216 |
+      | Fred    | 44     | company_name: Synthetic Persons   | +14155551217 |
     And the following users exist:
       | name    | demo                              |
       | Gerald  | company_name: Amalgamated Widgets |
@@ -19,7 +19,7 @@ Feature: Following and follower lists
       | Leslie  | company_name: Amalgamated Widgets |
       | Maurice | company_name: Amalgamated Widgets |
       | Nolan   | company_name: Amalgamated Widgets |
-    And the following friendships exist:
+    And the following accepted friendships exist:
       | user         | friend        |
       | name: Arturo | name: Bertram |
       | name: Arturo | name: Dirk    |
@@ -61,6 +61,7 @@ Feature: Following and follower lists
 
   Scenario: Following user from following list
     When I fan "Colby"
+    And "+14155551214" sends SMS "accept aarturo"
     Then I should be on the friends page
     And I should see these people I am following:
       | name    | button_type  |
@@ -74,7 +75,7 @@ Feature: Following and follower lists
 
   @javascript
   Scenario: User sees more of their following list
-    Given the following friendships exist:
+    Given the following accepted friendships exist:
       | user         | friend        |
       | name: Arturo | name: Gerald  |
       | name: Arturo | name: Hector  |
@@ -111,7 +112,7 @@ Feature: Following and follower lists
 
   @javascript
   Scenario: User sees more of their follower list
-    Given the following friendships exist:
+    Given the following accepted friendships exist:
       | user          | friend       |
       | name: Gerald  | name: Arturo | 
       | name: Hector  | name: Arturo | 

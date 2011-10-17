@@ -1,3 +1,5 @@
+<%= render :partial => 'shared/flashes' %>
+
 <div id="fans-wrapper">
   <div id="fans-of" class="fan-column">
     <ul id="followings">
@@ -20,7 +22,7 @@
   <div id="fans" class="fan-column">
     <h2>People Who Are Your Fan</h2>
     <ul id="followers">
-      <% @followers.each do |follower| %>
+      <% @accepted_followers.each do |follower| %>
         <% button_type = (@all_friend_ids.include?(follower.id) ? :unfollow : :follow) %>
         <%= render 'shared/new_associate', :associate => follower, :button_type => button_type %>
       <% end %>
@@ -30,7 +32,7 @@
 
     <%= render 'shared/bind_see_more', 
       :offset_var_name  => 'followersOffset', 
-      :current_offset   => @followers.length,
+      :current_offset   => @accepted_followers.length,
       :button_selector  => '#fans .see-more',
       :spinner_selector => '#fans .spinner',
       :original_path    => 'followers.js',
@@ -39,3 +41,25 @@
     %>
   </div>
 </div>
+
+<% if @pending_followers.present? %>
+  <div id="pending-followers-wrapper">
+    <h2>Pending Followers</h2>
+    <ul id="pending-followers">
+      <% @pending_followers.each do |pending_follower| %>
+        <li>
+          <div class="avatar48">
+            <%= default_avatar_tag pending_follower, :alt => pending_follower.name %>
+          </div>
+
+          <div class="pending-follower-details">
+            <%= link_to pending_follower.name, user_path(pending_follower), :class => 'associate-name' %>
+            <br/>
+            <%= button_to "Accept", followers_path(:follower_id => pending_follower.id, :disposition => 'accept'), :class => 'accept', :method => :put %>
+            <%= button_to "Ignore", followers_path(:follower_id => pending_follower.id, :disposition => 'ignore'), :class => 'ignore', :method => :put %>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>

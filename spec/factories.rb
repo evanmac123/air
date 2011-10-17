@@ -87,6 +87,10 @@ Factory.define :friendship do |factory|
   factory.association :friend, :factory => :user
 end
 
+Factory.define :accepted_friendship, :parent => :friendship do |factory|
+  factory.state 'accepted'
+end
+
 Factory.define :survey do |survey|
   survey.sequence(:name) {|n| "Survey ##{n}"}
   survey.open_at {Time.now}

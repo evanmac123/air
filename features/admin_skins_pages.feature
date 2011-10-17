@@ -8,12 +8,14 @@ Feature: Skinnable pages
       | name | points | phone number | won at                  | demo                  |
       | Joe  | 10     | +14155551212 | 1999-05-01 12:00:00 UTC | company_name: BlargCo |
       | Bob  | 40     | +14155551213 | 1999-05-01 12:00:00 UTC | company_name: BlargCo |
+      | Fred | 7      | +14155551214 | 1999-05-01 12:00:00 UTC | company_name: BlargCo |
     And the following acts exist:
       | text       | inherent points | user       | 
       | Ate cheese | 15              | name: Joe  | 
-    And the following friendships exist:
-      | user      | friend    |
-      | name: Bob | name: Joe |
+    And the following accepted friendships exist:
+      | user       | friend    |
+      | name: Joe  | name: Bob |
+      | name: Fred | name: Joe |
     And "Joe" has password "foo"
     And I sign in via the login page with "Joe/foo"
 
@@ -58,9 +60,7 @@ Feature: Skinnable pages
     And the active nav link should have element color "#111111"
     And profile links should have element color "#222222"
     And activity feed points should have element color "#444444"
-    And the fan button should have src "fan.gif"
-
-    When I press the fan button
+    #And the fan button should have src "fan.gif"
     Then the de-fan button should have src "defan.gif"
 
     When I go to the connections page    
@@ -72,8 +72,6 @@ Feature: Skinnable pages
     And the active nav link should have element color "#111111"
     And profile links should have element color "#222222"
     Then the de-fan button should have src "defan.gif"
-    When I press the de-fan button
-    Then I should be on the connections page
     And the fan button should have src "fan.gif"
 
   Scenario: Partial skinning does what you would expect
@@ -125,10 +123,10 @@ Feature: Skinnable pages
     And the active nav link should have no element color
     And profile links should have no element color
     And activity feed points should have no element color
-    And the fan button should have src "new_activity/btn_beafan.png"
+    And the de-fan button should have src "new_activity/btn_defan.png"
 
-    When I press the fan button
-    Then the de-fan button should have src "new_activity/btn_defan.png"
+    When I go to the profile page for "Fred"
+    Then the fan button should have src "new_activity/btn_beafan.png"
 
     When I go to the connections page    
     Then the logo should have src "new_activity/img_logo.png"

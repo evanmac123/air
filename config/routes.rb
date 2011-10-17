@@ -43,7 +43,7 @@ Health::Application.routes.draw do
   end
 
   resource :friends, :only => [:show]
-  resource :followers, :only => [:show]
+  resource :followers, :only => [:show, :update]
 
   resources :email_info_requests, :only => [:create]
 

@@ -7,7 +7,7 @@ Feature: Game has a beginning and an end
       | name | phone number | demo                 |
       | Phil | +14152613077 | company_name: BarInc |
       | Vlad | +16175551212 | company_name: BarInc |
-    And the following friendships exist:
+    And the following accepted friendships exist:
       | user        | friend     |
       | name: Vlad  | name: Phil |
     And the following rules exist:

@@ -9,19 +9,10 @@ describe Friendship do
   it { should belong_to(:friend) }
 
   describe "after create" do
-    it "should record a FormerFriendship with the same settings" do
-      FormerFriendship.count.should == 0
-
-      friendship = Factory :friendship
-
-      FormerFriendship.count.should == 1
-      FormerFriendship.where(:user_id => friendship.user_id, :friend_id => friendship.friend_id).should_not be_empty
-    end
-
     context "when the friended user has no phone number" do
       before :each do
         @user = Factory :user
-        @friend = Factory :user, :phone_number => ''
+        @friend = Factory :user, :phone_number => '', :notification_method => 'both'
       end
 
       it "should not try to send an SMS to that blank number" do

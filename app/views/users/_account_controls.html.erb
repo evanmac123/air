@@ -26,9 +26,18 @@
     <%= image_with_hover_submit_tag save_button_skinned, '#save-username', :id => 'save-username' %>
   <% end %>
 
-  <h3>Text Settings</h3>
-  <%= semantic_form_for current_user, :url => account_path, :html => {:class => 'text-settings'} do |form| %>
-    <%= form.input :send_follow_notification_sms, :label => 'Send me an SMS when somebody follows me' %>
-    <%= image_with_hover_submit_tag save_button_skinned, '#save-text-settings', :id => 'save-text-settings' %>
+  <h3>Notification Settings</h3>
+  <%= semantic_form_for current_user, :url => account_path, :html => {:class => 'notification-method'} do |form| %>
+    <%= form.input :notification_method, 
+      :label      => 'When somebody requests to follow me:',
+      :collection => {
+        "Send an SMS"                      => 'sms',
+        "Send an email"                    => 'email',
+        "Send both an SMS and an email"    => 'both',
+        "Send neither an SMS nor an email" => 'neither'
+      },
+      :include_blank => false
+    %>
+    <%= image_with_hover_submit_tag save_button_skinned, '#save-notification-method', :id => 'save-notification-method' %>
   <% end %>
 </div>

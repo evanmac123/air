@@ -698,47 +698,56 @@ fieldset#levels label {
 fieldset#levels input {
   width: 250px; }
 
-#fans-wrapper {
+#fans-wrapper, #pending-followers-wrapper {
   margin: 20px 0 0 30px;
   width: 930px;
   background: #ffffff; }
-  #fans-wrapper .fan-column {
+  #fans-wrapper ul, #pending-followers-wrapper ul {
+    margin-top: 0;
+    list-style: none; }
+    #fans-wrapper ul a, #fans-wrapper ul a:link, #fans-wrapper ul a:visited, #pending-followers-wrapper ul a, #pending-followers-wrapper ul a:link, #pending-followers-wrapper ul a:visited {
+      color: #3e5d94;
+      font-weight: bold; }
+    #fans-wrapper ul li, #pending-followers-wrapper ul li {
+      padding: 15px 15px 15px 10px;
+      border-bottom: solid 1px #bebebe;
+      position: relative; }
+      #fans-wrapper ul li .associate-details, #fans-wrapper ul li .pending-follower-details, #pending-followers-wrapper ul li .associate-details, #pending-followers-wrapper ul li .pending-follower-details {
+        position: absolute;
+        top: 12px;
+        left: 75px;
+        color: #58585a;
+        font-size: 14px; }
+      #fans-wrapper ul li .associate-points, #pending-followers-wrapper ul li .associate-points {
+        font-size: 20px;
+        font-weight: bold;
+        color: #339e3e;
+        position: absolute;
+        top: 9px;
+        left: 220px; }
+  #fans-wrapper h2, #pending-followers-wrapper h2 {
+    padding-left: 10px;
+    padding-top: 10px; }
+  #fans-wrapper .fan-column, #pending-followers-wrapper .fan-column {
     width: 390px;
     display: inline-block;
     vertical-align: top;
     padding-bottom: 20px; }
-    #fans-wrapper .fan-column h2 {
-      padding-left: 10px;
-      padding-top: 10px; }
-    #fans-wrapper .fan-column ul {
-      margin-top: 0;
-      list-style: none; }
-      #fans-wrapper .fan-column ul li {
-        padding: 15px 15px 15px 10px;
-        border-bottom: solid 1px #bebebe;
-        position: relative; }
-        #fans-wrapper .fan-column ul li .associate-details {
-          position: absolute;
-          top: 12px;
-          left: 75px;
-          color: #58585a;
-          font-size: 14px; }
-          #fans-wrapper .fan-column ul li .associate-details .associate-name a, #fans-wrapper .fan-column ul li .associate-details .associate-name a:link, #fans-wrapper .fan-column ul li .associate-details .associate-name a:visited {
-            color: #3e5d94;
-            font-weight: bold; }
-        #fans-wrapper .fan-column ul li .associate-points {
-          font-size: 20px;
-          font-weight: bold;
-          color: #339e3e;
-          position: absolute;
-          top: 9px;
-          left: 210px; }
-        #fans-wrapper .fan-column ul li form {
-          position: absolute;
-          top: 13px;
-          right: 15px; }
-  #fans-wrapper #fans-of {
+  #fans-wrapper #fans-of, #pending-followers-wrapper #fans-of {
     margin-left: 10px;
     padding-right: 62px; }
-  #fans-wrapper #fans {
+  #fans-wrapper #fans, #pending-followers-wrapper #fans {
     margin-left: 63px; }
+
+#fans-wrapper li form {
+  position: absolute;
+  top: 13px;
+  right: 15px; }
+
+#pending-followers-wrapper {
+  padding-left: 10px;
+  padding-bottom: 20px; }
+  #pending-followers-wrapper ul {
+    width: 390px; }
+  #pending-followers-wrapper .pending-follower-details form {
+    display: inline-block; }

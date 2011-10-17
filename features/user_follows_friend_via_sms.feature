@@ -12,19 +12,29 @@ Feature: User can follow another user by SMS
 
   Scenario: User follows another by SMS
     When "+16178675309" sends SMS "follow dan4444"
+    And "+16175551212" sends SMS "accept vgyster"
     And I sign in via the login page
     And I go to the profile page for "Dan Croak"
     Then I should see "has 1 fan"
-    And "+16178675309" should have received an SMS "OK, you're now following Dan Croak."
+    And "+16178675309" should have received an SMS "OK, you've asked to follow Dan Croak, pending their acceptance."
 
   Scenario: User tries to follow the same user twice
     When "+16178675309" sends SMS "follow dan4444"
+    And "+16175551212" sends SMS "accept vgyster"
     And "+16178675309" sends SMS "follow dan4444"
     And I sign in via the login page
     And I go to the profile page for "Vlad Gyster"
     Then I should see "fan of 1 person"
     And "+16178675309" should have received an SMS "You're already following Dan Croak."
 
+  Scenario: User tries to follow another twice while the first request is pending
+    When "+16178675309" sends SMS "follow dan4444"
+    And "+16178675309" sends SMS "follow dan4444"
+    And I sign in via the login page
+    And I go to the profile page for "Vlad Gyster"
+    Then I should see "fan of 0 people"
+    And "+16178675309" should have received an SMS "You've already asked to follow Dan Croak."
+    
   Scenario: User tries to follow another user who doesn't exist
     When "+16178675309" sends SMS "follow mrnobody"
     And I sign in via the login page
@@ -52,7 +62,9 @@ Feature: User can follow another user by SMS
 
   Scenario: "Connect" should be a synonym for "follow"
     When "+16178675309" sends SMS "connect dan4444"
+    And "+16175551212" sends SMS "accept vgyster"
+    And DJ cranks 10 times
     And I sign in via the login page
     And I go to the profile page for "Dan Croak"
     Then I should see "has 1 fan"
-    And "+16178675309" should have received an SMS "OK, you're now following Dan Croak."
+    And "+16178675309" should have received an SMS "Dan Croak has approved your request to follow them."

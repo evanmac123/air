@@ -10,11 +10,11 @@ module ApplicationHelper
   end
 
   def following_count_phrase(user)
-    pluralize(user.following_count, 'person')   
+    pluralize(user.accepted_friends.count, 'person')   
   end
 
   def followers_count_phrase(user)
-    pluralize(user.followers_count, 'fan')
+    pluralize(user.accepted_followers.count, 'fan')
   end
 
   def add_byte_counter_for(field_label)

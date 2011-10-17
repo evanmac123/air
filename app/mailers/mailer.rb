@@ -47,4 +47,13 @@ class Mailer < ActionMailer::Base
 
     headers['Reply-To'] = @user_email
   end
+
+  def follow_notification(to, follower_name, follower_sms_slug)
+    @follower_name = follower_name
+    @follower_sms_slug = follower_sms_slug
+
+    mail :to      => to,
+         :from    => "donotreply@hengage.com",
+         :subject => "#{follower_name} wants to follow you on H Engage"
+  end
 end

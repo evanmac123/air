@@ -1,11 +1,16 @@
 class FriendshipsController < ApplicationController
   def create
     @user = User.find_by_slug(params[:user_id])
-    current_user.befriend(@user)
+    new_friendship = current_user.befriend(@user)
     @user.reload
 
     respond_to do |format|
-      format.html {redirect_to :back}
+      format.html do
+        if new_friendship
+          flash[:success] = @user.follow_requested_message
+        end
+        redirect_to :back
+      end
 
       format.js
 

@@ -2,21 +2,32 @@ Feature: User sees only friends in current demo
 
   Background:
     Given the following users exist:
-      | name | demo                     |
-      | Dan  | company_name: Thoughtbot |
-      | Chad | company_name: Thoughtbot |
-      | Nick | company_name: Thoughtbot |
-      | Vlad | company_name: H Engage   |
-      | Phil | company_name: H Engage   |
+      | name     | demo                     |
+      | Dan      | company_name: Thoughtbot |
+      | Chad     | company_name: Thoughtbot |
+      | Nick     | company_name: Thoughtbot |
+      | Jon      | company_name: Thoughtbot |
+      | Mike     | company_name: Thoughtbot |
+      | Vlad     | company_name: H Engage   |
+      | Phil     | company_name: H Engage   |
+      | Kristina | company_name: H Engage   |
+      | Kim      | company_name: H Engage   |
+    And the following accepted friendships exist:
+      | user       | friend     |
+      | name: Dan  | name: Chad |
+      | name: Dan  | name: Vlad |
+      | name: Dan  | name: Phil |
+      | name: Nick | name: Dan  |
+      | name: Vlad | name: Dan  |
+      | name: Phil | name: Dan  |
+    And the following friendships exist:
+      | user           | friend     |
+      | name: Jon      | name: Dan  |
+      | name: Kristina | name: Dan  |
+      | name: Dan      | name: Mike |
+      | name: Dan      | name: Kim  |
 
-    And "Dan" follows "Chad"
-    And "Dan" follows "Vlad"
-    And "Dan" follows "Phil"
-    And "Nick" follows "Dan"
-    And "Vlad" follows "Dan"
-    And "Phil" follows "Dan"
-
-  Scenario: User sees only friends in current demo, with correct counts
+  Scenario: User sees only accepted friends in current demo, with correct counts
     When I sign in via the login page
     And I go to the profile page for "Dan"
     Then I should see "fan of 1 person"

@@ -1002,64 +1002,56 @@ fieldset#levels {
   }
 }
 
-#fans-wrapper {
+#fans-wrapper, #pending-followers-wrapper {
   margin: 20px 0 0 30px;
   width: 930px;
   background: #ffffff;
+
+  ul {
+    margin-top: 0;
+    list-style: none;
+
+    a, a:link, a:visited {
+      color: #3e5d94;
+      font-weight: bold;
+    }
+
+    li {
+      padding: 15px 15px 15px 10px;
+      border-bottom: solid 1px #bebebe;
+      position: relative;
+
+      .associate-details, .pending-follower-details {
+        position: absolute;
+        top: 12px;
+        left: 75px;
+
+        color: #58585a;
+        font-size: 14px;
+      }
+
+      .associate-points {
+        font-size: 20px;
+        font-weight: bold;
+        color: #339e3e;
+
+        position: absolute;
+        top: 9px;
+        left: 220px;
+      }
+    }
+  }
+
+  h2 {
+    padding-left: 10px;
+    padding-top: 10px;
+  }
 
   .fan-column {
     width: 390px;
     display: inline-block;
     vertical-align: top;
     padding-bottom: 20px;
-
-    h2 {
-      padding-left: 10px;
-      padding-top: 10px;
-    }
-
-    ul {
-      margin-top: 0;
-      list-style: none;
-
-      li {
-        padding: 15px 15px 15px 10px;
-        border-bottom: solid 1px #bebebe;
-        position: relative;
-
-        .associate-details {
-          position: absolute;
-          top: 12px;
-          left: 75px;
-
-          color: #58585a;
-          font-size: 14px;
-
-          .associate-name {
-            a, a:link, a:visited {
-              color: #3e5d94;
-              font-weight: bold;
-            }
-          }
-        }
-
-        .associate-points {
-          font-size: 20px;
-          font-weight: bold;
-          color: #339e3e;
-
-          position: absolute;
-          top: 9px;
-          left: 210px;
-        }
-
-        form {
-          position: absolute;
-          top: 13px;
-          right: 15px;
-        }
-      }
-    }
   }
 
   #fans-of {
@@ -1071,3 +1063,29 @@ fieldset#levels {
     margin-left: 63px;
   }
 }
+
+#fans-wrapper {
+  li {
+    form {
+      position: absolute;
+      top: 13px;
+      right: 15px;
+    }
+  }
+}
+
+#pending-followers-wrapper {
+  padding-left: 10px;
+  padding-bottom: 20px;
+
+  ul {
+    width: 390px;
+  }
+
+  .pending-follower-details {
+    form {
+      display: inline-block;
+    }
+  }
+}
+

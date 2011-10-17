@@ -68,23 +68,47 @@ class User < ActiveRecord::Base
   def followers
     # You'd think you could do this with an association, and if you can figure
     # out how to get that to work, please, be my guest.
-
+    
     self.class.joins("INNER JOIN friendships on users.id = friendships.user_id").where('friendships.friend_id = ?', self.id)
+  end
+
+  def pending_followers
+    followers.where('friendships.state' => 'pending')
+  end
+
+  def accepted_followers
+    followers.where('friendships.state' => 'accepted')
+  end
+
+  def pending_friends
+    friends.where('friendships.state' => 'pending')
+  end
+
+  def accepted_friends
+    friends.where('friendships.state' => 'accepted')
+  end
+
+  def pending_friendships
+    friendships.where(:state => 'pending')
+  end
+
+  def accepted_friendships
+    friendships.where(:state => 'accepted')
   end
 
   # See comment by Demo#acts_with_current_demo_checked for an explanation of 
   # why we do this.
 
-  def friends_with_in_current_demo
-    friends_without_in_current_demo.where(:demo_id => self.demo_id)
-  end
+  %w(friends pending_friends accepted_friends followers pending_followers accepted_followers).each do |base_method_name|
+    class_eval <<-END_DEF
+      def #{base_method_name}_with_in_current_demo
+        #{base_method_name}_without_in_current_demo.where(:demo_id => self.demo_id)
+      end
 
-  def followers_with_in_current_demo
-    followers_without_in_current_demo.where(:demo_id => self.demo_id)
-  end
+      alias_method_chain :#{base_method_name}, :in_current_demo
+    END_DEF
 
-  alias_method_chain :friends, :in_current_demo
-  alias_method_chain :followers, :in_current_demo
+  end
 
   def to_param
     slug
@@ -262,14 +286,6 @@ class User < ActiveRecord::Base
     friends.include?(other)
   end
 
-  def followers_count
-    followers.count
-  end
-
-  def following_count
-    friends.count
-  end
-
   def generate_simple_claim_code!
     update_attributes(:claim_code => claim_code_prefix)
   end
@@ -429,12 +445,16 @@ class User < ActiveRecord::Base
     self.friendships.create(:friend_id => other.id)
   end
 
-  def follow_message
-    message = I18n.t(
+  def follow_requested_message
+    I18n.t(
       "activerecord.models.user.base_follow_message",
-      :default => "OK, you're now following %{followed_user_name}.",
+      :default => "OK, you've asked to follow %{followed_user_name}, pending their acceptance.",
       :followed_user_name => self.name
     )
+  end
+
+  def follow_accepted_message
+    message = "#{name} has approved your request to follow them."    
 
     points_from_demo = self.demo.points_for_connecting
     return message if points_from_demo.nil?
