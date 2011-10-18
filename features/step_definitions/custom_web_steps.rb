@@ -34,6 +34,14 @@ When /^I press the button to update follow notification status$/ do
   page.find(:css, "form.text-settings input[@type=image]").click
 end
 
+When /^I press the button to update follow notification status$/ do
+  page.find(:css, "form.text-settings input[@type=image]").click
+end
+
+When /^I press the button to submit a new name$/ do
+  page.find(:css, "#save-name").click
+end
+
 When /^I press the fan button$/ do
   find(:css, '.be-a-fan').click
 end

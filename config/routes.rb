@@ -40,6 +40,7 @@ Health::Application.routes.draw do
     resource :phone, :only => [:update]
     resource :avatar, :only => [:update, :destroy]
     resource :sms_slug, :only => [:update]
+    resource :name, :only => [:update]
   end
 
   resource :friends, :only => [:show]
