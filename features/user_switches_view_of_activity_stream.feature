@@ -28,11 +28,11 @@ Feature: User filters their view of the activity stream
     And I should see "Fred ate duckling"
     And "All" should be the active act filter link
 
-    When I follow "Following"
+    When I follow "Fan Of"
     Then I should see "Bob ate puppy"
     And I should not see "Joe ate kitten"
     And I should not see "Fred ate duckling"
-    And "Following" should be the active act filter link
+    And "Fan Of" should be the active act filter link
 
     When I follow "Mine"
     Then I should see "Joe ate kitten"
@@ -117,7 +117,7 @@ Feature: User filters their view of the activity stream
     And I should see "Bob ate 5 puppies"
     But I should not see "Joe ate 5 kittens"
 
-    When I follow "Following"
+    When I follow "Fan Of"
     Then I should see "Bob ate 11 puppies"
     And I should see "Bob ate 10 puppies"
     And I should see "Bob ate 9 puppies"

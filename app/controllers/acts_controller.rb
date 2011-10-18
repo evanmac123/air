@@ -13,7 +13,14 @@ class ActsController < ApplicationController
     @acts              = find_requested_acts(@demo)
 
     @show_only = params[:show_only]
-    @active_tab = params[:show_only].try(:capitalize) || "All"
+    @active_tab = case params[:show_only]
+                  when 'following'
+                    "Fan Of"
+                  when 'mine'
+                    "Mine"
+                  else
+                    "All"
+                  end
 
     respond_to do |format|
       format.html do 

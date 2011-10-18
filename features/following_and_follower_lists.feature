@@ -62,7 +62,7 @@ Feature: Following and follower lists
   Scenario: Following user from following list
     When I fan "Colby"
     And "+14155551214" sends SMS "accept aarturo"
-    Then I should be on the friends page
+    And I go to the friends page
     And I should see these people I am following:
       | name    | button_type  |
       | Bertram | de-fan       |
