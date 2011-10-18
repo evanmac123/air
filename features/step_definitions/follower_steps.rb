@@ -93,8 +93,7 @@ When /^"([^"]*)" requests to follow "([^"]*)" by SMS$/ do |follower_name, follow
 
   When "\"#{follower.phone_number}\" sends SMS \"follow #{followed.sms_slug}\""
   And "DJ cranks 5 times"
-  Then "\"#{follower.phone_number}\" should have received an SMS \"OK, you've asked to follow #{followed.name}, pending their acceptance.\""
-  And "\"#{followed.phone_number}\" should have received an SMS \"#{follower.name} has asked to follow you. Text ACCEPT #{follower.sms_slug.upcase} to accept, IGNORE #{follower.sms_slug.upcase} to ignore (in which case they won't be notified)\""
+  Then "\"#{follower.phone_number}\" should have received an SMS \"OK, you'll be a fan of #{followed.name}, pending their acceptance.\""
   And "I sign in via the login page with \"#{followed_login_string}\""
   And "I should not see \"#{follower.name}\" as a follower"
   But "I should see \"#{follower.name}\" as a pending follower"
@@ -107,7 +106,7 @@ When /^"([^"]*)" requests to follow "([^"]*)" by web$/ do |follower_login_string
   When "I sign in via the login page as \"#{follower_login_string}\""
   And "I go to the profile page for \"#{followed_name}\""
   And "I fan \"#{followed_name}\""
-  Then "I should see \"OK, you've asked to follow #{followed_name}, pending their acceptance.\""
+  Then "I should see \"OK, you'll be a fan of #{followed_name}, pending their acceptance.\""
 
   When "I sign in via the login page as \"#{followed_login_string}\""
   Then "I should see \"#{follower_name}\" as a pending follower"
@@ -232,8 +231,8 @@ Then /^"([^"]*)" should be able to accept "([^"]*)" by SMS$/ do |followed_login_
 
   When "\"#{followed.phone_number}\" sends SMS \"accept #{follower.sms_slug}\""
   And "DJ cranks 5 times"
-  Then "\"#{follower.phone_number}\" should have received an SMS \"#{followed_name} has approved your request to follow them.\""
-  And "\"#{followed.phone_number}\" should have received an SMS \"OK, #{follower.name} is now following you.\""
+  Then "\"#{follower.phone_number}\" should have received an SMS \"#{followed_name} has approved your request to be a fan.\""
+  And "\"#{followed.phone_number}\" should have received an SMS \"OK, #{follower.name} is now your fan.\""
   When "I sign in via the login page with \"#{followed_login_string}\""
   Then "I should see \"#{follower_name}\" as a follower"
   But "I should not see \"#{follower_name}\" as a pending follower"
@@ -246,7 +245,7 @@ Then /^"([^"]*)" should be able to ignore "([^"]*)" by SMS$/ do |followed_login_
   follower = User.find_by_name(follower_name)
 
   When "\"#{followed.phone_number}\" sends SMS \"ignore #{follower.sms_slug}\""
-  Then "\"#{followed.phone_number}\" should have received an SMS \"OK, we'll ignore the request from #{follower.name} to follow you.\""
+  Then "\"#{followed.phone_number}\" should have received an SMS \"OK, we'll ignore the request from #{follower.name} to be your fan.\""
   When "I sign in via the login page with \"#{followed_login_string}\""
   And "I should not see \"#{follower.name}\" as a follower"
   And "I should not see \"#{follower.name}\" as a pending follower"
@@ -262,8 +261,8 @@ Then /^"([^"]*)" should be able to accept "([^"]*)" by web$/ do |followed_login_
   When "I go to the connections page"
   And "I press the accept button"
   And "DJ cranks 5 times"
-  Then "\"#{follower.phone_number}\" should have received an SMS \"#{followed_name} has approved your request to follow them.\""
-  And "I should see \"OK, #{follower_name} is now following you.\""
+  Then "\"#{follower.phone_number}\" should have received an SMS \"#{followed_name} has approved your request to be a fan.\""
+  And "I should see \"OK, #{follower_name} is now your fan.\""
   And "I should see \"#{follower_name}\" as a follower"
   But "I should not see \"#{follower_name}\" as a pending follower"
 end
@@ -272,13 +271,13 @@ Then /^"([^"]*)" should be able to ignore "([^"]*)" by web$/ do |followed_login_
   When "I sign in via the login page with \"#{followed_login_string}\""
   When "I go to the connections page"
   And "I press the ignore button"
-  Then "I should see \"OK, we'll ignore the request from #{follower_name} to follow you.\""
+  Then "I should see \"OK, we'll ignore the request from #{follower_name} to be your fan.\""
   And "I should not see \"#{follower_name}\" as a follower"
   And "I should not see \"#{follower_name}\" as a pending follower"
 end
 
 Then /^"([^"]*)" should have received a follow notification email about "([^"]*)"$/ do |address, follower_name|
-  When "\"#{address}\" opens the email with subject \"#{follower_name} wants to follow you on H Engage\""
+  When "\"#{address}\" opens the email with subject \"#{follower_name} wants to be your fan on H Engage\""
   And "they click the first link in the email"
   Then "I should be on the connections page"
 end

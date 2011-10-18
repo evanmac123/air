@@ -48,34 +48,34 @@ Feature: User gets points for connecting to another (if demo configured for it)
     When "+14155551212" sends SMS "follow pphil"
     And "+18085551212" sends SMS "accept ddan"
     And DJ cranks 10 times
-    Then "+14155551212" should have received SMS "Phil has approved your request to follow them. You've collected 5 bonus points for the connection, plus another 7 bonus points."
+    Then "+14155551212" should have received SMS "Phil has approved your request to be a fan. You've collected 5 bonus points for the connection, plus another 7 bonus points."
 
   Scenario: User gets message for connecting to a user with 0 bounty when demo has bounty
     When "+18085551212" sends SMS "follow ddan"
     And "+14155551212" sends SMS "accept pphil"
     And DJ cranks 5 times
-    Then "+18085551212" should have received SMS "Dan has approved your request to follow them. You've collected 5 bonus points for the connection."
+    Then "+18085551212" should have received SMS "Dan has approved your request to be a fan. You've collected 5 bonus points for the connection."
 
   Scenario: User gets message for connecting to a user with bounty when demo has 0 bounty
     When "+13055551212" sends SMS "follow ffred"
     And "+12125551212" sends SMS "accept ttom"
     And DJ cranks 10 times
-    Then "+13055551212" should have received SMS "Fred has approved your request to follow them. You've collected 7 bonus points for the connection."
+    Then "+13055551212" should have received SMS "Fred has approved your request to be a fan. You've collected 7 bonus points for the connection."
 
   Scenario: User gets message for connecting to a user with 0 bounty when demo has 0 bounty
     When "+12125551212" sends SMS "follow ttom"
     And "+13055551212" sends SMS "accept ffred"
     And DJ cranks 10 times
-    Then "+12125551212" should have received SMS "Tom has approved your request to follow them."
+    Then "+12125551212" should have received SMS "Tom has approved your request to be a fan."
 
   Scenario: User gets message for connecting to a user with bounty when demo has no bounty
     When "+16505551212" sends SMS "follow bbleh"
     And "+14085551212" sends SMS "accept ffeh"
     And DJ cranks 10 times
-    Then "+16505551212" should have received SMS "Bleh has approved your request to follow them."
+    Then "+16505551212" should have received SMS "Bleh has approved your request to be a fan."
 
   Scenario: User gets message for connecting to a user with 0 bounty when demo has no bounty
     When "+14085551212" sends SMS "follow ffeh"
     And "+16505551212" sends SMS "accept bbleh"
     And DJ cranks 10 times
-    Then "+14085551212" should have received SMS "Feh has approved your request to follow them."
+    Then "+14085551212" should have received SMS "Feh has approved your request to be a fan."

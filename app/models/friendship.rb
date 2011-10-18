@@ -18,7 +18,7 @@ class Friendship < ActiveRecord::Base
 
   def send_follow_notification_by_sms
     SMS.send_message friend.phone_number, 
-                     "#{user.name} has asked to follow you. Text ACCEPT #{user.sms_slug.upcase} to accept, IGNORE #{user.sms_slug.upcase} to ignore (in which case they won't be notified)"
+                     "#{user.name} has asked to be your fan. Text ACCEPT #{user.sms_slug.upcase} to accept, IGNORE #{user.sms_slug.upcase} to ignore (in which case they won't be notified)"
   end
 
   def send_follow_notification_by_email
@@ -47,12 +47,12 @@ class Friendship < ActiveRecord::Base
     notify_follower_of_acceptance
     record_follow_act
     create_former_friendship
-    "OK, #{user.name} is now following you."
+    "OK, #{user.name} is now your fan."
   end
 
   def ignore
     destroy
-    "OK, we'll ignore the request from #{user.name} to follow you."
+    "OK, we'll ignore the request from #{user.name} to be your fan."
   end
 
   protected

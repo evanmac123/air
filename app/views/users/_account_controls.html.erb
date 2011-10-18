@@ -29,7 +29,7 @@
   <h3>Notification Settings</h3>
   <%= semantic_form_for current_user, :url => account_path, :html => {:class => 'notification-method'} do |form| %>
     <%= form.input :notification_method, 
-      :label      => 'When somebody requests to follow me:',
+      :label      => 'When somebody requests to be my fan:',
       :collection => {
         "Send an SMS"                      => 'sms',
         "Send an email"                    => 'email',

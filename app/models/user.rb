@@ -448,13 +448,13 @@ class User < ActiveRecord::Base
   def follow_requested_message
     I18n.t(
       "activerecord.models.user.base_follow_message",
-      :default => "OK, you've asked to follow %{followed_user_name}, pending their acceptance.",
+      :default => "OK, you'll be a fan of %{followed_user_name}, pending their acceptance.",
       :followed_user_name => self.name
     )
   end
 
   def follow_accepted_message
-    message = "#{name} has approved your request to follow them."    
+    message = "#{name} has approved your request to be a fan."    
 
     points_from_demo = self.demo.points_for_connecting
     return message if points_from_demo.nil?

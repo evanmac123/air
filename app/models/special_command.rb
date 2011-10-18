@@ -50,9 +50,9 @@ module SpecialCommand
     user_to_follow = User.ranked.where(:sms_slug => sms_slug_to_follow, :demo_id => user_following.demo_id).first
     return parsing_error_message("Sorry, we couldn't find a user with the unique ID #{sms_slug_to_follow}.") unless user_to_follow
 
-    return parsing_success_message("You've already asked to follow #{user_to_follow.name}.") if user_following.pending_friends.where('friendships.friend_id' => user_to_follow.id).present?
+    return parsing_success_message("You've already asked to be a fan of #{user_to_follow.name}.") if user_following.pending_friends.where('friendships.friend_id' => user_to_follow.id).present?
 
-    return parsing_success_message("You're already following #{user_to_follow.name}.") if user_following.accepted_friends.where('friendships.friend_id' => user_to_follow.id).present?
+    return parsing_success_message("You're already a fan of #{user_to_follow.name}.") if user_following.accepted_friends.where('friendships.friend_id' => user_to_follow.id).present?
 
     return nil unless user_following.befriend(user_to_follow)
 
@@ -61,7 +61,7 @@ module SpecialCommand
 
   def self.accept_follower(user, follower_slug)
     friendship_to_accept = Friendship.pending_between(user, :follower_slug => follower_slug)
-    return parsing_error_message("Sorry, nobody with the unique ID #{follower_slug} has requested to follow you.") unless friendship_to_accept
+    return parsing_error_message("Sorry, nobody with the unique ID #{follower_slug} has requested to be your fan.") unless friendship_to_accept
     friendship_to_accept.accept
   end
 

@@ -45,13 +45,13 @@ Feature: User approves or ignores follower
 
   Scenario: Followed attempts to accept someone who did not request to follow
     When "+14155551212" sends SMS "accept blehbleh"
-    Then "+14155551212" should have received an SMS "Sorry, nobody with the unique ID blehbleh has requested to follow you."
+    Then "+14155551212" should have received an SMS "Sorry, nobody with the unique ID blehbleh has requested to be your fan."
 
   Scenario: Follower attempts to follow twice in a row
     When "+14155551212" sends SMS "follow bbob"
     And "+14155551212" sends SMS "follow bbob"
-    Then "+14155551212" should have received an SMS "OK, you've asked to follow Bob, pending their acceptance."
-    And "+14155551212" should have received an SMS "You've already asked to follow Bob."
+    Then "+14155551212" should have received an SMS "OK, you'll be a fan of Bob, pending their acceptance."
+    And "+14155551212" should have received an SMS "You've already asked to be a fan of Bob."
 
   Scenario: Follower attempts to follow after one follow already ignored
     When "+14155551212" sends SMS "follow bbob"
@@ -60,13 +60,13 @@ Feature: User approves or ignores follower
     And "+16175551212" sends SMS "accept aalice"
 
     And DJ cranks 5 times
-    Then "+14155551212" should have received an SMS "OK, you've asked to follow Bob, pending their acceptance."
-    And "+14155551212" should have received an SMS "Bob has approved your request to follow them."
+    Then "+14155551212" should have received an SMS "OK, you'll be a fan of Bob, pending their acceptance."
+    And "+14155551212" should have received an SMS "Bob has approved your request to be a fan."
 
   Scenario: User can choose notification by email
     When I sign in via the login page with "Bob/foo"
     And I go to the profile page for "Bob"
-    And I select "Send an email" from "When somebody requests to follow me:"
+    And I select "Send an email" from "When somebody requests to be my fan:"
     And I press the button to save notification settings
     And "+14155551212" sends SMS "follow bbob"
     And DJ cranks 5 times
@@ -77,29 +77,29 @@ Feature: User approves or ignores follower
   Scenario: User can choose notification by SMS
     When I sign in via the login page with "Bob/foo"
     And I go to the profile page for "Bob"
-    And I select "Send an SMS" from "When somebody requests to follow me:"
+    And I select "Send an SMS" from "When somebody requests to be my fan:"
     And I press the button to save notification settings
     And "+14155551212" sends SMS "follow bbob"
     And DJ cranks 5 times
 
-    Then "+16175551212" should have received SMS "Alice has asked to follow you. Text ACCEPT AALICE to accept, IGNORE AALICE to ignore (in which case they won't be notified)"
+    Then "+16175551212" should have received SMS "Alice has asked to be your fan. Text ACCEPT AALICE to accept, IGNORE AALICE to ignore (in which case they won't be notified)"
     And "bob@example.com" should have no emails
 
   Scenario: User can choose notification by email and SMS
     When I sign in via the login page with "Bob/foo"
     And I go to the profile page for "Bob"
-    And I select "Send both an SMS and an email" from "When somebody requests to follow me:"
+    And I select "Send both an SMS and an email" from "When somebody requests to be my fan:"
     And I press the button to save notification settings
     And "+14155551212" sends SMS "follow bbob"
     And DJ cranks 5 times
 
-    Then "+16175551212" should have received SMS "Alice has asked to follow you. Text ACCEPT AALICE to accept, IGNORE AALICE to ignore (in which case they won't be notified)"
+    Then "+16175551212" should have received SMS "Alice has asked to be your fan. Text ACCEPT AALICE to accept, IGNORE AALICE to ignore (in which case they won't be notified)"
     And "bob@example.com" should have received a follow notification email about "Alice"
 
   Scenario: User can choose notification by neither email nor SMS
     When I sign in via the login page with "Bob/foo"
     And I go to the profile page for "Bob"
-    And I select "Send neither an SMS nor an email" from "When somebody requests to follow me:"
+    And I select "Send neither an SMS nor an email" from "When somebody requests to be my fan:"
     And I press the button to save notification settings
     And "+14155551212" sends SMS "follow bbob"
     And DJ cranks 5 times
@@ -123,7 +123,7 @@ Feature: User approves or ignores follower
     When I sign in via the login page with "Alice/bar"
     And I go to the connections page
     And I fan "Bob"
-    Then I should see "OK, you've asked to follow Bob, pending their acceptance."
+    Then I should see "OK, you'll be a fan of Bob, pending their acceptance."
     And I should not see "Bob" as a person I'm following
 
     When "+16175551212" sends SMS "accept aalice"

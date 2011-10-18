@@ -54,6 +54,6 @@ class Mailer < ActionMailer::Base
 
     mail :to      => to,
          :from    => "donotreply@hengage.com",
-         :subject => "#{follower_name} wants to follow you on H Engage"
+         :subject => "#{follower_name} wants to be your fan on H Engage"
   end
 end
