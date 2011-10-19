@@ -33,7 +33,7 @@ module SpecialCommand
       self.send_rankings_page(user)
     when 'help'
       self.send_help_response(user)
-    when 'survey'
+    when 'survey', 'ur2cents'
       self.send_next_survey_question(user)
     when 'yes'
       self.accept_follower(user, args.first)
