@@ -193,21 +193,8 @@ module SpecialCommand
   end
 
   def self.send_help_response(user)
-    # This is bad style, but doing it in a more correct style resulted in
-    # interpreter crashes that I am not interested in investigating.
-
-    time = Time.now.in_time_zone("Eastern Time (US & Canada)")
-    hour = time.hour
-
-    response_text = if hour >= 9 and hour < 21
-                      "Got it. We'll have someone get back to you shortly."
-                    else
-                      "Got it. We'll have someone get back to you during our business hours, 9 AM to 9 PM Eastern time."
-                    end
-
     user.send_support_request
-
-    parsing_success_message(response_text)
+    parsing_success_message("Got it. We'll have someone get back to your shortly. Tech support is open 9 AM to 9 PM ET. If it's outside those hours, we'll follow-up first thing tomorrow.")
   end
 
   def self.send_next_survey_question(user)
