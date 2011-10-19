@@ -101,6 +101,27 @@ Feature: User approves or ignores follower
     Then "bob@example.com" should have received a follow notification email about "Alice"
     But "+16175551212" should not have received any SMSes
 
+  Scenario: User who gets notification by email and is in a demo with a custom phone number sees that number
+    Given the following demo exists:
+      | company name | phone number |
+      | CustomCo     | +19005551212 |
+    And the following user exists:
+      | name  | phone number | email             | demo                   |
+      | Frank | +18885551212 | frank@example.com | company_name: CustomCo |
+    And "Frank" has the password "quux"
+
+    When I sign in via the login page with "Frank/quux"
+    And I go to the profile page for "Frank"
+    And I select "Send an email" from "When somebody requests to be my fan:"
+    And I press the button to save notification settings
+    And "+14155551212" sends SMS "follow frrank"
+    And DJ cranks 5 times
+
+    Then "frank@example.com" should have received a follow notification email about "Alice"
+    But "+16175551212" should not have received any SMSes
+
+    And I need to finish writing this
+
   Scenario: User can choose notification by SMS
     When I sign in via the login page with "Bob/foo"
     And I go to the profile page for "Bob"

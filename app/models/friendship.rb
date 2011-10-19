@@ -66,7 +66,9 @@ class Friendship < ActiveRecord::Base
   end
 
   def follow_notification_text
-     "#{user.name} has asked to be your fan. Text YES to accept, NO to ignore (in which case they won't be notified)"
+    request_index_text = (request_index && request_index > 1 ? " #{request_index}" : "")
+
+    "#{user.name} has asked to be your fan. Text YES#{request_index_text} to accept, NO#{request_index_text} to ignore (in which case they won't be notified)"
   end
 
   def set_request_index
