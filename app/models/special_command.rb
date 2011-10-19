@@ -187,7 +187,7 @@ module SpecialCommand
       :inherent_points => demo.game_referrer_bonus
     )
 
-    SMS.send_message(referring_user.phone_number, referrer_sms_text)
+    SMS.send_message(referring_user, referrer_sms_text)
 
     referred_sms_text
   end

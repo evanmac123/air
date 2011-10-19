@@ -6,7 +6,12 @@ module SMS
 
     delay_params = send_at ? {:run_at => send_at} : {}
 
-    Twilio::SMS.delay(delay_params).create(:to   => to,
+    to_number = case to
+                when String: to
+                when User: to.phone_number
+                end
+
+    Twilio::SMS.delay(delay_params).create(:to   => to_number,
                                            :from => TWILIO_PHONE_NUMBER,
                                            :body => body)
   end

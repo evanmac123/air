@@ -18,7 +18,7 @@ class Friendship < ActiveRecord::Base
   end
 
   def send_follow_notification_by_sms
-    SMS.send_message friend.phone_number, follow_notification_text
+    SMS.send_message friend, follow_notification_text
   end
 
   def send_follow_notification_by_email
@@ -62,7 +62,7 @@ class Friendship < ActiveRecord::Base
   end
 
   def notify_follower_of_acceptance
-    SMS.send_message(user.phone_number, friend.follow_accepted_message)
+    SMS.send_message(user, friend.follow_accepted_message)
   end
 
   def follow_notification_text

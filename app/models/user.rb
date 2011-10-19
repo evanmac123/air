@@ -223,7 +223,7 @@ class User < ActiveRecord::Base
 
     case reply_mode
     when :send
-      SMS.send_message(phone_number, welcome_message)
+      SMS.send_message(self, welcome_message)
     when :string
       welcome_message
     end
@@ -576,13 +576,13 @@ class User < ActiveRecord::Base
       :rule_value                => rule_value.value, 
       :point_and_ranking_summary => referring_user.point_and_ranking_summary
     )
-    SMS.send_message(referring_user.phone_number, sms_text)
+    SMS.send_message(referring_user, sms_text)
   end
 
   def schedule_followup_welcome_message
     return if (message = self.demo.followup_welcome_message).blank?
 
-    SMS.send_message(self.phone_number, message, Time.now + demo.followup_welcome_message_delay.minutes)
+    SMS.send_message(self, message, Time.now + demo.followup_welcome_message_delay.minutes)
   end
 
   def update_demo_ranked_user_count
