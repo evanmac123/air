@@ -294,8 +294,12 @@ Then /^"([^"]*)" should be able to ignore "([^"]*)" by web$/ do |followed_login_
   And "I should not see \"#{follower_name}\" as a pending follower"
 end
 
-Then /^"([^"]*)" should have received a follow notification email about "([^"]*)"$/ do |address, follower_name|
+Then /^"([^"]*)" should have received a follow notification email about "([^"]*)"( with phone number "(.*?)")?$/ do |address, follower_name, _nothing, phone_number|
+  phone_number ||= TWILIO_PHONE_NUMBER.as_pretty_phone
+
   When "\"#{address}\" opens the email with subject \"#{follower_name} wants to be your fan on H Engage\""
+
   And "they click the first link in the email"
+  Then "they should see \"#{phone_number}\" in the email body"
   Then "I should be on the connections page"
 end

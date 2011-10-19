@@ -22,7 +22,13 @@ class Friendship < ActiveRecord::Base
   end
 
   def send_follow_notification_by_email
-    Mailer.delay.follow_notification(friend.email, user.name, user.sms_slug)
+    Mailer.delay.follow_notification(
+      friend.email, 
+      user.name, 
+      accept_command,
+      ignore_command,
+      (friend.demo.phone_number || TWILIO_PHONE_NUMBER).as_pretty_phone
+    )
   end
 
   def record_follow_act
@@ -66,9 +72,19 @@ class Friendship < ActiveRecord::Base
   end
 
   def follow_notification_text
-    request_index_text = (request_index && request_index > 1 ? " #{request_index}" : "")
+    "#{user.name} has asked to be your fan. Text #{accept_command} to accept, #{ignore_command} to ignore (in which case they won't be notified)"
+  end
 
-    "#{user.name} has asked to be your fan. Text YES#{request_index_text} to accept, NO#{request_index_text} to ignore (in which case they won't be notified)"
+  def accept_command
+    "YES#{request_index_text}"
+  end
+
+  def ignore_command
+    "NO#{request_index_text}"
+  end
+
+  def request_index_text
+    request_index && request_index > 1 ? " #{request_index}" : ""
   end
 
   def set_request_index

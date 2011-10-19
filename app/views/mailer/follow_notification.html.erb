@@ -2,6 +2,6 @@
 
 <p>You can choose to accept this request or to ignore it <%= link_to "here", friends_url %>.</p>
 
-<p>If you'd rather use SMS, you can text ACCEPT <%= @follower_sms_slug %> or IGNORE <%= @follower_sms_slug %> to <%= TWILIO_PHONE_NUMBER %>.</p>
+<p>If you'd rather use SMS, you can text <%= @accept_command %> or <%= @ignore_command %> to <%= @reply_phone_number %>.</p>
 
 <p>--The H Engage Team</p>
