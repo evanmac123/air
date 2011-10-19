@@ -441,8 +441,11 @@ class User < ActiveRecord::Base
   end
 
   def befriend(other)
-    return nil unless self.demo.game_open?
-    self.friendships.create(:friend_id => other.id)
+    Friendship.transaction do
+      return nil unless self.demo.game_open?
+      return nil if self.friendships.where(:friend_id => other.id).present?
+      self.friendships.create(:friend_id => other.id)
+    end
   end
 
   def follow_requested_message

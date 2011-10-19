@@ -10,6 +10,10 @@ def mobile_originated_message_received(phone_number, sms_body)
   end
 end
 
+When /^I clear all sent texts$/ do
+  FakeTwilio::SMS.clear_all
+end
+
 Then /^"([^"]*)" should have received( an)? SMS "(.*)"$/ do |phone_number, _nothing, text_message|
   FakeTwilio::SMS.should have_sent_text(phone_number, text_message.gsub(/\\n/, "\n"))
 end

@@ -35,9 +35,9 @@ module SpecialCommand
       self.send_help_response(user)
     when 'survey'
       self.send_next_survey_question(user)
-    when 'accept'
+    when 'yes'
       self.accept_follower(user, args.first)
-    when 'ignore'
+    when 'no'
       self.ignore_follow_request(user, args.first)
     else
       self.credit_game_referrer(user, command_name)
@@ -50,24 +50,41 @@ module SpecialCommand
     user_to_follow = User.ranked.where(:sms_slug => sms_slug_to_follow, :demo_id => user_following.demo_id).first
     return parsing_error_message("Sorry, we couldn't find a user with the unique ID #{sms_slug_to_follow}.") unless user_to_follow
 
-    return parsing_success_message("You've already asked to be a fan of #{user_to_follow.name}.") if user_following.pending_friends.where('friendships.friend_id' => user_to_follow.id).present?
+    Friendship.transaction do
+      return parsing_success_message("You've already asked to be a fan of #{user_to_follow.name}.") if user_following.pending_friends.where('friendships.friend_id' => user_to_follow.id).present?
 
-    return parsing_success_message("You're already a fan of #{user_to_follow.name}.") if user_following.accepted_friends.where('friendships.friend_id' => user_to_follow.id).present?
+      return parsing_success_message("You're already a fan of #{user_to_follow.name}.") if user_following.accepted_friends.where('friendships.friend_id' => user_to_follow.id).present?
 
-    return nil unless user_following.befriend(user_to_follow)
+      return nil unless user_following.befriend(user_to_follow)
+    end
 
     user_to_follow.follow_requested_message
   end
 
-  def self.accept_follower(user, follower_slug)
-    friendship_to_accept = Friendship.pending_between(user, :follower_slug => follower_slug)
-    return parsing_error_message("Sorry, nobody with the unique ID #{follower_slug} has requested to be your fan.") unless friendship_to_accept
+  def self.bad_friendship_index_error_message(user, request_index)
+    if request_index && Friendship.pending(user).present?
+      parsing_error_message("Sorry, you have no fan requests with number #{request_index}.")
+    else
+      parsing_error_message("You have no pending requests from anyone to be a fan.")      
+    end
+  end
+
+  def self.accept_follower(user, request_index=nil)
+    friendship_to_accept = Friendship.pending(user, request_index).first
+
+    unless friendship_to_accept
+      return bad_friendship_index_error_message(user, request_index)
+    end
+
     friendship_to_accept.accept
   end
 
-  def self.ignore_follow_request(user, follower_slug)
-    friendship_to_ignore = Friendship.pending_between(user, :follower_slug => follower_slug)
-    return parsing_error_message("Sorry, nobody with the unique ID #{follower_slug} has requested to follow you.") unless friendship_to_ignore
+  def self.ignore_follow_request(user, request_index = nil)
+    friendship_to_ignore = Friendship.pending(user, request_index).first
+
+    unless friendship_to_ignore
+      return bad_friendship_index_error_message(user, request_index)
+    end
 
     friendship_to_ignore.ignore
   end

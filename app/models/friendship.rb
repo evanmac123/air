@@ -2,6 +2,7 @@ class Friendship < ActiveRecord::Base
   belongs_to :user
   belongs_to :friend, :class_name => "User"
 
+  before_create :set_request_index
   after_create :send_follow_notification
 
   def send_follow_notification
@@ -17,8 +18,7 @@ class Friendship < ActiveRecord::Base
   end
 
   def send_follow_notification_by_sms
-    SMS.send_message friend.phone_number, 
-                     "#{user.name} has asked to be your fan. Text ACCEPT #{user.sms_slug.upcase} to accept, IGNORE #{user.sms_slug.upcase} to ignore (in which case they won't be notified)"
+    SMS.send_message friend.phone_number, follow_notification_text
   end
 
   def send_follow_notification_by_email
@@ -63,6 +63,27 @@ class Friendship < ActiveRecord::Base
 
   def notify_follower_of_acceptance
     SMS.send_message(user.phone_number, friend.follow_accepted_message)
+  end
+
+  def follow_notification_text
+     "#{user.name} has asked to be your fan. Text YES to accept, NO to ignore (in which case they won't be notified)"
+  end
+
+  def set_request_index
+    return unless state == 'pending'
+    last_request = Friendship.where(:state => 'pending', :friend_id => friend.id).order("request_index DESC").first
+
+    self.request_index = last_request ? last_request.request_index + 1 : 1
+  end
+
+  def self.pending(friend, request_index = nil)
+    all_pending = self.where(:state => 'pending', :friend_id => friend.id)
+
+    if request_index
+      all_pending.where(:request_index => request_index.to_i)
+    else
+      all_pending.order("created_at ASC")
+    end
   end
 
   def self.pending_between(friend, options={})
