@@ -29,6 +29,6 @@ class SmsController < ActionController::Metal
   end
 
   def self.channel_specific_translations
-    {:say => "Text"}
+    {:say => "text", :Say => "Text"}
   end
 end

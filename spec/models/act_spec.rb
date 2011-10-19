@@ -119,7 +119,7 @@ describe Act, ".find_and_record_rule_suggestion" do
     end
 
     it "should return an appropriate phrase" do
-      @result.should == "I didn't quite get that. @{say} \"a\" for \"ate kitten\", or \"s\" to suggest we add what you sent."
+      @result.should == "I didn't quite get that. @{Say} \"a\" for \"ate kitten\", or \"s\" to suggest we add what you sent."
     end
 
     it "should set the user's last suggested rules" do
@@ -133,7 +133,7 @@ describe Act, ".find_and_record_rule_suggestion" do
 
     it "should return an appropriate phrase" do
       @result = Act.send(:find_and_record_rule_suggestion, 'ate raisins', @user)
-      @result.should == "I didn't quite get that. @{say} \"a\" for \"ate an entire pizza\", \"b\" for \"ate banana\", \"c\" for \"ate kitten\", or \"s\" to suggest we add what you sent."
+      @result.should == "I didn't quite get that. @{Say} \"a\" for \"ate an entire pizza\", \"b\" for \"ate banana\", \"c\" for \"ate kitten\", or \"s\" to suggest we add what you sent."
     end
 
     it "should set the user's last suggested rules" do

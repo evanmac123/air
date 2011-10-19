@@ -61,6 +61,6 @@ class ActsController < ApplicationController
   end
 
   def self.channel_specific_translations
-    {:say => "Type"}
+    {:say => "type", :Say => "Type"}
   end
 end
