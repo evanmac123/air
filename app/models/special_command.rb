@@ -196,7 +196,7 @@ module SpecialCommand
 
   def self.send_help_response(user)
     user.send_support_request
-    parsing_success_message("Got it. We'll have someone get back to your shortly. Tech support is open 9 AM to 9 PM ET. If it's outside those hours, we'll follow-up first thing tomorrow.")
+    parsing_success_message(user.demo.help_response)
   end
 
   def self.send_next_survey_question(user)
