@@ -1089,3 +1089,34 @@ fieldset#levels {
   }
 }
 
+.sessions {
+  #flash {
+    margin: 20px 0;
+    width: 1000px;
+  }
+
+  .content {
+    margin: 0 auto;
+
+    h2 {
+      font-size: 36px;
+    }
+
+    #session-wrapper {
+      padding: 25px 50px;
+      width: 900px;
+      margin: 150px auto;
+
+      background-color: transparent;
+
+      form {
+        margin-bottom: 20px;
+
+        input {
+          font-size: 20px;
+          display: inline-block;
+        }
+      }
+    }
+  }
+}

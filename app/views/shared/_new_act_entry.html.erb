@@ -6,12 +6,4 @@
       <%= image_submit_tag skinned('play_now_button_url', 'new_activity/btn_playnow.png') %>
     </span>
   <% end %>
-
-  <% content_for :javascript do %>
-    <%= javascript_tag do %>
-      $('.enter-code .with-hint-text').live('focus', (function(e) {
-        $(this).attr('value', '').removeClass('with-hint-text');
-      }));
-    <% end %>
-  <% end %>
 </div>

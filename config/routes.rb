@@ -21,11 +21,12 @@ Health::Application.routes.draw do
     resources :acts, :only => [:index], :controller => "users/acts"
   end
 
-  # Override Clearance's sign_up and password routes
+  # Override some Clearance routes
   resources :passwords,
     :controller => 'passwords',
     :only       => [:new, :create]
 
+  match "sign_in"  => "sessions#new"
   match "sign_up"  => "users#new"
   match "sign_out" => "clearance/sessions#destroy"
 

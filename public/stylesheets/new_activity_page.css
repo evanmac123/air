@@ -751,3 +751,21 @@ fieldset#levels input {
     width: 390px; }
   #pending-followers-wrapper .pending-follower-details form {
     display: inline-block; }
+
+.sessions #flash {
+  margin: 20px 0;
+  width: 1000px; }
+.sessions .content {
+  margin: 0 auto; }
+  .sessions .content h2 {
+    font-size: 36px; }
+  .sessions .content #session-wrapper {
+    padding: 25px 50px;
+    width: 900px;
+    margin: 150px auto;
+    background-color: transparent; }
+    .sessions .content #session-wrapper form {
+      margin-bottom: 20px; }
+      .sessions .content #session-wrapper form input {
+        font-size: 20px;
+        display: inline-block; }

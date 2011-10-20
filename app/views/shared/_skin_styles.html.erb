@@ -1,4 +1,4 @@
-<% if (skin = current_user.demo.skin) %>
+<% if (current_user && skin = current_user.demo.skin) %>
   <style type="text/css" id="skin-styles">
     <%= background_url_skin_style 'div.header', 'header_background_url', skin  %>
     <%= color_skin_style '.header .inner-header #account a, .header .inner-header #account a:visited, .header .inner-header #account a:link', 'nav_link_color', skin %>
