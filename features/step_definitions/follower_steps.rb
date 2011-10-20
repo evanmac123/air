@@ -49,7 +49,7 @@ def expected_request_text(follower, request_index)
   expected_request_command = request_index ? "YES #{request_index}" : "YES"
   expected_ignore_command = request_index ? "NO #{request_index}" : "NO"
 
-  "#{follower.name} has asked to be your fan. Text #{expected_request_command} to accept, #{expected_ignore_command} to ignore (in which case they won't be notified)"
+  "#{follower.name} has asked to be your fan. Text\n#{expected_request_command} to accept,\n#{expected_ignore_command} to ignore (in which case they won't be notified)"
 end
 
 Given /^"(.*?)" follows "(.*?)"$/ do |follower_name, followed_name|

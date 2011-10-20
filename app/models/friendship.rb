@@ -72,7 +72,7 @@ class Friendship < ActiveRecord::Base
   end
 
   def follow_notification_text
-    "#{user.name} has asked to be your fan. Text #{accept_command} to accept, #{ignore_command} to ignore (in which case they won't be notified)"
+    "#{user.name} has asked to be your fan. Text\n#{accept_command} to accept,\n#{ignore_command} to ignore (in which case they won't be notified)"
   end
 
   def accept_command

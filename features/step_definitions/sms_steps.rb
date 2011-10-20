@@ -14,7 +14,7 @@ When /^I clear all sent texts$/ do
   FakeTwilio::SMS.clear_all
 end
 
-Then /^"([^"]*)" should have received( an)? SMS "(.*)"$/ do |phone_number, _nothing, text_message|
+Then /^"([^"]*)" should have received( an)? SMS "(.*)"$/m do |phone_number, _nothing, text_message|
   FakeTwilio::SMS.should have_sent_text(phone_number, text_message.gsub(/\\n/, "\n"))
 end
 

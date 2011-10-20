@@ -152,7 +152,7 @@ Feature: User approves or ignores follower
     And "+14155551212" sends SMS "follow bbob"
     And DJ cranks 5 times
 
-    Then "+16175551212" should have received SMS "Alice has asked to be your fan. Text YES to accept, NO to ignore (in which case they won't be notified)"
+    Then "+16175551212" should have received SMS "Alice has asked to be your fan. Text\nYES to accept,\nNO to ignore (in which case they won't be notified)"
     And "bob@example.com" should have no emails
 
   Scenario: User can choose notification by email and SMS
@@ -163,7 +163,7 @@ Feature: User approves or ignores follower
     And "+14155551212" sends SMS "follow bbob"
     And DJ cranks 5 times
 
-    Then "+16175551212" should have received SMS "Alice has asked to be your fan. Text YES to accept, NO to ignore (in which case they won't be notified)"
+    Then "+16175551212" should have received SMS "Alice has asked to be your fan. Text\nYES to accept,\nNO to ignore (in which case they won't be notified)"
     And "bob@example.com" should have received a follow notification email about "Alice"
 
   Scenario: User can choose notification by neither email nor SMS
