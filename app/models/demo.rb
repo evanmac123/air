@@ -148,7 +148,9 @@ class Demo < ActiveRecord::Base
   end
 
   def help_response
-    "Got it. We'll have someone get back to you shortly. Tech support is open 9 AM to 9 PM ET. If it's outside those hours, we'll follow-up first thing when we open."  
+    self.help_message.present? ?
+      self.help_message : 
+      "Got it. We'll have someone get back to you shortly. Tech support is open 9 AM to 9 PM ET. If it's outside those hours, we'll follow-up first thing when we open."  
   end
 
   protected

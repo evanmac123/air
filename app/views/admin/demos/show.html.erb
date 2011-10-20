@@ -121,6 +121,13 @@ Game
   <% end %>
 </p>
 
+<p>
+  <% if @demo.help_message.present? %>
+    Help message is "<%= @demo.help_message %>"
+  <% else %>
+    Game will have default help message
+  <% end %>
+</p>
 <p class="explanation"><%= translate('.explanation', :default => "Add HR people from %{company} to this demo, then send them an invitation to the demo.", :company => @demo.company_name) %></p>
 
 <p><%= link_to "Edit basic settings for this game", edit_admin_demo_path(@demo) %></p>

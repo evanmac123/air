@@ -37,3 +37,13 @@ Feature: User requests help
     And DJ cranks 2 times
     Then support should have received a support email about "Joe/PEBCAK/joe@pebcak.com/+14155551212" with recent acts "what's up/hello/hi"
     And support should have received a support email about "Bob/PEBCAK/bob@pebcak.com/+14155551213" with recent acts "ferp/derp/herp"
+
+  Scenario: Help requested for a demo with custom help message
+    Given the following demo exists:
+      | company name | help message |
+      | 1D10T        | Panic!       |
+    And the following user exists:
+      | name | phone number | demo                |
+      | Fred | +16175551212 | company_name: 1D10T |
+    When "+16175551212" sends SMS "help"
+    Then "+16175551212" should have received SMS "Panic!"

@@ -13,6 +13,7 @@
     <%= form.input :ends_at, :label => "Game ends at", :twelve_hour => true, :start_year => 2011 %>
     <%= form.input :points_for_connecting, :label => "Points for connecting to another player" %>
     <%= form.input :prize, :label => "Prize text", :as => :text %>
+    <%= form.input :help_message, :as => :text %>
   <% end %>
 
   <%= form.inputs :name => "Followup welcome message" do %>

@@ -28,6 +28,7 @@ Feature: Admin sets up demo
     And I fill in "Bonus for referring another to the game" with "5"
     And I fill in "Points for connecting to another player" with "10"
     And I fill in "Prize text" with "More ice cream than you can shake a stick at."
+    And I fill in "Help message" with "Get a job"
     And I uncheck "Use standard playbook rules"
     And I press "Submit"
     Then I should be on the admin "3M" demo page
@@ -48,6 +49,7 @@ Feature: Admin sets up demo
     And I should see "Points for connecting to another user: 10"
     And I should see "Game will not use standard playbook rules, only custom rules."
     And I should see 'Prize response is "More ice cream than you can shake a stick at."'
+    And I should see 'Help message is "Get a job"'
 
   Scenario: Correct defaults
     Given I am on the admin page
@@ -71,6 +73,7 @@ Feature: Admin sets up demo
     And I should see "No points for connecting to another user"
     And I should see "Game will use standard playbook rules as well as custom rules."
     And I should see "Game will have default response about prizes (indicating no prize)"
+    And I should see "Game will have default help message"
 
   Scenario: Appropriate restrictions on text that gets SMSed
     Given I am on the admin page
