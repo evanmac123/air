@@ -113,6 +113,14 @@ Game
   <% end %>
 </p>
 
+<p>
+  <% if @demo.prize.present? %>
+    Prize response is "<%= @demo.prize %>"
+  <% else %>
+    Game will have default response about prizes (indicating no prize)  
+  <% end %>
+</p>
+
 <p class="explanation"><%= translate('.explanation', :default => "Add HR people from %{company} to this demo, then send them an invitation to the demo.", :company => @demo.company_name) %></p>
 
 <p><%= link_to "Edit basic settings for this game", edit_admin_demo_path(@demo) %></p>

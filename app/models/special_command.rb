@@ -39,6 +39,8 @@ module SpecialCommand
       self.accept_follower(user, args.first)
     when 'no'
       self.ignore_follow_request(user, args.first)
+    when 'prizes'
+      self.send_demo_prize_message(user.demo)
     else
       self.credit_game_referrer(user, command_name)
     end
@@ -210,5 +212,9 @@ module SpecialCommand
     else
       parsing_success_message(survey.all_answers_already_message)
     end
+  end
+
+  def self.send_demo_prize_message(demo)
+    parsing_success_message(demo.prize.present? ? demo.prize : "Sorry, no physical prizes this time. This one's just for the joy of the contest.")
   end
 end
