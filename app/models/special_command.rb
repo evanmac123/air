@@ -65,7 +65,7 @@ module SpecialCommand
 
   def self.bad_friendship_index_error_message(user, request_index)
     if request_index && Friendship.pending(user).present?
-      parsing_error_message("Sorry, you have no fan requests with number #{request_index}.")
+      parsing_error_message("Looks like you already responded to that request, or didn't have a request with that number")
     else
       parsing_error_message("You have no pending requests from anyone to be a fan.")      
     end

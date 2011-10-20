@@ -260,7 +260,6 @@ Then /^"([^"]*)" should be able to ignore "([^"]*)" by SMS( with index \d+)?$/ d
 
   rejection_string = request_index ? "no #{request_index}" : "no"
 
-  debugger if request_index.present?
   Then "\"#{followed.phone_number}\" should have received an SMS \"#{expected_request_text(follower, request_index)}\""
   When "\"#{followed.phone_number}\" sends SMS \"#{rejection_string}\""
   Then "\"#{followed.phone_number}\" should have received an SMS \"OK, we'll ignore the request from #{follower.name} to be your fan.\""

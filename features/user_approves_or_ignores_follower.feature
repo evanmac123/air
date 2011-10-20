@@ -69,10 +69,33 @@ Feature: User approves or ignores follower
     And "+13055551212" sends SMS "follow bbob"
     And DJ cranks 5 times
     And "+16175551212" sends SMS "yes 3"
-    Then "+16175551212" should have received an SMS "Sorry, you have no fan requests with number 3."
+    Then "+16175551212" should have received an SMS "Looks like you already responded to that request, or didn't have a request with that number"
     When I clear all sent texts
     And "+16175551212" sends SMS "no 3"
-    Then "+16175551212" should have received an SMS "Sorry, you have no fan requests with number 3."
+    Then "+16175551212" should have received an SMS "Looks like you already responded to that request, or didn't have a request with that number"
+
+  Scenario: Followed attempts to accept/ignore someone by SMS, then by web, and we head off a race condition
+    When "Alice" requests to follow "Bob/foo" by SMS
+    And I sign in via the login page with "Bob/foo"
+    Then I should see "Alice" as a pending follower
+
+    When I go to the connections page
+    And "+16175551212" sends SMS "yes"
+    And I press the accept button
+    And DJ cranks 5 times
+    Then "+14155551212" should have received an SMS "Bob has approved your request to be a fan."
+    And "+16175551212" should have received an SMS "OK, Alice is now your fan."
+    And I should see "You've already accepted that person's request."
+
+    When "Clay" requests to follow "Bob/foo" by SMS
+    And I sign in via the login page with "Bob/foo"
+    Then I should see "Clay" as a pending follower
+    When I go to the connections page
+    And "+16175551212" sends SMS "no"
+    And I press the ignore button
+    And DJ cranks 5 times
+    And "+16175551212" should have received an SMS "OK, we'll ignore the request from Clay to be your fan."
+    And I should see "You've already ignored that person's request."
 
   Scenario: Follower attempts to follow twice in a row
     When "+14155551212" sends SMS "follow bbob"
