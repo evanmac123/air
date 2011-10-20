@@ -1089,7 +1089,7 @@ fieldset#levels {
   }
 }
 
-.sessions {
+.sessions, .passwords {
   #flash {
     margin: 20px 0;
     width: 1000px;
@@ -1102,7 +1102,7 @@ fieldset#levels {
       font-size: 36px;
     }
 
-    #session-wrapper {
+    #session-wrapper, #password-wrapper {
       padding: 25px 50px;
       width: 900px;
       margin: 150px auto;

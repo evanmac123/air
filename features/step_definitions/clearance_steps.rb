@@ -101,7 +101,7 @@ end
 
 When /^I request password reset link to be sent to "(.*)"$/ do |email|
   When %{I go to the password reset request page}
-  And %{I fill in "Email address" with "#{email}"}
+  And %{I fill in the reset email field with "#{email}"}
   And %{I press "Reset password"}
 end
 
@@ -114,4 +114,8 @@ end
 When /^I return next time$/ do
   When %{session is cleared}
   And %{I go to the homepage}
+end
+
+When /^I fill in the reset email field with "([^"]*)"$/ do |email|
+  When %{I fill in "password[email]" with "#{email}"}
 end

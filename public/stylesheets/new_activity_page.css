@@ -752,20 +752,20 @@ fieldset#levels input {
   #pending-followers-wrapper .pending-follower-details form {
     display: inline-block; }
 
-.sessions #flash {
+.sessions #flash, .passwords #flash {
   margin: 20px 0;
   width: 1000px; }
-.sessions .content {
+.sessions .content, .passwords .content {
   margin: 0 auto; }
-  .sessions .content h2 {
+  .sessions .content h2, .passwords .content h2 {
     font-size: 36px; }
-  .sessions .content #session-wrapper {
+  .sessions .content #session-wrapper, .sessions .content #password-wrapper, .passwords .content #session-wrapper, .passwords .content #password-wrapper {
     padding: 25px 50px;
     width: 900px;
     margin: 150px auto;
     background-color: transparent; }
-    .sessions .content #session-wrapper form {
+    .sessions .content #session-wrapper form, .sessions .content #password-wrapper form, .passwords .content #session-wrapper form, .passwords .content #password-wrapper form {
       margin-bottom: 20px; }
-      .sessions .content #session-wrapper form input {
+      .sessions .content #session-wrapper form input, .sessions .content #password-wrapper form input, .passwords .content #session-wrapper form input, .passwords .content #password-wrapper form input {
         font-size: 20px;
         display: inline-block; }

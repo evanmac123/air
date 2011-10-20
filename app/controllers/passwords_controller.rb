@@ -2,6 +2,7 @@ class PasswordsController < Clearance::PasswordsController
   # We monkeypatch this stuff since the regular Clearance::PasswordsController
   # expects us to identify users by ID, when we're actually using the slug.
 
+  before_filter :set_new_appearance
   before_filter :force_html_format
   before_filter :downcase_email
 
@@ -40,5 +41,9 @@ class PasswordsController < Clearance::PasswordsController
     if params[:password] && params[:password][:email]
       params[:password][:email].downcase!
     end
+  end
+
+  def set_new_appearance
+    @new_appearance = true
   end
 end

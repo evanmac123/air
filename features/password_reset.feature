@@ -23,7 +23,7 @@ Feature: Password reset
     Scenario: User is signed up updated his password and types wrong confirmation
       Given I signed up with "email@person.com/password"
       And I go to the password reset request page
-      And I fill in "Email address" with "email@person.com"
+      And I fill in the reset email field with "email@person.com"
       And I press "Reset password"
       When I follow the password reset link sent to "email@person.com"
       And I update my password with "newpassword/wrongconfirmation"
@@ -33,7 +33,7 @@ Feature: Password reset
     Scenario: User is signed up and updates his password
       Given I signed up with "email@person.com/password"
       And I go to the password reset request page
-      And I fill in "Email address" with "email@person.com"
+      And I fill in the reset email field with "email@person.com"
       And I press "Reset password"
       When I follow the password reset link sent to "email@person.com"
       And I update my password with "newpassword/newpassword"
