@@ -60,11 +60,11 @@ describe EmailCommand, "#cleaning the command" do
     it "the plain part should always be parsed correctly" do
       p = "\n\nhere's the command\nand this is a new line\n\n\nand two new lines\n\n\n\nand a third new line"
       EmailCommand.parse_email_body(p).should eql "here's the command"
-      p = "\n\nhere's the      command\nand this is a new line\n\n\nand two new lines\n\n\n\nand a third new line"
+      p = "\n\nhere's the      COMMAND\nand this is a new line\n\n\nand two new lines\n\n\n\nand a third new line"
       EmailCommand.parse_email_body(p).should eql "here's the command"
       p = "\n\nhere's \t\t the      command\nand this is a new line\n\n\nand two new lines\n\n\n\nand a third new line"
       EmailCommand.parse_email_body(p).should eql "here's the command"
-      p = "\n \t    \nhere's \t\t the      command\nand this is a new line\n\n\nand two new lines\n\n\n\nand a third new line"
+      p = "\n \t    HERE's \t\t the      command\nand this is a new line\n\n\nand two new lines\n\n\n\nand a third new line"
       EmailCommand.parse_email_body(p).should eql "here's the command"
       p = "\n \t    \nhere's \t\t the      command\nand this is a new line\n\n\nand two new lines\n\n\n\nand a third new line"
       EmailCommand.parse_email_body(p).should eql "here's the command"

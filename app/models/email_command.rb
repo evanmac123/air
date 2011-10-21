@@ -40,7 +40,7 @@ class EmailCommand < ActiveRecord::Base
     array_of_lines = email_body.to_a
     array_of_lines.each { |line|
       unless line.gsub(/\s+/, "").empty?
-        first_line = line.split.join(' ')
+        first_line = line.split.join(' ').downcase
         break
       end
     }
