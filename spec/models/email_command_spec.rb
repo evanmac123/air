@@ -66,13 +66,48 @@ describe EmailCommand, "#subjects" do
   end
 end
 
+describe EmailCommand, "#receiving" do
+  context "when an email arrives " do
+    it "should parse the params correctly and be valid" do
+      email_command = EmailCommand.create_from_incoming_email(email_sent_in)      
+      email_command.email_to.should      eql email_sent_in['to']
+      email_command.email_from.should    eql email_sent_in['from']
+      email_command.email_subject.should eql email_sent_in['subject']
+      email_command.email_plain.should   eql email_sent_in['plain']
+      email_command.clean_command_string.should   eql "here's the command"
+      email_command.status.should        eql EmailCommand::Status::NEW
+    end
+  end
+end
+
 
 def email_sent_in
  {  "to"=>"email_commands@hengage.net",
     "from"=>"kbedell@gmail.com",
     "subject"=>"I did something good!",
-    "plain"=>"ate a banana \n\nhere is my message\nand this is a new line\n\n\nand two new lines\n\n\n\nand a third new line"
+    "plain"=>"\n\nhere's the command\nand this is a new line\n\n\nand two new lines\n\n\n\nand a third new line"
   }
+end
+
+describe EmailCommand, "#cleaning the command" do
+  context "when an email arrives " do
+    it "the plain part should always be parsed correctly" do
+      p = "\n\nhere's the command\nand this is a new line\n\n\nand two new lines\n\n\n\nand a third new line"
+      EmailCommand.parse_email_body(p).should eql"here's the command"
+      p = "\n\nhere's the      command\nand this is a new line\n\n\nand two new lines\n\n\n\nand a third new line"
+      EmailCommand.parse_email_body(p).should eql"here's the command"
+      p = "\n\nhere's \t\t the      command\nand this is a new line\n\n\nand two new lines\n\n\n\nand a third new line"
+      EmailCommand.parse_email_body(p).should eql"here's the command"
+      p = "\n \t    \nhere's \t\t the      command\nand this is a new line\n\n\nand two new lines\n\n\n\nand a third new line"
+      EmailCommand.parse_email_body(p).should eql"here's the command"
+      p = "\n \t    \nhere's \t\t the      command\nand this is a new line\n\n\nand two new lines\n\n\n\nand a third new line"
+      EmailCommand.parse_email_body(p).should eql"here's the command"
+      p = "here's \t\t the      command\t\t\nand this is a new line\n\n\nand two new lines\n\n\n\nand a third new line"
+      EmailCommand.parse_email_body(p).should eql"here's the command"
+      p = "\n \t   \n\n\n\n  \t \n \nhere's \t\t the      command\nand this is a new line\n\n\nand two new lines\n\n\n\nand a third new line"
+      EmailCommand.parse_email_body(p).should eql"here's the command"
+    end
+  end
 end
 
 
