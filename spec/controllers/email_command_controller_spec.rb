@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-metal_testing_hack(EmailCommandController)
+#metal_testing_hack(EmailCommandController)
 
 describe EmailCommandController do
   describe "#create" do
@@ -27,6 +27,7 @@ describe EmailCommandController do
       it "should return some text with a 200 status" do
         response.status.should eql 200
         response.content_type.should eql 'text/plain'
+        puts response.body
         response.body.should_not be_blank
       end
 
@@ -35,8 +36,10 @@ describe EmailCommandController do
         email_command = EmailCommand.first
         email_command.email_from.should eql @user.email
         email_command.email_subject.should eql @params['subject']
-        email_command.status.should eql EmailCommand::Status::VERIFIED_USER
+        email_command.status.should eql EmailCommand::Status::USER_VERIFIED
       end
+      
+      
     end
 
   end

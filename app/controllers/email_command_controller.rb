@@ -1,6 +1,9 @@
-class EmailCommandController < ActionController::Metal
+class EmailCommandController< ApplicationController
   include Reply
-  require 'mail'
+
+  skip_before_filter :authenticate
+  skip_before_filter :force_ssl
+  skip_before_filter :verify_authenticity_token
 
   HEARTBEAT_CODE = '738a718e819a07289df0fd0cf573e337'
 
@@ -28,7 +31,7 @@ class EmailCommandController < ActionController::Metal
     email_command = EmailCommand.create_from_incoming_email(params)      
 
     if email_command.nil? || email_command.email_from.nil? || email_command.email_from.blank?
-      # can't respond because we have no return email
+      # can't respond because we have no return email address
       email_command.status = EmailCommand::Status::FAILED
       email_command.save
     elsif email_command.user.nil?
@@ -36,11 +39,15 @@ class EmailCommandController < ActionController::Metal
       email_command.status = EmailCommand::Status::FAILED
       email_command.save
     else
-      self.response_body = construct_reply(Command.parse(email_command.user, email_command.clean_command_string, :allow_claim_account => false))
+      email_command.response = construct_reply(Command.parse(email_command.user, email_command.clean_command_string, :allow_claim_account => false))
+      email_command.status = EmailCommand::Status::SUCCESS
     end
 
     # a status of 404 would reject the mail
-    render :text => 'success', :status => 200 
+    self.response_body = 'success'
+    self.content_type  = "text/plain"
+    self.status = 200
+    return
     
   end
 
