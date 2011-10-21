@@ -93,19 +93,34 @@ describe EmailCommand, "#cleaning the command" do
   context "when an email arrives " do
     it "the plain part should always be parsed correctly" do
       p = "\n\nhere's the command\nand this is a new line\n\n\nand two new lines\n\n\n\nand a third new line"
-      EmailCommand.parse_email_body(p).should eql"here's the command"
+      EmailCommand.parse_email_body(p).should eql "here's the command"
       p = "\n\nhere's the      command\nand this is a new line\n\n\nand two new lines\n\n\n\nand a third new line"
-      EmailCommand.parse_email_body(p).should eql"here's the command"
+      EmailCommand.parse_email_body(p).should eql "here's the command"
       p = "\n\nhere's \t\t the      command\nand this is a new line\n\n\nand two new lines\n\n\n\nand a third new line"
-      EmailCommand.parse_email_body(p).should eql"here's the command"
+      EmailCommand.parse_email_body(p).should eql "here's the command"
       p = "\n \t    \nhere's \t\t the      command\nand this is a new line\n\n\nand two new lines\n\n\n\nand a third new line"
-      EmailCommand.parse_email_body(p).should eql"here's the command"
+      EmailCommand.parse_email_body(p).should eql "here's the command"
       p = "\n \t    \nhere's \t\t the      command\nand this is a new line\n\n\nand two new lines\n\n\n\nand a third new line"
-      EmailCommand.parse_email_body(p).should eql"here's the command"
+      EmailCommand.parse_email_body(p).should eql "here's the command"
       p = "here's \t\t the      command\t\t\nand this is a new line\n\n\nand two new lines\n\n\n\nand a third new line"
-      EmailCommand.parse_email_body(p).should eql"here's the command"
+      EmailCommand.parse_email_body(p).should eql "here's the command"
       p = "\n \t   \n\n\n\n  \t \n \nhere's \t\t the      command\nand this is a new line\n\n\nand two new lines\n\n\n\nand a third new line"
-      EmailCommand.parse_email_body(p).should eql"here's the command"
+      EmailCommand.parse_email_body(p).should eql "here's the command"
+    end
+  end
+end
+
+describe EmailCommand, "#cleaning email addresses" do
+  context "when an email arrives " do
+    it "the email address should be parsed correctly" do
+      e = "Kevin Bedell <kbedell@gmail.com>"
+      EmailCommand.clean_email_address(e).should eql "kbedell@gmail.com"
+      e = "<kbedell@gmail.com>"
+      EmailCommand.clean_email_address(e).should eql "kbedell@gmail.com"
+      e = "kbedell@gmail.com"
+      EmailCommand.clean_email_address(e).should eql "kbedell@gmail.com"
+      e = "" # in case it's just missing
+      EmailCommand.clean_email_address(e).should eql ""
     end
   end
 end
