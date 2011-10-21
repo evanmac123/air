@@ -12,14 +12,17 @@ describe EmailCommand, "#status" do
       email_command.status = 'ima bad status'
       email_command.should_not be_valid
     end
-    it "'new', it should be valid" do
-      (Factory :email_command, :status => EmailCommand::Status::NEW).should be_valid 
-    end
     it "'failed', it should be valid" do
       (Factory :email_command, :status => EmailCommand::Status::FAILED).should be_valid 
     end
     it "'success', it should be valid" do
       (Factory :email_command, :status => EmailCommand::Status::SUCCESS).should be_valid 
+    end
+    it "'unknown email', it should be valid" do
+      (Factory :email_command, :status => EmailCommand::Status::UNKNOWN_EMAIL).should be_valid 
+    end
+    it "'user verified', it should be valid" do
+      (Factory :email_command, :status => EmailCommand::Status::USER_VERIFIED).should be_valid 
     end
   end
 end
@@ -32,35 +35,7 @@ describe EmailCommand, "#users" do
       email_command.should be_valid
     end
     it "is not nil, it should be valid" do
-      email_command = (Factory :email_command_with_user)
-      email_command.should be_valid
-    end
-  end
-end
-
-describe EmailCommand, "#subjects" do
-  context "when associated user " do
-    it "is nil, it should be valid" do
-      email_command = (Factory :email_command)
-      email_command.user = nil # defaults this way in this factory, but just to be clear
-      email_command.should be_valid
-    end
-    it "is not nil, it should be valid" do
-      email_command = (Factory :email_command_with_user)
-      email_command.should be_valid
-    end
-  end
-end
-
-describe EmailCommand, "#subjects" do
-  context "when associated user " do
-    it "is nil, it should be valid" do
-      email_command = (Factory :email_command)
-      email_command.user = nil # defaults this way in this factory, but just to be clear
-      email_command.should be_valid
-    end
-    it "is not nil, it should be valid" do
-      email_command = (Factory :email_command_with_user)
+      email_command = (Factory :email_command, :user => (Factory :user) )
       email_command.should be_valid
     end
   end
@@ -69,24 +44,15 @@ end
 describe EmailCommand, "#receiving" do
   context "when an email arrives " do
     it "should parse the params correctly and be valid" do
-      email_command = EmailCommand.create_from_incoming_email(email_sent_in)      
-      email_command.email_to.should      eql email_sent_in['to']
-      email_command.email_from.should    eql email_sent_in['from']
-      email_command.email_subject.should eql email_sent_in['subject']
-      email_command.email_plain.should   eql email_sent_in['plain']
+      email_command = EmailCommand.create_from_incoming_email(test_email_params)      
+      email_command.email_to.should      eql test_email_params['to']
+      email_command.email_from.should    eql test_email_params['from']
+      email_command.email_subject.should eql test_email_params['subject']
+      email_command.email_plain.should   eql test_email_params['plain']
       email_command.clean_command_string.should   eql "here's the command"
-      email_command.status.should        eql EmailCommand::Status::NEW
+      email_command.status.should        eql EmailCommand::Status::UNKNOWN_EMAIL
     end
   end
-end
-
-
-def email_sent_in
- {  "to"=>"email_commands@hengage.net",
-    "from"=>"kbedell@gmail.com",
-    "subject"=>"I did something good!",
-    "plain"=>"\n\nhere's the command\nand this is a new line\n\n\nand two new lines\n\n\n\nand a third new line"
-  }
 end
 
 describe EmailCommand, "#cleaning the command" do
@@ -123,6 +89,38 @@ describe EmailCommand, "#cleaning email addresses" do
       EmailCommand.clean_email_address(e).should eql ""
     end
   end
+end
+
+describe EmailCommand, "#find user by email" do
+  context "when an email arrives " do
+    it "the user should be findable from the incoming email" do
+      user = Factory :user
+      test_params = test_email_params
+      test_params['from'] = user.email
+      test_params['from'].should eql user.email
+      test_user = User.find_by_email(user.email).should eql user
+      email_command = EmailCommand.create_from_incoming_email(test_params)
+      email_command.user.should eql user
+      email_command.status.should eql EmailCommand::Status::USER_VERIFIED
+    end
+  end
+  context "when an email arrives from an unknown email " do
+    it "we should save the command with the user value nil and status UNKNOWN_EMAIL" do
+      test_params = test_email_params
+      test_params['from'] = 'unknownemail@unknown.com'
+      email_command = EmailCommand.create_from_incoming_email(test_params)
+      email_command.user.should be_nil
+      email_command.status.should eql EmailCommand::Status::UNKNOWN_EMAIL
+    end
+  end
+end
+
+def test_email_params
+ {  "to"=>"email_commands@hengage.net",
+    "from"=>"kbedell@gmail.com",
+    "subject"=>"I did something good!",
+    "plain"=>"\n\nhere's the command\nand this is a new line\n\n\nand two new lines\n\n\n\nand a third new line"
+  }
 end
 
 

@@ -138,17 +138,5 @@ Factory.define :skin do |skin|
 end
 
 Factory.define :email_command do |email_command|
-  email_command.status EmailCommand::Status::NEW
-end
-
-Factory.define :email_command_with_params, :parent => :email_command do |email_command|
-  email_command.email_to "email_commands@hengage.net"
-  email_command.email_from "kbedell@gmail.com"
-  email_command.email_subject "I did something good!"
-  email_command.email_plain "ate a banana \n\nhere is my message\nand this is a new line\n\n\nand two new lines\n\n\n\nand a third new line"
-  email_command.status EmailCommand::Status::NEW
-end
-
-Factory.define :email_command_with_user, :parent => :email_command do |email_command|
-  email_command.association :user  
+  email_command.status EmailCommand::Status::UNKNOWN_EMAIL
 end
