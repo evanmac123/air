@@ -24,11 +24,11 @@ describe EmailCommandController do
         post 'create', @params
       end
 
-      it "should return some text with a 200 status" do
+      it "should return 'success' with a 200 status" do
         response.status.should eql 200
-        response.content_type.should eql 'text/plain'
-        puts response.body
         response.body.should_not be_blank
+        response.body.should eql 'success'
+        response.content_type.should eql 'text/plain'
       end
 
       it "should record a EmailCommand" do
@@ -36,9 +36,9 @@ describe EmailCommandController do
         email_command = EmailCommand.first
         email_command.email_from.should eql @user.email
         email_command.email_subject.should eql @params['subject']
-        email_command.status.should eql EmailCommand::Status::USER_VERIFIED
+        email_command.status.should eql EmailCommand::Status::SUCCESS
+        email_command.response.should eql "Sorry, I don't understand what that means. Email \"s\" to suggest we add what you sent."
       end
-      
       
     end
 

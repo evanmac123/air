@@ -41,6 +41,7 @@ class EmailCommandController< ApplicationController
     else
       email_command.response = construct_reply(Command.parse(email_command.user, email_command.clean_command_string, :allow_claim_account => false))
       email_command.status = EmailCommand::Status::SUCCESS
+      email_command.save
     end
 
     # a status of 404 would reject the mail
