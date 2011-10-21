@@ -23,15 +23,20 @@ class EmailCommandController < ActionController::Metal
 
 
   def create
-    # create a Mail object from the raw message
-    email_command = Mail.new(params[:message])
+    # create a EmailCommand object from the raw message
+    email_command = EmailCommand.create_from_incoming_email(params[:message])      
 
-    if !movie_poster.new_record?
-      render :text => "Success", :status => 201, :content_type => Mime::TEXT.to_s
+    # did we have trouble parsing the email or were we unable to find the user from the incoming 'from' email?
+    if email_command.nil? || email_command.email_from.nil? || email_command.email_from.blank?
+      # can't respond because we have no return email
+      email_command.status = EmailCommand::Status::FAILED
+      email_command.save
+    elsif email_command.user.nil?
+      # send a response to the email saying the email they're sending from isn't registered?
     else
-      render :text => movie_poster.errors.full_messages.join(', '), :status => 422, :content_type => Mime::TEXT.to_s
+      self.response_body = construct_reply(Command.parse(email_command.user, email_command.clean_command_string, :allow_claim_account => false))
     end
-    self.response_body = construct_reply(Command.parse(params['From'], params['Body'], :allow_claim_account => true))
+    
   end
 
   protected
