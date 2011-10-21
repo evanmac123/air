@@ -74,10 +74,7 @@ class BonusThreshold < ActiveRecord::Base
         :inherent_points => crossed_bonus_threshold.award
       )
 
-      SMS.send_side_message(
-        user.phone_number,
-        sms_text
-      )
+      SMS.send_side_message(user, sms_text)
     end  
   end
 

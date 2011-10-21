@@ -535,10 +535,7 @@ class User < ActiveRecord::Base
   end
 
   def send_victory_notices
-    SMS.send_side_message(
-      self.phone_number,
-      self.demo.victory_sms(self)
-    )
+    SMS.send_side_message(self, self.demo.victory_sms(self))
 
     SMS.send_message(
       self.demo.victory_verification_sms_number,
