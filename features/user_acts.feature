@@ -103,6 +103,52 @@ Feature: User acts
     When "+15087407520" sends SMS "ate banana"
     Then "+15087407520" should have received an SMS "Bananas are good for you. Points 2/50, rank 2/4."
 
+  Scenario: User achieves part of a goal by acting
+    Given the following goals exist:
+      | name              | demo                  |
+      | deadly sins       | company_name: FooCorp |
+      | redeeming virtues | company_name: FooCorp |
+    And the following rules exist:
+      | reply               | points | demo                  |
+      | Lust woo!           | 2      | company_name: FooCorp |
+      | Pride boo!          | 5      | company_name: FooCorp |
+      | Envy who?           | 6      | company_name: FooCorp |
+      | Charity good for u. | 11     | company_name: FooCorp |
+      | So is diligence too | 15     | company_name: FooCorp |
+    And rule "Lust woo!" is associated with goal "deadly sins"
+    And rule "Pride boo!" is associated with goal "deadly sins"
+    And rule "Envy who?" is associated with goal "deadly sins"
+    And rule "Charity good for u." is associated with goal "redeeming virtues"
+    And rule "So is diligence too" is associated with goal "redeeming virtues"
+    And the following rule values exist:
+      | value     | rule                       |
+      | lust      | reply: Lust woo!           |
+      | pride     | reply: Pride boo!          |
+      | envy      | reply: Envy who?           |
+      | charity   | reply: Charity good for u. |
+      | diligence | reply: So is diligence too |
+
+    When "+15087407520" sends SMS "lust"
+    Then "+15087407520" should have received SMS "Lust woo! 1/3 deadly sins, points 2/50, rank 2/4."
+
+    When "+15087407520" sends SMS "lust"
+    Then "+15087407520" should have received SMS "Lust woo! 1/3 deadly sins, points 4/50, rank 1/4."
+
+    When "+15087407520" sends SMS "charity"
+    Then "+15087407520" should have received SMS "Charity good for u. 1/2 redeeming virtues, points 15/50, rank 1/4."
+
+    When "+15088675309" sends SMS "diligence"
+    Then "+15088675309" should have received SMS "So is diligence too 1/2 redeeming virtues, points 15/50, rank 1/4."
+
+    When "+15087407520" sends SMS "diligence"
+    Then "+15087407520" should have received SMS "So is diligence too 2/2 redeeming virtues, points 30/50, rank 1/4."
+
+    When "+15087407520" sends SMS "pride"
+    Then "+15087407520" should have received SMS "Pride boo! 2/3 deadly sins, points 35/50, rank 1/4."
+
+    When "+15087407520" sends SMS "lust"
+    Then "+15087407520" should have received SMS "Lust woo! 2/3 deadly sins, points 37/50, rank 1/4."
+
   Scenario: User tries an act that we've specifically forbidden
     When "+15087407520" sends SMS "was naughty"
     Then "+15087407520" should have received an SMS "Sorry, that's not a valid command."

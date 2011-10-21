@@ -5,6 +5,7 @@ class Act < ActiveRecord::Base
   belongs_to :user
   belongs_to :rule
   belongs_to :demo
+  has_one :goal, :through => :rule
 
   before_create do
     self.demo_id ||= user.demo_id
@@ -18,6 +19,14 @@ class Act < ActiveRecord::Base
 
   def points
     self.inherent_points || self.rule.try(:points)
+  end
+
+  def post_act_summary
+    if self.goal
+      user.point_and_ranking_summary([self.goal.progress_text(user)])
+    else
+      user.point_and_ranking_summary  
+    end
   end
 
   def self.recent(limit)
@@ -142,9 +151,9 @@ class Act < ActiveRecord::Base
       )
     end
 
-    create(:user => user, :text => text, :rule => rule)
+    act = create!(:user => user, :text => text, :rule => rule)
 
-    reply = [rule.reply, user.point_and_ranking_summary].join(' ')
+    reply = [rule.reply, act.post_act_summary].join(' ')
 
     reply
   end

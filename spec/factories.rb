@@ -136,3 +136,8 @@ end
 Factory.define :skin do |skin|
   skin.association :demo
 end
+
+Factory.define :goal do |goal|
+  goal.sequence(:name) {|n| "Number #{n} Goal"}
+  goal.association :demo
+end

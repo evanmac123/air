@@ -336,16 +336,16 @@ class User < ActiveRecord::Base
     set_ranking('recent_average_points', 'recent_average_ranking')
   end
 
-  def point_and_ranking_summary
-    result = if (victory_threshold = self.demo.victory_threshold)
-      "Points #{self.points}/#{victory_threshold}, r"
-    else
-      "R"
+  def point_and_ranking_summary(prefix = [])
+    result_parts = prefix.clone
+    
+    if (victory_threshold = self.demo.victory_threshold)
+      result_parts << "points #{self.points}/#{victory_threshold}"
     end
 
-    result += "ank #{self.ranking}/#{self.demo.ranked_user_count}."
+    result_parts << "rank #{self.ranking}/#{self.demo.ranked_user_count}"
 
-    result
+    result_parts.join(', ').capitalize + '.'
   end
 
   def claim_code_prefix

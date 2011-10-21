@@ -4,6 +4,7 @@ describe Act do
   it { should belong_to(:user) }
   it { should belong_to(:rule) }
   it { should belong_to(:demo) }
+  it { should have_one(:goal).through(:rule) }
 end
 
 describe Act, "#points" do

@@ -4,6 +4,7 @@ describe Rule do
   subject { Factory(:rule) }
 
   it { should belong_to(:demo) }
+  it { should belong_to(:goal) }
   it { should have_many(:acts) }
   it { should have_many(:rule_values) }
 
