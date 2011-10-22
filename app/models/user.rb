@@ -16,6 +16,8 @@ class User < ActiveRecord::Base
   has_many   :friends, :through => :friendships
   has_many   :survey_answers
   has_many   :wins, :dependent => :destroy
+  has_many   :goal_completions
+  has_many   :completed_goals, :through => :goal_completions, :source => :goal
   has_and_belongs_to_many :bonus_thresholds
   has_and_belongs_to_many :levels
 

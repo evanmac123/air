@@ -1,9 +1,13 @@
-<% if won_at || @levels.present? %>
+<% if won_at || @levels.present? || @goals.present? %>
   <h2>Achievements</h2>
 
   <div id="achievements">
     <% if won_at %>
       <div id="winning-time" class="achievement"><%= current_user.demo.victory_achievement_message(current_user) %></div>
+    <% end %>
+
+    <% @goals.each do |goal| %>
+      <div class="goal achievement"><%= goal.achievement_text %></div>
     <% end %>
 
     <% @levels.each do |level| %>

@@ -20,7 +20,7 @@ def expect_rule_rows(rule_or_hash)
   end
 end
 
-Given /^rule "([^"]*)" is associated with goal "([^"]*)"$/ do |rule_reply, goal_name|
+Given /^(the )?rule "([^"]*)" is associated with (the )?goal "([^"]*)"$/ do |_nothing_1, rule_reply, _nothing_2, goal_name|
   goal = Goal.find_by_name(goal_name)
   rule = Rule.find_by_reply(rule_reply)
   goal.rules << rule

@@ -13,6 +13,11 @@ class Act < ActiveRecord::Base
 
   after_create do
     user.update_points(points) if points
+
+    if self.completes_goal?
+      SMS.send_side_message(user, self.goal.completion_sms_text)
+      GoalCompletion.create!(:user => user, :goal => self.goal)
+    end
   end
 
   scope :recent, lambda {|max| order('created_at DESC').limit(max)}
@@ -27,6 +32,11 @@ class Act < ActiveRecord::Base
     else
       user.point_and_ranking_summary  
     end
+  end
+
+  def completes_goal?
+    return false unless self.goal && self.goal.complete?(self.user)
+    self.goal.acts.where(:user_id => self.user_id, :rule_id => self.rule_id).count == 1
   end
 
   def self.recent(limit)
@@ -153,9 +163,7 @@ class Act < ActiveRecord::Base
 
     act = create!(:user => user, :text => text, :rule => rule)
 
-    reply = [rule.reply, act.post_act_summary].join(' ')
-
-    reply
+    [rule.reply, act.post_act_summary].join(' ')
   end
 
 

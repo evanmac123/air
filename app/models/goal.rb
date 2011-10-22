@@ -1,4 +1,7 @@
 class Goal < ActiveRecord::Base
+  include DemoScope
+
+  include DemoScope
   has_many :rules
   has_many :acts, :through => :rules
 
@@ -6,10 +9,15 @@ class Goal < ActiveRecord::Base
 
   validates_presence_of :name, :demo_id
 
-  def progress_text(user)
-    distinct_rules_toward_goal_count = self.acts.where(:user_id => user.id).map(&:rule_id).uniq.count
-    total_rule_count = self.rules.count
+  def distinct_rules_toward_goal_count(user)
+    self.acts.where(:user_id => user.id).map(&:rule_id).uniq.count  
+  end
 
-    "#{distinct_rules_toward_goal_count}/#{total_rule_count} #{name}"
+  def complete?(user)
+    distinct_rules_toward_goal_count(user) == rules.count
+  end
+
+  def progress_text(user)
+    "#{distinct_rules_toward_goal_count(user)}/#{self.rules.count} #{name}"
   end
 end
