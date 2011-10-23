@@ -58,4 +58,12 @@ class Mailer < ActionMailer::Base
          :from    => "donotreply@hengage.com",
          :subject => "#{follower_name} wants to be your fan on H Engage"
   end
+
+  def set_password(user_id)
+    @user = User.find(user_id)
+
+    mail :to      => @user.email,
+         :from    => "donotreply@hengage.com",
+         :subject => "Set your password"
+  end
 end

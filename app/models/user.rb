@@ -201,7 +201,7 @@ class User < ActiveRecord::Base
     end
 
     user.forgot_password!
-    ClearanceMailer.delay.change_password(user)
+    Mailer.delay.set_password(user.id)
 
     user.join_game(from)
   end

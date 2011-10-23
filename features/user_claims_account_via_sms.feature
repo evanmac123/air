@@ -24,6 +24,9 @@ Feature: User claims account via SMS
 
     When DJ cranks 5 times
     And "dan@example.com" opens the email
+    Then I should see "Set your password" in the email subject
+    And I should not see "Someone, hopefully you, has requested that we send you a link to change your password." in the email body
+
     And I click the first link in the email
     And I fill in "Choose password" with "dandan"
     And I fill in "Confirm password" with "dandan"
