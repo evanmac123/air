@@ -162,9 +162,9 @@ describe EmailCommandController do
   end
 end
 
-=begin
 
-May need to test these additional special commands.
+=begin
+May want to test these additional special commands.
 
 # create a user, have another user try to follow them.
 'follow', 'connect'
