@@ -30,6 +30,16 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def authenticate_with_game_begun_check
+    authenticate_without_game_begun_check
+    if current_user && current_user.demo.begins_at && current_user.demo.begins_at > Time.now
+      @new_appearance = true
+      render "shared/game_not_yet_begun"
+    end
+  end
+
+  alias_method_chain :authenticate, :game_begun_check
+
   private
 
   def determine_layout

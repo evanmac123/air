@@ -120,3 +120,9 @@ end
 Then /^I should see '(.*?)'$/ do |expected_text|
   page.should have_content(expected_text)
 end
+
+Then /^(?:|I )should not be on (.+)$/ do |page_name|
+  current_path = URI.parse(current_url).path
+  current_path.should_not == path_to(page_name)
+end
+

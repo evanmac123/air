@@ -40,14 +40,6 @@ Feature: Game has a beginning and an end
     And "+14152613077" should not have received an SMS "Worked out. Rank 1/2."
     And "+14152613077" should have received an SMS "Thanks for playing! The game is now over. If you'd like more information e-mailed to you, please text MORE INFO."
 
-  Scenario: Following before the game begins via site does nothing
-    Given time is frozen at "2010-04-01 11:59:59 UTC"
-    Then "Phil" should not be able to follow "Vlad"
-
-  Scenario: Before the game begins friending buttons are disabled
-    Given time is frozen at "2010-04-01 11:59:59 UTC"
-    Then all follow buttons for "Vlad" should be disabled
-
   Scenario: Following after the game ends via site does nothing
     Given time is frozen at "2010-05-01 12:00:01 UTC"
     Then "Phil" should not be able to follow "Vlad"

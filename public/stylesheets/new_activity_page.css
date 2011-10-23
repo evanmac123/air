@@ -769,3 +769,11 @@ fieldset#levels input {
       .sessions .content #session-wrapper form input, .sessions .content #password-wrapper form input, .passwords .content #session-wrapper form input, .passwords .content #password-wrapper form input {
         font-size: 20px;
         display: inline-block; }
+
+#no-login-yet {
+  width: 900px;
+  position: relative;
+  top: 130px;
+  left: 300px; }
+  #no-login-yet h2 {
+    font-size: 36px; }
