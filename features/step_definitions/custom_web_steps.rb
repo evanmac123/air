@@ -50,6 +50,12 @@ When /^I press the de\-fan button$/ do
   find(:css, '.defan').click
 end
 
+When /^(?:|I )unselect "([^"]*)" from "([^"]*)"(?: within "([^"]*)")?$/ do |value, field, selector|
+  with_scope(selector) do
+    unselect(value, :from => field)
+  end
+end
+
 Then /^(?:|I )should see `([^`]*)`(?: within "([^"]*)")?$/ do |text, selector|
   with_scope(selector) do
     if page.respond_to? :should

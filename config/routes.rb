@@ -67,6 +67,8 @@ Health::Application.routes.draw do
       resources :levels, :only => [:edit, :update, :destroy], :shallow => true
       resources :levels, :only => [:new, :create]
 
+      resources :goals
+
       namespace :rules do
         resource :bulk_load, :only => [:create]
       end

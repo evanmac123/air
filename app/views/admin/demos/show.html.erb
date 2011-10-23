@@ -73,6 +73,8 @@ Game
 
 <p><%= link_to 'Add level', new_admin_demo_level_path(@demo) %></p>
 
+<p><%= link_to "Goals for this demo", admin_demo_goals_path(@demo) %></p>
+
 <p>Welcome message: <%= @demo.welcome_message %></p>
 
 <p>Victory achievement message: <%= @demo.victory_achievement_message %></p>

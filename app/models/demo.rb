@@ -7,6 +7,7 @@ class Demo < ActiveRecord::Base
   has_many :survey_questions, :through => :surveys
   has_many :bonus_thresholds, :dependent => :destroy
   has_many :levels, :dependent => :destroy
+  has_many :goals, :dependent => :destroy
 
   has_one :skin
 

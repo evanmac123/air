@@ -76,4 +76,12 @@ class Rule < ActiveRecord::Base
   def self.neutral(limit)
     where("points = 0").limit(limit)
   end
+
+  def self.eligible_for_goal(goal)
+    if goal.id
+      where(["demo_id = ? AND (goal_id = ? OR goal_id IS NULL)", goal.demo.id, goal.id])
+    else
+      where(["demo_id = ? AND goal_id IS NULL", goal.demo.id])
+    end
+  end
 end

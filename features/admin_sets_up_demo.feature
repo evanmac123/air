@@ -92,6 +92,3 @@ Feature: Admin sets up demo
     And I press "Submit"
     Then I should be on the admin "3M" demo page
     And I should see "Bobby Jones"
-
-  Scenario: Some stuff about goals
-    Then there should be some kind of way for the admin to mess with goals
