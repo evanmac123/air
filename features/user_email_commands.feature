@@ -43,8 +43,16 @@ Feature: User acts via email
       | name | act         | points |
       | Dan  | ate banana  | 2      |
 
-  Scenario: User acts via EMAIL
+  Scenario: User acts via EMAIL for a different act
     When "dan@bigco.com" sends EMAIL with subject "love slighty burned bread" and body "made toast"
+    And I sign in via the login page as "Dan/foo"
+    And I go to the acts page
+    Then I should see the following act:
+      | name | act         | points |
+      | Dan  | made toast  | 8      |
+
+  Scenario: User acts via EMAIL with a strange email body
+    When "dan@bigco.com" sends EMAIL with subject "love slighty burned bread" and body " made     toast  "
     And I sign in via the login page as "Dan/foo"
     And I go to the acts page
     Then I should see the following act:
@@ -56,4 +64,7 @@ Feature: User acts via email
   	And "dan@bigco.com" sends EMAIL with subject "me tarzan, you jane" and body "ate banana"
     Then "dan@bigco.com" should receive an email reply "Bananas are good for you. Points 2/50, rank 2/4."
     And "dan@bigco.com" should receive an email reply "Bananas are good for you. Points 4/50, rank 1/4."
+
+
+
 

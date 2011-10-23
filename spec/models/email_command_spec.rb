@@ -72,6 +72,8 @@ describe EmailCommand, "#cleaning the command" do
       EmailCommand.parse_email_body(p).should eql "here's the command"
       p = "\n \t   \n\n\n\n  \t \n \nhere's \t\t the      command\nand this is a new line\n\n\nand two new lines\n\n\n\nand a third new line"
       EmailCommand.parse_email_body(p).should eql "here's the command"
+      p = "\n  \n\t  \t \t made toast  \t\t\nsecond line\n"
+      EmailCommand.parse_email_body(p).should eql "made toast"
     end
   end
 end

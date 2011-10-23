@@ -44,6 +44,9 @@ class EmailCommandController< ApplicationController
       email_command.save
     end
 
+    # let DJ handle the email response
+    EmailCommandMailer.delay.send_response(email_command)
+
     # a status of 404 would reject the mail
     self.response_body = 'success'
     self.content_type  = "text/plain"
