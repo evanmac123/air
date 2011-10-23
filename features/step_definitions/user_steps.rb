@@ -35,3 +35,9 @@ end
 Then /^"(.*?)" should not be claimed$/ do |username|
   User.find_by_name(username).phone_number.should be_blank
 end
+
+Then /^"([^"]*)" should have a null password$/ do |username|
+  user = User.find_by_name(username)
+  user.password.should be_nil
+  user.password_confirmation.should be_nil
+end

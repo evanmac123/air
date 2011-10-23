@@ -200,11 +200,8 @@ class User < ActiveRecord::Base
       )
     end
 
-    new_password = claim_code_prefix(user)
-    user.update_attributes(
-      :password              => new_password,
-      :password_confirmation => new_password
-    )
+    user.forgot_password!
+    ClearanceMailer.delay.change_password(user)
 
     user.join_game(from)
   end

@@ -1,5 +1,11 @@
 Feature: User claims account via SMS
 
+  Background:
+    Given the following user exists:
+      | name | demo                             |
+      | Bob  | company_name: Global Tetrahedron |
+    And "Bob" has the password "bleh"
+
   Scenario: User claims account with claim code
     Given the following user exists:
       | name      | claim_code | demo                             |
@@ -9,20 +15,31 @@ Feature: User claims account via SMS
     Then "Dan Croak" should be claimed by "+14155551212"
     And "+14155551212" should have received an SMS "You've joined the Global Tetrahedron game! Your unique ID is dcroak4444 (text MYID if you forget). To play, text to this #."
 
-  Scenario: Claiming account sets password so user can log in via Web
+  Scenario: Claiming account sends user a password reset email
     Given the following user exists:
-      | name      | claim_code | demo                             |
-      | Dan Croak | dcroak     | company_name: Global Tetrahedron |
+      | name      | email           | claim_code | demo                             |
+      | Dan Croak | dan@example.com | dcroak     | company_name: Global Tetrahedron |
     When "+14155551212" sends SMS "Dcroak"
-    And I sign in via the login page as "Dan Croak/dcroak"
-    Then I should see "Signed in"
+    Then "Dan Croak" should have a null password
+
+    When DJ cranks 5 times
+    And "dan@example.com" opens the email
+    And I click the first link in the email
+    And I fill in "Choose password" with "dandan"
+    And I fill in "Confirm password" with "dandan"
+    And I press "Save this password"
+    Then I should be on the activity page
+
+    When I sign out
+    And I sign in via the login page with "Dan Croak/dandan"
+    Then I should be on the activity page
 
   Scenario: Claiming account shows in activity stream as joining the game
     Given the following user exists:
       | name      | claim_code | demo                             |
       | Dan Croak | dcroak     | company_name: Global Tetrahedron |
     When "+14155551212" sends SMS "Dcroak"
-    And I sign in via the login page as "Dan Croak/dcroak"
+    And I sign in via the login page as "Bob/bleh"
     Then I should see "Dan Croak joined the game"
 
   Scenario: Claiming account shows on profile page as joining the game
@@ -30,7 +47,7 @@ Feature: User claims account via SMS
       | name      | claim_code | demo                             |
       | Dan Croak | dcroak     | company_name: Global Tetrahedron |
     When "+14155551212" sends SMS "Dcroak"
-    And I sign in via the login page as "Dan Croak/dcroak"
+    And I sign in via the login page as "Bob/bleh"
     And I go to the profile page for "Dan Croak"
     Then I should see "Dan Croak joined the game"
 
@@ -52,8 +69,12 @@ Feature: User claims account via SMS
     And the following user exists:
       | name      | claim_code | demo                |
       | Dan Croak | dcroak     | company_name: FooCo |
+    And the following user exists:
+      | name | demo                |
+      | Fred | company_name: FooCo |
+    And "Fred" has the password "ferd"
     When "+14155551212" sends SMS "Dcroak"
-    And I sign in via the login page as "Dan Croak/dcroak"
+    And I sign in via the login page as "Fred/ferd"
     Then I should see "Dan Croak 10 pts"
     And I should see "10 pts Dan Croak joined the game less than a minute ago"
 
@@ -80,11 +101,11 @@ Feature: User claims account via SMS
 
   Scenario: User claims ambiguous code with their first name
     Given the following users exist:
-      | name       | claim code |
-      | John Smith | jsmith     |
-      | Jack Smith | jsmith     |
+      | name       | claim code | demo                             |
+      | John Smith | jsmith     | company_name: Global Tetrahedron |
+      | Jack Smith | jsmith     | company_name: Global Tetrahedron |
     When "+14155551212" sends SMS "john jsmith"
-    And I sign in via the login page as "John Smith/jsmith"
+    And I sign in via the login page as "Bob/bleh"
     Then I should see "John Smith joined the game"
 
   Scenario: User can't claim if their number is already assigned to an account
