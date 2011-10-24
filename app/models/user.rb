@@ -34,6 +34,7 @@ class User < ActiveRecord::Base
     #:processors => [:png],
     :storage => :s3,
     :s3_credentials => S3_CREDENTIALS,
+    :s3_protocol => 'https',
     :path => "/avatars/:id/:style/:filename",
     :bucket => S3_AVATAR_BUCKET
 

@@ -1,6 +1,6 @@
 def expected_avatar_url(user, filename)
   [
-    'http://s3.amazonaws.com',
+    'https://s3.amazonaws.com',
     S3_AVATAR_BUCKET,
     'avatars',
     user.id,

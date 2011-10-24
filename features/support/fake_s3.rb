@@ -10,7 +10,7 @@ class FakeS3App < Sinatra::Base
   end
 end
 
-ShamRack.at('s3.amazonaws.com', 80).rackup do
+ShamRack.at('s3.amazonaws.com', 443).rackup do
   run FakeS3App
 end
 
