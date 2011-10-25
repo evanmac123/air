@@ -141,3 +141,7 @@ Factory.define :goal do |goal|
   goal.sequence(:name) {|n| "Number #{n} Goal"}
   goal.association :demo
 end
+
+Factory.define :email_command do |email_command|
+  email_command.status EmailCommand::Status::UNKNOWN_EMAIL
+end

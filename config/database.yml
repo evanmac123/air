@@ -1,7 +1,7 @@
 development: &default
   adapter: postgresql
   min_messages: warning
-  database: health_development
+  database: public
   host: localhost
   encoding: utf8
 
