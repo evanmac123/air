@@ -26,8 +26,7 @@
 
 module EmailHelpers
   def current_email_address
-    puts "@user.email = #{@user.email} - getting current email"
-    @user.email || "dan@bigco.com"
+    last_email_address || "dan@bigco.com"
   end
 end
   

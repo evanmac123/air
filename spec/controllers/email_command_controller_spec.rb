@@ -8,7 +8,7 @@ describe EmailCommandController do
       # We don't use hardly any of these fields, but this is what Twilio 
       # sends.
 
-      @user = Factory :user
+      @user = Factory :user_with_phone
 
       @test_params = {
          "to"=>"email_commands@hengage.net",
@@ -122,7 +122,7 @@ describe EmailCommandController do
         email_command.email_from.should eql @user.email
         email_command.email_subject.should eql params['subject']
         email_command.status.should eql EmailCommand::Status::SUCCESS
-        email_command.response.should eql "Got it. We'll have someone get back to you shortly."
+        email_command.response.should eql "Got it. We'll have someone get back to you during our business hours, 9 AM to 9 PM Eastern time."
       end      
 
       it "should process 'survey' correctly" do

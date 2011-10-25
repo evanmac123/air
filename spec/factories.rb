@@ -13,7 +13,6 @@ Factory.define :user do |factory|
   factory.password              { "password" }
   factory.password_confirmation { "password" }
   factory.sequence(:sms_slug)   { |n| "jej#{n}" }
-  factory.phone_number          { Factory.next :phone }
 end
 
 Factory.define :user_with_phone, :parent => :user do |factory|
