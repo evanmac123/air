@@ -166,4 +166,4 @@ Feature: Admin adds and edits rules
 
   Scenario: Proper restrictions on rule reply length
     When I go to the rule edit page for "ate banana"
-    Then I should see a restricted text field "Reply" with length 116
+    Then I should see a restricted text field "Reply" with length 101
