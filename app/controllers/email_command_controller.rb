@@ -62,6 +62,6 @@ class EmailCommandController< ApplicationController
   end
 
   def self.channel_specific_translations
-    {:say => "Email"}
+    {:say => "email", :Say => "Email"}
   end
 end

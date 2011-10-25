@@ -122,7 +122,7 @@ describe EmailCommandController do
         email_command.email_from.should eql @user.email
         email_command.email_subject.should eql params['subject']
         email_command.status.should eql EmailCommand::Status::SUCCESS
-        email_command.response.should eql "Got it. We'll have someone get back to you during our business hours, 9 AM to 9 PM Eastern time."
+        email_command.response.should eql "Got it. We'll have someone email you shortly. Tech support is open 9 AM to 9 PM ET. If it's outside those hours, we'll follow-up first thing when we open."
       end      
 
       it "should process 'survey' correctly" do
