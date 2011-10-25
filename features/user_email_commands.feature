@@ -62,8 +62,9 @@ Feature: User acts via email
   Scenario: User can send in email commands and have them processed correctly
   	When "dan@bigco.com" sends EMAIL with subject "me tarzan, you jane" and body "ate banana"
   	And "dan@bigco.com" sends EMAIL with subject "me tarzan, you jane" and body "ate banana"
-    Then "dan@bigco.com" should receive an email reply "Bananas are good for you. Points 2/50, rank 2/4."
-    And "dan@bigco.com" should receive an email reply "Bananas are good for you. Points 4/50, rank 1/4."
+    Then "dan@bigco.com" have an email command history with the phrase "Bananas are good for you. Points 2/50, rank 2/4."
+    And "dan@bigco.com" have an email command history with the phrase "Bananas are good for you. Points 4/50, rank 1/4."
+    Then "dan@bigco.com" should receive 2 emails
 
 
 
