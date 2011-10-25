@@ -5,9 +5,6 @@ require 'spec_helper'
 describe EmailCommandController do
   describe "#create" do
     before(:each) do
-      # We don't use hardly any of these fields, but this is what Twilio 
-      # sends.
-
       @user = Factory :user_with_phone
 
       @test_params = {
@@ -43,7 +40,14 @@ describe EmailCommandController do
         email_command.status.should eql EmailCommand::Status::SUCCESS
         email_command.response.should eql "Sorry, I don't understand what that means. Email \"s\" to suggest we add what you sent."
       end      
-      
+
+      it "should set the From header to the proper address" do
+        params = @test_params.merge({:plain => 'some damn thing'})
+        post 'create', params
+        Delayed::Worker.new.work_off(10)
+        ActionMailer::Base.deliveries.first.from.should == [EmailCommandMailer::PLAY_ADDRESS]
+      end
+
       it "should process 'myid' correctly" do
         params = @test_params.merge({:plain => "myid"})
         post 'create', params

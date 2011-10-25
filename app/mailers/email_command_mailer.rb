@@ -1,5 +1,7 @@
 class EmailCommandMailer < ActionMailer::Base
-  default :from => "donotreply@hengage.com"
+  PLAY_ADDRESS = Rails.env.production? ? "play@hengage.com" : "play-#{Rails.env}@hengage.com"
+
+  default :from => PLAY_ADDRESS
 
   def send_response(email_command)
       @message  = email_command.response
