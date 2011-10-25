@@ -65,7 +65,24 @@ Feature: User acts via email
     Then "dan@bigco.com" have an email command history with the phrase "Bananas are good for you. Points 2/50, rank 2/4."
     And "dan@bigco.com" have an email command history with the phrase "Bananas are good for you. Points 4/50, rank 1/4."
     Then "dan@bigco.com" should receive 2 emails
+    When "dan@bigco.com" opens the email
+    Then I should see "Bananas are good for you. Points 2/50, rank 2/4" in the email body
 
+  Scenario: User sends an email with a long body
+    When "dan@bigco.com" sends EMAIL with subject "me tarzan, you jane" and the following body:
+"""
+ate banana
 
+This is a confidential communication of TarzanCo (a subsidiary of Burroughs Inc.) If you have received this message and it is not intended for you, please gouge out your eyes and set fire to your computer.
 
+This is not an offer to trade or roll logs. Void where prohibited. Some assembly required. Not intended for children under 65. I'm not wearing any pants. Do you ever wake up in the middle of the night wondering when you're going to die?
+"""
+    Then "dan@bigco.com" have an email command history with the phrase "Bananas are good for you. Points 2/50, rank 2/4."
 
+    When I sign in via the login page as "Dan/foo"
+    And I go to the acts page
+    Then I should see the following act:
+      | name | act         | points |
+      | Dan  | ate banana  | 2      |
+    When "dan@bigco.com" opens the email
+    Then I should see "Bananas are good for you. Points 2/50, rank 2/4" in the email body
