@@ -3,7 +3,7 @@ class EmailCommandMailer < ActionMailer::Base
 
   def send_response(email_command)
       @message  = email_command.response
-      mail(:to => email_command.user, :subject => "Got your message!")
+      mail(:to => email_command.user.email, :subject => "Got your message!")
   end
 
 end
