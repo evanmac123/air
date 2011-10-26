@@ -86,3 +86,15 @@ This is not an offer to trade or roll logs. Void where prohibited. Some assembly
       | Dan  | ate banana  | 2      |
     When "dan@bigco.com" opens the email
     Then I should see "Bananas are good for you. Points 2/50, rank 2/4" in the email body
+
+  Scenario: User plays by email in a game with a custom email address
+    Given the following demo exists:
+      | company name | email                  |
+      | CustomCo     | custom@playhengage.com |
+    And the following user exists:
+      | email            | demo                   |
+      | joe@customco.com | company_name: CustomCo |
+    When "joe@customco.com" sends EMAIL with subject "me tarzan, you jane" and body "do good thing"
+    And "joe@customco.com" opens the email
+    Then they should see the email delivered from "custom@playhengage.com"
+    Then I should see "Good for you" in the email body

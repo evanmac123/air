@@ -45,7 +45,7 @@ describe EmailCommandController do
         params = @test_params.merge({:plain => 'some damn thing'})
         post 'create', params
         Delayed::Worker.new.work_off(10)
-        ActionMailer::Base.deliveries.first.from.should == [EmailCommandMailer::PLAY_ADDRESS]
+        ActionMailer::Base.deliveries.first.from.should == [EmailCommandMailer::DEFAULT_PLAY_ADDRESS]
       end
 
       it "should process 'myid' correctly" do
