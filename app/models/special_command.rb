@@ -13,7 +13,7 @@ module SpecialCommand
     command_name, *args = normalized_command.split
 
     case command_name
-    when 'follow', 'connect'
+    when 'follow', 'connect', 'fan'
       self.follow(user, args.first)
     when 'myid'
       self.myid(user)
@@ -27,7 +27,7 @@ module SpecialCommand
       self.use_suggested_item(user, command_name)
     when 'lastquestion'
       self.remind_last_question(user)
-    when 'rankings'
+    when 'rankings', 'ranking', 'standing', 'standings'
       self.send_rankings_page(user, :use_offset => false, :reset_offset => true)
     when 'morerankings'
       self.send_rankings_page(user)
@@ -41,6 +41,8 @@ module SpecialCommand
       self.ignore_follow_request(user, args.first)
     when 'prizes'
       self.send_demo_prize_message(user.demo)
+    when 'rules', 'commands'
+      self.send_command_response
     else
       self.credit_game_referrer(user, command_name)
     end
@@ -216,5 +218,9 @@ module SpecialCommand
 
   def self.send_demo_prize_message(demo)
     parsing_success_message(demo.prize.present? ? demo.prize : "Sorry, no physical prizes this time. This one's just for the joy of the contest.")
+  end
+
+  def self.send_command_response
+    parsing_success_message("FAN [someone's ID] - become a fan\nMYID - see your own ID\nRANKING - see rankings in your game\nHELP - get basic instructions\nPRIZES - see what you can win")
   end
 end
