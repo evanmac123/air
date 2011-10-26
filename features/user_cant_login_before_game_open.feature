@@ -14,7 +14,7 @@ Feature: User can't login before game opens
     Then I should not see "Signed in"
     And I should see "Your game begins on May 01, 2011 at 12:00 AM Eastern"
     When I go to the profile page for "Bob"
-    Then I should not see "Bob"
+    Then I should not see "Enter your new mobile number"
     And I should see "Your game begins on May 01, 2011 at 12:00 AM Eastern"
     
     When time is frozen at "2011-05-01 00:01:00 -0400"

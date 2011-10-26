@@ -38,6 +38,7 @@
     </div>
 
     <% if @viewing_self %>
+      <%= mp_track("viewed own profile") %>
       <div class="own-number">
         <h3><%= @user.phone_number.as_pretty_phone %></h3>
       </div>
@@ -50,6 +51,7 @@
   <% end %>
 
   <% if @viewing_other %>
+    <%= mp_track "viewed profile of someone else", :viewed_person => @user.name %>
     <div id="follow-target">
       <% if current_user.following?(@user) %>
         <%= unfollow_button @user, "#follow-target" %>

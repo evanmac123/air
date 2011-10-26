@@ -23,4 +23,4 @@ Feature: Admin edits users
     When I fill in "Claim code" with ""
     And I press "Update User"
     Then I should be on the admin "British Petroleum" demo page
-    And I should not see "()"
+    And I should not see "bobby@bp.com ()"

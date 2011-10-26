@@ -15,6 +15,7 @@
     <%= render 'shared/skin_styles' %>
   <% end %>
   <%= csrf_meta_tag %>
+  <%= render :partial => 'shared/mixpanel' %>
 </head>
 <body class="<%= body_class %>">
   <%= render :partial => (@new_appearance ? 'shared/new_header' : 'shared/header') %>
