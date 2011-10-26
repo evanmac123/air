@@ -223,7 +223,7 @@ module SpecialCommand
   end
 
   def self.send_demo_prize_message(demo)
-    parsing_success_message(demo.prize.present? ? demo.prize : "Sorry, no physical prizes this time. This one's just for the joy of the contest.")
+    parsing_success_message(demo.prize_message)
   end
 
   def self.send_command_response

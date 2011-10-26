@@ -67,6 +67,22 @@ class Demo < ActiveRecord::Base
     )
   end
 
+  def prize_message(user = nil)
+    custom_message_about_user(
+      :prize,
+      "default_prize_message",
+      "Sorry, no physical prizes this time. This one's just for the joy of the contest."
+    )
+  end
+
+  def help_response(user = nil)
+    custom_message_about_user(
+      :help_message,
+      "default_help_message",
+      "Text:\nRULES for command list\nPRIZES for prizes\nSUPPORT for help from the help desk"
+    )
+  end
+
   def game_not_yet_begun?
     self.begins_at && Time.now < self.begins_at
   end
@@ -146,12 +162,6 @@ class Demo < ActiveRecord::Base
 
   def send_blast_sms(text)
     users.ranked.each {|user| SMS.send_message(user, text)}
-  end
-
-  def help_response
-    self.help_message.present? ?
-      self.help_message : 
-      "Text:\nRULES for command list\nPRIZES for prizes\nSUPPORT for help from the help desk"
   end
 
   protected
