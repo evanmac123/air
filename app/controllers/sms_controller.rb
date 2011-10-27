@@ -29,6 +29,10 @@ class SmsController < ActionController::Metal
   end
 
   def self.channel_specific_translations
-    {:say => "text", :Say => "Text"}
+    {
+      :say => "text", 
+      :Say => "Text",
+      :help_command_explanation => "HELP - help desk, instructions\n"
+    }
   end
 end

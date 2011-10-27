@@ -62,6 +62,10 @@ class ActsController < ApplicationController
   end
 
   def self.channel_specific_translations
-    {:say => "type", :Say => "Type"}
+    {
+      :say => "type", 
+      :Say => "Type",
+      :help_command_explanation => "HELP - help desk, instructions\n"
+    }
   end
 end
