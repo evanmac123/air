@@ -18,6 +18,6 @@ class Goal < ActiveRecord::Base
   end
 
   def progress_text(user)
-    "#{distinct_rules_toward_goal_count(user)}/#{self.rules.count} #{name}"
+    "#{name.capitalize} #{distinct_rules_toward_goal_count(user)}/#{self.rules.count}"
   end
 end

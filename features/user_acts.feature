@@ -129,25 +129,25 @@ Feature: User acts
       | diligence | reply: So is diligence too |
 
     When "+15087407520" sends SMS "lust"
-    Then "+15087407520" should have received SMS "Lust woo! 1/3 deadly sins, points 2/50, rank 2/4."
+    Then "+15087407520" should have received SMS "Lust woo! Deadly sins 1/3, points 2/50, rank 2/4."
 
     When "+15087407520" sends SMS "lust"
-    Then "+15087407520" should have received SMS "Lust woo! 1/3 deadly sins, points 4/50, rank 1/4."
+    Then "+15087407520" should have received SMS "Lust woo! Deadly sins 1/3, points 4/50, rank 1/4."
 
     When "+15087407520" sends SMS "charity"
-    Then "+15087407520" should have received SMS "Charity good for u. 1/2 redeeming virtues, points 15/50, rank 1/4."
+    Then "+15087407520" should have received SMS "Charity good for u. Redeeming virtues 1/2, points 15/50, rank 1/4."
 
     When "+15088675309" sends SMS "diligence"
-    Then "+15088675309" should have received SMS "So is diligence too 1/2 redeeming virtues, points 15/50, rank 1/4."
+    Then "+15088675309" should have received SMS "So is diligence too Redeeming virtues 1/2, points 15/50, rank 1/4."
 
     When "+15087407520" sends SMS "diligence"
-    Then "+15087407520" should have received SMS "So is diligence too 2/2 redeeming virtues, points 30/50, rank 1/4."
+    Then "+15087407520" should have received SMS "So is diligence too Redeeming virtues 2/2, points 30/50, rank 1/4."
 
     When "+15087407520" sends SMS "pride"
-    Then "+15087407520" should have received SMS "Pride boo! 2/3 deadly sins, points 35/50, rank 1/4."
+    Then "+15087407520" should have received SMS "Pride boo! Deadly sins 2/3, points 35/50, rank 1/4."
 
     When "+15087407520" sends SMS "lust"
-    Then "+15087407520" should have received SMS "Lust woo! 2/3 deadly sins, points 37/50, rank 1/4."
+    Then "+15087407520" should have received SMS "Lust woo! Deadly sins 2/3, points 37/50, rank 1/4."
 
   Scenario: User tries an act that we've specifically forbidden
     When "+15087407520" sends SMS "was naughty"
