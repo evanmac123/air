@@ -98,3 +98,29 @@ This is not an offer to trade or roll logs. Void where prohibited. Some assembly
     And "joe@customco.com" opens the email
     Then they should see the email delivered from "custom@playhengage.com"
     Then I should see "Good for you" in the email body
+
+  Scenario: User throws a bunch of blank lines in at the top, for God knows what reason
+    When "dan@bigco.com" sends EMAIL with subject "me tarzan, you jane" and the following body:
+    """
+
+
+
+    ate banana
+
+
+
+
+
+    Goddamn I love blank lines
+
+
+
+
+
+
+    """
+
+    And I sign in via the login page as "Dan/foo"
+    Then I should see the following act:
+      | name | act         | points |
+      | Dan  | ate banana  | 2      |

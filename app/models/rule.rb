@@ -5,7 +5,7 @@ class Rule < ActiveRecord::Base
   has_many   :acts
   has_one    :primary_value, :class_name => "RuleValue", :conditions => {:is_primary => true}
   has_many   :secondary_values, :class_name => "RuleValue", :conditions => {:is_primary => false}
-  has_many   :rule_values
+  has_many   :rule_values, :dependent => :destroy
 
   def to_s
     description || self.primary_value.try(:value) || self.rule_values.oldest.first.value
