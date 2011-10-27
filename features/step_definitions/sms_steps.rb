@@ -52,6 +52,10 @@ Then /^"([^"]*)" should not have received any SMSes$/ do |phone_number|
   FakeTwilio::SMS.should_not have_sent_text_to(phone_number)
 end
 
+Then /^"([^"]*)" should have received the following SMS:$/ do |phone_number, sms_body|
+  mobile_originated_message_received(phone_number, sms_body)
+end
+
 When /^"([^"]*)" sends SMS "([^"]*)"$/ do |phone_number, sms_body|
   mobile_originated_message_received(phone_number, sms_body)
 end
