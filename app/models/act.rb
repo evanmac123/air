@@ -55,7 +55,7 @@ class Act < ActiveRecord::Base
     end
 
     if user.nil?
-      reply = "I can't find your number in my records. Did you claim your account yet? If not, text your first initial and last name (if you are John Smith, text \"jsmith\")."
+      reply = Demo.number_not_found_response(options[:receiving_number])
       record_bad_message(phone_number, body)
       return parsing_error_message(reply)
     end

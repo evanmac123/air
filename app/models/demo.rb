@@ -28,7 +28,7 @@ class Demo < ActiveRecord::Base
   alias_method_chain :acts, :current_demo_checked
 
   def welcome_message(user=nil)
-    custom_message_about_user(
+    custom_message(
       :custom_welcome_message,
       'default_welcome_sms',
       "You've joined the %{company_name} game! Your unique ID is %{unique_id} (text MYID if you forget). To play, text to this #.",
@@ -39,7 +39,7 @@ class Demo < ActiveRecord::Base
   end
 
   def victory_achievement_message(user = nil)
-    custom_message_about_user(
+    custom_message(
       :custom_victory_achievement_message,
       'default_victory_achievement_message',
       'You won on %{winning_time}. Congratulations!',
@@ -49,7 +49,7 @@ class Demo < ActiveRecord::Base
   end
 
   def victory_sms(user = nil)
-    custom_message_about_user(
+    custom_message(
       :custom_victory_sms,
       'default_victory_sms',
       "Congratulations! You've got %{points} points and have qualified for the drawing!",
@@ -59,7 +59,7 @@ class Demo < ActiveRecord::Base
   end
 
   def victory_scoreboard_message(user = nil)
-    custom_message_about_user(
+    custom_message(
       :custom_victory_scoreboard_message,
       'default_victory_scoreboard_message',
       "Won game!",
@@ -68,7 +68,7 @@ class Demo < ActiveRecord::Base
   end
 
   def prize_message(user = nil)
-    custom_message_about_user(
+    custom_message(
       :prize,
       "default_prize_message",
       "Sorry, no physical prizes this time. This one's just for the joy of the contest."
@@ -76,7 +76,7 @@ class Demo < ActiveRecord::Base
   end
 
   def help_response(user = nil)
-    custom_message_about_user(
+    custom_message(
       :help_message,
       "default_help_message",
       "Text:\nRULES for command list\nPRIZES for prizes\nSUPPORT for help from the help desk"
@@ -164,9 +164,26 @@ class Demo < ActiveRecord::Base
     users.ranked.each {|user| SMS.send_message(user, text)}
   end
 
+  def number_not_found_response
+    custom_message(
+      :unrecognized_user_message,
+      "default_unrecognized_user_message",
+      self.class.default_number_not_found_response
+    )
+  end
+
+  def self.number_not_found_response(receiving_number)
+    demo = self.where(:phone_number => receiving_number).first
+    demo ? demo.number_not_found_response : default_number_not_found_response
+  end
+
+  def self.default_number_not_found_response
+    "I can't find your number in my records. Did you claim your account yet? If not, text your first initial and last name (if you are John Smith, text \"jsmith\")."
+  end
+
   protected
 
-  def custom_message_about_user(custom_message_method_name, default_message_key, default_default_message, user = nil, method_chains_for_interpolation = {})
+  def custom_message(custom_message_method_name, default_message_key, default_default_message, user = nil, method_chains_for_interpolation = {})
     custom_message_text = self.send(custom_message_method_name)
 
     uninterpolated_text = if custom_message_text.blank?

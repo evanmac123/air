@@ -14,6 +14,8 @@
     <%= form.input :points_for_connecting, :label => "Points for connecting to another player" %>
     <%= form.input :prize, :label => "Prize text", :as => :text %>
     <%= form.input :help_message, :as => :text %>
+    <%= form.input :unrecognized_user_message, :label => 'Phone-number-not-recognized message', :input_html => {:maxlength => 160} %>
+    <%= add_byte_counter_for "Phone-number-not-recognized message" %>
   <% end %>
 
   <%= form.inputs :name => "Followup welcome message" do %>

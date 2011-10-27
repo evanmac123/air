@@ -151,3 +151,17 @@ Feature: User claims account via SMS
     And "Dan Croak" should be claimed by "+16175551212"
     And "Vlad Gyster" should be claimed by "+12125551212"
     And "Kelli Peterson" should be claimed by "+18085551212"
+
+  Scenario: User tries to claim with nonexistent claim code
+    When "+14155551212" sends SMS "nobody"
+    Then "+14155551212" should have received an SMS 'I can't find your number in my records. Did you claim your account yet? If not, text your first initial and last name (if you are John Smith, text "jsmith").'
+
+  Scenario: User tries to claim with nonexistent claim code to a custom phone number
+    Given the following demos exist:
+      | company name | phone number | unrecognized user message |
+      | CustomOne    | +19005551212 |                           |
+      | CustomTwo    | +19765551212 | Go screw, luser           |
+    And "+14155551212" sends SMS "nobody" to "+19005551212"
+    And "+16175551212" sends SMS "nobody" to "+19765551212"
+    Then "+14155551212" should have received an SMS `I can't find your number in my records. Did you claim your account yet? If not, text your first initial and last name (if you are John Smith, text "jsmith").`
+    And "+16175551212" should have received an SMS "Go screw, luser"
