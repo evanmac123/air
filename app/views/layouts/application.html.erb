@@ -15,7 +15,11 @@
     <%= render 'shared/skin_styles' %>
   <% end %>
   <%= csrf_meta_tag %>
-  <%= render :partial => 'shared/mixpanel' %>
+  <%= render 'shared/mixpanel' %>
+  <% flash.select{|k,v| k.to_s =~ /^mp_track/}.each do |k, v| %>
+    <% event, properties = v %>
+    <%= mp_track event, properties %>
+  <% end %>
 </head>
 <body class="<%= body_class %>">
   <%= render :partial => (@new_appearance ? 'shared/new_header' : 'shared/header') %>

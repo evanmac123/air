@@ -9,6 +9,7 @@
 <% content_for :javascript do %>
   <%= javascript_tag do %>
     $('#show-all-ranked-players').click(function(e) {
+      mpq.track('saw full scoreboard');
       $(this).replaceWith('<%= escape_javascript(image_tag("spinner.gif", :id => 'scoreboard-spinner')) %>');
       $.get('<%= scoreboard_path :format => :js %>');
       e.preventDefault();

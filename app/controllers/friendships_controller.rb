@@ -8,6 +8,7 @@ class FriendshipsController < ApplicationController
       format.html do
         if new_friendship
           flash[:success] = @user.follow_requested_message
+          flash[:mp_track_friendship] = ["fanned"]
         end
         redirect_to :back
       end
@@ -27,7 +28,10 @@ class FriendshipsController < ApplicationController
     @user.reload
 
     respond_to do |format|
-      format.html {redirect_to :back}
+      format.html do
+        redirect_to :back
+        flash[:mp_track_friendship] = ["defanned"]
+      end
 
       format.js
 

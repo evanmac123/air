@@ -1,4 +1,5 @@
 <% after ||= "" %>
+<% mixpanel_event_name ||= "" %>
 
 <% content_for :javascript do %>
   <%= javascript_tag do %>
@@ -6,6 +7,10 @@
     var <%= path_var_name %> = '<%= original_path %>';
 
     $('<%= button_selector %>').bind('click', function(e) {
+      <% if mixpanel_event_name.present? %>
+        mpq.track('<%= mixpanel_event_name %>', {offset: <%= offset_var_name %>});
+      <% end %>
+
       $('<%= spinner_selector %>').show();
       $.get(<%= path_var_name %>, {offset: <%= offset_var_name %>}, function(){<%= after %>});
       e.preventDefault();

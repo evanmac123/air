@@ -1,6 +1,7 @@
 <% if flash.any? %>
   <div id="flash">
     <% flash.each do |key, value| -%>
+      <% next if key.to_s =~ /^mp_track/ %>
       <div id="flash_<%= key %>"><%=h value %></div>
     <% end -%>
   </div>

@@ -4,6 +4,7 @@
 
   $('ul.tabs li').removeClass('active');
   $('ul.tabs li:contains(<%= @active_tab %>)').addClass('active');
+  mpq.track('clicked "<%= @active_tab %>" tab');
 <% end %>
 
 <%= render :partial => "shared/new_act", :collection => acts, :as => :act %>
