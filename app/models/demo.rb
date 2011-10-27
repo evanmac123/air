@@ -31,7 +31,7 @@ class Demo < ActiveRecord::Base
     custom_message(
       :custom_welcome_message,
       'default_welcome_sms',
-      "You've joined the %{company_name} game! Your unique ID is %{unique_id} (text MYID if you forget). To play, text to this #.",
+      "You've joined the %{company_name} game! Your user ID is %{unique_id} (text MYID if you forget). To play, text to this #.",
       user,
       :company_name => [:demo, :company_name],
       :unique_id    => [:sms_slug]

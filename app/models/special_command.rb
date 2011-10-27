@@ -54,7 +54,7 @@ module SpecialCommand
 
   def self.follow(user_following, sms_slug_to_follow)
     user_to_follow = User.ranked.where(:sms_slug => sms_slug_to_follow, :demo_id => user_following.demo_id).first
-    return parsing_error_message("Sorry, we couldn't find a user with the unique ID #{sms_slug_to_follow}.") unless user_to_follow
+    return parsing_error_message("Sorry, we couldn't find a user with the user ID #{sms_slug_to_follow}.") unless user_to_follow
 
     Friendship.transaction do
       return parsing_success_message("You've already asked to be a fan of #{user_to_follow.name}.") if user_following.pending_friends.where('friendships.friend_id' => user_to_follow.id).present?
@@ -96,7 +96,7 @@ module SpecialCommand
   end
 
   def self.myid(user)
-    parsing_success_message("Your unique ID is #{user.sms_slug}.")
+    parsing_success_message("Your user ID is #{user.sms_slug}.")
   end
 
   def self.moreinfo(user)

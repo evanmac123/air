@@ -80,7 +80,7 @@ class Act < ActiveRecord::Base
       rule_value = user.first_eligible_rule_value(truncated_value)
       referring_user = User.find_by_sms_slug(referring_user_sms_slug)
       if (rule_value && !referring_user)
-        return parsing_error_message("We understood what you did, but not the user who referred you. Perhaps you could have them check their unique ID with the myid command?")
+        return parsing_error_message("We understood what you did, but not the user who referred you. Perhaps you could have them check their user ID with the MYID command?")
       end
 
       if referring_user == user

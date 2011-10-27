@@ -56,7 +56,7 @@ describe EmailCommandController do
         email_command.email_from.should eql @user.email
         email_command.email_subject.should eql params['subject']
         email_command.status.should eql EmailCommand::Status::SUCCESS
-        email_command.response.should eql "Your unique ID is #{@user.sms_slug}."
+        email_command.response.should eql "Your user ID is #{@user.sms_slug}."
       end      
 
       it "should process 'moreinfo' correctly" do

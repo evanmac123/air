@@ -3,7 +3,7 @@ class SmsSlugsController < ApplicationController
     current_user.sms_slug = params[:user][:sms_slug]
 
     if current_user.save
-      flash[:success] = "Your unique ID was changed to #{current_user.sms_slug}"
+      flash[:success] = "Your user ID was changed to #{current_user.sms_slug}"
     else
       flash[:failure] = current_user.errors[:sms_slug]
     end

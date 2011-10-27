@@ -31,4 +31,4 @@ Scenario: Phone number is normalized on entry
   And I fill in "Enter your new mobile number" with "(415) 505-3344"
   And I press the button to submit the mobile number
   And "+14155053344" sends SMS "myid"
-  Then "+14155053344" should have received SMS "Your unique ID is bobbarino."
+  Then "+14155053344" should have received SMS "Your user ID is bobbarino."

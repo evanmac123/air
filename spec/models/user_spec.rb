@@ -23,7 +23,7 @@ describe User do
 
     user.sms_slug = ''
     user.should_not be_valid
-    user.errors[:sms_slug].should include("Sorry, you can't choose a blank unique ID.")
+    user.errors[:sms_slug].should include("Sorry, you can't choose a blank user ID.")
   end
 
   it "should validate uniqueness of phone number when not blank" do

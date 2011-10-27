@@ -58,7 +58,7 @@ Feature: Admin sets up demo
     When I follow "New Demo"
     And I fill in "Company name" with "3M"
     And I press "Submit"
-    Then I should see "Welcome message: You've joined the %{company_name} game! Your unique ID is %{unique_id} (text MYID if you forget). To play, text to this #."
+    Then I should see "Welcome message: You've joined the %{company_name} game! Your user ID is %{unique_id} (text MYID if you forget). To play, text to this #."
     And I should see "Victory achievement message: You won on %{winning_time}. Congratulations!"
     And I should see "Victory SMS: Congratulations! You've got %{points} points and have qualified for the drawing!"
     And I should see "Victory scoreboard message: Won game!"

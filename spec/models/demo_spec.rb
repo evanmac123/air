@@ -41,7 +41,7 @@ describe Demo, "#welcome_message" do
     end
 
     it "should return a reasonable default" do
-      @demo.welcome_message(@user).should == "You've joined the #{@demo.company_name} game! Your unique ID is #{@user.sms_slug} (text MYID if you forget). To play, text to this #."
+      @demo.welcome_message(@user).should == "You've joined the #{@demo.company_name} game! Your user ID is #{@user.sms_slug} (text MYID if you forget). To play, text to this #."
     end
   end
 

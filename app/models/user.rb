@@ -23,10 +23,10 @@ class User < ActiveRecord::Base
 
   validates_uniqueness_of :phone_number, :allow_blank => true
   validates_uniqueness_of :slug
-  validates_uniqueness_of :sms_slug, :message => "Sorry, that unique ID is already taken."
+  validates_uniqueness_of :sms_slug, :message => "Sorry, that user ID is already taken."
 
   validates_presence_of :name
-  validates_presence_of :sms_slug, :message => "Sorry, you can't choose a blank unique ID."
+  validates_presence_of :sms_slug, :message => "Sorry, you can't choose a blank user ID."
 
   has_attached_file :avatar, 
     :styles => {:thumb => "48x48#"}, 
@@ -196,7 +196,7 @@ class User < ActiveRecord::Base
     if (existing_user = User.find_by_phone_number(from))
       return I18n.t(
         'activerecord.models.user.claim_account.already_claimed_sms',
-        :default => "You've already claimed ur account, and have %{current_points} pts. If you're trying to credit another user, ask them to check their unique ID with the MYID command.",
+        :default => "You've already claimed your account, and have %{current_points} pts. If you're trying to credit another user, ask them to check their user ID with the MYID command.",
         :current_points => existing_user.points
       )
     end

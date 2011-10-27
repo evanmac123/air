@@ -26,7 +26,7 @@
     <% end %>
   <% end %>
 
-  <h3>Username (Unique ID)</h3>
+  <h3>User ID</h3>
   <%= semantic_form_for current_user, :url => account_sms_slug_path do |form| %>
     <%= form.input :sms_slug, :label => 'Enter a new username' %>
     <%= image_with_hover_submit_tag save_button_skinned, '#save-username', :id => 'save-username' %>
