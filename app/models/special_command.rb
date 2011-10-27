@@ -227,6 +227,6 @@ module SpecialCommand
   end
 
   def self.send_command_response
-    parsing_success_message("FAN [someone's ID] - become a fan\nMYID - see your own ID\nRANKING - see rankings in your game\nHELP - get basic instructions\nPRIZES - see what you can win")
+    parsing_success_message('FAN [someone\'s ID] - become a fan (ex: "fan bob12")\nMYID - see your ID\nRANKING - see scoreboard\nHELP - help desk, instructions\nPRIZES - see what you can win')
   end
 end
