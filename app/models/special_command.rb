@@ -171,7 +171,9 @@ module SpecialCommand
       return I18n.t(
         'special_command.credit_game_referrer.cannot_refer_yourself_sms', 
         :default => "You've already claimed your account, and have %{points}. If you're trying to credit another user, @{say} their User ID",
-        :points => ActionView::Helpers::TextHelper.pluralize(user.points, 'point')
+        # for some reason, pluralize works in development but not staging
+        # or production
+        :points => user.points.to_s + ' ' + (user.points == 1 ? 'point' : 'points')
       )
     end
 
