@@ -2,6 +2,8 @@
 
 <%= @message %>
 
+Please reply to this email in order to submit commands for points.
+
 If you'd like to log in to the Web site, you can set your password at <%= edit_user_password_url(@user, :token => @user.confirmation_token) %>.</p>
 
 If you'd also like to play by text message, please first set your password via the URL above. After that, you can set your mobile phone number at <%= user_url(@user) %>.

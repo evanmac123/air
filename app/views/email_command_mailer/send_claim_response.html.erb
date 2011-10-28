@@ -1,5 +1,6 @@
 <%= render 'replies_above_this_line' %>
 <p><%= @message %></p>
+<p>Please reply to this email in order to submit commands for points.</p>
 <p>If you'd like to log in to the Web site, you can set your password <%= link_to "here", edit_user_password_url(@user, :token => @user.confirmation_token) %>.</p>
 <p>If you'd also like to play by text message, please first set your password via the link above. After that, you can set your mobile phone number <%= link_to "here", user_url(@user) %>.</p>
 <%= render :partial => 'footer' %>
