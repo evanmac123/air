@@ -1,10 +1,3 @@
-<p>---Please put replies ABOVE this line---</p>
-
+<%= render 'replies_above_this_line' %>
 <p><%= @message %></p>
-
-<p>Please note that we look for your command in the first line of the body of your email. Please avoid writing anything else. We know, it's a little terse. But we're a computer. We don't take offense (since we're not programmed to).</p>
-
-<p>If you're having problems, please email or text us with the command "HELP".</p>
-
-<p>Thanks,<br/>
-H Engage</p>
+<%= render :partial => 'footer' %>

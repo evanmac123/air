@@ -182,29 +182,18 @@ class User < ActiveRecord::Base
   end
 
   def self.claim_account(from, claim_code, options={})
-    normalized_claim_code = claim_code.gsub(/\W+/, '')
-    users = User.find(:all, :conditions => ["claim_code ILIKE ?", normalized_claim_code])
+    channel = options[:channel] || :sms
 
-    if users.count > 1
-      return "There's more than one person with that code. Please try sending us your first name along with the code (for example: John Smith enters \"john jsmith\")."
+    claimer_class = case channel
+    when :sms
+      AccountClaimer::SMSClaimer
+    when :email
+      AccountClaimer::EmailClaimer
+    else
+      raise ArgumentError, "don't know how to claim account through channel \"#{options[:channel]}\""
     end
 
-    user = users.first || User.claimable_by_email_address(claim_code) || User.claimable_by_first_name_and_claim_code(claim_code)
-
-    return nil unless user
-
-    if (existing_user = User.find_by_phone_number(from))
-      return I18n.t(
-        'activerecord.models.user.claim_account.already_claimed_sms',
-        :default => "You've already claimed your account, and have %{current_points} pts. If you're trying to credit another user, ask them to check their user ID with the MYID command.",
-        :current_points => existing_user.points
-      )
-    end
-
-    user.forgot_password!
-    Mailer.delay.set_password(user.id)
-
-    user.join_game(from)
+    claimer_class.new(from, claim_code, options).claim
   end
 
   def invite
@@ -478,6 +467,17 @@ class User < ActiveRecord::Base
     end
 
     message
+  end
+
+  def self.next_dummy_number
+   last_assigned = self.where("phone_number LIKE '+1999%'").order("phone_number DESC").limit(1).first
+
+    if last_assigned
+      last_number_int = last_assigned.phone_number.to_i
+      "+" + (last_number_int + 1).to_s
+    else
+      "+19995550000"
+    end
   end
 
   protected

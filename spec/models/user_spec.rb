@@ -663,3 +663,21 @@ describe User, "when demo_id changes" do
     end
   end
 end
+
+describe User, '.next_dummy_number' do
+  context "when no user with a dummy number exists" do
+    it "should return the first such" do
+      User.next_dummy_number.should == "+19995550000"
+    end
+  end
+
+  context "when users with dummy numbers exist" do
+    it "should return the next in sequence" do
+      Factory :user, :phone_number => "+19995550000"
+      Factory :user, :phone_number => "+19995550001"
+      Factory :user, :phone_number => "+19995550002"
+
+      User.next_dummy_number.should == "+19995550003"
+    end
+  end
+end

@@ -33,7 +33,7 @@ Health::Application.configure do
   # Print deprecation notices to the stderr
   config.active_support.deprecation = :stderr
 
-  config.action_mailer.default_url_options = { :host => 'example.com' }
+  config.action_mailer.default_url_options = { :host => 'www.example.com' }
 
   FAKE_TWILIO_ACCOUNT_SID  = "12345"
   FAKE_TWILIO_AUTH_TOKEN   = "abcde"

@@ -31,6 +31,16 @@ module NavigationHelpers
     when /the password reset request page/
       new_password_path
 
+    when /the password reset page for "(.*?)"/
+      user = User.find_by_name($1)
+      raise "trying to determine password reset page for user with no confirmation token" unless user.confirmation_token.present?
+      edit_user_password_path(:user_id => user.id, :token => user.confirmation_token)
+
+    when /the password reset full URL for "(.*?)"/
+      user = User.find_by_name($1)
+      raise "trying to determine password reset URL for user with no confirmation token" unless user.confirmation_token.present?
+      edit_user_password_url(:user_id => user.id, :token => user.confirmation_token)
+
     when /the (friends|connections) page/
       friends_path
 

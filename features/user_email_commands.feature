@@ -35,24 +35,24 @@ Feature: User acts via email
       | was naughty | 
     And time is frozen at "2011-05-23 00:00 UTC"
 
-  Scenario: User acts via EMAIL
-    When "dan@bigco.com" sends EMAIL with subject "me tarzan, you jane" and body "ate banana"
+  Scenario: User acts via email
+    When "dan@bigco.com" sends email with subject "me tarzan, you jane" and body "ate banana"
     And I sign in via the login page as "Dan/foo"
     And I go to the acts page
     Then I should see the following act:
       | name | act         | points |
       | Dan  | ate banana  | 2      |
 
-  Scenario: User acts via EMAIL for a different act
-    When "dan@bigco.com" sends EMAIL with subject "love slighty burned bread" and body "made toast"
+  Scenario: User acts via email for a different act
+    When "dan@bigco.com" sends email with subject "love slighty burned bread" and body "made toast"
     And I sign in via the login page as "Dan/foo"
     And I go to the acts page
     Then I should see the following act:
       | name | act         | points |
       | Dan  | made toast  | 8      |
 
-  Scenario: User acts via EMAIL with a strange email body
-    When "dan@bigco.com" sends EMAIL with subject "love slighty burned bread" and body " made     toast  "
+  Scenario: User acts via email with a strange email body
+    When "dan@bigco.com" sends email with subject "love slighty burned bread" and body " made     toast  "
     And I sign in via the login page as "Dan/foo"
     And I go to the acts page
     Then I should see the following act:
@@ -60,8 +60,8 @@ Feature: User acts via email
       | Dan  | made toast  | 8      |
 
   Scenario: User can send in email commands and have them processed correctly
-  	When "dan@bigco.com" sends EMAIL with subject "me tarzan, you jane" and body "ate banana"
-  	And "dan@bigco.com" sends EMAIL with subject "me tarzan, you jane" and body "ate banana"
+  	When "dan@bigco.com" sends email with subject "me tarzan, you jane" and body "ate banana"
+  	And "dan@bigco.com" sends email with subject "me tarzan, you jane" and body "ate banana"
     Then "dan@bigco.com" have an email command history with the phrase "Bananas are good for you. Points 2/50, rank 2/4."
     And "dan@bigco.com" have an email command history with the phrase "Bananas are good for you. Points 4/50, rank 1/4."
     Then "dan@bigco.com" should receive 2 emails
@@ -69,7 +69,7 @@ Feature: User acts via email
     Then I should see "Bananas are good for you. Points 2/50, rank 2/4" in the email body
 
   Scenario: User sends an email with a long body
-    When "dan@bigco.com" sends EMAIL with subject "me tarzan, you jane" and the following body:
+    When "dan@bigco.com" sends email with subject "me tarzan, you jane" and the following body:
 """
 ate banana
 
@@ -92,15 +92,15 @@ This is not an offer to trade or roll logs. Void where prohibited. Some assembly
       | company name | email                  |
       | CustomCo     | custom@playhengage.com |
     And the following user exists:
-      | email            | demo                   |
-      | joe@customco.com | company_name: CustomCo |
-    When "joe@customco.com" sends EMAIL with subject "me tarzan, you jane" and body "do good thing"
+      | email            | phone number | demo                   |
+      | joe@customco.com | +17185551212 | company_name: CustomCo |
+    When "joe@customco.com" sends email with subject "me tarzan, you jane" and body "do good thing"
     And "joe@customco.com" opens the email
     Then they should see the email delivered from "custom@playhengage.com"
     Then I should see "Good for you" in the email body
 
   Scenario: User throws a bunch of blank lines in at the top, for God knows what reason
-    When "dan@bigco.com" sends EMAIL with subject "me tarzan, you jane" and the following body:
+    When "dan@bigco.com" sends email with subject "me tarzan, you jane" and the following body:
     """
 
 
