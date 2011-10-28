@@ -168,22 +168,22 @@ module SpecialCommand
     return nil unless referring_user
 
     if referring_user == user
-      return I18n.t(
+      return parsing_error_message(I18n.t(
         'special_command.credit_game_referrer.cannot_refer_yourself_sms', 
         :default => "You've already claimed your account, and have %{points}. If you're trying to credit another user, @{say} their User ID",
         # for some reason, pluralize works in development but not staging
         # or production
         :points => user.points.to_s + ' ' + (user.points == 1 ? 'point' : 'points')
-      )
+      ))
     end
 
     referral_deadline = user.accepted_invitation_at + demo.credit_game_referrer_threshold.minutes 
     if Time.now > referral_deadline
-      return I18n.t('special_command.credit_game_referrer.too_late_for_game_referral_sms', :default => 'Sorry, the time when you can credit someone for referring you to the game is over.')
+      return parsing_error_message(I18n.t('special_command.credit_game_referrer.too_late_for_game_referral_sms', :default => 'Sorry, the time when you can credit someone for referring you to the game is over.'))
     end
 
     if user.game_referrer
-      return I18n.t('special_command.credit_game_referrer.already_referred', :default => "You've already told us that %{referrer_name} referred you to the game.", :referrer_name => user.game_referrer.name)
+      return parsing_error_message(I18n.t('special_command.credit_game_referrer.already_referred', :default => "You've already told us that %{referrer_name} referred you to the game.", :referrer_name => user.game_referrer.name))
     end
 
     # If we make it here, we finally know it's OK to credit the referring user.
@@ -201,7 +201,7 @@ module SpecialCommand
 
     SMS.send_message(referring_user, referrer_sms_text)
 
-    referred_sms_text
+    parsing_success_message(referred_sms_text)
   end
 
   def self.send_help_response(user)
