@@ -22,6 +22,9 @@ class EmailCommandController< ApplicationController
       return if claim_account(email_command) # we sent response already
       # maybe we were, but it didn't work
       email_command.response = unmatched_claim_code_response
+    elsif email_command.email_plain.blank?
+      email_command.response = blank_body_response
+      email_command.status = EmailCommand::Status::SUCCESS
     else
       email_command.response = construct_reply(Command.parse(email_command.user, email_command.clean_command_string, :allow_claim_account => false, :channel => :email))
       email_command.status = EmailCommand::Status::SUCCESS
@@ -67,6 +70,10 @@ class EmailCommandController< ApplicationController
 
   def unmatched_claim_code_response
     "That user ID doesn't match the one we have in our records. Please try again, or email help@hengage.com for assistance from a human."
+  end
+
+  def blank_body_response
+    "We got your email, but it looks like the body of it was blank. Please put your command in the first line of the email body."
   end
 
   def self.channel_specific_translations

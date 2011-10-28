@@ -124,3 +124,10 @@ This is not an offer to trade or roll logs. Void where prohibited. Some assembly
     Then I should see the following act:
       | name | act         | points |
       | Dan  | ate banana  | 2      |
+
+  Scenario: User sends email with blank body and gets a reasonable response
+    When "dan@bigco.com" sends email with subject "me tarzan, you jane" and body ""
+    Then "dan@bigco.com" should receive 1 email
+    When "dan@bigco.com" opens the email
+    Then I should see "We got your email, but it looks like the body of it was blank. Please put your command in the first line of the email body." in the email body
+
