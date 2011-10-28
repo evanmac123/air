@@ -168,7 +168,11 @@ module SpecialCommand
     return nil unless referring_user
 
     if referring_user == user
-      return I18n.t('special_command.credit_game_referrer.cannot_refer_yourself_sms', :default => "You've already claimed your account, and have #{pluralize(user.points, 'point')}. If you're trying to credit another user, text their User ID")
+      return I18n.t(
+        'special_command.credit_game_referrer.cannot_refer_yourself_sms', 
+        :default => "You've already claimed your account, and have %{points}. If you're trying to credit another user, @{say} their User ID",
+        :points => ActionView::Helpers::TextHelper.pluralize(user.points, 'point')
+      )
     end
 
     referral_deadline = user.accepted_invitation_at + demo.credit_game_referrer_threshold.minutes 
