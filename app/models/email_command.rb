@@ -35,7 +35,7 @@ class EmailCommand < ActiveRecord::Base
   end
   
   def self.parse_email_body(email_body)
-    return nil if email_body.nil?
+    return "" if email_body.blank?
     first_line = nil
     array_of_lines = email_body.to_a
     array_of_lines.each { |line|

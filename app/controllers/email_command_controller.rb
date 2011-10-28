@@ -14,6 +14,9 @@ class EmailCommandController< ApplicationController
     if email_command.email_from.blank?
       # can't respond because we have no return email address
       email_command.status = EmailCommand::Status::FAILED
+    elsif email_command.clean_command_string.blank?
+      email_command.response = blank_body_response
+      email_command.status = EmailCommand::Status::SUCCESS
     elsif email_command.user.nil?
       # send a response to the email saying the email they're sending from isn't registered?
       email_command.status = EmailCommand::Status::FAILED
@@ -22,9 +25,6 @@ class EmailCommandController< ApplicationController
       return if claim_account(email_command) # we sent response already
       # maybe we were, but it didn't work
       email_command.response = unmatched_claim_code_response
-    elsif email_command.email_plain.blank?
-      email_command.response = blank_body_response
-      email_command.status = EmailCommand::Status::SUCCESS
     else
       email_command.response = construct_reply(Command.parse(email_command.user, email_command.clean_command_string, :allow_claim_account => false, :channel => :email))
       email_command.status = EmailCommand::Status::SUCCESS

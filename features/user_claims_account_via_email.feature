@@ -37,3 +37,10 @@ Feature: User claims account via email
 
     When "joe@example.com" opens the email
     Then I should see "That user ID doesn't match the one we have in our records. Please try again, or email help@hengage.com for assistance from a human." in the email body
+
+  Scenario: User tries to claim account but email body is blank
+    When "joe@example.com" sends email with subject "sign me up homeslice" and body ""
+    Then "joe@example.com" should receive 1 email
+
+    When "joe@example.com" opens the email
+    Then I should see "We got your email, but it looks like the body of it was blank. Please put your command in the first line of the email body." in the email body
