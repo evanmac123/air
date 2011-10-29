@@ -328,8 +328,8 @@ class User < ActiveRecord::Base
   def point_and_ranking_summary(prefix = [])
     result_parts = prefix.clone
     
-    if (victory_threshold = self.demo.victory_threshold)
-      result_parts << "points #{self.points}/#{victory_threshold}"
+    if (current_points_denominator = self.points_denominator)
+      result_parts << "points #{self.points}/#{current_points_denominator}"
     end
 
     result_parts << "rank #{self.ranking}/#{self.demo.ranked_user_count}"
@@ -493,6 +493,44 @@ class User < ActiveRecord::Base
   def fix_demo_rankings
     self.demo.fix_total_user_rankings!
     self.demo.fix_recent_average_user_rankings!
+  end
+
+  def points_denominator
+    next_unachieved_threshold || greatest_achievable_threshold
+  end
+
+  def next_unachieved_threshold
+    threshold_from_next_level = self.next_level.try(:threshold)
+
+    [unachieved_victory_threshold_from_demo, threshold_from_next_level].compact.min
+  end
+
+  def greatest_achievable_threshold
+    threshold_from_demo = self.demo.victory_threshold
+    threshold_from_highest_level = self.highest_possible_level.try(:threshold)
+
+    if threshold_from_demo && self.points > threshold_from_demo
+      [threshold_from_highest_level, threshold_from_demo].compact.max
+    else
+      threshold_from_demo || threshold_from_highest_level
+    end
+  end
+
+  def next_level
+    demo.levels.where("threshold > ?", self.points).order("threshold ASC").limit(1).first
+  end
+
+  def highest_possible_level
+    demo.levels.order("threshold DESC").limit(1).first
+  end
+
+  def unachieved_victory_threshold_from_demo
+    threshold_from_demo = self.demo.victory_threshold
+    if threshold_from_demo && threshold_from_demo > self.points
+      threshold_from_demo
+    else
+      nil
+    end
   end
 
   def self.claimable_by_email_address(claim_string)

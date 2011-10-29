@@ -5,6 +5,13 @@ def set_time_inputs(input_prefix, time_string)
   end
 end
 
+Given /^"([^"]*)" has victory threshold (\d+)$/ do |demo_name, victory_threshold_string|
+  demo = Demo.find_by_company_name(demo_name)
+  demo.victory_threshold = victory_threshold_string.to_i
+  demo.save!
+  demo.reload
+end
+
 When /^I set the start time to "([^"]*)"$/ do |time_string|
   set_time_inputs("begins_at", time_string)
 end
