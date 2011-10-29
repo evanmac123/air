@@ -9,7 +9,8 @@ a:hover {
 body {
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-size: 14px;
-  background-image: url(/images/new_marketing/background.png); }
+  background-image: url(/images/new_marketing/background.png);
+  padding-top: 40px; }
 
 h1 {
   font-weight: normal;
@@ -29,6 +30,42 @@ h2 {
 img {
   margin: 0; }
 
+.topbar {
+  height: 40px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10000;
+  overflow: visible;
+  background-color: #222222;
+  color: #ffffff;
+  padding: 10px 0 0 40px; }
+  .topbar #topbar-inner-wrapper {
+    width: 920px; }
+    .topbar #topbar-inner-wrapper h2 {
+      color: #ffffff;
+      display: inline-block; }
+    .topbar #topbar-inner-wrapper #navbar {
+      display: inline-block;
+      font-size: 15px;
+      float: right; }
+      .topbar #topbar-inner-wrapper #navbar a, .topbar #topbar-inner-wrapper #navbar a:visited, .topbar #topbar-inner-wrapper #navbar a:link {
+        text-decoration: none;
+        font-weight: bold;
+        color: #33873e; }
+      .topbar #topbar-inner-wrapper #navbar a.last {
+        border-right: 0;
+        padding-right: 0; }
+      .topbar #topbar-inner-wrapper #navbar a.current-section {
+        color: #ffffff; }
+      .topbar #topbar-inner-wrapper #navbar a:hover {
+        border-bottom: solid #2d2d2b 1px; }
+      .topbar #topbar-inner-wrapper #navbar img.navbar-separator {
+        margin: 0;
+        position: relative;
+        top: 3px; }
+
 .add-friends {
   color: #55950d;
   float: right;
@@ -44,7 +81,7 @@ img {
     .header #logo img {
       margin: 0px;
       position: relative;
-      top: 7px; }
+      top: 20px; }
   .header .inner-header {
     padding: 0 0 10px 0;
     width: 930px; }
@@ -69,31 +106,8 @@ img {
         .header .inner-header #add-action .enter-code input[type="image"] {
           position: absolute;
           z-index: 10;
-          top: 25px;
+          top: 65px;
           left: 455px; }
-    .header .inner-header #account {
-      margin-top: 40px;
-      font-size: 15px;
-      float: right;
-      text-align: right;
-      padding-right: 5px; }
-      .header .inner-header #account a, .header .inner-header #account a:visited, .header .inner-header #account a:link {
-        text-decoration: none;
-        font-weight: bold;
-        color: #33873e; }
-      .header .inner-header #account a.last {
-        border-right: 0;
-        padding-right: 0; }
-      .header .inner-header #account a.current-section {
-        color: #ffffff; }
-      .header .inner-header #account a:hover {
-        border-bottom: solid #2d2d2b 1px; }
-      .header .inner-header #account img.navbar-separator {
-        margin: 0;
-        position: relative;
-        top: 3px; }
-    .header .inner-header #account.with-admin {
-      font-size: 13px; }
 
 .clear {
   clear: both; }

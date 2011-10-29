@@ -25,7 +25,7 @@ body {
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-size: 14px;
   background-image: url(/images/new_marketing/background.png);
-  // background: $overall-background;
+  padding-top: 40px;
 }
 
 h1 {
@@ -52,6 +52,60 @@ img {
   margin: 0;
 }
 
+.topbar {
+  height: 40px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10000;
+  overflow: visible;
+  background-color: #222222;
+  color: #ffffff;
+  padding: 10px 0 0 40px;
+
+  #topbar-inner-wrapper {
+    width: 920px;
+
+    h2 {
+      color: #ffffff;
+      display: inline-block;
+    }
+
+    #navbar {
+      display: inline-block;
+      font-size: 15px;
+
+      float: right;
+
+      a, a:visited, a:link {
+        text-decoration: none;
+        font-weight: bold;
+        color: #33873e;
+      }
+
+      a.last {
+        border-right: 0;
+        padding-right: 0;
+      }
+
+      a.current-section {
+        color: #ffffff;
+      }
+
+      a:hover {
+        border-bottom: solid $dark-gray 1px;
+      }
+
+      img.navbar-separator {
+        margin: 0;
+        position: relative;
+        top: 3px;
+      }
+    }
+  }
+}
+
 .add-friends {
   color: $green;
   float: right;
@@ -70,7 +124,7 @@ img {
     img {
       margin: 0px;
       position: relative;
-      top: 7px;
+      top: 20px;
     }
   }
 
@@ -106,48 +160,12 @@ img {
         input[type="image"] {
           position: absolute;
           z-index: +10;
-          top: 25px;
+          top: 65px;
           left: 455px;
         }
       }
     }
 
-    #account {
-      margin-top: 40px;
-      font-size: 15px;
-      float: right;
-      text-align: right;
-      padding-right: 5px;
-
-      a, a:visited, a:link {
-        text-decoration: none;
-        font-weight: bold;
-        color: #33873e;
-      }
-
-      a.last {
-        border-right: 0;
-        padding-right: 0;
-      }
-
-      a.current-section {
-        color: #ffffff;
-      }
-
-      a:hover {
-        border-bottom: solid $dark-gray 1px;
-      }
-
-      img.navbar-separator {
-        margin: 0;
-        position: relative;
-        top: 3px;
-      }
-    }
-
-    #account.with-admin {
-      font-size: 13px;
-    }
   }
 }
 
