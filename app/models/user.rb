@@ -325,11 +325,11 @@ class User < ActiveRecord::Base
     set_ranking('recent_average_points', 'recent_average_ranking')
   end
 
-  def point_and_ranking_summary(prefix = [])
+  def point_and_ranking_summary(_points_denominator, prefix = [])
     result_parts = prefix.clone
     
-    if (current_points_denominator = self.points_denominator)
-      result_parts << "points #{self.points}/#{current_points_denominator}"
+    if _points_denominator
+      result_parts << "points #{self.points}/#{_points_denominator}"
     end
 
     result_parts << "rank #{self.ranking}/#{self.demo.ranked_user_count}"
@@ -469,6 +469,10 @@ class User < ActiveRecord::Base
     message
   end
 
+  def points_denominator
+    next_unachieved_threshold || greatest_achievable_threshold
+  end
+
   def self.next_dummy_number
    last_assigned = self.where("phone_number LIKE '+1999%'").order("phone_number DESC").limit(1).first
 
@@ -493,10 +497,6 @@ class User < ActiveRecord::Base
   def fix_demo_rankings
     self.demo.fix_total_user_rankings!
     self.demo.fix_recent_average_user_rankings!
-  end
-
-  def points_denominator
-    next_unachieved_threshold || greatest_achievable_threshold
   end
 
   def next_unachieved_threshold
@@ -598,6 +598,8 @@ class User < ActiveRecord::Base
       :rule_value => rule_value.value
     )
 
+    points_denominator_before_referring_act = referring_user.points_denominator
+
     Act.create!(
       :user => referring_user,
       :text => act_text,
@@ -609,7 +611,7 @@ class User < ActiveRecord::Base
       :default                   => 'Thanks for referring %{name} to the %{rule_value} command. %{point_and_ranking_summary}', 
       :name                      => self.name, 
       :rule_value                => rule_value.value, 
-      :point_and_ranking_summary => referring_user.point_and_ranking_summary
+      :point_and_ranking_summary => referring_user.point_and_ranking_summary(points_denominator_before_referring_act)
     )
     SMS.send_message(referring_user, sms_text)
   end

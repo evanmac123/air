@@ -26,11 +26,11 @@ class Act < ActiveRecord::Base
     self.inherent_points || self.rule.try(:points)
   end
 
-  def post_act_summary
+  def post_act_summary(points_denominator)
     if self.goal
-      user.point_and_ranking_summary([self.goal.progress_text(user)])
+      user.point_and_ranking_summary(points_denominator, [self.goal.progress_text(user)])
     else
-      user.point_and_ranking_summary  
+      user.point_and_ranking_summary(points_denominator)
     end
   end
 
@@ -161,9 +161,10 @@ class Act < ActiveRecord::Base
       )
     end
 
+    points_denominator_before_act = user.points_denominator
     act = create!(:user => user, :text => text, :rule => rule)
 
-    [rule.reply, act.post_act_summary].join(' ')
+    [rule.reply, act.post_act_summary(points_denominator_before_act)].join(' ')
   end
 
 

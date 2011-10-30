@@ -24,7 +24,7 @@ Feature: Levels control points denominator
       | level 1 (N00b) | 10        | company_name: FooCo |
       | level 2 (Pawn) | 21        | company_name: FooCo |
 
-  Scenario: User acts and sees point threshold of next or highest level as denominator
+  Scenario: User acts and sees point threshold of next or highest level as denominator, except on the action where they pass a threshold
     When "+14155551212" sends SMS "did blah"
     Then "+14155551212" should have received an SMS including "blah. Points 8/10"
 
@@ -32,7 +32,7 @@ Feature: Levels control points denominator
     Then "+14155551212" should have received an SMS including "blah. Points 9/10"
 
     When "+14155551212" sends SMS "did blah"
-    Then "+14155551212" should have received an SMS including "blah. Points 10/21"
+    Then "+14155551212" should have received an SMS including "blah. Points 10/10"
 
     When "+14155551212" sends SMS "did better"
     Then "+14155551212" should have received an SMS including "better. Points 14/21"
@@ -54,14 +54,14 @@ Feature: Levels control points denominator
     Then "+14155551212" should have received an SMS including "blah. Points 9/10"
 
     When "+14155551212" sends SMS "did blah"
-    Then "+14155551212" should have received an SMS including "blah. Points 10/15"
+    Then "+14155551212" should have received an SMS including "blah. Points 10/10"
 
     When "+14155551212" sends SMS "did better"
     Then "+14155551212" should have received an SMS including "better. Points 14/15"
 
     When "+14155551212" sends SMS "did better"
     And I dump all sent texts
-    Then "+14155551212" should have received an SMS including "better. Points 18/21"
+    Then "+14155551212" should have received an SMS including "better. Points 18/15"
 
     When "+14155551212" sends SMS "did best"
     Then "+14155551212" should have received an SMS including "best. Points 32/21"
@@ -71,7 +71,7 @@ Feature: Levels control points denominator
 
     When "+14155551212" sends SMS "did best"
     And I dump all sent texts
-    Then "+14155551212" should have received an SMS including "best. Points 21/40"
+    Then "+14155551212" should have received an SMS including "best. Points 21/10"
 
     When "+14155551212" sends SMS "did best"
     Then "+14155551212" should have received an SMS including "best. Points 35/40"
