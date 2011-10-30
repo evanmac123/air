@@ -1,3 +1,11 @@
+When /^I press the "see more" button in the scoreboard$/ do 
+  When %{I press "show-all-ranked-players"}
+end
+
+When /^I follow "([^"]*)" in the scoreboard tabs$/ do |text|
+  When %{I follow "#{text}" within "#scoreboard-tabs"}
+end
+
 Then /^I should see a scoreboard for demo "(.*?)"$/ do |demo_name|
 
   demo = Demo.find_by_company_name(demo_name)
@@ -45,3 +53,8 @@ end
 Then /^I should see the winning graphic$/ do
   page.should have_css("img[@alt='Img_bluestar_18']")
 end
+
+Then /^"([^"]*)" should be the active scoreboard filter link$/ do |link_text|
+  find(:css, "#scoreboard-tabs li.active", :text => link_text)
+end
+

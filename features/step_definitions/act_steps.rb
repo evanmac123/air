@@ -11,10 +11,6 @@ When /^I enter the (act code|special command) "(.*?)"$/ do |_nothing, act_code|
   find(:css, ".enter-code input[@type=image]").click
 end
 
-When /^I press the see more button$/ do
-  find(:css, '#see-more').click
-end
-
 Then /^I should( not)? see the following act(s?):$/ do |sense, _nothing, table|
   sense = !sense
 

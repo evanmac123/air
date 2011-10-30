@@ -1,17 +1,31 @@
 <h2>Scoreboard</h2>
 
-<%= render 'shared/new_scoreboard_list', :users => users %>
-
-<%= form_tag '#' do %>
-  <%= image_with_hover_submit_tag(see_more_button_skinned, '#show-all-ranked-players', :id => 'show-all-ranked-players') unless @conference_feed_page %>
-<% end %>
+<ul class="tabs" id="scoreboard-tabs">
+  <%= tab "All", scoreboard_path(:show_only => nil, :format => :js), @active_scoreboard_tag %>
+  <%= tab "Fan Of", scoreboard_path(:show_only => 'following', :format => :js), @active_scoreboard_tag %>
+</ul>
 
 <% content_for :javascript do %>
   <%= javascript_tag do %>
-    $('#show-all-ranked-players').click(function(e) {
+    $('#scoreboard-tabs li a').click(function(e) {
+      $('.top-scores').replaceWith('<%= escape_javascript(image_tag("spinner.gif", :class => 'top-scores')) %>');
+      $.get($(this).attr('href'));
+      e.preventDefault();
+    });
+  <% end %>
+<% end %>
+
+<%= render 'shared/new_scoreboard_list', :users => users %>
+
+<% content_for :javascript do %>
+  <%= javascript_tag do %>
+    var showOnlyInScoreboard = undefined;
+
+    $('#show-all-ranked-players').live('click', function(e) {
       mpq.track('saw full scoreboard');
       $(this).replaceWith('<%= escape_javascript(image_tag("spinner.gif", :id => 'scoreboard-spinner')) %>');
-      $.get('<%= scoreboard_path :format => :js %>');
+
+      $.get('<%= scoreboard_path :format => :js, :show_all => 'yesplease' %>', {show_only: showOnlyInScoreboard});
       e.preventDefault();
     });
   <% end %>

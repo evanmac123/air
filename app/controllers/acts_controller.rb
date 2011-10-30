@@ -13,7 +13,7 @@ class ActsController < ApplicationController
     @acts              = find_requested_acts(@demo)
 
     @show_only = params[:show_only]
-    @active_tab = case params[:show_only]
+    @active_act_tab = case params[:show_only]
                   when 'following'
                     "Fan Of"
                   when 'mine'
@@ -21,6 +21,8 @@ class ActsController < ApplicationController
                   else
                     "All"
                   end
+
+    @active_scoreboard_tag = "All"
 
     respond_to do |format|
       format.html do 
@@ -34,7 +36,7 @@ class ActsController < ApplicationController
         if params[:mode] == 'see-more'
           render :partial => 'shared/more_acts', :locals => {:acts => @acts}
         else
-          render :partial => "refiltered_acts", :locals => {:acts => @acts, :active_tab => @active_tab}
+          render :partial => "refiltered_acts", :locals => {:acts => @acts, :active_tab => @active_act_tab}
         end
       end
     end

@@ -1,3 +1,9 @@
+var showOnlyInScoreboard = <%= @show_only ? "'#{@show_only}'" : "undefined" %>;
+
+$('ul#scoreboard-tabs li').removeClass('active');
+$('ul#scoreboard-tabs li:contains(<%= @active_scoreboard_tag %>)').addClass('active');
+
+$('#show-all-ranked-players').remove();
 var newScoreboardContent = '<%= escape_javascript(render 'shared/new_scoreboard_list', :users => @users)%>';
 $('#scoreboard-spinner').remove();
 $('.top-scores').replaceWith(newScoreboardContent);

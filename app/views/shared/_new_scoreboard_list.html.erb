@@ -12,3 +12,9 @@
     </li>
   <% end %>
 </ul>
+
+<% unless @show_all %>
+  <%= form_tag '#' do %>
+    <%= image_with_hover_submit_tag(see_more_button_skinned, '#show-all-ranked-players', :id => 'show-all-ranked-players') unless @conference_feed_page %>
+  <% end %>
+<% end %>
