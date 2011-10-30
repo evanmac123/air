@@ -295,6 +295,13 @@ form li {
   list-style: none;
 }
 
+#email-support {
+  width: 350px;
+  padding-top: 30px;
+  position: absolute;
+  left: 620px;
+}
+
 #phone_number_input, #phone_user_password_input, #phone_user_password_confirmation_input {
   label {
     display: block;

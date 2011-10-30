@@ -20,7 +20,8 @@
       <span id="conference-header">@ <%= @demo.company_name %></span>
     <% else %>
       <% if signed_in? %>
-        <%= render :partial => 'shared/new_act_entry' %>
+        <%= render 'shared/new_act_entry' %>
+        <%= render 'shared/assistly_widget' %>
       <% end %>
     <% end %>
   </div>
