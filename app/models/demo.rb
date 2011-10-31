@@ -83,6 +83,22 @@ class Demo < ActiveRecord::Base
     )
   end
 
+  def game_not_yet_begun_response
+    custom_message(
+      :act_too_early_message,
+      "act_too_early_message",
+      "The game will begin #{self.begins_at.winning_time_format}. Please try again after that time."      
+    )
+  end
+
+  def game_over_response
+    custom_message(
+      :act_too_late_message,
+      "act_too_late_message",
+      "Thanks for playing! The game is now over. If you'd like more information e-mailed to you, please text MORE INFO."
+    )
+  end
+
   def game_not_yet_begun?
     self.begins_at && Time.now < self.begins_at
   end

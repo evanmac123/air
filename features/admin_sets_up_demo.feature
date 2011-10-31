@@ -30,6 +30,8 @@ Feature: Admin sets up demo
     And I fill in "Prize text" with "More ice cream than you can shake a stick at."
     And I fill in "Help message" with "Get a job"
     And I fill in "Phone-number-not-recognized message" with "Go play in your own yard"
+    And I fill in "Response to command before game begins" with "Hold ur horses"
+    And I fill in "Response to command after game ends" with "Too slow!"
     And I uncheck "Use standard playbook rules"
     And I press "Submit"
     Then I should be on the admin "3M" demo page
@@ -52,6 +54,8 @@ Feature: Admin sets up demo
     And I should see 'Prize response is "More ice cream than you can shake a stick at."'
     And I should see 'Help message is "Get a job"'
     And I should see 'Phone-number-not-recognized message is "Go play in your own yard"'
+    And I should see 'Response to command before game begins is "Hold ur horses"'
+    And I should see 'Response to command after game ends is "Too slow!"'
 
   Scenario: Correct defaults
     Given I am on the admin page
@@ -77,6 +81,8 @@ Feature: Admin sets up demo
     And I should see "Game will have default response about prizes (indicating no prize)"
     And I should see "Game will have default help message"
     And I should see "Game will have default phone-number-not-recognized message"
+    And I should see 'Game will have default response to command before game begins.'
+    And I should see 'Game will have default response to command after game ends.'
 
   Scenario: Appropriate restrictions on text that gets SMSed
     Given I am on the admin page

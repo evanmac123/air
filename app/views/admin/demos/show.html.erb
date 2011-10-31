@@ -139,6 +139,22 @@ Game
   <% end %>
 </p>
 
+<p>
+  <% if @demo.act_too_early_message.present? %>
+    Response to command before game begins is "<%= @demo.act_too_early_message %>"  
+  <% else %>
+    Game will have default response to command before game begins.  
+ <% end %>
+</p>
+
+<p>
+  <% if @demo.act_too_late_message.present? %>
+    Response to command after game ends is "<%= @demo.act_too_late_message %>" 
+  <% else %>
+    Game will have default response to command after game ends.  
+  <% end %>
+</p>
+
 <p class="explanation"><%= translate('.explanation', :default => "Add HR people from %{company} to this demo, then send them an invitation to the demo.", :company => @demo.company_name) %></p>
 
 <p><%= link_to "Edit basic settings for this game", edit_admin_demo_path(@demo) %></p>

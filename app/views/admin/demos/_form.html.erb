@@ -16,6 +16,10 @@
     <%= form.input :help_message, :as => :text %>
     <%= form.input :unrecognized_user_message, :label => 'Phone-number-not-recognized message', :input_html => {:maxlength => 160} %>
     <%= add_byte_counter_for "Phone-number-not-recognized message" %>
+    <%= form.input :act_too_early_message, :label => "Response to command before game begins", :input_html => {:maxlength => 160} %>
+    <%= add_byte_counter_for "Response to command before game begins" %>
+    <%= form.input :act_too_late_message, :label => "Response to command after game ends", :input_html => {:maxlength => 160} %>
+    <%= add_byte_counter_for "Response to command after game ends" %>
   <% end %>
 
   <%= form.inputs :name => "Followup welcome message" do %>
