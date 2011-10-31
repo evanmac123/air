@@ -381,14 +381,14 @@ img {
           vertical-align: middle; }
         .header .inner-header #add-action .enter-code input[type="text"] {
           width: 349px;
-          height: 14px;
+          height: 17px;
           margin-left: 5px;
           padding: 10px 95px 10px 10px;
           font-size: 15px; }
         .header .inner-header #add-action .enter-code input[type="image"] {
           position: absolute;
           z-index: 10;
-          top: 65px;
+          top: 66px;
           left: 455px; }
 
 .clear {
