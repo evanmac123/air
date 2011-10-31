@@ -34,13 +34,10 @@ module ApplicationHelper
 
     if link_text == @current_link_text
       options[:class] ||= ""
-      options[:class] += "current-section"
+      options[:class] += "active"
     end
 
-    output = link_to(link_text, path, options)
-    unless last
-      output += image_tag('new_activity/navbar_separator.png', :class => 'navbar-separator')
-    end
+    output = content_tag('li', options) {link_to(link_text, path)}
 
     output
   end

@@ -1,49 +1,45 @@
-<div id="email-support">
-  Need help? Contact H Engage tech support: 
-  <!--If you already have jquery on the page you don't need to insert this script tag-->
-  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js" type="text/javascript"></script>
+<!--If you already have jquery on the page you don't need to insert this script tag-->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js" type="text/javascript"></script>
 
-  <link href="https://d3j15y3zsn7b4t.cloudfront.net/assets/widget_embed.cssgz?1319781871" media="screen" rel="stylesheet" type="text/css" />
-  <!--If you already have fancybox on the page this script tag should be omitted-->
-  <script src="https://d3j15y3zsn7b4t.cloudfront.net/assets/widget_embed_libraries.jsgz?1319781873" type="text/javascript"></script>
+<link href="https://d3j15y3zsn7b4t.cloudfront.net/assets/widget_embed.cssgz?1319781871" media="screen" rel="stylesheet" type="text/css" />
+<!--If you already have fancybox on the page this script tag should be omitted-->
+<script src="https://d3j15y3zsn7b4t.cloudfront.net/assets/widget_embed_libraries.jsgz?1319781873" type="text/javascript"></script>
 
-  <script>
-          
-          // ********************************************************************************
-          // This needs to be placed in the document body where you want the widget to render
-          // ********************************************************************************
-          
-          new ASSISTLY.Widget({ 
-                  version: 1, 
-                  site: 'hengage.assistly.com', 
-                  port: '80', 
-                  type: 'email', 
-                  displayMode: 1,  //0 for popup, 1 for lightbox
-                  features: {  
-                  },  
-                  fields: { 
-                          ticket: { 
-                                  // desc: '',
-          // labels_new: '',
-          // priority: '',
-          // subject: ''
-                          }, 
-                          interaction: { 
-                                  // email: '',
-          // name: ''
-                          }, 
-                          email: { 
-                                  //subject: '', 
-                                  //body: '' 
-                          }, 
-                          customer: { 
-                                  // company: '',
-          // desc: '',
-          // first_name: '',
-          // last_name: '',
-          // title: ''
-                          } 
-                  } 
-          }).render();  
-  </script>
-</div>
+<script>
+  new ASSISTLY.Widget({ 
+    version: 1, 
+    site: 'hengage.assistly.com', 
+    port: '80', 
+    type: 'email', 
+    displayMode: 1,  //0 for popup, 1 for lightbox
+    features: {  
+    },  
+    fields: { 
+            ticket: { 
+                    // desc: '',
+// labels_new: '',
+// priority: '',
+// subject: ''
+            }, 
+            interaction: { 
+                    // email: '',
+// name: ''
+            }, 
+            email: { 
+                    //subject: '', 
+                    //body: '' 
+            }, 
+            customer: { 
+                    // company: '',
+// desc: '',
+// first_name: '',
+// last_name: '',
+// title: ''
+            } 
+    } 
+  }).render();
+
+  /* Get rid of Assistly's email graphic and put some text in, like Tim
+     Berners-Lee intended. */
+  $('.assistly-widget a').attr("style", null).text('Help');
+</script>

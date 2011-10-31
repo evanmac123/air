@@ -1,10 +1,10 @@
-<%= content_tag 'div', :id => 'navbar', :class => (current_user && current_user.is_site_admin ? 'with-admin' : '') do %>
-  <% if signed_in? %>
+<% if signed_in? %>
+  <ul class="nav">
     <%= navbar_link_to 'Home', acts_path %>
     <%= navbar_link_to 'My Profile', current_user, :id => 'self-link' %>
     <%= navbar_link_to 'Connections', friends_path %>
     <%# navbar_link_to 'Other People', users_path %>
     <%= navbar_link_to 'Admin', admin_path if current_user.is_site_admin %>
-    <%= navbar_link_to "Sign out", sign_out_path, :method => :delete, :last => true %>
-  <% end %>
+    <%= navbar_link_to "Sign out", sign_out_path, :method => :delete%>
+    <li><%= render 'shared/assistly_widget' %></li>
 <% end %>

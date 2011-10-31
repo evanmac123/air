@@ -1,6 +1,7 @@
 @import "standard_colors";
 @import "special_effects";
 @import "flick/jquery-ui-1.8.10.custom.css";
+@import "topbar";
 
 $overall-background: #dfe3e6;
 
@@ -52,59 +53,6 @@ img {
   margin: 0;
 }
 
-.topbar {
-  height: 40px;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 500;
-  overflow: visible;
-  background-color: #222222;
-  color: #ffffff;
-  padding: 10px 0 0 40px;
-
-  #topbar-inner-wrapper {
-    width: 920px;
-
-    h2 {
-      color: #ffffff;
-      display: inline-block;
-    }
-
-    #navbar {
-      display: inline-block;
-      font-size: 15px;
-
-      float: right;
-
-      a, a:visited, a:link {
-        text-decoration: none;
-        font-weight: bold;
-        color: #33873e;
-      }
-
-      a.last {
-        border-right: 0;
-        padding-right: 0;
-      }
-
-      a.current-section {
-        color: #ffffff;
-      }
-
-      a:hover {
-        border-bottom: solid $dark-gray 1px;
-      }
-
-      img.navbar-separator {
-        margin: 0;
-        position: relative;
-        top: 3px;
-      }
-    }
-  }
-}
 
 .add-friends {
   color: $green;
