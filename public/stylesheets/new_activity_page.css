@@ -97,7 +97,6 @@
   box-shadow: 0 0 3px rgba(0, 0, 0, 0.15); }
 
 .topbar-inner, .topbar .fill {
-  padding-left: 40px;
   height: 100%;
   background-color: #222;
   background-color: #222222;
@@ -314,6 +313,10 @@ a.menu:after, .dropdown-toggle:after {
   -webkit-box-shadow: inset 0 1px 0 rgba(0, 0, 0, 0.025), inset 0 -1px rgba(0, 0, 0, 0.025);
   -moz-box-shadow: inset 0 1px 0 rgba(0, 0, 0, 0.025), inset 0 -1px rgba(0, 0, 0, 0.025); }
 
+.topbar .container {
+  padding-left: 40px;
+  width: 920px; }
+
 a, a:link {
   color: #999999;
   text-decoration: none; }
@@ -360,7 +363,7 @@ img {
     .header #logo img {
       margin: 0px;
       position: relative;
-      top: 20px; }
+      top: 5px; }
   .header .inner-header {
     padding: 0 0 10px 0;
     width: 930px; }
@@ -1081,3 +1084,9 @@ fieldset#levels input {
   background: #ffffff;
   border-left: solid 1px #b9c2c7;
   width: 332px; }
+
+#signout-nav {
+  float: right;
+  margin-right: 0; }
+  #signout-nav a {
+    padding-right: 0; }

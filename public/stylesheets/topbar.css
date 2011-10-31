@@ -96,7 +96,6 @@
   box-shadow: 0 0 3px rgba(0, 0, 0, 0.15); }
 
 .topbar-inner, .topbar .fill {
-  padding-left: 40px;
   height: 100%;
   background-color: #222;
   background-color: #222222;
@@ -312,3 +311,7 @@ a.menu:after, .dropdown-toggle:after {
   text-decoration: none;
   -webkit-box-shadow: inset 0 1px 0 rgba(0, 0, 0, 0.025), inset 0 -1px rgba(0, 0, 0, 0.025);
   -moz-box-shadow: inset 0 1px 0 rgba(0, 0, 0, 0.025), inset 0 -1px rgba(0, 0, 0, 0.025); }
+
+.topbar .container {
+  padding-left: 40px;
+  width: 920px; }

@@ -72,7 +72,7 @@ img {
     img {
       margin: 0px;
       position: relative;
-      top: 20px;
+      top: 5px;
     }
   }
 
@@ -1109,4 +1109,13 @@ fieldset#levels {
   background: #ffffff;
   border-left: solid 1px #b9c2c7;
   width: 332px;
+}
+
+#signout-nav {
+  float: right;
+  margin-right: 0;
+
+  a {
+    padding-right: 0;
+  }
 }
