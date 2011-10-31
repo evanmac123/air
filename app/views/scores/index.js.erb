@@ -1,5 +1,7 @@
 var showOnlyInScoreboard = <%= @show_only ? "'#{@show_only}'" : "undefined" %>;
 
+mpq.track('clicked "<%= @active_scoreboard_tag %>" scoreboard tab');
+
 $('ul#scoreboard-tabs li').removeClass('active');
 $('ul#scoreboard-tabs li:contains(<%= @active_scoreboard_tag %>)').addClass('active');
 
