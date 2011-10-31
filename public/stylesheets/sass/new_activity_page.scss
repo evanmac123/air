@@ -1126,14 +1126,16 @@ fieldset#levels {
   }
 
   .inner-header {
-    width: 960px;
-    margin: 0 auto;
+    margin-left: 250px;
+    font-size: 40px;
 
     h1 {
       display: inline-block;
       height: 60px;
       vertical-align: middle;
       padding-left: 55px;
+      font-weight: bold;
+      font-size: 40px;
     }
   }
 
@@ -1142,32 +1144,43 @@ fieldset#levels {
   }
 
   .content {
-    margin: 0 auto;
-    padding-top: 40px;
+    margin-left: 250px;
+    padding-top: 20px;
+    width: 640px;
 
     #wistia_587969_social_4858 {
       width: 840px;
-      padding-left: 120px;
+      padding-left: 0px;
     }
 
-    .socialbar {
-      left: 120px;
+    #yahoo-top-text-block {
+      padding-bottom: 35px;
     }
 
-    #yahoo-text-block {
-      padding-top: 50px;
+    #yahoo-bottom-text-block {
       padding-bottom: 120px;
     }
 
     h2 {
       margin-top: 30px;
       color: #111111;
+      line-height: 1.3em;
+
+      #how-to-join {
+        color: #52910c;
+      }
+
     }
 
     h3 {
-      color: #58585A;
+      color: #111111;
       font-size: 1em;
       margin-top: 15px;
     }
+
+    p {
+      line-height: 18px;
+      font-size: 14px;
+    }  
   }
 }
