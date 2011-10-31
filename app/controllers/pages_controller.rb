@@ -13,13 +13,17 @@ class PagesController < HighVoltage::PagesController
   def layout_for_page
     if params[:id] == 'new_marketing'
       'new_pages'
+    elsif params[:id] == 'yahoo'
+      @use_yahoo_logo = true
+      @new_appearance = true
+      'application'
     else
       'pages'
     end
   end
 
   def signed_out_only
-    redirect_to home_path if signed_in?
+    redirect_to home_path if (signed_in? && params[:id] != 'yahoo')
   end
 
   def set_login_url

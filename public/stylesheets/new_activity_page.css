@@ -1090,3 +1090,34 @@ fieldset#levels input {
   margin-right: 0; }
   #signout-nav a {
     padding-right: 0; }
+
+.pages-yahoo .header {
+  padding-left: 0; }
+.pages-yahoo .inner-header {
+  width: 960px;
+  margin: 0 auto; }
+  .pages-yahoo .inner-header h1 {
+    display: inline-block;
+    height: 60px;
+    vertical-align: middle;
+    padding-left: 55px; }
+.pages-yahoo #add-action {
+  display: none; }
+.pages-yahoo .content {
+  margin: 0 auto;
+  padding-top: 40px; }
+  .pages-yahoo .content #wistia_587969_social_4858 {
+    width: 840px;
+    padding-left: 120px; }
+  .pages-yahoo .content .socialbar {
+    left: 120px; }
+  .pages-yahoo .content #yahoo-text-block {
+    padding-top: 50px;
+    padding-bottom: 120px; }
+  .pages-yahoo .content h2 {
+    margin-top: 30px;
+    color: #111111; }
+  .pages-yahoo .content h3 {
+    color: #58585A;
+    font-size: 1em;
+    margin-top: 15px; }

@@ -3,6 +3,7 @@ Health::Application.routes.draw do
   match "email"      => "email_command#create", :via => :post
   match "activity"   => "acts#index"
   match "scoreboard" => "scores#index"
+  match "yahoo"      => "pages", :id => 'yahoo'
   match "mr/:link_type"         => "michelin_redirector#show", :via => :get
 
   resource :session, :controller => 'sessions'
