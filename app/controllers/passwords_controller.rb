@@ -33,7 +33,12 @@ class PasswordsController < Clearance::PasswordsController
   def forbid_non_existent_user
     unless ::User.find_by_slug_and_confirmation_token(
                   params[:user_id], params[:token])
-      raise ActionController::Forbidden, "non-existent user"
+      if params[:token]
+        flash[:failure] = "For security reasons, you can use each password reset link just once. If you'd like to reset your password again, please request a new link from this form."
+        redirect_to new_password_path
+      else
+        raise ActionController::Forbidden, "non-existent user"
+      end
     end
   end
 

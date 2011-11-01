@@ -43,3 +43,17 @@ Feature: Password reset
       And I sign in as "email@person.com/newpassword"
       Then I should be signed in
 
+    Scenario: User tries using the same password reset token twice
+      Given I signed up with "email@person.com/password"
+      And I go to the password reset request page
+      And I fill in the reset email field with "email@person.com"
+      And I press "Reset password"
+      When "email@person.com" opens the email
+      And I click the first link in the email
+      And I update my password with "newpassword/newpassword"
+      Then I should be signed in
+
+      When I sign out
+      And I click the first link in the email
+      Then I should be on the password reset request page
+      And I should see "For security reasons, you can use each password reset link just once. If you'd like to reset your password again, please request a new link from this form."
