@@ -8,11 +8,11 @@ class SurveyQuestion < ActiveRecord::Base
   end
 
   def after_question_hook(user)
-    user.acts.create(:inherent_points => self.points, :text => "answered a health personality question")
+    user.acts.create(:inherent_points => self.points, :text => "answered a survey question")
   end
 
   def after_final_question_hook(user)
-    user.acts.create(:text => 'completed a health personality survey')
+    user.acts.create(:text => 'completed a survey')
   end
 
   def question_acknowledgement_phrase(next_question)
