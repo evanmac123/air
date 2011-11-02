@@ -3,7 +3,8 @@ module AccountClaimer
     protected
 
     def find_existing_user
-      User.find_by_phone_number(@from)    
+      User.where(:phone_number => @from).first ||
+      User.where("claim_code = ? AND accepted_invitation_at IS NOT NULL", @claim_code).first
     end
 
     def number_to_join_game_with

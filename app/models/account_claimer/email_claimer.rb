@@ -3,7 +3,7 @@ module AccountClaimer
     protected
 
     def find_existing_user
-      User.ranked.where(:email => @from).first
+      User.where("email = ? AND accepted_invitation_at IS NOT NULL", @from).first
     end
 
     def number_to_join_game_with
