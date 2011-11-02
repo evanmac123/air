@@ -134,12 +134,14 @@ class User < ActiveRecord::Base
       return I18n.translate('activerecord.models.user.end_of_rankings', :default => "That's everybody! Send RANKINGS to start over from the top.")
     end
 
-    while(rankings_strings.map(&:length).sum > 159 - more_rankings_prompt.length)
-      rankings_strings.pop
-    end
 
     rankings_string = rankings_strings.join("\n")
-    response = rankings_string + "\n" + more_rankings_prompt
+    response = (rankings_strings + [more_rankings_prompt]).join("\n")
+
+    while(rankings_strings.present? && response.length > 160)
+      rankings_strings.pop
+      response = (rankings_strings + [more_rankings_prompt]).join("\n")
+    end
 
     if options[:reset_offset] || self.ranking_query_offset.nil?
       self.ranking_query_offset = 0

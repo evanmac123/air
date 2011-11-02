@@ -128,29 +128,6 @@ describe EmailCommandController do
         email_command.status.should eql EmailCommand::Status::SUCCESS
         email_command.response.should eql "Sorry, there is not currently a survey open."
       end      
-
-      it "should process 'rankings' correctly" do
-        params = @test_params.merge({:plain => "rankings"})
-        post 'create', params
-        EmailCommand.count.should eql 1
-        email_command = EmailCommand.first
-        email_command.email_from.should eql @user.email
-        email_command.email_subject.should eql params['subject']
-        email_command.status.should eql EmailCommand::Status::SUCCESS
-        email_command.response.should eql "1. James Earl Jones (0)\nSend MORERANKINGS for more."
-      end      
-      
-      it "should process 'morerankings' correctly" do
-        params = @test_params.merge({:plain => "morerankings"})
-        post 'create', params
-        EmailCommand.count.should eql 1
-        email_command = EmailCommand.first
-        email_command.email_from.should eql @user.email
-        email_command.email_subject.should eql params['subject']
-        email_command.status.should eql EmailCommand::Status::SUCCESS
-        email_command.response.should eql "1. James Earl Jones (0)\nSend MORERANKINGS for more."
-      end      
-
     end
   end
 end

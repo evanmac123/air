@@ -42,3 +42,18 @@ Feature: User gets rankings via SMS
     And "+14155551212" sends SMS "morerankings"
     Then "+14155551212" should have received SMS "1. Phil Darnowsky (250)\n2. Vlad Gyster (238)\n3. Dan Croak (237)\n3. Tony Wu (237)\n5. Kelli Peterson (225)\n6. Peggy Bartek (220)\nSend MORERANKINGS for more."
     And "+14155551212" should have received SMS "7. MaryLynne Karman (219)\n8. Kristina Rikantis (218)\n9. Kirill Bernshteyn (215)\n10. Darryl Whatshisname (210)\n11. Audrey Roth (205)\nSend MORERANKINGS for more."
+
+  Scenario: Responses should abbreviate themselves if they would go over 160 characters
+    #1. Balaji Paladugu (256) 2. Daryl Kurtz (198) 3. Kristian Burch (187) 4. Michael Vidalez (102) 5. Ryan Booth (90) 6. Sabrina DeVeny (88) Send MORERANKINGS for more.
+    Given the following users exist:
+      | name            | points | phone number | demo                |
+      | Balaji Paladugu | 256    | +16175551212 | company_name: BarCo |
+      | Daryl Kurtz     | 198    | +16175551213 | company_name: BarCo |
+      | Kristian Burch  | 187    | +16175551214 | company_name: BarCo |
+      | Michael Vidalez | 102    | +16175551215 | company_name: BarCo |
+      | Ryan Booth      | 90     | +16175551216 | company_name: BarCo |
+      | Sabrina DeVeny  | 88     | +16175551217 | company_name: BarCo |
+    And "+16175551212" sends SMS "rankings"
+    Then "+16175551212" should not have received an SMS including "6. Sabrina DeVeny (88)"
+    When "+16175551212" sends SMS "morerankings"
+    Then "+16175551212" should have received an SMS including "6. Sabrina DeVeny (88)"
