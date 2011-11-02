@@ -141,12 +141,13 @@ Feature: User claims account via SMS
       | name            | claim_code |
       | Phil Darnowsky  | pdarnowsky |  
     And "Phil Darnowsky" has the password "foo"
-    When "+14155551212" sends SMS "pdarnowsky"
+    When "+14155551212" sends SMS "Pdarnowsky"
     And I sign in via the login page as "Phil Darnowsky/foo"
     And I go to the profile page for "Phil Darnowsky"
     And I fill in "Enter your new mobile number" with "+18085551212"
     And I press the button to submit the mobile number
-    And "+16175551212" sends SMS "pdarnowsky"
+    And "+16175551212" sends SMS "Pdarnowsky"
+    And I dump all sent texts
     Then "+16175551212" should not have received an SMS including "Your user ID is pdarnowsky"
 
     When I go to the activity page
