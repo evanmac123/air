@@ -48,6 +48,16 @@ Then /^"([^"]*)" should( not)? have received( an)? SMS including "(.*)"$/ do |ph
   end
 end
 
+Then /^"([^"]*)" should( not)? have received( an)? SMS including `(.*)`$/ do |phone_number, sense, _nothing, text_message|
+  sense = !sense
+
+  if sense
+    FakeTwilio::SMS.should have_sent_text_including(phone_number, text_message)
+  else
+    FakeTwilio::SMS.should_not have_sent_text_including(phone_number, text_message)
+  end
+end
+
 Then /^"([^"]*)" should not have received any SMSes$/ do |phone_number|
   FakeTwilio::SMS.should_not have_sent_text_to(phone_number)
 end

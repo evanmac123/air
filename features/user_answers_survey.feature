@@ -145,10 +145,14 @@ Background:
     Then "+14155551212" should have received an SMS "Got it! (And you get 5 points.) Next question: How important is doing what you're told?"
     And I should see "5 pts Dan answered a survey question less than a minute ago"
 
-  Scenario: User responds to question during the window with a bad value
+  Scenario: User responds to question during the window with a bad value that's a single digit
     Given time is frozen at "2011-05-01 15:00 UTC"
     And "+14155551212" sends SMS "3"
     Then "+14155551212" should have received an SMS `Sorry, I don't understand "3" as an answer to that question. Valid answers are: 1, 2.`
+
+    When "+14155551212" sends SMS "123"
+    Then "+14155551212" should not have received an SMS including `Sorry, I don't understand "123" as an answer to that question`
+    And "+14155551212" should have received an SMS `Sorry, I don't understand what that means. Text "s" to suggest we add what you sent.`
 
   Scenario: User responds to question during the window with a bad value, but there's an actual rule with that value
     Given time is frozen at "2011-05-01 15:00 UTC"
