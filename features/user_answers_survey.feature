@@ -132,7 +132,7 @@ Background:
     And I sign in via the login page with "Dan/foo"
     And I go to the activity page
     Then "+14155551212" should have received an SMS "Got it! Next question: Do you like cheese?"
-    And I should see "Dan answered a health personality question"
+    And I should see "Dan answered a survey question"
 
   Scenario: User responds to a question with bonus points attached
     Given time is frozen at "2011-05-01 13:00 UTC"
@@ -143,7 +143,7 @@ Background:
     And I sign in via the login page with "Dan/foo"
     And I go to the activity page
     Then "+14155551212" should have received an SMS "Got it! (And you get 5 points.) Next question: How important is doing what you're told?"
-    And I should see "5 pts Dan answered a health personality question less than a minute ago"
+    And I should see "5 pts Dan answered a survey question less than a minute ago"
 
   Scenario: User responds to question during the window with a bad value
     Given time is frozen at "2011-05-01 15:00 UTC"
@@ -199,7 +199,7 @@ Background:
     And I sign in via the login page with "Dan/foo"
     And I go to the activity page
     Then "+14155551212" should have received an SMS "Got it! That was the last question. Thanks for completing the survey!"
-    And I should see "Dan completed a health personality survey"
+    And I should see "Dan completed a survey"
 
   Scenario: User tries to send an answer after all questions are answered
     Given the following survey answers exist:
