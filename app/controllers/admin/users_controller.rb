@@ -1,6 +1,17 @@
 class Admin::UsersController < AdminBaseController
   before_filter :find_user, :only => [:edit, :update, :destroy]
 
+  def index
+    @demo = Demo.find(params[:demo_id])
+
+    @users = case params[:starts_with]
+             when "non-alpha"
+               @demo.users.name_starts_with_non_alpha
+             else
+               @demo.users.name_starts_with(params[:starts_with])
+             end
+  end
+
   def create
     redirect_to :back
 

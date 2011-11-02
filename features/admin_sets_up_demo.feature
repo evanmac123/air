@@ -100,4 +100,5 @@ Feature: Admin sets up demo
     And I fill in "Email" with "bobby@example.com"
     And I press "Submit"
     Then I should be on the admin "3M" demo page
-    And I should see "Bobby Jones"
+    When I follow "B"
+    Then I should see "Bobby Jones"

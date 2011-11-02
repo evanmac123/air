@@ -11,7 +11,9 @@ Feature: Admin adds user
     And I check "Set claim code"
     And I press "Submit"
     Then I should be on the admin "The H Engages" demo page
-    And I should see "Vlad Gyster, vlad@hengage.com (vgyster)"
+
+    When I follow "V"
+    Then I should see "Vlad Gyster, vlad@hengage.com (vgyster)"
 
   Scenario: Admin tries adding duplicate user and gets a reasonable error message
     Given the following user exists:
@@ -23,6 +25,8 @@ Feature: Admin adds user
     And I fill in "Email" with "vlad@hengage.com"
     And I press "Submit"
     Then I should be on the admin "The H Engages" demo page
-    And I should see "Vlad Gyster, vlad@hengage.com"
-    And I should not see "Vlad O'Reilly"
     And I should see "Cannot create that user: Email has already been taken"
+
+    When I follow "V"
+    Then I should see "Vlad Gyster, vlad@hengage.com"
+    And I should not see "Vlad O'Reilly"

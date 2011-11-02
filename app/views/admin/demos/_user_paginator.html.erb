@@ -1,0 +1,6 @@
+<p>See users:
+  <% (('A'..'Z').to_a + ["non-alpha"]).each do |starts_with| %>
+    <%= link_to starts_with, admin_demo_users_path(demo, :starts_with => starts_with) %>
+    &nbsp;
+  <% end %>
+</p>

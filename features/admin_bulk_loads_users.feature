@@ -21,8 +21,13 @@ Fred Robinson,frobinson@example.com
     And I press "Upload Users"
     Then I should see "Successfully loaded 3 users"
     When I go to the admin "H Engage" demo page
+    And I follow "J"
     Then I should see "John Smith, jsmith@example.com (jsmith)"
-    And I should see "Bob Jones, bjones@example.com (bjones)"
+
+    When I follow "B"
+    Then I should see "Bob Jones, bjones@example.com (bjones)"
+
+    When I follow "F"
     And I should see "Fred Robinson, frobinson@example.com (frobinson)"
 
   Scenario: Admin uploads users with claim codes
@@ -35,8 +40,14 @@ Fred Robinson,frobinson@example.com,345345
     And I press "Upload Users"
     Then I should see "Successfully loaded 3 users"
     When I go to the admin "H Engage" demo page
+
+    When I follow "J"
     Then I should see "John Smith, jsmith@example.com (123123)"
+
+    When I follow "B"
     And I should see "Bob Jones, bjones@example.com (234234)"
+
+    When I follow "F"
     And I should see "Fred Robinson, frobinson@example.com (345345)"
 
   Scenario: Admin uploads users with claim codes and unique IDs
@@ -49,9 +60,16 @@ Fred Robinson,frobinson@example.com,345345,freddy
     And I press "Upload Users"
     Then I should see "Successfully loaded 3 users"
     When I go to the admin "H Engage" demo page
+
+    When I follow "J"
     Then I should see "John Smith, jsmith@example.com (123123)"
-    And I should see "Bob Jones, bjones@example.com (234234)"
-    And I should see "Fred Robinson, frobinson@example.com (345345)"
+
+    When I follow "B"
+    Then I should see "Bob Jones, bjones@example.com (234234)"
+
+    When I follow "F"
+    Then I should see "Fred Robinson, frobinson@example.com (345345)"
+
     When "+14155551212" sends SMS "123123"
     And "+16175551212" sends SMS "234234"
     Then "+14155551212" should have received SMS "You've joined the H Engage game! Your user ID is johnny (text MYID if you forget). To play, text to this #."

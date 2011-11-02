@@ -1,0 +1,11 @@
+<h2 class="first">
+  <%= link_to "Admin", admin_path %>:
+  <%= link_to @demo.company_name, admin_demo_path(@demo) %>: 
+  Users starting with <%= params[:starts_with] %>
+</h2>
+
+<%= render 'admin/demos/user_paginator', :demo => @demo %>
+
+<ul id="demo-users">
+  <%= render :partial => 'admin/users/user', :collection => @users %>
+</ul>

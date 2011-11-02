@@ -484,6 +484,14 @@ class User < ActiveRecord::Base
     end
   end
 
+  def self.name_starts_with(start)
+    where("name ILIKE ?", start + "%")  
+  end
+
+  def self.name_starts_with_non_alpha
+    where("name NOT SIMILAR TO '^[[:alpha:]]%'")   
+  end
+
   protected
 
   def downcase_email
