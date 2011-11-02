@@ -10,6 +10,8 @@ class Admin::UsersController < AdminBaseController
              else
                @demo.users.name_starts_with(params[:starts_with])
              end
+
+    @users = @users.order(&:name)
   end
 
   def create
