@@ -2,13 +2,16 @@ Feature: User can credit another user who got them into the game
 
   Background: 
     Given the following demo exists:
-      | company name | credit game referrer threshold | game referrer bonus |
-      | FooCorp      | 60                             | 5                   |
+      | company name | credit game referrer threshold | game referrer bonus | referred credit bonus | victory threshold |
+      | FooCorp      | 60                             | 5                   |                       |                   |
+      | QuuxCorp     | 60                             | 10                  | 6                     | 50                |
     And the following users exist:
-      | name | phone number | accepted invitation at | demo                  |
-      | Phil | +14155551212 | 2011-05-01 12:00 EST   | company_name: FooCorp |
-      | Vlad | +16175551212 | 2011-05-01 11:59 EST   | company_name: FooCorp |
-      | Dan  | +18085551212 | 2011-05-01 12:00 EST   | company_name: FooCorp |
+      | name | phone number | accepted invitation at | demo                   |
+      | Phil | +14155551212 | 2011-05-01 12:00 EST   | company_name: FooCorp  |
+      | Vlad | +16175551212 | 2011-05-01 11:59 EST   | company_name: FooCorp  |
+      | Dan  | +18085551212 | 2011-05-01 12:00 EST   | company_name: FooCorp  |
+      | Joe  | +17145551212 | 2011-05-01 12:00 EST   | company_name: QuuxCorp |
+      | Fred | +14085551212 | 2011-05-01 12:00 EST   | company_name: QuuxCorp |
     And the following rule exists:
       | reply  | points | demo                  |
       | kitten | 5      | company_name: FooCorp |
@@ -20,17 +23,29 @@ Feature: User can credit another user who got them into the game
     And "Dan" has the SMS slug "dcroak"
     And "Vlad" has the SMS slug "vgyster"
     And "Phil" has the SMS slug "pdarnowsky"
+    And "Fred" has the SMS slug "freddie"
+    And "Fred" has the password "fred"
     And I sign in via the login page with "Dan/foo"
 
-  Scenario: User credits another
+  Scenario: User credits another in a game with no referred credit bonus
     When "+14155551212" sends SMS "dcroak"
     And DJ cranks once
     And I go to the activity page
     Then I should see "Dan 5 pts"
     And I should see "Dan got credit for referring Phil to the game"
+    And I should see "Phil credited Dan for referring them to the game"
     And "+14155551212" should have received SMS "Got it, Dan referred you to the game. Thanks for letting us know."
     And "+18085551212" should have received an SMS including "Phil gave you credit for referring them to the game. Many thanks and 5 bonus points!"
-    
+
+  Scenario: User credits another in a game with a referred credit bonus
+    When "+17145551212" sends SMS "freddie"
+    And DJ cranks once
+    Then "+17145551212" should have received an SMS including "Got it, Fred referred you to the game. Thanks (and 6 points) for letting us know."
+    And "+14085551212" should have received an SMS including "Joe gave you credit for referring them to the game. Many thanks and 10 bonus points!"
+    When I sign in via the login page with "Fred/fred"
+    Then I should see "Fred got credit for referring Joe to the game"
+    And I should see "Joe credited Fred for referring them to the game"
+
   Scenario: User can't credit someone twice
     When "+14155551212" sends SMS "dcroak"
     And "+14155551212" sends SMS "vgyster"

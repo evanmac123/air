@@ -100,6 +100,14 @@ Game
 </p>
 
 <p>
+  <% if @demo.referred_credit_bonus %>
+    Bonus for crediting the user who referred you to the game: <%= @demo.referred_credit_bonus %> points
+  <% else %>
+    No bonus for crediting the user who referred you to the game
+  <% end %>
+</p>
+
+<p>
   <% if @demo.points_for_connecting %>
     Points for connecting to another user: <%= @demo.points_for_connecting %>
   <% else %>

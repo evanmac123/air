@@ -40,6 +40,7 @@
 
   <%= form.inputs :name => "Referral Bonus" do %>
     <%= form.input :game_referrer_bonus, :label => 'Bonus for referring another to the game' %>
+    <%= form.input :referred_credit_bonus, :label => 'Bonus for crediting the user who referred you to the game' %>
     <%= form.input :credit_game_referrer_threshold, :label => "Threshold to credit user who referred you to the game (in minutes)" %>
   <% end %>
 
