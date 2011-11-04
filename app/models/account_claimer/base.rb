@@ -9,7 +9,7 @@ module AccountClaimer
     def claim
       User.transaction do
         normalized_claim_code = @claim_code.gsub(/\W+/, '')
-        users = User.find(:all, :conditions => ["claim_code ILIKE ?", normalized_claim_code])
+        users = User.find(:all, :conditions => ["claim_code ILIKE ?", normalized_claim_code.like_escape])
 
         if users.count > 1
           return "There's more than one person with that code. Please try sending us your first name along with the code (for example: John Smith enters \"john jsmith\")."

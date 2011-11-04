@@ -15,6 +15,12 @@ class String
     gsub(/\ +/, '-')
   end
 
+  # Escape characters with special meanings in Postgres' LIKE and ILIKE
+  # operators.
+  def like_escape
+    gsub(/%/, "\\%").gsub(/_/, "\\_")
+  end
+
   def first_digit
     digit = split(/(\d)/)[1]
     if digit

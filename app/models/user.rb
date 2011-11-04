@@ -487,7 +487,7 @@ class User < ActiveRecord::Base
   end
 
   def self.name_starts_with(start)
-    where("name ILIKE ?", start + "%")  
+    where("name ILIKE ?", start.like_escape + "%")  
   end
 
   def self.name_starts_with_non_alpha
@@ -545,14 +545,14 @@ class User < ActiveRecord::Base
 
   def self.claimable_by_email_address(claim_string)
     normalized_email = claim_string.gsub(/\s+/, '')
-    User.find(:first, :conditions => ["email ILIKE ? AND claim_code != ''", normalized_email])
+    User.find(:first, :conditions => ["email ILIKE ? AND claim_code != ''", normalized_email.like_escape])
   end
 
   def self.claimable_by_first_name_and_claim_code(claim_string)
     normalized_claim_string = claim_string.downcase.gsub(/\s+/, ' ').strip
     first_name, claim_code = normalized_claim_string.split
     return nil unless (first_name && claim_code)
-    User.where(["name ILIKE ? AND claim_code = ?", first_name + '%', claim_code]).first
+    User.where(["name ILIKE ? AND claim_code = ?", first_name.like_escape + '%', claim_code]).first
   end
 
   private
