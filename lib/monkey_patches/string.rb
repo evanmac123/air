@@ -38,4 +38,8 @@ class String
 
     "(#{area_code}) #{exchange}-#{rest}"
   end
+
+  def dummy_phone_number?
+    self.match(/^\+1999/)
+  end
 end
