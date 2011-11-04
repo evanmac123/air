@@ -66,4 +66,12 @@ class Mailer < ActionMailer::Base
          :from    => "donotreply@hengage.com",
          :subject => "Set your password"
   end
+
+  def already_claimed(to, user_id)
+    @user = User.find(user_id)
+
+    mail :to      => to,
+         :from    => "donotreply@hengage.com",
+         :subject => "ID already taken"
+  end
 end

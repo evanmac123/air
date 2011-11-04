@@ -2,9 +2,8 @@ module AccountClaimer
   class SMSClaimer < Base
     protected
 
-    def find_existing_user
-      User.where(:phone_number => @from).first ||
-      User.where("claim_code ILIKE ? AND accepted_invitation_at IS NOT NULL", @claim_code.like_escape).first
+    def find_claimed_user_by_from
+      User.claimed.where(:phone_number => @from).first
     end
 
     def number_to_join_game_with
@@ -13,6 +12,10 @@ module AccountClaimer
 
     def after_joining_hook
       Mailer.delay.set_password(@user.id)
+    end
+
+    def existing_user_claimed_message
+      "That ID \"#{@claimed_user_with_this_claim_code.claim_code}\" is already taken. If you're trying to register your account, please text in your own ID first by itself."
     end
   end
 end

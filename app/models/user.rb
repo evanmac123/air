@@ -494,6 +494,10 @@ class User < ActiveRecord::Base
     where("name NOT SIMILAR TO '^[[:alpha:]]%'")   
   end
 
+  def self.claimable
+    where("accepted_invitation_at IS NULL")
+  end
+
   protected
 
   def downcase_email
@@ -553,6 +557,10 @@ class User < ActiveRecord::Base
     first_name, claim_code = normalized_claim_string.split
     return nil unless (first_name && claim_code)
     User.where(["name ILIKE ? AND claim_code = ?", first_name.like_escape + '%', claim_code]).first
+  end
+
+  def self.claimed
+    where("accepted_invitation_at IS NOT NULL")
   end
 
   private

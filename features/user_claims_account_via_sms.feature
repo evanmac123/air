@@ -113,10 +113,10 @@ Feature: User claims account via SMS
 
   Scenario: User can't claim if their number is already assigned to an account
     Given the following users exist:
-      | name            | claim_code  | email               | phone_number |
-      | Phil Darnowsky  |             | phil@darnowsky.com  | +14152613077 |
-      | Paul Darnowsky  | pdarnowsky1 | paul@darnowsky.com  |              |
-      | Peter Darnowsky | pdarnowsky2 | peter@darnowsky.com |              |
+      | name            | claim_code  | email               | phone_number | accepted invitation at |
+      | Phil Darnowsky  |             | phil@darnowsky.com  | +14152613077 | 2011-01-01 00:00:00    |
+      | Paul Darnowsky  | pdarnowsky1 | paul@darnowsky.com  |              |                        |
+      | Peter Darnowsky | pdarnowsky2 | peter@darnowsky.com |              |                        |
     When "+14152613077" sends SMS "pdarnowsky1"
     And "+14152613077" sends SMS "peter@darnowsky.com"
     Then "Paul Darnowsky" should not be claimed
@@ -138,8 +138,8 @@ Feature: User claims account via SMS
 
   Scenario: Account can't be claimed twice by changing the mobile number
     Given the following user exists:
-      | name            | claim_code |
-      | Phil Darnowsky  | pdarnowsky |  
+      | name            | claim_code | 
+      | Phil Darnowsky  | pdarnowsky | 
     And "Phil Darnowsky" has the password "foo"
     When "+14155551212" sends SMS "Pdarnowsky"
     And I sign in via the login page as "Phil Darnowsky/foo"
@@ -152,7 +152,14 @@ Feature: User claims account via SMS
 
     When I go to the activity page
     Then I should see "joined the game" just once
-  
+
+  Scenario: User can't claim account already claimed
+    Given the following user with phone exists:
+      | name | accepted_invitation_at | claim code |
+      | Phil | 2011-01-01 00:00:00    | phil       |
+    When "+14155551212" sends SMS "phil"
+    Then "+14155551212" should have received an SMS 'That ID "phil" is already taken. If you're trying to register your account, please text in your own ID first by itself.'
+      
   Scenario: Some variability allowed in how users send their claim codes
     Given the following users exist:
       | name           | claim code |

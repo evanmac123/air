@@ -44,3 +44,14 @@ Feature: User claims account via email
 
     When "joe@example.com" opens the email
     Then I should see "We got your email, but it looks like the body of it was blank. Please put your command in the first line of the email body." in the email body
+
+  Scenario: User claims account that's already claimed
+    Given the following user exists:
+      | name | email            | claim code | accepted_invitation_at | demo                |
+      | Fred | fred@example.com | fred       | 2011-01-01 00:00:00    | company_name: FooCo |
+    And "joe@example.com" sends email with subject "hey" and body "fred"
+    And DJ cranks 5 times
+
+    When "joe@example.com" opens the email
+    Then I should see "That ID fred is already taken. If you're trying to register your account, please send in your own ID first by itself in the body of an email." in the email body
+    And I should not see "Please reply to this email in order to submit commands for points." in the email body
