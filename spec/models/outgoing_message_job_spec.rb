@@ -17,7 +17,7 @@ describe SMS::OutgoingMessageJob do
     context "when the number is one of our dummy numbers (in the 999 area code)" do
       before(:each) do
         Twilio::SMS.stubs(:create).raises(Twilio::APIError, "Error #21401: +19995551212 is not a valid phone number")
-        @job = SMS::OutgoingMessageJob.new("+19995551212", "+16175551212", "hey there")
+        @job = SMS::OutgoingMessageJob.new("+14155551212", "+19995551212", "hey there")
       end
 
       it "should not try to send" do

@@ -7,7 +7,7 @@ module SMS
     end
 
     def perform
-      return if @from.dummy_phone_number?
+      return if @to.dummy_phone_number?
 
       begin
         Twilio::SMS.create(:from => @from,
