@@ -11,8 +11,7 @@ module SMS
                 when User: [(to.demo.phone_number || TWILIO_PHONE_NUMBER), to.phone_number]
                 end
 
-    #Delayed::Job.enqueue(OutgoingMessageJob.new(from_number, to_number, body), delay_params)
-    Twilio::SMS.delay(delay_params).create(:from => from_number, :to => to_number, :body => body)
+    Delayed::Job.enqueue(OutgoingMessageJob.new(from_number, to_number, body), delay_params)
   end
 
   def self.send_side_message(to, body)
