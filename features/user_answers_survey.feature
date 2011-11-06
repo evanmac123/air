@@ -65,7 +65,8 @@ Background:
     Then "+14155551212" should have received an SMS "Do you smoke crack?"
 
     When "+14155551212" sends SMS "1"
-    Then "+14155551212" should have received an SMS "Got it! Next question: Do you like cheese?"
+    And I dump all sent texts
+    Then "+14155551212" should have received an SMS "Do you like cheese?"
 
   Scenario: User can't kick off survey by asking for it if survey is not currently open
     Given time is frozen at "2011-05-01 10:59:59 UTC"
@@ -131,7 +132,7 @@ Background:
     When "+14155551212" sends SMS "1"
     And I sign in via the login page with "Dan/foo"
     And I go to the activity page
-    Then "+14155551212" should have received an SMS "Got it! Next question: Do you like cheese?"
+    Then "+14155551212" should have received an SMS "Do you like cheese?"
     And I should see "Dan answered a survey question"
 
   Scenario: User responds to a question with bonus points attached
@@ -142,7 +143,7 @@ Background:
     And "+14155551212" sends SMS "1"
     And I sign in via the login page with "Dan/foo"
     And I go to the activity page
-    Then "+14155551212" should have received an SMS "Got it! (And you get 5 points.) Next question: How important is doing what you're told?"
+    Then "+14155551212" should have received an SMS "How important is doing what you're told?"
     And I should see "5 pts Dan answered a survey question less than a minute ago"
 
   Scenario: User responds to question during the window with a bad value that's a single digit
@@ -202,7 +203,7 @@ Background:
     And "+14155551212" sends SMS "4"
     And I sign in via the login page with "Dan/foo"
     And I go to the activity page
-    Then "+14155551212" should have received an SMS "Got it! That was the last question. Thanks for completing the survey!"
+    Then "+14155551212" should have received an SMS "That was the last question. Thanks for completing the survey!"
     And I should see "Dan completed a survey"
 
   Scenario: User tries to send an answer after all questions are answered

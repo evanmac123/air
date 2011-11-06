@@ -16,12 +16,6 @@ class SurveyQuestion < ActiveRecord::Base
   end
 
   def question_acknowledgement_phrase(next_question)
-    "Got it! #{points_phrase}#{next_question_phrase(next_question)}"
-  end
-
-  def points_phrase
-    self.points ? 
-      "(And you get #{self.points} points.) " :
-      ''
+    next_question ? next_question.text : "That was the last question. Thanks for completing the survey!"
   end
 end
