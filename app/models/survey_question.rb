@@ -8,7 +8,13 @@ class SurveyQuestion < ActiveRecord::Base
   end
 
   def after_question_hook(user)
-    user.acts.create(:inherent_points => self.points, :text => "answered a survey question")
+    act_text = if user.demo.survey_answer_activity_message.present?
+                 user.demo.survey_answer_activity_message
+               else
+                 "answered a survey question"
+               end
+
+    user.acts.create(:inherent_points => self.points, :text => act_text)
   end
 
   def after_final_question_hook(user)

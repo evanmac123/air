@@ -135,6 +135,30 @@ Background:
     Then "+14155551212" should have received an SMS "Do you like cheese?"
     And I should see "Dan answered a survey question"
 
+  Scenario: User responds to question in a demo with a custom answer act message
+    Given the following demo exists:
+      | company name | survey answer activity message |
+      | CustomCo     | did the thing                  |
+    Given the following user exists:
+      | name | phone number | demo                   |
+      | Fred | +12345551212 | company_name: CustomCo |
+    And "Fred" has the password "foo"
+    And the following survey exists:
+      | name                   | open_at              | close_at             | demo                   |
+      | CustomCo Health Survey | 2011-05-01 11:00 UTC | 2011-05-01 21:00 UTC | company_name: CustomCo |
+    And the following survey questions exist:
+      | text                                     | index | points | survey                       |
+      | What are pants for?                      |     1 |        | name: CustomCo Health Survey |
+    And the following survey valid answers exist:
+      | value | survey_question           |
+      | 1     | text: What are pants for? |
+      | 2     | text: What are pants for? |
+    Given time is frozen at "2011-05-01 15:00 UTC"
+    When "+12345551212" sends SMS "1"
+    And I sign in via the login page with "Fred/foo"
+    And I go to the activity page
+    Then I should see "Fred did the thing"
+
   Scenario: User responds to a question with bonus points attached
     Given time is frozen at "2011-05-01 13:00 UTC"
     And the following survey answers exist:
