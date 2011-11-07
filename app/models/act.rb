@@ -43,6 +43,10 @@ class Act < ActiveRecord::Base
     order('created_at desc').limit(limit)
   end
 
+  def self.displayable
+    where("text != ''")
+  end
+
   def self.parse(user_or_phone, body, options = {})
     set_return_message_type!(options)
 

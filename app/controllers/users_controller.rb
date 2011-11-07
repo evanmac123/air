@@ -14,7 +14,7 @@ class UsersController < Clearance::UsersController
     @new_appearance = true
 
     @user = User.find_by_slug(params[:id])
-    @acts = @user.acts.in_user_demo.recent(10)
+    @acts = @user.acts.in_user_demo.displayable.recent(10)
     @viewing_self = signed_in? && current_user == @user
     @viewing_other = signed_in? && current_user != @user
 

@@ -23,7 +23,7 @@
   <%= form.input :points %>
   <%= form.input :reply, :input_html => {:maxlength => 101} %>
   <%= add_byte_counter_for 'Reply' %>
-  <%= form.input :description %>
+  <%= form.input :description, :hint => "Leave this blank and acts resulting from use of this rule won't appear in the activity feed, etc." %>
   <%= form.input :alltime_limit %>
   <%= form.input :referral_points %>
   <%= form.input :suggestible %>

@@ -52,7 +52,7 @@ class ActsController < ApplicationController
   protected
 
   def find_requested_acts(demo)
-    acts = demo.acts.recent(10).includes(:user).includes(:rule)
+    acts = demo.acts.displayable.recent(10).includes(:user).includes(:rule)
 
     case params[:show_only]
     when 'following'
