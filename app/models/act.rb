@@ -14,10 +14,8 @@ class Act < ActiveRecord::Base
   after_create do
     user.update_points(points) if points
 
-    if self.completes_goal?
-      SMS.send_side_message(user, self.goal.completion_sms_text)
-      GoalCompletion.create!(:user => user, :goal => self.goal)
-    end
+    check_goal_completion
+    check_timed_bonuses
   end
 
   scope :recent, lambda {|max| order('created_at DESC').limit(max)}
@@ -172,7 +170,31 @@ class Act < ActiveRecord::Base
   end
 
 
-  private
+  protected
+
+  def check_goal_completion
+    if self.completes_goal?
+      SMS.send_side_message(user, self.goal.completion_sms_text)
+      GoalCompletion.create!(:user => user, :goal => self.goal)
+    end
+  end
+
+  def check_timed_bonuses
+    fulfillable_bonuses = TimedBonus.fulfillable_by(self.user)
+    # Important to mark all of these fulfilled before we go creating more Acts
+    # to avoid race conditions and other nasty situations
+    fulfillable_bonuses.each {|fulfillable_bonus| fulfillable_bonus.update_attribute(:fulfilled, true)}
+
+    fulfillable_bonuses.each do |fulfillable_bonus|
+      Act.create!(
+        :text            => '',  # doesn't appear in feed
+        :user            => self.user,
+        :inherent_points => fulfillable_bonus.points
+      )
+
+      SMS.send_side_message(user, fulfillable_bonus.sms_response)
+    end
+  end
 
   def self.record_bad_message(phone_number, body, reply = '')
     BadMessage.create!(:phone_number => phone_number, :body => body, :received_at => Time.now, :automated_reply => reply)

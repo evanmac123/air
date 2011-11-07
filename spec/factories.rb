@@ -145,3 +145,10 @@ end
 Factory.define :email_command do |email_command|
   email_command.status EmailCommand::Status::UNKNOWN_EMAIL
 end
+
+Factory.define :timed_bonus do |timed_bonus|
+  timed_bonus.expires_at {Time.now + 24.hours}
+  timed_bonus.points {10}
+  timed_bonus.association :user
+  timed_bonus.association :demo
+end
