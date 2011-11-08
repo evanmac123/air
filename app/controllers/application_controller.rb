@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::Base
+  FLASHES_ALLOWING_RAW = %w(notice)
+
   #before_filter :mobile_if_mobile_device
 
   #has_mobile_fu

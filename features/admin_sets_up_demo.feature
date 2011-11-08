@@ -34,6 +34,7 @@ Feature: Admin sets up demo
     And I fill in "Response to command before game begins" with "Hold ur horses"
     And I fill in "Response to command after game ends" with "Too slow!"
     And I fill in "Activity feed text when user answers a survey question" with "responded to an inquiry"
+    And I fill in "Message user sees on login" with "La llama!"
     And I uncheck "Use standard playbook rules"
     And I press "Submit"
     Then I should be on the admin "3M" demo page
@@ -60,6 +61,7 @@ Feature: Admin sets up demo
     And I should see 'Response to command before game begins is "Hold ur horses"'
     And I should see 'Response to command after game ends is "Too slow!"'
     And I should see 'Activity feed text when user answers a survey question is "responded to an inquiry"'
+    And I should see 'Message user sees on login is "La llama!"'
 
   Scenario: Correct defaults
     Given I am on the admin page
@@ -89,6 +91,7 @@ Feature: Admin sets up demo
     And I should see 'Game will have default response to command before game begins.'
     And I should see 'Game will have default response to command after game ends.'
     And I should see 'Game will have default activity feed text when user answers a survey question'
+    And I should see "User sees no custom message on login"
 
   Scenario: Appropriate restrictions on text that gets SMSed
     Given I am on the admin page

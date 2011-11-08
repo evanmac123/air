@@ -532,6 +532,9 @@ form .submit-input {
   -moz-border-radius: 0;
   border-radius: 0; }
 
+#flash_notice a {
+  font-weight: bold; }
+
 .hidden-form {
   display: none;
   margin-top: 20px; }

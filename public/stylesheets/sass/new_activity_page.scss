@@ -290,6 +290,10 @@ form .submit-input {
   @include rounded-corners(0);
 }
 
+#flash_notice a {
+  font-weight: bold;
+}
+
 .hidden-form {
   display: none;
   margin-top: 20px;
