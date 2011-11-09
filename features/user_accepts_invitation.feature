@@ -79,7 +79,8 @@ Feature: User accepts invitation
     And I press "Join the game"
     And I sign out
     And I sign in via the login page as "Dan/whatwhat"
-    And I should see "Signed in."
+    And I should not see "Signed in."
+    But I should be on the activity page
 
   Scenario: User must set password when accepting invitation
     When I fill in "Enter your mobile number" with "508-740-7520"

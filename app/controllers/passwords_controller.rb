@@ -51,4 +51,8 @@ class PasswordsController < Clearance::PasswordsController
   def set_new_appearance
     @new_appearance = true
   end
+
+  def flash_success_after_create
+    # No "Signed in" message
+  end
 end

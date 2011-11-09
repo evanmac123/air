@@ -38,4 +38,8 @@ class SessionsController < Clearance::SessionsController
       flash[:notice] = login_announcement
     end
   end
+
+  def flash_success_after_create
+    # No "Signed in" message
+  end
 end

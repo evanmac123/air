@@ -21,8 +21,9 @@ Feature: Sign in
       Given I am signed up as "email@person.com/password"
       When I go to the sign in page
       And I sign in as "email@person.com/password"
-      Then I should see "Signed in"
-      And I should be signed in
+      Then I should not see "Signed in"
+      But I should be signed in
+      And I should be on the activity page
       When I return next time
       Then I should be signed in
 
@@ -36,4 +37,6 @@ Feature: Sign in
       Given I am signed up as "dude@example.com/foo"
       When I go to the sign in page
       And I sign in as "Dude@example.com/foo"
-      Then I should see "Signed in"
+      Then I should not see "Signed in"
+      But I should be signed in
+      And I should be on the activity page

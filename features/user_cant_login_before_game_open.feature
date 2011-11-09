@@ -11,7 +11,8 @@ Feature: User can't login before game opens
 
     When time is frozen at "2011-04-30 23:59:59 -0400"
     And I sign in via the login page with "Bob/foo"
-    Then I should not see "Signed in"
+    Then I should be on the activity page
+    But I should not see "Recent Activity"
     And I should see "Your game begins on May 01, 2011 at 12:00 AM Eastern"
     When I go to the profile page for "Bob"
     Then I should not see "Enter your new mobile number"
@@ -19,7 +20,9 @@ Feature: User can't login before game opens
     
     When time is frozen at "2011-05-01 00:01:00 -0400"
     And I sign in via the login page with "Bob/foo"
-    Then I should see "Signed in"
+    Then I should not see "Signed in"
+    But I should be on the activity page
+    And I should see "Recent Activity"
 
   Scenario: Game without a set start time is open immediately      
     Given the following demo exists:
@@ -32,19 +35,19 @@ Feature: User can't login before game opens
 
     When time is frozen at "1962-01-01 00:00:00"
     And I sign in via the login page with "Bob/foo"
-    Then I should see "Signed in"
+    Then I should see "Recent Activity"
 
     When time is frozen at "1992-01-01 00:00:00"
     And I sign in via the login page with "Bob/foo"
-    Then I should see "Signed in"
+    Then I should see "Recent Activity"
 
     When time is frozen at "2002-01-01 00:00:00"
     And I sign in via the login page with "Bob/foo"
-    Then I should see "Signed in"
+    Then I should see "Recent Activity"
 
     When time is frozen at "2012-01-01 00:00:00"
     And I sign in via the login page with "Bob/foo"
-    Then I should see "Signed in"
+    Then I should see "Recent Activity"
 
   Scenario: Admin can log in whenever they please
     Given the following demo exists:
@@ -59,9 +62,10 @@ Feature: User can't login before game opens
 
     When time is frozen at "2011-04-30 23:59:59 -0400"
     And I sign in via the login page with "Bob/foo"
-    Then I should not see "Signed in"
+    Then I should be on the activity page
+    But I should not see "Recent Activity"
     And I should see "Your game begins on May 01, 2011 at 12:00 AM Eastern"
 
     When I sign in via the login page with "Adam/bar"
-    Then I should see "Signed in"
+    Then I should see "Recent Activity"
     And I should not see "Your game begins on May 01, 2011 at 12:00 AM Eastern"

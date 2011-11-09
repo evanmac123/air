@@ -12,4 +12,5 @@ Feature: Marketing page login dropdown works
    And I fill in the login dropdown password field with "bigjim"
    And I press the "go" button in the login dropdown
    Then I should be on the activity page
-   And I should see "Signed in."
+   And I should not see "Signed in."
+   But I should see "Recent Activity"
