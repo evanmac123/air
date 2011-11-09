@@ -204,10 +204,12 @@ class User < ActiveRecord::Base
     update_attribute(:invited, true)
   end
 
-  def join_game(number, reply_mode = :string)
+  def mark_as_claimed(number)
     update_attribute(:phone_number, PhoneNumber.normalize(number))
     update_attribute(:accepted_invitation_at, Time.now)
+  end
 
+  def finish_claim(reply_mode = :string)
     add_joining_to_activity_stream
     schedule_followup_welcome_message
 
@@ -219,6 +221,11 @@ class User < ActiveRecord::Base
     when :string
       welcome_message
     end
+  end
+
+  def join_game(number, reply_mode=:string)
+    mark_as_claimed(number)
+    finish_claim(reply_mode)
   end
 
   def gravatar_url(size)
@@ -316,7 +323,15 @@ class User < ActiveRecord::Base
         where_conditions = ["#{points_column} < ? AND #{points_column} >= ?", new_point_value, old_point_value]
       end
 
-      self.demo.users.update_all("#{ranking_column} = #{ranking_column} + 1", where_conditions)
+      # And we do it this way, rather than with a single users.update_all, to 
+      # ensure that we always run through the IDs in a consistent order and 
+      # hopefully avoid deadlock.
+
+      # Damn but this is ugly though. If you've got a better idea, I'm all ears.
+
+      user_ids_to_update = self.demo.users.where(where_conditions).order(:id).select("id").map(&:id)
+      user_ids_to_update.each{ |user_id| User.connection.execute("UPDATE users SET #{ranking_column} = #{ranking_column} + 1 WHERE id = #{user_id}") }
+      #self.demo.users.update_all("#{ranking_column} = #{ranking_column} + 1", where_conditions)
     end
   end
 
@@ -433,8 +448,9 @@ class User < ActiveRecord::Base
   end
 
   def befriend(other)
+    return nil unless self.demo.game_open?
+
     Friendship.transaction do
-      return nil unless self.demo.game_open?
       return nil if self.friendships.where(:friend_id => other.id).present?
       self.friendships.create(:friend_id => other.id)
     end

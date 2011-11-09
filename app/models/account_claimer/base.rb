@@ -31,10 +31,12 @@ module AccountClaimer
           return existing_user_claimed_message
         end
 
-        @user.forgot_password!
-        @welcome_message = @user.join_game(number_to_join_game_with)
-        after_joining_hook
+        @user.mark_as_claimed(number_to_join_game_with)
       end
+      
+      @user.forgot_password!
+      @welcome_message = @user.finish_claim
+      after_joining_hook
 
       @welcome_message
     end
