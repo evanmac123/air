@@ -328,10 +328,11 @@ class User < ActiveRecord::Base
       # hopefully avoid deadlock.
 
       # Damn but this is ugly though. If you've got a better idea, I'm all ears.
+      # Maybe something with SELECT FOR UPDATE?
 
-      user_ids_to_update = self.demo.users.where(where_conditions).order(:id).select("id").map(&:id)
-      user_ids_to_update.each{ |user_id| User.connection.execute("UPDATE users SET #{ranking_column} = #{ranking_column} + 1 WHERE id = #{user_id}") }
-      #self.demo.users.update_all("#{ranking_column} = #{ranking_column} + 1", where_conditions)
+      #user_ids_to_update = self.demo.users.where(where_conditions).order(:id).select("id").map(&:id)
+      #user_ids_to_update.each{ |user_id| User.connection.execute("UPDATE users SET #{ranking_column} = #{ranking_column} + 1 WHERE id = #{user_id}") }
+      self.demo.users.update_all("#{ranking_column} = #{ranking_column} + 1", where_conditions)
     end
   end
 
