@@ -332,7 +332,9 @@ class User < ActiveRecord::Base
 
       #user_ids_to_update = self.demo.users.where(where_conditions).order(:id).select("id").map(&:id)
       #user_ids_to_update.each{ |user_id| User.connection.execute("UPDATE users SET #{ranking_column} = #{ranking_column} + 1 WHERE id = #{user_id}") }
-      self.demo.users.update_all("#{ranking_column} = #{ranking_column} + 1", where_conditions)
+      #self.demo.users.update_all("#{ranking_column} = #{ranking_column} + 1", where_conditions)
+      user_ids_to_update = self.demo.users.where(where_conditions).order(:id).select("id").lock("FOR UPDATE").map(&:id)
+      User.update_all("#{ranking_column} = #{ranking_column} + 1", :id => user_ids_to_update)
     end
   end
 
