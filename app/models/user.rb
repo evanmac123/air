@@ -323,16 +323,9 @@ class User < ActiveRecord::Base
         where_conditions = ["#{points_column} < ? AND #{points_column} >= ?", new_point_value, old_point_value]
       end
 
-      # And we do it this way, rather than with a single users.update_all, to 
-      # ensure that we always run through the IDs in a consistent order and 
-      # hopefully avoid deadlock.
-
-      # Damn but this is ugly though. If you've got a better idea, I'm all ears.
-      # Maybe something with SELECT FOR UPDATE?
-
-      #user_ids_to_update = self.demo.users.where(where_conditions).order(:id).select("id").map(&:id)
-      #user_ids_to_update.each{ |user_id| User.connection.execute("UPDATE users SET #{ranking_column} = #{ranking_column} + 1 WHERE id = #{user_id}") }
-      #self.demo.users.update_all("#{ranking_column} = #{ranking_column} + 1", where_conditions)
+      # This mitigates, but doesn't totally prevent, deadlocks. Until I think
+      # of a better algorithm, or we can get Postgres to lock the fucking rows
+      # in a consistent fucking order, we're done here.
       user_ids_to_update = self.demo.users.where(where_conditions).order(:id).select("id").lock("FOR UPDATE").map(&:id)
       User.update_all("#{ranking_column} = #{ranking_column} + 1", :id => user_ids_to_update)
     end
