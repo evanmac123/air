@@ -555,7 +555,7 @@ describe User, "#credit_referring_user" do
 
     latest_act = @referring_user.reload.acts.last
     latest_act.text.should include(@user.name)
-    latest_act.text.should include(@rule_value.value)
+    latest_act.text.should_not include(@rule_value.value)
     latest_act.inherent_points.should == @rule_value.rule.points / 2
   end
 

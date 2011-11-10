@@ -624,7 +624,7 @@ class User < ActiveRecord::Base
 
     act_text = I18n.translate(
       'activerecord.models.user.referred_a_command_act', 
-      :default    => "told %{name} about the %{rule_value} command", 
+      :default    => "told %{name} about a command", 
       :name       => self.name, 
       :rule_value => rule_value.value
     )
