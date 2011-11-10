@@ -35,7 +35,7 @@ module SpecialCommand
       self.send_help_response(user)
     when 'support'
       self.request_support(user)
-    when 'survey', 'ur2cents'
+    when 'survey', 'ur2cents', '2ur2cents'
       self.send_next_survey_question(user)
     when 'yes'
       self.accept_follower(user, args.first)
