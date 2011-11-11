@@ -4,6 +4,10 @@ Feature: User levels up
     Given the following demo exists:
       | company name |
       | FooCo        |
+    And the following levels exist:
+      | name           | threshold | demo                |
+      | level 1 (N00b) | 10        | company_name: FooCo |
+      | level 2 (Pawn) | 21        | company_name: FooCo |
     And the following users exist:
       | name | phone number | points | demo                |
       | Vlad | +14155551212 | 7      | company_name: FooCo |
@@ -19,17 +23,13 @@ Feature: User levels up
       | did good   | reply: good   |
       | did better | reply: better |
       | did best   | reply: best   |
-    And the following levels exist:
-      | name           | threshold | demo                |
-      | level 1 (N00b) | 10        | company_name: FooCo |
-      | level 2 (Pawn) | 21        | company_name: FooCo |
     And "Vlad" has password "foo"
     And I sign in via the login page with "Vlad/foo"
 
   Scenario: User levels when hitting point threshold
     When "+14155551212" sends SMS "did good"
     And a decent interval has passed
-    And DJ cranks once
+    And DJ cranks 10 times
     And I go to the activity page
     Then I should see "Level: level 1 (N00b)"
     And "+14155551212" should have received an SMS "You've reached level 1 (N00b)!"
@@ -46,7 +46,7 @@ Feature: User levels up
   Scenario: User levels when passing point threshold
     When "+14155551212" sends SMS "did better"
     And a decent interval has passed
-    And DJ cranks once
+    And DJ cranks 10 times
     And I go to the activity page
     Then I should see "Level: level 1 (N00b)"
     And "+14155551212" should have received an SMS "You've reached level 1 (N00b)!"
@@ -58,3 +58,17 @@ Feature: User levels up
     And I go to the activity page
     Then I should not see "level 1 (N00b)"
     And "+14155551212" should not have received an SMS including "level 1 (N00b)"
+
+  Scenario: Levels are awarded retroactively on creation
+    Given the following level exists:
+      | name           | threshold | demo                |
+      | level 0 (usuk) | 5         | company_name: FooCo |
+    When DJ cranks 5 times
+    And a decent interval has passed
+    And DJ cranks 5 times
+    And I go to the activity page
+    Then I should see "Level: level 0 (usuk)"
+    And "+14155551212" should have received an SMS including "level 0 (usuk)"
+    But "+14155551212" should not have received an SMS including "level 1 (N00b)"
+    And I should not see "level 1 (N00b)"
+

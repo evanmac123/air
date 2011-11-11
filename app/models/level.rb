@@ -10,7 +10,11 @@ class Level < ActiveRecord::Base
 
   validates_uniqueness_of :threshold, :scope => :demo_id
 
+  after_create :schedule_retroactive_awards
+
   def level_up(user)
+    return nil if user.levels.include?(self)
+
     user.levels << self
 
     sms_text = I18n.translate(
@@ -32,5 +36,15 @@ class Level < ActiveRecord::Base
 
   def self.in_threshold_order
     order("threshold ASC")
+  end
+
+  protected
+
+  def schedule_retroactive_awards
+    self.delay.award_retroactively
+  end
+
+  def award_retroactively
+    User.where("points > ?", self.threshold).each {|user| self.level_up(user)}
   end
 end
