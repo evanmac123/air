@@ -8,6 +8,6 @@ class EmailInfoRequestNotifier < ActionMailer::Base
 
     mail(:to      => 'vlad@hengage.com',
          :cc      => 'phil@hengage.com',
-         :subject => 'Somebody requested information about The H Engages!')
+         :subject => 'H Engage Information Request')
   end
 end

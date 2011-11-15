@@ -17,7 +17,7 @@ describe EmailInfoRequest do
         Delayed::Worker.new.work_off
       end
 
-      it { should have_sent_email.to('vlad@hengage.com').with_body(/Dude Duderson \(dude@bigco.com\).*Comment: Hot shit!/m).with_subject(/Somebody requested information about The H Engages!/) }
+      it { should have_sent_email.to('vlad@hengage.com').with_body(/Dude Duderson \(dude@bigco.com\).*Comment: Hot shit!/m).with_subject(/H Engage Information Request/) }
     end
   end
 end
