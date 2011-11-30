@@ -1,9 +1,0 @@
-<% unless @message.is_new %>
-  $('#new-messages #<%= dom_id(@message) %>').remove();
-  updateNewMessageCount();
-<% end %>
-
-<% unless @message.on_watch_list %>
-  $('#watch-listed-messages #<%= dom_id(@message) %>').remove();
-  updateWatchlistedMessageCount();
-<% end %>

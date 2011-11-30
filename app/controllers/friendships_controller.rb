@@ -14,11 +14,6 @@ class FriendshipsController < ApplicationController
       end
 
       format.js
-
-      #format.mobile do
-        #@acts = @user.acts.recent(10)
-        #render :partial => 'create'
-      #end
     end
   end
 
@@ -34,11 +29,6 @@ class FriendshipsController < ApplicationController
       end
 
       format.js
-
-      format.mobile do
-        @acts = @user.acts.recent(10)
-        render :partial => 'destroy'
-      end
     end
   end
 end

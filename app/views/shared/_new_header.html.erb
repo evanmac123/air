@@ -10,16 +10,8 @@
 <div class="header">
   <div class="inner-header">
     <div id="logo">
-      <%# Gross HACK to allow Yahoo logo to appear on Yahoo-specific command page when user is not signed in (and thus we do not really know what demo they are in). I felt bad about myself after writing this. %>
-      <% if @use_yahoo_logo %>
-        <%= link_to "/sign_in" do %>
-          <%= image_tag "https://s3.amazonaws.com/yahoo_skin/small_yahoo_logo.png" %>
-          <h1>Yahoo! Benefits Beta</h1>
-        <% end %>
-      <% else %>
-        <%= link_to '/' do %>
-          <%= image_tag skinned('logo_url', 'new_activity/img_logo.png'), :alt => 'H Engage tree' %>
-        <% end %>
+      <%= link_to '/' do %>
+        <%= image_tag skinned('logo_url', 'new_activity/img_logo.png'), :alt => 'H Engage tree' %>
       <% end %>
     </div>
 

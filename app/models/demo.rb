@@ -44,7 +44,7 @@ class Demo < ActiveRecord::Base
       'default_victory_achievement_message',
       'You won on %{winning_time}. Congratulations!',
       user,
-      :winning_time => [:won_at, :winning_time_format]
+      :winning_time => [:won_at, :pretty]
     )
   end
 
@@ -87,7 +87,7 @@ class Demo < ActiveRecord::Base
     custom_message(
       :act_too_early_message,
       "act_too_early_message",
-      "The game will begin #{self.begins_at.winning_time_format}. Please try again after that time."      
+      "The game will begin #{self.begins_at.pretty}. Please try again after that time."      
     )
   end
 

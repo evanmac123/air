@@ -1,29 +1,33 @@
-if Rails.env.development? || Rails.env.test?
-  require 'cucumber/rake/task'
-  require 'rcov/rcovtask'
+require 'rspec/core/rake_task'
+require 'cucumber/rake/task'
 
-  namespace :rcov do
+namespace :rcov do
+  
+  rcov_options = %w{
+    --rails
+    --exclude osx\/objc,gems\/,spec\/,features\/,seeds\/
+    --aggregate coverage/coverage.data
+  }
+  
+  Cucumber::Rake::Task.new(:cucumber) do |t|
+    t.cucumber_opts = "--format pretty"
     
-    rcov_opts = ['-T','--exclude gems/*,rcov*,features/step_definitions/web_steps.rb']
-    
-    desc 'Measures cucumber coverage'
-    Cucumber::Rake::Task.new(:features) do |t|    
-      t.rcov = true
-      t.rcov_opts = rcov_opts
-      t.rcov_opts << '-o coverage.features'
-    end
-    
-    desc 'Measures shoulda coverage'  
-    Rcov::RcovTask.new(:tests) do |t|
-      t.libs << 'test'
-      t.test_files = FileList['test/unit/*_test.rb','test/functional/*_test.rb','test/unit/helpers/*_test.rb']
-      t.rcov_opts = rcov_opts
-      t.output_dir = "coverage.tests"
-    end
+    t.rcov = true
+    t.rcov_opts = rcov_options
+  end
 
-    desc 'Measures all coverage'  
-    task :all do
-      ["features", "tests"].each{ |task| Rake::Task["rcov:#{task}"].invoke }
-    end
+  RSpec::Core::RakeTask.new(:rspec) do |t|
+    t.spec_opts = ["--color"]
+    
+    t.rcov = true
+    t.rcov_opts = rcov_options
+    t.rcov_opts += %w{--include views -Ispec}
+  end
+  
+  desc "Run cucumber & rspec to generate aggregated coverage"
+  task :all do |t|
+    rm "coverage/coverage.data" if File.exist?("coverage/coverage.data")
+    Rake::Task['rcov:rspec'].invoke
+    Rake::Task["rcov:cucumber"].invoke
   end
 end

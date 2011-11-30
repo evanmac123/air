@@ -168,10 +168,6 @@ class User < ActiveRecord::Base
     order("name asc")
   end
 
-  def self.top(limit=10)
-    order("points desc").limit(limit)
-  end
-
   def self.ranked
     where("phone_number IS NOT NULL AND phone_number != ''")
   end
@@ -192,8 +188,6 @@ class User < ActiveRecord::Base
       AccountClaimer::SMSClaimer
     when :email
       AccountClaimer::EmailClaimer
-    else
-      raise ArgumentError, "don't know how to claim account through channel \"#{options[:channel]}\""
     end
 
     claimer_class.new(from, claim_code, options).claim
@@ -226,10 +220,6 @@ class User < ActiveRecord::Base
   def join_game(number, reply_mode=:string)
     mark_as_claimed(number)
     finish_claim(reply_mode)
-  end
-
-  def gravatar_url(size)
-    Gravatar.new(email).url(size)
   end
 
   def update_points(new_points)
@@ -362,8 +352,7 @@ class User < ActiveRecord::Base
   # all rankings at once afterwards.
   
   def recalculate_moving_average!
-    horizon = (Date.today - MAX_RECENT_AVERAGE_HISTORY_DEPTH.days).midnight
-    acts_in_horizon = acts.where('created_at >= ? AND demo_id = ?', horizon, self.demo_id).order(:created_at)
+    acts_in_horizon = find_acts_in_horizon
     oldest_act_in_horizon = acts_in_horizon.first
 
     self.recent_average_history_depth = if oldest_act_in_horizon
@@ -374,16 +363,7 @@ class User < ActiveRecord::Base
                              0
                            end
 
-    grouped_acts = acts_in_horizon.group_by{|act| act.created_at.to_date}
-
-    point_numerator = 0
-    grouped_acts.each do |date_of_act, acts_on_date|
-      date_weight = self.recent_average_history_depth - (Date.today - date_of_act).numerator + 1
-      point_numerator += date_weight * acts_on_date.map(&:points).compact.sum
-    end
-
-    point_denominator = (1..self.recent_average_history_depth + 1).sum
-    self.recent_average_points = (point_numerator.to_f / point_denominator).ceil
+    self.recent_average_points = (recent_average_point_numerator(acts_in_horizon) / recent_average_point_denominator).ceil
 
     # Remember we're deliberately skipping callbacks here because we
     # anticipate updating rankings all in a batch.
@@ -392,18 +372,32 @@ class User < ActiveRecord::Base
     @batch_updating_recent_averages = false
   end
 
+  def recent_average_point_numerator(acts_in_horizon)
+    grouped_acts = acts_in_horizon.group_by{|act| act.created_at.to_date}
+
+    point_numerator = 0
+    grouped_acts.each do |date_of_act, acts_on_date|
+      date_weight = self.recent_average_history_depth - (Date.today - date_of_act).numerator + 1
+      point_numerator += date_weight * acts_on_date.map(&:points).compact.sum
+    end
+    point_numerator.to_f
+  end
+
+  def recent_average_point_denominator
+    (1..self.recent_average_history_depth + 1).sum
+  end
+
+  def find_acts_in_horizon
+    horizon = (Date.today - MAX_RECENT_AVERAGE_HISTORY_DEPTH.days).midnight
+    acts_in_horizon = acts.where('created_at >= ? AND demo_id = ?', horizon, self.demo_id).order(:created_at)
+  end
+
   def self.claim_code_prefix(user)
     begin
       names = user.name.downcase.split.map(&:remove_non_words)
       first_name = names.first
       last_name = names.last
       [first_name.first, last_name].join('')
-    rescue StandardError => e
-      Rails.logger.error("ERROR IN .CLAIM_CODE_PREFIX")
-      Rails.logger.error("FULL NAME: #{names.inspect}")
-      Rails.logger.error("FIRST NAME: #{first_name}")
-      Rails.logger.error("LAST NAME: #{last_name}")
-      raise e
     end
   end
 
@@ -505,10 +499,6 @@ class User < ActiveRecord::Base
 
   def self.name_starts_with_non_alpha
     where("name NOT SIMILAR TO '^[[:alpha:]]%'")   
-  end
-
-  def self.claimable
-    where("accepted_invitation_at IS NULL")
   end
 
   protected

@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe PagesController do
   it "should not require authentication" do
-    get :show, :id => 'new_marketing'
+    get :show, :id => 'marketing'
     response.should_not be_redirect
   end
 
@@ -11,7 +11,7 @@ describe PagesController do
       $test_force_ssl = true
 
       request.ssl?.should be_false
-      get :show, :id => 'new_marketing'
+      get :show, :id => 'marketing'
 
       $test_force_ssl = false
 

@@ -327,7 +327,7 @@ a:hover {
 body {
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-size: 14px;
-  background-image: url(/images/new_marketing/background.png);
+  background-image: url(/images/marketing/background.png);
   padding-top: 40px; }
 
 h1 {
@@ -1093,42 +1093,3 @@ fieldset#levels input {
   margin-right: 0; }
   #signout-nav a {
     padding-right: 0; }
-
-.pages-yahoo .header {
-  padding-left: 0; }
-.pages-yahoo .inner-header {
-  margin-left: 250px;
-  font-size: 40px; }
-  .pages-yahoo .inner-header h1 {
-    display: inline-block;
-    height: 60px;
-    vertical-align: middle;
-    padding-left: 55px;
-    font-weight: bold;
-    font-size: 40px; }
-.pages-yahoo #add-action {
-  display: none; }
-.pages-yahoo .content {
-  margin-left: 250px;
-  padding-top: 20px;
-  width: 640px; }
-  .pages-yahoo .content #wistia_587969_social_4858 {
-    width: 840px;
-    padding-left: 0px; }
-  .pages-yahoo .content #yahoo-top-text-block {
-    padding-bottom: 35px; }
-  .pages-yahoo .content #yahoo-bottom-text-block {
-    padding-bottom: 120px; }
-  .pages-yahoo .content h2 {
-    margin-top: 30px;
-    color: #111111;
-    line-height: 1.3em; }
-    .pages-yahoo .content h2 #how-to-join {
-      color: #52910c; }
-  .pages-yahoo .content h3 {
-    color: #111111;
-    font-size: 1em;
-    margin-top: 15px; }
-  .pages-yahoo .content p {
-    line-height: 18px;
-    font-size: 14px; }

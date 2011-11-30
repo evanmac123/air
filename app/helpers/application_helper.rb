@@ -1,12 +1,6 @@
 module ApplicationHelper
-  def default_avatar_tag(user, options={})
-    alt = options[:alt]
-
-    if alt
-      image_tag user.avatar.url, :alt => alt
-    else
-      image_tag user.avatar.url
-    end
+  def default_avatar_tag(user)
+    image_tag user.avatar.url, :alt => user.name
   end
 
   def following_count_phrase(user)

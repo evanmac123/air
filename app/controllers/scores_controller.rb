@@ -1,5 +1,5 @@
 class ScoresController < ApplicationController
-  respond_to :js, :mobile
+  respond_to :js
 
   def index
     @demo  = current_user.demo

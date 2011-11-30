@@ -1,10 +1,6 @@
 class ApplicationController < ActionController::Base
   FLASHES_ALLOWING_RAW = %w(notice)
 
-  #before_filter :mobile_if_mobile_device
-
-  #has_mobile_fu
-
   before_filter :force_ssl 
   before_filter :authenticate
 
@@ -54,24 +50,6 @@ class ApplicationController < ActionController::Base
 
   def force_html_format
     request.format = :html
-  end
-
-  def ipad?
-    request.user_agent.to_s.downcase.include?('ipad')
-  end
-
-  def not_ipad?
-    !ipad?
-  end
-
-  def mobile_if_mobile_device
-    if ipad?
-      session[:mobile_view] = false
-    end
-
-    if is_mobile_device? && not_ipad?
-      request.format = :mobile
-    end
   end
 
   # Used since our *.hengage.com SSL cert does not cover plain hengage.com.

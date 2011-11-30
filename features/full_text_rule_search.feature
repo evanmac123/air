@@ -29,15 +29,8 @@ Feature: Full text rule search
 
   Scenario: User almost gets a command right
     When "+16175551212" sends SMS "ate baked alaska"
-    And I sign in as an admin via the login page
-    And I go to the bad message log page
     Then "+16175551212" should have received an SMS 'I didn't quite get that. Text "a" for "ate banana", "b" for "ate kitten", or "s" to suggest we add what you sent.'
-    And I should see the following new bad SMS messages:
-      | name | phone_number | message_body     | received_at         |
-      | Dan  | +16175551212 | ate baked alaska | 2010-05-01 17:00:00 |
-    And I should see "(has automated suggestion)"
-    And I should see `System automatically replied: I didn't quite get that. @{Say} "a" for "ate banana", "b" for "ate kitten", or "s" to suggest we add what you sent.`
-
+    
   Scenario: User can throw in punctuation all damn day and it won't break
     When "+16175551212" sends SMS "ate baked alaska!"
     And "+16175551212" sends SMS "worked out (at the gym)."
@@ -79,14 +72,7 @@ Feature: Full text rule search
 
   Scenario: User comes nowhere near a command
     When "+16175551212" sends SMS "fought eighteen bears"
-    And I sign in as an admin via the login page
-    And I go to the bad message log page
     Then "+16175551212" should have received an SMS "Sorry, I don't understand what that means. Text "s" to suggest we add what you sent."    
-    And I should see the following new bad SMS messages:
-      | name | phone_number | message_body          | received_at         |
-      | Dan  | +16175551212 | fought eighteen bears | 2010-05-01 17:00:00 |
-    And I should not see "(has automated suggestion)"
-    And I should not see "Sorry, I don't understand what that means."
 
   Scenario: User doesn't get a suggestion from a different demo
     When "+16175551212" sends SMS "rode unicycle"

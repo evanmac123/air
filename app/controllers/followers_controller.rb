@@ -24,10 +24,10 @@ class FollowersController < ApplicationController
   protected
 
   def find_pending_friendship
-    @friendship = Friendship.pending_between(current_user, :follower_id => params[:follower_id])
+    @friendship = Friendship.pending_between(current_user, params[:follower_id])
 
     unless @friendship
-      if Friendship.accepted_between(current_user, :follower_id => params[:follower_id])
+      if Friendship.accepted_between(current_user, params[:follower_id])
         flash[:failure] = "You've already accepted that person's request."
       else
         flash[:failure] = "You've already ignored that person's request."

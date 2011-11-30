@@ -41,17 +41,6 @@ class RuleValue < ActiveRecord::Base
     order('created_at ASC').limit(1)
   end
 
-  def self.with_value_in(value_array)
-    # This may be the silliest code I write all year. But it works fine.
-    # TODO: I was seriously sleep-deprived when I wrote this. There's a
-    # saner way to do it.
-    mess_of_question_marks = "?," * value_array.length
-    where_string = "value IN (#{mess_of_question_marks}"
-    where_string[-1] = ')'
-
-    where([where_string, *value_array])
-  end
-
   def self.alphabetical
     order('rule_values.value ASC')
   end

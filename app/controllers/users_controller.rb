@@ -6,10 +6,6 @@ class UsersController < Clearance::UsersController
     @other_users = User.where(['demo_id = ? AND id != ?', current_user.demo_id, current_user.id]).alphabetical
   end
 
-  def new
-    redirect_to page_path(:id => 'invitation')
-  end
-
   def show
     @new_appearance = true
 

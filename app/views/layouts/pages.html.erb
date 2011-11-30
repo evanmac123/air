@@ -4,39 +4,62 @@
   <meta charset="utf-8" />
   <title>H Engage</title>
   <%= stylesheet_link_tag :flutie, 'screen', 'marketing' %>
+  <!--[if IE 7]>
+    <%= stylesheet_link_tag 'ie7hacks' %>
+  <![endif]-->
+  <!--[if IE 8]>
+    <%= stylesheet_link_tag 'ie8hacks' %>
+  <![endif]-->
+
+  <%= javascript_include_tag 'jquery' %>
   <%= csrf_meta_tag %>
   <%= render :partial => 'shared/mixpanel' %>
 </head>
 <body class="<%= body_class %> marketing">
+
   <div id="header">
-    <div id="logo">
-      <a href="/"><h1>H Engage</h1></a>
+    <div id="header-contents">
+      <%= form_tag @login_url, :id => 'login-form' do %>
+        <%= text_field_tag "session[email]", 'username', :class => 'with-placeholder' %>
+        <%= password_field_tag "session[password]", 'password', :class => 'with-placeholder' %>
+        <%= link_to "Forgot password?", {:controller => :passwords, :action => :new} %>
+        <%= image_submit_tag 'marketing/btn_go.png' %>
+      <% end %>
+
+      <%= form_tag new_session_path, :method => :get, :id => 'activate-login-form' do %>
+        <%= image_submit_tag 'marketing/btn_login.png' %>
+      <% end %>
+
+      <div id="navbar">
+        <%= yield :navbar %>
+      </div>
     </div>
-    <div id="nav">
-      <ul>
-        <li>
-          <%= link_to page_path('our_team') do %>
-            <div class="cupid-green">Our Team</div>
-          <% end %>
-        </li>
-        <li>
-          <%= link_to "http://hengage.tumblr.com" do %>
-            <div class="cupid-green">Blog</div>
-          <% end %>
-        </li>
-        <li>
-          <%= link_to page_path('our_story') do %>
-            <div class="cupid-green">Our Story</div>
-          <% end %>
-        </li>
-        <li>
-          <%= link_to "Sign in", sign_in_path, :class => "authentication" %>
-        </li>
-      </ul>
-    </div>
+    &nbsp;
   </div>
+
   <%= yield %>
 
+  <%= yield :page_footer %>
+  <div id="page-footer">
+    Copyright &copy; 2011 H Engage, Inc.
+  </div>
+
   <%= javascript_include_tag 'ga-marketing' %>
+
+  <%= content_for :javascript do %>
+    <%= javascript_tag do %>
+      function removePlaceholder(event) {
+        var field = $(event.target);
+        $(field).removeClass('with-placeholder');
+        $(field).val('');
+      };
+
+      $(document).ready(function() {
+        $('.with-placeholder').focus(removePlaceholder)
+      });
+    <% end %>
+  <% end %>
+
+  <%= yield :javascript %>
 </body>
 </html>

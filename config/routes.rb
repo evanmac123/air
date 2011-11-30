@@ -3,8 +3,6 @@ Health::Application.routes.draw do
   match "email"      => "email_command#create", :via => :post
   match "activity"   => "acts#index"
   match "scoreboard" => "scores#index"
-  match "yahoo"      => "pages", :id => 'yahoo'
-  match "mr/:link_type"         => "michelin_redirector#show", :via => :get
 
   resource :session, :controller => 'sessions'
 
@@ -32,7 +30,7 @@ Health::Application.routes.draw do
   match "sign_up"  => "users#new"
   match "sign_out" => "clearance/sessions#destroy"
 
-  root :to => 'pages#show', :id => 'new_marketing'
+  root :to => 'pages#show', :id => 'marketing'
 
   resource :home,  :only => :show
   resource :admin, :only => :show
@@ -71,10 +69,6 @@ Health::Application.routes.draw do
 
       resources :goals
 
-      namespace :rules do
-        resource :bulk_load, :only => [:create]
-      end
-
       resource :bulk_load, :only => [:new, :create]
 
       resource :blast_sms, :only => [:new, :create]
@@ -86,8 +80,8 @@ Health::Application.routes.draw do
       resources :invitations, :only => [:create]
     end
 
-    resources :bad_messages, :only => [:index, :update] do
-      resources :replies, :only => [:new, :create], :controller => 'bad_message_replies'
-    end
+    #resources :bad_messages, :only => [:index, :update] do
+      #resources :replies, :only => [:new, :create], :controller => 'bad_message_replies'
+    #end
   end
 end

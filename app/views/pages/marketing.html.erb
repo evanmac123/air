@@ -1,13 +1,10 @@
 <%= javascript_include_tag 'jquery.easing.1.3' %>
-<%= javascript_include_tag 'facebox' %>
-<%= stylesheet_link_tag 'facebox' %>
 
 <div id="upper-box">
   <div class="marketing-content">
-    <%= image_tag 'new_marketing/logo.jpg', :alt => 'H Engage logo', :id => 'logo' %>
+    <%= image_tag 'marketing/logo.jpg', :alt => 'H Engage logo', :id => 'logo' %>
     <h1 id="spark-engagement">Spark employee engagement in<br/> benefits and wellness using the<br/> tools people love.</h1> 
     <p id="short-explanation">Use social media, games and mobile phones to increase<br/> ROI and optimize communications spend.</p>
-    <%# image_tag 'new_marketing/banner_cell.png', :alt => 'Get healthy, +10 points. Eat right, +5 points. Play H Engage, +25 points.', :id => 'phone-and-screenshot' %>
     <%= render :partial => 'marketing_page_video' %>
   </div>
 </div>
@@ -20,11 +17,11 @@
 
     <%= text_field_tag "email[name]", 'name', :class => 'with-placeholder fat-text-field' %>
 
-    <%= image_tag 'new_marketing/img_ampersand.png', :alt => 'and' %>
+    <%= image_tag 'marketing/img_ampersand.png', :alt => 'and' %>
 
     <%= text_field_tag "email[email]", 'email', :class => 'with-placeholder fat-text-field' %>
-    <%= image_submit_tag 'new_marketing/btn_submit_1.png', :class => 'submit-button' %><br/>
-    <%= image_tag 'new_marketing/btn_submit_2.png', :style => 'display: none' %>
+    <%= image_submit_tag 'marketing/btn_submit_1.png', :class => 'submit-button' %><br/>
+    <%= image_tag 'marketing/btn_submit_2.png', :style => 'display: none' %>
   </form>
 </div>
 
@@ -34,9 +31,9 @@
   <a name="blog" id="blog">&nbsp;</a>
   <div id="blog-section" class="subsection">
     <div id="blog-header">
-      <%= image_tag 'new_marketing/img_tree.png', :id => 'blog-logo' %>
+      <%= image_tag 'marketing/img_tree.png', :id => 'blog-logo' %>
       <h2><%= link_to 'Under the Node Tree', 'http://hengage.tumblr.com' %></h2>
-      <%= image_tag 'new_marketing/divide.png' %>
+      <%= image_tag 'marketing/divide.png' %>
     </div>
 
     <div class="blog-subsection">
@@ -60,12 +57,12 @@
     <form method="post" action="#" class="request-info">
       <%= text_field_tag "email[name]", 'name', :class => 'with-placeholder fat-text-field' %>
 
-      <%= image_tag 'new_marketing/img_ampersand.png', :alt => 'and' %>
+      <%= image_tag 'marketing/img_ampersand.png', :alt => 'and' %>
 
       <%= text_field_tag "email[email]", 'email', :class => 'with-placeholder fat-text-field' %>
       <%= text_area_tag "email[comment]", 'message', :class => 'with-placeholder' %>
       <div class="submit-wrapper">
-        <%= image_submit_tag 'new_marketing/btn_submit_1.png', :class => 'submit-button' %><br/>
+        <%= image_submit_tag 'marketing/btn_submit_1.png', :class => 'submit-button' %><br/>
       </div>
     </form>
   </div>
@@ -75,10 +72,10 @@
   <div id="marketing-footer-wrapper">
     <div id="marketing-footer">
       <div id="sm-buttons">
-        <a href="#"><%= image_tag 'new_marketing/img_email.png', :alt => 'Email' %> <span class="sm-action">email H Engage</span></a><br/>
-        <!-- TODO: Do we even have a Facebook account? <a href='#'><%= image_tag 'new_marketing/img_fb.png', :alt => 'Facebook' %> <span class="sm-action">like H Engage</span></a> <br/>-->
-        <a href="http://twitter.com/hengage"><%= image_tag 'new_marketing/img_twitter.png', :alt => 'Twitter' %> <span class="sm-action">follow H Engage</span> </a><br/>
-        <a href="http://twitter.com/hengage"><%= image_tag 'new_marketing/img_tumblr.png', :alt => 'Tumblr' %> <span class="sm-action">subscribe to H Engage</span></a>
+        <a href="#"><%= image_tag 'marketing/img_email.png', :alt => 'Email' %> <span class="sm-action">email H Engage</span></a><br/>
+        <!-- TODO: Do we even have a Facebook account? <a href='#'><%= image_tag 'marketing/img_fb.png', :alt => 'Facebook' %> <span class="sm-action">like H Engage</span></a> <br/>-->
+        <a href="http://twitter.com/hengage"><%= image_tag 'marketing/img_twitter.png', :alt => 'Twitter' %> <span class="sm-action">follow H Engage</span> </a><br/>
+        <a href="http://twitter.com/hengage"><%= image_tag 'marketing/img_tumblr.png', :alt => 'Tumblr' %> <span class="sm-action">subscribe to H Engage</span></a>
       </div>
 
       <div id="about-us">
@@ -132,57 +129,6 @@
   <script src="http://hengage.tumblr.com/api/read/json?start=0&num=3&filter=text&tagged=stats&type=quote&callback=populateStatsPosts"></script>
 
   <%= javascript_tag do %>
-    var quoteCyclingParams = [
-      {leftOffset: 126, html: 'Employees play a game that makes getting healthy feel fun. <a href="#play" class="nav">How to play <%= image_tag "new_marketing/small_right_arrow.png" %></a>'},
-      {leftOffset: 355, html: 'The game engages employees in existing communications and initiatives. <a href="#engage" class="nav">See how <%= image_tag "new_marketing/small_right_arrow.png" %></a>'},
-      {leftOffset: 618, html: 'Real-time tracking tools measure effectiveness. <a href="#measure" class="nav">See example <%= image_tag "new_marketing/small_right_arrow.png" %></a>'},
-      {leftOffset: 844, html: 'Tracking of increased engagement helps prove ROI quickly. <a href="#roi" class="nav">See how <%= image_tag "new_marketing/small_right_arrow.png" %></a>'}
-    ];
-    
-    var quoteCyclingIndex = 0;
-    var quoteText = $('#cycling-quote-box #quote-text');
-    var quotePointer = $('#cycling-quote-box #pointer');
-    var pointedAtLinks = $('#how-it-works h2 a');
-    var postitLinks = $('#how-it-works .postit img');
-    var quoteCycleTimeoutId = null;
-
-    function setCurrentQuote(quoteIndex) {
-      var params = quoteCyclingParams[quoteIndex];
-
-      pointedAtLinks.css('font-weight', 'normal').css('color', '#999999');
-
-      quoteText.fadeOut('fast', function() {
-        quoteText.html(params.html);
-        quotePointer.css('left', params.leftOffset);
-        pointedAtLinks.eq(quoteIndex).css('font-weight', 'bold').css('color', '#1d8c0a');
-      });
-
-      quoteText.fadeIn();
-    }
-
-    function cycleQuote() {
-      setCurrentQuote(quoteCyclingIndex);
-      quoteCyclingIndex += 1;
-      quoteCyclingIndex = quoteCyclingIndex % 4;
-      quoteCycleTimeoutId = setTimeout(cycleQuote, 4000);
-    }
-
-    cycleQuote();
-
-    $('.quote-control').click(function(e) {
-      e.preventDefault();
-      if(quoteCycleTimeoutId) {
-        clearTimeout(quoteCycleTimeoutId);
-      }
-
-      quoteIndex = $.inArray(e.target, pointedAtLinks);
-      if (quoteIndex == -1) {
-        quoteIndex = $.inArray(e.target, postitLinks);
-      }
-
-      setCurrentQuote(quoteIndex);
-    });
-
     function requestInfoBeforePost(form) {
       form.find('input, textarea').attr('disabled', 'disabled');
     }
@@ -227,26 +173,13 @@
       $('#login-form').hide();
     });
 
-    $('a.nav').live('click', function(e) {
-      var targetSelector = $(this).attr('href');
-      var scrollOffset = $(targetSelector).offset().top;
-
-      $('html, body').stop().animate({scrollTop: scrollOffset}, 1500, 'easeInOutExpo');
-      e.preventDefault();
-    });
-
-    $.facebox.settings.closeImage = '/images/facebox/closelabel.png';
-    $.facebox.settings.loadingImage = '/images/facebox/loading.gif';
-
-    $('a[rel*=facebox]').facebox();
-
     $('.submit-button').hover(
       function(e) {
-        $(this).attr('src', '<%= image_path "new_marketing/btn_submit_2.png" %>');
+        $(this).attr('src', '<%= image_path "marketing/btn_submit_2.png" %>');
       },
 
       function(e) {
-        $(this).attr('src', '<%= image_path "new_marketing/btn_submit_1.png" %>');
+        $(this).attr('src', '<%= image_path "marketing/btn_submit_1.png" %>');
       }
     );
   <% end %>

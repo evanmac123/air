@@ -100,17 +100,17 @@ describe Act, ".find_and_record_rule_suggestion" do
   end
 
   context "when nothing matches well" do
-    it "should return nil" do
-      Act.send(:find_and_record_rule_suggestion, 'played guitar', @user).should be_nil
+    it "should return a canned message" do
+      Act.send(:find_and_record_rule_suggestion, 'played guitar', @user).should == "Sorry, I don't understand what that means. @{Say} \"s\" to suggest we add what you sent."
     end
   end
 
   context "when something matches but it's not in the same demo" do
-    it "should return nil" do
+    it "should return a canned message" do
       rule_value = Factory :rule_value, :value => 'played football'
       rule_value.demo.should_not == @demo
 
-      Act.send(:find_and_record_rule_suggestion, 'played guitar', @user).should be_nil
+      Act.send(:find_and_record_rule_suggestion, 'played guitar', @user).should == "Sorry, I don't understand what that means. @{Say} \"s\" to suggest we add what you sent."
     end
   end
 

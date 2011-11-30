@@ -104,22 +104,14 @@ class Friendship < ActiveRecord::Base
     end
   end
 
-  def self.find_follower(options)
-    if options[:follower_slug]
-      User.where(:sms_slug => options[:follower_slug]).first
-    elsif options[:follower_id]
-      User.find(options[:follower_id])
-    end
-  end
-
-  def self.pending_between(friend, options={})
-    follower = find_follower(options)
+  def self.pending_between(friend, follower_id)
+    follower = User.find(follower_id)
     return nil unless follower
     follower.pending_friendships.where(:friend_id => friend.id).first
   end
 
-  def self.accepted_between(friend, options={})
-    follower = find_follower(options)
+  def self.accepted_between(friend, follower_id)
+    follower = User.find(follower_id)
     return nil unless follower
     follower.accepted_friendships.where(:friend_id => friend.id).first
   end

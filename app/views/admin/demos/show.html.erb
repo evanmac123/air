@@ -9,7 +9,7 @@
 <p>
 Game
 <% if @demo.begins_at %>
-  begins at <%= @demo.begins_at.winning_time_format %>
+  begins at <%= @demo.begins_at.pretty %>
 <% else %>
   began immediately upon creation
 <% end %>
@@ -18,7 +18,7 @@ Game
 <p>
 Game
 <% if @demo.ends_at %>
-  ends at <%= @demo.ends_at.winning_time_format %>
+  ends at <%= @demo.ends_at.pretty %>
 <% else %>
   goes on indefinitely.
 <% end %>

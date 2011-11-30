@@ -1,7 +1,0 @@
-@font-face {
-  font-family: 'Chunk';
-  font-weight: normal;
-  font-style: normal;
-  src: url('http://font.thoughtbot.com/chunk/chunk.otf');
-  src: local('☺'), url('http://font.thoughtbot.com/chunk/chunk.ttf') format('truetype');
-}

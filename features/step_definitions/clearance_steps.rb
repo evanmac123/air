@@ -34,7 +34,7 @@ end
 
 Then /^I should be signed out$/ do
   Given %{I am on the homepage}
-  find('.new-marketing').tag_name.should == 'body'
+  find('.marketing').tag_name.should == 'body'
 end
 
 When /^session is cleared$/ do

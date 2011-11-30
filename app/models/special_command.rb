@@ -46,7 +46,7 @@ module SpecialCommand
     when 'rules', 'commands'
       self.send_command_response
     else
-      self.credit_game_referrer(user, command_name)
+      self.attempt_credit_game_referrer(user, command_name)
     end
   end
 
@@ -163,7 +163,7 @@ module SpecialCommand
     user.short_rankings_page!(options)
   end
 
-  def self.credit_game_referrer(referred_user, referring_user_sms_slug)
+  def self.attempt_credit_game_referrer(referred_user, referring_user_sms_slug)
     demo = referred_user.demo
     return nil unless demo.credit_game_referrer_threshold && demo.game_referrer_bonus
 
@@ -191,15 +191,21 @@ module SpecialCommand
 
     # If we make it here, we finally know it's OK to credit the referring user.
 
+    credit_game_referrer(referred_user, referring_user)
+  end
+
+  def self.credit_game_referrer(referred_user, referring_user)
+    demo = referred_user.demo
+
     referrer_act_text = I18n.t('special_command.credit_game_referrer.activity_feed_text', :default => "got credit for referring %{referred_name} to the game", :referred_name => referred_user.name)
     referrer_sms_text = I18n.t('special_command.credit_game_referrer.referrer_sms', :default => "%{referred_name} gave you credit for referring them to the game. Many thanks and %{points} bonus points!", :referred_name => referred_user.name, :points => demo.game_referrer_bonus)
 
     referred_act_text = I18n.t('special_command.credit_game_referrer.referred_activity_feed_text', :default => "credited %{referrer_name} for referring them to the game", :referrer_name => referring_user.name)
-    referred_sms_points_phrase = case referred_user.demo.referred_credit_bonus
+    referred_sms_points_phrase = case demo.referred_credit_bonus
                                  when nil: ""
                                  when 1: " (and 1 point)"
                                  else
-                                   " (and #{referred_user.demo.referred_credit_bonus} points)"
+                                   " (and #{demo.referred_credit_bonus} points)"
                                  end
     referred_sms_text = I18n.t('special_command.credit_game_referrer.referred_sms', :default => "Got it, %{referrer_name} referred you to the game. Thanks%{points_phrase} for letting us know.", :referrer_name => referring_user.name, :points_phrase => referred_sms_points_phrase)
 

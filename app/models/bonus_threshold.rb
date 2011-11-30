@@ -7,10 +7,6 @@ class BonusThreshold < ActiveRecord::Base
   validate :max_points_gte_min_points
   validate :no_overlap
 
-  def points_awarded
-    rand(self.max_points) + 1
-  end
-
   def max_points_gte_min_points
     return unless min_points && max_points
 
@@ -84,10 +80,6 @@ class BonusThreshold < ActiveRecord::Base
 
   def self.in_threshold_order
     order('min_points ASC')
-  end
-
-  def self.not_previously_crossed
-    joins(['LEFT JOIN bonus_thresholds_users ON bonus_thresholds_users.bonus_threshold_id = ?', self.id]).where('bonus_thresholds_users.bonus_threshold_id IS NULL')
   end
 
   protected

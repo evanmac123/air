@@ -1,9 +1,0 @@
-<div class='message-body'>
-  <%= message.body %>
-</div>
-
-<% unless message.automated_reply.blank? %>
-  <div class='automated-reply'>
-    System automatically replied: <%= message.automated_reply %>
-  </div>
-<% end %>
