@@ -74,14 +74,14 @@ Health::Application.routes.draw do
       resource :blast_sms, :only => [:new, :create]
 
       resource :send_activity_dump, :only => [:create]
+
+      resources :bad_words
     end
 
     resources :users, :only => [] do
       resources :invitations, :only => [:create]
     end
 
-    #resources :bad_messages, :only => [:index, :update] do
-      #resources :replies, :only => [:new, :create], :controller => 'bad_message_replies'
-    #end
+    resources :bad_words
   end
 end

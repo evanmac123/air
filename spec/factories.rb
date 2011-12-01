@@ -152,3 +152,8 @@ Factory.define :timed_bonus do |timed_bonus|
   timed_bonus.association :user
   timed_bonus.association :demo
 end
+
+Factory.define :bad_word do |bad_word|
+  bad_word.value {"goshdarnit"}
+  bad_word.association :demo
+end

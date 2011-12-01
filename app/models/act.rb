@@ -100,6 +100,13 @@ class Act < ActiveRecord::Base
   end
 
   def self.find_and_record_rule_suggestion(attempted_value, user)
+    if user.demo.detect_bad_words(attempted_value)
+      return I18n.t(
+        'activerecord.models.act.parse.bad_words_detected',
+        :default => "Sorry, I don't understand what that means."
+      )
+    end
+
     matches = RuleValue.suggestible_for(attempted_value, user)
 
     begin

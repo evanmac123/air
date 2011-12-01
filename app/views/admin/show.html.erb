@@ -2,7 +2,8 @@
 
 <%= link_to "Standard playbook rules", admin_rules_path %><br/>
 <%= link_to "Forbidden rules", admin_forbidden_rules_path %><br/>
-<%= link_to 'New Demo', new_admin_demo_path %>
+<%= link_to 'New Demo', new_admin_demo_path %><br/>
+<%= link_to 'Bad Words', admin_bad_words_path %>
 
 <ul class="demos">
   <% @demos.each do |demo| %>

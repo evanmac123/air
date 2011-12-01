@@ -8,6 +8,7 @@ class Demo < ActiveRecord::Base
   has_many :bonus_thresholds, :dependent => :destroy
   has_many :levels, :dependent => :destroy
   has_many :goals, :dependent => :destroy
+  has_many :bad_words, :dependent => :destroy
 
   has_one :skin
 
@@ -186,6 +187,11 @@ class Demo < ActiveRecord::Base
       "default_unrecognized_user_message",
       self.class.default_number_not_found_response
     )
+  end
+
+  def detect_bad_words(attempted_value)
+    words = attempted_value.split
+    BadWord.reachable_from_demo(self).including_any_word(words).limit(1).present?
   end
 
   def self.number_not_found_response(receiving_number)
