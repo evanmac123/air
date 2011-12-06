@@ -1,7 +1,7 @@
 Feature: Surveys with prompts that go out at certain times
 
 Background:
-  Given the following users exist:
+  Given the following claimed users exist:
     | name | phone number | demo                |
     | Dan  | +14155551212 | company_name: FooCo |
     | Vlad | +16175551212 | company_name: FooCo |

@@ -57,14 +57,15 @@ describe User do
 
     it "should fix the rankings of this user's demo after it's destroyed" do
       demo = Factory :demo
-      user1 = Factory :user_with_phone, :demo => demo
-      user2 = Factory :user_with_phone, :demo => demo
-      user3 = Factory :user_with_phone, :demo => demo
+      user1 = Factory :claimed_user, :demo => demo
+      user2 = Factory :claimed_user, :demo => demo
+      user3 = Factory :claimed_user, :demo => demo
 
       user1.update_points(10)
       user2.update_points(5)
       user3.update_points(2)
 
+      Delayed::Worker.new.work_off(10)
       user1.reload.ranking.should == 1
       user2.reload.ranking.should == 2
       user3.reload.ranking.should == 3
@@ -300,9 +301,9 @@ end
 share_examples_for "a ranking method" do
   before(:each) do
     @demo = Factory :demo
-    10.downto(6) {|i| Factory :user, points_column => i, :demo => @demo}
-    1.upto(4) {|i| Factory :user, points_column => i, :demo => @demo}
-    @user = Factory :user, points_column => 5, :demo => @demo
+    10.downto(6) {|i| Factory :claimed_user, points_column => i, :demo => @demo}
+    1.upto(4) {|i| Factory :claimed_user, points_column => i, :demo => @demo}
+    @user = Factory :claimed_user, points_column => 5, :demo => @demo
   end
 
   context "when a user is created" do
@@ -315,16 +316,19 @@ share_examples_for "a ranking method" do
   end
 
   context "when a user gains points" do
-    it "should reset their ranking" do
+    it "should schedule a ranking update" do
       @user.send(update_points_method, 3)
+      Delayed::Worker.new.work_off(10)
       @user.reload[ranking_column].should == 3
     end
 
-    it "should reset the ranking of all users who are now below them but weren't before" do
-      @twin = Factory :user, points_column => 5, :demo => @demo
+    it "should schedule a reset of the ranking of all users who are now below them but weren't before" do
+      @twin = Factory :claimed_user, points_column => 5, :demo => @demo
       @twin[ranking_column].should == @user[ranking_column]
 
       @user.send(update_points_method, 3)
+
+      Delayed::Worker.new.work_off(10)
 
       users_by_points = @demo.users.order("#{points_column} DESC").all
       users_by_points.map(&ranking_column).should == [1, 2, 3, 3, 5, 6, 7, 8, 9, 10, 11]
@@ -332,14 +336,16 @@ share_examples_for "a ranking method" do
 
     it "should work when breaking ties" do
       User.delete_all
-      @first = Factory :user, points_column => 10, :demo => @demo
-      @second = Factory :user, points_column => 10, :demo => @demo
-      @third = Factory :user, points_column => 10, :demo => @demo
+      @first = Factory :claimed_user, points_column => 10, :demo => @demo
+      @second = Factory :claimed_user, points_column => 10, :demo => @demo
+      @third = Factory :claimed_user, points_column => 10, :demo => @demo
 
       @first.reload[ranking_column].should == @second[ranking_column]
       @first.reload[ranking_column].should == @third.reload[ranking_column]
 
       @first.send(update_points_method, 1)
+      Delayed::Worker.new.work_off(10)
+
       @first.reload[ranking_column].should == 1
       @second.reload[ranking_column].should == 2
       @third.reload[ranking_column].should == 2

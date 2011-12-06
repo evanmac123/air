@@ -6,7 +6,7 @@ Feature: Game has a beginning and an end
     And the following demo exists:
       | company name | begins at               | ends at                 | act too early message | act too late message | 
       | CustomCo     | 2010-04-01 12:00:00 UTC | 2010-05-01 12:00:00 UTC | Hold ur horses        | Too slow!            |
-    And the following users exist:
+    And the following claimed users exist:
       | name | phone number | demo                   |
       | Phil | +14152613077 | company_name: BarInc   |
       | Vlad | +16175551212 | company_name: BarInc   |

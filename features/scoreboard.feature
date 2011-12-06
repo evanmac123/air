@@ -4,7 +4,7 @@ Feature: Scoreboard
     Given the following user exists:
       | name   | points | demo                |
       | Lou    | 1      | company_name: Alpha |
-    And the following user with phones exist:
+    And the following claimed users exist:
       | name   | points | demo                | 
       | Lazy   | 94     | company_name: Alpha | 
       | Nogood | 94     | company_name: Alpha | 

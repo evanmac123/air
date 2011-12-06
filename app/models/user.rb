@@ -50,8 +50,8 @@ class User < ActiveRecord::Base
   end
 
   before_update do
-    set_alltime_rankings if changed.include?('points')
-    set_recent_average_rankings if (!batch_updating_recent_averages && changed.include?('recent_average_points'))
+    schedule_update_demo_alltime_rankings if changed.include?('points')
+    schedule_update_demo_recent_average_rankings if (!batch_updating_recent_averages && changed.include?('recent_average_points'))
   end
 
   before_save do
@@ -123,7 +123,7 @@ class User < ActiveRecord::Base
 
     _ranking_query_offset = !(options[:use_offset] == false) ? ranking_query_offset : nil
     rankings_strings = self.demo.users.
-                          ranked.
+                          claimed.
                           in_canonical_ranking_order.
                           offset(_ranking_query_offset).
                           map{|user| "#{user.ranking}. #{user.name} (#{user.points})"}
@@ -168,10 +168,6 @@ class User < ActiveRecord::Base
     order("name asc")
   end
 
-  def self.ranked
-    where("phone_number IS NOT NULL AND phone_number != ''")
-  end
-
   def self.in_canonical_ranking_order
     order("points DESC, name ASC")
   end
@@ -191,6 +187,10 @@ class User < ActiveRecord::Base
     end
 
     claimer_class.new(from, claim_code, options).claim
+  end
+
+  def self.with_phone_number
+    where("phone_number IS NOT NULL AND phone_number != ''")
   end
 
   def invite
@@ -327,6 +327,14 @@ class User < ActiveRecord::Base
 
   def set_recent_average_rankings
     set_ranking('recent_average_points', 'recent_average_ranking')
+  end
+
+  def schedule_update_demo_alltime_rankings
+    self.demo.delay.fix_total_user_rankings!
+  end
+
+  def schedule_update_demo_recent_average_rankings
+    self.demo.delay.fix_recent_average_user_rankings!
   end
 
   def point_and_ranking_summary(_points_denominator, prefix = [])

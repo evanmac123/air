@@ -9,7 +9,7 @@ end
 Then /^I should see a scoreboard for demo "(.*?)"$/ do |demo_name|
 
   demo = Demo.find_by_company_name(demo_name)
-  expected_users = demo.users.ranked.with_ranking_cutoff
+  expected_users = demo.users.claimed.with_ranking_cutoff
   unexpected_users = User.all - expected_users
 
   page.should have_content("Scoreboard") 

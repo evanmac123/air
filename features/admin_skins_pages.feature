@@ -4,7 +4,7 @@ Feature: Skinnable pages
     Given the following demo exists:
       | company name |
       | BlargCo      |
-    And the following users exist:
+    And the following claimed users exist:
       | name | points | phone number | won at                  | demo                  |
       | Joe  | 10     | +14155551212 | 1999-05-01 12:00:00 UTC | company_name: BlargCo |
       | Bob  | 40     | +14155551213 | 1999-05-01 12:00:00 UTC | company_name: BlargCo |

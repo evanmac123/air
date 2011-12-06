@@ -58,19 +58,19 @@ Feature: User gets some props for finishing a goal
     Then "+14155551212" should not have received SMS "You've won at winning everything!"
 
     When "+14155551212" sends SMS "win 2"
-    And DJ cranks once after a little while
+    And DJ cranks 10 times after a little while
     Then "+14155551212" should not have received SMS "You've won at winning everything!"
 
     When "+14155551212" sends SMS "win 2"
-    And DJ cranks once after a little while
+    And DJ cranks 10 times after a little while
     Then "+14155551212" should not have received SMS "You've won at winning everything!"
 
     When "+14155551212" sends SMS "win 3"
-    And DJ cranks once after a little while
+    And DJ cranks 10 times after a little while
     Then "+14155551212" should have received SMS "You've won at winning everything!"
 
     When "+14155551212" sends SMS "win 1"
     And "+14155551212" sends SMS "win 2"
     And "+14155551212" sends SMS "win 3"
-    And DJ cranks 5 times after a little while
+    And DJ cranks 10 times after a little while
     Then "+14155551212" should have received SMS "You've won at winning everything!" just once

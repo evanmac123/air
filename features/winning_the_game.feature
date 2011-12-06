@@ -33,7 +33,7 @@ Feature: Player can win the game
   Scenario: Player wins by scoring enough points
     When "+14155551212" sends SMS "ate a kitten"
     And a decent interval has passed
-    And DJ cranks 2 times
+    And DJ cranks 5 times
     And I go to the activity page
     Then "+14155551212" should have received an SMS "Congratulations! You've got 100 points and have qualified for the drawing!"
     And I should see "You won on"
@@ -68,7 +68,7 @@ Feature: Player can win the game
     Given I sign in via the login page as "Jim/LOL"
     And "+16175551212" sends SMS "ate a kitten"
     And a decent interval has passed
-    And DJ cranks 2 times
+    And DJ cranks 5 times
     When I go to the activity page
     Then I should see "You did it at December 31, 2009 at 07:00 PM Eastern!"
     And "+16175551212" should have received SMS "You go boy with your 100 points!"

@@ -23,7 +23,7 @@ class SurveyPrompt < ActiveRecord::Base
   end
 
   def text_to_users_with_answers_left
-    self.demo.users.ranked.each do |user|
+    self.demo.users.claimed.each do |user|
       delay.text_prompt_to_user(user.id, self.id)
     end
   end

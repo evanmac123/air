@@ -5,7 +5,7 @@ Feature: Admin moves a user to a new demo
     And the following demo exists:
       | company name    | victory threshold |
       | The Thoughtbots | 15                |
-    And the following users exist:
+    And the following claimed users exist:
       | name | points | recent_average_history_depth | recent_average_points |   demo                          | phone number |
       | Dan  | 0      | 1                            | 0                     |  company_name: The Thoughtbots | +14155551212 |
       | Bob  | 14     | 0                            | 8                     |  company_name: IBM             | +16175551212 |
@@ -40,7 +40,7 @@ Feature: Admin moves a user to a new demo
     Then I should see the following act:
       | name | act          | points |
       | Dan  | went running | 10     |
-    And I should see "Dan" with ranking "2"
+    And I should see "Dan" with ranking "3"
 
   Scenario: User's old acts don't appear in the new demo
     When I sign in via the login page as "Bob/bar"

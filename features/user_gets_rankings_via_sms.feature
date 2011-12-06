@@ -1,7 +1,7 @@
 Feature: User gets rankings via SMS
 
   Background:
-    Given the following users exist:
+    Given the following claimed users exist:
       | name                | phone_number | points | demo                |
       | Phil Darnowsky      | +14155551212 | 250    | company_name: FooCo |
       | Vlad Gyster         | +14155551213 | 238    | company_name: FooCo |
@@ -44,8 +44,7 @@ Feature: User gets rankings via SMS
     And "+14155551212" should have received SMS "7. MaryLynne Karman (219)\n8. Kristina Rikantis (218)\n9. Kirill Bernshteyn (215)\n10. Darryl Whatshisname (210)\n11. Audrey Roth (205)\nSend MORERANKINGS for more."
 
   Scenario: Responses should abbreviate themselves if they would go over 160 characters
-    #1. Balaji Paladugu (256) 2. Daryl Kurtz (198) 3. Kristian Burch (187) 4. Michael Vidalez (102) 5. Ryan Booth (90) 6. Sabrina DeVeny (88) Send MORERANKINGS for more.
-    Given the following users exist:
+    Given the following claimed users exist:
       | name            | points | phone number | demo                |
       | Balaji Paladugu | 256    | +16175551212 | company_name: BarCo |
       | Daryl Kurtz     | 198    | +16175551213 | company_name: BarCo |

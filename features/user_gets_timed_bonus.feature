@@ -4,7 +4,7 @@ Feature: User gets timed bonus
     Given the following demo exists:
       | company name |
       | FooCo        |
-    And the following users exist:
+    And the following claimed users exist:
       | name | phone number | demo                |
       | Phil | +14155551212 | company_name: FooCo |
       | Vlad | +16175551212 | company_name: FooCo |
@@ -23,7 +23,7 @@ Feature: User gets timed bonus
   Scenario: User gets bonus for acting in the proper time
     When "+14155551212" sends SMS "did thing"
     And "+16175551212" sends SMS "did thing"
-    And DJ cranks 5 times after a little while
+    And DJ cranks 10 times after a little while
     And I dump all sent texts
     Then "+14155551212" should have received an SMS including "did a thing"
     And "+14155551212" should have received an SMS including "You acted before the time limit expired! +15 points."
@@ -36,14 +36,14 @@ Feature: User gets timed bonus
   Scenario: User doesn't get bonus if it's expired
     Given time is frozen at "2011-05-01 00:00:00 -0000"
     When "+14155551212" sends SMS "did thing"
-    And DJ cranks 5 times after a little while
+    And DJ cranks 10 times after a little while
     Then "+14155551212" should have received an SMS including "did a thing"
     But "+14155551212" should not have received an SMS including "You acted before the time limit expired!"
 
   Scenario: User gets bonus just once
     When "+14155551212" sends SMS "did thing"
     And "+14155551212" sends SMS "did thing"
-    And DJ cranks 5 times after a little while
+    And DJ cranks 10 times after a little while
     Then "+14155551212" should have received an SMS including "did a thing"
     And "+14155551212" should have received SMS "You acted before the time limit expired! +15 points." just once
 
@@ -52,7 +52,7 @@ Feature: User gets timed bonus
       | expires_at                | fulfilled | points | user       | demo                |
       | 2011-05-01 00:00:00 -0000 | false     | 30     | name: Phil | company_name: FooCo |
     When "+14155551212" sends SMS "did thing"
-    And DJ cranks 5 times after a little while
+    And DJ cranks 10 times after a little while
     Then "+14155551212" should have received an SMS including "did a thing"
     And "+14155551212" should have received SMS "You acted before the time limit expired! +15 points." just once
     And "+14155551212" should have received SMS "You acted before the time limit expired! +30 points." just once
@@ -62,7 +62,7 @@ Feature: User gets timed bonus
       | expires_at                | fulfilled | points | sms text                                      | user       | demo                |
       | 2011-05-01 00:00:00 -0000 | false     | 50     | You got the lead out and got %{points} points | name: Phil | company_name: FooCo |    
     When "+14155551212" sends SMS "did thing"
-    And DJ cranks 5 times after a little while
+    And DJ cranks 10 times after a little while
     Then "+14155551212" should have received an SMS including "did a thing"
     And "+14155551212" should have received SMS "You acted before the time limit expired! +15 points." just once
     And "+14155551212" should have received SMS "You got the lead out and got 50 points" just once

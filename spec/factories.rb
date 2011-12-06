@@ -15,7 +15,11 @@ Factory.define :user do |factory|
   factory.sequence(:sms_slug)   { |n| "jej#{n}" }
 end
 
-Factory.define :user_with_phone, :parent => :user do |factory|
+Factory.define :claimed_user, :parent => :user do |factory|
+  factory.accepted_invitation_at {Time.now}
+end
+
+Factory.define :user_with_phone, :parent => :claimed_user do |factory|
   factory.phone_number {Factory.next :phone}
 end
 

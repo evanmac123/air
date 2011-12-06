@@ -4,7 +4,7 @@ Feature: User approves or ignores follower
     Given the following demo exists:
       | company name |
       | FooCo        |
-    And the following users exist:
+    And the following claimed users exist:
       | name  | email             | phone number | demo                |
       | Alice | alice@example.com | +14155551212 | company_name: FooCo |
       | Bob   | bob@example.com   | +16175551212 | company_name: FooCo |
@@ -128,7 +128,7 @@ Feature: User approves or ignores follower
     Given the following demo exists:
       | company name | phone number |
       | CustomCo     | +19005551212 |
-    And the following user exists:
+    And the following claimed users exists:
       | name   | phone number | email              | demo                   |
       | Frank  | +18885551212 | frank@example.com  | company_name: CustomCo |
       | George | +18765551212 | george@example.com | company_name: CustomCo |

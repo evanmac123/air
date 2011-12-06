@@ -121,7 +121,7 @@ class Demo < ActiveRecord::Base
 
   def recalculate_all_moving_averages!
     Demo.transaction do
-      self.users.each do |user|
+      self.users.claimed.each do |user|
         user.recalculate_moving_average!
       end
 
@@ -130,7 +130,7 @@ class Demo < ActiveRecord::Base
   end
 
   def fix_user_rankings!(points_column, ranking_column)
-    ordered_users = self.users.ranked.order("#{points_column} DESC")
+    ordered_users = self.users.claimed.order("#{points_column} DESC")
     ordered_users.each_with_index do |user, i|
       user[ranking_column] = if i == 0
                                       1
@@ -178,7 +178,7 @@ class Demo < ActiveRecord::Base
   end
 
   def send_blast_sms(text)
-    users.ranked.each {|user| SMS.send_message(user, text)}
+    users.with_phone_number.each {|user| SMS.send_message(user, text)}
   end
 
   def number_not_found_response

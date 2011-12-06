@@ -26,7 +26,7 @@ class ActsController < ApplicationController
 
     respond_to do |format|
       format.html do 
-        @users = @demo.users.ranked.with_ranking_cutoff.order('points DESC')
+        @users = @demo.users.claimed.with_ranking_cutoff.order('points DESC')
         @levels = current_user.levels.in_demo(current_user.demo).in_threshold_order
         @goals = current_user.completed_goals.in_demo(current_user.demo)
       end

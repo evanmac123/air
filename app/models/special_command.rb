@@ -53,7 +53,7 @@ module SpecialCommand
   private
 
   def self.follow(user_following, sms_slug_to_follow)
-    user_to_follow = User.ranked.where(:sms_slug => sms_slug_to_follow, :demo_id => user_following.demo_id).first
+    user_to_follow = User.claimed.where(:sms_slug => sms_slug_to_follow, :demo_id => user_following.demo_id).first
 
     return parsing_error_message("Sorry, we couldn't find a user with the user ID #{sms_slug_to_follow}.") unless user_to_follow
 

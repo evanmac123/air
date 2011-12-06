@@ -6,7 +6,7 @@ Feature: User gets points for connecting to another (if demo configured for it)
       | HMFEngage     | 5                     |
       | Towers Watson | 0                     |
       | LameCo        |                       |
-    And the following users exist:
+    And the following claimed users exist:
       | name | phone number | connection bounty | points | demo                        |
       | Dan  | +14155551212 | 0                 | 1      | company_name: HMFEngage     |
       | Phil | +18085551212 | 7                 | 0      | company_name: HMFEngage     |
