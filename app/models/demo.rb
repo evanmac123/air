@@ -148,11 +148,11 @@ class Demo < ActiveRecord::Base
   end
 
   def fix_total_user_rankings!
-    fix_user_rankings!('points', 'ranking')
+    unless_within(5.minutes.ago, total_user_rankings_last_updated_at) {fix_user_rankings!('points', 'ranking')}
   end
 
   def fix_recent_average_user_rankings!
-    fix_user_rankings!('recent_average_points', 'recent_average_ranking')
+    unless_within(5.minutes.ago, average_user_rankings_last_updated_at) {fix_user_rankings!('recent_average_points', 'recent_average_ranking')}
   end
 
   def has_rule_value_matching?(value)
@@ -204,6 +204,10 @@ class Demo < ActiveRecord::Base
   end
 
   protected
+
+  def unless_within(cutoff_time, last_done_time)
+    yield if last_done_time.nil? || cutoff_time >= last_done_time
+  end
 
   def custom_message(custom_message_method_name, default_message_key, default_default_message, user = nil, method_chains_for_interpolation = {})
     custom_message_text = self.send(custom_message_method_name)

@@ -143,6 +143,44 @@ describe Demo, '#recalculate_all_moving_averages!' do
   end
 end
 
+shared_examples_for "a rankings fixing method" do
+  it "should recalculate rankings no more than once every 5 minutes" do
+    Timecop.freeze
+
+    begin
+      demo1 = Factory :demo, updated_at_column => 5.minutes.ago
+      demo2 = Factory :demo, updated_at_column => (4.minutes.ago - 59.seconds)
+      demo3 = Factory :demo, updated_at_column => nil
+
+      all_demos = [demo1, demo2, demo3]
+      all_demos.each {|demo| demo.stubs(:fix_user_rankings!)}
+      all_demos.each(&wrapper_fix_method)
+
+      demo1.should have_received(:fix_user_rankings!).with(points_column, ranking_column)
+      demo2.should_not have_received(:fix_user_rankings!)
+      demo3.should have_received(:fix_user_rankings!).with(points_column, ranking_column)
+    ensure
+      Timecop.return
+    end
+  end
+end
+
+describe Demo, "#fix_total_user_rankings!" do
+  let(:updated_at_column) {:total_user_rankings_last_updated_at}
+  let(:points_column) {'points'}
+  let(:ranking_column) {'ranking'}
+  let(:wrapper_fix_method) {:fix_total_user_rankings!}
+  it_should_behave_like "a rankings fixing method"
+end
+
+describe Demo, "#fix_recent_average_user_rankings!" do
+  let(:updated_at_column) {:average_user_rankings_last_updated_at}
+  let(:points_column) {'recent_average_points'}
+  let(:ranking_column) {'recent_average_ranking'}
+  let(:wrapper_fix_method) {:fix_recent_average_user_rankings!}
+  it_should_behave_like "a rankings fixing method"
+end
+
 describe Demo, ".recalculate_all_moving_averages!" do
   before(:each) do
     @demos = []
