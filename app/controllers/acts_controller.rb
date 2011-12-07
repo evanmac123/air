@@ -8,20 +8,11 @@ class ActsController < ApplicationController
 
     @new_appearance = true
 
+    @show_only         = params[:show_only]
     @demo              = current_user.demo
     @demo_user_count   = @demo.ranked_user_count
     @acts              = find_requested_acts(@demo)
-
-    @show_only = params[:show_only]
-    @active_act_tab = case params[:show_only]
-                  when 'following'
-                    "Fan Of"
-                  when 'mine'
-                    "Mine"
-                  else
-                    "All"
-                  end
-
+    @active_act_tab = active_act_tab
     @active_scoreboard_tag = "All"
 
     respond_to do |format|
@@ -32,12 +23,7 @@ class ActsController < ApplicationController
       end
 
       format.js do
-        @acts = @acts.offset(params[:offset])
-        if params[:mode] == 'see-more'
-          render :partial => 'shared/more_acts', :locals => {:acts => @acts}
-        else
-          render :partial => "refiltered_acts", :locals => {:acts => @acts, :active_tab => @active_act_tab}
-        end
+        render_act_update
       end
     end
   end
@@ -54,13 +40,33 @@ class ActsController < ApplicationController
   def find_requested_acts(demo)
     acts = demo.acts.displayable.recent(10).includes(:user).includes(:rule)
 
-    case params[:show_only]
+    case @show_only
     when 'following'
       acts.joins("INNER JOIN friendships ON friendships.friend_id = acts.user_id").where(["friendships.user_id = ?", current_user.id])
     when 'mine'
       acts.where(["user_id = ?", current_user.id])
     else
       acts
+    end
+  end
+
+  def active_act_tab
+    case params[:show_only]
+    when 'following'
+      "Fan Of"
+    when 'mine'
+      "Mine"
+    else
+      "All"
+    end
+  end
+
+  def render_act_update
+    @acts = @acts.offset(params[:offset])
+    if params[:mode] == 'see-more'
+      render :partial => 'shared/more_acts', :locals => {:acts => @acts}
+    else
+      render :partial => "refiltered_acts", :locals => {:acts => @acts, :active_tab => @active_act_tab}
     end
   end
 
