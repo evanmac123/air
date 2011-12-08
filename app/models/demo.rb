@@ -206,7 +206,11 @@ class Demo < ActiveRecord::Base
   protected
 
   def unless_within(cutoff_time, last_done_time)
-    yield if last_done_time.nil? || cutoff_time >= last_done_time
+    if last_done_time.nil? || cutoff_time >= last_done_time
+      Demo.transaction do
+        yield
+      end
+    end
   end
 
   def custom_message(custom_message_method_name, default_message_key, default_default_message, user = nil, method_chains_for_interpolation = {})
