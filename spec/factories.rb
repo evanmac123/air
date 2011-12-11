@@ -161,3 +161,8 @@ Factory.define :bad_word do |bad_word|
   bad_word.value {"goshdarnit"}
   bad_word.association :demo
 end
+
+Factory.define :suggested_task do |suggested_task|
+  suggested_task.name "Roast chestnuts"
+  suggested_task.association :demo
+end

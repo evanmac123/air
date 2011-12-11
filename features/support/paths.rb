@@ -79,6 +79,9 @@ module NavigationHelpers
     when /the forbidden rule admin page/
       admin_forbidden_rules_path
 
+    when /the admin suggested tasks page for "(.*?)"/
+      admin_demo_suggested_tasks_path(Demo.find_by_company_name($1))
+
     else
       begin
         page_name =~ /the (.*) page/

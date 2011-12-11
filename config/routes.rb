@@ -76,6 +76,8 @@ Health::Application.routes.draw do
       resource :send_activity_dump, :only => [:create]
 
       resources :bad_words
+
+      resources :suggested_tasks
     end
 
     resources :users, :only => [] do
