@@ -88,3 +88,6 @@ Feature: User accepts invitation
     Then I should be on the invitation page for "dan@example.com"
     And I should not see "You're now signed in."
     And I should see "Please choose a password."
+
+  Scenario: User doesn't have to specify mobile number to join
+    Given I need to write this

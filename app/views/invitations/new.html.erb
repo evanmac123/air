@@ -1,0 +1,7 @@
+<%= form_tag invitations_path do |f| %>
+  <%= label_tag "user[name]", "Name" %>
+  <%= text_field_tag 'user[name]', '', :length => 255 %>
+  <%= label_tag "user[email]", "Email" %>
+  <%= text_field_tag 'user[email]', '', :length => 255 %>
+  <%= submit_tag "Request invitation" %>
+<% end %>

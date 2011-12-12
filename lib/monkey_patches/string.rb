@@ -42,4 +42,9 @@ class String
   def dummy_phone_number?
     self.match(/^\+1999/)
   end
+
+  def email_domain
+    self =~ /@([^@]+)$/
+    $1
+  end
 end

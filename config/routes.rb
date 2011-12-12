@@ -9,7 +9,7 @@ Health::Application.routes.draw do
   resource  :conference_feed, :only => [:show]
 
   resources :phones,      :only => [:create]
-  resources :invitations, :only => [:show]
+  resources :invitations, :only => [:new, :create, :show]
   resources :acts,        :only => [:index, :create]
   resources :users,       :only => [:new, :index, :show] do
     resource :password,
@@ -78,6 +78,8 @@ Health::Application.routes.draw do
       resources :bad_words
 
       resources :suggested_tasks
+
+      resources :self_inviting_domains
     end
 
     resources :users, :only => [] do

@@ -16,9 +16,13 @@ module NavigationHelpers
       admin_path
     when /the admin "(.*)" demo page$/i
       admin_demo_path(Demo.find_by_company_name($1))
+    when /the admin "(.*)" self-inviting domain page$/
+      admin_demo_self_inviting_domains_path(Demo.find_by_company_name($1))
     when /the invitation page for "(.*)"/
       user = User.find_by_email($1)
       invitation_path(user.invitation_code)
+    when "the new invitation page"
+      new_invitation_path
     when /the profile page for "(.*)"/
       user = User.find_by_name($1)
       user_path(user.slug)

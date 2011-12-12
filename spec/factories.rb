@@ -166,3 +166,8 @@ Factory.define :suggested_task do |suggested_task|
   suggested_task.name "Roast chestnuts"
   suggested_task.association :demo
 end
+
+Factory.define :self_inviting_domain do |self_inviting_domain|
+  self_inviting_domain.sequence(:domain) {|n| "foo_#{n}.com"}
+  self_inviting_domain.association :demo
+end

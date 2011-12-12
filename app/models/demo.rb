@@ -10,6 +10,7 @@ class Demo < ActiveRecord::Base
   has_many :goals, :dependent => :destroy
   has_many :bad_words, :dependent => :destroy
   has_many :suggested_tasks, :dependent => :destroy
+  has_many :self_inviting_domains, :dependent => :destroy
 
   has_one :skin
 
