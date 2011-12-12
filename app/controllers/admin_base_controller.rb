@@ -34,4 +34,12 @@ class AdminBaseController < ApplicationController
         gsub(/(‘|’)/, '\'').
         gsub(/(–|—)/, '-')
   end
+
+  def find_demo_by_id
+    @demo = Demo.find(params[:id])
+  end
+
+  def find_demo_by_demo_id
+    @demo = Demo.find(params[:demo_id])
+  end
 end

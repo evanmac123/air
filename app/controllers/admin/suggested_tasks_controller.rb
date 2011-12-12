@@ -1,5 +1,5 @@
-class Admin::SuggestedTasksController < ApplicationController
-  before_filter :find_demo
+class Admin::SuggestedTasksController < AdminBaseController
+  before_filter :find_demo_by_demo_id
   before_filter :find_suggested_task, :only => [:edit, :update]
 
   def index
@@ -41,10 +41,6 @@ class Admin::SuggestedTasksController < ApplicationController
 
   protected
   
-  def find_demo
-    @demo = Demo.find(params[:demo_id])
-  end
-
   def find_suggested_task
     @suggested_task = SuggestedTask.find(params[:id])
   end

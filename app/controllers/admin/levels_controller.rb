@@ -1,5 +1,5 @@
 class Admin::LevelsController < AdminBaseController
-  before_filter :find_demo, :only => [:new, :create]
+  before_filter :find_demo_by_demo_id, :only => [:new, :create]
   before_filter :find_level, :only => [:edit, :update, :destroy]
 
   def new
@@ -42,10 +42,6 @@ class Admin::LevelsController < AdminBaseController
   end
 
   protected
-
-  def find_demo
-    @demo = Demo.find(params[:demo_id])
-  end
 
   def find_level
     @level = Level.find(params[:id])

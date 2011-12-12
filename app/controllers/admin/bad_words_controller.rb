@@ -1,4 +1,4 @@
-class Admin::BadWordsController < ApplicationController
+class Admin::BadWordsController < AdminBaseController
   def index
     @demo = Demo.find(params[:demo_id]) if params[:demo_id]
 

@@ -1,5 +1,5 @@
 class Admin::BlastSmsController < AdminBaseController
-  before_filter :find_demo
+  before_filter :find_demo_by_demo_id
 
   def new
   end
@@ -12,11 +12,5 @@ class Admin::BlastSmsController < AdminBaseController
     @demo.schedule_blast_sms(params[:message_body], send_at)
     flash[:success] = "Bombs away!"
     redirect_to admin_demo_path(@demo)
-  end
-
-  protected
-
-  def find_demo
-    @demo = Demo.find(params[:demo_id])
   end
 end

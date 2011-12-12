@@ -1,5 +1,5 @@
-class Admin::SelfInvitingDomainsController < ApplicationController
-  before_filter :find_demo
+class Admin::SelfInvitingDomainsController < AdminBaseController
+  before_filter :find_demo_by_demo_id
 
   def index
     @domain = SelfInvitingDomain.new
@@ -25,11 +25,5 @@ class Admin::SelfInvitingDomainsController < ApplicationController
     flash[:success] = "#{@self_inviting_domain.domain} destroyed"
 
     redirect_to :action => :index
-  end
-
-  protected
-
-  def find_demo
-    @demo = Demo.find(params[:demo_id])
   end
 end

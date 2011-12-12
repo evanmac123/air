@@ -1,5 +1,5 @@
 class Admin::BonusThresholdsController < AdminBaseController
-  before_filter :find_demo, :only => [:new, :create]
+  before_filter :find_demo_by_demo_id, :only => [:new, :create]
   before_filter :find_bonus_threshold, :only => [:edit, :update, :destroy]
 
   def new
@@ -41,10 +41,6 @@ class Admin::BonusThresholdsController < AdminBaseController
   end
 
   protected
-
-  def find_demo
-    @demo = Demo.find(params[:demo_id])
-  end
 
   def find_bonus_threshold
     @bonus_threshold = BonusThreshold.find(params[:id])

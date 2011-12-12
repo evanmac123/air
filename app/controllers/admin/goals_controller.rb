@@ -1,5 +1,5 @@
 class Admin::GoalsController < AdminBaseController
-  before_filter :find_demo
+  before_filter :find_demo_by_demo_id
   before_filter :find_goal, :only => [:edit, :update, :destroy]
 
   def index
@@ -32,10 +32,6 @@ class Admin::GoalsController < AdminBaseController
   end
 
   protected
-
-  def find_demo
-    @demo = Demo.find(params[:demo_id])
-  end
 
   def find_goal
     @goal = @demo.goals.find(params[:id])

@@ -1,4 +1,4 @@
-class Admin::SendActivityDumpsController < ApplicationController
+class Admin::SendActivityDumpsController < AdminBaseController
   def create
     Report::Activity.new(params[:demo_id]).delay.email_to('vlad@hengage.com')
 

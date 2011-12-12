@@ -1,7 +1,7 @@
 require 'csv'
 
 class Admin::BulkLoadsController < AdminBaseController
-  before_filter :find_demo
+  before_filter :find_demo_by_demo_id
 
   def new
   end
@@ -40,11 +40,5 @@ class Admin::BulkLoadsController < AdminBaseController
     @success_message = "Successfully loaded #{successful_creations} users."
 
     render :action => :new
-  end
-
-  protected
-
-  def find_demo
-    @demo = Demo.find(params[:demo_id])
   end
 end

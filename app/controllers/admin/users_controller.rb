@@ -1,9 +1,8 @@
 class Admin::UsersController < AdminBaseController
+  before_filter :find_demo_by_demo_id
   before_filter :find_user, :only => [:edit, :update, :destroy]
 
   def index
-    @demo = Demo.find(params[:demo_id])
-
     @users = case params[:starts_with]
              when "non-alpha"
                @demo.users.name_starts_with_non_alpha
@@ -17,7 +16,6 @@ class Admin::UsersController < AdminBaseController
   def create
     redirect_to :back
 
-    @demo = Demo.find(params[:demo_id])
     @user = @demo.users.build(params[:user])
     
     unless @user.save
@@ -61,7 +59,6 @@ class Admin::UsersController < AdminBaseController
   protected
 
   def find_user
-    @demo = Demo.find(params[:demo_id])
     @user = @demo.users.find_by_slug(params[:id])
   end
 end

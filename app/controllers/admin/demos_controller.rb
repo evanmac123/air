@@ -1,5 +1,5 @@
 class Admin::DemosController < AdminBaseController
-  before_filter :find_demo, :only => [:show, :edit, :update, :destroy]
+  before_filter :find_demo_by_id, :only => [:show, :edit, :update, :destroy]
 
   def new
     @demo = Demo.new
@@ -63,10 +63,6 @@ class Admin::DemosController < AdminBaseController
   end
 
   protected
-
-  def find_demo
-    @demo = Demo.find(params[:id])
-  end
 
   def massage_new_demo_parameters
     %w(custom_welcome_message victory_threshold victory_verification_email victory_verification_sms_number).each do |field_name|
