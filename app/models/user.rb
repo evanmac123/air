@@ -122,11 +122,7 @@ class User < ActiveRecord::Base
     more_rankings_prompt = I18n.t('activerecord.models.user.more_rankings_prompt', :default => 'Send MORERANKINGS for more.')
 
     _ranking_query_offset = !(options[:use_offset] == false) ? ranking_query_offset : nil
-    rankings_strings = self.demo.users.
-                          claimed.
-                          in_canonical_ranking_order.
-                          offset(_ranking_query_offset).
-                          map{|user| "#{user.ranking}. #{user.name} (#{user.points})"}
+    rankings_strings = self.demo.users.for_short_ranking_page(_ranking_query_offset)
 
     if rankings_strings.empty?
       # back to the top
@@ -572,6 +568,13 @@ class User < ActiveRecord::Base
 
   def self.claimed
     where("accepted_invitation_at IS NOT NULL")
+  end
+
+  def self.for_short_ranking_page(ranking_offset)
+    claimed.
+    in_canonical_ranking_order.
+    offset(ranking_offset).
+    map{|user| "#{user.ranking}. #{user.name} (#{user.points})"}
   end
 
   private

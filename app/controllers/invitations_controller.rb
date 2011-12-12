@@ -2,15 +2,14 @@ class InvitationsController < ApplicationController
   skip_before_filter :authenticate
 
   before_filter :check_for_name_and_email, :only => :create
-
+  
   def new
   end
 
   def create
-    params[:user][:email] = params[:user][:email].strip.downcase if params[:user][:email]
+    params[:user][:email] = params[:user][:email].strip.downcase
 
-    @submitted_domain = params[:user][:email].email_domain
-    @inviting_domain = SelfInvitingDomain.where(:domain => @submitted_domain).first
+    find_inviting_domain
     unless @inviting_domain
       render "invalid_inviting_domain"
       return
@@ -46,5 +45,10 @@ class InvitationsController < ApplicationController
       flash[:error] = "You must enter your name and e-mail address to request an invitation."
       redirect_to new_invitation_path
     end
+  end
+
+  def find_inviting_domain
+    @submitted_domain = params[:user][:email].email_domain
+    @inviting_domain = SelfInvitingDomain.where(:domain => @submitted_domain).first
   end
 end

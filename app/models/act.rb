@@ -58,26 +58,11 @@ class Act < ActiveRecord::Base
 
     value = body.downcase.gsub(/\.$/, '').gsub(/\s+$/, '').gsub(/\s+/, ' ')
 
-    if user.demo.game_not_yet_begun?
-      return parsing_success_message(user.demo.game_not_yet_begun_response)
-    end
+    error = ensure_game_currently_running(user.demo)
+    return error if error
 
-    if user.demo.game_over?
-      return parsing_success_message(user.demo.game_over_response)
-    end
-
-    rule_value = user.first_eligible_rule_value(value)
-
-    if rule_value.nil? && value
-      rule_value, referring_user = extract_rule_value_and_referring_user(user, value)
-      if (rule_value && !referring_user)
-        return parsing_error_message("We understood what you did, but not the user who referred you. Perhaps you could have them check their user ID with the MYID command?")
-      end
-
-      if referring_user == user
-        return parsing_error_message("Now now. It wouldn't be fair to try to get extra points by referring yourself.")
-      end
-    end
+    rule_value, referring_user, error = extract_rule_value_and_referring_user(user, value)
+    return error if error
 
     if rule_value && rule_value.forbidden?
       return parsing_error_message("Sorry, that's not a valid command.")
@@ -205,7 +190,35 @@ class Act < ActiveRecord::Base
     [user, phone_number]
   end
 
+  def self.ensure_game_currently_running(demo)
+    if demo.game_not_yet_begun?
+      return parsing_error_message(demo.game_not_yet_begun_response)
+    end
+
+    if demo.game_over?
+      return parsing_error_message(demo.game_over_response)
+    end
+  end
+
   def self.extract_rule_value_and_referring_user(user, value)
+    rule_value = user.first_eligible_rule_value(value)
+    error = nil
+
+    if rule_value.nil? && value
+      rule_value, referring_user = try_extracting_rule_value_with_referring_user(user, value)
+      if (rule_value && !referring_user)
+        error = parsing_error_message("We understood what you did, but not the user who referred you. Perhaps you could have them check their user ID with the MYID command?")
+      end
+
+      if referring_user == user
+        error = parsing_error_message("Now now. It wouldn't be fair to try to get extra points by referring yourself.")
+      end
+    end
+
+    [rule_value, referring_user, error]
+  end
+
+  def self.try_extracting_rule_value_with_referring_user(user, value)
     value_tokens = value.split(' ')
     referring_user_sms_slug = value_tokens.pop
     truncated_value = value_tokens.join(' ')
