@@ -92,43 +92,12 @@ class Act < ActiveRecord::Base
       )
     end
 
-    matches = RuleValue.suggestible_for(attempted_value, user)
-
-    begin
-      result = I18n.t(
-        'activerecord.models.rule_value.suggestion_sms',
-        :default => "I didn't quite get that. @{Say} %{suggestion_phrase}, or \"s\" to suggest we add what you sent.",
-        :suggestion_phrase => suggestion_phrase(matches)
-      )
-      matches.pop if result.length > 160
-    end while (matches.present? && result.length > 160) 
-
-    if matches.empty?
-      return I18n.t(
-        'activerecord.models.act.parse.no_suggestion_sms',
-        :default => "Sorry, I don't understand what that means. @{Say} \"s\" to suggest we add what you sent."
-      )
-    end
-
-    user.last_suggested_items = matches.map(&:id).map(&:to_s).join('|')
+    reply, last_suggested_item_ids = RuleValue.suggestion_for(attempted_value, user)
+    
+    user.last_suggested_items = last_suggested_item_ids if last_suggested_item_ids
     user.save!
 
-    result
-  end
-
-  def self.suggestion_phrase(matches)
-    # Why is there no #map_with_index? Srsly.
-
-    alphabet = ('a'..'z').to_a
-    match_index = 0
-    match_strings = matches.map do |match| 
-      letter = alphabet[match_index]
-      substring = "\"#{letter}\" for \"#{match.value}\""
-      match_index += 1
-      substring
-    end
-
-    match_strings.join(', ')
+    reply
   end
 
   def self.record_act(user, rule, referring_user = nil)

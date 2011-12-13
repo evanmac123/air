@@ -79,7 +79,49 @@ class RuleValue < ActiveRecord::Base
     end
   end
 
+  def self.suggestion_for(attempted_value, user)
+    matches = RuleValue.suggestible_for(attempted_value, user)
+
+    begin
+      result = I18n.t(
+        'activerecord.models.rule_value.suggestion_sms',
+        :default => "I didn't quite get that. @{Say} %{suggestion_phrase}, or \"s\" to suggest we add what you sent.",
+        :suggestion_phrase => suggestion_phrase(matches)
+      )
+      matches.pop if result.length > 160
+    end while (matches.present? && result.length > 160) 
+
+    if matches.empty?
+      result = I18n.t(
+        'activerecord.models.act.parse.no_suggestion_sms',
+        :default => "Sorry, I don't understand what that means. @{Say} \"s\" to suggest we add what you sent."
+      )
+
+      return [result, nil]
+    end
+
+    last_suggested_item_ids = matches.map(&:id).map(&:to_s).join('|')  
+ 
+    [result, last_suggested_item_ids]
+  end
+
   def self.suggestible_for(attempted_value, user)
     self.visible_from_demo(user).partially_matching_value(attempted_value).where("rule_id IS NOT NULL").limit(3).order('rank DESC, lower(value)')  
   end
+
+  def self.suggestion_phrase(matches)
+    # Why is there no #map_with_index? Srsly.
+
+    alphabet = ('a'..'z').to_a
+    match_index = 0
+    match_strings = matches.map do |match| 
+      letter = alphabet[match_index]
+      substring = "\"#{letter}\" for \"#{match.value}\""
+      match_index += 1
+      substring
+    end
+
+    match_strings.join(', ')
+  end
+
 end
