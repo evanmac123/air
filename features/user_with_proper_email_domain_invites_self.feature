@@ -18,7 +18,7 @@ Feature: User with proper email domain invites self
     When I fill in "Name" with "Chester Humphries"
     And I fill in "Email" with "chester@highmark.com"
     And I press "Request invitation"
-    Then I should see "We've received your request for an invitation. You should receive an invitation e-mail at chester@highmark.com shortly. If you haven't received this e-mail within a few minutes, please request for it to be re-sent, or contact support@hengage.com for help."
+    Then I should see "We've received your request for an invitation. You should receive an invitation e-mail at chester@highmark.com shortly. If you haven't received this e-mail within a few minutes, please request for it to be re-sent here, or contact support@hengage.com for help."
 
     When DJ cranks 5 times
     Then "chester@highmark.com" should receive an email
@@ -38,7 +38,7 @@ Feature: User with proper email domain invites self
     When I fill in "Name" with "Chester Humphries"
     And I fill in "Email" with "joe@highmark.com"
     And I press "Request invitation"
-    Then I should see "That e-mail address is already taken. If this is your address, and you've already requested an invitation but lost the invitation e-mail, you can request for it to be re-sent. If you've already been invited and then joined the game, you can log in, or have your password reset if you've forgotten it. You can also contact support@hengage.com for help."
+    Then I should see "That e-mail address is already taken. If this is your address, and you've already requested an invitation but lost the invitation e-mail, you can request for it to be re-sent here. If you've already been invited and then joined the game, you can log in here, or have your password reset if you've forgotten it here. You can also contact support@hengage.com for help."
 
     When DJ cranks 5 times
     Then "joe@highmark.com" should receive no email

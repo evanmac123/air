@@ -1,7 +1,7 @@
 <p>That e-mail address is already taken.</p>
 
-<p>If this is your address, and you've already requested an invitation but lost the invitation e-mail, you can request for it to be re-sent.</p>
+<p>If this is your address, and you've already requested an invitation but lost the invitation e-mail, you can request for it to be re-sent <%= link_to "here", new_invitation_resend_path %>.</p>
 
-<p>If you've already been invited and then joined the game, you can log in, or have your password reset if you've forgotten it.</p>
+<p>If you've already been invited and then joined the game, you can log in <%= link_to "here", new_session_path %>, or have your password reset if you've forgotten it <%= link_to "here", new_password_path %>.</p>
 
 <p>You can also contact <%= link_to "support@hengage.com", "mailto:support@hengage.com" %> for help.</p>

@@ -1,0 +1,2 @@
+module Invitation::ResendsHelper
+end

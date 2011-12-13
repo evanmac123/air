@@ -1,0 +1,5 @@
+<%= form_tag invitation_resend_path do |f| %>
+  <%= label_tag :email %>
+  <%= text_field_tag :email %>
+  <%= submit_tag "Re-send invitation" %>
+<% end %>

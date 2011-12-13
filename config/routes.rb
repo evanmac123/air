@@ -9,7 +9,11 @@ Health::Application.routes.draw do
   resource  :conference_feed, :only => [:show]
 
   resources :phones,      :only => [:create]
-  resources :invitations, :only => [:new, :create, :show]
+  resources :invitations, :only => [:new, :create, :show] 
+  namespace :invitation do
+    resource :resend
+  end
+
   resources :acts,        :only => [:index, :create]
   resources :users,       :only => [:new, :index, :show] do
     resource :password,

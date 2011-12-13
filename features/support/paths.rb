@@ -23,6 +23,8 @@ module NavigationHelpers
       invitation_path(user.invitation_code)
     when "the new invitation page"
       new_invitation_path
+    when "the invitation resend page"
+      new_invitation_resend_path
     when /the profile page for "(.*)"/
       user = User.find_by_name($1)
       user_path(user.slug)
