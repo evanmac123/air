@@ -17,9 +17,13 @@ class SmsController < ActionController::Metal
       return
     end
 
-    RawSms.create!(:from => params['From'], :body => params['Body'], :twilio_sid => params['SmsSid'])
+    incoming_sms = IncomingSms.create!(:from => params['From'], :body => params['Body'], :twilio_sid => params['SmsSid'])
 
-    self.response_body = construct_reply(Command.parse(params['From'], params['Body'], :allow_claim_account => true, :channel => :sms, :receiving_number => params['To']))
+    reply = construct_reply(Command.parse(params['From'], params['Body'], :allow_claim_account => true, :channel => :sms, :receiving_number => params['To']))
+
+    OutgoingSms.create!(:to => params['From'], :in_response_to => incoming_sms, :body => reply)
+
+    self.response_body = reply
   end
 
   protected

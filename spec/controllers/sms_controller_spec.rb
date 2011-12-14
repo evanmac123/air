@@ -38,13 +38,22 @@ describe SmsController do
         response.body.should_not be_blank
       end
 
-      it "should record a RawSms" do
-        RawSms.count.should == 1
+      it "should record a IncomingSms" do
+        IncomingSms.count.should == 1
 
-        raw_sms = RawSms.first
-        raw_sms.from.should == "+14152613077"
-        raw_sms.body.should == "ate kitten"
-        raw_sms.twilio_sid.should == "SM12ac8c0c64e01188d32fa2d4b40f1b5d"
+        incoming_sms = IncomingSms.first
+        incoming_sms.from.should == "+14152613077"
+        incoming_sms.body.should == "ate kitten"
+        incoming_sms.twilio_sid.should == "SM12ac8c0c64e01188d32fa2d4b40f1b5d"
+      end
+
+      it "should record an OutgoingSms" do
+        OutgoingSms.count.should == 1
+
+        outgoing_sms = OutgoingSms.first
+        outgoing_sms.in_response_to.should == IncomingSms.first
+        outgoing_sms.to.should == "+14152613077"
+        outgoing_sms.body.should == response.body
       end
     end
 

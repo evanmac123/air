@@ -14,6 +14,17 @@ describe SMS::OutgoingMessageJob do
       Twilio::SMS.should have_received(:create).with(:from => "+14155551212", :to => "+16175551212", :body => "hey there")
     end
 
+    it "should record an OutgoingSms" do
+      @job.perform
+
+      OutgoingSms.count.should == 1
+
+      outgoing_sms = OutgoingSms.first
+      outgoing_sms.body.should == 'hey there'
+      outgoing_sms.to.should == "+16175551212"
+      outgoing_sms.in_response_to.should be_nil
+    end
+
     context "when the number is one of our dummy numbers (in the 999 area code)" do
       before(:each) do
         Twilio::SMS.stubs(:create).raises(Twilio::APIError, "Error #21401: +19995551212 is not a valid phone number")

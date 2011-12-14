@@ -13,7 +13,10 @@ module SMS
         Twilio::SMS.create(:from => @from,
                             :to   => @to,
                             :body => @body)
-      rescue StandardError => e
+        OutgoingSms.create!(:to           => @to,
+                            :body         => @body)
+
+     rescue StandardError => e
         Airbrake.notify(
           :error_class   => e.class,
           :error_message => e.message,

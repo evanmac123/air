@@ -171,3 +171,6 @@ Factory.define :self_inviting_domain do |self_inviting_domain|
   self_inviting_domain.sequence(:domain) {|n| "foo_#{n}.com"}
   self_inviting_domain.association :demo
 end
+
+Factory.define :incoming_sms do
+end

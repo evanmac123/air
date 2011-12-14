@@ -20,6 +20,8 @@ class Act < ActiveRecord::Base
 
   scope :recent, lambda {|max| order('created_at DESC').limit(max)}
 
+  attr_accessor :incoming_sms_sid
+
   def points
     self.inherent_points || self.rule.try(:points)
   end

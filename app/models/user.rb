@@ -150,7 +150,7 @@ class User < ActiveRecord::Base
   end
 
   def send_support_request
-    latest_act_descriptions = RawSms.where(:from => self.phone_number).order("created_at DESC").limit(20).map(&:body)
+    latest_act_descriptions = IncomingSms.where(:from => self.phone_number).order("created_at DESC").limit(20).map(&:body)
 
     Mailer.delay.support_request(self.name, self.email, self.phone_number, self.demo.company_name, latest_act_descriptions)
   end
