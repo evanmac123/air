@@ -40,7 +40,13 @@
     <% if @viewing_self %>
       <%= mp_track("viewed own profile") %>
       <div class="own-number">
-        <h3><%= @user.phone_number.as_pretty_phone %></h3>
+        <h3>
+          <% if @user.phone_number.present? %>
+            <%= @user.phone_number.as_pretty_phone %>        
+          <% else %>
+            No mobile number. Please enter one if you'd like to play by SMS.
+          <% end %>
+        </h3>
       </div>
     <% end %>
 

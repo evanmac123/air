@@ -15,15 +15,14 @@ class PhonesController < ApplicationController
   end
 
   def update
-    # We cheat here, since under certain circumstances it's actually OK for
-    # the number to be blank, but not right now.
-
-    normalized_phone_number = PhoneNumber.normalize(params[:user][:phone_number])
-    if normalized_phone_number == "+1"
-      flash[:failure] = "Problem updating your mobile number: Phone number can't be blank"
+    if params[:user][:phone_number].blank?
+      current_user.update_attributes(:phone_number => "")
+      flash[:success] = "OK, you won't get any more text messages from us until such time as you enter a mobile number again."
       redirect_to :back
       return
     end
+
+    normalized_phone_number = PhoneNumber.normalize(params[:user][:phone_number])
 
     current_user.phone_number = normalized_phone_number
     if current_user.save

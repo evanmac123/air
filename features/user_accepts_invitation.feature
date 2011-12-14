@@ -90,4 +90,9 @@ Feature: User accepts invitation
     And I should see "Please choose a password."
 
   Scenario: User doesn't have to specify mobile number to join
-    Given I need to write this
+    When I fill in "Choose a password" with "whatwhat"
+    And I fill in "And confirm that password" with "whatwhat"
+    And I press "Join the game"
+    And DJ cranks once
+    Then I should be on the activity page
+    And I should see "Dan joined the game less than a minute ago"
