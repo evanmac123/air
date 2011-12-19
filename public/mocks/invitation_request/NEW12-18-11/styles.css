@@ -64,12 +64,13 @@ body.invitations {
 	color:#fff;
 	font-size:.75em;
 	font-weight:bold;
-	height:210px;
+	height:255px;
 }
+#signup-form {padding-top:10px;}
 #signup-form ul {margin:0 auto; width:300px;}
 	.form-label {margin:20px 0 3px 0; text-shadow:1px 1px 1px #000;}
 	.form-input {margin:0;}
-		.form-input input {border-radius:4px; height:25px; width:100%;}
+		.form-input input {border-radius:4px; height:40px; width:100%;}
 	input[type="submit"] {
 		background-color:#ffed4f;
 		background-image:url('img/bg_button.png');
