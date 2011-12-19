@@ -1,0 +1,42 @@
+<!DOCTYPE html><html>
+<head>
+	<title>H Engage | Sign Up</title>
+	<link href="styles.css" media="screen" rel="stylesheet" type="text/css">
+	<!--[if IE]><link href="stylesIE.css" media="screen" rel="stylesheet" type="text/css"><![endif]-->
+</head>
+<body class="invitations invitations-new">
+	<div class="header">
+		<div id="logo">
+	      <a href="https://hengage-staging.heroku.com/"><img alt="H Engage tree" src="img/logo.png"></a>
+		</div>
+		<div id="navigation">
+			<ul>
+				<li><a href="#" class="nav-links">Home</a></li>
+				<li><a href="#" class="nav-links nav-current">Sign Up</a></li>
+				<li><a href="#" class="nav-links">Log In</a></li>
+			</ul>
+		</div>
+		<div class="cf"></div>
+	</div>
+	<div class="error">
+		<p>This is normally not there until the user inputs something that the system doesn't like. Also known as an error message. Here is an example of a <a href="#">link</a>.</p>
+		<p>Hide ".signup-name" if the error results in prompting the user to resend invite.</p>
+	</div>
+	<div class="content">
+		<form id="signup-form" accept-charset="UTF-8" action="https://hengage-staging.heroku.com/invitations" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="✓"><input name="authenticity_token" type="hidden" value="fT3/ejOg5cepDmORGQkLXvlw0gsq0J39YuG9LIBbwaI="></div>
+			<ul>
+				<li class="signup-name form-label"><label for="user_name">Name</label></li>
+				<li class="signup-name form-input"><input class="signup-field" id="user_name" length="255" name="user[name]" type="text" value=""></li>
+				<li class="signup-email form-label"><label for="user_email">Email</label></li>
+				<li class="signup-email form-input"><input class="signup-field" id="user_email" length="255" name="user[email]" type="text" value=""></li>
+				<li class="signup-submit">
+					<input name="commit" type="submit" value="Request invitation">
+				</li>
+			</ul>
+		</form>
+	</div>
+	<div class="footer">
+		<a href="#">Feedback?</a>
+	</div>
+</body>
+</html>
