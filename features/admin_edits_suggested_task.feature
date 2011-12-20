@@ -25,8 +25,8 @@ Feature: Admin edits suggested task
     And I fill in "Name" with "Make roast beef"
     And I fill in "Short description" with "Cook cow flesh"
     And I fill in "Long description" with "Scorch up the muscle of a beef"
-    And I unselect "bake bread" from "Prerequisites"
-    And I select "domesticate cattle" from "Prerequisites"
+    And I unselect "bake bread" from "Prerequisite tasks"
+    And I select "domesticate cattle" from "Prerequisite tasks"
     And I set the suggested task start time to "April/17/2012/3 PM/25"
     And I press "Update Suggested task"
 

@@ -24,7 +24,7 @@ class Admin::SuggestedTasksController < AdminBaseController
   end
 
   def edit
-    @existing_tasks = find_existing_tasks(@demo)
+    @existing_tasks = find_existing_tasks(@demo) - [@suggested_task] # no circular dependencies kthx
   end
 
   def update

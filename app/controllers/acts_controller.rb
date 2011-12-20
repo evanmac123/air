@@ -15,6 +15,8 @@ class ActsController < ApplicationController
     @active_act_tab = active_act_tab
     @active_scoreboard_tag = "All"
 
+    @available_suggested_tasks = current_user.available_suggested_tasks
+
     respond_to do |format|
       format.html do 
         @users = @demo.users.claimed.with_ranking_cutoff.order('points DESC')

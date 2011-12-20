@@ -126,3 +126,15 @@ Then /^(?:|I )should not be on (.+)$/ do |page_name|
   current_path.should_not == path_to(page_name)
 end
 
+Then /^"(.*?)" should( not)? be visible$/ do |invisible_text, sense|
+  sense = !sense
+
+  elements = page.all(:css, "*", :text => invisible_text)
+
+  if sense
+    elements.should_not be_empty
+    elements.each{|element| element.should be_visible}
+  else
+    elements.each{|element| element.should_not be_visible}
+  end
+end

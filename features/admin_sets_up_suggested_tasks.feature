@@ -36,8 +36,8 @@ Feature: Admin sets up suggested tasks
     When I fill in "Name" with "Make toast"
     And I fill in "Short description" with "Earn points and enjoy a toasty treat"
     And I fill in "Long description" with "Toast is a foodstuff that millions have enjoyed since the invention of fire."
-    And I select "Bake bread" from "Prerequisites"
-    And I select "Discover fire" from "Prerequisites"
+    And I select "Bake bread" from "Prerequisite tasks"
+    And I select "Discover fire" from "Prerequisite tasks"
     And I press "Create Suggested task"
 
     Then I should be on the admin suggested tasks page for "TaskCo"
@@ -63,8 +63,8 @@ Feature: Admin sets up suggested tasks
     When I fill in "Name" with "Make toast"
     And I fill in "Short description" with "Earn points and enjoy a toasty treat"
     And I fill in "Long description" with "Toast is a foodstuff that millions have enjoyed since the invention of fire."
-    And I select "Bake bread" from "Prerequisites"
-    And I select "Discover fire" from "Prerequisites"
+    And I select "Bake bread" from "Prerequisite tasks"
+    And I select "Discover fire" from "Prerequisite tasks"
     And I set the suggested task start time to "May/1/2015/12 AM/00/00"
     And I press "Create Suggested task"
 

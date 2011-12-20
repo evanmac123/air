@@ -10,7 +10,7 @@ Given /^the task "([^"]*)" has prerequisite "([^"]*)"$/ do |task_name, prerequis
     raise ArgumentError.new "Couldn't find prerequisite task named #{prerequisite_name}"
   end
 
-  task.prerequisites << prerequisite
+  task.prerequisite_tasks << prerequisite
 end
 
 When /^I set the suggested task start time to "([^"]*)"$/ do |time_string|
@@ -23,3 +23,13 @@ When /^I click the link to edit the task "([^"]*)"$/ do |task_name|
   within(:xpath, task_row_path) {click_link "Edit this task"}
 end
 
+When /^"([^"]*)" satisfies suggested task "([^"]*)"$/ do |user_name, suggested_task_name|
+  user = User.find_by_name(user_name)
+  suggested_task = SuggestedTask.find_by_name(suggested_task_name)
+
+  suggestion = user.task_suggestions.where(:suggested_task_id => suggested_task.id).first
+  suggestion.should_not be_nil
+
+  suggestion.satisfied = true
+  suggestion.save!
+end

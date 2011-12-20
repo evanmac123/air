@@ -5,7 +5,7 @@
   <%= f.input :name %>
   <%= f.input :short_description %>
   <%= f.input :long_description %>
-  <%= f.input :prerequisites, :collection => @existing_tasks %>
+  <%= f.input :prerequisite_tasks, :collection => @existing_tasks %>
   <%= f.input :start_time, :twelve_hour => true %>
   <%= f.submit %>
 <% end %>

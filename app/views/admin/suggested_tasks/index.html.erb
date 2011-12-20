@@ -20,8 +20,8 @@
             <p>Start time: <%= suggested_task.start_time.pretty %></p>
           <% end %>
 
-          <% if suggested_task.prerequisites.present? %>
-            <% prerequisite_names = suggested_task.prerequisites.map(&:name).sort %>
+          <% if suggested_task.prerequisite_tasks.present? %>
+            <% prerequisite_names = suggested_task.prerequisite_tasks.map(&:name).sort %>
             Prerequisites:
             <ul>
               <% prerequisite_names.each do |prerequisite_name| %>

@@ -1,5 +1,9 @@
 <%= render :partial => 'shared/flashes' -%>
 
+<div id="suggested-tasks">
+  <%= render :partial => 'available_suggested_task', :collection => @available_suggested_tasks %>
+</div>
+
 <div id="main-wrapper">
   <div id="main">
     <h2>Recent Activity</h2>

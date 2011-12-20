@@ -11,6 +11,7 @@ describe User do
   it { should have_many(:friends).through(:friendships) }
   it { should have_many(:survey_answers) }
   it { should have_many(:wins) }
+  it { should have_many(:task_suggestions) }
 
   it { should validate_presence_of(:name) }
 

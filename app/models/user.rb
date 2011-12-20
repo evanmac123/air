@@ -19,6 +19,7 @@ class User < ActiveRecord::Base
   has_many   :goal_completions
   has_many   :completed_goals, :through => :goal_completions, :source => :goal
   has_many   :timed_bonuses, :class_name => "TimedBonus"
+  has_many   :task_suggestions
   has_and_belongs_to_many :bonus_thresholds
   has_and_belongs_to_many :levels
 
@@ -59,6 +60,10 @@ class User < ActiveRecord::Base
     update_demo_ranked_user_count
   end
 
+  after_create do
+    suggest_first_level_tasks
+  end
+  
   after_destroy do
     destroy_friendships_where_secondary
     fix_demo_rankings
@@ -486,6 +491,14 @@ class User < ActiveRecord::Base
     next_unachieved_threshold || greatest_achievable_threshold
   end
 
+  def available_suggested_tasks
+    self.task_suggestions.unsatisfied.map(&:suggested_task)
+  end
+
+  def satisfies_all_prerequisites(suggested_task)
+    suggested_task.prerequisite_tasks.all?{|prerequisite_task| self.task_suggestions.for_task(prerequisite_task).satisfied.present?}
+  end
+
   def self.next_dummy_number
    last_assigned = self.where("phone_number LIKE '+1999%'").order("phone_number DESC").limit(1).first
 
@@ -686,5 +699,11 @@ class User < ActiveRecord::Base
   def decrement_demo_ranked_user_count
     return unless phone_number.present?
     Demo.decrement_counter(:ranked_user_count, demo_id)
+  end
+
+  def suggest_first_level_tasks
+    self.demo.suggested_tasks.first_level.after_start_time.each do |first_level_task|
+      first_level_task.suggest_to_user(self)
+    end
   end
 end
