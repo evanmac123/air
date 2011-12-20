@@ -13,14 +13,9 @@ class Admin::SuggestedTasksController < AdminBaseController
 
   def create
     @suggested_task = @demo.suggested_tasks.build(params[:suggested_task])
-    
-    if @suggested_task.save
-      flash[:success] = "New suggested task created"
-      redirect_to :action => :index
-    else
-      flash[:failure] = "Problem creating suggested task: #{@suggested_task.errors.full_messages.to_sentence}"
-      redirect_to :action => :new
-    end
+    @suggested_task.save!
+    flash[:success] = "New suggested task created"
+    redirect_to :action => :index
   end
 
   def edit
@@ -29,14 +24,9 @@ class Admin::SuggestedTasksController < AdminBaseController
 
   def update
     @suggested_task.attributes = params[:suggested_task]
-
-    if @suggested_task.save
-      flash[:success] = "Suggested task updated"
-      redirect_to :action => :index
-    else
-      flash[:failure] = "Problem updating suggested task: #{@suggested_task.errors.full_messages.to_sentence}"
-      redirect_to :action => :edit
-    end
+    @suggested_task.save!
+    flash[:success] = "Suggested task updated"
+    redirect_to :action => :index
   end
 
   protected

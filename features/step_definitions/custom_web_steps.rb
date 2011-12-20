@@ -138,3 +138,14 @@ Then /^"(.*?)" should( not)? be visible$/ do |invisible_text, sense|
     elements.each{|element| element.should_not be_visible}
   end
 end
+
+Then /^I should( not)? see an input with value "([^"]*)"$/ do |sense, expected_value|
+  sense = !sense
+
+  if sense
+    page.should have_css("input[value=\"#{expected_value}\"]")
+  else
+    page.should_not have_css("input[value=\"#{expected_value}\"]")
+  end
+end
+

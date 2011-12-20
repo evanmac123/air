@@ -8,20 +8,20 @@ class ActsController < ApplicationController
 
     @new_appearance = true
 
-    @show_only         = params[:show_only]
-    @demo              = current_user.demo
-    @demo_user_count   = @demo.ranked_user_count
-    @acts              = find_requested_acts(@demo)
-    @active_act_tab = active_act_tab
+    @show_only             = params[:show_only]
+    @demo                  = current_user.demo
+    @demo_user_count       = @demo.ranked_user_count
+    @acts                  = find_requested_acts(@demo)
+    @active_act_tab        = active_act_tab
     @active_scoreboard_tag = "All"
 
     @available_suggested_tasks = current_user.available_suggested_tasks
 
     respond_to do |format|
       format.html do 
-        @users = @demo.users.claimed.with_ranking_cutoff.order('points DESC')
-        @levels = current_user.levels.in_demo(current_user.demo).in_threshold_order
-        @goals = current_user.completed_goals.in_demo(current_user.demo)
+        @users = find_ranked_users
+        @levels = achieved_levels
+        @goals = achieved_goals
       end
 
       format.js do
@@ -70,6 +70,18 @@ class ActsController < ApplicationController
     else
       render :partial => "refiltered_acts", :locals => {:acts => @acts, :active_tab => @active_act_tab}
     end
+  end
+
+  def find_ranked_users
+    @demo.users.claimed.with_ranking_cutoff.order('points DESC')  
+  end
+
+  def achieved_levels
+    current_user.levels.in_demo(current_user.demo).in_threshold_order  
+  end
+
+  def achieved_goals
+    current_user.completed_goals.in_demo(current_user.demo)  
   end
 
   def self.channel_specific_translations
