@@ -1,8 +1,6 @@
 class ActsController < ApplicationController
   include Reply
 
-  layout :determine_layout
-
   def index
     @current_link_text = "Home"
 

@@ -1,5 +1,17 @@
-<%= form_tag invitation_resend_path do |f| %>
-  <%= label_tag :email %>
-  <%= text_field_tag :email %>
-  <%= submit_tag "Re-send invitation" %>
+<% content_for :status do %>
+  <% if flash[:success].present? %>
+    <%= flash[:success] %>
+  <% elsif flash[:notice].present? %>
+    <%= raw flash[:notice] %>
+  <% else %>
+    If you've lost your invitation e-mail, you can have it re-sent.
+  <% end %>
+<% end %>
+
+<%= form_tag invitation_resend_path, :id => 'signup-form' do |f| %>
+  <ul>
+    <li class="form-label"><%= label_tag :email %></li>
+    <li class="form-input"><%= text_field_tag :email %></li>
+    <%= submit_tag "Re-send invitation" %>
+  </ul>
 <% end %>

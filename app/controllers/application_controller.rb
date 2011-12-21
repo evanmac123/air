@@ -7,6 +7,8 @@ class ApplicationController < ActionController::Base
   include Clearance::Authentication
   protect_from_forgery
 
+  layout 'old_application'
+
   protected
 
   def force_ssl
@@ -39,14 +41,6 @@ class ApplicationController < ActionController::Base
   alias_method_chain :authenticate, :game_begun_check
 
   private
-
-  def determine_layout
-    if request.xhr?
-      'ajax'
-    else
-      'application'
-    end
-  end
 
   def force_html_format
     request.format = :html

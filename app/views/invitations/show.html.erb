@@ -1,18 +1,26 @@
-<h2 class="first"><%= @user.name %>: Accept Invitation</h2>
+<% content_for :status do %>
+  <% if flash[:failure].present? %>
+    <%= flash[:failure] %>
+  <% else %>
 
-<p class="explanation"><%= translate('.explanation', :default => "Thanks for accepting our invite to try H Engage. If you'd like to demo the service, please enter your mobile number and choose a password. We'll send you an SMS with instructions on the next step.") %></p>
+    <h2><%= @user.name %>: Accept Invitation</h2>
 
-<%= semantic_form_for :phone, :url => phones_path(:user_id => @user) do |form| %>
-  <%= form.input :number, :label => "Enter your mobile number", :required => false %>
-
-  <%= form.semantic_fields_for :user do |user| %>
-    <%= user.input :password, :label => "Choose a password", :required => false %>
-    <%= user.input :password_confirmation, :label => "And confirm that password", :required => false %>
+    <p class="explanation"><%= translate('.explanation', :default => "Thanks for accepting our invitation to try H Engage. If you'd like to demo the service, please enter your mobile number and choose a password. We'll send you an SMS with instructions on the next step.") %></p>
   <% end %>
+<% end %>
 
-  <%= form.buttons do %>
-    <div class="submit-input">
-      <%= form.submit 'Join the game' %>
-    </div>
-  <% end %>
+<%= form_tag phones_path(:user_id => @user), :id => "signup-form" do %>
+  <ul>
+    <li class="signup-name form-label"><%= label_tag "number", "Enter your mobile number" %></li>
+    <li class="signup-name form-input"><%= text_field_tag :number %></li>
+
+    <%= fields_for :user do |user| %>
+      <li class="signup-name form-label"><%= label_tag "user[password]", "Choose a password" %></li>
+      <li class="signup-name form-input"><%= user.password_field :password %></li>
+      <li class="signup-name form-label"><%= label_tag "user[password_confirmation]", "And confirm that password" %></li>
+      <li class="signup-name form-input"><%= user.password_field :password_confirmation %></li>
+    <% end %>
+
+    <%= submit_tag 'Join the game' %>
+  </ul>
 <% end %>

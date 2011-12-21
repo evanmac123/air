@@ -1,0 +1,9 @@
+<%= form_tag invitations_path, :id => 'signup-form' do |f| %>
+  <ul>
+    <li class="signup-name form-label"><%= label_tag "user[name]", "Name" %></li>
+    <li class="signup-name form-input"><%= text_field_tag 'user[name]', '', :length => 255 %></li>
+    <li class="signup-name form-label"><%= label_tag "user[email]", "Email" %></li>
+    <li class="signup-name form-input"><%= text_field_tag 'user[email]', '', :length => 255 %></li>
+    <li class="signup-submit"><%= submit_tag "Request invitation" %></li>
+  </ul>
+<% end %>

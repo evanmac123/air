@@ -7,3 +7,7 @@
     mpq.name_tag('<%= current_user.name %>');
   <% end %>
 <% end %>
+<% flash.select{|k,v| k.to_s =~ /^mp_track/}.each do |k, v| %>
+  <% event, properties = v %>
+  <%= mp_track event, properties %>
+<% end %>

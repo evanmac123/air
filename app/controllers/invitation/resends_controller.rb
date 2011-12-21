@@ -1,4 +1,6 @@
 class Invitation::ResendsController < ApplicationController
+  layout "application"
+
   skip_before_filter :authenticate
 
   def new

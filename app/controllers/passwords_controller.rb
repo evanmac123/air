@@ -6,8 +6,6 @@ class PasswordsController < Clearance::PasswordsController
   before_filter :force_html_format
   before_filter :downcase_email
 
-  layout :determine_layout
-
   def edit
     @user = ::User.find_by_slug_and_confirmation_token(
                    params[:user_id], params[:token])

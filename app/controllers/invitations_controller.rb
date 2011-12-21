@@ -2,6 +2,8 @@ class InvitationsController < ApplicationController
   skip_before_filter :authenticate
 
   before_filter :check_for_name_and_email, :only => :create
+
+  layout 'application'
   
   def new
   end
@@ -42,7 +44,7 @@ class InvitationsController < ApplicationController
 
   def check_for_name_and_email
     unless params[:user][:name].present? && params[:user][:email].present?
-      flash[:error] = "You must enter your name and e-mail address to request an invitation."
+      flash[:failure] = "You must enter your name and e-mail address to request an invitation."
       redirect_to new_invitation_path
     end
   end
