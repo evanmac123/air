@@ -304,21 +304,7 @@ class User < ActiveRecord::Base
       self[ranking_column] = self.demo.users.where("#{points_column} > ?", new_point_value).count + 1
       old_point_value = self.changed_attributes[points_column]
 
-      # Remember, we haven't saved the new point value yet, so if self isn't a
-      # new record (hence already has a database ID), we need to specifically
-      # exempt it from this update.
-
-      if self.id
-        where_conditions = ["#{points_column} < ? AND #{points_column} >= ? AND id != ?", new_point_value, old_point_value, self.id]
-      else
-        where_conditions = ["#{points_column} < ? AND #{points_column} >= ?", new_point_value, old_point_value]
-      end
-
-      # This mitigates, but doesn't totally prevent, deadlocks. Until I think
-      # of a better algorithm, or we can get Postgres to lock the fucking rows
-      # in a consistent fucking order, we're done here.
-      user_ids_to_update = self.demo.users.where(where_conditions).order(:id).select("id").lock("FOR UPDATE").map(&:id)
-      User.update_all("#{ranking_column} = #{ranking_column} + 1", :id => user_ids_to_update)
+      User.update_all("#{ranking_column} = #{ranking_column} + 1", :id => lower_ranked_user_ids(points_column, new_point_value, old_point_value))
     end
   end
 
@@ -328,6 +314,30 @@ class User < ActiveRecord::Base
 
   def set_recent_average_rankings
     set_ranking('recent_average_points', 'recent_average_ranking')
+  end
+
+  def lower_ranked_user_ids(points_column, new_point_value, old_point_value)
+    # Remember, we haven't saved the new point value yet, so if self isn't a
+    # new record (hence already has a database ID), we need to specifically
+    # exempt it from this update.
+
+    if self.id
+      where_conditions = ["#{points_column} < ? AND #{points_column} >= ? AND id != ?", new_point_value, old_point_value, self.id]
+    else
+      where_conditions = ["#{points_column} < ? AND #{points_column} >= ?", new_point_value, old_point_value]
+    end
+
+    # The lock mitigates, but doesn't totally prevent, deadlocks. Until I think
+    # of a better algorithm, or we can get Postgres to lock the fucking rows
+    # in a consistent fucking order, we're done here.
+    #
+    # However, we're not calling set_ranking that much anymore (that is, no
+    # longer on every single points update) so deadlocks may not be as much
+    # of a problem.
+    #
+    # tl;dr: Life is hard. Bring me a drink.
+
+    self.demo.users.where(where_conditions).order(:id).select("id").lock("FOR UPDATE").map(&:id)
   end
 
   def schedule_update_demo_alltime_rankings
@@ -386,8 +396,7 @@ class User < ActiveRecord::Base
 
     point_numerator = 0
     grouped_acts.each do |date_of_act, acts_on_date|
-      date_weight = self.recent_average_history_depth - (Date.today - date_of_act).numerator + 1
-      point_numerator += date_weight * acts_on_date.map(&:points).compact.sum
+      point_numerator += date_weight(date_of_act) * acts_on_date.map(&:points).compact.sum
     end
     point_numerator.to_f
   end
@@ -399,6 +408,10 @@ class User < ActiveRecord::Base
   def find_acts_in_horizon
     horizon = (Date.today - MAX_RECENT_AVERAGE_HISTORY_DEPTH.days).midnight
     acts_in_horizon = acts.where('created_at >= ? AND demo_id = ?', horizon, self.demo_id).order(:created_at)
+  end
+
+  def date_weight(date_of_act)
+    self.recent_average_history_depth - (Date.today - date_of_act).numerator + 1
   end
 
   def self.claim_code_prefix(user)
