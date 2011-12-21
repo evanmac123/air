@@ -23,7 +23,8 @@ class User < ActiveRecord::Base
   has_and_belongs_to_many :bonus_thresholds
   has_and_belongs_to_many :levels
 
-  validates_uniqueness_of :phone_number, :allow_blank => true
+  validate :normalized_phone_number_unique
+
   validates_uniqueness_of :slug
   validates_uniqueness_of :sms_slug, :message => "Sorry, that user ID is already taken."
 
@@ -577,6 +578,21 @@ class User < ActiveRecord::Base
       threshold_from_demo
     else
       nil
+    end
+  end
+
+  def normalized_phone_number_unique
+    return if self.phone_number.blank?
+    normalized_number = PhoneNumber.normalize(self.phone_number)
+
+    where_conditions = if self.new_record?
+                         ["phone_number = ?", normalized_number]
+                       else
+                         ["phone_number = ? AND id != ?", normalized_number, self.id]
+                       end
+
+    if self.class.where(where_conditions).limit(1).present?
+      self.errors.add(:phone_number, "has already been taken")
     end
   end
 

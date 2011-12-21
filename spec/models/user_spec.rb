@@ -32,11 +32,13 @@ describe User do
     user2 = Factory :user, :phone_number => ''
     user3 = Factory.build :user, :phone_number => '+14152613077'
     user4 = Factory.build :user, :phone_number => ''
+    user5 = Factory.build :user, :phone_number => "(415) 261-3077"
 
     user1.should be_valid
     user2.should be_valid
     user3.should_not be_valid
     user4.should be_valid
+    user5.should_not be_valid
   end
 
   it "should validate uniqueness of SMS slug when not blank" do
