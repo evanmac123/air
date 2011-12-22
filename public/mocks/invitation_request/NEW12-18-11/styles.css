@@ -53,7 +53,7 @@ body.invitations, body.invitation-resends {
 	box-shadow:0px 0px 4px #999;
 	font-size:.75em;
 	margin:0 auto 20px auto;
-	padding:0 15px;
+	padding:10px;
 	width:480px;
 }
 	.status a:hover {border-bottom:1px #3b3b3b dashed; color:#3b3b3b!important;}
@@ -90,7 +90,7 @@ body.invitations, body.invitation-resends {
 		margin:0;
 	}
 		.form-input input {
-			border:2px #87bf4e inset;
+			border:2px #87bf4e solid;
 			background-color:#f4f3f3;
 			border-radius:4px; 
 			color:#355613;
@@ -114,7 +114,7 @@ body.invitations, body.invitation-resends {
 	}
 		input[type="submit"]:hover {color:#fff;}
 		
-#signup-form .status_input {border:2px #e11a00 inset;}
+#signup-form .status_input {border:2px #e11a00 solid;}
 
 /* FOOTER */
 .footer a {
