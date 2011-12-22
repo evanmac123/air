@@ -53,7 +53,7 @@ body.invitations, body.invitation-resends {
 	box-shadow:0px 0px 4px #999;
 	font-size:.75em;
 	margin:0 auto 20px auto;
-	padding:10px;
+	padding:0 15px;
 	width:480px;
 }
 	.status a:hover {border-bottom:1px #3b3b3b dashed; color:#3b3b3b!important;}

@@ -21,6 +21,7 @@
 	<div class="status"><p>This is normally not there until the user inputs something that the system doesn't like. Also known as an error message. Here is an example of a <a href="#">link</a>.</p>
 		<p>Hide ".signup-name" if the error results in prompting the user to resend invite.</p></div>
 	<div class="status status_error"><p><span class="error_text">Sample error</span>: This is an example of a status error box (div.status_error)</p></div>
+		<div class="status status_error"><p><span class="error_text">Mobile Number</span>: 867-5309 is not a real number, Jenny.</p></div>
 	<div class="content">
 		<form id="signup-form" accept-charset="UTF-8" action="https://hengage-staging.heroku.com/invitations" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="✓"><input name="authenticity_token" type="hidden" value="fT3/ejOg5cepDmORGQkLXvlw0gsq0J39YuG9LIBbwaI="></div>
 			<ul>
@@ -29,7 +30,7 @@
 				<li class="signup-email form-label"><label for="user_email">Email</label></li>
 				<li class="signup-email form-input"><input class="signup-field status_input" id="user_email" length="255" name="user[email]" type="text" value=""></li>
 				<li class="signup-email form-label"><label for="user_email">Mobile Number (optional)</label><p>This game is best experienced with text messaging. We never spam and you can always opt out.</p></li>
-				<li class="signup-email form-input"><input class="signup-field" type="text" value=""></li>
+				<li class="signup-email form-input"><input class="signup-field status_input" type="text" value=""></li>
 				<li class="signup-submit">
 					<input name="commit" type="submit" value="Request invitation">
 				</li>
