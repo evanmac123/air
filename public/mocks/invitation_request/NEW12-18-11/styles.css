@@ -21,7 +21,7 @@ body.invitations, body.invitation-resends {
 	font-weight:bold;
 	text-decoration:none;
 }
-	.invitations a:hover, .invitation-resends a:hover {color:#3b3b3b!important;}
+	.invitations a:hover, .invitation-resends a:hover {color:#87bf4e!important;}
 
 /*.invitations h2, .invitation-resends h2 {
 	font-family:Gotham, sans-serif;
@@ -44,7 +44,7 @@ body.invitations, body.invitation-resends {
 	#navigation ul li { 
 		display:inline;
 		margin:0; 
-		padding:0 5px;
+		padding-left:25px;
 	}
 
 a.nav-links {
