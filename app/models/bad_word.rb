@@ -1,6 +1,8 @@
 class BadWord < ActiveRecord::Base
   belongs_to :demo
 
+  has_alphabetical_column :value
+
   def self.reachable_from_demo(demo)
     where("demo_id IS NULL OR demo_id = ?", demo.id)
   end
@@ -11,9 +13,5 @@ class BadWord < ActiveRecord::Base
 
   def self.generic
     where(:demo_id => nil)
-  end
-
-  def self.alphabetical
-    order("value")
   end
 end

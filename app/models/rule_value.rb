@@ -10,6 +10,8 @@ class RuleValue < ActiveRecord::Base
 
   before_save :normalize_value
 
+  has_alphabetical_column "rule_values.value"
+
   def normalize_value
     self.value = self.value.strip.downcase.gsub(/\s+/, ' ')
   end
@@ -39,10 +41,6 @@ class RuleValue < ActiveRecord::Base
 
   def self.oldest
     order('created_at ASC').limit(1)
-  end
-
-  def self.alphabetical
-    order('rule_values.value ASC')
   end
 
   def self.forbidden

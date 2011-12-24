@@ -17,6 +17,8 @@ class Demo < ActiveRecord::Base
 
   validate :end_after_beginning
 
+  has_alphabetical_column :company_name
+
   # We go through this rigamarole since we can move a user from one demo to
   # another, and usually we will only be concerned with acts belonging to the
   # current demo. The :conditions option on has_many isn't quite flexible
@@ -170,10 +172,6 @@ class Demo < ActiveRecord::Base
         Airbrake.notify(e)
       end
     end
-  end
-
-  def self.alphabetical
-    order("company_name asc")
   end
 
   def schedule_blast_sms(text, send_time)

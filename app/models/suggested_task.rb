@@ -7,16 +7,14 @@ class SuggestedTask < ActiveRecord::Base
     schedule_suggestion
   end
 
+  has_alphabetical_column :name
+
   def suggest_to_user(user)
     TaskSuggestion.create!(:user => user, :suggested_task => self)
   end
 
   def due?
     start_time.nil? || start_time < Time.now
-  end
-
-  def self.alphabetical
-    order(:name)
   end
 
   def self.first_level

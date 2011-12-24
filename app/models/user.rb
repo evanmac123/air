@@ -77,6 +77,8 @@ class User < ActiveRecord::Base
 
   attr_protected :is_site_admin
 
+  has_alphabetical_column :name
+
   def followers
     # You'd think you could do this with an association, and if you can figure
     # out how to get that to work, please, be my guest.
@@ -166,10 +168,6 @@ class User < ActiveRecord::Base
   def first_eligible_rule_value(value)
     matching_rule_values = RuleValue.visible_from_demo(self).where(:value => value)
     matching_rule_values.select{|rule_value| rule_value.not_forbidden?}.first || matching_rule_values.first  
-  end
-
-  def self.alphabetical
-    order("name asc")
   end
 
   def self.in_canonical_ranking_order
