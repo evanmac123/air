@@ -1,0 +1,23 @@
+<h2 class="first">
+  <%= link_to "Admin", admin_path %>:
+  <%= link_to @demo.company_name, admin_demo_path(@demo) %>: 
+  Locations
+</h2>
+
+<% if @locations.present? %>
+  <ul>
+    <% @locations.each do |location| %>
+      <li>
+        <%= location.name %>
+        <%= button_to "Destroy #{location.name}", admin_demo_location_path(@demo, location.id), :method => :delete, :confirm => "Really destroy #{location.name}?" %>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>No locations set for this demo.</p>
+<% end %>
+
+<%= semantic_form_for @location, :url => admin_demo_locations_path(@demo) do |form| %>
+  <%= form.input :name %>
+  <%= form.commit_button %>
+<% end %>

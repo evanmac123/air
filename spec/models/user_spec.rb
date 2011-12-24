@@ -6,6 +6,7 @@ describe User do
   end
 
   it { should belong_to(:demo) }
+  it { should belong_to(:location) }
   it { should have_many(:acts) }
   it { should have_many(:friendships) }
   it { should have_many(:friends).through(:friendships) }

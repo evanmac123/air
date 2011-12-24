@@ -18,6 +18,10 @@ module NavigationHelpers
       admin_demo_path(Demo.find_by_company_name($1))
     when /the admin "(.*)" self-inviting domain page$/
       admin_demo_self_inviting_domains_path(Demo.find_by_company_name($1))
+    when /the admin "(.*)" user-by-location page$/
+      admin_demo_reports_location_breakdown_path(Demo.find_by_company_name($1))
+    when /the admin "(.*)" locations page$/
+      admin_demo_locations_path(Demo.find_by_company_name($1))
     when /the invitation page for "(.*)"/
       user = User.find_by_email($1)
       invitation_path(user.invitation_code)

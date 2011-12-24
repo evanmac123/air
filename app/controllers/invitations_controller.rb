@@ -34,6 +34,8 @@ class InvitationsController < ApplicationController
         flash.now[:success] = "You're now signed in."
         sign_in(@user)
       end
+
+      @locations = @user.demo.locations.alphabetical
     else
       flash[:failure] = "That page doesn't exist."
       redirect_to "/"

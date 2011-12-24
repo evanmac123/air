@@ -15,6 +15,10 @@
     <li class="signup-name form-input"><%= text_field_tag :number %></li>
 
     <%= fields_for :user do |user| %>
+      <% if @locations.present? %>
+        <li class="signup-name form-label"><%= label_tag "user[location_id]", "Location" %></li>
+        <li class="signup-name form-input"><%= collection_select :user, :location_id, @locations, :id, :name, :value => nil, :include_blank => "Please choose a location" %></li>
+      <% end %>
       <li class="signup-name form-label"><%= label_tag "user[password]", "Choose a password" %></li>
       <li class="signup-name form-input"><%= user.password_field :password %></li>
       <li class="signup-name form-label"><%= label_tag "user[password_confirmation]", "And confirm that password" %></li>

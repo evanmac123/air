@@ -1,9 +1,10 @@
 class PhonesController < ApplicationController
-  before_filter :verify_password_chosen, :only => :create
+  before_filter :find_user, :only => :create
+  before_filter :verify_required_fields_present, :only => :create
 
   def create
-    @user = User.find_by_slug(params[:user_id])
     @user.update_password(params[:user][:password], params[:user][:password_confirmation])
+    @user.update_attribute(:location_id, params[:user][:location_id])
 
     unless @user.accepted_invitation_at
       @user.join_game(params[:number], :send) 
@@ -40,11 +41,20 @@ class PhonesController < ApplicationController
 
   private
 
-  def verify_password_chosen
+  def find_user
+    @user = User.find_by_slug(params[:user_id])
+  end
+
+  def verify_required_fields_present
+    location_required = @user.demo.locations.count > 0
+
     password = params[:user][:password]
     password_confirmation = params[:user][:password_confirmation]
-    unless password.present? && password == password_confirmation
-      flash[:failure] = "Please choose a password."
+
+    all_present = password.present? && password == password_confirmation && (!location_required || params[:user][:location_id].present?)
+
+    unless all_present
+      flash[:failure] = location_required ? "Please choose a password and location." : "Please choose a password."
       redirect_to :back
       return false
     end

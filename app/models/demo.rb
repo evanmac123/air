@@ -11,6 +11,7 @@ class Demo < ActiveRecord::Base
   has_many :bad_words, :dependent => :destroy
   has_many :suggested_tasks, :dependent => :destroy
   has_many :self_inviting_domains, :dependent => :destroy
+  has_many :locations, :dependent => :destroy
 
   has_one :skin
 
@@ -194,6 +195,12 @@ class Demo < ActiveRecord::Base
   def detect_bad_words(attempted_value)
     words = attempted_value.split
     BadWord.reachable_from_demo(self).including_any_word(words).limit(1).present?
+  end
+
+  def location_breakdown
+    {}.tap do |breakdown|
+      self.locations.each {|location| breakdown[location] = location.users.count}
+    end
   end
 
   def self.number_not_found_response(receiving_number)

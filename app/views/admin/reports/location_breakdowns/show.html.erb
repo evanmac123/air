@@ -1,0 +1,8 @@
+<table>
+  <% @location_breakdown.keys.sort_by(&:name).each do |key| %>
+    <tr>
+      <th> <%= key.name %> </th>
+      <td> <%= @location_breakdown[key] %> </td>
+    </tr>
+  <% end %>
+</table>

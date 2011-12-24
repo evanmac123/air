@@ -84,6 +84,12 @@ Health::Application.routes.draw do
       resources :suggested_tasks
 
       resources :self_inviting_domains
+
+      resources :locations
+
+      namespace :reports do
+        resource :location_breakdown, :only => [:show]
+      end
     end
 
     resources :users, :only => [] do

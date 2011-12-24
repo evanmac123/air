@@ -52,7 +52,7 @@ describe Report::Activity do
 
   context "when no valid company is identified" do
     it "should raise an exception" do
-      bad_id = @demo.id + 1
+      bad_id = Demo.order("id ASC").last.id + 1
       Demo.where(:id => bad_id).should be_empty
 
       lambda{Report::Activity.new(bad_id)}.should raise_exception(ArgumentError)

@@ -8,6 +8,7 @@ end
 
 Factory.define :user do |factory|
   factory.association(:demo)
+  factory.association(:location) 
   factory.name                  { "James Earl Jones" }
   factory.email                 { Factory.next :email }
   factory.password              { "password" }
@@ -173,4 +174,9 @@ Factory.define :self_inviting_domain do |self_inviting_domain|
 end
 
 Factory.define :incoming_sms do
+end
+
+Factory.define :location do |location|
+  location.sequence(:name) {|n| "Plant #{n}"}
+  location.association :demo
 end

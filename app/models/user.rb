@@ -11,6 +11,7 @@ class User < ActiveRecord::Base
   include User::Ranking
 
   belongs_to :demo
+  belongs_to :location
   belongs_to :game_referrer, :class_name => "User"
   has_many   :acts, :dependent => :destroy
   has_many   :friendships, :dependent => :destroy
