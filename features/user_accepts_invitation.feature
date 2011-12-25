@@ -100,3 +100,24 @@ Feature: User accepts invitation
     Then I should not see "() -"
     But I should see "No mobile number. Please enter one if you'd like to play by SMS."
 
+  Scenario: User accepts invitation before game begins
+    Given the following demo exists:
+      | company name | begins_at                 |
+      | LateCo       | 2011-05-01 00:00:00 -0400 |
+    And time is frozen at "2011-01-01 00:00:00 -0400"
+    And the following users exist:
+      | name | email          | demo                 |
+      | Joe  | joe@lateco.com | company_name: LateCo |
+    And "joe@lateco.com" has received an invitation
+    When "joe@lateco.com" opens the email
+    And I click the first link in the email
+
+    When I fill in "Enter your mobile number" with "508-740-7520"
+    And I fill in "Choose a password" with "whatwhat"
+    And I fill in "And confirm that password" with "whatwhat"
+    And I press "Join the game"
+    And I should see "Your game begins on May 01, 2011 at 12:00 AM Eastern."
+    But "Joe" should be claimed by "+15087407520"
+
+    When I go to the activity page
+    Then I should see "Your game begins on May 01, 2011 at 12:00 AM Eastern."

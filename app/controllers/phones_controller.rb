@@ -2,6 +2,9 @@ class PhonesController < ApplicationController
   before_filter :find_user, :only => :create
   before_filter :verify_required_fields_present, :only => :create
 
+  skip_before_filter :authenticate, :only => :create
+  before_filter :authenticate_without_game_begun_check, :only => :create
+
   def create
     @user.update_password(params[:user][:password], params[:user][:password_confirmation])
     @user.update_attribute(:location_id, params[:user][:location_id])
