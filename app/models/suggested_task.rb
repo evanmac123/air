@@ -2,6 +2,7 @@ class SuggestedTask < ActiveRecord::Base
   belongs_to :demo
   has_many :prerequisites
   has_many :prerequisite_tasks, :class_name => "SuggestedTask", :through => :prerequisites
+  has_many :rule_triggers, :class_name => "Trigger::RuleTrigger"
 
   after_create do
     schedule_suggestion

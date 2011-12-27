@@ -7,6 +7,7 @@
       <th>Short description</th>
       <th>Long description</th>
       <th>Eligibility conditions</th>
+      <th>Completion triggers</th>
       <th></th>
     </tr>
 
@@ -28,6 +29,15 @@
                 <li><%= prerequisite_name %></li>
               <% end %>
             </ul>
+          <% end %>
+        </td>
+        <td>
+          <% if suggested_task.rule_triggers.present? %>
+            Rules (any of the following):
+            <ul>
+              <% suggested_task.rule_triggers.each do |rule_trigger| %>
+                <li><%= rule_trigger.rule.primary_value_text %></li>
+              <% end %>
           <% end %>
         </td>
 

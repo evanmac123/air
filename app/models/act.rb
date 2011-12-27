@@ -16,6 +16,8 @@ class Act < ActiveRecord::Base
 
     check_goal_completion
     check_timed_bonuses
+
+    trigger_suggested_tasks
   end
 
   scope :recent, lambda {|max| order('created_at DESC').limit(max)}
@@ -143,6 +145,13 @@ class Act < ActiveRecord::Base
 
       SMS.send_side_message(user, fulfillable_bonus.sms_response)
     end
+  end
+
+  def trigger_suggested_tasks
+    return unless self.rule_id
+
+    satisfiable_suggestions = self.user.task_suggestions.satisfiable_by_rule(self.rule)
+    satisfiable_suggestions.each(&:satisfy)
   end
 
   def self.record_bad_message(phone_number, body, reply = '')

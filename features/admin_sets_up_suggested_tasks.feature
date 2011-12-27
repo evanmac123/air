@@ -3,6 +3,18 @@ Feature: Admin sets up suggested tasks
     Given the following demo exists:
       | company name |
       | TaskCo       |
+    And the following rules exist:
+      | reply              | demo                 |
+      | you did 1          | company_name: TaskCo |
+      | you did 2          | company_name: TaskCo |
+      | you did 3          | company_name: TaskCo |
+      | you did 4 anywhere |                      |
+    And the following rule values exist:
+      | value       | is_primary | rule                      |
+      | did thing 1 | true       | reply: you did 1          |
+      | did thing 2 | true       | reply: you did 2          |
+      | did thing 3 | true       | reply: you did 3          |
+      | did thing 4 | true       | reply: you did 4 anywhere |
     And the following site admin exists:
       | name |
       | Vlad |
@@ -70,3 +82,11 @@ Feature: Admin sets up suggested tasks
 
     Then I should be on the admin suggested tasks page for "TaskCo"
     And I should see "Make toast Earn points and enjoy a toasty treat Toast is a foodstuff that millions have enjoyed since the invention of fire. Start time: May 01, 2015 at 12:00 AM Eastern Prerequisites: Bake bread Discover fire"
+
+  Scenario: Admin adds suggested task with rule completion trigger
+    When I fill in "Name" with "Do thing 2"
+    And I select "did thing 2" from "Rules"
+    And I select "did thing 4" from "Rules"
+    And I press "Create Suggested task"
+    Then I should be on the admin suggested tasks page for "TaskCo"
+    And I should see "Do thing 2 Rules (any of the following): did thing 2 did thing 4"

@@ -7,6 +7,7 @@ describe Rule do
   it { should belong_to(:goal) }
   it { should have_many(:acts) }
   it { should have_many(:rule_values) }
+  it { should have_many(:rule_triggers) }
 
   describe "#to_s" do
     before(:each) do

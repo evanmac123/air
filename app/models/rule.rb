@@ -2,9 +2,10 @@ class Rule < ActiveRecord::Base
   belongs_to :demo
   belongs_to :goal
 
-  has_many   :acts
   has_one    :primary_value, :class_name => "RuleValue", :conditions => {:is_primary => true}
   has_many   :secondary_values, :class_name => "RuleValue", :conditions => {:is_primary => false}
+  has_many   :acts
+  has_many   :rule_triggers, :dependent => :destroy, :class_name => "Trigger::RuleTrigger"
   has_many   :rule_values, :dependent => :destroy
 
   def to_s
@@ -57,6 +58,12 @@ class Rule < ActiveRecord::Base
     end
 
     true
+  end
+
+  # In some contexts we'd like to get the text of the primary value, but are
+  # constrained to just passing a single symbol as a method name. Hence:
+  def primary_value_text
+    self.primary_value.value
   end
 
   def self.create_with_rule_values(new_attributes, demo_id, primary_value, secondary_values)

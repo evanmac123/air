@@ -7,5 +7,11 @@
   <%= f.input :long_description %>
   <%= f.input :prerequisite_tasks, :collection => @existing_tasks %>
   <%= f.input :start_time, :twelve_hour => true %>
+  <fieldset>
+    <legend>Completion Triggers</legend>
+    <%= label_tag "completion[rule_ids]", "Rules" %>
+    <% rule_options = options_from_collection_for_select(@primary_values, :rule_id, :value, :selected => @selected_rule_ids) %>
+    <%= select_tag "completion[rule_ids]", rule_options, :multiple => true %>
+  </fieldset>
   <%= f.submit %>
 <% end %>

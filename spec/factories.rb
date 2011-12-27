@@ -180,3 +180,8 @@ Factory.define :location do |location|
   location.sequence(:name) {|n| "Plant #{n}"}
   location.association :demo
 end
+
+Factory.define :rule_trigger, :class => Trigger::RuleTrigger do |rule_trigger|
+  rule_trigger.association :rule
+  rule_trigger.association :suggested_task
+end

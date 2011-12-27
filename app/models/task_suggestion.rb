@@ -6,6 +6,10 @@ class TaskSuggestion < ActiveRecord::Base
     check_for_new_available_tasks if changed.include?('satisfied')
   end
 
+  def satisfy
+    update_attributes(:satisfied => true)
+  end
+
   def self.for_task(task)
     where(:suggested_task_id => task.id)
   end
@@ -16,6 +20,12 @@ class TaskSuggestion < ActiveRecord::Base
 
   def self.unsatisfied
     where(:satisfied => false)
+  end
+
+  def self.satisfiable_by_rule(rule_or_rule_id)
+    rule_id = rule_or_rule_id.kind_of?(Rule) ? rule_or_rule_id.id : rule_or_rule_id
+
+    unsatisfied.joins(:suggested_task).joins("INNER JOIN trigger_rule_triggers ON trigger_rule_triggers.suggested_task_id = suggested_tasks.id").where("trigger_rule_triggers.rule_id = ?", rule_id)
   end
 
   protected

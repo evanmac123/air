@@ -30,13 +30,15 @@ class RuleValue < ActiveRecord::Base
     self.select("rule_values.*, ts_rank(to_tsvector('english', value), query) AS rank").from("to_tsquery('#{query_string}') query, rule_values").where("suggestible = true AND is_primary = true AND to_tsvector('english', value) @@ query")
   end
 
-  def self.visible_from_demo(other)
+  def self.visible_from_demo(demo_or_associated)
+    demo = demo_or_associated.kind_of?(Demo) ? demo_or_associated : demo_or_associated.demo
+
     where_clause = "(rules.demo_id = ?)"
-    if other.demo.use_standard_playbook
+    if demo.use_standard_playbook
       where_clause += " OR rules.demo_id IS NULL"
     end
 
-    select('rule_values.*').joins('LEFT JOIN rules ON rules.id = rule_values.rule_id').where(where_clause, other.demo_id)
+    select('rule_values.*').joins('LEFT JOIN rules ON rules.id = rule_values.rule_id').where(where_clause, demo.id)
   end
 
   def self.oldest
@@ -45,6 +47,10 @@ class RuleValue < ActiveRecord::Base
 
   def self.forbidden
     where(:rule_id => nil)
+  end
+
+  def self.primary
+    where(:is_primary => true)
   end
 
   protected
