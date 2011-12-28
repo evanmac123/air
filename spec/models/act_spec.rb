@@ -2,6 +2,7 @@ require 'spec_helper'
 
 describe Act do
   it { should belong_to(:user) }
+  it { should belong_to(:referring_user) }
   it { should belong_to(:rule) }
   it { should belong_to(:demo) }
   it { should have_one(:goal).through(:rule) }
@@ -177,3 +178,17 @@ describe Act, ".find_and_record_rule_suggestion" do
   end
 end
 
+describe Act, ".record_act" do
+  context "when referring_user is not nil" do
+    it "should record the referring user" do
+      user = Factory :user
+      rule = Factory :rule, :description => 'some rule'
+      referring_user = Factory :user
+
+      Act.count.should == 0
+      Act.record_act(user, rule, referring_user)
+      Act.count.should == 1
+      Act.last.referring_user.should == referring_user
+    end
+  end
+end
