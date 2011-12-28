@@ -1,3 +1,8 @@
 class SurveyValidAnswer < ActiveRecord::Base
-  include SmsSurvey::SurveyValidAnswerBehavior
+  belongs_to :survey_question
+  has_one :survey, :through => :survey_question
+
+  validates_presence_of :survey_question_id
+  validates_presence_of :value
+  validates_uniqueness_of :value, :scope => :survey_question_id
 end

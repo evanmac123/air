@@ -15,11 +15,11 @@ Feature: Admin sets up suggested tasks
       | did thing 2 | true       | reply: you did 2          |
       | did thing 3 | true       | reply: you did 3          |
       | did thing 4 | true       | reply: you did 4 anywhere |
-    And the following site admin exists:
-      | name |
-      | Vlad |
-    And "Vlad" has the password "foo"
-    And I sign in via the login page with "Vlad/foo"
+    And the following surveys exist:
+      | name        | demo                 |
+      | Survey 1    | company_name: TaskCo |
+      | Survey 2    | company_name: TaskCo |
+    And I sign in via the login page as an admin
     And I go to the admin "TaskCo" demo page
     And I follow "Suggested tasks for this demo"
     Then I should be on the admin suggested tasks page for "TaskCo"
@@ -90,3 +90,10 @@ Feature: Admin sets up suggested tasks
     And I press "Create Suggested task"
     Then I should be on the admin suggested tasks page for "TaskCo"
     And I should see "Do thing 2 Rules (any of the following): did thing 2 did thing 4"
+
+  Scenario: Admin adds suggested task with survey trigger
+    When I fill in "Name" with "Complete survey 1"
+    And I select "Survey 1" from "Survey"
+    And I press "Create Suggested task"
+    Then I should be on the admin suggested tasks page for "TaskCo"
+    And I should see "Complete survey 1 Survey: Survey 1"

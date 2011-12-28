@@ -148,10 +148,7 @@ class Act < ActiveRecord::Base
   end
 
   def trigger_suggested_tasks
-    return unless self.rule_id
-
-    satisfiable_suggestions = self.user.task_suggestions.satisfiable_by_rule(self.rule)
-    satisfiable_suggestions.each(&:satisfy)
+    self.user.satisfy_suggestions_by_rule(self.rule_id)
   end
 
   def self.record_bad_message(phone_number, body, reply = '')

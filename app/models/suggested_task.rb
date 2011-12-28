@@ -3,6 +3,7 @@ class SuggestedTask < ActiveRecord::Base
   has_many :prerequisites
   has_many :prerequisite_tasks, :class_name => "SuggestedTask", :through => :prerequisites
   has_many :rule_triggers, :class_name => "Trigger::RuleTrigger"
+  has_one :survey_trigger, :class_name => "Trigger::SurveyTrigger"
 
   after_create do
     schedule_suggestion

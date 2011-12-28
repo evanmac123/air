@@ -33,11 +33,17 @@
         </td>
         <td>
           <% if suggested_task.rule_triggers.present? %>
-            Rules (any of the following):
-            <ul>
-              <% suggested_task.rule_triggers.each do |rule_trigger| %>
-                <li><%= rule_trigger.rule.primary_value_text %></li>
-              <% end %>
+            <p>Rules (any of the following):
+              <ul>
+                <% suggested_task.rule_triggers.each do |rule_trigger| %>
+                  <li><%= rule_trigger.rule.primary_value_text %></li>
+                <% end %>
+              </ul>
+            </p>
+          <% end %>
+
+          <% if suggested_task.survey_trigger.present? %>
+            <p>Survey: <%= suggested_task.survey_trigger.survey.name %></p>
           <% end %>
         </td>
 

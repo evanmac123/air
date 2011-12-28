@@ -12,6 +12,10 @@
     <%= label_tag "completion[rule_ids]", "Rules" %>
     <% rule_options = options_from_collection_for_select(@primary_values, :rule_id, :value, :selected => @selected_rule_ids) %>
     <%= select_tag "completion[rule_ids]", rule_options, :multiple => true %>
+
+    <%= label_tag "completion[survey_id]", "Survey" %>
+    <% survey_options = options_from_collection_for_select(@surveys, :id, :name, :selected => @selected_survey_id) %>
+    <%= select_tag "completion[survey_id]", survey_options, :include_blank => true %>
   </fieldset>
   <%= f.submit %>
 <% end %>

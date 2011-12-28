@@ -462,6 +462,17 @@ class User < ActiveRecord::Base
     suggested_task.prerequisite_tasks.all?{|prerequisite_task| self.task_suggestions.for_task(prerequisite_task).satisfied.present?}
   end
 
+  def satisfy_suggestions_by_survey(survey_or_survey_id)
+    satisfiable_suggestions = self.task_suggestions.satisfiable_by_survey(survey_or_survey_id)
+    satisfiable_suggestions.each(&:satisfy)
+  end
+
+  def satisfy_suggestions_by_rule(rule_or_rule_id)
+    return unless rule_or_rule_id
+    satisfiable_suggestions = self.task_suggestions.satisfiable_by_rule(rule_or_rule_id)
+    satisfiable_suggestions.each(&:satisfy)
+  end
+
   def self.next_dummy_number
    last_assigned = self.where("phone_number LIKE '+1999%'").order("phone_number DESC").limit(1).first
 

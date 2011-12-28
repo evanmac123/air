@@ -185,3 +185,8 @@ Factory.define :rule_trigger, :class => Trigger::RuleTrigger do |rule_trigger|
   rule_trigger.association :rule
   rule_trigger.association :suggested_task
 end
+
+Factory.define :survey_trigger, :class => Trigger::SurveyTrigger do |survey_trigger|
+  survey_trigger.association :survey
+  survey_trigger.association :suggested_task
+end

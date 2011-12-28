@@ -23,9 +23,11 @@ class TaskSuggestion < ActiveRecord::Base
   end
 
   def self.satisfiable_by_rule(rule_or_rule_id)
-    rule_id = rule_or_rule_id.kind_of?(Rule) ? rule_or_rule_id.id : rule_or_rule_id
+    satisfiable(rule_or_rule_id, Rule, "trigger_rule_triggers", "rule_id")
+  end
 
-    unsatisfied.joins(:suggested_task).joins("INNER JOIN trigger_rule_triggers ON trigger_rule_triggers.suggested_task_id = suggested_tasks.id").where("trigger_rule_triggers.rule_id = ?", rule_id)
+  def self.satisfiable_by_survey(survey_or_survey_id)
+    satisfiable(survey_or_survey_id, Survey, "trigger_survey_triggers", "survey_id")
   end
 
   protected
@@ -38,5 +40,14 @@ class TaskSuggestion < ActiveRecord::Base
         potentially_available_task.suggest_to_user(self.user)
       end
     end
+  end
+
+  def self.satisfiable(satisfying_object_or_id, satisfying_object_class, trigger_table_name, satisfying_object_column)
+    satisfying_object_id = triggering_object_id(satisfying_object_or_id, satisfying_object_class)
+    unsatisfied.joins(:suggested_task).joins("INNER JOIN #{trigger_table_name} ON #{trigger_table_name}.suggested_task_id = suggested_tasks.id").where("#{trigger_table_name}.#{satisfying_object_column} = ?", satisfying_object_id)
+  end
+
+  def self.triggering_object_id(object_or_object_id, expected_class)
+    object_or_object_id.kind_of?(expected_class) ? object_or_object_id.id : object_or_object_id  
   end
 end
