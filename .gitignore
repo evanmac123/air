@@ -17,3 +17,6 @@ vendor/bundler_gems
 gemset
 db/dumps/*.sql
 coverage.features
+.rbenv-version
+
+
