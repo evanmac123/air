@@ -14,7 +14,7 @@ Then /^I should see a scoreboard for demo "(.*?)"$/ do |demo_name|
 
   page.should have_content("Scoreboard") 
 
-  with_scope '.top-scores' do
+  with_scope '".top-scores"' do
    expected_users.each do |expected_user|
       expected_path = user_path(expected_user)
       page.should have_css("a[href=\"#{expected_path}\"]", :text => expected_user.name)
@@ -35,13 +35,13 @@ Then /^I should see a scoreboard for demo "(.*?)"$/ do |demo_name|
 end
 
 Then /^I should see "(.*?)" with ranking "(.*?)"$/ do |name, ranking|
-  with_scope '.top-scores' do
+  with_scope '".top-scores"' do
     page.should have_content("#{ranking} #{name}")
   end
 end
 
 Then /^I should not see "(.*?)" in the scoreboard$/ do |name|
-  with_scope '.top-scores' do
+  with_scope '".top-scores"' do
     page.should have_no_content(name)
   end
 end

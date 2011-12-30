@@ -8,3 +8,6 @@ development: &default
 test: &test
   <<: *default
   database: health_test
+
+cucumber:
+  <<: *test

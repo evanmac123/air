@@ -50,13 +50,13 @@ When /^I press the de\-fan button$/ do
   find(:css, '.defan').click
 end
 
-When /^(?:|I )unselect "([^"]*)" from "([^"]*)"(?: within "([^"]*)")?$/ do |value, field, selector|
+When /^(?:|I )unselect "([^"]*)" from "([^"]*)"(?: within ("[^"]*"))?$/ do |value, field, selector|
   with_scope(selector) do
     unselect(value, :from => field)
   end
 end
 
-Then /^(?:|I )should see `([^`]*)`(?: within "([^"]*)")?$/ do |text, selector|
+Then /^(?:|I )should see `([^`]*)`(?: within ("[^"]*"))?$/ do |text, selector|
   with_scope(selector) do
     if page.respond_to? :should
       page.should have_content(text)
@@ -69,7 +69,7 @@ end
 Then /^I should see "(.*?)" within a link to (.*?)$/ do |text, page_name|
   expected_href = path_to(page_name)
 
-  with_scope("a[href='#{expected_href}']") do
+  with_scope("\"a[href='#{expected_href}']\"") do
     page.should have_content(text)
   end
 end

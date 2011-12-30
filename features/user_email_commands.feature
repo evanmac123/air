@@ -60,13 +60,18 @@ Feature: User acts via email
       | Dan  | made toast  | 8      |
 
   Scenario: User can send in email commands and have them processed correctly
-  	When "dan@bigco.com" sends email with subject "me tarzan, you jane" and body "ate banana"
-  	And "dan@bigco.com" sends email with subject "me tarzan, you jane" and body "ate banana"
-    Then "dan@bigco.com" have an email command history with the phrase "Bananas are good for you. Points 2/50, rank 3/4."
-    And "dan@bigco.com" have an email command history with the phrase "Bananas are good for you. Points 4/50, rank 3/4."
-    Then "dan@bigco.com" should receive 2 emails
+    When "dan@bigco.com" sends email with subject "me tarzan, you jane" and body "ate banana"
+    Then "dan@bigco.com" should receive 1 email
+    And "dan@bigco.com" have an email command history with the phrase "Bananas are good for you. Points 2/50, rank 3/4."
     When "dan@bigco.com" opens the email
     Then I should see "Bananas are good for you. Points 2/50, rank 3/4" in the email body
+
+    Given a clear email queue
+
+  	When "dan@bigco.com" sends email with subject "me tarzan, you jane" and body "ate banana"
+    Then "dan@bigco.com" have an email command history with the phrase "Bananas are good for you. Points 4/50, rank 3/4."
+    When "dan@bigco.com" opens the email
+    Then I should see "Bananas are good for you. Points 4/50, rank 3/4" in the email body
 
   Scenario: User sends an email with a long body
     When "dan@bigco.com" sends email with subject "me tarzan, you jane" and the following body:

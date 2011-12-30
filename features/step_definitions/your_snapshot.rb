@@ -1,5 +1,5 @@
 def expect_your_score_contents(column, content)
-  with_scope("#my-score .#{column}") do
+  with_scope("\"#my-score .#{column}\"") do
     page.should have_content(content)
   end
 end

@@ -29,7 +29,7 @@ Feature: A user's acts are shown in their profile
     Then I should see "Bob did b"
     But I should not see "Bob did a"
 
-    When I press the see more button within the activity stream
+    When I press the see more button in the activity stream
     Then I should see "Bob did k"
     And I should see "Bob did b"
     And I should see "Bob did a"
