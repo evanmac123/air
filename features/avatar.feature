@@ -15,6 +15,7 @@ Feature: Avatars shown and updatable
     Then I should be on the profile page for "Dan"
     Then I should see an avatar "alistair.jpg" for "Dan"
 
+  @slow
   Scenario: User can change a set avatar
     When I go to the profile page for "Dan"
     And I attach the avatar "alistair.jpg"
@@ -31,6 +32,7 @@ Feature: Avatars shown and updatable
     And I should see the default avatar for "Dan"
     And I should see "Please choose a file to use for your avatar."
 
+  @slow
   Scenario: User can delete their avatar
     When I go to the profile page for "Dan"
     And I attach the avatar "alistair.jpg"

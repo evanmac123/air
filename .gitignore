@@ -20,3 +20,4 @@ coverage.features
 .rbenv-version
 
 
+feature_profiles/feature_profile*

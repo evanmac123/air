@@ -1,6 +1,6 @@
 Feature: Admin deletes secondary rule values
 
-  @javascript
+  @javascript @slow
   Scenario: Admin deletes secondary rule values
     Given the following demo exists:
       | company name |

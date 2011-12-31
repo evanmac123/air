@@ -46,7 +46,7 @@ Feature: User filters their view of the activity stream
     And I should see "Fred ate duckling"
     And "All" should be the active act filter link
 
-  @javascript
+  @javascript @slow
   Scenario: "See more" button follows filter currently in effect
     Given the following acts exist:
       | text             | user       |

@@ -64,7 +64,7 @@ Feature: Scoreboard
     And "Lazy" has the password "foobar"
     And I sign in via the login page as "Lazy/foobar"
 
-  @javascript
+  @javascript @slow
   Scenario: Scoreboard on acts page
     When I go to the acts page
     Then I should see a scoreboard for demo "Alpha"

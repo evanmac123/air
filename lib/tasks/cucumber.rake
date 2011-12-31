@@ -32,6 +32,12 @@ begin
       t.profile = 'rerun'
     end
 
+    Cucumber::Rake::Task.new({:quick => 'db:test:prepare'}, 'Run features not tagged with @slow or @javascript') do |t|
+      t.binary = vendored_cucumber_bin # If nil, the gem's binary is used.
+      t.fork = true # You may get faster startup if you set this to false
+      t.profile = 'quick'
+    end
+
     desc 'Run all features'
     task :all => [:ok, :wip]
 
