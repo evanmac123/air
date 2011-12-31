@@ -9,22 +9,23 @@
   <% end %>
 <% end %>
 
-<%= form_tag phones_path(:user_id => @user), :id => "signup-form" do %>
+<%= form_for @user, :url => invitation_acceptance_path(:user_id => @user.slug), :id => "signup-form", :builder => FancyFormBuilder do |f| %>
   <ul>
-    <li class="signup-name form-label"><%= label_tag "number", "Enter your mobile number" %></li>
-    <li class="signup-name form-input"><%= text_field_tag :number %></li>
+    <%= f.fancy_text_field :phone_number, :label_text => "Enter your mobile number" %>
 
-    <%= fields_for :user do |user| %>
-      <% if @locations.present? %>
+    <% if @locations.present? %>
+      <ul class="form-section signup-location">
         <li class="signup-name form-label"><%= label_tag "user[location_id]", "Location" %></li>
         <li class="signup-name form-input"><%= collection_select :user, :location_id, @locations, :id, :name, :value => nil, :include_blank => "Please choose a location" %></li>
-      <% end %>
-      <li class="signup-name form-label"><%= label_tag "user[password]", "Choose a password" %></li>
-      <li class="signup-name form-input"><%= user.password_field :password %></li>
-      <li class="signup-name form-label"><%= label_tag "user[password_confirmation]", "And confirm that password" %></li>
-      <li class="signup-name form-input"><%= user.password_field :password_confirmation %></li>
+      </ul>
     <% end %>
 
-    <%= submit_tag 'Join the game' %>
+    <%= f.fancy_password_field :password, :label_text => "Choose a password" %>
+    <%= f.fancy_password_field :password_confirmation, :label_text => "And confirm that password" %>
+    <ul class="form-section signup-submit">
+      <li><input name="commit" type="submit" value="Join the game"></li>
+      <li><a href="#" class="feedback">Feedback?</a></li>
+    </ul>
+
   </ul>
 <% end %>

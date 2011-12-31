@@ -1,9 +1,14 @@
-<%= form_tag invitations_path, :id => 'signup-form' do |f| %>
-  <ul>
-    <li class="signup-name form-label"><%= label_tag "user[name]", "Name" %></li>
-    <li class="signup-name form-input"><%= text_field_tag 'user[name]', '', :length => 255 %></li>
-    <li class="signup-name form-label"><%= label_tag "user[email]", "Email" %></li>
-    <li class="signup-name form-input"><%= text_field_tag 'user[email]', '', :length => 255 %></li>
-    <li class="signup-submit"><%= submit_tag "Request invitation" %></li>
+<%= form_for @invitation_request, :url => invitations_path, :id => "signup-form", :builder => FancyFormBuilder do |f| %>
+  <%= f.fancy_text_field :name, :class => "signup-field" %>
+  <%= f.fancy_text_field :email, :class => "signup-field" %>
+  <ul class="form-section signup-submit">
+    <li><input name="commit" type="submit" value="Request invitation"></li>
+    <li><a href="#" class="feedback">Feedback?</a></li>
   </ul>
+<% end %>
+
+<% content_for :javascript do %>
+  <%= javascript_tag do %>
+    $("input#invitation_request_name").focus();
+  <% end %>
 <% end %>

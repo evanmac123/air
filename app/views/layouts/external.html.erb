@@ -1,0 +1,49 @@
+<!DOCTYPE html><html>
+<head>
+<title>H Engage </title>
+  <%= stylesheet_link_tag "styles" %>
+	<!--[if IE]><%= stylesheet_link_tag "stylesIE" %><![endif]-->
+  <%= render 'shared/skin_styles' %>
+  <link rel="stylesheet" type='text/css' href='https://getbarometer.s3.amazonaws.com/assets/barometer/css/barometer.css'/>
+  <%= stylesheet_link_tag 'barometer_tweaks' %>
+  <%= csrf_meta_tag %>
+  <%= render 'shared/mixpanel' %>
+</head>
+<body class="<%= body_class %>">
+  <%= javascript_include_tag 'jquery' %> <%# must appear before header, with its Assistly widget %>
+	<div class="top">
+		<div class="header">
+			<div id="logo">
+        <a href="/"><%= image_tag "logo.png", :alt => "H Engage tree" %></a>
+			</div>
+			<div id="navigation">
+				<ul>
+          <!-- TODO: Fix current link -->
+          <li><%= link_to "Home", "/", :class => "nav-links" %></li>
+          <li><%= link_to "Sign Up", new_invitation_path, :class => "nav-links nav-current" %></li>
+          <li><%= link_to "Log In", sign_in_path, :class => "nav-links" %></li>
+				</ul>
+			</div>
+			<div class="cf"></div>
+		</div>
+	</div>
+	<div class="content">
+    <% status_content = yield :status %>
+    <% status_content = flash[:failure] unless status_content.present? %>
+    <% if status_content.present? %>
+      <div class="status">
+        <%= status_content %>
+      </div>
+    <% end %>
+
+    <%= yield %>
+  </div>
+	<div class="footer">
+	</div>
+  <%= render :partial => 'shared/javascript' %>
+  <script src='https://getbarometer.s3.amazonaws.com/assets/barometer/javascripts/barometer.js' type='text/javascript'></script>
+  <script type="text/javascript" charset="utf-8">
+    BAROMETER.load('yz1dR2sryb77QAfHhyz7D');
+  </script>
+</body>
+</html>

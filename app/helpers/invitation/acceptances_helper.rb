@@ -1,0 +1,2 @@
+module Invitation::AcceptancesHelper
+end

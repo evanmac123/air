@@ -169,7 +169,7 @@ Factory.define :suggested_task do |suggested_task|
 end
 
 Factory.define :self_inviting_domain do |self_inviting_domain|
-  self_inviting_domain.sequence(:domain) {|n| "foo_#{n}.com"}
+  self_inviting_domain.sequence(:domain) {|n| "example#{n}.com"}
   self_inviting_domain.association :demo
 end
 

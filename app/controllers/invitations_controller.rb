@@ -1,30 +1,31 @@
 class InvitationsController < ApplicationController
   skip_before_filter :authenticate
 
-  before_filter :check_for_name_and_email, :only => :create
-
-  layout 'application'
+  layout 'external'
   
   def new
+    @invitation_request = InvitationRequest.new
   end
 
   def create
-    params[:user][:email] = params[:user][:email].strip.downcase
+    @invitation_request = InvitationRequest.new(params[:invitation_request])
 
-    find_inviting_domain
-    unless @inviting_domain
-      render "invalid_inviting_domain"
+    unless @invitation_request.valid?
+      render :action => :new
       return
     end
 
-    User.transaction do
-      if User.where(:email => params[:user][:email]).empty?
-        @user = User.create!(params[:user].merge(:demo => @inviting_domain.demo))
-        @user.invite
-      else
-        render "duplicate_email"
-      end
+    unless @inviting_domain = @invitation_request.self_inviting_domain
+      render "invalid_inviting_domain"
+      return
     end
+      
+    if @invitation_request.duplicate_email?
+      render "duplicate_email"
+      return
+    end
+
+    @user = @invitation_request.create_and_invite_user
   end
 
   def show
@@ -40,19 +41,5 @@ class InvitationsController < ApplicationController
       flash[:failure] = "That page doesn't exist."
       redirect_to "/"
     end
-  end
-
-  protected
-
-  def check_for_name_and_email
-    unless params[:user][:name].present? && params[:user][:email].present?
-      flash[:failure] = "You must enter your name and e-mail address to request an invitation."
-      redirect_to new_invitation_path
-    end
-  end
-
-  def find_inviting_domain
-    @submitted_domain = params[:user][:email].email_domain
-    @inviting_domain = SelfInvitingDomain.where(:domain => @submitted_domain).first
   end
 end

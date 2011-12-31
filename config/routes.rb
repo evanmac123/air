@@ -12,6 +12,7 @@ Health::Application.routes.draw do
   resources :invitations, :only => [:new, :create, :show] 
   namespace :invitation do
     resource :resend
+    resource :acceptance
   end
 
   resources :acts,        :only => [:index, :create]
