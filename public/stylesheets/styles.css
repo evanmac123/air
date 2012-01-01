@@ -6,7 +6,7 @@ img {border:0;}
 p {margin:0;padding:0;}
 
 /* ============== SIGN UP PAGE =============== */
-body.invitations, body.invitation-resends {
+body.external {
 	background-color:#dbdbdb;
 	background-image:url('/images/bg_body.jpg');
 	font-family:Helvetica, Arial, sans-serif;
@@ -15,13 +15,13 @@ body.invitations, body.invitation-resends {
 	padding:0;
 }
 
-.invitations a, .invitation-resends a {
+.external a, .invitation-resends a {
 	color:#6f9d41;
 	font-family:Gotham, sans-serif;
 	font-weight:bold;
 	text-decoration:none;
 }
-	.invitations a:hover, .invitation-resends a:hover {color:#87bf4e!important;}
+	.external a:hover, .invitation-resends a:hover {color:#87bf4e!important;}
 
 /*.invitations h2, .invitation-resends h2 {
 	font-family:Gotham, sans-serif;
@@ -29,12 +29,12 @@ body.invitations, body.invitation-resends {
 }*/
 
 /* ------- Top/Navigation ------ */
-.invitations .top {
+.external .top {
 	background-image:url('/images/bg_box.jpg');
 	border-bottom:1px #355613 solid;
 }
 
-.invitations .header {margin:0 auto; padding:10px 0; width:700px}
+.external .header {margin:0 auto; padding:10px 0; width:700px}
 #logo {float:left;}
 #navigation {
 	float:right;
@@ -60,7 +60,7 @@ a.nav-current {
 }
 
 /* ------- Top/Content ------ */
-.invitations .content {
+.external .content {
 	border-top:1px #f8f8f8 solid;
 	padding:20px;
 }
@@ -106,8 +106,9 @@ ul.form-section {
 	width:380px;
 }
 	.form-input input:focus {background-color:#fff;}
-.form-input .field_with_errors input {border:2px #e11a00 solid;}
+.form-input .field_with_errors input, .form-input .field_with_errors input {border:2px #e11a00 solid;}
 
+select#user_location_id {width: 404px !important;}
 .form-msg {
 	color:#e11a00;
 	margin-top:10px;

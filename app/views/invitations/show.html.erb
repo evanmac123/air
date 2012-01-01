@@ -14,10 +14,8 @@
     <%= f.fancy_text_field :phone_number, :label_text => "Enter your mobile number" %>
 
     <% if @locations.present? %>
-      <ul class="form-section signup-location">
-        <li class="signup-name form-label"><%= label_tag "user[location_id]", "Location" %></li>
-        <li class="signup-name form-input"><%= collection_select :user, :location_id, @locations, :id, :name, :value => nil, :include_blank => "Please choose a location" %></li>
-      </ul>
+      <% select_html = collection_select :user, :location_id, @locations, :id, :name, :value => nil, :include_blank => "Please choose a location"  %>
+      <%= f.fancy_content :location_id, select_html, :label_text => "Location" %>
     <% end %>
 
     <%= f.fancy_password_field :password, :label_text => "Choose a password" %>

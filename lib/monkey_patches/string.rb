@@ -1,4 +1,6 @@
 class String
+  LOWERCASE_RANGE = ('a'..'z').freeze
+
   def remove_mid_word_characters
     gsub(/'/, '')
   end
@@ -46,5 +48,9 @@ class String
   def email_domain
     self =~ /@([^@]+)$/
     $1
+  end
+
+  def starts_with_lowercase?
+    LOWERCASE_RANGE.include? self.first
   end
 end

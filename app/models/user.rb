@@ -32,6 +32,7 @@ class User < ActiveRecord::Base
 
   validates_presence_of :name
   validates_presence_of :sms_slug, :message => "Sorry, you can't choose a blank user ID."
+  validates_presence_of :location_id, :if => :associated_demo_has_locations, :message => "Please choose a location"
 
   has_attached_file :avatar, 
     :styles => {:thumb => "48x48#"}, 
@@ -78,6 +79,18 @@ class User < ActiveRecord::Base
   attr_protected :is_site_admin
 
   has_alphabetical_column :name
+
+  def update_password_with_blank_forbidden(password, password_confirmation)
+    # See comment in user_spec for #update_password.
+    unless password.present?
+      self.errors.add :password, "Please choose a password"
+      return false
+    end
+
+    update_password_without_blank_forbidden(password, password_confirmation)
+  end
+
+  alias_method_chain :update_password, :blank_forbidden
 
   def followers
     # You'd think you could do this with an association, and if you can figure
@@ -554,6 +567,11 @@ class User < ActiveRecord::Base
     if self.class.where(where_conditions).limit(1).present?
       self.errors.add(:phone_number, "has already been taken")
     end
+  end
+
+  def associated_demo_has_locations
+    return unless self.demo
+    self.demo.locations.count > 0
   end
 
   def self.claimable_by_email_address(claim_string)
