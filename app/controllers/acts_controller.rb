@@ -1,6 +1,8 @@
 class ActsController < ApplicationController
   include Reply
 
+  layout "application"
+
   def index
     @current_link_text = "Home"
 
