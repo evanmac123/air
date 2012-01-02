@@ -30,6 +30,11 @@ class TaskSuggestion < ActiveRecord::Base
     satisfiable(survey_or_survey_id, Survey, "trigger_survey_triggers", "survey_id")
   end
 
+  def self.without_mandatory_referrer
+    # Assumes we've already joined to RuleTrigger
+    where("trigger_rule_triggers.referrer_required" => false)
+  end
+
   protected
 
   def check_for_new_available_tasks

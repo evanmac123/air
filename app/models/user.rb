@@ -480,9 +480,14 @@ class User < ActiveRecord::Base
     satisfiable_suggestions.each(&:satisfy)
   end
 
-  def satisfy_suggestions_by_rule(rule_or_rule_id)
+  def satisfy_suggestions_by_rule(rule_or_rule_id, referring_user_id = nil)
     return unless rule_or_rule_id
     satisfiable_suggestions = self.task_suggestions.satisfiable_by_rule(rule_or_rule_id)
+
+    unless referring_user_id
+      satisfiable_suggestions = satisfiable_suggestions.without_mandatory_referrer
+    end
+
     satisfiable_suggestions.each(&:satisfy)
   end
 

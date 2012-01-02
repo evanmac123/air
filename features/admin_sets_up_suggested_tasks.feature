@@ -91,6 +91,15 @@ Feature: Admin sets up suggested tasks
     Then I should be on the admin suggested tasks page for "TaskCo"
     And I should see "Do thing 2 Rules (any of the following): did thing 2 did thing 4"
 
+  Scenario: Admin adds suggested task with rule completion trigger and referer required
+    When I fill in "Name" with "Do thing 2"
+    And I select "did thing 2" from "Rules"
+    And I select "did thing 4" from "Rules"
+    And I check "Referrer required"
+    And I press "Create Suggested task"
+    Then I should be on the admin suggested tasks page for "TaskCo"
+    And I should see "Do thing 2 Rules (any of the following, referrer required): did thing 2 did thing 4"
+
   Scenario: Admin adds suggested task with survey trigger
     When I fill in "Name" with "Complete survey 1"
     And I select "Survey 1" from "Survey"

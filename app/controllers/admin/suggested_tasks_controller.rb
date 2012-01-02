@@ -59,7 +59,7 @@ class Admin::SuggestedTasksController < AdminBaseController
 
   def set_up_rule_triggers(rule_ids)
     _rule_ids = rule_ids.present? ? rule_ids : []
-    @suggested_task.rule_triggers = _rule_ids.map{|rule_id| Trigger::RuleTrigger.new(:rule_id => rule_id) }
+    @suggested_task.rule_triggers = _rule_ids.map{|rule_id| Trigger::RuleTrigger.new(:rule_id => rule_id, :referrer_required => params[:completion][:referrer_required]) }
   end
 
   def set_up_survey_trigger(survey_id)

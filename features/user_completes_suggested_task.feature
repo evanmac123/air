@@ -8,22 +8,27 @@ Feature: User completes suggested task
     And the following claimed user exists:
       | name | phone number | demo                 |
       | Joe  | +14152613077 | company_name: TaskCo |
+      | Bob  | +14155551212 | company_name: TaskCo |
+    And "Bob" has the SMS slug "bob"
     And "Joe" has the password "foo"
     And the following suggested tasks exist:
-      | name          | demo                 |
-      | Rule task 1   | company_name: TaskCo |
-      | Rule task 2   | company_name: TaskCo |
-      | Rule task 3   | company_name: TaskCo |
-      | Rule task 4   | company_name: TaskCo |
-      | Rule task 5   | company_name: TaskCo |
-      | Rule task 6   | company_name: TaskCo |
-      | Survey task 1 | company_name: TaskCo |
-      | Survey task 2 | company_name: TaskCo |
-      | Survey task 3 | company_name: TaskCo |
-      | Survey task 4 | company_name: TaskCo |
+      | name           | demo                 |
+      | Rule task 1    | company_name: TaskCo |
+      | Rule task 2    | company_name: TaskCo |
+      | Rule task 3    | company_name: TaskCo |
+      | Rule task 4    | company_name: TaskCo |
+      | Rule task 5    | company_name: TaskCo |
+      | Rule task 6    | company_name: TaskCo |
+      | Referer task 1 | company_name: TaskCo |
+      | Referer task 2 | company_name: TaskCo |
+      | Survey task 1  | company_name: TaskCo |
+      | Survey task 2  | company_name: TaskCo |
+      | Survey task 3  | company_name: TaskCo |
+      | Survey task 4  | company_name: TaskCo |
     And the following rules exist:
       | reply | demo                 |
       | did 1 | company_name: TaskCo |
+      | did 5 | company_name: TaskCo |
     And the following rule value exists:
       | value | is primary | rule         |
       | do 1  | true       | reply: did 1 |
@@ -31,6 +36,9 @@ Feature: User completes suggested task
       | rule         | suggested task    |
       | reply: did 1 | name: Rule task 1 |
       | reply: did 5 | name: Rule task 5 |
+    And the following rule triggers exist:
+      | rule         | suggested task       | referrer required |
+      | reply: did 1 | name: Referer task 1 | true              |
     And the following survey exists:
       | name     | demo                 | open at                | close at               |
       | Survey 1 | company_name: TaskCo | 2011-01-01 00:00 +0000 | 2011-01-05 00:00 +0000 |
@@ -66,6 +74,7 @@ Feature: User completes suggested task
     And the task "Rule task 6" has prerequisite "Rule task 5"
     And the task "Survey task 2" has prerequisite "Survey task 1"
     And the task "Survey task 4" has prerequisite "Survey task 2"
+    And the task "Referer task 2" has prerequisite "Referer task 1"
     And DJ cranks 20 times
     When I sign in via the login page with "Joe/foo"
 
@@ -74,12 +83,14 @@ Feature: User completes suggested task
     And I should see "Rule task 5"
     And I should see "Survey task 1"
     And I should see "Survey task 3"
+    And I should see "Referer task 1"
 
     But I should not see "Rule task 2"
     And I should not see "Rule task 4"
     And I should not see "Rule task 6"
     And I should not see "Survey task 2"
     And I should not see "Survey task 4"
+    And I should not see "Referer task 2"
 
   Scenario: User completes suggested task by acting according to rule
     When "+14152613077" sends SMS "do 1"
@@ -91,12 +102,34 @@ Feature: User completes suggested task
     And I should see "Rule task 5"
     And I should see "Survey task 1"
     And I should see "Survey task 3"
+    And I should see "Referer task 1"
 
     But I should not see "Rule task 1"
     And I should not see "Rule task 4"
     And I should not see "Rule task 6"
     And I should not see "Survey task 2"
     And I should not see "Survey task 4"
+    And I should not see "Referer task 2"
+
+  Scenario: User completes suggested task by acting according to rule with mandatory referrer
+    When "+14152613077" sends SMS "do 1 bob"
+    Then "+14152613077" should have received an SMS including "did 1"
+    When I go to the activity page
+
+    Then I should see "Rule task 2"
+    And I should see "Rule task 3"
+    And I should see "Rule task 5"
+    And I should see "Survey task 1"
+    And I should see "Survey task 3"
+    And I should see "Referer task 2"
+
+    But I should not see "Rule task 1"
+    And I should not see "Rule task 4"
+    And I should not see "Rule task 6"
+    And I should not see "Survey task 2"
+    And I should not see "Survey task 4"
+    And I should not see "Referer task 1"
+
 
   Scenario: User completes suggested task by completing survey
     When "+14152613077" sends SMS "survey"
@@ -111,10 +144,12 @@ Feature: User completes suggested task
     And I should see "Rule task 5"
     And I should see "Survey task 2"
     And I should see "Survey task 3"
+    And I should see "Referer task 1"
 
     But I should not see "Rule task 2"
     And I should not see "Rule task 4"
     And I should not see "Rule task 6"
     And I should not see "Survey task 1"
     And I should not see "Survey task 4"
+    And I should not see "Referer task 2"
 

@@ -149,7 +149,7 @@ class Act < ActiveRecord::Base
   end
 
   def trigger_suggested_tasks
-    self.user.satisfy_suggestions_by_rule(self.rule_id)
+    self.user.satisfy_suggestions_by_rule(self.rule_id, self.referring_user_id.present?)
   end
 
   def self.record_bad_message(phone_number, body, reply = '')
