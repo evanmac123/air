@@ -12,7 +12,6 @@ gem "pg"
 gem "flutie"
 gem "dynamic_form"
 gem "twilio-rb", :git => "git://github.com/stevegraham/twilio-rb.git", :require => 'twilio'
-gem "copycopter_client", "~> 1.0.1"
 gem "clearance", "~> 0.10.0"
 gem "sass"
 gem "aws-s3"
@@ -40,6 +39,10 @@ group :development, :test do
   gem "flay"
   gem "flog"
   gem "rcov"
+end
+
+group :development, :staging, :production do
+  gem "copycopter_client", "~> 1.0.1"
 end
 
 group :test do

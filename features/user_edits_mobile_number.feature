@@ -40,7 +40,8 @@ Feature: User can Change their mobile number
     Then I should not see "Phone number can't be blank"
     And I should not see "() -"
     But I should see "OK, you won't get any more text messages from us until such time as you enter a mobile number again."
-    And I should see "No mobile number. Please enter one if you'd like to play by SMS."
+    And I should see "No mobile number. Please enter one if you'd like to play using text messaging."
+    And the mobile number field should be blank
 
   Scenario: User has trouble updating their mobile number  
     When I go to the profile page for "Bob"

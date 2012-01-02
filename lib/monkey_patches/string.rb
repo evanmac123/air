@@ -33,6 +33,8 @@ class String
   end
 
   def as_pretty_phone
+    return "" if self.blank?
+
     without_country_code = self.gsub(/^\+1/, '')
     area_code = without_country_code[0,3]
     exchange = without_country_code[3,3]

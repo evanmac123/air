@@ -102,7 +102,7 @@ Feature: User accepts invitation
     And I should see "Dan joined the game less than a minute ago"
     When I go to the profile page for "Dan"
     Then I should not see "() -"
-    But I should see "No mobile number. Please enter one if you'd like to play by SMS."
+    But I should see "No mobile number. Please enter one if you'd like to play using text messaging."
 
   Scenario: User accepts invitation before game begins
     Given the following demo exists:
