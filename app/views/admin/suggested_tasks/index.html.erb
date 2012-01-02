@@ -45,6 +45,10 @@
           <% if suggested_task.survey_trigger.present? %>
             <p>Survey: <%= suggested_task.survey_trigger.survey.name %></p>
           <% end %>
+
+          <% if suggested_task.rule_triggers.empty? && suggested_task.survey_trigger.blank? %>
+            <p>Manual only.</p>
+          <% end %>
         </td>
 
         <td>

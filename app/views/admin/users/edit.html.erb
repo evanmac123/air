@@ -6,6 +6,13 @@
   <%= form.input :connection_bounty %>
 <% end %>
 
+<fieldset>
+  <legend>This User's Suggested Tasks</legend>
+  <% @task_suggestions.each do |task_suggestion| %>
+    <%= button_to "Complete #{task_suggestion.suggested_task.name} for #{@user.name}", admin_task_suggestion_path(task_suggestion), :method => :put, :confirm => "Complete #{task_suggestion.suggested_task.name} for #{@user.name}?" %>
+  <% end %>
+</fieldset>
+
 <%= semantic_form_for @user, :url => admin_demo_user_path(@user.demo, @user) do |form| %>
   <fieldset>
     <legend>Move User To A Different Demo</legend>

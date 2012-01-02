@@ -6,7 +6,7 @@ class TaskSuggestion < ActiveRecord::Base
     check_for_new_available_tasks if changed.include?('satisfied')
   end
 
-  def satisfy
+  def satisfy!
     update_attributes(:satisfied => true)
   end
 

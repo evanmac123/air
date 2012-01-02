@@ -477,7 +477,7 @@ class User < ActiveRecord::Base
 
   def satisfy_suggestions_by_survey(survey_or_survey_id)
     satisfiable_suggestions = self.task_suggestions.satisfiable_by_survey(survey_or_survey_id)
-    satisfiable_suggestions.each(&:satisfy)
+    satisfiable_suggestions.each(&:satisfy!)
   end
 
   def satisfy_suggestions_by_rule(rule_or_rule_id, referring_user_id = nil)
@@ -488,7 +488,7 @@ class User < ActiveRecord::Base
       satisfiable_suggestions = satisfiable_suggestions.without_mandatory_referrer
     end
 
-    satisfiable_suggestions.each(&:satisfy)
+    satisfiable_suggestions.each(&:satisfy!)
   end
 
   def self.next_dummy_number
