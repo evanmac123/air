@@ -18,7 +18,7 @@ class PhonesController < ApplicationController
         redirect_to current_user
       end
     else
-      flash[:failure] = "Problem updating your mobile number: #{current_user.errors.full_messages}"
+      flash[:failure] = current_user.errors[:phone_number]
       redirect_to :back
     end
   end

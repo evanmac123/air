@@ -570,7 +570,7 @@ class User < ActiveRecord::Base
                        end
 
     if self.class.where(where_conditions).limit(1).present?
-      self.errors.add(:phone_number, "has already been taken")
+      self.errors.add(:phone_number, "Sorry, but that phone number has already been taken. Need help? Contact support@hengage.com")
     end
   end
 

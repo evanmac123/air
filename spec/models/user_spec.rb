@@ -40,6 +40,8 @@ describe User do
     user3.should_not be_valid
     user4.should be_valid
     user5.should_not be_valid
+
+    user3.errors[:phone_number].should == ["Sorry, but that phone number has already been taken. Need help? Contact support@hengage.com"]
   end
 
   it "should validate uniqueness of SMS slug when not blank" do

@@ -48,5 +48,5 @@ Feature: User can Change their mobile number
     And I fill in "Enter your new mobile number" with "(617) 867-5309"
     And I press the button to submit the mobile number
     Then I should be on the profile page for "Bob"
-    And I should see "Problem updating your mobile number: Phone number has already been taken"
+    And I should see "Sorry, but that phone number has already been taken. Need help? Contact support@hengage.com"
     And I should see "(415) 555-1212"
