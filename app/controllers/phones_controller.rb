@@ -15,13 +15,9 @@ class PhonesController < ApplicationController
     current_user.new_phone_number = normalized_phone_number
     current_user.generate_short_numerical_validation_token
     if current_user.save
-      if request.xhr?
-        render :text => current_user.phone_number
-      else
-        SMS.send_message current_user.new_phone_number, current_user.new_phone_validation
-        flash[:success] = "We have sent a verification code to #{current_user.new_phone_number.as_pretty_phone}. It will arrive momentarily. Please enter it into the box below."
-        redirect_to current_user
-      end
+      SMS.send_message current_user.new_phone_number, current_user.new_phone_validation
+      flash[:success] = "We have sent a verification code to #{current_user.new_phone_number.as_pretty_phone}. It will arrive momentarily. Please enter it into the box below."
+      redirect_to current_user
     else
       flash[:failure] = current_user.errors[:new_phone_number]
       redirect_to :back

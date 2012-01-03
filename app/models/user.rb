@@ -25,7 +25,7 @@ class User < ActiveRecord::Base
   has_and_belongs_to_many :bonus_thresholds
   has_and_belongs_to_many :levels
 
-  validate :normalized_phone_number_unique
+  validate :normalized_phone_number_unique, :normalized_new_phone_number_unique
 
   validates_uniqueness_of :slug
   validates_uniqueness_of :sms_slug, :message => "Sorry, that user ID is already taken."
@@ -570,9 +570,16 @@ class User < ActiveRecord::Base
     end
   end
 
+  def normalized_new_phone_number_unique
+    normalize_unique(:new_phone_number)
+  end
   def normalized_phone_number_unique
-    return if self.new_phone_number.blank?
-    normalized_number = PhoneNumber.normalize(self.new_phone_number)
+    normalize_unique(:phone_number)
+  end
+
+  def normalize_unique(input)
+    return if self[input].blank?
+    normalized_number = PhoneNumber.normalize(self[input])
 
     where_conditions = if self.new_record?
                          ["phone_number = ?", normalized_number]
@@ -581,7 +588,7 @@ class User < ActiveRecord::Base
                        end
 
     if self.class.where(where_conditions).limit(1).present?
-      self.errors.add(:new_phone_number, "Sorry, but that phone number has already been taken. Need help? Contact support@hengage.com")
+      self.errors.add(input, "Sorry, but that phone number has already been taken. Need help? Contact support@hengage.com")
     end
   end
 
