@@ -18,6 +18,8 @@ gemset
 db/dumps/*.sql
 coverage.features
 .rbenv-version
+.idea
+*~
 
 
 feature_profiles/feature_profile*
