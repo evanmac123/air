@@ -25,6 +25,16 @@ class PhonesController < ApplicationController
   end
 
   def validate
+    if params[:user][:new_phone_validation] == current_user.new_phone_validation
+      current_user.phone_number = current_user.new_phone_number
+      current_user.new_phone_number = ""
+      current_user.new_phone_validation = ""
+      if current_user.save
+        flash[:success] = "You have updated your phone number"
+        redirect_to current_user and return
+      end
+    end
+    flash[:error] = "I'm sorry--the code you entered was invalid"
     redirect_to current_user
   end
 end
