@@ -10,12 +10,15 @@ class PhonesController < ApplicationController
     normalized_phone_number = PhoneNumber.normalize(params[:user][:phone_number])
 
     current_user.new_phone_number = normalized_phone_number
-    current_user.new_phone_validation = "abcde"
+    letters = "abcdefghkmnpqrstuxz"
+    jumbled_letters = letters.split("").sort_by{rand}.join
+    token = jumbled_letters[0,4]
+    current_user.new_phone_validation = token
     if current_user.save
       if request.xhr?
         render :text => current_user.phone_number
       else
-        flash[:success] = "We have sent a verification to your phone. It will arrive momentarily."
+        flash[:success] = "We have sent a verification code to your phone. It will arrive momentarily. Please enter it into the box below."
         redirect_to current_user
       end
     else
@@ -30,11 +33,11 @@ class PhonesController < ApplicationController
       current_user.new_phone_number = ""
       current_user.new_phone_validation = ""
       if current_user.save
-        flash[:success] = "You have updated your phone number"
+        flash[:success] = "You have updated your phone number."
         redirect_to current_user and return
       end
     end
-    flash[:error] = "I'm sorry--the code you entered was invalid"
+    flash[:error] = "I'm sorry--the code you entered was invalid. Please try typing it again."
     redirect_to current_user
   end
 end
