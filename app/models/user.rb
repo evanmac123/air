@@ -190,6 +190,8 @@ class User < ActiveRecord::Base
     letters = "0234568"
     jumbled_letters = letters.split("").sort_by{rand}.join
     token = jumbled_letters[0,4]
+    self.new_phone_validation = token
+    self.save
   end
 
   def self.in_canonical_ranking_order
