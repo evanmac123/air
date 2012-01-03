@@ -571,8 +571,8 @@ class User < ActiveRecord::Base
   end
 
   def normalized_phone_number_unique
-    return if self.phone_number.blank?
-    normalized_number = PhoneNumber.normalize(self.phone_number)
+    return if self.new_phone_number.blank?
+    normalized_number = PhoneNumber.normalize(self.new_phone_number)
 
     where_conditions = if self.new_record?
                          ["phone_number = ?", normalized_number]
@@ -581,7 +581,7 @@ class User < ActiveRecord::Base
                        end
 
     if self.class.where(where_conditions).limit(1).present?
-      self.errors.add(:phone_number, "Sorry, but that phone number has already been taken. Need help? Contact support@hengage.com")
+      self.errors.add(:new_phone_number, "Sorry, but that phone number has already been taken. Need help? Contact support@hengage.com")
     end
   end
 

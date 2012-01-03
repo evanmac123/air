@@ -8,19 +8,22 @@ class PhonesController < ApplicationController
     end
 
     normalized_phone_number = PhoneNumber.normalize(params[:user][:phone_number])
-
+    if current_user.phone_number == normalized_phone_number
+      flash[:failure] = "That already IS your phone number. No action taken."
+      redirect_to current_user and return
+    end
     current_user.new_phone_number = normalized_phone_number
-    current_user.new_phone_validation = generate_short_numerical_validation_token
+    current_user.generate_short_numerical_validation_token
     if current_user.save
       if request.xhr?
         render :text => current_user.phone_number
       else
-        SMS.send_message current_user.new_phone_number, token
-        flash[:success] = "We have sent a verification code to your phone. It will arrive momentarily. Please enter it into the box below."
+        SMS.send_message current_user.new_phone_number, current_user.new_phone_validation
+        flash[:success] = "We have sent a verification code to #{current_user.new_phone_number.as_pretty_phone}. It will arrive momentarily. Please enter it into the box below."
         redirect_to current_user
       end
     else
-      flash[:failure] = current_user.errors[:phone_number]
+      flash[:failure] = current_user.errors[:new_phone_number]
       redirect_to :back
     end
   end

@@ -11,6 +11,10 @@ When /^"([^"]*)" fills in the new phone validation field with their validation c
   fill_in('user_new_phone_validation', :with => token )
 end
 
+When /^"([^"]*)" fills in the new phone validation field with the wrong validation code$/ do |username|
+  fill_in('user_new_phone_validation', :with => "23456" )
+end
+
 When /^I press the button to verify the new phone number$/ do
   find('#save-phone-validation').click
 end

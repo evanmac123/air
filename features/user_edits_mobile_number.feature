@@ -31,12 +31,18 @@ Feature: User can Change their mobile number
     And I press the button to verify the new phone number
     Then I should see "You have updated your phone number"
 
-  Scenario: Phone number is normalized on entry
+  Scenario: User gets error messages when inputs wrong validation code to change mobile number
     When I go to the profile page for "Bob"
-    And I fill in "Enter your new mobile number" with "(415) 505-3344"
+    And I fill in "Enter your new mobile number" with "(900) 939-4956"
     And I press the button to submit the mobile number
-    And "+14155053344" sends SMS "myid"
-    Then "+14155053344" should have received SMS "Your user ID is bobbarino."
+    Then I should be on the profile page for "Bob"
+    Then I should see "We have sent a verification"
+    And I should see "(900) 939-4956"
+    When DJ cranks 5 times
+    And "Bob" should receive an SMS containing their new phone validation code
+    When "Bob" fills in the new phone validation field with the wrong validation code
+    And I press the button to verify the new phone number
+    Then I should see "the code you entered was invalid"
 
   Scenario: User can enter a blank mobile number
     When I go to the profile page for "Bob"
@@ -54,4 +60,12 @@ Feature: User can Change their mobile number
     And I press the button to submit the mobile number
     Then I should be on the profile page for "Bob"
     And I should see "Sorry, but that phone number has already been taken. Need help? Contact support@hengage.com"
+    And I should see "(415) 555-1212"
+
+  Scenario: User gets error when updating her phone number to what it's already set to
+    When I go to the profile page for "Bob"
+    And I fill in "Enter your new mobile number" with "4155551212"
+    And I press the button to submit the mobile number
+    Then I should be on the profile page for "Bob"
+    And I should see "That already IS your phone number. No action taken."
     And I should see "(415) 555-1212"
