@@ -10,14 +10,12 @@ class PhonesController < ApplicationController
     normalized_phone_number = PhoneNumber.normalize(params[:user][:phone_number])
 
     current_user.new_phone_number = normalized_phone_number
-    letters = "abcdefghkmnpqrstuxz"
-    jumbled_letters = letters.split("").sort_by{rand}.join
-    token = jumbled_letters[0,4]
-    current_user.new_phone_validation = token
+    current_user.new_phone_validation = generate_short_numerical_validation_token
     if current_user.save
       if request.xhr?
         render :text => current_user.phone_number
       else
+        SMS.send_message current_user.new_phone_number, token
         flash[:success] = "We have sent a verification code to your phone. It will arrive momentarily. Please enter it into the box below."
         redirect_to current_user
       end

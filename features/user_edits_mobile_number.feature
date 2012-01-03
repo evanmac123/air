@@ -2,9 +2,9 @@ Feature: User can Change their mobile number
 
   Background:
     Given the following users exists:
-      | name | phone_number | 
-      | Bob  | +14155551212 | 
-      | Fred | +16178675309 | 
+      | name | phone_number |
+      | Bob  | +14155551212 |
+      | Fred | +16178675309 |
     And "Bob" has the password "bobby"
     And "Bob" has the unique ID "bobbarino"
     And I sign in via the login page as "Bob/bobby"
@@ -23,8 +23,13 @@ Feature: User can Change their mobile number
     And I fill in "Enter your new mobile number" with "(900) 939-4956"
     And I press the button to submit the mobile number
     Then I should be on the profile page for "Bob"
-    And I should see "Your mobile number was updated."
+    Then I should see "We have sent a verification"
     And I should see "(900) 939-4956"
+    When DJ cranks 5 times
+    And "Bob" should receive an SMS containing their new phone validation code
+    When "Bob" fills in the new phone validation field with their validation code
+    And I press the button to verify the new phone number
+    Then I should see "You have updated your phone number"
 
   Scenario: Phone number is normalized on entry
     When I go to the profile page for "Bob"
@@ -43,7 +48,7 @@ Feature: User can Change their mobile number
     And I should see "No mobile number. Please enter one if you'd like to play using text messaging."
     And the mobile number field should be blank
 
-  Scenario: User has trouble updating their mobile number  
+  Scenario: User has trouble updating their mobile number
     When I go to the profile page for "Bob"
     And I fill in "Enter your new mobile number" with "(617) 867-5309"
     And I press the button to submit the mobile number

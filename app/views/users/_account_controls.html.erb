@@ -6,7 +6,7 @@
   <% end %>
   <% unless current_user.new_phone_number.empty? %>
     <%= semantic_form_for current_user, :url => account_phone_validation_path do |form| %>
-      <%= form.input :new_phone_validation, :label => "Please enter the code below to validate the phone number #{current_user.new_phone_number}", :input_html => {:value => ''} %>
+      <%= form.input :new_phone_validation, :label => "Please enter the code below to validate the phone number #{current_user.new_phone_number.as_pretty_phone}", :input_html => {:value => ''} %>
       <%= image_with_hover_submit_tag save_button_skinned, '#save-phone-validation', :id => 'save-phone-validation' %>
     <% end %>
   <% end %>
