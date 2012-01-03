@@ -25,6 +25,6 @@ class PhonesController < ApplicationController
   end
 
   def validate
-    return true
+    redirect_to current_user
   end
 end
