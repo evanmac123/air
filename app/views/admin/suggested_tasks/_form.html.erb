@@ -9,9 +9,16 @@
   <%= f.input :start_time, :twelve_hour => true %>
   <fieldset>
     <legend>Completion Triggers</legend>
-    <%= label_tag "completion[rule_ids]", "Rules" %>
-    <% rule_options = options_from_collection_for_select(@primary_values, :rule_id, :value, :selected => @selected_rule_ids) %>
-    <%= select_tag "completion[rule_ids]", rule_options, :multiple => true %>
+      <p>If you don't select any completion triggers, the only way for one to get completed for a user will be for an admin to do so manually.</p>
+      <fieldset>
+        <%= label_tag "completion[rule_ids]", "Rules" %>
+        <% rule_options = options_from_collection_for_select(@primary_values, :rule_id, :value, :selected => @selected_rule_ids) %>
+        <%= select_tag "completion[rule_ids]", rule_options, :multiple => true %>
+        <br/>
+
+        <%= label_tag "completion[referrer_required]", "Referrer required" %>
+        <%= check_box_tag "completion[referrer_required]" %>
+      </fieldset>
 
     <%= label_tag "completion[survey_id]", "Survey" %>
     <% survey_options = options_from_collection_for_select(@surveys, :id, :name, :selected => @selected_survey_id) %>

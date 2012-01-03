@@ -40,12 +40,33 @@ describe User do
     user3.should_not be_valid
     user4.should be_valid
     user5.should_not be_valid
+
+    user3.errors[:phone_number].should == ["Sorry, but that phone number has already been taken. Need help? Contact support@hengage.com"]
   end
 
   it "should validate uniqueness of SMS slug when not blank" do
     user1 = Factory(:user)
     user2 = Factory(:user)
     user2.sms_slug = user1.sms_slug
+    user2.should_not be_valid
+  end
+
+  it "should validate presence of location_id if the associated demo has locations" do
+    user1 = Factory(:user)
+    user2 = Factory(:user)
+
+    user1.location = nil
+    user2.location = nil
+
+    user1.should be_valid
+    user2.should be_valid
+
+    Factory :location, :demo => user2.demo
+
+    user1.demo.locations.should be_empty
+    user2.demo.locations.should have(1).location
+
+    user1.should be_valid
     user2.should_not be_valid
   end
 
@@ -100,6 +121,23 @@ describe User do
         demo.users.last.destroy
         demo.reload.ranked_user_count.should == 0
       end
+    end
+  end
+end
+
+describe User, "#update_password" do
+  context "when called with blank password and confirmation" do
+    # We can't just validate_presence_of :password since sometimes a blank
+    # password is valid and it's tricky to sum up those cases in one method on
+    # User. But #update_password should never let a blank password be set.
+
+    it "should return false and not update" do
+      user = Factory :user
+      user.password = user.password_confirmation = "foo"
+      user.save!
+
+      user.update_password("", "").should == false
+      user.password.should == "foo"
     end
   end
 end

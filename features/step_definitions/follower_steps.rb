@@ -4,7 +4,7 @@ def expect_user_details(name, button_type)
   user = User.find_by_name(name)
   user.should_not be_nil
 
-  with_scope "##{dom_id(user)}" do
+  with_scope "\"##{dom_id(user)}\"" do
     page.should have_link(user.name)
 
     page.should have_content("#{user.points} pts")
@@ -63,7 +63,7 @@ end
 When /^I fan "(.*?)"$/ do |username|
   user = User.find_by_name(username)
 
-  with_scope "form[@action='/users/#{user.to_param}/friendship']" do
+  with_scope "\"form[@action='/users/#{user.to_param}/friendship']\"" do
     find(:css, '.be-a-fan').click
   end
 end
@@ -71,7 +71,7 @@ end
 When /^I unfollow "(.*?)"$/ do |username|
   user = User.find_by_name(username)
 
-  with_scope "##{dom_id(user)}" do
+  with_scope "\"##{dom_id(user)}\"" do
     find(:css, '.defan').click
   end
 end
@@ -129,7 +129,7 @@ When /^I press the button to save notification settings$/ do
 end
 
 Then /^I should see these followers:$/ do |table|
-  with_scope '#followers' do
+  with_scope '"#followers"' do
     table.hashes.each do |row_hash|
       expect_user_details(row_hash['name'], row_hash['button_type'])
     end
@@ -137,7 +137,7 @@ Then /^I should see these followers:$/ do |table|
 end
 
 Then /^I should see these people I am following:$/ do |table|
-  with_scope '#followings' do
+  with_scope '"#followings"' do
     table.hashes.each do |row_hash|
       expect_user_details(row_hash['name'], row_hash['button_type'])
     end
@@ -192,7 +192,7 @@ Then /^I should( not)? see "([^"]*)" as a follower$/ do |sense, username|
   sense = !sense
 
   When "I go to the connections page"
-  with_scope "#followers" do
+  with_scope '"#followers"' do
     if sense
       page.should have_content(username)
     else
@@ -205,7 +205,7 @@ Then /^I should( not)? see "([^"]*)" as a person I'm following$/ do |sense, user
   sense = !sense
 
   When "I go to the connections page"
-  with_scope "#fans-of" do
+  with_scope '"#fans-of"' do
     if sense
       page.should have_content(username)
     else
@@ -220,7 +220,7 @@ Then /^I should( not)? see "([^"]*)" as a pending follower$/ do |sense, username
   When "I go to the connections page"
 
   unless page.all(:css, '#pending-followers').empty? && !sense
-    with_scope "#pending-followers" do
+    with_scope '"#pending-followers"' do
       if sense
         page.should have_content(username)
       else

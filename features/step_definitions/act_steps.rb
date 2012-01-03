@@ -26,7 +26,7 @@ Then /^I should( not)? see the following act(s?):$/ do |sense, _nothing, table|
         end
       else
         if page.has_css? 'li'
-          with_scope 'li' do
+          with_scope '"li"' do
             (
               page.has_css?("a[href='#{expected_user_url}']", :text => user.name) &&
               page.has_content?(act_hash['act']) &&

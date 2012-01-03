@@ -1,4 +1,6 @@
 class String
+  LOWERCASE_RANGE = ('a'..'z').freeze
+
   def remove_mid_word_characters
     gsub(/'/, '')
   end
@@ -31,6 +33,8 @@ class String
   end
 
   def as_pretty_phone
+    return "" if self.blank?
+
     without_country_code = self.gsub(/^\+1/, '')
     area_code = without_country_code[0,3]
     exchange = without_country_code[3,3]
@@ -46,5 +50,9 @@ class String
   def email_domain
     self =~ /@([^@]+)$/
     $1
+  end
+
+  def starts_with_lowercase?
+    LOWERCASE_RANGE.include? self.first
   end
 end

@@ -24,7 +24,7 @@ Feature: User sees suggested tasks they can currently do
     And "Joe" has the password "foo"
     And I sign in via the login page with "Joe/foo"
 
-  @javascript
+  @javascript @slow
   Scenario: User sees suggested tasks they can currently do
     Then I should see "Make toast"
     And I should see "Toast some bread"

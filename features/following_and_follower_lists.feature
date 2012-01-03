@@ -73,7 +73,7 @@ Feature: Following and follower lists
       | Colby   | de-fan       |
       | Dirk    | de-fan       |
 
-  @javascript
+  @javascript @slow
   Scenario: User sees more of their following list
     Given the following accepted friendships exist:
       | user         | friend        |
@@ -110,7 +110,7 @@ Feature: Following and follower lists
       | Dirk    | de-fan      |
       | Bertram | de-fan      |
 
-  @javascript
+  @javascript @slow
   Scenario: User sees more of their follower list
     Given the following accepted friendships exist:
       | user          | friend       |

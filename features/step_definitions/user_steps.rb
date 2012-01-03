@@ -41,3 +41,9 @@ Then /^"([^"]*)" should have a null password$/ do |username|
   user.password.should be_nil
   user.password_confirmation.should be_nil
 end
+
+Then /^the mobile number field should be blank$/ do
+  mobile_field = page.find(:css, "input#user_phone_number")
+  mobile_field.value.should be_blank
+end
+

@@ -1,6 +1,6 @@
 Feature: Marketing page login dropdown works
 
- @javascript
+ @javascript @slow
  Scenario: User logs in with correct email/password
    Given the following user exists:
      | name  | email             |

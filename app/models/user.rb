@@ -32,6 +32,7 @@ class User < ActiveRecord::Base
 
   validates_presence_of :name
   validates_presence_of :sms_slug, :message => "Sorry, you can't choose a blank user ID."
+  validates_presence_of :location_id, :if => :associated_demo_has_locations, :message => "Please choose a location"
 
   has_attached_file :avatar, 
     :styles => {:thumb => "48x48#"}, 
@@ -78,6 +79,18 @@ class User < ActiveRecord::Base
   attr_protected :is_site_admin
 
   has_alphabetical_column :name
+
+  def update_password_with_blank_forbidden(password, password_confirmation)
+    # See comment in user_spec for #update_password.
+    unless password.present?
+      self.errors.add :password, "Please choose a password"
+      return false
+    end
+
+    update_password_without_blank_forbidden(password, password_confirmation)
+  end
+
+  alias_method_chain :update_password, :blank_forbidden
 
   def followers
     # You'd think you could do this with an association, and if you can figure
@@ -464,13 +477,18 @@ class User < ActiveRecord::Base
 
   def satisfy_suggestions_by_survey(survey_or_survey_id)
     satisfiable_suggestions = self.task_suggestions.satisfiable_by_survey(survey_or_survey_id)
-    satisfiable_suggestions.each(&:satisfy)
+    satisfiable_suggestions.each(&:satisfy!)
   end
 
-  def satisfy_suggestions_by_rule(rule_or_rule_id)
+  def satisfy_suggestions_by_rule(rule_or_rule_id, referring_user_id = nil)
     return unless rule_or_rule_id
     satisfiable_suggestions = self.task_suggestions.satisfiable_by_rule(rule_or_rule_id)
-    satisfiable_suggestions.each(&:satisfy)
+
+    unless referring_user_id
+      satisfiable_suggestions = satisfiable_suggestions.without_mandatory_referrer
+    end
+
+    satisfiable_suggestions.each(&:satisfy!)
   end
 
   def self.next_dummy_number
@@ -552,8 +570,13 @@ class User < ActiveRecord::Base
                        end
 
     if self.class.where(where_conditions).limit(1).present?
-      self.errors.add(:phone_number, "has already been taken")
+      self.errors.add(:phone_number, "Sorry, but that phone number has already been taken. Need help? Contact support@hengage.com")
     end
+  end
+
+  def associated_demo_has_locations
+    return unless self.demo
+    self.demo.locations.count > 0
   end
 
   def self.claimable_by_email_address(claim_string)

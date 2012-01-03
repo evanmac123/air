@@ -3,6 +3,7 @@ class Act < ActiveRecord::Base
   extend ParsingMessage
 
   belongs_to :user
+  belongs_to :referring_user, :class_name => "User"
   belongs_to :rule
   belongs_to :demo
   has_one :goal, :through => :rule
@@ -115,7 +116,7 @@ class Act < ActiveRecord::Base
     end
 
     points_denominator_before_act = user.points_denominator
-    act = create!(:user => user, :text => text, :rule => rule)
+    act = create!(:user => user, :text => text, :rule => rule, :referring_user => referring_user)
 
     [rule.reply, act.post_act_summary(points_denominator_before_act)].join(' ')
   end
@@ -148,7 +149,7 @@ class Act < ActiveRecord::Base
   end
 
   def trigger_suggested_tasks
-    self.user.satisfy_suggestions_by_rule(self.rule_id)
+    self.user.satisfy_suggestions_by_rule(self.rule_id, self.referring_user_id.present?)
   end
 
   def self.record_bad_message(phone_number, body, reply = '')

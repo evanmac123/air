@@ -6,7 +6,7 @@ class TaskSuggestion < ActiveRecord::Base
     check_for_new_available_tasks if changed.include?('satisfied')
   end
 
-  def satisfy
+  def satisfy!
     update_attributes(:satisfied => true)
   end
 
@@ -28,6 +28,11 @@ class TaskSuggestion < ActiveRecord::Base
 
   def self.satisfiable_by_survey(survey_or_survey_id)
     satisfiable(survey_or_survey_id, Survey, "trigger_survey_triggers", "survey_id")
+  end
+
+  def self.without_mandatory_referrer
+    # Assumes we've already joined to RuleTrigger
+    where("trigger_rule_triggers.referrer_required" => false)
   end
 
   protected

@@ -83,11 +83,15 @@ Feature: User accepts invitation
     But I should be on the activity page
 
   Scenario: User must set password when accepting invitation
-    When I fill in "Enter your mobile number" with "508-740-7520"
+    When I press "Join the game"
+    Then I should not see "You're now signed in."
+    And I should see "Please choose a password"
+
+    When I fill in "Choose a password" with "foo"
+    And I fill in "And confirm that password" with "bar"
     And I press "Join the game"
-    Then I should be on the invitation page for "dan@example.com"
-    And I should not see "You're now signed in."
-    And I should see "Please choose a password."
+    Then I should not see "You're now signed in."
+    And I should see "Password doesn't match confirmation"
 
   Scenario: User doesn't have to specify mobile number to join
     When I fill in "Choose a password" with "whatwhat"
@@ -98,7 +102,7 @@ Feature: User accepts invitation
     And I should see "Dan joined the game less than a minute ago"
     When I go to the profile page for "Dan"
     Then I should not see "() -"
-    But I should see "No mobile number. Please enter one if you'd like to play by SMS."
+    But I should see "No mobile number. Please enter one if you'd like to play using text messaging."
 
   Scenario: User accepts invitation before game begins
     Given the following demo exists:
@@ -121,3 +125,8 @@ Feature: User accepts invitation
 
     When I go to the activity page
     Then I should see "Your game begins on May 01, 2011 at 12:00 AM Eastern."
+    
+  Scenario: User accepts invitation for demo with no locations, and doesn't see dropdown for it
+    When I click the first link in the email
+    Then I should be on the invitation page for "dan@example.com"
+    And I should not see "Location"

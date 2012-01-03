@@ -199,6 +199,7 @@ Feature: User approves or ignores follower
     When "+16175551212" sends SMS "yes"
     Then I should see "Bob" as a person I'm following
 
+  @slow
   Scenario: User can approve multiple follow requests by SMS
     When "Alice" requests to follow "Bob/foo" by SMS
     And "Clay/baz" requests to follow "Bob/foo" by web

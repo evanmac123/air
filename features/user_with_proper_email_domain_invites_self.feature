@@ -56,8 +56,7 @@ Feature: User with proper email domain invites self
     When I fill in "Email" with "chester@highmark.com"
     And I press "Request invitation"
 
-    Then I should be on the new invitation page
-    And I should see "You must enter your name and e-mail address to request an invitation."
+    Then I should see "You must enter your name to request an invitation."
 
     When DJ cranks 5 times
     Then "chester@highmark.com" should receive no email
@@ -66,5 +65,4 @@ Feature: User with proper email domain invites self
     When I fill in "Name" with "Chester Humphries"
     And I press "Request invitation"
 
-    Then I should be on the new invitation page
-    And I should see "You must enter your name and e-mail address to request an invitation."
+    Then I should see "You must enter your e-mail address to request an invitation."
