@@ -53,13 +53,15 @@ class Admin::SuggestedTasksController < AdminBaseController
   def set_up_completion_triggers
     return unless params[:completion].present?
 
-    set_up_rule_triggers(params[:completion][:rule_ids])
+    set_up_rule_triggers(params[:completion][:rule_ids], params[:completion][:referrer_required])
     set_up_survey_trigger(params[:completion][:survey_id])
   end
 
-  def set_up_rule_triggers(rule_ids)
+  def set_up_rule_triggers(rule_ids, referrer_required)
     _rule_ids = rule_ids.present? ? rule_ids : []
-    @suggested_task.rule_triggers = _rule_ids.map{|rule_id| Trigger::RuleTrigger.new(:rule_id => rule_id, :referrer_required => params[:completion][:referrer_required]) }
+    referrer_required = referrer_required || false
+
+    @suggested_task.rule_triggers = _rule_ids.map{|rule_id| Trigger::RuleTrigger.new(:rule_id => rule_id, :referrer_required => referrer_required) }
   end
 
   def set_up_survey_trigger(survey_id)
