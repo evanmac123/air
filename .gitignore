@@ -18,5 +18,7 @@ gemset
 db/dumps/*.sql
 coverage.features
 .rbenv-version
+.idea
+*~
 
 
