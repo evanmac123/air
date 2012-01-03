@@ -30,7 +30,7 @@ class Admin::UsersController < AdminBaseController
 
   def edit
     @demos = Demo.alphabetical
-    @task_suggestions = @user.task_suggestions.joins(:suggested_task)
+    @task_suggestions = @user.task_suggestions.unsatisfied.joins(:suggested_task)
   end
 
   def update
