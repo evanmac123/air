@@ -9,17 +9,22 @@ class PhonesController < ApplicationController
 
     normalized_phone_number = PhoneNumber.normalize(params[:user][:phone_number])
 
-    current_user.phone_number = normalized_phone_number
+    current_user.new_phone_number = normalized_phone_number
+    current_user.new_phone_validation = "abcde"
     if current_user.save
       if request.xhr?
         render :text => current_user.phone_number
       else
-        flash[:success] = "Your mobile number was updated."
+        flash[:success] = "We have sent a verification to your phone. It will arrive momentarily."
         redirect_to current_user
       end
     else
       flash[:failure] = current_user.errors[:phone_number]
       redirect_to :back
     end
+  end
+
+  def validate
+    return true
   end
 end

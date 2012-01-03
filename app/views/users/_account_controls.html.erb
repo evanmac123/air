@@ -4,11 +4,17 @@
     <%= form.input :phone_number, :label => 'Enter your new mobile number', :input_html => {:value => current_user.phone_number.as_pretty_phone} %>
     <%= image_with_hover_submit_tag save_button_skinned, '#save-phone', :id => 'save-phone' %>
   <% end %>
+  <% unless current_user.new_phone_number.empty? %>
+    <%= semantic_form_for current_user, :url => account_phone_validation_path do |form| %>
+      <%= form.input :new_phone_validation, :label => 'Enter the validation code we sent to your phone', :input_html => {:value => 'hello'} %>
+      <%= image_with_hover_submit_tag save_button_skinned, '#save-phone-validation', :id => 'save-phone-validation' %>
+    <% end %>
+  <% end %>
 
   <h3>Name</h3>
   <%= semantic_form_for current_user, :url => account_name_path do |form| %>
     <%= form.input :name, :label => "Enter a new name" %>
-    <%= image_with_hover_submit_tag save_button_skinned, '#save-name', :id => 'save-name' %>
+    <%= image_with_hover_submit_tag save_button_skinned, '#save-name', :id => 'save-validation' %>
   <% end %>
 
   <h3>Profile Picture</h3>
@@ -34,7 +40,7 @@
 
   <h3>Notification Settings</h3>
   <%= semantic_form_for current_user, :url => account_path, :html => {:class => 'notification-method'} do |form| %>
-    <%= form.input :notification_method, 
+    <%= form.input :notification_method,
       :label      => 'When somebody requests to be my fan:',
       :collection => {
         "Send an SMS"                      => 'sms',
