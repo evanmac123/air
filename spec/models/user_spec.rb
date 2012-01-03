@@ -736,6 +736,8 @@ describe User, "generates a validation token" do
   it "should generate a token" do
     a = Factory(:user, :email => "a@a.com")
     a.generate_short_numerical_validation_token
-    a.reload.new_phone_validation.should_not be_blank
+    field = a.reload.new_phone_validation
+    field.should_not be_blank
+    (field =~ /^\d{4}$/).should_not be_nil
   end
 end
