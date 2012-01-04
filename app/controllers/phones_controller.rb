@@ -2,14 +2,14 @@ class PhonesController < ApplicationController
   def update
     if params[:user][:phone_number].blank?
       current_user.update_attributes(:phone_number => "")
-      flash[:success] = "OK, you won't get any more text messages from us until such time as you enter a mobile number again."
+      flash[:success] = "OK, you won't get any more text messages from us."
       redirect_to :back
       return
     end
 
     normalized_phone_number = PhoneNumber.normalize(params[:user][:phone_number])
     if current_user.phone_number == normalized_phone_number
-      flash[:failure] = "That already IS your phone number. No action taken."
+      flash[:failure] = "We already have #{normalized_phone_number.as_pretty_phone} on record for you."
       redirect_to current_user and return
     end
     current_user.new_phone_number = normalized_phone_number

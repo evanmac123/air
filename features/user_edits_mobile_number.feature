@@ -50,7 +50,7 @@ Feature: User can Change their mobile number
     And I press the button to submit the mobile number
     Then I should not see "Phone number can't be blank"
     And I should not see "() -"
-    But I should see "OK, you won't get any more text messages from us until such time as you enter a mobile number again."
+    But I should see "OK, you won't get any more text messages from us."
     And I should see "No mobile number. Please enter one if you'd like to play using text messaging."
     And the mobile number field should be blank
 
@@ -67,5 +67,5 @@ Feature: User can Change their mobile number
     And I fill in "Enter your new mobile number" with "4155551212"
     And I press the button to submit the mobile number
     Then I should be on the profile page for "Bob"
-    And I should see "That already IS your phone number. No action taken."
+    And I should see "We already have (415) 555-1212 on record for you."
     And I should see "(415) 555-1212"
