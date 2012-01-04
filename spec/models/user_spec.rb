@@ -27,7 +27,7 @@ describe User do
 
     user.sms_slug = ''
     user.should_not be_valid
-    user.errors[:sms_slug].should include("Sorry, you can't choose a blank user ID.")
+    user.errors[:sms_slug].should include("Sorry, you can't choose a blank unique ID.")
   end
 
   it "should validate uniqueness of phone number when not blank" do
@@ -51,6 +51,38 @@ describe User do
     user2 = Factory(:user)
     user2.sms_slug = user1.sms_slug
     user2.should_not be_valid
+  end
+
+  it "should validate that the SMS slug, if not blank, consists of all letters and digits" do
+    user = Factory :user
+    user.should be_valid
+
+    user.sms_slug = "i rule"
+    user.should_not be_valid
+    user.errors[:sms_slug].should == ["Sorry, the unique ID must consist of letters or digits only."]
+
+    user.sms_slug = "i!rule"
+    user.should_not be_valid
+    user.errors[:sms_slug].should == ["Sorry, the unique ID must consist of letters or digits only."]
+
+    user.sms_slug = "irule23times"
+    user.should be_valid
+  end
+
+  it "should downcase an SMS slug before validation" do
+    user1 = Factory :user
+    user1.update_attributes(:sms_slug => "somedude")
+
+    user2 = Factory :user
+    user2.should be_valid
+
+    user2.sms_slug = 'SomeDude'
+    user2.should_not be_valid
+    user2.errors[:sms_slug].should == ["Sorry, that unique ID is already taken."]
+
+    user3 = Factory :user
+    user3.update_attributes(:sms_slug => "OtherDude")
+    user3.reload.sms_slug.should == "otherdude"
   end
 
   it "should validate presence of location_id if the associated demo has locations" do

@@ -130,3 +130,30 @@ Feature: User accepts invitation
     When I click the first link in the email
     Then I should be on the invitation page for "dan@example.com"
     And I should not see "Location"
+
+  Scenario: User can set unique ID when accepting invitation
+    When I click the first link in the email
+    And I fill in "Choose a unique ID" with "pphil"
+    And I fill in "Enter your mobile number" with "508-740-7520"
+    And I fill in "Choose a password" with "whatwhat"
+    And I fill in "And confirm that password" with "whatwhat"
+    And I press "Join the game"
+    Then I should not see "Welcome to the game"
+    And I should see "Sorry, that unique ID is already taken."
+
+    When I fill in "Choose a unique ID" with "         "
+    And I press "Join the game"
+    Then I should not see "Welcome to the game"
+    And I should see "Sorry, you can't choose a blank unique ID."
+
+    When I fill in "Choose a unique ID" with "i rule"
+    And I press "Join the game"
+    Then I should not see "Welcome to the game"
+    And I should see "Sorry, the unique ID must consist of letters or digits only."
+
+    When I fill in "Choose a unique ID" with "DannyBoy"
+    And I press "Join the game"
+    Then I should see "Welcome to the game"
+    When DJ cranks once
+    Then "+15087407520" should have received an SMS including "dannyboy"
+

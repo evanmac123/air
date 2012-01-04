@@ -28,11 +28,13 @@ class User < ActiveRecord::Base
   validate :normalized_phone_number_unique, :normalized_new_phone_number_unique
 
   validates_uniqueness_of :slug
-  validates_uniqueness_of :sms_slug, :message => "Sorry, that user ID is already taken."
+  validates_uniqueness_of :sms_slug, :message => "Sorry, that unique ID is already taken."
 
   validates_presence_of :name
-  validates_presence_of :sms_slug, :message => "Sorry, you can't choose a blank user ID."
+  validates_presence_of :sms_slug, :message => "Sorry, you can't choose a blank unique ID."
   validates_presence_of :location_id, :if => :associated_demo_has_locations, :message => "Please choose a location"
+
+  validates_format_of :sms_slug, :with => /^[0-9a-z]+$/, :allow_blank => true, :message => "Sorry, the unique ID must consist of letters or digits only."
 
   validates_numericality_of :height, :allow_blank => true, :message => "Please use a numeric value for your height, and express it in inches"
   validates_numericality_of :weight, :allow_blank => true, :message => "Please use a numeric value for your weight, and express it in pounds"
@@ -49,6 +51,10 @@ class User < ActiveRecord::Base
 
   before_validation(:on => :create) do
     set_slugs
+  end
+
+  before_validation do
+    downcase_sms_slug
   end
 
   before_create do
@@ -595,6 +601,11 @@ class User < ActiveRecord::Base
   def associated_demo_has_locations
     return unless self.demo
     self.demo.locations.count > 0
+  end
+
+  def downcase_sms_slug
+    return unless self.sms_slug
+    self.sms_slug.downcase!
   end
 
   def self.claimable_by_email_address(claim_string)

@@ -11,6 +11,8 @@
 
 <%= form_for @user, :url => invitation_acceptance_path(:user_id => @user.slug), :id => "signup-form", :builder => FancyFormBuilder do |f| %>
   <ul>
+    <%= f.fancy_text_field :sms_slug, :label_text => "Choose a unique ID" %>
+
     <%= f.fancy_text_field :phone_number, :label_text => "Enter your mobile number" %>
 
     <% if @locations.present? %>
