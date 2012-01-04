@@ -18,6 +18,8 @@ describe User do
 
   it { should validate_uniqueness_of(:slug) }
 
+  it { should validate_numericality_of(:height).with_message("Please use a numeric value for your height, and express it in inches") }
+
   it "should validate presence of the SMS slug on update" do
     user = Factory :user
     user.sms_slug.should_not be_nil # set by a callback on create

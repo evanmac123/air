@@ -7,7 +7,7 @@ class Invitation::AcceptancesController < ApplicationController
   layout "external"
 
   def update
-    @user.location_id = params[:user][:location_id]
+    @user.attributes = params[:user]
     @user.valid? # to set the error on location_id if needed
     # the below calls @user#save, so we don't save explicitly
     unless @user.update_password(params[:user][:password], params[:user][:password_confirmation])

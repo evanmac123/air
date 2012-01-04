@@ -34,6 +34,9 @@ class User < ActiveRecord::Base
   validates_presence_of :sms_slug, :message => "Sorry, you can't choose a blank user ID."
   validates_presence_of :location_id, :if => :associated_demo_has_locations, :message => "Please choose a location"
 
+  validates_numericality_of :height, :allow_blank => true, :message => "Please use a numeric value for your height, and express it in inches"
+  validates_numericality_of :weight, :allow_blank => true, :message => "Please use a numeric value for your weight, and express it in pounds"
+
   has_attached_file :avatar, 
     :styles => {:thumb => "48x48#"}, 
     :default_style => :thumb,
