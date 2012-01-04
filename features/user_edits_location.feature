@@ -24,6 +24,7 @@ Feature: User can change their location
     When I select "Philadelphia" from the location drop-down
     And I press the button to save the new location
     Then I should see "Philadelphia"
+    And I dump the page
 
 #  Scenario: User changes their name
 #    When I fill in "Enter a new name" with "Bob"
