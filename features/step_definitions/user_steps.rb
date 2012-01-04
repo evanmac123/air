@@ -47,3 +47,10 @@ Then /^the mobile number field should be blank$/ do
   mobile_field.value.should be_blank
 end
 
+When /^I select "([^"]*)" from the location drop\-down$/ do |input|
+  page.select(input, :from => :user_location_id)
+end
+
+When /^I press the button to save the new location$/ do
+  click_button("save-location")
+end

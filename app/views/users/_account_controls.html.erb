@@ -36,7 +36,7 @@
     <h3>Location</h3>
     <%= semantic_form_for current_user, :url => account_location_path, :builder => FancyFormBuilder do |form| %>
     <% select_html = collection_select :user, :location_id, @locations, :id, :name, :value => nil, :include_blank => "Please choose a location"  %>
-    <%= form.fancy_content :location_id, select_html, :label_text => "Location" %>
+    <%= form.fancy_content :location_id, select_html, :label_text => "Select a Location" %>
       <%= image_with_hover_submit_tag save_button_skinned, '#save-location', :id => 'save-location' %>
     <% end %>
   <% end %>
