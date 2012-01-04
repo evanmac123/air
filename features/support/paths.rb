@@ -96,7 +96,6 @@ module NavigationHelpers
       admin_demo_suggested_tasks_path(Demo.find_by_company_name($1))
 
     when /the edit admin demo user page for company "(.*?)" and user "(.*?)"/
-debugger
       edit_admin_demo_user_path(Demo.find_by_company_name($1).id, User.find_by_name($2).slug)
 
     when /the edit admin suggested task page for company "(.*?)" and task "(.*?)"/

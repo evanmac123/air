@@ -8,6 +8,7 @@
       <th>Long description</th>
       <th>Eligibility conditions</th>
       <th>Completion triggers</th>
+      <th>Bonus points</th>
       <th></th>
     </tr>
 
@@ -50,7 +51,7 @@
             <p>Manual only.</p>
           <% end %>
         </td>
-
+        <td><%= suggested_task.bonus_points %></td>
         <td>
           <%= link_to 'Edit this task', edit_admin_demo_suggested_task_path(@demo, suggested_task) %>
         </td>
