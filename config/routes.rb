@@ -9,6 +9,7 @@ Health::Application.routes.draw do
   resource  :conference_feed, :only => [:show]
 
   resources :phones,      :only => [:create]
+  
   put "account_phone_validation", :controller => "phones", :action => :validate, :as => "account_phone_validation"
 
   resources :invitations, :only => [:new, :create, :show]
@@ -50,6 +51,7 @@ Health::Application.routes.draw do
     resource :sms_slug, :only => [:update]
     resource :name, :only => [:update]
     resource :settings, :only => [:edit, :update]
+    resource :location, :only => [:update]
   end
 
   resource :friends, :only => [:show]
