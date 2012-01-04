@@ -16,3 +16,6 @@ Feature: Admin bulk loads users
 
   Scenario: Admin assigns bonus points to a Suggested Task
     Then I should see "Bonus points"
+    When I enter "15" into the bonus points field
+    And I click "Update Suggested Task"
+    Then I should see "15"
