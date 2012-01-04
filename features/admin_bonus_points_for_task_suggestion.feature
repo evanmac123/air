@@ -14,19 +14,23 @@ Feature: Admin bulk loads users
 
     And "Phil" has the password "foo"
     And I sign in via the login page with "Phil/foo"
+    And DJ cranks 5 times
 
 
   Scenario: Admin assigns bonus points to a Suggested Task
     When I go to the edit admin suggested task page for company "NobodysBusiness" and task "ride a tricycle"
     Then I should see "Bonus points"
-    And I dump the page
     And I should see an input with value "ride a tricycle"
     And I should see "11"
-    When I enter "15" into the bonus points field
-    And I click "Update Suggested Task"
+    When I fill in "Bonus points" with "15"
+    And I press "Update Suggested task"
     Then I should see "15"
     When I go to the homepage
-    Then I dump the page
     Then I should see "0points"
     When I go to the edit admin demo user page for company "NobodysBusiness" and user "Phil"
+    #Then show me the page
     Then I should see an input with value "Phil"
+    When I press "Complete ride a tricycle for Phil"
+    And I click "OK"
+    And I go to the homepage
+    Then I should see "15points"

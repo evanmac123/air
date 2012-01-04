@@ -29,7 +29,6 @@ class Admin::UsersController < AdminBaseController
   end
 
   def edit
-debugger
     @demos = Demo.alphabetical
     @task_suggestions = @user.task_suggestions.joins(:suggested_task)
   end
