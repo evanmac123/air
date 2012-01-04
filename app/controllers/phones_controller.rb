@@ -15,7 +15,7 @@ class PhonesController < ApplicationController
     current_user.new_phone_number = normalized_phone_number
     current_user.generate_short_numerical_validation_token
     if current_user.save
-      SMS.send_message current_user.new_phone_number, current_user.new_phone_validation
+      SMS.send_message current_user.new_phone_number, "Your code to verify this phone with H Engage is #{current_user.new_phone_validation}."
       flash[:success] = "We have sent a verification code to #{current_user.new_phone_number.as_pretty_phone}. It will arrive momentarily. Please enter it into the box below."
       redirect_to current_user
     else
