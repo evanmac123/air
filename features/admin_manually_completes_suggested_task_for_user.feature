@@ -30,6 +30,10 @@ Feature: Admin manually completes a suggested task for a user
     And I follow "Joe"
     And I press "Complete Task 1 for Joe"
     Then I should see "Task 1 manually completed for Joe"
+    And I should not see an input with value "Complete Task 1 for Joe"
+    And I should not see an input with value "Complete Task 4 for Joe"
+    But I should see an input with value "Complete Task 2 for Joe"
+    And I should see an input with value "Complete Task 3 for Joe"
 
     When I sign in via the login page with "Joe/foo"
     Then I should see "Task 2"

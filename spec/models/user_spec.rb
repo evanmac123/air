@@ -18,6 +18,8 @@ describe User do
 
   it { should validate_uniqueness_of(:slug) }
 
+  it { should validate_numericality_of(:height).with_message("Please use a numeric value for your height, and express it in inches") }
+
   it "should validate presence of the SMS slug on update" do
     user = Factory :user
     user.sms_slug.should_not be_nil # set by a callback on create
@@ -106,7 +108,7 @@ describe User do
         demo = Factory :demo
 
         3.times {|i| Factory :user, :demo => demo, :phone_number => "+1415555121#{i}"}
-        
+
         demo.users.last.destroy
         demo.reload.ranked_user_count.should == 2
       end
@@ -117,7 +119,7 @@ describe User do
         demo = Factory :demo
 
         3.times {|i| Factory :user, :demo => demo}
-        
+
         demo.users.last.destroy
         demo.reload.ranked_user_count.should == 0
       end
@@ -401,7 +403,7 @@ describe User, "#update_recent_average_points" do
   # A is the actual point gain,
   # P is the nominal point gain (i.e. the unweighted amount as added to the full score),
   # D is the depth of the history (0 <= D <= 6).
-  # 
+  #
   # For the values of D we're concerned with, we multiply A by the factor below
   # and round up to the next integer:
   #
@@ -727,5 +729,16 @@ describe User, '.next_dummy_number' do
 
       User.next_dummy_number.should == "+19995550003"
     end
+  end
+end
+
+describe User, "generates a validation token" do
+  it "should generate a token" do
+    a = Factory(:user, :email => "a@a.com")
+    a.reload.new_phone_validation.should be_blank
+    a.generate_short_numerical_validation_token
+    field = a.reload.new_phone_validation
+    field.should_not be_blank
+    (field =~ /^\d{4}$/).should_not be_nil
   end
 end

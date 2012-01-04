@@ -4,6 +4,12 @@
     <%= form.input :phone_number, :label => 'Enter your new mobile number', :input_html => {:value => current_user.phone_number.as_pretty_phone} %>
     <%= image_with_hover_submit_tag save_button_skinned, '#save-phone', :id => 'save-phone' %>
   <% end %>
+  <% unless current_user.new_phone_number.empty? %>
+    <%= semantic_form_for current_user, :url => account_phone_validation_path do |form| %>
+      <%= form.input :new_phone_validation, :label => "Please enter the code below to validate the phone number #{current_user.new_phone_number.as_pretty_phone}", :input_html => {:value => ''} %>
+      <%= image_with_hover_submit_tag save_button_skinned, '#save-phone-validation', :id => 'save-phone-validation' %>
+    <% end %>
+  <% end %>
 
   <h3>Name</h3>
   <%= semantic_form_for current_user, :url => account_name_path do |form| %>
@@ -32,9 +38,20 @@
     <%= image_with_hover_submit_tag save_button_skinned, '#save-username', :id => 'save-username' %>
   <% end %>
 
+  <% if true # @locations.present? %>
+    <h3>Location</h3>
+    <%= semantic_form_for current_user, :url => account_location_path, :builder => FancyFormBuilder do |form| %>
+    <% select_html = collection_select :user, :location_id, @locations, :id, :name, :value => nil, :include_blank => "Please choose a location"  %>
+    <%= form.fancy_content :location_id, select_html, :label_text => "Select a Location" %>
+      <%= image_with_hover_submit_tag save_button_skinned, '#save-location', :id => 'save-location' %>
+    <% end %>
+  <% end %>
+
+
+
   <h3>Notification Settings</h3>
   <%= semantic_form_for current_user, :url => account_path, :html => {:class => 'notification-method'} do |form| %>
-    <%= form.input :notification_method, 
+    <%= form.input :notification_method,
       :label      => 'When somebody requests to be my fan:',
       :collection => {
         "Send an SMS"                      => 'sms',

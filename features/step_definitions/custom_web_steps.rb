@@ -148,4 +148,3 @@ Then /^I should( not)? see an input with value "([^"]*)"$/ do |sense, expected_v
     page.should_not have_css("input[value=\"#{expected_value}\"]")
   end
 end
-

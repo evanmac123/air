@@ -5,6 +5,7 @@ require 'spec_helper'
 describe EmailCommandController do
   describe "#create" do
     before(:each) do
+      ActionMailer::Base.deliveries.clear
       @user = Factory :user_with_phone
 
       @test_params = {
@@ -39,7 +40,7 @@ describe EmailCommandController do
         email_command.email_subject.should eql params['subject']
         email_command.status.should eql EmailCommand::Status::SUCCESS
         email_command.response.should eql "Sorry, I don't understand what that means. Email \"s\" to suggest we add what you sent."
-      end      
+      end
 
       it "should set the From header to the proper address" do
         params = @test_params.merge({:plain => 'some damn thing'})
@@ -57,7 +58,7 @@ describe EmailCommandController do
         email_command.email_subject.should eql params['subject']
         email_command.status.should eql EmailCommand::Status::SUCCESS
         email_command.response.should eql "Your user ID is #{@user.sms_slug}."
-      end      
+      end
 
       it "should process 'moreinfo' correctly" do
         params = @test_params.merge({:plain => "moreinfo"})
@@ -68,7 +69,7 @@ describe EmailCommandController do
         email_command.email_subject.should eql params['subject']
         email_command.status.should eql EmailCommand::Status::SUCCESS
         email_command.response.should eql "Great, we'll be in touch. Stay healthy!"
-      end      
+      end
 
       it "should process 'more' correctly" do
         params = @test_params.merge({:plain => "more"})
@@ -79,7 +80,7 @@ describe EmailCommandController do
         email_command.email_subject.should eql params['subject']
         email_command.status.should eql EmailCommand::Status::SUCCESS
         email_command.response.should eql "Great, we'll be in touch. Stay healthy!"
-      end      
+      end
 
       it "should process 's' correctly" do
         params = @test_params.merge({:plain => "s ate kitten"})
@@ -92,8 +93,8 @@ describe EmailCommandController do
         # make sure the suggestion was recorded
         Suggestion.first.value.should eql "ate kitten"
         email_command.response.should eql "Thanks! We'll take your suggestion into consideration."
-      end    
-        
+      end
+
       it "should process 'suggest' correctly" do
         params = @test_params.merge({:plain => "suggest ate kitten"})
         post 'create', params
@@ -105,7 +106,7 @@ describe EmailCommandController do
         # make sure the suggestion was recorded
         Suggestion.first.value.should eql "ate kitten"
         email_command.response.should eql "Thanks! We'll take your suggestion into consideration."
-      end      
+      end
 
       it "should process 'lastquestion' correctly" do
         params = @test_params.merge({:plain => "lastquestion"})
@@ -116,7 +117,7 @@ describe EmailCommandController do
         email_command.email_subject.should eql params['subject']
         email_command.status.should eql EmailCommand::Status::SUCCESS
         email_command.response.should eql "You're not currently taking a survey"
-      end      
+      end
 
       it "should process 'survey' correctly" do
         params = @test_params.merge({:plain => "survey"})
@@ -127,7 +128,7 @@ describe EmailCommandController do
         email_command.email_subject.should eql params['subject']
         email_command.status.should eql EmailCommand::Status::SUCCESS
         email_command.response.should eql "Sorry, there is not currently a survey open."
-      end      
+      end
     end
   end
 end

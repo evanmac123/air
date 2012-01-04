@@ -9,7 +9,10 @@ Health::Application.routes.draw do
   resource  :conference_feed, :only => [:show]
 
   resources :phones,      :only => [:create]
-  resources :invitations, :only => [:new, :create, :show] 
+  
+  put "account_phone_validation", :controller => "phones", :action => :validate, :as => "account_phone_validation"
+
+  resources :invitations, :only => [:new, :create, :show]
   namespace :invitation do
     resource :resend
     resource :acceptance
@@ -47,6 +50,8 @@ Health::Application.routes.draw do
     resource :avatar, :only => [:update, :destroy]
     resource :sms_slug, :only => [:update]
     resource :name, :only => [:update]
+    resource :settings, :only => [:edit, :update]
+    resource :location, :only => [:update]
   end
 
   resource :friends, :only => [:show]
@@ -68,7 +73,7 @@ Health::Application.routes.draw do
 
       resources :bonus_thresholds, :only => [:edit, :update, :destroy], :shallow => true
       resources :bonus_thresholds, :only => [:new, :create]
-      
+
       resources :levels, :only => [:edit, :update, :destroy], :shallow => true
       resources :levels, :only => [:new, :create]
 

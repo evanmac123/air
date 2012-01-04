@@ -25,7 +25,7 @@ class User < ActiveRecord::Base
   has_and_belongs_to_many :bonus_thresholds
   has_and_belongs_to_many :levels
 
-  validate :normalized_phone_number_unique
+  validate :normalized_phone_number_unique, :normalized_new_phone_number_unique
 
   validates_uniqueness_of :slug
   validates_uniqueness_of :sms_slug, :message => "Sorry, that user ID is already taken."
@@ -33,6 +33,9 @@ class User < ActiveRecord::Base
   validates_presence_of :name
   validates_presence_of :sms_slug, :message => "Sorry, you can't choose a blank user ID."
   validates_presence_of :location_id, :if => :associated_demo_has_locations, :message => "Please choose a location"
+
+  validates_numericality_of :height, :allow_blank => true, :message => "Please use a numeric value for your height, and express it in inches"
+  validates_numericality_of :weight, :allow_blank => true, :message => "Please use a numeric value for your weight, and express it in pounds"
 
   has_attached_file :avatar, 
     :styles => {:thumb => "48x48#"}, 
@@ -67,7 +70,7 @@ class User < ActiveRecord::Base
   after_create do
     suggest_first_level_tasks
   end
-  
+
   after_destroy do
     destroy_friendships_where_secondary
     fix_demo_rankings
@@ -95,7 +98,7 @@ class User < ActiveRecord::Base
   def followers
     # You'd think you could do this with an association, and if you can figure
     # out how to get that to work, please, be my guest.
-    
+
     self.class.joins("INNER JOIN friendships on users.id = friendships.user_id").where('friendships.friend_id = ?', self.id)
   end
 
@@ -123,7 +126,7 @@ class User < ActiveRecord::Base
     friendships.where(:state => 'accepted')
   end
 
-  # See comment by Demo#acts_with_current_demo_checked for an explanation of 
+  # See comment by Demo#acts_with_current_demo_checked for an explanation of
   # why we do this.
 
   %w(friends pending_friends accepted_friends followers pending_followers accepted_followers).each do |base_method_name|
@@ -180,7 +183,15 @@ class User < ActiveRecord::Base
 
   def first_eligible_rule_value(value)
     matching_rule_values = RuleValue.visible_from_demo(self).where(:value => value)
-    matching_rule_values.select{|rule_value| rule_value.not_forbidden?}.first || matching_rule_values.first  
+    matching_rule_values.select{|rule_value| rule_value.not_forbidden?}.first || matching_rule_values.first
+  end
+
+  def generate_short_numerical_validation_token
+    letters = "0234568"
+    jumbled_letters = letters.split("").sort_by{rand}.join
+    token = jumbled_letters[0,4]
+    self.new_phone_validation = token
+    self.save
   end
 
   def self.in_canonical_ranking_order
@@ -313,7 +324,7 @@ class User < ActiveRecord::Base
 
   def point_and_ranking_summary(_points_denominator, prefix = [])
     result_parts = prefix.clone
-    
+
     if _points_denominator
       result_parts << "points #{self.points}/#{_points_denominator}"
     end
@@ -332,13 +343,13 @@ class User < ActiveRecord::Base
   # update the user's ranking, since it's expected that this will be called on
   # a whole batch of users at once, and it'll be more efficient to recalculate
   # all rankings at once afterwards.
-  
+
   def recalculate_moving_average!
     acts_in_horizon = find_acts_in_horizon
     oldest_act_in_horizon = acts_in_horizon.first
 
     self.recent_average_history_depth = if oldest_act_in_horizon
-                             # Date#- returns not an integer, but a Rational, 
+                             # Date#- returns not an integer, but a Rational,
                              # for doubtless the best of reasons.
                              (Date.today - oldest_act_in_horizon.created_at.to_date).numerator
                            else
@@ -440,7 +451,7 @@ class User < ActiveRecord::Base
   end
 
   def follow_accepted_message
-    message = "#{name} has approved your request to be a fan."    
+    message = "#{name} has approved your request to be a fan."
 
     points_from_demo = self.demo.points_for_connecting
     return message if points_from_demo.nil?
@@ -503,11 +514,11 @@ class User < ActiveRecord::Base
   end
 
   def self.name_starts_with(start)
-    where("name ILIKE ?", start.like_escape + "%")  
+    where("name ILIKE ?", start.like_escape + "%")
   end
 
   def self.name_starts_with_non_alpha
-    where("name NOT SIMILAR TO '^[[:alpha:]]%'")   
+    where("name NOT SIMILAR TO '^[[:alpha:]]%'")
   end
 
   protected
@@ -559,9 +570,16 @@ class User < ActiveRecord::Base
     end
   end
 
+  def normalized_new_phone_number_unique
+    normalize_unique(:new_phone_number)
+  end
   def normalized_phone_number_unique
-    return if self.phone_number.blank?
-    normalized_number = PhoneNumber.normalize(self.phone_number)
+    normalize_unique(:phone_number)
+  end
+
+  def normalize_unique(input)
+    return if self[input].blank?
+    normalized_number = PhoneNumber.normalize(self[input])
 
     where_conditions = if self.new_record?
                          ["phone_number = ?", normalized_number]
@@ -570,7 +588,7 @@ class User < ActiveRecord::Base
                        end
 
     if self.class.where(where_conditions).limit(1).present?
-      self.errors.add(:phone_number, "Sorry, but that phone number has already been taken. Need help? Contact support@hengage.com")
+      self.errors.add(input, "Sorry, but that phone number has already been taken. Need help? Contact support@hengage.com")
     end
   end
 
@@ -649,9 +667,9 @@ class User < ActiveRecord::Base
     return unless referring_user
 
     act_text = I18n.translate(
-      'activerecord.models.user.referred_a_command_act', 
-      :default    => "told %{name} about a command", 
-      :name       => self.name, 
+      'activerecord.models.user.referred_a_command_act',
+      :default    => "told %{name} about a command",
+      :name       => self.name,
       :rule_value => rule_value.value
     )
 
@@ -664,10 +682,10 @@ class User < ActiveRecord::Base
     )
 
     sms_text = I18n.translate(
-      'activerecord.models.user.thanks_for_referring_sms', 
-      :default                   => 'Thanks for referring %{name} to the %{rule_value} command. %{point_and_ranking_summary}', 
-      :name                      => self.name, 
-      :rule_value                => rule_value.value, 
+      'activerecord.models.user.thanks_for_referring_sms',
+      :default                   => 'Thanks for referring %{name} to the %{rule_value} command. %{point_and_ranking_summary}',
+      :name                      => self.name,
+      :rule_value                => rule_value.value,
       :point_and_ranking_summary => referring_user.point_and_ranking_summary(points_denominator_before_referring_act)
     )
     SMS.send_message(referring_user, sms_text)
@@ -718,4 +736,5 @@ class User < ActiveRecord::Base
       first_level_task.suggest_to_user(self)
     end
   end
+
 end
