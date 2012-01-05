@@ -1,44 +1,42 @@
 <div class="header">
 	<div class="app_bar">
 		<div class="app_by"><p>Brought to you by <a href="http://www.hengage.com" title="H Engage">H Engage</a></p></div>
-		<div class="app_settings">
-			<ul>
-				<li><a href="#" title="Help">Help</a></li>
-				<li><a href="#" title="Settings">Settings</a></li>
-				<li><a href="#" title="Sign Out">Sign Out</a></li>
+		<ul class="app_settings">
+			<li><a href="#" title="Help">Help</a></li>
+			<li><a href="#" title="Settings">Settings</a></li>
+			<li><a href="#" title="Sign Out">Sign Out</a></li>
+		</ul>
+	</div>
+	<div class="masthead">
+		<div class="mast_top">
+			<div class="logo_container"><img alt="!VARIABLE!" /></div>
+			<div class="welcome">
+				<img alt="!VARIABLE!" />
+				<p>Welcome back,</p>
+				<p>!VARIABLE!</p>
+			</div>
+			<ul class="navigation">
+				<li><a href="#" title="Home">Home</a></li>
+				<li><a href="#" title="Games">Games</a></li>
+				<li><a href="#" title="My Profile">My Profile</a></li>
+				<li><a href="#" title="Directory">Directory</a></li>
 			</ul>
+		</div>
+		<div class="mast_bottom">
+			<ul class="help">
+				<li class="help_command"><p>Do something!</p></li>
+				<li class="help_progress"><p>See how it affects your progress!</p></li>
+				<li class="help_level"><p>Level up!</p></li>
+			</ul>
+			<div class="bar_command">
+				<input type="text" />
+			</div>
+			<div class="bar_progress">
+				<!--how the hell would i even do this... ack-->
+			</div>
+			<div class="bar_level">
+				<p>Current Level:</p>
+			</div>
 		</div>
 	</div>
 </div>
-
-<!--<div class="header">
-  <div class="inner-header">
-    <div id="logo">
-      <%= link_to '/' do %>
-        <%= image_tag 'justtree.png', :alt => 'H Engage tree' %>
-      <% end %>
-    </div>
-
-    <% if @conference_feed_page %>
-      <span id="conference-header">@ <%= @demo.company_name %></span>
-    <% else %>
-      <% if signed_in? %>
-        <%= render :partial => 'shared/act_entry' %>
-      <% end %>
-
-
-      <div id="account">
-        <% if signed_in? %>
-          <%= link_to 'Home', acts_path %>
-          <%= link_to 'My Profile', current_user, :id => 'self-link' %>
-          <%= link_to 'Connections', friends_path %>
-          <%= link_to 'Admin', admin_path if current_user.is_site_admin %>
-          <%= link_to "Sign out", sign_out_path, :method => :delete %>
-        <% else %>
-          <%= link_to "By invitation only", page_path('invitation') %>
-        <% end %>
-      </div>
-    <% end %>
-  </div>
-</div>
--->
