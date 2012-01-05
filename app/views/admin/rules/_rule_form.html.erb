@@ -26,9 +26,13 @@
   <%= form.input :description, :hint => "Leave this blank and acts resulting from use of this rule won't appear in the activity feed, etc." %>
   <%= form.input :alltime_limit %>
   <%= form.input :referral_points %>
+  <div>Tags</div>
+  <% Tag.all.each do |t| %>
+    <%= radio_button_tag :primary_tag, t.id  %>
+    <%= check_box_tag :tag, t.id %>
+    <%= t.name %><br>
+  <% end %>
 
-  <%= radio_button_tag :tag, 1 %>
-  Nothing Here
 
 
 
