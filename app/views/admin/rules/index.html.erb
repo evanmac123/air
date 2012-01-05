@@ -3,7 +3,7 @@
 
 <h2 class="first">
   <%= link_to "Admin", admin_path %>:
-  <% if @demo %> 
+  <% if @demo %>
     <%= link_to @demo.company_name, admin_demo_path(@demo) %>: Rules
   <% else %>
     Standard Playbook
@@ -26,18 +26,24 @@
       <th>Alltime limit</th>
       <th>Referral points</th>
       <th>Suggestible?</th>
+      <th>Tags</th>
     </tr>
 
     <% @existing_rules.each_with_index do |existing_rule, rule_index| %>
       <tr>
         <td>
-          <img src="/images/right_triangle.png" data-row-to-toggle="tr#aliases_<%=rule_index%>" data-other-graphic-path="/images/down_triangle.png" class="row-toggle-button">        
+          <img src="/images/right_triangle.png" data-row-to-toggle="tr#aliases_<%=rule_index%>" data-other-graphic-path="/images/down_triangle.png" class="row-toggle-button">
           <%= existing_rule.primary_value.value %>
         </td>
 
         <% %w(points reply description alltime_limit referral_points suggestible).each do |field_name| %>
           <%= content_tag 'td', existing_rule[field_name] %>
         <% end %>
+        <td>
+          <% existing_rule.tags.each do |tag| %>
+            <%= tag.name %>
+          <% end %>
+        </td>
 
         <td>
           <%= link_to 'Edit Rule', edit_admin_rule_path(existing_rule) %>
