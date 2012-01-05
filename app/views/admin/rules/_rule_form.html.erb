@@ -33,7 +33,7 @@
     <tr>
       <td class='primary'><%= radio_button_tag "primary_tag", t.id  %></td>
       <td class='secondary'><%= check_box_tag "rule[tag_ids][#{t.id}]", "1", @rule.tag_ids.include?(t.id) %></td>
-      <td class='tag_name'><%= t.name %></td>
+      <td class='tag_name'><%= label_tag "rule[tag_ids][#{t.id}]", t.name %></td>
     </tr>
   <% end %>
   </table>

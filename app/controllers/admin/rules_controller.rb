@@ -35,17 +35,10 @@ class Admin::RulesController < AdminBaseController
   end
 
   def update
-    keys = []
-    unless params[:rule][:tag_ids].nil?
-      params[:rule][:tag_ids].each do |k, v|
-        keys << k
-      end
-    end
-    @rule.tag_ids = keys
-    params[:rule].delete(:tag_ids)
-    if params[:primary_tag]
-      @rule.primary_tag_id = params[:primary_tag]
-    end
+    set_tag_ids
+    set_primary_tag
+    remove_tag_ids_from_params
+
     if @rule.update_with_rule_values(params[:rule], @primary_value, (@secondary_values.try(:values) || []))
       flash[:success] = 'Rule updated'
     else
@@ -54,6 +47,25 @@ class Admin::RulesController < AdminBaseController
     redirect_to rules_index(@rule.demo)
   end
 
+  def remove_tag_ids_from_params
+    params[:rule].delete(:tag_ids)
+  end
+
+  def set_tag_ids
+    keys = []
+    unless params[:rule][:tag_ids].nil?
+      params[:rule][:tag_ids].each do |k, v|
+        keys << k
+      end
+    end
+    @rule.tag_ids = keys
+  end
+
+  def set_primary_tag
+    if params[:primary_tag]
+      @rule.primary_tag_id = params[:primary_tag]
+    end
+  end
   protected
 
   def find_demo

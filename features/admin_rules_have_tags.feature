@@ -8,11 +8,14 @@ Feature: Admin rules have tags
       | description |
       | ridebike    |
     Given the following rule value exists:
-      | value        | rule                  |
-      | rode a bike  | description: ridebike |
-    Given the following tag exists:
+      | value        | rule                  | is_primary |
+      | rode a bike  | description: ridebike | true       |
+    Given the following tags exist:
       | name     |
       | outdoors |
+      | indoors  |
+      | black    |
+      | leather  |
     Given the following label exists:
       | tag            | rule                  |
       | name: outdoors | description: ridebike |
@@ -24,3 +27,8 @@ Feature: Admin rules have tags
   Scenario: Admin can associate a rule with a tag
     When I go to the rule edit page for "rode a bike"
     Then I should see "Primary"
+    When I check the "leather" tag
+    And I press "Update Rule"
+    Then I should see "leather"
+    And I should see "outdoors"
+    Then show me the page

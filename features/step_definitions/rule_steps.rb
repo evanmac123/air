@@ -26,7 +26,7 @@ Given /^(the )?rule "([^"]*)" is associated with (the )?goal "([^"]*)"$/ do |_no
   goal.rules << rule
 end
 
-When /^I fill in secondary value field \#(\d+) with "([^"]*)"$/ do |index_plus_one, value| 
+When /^I fill in secondary value field \#(\d+) with "([^"]*)"$/ do |index_plus_one, value|
   index = index_plus_one.to_i - 1
   field_name = "rule[secondary_values][#{index}]"
   fill_in field_name, :with => value
@@ -48,4 +48,8 @@ Then /^I should see all the standard rulebook rules$/ do
   Rule.where(:demo_id => nil).each do |rule|
     expect_rule_rows(rule)
   end
+end
+
+When /^I check the "([^"]*)" tag$/ do |arg1|
+  page.check(arg1)
 end

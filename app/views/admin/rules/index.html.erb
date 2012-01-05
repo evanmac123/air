@@ -40,7 +40,11 @@
         <% %w(points reply description alltime_limit referral_points suggestible).each do |field_name| %>
           <%= content_tag 'td', existing_rule[field_name] %>
         <% end %>
-        <td><%= existing_rule.primary_tag.name %></td>
+        <td>
+          <% if existing_rule.primary_tag %>
+            <%= existing_rule.primary_tag.name %>
+          <% end %>
+        </td>
         <td>
           <% existing_rule.tags.each do |tag| %>
             <%= tag.name %>
