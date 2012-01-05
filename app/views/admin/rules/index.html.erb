@@ -27,7 +27,7 @@
       <th>Referral points</th>
       <th>Suggestible?</th>
       <th>Primary Tag</th>
-      <th>Tags</th>
+      <th>Other Tags</th>
     </tr>
 
     <% @existing_rules.each_with_index do |existing_rule, rule_index| %>
@@ -37,9 +37,10 @@
           <%= existing_rule.primary_value.value %>
         </td>
 
-        <% %w(points reply description alltime_limit referral_points suggestible primary_tag).each do |field_name| %>
+        <% %w(points reply description alltime_limit referral_points suggestible).each do |field_name| %>
           <%= content_tag 'td', existing_rule[field_name] %>
         <% end %>
+        <td><%= existing_rule.primary_tag.name %></td>
         <td>
           <% existing_rule.tags.each do |tag| %>
             <%= tag.name %>

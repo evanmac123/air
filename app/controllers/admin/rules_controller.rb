@@ -35,7 +35,6 @@ class Admin::RulesController < AdminBaseController
   end
 
   def update
-debugger
     keys = []
     unless params[:rule][:tag_ids].nil?
       params[:rule][:tag_ids].each do |k, v|
@@ -44,6 +43,9 @@ debugger
     end
     @rule.tag_ids = keys
     params[:rule].delete(:tag_ids)
+    if params[:primary_tag]
+      @rule.primary_tag_id = params[:primary_tag]
+    end
     if @rule.update_with_rule_values(params[:rule], @primary_value, (@secondary_values.try(:values) || []))
       flash[:success] = 'Rule updated'
     else
