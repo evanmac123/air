@@ -1,0 +1,152 @@
+/* ---------- customizations ---------- */
+$header-bg:#0673b1;
+
+/* ---------- dependencies ---------- */
+$bold:500;
+$centered: 0 auto;
+$font-large:16px;
+$font-small:12px;
+$gutter:10px;
+
+/* ---------- math ---------- */
+$body-width:960px - 2*$gutter;
+$dark:darken($header-bg, 10%);
+$light:lighten($header-bg, 10%);
+
+/* ---------- mixins ---------- */
+@mixin nav-rounded {
+	-webkit-border-radius: 20px;
+	-moz-border-radius: 20px;
+	border-radius: 20px;
+	border:1px lighten($header-bg, 10%) solid;
+}
+@mixin rounded {
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	border:1px lighten($header-bg, 10%) solid;
+}
+
+/* ---------- standards ---------- */
+a {text-decoration:none!important;}
+body {
+	font-family:'Helvetica Neue', Helvetica, Arial, sans-serif;
+	font-size:14px;
+}
+.cf {clear:both;}
+img {border:0; margin:0; padding:0;}
+p {margin:0;padding:0;}
+ul {list-style-type:none; margin:0; padding:0;}
+
+/* ---------- masthead ---------- */
+.header {
+	background-color:$dark-gray;
+	border-bottom:1px #fff solid;
+	font-weight:$bold;
+	text-shadow: 1px 1px $dark-gray;
+	a {
+		color:#fff;
+		font-weight:$bold;
+		&:hover {color:lighten($header-bg, 50%)!important;}
+	}
+	li {display:inline;}
+	
+	.app_bar {
+		color:$gray;
+		font-size:$font-small;
+		height:23px;
+		margin:$centered;
+		padding:7px $gutter 0 $gutter;
+		width:$body-width;
+		
+		a {
+			font-size:$font-small;
+		}
+		.app_by {
+			float:left;
+			margin:$centered;
+		}
+	
+		.app_settings {
+			float:right;
+			li {padding-left:20px;}
+		}
+	}
+
+	.masthead {
+		background-color:$header-bg;
+		border-top:1px $light solid;
+		border-bottom:1px $dark solid;
+		padding-bottom:15px;
+	
+		.mast_top {
+			border-bottom:1px $dark solid;
+			color:$light-gray;
+			margin:$centered;
+			padding:15px $gutter;
+			width:$body-width;
+			
+			.logo_container {
+				float:left;
+				margin-top:5px;
+				width:140px;
+			}
+			.welcome {
+				color:lighten($header-bg, 45%);
+				float:left;
+				margin-left:40px;
+				width:300px;
+				
+				img {
+					@include rounded;
+					float:left;
+					margin:0 15px 0 0!important;
+					width:50px;
+				}
+				
+				.welcome_text {
+					float:left;
+					position:relative;
+					top:6px;
+				}
+			}
+			.navigation {
+				float:right;
+				font-size:$font-large;
+				left:15px;
+				margin-top:5px;
+				position:relative;
+				text-transform:uppercase;
+
+				a {
+					display:block;
+					float:left;
+					font-family:Gotham, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+					padding:6px 15px;
+				}
+				a.a_current {
+					@include nav-rounded;
+					background-color:#000;
+				}
+			}
+		}
+		.mast_center {
+			border-top:1px $light solid;
+			color:lighten($header-bg, 45%);
+			font-size:$font-small;
+			margin:$centered;
+			padding:$gutter;
+			text-shadow:none;
+			width:$body-width;
+			
+			li {
+				border:1px red solid;
+			}
+		}
+		.mast_bottom {
+			border:1px yellow solid;
+			margin:$centered;
+			width:960px;
+		}
+	}
+}

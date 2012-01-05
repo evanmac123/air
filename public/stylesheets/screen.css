@@ -1,16 +1,24 @@
 /* Game type colors */
 @import url(flick/jquery-ui-1.8.10.custom.css);
-/* ---------- note to self ---------- 
-	use sass operations to lighten/darken
-	hairlines
-   ---------------------------------- */
 /* ---------- customizations ---------- */
+/* ---------- dependencies ---------- */
+/* ---------- math ---------- */
+/* ---------- mixins ---------- */
 /* ---------- standards ---------- */
 a {
   text-decoration: none!important; }
 
+body {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 14px; }
+
+.cf {
+  clear: both; }
+
 img {
-  border: 0; }
+  border: 0;
+  margin: 0;
+  padding: 0; }
 
 p {
   margin: 0;
@@ -21,34 +29,28 @@ ul {
   margin: 0;
   padding: 0; }
 
-.cf {
-  clear: both; }
-
-body {
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  font-size: 14px; }
-
 /* ---------- masthead ---------- */
 .header {
   background-color: #2e2e2c;
-  border-bottom: 1px white solid; }
+  border-bottom: 1px #fff solid;
+  font-weight: 500;
+  text-shadow: 1px 1px #2e2e2c; }
   .header a {
-    color: white;
-    font-size: 12px;
+    color: #fff;
     font-weight: 500; }
     .header a:hover {
-      text-decoration: underline!important; }
+      color: #b9e4fd !important; }
   .header li {
     display: inline; }
-  .header p {
+  .header .app_bar {
     color: #909090;
     font-size: 12px;
-    font-weight: 500; }
-  .header .app_bar {
     height: 23px;
     margin: 0 auto;
     padding: 7px 10px 0 10px;
     width: 940px; }
+    .header .app_bar a {
+      font-size: 12px; }
     .header .app_bar .app_by {
       float: left;
       margin: 0 auto; }
@@ -57,35 +59,66 @@ body {
       .header .app_bar .app_settings li {
         padding-left: 20px; }
   .header .masthead {
-    background-color: #067bbd;
-    border-top: 1px #089bee solid;
-    border-bottom: 1px #045b8c solid; }
+    background-color: #0673b1;
+    border-top: 1px #0893e2 solid;
+    border-bottom: 1px #045380 solid;
+    padding-bottom: 15px; }
     .header .masthead .mast_top {
-      border-bottom: 1px #045b8c solid;
-      height: 70px;
+      border-bottom: 1px #045380 solid;
+      color: #e9e9e9;
       margin: 0 auto;
-      padding: 10px;
+      padding: 15px 10px;
       width: 940px; }
       .header .masthead .mast_top .logo_container {
-        border: 1px red solid;
         float: left;
+        margin-top: 5px;
         width: 140px; }
       .header .masthead .mast_top .welcome {
-        border: 1px yellow solid;
+        color: #a1dbfc;
         float: left;
-        margin-left: 20px;
+        margin-left: 40px;
         width: 300px; }
         .header .masthead .mast_top .welcome img {
+          -webkit-border-radius: 5px;
+          -moz-border-radius: 5px;
+          border-radius: 5px;
+          border: 1px #0893e2 solid;
           float: left;
-          margin-right: 10px;
-          width: 61px; }
+          margin: 0 15px 0 0!important;
+          width: 50px; }
+        .header .masthead .mast_top .welcome .welcome_text {
+          float: left;
+          position: relative;
+          top: 6px; }
       .header .masthead .mast_top .navigation {
-        border: 1px purple solid;
-        float: right; }
-        .header .masthead .mast_top .navigation li {
-          margin-left: 30px; }
-    .header .masthead .mast_bottom {
-      border-top: 1px #089bee solid;
+        float: right;
+        font-size: 16px;
+        left: 15px;
+        margin-top: 5px;
+        position: relative;
+        text-transform: uppercase; }
+        .header .masthead .mast_top .navigation a {
+          display: block;
+          float: left;
+          font-family: Gotham, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+          padding: 6px 15px; }
+        .header .masthead .mast_top .navigation a.a_current {
+          -webkit-border-radius: 20px;
+          -moz-border-radius: 20px;
+          border-radius: 20px;
+          border: 1px #0893e2 solid;
+          background-color: #000; }
+    .header .masthead .mast_center {
+      border-top: 1px #0893e2 solid;
+      color: #a1dbfc;
+      font-size: 12px;
       margin: 0 auto;
       padding: 10px;
+      text-shadow: none;
       width: 940px; }
+      .header .masthead .mast_center li {
+        border: 1px red solid; }
+    .header .masthead .mast_bottom {
+      border: 1px yellow solid;
+      margin: 0 auto;
+      width: 960px; }
