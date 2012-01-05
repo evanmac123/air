@@ -13,6 +13,10 @@ a:hover{
   color: blue;
   text-decoration: underline;
 }
+td.primary, th.primary{ width: 30px;}
+td.secondary, th.secondary{width: 50px;}
+td.tag_name, th.tag_name{width: 100px;}
+table.tags{width: 300px;}
 /************************************************************************************************************/
 
 

@@ -27,12 +27,16 @@
   <%= form.input :alltime_limit %>
   <%= form.input :referral_points %>
   <div>Tags</div>
+  <table class='tags'>
+  <tr><th class='primary'>Primary</th><th class='secondary'><th class='tag_name'>Tag Name</th></tr>
   <% Tag.all.each do |t| %>
-    <%= radio_button_tag :primary_tag, t.id  %>
-    <%= check_box_tag :tag, t.id %>
-    <%= t.name %><br>
+    <tr>
+      <td class='primary'><%= radio_button_tag :primary_tag, t.id  %></td>
+      <td class='secondary'><%= check_box_tag :tag, t.id %></td>
+      <td class='tag_name'><%= t.name %></td>
+    </tr>
   <% end %>
-
+  </table>
 
 
 
