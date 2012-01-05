@@ -26,6 +26,7 @@
       <th>Alltime limit</th>
       <th>Referral points</th>
       <th>Suggestible?</th>
+      <th>Primary Tag</th>
       <th>Tags</th>
     </tr>
 
@@ -36,7 +37,7 @@
           <%= existing_rule.primary_value.value %>
         </td>
 
-        <% %w(points reply description alltime_limit referral_points suggestible).each do |field_name| %>
+        <% %w(points reply description alltime_limit referral_points suggestible primary_tag).each do |field_name| %>
           <%= content_tag 'td', existing_rule[field_name] %>
         <% end %>
         <td>

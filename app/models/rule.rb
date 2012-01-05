@@ -9,7 +9,7 @@ class Rule < ActiveRecord::Base
   has_many   :rule_values, :dependent => :destroy
   has_many   :labels
   has_many   :tags, :through => :labels
-
+  belongs_to :primary_tag, :class_name => "Tag"
   def to_s
     description || self.primary_value.try(:value) || self.rule_values.oldest.first.value
   end

@@ -35,6 +35,7 @@ class Admin::RulesController < AdminBaseController
   end
 
   def update
+debugger
     keys = []
     unless params[:rule][:tag_ids].nil?
       params[:rule][:tag_ids].each do |k, v|
