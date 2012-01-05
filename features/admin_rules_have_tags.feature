@@ -22,5 +22,5 @@ Feature: Admin rules have tags
     When I go to the new admin tag page
     Then I should see "Name"
   Scenario: Admin can associate a rule with a tag
-#    When I go to the rule edit page for "rode a bike"
-#    Then I should see "Tags"
+    When I go to the rule edit page for "rode a bike"
+    Then I should see "Primary"
