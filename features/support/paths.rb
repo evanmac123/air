@@ -94,6 +94,9 @@ module NavigationHelpers
 
     when /the admin suggested tasks page for "(.*?)"/
       admin_demo_suggested_tasks_path(Demo.find_by_company_name($1))
+
+    when /the new admin tag page/
+      new_admin_tag_path
     else
       begin
         page_name =~ /^the (.*) page$/

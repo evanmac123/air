@@ -12,5 +12,5 @@ Feature: Admin rules have tags
       | name: outdoors | description: ridebike |
 
   Scenario: Admin can create new tags
-    When I go to the admin new tag page
+    When I go to the new admin tag page
     Then I should see "Name"
