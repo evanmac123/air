@@ -23,3 +23,4 @@ Feature: User can change their location
     When I select "Philadelphia" from the location drop-down
     And I press the button to save the new location
     Then I should see "Philadelphia"
+    And I should see "OK, your location is now Philadelphia."

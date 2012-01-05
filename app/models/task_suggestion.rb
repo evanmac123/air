@@ -8,7 +8,7 @@ class TaskSuggestion < ActiveRecord::Base
 
   def satisfy!
     update_attributes(:satisfied => true)
-    a = Act.new(:user_id =>self.user_id, :inherent_points => self.suggested_task.bonus_points)
+    a = Act.new(:user_id =>self.user_id, :inherent_points => self.suggested_task.bonus_points, :text => "I completed a daily dose!")
     a.save
   end
 

@@ -3,6 +3,9 @@
     <%= form.inputs do %>
       <%= form.input :name,  :label => "Name" %>
       <%= form.input :email, :label => "Email" %>
+      <% if @locations.present? %>
+        <%= form.input :location, :label => "Location", :collection => @locations %>
+      <% end %>
       <%= label_tag :set_claim_code %>
       <%= check_box_tag :set_claim_code %>
       <%= form.input :connection_bounty %>

@@ -39,6 +39,7 @@ class Admin::DemosController < AdminBaseController
     @user_with_mobile_count = @demo.users.where("phone_number IS NOT NULL AND phone_number != ''").count
     @bonus_thresholds = @demo.bonus_thresholds.in_threshold_order
     @levels = @demo.levels.in_threshold_order
+    @locations = @demo.locations.alphabetical
   end
 
   def edit

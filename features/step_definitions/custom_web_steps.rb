@@ -148,3 +148,13 @@ Then /^I should( not)? see an input with value "([^"]*)"$/ do |sense, expected_v
     page.should_not have_css("input[value=\"#{expected_value}\"]")
   end
 end
+
+When /^I should not see a form field called "([^"]*)"$/ do |field_name|
+  # Yeah, it's a hack. Shut up.
+  begin
+    find_field(field_name)
+    raise "field found but not expected to"
+  rescue Capybara::ElementNotFound
+  end
+end
+

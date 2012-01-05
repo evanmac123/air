@@ -27,6 +27,7 @@ Feature: Admin sets bonus points for suggested tasks
     Then I should see "15"
     When I go to the homepage
     Then I should see "0points"
+    And I should not see "15 pts"
     When I go to the edit admin demo user page for company "NobodysBusiness" and user "Phil"
     #Then show me the page
     Then I should see an input with value "Phil"
@@ -34,3 +35,4 @@ Feature: Admin sets bonus points for suggested tasks
     And I click "OK"
     And I go to the homepage
     Then I should see "15points"
+    And I should see "15 pts Phil I completed a daily dose!"

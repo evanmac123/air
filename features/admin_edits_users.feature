@@ -20,7 +20,10 @@ Feature: Admin edits users
     Then I should be on the admin "British Petroleum" demo page
 
     When I follow "B"
-    Then I should see "Bobby, bobby@bp.com (bp_bobby) (connection bounty: 7 points)"
+    Then I should see "Bobby"
+    And I should see "bobby@bp.com"
+    And I should see "(bp_bobby)"
+    And I should see "(connection bounty: 7 points)"
 
   Scenario: Admin removes claim code
     When I fill in "Claim code" with ""

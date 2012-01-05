@@ -6,6 +6,9 @@
   <% if user.claim_code %>
     <strong>(<%= user.claim_code%>)</strong>
   <% end %>
+  <% if user.location %>
+    (location: <%= user.location.name %>)
+  <% end %>
   <% if user.connection_bounty > 0 %>
     (connection bounty: <%= user.connection_bounty %> points)
   <% end %>

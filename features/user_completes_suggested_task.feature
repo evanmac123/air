@@ -91,6 +91,7 @@ Feature: User completes suggested task
     And I should not see "Survey task 2"
     And I should not see "Survey task 4"
     And I should not see "Referer task 2"
+    And I should not see "I completed a daily dose!"
 
   Scenario: User completes suggested task by acting according to rule
     When "+14152613077" sends SMS "do 1"
@@ -103,6 +104,7 @@ Feature: User completes suggested task
     And I should see "Survey task 1"
     And I should see "Survey task 3"
     And I should see "Referer task 1"
+    And I should see "I completed a daily dose!"
 
     But I should not see "Rule task 1"
     And I should not see "Rule task 4"
@@ -122,6 +124,7 @@ Feature: User completes suggested task
     And I should see "Survey task 1"
     And I should see "Survey task 3"
     And I should see "Referer task 2"
+    And I should see "I completed a daily dose!"
 
     But I should not see "Rule task 1"
     And I should not see "Rule task 4"
@@ -129,7 +132,6 @@ Feature: User completes suggested task
     And I should not see "Survey task 2"
     And I should not see "Survey task 4"
     And I should not see "Referer task 1"
-
 
   Scenario: User completes suggested task by completing survey
     When "+14152613077" sends SMS "survey"
@@ -145,6 +147,7 @@ Feature: User completes suggested task
     And I should see "Survey task 2"
     And I should see "Survey task 3"
     And I should see "Referer task 1"
+    And I should see "I completed a daily dose!"
 
     But I should not see "Rule task 2"
     And I should not see "Rule task 4"
@@ -152,4 +155,3 @@ Feature: User completes suggested task
     And I should not see "Survey task 1"
     And I should not see "Survey task 4"
     And I should not see "Referer task 2"
-
