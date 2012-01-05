@@ -4,6 +4,9 @@ Feature: Admin rules have tags
     Given the following rule exists:
       | description |
       | ridebike    |
+    Given the following rule value exists:
+      | value        | rule                  |
+      | rode a bike  | description: ridebike |
     Given the following tag exists:
       | name     |
       | outdoors |
@@ -14,3 +17,6 @@ Feature: Admin rules have tags
   Scenario: Admin can create new tags
     When I go to the new admin tag page
     Then I should see "Name"
+
+  Scenario: Admin can associate a rule with a tag
+    When I go to the rule edit page for "rode a bike"
