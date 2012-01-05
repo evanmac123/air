@@ -1,4 +1,4 @@
 class Label < ActiveRecord::Base
-  has_one :rule
-  has_one :tag
+  belongs_to :rule
+  belongs_to :tag
 end

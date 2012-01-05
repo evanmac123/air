@@ -7,7 +7,9 @@ class Rule < ActiveRecord::Base
   has_many   :acts
   has_many   :rule_triggers, :dependent => :destroy, :class_name => "Trigger::RuleTrigger"
   has_many   :rule_values, :dependent => :destroy
+  has_many   :labels
   has_many   :tags, :through => :labels
+
   def to_s
     description || self.primary_value.try(:value) || self.rule_values.oldest.first.value
   end

@@ -35,6 +35,7 @@ class Admin::RulesController < AdminBaseController
   end
 
   def update
+debugger
     if @rule.update_with_rule_values(params[:rule], @primary_value, (@secondary_values.try(:values) || []))
       flash[:success] = 'Rule updated'
     else
