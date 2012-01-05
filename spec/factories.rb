@@ -8,7 +8,7 @@ end
 
 Factory.define :user do |factory|
   factory.association(:demo)
-  factory.association(:location) 
+  factory.association(:location)
   factory.name                  { "James Earl Jones" }
   factory.email                 { Factory.next :email }
   factory.password              { "password" }
@@ -57,6 +57,15 @@ end
 
 Factory.define :forbidden_rule_value, :class => RuleValue do |factory|
   factory.sequence(:value) { |n| "drank beer #{n}" }
+end
+
+Factory.define :tag do |factory|
+  factory.description {"A short description"}
+end
+
+Factory.define :label do |factory|
+  factory.association(:rule)
+  factory.association(:tag)
 end
 
 Factory.define :key do |factory|

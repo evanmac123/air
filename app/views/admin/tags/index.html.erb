@@ -13,9 +13,9 @@
   <tr>
     <td><%= tag.name %></td>
     <td><%= tag.description %></td>
-    <td><%= link_to 'Show', tag %></td>
+    <td><%= link_to 'Show', admin_tag_path(tag) %></td>
     <td><%= link_to 'Edit', edit_admin_tag_path(tag) %></td>
-    <td><%= link_to 'Destroy', tag, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%= link_to 'Destroy', admin_tag_path(tag), :confirm => 'Are you sure?', :method => :delete, :controller => "admin/tags" %></td>
   </tr>
 <% end %>
 </table>

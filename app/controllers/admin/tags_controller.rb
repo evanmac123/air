@@ -1,4 +1,4 @@
-class Admin::TagsController < ApplicationController
+class Admin::TagsController < AdminBaseController
   # GET /tags
   # GET /tags.xml
   def index
@@ -44,7 +44,7 @@ class Admin::TagsController < ApplicationController
 
     respond_to do |format|
       if @tag.save
-        format.html { redirect_to(@tag, :notice => 'Tag was successfully created.') }
+        format.html { redirect_to(admin_tag_path(@tag), :notice => 'Tag was successfully created.') }
         format.xml  { render :xml => @tag, :status => :created, :location => @tag }
       else
         format.html { render :action => "new" }
@@ -76,7 +76,7 @@ class Admin::TagsController < ApplicationController
     @tag.destroy
 
     respond_to do |format|
-      format.html { redirect_to(tags_url) }
+      format.html { redirect_to(admin_tags_url) }
       format.xml  { head :ok }
     end
   end
