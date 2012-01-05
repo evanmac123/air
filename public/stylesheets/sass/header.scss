@@ -1,3 +1,5 @@
+/* INTERPOLATION FOR ROUNDED */
+
 /* ---------- customizations ---------- */
 $header-bg:#0673b1;
 
@@ -14,17 +16,39 @@ $dark:darken($header-bg, 10%);
 $light:lighten($header-bg, 10%);
 
 /* ---------- mixins ---------- */
-@mixin nav-rounded {
-	-webkit-border-radius: 20px;
-	-moz-border-radius: 20px;
-	border-radius: 20px;
-	border:1px lighten($header-bg, 10%) solid;
+@mixin bg-progressbar {
+	background: #d5d5d5; /* Old browsers */
+	background: -moz-linear-gradient(top,  #d5d5d5 0%, #eaeaea 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#d5d5d5), color-stop(100%,#eaeaea)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  #d5d5d5 0%,#eaeaea 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  #d5d5d5 0%,#eaeaea 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  #d5d5d5 0%,#eaeaea 100%); /* IE10+ */
+	background: linear-gradient(top,  #d5d5d5 0%,#eaeaea 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d5d5d5', endColorstr='#eaeaea',GradientType=0 ); /* IE6-9 */
 }
 @mixin rounded {
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
 	border-radius: 5px;
 	border:1px lighten($header-bg, 10%) solid;
+}
+@mixin rounded-nav {
+	-webkit-border-radius: 20px;
+	-moz-border-radius: 20px;
+	border-radius: 20px;
+	border:1px lighten($header-bg, 10%) solid;
+}
+@mixin rounded-progress {
+	border:1px darken($header-bg, 10%) solid;
+	border-radius: 30px;
+	-webkit-border-radius: 30px;
+	-moz-border-radius: 30px;
+}
+@mixin rounded-progress-section {
+	border:1px #fff solid;
+	border-radius: 30px;
+	-webkit-border-radius: 30px;
+	-moz-border-radius: 30px;
 }
 
 /* ---------- standards ---------- */
@@ -125,7 +149,7 @@ ul {list-style-type:none; margin:0; padding:0;}
 					padding:6px 15px;
 				}
 				a.a_current {
-					@include nav-rounded;
+					@include rounded-nav;
 					background-color:#000;
 				}
 			}
@@ -144,9 +168,18 @@ ul {list-style-type:none; margin:0; padding:0;}
 			}
 		}
 		.mast_bottom {
-			border:1px yellow solid;
+			/* IF IE, USE BACKGROUND IMAGE */
+			@include bg-progressbar;
+			@include rounded-progress;
+			height:56px;
 			margin:$centered;
 			width:960px;
+			
+			.bar_command {
+				@include rounded-progress-section;
+				height:54px;
+				width:400px;
+			}
 		}
 	}
 }
