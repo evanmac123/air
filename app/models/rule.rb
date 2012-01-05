@@ -54,7 +54,6 @@ class Rule < ActiveRecord::Base
 
     Rule.transaction do
       self.save || (return false)
-
       self.set_primary_value!(primary_value) || (return false)
       self.set_secondary_values!(secondary_values) || (return false)
     end
