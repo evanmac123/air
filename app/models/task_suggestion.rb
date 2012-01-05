@@ -8,6 +8,8 @@ class TaskSuggestion < ActiveRecord::Base
 
   def satisfy!
     update_attributes(:satisfied => true)
+    a = Act.new(:user_id =>self.user_id, :inherent_points => self.suggested_task.bonus_points)
+    a.save
   end
 
   def self.for_task(task)
@@ -53,6 +55,6 @@ class TaskSuggestion < ActiveRecord::Base
   end
 
   def self.triggering_object_id(object_or_object_id, expected_class)
-    object_or_object_id.kind_of?(expected_class) ? object_or_object_id.id : object_or_object_id  
+    object_or_object_id.kind_of?(expected_class) ? object_or_object_id.id : object_or_object_id
   end
 end

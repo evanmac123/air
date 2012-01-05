@@ -17,7 +17,7 @@ class Admin::UsersController < AdminBaseController
     redirect_to :back
 
     @user = @demo.users.build(params[:user])
-    
+
     unless @user.save
       flash[:failure] = "Cannot create that user: #{@user.errors.full_messages}"
       return

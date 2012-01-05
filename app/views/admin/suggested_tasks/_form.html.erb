@@ -1,10 +1,11 @@
-<% form_submit_path = suggested_task.new_record? ? 
-  admin_demo_suggested_tasks_path(suggested_task.demo) : 
+<% form_submit_path = suggested_task.new_record? ?
+  admin_demo_suggested_tasks_path(suggested_task.demo) :
   admin_demo_suggested_task_path(suggested_task.demo, suggested_task) %>
 <%= semantic_form_for suggested_task, :url => form_submit_path do |f| %>
   <%= f.input :name %>
   <%= f.input :short_description %>
   <%= f.input :long_description %>
+  <%= f.input :bonus_points %>
   <%= f.input :prerequisite_tasks, :collection => @existing_tasks %>
   <%= f.input :start_time, :twelve_hour => true, :start_year => Time.now.year %>
   <fieldset>
