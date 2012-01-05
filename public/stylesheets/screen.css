@@ -21,6 +21,9 @@ ul {
   margin: 0;
   padding: 0; }
 
+.cf {
+  clear: both; }
+
 body {
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-size: 14px; }
@@ -35,6 +38,8 @@ body {
     font-weight: 500; }
     .header a:hover {
       text-decoration: underline!important; }
+  .header li {
+    display: inline; }
   .header p {
     color: #909090;
     font-size: 12px;
@@ -50,7 +55,6 @@ body {
     .header .app_bar .app_settings {
       float: right; }
       .header .app_bar .app_settings li {
-        display: inline;
         padding-left: 20px; }
   .header .masthead {
     background-color: #067bbd;
@@ -62,11 +66,18 @@ body {
       padding: 10px;
       width: 940px; }
       .header .masthead .mast_top .logo_container {
-        border: 1px red solid; }
+        border: 1px red solid;
+        float: left;
+        width: 140px; }
       .header .masthead .mast_top .welcome {
-        border: 1px yellow solid; }
+        border: 1px yellow solid;
+        float: left;
+        margin-left: 20px;
+        width: 300px; }
       .header .masthead .mast_top .navigation {
-        border: 1px purple solid; }
+        border: 1px purple solid;
+        float: right;
+        width: 460px; }
     .header .masthead .mast_bottom {
       border-top: 1px #089bee solid;
       margin: 0 auto;
