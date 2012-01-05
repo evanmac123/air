@@ -1,4 +1,4 @@
-Feature: Admin bulk loads users
+Feature: Admin sets bonus points for suggested tasks
 
   Background:
     Given the following demo exists:
