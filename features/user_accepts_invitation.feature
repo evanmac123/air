@@ -139,17 +139,17 @@ Feature: User accepts invitation
     And I fill in "And confirm that password" with "whatwhat"
     And I press "Join the game"
     Then I should not see "Welcome to the game"
-    And I should see "Sorry, that unique ID is already taken."
+    And I should see "Sorry, that user ID is already taken."
 
     When I fill in "Choose a unique ID" with "         "
     And I press "Join the game"
     Then I should not see "Welcome to the game"
-    And I should see "Sorry, you can't choose a blank unique ID."
+    And I should see "Sorry, you can't choose a blank user ID."
 
     When I fill in "Choose a unique ID" with "i rule"
     And I press "Join the game"
     Then I should not see "Welcome to the game"
-    And I should see "Sorry, the unique ID must consist of letters or digits only."
+    And I should see "Sorry, the user ID must consist of letters or digits only."
 
     When I fill in "Choose a unique ID" with "DannyBoy"
     And I press "Join the game"
