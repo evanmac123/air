@@ -20,3 +20,5 @@ Feature: Admin rules have tags
 
   Scenario: Admin can associate a rule with a tag
     When I go to the rule edit page for "rode a bike"
+Then I dump the page
+    Then I should see "Tags"

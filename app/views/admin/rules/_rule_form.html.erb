@@ -1,5 +1,5 @@
 <%= semantic_form_for rule, :url => action_path do |form| %>
-  <li class="string" id="rule_primary_value_input"> 
+  <li class="string" id="rule_primary_value_input">
     <label for="rule_primary_value">Primary value</label>
     <a href="#" id="secondary-value-toggle">(show secondary values)</a><br/>
     <%= text_field_tag 'rule[primary_value]', primary_value.value %>
@@ -26,6 +26,12 @@
   <%= form.input :description, :hint => "Leave this blank and acts resulting from use of this rule won't appear in the activity feed, etc." %>
   <%= form.input :alltime_limit %>
   <%= form.input :referral_points %>
+
+  <%= radio_button_tag :tag, 1 %>
+  Nothing Here
+
+
+
   <%= form.input :suggestible %>
   <%= form.commit_button %>
   <%= link_to 'Cancel', rules_index(rule.demo) %>
