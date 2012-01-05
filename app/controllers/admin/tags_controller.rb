@@ -1,82 +1,82 @@
-class FagsController < ApplicationController
-  # GET /fags
-  # GET /fags.xml
+class Admin::TagsController < ApplicationController
+  # GET /tags
+  # GET /tags.xml
   def index
-    @fags = Fag.all
+    @tags = Tag.all
 
     respond_to do |format|
       format.html # index.html.erb
-      format.xml  { render :xml => @fags }
+      format.xml  { render :xml => @tags }
     end
   end
 
-  # GET /fags/1
-  # GET /fags/1.xml
+  # GET /tags/1
+  # GET /tags/1.xml
   def show
-    @fag = Fag.find(params[:id])
+    @tag = Tag.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
-      format.xml  { render :xml => @fag }
+      format.xml  { render :xml => @tag }
     end
   end
 
-  # GET /fags/new
-  # GET /fags/new.xml
+  # GET /tags/new
+  # GET /tags/new.xml
   def new
-    @fag = Fag.new
+    @tag = Tag.new
 
     respond_to do |format|
       format.html # new.html.erb
-      format.xml  { render :xml => @fag }
+      format.xml  { render :xml => @tag }
     end
   end
 
-  # GET /fags/1/edit
+  # GET /tags/1/edit
   def edit
-    @fag = Fag.find(params[:id])
+    @tag = Tag.find(params[:id])
   end
 
-  # POST /fags
-  # POST /fags.xml
+  # POST /tags
+  # POST /tags.xml
   def create
-    @fag = Fag.new(params[:fag])
+    @tag = Tag.new(params[:tag])
 
     respond_to do |format|
-      if @fag.save
-        format.html { redirect_to(@fag, :notice => 'Fag was successfully created.') }
-        format.xml  { render :xml => @fag, :status => :created, :location => @fag }
+      if @tag.save
+        format.html { redirect_to(@tag, :notice => 'Tag was successfully created.') }
+        format.xml  { render :xml => @tag, :status => :created, :location => @tag }
       else
         format.html { render :action => "new" }
-        format.xml  { render :xml => @fag.errors, :status => :unprocessable_entity }
+        format.xml  { render :xml => @tag.errors, :status => :unprocessable_entity }
       end
     end
   end
 
-  # PUT /fags/1
-  # PUT /fags/1.xml
+  # PUT /tags/1
+  # PUT /tags/1.xml
   def update
-    @fag = Fag.find(params[:id])
+    @tag = Tag.find(params[:id])
 
     respond_to do |format|
-      if @fag.update_attributes(params[:fag])
-        format.html { redirect_to(@fag, :notice => 'Fag was successfully updated.') }
+      if @tag.update_attributes(params[:tag])
+        format.html { redirect_to(@tag, :notice => 'Tag was successfully updated.') }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
-        format.xml  { render :xml => @fag.errors, :status => :unprocessable_entity }
+        format.xml  { render :xml => @tag.errors, :status => :unprocessable_entity }
       end
     end
   end
 
-  # DELETE /fags/1
-  # DELETE /fags/1.xml
+  # DELETE /tags/1
+  # DELETE /tags/1.xml
   def destroy
-    @fag = Fag.find(params[:id])
-    @fag.destroy
+    @tag = Tag.find(params[:id])
+    @tag.destroy
 
     respond_to do |format|
-      format.html { redirect_to(fags_url) }
+      format.html { redirect_to(tags_url) }
       format.xml  { head :ok }
     end
   end

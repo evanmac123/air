@@ -3,6 +3,19 @@ a, a:link {
   color: #999999;
   text-decoration: none; }
 
+
+/**********  This block added by Jack January 2012 to make the admin site easier to read       **************/
+a, a:link, a:hover, a:visited, a:active{
+  color: #1a4882;
+  text-decoration: none;
+}
+a:hover{
+  color: blue;
+  text-decoration: underline;
+}
+/************************************************************************************************************/
+
+
 body {
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-size: 14px;
