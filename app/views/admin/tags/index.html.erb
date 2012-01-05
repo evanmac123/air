@@ -1,0 +1,25 @@
+<h1>Listing fags</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Description</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @fags.each do |fag| %>
+  <tr>
+    <td><%= fag.name %></td>
+    <td><%= fag.description %></td>
+    <td><%= link_to 'Show', fag %></td>
+    <td><%= link_to 'Edit', edit_fag_path(fag) %></td>
+    <td><%= link_to 'Destroy', fag, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Fag', new_fag_path %>
