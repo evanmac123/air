@@ -27,7 +27,8 @@ body {
 
 /* ---------- masthead ---------- */
 .header {
-  background-color: #2e2e2c; }
+  background-color: #2e2e2c;
+  border-bottom: 1px white solid; }
   .header a {
     color: white;
     font-size: 12px;
@@ -41,8 +42,8 @@ body {
   .header .app_bar {
     height: 23px;
     margin: 0 auto;
-    padding-top: 7px;
-    width: 960px; }
+    padding: 7px 10px 0 10px;
+    width: 940px; }
     .header .app_bar .app_by {
       float: left;
       margin: 0 auto; }
@@ -53,7 +54,8 @@ body {
         padding-left: 20px; }
   .header .masthead {
     background-color: #067bbd;
-    border-top: 1px #0792e0 solid; }
+    border-top: 1px #089bee solid;
+    border-bottom: 1px #045b8c solid; }
     .header .masthead .mast_top {
       border-bottom: 1px #045b8c solid;
       margin: 0 auto;

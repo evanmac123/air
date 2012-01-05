@@ -9,6 +9,7 @@
 
 /* ---------- customizations ---------- */
 $header_bg:#067bbd;
+$gutter:10px;
 
 /* ---------- standards ---------- */
 a {text-decoration:none!important;}
@@ -16,11 +17,12 @@ img {border:0;}
 p {margin:0;padding:0;}
 ul {list-style-type:none; margin:0; padding:0;}
 
-$body-width:960px;
+$body-width:960px - 2*$gutter;
 $bold:500;
 $centered: 0 auto;
+$dark:darken($header_bg, 10%);
 $font-small:12px;
-$gutter:10px;
+$light:lighten($header_bg, 10%);
 
 body {
 	font-family:'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -30,6 +32,7 @@ body {
 /* ---------- masthead ---------- */
 .header {
 	background-color:$dark-gray;
+	border-bottom:1px $white solid;
 	a {
 		color:$white;
 		font-size:$font-small;
@@ -45,7 +48,7 @@ body {
 	.app_bar {
 		height:23px;
 		margin:$centered;
-		padding-top:7px;
+		padding:7px $gutter 0 $gutter;
 		width:$body-width;
 	
 		.app_by {
@@ -64,23 +67,24 @@ body {
 
 	.masthead {
 		background-color:$header_bg;
-		border-top:1px lighten($header_bg, 7%) solid;;
+		border-top:1px $light solid;
+		border-bottom:1px $dark solid;
 	
 		.mast_top {
-			border-bottom:1px darken($header_bg, 10%) solid;;
+			border-bottom:1px $dark solid;;
 			margin:$centered;
 			padding:$gutter;
-			width:$body-width - 2*$gutter;
+			width:$body-width;
 			
 			.logo_container {border:1px red solid;}
 			.welcome {border:1px yellow solid;}
 			.navigation {border:1px purple solid;}
 		}
 		.mast_bottom {
-			border-top:1px lighten($header_bg, 10%) solid;
+			border-top:1px $light solid;
 			margin:$centered;
 			padding:$gutter;
-			width:$body-width - 2*$gutter;
+			width:$body-width;
 		}
 	}
 }
