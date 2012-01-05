@@ -9,7 +9,6 @@
 
 /* ---------- customizations ---------- */
 $header_bg:#067bbd;
-$gutter:10px;
 
 /* ---------- standards ---------- */
 a {text-decoration:none!important;}
@@ -19,11 +18,13 @@ ul {list-style-type:none; margin:0; padding:0;}
 
 .cf {clear:both;}
 
-$body-width:960px - 2*$gutter;
 $bold:500;
 $centered: 0 auto;
-$dark:darken($header_bg, 10%);
 $font-small:12px;
+$gutter:10px;
+
+$body-width:960px - 2*$gutter;
+$dark:darken($header_bg, 10%);
 $light:lighten($header_bg, 10%);
 
 body {
@@ -71,7 +72,8 @@ body {
 		border-bottom:1px $dark solid;
 	
 		.mast_top {
-			border-bottom:1px $dark solid;;
+			border-bottom:1px $dark solid;
+			height:70px;
 			margin:$centered;
 			padding:$gutter;
 			width:$body-width;
@@ -86,11 +88,20 @@ body {
 				float:left;
 				margin-left:2*$gutter;
 				width:300px;
+				
+				img {
+					float:left;
+					margin-right:$gutter;
+					width:61px;
+				}
 			}
 			.navigation {
 				border:1px purple solid;
 				float:right;
-				width:460px;
+				
+				li {
+					margin-left:30px;
+				}
 			}
 		}
 		.mast_bottom {
