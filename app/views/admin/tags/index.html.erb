@@ -1,4 +1,4 @@
-<h1>Listing fags</h1>
+<h1>Listing tags</h1>
 
 <table>
   <tr>
@@ -9,17 +9,17 @@
     <th></th>
   </tr>
 
-<% @fags.each do |fag| %>
+<% @tags.each do |tag| %>
   <tr>
-    <td><%= fag.name %></td>
-    <td><%= fag.description %></td>
-    <td><%= link_to 'Show', fag %></td>
-    <td><%= link_to 'Edit', edit_fag_path(fag) %></td>
-    <td><%= link_to 'Destroy', fag, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%= tag.name %></td>
+    <td><%= tag.description %></td>
+    <td><%= link_to 'Show', tag %></td>
+    <td><%= link_to 'Edit', edit_tag_path(tag) %></td>
+    <td><%= link_to 'Destroy', tag, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
 <% end %>
 </table>
 
 <br />
 
-<%= link_to 'New Fag', new_fag_path %>
+<%= link_to 'New tag', new_tag_path %>
