@@ -1,14 +1,13 @@
 /* Game type colors */
 @import url(flick/jquery-ui-1.8.10.custom.css);
-/* ---------- customizations ---------- */
 /* ---------- dependencies ---------- */
-/* ---------- math ---------- */
 /* ---------- mixins ---------- */
 /* ---------- standards ---------- */
 a {
   text-decoration: none!important; }
 
 body {
+  background-color: #e9e9e9;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-size: 14px; }
 
@@ -29,6 +28,9 @@ ul {
   margin: 0;
   padding: 0; }
 
+/* ---------- customizations ---------- */
+/* ---------- math ---------- */
+/* ---------- mixins ---------- */
 /* ---------- masthead ---------- */
 .header {
   background-color: #2e2e2c;
@@ -238,3 +240,5 @@ ul {
           font-size: 30px;
           margin: 10px 20px 0 0;
           text-shadow: 1px 1px 1px #2e2e2c; }
+
+/* --------------------------- content --------------------------- */
