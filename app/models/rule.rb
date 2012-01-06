@@ -7,7 +7,9 @@ class Rule < ActiveRecord::Base
   has_many   :acts
   has_many   :rule_triggers, :dependent => :destroy, :class_name => "Trigger::RuleTrigger"
   has_many   :rule_values, :dependent => :destroy
-
+  has_many   :labels
+  has_many   :tags, :through => :labels
+  belongs_to :primary_tag, :class_name => "Tag"
   def to_s
     description || self.primary_value.try(:value) || self.rule_values.oldest.first.value
   end
@@ -24,7 +26,7 @@ class Rule < ActiveRecord::Base
   def set_primary_value!(new_value)
     value = self.primary_value || self.rule_values.build(:is_primary => true)
     value.value = new_value
-    unless value.save 
+    unless value.save
       self.errors.add(:base, "Problem with primary value: #{value.errors.full_messages}")
       return false
     end
@@ -36,10 +38,10 @@ class Rule < ActiveRecord::Base
     _new_values = new_values.reject(&:blank?)
     self.secondary_values.where(["value NOT IN (?)", _new_values]).delete_all
     existing_values = self.secondary_values.map(&:value)
-    (_new_values - existing_values).each do |new_value| 
+    (_new_values - existing_values).each do |new_value|
       value = self.secondary_values.build(:value => new_value)
-      unless value.save 
-        self.errors.add(:base, "Problem with secondary value #{new_value}: #{value.errors.full_messages}") 
+      unless value.save
+        self.errors.add(:base, "Problem with secondary value #{new_value}: #{value.errors.full_messages}")
         return false
       end
     end
@@ -52,7 +54,6 @@ class Rule < ActiveRecord::Base
 
     Rule.transaction do
       self.save || (return false)
-
       self.set_primary_value!(primary_value) || (return false)
       self.set_secondary_values!(secondary_values) || (return false)
     end

@@ -100,6 +100,10 @@ module NavigationHelpers
 
     when /the edit admin suggested task page for company "(.*?)" and task "(.*?)"/
       edit_admin_demo_suggested_task_path(Demo.find_by_company_name($1), SuggestedTask.find_by_name($2))
+
+    when /the new admin tag page/
+      new_admin_tag_path
+
     else
 
       begin
