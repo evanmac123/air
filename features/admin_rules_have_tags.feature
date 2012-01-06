@@ -3,10 +3,10 @@ Feature: Admin rules have tags
   Background:
     Given the following user exists:
       | name  | is_site_admin |
-      | jesus | true     |
+      | jesus | true          |
     Given the following rule exists:
-      | description | primary_tag     |
-      | ridebike    | name: generated |
+      | description | primary_tag     | demo                |
+      | ridebike    | name: generated | company_name: FooCo |
     Given the following rule value exists:
       | value        | rule                  | is_primary |
       | rode a bike  | description: ridebike | true       |
@@ -41,9 +41,9 @@ Feature: Admin rules have tags
     And I press "Create Rule"
     Then I should see "first primary"
     And I should see "leather"
-    And show me the page
+
   Scenario: Admin can view the rules/index page
-    When I go to the admin rules page
+    When I go to the admin rules page for "FooCo"
     Then I should see "generated"
 
   Scenario: When editing a rule, primary tag radio button shows up checked
