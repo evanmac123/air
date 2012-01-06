@@ -37,5 +37,8 @@ Feature: Admin rules have tags
     Then I should see "Primary"
     When I fill in "rule_primary_value" with "first primary"
     And I press "Create Rule"
-    Then show me the page
+    Then I should not see "undefined method"
+    When I go to the admin rules page
+  Scenario: Admin can view the rules/index page
+    When I go to the admin rules page
     Then I should not see "undefined method"
