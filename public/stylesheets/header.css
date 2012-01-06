@@ -1,21 +1,21 @@
 /*
 Syntax error: Undefined variable: "$dark-gray".
-        on line 84 of /Users/Connie/Sites/HEngage Git/public/stylesheets/sass/header.scss
+        on line 82 of /Users/Connie/Sites/HEngage Git/public/stylesheets/sass/header.scss
 
-79: p {margin:0;padding:0;}
-80: ul {list-style-type:none; margin:0; padding:0;}
-81: 
-82: /* ---------- masthead ---------- */
-83: .header {
-84: 	background-color:$dark-gray;
-85: 	border-bottom:1px #fff solid;
-86: 	font-weight:$bold;
-87: 	text-shadow: 1px 1px $dark-gray;
-88: 	a {
-89: 		color:#fff;
+77: p {margin:0;padding:0;}
+78: ul {list-style-type:none; margin:0; padding:0;}
+79: 
+80: /* ---------- masthead ---------- */
+81: .header {
+82: 	background-color:$dark-gray;
+83: 	border-bottom:1px #fff solid;
+84: 	font-weight:$bold;
+85: 	text-shadow: 1px 1px $dark-gray;
+86: 	a {
+87: 		color:#fff;
 
 Backtrace:
-/Users/Connie/Sites/HEngage Git/public/stylesheets/sass/header.scss:84
+/Users/Connie/Sites/HEngage Git/public/stylesheets/sass/header.scss:82
 /Library/Ruby/Gems/1.8/gems/sass-3.1.0.alpha.221/lib/sass/../sass/script/variable.rb:45:in `_perform'
 /Library/Ruby/Gems/1.8/gems/sass-3.1.0.alpha.221/lib/sass/../sass/script/node.rb:67:in `perform'
 /Library/Ruby/Gems/1.8/gems/sass-3.1.0.alpha.221/lib/sass/../sass/tree/visitors/perform.rb:212:in `visit_prop'
@@ -114,4 +114,4 @@ script/rails:6
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Syntax error: Undefined variable: \"$dark-gray\".\A         on line 84 of /Users/Connie/Sites/HEngage Git/public/stylesheets/sass/header.scss\A \A 79: p {margin:0;padding:0;}\A 80: ul {list-style-type:none; margin:0; padding:0;}\A 81: \A 82: /* ---------- masthead ---------- */\A 83: .header {\A 84: 	background-color:$dark-gray;\A 85: 	border-bottom:1px #fff solid;\A 86: 	font-weight:$bold;\A 87: 	text-shadow: 1px 1px $dark-gray;\A 88: 	a {\A 89: 		color:#fff;"; }
+  content: "Syntax error: Undefined variable: \"$dark-gray\".\A         on line 82 of /Users/Connie/Sites/HEngage Git/public/stylesheets/sass/header.scss\A \A 77: p {margin:0;padding:0;}\A 78: ul {list-style-type:none; margin:0; padding:0;}\A 79: \A 80: /* ---------- masthead ---------- */\A 81: .header {\A 82: 	background-color:$dark-gray;\A 83: 	border-bottom:1px #fff solid;\A 84: 	font-weight:$bold;\A 85: 	text-shadow: 1px 1px $dark-gray;\A 86: 	a {\A 87: 		color:#fff;"; }
