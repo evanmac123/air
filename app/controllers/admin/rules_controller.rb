@@ -23,7 +23,7 @@ class Admin::RulesController < AdminBaseController
     remove_tag_ids_from_params
     @rule = Rule.create_with_rule_values(params[:rule], params[:demo_id], @primary_value, @secondary_values.values)
     set_tag_ids
-    set_primary_tag
+
     if @rule.errors.empty?
       flash[:success] = "Rule created."
     else
@@ -39,11 +39,10 @@ class Admin::RulesController < AdminBaseController
   end
 
   def update
-debugger
     @tag_ids = params[:rule][:tag_ids]
     remove_tag_ids_from_params
     set_tag_ids
-    set_primary_tag
+
 
 
     if @rule.update_with_rule_values(params[:rule], @primary_value, (@secondary_values.try(:values) || []))
@@ -68,11 +67,6 @@ debugger
     @rule.tag_ids = keys
   end
 
-  def set_primary_tag
-    if params[:primary_tag]
-      @rule.primary_tag_id = params[:primary_tag]
-    end
-  end
   protected
 
   def find_demo

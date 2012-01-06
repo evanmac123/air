@@ -35,8 +35,10 @@ end
 
 Factory.define :rule do |factory|
   factory.points { 2 }
-  factory.reply  { "Yum. +2 points. Bananas help you fight cancer." }
+  factory.reply  { debugger;"Yum. +2 points. Bananas help you fight cancer." }
   factory.association :demo
+  factory.association :primary_tag, :factory => :tag
+  factory.association :primary_value, :factory => :rule_value
 end
 
 Factory.define :coded_rule do |factory|
@@ -61,6 +63,7 @@ end
 
 Factory.define :tag do |factory|
   factory.description {"A short description"}
+  factory.sequence(:name) {|n| "Cool word #{n}"}
 end
 
 Factory.define :label do |factory|

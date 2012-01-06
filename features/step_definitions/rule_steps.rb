@@ -53,3 +53,10 @@ end
 When /^I check the "([^"]*)" tag$/ do |arg1|
   page.check(arg1)
 end
+
+Then /^the radio button for "([^"]*)" should be checked$/ do |arg1|
+
+  id_of_primary_tag = Tag.find_by_name(arg1).id
+
+  page.find(:css, "#rule_primary_tag_id_#{id_of_primary_tag}")
+end

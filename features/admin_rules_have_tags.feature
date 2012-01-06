@@ -5,11 +5,12 @@ Feature: Admin rules have tags
       | name  | is_site_admin |
       | jesus | true     |
     Given the following rule exists:
-      | description |
-      | ridebike    |
+      | description | primary_tag     |
+      | ridebike    | name: generated |
     Given the following rule value exists:
       | value        | rule                  | is_primary |
       | rode a bike  | description: ridebike | true       |
+
     Given the following tags exist:
       | name     |
       | outdoors |
@@ -24,25 +25,27 @@ Feature: Admin rules have tags
   Scenario: Admin can create new tags
     When I go to the new admin tag page
     Then I should see "Name"
-  Scenario: Admin can associate a rule with a tag
+  Scenario: Admin can edit a rule to associate it with a tag
     When I go to the rule edit page for "rode a bike"
     Then I should see "Primary"
+    Then the "outdoors" checkbox should be checked
     When I check the "leather" tag
     And I press "Update Rule"
     Then I should see "leather"
     And I should see "outdoors"
-    Then show me the page
-  Scenario: Admin can create a new rule with a tag
+  Scenario: Admin can create a new rule and associate it with a tag
     When I go to the new admin rule page
     Then I should see "Primary"
-    When I fill in "rule_primary_value" with "first primary"
+    When I fill in "Primary value" with "first primary"
+    And I check the "leather" tag
     And I press "Create Rule"
-    Then I should not see "undefined method"
-    When I go to the admin rules page
+    Then I should see "first primary"
+    And I should see "leather"
+    And show me the page
   Scenario: Admin can view the rules/index page
     When I go to the admin rules page
-    Then I should not see "undefined method"
-  Scenario: Editing a rule does not change its primary tags or other tags
+    Then I should see "generated"
+
+  Scenario: When editing a rule, primary tag radio button shows up checked
     When I go to the rule edit page for "rode a bike"
-    Then I should see "black"
-    Then show me the page
+    Then the radio button for "generated" should be checked
