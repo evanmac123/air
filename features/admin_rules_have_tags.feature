@@ -32,3 +32,10 @@ Feature: Admin rules have tags
     Then I should see "leather"
     And I should see "outdoors"
     Then show me the page
+  Scenario: Admin can create a new rule with a tag
+    When I go to the new admin rule page
+    Then I should see "Primary"
+    When I fill in "rule_primary_value" with "first primary"
+    And I press "Create Rule"
+    Then show me the page
+    Then I should not see "undefined method"
