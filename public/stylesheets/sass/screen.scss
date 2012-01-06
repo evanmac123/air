@@ -69,13 +69,13 @@ h2.first {
 }
 
 h2.first#activity, h2.first#scoreboard {
-  display: inline; 
+  display: inline;
 }
 
 .add-friends {
   color: $green;
   float: right;
-  font-weight: bold; 
+  font-weight: bold;
 }
 
 .header {
@@ -111,7 +111,7 @@ h2.first#activity, h2.first#scoreboard {
 
       .enter-code {
         font-size: 12px;
-        vertical-align: middle; 
+        vertical-align: middle;
 
         .prompt {
           font-size: 18px;
@@ -125,7 +125,7 @@ h2.first#activity, h2.first#scoreboard {
           font-size: 14px;
         }
 
-        input[type="submit"] { 
+        input[type="submit"] {
           padding: 5px 5px 7px;
         }
       }
@@ -317,21 +317,21 @@ pre {
   }
 }
 
-#secondary ul.top-scores { 
+#secondary ul.top-scores {
   margin-top: 0px;
 
   li {
     padding: 4px 5px 4px 10px;
-    background-color: white; 
+    background-color: white;
     line-height: 22px;
     @include rounded-corners(6px);
   }
 
-  .score { 
-    color: $green; 
+  .score {
+    color: $green;
     float: right;
     font-weight: bold;
-    
+
     .score-value {
     }
   }
@@ -397,7 +397,7 @@ table#your-score {
     td:last-child, th:last-child {
       @include rounded-corner-bottomright($table-corner-radius);
     }
-  } 
+  }
 }
 
 #top-users {
@@ -463,11 +463,11 @@ ul#acts {
         }
 
         span.points {
-          color: $green; 
+          color: $green;
           position: absolute;
           top: 0;
           right: 0;
-          text-align: center; 
+          text-align: center;
           padding: 5px 0;
           line-height: 14px;
           font-size: 14px;
@@ -482,13 +482,13 @@ ul#acts {
             position: absolute;
             right: 0;
             top: 45px;
-            padding-right: 5px; 
+            padding-right: 5px;
             font-size: 10px;
             text-align: center;
             line-height: 14px;
 
             span.ranking-value {
-              display: block; 
+              display: block;
               font-size: 14px;
             }
           }
@@ -647,7 +647,7 @@ select {
 }
 
 a.current {
-  text-decoration: underline; 
+  text-decoration: underline;
 }
 
 #achievements .achievement {
@@ -850,8 +850,8 @@ ul#other-users {
       padding-top: 30px;
     }
 
-    /* Fuck you, Formtastic. */    
-    .required label { 
+    /* Fuck you, Formtastic. */
+    .required label {
       font-weight: normal;
     }
 
@@ -928,3 +928,19 @@ fieldset#levels {
     width: 250px;
   }
 }
+
+/**********  This block added by Jack January 2012 to make the admin site easier to read       **************/
+a, a:link, a:hover, a:visited, a:active{
+  color: #1a4882;
+  text-decoration: none;
+}
+a:hover{
+  color: blue;
+  text-decoration: underline;
+}
+td.primary, th.primary{ width: 30px;}
+td.secondary, th.secondary{width: 50px;}
+td.tag_name, th.tag_name{width: 100px;}
+table.tags{width: 300px;}
+td.selected_primary {font-weight: bold;}
+/************************************************************************************************************/

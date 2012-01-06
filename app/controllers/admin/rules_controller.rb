@@ -18,12 +18,16 @@ class Admin::RulesController < AdminBaseController
   end
 
   def create
-    rule = Rule.create_with_rule_values(params[:rule], params[:demo_id], @primary_value, @secondary_values.values)
 
-    if rule.errors.empty?
+    @tag_ids = params[:rule][:tag_ids]
+    remove_tag_ids_from_params
+    @rule = Rule.create_with_rule_values(params[:rule], params[:demo_id], @primary_value, @secondary_values.values)
+    set_tag_ids
+
+    if @rule.errors.empty?
       flash[:success] = "Rule created."
     else
-      flash[:failure] = "Couldn't create rule: #{rule.errors.full_messages}"
+      flash[:failure] = "Couldn't create rule: #{@rule.errors.full_messages}"
     end
 
     redirect_to rules_index(params[:demo_id])
@@ -35,12 +39,32 @@ class Admin::RulesController < AdminBaseController
   end
 
   def update
+    @tag_ids = params[:rule][:tag_ids]
+    remove_tag_ids_from_params
+    set_tag_ids
+
+
+
     if @rule.update_with_rule_values(params[:rule], @primary_value, (@secondary_values.try(:values) || []))
       flash[:success] = 'Rule updated'
     else
       flash[:failure] = "Couldn't update rule: #{@rule.errors.full_messages}"
     end
     redirect_to rules_index(@rule.demo)
+  end
+
+  def remove_tag_ids_from_params
+    params[:rule].delete(:tag_ids)
+  end
+
+  def set_tag_ids
+    keys = []
+    unless @tag_ids.nil?
+      @tag_ids.each do |k, v|
+        keys << k
+      end
+    end
+    @rule.tag_ids = keys
   end
 
   protected

@@ -9,7 +9,7 @@ Health::Application.routes.draw do
   resource  :conference_feed, :only => [:show]
 
   resources :phones,      :only => [:create]
-  
+
   put "account_phone_validation", :controller => "phones", :action => :validate, :as => "account_phone_validation"
 
   resources :invitations, :only => [:new, :create, :show]
@@ -65,6 +65,10 @@ Health::Application.routes.draw do
     resources :rule_values, :only => [:destroy]
 
     resources :forbidden_rules, :only => [:index, :create, :destroy]
+
+    resources :tags
+
+    resources :labels
 
     resources :demos, :only => [:new, :create, :show, :destroy, :edit, :update] do
       # TODO: move :edit and :update onto resources :users below

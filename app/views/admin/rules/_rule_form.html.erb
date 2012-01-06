@@ -1,5 +1,5 @@
 <%= semantic_form_for rule, :url => action_path do |form| %>
-  <li class="string" id="rule_primary_value_input"> 
+  <li class="string" id="rule_primary_value_input">
     <label for="rule_primary_value">Primary value</label>
     <a href="#" id="secondary-value-toggle">(show secondary values)</a><br/>
     <%= text_field_tag 'rule[primary_value]', primary_value.value %>
@@ -26,6 +26,22 @@
   <%= form.input :description, :hint => "Leave this blank and acts resulting from use of this rule won't appear in the activity feed, etc." %>
   <%= form.input :alltime_limit %>
   <%= form.input :referral_points %>
+  <div>Tags</div>
+  <table class='tags'>
+  <tr><th class='primary'>Primary</th><th class='secondary'>Selected<th class='tag_name'>Tag</th></tr>
+  <% Tag.all.sort_by{|a| a.name }.each do |t| %>
+    <tr>
+      <% checked = (t.id == @rule.primary_tag_id) %>
+      <% tag_class = checked ? "selected_primary" : "" %>
+      <td class='primary'><%= radio_button_tag "rule[primary_tag_id]", t.id, checked  %></td>
+      <td class='secondary'><%= check_box_tag "rule[tag_ids][#{t.id}]", "1", @rule.tag_ids.include?(t.id) %></td>
+      <td class='tag_name <%= tag_class %>'><%= label_tag "rule[tag_ids][#{t.id}]", t.name %></td>
+    </tr>
+  <% end %>
+  </table>
+
+
+
   <%= form.input :suggestible %>
   <%= form.commit_button %>
   <%= link_to 'Cancel', rules_index(rule.demo) %>
