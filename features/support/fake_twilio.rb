@@ -76,7 +76,8 @@ module FakeTwilio
     end
 
     def self.has_sent_text?(phone, body)
-      sent_text(phone, body).present?
+debugger
+     sent_text(phone, body).present?
     end
 
     def self.has_sent_text_to?(phone)

@@ -39,8 +39,8 @@ class User < ActiveRecord::Base
   validates_numericality_of :height, :allow_blank => true, :message => "Please use a numeric value for your height, and express it in inches"
   validates_numericality_of :weight, :allow_blank => true, :message => "Please use a numeric value for your weight, and express it in pounds"
 
-  has_attached_file :avatar, 
-    :styles => {:thumb => "48x48#"}, 
+  has_attached_file :avatar,
+    :styles => {:thumb => "48x48#"},
     :default_style => :thumb,
     #:processors => [:png],
     :storage => :s3,
@@ -527,6 +527,11 @@ class User < ActiveRecord::Base
     where("name NOT SIMILAR TO '^[[:alpha:]]%'")
   end
 
+  def self.send_invitation_if_email(user_or_phone, text, options={})
+    if text.strip =~ /\S+@\S.[a-zA-Z]{2,3}/
+      return "An invitation has been sent to #{text.strip}."
+    end
+  end
   protected
 
   def downcase_email
