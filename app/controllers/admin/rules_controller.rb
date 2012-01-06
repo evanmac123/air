@@ -39,7 +39,7 @@ class Admin::RulesController < AdminBaseController
   end
 
   def update
-
+debugger
     @tag_ids = params[:rule][:tag_ids]
     remove_tag_ids_from_params
     set_tag_ids

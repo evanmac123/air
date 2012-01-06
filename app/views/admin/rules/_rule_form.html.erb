@@ -31,7 +31,11 @@
   <tr><th class='primary'>Primary</th><th class='secondary'>Selected<th class='tag_name'>Tag</th></tr>
   <% Tag.all.each do |t| %>
     <tr>
-      <td class='primary'><%= radio_button_tag "primary_tag", t.id  %></td>
+      <% if (t.id == @rule.primary_tag_id) %>
+        <td class='primary'><%= radio_button_tag "rule[primary_tag_id]", t.id, :checked => true  %></td>
+      <% else %>
+        <td class='primary'><%= radio_button_tag "rule[primary_tag_id]", t.id  %></td>
+      <% end %>
       <td class='secondary'><%= check_box_tag "rule[tag_ids][#{t.id}]", "1", @rule.tag_ids.include?(t.id) %></td>
       <td class='tag_name'><%= label_tag "rule[tag_ids][#{t.id}]", t.name %></td>
     </tr>

@@ -42,3 +42,7 @@ Feature: Admin rules have tags
   Scenario: Admin can view the rules/index page
     When I go to the admin rules page
     Then I should not see "undefined method"
+  Scenario: Editing a rule does not change its primary tags or other tags
+    When I go to the rule edit page for "rode a bike"
+    Then I should see "black"
+    Then show me the page
