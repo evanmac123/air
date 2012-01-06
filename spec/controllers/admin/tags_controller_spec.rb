@@ -1,5 +1,5 @@
 require 'spec_helper'
 
-describe TagController do
+describe Admin::TagsController do
 
 end
