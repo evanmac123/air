@@ -5,13 +5,15 @@
   <title>H Engage</title>
   <%= stylesheet_link_tag :flutie %>
   <%= stylesheet_link_tag (@new_appearance ? 'new_activity_page' : 'screen' ) %>
+
+	<!--[if IE]>
+	    <%= stylesheet_link_tag 'screen_IE' %>
+	<![endif]-->
+	<!--[if IE 7]>
+		<%= stylesheet_link_tag 'screen_IE7' %>
+	<![endif]-->
+
   <% if @new_appearance %>
-    <!--[if IE 7]>
-      <%= stylesheet_link_tag 'new_ie7hacks' %>
-    <![endif]-->
-    <!--[if IE 8]>
-      <%= stylesheet_link_tag 'new_ie8hacks' %>
-    <![endif]-->
     <%= render 'shared/skin_styles' %>
     <link rel="stylesheet" type='text/css' href='https://getbarometer.s3.amazonaws.com/assets/barometer/css/barometer.css'/>
     <%= stylesheet_link_tag 'barometer_tweaks' %>
