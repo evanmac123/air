@@ -538,7 +538,10 @@ class User < ActiveRecord::Base
         SelfInvitingDomain.where(:domain => domain).first
         new_user = User.new(:name => "Charlie", :phone_number => user_or_phone, :email => text.strip,
                   :demo_id => demo_id, :location_id => 1)
-        return "An invitation has been sent to #{text.strip}." if new_user.save
+        if new_user.save
+          Mailer.invitation(new_user).deliver
+          return "An invitation has been sent to #{text.strip}."
+        end
       end
     end
     return nil

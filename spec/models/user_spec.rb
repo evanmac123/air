@@ -111,6 +111,9 @@ describe User do
       User.send_invitation_if_email(user_or_phone, text).should == nil
       user_or_phone = "+12345678901"
       User.send_invitation_if_email(user_or_phone, text).should == "An invitation has been sent to #{text}."
+      mail = ActionMailer::Base.deliveries
+      mail.should_not be_empty
+      mail.first.body.raw_source.should include("invite")
       domain = "notonyourlife.com"
       text = "hi@#{domain}"
       User.send_invitation_if_email(user_or_phone, text).should == "Your domain is not valid"
