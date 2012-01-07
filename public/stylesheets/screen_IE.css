@@ -7,6 +7,8 @@
   background-image: url("/images/v3/bg-orange.png") !important;
   background-repeat: repeat-x!important;
   padding-top: 0px!important; }
+.header .mast_bottom .bar_level p.level {
+  color: #2e2f2d!important; }
 
 input[type="submit"].button_norm {
   background-color: #2e2f2d!important;
