@@ -3,7 +3,6 @@ class User
     def set_ranking(points_column, ranking_column)
       User.transaction do
         new_point_value = self[points_column]
-
         self[ranking_column] = self.demo.users.where("#{points_column} > ?", new_point_value).count + 1
         old_point_value = self.changed_attributes[points_column]
 

@@ -528,10 +528,30 @@ class User < ActiveRecord::Base
   end
 
   def self.send_invitation_if_email(user_or_phone, text, options={})
-    if text.strip =~ /\S+@\S.[a-zA-Z]{2,3}/
-      return "An invitation has been sent to #{text.strip}."
+    domain = self.is_an_email_address(text)
+    if domain
+      if user_or_phone =~ /^(\+1\d{10})$/
+        phone = $1
+        domain_object = SelfInvitingDomain.where(:domain => domain)
+        return "Your domain is not valid" if domain_object.empty?
+        demo_id = domain_object.first.demo_id
+        SelfInvitingDomain.where(:domain => domain).first
+        new_user = User.new(:name => "Charlie", :phone_number => user_or_phone, :email => text.strip,
+                  :demo_id => demo_id, :location_id => 1)
+        return "An invitation has been sent to #{text.strip}." if new_user.save
+      end
     end
+    return nil
   end
+
+  def self.is_an_email_address(input)
+    if input.strip =~ /^[a-zA-Z0-9_]+@([a-zA-Z0-9_]+.[a-zA-Z]{2,3})$/
+      domain = $1
+      return domain
+    end
+    return nil
+  end
+
   protected
 
   def downcase_email

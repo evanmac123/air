@@ -104,6 +104,21 @@ describe User do
     user2.should_not be_valid
   end
 
+  it "should send an invitation if sms email is valid" do
+      user_or_phone = "blah"
+      domain = Factory(:self_inviting_domain).domain
+      text = "hi@#{domain}"
+      User.send_invitation_if_email(user_or_phone, text).should == nil
+      user_or_phone = "+12345678901"
+      User.send_invitation_if_email(user_or_phone, text).should == "An invitation has been sent to #{text}."
+      domain = "notonyourlife.com"
+      text = "hi@#{domain}"
+      User.send_invitation_if_email(user_or_phone, text).should == "Your domain is not valid"
+      text = "not an email address"
+      User.send_invitation_if_email(user_or_phone, text).should == nil
+  end
+
+
   describe "on destroy" do
     it "should destroy any Friendships where this user is the friend on destroy" do
       user1 = Factory(:user)
