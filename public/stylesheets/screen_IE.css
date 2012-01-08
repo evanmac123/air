@@ -3,9 +3,10 @@
   background-image: url("/images/v3/bg-black.png") !important;
   background-repeat: repeat-x!important; }
 .header .mast_bottom .bar_command input[type="submit"] {
-  background-color: #ffd04b!important;
-  background-image: url("/images/v3/bg-orange.png") !important;
-  background-repeat: repeat-x!important;
+  background-color: transparent!important;
+  background-image: url("/images/v3/btn_play.png") !important;
+  background-repeat: no-repeat!important;
+  background-repeat: no-repeat;
   padding-top: 0px!important; }
 .header .mast_bottom .bar_level p.level {
   color: #2e2f2d!important; }

@@ -11,9 +11,13 @@
 }
 
 @mixin ie-bg-orange {
-	background-color:#ffd04b!important;
-	background-image:url('/images/v3/bg-orange.png')!important;
-	background-repeat:repeat-x!important;
+	background-color:transparent!important;
+	background-image:url('/images/v3/btn_play.png')!important;
+	background-repeat:no-repeat!important;
+	
+//	background-color:#ffd04b;
+//	background-image:url('/images/v3/bg-orange.png');
+	background-repeat:no-repeat;
 }
 
 .header {

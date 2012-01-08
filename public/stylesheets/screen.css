@@ -205,7 +205,7 @@ ul {
         -moz-border-radius: 30px;
         behavior: url(/css3pie/PIE.htc);
         width: 400px; }
-        .header .masthead .mast_bottom .bar_command input[type=text] {
+        .header .masthead .mast_bottom .bar_command input[type="text"] {
           border: 1px #d0d0d0 solid;
           border-radius: 20px 0 0 20px;
           -webkit-border-bottom-left-radius: 20px;
@@ -219,7 +219,7 @@ ul {
           margin: 9px 0 9px 10px;
           padding: 5px 10px;
           width: 300px; }
-        .header .masthead .mast_bottom .bar_command input[type=submit] {
+        .header .masthead .mast_bottom .bar_command input[type="submit"] {
           background: #fff262;
           /* Old browsers */
           background: -moz-linear-gradient(top, #fff262 0%, #ffe223 9%, #ffbf14 50%, #ff9805 51%, #ffaa00 94%, #ff8600 100%);
@@ -250,6 +250,7 @@ ul {
           margin-top: 10px;
           padding-top: 5px;
           position: relative;
+          text-indent: -2px;
           text-shadow: 1px 1px 1px #2e2e2c;
           text-transform: uppercase;
           width: 54px; }
