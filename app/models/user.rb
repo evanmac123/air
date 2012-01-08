@@ -34,7 +34,6 @@ class User < ActiveRecord::Base
 
   validates_presence_of :name
   validates_presence_of :sms_slug, :message => "Sorry, you can't choose a blank user ID."
-  validates_presence_of :location_id, :if => :associated_demo_has_locations, :message => "Please choose a location"
 
   validates_format_of :sms_slug, :with => /^[0-9a-z]+$/, :allow_blank => true, :message => "Sorry, the user ID must consist of letters or digits only."
 
@@ -609,11 +608,6 @@ class User < ActiveRecord::Base
     if self.class.where(where_conditions).limit(1).present?
       self.errors.add(input, "Sorry, but that phone number has already been taken. Need help? Contact support@hengage.com")
     end
-  end
-
-  def associated_demo_has_locations
-    return unless self.demo
-    self.demo.locations.count > 0
   end
 
   def downcase_sms_slug

@@ -85,25 +85,6 @@ describe User do
     user3.reload.sms_slug.should == "otherdude"
   end
 
-  it "should validate presence of location_id if the associated demo has locations" do
-    user1 = Factory(:user)
-    user2 = Factory(:user)
-
-    user1.location = nil
-    user2.location = nil
-
-    user1.should be_valid
-    user2.should be_valid
-
-    Factory :location, :demo => user2.demo
-
-    user1.demo.locations.should be_empty
-    user2.demo.locations.should have(1).location
-
-    user1.should be_valid
-    user2.should_not be_valid
-  end
-
   describe "on destroy" do
     it "should destroy any Friendships where this user is the friend on destroy" do
       user1 = Factory(:user)
