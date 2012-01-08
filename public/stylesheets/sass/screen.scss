@@ -54,7 +54,8 @@ $gutter:10px;
 		border:1px #bebebe solid;
 		-webkit-border-radius: 3px;
 		-moz-border-radius: 3px;
-		border-radius: 3px;
+		border-radius:3px;
+		behavior: url(/css3pie/PIE.htc);
 		background-color:#ffffff;
 		margin-bottom:15px;
 		padding:$gutter;
@@ -112,6 +113,10 @@ $gutter:10px;
 	-webkit-border-radius: 3px;
 	-moz-border-radius: 3px;
 	border-radius: 3px;
+	
+	behavior: url(/css3pie/PIE.htc);
+	position:relative;
+	z-index: 0;
 }
 
 /* ---------- standards ---------- */

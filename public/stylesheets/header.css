@@ -1,21 +1,21 @@
 /*
 Syntax error: Undefined variable: "$dark-gray".
-        on line 46 of /Users/Connie/Sites/HEngage Git/public/stylesheets/sass/header.scss
+        on line 44 of /Users/Connie/Sites/HEngage Git/public/stylesheets/sass/header.scss
 
-41:     box-shadow: 7px 0 6px -6px rgba(0, 0, 0, .5);
-42: }
-43: 
-44: /* ---------- masthead ---------- */
-45: .header {
-46: 	background-color:$dark-gray;
-47: 	border-bottom:1px #fff solid;
-48: 	font-weight:bold;
-49: 	text-shadow: 1px 1px $dark-gray;
-50: 	a {
-51: 		color:#fff;
+39:     box-shadow: 7px 0 6px -6px rgba(0, 0, 0, .5);
+40: }
+41: 
+42: /* ---------- masthead ---------- */
+43: .header {
+44: 	background-color:$dark-gray;
+45: 	border-bottom:1px #fff solid;
+46: 	font-weight:bold;
+47: 	text-shadow: 1px 1px $dark-gray; behavior: url(/css3pie/PIE.htc);
+48: 	
+49: 	a {
 
 Backtrace:
-/Users/Connie/Sites/HEngage Git/public/stylesheets/sass/header.scss:46
+/Users/Connie/Sites/HEngage Git/public/stylesheets/sass/header.scss:44
 /Library/Ruby/Gems/1.8/gems/sass-3.1.0.alpha.221/lib/sass/../sass/script/variable.rb:45:in `_perform'
 /Library/Ruby/Gems/1.8/gems/sass-3.1.0.alpha.221/lib/sass/../sass/script/node.rb:67:in `perform'
 /Library/Ruby/Gems/1.8/gems/sass-3.1.0.alpha.221/lib/sass/../sass/tree/visitors/perform.rb:212:in `visit_prop'
@@ -114,4 +114,4 @@ script/rails:6
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Syntax error: Undefined variable: \"$dark-gray\".\A         on line 46 of /Users/Connie/Sites/HEngage Git/public/stylesheets/sass/header.scss\A \A 41:     box-shadow: 7px 0 6px -6px rgba(0, 0, 0, .5);\A 42: }\A 43: \A 44: /* ---------- masthead ---------- */\A 45: .header {\A 46: 	background-color:$dark-gray;\A 47: 	border-bottom:1px #fff solid;\A 48: 	font-weight:bold;\A 49: 	text-shadow: 1px 1px $dark-gray;\A 50: 	a {\A 51: 		color:#fff;"; }
+  content: "Syntax error: Undefined variable: \"$dark-gray\".\A         on line 44 of /Users/Connie/Sites/HEngage Git/public/stylesheets/sass/header.scss\A \A 39:     box-shadow: 7px 0 6px -6px rgba(0, 0, 0, .5);\A 40: }\A 41: \A 42: /* ---------- masthead ---------- */\A 43: .header {\A 44: 	background-color:$dark-gray;\A 45: 	border-bottom:1px #fff solid;\A 46: 	font-weight:bold;\A 47: 	text-shadow: 1px 1px $dark-gray; behavior: url(/css3pie/PIE.htc);\A 48: 	\A 49: 	a {"; }
