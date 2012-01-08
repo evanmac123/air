@@ -3,7 +3,7 @@ Feature: Admin rules have tags
   Background:
     Given the following user exists:
       | name  | is_site_admin |
-      | jesus | true          |
+     | jesus | true          |
     Given the following rule exists:
       | description | primary_tag     | demo                |
       | ridebike    | name: generated | company_name: FooCo |

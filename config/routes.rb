@@ -59,6 +59,8 @@ Health::Application.routes.draw do
 
   resources :email_info_requests, :only => [:create]
 
+  resource :demographics, :only => [:update]
+
   namespace :admin do
     resources :rules, :only => [:index, :new, :create, :edit, :update]
 

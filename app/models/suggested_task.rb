@@ -4,6 +4,7 @@ class SuggestedTask < ActiveRecord::Base
   has_many :prerequisite_tasks, :class_name => "SuggestedTask", :through => :prerequisites
   has_many :rule_triggers, :class_name => "Trigger::RuleTrigger"
   has_one :survey_trigger, :class_name => "Trigger::SurveyTrigger"
+  has_one :demographic_trigger, :class_name => 'Trigger::DemographicTrigger'
 
   after_create do
     schedule_suggestion
@@ -17,6 +18,14 @@ class SuggestedTask < ActiveRecord::Base
 
   def due?
     start_time.nil? || start_time < Time.now
+  end
+
+  def has_demographic_trigger?
+    self.demographic_trigger.present?
+  end
+
+  def only_manually_triggerable?
+    self.rule_triggers.empty? && self.survey_trigger.blank? && !self.has_demographic_trigger?
   end
 
   def self.first_level

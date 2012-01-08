@@ -109,3 +109,11 @@ Feature: Admin sets up suggested tasks
     Then I should be on the admin suggested tasks page for "TaskCo"
     And I should see "Complete survey 1 Survey: Survey 1"
     And I should not see "Manual only"
+
+  Scenario: Admin adds suggested task with demographic trigger
+    When I fill in "Name" with "Complete demographics"
+    And I check "Complete by filling in all demographics"
+    And I press "Create Suggested task"
+    Then I should be on the admin suggested tasks page for "TaskCo"
+    And I should see "Complete demographics Complete demographics"
+    And I should not see "Manual only"

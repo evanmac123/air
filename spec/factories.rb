@@ -201,3 +201,7 @@ Factory.define :survey_trigger, :class => Trigger::SurveyTrigger do |survey_trig
   survey_trigger.association :survey
   survey_trigger.association :suggested_task
 end
+
+Factory.define :demographic_trigger, :class => Trigger::DemographicTrigger do |demographic_trigger|
+  demographic_trigger.association :suggested_task
+end
