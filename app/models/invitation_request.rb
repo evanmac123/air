@@ -24,7 +24,7 @@ class InvitationRequest
   end
 
   def create_and_invite_user
-    user = User.create!(:name => name, :email => email, :demo => self_inviting_domain.demo)
+    user = User.create!(:email => email, :demo => self_inviting_domain.demo)
     user.invite
     user
   end

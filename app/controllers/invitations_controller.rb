@@ -8,7 +8,6 @@ class InvitationsController < ApplicationController
   end
 
   def create
-    binding.pry
     @invitation_request = InvitationRequest.new(params[:invitation_request])
 
     unless @invitation_request.valid?

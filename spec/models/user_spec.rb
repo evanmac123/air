@@ -104,6 +104,13 @@ describe User do
     user2.should_not be_valid
   end
 
+  it "should allow me to create a user without a name or sms_slug, except when trying to accept" do
+    user = Factory(:user, :sms_slug => '', :name => '')
+    user.should be_valid
+    user.trying_to_accept = true
+    user.should_not be_valid
+  end
+  
   it "should send an invitation if sms email is valid" do
       user_or_phone = "blah"
       domain = Factory(:self_inviting_domain).domain

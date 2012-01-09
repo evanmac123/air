@@ -30,13 +30,12 @@ class User < ActiveRecord::Base
   validates_uniqueness_of :slug
   validates_uniqueness_of :sms_slug, :message => "Sorry, that user ID is already taken."
 
-  validates_presence_of :name
-  validates_presence_of :sms_slug, :message => "Sorry, you can't choose a blank user ID."
-  validates_presence_of :location_id, :if => :associated_demo_has_locations, :message => "Please choose a location"
   validates_presence_of :name, :if => :name_required
+  validates_presence_of :sms_slug, :message => "Sorry, you can't choose a blank user ID.", :if => :name_required
+  validates_presence_of :location_id, :if => :associated_demo_has_locations, :message => "Please choose a location"
 
   validates_format_of :sms_slug, :with => /^[0-9a-z]+$/, :allow_blank => true, 
-                      :message => "Sorry, the user ID must consist of letters or digits only.", :if => :name_required
+                      :message => "Sorry, the user ID must consist of letters or digits only."
 
   validates_numericality_of :height, :allow_blank => true, :message => "Please use a numeric value for your height, and express it in inches"
   validates_numericality_of :weight, :allow_blank => true, :message => "Please use a numeric value for your weight, and express it in pounds"
@@ -282,7 +281,7 @@ class User < ActiveRecord::Base
 
   def set_slugs
     return nil unless name.present?
-
+binding.pry
     cleaned = name.remove_mid_word_characters.
                 replace_non_words_with_spaces.
                 strip.
@@ -539,7 +538,7 @@ class User < ActiveRecord::Base
         return "Your domain is not valid" if domain_object.empty?
         demo_id = domain_object.first.demo_id
         SelfInvitingDomain.where(:domain => domain).first
-        new_user = User.new(:name => "Charlie", :phone_number => user_or_phone, :email => text.strip,
+        new_user = User.new(:phone_number => user_or_phone, :email => text.strip,
                   :demo_id => demo_id, :location_id => 1)
         if new_user.save
           Mailer.invitation(new_user).deliver
