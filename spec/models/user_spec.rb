@@ -119,19 +119,6 @@ describe User do
     user.should be_valid
   end
   
-  it "should set the sms_slugs differently, given two users with identical names" do
-    a = Factory.build :user
-    before_slug = a.sms_slug
-    a.set_slugs
-    after_slug = a.sms_slug
-    before_slug.should_not == after_slug
-    a.save
-    a.should be_valid
-    b = Factory.build :user
-    b.set_slugs
-    b.should be_valid
-  end
-  
   it "should send an invitation if sms email is valid" do
       user_or_phone = "blah"
       domain = Factory(:self_inviting_domain).domain
