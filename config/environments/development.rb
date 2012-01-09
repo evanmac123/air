@@ -24,5 +24,10 @@ Health::Application.configure do
   config.action_dispatch.best_standards_support = :builtin
 
   config.action_mailer.default_url_options = { :host => 'health.local' }
+
+  silence_warnings do
+    require 'pry'
+    IRB = Pry    
+  end
 end
 
