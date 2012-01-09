@@ -162,11 +162,6 @@ end
 # Interact with Email Contents
 #
 
-When /^"([^"]*)" clicks the invitation link in the email$/ do |name|
-  code = User.where(:name => name).first.invitation_code
-  visit invitation_path(code)
-end
-
 
 When /^(?:I|they) follow "([^"]*?)" in the email$/ do |link|
   visit_in_email(link)
