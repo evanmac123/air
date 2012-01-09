@@ -125,6 +125,12 @@ GEM
       i18n (>= 0.4.0)
     gherkin (2.4.21)
       json (>= 1.4.6)
+    haml (3.1.4)
+    haml-rails (0.3.4)
+      actionpack (~> 3.0)
+      activesupport (~> 3.0)
+      haml (~> 3.0)
+      railties (~> 3.0)
     heroku (2.14.0)
       launchy (>= 0.3.2)
       rest-client (~> 1.6.1)
@@ -280,6 +286,7 @@ DEPENDENCIES
   flog
   flutie
   formtastic
+  haml-rails
   heroku_san
   high_voltage
   linecache (~> 0.43)

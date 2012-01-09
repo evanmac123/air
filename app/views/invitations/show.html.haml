@@ -1,0 +1,28 @@
+- content_for :status do 
+  - if flash[:failure].present? 
+    = flash[:failure] 
+  - else 
+
+    %h2= "#{@user.name} : Accept Invitation"
+
+    %p.explanation= translate('.explanation', :default => "Thanks for accepting our invitation to try H Engage. If you'd like to demo the service, please enter your mobile number and choose a password. We'll send you an SMS with instructions on the next step.") 
+
+
+= form_for @user, :url => invitation_acceptance_path(:user_id => @user.slug), :id => "signup-form", :builder => FancyFormBuilder do |f| 
+  %ul
+    = f.fancy_text_field :sms_slug, :label_text => "Choose a unique ID" 
+
+    = f.fancy_text_field :phone_number, :label_text => "Enter your mobile number" 
+
+    - if @locations.present? 
+      - location_select_html = collection_select :user, :location_id, @locations, :id, :name, :value => nil, :include_blank => "Please choose a location"  
+      = f.fancy_content :location_id, location_select_html, :label_text => "Location" 
+
+    = f.fancy_password_field :password, :label_text => "Choose a password" 
+    = f.fancy_password_field :password_confirmation, :label_text => "And confirm that password" 
+
+    %ul.form-section.signup-submit
+      %li
+        <input name="commit" type="submit" value="Join the game">
+      %li
+        = link_to "Feedback?", '#', :class => "feedback"
