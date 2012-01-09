@@ -27,8 +27,8 @@ class User < ActiveRecord::Base
 
   validate :normalized_phone_number_unique, :normalized_new_phone_number_unique
 
-  validates_uniqueness_of :slug
-  validates_uniqueness_of :sms_slug, :message => "Sorry, that user ID is already taken."
+  validates_uniqueness_of :slug, :if => :name_required
+  validates_uniqueness_of :sms_slug, :message => "Sorry, that user ID is already taken.", :if => :name_required
 
   validates_presence_of :name, :if => :name_required
   validates_presence_of :sms_slug, :message => "Sorry, you can't choose a blank user ID.", :if => :name_required
@@ -50,12 +50,12 @@ class User < ActiveRecord::Base
     :path => "/avatars/:id/:style/:filename",
     :bucket => S3_AVATAR_BUCKET
 
-  before_validation(:on => :create) do
-    set_slugs
+  before_validation(:on => [:create, :update]) do
+    set_slugs if name_required
   end
 
   before_validation do
-    downcase_sms_slug
+    downcase_sms_slug if name_required
   end
 
   before_create do
@@ -279,9 +279,13 @@ class User < ActiveRecord::Base
     self.invitation_code = Digest::SHA1.hexdigest("--#{Time.now.utc}--#{email}--")
   end
 
+  def find_same_slug(possible_slug, possible_sms_slug)
+    User.first(:conditions => ["slug = ? OR sms_slug = ?", possible_slug, possible_sms_slug],
+               :order      => "created_at desc")
+  end
+  
   def set_slugs
     return nil unless name.present?
-binding.pry
     cleaned = name.remove_mid_word_characters.
                 replace_non_words_with_spaces.
                 strip.
@@ -704,10 +708,6 @@ binding.pry
     Mailer.victory(self).deliver if self.demo.victory_verification_email
   end
 
-  def find_same_slug(possible_slug, possible_sms_slug)
-    User.first(:conditions => ["slug = ? OR sms_slug = ?", possible_slug, possible_sms_slug],
-               :order      => "created_at desc")
-  end
 
   def credit_referring_user(referring_user, rule, rule_value)
     return unless referring_user

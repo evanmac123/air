@@ -1,4 +1,6 @@
 require 'spec_helper'
+require 'ruby-debug'
+require 'pry'
 
 describe User do
   before do
@@ -109,6 +111,25 @@ describe User do
     user.should be_valid
     user.trying_to_accept = true
     user.should_not be_valid
+  end
+  
+  it "should allow multiple users, each with the same (blank) sms slugs" do
+    Factory(:user, :sms_slug => '')
+    user = Factory.build(:user, :sms_slug => '')
+    user.should be_valid
+  end
+  
+  it "should set the sms_slugs differently, given two users with identical names" do
+    a = Factory.build :user
+    before_slug = a.sms_slug
+    a.set_slugs
+    after_slug = a.sms_slug
+    before_slug.should_not == after_slug
+    a.save
+    a.should be_valid
+    b = Factory.build :user
+    b.set_slugs
+    b.should be_valid
   end
   
   it "should send an invitation if sms email is valid" do
