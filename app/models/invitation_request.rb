@@ -2,14 +2,12 @@ class InvitationRequest
   include ActiveModel::Validations
   include ActiveModel::Conversion
 
-  attr_accessor :name, :email
+  attr_accessor :email
 
-  validates_presence_of :name, :message => "You must enter your name to request an invitation."
   validates_presence_of :email, :message => "You must enter your e-mail address to request an invitation."
 
   def initialize(values={})
-    [:name, :email].each {|key| self.send("#{key}=", values[key])}
-    @email = @email.strip.downcase if @email
+    @email = values[:email]
   end
 
   def persisted?

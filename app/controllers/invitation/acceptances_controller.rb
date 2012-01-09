@@ -8,7 +8,7 @@ class Invitation::AcceptancesController < ApplicationController
 
   def update
     @user.attributes = params[:user]
-    @user.valid? # to set the error on location_id if needed
+    @user.trying_to_accept = true # Set this as true so presence of 
     # the below calls @user#save, so we don't save explicitly
     unless @user.update_password(params[:user][:password], params[:user][:password_confirmation])
       @locations = @user.demo.locations.alphabetical

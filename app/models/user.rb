@@ -33,8 +33,10 @@ class User < ActiveRecord::Base
   validates_presence_of :name
   validates_presence_of :sms_slug, :message => "Sorry, you can't choose a blank user ID."
   validates_presence_of :location_id, :if => :associated_demo_has_locations, :message => "Please choose a location"
+  validates_presence_of :name, :if => :name_required
 
-  validates_format_of :sms_slug, :with => /^[0-9a-z]+$/, :allow_blank => true, :message => "Sorry, the user ID must consist of letters or digits only."
+  validates_format_of :sms_slug, :with => /^[0-9a-z]+$/, :allow_blank => true, 
+                      :message => "Sorry, the user ID must consist of letters or digits only.", :if => :name_required
 
   validates_numericality_of :height, :allow_blank => true, :message => "Please use a numeric value for your height, and express it in inches"
   validates_numericality_of :weight, :allow_blank => true, :message => "Please use a numeric value for your weight, and express it in pounds"
@@ -85,6 +87,7 @@ class User < ActiveRecord::Base
 
   attr_reader :batch_updating_recent_averages
 
+  attr_accessor :trying_to_accept
   attr_protected :is_site_admin
 
   has_alphabetical_column :name
@@ -557,6 +560,11 @@ class User < ActiveRecord::Base
 
   protected
 
+  def name_required
+    # While trying to accept the invitation and at an point after the invitation
+    # is accepted, a user must have both a name and an sms slug. Until then, anything goes.
+    self.accepted_invitation_at || self.trying_to_accept
+  end
   def downcase_email
     self.email = email.to_s.downcase
   end
