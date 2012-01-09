@@ -18,10 +18,13 @@ gem "aws-s3"
 gem "delayed_job"
 gem "heroku_san"
 
+
 # RSpec needs to be in :development group to expose generators
 # and rake tasks without having to type RAILS_ENV=test.
 group :development, :test do
   gem "rspec-rails", "~> 2.4.0"
+  gem "pry"
+  gem "pry-doc"
 
   platforms :mri_18 do
     gem "ruby-debug", "~> 0.10.4"

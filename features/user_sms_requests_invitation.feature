@@ -8,6 +8,6 @@ Feature: User requests an invitation via SMS
       | domain      |
       | example.com |
   Scenario:
-    When "+14155551212" sends SMS "email@email.com"
+    When "+14155551212" sends SMS "email@example.com"
     Then "+14155551212" should have received an SMS "An invitation has been sent to email@email.com."
     And "email@email.com" should have received an invitation

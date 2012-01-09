@@ -76,7 +76,7 @@ module FakeTwilio
     end
 
     def self.has_sent_text?(phone, body)
-debugger
+binding.pry
      sent_text(phone, body).present?
     end
 
