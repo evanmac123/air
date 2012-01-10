@@ -69,7 +69,7 @@ class SuggestedTask < ActiveRecord::Base
       suggestion.satisfy!
     end
 
-    BulkCompleteMailer.report(completion_states).deliver!
+    BulkCompleteMailer.delay.report(completion_states)
   end
 
   protected
