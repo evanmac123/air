@@ -4,14 +4,14 @@ Feature: Admin bulk-completes suggested task for users
     Given the following demo exists:
       | company name |
       | TaskCo       |
-    And the following users exist:
-      | name | email                | demo                  |
-      | Joe    | joe@example.com    | company_name: TaskCo  |
-      | Bob    | bob@example.com    | company_name: TaskCo  |
-      | Fred   | fred@example.com   | company_name: TaskCo  |
-      | John   | john@example.com   | company_name: TaskCo  |
-      | Paul   | paul@example.com   | company_name: OtherCo |
-      | George | george@example.com | company_name: TaskCo  |
+    And the following claimed users exist:
+      | name   | phone number | email              | demo                  |
+      | Joe    | +14155551212 | joe@example.com    | company_name: TaskCo  |
+      | Bob    | +16175551212 | bob@example.com    | company_name: TaskCo  |
+      | Fred   | +19085551212 | fred@example.com   | company_name: TaskCo  |
+      | John   | +12135551212 | john@example.com   | company_name: TaskCo  |
+      | Paul   | +13125551212 | paul@example.com   | company_name: OtherCo |
+      | George | +18085551212 | george@example.com | company_name: TaskCo  |
     And "Joe" has password "foo"
     And "Bob" has password "foo"
     And "Fred" has password "foo"
@@ -26,6 +26,8 @@ Feature: Admin bulk-completes suggested task for users
     And DJ cranks 15 times
     And "John" has completed suggested task "Task 1"
     And "George" has not had task "Task 1" suggested
+    And DJ cranks 5 times after a little while
+    And I clear all sent texts
 
     When I sign in via the login page with "Joe/foo"
     Then I should see "Task 1"
@@ -109,4 +111,13 @@ Feature: Admin bulk-completes suggested task for users
         george@example.com
     """
     And I should see "Not completed 4" in the email body
+
+    When DJ cranks 10 times after a little while
+    Then "+14155551212" should have received an SMS "Congratulations! You've completed a daily dose."
+    And "+14155551212" should have received an SMS "Congratulations! You've completed a daily dose."
+    But "+19085551212" should not have received any SMSes
+    And "+18085551212" should not have received any SMSes
+    And "+12135551212" should not have received any SMSes
+    And "+13125551212" should not have received any SMSes
+    But "+19085551212" should not have received any SMSes
 

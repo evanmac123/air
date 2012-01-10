@@ -5,8 +5,8 @@ Feature: Admin manually completes a suggested task for a user
       | company name |
       | TaskCo       |
     And the following claimed users exist:
-      | name | demo                 |
-      | Joe  | company_name: TaskCo |
+      | name | phone number | demo                 |
+      | Joe  | +14155551212 | company_name: TaskCo |
     And "Joe" has the password "foo"
     And the following suggested tasks exist:
       | name   | demo                 |
@@ -41,3 +41,5 @@ Feature: Admin manually completes a suggested task for a user
     But I should not see "Task 1"
     And I should not see "Task 4"
 
+    When DJ cranks 5 times after a little while
+    And "+14155551212" should have received an SMS "Congratulations! You've completed a daily dose."

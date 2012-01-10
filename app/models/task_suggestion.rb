@@ -8,6 +8,7 @@ class TaskSuggestion < ActiveRecord::Base
 
   def satisfy!
     update_attributes(:satisfied => true)
+    SMS.send_side_message(self.user, self.satisfaction_message)
     Act.create!(:user_id =>self.user_id, :inherent_points => self.suggested_task.bonus_points, :text => "I completed a daily dose!")
   end
 
@@ -53,6 +54,22 @@ class TaskSuggestion < ActiveRecord::Base
       if self.user.satisfies_all_prerequisites(potentially_available_task) && potentially_available_task.due?
         potentially_available_task.suggest_to_user(self.user)
       end
+    end
+  end
+
+  def satisfaction_message
+    points = self.suggested_task.bonus_points
+
+    if points && points > 0
+      bonus_phrase = if points == 1
+                       "1 bonus point"
+                     else
+                       "#{points} bonus points"
+                     end
+
+      "Congratulations! You've earned #{bonus_phrase} for completing a daily dose."
+    else
+      "Congratulations! You've completed a daily dose."
     end
   end
 

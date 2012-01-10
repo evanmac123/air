@@ -123,6 +123,9 @@ Feature: User completes suggested task
     And I should not see "Referer task 2"
     And I should not see "Demographic task 2"
 
+    When DJ cranks 5 times after a little while
+    Then "+14152613077" should have received an SMS "Congratulations! You've completed a daily dose."
+
   Scenario: User completes suggested task by acting according to rule with mandatory referrer
     When "+14152613077" sends SMS "do 1 bob"
     Then "+14152613077" should have received an SMS including "did 1"
@@ -144,6 +147,9 @@ Feature: User completes suggested task
     And I should not see "Survey task 4"
     And I should not see "Referer task 1"
     And I should not see "Demographic task 2"
+
+    When DJ cranks 10 times after a little while
+    Then "+14152613077" should have received an SMS "Congratulations! You've completed a daily dose."
 
   Scenario: User completes suggested task by completing survey
     When "+14152613077" sends SMS "survey"
@@ -169,6 +175,9 @@ Feature: User completes suggested task
     And I should not see "Survey task 4"
     And I should not see "Referer task 2"
     And I should not see "Demographic task 2"
+
+    When DJ cranks 5 times after a little while
+    Then "+14152613077" should have received an SMS "Congratulations! You've completed a daily dose."
 
   Scenario: User completes demographic task by filling in their details
     When I go to the profile page for "Joe"
@@ -203,3 +212,6 @@ Feature: User completes suggested task
     And I should not see "Survey task 4"
     And I should not see "Referer task 2"
     And I should not see "Demographic task 1"
+
+    When DJ cranks 5 times after a little while
+    Then "+14152613077" should have received an SMS "Congratulations! You've completed a daily dose."
