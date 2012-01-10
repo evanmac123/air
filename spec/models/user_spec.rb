@@ -426,6 +426,7 @@ share_examples_for "a ranking method" do
   context "when a user is created" do
     it "should set their ranking appropriately" do
       users_by_points = @demo.users.order("#{points_column} DESC").all
+      binding.pry
       users_by_points.map(&ranking_column).should == [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
       @user[ranking_column].should == 6
