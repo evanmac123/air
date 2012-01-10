@@ -36,6 +36,42 @@ class SuggestedTask < ActiveRecord::Base
     where("start_time < ? OR start_time IS NULL", Time.now)
   end
 
+  def self.bulk_complete(demo_id, suggested_task_id, emails)
+    completion_states = {}
+    %w(completed unknown already_completed in_different_game not_assigned).each {|bucket| completion_states[bucket.to_sym] = []}
+
+    emails.each do |email|
+      user = User.where(:email => email).first
+
+      unless user
+        completion_states[:unknown] << email
+        next
+      end
+
+      unless user.demo_id == demo_id.to_i
+        completion_states[:in_different_game] << email
+        next
+      end
+
+      suggestion = user.task_suggestions.where(:suggested_task_id => suggested_task_id).first
+      
+      unless suggestion 
+        completion_states[:not_assigned] << email
+        next
+      end
+      
+      if suggestion.satisfied
+        completion_states[:already_completed] << email
+        next
+      end
+
+      completion_states[:completed] << email
+      suggestion.satisfy!
+    end
+
+    BulkCompleteMailer.report(completion_states).deliver!
+  end
+
   protected
 
   def schedule_suggestion

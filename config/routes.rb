@@ -93,7 +93,9 @@ Health::Application.routes.draw do
 
       resources :bad_words
 
-      resources :suggested_tasks
+      resources :suggested_tasks do
+        resource :bulk_satisfaction, :only => [:create]
+      end
 
       resources :self_inviting_domains
 

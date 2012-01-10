@@ -60,6 +60,10 @@ When /^(?:|I )unselect "([^"]*)" from "([^"]*)"(?: within ("[^"]*"))?$/ do |valu
   end
 end
 
+When /^I fill in "([^"]*)" with the following:$/ do |locator, string|
+  fill_in locator, :with => string
+end
+
 Then /^(?:|I )should see `([^`]*)`(?: within ("[^"]*"))?$/ do |text, selector|
   with_scope(selector) do
     if page.respond_to? :should
