@@ -128,6 +128,8 @@ select#user_location_id {width: 404px !important;}
 	height:30px;
 	text-shadow:1px 1px 1px #333;
 	width:176px;
+	height: 29px;
+	padding-bottom: 6px;
 }
 	input[type="submit"]:hover {color:#044300; text-shadow:none;} 
 

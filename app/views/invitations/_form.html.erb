@@ -1,12 +1,11 @@
 <% content_for :status do %>
-  <p>H Engage is a simple and fun game to help you be healthier. It’s available to an exclusive group of companies. To start, enter your work email. We’ll send you an invite.</p>
+  <p>H Engage is a fun and simple game to help you be healthier. It’s available to an exclusive group of companies. Enter your work email, and we’ll send you an invite.</p>
 <% end %>
   
 <%= form_for @invitation_request, :url => invitations_path, :id => "signup-form", :builder => FancyFormBuilder do |f| %>
   <%= f.fancy_text_field :email, :class => "signup-field" %>
   <ul class="form-section signup-submit">
     <li><input name="commit" type="submit" value="Request invitation"></li>
-    <li><a href="#" class="feedback">Feedback?</a></li>
   </ul>
 <% end %>
 
