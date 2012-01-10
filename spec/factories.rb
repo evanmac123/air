@@ -14,6 +14,7 @@ Factory.define :user do |factory|
   factory.password              { "password" }
   factory.password_confirmation { "password" }
   factory.sequence(:sms_slug)   { |n| "jej#{n}" }
+  factory.sequence(:slug)       { |n| "jej#{n}" }
 end
 
 Factory.define :claimed_user, :parent => :user do |factory|

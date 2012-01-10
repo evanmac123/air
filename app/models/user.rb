@@ -288,18 +288,18 @@ class User < ActiveRecord::Base
   def set_slugs
     return nil unless name.present?
     cleaned = name.remove_mid_word_characters.
-                replace_non_words_with_spaces.
-                strip.
-                replace_spaces_with_hyphens
+                remove_non_words.
+                downcase.
+                strip
     possible_slug = cleaned
-
     User.transaction do
       same_name = find_same_slug(possible_slug)
+
       counter = same_name && same_name.slug.first_digit
 
       while same_name
         counter += rand(20)
-        possible_slug = "#{cleaned}-#{counter}"
+        possible_slug = cleaned + counter.to_s
         same_name = find_same_slug(possible_slug)
       end
 

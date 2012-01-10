@@ -8,6 +8,10 @@ class String
   def replace_non_words_with_spaces
     gsub(/[\W]/, ' ')
   end
+  
+  def remove_non_words
+    gsub(/[\W]/, '')
+  end
 
   def remove_non_words
     gsub(/[\W]/, '')
