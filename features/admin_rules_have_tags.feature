@@ -24,7 +24,11 @@ Feature: Admin rules have tags
     Given I sign in via the login page as "jesus/bum"
   Scenario: Admin can create new tags
     When I go to the new admin tag page
-    Then I should see "Name"
+    And I fill in "Name" with "cheese"
+    And I fill in "Description" with "curdled milk"
+    And I press "Create Tag"
+    Then I should see "Name: cheese Description: curdled milk"
+
   Scenario: Admin can edit a rule to associate it with a tag
     When I go to the rule edit page for "rode a bike"
     Then I should see "Primary"
