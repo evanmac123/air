@@ -48,7 +48,6 @@ describe User do
   end
 
   it "should validate uniqueness of SMS slug when not blank" do
-binding.pry
     user1 = Factory(:claimed_user)
     user2 = Factory(:claimed_user)
     user2.sms_slug = user1.sms_slug
@@ -56,7 +55,7 @@ binding.pry
   end
 
   it "should validate that the SMS slug, if not blank, consists of all letters and digits" do
-    user = Factory :user
+    user = Factory :claimed_user
     user.should be_valid
 
     user.sms_slug = "i rule"

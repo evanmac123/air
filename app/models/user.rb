@@ -32,8 +32,10 @@ class User < ActiveRecord::Base
 
   validates_presence_of :name, :if => :name_required
   validates_presence_of :sms_slug, :message => "Sorry, you can't choose a blank user ID.", :if => :name_required
+  validates_presence_of :slug, :if => :name_required
   validates_presence_of :location_id, :if => :associated_demo_has_locations, :message => "Please choose a location"
 
+  validates_format_of :slug, :with => /^[0-9a-z]+$/, :if => :name_required
   validates_format_of :sms_slug, :with => /^[0-9a-z]+$/, :if => :name_required,
                       :message => "Sorry, the user ID must consist of letters or digits only."
 
@@ -287,6 +289,7 @@ class User < ActiveRecord::Base
   
   def set_slugs
     return nil unless name.present?
+    return nil if self.slug && self.sms_slug
     cleaned = name.remove_mid_word_characters.
                 remove_non_words.
                 downcase.
