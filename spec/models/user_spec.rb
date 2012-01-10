@@ -16,20 +16,20 @@ describe User do
   it { should have_many(:wins) }
   it { should have_many(:task_suggestions) }
 
-  it { should validate_presence_of(:name) }
-
-  it { should validate_uniqueness_of(:slug) }
 
   it { should validate_numericality_of(:height).with_message("Please use a numeric value for your height, and express it in inches") }
 
   it "should validate presence of the SMS slug on update" do
-    user = Factory :user
+    user = Factory :claimed_user
+    user.send(:name_required).should be_true
     user.sms_slug.should_not be_nil # set by a callback on create
     user.should be_valid
-
+debugger
     user.sms_slug = ''
+    user.send(:name_required).should be_true
     user.should_not be_valid
     user.errors[:sms_slug].should include("Sorry, you can't choose a blank user ID.")
+    
   end
 
   it "should validate uniqueness of phone number when not blank" do
@@ -49,8 +49,8 @@ describe User do
   end
 
   it "should validate uniqueness of SMS slug when not blank" do
-    user1 = Factory(:user)
-    user2 = Factory(:user)
+    user1 = Factory(:claimed_user)
+    user2 = Factory(:claimed_user)
     user2.sms_slug = user1.sms_slug
     user2.should_not be_valid
   end
@@ -75,13 +75,13 @@ describe User do
     user1 = Factory :user
     user1.update_attributes(:sms_slug => "somedude")
 
-    user2 = Factory :user
+    user2 = Factory :claimed_user
     user2.should be_valid
 
     user2.sms_slug = 'SomeDude'
     user2.should_not be_valid
+    binding.pry
     user2.errors[:sms_slug].should == ["Sorry, that user ID is already taken."]
-
     user3 = Factory :user
     user3.update_attributes(:sms_slug => "OtherDude")
     user3.reload.sms_slug.should == "otherdude"
@@ -191,6 +191,16 @@ describe User do
     end
   end
 end
+
+describe User do
+  before do
+    Factory(:claimed_user)
+  end
+  it { should validate_presence_of(:name) }
+  it { should validate_uniqueness_of(:slug) }
+end
+
+
 
 describe User, "#update_password" do
   context "when called with blank password and confirmation" do

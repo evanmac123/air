@@ -34,7 +34,7 @@ class User < ActiveRecord::Base
   validates_presence_of :sms_slug, :message => "Sorry, you can't choose a blank user ID.", :if => :name_required
   validates_presence_of :location_id, :if => :associated_demo_has_locations, :message => "Please choose a location"
 
-  validates_format_of :sms_slug, :with => /^[0-9a-z]+$/, :allow_blank => true, 
+  validates_format_of :sms_slug, :with => /^[0-9a-z]+$/, :if => :name_required,
                       :message => "Sorry, the user ID must consist of letters or digits only."
 
   validates_numericality_of :height, :allow_blank => true, :message => "Please use a numeric value for your height, and express it in inches"
@@ -50,10 +50,11 @@ class User < ActiveRecord::Base
     :path => "/avatars/:id/:style/:filename",
     :bucket => S3_AVATAR_BUCKET
 
-  before_validation do
+  before_validation :on => :create do
     set_slugs if name_required
-  end
-
+  end  
+  
+  
   before_validation do
     downcase_sms_slug if name_required
   end
