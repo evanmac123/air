@@ -7,8 +7,8 @@ class Invitation::AcceptancesController < ApplicationController
   layout "external"
 
   def update
-    @user.attributes = params[:user]
     @user.trying_to_accept = true # Set this as true so presence of 
+    @user.attributes = params[:user]
     # the below calls @user#save, so we don't save explicitly
     unless @user.update_password(params[:user][:password], params[:user][:password_confirmation])
       @locations = @user.demo.locations.alphabetical

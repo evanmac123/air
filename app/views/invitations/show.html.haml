@@ -3,20 +3,26 @@
     = flash[:failure] 
   - else 
 
-    %h2= "#{@user.name} : Accept Invitation"
-
-    %p.explanation= translate('.explanation', :default => "Thanks for accepting our invitation to try H Engage. If you'd like to demo the service, please enter your mobile number and choose a password. We'll send you an SMS with instructions on the next step.") 
-
+    - if @invitation_requested_via_sms
+      %h2 Welcome to H Engage
+      %p.explanation= translate('.explanation', :default => "We just need a few details from you so we can get started.") 
+    - else
+      %h2= "#{@user.name} : Accept Invitation"
+      %p.explanation= translate('.explanation', :default => "Thanks for accepting our invitation to try H Engage. If you'd like to demo the service, please enter your mobile number and choose a password. We'll send you an SMS with instructions on the next step.")
 
 = form_for @user, :url => invitation_acceptance_path(:user_id => @user.slug), :id => "signup-form", :builder => FancyFormBuilder do |f| 
   %ul
-    = f.fancy_text_field :name, :label_text => "Name" 
-    = f.fancy_text_field :sms_slug, :label_text => "Choose a unique ID" 
-    - if @user.phone_number.present?
-      %p Your Phone Number: #{@user.phone_number}
-			= f.hidden_text_field :phone_number, :value => @user.phone_number
+    - if @invitation_requested_via_sms
+      = f.hidden_field :phone_number, :value => @user.phone_number
+      %ul.form-section
+        %li.form-label Your Phone Number: #{@user.phone_number.as_pretty_phone}
+      %ul.form-section
+        %li.form-label Your Email Address: #{@user.email}
     - else
-      = f.fancy_text_field :phone_number, :label_text => "Enter your mobile number" 
+      = f.fancy_text_field :phone_number, :label_text => "Enter your mobile number"      
+    = f.fancy_text_field :name, :label_text => "Enter your name" 
+    = f.fancy_text_field :sms_slug, :label_text => "Choose a unique ID" 
+
 
     - if @locations.present? 
       - location_select_html = collection_select :user, :location_id, @locations, :id, :name, :value => nil, :include_blank => "Please choose a location"  
@@ -29,4 +35,4 @@
       %li
         <input name="commit" type="submit" value="Join the game">
       %li
-        = link_to "Feedback?", '#', :class => "feedback"
+        =# link_to "Feedback?", '#', :class => "feedback"

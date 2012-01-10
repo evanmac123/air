@@ -9,7 +9,6 @@ class InvitationsController < ApplicationController
 
   def create
     @invitation_request = InvitationRequest.new(params[:invitation_request])
-
     unless @invitation_request.valid?
       render :action => :new
       return
@@ -33,6 +32,7 @@ class InvitationsController < ApplicationController
 
   def show
     @user = User.find_by_invitation_code(params[:id])
+    @invitation_requested_via_sms = @user.phone_number.present?
     if @user
       unless @user == current_user
         flash.now[:success] = "You're now signed in."

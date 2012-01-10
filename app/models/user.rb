@@ -50,7 +50,7 @@ class User < ActiveRecord::Base
     :path => "/avatars/:id/:style/:filename",
     :bucket => S3_AVATAR_BUCKET
 
-  before_validation(:on => [:create, :update]) do
+  before_validation do
     set_slugs if name_required
   end
 
@@ -543,7 +543,7 @@ class User < ActiveRecord::Base
         demo_id = domain_object.first.demo_id
         SelfInvitingDomain.where(:domain => domain).first
         new_user = User.new(:phone_number => user_or_phone, :email => text.strip,
-                  :demo_id => demo_id, :location_id => 1)
+                  :demo_id => demo_id)
         if new_user.save
           Mailer.invitation(new_user).deliver
           return "An invitation has been sent to #{text.strip}."
