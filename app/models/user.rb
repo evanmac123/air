@@ -280,8 +280,8 @@ class User < ActiveRecord::Base
     self.invitation_code = Digest::SHA1.hexdigest("--#{Time.now.utc}--#{email}--")
   end
 
-  def find_same_slug(possible_slug, possible_sms_slug)
-    User.first(:conditions => ["slug = ? OR sms_slug = ?", possible_slug, possible_sms_slug],
+  def find_same_slug(possible_slug)
+    User.first(:conditions => ["slug = ? OR sms_slug = ?", possible_slug, possible_slug],
                :order      => "created_at desc")
   end
   
@@ -292,21 +292,19 @@ class User < ActiveRecord::Base
                 strip.
                 replace_spaces_with_hyphens
     possible_slug = cleaned
-    possible_sms_slug = self.claim_code_prefix
 
     User.transaction do
-      same_name = find_same_slug(possible_slug, possible_sms_slug)
+      same_name = find_same_slug(possible_slug)
       counter = same_name && same_name.slug.first_digit
 
       while same_name
         counter += rand(20)
         possible_slug = "#{cleaned}-#{counter}"
-        possible_sms_slug = self.claim_code_prefix + counter.to_s
-        same_name = find_same_slug(possible_slug, possible_sms_slug)
+        same_name = find_same_slug(possible_slug)
       end
 
       self.slug = possible_slug
-      self.sms_slug = possible_sms_slug
+      self.sms_slug = self.slug
     end
   end
 

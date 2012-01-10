@@ -24,7 +24,6 @@ describe User do
     user.send(:name_required).should be_true
     user.sms_slug.should_not be_nil # set by a callback on create
     user.should be_valid
-debugger
     user.sms_slug = ''
     user.send(:name_required).should be_true
     user.should_not be_valid
@@ -80,7 +79,6 @@ debugger
 
     user2.sms_slug = 'SomeDude'
     user2.should_not be_valid
-    binding.pry
     user2.errors[:sms_slug].should == ["Sorry, that user ID is already taken."]
     user3 = Factory :user
     user3.update_attributes(:sms_slug => "OtherDude")
