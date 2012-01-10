@@ -289,7 +289,11 @@ class User < ActiveRecord::Base
   
   def set_slugs
     return nil unless name.present?
-    return nil if self.slug && self.sms_slug
+    return nil unless self.slug.blank? || self.sms_slug.blank?
+    reset_slugs
+  end
+  
+  def reset_slugs  
     cleaned = name.remove_mid_word_characters.
                 remove_non_words.
                 downcase.
