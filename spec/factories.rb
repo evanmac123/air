@@ -6,15 +6,19 @@ Factory.sequence :phone do |n|
   "+1" + (4155550000 + n).to_s
 end
 
-Factory.define :user do |factory|
+Factory.define :unnamed_user, :class => User do |factory|
   factory.association(:demo)
   factory.association(:location)
-  factory.name                  { "James Earl Jones" }
   factory.email                 { Factory.next :email }
   factory.password              { "password" }
   factory.password_confirmation { "password" }
-  factory.sequence(:sms_slug)   { |n| "jej#{n}" }
-  factory.sequence(:slug)       { |n| "jej#{n}" }
+end
+
+Factory.define :user,  :parent => :unnamed_user do |factory|
+  factory.name                  { "James Earl Jones" }
+  # set_slugs runs if name_required, so there is no need to create slugs here
+  # factory.sequence(:sms_slug)   { |n| "jej#{n}" }
+  # factory.sequence(:slug)       { |n| "jej#{n}" }
 end
 
 Factory.define :claimed_user, :parent => :user do |factory|
