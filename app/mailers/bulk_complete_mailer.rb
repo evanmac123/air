@@ -1,5 +1,6 @@
 class BulkCompleteMailer < ActionMailer::Base
-  default :to => Admin::BulkSatisfactionsController::REPORT_RECIPIENT
+  default :to => Admin::BulkSatisfactionsController::REPORT_RECIPIENT,
+          :from => "donotreply@hengage.com"
 
   def report(states)
     @states = states
