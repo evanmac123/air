@@ -1,8 +1,11 @@
 <%= render 'form', :suggested_task => @suggested_task %>
 
 <%= form_tag admin_demo_suggested_task_bulk_satisfaction_path(@demo, @suggested_task) do %>
-  <%= label_tag "completion[emails]", "Manually complete for multiple users" %>
-  Enter one e-mail address per line
-  <%= text_area_tag "completion[emails]" %>
+  <p>
+    <%= label_tag "completion[emails]", "Manually complete for multiple users" %>
+    Enter one e-mail address per line
+  </p>
+
+  <p><%= text_area_tag "completion[emails]" %></p>
   <%= submit_tag "Manually complete "%>
 <% end %>
