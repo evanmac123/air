@@ -25,26 +25,12 @@ Feature: Skinnable pages
       | company_name: BlargCo | header.gif            | 000000         | 111111                | logo.gif | playnow.gif         | save.gif        | seemore.gif          | fan.gif       | defan.gif        | clear.gif        | 222222             | 333333                         | victory.gif         | 444444       |
     When I go to the activity page
     Then the logo should have src "logo.gif"
-    And the play now button should have src "playnow.gif"
     And the see more button should have src "seemore.gif"
     And the victory graphics should have src "victory.gif"
-    And the header background should have element graphic "header.gif"
-    And the nav links should have element color "#000000"
-    And the active nav link should have element color "#111111"
-    And profile links should have element color "#222222"
-    And activity feed points should have element color "#444444"
-    And scoreboard points should have element color "#444444"
-    And column headers should have background color "#333333"
 
     When I go to the profile page for "Joe"
     Then the logo should have src "logo.gif"
-    And the play now button should have src "playnow.gif"
     And the see more button should have src "seemore.gif"
-    And the header background should have element graphic "header.gif"
-    And the nav links should have element color "#000000"
-    And the active nav link should have element color "#111111"
-    And profile links should have element color "#222222"
-    And activity feed points should have element color "#444444"
     And the save button should have src "save.gif"
 
     When I attach the avatar "maggie.jpg"
@@ -53,26 +39,11 @@ Feature: Skinnable pages
 
     When I go to the profile page for "Bob"
     Then the logo should have src "logo.gif"
-    And the play now button should have src "playnow.gif"
     And the see more button should have src "seemore.gif"
-    And the header background should have element graphic "header.gif"
-    And the nav links should have element color "#000000"
-    And the active nav link should have element color "#111111"
-    And profile links should have element color "#222222"
-    And activity feed points should have element color "#444444"
-    #And the fan button should have src "fan.gif"
-    Then the de-fan button should have src "defan.gif"
 
     When I go to the connections page    
     Then the logo should have src "logo.gif"
-    And the play now button should have src "playnow.gif"
     And the see more button should have src "seemore.gif"
-    And the header background should have element graphic "header.gif"
-    And the nav links should have element color "#000000"
-    And the active nav link should have element color "#111111"
-    And profile links should have element color "#222222"
-    Then the de-fan button should have src "defan.gif"
-    And the fan button should have src "fan.gif"
 
   Scenario: Partial skinning does what you would expect
     Given the following skin exists:
@@ -80,34 +51,17 @@ Feature: Skinnable pages
       | company_name: BlargCo | AAAAAA                | logo.gif |
     When I go to the activity page
     Then the logo should have src "logo.gif"
-    And the header background should have no element graphic
     And the see more button should have src "new_activity/btn_seemore.png"
-    And the nav links should have no element color
-    And the active nav link should have element color "#AAAAAA"
 
   Scenario: Pages have default appearance
     When I go to the activity page
-    Then the logo should have src "new_activity/img_logo.png"
-    And the play now button should have src "new_activity/btn_playnow.png"
+    Then the logo should have src "logo.png"
     And the see more button should have src "new_activity/btn_seemore.png"
     And the victory graphics should have src "new_activity/img_bluestar_18.png"
-    And the header background should have no element graphic
-    And the nav links should have no element color
-    And the active nav link should have no element color
-    And profile links should have no element color
-    And activity feed points should have no element color
-    And scoreboard points should have no element color
-    And column headers should have no background color
 
     When I go to the profile page for "Joe"
-    Then the logo should have src "new_activity/img_logo.png"
-    And the play now button should have src "new_activity/btn_playnow.png"
+    Then the logo should have src "logo.png"
     And the see more button should have src "new_activity/btn_seemore.png"
-    And the header background should have no element graphic
-    And the nav links should have no element color
-    And the active nav link should have no element color
-    And profile links should have no element color
-    And activity feed points should have no element color
     And the save button should have src "new_activity/btn_save.png"
 
     When I attach the avatar "maggie.jpg"
@@ -115,27 +69,15 @@ Feature: Skinnable pages
     Then the clear picture button should have src "new_activity/btn_clear.png"
 
     When I go to the profile page for "Bob"
-    Then the logo should have src "new_activity/img_logo.png"
-    And the play now button should have src "new_activity/btn_playnow.png"
+    Then the logo should have src "logo.png"
     And the see more button should have src "new_activity/btn_seemore.png"
-    And the header background should have no element graphic
-    And the nav links should have no element color
-    And the active nav link should have no element color
-    And profile links should have no element color
-    And activity feed points should have no element color
-    And the de-fan button should have src "new_activity/btn_defan.png"
 
     When I go to the profile page for "Fred"
     Then the fan button should have src "new_activity/btn_beafan.png"
 
     When I go to the connections page    
-    Then the logo should have src "new_activity/img_logo.png"
-    And the play now button should have src "new_activity/btn_playnow.png"
+    Then the logo should have src "logo.png"
     And the see more button should have src "new_activity/btn_seemore.png"
-    And the header background should have no element graphic
-    And the nav links should have no element color
-    And the active nav link should have no element color
-    And profile links should have no element color
     Then the de-fan button should have src "new_activity/btn_defan.png"
     When I press the de-fan button
     Then I should be on the connections page

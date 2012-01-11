@@ -5,7 +5,6 @@ class UsersController < Clearance::UsersController
   end
 
   def show
-    @new_appearance = true
     @user = User.find_by_slug(params[:id])
     @locations = @user.demo.locations
     @acts = @user.acts.in_user_demo.displayable.recent(10)

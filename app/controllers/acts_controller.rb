@@ -6,7 +6,7 @@ class ActsController < ApplicationController
   def index
     @current_link_text = "Home"
 
-    @new_appearance = true
+    @new_appearance = false
 
     @show_only             = params[:show_only]
     @demo                  = current_user.demo
