@@ -538,7 +538,7 @@ class User < ActiveRecord::Base
   end
 
   def self.name_starts_with_non_alpha
-    where("name NOT SIMILAR TO '^[[:alpha:]]%'")
+    where("name !~* '^[[:alpha:]]'")
   end
 
   def self.send_invitation_if_email(user_or_phone, text, options={})
