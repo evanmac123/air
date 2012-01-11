@@ -10,7 +10,6 @@ class Invitation::AcceptancesController < ApplicationController
     @user.trying_to_accept = true # Set this as true so presence of 
     @user.attributes = params[:user]
     @user.update_attribute(:slug, @user.sms_slug)
-    binding.pry
     # the below calls @user#save, so we don't save explicitly
     unless @user.update_password(params[:user][:password], params[:user][:password_confirmation])
       @locations = @user.demo.locations.alphabetical

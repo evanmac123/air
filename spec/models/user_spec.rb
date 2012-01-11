@@ -21,6 +21,7 @@ end
 describe User do
   before do
     User.delete_all
+    ActionMailer::Base.deliveries.clear
   end
   
   it { should validate_numericality_of(:height).with_message("Please use a numeric value for your height, and express it in inches") }

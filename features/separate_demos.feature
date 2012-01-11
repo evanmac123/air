@@ -1,8 +1,11 @@
 Feature: Demos are kept separate
   Background:
-    Given the following user with phones exist:
+    Given the following user exists:
       | email           | name | demo             |
-      | dan@example.com | Dan  | company name: 3M |
+      | dan@example.com | Dan  | company name: 3M | 
+      
+    Given the following claimed users exist:
+      | email           | name | demo             |
       | bob@example.com | Bob  | company name: 3M |
       | ned@example.com | Ned  | company name: Xe |
 
@@ -11,6 +14,7 @@ Feature: Demos are kept separate
     And I go to the invitation page for "dan@example.com"
     When I accept the invitation
     Then I should be on the activity page
+    Then show me the page
     And I should see a link to the profile page for "Bob"
     And I should not see a link to the profile page for "Ned"
 

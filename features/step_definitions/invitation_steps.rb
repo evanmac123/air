@@ -12,9 +12,9 @@ end
 
 When /^I accept the invitation$/ do
   phone = Factory.next(:phone)
-
   When "I fill in \"Enter your mobile number\" with \"#{phone}\""
   And "I fill in \"Choose a password\" with \"foobar\""
   And "I fill in \"And confirm that password\" with \"foobar\""
+  And "I fill in \"Enter your name\" with \"foobar\""
   And "I press \"Join the game\""
 end
