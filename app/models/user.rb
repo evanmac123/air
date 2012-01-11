@@ -291,12 +291,13 @@ class User < ActiveRecord::Base
   end
   
   def set_slugs
+    return nil unless name.present?
     return nil unless self.slug.blank? || self.sms_slug.blank?
-    self.reset_slugs
+    reset_slugs
   end
   
   def reset_slugs  
-    cleaned = name.to_s.remove_mid_word_characters.
+    cleaned = name.remove_mid_word_characters.
                 remove_non_words.
                 downcase.
                 strip
