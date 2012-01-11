@@ -16,11 +16,9 @@
 		<%= stylesheet_link_tag 'screen_IE8' %>
 	<![endif]-->
 
-  <% if @new_appearance %>
-    <%= render 'shared/skin_styles' %>
-    <link rel="stylesheet" type='text/css' href='https://getbarometer.s3.amazonaws.com/assets/barometer/css/barometer.css'/>
-    <%= stylesheet_link_tag 'barometer_tweaks' %>
-  <% end %>
+  <%= render 'shared/skin_styles' %>
+  <link rel="stylesheet" type='text/css' href='https://getbarometer.s3.amazonaws.com/assets/barometer/css/barometer.css'/>
+  <%= stylesheet_link_tag 'barometer_tweaks' %>
   <%= csrf_meta_tag %>
   <%= render 'shared/mixpanel' %>
 </head>

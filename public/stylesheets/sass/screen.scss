@@ -20,6 +20,9 @@ $gotham: nevisBold, Gotham, 'Helvetica Neue', Helvetica, Arial, sans-serif;
 $gutter:10px;
 	$body-width:960px - 2*$gutter;
 	
+input:focus {
+  outline: 0;
+}
 
 /* ---------- mixins ---------- */
 @mixin bg-black {

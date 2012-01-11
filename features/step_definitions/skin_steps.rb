@@ -43,8 +43,7 @@ end
 
 def selector_for_elements(element_type)
   result = {
-    'logo'                 => '#logo img',
-    'play now button'      => "#add-action input[type=image]",
+    'logo'                 => '.logo_container img',
     'see more button'      => "input#see-more, input#show-all-ranked-players, .see-more",
     'save button'          => "#save-phone, #save-avatar, #save-username, #save-text-settings",
     'clear picture button' => "#clear-picture",

@@ -1,106 +1,110 @@
 /*
-Syntax error: Undefined variable: "$medium-gray".
-        on line 8 of /Users/Connie/Sites/HEngage Git/public/stylesheets/sass/new_activity_page.scss
+Syntax error: Undefined variable: "$orange".
+        on line 38 of public/stylesheets/sass/new_activity_page.scss
 
-3: @import "flick/jquery-ui-1.8.10.custom.css";
-4: @import "topbar";
-5: 
-6: $overall-background: #dfe3e6;
-7: 
-8: $column-subheader: $medium-gray;
-9: 
-10: $message-header-background-color: #6c7868;
-11: $new-message-header-background-color: #ba7d3b;
-12: $message-reply-background-color: #d2e8b9;
-13: 
+33:   font-weight: normal;
+34:   font-size: 24px;
+35:   a, a:visited, a:link {
+36:     text-decoration: none;
+37:     span {
+38:       color: $orange;
+39:     }
+40:   }
+41: }
+42: 
+43: h2 {
 
 Backtrace:
-/Users/Connie/Sites/HEngage Git/public/stylesheets/sass/new_activity_page.scss:8
-/Library/Ruby/Gems/1.8/gems/sass-3.1.0.alpha.221/lib/sass/../sass/script/variable.rb:45:in `_perform'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.0.alpha.221/lib/sass/../sass/script/node.rb:67:in `perform'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.0.alpha.221/lib/sass/../sass/tree/visitors/perform.rb:238:in `visit_variable'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.0.alpha.221/lib/sass/../sass/tree/visitors/base.rb:37:in `send'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.0.alpha.221/lib/sass/../sass/tree/visitors/base.rb:37:in `visit'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.0.alpha.221/lib/sass/../sass/tree/visitors/perform.rb:18:in `visit'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.0.alpha.221/lib/sass/../sass/tree/visitors/base.rb:53:in `visit_children'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.0.alpha.221/lib/sass/../sass/tree/visitors/base.rb:53:in `map'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.0.alpha.221/lib/sass/../sass/tree/visitors/base.rb:53:in `visit_children'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.0.alpha.221/lib/sass/../sass/tree/visitors/perform.rb:27:in `visit_children'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.0.alpha.221/lib/sass/../sass/tree/visitors/perform.rb:39:in `with_environment'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.0.alpha.221/lib/sass/../sass/tree/visitors/perform.rb:26:in `visit_children'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.0.alpha.221/lib/sass/../sass/tree/visitors/base.rb:37:in `visit'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.0.alpha.221/lib/sass/../sass/tree/visitors/perform.rb:47:in `visit_root'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.0.alpha.221/lib/sass/../sass/tree/visitors/base.rb:37:in `send'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.0.alpha.221/lib/sass/../sass/tree/visitors/base.rb:37:in `visit'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.0.alpha.221/lib/sass/../sass/tree/visitors/perform.rb:18:in `visit'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.0.alpha.221/lib/sass/../sass/tree/visitors/perform.rb:7:in `send'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.0.alpha.221/lib/sass/../sass/tree/visitors/perform.rb:7:in `visit'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.0.alpha.221/lib/sass/../sass/tree/root_node.rb:20:in `render'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.0.alpha.221/lib/sass/../sass/engine.rb:302:in `_render'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.0.alpha.221/lib/sass/../sass/engine.rb:250:in `render'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.0.alpha.221/lib/sass/../sass/util.rb:298:in `silence_sass_warnings'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.0.alpha.221/lib/sass/../sass/engine.rb:250:in `render'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.0.alpha.221/lib/sass/../sass/plugin/compiler.rb:319:in `update_stylesheet'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.0.alpha.221/lib/sass/../sass/plugin/compiler.rb:181:in `update_stylesheets'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.0.alpha.221/lib/sass/../sass/plugin/compiler.rb:175:in `each'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.0.alpha.221/lib/sass/../sass/plugin/compiler.rb:175:in `update_stylesheets'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.0.alpha.221/lib/sass/../sass/plugin/compiler.rb:173:in `each'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.0.alpha.221/lib/sass/../sass/plugin/compiler.rb:173:in `update_stylesheets'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.0.alpha.221/lib/sass/../sass/plugin.rb:81:in `update_stylesheets'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.0.alpha.221/lib/sass/../sass/plugin.rb:54:in `check_for_updates'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.0.alpha.221/lib/sass/../sass/plugin/rack.rb:51:in `call'
-/Library/Ruby/Gems/1.8/gems/actionpack-3.0.3/lib/action_dispatch/middleware/best_standards_support.rb:17:in `call'
-/Library/Ruby/Gems/1.8/gems/actionpack-3.0.3/lib/action_dispatch/middleware/head.rb:14:in `call'
-/Library/Ruby/Gems/1.8/gems/rack-1.2.1/lib/rack/methodoverride.rb:24:in `call'
-/Library/Ruby/Gems/1.8/gems/actionpack-3.0.3/lib/action_dispatch/middleware/params_parser.rb:21:in `call'
-/Library/Ruby/Gems/1.8/gems/actionpack-3.0.3/lib/action_dispatch/middleware/flash.rb:182:in `call'
-/Library/Ruby/Gems/1.8/gems/actionpack-3.0.3/lib/action_dispatch/middleware/session/abstract_store.rb:149:in `call'
-/Library/Ruby/Gems/1.8/gems/actionpack-3.0.3/lib/action_dispatch/middleware/cookies.rb:295:in `call'
-/Library/Ruby/Gems/1.8/gems/activerecord-3.0.3/lib/active_record/query_cache.rb:32:in `call'
-/Library/Ruby/Gems/1.8/gems/activerecord-3.0.3/lib/active_record/connection_adapters/abstract/query_cache.rb:28:in `cache'
-/Library/Ruby/Gems/1.8/gems/activerecord-3.0.3/lib/active_record/query_cache.rb:12:in `cache'
-/Library/Ruby/Gems/1.8/gems/activerecord-3.0.3/lib/active_record/query_cache.rb:31:in `call'
-/Library/Ruby/Gems/1.8/gems/activerecord-3.0.3/lib/active_record/connection_adapters/abstract/connection_pool.rb:353:in `call'
-/Library/Ruby/Gems/1.8/gems/actionpack-3.0.3/lib/action_dispatch/middleware/callbacks.rb:46:in `call'
-/Library/Ruby/Gems/1.8/gems/activesupport-3.0.3/lib/active_support/callbacks.rb:415:in `_run_call_callbacks'
-/Library/Ruby/Gems/1.8/gems/actionpack-3.0.3/lib/action_dispatch/middleware/callbacks.rb:44:in `call'
-/Library/Ruby/Gems/1.8/gems/rack-1.2.1/lib/rack/sendfile.rb:107:in `call'
-/Library/Ruby/Gems/1.8/gems/actionpack-3.0.3/lib/action_dispatch/middleware/remote_ip.rb:48:in `call'
-/Library/Ruby/Gems/1.8/gems/actionpack-3.0.3/lib/action_dispatch/middleware/show_exceptions.rb:46:in `call'
-/Library/Ruby/Gems/1.8/gems/railties-3.0.3/lib/rails/rack/logger.rb:13:in `call'
-/Library/Ruby/Gems/1.8/gems/rack-1.2.1/lib/rack/runtime.rb:17:in `call'
-/Library/Ruby/Gems/1.8/gems/activesupport-3.0.3/lib/active_support/cache/strategy/local_cache.rb:72:in `call'
-/Library/Ruby/Gems/1.8/gems/rack-1.2.1/lib/rack/lock.rb:11:in `call'
-/Library/Ruby/Gems/1.8/gems/rack-1.2.1/lib/rack/lock.rb:11:in `synchronize'
-/Library/Ruby/Gems/1.8/gems/rack-1.2.1/lib/rack/lock.rb:11:in `call'
-/Library/Ruby/Gems/1.8/gems/actionpack-3.0.3/lib/action_dispatch/middleware/static.rb:30:in `call'
-/Library/Ruby/Gems/1.8/gems/airbrake-3.0.4/lib/airbrake/user_informer.rb:12:in `call'
-/Library/Ruby/Gems/1.8/gems/railties-3.0.3/lib/rails/application.rb:168:in `call'
-/Library/Ruby/Gems/1.8/gems/railties-3.0.3/lib/rails/application.rb:77:in `send'
-/Library/Ruby/Gems/1.8/gems/railties-3.0.3/lib/rails/application.rb:77:in `method_missing'
-/Library/Ruby/Gems/1.8/gems/railties-3.0.3/lib/rails/rack/log_tailer.rb:14:in `call'
-/Library/Ruby/Gems/1.8/gems/rack-1.2.1/lib/rack/content_length.rb:13:in `call'
-/Library/Ruby/Gems/1.8/gems/rack-1.2.1/lib/rack/handler/webrick.rb:52:in `service'
-/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
-/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
-/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
-/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/webrick/server.rb:162:in `start'
-/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
-/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/webrick/server.rb:95:in `start'
-/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/webrick/server.rb:92:in `each'
-/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/webrick/server.rb:92:in `start'
-/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/webrick/server.rb:23:in `start'
-/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/webrick/server.rb:82:in `start'
-/Library/Ruby/Gems/1.8/gems/rack-1.2.1/lib/rack/handler/webrick.rb:13:in `run'
-/Library/Ruby/Gems/1.8/gems/rack-1.2.1/lib/rack/server.rb:213:in `start'
-/Library/Ruby/Gems/1.8/gems/railties-3.0.3/lib/rails/commands/server.rb:65:in `start'
-/Library/Ruby/Gems/1.8/gems/railties-3.0.3/lib/rails/commands.rb:30
-/Library/Ruby/Gems/1.8/gems/railties-3.0.3/lib/rails/commands.rb:27:in `tap'
-/Library/Ruby/Gems/1.8/gems/railties-3.0.3/lib/rails/commands.rb:27
-script/rails:6:in `require'
-script/rails:6
+public/stylesheets/sass/new_activity_page.scss:38
+/home/phil/.rvm/gems/ree-1.8.7-2010.02@hengage/gems/sass-3.1.0.alpha.221/bin/../lib/sass/../sass/script/variable.rb:45:in `_perform'
+/home/phil/.rvm/gems/ree-1.8.7-2010.02@hengage/gems/sass-3.1.0.alpha.221/bin/../lib/sass/../sass/script/node.rb:67:in `perform'
+/home/phil/.rvm/gems/ree-1.8.7-2010.02@hengage/gems/sass-3.1.0.alpha.221/bin/../lib/sass/../sass/tree/visitors/perform.rb:212:in `visit_prop'
+/home/phil/.rvm/gems/ree-1.8.7-2010.02@hengage/gems/sass-3.1.0.alpha.221/bin/../lib/sass/../sass/tree/visitors/base.rb:37:in `send'
+/home/phil/.rvm/gems/ree-1.8.7-2010.02@hengage/gems/sass-3.1.0.alpha.221/bin/../lib/sass/../sass/tree/visitors/base.rb:37:in `visit'
+/home/phil/.rvm/gems/ree-1.8.7-2010.02@hengage/gems/sass-3.1.0.alpha.221/bin/../lib/sass/../sass/tree/visitors/perform.rb:18:in `visit'
+/home/phil/.rvm/gems/ree-1.8.7-2010.02@hengage/gems/sass-3.1.0.alpha.221/bin/../lib/sass/../sass/tree/visitors/base.rb:53:in `visit_children'
+/home/phil/.rvm/gems/ree-1.8.7-2010.02@hengage/gems/sass-3.1.0.alpha.221/bin/../lib/sass/../sass/tree/visitors/base.rb:53:in `map'
+/home/phil/.rvm/gems/ree-1.8.7-2010.02@hengage/gems/sass-3.1.0.alpha.221/bin/../lib/sass/../sass/tree/visitors/base.rb:53:in `visit_children'
+/home/phil/.rvm/gems/ree-1.8.7-2010.02@hengage/gems/sass-3.1.0.alpha.221/bin/../lib/sass/../sass/tree/visitors/perform.rb:27:in `visit_children'
+/home/phil/.rvm/gems/ree-1.8.7-2010.02@hengage/gems/sass-3.1.0.alpha.221/bin/../lib/sass/../sass/tree/visitors/perform.rb:39:in `with_environment'
+/home/phil/.rvm/gems/ree-1.8.7-2010.02@hengage/gems/sass-3.1.0.alpha.221/bin/../lib/sass/../sass/tree/visitors/perform.rb:26:in `visit_children'
+/home/phil/.rvm/gems/ree-1.8.7-2010.02@hengage/gems/sass-3.1.0.alpha.221/bin/../lib/sass/../sass/tree/visitors/base.rb:37:in `visit'
+/home/phil/.rvm/gems/ree-1.8.7-2010.02@hengage/gems/sass-3.1.0.alpha.221/bin/../lib/sass/../sass/tree/visitors/perform.rb:232:in `visit_rule'
+/home/phil/.rvm/gems/ree-1.8.7-2010.02@hengage/gems/sass-3.1.0.alpha.221/bin/../lib/sass/../sass/tree/visitors/base.rb:37:in `send'
+/home/phil/.rvm/gems/ree-1.8.7-2010.02@hengage/gems/sass-3.1.0.alpha.221/bin/../lib/sass/../sass/tree/visitors/base.rb:37:in `visit'
+/home/phil/.rvm/gems/ree-1.8.7-2010.02@hengage/gems/sass-3.1.0.alpha.221/bin/../lib/sass/../sass/tree/visitors/perform.rb:18:in `visit'
+/home/phil/.rvm/gems/ree-1.8.7-2010.02@hengage/gems/sass-3.1.0.alpha.221/bin/../lib/sass/../sass/tree/visitors/base.rb:53:in `visit_children'
+/home/phil/.rvm/gems/ree-1.8.7-2010.02@hengage/gems/sass-3.1.0.alpha.221/bin/../lib/sass/../sass/tree/visitors/base.rb:53:in `map'
+/home/phil/.rvm/gems/ree-1.8.7-2010.02@hengage/gems/sass-3.1.0.alpha.221/bin/../lib/sass/../sass/tree/visitors/base.rb:53:in `visit_children'
+/home/phil/.rvm/gems/ree-1.8.7-2010.02@hengage/gems/sass-3.1.0.alpha.221/bin/../lib/sass/../sass/tree/visitors/perform.rb:27:in `visit_children'
+/home/phil/.rvm/gems/ree-1.8.7-2010.02@hengage/gems/sass-3.1.0.alpha.221/bin/../lib/sass/../sass/tree/visitors/perform.rb:39:in `with_environment'
+/home/phil/.rvm/gems/ree-1.8.7-2010.02@hengage/gems/sass-3.1.0.alpha.221/bin/../lib/sass/../sass/tree/visitors/perform.rb:26:in `visit_children'
+/home/phil/.rvm/gems/ree-1.8.7-2010.02@hengage/gems/sass-3.1.0.alpha.221/bin/../lib/sass/../sass/tree/visitors/base.rb:37:in `visit'
+/home/phil/.rvm/gems/ree-1.8.7-2010.02@hengage/gems/sass-3.1.0.alpha.221/bin/../lib/sass/../sass/tree/visitors/perform.rb:232:in `visit_rule'
+/home/phil/.rvm/gems/ree-1.8.7-2010.02@hengage/gems/sass-3.1.0.alpha.221/bin/../lib/sass/../sass/tree/visitors/base.rb:37:in `send'
+/home/phil/.rvm/gems/ree-1.8.7-2010.02@hengage/gems/sass-3.1.0.alpha.221/bin/../lib/sass/../sass/tree/visitors/base.rb:37:in `visit'
+/home/phil/.rvm/gems/ree-1.8.7-2010.02@hengage/gems/sass-3.1.0.alpha.221/bin/../lib/sass/../sass/tree/visitors/perform.rb:18:in `visit'
+/home/phil/.rvm/gems/ree-1.8.7-2010.02@hengage/gems/sass-3.1.0.alpha.221/bin/../lib/sass/../sass/tree/visitors/base.rb:53:in `visit_children'
+/home/phil/.rvm/gems/ree-1.8.7-2010.02@hengage/gems/sass-3.1.0.alpha.221/bin/../lib/sass/../sass/tree/visitors/base.rb:53:in `map'
+/home/phil/.rvm/gems/ree-1.8.7-2010.02@hengage/gems/sass-3.1.0.alpha.221/bin/../lib/sass/../sass/tree/visitors/base.rb:53:in `visit_children'
+/home/phil/.rvm/gems/ree-1.8.7-2010.02@hengage/gems/sass-3.1.0.alpha.221/bin/../lib/sass/../sass/tree/visitors/perform.rb:27:in `visit_children'
+/home/phil/.rvm/gems/ree-1.8.7-2010.02@hengage/gems/sass-3.1.0.alpha.221/bin/../lib/sass/../sass/tree/visitors/perform.rb:39:in `with_environment'
+/home/phil/.rvm/gems/ree-1.8.7-2010.02@hengage/gems/sass-3.1.0.alpha.221/bin/../lib/sass/../sass/tree/visitors/perform.rb:26:in `visit_children'
+/home/phil/.rvm/gems/ree-1.8.7-2010.02@hengage/gems/sass-3.1.0.alpha.221/bin/../lib/sass/../sass/tree/visitors/base.rb:37:in `visit'
+/home/phil/.rvm/gems/ree-1.8.7-2010.02@hengage/gems/sass-3.1.0.alpha.221/bin/../lib/sass/../sass/tree/visitors/perform.rb:232:in `visit_rule'
+/home/phil/.rvm/gems/ree-1.8.7-2010.02@hengage/gems/sass-3.1.0.alpha.221/bin/../lib/sass/../sass/tree/visitors/base.rb:37:in `send'
+/home/phil/.rvm/gems/ree-1.8.7-2010.02@hengage/gems/sass-3.1.0.alpha.221/bin/../lib/sass/../sass/tree/visitors/base.rb:37:in `visit'
+/home/phil/.rvm/gems/ree-1.8.7-2010.02@hengage/gems/sass-3.1.0.alpha.221/bin/../lib/sass/../sass/tree/visitors/perform.rb:18:in `visit'
+/home/phil/.rvm/gems/ree-1.8.7-2010.02@hengage/gems/sass-3.1.0.alpha.221/bin/../lib/sass/../sass/tree/visitors/base.rb:53:in `visit_children'
+/home/phil/.rvm/gems/ree-1.8.7-2010.02@hengage/gems/sass-3.1.0.alpha.221/bin/../lib/sass/../sass/tree/visitors/base.rb:53:in `map'
+/home/phil/.rvm/gems/ree-1.8.7-2010.02@hengage/gems/sass-3.1.0.alpha.221/bin/../lib/sass/../sass/tree/visitors/base.rb:53:in `visit_children'
+/home/phil/.rvm/gems/ree-1.8.7-2010.02@hengage/gems/sass-3.1.0.alpha.221/bin/../lib/sass/../sass/tree/visitors/perform.rb:27:in `visit_children'
+/home/phil/.rvm/gems/ree-1.8.7-2010.02@hengage/gems/sass-3.1.0.alpha.221/bin/../lib/sass/../sass/tree/visitors/perform.rb:39:in `with_environment'
+/home/phil/.rvm/gems/ree-1.8.7-2010.02@hengage/gems/sass-3.1.0.alpha.221/bin/../lib/sass/../sass/tree/visitors/perform.rb:26:in `visit_children'
+/home/phil/.rvm/gems/ree-1.8.7-2010.02@hengage/gems/sass-3.1.0.alpha.221/bin/../lib/sass/../sass/tree/visitors/base.rb:37:in `visit'
+/home/phil/.rvm/gems/ree-1.8.7-2010.02@hengage/gems/sass-3.1.0.alpha.221/bin/../lib/sass/../sass/tree/visitors/perform.rb:47:in `visit_root'
+/home/phil/.rvm/gems/ree-1.8.7-2010.02@hengage/gems/sass-3.1.0.alpha.221/bin/../lib/sass/../sass/tree/visitors/base.rb:37:in `send'
+/home/phil/.rvm/gems/ree-1.8.7-2010.02@hengage/gems/sass-3.1.0.alpha.221/bin/../lib/sass/../sass/tree/visitors/base.rb:37:in `visit'
+/home/phil/.rvm/gems/ree-1.8.7-2010.02@hengage/gems/sass-3.1.0.alpha.221/bin/../lib/sass/../sass/tree/visitors/perform.rb:18:in `visit'
+/home/phil/.rvm/gems/ree-1.8.7-2010.02@hengage/gems/sass-3.1.0.alpha.221/bin/../lib/sass/../sass/tree/visitors/perform.rb:7:in `send'
+/home/phil/.rvm/gems/ree-1.8.7-2010.02@hengage/gems/sass-3.1.0.alpha.221/bin/../lib/sass/../sass/tree/visitors/perform.rb:7:in `visit'
+/home/phil/.rvm/gems/ree-1.8.7-2010.02@hengage/gems/sass-3.1.0.alpha.221/bin/../lib/sass/../sass/tree/root_node.rb:20:in `render'
+/home/phil/.rvm/gems/ree-1.8.7-2010.02@hengage/gems/sass-3.1.0.alpha.221/bin/../lib/sass/../sass/engine.rb:302:in `_render'
+/home/phil/.rvm/gems/ree-1.8.7-2010.02@hengage/gems/sass-3.1.0.alpha.221/bin/../lib/sass/../sass/engine.rb:249:in `render'
+/home/phil/.rvm/gems/ree-1.8.7-2010.02@hengage/gems/sass-3.1.0.alpha.221/bin/../lib/sass/../sass/plugin/compiler.rb:319:in `update_stylesheet'
+/home/phil/.rvm/gems/ree-1.8.7-2010.02@hengage/gems/sass-3.1.0.alpha.221/bin/../lib/sass/../sass/plugin/compiler.rb:181:in `update_stylesheets'
+/home/phil/.rvm/gems/ree-1.8.7-2010.02@hengage/gems/sass-3.1.0.alpha.221/bin/../lib/sass/../sass/plugin/compiler.rb:175:in `each'
+/home/phil/.rvm/gems/ree-1.8.7-2010.02@hengage/gems/sass-3.1.0.alpha.221/bin/../lib/sass/../sass/plugin/compiler.rb:175:in `update_stylesheets'
+/home/phil/.rvm/gems/ree-1.8.7-2010.02@hengage/gems/sass-3.1.0.alpha.221/bin/../lib/sass/../sass/plugin/compiler.rb:173:in `each'
+/home/phil/.rvm/gems/ree-1.8.7-2010.02@hengage/gems/sass-3.1.0.alpha.221/bin/../lib/sass/../sass/plugin/compiler.rb:173:in `update_stylesheets'
+/home/phil/.rvm/gems/ree-1.8.7-2010.02@hengage/gems/sass-3.1.0.alpha.221/bin/../lib/sass/../sass/plugin/compiler.rb:252:in `watch'
+/home/phil/.rvm/gems/ree-1.8.7-2010.02@hengage/gems/sass-3.1.0.alpha.221/vendor/fssm/lib/fssm/path.rb:71:in `call'
+/home/phil/.rvm/gems/ree-1.8.7-2010.02@hengage/gems/sass-3.1.0.alpha.221/vendor/fssm/lib/fssm/path.rb:71:in `run_callback'
+/home/phil/.rvm/gems/ree-1.8.7-2010.02@hengage/gems/sass-3.1.0.alpha.221/vendor/fssm/lib/fssm/path.rb:54:in `callback_action'
+/home/phil/.rvm/gems/ree-1.8.7-2010.02@hengage/gems/sass-3.1.0.alpha.221/vendor/fssm/lib/fssm/path.rb:34:in `update'
+/home/phil/.rvm/gems/ree-1.8.7-2010.02@hengage/gems/sass-3.1.0.alpha.221/vendor/fssm/lib/fssm/state/directory.rb:32:in `modified'
+/home/phil/.rvm/gems/ree-1.8.7-2010.02@hengage/gems/sass-3.1.0.alpha.221/vendor/fssm/lib/fssm/state/directory.rb:31:in `each'
+/home/phil/.rvm/gems/ree-1.8.7-2010.02@hengage/gems/sass-3.1.0.alpha.221/vendor/fssm/lib/fssm/state/directory.rb:31:in `modified'
+/home/phil/.rvm/gems/ree-1.8.7-2010.02@hengage/gems/sass-3.1.0.alpha.221/vendor/fssm/lib/fssm/state/directory.rb:16:in `refresh'
+/home/phil/.rvm/gems/ree-1.8.7-2010.02@hengage/gems/sass-3.1.0.alpha.221/vendor/fssm/lib/fssm/backends/polling.rb:17:in `run'
+/home/phil/.rvm/gems/ree-1.8.7-2010.02@hengage/gems/sass-3.1.0.alpha.221/vendor/fssm/lib/fssm/backends/polling.rb:17:in `each'
+/home/phil/.rvm/gems/ree-1.8.7-2010.02@hengage/gems/sass-3.1.0.alpha.221/vendor/fssm/lib/fssm/backends/polling.rb:17:in `run'
+/home/phil/.rvm/gems/ree-1.8.7-2010.02@hengage/gems/sass-3.1.0.alpha.221/vendor/fssm/lib/fssm/backends/polling.rb:15:in `loop'
+/home/phil/.rvm/gems/ree-1.8.7-2010.02@hengage/gems/sass-3.1.0.alpha.221/vendor/fssm/lib/fssm/backends/polling.rb:15:in `run'
+/home/phil/.rvm/gems/ree-1.8.7-2010.02@hengage/gems/sass-3.1.0.alpha.221/vendor/fssm/lib/fssm/monitor.rb:24:in `run'
+/home/phil/.rvm/gems/ree-1.8.7-2010.02@hengage/gems/sass-3.1.0.alpha.221/vendor/fssm/lib/fssm.rb:17:in `monitor'
+/home/phil/.rvm/gems/ree-1.8.7-2010.02@hengage/gems/sass-3.1.0.alpha.221/bin/../lib/sass/../sass/plugin/compiler.rb:245:in `watch'
+/home/phil/.rvm/gems/ree-1.8.7-2010.02@hengage/gems/sass-3.1.0.alpha.221/bin/../lib/sass/../sass/plugin.rb:111:in `send'
+/home/phil/.rvm/gems/ree-1.8.7-2010.02@hengage/gems/sass-3.1.0.alpha.221/bin/../lib/sass/../sass/plugin.rb:111:in `method_missing'
+/home/phil/.rvm/gems/ree-1.8.7-2010.02@hengage/gems/sass-3.1.0.alpha.221/bin/../lib/sass/../sass/exec.rb:396:in `watch_or_update'
+/home/phil/.rvm/gems/ree-1.8.7-2010.02@hengage/gems/sass-3.1.0.alpha.221/bin/../lib/sass/../sass/exec.rb:284:in `process_result'
+/home/phil/.rvm/gems/ree-1.8.7-2010.02@hengage/gems/sass-3.1.0.alpha.221/bin/../lib/sass/../sass/exec.rb:41:in `parse'
+/home/phil/.rvm/gems/ree-1.8.7-2010.02@hengage/gems/sass-3.1.0.alpha.221/bin/../lib/sass/../sass/exec.rb:21:in `parse!'
+/home/phil/.rvm/gems/ree-1.8.7-2010.02@hengage/gems/sass-3.1.0.alpha.221/bin/sass:8
+/home/phil/.rvm/gems/ree-1.8.7-2010.02@hengage/bin/sass:19:in `load'
+/home/phil/.rvm/gems/ree-1.8.7-2010.02@hengage/bin/sass:19
 */
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Syntax error: Undefined variable: \"$medium-gray\".\A         on line 8 of /Users/Connie/Sites/HEngage Git/public/stylesheets/sass/new_activity_page.scss\A \A 3: @import \"flick/jquery-ui-1.8.10.custom.css\";\A 4: @import \"topbar\";\A 5: \A 6: $overall-background: #dfe3e6;\A 7: \A 8: $column-subheader: $medium-gray;\A 9: \A 10: $message-header-background-color: #6c7868;\A 11: $new-message-header-background-color: #ba7d3b;\A 12: $message-reply-background-color: #d2e8b9;\A 13: "; }
+  content: "Syntax error: Undefined variable: \"$orange\".\A         on line 38 of public/stylesheets/sass/new_activity_page.scss\A \A 33:   font-weight: normal;\A 34:   font-size: 24px;\A 35:   a, a:visited, a:link {\A 36:     text-decoration: none;\A 37:     span {\A 38:       color: $orange;\A 39:     }\A 40:   }\A 41: }\A 42: \A 43: h2 {"; }

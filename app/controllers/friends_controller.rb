@@ -2,8 +2,6 @@ class FriendsController < ApplicationController
   def show
     @current_link_text = "Connections"
 
-    @new_appearance = true
-
     @friends = current_user.accepted_friends
 
     respond_to do |format|
