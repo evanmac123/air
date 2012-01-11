@@ -226,19 +226,13 @@ describe User do
   end
   
   it "should validate the uniqueness of :slug if name is present" do
-    a = Factory.build(:user, :name =>"present", :slug => "areallylongstring")
+    a = Factory.build(:user, :name =>"present", :slug => "areallylongstring", :sms_slug => "areallylongstring")
     a.should be_valid
     a.save
-    bb = Factory.build(:user, :name =>"present", :slug => "areallylongstring")
-    bb.email = "5" + a.email
-    
-    debugger
-    bb.should_not be_valid
-    bb.save
-    bb.errors.should include("something")
-    bb.errors = ""
-    bb.name = ""
-    bb.should be_valid
+    bb = Factory.build(:user, :name =>"present", :slug => "areallylongstring", :sms_slug => "areallylongstring")
+    bb.should_not be_valid # since slugs are already present, set_slugs will not be called
+    bb.errors[:slug].should include("has already been taken")
+    bb.errors[:sms_slug].should include("Sorry, that user ID is already taken.")
   end
 end
 
