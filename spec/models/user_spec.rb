@@ -16,7 +16,13 @@ describe User do
   it { should have_many(:wins) }
   it { should have_many(:task_suggestions) }
 
+end
 
+describe User do
+  before do
+    User.delete_all
+  end
+  
   it { should validate_numericality_of(:height).with_message("Please use a numeric value for your height, and express it in inches") }
 
   it "should validate presence of the SMS slug on update" do
@@ -191,6 +197,10 @@ describe User do
 end
 
 describe User do
+  before do
+    User.delete_all
+  end
+  
   it "should validate the presence of name only if trying to accept now or if already accepted" do
   
   end
@@ -199,32 +209,22 @@ describe User do
     a = Factory.build(:user, :name => "")
     a.should be_valid
     a.slug.should == ""
+    a.sms_slug.should == ""
   end
-  it "should require and create a slug if there is a name" do
+  it "should create a slug upon validation if there is a name" do
     a = Factory.build(:user, :name => "present")
-    a.should be_valid :on => :update  # Not valid because no slugs generated, but name exists
-    a.slug.should == ""
-    a.sms_slug.should == ""
-    debugger
-    a.should be_valid :on => :create          # Now slugs have been generated due the the before_validate :on => :create method
+    a.should be_valid   # Slugs generated before_validation
     a.slug.should == "present"
     a.sms_slug.should == "present"
-    a.slug = ""
-    a.sms_slug = ""
-    a.should_not be_valid :except => :create
   end
+  
+  
   it "should create slugs when you create" do
-    a = Factory.build(:user, :name => :present)
-    a.slug.should == ""
-    a.sms_slug.should == ""
-    a.save
+    a = Factory(:user, :name => "present")
     a.slug.should == "present"
     a.sms_slug.should == "present"
-    b = Factory(:user)
-    b.sms_slug = "present"
-    debugger
-    b.should be_invalid #invalid because the set_slugs method call will do nothing because it already has slugs
   end
+  
   it "should validate the uniqueness of :slug if name is present" do
     a = Factory.build(:user, :name =>"present", :slug => "areallylongstring")
     a.should be_valid

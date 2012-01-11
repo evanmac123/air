@@ -52,11 +52,13 @@ class User < ActiveRecord::Base
     :path => "/avatars/:id/:style/:filename",
     :bucket => S3_AVATAR_BUCKET
 
-  before_validation :on => :create do
+  before_validation do
     # NOTE: This method is only called when you actually CALL the create method
     # (Not when you ask if the method is valid :on => :create.)
     # creating a new object and testing x.valid? :on => :create does not send us to this function
-    set_slugs if slug_required
+    if slug_required
+      set_slugs if self.slug.blank? || self.sms_slug.blank?
+    end
   end  
   
   
@@ -290,13 +292,8 @@ class User < ActiveRecord::Base
                :order      => "created_at desc")
   end
   
-  def set_slugs
-    return nil unless name.present?
-    return nil unless self.slug.blank? || self.sms_slug.blank?
-    reset_slugs
-  end
   
-  def reset_slugs  
+  def set_slugs  
     cleaned = name.remove_mid_word_characters.
                 remove_non_words.
                 downcase.
