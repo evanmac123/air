@@ -22,7 +22,7 @@ Feature: User accepts invitation
     And I fill in "And confirm that password" with "whatwhat"
     And I press "Join the game"
     And DJ cranks once
-    Then "+15087407520" should have received an SMS "You've joined the 3M game! Your user ID is dan4444 (text MYID if you forget). To play, text to this #."
+    Then "+15087407520" should have received an SMS "You've joined the 3M game! Your user ID is dan (text MYID if you forget). To play, text to this #."
     And I should be on the activity page
     And I should see "Dan joined the game"
 
