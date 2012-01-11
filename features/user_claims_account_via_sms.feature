@@ -81,16 +81,6 @@ Feature: User claims account via SMS
     Then I should see "Dan Croak 10 pts"
     And I should see "10 pts Dan Croak joined the game less than a minute ago"
 
-  Scenario: User claims account with e-mail address (but only if they've got a claim code)
-    Given the following users exist:
-      | name       | email              |
-      | Dan Croak  | dan@example.com    |
-      | John Smith | jsmith@example.com |
-    And "Dan Croak" has a claim code
-    When "+14155551212" sends SMS "dan@example.com"
-    And "+16175551212" sends SMS "jsmith@example.com"
-    Then "Dan Croak" should be claimed by "+14155551212"
-    And "John Smith" should not be claimed
 
   Scenario: Ambiguous claim code
     Given the following users exist:

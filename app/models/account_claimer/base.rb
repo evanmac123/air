@@ -15,7 +15,7 @@ module AccountClaimer
           return "There's more than one person with that code. Please try sending us your first name along with the code (for example: John Smith enters \"john jsmith\")."
         end
 
-        @user = users.first || User.claimable_by_email_address(@claim_code) || User.claimable_by_first_name_and_claim_code(@claim_code)
+        @user = users.first || User.claimable_by_first_name_and_claim_code(@claim_code)
 
         return nil unless @user
 

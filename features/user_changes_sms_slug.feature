@@ -26,7 +26,3 @@ Feature: User can choose a different SMS slug
     Then I should see "Sorry, that user ID is already taken."
     And "+14155551212" should not have received an SMS including "awesomed00d"
 
-  Scenario: User tries a blank SMS slug
-    When I fill in "Enter a new username" with ""
-    And I press the button to submit a new unique ID
-    Then I should see "Sorry, you can't choose a blank user ID."
