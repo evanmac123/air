@@ -14,7 +14,7 @@ Feature: User suggests command
     And "+16175551212" should have received an SMS "Thanks! We'll take your suggestion into consideration."
     
   Scenario: User suggests we add the last bad command they sent, and they included a referring user
-    When "+16175551212" sends SMS "ate pasta pdarnowsky"
+    When "+16175551212" sends SMS "ate pasta phildarnowsky"
     And "+16175551212" sends SMS "S"
     Then we should have recorded that "Vlad Gyster" suggested "ate pasta"
     And "+16175551212" should have received an SMS "Thanks! We'll take your suggestion into consideration."
