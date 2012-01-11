@@ -25,18 +25,6 @@ describe User do
   
   it { should validate_numericality_of(:height).with_message("Please use a numeric value for your height, and express it in inches") }
 
-  it "should validate presence of the SMS slug on update" do
-    user = Factory :claimed_user
-    user.send(:name_required).should be_true
-    user.sms_slug.should_not be_nil # set by a callback on create
-    user.should be_valid
-    user.sms_slug = ''
-    user.send(:name_required).should be_true
-    user.should_not be_valid
-    user.errors[:sms_slug].should include("Sorry, you can't choose a blank user ID.")
-    
-  end
-
   it "should validate uniqueness of phone number when not blank" do
     user1 = Factory :user, :phone_number => '+14152613077'
     user2 = Factory :user, :phone_number => ''
@@ -348,7 +336,6 @@ describe User, "#slug" do
     end
 
     it "has text-only slugs" do
-      debugger
       @first.slug.should == "johnsmith"
       @first.sms_slug.should == "johnsmith"
     end
