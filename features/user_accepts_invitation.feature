@@ -147,7 +147,6 @@ Feature: User accepts invitation
     And I should see "Sorry, you can't choose a blank user ID."
 
     When I fill in "Choose a unique ID" with "i rule"
-And show me the page
     And I press "Join the game"
     
     Then I should not see "Welcome to the game"

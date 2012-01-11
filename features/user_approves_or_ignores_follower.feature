@@ -65,10 +65,11 @@ Feature: User approves or ignores follower
     And "+16175551212" sends SMS "no 2"
     Then "+16175551212" should have received an SMS "You have no pending requests from anyone to be a fan."
 
-    When "+14155551212" sends SMS "follow bbob"
-    And "+13055551212" sends SMS "follow bbob"
+    When "+14155551212" sends SMS "follow bob"
+    And "+13055551212" sends SMS "follow bob"
     And DJ cranks 5 times
     And "+16175551212" sends SMS "yes 3"
+And I pry
     Then "+16175551212" should have received an SMS "Looks like you already responded to that request, or didn't have a request with that number"
     When I clear all sent texts
     And "+16175551212" sends SMS "no 3"
@@ -98,15 +99,15 @@ Feature: User approves or ignores follower
     And I should see "You've already ignored that person's request."
 
   Scenario: Follower attempts to follow twice in a row
-    When "+14155551212" sends SMS "follow bbob"
-    And "+14155551212" sends SMS "follow bbob"
+    When "+14155551212" sends SMS "follow bob"
+    And "+14155551212" sends SMS "follow bob"
     Then "+14155551212" should have received an SMS "OK, you'll be a fan of Bob, pending their acceptance."
     And "+14155551212" should have received an SMS "You've already asked to be a fan of Bob."
 
   Scenario: Follower attempts to follow after one follow already ignored
-    When "+14155551212" sends SMS "follow bbob"
+    When "+14155551212" sends SMS "follow bob"
     And "+16175551212" sends SMS "no"
-    And "+14155551212" sends SMS "follow bbob"
+    And "+14155551212" sends SMS "follow bob"
     And "+16175551212" sends SMS "yes"
 
     And DJ cranks 5 times
@@ -118,7 +119,7 @@ Feature: User approves or ignores follower
     And I go to the profile page for "Bob"
     And I select "Send an email" from "When somebody requests to be my fan:"
     And I press the button to save notification settings
-    And "+14155551212" sends SMS "follow bbob"
+    And "+14155551212" sends SMS "follow bob"
     And DJ cranks 5 times
 
     Then "bob@example.com" should have received a follow notification email about "Alice"
@@ -138,7 +139,7 @@ Feature: User approves or ignores follower
     And I go to the profile page for "Frank"
     And I select "Send an email" from "When somebody requests to be my fan:"
     And I press the button to save notification settings
-    And "+18765551212" sends SMS "follow ffrank"
+    And "+18765551212" sends SMS "follow frank"
     And DJ cranks 5 times
 
     Then "frank@example.com" should have received a follow notification email about "George" with phone number "(900) 555-1212"
@@ -149,7 +150,7 @@ Feature: User approves or ignores follower
     And I go to the profile page for "Bob"
     And I select "Send an SMS" from "When somebody requests to be my fan:"
     And I press the button to save notification settings
-    And "+14155551212" sends SMS "follow bbob"
+    And "+14155551212" sends SMS "follow bob"
     And DJ cranks 5 times
 
     Then "+16175551212" should have received SMS "Alice has asked to be your fan. Text\nYES to accept,\nNO to ignore (in which case they won't be notified)"
@@ -160,7 +161,7 @@ Feature: User approves or ignores follower
     And I go to the profile page for "Bob"
     And I select "Send both an SMS and an email" from "When somebody requests to be my fan:"
     And I press the button to save notification settings
-    And "+14155551212" sends SMS "follow bbob"
+    And "+14155551212" sends SMS "follow bob"
     And DJ cranks 5 times
 
     Then "+16175551212" should have received SMS "Alice has asked to be your fan. Text\nYES to accept,\nNO to ignore (in which case they won't be notified)"
@@ -171,7 +172,7 @@ Feature: User approves or ignores follower
     And I go to the profile page for "Bob"
     And I select "Send neither an SMS nor an email" from "When somebody requests to be my fan:"
     And I press the button to save notification settings
-    And "+14155551212" sends SMS "follow bbob"
+    And "+14155551212" sends SMS "follow bob"
     And DJ cranks 5 times
 
     Then "+16175551212" should not have received any SMSes
