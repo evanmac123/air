@@ -57,7 +57,9 @@ class User < ActiveRecord::Base
     # (Not when you ask if the method is valid :on => :create.)
     # creating a new object and testing x.valid? :on => :create does not send us to this function
     if slug_required
-      set_slugs if self.slug.blank? || self.sms_slug.blank?
+      unless trying_to_accept
+        set_slugs_based_on_name if self.slug.blank? || self.sms_slug.blank?
+      end
     end
   end  
   
@@ -293,7 +295,7 @@ class User < ActiveRecord::Base
   end
   
   
-  def set_slugs  
+  def set_slugs_based_on_name  
     cleaned = name.remove_mid_word_characters.
                 remove_non_words.
                 downcase.

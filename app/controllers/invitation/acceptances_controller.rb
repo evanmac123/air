@@ -8,8 +8,10 @@ class Invitation::AcceptancesController < ApplicationController
 
   def update
     @user.trying_to_accept = true # Set this as true so presence of 
+    
     @user.attributes = params[:user]
-    @user.update_attribute(:slug, @user.sms_slug)
+    @user.sms_slug = params[:user][:sms_slug]
+    @user.slug = params[:user][:sms_slug]
     # the below calls @user#save, so we don't save explicitly
     unless @user.update_password(params[:user][:password], params[:user][:password_confirmation])
       @locations = @user.demo.locations.alphabetical
@@ -28,6 +30,6 @@ class Invitation::AcceptancesController < ApplicationController
   protected
 
   def find_user
-    @user = User.find_by_slug(params[:user_id])
+    @user = User.find(params[:user_id])
   end
 end

@@ -10,7 +10,7 @@
       %h2= "Welcome to H Engage"
       %p.explanation= translate('.explanation', :default => "Ready to play? Just enter your mobile number and choose a password. We'll send you an SMS with instructions to get you started.")
 
-= form_for @user, :url => invitation_acceptance_path(:user_id => @user.slug), :id => "signup-form", :builder => FancyFormBuilder do |f| 
+= form_for @user, :url => invitation_acceptance_path(:user_id => @user.id), :id => "signup-form", :builder => FancyFormBuilder do |f| 
   %ul
     - if @invitation_requested_via_sms
       = f.hidden_field :phone_number, :value => @user.phone_number

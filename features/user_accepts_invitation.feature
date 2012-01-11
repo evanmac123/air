@@ -10,7 +10,6 @@ Feature: User accepts invitation
       | dan@example.com  | Dan  | company name: 3M    |
       | phil@example.com | Phil | company_name: FooCo |
     And "dan@example.com" has received an invitation
-    And "Dan" has the SMS slug "dan4444"
     And "phil@example.com" has received an invitation
     When "dan@example.com" opens the email
     And I click the first link in the email
@@ -134,22 +133,25 @@ Feature: User accepts invitation
 
   Scenario: User can set unique ID when accepting invitation
     When I click the first link in the email
-    And I fill in "Choose a unique ID" with "pphil"
+    And I fill in "Choose a unique ID" with "phil"
     And I fill in "Enter your mobile number" with "508-740-7520"
     And I fill in "Choose a password" with "whatwhat"
     And I fill in "And confirm that password" with "whatwhat"
     And I press "Join the game"
     Then I should not see "Welcome to the game"
     And I should see "Sorry, that user ID is already taken."
-
+    
     When I fill in "Choose a unique ID" with "         "
     And I press "Join the game"
     Then I should not see "Welcome to the game"
     And I should see "Sorry, you can't choose a blank user ID."
 
     When I fill in "Choose a unique ID" with "i rule"
+And show me the page
     And I press "Join the game"
+    
     Then I should not see "Welcome to the game"
+    
     And I should see "Sorry, the user ID must consist of letters or digits only."
 
     When I fill in "Choose a unique ID" with "DannyBoy"
