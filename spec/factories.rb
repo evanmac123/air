@@ -16,7 +16,7 @@ end
 
 Factory.define :user,  :parent => :unnamed_user do |factory|
   factory.name                  { "James Earl Jones" }
-  # set_slugs runs if name_required, so there is no need to create slugs here
+  # set_slugs runs if user has a name, so there is no need to create slugs here
   # factory.sequence(:sms_slug)   { |n| "jej#{n}" }
   # factory.sequence(:slug)       { |n| "jej#{n}" }
 end

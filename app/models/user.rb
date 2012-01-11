@@ -27,16 +27,16 @@ class User < ActiveRecord::Base
 
   validate :normalized_phone_number_unique, :normalized_new_phone_number_unique
 
-  validates_uniqueness_of :slug, :if => :name_required
-  validates_uniqueness_of :sms_slug, :message => "Sorry, that user ID is already taken.", :if => :name_required
+  validates_uniqueness_of :slug, :if => :slug_required
+  validates_uniqueness_of :sms_slug, :message => "Sorry, that user ID is already taken.", :if => :slug_required
 
   validates_presence_of :name, :if => :name_required
-  validates_presence_of :sms_slug, :message => "Sorry, you can't choose a blank user ID.", :if => :name_required
-  validates_presence_of :slug, :if => :name_required
+  validates_presence_of :sms_slug, :message => "Sorry, you can't choose a blank user ID.", :if => :slug_required
+  validates_presence_of :slug, :if => :slug_required
   validates_presence_of :location_id, :if => :associated_demo_has_locations, :message => "Please choose a location"
 
-  validates_format_of :slug, :with => /^[0-9a-z]+$/, :if => :name_required
-  validates_format_of :sms_slug, :with => /^[0-9a-z]+$/, :if => :name_required,
+  validates_format_of :slug, :with => /^[0-9a-z]+$/, :if => :slug_required
+  validates_format_of :sms_slug, :with => /^[0-9a-z]+$/, :if => :slug_required,
                       :message => "Sorry, the user ID must consist of letters or digits only."
 
   validates_numericality_of :height, :allow_blank => true, :message => "Please use a numeric value for your height, and express it in inches"
@@ -53,12 +53,12 @@ class User < ActiveRecord::Base
     :bucket => S3_AVATAR_BUCKET
 
   before_validation :on => :create do
-    set_slugs if name_required
+    set_slugs if slug_required
   end  
   
   
   before_validation do
-    downcase_sms_slug if name_required
+    downcase_sms_slug if self.slug_required
   end
 
   before_create do
@@ -91,7 +91,7 @@ class User < ActiveRecord::Base
 
   attr_accessor :trying_to_accept
   attr_protected :is_site_admin
-
+  
   has_alphabetical_column :name
 
   def update_password_with_blank_forbidden(password, password_confirmation)
@@ -288,9 +288,8 @@ class User < ActiveRecord::Base
   end
   
   def set_slugs
-    return nil unless name.present?
     return nil unless self.slug.blank? || self.sms_slug.blank?
-    reset_slugs
+    self.reset_slugs
   end
   
   def reset_slugs  
@@ -574,6 +573,12 @@ class User < ActiveRecord::Base
     # is accepted, a user must have both a name and an sms slug. Until then, anything goes.
     self.accepted_invitation_at || self.trying_to_accept
   end
+  def slug_required
+    # slug required if there is a name
+    return true unless self.name.blank?
+    return false
+  end
+  
   def downcase_email
     self.email = email.to_s.downcase
   end
