@@ -191,11 +191,55 @@ describe User do
 end
 
 describe User do
-  before do
-    Factory(:claimed_user)
+  it "should validate the presence of name only if trying to accept now or if already accepted" do
+  
   end
-  it { should validate_presence_of(:name) }
-  it { should validate_uniqueness_of(:slug) }
+  
+  it "should not require a slug if there is no name" do
+    a = Factory.build(:user, :name => "")
+    a.should be_valid
+    a.slug.should == ""
+  end
+  it "should require and create a slug if there is a name" do
+    a = Factory.build(:user, :name => "present")
+    a.should be_valid :on => :update  # Not valid because no slugs generated, but name exists
+    a.slug.should == ""
+    a.sms_slug.should == ""
+    debugger
+    a.should be_valid :on => :create          # Now slugs have been generated due the the before_validate :on => :create method
+    a.slug.should == "present"
+    a.sms_slug.should == "present"
+    a.slug = ""
+    a.sms_slug = ""
+    a.should_not be_valid :except => :create
+  end
+  it "should create slugs when you create" do
+    a = Factory.build(:user, :name => :present)
+    a.slug.should == ""
+    a.sms_slug.should == ""
+    a.save
+    a.slug.should == "present"
+    a.sms_slug.should == "present"
+    b = Factory(:user)
+    b.sms_slug = "present"
+    debugger
+    b.should be_invalid #invalid because the set_slugs method call will do nothing because it already has slugs
+  end
+  it "should validate the uniqueness of :slug if name is present" do
+    a = Factory.build(:user, :name =>"present", :slug => "areallylongstring")
+    a.should be_valid
+    a.save
+    bb = Factory.build(:user, :name =>"present", :slug => "areallylongstring")
+    bb.email = "5" + a.email
+    
+    debugger
+    bb.should_not be_valid
+    bb.save
+    bb.errors.should include("something")
+    bb.errors = ""
+    bb.name = ""
+    bb.should be_valid
+  end
 end
 
 

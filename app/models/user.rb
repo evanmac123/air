@@ -53,12 +53,15 @@ class User < ActiveRecord::Base
     :bucket => S3_AVATAR_BUCKET
 
   before_validation :on => :create do
+    # NOTE: This method is only called when you actually CALL the create method
+    # (Not when you ask if the method is valid :on => :create.)
+    # creating a new object and testing x.valid? :on => :create does not send us to this function
     set_slugs if slug_required
   end  
   
   
   before_validation do
-    downcase_sms_slug if self.slug_required
+    downcase_sms_slug if slug_required
   end
 
   before_create do
@@ -293,7 +296,7 @@ class User < ActiveRecord::Base
   end
   
   def reset_slugs  
-    cleaned = name.remove_mid_word_characters.
+    cleaned = name.to_s.remove_mid_word_characters.
                 remove_non_words.
                 downcase.
                 strip
