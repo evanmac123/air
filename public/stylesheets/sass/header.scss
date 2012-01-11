@@ -21,7 +21,7 @@ $light:lighten($header-bg, 10%);
 	-webkit-border-radius: 20px;
 	-moz-border-radius: 20px;
 	border-radius: 20px;
-	border:1px lighten($header-bg, 10%) solid;
+	behavior: url(/css3pie/PIE.htc);
 }
 @mixin rounded-progress {
 	border-radius: 30px;
@@ -129,6 +129,7 @@ $light:lighten($header-bg, 10%);
 				a.a_current {
 					@include bg-black;
 					@include rounded-nav;
+					border:1px lighten($header-bg, 10%) solid;
 				}
 			}
 		}
@@ -225,6 +226,36 @@ $light:lighten($header-bg, 10%);
 				position:relative;
 				width:413px;
 				z-index:-3;
+				
+				.bar {
+					@include bg-black;
+					@include rounded-nav;
+					border:1px #fff solid;
+					height:35px;
+					margin:9px 0 0 35px;
+					overflow:hidden;
+					width:360px;
+					
+					.progress {
+						@include bg-orange;
+						@include rounded-nav;
+						color:#906109;
+						height:100%;
+						left:-1px;
+						margin:0;
+						padding:0;
+						position:relative;
+						width:5%;
+						
+						p {
+							float:right;
+							font-size:11px;
+							font-weight:bold;
+							padding:10px 7px 0 0;
+							text-shadow:none;
+						}
+					}
+				}
 			}
 			
 			.bar_level {
