@@ -1,3 +1,4 @@
+
 Feature: User accepts invitation
 
   Background:
@@ -42,7 +43,8 @@ Feature: User accepts invitation
     And I fill in "And confirm that password" with "whowho"
     And I press "Join the game"
     And DJ cranks 5 times
-    Then "+14152613077" should have received an SMS "You, pphil, are in the FooCo game."
+    
+    Then "+14152613077" should have received an SMS "You, phil, are in the FooCo game."
 
   Scenario: User accepts invitation to game with seed points
     Given time is frozen
@@ -65,7 +67,6 @@ Feature: User accepts invitation
     And I fill in "And confirm that password" with "whowho"
     And I press "Join the game"
     And I click the first link in the email
-    And I fill in "Enter your mobile number" with "415-261-3077"
     And I fill in "Choose a password" with "whowho"
     And I fill in "And confirm that password" with "whowho"
     And I press "Join the game"

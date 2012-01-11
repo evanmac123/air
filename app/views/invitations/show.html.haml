@@ -15,7 +15,6 @@
     - if @invitation_requested_via_sms
       = f.hidden_field :phone_number, :value => @user.phone_number
       %ul.form-section
-        - binding.pry
         %li.form-label Your Phone Number: #{@user.phone_number.as_pretty_phone}
       %ul.form-section
         %li.form-label Your Email Address: #{@user.email}
