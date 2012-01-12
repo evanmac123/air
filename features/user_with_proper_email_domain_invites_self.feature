@@ -32,7 +32,6 @@ Feature: User with proper email domain invites self
     And I fill in "Choose a unique ID" with "chester"
 
     And I press "Join the game"
-    And show me the page
     Then I should be on the activity page
     And I should see "Chester Humphries joined the game"
 

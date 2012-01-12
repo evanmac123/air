@@ -100,7 +100,7 @@ class User < ActiveRecord::Base
   attr_reader :batch_updating_recent_averages
 
   attr_accessor :trying_to_accept
-  attr_protected :is_site_admin
+  attr_protected :is_site_admin, :invitation_method
   
   has_alphabetical_column :name
 
@@ -213,6 +213,14 @@ class User < ActiveRecord::Base
     token = jumbled_letters[0,4]
     self.new_phone_validation = token
     self.save
+  end
+
+  def invitation_requested_via_sms?
+    self.invitation_method == "sms"
+  end
+
+  def invitation_requested_via_email?
+    self.invitation_method == "email"
   end
 
   def self.in_canonical_ranking_order
@@ -565,6 +573,7 @@ class User < ActiveRecord::Base
         SelfInvitingDomain.where(:domain => domain).first
         new_user = User.new(:phone_number => user_or_phone, :email => text.strip,
                   :demo_id => demo_id)
+        new_user.invitation_method = 'sms'
         if new_user.save
           Mailer.invitation(new_user).deliver
           return "An invitation has been sent to #{text.strip}."
@@ -585,14 +594,14 @@ class User < ActiveRecord::Base
   protected
 
   def name_required
-    # While trying to accept the invitation and at an point after the invitation
+    # While trying to accept the invitation and at any point after the invitation
     # is accepted, a user must have both a name and an sms slug. Until then, anything goes.
     self.accepted_invitation_at || self.trying_to_accept
   end
+
   def slug_required
     # slug required if there is a name
-    return true unless self.name.blank?
-    return false
+    self.name.present?
   end
   
   def downcase_email
