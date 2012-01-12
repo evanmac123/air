@@ -37,6 +37,7 @@ Feature: Users can request invitation via email
   Scenario: A join email from an existing claimed user
     When "yep@join.com" sends email with subject "I Tarzan, You Jane" and body "join"
     And DJ cranks 5 times
+
     Then "yep@join.com" should receive an email
     When "yep@join.com" opens the email
     Then I should see "It looks like you are already registered" in the email body
