@@ -49,3 +49,9 @@ Feature: Users can request invitation via email
     When "beta@join.com" opens the email
     Then I should see "I'm pleased to invite you to demo H Engage." in the email body
     
+  Scenario:
+    When "alpha@join.com" sends email with subject "I Tarzan, You Jane" and body "join"
+    Then "alpha@join.com" should receive an email
+    When "alpha@join.com" opens the email
+    And I click the first link in the email
+    Then I should be on the join page
