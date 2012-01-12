@@ -87,7 +87,10 @@ class EmailCommandController< ApplicationController
     email_command.status = EmailCommand::Status::INVITATION
     email_command.save
     set_success_response!
-    user = User.new(:email => email_command.email_from)
+    email = email_command.email_from
+    user = User.new(:email => email)
+    user.demo = Demo.find(User.self_inviting_domain(email))
+    user.save
     Mailer.invitation(user).deliver
     true
   end
