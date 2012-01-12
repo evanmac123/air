@@ -6,8 +6,9 @@ class EmailCommand < ActiveRecord::Base
     FAILED  = 'failed'
     UNKNOWN_EMAIL  = 'unknown_email'
     USER_VERIFIED  = 'user_verified'
+    INVITATION = 'invitation_sent'
   end
-  STATUSES = [ Status::SUCCESS, Status::FAILED, Status::UNKNOWN_EMAIL, Status::USER_VERIFIED ]
+  STATUSES = [ Status::SUCCESS, Status::FAILED, Status::UNKNOWN_EMAIL, Status::USER_VERIFIED, Status::INVITATION ]
   validates :status, :inclusion => { :in => STATUSES, :message => "%{value} is not a valid status value" }
   
   def self.create_from_incoming_email(params)

@@ -18,8 +18,25 @@ class EmailCommandController< ApplicationController
       email_command.response = blank_body_response
       email_command.status = EmailCommand::Status::SUCCESS
     elsif email_command.user.nil?
-      # send a response to the email saying the email they're sending from isn't registered?
-      email_command.status = EmailCommand::Status::FAILED
+      if email_command.clean_command_string == "join"
+        unless User.where(:email => email_command.email_from).empty?
+          # User already exists
+          email_command.status = EmailCommand::Status::FAILED
+          binding.pry
+        end
+        if User.self_inviting_domain(email_command.email_from)
+          email_command.status = EmailCommand::INVITATION
+          return if send_invitation(email_command)
+        else
+          # Not a self inviting domain
+          email_command.status = EmailCommand::Status::FAILED
+          binding.pry
+        end
+
+      else
+        # send a response to the email saying the email they're sending from isn't registered?
+        email_command.status = EmailCommand::Status::FAILED
+      end
     elsif email_command.user.phone_number.blank?
       # are we maybe trying to claim an account?
       return if claim_account(email_command) # we sent response already
@@ -64,6 +81,19 @@ class EmailCommandController< ApplicationController
     true
   end
 
+
+  def send_invitation(email_command)
+    email_command.response = "This is not the actual response we sent. Actually, we sent them a nicely formatted Invitation email and a dozen roses :)"
+    email_command.status = EmailCommand::Status::INVITATION
+    email_command.save
+    set_success_response!
+    user = User.new(:email => email_command.email_from)
+    user.set_invitation_code
+    Mailer.invitation(user).deliver
+    true
+  end
+  
+  
   def send_claim_response(email_command)
     EmailCommandMailer.delay.send_claim_response(email_command)
   end
@@ -75,8 +105,10 @@ class EmailCommandController< ApplicationController
   def blank_body_response
     "We got your email, but it looks like the body of it was blank. Please put your command in the first line of the email body."
   end
-
+  
   def self.channel_specific_translations
     {:say => "email", :Say => "Email"}
   end
+  
+  
 end
