@@ -10,3 +10,4 @@ Feature: Users can request invitation via email
     When "alpha@join.com" opens the email
     And I click the first link in the email
     Then I should be on the invitation page for "alpha@join.com"
+    And show me the page
