@@ -29,7 +29,7 @@ end
 
 Then /^I should be signed in$/ do
   Given %{I am on the homepage}
-  Then %{I should see "Sign out"}
+  Then %{I should see "Sign Out"}
 end
 
 Then /^I should be signed out$/ do
@@ -95,7 +95,7 @@ end
 When "I sign out" do
   steps %{
     When I go to the homepage
-    And I follow "Sign out"
+    And I follow "Sign Out"
   }
 end
 

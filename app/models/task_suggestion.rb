@@ -8,8 +8,12 @@ class TaskSuggestion < ActiveRecord::Base
 
   def satisfy!
     update_attributes(:satisfied => true)
-    a = Act.new(:user_id =>self.user_id, :inherent_points => self.suggested_task.bonus_points, :text => "I completed a daily dose!")
-    a.save
+    SMS.send_side_message(self.user, self.satisfaction_message)
+    Act.create!(:user_id =>self.user_id, :inherent_points => self.suggested_task.bonus_points, :text => "I completed a daily dose!")
+  end
+
+  def unsatisfied
+    !satisfied
   end
 
   def self.for_task(task)
@@ -25,11 +29,15 @@ class TaskSuggestion < ActiveRecord::Base
   end
 
   def self.satisfiable_by_rule(rule_or_rule_id)
-    satisfiable(rule_or_rule_id, Rule, "trigger_rule_triggers", "rule_id")
+    satisfiable_by_object(rule_or_rule_id, Rule, "trigger_rule_triggers", "rule_id")
   end
 
   def self.satisfiable_by_survey(survey_or_survey_id)
-    satisfiable(survey_or_survey_id, Survey, "trigger_survey_triggers", "survey_id")
+    satisfiable_by_object(survey_or_survey_id, Survey, "trigger_survey_triggers", "survey_id")
+  end
+
+  def self.satisfiable_by_demographics
+    satisfiable_by_trigger_table('trigger_demographic_triggers')
   end
 
   def self.without_mandatory_referrer
@@ -49,12 +57,35 @@ class TaskSuggestion < ActiveRecord::Base
     end
   end
 
-  def self.satisfiable(satisfying_object_or_id, satisfying_object_class, trigger_table_name, satisfying_object_column)
+  def satisfaction_message
+    points = self.suggested_task.bonus_points
+
+    if points && points > 0
+      bonus_phrase = if points == 1
+                       "1 bonus point"
+                     else
+                       "#{points} bonus points"
+                     end
+
+      "Congratulations! You've earned #{bonus_phrase} for completing a daily dose."
+    else
+      "Congratulations! You've completed a daily dose."
+    end
+  end
+
+  def self.satisfiable_by_trigger_table(trigger_table_name)
+    unsatisfied.joins(:suggested_task).joins("INNER JOIN #{trigger_table_name} ON #{trigger_table_name}.suggested_task_id = suggested_tasks.id")
+  end
+
+  def self.satisfiable_by_object(satisfying_object_or_id, satisfying_object_class, trigger_table_name, satisfying_object_column)
     satisfying_object_id = triggering_object_id(satisfying_object_or_id, satisfying_object_class)
-    unsatisfied.joins(:suggested_task).joins("INNER JOIN #{trigger_table_name} ON #{trigger_table_name}.suggested_task_id = suggested_tasks.id").where("#{trigger_table_name}.#{satisfying_object_column} = ?", satisfying_object_id)
+    satisfiable_by_trigger_table(trigger_table_name).where("#{trigger_table_name}.#{satisfying_object_column} = ?", satisfying_object_id)
   end
 
   def self.triggering_object_id(object_or_object_id, expected_class)
     object_or_object_id.kind_of?(expected_class) ? object_or_object_id.id : object_or_object_id
+  end
+
+  def self.joined_to_suggested_tasks(trigger_table_name)
   end
 end

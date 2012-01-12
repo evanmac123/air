@@ -1,30 +1,55 @@
 <div class="header">
-  <div class="inner-header">
-    <div id="logo">
-      <%= link_to '/' do %>
-        <%= image_tag 'justtree.png', :alt => 'H Engage tree' %>
+	<div class="app_bar">
+		<div class="app_by"><p>Brought to you by <a href="http://www.hengage.com" title="H Engage">H Engage</a></p></div>
+    <ul class="app_settings">
+      <% if current_user.is_site_admin %>
+        <li><%= link_to "Admin", admin_path %></li>
       <% end %>
-    </div>
-
-    <% if @conference_feed_page %>
-      <span id="conference-header">@ <%= @demo.company_name %></span>
-    <% else %>
-      <% if signed_in? %>
-        <%= render :partial => 'shared/act_entry' %>
-      <% end %>
-
-
-      <div id="account">
-        <% if signed_in? %>
-          <%= link_to 'Home', acts_path %>
-          <%= link_to 'My Profile', current_user, :id => 'self-link' %>
-          <%= link_to 'Connections', friends_path %>
-          <%= link_to 'Admin', admin_path if current_user.is_site_admin %>
-          <%= link_to "Sign out", sign_out_path, :method => :delete %>
-        <% else %>
-          <%= link_to "By invitation only", page_path('invitation') %>
+			<li><a href="#" title="Help">Help</a></li>
+			<li><a href="#" title="Settings">Settings</a></li>
+      <li><%= link_to "Sign Out", sign_out_path, :method => :delete %></li>
+		</ul>
+	</div>
+	<div class="masthead">
+		<div class="mast_top">
+      <div class="logo_container"><a href="/"><%= image_tag skinned('logo_url', "logo.png") %></a></div>
+			<div class="welcome">
+				<a href="#" title="!VARIABLE!"><img src="http://www.scientificamerican.com/media/inline/veggie-cat-food_1_thumb.jpg" alt="!VARIABLE!" /></a>
+				<div class="welcome_text">
+					<p>Welcome back,</p>
+					<p><a href="#" title="!VARIABLE!">!VARIABLE limit it to this amount!</a></p>
+				</div>
+			</div>
+			<ul class="navigation">
+        <li><a class="a_current" href="#" title="Home">Home</a></li><!-- HOOKUP -->
+        <li><a href="#" title="Games">Games</a></li><!-- HOOKUP -->
+        <li><a href="#" title="My Profile">My Profile</a></li><!-- HOOKUP -->
+        <li><a href="#" title="Directory">Directory</a></li><!-- HOOKUP -->
+			</ul>
+			<div class="cf"></div>
+		</div>
+		<div class="mast_center">
+			<ul class="help">
+				<li class="help_command">Do something!</li>
+				<li class="help_progress">See how it affects your progress!</li>
+				<li class="help_level">Level up!</li>
+			</ul>
+		</div>
+		<div class="mast_bottom">
+      <div class="bar_section bar_command">
+        <%= form_tag acts_path do %>
+          <input type="text" name="act[code]" placeholder="What did you do or eat?" />
+          <input type="submit" value="Play" />
         <% end %>
-      </div>
-    <% end %>
-  </div>
+			</div>
+			<div class="bar_section bar_progress">
+				<!--how the hell would i even do this... ack-->
+				<div class="progress"></div>
+			</div>
+			<div class="bar_section bar_level">
+				<p>Current Level :</p>
+				<p class="level">312</p>
+			</div>
+		</div>
+	</div>
 </div>

@@ -130,6 +130,7 @@ describe User do
   end
 
 
+
   describe "on destroy" do
     it "should destroy any Friendships where this user is the friend on destroy" do
       user1 = Factory(:user)

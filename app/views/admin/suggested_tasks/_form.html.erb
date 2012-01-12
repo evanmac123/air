@@ -18,12 +18,19 @@
         <br/>
 
         <%= label_tag "completion[referrer_required]", "Referrer required" %>
-        <%= check_box_tag "completion[referrer_required]" %>
+        <%= check_box_tag "completion[referrer_required]", '1', @referrer_required %>
       </fieldset>
 
-    <%= label_tag "completion[survey_id]", "Survey" %>
-    <% survey_options = options_from_collection_for_select(@surveys, :id, :name, :selected => @selected_survey_id) %>
-    <%= select_tag "completion[survey_id]", survey_options, :include_blank => true %>
+      <fieldset>
+        <%= label_tag "completion[survey_id]", "Survey" %>
+        <% survey_options = options_from_collection_for_select(@surveys, :id, :name, :selected => @selected_survey_id) %>
+        <%= select_tag "completion[survey_id]", survey_options, :include_blank => true %>
+      </fieldset>
+
+      <fieldset>
+        <%= label_tag "completion[demographics]", "Complete by filling in all demographics" %>
+        <%= check_box_tag "completion[demographics]", '1', @complete_by_demographic %>
+      </fieldset>
   </fieldset>
   <%= f.submit %>
 <% end %>

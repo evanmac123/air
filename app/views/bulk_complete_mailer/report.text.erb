@@ -1,0 +1,17 @@
+Bulk completion for command finished. 
+
+Results:
+
+<%= explain_bucket :completed, "Completed", @states %>
+
+
+
+<%= uncompleted_sum @states %> for the following reasons:
+
+<%= explain_bucket :unknown, "Email not in records", @states %>
+
+<%= explain_bucket :already_completed, "Already completed", @states %>
+
+<%= explain_bucket :in_different_game, "In different game", @states %>
+
+<%= explain_bucket :not_assigned, "Not assigned to task", @states %>

@@ -43,13 +43,6 @@ Feature: Admin adds user
       | Third Plant  | company_name: DistributedCo | 
     When I sign in as an admin via the login page
     And I go to the admin "DistributedCo" demo page
-    And I fill in "Name" with "Vlad Gyster"
-    And I fill in "Email" with "vlad@hengage.com"
-    And I check "Set claim code"
-    And I press "Submit"
-
-    Then I should be on the admin "DistributedCo" demo page
-    And I should see "Cannot create that user: Location Please choose a location"
     
     When I fill in "Name" with "Vlad Gyster"
     And I fill in "Email" with "vlad@hengage.com"

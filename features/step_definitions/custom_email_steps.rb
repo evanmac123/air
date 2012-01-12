@@ -15,3 +15,8 @@ end
 Then /^I should see '(.*?)' in the email body$/ do |text|
   current_email.default_part_body.to_s.should include(text)
 end
+
+Then /^I should see the following in the email body:$/ do |string|
+  current_email.default_part_body.to_s.should include(string)
+end
+

@@ -28,7 +28,9 @@ class Admin::SuggestedTasksController < AdminBaseController
     @surveys = @demo.surveys
     @primary_values = RuleValue.visible_from_demo(@demo).primary.alphabetical
     @selected_rule_ids = @suggested_task.rule_triggers.map(&:rule_id)
+    @require_referrer = @suggested_task.rule_triggers.first.try(:referrer_required)
     @selected_survey_id = @suggested_task.survey_trigger.try(:survey_id)
+    @complete_by_demographic = @suggested_task.has_demographic_trigger?
   end
 
   def update
@@ -55,6 +57,7 @@ class Admin::SuggestedTasksController < AdminBaseController
 
     set_up_rule_triggers(params[:completion][:rule_ids], params[:completion][:referrer_required])
     set_up_survey_trigger(params[:completion][:survey_id])
+    set_up_demographic_trigger(params[:completion][:demographics])
   end
 
   def set_up_rule_triggers(rule_ids, referrer_required)
@@ -72,6 +75,16 @@ class Admin::SuggestedTasksController < AdminBaseController
 
     if _survey_id
       @suggested_task.survey_trigger = Trigger::SurveyTrigger.create!(:survey_id => _survey_id)
+    end
+  end
+
+  def set_up_demographic_trigger(use_demographic)
+    return if use_demographic.present? == @suggested_task.has_demographic_trigger?
+
+    if use_demographic
+      Trigger::DemographicTrigger.create!(:suggested_task => @suggested_task)
+    else
+      @suggested_task.demographic_trigger.destroy
     end
   end
 end

@@ -38,6 +38,10 @@ When /^I press the button to update follow notification status$/ do
   page.find(:css, "form.text-settings input[@type=image]").click
 end
 
+When /^I press the button to update demographic information$/ do
+  page.find(:css, "form[@action=\"#{demographics_path}\"] input[@type=image]").click
+end
+
 When /^I press the button to submit a new name$/ do
   page.find(:css, "#save-name").click
 end
@@ -54,6 +58,10 @@ When /^(?:|I )unselect "([^"]*)" from "([^"]*)"(?: within ("[^"]*"))?$/ do |valu
   with_scope(selector) do
     unselect(value, :from => field)
   end
+end
+
+When /^I fill in "([^"]*)" with the following:$/ do |locator, string|
+  fill_in locator, :with => string
 end
 
 Then /^(?:|I )should see `([^`]*)`(?: within ("[^"]*"))?$/ do |text, selector|
@@ -149,7 +157,23 @@ Then /^I should( not)? see an input with value "([^"]*)"$/ do |sense, expected_v
   end
 end
 
-When /^I should not see a form field called "([^"]*)"$/ do |field_name|
+Then /^"([^"]*)" should have value "([^"]*)"$/ do |locator, expected_value|
+  field = page.find_field(locator)
+  field.value.to_s.should == expected_value
+end
+
+Then /^"([^"]*)" should have "([^"]*)" selected$/ do |locator, expected_value|
+  field = page.find_field(locator)
+  selected_option = field.find("option[@selected=selected]")
+  selected_option['value'].should == expected_value
+end
+
+Then /^"([^"]*)" should have nothing selected$/ do |locator|
+  field = page.find_field(locator)
+  field.all("option[@selected=selected]").should be_empty
+end
+
+Then /^I should not see a form field called "([^"]*)"$/ do |field_name|
   # Yeah, it's a hack. Shut up.
   begin
     find_field(field_name)
@@ -157,4 +181,3 @@ When /^I should not see a form field called "([^"]*)"$/ do |field_name|
   rescue Capybara::ElementNotFound
   end
 end
-

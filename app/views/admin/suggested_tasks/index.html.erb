@@ -33,6 +33,9 @@
           <% end %>
         </td>
         <td>
+          <% if suggested_task.has_demographic_trigger? %>
+            <p>Complete demographics</p>
+          <% end %>
           <% if suggested_task.rule_triggers.present? %>
             <p>Rules (any of the following<%= ", referrer required" if suggested_task.rule_triggers.first.referrer_required%>):
               <ul>
@@ -47,7 +50,7 @@
             <p>Survey: <%= suggested_task.survey_trigger.survey.name %></p>
           <% end %>
 
-          <% if suggested_task.rule_triggers.empty? && suggested_task.survey_trigger.blank? %>
+          <% if suggested_task.only_manually_triggerable? %>
             <p>Manual only.</p>
           <% end %>
         </td>
