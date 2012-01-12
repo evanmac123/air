@@ -22,7 +22,7 @@ class EmailCommandController< ApplicationController
         unless User.where(:email => email_command.email_from).empty?
           # User already exists
           email_command.status = EmailCommand::Status::FAILED
-          binding.pry
+          
         end
         if User.self_inviting_domain(email_command.email_from)
           email_command.status = EmailCommand::INVITATION
@@ -30,7 +30,7 @@ class EmailCommandController< ApplicationController
         else
           # Not a self inviting domain
           email_command.status = EmailCommand::Status::FAILED
-          binding.pry
+          
         end
 
       else
@@ -89,9 +89,9 @@ class EmailCommandController< ApplicationController
     set_success_response!
     email = email_command.email_from
     user = User.new(:email => email)
-    user.demo = Demo.find(User.self_inviting_domain(email))
+    user.demo = Demo.find(User.self_inviting_domain(email).demo_id)
     user.save
-    Mailer.invitation(user).deliver
+    Mailer.delay.invitation(user)
     true
   end
   
