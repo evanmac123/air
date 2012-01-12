@@ -88,7 +88,6 @@ class EmailCommandController< ApplicationController
     email_command.save
     set_success_response!
     user = User.new(:email => email_command.email_from)
-    user.set_invitation_code
     Mailer.invitation(user).deliver
     true
   end
