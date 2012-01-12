@@ -69,7 +69,6 @@ Feature: User approves or ignores follower
     And "+13055551212" sends SMS "follow bob"
     And DJ cranks 5 times
     And "+16175551212" sends SMS "yes 3"
-And I pry
     Then "+16175551212" should have received an SMS "Looks like you already responded to that request, or didn't have a request with that number"
     When I clear all sent texts
     And "+16175551212" sends SMS "no 3"

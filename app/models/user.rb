@@ -35,7 +35,6 @@ class User < ActiveRecord::Base
   validates_presence_of :name, :if => :name_required
   validates_presence_of :sms_slug, :message => "Sorry, you can't choose a blank user ID.", :if => :slug_required
   validates_presence_of :slug, :if => :slug_required
-  validates_presence_of :location_id, :if => :associated_demo_has_locations, :message => "Please choose a location"
 
 
   validates_format_of :slug, :with => /^[0-9a-z]+$/, :if => :slug_required
