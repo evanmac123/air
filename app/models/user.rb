@@ -583,9 +583,13 @@ class User < ActiveRecord::Base
   end
   
   def self.self_inviting_domain(email)
+    domain = get_domain_from_email(email)
+    SelfInvitingDomain.where(:domain => domain).first
+  end
+  
+  def self.get_domain_from_email(email)
     return nil unless email.strip =~ /^[a-zA-Z0-9_]+@([a-zA-Z0-9_]+.[a-zA-Z]{2,3})$/
     domain = $1
-    SelfInvitingDomain.where(:domain => domain).first
   end
 
   protected

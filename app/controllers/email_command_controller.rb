@@ -19,24 +19,26 @@ class EmailCommandController< ApplicationController
       email_command.status = EmailCommand::Status::SUCCESS
     elsif email_command.user.nil?
       if email_command.clean_command_string == "join"
-        unless User.where(:email => email_command.email_from).empty?
-          # User already exists
-          email_command.status = EmailCommand::Status::FAILED
-          
-        end
         if User.self_inviting_domain(email_command.email_from)
-          email_command.status = EmailCommand::INVITATION
-          return if send_invitation(email_command)
+          email_command.status = EmailCommand::Status::INVITATION
+          send_invitation(email_command)
+          return
         else
           # Not a self inviting domain
+          parsed_domain = User.get_domain_from_email(email_command.email_from)
+          email_command.response = invalid_domain_response(parsed_domain) 
           email_command.status = EmailCommand::Status::FAILED
-          
+          send_claim_response(email_command)
+          return
         end
-
       else
         # send a response to the email saying the email they're sending from isn't registered?
         email_command.status = EmailCommand::Status::FAILED
       end
+    elsif email_command.clean_command_string == "join"
+      email_command.response = "It looks like you are already registered"
+      email_command.status = EmailCommand::Status::FAILED
+      send_claim_response(email_command)
     elsif email_command.user.phone_number.blank?
       # are we maybe trying to claim an account?
       return if claim_account(email_command) # we sent response already
@@ -97,6 +99,7 @@ class EmailCommandController< ApplicationController
   
   
   def send_claim_response(email_command)
+binding.pry
     EmailCommandMailer.delay.send_claim_response(email_command)
   end
 
@@ -106,6 +109,10 @@ class EmailCommandController< ApplicationController
 
   def blank_body_response
     "We got your email, but it looks like the body of it was blank. Please put your command in the first line of the email body."
+  end
+  
+  def invalid_domain_response(domain)
+    "The domain '#{domain}' is not valid for this game"
   end
   
   def self.channel_specific_translations
