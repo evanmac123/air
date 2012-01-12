@@ -1,2 +1,9 @@
+/* ---------- customizations ---------- */
 .mast_top {
   padding-bottom: 0!important; }
+  .mast_top a.a_current {
+    border: 1px #0893e2 solid !important; }
+
+.mast_bottom .bar_progress .bar .progress {
+  position: relative;
+  top: 9px; }
