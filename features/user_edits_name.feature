@@ -1,7 +1,7 @@
 Feature: User can change their name
 
   Background:
-    Given the following users exists:
+    Given the following claimed users exists:
       | name |
       | Phil |
     And "Phil" has password "foo"
