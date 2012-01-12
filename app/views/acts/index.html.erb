@@ -1,5 +1,10 @@
 <div id="suggested-tasks">
-  <%= render :partial => 'available_suggested_task', :collection => @available_suggested_tasks %>
+  <%= render :partial => 'displayable_task_suggestion', :collection => @displayable_task_suggestions %>
+  <% content_for :javascript do %>
+    <%= javascript_tag do %>
+      $('.recently-completed').fadeOut(function(){$(this).remove()});
+    <% end %>
+  <% end %>
 </div>
 
 <div id="main-wrapper">

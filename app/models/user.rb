@@ -509,8 +509,8 @@ class User < ActiveRecord::Base
     next_unachieved_threshold || greatest_achievable_threshold
   end
 
-  def available_suggested_tasks
-    self.task_suggestions.unsatisfied.map(&:suggested_task)
+  def displayable_task_suggestions
+    self.task_suggestions.displayable.includes(:suggested_task)
   end
 
   def satisfies_all_prerequisites(suggested_task)

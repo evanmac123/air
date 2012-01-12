@@ -6,8 +6,10 @@ class TaskSuggestion < ActiveRecord::Base
     check_for_new_available_tasks if changed.include?('satisfied')
   end
 
+  attr_accessor :display_completion_on_this_request
+
   def satisfy!
-    update_attributes(:satisfied => true)
+    update_attributes(:satisfied => true, :display_completion_on_next_request => true)
     SMS.send_side_message(self.user, self.satisfaction_message)
     Act.create!(:user_id =>self.user_id, :inherent_points => self.suggested_task.bonus_points, :text => "I completed a daily dose!")
   end
@@ -26,6 +28,10 @@ class TaskSuggestion < ActiveRecord::Base
 
   def self.unsatisfied
     where(:satisfied => false)
+  end
+
+  def self.displayable
+    where("satisfied = false OR (satisfied = true AND display_completion_on_next_request = true)")
   end
 
   def self.satisfiable_by_rule(rule_or_rule_id)

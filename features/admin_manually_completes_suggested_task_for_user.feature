@@ -1,5 +1,6 @@
 Feature: Admin manually completes a suggested task for a user
 
+  @javascript
   Scenario: Admin manually completes a suggested task for a user
     Given the following demo exists:
       | company name |
