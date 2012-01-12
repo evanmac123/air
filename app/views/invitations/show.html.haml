@@ -18,6 +18,11 @@
         %li.form-label Your Phone Number: #{@user.phone_number.as_pretty_phone}
       %ul.form-section
         %li.form-label Your Email Address: #{@user.email}
+    - elsif @invitation_requested_via_email
+      = f.hidden_field :email, :value => @user.email
+      %ul.form-section
+        %li.form-label Your Email Address: #{@user.email}
+      = f.fancy_text_field :phone_number, :label_text => "Enter your mobile number"      
     - else
       = f.fancy_text_field :phone_number, :label_text => "Enter your mobile number"      
     = f.fancy_text_field :name, :label_text => "Enter your name" 
