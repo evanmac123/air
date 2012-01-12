@@ -32,8 +32,7 @@ Feature: Users can request invitation via email
     Then "nope@alabaster.com" should receive an email
     When "nope@alabaster.com" opens the email
     Then I should see "The domain 'alabaster.com' is not valid for this game" in the email body
-  
-  
+ 
   Scenario: A join email from an existing claimed user
     When "yep@join.com" sends email with subject "I Tarzan, You Jane" and body "join"
     And DJ cranks 5 times

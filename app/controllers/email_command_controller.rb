@@ -86,10 +86,7 @@ class EmailCommandController< ApplicationController
     email = email_command.email_from
     user = User.new(:email => email)
     user.demo = Demo.find(User.self_inviting_domain(email).demo_id)
-<<<<<<< HEAD
     user.invitation_method = "email"
-=======
->>>>>>> tests written.
     user.save
     Mailer.delay.invitation(user)
     true
@@ -97,6 +94,7 @@ class EmailCommandController< ApplicationController
   
   
   def send_claim_response(email_command)
+binding.pry
     EmailCommandMailer.delay.send_claim_response(email_command)
   end
 
