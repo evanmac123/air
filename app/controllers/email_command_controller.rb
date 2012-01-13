@@ -22,14 +22,14 @@ class EmailCommandController< ApplicationController
         if User.self_inviting_domain(email_command.email_from)
           email_command.status = EmailCommand::Status::INVITATION
           send_invitation(email_command)
-          return
+          set_success_response! and return # Setting response prevents rendering
         else
           # Not a self inviting domain
           parsed_domain = User.get_domain_from_email(email_command.email_from)
           email_command.response = invalid_domain_response(parsed_domain) 
           email_command.status = EmailCommand::Status::FAILED
           send_claim_response(email_command)
-          return
+          set_success_response! and return # Setting response prevents rendering
         end
       else
         # send a response to the email saying the email they're sending from isn't registered?
@@ -55,7 +55,7 @@ class EmailCommandController< ApplicationController
 
     # a status of 404 would reject the mail
     set_success_response!
-    return
+    render :text => "OK"
   end
 
   protected
