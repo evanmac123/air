@@ -37,7 +37,6 @@ Feature: Admin sees users who have a mobile number on their account
     When I follow "non-alpha"
     Then I should see "+17075551212"
     And I should see "+19995551212"
-And show me the page
     And I should not see "+14155551212"
     And I should not see "+16179876543"
     And I should not see "+19086969696"

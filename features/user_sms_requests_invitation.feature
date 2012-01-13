@@ -19,4 +19,3 @@ Feature: User requests an invitation via SMS
     And I should not see "We'll send you an SMS with instructions on the next step."
     And I should see "Name"
     And I should see "email@example.com"
-    And show me the page

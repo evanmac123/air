@@ -14,7 +14,6 @@ Feature: Demos are kept separate
     And I go to the invitation page for "dan@example.com"
     When I accept the invitation
     Then I should be on the activity page
-    Then show me the page
     And I should see a link to the profile page for "Bob"
     And I should not see a link to the profile page for "Ned"
 
