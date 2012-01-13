@@ -23,7 +23,6 @@ class EmailCommandMailer < ActionMailer::Base
     mail(:to      => to_address, 
          :from    => DEFAULT_PLAY_ADDRESS,
          :subject => "Welcome to the H Engage")
-    render :text => @message
   end
   protected
 

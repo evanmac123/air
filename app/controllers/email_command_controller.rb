@@ -28,7 +28,6 @@ class EmailCommandController< ApplicationController
           parsed_domain = User.get_domain_from_email(email_command.email_from)
           email_command.response = invalid_domain_response(parsed_domain) 
           email_command.status = EmailCommand::Status::FAILED
-
           send_response_to_non_user(email_command)
           set_success_response! and return # Setting response prevents rendering
         end
@@ -103,7 +102,7 @@ class EmailCommandController< ApplicationController
   end
 
   def send_response_to_non_user(email_command)
-    EmailCommandMailer.delay.send_response_to_non_user(email_command)
+    EmailCommandMailer.send_response_to_non_user(email_command).deliver
   end
 
   def unmatched_claim_code_response
@@ -115,7 +114,7 @@ class EmailCommandController< ApplicationController
   end
   
   def invalid_domain_response(domain)
-    "The domain '#{domain}' is not valid for this game"
+    "The domain '#{domain}' is not valid for this game."
   end
   
   def self.channel_specific_translations
