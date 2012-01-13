@@ -106,6 +106,8 @@ module NavigationHelpers
     when /the new admin tag page/
       new_admin_tag_path
 
+    when /the settings page/
+      edit_account_settings_path
     else
 
       begin
