@@ -17,6 +17,14 @@ class EmailCommandMailer < ActionMailer::Base
          :subject => "Welcome to the game!")
   end
 
+  def send_response_to_non_user(email_command)
+    @message = email_command.response
+    to_address = email_command.email_from
+    mail(:to      => to_address, 
+         :from    => DEFAULT_PLAY_ADDRESS,
+         :subject => "Welcome to the H Engage")
+    render :text => @message
+  end
   protected
 
   def play_address(demo)
