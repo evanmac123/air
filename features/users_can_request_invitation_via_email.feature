@@ -28,8 +28,9 @@ Feature: Users can request invitation via email
     
   Scenario: A join email that is not from a self-inviting domain
       When "nope@alabaster.com" sends email with subject "I Tarzan, You Jane" and body "join"
-      And DJ cranks 50 times
-And I pry
+      And DJ cranks 5 times
+      And I pry
+
       Then "nope@alabaster.com" should receive an email
       When "nope@alabaster.com" opens the email
       Then I should see "The domain 'alabaster.com' is not valid for this game" in the email body
