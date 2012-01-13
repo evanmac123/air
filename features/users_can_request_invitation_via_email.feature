@@ -26,12 +26,12 @@ Feature: Users can request invitation via email
   #     And I press "Join the game"
   #     Then I should see "Welcome to the game!"
     
-  # Scenario: A join email that is not from a self-inviting domain
-  #     When "nope@alabaster.com" sends email with subject "I Tarzan, You Jane" and body "join"
-  #     And DJ cranks 5 times
-  #     Then "nope@alabaster.com" should receive an email
-  #     When "nope@alabaster.com" opens the email
-  #     Then I should see "The domain 'alabaster.com' is not valid for this game" in the email body
+  Scenario: A join email that is not from a self-inviting domain
+      When "nope@alabaster.com" sends email with subject "I Tarzan, You Jane" and body "join"
+      And DJ cranks 5 times
+      Then "nope@alabaster.com" should receive an email
+      When "nope@alabaster.com" opens the email
+      Then I should see "The domain 'alabaster.com' is not valid for this game" in the email body
     
   
   Scenario: A join email from an existing claimed user
