@@ -27,7 +27,11 @@ class InvitationsController < ApplicationController
   end
 
   def show
-    @user = User.find_by_invitation_code(params[:id])
+    if params[:user_id]
+      @user = User.find(params[:user_id])
+    else
+      @user = User.find_by_invitation_code(params[:id])
+    end
     @invitation_requested_via_sms = @user.phone_number.present?
     @invitation_requested_via_email = @user.email.present?
     if @user

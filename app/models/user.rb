@@ -830,4 +830,8 @@ class User < ActiveRecord::Base
       !changed.include?(demographic_field_name) 
     end
   end
+  
+  def self.get_users_where_like(text, demo, attribute)
+    User.where("LOWER(#{attribute}) like ?", "%" + text + "%").where(:demo_id => demo.id )
+  end
 end

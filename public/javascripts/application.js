@@ -1,4 +1,28 @@
+var autocomplete_in_progress = 0;
+var autocomplete_waiting = 0;
+var coolio = 0;
+
+
 $(function() {
+  $('#search_for_referrer').keypress(function(){
+      autocompleteIfNoneRunning();
+  });
+  
+  $('.single_suggestion').live('click', function() {
+    $('#user_game_referrer_id').val($(this).find('.selected_referrer_id').text());
+    
+    $('#search_for_referrer').hide();
+    $(this).insertAfter('#search_for_referrer');
+  });
+  
+  $('#.remove_referrer').live('click', function() {
+    $('#user_game_referrer_id').text('');    
+    $('.single_suggestion').hide();
+    $('#search_for_referrer').show();
+    $('#search_for_referrer').val('');
+    return false;
+  });  
+
   $('#add-new-user').live('click', function() {
     $('#new_user').parent('.hidden-form').show();
     $('#user_name').focus();
@@ -28,7 +52,59 @@ $(function() {
   $('.with-hint-text').live('focus', (function(e) {
     $(this).attr('value', '').removeClass('with-hint-text');
   }));
+  
+  
+  // These next two are to make the autocompletions disappear if you click on something else
+  $('html').click(function() {
+    $("#suggestions").html('');
+  });
+
+  // $('#suggestions').click(function(event){
+  //     event.stopPropagation();
+  // });
+  
 });
+
+
+
+function autocompleteIfNoneRunning(){
+  //Only allow one request at a time
+  //Allow queue size of one
+  if (autocomplete_waiting){
+    //Queue is full, so do nothing
+    return false;
+  }else if (autocomplete_in_progress){
+    //put this one in the queue to try again in one second
+    autocomplete_waiting = 1;
+    setTimeout('autocompleteIfNoneRunningAndResetQueue()', 1000);
+  }else{
+    //Nothing is running or waiting, so send the ajax request for autocompletions
+    //Note the tiny delay so that the most recent typed letter is included
+    autocomplete_in_progress = 1;
+    setTimeout('getAutocomplete()',50);
+  }
+}
+
+function autocompleteIfNoneRunningAndResetQueue(){
+  autocomplete_waiting = 0;
+  autocompleteIfNoneRunning();
+}
+function getAutocomplete(){
+  var entered_text = $('#search_for_referrer').val();
+  var email = $('#user_email').val();
+  if (entered_text.length > 2){
+    $.get('/invitation/autocompletion#index',{entered_text : entered_text, email : email}, function(data){
+      $("#suggestions").html(data);
+      time_of_last_autocomplete = new Date();
+      autocomplete_in_progress = 0;
+     });
+   }else{
+     $("#suggestions").html('');
+     // Yes, you must set this to zero even if you didn't run the function call
+     autocomplete_in_progress = 0;
+   }
+}
+
 
 function lengthInBytes(string) {
   var result = 0;

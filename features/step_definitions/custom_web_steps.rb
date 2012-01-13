@@ -22,6 +22,10 @@ When /^I set the datetime selector for "(.*?)" to "(.*?)"$/ do |prefix, date_str
   select minute, :from => "#{_prefix}[minute]"
 end
 
+When /^I select the suggestion containing "([^"]*)"$/ do |arg1|
+  page.find(:css, ".single_suggestion:contains('#{arg1}')").click
+end
+
 When /^I press the button to submit the mobile number$/ do
   page.find(:css, "form[@action='/account/phone'] input[@type=image]").click
 end
@@ -181,3 +185,14 @@ Then /^I should not see a form field called "([^"]*)"$/ do |field_name|
   rescue Capybara::ElementNotFound
   end
 end
+
+When /^I wait a second$/ do
+  sleep 1
+end
+
+Then /^user with email "([^"]*)" should show up as referred by "([^"]*)"$/ do |email, name_passed_in|
+  new_user = User.where(:email => email).first
+  referrer = new_user.game_referrer
+  raise "name does not match" unless referrer.name == name_passed_in
+end
+

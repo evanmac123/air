@@ -25,6 +25,7 @@ group :development, :test do
   gem "rspec-rails", "~> 2.4.0"
   gem "pry"
   gem "pry-doc"
+  gem "pry_debug"
 
   platforms :mri_18 do
     gem "ruby-debug", "~> 0.10.4"

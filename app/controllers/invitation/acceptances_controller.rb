@@ -7,15 +7,14 @@ class Invitation::AcceptancesController < ApplicationController
   layout "external"
 
   def update
-    @user.trying_to_accept = true # Set this as true so presence of 
-    
+    @user.trying_to_accept = true # Set this as true so presence of     
     @user.attributes = params[:user]
     @user.sms_slug = params[:user][:sms_slug]
     @user.slug = params[:user][:sms_slug]
     # the below calls @user#save, so we don't save explicitly
     unless @user.update_password(params[:user][:password], params[:user][:password_confirmation])
       @locations = @user.demo.locations.alphabetical
-      render "invitations/show"
+      render "/invitations/show"
       return
     end
 
@@ -26,6 +25,7 @@ class Invitation::AcceptancesController < ApplicationController
 
     redirect_to "/activity"
   end
+  
 
   protected
 
