@@ -7,6 +7,7 @@ Feature: Users can request invitation via email
     Given the following claimed users exist:
       | email              |
       | yep@join.com       |
+
   Scenario:
     When "alpha@join.com" sends email with subject "I Tarzan, You Jane" and body "join"
     And DJ cranks 5 times
