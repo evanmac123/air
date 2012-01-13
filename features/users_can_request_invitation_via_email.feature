@@ -29,8 +29,6 @@ Feature: Users can request invitation via email
   Scenario: A join email that is not from aself-inviting domain
     When "nope@alabaster.com" sends email with subject "I Tarzan, You Jane" and body "join"
     And DJ cranks 5 times
-    And I pry
-
     Then "nope@alabaster.com" should receive an email
     When "nope@alabaster.com" opens the email
     Then I should see "The domain 'alabaster.com' is not valid for this game" in the email body
@@ -44,10 +42,10 @@ Feature: Users can request invitation via email
     Then I should see "It looks like you are already registered" in the email body
     
   
-  Scenario: A join email from an existing claimed user
-    When "yep@join.com" sends email with subject "I Tarzan, You Jane" and body "anything"
+  Scenario: Any email from a self-inviting domain that is not yet a user
+    When "beta@join.com" sends email with subject "I Tarzan, You Jane" and body "anything"
     And DJ cranks 5 times
-    Then "yep@join.com" should receive an email
-    When "yep@join.com" opens the email
-    Then I should see "It looks like you are already registered" in the email body
+    Then "beta@join.com" should receive an email
+    When "beta@join.com" opens the email
+    Then I should see "I'm pleased to invite you to demo H Engage." in the email body
     

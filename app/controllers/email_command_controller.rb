@@ -18,27 +18,24 @@ class EmailCommandController< ApplicationController
       email_command.response = blank_body_response
       email_command.status = EmailCommand::Status::SUCCESS
     elsif email_command.user.nil?
-      if email_command.clean_command_string == "join"
-        if User.self_inviting_domain(email_command.email_from)
-          email_command.status = EmailCommand::Status::INVITATION
-          send_invitation(email_command)
-          set_success_response! and return # Setting response prevents rendering
-        else
-          # Not a self inviting domain
-          parsed_domain = User.get_domain_from_email(email_command.email_from)
-          email_command.response = invalid_domain_response(parsed_domain) 
-          email_command.status = EmailCommand::Status::FAILED
-          send_response_to_non_user(email_command)
-          set_success_response! and return # Setting response prevents rendering
-        end
+      if User.self_inviting_domain(email_command.email_from)
+        # Email from non-user's self-inviting domain (regarless of content) gets an invitation
+        email_command.status = EmailCommand::Status::INVITATION
+        send_invitation(email_command)
+        set_success_response! and return # Setting response prevents rendering
       else
-        # send a response to the email saying the email they're sending from isn't registered?
+        # Not a user, and not from a self inviting domain -> Tell them to use their work email
+        parsed_domain = User.get_domain_from_email(email_command.email_from)
+        email_command.response = invalid_domain_response(parsed_domain) 
         email_command.status = EmailCommand::Status::FAILED
+        send_response_to_non_user(email_command)
+        set_success_response! and return # Setting response prevents rendering
       end
     elsif email_command.clean_command_string == "join"
       email_command.response = "It looks like you are already registered"
       email_command.status = EmailCommand::Status::FAILED
     elsif email_command.user.phone_number.blank?
+binding.pry
       # are we maybe trying to claim an account?
       return if claim_account(email_command) # we sent response already
       # maybe we were, but it didn't work
@@ -55,7 +52,6 @@ class EmailCommandController< ApplicationController
 
     # a status of 404 would reject the mail
     set_success_response!
-    render :text => "OK"
   end
 
   protected
