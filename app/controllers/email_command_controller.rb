@@ -94,7 +94,6 @@ class EmailCommandController< ApplicationController
   
   
   def send_claim_response(email_command)
-binding.pry
     EmailCommandMailer.delay.send_claim_response(email_command)
   end
 
