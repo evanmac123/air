@@ -176,6 +176,7 @@ body.acts {
 			.suggested-task {
 				@include rounded;
 				border:1px red solid;
+				padding:15px;
 			}
 		}
 	}
