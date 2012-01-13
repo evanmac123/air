@@ -35,7 +35,6 @@ class EmailCommandController< ApplicationController
       email_command.response = "It looks like you are already registered"
       email_command.status = EmailCommand::Status::FAILED
     elsif email_command.user.phone_number.blank?
-binding.pry
       # are we maybe trying to claim an account?
       return if claim_account(email_command) # we sent response already
       # maybe we were, but it didn't work
