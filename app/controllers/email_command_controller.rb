@@ -38,7 +38,6 @@ class EmailCommandController< ApplicationController
     elsif email_command.clean_command_string == "join"
       email_command.response = "It looks like you are already registered"
       email_command.status = EmailCommand::Status::FAILED
-      send_claim_response(email_command)
     elsif email_command.user.phone_number.blank?
       # are we maybe trying to claim an account?
       return if claim_account(email_command) # we sent response already
@@ -99,7 +98,6 @@ class EmailCommandController< ApplicationController
   
   
   def send_claim_response(email_command)
-binding.pry
     EmailCommandMailer.delay.send_claim_response(email_command)
   end
 
