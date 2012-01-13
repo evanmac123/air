@@ -98,11 +98,7 @@ class EmailCommandController< ApplicationController
   end
 
   def send_response_to_non_user(email_command)
-<<<<<<< HEAD
-    EmailCommandMailer.send_response_to_non_user(email_command).deliver
-=======
     EmailCommandMailer.delay.send_response_to_non_user(email_command)
->>>>>>> email is sent--just not finding the right content in it now
   end
 
   def unmatched_claim_code_response
