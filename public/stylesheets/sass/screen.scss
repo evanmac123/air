@@ -131,11 +131,6 @@ input:focus {
 
 /* ---------- standards ---------- */
 a {text-decoration:none!important;}
-body {
-	background-color:#e9e9e9;
-	font-family:'Helvetica Neue', Helvetica, Arial, sans-serif;
-	font-size:14px;
-}
 .cf {clear:both;}
 h1, h2, h3 {margin:0; padding:0;}
 img {border:0; margin:0; padding:0;}
@@ -144,9 +139,10 @@ ul {list-style-type:none; margin:0; padding:0;}
 
 @import "header";
 
-/* --------------------------- settings --------------------------- */
-
-body.settings {
+body {
+	background-color:#e9e9e9;
+	font-family:'Helvetica Neue', Helvetica, Arial, sans-serif;
+	font-size:14px;
 	.container {
 		@include bg-white;
 		@include button-norm;
@@ -155,7 +151,40 @@ body.settings {
 		margin:$centered;
 		padding:$gutter;
 		width:960px;
+	}
+}
 
+/* --------------------------- home/activities/dashboard --------------------------- */
+body.acts {
+	.container {
+		#suggested-tasks {			
+			h2 {
+				color:$gray;
+				font-family:$gotham;
+				font-size:14px;
+				padding:$gutter;
+				text-transform:uppercase;
+			}
+			.more-tasks {
+				text-align:center;
+				a {
+					color:$gray;
+					font-size:12px;
+					font-weight:bold;
+				}
+			}
+			.suggested-task {
+				@include rounded;
+				border:1px red solid;
+			}
+		}
+	}
+}
+
+/* --------------------------- settings --------------------------- */
+
+body.settings {
+	.container {
 		.about_user {
 			float:left;
 			font-size:$font-small;

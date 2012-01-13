@@ -90,25 +90,31 @@ $light:lighten($header-bg, 10%);
 			.logo_container {
 				float:left;
 				margin-top:5px;
-				width:140px;
+				
+				img {
+					width:140px;
+				}
 			}
 			.welcome {
 				color:lighten($header-bg, 45%);
 				float:left;
-				margin-left:40px;
-				width:300px;
+				margin:2% 0 0 40px;
+				position:relative;
+				overflow:hidden;
+				width:220px;
 				
 				img {
 					@include rounded;
 					border:1px lighten($header-bg, 10%) solid;
 					float:left;
-					margin:0 15px 0 0!important;
+					margin:0 10px 0 0!important;
 					width:50px;
 				}
 				
 				.welcome_text {
-					float:left;
+					float:right;
 					position:relative;
+					width:155px;
 					top:6px;
 				}
 			}
@@ -116,7 +122,7 @@ $light:lighten($header-bg, 10%);
 				float:right;
 				font-size:15px;
 				left:15px;
-				margin-top:5px;
+				margin:2% 0 0 0;
 				position:relative;
 				text-transform:uppercase;
 

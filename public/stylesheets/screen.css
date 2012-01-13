@@ -441,9 +441,6 @@ body.settings .container {
       float: left;
       margin-right: 10px;
       width: 100px; }
-    body.settings .container .about_user .settings_avatar img.size-96 {
-      width: 96px;
-      height: 96px; }
     body.settings .container .about_user .settings_dob {
       clear: both; }
     body.settings .container .about_user .settings_user input[type="text"] {

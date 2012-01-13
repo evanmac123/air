@@ -1,4 +1,7 @@
+<div class="container">
+	
 <div id="suggested-tasks">
+  <h2>Here is your Daily Dose!</h2>
   <%= render :partial => 'displayable_task_suggestion', :collection => @displayable_task_suggestions %>
   <% content_for :javascript do %>
     <%= javascript_tag do %>
@@ -68,4 +71,5 @@
   <%= render 'new_user_achievements', :won_at => current_user.won_at, :levels => @levels %>
 
   <%= render 'shared/new_scoreboard', :users => @users %>
+</div>
 </div>
