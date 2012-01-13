@@ -26,7 +26,19 @@
     - else
       = f.fancy_text_field :phone_number, :label_text => "Enter your mobile number"      
     = f.fancy_text_field :name, :label_text => "Enter your name" 
-    = f.fancy_text_field :sms_slug, :label_text => "Choose a unique ID" 
+    = f.fancy_text_field :sms_slug, :label_text => "Choose a unique ID"
+    %ul.form-section
+      %li.form-label= label_tag :search_for_referrer,  "Whom can we thank for referring you?"
+      %li.form-input
+        = f.hidden_field :game_referrer_id, :class => "form-input"
+        - if @user.game_referrer_id
+          - @matched_users = User.where(:id => @user.game_referrer_id)
+          = render  :template => "invitation/autocompletions/index"
+        - else
+          = text_field_tag :search_for_referrer
+    #relative  
+      #suggestions
+    
 
 
     - if @locations.present? 

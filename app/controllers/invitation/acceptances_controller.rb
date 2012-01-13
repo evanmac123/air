@@ -15,7 +15,7 @@ class Invitation::AcceptancesController < ApplicationController
     # the below calls @user#save, so we don't save explicitly
     unless @user.update_password(params[:user][:password], params[:user][:password_confirmation])
       @locations = @user.demo.locations.alphabetical
-      render "invitations/show"
+      render "/invitations/show"
       return
     end
 
@@ -26,6 +26,7 @@ class Invitation::AcceptancesController < ApplicationController
 
     redirect_to "/activity"
   end
+  
 
   protected
 

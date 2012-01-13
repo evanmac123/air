@@ -15,6 +15,7 @@ Health::Application.routes.draw do
   namespace :invitation do
     resource :resend
     resource :acceptance
+    get "autocompletion" => "autocompletions#index", :as => "autocompletion"
   end
 
   resources :acts,        :only => [:index, :create]
