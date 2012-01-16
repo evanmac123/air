@@ -16,5 +16,10 @@ When /^"([^"]*)" fills in the new phone validation field with the wrong validati
 end
 
 When /^I press the button to verify the new phone number$/ do
-  find('#save-phone-validation').click
+  When %{I press "Verify New Number"}
 end
+
+Then /^I should not see the new phone validation field$/ do
+  Then %{I should not see a form field called "user_new_phone_validation"}
+end
+

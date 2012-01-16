@@ -8,9 +8,7 @@ Health::Application.routes.draw do
 
   resource  :conference_feed, :only => [:show]
 
-  resources :phones,      :only => [:create]
-
-  put "account_phone_validation", :controller => "phones", :action => :validate, :as => "account_phone_validation"
+  resource :phone,      :only => [:update]
 
   resources :invitations, :only => [:new, :create, :show]
   namespace :invitation do

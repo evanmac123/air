@@ -31,11 +31,6 @@ Feature: Skinnable pages
     When I go to the profile page for "Joe"
     Then the logo should have src "logo.gif"
     And the see more button should have src "seemore.gif"
-    And the save button should have src "save.gif"
-
-    When I attach the avatar "maggie.jpg"
-    And I press the avatar submit button
-    And the clear picture button should have src "clear.gif"
 
     When I go to the profile page for "Bob"
     Then the logo should have src "logo.gif"
@@ -62,11 +57,6 @@ Feature: Skinnable pages
     When I go to the profile page for "Joe"
     Then the logo should have src "logo.png"
     And the see more button should have src "new_activity/btn_seemore.png"
-    And the save button should have src "new_activity/btn_save.png"
-
-    When I attach the avatar "maggie.jpg"
-    And I press the avatar submit button
-    Then the clear picture button should have src "new_activity/btn_clear.png"
 
     When I go to the profile page for "Bob"
     Then the logo should have src "logo.png"

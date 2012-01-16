@@ -52,10 +52,6 @@
 
   </div>
 
-  <% if @viewing_self %>
-    <%= render 'account_controls' %>
-  <% end %>
-
   <% if @viewing_other %>
     <%= mp_track "viewed profile of someone else", :viewed_person => @user.name %>
     <div id="follow-target">

@@ -223,6 +223,17 @@ class User < ActiveRecord::Base
     self.invitation_method == "email"
   end
 
+  def confirm_new_phone_number
+    self.phone_number = self.new_phone_number
+    self.new_phone_number = ""
+    self.new_phone_validation = ""
+  end
+
+  def new_phone_number_needs_verification?
+    new_phone_number.present?
+  end
+
+
   def self.in_canonical_ranking_order
     order("points DESC, name ASC")
   end

@@ -124,10 +124,6 @@ When /^I select the "([^"]*)" notification setting$/ do |notification_value|
   When "I choose \"#{notification_value}\" within \".notification-method\""
 end
 
-When /^I press the button to save notification settings$/ do
-  find(:css, '#save-notification-method').click
-end
-
 Then /^I should see these followers:$/ do |table|
   with_scope '"#followers"' do
     table.hashes.each do |row_hash|

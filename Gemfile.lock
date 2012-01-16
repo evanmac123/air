@@ -76,6 +76,7 @@ GEM
       capybara (~> 1.0.0)
     childprocess (0.2.2)
       ffi (~> 1.0.6)
+    chronic (0.6.6)
     clearance (0.10.0)
       rails (~> 3.0.0)
     coderay (0.9.8)
@@ -273,6 +274,7 @@ DEPENDENCIES
   bourne
   capybara (~> 1.0.0)
   capybara-webkit (>= 0.6.1)
+  chronic
   clearance (~> 0.10.0)
   copycopter_client (~> 1.0.1)
   cucumber-rails

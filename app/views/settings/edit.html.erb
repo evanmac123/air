@@ -3,141 +3,93 @@
 		<h1 class="headline">User information</h1>
 		<div class="module_inner settings_user">
 			<h2 class="title">Username</h2>
-			<p>Change your username.</p>
-			<input type="text" id="username" />
+      <%= label_tag "user[sms_slug]", "Change your username." %>
+      <%= form_for current_user, :url => account_sms_slug_path do |form| %>
+        <%= form.text_field "sms_slug" %>
+        <%= form.submit %>
+      <% end %>
 		</div>
-		<div class="module_inner settings_avatar">
-			<h2 class="title">Change your avatar</h2>
-			<div class="avatar_image"><img src="http://www.scientificamerican.com/media/inline/veggie-cat-food_1_thumb.jpg" class="user_avatar" /></div>
-			<div class="avatar_inputs">
-				<input type="file" id="avatar_path" name="avatar_path" />
-				<input type="submit" class="button_norm" value="Upload" />
-			</div>
-			<div class="cf"></div>
-		</div>
-		<div class="module_inner settings_dob">
-			<h2 class="title">Date of Birth</h2>
-			<select class="dob_month" name="dob">
-				<option value="1">January</option>
-				<option value="2">February</option>
-				<option value="3">March</option>
-				<option value="4">April</option>
-				<option value="5">May</option>
-				<option value="6">June</option>
-				<option value="7">July</option>
-				<option value="8">August</option>
-				<option value="9">September</option>
-				<option value="10">October</option>
-				<option value="11">November</option>
-				<option value="12">December</option>
-			</select>
-			<select class="dob_day">
-				<option value="1">1</option>
-				<option value="2">2</option>
-				<option value="3">3</option>
-				<option value="4">4</option>
-				<option value="5">5</option>
-				<option value="6">6</option>
-				<option value="7">7</option>
-				<option value="8">8</option>
-				<option value="9">9</option>
-				<option value="10">10</option>
-				<option value="11">11</option>
-				<option value="12">12</option>
-				<option value="13">13</option>
-				<option value="14">14</option>
-				<option value="15">15</option>
-				<option value="16">16</option>
-				<option value="17">17</option>
-				<option value="18">18</option>
-				<option value="19">19</option>
-				<option value="20">20</option>
-				<option value="21">21</option>
-				<option value="22">22</option>
-				<option value="23">23</option>
-				<option value="24">24</option>
-				<option value="25">25</option>
-				<option value="26">26</option>
-				<option value="27">27</option>
-				<option value="28">28</option>
-				<option value="29">29</option>
-				<option value="30">30</option>
-				<option value="31">31</option>
-			</select>
-			<select class="dob_year"><!--i imagine ruby has a better way of doing this, so i wont-->
-				<option value="19">19</option>
-				<option value="20">20</option>
-				<option value="21">21</option>
-				<option value="22">22</option>
-				<option value="23">23</option>
-				<option value="24">24</option>
-				<option value="25">25</option>
-				<option value="26">26</option>
-				<option value="27">27</option>
-				<option value="28">28</option>
-				<option value="29">29</option>
-				<option value="30">30</option>
-				<option value="31">31</option>
-			</select>
-		</div>
-		<div class="module_inner settings_gender">
-			<h2 class="title">Gender</h2>
-			<ul>
-				<li><input type="radio" name="gender" value="male" id="male" /><label for="male">Male</label></li>
-				<li><input type="radio" name="gender" value="female" id="female" /><label for="female">Female</label></li>
-			</ul>
-		</div>
-		<div class="module_inner settings_height">
-			<h2 class="title">Height</h2>
-			<select class="height_feet" id="height">
-				<option value="1">1 ft.</option>
-				<option value="2">2 ft.</option>
-				<option value="3">3 ft.</option>
-				<option value="4">4 ft.</option>
-				<option value="5">5 ft.</option>
-				<option value="6">6 ft.</option>
-				<option value="7">7 ft.</option>
-				<option value="8">8 ft.</option>
-			</select>
-			<select class="height_inches">
-				<option value="0">0 in.</option>
-				<option value="1">1 in.</option>
-				<option value="2">2 in.</option>
-				<option value="3">3 in.</option>
-				<option value="4">4 in.</option>
-				<option value="5">5 in.</option>
-				<option value="6">6 in.</option>
-				<option value="7">7 in.</option>
-				<option value="8">8 in.</option>
-				<option value="9">9 in.</option>
-				<option value="10">10 in.</option>
-				<option value="11">11 in.</option>
-				<option value="12">12 in.</option>
-			</select>
-		</div>
-		<div class="module_inner settings_weight">
-			<h2 class="title">Weight</h2>
-			<input type="text" id="weight" /><p>pounds (lb.)</p>
-		</div>
-		<input class="button_norm" type="submit" value="Save" />
+    <div class="module_inner settings_avatar">
+        <h2 class="title">Change your avatar</h2>
+        <%= avatar_96 current_user %>
+        <div class="avatar_inputs">
+          <%= form_for current_user, :url => account_avatar_path, :html => {:multipart => true, :class => 'set-avatar'} do |form| %>
+            <%= form.file_field :avatar, :id => "avatar_path" %> 
+            <%= form.submit "Upload", :class => "button_norm" %>
+          <% end %>
+          <% if current_user.avatar_file_name %>
+            <%= form_for current_user, :url => account_avatar_path, :html => {:multipart => true, :method => :delete, :class => 'clear-avatar'} do |form| %>
+              <%= form.submit "Clear", :class => "button_norm" %>
+            <% end %>
+          <% end %>
+        </div>
+        <div class="cf"></div>
+    </div>
+
+    <%= form_for current_user, :url => demographics_path do |form| %>
+      <div class="module_inner settings_dob">
+        <h2 class="title"><%= label_tag 'user_date_of_birth', "Date of Birth" %></h2>
+        <%= form.text_field :date_of_birth, :value => current_user.date_of_birth.try(:as_pretty_date) %>
+      </div>
+      <div class="module_inner settings_gender">
+        <h2 class="title">Gender</h2>
+        <ul>
+          <% %w(male female other).each do |gender_value| %>
+            <li><%= form.radio_button "gender", gender_value, :id => gender_value %><%= label_tag gender_value %></li>
+          <% end %>
+        </ul>
+      </div>
+      <div class="module_inner settings_height">
+        <h2 class="title">Height</h2>
+        <% feet_options = (1..7).map {|n| ["#{n} ft.", n]} %>
+        <% inches_options = (0..11).map {|n| ["#{n} in.", n]} %>
+        <%= select_tag "user[height][feet]", options_for_select(feet_options, current_user.height_feet), :include_blank => true, :id => "height_feet" %>
+        <%= select_tag "user[height][inches]", options_for_select(inches_options, current_user.height_inches), :include_blank => true, :id => "height_inches" %>
+      </div>
+      <div class="module_inner settings_weight">
+        <h2 class="title"><%= label_tag 'weight' %></h2>
+        <%= form.text_field :weight, :id => 'weight' %>
+        <p>pounds (lb.)</p>
+
+      </div>
+
+      <% if @locations.present? %>
+        <div class="module_inner settings_location">
+          <h2 class="title"><%= label_tag 'user_location_id', 'Location' %></h2>
+          <%= form.collection_select :location_id, @locations, :id, :name, :include_blank => true %>
+        </div>
+      <% end %>
+      <%= form.submit 'Save', :class => "button_norm" %>
+    <% end %>
+
 		<div class="cf"></div>
 	</div>
 	<div class="module other_settings">
-		<h1 class="headline">Notification Preferences</h1>
-		<div class="module_inner settings_number">
-			<h2 class="title">Mobile Number</h2>
-			<input type="text" id="number" />
-		</div>
-		<div class="module_inner settings_notification">
-			<h2 class="title">Notify me via...</h2>
-			<ul>
-				<li><input type="radio" class="notification_pref" name="notification_pref" id="sms" value="SMS" /><label class="check_label" for="sms">SMS/text message</label></li>
-				<li><input type="radio" class="notification_pref" name="notification_pref" id="email" value="Email" /><label class="check_label" for="email">Email</label></li>
-				<li><input type="radio" class="notification_pref" name="notification_pref" id="both" value="Both" /><label class="check_label" for="both">Both</label></li>
-				<li><input type="radio" class="notification_pref" name="notification_pref" id="none" value="None" /><label class="check_label" for="none">No notifications</label></li>
-			</ul>
-		</div>
-		<input class="button_norm" type="submit" value="Save" />
+    <h1 class="headline">Notification Preferences</h1>
+    <% if current_user.new_phone_number_needs_verification? %>
+      <div class="module_inner settings_new_number_verification">
+        <%= form_for current_user, :url => phone_path, :method => :put do |form| %>
+          <h2 class="title"><%= label_tag "user_new_phone_validation", "To verify the number #{current_user.new_phone_number.as_pretty_phone}, please enter the validation code we sent to that number:" %></h2>
+          <%= form.text_field :new_phone_validation, :value => '' %>
+          <%= submit_tag 'Verify New Number', :class => 'button_norm' %>
+        <% end %>
+      </div>
+    <% end %>
+    <%= form_for current_user, :url => account_path do |form| %>
+      <div class="module_inner settings_number">
+        <h2 class="title"><%= label_tag 'user_phone_number', "Mobile Number" %></h2>
+        <%= form.text_field :phone_number, :value => current_user.phone_number.try(:as_pretty_phone) %>
+      </div>
+      <div class="module_inner settings_notification">
+        <h2 class="title">Notify me via...</h2>
+          <ul>
+            <% [["SMS/text message", :sms], ["Email", :email], ["Both", :both], ["No notifications", :neither]].each do |label_text, method_name| %>
+              <li><%= form.radio_button :notification_method, method_name, :class => 'notification_pref', :id => method_name %><%= label_tag method_name, label_text, :class => 'check_label' %></li>
+            <% end %>
+          </ul>
+      </div>
+      <%= submit_tag 'Save', :class => 'button_norm', :id => 'save-notification-settings' %>
+    <% end %>
 	</div>
 	<div class="cf"></div>
 </div>

@@ -181,20 +181,17 @@ Feature: User completes suggested task
 
   @javascript
   Scenario: User completes demographic task by filling in their details
-    When I go to the profile page for "Joe"
-    And I fill in "Weight (in pounds)" with "230"
-    And I select "6" from "Feet"
-    And I select "3" from "Inches"
-    And I select "Male" from "Gender"
-    And I press the button to update demographic information
+    When I go to the settings page
+    And I fill in most of my demographic information
+    And I press the button to save the user's settings
     And I go to the activity page
     Then I should see "Demographic task 1"
     But I should not see "Demographic task 2"
     And I should not see "I completed a daily dose!"
 
-    When I go to the profile page for "Joe"
-    And I select "1977-09-10" as the "Date of birth" date
-    And I press the button to update demographic information
+    When I go to the settings page
+    And I fill in "Date of Birth" with "September 10, 1977"
+    And I press the button to save the user's settings
     And I go to the activity page
 
     Then I should see "Rule task 1"
