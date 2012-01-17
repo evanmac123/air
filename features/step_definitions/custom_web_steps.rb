@@ -39,7 +39,7 @@ When /^I press the button to update follow notification status$/ do
 end
 
 When /^I press the button to save the user's settings$/ do
-  page.find(:css, "form[@action=\"#{demographics_path}\"] input[@type=submit]").click
+  page.find(:css, "form[@action=\"#{account_settings_path}\"] input[@type=submit]").click
 end
 
 When /^I press the button to submit a new name$/ do

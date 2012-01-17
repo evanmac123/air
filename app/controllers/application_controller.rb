@@ -63,7 +63,8 @@ class ApplicationController < ActionController::Base
   end
 
   def initialize_flashes
-    @flash_successes = @flash_failures = []
+    @flash_successes = []
+    @flash_failures = []
   end
 
   def merge_flashes
@@ -72,7 +73,7 @@ class ApplicationController < ActionController::Base
     end
 
     unless @flash_failures.empty?
-      flash[:failures] = @flash_failures.join(' ')
+      flash[:failure] = @flash_failures.join(' ')
     end
   end
 end

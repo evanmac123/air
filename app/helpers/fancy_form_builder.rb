@@ -47,21 +47,7 @@ class FancyFormBuilder < ActionView::Helpers::FormBuilder
 
   def error_content(method_name)
     return unless errors_for_method?(method_name)
-
-    # The normal way of generating error messages is pretty leotarded. Let's
-    # do this instead.
-
-    pretty_method_name = self.object.class.human_attribute_name(method_name)
-
-    error_messages = self.object.errors[method_name].map do |error_message|
-      if error_message.starts_with_lowercase?
-        "#{pretty_method_name} #{error_message}"
-      else
-        error_message
-      end
-    end
-
-    h error_messages.join(', ')
+    h self.object.errors.smarter_message(method_name).join(', ')
   end
 
   def errors_for_method?(method_name)

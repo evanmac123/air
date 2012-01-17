@@ -1,14 +1,6 @@
 <div class="container">
 	<div class="module about_user">
 		<h1 class="headline">User information</h1>
-		<div class="module_inner settings_user">
-			<h2 class="title">Username</h2>
-      <%= label_tag "user[sms_slug]", "Change your username." %>
-      <%= form_for current_user, :url => account_sms_slug_path do |form| %>
-        <%= form.text_field "sms_slug" %>
-        <%= form.submit %>
-      <% end %>
-		</div>
     <div class="module_inner settings_avatar">
         <h2 class="title">Change your avatar</h2>
         <%= avatar_96 current_user %>
@@ -26,7 +18,13 @@
         <div class="cf"></div>
     </div>
 
-    <%= form_for current_user, :url => demographics_path do |form| %>
+    <%= form_for current_user, :url => account_settings_path do |form| %>
+      <div class="module_inner settings_user">
+        <h2 class="title">Username</h2>
+        <%= label_tag "user[sms_slug]", "Change your username." %>
+        <%= form.text_field "sms_slug" %>
+      </div>
+
       <div class="module_inner settings_dob">
         <h2 class="title"><%= label_tag 'user_date_of_birth', "Date of Birth" %></h2>
         <%= form.text_field :date_of_birth, :value => current_user.date_of_birth.try(:as_pretty_date) %>
@@ -50,7 +48,8 @@
     <% end %>
 
 		<div class="cf"></div>
-	</div>
+  </div>
+
 	<div class="module other_settings">
     <h1 class="headline">Notification Preferences</h1>
     <% if current_user.new_phone_number_needs_verification? %>
