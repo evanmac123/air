@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
 
   DEFAULT_RANKING_CUTOFF = 15
 
-  DEMOGRAPHIC_FIELD_NAMES = %w(height weight gender date_of_birth).freeze
+  DEMOGRAPHIC_FIELD_NAMES = %w(gender date_of_birth).freeze
 
   include Clearance::User
   include User::Ranking
@@ -79,7 +79,7 @@ class User < ActiveRecord::Base
   before_update do
     schedule_update_demo_alltime_rankings if changed.include?('points')
     schedule_update_demo_recent_average_rankings if (!batch_updating_recent_averages && changed.include?('recent_average_points'))
-    trigger_demographic_tests
+    trigger_demographic_tasks
   end
 
   before_save do
@@ -835,7 +835,7 @@ class User < ActiveRecord::Base
     end
   end
 
-  def trigger_demographic_tests
+  def trigger_demographic_tasks
     if all_demographics_present? && not_all_demographics_previously_present?
       self.task_suggestions.satisfiable_by_demographics.each(&:satisfy!)
     end

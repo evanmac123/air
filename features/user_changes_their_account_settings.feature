@@ -69,48 +69,7 @@ Feature: User can edit their account settings
 
     Then I should be on the settings page
     And I should see "OK, your settings were updated."
-    And "Weight" should have value "230"
-    And the feet select should have "6" selected
-    And the inches select should have "3" selected
     And "Male" should be chosen
-    And "Date of Birth" should have value "September 10, 1977"
-
-  Scenario: User enters only part of the height
-    When I select "6 ft." from the feet select
-    And I press the button to save the user's settings
-    Then I should be on the settings page
-    And I should see "Please make a choice for both feet and inches of height."
-    And the feet select should have nothing selected
-    And the inches select should have nothing selected
-
-    When I select "3 in." from the inches select
-    And I press the button to save the user's settings
-    Then I should be on the settings page
-    And I should see "Please make a choice for both feet and inches of height."
-    And the feet select should have nothing selected
-    And the inches select should have nothing selected
-
-    When I select "6 ft." from the feet select
-    And I select "3 in." from the inches select
-    And I press the button to save the user's settings
-    Then I should be on the settings page
-    And I should see "OK, your settings were updated."
-    And the feet select should have "6" selected
-    And the inches select should have "3" selected
-
-  Scenario: User enters no height    
-    When I press the button to save the user's settings
-    When I fill in "Weight" with "230"
-    And I choose "Male"
-    And I fill in "Date of Birth" with "September 10, 1977"
-    And I press the button to save the user's settings
-
-    Then I should be on the settings page
-    And I should see "OK, your settings were updated."
-    And the feet select should have nothing selected
-    And the inches select should have nothing selected
-    And "Male" should be chosen
-    And "Weight" should have value "230"
     And "Date of Birth" should have value "September 10, 1977"
 
   Scenario: User can change their location    

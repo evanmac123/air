@@ -39,19 +39,6 @@
           <% end %>
         </ul>
       </div>
-      <div class="module_inner settings_height">
-        <h2 class="title">Height</h2>
-        <% feet_options = (1..7).map {|n| ["#{n} ft.", n]} %>
-        <% inches_options = (0..11).map {|n| ["#{n} in.", n]} %>
-        <%= select_tag "user[height][feet]", options_for_select(feet_options, current_user.height_feet), :include_blank => true, :id => "height_feet" %>
-        <%= select_tag "user[height][inches]", options_for_select(inches_options, current_user.height_inches), :include_blank => true, :id => "height_inches" %>
-      </div>
-      <div class="module_inner settings_weight">
-        <h2 class="title"><%= label_tag 'weight' %></h2>
-        <%= form.text_field :weight, :id => 'weight' %>
-        <p>pounds (lb.)</p>
-
-      </div>
 
       <% if @locations.present? %>
         <div class="module_inner settings_location">
