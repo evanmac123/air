@@ -1,11 +1,11 @@
 <% suggested_task = displayable_task_suggestion.suggested_task %>
 <% classes = displayable_task_suggestion.display_completion_on_this_request ? "suggested-task recently-completed" : "suggested-task" %>
-<div class="<%= classes %>" id="suggested-task-<%= suggested_task.id %>">
-  <%= suggested_task.name %><br/>
-  <%= suggested_task.short_description %><br/>
+<div class="<%= classes %> gradient freeplay" id="suggested-task-<%= suggested_task.id %>">
+  <p class="dose-title"><%= suggested_task.name %></p>
+  <p class="dose-descript"><%= suggested_task.short_description %></p>
   <% more_info_link_id = "more-info-#{suggested_task.id}" %>
   <% long_description_div_id = "long-description-#{suggested_task.id}" %>
-  <div id="<%= long_description_div_id %>" style="display: none"><%= suggested_task.long_description %></div>
+  
   <%= link_to 'More info', '#', :id => more_info_link_id %>
   <% content_for :javascript do %>
     <%= javascript_tag do %>
@@ -15,4 +15,6 @@
       });
     <% end %>
   <% end %>
+  
+  <div class="gradient" id="<%= long_description_div_id %>" style="display: none"><%= suggested_task.long_description %></div>
 </div>
