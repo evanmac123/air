@@ -4,6 +4,12 @@
 $dark:darken($header-bg, 10%);
 $light:lighten($header-bg, 10%);
 
+/* -- nav active states -- */
+.acts .header .navigation .nav-home, .users .header .navigation .nav-profile {
+	@include bg-black;
+	@include rounded-nav;
+	border:1px lighten($header-bg, 10%) solid;
+}
 
 /* ---------- masthead ---------- */
 .header {
@@ -42,6 +48,7 @@ $light:lighten($header-bg, 10%);
 
 	.masthead {
 		background-color:$header-bg;
+		background-image:url('/images/v3/texture_dark.png');
 		border-top:1px $light solid;
 		border-bottom:1px $dark solid;
 		padding-bottom:15px;
@@ -97,11 +104,6 @@ $light:lighten($header-bg, 10%);
 					float:left;
 					font-family:$gotham;
 					padding:6px 15px;
-				}
-				a.a_current {
-					@include bg-black;
-					@include rounded-nav;
-					border:1px lighten($header-bg, 10%) solid;
 				}
 			}
 		}
@@ -180,6 +182,10 @@ $light:lighten($header-bg, 10%);
 					text-shadow:1px 1px 1px $dark-gray;
 					text-transform:uppercase;
 					width:54px;
+					
+					&:hover {
+						@include bg-orange-rev;
+					}
 				}
 			}
 			
