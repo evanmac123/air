@@ -101,6 +101,7 @@ describe User do
       User.send_invitation_if_email(user_or_phone, text).should == nil
       user_or_phone = "+12345678901"
       User.send_invitation_if_email(user_or_phone, text).should == "An invitation has been sent to #{text}."
+      Delayed::Worker.new.work_off(10)
       mail = ActionMailer::Base.deliveries
       mail.should_not be_empty
       mail.first.body.raw_source.should include("invite")
@@ -305,6 +306,7 @@ describe User, "#invite" do
     end
 
     it "sends invitation to user" do
+      Delayed::Worker.new.work_off(10)
       Mailer.should     have_received(:invitation).with(subject)
       invitation.should have_received(:deliver)
     end
