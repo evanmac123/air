@@ -45,6 +45,6 @@ class Level < ActiveRecord::Base
   end
 
   def award_retroactively
-    User.where("points > ?", self.threshold).each {|user| self.level_up(user)}
+    self.demo.users.where("points > ?", self.threshold).each {|user| self.level_up(user)}
   end
 end
