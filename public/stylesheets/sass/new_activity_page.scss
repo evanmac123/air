@@ -1,4 +1,4 @@
-@import "standard_colors";
+/* @import "standard_colors";
 @import "special_effects";
 @import "flick/jquery-ui-1.8.10.custom.css";
 @import "topbar";
@@ -473,7 +473,7 @@ pre {
   }
 }
 
-/* Activity Feed */
+// Activity Feed 
 
 li.act-shim {
   clear: both;
@@ -677,7 +677,7 @@ body.users-show {
       width: 220px;
     }
 
-    /* Work around some stupidity in Formtastic */
+    // Work around some stupidity in Formtastic 
     .required label {
       font-weight: normal;
     }
@@ -1123,3 +1123,4 @@ fieldset#levels {
     padding-right: 0;
   }
 }
+*/

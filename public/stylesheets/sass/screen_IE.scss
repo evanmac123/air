@@ -1,3 +1,5 @@
+@import "standard";
+
 @mixin ie-bg-black {
 	background-color:#404040!important;
 	background-image:url('/images/v3/bg-black.png')!important;
@@ -27,7 +29,7 @@
 		}	
 	}
 	.mast_bottom {
-		.bar_command {
+		.bar_command { 
 			input[type="submit"] {
 				@include ie-bg-orange;
 				padding-top:0px!important;

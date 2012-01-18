@@ -1,4 +1,70 @@
+<div class="container">
+	<div id="suggested-tasks">
+	  <h2>Here is your Daily Dose!</h2>
+	  <%= render :partial => 'displayable_task_suggestion', :collection => @displayable_task_suggestions %>
+	  <% content_for :javascript do %>
+	    <%= javascript_tag do %>
+	      $('.recently-completed').fadeOut(function(){$(this).remove()});
+	    <% end %>
+	  <% end %>
+	</div>
+	<div class="feeds module">
+	    <h1 class="headline">Feeds</h1>
+
+	    <ul class="tabs" id="activity-feed-tabs">
+	      <%= tab "All", acts_path(:format => :js), @active_act_tab %>
+	      <%= tab "Mine", acts_path(:show_only => 'mine', :format => :js), @active_act_tab %>
+	    </ul>
+	
+		<div class="cf"></div>
+
+	    <% content_for :javascript do %>
+	      <%= mp_track 'activity feed viewed', :game => @demo.company_name %>
+	      <%= javascript_tag do %>
+	        function updateShownActs(url) {
+	          $('#acts').html('<%= image_tag("spinner.gif") %>');
+	          $.get(url, function(data) {
+	            $('#acts').html(data);
+	          });
+	        }
+
+	        $("#main .tabs a").click(function(e) {
+	          updateShownActs($(this).attr('href'));
+	          e.preventDefault();
+	        });
+	      <% end %>
+	    <% end %>
+
+	    <ul id="acts">
+	      <%= render :partial => "shared/new_act", :collection => @acts, :as => :act %>
+	    </ul>
+
+	    <%= form_tag '#' do %>
+	      <%= image_with_hover_submit_tag see_more_button_skinned, '#see-more', :id => 'see-more' %>
+	    <% end %>
+
+	    <%= image_tag 'spinner.gif', :id => 'see-more-spinner' %>
+
+	    <%= render 'shared/bind_see_more', 
+	      :offset_var_name     => 'actOffset', 
+	      :current_offset      => @acts.length,
+	      :button_selector     => '#see-more',
+	      :spinner_selector    => '#see-more-spinner',
+	      :original_path       => acts_path(:format => :js, :show_only => @show_only, :mode => 'see-more'),
+	      :path_var_name       => 'actsPath',
+	      :mixpanel_event_name => 'saw more acts'
+	    %>
+	</div>
+	
+	<div class="active-games module">
+		<h1 class="headline">Your active games</h1>
+	</div>
+</div>
+
+<!--<div class="container">
+	
 <div id="suggested-tasks">
+  <h2>Here is your Daily Dose!</h2>
   <%= render :partial => 'displayable_task_suggestion', :collection => @displayable_task_suggestions %>
   <% content_for :javascript do %>
     <%= javascript_tag do %>
@@ -56,16 +122,4 @@
   </div>
 </div>
 
-<div id="secondary">
-  <table id="my-score">
-    <tr>
-      <th>your<br/>score</th> 
-      <td class="points"><span class="top-row"><%= current_user.points %></span><br/>points</td>
-      <td class="ranking"><%= raw ranking_phrase(current_user.ranking, @demo_user_count) %></td>
-    </tr>
-  </table>
-
-  <%= render 'new_user_achievements', :won_at => current_user.won_at, :levels => @levels %>
-
-  <%= render 'shared/new_scoreboard', :users => @users %>
-</div>
+</div>-->

@@ -1,0 +1,39 @@
+/* ---------- customizations ---------- */
+/* layout/reset/fonts/etc */
+a {
+  text-decoration: none!important; }
+
+.cf {
+  clear: both; }
+
+h1, h2, h3 {
+  margin: 0;
+  padding: 0; }
+
+img {
+  border: 0;
+  margin: 0;
+  padding: 0; }
+
+p {
+  margin: 0;
+  padding: 0; }
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0; }
+
+@font-face {
+  font-family: 'nevisBold';
+  src: url("/fonts/nevis-webfont.eot");
+  src: url("/fonts/nevis-webfont.eot?#iefix") format("embedded-opentype"), url("/fonts/nevis-webfont.woff") format("woff"), url("/fonts/nevis-webfont.ttf") format("truetype"), url("/fonts/nevis-webfont.svg#nevisBold") format("svg");
+  font-weight: normal;
+  font-style: normal; }
+
+input:focus {
+  outline: 0; }
+
+/* Game type colors */
+/* ---------- general mixins ---------- */
+/* ---------- header mixins ---------- */

@@ -1,42 +1,14 @@
-/* ---------- customizations ---------- */
-$header-bg:#0673b1;
+@import "standard";
 
 /* ---------- math ---------- */
-$dark:darken($header-bg, 10%);
+$dark:darken($header-bg, 10%); 
 $light:lighten($header-bg, 10%);
 
-/* ---------- mixins ---------- */
-@mixin bg-progressbar {
-	background: #d5d5d5; /* Old browsers */
-	background: -moz-linear-gradient(top,  #d5d5d5 0%, #eaeaea 100%); /* FF3.6+ */
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#d5d5d5), color-stop(100%,#eaeaea)); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(top,  #d5d5d5 0%,#eaeaea 100%); /* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(top,  #d5d5d5 0%,#eaeaea 100%); /* Opera 11.10+ */
-	background: -ms-linear-gradient(top,  #d5d5d5 0%,#eaeaea 100%); /* IE10+ */
-	background: linear-gradient(top,  #d5d5d5 0%,#eaeaea 100%); /* W3C */
-	background-image:url('/images/v3/bg-gray.png');
-	background-repeat:repeat-x;
-}
-@mixin rounded-nav {
-	-webkit-border-radius: 20px;
-	-moz-border-radius: 20px;
-	border-radius: 20px;
-	behavior: url(/css3pie/PIE.htc);
-}
-@mixin rounded-progress {
-	border-radius: 30px;
-	-webkit-border-radius: 30px;
-	-moz-border-radius: 30px;
-	
-	behavior: url(/css3pie/PIE.htc);
-	position:relative;
-	z-index: 0;
-}
-
-@mixin shadow-side {
-	-webkit-box-shadow: 7px 0 6px -6px rgba(0, 0, 0, .5);
-    -moz-box-shadow: 7px 0 6px -6px rgba(0, 0, 0, .5);
-    box-shadow: 7px 0 6px -6px rgba(0, 0, 0, .5);
+/* -- nav active states -- */
+.acts .header .navigation .nav-home, .users .header .navigation .nav-profile {
+	@include bg-black;
+	@include rounded-nav;
+	border:1px lighten($header-bg, 10%) solid;
 }
 
 /* ---------- masthead ---------- */
@@ -76,6 +48,7 @@ $light:lighten($header-bg, 10%);
 
 	.masthead {
 		background-color:$header-bg;
+		background-image:url('/images/v3/texture_dark.png');
 		border-top:1px $light solid;
 		border-bottom:1px $dark solid;
 		padding-bottom:15px;
@@ -90,25 +63,31 @@ $light:lighten($header-bg, 10%);
 			.logo_container {
 				float:left;
 				margin-top:5px;
-				width:140px;
+				
+				img {
+					width:140px;
+				}
 			}
 			.welcome {
 				color:lighten($header-bg, 45%);
 				float:left;
-				margin-left:40px;
-				width:300px;
+				margin:2% 0 0 40px;
+				position:relative;
+				overflow:hidden;
+				width:220px;
 				
 				img {
 					@include rounded;
 					border:1px lighten($header-bg, 10%) solid;
 					float:left;
-					margin:0 15px 0 0!important;
+					margin:0 10px 0 0!important;
 					width:50px;
 				}
 				
 				.welcome_text {
-					float:left;
+					float:right;
 					position:relative;
+					width:155px;
 					top:6px;
 				}
 			}
@@ -116,7 +95,7 @@ $light:lighten($header-bg, 10%);
 				float:right;
 				font-size:15px;
 				left:15px;
-				margin-top:5px;
+				margin:2% 0 0 0;
 				position:relative;
 				text-transform:uppercase;
 
@@ -125,11 +104,6 @@ $light:lighten($header-bg, 10%);
 					float:left;
 					font-family:$gotham;
 					padding:6px 15px;
-				}
-				a.a_current {
-					@include bg-black;
-					@include rounded-nav;
-					border:1px lighten($header-bg, 10%) solid;
 				}
 			}
 		}
@@ -208,6 +182,10 @@ $light:lighten($header-bg, 10%);
 					text-shadow:1px 1px 1px $dark-gray;
 					text-transform:uppercase;
 					width:54px;
+					
+					&:hover {
+						@include bg-orange-rev;
+					}
 				}
 			}
 			
