@@ -17,8 +17,12 @@
       %ul.form-section
         %li.form-label Your Phone Number: #{@user.phone_number.as_pretty_phone}
       %ul.form-section
-        %li.form-label Your Email Address: #{@user.email}
-    - elsif @user.invitation_requested_via_email?
+        %li.form-label 
+          Your Email Address:
+          #new_user_email
+            = @user.email
+
+    - elsif @user.invitation_requested_via_email? || @user.invitation_requested_via_web?
       = f.hidden_field :email, :value => @user.email
       %ul.form-section
         %li.form-label Your Email Address: #{@user.email}

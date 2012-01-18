@@ -26,6 +26,7 @@ class InvitationRequest
 
   def create_and_invite_user
     user = User.create!(:email => email, :demo => self_inviting_domain.demo)
+    user.invitation_method = "web"
     user.invite
     user
   end

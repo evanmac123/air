@@ -27,7 +27,12 @@ class InvitationsController < ApplicationController
   end
 
   def show
-    @user = User.find_by_invitation_code(params[:id])
+    if params[:user_id]
+      @user = User.find(params[:user_id])
+    else
+      @user = User.find_by_invitation_code(params[:id])
+    end
+
     if @user
       unless @user == current_user
         flash.now[:success] = "You're now signed in."
