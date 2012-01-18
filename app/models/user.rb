@@ -223,6 +223,10 @@ class User < ActiveRecord::Base
     self.invitation_method == "email"
   end
 
+  def invitation_requested_via_web?
+    self.invitation_method == "web"
+  end
+  
   def confirm_new_phone_number
     self.phone_number = self.new_phone_number
     self.new_phone_number = ""
@@ -260,7 +264,7 @@ class User < ActiveRecord::Base
   end
 
   def invite
-    Mailer.invitation(self).deliver
+    Mailer.delay.invitation(self)
     update_attribute(:invited, true)
   end
 
@@ -586,7 +590,7 @@ class User < ActiveRecord::Base
                   :demo_id => demo_id)
         new_user.invitation_method = 'sms'
         if new_user.save
-          Mailer.invitation(new_user).deliver
+          Mailer.delay.invitation(new_user)
           return "An invitation has been sent to #{text.strip}."
         end
       end

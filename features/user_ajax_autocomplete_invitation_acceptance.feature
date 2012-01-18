@@ -27,6 +27,7 @@ Feature: User gives credit to game referer via autocomplete field
     And I click the first link in the email
     Then I should see "And confirm that password"
     Then I should see "Whom can we thank for referring you?"
+    And I should see "Your Email Address"
 
   @javascript
   Scenario: User sees the charlie from her own game when entering name 'har' 
@@ -92,5 +93,6 @@ Feature: User gives credit to game referer via autocomplete field
   And I fill in "And confirm that password" with "pass"
   And I press "Join the game"
   And I wait a second
+  Then I should see "Brought to you by"
   Then user with email "new_user@hopper.com" should show up as referred by "Barnaby Bueller"
 

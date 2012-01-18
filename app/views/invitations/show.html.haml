@@ -22,7 +22,7 @@
           #new_user_email
             = @user.email
 
-    - elsif @user.invitation_requested_via_email?
+    - elsif @user.invitation_requested_via_email? || @user.invitation_requested_via_web?
       = f.hidden_field :email, :value => @user.email
       %ul.form-section
         %li.form-label Your Email Address: #{@user.email}

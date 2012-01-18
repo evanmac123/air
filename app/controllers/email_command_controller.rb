@@ -88,7 +88,7 @@ class EmailCommandController< ApplicationController
     user.demo = Demo.find(User.self_inviting_domain(email).demo_id)
     user.invitation_method = "email"
     user.save
-    Mailer.delay.invitation(user)
+    user.invite
     true
   end
   

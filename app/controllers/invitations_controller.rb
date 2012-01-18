@@ -32,8 +32,6 @@ class InvitationsController < ApplicationController
     else
       @user = User.find_by_invitation_code(params[:id])
     end
-    @invitation_requested_via_sms = @user.phone_number.present?
-    @invitation_requested_via_email = @user.email.present?
 
     if @user
       unless @user == current_user
