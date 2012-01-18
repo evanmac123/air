@@ -21,11 +21,11 @@ When /^I attach the avatar "(.*?)"$/ do |filename|
 end
 
 When /^I press the avatar submit button$/ do
-  page.find(:css, ".set-avatar input[@type=image]").click
+  page.find(:css, ".avatar_inputs input[@type=submit]").click
 end
 
 When /^I press the avatar clear button$/ do
-  page.find(:css, ".clear-avatar input[@type=image]").click
+  page.find(:css, ".clear-avatar input[@type=submit]").click
 end
 
 Then /^I should( not)? see an avatar "(.*?)" for "(.*?)"$/ do |sense, filename, username|

@@ -31,7 +31,7 @@ When /^I press the button to submit the mobile number$/ do
 end
 
 When /^I press the button to submit a new unique ID$/ do
-  page.find(:css, "form[@action='/account/sms_slug'] input[@type=image]").click
+  page.find(:css, "form[@action='/account/sms_slug'] input[@type=submit]").click
 end
 
 When /^I press the button to update follow notification status$/ do
@@ -42,8 +42,8 @@ When /^I press the button to update follow notification status$/ do
   page.find(:css, "form.text-settings input[@type=image]").click
 end
 
-When /^I press the button to update demographic information$/ do
-  page.find(:css, "form[@action=\"#{demographics_path}\"] input[@type=image]").click
+When /^I press the button to save the user's settings$/ do
+  page.find(:css, "form[@action=\"#{account_settings_path}\"] input[@type=submit]").click
 end
 
 When /^I press the button to submit a new name$/ do
@@ -66,6 +66,36 @@ end
 
 When /^I fill in "([^"]*)" with the following:$/ do |locator, string|
   fill_in locator, :with => string
+end
+
+When /^I select "([^"]*)" from the feet select$/ do |value|
+  select value, :from => 'height_feet'
+end
+
+When /^I select "([^"]*)" from the inches select$/ do |value|
+  select value, :from => 'height_inches'
+end
+
+When /^I press the button to save notification settings$/ do
+  find(:css, '#save-notification-settings').click
+end
+
+Then /^the feet select should have "([^"]*)" selected$/ do |value|
+  selected_option = find(:css, "#height_feet option[@selected=selected]")
+  selected_option['value'].to_s.should == value
+end
+
+Then /^the inches select should have "([^"]*)" selected$/ do |value|
+  selected_option = find(:css, "#height_inches option[@selected=selected]")
+  selected_option['value'].to_s.should == value
+end
+
+Then /^the feet select should have nothing selected$/ do
+  all(:css, "#height_feet option[@selected=selected]").should be_empty
+end
+
+Then /^the inches select should have nothing selected$/ do
+  all(:css, "#height_inches option[@selected=selected]").should be_empty
 end
 
 Then /^(?:|I )should see `([^`]*)`(?: within ("[^"]*"))?$/ do |text, selector|
@@ -166,10 +196,10 @@ Then /^"([^"]*)" should have value "([^"]*)"$/ do |locator, expected_value|
   field.value.to_s.should == expected_value
 end
 
-Then /^"([^"]*)" should have "([^"]*)" selected$/ do |locator, expected_value|
+Then /^"([^"]*)" should have "([^"]*)" selected$/ do |locator, expected_text|
   field = page.find_field(locator)
   selected_option = field.find("option[@selected=selected]")
-  selected_option['value'].should == expected_value
+  selected_option.text.should == expected_text
 end
 
 Then /^"([^"]*)" should have nothing selected$/ do |locator|
@@ -181,7 +211,7 @@ Then /^I should not see a form field called "([^"]*)"$/ do |field_name|
   # Yeah, it's a hack. Shut up.
   begin
     find_field(field_name)
-    raise "field found but not expected to"
+    raise "field #{field_name} found but not expected to"
   rescue Capybara::ElementNotFound
   end
 end
@@ -194,5 +224,9 @@ Then /^user with email "([^"]*)" should show up as referred by "([^"]*)"$/ do |e
   new_user = User.where(:email => email).first
   referrer = new_user.game_referrer
   raise "name does not match" unless referrer.name == name_passed_in
+end
+
+Then /^"([^"]*)" should be chosen$/ do |expected_checked_field|
+  page.should have_checked_field(expected_checked_field)
 end
 

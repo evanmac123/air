@@ -34,6 +34,7 @@ class InvitationsController < ApplicationController
     end
     @invitation_requested_via_sms = @user.phone_number.present?
     @invitation_requested_via_email = @user.email.present?
+
     if @user
       unless @user == current_user
         flash.now[:success] = "You're now signed in."

@@ -1,6 +1,12 @@
 module ApplicationHelper
-  def default_avatar_tag(user)
-    image_tag user.avatar.url, :alt => user.name
+  def default_avatar_tag(user, options={})
+    image_tag user.avatar.url, :alt => user.name, :class => "user_avatar #{options[:class]}"
+  end
+
+  def avatar_96(user)
+    content_tag("div", :class => 'avatar_image') do
+      default_avatar_tag(user, :class => "size-96")
+    end
   end
 
   def following_count_phrase(user)

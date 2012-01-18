@@ -11,6 +11,7 @@ Feature: User levels up
     And the following users exist:
       | name | phone number | points | demo                |
       | Vlad | +14155551212 | 7      | company_name: FooCo |
+      | Joe  | +18085551212 | 6      | company_name: BarCo |
     And the following rules exist:
       | reply  | points | demo                |
       | blah   | 1      | company_name: FooCo |
@@ -59,7 +60,7 @@ Feature: User levels up
     Then I should not see "level 1 (N00b)"
     And "+14155551212" should not have received an SMS including "level 1 (N00b)"
 
-  Scenario: Levels are awarded retroactively on creation
+  Scenario: Levels are awarded retroactively on creation to people in the same demo
     Given the following level exists:
       | name           | threshold | demo                |
       | level 0 (usuk) | 5         | company_name: FooCo |
@@ -71,4 +72,5 @@ Feature: User levels up
     And "+14155551212" should have received an SMS including "level 0 (usuk)"
     But "+14155551212" should not have received an SMS including "level 1 (N00b)"
     And I should not see "level 1 (N00b)"
+    And "+18085551212" should not have received an SMS including "level 0 (usuk)"
 

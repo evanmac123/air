@@ -126,23 +126,6 @@ Feature: User claims account via SMS
     Then "+14152613077" should have received an SMS "You've joined the W00t! game! Your user ID is pdarnowsky99 (text MYID if you forget). To play, text to this #."
     And "+14152613077" should have received an SMS "You've already claimed your account, and have 5 pts. If you're trying to credit another user, ask them to check their user ID with the MYID command."
 
-  Scenario: Account can't be claimed twice by changing the mobile number
-    Given the following user exists:
-      | name            | claim_code | 
-      | Phil Darnowsky  | pdarnowsky | 
-    And "Phil Darnowsky" has the password "foo"
-    When "+14155551212" sends SMS "Pdarnowsky"
-    And I sign in via the login page as "Phil Darnowsky/foo"
-    And I go to the profile page for "Phil Darnowsky"
-    And I fill in "Enter your new mobile number" with "+18085551212"
-    And I press the button to submit the mobile number
-    And "+16175551212" sends SMS "Pdarnowsky"
-    And I dump all sent texts
-    Then "+16175551212" should not have received an SMS including "Your user ID is pdarnowsky"
-
-    When I go to the activity page
-    Then I should see "joined the game" just once
-
   Scenario: User can't claim account already claimed
     Given the following user with phone exists:
       | name | accepted_invitation_at | claim code |

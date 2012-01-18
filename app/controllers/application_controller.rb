@@ -4,6 +4,9 @@ class ApplicationController < ActionController::Base
   before_filter :force_ssl 
   before_filter :authenticate
 
+  before_filter :initialize_flashes
+  after_filter :merge_flashes
+
   include Clearance::Authentication
   protect_from_forgery
 
@@ -49,5 +52,28 @@ class ApplicationController < ActionController::Base
   # Used since our *.hengage.com SSL cert does not cover plain hengage.com.
   def hostname_with_subdomain
     request.subdomain.present? ? request.host : "www." + request.host
+  end  
+  
+  def add_success(text)
+    @flash_successes << text
+  end
+
+  def add_failure(text)
+    @flash_failures << text
+  end
+
+  def initialize_flashes
+    @flash_successes = []
+    @flash_failures = []
+  end
+
+  def merge_flashes
+    unless @flash_successes.empty?
+      flash[:success] = @flash_successes.join(' ')
+    end
+
+    unless @flash_failures.empty?
+      flash[:failure] = @flash_failures.join(' ')
+    end
   end
 end

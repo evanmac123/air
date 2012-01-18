@@ -5,6 +5,7 @@
   <%= form_tag session_path do  %>
     <%= text_field_tag "session[email]", 'email', :class => 'with-hint-text' %>
     <%= password_field_tag "session[password]", 'password', :class => 'with-hint-text' %>
+    <%= check_box_tag "session[remember_me]" %>
     <%= submit_tag "Sign in" %>
   <% end %>
 

@@ -7,9 +7,10 @@ class Invitation::AcceptancesController < ApplicationController
   layout "external"
 
   def update
-    @user.trying_to_accept = true # Set this as true so presence of     
+    # Set this as true so presence of name is validated
+    @user.trying_to_accept = true 
+
     @user.attributes = params[:user]
-    @user.sms_slug = params[:user][:sms_slug]
     @user.slug = params[:user][:sms_slug]
     # the below calls @user#save, so we don't save explicitly
     unless @user.update_password(params[:user][:password], params[:user][:password_confirmation])

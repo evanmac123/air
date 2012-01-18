@@ -122,6 +122,13 @@ input:focus {
 	z-index: 0;
 }
 
+@mixin fade {
+	-webkit-transition:  all 1s ease-in-out;
+	-moz-transition:     all 1s ease-in-out;
+	-ms-transition:      all 1s ease-in-out;
+	-o-transition:       all 1s ease-in-out;
+}
+
 /* ---------- standards ---------- */
 a {text-decoration:none!important;}
 body {
@@ -160,7 +167,10 @@ body.settings {
 					margin-right:10px;
 					width:100px;
 				}
-				.avatar_inputs {
+
+				img.size-96 {
+          width: 96px;
+          height: 96px;
 				}
 			}
 			.settings_dob {clear:both;}

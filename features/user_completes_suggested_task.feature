@@ -1,8 +1,7 @@
 Feature: User completes suggested task
 
   Background:
-    Given time is frozen at "2011-01-03 00:00 +0000"
-    And the following demo exists:
+    Given the following demo exists:
       | company name |
       | TaskCo       |
     And the following claimed user exists:
@@ -41,10 +40,8 @@ Feature: User completes suggested task
     And the following rule triggers exist:
       | rule         | suggested task       | referrer required |
       | reply: did 1 | name: Referer task 1 | true              |
-    And the following survey exists:
-      | name     | demo                 | open at                | close at               |
-      | Survey 1 | company_name: TaskCo | 2011-01-01 00:00 +0000 | 2011-01-05 00:00 +0000 |
-      | Survey 2 | company_name: TaskCo | 2012-01-01 00:00 +0000 | 2012-01-05 00:00 +0000 |
+    And demo "TaskCo" open survey with name "Survey 1" exists
+    And demo "TaskCo" survey with name "Survey 2" exists
     And the following survey questions exist:
       | text  | index | survey         |
       | Q 1-1 | 1     | name: Survey 1 |
@@ -101,6 +98,7 @@ Feature: User completes suggested task
     And I should not see "Demographic task 2"
     And I should not see "I completed a daily dose!"
 
+  @javascript
   Scenario: User completes suggested task by acting according to rule
     When "+14152613077" sends SMS "do 1"
     Then "+14152613077" should have received an SMS including "did 1"
@@ -126,6 +124,7 @@ Feature: User completes suggested task
     When DJ cranks 5 times after a little while
     Then "+14152613077" should have received an SMS "Congratulations! You've completed a daily dose."
 
+  @javascript
   Scenario: User completes suggested task by acting according to rule with mandatory referrer
     When "+14152613077" sends SMS "do 1 bob"
     Then "+14152613077" should have received an SMS including "did 1"
@@ -151,6 +150,7 @@ Feature: User completes suggested task
     When DJ cranks 10 times after a little while
     Then "+14152613077" should have received an SMS "Congratulations! You've completed a daily dose."
 
+  @javascript
   Scenario: User completes suggested task by completing survey
     When "+14152613077" sends SMS "survey"
     And "+14152613077" sends SMS "1"
@@ -179,21 +179,19 @@ Feature: User completes suggested task
     When DJ cranks 5 times after a little while
     Then "+14152613077" should have received an SMS "Congratulations! You've completed a daily dose."
 
+  @javascript
   Scenario: User completes demographic task by filling in their details
-    When I go to the profile page for "Joe"
-    And I fill in "Weight (in pounds)" with "230"
-    And I select "6" from "Feet"
-    And I select "3" from "Inches"
-    And I select "Male" from "Gender"
-    And I press the button to update demographic information
+    When I go to the settings page
+    And I fill in most of my demographic information
+    And I press the button to save the user's settings
     And I go to the activity page
     Then I should see "Demographic task 1"
     But I should not see "Demographic task 2"
     And I should not see "I completed a daily dose!"
 
-    When I go to the profile page for "Joe"
-    And I select "1977-09-10" as the "Date of birth" date
-    And I press the button to update demographic information
+    When I go to the settings page
+    And I fill in "Date of Birth" with "September 10, 1977"
+    And I press the button to save the user's settings
     And I go to the activity page
 
     Then I should see "Rule task 1"

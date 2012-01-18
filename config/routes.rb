@@ -3,14 +3,13 @@ Health::Application.routes.draw do
   match "email"      => "email_command#create", :via => :post
   match "activity"   => "acts#index"
   match "scoreboard" => "scores#index"
+  match "join"       => "invitations#new"
 
   resource :session, :controller => 'sessions'
 
   resource  :conference_feed, :only => [:show]
 
-  resources :phones,      :only => [:create]
-
-  put "account_phone_validation", :controller => "phones", :action => :validate, :as => "account_phone_validation"
+  resource :phone,      :only => [:update]
 
   resources :invitations, :only => [:new, :create, :show]
   namespace :invitation do

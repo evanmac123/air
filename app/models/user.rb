@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
 
   DEFAULT_RANKING_CUTOFF = 15
 
-  DEMOGRAPHIC_FIELD_NAMES = %w(height weight gender date_of_birth).freeze
+  DEMOGRAPHIC_FIELD_NAMES = %w(gender date_of_birth).freeze
 
   include Clearance::User
   include User::Ranking
@@ -79,7 +79,7 @@ class User < ActiveRecord::Base
   before_update do
     schedule_update_demo_alltime_rankings if changed.include?('points')
     schedule_update_demo_recent_average_rankings if (!batch_updating_recent_averages && changed.include?('recent_average_points'))
-    trigger_demographic_tests
+    trigger_demographic_tasks
   end
 
   before_save do
@@ -100,7 +100,7 @@ class User < ActiveRecord::Base
   attr_reader :batch_updating_recent_averages
 
   attr_accessor :trying_to_accept
-  attr_protected :is_site_admin
+  attr_protected :is_site_admin, :invitation_method
   
   has_alphabetical_column :name
 
@@ -214,6 +214,25 @@ class User < ActiveRecord::Base
     self.new_phone_validation = token
     self.save
   end
+
+  def invitation_requested_via_sms?
+    self.invitation_method == "sms"
+  end
+
+  def invitation_requested_via_email?
+    self.invitation_method == "email"
+  end
+
+  def confirm_new_phone_number
+    self.phone_number = self.new_phone_number
+    self.new_phone_number = ""
+    self.new_phone_validation = ""
+  end
+
+  def new_phone_number_needs_verification?
+    new_phone_number.present?
+  end
+
 
   def self.in_canonical_ranking_order
     order("points DESC, name ASC")
@@ -501,8 +520,8 @@ class User < ActiveRecord::Base
     next_unachieved_threshold || greatest_achievable_threshold
   end
 
-  def available_suggested_tasks
-    self.task_suggestions.unsatisfied.map(&:suggested_task)
+  def displayable_task_suggestions
+    self.task_suggestions.displayable.includes(:suggested_task)
   end
 
   def satisfies_all_prerequisites(suggested_task)
@@ -565,6 +584,7 @@ class User < ActiveRecord::Base
         SelfInvitingDomain.where(:domain => domain).first
         new_user = User.new(:phone_number => user_or_phone, :email => text.strip,
                   :demo_id => demo_id)
+        new_user.invitation_method = 'sms'
         if new_user.save
           Mailer.invitation(new_user).deliver
           return "An invitation has been sent to #{text.strip}."
@@ -595,14 +615,14 @@ class User < ActiveRecord::Base
   protected
 
   def name_required
-    # While trying to accept the invitation and at an point after the invitation
+    # While trying to accept the invitation and at any point after the invitation
     # is accepted, a user must have both a name and an sms slug. Until then, anything goes.
     self.accepted_invitation_at || self.trying_to_accept
   end
+
   def slug_required
     # slug required if there is a name
-    return true unless self.name.blank?
-    return false
+    self.name.present?
   end
   
   def downcase_email
@@ -815,7 +835,7 @@ class User < ActiveRecord::Base
     end
   end
 
-  def trigger_demographic_tests
+  def trigger_demographic_tasks
     if all_demographics_present? && not_all_demographics_previously_present?
       self.task_suggestions.satisfiable_by_demographics.each(&:satisfy!)
     end

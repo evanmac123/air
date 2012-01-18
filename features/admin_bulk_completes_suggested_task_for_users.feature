@@ -1,5 +1,6 @@
 Feature: Admin bulk-completes suggested task for users
 
+  @javascript
   Scenario: Admin bulk-completes suggested task for users
     Given the following demo exists:
       | company name |

@@ -8,6 +8,7 @@ class InvitationRequest
 
   def initialize(values={})
     @email = values[:email]
+    @email = @email.strip.downcase if @email
   end
 
   def persisted?

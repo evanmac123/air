@@ -14,7 +14,7 @@ class SessionsController < Clearance::SessionsController
       flash_failure_after_create
       render :template => 'sessions/new'
     else
-      sign_in(@user)
+      sign_in(@user, params[:session][:remember_me])
       flash_success_after_create
       flash_login_announcement
       redirect_back_or(url_after_create)
