@@ -1,4 +1,8 @@
+/* ---------- customizations ---------- */
 /* Game type colors */
+/* layout/reset/fonts/etc */
+/* ---------- general mixins ---------- */
+/* ---------- header mixins ---------- */
 @import url(flick/jquery-ui-1.8.10.custom.css);
 /* ---------- dependencies ---------- */
 @font-face {
@@ -11,7 +15,6 @@
 input:focus {
   outline: 0; }
 
-/* ---------- mixins ---------- */
 /* ---------- standards ---------- */
 a {
   text-decoration: none!important; }
@@ -38,8 +41,11 @@ ul {
   padding: 0; }
 
 /* ---------- customizations ---------- */
+/* Game type colors */
+/* layout/reset/fonts/etc */
+/* ---------- general mixins ---------- */
+/* ---------- header mixins ---------- */
 /* ---------- math ---------- */
-/* ---------- mixins ---------- */
 /* ---------- masthead ---------- */
 .header {
   background-color: #2e2e2c;
@@ -456,7 +462,8 @@ body.acts .container #suggested-tasks .suggested-task {
   behavior: url(/css3pie/PIE.htc);
   position: relative;
   z-index: 0;
-  border: 1px red solid; }
+  border: 1px red solid;
+  padding: 15px; }
 
 /* --------------------------- settings --------------------------- */
 body.settings .container .about_user {
@@ -467,6 +474,9 @@ body.settings .container .about_user {
     float: left;
     margin-right: 10px;
     width: 100px; }
+  body.settings .container .about_user .settings_avatar img.size-96 {
+    width: 96px;
+    height: 96px; }
   body.settings .container .about_user .settings_dob {
     clear: both; }
   body.settings .container .about_user .settings_user input[type="text"] {
