@@ -31,3 +31,12 @@ end
 When /^a decent interval has passed$/ do
   When "time moves ahead 00:00:60"
 end
+
+When /^(\d+) months? pass(es)?$/ do |month_count, _nothing|
+  Timecop.freeze(Time.now + month_count.to_i.months)
+end
+
+When /^(\d+) minutes? pass(es)?$/ do |minute_count, _nothing|
+  Timecop.freeze(Time.now + minute_count.to_i.minutes)
+end
+

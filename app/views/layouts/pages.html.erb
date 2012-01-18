@@ -22,8 +22,9 @@
       <%= form_tag @login_url, :id => 'login-form' do %>
         <%= text_field_tag "session[email]", 'username', :class => 'with-placeholder' %>
         <%= password_field_tag "session[password]", 'password', :class => 'with-placeholder' %>
-        <%= link_to "Forgot password?", {:controller => :passwords, :action => :new} %>
-        <%= image_submit_tag 'marketing/btn_go.png' %>
+        <%= check_box_tag "session[remember_me]" %><label for="session_remember_me">Remember me (don't check this on a shared computer)</label>
+          <%= link_to "Forgot password?", {:controller => :passwords, :action => :new} %>
+          <%= image_submit_tag 'marketing/btn_go.png' %>
       <% end %>
 
       <%= form_tag new_session_path, :method => :get, :id => 'activate-login-form' do %>

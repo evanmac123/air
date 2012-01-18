@@ -3,6 +3,7 @@ Health::Application.routes.draw do
   match "email"      => "email_command#create", :via => :post
   match "activity"   => "acts#index"
   match "scoreboard" => "scores#index"
+  match "join"       => "invitations#new"
 
   resource :session, :controller => 'sessions'
 

@@ -95,7 +95,7 @@ body {
 #login-form {
   position: absolute;
   width: 174px;
-  height: 93px;
+  height: 130px;
   padding: 12px 15px 24px 11px;
   background-color: #e0e3dd;
   border: solid 1px #70846b;
@@ -103,9 +103,9 @@ body {
   right: 0;
   z-index: +1;
   display: none;
+  font-size: 12px;
 
   input[type="text"], input[type="password"] {
-    font-size: 12px;
     width: 170px;
     height: 30px;
     padding: 0;
@@ -116,10 +116,23 @@ body {
     display: inline-block;
     padding-top: 5px;
     font-size: 12px;
+    position: relative;
+    left: 2px;
   }
 
   input[type="image"] {
     float: right;
+  }
+
+  input#session_remember_me {
+    position: relative;
+    top: -17px;
+  }
+
+  label[for="session_remember_me"] {
+    display: inline-block;
+    width: 150px;
+    margin-bottom: 10px;
   }
 }
 
