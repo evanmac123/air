@@ -1,6 +1,7 @@
 class Invitation::AutocompletionsController < ApplicationController
   skip_before_filter :authenticate
   def index
+    
     email = params[:email].strip.downcase
     domain = User.get_domain_from_email(email)
     self_inviting_domain = SelfInvitingDomain.where(:domain => domain).first

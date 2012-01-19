@@ -1,11 +1,12 @@
 var autocomplete_in_progress = 0;
 var autocomplete_waiting = 0;
-var coolio = 0;
-
 
 $(function() {
   $('#search_for_referrer').keypress(function(){
-      autocompleteIfNoneRunning();
+      entered_text = $('#search_for_referrer').val();
+      var email = $('#user_email').val();
+      var options = {entered_text : entered_text, email : email};
+      autocompleteIfNoneRunning(options);
   });
   
   $('.single_suggestion').live('click', function() {
@@ -67,7 +68,7 @@ $(function() {
 
 
 
-function autocompleteIfNoneRunning(){
+function autocompleteIfNoneRunning(options){
   //Only allow one request at a time
   //Allow queue size of one
   if (autocomplete_waiting){
@@ -76,24 +77,25 @@ function autocompleteIfNoneRunning(){
   }else if (autocomplete_in_progress){
     //put this one in the queue to try again in one second
     autocomplete_waiting = 1;
-    setTimeout('autocompleteIfNoneRunningAndResetQueue()', 1000);
+    setTimeout(function(){autocompleteIfNoneRunningAndResetQueue(options)}, 1000);
   }else{
     //Nothing is running or waiting, so send the ajax request for autocompletions
     //Note the tiny delay so that the most recent typed letter is included
     autocomplete_in_progress = 1;
-    setTimeout('getAutocomplete()',50);
+    setTimeout(function() {getAutocomplete(options)},50);
   }
 }
 
-function autocompleteIfNoneRunningAndResetQueue(){
+function autocompleteIfNoneRunningAndResetQueue(options){
   autocomplete_waiting = 0;
-  autocompleteIfNoneRunning();
+  autocompleteIfNoneRunning(options);
 }
-function getAutocomplete(){
-  var entered_text = $('#search_for_referrer').val();
-  var email = $('#user_email').val();
+function getAutocomplete(options){
+  var entered_text = $('#search_for_referrer').val(); 
   if (entered_text.length > 2){
-    $.get('/invitation/autocompletion#index',{entered_text : entered_text, email : email}, function(data){
+    options['entered_text'] = entered_text;
+    $.get('/invitation/autocompletion#index', options, function(data){
+      options = {};
       $("#suggestions").html(data);
       time_of_last_autocomplete = new Date();
       autocomplete_in_progress = 0;
