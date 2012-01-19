@@ -1,1 +1,10 @@
-Invite your friends
+%h2 Invite your friends
+%p For each friend that joins the game, you get an extra 5 points!
+- if @self_inviting
+  
+  %ul.form-section
+    %li.form-label= label_tag :search_for_referrer,  "Whom can we thank for referring you?"
+    %li.form-input
+      = text_field_tag :search_for_invitees
+    #relative  
+      #suggestions
