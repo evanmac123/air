@@ -3,9 +3,8 @@ var autocomplete_waiting = 0;
 
 $(function() {
   $('#search_for_referrer').keypress(function(){
-      entered_text = $('#search_for_referrer').val();
       var email = $('#user_email').val();
-      var options = {entered_text : entered_text, email : email};
+      var options = {email : email};
       autocompleteIfNoneRunning(options);
   });
   
