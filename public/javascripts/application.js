@@ -4,7 +4,13 @@ var autocomplete_waiting = 0;
 $(function() {
   $('#search_for_referrer').keypress(function(){
       var email = $('#user_email').val();
-      var options = {email : email};
+      var options = {email : email, request_path: '/invitation/autocompletion#index'};
+      autocompleteIfNoneRunning(options);
+  });
+  
+  $('#search_for_friends_to_invite').keypress(function(){
+      var email = $('#user_email').val();
+      var options = {email : email, request_path : '/invitation/autocompletion#index'};
       autocompleteIfNoneRunning(options);
   });
   
@@ -93,7 +99,8 @@ function getAutocomplete(options){
   var entered_text = $('#search_for_referrer').val(); 
   if (entered_text.length > 2){
     options['entered_text'] = entered_text;
-    $.get('/invitation/autocompletion#index', options, function(data){
+    var request_path = options['request_path'];
+    $.get(request_path, options, function(data){
       options = {};
       $("#suggestions").html(data);
       time_of_last_autocomplete = new Date();
