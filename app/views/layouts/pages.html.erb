@@ -4,6 +4,7 @@
   <meta charset="utf-8" />
   <title>H Engage</title>
   <%= stylesheet_link_tag :flutie, 'screen', 'marketing' %>
+  
   <!--[if IE 7]>
     <%= stylesheet_link_tag 'ie7hacks' %>
   <![endif]-->
@@ -22,9 +23,8 @@
       <%= form_tag @login_url, :id => 'login-form' do %>
         <%= text_field_tag "session[email]", 'username', :class => 'with-placeholder' %>
         <%= password_field_tag "session[password]", 'password', :class => 'with-placeholder' %>
-        <%= check_box_tag "session[remember_me]" %><label for="session_remember_me">Remember me (don't check this on a shared computer)</label>
-          <%= link_to "Forgot password?", {:controller => :passwords, :action => :new} %>
-          <%= image_submit_tag 'marketing/btn_go.png' %>
+        <%= link_to "Forgot password?", {:controller => :passwords, :action => :new} %>
+        <%= image_submit_tag 'marketing/btn_go.png' %>
       <% end %>
 
       <%= form_tag new_session_path, :method => :get, :id => 'activate-login-form' do %>
@@ -62,5 +62,6 @@
   <% end %>
 
   <%= yield :javascript %>
+  <%= yield :slow_javascript %>
 </body>
 </html>
