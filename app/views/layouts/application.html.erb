@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <title>H Engage</title>
   <%= stylesheet_link_tag :flutie %>
-  <%= stylesheet_link_tag (@new_appearance ? 'new_activity_page' : 'screen' ) %>
+  <%= stylesheet_link_tag 'screen' ) %>
 
 	<!--[if IE]>
 	    <%= stylesheet_link_tag 'screen_IE' %>
@@ -25,8 +25,8 @@
 <body class="<%= body_class %>">
   <%= javascript_include_tag 'jquery' %> <%# must appear before header, with its Assistly widget %>
 
-  <%= render :partial => (@new_appearance ? 'shared/new_header' : 'shared/header') %>
-  <%= render :partial => 'shared/flashes' unless @new_appearance -%>
+  <%= render :partial => 'shared/header' %>
+  <%= render :partial => 'shared/flashes' %>
   <div class="content">
     <%= yield %>
   </div>

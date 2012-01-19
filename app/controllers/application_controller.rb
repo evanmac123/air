@@ -36,7 +36,6 @@ class ApplicationController < ActionController::Base
   def authenticate_with_game_begun_check
     authenticate_without_game_begun_check
     if current_user && !(current_user.is_site_admin) && current_user.demo.begins_at && current_user.demo.begins_at > Time.now
-      @new_appearance = true
       render "shared/game_not_yet_begun"
     end
   end
