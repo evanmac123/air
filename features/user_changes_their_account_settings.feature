@@ -200,6 +200,7 @@ Feature: User can edit their account settings
     And I press the button to save notification settings
     Then I should be on the settings page
     And I should see "Sorry, but that phone number has already been taken. Need help? Contact support@hengage.com"
+    And there should be a mail link to support in the flash
     And "Mobile Number" should have value "(415) 555-1212"
 
   Scenario: Nothing much happens if phone number is left unchanged

@@ -230,3 +230,7 @@ Then /^user with email "([^"]*)" should show up as referred by "([^"]*)"$/ do |e
   raise "name does not match" unless referrer.name == name_passed_in
 end
 
+Then /^(I should see|there should be) a mail link to support in the status area$/ do |_nothing|
+  find(:css, %{.status a[@href="mailto:support@hengage.com"]}).should_not be_nil
+end
+
