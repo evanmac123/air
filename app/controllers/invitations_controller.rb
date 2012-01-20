@@ -33,6 +33,11 @@ class InvitationsController < ApplicationController
       @user = User.find_by_invitation_code(params[:id])
     end
 
+    if params[:referrer_id] =~ /^\d+$/
+      @user.game_referrer_id = params[:referrer_id]
+      @user.save
+    end
+    
     if @user
       unless @user == current_user
         flash.now[:success] = "You're now signed in."

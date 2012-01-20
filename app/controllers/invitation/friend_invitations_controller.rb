@@ -3,6 +3,7 @@ class Invitation::FriendInvitationsController < ApplicationController
   
   def create
     user = User.find(params[:invitee_id])
+    
     if user.nil?
       add_failure "User not found"
       redirect_to activity_path and return 
@@ -20,7 +21,7 @@ class Invitation::FriendInvitationsController < ApplicationController
       redirect_to activity_path and return
     end
       
-    user.invite
+    user.invite(current_user)
 
     add_success "You just invited #{user.name} to play H Engage"
     redirect_to activity_path
