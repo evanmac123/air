@@ -4,13 +4,13 @@ var autocomplete_waiting = 0;
 $(function() {
   $('#search_for_referrer').keypress(function(){
       var email = $('#user_email').val();
-      var options = {email : email, request_path: '/invitation/autocompletion#index'};
+      var options = {email : email, request_for : "game_referrer", calling_div : '#search_for_referrer' };
       autocompleteIfNoneRunning(options);
   });
   
   $('#search_for_friends_to_invite').keypress(function(){
       var email = $('#user_email').val();
-      var options = {email : email, request_path : '/invitation/autocompletion#index'};
+      var options = {email : email, request_for : "friends_to_invite", calling_div : '#search_for_friends_to_invite'};
       autocompleteIfNoneRunning(options);
   });
   
@@ -96,11 +96,10 @@ function autocompleteIfNoneRunningAndResetQueue(options){
   autocompleteIfNoneRunning(options);
 }
 function getAutocomplete(options){
-  var entered_text = $('#search_for_referrer').val(); 
+  var entered_text = $(options['calling_div']).val(); 
   if (entered_text.length > 2){
     options['entered_text'] = entered_text;
-    var request_path = options['request_path'];
-    $.get(request_path, options, function(data){
+    $.get('/invitation/autocompletion#index', options, function(data){
       options = {};
       $("#suggestions").html(data);
       time_of_last_autocomplete = new Date();

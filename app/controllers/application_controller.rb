@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
   before_filter :initialize_flashes
   after_filter :merge_flashes
 
-  include Clearance::Authentication
+  include Clearance::Authenticationcu
   protect_from_forgery
 
   layout 'old_application'
