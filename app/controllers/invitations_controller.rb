@@ -33,9 +33,9 @@ class InvitationsController < ApplicationController
       @user = User.find_by_invitation_code(params[:id])
     end
 
-    if params[:referrer_id] =~ /^\d+$/
-      @user.game_referrer_id = params[:referrer_id]
-      @user.save
+    referrer_id = params[:referrer_id]
+    if referrer_id =~ /^\d+$/
+      @user.game_referrer_id = referrer_id
     end
     
     if @user

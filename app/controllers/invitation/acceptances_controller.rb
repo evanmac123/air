@@ -23,6 +23,10 @@ class Invitation::AcceptancesController < ApplicationController
       @user.join_game(params[:user][:phone_number], :send) 
       flash[:success] = "Welcome to the game! Players' activity is below to the left. The scoreboard is below to the right."
     end
+    
+    unless @user.game_referrer_id.nil?
+      SpecialCommand.credit_game_referrer(@user, User.find(@user.game_referrer_id)
+    end
 
     redirect_to "/activity"
   end
