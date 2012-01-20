@@ -2,12 +2,14 @@
 %p For each friend that joins the game, you get an extra 5 points!
 
 #search_for_friends_to_invite
+  = form_tag invitation_autocompletion_path do  
+    = hidden_field_tag :invitee_id
+    = button_to "nowhere"
     
-  = hidden_field_tag :invitee_id
-    
-  %ul.form-section
-    %li.form-label= label_tag :autocomplete,  "Enter part of their name or email address"
-    %li.form-input
-      = text_field_tag :autocomplete
-    #relative  
-      #suggestions
+    %ul.form-section
+      %li.form-label= label_tag :autocomplete,  "Enter part of their name or email address"
+      %li.form-input
+        = text_field_tag :autocomplete
+
+      #relative  
+        #suggestions
