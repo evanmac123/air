@@ -1,15 +1,13 @@
 class Invitation::AutocompletionsController < ApplicationController
   skip_before_filter :authenticate
   def index
-    case params[:request_for]
-    when "game_referrer"
+      if current_user # This means you're logged in and want to find invitees 
+      demo = current_user.demo
+    else            # This means you're trying to sign up and want ot locate a referrer
       email = params[:email].strip.downcase
       domain = User.get_domain_from_email(email)
       self_inviting_domain = SelfInvitingDomain.where(:domain => domain).first
       demo = self_inviting_domain.demo
-    when "friends_to_invite"
-      
-      demo = current_user.demo
     end 
 
     text = params[:entered_text].strip.downcase

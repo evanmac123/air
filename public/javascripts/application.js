@@ -2,30 +2,31 @@ var autocomplete_in_progress = 0;
 var autocomplete_waiting = 0;
 
 $(function() {
-  $('#search_for_referrer').keypress(function(){
+  $('#search_for_referrer #autocomplete').keypress(function(){
       var email = $('#user_email').val();
-      var options = {email : email, request_for : "game_referrer", calling_div : '#search_for_referrer' };
+      var options = {email : email, calling_div : '#search_for_referrer' };
       autocompleteIfNoneRunning(options);
   });
   
-  $('#search_for_friends_to_invite').keypress(function(){
+  $('#search_for_friends_to_invite #autocomplete').keypress(function(){
       var email = $('#user_email').val();
-      var options = {email : email, request_for : "friends_to_invite", calling_div : '#search_for_friends_to_invite'};
+      var options = {email : email, calling_div : '#search_for_friends_to_invite'};
       autocompleteIfNoneRunning(options);
   });
   
-  $('#referrer_suggestions .single_suggestion').live('click', function() {
+  $('#search_for_referrer .single_suggestion').live('click', function() {
+    alert('here');
     $('#user_game_referrer_id').val($(this).find('.selected_referrer_id').text());
     
-    $('#search_for_referrer').hide();
-    $(this).insertAfter('#search_for_referrer');
+    $('#search_for_referrer #autocomplete').hide();
+    $(this).insertAfter('#autocomplete');
   });
   
   $('#.remove_referrer').live('click', function() {
     $('#user_game_referrer_id').text('');    
     $('.single_suggestion').hide();
-    $('#search_for_referrer').show();
-    $('#search_for_referrer').val('');
+    $('#autocomplete').show();
+    $('#autocomplete').val('');
     return false;
   });  
 
@@ -63,11 +64,10 @@ $(function() {
   // These next two are to make the autocompletions disappear if you click on something else
   $('html').click(function() {
     $("#suggestions").html('');
+    $("#suggestions").html('');
   });
 
-  // $('#suggestions').click(function(event){
-  //     event.stopPropagation();
-  // });
+
   
 });
 
@@ -96,13 +96,12 @@ function autocompleteIfNoneRunningAndResetQueue(options){
   autocompleteIfNoneRunning(options);
 }
 function getAutocomplete(options){
-  var entered_text = $(options['calling_div']).val(); 
+  var entered_text = $(options['calling_div'] + ' #autocomplete').val(); 
   if (entered_text.length > 2){
     options['entered_text'] = entered_text;
     $.get('/invitation/autocompletion#index', options, function(data){
       options = {};
       $("#suggestions").html(data);
-      time_of_last_autocomplete = new Date();
       autocomplete_in_progress = 0;
      });
    }else{

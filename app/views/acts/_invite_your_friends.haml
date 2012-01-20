@@ -1,9 +1,10 @@
 %h2 Invite your friends
 %p For each friend that joins the game, you get an extra 5 points!
 
-%ul.form-section
-  %li.form-label= label_tag :search_for_friends_to_invite,  "Enter part of their name or email address"
-  %li.form-input
-    = text_field_tag :search_for_friends_to_invite
-  #relative  
-    #invitee_suggestions
+#search_for_friends_to_invite
+  %ul.form-section
+    %li.form-label= label_tag :search_for_friends_to_invite,  "Enter part of their name or email address"
+    %li.form-input
+      = text_field_tag :autocomplete
+    #relative  
+      #suggestions
