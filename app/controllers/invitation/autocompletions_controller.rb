@@ -24,7 +24,7 @@ class Invitation::AutocompletionsController < ApplicationController
       @matched_users << e unless @matched_users.include? e
     end
     @matched_users = @matched_users[0,5]
-    binding.pry
+
     
     render :layout => false
   end

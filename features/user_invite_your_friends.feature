@@ -26,6 +26,11 @@ Feature: User gives credit to game referer via autocomplete field
     Given "Barnaby" has the password "foo"
     Given I sign in via the login page as "Barnaby/foo"
   
+  @javascript
   Scenario:
     Then I should see "Invite your friends"
+    When I fill in "Enter part of their name or email address" with "bar"
+    Then I should see "Barney Rubble"
+    And when I press "Invite"
+    Then I should not see "Barney Rubble"
     

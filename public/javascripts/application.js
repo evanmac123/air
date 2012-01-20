@@ -14,7 +14,7 @@ $(function() {
       autocompleteIfNoneRunning(options);
   });
   
-  $('.single_suggestion').live('click', function() {
+  $('#referrer_suggestions .single_suggestion').live('click', function() {
     $('#user_game_referrer_id').val($(this).find('.selected_referrer_id').text());
     
     $('#search_for_referrer').hide();

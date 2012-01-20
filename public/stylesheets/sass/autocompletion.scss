@@ -12,7 +12,7 @@ $light_green: #87BF4E;
   top: -30px;
   left: -12px;
 }  
-#suggestions{
+#invitee_suggestions, #referrer_suggestions{
   position: absolute; 
   .remove_referrer{
     display: none;
