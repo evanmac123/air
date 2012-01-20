@@ -26,6 +26,7 @@ $(function() {
     
     $('#search_for_friends_to_invite #autocomplete').hide();
     $(this).insertAfter('#autocomplete');
+    $('#submit_invite_friend').show();
   });
   
   $('#.remove_referrer').live('click', function() {
