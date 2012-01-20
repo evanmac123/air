@@ -54,7 +54,6 @@ Feature: User gives credit to game referer via autocomplete field
     And I should see "1@hopper.com"
     And I should see "smoke"
     When I select the suggestion containing "Barnaby Bueller"
-    Then show me the page
     Then I should see "Barnaby Bueller"
     And I should not see "Charlie Brainfield"
 
@@ -76,9 +75,8 @@ Feature: User gives credit to game referer via autocomplete field
   When I fill in "Whom can we thank for referring you?" with "barnaby"
   Then I should see "Barnaby Bueller"
   When I select the suggestion containing "Barnaby Bueller"
-  And I press "Choose a different user"
-  And I wait a second
-  And show me the page
+  And I follow "Clear user"
+  # And I wait a second
   Then "Barnaby Bueller" should not be visible
   
   @javascript

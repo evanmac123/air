@@ -15,7 +15,7 @@ $(function() {
     $(this).insertAfter('#search_for_referrer');
   });
   
-  $('#.remove_referrer').live('click', function() {
+  $('.remove_referrer').live('click', function() {
     $('#user_game_referrer_id').text('');    
     $('.single_suggestion').hide();
     $('#search_for_referrer').show();
