@@ -18,14 +18,14 @@ $(function() {
     $('#user_game_referrer_id').val($(this).find('.suggested_user_id').text());
     
     $('#search_for_referrer #autocomplete').hide();
-    $(this).insertBefore('#autocomplete');
+    $(this).insertAfter('#autocomplete');
   });
   
   $('#search_for_friends_to_invite .single_suggestion').live('click', function() {
     $('#invitee_id').val($(this).find('.suggested_user_id').text());
     
     $('#search_for_friends_to_invite #autocomplete').hide();
-    $(this).insertBefore('#autocomplete');
+    $(this).insertAfter('#autocomplete');
   });
   
   $('#.remove_referrer').live('click', function() {

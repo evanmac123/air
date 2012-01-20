@@ -4,6 +4,13 @@ $light_green: #87BF4E;
 .clear{
   clear: both;
 }
+#search_for_friends_to_invite{
+  width: $bin_width;
+  height: 200px;
+  #relative{
+    top: 0px;
+  }
+}
 #relative{
   /* this is relative so the child div will use it as a positioning reference*/
   position: relative;

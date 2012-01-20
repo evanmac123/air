@@ -1,21 +1,56 @@
-.clear { clear: both; }
+.clear {
+  clear: both; }
 
-#relative { /* this is relative so the child div will use it as a positioning reference*/ position: relative; margin: 0 auto; width: 378px; top: -30px; left: -12px; }
+#search_for_friends_to_invite {
+  width: 378px;
+  height: 200px; }
+  #search_for_friends_to_invite #relative {
+    top: 0px; }
 
-#suggestions { position: absolute; }
-#suggestions .remove_referrer { display: none; }
-#suggestions .single_suggestion:hover { background: aqua; }
+#relative {
+  /* this is relative so the child div will use it as a positioning reference*/
+  position: relative;
+  margin: 0 auto;
+  width: 378px;
+  top: -30px;
+  left: -12px; }
 
-.remove_referrer { position: absolute; right: -2px; bottom: -22px; width: 26ex; text-align: center; }
+#suggestions {
+  position: absolute; }
+  #suggestions .remove_referrer {
+    display: none; }
+  #suggestions .single_suggestion:hover {
+    background: aqua; }
 
-.single_suggestion { background: tan; padding-top: 5px; padding: 10px; width: 378px; border: 2px solid #87bf4e; -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px; position: relative; }
+.remove_referrer {
+  position: absolute;
+  right: -2px;
+  bottom: -22px;
+  width: 26ex;
+  text-align: center; }
 
-.single_suggestion + .single_suggestion { margin-top: 2px; }
+.single_suggestion {
+  background: tan;
+  padding-top: 5px;
+  padding: 10px;
+  width: 378px;
+  border: 2px solid #87bf4e;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+  position: relative; }
 
-.bit { font-size: 100%; }
+.single_suggestion + .single_suggestion {
+  margin-top: 2px; }
 
-.info, .image { float: left; }
+.bit {
+  font-size: 100%; }
 
-.image { padding-right: 10px; }
+.info, .image {
+  float: left; }
 
-.suggested_user_id { display: none; }
+.image {
+  padding-right: 10px; }
+
+.suggested_user_id {
+  display: none; }
