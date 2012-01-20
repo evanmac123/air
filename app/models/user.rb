@@ -263,8 +263,8 @@ class User < ActiveRecord::Base
     where("phone_number IS NOT NULL AND phone_number != ''")
   end
 
-  def invite
-    Mailer.delay.invitation(self)
+  def invite(referrer = nil)
+    Mailer.delay.invitation(self, referrer)
     update_attribute(:invited, true)
   end
 
