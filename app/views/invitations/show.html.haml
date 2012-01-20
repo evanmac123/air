@@ -33,7 +33,7 @@
     = f.fancy_text_field :sms_slug, :label_text => "Choose a unique ID"
     #search_for_referrer
       %ul.form-section
-        %li.form-label= label_tag :search_for_referrer,  "Whom can we thank for referring you?"
+        %li.form-label= label_tag :autocomplete,  "Whom can we thank for referring you?"
         %li.form-input
           = f.hidden_field :game_referrer_id, :class => "form-input"
           - if @user.game_referrer_id
