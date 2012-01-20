@@ -10,7 +10,7 @@ Feature: User acts
       | Paul | +15088675309 | company_name: FooCorp | 0      | 3       |
       | Fred | +14155551212 | company_name: FooCorp | 1      | 2       |
       | Bob  | +18085551212 | company_name: FooCorp | 3      | 1       |
-    And "Dan" has the password "foo"
+    And "Dan" has the password "foobar"
     And "Paul" has the SMS slug "paul55"
     And "Fred" has the SMS slug "fred666"
     And the following rules exist:
@@ -37,7 +37,7 @@ Feature: User acts
 
   Scenario: User acts via SMS
     When "+15087407520" sends SMS "ate banana"
-    And I sign in via the login page as "Dan/foo"
+    And I sign in via the login page as "Dan/foobar"
     And I go to the acts page
     Then I should see the following act:
       | name | act         | points |
@@ -50,13 +50,13 @@ Feature: User acts
     And "+15087407520" should have received SMS "Bananas are good for you. Points 4/50, rank 3/4."
 
   Scenario: User enters bad act via the website
-    When I sign in via the login page as "Dan/foo"
+    When I sign in via the login page as "Dan/foobar"
     And I enter the act code "chainsaw massacred"
     Then I should see the error "Sorry, I don't understand what that means."
 
   Scenario: User acts, with a trailing period
     When "+15087407520" sends SMS "ate banana."
-    And I sign in via the login page as "Dan/foo"
+    And I sign in via the login page as "Dan/foobar"
     And I go to the acts page
     Then I should see the following act:
       | name | act         | points |
@@ -64,7 +64,7 @@ Feature: User acts
 
   Scenario: User acts, with trailing whitespace
     When "+15087407520" sends SMS "ate banana    "
-    And I sign in via the login page as "Dan/foo"
+    And I sign in via the login page as "Dan/foobar"
     And I go to the acts page
     Then I should see the following act:
       | name | act         | points |
@@ -88,7 +88,7 @@ Feature: User acts
       | value          | rule                             |
       | ate headcheese | reply: Headcheese is disgusting. |
     When "+15087407520" sends SMS "do good thing"
-    And I sign in via the login page as "Dan/foo"
+    And I sign in via the login page as "Dan/foobar"
     And I go to the acts page
     Then "+15087407520" should have received an SMS including "Good for you."
     And I should see the following act:
@@ -173,7 +173,7 @@ Feature: User acts
     When "+15087407520" sends SMS "saw poster"
     And "+15087407520" sends SMS "saw poster"
     And "+15087407520" sends SMS "saw poster"
-    # And I sign in via the login page as "Dan/foo"
+    # And I sign in via the login page as "Dan/foobar"
     # And I go to the acts page
     # Then I should see "Dan 40 pts"
     And "+15087407520" should have received an SMS "Congratulations! Points 20/50, rank 3/4."
@@ -185,7 +185,7 @@ Feature: User acts
     When "+15087407520" sends SMS "ate banana paul55"
     And "+15087407520" sends SMS "worked out fred666"
     And DJ cranks 10 times
-    And I sign in via the login page as "Dan/foo"
+    And I sign in via the login page as "Dan/foobar"
     And I go to the acts page
     # Then I should see "Paul 1 pt"
     # And I should see "Fred 201 pts"
@@ -198,7 +198,7 @@ Feature: User acts
 
   Scenario: A helpful error message if you say a nonexistent user referred you
     When "+15087407520" sends SMS "ate banana mrnobody"
-    # And I sign in via the login page as "Dan/foo"
+    # And I sign in via the login page as "Dan/foobar"
     # And I go to the acts page
     # Then I should see "Dan 0 pts"
     And "+15087407520" should have received an SMS "We understood what you did, but not the user who referred you. Perhaps you could have them check their user ID with the MYID command?"
@@ -206,7 +206,7 @@ Feature: User acts
   Scenario: A helpful and slightly snarky error message if you say you referred yourself
     Given "Dan" has the SMS slug "dan4444"
     When "+15087407520" sends SMS "ate banana dan4444"
-    # And I sign in via the login page as "Dan/foo"
+    # And I sign in via the login page as "Dan/foobar"
     # And I go to the acts page
     # Then I should see "Dan 0 pts"
     And "+15087407520" should have received an SMS "Now now. It wouldn't be fair to try to get extra points by referring yourself."

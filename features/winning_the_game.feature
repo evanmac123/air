@@ -13,8 +13,8 @@ Feature: Player can win the game
       | name | email           | phone_number | points | demo                   |
       | Bob  | bob@example.com | +14155551212 | 97     | company_name: BobCo    |
       | Jim  | jim@example.com | +16175551212 | 97     | company_name: CustomCo |
-    And "Bob" has the password "LOL"
-    And "Jim" has the password "LOL"
+    And "Bob" has the password "LOLWTF"
+    And "Jim" has the password "LOLWTF"
     And the following rules exist:
       | points | reply    | demo                   |
       | 3      | kitten 1 | company_name: BobCo    |
@@ -23,7 +23,7 @@ Feature: Player can win the game
       | value        | rule            |
       | ate a kitten | reply: kitten 1 |
       | ate a kitten | reply: kitten 2 |
-    And I sign in via the login page as "Bob/LOL"
+    And I sign in via the login page as "Bob/LOLWTF"
     And time is frozen
 
   Scenario: Player hasn't won yet
@@ -65,7 +65,7 @@ Feature: Player can win the game
 #     Then I should see the winning graphic
 
   Scenario: Player wins a game with custom victory messages
-    Given I sign in via the login page as "Jim/LOL"
+    Given I sign in via the login page as "Jim/LOLWTF"
     And "+16175551212" sends SMS "ate a kitten"
     And a decent interval has passed
     And DJ cranks 5 times

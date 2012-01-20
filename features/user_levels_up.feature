@@ -24,8 +24,8 @@ Feature: User levels up
       | did good   | reply: good   |
       | did better | reply: better |
       | did best   | reply: best   |
-    And "Vlad" has password "foo"
-    And I sign in via the login page with "Vlad/foo"
+    And "Vlad" has password "foobar"
+    And I sign in via the login page with "Vlad/foobar"
 
   Scenario: User levels when hitting point threshold
     When "+14155551212" sends SMS "did good"

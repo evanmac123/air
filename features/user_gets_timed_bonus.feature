@@ -8,7 +8,6 @@ Feature: User gets timed bonus
       | name | phone number | demo                |
       | Phil | +14155551212 | company_name: FooCo |
       | Vlad | +16175551212 | company_name: FooCo |
-    And "Phil" has password "foo"
     And the following rules exist:
       | reply       | points | demo                |
       | did a thing | 5      | company_name: FooCo |

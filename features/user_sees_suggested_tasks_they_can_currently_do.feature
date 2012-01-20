@@ -21,8 +21,8 @@ Feature: User sees suggested tasks they can currently do
     And the following user exists:
       | name | email           | demo                |
       | Joe  | joe@example.com | company_name: FooCo |
-    And "Joe" has the password "foo"
-    And I sign in via the login page with "Joe/foo"
+    And "Joe" has the password "foobar"
+    And I sign in via the login page with "Joe/foobar"
 
   @javascript @slow @wip
   Scenario: User sees suggested tasks they can currently do
@@ -40,7 +40,7 @@ Feature: User sees suggested tasks they can currently do
 
     When time is frozen at "2030-01-01 00:00:01 UTC"
     And DJ cranks 10 times
-    And I sign in via the login page with "Joe/foo"
+    And I sign in via the login page with "Joe/foobar"
     And I go to the activity page
     Then I should see "Make future toast"
     But I should not see "Make future PBJ"
@@ -77,15 +77,15 @@ Feature: User sees suggested tasks they can currently do
     And I press "Create Suggested task"
     And DJ cranks 10 times
 
-    And I sign in via the login page with "Joe/foo"
+    And I sign in via the login page with "Joe/foobar"
     Then I should see "Do new stuff"
 
   Scenario: Newly created user sees suggested tasks they can do
     Given the following user exists:
       | name | email           | demo                |
       | Bob  | bob@example.com | company_name: FooCo |
-    And "Bob" has the password "bar"
-    And I sign in via the login page with "Bob/bar"
+    And "Bob" has the password "barbaz"
+    And I sign in via the login page with "Bob/barbaz"
     Then I should be on the activity page
     And I should see "Make toast"
     But I should not see "Make PBJ"
@@ -96,7 +96,7 @@ Feature: User sees suggested tasks they can currently do
 
     When time is frozen at "2030-01-01 00:00:01 UTC"
     And DJ cranks 10 times
-    And I sign in via the login page with "Bob/bar"
+    And I sign in via the login page with "Bob/barbaz"
     And I go to the activity page
     Then I should see "Make future toast"
     But I should not see "Make future PBJ"

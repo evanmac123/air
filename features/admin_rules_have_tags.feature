@@ -20,8 +20,8 @@ Feature: Admin rules have tags
     Given the following label exists:
       | tag            | rule                  |
       | name: outdoors | description: ridebike |
-    Given "jesus" has password "bum"
-    Given I sign in via the login page as "jesus/bum"
+    Given "jesus" has password "bumble"
+    Given I sign in via the login page as "jesus/bumble"
   Scenario: Admin can create new tags
     When I go to the new admin tag page
     And I fill in "Name" with "cheese"

@@ -23,8 +23,8 @@ Feature: Full text rule search
     And the following user exists:
       | name | phone number | demo                  |
       | Dan  | +16175551212 | company_name: FooCorp |
-    And "Dan" has the password "foo"
-    And I sign in via the login page with "Dan/foo"
+    And "Dan" has the password "foobar"
+    And I sign in via the login page with "Dan/foobar"
     And time is frozen at "2010-05-01 17:00:00"
 
   Scenario: User almost gets a command right

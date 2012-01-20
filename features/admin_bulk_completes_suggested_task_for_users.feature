@@ -13,9 +13,9 @@ Feature: Admin bulk-completes suggested task for users
       | John   | +12135551212 | john@example.com   | company_name: TaskCo  |
       | Paul   | +13125551212 | paul@example.com   | company_name: OtherCo |
       | George | +18085551212 | george@example.com | company_name: TaskCo  |
-    And "Joe" has password "foo"
-    And "Bob" has password "foo"
-    And "Fred" has password "foo"
+    And "Joe" has password "foobar"
+    And "Bob" has password "foobar"
+    And "Fred" has password "foobar"
     And the following suggested tasks exist:
       | name   | demo                 |
       | Task 1 | company_name: TaskCo |
@@ -30,19 +30,19 @@ Feature: Admin bulk-completes suggested task for users
     And DJ cranks 5 times after a little while
     And I clear all sent texts
 
-    When I sign in via the login page with "Joe/foo"
+    When I sign in via the login page with "Joe/foobar"
     Then I should see "Task 1"
     And I should see "Task 3"
     But I should not see "Task 2"
     And I should not see "Task 4"
 
-    When I sign in via the login page with "Bob/foo"
+    When I sign in via the login page with "Bob/foobar"
     Then I should see "Task 1"
     And I should see "Task 3"
     But I should not see "Task 2"
     And I should not see "Task 4"
 
-    When I sign in via the login page with "Fred/foo"
+    When I sign in via the login page with "Fred/foobar"
     Then I should see "Task 1"
     And I should see "Task 3"
     But I should not see "Task 2"
@@ -65,19 +65,19 @@ Feature: Admin bulk-completes suggested task for users
     
     Given DJ cranks 10 times
 
-    When I sign in via the login page with "Joe/foo"
+    When I sign in via the login page with "Joe/foobar"
     Then I should see "Task 2"
     And I should see "Task 3"
     But I should not see "Task 1"
     And I should not see "Task 4"
 
-    When I sign in via the login page with "Bob/foo"
+    When I sign in via the login page with "Bob/foobar"
     Then I should see "Task 2"
     And I should see "Task 3"
     But I should not see "Task 1"
     And I should not see "Task 4"
 
-    When I sign in via the login page with "Fred/foo"
+    When I sign in via the login page with "Fred/foobar"
     Then I should see "Task 1"
     And I should see "Task 3"
     But I should not see "Task 2"

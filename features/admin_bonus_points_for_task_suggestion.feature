@@ -12,8 +12,8 @@ Feature: Admin sets bonus points for suggested tasks
       | ride a tricycle | company_name: NobodysBusiness | 11           |
 
 
-    And "Phil" has the password "foo"
-    And I sign in via the login page with "Phil/foo"
+    And "Phil" has the password "foobar"
+    And I sign in via the login page with "Phil/foobar"
     And DJ cranks 5 times
 
 

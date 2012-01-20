@@ -44,6 +44,8 @@ class User < ActiveRecord::Base
   validates_numericality_of :height, :allow_blank => true, :message => "Please use a numeric value for your height, and express it in inches"
   validates_numericality_of :weight, :allow_blank => true, :message => "Please use a numeric value for your weight, and express it in pounds"
 
+  validates_length_of :password, :minimum => 6, :allow_blank => true, :message => 'must have at least 6 characters'
+
   has_attached_file :avatar,
     :styles => {:thumb => "48x48#"},
     :default_style => :thumb,

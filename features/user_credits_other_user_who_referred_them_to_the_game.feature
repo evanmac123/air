@@ -19,13 +19,13 @@ Feature: User can credit another user who got them into the game
       | value      | rule          |
       | ate kitten | reply: kitten |
     And time is frozen at "2011-05-01 13:00 EST"
-    And "Dan" has the password "foo"
+    And "Dan" has the password "foobar"
     And "Dan" has the SMS slug "dcroak"
     And "Vlad" has the SMS slug "vgyster"
     And "Phil" has the SMS slug "pdarnowsky"
     And "Fred" has the SMS slug "freddie"
-    And "Fred" has the password "fred"
-    And I sign in via the login page with "Dan/foo"
+    And "Fred" has the password "freddie"
+    And I sign in via the login page with "Dan/foobar"
 
   Scenario: User credits another in a game with no referred credit bonus
     When "+14155551212" sends SMS "dcroak"
@@ -42,7 +42,7 @@ Feature: User can credit another user who got them into the game
     And DJ cranks 5 times
     Then "+17145551212" should have received an SMS including "Got it, Fred referred you to the game. Thanks (and 6 points) for letting us know."
     And "+14085551212" should have received an SMS including "Joe gave you credit for referring them to the game. Many thanks and 10 bonus points!"
-    When I sign in via the login page with "Fred/fred"
+    When I sign in via the login page with "Fred/freddie"
     Then I should see "Fred got credit for referring Joe to the game"
     And I should see "Joe credited Fred for referring them to the game"
 
@@ -79,10 +79,10 @@ Feature: User can credit another user who got them into the game
       | name     | phone number | accepted invitation at | demo                  |
       | Kelli    | +13055551212 | 2011-05-01 12:00 EST   | company_name: BarCorp |
       | Kristina | +14105551212 | 2011-05-01 12:00 EST   | company_name: BarCorp |
-    And "Kelli" has password "foo"
+    And "Kelli" has password "foobar"
     And "Kristina" has the SMS slug "krikantis"
     And "+13055551212" sends SMS "krikantis"
-    And I sign in via the login page with "Kelli/foo"
+    And I sign in via the login page with "Kelli/foobar"
     # Then I should see "Kristina 0 pts"
     And "+13055551212" should have received an SMS including "Sorry, I don't understand what that means"
     And "+14105551212" should not have received an SMS including "Kelli gave you credit"

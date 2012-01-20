@@ -15,8 +15,8 @@ Feature: User gets points for connecting to another (if demo configured for it)
       | Fred | +12125551212 | 7                 | 0      | company_name: Towers Watson |
       | Bleh | +14085551212 | 0                 | 0      | company_name: LameCo        |
       | Feh  | +16505551212 | 7                 | 0      | company_name: LameCo        |
-    And "Dan" has password "foo"
-    When I sign in via the login page as "Dan/foo"
+    And "Dan" has password "foobar"
+    When I sign in via the login page as "Dan/foobar"
 
   Scenario: User gets points for connecting
     When I go to the user directory page

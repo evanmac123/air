@@ -24,9 +24,9 @@ Feature: Game has a beginning and an end
       | ate fruit  | reply: You ate fruit. |
       | went gym   | reply: Worked out.    |
       | customs    | reply: Did customs    |
-    And "Phil" has the password "foo"
+    And "Phil" has the password "foobar"
     And "Vlad" has the SMS slug "vgyster"
-    And I sign in via the login page with "Phil/foo"
+    And I sign in via the login page with "Phil/foobar"
 
   Scenario: Sending actions before the game begins
     When time is frozen at "2010-04-01 11:59:59 UTC"

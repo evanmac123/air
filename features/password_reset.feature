@@ -43,6 +43,19 @@ Feature: Password reset
       And I sign in as "email@person.com/newpassword"
       Then I should be signed in
 
+    Scenario: User tries to update with an under-length password
+      Given I signed up with "email@person.com/password"
+      And I go to the password reset request page
+      And I fill in the reset email field with "email@person.com"
+      And I press "Reset password"
+      When I follow the password reset link sent to "email@person.com"
+      And I update my password with "12345/12345"
+      Then I should see "Password must have at least 6 characters"
+      When I sign in as "email@person.com/12345"
+      Then I should be signed out
+      When I sign in as "email@person.com/password"
+      Then I should be signed in
+ 
     Scenario: User tries using the same password reset token twice
       Given I signed up with "email@person.com/password"
       And I go to the password reset request page

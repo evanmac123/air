@@ -87,8 +87,8 @@ Feature: User gives credit to game referer via autocomplete field
   When I fill in "Enter your mobile number" with "2088834848"
   And I fill in "Enter your name" with "Blowing Smoke"
   And I fill in "Choose a unique ID" with "somereallylongtextstring"
-  And I fill in "Choose a password" with "pass"
-  And I fill in "And confirm that password" with "pass"
+  And I fill in "Choose a password" with "password"
+  And I fill in "And confirm that password" with "password"
   And I press "Join the game"
   And I wait a second
   Then I should see "Brought to you by"

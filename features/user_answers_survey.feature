@@ -33,7 +33,7 @@ Background:
     | 2011-05-01 15:00 UTC | Answer the remaining %remaining_questions:                     | name: FooCo Health Survey |
     | 2011-05-01 17:00 UTC | Answer the remaining %remaining_questions or else:             | name: FooCo Health Survey |
     | 2011-05-01 19:00 UTC | This is your last chance to answer these %remaining_questions: | name: FooCo Health Survey |
-    And "Dan" has the password "foo"
+    And "Dan" has the password "foobar"
    
   Scenario: Survey sends first prompt to everyone in the demo
     Given time is frozen at "2011-05-01 13:00 UTC"
@@ -130,7 +130,7 @@ Background:
   Scenario: User responds to question during the window with a good value
     Given time is frozen at "2011-05-01 15:00 UTC"
     When "+14155551212" sends SMS "1"
-    And I sign in via the login page with "Dan/foo"
+    And I sign in via the login page with "Dan/foobar"
     And I go to the activity page
     Then "+14155551212" should have received an SMS "Do you like cheese?"
     And I should see "Dan answered a survey question"
@@ -142,7 +142,7 @@ Background:
     Given the following user exists:
       | name | phone number | demo                   |
       | Fred | +12345551212 | company_name: CustomCo |
-    And "Fred" has the password "foo"
+    And "Fred" has the password "foobar"
     And the following survey exists:
       | name                   | open_at              | close_at             | demo                   |
       | CustomCo Health Survey | 2011-05-01 11:00 UTC | 2011-05-01 21:00 UTC | company_name: CustomCo |
@@ -155,7 +155,7 @@ Background:
       | 2     | text: What are pants for? |
     Given time is frozen at "2011-05-01 15:00 UTC"
     When "+12345551212" sends SMS "1"
-    And I sign in via the login page with "Fred/foo"
+    And I sign in via the login page with "Fred/foobar"
     And I go to the activity page
     Then I should see "Fred did the thing"
 
@@ -165,7 +165,7 @@ Background:
       | user       | survey question |
       | name: Dan  | index: 1        |
     And "+14155551212" sends SMS "1"
-    And I sign in via the login page with "Dan/foo"
+    And I sign in via the login page with "Dan/foobar"
     And I go to the activity page
     Then "+14155551212" should have received an SMS "How important is doing what you're told?"
     And I should see "5 pts Dan answered a survey question less than a minute ago"
@@ -225,7 +225,7 @@ Background:
       | name: Dan  | index: 2        |
     And time is frozen at "2011-05-01 15:00 UTC"
     And "+14155551212" sends SMS "4"
-    And I sign in via the login page with "Dan/foo"
+    And I sign in via the login page with "Dan/foobar"
     And I go to the activity page
     Then "+14155551212" should have received an SMS "That was the last question. Thanks for completing the survey!"
     And I should see "Dan completed a survey"

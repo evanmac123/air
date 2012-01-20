@@ -4,9 +4,9 @@ Feature: The navbar does what it ought
     Given the following site admin exists:
       | name |
       | Joe  |
-    And "Joe" has the password "foo"
+    And "Joe" has the password "foobar"
 
-    When I sign in via the login page as "Joe/foo"
+    When I sign in via the login page as "Joe/foobar"
     And I follow "<link text>"
     Then I should be on <page name>
 

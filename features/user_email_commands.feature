@@ -10,7 +10,7 @@ Feature: User acts via email
       | Paul | +15088675309 | company_name: FooCorp | 0      | 3       | paul@littleco.com |
       | Fred | +14155551212 | company_name: FooCorp | 1      | 2       | fred@nocobro.com  |
       | Bob  | +18085551212 | company_name: FooCorp | 3      | 1       | bob@bob.net       |
-    And "Dan" has the password "foo"
+    And "Dan" has the password "foobar"
     And "Paul" has the SMS slug "paul55"
     And "Fred" has the SMS slug "fred666"
     And the following rules exist:
@@ -37,7 +37,7 @@ Feature: User acts via email
 
   Scenario: User acts via email
     When "dan@bigco.com" sends email with subject "me tarzan, you jane" and body "ate banana"
-    And I sign in via the login page as "Dan/foo"
+    And I sign in via the login page as "Dan/foobar"
     And I go to the acts page
     Then I should see the following act:
       | name | act         | points |
@@ -45,7 +45,7 @@ Feature: User acts via email
 
   Scenario: User acts via email for a different act
     When "dan@bigco.com" sends email with subject "love slighty burned bread" and body "made toast"
-    And I sign in via the login page as "Dan/foo"
+    And I sign in via the login page as "Dan/foobar"
     And I go to the acts page
     Then I should see the following act:
       | name | act         | points |
@@ -53,7 +53,7 @@ Feature: User acts via email
 
   Scenario: User acts via email with a strange email body
     When "dan@bigco.com" sends email with subject "love slighty burned bread" and body " made     toast  "
-    And I sign in via the login page as "Dan/foo"
+    And I sign in via the login page as "Dan/foobar"
     And I go to the acts page
     Then I should see the following act:
       | name | act         | points |
@@ -84,7 +84,7 @@ This is not an offer to trade or roll logs. Void where prohibited. Some assembly
 """
     Then "dan@bigco.com" have an email command history with the phrase "Bananas are good for you. Points 2/50, rank 3/4."
 
-    When I sign in via the login page as "Dan/foo"
+    When I sign in via the login page as "Dan/foobar"
     And I go to the acts page
     Then I should see the following act:
       | name | act         | points |
@@ -125,7 +125,7 @@ This is not an offer to trade or roll logs. Void where prohibited. Some assembly
 
     """
 
-    And I sign in via the login page as "Dan/foo"
+    And I sign in via the login page as "Dan/foobar"
     Then I should see the following act:
       | name | act         | points |
       | Dan  | ate banana  | 2      |

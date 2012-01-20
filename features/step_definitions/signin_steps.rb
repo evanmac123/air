@@ -20,8 +20,8 @@ end
 When /^I sign in( as an admin)? via the login page( as an admin)?$/ do |is_admin_1, is_admin_2|
   is_admin = is_admin_1 || is_admin_2
   factory = is_admin ? :site_admin : :user
-  user = Factory factory, :password => 'foo', :password_confirmation => 'foo'
-  Then "I sign in via the login page as \"#{user.name}/foo\""
+  user = Factory factory, :password => 'foobar', :password_confirmation => 'foobar'
+  Then "I sign in via the login page as \"#{user.name}/foobar\""
 end
 
 When /^I am not logged in$/ do

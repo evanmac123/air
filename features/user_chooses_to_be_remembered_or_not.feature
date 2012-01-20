@@ -3,9 +3,9 @@ Feature: User can choose whether or not to be remembered
     Given the following user exists:
       | name | email           |
       | Bob  | bob@example.com |
-    And "Bob" has the password "foo"
+    And "Bob" has the password "foobar"
     When I go to the login page
-    And I fill in the login fields as "Bob/foo"
+    And I fill in the login fields as "Bob/foobar"
 
   Scenario: User wants to be remembered
     When I check the remember-me checkbox

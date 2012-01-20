@@ -23,10 +23,10 @@ Feature: User gets some props for finishing a goal
     And the following user exists:
       | name | phone number | demo                |
       | Bob  | +14155551212 | company_name: FooCo |
-    And "Bob" has password "foo"
+    And "Bob" has password "foobar"
 
 #   Scenario: User gets an achievement for finishing a goal
-    # When I sign in via the login page with "Bob/foo"
+    # When I sign in via the login page with "Bob/foobar"
     # And I go to the activity page
     # Then I should not see "You won at winning!"
 

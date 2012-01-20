@@ -13,8 +13,8 @@ Feature: Directory of other users
       | user       | friend     |
       | name: Dan  | name: Phil |
       | name: Dan  | name: Vlad |
-    And "Dan" has the password "foo"
-    And I sign in via the login page as "Dan/foo"
+    And "Dan" has the password "foobar"
+    And I sign in via the login page as "Dan/foobar"
     And I go to the users page
 
   Scenario: Names appear for other users

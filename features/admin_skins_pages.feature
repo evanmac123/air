@@ -16,8 +16,8 @@ Feature: Skinnable pages
       | user       | friend    |
       | name: Joe  | name: Bob |
       | name: Fred | name: Joe |
-    And "Joe" has password "foo"
-    And I sign in via the login page with "Joe/foo"
+    And "Joe" has password "foobar"
+    And I sign in via the login page with "Joe/foobar"
 
   Scenario: Pages have skin applied
     Given the following skin exists:

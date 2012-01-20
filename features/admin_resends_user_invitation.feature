@@ -8,8 +8,8 @@ Feature: Admin resends invitation to user
     And the following site admin exists:
       | name |
       | Bob  |
-    And "Bob" has the password "foo"
-    When I sign in via the login page with "Bob/foo"
+    And "Bob" has the password "foobar"
+    When I sign in via the login page with "Bob/foobar"
     And I go to the admin "InviteCo" demo page
     And I follow "J"
     And I follow "Re-send invitation"

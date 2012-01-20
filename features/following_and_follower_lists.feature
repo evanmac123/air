@@ -30,8 +30,8 @@ Feature: Following and follower lists
       | name: Dirk   | name: Bertram |
       | name: Dirk   | name: Colby   |
       | name: Fred   | name: Arturo  |
-    And "Arturo" has the password "foo"
-    And I sign in via the login page as "Arturo/foo"
+    And "Arturo" has the password "foobar"
+    And I sign in via the login page as "Arturo/foobar"
     And I go to the friends page
 
   Scenario: Follower list

@@ -4,7 +4,7 @@ Feature: User claims account via SMS
     Given the following user exists:
       | name | demo                             |
       | Bob  | company_name: Global Tetrahedron |
-    And "Bob" has the password "bleh"
+    And "Bob" has the password "blehblah"
 
   Scenario: User claims account with claim code
     Given the following user exists:
@@ -42,7 +42,7 @@ Feature: User claims account via SMS
       | name      | claim_code | demo                             |
       | Dan Croak | dcroak     | company_name: Global Tetrahedron |
     When "+14155551212" sends SMS "Dcroak"
-    And I sign in via the login page as "Bob/bleh"
+    And I sign in via the login page as "Bob/blehblah"
     Then I should see "Dan Croak joined the game"
 
   Scenario: Claiming account shows on profile page as joining the game
@@ -50,7 +50,7 @@ Feature: User claims account via SMS
       | name      | claim_code | demo                             |
       | Dan Croak | dcroak     | company_name: Global Tetrahedron |
     When "+14155551212" sends SMS "Dcroak"
-    And I sign in via the login page as "Bob/bleh"
+    And I sign in via the login page as "Bob/blehblah"
     And I go to the profile page for "Dan Croak"
     Then I should see "Dan Croak joined the game"
 
@@ -75,9 +75,9 @@ Feature: User claims account via SMS
     And the following user exists:
       | name | demo                |
       | Fred | company_name: FooCo |
-    And "Fred" has the password "ferd"
+    And "Fred" has the password "ferdinand"
     When "+14155551212" sends SMS "Dcroak"
-    And I sign in via the login page as "Fred/ferd"
+    And I sign in via the login page as "Fred/ferdinand"
     # Then I should see "Dan Croak 10 pts"
     And I should see "10 pts Dan Croak joined the game less than a minute ago"
 
@@ -98,7 +98,7 @@ Feature: User claims account via SMS
       | John Smith | jsmith     | company_name: Global Tetrahedron |
       | Jack Smith | jsmith     | company_name: Global Tetrahedron |
     When "+14155551212" sends SMS "john jsmith"
-    And I sign in via the login page as "Bob/bleh"
+    And I sign in via the login page as "Bob/blehblah"
     Then I should see "John Smith joined the game"
 
   Scenario: User can't claim if their number is already assigned to an account

@@ -26,8 +26,8 @@ Feature: User gets bonus points at thresholds with some randomness built in
       | name | phone number | points | demo                |
       | Vlad | +14155551212 | 8      | company_name: FooCo | 
       | Dan  | +16175551212 | 29     | company_name: FooCo |
-    And "Vlad" has the password "foo"
-    And I sign in via the login page with "Vlad/foo"
+    And "Vlad" has the password "foobar"
+    And I sign in via the login page with "Vlad/foobar"
 
   Scenario: User hits max points for a threshold
     When "+14155551212" sends SMS "ate kitten"

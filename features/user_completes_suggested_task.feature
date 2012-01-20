@@ -9,7 +9,7 @@ Feature: User completes suggested task
       | Joe  | +14152613077 | company_name: TaskCo |
       | Bob  | +14155551212 | company_name: TaskCo |
     And "Bob" has the SMS slug "bob"
-    And "Joe" has the password "foo"
+    And "Joe" has the password "foobar"
     And the following suggested tasks exist:
       | name               | demo                 |
       | Rule task 1        | company_name: TaskCo |
@@ -79,7 +79,7 @@ Feature: User completes suggested task
     And the task "Referer task 2" has prerequisite "Referer task 1"
     And the task "Demographic task 2" has prerequisite "Demographic task 1"
     And DJ cranks 30 times
-    When I sign in via the login page with "Joe/foo"
+    When I sign in via the login page with "Joe/foobar"
 
     Then I should see "Rule task 1"
     And I should see "Rule task 3"

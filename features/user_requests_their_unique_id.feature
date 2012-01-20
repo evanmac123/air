@@ -11,8 +11,8 @@ Feature: User requests their user ID by SMS
     Then "+14152613077" should have received an SMS "Your user ID is iamgod."
 
   Scenario: User requests their user ID via the website
-    Given "Phil Darnowsky" has the password "foo"
-    When I sign in via the login page as "Phil Darnowsky/foo"
+    Given "Phil Darnowsky" has the password "foobar"
+    When I sign in via the login page as "Phil Darnowsky/foobar"
     And I enter the special command "myid"
     Then I should see the success message "Your user ID is iamgod."
 
