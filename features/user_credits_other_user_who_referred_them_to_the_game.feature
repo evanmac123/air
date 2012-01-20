@@ -31,7 +31,7 @@ Feature: User can credit another user who got them into the game
     When "+14155551212" sends SMS "dcroak"
     And DJ cranks 5 times
     And I go to the activity page
-    Then I should see "Dan 5 pts"
+    # Then I should see "Dan 5 pts"
     And I should see "Dan got credit for referring Phil to the game"
     And I should see "Phil credited Dan for referring them to the game"
     And "+14155551212" should have received SMS "Got it, Dan referred you to the game. Thanks for letting us know."
@@ -50,20 +50,20 @@ Feature: User can credit another user who got them into the game
     When "+14155551212" sends SMS "dcroak"
     And "+14155551212" sends SMS "vgyster"
     And I go to the activity page
-    Then I should see "Vlad 0 pts"
+    # Then I should see "Vlad 0 pts"
     And "+14155551212" should have received SMS "You've already told us that Dan referred you to the game."
     And "+16175551212" should not have received an SMS including "Phil gave you credit for referring them to the game."
 
   Scenario: User tries to credit themself
     When "+14155551212" sends SMS "pdarnowsky"
     And I go to the activity page
-    Then I should see "Phil 0 pts"
+    # Then I should see "Phil 0 pts"
     And "+14155551212" should have received an SMS "You've already claimed your account, and have 0 points. If you're trying to credit another user, text their User ID"
 
   Scenario: User credits another but it's too late
     When "+16175551212" sends SMS "dcroak"
     And I go to the activity page
-    Then I should see "Dan 0 pts"
+    # Then I should see "Dan 0 pts"
     And "+16175551212" should have received an SMS "Sorry, the time when you can credit someone for referring you to the game is over."
     And "+18085551212" should not have received an SMS including "Vlad gave you credit"
 
@@ -83,7 +83,7 @@ Feature: User can credit another user who got them into the game
     And "Kristina" has the SMS slug "krikantis"
     And "+13055551212" sends SMS "krikantis"
     And I sign in via the login page with "Kelli/foo"
-    Then I should see "Kristina 0 pts"
+    # Then I should see "Kristina 0 pts"
     And "+13055551212" should have received an SMS including "Sorry, I don't understand what that means"
     And "+14105551212" should not have received an SMS including "Kelli gave you credit"
 

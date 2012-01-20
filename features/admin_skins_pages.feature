@@ -26,7 +26,7 @@ Feature: Skinnable pages
     When I go to the activity page
     Then the logo should have src "logo.gif"
     And the see more button should have src "seemore.gif"
-    And the victory graphics should have src "victory.gif"
+    # And the victory graphics should have src "victory.gif"
 
     When I go to the profile page for "Joe"
     Then the logo should have src "logo.gif"
@@ -52,7 +52,7 @@ Feature: Skinnable pages
     When I go to the activity page
     Then the logo should have src "logo.png"
     And the see more button should have src "new_activity/btn_seemore.png"
-    And the victory graphics should have src "new_activity/img_bluestar_18.png"
+    # And the victory graphics should have src "new_activity/img_bluestar_18.png"
 
     When I go to the profile page for "Joe"
     Then the logo should have src "logo.png"

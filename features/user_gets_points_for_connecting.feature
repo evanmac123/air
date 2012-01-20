@@ -34,6 +34,7 @@ Feature: User gets points for connecting to another (if demo configured for it)
     Then I should see "Dan is now a fan of Phil"
     And I should see "12 pts"
 
+  @wip
   Scenario: User gets points for connecting just once
     When I go to the user directory page
     And I fan "Vlad"

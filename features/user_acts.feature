@@ -173,12 +173,12 @@ Feature: User acts
     When "+15087407520" sends SMS "saw poster"
     And "+15087407520" sends SMS "saw poster"
     And "+15087407520" sends SMS "saw poster"
-    And I sign in via the login page as "Dan/foo"
-    And I go to the acts page
-    Then I should see "Dan 40 pts"
+    # And I sign in via the login page as "Dan/foo"
+    # And I go to the acts page
+    # Then I should see "Dan 40 pts"
     And "+15087407520" should have received an SMS "Congratulations! Points 20/50, rank 3/4."
     And "+15087407520" should have received an SMS "Congratulations! Points 40/50, rank 3/4."
-    And "+15087407520" should not have received an SMS including "Congratulations! Points 60/50"
+    But "+15087407520" should not have received an SMS including "Congratulations! Points 60/50"
     And "+15087407520" should have received an SMS "Sorry, you've already done that action."
 
   Scenario: Another user gets points for referring you to a command
@@ -187,8 +187,8 @@ Feature: User acts
     And DJ cranks 10 times
     And I sign in via the login page as "Dan/foo"
     And I go to the acts page
-    Then I should see "Paul 1 pt"
-    And I should see "Fred 201 pts"
+    # Then I should see "Paul 1 pt"
+    # And I should see "Fred 201 pts"
     And I should see "2 pts Dan ate banana (thanks Paul for the referral) less than a minute"
     And I should see "5 pts Dan worked out (thanks Fred for the referral) less than a minute"
     And I should see "1 pt Paul told Dan about a command less than a minute ago"
@@ -198,15 +198,15 @@ Feature: User acts
 
   Scenario: A helpful error message if you say a nonexistent user referred you
     When "+15087407520" sends SMS "ate banana mrnobody"
-    And I sign in via the login page as "Dan/foo"
-    And I go to the acts page
-    Then I should see "Dan 0 pts"
+    # And I sign in via the login page as "Dan/foo"
+    # And I go to the acts page
+    # Then I should see "Dan 0 pts"
     And "+15087407520" should have received an SMS "We understood what you did, but not the user who referred you. Perhaps you could have them check their user ID with the MYID command?"
 
   Scenario: A helpful and slightly snarky error message if you say you referred yourself
     Given "Dan" has the SMS slug "dan4444"
     When "+15087407520" sends SMS "ate banana dan4444"
-    And I sign in via the login page as "Dan/foo"
-    And I go to the acts page
-    Then I should see "Dan 0 pts"
+    # And I sign in via the login page as "Dan/foo"
+    # And I go to the acts page
+    # Then I should see "Dan 0 pts"
     And "+15087407520" should have received an SMS "Now now. It wouldn't be fair to try to get extra points by referring yourself."

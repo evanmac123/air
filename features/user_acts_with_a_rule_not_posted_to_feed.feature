@@ -24,8 +24,8 @@ Feature: Acts can be kept out of the user feed
     When I sign in via the login page with "Phil/foo"
     And I go to the activity page
     Then I should see "Phil acted visibly"
-    And I should see "12points"
-    But I should not see "7 pts"
+    # And I should see "12points"
+    Then I should not see "7 pts"
     And I should not see "acted invisibly"
 
     When I go to the profile page for "Phil"

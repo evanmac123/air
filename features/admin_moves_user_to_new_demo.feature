@@ -34,13 +34,12 @@ Feature: Admin moves a user to a new demo
     And an admin moves "Dan" to the demo "IBM"
     And "+14155551212" sends SMS "went running"
 
-  Scenario: User's new acts and ranking appear in the new demo
+  Scenario: User's new acts appear in the new demo
     And I sign in via the login page as "Bob/bar"
     And I go to the activity page
     Then I should see the following act:
       | name | act          | points |
       | Dan  | went running | 10     |
-    And I should see "Dan" with ranking "3"
 
   Scenario: User's old acts don't appear in the new demo
     When I sign in via the login page as "Bob/bar"
@@ -49,13 +48,12 @@ Feature: Admin moves a user to a new demo
       | Dan  | ate banana | 7      |
       | Dan  | walked dog | 9      |
 
-  Scenario: User's new acts and ranking don't appear in the old demo
+  Scenario: User's new acts don't appear in the old demo
     When I sign in via the login page as "Fred/baz"
     And I go to the activity page
     Then I should not see the following act:
       | name | act          | points |
       | Dan  | went running | 10     |
-    And I should not see "Dan" in the scoreboard
 
   Scenario: In user's profile page, only new acts appear
     When I sign in via the login page as "Fred/baz"
@@ -68,7 +66,7 @@ Feature: Admin moves a user to a new demo
       | Dan  | ate banana   | 7      |
       | Dan  | walked dog   | 9      |
 
-  Scenario: User's old acts, correct score and ranking reappear when moved back to the original demo
+  Scenario: User's old acts reappear when moved back to the original demo
     When an admin moves "Dan" to the demo "The Thoughtbots"
     And I sign in via the login page as "Fred/baz"
     And I go to the activity page
@@ -76,16 +74,15 @@ Feature: Admin moves a user to a new demo
       | name | act        | points |
       | Dan  | ate banana | 7      |
       | Dan  | walked dog | 9      |
-    And I should see "Dan" with ranking "1"
 
-  Scenario: User's achievements appear only in the appropriate demo
-    When I sign in via the login page as "Dan/foo"
-    Then I should not see "AwesomeStar"
-    And I should not see "Some Pig!"
-    When an admin moves "Dan" to the demo "The Thoughtbots"
-    And I sign in via the login page as "Dan/foo"
-    Then I should see "AwesomeStar"
-    And I should see "Some Pig!"
+#   Scenario: User's achievements appear only in the appropriate demo
+    # When I sign in via the login page as "Dan/foo"
+    # Then I should not see "AwesomeStar"
+    # And I should not see "Some Pig!"
+    # When an admin moves "Dan" to the demo "The Thoughtbots"
+    # And I sign in via the login page as "Dan/foo"
+    # Then I should see "AwesomeStar"
+#     And I should see "Some Pig!"
 
   Scenario: User disappears from view in the new demo when moved back to the original demo
     When an admin moves "Dan" to the demo "The Thoughtbots"
@@ -94,24 +91,23 @@ Feature: Admin moves a user to a new demo
     Then I should not see the following act:
       | name | act          | points |
       | Dan  | went running | 10     |
-    And I should not see "Dan" in the scoreboard
 
-  Scenario: Other users' rankings are correct in the old demo after the move
-    When I sign in via the login page as "Fred/baz"
-    And I go to the activity page
-    Then I should see "1st out of 1" ranking
+#   Scenario: Other users' rankings are correct in the old demo after the move
+    # When I sign in via the login page as "Fred/baz"
+    # And I go to the activity page
+    # Then I should see "1st out of 1" ranking
 
-  Scenario: Other users' rankings are correct in the new demo after moving back to the original demo
-    When an admin moves "Dan" to the demo "The Thoughtbots"
-    And I sign in via the login page as "Tom/quux"
-    And I go to the activity page
-    Then I should see "2nd out of 2" ranking
+  # Scenario: Other users' rankings are correct in the new demo after moving back to the original demo
+    # When an admin moves "Dan" to the demo "The Thoughtbots"
+    # And I sign in via the login page as "Tom/quux"
+    # And I go to the activity page
+    # Then I should see "2nd out of 2" ranking
 
-  Scenario: "Won at" should be set appropriately per demo
-    When I sign in via the login page as "Dan/foo"
-    And I go to the activity page
-    Then I should not see "You won at"
-    When an admin moves "Dan" to the demo "The Thoughtbots"
-    And I sign in via the login page as "Dan/foo"
-    And I go to the activity page
-    Then I should see "You won on May 01, 2010 at 01:00 PM Eastern"
+  # Scenario: "Won at" should be set appropriately per demo
+    # When I sign in via the login page as "Dan/foo"
+    # And I go to the activity page
+    # Then I should not see "You won at"
+    # When an admin moves "Dan" to the demo "The Thoughtbots"
+    # And I sign in via the login page as "Dan/foo"
+    # And I go to the activity page
+    # Then I should see "You won on May 01, 2010 at 01:00 PM Eastern"
