@@ -15,11 +15,10 @@ $(function() {
   });
   
   $('#search_for_referrer .single_suggestion').live('click', function() {
-    alert('here');
     $('#user_game_referrer_id').val($(this).find('.selected_referrer_id').text());
     
     $('#search_for_referrer #autocomplete').hide();
-    $(this).insertAfter('#autocomplete');
+    $(this).insertBefore('#autocomplete');
   });
   
   $('#.remove_referrer').live('click', function() {
@@ -63,8 +62,7 @@ $(function() {
   
   // These next two are to make the autocompletions disappear if you click on something else
   $('html').click(function() {
-    $("#suggestions").html('');
-    $("#suggestions").html('');
+    setTimeout('$("#suggestions").html("")', 50);
   });
 
 
