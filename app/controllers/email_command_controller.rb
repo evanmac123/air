@@ -28,6 +28,7 @@ class EmailCommandController< ApplicationController
         parsed_domain = User.get_domain_from_email(email_command.email_from)
         email_command.response = invalid_domain_response(parsed_domain) 
         email_command.status = EmailCommand::Status::FAILED
+        email_command.save
         send_response_to_non_user(email_command)
         set_success_response! and return # Setting response prevents rendering
       end
