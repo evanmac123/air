@@ -2,9 +2,9 @@
 
 #relative { /* this is relative so the child div will use it as a positioning reference*/ position: relative; margin: 0 auto; width: 378px; top: -30px; left: -12px; }
 
-#invitee_suggestions, #referrer_suggestions { position: absolute; }
-#invitee_suggestions .remove_referrer, #referrer_suggestions .remove_referrer { display: none; }
-#invitee_suggestions .single_suggestion:hover, #referrer_suggestions .single_suggestion:hover { background: aqua; }
+#suggestions { position: absolute; }
+#suggestions .remove_referrer { display: none; }
+#suggestions .single_suggestion:hover { background: aqua; }
 
 .remove_referrer { position: absolute; right: -2px; bottom: -22px; width: 26ex; text-align: center; }
 
@@ -18,4 +18,4 @@
 
 .image { padding-right: 10px; }
 
-.selected_referrer_id { display: none; }
+.suggested_user_id { display: none; }
