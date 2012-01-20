@@ -25,7 +25,7 @@ class Invitation::AcceptancesController < ApplicationController
     end
     
     unless @user.game_referrer_id.nil?
-      SpecialCommand.credit_game_referrer(@user, User.find(@user.game_referrer_id)
+      SpecialCommand.credit_game_referrer(@user, User.find(@user.game_referrer_id))
     end
 
     redirect_to "/activity"
