@@ -2,6 +2,9 @@
 %p For each friend that joins the game, you get an extra 5 points!
 
 #search_for_friends_to_invite
+    
+  = hidden_field_tag :invitee_id
+    
   %ul.form-section
     %li.form-label= label_tag :autocomplete,  "Enter part of their name or email address"
     %li.form-input

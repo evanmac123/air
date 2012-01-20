@@ -22,9 +22,9 @@ $(function() {
   });
   
   $('#search_for_friends_to_invite .single_suggestion').live('click', function() {
-    $('#user_game_referrer_id').val($(this).find('.suggested_user_id').text());
+    $('#invitee_id').val($(this).find('.suggested_user_id').text());
     
-    $('#search_for_referrer #autocomplete').hide();
+    $('#search_for_friends_to_invite #autocomplete').hide();
     $(this).insertBefore('#autocomplete');
   });
   
