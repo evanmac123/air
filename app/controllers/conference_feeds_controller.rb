@@ -8,7 +8,6 @@ class ConferenceFeedsController < ApplicationController
     @users = @demo.users.claimed.order('ranking ASC')
     @acts  = @demo.acts.displayable.order('created_at DESC').limit(20).includes(:user, :rule)
 
-    @new_appearance = true
   end
 
   protected
