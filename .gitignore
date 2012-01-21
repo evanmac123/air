@@ -3,6 +3,7 @@ db/*.sqlite3
 log/*.log
 tmp/**/*
 tmp/capybara-*
+tmp/pids/*
 db/schema.rb
 public/system
 *.DS_Store
@@ -23,3 +24,6 @@ coverage.features
 
 
 feature_profiles/feature_profile*
+tmp/sass-cache/**/*
+public/.sass-cache/*
+**/.DS_Store
