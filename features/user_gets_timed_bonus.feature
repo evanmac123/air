@@ -8,7 +8,6 @@ Feature: User gets timed bonus
       | name | phone number | demo                |
       | Phil | +14155551212 | company_name: FooCo |
       | Vlad | +16175551212 | company_name: FooCo |
-    And "Phil" has password "foo"
     And the following rules exist:
       | reply       | points | demo                |
       | did a thing | 5      | company_name: FooCo |
@@ -28,10 +27,6 @@ Feature: User gets timed bonus
     Then "+14155551212" should have received an SMS including "did a thing"
     And "+14155551212" should have received an SMS including "You acted before the time limit expired! +15 points."
     But "+16175551212" should not have received an SMS including "You acted before the time limit expired"
-
-    When I sign in via the login page as "Phil/foo"
-    And I go to the acts page
-    Then I should see "20points"
 
   Scenario: User doesn't get bonus if it's expired
     Given time is frozen at "2011-05-01 00:00:00 -0000"

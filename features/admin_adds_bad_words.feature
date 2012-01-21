@@ -16,8 +16,8 @@ Feature: Admin adds bad words
     And the following site admin exists:
       | name |
       | Bob  |
-    And "Bob" has the password "foo"
-    And I sign in via the login page with "Bob/foo"
+    And "Bob" has the password "foobar"
+    And I sign in via the login page with "Bob/foobar"
 
   Scenario: Admin adds generic bad words
     When I go to the admin page

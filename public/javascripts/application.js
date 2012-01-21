@@ -7,35 +7,36 @@ $(function() {
       var options = {email : email, calling_div : '#search_for_referrer' };
       autocompleteIfNoneRunning(options);
   });
-  
+
   $('#search_for_friends_to_invite #autocomplete').keypress(function(){
       var email = $('#user_email').val();
       var options = {email : email, calling_div : '#search_for_friends_to_invite'};
       autocompleteIfNoneRunning(options);
   });
-  
+
   $('#search_for_referrer .single_suggestion').live('click', function() {
     $('#user_game_referrer_id').val($(this).find('.suggested_user_id').text());
-    
+
     $('#search_for_referrer #autocomplete').hide();
     $(this).insertAfter('#autocomplete');
   });
-  
+
   $('#search_for_friends_to_invite .single_suggestion').live('click', function() {
     $('#invitee_id').val($(this).find('.suggested_user_id').text());
-    
+
     $('#search_for_friends_to_invite #autocomplete').hide();
     $(this).insertAfter('#autocomplete');
     $('#submit_invite_friend').show();
   });
-  
+
   $('#.remove_referrer').live('click', function() {
-    $('#user_game_referrer_id').text('');    
+    $('#user_game_referrer_id').text('');
     $('.single_suggestion').hide();
     $('#autocomplete').show();
     $('#autocomplete').val('');
+
     return false;
-  });  
+  });
 
   $('#add-new-user').live('click', function() {
     $('#new_user').parent('.hidden-form').show();
@@ -66,20 +67,23 @@ $(function() {
   $('.with-hint-text').live('focus', (function(e) {
     $(this).attr('value', '').removeClass('with-hint-text');
   }));
-  
-  
+
+
   // These next two are to make the autocompletions disappear if you click on something else
   $('html').click(function() {
     setTimeout('$("#suggestions").html("")', 50);
   });
 
 
-  
 });
 
 
 
+<<<<<<< HEAD
 function autocompleteIfNoneRunning(options){
+=======
+function autocompleteIfNoneRunning(){
+>>>>>>> origin/master
   //Only allow one request at a time
   //Allow queue size of one
   if (autocomplete_waiting){
@@ -89,6 +93,7 @@ function autocompleteIfNoneRunning(options){
     //put this one in the queue to try again in one second
     autocomplete_waiting = 1;
     setTimeout(function(){autocompleteIfNoneRunningAndResetQueue(options)}, 1000);
+
   }else{
     //Nothing is running or waiting, so send the ajax request for autocompletions
     //Note the tiny delay so that the most recent typed letter is included
@@ -102,12 +107,13 @@ function autocompleteIfNoneRunningAndResetQueue(options){
   autocompleteIfNoneRunning(options);
 }
 function getAutocomplete(options){
-  var entered_text = $(options['calling_div'] + ' #autocomplete').val(); 
+  var entered_text = $(options['calling_div'] + ' #autocomplete').val();
   if (entered_text.length > 2){
     options['entered_text'] = entered_text;
     $.get('/invitation/autocompletion#index', options, function(data){
       options = {};
       $("#suggestions").html(data);
+
       autocomplete_in_progress = 0;
      });
    }else{

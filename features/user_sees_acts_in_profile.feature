@@ -9,7 +9,7 @@ Feature: A user's acts are shown in their profile
       | name | demo                |
       | Joe  | company_name: FooCo |
       | Bob  | company_name: FooCo |
-    And "Joe" has the password "foo"
+    And "Joe" has the password "foobar"
     And the following acts exist:
       | text  | inherent points | user      |
       | did a | 1               | name: Bob |
@@ -23,7 +23,7 @@ Feature: A user's acts are shown in their profile
       | did i | 1               | name: Bob |
       | did j | 1               | name: Bob |
       | did k | 1               | name: Bob |
-    And I sign in via the login page with "Joe/foo"
+    And I sign in via the login page with "Joe/foobar"
     And I go to the profile page for "Bob"
     Then I should see "Bob did k"
     Then I should see "Bob did b"

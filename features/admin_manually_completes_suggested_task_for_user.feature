@@ -8,7 +8,7 @@ Feature: Admin manually completes a suggested task for a user
     And the following claimed users exist:
       | name | phone number | demo                 |
       | Joe  | +14155551212 | company_name: TaskCo |
-    And "Joe" has the password "foo"
+    And "Joe" has the password "foobar"
     And the following suggested tasks exist:
       | name   | demo                 |
       | Task 1 | company_name: TaskCo |
@@ -18,7 +18,7 @@ Feature: Admin manually completes a suggested task for a user
     And the task "Task 2" has prerequisite "Task 1"
     And the task "Task 4" has prerequisite "Task 3"
     And DJ cranks 10 times
-    And I sign in via the login page with "Joe/foo"
+    And I sign in via the login page with "Joe/foobar"
 
     Then I should see "Task 1"
     And I should see "Task 3"
@@ -36,7 +36,7 @@ Feature: Admin manually completes a suggested task for a user
     But I should see an input with value "Complete Task 2 for Joe"
     And I should see an input with value "Complete Task 3 for Joe"
 
-    When I sign in via the login page with "Joe/foo"
+    When I sign in via the login page with "Joe/foobar"
     Then I should see "Task 2"
     And I should see "Task 3"
     But I should not see "Task 1"

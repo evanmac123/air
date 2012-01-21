@@ -34,9 +34,9 @@ Feature: Sign in
       Then I should be on the activity page
 
    Scenario: Signing in is case insensitive
-      Given I am signed up as "dude@example.com/foo"
+      Given I am signed up as "dude@example.com/foobar"
       When I go to the sign in page
-      And I sign in as "Dude@example.com/foo"
+      And I sign in as "Dude@example.com/foobar"
       Then I should not see "Signed in"
       But I should be signed in
       And I should be on the activity page

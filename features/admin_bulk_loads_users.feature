@@ -7,8 +7,8 @@ Feature: Admin bulk loads users
     And the following user exists:
       | name | is site admin |
       | Phil | true          |
-    And "Phil" has the password "foo"
-    And I sign in via the login page with "Phil/foo"
+    And "Phil" has the password "foobar"
+    And I sign in via the login page with "Phil/foobar"
     And I go to the user bulk upload page for "H Engage"
 
   Scenario: Admin uploads users with email addresses

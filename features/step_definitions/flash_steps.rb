@@ -9,3 +9,8 @@ Then /^I should see the error "(.*?)"$/ do |message|
     page.should have_content(message)
   end
 end
+
+Then /^there should be a mail link to support in the flash$/ do
+  find(:css, %{#flash a[@href="mailto:support@hengage.com"]}).should_not be_nil
+end
+

@@ -20,7 +20,7 @@ Feature: User filters their view of the activity stream
     And "Joe" has the password "foo"
     And I sign in via the login page with "Joe/foo"
 
-  @javascript
+  @javascript @wip
   Scenario: User filters their view of the activity stream
     When I go to the activity page
     Then I should see "Joe ate kitten"
@@ -46,7 +46,7 @@ Feature: User filters their view of the activity stream
     And I should see "Fred ate duckling"
     And "All" should be the active act filter link
 
-  @javascript @slow
+  @javascript @slow @wip
   Scenario: "See more" button follows filter currently in effect
     Given the following acts exist:
       | text             | user       |

@@ -11,45 +11,45 @@ Feature: User approves or ignores follower
       | Clay  | clay@example.com  | +13055551212 | company_name: FooCo |
       | Don   | don@example.com   | +18085551212 | company_name: FooCo |
       | Ed    | ed@example.com    | +12125551212 | company_name: FooCo |
-    And "Bob" has password "foo"
-    And "Alice" has password "bar"
-    And "Clay" has password "baz"
+    And "Bob" has password "fooble"
+    And "Alice" has password "barley"
+    And "Clay" has password "bazquux"
 
   Scenario: Follower follows by SMS, followed accepts via SMS
-    When "Alice" requests to follow "Bob/foo" by SMS
-    Then "Bob/foo" should be able to accept "Alice" by SMS
+    When "Alice" requests to follow "Bob/fooble" by SMS
+    Then "Bob/fooble" should be able to accept "Alice" by SMS
 
   Scenario: Follower follows by SMS, followed ignores via SMS
-    When "Alice" requests to follow "Bob/foo" by SMS
-    Then "Bob/foo" should be able to ignore "Alice" by SMS
+    When "Alice" requests to follow "Bob/fooble" by SMS
+    Then "Bob/fooble" should be able to ignore "Alice" by SMS
 
   Scenario: Follower follows by SMS, followed accepts via web
-    When "Alice" requests to follow "Bob/foo" by SMS
+    When "Alice" requests to follow "Bob/fooble" by SMS
     And DJ cranks 5 times
-    Then "Bob/foo" should be able to accept "Alice" by web
+    Then "Bob/fooble" should be able to accept "Alice" by web
 
   Scenario: Follower follows by SMS, followed ignores via web
-    When "Alice" requests to follow "Bob/foo" by SMS
+    When "Alice" requests to follow "Bob/fooble" by SMS
     And DJ cranks 5 times
-    Then "Bob/foo" should be able to ignore "Alice" by web
+    Then "Bob/fooble" should be able to ignore "Alice" by web
 
   Scenario: Follower follows by web, followed accepts via SMS
-    When "Alice/bar" requests to follow "Bob/foo" by web
+    When "Alice/barley" requests to follow "Bob/fooble" by web
     And DJ cranks 5 times
-    Then "Bob/foo" should be able to accept "Alice" by SMS
+    Then "Bob/fooble" should be able to accept "Alice" by SMS
 
   Scenario: Follower follows by web, followed ignores via SMS
-    When "Alice/bar" requests to follow "Bob/foo" by web
+    When "Alice/barley" requests to follow "Bob/fooble" by web
     And DJ cranks 5 times
-    Then "Bob/foo" should be able to ignore "Alice" by SMS
+    Then "Bob/fooble" should be able to ignore "Alice" by SMS
 
   Scenario: Follower follows by web, followed accepts via web
-    When "Alice/bar" requests to follow "Bob/foo" by web
-    Then "Bob/foo" should be able to accept "Alice" by web
+    When "Alice/barley" requests to follow "Bob/fooble" by web
+    Then "Bob/fooble" should be able to accept "Alice" by web
 
   Scenario: Follower follows by web, followed ignores via web
-    When "Alice/bar" requests to follow "Bob/foo" by web
-    Then "Bob/foo" should be able to ignore "Alice" by web
+    When "Alice/barley" requests to follow "Bob/fooble" by web
+    Then "Bob/fooble" should be able to ignore "Alice" by web
 
   Scenario: Followed attempts to accept or ignore someone who did not request to follow
     When "+16175551212" sends SMS "yes"
@@ -75,8 +75,8 @@ Feature: User approves or ignores follower
     Then "+16175551212" should have received an SMS "Looks like you already responded to that request, or didn't have a request with that number"
 
   Scenario: Followed attempts to accept/ignore someone by SMS, then by web, and we head off a race condition
-    When "Alice" requests to follow "Bob/foo" by SMS
-    And I sign in via the login page with "Bob/foo"
+    When "Alice" requests to follow "Bob/fooble" by SMS
+    And I sign in via the login page with "Bob/fooble"
     Then I should see "Alice" as a pending follower
 
     When I go to the connections page
@@ -87,8 +87,8 @@ Feature: User approves or ignores follower
     And "+16175551212" should have received an SMS "OK, Alice is now your fan."
     And I should see "You've already accepted that person's request."
 
-    When "Clay" requests to follow "Bob/foo" by SMS
-    And I sign in via the login page with "Bob/foo"
+    When "Clay" requests to follow "Bob/fooble" by SMS
+    And I sign in via the login page with "Bob/fooble"
     Then I should see "Clay" as a pending follower
     When I go to the connections page
     And "+16175551212" sends SMS "no"
@@ -114,8 +114,8 @@ Feature: User approves or ignores follower
     And "+14155551212" should have received an SMS "Bob has approved your request to be a fan."
 
   Scenario: Fandom doesn't appear in activity feed until approved
-    When "Alice" requests to follow "Bob/foo" by SMS
-    And I sign in via the login page with "Bob/foo"
+    When "Alice" requests to follow "Bob/fooble" by SMS
+    And I sign in via the login page with "Bob/fooble"
     Then I should not see "Alice is now a fan of Bob"
 
     When "+16175551212" sends SMS "yes"
@@ -126,7 +126,7 @@ Feature: User approves or ignores follower
     Given the following accepted friendship exists:
       | user      | friend      |
       | name: Bob | name: Alice |
-    When I sign in via the login page with "Alice/bar"
+    When I sign in via the login page with "Alice/barley"
     And I go to the connections page
     And I fan "Bob"
     Then I should see "OK, you'll be a fan of Bob, pending their acceptance."
@@ -137,9 +137,9 @@ Feature: User approves or ignores follower
 
   @slow
   Scenario: User can approve multiple follow requests by SMS
-    When "Alice" requests to follow "Bob/foo" by SMS
-    And "Clay/baz" requests to follow "Bob/foo" by web
-    And "Don" requests to follow "Bob/foo" by SMS
+    When "Alice" requests to follow "Bob/fooble" by SMS
+    And "Clay/bazquux" requests to follow "Bob/fooble" by web
+    And "Don" requests to follow "Bob/fooble" by SMS
 
     When "+16175551212" sends SMS "yes"
     And I go to the activity page
@@ -149,7 +149,7 @@ Feature: User approves or ignores follower
     And I go to the activity page
     Then I should see "Don is now a fan of Bob"
 
-    When "Ed" requests to follow "Bob/foo" by SMS
+    When "Ed" requests to follow "Bob/fooble" by SMS
     And "+16175551212" sends SMS "yes 3"
     And I go to the activity page
     Then I should see "Ed is now a fan of Bob"

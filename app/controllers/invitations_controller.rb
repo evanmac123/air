@@ -2,7 +2,7 @@ class InvitationsController < ApplicationController
   skip_before_filter :authenticate
 
   layout 'external'
-  
+
   def new
     @invitation_request = InvitationRequest.new
   end
@@ -18,7 +18,7 @@ class InvitationsController < ApplicationController
       render "invalid_inviting_domain"
       return
     end
-      
+
     if @invitation_request.duplicate_email?
       render "duplicate_email"
       return
@@ -37,7 +37,7 @@ class InvitationsController < ApplicationController
     if referrer_id =~ /^\d+$/
       @user.game_referrer_id = referrer_id
     end
-    
+
     if @user
       unless @user == current_user
         flash.now[:success] = "You're now signed in."

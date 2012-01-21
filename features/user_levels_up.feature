@@ -24,15 +24,15 @@ Feature: User levels up
       | did good   | reply: good   |
       | did better | reply: better |
       | did best   | reply: best   |
-    And "Vlad" has password "foo"
-    And I sign in via the login page with "Vlad/foo"
+    And "Vlad" has password "foobar"
+    And I sign in via the login page with "Vlad/foobar"
 
   Scenario: User levels when hitting point threshold
     When "+14155551212" sends SMS "did good"
     And a decent interval has passed
     And DJ cranks 10 times
     And I go to the activity page
-    Then I should see "Level: level 1 (N00b)"
+    #Then I should see "Level: level 1 (N00b)"
     And "+14155551212" should have received an SMS "You've reached level 1 (N00b)!"
 
   Scenario: User levels multiply when passing multiple point thresholds
@@ -40,8 +40,9 @@ Feature: User levels up
     And a decent interval has passed
     And DJ cranks 10 times
     And I go to the activity page
-    Then I should see "Level: level 1 (N00b)"
-    Then I should see "Level: level 2 (Pawn)"
+    #Then I should see "Level: level 1 (N00b)"
+    #Then I should see "Level: level 2 (Pawn)"
+    And "+14155551212" should have received an SMS "You've reached level 1 (N00b)!"
     And "+14155551212" should have received an SMS "You've reached level 2 (Pawn)!"
 
   Scenario: User levels when passing point threshold
@@ -49,7 +50,7 @@ Feature: User levels up
     And a decent interval has passed
     And DJ cranks 10 times
     And I go to the activity page
-    Then I should see "Level: level 1 (N00b)"
+    # Then I should see "Level: level 1 (N00b)"
     And "+14155551212" should have received an SMS "You've reached level 1 (N00b)!"
 
   Scenario: User doesn't level when not passing point threshold
@@ -57,7 +58,7 @@ Feature: User levels up
     And a decent interval has passed
     And DJ cranks 10 times
     And I go to the activity page
-    Then I should not see "level 1 (N00b)"
+    # Then I should not see "level 1 (N00b)"
     And "+14155551212" should not have received an SMS including "level 1 (N00b)"
 
   Scenario: Levels are awarded retroactively on creation to people in the same demo
@@ -68,9 +69,10 @@ Feature: User levels up
     And a decent interval has passed
     And DJ cranks 5 times
     And I go to the activity page
-    Then I should see "Level: level 0 (usuk)"
+    # Then I should see "Level: level 0 (usuk)"
     And "+14155551212" should have received an SMS including "level 0 (usuk)"
     But "+14155551212" should not have received an SMS including "level 1 (N00b)"
-    And I should not see "level 1 (N00b)"
+    # And I should not see "level 1 (N00b)"
     And "+18085551212" should not have received an SMS including "level 0 (usuk)"
+    And "+18085551212" should not have received an SMS including "level 1 (N00b)"
 

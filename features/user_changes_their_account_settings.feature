@@ -8,8 +8,8 @@ Feature: User can edit their account settings
       | name  | phone number | email             | demo                      |
       | Phil  | +14155551212 | phil@example.com  | company_name: BigMachines |
       | Alice | +18085551212 | alice@example.com | company_name: BigMachines |
-    And "Phil" has the password "foo"
-    And I sign in via the login page with "Phil/foo"
+    And "Phil" has the password "foobar"
+    And I sign in via the login page with "Phil/foobar"
     And I go to the settings page for "Phil"
 
   Scenario: User changes SMS slug
@@ -88,7 +88,7 @@ Feature: User can edit their account settings
     And I should not see a form field called "Location"
   
   Scenario: User can choose notification by email
-    When I sign in via the login page with "Phil/foo"
+    When I sign in via the login page with "Phil/foobar"
     And I go to the settings page
     And I choose "Email"
     And I press the button to save notification settings
@@ -106,9 +106,9 @@ Feature: User can edit their account settings
       | name   | phone number | email              | demo                   |
       | Frank  | +18885551212 | frank@example.com  | company_name: CustomCo |
       | George | +18765551212 | george@example.com | company_name: CustomCo |
-    And "Frank" has the password "quux"
+    And "Frank" has the password "quuxstein"
 
-    When I sign in via the login page with "Frank/quux"
+    When I sign in via the login page with "Frank/quuxstein"
     And I go to the settings page
     And I choose "Email"
     And I press the button to save notification settings
@@ -119,7 +119,7 @@ Feature: User can edit their account settings
     But "+18885551212" should not have received any SMSes
 
   Scenario: User can choose notification by SMS
-    When I sign in via the login page with "Phil/foo"
+    When I sign in via the login page with "Phil/foobar"
     And I go to the settings page
     And I choose "SMS/text message"
     And I press the button to save notification settings
@@ -130,7 +130,7 @@ Feature: User can edit their account settings
     And "phil@example.com" should have no emails
 
   Scenario: User can choose notification by email and SMS
-    When I sign in via the login page with "Phil/foo"
+    When I sign in via the login page with "Phil/foobar"
     And I go to the settings page
     And I choose "Both"
     And I press the button to save notification settings
@@ -141,7 +141,7 @@ Feature: User can edit their account settings
     And "phil@example.com" should have received a follow notification email about "Alice"
 
   Scenario: User can choose notification by neither email nor SMS
-    When I sign in via the login page with "Phil/foo"
+    When I sign in via the login page with "Phil/foobar"
     And I go to the settings page
     And I choose "No notifications"
     And I press the button to save notification settings
@@ -200,6 +200,7 @@ Feature: User can edit their account settings
     And I press the button to save notification settings
     Then I should be on the settings page
     And I should see "Sorry, but that phone number has already been taken. Need help? Contact support@hengage.com"
+    And there should be a mail link to support in the flash
     And "Mobile Number" should have value "(415) 555-1212"
 
   Scenario: Nothing much happens if phone number is left unchanged

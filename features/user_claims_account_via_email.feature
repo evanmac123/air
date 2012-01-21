@@ -19,13 +19,13 @@ Feature: User claims account via email
     And I should see the profile page full URL for "Joe" in the email body
 
     When I click the first link in the email
-    And I fill in "Choose password" with "joey"
-    And I fill in "Confirm password" with "joey"
+    And I fill in "Choose password" with "joejums"
+    And I fill in "Confirm password" with "joejums"
     And I press "Save this password"
     Then I should be on the activity page
 
     When I sign out
-    And I sign in via the login page with "Joe/joey"
+    And I sign in via the login page with "Joe/joejums"
     Then I should be on the activity page
 
     When I go to the profile page for "Joe"

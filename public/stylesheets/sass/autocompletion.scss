@@ -11,6 +11,7 @@ $light_green: #87BF4E;
     top: 0px;
   }
 }
+
 #relative{
   /* this is relative so the child div will use it as a positioning reference*/
   position: relative;
@@ -18,12 +19,12 @@ $light_green: #87BF4E;
   width: $bin_width;
   top: -30px;
   left: -12px;
-}  
+}
 #suggestions{
-  position: absolute; 
+  position: absolute;
   .remove_referrer{
     display: none;
-  }  
+  }
   .single_suggestion:hover{
     background: aqua;
   }
@@ -34,6 +35,7 @@ $light_green: #87BF4E;
   bottom: -22px;
   width: 26ex;
   text-align: center;
+
 }
 .single_suggestion{
   background: tan;
