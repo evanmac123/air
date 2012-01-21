@@ -36,7 +36,12 @@ class InvitationsController < ApplicationController
     if @user
       unless @user == current_user
         flash.now[:success] = "You're now signed in."
+
         sign_in(@user)
+        cookies[:remember_token] = {
+          :value   => cookies[:remember_token],
+          :expires => 5.years.from_now
+        }
       end
 
       @locations = @user.demo.locations.alphabetical
