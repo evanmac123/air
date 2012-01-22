@@ -79,11 +79,7 @@ $(function() {
 
 
 
-<<<<<<< HEAD
 function autocompleteIfNoneRunning(options){
-=======
-function autocompleteIfNoneRunning(){
->>>>>>> origin/master
   //Only allow one request at a time
   //Allow queue size of one
   if (autocomplete_waiting){
