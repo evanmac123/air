@@ -19,21 +19,21 @@ Feature: User gives credit to game referer via autocomplete field
       | Bruce Springsteen  | company_name: Gleason   | 2@biker.com  | airairair | airairair   |
       | Barnaby Watson     | company_name: Gleason   | 3@biker.com  | mypeeps   | mypeeps     |
       | Charlie Moore      | company_name: Gleason   | 4@biker.com  | livingit  | livingit    |
-    
+
     Given the following claimed user exists:
       | name       | demo                    | email              | slug      | sms_slug    | phone_number |
       | Barnaby    | company_name: Bratwurst | claimed@hopper.com | smoke     | smoke       | +15554445555 |
-    
+
     Given "Barnaby" has the password "foobar"
     Given I sign in via the login page as "Barnaby/foobar"
-  
+
   @javascript
   Scenario:
     Then I should see "Invite your friends"
     When I fill in "Enter part of their name or email address" with "bra"
     Then I should see "Charlie Brainfield"
     When I select the suggestion containing "Charlie Brainfield"
-    
+
     And I press "Invite!"
     Then I should see "You just invited Charlie Brainfield to play H Engage"
     And DJ cranks 5 times
@@ -45,8 +45,8 @@ Feature: User gives credit to game referer via autocomplete field
     When I fill in "Enter your mobile number" with "2088834848"
     And I fill in "Enter your name" with "Blowing Smoke"
     And I fill in "Choose a unique ID" with "somereallylongtextstring"
-    And I fill in "Choose a password" with "pass"
-    And I fill in "And confirm that password" with "pass"
+    And I fill in "Choose a password" with "password"
+    And I fill in "And confirm that password" with "password"
     And I press "Join the game"
     And I wait a second
     Then I should see "Brought to you by"
@@ -54,5 +54,3 @@ Feature: User gives credit to game referer via autocomplete field
     And DJ cranks 5 times
     And I dump all sent texts
     And "+15554445555" should have received SMS "Blowing Smoke gave you credit for referring them to the game. Many thanks and 2000 bonus points!"
-    
-    
