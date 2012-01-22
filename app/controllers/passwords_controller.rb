@@ -4,6 +4,9 @@ class PasswordsController < Clearance::PasswordsController
 
   before_filter :force_html_format
   before_filter :downcase_email
+  layout 'external'
+
+
 
   def edit
     @user = ::User.find_by_slug_and_confirmation_token(
@@ -24,6 +27,7 @@ class PasswordsController < Clearance::PasswordsController
       render :template => 'passwords/edit'
     end
   end
+
 
   protected
 

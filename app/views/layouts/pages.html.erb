@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <title>H Engage</title>
   <%= stylesheet_link_tag :flutie, 'screen', 'marketing' %>
-  
+
   <!--[if IE 7]>
     <%= stylesheet_link_tag 'ie7hacks' %>
   <![endif]-->
@@ -62,6 +62,6 @@
   <% end %>
 
   <%= yield :javascript %>
-  <%=# yield :slow_javascript %>
+  <%= yield :slow_javascript %>
 </body>
 </html>
