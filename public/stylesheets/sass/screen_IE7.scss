@@ -1,19 +1,50 @@
-/* ---------- customizations ---------- */
-$header-bg:#0673b1;
+@import "standard";
 
 .mast_top {
 	padding-bottom:0!important;
 	a.a_current {
 		border:1px lighten($header-bg, 10%) solid!important;
 	}
+	.navigation {
+		width: 550px!important;
+	}
 }
 .mast_bottom {
 	.bar_progress {
 		.bar {
 			.progress {
-				position:relative;
-				top:9px;
+				position:absolute;
 			}
+		}
+	}
+}
+
+.suggested-task {
+	background-color: #5e6166!important;
+//	background-image: url('/images/v3/texture.png')!important;
+//	border: 1px #4B4E51 solid!important;
+	box-shadow: 0 0 3px 2px white;
+	behavior: url(/css3pie/PIE.htc);
+	div {
+		background-color: #47484C!important;
+		border-radius: 3px;
+		clear: both;
+		behavior: url(/css3pie/PIE.htc);
+	}
+	p.dose-title {
+		float: left;
+	}
+	p.dose-descript {
+		float: left;
+	}
+}
+
+.feeds {
+	#acts {
+		.act-details {
+			margin-left:0px;
+			position: absolute;
+			width: 87%;
 		}
 	}
 }

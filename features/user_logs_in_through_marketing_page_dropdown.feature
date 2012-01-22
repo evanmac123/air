@@ -14,4 +14,5 @@ Feature: Marketing page login dropdown works
    And I press the "go" button in the login dropdown
    Then I should be on the activity page
    And I should not see "Signed in."
-   But I should see "Recent Activity"
+
+   And I should not see "Your game begins on May 01, 2011 at 12:00 AM Eastern"

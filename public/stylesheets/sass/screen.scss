@@ -13,12 +13,25 @@ body {
 	.container {
 		@include bg-white;
 		@include headings;
-		@include input-text; 
-		@include button-norm;
+		@include input-text;
+		input[type="submit"].button_norm {
+			@include button-norm;
+			font-weight: bold;
+			letter-spacing: .5px;
+			&:active {
+				color:lighten($header-bg, 45%)!important;
+			}
+		}
 		margin:$centered;
 		padding:$gutter;
 		width:960px;
 	}
+}
+/* -- nav active states -- */
+.acts .header .navigation .nav-home, .users .header .navigation .nav-profile {
+	@include bg-black;
+	@include rounded-nav;
+	border:1px lighten($header-bg, 10%) solid;
 }
 
 /* --------------------------- home/activities/dashboard --------------------------- */
@@ -48,6 +61,7 @@ body.acts {
 				a {border:1px #007563 solid;}
 			}
 			.suggested-task {
+				@include bg-game-default;
 				@include rounded;
 				color:#fff;
 				margin-bottom: 10px;
@@ -61,6 +75,7 @@ body.acts {
 					float:right;
 					font-family:$gotham;
 					font-size:12px;
+					font-weight: bold;
 					padding:3px 10px;
 					position:relative;
 					text-transform:uppercase;
@@ -70,9 +85,9 @@ body.acts {
 					}
 				}
 				div.gradient {
+					@include bg-game-default-rev;
 					@include rounded;
-					color:$light-gray;
-					font-size:12px;
+					font-size:13px;
 					margin-top:15px;
 					padding:10px;
 				}
@@ -113,10 +128,72 @@ body.acts {
 				li {
 					@include button-norm;
 					display:inline;
+					font-size: 11px;
 					margin-right:10px;
 					a {
 						color:#fff;
+						&:active {
+							color:lighten($header-bg, 45%)!important;
+						}
 					}
+				}
+			}
+			.act {
+				border-bottom: 1px $light-gray solid;
+				clear: both;
+				padding: 13px 0;
+				
+				.act-details {	
+					float: left;
+					margin-left: 20px;
+					width: 87%;
+					
+					.description {
+						width: 80%;
+					}
+					.points {
+						color: $gray;
+						float: right;
+						font-size: 18px;
+						font-weight: bold;
+						width: 75px;
+					}
+					.user {
+						a {
+							color: $header-bg;
+							font-size: 14px;
+							font-weight: bold;
+							&:hover {color:lighten($header-bg, 10%);}
+							&:active {color:$dark-gray;}
+						}
+					}
+					.when {
+						color: $gray;
+						font-size: 12px;
+						width: 80%;
+					}
+				}
+				.avatar43 {
+					@include rounded;
+					border: 1px $light-gray solid;
+					float: left;
+					height: 50px;
+					width: 50px;
+					
+					img {
+						@include rounded;
+						height: 100%;
+						width: 100%;
+					}
+				}
+			}
+			
+			form {
+				margin-top: 15px;
+				
+				#see-more {
+					border: 1px red solid;
+					background: black;
 				}
 			}
 		}
@@ -127,8 +204,9 @@ body.acts {
 	}
 }
 
-
 /* --------------------------- settings --------------------------- */
+
+/* @end */
 
 body.settings {
 	.container {
@@ -143,7 +221,19 @@ body.settings {
 					margin-right:10px;
 					width:100px;
 				}
-
+				.avatar_inputs {
+					.clear-avatar {
+						input {
+							background: $light-gray!important;
+							color: $gray;
+							text-shadow: none!important;
+							&:hover {
+								background:$header-bg!important;
+								color: #fff;
+							}
+						}
+					}
+				}
 				img.size-96 {
 		          width: 96px;
 		          height: 96px;
@@ -170,6 +260,9 @@ body.settings {
 			font-size:$font-small;
 			width:47%;
 			input[type="text"] {width:427px;}
+			
+			.settings_new_number_verification {
+			}
 		}
 		
 		label {display:inline;}

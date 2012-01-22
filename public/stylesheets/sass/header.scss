@@ -4,13 +4,6 @@
 $dark:darken($header-bg, 10%); 
 $light:lighten($header-bg, 10%);
 
-/* -- nav active states -- */
-.acts .header .navigation .nav-home, .users .header .navigation .nav-profile {
-	@include bg-black;
-	@include rounded-nav;
-	border:1px lighten($header-bg, 10%) solid;
-}
-
 /* ---------- masthead ---------- */
 .header {
 	background-color:$dark-gray;
@@ -21,12 +14,17 @@ $light:lighten($header-bg, 10%);
 	a {
 		color:#fff;
 		&:hover {color:lighten($header-bg, 50%)!important;}
+		&:active {
+			color:$dark-gray!important; 
+			text-shadow: none!important;
+		}
 	}
 	li {display:inline;}
 	
 	.app_bar {
 		color:$gray;
 		font-size:$font-small;
+		font-weight: 500;
 		height:23px;
 		margin:$centered;
 		padding:7px $gutter 0 $gutter;
@@ -65,7 +63,7 @@ $light:lighten($header-bg, 10%);
 				margin-top:5px;
 				
 				img {
-					width:140px;
+					width:130px;
 				}
 			}
 			.welcome {
@@ -93,7 +91,6 @@ $light:lighten($header-bg, 10%);
 			}
 			.navigation {
 				float:right;
-				font-size:15px;
 				left:15px;
 				margin:2% 0 0 0;
 				position:relative;
@@ -103,6 +100,8 @@ $light:lighten($header-bg, 10%);
 					display:block;
 					float:left;
 					font-family:$gotham;
+					font-size:15px;
+					letter-spacing: 1px;
 					padding:6px 15px;
 				}
 			}
@@ -119,7 +118,6 @@ $light:lighten($header-bg, 10%);
 			li.help_progress {padding-right:205px;}
 		}
 		.mast_bottom {
-			/* IF IE, USE BACKGROUND IMAGE */
 			@include bg-progressbar;
 			@include rounded-progress;
 			border:1px darken($header-bg, 10%) solid;
@@ -173,6 +171,7 @@ $light:lighten($header-bg, 10%);
 					float:right;
 					font-family:$gotham;
 					font-size:14px;
+					font-weight: bold;
 					height:35px;
 					left:-15px;
 					margin-top:10px;
@@ -212,6 +211,7 @@ $light:lighten($header-bg, 10%);
 					height:35px;
 					margin:9px 0 0 35px;
 					overflow:hidden;
+					position: absolute;
 					width:360px;
 					
 					.progress {
@@ -247,6 +247,7 @@ $light:lighten($header-bg, 10%);
 					font-size:$font-small;
 					margin:13px 0 0 -10px;
 					padding:0;
+					text-align: right;
 					text-shadow:none;
 					text-transform:uppercase;
 					width:60px;
@@ -255,7 +256,7 @@ $light:lighten($header-bg, 10%);
 					color:#ffb901;
 					float:right;
 					font-size:30px;
-					margin:7px 10px 0 0;
+					margin:7px 25px 0 0;
 					text-shadow:1px 1px 1px $dark-gray;
 				}
 			}

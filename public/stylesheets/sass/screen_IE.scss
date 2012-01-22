@@ -1,44 +1,63 @@
+/* TIPS: - using any bg images will not allow IE7 to also do rounded corners/boards or hover states */
+/* and they will overlap on top of the borders */
 @import "standard";
 
 @mixin ie-bg-black {
 	background-color:#404040!important;
 	background-image:url('/images/v3/bg-black.png')!important;
 	background-repeat:repeat-x!important;
+	background-position:center center;
 }
 
 @mixin ie-bg-black-rev {
 	background-color:#2e2f2d!important;
 	background-image:url('/images/v3/bg-black-rev.png')!important;
 	background-repeat:repeat-x!important;
+	background-position:center center!important;
 }
-
 @mixin ie-bg-orange {
+	background-color:transparent!important;
+	background-color:#ffd04b;
+	background-image:url('/images/v3/bg-orange.png')!important;
+	background-position:center center!important;
+}
+@mixin ie-bg-orange-btn {
 	background-color:transparent!important;
 	background-image:url('/images/v3/btn_play.png')!important;
 	background-repeat:no-repeat!important;
-	
-//	background-color:#ffd04b;
-//	background-image:url('/images/v3/bg-orange.png');
 	background-repeat:no-repeat;
 }
+@mixin ie-bg-orange-btn-down {
+	background-color:transparent!important;
+	background-image:url('/images/v3/btn_play_down.png')!important;
+	background-repeat:no-repeat!important;
+	background-repeat:no-repeat;
+}
+
 
 .header {
 	.mast_top {
 		.navigation a.a_current {
+		//	background-color:#404040;
+		//	border:0!important;
 			@include ie-bg-black;
 		}	
 	}
 	.mast_bottom {
 		.bar_command { 
 			input[type="submit"] {
-				@include ie-bg-orange;
+				@include ie-bg-orange-btn;
+				color:#3b3b3b!important;
 				padding-top:0px!important;
+				&:hover {
+					@include ie-bg-orange-btn-down;
+					color:#fff!important;
+				}
 			}
 		}
 		.bar_progress {
 			.bar {
 				.progress {
-					
 				}
 			}
 		}
@@ -49,5 +68,45 @@
 }
 
 input[type="submit"].button_norm {
-	@include ie-bg-black-rev;
+	background-color:#404040;
+/*	@include ie-bg-black-rev;
+	&:hover{
+		background:red!important;
+	} */
+}
+
+.suggested-task {
+	a {
+		@include ie-bg-orange;
+//		background-color:#ff9707;
+		color:#3b3b3b!important;
+		&:hover {
+			@include ie-bg-black-rev;
+			color:#fff!important;
+		}
+	}
+	div {
+		margin:0;
+		padding:0;
+	}
+}
+
+.feeds {
+	ul.tabs {
+		li {
+			background-color:#404040;
+		}
+	}
+	
+	#acts {
+		margin-top: 0!important;
+		position: relative;
+		top: -10px;
+	}
+	.act {
+		padding: 7px 0 10px 0!important;
+	}
+	.act-shim {
+		display: none;
+	}
 }
