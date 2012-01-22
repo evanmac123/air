@@ -1,6 +1,12 @@
 .clear {
   clear: both; }
 
+#search_for_friends_to_invite {
+  width: 378px;
+  height: 200px; }
+  #search_for_friends_to_invite #relative {
+    top: 0px; }
+
 #relative {
   /* this is relative so the child div will use it as a positioning reference*/
   position: relative;
@@ -18,8 +24,10 @@
 
 .remove_referrer {
   position: absolute;
-  right: 0px;
-  bottom: -22px; }
+  right: -2px;
+  bottom: -22px;
+  width: 26ex;
+  text-align: center; }
 
 .single_suggestion {
   background: tan;
@@ -44,5 +52,8 @@
 .image {
   padding-right: 10px; }
 
-.selected_referrer_id {
+.suggested_user_id {
+  display: none; }
+
+#submit_invite_friend {
   display: none; }

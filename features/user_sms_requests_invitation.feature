@@ -18,6 +18,7 @@ Feature: User requests an invitation via SMS
     And I should see "Name"
     And I should see "email@example.com"
 
+
   Scenario: We remember that user's phone number is pre-confirmed even if the acceptance process takes several tries
     When "email@example.com" opens the email
     And they click the first link in the email

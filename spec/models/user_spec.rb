@@ -23,7 +23,7 @@ describe User do
     User.delete_all
     ActionMailer::Base.deliveries.clear
   end
-  
+
   it { should validate_numericality_of(:height).with_message("Please use a numeric value for your height, and express it in inches") }
 
   it "should validate uniqueness of phone number when not blank" do
@@ -87,13 +87,13 @@ describe User do
     user.trying_to_accept = true
     user.should_not be_valid
   end
-  
+
   it "should allow multiple users, each with the same (blank) sms slugs" do
     Factory(:user, :sms_slug => '')
     user = Factory.build(:user, :sms_slug => '')
     user.should be_valid
   end
-  
+
   it "should send an invitation if sms email is valid" do
       user_or_phone = "blah"
       domain = Factory(:self_inviting_domain).domain
@@ -173,11 +173,11 @@ describe User do
   before do
     User.delete_all
   end
-  
+
   it "should validate the presence of name only if trying to accept now or if already accepted" do
-  
+
   end
-  
+
   it "should not require a slug if there is no name" do
     a = Factory.build(:user, :name => "")
     a.should be_valid
@@ -190,14 +190,14 @@ describe User do
     a.slug.should == "present"
     a.sms_slug.should == "present"
   end
-  
-  
+
+
   it "should create slugs when you create" do
     a = Factory(:user, :name => "present")
     a.slug.should == "present"
     a.sms_slug.should == "present"
   end
-  
+
   it "should validate the uniqueness of :slug if name is present" do
     a = Factory.build(:user, :name =>"present", :slug => "areallylongstring", :sms_slug => "areallylongstring")
     a.should be_valid
@@ -307,7 +307,8 @@ describe User, "#invite" do
     end
 
     it "sends invitation to user" do
-      Mailer.should     have_received(:invitation).with(subject)
+      Delayed::Worker.new.work_off(10)
+      Mailer.should     have_received(:invitation).with(subject, nil)
       invitation.should have_received(:deliver)
     end
 

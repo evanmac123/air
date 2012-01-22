@@ -9,7 +9,7 @@ class Invitation::AcceptancesController < ApplicationController
   def update
     # Set this as true so presence of name is validated
     @user.trying_to_accept = true 
-    
+
     @user.attributes = params[:user]
     @user.slug = params[:user][:sms_slug]
     # the below calls @user#save, so we don't save explicitly
@@ -22,6 +22,10 @@ class Invitation::AcceptancesController < ApplicationController
     unless @user.accepted_invitation_at
       @user.join_game(params[:user][:phone_number], :send) 
       flash[:success] = "Welcome to the game! Players' activity is below to the left. The scoreboard is below to the right."
+    end
+    
+    unless @user.game_referrer_id.nil?
+      SpecialCommand.credit_game_referrer(@user, User.find(@user.game_referrer_id))
     end
 
     redirect_to "/activity"

@@ -7,7 +7,7 @@
   <link rel="stylesheet" type='text/css' href='https://getbarometer.s3.amazonaws.com/assets/barometer/css/barometer.css'/>
   <%= stylesheet_link_tag 'barometer_tweaks' %>
   <%= stylesheet_link_tag 'autocompletion' %>
-  
+
   <%= csrf_meta_tag %>
   <%= render 'shared/mixpanel' %>
 </head>
@@ -23,7 +23,7 @@
           <!-- TODO: Fix current link -->
           <li><%= link_to "Home", "/", :class => "nav-links" %></li>
           <li><%= link_to "Sign Up", new_invitation_path, :class => "nav-links nav-current" %></li>
-          <li><%= link_to "Log In", sign_in_path, :class => "nav-links" %></li>
+          <li><%= link_to "Log In", sign_in_path, :class => "nav-links", :id => "activate-login-form" %></li>
 				</ul>
 			</div>
 			<div class="cf"></div>

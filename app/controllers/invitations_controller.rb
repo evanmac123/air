@@ -2,7 +2,7 @@ class InvitationsController < ApplicationController
   skip_before_filter :authenticate
 
   layout 'external'
-  
+
   def new
     @invitation_request = InvitationRequest.new
   end
@@ -18,7 +18,7 @@ class InvitationsController < ApplicationController
       render "invalid_inviting_domain"
       return
     end
-      
+
     if @invitation_request.duplicate_email?
       render "duplicate_email"
       return
@@ -31,6 +31,11 @@ class InvitationsController < ApplicationController
       @user = User.find(params[:user_id])
     else
       @user = User.find_by_invitation_code(params[:id])
+    end
+
+    referrer_id = params[:referrer_id]
+    if referrer_id =~ /^\d+$/
+      @user.game_referrer_id = referrer_id
     end
 
     if @user

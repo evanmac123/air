@@ -2,9 +2,11 @@ class PasswordsController < Clearance::PasswordsController
   # We monkeypatch this stuff since the regular Clearance::PasswordsController
   # expects us to identify users by ID, when we're actually using the slug.
 
-  before_filter :set_new_appearance
   before_filter :force_html_format
   before_filter :downcase_email
+  layout 'external'
+
+
 
   def edit
     @user = ::User.find_by_slug_and_confirmation_token(
@@ -26,6 +28,7 @@ class PasswordsController < Clearance::PasswordsController
     end
   end
 
+
   protected
 
   def forbid_non_existent_user
@@ -46,9 +49,7 @@ class PasswordsController < Clearance::PasswordsController
     end
   end
 
-  def set_new_appearance
-    @new_appearance = true
-  end
+
 
   def flash_success_after_create
     # No "Signed in" message

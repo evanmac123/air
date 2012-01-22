@@ -4,6 +4,14 @@ $light_green: #87BF4E;
 .clear{
   clear: both;
 }
+#search_for_friends_to_invite{
+  width: $bin_width;
+  height: 200px;
+  #relative{
+    top: 0px;
+  }
+}
+
 #relative{
   /* this is relative so the child div will use it as a positioning reference*/
   position: relative;
@@ -11,20 +19,23 @@ $light_green: #87BF4E;
   width: $bin_width;
   top: -30px;
   left: -12px;
-}  
+}
 #suggestions{
-  position: absolute; 
+  position: absolute;
   .remove_referrer{
     display: none;
-  }  
+  }
   .single_suggestion:hover{
     background: aqua;
   }
 }
 .remove_referrer{
   position: absolute;
-  right: 0px;
+  right: -2px;
   bottom: -22px;
+  width: 26ex;
+  text-align: center;
+
 }
 .single_suggestion{
   background: tan;
@@ -50,6 +61,9 @@ $light_green: #87BF4E;
 .image{
   padding-right: 10px;
 }
-.selected_referrer_id{
+.suggested_user_id{
+  display: none;
+}
+#submit_invite_friend{
   display: none;
 }

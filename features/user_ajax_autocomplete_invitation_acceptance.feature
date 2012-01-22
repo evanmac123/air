@@ -30,23 +30,23 @@ Feature: User gives credit to game referer via autocomplete field
     And I should see "Your Email Address"
 
   @javascript
-  Scenario: User sees the charlie from her own game when entering name 'har' 
+  Scenario: User sees the charlie from her own game when entering name 'har'
     When I fill in "Whom can we thank for referring you?" with "har"
     Then I should see "Charlie Brainfield"
     And I should not see "Charlie Moore"
-    
+
   @javascript
-  Scenario: User sees no users at all if text only matches other company_s email 
+  Scenario: User sees no users at all if text only matches other company_s email
     When I fill in "Whom can we thank for referring you?" with "bike"
     Then I should not see "Bruce Springsteen"
     And I should not see "Barnaby Bueller"
-    
+
   @javascript
   Scenario: User sees users from her own game when searching on slug
     When I fill in "Whom can we thank for referring you?" with "air"
     Then I should see "Charlie Brainfield"
     And I should not see "Bruce Springsteen"
-    
+
   @javascript
   Scenario: Field is populated with what the user clicks on
     When I fill in "Whom can we thank for referring you?" with "barnaby"
@@ -61,15 +61,15 @@ Feature: User gives credit to game referer via autocomplete field
     I should see "new_user@hopper.com"
     When I press "Join the game"
     Then I should see "new_user@hopper.com"
-  
-  @javascript  
+
+  @javascript
   Scenario: When I select a referrer, then submit with errors, the referrer is still there
     When I fill in "Whom can we thank for referring you?" with "barnaby"
     Then I should see "Barnaby Bueller"
     When I select the suggestion containing "Barnaby Bueller"
     And I press "Join the game"
     Then I should see "Barnaby Bueller"
-    
+
   @javascript
   Scenario: User can change her mind about which user referred her
   When I fill in "Whom can we thank for referring you?" with "barnaby"
@@ -78,7 +78,7 @@ Feature: User gives credit to game referer via autocomplete field
   And I follow "Clear user"
   # And I wait a second
   Then "Barnaby Bueller" should not be visible
-  
+
   @javascript
   Scenario: Game referrer id gets saved to database
   When I fill in "Whom can we thank for referring you?" with "barnaby"
@@ -93,4 +93,3 @@ Feature: User gives credit to game referer via autocomplete field
   And I wait a second
   Then I should see "Brought to you by"
   Then user with email "new_user@hopper.com" should show up as referred by "Barnaby Bueller"
-

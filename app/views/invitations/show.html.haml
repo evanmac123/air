@@ -1,16 +1,16 @@
-- content_for :status do 
-  - if flash[:failure].present? 
-    = flash[:failure] 
-  - else 
+- content_for :status do
+  - if flash[:failure].present?
+    = flash[:failure]
+  - else
 
     - if @user.invitation_requested_via_sms?
       %h2 Welcome to H Engage
-      %p.explanation= translate('.explanation', :default => "We just need a few details from you so we can get started.") 
+      %p.explanation= translate('.explanation', :default => "We just need a few details from you so we can get started.")
     - else
       %h2= "Welcome to H Engage"
       %p.explanation= translate('.explanation', :default => "Ready to play? Just enter your mobile number and choose a password. We'll send you an SMS with instructions to get you started.")
 
-= form_for @user, :url => invitation_acceptance_path(:user_id => @user.id), :id => "signup-form", :builder => FancyFormBuilder do |f| 
+= form_for @user, :url => invitation_acceptance_path(:user_id => @user.id), :id => "signup-form", :builder => FancyFormBuilder do |f|
   %ul
     = f.hidden_field :email, :value => @user.email
     - if @user.invitation_requested_via_sms?
@@ -18,39 +18,43 @@
       %ul.form-section
         %li.form-label Your Phone Number: #{@user.phone_number.as_pretty_phone}
       %ul.form-section
-        %li.form-label 
+        %li.form-label
           Your Email Address:
           #new_user_email
             = @user.email
 
     - elsif @user.invitation_requested_via_email? || @user.invitation_requested_via_web?
+
+      = f.hidden_field :email, :value => @user.email
+
       %ul.form-section
         %li.form-label Your Email Address: #{@user.email}
-      = f.fancy_text_field :phone_number, :label_text => "Enter your mobile number"      
+      = f.fancy_text_field :phone_number, :label_text => "Enter your mobile number"
     - else
-      = f.fancy_text_field :phone_number, :label_text => "Enter your mobile number"      
-    = f.fancy_text_field :name, :label_text => "Enter your name" 
+      = f.fancy_text_field :phone_number, :label_text => "Enter your mobile number"
+    = f.fancy_text_field :name, :label_text => "Enter your name"
     = f.fancy_text_field :sms_slug, :label_text => "Choose a unique ID"
-    %ul.form-section
-      %li.form-label= label_tag :search_for_referrer,  "Whom can we thank for referring you?"
-      %li.form-input
-        = f.hidden_field :game_referrer_id, :class => "form-input"
-        - if @user.game_referrer_id
-          - @matched_users = User.where(:id => @user.game_referrer_id)
-          = render  :template => "invitation/autocompletions/index"
-        - else
-          = text_field_tag :search_for_referrer
-    #relative  
-      #suggestions
-    
+    #search_for_referrer
+      %ul.form-section
+        %li.form-label= label_tag :autocomplete,  "Whom can we thank for referring you?"
+        %li.form-input
+          = f.hidden_field :game_referrer_id, :class => "form-input"
+          - if @user.game_referrer_id
+            - @matched_users = User.where(:id => @user.game_referrer_id)
+            = render  :template => "invitation/autocompletions/index"
+          - else
+            = text_field_tag :autocomplete
+      #relative
+        #suggestions
 
 
-    - if @locations.present? 
-      - location_select_html = collection_select :user, :location_id, @locations, :id, :name, :value => nil, :include_blank => "Please choose a location"  
-      = f.fancy_content :location_id, location_select_html, :label_text => "Location" 
 
-    = f.fancy_password_field :password, :label_text => "Choose a password" 
-    = f.fancy_password_field :password_confirmation, :label_text => "And confirm that password" 
+    - if @locations.present?
+      - location_select_html = collection_select :user, :location_id, @locations, :id, :name, :value => nil, :include_blank => "Please choose a location"
+      = f.fancy_content :location_id, location_select_html, :label_text => "Location"
+
+    = f.fancy_password_field :password, :label_text => "Choose a password"
+    = f.fancy_password_field :password_confirmation, :label_text => "And confirm that password"
 
     %ul.form-section.signup-submit
       %li

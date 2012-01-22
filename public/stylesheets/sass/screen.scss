@@ -13,7 +13,7 @@ body {
 	.container {
 		@include bg-white;
 		@include headings;
-		@include input-text;
+		@include input-text; 
 		@include button-norm;
 		margin:$centered;
 		padding:$gutter;

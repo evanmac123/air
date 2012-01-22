@@ -39,8 +39,9 @@
 		<div class="mast_bottom">
       <div class="bar_section bar_command">
         <%= form_tag acts_path do %>
-          <input type="text" name="act[code]" placeholder="What did you do or eat?" />
-          <input type="submit" value="Play" />
+          <% game_enabled = @game_pending ? " disabled='true' " : "" %>
+          <input type="text" name="act[code]" placeholder="What did you do or eat?" <%= game_enabled %>/>
+          <input type="submit" value="Play" <%= game_enabled %> />
         <% end %>
 			</div>
 			<div class="bar_section bar_progress">

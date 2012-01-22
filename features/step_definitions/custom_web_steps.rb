@@ -1,4 +1,4 @@
-# This file is for utility steps about the rendered output, things that would 
+# This file is for utility steps about the rendered output, things that would
 # not be out of place in web_steps.rb. We don't want to edit that file
 # directly, so here we are.
 
@@ -13,7 +13,7 @@ When /^I set the datetime selector for "(.*?)" to "(.*?)"$/ do |prefix, date_str
   year, month, day, time = date_string.split
   hour, minute = time.split(/:/)
   _prefix = prefix.gsub(/\s+/, '_')
-  # This isn't great code, but it works, and how much time is it worth 
+  # This isn't great code, but it works, and how much time is it worth
   # spending on this?
   select year, :from => "#{_prefix}[year]"
   select month, :from => "#{_prefix}[month]"
@@ -216,10 +216,6 @@ Then /^I should not see a form field called "([^"]*)"$/ do |field_name|
   end
 end
 
-Then /^"([^"]*)" should be chosen$/ do |expected_checked_field|
-  page.should have_checked_field(expected_checked_field)
-end
-
 When /^I wait a second$/ do
   sleep 1
 end
@@ -230,7 +226,11 @@ Then /^user with email "([^"]*)" should show up as referred by "([^"]*)"$/ do |e
   raise "name does not match" unless referrer.name == name_passed_in
 end
 
+Then /^"([^"]*)" should be chosen$/ do |expected_checked_field|
+  page.should have_checked_field(expected_checked_field)
+end
+
+
 Then /^(I should see|there should be) a mail link to support in the status area$/ do |_nothing|
   find(:css, %{.status a[@href="mailto:support@hengage.com"]}).should_not be_nil
 end
-

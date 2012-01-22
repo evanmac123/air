@@ -16,6 +16,8 @@ Health::Application.routes.draw do
     resource :resend
     resource :acceptance
     get "autocompletion" => "autocompletions#index", :as => "autocompletion"
+    post "invite_friend" => "friend_invitations#create", :as => "invite_friend"
+
   end
 
   resources :acts,        :only => [:index, :create]

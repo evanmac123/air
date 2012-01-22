@@ -7,6 +7,5 @@
       .bit= u.email
       .bit= u.slug
     .clear
-    .selected_referrer_id= u.id
-    = link_to 'Clear user', '#', :class => 'remove_referrer'
-    
+    .suggested_user_id= u.id
+    = link_to 'Clear user', '#', :class => "remove_referrer"

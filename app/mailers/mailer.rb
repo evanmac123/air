@@ -1,9 +1,14 @@
 class Mailer < ActionMailer::Base
   default :from => "vlad@hengage.com"
 
-  def invitation(user)
+  def invitation(user, referrer = nil)
     @user = user
-
+    @referrer = referrer
+    if @referrer
+      @referrer_params = "?referrer_id=#{@referrer.id}"
+    else
+      @referrer_params = ''
+    end
     mail :to      => user.email,
          :subject => "Invitation to demo H Engage"
   end

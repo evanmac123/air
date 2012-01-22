@@ -65,9 +65,9 @@ class User < ActiveRecord::Base
         set_slugs_based_on_name if self.slug.blank? || self.sms_slug.blank?
       end
     end
-  end  
-  
-  
+  end
+
+
   before_validation do
     downcase_sms_slug if slug_required
   end
@@ -103,7 +103,7 @@ class User < ActiveRecord::Base
 
   attr_accessor :trying_to_accept
   attr_protected :is_site_admin, :invitation_method
-  
+
   has_alphabetical_column :name
 
   def update_password_with_blank_forbidden(password, password_confirmation)
@@ -228,7 +228,7 @@ class User < ActiveRecord::Base
   def invitation_requested_via_web?
     self.invitation_method == "web"
   end
-  
+
   def confirm_new_phone_number
     self.phone_number = self.new_phone_number
     self.new_phone_number = ""
@@ -265,8 +265,8 @@ class User < ActiveRecord::Base
     where("phone_number IS NOT NULL AND phone_number != ''")
   end
 
-  def invite
-    Mailer.delay.invitation(self)
+  def invite(referrer = nil)
+    Mailer.delay.invitation(self, referrer)
     update_attribute(:invited, true)
   end
 
@@ -321,9 +321,9 @@ class User < ActiveRecord::Base
     User.first(:conditions => ["slug = ? OR sms_slug = ?", possible_slug, possible_slug],
                :order      => "created_at desc")
   end
-  
-  
-  def set_slugs_based_on_name  
+
+
+  def set_slugs_based_on_name
     cleaned = name.remove_mid_word_characters.
                 remove_non_words.
                 downcase.
@@ -607,12 +607,12 @@ class User < ActiveRecord::Base
     end
     return nil
   end
-  
+
   def self.self_inviting_domain(email)
     domain = get_domain_from_email(email)
     SelfInvitingDomain.where(:domain => domain).first
   end
-  
+
   def self.get_domain_from_email(email)
     return nil unless email.strip =~ /^[a-zA-Z0-9_]+@([a-zA-Z0-9_]+.[a-zA-Z]{2,3})$/
     domain = $1
@@ -630,7 +630,7 @@ class User < ActiveRecord::Base
     # slug required if there is a name
     self.name.present?
   end
-  
+
   def downcase_email
     self.email = email.to_s.downcase
   end
@@ -853,10 +853,10 @@ class User < ActiveRecord::Base
 
   def not_all_demographics_previously_present?
     DEMOGRAPHIC_FIELD_NAMES.any? do |demographic_field_name|
-      !changed.include?(demographic_field_name) 
+      !changed.include?(demographic_field_name)
     end
   end
-  
+
   def self.get_users_where_like(text, demo, attribute)
     User.where("LOWER(#{attribute}) like ?", "%" + text + "%").where(:demo_id => demo.id )
   end

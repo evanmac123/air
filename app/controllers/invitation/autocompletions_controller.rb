@@ -1,11 +1,16 @@
 class Invitation::AutocompletionsController < ApplicationController
   skip_before_filter :authenticate
-
   def index
-    email = params[:email].strip.downcase
-    domain = User.get_domain_from_email(email)
-    self_inviting_domain = SelfInvitingDomain.where(:domain => domain).first
-    demo = self_inviting_domain.demo
+      if current_user # This means you're logged in and want to find invitees
+      demo = current_user.demo
+    else            # This means you're trying to sign up and want ot locate a referrer
+      email = params[:email].strip.downcase
+      domain = User.get_domain_from_email(email)
+      self_inviting_domain = SelfInvitingDomain.where(:domain => domain).first
+      demo = self_inviting_domain.demo
+    end
+
+
     text = params[:entered_text].strip.downcase
     names  = User.get_users_where_like(text, demo, "name")
     slugs  = User.get_users_where_like(text, demo, "slug")
@@ -18,7 +23,11 @@ class Invitation::AutocompletionsController < ApplicationController
       @matched_users << e unless @matched_users.include? e
     end
     @matched_users = @matched_users[0,5]
+
+
     render :layout => false
   end
+
+
 
 end 
