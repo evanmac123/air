@@ -778,16 +778,19 @@ class User < ActiveRecord::Base
     )
 
     points_denominator_before_referring_act = referring_user.points_denominator
+    points_earned_by_referring = (rule.referral_points) || (rule.points / 2)
+    points_phrase = points_earned_by_referring == 1 ? "1 point" : "#{points_earned_by_referring} points"
 
     Act.create!(
       :user => referring_user,
       :text => act_text,
-      :inherent_points => (rule.referral_points) || (rule.points / 2)
+      :inherent_points => points_earned_by_referring
     )
 
     sms_text = I18n.translate(
       'activerecord.models.user.thanks_for_referring_sms',
-      :default                   => 'Thanks for referring %{name} to the %{rule_value} command. %{point_and_ranking_summary}',
+      :default                   => %{+%{points}, you were just tagged in the "%{rule_value}" command by %{name}. %{point_and_ranking_summary}},
+      :points                    => points_phrase,
       :name                      => self.name,
       :rule_value                => rule_value.value,
       :point_and_ranking_summary => referring_user.point_and_ranking_summary(points_denominator_before_referring_act)
