@@ -1,7 +1,7 @@
 class Mailer < ActionMailer::Base
   default :from => "vlad@hengage.com"
 
-  def invitation(user, referrer)
+  def invitation(user, referrer = nil)
     @user = user
     @referrer = referrer
     if @referrer
