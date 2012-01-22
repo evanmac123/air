@@ -1,9 +1,62 @@
 /* ---------- customizations ---------- */
+/* ---------- END customizations ---------- */
+/* layout/reset/fonts/etc */
+a {
+  text-decoration: none!important; }
+
+.cf {
+  clear: both; }
+
+h1, h2, h3 {
+  letter-spacing: 1px;
+  margin: 0;
+  padding: 0; }
+
+img {
+  border: 0;
+  margin: 0;
+  padding: 0; }
+
+input:focus {
+  outline: 0; }
+
+p {
+  margin: 0;
+  padding: 0; }
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0; }
+
+/* Game type colors */
+/* ---------- general mixins ---------- */
+/* ---------- header mixins ---------- */
 .mast_top {
   padding-bottom: 0!important; }
   .mast_top a.a_current {
     border: 1px #0893e2 solid !important; }
+  .mast_top .navigation {
+    width: 550px!important; }
 
 .mast_bottom .bar_progress .bar .progress {
-  position: relative;
-  top: 9px; }
+  position: absolute; }
+
+.suggested-task {
+  background-color: #5e6166!important;
+  box-shadow: 0 0 3px 2px white;
+  behavior: url(/css3pie/PIE.htc); }
+  .suggested-task div {
+    background-color: #47484C!important;
+    border-radius: 3px;
+    clear: both;
+    behavior: url(/css3pie/PIE.htc); }
+  .suggested-task p.dose-title {
+    float: left; }
+  .suggested-task p.dose-descript {
+    float: left; }
+
+.feeds #acts .act-details {
+  margin-left: 0px;
+  position: absolute;
+  width: 87%; }
