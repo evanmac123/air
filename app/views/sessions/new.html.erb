@@ -3,6 +3,7 @@
   <%= form_tag session_path do  %>
     <%= text_field_tag "session[email]", 'email', :class => 'with-hint-text' %>
     <%= password_field_tag "session[password]", 'password', :class => 'with-hint-text' %>
+    <%= label_tag "session[remember_me]", "Remember me (don't check this on a shared computer)" %>
     <%= check_box_tag "session[remember_me]" %>
     <%= submit_tag "Let's play!" %>
   <% end %>

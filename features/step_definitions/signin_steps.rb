@@ -14,7 +14,7 @@ end
 When /^I sign in via the login page (as|with) "(.*?)"$/ do |_nothing, login_string|
   visit new_session_path
   When %{I fill in the login fields as "#{login_string}"}
-  click_button 'Sign in'
+  click_button "Let's play!"
 end
 
 When /^I sign in( as an admin)? via the login page( as an admin)?$/ do |is_admin_1, is_admin_2|
