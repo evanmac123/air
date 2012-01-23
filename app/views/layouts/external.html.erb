@@ -21,26 +21,30 @@
 			<div id="navigation">
 				<ul>
           <!-- TODO: Fix current link -->
-          <li><%= link_to "Home", "/", :class => "nav-links" %></li>
-          <li><%= link_to "Sign Up", new_invitation_path, :class => "nav-links nav-current" %></li>
-          <li><%= link_to "Log In", sign_in_path, :class => "nav-links", :id => "activate-login-form" %></li>
+          <li><%= link_to "Home", "/", :class => "nav-links nav-home" %></li>
+          <li><%= link_to "Sign Up", new_invitation_path, :class => "nav-links nav-signup" %></li>
+          <li><%= link_to "Log In", sign_in_path, :class => "nav-links nav-login", :id => "activate-login-form" %></li>
 				</ul>
 			</div>
 			<div class="cf"></div>
 		</div>
 	</div>
 	<div class="content">
-    <% status_content = yield :status %>
-    <% status_content = flash[:failure] unless status_content.present? %>
-    <% if status_content.present? %>
-      <div class="status">
-        <%= status_content %>
-      </div>
-    <% end %>
-
-    <%= yield %>
+	    <% status_content = yield :status %>
+	    <% status_content = flash[:failure] unless status_content.present? %>
+	    
+		<div class="inv-forms">
+				<% if status_content.present? %>
+				  <div class="status">
+				    <%= status_content %>
+				  </div>
+				<% end %>
+		
+		  	  <%= yield %>
+		</div>
   </div>
 	<div class="footer">
+		<p>Copyright © 2012 H Engage, Inc.</p>
 	</div>
   <%= render :partial => 'shared/javascript' %>
   <script src='https://getbarometer.s3.amazonaws.com/assets/barometer/javascripts/barometer.js' type='text/javascript'></script>

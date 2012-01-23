@@ -138,6 +138,12 @@ $c-competition:		#b65100;
 	background-image:url('/images/v3/bg-gray.png');
 	background-repeat:repeat-x;
 }
+@mixin box-shadow {
+	-moz-box-shadow: 0 0 5px #c9c9c9;
+	-webkit-box-shadow: 0 0 5px #c9c9c9;
+	box-shadow: 0 0 5px #c9c9c9;
+	behavior: url(/css3pie/PIE.htc);
+}
 @mixin rounded-nav {
 	-webkit-border-radius: 20px;
 	-moz-border-radius: 20px;

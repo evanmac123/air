@@ -476,6 +476,10 @@ body {
   margin: 15px auto 0 auto;
   width: 960px; }
   #flash div {
+    -moz-box-shadow: 0 0 5px #c9c9c9;
+    -webkit-box-shadow: 0 0 5px #c9c9c9;
+    box-shadow: 0 0 5px #c9c9c9;
+    behavior: url(/css3pie/PIE.htc);
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
     border-radius: 3px;
@@ -484,10 +488,6 @@ body {
     background-color: #e9e9e9;
     background-image: url(/images/v3/bg-dash.png);
     border: 1px #bebebe solid;
-    -moz-box-shadow: 0 0 5px #c9c9c9;
-    -webkit-box-shadow: 0 0 5px #c9c9c9;
-    box-shadow: 0 0 5px #c9c9c9;
-    behavior: url(/css3pie/PIE.htc);
     font-weight: bold; }
   #flash #flash_failure {
     border: 1px red solid; }

@@ -39,14 +39,11 @@ body {
 	width: 960px;
 
 	div {
+		@include box-shadow;
 		@include rounded;
 		background-color: $light-gray;
 		background-image: url(/images/v3/bg-dash.png);
-		border: 1px #bebebe solid;
-		-moz-box-shadow: 0 0 5px #c9c9c9;
-		-webkit-box-shadow: 0 0 5px #c9c9c9;
-		box-shadow: 0 0 5px #c9c9c9;
-		behavior: url(/css3pie/PIE.htc);	
+		border: 1px #bebebe solid;	
 		font-weight: bold;
 	}
 	#flash_failure {

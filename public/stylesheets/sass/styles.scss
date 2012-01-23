@@ -1,0 +1,96 @@
+@import "standard";
+$ex-box-gray: #e9e9e9; //lol, happy accident, as it is close to xbox's color
+$ex-bg-gray: #2c2b2b;
+$ex-dark-gray: #2d2d2d;
+$ex-gray: #606060;
+$ex-green: #5b8b38;
+
+.cf {clear:both;}
+h2 {margin:0; padding:0;}
+ul {list-style-type:none; margin:0; padding:0;}
+a {border:0;}
+img {border:0;}
+p {margin:0;padding:0;}
+
+
+body.external {
+	background-color:$ex-bg-gray;
+	background-image: url(/images/v3/external-header.png);
+	background-position: top center;
+	background-repeat: repeat-x;
+	font-family:Helvetica, Arial, sans-serif;
+	font-size:13px;
+	margin:0;
+	padding:0;
+}
+
+body.invitation-acceptances .header #navigation .nav-signup {
+	@include bg-black;
+	@include rounded-nav;
+	border:1px #72b041 solid;
+}
+
+/* ============== layout =============== */
+.top {
+	.header {
+	//	background-color: #427238;
+	//	border-bottom: 1px #588e3c solid;
+		margin: 0;
+		padding: 0;
+		text-align: center;
+		
+		#logo {
+			background-image: url(/images/v3/external-shiny.png);
+			background-position: center center;
+			background-repeat: no-repeat;
+			height: 192px;
+			overflow: hidden;
+			padding: 0;
+			
+			img {
+				margin-top:30px;
+				height: 136px;
+			}
+		}
+		#navigation {
+			font-family: $gotham;
+			font-weight: bold;
+			padding: 20px;
+			text-transform:uppercase;
+			
+			li {
+				display: inline;
+				
+				a {
+					color: #fff;
+					display:inline-block;
+					font-size:18px;
+					letter-spacing: 1px;
+					padding:6px 15px;
+				}
+			}
+		}
+	}
+}
+
+.content {
+	background-image: url(/images/v3/texture.png);
+	.inv-forms {
+		@include rounded;
+		background-color: $ex-box-gray;
+		-moz-box-shadow: 0 0 5px #000;
+		-webkit-box-shadow: 0 0 5px #000;
+		box-shadow: 0 0 5px #000;
+		behavior: url(/css3pie/PIE.htc);
+		margin: $centered;
+		padding: 20px;
+		width: 620px;
+	}
+}
+
+.footer {
+	color: #fff;
+	font-size: 11px;
+	padding: 20px;
+	text-align: center;
+}
