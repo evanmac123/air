@@ -821,9 +821,6 @@ body.acts .container .feeds {
         width: 100%; }
   body.acts .container .feeds form {
     margin-top: 15px; }
-    body.acts .container .feeds form #see-more {
-      border: 1px red solid;
-      background: black; }
   body.acts .container .feeds .act {
     border-bottom: 1px #e9e9e9 solid;
     clear: both;
@@ -878,6 +875,9 @@ body.acts .container .feeds {
 body.acts .container .active-games {
   float: right;
   width: 35%; }
+body.acts #see-more {
+  display: inline-block;
+  margin-top: 7px; }
 
 /* --------------------------- settings --------------------------- */
 /* @end */

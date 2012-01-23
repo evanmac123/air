@@ -215,11 +215,6 @@ body.acts {
 			
 			form {
 				margin-top: 15px;
-				
-				#see-more {
-					border: 1px red solid;
-					background: black;
-				}
 			}
 			.act {
 				border-bottom: 1px $light-gray solid;
@@ -285,6 +280,11 @@ body.acts {
 			width:35%;
 		}
 	}
+
+  #see-more {
+    display: inline-block;
+    margin-top: 7px;
+  }
 }
 
 /* --------------------------- settings --------------------------- */

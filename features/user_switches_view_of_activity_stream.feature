@@ -94,7 +94,7 @@ Feature: User filters their view of the activity stream
     But I should not see "Bob ate 8 puppies"
     And I should not see "Joe ate 8 kittens"
 
-    When I press the see more button in the activity stream
+    When I follow "See more"
     Then I should see "Fred ate 11 ducklings"
     And I should see "Bob ate 11 puppies"
     And I should see "Joe ate 11 kittens"
@@ -132,7 +132,7 @@ Feature: User filters their view of the activity stream
     And I should not see "Joe ate 11 kittens"
     And I should not see "Fred ate 11 ducklings"
 
-    When I press the see more button in the activity stream
+    When I follow "See more"
     Then I should see "Bob ate 11 puppies"
     And I should see "Bob ate 10 puppies"
     And I should see "Bob ate 9 puppies"
@@ -162,7 +162,7 @@ Feature: User filters their view of the activity stream
     And I should not see "Bob ate 11 puppies"
     And I should not see "Fred ate 11 ducklings"
 
-    When I press the see more button in the activity stream
+    When I follow "See more"
     Then I should see "Joe ate 11 kittens"
     And I should see "Joe ate 10 kittens"
     And I should see "Joe ate 9 kittens"
@@ -191,7 +191,7 @@ Feature: User filters their view of the activity stream
     But I should not see "Bob ate 8 puppies"
     And I should not see "Joe ate 8 kittens"
 
-    When I press the see more button in the activity stream
+    When I follow "See more"
     Then I should see "Fred ate 11 ducklings"
     And I should see "Bob ate 11 puppies"
     And I should see "Joe ate 11 kittens"

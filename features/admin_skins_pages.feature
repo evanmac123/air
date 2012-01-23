@@ -25,20 +25,16 @@ Feature: Skinnable pages
       | company_name: BlargCo | header.gif            | 000000         | 111111                | logo.gif | playnow.gif         | save.gif        | seemore.gif          | fan.gif       | defan.gif        | clear.gif        | 222222             | 333333                         | victory.gif         | 444444       |
     When I go to the activity page
     Then the logo should have src "logo.gif"
-    And the see more button should have src "seemore.gif"
     # And the victory graphics should have src "victory.gif"
 
     When I go to the profile page for "Joe"
     Then the logo should have src "logo.gif"
-    And the see more button should have src "seemore.gif"
 
     When I go to the profile page for "Bob"
     Then the logo should have src "logo.gif"
-    And the see more button should have src "seemore.gif"
 
     When I go to the connections page    
     Then the logo should have src "logo.gif"
-    And the see more button should have src "seemore.gif"
 
   Scenario: Partial skinning does what you would expect
     Given the following skin exists:
@@ -46,28 +42,23 @@ Feature: Skinnable pages
       | company_name: BlargCo | AAAAAA                | logo.gif |
     When I go to the activity page
     Then the logo should have src "logo.gif"
-    And the see more button should have src "new_activity/btn_seemore.png"
 
   Scenario: Pages have default appearance
     When I go to the activity page
     Then the logo should have src "logo.png"
-    And the see more button should have src "new_activity/btn_seemore.png"
     # And the victory graphics should have src "new_activity/img_bluestar_18.png"
 
     When I go to the profile page for "Joe"
     Then the logo should have src "logo.png"
-    And the see more button should have src "new_activity/btn_seemore.png"
 
     When I go to the profile page for "Bob"
     Then the logo should have src "logo.png"
-    And the see more button should have src "new_activity/btn_seemore.png"
 
     When I go to the profile page for "Fred"
     Then the fan button should have src "new_activity/btn_beafan.png"
 
     When I go to the connections page    
     Then the logo should have src "logo.png"
-    And the see more button should have src "new_activity/btn_seemore.png"
     Then the de-fan button should have src "new_activity/btn_defan.png"
     When I press the de-fan button
     Then I should be on the connections page
