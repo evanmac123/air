@@ -41,4 +41,13 @@ module ApplicationHelper
 
     output
   end
+
+  def master_bar_width
+    "width: #{current_user.percent_towards_next_threshold}%"
+  end
+
+  def master_bar_point_content
+    points = current_user.points_towards_next_threshold
+    points == 1 ? "1pt" : "#{points}pts"
+  end
 end

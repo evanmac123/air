@@ -523,6 +523,14 @@ class User < ActiveRecord::Base
   end
 
   def points_denominator
+    next_point_goal
+  end
+
+  def last_point_goal
+    last_achieved_threshold || 0
+  end
+
+  def next_point_goal
     next_unachieved_threshold || greatest_achievable_threshold
   end
 
@@ -558,6 +566,24 @@ class User < ActiveRecord::Base
   def height_inches
     return nil unless height
     height % 12
+  end
+
+  def points_towards_next_threshold
+    self.points - last_point_goal
+  end
+
+  def percent_towards_next_threshold
+    return 100.0 unless next_point_goal
+
+    numerator = self.points - last_point_goal
+    return 0.0 if numerator == 0
+  
+    denominator = point_threshold_spread
+    return 100.0 if denominator == 0
+
+    percent = (numerator.to_f / denominator.to_f * 100).round(2)
+
+    percent > 100 ? 100.0 : percent
   end
 
   def self.next_dummy_number
@@ -644,6 +670,12 @@ class User < ActiveRecord::Base
     self.demo.fix_recent_average_user_rankings!
   end
 
+  def last_achieved_threshold
+    threshold_from_last_level = self.last_level.try(:threshold)
+
+    [achieved_victory_threshold_from_demo, threshold_from_last_level].compact.max
+  end
+
   def next_unachieved_threshold
     threshold_from_next_level = self.next_level.try(:threshold)
 
@@ -661,6 +693,14 @@ class User < ActiveRecord::Base
     end
   end
 
+  def point_threshold_spread
+    next_point_goal - last_point_goal
+  end
+
+  def last_level
+    demo.levels.where("threshold <= ?", self.points).order("threshold DESC").limit(1).first
+  end
+
   def next_level
     demo.levels.where("threshold > ?", self.points).order("threshold ASC").limit(1).first
   end
@@ -672,6 +712,15 @@ class User < ActiveRecord::Base
   def unachieved_victory_threshold_from_demo
     threshold_from_demo = self.demo.victory_threshold
     if threshold_from_demo && threshold_from_demo > self.points
+      threshold_from_demo
+    else
+      nil
+    end
+  end
+
+  def achieved_victory_threshold_from_demo
+    threshold_from_demo = self.demo.victory_threshold
+    if threshold_from_demo && threshold_from_demo <= self.points
       threshold_from_demo
     else
       nil

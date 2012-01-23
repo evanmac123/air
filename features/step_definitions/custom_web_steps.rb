@@ -234,3 +234,16 @@ end
 Then /^(I should see|there should be) a mail link to support in the status area$/ do |_nothing|
   find(:css, %{.status a[@href="mailto:support@hengage.com"]}).should_not be_nil
 end
+
+Then /^"([^"]*)" should have inline style "([^"]*)" set to "([^"]*)"$/ do |css_selector, style_key, expected_value|
+  element = find(:css, css_selector)
+  style = element['style']
+  style.should_not be_nil
+
+  styles = style.split(/\s*\;\s*/)
+
+  style_sought = styles.detect{|style| style =~ /^#{style_key}\s*:\s*(.*)$/}
+  style_sought.should_not be_nil
+  $1.should == expected_value
+end
+

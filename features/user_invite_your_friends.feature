@@ -37,7 +37,6 @@ Feature: User gives credit to game referer via autocomplete field
     And I press "Invite!"
     Then I should see "You just invited Charlie Brainfield to play H Engage"
     And DJ cranks 5 times
-    And show me the page
     Then "2@hopper.com" should receive an email
     When "2@hopper.com" opens the email
     And I click the first link in the email
