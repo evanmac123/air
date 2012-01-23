@@ -1,3 +1,9 @@
+<% if flash.present? %>
+  <% flash.each_value do |value| %>
+    <p><%= value %></p>
+  <% end %>
+<% end %>
+
 <div id="session-wrapper">
   <h2>Log In</h2>
   <%= form_tag session_path do  %>

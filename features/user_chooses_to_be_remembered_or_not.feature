@@ -9,7 +9,7 @@ Feature: User can choose whether or not to be remembered
 
   Scenario: User wants to be remembered
     When I check the remember-me checkbox
-    And I press "Sign in"
+    And I press the sign-in button
     Then I should be on the activity page
 
     When 1 month passes
@@ -23,7 +23,7 @@ Feature: User can choose whether or not to be remembered
     And I should not see the session expiration message
 
   Scenario: User doesn't want to be remembered
-    When I press "Sign in"
+    When I press the sign-in button
     Then I should be on the activity page
 
     When 4 minutes pass

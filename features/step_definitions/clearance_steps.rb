@@ -89,7 +89,7 @@ When /^I sign in as "(.*)\/(.*)"$/ do |email, password|
   When %{I go to the sign in page}
   And %{I fill in "session[email]" with "#{email}"}
   And %{I fill in "session[password]" with "#{password}"}
-  And %{I press "Sign in"}
+  And %{I press the sign-in button}
 end
 
 When "I sign out" do

@@ -80,6 +80,10 @@ When /^I press the button to save notification settings$/ do
   find(:css, '#save-notification-settings').click
 end
 
+When /^I press the sign-in button$/ do
+  When %{I press "Let's play!"}
+end
+
 Then /^the feet select should have "([^"]*)" selected$/ do |value|
   selected_option = find(:css, "#height_feet option[@selected=selected]")
   selected_option['value'].to_s.should == value
