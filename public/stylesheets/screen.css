@@ -824,6 +824,57 @@ body.acts .container .feeds {
     body.acts .container .feeds form #see-more {
       border: 1px red solid;
       background: black; }
+  body.acts .container .feeds .act {
+    border-bottom: 1px #e9e9e9 solid;
+    clear: both;
+    padding: 13px 0; }
+    body.acts .container .feeds .act .act-details {
+      float: left;
+      margin-left: 20px;
+      width: 87%; }
+      body.acts .container .feeds .act .act-details .description {
+        width: 80%; }
+      body.acts .container .feeds .act .act-details .points {
+        color: #909090;
+        float: right;
+        font-size: 18px;
+        font-weight: bold;
+        width: 75px; }
+      body.acts .container .feeds .act .act-details .user a {
+        color: #0673b1;
+        font-size: 14px;
+        font-weight: bold; }
+        body.acts .container .feeds .act .act-details .user a:hover {
+          color: #0893e2; }
+        body.acts .container .feeds .act .act-details .user a:active {
+          color: #2e2e2c; }
+      body.acts .container .feeds .act .act-details .when {
+        color: #909090;
+        font-size: 12px;
+        width: 80%; }
+    body.acts .container .feeds .act .avatar43 {
+      -webkit-border-radius: 3px;
+      -moz-border-radius: 3px;
+      border-radius: 3px;
+      behavior: url(/css3pie/PIE.htc);
+      z-index: 0;
+      border: 1px #e9e9e9 solid;
+      float: left;
+      height: 50px;
+      width: 50px; }
+      body.acts .container .feeds .act .avatar43 img {
+        -webkit-border-radius: 3px;
+        -moz-border-radius: 3px;
+        border-radius: 3px;
+        behavior: url(/css3pie/PIE.htc);
+        z-index: 0;
+        height: 100%;
+        width: 100%; }
+  body.acts .container .feeds form {
+    margin-top: 15px; }
+    body.acts .container .feeds form #see-more {
+      border: 1px red solid;
+      background: black; }
 body.acts .container .active-games {
   float: right;
   width: 35%; }

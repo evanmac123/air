@@ -221,6 +221,64 @@ body.acts {
 					background: black;
 				}
 			}
+			.act {
+				border-bottom: 1px $light-gray solid;
+				clear: both;
+				padding: 13px 0;
+				
+				.act-details {	
+					float: left;
+					margin-left: 20px;
+					width: 87%;
+					
+					.description {
+						width: 80%;
+					}
+					.points {
+						color: $gray;
+						float: right;
+						font-size: 18px;
+						font-weight: bold;
+						width: 75px;
+					}
+					.user {
+						a {
+							color: $header-bg;
+							font-size: 14px;
+							font-weight: bold;
+							&:hover {color:lighten($header-bg, 10%);}
+							&:active {color:$dark-gray;}
+						}
+					}
+					.when {
+						color: $gray;
+						font-size: 12px;
+						width: 80%;
+					}
+				}
+				.avatar43 {
+					@include rounded;
+					border: 1px $light-gray solid;
+					float: left;
+					height: 50px;
+					width: 50px;
+					
+					img {
+						@include rounded;
+						height: 100%;
+						width: 100%;
+					}
+				}
+			}
+			
+			form {
+				margin-top: 15px;
+				
+				#see-more {
+					border: 1px red solid;
+					background: black;
+				}
+			}
 		}
 		.active-games {
 			float:right;
