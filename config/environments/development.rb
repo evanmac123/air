@@ -23,11 +23,25 @@ Health::Application.configure do
   # Only use best-standards-support built into browsers
   config.action_dispatch.best_standards_support = :builtin
 
-  config.action_mailer.default_url_options = { :host => 'health.local' }
+  config.action_mailer.default_url_options = { :host => 'localhost:3000' }
 
   silence_warnings do
     require 'pry'
     IRB = Pry    
   end
+  
+  
+  # ActionMailer::Base.smtp_settings = {
+  #   :user_name => "hbboston",
+  #   :password => "amcregi",
+  #   :domain => "hbbostonamc.org",
+  #   :address => "smtp.sendgrid.net",
+  #   :port => 587,
+  #   :authentication => :plain,
+  #   :enable_starttls_auto => true
+  # }
+  
+  
+  
 end
 

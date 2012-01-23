@@ -1,4 +1,4 @@
-Feature: User can't login before game opens
+Feature: User can't play before game opens
 
   Scenario: User can't login before game opens
     Given the following demo exists:

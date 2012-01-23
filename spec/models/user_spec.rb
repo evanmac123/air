@@ -104,7 +104,7 @@ describe User do
       Delayed::Worker.new.work_off(10)
       mail = ActionMailer::Base.deliveries
       mail.should_not be_empty
-      mail.first.body.raw_source.should include("invite")
+      mail.first.parts.first.body.raw_source.should include("invite")
       domain = "notonyourlife.com"
       text = "hi@#{domain}"
       User.send_invitation_if_email(user_or_phone, text).should == "Your domain is not valid"

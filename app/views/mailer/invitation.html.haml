@@ -1,0 +1,45 @@
+- invitation_link = invitation_url(@user.invitation_code) + @referrer_params 
+- button_radius = "8px"
+- @rounded_corners_style = "-moz-border-radius: #{button_radius};-webkit-border-radius: #{button_radius};border-radius: #{button_radius};"
+- @link_style = "color: green;"
+- @join_button_style = @link_style + @rounded_corners_style + "padding: 10px; border: 2px solid green; background: #DFD; font-weight: bold; vertical-align: top;"
+- @left_pane_style = "width: 450px;"
+- @right_pane_style = "width: 150px; align: center; valign: top;"
+- @footer_style = "margin: 0; padding: 0; font-size: 85%; line-height: 110%;"
+
+%table{:style => @table_style}
+  %tr
+    %td{:style => @left_pane_style}
+
+      - unless @user.name.empty?
+        %p= @user.name + ","
+      %p
+        - if @referrer 
+          = "#{@referrer.name} has invited you to demo H Engage."
+        - else
+          I'm pleased to invite you to demo H Engage.
+        To start playing, 
+        = link_to "click here", invitation_link, :style => @link_style
+
+      %p Have fun and good luck!
+      %p &nbsp;
+      %p Vlad    
+      %p CEO and Cofounder, H Engage
+  
+    %td{:style => @right_pane_style}
+      %table
+        %tr
+          %td{:style => "height: 30px"}
+        %tr
+          %td
+            = link_to "Start Playing", invitation_link, :style => @join_button_style
+  
+
+
+
+%hr
+%p{:style => @footer_style} H Engage--taking things in stride; doing what makes our bodies and minds happy.
+%p{:style => @footer_style}
+  = link_to "About Us", "http://hengage.com", :style => @link_style
+  &nbsp;
+  = link_to "Support", "mailto:support@hengage.com", :style => @link_style

@@ -1,9 +1,12 @@
+<% unless @user.name.empty? %>
 <%= @user.name %>,
+<% end %>
+
 
 <% if @referrer %>
-  <% @referrer.name %> has invited you to demo H Engage. To demo it, follow:
+<% @referrer.name %> has invited you to demo H Engage. To demo it, follow:
 <% else %>
-  I'm pleased to invite you to demo H Engage. To demo it, follow:
+I'm pleased to invite you to demo H Engage. To demo it, follow:
 <% end %>
 
 <%= invitation_url(@user.invitation_code) + @referrer_params%>
@@ -11,3 +14,13 @@
 Have fun and good luck!
 
 Vlad
+CEO and Cofounder
+H Engage
+
+=======================================================
+
+H Engage--taking things in stride; doing what makes our bodies and minds happy.
+About Us: http://hengage.com
+Support: support@hengage.com
+
+=======================================================
