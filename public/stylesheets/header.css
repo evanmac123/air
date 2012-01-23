@@ -1,16 +1,21 @@
 /* ---------- customizations ---------- */
 /* ---------- END customizations ---------- */
 /* layout/reset/fonts/etc */
-a { text-decoration: none!important; }
+a {
+  text-decoration: none!important; }
 
-.cf { clear: both; }
+.cf {
+  clear: both; }
 
 h1, h2, h3 {
   letter-spacing: 1px;
   margin: 0;
   padding: 0; }
 
-img { border: 0; margin: 0; padding: 0; }
+img {
+  border: 0;
+  margin: 0;
+  padding: 0; }
 
 input:focus {
   outline: 0; }
@@ -19,13 +24,15 @@ p {
   margin: 0;
   padding: 0; }
 
-ul { list-style-type: none; margin: 0; padding: 0; }
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0; }
 
 /* Game type colors */
 /* ---------- general mixins ---------- */
 /* ---------- header mixins ---------- */
 /* ---------- math ---------- */
-
 /* ---------- masthead ---------- */
 .header {
   background-color: #2e2e2c;
@@ -276,56 +283,27 @@ ul { list-style-type: none; margin: 0; padding: 0; }
         width: 413px;
         z-index: -3; }
         .header .masthead .mast_bottom .bar_progress .bar {
-          background: #1e1f1e;
-          /* Old browsers */
-          background: -moz-linear-gradient(top, #1e1f1e 13%, #343434 59%);
-          /* FF3.6+ */
-          background: -webkit-gradient(linear, left top, left bottom, color-stop(13%, #1e1f1e), color-stop(59%, #343434));
-          /* Chrome,Safari4+ */
-          background: -webkit-linear-gradient(top, #1e1f1e 13%, #343434 59%);
-          /* Chrome10+,Safari5.1+ */
-          background: -o-linear-gradient(top, #1e1f1e 13%, #343434 59%);
-          /* Opera 11.10+ */
-          background: -ms-linear-gradient(top, #1e1f1e 13%, #343434 59%);
-          /* IE10+ */
-          background: linear-gradient(top, #1e1f1e 13%, #343434 59%);
-          /* W3C */
-          -webkit-border-radius: 20px;
-          -moz-border-radius: 20px;
-          border-radius: 20px;
-          behavior: url(/css3pie/PIE.htc);
-          border: 1px #fff solid;
+          background-image: url(/images/v3/bar.png);
+          background-repeat: no-repeat;
           height: 35px;
           margin: 9px 0 0 35px;
           overflow: hidden;
           position: absolute;
           width: 360px; }
           .header .masthead .mast_bottom .bar_progress .bar .progress {
-            background: #fff262;
-            /* Old browsers */
-            background: -moz-linear-gradient(top, #fff262 0%, #ffe223 9%, #ffbf14 50%, #ff9805 51%, #ffaa00 94%, #ff8600 100%);
-            /* FF3.6+ */
-            background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #fff262), color-stop(9%, #ffe223), color-stop(50%, #ffbf14), color-stop(51%, #ff9805), color-stop(94%, #ffaa00), color-stop(100%, #ff8600));
-            /* Chrome,Safari4+ */
-            background: -webkit-linear-gradient(top, #fff262 0%, #ffe223 9%, #ffbf14 50%, #ff9805 51%, #ffaa00 94%, #ff8600 100%);
-            /* Chrome10+,Safari5.1+ */
-            background: -o-linear-gradient(top, #fff262 0%, #ffe223 9%, #ffbf14 50%, #ff9805 51%, #ffaa00 94%, #ff8600 100%);
-            /* Opera 11.10+ */
-            background: -ms-linear-gradient(top, #fff262 0%, #ffe223 9%, #ffbf14 50%, #ff9805 51%, #ffaa00 94%, #ff8600 100%);
-            /* IE10+ */
-            background: linear-gradient(top, #fff262 0%, #ffe223 9%, #ffbf14 50%, #ff9805 51%, #ffaa00 94%, #ff8600 100%);
-            /* W3C */
             -webkit-border-radius: 20px;
             -moz-border-radius: 20px;
             border-radius: 20px;
             behavior: url(/css3pie/PIE.htc);
+            background-image: url(/images/v3/progressBar.png);
+            background-repeat: no-repeat;
             color: #906109;
             height: 100%;
-            left: -1px;
             margin: 0;
+            overflow: hidden;
             padding: 0;
             position: relative;
-            width: 36%; }
+            width: 30%; }
             .header .masthead .mast_bottom .bar_progress .bar .progress p {
               float: right;
               font-size: 11px;
@@ -352,4 +330,3 @@ ul { list-style-type: none; margin: 0; padding: 0; }
           font-size: 30px;
           margin: 7px 25px 0 0;
           text-shadow: 1px 1px 1px #2e2e2c; }
-

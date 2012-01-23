@@ -33,6 +33,29 @@ body {
 	@include rounded-nav;
 	border:1px lighten($header-bg, 10%) solid;
 }
+/* -- flash messages -- */
+#flash {
+	margin: 15px auto 0 auto;
+	width: 960px;
+
+	div {
+		@include rounded;
+		background-color: $light-gray;
+		background-image: url(/images/v3/bg-dash.png);
+		border: 1px #bebebe solid;
+		-moz-box-shadow: 0 0 5px #c9c9c9;
+		-webkit-box-shadow: 0 0 5px #c9c9c9;
+		box-shadow: 0 0 5px #c9c9c9;
+		behavior: url(/css3pie/PIE.htc);	
+		font-weight: bold;
+	}
+	#flash_failure {
+		border: 1px red solid;
+	}
+	#flash_success {
+		border: 1px green solid;
+	}
+}
 
 /* --------------------------- home/activities/dashboard --------------------------- */
 body.acts {
@@ -71,6 +94,7 @@ body.acts {
 				a {
 					@include bg-orange;
 					@include rounded-nav;
+					border: 1px $gray solid;
 					color:#fff;
 					float:right;
 					font-family:$gotham;
@@ -168,6 +192,7 @@ body.acts {
 						}
 					}
 					.when {
+						clear: both;
 						color: $gray;
 						font-size: 12px;
 						width: 80%;

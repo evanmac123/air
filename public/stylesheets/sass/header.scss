@@ -205,9 +205,11 @@ $light:lighten($header-bg, 10%);
 				z-index:-3;
 				
 				.bar {
-					@include bg-black;
-					@include rounded-nav;
-					border:1px #fff solid;
+//					@include bg-black;
+//					@include rounded-nav;
+					background-image: url(/images/v3/bar.png);
+					background-repeat: no-repeat;
+//					border:1px #fff solid;
 					height:35px;
 					margin:9px 0 0 35px;
 					overflow:hidden;
@@ -215,15 +217,17 @@ $light:lighten($header-bg, 10%);
 					width:360px;
 					
 					.progress {
-						@include bg-orange;
+//						@include bg-orange;
 						@include rounded-nav;
+						background-image: url(/images/v3/progressBar.png);
+						background-repeat: no-repeat;
 						color:#906109;
 						height:100%;
-						left:-1px;
 						margin:0;
+						overflow: hidden;
 						padding:0;
 						position:relative;
-						width:36%;
+						width:30%;
 						
 						p {
 							float:right;
