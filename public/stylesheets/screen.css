@@ -536,8 +536,6 @@ body.acts .container #suggested-tasks .campaign {
     /* IE10+ */
     background: linear-gradient(top, #2b586d 0%, #2e5b70 2%, #2f5c71 6%, #335d73 8%, #315e75 14%, #38687f 48%, #3a6d88 62%, #3c6f8a 74%, #38708b 80%, #336a89 86%, #2b6684 90%, #246180 92%, #19597c 98%, #3b7897 100%);
     /* W3C */ }
-  body.acts .container #suggested-tasks .campaign a {
-    border: 1px #173647 solid; }
 body.acts .container #suggested-tasks .competition {
   background: #ec7501;
   /* Old browsers */
@@ -573,8 +571,6 @@ body.acts .container #suggested-tasks .competition {
     /* IE10+ */
     background: linear-gradient(top, #9d5200 0%, #a25801 8%, #a85b00 20%, #d47302 74%, #d77200 82%, #db6c00 88%, #db5e01 98%, #ec7501 100%);
     /* W3C */ }
-  body.acts .container #suggested-tasks .competition a {
-    border: 1px #995200 solid; }
 body.acts .container #suggested-tasks .freeplay {
   background: #00ba9b;
   /* Old browsers */
@@ -610,8 +606,6 @@ body.acts .container #suggested-tasks .freeplay {
     /* IE10+ */
     background: linear-gradient(top, #007461 0%, #008570 30%, #00a28b 74%, #00a489 86%, #019c7d 98%, #00ba9b 100%);
     /* W3C */ }
-  body.acts .container #suggested-tasks .freeplay a {
-    border: 1px #007563 solid; }
 body.acts .container #suggested-tasks .suggested-task {
   background: #bfc1c9;
   /* Old browsers */
@@ -639,7 +633,7 @@ body.acts .container #suggested-tasks .suggested-task {
   margin-bottom: 10px;
   padding: 13px 15px;
   text-shadow: 1px 1px 1px #2e2e2c; }
-  body.acts .container #suggested-tasks .suggested-task a {
+  body.acts .container #suggested-tasks .suggested-task a.more-info {
     background: #fff262;
     /* Old browsers */
     background: -moz-linear-gradient(top, #fff262 0%, #ffe223 9%, #ffbf14 50%, #ff9805 51%, #ffaa00 94%, #ff8600 100%);
@@ -668,7 +662,7 @@ body.acts .container #suggested-tasks .suggested-task {
     position: relative;
     text-transform: uppercase;
     top: -3px; }
-    body.acts .container #suggested-tasks .suggested-task a:hover {
+    body.acts .container #suggested-tasks .suggested-task a.more-info:hover {
       background: #1e1f1e;
       /* Old browsers */
       background: -moz-linear-gradient(top, #1e1f1e 13%, #343434 59%);

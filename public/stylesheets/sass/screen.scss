@@ -68,17 +68,17 @@ body.acts {
 			.campaign {
 				@include bg-campaign;   //change for campaign, freeplay, competition
 				div {@include bg-campaign-rev;}
-				a {border:1px #173647 solid;}
+				// a {border:1px #173647 solid;}
 			}
 			.competition {
 				@include bg-competition;   //change for campaign, freeplay, competition
 				div {@include bg-competition-rev;}
-				a {border:1px #995200 solid;}
+				// a {border:1px #995200 solid;}
 			}
 			.freeplay {
 				@include bg-freeplay;   //change for campaign, freeplay, competition
 				div {@include bg-freeplay-rev;}
-				a {border:1px #007563 solid;}
+				// a {border:1px #007563 solid;}
 			}
 			.suggested-task {
 				@include bg-game-default;
@@ -88,7 +88,7 @@ body.acts {
 				padding:13px 15px;
 				text-shadow:1px 1px 1px $dark-gray;
 				
-				a {
+				a.more-info {
 					@include bg-orange;
 					@include rounded-nav;
 					border: 1px $gray solid;
