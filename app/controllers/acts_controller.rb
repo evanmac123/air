@@ -56,7 +56,7 @@ class ActsController < ApplicationController
   def active_act_tab
     case params[:show_only]
     when 'following'
-      "Fan Of"
+      "Following"
     when 'mine'
       "Mine"
     else

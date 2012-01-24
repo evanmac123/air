@@ -17,6 +17,7 @@
 
 	    <ul class="tabs" id="activity-feed-tabs">
 	      <%= tab "All", acts_path(:format => :js), @active_act_tab %>
+	      <%= tab "Following", acts_path(:show_only => 'following', :format => :js), @active_act_tab %>
 	      <%= tab "Mine", acts_path(:show_only => 'mine', :format => :js), @active_act_tab %>
 	    </ul>
 	
