@@ -32,9 +32,9 @@ Health::Application.configure do
   
   
   # ActionMailer::Base.smtp_settings = {
-  #   :user_name => "hbboston",
-  #   :password => "amcregi",
-  #   :domain => "hbbostonamc.org",
+  #   :user_name => "hengage-devel",
+  #   :password => "8765432",
+  #   :domain => "hengage.com",
   #   :address => "smtp.sendgrid.net",
   #   :port => 587,
   #   :authentication => :plain,

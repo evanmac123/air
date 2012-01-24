@@ -22,12 +22,14 @@
   <link rel="stylesheet" type='text/css' href='https://getbarometer.s3.amazonaws.com/assets/barometer/css/barometer.css'/>
   <%= stylesheet_link_tag 'barometer_tweaks' %>
   <%= stylesheet_link_tag 'autocompletion' %>
+  <%= stylesheet_link_tag 'facebox' %>
   
   <%= csrf_meta_tag %>
   <%= render 'shared/mixpanel' %>
 </head>
 <body class="<%= body_class %>">
   <%= javascript_include_tag 'jquery' %> <%# must appear before header, with its Assistly widget %>
+  <%= javascript_include_tag 'facebox'%>
 
   <%= render :partial => 'shared/header' %>
   <%= render :partial => 'shared/flashes' %>
@@ -37,6 +39,7 @@
   <div id="footer">
   </div>
   <%= render :partial => 'shared/javascript' %>
+
   <%= content_for :slow_javascript do%>
     <script src='https://getbarometer.s3.amazonaws.com/assets/barometer/javascripts/barometer.js' type='text/javascript'></script>
     <script type="text/javascript" charset="utf-8">

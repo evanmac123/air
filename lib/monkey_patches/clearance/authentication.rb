@@ -21,10 +21,21 @@ module Clearance::Authentication
       else
         session[:remember_me] = false
       end
+      current_user.session_count += 1
+      current_user.save
+      session.delete(:invite_friends_modal_shown)
+    end
+    
+    def sign_in_with_increment_sign_ins(user, remember_me=false)
+      sign_in_without_increment_sign_ins(user, remember_me=false)
+      current_user.session_count += 1
+      current_user.save
+      session.delete(:invite_friends_modal_shown)
     end
 
     alias_method_chain :authenticate, :cookie_renewal_and_session_open_flag
     alias_method_chain :sign_in, :remember_me_and_session_open_flag
+    #alias_method_chain :sign_in, :increment_sign_ins
 
     protected
 

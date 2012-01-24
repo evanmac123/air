@@ -251,3 +251,17 @@ Then /^"([^"]*)" should have inline style "([^"]*)" set to "([^"]*)"$/ do |css_s
   $1.should == expected_value
 end
 
+Given /^the demo for "([^"]*)" starts tomorrow$/ do |arg1|
+  a = Demo.find_by_company_name(arg1)
+  a.begins_at = 1.day.from_now.to_date
+  a.ends_at = 12.days.from_now.to_date
+  a.save
+end
+
+Then /^I should see "([^"]*)" in a facebox modal$/ do |arg1|
+  page.find('#facebox').should have_content (arg1)
+end
+
+Then /^I should not see a facebox modal$/ do
+ page.should_not have_selector('#facebox')
+end

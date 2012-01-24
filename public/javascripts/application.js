@@ -2,6 +2,16 @@ var autocomplete_in_progress = 0;
 var autocomplete_waiting = 0;
 
 $(function() {
+
+  if (document.getElementById('invite_friends_facebox')) 
+  {
+    $.facebox({ div: '#invite_friends_facebox' });
+  }
+
+
+
+
+  
   $('#search_for_referrer #autocomplete').keypress(function(){
       var email = $('#user_email').val();
       var options = {email : email, calling_div : '#search_for_referrer' };

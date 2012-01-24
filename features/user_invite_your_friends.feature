@@ -6,6 +6,7 @@ Feature: User gives credit to game referer via autocomplete field
       | Bratwurst    | 2000                  |
       | Gleason      | 2000                  |
       | Preloaded    | 2000                  |
+      | NotStarted   | 2000                  |
     Given the following self inviting domain exists:
       | domain     | demo                    |
       | inviting.com | company_name: Bratwurst |
@@ -25,7 +26,7 @@ Feature: User gives credit to game referer via autocomplete field
       | name       | demo                    | email              | slug      | sms_slug    | phone_number |
       | Barnaby    | company_name: Bratwurst | claimed@inviting.com | smoke     | smoke       | +15554445555 |
       | Shelly     | company_name: Preloaded | pre@loaded.com     | nada      | nada        | +16662221111 |
-
+      | Yoko       | company_name: NotStarted| not@started.com    | abb       | abb         | +13384848484 |
 
   @javascript
   Scenario: Invite friends on demo pre-populated with users
@@ -86,3 +87,19 @@ Feature: User gives credit to game referer via autocomplete field
     And "+15554445555" should have received SMS "Blowing Smoke gave you credit for referring them to the game. Many thanks and 2000 bonus points!"
     And I should see "Barnaby got credit for referring Blowing Smoke to the game"
     And I should see "2000 pts"
+    
+  @javascript
+  Scenario: modal pops up the first two times I log in
+  Given the demo for "NotStarted" starts tomorrow
+  And "Yoko" has the password "foobar"
+  And I sign in via the login page as "Yoko/foobar"
+  Then I should see "Invite your friends" in a facebox modal
+  Given I go to the activity page
+  Then I should not see a facebox modal
+  And I sign out
+  And I sign in via the login page as "Yoko/foobar"
+  Then I should see "Invite your friends" in a facebox modal
+  And I sign out
+  And I sign in via the login page as "Yoko/foobar"
+  Then I should not see a facebox modal
+  

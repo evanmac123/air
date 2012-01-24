@@ -5,6 +5,8 @@
   <title>H Engage</title>
   <%= stylesheet_link_tag :flutie, 'screen', 'marketing' %>
   <%= stylesheet_link_tag 'autocompletion' %>
+  <%= stylesheet_link_tag 'facebox' %>
+  
     
 
   <!--[if IE 7]>
@@ -15,6 +17,7 @@
   <![endif]-->
 
   <%= javascript_include_tag 'jquery' %>
+  <%= javascript_include_tag 'facebox' %>
   <%= csrf_meta_tag %>
   <%= render :partial => 'shared/mixpanel' %>
 </head>
