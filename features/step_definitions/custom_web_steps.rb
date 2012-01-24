@@ -273,3 +273,8 @@ end
 Then /^I should not see a facebox modal$/ do
  page.should_not have_selector('#facebox')
 end
+
+Then /^there should be a user with email "([^"]*)" in demo "([^"]*)"$/ do |email, company_name|
+  demo_id = Demo.find_by_company_name(company_name).id
+  User.where(:email => email, :demo_id => demo_id).should_not be_empty
+end

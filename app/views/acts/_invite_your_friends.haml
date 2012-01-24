@@ -7,23 +7,49 @@
 .invite{:id => div_id}
   %h2 Invite your friends
   %p For each friend that joins the game, you get an extra 5 points!
+  #points_per_referral= current_user.demo.game_referrer_bonus
   - unless current_user.demo.self_inviting_domains.empty?
     = form_tag invitation_invite_friend_path do  
-      = label_tag "email_prepend", "Enter your friend's email address"
-      = text_field_tag "email_prepend"
-      = "@#{current_user.demo.self_inviting_domains.first.domain}"
-      = button_to "Invite!" 
+      = "Enter your friends' email addresses"
+      #bonus
+        That's
+        #potential_bonus_points
+          0
+        potential bonus points!
+        
+      - domain = "@#{current_user.demo.self_inviting_domains.first.domain}"
+      .first_half
+        - 5.times do |f|
+          - tag_name = "email_prepends[#{f}]"
+          = label_tag tag_name, "email number #{f}"
+          = text_field_tag tag_name
+          = domain
+      .second_half
+        - 5.times do |f|
+          - tag_name = "email_prepends[#{f + 5}]"
+          = label_tag tag_name, "email number #{f + 5}"
+          = text_field_tag tag_name
+          = domain
+          
+      = submit_tag "Invite!"
+      = link_to "I have LOTS of friends", '#m', :id => :lots_of_friends
+     
   -else
     #search_for_friends_to_invite
       = form_tag invitation_invite_friend_path do  
-        = hidden_field_tag :invitee_id
+        = hidden_field_tag 'invitee_ids'
     
         %ul.form-section
           %li.form-label= label_tag :autocomplete,  "Enter part of their name or email address"
           %li.form-input
             = text_field_tag :autocomplete
-
+          #bonus
+            That's
+            #potential_bonus_points
+              0
+            potential bonus points!
+              
           #relative  
             #suggestions
           #submit_invite_friend
-            = button_to "Invite!"
+            = link_to "Invite!", '#f', :id => :invite_friends_link

@@ -2,16 +2,46 @@ var autocomplete_in_progress = 0;
 var autocomplete_waiting = 0;
 
 $(function() {
+  $('#invite_friends_link').live('click', function(){
+    $('#search_for_friends_to_invite form').submit();
+  });
+  
+  if (document.getElementById('command_central')){
+    $('#command_central').focus();
+    var sugg = "What did you do or eat?";
+    $('#command_central').val(sugg);
+    
+    $('#command_central').keypress(function(key){
+      if (sugg == $('#command_central').val()){
+        $('#command_central').val('');
+      }
+      if (key.keyCode == 13){
+       $('#flash_failure').hide();
+      }
+    })
+  };
 
-  if (document.getElementById('invite_friends_facebox')) 
-  {
+  $('#lots_of_friends').live('click', function(){
+    $('.second_half').show();
+    $(this).hide();
+  });
+  if (document.getElementById('invite_friends_facebox')){
     $.facebox({ div: '#invite_friends_facebox' });
+    $('#invite_friends_facebox').html('');
+    $('#facebox #autocomplete').focus();
+    if (document.getElementById('email_prepends_0')){
+      $('#email_prepends_0').focus();
+    }
+
   }
-
-
-
+  
 
   
+  
+  $('[id^=email_prepends]').blur(function(){
+    setTimeout('calculatePoints()', 500);
+  });
+
   $('#search_for_referrer #autocomplete').keypress(function(){
       var email = $('#user_email').val();
       var options = {email : email, calling_div : '#search_for_referrer' };
@@ -26,17 +56,22 @@ $(function() {
 
   $('#search_for_referrer .single_suggestion').live('click', function() {
     $('#user_game_referrer_id').val($(this).find('.suggested_user_id').text());
-
     $('#search_for_referrer #autocomplete').hide();
-    $(this).insertAfter('#autocomplete');
+    $(this).insertAfter('#bonus');
+    setTimeout('updatePotentialPoints()', 500);
   });
 
   $('#search_for_friends_to_invite .single_suggestion').live('click', function() {
-    $('#invitee_id').val($(this).find('.suggested_user_id').text());
-
-    $('#search_for_friends_to_invite #autocomplete').hide();
-    $(this).insertAfter('#autocomplete');
+    var existing_ids = $('#invitee_ids').val();
+    var new_id = $(this).find('.suggested_user_id').text();
+    var new_plus_existing = existing_ids + " " + new_id + ",";
+    $('#invitee_ids').val(new_plus_existing);
+    $('#autocomplete').val('');
+    $('#autocomplete').focus();
+    //$('#search_for_friends_to_invite #autocomplete').hide();
+    $(this).insertAfter('#bonus');
     $('#submit_invite_friend').show();
+    setTimeout('updatePotentialPoints()', 500);
   });
 
   $('#.remove_referrer').live('click', function() {
@@ -86,6 +121,44 @@ $(function() {
 
 
 });
+
+function calculatePoints(){
+  // here we will see how many email addresses were entered and apply points accordingly
+  var number_emails = 0;
+  var points_per_ref = $('#points_per_referral').text();
+  if (points_per_ref == ''){
+    $('#bonus').html('This game does not have referral bonuses set up yet.');
+  }else{
+    points_per_ref = parseInt(points_per_ref);
+    var which_div = '';
+    var div_contents = '';
+    for (var i=0; i<10; i++){
+      which_div = 'email_prepends_' + i;
+      div_contents = document.getElementById(which_div).value;
+      if (div_contents != ''){
+        number_emails += 1;
+      }
+    }
+    var total_potential = number_emails * points_per_ref;
+    if (total_potential > 0) {
+      $('#bonus').show();
+    }
+    $('#potential_bonus_points').text(total_potential);
+  }
+}
+
+function updatePotentialPoints(){
+  var new_points = $('#points_per_referral').text();
+  if (new_points == ''){
+    $('#bonus').html('This game does not have referral bonuses set up yet.');
+  }else{
+    var points_so_far = $('#potential_bonus_points').text();
+    points_so_far = parseInt(points_so_far);
+    new_points = parseInt(new_points);
+    $('#potential_bonus_points').text(points_so_far + new_points);
+  }
+  $('#bonus').show();
+}
 
 
 

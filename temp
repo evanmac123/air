@@ -1,0 +1,13 @@
+cucumber features/admin_moves_user_to_new_demo.feature:58 # Scenario: In user's profile page, only new acts appear
+cucumber features/user_sees_acts_in_profile.feature:4 # Scenario: Looking at a user's profile
+cucumber features/user_sees_correct_values_in_master_bar.feature:3 # Scenario: 
+cucumber features/user_sees_correct_values_in_master_bar.feature:3 # Scenario: 
+cucumber features/user_sees_correct_values_in_master_bar.feature:3 # Scenario: 
+cucumber features/user_sees_correct_values_in_master_bar.feature:3 # Scenario: 
+cucumber features/user_sees_correct_values_in_master_bar.feature:3 # Scenario: 
+cucumber features/user_sees_correct_values_in_master_bar.feature:3 # Scenario: 
+cucumber features/user_sees_correct_values_in_master_bar.feature:3 # Scenario: 
+cucumber features/user_sees_correct_values_in_master_bar.feature:3 # Scenario: 
+cucumber features/user_sees_correct_values_in_master_bar.feature:3 # Scenario: 
+cucumber features/user_sees_correct_values_in_master_bar.feature:3 # Scenario: 
+cucumber features/user_sees_correct_values_in_master_bar.feature:3 # Scenario: 

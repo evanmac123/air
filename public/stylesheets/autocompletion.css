@@ -57,3 +57,31 @@
 
 #submit_invite_friend {
   display: none; }
+
+.first_half, .second_half {
+  width: 500px; }
+  .first_half input, .second_half input {
+    text-align: right; }
+  .first_half label, .second_half label {
+    display: none; }
+
+.second_half {
+  display: none; }
+
+body #facebox .content {
+  width: 402px;
+  height: 340px; }
+
+#potential_bonus_points {
+  display: inline; }
+
+#bonus {
+  display: none;
+  color: green;
+  font-weight: bold; }
+
+#points_per_referral {
+  display: none; }
+
+#lots_of_friends {
+  padding-left: 17ex; }
