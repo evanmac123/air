@@ -24,11 +24,18 @@ Feature: User sees suggested tasks they can currently do
     And "Joe" has the password "foobar"
     And I sign in via the login page with "Joe/foobar"
 
-  @javascript @slow @wip
+  @javascript @slow
   Scenario: User sees suggested tasks they can currently do
     Then I should see "Make toast"
     And I should see "Toast some bread"
     But "Turn bread into toast by the application of fire." should not be visible
+
+    When I follow "More info"
+    Then "Turn bread into toast by the application of fire." should be visible
+
+    When I follow "Less info"
+    Then "Turn bread into toast by the application of fire." should not be visible
+
     When I follow "More info"
     Then "Turn bread into toast by the application of fire." should be visible
 

@@ -11,7 +11,10 @@
     <%= javascript_tag do %>
       $('#<%= more_info_link_id %>').click(function(e) {
         e.preventDefault();
-        $('#<%= long_description_div_id %>').show();
+        $('#<%= long_description_div_id %>').toggle();
+        info_toggle_link = $('#<%= more_info_link_id%>');
+        alternate_text = info_toggle_link.text() == 'More info' ? 'Less info' : 'More info';
+        info_toggle_link.text(alternate_text);
       });
     <% end %>
   <% end %>
