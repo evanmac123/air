@@ -1,8 +1,8 @@
 <% suggested_task = displayable_task_suggestion.suggested_task %>
 <% classes = displayable_task_suggestion.display_completion_on_this_request ? "suggested-task recently-completed" : "suggested-task" %>
 <div class="<%= classes %> gradient freeplay" id="suggested-task-<%= suggested_task.id %>">
-  <p class="dose-title"><%= suggested_task.name %></p>
-  <p class="dose-descript"><%= suggested_task.short_description %></p>
+  <p class="dose-title"><%= raw suggested_task.name %></p>
+  <p class="dose-descript"><%= raw suggested_task.short_description %></p>
   <% more_info_link_id = "more-info-#{suggested_task.id}" %>
   <% long_description_div_id = "long-description-#{suggested_task.id}" %>
   
@@ -19,5 +19,5 @@
     <% end %>
   <% end %>
   
-  <div class="gradient" id="<%= long_description_div_id %>" style="display: none"><%= suggested_task.long_description %></div>
+  <div class="gradient" id="<%= long_description_div_id %>" style="display: none"><%= raw suggested_task.long_description %></div>
 </div>
