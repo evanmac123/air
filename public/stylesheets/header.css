@@ -3,6 +3,10 @@
 /* layout/reset/fonts/etc */
 a {
   text-decoration: none!important; }
+  a:hover {
+    color: #0893e2; }
+  a:active {
+    color: #2e2e2c; }
 
 .cf {
   clear: both; }
@@ -126,9 +130,9 @@ ul {
       padding: 10px 10px 2px 10px;
       width: 940px; }
       .header .masthead .mast_center li.help_command {
-        padding-right: 305px; }
+        padding: 0 294px 0 5px; }
       .header .masthead .mast_center li.help_progress {
-        padding-right: 205px; }
+        padding-right: 202px; }
     .header .masthead .mast_bottom {
       background: #d5d5d5;
       /* Old browsers */
@@ -297,19 +301,20 @@ ul {
             behavior: url(/css3pie/PIE.htc);
             background-image: url(/images/v3/progressBar.png);
             background-repeat: no-repeat;
-            color: #906109;
             height: 100%;
             margin: 0;
             overflow: hidden;
             padding: 0;
             position: relative;
             width: 30%; }
-            .header .masthead .mast_bottom .bar_progress .bar .progress p {
-              float: right;
-              font-size: 11px;
-              font-weight: bold;
-              padding: 10px 7px 0 0;
-              text-shadow: none; }
+          .header .masthead .mast_bottom .bar_progress .bar p {
+            color: #906109;
+            font-size: 11px;
+            font-weight: bold;
+            margin: -25px 0 0 0;
+            position: relative;
+            text-align: center;
+            text-shadow: none; }
       .header .masthead .mast_bottom .bar_level {
         border: 0;
         width: 140px; }

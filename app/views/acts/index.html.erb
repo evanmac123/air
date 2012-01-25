@@ -40,11 +40,15 @@
 	      <% end %>
 	    <% end %>
 
-	    <ul id="acts">
+	    <ul id="user-acts">
 	      <%= render :partial => "shared/new_act", :collection => @acts, :as => :act %>
 	    </ul>
 
-      <%= link_to "See more", '#', :id => 'see-more' %>
+      <div class="seemore">
+			<img src="/images/v3/arrow-down.png" />
+			<%= link_to "See more", '#', :id => 'see-more' %>
+			<img src="/images/v3/arrow-down.png" />
+      </div>
 
       <%= image_tag 'spinner.gif', :id => 'see-more-spinner', :style => 'display:none' %>
 

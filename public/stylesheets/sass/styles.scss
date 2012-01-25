@@ -5,23 +5,23 @@ $ex-dark-gray: #2d2d2d;
 $ex-gray: #606060;
 $ex-green: #5b8b38;
 
-@mixin green-button {
-	background-color:transparent;
-	background-image:url('/images/bg_button.png');
-	background-position:bottom left;
-	background-repeat:no-repeat;
+@mixin ex-button {
+	@include rounded-nav;
+	background-color: $header-bg;
 	border:0;
 	color:#fff;
+	display: block;
 	float:left;
-	font-size:13px;
+	font-family: $gotham;
+	font-size: 16px;
 	font-weight:bold;
-	height:30px;
+	padding: 5px 16px;
 	text-shadow:1px 1px 1px #333;
-	width:176px;
-	height: 29px;
-	padding-bottom: 6px;
-	
-	&:hover {color:#044300; text-shadow:none;} 
+	text-transform: uppercase;
+	&:hover {
+		background-color: $dark-gray;
+		text-shadow:none;
+	} 
 }
 
 .cf {clear:both;}
@@ -56,18 +56,15 @@ body.external {
 body.invitations .header #navigation .nav-signup, body.sessions .header #navigation .nav-login {
 	@include bg-black;
 	@include rounded-nav;
-	border:1px #72b041 solid;
+	border:1px lighten($header-bg, 15%) solid;
 }
 
 /* ============== layout =============== */
 .container {
-	background-color: #427238;
-	background-image: url(/images/v3/external-header.png);
-	background-position: top center;
-	background-repeat: no-repeat;
+	background-color: $header-bg;
 
 	.top {
-		background-image: url(/images/v3/texture_darker.png);
+		background-image: url(/images/v3/texture.png);
 		border-bottom: 1px #568a3a solid;
 		height: 354px;
 		.header {
@@ -76,10 +73,37 @@ body.invitations .header #navigation .nav-signup, body.sessions .header #navigat
 			text-align: center;
 			z-index: 0;
 			
+			.app_bar {
+				background-color:$dark-gray;
+				color:$gray;
+				font-size:$font-small;
+				font-weight: bold;
+				height:23px;
+				padding:7px $gutter 0 $gutter;
+				text-shadow: 1px 1px $dark-gray; behavior: url(/css3pie/PIE.htc);
+				
+				.app_by {
+					margin: $centered;
+					width: $body-width;
+					
+					p {
+						float: left;
+					}
+				}
+				a {
+					color:#fff;
+					font-size:$font-small;
+					&:hover {color:lighten($header-bg, 50%)!important;}
+					&:active {
+						color:$dark-gray!important; 
+						text-shadow: none!important;
+					}
+				}
+			}
+			
+			
 			#logo {
-				background-image: url(/images/v3/external-shiny.png);
-				background-position:top center ;
-				background-repeat: no-repeat;
+				border-top: 1px lighten($header-bg, 15%) solid;
 				height: 192px;
 				overflow: hidden;
 				padding: 0;
@@ -92,7 +116,7 @@ body.invitations .header #navigation .nav-signup, body.sessions .header #navigat
 			#navigation {
 				font-family: $gotham;
 				font-weight: bold;
-				padding: 20px;
+				padding: 0 0 20px 0;
 				text-transform:uppercase;
 				
 				li {
@@ -126,7 +150,7 @@ body.invitations .header #navigation .nav-signup, body.sessions .header #navigat
 			margin: $centered;
 			padding-bottom: 35px;
 			position: relative;
-			top: -78px;
+			top: -58px;
 			width: 620px;
 			z-index: 999;
 			
@@ -141,9 +165,9 @@ body.invitations .header #navigation .nav-signup, body.sessions .header #navigat
 			div.form-ul-section {
 				div.helper {
 					@include rounded;
-					background-color: $ex-green;
+					background-color: $header-bg;
 					background-image: url(/images/v3/texture_darker.png);
-					border: 1px #568a3a solid;
+					border: 1px lighten($header-bg, 15%) solid;
 					box-shadow: 0 0 5px #2c2c2c;
 					behavior: url(/css3pie/PIE.htc);
 					color: #fff;
@@ -202,7 +226,7 @@ body.invitation-resends {
 		}
 		
 		input[type="submit"] {
-			@include green-button;
+			@include ex-button;
 			margin-top: 20px;
 		}
 	}
@@ -226,14 +250,14 @@ body.passwords .content .inv-forms {
 		width: 455px;
 	
 		input[type="submit"] {
-			@include green-button;
+			@include ex-button;
 			margin-top: 20px;
 		}
 		input[type="text"] {
 			@include rounded-nav;
 			border: 1px #c5c7c7 solid;
 			background-color:lighten($light-gray, 5%); 
-			color:#355613;
+			color:$header-bg;
 			font-size:20px;
 			margin:5px auto 0 auto;
 			padding:7px 10px;
@@ -241,7 +265,7 @@ body.passwords .content .inv-forms {
 			
 			&:focus {
 				background-color:#fff;
-				border:1px #87bf4e solid;
+				border:1px $header-bg solid;
 			}
 		}
 	}
@@ -261,7 +285,7 @@ body.sessions .content .inv-forms {
 		padding: 0;
 	
 		input[type="submit"] {
-			@include green-button;
+			@include ex-button;
 			display: block;
 			margin-top: 20px;
 		}
@@ -269,13 +293,13 @@ body.sessions .content .inv-forms {
 			@include rounded-nav;
 			border: 1px #c5c7c7 solid;
 			background-color:lighten($light-gray, 5%); 
-			color:#355613;
+			color:$header-bg;
 			display: inline;
 			font-size:20px;
 			padding:7px 10px;			
 			&:focus {
 				background-color:#fff;
-				border:1px #87bf4e solid;
+				border:1px $header-bg solid;
 			}
 		}
 		input[type="checkbox"] {
@@ -316,7 +340,7 @@ ul.form-section {
 	@include rounded-nav;
 	border: 1px #c5c7c7 solid;
 	background-color:lighten($light-gray, 5%); 
-	color:#355613;
+	color:$header-bg;
 	font-size:20px;
 	margin:5px auto 0 auto;
 	padding:7px 10px;
@@ -324,7 +348,7 @@ ul.form-section {
 }
 	.form-input input:focus {
 		background-color:#fff;
-		border:1px #87bf4e solid;
+		border:1px $header-bg solid;
 	}
 .form-input .field_with_errors input, .form-input .field_with_errors input {border:2px #e11a00 solid;}
 
@@ -336,7 +360,8 @@ select#user_location_id {width: 455px !important;}
 	.form-msg .error-text {font-weight:bold;}
 
 .signup-submit input[type="submit"] {
-	@include green-button;
+	@include ex-button;
+	margin-top: -5px;
 }
 
 a.feedback {

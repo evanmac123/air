@@ -3,6 +3,10 @@
 /* layout/reset/fonts/etc */
 a {
   text-decoration: none!important; }
+  a:hover {
+    color: #0893e2; }
+  a:active {
+    color: #2e2e2c; }
 
 .cf {
   clear: both; }
@@ -91,16 +95,13 @@ body.invitations .header #navigation .nav-signup, body.sessions .header #navigat
   -moz-border-radius: 20px;
   border-radius: 20px;
   behavior: url(/css3pie/PIE.htc);
-  border: 1px #72b041 solid; }
+  border: 1px #0da2f7 solid; }
 
 /* ============== layout =============== */
 .container {
-  background-color: #427238;
-  background-image: url(/images/v3/external-header.png);
-  background-position: top center;
-  background-repeat: no-repeat; }
+  background-color: #0673b1; }
   .container .top {
-    background-image: url(/images/v3/texture_darker.png);
+    background-image: url(/images/v3/texture.png);
     border-bottom: 1px #568a3a solid;
     height: 354px; }
     .container .top .header {
@@ -108,10 +109,30 @@ body.invitations .header #navigation .nav-signup, body.sessions .header #navigat
       padding: 0;
       text-align: center;
       z-index: 0; }
+      .container .top .header .app_bar {
+        background-color: #2e2e2c;
+        color: #909090;
+        font-size: 12px;
+        font-weight: bold;
+        height: 23px;
+        padding: 7px 10px 0 10px;
+        text-shadow: 1px 1px #2e2e2c;
+        behavior: url(/css3pie/PIE.htc); }
+        .container .top .header .app_bar .app_by {
+          margin: 0 auto;
+          width: 940px; }
+          .container .top .header .app_bar .app_by p {
+            float: left; }
+        .container .top .header .app_bar a {
+          color: #fff;
+          font-size: 12px; }
+          .container .top .header .app_bar a:hover {
+            color: #b9e4fd !important; }
+          .container .top .header .app_bar a:active {
+            color: #2e2e2c !important;
+            text-shadow: none!important; }
       .container .top .header #logo {
-        background-image: url(/images/v3/external-shiny.png);
-        background-position: top center;
-        background-repeat: no-repeat;
+        border-top: 1px #0da2f7 solid;
         height: 192px;
         overflow: hidden;
         padding: 0; }
@@ -121,7 +142,7 @@ body.invitations .header #navigation .nav-signup, body.sessions .header #navigat
       .container .top .header #navigation {
         font-family: "Lato", Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
         font-weight: bold;
-        padding: 20px;
+        padding: 0 0 20px 0;
         text-transform: uppercase; }
         .container .top .header #navigation li {
           display: inline; }
@@ -150,7 +171,7 @@ body.invitations .header #navigation .nav-signup, body.sessions .header #navigat
       margin: 0 auto;
       padding-bottom: 35px;
       position: relative;
-      top: -78px;
+      top: -58px;
       width: 620px;
       z-index: 999; }
       .container .content .inv-forms form {
@@ -163,9 +184,9 @@ body.invitations .header #navigation .nav-signup, body.sessions .header #navigat
         border-radius: 3px;
         behavior: url(/css3pie/PIE.htc);
         z-index: 0;
-        background-color: #5b8b38;
+        background-color: #0673b1;
         background-image: url(/images/v3/texture_darker.png);
-        border: 1px #568a3a solid;
+        border: 1px #0da2f7 solid;
         box-shadow: 0 0 5px #2c2c2c;
         behavior: url(/css3pie/PIE.htc);
         color: #fff;
@@ -205,23 +226,24 @@ body.invitation-resends form ul {
   margin: 0 auto 30px auto;
   width: 455px; }
 body.invitation-resends form input[type="submit"] {
-  background-color: transparent;
-  background-image: url("/images/bg_button.png");
-  background-position: bottom left;
-  background-repeat: no-repeat;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  border-radius: 20px;
+  behavior: url(/css3pie/PIE.htc);
+  background-color: #0673b1;
   border: 0;
   color: #fff;
+  display: block;
   float: left;
-  font-size: 13px;
+  font-family: "Lato", Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 16px;
   font-weight: bold;
-  height: 30px;
+  padding: 5px 16px;
   text-shadow: 1px 1px 1px #333;
-  width: 176px;
-  height: 29px;
-  padding-bottom: 6px;
+  text-transform: uppercase;
   margin-top: 20px; }
   body.invitation-resends form input[type="submit"]:hover {
-    color: #044300;
+    background-color: #2e2e2c;
     text-shadow: none; }
 
 /* ====== special case: PASSWORDS ====== */
@@ -235,23 +257,24 @@ body.passwords .content .inv-forms form {
   margin: 0 auto 30px auto;
   width: 455px; }
   body.passwords .content .inv-forms form input[type="submit"] {
-    background-color: transparent;
-    background-image: url("/images/bg_button.png");
-    background-position: bottom left;
-    background-repeat: no-repeat;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    border-radius: 20px;
+    behavior: url(/css3pie/PIE.htc);
+    background-color: #0673b1;
     border: 0;
     color: #fff;
+    display: block;
     float: left;
-    font-size: 13px;
+    font-family: "Lato", Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 16px;
     font-weight: bold;
-    height: 30px;
+    padding: 5px 16px;
     text-shadow: 1px 1px 1px #333;
-    width: 176px;
-    height: 29px;
-    padding-bottom: 6px;
+    text-transform: uppercase;
     margin-top: 20px; }
     body.passwords .content .inv-forms form input[type="submit"]:hover {
-      color: #044300;
+      background-color: #2e2e2c;
       text-shadow: none; }
   body.passwords .content .inv-forms form input[type="text"] {
     -webkit-border-radius: 20px;
@@ -260,14 +283,14 @@ body.passwords .content .inv-forms form {
     behavior: url(/css3pie/PIE.htc);
     border: 1px #c5c7c7 solid;
     background-color: #f6f6f6;
-    color: #355613;
+    color: #0673b1;
     font-size: 20px;
     margin: 5px auto 0 auto;
     padding: 7px 10px;
     width: 435px; }
     body.passwords .content .inv-forms form input[type="text"]:focus {
       background-color: #fff;
-      border: 1px #87bf4e solid; }
+      border: 1px #0673b1 solid; }
 
 /* ====== special case: SESSIONS ====== */
 body.sessions .content .inv-forms #session-wrapper {
@@ -278,24 +301,25 @@ body.sessions .content .inv-forms form {
   margin: 0 auto 30px auto;
   padding: 0; }
   body.sessions .content .inv-forms form input[type="submit"] {
-    background-color: transparent;
-    background-image: url("/images/bg_button.png");
-    background-position: bottom left;
-    background-repeat: no-repeat;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    border-radius: 20px;
+    behavior: url(/css3pie/PIE.htc);
+    background-color: #0673b1;
     border: 0;
     color: #fff;
+    display: block;
     float: left;
-    font-size: 13px;
+    font-family: "Lato", Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 16px;
     font-weight: bold;
-    height: 30px;
+    padding: 5px 16px;
     text-shadow: 1px 1px 1px #333;
-    width: 176px;
-    height: 29px;
-    padding-bottom: 6px;
+    text-transform: uppercase;
     display: block;
     margin-top: 20px; }
     body.sessions .content .inv-forms form input[type="submit"]:hover {
-      color: #044300;
+      background-color: #2e2e2c;
       text-shadow: none; }
   body.sessions .content .inv-forms form input[type="password"], body.sessions .content .inv-forms form input[type="text"] {
     -webkit-border-radius: 20px;
@@ -304,13 +328,13 @@ body.sessions .content .inv-forms form {
     behavior: url(/css3pie/PIE.htc);
     border: 1px #c5c7c7 solid;
     background-color: #f6f6f6;
-    color: #355613;
+    color: #0673b1;
     display: inline;
     font-size: 20px;
     padding: 7px 10px; }
     body.sessions .content .inv-forms form input[type="password"]:focus, body.sessions .content .inv-forms form input[type="text"]:focus {
       background-color: #fff;
-      border: 1px #87bf4e solid; }
+      border: 1px #0673b1 solid; }
   body.sessions .content .inv-forms form input[type="checkbox"] {
     margin: 0;
     padding: 0; }
@@ -344,7 +368,7 @@ ul.form-section {
   behavior: url(/css3pie/PIE.htc);
   border: 1px #c5c7c7 solid;
   background-color: #f6f6f6;
-  color: #355613;
+  color: #0673b1;
   font-size: 20px;
   margin: 5px auto 0 auto;
   padding: 7px 10px;
@@ -352,7 +376,7 @@ ul.form-section {
 
 .form-input input:focus {
   background-color: #fff;
-  border: 1px #87bf4e solid; }
+  border: 1px #0673b1 solid; }
 
 .form-input .field_with_errors input, .form-input .field_with_errors input {
   border: 2px #e11a00 solid; }
@@ -368,22 +392,24 @@ select#user_location_id {
   font-weight: bold; }
 
 .signup-submit input[type="submit"] {
-  background-color: transparent;
-  background-image: url("/images/bg_button.png");
-  background-position: bottom left;
-  background-repeat: no-repeat;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  border-radius: 20px;
+  behavior: url(/css3pie/PIE.htc);
+  background-color: #0673b1;
   border: 0;
   color: #fff;
+  display: block;
   float: left;
-  font-size: 13px;
+  font-family: "Lato", Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 16px;
   font-weight: bold;
-  height: 30px;
+  padding: 5px 16px;
   text-shadow: 1px 1px 1px #333;
-  width: 176px;
-  height: 29px;
-  padding-bottom: 6px; }
+  text-transform: uppercase;
+  margin-top: -5px; }
   .signup-submit input[type="submit"]:hover {
-    color: #044300;
+    background-color: #2e2e2c;
     text-shadow: none; }
 
 a.feedback {

@@ -3,6 +3,10 @@
 /* layout/reset/fonts/etc */
 a {
   text-decoration: none!important; }
+  a:hover {
+    color: #0893e2; }
+  a:active {
+    color: #2e2e2c; }
 
 .cf {
   clear: both; }

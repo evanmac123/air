@@ -41,7 +41,7 @@
 = form_for @user, :url => invitation_acceptance_path(:user_id => @user.id), :id => "signup-form", :builder => FancyFormBuilder do |f|
   %ul
     %div.form-ul-section
-      %div.helper#number This isn’t required but the game is best experienced through texting. Don’t worry, we’ll never spam you. And once you log in, you can choose your texting settings.
+      %div.helper#number This isn’t required but the game is best experienced through texting. Don’t worry, we’ll never spam you and you can always remove your number in the profile section. And once you log in, you can choose your texting settings.
       = f.hidden_field :email, :value => @user.email
       - if @user.invitation_requested_via_sms?
         = f.hidden_field :phone_number, :value => @user.phone_number

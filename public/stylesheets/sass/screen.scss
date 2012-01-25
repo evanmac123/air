@@ -65,28 +65,43 @@ body.acts {
 				padding:$gutter;
 				text-transform:uppercase;
 			}
+			
+			/* ---------- game types ----------- */
 			.campaign {
 				@include bg-campaign;   //change for campaign, freeplay, competition
-				div {@include bg-campaign-rev;}
-				// a {border:1px #173647 solid;}
+				div.dose-moreinfo {@include bg-campaign-rev;}
+				a.more-info {border:1px #173647 solid;}
 			}
 			.competition {
 				@include bg-competition;   //change for campaign, freeplay, competition
-				div {@include bg-competition-rev;}
-				// a {border:1px #995200 solid;}
+				div.dose-moreinfo {@include bg-competition-rev;}
+				a.more-info {border:1px #995200 solid;}
 			}
 			.freeplay {
 				@include bg-freeplay;   //change for campaign, freeplay, competition
-				div {@include bg-freeplay-rev;}
-				// a {border:1px #007563 solid;}
+				div.dose-moreinfo {@include bg-freeplay-rev;}
+				a.more-info {
+					border:1px #007563 solid;
+					&:hover {
+						border:1px lighten(#007563, 10%) solid;
+					}
+				}
 			}
+			/* ---------- end game types ----------- */
+			
 			.suggested-task {
-				@include bg-game-default;
+//				@include bg-game-default;
 				@include rounded;
 				color:#fff;
 				margin-bottom: 10px;
 				padding:13px 15px;
-				text-shadow:1px 1px 1px $dark-gray;
+				text-shadow:1px 1px 1px #4A4A4A;
+				
+				a {
+					color: #fff!important;
+					border-bottom: 1px #fff solid;
+					text-decoration: underline;
+				}
 				
 				a.more-info {
 					@include bg-orange;
@@ -105,17 +120,20 @@ body.acts {
 						@include bg-black;
 					}
 				}
-				div.gradient {
-					@include bg-game-default-rev;
+				div.dose-moreinfo {
+//					@include bg-game-default-rev;
 					@include rounded;
-					font-size:13px;
 					margin-top:15px;
 					padding:10px;
 				}
-				p {display:inline;}
-				p.dose-title{
-					font-weight:bold;
-					padding-right:10px;
+				div.dose-texts {
+					float: left;
+					width: 825px;
+					p {display:inline;}
+					p.dose-title{
+						font-weight:bold;
+						padding-right:10px;
+					}	
 				}
 			}
 			.more-tasks {
@@ -159,60 +177,7 @@ body.acts {
 					}
 				}
 			}
-			.act {
-				border-bottom: 1px $light-gray solid;
-				clear: both;
-				padding: 13px 0;
-				
-				.act-details {	
-					float: left;
-					margin-left: 20px;
-					width: 87%;
-					
-					.description {
-						width: 80%;
-					}
-					.points {
-						color: $gray;
-						float: right;
-						font-size: 18px;
-						font-weight: bold;
-						width: 75px;
-					}
-					.user {
-						a {
-							color: $header-bg;
-							font-size: 14px;
-							font-weight: bold;
-							&:hover {color:lighten($header-bg, 10%);}
-							&:active {color:$dark-gray;}
-						}
-					}
-					.when {
-						clear: both;
-						color: $gray;
-						font-size: 12px;
-						width: 80%;
-					}
-				}
-				.avatar43 {
-					@include rounded;
-					border: 1px $light-gray solid;
-					float: left;
-					height: 50px;
-					width: 50px;
-					
-					img {
-						@include rounded;
-						height: 100%;
-						width: 100%;
-					}
-				}
-			}
 			
-			form {
-				margin-top: 15px;
-			}
 			.act {
 				border-bottom: 1px $light-gray solid;
 				clear: both;
@@ -263,12 +228,19 @@ body.acts {
 				}
 			}
 			
-			form {
-				margin-top: 15px;
+			.seemore {
+				display: block;
+				font-size:12px;
+				font-weight:bold;
+				padding: 10px 0 5px 0;
+				text-align: center;
 				
-				#see-more {
-					border: 1px red solid;
-					background: black;
+				a {
+					color: $gray;
+					padding: 0 7px;
+					&:hover {
+						color:$dark-gray;
+					}
 				}
 			}
 		}
@@ -277,11 +249,6 @@ body.acts {
 			width:35%;
 		}
 	}
-
-  #see-more {
-    display: inline-block;
-    margin-top: 7px;
-  }
 }
 
 /* --------------------------- settings --------------------------- */
