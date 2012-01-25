@@ -18,7 +18,7 @@ Then /^I should( not)? see the following act(s?):$/ do |sense, _nothing, table|
     user = User.find_by_name(act_hash['name'])
     expected_user_url = user_path(user)
 
-    within 'ul#acts' do
+    within 'ul#user-acts' do
       if sense
         within 'li', :text => act_hash['act'] do
           page.should have_css("a[href='#{expected_user_url}']", :text => user.name)

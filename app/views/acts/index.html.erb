@@ -27,9 +27,9 @@
 	      <%= mp_track 'activity feed viewed', :game => @demo.company_name %>
 	      <%= javascript_tag do %>
 	        function updateShownActs(url) {
-	          $('#acts').html('<%= image_tag("spinner.gif") %>');
+	          $('#user-acts').html('<%= image_tag("spinner.gif") %>');
 	          $.get(url, function(data) {
-	            $('#acts').html(data);
+	            $('#user-acts').html(data);
 	          });
 	        }
 
