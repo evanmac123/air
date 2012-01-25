@@ -248,6 +248,35 @@ body.acts {
 			float:right;
 			width:35%;
 		}
+		.invite-module {
+			float: right;
+			width: 35%;
+			
+			form {
+				margin-top: 15px;
+			}
+			h2 {
+				color:$dark-gray;
+				font-family:$gotham;
+				font-size:20px;
+				font-weight: bold;
+				padding-bottom:15px;
+				text-transform:uppercase;
+			}
+			input[type="submit"] {
+				@include button-norm;
+				margin-top: 10px;
+				font-weight: bold;
+				letter-spacing: .5px;
+				&:active {
+					color:lighten($header-bg, 45%)!important;
+				}
+			}
+			label {
+				color: $header-bg;
+				font-weight: bold;
+			}
+		}
 	}
 }
 
