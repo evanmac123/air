@@ -9,6 +9,8 @@ class User < ActiveRecord::Base
 
   DEMOGRAPHIC_FIELD_NAMES = %w(gender date_of_birth).freeze
 
+  PRIVACY_LEVELS = %w(everybody connected nobody).freeze
+
   include Clearance::User
   include User::Ranking
 
@@ -35,7 +37,9 @@ class User < ActiveRecord::Base
   validates_presence_of :name, :if => :name_required
   validates_presence_of :sms_slug, :message => "Sorry, you can't choose a blank user ID.", :if => :slug_required
   validates_presence_of :slug, :if => :slug_required
-
+  
+  validates_presence_of :privacy_level
+  validates_inclusion_of :privacy_level, :in => PRIVACY_LEVELS
 
   validates_format_of :slug, :with => /^[0-9a-z]+$/, :if => :slug_required
   validates_format_of :sms_slug, :with => /^[0-9a-z]+$/, :if => :slug_required,

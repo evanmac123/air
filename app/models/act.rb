@@ -46,8 +46,12 @@ class Act < ActiveRecord::Base
     order('created_at desc').limit(limit)
   end
 
-  def self.displayable
-    where("text != ''")
+  def self.displayable_to_user(viewing_user)
+    where("text != ''").allowed_to_view_by_privacy_settings(viewing_user)
+  end
+
+  def self.allowed_to_view_by_privacy_settings(viewing_user)
+    includes(:user).joins("LEFT JOIN friendships AS permission_friendships ON permission_friendships.friend_id = users.id").where("acts.user_id = ? OR users.privacy_level = 'everybody' OR (users.privacy_level = 'connected' AND permission_friendships.user_id = ? AND permission_friendships.state = 'accepted')", viewing_user.id, viewing_user.id)
   end
 
   def self.parse(user_or_phone, body, options = {})

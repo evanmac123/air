@@ -224,6 +224,14 @@ When /^I wait a second$/ do
   sleep 1
 end
 
+When /^I press the button to save privacy settings$/ do
+  find(:css, ".privacy_settings input[type=submit]").click
+end
+
+When /^I close the modal window$/ do
+  page.execute_script %{$(document).trigger('close.facebox');}
+end
+
 Then /^user with email "([^"]*)" should show up as referred by "([^"]*)"$/ do |email, name_passed_in|
   new_user = User.where(:email => email).first
   referrer = new_user.game_referrer

@@ -26,6 +26,21 @@ describe User do
 
   it { should validate_numericality_of(:height).with_message("Please use a numeric value for your height, and express it in inches") }
 
+  it { should validate_presence_of :privacy_level }
+
+  it "should validate that privacy level is set to a valid value" do
+    user = Factory :user
+    user.should be_valid
+
+    User::PRIVACY_LEVELS.each do |privacy_level|
+      user.privacy_level = privacy_level
+      user.should be_valid
+
+      user.privacy_level = privacy_level + "foo"
+      user.should_not be_valid
+    end
+  end
+
   it "should validate uniqueness of phone number when not blank" do
     user1 = Factory :user, :phone_number => '+14152613077'
     user2 = Factory :user, :phone_number => ''

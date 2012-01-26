@@ -6,24 +6,17 @@ class ActsController < ApplicationController
   def index
     @current_link_text = "Home"
 
-
     @show_only             = params[:show_only]
     @demo                  = current_user.demo
-    @demo_user_count       = @demo.ranked_user_count
     @acts                  = find_requested_acts(@demo)
     @active_act_tab        = active_act_tab
-    @active_scoreboard_tag = "All"
 
     @displayable_task_suggestions = current_user.displayable_task_suggestions
     @displayable_task_suggestions.each {|displayable_task_suggestion| displayable_task_suggestion.display_completion_on_this_request = displayable_task_suggestion.display_completion_on_next_request}
     @displayable_task_suggestions.update_all(:display_completion_on_next_request => false)
 
     respond_to do |format|
-      format.html do 
-        @users = find_ranked_users
-        @levels = achieved_levels
-        @goals = achieved_goals
-      end
+      format.html
 
       format.js do
         render_act_update
@@ -41,13 +34,13 @@ class ActsController < ApplicationController
   protected
 
   def find_requested_acts(demo)
-    acts = demo.acts.displayable.recent(10).includes(:user).includes(:rule)
+    acts = demo.acts.displayable_to_user(current_user).recent(10).includes(:rule)
 
     case @show_only
     when 'following'
       acts.joins("INNER JOIN friendships ON friendships.friend_id = acts.user_id").where(["friendships.user_id = ?", current_user.id])
     when 'mine'
-      acts.where(["user_id = ?", current_user.id])
+      acts.where(["acts.user_id = ?", current_user.id])
     else
       acts
     end

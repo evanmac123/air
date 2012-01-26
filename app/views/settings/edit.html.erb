@@ -50,6 +50,21 @@
 		<div class="cf"></div>
   </div>
 
+  <div class="module other_settings privacy_settings">
+    <h1 class="headline">Privacy Preferences</h1>
+      <%= form_for current_user, :url => account_settings_path do |form| %>
+        <div class="module_inner">
+          <h2 class="title"><%= label_tag "user_privacy_level", "Let these people see my actions:" %></h2>
+          <%= form.select :privacy_level, [
+            ['Everybody', 'everybody'],
+            ["Followers I've accepted", 'connected'],
+            ["Nobody", 'nobody']
+          ] %>
+        </div>
+        <%= submit_tag 'Save', :class => 'button_norm' %>
+      <% end %>
+  </div>
+
 	<div class="module other_settings">
     <h1 class="headline">Notification Preferences</h1>
     <% if current_user.new_phone_number_needs_verification? %>
