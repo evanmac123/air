@@ -377,6 +377,7 @@ ul {
 body {
   background-color: #e9e9e9;
   background-image: url("/images/v3/texture.png");
+  color: #272727;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-size: 14px; }
   body .container {
@@ -394,7 +395,7 @@ body {
       behavior: url(/css3pie/PIE.htc);
       background-color: #ffffff;
       margin-bottom: 15px;
-      padding: 10px; }
+      padding: 15px 12px 10px 12px; }
     body .container .module_inner {
       padding-bottom: 5px;
       margin: 5px 0; }
@@ -500,6 +501,14 @@ body {
     border: 1px red solid; }
   #flash #flash_success {
     border: 1px green solid; }
+
+#footer {
+  clear: both;
+  color: #909090;
+  font-size: 12px;
+  margin-top: 10px;
+  padding: 15px;
+  text-align: center; }
 
 /* --------------------------- home/activities/dashboard --------------------------- */
 body.acts .container #suggested-tasks {
@@ -804,22 +813,43 @@ body.acts .container .feeds {
       padding: 0 7px; }
       body.acts .container .feeds .seemore a:hover {
         color: #2e2e2c; }
-body.acts .container .active-games {
-  float: right;
-  width: 35%; }
 body.acts .container .invite-module {
   float: right;
   width: 35%; }
-  body.acts .container .invite-module form {
+  body.acts .container .invite-module #invite_friends form {
     margin-top: 15px; }
-  body.acts .container .invite-module h2 {
+    body.acts .container .invite-module #invite_friends form p {
+      font-weight: bold; }
+    body.acts .container .invite-module #invite_friends form .first_half, body.acts .container .invite-module #invite_friends form .second_half {
+      clear: both;
+      color: #909090;
+      width: 100%; }
+      body.acts .container .invite-module #invite_friends form .first_half input[type="text"], body.acts .container .invite-module #invite_friends form .second_half input[type="text"] {
+        width: 200px; }
+    body.acts .container .invite-module #invite_friends form .invite_or_add {
+      clear: both;
+      margin-top: 15px;
+      position: relative; }
+      body.acts .container .invite-module #invite_friends form .invite_or_add a#lots_of_friends {
+        color: #0673b1;
+        margin: 0 0 0 10px;
+        padding: 0;
+        position: relative;
+        top: 2px; }
+        body.acts .container .invite-module #invite_friends form .invite_or_add a#lots_of_friends:hover {
+          color: #0893e2; }
+        body.acts .container .invite-module #invite_friends form .invite_or_add a#lots_of_friends:active {
+          color: #2e2e2c; }
+      body.acts .container .invite-module #invite_friends form .invite_or_add input[type="submit"] {
+        margin: 0; }
+  body.acts .container .invite-module #invite_friends h2 {
     color: #2e2e2c;
     font-family: "Lato", Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 20px;
     font-weight: bold;
     padding-bottom: 15px;
     text-transform: uppercase; }
-  body.acts .container .invite-module input[type="submit"] {
+  body.acts .container .invite-module #invite_friends input[type="submit"] {
     background: #3f3f3f;
     /* Old browsers */
     background: -moz-linear-gradient(top, #3f3f3f 0%, #2e2f2d 100%);
@@ -848,11 +878,11 @@ body.acts .container .invite-module {
     margin-top: 10px;
     font-weight: bold;
     letter-spacing: .5px; }
-    body.acts .container .invite-module input[type="submit"]:hover {
+    body.acts .container .invite-module #invite_friends input[type="submit"]:hover {
       background: #0673b1; }
-    body.acts .container .invite-module input[type="submit"]:active {
+    body.acts .container .invite-module #invite_friends input[type="submit"]:active {
       background: #909090; }
-  body.acts .container .invite-module label {
+  body.acts .container .invite-module #invite_friends label {
     color: #0673b1;
     font-weight: bold; }
 
@@ -878,6 +908,8 @@ body.settings .container .about_user {
     height: 96px; }
   body.settings .container .about_user .settings_dob {
     clear: both; }
+    body.settings .container .about_user .settings_dob input[type="text"] {
+      width: 427px; }
   body.settings .container .about_user .settings_user input[type="text"] {
     width: 427px; }
   body.settings .container .about_user .settings_user p {

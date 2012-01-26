@@ -10,7 +10,7 @@
   #points_per_referral= current_user.demo.game_referrer_bonus
   - unless current_user.demo.self_inviting_domains.empty?
     = form_tag invitation_invite_friend_path do  
-      = "Enter your friends' email addresses"
+      %p Enter your friends' email addresses:
       #bonus
         That's
         #potential_bonus_points
@@ -30,9 +30,9 @@
           = label_tag tag_name, "email number #{f + 5}"
           = text_field_tag tag_name
           = domain
-          
-      = submit_tag "Invite!"
-      = link_to "I have LOTS of friends", '#m', :id => :lots_of_friends
+      .invite_or_add    
+        = submit_tag "Invite!"
+        = link_to "I have LOTS of friends", '#m', :id => :lots_of_friends
      
   -else
     #search_for_friends_to_invite
