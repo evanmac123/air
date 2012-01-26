@@ -203,13 +203,6 @@ Feature: User gives credit to game referer via autocomplete field
     And I sign out
     And I sign in via the login page as "Yoko/foobar"
     Then I should not see a facebox modal
-  
-    @javascript
-    Scenario: modal is functional
-    When the moon shits baby powder
-  
-  
-  
     
   @javascript
   Scenario: Proper error messages for inviting people on a self-inviting domain
