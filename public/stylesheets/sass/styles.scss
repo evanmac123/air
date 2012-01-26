@@ -223,6 +223,11 @@ body.invitations .header #navigation .nav-signup, body.sessions .header #navigat
 					padding: 20px;
 					text-align: center;
 					
+					p {
+						margin:$centered;
+						width: 460px;
+					}
+					
 					.welcome-message {					
 						p.explanation {
 							color: #656565;
@@ -230,7 +235,6 @@ body.invitations .header #navigation .nav-signup, body.sessions .header #navigat
 							line-height: 20px;
 							margin: $centered;
 							text-align: left;
-							width: 460px;
 						}
 					}
 				}
