@@ -174,7 +174,7 @@ body.invitations .header #navigation .nav-signup, body.sessions .header #navigat
 			box-shadow: 0 0 5px #2c2c2c;
 			behavior: url(/css3pie/PIE.htc);
 			margin: $centered;
-			padding-bottom: 15px;
+//			padding-bottom: 15px;
 			position: relative;
 			top: -58px;
 			width: 620px;
@@ -188,6 +188,11 @@ body.invitations .header #navigation .nav-signup, body.sessions .header #navigat
 				position: relative;
 			}
 			
+			div.form-footnotes {
+				border-top:1px #d7d7d7 solid;
+				clear:both;
+				padding:20px;
+			}
 			div.form-ul-section {
 				div.helper {
 					@include rounded;
@@ -243,7 +248,19 @@ body.invitations .header #navigation .nav-signup, body.sessions .header #navigat
 	}
 }
 
-/* ====== special case: INVITATIONS new ====== */
+/* ====== special case: INVITATIONS Accept ====== */
+body.invitations-show {
+	color:$gray;
+	ul.major-points {
+		list-style-type:disc;
+		padding-left:20px;
+		li {
+			padding:5px 0;
+		}
+	}
+}
+
+/* ====== special case: INVITATIONS New ====== */
 body.invitations-new, body.invitations-create {
 	.status-message{
 		color: #656565!important;
@@ -254,7 +271,7 @@ body.invitations-new, body.invitations-create {
 	}
 }
 
-/* ====== special case: INVITATIONS RESENTS ====== */
+/* ====== special case: INVITATIONS Resends ====== */
 body.invitation-resends {
 	form {
 		ul {
@@ -357,9 +374,13 @@ body.sessions .content .inv-forms {
 /* ====== forms ====== */
 ul.form-section {
 	clear:both;
-	margin:0 auto 30px auto;
+	margin:0 auto 20px auto;
 	width:455px;
 }
+	.signup-submit {
+		padding-top:15px;
+		margin-bottom:5px!important;
+	}
 
 .form-label {
 	color:#3b3b3b;

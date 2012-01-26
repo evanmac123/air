@@ -173,7 +173,6 @@ body.invitations .header #navigation .nav-signup, body.sessions .header #navigat
       box-shadow: 0 0 5px #2c2c2c;
       behavior: url(/css3pie/PIE.htc);
       margin: 0 auto;
-      padding-bottom: 15px;
       position: relative;
       top: -58px;
       width: 620px;
@@ -182,6 +181,10 @@ body.invitations .header #navigation .nav-signup, body.sessions .header #navigat
         padding: 20px; }
       .container .content .inv-forms .form-ul-section {
         position: relative; }
+      .container .content .inv-forms div.form-footnotes {
+        border-top: 1px #d7d7d7 solid;
+        clear: both;
+        padding: 20px; }
       .container .content .inv-forms div.form-ul-section div.helper {
         -webkit-border-radius: 3px;
         -moz-border-radius: 3px;
@@ -225,7 +228,16 @@ body.invitations .header #navigation .nav-signup, body.sessions .header #navigat
     padding: 0 0 20px 0;
     text-align: center; }
 
-/* ====== special case: INVITATIONS new ====== */
+/* ====== special case: INVITATIONS Accept ====== */
+body.invitations-show {
+  color: #909090; }
+  body.invitations-show ul.major-points {
+    list-style-type: disc;
+    padding-left: 20px; }
+    body.invitations-show ul.major-points li {
+      padding: 5px 0; }
+
+/* ====== special case: INVITATIONS New ====== */
 body.invitations-new .status-message, body.invitations-create .status-message {
   color: #656565!important;
   font-size: 16px;
@@ -233,7 +245,7 @@ body.invitations-new .status-message, body.invitations-create .status-message {
   margin: 0 auto;
   text-align: left!important; }
 
-/* ====== special case: INVITATIONS RESENTS ====== */
+/* ====== special case: INVITATIONS Resends ====== */
 body.invitation-resends form ul {
   margin: 0 auto 30px auto;
   width: 455px; }
@@ -375,8 +387,12 @@ body.sessions .content .inv-forms form {
 /* ====== forms ====== */
 ul.form-section {
   clear: both;
-  margin: 0 auto 30px auto;
+  margin: 0 auto 20px auto;
   width: 455px; }
+
+.signup-submit {
+  padding-top: 15px;
+  margin-bottom: 5px!important; }
 
 .form-label {
   color: #3b3b3b;
