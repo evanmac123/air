@@ -12,10 +12,10 @@ $ex-bg-gray: #2c2b2b;
 	font-weight:bold;
 	padding: 5px 16px;
 	text-shadow:1px 1px 1px #333;
+	behavior: url(/css3pie/PIE.htc);
 	text-transform: uppercase;
 	&:hover {
 		background-color: $dark-gray;
-//		text-shadow:none;
 	} 
 	&:active {
 		background-color: $gray;
@@ -106,6 +106,7 @@ body.invitations .header #navigation .nav-signup, body.sessions .header #navigat
 				height:23px;
 				padding:7px $gutter 0 $gutter;
 				text-shadow: 1px 1px $dark-gray; behavior: url(/css3pie/PIE.htc);
+				behavior: url(/css3pie/PIE.htc);
 				
 				.app_by {
 					margin: $centered;
@@ -151,6 +152,8 @@ body.invitations .header #navigation .nav-signup, body.sessions .header #navigat
 						font-size:18px;
 						letter-spacing: 1px;
 						padding:6px 15px;
+						text-shadow:1px 1px 1px #333;
+						behavior: url(/css3pie/PIE.htc);
 					}
 				}
 			}
@@ -192,7 +195,6 @@ body.invitations .header #navigation .nav-signup, body.sessions .header #navigat
 					background-image: url(/images/v3/texture_darker.png);
 					border: 1px lighten($header-bg, 15%) solid;
 					box-shadow: 0 0 5px #2c2c2c;
-					behavior: url(/css3pie/PIE.htc);
 					color: #fff;
 					display: none;
 					line-height: 16px;
@@ -200,6 +202,7 @@ body.invitations .header #navigation .nav-signup, body.sessions .header #navigat
 					position: absolute;
 					right: -130px;
 					text-shadow:1px 1px 1px #333;
+					behavior: url(/css3pie/PIE.htc);
 					top: 23px;
 					width: 150px;
 					z-index: 9999;				
@@ -329,7 +332,7 @@ body.sessions .content .inv-forms {
 			@include ex-textfield;
 		}
 		input[type="checkbox"] {
-			float:left;
+//			float:left;
 			margin: 2px 5px 0 0;
 			padding: 0;
 		}

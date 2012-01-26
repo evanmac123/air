@@ -121,6 +121,7 @@ body.invitations .header #navigation .nav-signup, body.sessions .header #navigat
         height: 23px;
         padding: 7px 10px 0 10px;
         text-shadow: 1px 1px #2e2e2c;
+        behavior: url(/css3pie/PIE.htc);
         behavior: url(/css3pie/PIE.htc); }
         .container .top .header .app_bar .app_by {
           margin: 0 auto;
@@ -152,7 +153,9 @@ body.invitations .header #navigation .nav-signup, body.sessions .header #navigat
             display: inline-block;
             font-size: 18px;
             letter-spacing: 1px;
-            padding: 6px 15px; }
+            padding: 6px 15px;
+            text-shadow: 1px 1px 1px #333;
+            behavior: url(/css3pie/PIE.htc); }
   .container .content {
     background-color: #2c2b2b;
     background-image: url(/images/v3/texture_darker.png);
@@ -189,7 +192,6 @@ body.invitations .header #navigation .nav-signup, body.sessions .header #navigat
         background-image: url(/images/v3/texture_darker.png);
         border: 1px #0da2f7 solid;
         box-shadow: 0 0 5px #2c2c2c;
-        behavior: url(/css3pie/PIE.htc);
         color: #fff;
         display: none;
         line-height: 16px;
@@ -197,6 +199,7 @@ body.invitations .header #navigation .nav-signup, body.sessions .header #navigat
         position: absolute;
         right: -130px;
         text-shadow: 1px 1px 1px #333;
+        behavior: url(/css3pie/PIE.htc);
         top: 23px;
         width: 150px;
         z-index: 9999; }
@@ -248,6 +251,7 @@ body.invitation-resends form input[type="submit"] {
   font-weight: bold;
   padding: 5px 16px;
   text-shadow: 1px 1px 1px #333;
+  behavior: url(/css3pie/PIE.htc);
   text-transform: uppercase;
   margin-top: 20px; }
   body.invitation-resends form input[type="submit"]:hover {
@@ -279,6 +283,7 @@ body.passwords .content .inv-forms form {
     font-weight: bold;
     padding: 5px 16px;
     text-shadow: 1px 1px 1px #333;
+    behavior: url(/css3pie/PIE.htc);
     text-transform: uppercase;
     margin-top: 20px; }
     body.passwords .content .inv-forms form input[type="submit"]:hover {
@@ -330,6 +335,7 @@ body.sessions .content .inv-forms form {
     font-weight: bold;
     padding: 5px 16px;
     text-shadow: 1px 1px 1px #333;
+    behavior: url(/css3pie/PIE.htc);
     text-transform: uppercase;
     clear: both;
     display: block;
@@ -353,7 +359,6 @@ body.sessions .content .inv-forms form {
       background-color: #fff;
       border: 1px #0673b1 solid; }
   body.sessions .content .inv-forms form input[type="checkbox"] {
-    float: left;
     margin: 2px 5px 0 0;
     padding: 0; }
   body.sessions .content .inv-forms form input[type="password"] {
@@ -428,6 +433,7 @@ select#user_location_id {
   font-weight: bold;
   padding: 5px 16px;
   text-shadow: 1px 1px 1px #333;
+  behavior: url(/css3pie/PIE.htc);
   text-transform: uppercase;
   margin-top: -5px; }
   .signup-submit input[type="submit"]:hover {
