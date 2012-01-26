@@ -36,8 +36,8 @@
 			</div>
 		</div>
 		<div class="content">
-		    <% status_content = yield :status %>
-		    <% status_content = flash[:failure] unless status_content.present? %>
+		  <% status_content = yield :status %>
+		  <% status_content = joined_flashes unless status_content.present? %>
 		    
 			<div class="inv-forms">
 				<% if status_content.present? %>

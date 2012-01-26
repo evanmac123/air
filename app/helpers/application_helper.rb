@@ -50,4 +50,18 @@ module ApplicationHelper
     points = current_user.points_towards_next_threshold
     points == 1 ? "1pt" : "#{points}pts"
   end
+
+  def joined_flashes
+    joined_content = ''
+    [:success, :failure, :notice].each do |flash_key|
+      next unless flash[flash_key].present?
+      joined_content += flash[flash_key] + ' '
+    end
+
+    if joined_content.present?
+      joined_content
+    else
+      nil
+    end
+  end
 end
