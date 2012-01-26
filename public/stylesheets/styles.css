@@ -295,8 +295,8 @@ body.passwords .content .inv-forms form {
     -moz-border-radius: 20px;
     border-radius: 20px;
     behavior: url(/css3pie/PIE.htc);
-    border: 1px #c5c7c7 solid;
     background-color: #f6f6f6;
+    border: 1px #c5c7c7 solid;
     color: #0673b1;
     display: inline;
     font-size: 20px;
@@ -349,8 +349,8 @@ body.sessions .content .inv-forms form {
     -moz-border-radius: 20px;
     border-radius: 20px;
     behavior: url(/css3pie/PIE.htc);
-    border: 1px #c5c7c7 solid;
     background-color: #f6f6f6;
+    border: 1px #c5c7c7 solid;
     color: #0673b1;
     display: inline;
     font-size: 20px;

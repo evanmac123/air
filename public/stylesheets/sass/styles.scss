@@ -23,8 +23,8 @@ $ex-bg-gray: #2c2b2b;
 }
 @mixin ex-textfield {
 	@include rounded-nav;
-	border: 1px #c5c7c7 solid;
 	background-color:lighten($light-gray, 5%); 
+	border: 1px #c5c7c7 solid;
 	color:$header-bg;
 	display: inline;
 	font-size:20px;

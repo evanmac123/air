@@ -280,17 +280,17 @@ $c-competition:		#b65100;
 @mixin input-text {
 	input[type=text] {
 		@include rounded-progress;
-		background-color:lighten($header-bg, 63%);
-		border:1px $light-gray solid;
+		background-color:lighten($light-gray, 5%);
+		border: 1px #c5c7c7 solid;
 		color:$header-bg;
 		padding:5px 10px;
 		
 		&:focus {
 			background-color:#fff;
+			border:1px $header-bg solid;
 		}
 	}
-}
-@mixin rounded {
+}@mixin rounded {
 	-webkit-border-radius: 3px;
 	-moz-border-radius: 3px;
 	border-radius: 3px;
