@@ -2,17 +2,17 @@ Feature: User sees suggested tasks they can currently do
 
   Background:
     Given the following demo exists:
-      | company name |
+      | name |
       | FooCo        |
     And the following suggested tasks exist:
       | name              | short description | long description                                  | start time       | demo                |
-      | Make toast        | Toast some bread  | Turn bread into toast by the application of fire. |                      | company_name: FooCo |
-      | Make PBJ          | Spread PB and J   | Put peanut butter and jelly on bread              |                      | company_name: FooCo |
-      | Butter toast      | Butter it up      | No peanut butter just regular butter this time    |                      | company_name: FooCo |
-      | Plate toast       | Put it on a plate | Were you born in a barn?                          |                      | company_name: FooCo |
-      | Eat buttery toast | Eat it up yum     | It's bad for your arteries though                 |                      | company_name: FooCo |
-      | Make future toast | Space toast!      | Make toast using lasers and shit                  | 2030-01-01 00:00 UTC | company_name: FooCo |
-      | Make future PBJ   | Space PBJ!        | Make PBJ using lasers and shit                    | 2030-01-01 00:00 UTC | company_name: FooCo |
+      | Make toast        | Toast some bread  | Turn bread into toast by the application of fire. |                      | name: FooCo |
+      | Make PBJ          | Spread PB and J   | Put peanut butter and jelly on bread              |                      | name: FooCo |
+      | Butter toast      | Butter it up      | No peanut butter just regular butter this time    |                      | name: FooCo |
+      | Plate toast       | Put it on a plate | Were you born in a barn?                          |                      | name: FooCo |
+      | Eat buttery toast | Eat it up yum     | It's bad for your arteries though                 |                      | name: FooCo |
+      | Make future toast | Space toast!      | Make toast using lasers and shit                  | 2030-01-01 00:00 UTC | name: FooCo |
+      | Make future PBJ   | Space PBJ!        | Make PBJ using lasers and shit                    | 2030-01-01 00:00 UTC | name: FooCo |
     And the task "Make PBJ" has prerequisite "Make toast"
     And the task "Butter toast" has prerequisite "Make toast"
     And the task "Eat buttery toast" has prerequisite "Butter toast"
@@ -20,7 +20,7 @@ Feature: User sees suggested tasks they can currently do
     And the task "Make future PBJ" has prerequisite "Make future toast"
     And the following user exists:
       | name | email           | demo                |
-      | Joe  | joe@example.com | company_name: FooCo |
+      | Joe  | joe@example.com | name: FooCo |
     And "Joe" has the password "foobar"
     And I sign in via the login page with "Joe/foobar"
 
@@ -90,7 +90,7 @@ Feature: User sees suggested tasks they can currently do
   Scenario: Newly created user sees suggested tasks they can do
     Given the following user exists:
       | name | email           | demo                |
-      | Bob  | bob@example.com | company_name: FooCo |
+      | Bob  | bob@example.com | name: FooCo |
     And "Bob" has the password "barbaz"
     And I sign in via the login page with "Bob/barbaz"
     Then I should be on the activity page

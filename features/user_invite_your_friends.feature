@@ -2,36 +2,36 @@ Feature: User gives credit to game referer via autocomplete field
 
   Background:
     Given the following demo exists:
-      | company_name | game_referrer_bonus   |
+      | name | game_referrer_bonus   |
       | Bratwurst    | 2000                  |
       | Gleason      | 2000                  |
       | Preloaded    | 2000                  |
       | NotStarted   | 2000                  |
     Given the following self inviting domain exists:
       | domain       | demo                    |
-      | inviting.com | company_name: Bratwurst |
-      | biker.com    | company_name: Gleason   |
+      | inviting.com | name: Bratwurst |
+      | biker.com    | name: Gleason   |
 
     Given the following users exist:
       | name               | demo                    | email        | slug      | sms_slug    |
-      | Charlie Brainfield | company_name: Preloaded | 1@loaded.com | airplane  | airplane    |
-      | Yo Yo Ma           | company_name: Preloaded | 2@loaded.com | naked     | naked       |
-      | Threefold          | company_name: Preloaded | 3@loaded.com | eraser    | eraser      |
-      | Fourfold           | company_name: Preloaded | 4@loaded.com | owl       | owl         |
-      | Fivefold           | company_name: Preloaded | 5@loaded.com | brush     | brush       |
-      | Watermelon         | company_name: Gleason   | 1@biker.com  | jumper    | jumper      |
-      | Bruce Springsteen  | company_name: Gleason   | 2@biker.com  | airairair | airairair   |
-      | Barnaby Watson     | company_name: Gleason   | 3@biker.com  | mypeeps   | mypeeps     |
-      | Charlie Moore      | company_name: Gleason   | 4@biker.com  | livingit  | livingit    |
-      | Already Playing    | company_name: Bratwurst | playing@inviting.com | playing | playing |
+      | Charlie Brainfield | name: Preloaded | 1@loaded.com | airplane  | airplane    |
+      | Yo Yo Ma           | name: Preloaded | 2@loaded.com | naked     | naked       |
+      | Threefold          | name: Preloaded | 3@loaded.com | eraser    | eraser      |
+      | Fourfold           | name: Preloaded | 4@loaded.com | owl       | owl         |
+      | Fivefold           | name: Preloaded | 5@loaded.com | brush     | brush       |
+      | Watermelon         | name: Gleason   | 1@biker.com  | jumper    | jumper      |
+      | Bruce Springsteen  | name: Gleason   | 2@biker.com  | airairair | airairair   |
+      | Barnaby Watson     | name: Gleason   | 3@biker.com  | mypeeps   | mypeeps     |
+      | Charlie Moore      | name: Gleason   | 4@biker.com  | livingit  | livingit    |
+      | Already Playing    | name: Bratwurst | playing@inviting.com | playing | playing |
 
     Given the following claimed user exists:
       | name       | demo                    | email                       | slug      | sms_slug    | phone_number |
-      | Barnaby    | company_name: Bratwurst | claimed@inviting.com        | smoke     | smoke       | +15554445555 |
-      | Alexander  | company_name: Bratwurst | also_claimed@inviting.com   | soap      | soap        | +15554442222 |
-      | Outsider   | company_name: Gleason   | different_game@inviting.com | box       | box         | +15554442211 |
-      | Shelly     | company_name: Preloaded | pre@loaded.com              | nada      | nada        | +16662221111 |
-      | Yoko       | company_name: NotStarted| not@started.com             | abb       | abb         | +13384848484 |
+      | Barnaby    | name: Bratwurst | claimed@inviting.com        | smoke     | smoke       | +15554445555 |
+      | Alexander  | name: Bratwurst | also_claimed@inviting.com   | soap      | soap        | +15554442222 |
+      | Outsider   | name: Gleason   | different_game@inviting.com | box       | box         | +15554442211 |
+      | Shelly     | name: Preloaded | pre@loaded.com              | nada      | nada        | +16662221111 |
+      | Yoko       | name: NotStarted| not@started.com             | abb       | abb         | +13384848484 |
 
   @javascript
   Scenario: Invite friends on demo pre-populated with users
@@ -119,7 +119,6 @@ Feature: User gives credit to game referer via autocomplete field
     Then I should see "Invite your friends"
     When I fill in "email number 1" with "racing22"
     And I press "Invite!"
-    And show me the page
     Then I should see "You just invited racing22@inviting.com to play H Engage"
     And DJ cranks 5 times
     Then "racing22@inviting.com" should receive an email
@@ -155,7 +154,6 @@ Feature: User gives credit to game referer via autocomplete field
     When I fill in "email number 4" with "racing05"
     
     And I press "Invite!"
-    #And show me the page
     Then I should see "You just invited racing01@inviting.com, racing02@inviting.com, racing03@inviting.com, racing04@inviting.com, and racing05@inviting.com to play H Engage"
     And DJ cranks 15 times
     Then "racing03@inviting.com" should receive an email
@@ -185,7 +183,6 @@ Feature: User gives credit to game referer via autocomplete field
     Then I should see "Invite your friends"
     When I fill in "email number 3" with "also_claimed"
     And I press "Invite!"
-    And show me the page
     Then I should not see "You just invited"
     And I should see "Thanks, but the following users are already playing the game: also_claimed@inviting.com"
   

@@ -2,24 +2,24 @@ Feature: User gives credit to game referer via autocomplete field
 
   Background:
     Given the following demo exists:
-      | company_name |
+      | name |
       | Bratwurst    |
       | Gleason    |
     Given the following self inviting domain exists:
       | domain     | demo                    |
-      | hopper.com | company_name: Bratwurst |
-      | biker.com  | company_name: Gleason   |
+      | hopper.com | name: Bratwurst |
+      | biker.com  | name: Gleason   |
 
     Given the following users exist:
       | name               | demo                    | email        | slug      | sms_slug    |
-      | Barnaby Bueller    | company_name: Bratwurst | 1@hopper.com | smoke     | smoke       |
-      | Charlie Brainfield | company_name: Bratwurst | 2@hopper.com | airplane  | airplane    |
-      | Yo Yo Ma           | company_name: Bratwurst | 3@hopper.com | naked     | naked       |
-      | Threefold          | company_name: Bratwurst | 4@hopper.com | eraser    | eraser      |
-      | Watermelon         | company_name: Gleason   | 1@biker.com  | jumper    | jumper      |
-      | Bruce Springsteen  | company_name: Gleason   | 2@biker.com  | airairair | airairair   |
-      | Barnaby Watson     | company_name: Gleason   | 3@biker.com  | mypeeps   | mypeeps     |
-      | Charlie Moore      | company_name: Gleason   | 4@biker.com  | livingit  | livingit    |
+      | Barnaby Bueller    | name: Bratwurst | 1@hopper.com | smoke     | smoke       |
+      | Charlie Brainfield | name: Bratwurst | 2@hopper.com | airplane  | airplane    |
+      | Yo Yo Ma           | name: Bratwurst | 3@hopper.com | naked     | naked       |
+      | Threefold          | name: Bratwurst | 4@hopper.com | eraser    | eraser      |
+      | Watermelon         | name: Gleason   | 1@biker.com  | jumper    | jumper      |
+      | Bruce Springsteen  | name: Gleason   | 2@biker.com  | airairair | airairair   |
+      | Barnaby Watson     | name: Gleason   | 3@biker.com  | mypeeps   | mypeeps     |
+      | Charlie Moore      | name: Gleason   | 4@biker.com  | livingit  | livingit    |
     Given "new_user@hopper.com" sends email with subject "whatever" and body "join"
     And DJ cranks 5 times
     Then "new_user@hopper.com" should receive an email

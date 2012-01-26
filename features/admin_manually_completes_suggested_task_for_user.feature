@@ -3,18 +3,18 @@ Feature: Admin manually completes a suggested task for a user
   @javascript
   Scenario: Admin manually completes a suggested task for a user
     Given the following demo exists:
-      | company name |
+      | name |
       | TaskCo       |
     And the following claimed users exist:
       | name | phone number | demo                 |
-      | Joe  | +14155551212 | company_name: TaskCo |
+      | Joe  | +14155551212 | name: TaskCo |
     And "Joe" has the password "foobar"
     And the following suggested tasks exist:
       | name   | demo                 |
-      | Task 1 | company_name: TaskCo |
-      | Task 2 | company_name: TaskCo |
-      | Task 3 | company_name: TaskCo |
-      | Task 4 | company_name: TaskCo |
+      | Task 1 | name: TaskCo |
+      | Task 2 | name: TaskCo |
+      | Task 3 | name: TaskCo |
+      | Task 4 | name: TaskCo |
     And the task "Task 2" has prerequisite "Task 1"
     And the task "Task 4" has prerequisite "Task 3"
     And DJ cranks 10 times

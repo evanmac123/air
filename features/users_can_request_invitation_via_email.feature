@@ -48,7 +48,7 @@ Feature: Users can request invitation via email
     And DJ cranks 5 times
     Then "beta@join.com" should receive an email
     When "beta@join.com" opens the email
-    Then I should see "I'm pleased to invite you to demo H Engage." in the email body
+    Then I should see "Thanks for requesting an invite to play Gillette" in the email body
     
   Scenario:
     When "alpha@join.com" sends email with subject "I Tarzan, You Jane" and body "join"

@@ -2,16 +2,16 @@ Feature: Acts can be kept out of the user feed
 
   Scenario: Rule with blank description shows no trace in the feed
     Given the following demo exists:
-      | company name |
+      | name |
       | FooCo        |
     And the following user exists:
       | name | phone number | demo                |
-      | Phil | +14155551212 | company_name: FooCo |
+      | Phil | +14155551212 | name: FooCo |
     And "Phil" has the password "foobar"
     And the following rules exist:
       | reply               | description   | points | demo                |
-      | You acted visibly   | acted visibly | 5      | company_name: FooCo |
-      | You acted invisibly |               | 7      | company_name: FooCo |
+      | You acted visibly   | acted visibly | 5      | name: FooCo |
+      | You acted invisibly |               | 7      | name: FooCo |
     And the following rule values exist:
       | value           | rule                       |
       | acted visibly   | reply: You acted visibly   |

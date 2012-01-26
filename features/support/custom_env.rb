@@ -2,7 +2,7 @@ World(ShowMeTheCookies)
 
 Before do
   $_real_start_time = Time.now # remembered here before Timecop gets to mess with it
-  Factory :demo, :company_name => 'Alpha'
+  Factory :demo, :name => 'Alpha'
   Delayed::Job.delete_all
 end
 

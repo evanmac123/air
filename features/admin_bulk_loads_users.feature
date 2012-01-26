@@ -2,7 +2,7 @@ Feature: Admin bulk loads users
 
   Background:
     Given the following demo exists:
-      | company name | credit_game_referrer_threshold | game_referrer_bonus |
+      | name | credit_game_referrer_threshold | game_referrer_bonus |
       | H Engage     | 60                             | 2000                |
     And the following user exists:
       | name | is site admin |

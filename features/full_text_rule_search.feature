@@ -3,13 +3,13 @@ Feature: Full text rule search
   Background:
     Given the following rules exist:
       | reply   | demo                  | suggestible |  
-      | banana  | company_name: FooCorp | true        |  
-      | Gross.  | company_name: FooCorp | true        |  
-      | poison  | company_name: FooCorp | false       |  
-      | workout | company_name: FooCorp | true        |  
-      | cycled  | company_name: BarCorp | true        |  
+      | banana  | name: FooCorp | true        |  
+      | Gross.  | name: FooCorp | true        |  
+      | poison  | name: FooCorp | false       |  
+      | workout | name: FooCorp | true        |  
+      | cycled  | name: BarCorp | true        |  
       | risotto |                       | true        |  
-      | happy   | company_name: FooCorp | true        |  
+      | happy   | name: FooCorp | true        |  
     And the following rule values exist: 
       | value        | is_primary | rule           |
       | ate banana   | true       | reply: banana  |
@@ -22,7 +22,7 @@ Feature: Full text rule search
       | feel great   | false      | reply: happy   |
     And the following user exists:
       | name | phone number | demo                  |
-      | Dan  | +16175551212 | company_name: FooCorp |
+      | Dan  | +16175551212 | name: FooCorp |
     And "Dan" has the password "foobar"
     And I sign in via the login page with "Dan/foobar"
     And time is frozen at "2010-05-01 17:00:00"

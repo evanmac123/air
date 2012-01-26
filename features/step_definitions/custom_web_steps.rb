@@ -260,7 +260,7 @@ Then /^"([^"]*)" should have inline style "([^"]*)" set to "([^"]*)"$/ do |css_s
 end
 
 Given /^the demo for "([^"]*)" starts tomorrow$/ do |arg1|
-  a = Demo.find_by_company_name(arg1)
+  a = Demo.find_by_name(arg1)
   a.begins_at = 1.day.from_now.to_date
   a.ends_at = 12.days.from_now.to_date
   a.save
@@ -274,7 +274,7 @@ Then /^I should not see a facebox modal$/ do
  page.should_not have_selector('#facebox')
 end
 
-Then /^there should be a user with email "([^"]*)" in demo "([^"]*)"$/ do |email, company_name|
-  demo_id = Demo.find_by_company_name(company_name).id
+Then /^there should be a user with email "([^"]*)" in demo "([^"]*)"$/ do |email, name|
+  demo_id = Demo.find_by_name(name).id
   User.where(:email => email, :demo_id => demo_id).should_not be_empty
 end

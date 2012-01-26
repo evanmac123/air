@@ -3,14 +3,14 @@ Feature: Surveys with prompts that go out at certain times
 Background:
   Given the following claimed users exist:
     | name | phone number | demo                |
-    | Dan  | +14155551212 | company_name: FooCo |
-    | Vlad | +16175551212 | company_name: FooCo |
-    | Tom  | +18085551212 | company_name: FooCo |
-    | Bob  | +14105551212 | company_name: FooCo |
-    | Sam  | +19995551212 | company_name: BarCo |
+    | Dan  | +14155551212 | name: FooCo |
+    | Vlad | +16175551212 | name: FooCo |
+    | Tom  | +18085551212 | name: FooCo |
+    | Bob  | +14105551212 | name: FooCo |
+    | Sam  | +19995551212 | name: BarCo |
   And the following survey exists:
     | name                | open_at              | close_at             | demo                |
-    | FooCo Health Survey | 2011-05-01 11:00 UTC | 2011-05-01 21:00 UTC | company_name: FooCo |
+    | FooCo Health Survey | 2011-05-01 11:00 UTC | 2011-05-01 21:00 UTC | name: FooCo |
   And the following survey questions exist:
     | text                                     | index | points | survey                    |
     | Do you smoke crack?                      |     1 |        | name: FooCo Health Survey |
@@ -98,7 +98,7 @@ Background:
   Scenario: No questions from old surveys show up
     Given the following survey exists:
       | name                | open_at              | close_at             | demo                |
-      | New Health Survey   | 2011-06-01 13:00 UTC | 2011-06-01 21:00 UTC | company_name: FooCo |
+      | New Health Survey   | 2011-06-01 13:00 UTC | 2011-06-01 21:00 UTC | name: FooCo |
     And the following survey questions exist:
       | text                                    | index | points | survey                  |
       | Where are the snowfalls of yesteryear?  |     1 |        | name: New Health Survey |
@@ -114,7 +114,7 @@ Background:
   Scenario: Answers from old surveys shouldn't count against current surveys
     Given the following survey exists:
       | name                | open_at              | close_at             | demo                |
-      | Old Health Survey   | 2010-05-01 13:00 UTC | 2010-05-01 21:00 UTC | company_name: FooCo |
+      | Old Health Survey   | 2010-05-01 13:00 UTC | 2010-05-01 21:00 UTC | name: FooCo |
     And the following survey questions exist:
       | text                                    | index | points | survey                  |
       | Where are the snowfalls of yesteryear?  |     1 |        | name: Old Health Survey |
@@ -137,15 +137,15 @@ Background:
 
   Scenario: User responds to question in a demo with a custom answer act message
     Given the following demo exists:
-      | company name | survey answer activity message |
+      | name | survey answer activity message |
       | CustomCo     | did the thing                  |
     Given the following user exists:
       | name | phone number | demo                   |
-      | Fred | +12345551212 | company_name: CustomCo |
+      | Fred | +12345551212 | name: CustomCo |
     And "Fred" has the password "foobar"
     And the following survey exists:
       | name                   | open_at              | close_at             | demo                   |
-      | CustomCo Health Survey | 2011-05-01 11:00 UTC | 2011-05-01 21:00 UTC | company_name: CustomCo |
+      | CustomCo Health Survey | 2011-05-01 11:00 UTC | 2011-05-01 21:00 UTC | name: CustomCo |
     And the following survey questions exist:
       | text                                     | index | points | survey                       |
       | What are pants for?                      |     1 |        | name: CustomCo Health Survey |
@@ -183,7 +183,7 @@ Background:
     Given time is frozen at "2011-05-01 15:00 UTC"
     And the following rule exists:
       | reply                  | points | demo                | 
-      | That's a numeric rule. | 10     | company_name: FooCo | 
+      | That's a numeric rule. | 10     | name: FooCo | 
     And the following rule value exists:
       | value | rule                          |
       | 200   | reply: That's a numeric rule. |
@@ -195,7 +195,7 @@ Background:
     Given time is frozen at "2011-05-01 15:00 UTC"
     And the following rule exists:
       | reply                  | points | demo                |
-      | That's a numeric rule. | 10     | company_name: FooCo |
+      | That's a numeric rule. | 10     | name: FooCo |
     And the following rule value exists:
       | value | rule                          |
       | 200   | reply: That's a numeric rule. |

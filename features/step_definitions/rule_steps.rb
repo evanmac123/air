@@ -36,8 +36,8 @@ Then /^I should see the following rules?:$/ do |table|
   table.hashes.each {|row_hash| expect_rule_rows(row_hash)}
 end
 
-Then /^I should see all existing rules for (.*)$/ do |company_name|
-  demo = Demo.find_by_company_name company_name
+Then /^I should see all existing rules for (.*)$/ do |name|
+  demo = Demo.find_by_name name
 
   demo.rules.each do |rule|
     expect_rule_rows(rule)

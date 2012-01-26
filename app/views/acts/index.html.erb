@@ -28,7 +28,7 @@
 		<div class="cf"></div>
 
 	    <% content_for :javascript do %>
-	      <%= mp_track 'activity feed viewed', :game => @demo.company_name %>
+	      <%= mp_track 'activity feed viewed', :game => @demo.name %>
 	      <%= javascript_tag do %>
 	        function updateShownActs(url) {
 	          $('#user-acts').html('<%= image_tag("spinner.gif") %>');

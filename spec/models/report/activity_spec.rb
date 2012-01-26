@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Report::Activity do
   before(:each) do
-    @demo = Factory :demo, :company_name => "Tiny Sparrow"
+    @demo = Factory :demo, :name => "Tiny Sparrow"
 
     @user1 = Factory :user, :name => "Bob Smith", :demo => @demo
     @user2 = Factory :user, :name => "Ann Jones", :demo => @demo
@@ -36,7 +36,7 @@ describe Report::Activity do
 
   context "when the company is identified by name" do
     before(:each) do
-      @report = Report::Activity.new(@demo.company_name)
+      @report = Report::Activity.new(@demo.name)
     end
 
     it_should_behave_like "a valid instantiation"
@@ -67,7 +67,7 @@ describe Report::Activity do
       @report.stubs(:report_csv).returns("fake CSV data")
 
       @mail = stub('mail object', :deliver => true)
-      Mailer.stubs(:activity_report).with('fake CSV data', @demo.company_name, kind_of(Time), kind_of(String)).returns(@mail)
+      Mailer.stubs(:activity_report).with('fake CSV data', @demo.name, kind_of(Time), kind_of(String)).returns(@mail)
     end
 
     after(:each) do
@@ -78,7 +78,7 @@ describe Report::Activity do
       it "should send a CSV file there" do
         @report.email_to("vlad@example.com")
 
-        Mailer.should have_received(:activity_report).with('fake CSV data', @demo.company_name, Time.now, 'vlad@example.com')
+        Mailer.should have_received(:activity_report).with('fake CSV data', @demo.name, Time.now, 'vlad@example.com')
         @mail.should have_received(:deliver)
       end
     end
@@ -87,8 +87,8 @@ describe Report::Activity do
       it "should send a CSV file to each" do
         @report.email_to("vlad@example.com,phil@example.com")
 
-        Mailer.should have_received(:activity_report).with('fake CSV data', @demo.company_name, Time.now, 'vlad@example.com')
-        Mailer.should have_received(:activity_report).with('fake CSV data', @demo.company_name, Time.now, 'phil@example.com')
+        Mailer.should have_received(:activity_report).with('fake CSV data', @demo.name, Time.now, 'vlad@example.com')
+        Mailer.should have_received(:activity_report).with('fake CSV data', @demo.name, Time.now, 'phil@example.com')
         @mail.should have_received(:deliver).twice
       end
     end

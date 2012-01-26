@@ -2,12 +2,12 @@ Feature: Admin sets up self inviting domains for demo
 
   Background:
     Given the following demo exists:
-      | company name |
+      | name |
       | InviteCo     |
     And the following self inviting domains exist:
       | domain          | demo                   |
-      | inviteco.com    | company_name: InviteCo |
-      | foobar.com      | company_name: FooCo    |
+      | inviteco.com    | name: InviteCo |
+      | foobar.com      | name: FooCo    |
     And the following site admin exists:
       | name |
       | Joe  |

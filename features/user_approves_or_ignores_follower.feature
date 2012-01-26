@@ -2,15 +2,15 @@ Feature: User approves or ignores follower
 
   Background:
     Given the following demo exists:
-      | company name |
+      | name |
       | FooCo        |
     And the following claimed users exist:
       | name  | email             | phone number | demo                |
-      | Alice | alice@example.com | +14155551212 | company_name: FooCo |
-      | Bob   | bob@example.com   | +16175551212 | company_name: FooCo |
-      | Clay  | clay@example.com  | +13055551212 | company_name: FooCo |
-      | Don   | don@example.com   | +18085551212 | company_name: FooCo |
-      | Ed    | ed@example.com    | +12125551212 | company_name: FooCo |
+      | Alice | alice@example.com | +14155551212 | name: FooCo |
+      | Bob   | bob@example.com   | +16175551212 | name: FooCo |
+      | Clay  | clay@example.com  | +13055551212 | name: FooCo |
+      | Don   | don@example.com   | +18085551212 | name: FooCo |
+      | Ed    | ed@example.com    | +12125551212 | name: FooCo |
     And "Bob" has password "fooble"
     And "Alice" has password "barley"
     And "Clay" has password "bazquux"

@@ -2,11 +2,11 @@ Feature: User asks about prizes
 
   Scenario: Demo has prizes
     Given the following demo exists:
-      | company name | prize                                    |
+      | name | prize                                    |
       | GenerousCo   | Ninety-nine bottles of beer on the wall. |
     And the following user exists:
       | name | phone number | demo                     |
-      | Bob  | +14155551212 | company_name: GenerousCo |
+      | Bob  | +14155551212 | name: GenerousCo |
     When "+14155551212" sends SMS "prizes"
     Then "+14155551212" should have received an SMS "Ninety-nine bottles of beer on the wall."
 

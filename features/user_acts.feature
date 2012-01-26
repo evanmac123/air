@@ -2,24 +2,24 @@ Feature: User acts
 
   Background:
     Given the following demo exists:
-      | company_name | victory_threshold |
+      | name | victory_threshold |
       | FooCorp      | 50                |
     Given the following claimed users exist:
       | name | phone number | demo                  | points | ranking |
-      | Dan  | +15087407520 | company_name: FooCorp | 0      | 3       |
-      | Paul | +15088675309 | company_name: FooCorp | 0      | 3       |
-      | Fred | +14155551212 | company_name: FooCorp | 1      | 2       |
-      | Bob  | +18085551212 | company_name: FooCorp | 3      | 1       |
+      | Dan  | +15087407520 | name: FooCorp | 0      | 3       |
+      | Paul | +15088675309 | name: FooCorp | 0      | 3       |
+      | Fred | +14155551212 | name: FooCorp | 1      | 2       |
+      | Bob  | +18085551212 | name: FooCorp | 3      | 1       |
     And "Dan" has the password "foobar"
     And "Paul" has the SMS slug "paul55"
     And "Fred" has the SMS slug "fred666"
     And the following rules exist:
       | points | referral points | reply                     | alltime_limit | demo                  |
-      | 2      |                 | Bananas are good for you. |               | company_name: FooCorp |
-      | 5      | 200             | Working out is nice.      |               | company_name: FooCorp |
-      | 20     |                 | Congratulations!          | 2             | company_name: FooCorp |
-      | 8      |                 | So you made toast.        |               | company_name: FooCorp |
-      | 8      |                 | BarCorp rulez!            |               | company_name: BarCorp |
+      | 2      |                 | Bananas are good for you. |               | name: FooCorp |
+      | 5      | 200             | Working out is nice.      |               | name: FooCorp |
+      | 20     |                 | Congratulations!          | 2             | name: FooCorp |
+      | 8      |                 | So you made toast.        |               | name: FooCorp |
+      | 8      |                 | BarCorp rulez!            |               | name: BarCorp |
       | 10     |                 | Good for you.             |               |                       |
     And the following rule values exist:
       | value         | rule                             |
@@ -76,14 +76,14 @@ Feature: User acts
 
   Scenario: User can act with a standard playbook rule (belonging to no demo) if demo supports it
     Given the following demo exists:
-      | company name | use_standard_playbook |
+      | name | use_standard_playbook |
       | CustomCo     | false                 |
     And the following user exists:
       | phone_number | demo                   |
-      | +14152613077 | company_name: CustomCo |
+      | +14152613077 | name: CustomCo |
     And the following rule exists:
       | demo                   | reply                     |
-      | company_name: CustomCo | Headcheese is disgusting. |
+      | name: CustomCo | Headcheese is disgusting. |
     And the following rule value exists:
       | value          | rule                             |
       | ate headcheese | reply: Headcheese is disgusting. |
@@ -106,15 +106,15 @@ Feature: User acts
   Scenario: User achieves part of a goal by acting
     Given the following goals exist:
       | name              | demo                  |
-      | deadly sins       | company_name: FooCorp |
-      | redeeming virtues | company_name: FooCorp |
+      | deadly sins       | name: FooCorp |
+      | redeeming virtues | name: FooCorp |
     And the following rules exist:
       | reply               | points | demo                  |
-      | Lust woo!           | 2      | company_name: FooCorp |
-      | Pride boo!          | 5      | company_name: FooCorp |
-      | Envy who?           | 6      | company_name: FooCorp |
-      | Charity good for u. | 11     | company_name: FooCorp |
-      | So is diligence too | 15     | company_name: FooCorp |
+      | Lust woo!           | 2      | name: FooCorp |
+      | Pride boo!          | 5      | name: FooCorp |
+      | Envy who?           | 6      | name: FooCorp |
+      | Charity good for u. | 11     | name: FooCorp |
+      | So is diligence too | 15     | name: FooCorp |
     And rule "Lust woo!" is associated with goal "deadly sins"
     And rule "Pride boo!" is associated with goal "deadly sins"
     And rule "Envy who?" is associated with goal "deadly sins"
@@ -155,14 +155,14 @@ Feature: User acts
 
   Scenario: Acts allowed in demo take precedence over forbidden acts
     Given the following demo exists:
-      | company name | victory threshold |
+      | name | victory threshold |
       | NaughtyCo    | 200               |
     And the following user exists:
       | phone number | demo                    |
-      | +13025551212 | company_name: NaughtyCo |
+      | +13025551212 | name: NaughtyCo |
     And the following rule exists:
       | reply            | points | demo                    |
-      | Naughty is good. | 10     | company_name: NaughtyCo |
+      | Naughty is good. | 10     | name: NaughtyCo |
     And the following rule value exists:
       | value       | rule                    |
       | was naughty | reply: Naughty is good. |

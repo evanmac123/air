@@ -1,5 +1,5 @@
 class Mailer < ActionMailer::Base
-  default :from => "vlad@hengage.com"
+  default :from => "vlad@playhengage.com"
 
   def invitation(user, referrer = nil)
     @user = user
@@ -9,8 +9,11 @@ class Mailer < ActionMailer::Base
     else
       @referrer_params = ''
     end
+    @demo_name = user.demo.name || "H Engage"
+    from_email = @user.demo.email || "vlad@playhengage.com"
     mail :to      => user.email,
-         :subject => "Invitation to demo H Engage"
+         :subject => "Invitation to demo H Engage",
+         :from => from_email
   end
 
   def victory(user)
@@ -20,14 +23,14 @@ class Mailer < ActionMailer::Base
          :subject => "HEngage victory notification: #{user.name} (#{user.email})"
   end
 
-  def activity_report(csv_data, company_name, report_time, address)
-    puts "Sending activity report for #{company_name} to #{address}"
+  def activity_report(csv_data, name, report_time, address)
+    puts "Sending activity report for #{name} to #{address}"
 
-    subject_line = "Activity dump for #{company_name} as of #{report_time.to_s}"
+    subject_line = "Activity dump for #{name} as of #{report_time.to_s}"
 
-    normalized_company_name = company_name.gsub(/\s+/, '_').gsub(/[^A-Za-z0-9_]/, '')
+    normalized_name = name.gsub(/\s+/, '_').gsub(/[^A-Za-z0-9_]/, '')
     attachment_name = [
-      normalized_company_name,
+      normalized_name,
       '-',
       report_time.strftime("%Y_%m_%d_%H%M"),
       '.csv'

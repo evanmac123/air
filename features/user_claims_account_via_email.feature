@@ -2,12 +2,12 @@ Feature: User claims account via email
 
   Background:
     Given the following demo exists:
-      | company name | custom welcome message |
+      | name | custom welcome message |
       | FooCo        | We own you             |
     And the following users exist:
       | name | email           | claim code | demo                |
-      | Joe  | joe@example.com | joe        | company_name: FooCo |
-      | Bob  | bob@example.com | bob        | company_name: FooCo |
+      | Joe  | joe@example.com | joe        | name: FooCo |
+      | Bob  | bob@example.com | bob        | name: FooCo |
 
   Scenario: User claims account
     When "joe@example.com" sends email with subject "yo yo" and body "joe"
@@ -48,7 +48,7 @@ Feature: User claims account via email
   Scenario: User claims account that's already claimed
     Given the following user exists:
       | name | email            | claim code | accepted_invitation_at | demo                |
-      | Fred | fred@example.com | fred       | 2011-01-01 00:00:00    | company_name: FooCo |
+      | Fred | fred@example.com | fred       | 2011-01-01 00:00:00    | name: FooCo |
     And "joe@example.com" sends email with subject "hey" and body "fred"
     And DJ cranks 5 times
 

@@ -3,12 +3,12 @@ Feature: Demos are kept separate
   Scenario: User logging in sees other users in the same demo
     Given the following user exists:
       | email           | name | demo             |
-      | dan@example.com | Dan  | company name: 3M | 
+      | dan@example.com | Dan  | name: 3M | 
       
     And the following claimed users exist:
       | email           | name | demo             |
-      | bob@example.com | Bob  | company name: 3M |
-      | ned@example.com | Ned  | company name: Xe |
+      | bob@example.com | Bob  | name: 3M |
+      | ned@example.com | Ned  | name: Xe |
 
     And the following acts exist:
       | text        | user      |

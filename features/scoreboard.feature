@@ -3,43 +3,43 @@
   # Background:
     # Given the following user exists:
       # | name   | points | demo                |
-      # | Lou    | 1      | company_name: Alpha |
+      # | Lou    | 1      | name: Alpha |
     # And the following claimed users exist:
       # | name   | points | demo                | 
-      # | Lazy   | 94     | company_name: Alpha | 
-      # | Nogood | 94     | company_name: Alpha | 
-      # | Tony   | 100    | company_name: Alpha | 
-      # | Bleh   | 96     | company_name: Alpha | 
-      # | Phil   | 634923 | company_name: Alpha | 
-      # | Vlad   | 98     | company_name: Alpha | 
-      # | Dan    | 97     | company_name: Alpha | 
-      # | Sven   | 100    | company_name: Alpha | 
-      # | Loser  | 1      | company_name: Alpha | 
-      # | Blobby | 96     | company_name: Alpha | 
-      # | Fatso  | 95     | company_name: Alpha | 
-      # | Fatty  | 95     | company_name: Alpha |
-      # | Fred   | 93     | company_name: Alpha |
-      # | Rufus  | 92     | company_name: Alpha |
-      # | Paula  | 91     | company_name: Alpha |
-      # | Jan    | 90     | company_name: Alpha |
-      # | Gaston | 90     | company_name: Alpha |
-      # | Mikey  | 89     | company_name: Alpha |
-      # | Rudy   | 88     | company_name: Alpha |
-      # | Bert   | 87     | company_name: Alpha |
-      # | Charly | 86     | company_name: Alpha |
-      # | Kitty  | 85     | company_name: Alpha |
-      # | Stacey | 85     | company_name: Alpha |
-      # | Irene  | 84     | company_name: Alpha |
-      # | Donna  | 83     | company_name: Alpha |
-      # | Jess   | 83     | company_name: Alpha |
-      # | Lucas  | 82     | company_name: Alpha |
-      # | Artur  | 81     | company_name: Alpha |
-      # | Lulu   | 80     | company_name: Alpha |
-      # | Sadie  | 79     | company_name: Alpha |
-      # | Smalls | 78     | company_name: Alpha |
-      # | Jerry  | 77     | company_name: Alpha |
-      # | Patsy  | 76     | company_name: Alpha |
-      # | Who    | 200    | company_name: Enron | 
+      # | Lazy   | 94     | name: Alpha | 
+      # | Nogood | 94     | name: Alpha | 
+      # | Tony   | 100    | name: Alpha | 
+      # | Bleh   | 96     | name: Alpha | 
+      # | Phil   | 634923 | name: Alpha | 
+      # | Vlad   | 98     | name: Alpha | 
+      # | Dan    | 97     | name: Alpha | 
+      # | Sven   | 100    | name: Alpha | 
+      # | Loser  | 1      | name: Alpha | 
+      # | Blobby | 96     | name: Alpha | 
+      # | Fatso  | 95     | name: Alpha | 
+      # | Fatty  | 95     | name: Alpha |
+      # | Fred   | 93     | name: Alpha |
+      # | Rufus  | 92     | name: Alpha |
+      # | Paula  | 91     | name: Alpha |
+      # | Jan    | 90     | name: Alpha |
+      # | Gaston | 90     | name: Alpha |
+      # | Mikey  | 89     | name: Alpha |
+      # | Rudy   | 88     | name: Alpha |
+      # | Bert   | 87     | name: Alpha |
+      # | Charly | 86     | name: Alpha |
+      # | Kitty  | 85     | name: Alpha |
+      # | Stacey | 85     | name: Alpha |
+      # | Irene  | 84     | name: Alpha |
+      # | Donna  | 83     | name: Alpha |
+      # | Jess   | 83     | name: Alpha |
+      # | Lucas  | 82     | name: Alpha |
+      # | Artur  | 81     | name: Alpha |
+      # | Lulu   | 80     | name: Alpha |
+      # | Sadie  | 79     | name: Alpha |
+      # | Smalls | 78     | name: Alpha |
+      # | Jerry  | 77     | name: Alpha |
+      # | Patsy  | 76     | name: Alpha |
+      # | Who    | 200    | name: Enron | 
 
     # And the following friendships exist:
       # | user       | friend       |

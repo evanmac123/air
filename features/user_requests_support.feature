@@ -1,12 +1,12 @@
 Feature: User requests tech support
   Background:
     Given the following demo exists:
-      | company name |
+      | name |
       | PEBCAK       |
     And the following users exist:
       | phone number | name | email          | demo                 |
-      | +14155551212 | Joe  | joe@pebcak.com | company_name: PEBCAK |
-      | +14155551213 | Bob  | bob@pebcak.com | company_name: PEBCAK |
+      | +14155551212 | Joe  | joe@pebcak.com | name: PEBCAK |
+      | +14155551213 | Bob  | bob@pebcak.com | name: PEBCAK |
     And "+14155551212" sends SMS "hi"
     And "+14155551212" sends SMS "hello"
     And "+14155551212" sends SMS "what's up"

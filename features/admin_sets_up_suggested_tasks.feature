@@ -1,13 +1,13 @@
 Feature: Admin sets up suggested tasks
   Background:
     Given the following demo exists:
-      | company name |
+      | name |
       | TaskCo       |
     And the following rules exist:
       | reply              | demo                 |
-      | you did 1          | company_name: TaskCo |
-      | you did 2          | company_name: TaskCo |
-      | you did 3          | company_name: TaskCo |
+      | you did 1          | name: TaskCo |
+      | you did 2          | name: TaskCo |
+      | you did 3          | name: TaskCo |
       | you did 4 anywhere |                      |
     And the following rule values exist:
       | value       | is_primary | rule                      |
@@ -17,8 +17,8 @@ Feature: Admin sets up suggested tasks
       | did thing 4 | true       | reply: you did 4 anywhere |
     And the following surveys exist:
       | name        | demo                 |
-      | Survey 1    | company_name: TaskCo |
-      | Survey 2    | company_name: TaskCo |
+      | Survey 1    | name: TaskCo |
+      | Survey 2    | name: TaskCo |
     And I sign in via the login page as an admin
     And I go to the admin "TaskCo" demo page
     And I follow "Suggested tasks for this demo"

@@ -2,34 +2,34 @@ Feature: User completes suggested task
 
   Background:
     Given the following demo exists:
-      | company name |
+      | name |
       | TaskCo       |
     And the following claimed user exists:
       | name | phone number | demo                 |
-      | Joe  | +14152613077 | company_name: TaskCo |
-      | Bob  | +14155551212 | company_name: TaskCo |
+      | Joe  | +14152613077 | name: TaskCo |
+      | Bob  | +14155551212 | name: TaskCo |
     And "Bob" has the SMS slug "bob"
     And "Joe" has the password "foobar"
     And the following suggested tasks exist:
       | name               | demo                 |
-      | Rule task 1        | company_name: TaskCo |
-      | Rule task 2        | company_name: TaskCo |
-      | Rule task 3        | company_name: TaskCo |
-      | Rule task 4        | company_name: TaskCo |
-      | Rule task 5        | company_name: TaskCo |
-      | Rule task 6        | company_name: TaskCo |
-      | Referer task 1     | company_name: TaskCo |
-      | Referer task 2     | company_name: TaskCo |
-      | Survey task 1      | company_name: TaskCo |
-      | Survey task 2      | company_name: TaskCo |
-      | Survey task 3      | company_name: TaskCo |
-      | Survey task 4      | company_name: TaskCo |
-      | Demographic task 1 | company_name: TaskCo |
-      | Demographic task 2 | company_name: TaskCo |
+      | Rule task 1        | name: TaskCo |
+      | Rule task 2        | name: TaskCo |
+      | Rule task 3        | name: TaskCo |
+      | Rule task 4        | name: TaskCo |
+      | Rule task 5        | name: TaskCo |
+      | Rule task 6        | name: TaskCo |
+      | Referer task 1     | name: TaskCo |
+      | Referer task 2     | name: TaskCo |
+      | Survey task 1      | name: TaskCo |
+      | Survey task 2      | name: TaskCo |
+      | Survey task 3      | name: TaskCo |
+      | Survey task 4      | name: TaskCo |
+      | Demographic task 1 | name: TaskCo |
+      | Demographic task 2 | name: TaskCo |
     And the following rules exist:
       | reply | demo                 |
-      | did 1 | company_name: TaskCo |
-      | did 5 | company_name: TaskCo |
+      | did 1 | name: TaskCo |
+      | did 5 | name: TaskCo |
     And the following rule value exists:
       | value | is primary | rule         |
       | do 1  | true       | reply: did 1 |

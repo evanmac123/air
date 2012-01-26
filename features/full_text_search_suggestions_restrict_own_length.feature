@@ -3,13 +3,13 @@ Feature: Full text search suggestions restrict their own length (to under 160 ch
   Background:
     Given the following rules exist:
       | reply      | demo                  | 
-      | modest     | company_name: WordyCo | 
-      | indecent   | company_name: WordyCo | 
-      | lengthly   | company_name: WordyCo | 
-      | brief      | company_name: WordyCo | 
-      | incredible | company_name: WordyCo | 
-      | merest     | company_name: WordyCo | 
-      | surely     | company_name: WordyCo | 
+      | modest     | name: WordyCo | 
+      | indecent   | name: WordyCo | 
+      | lengthly   | name: WordyCo | 
+      | brief      | name: WordyCo | 
+      | incredible | name: WordyCo | 
+      | merest     | name: WordyCo | 
+      | surely     | name: WordyCo | 
     And the following rule values exist:
       | value                                                                                                       | is_primary | rule              |
       | a modest proposal                                                                                           | true       | reply: modest     |
@@ -21,7 +21,7 @@ Feature: Full text search suggestions restrict their own length (to under 160 ch
       | surely nobody would ever write a rule of length 65 characters or more, I mean, that would be just psychotic | true       | reply: surely     |
     And the following user exists:
       | phone number | demo                  |
-      | +14155551212 | company_name: WordyCo |
+      | +14155551212 | name: WordyCo |
 
   Scenario: A suggestion that can be brought under length by dropping one suggestion
     When "+14155551212" sends SMS "proposal"

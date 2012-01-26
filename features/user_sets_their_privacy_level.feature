@@ -2,13 +2,13 @@ Feature: User sets their privacy level
 
   Background:
     Given the following demo exists:
-      | company name |
+      | name |
       | Privata      |
     And the following users exist:
       | name      | demo                  |
-      | Bob       | company_name: Privata |
-      | AlmostFan | company_name: Privata |
-      | TrueFan   | company_name: Privata |
+      | Bob       | name: Privata |
+      | AlmostFan | name: Privata |
+      | TrueFan   | name: Privata |
     And "Bob" has the password "foobar"
     And "AlmostFan" has the password "foobar"
     And "TrueFan" has the password "foobar"
@@ -17,10 +17,10 @@ Feature: User sets their privacy level
   Scenario: User with (default) privacy level of "everybody" shows their acts to everybody in demo
     Given the following user exists:
       | name | demo                  |
-      | TMI  | company_name: Privata |
+      | TMI  | name: Privata |
     And the following user exists:
       | name  | privacy_level  | demo                  |
-      | WTMI  | everybody      | company_name: Privata |
+      | WTMI  | everybody      | name: Privata |
     And the following acts exist:
       | text        | user       |  
       | ate kitten  | name: TMI  |
@@ -32,7 +32,7 @@ Feature: User sets their privacy level
   Scenario: User with privacy level of "connected" shows their acts to fans only
     Given the following user exists:
       | name  | privacy_level | demo                  |
-      | Fanny | connected     | company_name: Privata |
+      | Fanny | connected     | name: Privata |
     And the following act exists:
       | text       | user        |
       | ate kitten | name: Fanny |
@@ -56,7 +56,7 @@ Feature: User sets their privacy level
   Scenario: User with privacy level of "nobody" show their acts to nobody    
     Given the following user exists:
       | name    | privacy_level | demo                  |
-      | Private | nobody        | company_name: Privata |
+      | Private | nobody        | name: Privata |
     And the following act exists:
       | text       | user         |
       | ate kitten | name: Private |

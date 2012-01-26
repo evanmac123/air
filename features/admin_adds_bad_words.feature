@@ -2,7 +2,7 @@ Feature: Admin adds bad words
 
   Background:
     Given the following demos exist:
-      | company name   |
+      | name   |
       | PrudeCo        |
       | Pantsville Inc |
     And the following bad words exist:
@@ -10,9 +10,9 @@ Feature: Admin adds bad words
       | gosh         |                       |
       | heck         |                       |
       | darn         |                       |
-      | poot         | company_name: PrudeCo |
-      | drat         | company_name: PrudeCo |
-      | motherfucker | company_name: PrudeCo |
+      | poot         | name: PrudeCo |
+      | drat         | name: PrudeCo |
+      | motherfucker | name: PrudeCo |
     And the following site admin exists:
       | name |
       | Bob  |

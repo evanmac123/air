@@ -1,6 +1,6 @@
 <%= semantic_form_for [:admin, demo] do |form| %>
   <%= form.inputs do %>
-    <%= form.input :company_name, :label => "Company name" %>
+    <%= form.input :name, :label => "Company name" %>
     <%= form.input :victory_threshold, :label => "Victory threshold" %>
     <%= form.input :seed_points, :label => "Starting player score" %>
     <%= form.input :custom_welcome_message, {:maxlength => 160} %>

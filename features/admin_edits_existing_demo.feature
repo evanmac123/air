@@ -2,7 +2,7 @@ Feature: Admin edits existing demo
 
   Background:
     Given the following demo exists:
-      | company_name | victory_threshold | victory_verification_email | victory_verification_sms_number | seed_points | custom_welcome_message | begins_at               | ends_at                 | points_for_connecting | custom_victory_achievement_message | custom_victory_sms | custom_victory_scoreboard_message | followup_welcome_message | followup_welcome_message_delay | credit_game_referrer_threshold | game_referrer_bonus |
+      | name | victory_threshold | victory_verification_email | victory_verification_sms_number | seed_points | custom_welcome_message | begins_at               | ends_at                 | points_for_connecting | custom_victory_achievement_message | custom_victory_sms | custom_victory_scoreboard_message | followup_welcome_message | followup_welcome_message_delay | credit_game_referrer_threshold | game_referrer_bonus |
       | FooCo        | 50                | phil@fooco.com             | +14155551212                    | 10          | Hi there               | 2012-04-01 12:00:00 UTC | 2012-05-01 12:00:00 UTC | 5                     | You won.                           | You won by SMS     | Won a bunch                       | Hi again.                | 20                             | 60                             | 5                   |
     And I sign in as an admin via the login page
     And I go to the admin "FooCo" demo page
@@ -10,7 +10,7 @@ Feature: Admin edits existing demo
 
   Scenario: Admin edits existing demo
     When I fill in the following:
-      | Company name                                          | BarCo                        |
+      | name                                          | BarCo                        |
       | Victory threshold                                     | 90                           |
       | Starting player score                                 | 10                           |
       | Custom welcome message                                | Sup.                         |
@@ -53,7 +53,7 @@ Feature: Admin edits existing demo
       | Victory verification SMS number        | |
     And I press "Submit"
     Then I should be on the admin "FooCo" demo page
-    And I should see "Welcome message: You've joined the %{company_name} game! Your user ID is %{unique_id} (text MYID if you forget). To play, text to this #."
+    And I should see "Welcome message: You've joined the %{name} game! Your user ID is %{unique_id} (text MYID if you forget). To play, text to this #."
     And I should see "Victory achievement message: You won on %{winning_time}. Congratulations!"
     And I should see "Victory SMS: Congratulations! You've got %{points} points and have qualified for the drawing!"
     And I should see "Victory scoreboard message: Won game!"

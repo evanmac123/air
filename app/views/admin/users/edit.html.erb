@@ -17,7 +17,7 @@
   <fieldset>
     <legend>Move User To A Different Demo</legend>
     <p>If you move this user, any actions they did under the original demo will still exist in the database, but won't show up until such time as you move them back to that original demo.</p>
-    <%= form.input :demo, :collection => @demos, :label_method => :company_name, :include_blank => false %>
+    <%= form.input :demo, :collection => @demos, :label_method => :name, :include_blank => false %>
     <%= form.commit_button 'Move User' %>
   </fieldset>
 <% end %>

@@ -7,7 +7,7 @@
 
 <ul class="demos">
   <% @demos.each do |demo| %>
-    <% link_text = demo.company_name %>
+    <% link_text = demo.name %>
 
     <% extra_info = [] %>
     <% extra_info << "#{demo.victory_threshold} points to win" if demo.victory_threshold %>

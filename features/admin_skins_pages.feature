@@ -2,13 +2,13 @@ Feature: Skinnable pages
 
   Background:
     Given the following demo exists:
-      | company name |
+      | name |
       | BlargCo      |
     And the following claimed users exist:
       | name | points | phone number | won at                  | demo                  |
-      | Joe  | 10     | +14155551212 | 1999-05-01 12:00:00 UTC | company_name: BlargCo |
-      | Bob  | 40     | +14155551213 | 1999-05-01 12:00:00 UTC | company_name: BlargCo |
-      | Fred | 7      | +14155551214 | 1999-05-01 12:00:00 UTC | company_name: BlargCo |
+      | Joe  | 10     | +14155551212 | 1999-05-01 12:00:00 UTC | name: BlargCo |
+      | Bob  | 40     | +14155551213 | 1999-05-01 12:00:00 UTC | name: BlargCo |
+      | Fred | 7      | +14155551214 | 1999-05-01 12:00:00 UTC | name: BlargCo |
     And the following acts exist:
       | text       | inherent points | user       | 
       | Ate cheese | 15              | name: Joe  | 
@@ -22,7 +22,7 @@ Feature: Skinnable pages
   Scenario: Pages have skin applied
     Given the following skin exists:
       | demo                  | header_background_url | nav_link_color | active_nav_link_color | logo_url | play_now_button_url | save_button_url | see_more_button_url | fan_button_url | defan_button_url | clear_button_url | profile_link_color | column_header_background_color | victory_graphic_url | points_color |
-      | company_name: BlargCo | header.gif            | 000000         | 111111                | logo.gif | playnow.gif         | save.gif        | seemore.gif          | fan.gif       | defan.gif        | clear.gif        | 222222             | 333333                         | victory.gif         | 444444       |
+      | name: BlargCo | header.gif            | 000000         | 111111                | logo.gif | playnow.gif         | save.gif        | seemore.gif          | fan.gif       | defan.gif        | clear.gif        | 222222             | 333333                         | victory.gif         | 444444       |
     When I go to the activity page
     Then the logo should have src "logo.gif"
     # And the victory graphics should have src "victory.gif"
@@ -39,7 +39,7 @@ Feature: Skinnable pages
   Scenario: Partial skinning does what you would expect
     Given the following skin exists:
       | demo                  | active_nav_link_color | logo_url |
-      | company_name: BlargCo | AAAAAA                | logo.gif |
+      | name: BlargCo | AAAAAA                | logo.gif |
     When I go to the activity page
     Then the logo should have src "logo.gif"
 

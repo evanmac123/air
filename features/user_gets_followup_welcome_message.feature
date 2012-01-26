@@ -3,12 +3,12 @@ Feature: User gets followup welcome message at some point after starting the gam
   Background:
     Given time is frozen at "2011-05-01 12:00:00 EST"
     And the following demo exists:
-      | company name | followup welcome message | followup welcome message delay |
+      | name | followup welcome message | followup welcome message delay |
       | FooCorp      | Play. Or die. Your choice.      | 30                             |
     And the following users exist:
       | name | email            | demo                  | claim code |
-      | Phil | phil@example.com | company_name: FooCorp |            |
-      | Vlad | vlad@example.com | company_name: FooCorp | vladig     |
+      | Phil | phil@example.com | name: FooCorp |            |
+      | Vlad | vlad@example.com | name: FooCorp | vladig     |
     And "phil@example.com" has received an invitation
 
   Scenario: User gets followup welcome message after accepting invitation on Web

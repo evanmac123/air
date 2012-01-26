@@ -2,14 +2,14 @@ Feature: User gets bonus points at thresholds with some randomness built in
 
   Background: 
     Given the following demo exists:
-      | company name |
+      | name |
       | FooCo        |
     And the following rules exist:
       | reply   | points | description  | demo                |
-      | water   | 1      | drank water  | company_name: FooCo |
-      | cheese  | 2      | ate cheese   | company_name: FooCo |
-      | kitten  | 3      | ate a kitten | company_name: FooCo |
-      | awesome | 13     | was awesome  | company_name: FooCo |
+      | water   | 1      | drank water  | name: FooCo |
+      | cheese  | 2      | ate cheese   | name: FooCo |
+      | kitten  | 3      | ate a kitten | name: FooCo |
+      | awesome | 13     | was awesome  | name: FooCo |
     And the following primary values exist:
       | value       | rule           |
       | drank water | reply: water   |
@@ -19,13 +19,13 @@ Feature: User gets bonus points at thresholds with some randomness built in
       | set trap    | reply: trap    |
     And the following bonus thresholds exist:
       | min_points | max_points | award | demo                |
-      | 9          | 11         | 3     | company_name: FooCo | 
-      | 19         | 22         | 5     | company_name: FooCo |
-      | 31         | 38         | 5     | company_name: FooCo |
+      | 9          | 11         | 3     | name: FooCo | 
+      | 19         | 22         | 5     | name: FooCo |
+      | 31         | 38         | 5     | name: FooCo |
     And the following claimed users exist:
       | name | phone number | points | demo                |
-      | Vlad | +14155551212 | 8      | company_name: FooCo | 
-      | Dan  | +16175551212 | 29     | company_name: FooCo |
+      | Vlad | +14155551212 | 8      | name: FooCo | 
+      | Dan  | +16175551212 | 29     | name: FooCo |
     And "Vlad" has the password "foobar"
     And I sign in via the login page with "Vlad/foobar"
 

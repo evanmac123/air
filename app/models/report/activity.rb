@@ -2,7 +2,7 @@ require 'csv'
 
 class Report::Activity
   def initialize(game_specifier)
-    @demo = Demo.where(["company_name = ? OR id = ?", game_specifier.to_s, game_specifier.to_i]).first
+    @demo = Demo.where(["name = ? OR id = ?", game_specifier.to_s, game_specifier.to_i]).first
 
     unless @demo
       raise ArgumentError, "No demo found with company name or ID \"#{game_specifier}\""
@@ -28,7 +28,7 @@ class Report::Activity
     report_time = Time.now
 
     addresses.split(/,/).each do |address|
-      Mailer.activity_report(csv_data, @demo.company_name, report_time, address).deliver
+      Mailer.activity_report(csv_data, @demo.name, report_time, address).deliver
     end
   end
 end

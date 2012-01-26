@@ -6,7 +6,7 @@ Feature: Admin sets up demo
   Scenario: Admin sets up demo
     When I go to the admin page
     When I follow "New Demo"
-    And I fill in "Company name" with "3M"
+    And I fill in "name" with "3M"
     And I fill in "Victory threshold" with "100"
     And I fill in "Min points" with "5"
     And I fill in "Max points" with "8"
@@ -66,9 +66,9 @@ Feature: Admin sets up demo
   Scenario: Correct defaults
     Given I am on the admin page
     When I follow "New Demo"
-    And I fill in "Company name" with "3M"
+    And I fill in "name" with "3M"
     And I press "Submit"
-    Then I should see "Welcome message: You've joined the %{company_name} game! Your user ID is %{unique_id} (text MYID if you forget). To play, text to this #."
+    Then I should see "Welcome message: You've joined the %{name} game! Your user ID is %{unique_id} (text MYID if you forget). To play, text to this #."
     And I should see "Victory achievement message: You won on %{winning_time}. Congratulations!"
     And I should see "Victory SMS: Congratulations! You've got %{points} points and have qualified for the drawing!"
     And I should see "Victory scoreboard message: Won game!"
@@ -102,7 +102,7 @@ Feature: Admin sets up demo
     And I should see a restricted text field "Name" with length 140
 
   Scenario: Admin adds user
-    Given a demo exists with a company name of "3M"
+    Given a demo exists with a name of "3M"
     And I am on the admin "3M" demo page
     When I follow "Add new user"
     And I fill in "Name" with "Bobby Jones"

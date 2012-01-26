@@ -2,13 +2,13 @@ Feature: User filters their view of the activity stream
 
   Background:
     Given the following demo exists:
-      | company name |
+      | name |
       | FooCo        |
     And the following users exist:
       | name | phone number | demo                |
-      | Joe  | +14155551212 | company_name: FooCo |
-      | Bob  | +14155551213 | company_name: FooCo |
-      | Fred | +14155551214 | company_name: FooCo |
+      | Joe  | +14155551212 | name: FooCo |
+      | Bob  | +14155551213 | name: FooCo |
+      | Fred | +14155551214 | name: FooCo |
     And the following friendships exist:
       | user      | friend    |
       | name: Joe | name: Bob |

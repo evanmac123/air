@@ -2,7 +2,7 @@ Feature: Admin adds user
 
   Scenario: Admin adds user
     Given the following demo exists:
-      | company name  |
+      | name  |
       | The H Engages |
     When I sign in as an admin via the login page
     And I go to the admin "The H Engages" demo page
@@ -19,7 +19,7 @@ Feature: Admin adds user
   Scenario: Admin tries adding duplicate user and gets a reasonable error message
     Given the following user exists:
       | name        | email            | demo                        |
-      | Vlad Gyster | vlad@hengage.com | company name: The H Engages |    
+      | Vlad Gyster | vlad@hengage.com | name: The H Engages |    
     When I sign in as an admin via the login page
     And I go to the admin "The H Engages" demo page
     And I fill in "Name" with "Vlad O'Reilly"
@@ -34,13 +34,13 @@ Feature: Admin adds user
 
   Scenario: Admin adds user to a demo with locations
     Given the following demo exists:
-      | company name  |
+      | name  |
       | DistributedCo |
     And the following locations exist:
       | name         | demo                        |
-      | First Plant  | company_name: DistributedCo | 
-      | Second Plant | company_name: DistributedCo | 
-      | Third Plant  | company_name: DistributedCo | 
+      | First Plant  | name: DistributedCo | 
+      | Second Plant | name: DistributedCo | 
+      | Third Plant  | name: DistributedCo | 
     When I sign in as an admin via the login page
     And I go to the admin "DistributedCo" demo page
     

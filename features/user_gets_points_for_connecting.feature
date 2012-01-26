@@ -2,19 +2,19 @@ Feature: User gets points for connecting to another (if demo configured for it)
 
   Background:
     Given the following demos exists:
-      | company name  | points for connecting |
+      | name  | points for connecting |
       | HMFEngage     | 5                     |
       | Towers Watson | 0                     |
       | LameCo        |                       |
     And the following claimed users exist:
       | name | phone number | connection bounty | points | demo                        |
-      | Dan  | +14155551212 | 0                 | 1      | company_name: HMFEngage     |
-      | Phil | +18085551212 | 7                 | 0      | company_name: HMFEngage     |
-      | Vlad | +16175551212 | 0                 | 0      | company_name: HMFEngage     |
-      | Tom  | +13055551212 | 0                 | 0      | company_name: Towers Watson |
-      | Fred | +12125551212 | 7                 | 0      | company_name: Towers Watson |
-      | Bleh | +14085551212 | 0                 | 0      | company_name: LameCo        |
-      | Feh  | +16505551212 | 7                 | 0      | company_name: LameCo        |
+      | Dan  | +14155551212 | 0                 | 1      | name: HMFEngage     |
+      | Phil | +18085551212 | 7                 | 0      | name: HMFEngage     |
+      | Vlad | +16175551212 | 0                 | 0      | name: HMFEngage     |
+      | Tom  | +13055551212 | 0                 | 0      | name: Towers Watson |
+      | Fred | +12125551212 | 7                 | 0      | name: Towers Watson |
+      | Bleh | +14085551212 | 0                 | 0      | name: LameCo        |
+      | Feh  | +16505551212 | 7                 | 0      | name: LameCo        |
     And "Dan" has password "foobar"
     When I sign in via the login page as "Dan/foobar"
 

@@ -1,4 +1,4 @@
-<h2 class="first"><%= link_to "Admin", admin_path %>: <%= @demo.company_name %></h2>
+<h2 class="first"><%= link_to "Admin", admin_path %>: <%= @demo.name %></h2>
 
 <%= button_to "Send activity dump to Vlad", admin_demo_send_activity_dump_path(@demo.id) %>
 
@@ -187,7 +187,7 @@ Game
   <% end %>
 </p>
 
-<p class="explanation"><%= translate('.explanation', :default => "Add HR people from %{company} to this demo, then send them an invitation to the demo.", :company => @demo.company_name) %></p>
+<p class="explanation"><%= translate('.explanation', :default => "Add HR people from %{company} to this demo, then send them an invitation to the demo.", :company => @demo.name) %></p>
 
 <p><%= link_to "Edit basic settings for this game", edit_admin_demo_path(@demo) %></p>
 
@@ -206,5 +206,5 @@ Game
     <legend>Destroy game</legend>
     <p>Destroying a game is <strong>irrevocable</strong>. There is <strong>no undo</strong>. This will also delete <strong>all associated records, including users and their actions</strong>.</p>
     <p>If you want to save users from this demo, move them to another demo first.</p>
-    <%= submit_tag "Destroy game", :confirm => "Really destroy this \"#{@demo.company_name}\" game?" %>
+    <%= submit_tag "Destroy game", :confirm => "Really destroy this \"#{@demo.name}\" game?" %>
 <% end %>

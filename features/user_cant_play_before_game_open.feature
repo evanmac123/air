@@ -2,11 +2,11 @@ Feature: User can't play before game opens
 
   Scenario: User can't login before game opens
     Given the following demo exists:
-      | company name | begins at                 |
+      | name | begins at                 |
       | HoldYrHorses | 2011-05-01 00:00:00 -0400 |
     And the following user exists:
       | name | email           | demo                       |
-      | Bob  | bob@example.com | company_name: HoldYrHorses |
+      | Bob  | bob@example.com | name: HoldYrHorses |
     And "Bob" has the password "foobar"
 
     When time is frozen at "2011-04-30 23:59:59 -0400"
@@ -25,11 +25,11 @@ Feature: User can't play before game opens
 
   Scenario: Game without a set start time is open immediately      
     Given the following demo exists:
-      | company name |
+      | name |
       | AnyOldTime   |
     And the following user exists:
       | name | email           | demo                     |
-      | Bob  | bob@example.com | company_name: AnyOldTime |
+      | Bob  | bob@example.com | name: AnyOldTime |
     And "Bob" has the password "foobar"
 
     When time is frozen at "1962-01-01 00:00:00"
@@ -50,12 +50,12 @@ Feature: User can't play before game opens
 
   Scenario: Admin can log in whenever they please
     Given the following demo exists:
-      | company name | begins at                 |
+      | name | begins at                 |
       | HoldYrHorses | 2011-05-01 00:00:00 -0400 |
     And the following user exists:
       | name | email            | is site admin | demo                       |
-      | Bob  | bob@example.com  | false         | company_name: HoldYrHorses |
-      | Adam | adam@example.com | true          | company_name: HoldYrHorses |
+      | Bob  | bob@example.com  | false         | name: HoldYrHorses |
+      | Adam | adam@example.com | true          | name: HoldYrHorses |
     And "Bob" has the password "foobar"
     And "Adam" has the password "barfing"
 

@@ -3,12 +3,12 @@ Feature: Admin edits bonus thresholds and rules
   Background:
     Given the following bonus thresholds exist:
       | min points | max points | award | demo                  |
-      | 5          | 7          | 3     | company_name: FooCorp |
-      | 11         | 15         | 5     | company_name: FooCorp |
+      | 5          | 7          | 3     | name: FooCorp |
+      | 11         | 15         | 5     | name: FooCorp |
     And the following levels exist:
       | name | threshold | demo                  |
-      | N00b | 5         | company_name: FooCorp |
-      | Pawn | 10        | company_name: FooCorp |
+      | N00b | 5         | name: FooCorp |
+      | Pawn | 10        | name: FooCorp |
     And I sign in as an admin via the login page
     And I go to the admin "FooCorp" demo page
   

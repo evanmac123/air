@@ -2,7 +2,7 @@ Feature: Admin sends activity dump
 
   Scenario: Admin sends activity dump
     Given the following demo exists:
-      | company name |
+      | name |
       | H Engage     |
     And time is frozen at "2011-05-01 15:00 EDT"
     And I sign in as an admin via the login page

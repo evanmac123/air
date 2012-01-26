@@ -4,21 +4,21 @@ Feature: Player can win the game
 
   Background:
     Given the following demo exists:
-      | company_name | victory_threshold | victory_verification_email | victory_verification_sms_number |
+      | name | victory_threshold | victory_verification_email | victory_verification_sms_number |
       | BobCo        | 100               | lucille@example.com        | +16179876543                    |
     And the following demo exists:
-      | company name | victory threshold | custom victory achievement message | custom victory sms                     | custom victory scoreboard message |
+      | name | victory threshold | custom victory achievement message | custom victory sms                     | custom victory scoreboard message |
       | CustomCo     | 100               | You did it at %{winning_time}!     | You go boy with your %{points} points! | Did a big thing!                  |
     And the following users exist:
       | name | email           | phone_number | points | demo                   |
-      | Bob  | bob@example.com | +14155551212 | 97     | company_name: BobCo    |
-      | Jim  | jim@example.com | +16175551212 | 97     | company_name: CustomCo |
+      | Bob  | bob@example.com | +14155551212 | 97     | name: BobCo    |
+      | Jim  | jim@example.com | +16175551212 | 97     | name: CustomCo |
     And "Bob" has the password "LOLWTF"
     And "Jim" has the password "LOLWTF"
     And the following rules exist:
       | points | reply    | demo                   |
-      | 3      | kitten 1 | company_name: BobCo    |
-      | 3      | kitten 2 | company_name: CustomCo |
+      | 3      | kitten 1 | name: BobCo    |
+      | 3      | kitten 2 | name: CustomCo |
     And the following rule values exist:
       | value        | rule            |
       | ate a kitten | reply: kitten 1 |
@@ -60,7 +60,7 @@ Feature: Player can win the game
 #   Scenario: Other players have won
     # Given the following user with phones exist:
       # | demo                | name | won_at              |
-      # | company_name: BobCo | Dan  | 2005-12-31 06:00:00 |
+      # | name: BobCo | Dan  | 2005-12-31 06:00:00 |
     # When I go to the activity page
 #     Then I should see the winning graphic
 

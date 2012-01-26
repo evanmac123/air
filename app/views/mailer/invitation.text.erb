@@ -4,9 +4,9 @@
 
 
 <% if @referrer %>
-<% @referrer.name %> has invited you to demo H Engage. To demo it, follow:
+<%= @referrer.name %> has invited you to play <%= @demo_name %>. To start playing, follow:
 <% else %>
-I'm pleased to invite you to demo H Engage. To demo it, follow:
+Thanks for requesting an invite to play <%= @demo_name %>. To start playing, follow:
 <% end %>
 
 <%= invitation_url(@user.invitation_code) + @referrer_params%>
@@ -15,7 +15,6 @@ Have fun and good luck!
 
 Vlad
 CEO and Cofounder
-H Engage
 
 =======================================================
 

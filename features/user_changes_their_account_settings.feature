@@ -2,12 +2,12 @@ Feature: User can edit their account settings
 
   Background:
     Given the following demo exists:
-      | company name |
+      | name |
       | Big Machines |
     Given the following claimed users exist:
       | name  | phone number | email             | demo                      |
-      | Phil  | +14155551212 | phil@example.com  | company_name: BigMachines |
-      | Alice | +18085551212 | alice@example.com | company_name: BigMachines |
+      | Phil  | +14155551212 | phil@example.com  | name: BigMachines |
+      | Alice | +18085551212 | alice@example.com | name: BigMachines |
     And "Phil" has the password "foobar"
     And I sign in via the login page with "Phil/foobar"
     And I go to the settings page for "Phil"
@@ -74,8 +74,8 @@ Feature: User can edit their account settings
   Scenario: User can change their location    
     Given the following locations exist:
       | name         | demo |
-      | Philadelphia | company_name: BigMachines |
-      | Baltimore    | company_name: BigMachines |    
+      | Philadelphia | name: BigMachines |
+      | Baltimore    | name: BigMachines |    
     When I go to the settings page for "Phil"
     Then I should see "Location"
     When I select "Baltimore" from "Location"
@@ -100,12 +100,12 @@ Feature: User can edit their account settings
 
   Scenario: User who gets notification by email and is in a demo with a custom phone number sees that number
     Given the following demo exists:
-      | company name | phone number |
+      | name | phone number |
       | CustomCo     | +19005551212 |
     And the following claimed users exists:
       | name   | phone number | email              | demo                   |
-      | Frank  | +18885551212 | frank@example.com  | company_name: CustomCo |
-      | George | +18765551212 | george@example.com | company_name: CustomCo |
+      | Frank  | +18885551212 | frank@example.com  | name: CustomCo |
+      | George | +18765551212 | george@example.com | name: CustomCo |
     And "Frank" has the password "quuxstein"
 
     When I sign in via the login page with "Frank/quuxstein"

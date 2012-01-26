@@ -3,17 +3,17 @@ Feature: User gets rankings via SMS
   Background:
     Given the following claimed users exist:
       | name                | phone_number | points | demo                |
-      | Phil Darnowsky      | +14155551212 | 250    | company_name: FooCo |
-      | Vlad Gyster         | +14155551213 | 238    | company_name: FooCo |
-      | Tony Wu             | +14155551214 | 237    | company_name: FooCo |
-      | Dan Croak           | +14155551215 | 237    | company_name: FooCo |
-      | Kelli Peterson      | +14155551216 | 225    | company_name: FooCo |
-      | Peggy Bartek        | +14155551217 | 220    | company_name: FooCo |
-      | MaryLynne Karman    | +14155551218 | 219    | company_name: FooCo |
-      | Kristina Rikantis   | +14155551219 | 218    | company_name: FooCo |
-      | Kirill Bernshteyn   | +14155551220 | 215    | company_name: FooCo |
-      | Darryl Whatshisname | +14155551221 | 210    | company_name: FooCo |
-      | Audrey Roth         | +14155551222 | 205    | company_name: FooCo |
+      | Phil Darnowsky      | +14155551212 | 250    | name: FooCo |
+      | Vlad Gyster         | +14155551213 | 238    | name: FooCo |
+      | Tony Wu             | +14155551214 | 237    | name: FooCo |
+      | Dan Croak           | +14155551215 | 237    | name: FooCo |
+      | Kelli Peterson      | +14155551216 | 225    | name: FooCo |
+      | Peggy Bartek        | +14155551217 | 220    | name: FooCo |
+      | MaryLynne Karman    | +14155551218 | 219    | name: FooCo |
+      | Kristina Rikantis   | +14155551219 | 218    | name: FooCo |
+      | Kirill Bernshteyn   | +14155551220 | 215    | name: FooCo |
+      | Darryl Whatshisname | +14155551221 | 210    | name: FooCo |
+      | Audrey Roth         | +14155551222 | 205    | name: FooCo |
 
   Scenario: User gets pages of rankings
     When "+14155551212" sends SMS "rankings"
@@ -46,12 +46,12 @@ Feature: User gets rankings via SMS
   Scenario: Responses should abbreviate themselves if they would go over 160 characters
     Given the following claimed users exist:
       | name            | points | phone number | demo                |
-      | Balaji Paladugu | 256    | +16175551212 | company_name: BarCo |
-      | Daryl Kurtz     | 198    | +16175551213 | company_name: BarCo |
-      | Kristian Burch  | 187    | +16175551214 | company_name: BarCo |
-      | Michael Vidalez | 102    | +16175551215 | company_name: BarCo |
-      | Ryan Booth      | 90     | +16175551216 | company_name: BarCo |
-      | Sabrina DeVeny  | 88     | +16175551217 | company_name: BarCo |
+      | Balaji Paladugu | 256    | +16175551212 | name: BarCo |
+      | Daryl Kurtz     | 198    | +16175551213 | name: BarCo |
+      | Kristian Burch  | 187    | +16175551214 | name: BarCo |
+      | Michael Vidalez | 102    | +16175551215 | name: BarCo |
+      | Ryan Booth      | 90     | +16175551216 | name: BarCo |
+      | Sabrina DeVeny  | 88     | +16175551217 | name: BarCo |
     And "+16175551212" sends SMS "rankings"
     Then "+16175551212" should not have received an SMS including "6. Sabrina DeVeny (88)"
     When "+16175551212" sends SMS "morerankings"

@@ -1,24 +1,24 @@
 Feature: Game has a beginning and an end
   Background:
     Given the following demo exists:
-      | company name | begins at               | ends at                 |
+      | name | begins at               | ends at                 |
       | BarInc       | 2010-04-01 12:00:00 UTC | 2010-05-01 12:00:00 UTC |
     And the following demo exists:
-      | company name | begins at               | ends at                 | act too early message | act too late message | 
+      | name | begins at               | ends at                 | act too early message | act too late message | 
       | CustomCo     | 2010-04-01 12:00:00 UTC | 2010-05-01 12:00:00 UTC | Hold ur horses        | Too slow!            |
     And the following claimed users exist:
       | name | phone number | demo                   |
-      | Phil | +14152613077 | company_name: BarInc   |
-      | Vlad | +16175551212 | company_name: BarInc   |
-      | Bob  | +18085551212 | company_name: CustomCo |
+      | Phil | +14152613077 | name: BarInc   |
+      | Vlad | +16175551212 | name: BarInc   |
+      | Bob  | +18085551212 | name: CustomCo |
     And the following accepted friendships exist:
       | user        | friend     |
       | name: Vlad  | name: Phil |
     And the following rules exist:
       | reply          | points | demo                   | 
-      | You ate fruit. | 2      | company_name: BarInc   | 
-      | Worked out.    | 3      | company_name: BarInc   | 
-      | Did customs    | 10     | company_name: CustomCo |
+      | You ate fruit. | 2      | name: BarInc   | 
+      | Worked out.    | 3      | name: BarInc   | 
+      | Did customs    | 10     | name: CustomCo |
     And the following rule values exist:
       | value      | rule                  |
       | ate fruit  | reply: You ate fruit. |

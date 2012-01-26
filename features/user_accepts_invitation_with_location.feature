@@ -2,18 +2,18 @@ Feature: User accepts invitation and specifies location
 
   Scenario: User for demo with locations can choose one when accepting invitation
     Given the following demo exists:
-      | company name |
+      | name |
       | LocatoCo     |
     And the following locations exist:
       | name          | demo                   |
-      | Alphaville    | company_name: LocatoCo |
-      | Betaville     | company_name: LocatoCo |
-      | Gammaville    | company_name: LocatoCo |
-      | Deltaville    | company_name: LocatoCo |
+      | Alphaville    | name: LocatoCo |
+      | Betaville     | name: LocatoCo |
+      | Gammaville    | name: LocatoCo |
+      | Deltaville    | name: LocatoCo |
     And the following user exists:
       | email           | name | demo                   |
-      | joe@example.com | Joe  | company_name: LocatoCo |
-      | bob@example.com | Bob  | company_name: LocatoCo |
+      | joe@example.com | Joe  | name: LocatoCo |
+      | bob@example.com | Bob  | name: LocatoCo |
     And "joe@example.com" has received an invitation
     And "bob@example.com" has received an invitation
 

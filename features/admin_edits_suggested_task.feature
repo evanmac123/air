@@ -2,14 +2,14 @@ Feature: Admin edits suggested task
 
   Background:
     Given the following demo exists:
-      | company name |
+      | name |
       | TaskCo       |
     And the following suggested tasks exist:
       | name               | start time          | demo                 |
-      | bake bread         |                     | company_name: TaskCo |
-      | discover fire      |                     | company_name: TaskCo |
-      | domesticate cattle |                     | company_name: TaskCo |
-      | make toast         | 2015-05-01 00:00:00 | company_name: TaskCo |
+      | bake bread         |                     | name: TaskCo |
+      | discover fire      |                     | name: TaskCo |
+      | domesticate cattle |                     | name: TaskCo |
+      | make toast         | 2015-05-01 00:00:00 | name: TaskCo |
     And the task "make toast" has prerequisite "bake bread"
     And the task "make toast" has prerequisite "discover fire"
     And I sign in via the login page as an admin
@@ -36,16 +36,16 @@ Feature: Admin edits suggested task
   Scenario: Editing completion triggers should do what you would expect
     Given the following rules exist:
       | reply | demo                 |
-      | did 1 | company_name: TaskCo |
-      | did 2 | company_name: TaskCo |
+      | did 1 | name: TaskCo |
+      | did 2 | name: TaskCo |
     And the following rule values exist:
       | value | is primary | rule         |
       | do 1  | true       | reply: did 1 |
       | do 2  | true       | reply: did 2 |
     And the following surveys exist:
       | name     | demo                 |
-      | Survey 1 | company_name: TaskCo |
-      | Survey 2 | company_name: TaskCo |
+      | Survey 1 | name: TaskCo |
+      | Survey 2 | name: TaskCo |
 
     When I click the link to edit the task "make toast"
     And I select "do 1" from "Rules"

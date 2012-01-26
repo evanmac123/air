@@ -1,5 +1,5 @@
 Given /^"([^"]*)" has victory threshold (\d+)$/ do |demo_name, victory_threshold_string|
-  demo = Demo.find_by_company_name(demo_name)
+  demo = Demo.find_by_name(demo_name)
   demo.victory_threshold = victory_threshold_string.to_i
   demo.save!
   demo.reload

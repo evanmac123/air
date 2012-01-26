@@ -2,17 +2,17 @@ Feature: Levels control points denominator
 
   Background:
     Given the following demo exists:
-      | company name |
+      | name |
       | FooCo        |
     And the following users exist:
       | name | phone number | points | demo                |
-      | Vlad | +14155551212 | 7      | company_name: FooCo |
+      | Vlad | +14155551212 | 7      | name: FooCo |
     And the following rules exist:
       | reply   | points | demo                |
-      | blah.   | 1      | company_name: FooCo |
-      | good.   | 3      | company_name: FooCo |
-      | better. | 4      | company_name: FooCo |
-      | best.   | 14     | company_name: FooCo |
+      | blah.   | 1      | name: FooCo |
+      | good.   | 3      | name: FooCo |
+      | better. | 4      | name: FooCo |
+      | best.   | 14     | name: FooCo |
     And the following primary values exist:
       | value      | rule           |  
       | did blah   | reply: blah.   |
@@ -21,8 +21,8 @@ Feature: Levels control points denominator
       | did best   | reply: best.   |
     And the following levels exist:
       | name           | threshold | demo                |
-      | level 1 (N00b) | 10        | company_name: FooCo |
-      | level 2 (Pawn) | 21        | company_name: FooCo |
+      | level 1 (N00b) | 10        | name: FooCo |
+      | level 2 (Pawn) | 21        | name: FooCo |
 
   Scenario: User acts and sees point threshold of next or highest level as denominator, except on the action where they pass a threshold
     When "+14155551212" sends SMS "did blah"

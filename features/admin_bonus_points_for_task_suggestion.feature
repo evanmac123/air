@@ -2,14 +2,14 @@ Feature: Admin sets bonus points for suggested tasks
 
   Background:
     Given the following demo exists:
-      | company name |
+      | name |
       | NobodysBusiness |
     And the following claimed user exists:
       | name | phone number | is site admin | demo                          |
-      | Phil | +14155551212 | true          | company_name: NobodysBusiness |
+      | Phil | +14155551212 | true          | name: NobodysBusiness |
     And the following suggested task exists:
       | name            | demo                          | bonus points |
-      | ride a tricycle | company_name: NobodysBusiness | 11           |
+      | ride a tricycle | name: NobodysBusiness | 11           |
 
 
     And "Phil" has the password "foobar"

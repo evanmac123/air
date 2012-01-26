@@ -2,24 +2,24 @@ Feature: User acts via email
 
   Background:
     Given the following demo exists:
-      | company_name | victory_threshold |
+      | name | victory_threshold |
       | FooCorp      | 50                |
     Given the following users exist:
       | name | phone number | demo                  | points | ranking | email             |
-      | Dan  | +15087407520 | company_name: FooCorp | 0      | 3       | dan@bigco.com     |
-      | Paul | +15088675309 | company_name: FooCorp | 0      | 3       | paul@littleco.com |
-      | Fred | +14155551212 | company_name: FooCorp | 1      | 2       | fred@nocobro.com  |
-      | Bob  | +18085551212 | company_name: FooCorp | 3      | 1       | bob@bob.net       |
+      | Dan  | +15087407520 | name: FooCorp | 0      | 3       | dan@bigco.com     |
+      | Paul | +15088675309 | name: FooCorp | 0      | 3       | paul@littleco.com |
+      | Fred | +14155551212 | name: FooCorp | 1      | 2       | fred@nocobro.com  |
+      | Bob  | +18085551212 | name: FooCorp | 3      | 1       | bob@bob.net       |
     And "Dan" has the password "foobar"
     And "Paul" has the SMS slug "paul55"
     And "Fred" has the SMS slug "fred666"
     And the following rules exist:
       | points | referral points | reply                     | alltime_limit | demo                  |
-      | 2      |                 | Bananas are good for you. |               | company_name: FooCorp |
-      | 5      | 200             | Working out is nice.      |               | company_name: FooCorp |
-      | 20     |                 | Congratulations!          | 2             | company_name: FooCorp |
-      | 8      |                 | So you made toast.        |               | company_name: FooCorp |
-      | 8      |                 | BarCorp rulez!            |               | company_name: BarCorp |
+      | 2      |                 | Bananas are good for you. |               | name: FooCorp |
+      | 5      | 200             | Working out is nice.      |               | name: FooCorp |
+      | 20     |                 | Congratulations!          | 2             | name: FooCorp |
+      | 8      |                 | So you made toast.        |               | name: FooCorp |
+      | 8      |                 | BarCorp rulez!            |               | name: BarCorp |
       | 10     |                 | Good for you.             |               |                       |
     And the following rule values exist:
       | value         | rule                             |
@@ -94,11 +94,11 @@ This is not an offer to trade or roll logs. Void where prohibited. Some assembly
 
   Scenario: User plays by email in a game with a custom email address
     Given the following demo exists:
-      | company name | email                  |
+      | name | email                  |
       | CustomCo     | custom@playhengage.com |
     And the following user exists:
       | email            | phone number | demo                   |
-      | joe@customco.com | +17185551212 | company_name: CustomCo |
+      | joe@customco.com | +17185551212 | name: CustomCo |
     When "joe@customco.com" sends email with subject "me tarzan, you jane" and body "do good thing"
     And "joe@customco.com" opens the email
     Then they should see the email delivered from "custom@playhengage.com"

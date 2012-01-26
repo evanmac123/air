@@ -6,7 +6,7 @@ Feature: Admin rules have tags
      | jesus | true          |
     Given the following rule exists:
       | description | primary_tag     | demo                |
-      | ridebike    | name: generated | company_name: FooCo |
+      | ridebike    | name: generated | name: FooCo |
     Given the following rule value exists:
       | value        | rule                  | is_primary |
       | rode a bike  | description: ridebike | true       |

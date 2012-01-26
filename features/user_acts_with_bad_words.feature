@@ -3,12 +3,12 @@ Feature: Bad words get dropped unceremoniously
   Background:
     Given the following users exist:
       | phone number | demo                   |
-      | +14155551212 | company_name: PrudeCo  |
-      | +16175551212 | company_name: WhatevCo |
+      | +14155551212 | name: PrudeCo  |
+      | +16175551212 | name: WhatevCo |
     And the following bad word exists:
       | value | demo                  |
       | shit  |                       |
-      | heck  | company_name: PrudeCo |
+      | heck  | name: PrudeCo |
 
   Scenario: User uses generic bad word
     When "+14155551212" sends SMS "ate shit"

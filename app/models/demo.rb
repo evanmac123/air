@@ -17,7 +17,7 @@ class Demo < ActiveRecord::Base
 
   validate :end_after_beginning
 
-  has_alphabetical_column :company_name
+  has_alphabetical_column :name
 
   # We go through this rigamarole since we can move a user from one demo to
   # another, and usually we will only be concerned with acts belonging to the
@@ -37,9 +37,9 @@ class Demo < ActiveRecord::Base
     custom_message(
       :custom_welcome_message,
       'default_welcome_sms',
-      "You've joined the %{company_name} game! Your user ID is %{unique_id} (text MYID if you forget). To play, text to this #.",
+      "You've joined the %{name} game! Your user ID is %{unique_id} (text MYID if you forget). To play, text to this #.",
       user,
-      :company_name => [:demo, :company_name],
+      :name => [:demo, :name],
       :unique_id    => [:sms_slug]
     )
   end

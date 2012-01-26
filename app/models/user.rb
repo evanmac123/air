@@ -45,6 +45,7 @@ class User < ActiveRecord::Base
   validates_format_of :sms_slug, :with => /^[0-9a-z]+$/, :if => :slug_required,
                       :message => "Sorry, the user ID must consist of letters or digits only."
 
+  validates_presence_of :demo_id
   validates_numericality_of :height, :allow_blank => true, :message => "Please use a numeric value for your height, and express it in inches"
   validates_numericality_of :weight, :allow_blank => true, :message => "Please use a numeric value for your weight, and express it in pounds"
 
@@ -205,7 +206,7 @@ class User < ActiveRecord::Base
   def send_support_request
     latest_act_descriptions = IncomingSms.where(:from => self.phone_number).order("created_at DESC").limit(20).map(&:body)
 
-    Mailer.delay.support_request(self.name, self.email, self.phone_number, self.demo.company_name, latest_act_descriptions)
+    Mailer.delay.support_request(self.name, self.email, self.phone_number, self.demo.name, latest_act_descriptions)
   end
 
   def first_eligible_rule_value(value)
@@ -270,7 +271,7 @@ class User < ActiveRecord::Base
   end
 
   def invite(referrer = nil)
-    Mailer.delay.invitation(self, referrer)
+    Mailer.invitation(self, referrer).deliver
     update_attribute(:invited, true)
   end
 

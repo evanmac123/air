@@ -2,16 +2,16 @@ Feature: User with proper email domain invites self
 
   Background:
     Given the following demo exists:
-      | company name | 
+      | name | 
       | Highmark     |
     And the following self inviting domains exist:
       | domain         | demo                   |
-      | highmark.com   | company_name: Highmark |
-      | highmark.co.uk | company_name: Highmark |
+      | highmark.com   | name: Highmark |
+      | highmark.co.uk | name: Highmark |
     And the following users exist:
       | email            | demo                             |
-      | joe@highmark.com | company_name: Highmark           |
-      | bob@highmark.com | company_name: Evil Highmark Twin |
+      | joe@highmark.com | name: Highmark           |
+      | bob@highmark.com | name: Evil Highmark Twin |
     And I go to the new invitation page
 
   Scenario: User with an email in the proper domain invites themself

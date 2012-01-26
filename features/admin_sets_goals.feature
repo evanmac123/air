@@ -1,20 +1,20 @@
 Feature: Admin sets up goals
   Background:
     Given the following demo exists:
-      | company name |
+      | name |
       | GoalCo       |
     And the following goals exist:
       | name              | demo                 | achievement text   | completion sms text |
-      | deadly sins       | company_name: GoalCo | Achieved deadly    | Completed deadly    |
-      | redeeming virtues | company_name: GoalCo |                    |                     |
+      | deadly sins       | name: GoalCo | Achieved deadly    | Completed deadly    |
+      | redeeming virtues | name: GoalCo |                    |                     |
     And the following rules exist:
       | reply         | demo                 |
-      | ok lust       | company_name: GoalCo |
-      | ok wrath      | company_name: GoalCo |
-      | ok sloth      | company_name: GoalCo |
-      | ok chalk      | company_name: GoalCo |
-      | ok cheese     | company_name: GoalCo |
-      | ok charity    | company_name: GoalCo |
+      | ok lust       | name: GoalCo |
+      | ok wrath      | name: GoalCo |
+      | ok sloth      | name: GoalCo |
+      | ok chalk      | name: GoalCo |
+      | ok cheese     | name: GoalCo |
+      | ok charity    | name: GoalCo |
     And the rule "ok lust" is associated with the goal "deadly sins"
     And the rule "ok wrath" is associated with the goal "deadly sins"
     And the rule "ok sloth" is associated with the goal "deadly sins"

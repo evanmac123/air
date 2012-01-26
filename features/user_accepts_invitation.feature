@@ -3,12 +3,12 @@ Feature: User accepts invitation
 
   Background:
     Given the following demos exist:
-      | company_name | custom_welcome_message                              | seed_points |
-      | FooCo        | You, %{unique_id}, are in the %{company_name} game. | 10          |
+      | name | custom_welcome_message                              | seed_points |
+      | FooCo        | You, %{unique_id}, are in the %{name} game. | 10          |
     And the following users exist:
       | email            | name | demo                |
-      | dan@example.com  | Dan  | company name: 3M    |
-      | phil@example.com | Phil | company_name: FooCo |
+      | dan@example.com  | Dan  | name: 3M    |
+      | phil@example.com | Phil | name: FooCo |
     And "dan@example.com" has received an invitation
     And "phil@example.com" has received an invitation
     When "dan@example.com" opens the email
@@ -106,12 +106,12 @@ Feature: User accepts invitation
 
   Scenario: User accepts invitation before game begins
     Given the following demo exists:
-      | company name | begins_at                 |
+      | name | begins_at                 |
       | LateCo       | 2011-05-01 00:00:00 -0400 |
     And time is frozen at "2011-01-01 00:00:00 -0400"
     And the following users exist:
       | name | email          | demo                 |
-      | Joe  | joe@lateco.com | company_name: LateCo |
+      | Joe  | joe@lateco.com | name: LateCo |
     And "joe@lateco.com" has received an invitation
     When "joe@lateco.com" opens the email
     And I click the first link in the email

@@ -3,25 +3,25 @@ Feature: Admin bulk-completes suggested task for users
   @javascript
   Scenario: Admin bulk-completes suggested task for users
     Given the following demo exists:
-      | company name |
+      | name |
       | TaskCo       |
     And the following claimed users exist:
       | name   | phone number | email              | demo                  |
-      | Joe    | +14155551212 | joe@example.com    | company_name: TaskCo  |
-      | Bob    | +16175551212 | bob@example.com    | company_name: TaskCo  |
-      | Fred   | +19085551212 | fred@example.com   | company_name: TaskCo  |
-      | John   | +12135551212 | john@example.com   | company_name: TaskCo  |
-      | Paul   | +13125551212 | paul@example.com   | company_name: OtherCo |
-      | George | +18085551212 | george@example.com | company_name: TaskCo  |
+      | Joe    | +14155551212 | joe@example.com    | name: TaskCo  |
+      | Bob    | +16175551212 | bob@example.com    | name: TaskCo  |
+      | Fred   | +19085551212 | fred@example.com   | name: TaskCo  |
+      | John   | +12135551212 | john@example.com   | name: TaskCo  |
+      | Paul   | +13125551212 | paul@example.com   | name: OtherCo |
+      | George | +18085551212 | george@example.com | name: TaskCo  |
     And "Joe" has password "foobar"
     And "Bob" has password "foobar"
     And "Fred" has password "foobar"
     And the following suggested tasks exist:
       | name   | demo                 |
-      | Task 1 | company_name: TaskCo |
-      | Task 2 | company_name: TaskCo |
-      | Task 3 | company_name: TaskCo |
-      | Task 4 | company_name: TaskCo |
+      | Task 1 | name: TaskCo |
+      | Task 2 | name: TaskCo |
+      | Task 3 | name: TaskCo |
+      | Task 4 | name: TaskCo |
     And the task "Task 2" has prerequisite "Task 1"
     And the task "Task 4" has prerequisite "Task 3"
     And DJ cranks 15 times

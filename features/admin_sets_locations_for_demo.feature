@@ -2,7 +2,7 @@ Feature: Admin sets up locations for demo
 
   Scenario: Admin sets up locations for demo
     Given the following demo exists:
-      | company name |
+      | name |
       | LocatoCo     |
     When I sign in via the login page as an admin
     And I go to the admin "LocatoCo" demo page

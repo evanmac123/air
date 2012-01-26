@@ -59,7 +59,7 @@ class Admin::DemosController < AdminBaseController
 
   def destroy
     @demo.destroy
-    flash[:success] = "#{@demo.company_name} game destroyed"
+    flash[:success] = "#{@demo.name} game destroyed"
     redirect_to admin_path
   end
 

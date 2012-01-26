@@ -3,15 +3,15 @@ Feature: User sees only friends in current demo
   Background:
     Given the following users exist:
       | name     | demo                     |
-      | Dan      | company_name: Thoughtbot |
-      | Chad     | company_name: Thoughtbot |
-      | Nick     | company_name: Thoughtbot |
-      | Jon      | company_name: Thoughtbot |
-      | Mike     | company_name: Thoughtbot |
-      | Vlad     | company_name: H Engage   |
-      | Phil     | company_name: H Engage   |
-      | Kristina | company_name: H Engage   |
-      | Kim      | company_name: H Engage   |
+      | Dan      | name: Thoughtbot |
+      | Chad     | name: Thoughtbot |
+      | Nick     | name: Thoughtbot |
+      | Jon      | name: Thoughtbot |
+      | Mike     | name: Thoughtbot |
+      | Vlad     | name: H Engage   |
+      | Phil     | name: H Engage   |
+      | Kristina | name: H Engage   |
+      | Kim      | name: H Engage   |
     And the following accepted friendships exist:
       | user       | friend     |
       | name: Dan  | name: Chad |

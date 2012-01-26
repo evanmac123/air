@@ -2,22 +2,22 @@ Feature: User levels up
 
   Background:
     Given the following demo exists:
-      | company name |
+      | name |
       | FooCo        |
     And the following levels exist:
       | name           | threshold | demo                |
-      | level 1 (N00b) | 10        | company_name: FooCo |
-      | level 2 (Pawn) | 21        | company_name: FooCo |
+      | level 1 (N00b) | 10        | name: FooCo |
+      | level 2 (Pawn) | 21        | name: FooCo |
     And the following users exist:
       | name | phone number | points | demo                |
-      | Vlad | +14155551212 | 7      | company_name: FooCo |
-      | Joe  | +18085551212 | 6      | company_name: BarCo |
+      | Vlad | +14155551212 | 7      | name: FooCo |
+      | Joe  | +18085551212 | 6      | name: BarCo |
     And the following rules exist:
       | reply  | points | demo                |
-      | blah   | 1      | company_name: FooCo |
-      | good   | 3      | company_name: FooCo |
-      | better | 4      | company_name: FooCo |
-      | best   | 14     | company_name: FooCo |
+      | blah   | 1      | name: FooCo |
+      | good   | 3      | name: FooCo |
+      | better | 4      | name: FooCo |
+      | best   | 14     | name: FooCo |
     And the following primary values exist:
       | value      | rule          |  
       | did blah   | reply: blah   |
@@ -64,7 +64,7 @@ Feature: User levels up
   Scenario: Levels are awarded retroactively on creation to people in the same demo
     Given the following level exists:
       | name           | threshold | demo                |
-      | level 0 (usuk) | 5         | company_name: FooCo |
+      | level 0 (usuk) | 5         | name: FooCo |
     When DJ cranks 5 times
     And a decent interval has passed
     And DJ cranks 5 times

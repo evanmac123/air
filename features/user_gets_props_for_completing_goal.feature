@@ -2,16 +2,16 @@ Feature: User gets some props for finishing a goal
 
   Background:
     Given the following demo exists:
-      | company name |
+      | name |
       | FooCo        |
     And the following goals exist:
       | name    | achievement text    | completion sms text               | demo                |
-      | winning | You won at winning! | You've won at winning everything! | company_name: FooCo |
+      | winning | You won at winning! | You've won at winning everything! | name: FooCo |
     And the following rules exist:
       | reply | demo                |
-      | win 1 | company_name: FooCo |
-      | win 2 | company_name: FooCo |
-      | win 3 | company_name: FooCo |
+      | win 1 | name: FooCo |
+      | win 2 | name: FooCo |
+      | win 3 | name: FooCo |
     And the rule "win 1" is associated with the goal "winning"
     And the rule "win 2" is associated with the goal "winning"
     And the rule "win 3" is associated with the goal "winning"
@@ -22,7 +22,7 @@ Feature: User gets some props for finishing a goal
       | win 3 | reply: win 3 |
     And the following user exists:
       | name | phone number | demo                |
-      | Bob  | +14155551212 | company_name: FooCo |
+      | Bob  | +14155551212 | name: FooCo |
     And "Bob" has password "foobar"
 
 #   Scenario: User gets an achievement for finishing a goal

@@ -2,7 +2,7 @@ Feature: Admin destroys demo
 
   Scenario: Admin destroys demo
     Given the following demos exist:
-      | company name |
+      | name |
       | FooCo        |
       | BarCo        |
     When I sign in as an admin via the login page

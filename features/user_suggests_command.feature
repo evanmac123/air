@@ -3,8 +3,8 @@ Feature: User suggests command
   Background:
     Given the following users exist:
       | name           | phone number | demo                   |
-      | Vlad Gyster    | +16175551212 | company_name: H Engage |
-      | Phil Darnowsky | +14155551212 | company_name: H Engage |
+      | Vlad Gyster    | +16175551212 | name: H Engage |
+      | Phil Darnowsky | +14155551212 | name: H Engage |
     And "Vlad Gyster" has the password "foobar"
 
   Scenario: User suggests we add the last bad command they sent

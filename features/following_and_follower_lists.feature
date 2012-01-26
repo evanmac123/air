@@ -3,22 +3,22 @@ Feature: Following and follower lists
   Background:
     Given the following users exist:
       | name    | points | demo                              | phone number |
-      | Arturo  | 50     | company_name: Amalgamated Widgets | +14155551212 |
-      | Bertram | 20     | company_name: Amalgamated Widgets | +14155551213 |
-      | Colby   | 35     | company_name: Amalgamated Widgets | +14155551214 |
-      | Dirk    | 90     | company_name: Amalgamated Widgets | +14155551215 |
-      | Evan    | 44     | company_name: Synthetic Persons   | +14155551216 |
-      | Fred    | 44     | company_name: Synthetic Persons   | +14155551217 |
+      | Arturo  | 50     | name: Amalgamated Widgets | +14155551212 |
+      | Bertram | 20     | name: Amalgamated Widgets | +14155551213 |
+      | Colby   | 35     | name: Amalgamated Widgets | +14155551214 |
+      | Dirk    | 90     | name: Amalgamated Widgets | +14155551215 |
+      | Evan    | 44     | name: Synthetic Persons   | +14155551216 |
+      | Fred    | 44     | name: Synthetic Persons   | +14155551217 |
     And the following users exist:
       | name    | demo                              |
-      | Gerald  | company_name: Amalgamated Widgets |
-      | Hector  | company_name: Amalgamated Widgets |
-      | Ignatz  | company_name: Amalgamated Widgets |
-      | Jerome  | company_name: Amalgamated Widgets |
-      | Keith   | company_name: Amalgamated Widgets |
-      | Leslie  | company_name: Amalgamated Widgets |
-      | Maurice | company_name: Amalgamated Widgets |
-      | Nolan   | company_name: Amalgamated Widgets |
+      | Gerald  | name: Amalgamated Widgets |
+      | Hector  | name: Amalgamated Widgets |
+      | Ignatz  | name: Amalgamated Widgets |
+      | Jerome  | name: Amalgamated Widgets |
+      | Keith   | name: Amalgamated Widgets |
+      | Leslie  | name: Amalgamated Widgets |
+      | Maurice | name: Amalgamated Widgets |
+      | Nolan   | name: Amalgamated Widgets |
     And the following accepted friendships exist:
       | user         | friend        |
       | name: Arturo | name: Bertram |

@@ -2,13 +2,13 @@ Feature: Admin adds and edits rules
 
   Background:
     Given the following demo exists:
-      | company name |
+      | name |
       | FooCorp      |
     And I sign in as an admin via the login page
     And the following rules exist:
       | points | reply   | description      | alltime limit | referral points | suggestible | demo                  |
-      | 12     | banana  | I ate a banana   | 15            | 10              | true        | company_name: FooCorp |
-      | 6      | kitten  | I ate a kitten   | 4             | 5               | true        | company_name: FooCorp |
+      | 12     | banana  | I ate a banana   | 15            | 10              | true        | name: FooCorp |
+      | 6      | kitten  | I ate a kitten   | 4             | 5               | true        | name: FooCorp |
       | 18     | jogging | I went jogging   | 666           | 44              | true        |                       |
       | 30     | weights | I lifted weights | 14            | 79              | true        |                       |
     And the following rule values exist:

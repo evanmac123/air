@@ -2,19 +2,19 @@ Feature: User can credit another user who got them into the game
 
   Background: 
     Given the following demo exists:
-      | company name | credit game referrer threshold | game referrer bonus | referred credit bonus | victory threshold |
+      | name | credit game referrer threshold | game referrer bonus | referred credit bonus | victory threshold |
       | FooCorp      | 60                             | 5                   |                       |                   |
       | QuuxCorp     | 60                             | 10                  | 6                     | 50                |
     And the following users exist:
       | name | phone number | accepted invitation at | demo                   |
-      | Phil | +14155551212 | 2011-05-01 12:00 EST   | company_name: FooCorp  |
-      | Vlad | +16175551212 | 2011-05-01 11:59 EST   | company_name: FooCorp  |
-      | Dan  | +18085551212 | 2011-05-01 12:00 EST   | company_name: FooCorp  |
-      | Joe  | +17145551212 | 2011-05-01 12:00 EST   | company_name: QuuxCorp |
-      | Fred | +14085551212 | 2011-05-01 12:00 EST   | company_name: QuuxCorp |
+      | Phil | +14155551212 | 2011-05-01 12:00 EST   | name: FooCorp  |
+      | Vlad | +16175551212 | 2011-05-01 11:59 EST   | name: FooCorp  |
+      | Dan  | +18085551212 | 2011-05-01 12:00 EST   | name: FooCorp  |
+      | Joe  | +17145551212 | 2011-05-01 12:00 EST   | name: QuuxCorp |
+      | Fred | +14085551212 | 2011-05-01 12:00 EST   | name: QuuxCorp |
     And the following rule exists:
       | reply  | points | demo                  |
-      | kitten | 5      | company_name: FooCorp |
+      | kitten | 5      | name: FooCorp |
     And the following primary value exists:
       | value      | rule          |
       | ate kitten | reply: kitten |
@@ -73,12 +73,12 @@ Feature: User can credit another user who got them into the game
 
   Scenario: User credits another but the game's not set up for that
     Given the following demo exists:
-      | company name |
+      | name |
       | BarCorp      |
     And the following users exist:
       | name     | phone number | accepted invitation at | demo                  |
-      | Kelli    | +13055551212 | 2011-05-01 12:00 EST   | company_name: BarCorp |
-      | Kristina | +14105551212 | 2011-05-01 12:00 EST   | company_name: BarCorp |
+      | Kelli    | +13055551212 | 2011-05-01 12:00 EST   | name: BarCorp |
+      | Kristina | +14105551212 | 2011-05-01 12:00 EST   | name: BarCorp |
     And "Kelli" has password "foobar"
     And "Kristina" has the SMS slug "krikantis"
     And "+13055551212" sends SMS "krikantis"

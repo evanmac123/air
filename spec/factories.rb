@@ -35,7 +35,7 @@ Factory.define :site_admin, :parent => :user do |factory|
 end
 
 Factory.define :demo do |factory|
-  factory.company_name { "Gillette" }
+  factory.name { "Gillette" }
 end
 
 Factory.define :rule do |factory|

@@ -4,7 +4,7 @@ Feature: Admin resends invitation to user
   Scenario: Admin resends invitation to user
     Given the following user exists:
       | name | email           | invited | invitation_code | demo                   |
-      | Joe  | joe@example.com | true    | invitemeplzthx  | company_name: InviteCo |
+      | Joe  | joe@example.com | true    | invitemeplzthx  | name: InviteCo |
     And the following site admin exists:
       | name |
       | Bob  |

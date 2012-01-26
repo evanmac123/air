@@ -16,14 +16,14 @@ Given /^"([^"]*)" has level "([^"]*)"$/ do |user_name, level_name|
   user.levels << level
 end
 
-When /^an admin moves "(.*?)" to the demo "(.*?)"$/ do |username, company_name|
+When /^an admin moves "(.*?)" to the demo "(.*?)"$/ do |username, name|
   When "I sign in as an admin via the login page"
 
   user = User.find_by_name(username)
 
   visit(edit_admin_demo_user_path(user.demo, user))
 
-  select(company_name, :from => 'user[demo_id]')
+  select(name, :from => 'user[demo_id]')
   click_button "Move User"
 end
 

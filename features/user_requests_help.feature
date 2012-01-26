@@ -9,10 +9,10 @@ Feature: User requests help
 
   Scenario: Help requested for a demo with custom help message
     Given the following demo exists:
-      | company name | help message |
+      | name | help message |
       | 1D10T        | Panic!       |
     And the following user exists:
       | phone number | demo                |
-      | +16175551212 | company_name: 1D10T |
+      | +16175551212 | name: 1D10T |
     When "+16175551212" sends SMS "help"
     Then "+16175551212" should have received SMS "Panic!"

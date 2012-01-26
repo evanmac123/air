@@ -15,16 +15,15 @@
         %p= @user.name + ","
       %p
         - if @referrer 
-          = "#{@referrer.name} has invited you to demo H Engage."
+          = "#{@referrer.name} has invited you to play #{@demo_name}."
         - else
-          I'm pleased to invite you to demo H Engage.
-        To start playing, 
+          = "Thanks for requesting an invite to play #{@demo_name}."
+          To start playing, 
         = link_to "click here", invitation_link, :style => @link_style
 
       %p Have fun and good luck!
       %p &nbsp;
       %p Vlad    
-      %p CEO and Cofounder, H Engage
   
     %td{:style => @right_pane_style}
       %table

@@ -3,14 +3,14 @@ Feature: Admin moves a user to a new demo
   Background:
     Given time is frozen at "2010-05-01 12:00 EST"
     And the following demo exists:
-      | company name    | victory threshold |
+      | name    | victory threshold |
       | The Thoughtbots | 15                |
     And the following claimed users exist:
       | name | points | recent_average_history_depth | recent_average_points |   demo                          | phone number |
-      | Dan  | 0      | 1                            | 0                     |  company_name: The Thoughtbots | +14155551212 |
-      | Bob  | 14     | 0                            | 8                     |  company_name: IBM             | +16175551212 |
-      | Fred | 10     | 0                            | 11                    |  company_name: The Thoughtbots | +16175551213 |
-      | Tom  | 5      | 0                            | 5                     |  company_name: IBM             | +14158675309 |
+      | Dan  | 0      | 1                            | 0                     |  name: The Thoughtbots | +14155551212 |
+      | Bob  | 14     | 0                            | 8                     |  name: IBM             | +16175551212 |
+      | Fred | 10     | 0                            | 11                    |  name: The Thoughtbots | +16175551213 |
+      | Tom  | 5      | 0                            | 5                     |  name: IBM             | +14158675309 |
     And "Dan" has the password "fooish"
     And "Bob" has the password "barfing"
     And "Fred" has the password "bazlet"
@@ -21,14 +21,14 @@ Feature: Admin moves a user to a new demo
       | name: Dan  | walked dog | 9               |                      |
     And the following rule exists:
       | reply   | points | demo              |
-      | run run | 10     | company_name: IBM |
+      | run run | 10     | name: IBM |
     And the following rule values exists:
       | value        | rule           |
       | went running | reply: run run |
     And the following levels exist:
       | name        | demo                          |
-      | AwesomeStar | company_name: The Thoughtbots |
-      | Some Pig!   | company_name: The Thoughtbots |
+      | AwesomeStar | name: The Thoughtbots |
+      | Some Pig!   | name: The Thoughtbots |
     And "Dan" has level "AwesomeStar"
     And "Dan" has level "Some Pig!"
     And an admin moves "Dan" to the demo "IBM"

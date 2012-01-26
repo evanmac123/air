@@ -6,8 +6,8 @@ describe Invitation::AutocompletionsController do
     Demo.delete_all
     SelfInvitingDomain.delete_all
     
-    @demo1 = Factory(:demo, :company_name => "Bratwurst")
-    @demo2 = Factory(:demo, :company_name => "Gleason")
+    @demo1 = Factory(:demo, :name => "Bratwurst")
+    @demo2 = Factory(:demo, :name => "Gleason")
     @self_inviting_domain1 = Factory(:self_inviting_domain, :domain => "hopper.com", :demo => @demo1)
     @self_inviting_domain2 = Factory(:self_inviting_domain, :domain => "biker.com", :demo => @demo2)
 

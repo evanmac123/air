@@ -4,7 +4,7 @@ Feature: User views activity
   # Scenario: User views activity on their mobile phone
   #   Given the following user exists:
   #     | name | phone number | demo                  | password | password confirmation |
-  #     | Dan  | +15087407520 | company_name: FooCorp | password | password              |
+  #     | Dan  | +15087407520 | name: FooCorp | password | password              |
   #   And the following rules exist:
   #     | key          | value  | points |
   #     | name: ate    | banana | 2      |

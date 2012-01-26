@@ -2,29 +2,29 @@ Feature: User sees correct values in master bar
 
   Scenario Outline:
     Given the following demo exists:
-      | company name | victory threshold |
+      | name | victory threshold |
       | BarCo        | 100               |
     And the following levels exist:
       | threshold | demo                |
-      | 10        | company_name: BarCo |
-      | 20        | company_name: BarCo |
-      | 30        | company_name: BarCo |
-      | 50        | company_name: BarCo |
-      | 80        | company_name: BarCo |
-      | 130       | company_name: BarCo |
+      | 10        | name: BarCo |
+      | 20        | name: BarCo |
+      | 30        | name: BarCo |
+      | 50        | name: BarCo |
+      | 80        | name: BarCo |
+      | 130       | name: BarCo |
     And the following users exist:
       | name | points | demo                |
-      | Al   | 6      | company_name: BarCo |
-      | Bob  | 16     | company_name: BarCo |
-      | Cal  | 23     | company_name: BarCo |
-      | Dave | 39     | company_name: BarCo |
-      | Ed   | 62     | company_name: BarCo |
-      | Fred | 87     | company_name: BarCo |
-      | Ger  | 120    | company_name: BarCo |
-      | Hal  | 140    | company_name: BarCo |
-      | Ike  | 0      | company_name: BarCo |
-      | Jay  | 30     | company_name: BarCo |
-      | Kal  | 100    | company_name: BarCo |
+      | Al   | 6      | name: BarCo |
+      | Bob  | 16     | name: BarCo |
+      | Cal  | 23     | name: BarCo |
+      | Dave | 39     | name: BarCo |
+      | Ed   | 62     | name: BarCo |
+      | Fred | 87     | name: BarCo |
+      | Ger  | 120    | name: BarCo |
+      | Hal  | 140    | name: BarCo |
+      | Ike  | 0      | name: BarCo |
+      | Jay  | 30     | name: BarCo |
+      | Kal  | 100    | name: BarCo |
     And "<name>" has the password "foobar"
     And I sign in via the login page as "<name>/foobar"
 

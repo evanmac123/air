@@ -3,12 +3,12 @@ Feature: A user's acts are shown in their profile
   @javascript
   Scenario: Looking at a user's profile
     Given the following demo exists:
-      | company name |
+      | name |
       | FooCo        |
     And the following users exist:
       | name | demo                |
-      | Joe  | company_name: FooCo |
-      | Bob  | company_name: FooCo |
+      | Joe  | name: FooCo |
+      | Bob  | name: FooCo |
     And "Joe" has the password "foobar"
     And the following acts exist:
       | text  | inherent points | user      |

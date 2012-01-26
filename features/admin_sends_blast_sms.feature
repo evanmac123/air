@@ -3,10 +3,10 @@ Feature: Admin sends blast SMS
   Background:
     Given the following users exist:
       | name | phone number | demo                |
-      | Phil | +14155551212 | company_name: FooCo |
-      | Vlad | +16175551212 | company_name: FooCo |
-      | Dan  | +18085551212 | company_name: FooCo |
-      | Sven | +13055551212 | company_name: BarCo |
+      | Phil | +14155551212 | name: FooCo |
+      | Vlad | +16175551212 | name: FooCo |
+      | Dan  | +18085551212 | name: FooCo |
+      | Sven | +13055551212 | name: BarCo |
     And I sign in as an admin via the login page
     And I go to the blast SMS page for "FooCo"
 

@@ -15,13 +15,13 @@ module NavigationHelpers
     when /the admin page/
       admin_path
     when /the admin "(.*)" demo page$/i
-      admin_demo_path(Demo.find_by_company_name($1))
+      admin_demo_path(Demo.find_by_name($1))
     when /the admin "(.*)" self-inviting domain page$/
-      admin_demo_self_inviting_domains_path(Demo.find_by_company_name($1))
+      admin_demo_self_inviting_domains_path(Demo.find_by_name($1))
     when /the admin "(.*)" user-by-location page$/
-      admin_demo_reports_location_breakdown_path(Demo.find_by_company_name($1))
+      admin_demo_reports_location_breakdown_path(Demo.find_by_name($1))
     when /the admin "(.*)" locations page$/
-      admin_demo_locations_path(Demo.find_by_company_name($1))
+      admin_demo_locations_path(Demo.find_by_name($1))
     when /the invitation page for "(.*)"/
       user = User.find_by_email($1)
       invitation_path(user.invitation_code)
@@ -64,13 +64,13 @@ module NavigationHelpers
       admin_rules_path
 
     when /the admin rules page for "(.*?)"/
-      admin_demo_rules_path(Demo.find_by_company_name($1))
+      admin_demo_rules_path(Demo.find_by_name($1))
 
     when /the admin goals page for "(.*?)"/
-      admin_demo_goals_path(Demo.find_by_company_name($1))
+      admin_demo_goals_path(Demo.find_by_name($1))
 
     when /the admin bad words page for "(.*?)"/
-      admin_demo_bad_words_path(Demo.find_by_company_name($1))
+      admin_demo_bad_words_path(Demo.find_by_name($1))
 
     when /the rule edit page for "(.*?)"/
       rule_value = RuleValue.find_by_value($1)
@@ -83,25 +83,25 @@ module NavigationHelpers
     when /the new admin rule page/
       new_admin_rule_path
     when /the blast SMS page for "(.*?)"/
-      new_admin_demo_blast_sms_path(Demo.find_by_company_name($1))
+      new_admin_demo_blast_sms_path(Demo.find_by_name($1))
 
     when /the marketing page/
       page_path(:id => 'marketing')
 
     when /the user bulk upload page for "(.*?)"/
-      new_admin_demo_bulk_load_path(Demo.find_by_company_name($1))
+      new_admin_demo_bulk_load_path(Demo.find_by_name($1))
 
     when /the forbidden rule admin page/
       admin_forbidden_rules_path
 
     when /the admin suggested tasks page for "(.*?)"/
-      admin_demo_suggested_tasks_path(Demo.find_by_company_name($1))
+      admin_demo_suggested_tasks_path(Demo.find_by_name($1))
 
     when /the edit admin demo user page for company "(.*?)" and user "(.*?)"/
-      edit_admin_demo_user_path(Demo.find_by_company_name($1).id, User.find_by_name($2).slug)
+      edit_admin_demo_user_path(Demo.find_by_name($1).id, User.find_by_name($2).slug)
 
     when /the edit admin suggested task page for company "(.*?)" and task "(.*?)"/
-      edit_admin_demo_suggested_task_path(Demo.find_by_company_name($1), SuggestedTask.find_by_name($2))
+      edit_admin_demo_suggested_task_path(Demo.find_by_name($1), SuggestedTask.find_by_name($2))
 
     when /the new admin tag page/
       new_admin_tag_path

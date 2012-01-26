@@ -2,21 +2,21 @@ Feature: User gets timed bonus
 
   Background:
     Given the following demo exists:
-      | company name |
+      | name |
       | FooCo        |
     And the following claimed users exist:
       | name | phone number | demo                |
-      | Phil | +14155551212 | company_name: FooCo |
-      | Vlad | +16175551212 | company_name: FooCo |
+      | Phil | +14155551212 | name: FooCo |
+      | Vlad | +16175551212 | name: FooCo |
     And the following rules exist:
       | reply       | points | demo                |
-      | did a thing | 5      | company_name: FooCo |
+      | did a thing | 5      | name: FooCo |
     And the following rule values exist:
       | value     | rule               |
       | did thing | reply: did a thing |
     And the following timed bonus exists:
       | expires_at                | fulfilled | points | user       | demo                |
-      | 2011-05-01 00:00:00 -0000 | false     | 15     | name: Phil | company_name: FooCo |
+      | 2011-05-01 00:00:00 -0000 | false     | 15     | name: Phil | name: FooCo |
     And time is frozen at "2011-04-30 23:59:59 -0000"
 
   Scenario: User gets bonus for acting in the proper time
@@ -45,7 +45,7 @@ Feature: User gets timed bonus
   Scenario: User can get multiple bonuses
     Given the following timed bonus exists:
       | expires_at                | fulfilled | points | user       | demo                |
-      | 2011-05-01 00:00:00 -0000 | false     | 30     | name: Phil | company_name: FooCo |
+      | 2011-05-01 00:00:00 -0000 | false     | 30     | name: Phil | name: FooCo |
     When "+14155551212" sends SMS "did thing"
     And DJ cranks 10 times after a little while
     Then "+14155551212" should have received an SMS including "did a thing"
@@ -55,7 +55,7 @@ Feature: User gets timed bonus
   Scenario: Bonus can have custom text
     Given the following timed bonus exists:
       | expires_at                | fulfilled | points | sms text                                      | user       | demo                |
-      | 2011-05-01 00:00:00 -0000 | false     | 50     | You got the lead out and got %{points} points | name: Phil | company_name: FooCo |    
+      | 2011-05-01 00:00:00 -0000 | false     | 50     | You got the lead out and got %{points} points | name: Phil | name: FooCo |    
     When "+14155551212" sends SMS "did thing"
     And DJ cranks 10 times after a little while
     Then "+14155551212" should have received an SMS including "did a thing"

@@ -3,12 +3,12 @@ Feature: User can follow another user by SMS
   Background:
     Given the following claimed users exist:
       | name        | phone number | demo                   |
-      | Dan Croak   | +16175551212 | company name: Yoyodyne |
-      | Vlad Gyster | +16178675309 | company name: Yoyodyne |
-      | John Smith  | +12125551212 | company name: BigCorp  |
+      | Dan Croak   | +16175551212 | name: Yoyodyne |
+      | Vlad Gyster | +16178675309 | name: Yoyodyne |
+      | John Smith  | +12125551212 | name: BigCorp  |
     And the following users exist:
       | name        | phone number | demo                   |
-      | Joe Bob     |              | company name: Yoyodyne |
+      | Joe Bob     |              | name: Yoyodyne |
 
 
   Scenario: User follows another by SMS

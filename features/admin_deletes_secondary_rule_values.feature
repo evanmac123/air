@@ -3,11 +3,11 @@ Feature: Admin deletes secondary rule values
   @javascript @slow
   Scenario: Admin deletes secondary rule values
     Given the following demo exists:
-      | company name |
+      | name |
       | FooCo        |
     And the following rule exists:
       | reply | demo                |
-      | Yeah. | company_name: FooCo |
+      | Yeah. | name: FooCo |
     And the following rule values exist:
       | value | is primary | rule         |
       | foo   | true       | reply: Yeah. |
