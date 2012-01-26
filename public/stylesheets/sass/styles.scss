@@ -250,12 +250,15 @@ body.invitations .header #navigation .nav-signup, body.sessions .header #navigat
 
 /* ====== special case: INVITATIONS Accept ====== */
 body.invitations-show {
-	color:$gray;
-	ul.major-points {
-		list-style-type:disc;
-		padding-left:20px;
-		li {
-			padding:5px 0;
+	div.privacy-policy {
+		color:$gray;
+		p {font-weight:bold;}
+		ul.major-points {
+			list-style-type:disc;
+			padding-left:20px;
+			li {
+				padding:5px 0;
+			}
 		}
 	}
 }

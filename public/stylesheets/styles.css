@@ -229,12 +229,14 @@ body.invitations .header #navigation .nav-signup, body.sessions .header #navigat
     text-align: center; }
 
 /* ====== special case: INVITATIONS Accept ====== */
-body.invitations-show {
+body.invitations-show div.privacy-policy {
   color: #909090; }
-  body.invitations-show ul.major-points {
+  body.invitations-show div.privacy-policy p {
+    font-weight: bold; }
+  body.invitations-show div.privacy-policy ul.major-points {
     list-style-type: disc;
     padding-left: 20px; }
-    body.invitations-show ul.major-points li {
+    body.invitations-show div.privacy-policy ul.major-points li {
       padding: 5px 0; }
 
 /* ====== special case: INVITATIONS New ====== */
