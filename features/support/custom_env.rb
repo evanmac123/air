@@ -9,3 +9,7 @@ end
 After do
   Timecop.return
 end
+
+# Get Steak helpers too, to help us gradually transition from Cucumber to Steak
+Dir["#{RAILS_ROOT}/spec/acceptance/support/**/*.rb"].each {|f| require f}
+World(SteakHelperMethods)

@@ -1,4 +1,4 @@
-module HelperMethods
+module SteakHelperMethods
   def login_as(user, password)
     visit login_page
     fill_in "session[email]", :with => user.email
@@ -28,4 +28,4 @@ module HelperMethods
   end
 end
 
-RSpec.configuration.include HelperMethods, :type => :acceptance
+RSpec.configuration.include SteakHelperMethods, :type => :acceptance

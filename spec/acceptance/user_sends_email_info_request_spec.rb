@@ -6,9 +6,7 @@ feature "User Sends Email Info Request", %q{
   I want to ask for information
 } do
 
-  scenario "Scenario name" do
-    Capybara.current_driver = :webkit
-
+  scenario "User requests information through the marketing page", :js => true do
     visit marketing_page
  
     fill_in "email[name]", :with => "James Hennessey IX"
