@@ -75,7 +75,7 @@ Feature: User gives credit to game referer via autocomplete field
   When I fill in "Whom can we thank for referring you?" with "barnaby"
   Then I should see "Barnaby Bueller"
   When I select the suggestion containing "Barnaby Bueller"
-  And I follow "Clear users"
+  And I follow "Clear user"
   And I wait a second
   Then "Barnaby Bueller" should not be visible
 

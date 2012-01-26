@@ -57,7 +57,8 @@ $(function() {
   $('#search_for_referrer .single_suggestion').live('click', function() {
     $('#user_game_referrer_id').val($(this).find('.suggested_user_id').text());
     $('#search_for_referrer #autocomplete').hide();
-    $(this).insertAfter('#bonus');
+    $('#autocomplete_status').text('');
+    $(this).insertAfter('#autocomplete');
     setTimeout('updatePotentialPoints()', 500);
   });
 
@@ -79,6 +80,7 @@ $(function() {
     $('.single_suggestion').hide();
     $('#autocomplete').show();
     $('#autocomplete').val('');
+    $('#autocomplete').focus();
 
     return false;
   });
@@ -189,16 +191,26 @@ function getAutocomplete(options){
   var entered_text = $(options['calling_div'] + ' #autocomplete').val();
   if (entered_text.length > 2){
     options['entered_text'] = entered_text;
+    $("#autocomplete_status").text('Searching ...');
     $.get('/invitation/autocompletion#index', options, function(data){
       options = {};
+      if (data == ''){
+        $("#autocomplete_status").text('Hmmm...no match');    
+        setTimeout(function(){
+          if ($("#autocomplete_status").text() == 'Hmmm...no match')
+          $("#autocomplete_status").text('Please try again');
+          }, 3000);    
+      }else{
+        $("#autocomplete_status").text('One of these?');        
+      }
       $("#suggestions").html(data);
-
       autocomplete_in_progress = 0;
      });
    }else{
      $("#suggestions").html('');
      // Yes, you must set this to zero even if you didn't run the function call
      autocomplete_in_progress = 0;
+     $("#autocomplete_status").text('3+ letters, please');
    }
 }
 

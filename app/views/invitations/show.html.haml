@@ -12,6 +12,10 @@
     	$(".helper").hide();
     	$(".helper#username").fadeIn();
     });
+    $("input#autocomplete").focus(function () {
+    	$(".helper").hide();
+    	$(".helper.autocomplete").fadeIn();
+    });
     $("input#user_password").focus(function () {
     	$(".helper").hide();
     	$(".helper#password").fadeIn();
@@ -81,8 +85,15 @@
             - @matched_users = User.where(:id => @user.game_referrer_id)
             = render  :template => "invitation/autocompletions/index"
           - else
+            %div.form-ul-section
+              %div.helper.autocomplete  
+                Help out the pal who referred you to this game, by giving them a referral bonus. 
+                %br
+                %br
+                Type part of their name or email address and we’ll look for them in the system. (They must already be an active player to be eligible for the bonus.)
             = text_field_tag :autocomplete
       #relative
+        #autocomplete_status
         #suggestions
 
     - if @locations.present?
@@ -93,7 +104,7 @@
       %div.helper#password Make sure it’s at least 6 characters. (You know the deal, don’t pick something obvious like your birthday, your last name, your employee ID, etc.)
       = f.fancy_password_field :password, :label_text => "Choose a password"
     %div.form-ul-section
-      %div.helper#passwordConf And confirm that password – Just in case.
+      %div.helper#passwordConf And confirm that password – just in case.
       = f.fancy_password_field :password_confirmation, :label_text => "And confirm that password"
 
     %ul.form-section.signup-submit

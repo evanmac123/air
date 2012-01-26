@@ -271,7 +271,7 @@ class User < ActiveRecord::Base
   end
 
   def invite(referrer = nil)
-    Mailer.invitation(self, referrer).deliver
+    Mailer.delay.invitation(self, referrer)
     update_attribute(:invited, true)
   end
 

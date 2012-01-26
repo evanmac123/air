@@ -16,7 +16,8 @@
   left: -12px; }
 
 #suggestions {
-  position: absolute; }
+  position: absolute;
+  z-index: 1; }
   #suggestions .remove_referrer {
     display: none; }
   #suggestions .single_suggestion:hover {
@@ -24,10 +25,10 @@
 
 .remove_referrer {
   position: absolute;
-  right: -2px;
-  bottom: -22px;
+  right: 0px;
+  bottom: -19px;
   width: 26ex;
-  text-align: center; }
+  text-align: right; }
 
 .single_suggestion {
   background: tan;
@@ -42,6 +43,9 @@
 
 .single_suggestion + .single_suggestion {
   margin-top: 2px; }
+
+#autocomplete + .single_suggestion {
+  margin-top: 5px; }
 
 .bit {
   font-size: 100%; }
@@ -85,3 +89,12 @@ body #facebox .content {
 
 #lots_of_friends {
   padding-left: 17ex; }
+
+#autocomplete_status {
+  color: green;
+  font-size: 120%;
+  font-weight: bold;
+  left: 292px;
+  position: absolute;
+  top: -61px;
+  width: 100%; }
