@@ -27,6 +27,7 @@ group :development, :test do
   gem "pry"
   gem "pry-doc"
   gem "pry_debug"
+  gem "steak"
 
   platforms :mri_18 do
     gem "ruby-debug", "~> 0.10.4"
