@@ -5,8 +5,6 @@ a {
   text-decoration: none!important; }
   a:hover {
     color: #0893e2; }
-  a:active {
-    color: #2e2e2c; }
 
 .cf {
   clear: both; }
@@ -63,6 +61,8 @@ ul {
     width: 940px; }
     .header .app_bar a {
       font-size: 12px; }
+      .header .app_bar a:active {
+        color: #909090 !important; }
     .header .app_bar .app_by {
       float: left;
       margin: 0 auto; }

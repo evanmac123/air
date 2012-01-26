@@ -1,15 +1,9 @@
-<% if flash.present? %>
-  <% flash.each_value do |value| %>
-    <p><%= value %></p>
-  <% end %>
-<% end %>
-
 <div id="session-wrapper">
   <h2>Log In</h2>
   <%= form_tag session_path do  %>
     <%= text_field_tag "session[email]", 'email', :class => 'with-hint-text' %>
     <%= password_field_tag "session[password]", 'password', :class => 'with-hint-text' %>
-    <%= label_tag "session[remember_me]", "Remember me (don't check this on a shared computer)" %>
+    <%= label_tag "session[remember_me]", "Remember me (Don't check this on a shared computer)" %>
     <%= check_box_tag "session[remember_me]" %>
     <%= submit_tag "Let's play!" %>
   <% end %>

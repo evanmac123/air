@@ -32,6 +32,9 @@ $light:lighten($header-bg, 10%);
 		
 		a {
 			font-size:$font-small;
+			&:active {
+				color:$gray!important;
+			}
 		}
 		.app_by {
 			float:left;

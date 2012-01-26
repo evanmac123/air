@@ -17,7 +17,7 @@ $gutter:10px;
 a {
 	text-decoration:none!important;
 	&:hover {color:lighten($header-bg, 10%);}
-	&:active {color:$dark-gray;}
+//	&:active {color:$dark-gray;}
 }
 .cf {clear:both;}
 h1, h2, h3 {letter-spacing: 1px;
@@ -255,6 +255,9 @@ $c-competition:		#b65100;
 	text-transform:uppercase;
 	&:hover {
 		background:$header-bg;
+	}
+	&:active {
+		background:$gray;
 	}
 }
 @mixin headings {

@@ -18,9 +18,6 @@ body {
 			@include button-norm;
 			font-weight: bold;
 			letter-spacing: .5px;
-			&:active {
-				color:lighten($header-bg, 45%)!important;
-			}
 		}
 		margin:$centered;
 		padding:$gutter;
@@ -171,9 +168,6 @@ body.acts {
 					margin-right:10px;
 					a {
 						color:#fff;
-						&:active {
-							color:lighten($header-bg, 45%)!important;
-						}
 					}
 				}
 			}
@@ -268,9 +262,6 @@ body.acts {
 				margin-top: 10px;
 				font-weight: bold;
 				letter-spacing: .5px;
-				&:active {
-					color:lighten($header-bg, 45%)!important;
-				}
 			}
 			label {
 				color: $header-bg;

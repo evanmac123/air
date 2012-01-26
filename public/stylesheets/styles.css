@@ -5,8 +5,6 @@ a {
   text-decoration: none!important; }
   a:hover {
     color: #0893e2; }
-  a:active {
-    color: #2e2e2c; }
 
 .cf {
   clear: both; }
@@ -50,6 +48,8 @@ ul {
 
 a {
   border: 0; }
+  a:active {
+    color: #2e2e2c !important; }
 
 img {
   border: 0; }
@@ -104,6 +104,10 @@ body.invitations .header #navigation .nav-signup, body.sessions .header #navigat
     background-image: url(/images/v3/texture.png);
     border-bottom: 1px #568a3a solid;
     height: 354px; }
+    .container .top a:hover {
+      color: #d2eefd !important; }
+    .container .top a:active {
+      color: #2e2e2c !important; }
     .container .top .header {
       margin: 0;
       padding: 0;
@@ -126,10 +130,7 @@ body.invitations .header #navigation .nav-signup, body.sessions .header #navigat
         .container .top .header .app_bar a {
           color: #fff;
           font-size: 12px; }
-          .container .top .header .app_bar a:hover {
-            color: #b9e4fd !important; }
           .container .top .header .app_bar a:active {
-            color: #2e2e2c !important;
             text-shadow: none!important; }
       .container .top .header #logo {
         border-top: 1px #0da2f7 solid;
@@ -169,7 +170,7 @@ body.invitations .header #navigation .nav-signup, body.sessions .header #navigat
       box-shadow: 0 0 5px #2c2c2c;
       behavior: url(/css3pie/PIE.htc);
       margin: 0 auto;
-      padding-bottom: 35px;
+      padding-bottom: 15px;
       position: relative;
       top: -58px;
       width: 620px;
@@ -221,6 +222,14 @@ body.invitations .header #navigation .nav-signup, body.sessions .header #navigat
     padding: 0 0 20px 0;
     text-align: center; }
 
+/* ====== special case: INVITATIONS new ====== */
+body.invitations-new .status-message, body.invitations-create .status-message {
+  color: #656565!important;
+  font-size: 16px;
+  line-height: 20px;
+  margin: 0 auto;
+  text-align: left!important; }
+
 /* ====== special case: INVITATIONS RESENTS ====== */
 body.invitation-resends form ul {
   margin: 0 auto 30px auto;
@@ -234,7 +243,6 @@ body.invitation-resends form input[type="submit"] {
   border: 0;
   color: #fff;
   display: block;
-  float: left;
   font-family: "Lato", Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 16px;
   font-weight: bold;
@@ -243,8 +251,9 @@ body.invitation-resends form input[type="submit"] {
   text-transform: uppercase;
   margin-top: 20px; }
   body.invitation-resends form input[type="submit"]:hover {
-    background-color: #2e2e2c;
-    text-shadow: none; }
+    background-color: #2e2e2c; }
+  body.invitation-resends form input[type="submit"]:active {
+    background-color: #909090; }
 
 /* ====== special case: PASSWORDS ====== */
 body.passwords .content .inv-forms #password-wrapper {
@@ -254,8 +263,8 @@ body.passwords .content .inv-forms #password-wrapper {
   body.passwords .content .inv-forms #password-wrapper p {
     color: #656565; }
 body.passwords .content .inv-forms form {
-  margin: 0 auto 30px auto;
-  width: 455px; }
+  width: 455px;
+  margin: 0 auto; }
   body.passwords .content .inv-forms form input[type="submit"] {
     -webkit-border-radius: 20px;
     -moz-border-radius: 20px;
@@ -265,7 +274,6 @@ body.passwords .content .inv-forms form {
     border: 0;
     color: #fff;
     display: block;
-    float: left;
     font-family: "Lato", Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 16px;
     font-weight: bold;
@@ -274,8 +282,9 @@ body.passwords .content .inv-forms form {
     text-transform: uppercase;
     margin-top: 20px; }
     body.passwords .content .inv-forms form input[type="submit"]:hover {
-      background-color: #2e2e2c;
-      text-shadow: none; }
+      background-color: #2e2e2c; }
+    body.passwords .content .inv-forms form input[type="submit"]:active {
+      background-color: #909090; }
   body.passwords .content .inv-forms form input[type="text"] {
     -webkit-border-radius: 20px;
     -moz-border-radius: 20px;
@@ -284,8 +293,8 @@ body.passwords .content .inv-forms form {
     border: 1px #c5c7c7 solid;
     background-color: #f6f6f6;
     color: #0673b1;
+    display: inline;
     font-size: 20px;
-    margin: 5px auto 0 auto;
     padding: 7px 10px;
     width: 435px; }
     body.passwords .content .inv-forms form input[type="text"]:focus {
@@ -297,6 +306,13 @@ body.sessions .content .inv-forms #session-wrapper {
   padding: 20px; }
   body.sessions .content .inv-forms #session-wrapper form {
     border: 0; }
+  body.sessions .content .inv-forms #session-wrapper a {
+    color: #0673b1;
+    font-weight: bold; }
+    body.sessions .content .inv-forms #session-wrapper a:hover {
+      color: #2e2e2c; }
+    body.sessions .content .inv-forms #session-wrapper a:active {
+      color: #909090 !important; }
 body.sessions .content .inv-forms form {
   margin: 0 auto 30px auto;
   padding: 0; }
@@ -309,18 +325,19 @@ body.sessions .content .inv-forms form {
     border: 0;
     color: #fff;
     display: block;
-    float: left;
     font-family: "Lato", Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 16px;
     font-weight: bold;
     padding: 5px 16px;
     text-shadow: 1px 1px 1px #333;
     text-transform: uppercase;
+    clear: both;
     display: block;
     margin-top: 20px; }
     body.sessions .content .inv-forms form input[type="submit"]:hover {
-      background-color: #2e2e2c;
-      text-shadow: none; }
+      background-color: #2e2e2c; }
+    body.sessions .content .inv-forms form input[type="submit"]:active {
+      background-color: #909090; }
   body.sessions .content .inv-forms form input[type="password"], body.sessions .content .inv-forms form input[type="text"] {
     -webkit-border-radius: 20px;
     -moz-border-radius: 20px;
@@ -336,13 +353,19 @@ body.sessions .content .inv-forms form {
       background-color: #fff;
       border: 1px #0673b1 solid; }
   body.sessions .content .inv-forms form input[type="checkbox"] {
-    margin: 0;
+    float: left;
+    margin: 2px 5px 0 0;
     padding: 0; }
   body.sessions .content .inv-forms form input[type="password"] {
     width: 210px; }
   body.sessions .content .inv-forms form input[type="text"] {
     width: 310px;
     margin-right: 10px; }
+  body.sessions .content .inv-forms form label {
+    clear: both;
+    color: #909090; }
+  body.sessions .content .inv-forms form #session_email, body.sessions .content .inv-forms form #session_password {
+    margin-bottom: 10px; }
 
 /* ====== forms ====== */
 ul.form-section {
@@ -400,7 +423,6 @@ select#user_location_id {
   border: 0;
   color: #fff;
   display: block;
-  float: left;
   font-family: "Lato", Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 16px;
   font-weight: bold;
@@ -409,8 +431,9 @@ select#user_location_id {
   text-transform: uppercase;
   margin-top: -5px; }
   .signup-submit input[type="submit"]:hover {
-    background-color: #2e2e2c;
-    text-shadow: none; }
+    background-color: #2e2e2c; }
+  .signup-submit input[type="submit"]:active {
+    background-color: #909090; }
 
 a.feedback {
   float: right;

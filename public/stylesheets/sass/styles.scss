@@ -1,9 +1,5 @@
 @import "standard";
-$ex-box-gray: #e9e9e9; //lol, happy accident, as it is close to xbox's color
 $ex-bg-gray: #2c2b2b;
-$ex-dark-gray: #2d2d2d;
-$ex-gray: #606060;
-$ex-green: #5b8b38;
 
 @mixin ex-button {
 	@include rounded-nav;
@@ -11,7 +7,6 @@ $ex-green: #5b8b38;
 	border:0;
 	color:#fff;
 	display: block;
-	float:left;
 	font-family: $gotham;
 	font-size: 16px;
 	font-weight:bold;
@@ -20,14 +15,34 @@ $ex-green: #5b8b38;
 	text-transform: uppercase;
 	&:hover {
 		background-color: $dark-gray;
-		text-shadow:none;
+//		text-shadow:none;
 	} 
+	&:active {
+		background-color: $gray;
+	}
+}
+@mixin ex-textfield {
+	@include rounded-nav;
+	border: 1px #c5c7c7 solid;
+	background-color:lighten($light-gray, 5%); 
+	color:$header-bg;
+	display: inline;
+	font-size:20px;
+	padding:7px 10px;			
+	&:focus {
+		background-color:#fff;
+		border:1px $header-bg solid;
+	}
 }
 
 .cf {clear:both;}
 h2 {margin:0; padding:0;}
 ul {list-style-type:none; margin:0; padding:0;}
-a {border:0;}
+a {border:0;
+	&:active {
+		color:$dark-gray!important;
+	}
+}
 img {border:0;}
 p {margin:0;padding:0;}
 
@@ -67,6 +82,16 @@ body.invitations .header #navigation .nav-signup, body.sessions .header #navigat
 		background-image: url(/images/v3/texture.png);
 		border-bottom: 1px #568a3a solid;
 		height: 354px;
+		
+		a {
+			&:hover {
+				color:lighten($header-bg, 55%)!important;
+			}
+			&:active {
+				color:$dark-gray!important;
+			}
+		}
+		
 		.header {
 			margin: 0;
 			padding: 0;
@@ -93,9 +118,7 @@ body.invitations .header #navigation .nav-signup, body.sessions .header #navigat
 				a {
 					color:#fff;
 					font-size:$font-small;
-					&:hover {color:lighten($header-bg, 50%)!important;}
 					&:active {
-						color:$dark-gray!important; 
 						text-shadow: none!important;
 					}
 				}
@@ -142,13 +165,13 @@ body.invitations .header #navigation .nav-signup, body.sessions .header #navigat
 		
 		.inv-forms {
 			@include rounded;
-			background-color: $ex-box-gray;
+			background-color: #e9e9e9;
 			-moz-box-shadow: 0 0 5px #2c2c2c;
 			-webkit-box-shadow: 0 0 5px #2c2c2c;
 			box-shadow: 0 0 5px #2c2c2c;
 			behavior: url(/css3pie/PIE.htc);
 			margin: $centered;
-			padding-bottom: 35px;
+			padding-bottom: 15px;
 			position: relative;
 			top: -58px;
 			width: 620px;
@@ -217,6 +240,17 @@ body.invitations .header #navigation .nav-signup, body.sessions .header #navigat
 	}
 }
 
+/* ====== special case: INVITATIONS new ====== */
+body.invitations-new, body.invitations-create {
+	.status-message{
+		color: #656565!important;
+		font-size: 16px;
+		line-height: 20px;
+		margin: $centered;
+		text-align: left!important;
+	}
+}
+
 /* ====== special case: INVITATIONS RESENTS ====== */
 body.invitation-resends {
 	form {
@@ -246,27 +280,17 @@ body.passwords .content .inv-forms {
 	}
 	
 	form {
-		margin: 0 auto 30px auto;
+//		margin: 0 auto 30px auto;
 		width: 455px;
+		margin:$centered;
 	
 		input[type="submit"] {
 			@include ex-button;
 			margin-top: 20px;
 		}
 		input[type="text"] {
-			@include rounded-nav;
-			border: 1px #c5c7c7 solid;
-			background-color:lighten($light-gray, 5%); 
-			color:$header-bg;
-			font-size:20px;
-			margin:5px auto 0 auto;
-			padding:7px 10px;
+			@include ex-textfield;
 			width:435px;
-			
-			&:focus {
-				background-color:#fff;
-				border:1px $header-bg solid;
-			}
 		}
 	}
 }
@@ -278,6 +302,17 @@ body.sessions .content .inv-forms {
 		form {
 			border: 0;
 		}
+		
+		a {
+			color:$header-bg;
+			font-weight:bold;
+			&:hover {
+				color:$dark-gray;
+			}
+			&:active {
+				color:$gray!important;
+			}
+		}
 	}
 	
 	form {
@@ -286,24 +321,16 @@ body.sessions .content .inv-forms {
 	
 		input[type="submit"] {
 			@include ex-button;
+			clear:both;
 			display: block;
 			margin-top: 20px;
 		}
 		input[type="password"], input[type="text"] {
-			@include rounded-nav;
-			border: 1px #c5c7c7 solid;
-			background-color:lighten($light-gray, 5%); 
-			color:$header-bg;
-			display: inline;
-			font-size:20px;
-			padding:7px 10px;			
-			&:focus {
-				background-color:#fff;
-				border:1px $header-bg solid;
-			}
+			@include ex-textfield;
 		}
 		input[type="checkbox"] {
-			margin: 0;
+			float:left;
+			margin: 2px 5px 0 0;
 			padding: 0;
 		}
 		input[type="password"] {
@@ -312,6 +339,14 @@ body.sessions .content .inv-forms {
 		input[type="text"] {
 			width:310px;
 			margin-right: 10px;
+		}
+		label {
+			clear:both;
+			color:$gray;
+		}
+		
+		#session_email, #session_password {
+			margin-bottom:10px;
 		}
 	}
 	
