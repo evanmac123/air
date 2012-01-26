@@ -4,7 +4,7 @@ $ex-bg-gray: #2c2b2b;
 @mixin ex-button {
 	@include rounded-nav;
 	background-color: $header-bg;
-	border:0;
+	border:0; 
 	color:#fff;
 	display: block;
 	font-family: $gotham;
