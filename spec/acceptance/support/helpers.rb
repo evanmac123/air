@@ -22,7 +22,7 @@ module SteakHelperMethods
     current_email.default_part_body
   end
 
-  def assert_suggestion_recorded(user_or_username, suggestion_text)
+  def expect_suggestion_recorded(user_or_username, suggestion_text)
     user = user_or_username.kind_of?(User) ? user_or_username : User.find_by_name(user_or_username)
     Suggestion.where(:user_id => user.id, :value => suggestion_text).first.should_not be_nil
   end
@@ -32,6 +32,13 @@ module SteakHelperMethods
     fill_in "Choose a unique ID", :with => "jrussell"
     fill_in "Choose a password", :with => "foobar"
     fill_in "And confirm that password", :with => "foobar"
+  end
+
+  def expect_avatar48(expected_filename)
+    within('.avatar48') do 
+      avatar = page.find(:css, 'img')
+      avatar['src'].should =~ /#{expected_filename}$/
+    end
   end
 end
 

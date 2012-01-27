@@ -244,6 +244,9 @@ class User < ActiveRecord::Base
     new_phone_number.present?
   end
 
+  def first_name
+    name.split.first
+  end
 
   def self.in_canonical_ranking_order
     order("points DESC, name ASC")

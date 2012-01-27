@@ -14,10 +14,12 @@
 		<div class="mast_top">
       <div class="logo_container"><a href="/"><%= image_tag skinned('logo_url', "logo.png") %></a></div>
 			<div class="welcome">
-				<a href="#" title="!VARIABLE!"><img src="http://www.scientificamerican.com/media/inline/veggie-cat-food_1_thumb.jpg" alt="!VARIABLE!" /></a>
+        <div class="avatar48">
+          <%= default_avatar_tag current_user %>
+        </div>
 				<div class="welcome_text">
-					<p>Welcome back,</p>
-					<p><a href="#" title="!VARIABLE!">WHAT IS MY NAME?!</a></p><!-- HOOKUP -->
+          <p>Welcome back,</p>
+          <p><%= link_to current_user.first_name, user_path(current_user) %></p>
 				</div>
 			</div>
 			<ul class="navigation">
