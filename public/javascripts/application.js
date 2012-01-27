@@ -8,7 +8,7 @@ $(function() {
   
   if (document.getElementById('command_central')){
     $('#command_central').focus();
-    var sugg = "What did you do or eat?";
+    var sugg = "Enter a command or action";
     $('#command_central').val(sugg);
     
     $('#command_central').keypress(function(key){
