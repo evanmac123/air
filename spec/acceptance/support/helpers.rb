@@ -1,8 +1,12 @@
 module SteakHelperMethods
-  def signin_as(user, password)
+  def fill_in_signin_fields(user, password)
     visit signin_page
     fill_in "session[email]", :with => user.email
     fill_in "session[password]", :with => 'foobar'
+  end
+
+  def signin_as(user, password)
+    fill_in_signin_fields(user, password)
     click_button "Let's play!"
   end
 
