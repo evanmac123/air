@@ -1,6 +1,6 @@
 module SteakHelperMethods
-  def login_as(user, password)
-    visit login_page
+  def signin_as(user, password)
+    visit signin_page
     fill_in "session[email]", :with => user.email
     fill_in "session[password]", :with => 'foobar'
     click_button "Let's play!"
@@ -25,6 +25,13 @@ module SteakHelperMethods
   def assert_suggestion_recorded(user_or_username, suggestion_text)
     user = user_or_username.kind_of?(User) ? user_or_username : User.find_by_name(user_or_username)
     Suggestion.where(:user_id => user.id, :value => suggestion_text).first.should_not be_nil
+  end
+
+  def fill_in_required_invitation_fields
+    fill_in "Enter your name", :with => "Jack Russell"
+    fill_in "Choose a unique ID", :with => "jrussell"
+    fill_in "Choose a password", :with => "foobar"
+    fill_in "And confirm that password", :with => "foobar"
   end
 end
 

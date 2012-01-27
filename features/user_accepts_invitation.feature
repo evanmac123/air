@@ -16,7 +16,6 @@ Feature: User accepts invitation
 
   Scenario: User accepts invitation
     Then I should be on the invitation page for "dan@example.com"
-    And I should see "Dan"
     When I fill in "Enter your mobile number" with "508-740-7520"
     And I fill in "Choose a password" with "whatwhat"
     And I fill in "And confirm that password" with "whatwhat"

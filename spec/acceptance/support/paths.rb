@@ -5,12 +5,33 @@ module NavigationHelpers
     "/"
   end
 
-  def login_page
+  def new_session_page
     "/session/new"  
+  end
+
+  def signin_page
+    '/sign_in'
   end
 
   def marketing_page
     "/"
+  end
+
+  def invitation_page(user)
+    invitation_path(user.invitation_code)
+  end
+
+  def activity_page
+    "/activity"
+  end
+
+  def acts_page
+    "/acts"
+  end
+
+  def should_be_on(expected_path)
+    current_path = URI.parse(current_url).path
+    current_path.should == expected_path
   end
 end
 

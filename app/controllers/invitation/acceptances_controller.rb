@@ -2,7 +2,7 @@ class Invitation::AcceptancesController < ApplicationController
   before_filter :find_user, :only => :update
 
   skip_before_filter :authenticate, :only => :update
-  before_filter :authenticate_without_game_begun_check, :only => :update
+  #before_filter :authenticate_without_game_begun_check, :only => :update
 
   layout "external"
 
@@ -27,6 +27,8 @@ class Invitation::AcceptancesController < ApplicationController
     unless @user.game_referrer_id.nil?
       SpecialCommand.credit_game_referrer(@user, User.find(@user.game_referrer_id))
     end
+
+    sign_in(@user)
 
     redirect_to "/activity"
   end
