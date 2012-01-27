@@ -41,5 +41,3 @@ module SteakHelperMethods
     end
   end
 end
-
-RSpec.configuration.include SteakHelperMethods, :type => :acceptance

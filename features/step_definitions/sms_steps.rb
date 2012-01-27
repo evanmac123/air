@@ -1,15 +1,3 @@
-def mobile_originated_message_received(mobile_number, sms_body, server_number = TWILIO_PHONE_NUMBER)
-  response = post sms_path, 'From' => mobile_number, 'To' => server_number, 'Body' => sms_body, 'AccountSid' => Twilio::ACCOUNT_SID
-
-  # When Twilio posts a message to us, if the response is plaintext, it sends
-  # a reply with that text back to the original sender. We want to capture
-  # those messages too, so we pretend like we posted them explicitly.
-
-  if response.content_type == 'text/plain'
-    FakeTwilio::SMS.post('To' => mobile_number, 'Body' => response.body)
-  end
-end
-
 When /^I clear all sent texts$/ do
   FakeTwilio::SMS.clear_all
 end
@@ -63,17 +51,17 @@ Then /^"([^"]*)" should not have received any SMSes$/ do |phone_number|
 end
 
 Then /^"([^"]*)" should have received the following SMS:$/ do |phone_number, sms_body|
-  mobile_originated_message_received(phone_number, sms_body)
+  mo_sms(phone_number, sms_body)
 end
 
 When /^"([^"]*)" sends SMS "([^"]*)"$/ do |phone_number, sms_body|
-  mobile_originated_message_received(phone_number, sms_body)
+  mo_sms(phone_number, sms_body)
 end
 
 When /^"([^"]*)" sends SMS '([^']*)'$/ do |phone_number, sms_body|
-  mobile_originated_message_received(phone_number, sms_body)
+  mo_sms(phone_number, sms_body)
 end
 
 When /^"([^"]*)" sends SMS "([^"]*)" to "([^"]*)"$/ do |sender_number, body, receiving_number|
-  mobile_originated_message_received(sender_number, body, receiving_number)
+  mo_sms(sender_number, body, receiving_number)
 end
