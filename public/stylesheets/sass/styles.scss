@@ -198,20 +198,41 @@ body.invitations .header #navigation .nav-signup, body.sessions .header #navigat
 					@include rounded;
 					background-color: $header-bg;
 					background-image: url(/images/v3/texture_darker.png);
-					border: 1px lighten($header-bg, 15%) solid;
-					box-shadow: 0 0 5px #2c2c2c;
+					border: {
+						style:solid;
+						width:1px;
+						
+						bottom: {
+							color: darken($header-bg, 15%);
+						}
+						left: {
+							color: darken($header-bg, 15%);
+						}
+						right: {
+							color: darken($header-bg, 15%);
+						}
+						top: {
+							color: lighten($header-bg, 10%);
+						}
+					}
+					box-shadow: 0 0 4px #2c2c2c;
 					color: #fff;
 					display: none;
 					line-height: 16px;
 					padding: 10px;
 					position: absolute;
-					right: -130px;
-					text-shadow:1px 1px 1px #333;
+					right: -147px;
+//					text-shadow:1px 1px 1px #333;
 					behavior: url(/css3pie/PIE.htc);
 					top: 23px;
-					width: 150px;
+					width: 175px;
 					z-index: 9999;				
 				}	
+				div.helper.autocomplete {
+					position:absolute;
+					right: -211px;
+					top:1px;
+				}
 			}
 						
 			.status {
@@ -263,6 +284,14 @@ body.invitations-show {
 			li {
 				padding:5px 0;
 			}
+		}
+	}
+	div#search_for_referrer {
+		div#autocomplete_status {
+			color:$gray;
+			margin:0;
+			padding:0;
+			top:-52px;
 		}
 	}
 }

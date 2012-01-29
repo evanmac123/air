@@ -193,19 +193,27 @@ body.invitations .header #navigation .nav-signup, body.sessions .header #navigat
         z-index: 0;
         background-color: #0673b1;
         background-image: url(/images/v3/texture_darker.png);
-        border: 1px #0da2f7 solid;
-        box-shadow: 0 0 5px #2c2c2c;
+        border-style: solid;
+        border-width: 1px;
+        border-bottom-color: #034367;
+        border-left-color: #034367;
+        border-right-color: #034367;
+        border-top-color: #0893e2;
+        box-shadow: 0 0 4px #2c2c2c;
         color: #fff;
         display: none;
         line-height: 16px;
         padding: 10px;
         position: absolute;
-        right: -130px;
-        text-shadow: 1px 1px 1px #333;
+        right: -147px;
         behavior: url(/css3pie/PIE.htc);
         top: 23px;
-        width: 150px;
+        width: 175px;
         z-index: 9999; }
+      .container .content .inv-forms div.form-ul-section div.helper.autocomplete {
+        position: absolute;
+        right: -211px;
+        top: 1px; }
       .container .content .inv-forms .status {
         border-bottom: 1px #fff solid; }
         .container .content .inv-forms .status .status-message {
@@ -240,6 +248,11 @@ body.invitations-show div.privacy-policy {
     padding-left: 20px; }
     body.invitations-show div.privacy-policy ul.major-points li {
       padding: 5px 0; }
+body.invitations-show div#search_for_referrer div#autocomplete_status {
+  color: #909090;
+  margin: 0;
+  padding: 0;
+  top: -52px; }
 
 /* ====== special case: INVITATIONS New ====== */
 body.invitations-new .status-message, body.invitations-create .status-message {
