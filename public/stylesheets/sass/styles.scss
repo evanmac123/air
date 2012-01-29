@@ -275,7 +275,7 @@ body.invitations .header #navigation .nav-signup, body.sessions .header #navigat
 }
 
 /* ====== special case: INVITATIONS Accept ====== */
-body.invitations-show {
+body.invitations-show, body.invitation-acceptances {
 	div.privacy-policy {
 		color:$gray;
 		p {font-weight:bold;}

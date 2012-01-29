@@ -239,16 +239,16 @@ body.invitations .header #navigation .nav-signup, body.sessions .header #navigat
     text-align: center; }
 
 /* ====== special case: INVITATIONS Accept ====== */
-body.invitations-show div.privacy-policy {
+body.invitations-show div.privacy-policy, body.invitation-acceptances div.privacy-policy {
   color: #909090; }
-  body.invitations-show div.privacy-policy p {
+  body.invitations-show div.privacy-policy p, body.invitation-acceptances div.privacy-policy p {
     font-weight: bold; }
-  body.invitations-show div.privacy-policy ul.major-points {
+  body.invitations-show div.privacy-policy ul.major-points, body.invitation-acceptances div.privacy-policy ul.major-points {
     list-style-type: disc;
     padding-left: 20px; }
-    body.invitations-show div.privacy-policy ul.major-points li {
+    body.invitations-show div.privacy-policy ul.major-points li, body.invitation-acceptances div.privacy-policy ul.major-points li {
       padding: 5px 0; }
-body.invitations-show div#search_for_referrer div#autocomplete_status {
+body.invitations-show div#search_for_referrer div#autocomplete_status, body.invitation-acceptances div#search_for_referrer div#autocomplete_status {
   color: #909090;
   margin: 0;
   padding: 0;
