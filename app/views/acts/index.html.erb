@@ -4,7 +4,7 @@
 	  <%= render :partial => 'displayable_task_suggestion', :collection => @displayable_task_suggestions %>
 	  <% content_for :javascript do %>
 	    <%= javascript_tag do %>
-	      $('.recently-completed').fadeOut(2000, function(){$(this).remove()});
+        $('.recently-completed').css({'border-color': 'white'}).effect('highlight', {}, 500, function() {$(this).fadeOut(2000, function(){$(this).remove()})});
 	    <% end %>
 	  <% end %>
 	  <div class="more-tasks">
