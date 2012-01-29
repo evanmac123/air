@@ -95,17 +95,17 @@ body.invitations .header #navigation .nav-signup, body.sessions .header #navigat
   -moz-border-radius: 20px;
   border-radius: 20px;
   behavior: url(/css3pie/PIE.htc);
-  border: 1px #0da2f7 solid; }
+  border: 1px #639d45 solid; }
 
 /* ============== layout =============== */
 .container {
-  background-color: #0673b1; }
+  background-color: #588b3d; }
   .container .top {
-    background-image: url(/images/v3/texture.png);
+    background-image: url(/images/v3/texture_darker.png);
     border-bottom: 1px #568a3a solid;
     height: 354px; }
     .container .top a:hover {
-      color: #d2eefd !important; }
+      color: #eef6ea !important; }
     .container .top a:active {
       color: #2e2e2c !important; }
     .container .top .header {
@@ -134,7 +134,7 @@ body.invitations .header #navigation .nav-signup, body.sessions .header #navigat
           .container .top .header .app_bar a:active {
             text-shadow: none!important; }
       .container .top .header #logo {
-        border-top: 1px #0da2f7 solid;
+        border-top: 1px #7cb85d solid;
         height: 192px;
         overflow: hidden;
         padding: 0; }
@@ -191,14 +191,14 @@ body.invitations .header #navigation .nav-signup, body.sessions .header #navigat
         border-radius: 3px;
         behavior: url(/css3pie/PIE.htc);
         z-index: 0;
-        background-color: #0673b1;
+        background-color: #588b3d;
         background-image: url(/images/v3/texture_darker.png);
         border-style: solid;
         border-width: 1px;
-        border-bottom-color: #034367;
-        border-left-color: #034367;
-        border-right-color: #034367;
-        border-top-color: #0893e2;
+        border-bottom-color: #365626;
+        border-left-color: #365626;
+        border-right-color: #365626;
+        border-top-color: #6eae4d;
         box-shadow: 0 0 4px #2c2c2c;
         color: #fff;
         display: none;
@@ -271,7 +271,7 @@ body.invitation-resends form input[type="submit"] {
   -moz-border-radius: 20px;
   border-radius: 20px;
   behavior: url(/css3pie/PIE.htc);
-  background-color: #0673b1;
+  background-color: #588b3d;
   border: 0;
   color: #fff;
   display: block;
@@ -303,7 +303,7 @@ body.passwords .content .inv-forms form {
     -moz-border-radius: 20px;
     border-radius: 20px;
     behavior: url(/css3pie/PIE.htc);
-    background-color: #0673b1;
+    background-color: #588b3d;
     border: 0;
     color: #fff;
     display: block;
@@ -326,14 +326,14 @@ body.passwords .content .inv-forms form {
     behavior: url(/css3pie/PIE.htc);
     background-color: #f6f6f6;
     border: 1px #c5c7c7 solid;
-    color: #0673b1;
+    color: #588b3d;
     display: inline;
     font-size: 20px;
     padding: 7px 10px;
     width: 435px; }
     body.passwords .content .inv-forms form input[type="text"]:focus {
       background-color: #fff;
-      border: 1px #0673b1 solid; }
+      border: 1px #588b3d solid; }
 
 /* ====== special case: SESSIONS ====== */
 body.sessions .content .inv-forms #session-wrapper {
@@ -341,7 +341,7 @@ body.sessions .content .inv-forms #session-wrapper {
   body.sessions .content .inv-forms #session-wrapper form {
     border: 0; }
   body.sessions .content .inv-forms #session-wrapper a {
-    color: #0673b1;
+    color: #588b3d;
     font-weight: bold; }
     body.sessions .content .inv-forms #session-wrapper a:hover {
       color: #2e2e2c; }
@@ -355,7 +355,7 @@ body.sessions .content .inv-forms form {
     -moz-border-radius: 20px;
     border-radius: 20px;
     behavior: url(/css3pie/PIE.htc);
-    background-color: #0673b1;
+    background-color: #588b3d;
     border: 0;
     color: #fff;
     display: block;
@@ -380,13 +380,13 @@ body.sessions .content .inv-forms form {
     behavior: url(/css3pie/PIE.htc);
     background-color: #f6f6f6;
     border: 1px #c5c7c7 solid;
-    color: #0673b1;
+    color: #588b3d;
     display: inline;
     font-size: 20px;
     padding: 7px 10px; }
     body.sessions .content .inv-forms form input[type="password"]:focus, body.sessions .content .inv-forms form input[type="text"]:focus {
       background-color: #fff;
-      border: 1px #0673b1 solid; }
+      border: 1px #588b3d solid; }
   body.sessions .content .inv-forms form input[type="checkbox"] {
     margin: 2px 5px 0 0;
     padding: 0; }
@@ -429,7 +429,7 @@ ul.form-section {
   behavior: url(/css3pie/PIE.htc);
   border: 1px #c5c7c7 solid;
   background-color: #f6f6f6;
-  color: #0673b1;
+  color: #588b3d;
   font-size: 20px;
   margin: 5px auto 0 auto;
   padding: 7px 10px;
@@ -437,7 +437,7 @@ ul.form-section {
 
 .form-input input:focus {
   background-color: #fff;
-  border: 1px #0673b1 solid; }
+  border: 1px #588b3d solid; }
 
 .form-input .field_with_errors input, .form-input .field_with_errors input {
   border: 2px #e11a00 solid; }
@@ -457,7 +457,7 @@ select#user_location_id {
   -moz-border-radius: 20px;
   border-radius: 20px;
   behavior: url(/css3pie/PIE.htc);
-  background-color: #0673b1;
+  background-color: #588b3d;
   border: 0;
   color: #fff;
   display: block;

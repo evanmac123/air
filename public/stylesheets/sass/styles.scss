@@ -1,9 +1,10 @@
 @import "standard";
+$hengage-bg: #588b3d;
 $ex-bg-gray: #2c2b2b;
 
 @mixin ex-button {
 	@include rounded-nav;
-	background-color: $header-bg;
+	background-color: $hengage-bg;
 	border:0; 
 	color:#fff;
 	display: block;
@@ -25,13 +26,13 @@ $ex-bg-gray: #2c2b2b;
 	@include rounded-nav;
 	background-color:lighten($light-gray, 5%); 
 	border: 1px #c5c7c7 solid;
-	color:$header-bg;
+	color:$hengage-bg;
 	display: inline;
 	font-size:20px;
 	padding:7px 10px;			
 	&:focus {
 		background-color:#fff;
-		border:1px $header-bg solid;
+		border:1px $hengage-bg solid;
 	}
 }
 
@@ -71,21 +72,21 @@ body.external {
 body.invitations .header #navigation .nav-signup, body.sessions .header #navigation .nav-login {
 	@include bg-black;
 	@include rounded-nav;
-	border:1px lighten($header-bg, 15%) solid;
+	border:1px lighten($hengage-bg, 5%) solid;
 }
 
 /* ============== layout =============== */
 .container {
-	background-color: $header-bg;
+	background-color: $hengage-bg;
 
 	.top {
-		background-image: url(/images/v3/texture.png);
+		background-image: url(/images/v3/texture_darker.png);
 		border-bottom: 1px #568a3a solid;
 		height: 354px;
 		
 		a {
 			&:hover {
-				color:lighten($header-bg, 55%)!important;
+				color:lighten($hengage-bg, 55%)!important;
 			}
 			&:active {
 				color:$dark-gray!important;
@@ -127,7 +128,7 @@ body.invitations .header #navigation .nav-signup, body.sessions .header #navigat
 			
 			
 			#logo {
-				border-top: 1px lighten($header-bg, 15%) solid;
+				border-top: 1px lighten($hengage-bg, 15%) solid;
 				height: 192px;
 				overflow: hidden;
 				padding: 0;
@@ -196,23 +197,23 @@ body.invitations .header #navigation .nav-signup, body.sessions .header #navigat
 			div.form-ul-section {
 				div.helper {
 					@include rounded;
-					background-color: $header-bg;
+					background-color: $hengage-bg;
 					background-image: url(/images/v3/texture_darker.png);
 					border: {
 						style:solid;
 						width:1px;
 						
 						bottom: {
-							color: darken($header-bg, 15%);
+							color: darken($hengage-bg, 15%);
 						}
 						left: {
-							color: darken($header-bg, 15%);
+							color: darken($hengage-bg, 15%);
 						}
 						right: {
-							color: darken($header-bg, 15%);
+							color: darken($hengage-bg, 15%);
 						}
 						top: {
-							color: lighten($header-bg, 10%);
+							color: lighten($hengage-bg, 10%);
 						}
 					}
 					box-shadow: 0 0 4px #2c2c2c;
@@ -360,7 +361,7 @@ body.sessions .content .inv-forms {
 		}
 		
 		a {
-			color:$header-bg;
+			color:$hengage-bg;
 			font-weight:bold;
 			&:hover {
 				color:$dark-gray;
@@ -434,7 +435,7 @@ ul.form-section {
 	@include rounded-nav;
 	border: 1px #c5c7c7 solid;
 	background-color:lighten($light-gray, 5%); 
-	color:$header-bg;
+	color:$hengage-bg;
 	font-size:20px;
 	margin:5px auto 0 auto;
 	padding:7px 10px;
@@ -442,7 +443,7 @@ ul.form-section {
 }
 	.form-input input:focus {
 		background-color:#fff;
-		border:1px $header-bg solid;
+		border:1px $hengage-bg solid;
 	}
 .form-input .field_with_errors input, .form-input .field_with_errors input {border:2px #e11a00 solid;}
 
