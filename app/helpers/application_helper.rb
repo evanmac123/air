@@ -48,7 +48,8 @@ module ApplicationHelper
 
   def master_bar_point_content
     points = current_user.points_towards_next_threshold
-    points == 1 ? "1pt" : "#{points}pts"
+    point_denominator = current_user.point_threshold_spread
+    "#{points}/#{point_denominator} points"
   end
 
   def joined_flashes

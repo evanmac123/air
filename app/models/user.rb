@@ -594,6 +594,14 @@ class User < ActiveRecord::Base
     percent > 100 ? 100.0 : percent
   end
 
+  def point_threshold_spread
+    _next_point_goal = next_point_goal
+    _last_point_goal = last_point_goal
+    return 0 if _next_point_goal.nil? || _last_point_goal.nil?
+    _next_point_goal - _last_point_goal
+  end
+
+
   def self.next_dummy_number
    last_assigned = self.where("phone_number LIKE '+1999%'").order("phone_number DESC").limit(1).first
 
@@ -699,10 +707,6 @@ class User < ActiveRecord::Base
     else
       threshold_from_demo || threshold_from_highest_level
     end
-  end
-
-  def point_threshold_spread
-    next_point_goal - last_point_goal
   end
 
   def last_level
