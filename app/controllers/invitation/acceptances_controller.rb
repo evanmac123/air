@@ -9,12 +9,12 @@ class Invitation::AcceptancesController < ApplicationController
   def update
     # Set this as true so presence of name is validated
     @user.trying_to_accept = true 
-
     @user.attributes = params[:user]
     @user.slug = params[:user][:sms_slug]
     # the below calls @user#save, so we don't save explicitly
     unless @user.update_password(params[:user][:password], params[:user][:password_confirmation])
       @locations = @user.demo.locations.alphabetical
+
       render "/invitations/show"
       return
     end

@@ -1,11 +1,14 @@
 - if current_user.session_count < 3 && session[:invite_friends_modal_shown].nil?
   - div_id = 'invite_friends_facebox'
+  - show_greeting = true
   - session[:invite_friends_modal_shown] = true
   = link_to "Invite friends to play", activity_path
 - else
   - div_id = 'invite_friends'
 
 .invite{:id => div_id}
+  - unless show_greeting.nil?
+    %p= "Thanks for joining #{current_user.demo.name}" 
   %h2 Invite your friends
   %p For each friend that joins the game, you get an extra 5 points!
   #points_per_referral= current_user.demo.game_referrer_bonus

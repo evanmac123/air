@@ -78,7 +78,7 @@ $(function() {
     setTimeout('updatePotentialPoints()', 500);
   });
 
-  $('#.remove_referrer').live('click', function() {
+  $('.remove_referrer').live('click', function() {
     $('#user_game_referrer_id').text('');
     $('.single_suggestion').hide();
     $('#autocomplete').show();
