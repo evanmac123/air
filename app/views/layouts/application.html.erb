@@ -19,7 +19,9 @@
 	<![endif]-->
 
   <%= render 'shared/skin_styles' %>
-  <link rel="stylesheet" type='text/css' href='https://getbarometer.s3.amazonaws.com/assets/barometer/css/barometer.css'/>
+  <% unless Rails.env.test? %>
+    <link rel="stylesheet" type='text/css' href='https://getbarometer.s3.amazonaws.com/assets/barometer/css/barometer.css'/>
+  <% end %>
   <%= stylesheet_link_tag 'barometer_tweaks' %>
   <%= stylesheet_link_tag 'autocompletion' %>
   <%= stylesheet_link_tag 'facebox' %>
@@ -42,10 +44,12 @@
   <%= render :partial => 'shared/javascript' %>
 
   <%= content_for :slow_javascript do%>
-    <script src='https://getbarometer.s3.amazonaws.com/assets/barometer/javascripts/barometer.js' type='text/javascript'></script>
-    <script type="text/javascript" charset="utf-8">
-      BAROMETER.load('yz1dR2sryb77QAfHhyz7D');
-    </script>
+    <% unless Rails.env.test? %>
+      <script src='https://getbarometer.s3.amazonaws.com/assets/barometer/javascripts/barometer.js' type='text/javascript'></script>
+      <script type="text/javascript" charset="utf-8">
+        BAROMETER.load('yz1dR2sryb77QAfHhyz7D');
+      </script>
+    <% end %>
   <% end %>
 </body>
 </html>
