@@ -1,0 +1,18 @@
+#faq_toc
+  .relative
+    .floating_toc
+      = render 'faq_toc'
+
+#faq_body
+  = render 'faq_body'
+  
+  / 
+  / Stuff 
+  / %frameset{:cols => "30%, 70%"}
+  /   %frame{:src => faq_toc_path}
+  /   %frame{:src => faq_body_path}
+  / 
+  
+
+= javascript_include_tag 'faq'
+  

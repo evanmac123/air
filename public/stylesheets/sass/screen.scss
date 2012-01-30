@@ -403,3 +403,18 @@ body.settings {
 		}
 	}
 }
+
+
+#faq_body{
+  float: left;
+  width: 700px;
+}
+#faq_toc{
+  float: left;
+  width: 300px;
+  min-height: 1px;  /* this is required so the div doesn't collapse when it's only child changed to 'position: fixed' */
+}
+.floating_toc{
+  position: relative;
+  width: 300px;
+}

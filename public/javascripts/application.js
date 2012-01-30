@@ -10,6 +10,9 @@ $(function() {
     $('#command_central').focus();
     var sugg = "Enter a command or action";
     $('#command_central').val(sugg);
+    $('#command_central').click(function(){
+      $('#command_central').val('');      
+    });
     
     $('#command_central').keypress(function(key){
       if (sugg == $('#command_central').val()){
