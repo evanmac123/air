@@ -223,11 +223,11 @@ body.invitations .header #navigation .nav-signup, body.sessions .header #navigat
           text-align: center; }
           .container .content .inv-forms .status .status-message p {
             margin: 0 auto;
+            line-height: 22px;
             width: 460px; }
           .container .content .inv-forms .status .status-message .welcome-message p.explanation {
             color: #656565;
-            font-size: 16px;
-            line-height: 20px;
+            font-size: 17px;
             margin: 0 auto;
             text-align: left; }
   .container .footer {
@@ -263,8 +263,7 @@ body.invitations-new a, body.invitations-create a {
     color: #2e2e2c; }
 body.invitations-new .status-message, body.invitations-create .status-message {
   color: #656565!important;
-  font-size: 16px;
-  line-height: 20px;
+  font-size: 17px;
   margin: 0 auto;
   text-align: left!important; }
 

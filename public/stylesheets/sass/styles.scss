@@ -247,14 +247,14 @@ body.invitations .header #navigation .nav-signup, body.sessions .header #navigat
 					
 					p {
 						margin:$centered;
+						line-height: 22px;
 						width: 460px;
 					}
 					
 					.welcome-message {					
 						p.explanation {
 							color: #656565;
-							font-size: 16px;
-							line-height: 20px;
+							font-size: 17px;
 							margin: $centered;
 							text-align: left;
 						}
@@ -310,8 +310,7 @@ body.invitations-new, body.invitations-create {
 	}
 	.status-message{
 		color: #656565!important;
-		font-size: 16px;
-		line-height: 20px;
+		font-size: 17px;
 		margin: $centered;
 		text-align: left!important;
 	}
