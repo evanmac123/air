@@ -79,7 +79,7 @@ $light:lighten($header-bg, 10%);
 				
 				img {
 					@include rounded;
-					border:1px lighten($header-bg, 10%) solid;
+					border:1px lighten($header-bg, 10%) inset;
 					float:left;
 					margin:0 10px 0 0!important;
 					width:50px;
@@ -117,7 +117,7 @@ $light:lighten($header-bg, 10%);
 			padding:$gutter $gutter 2px $gutter;
 			width:$body-width;
 			
-			li.help_command {padding:0 294px 0 5px;}
+			li.help_command {padding:0 316px 0 5px;}
 			li.help_progress {padding-right:202px;}
 		}
 		.mast_bottom {
@@ -230,9 +230,9 @@ $light:lighten($header-bg, 10%);
 					
 					p {
 						color:#906109;
-						font-size:11px;
+						font-size:15px;
 						font-weight:bold;
-						margin: -25px 0 0 0;
+						margin: -28px 0 0 0;
 						position: relative;
 						text-align: center;
 						text-shadow:none;
@@ -261,7 +261,7 @@ $light:lighten($header-bg, 10%);
 					float:right;
 					font-size:30px;
 					margin:7px 25px 0 0;
-					text-shadow:1px 1px 1px $dark-gray;
+					text-shadow:1px 1px 1px darken(#ffb901, 20%);
 				}
 			}
 		}

@@ -255,6 +255,12 @@ body.invitations-show div#search_for_referrer div#autocomplete_status, body.invi
   top: -52px; }
 
 /* ====== special case: INVITATIONS New ====== */
+body.invitations-new a, body.invitations-create a {
+  color: #588b3d; }
+  body.invitations-new a:hover, body.invitations-create a:hover {
+    color: #6eae4d; }
+  body.invitations-new a:active, body.invitations-create a:active {
+    color: #2e2e2c; }
 body.invitations-new .status-message, body.invitations-create .status-message {
   color: #656565!important;
   font-size: 16px;

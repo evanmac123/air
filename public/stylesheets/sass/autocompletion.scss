@@ -1,3 +1,4 @@
+@import "standard";
 $bin_width: 378px;
 $suggestion_radius: 4px;
 $light_green: #87BF4E;
@@ -22,12 +23,13 @@ $light_green: #87BF4E;
 }
 #suggestions{
   position: absolute;
+  top:13px;
   z-index: 1;
   .remove_referrer{
     display: none;
   }
   .single_suggestion:hover{
-    background: aqua;
+    background: darken($light-gray, 5%);
   }
 }
 .remove_referrer{
@@ -36,18 +38,28 @@ $light_green: #87BF4E;
   bottom: -19px;
   width: 26ex;
   text-align: right;
-
 }
 .single_suggestion{
-  background: tan;
-  padding-top: 5px;
+  background-color:$light-gray;
+  background-image:url(/images/v3/texture_darker.png);
+  color:$dark-gray;
   padding: 10px;
   width: $bin_width;
-  border: 2px solid $light_green;
+  border: 1px solid $hengage-bg;
   -moz-border-radius: $suggestion_radius;
   -webkit-border-radius: $suggestion_radius;
   border-radius: $suggestion_radius;
+  -moz-box-shadow: 0 0 5px #c9c9c9;
+  -webkit-box-shadow: 0 0 5px #c9c9c9;
+  box-shadow: 0 0 5px #c9c9c9;
   position: relative;
+  behavior: url(/css3pie/PIE.htc);
+	div.info {
+		div:first-child {
+			color:$hengage-bg;
+			font-weight:bold;
+		}
+	}
 }
 .single_suggestion + .single_suggestion{
   margin-top: 2px;

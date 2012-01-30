@@ -1,5 +1,5 @@
 @import "standard";
-$hengage-bg: #588b3d;
+
 $ex-bg-gray: #2c2b2b;
 
 @mixin ex-button {
@@ -299,6 +299,15 @@ body.invitations-show, body.invitation-acceptances {
 
 /* ====== special case: INVITATIONS New ====== */
 body.invitations-new, body.invitations-create {
+	a {
+		color:$hengage-bg;
+		&:hover {
+			color:lighten($hengage-bg, 10%);
+		}
+		&:active {
+			color:$dark-gray;
+		}
+	}
 	.status-message{
 		color: #656565!important;
 		font-size: 16px;
