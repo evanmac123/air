@@ -1,18 +1,20 @@
-#faq_toc
-  .relative
-    .floating_toc
-      = render 'faq_toc'
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
+/ =# Use this bit to continue where Jack left off at commit b4f601c3481416f170337d377945d231f9e8cf3b
+/ =# with the fancy scrolling
 
+
+/ #faq_toc
+/   .relative
+/     .floating_toc
+/       = render 'faq_toc'
+/ 
+/ #faq_body
+/   = render 'faq_body'
+/ = javascript_include_tag 'faq'
+  
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+#faq_toc
+  = render 'faq_toc'
 #faq_body
   = render 'faq_body'
-  
-  / 
-  / Stuff 
-  / %frameset{:cols => "30%, 70%"}
-  /   %frame{:src => faq_toc_path}
-  /   %frame{:src => faq_body_path}
-  / 
-  
-
-= javascript_include_tag 'faq'
-  
