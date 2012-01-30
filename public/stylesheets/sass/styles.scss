@@ -246,15 +246,15 @@ body.invitations .header #navigation .nav-signup, body.sessions .header #navigat
 					text-align: center;
 					
 					p {
-						margin:$centered;
+						font-size: 17px;
 						line-height: 22px;
+						margin:$centered;
 						width: 460px;
 					}
 					
 					.welcome-message {					
 						p.explanation {
 							color: #656565;
-							font-size: 17px;
 							margin: $centered;
 							text-align: left;
 						}
@@ -313,6 +313,11 @@ body.invitations-new, body.invitations-create {
 		font-size: 17px;
 		margin: $centered;
 		text-align: left!important;
+		
+		p {
+			padding-bottom:15px;
+			&:last-child {padding:0;}
+		}
 	}
 }
 

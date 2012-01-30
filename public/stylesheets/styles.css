@@ -222,12 +222,12 @@ body.invitations .header #navigation .nav-signup, body.sessions .header #navigat
           padding: 20px;
           text-align: center; }
           .container .content .inv-forms .status .status-message p {
-            margin: 0 auto;
+            font-size: 17px;
             line-height: 22px;
+            margin: 0 auto;
             width: 460px; }
           .container .content .inv-forms .status .status-message .welcome-message p.explanation {
             color: #656565;
-            font-size: 17px;
             margin: 0 auto;
             text-align: left; }
   .container .footer {
@@ -266,6 +266,10 @@ body.invitations-new .status-message, body.invitations-create .status-message {
   font-size: 17px;
   margin: 0 auto;
   text-align: left!important; }
+  body.invitations-new .status-message p, body.invitations-create .status-message p {
+    padding-bottom: 15px; }
+    body.invitations-new .status-message p:last-child, body.invitations-create .status-message p:last-child {
+      padding: 0; }
 
 /* ====== special case: INVITATIONS Resends ====== */
 body.invitation-resends form ul {
