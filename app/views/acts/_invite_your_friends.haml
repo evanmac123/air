@@ -1,6 +1,7 @@
 - if current_user.session_count < 3 && session[:invite_friends_modal_shown].nil?
   - div_id = 'invite_friends_facebox'
   - session[:invite_friends_modal_shown] = true
+  = link_to "Invite friends to play", activity_path
 - else
   - div_id = 'invite_friends'
 
@@ -53,3 +54,4 @@
             #suggestions
           #submit_invite_friend
             = link_to "Invite!", '#f', :id => :invite_friends_link
+
