@@ -87,6 +87,7 @@ a.remove_referrer {
   behavior: url(/css3pie/PIE.htc); }
   .single_suggestion div.info div.bit:first-child {
     color: #588b3d;
+    font-size: 16px;
     font-weight: bold; }
 
 .single_suggestion + .single_suggestion {
