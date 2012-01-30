@@ -32,12 +32,16 @@ $light_green: #87BF4E;
     background: darken($light-gray, 5%);
   }
 }
-.remove_referrer{
+a.remove_referrer{
+	color:$hengage-bg;
   position: absolute;
   right: 0px;
   bottom: -19px;
   width: 26ex;
   text-align: right;
+	&:hover {
+		color:lighten($hengage-bg, 15%)!important;
+	}
 }
 .single_suggestion{
   background-color:$light-gray;
@@ -55,7 +59,7 @@ $light_green: #87BF4E;
   position: relative;
   behavior: url(/css3pie/PIE.htc);
 	div.info {
-		div:first-child {
+		div.bit:first-child {
 			color:$hengage-bg;
 			font-weight:bold;
 		}
