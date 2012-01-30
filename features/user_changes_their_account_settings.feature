@@ -16,7 +16,7 @@ Feature: User can edit their account settings
     When I fill in "Change your username." with "awesomed00d"
     And I press the button to save the user's settings
     And "+14155551212" sends SMS "myid"
-    Then "+14155551212" should have received an SMS "Your user ID is awesomed00d."
+    Then "+14155551212" should have received an SMS "Your username is awesomed00d."
 
   Scenario: User chooses an SMS slug that's already taken
     Given the following user exists:
@@ -26,7 +26,7 @@ Feature: User can edit their account settings
     When I fill in "Change your username." with "awesomed00d"
     And I press the button to save the user's settings
     And "+14155551212" sends SMS "myid"
-    Then I should see "Sorry, that user ID is already taken."
+    Then I should see "Sorry, that username is already taken."
     And "+14155551212" should not have received an SMS including "awesomed00d"
 
   Scenario: User can set their avatar

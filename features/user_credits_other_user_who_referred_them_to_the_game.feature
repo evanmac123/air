@@ -58,7 +58,7 @@ Feature: User can credit another user who got them into the game
     When "+14155551212" sends SMS "pdarnowsky"
     And I go to the activity page
     # Then I should see "Phil 0 pts"
-    And "+14155551212" should have received an SMS "You've already claimed your account, and have 0 points. If you're trying to credit another user, text their User ID"
+    And "+14155551212" should have received an SMS "You've already claimed your account, and have 0 points. If you're trying to credit another user, text their Username"
 
   Scenario: User credits another but it's too late
     When "+16175551212" sends SMS "dcroak"

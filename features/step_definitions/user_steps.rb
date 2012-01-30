@@ -2,7 +2,7 @@ Given /^"(.*?)" has a claim code$/ do |username|
   User.find_by_name(username).generate_simple_claim_code!
 end
 
-Given /^"(.*?)" has the (unique ID|SMS slug) "(.*?)"$/ do |username, _nothing, sms_slug|
+Given /^"(.*?)" has the (username|SMS slug) "(.*?)"$/ do |username, _nothing, sms_slug|
   User.find_by_name(username).update_attributes(:sms_slug => sms_slug)
 end
 

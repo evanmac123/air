@@ -50,7 +50,7 @@ Fred Robinson,frobinson@example.com,345345
     When I follow "F"
     And I should see "Fred Robinson, frobinson@example.com (345345)"
 
-  Scenario: Admin uploads users with claim codes and unique IDs
+  Scenario: Admin uploads users with claim codes and usernames
     When I enter the following into the bulk information area:
 """
 John Smith,jsmith@example.com,123123,johnny
@@ -72,8 +72,8 @@ Fred Robinson,frobinson@example.com,345345,freddy
 
     When "+14155551212" sends SMS "123123"
     And "+16175551212" sends SMS "234234"
-    Then "+14155551212" should have received SMS "You've joined the H Engage game! Your user ID is johnny (text MYID if you forget). To play, text to this #."
-    And "+16175551212" should have received SMS "You've joined the H Engage game! Your user ID is bobby (text MYID if you forget). To play, text to this #."
+    Then "+14155551212" should have received SMS "You've joined the H Engage game! Your username is johnny (text MYID if you forget). To play, text to this #."
+    And "+16175551212" should have received SMS "You've joined the H Engage game! Your username is bobby (text MYID if you forget). To play, text to this #."
     When "+16175551212" sends SMS "johnny"
     And DJ cranks 10 times
     Then "+16175551212" should have received SMS "Got it, John Smith referred you to the game. Thanks for letting us know."

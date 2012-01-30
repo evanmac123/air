@@ -29,7 +29,7 @@ module SteakHelperMethods
 
   def fill_in_required_invitation_fields
     fill_in "Enter your name", :with => "Jack Russell"
-    fill_in "Choose a unique ID", :with => "jrussell"
+    fill_in "Choose a username", :with => "jrussell"
     fill_in "Choose a password", :with => "foobar"
     fill_in "And confirm that password", :with => "foobar"
   end

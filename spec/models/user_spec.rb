@@ -70,11 +70,11 @@ describe User do
 
     user.sms_slug = "i rule"
     user.should_not be_valid
-    user.errors[:sms_slug].should == ["Sorry, the user ID must consist of letters or digits only."]
+    user.errors[:sms_slug].should == ["Sorry, the username must consist of letters or digits only."]
 
     user.sms_slug = "i!rule"
     user.should_not be_valid
-    user.errors[:sms_slug].should == ["Sorry, the user ID must consist of letters or digits only."]
+    user.errors[:sms_slug].should == ["Sorry, the username must consist of letters or digits only."]
 
     user.sms_slug = "irule23times"
     user.should be_valid
@@ -89,7 +89,7 @@ describe User do
 
     user2.sms_slug = 'SomeDude'
     user2.should_not be_valid
-    user2.errors[:sms_slug].should == ["Sorry, that user ID is already taken."]
+    user2.errors[:sms_slug].should == ["Sorry, that username is already taken."]
     user3 = Factory :user
     user3.update_attributes(:sms_slug => "OtherDude")
     user3.reload.sms_slug.should == "otherdude"
@@ -220,7 +220,7 @@ describe User do
     bb = Factory.build(:user, :name =>"present", :slug => "areallylongstring", :sms_slug => "areallylongstring")
     bb.should_not be_valid # since slugs are already present, set_slugs will not be called
     bb.errors[:slug].should include("has already been taken")
-    bb.errors[:sms_slug].should include("Sorry, that user ID is already taken.")
+    bb.errors[:sms_slug].should include("Sorry, that username is already taken.")
   end
 end
 

@@ -201,7 +201,7 @@ Feature: User acts
     # And I sign in via the login page as "Dan/foobar"
     # And I go to the acts page
     # Then I should see "Dan 0 pts"
-    And "+15087407520" should have received an SMS "We understood what you did, but not the user who referred you. Perhaps you could have them check their user ID with the MYID command?"
+    And "+15087407520" should have received an SMS "We understood what you did, but not the user who referred you. Perhaps you could have them check their username with the MYID command?"
 
   Scenario: A helpful and slightly snarky error message if you say you referred yourself
     Given "Dan" has the SMS slug "dan4444"

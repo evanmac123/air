@@ -21,7 +21,7 @@ Feature: Users can request invitation via email
     And I should see "Welcome to H Engage"
     When I fill in "Enter your mobile number" with "(208) 366-6066"
     And I fill in "Enter your name" with "Josh Groban"
-    And I fill in "Choose a unique ID" with "joshy"
+    And I fill in "Choose a username" with "joshy"
     And I fill in "Choose a password" with "abcdefg"
     And I fill in "And confirm that password" with "abcdefg"
     And I press "Join the game"

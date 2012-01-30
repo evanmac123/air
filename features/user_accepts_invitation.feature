@@ -21,7 +21,7 @@ Feature: User accepts invitation
     And I fill in "And confirm that password" with "whatwhat"
     And I press "Join the game"
     And DJ cranks once
-    Then "+15087407520" should have received an SMS "You've joined the 3M game! Your user ID is dan (text MYID if you forget). To play, text to this #."
+    Then "+15087407520" should have received an SMS "You've joined the 3M game! Your username is dan (text MYID if you forget). To play, text to this #."
     And I should be on the activity page
     And I should see "Dan joined the game"
 
@@ -130,29 +130,29 @@ Feature: User accepts invitation
     Then I should be on the invitation page for "dan@example.com"
     And I should not see "Location"
 
-  Scenario: User can set unique ID when accepting invitation
+  Scenario: User can set username when accepting invitation
     When I click the first link in the email
-    And I fill in "Choose a unique ID" with "phil"
+    And I fill in "Choose a username" with "phil"
     And I fill in "Enter your mobile number" with "508-740-7520"
     And I fill in "Choose a password" with "whatwhat"
     And I fill in "And confirm that password" with "whatwhat"
     And I press "Join the game"
     Then I should not see "Welcome to the game"
-    And I should see "Sorry, that user ID is already taken."
+    And I should see "Sorry, that username is already taken."
     
-    When I fill in "Choose a unique ID" with "         "
+    When I fill in "Choose a username" with "         "
     And I press "Join the game"
     Then I should not see "Welcome to the game"
-    And I should see "Sorry, you can't choose a blank user ID."
+    And I should see "Sorry, you can't choose a blank username."
 
-    When I fill in "Choose a unique ID" with "i rule"
+    When I fill in "Choose a username" with "i rule"
     And I press "Join the game"
     
     Then I should not see "Welcome to the game"
     
-    And I should see "Sorry, the user ID must consist of letters or digits only."
+    And I should see "Sorry, the username must consist of letters or digits only."
 
-    When I fill in "Choose a unique ID" with "DannyBoy"
+    When I fill in "Choose a username" with "DannyBoy"
     And I press "Join the game"
     Then I should see "Welcome to the game"
     When DJ cranks once

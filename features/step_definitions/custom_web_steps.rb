@@ -30,7 +30,7 @@ When /^I press the button to submit the mobile number$/ do
   page.find(:css, "form[@action='/account/phone'] input[@type=image]").click
 end
 
-When /^I press the button to submit a new unique ID$/ do
+When /^I press the button to submit a new username$/ do
   page.find(:css, "form[@action='/account/sms_slug'] input[@type=submit]").click
 end
 

@@ -32,10 +32,10 @@ class User < ActiveRecord::Base
   validate :normalized_phone_number_unique, :normalized_new_phone_number_unique
 
   validates_uniqueness_of :slug, :if => :slug_required
-  validates_uniqueness_of :sms_slug, :message => "Sorry, that user ID is already taken.", :if => :slug_required
+  validates_uniqueness_of :sms_slug, :message => "Sorry, that username is already taken.", :if => :slug_required
 
   validates_presence_of :name, :if => :name_required
-  validates_presence_of :sms_slug, :message => "Sorry, you can't choose a blank user ID.", :if => :slug_required
+  validates_presence_of :sms_slug, :message => "Sorry, you can't choose a blank username.", :if => :slug_required
   validates_presence_of :slug, :if => :slug_required
   
   validates_presence_of :privacy_level
@@ -43,7 +43,7 @@ class User < ActiveRecord::Base
 
   validates_format_of :slug, :with => /^[0-9a-z]+$/, :if => :slug_required
   validates_format_of :sms_slug, :with => /^[0-9a-z]+$/, :if => :slug_required,
-                      :message => "Sorry, the user ID must consist of letters or digits only."
+                      :message => "Sorry, the username must consist of letters or digits only."
 
   validates_presence_of :demo_id
   validates_numericality_of :height, :allow_blank => true, :message => "Please use a numeric value for your height, and express it in inches"

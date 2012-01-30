@@ -15,7 +15,7 @@ Feature: User requests an invitation via SMS
     And "email@example.com" should receive an email
     When "email@example.com" opens the email
     And they click the first link in the email
-    Then I should see "Choose a unique ID"
+    Then I should see "Choose a username"
     And I should see "(415) 555-1213"
     And I should not see "Enter your mobile number"
     And I should not see "We'll send you an SMS with instructions on the next step."

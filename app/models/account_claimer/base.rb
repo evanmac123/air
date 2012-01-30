@@ -22,7 +22,7 @@ module AccountClaimer
         if (@user_with_this_contact = find_claimed_user_by_from)
           return I18n.t(
             'activerecord.models.user.claim_account.already_claimed_sms',
-            :default => "You've already claimed your account, and have %{current_points} pts. If you're trying to credit another user, ask them to check their user ID with the MYID command.",
+            :default => "You've already claimed your account, and have %{current_points} pts. If you're trying to credit another user, ask them to check their username with the MYID command.",
             :current_points => @user_with_this_contact.points
           )
         end

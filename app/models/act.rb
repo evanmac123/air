@@ -189,7 +189,7 @@ class Act < ActiveRecord::Base
     if rule_value.nil? && value
       rule_value, referring_user = try_extracting_rule_value_with_referring_user(user, value)
       if (rule_value && !referring_user)
-        error = parsing_error_message("We understood what you did, but not the user who referred you. Perhaps you could have them check their user ID with the MYID command?")
+        error = parsing_error_message("We understood what you did, but not the user who referred you. Perhaps you could have them check their username with the MYID command?")
       end
 
       if referring_user == user

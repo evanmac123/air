@@ -103,7 +103,7 @@ class EmailCommandController< ApplicationController
   end
 
   def unmatched_claim_code_response
-    "That user ID doesn't match the one we have in our records. Please try again, or email help@hengage.com for assistance from a human."
+    "That username doesn't match the one we have in our records. Please try again, or email help@hengage.com for assistance from a human."
   end
 
   def blank_body_response

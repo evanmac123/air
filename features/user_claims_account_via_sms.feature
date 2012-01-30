@@ -13,7 +13,7 @@ Feature: User claims account via SMS
     And "Dan Croak" has the SMS slug "dcroak4444"
     When "+14155551212" sends SMS "Dcroak"
     Then "Dan Croak" should be claimed by "+14155551212"
-    And "+14155551212" should have received an SMS "You've joined the Global Tetrahedron game! Your user ID is dcroak4444 (text MYID if you forget). To play, text to this #."
+    And "+14155551212" should have received an SMS "You've joined the Global Tetrahedron game! Your username is dcroak4444 (text MYID if you forget). To play, text to this #."
 
   Scenario: Claiming account sends user a password reset email
     Given the following user exists:
@@ -111,7 +111,7 @@ Feature: User claims account via SMS
     And "+14152613077" sends SMS "peter@darnowsky.com"
     Then "Paul Darnowsky" should not be claimed
     And "Peter Darnowsky" should not be claimed
-    And "+14152613077" should have received an SMS "You've already claimed your account, and have 0 pts. If you're trying to credit another user, ask them to check their user ID with the MYID command."
+    And "+14152613077" should have received an SMS "You've already claimed your account, and have 0 pts. If you're trying to credit another user, ask them to check their username with the MYID command."
 
   Scenario: If user claims twice, they get a helpful error message
     Given the following demo exists:
@@ -123,8 +123,8 @@ Feature: User claims account via SMS
     And "Phil Darnowsky" has the SMS slug "pdarnowsky99"
     When "+14152613077" sends SMS "pdarnowsky"
     And "+14152613077" sends SMS "pdarnowsky"
-    Then "+14152613077" should have received an SMS "You've joined the W00t! game! Your user ID is pdarnowsky99 (text MYID if you forget). To play, text to this #."
-    And "+14152613077" should have received an SMS "You've already claimed your account, and have 5 pts. If you're trying to credit another user, ask them to check their user ID with the MYID command."
+    Then "+14152613077" should have received an SMS "You've joined the W00t! game! Your username is pdarnowsky99 (text MYID if you forget). To play, text to this #."
+    And "+14152613077" should have received an SMS "You've already claimed your account, and have 5 pts. If you're trying to credit another user, ask them to check their username with the MYID command."
 
   Scenario: User can't claim account already claimed
     Given the following user with phone exists:

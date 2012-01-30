@@ -23,5 +23,5 @@ When /^I fill in the required self-invitation fields$/ do
   And %{I fill in "Enter your name" with "Chester Humphries"}
   And %{I fill in "Choose a password" with "foobar"}
   And %{I fill in "And confirm that password" with "foobar"}
-  And %{I fill in "Choose a unique ID" with "chester"}
+  And %{I fill in "Choose a username" with "chester"}
 end

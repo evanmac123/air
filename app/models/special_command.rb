@@ -55,7 +55,7 @@ module SpecialCommand
   def self.follow(user_following, sms_slug_to_follow)
     user_to_follow = User.claimed.where(:sms_slug => sms_slug_to_follow, :demo_id => user_following.demo_id).first
 
-    return parsing_error_message("Sorry, we couldn't find a user with the user ID #{sms_slug_to_follow}.") unless user_to_follow
+    return parsing_error_message("Sorry, we couldn't find a user with the username #{sms_slug_to_follow}.") unless user_to_follow
 
     return parsing_error_message("Sorry, you can't follow yourself.") if user_following.id == user_to_follow.id
 
@@ -99,7 +99,7 @@ module SpecialCommand
   end
 
   def self.myid(user)
-    parsing_success_message("Your user ID is #{user.sms_slug}.")
+    parsing_success_message("Your username is #{user.sms_slug}.")
   end
 
   def self.moreinfo(user)
@@ -173,7 +173,7 @@ module SpecialCommand
     if referring_user == referred_user
       return parsing_error_message(I18n.t(
         'special_command.credit_game_referrer.cannot_refer_yourself_sms', 
-        :default => "You've already claimed your account, and have %{points}. If you're trying to credit another user, @{say} their User ID",
+        :default => "You've already claimed your account, and have %{points}. If you're trying to credit another user, @{say} their Username",
         # for some reason, pluralize works in development but not staging
         # or production
         :points => referred_user.points.to_s + ' ' + (referred_user.points == 1 ? 'point' : 'points')

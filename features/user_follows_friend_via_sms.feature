@@ -41,14 +41,14 @@ Feature: User can follow another user by SMS
     And I sign in via the login page
     And I go to the profile page for "Vlad Gyster"
     Then I should see "fan of 0 people"
-    And "+16178675309" should have received an SMS "Sorry, we couldn't find a user with the user ID mrnobody."
+    And "+16178675309" should have received an SMS "Sorry, we couldn't find a user with the username mrnobody."
 
   Scenario: User tries to follow another user in a different demo
     When "+16178675309" sends SMS "follow johnsmith"
     And I sign in via the login page
     And I go to the profile page for "Vlad Gyster"
     Then I should see "fan of 0 people"
-    And "+16178675309" should have received an SMS "Sorry, we couldn't find a user with the user ID johnsmith."
+    And "+16178675309" should have received an SMS "Sorry, we couldn't find a user with the username johnsmith."
 
   Scenario: User tries to follow themselves
     When "+16178675309" sends SMS "follow vladgyster"
@@ -63,7 +63,7 @@ Feature: User can follow another user by SMS
     And I sign in via the login page
     And I go to the profile page for "Vlad Gyster"
     Then I should see "fan of 0 people"
-    And "+16178675309" should have received an SMS "Sorry, we couldn't find a user with the user ID joebob."
+    And "+16178675309" should have received an SMS "Sorry, we couldn't find a user with the username joebob."
 
   Scenario: Request to follow from a user who isn't registered
     When "+18085551212" sends SMS "follow dancroak"
