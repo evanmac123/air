@@ -2,31 +2,32 @@ Feature: User gives credit to game referer via autocomplete field
 
   Background:
     Given the following demo exists:
-      | name | game_referrer_bonus   |
-      | Bratwurst    | 2000                  |
-      | Gleason      | 2000                  |
-      | Preloaded    | 2000                  |
-      | NotStarted   | 2000                  |
+      | name | game_referrer_bonus      |
+      | Bratwurst    | 2000             |
+      | Gleason      | 2000             |
+      | Preloaded    | 2000             |
+      | NotStarted   | 2000             |
     Given the following self inviting domain exists:
-      | domain       | demo                    |
-      | inviting.com | name: Bratwurst |
-      | biker.com    | name: Gleason   |
+      | domain       | demo             |
+      | inviting.com | name: Bratwurst  |
+      | biker.com    | name: Gleason    |
+      | started.com  | name: NotStarted |
 
     Given the following users exist:
-      | name               | demo                    | email        | slug      | sms_slug    |
-      | Charlie Brainfield | name: Preloaded | 1@loaded.com | airplane  | airplane    |
-      | Yo Yo Ma           | name: Preloaded | 2@loaded.com | naked     | naked       |
-      | Threefold          | name: Preloaded | 3@loaded.com | eraser    | eraser      |
-      | Fourfold           | name: Preloaded | 4@loaded.com | owl       | owl         |
-      | Fivefold           | name: Preloaded | 5@loaded.com | brush     | brush       |
-      | Watermelon         | name: Gleason   | 1@biker.com  | jumper    | jumper      |
-      | Bruce Springsteen  | name: Gleason   | 2@biker.com  | airairair | airairair   |
-      | Barnaby Watson     | name: Gleason   | 3@biker.com  | mypeeps   | mypeeps     |
-      | Charlie Moore      | name: Gleason   | 4@biker.com  | livingit  | livingit    |
-      | Already Playing    | name: Bratwurst | playing@inviting.com | playing | playing |
+      | name               | demo            | email                | slug      | sms_slug    |
+      | Charlie Brainfield | name: Preloaded | 1@loaded.com         | airplane  | airplane    |
+      | Yo Yo Ma           | name: Preloaded | 2@loaded.com         | naked     | naked       |
+      | Threefold          | name: Preloaded | 3@loaded.com         | eraser    | eraser      |
+      | Fourfold           | name: Preloaded | 4@loaded.com         | owl       | owl         |
+      | Fivefold           | name: Preloaded | 5@loaded.com         | brush     | brush       |
+      | Watermelon         | name: Gleason   | 1@biker.com          | jumper    | jumper      |
+      | Bruce Springsteen  | name: Gleason   | 2@biker.com          | airairair | airairair   |
+      | Barnaby Watson     | name: Gleason   | 3@biker.com          | mypeeps   | mypeeps     |
+      | Charlie Moore      | name: Gleason   | 4@biker.com          | livingit  | livingit    |
+      | Already Playing    | name: Bratwurst | playing@inviting.com | playing   | playing     |
 
     Given the following claimed user exists:
-      | name       | demo                    | email                       | slug      | sms_slug    | phone_number |
+      | name       | demo            | email                       | slug      | sms_slug    | phone_number |
       | Barnaby    | name: Bratwurst | claimed@inviting.com        | smoke     | smoke       | +15554445555 |
       | Alexander  | name: Bratwurst | also_claimed@inviting.com   | soap      | soap        | +15554442222 |
       | Outsider   | name: Gleason   | different_game@inviting.com | box       | box         | +15554442211 |
@@ -200,6 +201,17 @@ Feature: User gives credit to game referer via autocomplete field
     And I sign out
     And I sign in via the login page as "Yoko/foobar"
     Then I should not see a facebox modal
+    
+  @javascript
+  Scenario: invitation actually sent when using the modal
+    Given the demo for "NotStarted" starts tomorrow
+    And "Yoko" has the password "foobar"
+    And I sign in via the login page as "Yoko/foobar"
+    Then I should see "Invite your friends" in a facebox modal
+    When I fill in "email number 3" with "mybestfriend"
+    And I press "Invite!"
+    And I should see "You just invited mybestfriend@started.com to play H Engage"
+    
     
   @javascript
   Scenario: Proper error messages for inviting people on a self-inviting domain
