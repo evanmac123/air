@@ -15,9 +15,12 @@
         %p= @user.name + ","
       %p
         - if @referrer 
-          = "#{@referrer.name} has invited you to play #{@demo_name}."
+          = "#{@referrer.name} is playing #{@demo_name} and thinks you should give it a try too. #{@demo_name}."
         - else
           = "Thanks for requesting an invite to play #{@demo_name}."
+          = "#{@demo_name} is a fun, social game that started at [insert company] on [insert date]. To start playing and see what it’s all about, click here.
+          
+          
           To start playing, 
         = link_to "click here", invitation_link, :style => @link_style
 
