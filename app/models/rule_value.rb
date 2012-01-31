@@ -79,6 +79,10 @@ class RuleValue < ActiveRecord::Base
 
   def value_has_more_than_one_character
     if self.value.try(:length) == 1
+      # Single-digit values are OK, as long as they're not in the range
+      # reserved for surveys
+      return if self.value =~ /^[0-9]$/ && !(self.value =~ Survey::SURVEY_ANSWER_PATTERN)
+
       self.errors.add(:value, "Can't have a single-character value, those are reserved for other purposes.")
     end
   end

@@ -6,6 +6,7 @@ class Survey < ActiveRecord::Base
   validates_presence_of :name, :open_at, :close_at
 
   validate :close_comes_after_open
+  SURVEY_ANSWER_PATTERN = Regexp.new(/^[1-5]$/).freeze
 
   belongs_to :demo
   has_many   :survey_triggers, :class_name => "Trigger::SurveyTrigger"

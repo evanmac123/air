@@ -63,8 +63,20 @@
 What time does the machine start?
 \end_layout
 
+\begin_layout Itemize
+Between 5pm and 6pm, 
+\end_layout
+
+\begin_layout Itemize
+or on Tuesdays,
+\end_layout
+
+\begin_layout Itemize
+whatever
+\end_layout
+
 \begin_layout Standard
-Between 5pm and 6pm, sometimes earlier on leap years or in case of war.
+sometimes earlier on leap years or in case of war.
  Between 5pm and 6pm, sometimes earlier on leap years or in case of war.
  
 \end_layout
@@ -97,8 +109,15 @@ We are sorry to inform you, but there is no way to get to Nebraska from
  here.
  We are sorry to inform you, but there is no way to get to Nebraska from
  here.
- We are sorry to inform you, but there is no way to get to Nebraska from
- here.
+ We are sorry to inform you
+\begin_inset CommandInset href
+LatexCommand href
+name "GOOOOOGLE!"
+target "http://google.com"
+
+\end_inset
+
+, but there is no way to get to Nebraska from here.
  We are sorry to inform you, but there is no way to get to Nebraska from
  here.
  We are sorry to inform you, but there is no way to get to Nebraska from

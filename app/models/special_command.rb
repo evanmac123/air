@@ -21,7 +21,7 @@ module SpecialCommand
       self.moreinfo(user)
     when 's', 'suggest'
       self.suggestion(user, args)
-    when /^\d$/
+    when Survey::SURVEY_ANSWER_PATTERN
       self.respond_to_survey(user, command_name)
     when /^[a-z]$/
       self.use_suggested_item(user, command_name)
