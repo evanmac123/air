@@ -1,0 +1,13 @@
+cucumber features/admin_moves_user_to_new_demo.feature:37 # Scenario: User's new acts appear in the new demo
+cucumber features/admin_moves_user_to_new_demo.feature:58 # Scenario: In user's profile page, only new acts appear
+cucumber features/admin_moves_user_to_new_demo.feature:69 # Scenario: User's old acts reappear when moved back to the original demo
+cucumber features/user_acts.feature:38 # Scenario: User acts via SMS
+cucumber features/user_acts.feature:57 # Scenario: User acts, with a trailing period
+cucumber features/user_acts.feature:65 # Scenario: User acts, with trailing whitespace
+cucumber features/user_acts.feature:77 # Scenario: User can act with a standard playbook rule (belonging to no demo) if demo supports it
+cucumber features/user_email_commands.feature:38 # Scenario: User acts via email
+cucumber features/user_email_commands.feature:46 # Scenario: User acts via email for a different act
+cucumber features/user_email_commands.feature:54 # Scenario: User acts via email with a strange email body
+cucumber features/user_email_commands.feature:76 # Scenario: User sends an email with a long body
+cucumber features/user_email_commands.feature:107 # Scenario: User throws a bunch of blank lines in at the top, for God knows what reason
+cucumber features/user_navigates_site_with_navbar.feature:3 # Scenario: Link hooked up

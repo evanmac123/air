@@ -1,5 +1,5 @@
 class Mailer < ActionMailer::Base
-  default :from => "vlad@playhengage.com"
+  default :from => "H Engage <play@playhengage.com>"
 
   def invitation(user, referrer = nil)
     @user = user
@@ -10,9 +10,24 @@ class Mailer < ActionMailer::Base
       @referrer_params = ''
     end
     @demo_name = user.demo.name || "H Engage"
-    from_email = @user.demo.email || "vlad@playhengage.com"
+    begins = user.demo.begins_at
+    if begins
+      @demo_begins_at = user.demo.begins_at.to_date.as_pretty_date
+      if begins < Time.now
+        @already_started = true 
+      else
+        @begins_soon = true
+      end
+    end
+    
+    if @user.demo.email
+      from_email = "#{@user.demo.name} <#{@user.demo.email}>"
+    else
+      from_email = "H Engage <play@playhengage.com>"
+    end
+    subject = "Invitation to play #{@demo_name}"
     mail :to      => user.email,
-         :subject => "Invitation to demo H Engage",
+         :subject => subject,
          :from => from_email
   end
 

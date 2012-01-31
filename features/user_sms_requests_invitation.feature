@@ -36,4 +36,4 @@ Feature: User requests an invitation via SMS
     
   Scenario: Invitation comes from proper email address
     When "email@example.com" opens the email
-    Then they should see the email delivered from "brandywine@playhengage.com"
+    Then they should see the email delivered from "BrandyWine <brandywine@playhengage.com>"

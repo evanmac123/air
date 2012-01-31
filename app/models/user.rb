@@ -622,6 +622,7 @@ class User < ActiveRecord::Base
   end
 
   def self.send_invitation_if_email(user_or_phone, text, options={})
+    
     domain = self.is_an_email_address(text)
     if domain
       if user_or_phone =~ /^(\+1\d{10})$/
@@ -629,12 +630,12 @@ class User < ActiveRecord::Base
         domain_object = SelfInvitingDomain.where(:domain => domain)
         return "Your domain is not valid" if domain_object.empty?
         demo_id = domain_object.first.demo_id
-        SelfInvitingDomain.where(:domain => domain).first
+        # SelfInvitingDomain.where(:domain => domain).first
         new_user = User.new(:phone_number => user_or_phone, :email => text.strip,
                   :demo_id => demo_id)
         new_user.invitation_method = 'sms'
         if new_user.save
-          Mailer.delay.invitation(new_user)
+          new_user.invite
           return "An invitation has been sent to #{text.strip}."
         end
       end

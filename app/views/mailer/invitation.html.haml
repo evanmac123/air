@@ -15,13 +15,18 @@
         %p= @user.name + ","
       %p
         - if @referrer 
-          = "#{@referrer.name} is playing #{@demo_name} and thinks you should give it a try too. #{@demo_name}."
+          = "#{@referrer.name} is playing #{@demo_name} and thinks you should give it a try too. "
         - else
-          = "Thanks for requesting an invite to play #{@demo_name}."
-          = "#{@demo_name} is a fun, social game that started at [insert company] on [insert date]. To start playing and see what it’s all about, click here.
+          = "Thanks for requesting an invite to play #{@demo_name}. "
+        - if @already_started
+          = "#{@demo_name} is a fun, social game that started on #{@demo_begins_at}. "
+        - elsif @begins_soon
+          = "#{@demo_name} is a fun, social game that starts on #{@demo_begins_at}. "
+        - else
+          = "#{@demo_name} is a fun, social game where all the cool kids hang. "
           
-          
-          To start playing, 
+        
+        To start playing and see what it’s all about,
         = link_to "click here", invitation_link, :style => @link_style
 
       %p Have fun and good luck!
