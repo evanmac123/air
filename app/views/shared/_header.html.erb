@@ -25,7 +25,7 @@
 			<ul class="navigation">
 		        <li><%= link_to "Home", activity_path, :class => 'nav-home' %></li>
 		        <li><a href="#" title="Games">Games</a></li><!-- HOOKUP -->
-		        <li><%= link_to "My Profile", user_path(current_user), :class => 'nav-profile' %></li><!-- HOOKUP -->
+		        <li><%= link_to "My Profile", user_path(current_user.id), :class => 'nav-profile' %></li>
 				<li><a href="#" title="Scores">Scores</a></li><!-- HOOKUP -->
 		        <li><a href="#" title="Directory">Directory</a></li><!-- HOOKUP -->
 			</ul>
