@@ -104,7 +104,7 @@ body.invitations .header #navigation .nav-signup, body.sessions .header #navigat
 				background-color:$dark-gray;
 				color:$gray;
 				font-size:$font-small;
-				font-weight: bold;
+				font-weight:500;
 				height:23px;
 				padding:7px $gutter 0 $gutter;
 				text-shadow: 1px 1px $dark-gray; behavior: url(/css3pie/PIE.htc);
@@ -121,6 +121,7 @@ body.invitations .header #navigation .nav-signup, body.sessions .header #navigat
 				a {
 					color:#fff;
 					font-size:$font-small;
+					font-weight:500;
 					&:active {
 						text-shadow: none!important;
 					}

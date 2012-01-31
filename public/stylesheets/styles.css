@@ -117,7 +117,7 @@ body.invitations .header #navigation .nav-signup, body.sessions .header #navigat
         background-color: #2e2e2c;
         color: #909090;
         font-size: 12px;
-        font-weight: bold;
+        font-weight: 500;
         height: 23px;
         padding: 7px 10px 0 10px;
         text-shadow: 1px 1px #2e2e2c;
@@ -130,7 +130,8 @@ body.invitations .header #navigation .nav-signup, body.sessions .header #navigat
             float: left; }
         .container .top .header .app_bar a {
           color: #fff;
-          font-size: 12px; }
+          font-size: 12px;
+          font-weight: 500; }
           .container .top .header .app_bar a:active {
             text-shadow: none!important; }
       .container .top .header #logo {
