@@ -3,7 +3,7 @@
     <span class="point-value"><%= pluralize act.points, 'pt' %></span>
   </div>
 <% end %>
-<div class="user"><%= link_to(act.user.name, act.user) %></div>
+<div class="user"><%= link_to(act.user.name, act.user.id) %></div>
 <div class="description"><%= (act.text) %></div>
 <div class="when">
   <%= time_ago_in_words(act.created_at) %> ago
