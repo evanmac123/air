@@ -1,8 +1,8 @@
 @import "standard";
 
 /* ---------- math ---------- */
-$dark:darken($header-bg, 10%); 
-$light:lighten($header-bg, 10%);
+$dark:darken($header-bg, 14%); 
+$light:lighten($header-bg, 7%);
 
 /* ---------- masthead ---------- */
 .header {
@@ -49,7 +49,7 @@ $light:lighten($header-bg, 10%);
 
 	.masthead {
 		background-color:$header-bg;
-		background-image:url('/images/v3/texture_dark.png');
+		background-image:url('/images/v3/texture_darker.png');
 		border-top:1px $light solid;
 		border-bottom:1px $dark solid;
 		padding-bottom:15px;

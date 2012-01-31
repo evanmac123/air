@@ -4,7 +4,7 @@
 a {
   text-decoration: none!important; }
   a:hover {
-    color: #0893e2; }
+    color: #6eae4d; }
 
 .cf {
   clear: both; }
@@ -37,7 +37,7 @@ ul {
 .mast_top {
   padding-bottom: 0!important; }
   .mast_top a.a_current {
-    border: 1px #0893e2 solid !important; }
+    border: 1px #6eae4d solid !important; }
   .mast_top .navigation {
     width: 550px!important; }
 

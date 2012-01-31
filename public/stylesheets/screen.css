@@ -4,7 +4,7 @@
 a {
   text-decoration: none!important; }
   a:hover {
-    color: #0893e2; }
+    color: #6eae4d; }
 
 .cf {
   clear: both; }
@@ -41,7 +41,7 @@ ul {
 a {
   text-decoration: none!important; }
   a:hover {
-    color: #0893e2; }
+    color: #6eae4d; }
 
 .cf {
   clear: both; }
@@ -82,7 +82,7 @@ ul {
   .header a {
     color: #fff; }
     .header a:hover {
-      color: #b9e4fd !important; }
+      color: #e0eed9 !important; }
     .header a:active {
       color: #2e2e2c !important;
       text-shadow: none!important; }
@@ -108,13 +108,13 @@ ul {
       .header .app_bar .app_settings li {
         padding-left: 20px; }
   .header .masthead {
-    background-color: #0673b1;
-    background-image: url("/images/v3/texture_dark.png");
-    border-top: 1px #0893e2 solid;
-    border-bottom: 1px #045380 solid;
+    background-color: #588b3d;
+    background-image: url("/images/v3/texture_darker.png");
+    border-top: 1px #68a448 solid;
+    border-bottom: 1px #395927 solid;
     padding-bottom: 15px; }
     .header .masthead .mast_top {
-      border-bottom: 1px #045380 solid;
+      border-bottom: 1px #395927 solid;
       color: #e9e9e9;
       margin: 0 auto;
       padding: 15px 10px;
@@ -125,7 +125,7 @@ ul {
         .header .masthead .mast_top .logo_container img {
           width: 130px; }
       .header .masthead .mast_top .welcome {
-        color: #a1dbfc;
+        color: #d2e6c7;
         float: left;
         margin: 0.80% 0 0 25px;
         position: relative;
@@ -137,7 +137,7 @@ ul {
           border-radius: 3px;
           behavior: url(/css3pie/PIE.htc);
           z-index: 0;
-          border: 1px #0893e2 inset;
+          border: 1px #6eae4d inset;
           float: left;
           height: 60px;
           margin: 0 15px 0 0!important;
@@ -161,8 +161,8 @@ ul {
           letter-spacing: 1px;
           padding: 6px 15px; }
     .header .masthead .mast_center {
-      border-top: 1px #0893e2 solid;
-      color: #66c4fa;
+      border-top: 1px #68a448 solid;
+      color: #b0d49d;
       font-size: 12px;
       margin: 0 auto;
       padding: 10px 10px 2px 10px;
@@ -194,7 +194,7 @@ ul {
       behavior: url(/css3pie/PIE.htc);
       position: relative;
       z-index: 0;
-      border: 1px #045380 solid;
+      border: 1px #42682d solid;
       height: 56px;
       margin: 0 auto;
       width: 960px; }
@@ -235,7 +235,7 @@ ul {
           -moz-border-bottom-left-radius: 20px;
           -moz-border-top-left-radius: 20px;
           behavior: url(/css3pie/PIE.htc);
-          color: #0673b1;
+          color: #588b3d;
           height: 24px;
           float: left;
           margin: 9px 0 9px 10px;
@@ -357,7 +357,7 @@ ul {
         border: 0;
         width: 140px; }
         .header .masthead .mast_bottom .bar_level p {
-          color: #0673b1;
+          color: #588b3d;
           float: left;
           font-family: "Lato", Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
           font-size: 12px;
@@ -420,11 +420,11 @@ body {
       z-index: 0;
       background-color: #f6f6f6;
       border: 1px #c5c7c7 solid;
-      color: #0673b1;
+      color: #588b3d;
       padding: 5px 10px; }
       body .container input[type=text]:focus {
         background-color: #fff;
-        border: 1px #0673b1 solid; }
+        border: 1px #588b3d solid; }
     body .container input[type="submit"].button_norm {
       background: #3f3f3f;
       /* Old browsers */
@@ -454,7 +454,7 @@ body {
       font-weight: bold;
       letter-spacing: .5px; }
       body .container input[type="submit"].button_norm:hover {
-        background: #0673b1; }
+        background: #588b3d; }
       body .container input[type="submit"].button_norm:active {
         background: #909090; }
 
@@ -478,7 +478,7 @@ body {
   -moz-border-radius: 20px;
   border-radius: 20px;
   behavior: url(/css3pie/PIE.htc);
-  border: 1px #0893e2 solid; }
+  border: 1px #6eae4d solid; }
 
 /* -- flash messages -- */
 #flash {
@@ -745,7 +745,7 @@ body.acts .container .feeds {
       font-size: 11px;
       margin-right: 10px; }
       body.acts .container .feeds ul.tabs li:hover {
-        background: #0673b1; }
+        background: #588b3d; }
       body.acts .container .feeds ul.tabs li:active {
         background: #909090; }
       body.acts .container .feeds ul.tabs li a {
@@ -767,11 +767,11 @@ body.acts .container .feeds {
         font-weight: bold;
         width: 75px; }
       body.acts .container .feeds .act .act-details .user a {
-        color: #0673b1;
+        color: #588b3d;
         font-size: 14px;
         font-weight: bold; }
         body.acts .container .feeds .act .act-details .user a:hover {
-          color: #0893e2; }
+          color: #6eae4d; }
         body.acts .container .feeds .act .act-details .user a:active {
           color: #2e2e2c; }
       body.acts .container .feeds .act .act-details .when {
@@ -825,13 +825,13 @@ body.acts .container .invite-module {
       margin-top: 15px;
       position: relative; }
       body.acts .container .invite-module #invite_friends form .invite_or_add a#lots_of_friends {
-        color: #0673b1;
+        color: #588b3d;
         margin: 0 0 0 10px;
         padding: 0;
         position: relative;
         top: 2px; }
         body.acts .container .invite-module #invite_friends form .invite_or_add a#lots_of_friends:hover {
-          color: #0893e2; }
+          color: #6eae4d; }
         body.acts .container .invite-module #invite_friends form .invite_or_add a#lots_of_friends:active {
           color: #2e2e2c; }
       body.acts .container .invite-module #invite_friends form .invite_or_add input[type="submit"] {
@@ -873,11 +873,11 @@ body.acts .container .invite-module {
     font-weight: bold;
     letter-spacing: .5px; }
     body.acts .container .invite-module #invite_friends input[type="submit"]:hover {
-      background: #0673b1; }
+      background: #588b3d; }
     body.acts .container .invite-module #invite_friends input[type="submit"]:active {
       background: #909090; }
   body.acts .container .invite-module #invite_friends label {
-    color: #0673b1;
+    color: #588b3d;
     font-weight: bold; }
 
 /* --------------------------- settings --------------------------- */
@@ -896,7 +896,7 @@ body.settings .container .about_user {
     color: #909090;
     text-shadow: none!important; }
     body.settings .container .about_user .settings_avatar .avatar_inputs .clear-avatar input:hover {
-      background: #0673b1 !important;
+      background: #588b3d !important;
       color: #fff; }
   body.settings .container .about_user .settings_avatar img.size-96 {
     width: 96px;
@@ -979,9 +979,9 @@ body.pages-faq .content {
     float: right;
     width: 33%; }
     body.pages-faq .content #faq_toc a {
-      color: #0673b1; }
+      color: #588b3d; }
       body.pages-faq .content #faq_toc a:hover {
-        color: #0893e2; }
+        color: #6eae4d; }
       body.pages-faq .content #faq_toc a:active {
         color: #2e2e2c; }
     body.pages-faq .content #faq_toc .tocindent .toc {
