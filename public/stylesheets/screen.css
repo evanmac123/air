@@ -955,18 +955,34 @@ body.pages-faq .content {
   body.pages-faq .content #faq_body, body.pages-faq .content #faq_toc {
     margin-top: 20px; }
   body.pages-faq .content #faq_body {
-    float: right;
+    float: left;
     width: 60%; }
     body.pages-faq .content #faq_body h2 {
-      color: green; }
+      color: #2e2e2c;
+      font-family: "Lato", Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+      text-transform: uppercase; }
     body.pages-faq .content #faq_body .Indented {
-      color: blue; }
+      -webkit-border-radius: 3px;
+      -moz-border-radius: 3px;
+      border-radius: 3px;
+      behavior: url(/css3pie/PIE.htc);
+      z-index: 0;
+      background: #e9e9e9;
+      color: #909090;
+      margin-bottom: 40px;
+      padding: 15px 10px; }
+      body.pages-faq .content #faq_body .Indented:last-child {
+        margin-bottom: 10px; }
     body.pages-faq .content #faq_body .Unindented {
-      color: red; }
+      padding: 15px 10px; }
   body.pages-faq .content #faq_toc {
-    float: left;
+    float: right;
     width: 33%; }
+    body.pages-faq .content #faq_toc a {
+      color: #0673b1; }
+      body.pages-faq .content #faq_toc a:hover {
+        color: #0893e2; }
+      body.pages-faq .content #faq_toc a:active {
+        color: #2e2e2c; }
     body.pages-faq .content #faq_toc .tocindent .toc {
-      margin: 0 0 1ex 0; }
-      body.pages-faq .content #faq_toc .tocindent .toc:last-child {
-        margin: 0; }
+      margin: 0 0 10px 0; }

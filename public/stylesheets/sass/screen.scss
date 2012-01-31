@@ -401,27 +401,38 @@ body.pages-faq{
 			margin-top:20px;
 		}
 		#faq_body {
-			float:right;
+			float:left;
 			width:60%;
 			h2 {
-				color:green;
+				color:$dark-gray;
+				font-family:$gotham;
+				text-transform:uppercase;
 			}
 			.Indented {
-				color:blue;
+				@include rounded;
+				background:$light-gray;
+				color:$gray;
+				margin-bottom:40px;
+				padding:15px 10px;
+				&:last-child {
+					margin-bottom:10px;
+				}
 			}
 			.Unindented {
-				color:red;
+				padding:15px 10px;
 			}
 		}
 		#faq_toc{
-			float:left;
+			float:right;
 			width:33%;
+			a {
+				color:$header-bg;
+				&:hover {color:lighten($header-bg, 10%);}
+				&:active {color:$dark-gray;}
+			}
 			.tocindent {
 				.toc {
-					margin:0 0 1ex 0;
-					&:last-child {
-						margin:0;
-					}
+					margin:0 0 10px 0;
 				}
 			}
 		}
