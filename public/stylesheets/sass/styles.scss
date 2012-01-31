@@ -49,7 +49,8 @@ p {margin:0;padding:0;}
 
 
 body.external {
-	background-color: $ex-bg-gray;
+//	background-color: $ex-bg-gray;
+	background-color:$light-gray; 
 	background-image: url(/images/v3/texture_darker.png);
 	font-family:Helvetica, Arial, sans-serif;
 	font-size:13px;
@@ -81,7 +82,7 @@ body.invitations .header #navigation .nav-signup, body.sessions .header #navigat
 
 	.top {
 		background-image: url(/images/v3/texture_darker.png);
-		border-bottom: 1px #568a3a solid;
+		border-bottom: 1px darken($hengage-bg, 15%) solid;
 		height: 354px;
 		
 		a {
@@ -162,9 +163,9 @@ body.invitations .header #navigation .nav-signup, body.sessions .header #navigat
 	}
 	
 	.content {
-		background-color:$ex-bg-gray;
+		background-color:$light-gray;
 		background-image: url(/images/v3/texture_darker.png);
-		border-top: 1px #000 solid;
+		border-top: 1px lighten($light-gray, 20%) solid;
 		z-index: -99;
 		
 		.inv-forms {
@@ -265,7 +266,7 @@ body.invitations .header #navigation .nav-signup, body.sessions .header #navigat
 	}
 	
 	.footer {
-		background-color:$ex-bg-gray;
+		background-color:$light-gray;
 		background-image: url(/images/v3/texture_darker.png);
 		color: $gray;
 		font-size: 11px;

@@ -59,7 +59,7 @@ p {
   padding: 0; }
 
 body.external {
-  background-color: #2c2b2b;
+  background-color: #e9e9e9;
   background-image: url(/images/v3/texture_darker.png);
   font-family: Helvetica, Arial, sans-serif;
   font-size: 13px;
@@ -102,7 +102,7 @@ body.invitations .header #navigation .nav-signup, body.sessions .header #navigat
   background-color: #588b3d; }
   .container .top {
     background-image: url(/images/v3/texture_darker.png);
-    border-bottom: 1px #568a3a solid;
+    border-bottom: 1px #365626 solid;
     height: 354px; }
     .container .top a:hover {
       color: #eef6ea !important; }
@@ -157,9 +157,9 @@ body.invitations .header #navigation .nav-signup, body.sessions .header #navigat
             text-shadow: 1px 1px 1px #333;
             behavior: url(/css3pie/PIE.htc); }
   .container .content {
-    background-color: #2c2b2b;
+    background-color: #e9e9e9;
     background-image: url(/images/v3/texture_darker.png);
-    border-top: 1px #000 solid;
+    border-top: 1px white solid;
     z-index: -99; }
     .container .content .inv-forms {
       -webkit-border-radius: 3px;
@@ -231,7 +231,7 @@ body.invitations .header #navigation .nav-signup, body.sessions .header #navigat
             margin: 0 auto;
             text-align: left; }
   .container .footer {
-    background-color: #2c2b2b;
+    background-color: #e9e9e9;
     background-image: url(/images/v3/texture_darker.png);
     color: #909090;
     font-size: 11px;
