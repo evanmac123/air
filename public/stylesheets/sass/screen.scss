@@ -2,7 +2,6 @@
 @import "special_effects";
 @import "flick/jquery-ui-1.8.10.custom.css";
 
-/* ---------- standards ---------- */
 @import "header";
 
 body {
@@ -317,6 +316,7 @@ body.settings {
 		.about_user {
 			float:left;
 			font-size:$font-small;
+			margin-top:10px;
 			width:47%;
 
 			.settings_avatar {
@@ -379,6 +379,9 @@ body.settings {
 				}
 			}
 		}
+		.privacy_settings {
+			margin-top:10px;
+		}
 		
 		label {display:inline;}
 		li {
@@ -388,14 +391,39 @@ body.settings {
 	}
 }
 
-
-#faq_toc{
-  margin: 0 auto;
-  padding-top: 3ex;
-  width: 50ex;
-}
-#faq_body{
-  margin: 0 auto;
-  padding-top: 3ex;
-  width: 960px;
+/* --------------------------- faq --------------------------- */
+body.pages-faq{
+	.content {
+		@include bg-white;
+		margin:$centered;
+		width:960px;
+		#faq_body, #faq_toc {
+			margin-top:20px;
+		}
+		#faq_body {
+			float:right;
+			width:60%;
+			h2 {
+				color:green;
+			}
+			.Indented {
+				color:blue;
+			}
+			.Unindented {
+				color:red;
+			}
+		}
+		#faq_toc{
+			float:left;
+			width:33%;
+			.tocindent {
+				.toc {
+					margin:0 0 1ex 0;
+					&:last-child {
+						margin:0;
+					}
+				}
+			}
+		}
+	}
 }

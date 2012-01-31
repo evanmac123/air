@@ -35,7 +35,6 @@ ul {
 /* ---------- general mixins ---------- */
 /* ---------- header mixins ---------- */
 @import url(flick/jquery-ui-1.8.10.custom.css);
-/* ---------- standards ---------- */
 /* ---------- customizations ---------- */
 /* ---------- END customizations ---------- */
 /* layout/reset/fonts/etc */
@@ -886,6 +885,7 @@ body.acts .container .invite-module {
 body.settings .container .about_user {
   float: left;
   font-size: 12px;
+  margin-top: 10px;
   width: 47%; }
   body.settings .container .about_user .settings_avatar .avatar_image {
     float: left;
@@ -925,18 +925,48 @@ body.settings .container .other_settings {
 body.settings .container .notification_settings .settings_new_number_verification input[type="submit"] {
   display: block;
   margin: 12px 0; }
+body.settings .container .privacy_settings {
+  margin-top: 10px; }
 body.settings .container label {
   display: inline; }
 body.settings .container li {
   display: inline;
   margin: 0 0 0 10px; }
 
-#faq_toc {
+/* --------------------------- faq --------------------------- */
+body.pages-faq .content {
   margin: 0 auto;
-  padding-top: 3ex;
-  width: 50ex; }
-
-#faq_body {
-  margin: 0 auto;
-  padding-top: 3ex;
   width: 960px; }
+  body.pages-faq .content .module {
+    border: 1px #bebebe solid;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    -moz-box-shadow: 0 0 5px #c9c9c9;
+    -webkit-box-shadow: 0 0 5px #c9c9c9;
+    box-shadow: 0 0 5px #c9c9c9;
+    behavior: url(/css3pie/PIE.htc);
+    background-color: #ffffff;
+    margin-bottom: 15px;
+    padding: 15px 10px 10px 10px; }
+  body.pages-faq .content .module_inner {
+    padding-bottom: 5px;
+    margin: 5px 0; }
+  body.pages-faq .content #faq_body, body.pages-faq .content #faq_toc {
+    margin-top: 20px; }
+  body.pages-faq .content #faq_body {
+    float: right;
+    width: 60%; }
+    body.pages-faq .content #faq_body h2 {
+      color: green; }
+    body.pages-faq .content #faq_body .Indented {
+      color: blue; }
+    body.pages-faq .content #faq_body .Unindented {
+      color: red; }
+  body.pages-faq .content #faq_toc {
+    float: left;
+    width: 33%; }
+    body.pages-faq .content #faq_toc .tocindent .toc {
+      margin: 0 0 1ex 0; }
+      body.pages-faq .content #faq_toc .tocindent .toc:last-child {
+        margin: 0; }
