@@ -19,7 +19,7 @@
         </div>
 				<div class="welcome_text">
           <p>Welcome back,</p>
-          <p><%= link_to current_user.first_name, user_path(current_user) %></p>
+          <p><%= link_to current_user.first_name, user_path(current_user.id) %></p>
 				</div>
 			</div>
 			<ul class="navigation">
