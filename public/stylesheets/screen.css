@@ -128,10 +128,10 @@ ul {
       .header .masthead .mast_top .welcome {
         color: #a1dbfc;
         float: left;
-        margin: 2% 0 0 40px;
+        margin: 0.80% 0 0 25px;
         position: relative;
         overflow: hidden;
-        width: 220px; }
+        width: 235px; }
         .header .masthead .mast_top .welcome img {
           -webkit-border-radius: 3px;
           -moz-border-radius: 3px;
@@ -140,13 +140,14 @@ ul {
           z-index: 0;
           border: 1px #0893e2 inset;
           float: left;
-          margin: 0 10px 0 0!important;
-          width: 50px; }
+          height: 60px;
+          margin: 0 15px 0 0!important;
+          width: 60px; }
         .header .masthead .mast_top .welcome .welcome_text {
-          float: right;
+          float: left;
           position: relative;
           width: 155px;
-          top: 6px; }
+          top: 13px; }
       .header .masthead .mast_top .navigation {
         float: right;
         left: 15px;

@@ -72,24 +72,25 @@ $light:lighten($header-bg, 10%);
 			.welcome {
 				color:lighten($header-bg, 45%);
 				float:left;
-				margin:2% 0 0 40px;
+				margin:0.80% 0 0 25px;
 				position:relative;
 				overflow:hidden;
-				width:220px;
+				width:235px;
 				
 				img {
 					@include rounded;
 					border:1px lighten($header-bg, 10%) inset;
 					float:left;
-					margin:0 10px 0 0!important;
-					width:50px;
+					height:60px;
+					margin:0 15px 0 0!important;
+					width:60px;
 				}
 				
 				.welcome_text {
-					float:right;
+					float:left;
 					position:relative;
 					width:155px;
-					top:6px;
+					top:13px;
 				}
 			}
 			.navigation {
