@@ -19,13 +19,13 @@
         </div>
 				<div class="welcome_text">
           <p>Welcome back,</p>
-          <p><%= link_to current_user.first_name, user_path(current_user.id) %></p>
+          <p><%= link_to current_user.first_name, current_user %></p>
 				</div>
 			</div>
 			<ul class="navigation">
 		        <li><%= link_to "Home", activity_path, :class => 'nav-home' %></li>
 		        <li><a href="#" title="Games">Games</a></li><!-- HOOKUP -->
-		        <li><%= link_to "My Profile", user_path(current_user.id), :class => 'nav-profile' %></li>
+		        <li><%= link_to "My Profile", current_user, :class => 'nav-profile' %></li>
 				<li><a href="#" title="Scores">Scores</a></li><!-- HOOKUP -->
 		        <li><a href="#" title="Directory">Directory</a></li><!-- HOOKUP -->
 			</ul>
