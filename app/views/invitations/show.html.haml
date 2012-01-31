@@ -42,7 +42,7 @@
         %h2= "Welcome to H Engage"
         %p.explanation= translate('.explanation', :default => "Ready to play? Just fill in the fields below, and we'll text you instructions to get you started.")
 
-= form_for @user, :url => invitation_acceptance_path(:user_id => @user.id), :autocomplete => :off, :id => "signup-form", :builder => FancyFormBuilder do |f|
+= form_for @user, :url => invitation_acceptance_path(:user_id => @user.id), :html => {:autocomplete => :off, :id => "signup-form"}, :builder => FancyFormBuilder do |f|
   %ul
     %div.form-ul-section
       %div.helper#number This isn’t required but the game is best experienced through texting. Don’t worry, we’ll never spam you and you can always remove your number in the profile section. And once you log in, you can choose your texting settings.
