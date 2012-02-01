@@ -309,6 +309,63 @@ body.acts {
 			}
 		}
 	}
+	#facebox {
+		.popup {
+			.content {
+				background:$light-gray;
+				padding:10px 20px 5px 20px;
+				form {
+					@include input-text;
+					margin:$centered;
+					padding:5px 0;
+					div.first_half, div.second_half {
+						color:$gray;
+					}
+					div.invite_or_add {
+						margin-top:10px;
+						a#lots_of_friends {
+							color:$header-bg;
+							padding-left:10px;
+							&:hover {
+								color:lighten($header-bg, 10%);
+							}
+							&:active {
+								color:$dark-gray;
+							}
+						}
+						input[type="submit"] {
+							@include button-norm;
+							font-weight: bold;
+							letter-spacing: .5px;
+						}
+					}
+					div.single_suggestion {
+						width:350px;
+						img {
+							@include rounded;
+							width:75px;
+						}
+					}
+					li {
+						label {font-weight:bold;}
+					}
+					p {font-weight:bold;}
+				}
+				h2 {
+					font-family:$gotham;
+					padding-bottom:10px;
+					text-transform:uppercase;
+				}
+				p {
+					padding:5px 0;
+					&:first-child {
+						color:$header-bg;
+						font-weight:bold;
+					}
+				}
+			}
+		}
+	}
 }
 
 /* --------------------------- settings --------------------------- */
