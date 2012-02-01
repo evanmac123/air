@@ -333,7 +333,12 @@ body.acts {
 	}
 	#facebox {
 		.popup {
+			border:none;
+			-webkit-box-shadow:0;
+			-moz-box-shadow:0;
+			box-shadow:0;
 			.content {
+				@include box-shadow;
 				background:$light-gray;
 				padding:10px 20px 5px 20px;
 				position:relative;

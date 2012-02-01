@@ -29,6 +29,7 @@ $(function() {
   $('#lots_of_friends').live('click', function(){
     $('.second_half').show();
     $(this).hide();
+	$('#facebox,.popup,.content').css("height","500px");
   });
   if (document.getElementById('invite_friends_facebox')){
     $.facebox({ div: '#invite_friends_facebox' });
