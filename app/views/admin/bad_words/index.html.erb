@@ -6,14 +6,14 @@
 <ul>
 <% @bad_words.each do |bad_word| %>
   <li><%= bad_word.value %></li>
-  <%= form_tag admin_bad_word_path(bad_word), :method => :delete do %>
+  <%= form_tag admin_bad_word_path(bad_word), :method => :delete, :autocomplete => :off do %>
     <%= submit_tag "Delete #{bad_word.value}", :confirm => "Really delete \"#{bad_word.value}\"?" %>
   <% end %>
 <% end %>
 </ul>
 
 <% add_path = @demo ? admin_demo_bad_words_path(@demo) : admin_bad_words_path %>
-<%= form_tag add_path do |f| %>
+<%= form_tag add_path, :autocomplete => :off do |f| %>
   <%= label_tag 'new_bad_words', 'New bad words' %>
   <%= text_area_tag "new_bad_words" %><br/>
   <p>Separate new bad words with a comma.</p>

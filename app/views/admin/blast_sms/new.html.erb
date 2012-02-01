@@ -15,7 +15,7 @@
 </ul>
 </p>
 
-<%= form_tag admin_demo_blast_sms_path(@demo), :method => :post do %>
+<%= form_tag admin_demo_blast_sms_path(@demo), :method => :post, :autocomplete => :off do %>
   <%= label_tag 'message_body' %>
   <%= text_field_tag :message_body, '', :size => 160, :maxlength => 160 %>
   <%= add_byte_counter_for 'Message body' %>

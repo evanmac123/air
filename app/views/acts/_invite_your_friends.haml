@@ -2,9 +2,9 @@
   - div_id = 'invite_friends_facebox'
   - show_greeting = true
   - session[:invite_friends_modal_shown] = true
-  %h2 Invite your friends
-  %p For each friend that joins the game, you get an extra 5 points!
-  = link_to "Invite friends to play", activity_path
+  / %h2 Invite your friends
+  / %p For each friend that joins the game, you get an extra 5 points!
+  / = link_to "Invite friends to play", activity_path
 - else
   - div_id = 'invite_friends'
 
@@ -15,7 +15,7 @@
   %p For each friend that joins the game, you get an extra 5 points!
   #points_per_referral= current_user.demo.game_referrer_bonus
   - unless current_user.demo.self_inviting_domains.empty?
-    = form_tag invitation_invite_friend_path do  
+    = form_tag invitation_invite_friend_path, :autocomplete => :off do  
       %p Enter your friends' email addresses:
       #bonus
         That's
@@ -42,7 +42,7 @@
      
   -else
     #search_for_friends_to_invite
-      = form_tag invitation_invite_friend_path do  
+      = form_tag invitation_invite_friend_path, :autocomplete => :off do  
         = hidden_field_tag 'invitee_ids'
     
         %ul.form-section

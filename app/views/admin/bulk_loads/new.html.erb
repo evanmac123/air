@@ -21,7 +21,7 @@
   </ul>
 </p>
 
-<%= form_tag admin_demo_bulk_load_path(@demo) do %>
+<%= form_tag admin_demo_bulk_load_path(@demo), :autocomplete => :off do %>
   <%= text_area_tag :bulk_user_data %>
   <%= submit_tag "Upload Users" %>
 <% end %>

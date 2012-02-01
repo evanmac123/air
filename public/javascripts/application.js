@@ -1,5 +1,6 @@
 var autocomplete_in_progress = 0;
 var autocomplete_waiting = 0;
+var contents_of_invite_your_friends_div_898772 = '';
 
 $(function() {
   $('#invite_friends_link').live('click', function(){
@@ -24,6 +25,8 @@ $(function() {
     })
   };
 
+  $(document).bind('close.facebox', function() { restoreInviteFriends(); });
+
   $('#lots_of_friends').live('click', function(){
     $('.second_half').show();
     $(this).hide();
@@ -38,7 +41,8 @@ $(function() {
         $('#facebox ' + prep + i).attr('id', prep + i + '_facebox');
       }
     }else{
-      $('#invite_friends_facebox').html('');
+      //$('#invite_friends_facebox').html('');
+      saveInviteFriendsToVariable();
       $('#facebox #autocomplete').focus();
     }
 
@@ -132,6 +136,15 @@ $(function() {
 
 
 });
+
+function saveInviteFriendsToVariable(){
+  contents_of_invite_your_friends_div_898772 = $('#invite_friends_facebox').html();
+  $('#invite_friends_facebox').html('');  
+}
+
+function restoreInviteFriends(){
+  $('#invite_friends_facebox').html(contents_of_invite_your_friends_div_898772);  
+}
 
 function calculatePoints(){
   // here we will see how many email addresses were entered and apply points accordingly
