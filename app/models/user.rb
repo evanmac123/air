@@ -49,6 +49,8 @@ class User < ActiveRecord::Base
   validates_numericality_of :height, :allow_blank => true, :message => "Please use a numeric value for your height, and express it in inches"
   validates_numericality_of :weight, :allow_blank => true, :message => "Please use a numeric value for your weight, and express it in pounds"
 
+  validates_acceptance_of :terms_and_conditions, :if => :trying_to_accept, :message => "You must accept the terms and conditions" 
+
   validates_length_of :password, :minimum => 6, :allow_blank => true, :message => 'must have at least 6 characters'
 
   has_attached_file :avatar,
@@ -923,6 +925,10 @@ class User < ActiveRecord::Base
   end
 
   def self.get_users_where_like(text, demo, attribute)
-    User.where("LOWER(#{attribute}) like ?", "%" + text + "%").where(:demo_id => demo.id ).claimed
+    User.where("LOWER(#{attribute}) like ?", "%" + text + "%").where(:demo_id => demo.id )
+  end
+  
+  def self.get_claimed_users_where_like(text, demo, attribute)
+    get_users_where_like(text, demo, attribute).claimed
   end
 end

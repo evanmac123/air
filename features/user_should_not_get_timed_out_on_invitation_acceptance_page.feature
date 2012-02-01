@@ -13,6 +13,7 @@ Feature: User shouldn't get timed out on invitation acceptance page
 
     And I fill in the required self-invitation fields
     And 10 minutes pass
+    And I check "Terms and conditions"
     And I press "Join the game"
     Then I should be on the activity page
     And I should not see "Your session has expired"

@@ -479,3 +479,11 @@ a.feedback {
 	font-size:12px;
 	margin-top:7px;
 }
+#terms_label{
+  position: relative;
+  left: 27px;
+  top: -15px;
+  &+ .form-msg{
+    margin-top: -8px;
+  }
+}

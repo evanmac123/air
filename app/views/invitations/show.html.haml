@@ -107,7 +107,15 @@
     %div.form-ul-section
       %div.helper#passwordConf And confirm that password – just in case.
       = f.fancy_password_field :password_confirmation, :label_text => "And confirm that password"
-
+        
+    %ul.form-section
+      = f.check_box(:terms_and_conditions)
+      = f.label :terms_and_conditions, :style => "display: none;"
+      #terms_label
+        I accept the 
+        = link_to "terms and conditions", terms_path
+      - if @user.errors[:terms_and_conditions]
+        .form-msg= @user.errors[:terms_and_conditions]
     %ul.form-section.signup-submit
       %li
         <input name="commit" type="submit" value="Join the game">
@@ -121,3 +129,6 @@
     %li We'll never sell or otherwise distribute your information to anyone outside of H Engage.
     %li We analyze data using an anonymous method that protects your privacy.
     %li As most organizations do, we will share information in an aggregate way that doesn't compromise anyone's privacy, but does explain how effective our services are. For example, "36% of people pressed this button".
+  %div
+    If you'd like to read more, see our 
+    = link_to "complete privacy policy", privacy_path

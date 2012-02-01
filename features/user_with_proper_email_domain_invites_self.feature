@@ -31,6 +31,7 @@ Feature: User with proper email domain invites self
     And I fill in "And confirm that password" with "foobar"
     And I fill in "Choose a username" with "chester"
 
+    And I check "Terms and conditions"
     And I press "Join the game"
     Then I should be on the activity page
     And I should see "Chester Humphries joined the game"

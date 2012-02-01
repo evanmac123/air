@@ -14,11 +14,20 @@ Feature: User accepts invitation
     When "dan@example.com" opens the email
     And I click the first link in the email
 
+  Scenario: Throws error messages if terms and conditions not accepted
+    Then I should be on the invitation page for "dan@example.com"
+    When I fill in "Enter your mobile number" with "508-740-7520"
+    And I fill in "Choose a password" with "whatwhat"
+    And I fill in "And confirm that password" with "whatwhat"
+    And I press "Join the game"
+    And I should see "You must accept the terms and conditions"
+    
   Scenario: User accepts invitation
     Then I should be on the invitation page for "dan@example.com"
     When I fill in "Enter your mobile number" with "508-740-7520"
     And I fill in "Choose a password" with "whatwhat"
     And I fill in "And confirm that password" with "whatwhat"
+    And I check "Terms and conditions"
     And I press "Join the game"
     And DJ cranks once
     Then "+15087407520" should have received an SMS "You've joined the 3M game! Your username is dan (text MYID if you forget). To play, text to this #."
@@ -29,6 +38,7 @@ Feature: User accepts invitation
     When I fill in "Enter your mobile number" with "508-740-7520"
     And I fill in "Choose a password" with "whatwhat"
     And I fill in "And confirm that password" with "whatwhat"
+    And I check "Terms and conditions"
     And I press "Join the game"
     And I go to the profile page for "Dan"
     Then I should see "Dan joined the game"
@@ -39,6 +49,7 @@ Feature: User accepts invitation
     And I fill in "Enter your mobile number" with "415-261-3077"
     And I fill in "Choose a password" with "whowho"
     And I fill in "And confirm that password" with "whowho"
+    And I check "Terms and conditions"
     And I press "Join the game"
     And DJ cranks 5 times
     
@@ -51,12 +62,13 @@ Feature: User accepts invitation
     And I fill in "Enter your mobile number" with "415-261-3077"
     And I fill in "Choose a password" with "whowho"
     And I fill in "And confirm that password" with "whowho"
+    And I check "Terms and conditions"
     And I press "Join the game"
     Then I should be on the activity page
     # And I should see "Phil 10 pts"
     And I should see "10 pts Phil joined the game less than a minute ago"
 
-  Scenario: User doesn't get seed points twice
+  Scenario: User doesn not get seed points twice
     Given time is frozen
     When "phil@example.com" opens the email
     And I click the first link in the email
@@ -67,6 +79,7 @@ Feature: User accepts invitation
     And I click the first link in the email
     And I fill in "Choose a password" with "whowho"
     And I fill in "And confirm that password" with "whowho"
+    And I check "Terms and conditions"
     And I press "Join the game"
     Then I should be on the activity page
     And I should not see "Phil 20 points"
@@ -75,6 +88,7 @@ Feature: User accepts invitation
     When I fill in "Enter your mobile number" with "508-740-7520"
     And I fill in "Choose a password" with "whatwhat"
     And I fill in "And confirm that password" with "whatwhat"
+    And I check "Terms and conditions"
     And I press "Join the game"
     And I sign out
     And I sign in via the login page as "Dan/whatwhat"
@@ -92,9 +106,10 @@ Feature: User accepts invitation
     Then I should not see "Welcome to the game"
     And I should see "Password doesn't match confirmation"
 
-  Scenario: User doesn't have to specify mobile number to join
+  Scenario: User doesn not have to specify mobile number to join
     When I fill in "Choose a password" with "whatwhat"
     And I fill in "And confirm that password" with "whatwhat"
+    And I check "Terms and conditions"
     And I press "Join the game"
     And DJ cranks once
     Then I should be on the activity page
@@ -118,6 +133,7 @@ Feature: User accepts invitation
     When I fill in "Enter your mobile number" with "508-740-7520"
     And I fill in "Choose a password" with "whatwhat"
     And I fill in "And confirm that password" with "whatwhat"
+    And I check "Terms and conditions"
     And I press "Join the game"
     And I should see "Your game begins on May 01, 2011 at 12:00 AM Eastern."
     But "Joe" should be claimed by "+15087407520"
@@ -125,7 +141,7 @@ Feature: User accepts invitation
     When I go to the activity page
     Then I should see "Your game begins on May 01, 2011 at 12:00 AM Eastern."
     
-  Scenario: User accepts invitation for demo with no locations, and doesn't see dropdown for it
+  Scenario: User accepts invitation for demo with no locations, and does not see dropdown for it
     When I click the first link in the email
     Then I should be on the invitation page for "dan@example.com"
     And I should not see "Location"
@@ -136,6 +152,7 @@ Feature: User accepts invitation
     And I fill in "Enter your mobile number" with "508-740-7520"
     And I fill in "Choose a password" with "whatwhat"
     And I fill in "And confirm that password" with "whatwhat"
+    And I check "Terms and conditions"
     And I press "Join the game"
     Then I should not see "Welcome to the game"
     And I should see "Sorry, that username is already taken."
@@ -153,6 +170,7 @@ Feature: User accepts invitation
     And I should see "Sorry, the username must consist of letters or digits only."
 
     When I fill in "Choose a username" with "DannyBoy"
+    And I check "Terms and conditions"
     And I press "Join the game"
     Then I should see "Welcome to the game"
     When DJ cranks once

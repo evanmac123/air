@@ -6,6 +6,15 @@ class PagesController < HighVoltage::PagesController
   before_filter :signed_out_only, :except => [:faq, :faq_body, :faq_toc]
   before_filter :set_login_url
 
+  def terms
+    render :layout => "/layouts/external"
+  end
+  
+  def privacy
+    render :layout => "/layouts/external"
+  end
+  
+  
   def faq
     render :layout => "/layouts/application"
   end

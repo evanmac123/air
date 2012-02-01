@@ -17,6 +17,7 @@ Feature: User gets followup welcome message at some point after starting the gam
     When I fill in "Enter your mobile number" with "(415) 261-3077"
     And I fill in "Choose a password" with "ohyeah"
     And I fill in "And confirm that password" with "ohyeah"
+    And I check "Terms and conditions"
     And I press "Join the game"
     And time moves ahead 30
     And DJ cranks 10 times
@@ -34,6 +35,7 @@ Feature: User gets followup welcome message at some point after starting the gam
     When I fill in "Enter your mobile number" with "(415) 261-3077"
     And I fill in "Choose a password" with "ohyeah"
     And I fill in "And confirm that password" with "ohyeah"
+    And I check "Terms and conditions"
     And I press "Join the game"
     And time moves ahead 29:59
     And DJ cranks 10 times

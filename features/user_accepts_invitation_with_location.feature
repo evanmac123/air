@@ -26,6 +26,7 @@ Feature: User accepts invitation and specifies location
     Then I should be on the invitation page for "joe@example.com"
     When I fill in "Choose a password" with "whatwhat"
     And I fill in "And confirm that password" with "whatwhat"
+    And I check "Terms and conditions"
     And I press "Join the game"
     Then I should be on the activity page
     And I should see "Joe joined the game less than a minute ago"
@@ -36,6 +37,7 @@ Feature: User accepts invitation and specifies location
     When I fill in "Choose a password" with "whatwhat"
     And I fill in "And confirm that password" with "whatwhat"
     And I select "Gammaville" from "Location"
+    And I check "Terms and conditions"
     And I press "Join the game"
     Then I should be on the activity page
     And I should see "Bob joined the game less than a minute ago"

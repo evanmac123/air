@@ -54,6 +54,7 @@ Feature: User gives credit to game referer via autocomplete field
     And I fill in "Choose a username" with "somereallylongtextstring"
     And I fill in "Choose a password" with "password"
     And I fill in "And confirm that password" with "password"
+    And I check "Terms and conditions"
     And I press "Join the game"
     And I wait a second
     Then I should see "Brought to you by"
@@ -99,6 +100,7 @@ Feature: User gives credit to game referer via autocomplete field
     And I fill in "Choose a username" with "somereallylongtextstring"
     And I fill in "Choose a password" with "password"
     And I fill in "And confirm that password" with "password"
+    And I check "Terms and conditions"
     And I press "Join the game"
     And I wait a second
     Then I should see "Brought to you by"
@@ -131,6 +133,7 @@ Feature: User gives credit to game referer via autocomplete field
     And I fill in "Choose a username" with "somereallylongtextstring"
     And I fill in "Choose a password" with "password"
     And I fill in "And confirm that password" with "password"
+    And I check "Terms and conditions"
     And I press "Join the game"
     And I wait a second
     Then I should see "Brought to you by"
@@ -166,6 +169,7 @@ Feature: User gives credit to game referer via autocomplete field
     And I fill in "Choose a username" with "somereallylongtextstring"
     And I fill in "Choose a password" with "password"
     And I fill in "And confirm that password" with "password"
+    And I check "Terms and conditions"
     And I press "Join the game"
     And I wait a second
     Then I should see "Brought to you by"

@@ -36,6 +36,7 @@ module SteakHelperMethods
     fill_in "Choose a username", :with => "jrussell"
     fill_in "Choose a password", :with => "foobar"
     fill_in "And confirm that password", :with => "foobar"
+    check "user_terms_and_conditions"
   end
 
   def expect_avatar48(expected_filename)

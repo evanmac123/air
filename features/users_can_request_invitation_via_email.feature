@@ -24,6 +24,7 @@ Feature: Users can request invitation via email
     And I fill in "Choose a username" with "joshy"
     And I fill in "Choose a password" with "abcdefg"
     And I fill in "And confirm that password" with "abcdefg"
+    And I check "Terms and conditions"
     And I press "Join the game"
     Then I should see "Welcome to the game!"
     

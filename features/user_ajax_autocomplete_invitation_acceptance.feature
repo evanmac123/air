@@ -72,6 +72,7 @@ Feature: User gives credit to game referer via autocomplete field
 
   Scenario: When I submit with errors, I am brought back to the same page
     I should see "new_user@hopper.com"
+    And I check "Terms and conditions"
     When I press "Join the game"
     Then I should see "new_user@hopper.com"
 
@@ -80,6 +81,7 @@ Feature: User gives credit to game referer via autocomplete field
     When I fill in "Whom can we thank for referring you?" with "barnaby"
     Then I should see "Barnaby Bueller"
     When I select the suggestion containing "Barnaby Bueller"
+    And I check "Terms and conditions"
     And I press "Join the game"
     Then I should see "Barnaby Bueller"
 
@@ -102,6 +104,7 @@ Feature: User gives credit to game referer via autocomplete field
   And I fill in "Choose a username" with "somereallylongtextstring"
   And I fill in "Choose a password" with "password"
   And I fill in "And confirm that password" with "password"
+  And I check "Terms and conditions"
   And I press "Join the game"
   And I wait a second
   Then I should see "Brought to you by"
