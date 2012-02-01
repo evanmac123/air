@@ -1,42 +1,23 @@
 /* ---------- customizations ---------- */
 /* ---------- END customizations ---------- */
 /* layout/reset/fonts/etc */
-a {
-  text-decoration: none!important; }
-  a:hover {
-    color: #6eae4d; }
+a { text-decoration: none!important; }
+a:hover { color: #6eae4d; }
 
-.cf {
-  clear: both; }
+.cf { clear: both; }
 
-h1, h2, h3 {
-  letter-spacing: 1px;
-  margin: 0;
-  padding: 0; }
+h1, h2, h3 { letter-spacing: 1px; margin: 0; padding: 0; }
 
-img {
-  border: 0;
-  margin: 0;
-  padding: 0; }
+img { border: 0; margin: 0; padding: 0; }
 
-input:focus {
-  outline: 0; }
+input:focus { outline: 0; }
 
-p {
-  margin: 0;
-  padding: 0; }
+p { margin: 0; padding: 0; }
 
-ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0; }
+ul { list-style-type: none; margin: 0; padding: 0; }
 
 /* Game type colors */
 /* ---------- general mixins ---------- */
 /* ---------- header mixins ---------- */
-.suggested-task {
-  background-color: #5e6166!important;
-  box-shadow: 0 0 3px 2px white;
-  behavior: url(/css3pie/PIE.htc); }
-  .suggested-task div.gradient {
-    background-color: #47484C!important; }
+.suggested-task { background-color: #5e6166!important; box-shadow: 0 0 3px 2px white; behavior: url(/css3pie/PIE.htc); }
+.suggested-task div.gradient { background-color: #47484C!important; }

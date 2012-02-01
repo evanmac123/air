@@ -673,7 +673,7 @@ class User < ActiveRecord::Base
 
   def slug_required
     # slug required if there is a name
-    self.name.present?
+    self.name.present? || self.trying_to_accept
   end
 
   def downcase_email

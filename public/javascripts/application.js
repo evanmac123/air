@@ -25,7 +25,6 @@ $(function() {
     })
   };
 
-  $(document).bind('close.facebox', function() { restoreInviteFriends(); });
 
   $('#lots_of_friends').live('click', function(){
     $('.second_half').show();
@@ -42,6 +41,7 @@ $(function() {
       }
     }else{
       //$('#invite_friends_facebox').html('');
+      $(document).bind('close.facebox', function() { restoreInviteFriends(); });
       saveInviteFriendsToVariable();
       $('#facebox #autocomplete').focus();
     }
