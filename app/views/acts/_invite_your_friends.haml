@@ -39,6 +39,7 @@
       .invite_or_add    
         = submit_tag "Invite!"
         = link_to "I have LOTS of friends", '#m', :id => :lots_of_friends
+
      
   -else
     #search_for_friends_to_invite
@@ -59,4 +60,3 @@
             #suggestions
           #submit_invite_friend
             = link_to "Invite!", '#f', :id => :invite_friends_link
-

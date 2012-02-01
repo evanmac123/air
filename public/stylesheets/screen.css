@@ -824,6 +824,27 @@ body.acts .container .feeds {
 body.acts .container .invite-module {
   float: right;
   width: 35%; }
+  body.acts .container .invite-module #invite_friends div#search_for_friends_to_invite div#bonus {
+    color: #909090;
+    padding: 7px 0;
+    width: 87%; }
+  body.acts .container .invite-module #invite_friends div#search_for_friends_to_invite div.single_suggestion {
+    margin: 0 auto;
+    width: 300px; }
+    body.acts .container .invite-module #invite_friends div#search_for_friends_to_invite div.single_suggestion a.remove_referrer {
+      color: #909090; }
+      body.acts .container .invite-module #invite_friends div#search_for_friends_to_invite div.single_suggestion a.remove_referrer:hover {
+        color: #6eae4d; }
+      body.acts .container .invite-module #invite_friends div#search_for_friends_to_invite div.single_suggestion a.remove_referrer:active {
+        color: #2e2e2c; }
+    body.acts .container .invite-module #invite_friends div#search_for_friends_to_invite div.single_suggestion img {
+      -webkit-border-radius: 3px;
+      -moz-border-radius: 3px;
+      border-radius: 3px;
+      behavior: url(/css3pie/PIE.htc);
+      z-index: 0;
+      border: 1px #e9e9e9 inset;
+      width: 75px; }
   body.acts .container .invite-module #invite_friends form {
     margin-top: 15px; }
     body.acts .container .invite-module #invite_friends form p {
@@ -895,7 +916,8 @@ body.acts .container .invite-module {
     font-weight: bold; }
 body.acts #facebox .popup .content {
   background: #e9e9e9;
-  padding: 10px 20px 5px 20px; }
+  padding: 10px 20px 5px 20px;
+  position: relative; }
   body.acts #facebox .popup .content form {
     margin: 0 auto;
     padding: 5px 0; }
@@ -913,6 +935,8 @@ body.acts #facebox .popup .content {
       body.acts #facebox .popup .content form input[type=text]:focus {
         background-color: #fff;
         border: 1px #588b3d solid; }
+    body.acts #facebox .popup .content form div#bonus {
+      padding: 10px 0; }
     body.acts #facebox .popup .content form div.first_half, body.acts #facebox .popup .content form div.second_half {
       color: #909090; }
     body.acts #facebox .popup .content form div.invite_or_add {
@@ -958,13 +982,55 @@ body.acts #facebox .popup .content {
           background: #909090; }
     body.acts #facebox .popup .content form div.single_suggestion {
       width: 350px; }
+      body.acts #facebox .popup .content form div.single_suggestion a.remove_referrer {
+        color: #909090; }
+        body.acts #facebox .popup .content form div.single_suggestion a.remove_referrer:hover {
+          color: #6eae4d; }
+        body.acts #facebox .popup .content form div.single_suggestion a.remove_referrer:active {
+          color: #2e2e2c; }
       body.acts #facebox .popup .content form div.single_suggestion img {
         -webkit-border-radius: 3px;
         -moz-border-radius: 3px;
         border-radius: 3px;
         behavior: url(/css3pie/PIE.htc);
         z-index: 0;
+        border: 1px #e9e9e9 inset;
         width: 75px; }
+    body.acts #facebox .popup .content form div#submit_invite_friend {
+      margin-top: 25px; }
+      body.acts #facebox .popup .content form div#submit_invite_friend a#invite_friends_link {
+        background: #3f3f3f;
+        /* Old browsers */
+        background: -moz-linear-gradient(top, #3f3f3f 0%, #2e2f2d 100%);
+        /* FF3.6+ */
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #3f3f3f), color-stop(100%, #2e2f2d));
+        /* Chrome,Safari4+ */
+        background: -webkit-linear-gradient(top, #3f3f3f 0%, #2e2f2d 100%);
+        /* Chrome10+,Safari5.1+ */
+        background: -o-linear-gradient(top, #3f3f3f 0%, #2e2f2d 100%);
+        /* Opera 11.10+ */
+        background: -ms-linear-gradient(top, #3f3f3f 0%, #2e2f2d 100%);
+        /* IE10+ */
+        background: linear-gradient(top, #3f3f3f 0%, #2e2f2d 100%);
+        /* W3C */
+        -webkit-border-radius: 20px;
+        -moz-border-radius: 20px;
+        border-radius: 20px;
+        behavior: url(/css3pie/PIE.htc);
+        border: 0;
+        color: #fff;
+        font-family: "Lato", Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+        font-weight: bold;
+        padding: 5px 15px;
+        text-shadow: 1px 1px 1px #2e2e2c;
+        text-transform: uppercase;
+        font-size: 11px; }
+        body.acts #facebox .popup .content form div#submit_invite_friend a#invite_friends_link:hover {
+          background: #588b3d; }
+        body.acts #facebox .popup .content form div#submit_invite_friend a#invite_friends_link:active {
+          background: #909090; }
+    body.acts #facebox .popup .content form div#suggestions {
+      left: 15px; }
     body.acts #facebox .popup .content form li label {
       font-weight: bold; }
     body.acts #facebox .popup .content form p {

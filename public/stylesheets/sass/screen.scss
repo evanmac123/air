@@ -257,6 +257,28 @@ body.acts {
 			float: right;
 			width: 35%;
 			#invite_friends{
+				div#search_for_friends_to_invite {
+					div#bonus {
+						color:$gray;
+						padding:7px 0;
+						width:87%;
+					}
+					div.single_suggestion {
+//						left:15px;
+						margin:$centered;
+						width:300px;
+						a.remove_referrer {
+							color:$gray;
+							&:hover {color:lighten($header-bg,10%);}
+							&:active {color:$dark-gray;}
+						}
+						img {
+							@include rounded;
+							border:1px $light-gray inset;
+							width:75px;
+						}
+					}
+				}
 				form {
 					margin-top: 15px;
 					p {
@@ -314,10 +336,14 @@ body.acts {
 			.content {
 				background:$light-gray;
 				padding:10px 20px 5px 20px;
+				position:relative;
 				form {
 					@include input-text;
 					margin:$centered;
 					padding:5px 0;
+					div#bonus {
+						padding:10px 0;
+					}
 					div.first_half, div.second_half {
 						color:$gray;
 					}
@@ -341,10 +367,27 @@ body.acts {
 					}
 					div.single_suggestion {
 						width:350px;
+						a.remove_referrer {
+							color:$gray;
+							&:hover {color:lighten($header-bg,10%);}
+							&:active {color:$dark-gray;}
+						}
 						img {
 							@include rounded;
+							border:1px $light-gray inset;
 							width:75px;
 						}
+					}
+					div#submit_invite_friend {
+						margin-top:25px;
+						a#invite_friends_link {
+							@include button-norm;
+//							display:block;
+							font-size:11px;
+						}
+					}
+					div#suggestions {
+						left:15px;
 					}
 					li {
 						label {font-weight:bold;}
