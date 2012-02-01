@@ -923,6 +923,6 @@ class User < ActiveRecord::Base
   end
 
   def self.get_users_where_like(text, demo, attribute)
-    User.where("LOWER(#{attribute}) like ?", "%" + text + "%").where(:demo_id => demo.id )
+    User.where("LOWER(#{attribute}) like ?", "%" + text + "%").where(:demo_id => demo.id ).claimed
   end
 end

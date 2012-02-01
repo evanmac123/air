@@ -10,7 +10,7 @@ Feature: User gives credit to game referer via autocomplete field
       | hopper.com | name: Bratwurst |
       | biker.com  | name: Gleason   |
 
-    Given the following users exist:
+    Given the following claimed users exist:
       | name               | demo                    | email        | slug      | sms_slug    |
       | Barnaby Bueller    | name: Bratwurst | 1@hopper.com | smoke     | smoke       |
       | Charlie Brainfield | name: Bratwurst | 2@hopper.com | airplane  | airplane    |
@@ -20,6 +20,11 @@ Feature: User gives credit to game referer via autocomplete field
       | Bruce Springsteen  | name: Gleason   | 2@biker.com  | airairair | airairair   |
       | Barnaby Watson     | name: Gleason   | 3@biker.com  | mypeeps   | mypeeps     |
       | Charlie Moore      | name: Gleason   | 4@biker.com  | livingit  | livingit    |
+    And the following users exist:
+      | name               | demo            | email        | slug      | sms_slug    |
+      | Charlie Smythe     | name: Bratwurst | 5@hopper.com | smythe    | smythe      |
+      | Luther Vandross    | name: Bratwurst | 6@harley.com | luther    | luther      |
+      | Gazpacho           | name: Bratwurst | 7@hopper.com | hardly    | hardly      |
     Given "new_user@hopper.com" sends email with subject "whatever" and body "join"
     And DJ cranks 5 times
     Then "new_user@hopper.com" should receive an email
@@ -46,6 +51,14 @@ Feature: User gives credit to game referer via autocomplete field
     When I fill in "Whom can we thank for referring you?" with "air"
     Then I should see "Charlie Brainfield"
     And I should not see "Bruce Springsteen"
+
+  @javascript
+  Scenario: User sees only claimed users
+    When I fill in "Whom can we thank for referring you?" with "har"
+    Then I should see "Charlie Brainfield"
+    But I should not see "Charlie Smythe"
+    And I should not see "Luther Vandross"
+    And I should not see "Gazpacho"
 
   @javascript
   Scenario: Field is populated with what the user clicks on
