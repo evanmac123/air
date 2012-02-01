@@ -936,6 +936,7 @@ body.acts #facebox .popup .content {
         background-color: #fff;
         border: 1px #588b3d solid; }
     body.acts #facebox .popup .content form div#bonus {
+      color: #909090;
       padding: 10px 0; }
     body.acts #facebox .popup .content form div.first_half, body.acts #facebox .popup .content form div.second_half {
       color: #909090; }
