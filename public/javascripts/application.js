@@ -30,14 +30,20 @@ $(function() {
   });
   if (document.getElementById('invite_friends_facebox')){
     $.facebox({ div: '#invite_friends_facebox' });
-    $('#invite_friends_facebox').html('');
-    $('#facebox #autocomplete').focus();
+
     if (document.getElementById('email_prepends_0')){
-      $('#email_prepends_0').focus();
+      $('#facebox #email_prepends_0').focus();
+      var prep = '#email_prepends_';
+      for (var i=0; i<10; i++){ // change these id's so there are no duplicates on the
+        $('#facebox ' + prep + i).attr('id', prep + i + '_facebox');
+      }
+    }else{
+      $('#invite_friends_facebox').html('');
+      $('#facebox #autocomplete').focus();
     }
 
   }
-  
+
 
   
   
@@ -51,7 +57,7 @@ $(function() {
       autocompleteIfNoneRunning(options);
   });
 
-  $('#search_for_friends_to_invite #autocomplete').keypress(function(){
+  $('#search_for_friends_to_invite #autocomplete').live('keypress', function(){
       var email = $('#user_email').val();
       var options = {email : email, calling_div : '#search_for_friends_to_invite'};
       autocompleteIfNoneRunning(options);
