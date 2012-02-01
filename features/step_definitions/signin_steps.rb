@@ -7,8 +7,8 @@ end
 When /^I fill in the login fields (as|with) "(.*?)"$/ do |_nothing, login_string|
   username, password = login_string.split('/')
   user = User.find_by_name(username)
-  fill_in 'session[email]', :with => user.email
-  fill_in 'session[password]', :with => password
+  When %{I fill in the email field with "#{user.email}"}
+  When %{I fill in the password field with "#{password}"}
 end
 
 When /^I sign in via the login page (as|with) "(.*?)"$/ do |_nothing, login_string|
@@ -26,6 +26,14 @@ end
 
 When /^I am not logged in$/ do
   delete sign_out_path
+end
+
+When /^I fill in the email field with "([^"]*)"$/ do |text|
+  fill_in 'session[email]', :with => text
+end
+
+When /^I fill in the password field with "([^"]*)"$/ do |text|
+  fill_in 'session[password]', :with => text
 end
 
 When /^I check the remember\-me checkbox$/ do
