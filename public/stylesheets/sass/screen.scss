@@ -38,23 +38,24 @@ body {
 	div {
 		@include box-shadow;
 		@include rounded;
-		background-color:lighten($gray, 40%);
+//		background-color:lighten($gray, 40%);
+		background-color:#fff;
 		font-weight: bold;
 		padding:15px 0 15px 120px;
 	}
 	#flash_failure {
-		background-image:url(/images/v3/flash-ex.png);
+		background-image:url(/images/v3/flash-f.png);
 		background-position: 0 center;
 		background-repeat:no-repeat;
 		border:1px $flash-f solid;
-		color:$flash-f;
+		color:#8cb5b8;
 	}
 	#flash_success {
-		background-image:url(/images/v3/flash-check.png);
+		background-image:url(/images/v3/flash-s.png);
 		background-position: 0 center;
 		background-repeat:no-repeat;
 		border:1px $flash-s solid;
-		color:$flash-s;
+		color:#87b872;
 	}
 }
 

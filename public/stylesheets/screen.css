@@ -96,10 +96,34 @@ body .container input[type="submit"].button_norm:active { background: #909090; }
 .acts .header .navigation .nav-home, .users .header .navigation .nav-profile { background: #1e1f1e; /* Old browsers */ background: -moz-linear-gradient(top, #1e1f1e 13%, #343434 59%); /* FF3.6+ */ background: -webkit-gradient(linear, left top, left bottom, color-stop(13%, #1e1f1e), color-stop(59%, #343434)); /* Chrome,Safari4+ */ background: -webkit-linear-gradient(top, #1e1f1e 13%, #343434 59%); /* Chrome10+,Safari5.1+ */ background: -o-linear-gradient(top, #1e1f1e 13%, #343434 59%); /* Opera 11.10+ */ background: -ms-linear-gradient(top, #1e1f1e 13%, #343434 59%); /* IE10+ */ background: linear-gradient(top, #1e1f1e 13%, #343434 59%); /* W3C */ -webkit-border-radius: 20px; -moz-border-radius: 20px; border-radius: 20px; behavior: url(/css3pie/PIE.htc); border: 1px #6eae4d solid; }
 
 /* -- flash messages -- */
-#flash { margin: 15px auto 0 auto; width: 960px; }
-#flash div { -moz-box-shadow: 0 0 5px #c9c9c9; -webkit-box-shadow: 0 0 5px #c9c9c9; box-shadow: 0 0 5px #c9c9c9; behavior: url(/css3pie/PIE.htc); -webkit-border-radius: 3px; -moz-border-radius: 3px; border-radius: 3px; behavior: url(/css3pie/PIE.htc); z-index: 0; background-color: #f6f6f6; font-weight: bold; padding: 15px 0 15px 120px; }
-#flash #flash_failure { background-image: url(/images/v3/flash-ex.png); background-position: 0 center; background-repeat: no-repeat; border: 1px #f68500 solid; color: #f68500; }
-#flash #flash_success { background-image: url(/images/v3/flash-check.png); background-position: 0 center; background-repeat: no-repeat; border: 1px #00a05a solid; color: #00a05a; }
+#flash {
+  margin: 15px auto 0 auto;
+  width: 960px; }
+  #flash div {
+    -moz-box-shadow: 0 0 5px #c9c9c9;
+    -webkit-box-shadow: 0 0 5px #c9c9c9;
+    box-shadow: 0 0 5px #c9c9c9;
+    behavior: url(/css3pie/PIE.htc);
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    behavior: url(/css3pie/PIE.htc);
+    z-index: 0;
+    background-color: #fff;
+    font-weight: bold;
+    padding: 15px 0 15px 120px; }
+  #flash #flash_failure {
+    background-image: url(/images/v3/flash-f.png);
+    background-position: 0 center;
+    background-repeat: no-repeat;
+    border: 1px #50c1cb solid;
+    color: #8cb5b8; }
+  #flash #flash_success {
+    background-image: url(/images/v3/flash-s.png);
+    background-position: 0 center;
+    background-repeat: no-repeat;
+    border: 1px #58d858 solid;
+    color: #87b872; }
 
 #footer { clear: both; color: #909090; font-size: 12px; margin-top: 10px; padding: 15px; text-align: center; }
 
