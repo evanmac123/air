@@ -485,16 +485,30 @@ body {
   margin: 15px auto 0 auto;
   width: 960px; }
   #flash div {
+    -moz-box-shadow: 0 0 5px #c9c9c9;
+    -webkit-box-shadow: 0 0 5px #c9c9c9;
+    box-shadow: 0 0 5px #c9c9c9;
+    behavior: url(/css3pie/PIE.htc);
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
     border-radius: 3px;
     behavior: url(/css3pie/PIE.htc);
     z-index: 0;
-    background-color: #fff;
-    border: 1px #bebebe solid;
+    background-color: #f6f6f6;
     font-weight: bold;
-    padding: 15px 0 15px 150px;
-    behavior: url(/css3pie/PIE.htc); }
+    padding: 15px 0 15px 120px; }
+  #flash #flash_failure {
+    background-image: url(/images/v3/flash-ex.png);
+    background-position: 0 center;
+    background-repeat: no-repeat;
+    border: 1px #f68500 solid;
+    color: #f68500; }
+  #flash #flash_success {
+    background-image: url(/images/v3/flash-check.png);
+    background-position: 0 center;
+    background-repeat: no-repeat;
+    border: 1px #00a05a solid;
+    color: #00a05a; }
 
 #footer {
   clear: both;
@@ -899,6 +913,11 @@ body.settings .container .about_user {
       background: #588b3d !important;
       color: #fff; }
   body.settings .container .about_user .settings_avatar img.size-96 {
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    behavior: url(/css3pie/PIE.htc);
+    z-index: 0;
     width: 96px;
     height: 96px; }
   body.settings .container .about_user .settings_dob {

@@ -135,7 +135,7 @@ body.invitations .header #navigation .nav-signup, body.sessions .header #navigat
           .container .top .header .app_bar a:active {
             text-shadow: none!important; }
       .container .top .header #logo {
-        border-top: 1px #7cb85d solid;
+        border-top: 1px #71b24f solid;
         height: 192px;
         overflow: hidden;
         padding: 0; }
