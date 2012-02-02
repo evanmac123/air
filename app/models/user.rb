@@ -35,7 +35,7 @@ class User < ActiveRecord::Base
   validates_uniqueness_of :sms_slug, :message => "Sorry, that username is already taken.", :if => :slug_required
 
   validates_presence_of :name, :if => :name_required, :message => "Please enter your first and last name"
-  validates_presence_of :sms_slug, :message => "Sorry, you can't choose a blank username.", :if => :slug_required
+  validates_presence_of :sms_slug, :message => "Please choose a username", :if => :slug_required
   validates_presence_of :slug, :if => :slug_required
   
   validates_presence_of :privacy_level
