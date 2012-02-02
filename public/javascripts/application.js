@@ -86,6 +86,7 @@ $(function() {
     $(this).insertAfter('#relative');
     $('#submit_invite_friend').show();
     setTimeout('updatePotentialPoints()', 500);
+    increasePopupHeight();
   });
 
   $('.remove_referrer').live('click', function() {
@@ -136,6 +137,14 @@ $(function() {
 
 
 });
+
+function increasePopupHeight(){
+  var div_to_grow = $('.popup .content');
+  var initial_height = div_to_grow.height();
+  var height_to_add = $('.single_suggestion').height();
+  var new_height = initial_height + height_to_add;
+  div_to_grow.height(new_height);
+}
 
 function saveInviteFriendsToVariable(){
   contents_of_invite_your_friends_div_898772 = $('#invite_friends_facebox').html();
