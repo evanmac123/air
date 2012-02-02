@@ -37,13 +37,21 @@ Feature: Sign in
     But I should be signed in
     And I should be on the activity page
 
-  Scenario: User can sign in with SMS slug a.k.a. username
+  Scenario: User can sign in with SMS slug a.k.a. username, case-insensitively
     Given the following claimed user exists:
       | name      |
       | Bob Smith |
     And "Bob Smith" has password "foobar"
     When I go to the sign in page
     And I fill in the email field with "bobsmith"
+    And I fill in the password field with "foobar"
+    And I press "Let's play!"
+    Then I should be on the activity page
+
+    When I sign out
+    And I go to the activity page
+    Then I should be on the sign in page
+    When I fill in the email field with "BoBSmith"
     And I fill in the password field with "foobar"
     And I press "Let's play!"
     Then I should be on the activity page
