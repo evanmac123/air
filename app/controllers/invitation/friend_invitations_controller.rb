@@ -5,6 +5,7 @@ class Invitation::FriendInvitationsController < ApplicationController
   
   def create
     users_invited = []
+    # Pre-populated Domain
     if params[:invitee_ids]
       an_array = params[:invitee_ids].gsub(',', '').strip.split.uniq
       user_ids = an_array.collect do |f|
@@ -29,6 +30,7 @@ class Invitation::FriendInvitationsController < ApplicationController
       redirect_to activity_path and return        
     end
     
+    # Self-inviting Domain
     domain = current_user.demo.self_inviting_domains.first.domain
     unless domain
       add_failure "The domain is wrong"
@@ -47,7 +49,9 @@ class Invitation::FriendInvitationsController < ApplicationController
       users_with_email = User.where(:email => email)
       users_with_email_in_same_demo = User.where(:email => email, :demo_id => current_user.demo_id)
       
-      if users_with_email.present? && users_with_email_in_same_demo.empty?
+      if prepend.include? "@"
+        add_failure "Error--received: #{email}. Please enter only the part of the email address before the '@'."        
+      elsif users_with_email.present? && users_with_email_in_same_demo.empty?
         add_failure "Thanks, but #{email} is in a different game than you."
       elsif users_with_email.empty? 
         # create a new user, then invite

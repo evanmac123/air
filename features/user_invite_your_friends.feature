@@ -245,3 +245,14 @@ Feature: User gives credit to game referer via autocomplete field
     And I press "Invite!"
     And I should see "Thanks, but different_game@inviting.com is in a different game than you"
     And I should not see "That's 2000 potential bonus points!"
+
+
+  @javascript
+  Scenario: Throw an error if you put an @ symbol in the email prepend
+    Given "Barnaby" has the password "foobar"
+    Given I sign in via the login page as "Barnaby/foobar"    
+    Then I should see "Invite your friends"
+    When I fill in "email number 1" with "racing22@harmony.com"
+    And I press "Invite!"
+    And show me the page
+    Then I should see "Please enter only the part of the email address before the '@'"
