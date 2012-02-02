@@ -26,7 +26,8 @@ Feature: Users can request invitation via email
     And I fill in "And confirm that password" with "abcdefg"
     And I check "Terms and conditions"
     And I press "Join the game"
-    Then I should see "Welcome to the game!"
+    And I follow "Confirm my mobile number later"
+    Then I should be on the activity page
     
   Scenario: A join email that is not from aself-inviting domain
     When "nope@alabaster.com" sends email with subject "I Tarzan, You Jane" and body "join"

@@ -250,6 +250,21 @@ class User < ActiveRecord::Base
     name.split.first
   end
 
+  def send_new_phone_validation_token
+    SMS.send_message self.new_phone_number, "Your code to verify this phone with H Engage is #{self.new_phone_validation}."
+  end
+
+  def validate_new_phone(entered_validation_code)
+    entered_validation_code == self.new_phone_validation
+  end
+
+  def schedule_followup_welcome_message
+    return if (message = self.demo.followup_welcome_message).blank?
+
+    SMS.send_message(self, message, Time.now + demo.followup_welcome_message_delay.minutes)
+  end
+
+
   def self.in_canonical_ranking_order
     order("points DESC, name ASC")
   end
@@ -281,7 +296,7 @@ class User < ActiveRecord::Base
   end
 
   def mark_as_claimed(number)
-    update_attribute(:phone_number, PhoneNumber.normalize(number))
+    update_attribute(:phone_number, PhoneNumber.normalize(number)) if number.present?
     update_attribute(:accepted_invitation_at, Time.now)
   end
 
@@ -860,12 +875,6 @@ class User < ActiveRecord::Base
       :point_and_ranking_summary => referring_user.point_and_ranking_summary(points_denominator_before_referring_act)
     )
     SMS.send_message(referring_user, sms_text)
-  end
-
-  def schedule_followup_welcome_message
-    return if (message = self.demo.followup_welcome_message).blank?
-
-    SMS.send_message(self, message, Time.now + demo.followup_welcome_message_delay.minutes)
   end
 
   def update_demo_ranked_user_count

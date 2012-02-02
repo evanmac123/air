@@ -19,6 +19,8 @@ Feature: User gets followup welcome message at some point after starting the gam
     And I fill in "And confirm that password" with "ohyeah"
     And I check "Terms and conditions"
     And I press "Join the game"
+    And "Phil" fills in the new phone validation field with their validation code
+    And I press "Validate phone"
     And time moves ahead 30
     And DJ cranks 10 times
     Then "+14152613077" should have received an SMS "Play. Or die. Your choice."
@@ -37,6 +39,8 @@ Feature: User gets followup welcome message at some point after starting the gam
     And I fill in "And confirm that password" with "ohyeah"
     And I check "Terms and conditions"
     And I press "Join the game"
+    And "Phil" fills in the new phone validation field with their validation code
+    And I press "Validate phone"
     And time moves ahead 29:59
     And DJ cranks 10 times
     Then "+14152613077" should not have received an SMS including "Play. Or die. Your choice."

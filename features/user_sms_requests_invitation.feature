@@ -21,6 +21,15 @@ Feature: User requests an invitation via SMS
     And I should see "Name"
 
 
+    When I fill in "Enter your name" with "Bobby Sapperstein"
+    And I fill in "Choose a username" with "iambob"
+    And I fill in "Choose a password" with "whatwhat"
+    And I fill in "And confirm that password" with "whatwhat"
+    And I check "Terms and conditions"
+    And I press "Join the game"
+    Then I should be on the activity page
+    And I should see "Bobby Sapperstein joined the game"
+
 
   Scenario: We remember that user's phone number is pre-confirmed even if the acceptance process takes several tries
     When "email@example.com" opens the email

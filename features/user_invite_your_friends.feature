@@ -60,8 +60,8 @@ Feature: User gives credit to game referer via autocomplete field
     Then I should see "Brought to you by"
     Then user with email "1@loaded.com" should show up as referred by "Shelly"
     And DJ cranks 5 times
-    And I dump all sent texts
     And "+16662221111" should have received SMS "Blowing Smoke gave you credit for referring them to the game. Many thanks and 2000 bonus points!"
+    When I follow "Confirm my mobile number later"
     And I should see "Shelly got credit for referring Blowing Smoke to the game"
     And I should see "2000 pts"
 
@@ -103,6 +103,7 @@ Feature: User gives credit to game referer via autocomplete field
     And I check "Terms and conditions"
     And I press "Join the game"
     And I wait a second
+    When I follow "Confirm my mobile number later"
     Then I should see "Brought to you by"
     Then user with email "1@loaded.com" should show up as referred by "Shelly"
     And DJ cranks 5 times
@@ -141,6 +142,7 @@ Feature: User gives credit to game referer via autocomplete field
     And DJ cranks 5 times
     And I dump all sent texts
     And "+15554445555" should have received SMS "Blowing Smoke gave you credit for referring them to the game. Many thanks and 2000 bonus points!"
+    When I follow "Confirm my mobile number later"
     And I should see "Barnaby got credit for referring Blowing Smoke to the game"
     And I should see "2000 pts"
     
@@ -177,6 +179,7 @@ Feature: User gives credit to game referer via autocomplete field
     And DJ cranks 5 times
     And I dump all sent texts
     And "+15554445555" should have received SMS "Blowing Smoke gave you credit for referring them to the game. Many thanks and 2000 bonus points!"
+    When I follow "Confirm my mobile number later"
     And I should see "Barnaby got credit for referring Blowing Smoke to the game"
     And I should see "2000 pts"
     
@@ -254,5 +257,4 @@ Feature: User gives credit to game referer via autocomplete field
     Then I should see "Invite your friends"
     When I fill in "email number 1" with "racing22@harmony.com"
     And I press "Invite!"
-    And show me the page
-    Then I should see "Please enter only the part of the email address before the ‘@’ – and remember that only colleagues in your organization can play."
+    Then I should see `Please enter only the part of the email address before the "@" - and remember that only colleagues in your organization can play.`

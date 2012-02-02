@@ -8,8 +8,20 @@ class Invitation::AcceptancesController < ApplicationController
 
   def update
     # Set this as true so presence of name is validated
-    @user.trying_to_accept = true 
+    @user.trying_to_accept = true
+ 
+    # Unless the user was invited by SMS, their phone number (if any) needs to
+    # be validated before use. But in case there are errors and we have to re-
+    # render the form, remember the original phone number entered so we can 
+    # stick it back in.
+    entered_phone_number = params[:user][:phone_number]
+    unless @user.invitation_requested_via_sms?
+      params[:user][:new_phone_number] = PhoneNumber.normalize(params[:user][:phone_number])
+      params[:user].delete(:phone_number)
+    end
+
     @user.attributes = params[:user]
+    
     @user.slug = params[:user][:sms_slug]
     @user.valid?
     @user.errors.add(:terms_and_conditions, "You must accept the terms and conditions") unless params[:user][:terms_and_conditions]
@@ -18,6 +30,7 @@ class Invitation::AcceptancesController < ApplicationController
     
     # the below calls @user#save, so we don't save explicitly
     unless @user.update_password(params[:user][:password], params[:user][:password_confirmation])
+      @user.phone_number = entered_phone_number
       @locations = @user.demo.locations.alphabetical
       
       if @user.errors[:password] == ["doesn't match confirmation"]
@@ -37,7 +50,6 @@ class Invitation::AcceptancesController < ApplicationController
 
     unless @user.accepted_invitation_at
       @user.join_game(params[:user][:phone_number], :send) 
-      flash[:success] = "Welcome to the game! Players' activity is below to the left. The scoreboard is below to the right."
     end
     
     unless @user.game_referrer_id.nil?
@@ -46,7 +58,13 @@ class Invitation::AcceptancesController < ApplicationController
 
     sign_in(@user)
 
-    redirect_to "/activity"
+    if @user.invitation_requested_via_sms? || @user.new_phone_number.blank?
+      redirect_to activity_path
+    else
+      @user.generate_short_numerical_validation_token
+      @user.send_new_phone_validation_token
+      redirect_to phone_interstitial_verification_path
+    end
   end
   
 

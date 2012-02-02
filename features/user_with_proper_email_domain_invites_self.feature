@@ -33,6 +33,7 @@ Feature: User with proper email domain invites self
 
     And I check "Terms and conditions"
     And I press "Join the game"
+    And I follow "Confirm my mobile number later"
     Then I should be on the activity page
     And I should see "Chester Humphries joined the game"
 

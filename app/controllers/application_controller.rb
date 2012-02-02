@@ -43,6 +43,10 @@ class ApplicationController < ActionController::Base
 
   alias_method_chain :authenticate, :game_begun_check
 
+  def wrong_phone_validation_code_error
+    "Sorry, the code you entered was invalid. Please try typing it again."
+  end
+
   private
 
   def force_html_format

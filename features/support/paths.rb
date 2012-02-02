@@ -111,6 +111,9 @@ module NavigationHelpers
 
     when /the (login|sign-in|sign in|signin) page/
       sign_in_path
+
+    when /the interstitial phone (verification|validation) page/
+      phone_interstitial_verification_path
     else
 
       begin

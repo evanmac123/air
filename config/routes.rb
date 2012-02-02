@@ -9,7 +9,9 @@ Health::Application.routes.draw do
 
   resource  :conference_feed, :only => [:show]
 
-  resource :phone,      :only => [:update]
+  resource :phone,      :only => [:update] do
+    resource :interstitial_verification, :only => [:show, :update]
+  end
 
   resources :invitations, :only => [:new, :create, :show]
   namespace :invitation do

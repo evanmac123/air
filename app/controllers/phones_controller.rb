@@ -1,6 +1,6 @@
 class PhonesController < ApplicationController
   def update
-    if params[:user][:new_phone_validation] == current_user.new_phone_validation
+    if current_user.validate_new_phone(params[:user][:new_phone_validation])
       current_user.confirm_new_phone_number
       if current_user.save
         add_success "You have updated your phone number."
@@ -8,7 +8,7 @@ class PhonesController < ApplicationController
       end
     end
 
-    add_failure "Sorry, the code you entered was invalid. Please try typing it again."
+    add_failure wrong_phone_validation_code_error
     redirect_to :back
   end
 end

@@ -29,10 +29,39 @@ Feature: User accepts invitation
     And I fill in "And confirm that password" with "whatwhat"
     And I check "Terms and conditions"
     And I press "Join the game"
-    And DJ cranks once
+    Then I should be on the interstitial phone verification page
+
+    When DJ cranks 5 times
+    Then "Dan" should receive an SMS containing their new phone validation code
+    When "Dan" fills in the new phone validation field with their validation code
+    And I press "Validate phone"
+    And DJ cranks 5 times
+    And I dump all sent texts
+
     Then "+15087407520" should have received an SMS "You've joined the 3M game! Your username is dan (text MYID if you forget). To play, text to this #."
     And I should be on the activity page
     And I should see "Dan joined the game"
+
+  Scenario: User accepting invitation without a phone number doesn't go through the phone number validation page
+    When I fill in "Choose a password" with "whatwhat"
+    And I fill in "And confirm that password" with "whatwhat"
+    And I check "Terms and conditions"
+    And I press "Join the game"
+    Then I should be on the activity page
+
+  Scenario: User accepting invitation who has trouble validating phone number gets redirected to the validation page with an appropriate error
+    When I fill in "Enter your mobile number" with "508-740-7520"
+    And I fill in "Choose a password" with "whatwhat"
+    And I fill in "And confirm that password" with "whatwhat"
+    And I check "Terms and conditions"
+    And I press "Join the game"
+    Then I should be on the interstitial phone validation page
+    
+    When "Dan" fills in the new phone validation field with the wrong validation code
+    And I press "Validate phone"
+    Then I should be on the interstitial phone validation page
+    And I should see "Sorry, the code you entered was invalid. Please try typing it again."
+
 
   Scenario: User accepting invitation shows on profile page as joining the game
     When I fill in "Enter your mobile number" with "508-740-7520"
@@ -51,6 +80,8 @@ Feature: User accepts invitation
     And I fill in "And confirm that password" with "whowho"
     And I check "Terms and conditions"
     And I press "Join the game"
+    And "Phil" fills in the new phone validation field with their validation code
+    And I press "Validate phone"
     And DJ cranks 5 times
     
     Then "+14152613077" should have received an SMS "You, phil, are in the FooCo game."
@@ -64,6 +95,7 @@ Feature: User accepts invitation
     And I fill in "And confirm that password" with "whowho"
     And I check "Terms and conditions"
     And I press "Join the game"
+    And I follow "Confirm my mobile number later"
     Then I should be on the activity page
     # And I should see "Phil 10 pts"
     And I should see "10 pts Phil joined the game less than a minute ago"
@@ -135,6 +167,13 @@ Feature: User accepts invitation
     And I fill in "And confirm that password" with "whatwhat"
     And I check "Terms and conditions"
     And I press "Join the game"
+
+    Then I should be on the interstitial phone verification page
+    And I should not see "Your game begins on May 01, 2011 at 12:00 AM Eastern."
+    When "Joe" fills in the new phone validation field with their validation code
+    And I press "Validate phone"
+
+    Then I should be on the activity page
     And I should see "Your game begins on May 01, 2011 at 12:00 AM Eastern."
     But "Joe" should be claimed by "+15087407520"
 
@@ -172,8 +211,11 @@ Feature: User accepts invitation
     When I fill in "Choose a username" with "DannyBoy"
     And I check "Terms and conditions"
     And I press "Join the game"
-    Then I should see "Welcome to the game"
-    When DJ cranks once
+    When "Dan" fills in the new phone validation field with their validation code
+    And I press "Validate phone"
+    Then I should be on the activity page
+
+    When DJ cranks 5 times
     Then "+15087407520" should have received an SMS including "dannyboy"
 
   Scenario: Invitation good for just one use
@@ -191,7 +233,7 @@ Feature: User accepts invitation
     And I fill in "And confirm that password" with "whatwhat"
     And I check "Terms and conditions"
     And I press "Join the game"
-    Then I should be on the activity page
+    Then I should be on the interstitial phone verification page
 
     When I click the first link in the email
     Then I should be on the activity page

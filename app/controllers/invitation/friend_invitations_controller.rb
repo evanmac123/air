@@ -39,7 +39,7 @@ class Invitation::FriendInvitationsController < ApplicationController
     hash_of_prepends = params[:email_prepends]
     existing_users = []
     if hash_of_prepends.nil?
-      add_failure "Please enter the first part of your friends' email addresses (the part before the '@' symbol)"
+      add_failure no_at_sign_error_message
       redirect_to activity_path and return        
     end      
     check_for_all_blank = ''
@@ -51,7 +51,8 @@ class Invitation::FriendInvitationsController < ApplicationController
       users_with_email_in_same_demo = User.where(:email => email, :demo_id => current_user.demo_id)
       
       if prepend.include? "@"
-        add_failure "Please enter only the part of the email address before the ‘@’ – and remember that only colleagues in your organization can play."        
+        add_failure no_at_sign_error_message
+        
       elsif users_with_email.present? && users_with_email_in_same_demo.empty?
         add_failure "Thanks, but #{email} is in a different game than you."
       elsif users_with_email.empty? 
@@ -107,5 +108,11 @@ class Invitation::FriendInvitationsController < ApplicationController
       success_string += "That's #{current_user.demo.game_referrer_bonus * name_array.length} potential bonus points!"
     end
     success_string
+  end
+
+  protected
+
+  def no_at_sign_error_message
+    %{Please enter only the part of the email address before the "@" - and remember that only colleagues in your organization can play.}  
   end
 end
