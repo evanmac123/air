@@ -51,7 +51,15 @@ class Act < ActiveRecord::Base
   end
 
   def self.allowed_to_view_by_privacy_settings(viewing_user)
-    includes(:user).joins("LEFT JOIN friendships AS permission_friendships ON permission_friendships.friend_id = users.id").where("acts.user_id = ? OR users.privacy_level = 'everybody' OR (users.privacy_level = 'connected' AND permission_friendships.user_id = ? AND permission_friendships.state = 'accepted')", viewing_user.id, viewing_user.id)
+    act_relation = includes(:user).joins("LEFT JOIN friendships AS permission_friendships ON permission_friendships.friend_id = users.id").where("acts.user_id = ? OR users.privacy_level = 'everybody' OR (users.privacy_level = 'connected' AND permission_friendships.user_id = ? AND permission_friendships.state = 'accepted')", viewing_user.id, viewing_user.id)
+
+    # This is kind of a HACK, but fuck it, select_values is part of the 
+    # public API.
+    # TODO: write patch to Rails to do this properly, submit it, most likely
+    # get it rejected. Or maybe not, who knows.
+
+    act_relation.select_values = Array.wrap("DISTINCT \"acts\".*")
+    act_relation
   end
 
   def self.parse(user_or_phone, body, options = {})
