@@ -63,7 +63,7 @@
         %ul.form-section
           %li.form-label Your Email Address:
           .form-input
-            = text_field_tag :display_email, @user.email, :disabled => true
+            = text_field_tag :display_email, @user.email, :disabled => true, :style => "color: #bbb; background: #ddd"
 
         = f.fancy_text_field :phone_number, :label_text => "Enter your mobile number"
       - else
