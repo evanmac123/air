@@ -28,7 +28,7 @@
         - 5.times do |f|
           - tag_name = "email_prepends[#{f}]"
           = label_tag tag_name, "email number #{f}"
-          = text_field_tag tag_name
+          = text_field_tag tag_name, '', :style => "margin-bottom: 2px;"
           = domain
       .second_half
         - 5.times do |f|
@@ -38,7 +38,7 @@
           = domain
       .invite_or_add    
         = submit_tag "Invite!"
-        = link_to "I have LOTS of friends", '#m', :id => :lots_of_friends
+      /   = link_to "I have LOTS of friends", '#m', :id => :lots_of_friends
 
      
   -else

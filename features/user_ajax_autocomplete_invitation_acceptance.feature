@@ -74,7 +74,7 @@ Feature: User gives credit to game referer via autocomplete field
     I should see "new_user@hopper.com"
     And I check "Terms and conditions"
     When I press "Join the game"
-    Then I should see "new_user@hopper.com"
+    Then I should see "I accept the terms and conditions"
 
   @javascript
   Scenario: When I select a referrer, then submit with errors, the referrer is still there

@@ -1,3 +1,5 @@
+- disabled_style = "color: grey; background: #ddd;"
+
 - content_for(:javascript) do
   :javascript
     $("input#user_phone_number").focus(function () {
@@ -40,7 +42,7 @@
     - else
       %div.welcome-message
         %h2= "Welcome to H Engage"
-        %p.explanation= translate('.explanation', :default => "Ready to play? Just fill in the fields below, and we'll text you instructions to get you started.")
+        %p.explanation= translate('.explanation', :default => "Ready to play? Just fill in the fields below to get started.")
 
 = form_for @user, :url => invitation_acceptance_path(:user_id => @user.id), :html => {:autocomplete => :off, :id => "signup-form"}, :builder => FancyFormBuilder do |f|
   %ul
@@ -50,19 +52,24 @@
       - if @user.invitation_requested_via_sms?
         = f.hidden_field :phone_number, :value => @user.phone_number
         %ul.form-section
-          %li.form-label Your Phone Number: #{@user.phone_number.as_pretty_phone}
+          %li.form-label Your Phone Number:
+          .form-input
+            = text_field_tag :display_phone_number, @user.phone_number.as_pretty_phone, :disabled => true, :style => disabled_style
+          .subtle_notice If you want to change or remove your mobile number later, you can do so by going to the Settings page.
+
         %ul.form-section
-          %li.form-label
-            Your Email Address:
-            #new_user_email
-              = @user.email
+          %li.form-label Your Email Address:
+          .form-input
+            = text_field_tag :display_email, @user.email, :disabled => true, :style => disabled_style
 
       - elsif @user.invitation_requested_via_email? || @user.invitation_requested_via_web?
 
         = f.hidden_field :email, :value => @user.email
-
         %ul.form-section
-          %li.form-label Your Email Address: #{@user.email}
+          %li.form-label Your Email Address:
+          .form-input
+            = text_field_tag :display_email, @user.email, :disabled => true, :style => disabled_style
+
         = f.fancy_text_field :phone_number, :label_text => "Enter your mobile number"
       - else
         = f.fancy_text_field :phone_number, :label_text => "Enter your mobile number"

@@ -255,4 +255,4 @@ Feature: User gives credit to game referer via autocomplete field
     When I fill in "email number 1" with "racing22@harmony.com"
     And I press "Invite!"
     And show me the page
-    Then I should see "Please enter only the part of the email address before the '@'"
+    Then I should see "Please enter only the part of the email address before the ‘@’ – and remember that only colleagues in your organization can play."

@@ -15,7 +15,7 @@ Feature: Users can request invitation via email
     When "alpha@join.com" opens the email
     And I click the first link in the email
     Then I should be on the invitation page for "alpha@join.com"
-    And I should see "Your Email Address: alpha@join.com"
+    And I should see "Your Email Address:"
     And I should not see "Enter your email address"
     And I should see "Enter your mobile number"
     And I should see "Welcome to H Engage"

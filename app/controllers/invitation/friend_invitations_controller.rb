@@ -42,15 +42,16 @@ class Invitation::FriendInvitationsController < ApplicationController
       add_failure "Please enter the first part of your friends' email addresses (the part before the '@' symbol)"
       redirect_to activity_path and return        
     end      
-   
+    check_for_all_blank = ''
     hash_of_prepends.each_pair do |key,prepend|
       next if prepend.empty?
+      check_for_all_blank += prepend
       email = prepend + "@" + domain
       users_with_email = User.where(:email => email)
       users_with_email_in_same_demo = User.where(:email => email, :demo_id => current_user.demo_id)
       
       if prepend.include? "@"
-        add_failure "Error--received: #{email}. Please enter only the part of the email address before the '@'."        
+        add_failure "Please enter only the part of the email address before the ‘@’ – and remember that only colleagues in your organization can play."        
       elsif users_with_email.present? && users_with_email_in_same_demo.empty?
         add_failure "Thanks, but #{email} is in a different game than you."
       elsif users_with_email.empty? 
@@ -73,7 +74,7 @@ class Invitation::FriendInvitationsController < ApplicationController
         users_invited << email
       end
     end
-    
+    add_failure "Please enter the first part of your friends' email address, then click 'Invite'" if check_for_all_blank.empty?
     unless existing_users.empty?
       add_failure "Thanks, but the following users are already playing the game: " + existing_users.join(', ') 
     end

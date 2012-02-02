@@ -90,6 +90,14 @@ $(function() {
     increasePopupHeight();
   });
 
+  $('.invite-module #search_for_friends_to_invite .single_suggestion').live('click', function() {
+  	 var div_to_grow = $('.invite-module');
+	 var initial_height = div_to_grow.height();
+	 var height_to_add = $('.single_suggestion').height();
+	 var new_height = initial_height + height_to_add;
+	 div_to_grow.height(new_height);
+  });
+
   $('.remove_referrer').live('click', function() {
     $('#user_game_referrer_id').text('');
     $('.single_suggestion').hide();
