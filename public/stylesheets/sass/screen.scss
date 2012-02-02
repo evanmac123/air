@@ -3,6 +3,7 @@
 @import "flick/jquery-ui-1.8.10.custom.css";
 
 @import "header";
+$faq_med_grey: #777;
 
 body {
 	background-color:#e9e9e9;
@@ -523,36 +524,101 @@ body.pages-faq{
 		#faq_body {
 			float:left;
 			width:60%;
-			h2 {
-				color:$dark-gray;
-				font-family:$gotham;
-				text-transform:uppercase;
-			}
-			.Indented {
-				@include rounded;
-				background:$light-gray;
-				color:$gray;
-				margin-bottom:40px;
-				padding:15px 10px;
-				&:last-child {
-					margin-bottom:10px;
-				}
-			}
-			.Unindented {
-				padding:15px 10px;
-			}
-		}
-		#faq_toc{
-			float:right;
-			width:33%;
+			padding-bottom: 60px;
+			padding-right: 15px;
 			a {
 				color:$header-bg;
 				&:hover {color:lighten($header-bg, 10%);}
 				&:active {color:$dark-gray;}
 			}
+			h1, h2 {
+				color:$dark-gray;
+				font-family:$gotham;
+			}
+			h1 + h2{padding-top: 1ex;}
+			h2 {
+			  text-transform: uppercase;
+			  padding-bottom: 1ex;
+			  padding-top: 2ex;
+			  padding-left: 15px; 
+			}
+			h1{
+			  padding-top: 2ex;
+			  text-align: center;
+			  &.Section-{
+			    text-align: left;
+			    font-size: 40px;
+			    &:first-letter{font-size: 90px;}
+			  }
+			}
+			
+			.Standard {
+				@include rounded;
+				font-size: 110%;
+				/* background:$light-gray; */
+				color:$faq_med_grey;
+				padding: 0 10px 0 15px;
+        & + .Standard{padding-top: 1ex;}
+        & + ul{
+  			  padding-top: 1ex;
+  			}
+			}
+			ul{
+			  padding-left: 49px;
+			  & + .Standard{
+			    padding-top: 1ex;
+			  }
+			}
+
+			li{
+			  list-style: disc;
+			  color: $faq_med_grey;
+			  & + li{padding-top: 1ex;}
+			}
+			
+      .Paragraph{
+        font-weight: bold;
+        font-size: 130%;
+        padding-top: 1.8ex;
+        padding-bottom: 0.8ex;
+        padding-left: 15px;
+      }
+      .Subparagraph{
+        font-weight: bold;
+        font-size: 106%;
+        padding-left: 5ex;
+        padding-top: 1ex;
+        & + ul{
+          padding-left: 10ex;
+        }
+      }
+      i{
+        font-style: normal;
+        font-weight: bold;
+      }
+		}
+		#faq_toc{
+			float:right;
+			width:33%;
+			padding-top: 43px;
+			background: #e3e3e3;
+			a {
+				color:$header-bg;
+				&:hover {color:lighten($header-bg, 10%);}
+				&:active {color:$dark-gray;}
+			}
+			.toc {
+			  a{font-size: 130%;}
+		  }
+      .tocindent .tocindent{
+        padding-left: 2ex;
+        a{font-size: 100%;}
+      }
+      & > .tocindent > .toc{padding-top: 2ex;}
 			.tocindent {
 				.toc {
 					margin:0 0 10px 0;
+					font-size: 100%;
 				}
 			}
 		}

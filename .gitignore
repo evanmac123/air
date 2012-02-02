@@ -21,7 +21,7 @@ coverage.features
 .rbenv-version
 .idea
 *~
-
+temp
 
 feature_profiles/feature_profile*
 tmp/sass-cache/**/*
