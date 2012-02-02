@@ -68,4 +68,4 @@ body #facebox .content { width: 402px; height: 340px; }
 
 #autocomplete_status { color: green; font-size: 120%; font-weight: bold; left: 292px; position: absolute; top: -61px; width: 100%; }
 
-a, a:visited, a:hover, a:active { color: #588B3D; }
+.inv-forms a, .inv-forms a:visited, .inv-forms a:hover, .inv-forms a:active { color: #588B3D; }
