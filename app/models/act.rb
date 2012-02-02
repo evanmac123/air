@@ -206,7 +206,7 @@ class Act < ActiveRecord::Base
     truncated_value = value_tokens.join(' ')
 
     rule_value = user.first_eligible_rule_value(truncated_value)
-    referring_user = User.find_by_sms_slug(referring_user_sms_slug)
+    referring_user = User.where(:sms_slug => referring_user_sms_slug, :demo_id => user.demo_id).first
 
     [rule_value, referring_user]
   end

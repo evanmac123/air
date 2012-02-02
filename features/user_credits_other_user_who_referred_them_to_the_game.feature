@@ -87,6 +87,11 @@ Feature: User can credit another user who got them into the game
     And "+13055551212" should have received an SMS including "Sorry, I don't understand what that means"
     And "+14105551212" should not have received an SMS including "Kelli gave you credit"
 
+  Scenario: User can't credit someone in a different demo
+    When "+14155551212" sends SMS "freddie"
+    Then "+14155551212" should have received an SMS including "Sorry, I don't understand what that means"
+    And "+14085551212" should not have received any SMSes
+
   Scenario: User sends valid rule during their credit period
     Given "+14155551212" sends SMS "ate kitten"
     Then "+14155551212" should have received an SMS including "kitten"

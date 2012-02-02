@@ -2,17 +2,20 @@ Feature: User acts
 
   Background:
     Given the following demo exists:
-      | name | victory_threshold |
-      | FooCorp      | 50                |
+      | name    | victory_threshold |
+      | FooCorp | 50                |
+      | BarCorp |                   |
     Given the following claimed users exist:
-      | name | phone number | demo                  | points | ranking |
+      | name | phone number | demo          | points | ranking |
       | Dan  | +15087407520 | name: FooCorp | 0      | 3       |
       | Paul | +15088675309 | name: FooCorp | 0      | 3       |
       | Fred | +14155551212 | name: FooCorp | 1      | 2       |
       | Bob  | +18085551212 | name: FooCorp | 3      | 1       |
+      | Sven | +17145551212 | name: BarCorp | 5      | 1       |
     And "Dan" has the password "foobar"
     And "Paul" has the SMS slug "paul55"
     And "Fred" has the SMS slug "fred666"
+    And "Sven" has the SMS slug "sven"
     And the following rules exist:
       | points | referral points | reply                     | alltime_limit | demo                  |
       | 2      |                 | Bananas are good for you. |               | name: FooCorp |
@@ -202,6 +205,10 @@ Feature: User acts
     # And I go to the acts page
     # Then I should see "Dan 0 pts"
     And "+15087407520" should have received an SMS "We understood what you did, but not the user who referred you. Perhaps you could have them check their username with the MYID command?"
+
+  Scenario: Can't say a user in a different demo referred you
+    When "+15087407520" sends SMS "ate banana sven"
+    Then "+15087407520" should have received an SMS "We understood what you did, but not the user who referred you. Perhaps you could have them check their username with the MYID command?"
 
   Scenario: A helpful and slightly snarky error message if you say you referred yourself
     Given "Dan" has the SMS slug "dan4444"
