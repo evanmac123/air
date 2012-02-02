@@ -51,7 +51,7 @@ class Invitation::FriendInvitationsController < ApplicationController
       users_with_email_in_same_demo = User.where(:email => email, :demo_id => current_user.demo_id)
       
       if prepend.include? "@"
-        add_failure "Error--received: #{email}. Please enter only the part of the email address before the '@'."        
+        add_failure "Please enter only the part of the email address before the ‘@’ – and remember that only colleagues in your organization can play."        
       elsif users_with_email.present? && users_with_email_in_same_demo.empty?
         add_failure "Thanks, but #{email} is in a different game than you."
       elsif users_with_email.empty? 
