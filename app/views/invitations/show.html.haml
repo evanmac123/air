@@ -40,7 +40,7 @@
     - else
       %div.welcome-message
         %h2= "Welcome to H Engage"
-        %p.explanation= translate('.explanation', :default => "Ready to play? Just fill in the fields below, and we'll text you instructions to get you started.")
+        %p.explanation= translate('.explanation', :default => "Ready to play? Just fill in the fields below to get started.")
 
 = form_for @user, :url => invitation_acceptance_path(:user_id => @user.id), :html => {:autocomplete => :off, :id => "signup-form"}, :builder => FancyFormBuilder do |f|
   %ul
@@ -60,9 +60,11 @@
       - elsif @user.invitation_requested_via_email? || @user.invitation_requested_via_web?
 
         = f.hidden_field :email, :value => @user.email
-
         %ul.form-section
-          %li.form-label Your Email Address: #{@user.email}
+          %li.form-label Your Email Address:
+          .form-input
+            = text_field_tag :display_email, @user.email, :disabled => true
+
         = f.fancy_text_field :phone_number, :label_text => "Enter your mobile number"
       - else
         = f.fancy_text_field :phone_number, :label_text => "Enter your mobile number"

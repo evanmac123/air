@@ -67,3 +67,5 @@ body #facebox .content { width: 402px; height: 340px; }
 #lots_of_friends { padding-left: 17ex; }
 
 #autocomplete_status { color: green; font-size: 120%; font-weight: bold; left: 292px; position: absolute; top: -61px; width: 100%; }
+
+a, a:visited, a:hover, a:active { color: #588B3D; }
