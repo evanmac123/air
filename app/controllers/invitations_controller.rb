@@ -39,10 +39,27 @@ class InvitationsController < ApplicationController
     end
 
     if @user
+      return if redirect_if_invitation_accepted_already
       @locations = @user.demo.locations.alphabetical
     else
       flash[:failure] = "That page doesn't exist."
       redirect_to "/"
+    end
+  end
+
+  protected
+
+  def redirect_if_invitation_accepted_already
+    if @user.accepted_invitation_at.present?
+      if current_user
+        flash[:failure] = "You've already accepted your invitation to the game."
+        redirect_to activity_path
+      else
+        flash[:failure] = "You've already accepted your invitation to the game. Please log in if you'd like to use the site."
+        redirect_to sign_in_path
+      end
+
+      return true
     end
   end
 end

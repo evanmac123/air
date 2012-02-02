@@ -7,8 +7,8 @@ Feature: User accepts invitation
       | FooCo        | You, %{unique_id}, are in the %{name} game. | 10          |
     And the following users exist:
       | email            | name | demo                |
-      | dan@example.com  | Dan  | name: 3M    |
-      | phil@example.com | Phil | name: FooCo |
+      | dan@example.com  | Dan  | name: 3M            |
+      | phil@example.com | Phil | name: FooCo         |
     And "dan@example.com" has received an invitation
     And "phil@example.com" has received an invitation
     When "dan@example.com" opens the email
@@ -176,3 +176,28 @@ Feature: User accepts invitation
     When DJ cranks once
     Then "+15087407520" should have received an SMS including "dannyboy"
 
+  Scenario: Invitation good for just one use
+    When I fill in "Enter your mobile number" with "508-740-7520"
+    And I fill in "Choose a password" with "whatwhat"
+    And I fill in "And confirm that password" with "whatwhat"
+    And I check "Terms and conditions"
+    # abandon invitation acceptance
+    And I go to the home page
+
+    When I click the first link in the email
+    Then I should be on the invitation page for "dan@example.com"
+    When I fill in "Enter your mobile number" with "508-740-7520"
+    And I fill in "Choose a password" with "whatwhat"
+    And I fill in "And confirm that password" with "whatwhat"
+    And I check "Terms and conditions"
+    And I press "Join the game"
+    Then I should be on the activity page
+
+    When I click the first link in the email
+    Then I should be on the activity page
+    And I should see "You've already accepted your invitation to the game."
+
+    When I sign out
+    And I click the first link in the email
+    Then I should be on the signin page
+    And I should see "You've already accepted your invitation to the game. Please log in if you'd like to use the site."

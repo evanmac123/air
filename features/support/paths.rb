@@ -109,7 +109,7 @@ module NavigationHelpers
     when /the settings page/
       edit_account_settings_path
 
-    when /the (login|sign-in|sign in) page/
+    when /the (login|sign-in|sign in|signin) page/
       sign_in_path
     else
 
