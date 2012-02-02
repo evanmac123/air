@@ -50,6 +50,7 @@ class Invitation::AcceptancesController < ApplicationController
   end
   
 
+
   protected
 
   def find_user

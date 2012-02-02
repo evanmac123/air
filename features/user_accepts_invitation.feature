@@ -160,7 +160,7 @@ Feature: User accepts invitation
     When I fill in "Choose a username" with "         "
     And I press "Join the game"
     Then I should not see "Welcome to the game"
-    And I should see "Sorry, you can't choose a blank username."
+    And I should see "Please choose a username"
 
     When I fill in "Choose a username" with "i rule"
     And I press "Join the game"
