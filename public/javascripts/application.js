@@ -83,7 +83,7 @@ $(function() {
     $('#autocomplete').val('');
     $('#autocomplete').focus();
     //$('#search_for_friends_to_invite #autocomplete').hide();
-    $(this).insertAfter('#bonus');
+    $(this).insertAfter('#relative');
     $('#submit_invite_friend').show();
     setTimeout('updatePotentialPoints()', 500);
   });
