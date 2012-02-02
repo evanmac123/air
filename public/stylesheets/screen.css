@@ -824,20 +824,24 @@ body.acts .container .feeds {
 body.acts .container .invite-module {
   float: right;
   width: 35%; }
-  body.acts .container .invite-module #invite_friends div#search_for_friends_to_invite div#bonus {
+  body.acts .container .invite-module #invite_friends_facebox p:first-child {
+    color: #588b3d;
+    font-weight: bold;
+    padding-bottom: 5px; }
+  body.acts .container .invite-module .invite div#search_for_friends_to_invite div#bonus {
     color: #909090;
     padding: 7px 0;
     width: 87%; }
-  body.acts .container .invite-module #invite_friends div#search_for_friends_to_invite div.single_suggestion {
+  body.acts .container .invite-module .invite div#search_for_friends_to_invite div.single_suggestion {
     margin: 0 auto;
     width: 300px; }
-    body.acts .container .invite-module #invite_friends div#search_for_friends_to_invite div.single_suggestion a.remove_referrer {
+    body.acts .container .invite-module .invite div#search_for_friends_to_invite div.single_suggestion a.remove_referrer {
       color: #909090; }
-      body.acts .container .invite-module #invite_friends div#search_for_friends_to_invite div.single_suggestion a.remove_referrer:hover {
+      body.acts .container .invite-module .invite div#search_for_friends_to_invite div.single_suggestion a.remove_referrer:hover {
         color: #6eae4d; }
-      body.acts .container .invite-module #invite_friends div#search_for_friends_to_invite div.single_suggestion a.remove_referrer:active {
+      body.acts .container .invite-module .invite div#search_for_friends_to_invite div.single_suggestion a.remove_referrer:active {
         color: #2e2e2c; }
-    body.acts .container .invite-module #invite_friends div#search_for_friends_to_invite div.single_suggestion img {
+    body.acts .container .invite-module .invite div#search_for_friends_to_invite div.single_suggestion img {
       -webkit-border-radius: 3px;
       -moz-border-radius: 3px;
       border-radius: 3px;
@@ -845,40 +849,40 @@ body.acts .container .invite-module {
       z-index: 0;
       border: 1px #e9e9e9 inset;
       width: 75px; }
-  body.acts .container .invite-module #invite_friends form {
+  body.acts .container .invite-module .invite form {
     margin-top: 15px; }
-    body.acts .container .invite-module #invite_friends form p {
+    body.acts .container .invite-module .invite form p {
       font-weight: bold; }
-    body.acts .container .invite-module #invite_friends form .first_half, body.acts .container .invite-module #invite_friends form .second_half {
+    body.acts .container .invite-module .invite form .first_half, body.acts .container .invite-module .invite form .second_half {
       clear: both;
       color: #909090;
       width: 100%; }
-      body.acts .container .invite-module #invite_friends form .first_half input[type="text"], body.acts .container .invite-module #invite_friends form .second_half input[type="text"] {
+      body.acts .container .invite-module .invite form .first_half input[type="text"], body.acts .container .invite-module .invite form .second_half input[type="text"] {
         width: 200px; }
-    body.acts .container .invite-module #invite_friends form .invite_or_add {
+    body.acts .container .invite-module .invite form .invite_or_add {
       clear: both;
       margin-top: 15px;
       position: relative; }
-      body.acts .container .invite-module #invite_friends form .invite_or_add a#lots_of_friends {
+      body.acts .container .invite-module .invite form .invite_or_add a#lots_of_friends {
         color: #588b3d;
         margin: 0 0 0 10px;
         padding: 0;
         position: relative;
         top: 2px; }
-        body.acts .container .invite-module #invite_friends form .invite_or_add a#lots_of_friends:hover {
+        body.acts .container .invite-module .invite form .invite_or_add a#lots_of_friends:hover {
           color: #6eae4d; }
-        body.acts .container .invite-module #invite_friends form .invite_or_add a#lots_of_friends:active {
+        body.acts .container .invite-module .invite form .invite_or_add a#lots_of_friends:active {
           color: #2e2e2c; }
-      body.acts .container .invite-module #invite_friends form .invite_or_add input[type="submit"] {
+      body.acts .container .invite-module .invite form .invite_or_add input[type="submit"] {
         margin: 0; }
-  body.acts .container .invite-module #invite_friends h2 {
+  body.acts .container .invite-module .invite h2 {
     color: #2e2e2c;
     font-family: "Lato", Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 20px;
     font-weight: bold;
     padding-bottom: 15px;
     text-transform: uppercase; }
-  body.acts .container .invite-module #invite_friends input[type="submit"] {
+  body.acts .container .invite-module .invite input[type="submit"] {
     background: #3f3f3f;
     /* Old browsers */
     background: -moz-linear-gradient(top, #3f3f3f 0%, #2e2f2d 100%);
@@ -907,11 +911,11 @@ body.acts .container .invite-module {
     margin-top: 10px;
     font-weight: bold;
     letter-spacing: .5px; }
-    body.acts .container .invite-module #invite_friends input[type="submit"]:hover {
+    body.acts .container .invite-module .invite input[type="submit"]:hover {
       background: #588b3d; }
-    body.acts .container .invite-module #invite_friends input[type="submit"]:active {
+    body.acts .container .invite-module .invite input[type="submit"]:active {
       background: #909090; }
-  body.acts .container .invite-module #invite_friends label {
+  body.acts .container .invite-module .invite label {
     color: #588b3d;
     font-weight: bold; }
 body.acts #facebox .popup {

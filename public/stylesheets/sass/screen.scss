@@ -256,7 +256,16 @@ body.acts {
 		.invite-module {
 			float: right;
 			width: 35%;
-			#invite_friends{
+			#invite_friends_facebox {
+				p {
+					&:first-child {
+						color:$header-bg;
+						font-weight:bold;
+						padding-bottom:5px;
+					}
+				}
+			}
+			.invite{
 				div#search_for_friends_to_invite {
 					div#bonus {
 						color:$gray;
