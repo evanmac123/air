@@ -11,8 +11,8 @@ Feature: User sees suggested tasks they can currently do
       | Butter toast      | Butter it up      | No peanut butter just regular butter this time    |                      | name: FooCo |
       | Plate toast       | Put it on a plate | Were you born in a barn?                          |                      | name: FooCo |
       | Eat buttery toast | Eat it up yum     | It's bad for your arteries though                 |                      | name: FooCo |
-      | Make future toast | Space toast!      | Make toast using lasers and shit                  | 2030-01-01 00:00 UTC | name: FooCo |
-      | Make future PBJ   | Space PBJ!        | Make PBJ using lasers and shit                    | 2030-01-01 00:00 UTC | name: FooCo |
+      | Make future toast | Space toast!      | Make toast using lasers and shit                  | 2020-01-01 00:00 UTC | name: FooCo |
+      | Make future PBJ   | Space PBJ!        | Make PBJ using lasers and shit                    | 2020-01-01 00:00 UTC | name: FooCo |
     And the task "Make PBJ" has prerequisite "Make toast"
     And the task "Butter toast" has prerequisite "Make toast"
     And the task "Eat buttery toast" has prerequisite "Butter toast"
@@ -45,7 +45,7 @@ Feature: User sees suggested tasks they can currently do
     And I should not see "Make future PBJ"
     But I should see "Plate toast"
 
-    When time is frozen at "2030-01-01 00:00:01 UTC"
+    When time is frozen at "2020-01-01 00:00:01 UTC"
     And DJ cranks 10 times
     And I sign in via the login page with "Joe/foobar"
     And I go to the activity page
@@ -101,7 +101,7 @@ Feature: User sees suggested tasks they can currently do
     And I should not see "Butter toast"
     And I should not see "Eat buttery toast"
 
-    When time is frozen at "2030-01-01 00:00:01 UTC"
+    When time is frozen at "2020-01-01 00:00:01 UTC"
     And DJ cranks 10 times
     And I sign in via the login page with "Bob/barbaz"
     And I go to the activity page
