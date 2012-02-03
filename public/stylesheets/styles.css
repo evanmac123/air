@@ -306,7 +306,7 @@ body.passwords .content .inv-forms #password-wrapper {
   body.passwords .content .inv-forms #password-wrapper p {
     color: #656565; }
 body.passwords .content .inv-forms form {
-  margin: 15px 0 0 0;
+  margin: 25px 0 0 0;
   padding: 0; }
   body.passwords .content .inv-forms form input[type="submit"] {
     -webkit-border-radius: 20px;
