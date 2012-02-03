@@ -22,7 +22,6 @@ class Admin::UsersController < AdminBaseController
       flash[:failure] = "Cannot create that user: #{@user.errors.full_messages}"
       return
     end
-
     if params[:set_claim_code]
       @user.generate_simple_claim_code!
     end

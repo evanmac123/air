@@ -72,7 +72,8 @@ Subsection*
 \begin_inset Quotes erd
 \end_inset
 
-
+.
+ (Notice the asterisk)
 \end_layout
 
 \begin_layout Enumerate
@@ -92,7 +93,15 @@ Set each header within a paragraph to
 \begin_inset Quotes eld
 \end_inset
 
-Paragraph*
+Paragraph
+\begin_inset Quotes erd
+\end_inset
+
+Set each bulleted list item to 
+\begin_inset Quotes eld
+\end_inset
+
+Itemize
 \begin_inset Quotes erd
 \end_inset
 
@@ -100,7 +109,15 @@ Paragraph*
 \end_layout
 
 \begin_layout Enumerate
-Set each bulleted list item to 
+To do nested bullets, put a 
+\begin_inset Quotes eld
+\end_inset
+
+Subparagraph
+\begin_inset Quotes erd
+\end_inset
+
+ followed by 
 \begin_inset Quotes eld
 \end_inset
 
