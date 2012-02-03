@@ -29,39 +29,6 @@ Feature: User can edit their account settings
     Then I should see "Sorry, that username is already taken."
     And "+14155551212" should not have received an SMS including "awesomed00d"
 
-  Scenario: User can set their avatar
-    When I go to the settings page for "Phil"
-    And I attach the avatar "alistair.jpg"
-    And I press the avatar submit button
-    Then I should be on the settings page
-    Then I should see an avatar "alistair.jpg" for "Phil"
-
-  @slow
-  Scenario: User can change a set avatar
-    When I go to the settings page for "Phil"
-    And I attach the avatar "alistair.jpg"
-    And I press the avatar submit button
-    And I attach the avatar "maggie.jpg"
-    And I press the avatar submit button
-    Then I should be on the settings page
-    And I should see an avatar "maggie.jpg" for "Phil"
-
-  Scenario: User gets sensible error if they try to set avatar without choosing a file
-    When I go to the settings page for "Phil"
-    And I press the avatar submit button
-    Then I should be on the settings page
-    And I should see the default avatar for "Phil"
-    And I should see "Please choose a file to use for your avatar."
-
-  @slow
-  Scenario: User can delete their avatar
-    When I go to the settings page for "Phil"
-    And I attach the avatar "alistair.jpg"
-    And I press the avatar submit button
-    When I press the avatar clear button
-    Then I should be on the settings page
-    And I should see the default avatar for "Phil"  
-  
   Scenario: User enters their demographic information
     When I fill in all of my demographic information
     And I press the button to save the user's settings
