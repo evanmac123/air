@@ -410,6 +410,7 @@ ul {
 /* Game type colors */
 /* ---------- general mixins ---------- */
 /* ---------- header mixins ---------- */
+/* ----- phone interstitial verification ----- */
 body.interstitial_verifications div.content {
   border: 1px #bebebe solid;
   -webkit-border-radius: 3px;
@@ -474,6 +475,7 @@ body.interstitial_verifications div.content {
     padding: 5px 15px;
     text-shadow: 1px 1px 1px #2e2e2c;
     text-transform: uppercase;
+    font-weight: 900!important;
     margin-left: 15px; }
     body.interstitial_verifications div.content input[type="submit"]:hover {
       background: #588b3d; }
@@ -514,13 +516,13 @@ body {
       color: #2e2e2c;
       font-family: "Lato", Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
       font-size: 20px;
-      font-weight: bold;
+      font-weight: 900;
       padding-bottom: 15px;
       text-transform: uppercase; }
     body .container h2.title {
       color: #909090;
       font-size: 16px;
-      font-weight: bold;
+      font-weight: 900;
       padding-bottom: 8px; }
     body .container input[type=text] {
       border-radius: 30px;
@@ -562,6 +564,7 @@ body {
       padding: 5px 15px;
       text-shadow: 1px 1px 1px #2e2e2c;
       text-transform: uppercase;
+      font-weight: 900!important;
       font-weight: bold;
       letter-spacing: .5px; }
       body .container input[type="submit"].button_norm:hover {
@@ -866,6 +869,7 @@ body.acts .container .feeds {
       padding: 5px 15px;
       text-shadow: 1px 1px 1px #2e2e2c;
       text-transform: uppercase;
+      font-weight: 900!important;
       display: inline;
       font-size: 11px;
       margin-right: 10px; }
@@ -997,6 +1001,7 @@ body.acts .container .invite-module {
       padding: 5px 15px;
       text-shadow: 1px 1px 1px #2e2e2c;
       text-transform: uppercase;
+      font-weight: 900!important;
       font-size: 11px;
       font-weight: bold;
       letter-spacing: 0.5px; }
@@ -1065,6 +1070,7 @@ body.acts .container .invite-module {
     padding: 5px 15px;
     text-shadow: 1px 1px 1px #2e2e2c;
     text-transform: uppercase;
+    font-weight: 900!important;
     margin-top: 10px;
     font-weight: bold;
     letter-spacing: .5px; }
@@ -1149,6 +1155,7 @@ body.acts #facebox .popup {
           padding: 5px 15px;
           text-shadow: 1px 1px 1px #2e2e2c;
           text-transform: uppercase;
+          font-weight: 900!important;
           font-weight: bold;
           letter-spacing: .5px; }
           body.acts #facebox .popup .content form div.invite_or_add input[type="submit"]:hover {
@@ -1199,6 +1206,7 @@ body.acts #facebox .popup {
           padding: 5px 15px;
           text-shadow: 1px 1px 1px #2e2e2c;
           text-transform: uppercase;
+          font-weight: 900!important;
           font-size: 11px; }
           body.acts #facebox .popup .content form div#submit_invite_friend a#invite_friends_link:hover {
             background: #588b3d; }

@@ -3,39 +3,90 @@
 /* ---------- customizations ---------- */
 /* ---------- END customizations ---------- */
 /* layout/reset/fonts/etc */
-a { text-decoration: none!important; }
-a:hover { color: #6eae4d; }
+a {
+  text-decoration: none!important; }
+  a:hover {
+    color: #6eae4d; }
 
-.cf { clear: both; }
+.cf {
+  clear: both; }
 
-h1, h2, h3 { letter-spacing: 1px; margin: 0; padding: 0; }
+h1, h2, h3 {
+  letter-spacing: 1px;
+  margin: 0;
+  padding: 0; }
 
-img { border: 0; margin: 0; padding: 0; }
+img {
+  border: 0;
+  margin: 0;
+  padding: 0; }
 
-input:focus { outline: 0; }
+input:focus {
+  outline: 0; }
 
-p { margin: 0; padding: 0; }
+p {
+  margin: 0;
+  padding: 0; }
 
-ul { list-style-type: none; margin: 0; padding: 0; }
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0; }
 
 /* Game type colors */
 /* ---------- general mixins ---------- */
 /* ---------- header mixins ---------- */
-.header .mast_top .navigation a.a_current { background-color: #404040!important; background-image: url("/images/v3/bg-black.png") !important; background-repeat: repeat-x!important; background-position: center center; }
-.header .mast_bottom .bar_command input[type="submit"] { background-color: transparent!important; background-image: url("/images/v3/btn_play.png") !important; background-repeat: no-repeat!important; background-repeat: no-repeat; color: #3b3b3b!important; padding-top: 0px!important; }
-.header .mast_bottom .bar_command input[type="submit"]:hover { background-color: transparent!important; background-image: url("/images/v3/btn_play_down.png") !important; background-repeat: no-repeat!important; background-repeat: no-repeat; color: #fff!important; }
-.header .mast_bottom .bar_level p.level { color: #2e2f2d!important; }
+.header .mast_top .navigation a.a_current {
+  background-color: #404040!important;
+  background-image: url("/images/v3/bg-black.png") !important;
+  background-repeat: repeat-x!important;
+  background-position: center center; }
+.header .mast_bottom .bar_command input[type="submit"] {
+  background-color: transparent!important;
+  background-image: url("/images/v3/btn_play.png") !important;
+  background-repeat: no-repeat!important;
+  background-repeat: no-repeat;
+  color: #3b3b3b!important;
+  padding-top: 0px!important; }
+  .header .mast_bottom .bar_command input[type="submit"]:hover {
+    background-color: transparent!important;
+    background-image: url("/images/v3/btn_play_down.png") !important;
+    background-repeat: no-repeat!important;
+    background-repeat: no-repeat;
+    color: #fff!important; }
+.header .mast_bottom .bar_level p.level {
+  color: #2e2f2d!important; }
 
-input[type="submit"].button_norm { background-color: #404040; /*	@include ie-bg-black-rev;
-	&:hover{
-		background:red!important;
-	} */ }
+input[type="submit"].button_norm {
+  background-color: #404040;
+  /*	@include ie-bg-black-rev;
+  	&:hover{
+  		background:red!important;
+  	} */ }
 
-.suggested-task a { background-color: transparent!important; background-color: #ffd04b; background-image: url("/images/v3/bg-orange.png") !important; background-position: center center!important; color: #3b3b3b!important; }
-.suggested-task a:hover { background-color: #2e2f2d!important; background-image: url("/images/v3/bg-black-rev.png") !important; background-repeat: repeat-x!important; background-position: center center!important; color: #fff!important; }
-.suggested-task div { margin: 0; padding: 0; }
+.suggested-task a {
+  background-color: transparent!important;
+  background-color: #ffd04b;
+  background-image: url("/images/v3/bg-orange.png") !important;
+  background-position: center center!important;
+  color: #3b3b3b!important; }
+  .suggested-task a:hover {
+    background-color: #2e2f2d!important;
+    background-image: url("/images/v3/bg-black-rev.png") !important;
+    background-repeat: repeat-x!important;
+    background-position: center center!important;
+    color: #fff!important; }
+.suggested-task div {
+  margin: 0;
+  padding: 0; }
 
-.feeds ul.tabs li { background-color: #404040; }
-.feeds #acts { margin-top: 0!important; position: relative; top: -10px; }
-.feeds .act { padding: 7px 0 10px 0!important; }
-.feeds .act-shim { display: none; }
+.feeds ul.tabs li {
+  background-color: #404040; }
+.feeds #acts {
+  margin-top: 0!important;
+  position: relative;
+  top: -10px; }
+.feeds .act {
+  padding: 7px 0 10px 0!important; }
+.feeds .act-shim {
+  display: none; }

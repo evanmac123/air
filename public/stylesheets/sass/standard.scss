@@ -257,6 +257,7 @@ $c-competition:		#b65100;
 	padding:5px 15px;
 	text-shadow:1px 1px 1px $dark-gray;
 	text-transform:uppercase;
+	font-weight:900!important;
 	&:hover {
 		background:$header-bg;
 	}
@@ -270,14 +271,14 @@ $c-competition:		#b65100;
 		color:$dark-gray;
 		font-family:$gotham;
 		font-size:20px;
-		font-weight: bold;
+		font-weight: 900;
 		padding-bottom:15px;
 		text-transform:uppercase;
 	}
 	h2.title {
 		color:$gray;
 		font-size:16px;
-		font-weight:bold;
+		font-weight:900;
 		padding-bottom:8px;
 	}
 }
