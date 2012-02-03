@@ -25,6 +25,7 @@ Feature: User with proper email domain invites self
     And I click the first link in the email
 
     Then I should be on the invitation page for "chester@highmark.com"
+    And I should see "Neither Highmark, its subsidiaries or agents, will be held responsible for any charges related to the use of the services."
     When I fill in "Enter your mobile number" with "415-867-5309"
     And I fill in "Enter your name" with "Chester Humphries"
     And I fill in "Choose a password" with "foobar"
@@ -54,6 +55,6 @@ Feature: User with proper email domain invites self
     Then "chester@noway.com" should receive no email
 
   Scenario: User has to specify an email address to invite self
-    When   I press "Request invitation"
+    When I press "Request invitation"
 
     Then I should see "You must enter your e-mail address to request an invitation."

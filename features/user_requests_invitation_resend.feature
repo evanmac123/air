@@ -14,7 +14,6 @@ Feature: User requests their invitation email to be resent
 
     Then I should be on the invitation resend page
     And I should see "We've resent your invitation to joe@example.com."
-    And I dump the page
     And there should be a mail link to support in the status area
     And "joe@example.com" should receive 1 email
 

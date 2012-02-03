@@ -11,7 +11,6 @@ feature "User Sees Name And Avatar In Masthead" do
 
     within('.masthead') do
       page.should have_content "Welcome back, John"
-      puts page.body
       expect_avatar48('ein_berliner.jpg')
     end
 

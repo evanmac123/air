@@ -243,3 +243,6 @@ Feature: User accepts invitation
     And I click the first link in the email
     Then I should be on the signin page
     And I should see "You've already accepted your invitation to the game. Please log in if you'd like to use the site."
+
+  Scenario: User doesn't see Highmark-specific copy
+    Then I should not see "Neither Highmark, its subsidiaries or agents, will be held responsible for any charges related to the use of the services."

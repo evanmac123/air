@@ -264,6 +264,9 @@ class User < ActiveRecord::Base
     SMS.send_message(self, message, Time.now + demo.followup_welcome_message_delay.minutes)
   end
 
+  def self_inviting_domain
+    self.class.self_inviting_domain(self.email)
+  end
 
   def self.in_canonical_ranking_order
     order("points DESC, name ASC")
