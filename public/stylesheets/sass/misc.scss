@@ -1,0 +1,46 @@
+@import "standard";
+/* ----- phone interstitial verification ----- */
+body.interstitial_verifications {
+	div.content {
+		@include input-text;
+		
+		border:1px #bebebe solid;
+		-webkit-border-radius: 3px;
+		-moz-border-radius: 3px;
+		border-radius:3px;
+		-moz-box-shadow: 0 0 5px #c9c9c9;
+		-webkit-box-shadow: 0 0 5px #c9c9c9;
+		box-shadow: 0 0 5px #c9c9c9;
+		behavior: url(/css3pie/PIE.htc);
+		background-color:#ffffff;
+		color:$dark-gray;
+		margin:20px auto 0 auto;
+		padding: 15px 10px 10px 10px;
+		width:460px;
+		a {
+			color:$header-bg;
+			font-size:12px;
+			font-weight:bold;
+			&:hover {
+				color:lighten($header-bg,10%);
+			}
+			&:active {
+				color:$dark-gray;
+			}
+		}
+		form {
+			margin-bottom:10px;
+		}
+		input[type="submit"] {
+			@include button-norm;
+			margin-left:15px;
+		}
+		input[type="text"] {
+			width:275px;
+		}
+		p {
+			color:$dark-gray;
+			padding-bottom:15px;
+		}
+	}
+}
