@@ -41,7 +41,7 @@ module Clearance::Authentication
     protected
 
     def remember_token_expiration
-      unless cookies[:remember_me].empty?
+      unless cookies[:remember_me].blank?
         10.years.from_now
       else
         Clearance.configuration.cookie_expiration.call
