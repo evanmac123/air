@@ -14,12 +14,13 @@ module Clearance::Authentication
     end
 
     def sign_in_with_remember_me_and_session_open_flag(user, remember_me=false)
+      cookies[:remember_me] = false
       sign_in_without_remember_me_and_session_open_flag(user)
       if self.current_user
         session[:session_open] = true
-        session[:remember_me] = remember_me
+        cookies[:remember_me] = {:value => remember_me, :expires => 10.years.from_now}
       else
-        session[:remember_me] = false
+        cookies[:remember_me] = false
       end
       current_user.session_count += 1
       current_user.save
@@ -40,8 +41,8 @@ module Clearance::Authentication
     protected
 
     def remember_token_expiration
-      if session[:remember_me]
-        5.years.from_now
+      unless cookies[:remember_me].empty?
+        10.years.from_now
       else
         Clearance.configuration.cookie_expiration.call
       end
