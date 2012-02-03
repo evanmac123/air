@@ -306,8 +306,8 @@ body.passwords .content .inv-forms #password-wrapper {
   body.passwords .content .inv-forms #password-wrapper p {
     color: #656565; }
 body.passwords .content .inv-forms form {
-  width: 455px;
-  margin: 0 auto; }
+  margin: 15px 0 0 0;
+  padding: 0; }
   body.passwords .content .inv-forms form input[type="submit"] {
     -webkit-border-radius: 20px;
     -moz-border-radius: 20px;
@@ -324,7 +324,8 @@ body.passwords .content .inv-forms form {
     text-shadow: 1px 1px 1px #333;
     behavior: url(/css3pie/PIE.htc);
     text-transform: uppercase;
-    margin-top: 20px; }
+    float: right;
+    margin-top: 5px; }
     body.passwords .content .inv-forms form input[type="submit"]:hover {
       background-color: #2e2e2c; }
     body.passwords .content .inv-forms form input[type="submit"]:active {
@@ -340,7 +341,7 @@ body.passwords .content .inv-forms form {
     display: inline;
     font-size: 20px;
     padding: 7px 10px;
-    width: 435px; }
+    width: 335px; }
     body.passwords .content .inv-forms form input[type="text"]:focus {
       background-color: #fff;
       border: 1px #588b3d solid; }
