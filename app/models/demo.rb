@@ -36,7 +36,6 @@ class Demo < ActiveRecord::Base
   def welcome_message(user=nil)
     custom_message(
       :custom_welcome_message,
-      'default_welcome_sms',
       "You've joined the %{name} game! Your username is %{unique_id} (text MYID if you forget). To play, text to this #.",
       user,
       :name => [:demo, :name],
@@ -47,7 +46,6 @@ class Demo < ActiveRecord::Base
   def victory_achievement_message(user = nil)
     custom_message(
       :custom_victory_achievement_message,
-      'default_victory_achievement_message',
       'You won on %{winning_time}. Congratulations!',
       user,
       :winning_time => [:won_at, :pretty]
@@ -57,7 +55,6 @@ class Demo < ActiveRecord::Base
   def victory_sms(user = nil)
     custom_message(
       :custom_victory_sms,
-      'default_victory_sms',
       "Congratulations! You've got %{points} points and have qualified for the drawing!",
       user,
       :points => [:points]
@@ -67,7 +64,6 @@ class Demo < ActiveRecord::Base
   def victory_scoreboard_message(user = nil)
     custom_message(
       :custom_victory_scoreboard_message,
-      'default_victory_scoreboard_message',
       "Won game!",
       user
     )
@@ -76,7 +72,6 @@ class Demo < ActiveRecord::Base
   def prize_message(user = nil)
     custom_message(
       :prize,
-      "default_prize_message",
       "Sorry, no physical prizes this time. This one's just for the joy of the contest."
     )
   end
@@ -84,7 +79,6 @@ class Demo < ActiveRecord::Base
   def help_response(user = nil)
     custom_message(
       :help_message,
-      "default_help_message",
       "Text:\nRULES for command list\nPRIZES for prizes\nSUPPORT for help from the help desk"
     )
   end
@@ -92,7 +86,6 @@ class Demo < ActiveRecord::Base
   def game_not_yet_begun_response
     custom_message(
       :act_too_early_message,
-      "act_too_early_message",
       "The game will begin #{self.begins_at.pretty}. Please try again after that time."      
     )
   end
@@ -100,7 +93,6 @@ class Demo < ActiveRecord::Base
   def game_over_response
     custom_message(
       :act_too_late_message,
-      "act_too_late_message",
       "Thanks for playing! The game is now over. If you'd like more information e-mailed to you, please text MORE INFO."
     )
   end
@@ -185,7 +177,6 @@ class Demo < ActiveRecord::Base
   def number_not_found_response
     custom_message(
       :unrecognized_user_message,
-      "default_unrecognized_user_message",
       self.class.default_number_not_found_response
     )
   end
@@ -220,11 +211,11 @@ class Demo < ActiveRecord::Base
     end
   end
 
-  def custom_message(custom_message_method_name, default_message_key, default_default_message, user = nil, method_chains_for_interpolation = {})
+  def custom_message(custom_message_method_name, default_message, user = nil, method_chains_for_interpolation = {})
     custom_message_text = self.send(custom_message_method_name)
 
-    uninterpolated_text = if custom_message_text.blank?
-      I18n.translate("activerecord.demo.#{default_message_key}", :default => default_default_message)
+    semi_interpolated_text = if custom_message_text.blank?
+      default_message
     else
       custom_message_text
     end
@@ -234,9 +225,9 @@ class Demo < ActiveRecord::Base
       method_chains_for_interpolation.each do |key, method_chain|
         interpolations[key] = method_chain.inject(user) {|result, method_name| result.try(method_name)}
       end
-      I18n.interpolate(uninterpolated_text, interpolations)
+      I18n.interpolate(semi_interpolated_text, interpolations)
     else
-      uninterpolated_text
+      semi_interpolated_text
     end
   end
 

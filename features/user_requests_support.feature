@@ -17,8 +17,8 @@ Feature: User requests tech support
     And "+14155551213" sends SMS "support"
 
   Scenario: User gets response about when they can expect help
-    Then "+14155551212" should have received SMS "Got it. We'll have someone email you shortly. Tech support is open 9 AM to 9 PM ET. If it's outside those hours, we'll follow-up first thing when we open."  
-    And "+14155551213" should have received SMS "Got it. We'll have someone email you shortly. Tech support is open 9 AM to 9 PM ET. If it's outside those hours, we'll follow-up first thing when we open."  
+    Then "+14155551212" should have received SMS "Got it. We'll have someone email you shortly. Tech support is open 9 AM to 6 PM ET. If it's outside those hours, we'll follow-up first thing when we open."  
+    And "+14155551213" should have received SMS "Got it. We'll have someone email you shortly. Tech support is open 9 AM to 6 PM ET. If it's outside those hours, we'll follow-up first thing when we open."  
 
   Scenario: Admin gets emailed support request
     When DJ cranks 2 times

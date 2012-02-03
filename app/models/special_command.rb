@@ -232,7 +232,7 @@ module SpecialCommand
 
   def self.request_support(user)
     user.send_support_request
-    parsing_success_message("Got it. We'll have someone email you shortly. Tech support is open 9 AM to 9 PM ET. If it's outside those hours, we'll follow-up first thing when we open.")
+    parsing_success_message("Got it. We'll have someone email you shortly. Tech support is open 9 AM to 6 PM ET. If it's outside those hours, we'll follow-up first thing when we open.")
   end
 
   def self.send_next_survey_question(user)
