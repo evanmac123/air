@@ -6,12 +6,12 @@ Feature: User acts
       | FooCorp | 50                |
       | BarCorp |                   |
     Given the following claimed users exist:
-      | name | phone number | demo          | points | ranking |
-      | Dan  | +15087407520 | name: FooCorp | 0      | 3       |
-      | Paul | +15088675309 | name: FooCorp | 0      | 3       |
-      | Fred | +14155551212 | name: FooCorp | 1      | 2       |
-      | Bob  | +18085551212 | name: FooCorp | 3      | 1       |
-      | Sven | +17145551212 | name: BarCorp | 5      | 1       |
+      | name | phone number | privacy level | demo          | points | ranking |
+      | Dan  | +15087407520 | everybody     | name: FooCorp | 0      | 3       |
+      | Paul | +15088675309 | everybody     | name: FooCorp | 0      | 3       |
+      | Fred | +14155551212 | everybody     | name: FooCorp | 1      | 2       |
+      | Bob  | +18085551212 | everybody     | name: FooCorp | 3      | 1       |
+      | Sven | +17145551212 | everybody     | name: BarCorp | 5      | 1       |
     And "Dan" has the password "foobar"
     And "Paul" has the SMS slug "paul55"
     And "Fred" has the SMS slug "fred666"

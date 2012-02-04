@@ -14,20 +14,15 @@ Feature: User sets their privacy level
     And "TrueFan" has the password "foobar"
     And I sign in via the login page as "Bob/foobar"
 
-  Scenario: User with (default) privacy level of "everybody" shows their acts to everybody in demo
+  Scenario: User with privacy level of "everybody" shows their acts to everybody in demo
     Given the following user exists:
-      | name | demo                  |
-      | TMI  | name: Privata |
-    And the following user exists:
       | name  | privacy_level  | demo                  |
-      | WTMI  | everybody      | name: Privata |
+      | WTMI  | everybody      | name: Privata         |
     And the following acts exist:
       | text        | user       |  
-      | ate kitten  | name: TMI  |
       | ate puppy   | name: WTMI |
     And I go to the activity page
-    Then I should see "TMI ate kitten less than a minute ago"
-    And I should see "WTMI ate puppy less than a minute ago"
+    Then I should see "WTMI ate puppy less than a minute ago"
 
   Scenario: User with privacy level of "connected" shows their acts to fans only
     Given the following user exists:
@@ -98,12 +93,12 @@ Feature: User sets their privacy level
 
   Scenario: User can set their privacy level in the settings page
     When I go to the settings page
-    Then "Let these people see my actions:" should have "Everybody" selected
+    Then "Let these people see my actions:" should have "Followers I've accepted" selected
 
-    When I select "Followers I've accepted" from "Let these people see my actions:"
+    When I select "Everybody" from "Let these people see my actions:"
     And I press the button to save privacy settings
     Then I should see "OK, your settings were updated."
-    And "Let these people see my actions:" should have "Followers I've accepted" selected
+    And "Let these people see my actions:" should have "Everybody" selected
 
     When I select "Nobody" from "Let these people see my actions:"
     And I press the button to save privacy settings

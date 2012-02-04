@@ -6,11 +6,11 @@ Feature: Admin moves a user to a new demo
       | name    | victory threshold |
       | The Thoughtbots | 15                |
     And the following claimed users exist:
-      | name | points | recent_average_history_depth | recent_average_points |   demo                          | phone number |
-      | Dan  | 0      | 1                            | 0                     |  name: The Thoughtbots | +14155551212 |
-      | Bob  | 14     | 0                            | 8                     |  name: IBM             | +16175551212 |
-      | Fred | 10     | 0                            | 11                    |  name: The Thoughtbots | +16175551213 |
-      | Tom  | 5      | 0                            | 5                     |  name: IBM             | +14158675309 |
+      | name | points | recent_average_history_depth | recent_average_points | privacy level | demo                  | phone number |
+      | Dan  | 0      | 1                            | 0                     | everybody     | name: The Thoughtbots | +14155551212 |
+      | Bob  | 14     | 0                            | 8                     | everybody     | name: IBM             | +16175551212 |
+      | Fred | 10     | 0                            | 11                    | everybody     | name: The Thoughtbots | +16175551213 |
+      | Tom  | 5      | 0                            | 5                     | everybody     | name: IBM             | +14158675309 |
     And "Dan" has the password "fooish"
     And "Bob" has the password "barfing"
     And "Fred" has the password "bazlet"

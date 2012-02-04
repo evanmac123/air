@@ -2,14 +2,14 @@ Feature: User claims account via SMS
 
   Background:
     Given the following user exists:
-      | name | demo                             |
-      | Bob  | name: Global Tetrahedron |
+      | name | privacy level | demo                     |
+      | Bob  | everybody     | name: Global Tetrahedron |
     And "Bob" has the password "blehblah"
 
   Scenario: User claims account with claim code
     Given the following user exists:
-      | name      | claim_code | demo                             |
-      | Dan Croak | dcroak     | name: Global Tetrahedron |
+      | name      | claim_code | privacy level | demo                             |
+      | Dan Croak | dcroak     | everybody     | name: Global Tetrahedron         |
     And "Dan Croak" has the SMS slug "dcroak4444"
     When "+14155551212" sends SMS "Dcroak"
     Then "Dan Croak" should be claimed by "+14155551212"
@@ -39,16 +39,16 @@ Feature: User claims account via SMS
 
   Scenario: Claiming account shows in activity stream as joining the game
     Given the following user exists:
-      | name      | claim_code | demo                             |
-      | Dan Croak | dcroak     | name: Global Tetrahedron |
+      | name      | claim_code | privacy level | demo                             |
+      | Dan Croak | dcroak     | everybody     | name: Global Tetrahedron         |
     When "+14155551212" sends SMS "Dcroak"
     And I sign in via the login page as "Bob/blehblah"
     Then I should see "Dan Croak joined the game"
 
   Scenario: Claiming account shows on profile page as joining the game
     Given the following user exists:
-      | name      | claim_code | demo                             |
-      | Dan Croak | dcroak     | name: Global Tetrahedron |
+      | name      | claim_code | privacy level | demo                             |
+      | Dan Croak | dcroak     | everybody     | name: Global Tetrahedron         |
     When "+14155551212" sends SMS "Dcroak"
     And I sign in via the login page as "Bob/blehblah"
     And I go to the profile page for "Dan Croak"
@@ -66,12 +66,12 @@ Feature: User claims account via SMS
 
   Scenario: User claims account for demo with seed points
     Given the following demo exists:
-      | name | seed_points |
-      | FooCo        | 10          |
+      | name  | seed_points |
+      | FooCo | 10          |
     And time is frozen
     And the following user exists:
-      | name      | claim_code | demo                |
-      | Dan Croak | dcroak     | name: FooCo |
+      | name      | claim_code | privacy level | demo                |
+      | Dan Croak | dcroak     | everybody     | name: FooCo         |
     And the following user exists:
       | name | demo                |
       | Fred | name: FooCo |
@@ -94,9 +94,9 @@ Feature: User claims account via SMS
 
   Scenario: User claims ambiguous code with their first name
     Given the following users exist:
-      | name       | claim code | demo                             |
-      | John Smith | jsmith     | name: Global Tetrahedron |
-      | Jack Smith | jsmith     | name: Global Tetrahedron |
+      | name       | claim code | privacy level | demo                             |
+      | John Smith | jsmith     | everybody     | name: Global Tetrahedron         |
+      | Jack Smith | jsmith     | everybody     | name: Global Tetrahedron         |
     When "+14155551212" sends SMS "john jsmith"
     And I sign in via the login page as "Bob/blehblah"
     Then I should see "John Smith joined the game"

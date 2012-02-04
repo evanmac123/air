@@ -2,10 +2,10 @@ Feature: User gets bonus points at thresholds with some randomness built in
 
   Background: 
     Given the following demo exists:
-      | name |
-      | FooCo        |
+      | name  |
+      | FooCo |
     And the following rules exist:
-      | reply   | points | description  | demo                |
+      | reply   | points | description  | demo        |
       | water   | 1      | drank water  | name: FooCo |
       | cheese  | 2      | ate cheese   | name: FooCo |
       | kitten  | 3      | ate a kitten | name: FooCo |
@@ -23,9 +23,9 @@ Feature: User gets bonus points at thresholds with some randomness built in
       | 19         | 22         | 5     | name: FooCo |
       | 31         | 38         | 5     | name: FooCo |
     And the following claimed users exist:
-      | name | phone number | points | demo                |
-      | Vlad | +14155551212 | 8      | name: FooCo | 
-      | Dan  | +16175551212 | 29     | name: FooCo |
+      | name | phone number | points | privacy level | demo        |
+      | Vlad | +14155551212 | 8      | everybody     | name: FooCo | 
+      | Dan  | +16175551212 | 29     | everybody     | name: FooCo |
     And "Vlad" has the password "foobar"
     And I sign in via the login page with "Vlad/foobar"
 

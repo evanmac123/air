@@ -5,10 +5,10 @@ Feature: User filters their view of the activity stream
       | name |
       | FooCo        |
     And the following users exist:
-      | name | phone number | demo                |
-      | Joe  | +14155551212 | name: FooCo |
-      | Bob  | +14155551213 | name: FooCo |
-      | Fred | +14155551214 | name: FooCo |
+      | name | phone number | privacy level | demo                |
+      | Joe  | +14155551212 | everybody     | name: FooCo         |
+      | Bob  | +14155551213 | everybody     | name: FooCo         |
+      | Fred | +14155551214 | everybody     | name: FooCo         |
     And the following friendships exist:
       | user      | friend    |
       | name: Joe | name: Bob |

@@ -6,9 +6,9 @@ Feature: Demos are kept separate
       | dan@example.com | Dan  | name: 3M | 
       
     And the following claimed users exist:
-      | email           | name | demo             |
-      | bob@example.com | Bob  | name: 3M |
-      | ned@example.com | Ned  | name: Xe |
+      | email           | name | privacy level | demo             |
+      | bob@example.com | Bob  | everybody     | name: 3M         |
+      | ned@example.com | Ned  | everybody     | name: Xe         |
 
     And the following acts exist:
       | text        | user      |

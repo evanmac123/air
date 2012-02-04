@@ -14,25 +14,25 @@ Feature: User gives credit to game referer via autocomplete field
       | started.com  | name: NotStarted |
 
     Given the following users exist:
-      | name               | demo            | email                | slug      | sms_slug    |
-      | Charlie Brainfield | name: Preloaded | 1@loaded.com         | airplane  | airplane    |
-      | Yo Yo Ma           | name: Preloaded | 2@loaded.com         | naked     | naked       |
-      | Threefold          | name: Preloaded | 3@loaded.com         | eraser    | eraser      |
-      | Fourfold           | name: Preloaded | 4@loaded.com         | owl       | owl         |
-      | Fivefold           | name: Preloaded | 5@loaded.com         | brush     | brush       |
-      | Watermelon         | name: Gleason   | 1@biker.com          | jumper    | jumper      |
-      | Bruce Springsteen  | name: Gleason   | 2@biker.com          | airairair | airairair   |
-      | Barnaby Watson     | name: Gleason   | 3@biker.com          | mypeeps   | mypeeps     |
-      | Charlie Moore      | name: Gleason   | 4@biker.com          | livingit  | livingit    |
-      | Already Playing    | name: Bratwurst | playing@inviting.com | playing   | playing     |
+      | name               | demo            | email                | slug      | sms_slug    | privacy level |
+      | Charlie Brainfield | name: Preloaded | 1@loaded.com         | airplane  | airplane    | everybody     |
+      | Yo Yo Ma           | name: Preloaded | 2@loaded.com         | naked     | naked       | everybody     |
+      | Threefold          | name: Preloaded | 3@loaded.com         | eraser    | eraser      | everybody     |
+      | Fourfold           | name: Preloaded | 4@loaded.com         | owl       | owl         | everybody     |
+      | Fivefold           | name: Preloaded | 5@loaded.com         | brush     | brush       | everybody     |
+      | Watermelon         | name: Gleason   | 1@biker.com          | jumper    | jumper      | everybody     |
+      | Bruce Springsteen  | name: Gleason   | 2@biker.com          | airairair | airairair   | everybody     |
+      | Barnaby Watson     | name: Gleason   | 3@biker.com          | mypeeps   | mypeeps     | everybody     |
+      | Charlie Moore      | name: Gleason   | 4@biker.com          | livingit  | livingit    | everybody     |
+      | Already Playing    | name: Bratwurst | playing@inviting.com | playing   | playing     | everybody     |
 
     Given the following claimed user exists:
-      | name       | demo            | email                       | slug      | sms_slug    | phone_number |
-      | Barnaby    | name: Bratwurst | claimed@inviting.com        | smoke     | smoke       | +15554445555 |
-      | Alexander  | name: Bratwurst | also_claimed@inviting.com   | soap      | soap        | +15554442222 |
-      | Outsider   | name: Gleason   | different_game@inviting.com | box       | box         | +15554442211 |
-      | Shelly     | name: Preloaded | pre@loaded.com              | nada      | nada        | +16662221111 |
-      | Yoko       | name: NotStarted| not@started.com             | abb       | abb         | +13384848484 |
+      | name       | demo            | email                       | slug      | sms_slug    | phone_number | privacy level |
+      | Barnaby    | name: Bratwurst | claimed@inviting.com        | smoke     | smoke       | +15554445555 | everybody     |
+      | Alexander  | name: Bratwurst | also_claimed@inviting.com   | soap      | soap        | +15554442222 | everybody     |
+      | Outsider   | name: Gleason   | different_game@inviting.com | box       | box         | +15554442211 | everybody     |
+      | Shelly     | name: Preloaded | pre@loaded.com              | nada      | nada        | +16662221111 | everybody     |
+      | Yoko       | name: NotStarted| not@started.com             | abb       | abb         | +13384848484 | everybody     |
 
   @javascript
   Scenario: Invite friends on demo pre-populated with users
