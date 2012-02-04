@@ -1224,7 +1224,7 @@ body.acts #facebox .popup {
       body.acts #facebox .popup .content form p {
         font-weight: bold; }
       body.acts #facebox .popup .content form ul.form-section li.form-input input#autocomplete {
-        width: 100%; }
+        width: 350px; }
       body.acts #facebox .popup .content form ul.form-section li.form-label label {
         color: #2e2e2c;
         font-weight: bold; }

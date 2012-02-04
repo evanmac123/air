@@ -148,11 +148,11 @@ $(function() {
 });
 
 function increasePopupHeight(){
-  var div_to_grow = $('.popup .content');
-  var initial_height = div_to_grow.height();
-  var height_to_add = $('.single_suggestion').height();
-  var new_height = initial_height + height_to_add;
-  div_to_grow.height(new_height);
+	var div_to_grow = $('.popup .content');
+	var initial_height = div_to_grow.height();
+	var height_to_add = $('.single_suggestion').height();
+	var new_height = initial_height + height_to_add;
+	div_to_grow.height(new_height);
 }
 
 function saveInviteFriendsToVariable(){

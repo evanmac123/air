@@ -9,8 +9,9 @@ $ex-bg-gray: #2c2b2b;
 	color:#fff;
 	display: block;
 	font-family: $gotham;
-	font-size: 16px;
-	font-weight:bold;
+	font-size: 15px;
+	font-weight:900;
+	letter-spacing:.15ex;
 	padding: 5px 16px;
 	text-shadow:1px 1px 1px #333;
 	behavior: url(/css3pie/PIE.htc);
@@ -37,7 +38,7 @@ $ex-bg-gray: #2c2b2b;
 }
 
 .cf {clear:both;}
-h2 {margin:0; padding:0;}
+h2 {font-weight:900; margin:0; padding:0;}
 ul {list-style-type:none; margin:0; padding:0;}
 a {border:0;
 	&:active {
@@ -153,6 +154,7 @@ body.invitations .header #navigation .nav-signup, body.sessions .header #navigat
 						color: #fff;
 						display:inline-block;
 						font-size:18px;
+						font-weight:900;
 						letter-spacing: 1px;
 						padding:6px 15px;
 						text-shadow:1px 1px 1px #333;
@@ -290,11 +292,25 @@ body.invitations-show, body.invitation-acceptances {
 		}
 	}
 	div#search_for_referrer {
-		div#autocomplete_status {
-			color:$gray;
-			margin:0;
-			padding:0;
-			top:-52px;
+		div#relative {
+			div#autocomplete_status {
+				color:$gray;
+				margin:0;
+				padding:0;
+				top:-52px;
+			}
+			div#suggestions {
+				div.single_suggestion {
+					div.image {
+						img {
+							@include rounded;
+							border:1px $light-gray inset;
+							height:95px;
+							width:95px;
+						}
+					}
+				}
+			}
 		}
 	}
 }
