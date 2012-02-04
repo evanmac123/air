@@ -640,6 +640,7 @@ body.acts .container #suggested-tasks {
     color: #909090;
     font-family: "Lato", Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 14px;
+    font-weight: 900;
     padding: 10px;
     text-transform: uppercase; }
   body.acts .container #suggested-tasks .campaign {
@@ -1041,7 +1042,7 @@ body.acts .container .invite-module {
     color: #2e2e2c;
     font-family: "Lato", Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 20px;
-    font-weight: bold;
+    font-weight: 900;
     padding-bottom: 15px;
     text-transform: uppercase; }
   body.acts .container .invite-module .invite input[type="submit"] {
@@ -1230,6 +1231,7 @@ body.acts #facebox .popup {
         font-weight: bold; }
     body.acts #facebox .popup .content h2 {
       font-family: "Lato", Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-weight: 900;
       padding-bottom: 10px;
       text-transform: uppercase; }
     body.acts #facebox .popup .content p {
@@ -1330,10 +1332,12 @@ body.pages-faq .content {
         color: #2e2e2c; }
     body.pages-faq .content #faq_body h1, body.pages-faq .content #faq_body h2 {
       color: #2e2e2c;
-      font-family: "Lato", Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif; }
+      font-family: "Lato", Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-weight: 900; }
     body.pages-faq .content #faq_body h1 + h2 {
       padding-top: 1ex; }
     body.pages-faq .content #faq_body h2 {
+      font-weight: 900;
       text-transform: uppercase;
       padding-bottom: 1ex;
       padding-top: 2ex;
