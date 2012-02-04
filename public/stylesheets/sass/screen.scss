@@ -692,3 +692,43 @@ body.pages-faq{
 		}
 	}
 }
+
+/* --------------------------- game not started --------------------------- */
+body.acts {
+	div.content {
+		div#no-login-yet {
+			margin:20px auto;
+			width:960px;
+			div.invite#invite_friends {
+				@include bg-white-free;
+				float:right;
+				width:35%;
+				
+				form {
+					margin-top:15px;
+					
+					div.first_half {
+						@include input-text;
+						color:$gray;
+						
+						input[type="text"] {
+							width:210px;
+						}
+					}
+					p {
+						color:$dark-gray;
+						font-weight:bold;
+					}
+				}
+				h2 {
+					color:$dark-gray;
+					font-family:$gotham;
+					font-size:20px;
+					font-weight: 900;
+					padding-bottom:15px;
+					text-transform:uppercase;
+				}
+			}
+		}
+	}
+}
