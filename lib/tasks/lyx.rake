@@ -15,7 +15,7 @@ task :lyx do
   File.open(html_toc, 'w') {|f| f.write(toc) }
 
   body = IO.read(html_body)  # You could replace the label 'subsection' here, but we decided to go with elyxer's --notoclabels flag 
-  body = body.gsub('support@hengage.com', "<a href='mailto:support@hengage.com'>support@hengage.com</a>")  #remove the link prepend so links work in-place
+  body = body.gsub('support@hengage.com', "<a href='#' class='contact_us_link'>support@hengage.com</a>")  #remove the link prepend so links work in-place
   File.open(html_body, 'w') {|f| f.write(body) }
   
   puts "F.A.Q. generated"

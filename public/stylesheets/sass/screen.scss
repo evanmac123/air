@@ -745,3 +745,24 @@ div.content {
     }
   }
 }
+/* --------------------------- pop up for contacting us --------------------------- */
+/* this will be displayed in a facebox when they click the support email links      */
+.hidden{
+  display:none;
+}
+
+#faq_toc{
+  .contact_us_link{
+    @include button-norm;
+    font-size:11px;
+    margin-top: 1.2ex;
+    width: 129px;
+  }
+}
+
+.need_help{
+  width: 150px;
+  margin: 2ex auto 4ex auto;
+  font-size: 17px;
+  text-align: center
+}

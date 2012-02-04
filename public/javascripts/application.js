@@ -7,6 +7,8 @@ $(function() {
     $('#search_for_friends_to_invite form').submit();
   });
   
+
+  
   if (document.getElementById('command_central')){
     $('#command_central').focus();
     var sugg = "Enter a command or action";

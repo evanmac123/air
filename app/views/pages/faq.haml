@@ -14,8 +14,19 @@
   
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+// Any link with the class 'contact_us_link', when clicked, will load the assistly widget, as long as 
+// you rendered the assistly-widget in your page
+
+
 #faq_toc.module
+  .need_help
+    Need more help?
+    
+    = button_to 'Contact Us', '#', :class => :contact_us_link, :method => :get
   = render 'faq_toc'
 #faq_body.module
   %h1 Frequently Asked Questions
   = render 'faq_body'
+.hidden
+  = render 'shared/assistly_widget'
+= javascript_include_tag 'contact_us'
