@@ -1414,49 +1414,25 @@ body.pages-faq .content {
 
 /* --------------------------- game not started --------------------------- */
 body.acts div.content div#no-login-yet {
-  margin: 20px auto;
-  width: 960px; }
+  border: 1px #bebebe solid;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  -moz-box-shadow: 0 0 5px #c9c9c9;
+  -webkit-box-shadow: 0 0 5px #c9c9c9;
+  box-shadow: 0 0 5px #c9c9c9;
+  behavior: url(/css3pie/PIE.htc);
+  background-color: #ffffff;
+  margin-bottom: 15px;
+  padding: 15px 10px 10px 10px;
+  margin: 30px auto 20px auto;
+  width: 460px; }
   body.acts div.content div#no-login-yet div.invite#invite_friends {
-    border: 1px #bebebe solid;
-    -webkit-border-radius: 3px;
-    -moz-border-radius: 3px;
-    border-radius: 3px;
-    -moz-box-shadow: 0 0 5px #c9c9c9;
-    -webkit-box-shadow: 0 0 5px #c9c9c9;
-    box-shadow: 0 0 5px #c9c9c9;
-    behavior: url(/css3pie/PIE.htc);
-    background-color: #ffffff;
-    margin-bottom: 15px;
-    padding: 15px 10px 10px 10px;
-    float: right;
-    width: 35%; }
-    body.acts div.content div#no-login-yet div.invite#invite_friends form {
-      margin-top: 15px; }
-      body.acts div.content div#no-login-yet div.invite#invite_friends form div.first_half {
-        color: #909090; }
-        body.acts div.content div#no-login-yet div.invite#invite_friends form div.first_half input[type=text] {
-          border-radius: 30px;
-          -webkit-border-radius: 30px;
-          -moz-border-radius: 30px;
-          behavior: url(/css3pie/PIE.htc);
-          position: relative;
-          z-index: 0;
-          background-color: #f6f6f6;
-          border: 1px #c5c7c7 solid;
-          color: #588b3d;
-          padding: 5px 10px; }
-          body.acts div.content div#no-login-yet div.invite#invite_friends form div.first_half input[type=text]:focus {
-            background-color: #fff;
-            border: 1px #588b3d solid; }
-        body.acts div.content div#no-login-yet div.invite#invite_friends form div.first_half input[type="text"] {
-          width: 210px; }
-      body.acts div.content div#no-login-yet div.invite#invite_friends form p {
-        color: #2e2e2c;
-        font-weight: bold; }
-    body.acts div.content div#no-login-yet div.invite#invite_friends h2 {
-      color: #2e2e2c;
-      font-family: "Lato", Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
-      font-size: 20px;
-      font-weight: 900;
-      padding-bottom: 15px;
-      text-transform: uppercase; }
+    display: none; }
+  body.acts div.content div#no-login-yet h2 {
+    color: #2e2e2c;
+    font-family: "Lato", Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 20px;
+    font-weight: 900;
+    padding-bottom: 15px;
+    text-transform: uppercase; }
