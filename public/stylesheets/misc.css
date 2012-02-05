@@ -95,6 +95,7 @@ body.interstitial_verifications div.content {
     border: 0;
     color: #fff;
     font-family: "Ubuntu", Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 11px!important;
     font-weight: bold;
     padding: 5px 15px;
     text-shadow: 1px 1px 1px #2e2e2c;

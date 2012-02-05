@@ -34,9 +34,49 @@ ul {
 /* Game type colors */
 /* ---------- general mixins ---------- */
 /* ---------- header mixins ---------- */
+.header .mast_top div.welcome img.user_avatar {
+  border-radius: 0!important;
+  z-index: 100; }
+
+.acts .header .navigation .nav-home, .users .header .navigation .nav-profile {
+  border-radius: 0!important; }
+
 .suggested-task {
-  background-color: #5e6166!important;
-  box-shadow: 0 0 3px 2px white;
+  background-color: #008873 !important;
+  box-shadow: 0 0 3px 2px #c9c9c9;
   behavior: url(/css3pie/PIE.htc); }
-  .suggested-task div.gradient {
-    background-color: #47484C!important; }
+  .suggested-task a.more-info {
+    background-image: url(/images/v3/btn-moreinfo.png) !important;
+    border: 0!important;
+    display: inline-block;
+    text-shadow: 1px 1px 1px #2e2e2c !important;
+    width: 75px; }
+    .suggested-task a.more-info:hover {
+      background: url(/images/v3/btn-moreinfo-down.png) !important;
+      background-position: center center; }
+  .suggested-task div.dose-moreinfo {
+    background-color: #005548 !important;
+    border-radius: 3px;
+    clear: both;
+    position: relative;
+    top: 5px;
+    behavior: url(/css3pie/PIE.htc); }
+  .suggested-task div.cf {
+    height: 0!important; }
+
+.invite-module {
+  /*sidebox for invite AFTER clicking OUT of modal*/ }
+  .invite-module div.invite#invite_friends_facebox form div.first_half input[type="text"] {
+    border-radius: 0!important; }
+
+#facebox .content form .first_half {
+  width: 375px!important; }
+  #facebox .content form .first_half input[type="text"] {
+    width: 250px!important; }
+
+div.invite_or_add input[type="submit"] {
+  background: none!important;
+  border-radius: 0!important;
+  color: #588b3d !important;
+  font-size: 14px;
+  padding: 0!important; }

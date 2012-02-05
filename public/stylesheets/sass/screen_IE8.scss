@@ -1,10 +1,79 @@
 @import "standard";
 
+.header {
+	.mast_top {	
+		div.welcome {
+			img.user_avatar {
+				border-radius:0!important;
+				z-index:100;
+			}
+		}
+	}
+}
+
+.acts .header .navigation .nav-home, .users .header .navigation .nav-profile {
+	border-radius:0!important;
+}
+
 .suggested-task {
+	$ie-game-color:#008873;
 //	hiding the following will allow for rounded corners...
-	background-color: #5e6166!important;
-//	border: 1px #4B4E51 solid!important;
-	box-shadow: 0 0 3px 2px white;
+	background-color: $ie-game-color!important;
+	box-shadow: 0 0 3px 2px #c9c9c9;
 	behavior: url(/css3pie/PIE.htc);
-	div.gradient {background-color: #47484C!important;}
+	a.more-info {
+		background-image:url(/images/v3/btn-moreinfo.png)!important;
+		border:0!important;
+		display:inline-block;
+		text-shadow:1px 1px 1px $dark-gray!important;
+		width:75px;
+		&:hover {
+			background:url(/images/v3/btn-moreinfo-down.png)!important;
+			background-position:center center;
+		}
+	}
+	div.dose-moreinfo {
+		background-color: darken($ie-game-color,10%)!important;
+		border-radius: 3px;
+		clear: both;
+		position:relative;
+		top:5px;
+		behavior: url(/css3pie/PIE.htc);
+	}
+	div.cf {
+		height:0!important;
+	}
+}
+
+.invite-module { /*sidebox for invite AFTER clicking OUT of modal*/
+	div.invite#invite_friends_facebox {
+		form {
+			div.first_half {
+				input[type="text"] {
+					border-radius:0!important;
+				}
+			}
+		}
+	}
+}
+#facebox {
+	.content {
+		form {
+			.first_half {
+				width:375px!important;
+				input[type="text"] {
+					width:250px!important;
+				}	
+			}
+		}
+	}
+}
+div.invite_or_add {
+	input[type="submit"] {
+		background:none!important;
+		border-radius:0!important;
+		color:$header-bg!important;
+		font-size:14px;
+		padding:0!important;
+	}
 }

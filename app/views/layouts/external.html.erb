@@ -2,12 +2,20 @@
 <head>
 <title>H Engage </title>
   <%= stylesheet_link_tag "styles" %>
-	<!--[if IE]><%= stylesheet_link_tag "stylesIE" %><![endif]-->
   <%= render 'shared/skin_styles' %>
   <%= stylesheet_link_tag 'autocompletion' %>
   <%= stylesheet_link_tag 'facebox' %>
   <link href='http://fonts.googleapis.com/css?family=Ubuntu:400,700' rel='stylesheet' type='text/css'>
 
+	<!--[if IE]>
+	    <%= stylesheet_link_tag 'screen_IE' %>
+	<![endif]-->
+	<!--[if IE 7]>
+		<%= stylesheet_link_tag 'screen_IE7' %>
+	<![endif]-->
+	<!--[if IE 8]>
+		<%= stylesheet_link_tag 'screen_IE8' %>
+	<![endif]-->
 
   <%= csrf_meta_tag %>
   <%= render 'shared/mixpanel' %>
