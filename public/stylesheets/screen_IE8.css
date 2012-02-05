@@ -37,8 +37,9 @@ ul {
 /* external */
 body.invitations div#suggestions div.single_suggestion img {
   background: red!important;
+  border: 0!important;
   border-radius: 0!important;
-  z-index: 99999; }
+  z-index: 99999!important; }
 
 body.invitations .header #navigation .nav-signup, body.sessions .header #navigation .nav-login {
   background: #2e2e2c;
