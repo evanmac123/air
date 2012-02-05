@@ -42,4 +42,8 @@ class SessionsController < Clearance::SessionsController
   def flash_success_after_create
     # No "Signed in" message
   end
+
+  def flash_failure_after_create
+    flash[:failure] = "Sorry, that's an invalid username or password."
+  end
 end
