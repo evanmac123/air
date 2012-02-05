@@ -196,8 +196,8 @@ Feature: User acts
     And I should see "5 pts Dan worked out (thanks Fred for the referral) less than a minute"
     And I should see "1 pt Paul told Dan about a command less than a minute ago"
     And I should see "200 pts Fred told Dan about a command less than a minute ago"
-    And "+15088675309" should have received an SMS '+1 point, you were just tagged in the "ate banana" command by Dan. Points 1/50, rank 3/4.'
-    And "+14155551212" should have received an SMS '+200 points, you were just tagged in the "worked out" command by Dan. Points 201/50, rank 2/4.'
+    And "+15088675309" should have received an SMS '+1 point, Dan tagged you in the "ate banana" command. Points 1/50, rank 3/4.'
+    And "+14155551212" should have received an SMS '+200 points, Dan tagged you in the "worked out" command. Points 201/50, rank 2/4.'
 
   Scenario: A helpful error message if you say a nonexistent user referred you
     When "+15087407520" sends SMS "ate banana mrnobody"

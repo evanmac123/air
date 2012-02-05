@@ -852,9 +852,8 @@ class User < ActiveRecord::Base
   def credit_referring_user(referring_user, rule, rule_value)
     return unless referring_user
 
-    act_text = I18n.translate(
-      'activerecord.models.user.referred_a_command_act',
-      :default    => "told %{name} about a command",
+    act_text = I18n.interpolate(
+      "told %{name} about a command",
       :name       => self.name,
       :rule_value => rule_value.value
     )
@@ -869,9 +868,8 @@ class User < ActiveRecord::Base
       :inherent_points => points_earned_by_referring
     )
 
-    sms_text = I18n.translate(
-      'activerecord.models.user.thanks_for_referring_sms',
-      :default                   => %{+%{points}, you were just tagged in the "%{rule_value}" command by %{name}. %{point_and_ranking_summary}},
+    sms_text = I18n.interpolate(
+      %{+%{points}, %{name} tagged you in the "%{rule_value}" command. %{point_and_ranking_summary}},
       :points                    => points_phrase,
       :name                      => self.name,
       :rule_value                => rule_value.value,
