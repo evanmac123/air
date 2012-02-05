@@ -35,6 +35,8 @@ ul {
 /* ---------- general mixins ---------- */
 /* ---------- header mixins ---------- */
 /* external */
+body.external div.container div.inv-forms form div#suggestions {
+  z-index: 9999!important; }
 body.external div.container div.inv-forms form input[type="submit"] {
   padding: 5px 0!important; }
 
