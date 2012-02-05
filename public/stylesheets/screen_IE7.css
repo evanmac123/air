@@ -35,10 +35,6 @@ ul {
 /* ---------- general mixins ---------- */
 /* ---------- header mixins ---------- */
 /* external */
-body.external div.container div.inv-forms form div#search_for_referrer div#suggestions {
-  z-index: 9999!important; }
-  body.external div.container div.inv-forms form div#search_for_referrer div#suggestions div.single_suggestion {
-    z-index: 99999!important; }
 body.external div.container div.inv-forms form input[type="submit"] {
   padding: 5px 0!important; }
 
@@ -48,6 +44,11 @@ body.passwords-new div.container div.inv-forms form input[type="submit"] {
 body.passwords-new div.container div.inv-forms form input[type="text"] {
   float: left;
   width: 325px; }
+
+body.invitations div#suggestions {
+  z-index: 9999!important; }
+  body.invitations div#suggestions div.single_suggestion {
+    z-index: 99999!important; }
 
 body.invitations .header #navigation .nav-signup, body.sessions .header #navigation .nav-login {
   background: #2e2e2c;

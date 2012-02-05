@@ -5,14 +5,6 @@ body.external {
 	div.container {
 		div.inv-forms {
 			form {
-				div#search_for_referrer {
-					div#suggestions {
-						z-index:9999!important;
-						div.single_suggestion {
-							z-index:99999!important;
-						}
-					}
-				}
 				input[type="submit"] {
 					padding:5px 0!important;
 				}
@@ -33,6 +25,14 @@ body.passwords-new {
 					width:325px;
 				}
 			}
+		}
+	}
+}
+body.invitations {
+	div#suggestions {
+		z-index:9999!important;
+		div.single_suggestion {
+			z-index:99999!important;
 		}
 	}
 }
