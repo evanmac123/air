@@ -45,13 +45,15 @@ body.passwords-new div.container div.inv-forms form input[type="text"] {
   float: left;
   width: 325px; }
 
-body.invitations div.form-ul-section {
-  position: relative!important;
-  z-index: 1!important; }
-body.invitations div#suggestions {
+body.invitations div#search_for_referrer {
+  position: relative;
   z-index: 9999!important; }
-  body.invitations div#suggestions div.single_suggestion {
-    z-index: 99999!important; }
+  body.invitations div#search_for_referrer div#suggestions {
+    position: relative;
+    z-index: 9999!important; }
+    body.invitations div#search_for_referrer div#suggestions div.single_suggestion {
+      position: relative;
+      z-index: 99999!important; }
 
 body.invitations .header #navigation .nav-signup, body.sessions .header #navigation .nav-login {
   background: #2e2e2c;

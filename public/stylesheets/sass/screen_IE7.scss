@@ -29,14 +29,16 @@ body.passwords-new {
 	}
 }
 body.invitations {
-	div.form-ul-section {
-		position:relative!important;
-		z-index:1!important;
-	}
-	div#suggestions {
+	div#search_for_referrer {
+		position:relative;
 		z-index:9999!important;
-		div.single_suggestion {
-			z-index:99999!important;
+		div#suggestions {
+			position:relative;
+			z-index:9999!important;
+			div.single_suggestion {
+				position:relative;
+				z-index:99999!important;
+			}
 		}
 	}
 }
