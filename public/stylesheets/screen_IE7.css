@@ -49,7 +49,7 @@ body.invitations div#search_for_referrer {
   position: relative;
   z-index: 9999!important; }
   body.invitations div#search_for_referrer div#suggestions {
-    position: relative;
+    position: absolute;
     z-index: 9999!important; }
     body.invitations div#search_for_referrer div#suggestions div.single_suggestion {
       position: relative;
