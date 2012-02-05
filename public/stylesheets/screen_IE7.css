@@ -45,6 +45,9 @@ body.passwords-new div.container div.inv-forms form input[type="text"] {
   float: left;
   width: 325px; }
 
+body.invitations div.form-ul-section {
+  position: relative!important;
+  z-index: 1!important; }
 body.invitations div#suggestions {
   z-index: 9999!important; }
   body.invitations div#suggestions div.single_suggestion {

@@ -29,6 +29,10 @@ body.passwords-new {
 	}
 }
 body.invitations {
+	div.form-ul-section {
+		position:relative!important;
+		z-index:1!important;
+	}
 	div#suggestions {
 		z-index:9999!important;
 		div.single_suggestion {
