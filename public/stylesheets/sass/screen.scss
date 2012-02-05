@@ -614,8 +614,10 @@ body.pages-faq{
 					background-color:$light-gray;
 					color:$gray;
 					font-weight:900;
-					margin-top:20px;
+					margin-bottom:10px;
 					padding:10px;
+					position:relative;
+					top:20px;
 				}
 			}
 			h2 {
@@ -695,16 +697,18 @@ body.pages-faq{
 		  	}
 
 			.tocindent {
-				border-bottom:1px $light-gray solid;
+				
 				padding-bottom:15px;
-				&:last-child {
-					border-bottom:0;
-				}
+				
 				.toc {
 					font-size: 100%;
 				}
 				.tocindent {
+					border-bottom:1px $light-gray solid;
 					padding-left: 2ex;
+					&:last-child {
+						border:0;
+					}
 					a{
 						color:$header-bg;
 						font-size: 100%;
