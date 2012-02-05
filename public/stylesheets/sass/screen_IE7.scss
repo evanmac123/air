@@ -28,6 +28,14 @@ body.passwords-new {
 		}
 	}
 }
+body.invitations .header #navigation .nav-signup, body.sessions .header #navigation .nav-login {
+	background:$dark-gray;
+	border:1px lighten($hengage-bg, 10%) solid;
+	border-radius:20px!important;
+	position:relative!important;
+	behavior: url(/css3pie/PIE.htc);
+	z-index:1;
+}
 
 /* internal */
 .mast_top {
@@ -36,6 +44,7 @@ body.passwords-new {
 		border:1px lighten($header-bg, 10%) solid!important;
 	}
 	.navigation {
+		left:45px!important;
 		width: 550px!important;
 	}
 }

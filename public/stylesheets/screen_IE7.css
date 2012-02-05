@@ -45,12 +45,21 @@ body.passwords-new div.container div.inv-forms form input[type="text"] {
   float: left;
   width: 325px; }
 
+body.invitations .header #navigation .nav-signup, body.sessions .header #navigation .nav-login {
+  background: #2e2e2c;
+  border: 1px #6eae4d solid;
+  border-radius: 20px!important;
+  position: relative!important;
+  behavior: url(/css3pie/PIE.htc);
+  z-index: 1; }
+
 /* internal */
 .mast_top {
   padding-bottom: 0!important; }
   .mast_top a.a_current {
     border: 1px #6eae4d solid !important; }
   .mast_top .navigation {
+    left: 45px!important;
     width: 550px!important; }
 
 .mast_bottom .bar_progress .bar .progress {

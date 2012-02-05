@@ -1,5 +1,15 @@
 @import "standard";
+/* external */
+body.invitations .header #navigation .nav-signup, body.sessions .header #navigation .nav-login {
+	background:$dark-gray;
+	border:1px lighten($hengage-bg, 10%) solid;
+	border-radius:20px!important;
+	position:relative!important;
+	behavior: url(/css3pie/PIE.htc);
+	z-index:1;
+}
 
+/* internal */
 .header {
 	.mast_top {	
 		div.welcome {

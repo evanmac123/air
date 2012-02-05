@@ -34,6 +34,16 @@ ul {
 /* Game type colors */
 /* ---------- general mixins ---------- */
 /* ---------- header mixins ---------- */
+/* external */
+body.invitations .header #navigation .nav-signup, body.sessions .header #navigation .nav-login {
+  background: #2e2e2c;
+  border: 1px #6eae4d solid;
+  border-radius: 20px!important;
+  position: relative!important;
+  behavior: url(/css3pie/PIE.htc);
+  z-index: 1; }
+
+/* internal */
 .header .mast_top div.welcome img.user_avatar {
   border-radius: 0!important;
   z-index: 100; }
