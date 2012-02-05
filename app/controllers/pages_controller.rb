@@ -1,24 +1,19 @@
 class PagesController < HighVoltage::PagesController
-  skip_before_filter :authenticate, :except => [:faq, :faq_body, :faq_toc]
-  skip_before_filter :force_ssl, :except => [:faq, :faq_body, :faq_toc]
+  FAQ_PAGES = [:faq, :faq_body, :faq_toc]
+
+  skip_before_filter :authenticate, :except => FAQ_PAGES
+  skip_before_filter :force_ssl, :except => FAQ_PAGES
 
   before_filter :force_html_format
-  before_filter :signed_out_only, :except => [:faq, :faq_body, :faq_toc]
+  before_filter :signed_out_only, :except => FAQ_PAGES
   before_filter :set_login_url
 
-  def terms
-    render :layout => "/layouts/external"
-  end
-  
-  def privacy
-    render :layout => "/layouts/external"
-  end
-  
-  
+  layout :layout_for_page
+
   def faq
     render :layout => "/layouts/application"
   end
-  
+
   def faq_body
     render :layout => false
   end
@@ -28,6 +23,19 @@ class PagesController < HighVoltage::PagesController
   end
   
   protected
+
+  def layout_for_page
+    case params[:id]
+    when 'privacy', 'terms'
+      'external'
+    when 'faq'
+      'application'
+    when 'faq_body', 'faq_toc'
+      false
+    else
+      'pages'
+    end
+  end
 
   def signed_out_only
     redirect_to home_path if signed_in?
