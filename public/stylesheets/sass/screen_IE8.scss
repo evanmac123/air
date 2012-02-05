@@ -1,5 +1,15 @@
 @import "standard";
 /* external */
+body.invitations {
+	div#suggestions {
+		div.single_suggestion {
+			img {
+				border-radius:0!important;
+			}
+		}
+	}
+}
+
 body.invitations .header #navigation .nav-signup, body.sessions .header #navigation .nav-login {
 	background:$dark-gray;
 	border:1px lighten($hengage-bg, 10%) solid;
