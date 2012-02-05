@@ -53,6 +53,16 @@ body.invitations .header #navigation .nav-signup, body.sessions .header #navigat
 	div.cf {
 		height:0!important;
 	}
+	p.dose-descript, p.dose-title, div.dose-moreinfo {
+		a {
+			color:#fff!important;
+			background:none!important;
+			border:0!important;
+			text-decoration:underline!important;
+			&:hover {color:$light-gray!important;}
+			&:active {color:$dark-gray!important;}
+		}
+	}
 }
 
 .invite-module { /*sidebox for invite AFTER clicking OUT of modal*/

@@ -35,8 +35,10 @@ ul {
 /* ---------- general mixins ---------- */
 /* ---------- header mixins ---------- */
 /* external */
-body.external div.container div.inv-forms form div#suggestions {
+body.external div.container div.inv-forms form div#search_for_referrer div#suggestions {
   z-index: 9999!important; }
+  body.external div.container div.inv-forms form div#search_for_referrer div#suggestions div.single_suggestion {
+    z-index: 99999!important; }
 body.external div.container div.inv-forms form input[type="submit"] {
   padding: 5px 0!important; }
 
@@ -91,6 +93,15 @@ body.invitations .header #navigation .nav-signup, body.sessions .header #navigat
     height: 0!important; }
   .suggested-task p.dose-descript, .suggested-task p.dose-title {
     display: inline; }
+  .suggested-task p.dose-descript a, .suggested-task p.dose-title a, .suggested-task div.dose-moreinfo a {
+    color: #fff!important;
+    background: none!important;
+    border: 0!important;
+    text-decoration: underline!important; }
+    .suggested-task p.dose-descript a:hover, .suggested-task p.dose-title a:hover, .suggested-task div.dose-moreinfo a:hover {
+      color: #e9e9e9 !important; }
+    .suggested-task p.dose-descript a:active, .suggested-task p.dose-title a:active, .suggested-task div.dose-moreinfo a:active {
+      color: #2e2e2c !important; }
 
 .feeds ul#user-acts li.act-shim {
   display: none; }
