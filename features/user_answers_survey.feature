@@ -65,7 +65,6 @@ Background:
     Then "+14155551212" should have received an SMS "Do you smoke crack?"
 
     When "+14155551212" sends SMS "1"
-    And I dump all sent texts
     Then "+14155551212" should have received an SMS "Do you like cheese?"
 
   Scenario: User can't kick off survey by asking for it if survey is not currently open

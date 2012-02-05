@@ -36,7 +36,6 @@ Feature: User accepts invitation
     When "Dan" fills in the new phone validation field with their validation code
     And I press "Validate phone"
     And DJ cranks 5 times
-    And I dump all sent texts
 
     Then "+15087407520" should have received an SMS "You've joined the 3M game! Your username is dan (text MYID if you forget). To play, text to this #."
     And I should be on the activity page

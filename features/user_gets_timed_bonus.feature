@@ -23,7 +23,6 @@ Feature: User gets timed bonus
     When "+14155551212" sends SMS "did thing"
     And "+16175551212" sends SMS "did thing"
     And DJ cranks 10 times after a little while
-    And I dump all sent texts
     Then "+14155551212" should have received an SMS including "did a thing"
     And "+14155551212" should have received an SMS including "You acted before the time limit expired! +15 points."
     But "+16175551212" should not have received an SMS including "You acted before the time limit expired"

@@ -38,7 +38,6 @@ Feature: Levels control points denominator
     Then "+14155551212" should have received an SMS including "better. Points 14/21"
 
     When "+14155551212" sends SMS "did best"
-    And I dump all sent texts
     Then "+14155551212" should have received an SMS including "best. Points 28/21"
 
     When "+14155551212" sends SMS "did best"
@@ -60,7 +59,6 @@ Feature: Levels control points denominator
     Then "+14155551212" should have received an SMS including "better. Points 14/15"
 
     When "+14155551212" sends SMS "did better"
-    And I dump all sent texts
     Then "+14155551212" should have received an SMS including "better. Points 18/15"
 
     When "+14155551212" sends SMS "did best"
@@ -70,7 +68,6 @@ Feature: Levels control points denominator
     Given "FooCo" has victory threshold 40
 
     When "+14155551212" sends SMS "did best"
-    And I dump all sent texts
     Then "+14155551212" should have received an SMS including "best. Points 21/10"
 
     When "+14155551212" sends SMS "did best"

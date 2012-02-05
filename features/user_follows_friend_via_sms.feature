@@ -53,7 +53,6 @@ Feature: User can follow another user by SMS
   Scenario: User tries to follow themselves
     When "+16178675309" sends SMS "follow vladgyster"
     And DJ cranks 5 times
-    And I dump all sent texts
     Then "+16178675309" should not have received an SMS including "fan of Vlad Gyster, pending their acceptance"
     And "+16178675309" should not have received an SMS including "Vlad Gyster has asked to be your fan"
     And "+16178675309" should have received an SMS "Sorry, you can't follow yourself."
