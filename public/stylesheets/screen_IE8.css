@@ -35,7 +35,7 @@ ul {
 /* ---------- general mixins ---------- */
 /* ---------- header mixins ---------- */
 /* external */
-body.invitations div#suggestions div.single_suggestion img {
+body.invitations div#suggestions img {
   background: red!important;
   border: 0!important;
   border-radius: 0!important;
