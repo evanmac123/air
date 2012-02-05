@@ -119,7 +119,7 @@ ul {
         .header .masthead .mast_top .navigation a {
           display: block;
           float: left;
-          font-family: "Lato", Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+          font-family: "Ubuntu", Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
           font-size: 15px;
           letter-spacing: 1px;
           padding: 6px 15px; }
@@ -228,7 +228,7 @@ ul {
           behavior: url(/css3pie/PIE.htc);
           color: #fff;
           float: right;
-          font-family: "Lato", Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+          font-family: "Ubuntu", Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
           font-size: 14px;
           font-weight: bold;
           height: 35px;
@@ -322,7 +322,7 @@ ul {
         .header .masthead .mast_bottom .bar_level p {
           color: #588b3d;
           float: left;
-          font-family: "Lato", Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+          font-family: "Ubuntu", Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
           font-size: 12px;
           margin: 13px 0 0 -10px;
           padding: 0;

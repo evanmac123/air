@@ -68,7 +68,7 @@ body.external {
   padding: 0; }
   body.external h2 {
     color: #2e3028;
-    font-family: "Lato", Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: "Ubuntu", Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 26px;
     letter-spacing: 0;
     margin: 5px 0 15px 0;
@@ -144,7 +144,7 @@ body.invitations .header #navigation .nav-signup, body.sessions .header #navigat
           margin-top: 30px;
           height: 136px; }
       .container .top .header #navigation {
-        font-family: "Lato", Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+        font-family: "Ubuntu", Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
         font-weight: bold;
         padding: 0 0 20px 0;
         text-transform: uppercase; }
@@ -296,7 +296,7 @@ body.invitation-resends form input[type="submit"] {
   border: 0;
   color: #fff;
   display: block;
-  font-family: "Lato", Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Ubuntu", Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 15px;
   font-weight: 900;
   letter-spacing: .15ex;
@@ -329,7 +329,7 @@ body.passwords .content .inv-forms form {
     border: 0;
     color: #fff;
     display: block;
-    font-family: "Lato", Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: "Ubuntu", Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 15px;
     font-weight: 900;
     letter-spacing: .15ex;
@@ -383,7 +383,7 @@ body.sessions .content .inv-forms form {
     border: 0;
     color: #fff;
     display: block;
-    font-family: "Lato", Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: "Ubuntu", Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 15px;
     font-weight: 900;
     letter-spacing: .15ex;
@@ -486,7 +486,7 @@ select#user_location_id {
   border: 0;
   color: #fff;
   display: block;
-  font-family: "Lato", Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Ubuntu", Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 15px;
   font-weight: 900;
   letter-spacing: .15ex;

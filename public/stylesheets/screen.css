@@ -156,7 +156,7 @@ ul {
         .header .masthead .mast_top .navigation a {
           display: block;
           float: left;
-          font-family: "Lato", Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+          font-family: "Ubuntu", Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
           font-size: 15px;
           letter-spacing: 1px;
           padding: 6px 15px; }
@@ -265,7 +265,7 @@ ul {
           behavior: url(/css3pie/PIE.htc);
           color: #fff;
           float: right;
-          font-family: "Lato", Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+          font-family: "Ubuntu", Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
           font-size: 14px;
           font-weight: bold;
           height: 35px;
@@ -359,7 +359,7 @@ ul {
         .header .masthead .mast_bottom .bar_level p {
           color: #588b3d;
           float: left;
-          font-family: "Lato", Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+          font-family: "Ubuntu", Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
           font-size: 12px;
           margin: 13px 0 0 -10px;
           padding: 0;
@@ -470,7 +470,7 @@ body.interstitial_verifications div.content {
     behavior: url(/css3pie/PIE.htc);
     border: 0;
     color: #fff;
-    font-family: "Lato", Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: "Ubuntu", Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-weight: bold;
     padding: 5px 15px;
     text-shadow: 1px 1px 1px #2e2e2c;
@@ -514,7 +514,7 @@ body {
       margin: 5px 0; }
     body .container h1.headline {
       color: #2e2e2c;
-      font-family: "Lato", Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-family: "Ubuntu", Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
       font-size: 20px;
       font-weight: 900;
       padding-bottom: 15px;
@@ -559,7 +559,7 @@ body {
       behavior: url(/css3pie/PIE.htc);
       border: 0;
       color: #fff;
-      font-family: "Lato", Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-family: "Ubuntu", Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
       font-weight: bold;
       padding: 5px 15px;
       text-shadow: 1px 1px 1px #2e2e2c;
@@ -638,7 +638,7 @@ body.acts .container #suggested-tasks {
   /* ---------- end game types ----------- */ }
   body.acts .container #suggested-tasks h2 {
     color: #909090;
-    font-family: "Lato", Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: "Ubuntu", Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 14px;
     font-weight: 900;
     padding: 10px;
@@ -782,7 +782,7 @@ body.acts .container #suggested-tasks {
       border: 1px #909090 solid;
       color: #fff;
       float: right;
-      font-family: "Lato", Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-family: "Ubuntu", Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
       font-size: 12px;
       font-weight: bold;
       padding: 3px 10px;
@@ -865,7 +865,7 @@ body.acts .container .feeds {
       behavior: url(/css3pie/PIE.htc);
       border: 0;
       color: #fff;
-      font-family: "Lato", Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-family: "Ubuntu", Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
       font-weight: bold;
       padding: 5px 15px;
       text-shadow: 1px 1px 1px #2e2e2c;
@@ -997,7 +997,7 @@ body.acts .container .invite-module {
       behavior: url(/css3pie/PIE.htc);
       border: 0;
       color: #fff;
-      font-family: "Lato", Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-family: "Ubuntu", Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
       font-weight: bold;
       padding: 5px 15px;
       text-shadow: 1px 1px 1px #2e2e2c;
@@ -1040,7 +1040,7 @@ body.acts .container .invite-module {
         margin: 0; }
   body.acts .container .invite-module .invite h2 {
     color: #2e2e2c;
-    font-family: "Lato", Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: "Ubuntu", Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 20px;
     font-weight: 900;
     padding-bottom: 15px;
@@ -1066,7 +1066,7 @@ body.acts .container .invite-module {
     behavior: url(/css3pie/PIE.htc);
     border: 0;
     color: #fff;
-    font-family: "Lato", Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: "Ubuntu", Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-weight: bold;
     padding: 5px 15px;
     text-shadow: 1px 1px 1px #2e2e2c;
@@ -1151,7 +1151,7 @@ body.acts #facebox .popup {
           behavior: url(/css3pie/PIE.htc);
           border: 0;
           color: #fff;
-          font-family: "Lato", Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+          font-family: "Ubuntu", Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
           font-weight: bold;
           padding: 5px 15px;
           text-shadow: 1px 1px 1px #2e2e2c;
@@ -1202,7 +1202,7 @@ body.acts #facebox .popup {
           behavior: url(/css3pie/PIE.htc);
           border: 0;
           color: #fff;
-          font-family: "Lato", Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+          font-family: "Ubuntu", Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
           font-weight: bold;
           padding: 5px 15px;
           text-shadow: 1px 1px 1px #2e2e2c;
@@ -1230,7 +1230,7 @@ body.acts #facebox .popup {
         color: #2e2e2c;
         font-weight: bold; }
     body.acts #facebox .popup .content h2 {
-      font-family: "Lato", Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-family: "Ubuntu", Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
       font-weight: 900;
       padding-bottom: 10px;
       text-transform: uppercase; }
@@ -1332,32 +1332,30 @@ body.pages-faq .content {
         color: #2e2e2c; }
     body.pages-faq .content #faq_body h1, body.pages-faq .content #faq_body h2 {
       color: #2e2e2c;
-      font-family: "Lato", Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-family: "Ubuntu", Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
       font-weight: 900; }
-    body.pages-faq .content #faq_body h1 + h2 {
-      padding-top: 1ex; }
+    body.pages-faq .content #faq_body h1 {
+      font-size: 26px;
+      text-transform: uppercase; }
+      body.pages-faq .content #faq_body h1.Section- {
+        -webkit-border-radius: 3px;
+        -moz-border-radius: 3px;
+        border-radius: 3px;
+        behavior: url(/css3pie/PIE.htc);
+        z-index: 0;
+        background-color: #e9e9e9;
+        color: #909090;
+        font-weight: 900;
+        margin-top: 20px;
+        padding: 10px; }
     body.pages-faq .content #faq_body h2 {
+      color: #2e2e2c;
+      font-size: 18px;
       font-weight: 900;
       text-transform: uppercase;
-      padding-bottom: 1ex;
-      padding-top: 2ex;
-      padding-left: 15px; }
-    body.pages-faq .content #faq_body h1 {
-      padding-top: 2ex;
-      text-align: center; }
-      body.pages-faq .content #faq_body h1.Section- {
-        text-align: left;
-        font-size: 40px; }
-        body.pages-faq .content #faq_body h1.Section-:first-letter {
-          font-size: 90px; }
+      padding: 25px 0 10px 15px; }
     body.pages-faq .content #faq_body .Standard {
-      -webkit-border-radius: 3px;
-      -moz-border-radius: 3px;
-      border-radius: 3px;
-      behavior: url(/css3pie/PIE.htc);
-      z-index: 0;
       font-size: 110%;
-      /* background:$light-gray; */
       color: #777777;
       padding: 0 10px 0 15px; }
       body.pages-faq .content #faq_body .Standard + .Standard {
@@ -1374,12 +1372,14 @@ body.pages-faq .content {
       body.pages-faq .content #faq_body li + li {
         padding-top: 1ex; }
     body.pages-faq .content #faq_body .Paragraph {
+      color: #62625e;
       font-weight: bold;
-      font-size: 130%;
+      font-size: 115%;
       padding-top: 1.8ex;
       padding-bottom: 0.8ex;
       padding-left: 15px; }
     body.pages-faq .content #faq_body .Subparagraph {
+      color: #62625e;
       font-weight: bold;
       font-size: 106%;
       padding-left: 5ex;
@@ -1391,26 +1391,44 @@ body.pages-faq .content {
       font-weight: bold; }
   body.pages-faq .content #faq_toc {
     float: right;
-    width: 33%;
-    padding-top: 43px;
-    background: #e3e3e3; }
+    width: 33%; }
     body.pages-faq .content #faq_toc a {
       color: #588b3d; }
       body.pages-faq .content #faq_toc a:hover {
         color: #6eae4d; }
       body.pages-faq .content #faq_toc a:active {
         color: #2e2e2c; }
-    body.pages-faq .content #faq_toc .toc a {
-      font-size: 130%; }
-    body.pages-faq .content #faq_toc .tocindent .tocindent {
-      padding-left: 2ex; }
-      body.pages-faq .content #faq_toc .tocindent .tocindent a {
+    body.pages-faq .content #faq_toc .toc {
+      margin: 15px 0 5px 0; }
+      body.pages-faq .content #faq_toc .toc:first-child {
+        margin-top: 0; }
+      body.pages-faq .content #faq_toc .toc a {
+        color: #42682d;
+        font-size: 130%;
+        font-weight: 500; }
+        body.pages-faq .content #faq_toc .toc a:hover {
+          color: #6eae4d; }
+        body.pages-faq .content #faq_toc .toc a:active {
+          color: #2e2e2c; }
+    body.pages-faq .content #faq_toc .tocindent {
+      border-bottom: 1px #e9e9e9 solid;
+      padding-bottom: 15px; }
+      body.pages-faq .content #faq_toc .tocindent:last-child {
+        border-bottom: 0; }
+      body.pages-faq .content #faq_toc .tocindent .toc {
         font-size: 100%; }
-    body.pages-faq .content #faq_toc > .tocindent > .toc {
-      padding-top: 2ex; }
-    body.pages-faq .content #faq_toc .tocindent .toc {
-      margin: 0 0 10px 0;
-      font-size: 100%; }
+      body.pages-faq .content #faq_toc .tocindent .tocindent {
+        padding-left: 2ex; }
+        body.pages-faq .content #faq_toc .tocindent .tocindent a {
+          color: #588b3d;
+          font-size: 100%;
+          font-weight: 400; }
+          body.pages-faq .content #faq_toc .tocindent .tocindent a:hover {
+            color: #6eae4d; }
+          body.pages-faq .content #faq_toc .tocindent .tocindent a:active {
+            color: #2e2e2c; }
+        body.pages-faq .content #faq_toc .tocindent .tocindent .toc {
+          margin-top: 0!important; }
 
 /* --------------------------- game not started --------------------------- */
 body.acts div.content div#no-login-yet {
@@ -1431,7 +1449,7 @@ body.acts div.content div#no-login-yet {
     display: none; }
   body.acts div.content div#no-login-yet h2 {
     color: #2e2e2c;
-    font-family: "Lato", Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: "Ubuntu", Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 20px;
     font-weight: 900;
     padding-bottom: 15px;

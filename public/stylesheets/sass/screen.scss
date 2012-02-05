@@ -602,91 +602,119 @@ body.pages-faq{
 				font-family:$gotham;
 				font-weight:900;
 			}
-			h1 + h2{padding-top: 1ex;}
-			h2 {
-				font-weight:900;
-			  text-transform: uppercase;
-			  padding-bottom: 1ex;
-			  padding-top: 2ex;
-			  padding-left: 15px; 
-			}
 			h1{
-			  padding-top: 2ex;
-			  text-align: center;
-			  &.Section-{
-			    text-align: left;
-			    font-size: 40px;
-			    &:first-letter{font-size: 90px;}
-			  }
+				font-size:26px;
+				text-transform:uppercase;
+				&.Section-{
+			    	//font-size: 40px;
+//					color:$gray;
+//					border-top:1px $light-gray solid;
+//					font-size:16px;
+					@include rounded;
+					background-color:$light-gray;
+					color:$gray;
+					font-weight:900;
+					margin-top:20px;
+					padding:10px;
+				}
 			}
-			
-			.Standard {
-				@include rounded;
-				font-size: 110%;
-				/* background:$light-gray; */
-				color:$faq_med_grey;
-				padding: 0 10px 0 15px;
-        & + .Standard{padding-top: 1ex;}
-        & + ul{
-  			  padding-top: 1ex;
-  			}
-			}
-			ul{
-			  padding-left: 49px;
-			  & + .Standard{
-			    padding-top: 1ex;
-			  }
+			h2 {
+				color:$dark-gray;
+				font-size:18px;
+				font-weight:900;
+			  	text-transform: uppercase;
+				padding:25px 0 10px 15px;
 			}
 
+			
+			.Standard {
+				font-size: 110%;
+				color:$faq_med_grey;
+				padding: 0 10px 0 15px;
+        		& + .Standard {padding-top: 1ex;}
+       			& + ul{
+			  		padding-top: 1ex;
+			  	}
+			}
+			ul{
+				padding-left: 49px;
+				& + .Standard{
+			    	padding-top: 1ex;
+			  	}
+			}
 			li{
-			  list-style: disc;
-			  color: $faq_med_grey;
-			  & + li{padding-top: 1ex;}
+				list-style: disc;
+				color: $faq_med_grey;
+				& + li{padding-top: 1ex;}
 			}
 			
-      .Paragraph{
-        font-weight: bold;
-        font-size: 130%;
-        padding-top: 1.8ex;
-        padding-bottom: 0.8ex;
-        padding-left: 15px;
-      }
-      .Subparagraph{
-        font-weight: bold;
-        font-size: 106%;
-        padding-left: 5ex;
-        padding-top: 1ex;
-        & + ul{
-          padding-left: 10ex;
-        }
-      }
-      i{
-        font-style: normal;
-        font-weight: bold;
-      }
+      		.Paragraph{
+				color:lighten($dark-gray, 20%);
+				font-weight: bold;
+				font-size: 115%;
+				padding-top: 1.8ex;
+				padding-bottom: 0.8ex;
+				padding-left: 15px;
+			}
+			.Subparagraph{
+				color:lighten($dark-gray, 20%);
+				font-weight: bold;
+		        font-size: 106%;
+		        padding-left: 5ex;
+		        padding-top: 1ex;
+		        & + ul{
+		        	padding-left: 10ex;
+		        }
+			}
+			i {
+				font-style: normal;
+				font-weight: bold;
+			}
 		}
 		#faq_toc{
 			float:right;
 			width:33%;
-			padding-top: 43px;
-			background: #e3e3e3;
+//			background: #e3e3e3;
 			a {
 				color:$header-bg;
 				&:hover {color:lighten($header-bg, 10%);}
 				&:active {color:$dark-gray;}
 			}
 			.toc {
-			  a{font-size: 130%;}
-		  }
-      .tocindent .tocindent{
-        padding-left: 2ex;
-        a{font-size: 100%;}
-      }
-      & > .tocindent > .toc{padding-top: 2ex;}
+				margin:15px 0 5px 0;
+				&:first-child {
+					margin-top:0;
+				}
+				a {
+					color:darken($header-bg, 10%);
+					font-size: 130%;
+					font-weight:500;
+					&:hover {color:lighten($header-bg, 10%);}
+					&:active {color:$dark-gray;}
+				}
+		  	}
+
 			.tocindent {
+				border-bottom:1px $light-gray solid;
+				padding-bottom:15px;
+				&:last-child {
+					border-bottom:0;
+				}
 				.toc {
-					margin:0 0 10px 0;
 					font-size: 100%;
+				}
+				.tocindent {
+					padding-left: 2ex;
+					a{
+						color:$header-bg;
+						font-size: 100%;
+						font-weight:400;
+						&:hover {color:lighten($header-bg, 10%);}
+						&:active {color:$dark-gray;}
+					}
+					.toc {
+						margin-top:0!important;
+					}
 				}
 			}
 		}
