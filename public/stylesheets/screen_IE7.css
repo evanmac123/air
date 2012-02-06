@@ -124,3 +124,12 @@ div.invite_or_add input[type="submit"] {
   color: #588b3d !important;
   font-size: 14px;
   padding: 0!important; }
+
+body.interstitial_verifications div.content {
+  margin: 0 auto 40px auto!important;
+  position: relative;
+  top: 20px; }
+  body.interstitial_verifications div.content form input[type="submit"] {
+    padding: 5px 0!important; }
+  body.interstitial_verifications div.content form input[type="text"] {
+    width: 260px!important; }

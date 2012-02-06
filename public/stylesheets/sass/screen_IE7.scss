@@ -152,3 +152,19 @@ div.invite_or_add {
 		padding:0!important;
 	}
 }
+
+body.interstitial_verifications {
+	div.content {
+		margin:0 auto 40px auto!important;
+		position:relative;
+		top:20px;
+		form {
+			input[type="submit"] {
+				padding:5px 0!important;
+			}
+			input[type="text"] {
+				width:260px!important;
+			}
+		}
+	}
+}

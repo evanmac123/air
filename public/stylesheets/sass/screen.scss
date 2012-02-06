@@ -766,3 +766,26 @@ div.content {
   font-size: 17px;
   text-align: center
 }
+
+body.interstitial_verifications {
+	div.content {
+		div#no-login-yet {
+			@include bg-white-free;
+			margin:30px auto 20px auto;
+			position:relative;
+			width:460px;
+			div.invite#invite_friends {
+				display:none;
+			}
+			h2 {
+				color:$dark-gray;
+				font-family:$gotham;
+				font-size:20px;
+				font-weight: 900;
+				padding-bottom:15px;
+				text-transform:uppercase;
+			}
+		}
+	}
+}
+
