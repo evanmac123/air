@@ -54,6 +54,14 @@ Then /^"([^"]*)" should have received the following SMS:$/ do |phone_number, sms
   mo_sms(phone_number, sms_body)
 end
 
+Then /^"([^"]*)" should not have received an SMS from the default phone number$/ do |phone_number|
+  FakeTwilio::SMS.should_not have_sent_text_from(TWILIO_PHONE_NUMBER, phone_number)
+end
+
+Then /^"([^"]*)" should have received an SMS from "([^"]*)"$/ do |phone_number, sending_number|
+  FakeTwilio::SMS.should have_sent_text_from(sending_number, phone_number)
+end
+
 When /^"([^"]*)" sends SMS "([^"]*)"$/ do |phone_number, sms_body|
   mo_sms(phone_number, sms_body)
 end

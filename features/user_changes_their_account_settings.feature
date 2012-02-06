@@ -107,16 +107,16 @@ Feature: User can edit their account settings
     Then "+14155551212" should have received SMS "Alice has asked to be your fan. Text\nYES to accept,\nNO to ignore (in which case they won't be notified)"
     And "phil@example.com" should have received a follow notification email about "Alice"
 
-  Scenario: User can choose notification by neither email nor SMS
-    When I sign in via the login page with "Phil/foobar"
-    And I go to the settings page
-    And I choose "No notifications"
-    And I press the button to save notification settings
-    And "+18085551212" sends SMS "follow phil"
-    And DJ cranks 5 times
+#   Scenario: User can choose notification by neither email nor SMS
+    # When I sign in via the login page with "Phil/foobar"
+    # And I go to the settings page
+    # And I choose "No notifications"
+    # And I press the button to save notification settings
+    # And "+18085551212" sends SMS "follow phil"
+    # And DJ cranks 5 times
 
-    Then "+14155551212" should not have received any SMSes
-    And "phil@example.com" should have no emails
+    # Then "+14155551212" should not have received any SMSes
+    # And "phil@example.com" should have no emails
 
   Scenario: User sees their mobile number on their settings
     When I go to the settings page
@@ -137,6 +137,25 @@ Feature: User can edit their account settings
     Then I should see "You have updated your phone number"
     And "Mobile Number" should have value "(415) 261-3077"
 
+  Scenario: User changes mobile number in a game with custom phone number and gets message from that phone number
+    Given the following demo exists:
+      | name     | phone number |
+      | CustomCo | +14048765309 |
+    And the following user exists:
+      | name      | phone number | demo           |
+      | Joe Smith | +14105551212 | name: CustomCo |
+    And "Joe Smith" has the password "foobar"
+    When I sign in via the login page with "Joe Smith/foobar"
+    And I go to the settings page
+    And I clear all sent texts
+    And I fill in "Mobile Number" with "(515) 261-3077"
+    And I press the button to save notification settings
+    And DJ cranks 10 times
+    Then I should be on the settings page
+    Then I should see "We have sent a verification"
+    And "+15152613077" should not have received an SMS from the default phone number
+    But "+15152613077" should have received an SMS from "+14048765309"
+    
   Scenario: User gets error messages when inputs wrong validation code to change mobile number
     When I go to the settings page
     And I fill in "Mobile Number" with "(415) 261-3077"
