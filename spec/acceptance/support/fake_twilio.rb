@@ -87,6 +87,10 @@ module FakeTwilio
       messages_to(phone).any? { |message| message["Body"].include? body}
     end
 
+    def self.has_sent_text_from?(from_number, to_number)
+      self.sent_messages.select{|sent_message| sent_message["To"] == to_number && sent_message["From"] == from_number}.present?
+    end
+
     cattr_reader :sent_messages
   end
 end

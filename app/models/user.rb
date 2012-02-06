@@ -251,7 +251,7 @@ class User < ActiveRecord::Base
   end
 
   def send_new_phone_validation_token
-    SMS.send_message self.new_phone_number, "Your code to verify this phone with H Engage is #{self.new_phone_validation}."
+    SMS.send_message self.new_phone_number, "Your code to verify this phone with H Engage is #{self.new_phone_validation}.", nil, :from_demo => self.demo
   end
 
   def validate_new_phone(entered_validation_code)
@@ -677,9 +677,9 @@ class User < ActiveRecord::Base
   end
 
   def self.get_domain_from_email(email)
-    return nil unless email.strip =~ /^[a-zA-Z0-9_]+@([a-zA-Z0-9_]+.[a-zA-Z]{2,3})$/
-    domain = $1
+    User.is_an_email_address(email)
   end
+
 
   protected
 

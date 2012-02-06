@@ -35,13 +35,13 @@ Feature: User can credit another user who got them into the game
     And I should see "Dan got credit for referring Phil to the game"
     And I should see "Phil credited Dan for referring them to the game"
     And "+14155551212" should have received SMS "Got it, Dan referred you to the game. Thanks for letting us know."
-    And "+18085551212" should have received an SMS including "Phil gave you credit for referring them to the game. Many thanks and 5 bonus points!"
+    And "+18085551212" should not have received an SMS including "Phil gave you credit for referring them to the game. Many thanks and 5 bonus points!"
 
   Scenario: User credits another in a game with a referred credit bonus
     When "+17145551212" sends SMS "freddie"
     And DJ cranks 5 times
     Then "+17145551212" should have received an SMS including "Got it, Fred referred you to the game. Thanks (and 6 points) for letting us know."
-    And "+14085551212" should have received an SMS including "Joe gave you credit for referring them to the game. Many thanks and 10 bonus points!"
+    And "+14085551212" should not have received an SMS including "Joe gave you credit for referring them to the game. Many thanks and 10 bonus points!"
     When I sign in via the login page with "Fred/freddie"
     Then I should see "Fred got credit for referring Joe to the game"
     And I should see "Joe credited Fred for referring them to the game"
