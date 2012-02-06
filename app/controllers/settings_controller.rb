@@ -2,6 +2,8 @@ class SettingsController < ApplicationController
   layout "application"
 
   before_filter :parse_date_of_birth, :only => :update
+  skip_before_filter :authenticate
+  before_filter :authenticate_without_game_begun_check
 
   def edit
     @locations = current_user.demo.locations.alphabetical

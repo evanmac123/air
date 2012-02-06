@@ -84,7 +84,7 @@
       <div class="module_inner settings_notification">
         <h2 class="title">Notify me via...</h2>
           <ul>
-            <% [["SMS/text message", :sms], ["Email", :email], ["Both", :both], ["No notifications", :neither]].each do |label_text, method_name| %>
+            <% [["SMS/text message", :sms], ["Email", :email], ["Both", :both] ].each do |label_text, method_name| %>
               <li><%= form.radio_button :notification_method, method_name, :class => 'notification_pref', :id => method_name %><%= label_tag method_name, label_text, :class => 'check_label' %></li>
             <% end %>
           </ul>
