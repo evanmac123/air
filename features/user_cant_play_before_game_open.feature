@@ -16,6 +16,14 @@ Feature: User can't play before game opens
     When I go to the profile page for "Bob"
     Then I should not see "Enter your new mobile number"
     And I should see "Your game begins on May 01, 2011 at 12:00 AM Eastern"
+
+    When I go to the settings page for "Bob"
+    Then I should not see "Your game begins on May 01, 2011 at 12:00 AM Eastern"
+    But I should see "Notification Preferences"
+    When I fill in "Change your username." with "somepig"
+    And I press the button to save the user's settings
+    Then I should be on the settings page
+    And I should see "OK, your settings were updated."
     
     When time is frozen at "2011-05-01 00:01:00 -0400"
     And I sign in via the login page with "Bob/foobar"

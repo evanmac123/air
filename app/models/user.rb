@@ -664,7 +664,7 @@ class User < ActiveRecord::Base
   end
 
   def self.is_an_email_address(input)
-    if input.strip =~ /^[a-zA-Z0-9_]+@([a-zA-Z0-9_]+.[a-zA-Z]{2,3})$/
+    if input.strip =~ /^[a-zA-Z0-9_.-]+@([a-zA-Z0-9_]+.[a-zA-Z]{2,3})$/
       domain = $1
       return domain
     end
