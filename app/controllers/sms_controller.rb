@@ -23,6 +23,10 @@ class SmsController < ActionController::Metal
 
     OutgoingSms.create!(:to => params['From'], :in_response_to => incoming_sms, :body => reply)
 
+    if (user = User.find_by_phone_number(params['From']))
+      user.bump_mt_texts_sent_today
+    end
+
     self.response_body = reply
   end
 

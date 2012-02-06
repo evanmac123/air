@@ -21,6 +21,10 @@ module SMS
                   when User: to.phone_number
                 end
 
+    if to.kind_of?(User)
+      to.bump_mt_texts_sent_today
+    end
+
     Delayed::Job.enqueue(OutgoingMessageJob.new(from_number, to_number, body), delay_params)
   end
 

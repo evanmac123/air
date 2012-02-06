@@ -11,6 +11,8 @@ class User < ActiveRecord::Base
 
   PRIVACY_LEVELS = %w(everybody connected nobody).freeze
 
+  MUTE_NOTICE_THRESHOLD = 5
+
   include Clearance::User
   include User::Ranking
 
@@ -266,6 +268,13 @@ class User < ActiveRecord::Base
 
   def self_inviting_domain
     self.class.self_inviting_domain(self.email)
+  end
+
+  def bump_mt_texts_sent_today
+    increment!(:mt_texts_today)
+    if self.mt_texts_today == MUTE_NOTICE_THRESHOLD
+      SMS.send_message(self, "If you want to temporarily stop getting texts from us, you can text back MUTE to stop them for 24 hours.")
+    end
   end
 
   def self.in_canonical_ranking_order
@@ -681,6 +690,10 @@ class User < ActiveRecord::Base
 
   def self.get_domain_from_email(email)
     User.is_an_email_address(email)
+  end
+
+  def self.reset_all_mt_texts_today_counts!
+    User.update_all :mt_texts_today => 0
   end
 
   protected
