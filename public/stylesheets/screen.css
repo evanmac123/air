@@ -1441,7 +1441,7 @@ body.pages-faq .content {
           margin-top: 0!important; }
 
 /* --------------------------- game not started --------------------------- */
-body.acts div.content div#no-login-yet {
+div.content div#no-login-yet {
   border: 1px #bebebe solid;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
@@ -1455,9 +1455,9 @@ body.acts div.content div#no-login-yet {
   padding: 15px 10px 10px 10px;
   margin: 30px auto 20px auto;
   width: 460px; }
-  body.acts div.content div#no-login-yet div.invite#invite_friends {
+  div.content div#no-login-yet div.invite#invite_friends {
     display: none; }
-  body.acts div.content div#no-login-yet h2 {
+  div.content div#no-login-yet h2 {
     color: #2e2e2c;
     font-family: "Ubuntu", Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 20px;

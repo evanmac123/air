@@ -727,23 +727,21 @@ body.pages-faq{
 }
 
 /* --------------------------- game not started --------------------------- */
-body.acts {
-	div.content {
-		div#no-login-yet {
-			@include bg-white-free;
-			margin:30px auto 20px auto;
-			width:460px;
-			div.invite#invite_friends {
-				display:none;
-			}
-			h2 {
-				color:$dark-gray;
-				font-family:$gotham;
-				font-size:20px;
-				font-weight: 900;
-				padding-bottom:15px;
-				text-transform:uppercase;
-			}
-		}
-	}
+div.content {
+  div#no-login-yet {
+    @include bg-white-free;
+    margin:30px auto 20px auto;
+    width:460px;
+    div.invite#invite_friends {
+      display:none;
+    }
+    h2 {
+      color:$dark-gray;
+      font-family:$gotham;
+      font-size:20px;
+      font-weight: 900;
+      padding-bottom:15px;
+      text-transform:uppercase;
+    }
+  }
 }

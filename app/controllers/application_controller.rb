@@ -33,6 +33,25 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def force_no_ssl
+    if (Rails.env.development? || Rails.env.test?) && !$test_force_ssl
+      return
+    end
+
+    if request.ssl?
+      redirect_hostname = hostname_without_subdomain
+      redirection_parameters = {
+        :protocol   => 'http', 
+        :host       => redirect_hostname, 
+        :action     => action_name, 
+        :controller => controller_name
+      }.reverse_merge(params)
+
+      redirect_to redirection_parameters
+      return false
+    end
+  end
+
   def authenticate_with_game_begun_check
     authenticate_without_game_begun_check
     if current_user && !(current_user.is_site_admin) && current_user.demo.begins_at && current_user.demo.begins_at > Time.now
@@ -57,7 +76,11 @@ class ApplicationController < ActionController::Base
   def hostname_with_subdomain
     request.subdomain.present? ? request.host : "www." + request.host
   end  
-  
+
+  def hostname_without_subdomain
+    request.subdomain.present? ? request.host.gsub(/^[^.]+\./, '') : request.host
+  end
+
   def add_success(text)
     @flash_successes << text
   end

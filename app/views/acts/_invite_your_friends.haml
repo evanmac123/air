@@ -29,7 +29,7 @@
           - tag_name = "email_prepends[#{f}]"
           = label_tag tag_name, "email number #{f}"
           = text_field_tag tag_name, '', :style => "margin-bottom: 2px;"
-          = domain
+          %span.domain= domain
       .second_half
         - 5.times do |f|
           - tag_name = "email_prepends[#{f + 5}]"
