@@ -692,6 +692,10 @@ class User < ActiveRecord::Base
     User.is_an_email_address(email)
   end
 
+  def self.reset_all_mt_texts_today_counts!
+    User.update_all :mt_texts_today => 0
+  end
+
   protected
 
   def name_required
