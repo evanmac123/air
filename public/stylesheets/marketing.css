@@ -107,6 +107,11 @@ body {
     margin: 0 auto;
     padding-top: 7px;
     position: relative; }
+    #header #header-contents a.btn-signup {
+		float:right;
+		position:relative;
+		margin:2px 10px 0 0;
+	}
     #header #header-contents #activate-login-form {
       display: inline-block;
       float: right;
