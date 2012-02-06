@@ -47,6 +47,8 @@ module SpecialCommand
       self.send_command_response
     when 'mute'
       self.mute_user(user)
+    when 'gotit', 'got'
+      self.suppress_mute_notice(user)
     else
       self.attempt_credit_game_referrer(user, command_name)
     end
@@ -267,5 +269,10 @@ module SpecialCommand
   def self.mute_user(user)
     user.mute_for_now
     parsing_success_message("OK, you won't get any more texts from us for at least 24 hours.")
+  end
+
+  def self.suppress_mute_notice(user)
+    user.update_attributes(:suppress_mute_notice => true)
+    parsing_success_message("OK, we won't remind you about the MUTE command henceforth.")
   end
 end
