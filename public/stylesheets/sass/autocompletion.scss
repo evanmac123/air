@@ -36,7 +36,8 @@ a.remove_referrer{
 	color:$hengage-bg;
   position: absolute;
   right: 0px;
-  bottom: -19px;
+  top: -19px;
+  z-index: 10;
   width: 26ex;
   text-align: right;
 	&:hover {

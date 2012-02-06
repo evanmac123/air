@@ -78,6 +78,7 @@ $(function() {
     $('#user_game_referrer_id').val($(this).find('.suggested_user_id').text());
     $('#search_for_referrer #autocomplete').hide();
     $('#autocomplete_status').text('');
+
     $(this).insertAfter('#autocomplete');
     setTimeout('updatePotentialPoints()', 500);
   });
@@ -89,6 +90,8 @@ $(function() {
     $('#invitee_ids').val(new_plus_existing);
     $('#autocomplete').val('');
     $('#autocomplete').focus();
+    $('.remove_referrer').hide();
+    $(this).find('.remove_referrer').show();
     //$('#search_for_friends_to_invite #autocomplete').hide();
     $(this).insertAfter('#relative');
     $('#submit_invite_friend').show();
