@@ -1254,6 +1254,12 @@ body.acts #facebox .popup {
         color: #588b3d;
         font-weight: bold; }
 
+/* --------------------------- game not started --------------------------- */
+body.users div#main {
+  border: 1px red solid; }
+body.users div#secondary {
+  border: 1px red solid; }
+
 /* --------------------------- settings --------------------------- */
 /* @end */
 body.settings .container .about_user {

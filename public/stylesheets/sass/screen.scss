@@ -499,6 +499,16 @@ body.acts {
 	}
 }
 
+/* --------------------------- game not started --------------------------- */
+body.users {
+	div#main {
+		border:1px red solid;
+	}
+	div#secondary {
+		border:1px red solid;
+	}
+}
+
 /* --------------------------- settings --------------------------- */
 
 /* @end */
