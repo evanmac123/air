@@ -621,6 +621,9 @@ class User < ActiveRecord::Base
     _next_point_goal - _last_point_goal
   end
 
+  def mute_for_now
+    self.update_attributes(:last_muted_at => Time.now)
+  end
 
   def self.next_dummy_number
    last_assigned = self.where("phone_number LIKE '+1999%'").order("phone_number DESC").limit(1).first
@@ -679,7 +682,6 @@ class User < ActiveRecord::Base
   def self.get_domain_from_email(email)
     User.is_an_email_address(email)
   end
-
 
   protected
 
