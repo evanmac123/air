@@ -1,6 +1,11 @@
 - disabled_style = "color: grey; background: #ddd;"
 
 - content_for(:javascript) do
+  =# need hidden div here so contact us can pop
+  = javascript_include_tag 'contact_us'
+  .hidden
+    = render 'shared/assistly_widget'
+
   :javascript
     $("input#user_phone_number").focus(function () {
     	$(".helper").hide();
@@ -124,10 +129,9 @@
       - if @user.errors[:terms_and_conditions]
         .form-msg= @user.errors[:terms_and_conditions]
     %ul.form-section.signup-submit
-      %li
-        <input name="commit" type="submit" value="Join the game">
-      %li
-        =# link_to "Feedback?", '#', :class => "feedback"
+
+      <input name="commit" type="submit" value="Join the game" style="float: left;" id='join_the_game_link'>
+      = button_to 'Questions?', '#', :class => :contact_us_link, :method => :get, :onclick =>"return false", :style => "float: right;", :id => :contact_us_from_inv_acceptance_page
 
 %div.privacy-policy.form-footnotes
   %p Please remember:
