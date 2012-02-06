@@ -1,9 +1,11 @@
 Feature: User mutes SMS
 
-  Scenario: User mutes SMS
+  Background:
     Given the following claimed user exists:
       | name    | phone number |
       | Joe Bob | +14155551212 |
+
+  Scenario: User mutes SMS
     And time is frozen at "2010-01-01 00:00:00 +0000"
     And I clear all sent texts
 
@@ -32,3 +34,21 @@ Feature: User mutes SMS
 
     But "+14155551212" should not have received SMS "Text 3"
     And "+14155551212" should not have received SMS "Text 4"
+
+  Scenario: User gets mute reminder after 5 texts
+    When the system sends "Text 1" to user "Joe Bob"
+    When the system sends "Text 2" to user "Joe Bob"
+    When the system sends "Text 3" to user "Joe Bob"
+    When the system sends "Text 4" to user "Joe Bob"
+    And DJ cranks 10 times
+    Then "+14155551212" should not have received SMS "If you want to temporarily stop getting texts from us, you can text back MUTE to stop them for 24 hours."
+
+    When the system sends "Text 5" to user "Joe Bob"
+    And DJ cranks 10 times
+    Then "+14155551212" should have received SMS "If you want to temporarily stop getting texts from us, you can text back MUTE to stop them for 24 hours."
+
+    When I clear all sent texts
+    And the system sends "Text 6" to user "Joe Bob"
+    And DJ cranks 10 times
+    Then "+14155551212" should not have received SMS "If you want to temporarily stop getting texts from us, you can text back MUTE to stop them for 24 hours."
+

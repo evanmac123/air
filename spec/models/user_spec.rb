@@ -843,3 +843,11 @@ describe User, "generates a validation token" do
     (field =~ /^\d{4}$/).should_not be_nil
   end
 end
+
+describe User, "reset_all_mt_texts_today_counts!" do
+  it "should reset MT text count on all users" do
+    20.times {Factory :user, :mt_texts_today => rand(1000)}
+    User.reset_all_mt_texts_today_counts!
+    User.where(:mt_texts_today => 0).count.should == User.count
+  end
+end
