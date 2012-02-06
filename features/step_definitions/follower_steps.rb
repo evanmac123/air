@@ -114,6 +114,7 @@ When /^"([^"]*)" requests to follow "([^"]*)" by web$/ do |follower_login_string
   And "I go to the profile page for \"#{followed_name}\""
   And "I fan \"#{followed_name}\""
   Then "I should see \"OK, you'll be a fan of #{followed_name}, pending their acceptance.\""
+  But "I should see \"fan of Bob\" just once"
 
   When "I sign in via the login page as \"#{followed_login_string}\""
   Then "I should see \"#{follower_name}\" as a pending follower"
