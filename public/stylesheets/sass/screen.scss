@@ -764,10 +764,12 @@ div.content {
 }
 
 .need_help{
-  width: 150px;
-  margin: 2ex auto 4ex auto;
-  font-size: 17px;
-  text-align: center
+//  width: 150px;
+	border-bottom:1px $light-gray solid;
+	margin: 0 auto 15px auto;
+	padding:0 0 15px 0;
+	font-size: 17px;
+	text-align: center
 }
 
 body.interstitial_verifications {
