@@ -22,7 +22,7 @@ module SMS
                 end
 
     if to.kind_of?(User)
-      to.increment!(:mt_texts_today)
+      to.bump_mt_texts_sent_today
     end
 
     Delayed::Job.enqueue(OutgoingMessageJob.new(from_number, to_number, body), delay_params)
