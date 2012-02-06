@@ -45,6 +45,8 @@ module SpecialCommand
       self.send_demo_prize_message(user.demo)
     when 'rules', 'commands'
       self.send_command_response
+    when 'mute'
+      self.mute_user(user)
     else
       self.attempt_credit_game_referrer(user, command_name)
     end
@@ -260,5 +262,10 @@ module SpecialCommand
     # to stick it back into SMS and web replies.
 
     parsing_success_message("FAN [someone's ID] - become a fan (ex: \"fan bob12\")\nMYID - see your ID\nRANKING - see scoreboard\n@{help_command_explanation}PRIZES - see what you can win")
+  end
+
+  def self.mute_user(user)
+    user.mute_for_now
+    parsing_success_message("OK, you won't get any more texts from us for at least 24 hours.")
   end
 end

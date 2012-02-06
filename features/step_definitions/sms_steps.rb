@@ -2,6 +2,11 @@ When /^I clear all sent texts$/ do
   FakeTwilio::SMS.clear_all
 end
 
+When /^the system sends "([^"]*)" to user "([^"]*)"$/ do |text, username|
+  user = User.find_by_name(username)
+  SMS.send_message(user, text)
+end
+
 Then /^"([^"]*)" should have received( an)? SMS "(.*)"$/m do |phone_number, _nothing, text_message|
   FakeTwilio::SMS.should have_sent_text(phone_number, text_message.gsub(/\\n/, "\n"))
 end
