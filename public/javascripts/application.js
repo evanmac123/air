@@ -36,12 +36,16 @@ $(function() {
 
     if (document.getElementById('email_prepends_0')){
       $('#facebox #email_prepends_0').focus();
-      var prep = '#email_prepends_';
-      for (var i=0; i<10; i++){ // change these id's so there are no duplicates on the
-        $('#facebox ' + prep + i).attr('id', prep + i + '_facebox');
-      }
+      // For now, don't show the invite friends thing on the underlay
+      $('#invite_friends_facebox').html('');
+      
+      // UNCOMMENT the following when you remove the line above
+      // var prep = '#email_prepends_';
+      // for (var i=0; i<10; i++){ // change these id's so there are no duplicates on the
+      //   $('#facebox ' + prep + i).attr('id', prep + i + '_facebox');
+      // }
+
     }else{
-      //$('#invite_friends_facebox').html('');
       $(document).bind('close.facebox', function() { restoreInviteFriends(); });
       saveInviteFriendsToVariable();
       $('#facebox #autocomplete').focus();
