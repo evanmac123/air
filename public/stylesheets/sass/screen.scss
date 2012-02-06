@@ -180,6 +180,9 @@ body.acts {
 			ul.tabs {
 				float:left;
 				margin-left:20px;
+				li.active {
+					background:darken($header-bg, 10%);
+				}
 				li {
 					@include button-norm;
 					display:inline;

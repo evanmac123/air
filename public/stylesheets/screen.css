@@ -846,6 +846,8 @@ body.acts .container .feeds {
   body.acts .container .feeds ul.tabs {
     float: left;
     margin-left: 20px; }
+    body.acts .container .feeds ul.tabs li.active {
+      background: #42682d; }
     body.acts .container .feeds ul.tabs li {
       background: #3f3f3f;
       /* Old browsers */
@@ -1441,7 +1443,7 @@ body.pages-faq .content {
           margin-top: 0!important; }
 
 /* --------------------------- game not started --------------------------- */
-body.interstitial_verifications div.content div#no-login-yet {
+div.content div#no-login-yet {
   border: 1px #bebebe solid;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
@@ -1454,11 +1456,10 @@ body.interstitial_verifications div.content div#no-login-yet {
   margin-bottom: 15px;
   padding: 15px 10px 10px 10px;
   margin: 30px auto 20px auto;
-  position: relative;
   width: 460px; }
-  body.interstitial_verifications div.content div#no-login-yet div.invite#invite_friends {
+  div.content div#no-login-yet div.invite#invite_friends {
     display: none; }
-  body.interstitial_verifications div.content div#no-login-yet h2 {
+  div.content div#no-login-yet h2 {
     color: #2e2e2c;
     font-family: "Ubuntu", Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 20px;
@@ -1512,3 +1513,28 @@ body.interstitial_verifications div.content div#no-login-yet {
   margin: 2ex auto 4ex auto;
   font-size: 17px;
   text-align: center; }
+
+body.interstitial_verifications div.content div#no-login-yet {
+  border: 1px #bebebe solid;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  -moz-box-shadow: 0 0 5px #c9c9c9;
+  -webkit-box-shadow: 0 0 5px #c9c9c9;
+  box-shadow: 0 0 5px #c9c9c9;
+  behavior: url(/css3pie/PIE.htc);
+  background-color: #ffffff;
+  margin-bottom: 15px;
+  padding: 15px 10px 10px 10px;
+  margin: 30px auto 20px auto;
+  position: relative;
+  width: 460px; }
+  body.interstitial_verifications div.content div#no-login-yet div.invite#invite_friends {
+    display: none; }
+  body.interstitial_verifications div.content div#no-login-yet h2 {
+    color: #2e2e2c;
+    font-family: "Ubuntu", Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 20px;
+    font-weight: 900;
+    padding-bottom: 15px;
+    text-transform: uppercase; }
