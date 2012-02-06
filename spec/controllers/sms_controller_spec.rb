@@ -55,6 +55,8 @@ describe SmsController do
         outgoing_sms.to.should == "+14152613077"
         outgoing_sms.body.should == response.body
       end
+
+      it "should bump the user's mt_texts_today"
     end
 
     context "when properly authenticated as the heartbeat" do

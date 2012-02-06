@@ -48,6 +48,23 @@ describe SMS do
           Twilio::SMS.should have_received(:create).with(:to => "+14155551212", :from => "+16175551212", :body => "hi")
         end
       end
+
+      it "should bump the user's mt_texts_today"
+
+      it "should send nothing if the user is muted" do
+        Timecop.freeze
+        @user.update_attributes(:last_muted_at => (23.hours + 59.minutes + 59.seconds).ago)
+        SMS.send_message(@user, "hi")
+        Delayed::Worker.new.work_off(10)
+        Twilio::SMS.should_not have_received(:create)
+
+        @user.update_attributes(:last_muted_at => (24.hours.ago))
+        SMS.send_message(@user, "hey")
+        Delayed::Worker.new.work_off(10)
+        Twilio::SMS.should have_received(:create)
+        
+        Timecop.return
+      end
     end
   end
 end
