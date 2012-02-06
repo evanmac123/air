@@ -49,7 +49,13 @@ describe SMS do
         end
       end
 
-      it "should bump the user's mt_texts_today"
+      it "should bump the user's mt_texts_today" do
+        original_mt_texts_today = @user.mt_texts_today
+        3.times {SMS.send_message(@user, 'hey there')}
+        Delayed::Worker.new.work_off(10)
+        
+        (@user.reload.mt_texts_today - original_mt_texts_today).should == 3
+      end
 
       it "should send nothing if the user is muted" do
         Timecop.freeze

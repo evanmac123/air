@@ -8,8 +8,11 @@ describe SmsController do
       # We don't use hardly any of these fields, but this is what Twilio 
       # sends.
 
+      @user = Factory :user, :phone_number => "+14152613077"
+      @original_mt_texts_today = @user.mt_texts_today
+
       @params = {
-        'From'          => '+14152613077', 
+        'From'          => @user.phone_number,
         'Body'          => 'ate kitten', 
         'SmsSid'        => 'SM12ac8c0c64e01188d32fa2d4b40f1b5d',
         'ToCity'        => 'EAST BOSTON',
@@ -56,7 +59,9 @@ describe SmsController do
         outgoing_sms.body.should == response.body
       end
 
-      it "should bump the user's mt_texts_today"
+      it "should bump the user's mt_texts_today" do
+        (@user.reload.mt_texts_today - @original_mt_texts_today).should == 1
+      end
     end
 
     context "when properly authenticated as the heartbeat" do
