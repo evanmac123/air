@@ -677,9 +677,9 @@ class User < ActiveRecord::Base
   end
 
   def self.get_domain_from_email(email)
-    return nil unless email.strip =~ /^[a-zA-Z0-9_]+@([a-zA-Z0-9_]+.[a-zA-Z]{2,3})$/
-    domain = $1
+    User.is_an_email_address(email)
   end
+
 
   protected
 
