@@ -103,7 +103,7 @@ $(function() {
   });
 
   $('.remove_referrer').live('click', function() {
-    $('#user_game_referrer_id').text('');
+    $('#user_game_referrer_id').val('');
     $('.single_suggestion').hide();
     $('#autocomplete').show();
     $('#autocomplete').val('');
