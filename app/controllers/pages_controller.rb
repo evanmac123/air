@@ -1,7 +1,8 @@
 class PagesController < HighVoltage::PagesController
   FAQ_PAGES = [:faq, :faq_body, :faq_toc]
 
-  skip_before_filter :authenticate, :except => FAQ_PAGES
+  skip_before_filter :authenticate
+  before_filter :authenticate_without_game_begun_check, :only => FAQ_PAGES
   skip_before_filter :force_ssl, :except => FAQ_PAGES
 
   before_filter :force_html_format
