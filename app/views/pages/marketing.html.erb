@@ -159,20 +159,6 @@
     // reloads on Firefox are stupid
     $('.request-info input, .request-info textarea').removeAttr('disabled');
 
-    var loginForm = $('#login-form');
-
-    $('#activate-login-form').submit(function(e) {
-      e.preventDefault();
-      $('#login-form').toggle();
-    });
-
-    $('body').click(function(e) {
-      if($(e.target).closest('#activate-login-form').length > 0) { return; }
-      if($(e.target).closest('#login-form').length > 0) { return; }
-
-      $('#login-form').hide();
-    });
-
     $('.submit-button').hover(
       function(e) {
         $(this).attr('src', '<%= image_path "marketing/btn_submit_2.png" %>');
