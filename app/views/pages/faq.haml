@@ -22,7 +22,7 @@
   .need_help
     Need more help?
     
-    = button_to 'Contact Us', '#', :class => :contact_us_link, :method => :get
+    = button_to 'Contact Us', '#', :class => :contact_us_link, :method => :get, :onclick =>"return false"
   = render 'faq_toc'
 #faq_body.module
   %h1 Frequently Asked Questions

@@ -133,3 +133,6 @@ body.interstitial_verifications div.content {
     padding: 5px 0!important; }
   body.interstitial_verifications div.content form input[type="text"] {
     width: 260px!important; }
+
+#contact_us_from_inv_acceptance_page {
+  width: 26ex; }
