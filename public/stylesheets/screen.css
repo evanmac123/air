@@ -960,7 +960,7 @@ body.acts .container .invite-module {
         background: #eef6ea; }
   body.acts .container .invite-module .invite div#search_for_friends_to_invite div#bonus {
     color: #909090;
-    padding: 7px 0;
+    padding: 10px 0 2px 0;
     width: 87%; }
   body.acts .container .invite-module .invite div#search_for_friends_to_invite div.single_suggestion {
     margin: 0 0 5px 0!important;
@@ -980,7 +980,7 @@ body.acts .container .invite-module {
       border: 1px #e9e9e9 inset;
       width: 75px; }
   body.acts .container .invite-module .invite div#submit_invite_friend {
-    margin-top: 25px; }
+    margin-top: 4px; }
     body.acts .container .invite-module .invite div#submit_invite_friend a#invite_friends_link {
       background: #3f3f3f;
       /* Old browsers */
@@ -1011,7 +1011,9 @@ body.acts .container .invite-module {
       font-weight: 900!important;
       font-size: 11px;
       font-weight: bold;
-      letter-spacing: 0.5px; }
+      letter-spacing: 0.5px;
+      margin-bottom: 12px;
+      display: inline-block; }
       body.acts .container .invite-module .invite div#submit_invite_friend a#invite_friends_link:hover {
         background: #588b3d; }
       body.acts .container .invite-module .invite div#submit_invite_friend a#invite_friends_link:active {

@@ -290,7 +290,7 @@ body.acts {
 				div#search_for_friends_to_invite {
 					div#bonus {
 						color:$gray;
-						padding:7px 0;
+						padding:10px 0 2px 0;
 						width:87%;
 					}
 					div.single_suggestion {
@@ -310,12 +310,14 @@ body.acts {
 					}
 				}
 				div#submit_invite_friend {
-					margin-top:25px;
+					margin-top:4px;
 					a#invite_friends_link {
 						@include button-norm;
 						font-size:11px;
 						font-weight:bold;
 						letter-spacing:0.5px;
+						margin-bottom: 12px;
+						display: inline-block;  
 					}
 				}
 				form {
@@ -449,9 +451,7 @@ body.acts {
 							@include button-norm;
 							margin-bottom: 12px;
 							display: inline-block;
-//							display:block;
 							font-size:11px;
-//							font-weight:bold;
 						}
 					}
 					div#suggestions {
