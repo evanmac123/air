@@ -35,8 +35,10 @@ ul {
 /* ---------- general mixins ---------- */
 /* ---------- header mixins ---------- */
 /* external */
-body.external div.container div.inv-forms form input[type="submit"] {
-  padding: 5px 0!important; }
+body.external div.container div.inv-forms form {
+  padding-bottom: 0; }
+  body.external div.container div.inv-forms form input[type="submit"] {
+    padding: 5px 0!important; }
 
 body.passwords-new div.container div.inv-forms form input[type="submit"] {
   display: inline;
@@ -135,4 +137,4 @@ body.interstitial_verifications div.content {
     width: 260px!important; }
 
 #contact_us_from_inv_acceptance_page {
-  width: 26ex; }
+  padding-top: 2ex; }

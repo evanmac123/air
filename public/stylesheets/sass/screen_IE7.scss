@@ -5,6 +5,7 @@ body.external {
 	div.container {
 		div.inv-forms {
 			form {
+			  padding-bottom: 0;
 				input[type="submit"] {
 					padding:5px 0!important;
 				}
@@ -181,6 +182,7 @@ body.interstitial_verifications {
 // }
 
 #contact_us_from_inv_acceptance_page{
-  width: 26ex;
+  padding-top: 2ex;
 }
+
 
