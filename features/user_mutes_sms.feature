@@ -47,14 +47,14 @@ Feature: User mutes SMS
 
     When the system sends "Text 5" to user "Joe Bob"
     And DJ cranks 10 times
-    Then "+14155551212" should have received SMS "If you want to temporarily stop getting texts from us, you can text back MUTE to stop them for 24 hours. To stop getting this reminder, text GOTIT."
+    Then "+14155551212" should have received SMS "If you want to temporarily stop getting texts from us, you can text back MUTE to stop them for 24 hours. To stop getting this reminder, text GOT IT."
 
     When I clear all sent texts
     And the system sends "Text 6" to user "Joe Bob"
     And DJ cranks 10 times
-    Then "+14155551212" should not have received SMS "If you want to temporarily stop getting texts from us, you can text back MUTE to stop them for 24 hours. To stop getting this reminder, text GOTIT."
+    Then "+14155551212" should not have received SMS "If you want to temporarily stop getting texts from us, you can text back MUTE to stop them for 24 hours. To stop getting this reminder, text GOT IT."
 
-  Scenario: User texts GOTIT or similar to stop getting mute reminder
+  Scenario: User texts GOT IT or similar to stop getting mute reminder
     When the system sends "Text 1" to user "Joe Bob"
     When the system sends "Text 2" to user "Joe Bob"
     When the system sends "Text 3" to user "Joe Bob"
@@ -78,9 +78,9 @@ Feature: User mutes SMS
     And the system sends "Text 5" to user "Fred Joe"
     And DJ cranks 10 times
 
-    Then "+14155551212" should not have received SMS "If you want to temporarily stop getting texts from us, you can text back MUTE to stop them for 24 hours. To stop getting this reminder, text GOTIT."
-    Then "+16175551212" should not have received SMS "If you want to temporarily stop getting texts from us, you can text back MUTE to stop them for 24 hours. To stop getting this reminder, text GOTIT."
-    Then "+18085551212" should not have received SMS "If you want to temporarily stop getting texts from us, you can text back MUTE to stop them for 24 hours. To stop getting this reminder, text GOTIT."
+    Then "+14155551212" should not have received SMS "If you want to temporarily stop getting texts from us, you can text back MUTE to stop them for 24 hours. To stop getting this reminder, text GOT IT."
+    Then "+16175551212" should not have received SMS "If you want to temporarily stop getting texts from us, you can text back MUTE to stop them for 24 hours. To stop getting this reminder, text GOT IT."
+    Then "+18085551212" should not have received SMS "If you want to temporarily stop getting texts from us, you can text back MUTE to stop them for 24 hours. To stop getting this reminder, text GOT IT."
 
     But "+14155551212" should have received SMS "OK, we won't remind you about the MUTE command henceforth."
     And "+16175551212" should have received SMS "OK, we won't remind you about the MUTE command henceforth."
