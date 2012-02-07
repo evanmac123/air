@@ -26,8 +26,11 @@ module HtmlSelectorsHelpers
     # This allows you to provide a quoted selector as the scope
     # for "within" steps as was previously the default for the
     # web steps:
+    when /Suggested Users/
+      [:xpath, "//*[@id='suggestions']"]
     when /^"(.+)"$/
       $1
+      
 
     else
       raise "Can't find mapping from \"#{locator}\" to a selector.\n" +
