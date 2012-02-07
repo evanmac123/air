@@ -117,3 +117,14 @@ div.invite_or_add {
 		padding:0!important;
 	}
 }
+
+/* external */
+body.external {
+	div.container {
+		div.inv-forms {
+			form {
+    			  padding-bottom: 6.5ex;
+  			}
+		}
+	}
+}

@@ -114,3 +114,7 @@ div.invite_or_add input[type="submit"] {
   color: #588b3d !important;
   font-size: 14px;
   padding: 0!important; }
+
+/* external */
+body.external div.container div.inv-forms form {
+  padding-bottom: 6.5ex; }
