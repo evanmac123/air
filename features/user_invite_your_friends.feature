@@ -19,7 +19,6 @@ Feature: User gives credit to game referer via autocomplete field
       | Yo Yo Ma           | name: Preloaded | 2@loaded.com         | naked     | naked       | everybody     |
       | Threefold          | name: Preloaded | 3@loaded.com         | eraser    | eraser      | everybody     |
       | Fourfold           | name: Preloaded | 4@loaded.com         | owl       | owl         | everybody     |
-      | Fivefold           | name: Preloaded | 5@loaded.com         | brush     | brush       | everybody     |
       | Watermelon         | name: Gleason   | 1@biker.com          | jumper    | jumper      | everybody     |
       | Bruce Springsteen  | name: Gleason   | 2@biker.com          | airairair | airairair   | everybody     |
       | Barnaby Watson     | name: Gleason   | 3@biker.com          | mypeeps   | mypeeps     | everybody     |
@@ -255,3 +254,16 @@ Feature: User gives credit to game referer via autocomplete field
     When I fill in "email number 1" with "racing22@harmony.com"
     And I press "Invite!"
     Then I should see `Please enter only the part of the email address before the "@" - and remember that only colleagues in your organization can play.`
+
+  @javascript
+  Scenario: User should not be able to invite herself
+    Given "Yo Yo Ma" has the password "yummies"
+    Given I sign in via the login page as "Yo Yo Ma/yummies"    
+    Then I should see "Invite your friends"
+    When I fill in "Enter part of their name or email address" with "loaded"
+    Then I should see "Charlie Brainfield"
+    And I should not see "Yo Yo Ma" within the suggested users
+    
+    
+    
+    

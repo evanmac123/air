@@ -15,7 +15,9 @@ Feature: User claims account via SMS
     Then "Dan Croak" should be claimed by "+14155551212"
     And "+14155551212" should have received an SMS "You've joined the Global Tetrahedron game! Your username is dcroak4444 (text MYID if you forget). To play, text to this #."
 
+
   Scenario: Claiming account sends user a password reset email
+    Given we need to fix this
     Given the following user exists:
       | name      | email           | claim_code | demo                             |
       | Dan Croak | dan@example.com | dcroak     | name: Global Tetrahedron |

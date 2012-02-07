@@ -949,8 +949,10 @@ class User < ActiveRecord::Base
     end
   end
 
-  def self.get_users_where_like(text, demo, attribute)
-    User.where("LOWER(#{attribute}) like ?", "%" + text + "%").where(:demo_id => demo.id )
+  def self.get_users_where_like(text, demo, attribute, user_to_exempt = nil)
+    users = User.where("LOWER(#{attribute}) like ?", "%" + text + "%").where(:demo_id => demo.id )
+    users = users.where('users.id != ?', user_to_exempt.id) if user_to_exempt
+    users
   end
   
   def self.get_claimed_users_where_like(text, demo, attribute)

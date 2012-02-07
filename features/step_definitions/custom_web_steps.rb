@@ -112,6 +112,13 @@ Then /^(?:|I )should see `([^`]*)`(?: within ("[^"]*"))?$/ do |text, selector|
   end
 end
 
+Then /^I should not see "([^"]*)" within the suggested users$/ do |text|
+  selector = "Suggested Users"
+  with_scope(selector) do
+    page.should_not have_content(text)
+  end
+end
+
 Then /^I should see "(.*?)" within a link to (.*?)$/ do |text, page_name|
   expected_href = path_to(page_name)
 
