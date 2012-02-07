@@ -11,7 +11,7 @@ class User < ActiveRecord::Base
 
   PRIVACY_LEVELS = %w(everybody connected nobody).freeze
 
-  MUTE_NOTICE_THRESHOLD = 5
+  MUTE_NOTICE_THRESHOLD = 10
 
   include Clearance::User
   include User::Ranking

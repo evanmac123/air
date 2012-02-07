@@ -7,7 +7,7 @@ class EmailInfoRequestNotifier < ActionMailer::Base
     @comment = comment
 
     mail(:to      => 'vlad@hengage.com',
-         :cc      => 'phil@hengage.com',
+         :cc      => ['phil@hengage.com', 'zach@hengage.com'],
          :subject => 'H Engage Information Request')
   end
 end
