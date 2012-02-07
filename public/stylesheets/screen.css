@@ -1050,8 +1050,6 @@ body.acts .container .invite-module {
     margin-top: 15px; }
     body.acts .container .invite-module .invite form p {
       font-weight: bold; }
-    body.acts .container .invite-module .invite form div#autocomplete_status {
-      border: 1px red solid; }
     body.acts .container .invite-module .invite form .first_half, body.acts .container .invite-module .invite form .second_half {
       clear: both;
       color: #909090;

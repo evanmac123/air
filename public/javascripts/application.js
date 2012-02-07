@@ -93,9 +93,15 @@ $(function() {
     $('.remove_referrer').hide();
     $(this).find('.remove_referrer').show();
     //$('#search_for_friends_to_invite #autocomplete').hide();
-    $(this).insertAfter('#relative');
-    $('#submit_invite_friend').show();
-    setTimeout('updatePotentialPoints()', 500);
+    $(this).insertAfter('#put_selected_users_after_this_div');
+    $("#autocomplete_status").hide();
+    
+    updatePotentialPoints();
+    var pts = $("#potential_bonus_points").text();
+ 	  $(".helper.autocomplete").html("That's " + pts + " potential bonus points!<br><br>Keep going!<br><br>You can add lots of friends to this list and then click 'invite'");
+    
+    $("#hide_me_while_selecting").show();
+    
     increasePopupHeight();
   });
 
@@ -105,6 +111,7 @@ $(function() {
 	 var height_to_add = $('.single_suggestion').height();
 	 var new_height = initial_height + height_to_add;
 	 div_to_grow.height(new_height);
+
   });
 
   $('.remove_referrer').live('click', function() {
@@ -113,6 +120,7 @@ $(function() {
     $('#autocomplete').show();
     $('#autocomplete').val('');
     $('#autocomplete').focus();
+    $('#hide_me_while_selecting').hide();
 
     return false;
   });
@@ -151,6 +159,11 @@ $(function() {
   // These next two are to make the autocompletions disappear if you click on something else
   $('html').click(function() {
     setTimeout('$("#suggestions").html("")', 50);
+    $('#autocomplete_status').hide();
+    var pts = $('#potential_bonus_points').text();
+    if (pts != '0'){
+      $('#hide_me_while_selecting').show();
+    } 
   });
 
 
@@ -237,6 +250,7 @@ function autocompleteIfNoneRunningAndResetQueue(options){
   autocompleteIfNoneRunning(options);
 }
 function getAutocomplete(options){
+  $('#autocomplete_status').show();
   var entered_text = $(options['calling_div'] + ' #autocomplete').val();
   if (entered_text.length > 2){
     options['entered_text'] = entered_text;
@@ -250,7 +264,11 @@ function getAutocomplete(options){
           $("#autocomplete_status").text('Please try again');
           }, 3000);    
       }else{
-        $("#autocomplete_status").text('One of these?');        
+        $("#autocomplete_status").text('Click on the person you want to invite');    
+        $(".helper.autocomplete").fadeOut();
+        $("#hide_me_while_selecting").hide();
+        $("#bonus").fadeOut(); 
+        
       }
       $("#suggestions").html(data);
       autocomplete_in_progress = 0;
@@ -260,6 +278,12 @@ function getAutocomplete(options){
      // Yes, you must set this to zero even if you didn't run the function call
      autocomplete_in_progress = 0;
      $("#autocomplete_status").text('3+ letters, please');
+   }
+   if (entered_text.length == 0){
+     setTimeout("$('.helper.autocomplete').fadeIn()", 500);
+     $("#autocomplete_status").hide();
+   }else{
+     setTimeout("$('.helper.autocomplete').fadeOut()", 500);
    }
 }
 

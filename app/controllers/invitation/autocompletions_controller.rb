@@ -5,7 +5,7 @@ class Invitation::AutocompletionsController < ApplicationController
 
     if current_user # This means you're logged in and want to find invitees
       demo = current_user.demo
-      @clear_users_text = "Clear user"
+      @clear_users_text = "Start over"
       names  = User.get_users_where_like(text, demo, "name", current_user)
       slugs  = User.get_users_where_like(text, demo, "slug", current_user)
       emails = User.get_users_where_like(text, demo, "email", current_user)
@@ -14,7 +14,7 @@ class Invitation::AutocompletionsController < ApplicationController
       domain = email.email_domain
       self_inviting_domain = SelfInvitingDomain.where(:domain => domain).first
       demo = self_inviting_domain.demo
-      @clear_users_text = "Clear Users"
+      @clear_users_text = "Clear user"
       names  = User.get_claimed_users_where_like(text, demo, "name")
       slugs  = User.get_claimed_users_where_like(text, demo, "slug")
       emails = User.get_claimed_users_where_like(text, demo, "email")

@@ -64,6 +64,9 @@ ul {
   #suggestions .single_suggestion:hover {
     background: #dcdcdc; }
 
+#search_for_friends_to_invite #suggestions {
+  padding-top: 49px; }
+
 a.remove_referrer {
   color: #588b3d;
   position: absolute;
@@ -74,6 +77,11 @@ a.remove_referrer {
   text-align: right; }
   a.remove_referrer:hover {
     color: #7cb85d !important; }
+
+#invite_friends a.remove_referrer {
+  left: 119px;
+  right: auto;
+  top: -48px; }
 
 .single_suggestion {
   background-color: #e9e9e9;
@@ -113,7 +121,7 @@ a.remove_referrer {
 .suggested_user_id {
   display: none; }
 
-#submit_invite_friend {
+#hide_me_while_selecting {
   display: none; }
 
 .first_half, .second_half {
@@ -138,20 +146,19 @@ body #facebox .content {
   color: green;
   font-weight: bold; }
 
+#autocomplete_status {
+  color: green;
+  font-size: 120%;
+  font-weight: bold;
+  position: absolute;
+  top: 5px;
+  width: 100%; }
+
 #points_per_referral {
   display: none; }
 
 #lots_of_friends {
   padding-left: 17ex; }
-
-#autocomplete_status {
-  color: green;
-  font-size: 120%;
-  font-weight: bold;
-  left: 292px;
-  position: absolute;
-  top: -61px;
-  width: 100%; }
 
 .inv-forms a, .inv-forms a:visited, .inv-forms a:hover, .inv-forms a:active {
   color: #588B3D; }
@@ -159,3 +166,42 @@ body #facebox .content {
 .subtle_notice {
   font-size: 12px;
   padding: 6px 13px 0; }
+
+/*      ############# Stolen from another stylesheet ######################### */
+div.helper {
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  behavior: url(/css3pie/PIE.htc);
+  z-index: 0;
+  background-color: #588b3d;
+  background-image: url(/images/v3/texture_darker.png);
+  border-style: solid;
+  border-width: 1px;
+  border-bottom-color: #365626;
+  border-left-color: #365626;
+  border-right-color: #365626;
+  border-top-color: #6eae4d;
+  box-shadow: 0 0 4px #2c2c2c;
+  color: #fff;
+  display: none;
+  line-height: 16px;
+  padding: 10px;
+  position: absolute;
+  behavior: url(/css3pie/PIE.htc);
+  width: 175px;
+  left: -217px; }
+
+/* ###############################   END STOLEN  ################################# */
+.relative {
+  position: relative; }
+
+#selected_users_label {
+  padding-bottom: 2px;
+  padding-left: 1px; }
+
+#hide_me_while_selecting #submit_invite_friend {
+  padding-top: 22px;
+  position: relative;
+  right: -147px;
+  top: 8px; }

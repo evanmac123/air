@@ -34,6 +34,16 @@ Feature: User gives credit to game referer via autocomplete field
       | Shelly     | name: Preloaded | pre@loaded.com              | nada      | nada        | +16662221111 | everybody     |
       | Yoko       | name: NotStarted| not@started.com             | abb       | abb         | +13384848484 | everybody     |
 
+
+  @javascript
+  Scenario: Status messages when inviting friends on a pre-populated demo
+    Given "Shelly" has the password "foobar"
+    Given I sign in via the login page as "Shelly/foobar"    
+    Then I should see "Invite your friends"
+    When I fill in "Enter part of their name or email address" with "br"
+    Then I should see "3+ characters"
+
+    
   @javascript
   Scenario: Invite friends on demo pre-populated with users
     Given "Shelly" has the password "foobar"

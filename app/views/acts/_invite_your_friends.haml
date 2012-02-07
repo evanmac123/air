@@ -1,3 +1,20 @@
+- content_for(:javascript) do 
+  :javascript
+
+    $("#autocomplete").focus(function () {
+      $('.helper.autocomplete').fadeIn();
+    });
+    
+    $("#autocomplete").click(function () {
+      setTimeout("$('.helper.autocomplete').fadeIn()", 500);
+      $("#autocomplete_status").hide();
+    });
+    
+    $("#autocomplete").blur(function() {
+      $(".helper.autocomplete").fadeOut();
+    })
+    
+
 - if current_user.session_count < 3 && session[:invite_friends_modal_shown].nil?
   - div_id = 'invite_friends_facebox'
   - show_greeting = true
@@ -12,9 +29,11 @@
   - unless show_greeting.nil?
     %p= "Thanks for joining #{current_user.demo.name}" 
   %h2 Invite your friends
-  %p For each friend that joins the game, you get an extra 5 points!
+  %p It's more fun when people you know are playing too. Plus, get a 5-point referral bonus for each friend that joins the game!
   #points_per_referral= current_user.demo.game_referrer_bonus
+  
   - unless current_user.demo.self_inviting_domains.empty?
+    =############# SELF INVITING DOMAIN version ################
     = form_tag invitation_invite_friend_path, :autocomplete => :off do  
       %p Enter your friends' email addresses:
       #bonus
@@ -40,26 +59,36 @@
         = submit_tag "Invite!"
       /   = link_to "I have LOTS of friends", '#m', :id => :lots_of_friends
 
-     
+    
   -else
+    =#################### PRE POPULATED DOMAIN version #####################
     #search_for_friends_to_invite
       = form_tag invitation_invite_friend_path, :autocomplete => :off do  
         = hidden_field_tag 'invitee_ids'
     
         %ul.form-section
-          %li.form-label= label_tag :autocomplete,  "Enter part of their name or email address"
+          %li.form-label= label_tag :autocomplete,  "Which coworkers do you wish to invite?"
           %li.form-input
             = text_field_tag :autocomplete
-          #bonus
-            That's
-            #potential_bonus_points
-              0
-            potential bonus points!
-        
-          #submit_invite_friend
-            = link_to "Invite!", '#f', :id => :invite_friends_link              
-        
-          #relative  
+          
+            .relative
+              .helper.autocomplete  
+                Type part of your coworker's name or email, and we'll look them up.          
+    
+    
+          
+          .relative
             #autocomplete_status
+
+          #potential_bonus_points{:style => "display: none;"} 0
+              
+        
+           
+        
+          #hide_me_while_selecting
+            #submit_invite_friend= link_to "Invite selected users", '#f', :id => :invite_friends_link
+            =#   #selected_users_label Selected Users:
+            #put_selected_users_after_this_div
+          .relative  
             #suggestions
 
