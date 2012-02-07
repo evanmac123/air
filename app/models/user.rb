@@ -273,7 +273,7 @@ class User < ActiveRecord::Base
   def bump_mt_texts_sent_today
     increment!(:mt_texts_today)
     if self.mt_texts_today == MUTE_NOTICE_THRESHOLD && !(self.suppress_mute_notice)
-      SMS.send_message(self, "If you want to temporarily stop getting texts from us, you can text back MUTE to stop them for 24 hours. To stop getting this reminder, text GOTIT.")
+      SMS.send_message(self, "If you want to temporarily stop getting texts from us, you can text back MUTE to stop them for 24 hours. To stop getting this reminder, text GOT IT.")
     end
   end
 
