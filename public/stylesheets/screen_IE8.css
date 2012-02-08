@@ -49,6 +49,10 @@ body.invitations div#search_for_referrer {
       border: 0!important;
       border-radius: 0!important;
       z-index: 99999!important; }
+body.invitations input[type="password"], body.invitations input[type="text"] {
+  border-radius: 0!important; }
+body.invitations select {
+  border-radius: 0!important; }
 
 body.invitations .header #navigation .nav-signup, body.sessions .header #navigation .nav-login {
   background: #2e2e2c;
