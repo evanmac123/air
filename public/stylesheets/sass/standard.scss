@@ -44,10 +44,10 @@ ul {list-style-type:none; margin:0; padding:0;}
 		text-align: center;
 		
 		a {
-			color: $gray;
+			color: $dark-gray;
 			padding: 0 7px;
 			&:hover {
-				color:$dark-gray;
+				color:$header-bg;
 			}
 		}
 	}
