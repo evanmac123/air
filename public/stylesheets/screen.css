@@ -494,11 +494,11 @@ body {
   color: #272727;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-size: 14px; }
-  body .container {
+  body .content {
     margin: 0 auto;
-    padding: 10px;
+    padding: 20px 10px;
     width: 960px; }
-    body .container .module {
+    body .content .module {
       border: 1px #bebebe solid;
       -webkit-border-radius: 3px;
       -moz-border-radius: 3px;
@@ -510,22 +510,22 @@ body {
       background-color: #ffffff;
       margin-bottom: 15px;
       padding: 15px 10px 10px 10px; }
-    body .container .module_inner {
+    body .content .module_inner {
       padding-bottom: 5px;
       margin: 5px 0; }
-    body .container h1.headline {
+    body .content h1.headline {
       color: #2e2e2c;
       font-family: "Ubuntu", Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
       font-size: 20px;
       font-weight: 900;
       padding-bottom: 15px;
       text-transform: uppercase; }
-    body .container h2.title {
+    body .content h2.title {
       color: #909090;
       font-size: 16px;
       font-weight: 900;
       padding-bottom: 8px; }
-    body .container input[type=text] {
+    body .content input[type=text] {
       border-radius: 30px;
       -webkit-border-radius: 30px;
       -moz-border-radius: 30px;
@@ -536,10 +536,10 @@ body {
       border: 1px #c5c7c7 solid;
       color: #588b3d;
       padding: 5px 10px; }
-      body .container input[type=text]:focus {
+      body .content input[type=text]:focus {
         background-color: #fff;
         border: 1px #588b3d solid; }
-    body .container input[type="submit"].button_norm {
+    body .content input[type="submit"].button_norm {
       background: #3f3f3f;
       /* Old browsers */
       background: -moz-linear-gradient(top, #3f3f3f 0%, #2e2f2d 100%);
@@ -569,9 +569,9 @@ body {
       font-weight: 900!important;
       font-weight: bold;
       letter-spacing: .5px; }
-      body .container input[type="submit"].button_norm:hover {
+      body .content input[type="submit"].button_norm:hover {
         background: #588b3d; }
-      body .container input[type="submit"].button_norm:active {
+      body .content input[type="submit"].button_norm:active {
         background: #909090; }
 
 /* -- nav active states -- */
@@ -1254,11 +1254,13 @@ body.acts #facebox .popup {
         color: #588b3d;
         font-weight: bold; }
 
-/* --------------------------- game not started --------------------------- */
+/* --------------------------- profile page --------------------------- */
 body.users div#main {
-  border: 1px red solid; }
+  float: left;
+  width: 57%; }
 body.users div#secondary {
-  border: 1px red solid; }
+  float: right;
+  width: 35%; }
 
 /* --------------------------- settings --------------------------- */
 /* @end */
@@ -1322,21 +1324,6 @@ body.settings .container li {
 body.pages-faq .content {
   margin: 0 auto;
   width: 960px; }
-  body.pages-faq .content .module {
-    border: 1px #bebebe solid;
-    -webkit-border-radius: 3px;
-    -moz-border-radius: 3px;
-    border-radius: 3px;
-    -moz-box-shadow: 0 0 5px #c9c9c9;
-    -webkit-box-shadow: 0 0 5px #c9c9c9;
-    box-shadow: 0 0 5px #c9c9c9;
-    behavior: url(/css3pie/PIE.htc);
-    background-color: #ffffff;
-    margin-bottom: 15px;
-    padding: 15px 10px 10px 10px; }
-  body.pages-faq .content .module_inner {
-    padding-bottom: 5px;
-    margin: 5px 0; }
   body.pages-faq .content #faq_body, body.pages-faq .content #faq_toc {
     margin-top: 20px; }
   body.pages-faq .content #faq_body {

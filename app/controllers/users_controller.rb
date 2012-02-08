@@ -1,4 +1,6 @@
 class UsersController < Clearance::UsersController
+  layout "application"
+  
   def index
     @friend_ids = current_user.friend_ids
     @other_users = User.where(['demo_id = ? AND id != ?', current_user.demo_id, current_user.id]).alphabetical

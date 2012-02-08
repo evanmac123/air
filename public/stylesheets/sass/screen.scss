@@ -13,7 +13,7 @@ body {
 	color:#272727;
 	font-family:'Helvetica Neue', Helvetica, Arial, sans-serif;
 	font-size:14px;
-	.container {
+	.content {
 		@include bg-white;
 		@include headings;
 		@include input-text;
@@ -23,7 +23,7 @@ body {
 			letter-spacing: .5px;
 		}
 		margin:$centered;
-		padding:$gutter;
+		padding:2*$gutter $gutter;
 		width:960px;
 	}
 }
@@ -499,13 +499,16 @@ body.acts {
 	}
 }
 
-/* --------------------------- game not started --------------------------- */
+/* --------------------------- profile page --------------------------- */
 body.users {
 	div#main {
-		border:1px red solid;
+		float:left;
+		width:57%;
 	}
+	
 	div#secondary {
-		border:1px red solid;
+		float:right;
+		width:35%;
 	}
 }
 
@@ -597,7 +600,6 @@ body.settings {
 /* --------------------------- faq --------------------------- */
 body.pages-faq{
 	.content {
-		@include bg-white;
 		margin:$centered;
 		width:960px;
 		#faq_body, #faq_toc {

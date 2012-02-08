@@ -1,5 +1,13 @@
 <div id="main-wrapper">
-  <div id="main">
+	<div id="profile-head" class="module">
+		<h2><%= @user.name %></h2>
+		<div class="avatar48">
+			<%= default_avatar_tag @user %>
+		</div>
+
+	</div>
+	
+  <div id="main" class="module">
     <h2>Recent Activity</h2>
 
     <ul id="user-acts">
@@ -26,60 +34,20 @@
 </div>
 
 <div id="secondary">
-  <div id="profile-head">
-    <h2><%= @user.name %></h2>
-
-    <div class="avatar48">
-      <%= default_avatar_tag @user %>
-    </div>
-
-    <% if @viewing_self %>
-      <%= mp_track("viewed own profile") %>
-      <div class="own-number">
-        <h3>
-          <% if @user.phone_number.present? %>
-            <%= @user.phone_number.as_pretty_phone %>        
-          <% else %>
-            No mobile number. Please enter one if you'd like to play using text messaging.
-          <% end %>
-        </h3>
-      </div>
-    <% end %>
-
-  </div>
-
-  <% if @viewing_other %>
-    <%= mp_track "viewed profile of someone else", :viewed_person => @user.name %>
-    <div id="follow-target">
-      <% if current_user.following?(@user) %>
-        <%= unfollow_button @user, "#follow-target" %>
-      <% else %>
-        <%= follow_button @user, "#follow-target" %>
-      <% end %>
-    </div>
-  <% end %>
-
-  <% content_for :javascript do %>
-    <%= javascript_tag do %>
-      $('#follow-target form').live('ajax:beforeSend', function(e) {$('#follow-target').html('<%= image_tag 'spinner.gif' %>')});
-    <% end %>
-  <% end %>
+	<div id="groups" class="module">
+		<h1 class="headline">groups I'm In'</h1>
 
 
-  <div id="connections">
-    <h2>Connections</h2>
+	</div>
+  	<div id="following" class="module">
+		<h1 class="headline">Following</h1>
 
-    <% fan_of_phrase, fans_had_phrase = if @viewing_self
-                                          ["You're", "You have"]
-                                        else
-                                          [@user.name + ' is', @user.name + ' has']
-                                        end
-                                      %>
 
-    <%= fan_of_phrase %> a fan of <span class="fan-count" id="following-count"><%= following_count_phrase(@user)%></span>.<br/>
-    <%= fans_had_phrase%> <span class="fan-count" id="followers-count"><%= followers_count_phrase(@user) %></span>.
-    <% if @viewing_self %>
-      <br/><%= link_to 'View my connections', friends_path %>
-    <% end %>
-  </div>
+	</div>
+
+	<div id="followed-by" class="module">
+		<h1 class="headline">Followed By</h1>
+
+  
+	</div>
 </div>
