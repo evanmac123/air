@@ -42,6 +42,9 @@ body.invitations {
 			}
 		}
 	}
+	select {
+		border-radius:0!important;
+	}
 }
 body.invitations .header #navigation .nav-signup, body.sessions .header #navigation .nav-login {
 	background:$dark-gray;

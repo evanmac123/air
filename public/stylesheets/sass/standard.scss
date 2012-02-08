@@ -31,6 +31,170 @@ input:focus {outline: 0;}
 p {margin:0;padding:0;}
 ul {list-style-type:none; margin:0; padding:0;}
 
+/* ---------- general mixins ---------- */
+@mixin acts-feed {
+	.act {
+		border-bottom: 1px $light-gray solid;
+		clear: both;
+		padding: 13px 0;
+		
+		.act-details {	
+			float: left;
+			margin-left: 20px;
+			width: 87%;
+			
+			.description {
+				width: 80%;
+			}
+			.points {
+				color: $gray;
+				float: right;
+				font-size: 18px;
+				font-weight: bold;
+				width: 75px;
+			}
+			.user {
+				a {
+					color: $header-bg;
+					font-size: 14px;
+					font-weight: bold;
+					&:hover {color:lighten($header-bg, 10%);}
+					&:active {color:$dark-gray;}
+				}
+			}
+			.when {
+				color: $gray;
+				font-size: 12px;
+				width: 80%;
+			}
+		}
+		.avatar43 {
+			@include rounded;
+			border: 1px $light-gray solid;
+			float: left;
+			height: 50px;
+			width: 50px;
+			
+			img {
+				@include rounded;
+				height: 100%;
+				width: 100%;
+			}
+		}
+	}
+	.seemore {
+		display: block;
+		font-size:12px;
+		font-weight:bold;
+		padding: 10px 0 5px 0;
+		text-align: center;
+		
+		a {
+			color: $gray;
+			padding: 0 7px;
+			&:hover {
+				color:$dark-gray;
+			}
+		}
+	}
+}
+@mixin box-shadow {
+	-moz-box-shadow: 0 0 5px #c9c9c9;
+	-webkit-box-shadow: 0 0 5px #c9c9c9;
+	box-shadow: 0 0 5px #c9c9c9;
+	behavior: url(/css3pie/PIE.htc);
+}
+@mixin button-norm {
+	@include bg-black-rev;
+	@include rounded-nav;
+	border:0;
+	color:#fff;
+	font-family:$gotham;
+	font-size:11px!important;
+	font-weight: bold;
+	padding:5px 15px;
+	text-shadow:1px 1px 1px $dark-gray;
+	text-transform:uppercase;
+	font-weight:900!important;
+	&:hover {
+		background:$header-bg;
+	}
+	&:active {
+		background:$gray;
+	}
+}
+@mixin heading-black {
+	color:$dark-gray;
+	font-family:$gotham;
+	font-size:20px;
+	font-weight: 900;
+	padding-bottom:15px;
+	text-transform:uppercase;
+}
+@mixin heading-gray {	
+	color:$gray;
+	font-family:$gotham;
+	font-size:14px;
+	font-weight:900;
+	padding:$gutter;
+	text-transform:uppercase;
+}
+@mixin headings {
+	h1.headline {
+		@include heading-black;
+	}
+	h2.title {
+		@include heading-gray;
+	}
+}
+@mixin input-text {
+	input[type=text] {
+		@include rounded-progress;
+		background-color:lighten($light-gray, 5%);
+		border: 1px #c5c7c7 solid;
+		color:$header-bg;
+		padding:5px 10px;
+		
+		&:focus {
+			background-color:#fff;
+			border:1px $header-bg solid;
+		}
+	}
+}
+@mixin rounded {
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	
+	behavior: url(/css3pie/PIE.htc);
+//	position:relative;
+	z-index: 0;
+}
+@mixin rounded-nav {
+	-webkit-border-radius: 20px;
+	-moz-border-radius: 20px;
+	border-radius: 20px;
+	behavior: url(/css3pie/PIE.htc);
+}
+@mixin rounded-progress {
+	border-radius: 30px;
+	-webkit-border-radius: 30px;
+	-moz-border-radius: 30px;
+	
+	behavior: url(/css3pie/PIE.htc);
+	position:relative;
+	z-index: 0;
+}
+
+@mixin shadow-side {
+	-webkit-box-shadow: 7px 0 6px -6px rgba(0, 0, 0, .5);
+    -moz-box-shadow: 7px 0 6px -6px rgba(0, 0, 0, .5);
+    box-shadow: 7px 0 6px -6px rgba(0, 0, 0, .5);
+}
+
+
+/* ------------ colors ------------- */
+
 /* Game type colors */
 $c-campaign:		#0a5081;
 $c-freeplay:		#00957a;
@@ -147,48 +311,8 @@ $c-competition:		#b65100;
 			style: solid;
 		}
 	}
-
-/* ---------- general mixins ---------- */
-@mixin bg-progressbar {
-	background: #d5d5d5; /* Old browsers */
-	background: -moz-linear-gradient(top,  #d5d5d5 0%, #eaeaea 100%); /* FF3.6+ */
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#d5d5d5), color-stop(100%,#eaeaea)); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(top,  #d5d5d5 0%,#eaeaea 100%); /* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(top,  #d5d5d5 0%,#eaeaea 100%); /* Opera 11.10+ */
-	background: -ms-linear-gradient(top,  #d5d5d5 0%,#eaeaea 100%); /* IE10+ */
-	background: linear-gradient(top,  #d5d5d5 0%,#eaeaea 100%); /* W3C */
-	background-image:url('/images/v3/bg-gray.png');
-	background-repeat:repeat-x;
-}
-@mixin box-shadow {
-	-moz-box-shadow: 0 0 5px #c9c9c9;
-	-webkit-box-shadow: 0 0 5px #c9c9c9;
-	box-shadow: 0 0 5px #c9c9c9;
-	behavior: url(/css3pie/PIE.htc);
-}
-@mixin rounded-nav {
-	-webkit-border-radius: 20px;
-	-moz-border-radius: 20px;
-	border-radius: 20px;
-	behavior: url(/css3pie/PIE.htc);
-}
-@mixin rounded-progress {
-	border-radius: 30px;
-	-webkit-border-radius: 30px;
-	-moz-border-radius: 30px;
 	
-	behavior: url(/css3pie/PIE.htc);
-	position:relative;
-	z-index: 0;
-}
-
-@mixin shadow-side {
-	-webkit-box-shadow: 7px 0 6px -6px rgba(0, 0, 0, .5);
-    -moz-box-shadow: 7px 0 6px -6px rgba(0, 0, 0, .5);
-    box-shadow: 7px 0 6px -6px rgba(0, 0, 0, .5);
-}
-
-/* ---------- header mixins ---------- */
+/* other colors */
 @mixin bg-black {
 	background: #1e1f1e; /* Old browsers */
 	background: -moz-linear-gradient(top,  #1e1f1e 13%, #343434 59%); /* FF3.6+ */
@@ -229,6 +353,18 @@ $c-competition:		#b65100;
 	//			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff8600', endColorstr='#ff7700',GradientType=0 ); /* IE6-8 */
 			}
 			
+@mixin bg-progressbar {
+	background: #d5d5d5; /* Old browsers */
+	background: -moz-linear-gradient(top,  #d5d5d5 0%, #eaeaea 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#d5d5d5), color-stop(100%,#eaeaea)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  #d5d5d5 0%,#eaeaea 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  #d5d5d5 0%,#eaeaea 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  #d5d5d5 0%,#eaeaea 100%); /* IE10+ */
+	background: linear-gradient(top,  #d5d5d5 0%,#eaeaea 100%); /* W3C */
+	background-image:url('/images/v3/bg-gray.png');
+	background-repeat:repeat-x;
+}
+
 @mixin bg-white-free {
 	border:1px #bebebe solid;
 	-webkit-border-radius: 3px;
@@ -250,69 +386,4 @@ $c-competition:		#b65100;
 		padding-bottom:5px;
 		margin:5px 0;
 	}
-}
-
-@mixin button-norm {
-	@include bg-black-rev;
-	@include rounded-nav;
-	border:0;
-	color:#fff;
-	font-family:$gotham;
-	font-size:11px!important;
-	font-weight: bold;
-	padding:5px 15px;
-	text-shadow:1px 1px 1px $dark-gray;
-	text-transform:uppercase;
-	font-weight:900!important;
-	&:hover {
-		background:$header-bg;
-	}
-	&:active {
-		background:$gray;
-	}
-}
-@mixin headings {
-	h1.headline {
-		color:$dark-gray;
-		font-family:$gotham;
-		font-size:20px;
-		font-weight: 900;
-		padding-bottom:15px;
-		text-transform:uppercase;
-	}
-	h2.title {
-		color:$gray;
-		font-size:16px;
-		font-weight:900;
-		padding-bottom:8px;
-	}
-}
-@mixin input-text {
-	input[type=text] {
-		@include rounded-progress;
-		background-color:lighten($light-gray, 5%);
-		border: 1px #c5c7c7 solid;
-		color:$header-bg;
-		padding:5px 10px;
-		
-		&:focus {
-			background-color:#fff;
-			border:1px $header-bg solid;
-		}
-	}
-}@mixin rounded {
-	-webkit-border-radius: 3px;
-	-moz-border-radius: 3px;
-	border-radius: 3px;
-	
-	behavior: url(/css3pie/PIE.htc);
-//	position:relative;
-	z-index: 0;
-}
-
-@mixin fade {
-	-webkit-transition:  all 1s ease-in-out;
-	-moz-transition:     all 1s ease-in-out;
-	-ms-transition:      all 1s ease-in-out;
-	-o-transition:       all 1s ease-in-out;
 }

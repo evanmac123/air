@@ -33,9 +33,10 @@ ul {
   margin: 0;
   padding: 0; }
 
-/* Game type colors */
 /* ---------- general mixins ---------- */
-/* ---------- header mixins ---------- */
+/* ------------ colors ------------- */
+/* Game type colors */
+/* other colors */
 .header .mast_top .navigation a.a_current {
   background-color: #404040!important;
   background-image: url("/images/v3/bg-black.png") !important;

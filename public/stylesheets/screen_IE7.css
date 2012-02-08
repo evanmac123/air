@@ -31,9 +31,10 @@ ul {
   margin: 0;
   padding: 0; }
 
-/* Game type colors */
 /* ---------- general mixins ---------- */
-/* ---------- header mixins ---------- */
+/* ------------ colors ------------- */
+/* Game type colors */
+/* other colors */
 /* external */
 body.external div.container div.inv-forms form {
   padding-bottom: 0; }
@@ -56,6 +57,8 @@ body.invitations div#search_for_referrer {
     body.invitations div#search_for_referrer div#suggestions div.single_suggestion {
       position: relative;
       z-index: 99999!important; }
+body.invitations select {
+  border-radius: 0!important; }
 
 body.invitations .header #navigation .nav-signup, body.sessions .header #navigation .nav-login {
   background: #2e2e2c;

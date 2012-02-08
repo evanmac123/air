@@ -1,14 +1,15 @@
-<div id="main-wrapper">
-	<div id="profile-head" class="module">
-		<h2><%= @user.name %></h2>
-		<div class="avatar48">
-			<%= default_avatar_tag @user %>
-		</div>
-
+<div id="profile-head" class="module">
+	<h2><%= @user.name %></h2>
+	<div class="avatar48">
+		<%= default_avatar_tag @user %>
 	</div>
-	
-  <div id="main" class="module">
-    <h2>Recent Activity</h2>
+
+</div>
+
+<div id="left-col">
+  <h2 class="title">Player History</h2>
+  <div id="recent-activity" class="module">
+    <h1 class="headline">Recent Activity</h2>
 
     <ul id="user-acts">
       <li class="act-shim">
@@ -16,8 +17,11 @@
       <%= render :partial => 'shared/new_act', :collection => @acts, :as => :act %>
     </ul>
 
-    <%= link_to "See more", '#', :id => 'see-more' %>
-    <%= image_tag 'spinner.gif', :id => 'see-more-spinner' %>
+	<div class="seemore">
+			<img src="/images/v3/arrow-down.png" />
+			<%= link_to "See more", '#', :id => 'see-more' %>
+			<img src="/images/v3/arrow-down.png" />
+      </div>
 
     <% content_for :javascript do %>
       <%= javascript_tag do %>
@@ -33,9 +37,10 @@
   </div>
 </div>
 
-<div id="secondary">
+<div id="right-col">
+	<h2 class="title">Connections</h2>
 	<div id="groups" class="module">
-		<h1 class="headline">groups I'm In'</h1>
+		<h1 class="headline">Groups I'm In</h1>
 
 
 	</div>

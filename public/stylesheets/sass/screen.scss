@@ -74,12 +74,7 @@ body.acts {
 	.container {
 		#suggested-tasks {			
 			h2 {
-				color:$gray;
-				font-family:$gotham;
-				font-size:14px;
-				font-weight:900;
-				padding:$gutter;
-				text-transform:uppercase;
+				@include heading-gray;
 			}
 			
 			/* ---------- game types ----------- */
@@ -173,6 +168,7 @@ body.acts {
 			}
 		}
 		.feeds {
+			@include acts-feed;
 			float:left;
 			width:58%;
 			
@@ -190,72 +186,6 @@ body.acts {
 					margin-right:10px;
 					a {
 						color:#fff;
-					}
-				}
-			}
-			
-			.act {
-				border-bottom: 1px $light-gray solid;
-				clear: both;
-				padding: 13px 0;
-				
-				.act-details {	
-					float: left;
-					margin-left: 20px;
-					width: 87%;
-					
-					.description {
-						width: 80%;
-					}
-					.points {
-						color: $gray;
-						float: right;
-						font-size: 18px;
-						font-weight: bold;
-						width: 75px;
-					}
-					.user {
-						a {
-							color: $header-bg;
-							font-size: 14px;
-							font-weight: bold;
-							&:hover {color:lighten($header-bg, 10%);}
-							&:active {color:$dark-gray;}
-						}
-					}
-					.when {
-						color: $gray;
-						font-size: 12px;
-						width: 80%;
-					}
-				}
-				.avatar43 {
-					@include rounded;
-					border: 1px $light-gray solid;
-					float: left;
-					height: 50px;
-					width: 50px;
-					
-					img {
-						@include rounded;
-						height: 100%;
-						width: 100%;
-					}
-				}
-			}
-			
-			.seemore {
-				display: block;
-				font-size:12px;
-				font-weight:bold;
-				padding: 10px 0 5px 0;
-				text-align: center;
-				
-				a {
-					color: $gray;
-					padding: 0 7px;
-					&:hover {
-						color:$dark-gray;
 					}
 				}
 			}
@@ -400,12 +330,6 @@ body.acts {
 					width:415px;
 					div#autocomplete_status {
 						display:none;
-//						border:1px red solid;
-//						color:$header-bg;
-//						font-size:14px;
-//						top:-35px;
-//						position:relative;
-//						width:auto;
 					}
 					div#bonus {
 						color:$gray;
@@ -501,12 +425,13 @@ body.acts {
 
 /* --------------------------- profile page --------------------------- */
 body.users {
-	div#main {
+	div#left-col {
+		@include acts-feed;
 		float:left;
-		width:57%;
+		width:60%;
 	}
 	
-	div#secondary {
+	div#right-col {
 		float:right;
 		width:35%;
 	}
