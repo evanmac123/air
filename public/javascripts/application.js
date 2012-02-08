@@ -1,10 +1,11 @@
 var autocomplete_in_progress = 0;
 var autocomplete_waiting = 0;
-var contents_of_invite_your_friends_div_898772 = '';
 
 $(function() {
   $('#invite_friends_link').live('click', function(){
-    $('#search_for_friends_to_invite form').submit();
+    grabUsersToInvite();
+    
+    setTimeout("$('#search_for_friends_to_invite form').submit()", 1000);
   });
   
 
@@ -48,14 +49,17 @@ $(function() {
       // }
 
     }else{
-      $(document).bind('close.facebox', function() { restoreInviteFriends(); });
-      saveInviteFriendsToVariable();
+      hideAndRenamePageBasedInviteFriends();
+      $(document).bind('close.facebox', function() { moveInviteFriendsFaceboxToPage(); });
       $('#facebox #autocomplete').focus();
     }
 
   }
 
 
+
+    
+    
   
   
   $('[id^=email_prepends]').blur(function(){
@@ -80,30 +84,29 @@ $(function() {
     $('#autocomplete_status').text('');
 
     $(this).insertAfter('#autocomplete');
-    setTimeout('updatePotentialPoints()', 500);
+    updatePotentialPoints();
   });
 
   $('#search_for_friends_to_invite .single_suggestion').live('click', function() {
-    var existing_ids = $('#invitee_ids').val();
-    var new_id = $(this).find('.suggested_user_id').text();
-    var new_plus_existing = existing_ids + " " + new_id + ",";
-    $('#invitee_ids').val(new_plus_existing);
+    // var existing_ids = $('#invitee_ids').val();
+    // var new_id = $(this).find('.suggested_user_id').text();
+    // var new_plus_existing = existing_ids + " " + new_id + ",";
+    // $('#invitee_ids').val(new_plus_existing);
     $('#autocomplete').val('');
     $('#autocomplete').focus();
-    $('.remove_referrer').hide();
-    $(this).find('.remove_referrer').show();
     //$('#search_for_friends_to_invite #autocomplete').hide();
     $(this).insertAfter('#put_selected_users_after_this_div');
     $("#autocomplete_status").hide();
-    
-    updatePotentialPoints();
-    var pts = $("#potential_bonus_points").text();
- 	  $(".helper.autocomplete").html("That's " + pts + " potential bonus points!<br><br>Keep going!<br><br>You can add lots of friends to this list and then click 'invite'");
+    setTimeout('$("#suggestions").html("")', 50);
+    setTimeout('displayPotentialPointsPrepopulated()', 100);
     
     $("#hide_me_while_selecting").show();
     
-    increasePopupHeight();
   });
+  
+  $('#facebox .single_suggestion').live('click', function(){
+    increasePopupHeight();
+  })
 
   $('.invite-module #search_for_friends_to_invite .single_suggestion').live('click', function() {
   	 var div_to_grow = $('.invite-module');
@@ -116,12 +119,15 @@ $(function() {
 
   $('.remove_referrer').live('click', function() {
     $('#user_game_referrer_id').val('');
-    $('.single_suggestion').hide();
+    $(this).parent('.single_suggestion').remove();
     $('#autocomplete').show();
     $('#autocomplete').val('');
     $('#autocomplete').focus();
-    $('#hide_me_while_selecting').hide();
-
+    if ($('#potential_bonus_points').text() == '0'){
+      $('#hide_me_while_selecting').hide();
+    }
+    displayPotentialPointsPrepopulated();
+    
     return false;
   });
 
@@ -169,6 +175,17 @@ $(function() {
 
 });
 
+function grabUsersToInvite(){
+  //grab all the user_ids 
+  var invitee_ids = '';
+ 
+  var ids = $.map($('.single_suggestion .suggested_user_id'), function(value){
+    invitee_ids += $(value).text() + ', '; 
+   
+  });
+  $('#invitee_ids').val(invitee_ids);
+}
+
 function increasePopupHeight(){
 	var div_to_grow = $('.popup .content');
 	var initial_height = div_to_grow.height();
@@ -177,13 +194,18 @@ function increasePopupHeight(){
 	div_to_grow.height(new_height);
 }
 
-function saveInviteFriendsToVariable(){
-  contents_of_invite_your_friends_div_898772 = $('#invite_friends_facebox').html();
+function hideAndRenamePageBasedInviteFriends(){
   $('#invite_friends_facebox').html('');  
+  $('#invite_friends_facebox').attr('id', 'temporary_div_name');  
 }
 
-function restoreInviteFriends(){
-  $('#invite_friends_facebox').html(contents_of_invite_your_friends_div_898772);  
+function moveInviteFriendsFaceboxToPage(){
+  var stuff_in_facebox = $('#facebox .content').html();
+  $('#facebox').remove();
+  $('#temporary_div_name').html(stuff_in_facebox); 
+  $('#temporary_div_name *').attr('opacity', 1);
+  $('#temporary_div_name').attr('id', 'invite_friends');
+  
 }
 
 function calculatePoints(){
@@ -211,17 +233,26 @@ function calculatePoints(){
   }
 }
 
-function updatePotentialPoints(){
-  var new_points = $('#points_per_referral').text();
-  if (new_points == ''){
+function displayPotentialPointsPrepopulated(){
+  
+  var ppr = $('#points_per_referral').text();
+  var num_invitees = $('.single_suggestion').length;
+  if (ppr == ''){
     $('#bonus').html('This game does not have referral bonuses set up yet.');
   }else{
-    var points_so_far = $('#potential_bonus_points').text();
-    points_so_far = parseInt(points_so_far);
-    new_points = parseInt(new_points);
-    $('#potential_bonus_points').text(points_so_far + new_points);
+    ppr = parseInt(ppr);
+    $('#potential_bonus_points').text(ppr * num_invitees);
   }
-  $('#bonus').show();
+  var pts = ppr * num_invitees;
+  var msg = '';
+  if (pts > 0){
+    msg = "That's <span class='gold'>" + pts + "</span> potential bonus points!<br><br>Keep going!<br><br>You can add lots of friends to this list and then click 'invite'"; 
+  }else{
+    msg = "Type part of your coworker's name or email, and we'll look them up."
+    $('#hide_me_while_selecting').hide();
+  }
+  $(".helper.autocomplete").html(msg);
+  $('#bonus').show();  
 }
 
 

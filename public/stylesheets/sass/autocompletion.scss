@@ -2,6 +2,7 @@
 $bin_width: 378px;
 $suggestion_radius: 4px;
 $light_green: #87BF4E;
+$gold: #fd1;
 .clear{
   clear: both;
 }
@@ -39,22 +40,20 @@ $light_green: #87BF4E;
 a.remove_referrer{
 	color:$hengage-bg;
   position: absolute;
-  right: 0px;
-  top: -19px;
-  z-index: 10;
-  width: 26ex;
-  text-align: right;
+  left: auto;
+  right: 4px;
+  top: 1px;
+  
 	&:hover {
 		color:lighten($hengage-bg, 15%)!important;
 	}
 }
-#invite_friends a.remove_referrer{
-  left: 119px;
-  right: auto;
-  top: -48px;
+
+#suggestions .single_suggestion{
+  background: $light-gray;
 }
 .single_suggestion{
-  background-color:$light-gray;
+  background-color: #fd1;
   background-image:url(/images/v3/texture_darker.png);
   color:$dark-gray;
   padding: 10px;
@@ -189,8 +188,11 @@ div.helper {
   padding-left: 1px;
 }
 #hide_me_while_selecting #submit_invite_friend{
-  padding-top: 22px;
+  padding-top: 12px;
   position: relative;
   right: -147px;
   top: 8px;
+}
+.gold{
+  color: $gold;
 }

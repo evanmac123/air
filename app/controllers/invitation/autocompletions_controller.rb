@@ -5,7 +5,7 @@ class Invitation::AutocompletionsController < ApplicationController
 
     if current_user # This means you're logged in and want to find invitees
       demo = current_user.demo
-      @clear_users_text = "Start over"
+      @clear_users_text = "X"
       names  = User.get_users_where_like(text, demo, "name", current_user)
       slugs  = User.get_users_where_like(text, demo, "slug", current_user)
       emails = User.get_users_where_like(text, demo, "email", current_user)

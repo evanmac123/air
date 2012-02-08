@@ -1,16 +1,16 @@
 - content_for(:javascript) do 
   :javascript
 
-    $("#autocomplete").focus(function () {
-      $('.helper.autocomplete').fadeIn();
+    $("#autocomplete").live('focus', function () {
+      setTimeout("$('.helper.autocomplete').fadeIn()", 200);
     });
     
-    $("#autocomplete").click(function () {
+    $("#autocomplete").live('click', function () {
       setTimeout("$('.helper.autocomplete').fadeIn()", 500);
       $("#autocomplete_status").hide();
     });
     
-    $("#autocomplete").blur(function() {
+    $("#autocomplete").live('blur', function() {
       $(".helper.autocomplete").fadeOut();
     })
     
