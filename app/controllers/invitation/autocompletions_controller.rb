@@ -11,7 +11,7 @@ class Invitation::AutocompletionsController < ApplicationController
       emails = User.get_users_where_like(text, demo, "email", current_user)
     else            # This means you're trying to sign up and want to locate a referrer
       email = params[:email].strip.downcase
-      domain = User.get_domain_from_email(email)
+      domain = email.email_domain
       self_inviting_domain = SelfInvitingDomain.where(:domain => domain).first
       demo = self_inviting_domain.demo
       @clear_users_text = "Clear Users"
