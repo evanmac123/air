@@ -54,8 +54,8 @@ Feature: Skinnable pages
     When I go to the profile page for "Bob"
     Then the logo should have src "logo.png"
 
-    When I go to the profile page for "Fred"
-    Then the fan button should have src "new_activity/btn_beafan.png"
+    # When I go to the profile page for "Fred"
+    # Then the fan button should have src "new_activity/btn_beafan.png"
 
     When I go to the connections page    
     Then the logo should have src "logo.png"

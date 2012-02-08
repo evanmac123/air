@@ -28,12 +28,14 @@ Feature: User sees only friends in current demo
       | name: Dan      | name: Kim  |
 
   Scenario: User sees only accepted friends in current demo, with correct counts
+    When I need to hook this up
     When I sign in via the login page
     And I go to the profile page for "Dan"
     Then I should see "fan of 1 person"
     And I should see "has 1 fan"
 
   Scenario: User sees correct follower and following count after moving demos
+    When I need to hook this up
     When an admin moves "Dan" to the demo "H Engage"
     And I sign in via the login page
     And I go to the profile page for "Dan"

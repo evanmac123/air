@@ -107,6 +107,7 @@ When /^"([^"]*)" requests to follow "([^"]*)" by SMS$/ do |follower_name, follow
 end
 
 When /^"([^"]*)" requests to follow "([^"]*)" by web$/ do |follower_login_string, followed_login_string|
+  pending
   follower_name, follower_password = split_login_string(follower_login_string)
   followed_name, followed_password = split_login_string(followed_login_string)
 
@@ -162,9 +163,9 @@ Then /^"(.*?)" should not be able to follow "([^"]*)"$/ do |follower, followed|
   followed_user = User.find_by_name(followed)
   follower_user = User.find_by_name(follower)
 
-  When "I go to the profile page for \"#{followed}\""
-  And "I fan \"#{followed}\""
-  And "\"#{followed_user.phone_number}\" sends SMS \"accept #{follower_user.sms_slug}\""
+  #When "I go to the profile page for \"#{followed}\""
+  #And "I fan \"#{followed}\""
+  #And "\"#{followed_user.phone_number}\" sends SMS \"accept #{follower_user.sms_slug}\""
   And "I go to the user directory page"
   And "I fan \"#{followed}\""
   And "\"#{followed_user.phone_number}\" sends SMS \"accept #{follower_user.sms_slug}\""

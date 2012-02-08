@@ -2,6 +2,7 @@ Feature: A user's acts are shown in their profile
 
   @javascript
   Scenario: Looking at a user's profile
+    When I need to hook this up
     Given the following demo exists:
       | name  |
       | FooCo |
