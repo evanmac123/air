@@ -36,6 +36,7 @@ Feature: Admin sets up demo
     And I fill in "Activity feed text when user answers a survey question" with "responded to an inquiry"
     And I fill in "Message user sees on login" with "La llama!"
     And I uncheck "Use standard playbook rules"
+    And I fill in "Mute notice threshold" with "17"
     And I press "Submit"
     Then I should be on the admin "3M" demo page
     And I should see "100 points to win"
@@ -62,6 +63,7 @@ Feature: Admin sets up demo
     And I should see 'Response to command after game ends is "Too slow!"'
     And I should see 'Activity feed text when user answers a survey question is "responded to an inquiry"'
     And I should see 'Message user sees on login is "La llama!"'
+    And I should see "Mute notice to users after 17 SMSes"
 
   Scenario: Correct defaults
     Given I am on the admin page
@@ -91,6 +93,7 @@ Feature: Admin sets up demo
     And I should see 'Game will have default response to command before game begins.'
     And I should see 'Game will have default response to command after game ends.'
     And I should see 'Game will have default activity feed text when user answers a survey question'
+    And I should see "Game will have default mute notice threshold"
     And I should see "User sees no custom message on login"
 
   Scenario: Appropriate restrictions on text that gets SMSed
