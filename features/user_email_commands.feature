@@ -136,3 +136,21 @@ This is not an offer to trade or roll logs. Void where prohibited. Some assembly
     When "dan@bigco.com" opens the email
     Then I should see "We got your email, but it looks like the body of it was blank. Please put your command in the first line of the email body." in the email body
 
+  Scenario: Claimed user in a game with self-inviting domains can play by email
+    Given the following demo exists:
+      | name     |
+      | InviteCo |
+    And the following self inviting domain exists:
+      | domain  | demo           |
+      | foo.com | name: InviteCo |
+    And the following claimed user exists:
+      | name     | email        | demo           |
+      | John Boy | john@foo.com | name: InviteCo |
+
+    And "john@foo.com" sends email with subject "hey" and body "do good thing"
+    And DJ cranks 5 times
+
+    Then "john@foo.com" should receive 1 email
+    When "john@foo.com" opens the email
+    Then I should see "Good for you" in the email body
+    But I should not see "Thanks for requesting an invite to play InviteCo." in the email body
