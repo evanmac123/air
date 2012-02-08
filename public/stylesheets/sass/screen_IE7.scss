@@ -57,7 +57,6 @@ body.invitations .header #navigation .nav-signup, body.sessions .header #navigat
 
 /* internal */
 .mast_top {
-	padding-bottom:0!important;
 	a.a_current {
 		border:1px lighten($header-bg, 10%) solid!important;
 	}
@@ -122,7 +121,8 @@ body.invitations .header #navigation .nav-signup, body.sessions .header #navigat
 
 ul#user-acts {
 	li.act-shim {
-		display:none;
+		display:none!important;
+		height:0!important;
 	}
 }
 

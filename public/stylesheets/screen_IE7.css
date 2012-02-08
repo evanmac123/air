@@ -70,13 +70,11 @@ body.invitations .header #navigation .nav-signup, body.sessions .header #navigat
   z-index: 1; }
 
 /* internal */
-.mast_top {
-  padding-bottom: 0!important; }
-  .mast_top a.a_current {
-    border: 1px #6eae4d solid !important; }
-  .mast_top .navigation {
-    left: 45px!important;
-    width: 550px!important; }
+.mast_top a.a_current {
+  border: 1px #6eae4d solid !important; }
+.mast_top .navigation {
+  left: 45px!important;
+  width: 550px!important; }
 
 .mast_bottom .bar_progress .bar .progress {
   position: absolute; }
@@ -116,7 +114,8 @@ body.invitations .header #navigation .nav-signup, body.sessions .header #navigat
       color: #2e2e2c !important; }
 
 ul#user-acts li.act-shim {
-  display: none; }
+  display: none!important;
+  height: 0!important; }
 
 .invite-module div.invite#invite_friends_facebox form div.first_half input[type="text"] {
   border-radius: 0!important; }
