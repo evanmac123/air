@@ -11,7 +11,7 @@ class User < ActiveRecord::Base
 
   PRIVACY_LEVELS = %w(everybody connected nobody).freeze
 
-  MUTE_NOTICE_THRESHOLD = 10
+  DEFAULT_MUTE_NOTICE_THRESHOLD = 10
 
   include Clearance::User
   include User::Ranking
@@ -272,7 +272,7 @@ class User < ActiveRecord::Base
 
   def bump_mt_texts_sent_today
     increment!(:mt_texts_today)
-    if self.mt_texts_today == MUTE_NOTICE_THRESHOLD && !(self.suppress_mute_notice)
+    if self.mt_texts_today == self.mute_notice_threshold && !(self.suppress_mute_notice)
       SMS.send_message(self, "If you want to temporarily stop getting texts from us, you can text back MUTE to stop them for 24 hours. To stop getting this reminder, text GOT IT.")
     end
   end
@@ -796,6 +796,7 @@ class User < ActiveRecord::Base
   def normalized_new_phone_number_unique
     normalize_unique(:new_phone_number)
   end
+
   def normalized_phone_number_unique
     normalize_unique(:phone_number)
   end
@@ -818,6 +819,10 @@ class User < ActiveRecord::Base
   def downcase_sms_slug
     return unless self.sms_slug
     self.sms_slug.downcase!
+  end
+
+  def mute_notice_threshold
+    self.demo.mute_notice_threshold || DEFAULT_MUTE_NOTICE_THRESHOLD
   end
 
   def self.claimable_by_email_address(claim_string)

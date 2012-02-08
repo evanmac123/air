@@ -59,6 +59,31 @@ Feature: User mutes SMS
     And DJ cranks 10 times
     Then "+14155551212" should not have received SMS "If you want to temporarily stop getting texts from us, you can text back MUTE to stop them for 24 hours. To stop getting this reminder, text GOT IT."
 
+  Scenario: Mute reminder threshold can be set on a custom basis
+    Given the following demo exists:
+      | name     | mute notice threshold |
+      | CustomCo | 7                     |
+    And the following user exists:
+      | name            | phone number | demo           |
+      | Frank Dillinger | +13055551212 | name: CustomCo |
+    When the system sends "Text 1" to user "Frank Dillinger"
+    When the system sends "Text 2" to user "Frank Dillinger"
+    When the system sends "Text 3" to user "Frank Dillinger"
+    When the system sends "Text 4" to user "Frank Dillinger"
+    When the system sends "Text 5" to user "Frank Dillinger"
+    When the system sends "Text 6" to user "Frank Dillinger"
+    And DJ cranks 10 times
+    Then "+13055551212" should not have received SMS "If you want to temporarily stop getting texts from us, you can text back MUTE to stop them for 24 hours. To stop getting this reminder, text GOT IT."
+    When the system sends "Text 7" to user "Frank Dillinger"
+    And DJ cranks 5 times
+    Then "+13055551212" should have received SMS "If you want to temporarily stop getting texts from us, you can text back MUTE to stop them for 24 hours. To stop getting this reminder, text GOT IT."
+    When I clear all sent texts
+    And the system sends "Text 8" to user "Frank Dillinger"
+    And DJ cranks 10 times
+    Then "+13055551212" should not have received SMS "If you want to temporarily stop getting texts from us, you can text back MUTE to stop them for 24 hours. To stop getting this reminder, text GOT IT."
+
+
+
   Scenario: User texts GOT IT or similar to stop getting mute reminder
     When the system sends "Text 1" to user "Joe Bob"
     When the system sends "Text 2" to user "Joe Bob"
