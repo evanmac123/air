@@ -28,9 +28,6 @@ Feature: User claims account via email
     And I sign in via the login page with "Joe/joejums"
     Then I should be on the activity page
 
-    When I go to the profile page for "Joe"
-    Then I should see "(999) 555-0000"
-
   Scenario: User claims account, email doesn't match claim code
     When "joe@example.com" sends email with subject "yo yo" and body "oooooooooohyeaaaaaaaaaah"
     Then "joe@example.com" should receive 1 email

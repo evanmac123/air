@@ -12,6 +12,7 @@ Feature: User can follow another user by SMS
 
 
   Scenario: User follows another by SMS
+    When I need to hook this up
     When "+16178675309" sends SMS "follow dancroak"
     And "+16175551212" sends SMS "yes"
     And I sign in via the login page
@@ -20,6 +21,7 @@ Feature: User can follow another user by SMS
     And "+16178675309" should have received an SMS "OK, you'll be a fan of Dan Croak, pending their acceptance."
 
   Scenario: User tries to follow the same user twice
+    When I need to hook this up
     When "+16178675309" sends SMS "follow dancroak"
     And "+16175551212" sends SMS "yes"
     And "+16178675309" sends SMS "follow dancroak"
@@ -29,6 +31,7 @@ Feature: User can follow another user by SMS
     And "+16178675309" should have received an SMS "You're already a fan of Dan Croak."
 
   Scenario: User tries to follow another twice while the first request is pending
+    When I need to hook this up
     When "+16178675309" sends SMS "follow dancroak"
     And "+16178675309" sends SMS "follow dancroak"
     And I sign in via the login page
@@ -37,6 +40,7 @@ Feature: User can follow another user by SMS
     And "+16178675309" should have received an SMS "You've already asked to be a fan of Dan Croak."
     
   Scenario: User tries to follow another user who doesn't exist
+    When I need to hook this up
     When "+16178675309" sends SMS "follow mrnobody"
     And I sign in via the login page
     And I go to the profile page for "Vlad Gyster"
@@ -44,6 +48,7 @@ Feature: User can follow another user by SMS
     And "+16178675309" should have received an SMS "Sorry, we couldn't find a user with the username mrnobody."
 
   Scenario: User tries to follow another user in a different demo
+    When I need to hook this up
     When "+16178675309" sends SMS "follow johnsmith"
     And I sign in via the login page
     And I go to the profile page for "Vlad Gyster"
@@ -58,6 +63,7 @@ Feature: User can follow another user by SMS
     And "+16178675309" should have received an SMS "Sorry, you can't follow yourself."
   
   Scenario: Request to follow a user who hasn't claimed their account
+    When I need to hook this up
     When "+16178675309" sends SMS "follow joebob"
     And I sign in via the login page
     And I go to the profile page for "Vlad Gyster"
