@@ -1,13 +1,13 @@
 Feature: Directory of other users
 
   Background:
-    Given the following users exist:
-      | name | avatar file name | demo                  |
+    Given the following claimed users exist:
+      | name | avatar file name | demo          |
       | Dan  | dan.png          | name: AlphaCo |
       | Sven |                  | name: AlphaCo |
       | Phil | phil.png         | name: AlphaCo |
       | Vlad | vlad.png         | name: AlphaCo |
-      | Mort | mort.png        | name: BetaCo  |
+      | Mort | mort.png         | name: BetaCo  |
     And "Sven" has no avatar
     And the following friendships exist:
       | user       | friend     |
