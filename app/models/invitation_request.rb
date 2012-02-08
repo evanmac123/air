@@ -31,7 +31,7 @@ class InvitationRequest
     user
   end
 
-  def duplicate_email?
-    User.where(:email => self.email).present?
+  def preexisting_user
+    User.where(:email => self.email).first
   end
 end

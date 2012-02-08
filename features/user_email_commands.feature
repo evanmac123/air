@@ -4,7 +4,7 @@ Feature: User acts via email
     Given the following demo exists:
       | name | victory_threshold |
       | FooCorp      | 50                |
-    Given the following users exist:
+    Given the following claimed users exist:
       | name | phone number | demo                  | points | ranking | email             |
       | Dan  | +15087407520 | name: FooCorp | 0      | 3       | dan@bigco.com     |
       | Paul | +15088675309 | name: FooCorp | 0      | 3       | paul@littleco.com |
@@ -69,9 +69,9 @@ Feature: User acts via email
     Given a clear email queue
 
   	When "dan@bigco.com" sends email with subject "me tarzan, you jane" and body "ate banana"
-    Then "dan@bigco.com" have an email command history with the phrase "Bananas are good for you. Points 4/50, rank 3/4."
+    Then "dan@bigco.com" have an email command history with the phrase "Bananas are good for you. Points 4/50, rank 2/4."
     When "dan@bigco.com" opens the email
-    Then I should see "Bananas are good for you. Points 4/50, rank 3/4" in the email body
+    Then I should see "Bananas are good for you. Points 4/50, rank 2/4" in the email body
 
   Scenario: User sends an email with a long body
     When "dan@bigco.com" sends email with subject "me tarzan, you jane" and the following body:
@@ -96,7 +96,7 @@ This is not an offer to trade or roll logs. Void where prohibited. Some assembly
     Given the following demo exists:
       | name | email                  |
       | CustomCo     | custom@playhengage.com |
-    And the following user exists:
+    And the following claimed user exists:
       | email            | phone number | demo                   |
       | joe@customco.com | +17185551212 | name: CustomCo |
     When "joe@customco.com" sends email with subject "me tarzan, you jane" and body "do good thing"
