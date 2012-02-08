@@ -3,7 +3,7 @@ class UsersController < Clearance::UsersController
   
   def index
     @friend_ids = current_user.friend_ids
-    @other_users = User.where(['demo_id = ? AND id != ?', current_user.demo_id, current_user.id]).alphabetical
+    @other_users = User.claimed.where(['demo_id = ? AND id != ?', current_user.demo_id, current_user.id]).alphabetical
   end
 
   def show

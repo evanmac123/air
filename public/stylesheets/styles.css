@@ -361,6 +361,7 @@ body.passwords .content .inv-forms form {
       background-color: #fff;
       border: 1px #588b3d solid; }
 
+/* ====== special case: PRIVACY ====== */
 /* ====== special case: SESSIONS ====== */
 body.sessions .content .inv-forms #session-wrapper {
   padding: 20px; }
