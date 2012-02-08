@@ -225,7 +225,7 @@ module SpecialCommand
       :inherent_points => demo.referred_credit_bonus
     )
 
-    #SMS.send_message(referring_user, referrer_sms_text)
+    SMS.send_message(referring_user, referrer_sms_text)
 
     parsing_success_message(referred_sms_text)
   end
