@@ -34,7 +34,7 @@ body {
 	}
 }
 /* -- nav active states -- */
-.acts .header .navigation .nav-home, .users .header .navigation .nav-profile {
+.acts .header .navigation .nav-home, .users-show .header .navigation .nav-profile, .users-index .header .navigation .nav-directory {
 	@include bg-black;
 	@include rounded-nav;
 	border:1px lighten($header-bg, 10%) solid;
