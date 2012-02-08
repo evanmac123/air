@@ -68,10 +68,11 @@ ul {list-style-type:none; margin:0; padding:0;}
 				width: 80%;
 			}
 			.points {
-				color: $gray;
+				color:#ffb901;
 				float: right;
 				font-size: 18px;
 				font-weight: bold;
+				text-shadow:1px 1px 1px darken(#ffb901, 20%);
 				width: 75px;
 			}
 			.user {
@@ -94,11 +95,13 @@ ul {list-style-type:none; margin:0; padding:0;}
 			border: 1px $light-gray solid;
 			float: left;
 			height: 50px;
+			position:relative;
 			width: 50px;
 			
 			img {
 				@include rounded;
 				height: 100%;
+				position:absolute;
 				width: 100%;
 			}
 		}
