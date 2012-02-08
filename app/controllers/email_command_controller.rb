@@ -36,7 +36,7 @@ class EmailCommandController< ApplicationController
         set_success_response! and return # Setting response prevents rendering
       end
     # or are we asking for a re-invitation?
-    elsif User.self_inviting_domain(email_command.email_from)
+    elsif User.self_inviting_domain(email_command.email_from) && email_command.user.unclaimed?
       email_command.status = EmailCommand::Status::INVITATION
       email_command.save
       email_command.user.invite

@@ -77,7 +77,7 @@ Fred Robinson,frobinson@example.com,345345,freddy
     When "+16175551212" sends SMS "johnny"
     And DJ cranks 10 times
     Then "+16175551212" should have received SMS "Got it, John Smith referred you to the game. Thanks for letting us know."
-    And "+14155551212" should not have received SMS "Bob Jones gave you credit for referring them to the game. Many thanks and 2000 bonus points!"
+    And "+14155551212" should have received SMS "Bob Jones gave you credit for referring them to the game. Many thanks and 2000 bonus points!"
 
   Scenario: Linked to from demo page
     Given I am on the admin "H Engage" demo page
