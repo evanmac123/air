@@ -46,6 +46,7 @@ class InvitationsController < ApplicationController
 
     if @user
       return if redirect_if_invitation_accepted_already
+      log_out_if_logged_in
       @locations = @user.demo.locations.alphabetical
     else
       flash[:failure] = "That page doesn't exist."

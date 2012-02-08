@@ -103,4 +103,10 @@ class ApplicationController < ActionController::Base
       flash[:failure] = @flash_failures.join(' ')
     end
   end
+  
+  def log_out_if_logged_in
+    current_user.reset_remember_token! if current_user
+    cookies.delete(:remember_token)
+    self.current_user = nil
+  end
 end
