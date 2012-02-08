@@ -905,7 +905,6 @@ body.acts .container .feeds {
       border: 1px #e9e9e9 solid;
       float: left;
       height: 50px;
-      position: relative;
       width: 50px; }
       body.acts .container .feeds .act .avatar43 img {
         -webkit-border-radius: 3px;
@@ -1324,7 +1323,6 @@ body.users div#left-col {
       border: 1px #e9e9e9 solid;
       float: left;
       height: 50px;
-      position: relative;
       width: 50px; }
       body.users div#left-col .act .avatar43 img {
         -webkit-border-radius: 3px;

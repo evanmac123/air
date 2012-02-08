@@ -36,6 +36,10 @@ ul {
 /* ------------ colors ------------- */
 /* Game type colors */
 /* other colors */
+/* all */
+select {
+  border-radius: 0!important; }
+
 /* external */
 body.invitations div#search_for_referrer {
   position: relative;
@@ -51,6 +55,8 @@ body.invitations div#search_for_referrer {
       border: 0!important;
       border-radius: 0!important;
       z-index: 99999!important; }
+body.invitations input[type="password"], body.invitations input[type="text"] {
+  border-radius: 0!important; }
 body.invitations select {
   border-radius: 0!important; }
 
