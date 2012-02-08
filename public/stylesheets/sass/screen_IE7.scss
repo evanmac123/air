@@ -66,10 +66,6 @@ body.invitations .header #navigation .nav-signup, body.sessions .header #navigat
 	a.a_current {
 		border:1px lighten($header-bg, 10%) solid!important;
 	}
-	.navigation {
-		left:45px!important;
-		width: 550px!important;
-	}
 }
 .mast_bottom {
 	.bar_progress {
@@ -146,6 +142,7 @@ ul#user-acts {
 }
 #facebox {
 	.content {
+		background:$light-gray!important;
 		form {
 			input[type="text"] {
 				width:250px!important;
