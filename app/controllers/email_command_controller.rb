@@ -8,6 +8,9 @@ class EmailCommandController< ApplicationController
   HEARTBEAT_CODE = '738a718e819a07289df0fd0cf573e337'
 
   def create
+    # TODO: We have gradually lost control over this monstrosity. Refactor
+    # with fire.
+
     # create a EmailCommand object from the raw message
     email_command = EmailCommand.create_from_incoming_email(params)      
 
@@ -25,21 +28,26 @@ class EmailCommandController< ApplicationController
         set_success_response! and return # Setting response prevents rendering
       else
         # Not a user, and not from a self inviting domain -> Tell them to use their work email
-        parsed_domain = User.get_domain_from_email(email_command.email_from)
+        parsed_domain = email_command.email_from.email_domain
         email_command.response = invalid_domain_response(parsed_domain) 
         email_command.status = EmailCommand::Status::FAILED
         email_command.save
         send_response_to_non_user(email_command)
         set_success_response! and return # Setting response prevents rendering
       end
+    # or are we asking for a re-invitation?
+    elsif User.self_inviting_domain(email_command.email_from)
+      email_command.status = EmailCommand::Status::INVITATION
+      email_command.save
+      email_command.user.invite
+      set_success_response! and return
+    # are we maybe trying to claim an account?
+    elsif email_command.user.unclaimed?
+      return if claim_account(email_command) # we sent response already
+      email_command.response = unmatched_claim_code_response
     elsif email_command.clean_command_string == "join"
       email_command.response = "It looks like you are already registered"
       email_command.status = EmailCommand::Status::FAILED
-    elsif email_command.user.phone_number.blank?
-      # are we maybe trying to claim an account?
-      return if claim_account(email_command) # we sent response already
-      # maybe we were, but it didn't work
-      email_command.response = unmatched_claim_code_response
     else
       email_command.response = construct_reply(Command.parse(email_command.user, email_command.clean_command_string, :allow_claim_account => false, :channel => :email))
       email_command.status = EmailCommand::Status::SUCCESS
@@ -80,16 +88,16 @@ class EmailCommandController< ApplicationController
 
 
   def send_invitation(email_command)
+    new_user = User.new_self_inviting_user(email_command.email_from)
+
     email_command.response = "This is not the actual response we sent. Actually, we sent them a nicely formatted Invitation email and a dozen roses :)"
     email_command.status = EmailCommand::Status::INVITATION
     email_command.save
-    set_success_response!
-    email = email_command.email_from
-    user = User.new(:email => email)
-    user.demo = Demo.find(User.self_inviting_domain(email).demo_id)
-    user.invitation_method = "email"
-    user.save
-    user.invite
+
+    new_user.invitation_method = "email"
+    new_user.save
+    new_user.invite
+
     true
   end
   

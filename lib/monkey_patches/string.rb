@@ -51,7 +51,12 @@ class String
     self.match(/^\+1999/)
   end
 
+  def is_email_address?
+    self.strip =~ /^[a-zA-Z0-9_.-]+@([a-zA-Z0-9_]+.[a-zA-Z]{2,3})$/
+  end
+
   def email_domain
+    return nil unless self.is_email_address?
     self =~ /@([^@]+)$/
     $1
   end

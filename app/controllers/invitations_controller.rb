@@ -19,10 +19,16 @@ class InvitationsController < ApplicationController
       return
     end
 
-    if @invitation_request.duplicate_email?
-      render "duplicate_email"
-      return
+    if (@user = @invitation_request.preexisting_user)
+      if @user.claimed?
+        render "duplicate_email"
+        return
+      else
+        @user.invite
+        return
+      end
     end
+
     @user = @invitation_request.create_and_invite_user
   end
 

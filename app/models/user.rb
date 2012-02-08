@@ -634,6 +634,18 @@ class User < ActiveRecord::Base
     self.update_attributes(:last_muted_at => Time.now)
   end
 
+  def invitation_sent_text
+    "An invitation has been sent to #{self.email}."
+  end
+
+  def claimed?
+    self.accepted_invitation_at.present?
+  end
+
+  def unclaimed?
+    !(self.claimed?)
+  end
+
   def self.next_dummy_number
    last_assigned = self.where("phone_number LIKE '+1999%'").order("phone_number DESC").limit(1).first
 
@@ -653,47 +665,53 @@ class User < ActiveRecord::Base
     where("name !~* '^[[:alpha:]]'")
   end
 
-  def self.send_invitation_if_email(user_or_phone, text, options={})
-    
-    domain = self.is_an_email_address(text)
-    if domain
-      if user_or_phone =~ /^(\+1\d{10})$/
-        phone = $1
-        domain_object = SelfInvitingDomain.where(:domain => domain)
-        return "Your domain is not valid" if domain_object.empty?
-        demo_id = domain_object.first.demo_id
-        # SelfInvitingDomain.where(:domain => domain).first
-        new_user = User.new(:phone_number => user_or_phone, :email => text.strip,
-                  :demo_id => demo_id)
-        new_user.invitation_method = 'sms'
-        if new_user.save
-          new_user.invite
-          return "An invitation has been sent to #{text.strip}."
-        end
+  def self.send_invitation_if_email(phone, text, options={})
+    return nil unless phone =~ /^(\+1\d{10})$/
+
+    if (existing_user = User.where(:email => text).first)
+      if existing_user.claimed?
+        return "It looks like you've already joined the game. If you've forgotten your password, you can have it reset online, or contact support@hengage.com for help." 
+      else
+        # If there's someone with this email who hasn't accepted an invitation yet
+        # treat this as a request to re-send their invitation.
+      
+        existing_user.invite
+        return existing_user.invitation_sent_text
       end
     end
-    return nil
-  end
 
-  def self.is_an_email_address(input)
-    if input.strip =~ /^[a-zA-Z0-9_.-]+@([a-zA-Z0-9_]+.[a-zA-Z]{2,3})$/
-      domain = $1
-      return domain
+    new_user, create_details = self.new_self_inviting_user(text)
+    return create_details[:error] unless new_user
+
+    new_user.invitation_method = 'sms'
+    new_user.phone_number = phone
+
+    if new_user.save
+      new_user.invite
+      new_user.invitation_sent_text
+    else
+      nil
     end
-    return nil
   end
 
   def self.self_inviting_domain(email)
-    domain = get_domain_from_email(email)
+    domain = email.email_domain
     SelfInvitingDomain.where(:domain => domain).first
-  end
-
-  def self.get_domain_from_email(email)
-    User.is_an_email_address(email)
   end
 
   def self.reset_all_mt_texts_today_counts!
     User.update_all :mt_texts_today => 0
+  end
+
+  def self.new_self_inviting_user(email)
+
+    domain_string = email.email_domain
+    return [nil, {}] unless domain_string
+
+    domain_object = SelfInvitingDomain.where(:domain => domain_string).first
+    return [nil, {:error => "Your domain is not valid"}] unless domain_object
+
+    User.new(:email => email.strip, :demo_id => domain_object.demo_id)
   end
 
   protected
@@ -816,6 +834,10 @@ class User < ActiveRecord::Base
 
   def self.claimed
     where("accepted_invitation_at IS NOT NULL")
+  end
+
+  def self.unclaimed
+    where(:accepted_invitation_at => nil)
   end
 
   def self.for_short_ranking_page(ranking_offset)
