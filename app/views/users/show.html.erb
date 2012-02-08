@@ -1,10 +1,4 @@
-<div id="profile-head" class="module">
-	<h2><%= @user.name %></h2>
-	<div class="avatar48">
-		<%= default_avatar_tag @user %>
-	</div>
 
-</div>
 
 <div id="left-col">
   <h2 class="title">Player History</h2>
@@ -41,18 +35,41 @@
 	<h2 class="title">Connections</h2>
 	<div id="groups" class="module">
 		<h1 class="headline">Groups I'm In</h1>
-
-
+		<ul>
+			<li><a href="#">"Cabbage Patchers"</a></li>
+			<li><a href="#">"Our Carpool Group"</a></li>
+			<li><a href="#">"Swimmers"</a></li>
+		</ul>
 	</div>
   	<div id="following" class="module">
 		<h1 class="headline">Following</h1>
-
-
+		<ul class="following-users"><!-- HOOKUP -->
+			<li class="user">
+				<p class="user-name"><span class="numbering">1.</span> <a href="#">Sample User</a></p><!-- HOOKUP -->
+				<p class="user-level">LVL 5</p><!-- HOOKUP -->
+				<div class="cf"></div>
+			</li>
+			<li class="user">
+				<p class="user-name"><span class="numbering">2.</span> <a href="#">Another Player</a></p><!-- HOOKUP -->
+				<p class="user-level">LVL 8</p><!-- HOOKUP -->
+				<div class="cf"></div>
+			</li>
+		</ul>
 	</div>
 
 	<div id="followed-by" class="module">
 		<h1 class="headline">Followed By</h1>
-
-  
+		<ul class="following-users">
+			<li class="user">
+				<p class="user-name"><span class="numbering">1.</span> <a href="#">Sample User</a></p><!-- HOOKUP -->
+				<p class="user-level">LVL 5</p><!-- HOOKUP -->
+				<div class="cf"></div>
+			</li>
+			<li class="user">
+				<p class="user-name"><span class="numbering">2.</span> <a href="#">Another Player</a></p><!-- HOOKUP -->
+				<p class="user-level">LVL 8</p><!-- HOOKUP -->
+				<div class="cf"></div>
+			</li>
+		</ul>
 	</div>
 </div>

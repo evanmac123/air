@@ -7,7 +7,8 @@ a {
     color: #6eae4d; }
 
 .cf {
-  clear: both; }
+  clear: both;
+  height: 0; }
 
 h1, h2, h3 {
   letter-spacing: 1px;
@@ -114,7 +115,7 @@ body.invitations .header #navigation .nav-signup, body.sessions .header #navigat
     .suggested-task p.dose-descript a:active, .suggested-task p.dose-title a:active, .suggested-task div.dose-moreinfo a:active {
       color: #2e2e2c !important; }
 
-.feeds ul#user-acts li.act-shim {
+ul#user-acts li.act-shim {
   display: none; }
 
 .invite-module div.invite#invite_friends_facebox form div.first_half input[type="text"] {

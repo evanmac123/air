@@ -7,7 +7,8 @@ a {
     color: #6eae4d; }
 
 .cf {
-  clear: both; }
+  clear: both;
+  height: 0; }
 
 h1, h2, h3 {
   letter-spacing: 1px;
@@ -45,7 +46,8 @@ a {
     color: #6eae4d; }
 
 .cf {
-  clear: both; }
+  clear: both;
+  height: 0; }
 
 h1, h2, h3 {
   letter-spacing: 1px;
@@ -385,7 +387,8 @@ a {
     color: #6eae4d; }
 
 .cf {
-  clear: both; }
+  clear: both;
+  height: 0; }
 
 h1, h2, h3 {
   letter-spacing: 1px;
@@ -578,6 +581,13 @@ body {
         background: #588b3d; }
       body .content input[type="submit"].button_norm:active {
         background: #909090; }
+    body .content a {
+      color: #588b3d;
+      font-weight: bold; }
+      body .content a:hover {
+        color: #6eae4d; }
+      body .content a:active {
+        color: #2e2e2c; }
 
 /* -- nav active states -- */
 .acts .header .navigation .nav-home, .users .header .navigation .nav-profile {
@@ -846,6 +856,17 @@ body.acts .container #suggested-tasks {
 body.acts .container .feeds {
   float: left;
   width: 58%; }
+  body.acts .container .feeds .seemore {
+    display: block;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 10px 0 5px 0;
+    text-align: center; }
+    body.acts .container .feeds .seemore a {
+      color: #909090;
+      padding: 0 7px; }
+      body.acts .container .feeds .seemore a:hover {
+        color: #2e2e2c; }
   body.acts .container .feeds .act {
     border-bottom: 1px #e9e9e9 solid;
     clear: both;
@@ -853,6 +874,7 @@ body.acts .container .feeds {
     body.acts .container .feeds .act .act-details {
       float: left;
       margin-left: 20px;
+      position: relative;
       width: 87%; }
       body.acts .container .feeds .act .act-details .description {
         width: 80%; }
@@ -883,6 +905,7 @@ body.acts .container .feeds {
       border: 1px #e9e9e9 solid;
       float: left;
       height: 50px;
+      position: relative;
       width: 50px; }
       body.acts .container .feeds .act .avatar43 img {
         -webkit-border-radius: 3px;
@@ -892,17 +915,6 @@ body.acts .container .feeds {
         z-index: 0;
         height: 100%;
         width: 100%; }
-  body.acts .container .feeds .seemore {
-    display: block;
-    font-size: 12px;
-    font-weight: bold;
-    padding: 10px 0 5px 0;
-    text-align: center; }
-    body.acts .container .feeds .seemore a {
-      color: #909090;
-      padding: 0 7px; }
-      body.acts .container .feeds .seemore a:hover {
-        color: #2e2e2c; }
   body.acts .container .feeds h1 {
     float: left; }
   body.acts .container .feeds ul.tabs {
@@ -1263,6 +1275,17 @@ body.acts #facebox .popup {
 body.users div#left-col {
   float: left;
   width: 60%; }
+  body.users div#left-col .seemore {
+    display: block;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 10px 0 5px 0;
+    text-align: center; }
+    body.users div#left-col .seemore a {
+      color: #909090;
+      padding: 0 7px; }
+      body.users div#left-col .seemore a:hover {
+        color: #2e2e2c; }
   body.users div#left-col .act {
     border-bottom: 1px #e9e9e9 solid;
     clear: both;
@@ -1270,6 +1293,7 @@ body.users div#left-col {
     body.users div#left-col .act .act-details {
       float: left;
       margin-left: 20px;
+      position: relative;
       width: 87%; }
       body.users div#left-col .act .act-details .description {
         width: 80%; }
@@ -1300,6 +1324,7 @@ body.users div#left-col {
       border: 1px #e9e9e9 solid;
       float: left;
       height: 50px;
+      position: relative;
       width: 50px; }
       body.users div#left-col .act .avatar43 img {
         -webkit-border-radius: 3px;
@@ -1309,20 +1334,24 @@ body.users div#left-col {
         z-index: 0;
         height: 100%;
         width: 100%; }
-  body.users div#left-col .seemore {
-    display: block;
-    font-size: 12px;
-    font-weight: bold;
-    padding: 10px 0 5px 0;
-    text-align: center; }
-    body.users div#left-col .seemore a {
-      color: #909090;
-      padding: 0 7px; }
-      body.users div#left-col .seemore a:hover {
-        color: #2e2e2c; }
 body.users div#right-col {
   float: right;
   width: 35%; }
+  body.users div#right-col li {
+    padding: 0 0 5px 0; }
+    body.users div#right-col li.user {
+      clear: both; }
+      body.users div#right-col li.user p.user-level {
+        color: #484845;
+        float: right;
+        font-weight: bold;
+        text-transform: uppercase; }
+      body.users div#right-col li.user p.user-name {
+        color: #588b3d;
+        float: left; }
+        body.users div#right-col li.user p.user-name span {
+          color: #909090;
+          margin-right: 5px; }
 
 /* --------------------------- settings --------------------------- */
 /* @end */
@@ -1393,12 +1422,6 @@ body.pages-faq .content {
     width: 60%;
     padding-bottom: 60px;
     padding-right: 15px; }
-    body.pages-faq .content #faq_body a {
-      color: #588b3d; }
-      body.pages-faq .content #faq_body a:hover {
-        color: #6eae4d; }
-      body.pages-faq .content #faq_body a:active {
-        color: #2e2e2c; }
     body.pages-faq .content #faq_body h1, body.pages-faq .content #faq_body h2 {
       color: #2e2e2c;
       font-family: "Ubuntu", Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;

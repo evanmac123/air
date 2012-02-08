@@ -25,6 +25,12 @@ body {
 		margin:$centered;
 		padding:2*$gutter $gutter;
 		width:960px;
+		a {
+			color:$header-bg;
+			font-weight:bold;
+			&:hover {color:lighten($header-bg, 10%);}
+			&:active {color:$dark-gray;}
+		}
 	}
 }
 /* -- nav active states -- */
@@ -430,10 +436,30 @@ body.users {
 		float:left;
 		width:60%;
 	}
-	
+
 	div#right-col {
 		float:right;
 		width:35%;
+		li {
+			padding:0 0 5px 0;
+			&.user {
+				clear:both;
+				p.user-level {
+					color:lighten($dark-gray,10%);
+					float:right;
+					font-weight:bold;
+					text-transform:uppercase;
+				}
+				p.user-name {
+					color:$header-bg;
+					float:left;
+					span {
+						color:$gray;
+						margin-right:5px;
+					}
+				}
+			}
+		}
 	}
 }
 
@@ -535,11 +561,7 @@ body.pages-faq{
 			width:60%;
 			padding-bottom: 60px;
 			padding-right: 15px;
-			a {
-				color:$header-bg;
-				&:hover {color:lighten($header-bg, 10%);}
-				&:active {color:$dark-gray;}
-			}
+
 			h1, h2 {
 				color:$dark-gray;
 				font-family:$gotham;
