@@ -49,7 +49,7 @@ class Invitation::FriendInvitationsController < ApplicationController
       hash_of_prepends.each_pair do |key,prepend|
         next if prepend.empty?
         check_for_all_blank += prepend
-        email = prepend + "@" + domain
+        email = (prepend + "@" + domain).downcase
         users_with_email = User.where(:email => email)
         users_with_email_in_same_demo = User.where(:email => email, :demo_id => current_user.demo_id)
         
