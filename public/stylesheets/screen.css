@@ -1437,8 +1437,95 @@ body.users-index h2 {
   font-weight: 900;
   padding-bottom: 15px;
   text-transform: uppercase; }
-body.users-index div.directory {
+body.users-index div#main {
+  float: left;
   width: 60%; }
+  body.users-index div#main ul#other-users {
+    padding-bottom: 15px; }
+    body.users-index div#main ul#other-users li.user {
+      border-bottom: 1px #e9e9e9 solid;
+      clear: both;
+      padding: 15px 0; }
+      body.users-index div#main ul#other-users li.user:first-child {
+        padding: 0 0 15px 0; }
+      body.users-index div#main ul#other-users li.user:last-child {
+        border-bottom: 0;
+        padding: 15px 0 0 0; }
+      body.users-index div#main ul#other-users li.user div.user-avatar {
+        float: left;
+        height: 60px;
+        width: 80px; }
+        body.users-index div#main ul#other-users li.user div.user-avatar img {
+          -webkit-border-radius: 3px;
+          -moz-border-radius: 3px;
+          border-radius: 3px;
+          behavior: url(/css3pie/PIE.htc);
+          z-index: 0;
+          height: 60px;
+          width: 60px; }
+      body.users-index div#main ul#other-users li.user div.user-info {
+        float: left;
+        padding: 5px;
+        width: 65%; }
+      body.users-index div#main ul#other-users li.user div.follow-btn {
+        background: #3f3f3f;
+        /* Old browsers */
+        background: -moz-linear-gradient(top, #3f3f3f 0%, #2e2f2d 100%);
+        /* FF3.6+ */
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #3f3f3f), color-stop(100%, #2e2f2d));
+        /* Chrome,Safari4+ */
+        background: -webkit-linear-gradient(top, #3f3f3f 0%, #2e2f2d 100%);
+        /* Chrome10+,Safari5.1+ */
+        background: -o-linear-gradient(top, #3f3f3f 0%, #2e2f2d 100%);
+        /* Opera 11.10+ */
+        background: -ms-linear-gradient(top, #3f3f3f 0%, #2e2f2d 100%);
+        /* IE10+ */
+        background: linear-gradient(top, #3f3f3f 0%, #2e2f2d 100%);
+        /* W3C */
+        -webkit-border-radius: 20px;
+        -moz-border-radius: 20px;
+        border-radius: 20px;
+        behavior: url(/css3pie/PIE.htc);
+        border: 0;
+        color: #fff;
+        font-family: "Ubuntu", Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+        font-size: 11px!important;
+        font-weight: bold;
+        padding: 5px 15px;
+        text-shadow: 1px 1px 1px #2e2e2c;
+        text-transform: uppercase;
+        font-weight: 900!important;
+        float: right; }
+        body.users-index div#main ul#other-users li.user div.follow-btn:hover {
+          background: #588b3d; }
+        body.users-index div#main ul#other-users li.user div.follow-btn:active {
+          background: #909090; }
+        body.users-index div#main ul#other-users li.user div.follow-btn a {
+          color: #fff; }
+body.users-index div#secondary {
+  float: right;
+  width: 38%; }
+  body.users-index div#secondary div#search-box input[type="submit"] {
+    background: #2e2e2c;
+    border: 0;
+    border-radius: 0 20px 20px 0;
+    color: #fff;
+    font-family: "Ubuntu", Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 11px;
+    font-weight: bold;
+    letter-spacing: 1.2px;
+    margin-left: -3px;
+    padding: 8px;
+    text-shadow: 1px 1px 1px #2e2e2c;
+    text-transform: uppercase;
+    behavior: url(/css3pie/PIE.htc); }
+    body.users-index div#secondary div#search-box input[type="submit"]:hover {
+      background: #588b3d; }
+    body.users-index div#secondary div#search-box input[type="submit"]:active {
+      background: #909090; }
+  body.users-index div#secondary div#search-box input[type="text"] {
+    border-radius: 20px 0 0 20px;
+    width: 265px; }
 
 /* --------------------------- settings --------------------------- */
 /* @end */

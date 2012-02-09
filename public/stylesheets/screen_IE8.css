@@ -127,6 +127,9 @@ div.invite_or_add input[type="submit"] {
   font-size: 14px;
   padding: 0!important; }
 
+body.users-index div#secondary input[type="submit"] {
+  padding: 7px 6px!important; }
+
 /* external */
 body.external div.container div.inv-forms form {
   padding-bottom: 6.5ex; }

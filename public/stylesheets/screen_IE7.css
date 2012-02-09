@@ -149,5 +149,8 @@ body.interstitial_verifications div.content {
 body.users ul.player-info {
   padding: 10px 0!important; }
 
+body.users-index div#secondary input[type="submit"] {
+  padding: 7px 0!important; }
+
 #contact_us_from_inv_acceptance_page {
   padding-top: 2ex; }

@@ -130,6 +130,14 @@ div.invite_or_add {
 	}
 }
 
+body.users-index {
+	div#secondary {
+		input[type="submit"] {
+			padding:7px 6px!important;
+		}
+	}
+}
+
 /* external */
 body.external {
 	div.container {
