@@ -23,7 +23,7 @@
           0
         potential bonus points!
 
-      - domain_object = current_user.self_inviting_domain.try(:domain) || current_user.demo.self_inviting_domains.first
+      - domain_object = current_user.self_inviting_domain || current_user.demo.self_inviting_domains.first
       - domain = "@#{domain_object.domain}"
       .first_half
         - 5.times do |f|
