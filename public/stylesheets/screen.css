@@ -1452,7 +1452,7 @@ body.users-index div#main {
       body.users-index div#main .seemore a:hover {
         color: #588b3d; }
   body.users-index div#main div.seemore {
-    border-top: 1px #e9e9e9 solid; }
+    padding: 0; }
   body.users-index div#main ul#other-users {
     padding-bottom: 15px; }
     body.users-index div#main ul#other-users li.user {
@@ -1461,9 +1461,6 @@ body.users-index div#main {
       padding: 15px 0; }
       body.users-index div#main ul#other-users li.user:first-child {
         padding: 0 0 15px 0; }
-      body.users-index div#main ul#other-users li.user:last-child {
-        border: 0;
-        padding: 15px 0 0 0; }
       body.users-index div#main ul#other-users li.user div.user-avatar {
         float: left;
         height: 60px;

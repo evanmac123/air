@@ -510,7 +510,7 @@ body.users-index {
 		float:left;
 		width:60%;
 		div.seemore {
-			border-top:1px $light-gray solid;
+			padding:0;
 		}
 		ul#other-users {
 			padding-bottom:15px;
@@ -520,10 +520,6 @@ body.users-index {
 				padding:15px 0;
 				&:first-child {
 					padding:0 0 15px 0;
-				}
-				&:last-child {
-					border:0;  
-					padding: 15px 0 0 0;
 				}
 				div.user-avatar {
 					float:left;
