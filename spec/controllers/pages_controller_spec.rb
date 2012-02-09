@@ -20,4 +20,17 @@ describe PagesController do
       $test_force_ssl = false
     end
   end
+
+  it "should force no SSL on the marketing page" do
+    begin
+      $test_force_ssl = true
+      request.stubs(:ssl?).returns(true)
+
+      get :show, :id => 'marketing'
+      response.should be_redirect
+
+    ensure
+      $test_force_ssl = false
+    end
+  end
 end

@@ -4,11 +4,12 @@ class PagesController < HighVoltage::PagesController
   skip_before_filter :authenticate
   before_filter :authenticate_without_game_begun_check, :only => FAQ_PAGES
   skip_before_filter :force_ssl, :except => FAQ_PAGES
-  #before_filter :force_no_ssl, :only => [:marketing]
+  before_filter :force_no_ssl_on_marketing, :only => [:show]
 
   before_filter :force_html_format
   before_filter :signed_out_only, :except => FAQ_PAGES
   before_filter :set_login_url
+
 
   layout :layout_for_page
 
@@ -49,5 +50,12 @@ class PagesController < HighVoltage::PagesController
                  else
                    session_path
                  end
+  end
+
+  def force_no_ssl_on_marketing
+    return unless params[:id] == 'marketing'
+    if request.ssl?
+      force_no_ssl
+    end
   end
 end
