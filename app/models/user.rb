@@ -266,6 +266,10 @@ class User < ActiveRecord::Base
     SMS.send_message(self, message, Time.now + demo.followup_welcome_message_delay.minutes)
   end
 
+  def cancel_new_phone_number
+    self.update_attributes(:new_phone_number => '', :new_phone_validation => '')
+  end
+
   def self_inviting_domain
     self.class.self_inviting_domain(self.email)
   end

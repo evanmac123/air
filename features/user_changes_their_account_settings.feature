@@ -137,6 +137,16 @@ Feature: User can edit their account settings
     Then I should see "You have updated your phone number"
     And "Mobile Number" should have value "(415) 261-3077"
 
+  Scenario: User can cancel new phone number by re-entering their current one
+    When I go to the settings page
+    And I fill in "Mobile Number" with "(415) 261-3077"
+    And I press the button to save notification settings
+    Then I should see "To verify the number (415) 261-3077, please enter the validation code we sent to that number:"
+    When I fill in "Mobile Number" with "(415) 555-1212"
+    And I press the button to save notification settings
+    And I press the button to save notification settings
+    Then I should not see "please enter the validation code"
+
   Scenario: User changes mobile number in a game with custom phone number and gets message from that phone number
     Given the following demo exists:
       | name     | phone number |
