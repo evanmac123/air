@@ -10,18 +10,10 @@
 </div>
 
 <div id="request-consultation-bar">
-  <form method="post" action="#" class="request-info">
-    <span id="request-consultation">
-      request more<br/>information
-    </span>
+  <form method="get" action="/invitations/new">
 
-    <%= text_field_tag "email[name]", 'name', :class => 'with-placeholder fat-text-field' %>
 
-    <%= image_tag 'marketing/img_ampersand.png', :alt => 'and' %>
-
-    <%= text_field_tag "email[email]", 'email', :class => 'with-placeholder fat-text-field' %>
-    <%= image_submit_tag 'marketing/btn_submit_1.png', :class => 'submit-button' %><br/>
-    <%= image_tag 'marketing/btn_submit_2.png', :style => 'display: none' %>
+    <%= image_submit_tag 'marketing/big_button_lets_play.png', :class => :big_button_below %><br/>
   </form>
 </div>
 
@@ -53,7 +45,7 @@
 <div id="bottom-comment-box-wrapper">
   <a name="contact" id="contact">&nbsp;</a>
   <div id="bottom-comment-box">
-    <h2>Got a Comment or Question?</h2>
+    <h2>Want to use H Engage in your business?</h2>
     <form method="post" action="#" class="request-info">
       <%= text_field_tag "email[name]", 'name', :class => 'with-placeholder fat-text-field' %>
 

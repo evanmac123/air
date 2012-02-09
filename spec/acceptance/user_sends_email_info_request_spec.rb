@@ -11,7 +11,7 @@ feature "User Sends Email Info Request", %q{
  
     fill_in "email[name]", :with => "James Hennessey IX"
     fill_in "email[email]", :with => "james@henhen.com"
-    within('#request-consultation-bar') do
+    within('#bottom-comment-box') do
       page.find(:css, "input[@type=image]").click
     end
 
