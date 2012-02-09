@@ -983,7 +983,7 @@ body.acts .container .invite-module {
     left: 12px;
     top: 3px; }
     body.acts .container .invite-module .invite div#relative div#suggestions div.single_suggestion {
-      background: #d2e6c7; }
+      background: white; }
       body.acts .container .invite-module .invite div#relative div#suggestions div.single_suggestion:hover {
         background: #eef6ea; }
   body.acts .container .invite-module .invite div#search_for_friends_to_invite div#bonus {
@@ -991,8 +991,7 @@ body.acts .container .invite-module {
     padding: 10px 0 2px 0;
     width: 87%; }
   body.acts .container .invite-module .invite div#search_for_friends_to_invite div.single_suggestion {
-    margin: 0 0 5px 0!important;
-    width: 300px; }
+    margin: 0 0 5px 0!important; }
     body.acts .container .invite-module .invite div#search_for_friends_to_invite div.single_suggestion a.remove_referrer {
       color: #909090; }
       body.acts .container .invite-module .invite div#search_for_friends_to_invite div.single_suggestion a.remove_referrer:hover {
@@ -1200,22 +1199,20 @@ body.acts #facebox .popup {
             background: #588b3d; }
           body.acts #facebox .popup .content form div.invite_or_add input[type="submit"]:active {
             background: #909090; }
-      body.acts #facebox .popup .content form div.single_suggestion {
-        width: 350px; }
-        body.acts #facebox .popup .content form div.single_suggestion a.remove_referrer {
-          color: #909090; }
-          body.acts #facebox .popup .content form div.single_suggestion a.remove_referrer:hover {
-            color: #6eae4d; }
-          body.acts #facebox .popup .content form div.single_suggestion a.remove_referrer:active {
-            color: #2e2e2c; }
-        body.acts #facebox .popup .content form div.single_suggestion img {
-          -webkit-border-radius: 3px;
-          -moz-border-radius: 3px;
-          border-radius: 3px;
-          behavior: url(/css3pie/PIE.htc);
-          z-index: 0;
-          border: 1px #e9e9e9 inset;
-          width: 75px; }
+      body.acts #facebox .popup .content form div.single_suggestion a.remove_referrer {
+        color: #909090; }
+        body.acts #facebox .popup .content form div.single_suggestion a.remove_referrer:hover {
+          color: #6eae4d; }
+        body.acts #facebox .popup .content form div.single_suggestion a.remove_referrer:active {
+          color: #2e2e2c; }
+      body.acts #facebox .popup .content form div.single_suggestion img {
+        -webkit-border-radius: 3px;
+        -moz-border-radius: 3px;
+        border-radius: 3px;
+        behavior: url(/css3pie/PIE.htc);
+        z-index: 0;
+        border: 1px #e9e9e9 inset;
+        width: 75px; }
       body.acts #facebox .popup .content form div#submit_invite_friend {
         margin-top: 4px; }
         body.acts #facebox .popup .content form div#submit_invite_friend a#invite_friends_link {
@@ -1253,19 +1250,8 @@ body.acts #facebox .popup {
             background: #588b3d; }
           body.acts #facebox .popup .content form div#submit_invite_friend a#invite_friends_link:active {
             background: #909090; }
-      body.acts #facebox .popup .content form div#suggestions {
-        left: 12px;
-        position: absolute;
-        top: 3px;
-        z-index: 9999; }
-        body.acts #facebox .popup .content form div#suggestions div.single_suggestion {
-          background: #d2e6c7; }
-          body.acts #facebox .popup .content form div#suggestions div.single_suggestion:hover {
-            background: #eef6ea; }
       body.acts #facebox .popup .content form p {
         font-weight: bold; }
-      body.acts #facebox .popup .content form ul.form-section li.form-input input#autocomplete {
-        width: 350px; }
       body.acts #facebox .popup .content form ul.form-section li.form-label label {
         color: #2e2e2c;
         font-weight: bold; }

@@ -25,6 +25,9 @@
 - else
   - div_id = 'invite_friends'
 
+-###### Uncomment this next line if you want the facebox to pop every time 
+-# div_id = 'invite_friends_facebox'
+
 .invite{:id => div_id}
   - unless show_greeting.nil?
     %p= "Thanks for joining #{current_user.demo.name}" 

@@ -40,8 +40,8 @@ Feature: User gives credit to game referer via autocomplete field
     Given "Shelly" has the password "foobar"
     Given I sign in via the login page as "Shelly/foobar"    
     Then I should see "Invite your friends"
-    When I fill in "Enter part of their name or email address" with "br"
-    Then I should see "3+ characters"
+    When I fill in "Which coworkers do you wish to invite?" with "br"
+    Then I should see "3+ letters"
 
     
   @javascript
@@ -49,10 +49,10 @@ Feature: User gives credit to game referer via autocomplete field
     Given "Shelly" has the password "foobar"
     Given I sign in via the login page as "Shelly/foobar"    
     Then I should see "Invite your friends"
-    When I fill in "Enter part of their name or email address" with "bra"
+    When I fill in "Which coworkers do you wish to invite?" with "bra"
     Then I should see "Charlie Brainfield"
     When I select the suggestion containing "Charlie Brainfield"
-    And I follow "Invite!"
+    And I follow "Invite selected users"
     Then I should see "You just invited Charlie Brainfield to play H Engage"
     And DJ cranks 5 times
     Then "1@loaded.com" should receive an email
@@ -81,16 +81,16 @@ Feature: User gives credit to game referer via autocomplete field
     Given "Shelly" has the password "foobar"
     Given I sign in via the login page as "Shelly/foobar"    
     Then I should see "Invite your friends"
-    When I fill in "Enter part of their name or email address" with "bra"
+    When I fill in "Which coworkers do you wish to invite?" with "bra"
     Then I should see "Charlie Brainfield"
     When I select the suggestion containing "Charlie Brainfield"
     Then I should see "That's 2000 potential bonus points!"
-    When I fill in "Enter part of their name or email address" with "our"
+    When I fill in "Which coworkers do you wish to invite?" with "our"
     Then I should see "Fourfold"
     When I select the suggestion containing "Fourfold"
     And I should see "That's 4000 potential bonus points!"
 
-    And I follow "Invite!"
+    And I follow "Invite selected users"
     Then I should see "You just invited Charlie Brainfield and Fourfold to play H Engage"
     And DJ cranks 5 times
     
@@ -271,7 +271,8 @@ Feature: User gives credit to game referer via autocomplete field
     Given "Yo Yo Ma" has the password "yummies"
     Given I sign in via the login page as "Yo Yo Ma/yummies"    
     Then I should see "Invite your friends"
-    When I fill in "Enter part of their name or email address" with "loaded"
+    And show me the page
+    When I fill in "Which coworkers do you wish to invite?" with "loaded"
     Then I should see "Charlie Brainfield"
     And I should not see "Yo Yo Ma" within the suggested users
     

@@ -101,6 +101,8 @@ $(function() {
     setTimeout('displayPotentialPointsPrepopulated()', 100);
     
     $("#hide_me_while_selecting").show();
+    $("#suggestions").hide();
+    
     
   });
   
@@ -165,6 +167,7 @@ $(function() {
   // These next two are to make the autocompletions disappear if you click on something else
   $('html').click(function() {
     setTimeout('$("#suggestions").html("")', 50);
+    $('#suggestions').hide();
     $('#autocomplete_status').hide();
     var pts = $('#potential_bonus_points').text();
     if (pts != '0'){
@@ -203,8 +206,8 @@ function moveInviteFriendsFaceboxToPage(){
   var stuff_in_facebox = $('#facebox .content').html();
   $('#facebox').remove();
   $('#temporary_div_name').html(stuff_in_facebox); 
-  $('#temporary_div_name *').attr('opacity', 1);
   $('#temporary_div_name').attr('id', 'invite_friends');
+  $('.autocomplete').css('opacity', 1);
   
 }
 
@@ -289,7 +292,9 @@ function getAutocomplete(options){
     $.get('/invitation/autocompletion#index', options, function(data){
       options = {};
       if (data == ''){
-        $("#autocomplete_status").text('Hmmm...no match');    
+        $("#autocomplete_status").text('Hmmm...no match'); 
+        $("#suggestions").hide();
+         
         setTimeout(function(){
           if ($("#autocomplete_status").text() == 'Hmmm...no match')
           $("#autocomplete_status").text('Please try again');
@@ -299,13 +304,18 @@ function getAutocomplete(options){
         $(".helper.autocomplete").fadeOut();
         $("#hide_me_while_selecting").hide();
         $("#bonus").fadeOut(); 
+        $("#suggestions").show();
+        
         
       }
       $("#suggestions").html(data);
       autocomplete_in_progress = 0;
-     });
-   }else{
+    });
+  }else{
      $("#suggestions").html('');
+     
+     
+
      // Yes, you must set this to zero even if you didn't run the function call
      autocomplete_in_progress = 0;
      $("#autocomplete_status").text('3+ letters, please');

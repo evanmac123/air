@@ -216,7 +216,7 @@ body.acts {
 						left:12px;
 						top:3px;
 						div.single_suggestion {
-							background:lighten($header-bg, 45%);
+							background:lighten($light-gray, 10%);
 							&:hover {
 								background:lighten($header-bg, 55%);
 							}
@@ -232,7 +232,6 @@ body.acts {
 					div.single_suggestion {
 //						left:15px;
 						margin:0 0 5px 0!important;
-						width:300px;
 						a.remove_referrer {
 							color:$gray;
 							&:hover {color:lighten($header-bg,10%);}
@@ -361,7 +360,6 @@ body.acts {
 						}
 					}
 					div.single_suggestion {
-						width:350px;
 						a.remove_referrer {
 							color:$gray;
 							&:hover {color:lighten($header-bg,10%);}
@@ -382,24 +380,11 @@ body.acts {
 							font-size:11px;
 						}
 					}
-					div#suggestions {
-						left:12px;
-						position:absolute;
-						top:3px;
-						z-index:9999;
-						div.single_suggestion {
-							background:lighten($header-bg, 45%);
-							&:hover {
-								background:lighten($header-bg, 55);
-							}
-						}
-					}
+
 					p {font-weight:bold;}
 					ul.form-section {
 						li.form-input {
-							input#autocomplete {
-								width:350px;
-							}
+
 						}
 						li.form-label {
 							label {

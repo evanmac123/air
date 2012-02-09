@@ -1,8 +1,10 @@
 @import "standard";
-$bin_width: 378px;
+$bin_width: 300px;
 $suggestion_radius: 4px;
 $light_green: #87BF4E;
 $gold: #fd1;
+$medium_radius: 12px;
+
 .clear{
   clear: both;
 }
@@ -23,10 +25,19 @@ $gold: #fd1;
   left: -12px;
 }
 
+
 #suggestions{
+  display: none;
+  margin-top: 20px;
+  padding: 10px;
+  margin-top: 32px;
   position: absolute;
   top:13px;
   z-index: 1;
+  -moz-border-radius: $medium_radius;
+  -webkit-border-radius: $medium_radius;
+  border-radius: $medium_radius;
+	background: grey;
   .remove_referrer{
     display: none;
   }
@@ -34,9 +45,7 @@ $gold: #fd1;
     background: darken($light-gray, 5%);
   }
 }
-#search_for_friends_to_invite #suggestions{
-  padding-top: 49px;
-}
+
 a.remove_referrer{
 	color:$hengage-bg;
   position: absolute;
@@ -53,8 +62,8 @@ a.remove_referrer{
   background: $light-gray;
 }
 .single_suggestion{
-  background-color: #fd1;
-  background-image:url(/images/v3/texture_darker.png);
+  width: $bin_width;
+  background-color: #FFFAAD;
   color:$dark-gray;
   padding: 10px;
   width: $bin_width;
@@ -94,9 +103,7 @@ a.remove_referrer{
 .suggested_user_id{
   display: none;
 }
-#hide_me_while_selecting{
-  display: none;
-}
+
 .first_half, .second_half{
   width: 500px;
   input{
@@ -110,7 +117,7 @@ a.remove_referrer{
   display: none;
 }
 body #facebox .content {
-    width:  402px;
+    width: 337px;
     height: 340px;
 }
 #potential_bonus_points{
@@ -127,7 +134,7 @@ body #facebox .content {
   font-weight: bold;
   position: absolute;
   top: 5px;
-  width: 100%;
+  width: 500px;
 }
 #points_per_referral{
   display: none;
@@ -187,12 +194,41 @@ div.helper {
   padding-bottom: 2px;
   padding-left: 1px;
 }
+#hide_me_while_selecting{
+  display: none;
+  background: #aaa;
+  -moz-border-radius: $medium_radius;
+  -webkit-border-radius: $medium_radius;
+  border-radius: $medium_radius;
+  padding-left: 7px;
+  padding-bottom: 7px;
+  width: 330px;
+  margin-top: 35px;
+  
+}
 #hide_me_while_selecting #submit_invite_friend{
-  padding-top: 12px;
   position: relative;
   right: -147px;
   top: 8px;
+  margin-top: 19px;
 }
 .gold{
   color: $gold;
 }
+
+#autocomplete{
+  width: 314px;
+}
+// 
+// div#suggestions {
+//  left:12px;
+//  position:absolute;
+//  top:3px;
+//  z-index:9999;
+//  div.single_suggestion {
+//    background:lighten($light-gray, 10%);
+//    &:hover {
+//      background:lighten($header-bg, 55);
+//    }
+//  }
+// }
