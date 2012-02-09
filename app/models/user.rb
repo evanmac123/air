@@ -56,7 +56,7 @@ class User < ActiveRecord::Base
   validates_length_of :password, :minimum => 6, :allow_blank => true, :message => 'must have at least 6 characters'
 
   has_attached_file :avatar,
-    :styles => {:thumb => "48x48#"},
+    :styles => {:thumb => "96x96#"},
     :default_style => :thumb,
     #:processors => [:png],
     :storage => :s3,
