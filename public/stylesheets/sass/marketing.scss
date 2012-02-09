@@ -706,7 +706,7 @@ input.fat-text-field {
   h2 {
     font-family: "Istok Web",sans-serif;
     font-size: 20px;
-    margin: 0 0 15px 95px;
+    margin: 0 0 15px 26px;
   }
 
   form {
@@ -840,4 +840,17 @@ input.fat-text-field {
   clear: both;
   text-align: center;
   background-image: url(/images/marketing/b_tealbottom.png);
+}
+
+.big_button_below{
+  float: right;
+  position: relative;
+  right: -17px;
+  top: -4px;
+}
+
+#header #header-contents a.btn-signup {
+  float:right;
+  position:relative;
+  margin:2px 10px 0 0;
 }
