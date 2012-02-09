@@ -32,7 +32,7 @@ h1, h2, h3 {letter-spacing: 1px;
 img {border:0; margin:0; padding:0;}
 input:focus {outline: 0;}
 p {margin:0;padding:0;}
-ul {list-style-type:none; margin:0; padding:0;}
+ul {list-style-position:outside; list-style-type:none; margin:0; padding:0;}
 
 /* ---------- general mixins ---------- */
 @mixin a-see-more {

@@ -1,6 +1,6 @@
 class ScoresController < ApplicationController
   respond_to :js
-
+  layout "application"
   def index
     @demo  = current_user.demo
     @users = @demo.users.claimed.order('points DESC')

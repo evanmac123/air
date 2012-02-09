@@ -34,7 +34,7 @@ body {
 	}
 }
 /* -- nav active states -- */
-.acts .header .navigation .nav-home, .users-show .header .navigation .nav-profile, .users-index .header .navigation .nav-directory {
+.acts .header .navigation .nav-home, .users-show .header .navigation .nav-profile, .users-index .header .navigation .nav-directory, .scores .header .navigation .nav-scores {
 	@include bg-black;
 	@include rounded-nav;
 	border:1px lighten($header-bg, 10%) solid;
@@ -556,6 +556,17 @@ body.users-index {
 				border-radius:20px 0 0 20px;
 				width:265px;
 			}
+		}
+	}
+}
+/* --------------------------- scoreboard --------------------------- */
+body.scores {
+	div#main {
+		margin:$centered;
+		width:660px;
+		img {
+			height:60px;
+			width:60px;
 		}
 	}
 }

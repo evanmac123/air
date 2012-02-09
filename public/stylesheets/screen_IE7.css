@@ -30,6 +30,7 @@ p {
   padding: 0; }
 
 ul {
+  list-style-position: outside;
   list-style-type: none;
   margin: 0;
   padding: 0; }
@@ -145,9 +146,6 @@ body.interstitial_verifications div.content {
     padding: 5px 0!important; }
   body.interstitial_verifications div.content form input[type="text"] {
     width: 260px!important; }
-
-body.users ul.player-info {
-  padding: 10px 0!important; }
 
 body.users-index div#secondary input[type="submit"] {
   padding: 7px 0!important; }
