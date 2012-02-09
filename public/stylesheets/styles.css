@@ -68,16 +68,19 @@ body.external {
   font-size: 13px;
   margin: 0;
   padding: 0; }
+  body.external div.inv-forms {
+    padding: 20px; }
   body.external h2 {
-    color: #2e3028;
+    color: #2e2e2c;
     font-family: "Ubuntu", Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 20px;
+    font-weight: 900;
+    padding-bottom: 15px;
+    text-transform: uppercase;
     font-size: 26px;
     letter-spacing: 0;
-    margin: 5px 0 15px 0;
-    padding: 0;
     text-shadow: 1px 1px 1px #a8a8a8;
-    behavior: url(/css3pie/PIE.htc);
-    text-transform: uppercase; }
+    behavior: url(/css3pie/PIE.htc); }
 
 body.invitations .header #navigation .nav-signup, body.sessions .header #navigation .nav-login {
   background: #1e1f1e;
@@ -361,7 +364,34 @@ body.passwords .content .inv-forms form {
       background-color: #fff;
       border: 1px #588b3d solid; }
 
-/* ====== special case: PRIVACY ====== */
+/* ====== special case: PRIVACY and TERMS ====== */
+body.pages div.inv-forms h1 {
+  color: #2e2e2c;
+  font-family: "Ubuntu", Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 900;
+  padding-bottom: 15px;
+  text-transform: uppercase;
+  font-size: 26px; }
+body.pages div.inv-forms h2 {
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  behavior: url(/css3pie/PIE.htc);
+  z-index: 0;
+  background: #fff;
+  font-size: 20px;
+  margin-bottom: 10px;
+  padding: 10px; }
+body.pages div.inv-forms p {
+  line-height: 16px;
+  margin-bottom: 15px; }
+body.pages ul {
+  list-style-type: disc;
+  margin-left: 20px; }
+  body.pages ul li {
+    margin-bottom: 10px; }
+
 /* ====== special case: SESSIONS ====== */
 body.sessions .content .inv-forms #session-wrapper {
   padding: 20px; }
