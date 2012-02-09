@@ -7,3 +7,7 @@
 %>
 
 $('#see-more').parents('form.button_to').show();
+
+<% acts.each do |act| %>
+  mpq.track('saw act', <%= raw({:act_id => act.id}.to_json) %>);
+<% end %>
