@@ -506,8 +506,12 @@ body.users-index {
 		@include heading-black;
 	}
 	div#main {
+		@include a-see-more;
 		float:left;
 		width:60%;
+		div.seemore {
+			border-top:1px $light-gray solid;
+		}
 		ul#other-users {
 			padding-bottom:15px;
 			li.user {
@@ -518,7 +522,7 @@ body.users-index {
 					padding:0 0 15px 0;
 				}
 				&:last-child {
-					border-bottom:0;
+					border:0;
 					padding: 15px 0 0 0;
 				}
 				div.user-avatar {
