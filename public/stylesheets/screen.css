@@ -5,6 +5,8 @@ a {
   text-decoration: none!important; }
   a:hover {
     color: #6eae4d; }
+  a:active {
+    color: #2e2e2c; }
 
 .cf {
   clear: both;
@@ -44,6 +46,8 @@ a {
   text-decoration: none!important; }
   a:hover {
     color: #6eae4d; }
+  a:active {
+    color: #2e2e2c; }
 
 .cf {
   clear: both;
@@ -373,10 +377,13 @@ ul {
           width: 60px; }
         .header .masthead .mast_bottom .bar_level p.level {
           color: #ffb901;
+          font-family: "Ubuntu", Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+          font-weight: 700;
+          text-shadow: 1px 1px 1px #9a7000;
+          text-transform: uppercase;
           float: right;
           font-size: 30px;
-          margin: 7px 25px 0 0;
-          text-shadow: 1px 1px 1px #9a7000; }
+          margin: 7px 25px 0 0; }
 
 /* ---------- customizations ---------- */
 /* ---------- END customizations ---------- */
@@ -385,6 +392,8 @@ a {
   text-decoration: none!important; }
   a:hover {
     color: #6eae4d; }
+  a:active {
+    color: #2e2e2c; }
 
 .cf {
   clear: both;
@@ -1274,6 +1283,69 @@ body.acts #facebox .popup {
         font-weight: bold; }
 
 /* --------------------------- profile page --------------------------- */
+body.users div#about-player {
+  margin-bottom: 15px; }
+  body.users div#about-player div.player-avatar {
+    float: left; }
+    body.users div#about-player div.player-avatar a {
+      background: #3f3f3f;
+      /* Old browsers */
+      background: -moz-linear-gradient(top, #3f3f3f 0%, #2e2f2d 100%);
+      /* FF3.6+ */
+      background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #3f3f3f), color-stop(100%, #2e2f2d));
+      /* Chrome,Safari4+ */
+      background: -webkit-linear-gradient(top, #3f3f3f 0%, #2e2f2d 100%);
+      /* Chrome10+,Safari5.1+ */
+      background: -o-linear-gradient(top, #3f3f3f 0%, #2e2f2d 100%);
+      /* Opera 11.10+ */
+      background: -ms-linear-gradient(top, #3f3f3f 0%, #2e2f2d 100%);
+      /* IE10+ */
+      background: linear-gradient(top, #3f3f3f 0%, #2e2f2d 100%);
+      /* W3C */
+      -webkit-border-radius: 20px;
+      -moz-border-radius: 20px;
+      border-radius: 20px;
+      behavior: url(/css3pie/PIE.htc);
+      border: 0;
+      color: #fff;
+      font-family: "Ubuntu", Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-size: 11px!important;
+      font-weight: bold;
+      padding: 5px 15px;
+      text-shadow: 1px 1px 1px #2e2e2c;
+      text-transform: uppercase;
+      font-weight: 900!important;
+      display: block;
+      padding: 5px 25px; }
+      body.users div#about-player div.player-avatar a:hover {
+        background: #588b3d; }
+      body.users div#about-player div.player-avatar a:active {
+        background: #909090; }
+    body.users div#about-player div.player-avatar img {
+      -webkit-border-radius: 3px;
+      -moz-border-radius: 3px;
+      border-radius: 3px;
+      behavior: url(/css3pie/PIE.htc);
+      z-index: 0;
+      border: 1px #909090 solid;
+      margin: 0; }
+  body.users div#about-player ul.player-info {
+    float: left;
+    padding: 10px 0 10px 15px;
+    width: 65%; }
+    body.users div#about-player ul.player-info h1 {
+      margin: 0;
+      padding: 0; }
+    body.users div#about-player ul.player-info li {
+      margin: 0;
+      padding: 0 0 5px 0; }
+    body.users div#about-player ul.player-info p {
+      color: #ffb901;
+      font-family: "Ubuntu", Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-weight: 700;
+      text-shadow: 1px 1px 1px #9a7000;
+      text-transform: uppercase;
+      font-size: 16px; }
 body.users div#left-col {
   float: left;
   width: 60%; }
@@ -1356,6 +1428,17 @@ body.users div#right-col {
         body.users div#right-col li.user p.user-name span {
           color: #909090;
           margin-right: 5px; }
+
+/* --------------------------- directory --------------------------- */
+body.users-index h2 {
+  color: #2e2e2c;
+  font-family: "Ubuntu", Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 900;
+  padding-bottom: 15px;
+  text-transform: uppercase; }
+body.users-index div.directory {
+  width: 60%; }
 
 /* --------------------------- settings --------------------------- */
 /* @end */

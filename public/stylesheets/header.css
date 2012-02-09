@@ -5,6 +5,8 @@ a {
   text-decoration: none!important; }
   a:hover {
     color: #6eae4d; }
+  a:active {
+    color: #2e2e2c; }
 
 .cf {
   clear: both;
@@ -334,7 +336,10 @@ ul {
           width: 60px; }
         .header .masthead .mast_bottom .bar_level p.level {
           color: #ffb901;
+          font-family: "Ubuntu", Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+          font-weight: 700;
+          text-shadow: 1px 1px 1px #9a7000;
+          text-transform: uppercase;
           float: right;
           font-size: 30px;
-          margin: 7px 25px 0 0;
-          text-shadow: 1px 1px 1px #9a7000; }
+          margin: 7px 25px 0 0; }

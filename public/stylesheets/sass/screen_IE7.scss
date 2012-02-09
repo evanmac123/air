@@ -175,6 +175,12 @@ body.interstitial_verifications {
 		}
 	}
 }
+
+body.users {
+	ul.player-info {
+		padding:10px 0!important;
+	}
+}
 // // I put this stuff in so the assistly emailer would display in IE7
 // // But now it doesn't seem to need it
 // .fancybox-outer{

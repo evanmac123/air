@@ -431,12 +431,49 @@ body.acts {
 
 /* --------------------------- profile page --------------------------- */
 body.users {
+	div#about-player {
+		margin-bottom:15px;
+		div.player-avatar {
+			float:left;
+			a {
+				@include button-norm;
+				display:block;
+				padding:5px 25px;
+			}
+			img {
+				@include rounded;
+				border:1px $gray solid;
+				margin:0;
+			}
+		}
+		ul.player-info {
+			float:left;
+			padding:10px 0 10px 15px;
+			width:65%;
+			h1 {
+				margin:0;
+				padding:0;
+			}
+			li {
+				margin:0;
+				padding:0 0 5px 0;
+			}
+			p {
+				@include orange-text;
+				font-size:16px;
+				&.points-and-level {
+//						@include rounded;
+//						background:#fff;
+//						padding:5px;
+				}
+			}
+		}
+	}
 	div#left-col {
 		@include acts-feed;
 		float:left;
 		width:60%;
 	}
-
 	div#right-col {
 		float:right;
 		width:35%;
@@ -460,6 +497,16 @@ body.users {
 				}
 			}
 		}
+	}
+}
+
+/* --------------------------- directory --------------------------- */
+body.users-index {
+	h2 {
+		@include heading-black;
+	}
+	div.directory {
+		width:60%;
 	}
 }
 

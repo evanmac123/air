@@ -5,6 +5,8 @@ a {
   text-decoration: none!important; }
   a:hover {
     color: #6eae4d; }
+  a:active {
+    color: #2e2e2c; }
 
 .cf {
   clear: both;

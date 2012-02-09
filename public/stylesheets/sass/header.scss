@@ -258,11 +258,10 @@ $light:lighten($header-bg, 7%);
 					width:60px;
 				}
 				p.level {
-					color:#ffb901;
+					@include orange-text;
 					float:right;
 					font-size:30px;
 					margin:7px 25px 0 0;
-					text-shadow:1px 1px 1px darken(#ffb901, 20%);
 				}
 			}
 		}

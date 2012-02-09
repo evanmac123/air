@@ -21,7 +21,7 @@ $gutter:10px;
 a {
 	text-decoration:none!important;
 	&:hover {color:lighten($header-bg, 10%);}
-//	&:active {color:$dark-gray;}
+	&:active {color:$dark-gray;}
 }
 .cf {
 	clear:both;
@@ -169,6 +169,13 @@ ul {list-style-type:none; margin:0; padding:0;}
 			border:1px $header-bg solid;
 		}
 	}
+}
+@mixin orange-text {
+	color:#ffb901;
+	font-family:$gotham;
+	font-weight:700;
+	text-shadow:1px 1px 1px darken(#ffb901, 20%);
+	text-transform:uppercase;
 }
 @mixin rounded {
 	-webkit-border-radius: 3px;

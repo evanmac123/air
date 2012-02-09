@@ -5,6 +5,8 @@ a {
   text-decoration: none!important; }
   a:hover {
     color: #6eae4d; }
+  a:active {
+    color: #2e2e2c; }
 
 .cf {
   clear: both;
@@ -143,6 +145,9 @@ body.interstitial_verifications div.content {
     padding: 5px 0!important; }
   body.interstitial_verifications div.content form input[type="text"] {
     width: 260px!important; }
+
+body.users ul.player-info {
+  padding: 10px 0!important; }
 
 #contact_us_from_inv_acceptance_page {
   padding-top: 2ex; }
