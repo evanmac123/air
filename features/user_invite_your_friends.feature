@@ -9,6 +9,7 @@ Feature: User gives credit to game referer via autocomplete field
       | NotStarted   | 2000             |
     Given the following self inviting domain exists:
       | domain       | demo             |
+      | seconds.com  | name: Bratwurst  |
       | inviting.com | name: Bratwurst  |
       | biker.com    | name: Gleason    |
       | started.com  | name: NotStarted |
@@ -264,6 +265,15 @@ Feature: User gives credit to game referer via autocomplete field
     Then I should see "Charlie Brainfield"
     And I should not see "Yo Yo Ma" within the suggested users
     
-    
-    
-    
+  @javascript
+  Scenario: When demo has to self-inviting domains, use the correct one
+    Given "Barnaby" has the password "foobar"
+    Given I sign in via the login page as "Barnaby/foobar"  
+    Then I should see "Invite your friends"
+    Then I should not see "seconds.com" 
+    When I fill in "email number 1" with "racing22"
+    And I press "Invite!"
+    Then I should see "You just invited racing22@inviting.com to play H Engage"
+    Then I should not see "seconds.com"    
+    And DJ cranks 5 times
+    Then "racing22@inviting.com" should receive an email
