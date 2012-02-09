@@ -31,7 +31,7 @@ class Invitation::FriendInvitationsController < ApplicationController
     end
     
     # Self-inviting Domain
-    domain = current_user.demo.self_inviting_domains.first.domain
+    domain = current_user.self_inviting_domain.domain
     unless domain
       add_failure "The domain is wrong"
       redirect_to activity_path and return

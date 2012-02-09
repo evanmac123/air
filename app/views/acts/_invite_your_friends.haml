@@ -23,7 +23,7 @@
           0
         potential bonus points!
         
-      - domain = "@#{current_user.demo.self_inviting_domains.first.domain}"
+      - domain = "@#{current_user.self_inviting_domain.domain}"
       .first_half
         - 5.times do |f|
           - tag_name = "email_prepends[#{f}]"
