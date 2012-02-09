@@ -217,3 +217,12 @@ Feature: User acts
     # And I go to the acts page
     # Then I should see "Dan 0 pts"
     And "+15087407520" should have received an SMS "Now now. It wouldn't be fair to try to get extra points by referring yourself."
+
+  Scenario: Act with 0 points should not mention that
+    Given the following act exists:
+      | text         | inherent points | user        | 
+      | did not much | 0               | name: Dan   | 
+    When I sign in via the login page with "Dan/foobar"
+    Then I should be on the activity page
+    And I should see "Dan did not much"
+    But I should not see "0 pts"

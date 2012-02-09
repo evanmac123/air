@@ -1,6 +1,7 @@
 Feature: Directory of other users
 
   Background:
+    Given I need to hook all this stuff up
     Given the following claimed users exist:
       | name | avatar file name | demo          |
       | Dan  | dan.png          | name: AlphaCo |

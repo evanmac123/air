@@ -61,6 +61,7 @@ end
 
 # "When I follow" was taken by web_steps.rb, for links
 When /^I fan "(.*?)"$/ do |username|
+  pending
   user = User.find_by_name(username)
 
   with_scope "\"form[@action='/users/#{user.to_param}/friendship']\"" do

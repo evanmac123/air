@@ -1,4 +1,4 @@
-<% if act.points %>
+<% if act.points && act.points > 0 %>
   <div class="points">
     <span class="point-value"><%= pluralize act.points, 'pt' %></span>
   </div>
