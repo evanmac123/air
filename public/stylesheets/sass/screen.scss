@@ -562,6 +562,7 @@ body.users-index {
 /* --------------------------- scoreboard --------------------------- */
 body.scores {
 	div#main {
+		@include a-see-more;
 		margin:$centered;
 		width:660px;
 		div.description {
@@ -575,7 +576,6 @@ body.scores {
 		}
 		div.scoreboard-fill {
 			clear:both;
-			margin-bottom:10px;
 			ul.all-listings {
 				li.listing {
 					clear:both;
@@ -597,6 +597,10 @@ body.scores {
 								margin-left:20px;
 								position:absolute;
 								top:36%;
+							}
+							img {
+								height:60px;
+								width:60px;
 							}
 						}
 						&.points {
@@ -647,10 +651,6 @@ body.scores {
 					}
 				}
 			}
-		}
-		img {
-			height:60px;
-			width:60px;
 		}
 	}
 }
