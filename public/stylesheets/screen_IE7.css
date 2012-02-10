@@ -147,6 +147,11 @@ body.interstitial_verifications div.content {
   body.interstitial_verifications div.content form input[type="text"] {
     width: 260px!important; }
 
+body.scores div.player {
+  width: 447px!important; }
+body.scores div.points {
+  width: 87px!important; }
+
 body.users-index div#secondary input[type="submit"] {
   padding: 7px 0!important; }
 

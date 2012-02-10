@@ -575,6 +575,62 @@ body.scores {
 		}
 		div.scoreboard-fill {
 			clear:both;
+			margin-bottom:10px;
+			ul.all-listings {
+				li.listing {
+					clear:both;
+					div {
+						display:inline-block;
+							zoom: 1;
+							*display:inline;
+						float:left;
+						height:61px;
+						padding:10px;
+						&.cf {
+							height:0;
+						}
+						&.player {
+							border-bottom:1px $light-gray solid;
+							width:450px;
+						}
+						&.points {
+							background-color:lighten($light-gray,4%);
+							border-bottom:1px $light-gray solid;
+							border-left:1px $light-gray solid;
+							border-right:1px $light-gray solid;
+							text-align:center;
+							width:80px;
+						}
+						&.level {
+							border:1px yellow solid;
+							text-align:center;
+							width:40px;
+						}
+					}
+				}
+			}
+			ul.labels {
+				border-bottom:1px $light-gray solid;
+				border-top:1px $light-gray solid;
+				li {
+					display:inline-block;
+						zoom: 1;
+						*display:inline;
+					font-family:$gotham;
+					font-weight:700;
+					padding:10px;
+					&.label-player {
+						width:70%;
+					}
+					&.label-points {
+						background-color:lighten($light-gray,4%);
+						border-left:1px $light-gray solid;
+						border-right:1px $light-gray solid;
+					}
+					&.label-level {
+					}
+				}
+			}
 		}
 		img {
 			height:60px;

@@ -128,6 +128,13 @@ div.invite_or_add input[type="submit"] {
   font-size: 14px;
   padding: 0!important; }
 
+body.scores div.player {
+  width: 444px!important; }
+body.scores div.points {
+  width: 87px!important; }
+body.scores li.label-player {
+  width: 69%!important; }
+
 body.users-index div#secondary input[type="submit"] {
   padding: 7px 6px!important; }
 

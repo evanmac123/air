@@ -130,6 +130,18 @@ div.invite_or_add {
 	}
 }
 
+body.scores {
+	div.player {
+		width:444px!important;
+	}
+	div.points {
+		width:87px!important;
+	}
+	li.label-player {
+		width:69%!important;
+	}
+}
+
 body.users-index {
 	div#secondary {
 		input[type="submit"] {

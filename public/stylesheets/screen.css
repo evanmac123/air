@@ -1536,7 +1536,49 @@ body.scores div#main {
     float: right;
     padding-top: 5px; }
   body.scores div#main div.scoreboard-fill {
-    clear: both; }
+    clear: both;
+    margin-bottom: 10px; }
+    body.scores div#main div.scoreboard-fill ul.all-listings li.listing {
+      clear: both; }
+      body.scores div#main div.scoreboard-fill ul.all-listings li.listing div {
+        display: inline-block;
+        zoom: 1;
+        *display: inline;
+        float: left;
+        height: 61px;
+        padding: 10px; }
+        body.scores div#main div.scoreboard-fill ul.all-listings li.listing div.cf {
+          height: 0; }
+        body.scores div#main div.scoreboard-fill ul.all-listings li.listing div.player {
+          border-bottom: 1px #e9e9e9 solid;
+          width: 450px; }
+        body.scores div#main div.scoreboard-fill ul.all-listings li.listing div.points {
+          background-color: #f3f3f3;
+          border-bottom: 1px #e9e9e9 solid;
+          border-left: 1px #e9e9e9 solid;
+          border-right: 1px #e9e9e9 solid;
+          text-align: center;
+          width: 80px; }
+        body.scores div#main div.scoreboard-fill ul.all-listings li.listing div.level {
+          border: 1px yellow solid;
+          text-align: center;
+          width: 40px; }
+    body.scores div#main div.scoreboard-fill ul.labels {
+      border-bottom: 1px #e9e9e9 solid;
+      border-top: 1px #e9e9e9 solid; }
+      body.scores div#main div.scoreboard-fill ul.labels li {
+        display: inline-block;
+        zoom: 1;
+        *display: inline;
+        font-family: "Ubuntu", Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+        font-weight: 700;
+        padding: 10px; }
+        body.scores div#main div.scoreboard-fill ul.labels li.label-player {
+          width: 70%; }
+        body.scores div#main div.scoreboard-fill ul.labels li.label-points {
+          background-color: #f3f3f3;
+          border-left: 1px #e9e9e9 solid;
+          border-right: 1px #e9e9e9 solid; }
   body.scores div#main img {
     height: 60px;
     width: 60px; }
