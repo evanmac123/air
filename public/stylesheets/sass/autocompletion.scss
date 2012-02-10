@@ -30,11 +30,8 @@ $medium_radius: 12px;
 #suggestions{
   display: none;
   width: $bin_width + 2 * $pound_suggestions_padding + 2 * $single_suggestion_border_width;
-  margin-top: 20px;
   padding: $pound_suggestions_padding;
-  margin-top: 32px;
-  //position: absolute;
-  //top:13px;
+  margin-top: 14px;
   z-index: 1;
   -moz-border-radius: $medium_radius;
   -webkit-border-radius: $medium_radius;
@@ -77,7 +74,7 @@ a.remove_referrer{
   -webkit-box-shadow: 0 0 5px #c9c9c9;
   box-shadow: 0 0 5px #c9c9c9;
   position: relative;
-  behavior: url(/css3pie/PIE.htc);
+  behavior: none;
 	div.info {
 		div.bit:first-child {
 			color:$hengage-bg;
@@ -204,42 +201,35 @@ div.helper {
   border-radius: $medium_radius;
   padding-left: 7px;
   padding-bottom: 7px;
-  width: 330px;
-  margin-top: 35px;
-  
+  width: 330px;  
 }
-#hide_me_while_selecting #submit_invite_friend{
-  float: right;
-  margin-top: 19px;
-  margin-right: 10px;
-  display: inline-block;
-}
+
 .gold{
   color: $gold;
 }
 
 #autocomplete{
   width: 314px;
+  behavior: none;
 }
-// 
-// div#suggestions {
-//  left:12px;
-//  position:absolute;
-//  top:3px;
-//  z-index:9999;
-//  div.single_suggestion {
-//    background:lighten($light-gray, 10%);
-//    &:hover {
-//      background:lighten($header-bg, 55);
-//    }
-//  }
-// }
+
 .clear{
   clear: both;
 }
 
 
-// #invite_friends_inner{
-//   display: block;
-//   overflow: hidden;
-// }
+#hide_me_while_selecting #submit_invite_friend{
+  float: right;
+  margin-top: 19px;
+  margin-right: 10px;
+}
+
+#submit_invite_friend {
+	margin-top:4px;
+	a#invite_friends_link {
+		@include button-norm;
+		margin-bottom: 4px;
+		display: inline-block;
+		font-size:11px;
+	}
+}

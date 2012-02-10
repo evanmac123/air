@@ -1007,45 +1007,6 @@ body.acts .container .invite-module {
       z-index: 0;
       border: 1px #e9e9e9 inset;
       width: 75px; }
-  body.acts .container .invite-module .invite div#submit_invite_friend {
-    margin-top: 4px; }
-    body.acts .container .invite-module .invite div#submit_invite_friend a#invite_friends_link {
-      background: #3f3f3f;
-      /* Old browsers */
-      background: -moz-linear-gradient(top, #3f3f3f 0%, #2e2f2d 100%);
-      /* FF3.6+ */
-      background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #3f3f3f), color-stop(100%, #2e2f2d));
-      /* Chrome,Safari4+ */
-      background: -webkit-linear-gradient(top, #3f3f3f 0%, #2e2f2d 100%);
-      /* Chrome10+,Safari5.1+ */
-      background: -o-linear-gradient(top, #3f3f3f 0%, #2e2f2d 100%);
-      /* Opera 11.10+ */
-      background: -ms-linear-gradient(top, #3f3f3f 0%, #2e2f2d 100%);
-      /* IE10+ */
-      background: linear-gradient(top, #3f3f3f 0%, #2e2f2d 100%);
-      /* W3C */
-      -webkit-border-radius: 20px;
-      -moz-border-radius: 20px;
-      border-radius: 20px;
-      behavior: url(/css3pie/PIE.htc);
-      border: 0;
-      color: #fff;
-      font-family: "Ubuntu", Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
-      font-size: 11px!important;
-      font-weight: bold;
-      padding: 5px 15px;
-      text-shadow: 1px 1px 1px #2e2e2c;
-      text-transform: uppercase;
-      font-weight: 900!important;
-      font-size: 11px;
-      font-weight: bold;
-      letter-spacing: 0.5px;
-      margin-bottom: 12px;
-      display: inline-block; }
-      body.acts .container .invite-module .invite div#submit_invite_friend a#invite_friends_link:hover {
-        background: #588b3d; }
-      body.acts .container .invite-module .invite div#submit_invite_friend a#invite_friends_link:active {
-        background: #909090; }
   body.acts .container .invite-module .invite form {
     margin-top: 15px; }
     body.acts .container .invite-module .invite form p {
@@ -1212,43 +1173,6 @@ body.acts #facebox .popup {
         z-index: 0;
         border: 1px #e9e9e9 inset;
         width: 75px; }
-      body.acts #facebox .popup .content form div#submit_invite_friend {
-        margin-top: 4px; }
-        body.acts #facebox .popup .content form div#submit_invite_friend a#invite_friends_link {
-          background: #3f3f3f;
-          /* Old browsers */
-          background: -moz-linear-gradient(top, #3f3f3f 0%, #2e2f2d 100%);
-          /* FF3.6+ */
-          background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #3f3f3f), color-stop(100%, #2e2f2d));
-          /* Chrome,Safari4+ */
-          background: -webkit-linear-gradient(top, #3f3f3f 0%, #2e2f2d 100%);
-          /* Chrome10+,Safari5.1+ */
-          background: -o-linear-gradient(top, #3f3f3f 0%, #2e2f2d 100%);
-          /* Opera 11.10+ */
-          background: -ms-linear-gradient(top, #3f3f3f 0%, #2e2f2d 100%);
-          /* IE10+ */
-          background: linear-gradient(top, #3f3f3f 0%, #2e2f2d 100%);
-          /* W3C */
-          -webkit-border-radius: 20px;
-          -moz-border-radius: 20px;
-          border-radius: 20px;
-          behavior: url(/css3pie/PIE.htc);
-          border: 0;
-          color: #fff;
-          font-family: "Ubuntu", Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
-          font-size: 11px!important;
-          font-weight: bold;
-          padding: 5px 15px;
-          text-shadow: 1px 1px 1px #2e2e2c;
-          text-transform: uppercase;
-          font-weight: 900!important;
-          margin-bottom: 12px;
-          display: inline-block;
-          font-size: 11px; }
-          body.acts #facebox .popup .content form div#submit_invite_friend a#invite_friends_link:hover {
-            background: #588b3d; }
-          body.acts #facebox .popup .content form div#submit_invite_friend a#invite_friends_link:active {
-            background: #909090; }
       body.acts #facebox .popup .content form p {
         font-weight: bold; }
       body.acts #facebox .popup .content form ul.form-section li.form-label label {
