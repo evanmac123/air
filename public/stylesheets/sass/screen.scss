@@ -564,6 +564,18 @@ body.scores {
 	div#main {
 		margin:$centered;
 		width:660px;
+		div.description {
+			h1 {float:left;}
+			p {
+				color:$gray;
+				font-size:12px;
+				float:right;
+				padding-top:5px;
+			}
+		}
+		div.scoreboard-fill {
+			clear:both;
+		}
 		img {
 			height:60px;
 			width:60px;

@@ -1528,6 +1528,15 @@ body.users-index div#secondary {
 body.scores div#main {
   margin: 0 auto;
   width: 660px; }
+  body.scores div#main div.description h1 {
+    float: left; }
+  body.scores div#main div.description p {
+    color: #909090;
+    font-size: 12px;
+    float: right;
+    padding-top: 5px; }
+  body.scores div#main div.scoreboard-fill {
+    clear: both; }
   body.scores div#main img {
     height: 60px;
     width: 60px; }
