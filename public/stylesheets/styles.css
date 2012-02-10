@@ -263,7 +263,8 @@ body.invitations-show div#search_for_referrer div#relative div#autocomplete_stat
   color: #909090;
   margin: 0;
   padding: 0;
-  top: -52px; }
+  top: -52px;
+  display: none; }
 body.invitations-show div#search_for_referrer div#relative div#suggestions div.single_suggestion div.image img, body.invitation-acceptances div#search_for_referrer div#relative div#suggestions div.single_suggestion div.image img {
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;

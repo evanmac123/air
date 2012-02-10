@@ -96,13 +96,13 @@ $(function() {
     $('#autocomplete').focus();
     //$('#search_for_friends_to_invite #autocomplete').hide();
     $(this).insertAfter('#put_selected_users_after_this_div');
-    $("#autocomplete_status").hide();
+    clearAutocompleteStatus();
     setTimeout('$("#suggestions").html("")', 50);
     setTimeout('displayPotentialPointsPrepopulated()', 100);
     
     $("#hide_me_while_selecting").show();
     $("#suggestions").hide();
-    
+    resizeFaceboxToFitSuggestions();
     
   });
   
@@ -168,7 +168,7 @@ $(function() {
   $('html').click(function() {
     setTimeout('$("#suggestions").html("")', 50);
     $('#suggestions').hide();
-    $('#autocomplete_status').hide();
+    clearAutocompleteStatus();
     var pts = $('#potential_bonus_points').text();
     if (pts != '0'){
       $('#hide_me_while_selecting').show();
@@ -284,7 +284,6 @@ function autocompleteIfNoneRunningAndResetQueue(options){
   autocompleteIfNoneRunning(options);
 }
 function getAutocomplete(options){
-  $('#autocomplete_status').show();
   var entered_text = $(options['calling_div'] + ' #autocomplete').val();
   if (entered_text.length > 2){
     options['entered_text'] = entered_text;
@@ -307,8 +306,11 @@ function getAutocomplete(options){
         $("#suggestions").show();
         
         
+        
       }
       $("#suggestions").html(data);
+      resizeFaceboxToFitSuggestions();
+      
       autocomplete_in_progress = 0;
     });
   }else{
@@ -322,7 +324,7 @@ function getAutocomplete(options){
    }
    if (entered_text.length == 0){
      setTimeout("$('.helper.autocomplete').fadeIn()", 500);
-     $("#autocomplete_status").hide();
+     clearAutocompleteStatus();
    }else{
      setTimeout("$('.helper.autocomplete').fadeOut()", 500);
    }
@@ -357,4 +359,16 @@ function addByteCounterFor(locator) {
   $(locator).after('<span class="character-counter" id="' + ghettoUniqueId + '"></span>');
   updateCharacterCounter(locator, '#'+ghettoUniqueId);
   $(locator).keypress(function() {updateCharacterCounter(locator, '#'+ghettoUniqueId)});
+}
+
+function resizeFaceboxToFitSuggestions(){
+  var show_div = $("#search_for_friends_to_invite");
+  var show_div_height = show_div.height();
+  var extra = 10;
+  var new_height = show_div_height + extra;
+  var parent = $("#facebox .content");
+  parent.css("height", new_height);
+}
+function clearAutocompleteStatus(){
+  $('#autocomplete_status').text('');
 }

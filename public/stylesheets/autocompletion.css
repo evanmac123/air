@@ -42,10 +42,9 @@ ul {
 .clear {
   clear: both; }
 
-#search_for_friends_to_invite {
-  width: 300px;
-  height: 200px; }
-  #search_for_friends_to_invite #relative {
+#invite_friends_top, #invite_friends_middle, #invite_friends_bottom {
+  width: 300px; }
+  #invite_friends_top #relative, #invite_friends_middle #relative, #invite_friends_bottom #relative {
     top: 0px; }
 
 #relative {
@@ -58,11 +57,10 @@ ul {
 
 #suggestions {
   display: none;
+  width: 322px;
   margin-top: 20px;
   padding: 10px;
   margin-top: 32px;
-  position: absolute;
-  top: 13px;
   z-index: 1;
   -moz-border-radius: 12px;
   -webkit-border-radius: 12px;
@@ -149,9 +147,9 @@ body #facebox .content {
   color: green;
   font-size: 120%;
   font-weight: bold;
-  position: absolute;
-  top: 5px;
-  width: 500px; }
+  width: 500px;
+  padding-top: 4px;
+  height: 20px; }
 
 #points_per_referral {
   display: none; }
@@ -211,13 +209,16 @@ div.helper {
   margin-top: 35px; }
 
 #hide_me_while_selecting #submit_invite_friend {
-  position: relative;
-  right: -147px;
-  top: 8px;
-  margin-top: 19px; }
+  float: right;
+  margin-top: 19px;
+  margin-right: 10px;
+  display: inline-block; }
 
 .gold {
   color: #ffdd11; }
 
 #autocomplete {
   width: 314px; }
+
+.clear {
+  clear: both; }

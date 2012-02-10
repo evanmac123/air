@@ -210,7 +210,6 @@ body.acts {
 				
 			}
 			.invite{		
-				div#autocomplete_status {display:none;}
 				div#relative {
 					div#suggestions {
 						left:12px;
@@ -331,9 +330,7 @@ body.acts {
 					margin:$centered;
 					padding:5px 0;
 					width:415px;
-					div#autocomplete_status {
-						display:none;
-					}
+
 					div#bonus {
 						color:$gray;
 						padding:10px 0 2px 0;
