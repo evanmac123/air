@@ -851,3 +851,16 @@ describe User, "reset_all_mt_texts_today_counts!" do
     User.where(:mt_texts_today => 0).count.should == User.count
   end
 end
+
+describe User, "#schedule_followup_welcome_message" do
+  it "should only send a message once" do
+    SMS.stubs(:send_message)
+
+    demo = Factory :demo, :followup_welcome_message => "hey hey", :followup_welcome_message_delay => 0
+    user = Factory :user, :phone_number => "+14155551212", :demo => demo
+
+    2.times {user.schedule_followup_welcome_message}
+    Delayed::Worker.new.work_off(10)
+    SMS.should have_received(:send_message).once
+  end
+end
