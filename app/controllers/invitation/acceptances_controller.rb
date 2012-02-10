@@ -50,10 +50,7 @@ class Invitation::AcceptancesController < ApplicationController
 
     unless @user.accepted_invitation_at
       @user.join_game(params[:user][:phone_number], :send) 
-    end
-    
-    unless @user.game_referrer_id.nil?
-      SpecialCommand.credit_game_referrer(@user, User.find(@user.game_referrer_id))
+      SpecialCommand.credit_game_referrer(@user, User.find(@user.game_referrer_id)) unless @user.game_referrer_id.nil?
     end
 
     sign_in(@user)

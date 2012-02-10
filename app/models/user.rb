@@ -262,8 +262,14 @@ class User < ActiveRecord::Base
 
   def schedule_followup_welcome_message
     return if (message = self.demo.followup_welcome_message).blank?
+    return if self.phone_number.blank?
 
-    SMS.send_message(self, message, Time.now + demo.followup_welcome_message_delay.minutes)
+    User.transaction do
+      unless self.follow_up_message_sent_at
+        SMS.send_message(self, message, Time.now + demo.followup_welcome_message_delay.minutes)
+        self.update_attributes(:follow_up_message_sent_at => Time.now)
+      end
+    end
   end
 
   def cancel_new_phone_number
