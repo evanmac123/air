@@ -217,7 +217,7 @@ body.invitations .header #navigation .nav-signup, body.sessions .header #navigat
         padding: 10px;
         position: absolute;
         right: -147px;
-        behavior: url(/css3pie/PIE.htc);
+        behavior: none;
         top: 23px;
         width: 175px;
         z-index: 9999; }
