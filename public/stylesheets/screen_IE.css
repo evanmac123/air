@@ -95,3 +95,6 @@ input[type="submit"].button_norm {
   padding: 7px 0 10px 0!important; }
 .feeds .act-shim {
   display: none; }
+
+body.scores div.points {
+  width: 82px!important; }

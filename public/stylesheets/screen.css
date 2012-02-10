@@ -1546,23 +1546,39 @@ body.scores div#main {
         *display: inline;
         float: left;
         height: 61px;
-        padding: 10px; }
+        padding: 10px;
+        position: relative; }
         body.scores div#main div.scoreboard-fill ul.all-listings li.listing div.cf {
           height: 0; }
         body.scores div#main div.scoreboard-fill ul.all-listings li.listing div.player {
           border-bottom: 1px #e9e9e9 solid;
           width: 450px; }
+          body.scores div#main div.scoreboard-fill ul.all-listings li.listing div.player a {
+            margin-left: 20px;
+            position: absolute;
+            top: 36%; }
         body.scores div#main div.scoreboard-fill ul.all-listings li.listing div.points {
           background-color: #f3f3f3;
           border-bottom: 1px #e9e9e9 solid;
           border-left: 1px #e9e9e9 solid;
           border-right: 1px #e9e9e9 solid;
-          text-align: center;
           width: 80px; }
+          body.scores div#main div.scoreboard-fill ul.all-listings li.listing div.points p {
+            top: 36%; }
         body.scores div#main div.scoreboard-fill ul.all-listings li.listing div.level {
-          border: 1px yellow solid;
-          text-align: center;
+          border-bottom: 1px #e9e9e9 solid;
+          color: #ffb901;
+          font-family: "Ubuntu", Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+          font-weight: 700;
+          text-shadow: 1px 1px 1px #9a7000;
+          text-transform: uppercase;
+          font-size: 24px;
           width: 40px; }
+          body.scores div#main div.scoreboard-fill ul.all-listings li.listing div.level p {
+            top: 26%; }
+        body.scores div#main div.scoreboard-fill ul.all-listings li.listing div p {
+          margin-left: 5px;
+          position: absolute; }
     body.scores div#main div.scoreboard-fill ul.labels {
       border-bottom: 1px #e9e9e9 solid;
       border-top: 1px #e9e9e9 solid; }

@@ -586,25 +586,41 @@ body.scores {
 						float:left;
 						height:61px;
 						padding:10px;
+						position:relative;
 						&.cf {
 							height:0;
 						}
 						&.player {
 							border-bottom:1px $light-gray solid;
 							width:450px;
+							a {
+								margin-left:20px;
+								position:absolute;
+								top:36%;
+							}
 						}
 						&.points {
 							background-color:lighten($light-gray,4%);
 							border-bottom:1px $light-gray solid;
 							border-left:1px $light-gray solid;
 							border-right:1px $light-gray solid;
-							text-align:center;
 							width:80px;
+							p {
+								top:36%;
+							}
 						}
 						&.level {
-							border:1px yellow solid;
-							text-align:center;
+							border-bottom:1px $light-gray solid;
+							@include orange-text;
+							font-size:24px;
 							width:40px;
+							p {
+								top:26%;
+							}
+						}
+						p {
+							margin-left:5px;
+							position:absolute;
 						}
 					}
 				}
