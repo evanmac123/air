@@ -999,14 +999,6 @@ body.acts .container .invite-module {
         color: #6eae4d; }
       body.acts .container .invite-module .invite div#search_for_friends_to_invite div.single_suggestion a.remove_referrer:active {
         color: #2e2e2c; }
-    body.acts .container .invite-module .invite div#search_for_friends_to_invite div.single_suggestion img {
-      -webkit-border-radius: 3px;
-      -moz-border-radius: 3px;
-      border-radius: 3px;
-      behavior: url(/css3pie/PIE.htc);
-      z-index: 0;
-      border: 1px #e9e9e9 inset;
-      width: 75px; }
   body.acts .container .invite-module .invite form {
     margin-top: 15px; }
     body.acts .container .invite-module .invite form p {
@@ -1165,14 +1157,6 @@ body.acts #facebox .popup {
           color: #6eae4d; }
         body.acts #facebox .popup .content form div.single_suggestion a.remove_referrer:active {
           color: #2e2e2c; }
-      body.acts #facebox .popup .content form div.single_suggestion img {
-        -webkit-border-radius: 3px;
-        -moz-border-radius: 3px;
-        border-radius: 3px;
-        behavior: url(/css3pie/PIE.htc);
-        z-index: 0;
-        border: 1px #e9e9e9 inset;
-        width: 75px; }
       body.acts #facebox .popup .content form p {
         font-weight: bold; }
       body.acts #facebox .popup .content form ul.form-section li.form-label label {

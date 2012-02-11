@@ -236,11 +236,7 @@ body.acts {
 							&:hover {color:lighten($header-bg,10%);}
 							&:active {color:$dark-gray;}
 						}
-						img {
-							@include rounded;
-							border:1px $light-gray inset;
-							width:75px;
-						}
+
 					}
 				}
 
@@ -352,11 +348,7 @@ body.acts {
 							&:hover {color:lighten($header-bg,10%);}
 							&:active {color:$dark-gray;}
 						}
-						img {
-							@include rounded;
-							border:1px $light-gray inset;
-							width:75px;
-						}
+
 					}
 
 

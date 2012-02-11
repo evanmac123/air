@@ -97,6 +97,14 @@ a.remove_referrer {
   box-shadow: 0 0 5px #c9c9c9;
   position: relative;
   behavior: none; }
+  .single_suggestion img {
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    behavior: url(/css3pie/PIE.htc);
+    z-index: 0;
+    border: 1px #e9e9e9 inset;
+    width: 75px; }
   .single_suggestion div.info div.bit:first-child {
     color: #588b3d;
     font-size: 16px;
@@ -148,6 +156,7 @@ body #facebox .content {
   font-weight: bold;
   width: 500px;
   padding-top: 4px;
+  padding-bottom: 4px;
   height: 20px; }
 
 #points_per_referral {
@@ -218,7 +227,7 @@ div.helper {
 
 #hide_me_while_selecting #submit_invite_friend {
   float: right;
-  margin-top: 19px;
+  margin-top: 15px;
   margin-right: 10px; }
 
 #submit_invite_friend {
@@ -258,3 +267,11 @@ div.helper {
       background: #588b3d; }
     #submit_invite_friend a#invite_friends_link:active {
       background: #909090; }
+
+.bigger_message {
+  font-size: 26px;
+  line-height: 31px;
+  padding-bottom: 1ex; }
+
+#search_for_friends_to_invite .helper {
+  top: -27px; }

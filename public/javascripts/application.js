@@ -2,6 +2,7 @@ var autocomplete_in_progress = 0;
 var autocomplete_waiting = 0;
 
 $(function() {
+  
   $('#invite_friends_link').live('click', function(){
     grabUsersToInvite();
     
@@ -169,12 +170,10 @@ $(function() {
     setTimeout('$("#suggestions").html("")', 50);
     $('#suggestions').hide();
     clearAutocompleteStatus();
-    var pts = $('#potential_bonus_points').text();
-    if (pts != '0'){
-      $('#hide_me_while_selecting').show();
-    } 
+    resizeFaceboxToFitSuggestions();
   });
 
+  resizeFaceboxToFitSuggestions();
 
 });
 
@@ -240,22 +239,22 @@ function displayPotentialPointsPrepopulated(){
   
   var ppr = $('#points_per_referral').text();
   var num_invitees = $('.single_suggestion').length;
-  if (ppr == ''){
-    $('#bonus').html('This game does not have referral bonuses set up yet.');
+  if (num_invitees == 0){
+    msg = "Type part of your coworker's name or email, and we'll look them up."
+    $('#hide_me_while_selecting').hide();
+  }else if (ppr == ''){
+    alert('Please email support@hengage.com and ask them to set up bonuses for this game');
   }else{
     ppr = parseInt(ppr);
     $('#potential_bonus_points').text(ppr * num_invitees);
-  }
-  var pts = ppr * num_invitees;
-  var msg = '';
-  if (pts > 0){
-    msg = "That's <span class='gold'>" + pts + "</span> potential bonus points!<br><br>Keep going!<br><br>You can add lots of friends to this list and then click 'invite'"; 
-  }else{
-    msg = "Type part of your coworker's name or email, and we'll look them up."
-    $('#hide_me_while_selecting').hide();
-  }
-  $(".helper.autocomplete").html(msg);
-  $('#bonus').show();  
+    var pts = ppr * num_invitees;
+    var msg = '';
+    if (pts > 0){
+      msg = "<div class='bigger_message'><span class='gold'>+" + pts + "</span> potential bonus points!</div>Keep going!<br><br>You can add lots of friends to this list and then click 'invite'"; 
+    }
+    $(".helper.autocomplete").html(msg);
+    $('#bonus').show();
+  }  
 }
 
 
@@ -315,7 +314,7 @@ function getAutocomplete(options){
     });
   }else{
      $("#suggestions").html('');
-     $("#suggestions").hide();
+     setTimeout("$('#suggestions').hide()", 1);
      setTimeout('resizeFaceboxToFitSuggestions()', 1); 
      
 
@@ -367,8 +366,10 @@ function resizeFaceboxToFitSuggestions(){
   var show_div_height = show_div.height();
   var extra = 10;
   var new_height = show_div_height + extra;
-  var parent = $("#facebox .content");
-  parent.css("height", new_height);
+  var facebox_version = $("#facebox .content");
+  facebox_version.css("height", new_height);
+  var page_version = $(".invite-module");
+  page_version.css("height", new_height);
 }
 function clearAutocompleteStatus(){
   $('#autocomplete_status').text('');
