@@ -102,7 +102,7 @@ $(function() {
     
     $("#hide_me_while_selecting").show();
     $("#suggestions").hide();
-    resizeFaceboxToFitSuggestions();
+    setTimeout('resizeFaceboxToFitSuggestions()', 1);
     
   });
   
@@ -299,7 +299,7 @@ function getAutocomplete(options){
           $("#autocomplete_status").text('Please try again');
           }, 3000);    
       }else{
-        $("#autocomplete_status").text('Click on the person you want to invite');    
+        $("#autocomplete_status").text('Click on the person you want to invite:');    
         $(".helper.autocomplete").fadeOut();
         $("#hide_me_while_selecting").hide();
         $("#bonus").fadeOut(); 
@@ -315,7 +315,8 @@ function getAutocomplete(options){
     });
   }else{
      $("#suggestions").html('');
-     
+     $("#suggestions").hide();
+     setTimeout('resizeFaceboxToFitSuggestions()', 1); 
      
 
      // Yes, you must set this to zero even if you didn't run the function call
