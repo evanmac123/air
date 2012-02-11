@@ -16,6 +16,10 @@ Given /^"([^"]*)" has level "([^"]*)"$/ do |user_name, level_name|
   user.levels << level
 end
 
+Given /^"([^"]*)" has notification method "([^"]*)"$/ do |username, method|
+  User.find_by_name(username).update_attributes(:notification_method => method)
+end
+
 When /^an admin moves "(.*?)" to the demo "(.*?)"$/ do |username, name|
   When "I sign in as an admin via the login page"
 

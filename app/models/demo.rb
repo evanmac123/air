@@ -171,7 +171,7 @@ class Demo < ActiveRecord::Base
   end
 
   def send_blast_sms(text)
-    users.with_phone_number.each {|user| SMS.send_message(user, text)}
+    users.with_phone_number.each {|user| OutgoingMessage.send_message(user, text)}
   end
 
   def number_not_found_response

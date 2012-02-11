@@ -71,6 +71,8 @@ Feature: User gives credit to game referer via autocomplete field
     Then user with email "1@loaded.com" should show up as referred by "Shelly"
     And DJ cranks 5 times
     And "+16662221111" should have received SMS "Blowing Smoke gave you credit for referring them to the game. Many thanks and 2000 bonus points!"
+    When "pre@loaded.com" opens the email
+    Then I should see "Blowing Smoke gave you credit for referring them to the game. Many thanks and 2000 bonus points!" in the email body
     When I follow "Confirm my mobile number later"
     And I should see "Shelly got credit for referring Blowing Smoke to the game"
     And I should see "2000 pts"
@@ -118,6 +120,8 @@ Feature: User gives credit to game referer via autocomplete field
     Then user with email "1@loaded.com" should show up as referred by "Shelly"
     And DJ cranks 5 times
     And "+16662221111" should have received SMS "Blowing Smoke gave you credit for referring them to the game. Many thanks and 2000 bonus points!"
+    When "pre@loaded.com" opens the email
+    Then I should see "Blowing Smoke gave you credit for referring them to the game. Many thanks and 2000 bonus points!" in the email body
     And I should see "Shelly got credit for referring Blowing Smoke to the game"
     And I should see "2000 pts"
 
@@ -150,6 +154,8 @@ Feature: User gives credit to game referer via autocomplete field
     Then user with email "racing22@inviting.com" should show up as referred by "Barnaby"
     And DJ cranks 5 times
     And "+15554445555" should have received SMS "Blowing Smoke gave you credit for referring them to the game. Many thanks and 2000 bonus points!"
+    When "claimed@inviting.com" opens the email
+    Then I should see "Blowing Smoke gave you credit for referring them to the game. Many thanks and 2000 bonus points!" in the email body
     When I follow "Confirm my mobile number later"
     And I should see "Barnaby got credit for referring Blowing Smoke to the game"
     And I should see "2000 pts"
@@ -186,6 +192,8 @@ Feature: User gives credit to game referer via autocomplete field
     Then user with email "racing03@inviting.com" should show up as referred by "Barnaby"
     And DJ cranks 5 times
     And "+15554445555" should have received SMS "Blowing Smoke gave you credit for referring them to the game. Many thanks and 2000 bonus points!"
+    When "claimed@inviting.com" opens the email
+    Then I should see "Blowing Smoke gave you credit for referring them to the game. Many thanks and 2000 bonus points!" in the email body
     When I follow "Confirm my mobile number later"
     And I should see "Barnaby got credit for referring Blowing Smoke to the game"
     And I should see "2000 pts"

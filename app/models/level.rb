@@ -23,7 +23,7 @@ class Level < ActiveRecord::Base
       :level_name => self.name
     )
 
-    SMS.send_side_message(user, sms_text)
+    OutgoingMessage.send_side_message(user, sms_text)
   end
 
   def self.check_for_level_up(old_points, user)

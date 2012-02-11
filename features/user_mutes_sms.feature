@@ -2,10 +2,10 @@ Feature: User mutes SMS
 
   Background:
     Given the following claimed users exist:
-      | name     | phone number |
-      | Joe Bob  | +14155551212 |
-      | Bob Fred | +16175551212 |
-      | Fred Joe | +18085551212 |
+      | name     | phone number | email               |
+      | Joe Bob  | +14155551212 | joebob@example.com  |
+      | Bob Fred | +16175551212 | bobfred@example.com |
+      | Fred Joe | +18085551212 | fredjoe@example.com |
 
   Scenario: User mutes SMS
     And time is frozen at "2010-01-01 00:00:00 +0000"
@@ -49,15 +49,20 @@ Feature: User mutes SMS
     When the system sends "Text 9" to user "Joe Bob"
     And DJ cranks 20 times
     Then "+14155551212" should not have received SMS "If you want to temporarily stop getting texts from us, you can text back MUTE to stop them for 24 hours."
+    And "joebob@example.com" should receive no emails
 
     When the system sends "Text 10" to user "Joe Bob"
     And DJ cranks 10 times
     Then "+14155551212" should have received SMS "If you want to temporarily stop getting texts from us, you can text back MUTE to stop them for 24 hours. To stop getting this reminder, text GOT IT."
+    When "joebob@example.com" opens the email
+    Then I should see "To stop getting this reminder, text GOT IT" in the email body
 
     When I clear all sent texts
+    Given a clear email queue 
     And the system sends "Text 11" to user "Joe Bob"
     And DJ cranks 10 times
     Then "+14155551212" should not have received SMS "If you want to temporarily stop getting texts from us, you can text back MUTE to stop them for 24 hours. To stop getting this reminder, text GOT IT."
+    And "joebob@example.com" should receive no email
 
   Scenario: Mute reminder threshold can be set on a custom basis
     Given the following demo exists:

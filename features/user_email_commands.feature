@@ -101,7 +101,7 @@ This is not an offer to trade or roll logs. Void where prohibited. Some assembly
       | joe@customco.com | +17185551212 | name: CustomCo |
     When "joe@customco.com" sends email with subject "me tarzan, you jane" and body "do good thing"
     And "joe@customco.com" opens the email
-    Then they should see the email delivered from "custom@playhengage.com"
+    Then they should see the email delivered from "CustomCo <custom@playhengage.com>"
     Then I should see "Good for you" in the email body
 
   Scenario: User throws a bunch of blank lines in at the top, for God knows what reason

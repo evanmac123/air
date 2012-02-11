@@ -253,7 +253,7 @@ class User < ActiveRecord::Base
   end
 
   def send_new_phone_validation_token
-    SMS.send_message self.new_phone_number, "Your code to verify this phone with H Engage is #{self.new_phone_validation}.", nil, :from_demo => self.demo
+    OutgoingMessage.send_message self.new_phone_number, "Your code to verify this phone with H Engage is #{self.new_phone_validation}.", nil, :from_demo => self.demo
   end
 
   def validate_new_phone(entered_validation_code)
@@ -261,12 +261,15 @@ class User < ActiveRecord::Base
   end
 
   def schedule_followup_welcome_message
-    return if (message = self.demo.followup_welcome_message).blank?
-    return if self.phone_number.blank?
+    return if self.demo.followup_welcome_message.blank?
+    #self.send_followup_welcome_message
+    self.delay(:run_at => Time.now + demo.followup_welcome_message_delay.minutes).send_followup_welcome_message
+  end
 
+  def send_followup_welcome_message
     User.transaction do
       unless self.follow_up_message_sent_at
-        SMS.send_message(self, message, Time.now + demo.followup_welcome_message_delay.minutes)
+        OutgoingMessage.send_message(self, self.demo.followup_welcome_message)
         self.update_attributes(:follow_up_message_sent_at => Time.now)
       end
     end
@@ -283,7 +286,23 @@ class User < ActiveRecord::Base
   def bump_mt_texts_sent_today
     increment!(:mt_texts_today)
     if self.mt_texts_today == self.mute_notice_threshold && !(self.suppress_mute_notice)
-      SMS.send_message(self, "If you want to temporarily stop getting texts from us, you can text back MUTE to stop them for 24 hours. To stop getting this reminder, text GOT IT.")
+      OutgoingMessage.send_message(self, "If you want to temporarily stop getting texts from us, you can text back MUTE to stop them for 24 hours. To stop getting this reminder, text GOT IT.")
+    end
+  end
+
+  def notification_channels
+    case self.notification_method
+    when 'email': [:email]
+    when 'sms': [:sms]
+    when 'both': [:sms, :email]
+    end
+  end
+
+  def reply_email_address
+    if self.demo.email
+      from_email = "#{self.demo.name} <#{self.demo.email}>"
+    else
+      from_email = "H Engage <play@playhengage.com>"
     end
   end
 
@@ -330,7 +349,7 @@ class User < ActiveRecord::Base
 
     case reply_mode
     when :send
-      SMS.send_message(self, welcome_message)
+      OutgoingMessage.send_message(self, welcome_message)
     when :string
       welcome_message
     end
@@ -890,9 +909,9 @@ class User < ActiveRecord::Base
   end
 
   def send_victory_notices
-    SMS.send_side_message(self, self.demo.victory_sms(self))
+    OutgoingMessage.send_side_message(self, self.demo.victory_sms(self))
 
-    SMS.send_message(
+    OutgoingMessage.send_message(
       self.demo.victory_verification_sms_number,
       "#{self.name} (#{self.email}) won with #{self.points} points"
     ) if self.demo.victory_verification_sms_number
@@ -927,7 +946,8 @@ class User < ActiveRecord::Base
       :rule_value                => rule_value.value,
       :point_and_ranking_summary => referring_user.point_and_ranking_summary(points_denominator_before_referring_act)
     )
-    SMS.send_message(referring_user, sms_text)
+
+    OutgoingMessage.send_message(referring_user, sms_text)
   end
 
   def update_demo_ranked_user_count

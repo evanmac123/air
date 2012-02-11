@@ -20,3 +20,7 @@ Then /^I should see the following in the email body:$/ do |string|
   current_email.default_part_body.to_s.should include(string)
 end
 
+Then /^"([^"]*)" should receive an email with "([^"]*)" in the email body$/ do |address, expected_text|
+  unread_emails_for(address).select { |m| m.to_s.include?(expected_text) }.should_not be_empty
+end
+

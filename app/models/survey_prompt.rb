@@ -43,7 +43,7 @@ class SurveyPrompt < ActiveRecord::Base
 
     case mode
     when :outbound
-      SMS.send_message(user.phone_number, text)
+      OutgoingMessage.send_message(user, text)
     when :reply
       text
     end

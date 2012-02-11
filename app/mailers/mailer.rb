@@ -9,6 +9,7 @@ class Mailer < ActionMailer::Base
     else
       @referrer_params = ''
     end
+
     @demo_name = user.demo.name || "H Engage"
     begins = user.demo.begins_at
     if begins
@@ -19,16 +20,11 @@ class Mailer < ActionMailer::Base
         @begins_soon = true
       end
     end
-    
-    if @user.demo.email
-      from_email = "#{@user.demo.name} <#{@user.demo.email}>"
-    else
-      from_email = "H Engage <play@playhengage.com>"
-    end
+
     subject = "Invitation to play #{@demo_name}"
     mail :to      => user.email,
          :subject => subject,
-         :from => from_email
+         :from => @user.reply_email_address
   end
 
   def victory(user)
@@ -72,13 +68,15 @@ class Mailer < ActionMailer::Base
   end
 
   def follow_notification(to, follower_name, accept_command, ignore_command, reply_phone_number)
+    from_address = to.kind_of?(User) ? to.reply_email_address : DEFAULT_PLAY_ADDRESS
+
     @follower_name = follower_name
     @accept_command = accept_command
     @ignore_command = ignore_command
     @reply_phone_number = reply_phone_number
 
     mail :to      => to,
-         :from    => "donotreply@hengage.com",
+         :from => from_address,
          :subject => "#{follower_name} wants to be your fan on H Engage"
   end
 
@@ -86,7 +84,7 @@ class Mailer < ActionMailer::Base
     @user = User.find(user_id)
 
     mail :to      => @user.email,
-         :from    => "donotreply@hengage.com",
+         :from => @user.reply_email_address,
          :subject => "Set your password"
   end
 
@@ -94,7 +92,27 @@ class Mailer < ActionMailer::Base
     @user = User.find(user_id)
 
     mail :to      => to,
-         :from    => "donotreply@hengage.com",
+         :from => @user.reply_email_address,
          :subject => "ID already taken"
+  end
+
+  def side_message(recipient_identifier, message)
+    to_email, from_email =
+      case recipient_identifier
+      when Fixnum:
+        user = User.find(recipient_identifier)
+        [user.email, user.reply_email_address]
+      when String:
+        [recipient_identifier, DEFAULT_PLAY_ADDRESS]
+      end
+
+    @message = message
+
+    mail(
+      :to      => to_email,
+      :from    => from_email,
+      :subject => "Message from H Engage",
+      :template_path => 'email_command_mailer',
+      :template_name => "send_response")
   end
 end

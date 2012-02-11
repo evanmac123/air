@@ -38,7 +38,7 @@ Background:
   Scenario: Survey sends first prompt to everyone in the demo
     Given time is frozen at "2011-05-01 13:00 UTC"
     When DJ cranks once
-    And DJ cranks 10 times
+    And DJ cranks 15 times
     Then "+14155551212" should have received an SMS "Answer this, peon: Do you smoke crack?"
     And "+16175551212" should have received an SMS "Answer this, peon: Do you smoke crack?"
     And "+18085551212" should have received an SMS "Answer this, peon: Do you smoke crack?"

@@ -81,7 +81,7 @@ Feature: User accepts invitation
     And I press "Join the game"
     And "Phil" fills in the new phone validation field with their validation code
     And I press "Validate phone"
-    And DJ cranks 5 times
+    And DJ cranks 10 times
     
     Then "+14152613077" should have received an SMS "You, phil, are in the FooCo game."
 
@@ -241,3 +241,14 @@ Feature: User accepts invitation
 
   Scenario: User doesn't see Highmark-specific copy
     Then I should not see "Neither Highmark, its subsidiaries or agents, will be held responsible for any charges related to the use of the services."
+
+  Scenario: User gets phone verification code to phone only
+    Given a clear email queue
+    When I fill in "Enter your mobile number" with "508-740-7520"
+    And I fill in "Choose a password" with "whatwhat"
+    And I fill in "And confirm that password" with "whatwhat"
+    And I check "Terms and conditions"
+    And I press "Join the game"
+    Then "dan@example.com" should receive 1 email
+    When "dan@example.com" opens the email
+    Then I should not see "Your invitation code" in the email body

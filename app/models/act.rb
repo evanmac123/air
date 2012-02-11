@@ -138,7 +138,7 @@ class Act < ActiveRecord::Base
 
   def check_goal_completion
     if self.completes_goal?
-      SMS.send_side_message(user, self.goal.completion_sms_text)
+      OutgoingMessage.send_side_message(user, self.goal.completion_sms_text)
       GoalCompletion.create!(:user => user, :goal => self.goal)
     end
   end
@@ -156,7 +156,7 @@ class Act < ActiveRecord::Base
         :inherent_points => fulfillable_bonus.points
       )
 
-      SMS.send_side_message(user, fulfillable_bonus.sms_response)
+      OutgoingMessage.send_side_message(user, fulfillable_bonus.sms_response)
     end
   end
 

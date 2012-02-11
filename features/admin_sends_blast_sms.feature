@@ -2,11 +2,11 @@ Feature: Admin sends blast SMS
 
   Background:
     Given the following users exist:
-      | name | phone number | demo                |
-      | Phil | +14155551212 | name: FooCo |
-      | Vlad | +16175551212 | name: FooCo |
-      | Dan  | +18085551212 | name: FooCo |
-      | Sven | +13055551212 | name: BarCo |
+      | name | phone number | email          | notification method | demo        |
+      | Phil | +14155551212 | phil@fooco.com | both                | name: FooCo |
+      | Vlad | +16175551212 | vlad@fooco.com | sms                 | name: FooCo |
+      | Dan  | +18085551212 | dan@fooco.com  | email               | name: FooCo |
+      | Sven | +13055551212 | sven@fooco.com | both                | name: BarCo |
     And I sign in as an admin via the login page
     And I go to the blast SMS page for "FooCo"
 
@@ -16,8 +16,13 @@ Feature: Admin sends blast SMS
     And DJ cranks 10 times
     Then "+14155551212" should have received SMS "Are we having fun yet?"
     And "+16175551212" should have received SMS "Are we having fun yet?"
-    And "+18085551212" should have received SMS "Are we having fun yet?"
+    But "+18085551212" should not have received any SMSes
     And "+13055551212" should not have received any SMSes
+
+    When "phil@fooco.com" opens the email
+    Then I should see "Are we having fun yet?" in the email body
+    When "dan@fooco.com" opens the email
+    Then I should see "Are we having fun yet?" in the email body
 
   Scenario: Admin sends delayed blast SMS
     When time is frozen at "2010-05-01 12:59:59 EDT"
@@ -33,7 +38,7 @@ Feature: Admin sends blast SMS
     And DJ cranks 10 times
     Then "+14155551212" should have received SMS "Are we having fun yet?"
     And "+16175551212" should have received SMS "Are we having fun yet?"
-    And "+18085551212" should have received SMS "Are we having fun yet?"
+    But "+18085551212" should not have received any SMSes
     And "+13055551212" should not have received any SMSes
 
   Scenario: Restriction on blast SMS length

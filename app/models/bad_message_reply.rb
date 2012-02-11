@@ -6,6 +6,6 @@ class BadMessageReply < ActiveRecord::Base
   validates_presence_of :bad_message_id
 
   def send_to_bad_message_originator
-    SMS.send_message(self.bad_message.phone_number, self.body)
+    OutgoingMessage.send_message(self.bad_message.phone_number, self.body)
   end
 end

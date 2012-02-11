@@ -10,7 +10,7 @@ class TaskSuggestion < ActiveRecord::Base
 
   def satisfy!
     update_attributes(:satisfied => true, :display_completion_on_next_request => true)
-    SMS.send_side_message(self.user, self.satisfaction_message)
+    OutgoingMessage.send_side_message(self.user, self.satisfaction_message)
     Act.create!(:user_id =>self.user_id, :inherent_points => self.suggested_task.bonus_points, :text => "I completed a daily dose!")
   end
 

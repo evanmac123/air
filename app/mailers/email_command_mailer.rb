@@ -1,10 +1,8 @@
 class EmailCommandMailer < ActionMailer::Base
-  DEFAULT_PLAY_ADDRESS = Rails.env.production? ? "play@playhengage.com" : "play-#{Rails.env}@playhengage.com"
-
   def send_response(email_command)
       @message  = email_command.response
       mail(:to      => email_command.user.email, 
-           :from    => play_address(email_command.user.demo),
+           :from    => email_command.user.reply_email_address,
            :subject => "Got your message!")
   end
 
@@ -13,7 +11,7 @@ class EmailCommandMailer < ActionMailer::Base
     @user = email_command.user
 
     mail(:to      => email_command.user.email, 
-         :from    => play_address(email_command.user.demo),
+         :from    => email_command.user.reply_email_address,
          :subject => "Welcome to the game!")
   end
 
@@ -23,11 +21,6 @@ class EmailCommandMailer < ActionMailer::Base
     mail(:to      => to_address, 
          :from    => DEFAULT_PLAY_ADDRESS,
          :subject => "Welcome to H Engage")
-  end
-  protected
-
-  def play_address(demo)
-    demo.email.present? ? demo.email : DEFAULT_PLAY_ADDRESS
   end
 end
 

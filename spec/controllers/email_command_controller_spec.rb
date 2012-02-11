@@ -42,13 +42,6 @@ describe EmailCommandController do
         email_command.response.should eql "Sorry, I don't understand what that means. Email \"s\" to suggest we add what you sent."
       end
 
-      it "should set the From header to the proper address" do
-        params = @test_params.merge({:plain => 'some damn thing'})
-        post 'create', params
-        Delayed::Worker.new.work_off(10)
-        ActionMailer::Base.deliveries.first.from.should == [EmailCommandMailer::DEFAULT_PLAY_ADDRESS]
-      end
-
       it "should process 'myid' correctly" do
         params = @test_params.merge({:plain => "myid"})
         post 'create', params

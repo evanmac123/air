@@ -1,6 +1,4 @@
 module SMS
-  DEFAULT_SIDE_MESSAGE_DELAY = ENV['SIDE_MESSAGE_DELAY'] || 5
-
   def self.send_message(to, body, send_at = nil, options={})
     return unless to.present? # no sending to blank numbers
     return if muted_user?(to)
@@ -26,10 +24,6 @@ module SMS
     end
 
     Delayed::Job.enqueue(OutgoingMessageJob.new(from_number, to_number, body), delay_params)
-  end
-
-  def self.send_side_message(to, body)
-    send_message(to, body, Time.now + DEFAULT_SIDE_MESSAGE_DELAY)
   end
 
   protected
