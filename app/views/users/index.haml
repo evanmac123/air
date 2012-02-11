@@ -4,6 +4,15 @@
 #main
   .directory.module
     %h1.headline User Directory
+    - if @search_string
+      #notify_of_search
+        %p.title
+          Showing search results for
+          %i
+            = @search_string
+        %p 
+          Click here to
+          = link_to "view entire directory", users_path 
     %ul#other-users
       - @other_users.each do |u|
         %li.user.relative
@@ -32,14 +41,19 @@
 
 
           .cf
-      .seemore
-        = image_tag "/images/v3/arrow-down.png"
-        = link_to "See more", '#', :id => 'see-more'
+    - if @users_cropped
+      .focus_on_search_bar{:style => "display: inline;"}
+        = "(First #{@users_cropped} results returned. Didn't find who you're looking for? Try" 
+        = link_to @search_link_text, '#'
+        )    
+    .seemore
+      = image_tag "/images/v3/arrow-down.png"
+      =# link_to "See more", '#', :id => 'see-more'
 #secondary
 
   #search-box.module
     %h1.headline Search
-    .search_nudge Don't see the person you're looking for? Try searching
+    -#.search_nudge Don't see the person you're looking for? Try searching
     #search
       = form_tag users_path, :method => :get do
         = label_tag "search_string", "search bar", :class => :hidden

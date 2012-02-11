@@ -1805,3 +1805,13 @@ body.interstitial_verifications div.content div#no-login-yet {
 
 .search_nudge {
   padding-bottom: 5px; }
+
+#notify_of_search {
+  -moz-border-radius: 6ex;
+  -webkit-border-radius: 6ex;
+  border-radius: 6ex;
+  background: #e8e8e8;
+  margin: 16px 60px;
+  padding: 13px 23px; }
+  #notify_of_search .title {
+    font-size: 120%; }

@@ -942,3 +942,18 @@ body.interstitial_verifications {
 .search_nudge{
   padding-bottom: 5px;
 }
+#notify_of_search{
+  -moz-border-radius: 6ex;
+  -webkit-border-radius: 6ex;
+  border-radius: 6ex;
+  .title{font-size: 120%;}
+  background: #e8e8e8;
+  margin: 16px 60px;
+  padding: 13px 23px;
+}
+// .focus_on_search_bar{
+//   a{ color: $header-bg;}
+//   text-align: center;
+//   width: 70%;
+//   
+// }
