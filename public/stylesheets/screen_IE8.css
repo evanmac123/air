@@ -76,9 +76,14 @@ body.invitations .header #navigation .nav-signup, body.sessions .header #navigat
   border-radius: 0!important;
   z-index: 100; }
 
+<<<<<<< HEAD
 .acts .header .navigation .nav-home, .users .header .navigation .nav-profile, .scores .header .navigation .nav-scores, .users .header .navigation .nav-directory {
   border-radius: 0!important;
   z-index: 9999!important; }
+=======
+.acts .header .navigation .nav-home, .users .header .navigation .nav-activity {
+  border-radius: 0!important; }
+>>>>>>> @@  Allowed Activity page to be functional
 
 .suggested-task {
   background-color: #008873 !important;

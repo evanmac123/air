@@ -117,6 +117,44 @@ class User < ActiveRecord::Base
 
   has_alphabetical_column :name
 
+  def can_see_activity_of(user)
+    return true if self == user
+    case self.privacy_level
+    when 'everybody'
+      return true 
+    when 'connected'
+      return true if self.following? user
+    end
+    return false
+  end
+  
+  def reason_for_privacy
+    case self.privacy_level
+    when 'everybody'
+      reason = " allows everyone to see their activity"
+    when 'connected'
+      reason = " only allows followers to see their activity"
+    when 'nobody'
+      reason = " does not allow anyone to see their activity"
+    end
+    return reason
+  end
+  
+
+  def display_level_name
+    if top_level.nil?
+      return nil
+    else
+      return top_level.name
+    end
+  end
+  
+  def points_to_next_unachieved_threshold
+    next_threshold = self.next_unachieved_threshold
+    return 12345678 if next_threshold.nil?
+    next_threshold - self.points
+  end
+  
   def update_password_with_blank_forbidden(password, password_confirmation)
     # See comment in user_spec for #update_password.
     unless password.present?
@@ -317,6 +355,7 @@ class User < ActiveRecord::Base
   end
 
   def top_level
+    return nil if self.levels.empty?
     self.levels.order("threshold DESC").limit(1).first
   end
 
@@ -827,7 +866,7 @@ class User < ActiveRecord::Base
       threshold_from_demo || threshold_from_highest_level
     end
   end
-
+  
   def last_level
     demo.levels.where("threshold <= ?", self.points).order("threshold DESC").limit(1).first
   end

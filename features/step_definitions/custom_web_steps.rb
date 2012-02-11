@@ -122,8 +122,13 @@ end
 Then /^I should see "(.*?)" within a link to (.*?)$/ do |text, page_name|
   expected_href = path_to(page_name)
 
+
   with_scope("\"a[href='#{expected_href}']\"") do
-    page.should have_content(text)
+    begin
+      page.should have_content(text)
+    rescue
+      page.should have_css('img', :alt => text) 
+    end 
   end
 end
 
@@ -273,3 +278,4 @@ Then /^there should be a user with email "([^"]*)" in demo "([^"]*)"$/ do |email
   demo_id = Demo.find_by_name(name).id
   User.where(:email => email, :demo_id => demo_id).should_not be_empty
 end
+

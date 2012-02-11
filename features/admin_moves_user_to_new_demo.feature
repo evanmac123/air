@@ -58,6 +58,8 @@ Feature: Admin moves a user to a new demo
   Scenario: In user's profile page, only new acts appear
     When I sign in via the login page as "Fred/bazlet"
     And I go to the profile page for "Dan"
+    Then I should be on the profile page for "Dan"
+    
     Then I should see the following act:
       | name | act          | points |
       | Dan  | went running | 10     |

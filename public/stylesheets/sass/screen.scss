@@ -34,7 +34,7 @@ body {
 	}
 }
 /* -- nav active states -- */
-.acts .header .navigation .nav-home, .users-show .header .navigation .nav-profile, .users-index .header .navigation .nav-directory, .scores .header .navigation .nav-scores {
+.acts .header .navigation .nav-home, .users-show .header .navigation .nav-activity, .users-index .header .navigation .nav-directory, .scores .header .navigation .nav-scores {
 	@include bg-black;
 	@include rounded-nav;
 	border:1px lighten($header-bg, 10%) solid;
@@ -386,6 +386,7 @@ body.acts {
 /* --------------------------- profile page --------------------------- */
 body.users {
 	div#about-player {
+	  position: relative;
 		margin-bottom:15px;
 		div.player-avatar {
 			float:left;
@@ -411,14 +412,16 @@ body.users {
 			li {
 				margin:0;
 				padding:0 0 5px 0;
+				&:last-child{padding-bottom: 0px;}
 			}
-			p {
-				@include orange-text;
-				font-size:16px;
-				&.points-and-level {
-//						@include rounded;
-//						background:#fff;
-//						padding:5px;
+			.points-and-level{
+			  p {
+				  @include orange-text;
+  				font-size:16px;
+  				line-height: 17px;
+  				&.next_level{
+  				  font-size: 14px;
+  				}
 				}
 			}
 		}
@@ -489,13 +492,6 @@ body.users-index {
 					float:left;
 					padding:5px;
 					width:45%;
-				}
-				div.follow-btn, div.stop-following-btn {
-					@include button-norm;
-					width: 100px;
-					float:right;
-					text-align: center;
-					a {color:#fff;}
 				}
 			}
 		}
@@ -934,11 +930,16 @@ body.interstitial_verifications {
   color: #aaa;
   padding-bottom: 2px;
 }
+
 .follow_buttons{
   position: absolute;
   bottom: 15px;
   right: 2px;
 }
+#about-player .follow_buttons{
+  right: 15px;
+}
+
 .search_nudge{
   padding-bottom: 5px;
 }
@@ -951,9 +952,18 @@ body.interstitial_verifications {
   margin: 16px 60px;
   padding: 13px 23px;
 }
-// .focus_on_search_bar{
-//   a{ color: $header-bg;}
-//   text-align: center;
-//   width: 70%;
-//   
-// }
+div.follow-btn, div.stop-following-btn {
+	@include button-norm;
+	width: 100px;
+	float:right;
+	text-align: center;
+	a {color:#fff;}
+}
+#following, #followed-by{
+  li{
+    list-style-position: outside;
+  }
+  ul, ol{
+    padding-left: 20px;
+  }
+}

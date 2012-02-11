@@ -1,0 +1,70 @@
+#left-col
+  #about-player.module
+    .player-avatar
+      = avatar_96(@user)
+      = render 'follow_buttons', :user => @user
+    %ul.player-info
+      %li
+        %h1.headline= @user.name
+      %li
+        .points-and-level 
+          %p= @user.display_level_name
+          %p.next_level= "(#{@user.points_to_next_unachieved_threshold} points to next level)"
+      %li
+        = link_to @user.email, "mailto:#{@user.email}"
+    .cf
+
+  %h2.title Player History
+  #recent-activity.module
+    %h1.headline Recent Activity
+    - unless @display_user_stats
+      %p= @reason_for_privacy
+    - else
+      %ul#user-acts
+        %li.act-shim
+        = render :partial => 'shared/new_act', :collection => @acts, :as => :act
+    .seemore
+      = image_tag "/images/v3/arrow-down.png"
+      = link_to "See more", '#', :id => 'see-more'
+= content_for :javascript do
+  :javascript
+    var actOffset = <%= @acts.length %>;
+
+    $('#see-more').bind('click', function(e) {
+      $('#see-more-spinner').show();
+      $.get('<%= user_acts_path(:user_id => @user.id, :format => :js) %>', {offset: actOffset});
+      e.preventDefault();
+    });
+    
+#right-col
+  %h2.title Connections
+  #following.module
+    %h1.headline Following
+    - unless @display_user_stats
+      %p= @reason_for_privacy
+    - else
+      %ol.following-users
+        - if @accepted_friends.empty?
+          %p Not following anyone yet
+        - else
+          - @accepted_friends.each do |friend|
+            %li.user
+              %p.user-name= link_to friend.name, user_path(friend)
+              %p.user-level= friend.display_level_name
+    .cf
+    
+  #followed-by.module
+    %h1.headline Followed By
+    - unless @display_user_stats
+      %p= @reason_for_privacy
+    - else
+      %ol.following-users
+        - if @accepted_followers.empty?
+          %p No followers yet
+        - else
+          - @accepted_followers.each do |friend|
+            %li.user
+              %p.user-name= link_to friend.name, user_path(friend)
+              %p.user-level= friend.display_level_name
+    .cf
+  

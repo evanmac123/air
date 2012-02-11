@@ -602,7 +602,7 @@ body {
         color: #2e2e2c; }
 
 /* -- nav active states -- */
-.acts .header .navigation .nav-home, .users-show .header .navigation .nav-profile, .users-index .header .navigation .nav-directory, .scores .header .navigation .nav-scores {
+.acts .header .navigation .nav-home, .users-show .header .navigation .nav-activity, .users-index .header .navigation .nav-directory, .scores .header .navigation .nav-scores {
   background: #1e1f1e;
   /* Old browsers */
   background: -moz-linear-gradient(top, #1e1f1e 13%, #343434 59%);
@@ -1175,6 +1175,7 @@ body.acts #facebox .popup {
 
 /* --------------------------- profile page --------------------------- */
 body.users div#about-player {
+  position: relative;
   margin-bottom: 15px; }
   body.users div#about-player div.player-avatar {
     float: left; }
@@ -1230,13 +1231,18 @@ body.users div#about-player {
     body.users div#about-player ul.player-info li {
       margin: 0;
       padding: 0 0 5px 0; }
-    body.users div#about-player ul.player-info p {
+      body.users div#about-player ul.player-info li:last-child {
+        padding-bottom: 0px; }
+    body.users div#about-player ul.player-info .points-and-level p {
       color: #ffb901;
       font-family: "Ubuntu", Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
       font-weight: 700;
       text-shadow: 1px 1px 1px #9a7000;
       text-transform: uppercase;
-      font-size: 16px; }
+      font-size: 16px;
+      line-height: 17px; }
+      body.users div#about-player ul.player-info .points-and-level p.next_level {
+        font-size: 14px; }
 body.users div#left-col {
   float: left;
   width: 60%; }
@@ -1368,43 +1374,6 @@ body.users-index div#main {
         float: left;
         padding: 5px;
         width: 45%; }
-      body.users-index div#main ul#other-users li.user div.follow-btn, body.users-index div#main ul#other-users li.user div.stop-following-btn {
-        background: #3f3f3f;
-        /* Old browsers */
-        background: -moz-linear-gradient(top, #3f3f3f 0%, #2e2f2d 100%);
-        /* FF3.6+ */
-        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #3f3f3f), color-stop(100%, #2e2f2d));
-        /* Chrome,Safari4+ */
-        background: -webkit-linear-gradient(top, #3f3f3f 0%, #2e2f2d 100%);
-        /* Chrome10+,Safari5.1+ */
-        background: -o-linear-gradient(top, #3f3f3f 0%, #2e2f2d 100%);
-        /* Opera 11.10+ */
-        background: -ms-linear-gradient(top, #3f3f3f 0%, #2e2f2d 100%);
-        /* IE10+ */
-        background: linear-gradient(top, #3f3f3f 0%, #2e2f2d 100%);
-        /* W3C */
-        -webkit-border-radius: 20px;
-        -moz-border-radius: 20px;
-        border-radius: 20px;
-        behavior: url(/css3pie/PIE.htc);
-        border: 0;
-        color: #fff;
-        font-family: "Ubuntu", Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
-        font-size: 11px!important;
-        font-weight: bold;
-        padding: 5px 15px;
-        text-shadow: 1px 1px 1px #2e2e2c;
-        text-transform: uppercase;
-        font-weight: 900!important;
-        width: 100px;
-        float: right;
-        text-align: center; }
-        body.users-index div#main ul#other-users li.user div.follow-btn:hover, body.users-index div#main ul#other-users li.user div.stop-following-btn:hover {
-          background: #588b3d; }
-        body.users-index div#main ul#other-users li.user div.follow-btn:active, body.users-index div#main ul#other-users li.user div.stop-following-btn:active {
-          background: #909090; }
-        body.users-index div#main ul#other-users li.user div.follow-btn a, body.users-index div#main ul#other-users li.user div.stop-following-btn a {
-          color: #fff; }
 body.users-index div#secondary {
   float: right;
   width: 38%; }
@@ -1803,6 +1772,9 @@ body.interstitial_verifications div.content div#no-login-yet {
   bottom: 15px;
   right: 2px; }
 
+#about-player .follow_buttons {
+  right: 15px; }
+
 .search_nudge {
   padding-bottom: 5px; }
 
@@ -1815,3 +1787,46 @@ body.interstitial_verifications div.content div#no-login-yet {
   padding: 13px 23px; }
   #notify_of_search .title {
     font-size: 120%; }
+
+div.follow-btn, div.stop-following-btn {
+  background: #3f3f3f;
+  /* Old browsers */
+  background: -moz-linear-gradient(top, #3f3f3f 0%, #2e2f2d 100%);
+  /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #3f3f3f), color-stop(100%, #2e2f2d));
+  /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top, #3f3f3f 0%, #2e2f2d 100%);
+  /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, #3f3f3f 0%, #2e2f2d 100%);
+  /* Opera 11.10+ */
+  background: -ms-linear-gradient(top, #3f3f3f 0%, #2e2f2d 100%);
+  /* IE10+ */
+  background: linear-gradient(top, #3f3f3f 0%, #2e2f2d 100%);
+  /* W3C */
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  border-radius: 20px;
+  behavior: url(/css3pie/PIE.htc);
+  border: 0;
+  color: #fff;
+  font-family: "Ubuntu", Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 11px!important;
+  font-weight: bold;
+  padding: 5px 15px;
+  text-shadow: 1px 1px 1px #2e2e2c;
+  text-transform: uppercase;
+  font-weight: 900!important;
+  width: 100px;
+  float: right;
+  text-align: center; }
+  div.follow-btn:hover, div.stop-following-btn:hover {
+    background: #588b3d; }
+  div.follow-btn:active, div.stop-following-btn:active {
+    background: #909090; }
+  div.follow-btn a, div.stop-following-btn a {
+    color: #fff; }
+
+#following li, #followed-by li {
+  list-style-position: outside; }
+#following ul, #following ol, #followed-by ul, #followed-by ol {
+  padding-left: 20px; }

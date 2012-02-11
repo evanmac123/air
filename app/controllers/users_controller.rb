@@ -29,5 +29,10 @@ class UsersController < Clearance::UsersController
     @viewing_other = signed_in? && current_user != @user
 
     @current_link_text = "My Profile" if @viewing_self
+    
+    @accepted_followers = @user.accepted_followers
+    @accepted_friends = @user.accepted_friends
+    @display_user_stats = current_user.can_see_activity_of(@user)
+    @reason_for_privacy = @user.name + @user.reason_for_privacy
   end
 end

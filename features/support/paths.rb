@@ -14,6 +14,10 @@ module NavigationHelpers
       '/activity'
     when /the admin page/
       admin_path
+    when /the directory page/
+      users_path
+    when /the help page/
+      faq_path
     when /the admin "(.*)" demo page$/i
       admin_demo_path(Demo.find_by_name($1))
     when /the admin "(.*)" self-inviting domain page$/

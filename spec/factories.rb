@@ -149,8 +149,8 @@ Factory.define :bonus_threshold do |bonus_threshold|
 end
 
 Factory.define :level do |level|
-  level.name "Level"
-  level.sequence(:threshold) {|n| n}
+  level.sequence(:name) {|n| "Level" + n.to_s}
+  level.sequence(:threshold) {|n| 30 * n}
   level.association :demo
 end
 
