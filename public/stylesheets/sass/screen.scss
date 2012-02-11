@@ -488,11 +488,13 @@ body.users-index {
 				div.user-info {
 					float:left;
 					padding:5px;
-					width:65%;
+					width:45%;
 				}
-				div.follow-btn {
+				div.follow-btn, div.stop-following-btn {
 					@include button-norm;
+					width: 100px;
 					float:right;
+					text-align: center;
 					a {color:#fff;}
 				}
 			}
@@ -918,3 +920,25 @@ body.interstitial_verifications {
 	}
 }
 
+#search-box{
+  padding-right: 0;
+}
+.right{
+  float: right;
+}
+.left{
+  float: left;
+}
+.pending_notice{
+  text-align: center;
+  color: #aaa;
+  padding-bottom: 2px;
+}
+.follow_buttons{
+  position: absolute;
+  bottom: 15px;
+  right: 2px;
+}
+.search_nudge{
+  padding-bottom: 5px;
+}

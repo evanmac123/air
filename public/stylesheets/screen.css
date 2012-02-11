@@ -1367,8 +1367,8 @@ body.users-index div#main {
       body.users-index div#main ul#other-users li.user div.user-info {
         float: left;
         padding: 5px;
-        width: 65%; }
-      body.users-index div#main ul#other-users li.user div.follow-btn {
+        width: 45%; }
+      body.users-index div#main ul#other-users li.user div.follow-btn, body.users-index div#main ul#other-users li.user div.stop-following-btn {
         background: #3f3f3f;
         /* Old browsers */
         background: -moz-linear-gradient(top, #3f3f3f 0%, #2e2f2d 100%);
@@ -1396,12 +1396,14 @@ body.users-index div#main {
         text-shadow: 1px 1px 1px #2e2e2c;
         text-transform: uppercase;
         font-weight: 900!important;
-        float: right; }
-        body.users-index div#main ul#other-users li.user div.follow-btn:hover {
+        width: 100px;
+        float: right;
+        text-align: center; }
+        body.users-index div#main ul#other-users li.user div.follow-btn:hover, body.users-index div#main ul#other-users li.user div.stop-following-btn:hover {
           background: #588b3d; }
-        body.users-index div#main ul#other-users li.user div.follow-btn:active {
+        body.users-index div#main ul#other-users li.user div.follow-btn:active, body.users-index div#main ul#other-users li.user div.stop-following-btn:active {
           background: #909090; }
-        body.users-index div#main ul#other-users li.user div.follow-btn a {
+        body.users-index div#main ul#other-users li.user div.follow-btn a, body.users-index div#main ul#other-users li.user div.stop-following-btn a {
           color: #fff; }
 body.users-index div#secondary {
   float: right;
@@ -1781,3 +1783,25 @@ body.interstitial_verifications div.content div#no-login-yet {
     font-weight: 900;
     padding-bottom: 15px;
     text-transform: uppercase; }
+
+#search-box {
+  padding-right: 0; }
+
+.right {
+  float: right; }
+
+.left {
+  float: left; }
+
+.pending_notice {
+  text-align: center;
+  color: #aaa;
+  padding-bottom: 2px; }
+
+.follow_buttons {
+  position: absolute;
+  bottom: 15px;
+  right: 2px; }
+
+.search_nudge {
+  padding-bottom: 5px; }

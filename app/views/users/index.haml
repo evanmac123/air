@@ -1,0 +1,47 @@
+= javascript_include_tag 'directory'
+
+    
+#main
+  .directory.module
+    %h1.headline User Directory
+    %ul#other-users
+      - @other_users.each do |u|
+        %li.user.relative
+          .user-avatar= avatar_96 u
+          .user-info
+            %p= link_to u.name, user_path(u)
+            %p= u.email
+            .follow_buttons
+              - unless current_user.following? u  
+                .follow-btn
+                  Follow
+                  = form_tag user_friendship_path(u) do
+                    = submit_tag "Follow", :class => :hidden
+              - else
+                - if current_user.follow_pending? u
+                  .pending_notice (requested)
+                  - follow_text = "Cancel request"
+                - else
+                  .pending_notice (following)
+                  - follow_text = "Stop following"
+                .stop-following-btn
+                  = follow_text
+                  = form_tag user_friendship_path(u), :method => :delete do
+                    = submit_tag follow_text, :class => :hidden
+              
+
+
+          .cf
+      .seemore
+        = image_tag "/images/v3/arrow-down.png"
+        = link_to "See more", '#', :id => 'see-more'
+#secondary
+
+  #search-box.module
+    %h1.headline Search
+    .search_nudge Don't see the person you're looking for? Try searching
+    #search
+      = form_tag users_path, :method => :get do
+        = label_tag "search_string", "search bar", :class => :hidden
+        = text_field_tag "search_string"
+        = submit_tag "Find!"

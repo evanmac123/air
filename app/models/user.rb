@@ -157,6 +157,14 @@ class User < ActiveRecord::Base
   def accepted_friendships
     friendships.where(:state => 'accepted')
   end
+  
+  def following?(other)
+    friends.include?(other)
+  end
+  
+  def follow_pending?(other)
+    pending_friends.include?(other)
+  end
 
   # See comment by Demo#acts_with_current_demo_checked for an explanation of
   # why we do this.
@@ -411,9 +419,7 @@ class User < ActiveRecord::Base
     end
   end
 
-  def following?(other)
-    friends.include?(other)
-  end
+
 
   def generate_simple_claim_code!
     update_attributes(:claim_code => claim_code_prefix)
@@ -563,7 +569,16 @@ class User < ActiveRecord::Base
       :followed_user_name => self.name
     )
   end
+  
 
+  def follow_removed_message
+    I18n.t(
+      "activerecord.models.user.base_follow_message",
+      :default => "OK, you're not longer a fan of %{followed_user_name}.",
+      :followed_user_name => self.name
+    )
+  end
+  
   def follow_accepted_message
     message = "#{name} has approved your request to be a fan."
 

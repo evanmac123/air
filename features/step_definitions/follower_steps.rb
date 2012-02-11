@@ -22,22 +22,14 @@ end
 
 def expect_user_friendship_path_button(user, method, dom_class, sense)
   expected_path = user_friendship_path(user)
+  submit_form = "form[@action='#{expected_path}']" 
 
-  main_form_selector = "form[@action='#{expected_path}']" 
-
-  follow_button_selector = "#{main_form_selector} input.#{dom_class}[@type='image']"
-  
-  method_field_selector = if (method.downcase == 'post')
-                            nil
-                          else
-                            "#{main_form_selector} input[@type='hidden'][@name='_method'][@value='#{method}']"
-                          end
+  div_containing_submit_form = ".#{dom_class} #{submit_form}"
 
   if sense
-    page.should have_css(follow_button_selector)
-    page.should have_css(method_field_selector) if method_field_selector
+    page.should have_css(div_containing_submit_form)
   else
-    page.should have_no_css(follow_button_selector)
+    page.should have_no_css(div_containing_submit_form)
   end
 end
 
@@ -149,9 +141,9 @@ Then /^I should( not)? see an? (un)?follow button for "(.*?)"$/ do |sense, unfol
   user = User.find_by_name(user_name)
 
   method, dom_class = if unfollow_expected
-                   ['delete', 'defan']
+                   ['delete', 'stop-following-btn']
                  else
-                   ['post', 'be-a-fan']
+                   ['post', 'follow-btn']
                  end
 
   expect_user_friendship_path_button(user, method, dom_class, sense)

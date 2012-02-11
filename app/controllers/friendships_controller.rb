@@ -19,9 +19,15 @@ class FriendshipsController < ApplicationController
 
   def destroy
     @user = User.find_by_slug(params[:user_id])
-    current_user.friendships.where(:friend_id => @user.id).first.destroy
-    @user.reload
-
+    friendship = current_user.friendships.where(:friend_id => @user.id).first
+    pending_friendship = current_user.friendships.where(:friend_id => @user.id).first
+    if friendship
+      friendship.destroy
+      flash[:success] = @user.follow_removed_message
+    else
+      add_success "You were not following #{@user.name}. No action taken"
+    end
+    
     respond_to do |format|
       format.html do
         redirect_to :back

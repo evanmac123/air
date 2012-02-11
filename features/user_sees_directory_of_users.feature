@@ -1,7 +1,6 @@
 Feature: Directory of other users
 
   Background:
-    Given I need to hook all this stuff up
     Given the following claimed users exist:
       | name | avatar file name | demo          |
       | Dan  | dan.png          | name: AlphaCo |
@@ -42,3 +41,15 @@ Feature: Directory of other users
 
   Scenario: Other users in alphabetical order
     Then I should see "Phil,Sven,Vlad" in that order
+    
+  Scenario: Users are searchable
+    Given I fill in "search bar" with "phi"
+    And I press "Find!"
+    Then I should see "Phil" within a link to the user page for "Phil"
+    And I should not see a link to the user page for "Vlad"
+  
+  Scenario: Success message
+    Given I press "Follow"
+    Then I should see "OK, you'll be a fan of Sven, pending their acceptance."
+    Given I press "Cancel request"
+    Then I should see "OK, you're not longer a fan of Phil."
