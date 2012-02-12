@@ -129,6 +129,9 @@ ul#user-acts {
 }
 
 //--------------invite modal--------------
+a#invite_friends_link {
+	position:relative!important;
+}
 .invite-module { //side box
 	div.invite#invite_friends_facebox {
 		form {
@@ -140,7 +143,6 @@ ul#user-acts {
 }
 #facebox { //popup box
 	a#invite_friends_link {
-		background:none!important;
 		border-radius:0!important;
 	}
 	div.content {

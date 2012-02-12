@@ -113,15 +113,31 @@ body.invitations .header #navigation .nav-signup, body.sessions .header #navigat
     .suggested-task p.dose-descript a:active, .suggested-task p.dose-title a:active, .suggested-task div.dose-moreinfo a:active {
       color: #2e2e2c !important; }
 
+a#invite_friends_link {
+  position: relative!important; }
+
 .invite-module {
   /*sidebox for invite AFTER clicking OUT of modal*/ }
   .invite-module div.invite#invite_friends_facebox form div.first_half input[type="text"] {
     border-radius: 0!important; }
+  .invite-module img {
+    position: relative!important;
+    z-index: 99999!important; }
 
-#facebox .content form .first_half {
+#facebox a#invite_friends_link {
+  border-radius: 0!important; }
+#facebox div.content .first_half {
   width: 375px!important; }
-  #facebox .content form .first_half input[type="text"] {
+  #facebox div.content .first_half input[type="text"] {
     width: 250px!important; }
+#facebox div.content input#autocomplete {
+  border-radius: 0!important; }
+#facebox div.helper {
+  border-radius: 0!important;
+  box-shadow: 0!important; }
+#facebox img {
+  position: relative!important;
+  z-index: 99999!important; }
 
 div.invite_or_add input[type="submit"] {
   background: none!important;

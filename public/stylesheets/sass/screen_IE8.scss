@@ -98,7 +98,10 @@ body.invitations .header #navigation .nav-signup, body.sessions .header #navigat
 		}
 	}
 }
-
+//--------------invite modal--------------
+a#invite_friends_link {
+	position:relative!important;
+}
 .invite-module { /*sidebox for invite AFTER clicking OUT of modal*/
 	div.invite#invite_friends_facebox {
 		form {
@@ -109,17 +112,33 @@ body.invitations .header #navigation .nav-signup, body.sessions .header #navigat
 			}
 		}
 	}
+	img {
+		position:relative!important;
+		z-index:99999!important;
+	}
 }
 #facebox {
-	.content {
-		form {
-			.first_half {
-				width:375px!important;
-				input[type="text"] {
-					width:250px!important;
-				}	
-			}
+	a#invite_friends_link {
+		border-radius:0!important;
+	}
+	div.content {
+		.first_half {
+			width:375px!important;
+			input[type="text"] {
+				width:250px!important;
+			}	
 		}
+		input#autocomplete {
+			border-radius:0!important;
+		}
+	}
+	div.helper {
+		border-radius:0!important;
+		box-shadow:0!important;
+	}
+	img {
+		position:relative!important;
+		z-index:99999!important;
 	}
 }
 div.invite_or_add {
@@ -131,7 +150,7 @@ div.invite_or_add {
 		padding:0!important;
 	}
 }
-
+//--------------end invite modal--------------
 body.scores {
 	div.player {
 		width:444px!important;
