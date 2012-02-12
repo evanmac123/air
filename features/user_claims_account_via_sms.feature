@@ -17,14 +17,13 @@ Feature: User claims account via SMS
 
 
   Scenario: Claiming account sends user a password reset email
-    Given we need to fix this
     Given the following user exists:
       | name      | email           | claim_code | demo                             |
       | Dan Croak | dan@example.com | dcroak     | name: Global Tetrahedron |
     When "+14155551212" sends SMS "Dcroak"
     Then "Dan Croak" should have a null password
 
-    When DJ cranks 5 times
+    When DJ cranks 5 times after a little while
     And "dan@example.com" opens the email
     Then I should see "Set your password" in the email subject
     And I should not see "Someone, hopefully you, has requested that we send you a link to change your password." in the email body
