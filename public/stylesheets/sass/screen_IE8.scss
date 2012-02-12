@@ -53,8 +53,9 @@ body.invitations .header #navigation .nav-signup, body.sessions .header #navigat
 	}
 }
 
-.acts .header .navigation .nav-home, .users .header .navigation .nav-profile {
+.acts .header .navigation .nav-home, .users .header .navigation .nav-profile, .scores .header .navigation .nav-scores, .users .header .navigation .nav-directory {
 	border-radius:0!important;
+	z-index:9999!important;
 }
 
 .suggested-task {
@@ -139,6 +140,12 @@ body.scores {
 	}
 	li.label-player {
 		width:69%!important;
+	}
+}
+
+body.sessions {
+	div.content div.inv-forms form {
+		margin-bottom:0!important;
 	}
 }
 
