@@ -139,12 +139,22 @@ ul#user-acts {
 	}
 }
 #facebox { //popup box
-	.content {
+	a#invite_friends_link {
+		background:none!important;
+		border-radius:0!important;
+	}
+	div.content {
 		background:$light-gray!important;
-		input[type="text"] {
+		input#autocomplete {
 			border-radius:0!important;
+		}
+		input[type="text"] {
 			width:250px!important;
 		}
+	}
+	div.helper {
+		border-radius:0!important;
+		box-shadow:0!important;
 	}
 }
 div.invite_or_add {
