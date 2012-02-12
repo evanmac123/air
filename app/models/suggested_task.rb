@@ -5,6 +5,7 @@ class SuggestedTask < ActiveRecord::Base
   has_many :rule_triggers, :class_name => "Trigger::RuleTrigger"
   has_one :survey_trigger, :class_name => "Trigger::SurveyTrigger"
   has_one :demographic_trigger, :class_name => 'Trigger::DemographicTrigger'
+  has_many :task_suggestions, :dependent => :destroy
 
   after_create do
     schedule_suggestion

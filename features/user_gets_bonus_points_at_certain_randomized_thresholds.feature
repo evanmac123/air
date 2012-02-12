@@ -23,20 +23,46 @@ Feature: User gets bonus points at thresholds with some randomness built in
       | 19         | 22         | 5     | name: FooCo |
       | 31         | 38         | 5     | name: FooCo |
     And the following claimed users exist:
-      | name | phone number | points | privacy level | demo        |
-      | Vlad | +14155551212 | 8      | everybody     | name: FooCo | 
-      | Dan  | +16175551212 | 29     | everybody     | name: FooCo |
+      | name | email            | phone number | points | privacy level | demo        |
+      | Vlad | vlad@example.com | +14155551212 | 8      | everybody     | name: FooCo | 
+      | Dan  | dan@example.com  | +16175551212 | 29     | everybody     | name: FooCo |
     And "Vlad" has the password "foobar"
     And I sign in via the login page with "Vlad/foobar"
 
   Scenario: User hits max points for a threshold
     When "+14155551212" sends SMS "ate kitten"
     And a decent interval has passed
+    Given a clear email queue
     And DJ cranks 10 times
     And I go to the activity page
     # Then I should see "Vlad 14 pts"
     And I should see "Vlad got 3 bonus points for passing a bonus threshold"
     And "+14155551212" should have received an SMS including "You got 3 bonus points for passing a bonus threshold!"
+
+  Scenario: User finishing a threshold via SMS gets side message via SMS
+    When "+14155551212" sends SMS "ate kitten"
+    And a decent interval has passed
+    Given a clear email queue
+    And DJ cranks 10 times
+    Then "+14155551212" should have received an SMS including "passing a bonus threshold"
+    But "vlad@example.com" should receive no email
+
+  Scenario: User finishing a threshold via email gets side message via email
+    When "vlad@example.com" sends email with subject "ate kitten" and body "ate kitten"
+    And a decent interval has passed
+    And DJ cranks 10 times
+    Then "vlad@example.com" should receive an email with "passing a bonus threshold" in the email body
+    But "+14155551212" should not have received any SMSes
+
+  Scenario: User finishing a threshold via web sees completion message in the flash
+    When I sign in via the login page with "Vlad/foobar"
+    And I enter the act code "ate kitten"
+    And a decent interval has passed
+    Given a clear email queue
+    And DJ cranks 10 times
+    Then "+14155551212" should not have received any SMSes
+    And "vlad@hengage.com" should receive no email
+    But I should see "passing a bonus threshold"
 
   Scenario: User gets in between min and max points for a threshold and the RNG favors them
     Given the RNG is predisposed to hand out bonus points

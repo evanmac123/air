@@ -45,7 +45,7 @@ class BonusThreshold < ActiveRecord::Base
     probabilistically_award_points?(score)
   end
 
-  def self.consider_awarding_points_for_crossed_bonus_thresholds(old_points, user)
+  def self.consider_awarding_points_for_crossed_bonus_thresholds(old_points, user, channel)
     crossed_bonus_thresholds = user.demo.bonus_thresholds.
                                  crossed(old_points, user.points).
                                  select{|crossed_bonus_threshold| crossed_bonus_threshold.award_points?(user)}
@@ -70,7 +70,7 @@ class BonusThreshold < ActiveRecord::Base
         :inherent_points => crossed_bonus_threshold.award
       )
 
-      OutgoingMessage.send_side_message(user, sms_text)
+      OutgoingMessage.send_side_message(user, sms_text, :channel => channel)
     end  
   end
 

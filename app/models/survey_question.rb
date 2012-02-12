@@ -7,7 +7,7 @@ class SurveyQuestion < ActiveRecord::Base
   validates_presence_of :index
   validates_uniqueness_of :index, :scope => :survey_id
 
-  def respond(user, survey, choice)
+  def respond(user, survey, choice, channel)
     valid_answer = self.survey_valid_answers.where(:value => choice).first
     unless valid_answer
       # If a rule with the chosen value exists, punt on answering questions
@@ -24,7 +24,7 @@ class SurveyQuestion < ActiveRecord::Base
     next_question = survey.latest_question_for(user)
     unless next_question
       record_completion_act(user)
-      trigger_suggested_tasks(user)
+      trigger_suggested_tasks(user, channel)
     end
 
     question_acknowledgement_phrase(next_question)
@@ -95,7 +95,7 @@ class SurveyQuestion < ActiveRecord::Base
     next_question ? next_question.text : "That was the last question. Thanks for completing the survey!"
   end
 
-  def trigger_suggested_tasks(user)
-    user.satisfy_suggestions_by_survey(self.survey_id)
+  def trigger_suggested_tasks(user, channel)
+    user.satisfy_suggestions_by_survey(self.survey_id, channel)
   end
 end

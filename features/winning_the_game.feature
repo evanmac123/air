@@ -4,19 +4,19 @@ Feature: Player can win the game
 
   Background:
     Given the following demo exists:
-      | name | victory_threshold | victory_verification_email | victory_verification_sms_number |
-      | BobCo        | 100               | lucille@example.com        | +16179876543                    |
+      | name  | victory_threshold | victory_verification_email | victory_verification_sms_number |
+      | BobCo | 100               | lucille@example.com        | +16179876543                    |
     And the following demo exists:
-      | name | victory threshold | custom victory achievement message | custom victory sms                     | custom victory scoreboard message |
-      | CustomCo     | 100               | You did it at %{winning_time}!     | You go boy with your %{points} points! | Did a big thing!                  |
-    And the following users exist:
+      | name     | victory threshold | custom victory achievement message | custom victory sms                     | custom victory scoreboard message |
+      | CustomCo | 100               | You did it at %{winning_time}!     | You go boy with your %{points} points! | Did a big thing!                  |
+    And the following claimed users exist:
       | name | email           | phone_number | points | demo                   |
       | Bob  | bob@example.com | +14155551212 | 97     | name: BobCo    |
       | Jim  | jim@example.com | +16175551212 | 97     | name: CustomCo |
     And "Bob" has the password "LOLWTF"
     And "Jim" has the password "LOLWTF"
     And the following rules exist:
-      | points | reply    | demo                   |
+      | points | reply    | demo           |
       | 3      | kitten 1 | name: BobCo    |
       | 3      | kitten 2 | name: CustomCo |
     And the following rule values exist:
@@ -30,13 +30,31 @@ Feature: Player can win the game
     When I go to the activity page
     Then I should not see "You won on"
 
-  Scenario: Player wins by scoring enough points
+  Scenario: Player wins by SMS and gets notified by SMS 
     When "+14155551212" sends SMS "ate a kitten"
     And a decent interval has passed
-    And DJ cranks 5 times
+    Given a clean email queue
+    And DJ cranks 15 times
     And I go to the activity page
     Then "+14155551212" should have received an SMS "Congratulations! You've got 100 points and have qualified for the drawing!"
-    # And I should see "You won on"
+    But "bob@example.com" should receive no email
+
+  Scenario: Player wins by email and gets notified by email 
+    When "bob@example.com" sends email with subject "ate a kitten" and body "ate a kitten"
+    And a decent interval has passed
+    And DJ cranks 15 times
+    And I go to the activity page
+    Then "+14155551212" should not have received any SMSes
+    But "bob@example.com" should receive an email with "Congratulations! You've got 100 points and have qualified for the drawing!" in the email body
+
+  Scenario: Player wins by web and sees notification in the flash
+    When I enter the act code "ate a kitten"
+    And a decent interval has passed
+    Given a clean email queue
+    And DJ cranks 15 times
+    Then "+14155551212" should not have received any SMSes
+    And "bob@example.com" should receive no email
+    But I should see "Congratulations! You've got 100 points and have qualified for the drawing!"
     
   Scenario: Victory admin gets SMS notification
     When "+14155551212" sends SMS "ate a kitten"

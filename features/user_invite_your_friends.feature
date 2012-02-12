@@ -279,7 +279,6 @@ Feature: User gives credit to game referer via autocomplete field
     Given "Yo Yo Ma" has the password "yummies"
     Given I sign in via the login page as "Yo Yo Ma/yummies"    
     Then I should see "Invite your friends"
-    And show me the page
     When I fill in "Which coworkers do you wish to invite?" with "loaded"
     Then I should see "Charlie Brainfield"
     And I should not see "Yo Yo Ma" within the suggested users

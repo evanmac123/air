@@ -8,9 +8,9 @@ class TaskSuggestion < ActiveRecord::Base
 
   attr_accessor :display_completion_on_this_request
 
-  def satisfy!
+  def satisfy!(channel=nil)
     update_attributes(:satisfied => true, :display_completion_on_next_request => true)
-    OutgoingMessage.send_side_message(self.user, self.satisfaction_message)
+    OutgoingMessage.send_side_message(self.user, self.satisfaction_message, :channel => channel)
     Act.create!(:user_id =>self.user_id, :inherent_points => self.suggested_task.bonus_points, :text => "I completed a daily dose!")
   end
 
@@ -90,8 +90,5 @@ class TaskSuggestion < ActiveRecord::Base
 
   def self.triggering_object_id(object_or_object_id, expected_class)
     object_or_object_id.kind_of?(expected_class) ? object_or_object_id.id : object_or_object_id
-  end
-
-  def self.joined_to_suggested_tasks(trigger_table_name)
   end
 end

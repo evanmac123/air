@@ -2,18 +2,18 @@ Feature: User levels up
 
   Background:
     Given the following demo exists:
-      | name |
-      | FooCo        |
+      | name  |
+      | FooCo |
     And the following levels exist:
-      | name           | threshold | demo                |
+      | name           | threshold | demo        |
       | level 1 (N00b) | 10        | name: FooCo |
       | level 2 (Pawn) | 21        | name: FooCo |
-    And the following users exist:
-      | name | phone number | points | demo                |
-      | Vlad | +14155551212 | 7      | name: FooCo |
-      | Joe  | +18085551212 | 6      | name: BarCo |
+    And the following claimed users exist:
+      | name | phone number | email            | points | demo        |
+      | Vlad | +14155551212 | vlad@example.com | 7      | name: FooCo |
+      | Joe  | +18085551212 | joe@example.com  | 6      | name: BarCo |
     And the following rules exist:
-      | reply  | points | demo                |
+      | reply  | points | demo        |
       | blah   | 1      | name: FooCo |
       | good   | 3      | name: FooCo |
       | better | 4      | name: FooCo |
@@ -27,13 +27,31 @@ Feature: User levels up
     And "Vlad" has password "foobar"
     And I sign in via the login page with "Vlad/foobar"
 
-  Scenario: User levels when hitting point threshold
+  Scenario: User levels via SMS when hitting point threshold
     When "+14155551212" sends SMS "did good"
     And a decent interval has passed
+    Given a clear email queue
     And DJ cranks 10 times
     And I go to the activity page
     #Then I should see "Level: level 1 (N00b)"
     And "+14155551212" should have received an SMS "You've reached level 1 (N00b)!"
+    But "vlad@example.com" should receive no email
+
+  Scenario: User levels via email when hitting point threshold
+    When "vlad@example.com" sends email with subject "did good" and body "did good"
+    And a decent interval has passed
+    And DJ cranks 10 times
+    Then "+14155551212" should not have received any SMSes
+    But "vlad@example.com" should receive an email with "You've reached level 1 (N00b)!" in the email body
+
+  Scenario: User levels via web when hitting point threshold
+    When I enter the act code "did good"
+    And a decent interval has passed
+    Given a clear email queue
+    And DJ cranks 10 times
+    Then "+14155551212" should not have received any SMSes
+    And "vlad@example.com" should receive no email
+    But I should see "You've reached level 1 (N00b)!"
 
   Scenario: User levels multiply when passing multiple point thresholds
     When "+14155551212" sends SMS "did best"
@@ -63,7 +81,7 @@ Feature: User levels up
 
   Scenario: Levels are awarded retroactively on creation to people in the same demo
     Given the following level exists:
-      | name           | threshold | demo                |
+      | name           | threshold | demo        |
       | level 0 (usuk) | 5         | name: FooCo |
     When DJ cranks 5 times
     And a decent interval has passed

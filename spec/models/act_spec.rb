@@ -179,16 +179,25 @@ describe Act, ".find_and_record_rule_suggestion" do
 end
 
 describe Act, ".record_act" do
+  before do
+    @user = Factory :user
+    @rule = Factory :rule, :description => 'some rule'
+    @referring_user = Factory :user
+
+    Act.count.should == 0
+    Act.record_act(@user, @rule, :web, @referring_user)
+    Act.count.should == 1
+  end
+
   context "when referring_user is not nil" do
     it "should record the referring user" do
-      user = Factory :user
-      rule = Factory :rule, :description => 'some rule'
-      referring_user = Factory :user
+      Act.last.referring_user.should == @referring_user
+    end
+  end
 
-      Act.count.should == 0
-      Act.record_act(user, rule, referring_user)
-      Act.count.should == 1
-      Act.last.referring_user.should == referring_user
+  context "when channel is not nil" do
+    it "should record the channel" do
+      Act.last.creation_channel.should == "web"
     end
   end
 end

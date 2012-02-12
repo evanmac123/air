@@ -52,11 +52,29 @@ module ApplicationHelper
     "#{points}/#{point_denominator} points"
   end
 
+  def consolidated_flash
+    return @consolidated_flash if @consolidated_flash
+
+    @consolidated_flash = HashWithIndifferentAccess.new
+    @_user_flashes ||= {}
+
+    flash.each do |key, value|
+      @consolidated_flash[key] = value.to_a
+      @consolidated_flash[key] += @_user_flashes.delete(key.to_s).to_a
+    end
+
+    @_user_flashes.each do |key, value|
+      @consolidated_flash[key] = value.to_a
+    end
+
+    @consolidated_flash
+  end
+
   def joined_flashes
     joined_content = ''
     [:success, :failure, :notice].each do |flash_key|
       next unless flash[flash_key].present?
-      joined_content += flash[flash_key] + ' '
+      joined_content += flash[flash_key].to_a.join(' ') + ' '
     end
 
     if joined_content.present?

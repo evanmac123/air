@@ -1,6 +1,6 @@
-<% if flash.any? %>
+<% if consolidated_flash.any? %>
   <div id="flash">
-    <% flash.each do |key, value| -%>
+    <% consolidated_flash.each do |key, value| -%>
       <% next if key.to_s =~ /^mp_track/ %>
       <div id="flash_<%= key %>">
         <% unless ApplicationController::FLASHES_ALLOWING_RAW.include?(key.to_s) %>

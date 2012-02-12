@@ -2,16 +2,17 @@ Feature: User completes suggested task
 
   Background:
     Given the following demo exists:
-      | name |
-      | TaskCo       |
+      | name   |
+      | TaskCo |
     And the following claimed user exists:
-      | name | phone number | demo                 |
-      | Joe  | +14152613077 | name: TaskCo |
-      | Bob  | +14155551212 | name: TaskCo |
+      | name | phone number | email           | demo         |
+      | Joe  | +14152613077 | joe@example.com | name: TaskCo |
+      | Bob  | +14155551212 | bob@example.com | name: TaskCo |
     And "Bob" has the SMS slug "bob"
+    And "Bob" has the password "foobar"
     And "Joe" has the password "foobar"
     And the following suggested tasks exist:
-      | name               | demo                 |
+      | name               | demo         |
       | Rule task 1        | name: TaskCo |
       | Rule task 2        | name: TaskCo |
       | Rule task 3        | name: TaskCo |
@@ -27,7 +28,7 @@ Feature: User completes suggested task
       | Demographic task 1 | name: TaskCo |
       | Demographic task 2 | name: TaskCo |
     And the following rules exist:
-      | reply | demo                 |
+      | reply | demo         |
       | did 1 | name: TaskCo |
       | did 5 | name: TaskCo |
     And the following rule value exists:
@@ -124,6 +125,33 @@ Feature: User completes suggested task
     When DJ cranks 5 times after a little while
     Then "+14152613077" should have received an SMS "Congratulations! You've completed a daily dose."
 
+  Scenario: User completes rule suggested task by SMS and gets congrats by SMS
+    Given a clear email queue
+    When "+14152613077" sends SMS "do 1"
+    When DJ cranks 5 times after a little while
+    Then "+14152613077" should have received an SMS "Congratulations! You've completed a daily dose."
+    But "joe@example.com" should receive no email
+
+  Scenario: User completes rule suggested task by email and gets congrats by email
+    When "joe@example.com" sends email with subject "do 1" and body "do 1"
+    And DJ cranks 5 times after a little while
+    Then "+14152613077" should not have received any SMSes
+    But "joe@example.com" should receive an email with "Congratulations! You've completed a daily dose." in the email body
+
+  Scenario: User completes rule suggested task on web and sees congrats in the flash
+    When I sign in via the login page with "Joe/foobar" and choose to be remembered
+    Given a clear email queue
+    When I enter the act code "do 1"
+    And DJ cranks 5 times after a little while
+    Then "+14152613077" should not have received any SMSes
+    And "joe@example.com" should receive no email
+    But I should see "Congratulations! You've completed a daily dose."
+    # but let's not keep that message hanging around forever, kthx
+    When I go to the activity page
+    Then I should not see "Your session has expired"
+    And I should not see "did 1"
+    And I should not see "Congratulations! You've completed a daily dose."
+
   @javascript
   Scenario: User completes suggested task by acting according to rule with mandatory referrer
     When "+14152613077" sends SMS "do 1 bob"
@@ -212,4 +240,30 @@ Feature: User completes suggested task
     And I should not see "Demographic task 1"
 
     When DJ cranks 5 times after a little while
+    Then "+14152613077" should have received an SMS "Congratulations! You've completed a daily dose."  
+  
+  Scenario: User completes survey suggested task by SMS and gets congrats by SMS
+    Given a clear email queue
+    When "+14152613077" sends SMS "1"
+    And "+14152613077" sends SMS "1"
+    And "+14152613077" sends SMS "1"
+    When DJ cranks 5 times after a little while
     Then "+14152613077" should have received an SMS "Congratulations! You've completed a daily dose."
+    But "joe@example.com" should receive no email
+
+  Scenario: User completes survey suggested task by email and gets congrats by email
+    When "joe@example.com" sends email with subject "1" and body "1"
+    When "joe@example.com" sends email with subject "1" and body "1"
+    When "joe@example.com" sends email with subject "1" and body "1"
+    Then "+14152613077" should not have received any SMSes
+    But "joe@example.com" should receive an email with "Congratulations! You've completed a daily dose." in the email body
+
+  Scenario: User completes survey suggested task on web and sees congrats in the flash
+    When I sign in via the login page with "Joe/foobar"
+    And I enter the act code "1"
+    And I enter the act code "1"
+    And I enter the act code "1"
+    When DJ cranks 5 times after a little while
+    Then "+14152613077" should not have received any SMSes
+    And "joe@example.com" should receive no email
+    But I should see "Congratulations! You've completed a daily dose."

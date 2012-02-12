@@ -13,7 +13,7 @@ class Act < ActiveRecord::Base
   end
 
   after_create do
-    user.update_points(points) if points
+    user.update_points(points, self.creation_channel) if points
 
     check_goal_completion
     check_timed_bonuses
@@ -88,7 +88,7 @@ class Act < ActiveRecord::Base
     rule = rule_value.try(:rule)
 
     if rule
-      reply, error_code = user.act_on_rule(rule, rule_value, referring_user)
+      reply, error_code = user.act_on_rule(rule, rule_value, options[:channel], referring_user)
       if error_code == :success
         return parsing_success_message(reply)
       else
@@ -117,7 +117,7 @@ class Act < ActiveRecord::Base
     reply
   end
 
-  def self.record_act(user, rule, referring_user = nil)
+  def self.record_act(user, rule, channel=nil, referring_user = nil)
     text = rule.to_s
     if referring_user
       text += I18n.translate(
@@ -128,7 +128,7 @@ class Act < ActiveRecord::Base
     end
 
     points_denominator_before_act = user.points_denominator
-    act = create!(:user => user, :text => text, :rule => rule, :referring_user => referring_user)
+    act = create!(:user => user, :text => text, :rule => rule, :referring_user => referring_user, :creation_channel => (channel || ''))
 
     [rule.reply, act.post_act_summary(points_denominator_before_act)].join(' ')
   end
@@ -138,7 +138,7 @@ class Act < ActiveRecord::Base
 
   def check_goal_completion
     if self.completes_goal?
-      OutgoingMessage.send_side_message(user, self.goal.completion_sms_text)
+      OutgoingMessage.send_side_message(user, self.goal.completion_sms_text, :channel => self.creation_channel)
       GoalCompletion.create!(:user => user, :goal => self.goal)
     end
   end
@@ -156,12 +156,12 @@ class Act < ActiveRecord::Base
         :inherent_points => fulfillable_bonus.points
       )
 
-      OutgoingMessage.send_side_message(user, fulfillable_bonus.sms_response)
+      OutgoingMessage.send_side_message(user, fulfillable_bonus.sms_response, :channel => self.creation_channel)
     end
   end
 
   def trigger_suggested_tasks
-    self.user.satisfy_suggestions_by_rule(self.rule_id, self.referring_user_id.present?)
+    self.user.satisfy_suggestions_by_rule(self.rule_id, self.creation_channel, self.referring_user_id.present?)
   end
 
   def self.record_bad_message(phone_number, body, reply = '')

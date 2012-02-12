@@ -13,7 +13,6 @@ class EmailCommandController< ApplicationController
 
     # create a EmailCommand object from the raw message
     email_command = EmailCommand.create_from_incoming_email(params)      
-
     if email_command.email_from.blank?
       # can't respond because we have no return email address
       email_command.status = EmailCommand::Status::FAILED

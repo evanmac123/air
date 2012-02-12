@@ -82,28 +82,33 @@ class ApplicationController < ActionController::Base
   end
 
   def add_success(text)
-    @flash_successes << text
+    @flash_successes_for_next_request << text
   end
 
   def add_failure(text)
-    @flash_failures << text
+    @flash_failures_for_next_request << text
   end
 
   def initialize_flashes
-    @flash_successes = []
-    @flash_failures = []
+    @flash_successes_for_next_request = []
+    @flash_failures_for_next_request = []
+
+    if current_user
+      @_user_flashes = current_user.flashes_for_next_request || {}
+      current_user.update_attributes(:flashes_for_next_request => nil)
+    end
   end
 
   def merge_flashes
-    unless @flash_successes.empty?
-      flash[:success] = @flash_successes.join(' ')
+    unless @flash_successes_for_next_request.empty?
+      flash[:success] = (@flash_successes_for_next_request + [flash[:success]]).join(' ')
     end
 
-    unless @flash_failures.empty?
-      flash[:failure] = @flash_failures.join(' ')
+    unless @flash_failures_for_next_request.empty?
+      flash[:failure] = (@flash_failures_for_next_request + [flash[:failure]]).join(' ')
     end
   end
-  
+ 
   def log_out_if_logged_in
     current_user.reset_remember_token! if current_user
     cookies.delete(:remember_token)

@@ -2,13 +2,13 @@ Feature: User gets some props for finishing a goal
 
   Background:
     Given the following demo exists:
-      | name |
-      | FooCo        |
+      | name  |
+      | FooCo |
     And the following goals exist:
-      | name    | achievement text    | completion sms text               | demo                |
+      | name    | achievement text    | completion sms text               | demo        |
       | winning | You won at winning! | You've won at winning everything! | name: FooCo |
     And the following rules exist:
-      | reply | demo                |
+      | reply | demo        |
       | win 1 | name: FooCo |
       | win 2 | name: FooCo |
       | win 3 | name: FooCo |
@@ -20,10 +20,21 @@ Feature: User gets some props for finishing a goal
       | win 1 | reply: win 1 |
       | win 2 | reply: win 2 |
       | win 3 | reply: win 3 |
-    And the following user exists:
-      | name | phone number | demo                |
-      | Bob  | +14155551212 | name: FooCo |
+    And the following claimed users exist:
+      | name | email            | phone number | demo        |
+      | Bob  | bob@example.com  | +14155551212 | name: FooCo |
     And "Bob" has password "foobar"
+    When "+14155551212" sends SMS "win 1"
+    And DJ cranks 10 times after a little while
+    Then "+14155551212" should not have received SMS "You've won at winning everything!"
+
+    When "+14155551212" sends SMS "win 2"
+    And DJ cranks 10 times after a little while
+    Then "+14155551212" should not have received SMS "You've won at winning everything!"
+
+    When "+14155551212" sends SMS "win 2"
+    And DJ cranks 10 times after a little while
+    Then "+14155551212" should not have received SMS "You've won at winning everything!"
 
 #   Scenario: User gets an achievement for finishing a goal
     # When I sign in via the login page with "Bob/foobar"
@@ -52,25 +63,32 @@ Feature: User gets some props for finishing a goal
     # And I go to the activity page
     # Then I should see "You won at winning!" just once
 
-  Scenario: User gets a message for finishing a goal
-    When "+14155551212" sends SMS "win 1"
-    And DJ cranks 10 times after a little while
-    Then "+14155551212" should not have received SMS "You've won at winning everything!"
-
-    When "+14155551212" sends SMS "win 2"
-    And DJ cranks 10 times after a little while
-    Then "+14155551212" should not have received SMS "You've won at winning everything!"
-
-    When "+14155551212" sends SMS "win 2"
-    And DJ cranks 10 times after a little while
-    Then "+14155551212" should not have received SMS "You've won at winning everything!"
-
+  Scenario: User gets an SMS for finishing a goal via SMS
+    Given a clear email queue
     When "+14155551212" sends SMS "win 3"
     And DJ cranks 10 times after a little while
     Then "+14155551212" should have received SMS "You've won at winning everything!"
+    But "bob@example.com" should receive no email
 
+  Scenario: User gets an email for finish a goal via email
+    When "bob@example.com" sends email with subject "win 3" and body "win 3"
+    And DJ cranks 10 times after a little while
+    Then "bob@example.com" should receive an email with "You've won at winning everything!" in the email body
+    But "+14155551212" should not have received an SMS including "won at winning everything"
+
+  Scenario: User sees credit in the flash if they finish a goal by web
+    When I sign in via the login page as "Bob/foobar"
+    Given a clear email queue
+    And I enter the act code "win 3"
+    And DJ cranks 15 times after a little while
+    Then I should see "You've won at winning everything!"
+    But "+14155551212" should not have received an SMS including "won at winning everything"
+    And "bob@example.com" should receive no email
+
+  Scenario: User gets credit for finish goal just once
+    When "+14155551212" sends SMS "win 3"
     When "+14155551212" sends SMS "win 1"
     And "+14155551212" sends SMS "win 2"
     And "+14155551212" sends SMS "win 3"
-    And DJ cranks 10 times after a little while
+    And DJ cranks 15 times after a little while
     Then "+14155551212" should have received SMS "You've won at winning everything!" just once

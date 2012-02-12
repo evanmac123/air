@@ -38,7 +38,7 @@ World(EmailHelpers)
 # This is done automatically before each scenario.
 #
 
-Given /^(?:a clear email queue|no emails have been sent)$/ do
+Given /^(?:a clea[rn] email queue|no emails have been sent)$/ do
   reset_mailer
 end
 

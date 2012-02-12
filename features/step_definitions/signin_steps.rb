@@ -11,9 +11,13 @@ When /^I fill in the login fields (as|with) "(.*?)"$/ do |_nothing, login_string
   When %{I fill in the password field with "#{password}"}
 end
 
-When /^I sign in via the login page (as|with) "(.*?)"$/ do |_nothing, login_string|
+When /^I sign in via the login page (as|with) "(.*?)"( and choose to be remembered)?$/ do |_nothing, login_string, remember|
   visit new_session_path
   When %{I fill in the login fields as "#{login_string}"}
+  if remember
+    And %{I check the remember-me checkbox}
+  end
+
   click_button "Let's play!"
 end
 

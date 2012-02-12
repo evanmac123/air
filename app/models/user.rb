@@ -27,7 +27,7 @@ class User < ActiveRecord::Base
   has_many   :goal_completions
   has_many   :completed_goals, :through => :goal_completions, :source => :goal
   has_many   :timed_bonuses, :class_name => "TimedBonus"
-  has_many   :task_suggestions
+  has_many   :task_suggestions, :dependent => :destroy
   has_and_belongs_to_many :bonus_thresholds
   has_and_belongs_to_many :levels
 
@@ -64,6 +64,8 @@ class User < ActiveRecord::Base
     :s3_protocol => 'https',
     :path => "/avatars/:id/:style/:filename",
     :bucket => S3_AVATAR_BUCKET
+
+  serialize :flashes_for_next_request
 
   before_validation do
     # NOTE: This method is only called when you actually CALL the create method
@@ -368,13 +370,13 @@ class User < ActiveRecord::Base
     finish_claim(reply_mode)
   end
 
-  def update_points(new_points)
+  def update_points(new_points, channel=nil)
     old_points = self.points
     increment!(:points, new_points)
     update_recent_average_points(new_points)
-    BonusThreshold.consider_awarding_points_for_crossed_bonus_thresholds(old_points, self)
-    Level.check_for_level_up(old_points, self)
-    check_for_victory
+    BonusThreshold.consider_awarding_points_for_crossed_bonus_thresholds(old_points, self, channel)
+    Level.check_for_level_up(old_points, self, channel)
+    check_for_victory(channel)
   end
 
   def update_recent_average_points(new_points)
@@ -537,7 +539,7 @@ class User < ActiveRecord::Base
   # the action was successful, or an error code if the action failed. As of
   # now the only error code we use is :over_alltime_limit.
 
-  def act_on_rule(rule, rule_value, referring_user=nil)
+  def act_on_rule(rule, rule_value, channel=nil, referring_user=nil)
     self.last_suggested_items = ''
     self.save!
 
@@ -545,7 +547,7 @@ class User < ActiveRecord::Base
       return ["Sorry, you've already done that action.", :over_alltime_limit]
     else
       credit_referring_user(referring_user, rule, rule_value)
-      return [Act.record_act(self, rule, referring_user), :success]
+      return [Act.record_act(self, rule, channel, referring_user), :success]
     end
   end
 
@@ -623,12 +625,12 @@ class User < ActiveRecord::Base
     suggested_task.prerequisite_tasks.all?{|prerequisite_task| self.task_suggestions.for_task(prerequisite_task).satisfied.present?}
   end
 
-  def satisfy_suggestions_by_survey(survey_or_survey_id)
+  def satisfy_suggestions_by_survey(survey_or_survey_id, channel)
     satisfiable_suggestions = self.task_suggestions.satisfiable_by_survey(survey_or_survey_id)
-    satisfiable_suggestions.each(&:satisfy!)
+    satisfiable_suggestions.each{|satisfiable_suggestion| satisfiable_suggestion.satisfy!(channel)}
   end
 
-  def satisfy_suggestions_by_rule(rule_or_rule_id, referring_user_id = nil)
+  def satisfy_suggestions_by_rule(rule_or_rule_id, channel, referring_user_id = nil)
     return unless rule_or_rule_id
     satisfiable_suggestions = self.task_suggestions.satisfiable_by_rule(rule_or_rule_id)
 
@@ -636,7 +638,7 @@ class User < ActiveRecord::Base
       satisfiable_suggestions = satisfiable_suggestions.without_mandatory_referrer
     end
 
-    satisfiable_suggestions.each(&:satisfy!)
+    satisfiable_suggestions.each{|satisfiable_suggestion| satisfiable_suggestion.satisfy!(channel)}
   end
 
   def height_feet
@@ -688,6 +690,17 @@ class User < ActiveRecord::Base
 
   def unclaimed?
     !(self.claimed?)
+  end
+
+  def add_flash_for_next_request!(body, flash_status)
+    _flash_status = flash_status.to_sym
+    new_flashes = self.flashes_for_next_request || {}
+    new_flashes[flash_status] ||= []
+    new_flashes[flash_status] << body
+
+    self.update_attributes(:flashes_for_next_request => new_flashes)
+
+    new_flashes
   end
 
   def self.next_dummy_number
@@ -910,7 +923,7 @@ class User < ActiveRecord::Base
     self.class.add_joining_to_activity_stream(self)
   end
 
-  def check_for_victory
+  def check_for_victory(channel=nil)
     return unless (victory_threshold = self.demo.victory_threshold)
 
     if !self.won_at && self.points >= victory_threshold
@@ -919,12 +932,12 @@ class User < ActiveRecord::Base
 
       self.wins.create!(:demo_id => self.demo_id, :created_at => self.won_at)
 
-      send_victory_notices
+      send_victory_notices(channel)
     end
   end
 
-  def send_victory_notices
-    OutgoingMessage.send_side_message(self, self.demo.victory_sms(self))
+  def send_victory_notices(channel = nil)
+    OutgoingMessage.send_side_message(self, self.demo.victory_sms(self), :channel => channel)
 
     OutgoingMessage.send_message(
       self.demo.victory_verification_sms_number,

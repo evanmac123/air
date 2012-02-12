@@ -22,7 +22,7 @@ module SpecialCommand
     when 's', 'suggest'
       self.suggestion(user, args)
     when Survey::SURVEY_ANSWER_PATTERN
-      self.respond_to_survey(user, command_name)
+      self.respond_to_survey(user, command_name, options[:channel])
     when /^[a-z]$/
       self.use_suggested_item(user, command_name)
     when 'lastquestion'
@@ -137,14 +137,14 @@ module SpecialCommand
     parsing_success_message((user.act_on_rule(rule_value.rule, rule_value)).first) # throw away error code in this case
   end
 
-  def self.respond_to_survey(user, choice)
+  def self.respond_to_survey(user, choice, channel)
     survey = user.open_survey
     return nil unless survey
 
     question = survey.latest_question_for(user)
 
     if question
-      question.respond(user, survey, choice)
+      question.respond(user, survey, choice, channel)
     else
       return nil if survey.demo.has_rule_value_matching?(choice) # Give Act.parse a crack at it
       parsing_success_message(survey.all_answers_already_message)
