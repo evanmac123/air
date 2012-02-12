@@ -4,10 +4,11 @@
   left: 0;
   z-index: 100;
   text-align: left;
+	width:400px;
 }
 
 
-#facebox .popup{
+#facebox .popup {
   position:relative;
   border:3px solid rgba(0,0,0,0);
   -webkit-border-radius:5px;
