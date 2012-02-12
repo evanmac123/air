@@ -19,13 +19,7 @@ class Level < ActiveRecord::Base
 
     user.levels << self
 
-    sms_text = I18n.translate(
-      'activerecord.models.level.level_up_sms',
-      :default    => "You've reached %{level_name}!",
-      :level_name => self.name
-    )
-
-    OutgoingMessage.send_side_message(user, sms_text, :channel => channel)
+    OutgoingMessage.send_side_message(user, self.name, :channel => channel)
   end
 
   def self.check_for_level_up(old_points, user, channel)
