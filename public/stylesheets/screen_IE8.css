@@ -76,19 +76,15 @@ body.invitations .header #navigation .nav-signup, body.sessions .header #navigat
   border-radius: 0!important;
   z-index: 100; }
 
-<<<<<<< HEAD
-.acts .header .navigation .nav-home, .users .header .navigation .nav-profile, .scores .header .navigation .nav-scores, .users .header .navigation .nav-directory {
+.acts .header .navigation .nav-home, .users .header .navigation .nav-activity {
   border-radius: 0!important;
   z-index: 9999!important; }
-=======
-.acts .header .navigation .nav-home, .users .header .navigation .nav-activity {
-  border-radius: 0!important; }
->>>>>>> @@  Allowed Activity page to be functional
 
 .suggested-task {
   background-color: #008873 !important;
   box-shadow: 0 0 3px 2px #c9c9c9;
-  behavior: url(/css3pie/PIE.htc); }
+  behavior: url(/css3pie/PIE.htc);
+  z-index: 99!important; }
   .suggested-task a.more-info {
     background-image: url(/images/v3/btn-moreinfo.png) !important;
     border: 0!important;

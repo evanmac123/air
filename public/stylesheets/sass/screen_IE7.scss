@@ -128,19 +128,17 @@ ul#user-acts {
 	}
 }
 
-
-.invite-module {
+//--------------invite modal--------------
+.invite-module { //side box
 	div.invite#invite_friends_facebox {
 		form {
-			div.first_half {
-				input[type="text"] {
-					border-radius:0!important;
-				}
+			input[type="text"] {
+				border-radius:0!important;
 			}
 		}
 	}
 }
-#facebox {
+#facebox { //popup box
 	.content {
 		background:$light-gray!important;
 		form {
@@ -160,6 +158,7 @@ div.invite_or_add {
 	}
 }
 
+//--------------misc--------------
 body.interstitial_verifications {
 	div.content {
 		margin:0 auto 40px auto!important;
@@ -175,7 +174,7 @@ body.interstitial_verifications {
 		}
 	}
 }
-
+//--------------scoreboard--------------
 body.scores {
 	div.player {
 		width:447px!important;
@@ -184,7 +183,7 @@ body.scores {
 		width:87px!important;
 	}
 }
-
+//--------------directory--------------
 body.users-index {
 	div#secondary {
 		input[type="submit"] {

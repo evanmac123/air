@@ -61,10 +61,10 @@ body.invitations .header #navigation .nav-signup, body.sessions .header #navigat
 
 .suggested-task {
 	$ie-game-color:#008873;
-//	hiding the following will allow for rounded corners...
 	background-color: $ie-game-color!important;
 	box-shadow: 0 0 3px 2px #c9c9c9;
 	behavior: url(/css3pie/PIE.htc);
+	z-index:99!important;
 	a.more-info {
 		background-image:url(/images/v3/btn-moreinfo.png)!important;
 		border:0!important;

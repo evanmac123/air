@@ -123,7 +123,7 @@ ul#user-acts li.act-shim {
   display: none!important;
   height: 0!important; }
 
-.invite-module div.invite#invite_friends_facebox form div.first_half input[type="text"] {
+.invite-module div.invite#invite_friends_facebox form input[type="text"] {
   border-radius: 0!important; }
 
 #facebox .content {
