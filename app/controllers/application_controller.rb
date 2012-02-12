@@ -39,7 +39,10 @@ class ApplicationController < ActionController::Base
     end
 
     if request.ssl?
-      redirect_hostname = hostname_without_subdomain
+      redirect_hostname = Rails.env.staging? ? 
+                            hostname_with_subdomain : 
+                            hostname_without_subdomain
+
       redirection_parameters = {
         :protocol   => 'http', 
         :host       => redirect_hostname, 
