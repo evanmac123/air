@@ -76,7 +76,7 @@ body.invitations .header #navigation .nav-signup, body.sessions .header #navigat
   border-radius: 0!important;
   z-index: 100; }
 
-.acts .header .navigation .nav-home, .users .header .navigation .nav-activity {
+.acts .header .navigation .nav-home, .users .header .navigation .nav-activity, .scores .header .navigation .nav-scores, .users-index .header .navigation .nav-directory {
   border-radius: 0!important;
   z-index: 9999!important; }
 
