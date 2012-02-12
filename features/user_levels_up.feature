@@ -84,7 +84,8 @@ Feature: User levels up
     And "+14155551212" should not have received an SMS including "level 2 (N00b)"
 
   Scenario: Levels are awarded retroactively on creation to people in the same demo
-    Given the following level exists:
+    Given a clean email queue
+    And the following level exists:
       | name           | threshold | demo        |
       | level 0 (usuk) | 5         | name: FooCo |
     When DJ cranks 5 times
@@ -92,9 +93,11 @@ Feature: User levels up
     And DJ cranks 5 times
     And I go to the activity page
     # Then I should see "Level: level 0 (usuk)"
-    And "+14155551212" should have received an SMS including "level 0 (usuk)"
+    # award silently
+    Then "+14155551212" should not have received an SMS including "level 0 (usuk)"
     But "+14155551212" should not have received an SMS including "level 2 (N00b)"
     # And I should not see "level 2 (N00b)"
     And "+18085551212" should not have received an SMS including "level 0 (usuk)"
     And "+18085551212" should not have received an SMS including "level 2 (N00b)"
-
+    And "vlad@example.com" should receive no email
+    And "bob@example.com" should receive no email
