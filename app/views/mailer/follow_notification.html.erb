@@ -1,15 +1,7 @@
 <p><%= @follower_name %> has asked to be your fan on H Engage.</p>
 
-<p>You can choose to accept this request or to ignore it <%= link_to "here", friends_url %>.</p>
+<p>To accept this request, please reply to this email with <%= @accept_command %></p>
 
-<p>If you'd rather use SMS, you can text</p> 
+<p>or to ignore it, <%= @ignore_command %></p>
 
-<p><%= @accept_command %></p>
-
-<p>or</p>
-
-<p><%= @ignore_command %></p>
-
-<p>to <%= @reply_phone_number %>.</p>
-
-<p>--The H Engage Team</p>
+<p>--H Engage</p>

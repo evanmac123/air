@@ -289,7 +289,9 @@ Then /^"([^"]*)" should have received a follow notification email about "([^"]*)
 
   When "\"#{address}\" opens the email with subject \"#{follower_name} wants to be your fan on H Engage\""
 
-  And "they click the first link in the email"
-  Then "they should see \"#{phone_number}\" in the email body"
-  Then "I should be on the connections page"
+  Then %{they should see "YES" in the email body}
+  And %{they should see "NO" in the email body}
+  #And "they click the first link in the email"
+  #Then "they should see \"#{phone_number}\" in the email body"
+  #Then "I should be on the connections page"
 end
