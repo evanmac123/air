@@ -11,6 +11,7 @@ class Level < ActiveRecord::Base
   validates_uniqueness_of :threshold, :scope => :demo_id
 
   after_save :set_demo_level_indices
+  after_destroy :set_demo_level_indices
   after_create :schedule_retroactive_awards
 
   def level_up(user, channel)

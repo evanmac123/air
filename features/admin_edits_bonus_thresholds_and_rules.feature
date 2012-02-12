@@ -72,7 +72,8 @@ Feature: Admin edits bonus thresholds and rules
     When I press "Delete level"
     Then I should be on the admin "FooCorp" demo page
     And I should see "Level deleted"
-    And I should not see "N00b at 5 points"
+    And I should not see "N00b"
+    But I should see "2: Pawn at 10 points"
 
   Scenario: Admin edits level with bad values
     When I follow "(edit level)"
