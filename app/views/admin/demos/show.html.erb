@@ -68,6 +68,7 @@ Game
     <ul>
       <% @levels.each do |level| %>
         <li>
+          <strong><%= level.index_within_demo %>:</strong> 
           <%= level.name %> at <%= level.threshold %> points
           <%= link_to '(edit level)', edit_admin_level_path(level.id) %>
           <%= button_to 'Delete level', admin_level_path(level), :method => :delete, :confirm => "Really delete this level (#{level.name})?" %>

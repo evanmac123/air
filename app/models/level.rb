@@ -10,6 +10,7 @@ class Level < ActiveRecord::Base
 
   validates_uniqueness_of :threshold, :scope => :demo_id
 
+  after_save :set_demo_level_indices
   after_create :schedule_retroactive_awards
 
   def level_up(user, channel)
@@ -46,5 +47,9 @@ class Level < ActiveRecord::Base
 
   def award_retroactively
     self.demo.users.where("points > ?", self.threshold).each {|user| self.level_up(user, nil)}
+  end
+
+  def set_demo_level_indices
+    self.demo.set_level_indices
   end
 end

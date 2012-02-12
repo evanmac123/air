@@ -316,6 +316,14 @@ class User < ActiveRecord::Base
     end
   end
 
+  def top_level
+    self.levels.order("threshold DESC").limit(1).first
+  end
+
+  def top_level_index
+    self.top_level.try(:index_within_demo) || 1
+  end
+
   def self.in_canonical_ranking_order
     order("points DESC, name ASC")
   end

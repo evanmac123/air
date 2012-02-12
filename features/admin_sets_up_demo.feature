@@ -51,7 +51,7 @@ Feature: Admin sets up demo
     And I should see "Game begins at April 01, 2013 at 12:00 PM Eastern"
     And I should see "Game ends at May 01, 2015 at 12:00 PM Eastern"
     And I should see "Bonus thresholds: Between 5 and 8 points: 7 points awarded"
-    And I should see "Levels: level 1 (N00b) at 10 points"
+    And I should see "Levels: 2: level 1 (N00b) at 10 points"
     And I should see "Bonus for referring another user to the game: 5 points (with a 60 minute threshold)"
     And I should see "Bonus for crediting the user who referred you to the game: 17 points"
     And I should see "Points for connecting to another user: 10"

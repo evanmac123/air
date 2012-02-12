@@ -156,6 +156,23 @@ class Demo < ActiveRecord::Base
     self.rule_values.where(:value => value).present?
   end
 
+  def set_level_indices
+    self.levels.order(:threshold).each_with_index do |level, index|
+      # SQL rather than update_attribute since we're calling this
+      # indirectly from an after_save callback on Level, leading to an
+      # infinite loop if we trigger callbacks yet again.
+      #
+      # Also, index + 2, since if a user hasn't completed any levels they're
+      # effectively "level 1". So the 0th member of this list is "level 2".
+      #
+      # TODO: after Rails upgrade, replace that grotty piece of SQL with
+      # update_column
+      
+      Level.connection.execute("UPDATE levels SET index_within_demo = #{index + 2} WHERE levels.id = #{level.id}")
+      #level.update_column(:index_within_demo, index + 2)
+    end
+  end
+
   def self.recalculate_all_moving_averages!
     Demo.all.each do |demo|
       begin
