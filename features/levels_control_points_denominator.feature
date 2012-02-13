@@ -27,37 +27,38 @@ Feature: Levels control points denominator
   Scenario: User acts and sees point threshold of next or highest level as denominator
     When "+14155551212" sends SMS "did blah"
     And I dump all sent texts
-    Then "+14155551212" should have received an SMS including "blah. Points 8/10"
+    Then "+14155551212" should have received an SMS including "blah. Points 8/10, level 1"
 
     When "+14155551212" sends SMS "did blah"
-    Then "+14155551212" should have received an SMS including "blah. Points 9/10"
+    Then "+14155551212" should have received an SMS including "blah. Points 9/10, level 1"
 
     When "+14155551212" sends SMS "did blah"
-    Then "+14155551212" should have received an SMS including "blah. Points 0/11"
+    Then "+14155551212" should have received an SMS including "blah. Points 0/11, level 2"
 
     When "+14155551212" sends SMS "did better"
-    Then "+14155551212" should have received an SMS including "better. Points 4/11"
+    Then "+14155551212" should have received an SMS including "better. Points 4/11, level 2"
 
   Scenario: If game has a victory threshold, that gets considered too
     Given "FooCo" has victory threshold 15
 
     When "+14155551212" sends SMS "did blah"
-    Then "+14155551212" should have received an SMS including "blah. Points 8/10"
+    Then "+14155551212" should have received an SMS including "blah. Points 8/10, level 1"
 
     When "+14155551212" sends SMS "did blah"
-    Then "+14155551212" should have received an SMS including "blah. Points 9/10"
+    Then "+14155551212" should have received an SMS including "blah. Points 9/10, level 1"
 
     When "+14155551212" sends SMS "did blah"
-    Then "+14155551212" should have received an SMS including "blah. Points 0/5"
+    Then "+14155551212" should have received an SMS including "blah. Points 0/5, level 2"
 
     When "+14155551212" sends SMS "did better"
-    Then "+14155551212" should have received an SMS including "better. Points 4/5"
+    Then "+14155551212" should have received an SMS including "better. Points 4/5, level 2"
 
   Scenario: Game's victory threshold also considered if it's greater than any level's and less than the user's score
     Given "FooCo" has victory threshold 40
 
     When "+14155551212" sends SMS "did best"
-    Then "+14155551212" should have received an SMS including "best. Points 0/19"
+    And I dump all sent texts
+    Then "+14155551212" should have received an SMS including "best. Points 0/19, level 3"
 
     When "+14155551212" sends SMS "did best"
-    Then "+14155551212" should have received an SMS including "best. Points 14/19"
+    Then "+14155551212" should have received an SMS including "best. Points 14/19, level 3"

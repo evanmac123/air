@@ -499,15 +499,20 @@ class User < ActiveRecord::Base
 
   def point_summary
     if self.point_threshold_spread > 0
-      "Points #{self.point_fraction}"
+      "points #{self.point_fraction}"
     else
-      "Points #{self.points}"
+      "points #{self.points}"
     end
+  end
+
+  def level_summary
+    "level #{self.top_level_index}"
   end
 
   def point_and_ranking_summary(prefix = [])
     result_parts = prefix.clone
     result_parts << self.point_summary
+    result_parts << self.level_summary
 
     ' ' + result_parts.join(', ').capitalize + '.'
   end
