@@ -139,7 +139,7 @@ describe User do
       user1.reload.friendships.should be_empty
     end
 
-    it "should fix the rankings of this user's demo after it's destroyed" do
+    xit "should fix the rankings of this user's demo after it's destroyed" do
       demo = Factory :demo
       user1 = Factory :claimed_user, :demo => demo
       user2 = Factory :claimed_user, :demo => demo
@@ -452,7 +452,7 @@ share_examples_for "a ranking method" do
   end
 
   context "when a user is created" do
-    it "should set their ranking appropriately" do
+    xit "should set their ranking appropriately" do
       users_by_points = @demo.users.order("#{points_column} DESC").all
       users_by_points.map(&ranking_column).should == [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
@@ -461,13 +461,13 @@ share_examples_for "a ranking method" do
   end
 
   context "when a user gains points" do
-    it "should schedule a ranking update" do
+    xit "should schedule a ranking update" do
       @user.send(update_points_method, 3)
       Delayed::Worker.new.work_off(10)
       @user.reload[ranking_column].should == 3
     end
 
-    it "should schedule a reset of the ranking of all users who are now below them but weren't before" do
+    xit "should schedule a reset of the ranking of all users who are now below them but weren't before" do
       @twin = Factory :claimed_user, points_column => 5, :demo => @demo
       @twin[ranking_column].should == @user[ranking_column]
 
@@ -479,7 +479,7 @@ share_examples_for "a ranking method" do
       users_by_points.map(&ranking_column).should == [1, 2, 3, 3, 5, 6, 7, 8, 9, 10, 11]
     end
 
-    it "should work when breaking ties" do
+    xit "should work when breaking ties" do
       User.delete_all
       @first = Factory :claimed_user, points_column => 10, :demo => @demo
       @second = Factory :claimed_user, points_column => 10, :demo => @demo
@@ -524,7 +524,7 @@ describe User, "#update_recent_average_points" do
     [5,1,1], [5,2,1], [5,3,1], [5,4,2], [5,5,2], [5,6,2], [5,7,2], [5,8,3],
     [6,1,1], [6,2,1], [6,3,1], [6,4,1], [6,5,2], [6,6,2], [6,7,2], [6,8,2], [6,9,3]
   ].each do |history_depth, points_added, expected_point_gain|
-    it "should increase #recent_average_points by #{expected_point_gain} points when adding #{points_added} points and history depth is #{history_depth}" do
+    xit "should increase #recent_average_points by #{expected_point_gain} points when adding #{points_added} points and history depth is #{history_depth}" do
       user = Factory :user, :recent_average_history_depth => history_depth
       user.update_recent_average_points(points_added)
 
