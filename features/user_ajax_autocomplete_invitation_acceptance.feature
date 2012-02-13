@@ -35,6 +35,25 @@ Feature: User gives credit to game referer via autocomplete field
     And I should see "Your Email Address"
 
   @javascript
+  Scenario: Status messages display and are not hidden
+    When I fill in "Whom can we thank for referring you?" with "2"
+    Then "3+ letters, please" should be visible
+    And I should see "3+ letters, please"
+    When I fill in "Whom can we thank for referring you?" with "jdidillvididkkemmffii"
+    Then I should not see "3+ letters, please"
+    And I should see "Hmmm...no match"
+    And I should see "Please try again"
+    When I fill in "Whom can we thank for referring you?" with "har"
+    Then I should see "Click on the person who referred you:"
+    Then I should see "Charlie Brainfield"
+    And I should not see "Charlie Moore"
+    And "X" should not be visible
+    When I select the suggestion containing "Charlie Brainfield"
+    Then "X" should be visible
+        
+  
+  
+  @javascript
   Scenario: User sees the charlie from her own game when entering name 'har'
     When I fill in "Whom can we thank for referring you?" with "har"
     Then I should see "Charlie Brainfield"

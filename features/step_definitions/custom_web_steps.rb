@@ -267,7 +267,7 @@ Given /^the demo for "([^"]*)" starts tomorrow$/ do |arg1|
 end
 
 Then /^I should see "([^"]*)" in a facebox modal$/ do |arg1|
-  page.find('#facebox').should have_content (arg1)
+  page.find('#facebox').should have_content(arg1)
 end
 
 Then /^I should not see a facebox modal$/ do

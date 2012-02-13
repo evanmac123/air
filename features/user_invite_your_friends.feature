@@ -41,7 +41,15 @@ Feature: User gives credit to game referer via autocomplete field
     Given I sign in via the login page as "Shelly/foobar"    
     Then I should see "Invite your friends"
     When I fill in "Which coworkers do you wish to invite?" with "br"
-    Then I should see "3+ letters"
+    Then "3+ letters" should be visible
+    When I fill in "Which coworkers do you wish to invite?" with "jdidillvididkkemmffii"
+    Then I should not see "3+ letters, please"
+    And I should see "Hmmm...no match"
+    And I should see "Please try again"
+    When I fill in "Which coworkers do you wish to invite?" with "bra"
+    Then I should see "Click on the person you want to invite:"
+    Then I should see "Charlie Brainfield"
+    And I should not see "Yo Yo Ma"
 
     
   @javascript
