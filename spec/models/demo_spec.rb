@@ -147,7 +147,7 @@ describe Demo, '#recalculate_all_moving_averages!' do
 end
 
 shared_examples_for "a rankings fixing method" do
-  it "should recalculate rankings no more than once every 10 minutes" do
+  xit "should recalculate rankings no more than once every 10 minutes" do
     Timecop.freeze
 
     begin
