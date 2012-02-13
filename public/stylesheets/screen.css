@@ -1816,7 +1816,6 @@ div.follow-btn, div.stop-following-btn {
   text-shadow: 1px 1px 1px #2e2e2c;
   text-transform: uppercase;
   font-weight: 900!important;
-  width: 100px;
   float: right;
   text-align: center; }
   div.follow-btn:hover, div.stop-following-btn:hover {

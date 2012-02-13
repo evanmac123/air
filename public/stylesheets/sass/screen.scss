@@ -954,7 +954,7 @@ body.interstitial_verifications {
 }
 div.follow-btn, div.stop-following-btn {
 	@include button-norm;
-	width: 100px;
+//	width: 100px;
 	float:right;
 	text-align: center;
 	a {color:#fff;}
