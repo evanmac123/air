@@ -14,6 +14,7 @@ class UsersController < Clearance::UsersController
       slugs = @other_users.where("LOWER(sms_slug) like ?", "%" + text + "%")
       emails = @other_users.where("LOWER(email) like ?", "%" + text + "%")
       @other_users = names + slugs + emails
+      @other_users.uniq!
       @search_link_text = "refining your search"
     end
     user_limit = 50
