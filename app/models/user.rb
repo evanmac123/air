@@ -151,7 +151,7 @@ class User < ActiveRecord::Base
   
   def points_to_next_unachieved_threshold
     next_threshold = self.next_unachieved_threshold
-    return 12345678 if next_threshold.nil?
+    return nil if next_threshold.nil?
     next_threshold - self.points
   end
   
