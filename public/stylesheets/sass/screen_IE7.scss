@@ -219,4 +219,8 @@ body.users-index {
   padding-top: 2ex;
 }
 
-
+body.users-index {
+  div.user-info {
+    float: none;
+  }
+}

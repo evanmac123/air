@@ -468,33 +468,33 @@ body.users-index {
 		div.seemore {
 			padding:0;
 		}
-		ul#other-users {
-			padding-bottom:15px;
-			li.user {
-				border-bottom:1px $light-gray solid;
-				clear:both;
-				padding:15px 0;
-				&:first-child {
-					padding:0 0 15px 0;
-				}
-				div.user-avatar {
-					float:left;
-					height:60px;
-					width:80px;
-					img {
-						@include rounded;
-						height:60px;
-						width:60px;
-					}
-				}
-				div.user-info {
-					float:left;
-					padding:5px;
-					width:45%;
-				}
-			}
-		}
+   ul#other-users {
+      padding-bottom:15px;
+      li.user {
+       border-bottom:1px $light-gray solid;
+        clear:both;
+        padding:15px 0;
+        &:first-child {
+          padding:0 0 15px 0;
+        }
+        div.user-avatar {
+          float:left;
+          height:60px;
+          width:80px;
+         img {
+            @include rounded;
+            height:60px;
+            width:60px;
+          }
+        }
+      }
+    }
 	}
+  div.user-info {
+    float: left;
+    padding:5px;
+    width:45%;
+  }
 	div#secondary {
 		float:right;
 		width:38%;

@@ -167,3 +167,6 @@ body.users-index div#secondary input[type="submit"] {
 
 #contact_us_from_inv_acceptance_page {
   padding-top: 2ex; }
+
+body.users-index div.user-info {
+  float: none; }

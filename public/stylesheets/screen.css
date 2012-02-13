@@ -1370,10 +1370,10 @@ body.users-index div#main {
           z-index: 0;
           height: 60px;
           width: 60px; }
-      body.users-index div#main ul#other-users li.user div.user-info {
-        float: left;
-        padding: 5px;
-        width: 45%; }
+body.users-index div.user-info {
+  float: left;
+  padding: 5px;
+  width: 45%; }
 body.users-index div#secondary {
   float: right;
   width: 38%; }
