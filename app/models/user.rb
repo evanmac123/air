@@ -498,9 +498,11 @@ class User < ActiveRecord::Base
       result_parts << "points #{self.points}/#{_points_denominator}"
     end
 
-    result_parts << "rank #{self.ranking}/#{self.demo.ranked_user_count}"
+    #result_parts << "rank #{self.ranking}/#{self.demo.ranked_user_count}"
 
-    result_parts.join(', ').capitalize + '.'
+    return '' if result_parts.empty?
+
+    ' ' + result_parts.join(', ').capitalize + '.'
   end
 
   def claim_code_prefix
@@ -1015,7 +1017,7 @@ class User < ActiveRecord::Base
     )
 
     sms_text = I18n.interpolate(
-      %{+%{points}, %{name} tagged you in the "%{rule_value}" command. %{point_and_ranking_summary}},
+      %{+%{points}, %{name} tagged you in the "%{rule_value}" command.%{point_and_ranking_summary}},
       :points                    => points_phrase,
       :name                      => self.name,
       :rule_value                => rule_value.value,
