@@ -62,3 +62,8 @@ Feature: User requests an invitation via SMS
     And they click the first link in the email
     Then I should be on the invitation page for "bob@example.com"
     And "+14155551212" should have received an SMS "An invitation has been sent to bob@example.com."
+
+  Scenario: Invitation request is not case sensitive
+    When "+14155551212" sends SMS "BoB@ExaMPLe.COm"
+    Then "+14155551212" should not have received an SMS including "Your domain is not valid"
+    But "+14155551212" should have received an SMS "An invitation has been sent to bob@example.com."

@@ -786,7 +786,9 @@ class User < ActiveRecord::Base
   def self.send_invitation_if_email(phone, text, options={})
     return nil unless phone =~ /^(\+1\d{10})$/
 
-    if (existing_user = User.where(:email => text).first)
+    _text = text.downcase
+
+    if (existing_user = User.where(:email => _text).first)
       if existing_user.claimed?
         return "It looks like you've already joined the game. If you've forgotten your password, you can have it reset online, or contact support@hengage.com for help." 
       else
@@ -798,7 +800,7 @@ class User < ActiveRecord::Base
       end
     end
 
-    new_user, create_details = self.new_self_inviting_user(text)
+    new_user, create_details = self.new_self_inviting_user(_text)
     return create_details[:error] unless new_user
 
     new_user.invitation_method = 'sms'
