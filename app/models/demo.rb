@@ -145,11 +145,15 @@ class Demo < ActiveRecord::Base
   end
 
   def fix_total_user_rankings!
-    unless_within(5.minutes.ago, total_user_rankings_last_updated_at) {fix_user_rankings!('points', 'ranking')}
+    Demo.transaction do
+      unless_within(10.minutes.ago, total_user_rankings_last_updated_at) {fix_user_rankings!('points', 'ranking')}
+    end
   end
 
   def fix_recent_average_user_rankings!
-    unless_within(5.minutes.ago, average_user_rankings_last_updated_at) {fix_user_rankings!('recent_average_points', 'recent_average_ranking')}
+    Demo.transaction do
+      unless_within(10.minutes.ago, average_user_rankings_last_updated_at) {fix_user_rankings!('recent_average_points', 'recent_average_ranking')}
+    end
   end
 
   def has_rule_value_matching?(value)

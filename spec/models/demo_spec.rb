@@ -147,12 +147,12 @@ describe Demo, '#recalculate_all_moving_averages!' do
 end
 
 shared_examples_for "a rankings fixing method" do
-  it "should recalculate rankings no more than once every 5 minutes" do
+  it "should recalculate rankings no more than once every 10 minutes" do
     Timecop.freeze
 
     begin
-      demo1 = Factory :demo, updated_at_column => 5.minutes.ago
-      demo2 = Factory :demo, updated_at_column => (4.minutes.ago - 59.seconds)
+      demo1 = Factory :demo, updated_at_column => 10.minutes.ago
+      demo2 = Factory :demo, updated_at_column => (9.minutes.ago - 59.seconds)
       demo3 = Factory :demo, updated_at_column => nil
 
       all_demos = [demo1, demo2, demo3]
