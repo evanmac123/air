@@ -8,7 +8,7 @@ class UsersController < Clearance::UsersController
     text = params[:search_string]
     if text
       @search_string = text
-      text = text.downcase
+      text = text.downcase.strip.gsub(/\s+/, ' ')
       demo = current_user.demo
       names = @other_users.where("LOWER(name) like ?", "%" + text + "%")
       slugs = @other_users.where("LOWER(sms_slug) like ?", "%" + text + "%")
