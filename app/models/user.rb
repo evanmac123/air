@@ -491,16 +491,23 @@ class User < ActiveRecord::Base
     potential_claim_code
   end
 
-  def point_and_ranking_summary(_points_denominator, prefix = [])
-    result_parts = prefix.clone
+  def point_fraction
+    points = self.points_towards_next_threshold
+    point_denominator = self.point_threshold_spread
+    "#{points}/#{point_denominator}"
+  end
 
-    if _points_denominator
-      result_parts << "points #{self.points}/#{_points_denominator}"
+  def point_summary
+    if self.point_threshold_spread > 0
+      "Points #{self.point_fraction}"
+    else
+      "Points #{self.points}"
     end
+  end
 
-    #result_parts << "rank #{self.ranking}/#{self.demo.ranked_user_count}"
-
-    return '' if result_parts.empty?
+  def point_and_ranking_summary(prefix = [])
+    result_parts = prefix.clone
+    result_parts << self.point_summary
 
     ' ' + result_parts.join(', ').capitalize + '.'
   end
@@ -1006,7 +1013,6 @@ class User < ActiveRecord::Base
       :rule_value => rule_value.value
     )
 
-    points_denominator_before_referring_act = referring_user.points_denominator
     points_earned_by_referring = (rule.referral_points) || (rule.points / 2)
     points_phrase = points_earned_by_referring == 1 ? "1 point" : "#{points_earned_by_referring} points"
 
@@ -1021,7 +1027,7 @@ class User < ActiveRecord::Base
       :points                    => points_phrase,
       :name                      => self.name,
       :rule_value                => rule_value.value,
-      :point_and_ranking_summary => referring_user.point_and_ranking_summary(points_denominator_before_referring_act)
+      :point_and_ranking_summary => referring_user.point_and_ranking_summary
     )
 
     OutgoingMessage.send_message(referring_user, sms_text)

@@ -34,8 +34,8 @@ Feature: Game has a beginning and an end
     And time is frozen at "2010-04-01 12:00:00 UTC"
     And "+14152613077" sends SMS "went gym"
     And I dump all sent texts
-    Then "+14152613077" should have received an SMS "Worked out."
-    And "+14152613077" should not have received an SMS "You ate fruit."
+    Then "+14152613077" should have received an SMS "Worked out. Points 3."
+    And "+14152613077" should not have received an SMS including "You ate fruit."
     And "+14152613077" should have received an SMS "The game will begin April 01, 2010 at 08:00 AM Eastern. Please try again after that time."
 
   Scenario: Sending actions after the game ends
@@ -43,8 +43,8 @@ Feature: Game has a beginning and an end
     And "+14152613077" sends SMS "ate fruit"
     And time is frozen at "2010-05-01 12:00:01 UTC"
     And "+14152613077" sends SMS "went gym"
-    Then "+14152613077" should have received an SMS "You ate fruit."
-    And "+14152613077" should not have received an SMS "Worked out."
+    Then "+14152613077" should have received an SMS "You ate fruit. Points 2."
+    And "+14152613077" should not have received an SMS including "Worked out."
     And "+14152613077" should have received an SMS "Thanks for playing! The game is now over. If you'd like more information e-mailed to you, please text MORE INFO."
 
   Scenario: Sending actions outside of game window with custom messages

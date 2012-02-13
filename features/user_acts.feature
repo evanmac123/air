@@ -198,7 +198,7 @@ Feature: User acts
     And I should see "200 pts Fred told Dan about a command less than a minute ago"
     And I dump all sent texts
     And "+15088675309" should have received an SMS '+1 point, Dan tagged you in the "ate banana" command. Points 1/50.'
-    And "+14155551212" should have received an SMS '+200 points, Dan tagged you in the "worked out" command. Points 201/50.'
+    And "+14155551212" should have received an SMS '+200 points, Dan tagged you in the "worked out" command. Points 201.'
 
   Scenario: A helpful error message if you say a nonexistent user referred you
     When "+15087407520" sends SMS "ate banana mrnobody"

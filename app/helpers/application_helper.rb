@@ -47,9 +47,7 @@ module ApplicationHelper
   end
 
   def master_bar_point_content
-    points = current_user.points_towards_next_threshold
-    point_denominator = current_user.point_threshold_spread
-    "#{points}/#{point_denominator} points"
+    "#{current_user.point_fraction} points"
   end
 
   def consolidated_flash
