@@ -30,6 +30,7 @@
       = image_tag "/images/v3/arrow-down.png"
       = link_to "See more", '#', :id => 'see-more'
 = content_for :javascript do
+  = javascript_include_tag 'directory'
   :javascript
     var actOffset = #{@acts.length};
 
