@@ -98,7 +98,7 @@ class ApplicationController < ActionController::Base
 
     if current_user
       @_user_flashes = current_user.flashes_for_next_request || {}
-      current_user.update_attributes(:flashes_for_next_request => nil)
+      current_user.update_attributes(:flashes_for_next_request => nil) if current_user.flashes_for_next_request
     end
   end
 
