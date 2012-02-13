@@ -1,4 +1,6 @@
 $(function() {
+  
+  
   $('#add-new-user').live('click', function() {
     $('#new_user').parent('.hidden-form').show();
     $('#user_name').focus();
@@ -28,6 +30,8 @@ $(function() {
   $('.with-hint-text').live('focus', (function(e) {
     $(this).attr('value', '').removeClass('with-hint-text');
   }));
+  
+  
 });
 
 function lengthInBytes(string) {

@@ -1,7 +1,10 @@
 var autocomplete_in_progress = 0;
 var autocomplete_waiting = 0;
+var global_contents_of_three_ways_to_play_3838477463535 = '';
 
 $(function() {
+  
+  saveFaqMiniToVariable();  
   
   $('#invite_friends_link').live('click', function(){
     grabUsersToInvite();
@@ -177,6 +180,17 @@ $(function() {
 
 });
 
+function saveFaqMiniToVariable(){
+  global_contents_of_three_ways_to_play_3838477463535 = $("#faq_mini").html();
+  $('#faq_mini').remove();  
+}
+
+function fancyBoxFaqMini(){
+  // A 100ms delay is given so that if the href is '#', which may take you to the 
+  // top of the page, it will wait till you get there before it paints the modal
+  setTimeout('$.fancybox(global_contents_of_three_ways_to_play_3838477463535)', 100);
+}
+
 function grabUsersToInvite(){
   //grab all the user_ids 
   var invitee_ids = '';
@@ -203,7 +217,7 @@ function hideAndRenamePageBasedInviteFriends(){
 
 function moveInviteFriendsFaceboxToPage(){
   var stuff_in_facebox = $('#facebox .content').html();
-  $('#facebox').remove();
+  //$('#facebox').remove();
   $('#temporary_div_name').html(stuff_in_facebox); 
   $('#temporary_div_name').attr('id', 'invite_friends');
   $('.autocomplete').css('opacity', 1);

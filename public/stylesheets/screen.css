@@ -506,6 +506,101 @@ body.interstitial_verifications div.content {
     color: #2e2e2c;
     padding-bottom: 15px; }
 
+#faq_mini {
+  display: none; }
+
+#faq_mini_inner {
+  width: 800px;
+  margin-top: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+  padding-bottom: 60px; }
+  #faq_mini_inner form {
+    margin: 2ex !important; }
+  #faq_mini_inner input {
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    border-radius: 20px;
+    behavior: url(/css3pie/PIE.htc);
+    background-color: #588b3d;
+    border: 0;
+    color: #fff;
+    display: block;
+    font-family: "Ubuntu", Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 15px;
+    font-weight: 900;
+    letter-spacing: .15ex;
+    padding: 5px 16px;
+    text-shadow: 1px 1px 1px #333;
+    behavior: none;
+    text-transform: uppercase; }
+    #faq_mini_inner input:hover {
+      background-color: #333333; }
+    #faq_mini_inner input:active {
+      background-color: #909090; }
+  #faq_mini_inner h1, #faq_mini_inner h2 {
+    color: #333333;
+    font-family: "Ubuntu", Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: 900; }
+  #faq_mini_inner h1 {
+    font-size: 26px;
+    text-transform: uppercase; }
+    #faq_mini_inner h1.Section- {
+      color: #588b3d;
+      background-color: #e9e9e9;
+      font-weight: 900;
+      margin-bottom: 37px;
+      padding: 10px;
+      position: relative;
+      top: 20px; }
+  #faq_mini_inner h2 {
+    color: #333333;
+    font-size: 18px;
+    font-weight: 900;
+    text-transform: uppercase;
+    padding: 25px 0 10px 15px; }
+  #faq_mini_inner .Standard {
+    font-size: 110%;
+    color: #333333;
+    padding: 0 10px 0 15px; }
+    #faq_mini_inner .Standard + .Standard {
+      padding-top: 1ex; }
+    #faq_mini_inner .Standard + ul {
+      padding-top: 1ex; }
+  #faq_mini_inner ul {
+    padding-left: 49px; }
+    #faq_mini_inner ul + .Standard {
+      padding-top: 1ex; }
+  #faq_mini_inner li {
+    list-style: disc;
+    color: #333333; }
+    #faq_mini_inner li + li {
+      padding-top: 1ex; }
+  #faq_mini_inner .Paragraph {
+    color: #666666;
+    font-weight: bold;
+    font-size: 115%;
+    padding-top: 1.8ex;
+    padding-bottom: 0.8ex;
+    padding-left: 15px; }
+  #faq_mini_inner .Subparagraph {
+    color: #666666;
+    font-weight: bold;
+    font-size: 106%;
+    padding-left: 5ex;
+    padding-top: 1ex; }
+    #faq_mini_inner .Subparagraph + ul {
+      padding-left: 10ex; }
+  #faq_mini_inner i {
+    font-style: normal;
+    font-weight: bold; }
+
+.green {
+  color: #588b3d; }
+
+.bold {
+  font-weight: bold; }
+
 body {
   background-color: #e9e9e9;
   background-image: url("/images/v3/texture.png");
@@ -532,7 +627,7 @@ body {
       padding-bottom: 5px;
       margin: 5px 0; }
     body .content h1.headline {
-      color: #2e2e2c;
+      color: #333333;
       font-family: "Ubuntu", Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
       font-size: 20px;
       font-weight: 900;
@@ -584,7 +679,7 @@ body {
       font-size: 11px!important;
       font-weight: bold;
       padding: 5px 15px;
-      text-shadow: 1px 1px 1px #2e2e2c;
+      text-shadow: 1px 1px 1px #333333;
       text-transform: uppercase;
       font-weight: 900!important;
       font-weight: bold;
@@ -599,7 +694,7 @@ body {
       body .content a:hover {
         color: #6eae4d; }
       body .content a:active {
-        color: #2e2e2c; }
+        color: #333333; }
 
 /* -- nav active states -- */
 .acts .header .navigation .nav-home, .users-show .header .navigation .nav-activity, .users-index .header .navigation .nav-directory, .scores .header .navigation .nav-scores {
@@ -875,7 +970,7 @@ body.acts .container .feeds {
     padding: 10px 0 5px 0;
     text-align: center; }
     body.acts .container .feeds .seemore a {
-      color: #2e2e2c;
+      color: #333333;
       padding: 0 7px; }
       body.acts .container .feeds .seemore a:hover {
         color: #588b3d; }
@@ -904,7 +999,7 @@ body.acts .container .feeds {
         body.acts .container .feeds .act .act-details .user a:hover {
           color: #6eae4d; }
         body.acts .container .feeds .act .act-details .user a:active {
-          color: #2e2e2c; }
+          color: #333333; }
       body.acts .container .feeds .act .act-details .when {
         color: #909090;
         font-size: 12px;
@@ -961,7 +1056,7 @@ body.acts .container .feeds {
       font-size: 11px!important;
       font-weight: bold;
       padding: 5px 15px;
-      text-shadow: 1px 1px 1px #2e2e2c;
+      text-shadow: 1px 1px 1px #333333;
       text-transform: uppercase;
       font-weight: 900!important;
       display: inline;
@@ -998,7 +1093,7 @@ body.acts .container .invite-module {
       body.acts .container .invite-module .invite div#search_for_friends_to_invite div.single_suggestion a.remove_referrer:hover {
         color: #6eae4d; }
       body.acts .container .invite-module .invite div#search_for_friends_to_invite div.single_suggestion a.remove_referrer:active {
-        color: #2e2e2c; }
+        color: #333333; }
   body.acts .container .invite-module .invite form {
     margin-top: 15px; }
     body.acts .container .invite-module .invite form p {
@@ -1022,11 +1117,11 @@ body.acts .container .invite-module {
         body.acts .container .invite-module .invite form .invite_or_add a#lots_of_friends:hover {
           color: #6eae4d; }
         body.acts .container .invite-module .invite form .invite_or_add a#lots_of_friends:active {
-          color: #2e2e2c; }
+          color: #333333; }
       body.acts .container .invite-module .invite form .invite_or_add input[type="submit"] {
         margin: 0; }
   body.acts .container .invite-module .invite h2 {
-    color: #2e2e2c;
+    color: #333333;
     font-family: "Ubuntu", Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 20px;
     font-weight: 900;
@@ -1057,7 +1152,7 @@ body.acts .container .invite-module {
     font-size: 11px!important;
     font-weight: bold;
     padding: 5px 15px;
-    text-shadow: 1px 1px 1px #2e2e2c;
+    text-shadow: 1px 1px 1px #333333;
     text-transform: uppercase;
     font-weight: 900!important;
     margin-top: 10px;
@@ -1071,7 +1166,7 @@ body.acts .container .invite-module {
     color: #588b3d;
     font-weight: bold; }
   body.acts .container .invite-module .invite ul.form-section li.form-label label {
-    color: #2e2e2c; }
+    color: #333333; }
 body.acts #facebox .popup {
   border: none;
   -webkit-box-shadow: 0;
@@ -1116,7 +1211,7 @@ body.acts #facebox .popup {
           body.acts #facebox .popup .content form div.invite_or_add a#lots_of_friends:hover {
             color: #6eae4d; }
           body.acts #facebox .popup .content form div.invite_or_add a#lots_of_friends:active {
-            color: #2e2e2c; }
+            color: #333333; }
         body.acts #facebox .popup .content form div.invite_or_add input[type="submit"] {
           background: #3f3f3f;
           /* Old browsers */
@@ -1142,7 +1237,7 @@ body.acts #facebox .popup {
           font-size: 11px!important;
           font-weight: bold;
           padding: 5px 15px;
-          text-shadow: 1px 1px 1px #2e2e2c;
+          text-shadow: 1px 1px 1px #333333;
           text-transform: uppercase;
           font-weight: 900!important;
           font-weight: bold;
@@ -1156,11 +1251,11 @@ body.acts #facebox .popup {
         body.acts #facebox .popup .content form div.single_suggestion a.remove_referrer:hover {
           color: #6eae4d; }
         body.acts #facebox .popup .content form div.single_suggestion a.remove_referrer:active {
-          color: #2e2e2c; }
+          color: #333333; }
       body.acts #facebox .popup .content form p {
         font-weight: bold; }
       body.acts #facebox .popup .content form ul.form-section li.form-label label {
-        color: #2e2e2c;
+        color: #333333;
         font-weight: bold; }
     body.acts #facebox .popup .content h2 {
       font-family: "Ubuntu", Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -1204,7 +1299,7 @@ body.users div#about-player {
       font-size: 11px!important;
       font-weight: bold;
       padding: 5px 15px;
-      text-shadow: 1px 1px 1px #2e2e2c;
+      text-shadow: 1px 1px 1px #333333;
       text-transform: uppercase;
       font-weight: 900!important;
       display: block;
@@ -1253,7 +1348,7 @@ body.users div#left-col {
     padding: 10px 0 5px 0;
     text-align: center; }
     body.users div#left-col .seemore a {
-      color: #2e2e2c;
+      color: #333333;
       padding: 0 7px; }
       body.users div#left-col .seemore a:hover {
         color: #588b3d; }
@@ -1282,7 +1377,7 @@ body.users div#left-col {
         body.users div#left-col .act .act-details .user a:hover {
           color: #6eae4d; }
         body.users div#left-col .act .act-details .user a:active {
-          color: #2e2e2c; }
+          color: #333333; }
       body.users div#left-col .act .act-details .when {
         color: #909090;
         font-size: 12px;
@@ -1315,7 +1410,7 @@ body.users div#right-col {
     body.users div#right-col li.user {
       clear: both; }
       body.users div#right-col li.user p.user-level {
-        color: #484845;
+        color: #4d4d4d;
         float: right;
         font-weight: bold;
         text-transform: uppercase; }
@@ -1328,7 +1423,7 @@ body.users div#right-col {
 
 /* --------------------------- directory --------------------------- */
 body.users-index h2 {
-  color: #2e2e2c;
+  color: #333333;
   font-family: "Ubuntu", Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 20px;
   font-weight: 900;
@@ -1344,7 +1439,7 @@ body.users-index div#main {
     padding: 10px 0 5px 0;
     text-align: center; }
     body.users-index div#main .seemore a {
-      color: #2e2e2c;
+      color: #333333;
       padding: 0 7px; }
       body.users-index div#main .seemore a:hover {
         color: #588b3d; }
@@ -1378,7 +1473,7 @@ body.users-index div#secondary {
   float: right;
   width: 38%; }
   body.users-index div#secondary div#search-box input[type="submit"] {
-    background: #2e2e2c;
+    background: #333333;
     border: 0;
     border-radius: 0 20px 20px 0;
     color: #fff;
@@ -1388,7 +1483,7 @@ body.users-index div#secondary {
     letter-spacing: 1.2px;
     margin-left: -3px;
     padding: 8px;
-    text-shadow: 1px 1px 1px #2e2e2c;
+    text-shadow: 1px 1px 1px #333333;
     text-transform: uppercase;
     behavior: url(/css3pie/PIE.htc); }
     body.users-index div#secondary div#search-box input[type="submit"]:hover {
@@ -1410,7 +1505,7 @@ body.scores div#main {
     padding: 10px 0 5px 0;
     text-align: center; }
     body.scores div#main .seemore a {
-      color: #2e2e2c;
+      color: #333333;
       padding: 0 7px; }
       body.scores div#main .seemore a:hover {
         color: #588b3d; }
@@ -1554,7 +1649,7 @@ body.pages-faq .content {
     padding-bottom: 60px;
     padding-right: 15px; }
     body.pages-faq .content #faq_body h1, body.pages-faq .content #faq_body h2 {
-      color: #2e2e2c;
+      color: #333333;
       font-family: "Ubuntu", Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
       font-weight: 900; }
     body.pages-faq .content #faq_body h1 {
@@ -1574,7 +1669,7 @@ body.pages-faq .content {
         position: relative;
         top: 20px; }
     body.pages-faq .content #faq_body h2 {
-      color: #2e2e2c;
+      color: #333333;
       font-size: 18px;
       font-weight: 900;
       text-transform: uppercase;
@@ -1597,14 +1692,14 @@ body.pages-faq .content {
       body.pages-faq .content #faq_body li + li {
         padding-top: 1ex; }
     body.pages-faq .content #faq_body .Paragraph {
-      color: #62625e;
+      color: #666666;
       font-weight: bold;
       font-size: 115%;
       padding-top: 1.8ex;
       padding-bottom: 0.8ex;
       padding-left: 15px; }
     body.pages-faq .content #faq_body .Subparagraph {
-      color: #62625e;
+      color: #666666;
       font-weight: bold;
       font-size: 106%;
       padding-left: 5ex;
@@ -1622,7 +1717,7 @@ body.pages-faq .content {
       body.pages-faq .content #faq_toc a:hover {
         color: #6eae4d; }
       body.pages-faq .content #faq_toc a:active {
-        color: #2e2e2c; }
+        color: #333333; }
     body.pages-faq .content #faq_toc .toc {
       margin: 15px 0 5px 0; }
       body.pages-faq .content #faq_toc .toc:first-child {
@@ -1634,7 +1729,7 @@ body.pages-faq .content {
         body.pages-faq .content #faq_toc .toc a:hover {
           color: #6eae4d; }
         body.pages-faq .content #faq_toc .toc a:active {
-          color: #2e2e2c; }
+          color: #333333; }
     body.pages-faq .content #faq_toc .tocindent {
       padding-bottom: 15px; }
       body.pages-faq .content #faq_toc .tocindent .toc {
@@ -1651,7 +1746,7 @@ body.pages-faq .content {
           body.pages-faq .content #faq_toc .tocindent .tocindent a:hover {
             color: #6eae4d; }
           body.pages-faq .content #faq_toc .tocindent .tocindent a:active {
-            color: #2e2e2c; }
+            color: #333333; }
         body.pages-faq .content #faq_toc .tocindent .tocindent .toc {
           margin-top: 0!important; }
 
@@ -1673,7 +1768,7 @@ div.content div#no-login-yet {
   div.content div#no-login-yet div.invite#invite_friends {
     display: none; }
   div.content div#no-login-yet h2 {
-    color: #2e2e2c;
+    color: #333333;
     font-family: "Ubuntu", Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 20px;
     font-weight: 900;
@@ -1710,7 +1805,7 @@ div.content div#no-login-yet {
   font-size: 11px!important;
   font-weight: bold;
   padding: 5px 15px;
-  text-shadow: 1px 1px 1px #2e2e2c;
+  text-shadow: 1px 1px 1px #333333;
   text-transform: uppercase;
   font-weight: 900!important;
   font-size: 11px;
@@ -1746,7 +1841,7 @@ body.interstitial_verifications div.content div#no-login-yet {
   body.interstitial_verifications div.content div#no-login-yet div.invite#invite_friends {
     display: none; }
   body.interstitial_verifications div.content div#no-login-yet h2 {
-    color: #2e2e2c;
+    color: #333333;
     font-family: "Ubuntu", Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 20px;
     font-weight: 900;
@@ -1813,7 +1908,7 @@ div.follow-btn, div.stop-following-btn {
   font-size: 11px!important;
   font-weight: bold;
   padding: 5px 15px;
-  text-shadow: 1px 1px 1px #2e2e2c;
+  text-shadow: 1px 1px 1px #333333;
   text-transform: uppercase;
   font-weight: 900!important;
   float: right;

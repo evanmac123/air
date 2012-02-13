@@ -296,7 +296,7 @@ body.invitation-resends form input[type="submit"] {
   letter-spacing: .15ex;
   padding: 5px 16px;
   text-shadow: 1px 1px 1px #333;
-  behavior: url(/css3pie/PIE.htc);
+  behavior: none;
   text-transform: uppercase;
   margin-top: 20px; }
   body.invitation-resends form input[type="submit"]:hover {
@@ -329,7 +329,7 @@ body.passwords .content .inv-forms form {
     letter-spacing: .15ex;
     padding: 5px 16px;
     text-shadow: 1px 1px 1px #333;
-    behavior: url(/css3pie/PIE.htc);
+    behavior: none;
     text-transform: uppercase;
     float: right;
     margin-top: 5px; }
@@ -411,7 +411,7 @@ body.sessions .content .inv-forms form {
     letter-spacing: .15ex;
     padding: 5px 16px;
     text-shadow: 1px 1px 1px #333;
-    behavior: url(/css3pie/PIE.htc);
+    behavior: none;
     text-transform: uppercase;
     clear: both;
     display: block;
@@ -514,7 +514,7 @@ select#user_location_id {
   letter-spacing: .15ex;
   padding: 5px 16px;
   text-shadow: 1px 1px 1px #333;
-  behavior: url(/css3pie/PIE.htc);
+  behavior: none;
   text-transform: uppercase;
   margin-top: -5px; }
   .signup-submit input[type="submit"]:hover {

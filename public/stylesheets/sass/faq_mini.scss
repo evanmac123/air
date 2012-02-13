@@ -1,0 +1,108 @@
+@import "ex_button";
+$dark-gray: #333;
+$green: #588B3D;
+
+
+#faq_mini{
+  display: none;
+}
+#faq_mini_inner {
+  width: 800px;
+  margin-top:20px;
+  margin-left: 20px;
+  margin-right: 20px;
+	padding-bottom: 60px;
+	form{
+	  margin: 2ex !important;
+	}
+  input{
+    @include ex-button;
+  }
+	h1, h2 {
+		color:$dark-gray;
+		font-family:$gotham;
+		font-weight:900;
+	}
+	h1{
+		font-size:26px;
+		text-transform:uppercase;
+		&.Section-{
+		  color: $green; 
+			background-color:$light-gray;
+			font-weight:900;
+			margin-bottom:37px;
+			padding:10px;
+			position:relative;
+			top:20px;
+		}
+	}
+	h2 {
+		color:$dark-gray;
+		font-size:18px;
+		font-weight:900;
+	  	text-transform: uppercase;
+		padding:25px 0 10px 15px;
+	}
+
+	
+	.Standard {
+		font-size: 110%;
+		color:$dark-gray;
+		padding: 0 10px 0 15px;
+    		& + .Standard {padding-top: 1ex;}
+   			& + ul{
+	  		padding-top: 1ex;
+	  	}
+	}
+	ul{
+		padding-left: 49px;
+		& + .Standard{
+	    	padding-top: 1ex;
+	  	}
+	}
+	li{
+		list-style: disc;
+		color: $dark-gray;
+		& + li{padding-top: 1ex;}
+	}
+	
+  		.Paragraph{
+		color:lighten($dark-gray, 20%);
+		font-weight: bold;
+		font-size: 115%;
+		padding-top: 1.8ex;
+		padding-bottom: 0.8ex;
+		padding-left: 15px;
+	}
+	.Subparagraph{
+		color:lighten($dark-gray, 20%);
+		font-weight: bold;
+        font-size: 106%;
+        padding-left: 5ex;
+        padding-top: 1ex;
+        & + ul{
+        	padding-left: 10ex;
+        }
+	}
+	i {
+		font-style: normal;
+		font-weight: bold;
+	}
+}
+.green{
+  color: $green;
+}
+.bold{
+  font-weight: bold;
+}
+
+// #fancybox-content, #fancybox-inner, #fancybox-outer {
+// 
+//         -moz-border-radius:10px 10px 10px 10px;
+//         border-radius:10px 10px 10px 10px;
+//         -webkit-border-radius: 10px 10px 10px 10px;
+// 
+// }
+// #fancybox-inner{background: blue;}
+// #fancybox-outer{background: green;}
+// #fancybox-content{background: red;}
