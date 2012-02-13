@@ -2,7 +2,6 @@
 
 - content_for(:javascript) do
   =# need hidden div here so contact us can pop
-  = javascript_include_tag 'contact_us'
   .hidden
     = render 'shared/assistly_widget'
 
@@ -34,7 +33,15 @@
     $("li.form-input").focusout(function () {
     	$(".helper").fadeOut();
     });
+    
+    $("#search_for_referrer #autocomplete").focus(function(){
+      $("#autocomplete_status").show();
+    });
 
+    $("#search_for_referrer .single_suggestion").live('click', function(){
+      $("#autocomplete_status").hide();
+    });
+    
 - content_for :status do
   - if flash[:failure].present?
     = flash[:failure]
@@ -105,7 +112,7 @@
                 %br
                 Type part of their name or email address and we’ll look for them in the system. (They must already be an active player to be eligible for the bonus.)
             = text_field_tag :autocomplete
-      #relative
+      #indented_to_match_inputs
         #autocomplete_status
         #suggestions
 
@@ -131,7 +138,7 @@
     %ul.form-section.signup-submit
 
       <input name="commit" type="submit" value="Join the game" style="float: left;" id='join_the_game_link'>
-      = link_to 'Questions?', '#', :class => :contact_us_link, :method => :get, :onclick =>"return false", :style => "float: right;", :id => :contact_us_from_inv_acceptance_page
+= link_to_function 'Questions?', "setTimeout(\"$('.assistly-widget a').click()\", 500)", :style => "float: right;", :id => :contact_us_from_inv_acceptance_page
 
 %div.privacy-policy.form-footnotes
   %p Please remember:

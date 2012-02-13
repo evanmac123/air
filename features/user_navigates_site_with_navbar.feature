@@ -16,6 +16,6 @@ Feature: The navbar does what it ought
       | Settings   | the settings page          |
       | Sign Out   | the sign in page           |
       | Home       | the activity page          |
-      | Activity   | the profile page for "Joe" |
+      | My Profile | the profile page for "Joe" |
       | Directory  | the directory page         |
       | Help       | the help page              |

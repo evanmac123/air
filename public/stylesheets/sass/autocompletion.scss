@@ -140,6 +140,40 @@ body #facebox .content {
   padding-bottom: 4px;
   height: 20px;
 }
+
+#indented_to_match_inputs{
+  margin: 0 auto;
+  width: $bin_width + 40px;
+  padding-bottom: 23px;
+  margin-top: -12px;
+}
+
+div#search_for_referrer {
+	div#autocomplete_status {
+		color:$gray;
+		margin:0;
+		padding:0;
+		top:-52px;
+		display: none;
+	}
+	div#suggestions {
+		div.single_suggestion {
+			div.image {
+				img {
+					@include rounded;
+					border:1px $light-gray inset;
+					height:95px;
+					width:95px;
+				}
+			}
+		}
+	}
+}
+
+
+
+
+
 #points_per_referral{
   display: none;
 }
@@ -213,7 +247,7 @@ div.helper {
   color: $gold;
 }
 
-#autocomplete{
+#invite_friends_middle #autocomplete{
   width: 314px;
   behavior: none;
 }
@@ -247,4 +281,7 @@ div.helper {
   .helper{
     top: -27px;
   }
+}
+.hidden{
+  display: none;
 }

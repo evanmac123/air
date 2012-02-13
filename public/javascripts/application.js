@@ -297,8 +297,9 @@ function getAutocomplete(options){
           if ($("#autocomplete_status").text() == 'Hmmm...no match')
           $("#autocomplete_status").text('Please try again');
           }, 3000);    
-      }else{
+      }else{        
         $("#autocomplete_status").text('Click on the person you want to invite:');    
+        $("#search_for_referrer #autocomplete_status").text('Click on the person who referred you:');    
         $(".helper.autocomplete").fadeOut();
         $("#hide_me_while_selecting").hide();
         $("#bonus").fadeOut(); 

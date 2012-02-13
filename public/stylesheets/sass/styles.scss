@@ -289,29 +289,7 @@ body.invitations-show, body.invitation-acceptances {
 			}
 		}
 	}
-	div#search_for_referrer {
-		div#relative {
-			div#autocomplete_status {
-				color:$gray;
-				margin:0;
-				padding:0;
-				top:-52px;
-				display: none;
-			}
-			div#suggestions {
-				div.single_suggestion {
-					div.image {
-						img {
-							@include rounded;
-							border:1px $light-gray inset;
-							height:95px;
-							width:95px;
-						}
-					}
-				}
-			}
-		}
-	}
+	
 }
 
 /* ====== special case: INVITATIONS New ====== */

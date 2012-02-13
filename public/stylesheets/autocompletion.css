@@ -158,6 +158,28 @@ body #facebox .content {
   padding-bottom: 4px;
   height: 20px; }
 
+#indented_to_match_inputs {
+  margin: 0 auto;
+  width: 340px;
+  padding-bottom: 23px;
+  margin-top: -12px; }
+
+div#search_for_referrer div#autocomplete_status {
+  color: #909090;
+  margin: 0;
+  padding: 0;
+  top: -52px;
+  display: none; }
+div#search_for_referrer div#suggestions div.single_suggestion div.image img {
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  behavior: url(/css3pie/PIE.htc);
+  z-index: 0;
+  border: 1px #e9e9e9 inset;
+  height: 95px;
+  width: 95px; }
+
 #points_per_referral {
   display: none; }
 
@@ -217,7 +239,7 @@ div.helper {
 .gold {
   color: #ffdd11; }
 
-#autocomplete {
+#invite_friends_middle #autocomplete {
   width: 314px;
   behavior: none; }
 
@@ -274,3 +296,6 @@ div.helper {
 
 #search_for_friends_to_invite .helper {
   top: -27px; }
+
+.hidden {
+  display: none; }
