@@ -15,10 +15,10 @@ Feature: User requests an invitation via SMS
       | Bob Smith | bob@example.com | name: BrandyWine |
 
   Scenario: User texts us email address, gets an invitation, and fills it out
-    When "+14155551213" sends SMS "email@example.com"
-    Then "+14155551213" should have received an SMS "An invitation has been sent to email@example.com."
-    And "email@example.com" should receive an email
-    When "email@example.com" opens the email
+    When "+14155551213" sends SMS " Email.Email-_@example.com "
+    Then "+14155551213" should have received an SMS "An invitation has been sent to email.email-_@example.com."
+    And "email.email-_@example.com" should receive an email
+    When "email.email-_@example.com" opens the email
     And they click the first link in the email
     Then I should see "Choose a username"
     And I should not see "Enter your mobile number"

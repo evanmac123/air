@@ -786,7 +786,7 @@ class User < ActiveRecord::Base
   def self.send_invitation_if_email(phone, text, options={})
     return nil unless phone =~ /^(\+1\d{10})$/
 
-    _text = text.downcase
+    _text = text.downcase.strip.gsub(" ", "")
 
     if (existing_user = User.where(:email => _text).first)
       if existing_user.claimed?
