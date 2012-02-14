@@ -4,6 +4,8 @@ class Invitation::FriendInvitationsController < ApplicationController
   before_filter :authenticate_without_game_begun_check
   
   def create
+    successful_invitation_count = 0
+
     users_invited = []
     # Pre-populated Domain
     if params[:invitee_ids]
@@ -68,6 +70,7 @@ class Invitation::FriendInvitationsController < ApplicationController
           add_failure "For some reason, the address #{email} didn't work" unless @invitation_request.valid?
           users_invited << email
           user.invite(current_user)        
+          successful_invitation_count += 1
         elsif User.where(:email => email).first.accepted_invitation_at 
           # user already playing, so discard
           existing_users << email 
@@ -88,8 +91,9 @@ class Invitation::FriendInvitationsController < ApplicationController
       sentence = create_sentence_response(users_invited)
       add_success(sentence) 
     end
+
+    flash[:mp_track_invited_users] = ['invited friends', {:successful_invitations => successful_invitation_count}]
     redirect_to activity_path 
-    
   end
 
   def create_sentence_response(name_array)
