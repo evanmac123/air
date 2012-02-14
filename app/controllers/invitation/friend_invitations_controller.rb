@@ -70,7 +70,6 @@ class Invitation::FriendInvitationsController < ApplicationController
           add_failure "For some reason, the address #{email} didn't work" unless @invitation_request.valid?
           users_invited << email
           user.invite(current_user)        
-          successful_invitation_count += 1
         elsif User.where(:email => email).first.accepted_invitation_at 
           # user already playing, so discard
           existing_users << email 
@@ -92,7 +91,7 @@ class Invitation::FriendInvitationsController < ApplicationController
       add_success(sentence) 
     end
 
-    flash[:mp_track_invited_users] = ['invited friends', {:successful_invitations => successful_invitation_count}]
+    flash[:mp_track_invited_users] = ['invited friends', {:successful_invitations => users_invited.length}]
     redirect_to activity_path 
   end
 
