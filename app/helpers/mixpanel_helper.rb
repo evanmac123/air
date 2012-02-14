@@ -4,4 +4,8 @@ module MixpanelHelper
       raw "mpq.track('#{event}', #{properties.to_json})"
     end
   end
+
+  def mp_track_page(page_name, properties = {})
+    mp_track("viewed #{page_name} page", properties)
+  end
 end

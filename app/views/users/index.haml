@@ -43,3 +43,5 @@
         = label_tag "search_string", "search bar", :class => :hidden
         = text_field_tag "search_string"
         = submit_tag "Find!"
+
+= mp_track_page 'user directory', :game => current_user.demo.name

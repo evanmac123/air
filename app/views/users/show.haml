@@ -77,6 +77,6 @@
     .cf
 
 - if @viewing_self
-  = mp_track 'viewed own profile'
+  = mp_track_page 'own profile'
 - if @viewing_other
-  = mp_track "viewed profile of someone else", :viewed_person => @user.name
+  = mp_track_page "profile for someone else", :viewed_person => @user.name
