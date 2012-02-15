@@ -22,7 +22,8 @@ class PasswordsController < Clearance::PasswordsController
                              params[:user][:password_confirmation])
       sign_in(@user)
       flash_success_after_update
-      redirect_to(url_after_update)
+      # redirect_to(url_after_update)
+      redirect_to activity_path
     else
       render :template => 'passwords/edit'
     end
