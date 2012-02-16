@@ -36,7 +36,7 @@ Feature: User levels up
     And DJ cranks 10 times
     And I go to the activity page
     Then I should see that I'm on level 2
-    And "+14155551212" should have received an SMS "level 2 (N00b)"
+    And "+14155551212" should have received an SMS "Congratulations! You've reached level 2 (N00b)"
     But "vlad@example.com" should receive no email
     When I enter the act code "did best"
     Then I should see that I'm on level 3
@@ -46,7 +46,7 @@ Feature: User levels up
     And a decent interval has passed
     And DJ cranks 10 times
     Then "+14155551212" should not have received any SMSes
-    But "vlad@example.com" should receive an email with "level 2 (N00b)" in the email body
+    But "vlad@example.com" should receive an email with "Congratulations! You've reached level 2 (N00b)" in the email body
 
   Scenario: User levels via web when hitting point threshold
     When I enter the act code "did good"
@@ -64,8 +64,8 @@ Feature: User levels up
     And I go to the activity page
     #Then I should see "Level: level 2 (N00b)"
     #Then I should see "Level: level 3 (Pawn)"
-    And "+14155551212" should have received an SMS "level 2 (N00b)"
-    And "+14155551212" should have received an SMS "level 3 (Pawn)"
+    And "+14155551212" should have received an SMS "Congratulations! You've reached level 2 (N00b)"
+    And "+14155551212" should have received an SMS "Congratulations! You've reached level 3 (Pawn)"
 
   Scenario: User levels when passing point threshold
     When "+14155551212" sends SMS "did better"
@@ -73,7 +73,7 @@ Feature: User levels up
     And DJ cranks 10 times
     And I go to the activity page
     # Then I should see "Level: level 2 (N00b)"
-    And "+14155551212" should have received an SMS "level 2 (N00b)"
+    And "+14155551212" should have received an SMS "Congratulations! You've reached level 2 (N00b)"
 
   Scenario: User doesn't level when not passing point threshold
     When "+14155551212" sends SMS "did blah"
@@ -81,7 +81,7 @@ Feature: User levels up
     And DJ cranks 10 times
     And I go to the activity page
     # Then I should not see "level 2 (N00b)"
-    And "+14155551212" should not have received an SMS including "level 2 (N00b)"
+    And "+14155551212" should not have received an SMS including "Congratulations! You've reached level 2 (N00b)"
 
   Scenario: Levels are awarded retroactively on creation to people in the same demo
     Given a clean email queue
@@ -94,10 +94,10 @@ Feature: User levels up
     And I go to the activity page
     # Then I should see "Level: level 0 (usuk)"
     # award silently
-    Then "+14155551212" should not have received an SMS including "level 0 (usuk)"
-    But "+14155551212" should not have received an SMS including "level 2 (N00b)"
+    Then "+14155551212" should not have received an SMS including "Congratulations! You've reached level 0 (usuk)"
+    But "+14155551212" should not have received an SMS including "Congratulations! You've reached level 2 (N00b)"
     # And I should not see "level 2 (N00b)"
-    And "+18085551212" should not have received an SMS including "level 0 (usuk)"
-    And "+18085551212" should not have received an SMS including "level 2 (N00b)"
+    And "+18085551212" should not have received an SMS including "Congratulations! You've reached level 0 (usuk)"
+    And "+18085551212" should not have received an SMS including "Congratulations! You've reached level 2 (N00b)"
     And "vlad@example.com" should receive no email
     And "bob@example.com" should receive no email
