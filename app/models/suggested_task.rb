@@ -80,6 +80,9 @@ class SuggestedTask < ActiveRecord::Base
   end
 
   def suggest_to_eligible_users
-    self.demo.users.each {|user| suggest_to_user(user) if user.satisfies_all_prerequisites(self)}
+    self.demo.users.each do |user| 
+      next if user.suggested_tasks.include?(self)
+      suggest_to_user(user) if user.satisfies_all_prerequisites(self)
+    end
   end
 end

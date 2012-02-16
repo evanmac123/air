@@ -184,6 +184,11 @@ Factory.define :suggested_task do |suggested_task|
   suggested_task.association :demo
 end
 
+Factory.define :task_suggestion do |task_suggestion|
+  task_suggestion.association :user
+  task_suggestion.association :suggested_task
+end
+
 Factory.define :self_inviting_domain do |self_inviting_domain|
   self_inviting_domain.sequence(:domain) {|n| "example#{n}.com"}
   self_inviting_domain.association :demo
