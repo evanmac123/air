@@ -864,3 +864,13 @@ describe User, "#schedule_followup_welcome_message" do
     SMS.should have_received(:send_message).once
   end
 end
+
+describe User do
+  describe "Privacy Settings" do
+    it "should allow anyone to view the activity of a user whose privacy status is 'everybody'" do
+      follower = Factory :user
+      artist = Factory(:user, :privacy_level => "everybody")
+      follower.can_see_activity_of(artist).should == true      
+    end
+  end
+end

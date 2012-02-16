@@ -119,7 +119,7 @@ class User < ActiveRecord::Base
 
   def can_see_activity_of(user)
     return true if self == user
-    case self.privacy_level
+    case user.privacy_level
     when 'everybody'
       return true 
     when 'connected'
