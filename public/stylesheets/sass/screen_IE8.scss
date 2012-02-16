@@ -98,6 +98,10 @@ body.invitations .header #navigation .nav-signup, body.sessions .header #navigat
 		}
 	}
 }
+
+.avatar_image {
+	z-index:9999!important;	
+}
 //--------------invite modal--------------
 a#invite_friends_link {
 	position:relative!important;

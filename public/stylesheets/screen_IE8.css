@@ -113,6 +113,9 @@ body.invitations .header #navigation .nav-signup, body.sessions .header #navigat
     .suggested-task p.dose-descript a:active, .suggested-task p.dose-title a:active, .suggested-task div.dose-moreinfo a:active {
       color: #2e2e2c !important; }
 
+.avatar_image {
+  z-index: 9999!important; }
+
 a#invite_friends_link {
   position: relative!important; }
 
