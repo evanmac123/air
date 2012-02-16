@@ -114,6 +114,7 @@ body.invitations .header #navigation .nav-signup, body.sessions .header #navigat
       color: #2e2e2c !important; }
 
 .avatar_image {
+  position: relative!important;
   z-index: 9999!important; }
 
 a#invite_friends_link {

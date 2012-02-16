@@ -100,6 +100,7 @@ body.invitations .header #navigation .nav-signup, body.sessions .header #navigat
 }
 
 .avatar_image {
+	position:relative!important;
 	z-index:9999!important;	
 }
 //--------------invite modal--------------
