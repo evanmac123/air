@@ -6,9 +6,9 @@ class Invitation::AutocompletionsController < ApplicationController
 
     if current_user # This means you're logged in and want to find invitees
       demo = current_user.demo
-      names  = User.get_unclaimed_users_where_like(text, demo, "name", current_user)
-      slugs  = User.get_unclaimed_users_where_like(text, demo, "slug", current_user)
-      emails = User.get_unclaimed_users_where_like(text, demo, "email", current_user)
+      names  = User.get_users_where_like(text, demo, "name", current_user)
+      slugs  = User.get_users_where_like(text, demo, "slug", current_user)
+      emails = User.get_users_where_like(text, demo, "email", current_user)
     else            # This means you're trying to sign up and want to locate a referrer
       email = params[:email].strip.downcase
       domain = email.email_domain

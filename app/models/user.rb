@@ -1103,13 +1103,7 @@ class User < ActiveRecord::Base
     users
   end
   
-  def self.get_claimed_users_where_like(text, demo, attribute, user_to_exempt = nil)
-    get_users_where_like(text, demo, attribute, user_to_exempt).claimed
+  def self.get_claimed_users_where_like(text, demo, attribute)
+    get_users_where_like(text, demo, attribute).claimed
   end
-  
-  def self.get_unclaimed_users_where_like(text, demo, attribute, user_to_exempt = nil)
-    get_users_where_like(text, demo, attribute, user_to_exempt).unclaimed
-  end
-  
-  
 end
