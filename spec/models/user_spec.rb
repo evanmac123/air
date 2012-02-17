@@ -139,26 +139,26 @@ describe User do
       user1.reload.friendships.should be_empty
     end
 
-    xit "should fix the rankings of this user's demo after it's destroyed" do
-      demo = Factory :demo
-      user1 = Factory :claimed_user, :demo => demo
-      user2 = Factory :claimed_user, :demo => demo
-      user3 = Factory :claimed_user, :demo => demo
+    #xit "should fix the rankings of this user's demo after it's destroyed" do
+      #demo = Factory :demo
+      #user1 = Factory :claimed_user, :demo => demo
+      #user2 = Factory :claimed_user, :demo => demo
+      #user3 = Factory :claimed_user, :demo => demo
 
-      user1.update_points(10)
-      user2.update_points(5)
-      user3.update_points(2)
+      #user1.update_points(10)
+      #user2.update_points(5)
+      #user3.update_points(2)
 
-      Delayed::Worker.new.work_off(10)
-      user1.reload.ranking.should == 1
-      user2.reload.ranking.should == 2
-      user3.reload.ranking.should == 3
+      #Delayed::Worker.new.work_off(10)
+      #user1.reload.ranking.should == 1
+      #user2.reload.ranking.should == 2
+      #user3.reload.ranking.should == 3
 
-      user2.destroy
+      #user2.destroy
 
-      user1.reload.ranking.should == 1
-      user3.reload.ranking.should == 2
-    end
+      #user1.reload.ranking.should == 1
+      #user3.reload.ranking.should == 2
+    #end
 
     context "when user has a non-blank phone number" do
       it "should decrement the associated demo's ranked_user_count" do
@@ -452,49 +452,49 @@ share_examples_for "a ranking method" do
   end
 
   context "when a user is created" do
-    xit "should set their ranking appropriately" do
-      users_by_points = @demo.users.order("#{points_column} DESC").all
-      users_by_points.map(&ranking_column).should == [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    #xit "should set their ranking appropriately" do
+      #users_by_points = @demo.users.order("#{points_column} DESC").all
+      #users_by_points.map(&ranking_column).should == [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
-      @user[ranking_column].should == 6
-    end
+      #@user[ranking_column].should == 6
+    #end
   end
 
   context "when a user gains points" do
-    xit "should schedule a ranking update" do
-      @user.send(update_points_method, 3)
-      Delayed::Worker.new.work_off(10)
-      @user.reload[ranking_column].should == 3
-    end
+    #xit "should schedule a ranking update" do
+      #@user.send(update_points_method, 3)
+      #Delayed::Worker.new.work_off(10)
+      #@user.reload[ranking_column].should == 3
+    #end
 
-    xit "should schedule a reset of the ranking of all users who are now below them but weren't before" do
-      @twin = Factory :claimed_user, points_column => 5, :demo => @demo
-      @twin[ranking_column].should == @user[ranking_column]
+    #xit "should schedule a reset of the ranking of all users who are now below them but weren't before" do
+      #@twin = Factory :claimed_user, points_column => 5, :demo => @demo
+      #@twin[ranking_column].should == @user[ranking_column]
 
-      @user.send(update_points_method, 3)
+      #@user.send(update_points_method, 3)
 
-      Delayed::Worker.new.work_off(10)
+      #Delayed::Worker.new.work_off(10)
 
-      users_by_points = @demo.users.order("#{points_column} DESC").all
-      users_by_points.map(&ranking_column).should == [1, 2, 3, 3, 5, 6, 7, 8, 9, 10, 11]
-    end
+      #users_by_points = @demo.users.order("#{points_column} DESC").all
+      #users_by_points.map(&ranking_column).should == [1, 2, 3, 3, 5, 6, 7, 8, 9, 10, 11]
+    #end
 
-    xit "should work when breaking ties" do
-      User.delete_all
-      @first = Factory :claimed_user, points_column => 10, :demo => @demo
-      @second = Factory :claimed_user, points_column => 10, :demo => @demo
-      @third = Factory :claimed_user, points_column => 10, :demo => @demo
+    #xit "should work when breaking ties" do
+      #User.delete_all
+      #@first = Factory :claimed_user, points_column => 10, :demo => @demo
+      #@second = Factory :claimed_user, points_column => 10, :demo => @demo
+      #@third = Factory :claimed_user, points_column => 10, :demo => @demo
 
-      @first.reload[ranking_column].should == @second[ranking_column]
-      @first.reload[ranking_column].should == @third.reload[ranking_column]
+      #@first.reload[ranking_column].should == @second[ranking_column]
+      #@first.reload[ranking_column].should == @third.reload[ranking_column]
 
-      @first.send(update_points_method, 1)
-      Delayed::Worker.new.work_off(10)
+      #@first.send(update_points_method, 1)
+      #Delayed::Worker.new.work_off(10)
 
-      @first.reload[ranking_column].should == 1
-      @second.reload[ranking_column].should == 2
-      @third.reload[ranking_column].should == 2
-    end
+      #@first.reload[ranking_column].should == 1
+      #@second.reload[ranking_column].should == 2
+      #@third.reload[ranking_column].should == 2
+    #end
   end
 end
 
@@ -524,12 +524,12 @@ describe User, "#update_recent_average_points" do
     [5,1,1], [5,2,1], [5,3,1], [5,4,2], [5,5,2], [5,6,2], [5,7,2], [5,8,3],
     [6,1,1], [6,2,1], [6,3,1], [6,4,1], [6,5,2], [6,6,2], [6,7,2], [6,8,2], [6,9,3]
   ].each do |history_depth, points_added, expected_point_gain|
-    xit "should increase #recent_average_points by #{expected_point_gain} points when adding #{points_added} points and history depth is #{history_depth}" do
-      user = Factory :user, :recent_average_history_depth => history_depth
-      user.update_recent_average_points(points_added)
+    #xit "should increase #recent_average_points by #{expected_point_gain} points when adding #{points_added} points and history depth is #{history_depth}" do
+      #user = Factory :user, :recent_average_history_depth => history_depth
+      #user.update_recent_average_points(points_added)
 
-      user.reload.recent_average_points.should == expected_point_gain
-    end
+      #user.reload.recent_average_points.should == expected_point_gain
+    #end
   end
 end
 

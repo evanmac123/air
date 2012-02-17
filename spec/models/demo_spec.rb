@@ -44,7 +44,7 @@ describe Demo, "#welcome_message" do
     end
 
     it "should return a reasonable default" do
-      @demo.welcome_message(@user).should == "You've joined the #{@demo.name} game! Your username is #{@user.sms_slug} (text MYID if you forget). To play, text to this #."
+      @demo.welcome_message(@user).should == "You've joined the #{@demo.name} game! Your username is #{@user.sms_slug} (text MYID if you forget). To play, @{reply here}."
     end
   end
 
@@ -130,42 +130,42 @@ describe Demo, '#recalculate_all_moving_averages!' do
     end
   end
 
-  xit "should recalculate moving average scores on all users in the demo and rank them appropriately" do
-    @demo.recalculate_all_moving_averages!
+  #xit "should recalculate moving average scores on all users in the demo and rank them appropriately" do
+    #@demo.recalculate_all_moving_averages!
 
-    @all_users.each_with_index {|user, i| user.recent_average_points.should == @scores_to_update_to[i]}
+    #@all_users.each_with_index {|user, i| user.recent_average_points.should == @scores_to_update_to[i]}
 
-    @first.recent_average_ranking.should == 1
-    @second_tie_1.recent_average_ranking.should == 2
-    @second_tie_2.recent_average_ranking.should == 2
-    @fourth.recent_average_ranking.should == 4
-    @fifth_tie_1.recent_average_ranking.should == 5
-    @fifth_tie_2.recent_average_ranking.should == 5
-    @fifth_tie_3.recent_average_ranking.should == 5
-    @eighth.recent_average_ranking.should == 8
-  end
+    #@first.recent_average_ranking.should == 1
+    #@second_tie_1.recent_average_ranking.should == 2
+    #@second_tie_2.recent_average_ranking.should == 2
+    #@fourth.recent_average_ranking.should == 4
+    #@fifth_tie_1.recent_average_ranking.should == 5
+    #@fifth_tie_2.recent_average_ranking.should == 5
+    #@fifth_tie_3.recent_average_ranking.should == 5
+    #@eighth.recent_average_ranking.should == 8
+  #end
 end
 
 shared_examples_for "a rankings fixing method" do
-  xit "should recalculate rankings no more than once every 10 minutes" do
-    Timecop.freeze
+  #xit "should recalculate rankings no more than once every 10 minutes" do
+    #Timecop.freeze
 
-    begin
-      demo1 = Factory :demo, updated_at_column => 10.minutes.ago
-      demo2 = Factory :demo, updated_at_column => (9.minutes.ago - 59.seconds)
-      demo3 = Factory :demo, updated_at_column => nil
+    #begin
+      #demo1 = Factory :demo, updated_at_column => 10.minutes.ago
+      #demo2 = Factory :demo, updated_at_column => (9.minutes.ago - 59.seconds)
+      #demo3 = Factory :demo, updated_at_column => nil
 
-      all_demos = [demo1, demo2, demo3]
-      all_demos.each {|demo| demo.stubs(:fix_user_rankings!)}
-      all_demos.each(&wrapper_fix_method)
+      #all_demos = [demo1, demo2, demo3]
+      #all_demos.each {|demo| demo.stubs(:fix_user_rankings!)}
+      #all_demos.each(&wrapper_fix_method)
 
-      demo1.should have_received(:fix_user_rankings!).with(points_column, ranking_column)
-      demo2.should_not have_received(:fix_user_rankings!)
-      demo3.should have_received(:fix_user_rankings!).with(points_column, ranking_column)
-    ensure
-      Timecop.return
-    end
-  end
+      #demo1.should have_received(:fix_user_rankings!).with(points_column, ranking_column)
+      #demo2.should_not have_received(:fix_user_rankings!)
+      #demo3.should have_received(:fix_user_rankings!).with(points_column, ranking_column)
+    #ensure
+      #Timecop.return
+    #end
+  #end
 end
 
 describe Demo, "#fix_total_user_rankings!" do
