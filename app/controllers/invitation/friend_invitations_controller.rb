@@ -17,6 +17,8 @@ class Invitation::FriendInvitationsController < ApplicationController
         user = User.find(i)
         if user.nil?
           add_failure "User #{i} not found. "
+        elsif user.claimed?
+          add_failure "Thanks, but #{user.name} is already playing."
         else
           @invitation_request = InvitationRequest.new(:email => user.email)
           user.invite(current_user)

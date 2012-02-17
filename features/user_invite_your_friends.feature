@@ -32,6 +32,7 @@ Feature: User gives credit to game referer via autocomplete field
       | Alexander  | name: Bratwurst | also_claimed@inviting.com   | soap      | soap        | +15554442222 | everybody     |
       | Outsider   | name: Gleason   | different_game@inviting.com | box       | box         | +15554442211 | everybody     |
       | Shelly     | name: Preloaded | pre@loaded.com              | nada      | nada        | +16662221111 | everybody     |
+      | Michelle   | name: Preloaded | playing@loaded.com          | sexy      | sexy        | +16662221199 | everybody     |
       | Yoko       | name: NotStarted| not@started.com             | abb       | abb         | +13384848484 | everybody     |
 
 
@@ -84,8 +85,20 @@ Feature: User gives credit to game referer via autocomplete field
     When I follow "Confirm my mobile number later"
     And I should see "Shelly got credit for referring Blowing Smoke to the game"
     And I should see "2000 pts"
-
-
+    
+    @javascript
+    Scenario: Claimed users on a pre-pop game should not receive an invitation
+      Given "Shelly" has the password "foobar"
+      Given I sign in via the login page as "Shelly/foobar"    
+      Then I should see "Invite your friends"
+      When I fill in "Which coworkers do you wish to invite?" with "mic"
+      Then I should see "Michelle"
+      When I select the suggestion containing "Michelle"
+      And I follow "Invite selected users"
+      Then I should see "Michelle is already playing"
+      And DJ cranks 5 times
+      Then "playing@loaded.com" should receive no email
+      
   @javascript
   Scenario: Invite multiple friends at a time on demo pre-populated with users
     Given "Shelly" has the password "foobar"
