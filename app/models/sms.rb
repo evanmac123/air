@@ -1,4 +1,6 @@
 module SMS
+  include Reply
+
   def self.send_message(to, body, send_at = nil, options={})
     return unless to.present? # no sending to blank numbers
     return if muted_user?(to)
@@ -19,11 +21,21 @@ module SMS
                   when User: to.phone_number
                 end
 
+    return if to_number.blank?
+
     if to.kind_of?(User)
       to.bump_mt_texts_sent_today
     end
 
-    Delayed::Job.enqueue(OutgoingMessageJob.new(from_number, to_number, body), delay_params)
+    interpolated_body = construct_reply(body.dup)
+
+    Delayed::Job.enqueue(OutgoingMessageJob.new(from_number, to_number, interpolated_body), delay_params)
+  end
+
+  def self.channel_specific_translations
+    {
+      "reply here" => "text to this #"
+    }
   end
 
   protected
