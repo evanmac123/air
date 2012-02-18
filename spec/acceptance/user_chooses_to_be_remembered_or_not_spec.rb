@@ -28,6 +28,8 @@ feature "User Chooses To Be Remembered Or Not" do
     visit activity_page
     should_be_on activity_page
     page.should_not have_content(expiration_message)
+
+    Timecop.return
   end
 
   scenario "User does not want to be remembered" do
@@ -48,5 +50,6 @@ feature "User Chooses To Be Remembered Or Not" do
     visit activity_page
     should_be_on signin_page
     page.should have_content(expiration_message)
+    Timecop.return
   end
 end
