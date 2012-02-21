@@ -6,6 +6,7 @@ module MixpanelHelper
   end
 
   def mp_track_page(page_name, properties = {})
-    mp_track("viewed #{page_name} page", properties)
+    _properties = {:page_name => page_name}.merge(properties)
+    mp_track("viewed page", _properties)
   end
 end
