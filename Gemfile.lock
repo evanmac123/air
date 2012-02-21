@@ -167,6 +167,9 @@ GEM
       activesupport (>= 2.3.2)
       cocaine (>= 0.0.2)
       mime-types
+    parallel (0.5.14)
+    parallel_tests (0.6.19)
+      parallel
     pg (0.12.2)
     polyglot (0.3.1)
     pry (0.9.6.2)
@@ -310,6 +313,7 @@ DEPENDENCIES
   linecache19 (~> 0.5.11)
   nokogiri
   paperclip
+  parallel_tests
   pg
   pry
   pry-doc

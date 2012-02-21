@@ -42,3 +42,4 @@ def metal_testing_hack(klass)
 end
 
 require 'ruby-debug'
+Rails.logger.level = 4

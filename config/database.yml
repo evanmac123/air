@@ -7,7 +7,7 @@ development: &default
 
 test: &test
   <<: *default
-  database: health_test
+  database: health_test<%= ENV['TEST_ENV_NUMBER'] %>
 
 cucumber:
   <<: *test
