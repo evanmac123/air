@@ -1,3 +1,3 @@
 class OutgoingSms < ActiveRecord::Base
-  belongs_to :in_response_to, :class_name => "IncomingSms"
+  belongs_to :mate, :class_name => "IncomingSms"
 end

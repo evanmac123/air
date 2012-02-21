@@ -5,8 +5,10 @@ Feature: User requests an invitation via SMS
       | name         | email                      |
       | BrandyWine   | brandywine@playhengage.com |
     And the following self inviting domain exists:
-      | domain      | demo             |
-      | example.com | name: BrandyWine |
+      | domain      | demo                            |
+      | example.com | name: BrandyWine                |
+      | example.example-nation.com | name: BrandyWine |
+      
     And the following claimed user exists:
       | email           | demo             |
       | joe@example.com | name: BrandyWine |
@@ -15,7 +17,7 @@ Feature: User requests an invitation via SMS
       | Bob Smith | bob@example.com | name: BrandyWine |
 
   Scenario: User texts us email address, gets an invitation, and fills it out
-    When "+14155551213" sends SMS " Email.Email-_@example.com "
+    When "+14155551213" sends SMS " Email.Email-_@Example.com "
     Then "+14155551213" should have received an SMS "An invitation has been sent to email.email-_@example.com."
     And "email.email-_@example.com" should receive an email
     When "email.email-_@example.com" opens the email
@@ -34,6 +36,10 @@ Feature: User requests an invitation via SMS
     Then I should be on the activity page
     And I should see "Bobby Sapperstein joined the game"
 
+  Scenario: User on a weird-ass self-inviting domain gets a response
+    When "+14155551213" sends SMS " forthright@example.example-nation.com "
+    Then "+14155551213" should have received an SMS "An invitation has been sent to forthright@example.example-nation.com."
+    
   Scenario: We remember that user's phone number is pre-confirmed even if the acceptance process takes several tries
     When "+14155551213" sends SMS "email@example.com"
     And "email@example.com" opens the email

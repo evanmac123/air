@@ -22,7 +22,7 @@ describe SMS::OutgoingMessageJob do
       outgoing_sms = OutgoingSms.first
       outgoing_sms.body.should == 'hey there'
       outgoing_sms.to.should == "+16175551212"
-      outgoing_sms.in_response_to.should be_nil
+      outgoing_sms.mate.should be_nil
     end
 
     context "when the number is one of our dummy numbers (in the 999 area code)" do
