@@ -27,7 +27,8 @@ Feature: Password reset
       And I press "Reset password"
       When I follow the password reset link sent to "email@person.com"
       And I update my password with "newpassword/wrongconfirmation"
-      Then I should see an error message
+      Then I should not see "1 error prohibited this user from being saved"
+      But I should see "Password doesn't match confirmation"
       And I should be signed out
 
     Scenario: User is signed up and updates his password

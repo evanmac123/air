@@ -7,19 +7,14 @@
     Your password has been reset. Choose a new password below.
   </p>
 
-  <%= error_messages_for :user %>
-
-  <%= form_for(:user,
-              :url => user_password_path(@user, :token => @user.confirmation_token),
-              :html => { :method => :put }) do |form| %>
-    <div class="password_field">
-      <%= form.label :password, "Choose password" %>
-      <%= form.password_field :password %>
-    </div>
-    <div class="password_field">
-      <%= form.label :password_confirmation, "Confirm password" %>
-      <%= form.password_field :password_confirmation %>
-    </div>
+  <%= form_for(
+                @user,
+                :url     => user_password_path(@user, :token => @user.confirmation_token),
+                :html    => { :method => :put },
+                :builder => FancyFormBuilder
+              ) do |form| %>
+    <%= form.fancy_password_field :password, :label_text => "Choose password" %>
+    <%= form.fancy_password_field :password_confirmation, :label_text => "Confirm password" %>
     <div class="submit_field">
       <%= form.submit "Save this password" %>
     </div>
