@@ -8,16 +8,16 @@
   </p>
 
   <%= form_for(
-                @user,
-                :url     => user_password_path(@user, :token => @user.confirmation_token),
-                :html    => { :method => :put },
-                :builder => FancyFormBuilder
-              ) do |form| %>
-    <%= form.fancy_password_field :password, :label_text => "Choose password" %>
-    <%= form.fancy_password_field :password_confirmation, :label_text => "Confirm password" %>
-    <div class="submit_field">
-      <%= form.submit "Save this password" %>
-    </div>
+        @user,
+        :url     => user_password_path(@user, :token => @user.confirmation_token),
+        :html    => { :method => :put },
+        :builder => FancyFormBuilder
+      ) do |form| %>
+          <%= form.fancy_password_field :password, :label_text => "Choose password", :value => '' %>
+          <%= form.fancy_password_field :password_confirmation, :label_text => "Confirm password", :value => '' %>
+          <div class="submit_field">
+            <%= form.submit "Save this password" %>
+          </div>
   <% end %>
 </div>
 
