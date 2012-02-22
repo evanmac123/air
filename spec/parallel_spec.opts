@@ -1,2 +1,0 @@
---format progress
---format ParallelSpecs::SpecFailuresLogger --out tmp/failing_specs.log

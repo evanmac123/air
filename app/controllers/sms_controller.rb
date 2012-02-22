@@ -40,7 +40,8 @@ class SmsController < ActionController::Metal
     {
       :say => "text", 
       :Say => "Text",
-      :help_command_explanation => "HELP - help desk, instructions\n"
+      :help_command_explanation => "HELP - help desk, instructions\n",
+      "reply here" => "text to this #"
     }
   end
 end
