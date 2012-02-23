@@ -16,7 +16,7 @@ class EmailCommandController< ApplicationController
     if email_command.email_from.blank?
       # can't respond because we have no return email address
       email_command.status = EmailCommand::Status::FAILED
-    elsif email_command.clean_command_string.blank?
+    elsif email_command.clean_body.blank? && email_command.clean_subject.blank?
       email_command.response = blank_body_response
       email_command.status = EmailCommand::Status::SUCCESS
     elsif email_command.user.nil?
@@ -44,11 +44,13 @@ class EmailCommandController< ApplicationController
     elsif email_command.user.unclaimed?
       return if claim_account(email_command) # we sent response already
       email_command.response = unmatched_claim_code_response
-    elsif email_command.clean_command_string == "join"
+    elsif [email_command.clean_body, email_command.clean_subject].include? "join"
       email_command.response = "It looks like you are already registered"
       email_command.status = EmailCommand::Status::FAILED
     else
-      email_command.response = construct_reply(Command.parse(email_command.user, email_command.clean_command_string, :allow_claim_account => false, :channel => :email))
+      # Note: You can do any of commands but this one using either body or subject.
+      # Perhaps someday we will allow general commands to be in the subject line
+      email_command.response = construct_reply(Command.parse(email_command.user, email_command.clean_body, :allow_claim_account => false, :channel => :email))
       email_command.status = EmailCommand::Status::SUCCESS
     end
 
@@ -74,7 +76,11 @@ class EmailCommandController< ApplicationController
   end
 
   def claim_account(email_command)
-    email_command.response = User.claim_account(email_command.email_from, email_command.clean_command_string, :channel => :email)
+    email_command.response = User.claim_account(email_command.email_from, email_command.clean_body, :channel => :email)
+    unless email_command.response
+      email_command.response = User.claim_account(email_command.email_from, email_command.clean_subject, :channel => :email)
+    end
+    
     return nil unless email_command.response
 
     email_command.status = EmailCommand::Status::SUCCESS

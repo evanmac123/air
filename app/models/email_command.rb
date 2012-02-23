@@ -18,7 +18,8 @@ class EmailCommand < ActiveRecord::Base
     email_command.email_from = EmailCommand.clean_email_address(params['from'].gsub(/\s+/, ""))
     email_command.email_subject = params['subject']
     email_command.email_plain = params['plain']
-    email_command.clean_command_string = EmailCommand.parse_email_body(email_command.email_plain)
+    email_command.clean_subject = EmailCommand.clean_subject_line(email_command.email_subject)
+    email_command.clean_body = EmailCommand.parse_email_body(email_command.email_plain)
     email_command.user = EmailCommand.find_user(email_command.email_from)
     if email_command.user.nil? 
       email_command.status = EmailCommand::Status::UNKNOWN_EMAIL
@@ -34,7 +35,14 @@ class EmailCommand < ActiveRecord::Base
     stripped_version = email.match(/<(.*?)>/)
     (stripped_version.nil? ? email : stripped_version[1])
   end
-  
+
+  def self.clean_subject_line(text)
+    return "" if text.blank?
+    text.gsub!( /^re:/i, '' )
+    text.gsub!( /^fw:|fwd:/i, '' )
+    text.strip
+  end
+    
   def self.parse_email_body(email_body)
     return "" if email_body.blank?
     first_line = nil

@@ -9,7 +9,7 @@ Feature: User claims account via email
       | Joe  | joe@example.com | joe        | name: FooCo |
       | Bob  | bob@example.com | bob        | name: FooCo |
 
-  Scenario: User claims account
+  Scenario: User claims account with claim code in body
     When "joe@example.com" sends email with subject "yo yo" and body "joe"
     Then "joe@example.com" should receive 1 email
 
@@ -29,6 +29,16 @@ Feature: User claims account via email
     And I sign in via the login page with "Joe/joejums"
     Then I should be on the activity page
 
+
+  Scenario: User claims account with claim code in subject
+    When "joe@example.com" sends email with subject "joe" and body "I'm the MACHIIN!"
+    Then "joe@example.com" should receive 1 email
+
+    When "joe@example.com" opens the email
+    Then I should see "You've joined the FooCo game! Your username is joe (text MYID if you forget). To play, reply to this email with your command. OR you should have received another email from us with instructions for how to log into the web site." in the email body
+
+    
+    
   Scenario: User claims account in a game with custom welcome message
     Given the following demo exists:
       | name     | custom welcome message |
@@ -49,8 +59,8 @@ Feature: User claims account via email
     When "joe@example.com" opens the email
     Then I should see "That username doesn't match the one we have in our records. Please try again, or email help@hengage.com for assistance from a human." in the email body
 
-  Scenario: User tries to claim account but email body is blank
-    When "joe@example.com" sends email with subject "sign me up homeslice" and body ""
+  Scenario: User tries to claim account but email body and subject are blank
+    When "joe@example.com" sends email with subject "" and body ""
     Then "joe@example.com" should receive 1 email
 
     When "joe@example.com" opens the email
