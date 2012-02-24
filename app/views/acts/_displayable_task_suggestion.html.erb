@@ -1,6 +1,6 @@
 <% suggested_task = displayable_task_suggestion.suggested_task %>
 <% classes = displayable_task_suggestion.display_completion_on_this_request ? "suggested-task recently-completed" : "suggested-task" %>
-<% classes += " overflow-tasks " if displayable_task_suggestion_counter > 2 %>
+<% classes += " overflow-tasks " if displayable_task_suggestion_counter >= @num_suggestions_to_display %>
 <div class="<%= classes %> gradient freeplay" id="suggested-task-<%= suggested_task.id %>">
   <div class="dose-texts">
     	<p class="dose-title"><%= raw suggested_task.name %></p>

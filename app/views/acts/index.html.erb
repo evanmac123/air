@@ -7,10 +7,15 @@
         $('.recently-completed').css({'border-color': 'white'}).effect('highlight', {}, 500, function() {$(this).fadeOut(2000, function(){$(this).remove()})});
 	    <% end %>
 	  <% end %>
-	  <div class="more-tasks">
-	  	<a href="#" title="Show more suggested tasks"><img class='grey-show-more-arrows' src="/images/v3/arrow-down.png" />
-	  	  <span id='show-more-tasks'>Show more</span><img class='grey-show-more-arrows' src="/images/v3/arrow-down.png" /></a>
-	  </div>
+	  <% if @displayable_task_suggestions.count > @num_suggestions_to_display %>
+    
+  	  <div class="more-tasks">
+  	  	<a href="#" title="Show more suggested tasks"><img class='grey-show-more-arrows' src="/images/v3/arrow-down.png" />
+  	  	  <span id='show-more-tasks'>Show more</span><img class='grey-show-more-arrows' src="/images/v3/arrow-down.png" /></a>
+  	  </div>
+  	<% else %>
+  	  <div style='height: 12px;'>
+  	<% end %>
 	</div>
 	<div class="invite-module module">
 		<%= render :partial => "invite_your_friends" %>  
