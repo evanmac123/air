@@ -937,7 +937,7 @@ body.acts .container #suggested-tasks {
       padding: 10px; }
     body.acts .container #suggested-tasks .suggested-task div.dose-texts {
       float: left;
-      width: 825px; }
+      width: 650px; }
       body.acts .container #suggested-tasks .suggested-task div.dose-texts p {
         display: inline; }
       body.acts .container #suggested-tasks .suggested-task div.dose-texts p.dose-title {
@@ -1927,3 +1927,11 @@ div.follow-btn, div.stop-following-btn {
 
 .overflow-tasks {
   display: none; }
+
+.dd_bonus {
+  color: yellow;
+  font-size: 17px;
+  line-height: 18px;
+  font-weight: bold;
+  float: right;
+  padding-right: 13px; }

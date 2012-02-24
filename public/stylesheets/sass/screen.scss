@@ -148,7 +148,7 @@ body.acts {
 				}
 				div.dose-texts {
 					float: left;
-					width: 825px;
+					width: 650px;
 					p {display:inline;}
 					p.dose-title{
 						font-weight:bold;
@@ -973,4 +973,12 @@ div.follow-btn, div.stop-following-btn {
 
 .overflow-tasks{
   display: none;
+}
+.dd_bonus{
+  color: yellow;
+  font-size: 17px;
+  line-height: 18px;
+  font-weight: bold;
+  float: right;
+  padding-right: 13px;
 }
