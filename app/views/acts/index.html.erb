@@ -8,7 +8,8 @@
 	    <% end %>
 	  <% end %>
 	  <div class="more-tasks">
-	  	<a href="#" title="Show more suggested tasks"><img src="/images/v3/arrow-down.png" />Show more tasks<img src="/images/v3/arrow-down.png" /></a><!-- HOOKUP -->
+	  	<a href="#" title="Show more suggested tasks"><img class='grey-show-more-arrows' src="/images/v3/arrow-down.png" />
+	  	  <span id='show-more-tasks'>Show more</span><img class='grey-show-more-arrows' src="/images/v3/arrow-down.png" /></a>
 	  </div>
 	</div>
 	<div class="invite-module module">
@@ -28,6 +29,17 @@
 	    <% content_for :javascript do %>
 	      <%= mp_track_page 'activity feed', :game => @demo.name %>
 	      <%= javascript_tag do %>
+	        $('#show-more-tasks').click(function(){
+	          if ($('.overflow-tasks').css('display') == 'none'){
+              $('#show-more-tasks').text('Show less');
+              setTimeout("$('.grey-show-more-arrows').attr('src', '/images/v3/arrow-up.png')", 300);
+	          }else{
+              $('#show-more-tasks').text('Show more');	
+              setTimeout("$('.grey-show-more-arrows').attr('src', '/images/v3/arrow-down.png')", 300);            
+	          }
+            $('.overflow-tasks').fadeToggle('slow');
+          })
+        
 	        function updateShownActs(url) {
 	          $('#user-acts').html('<%= image_tag("spinner.gif") %>');
 	          $.get(url, function(data) {
