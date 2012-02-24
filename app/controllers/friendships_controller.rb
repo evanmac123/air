@@ -1,4 +1,6 @@
 class FriendshipsController < ApplicationController
+  before_filter :game_not_closed_yet
+
   def create
     @user = User.find_by_slug(params[:user_id])
     new_friendship = current_user.befriend(@user)
@@ -36,5 +38,14 @@ class FriendshipsController < ApplicationController
 
       format.js
     end
+  end
+
+  protected
+
+  def game_not_closed_yet
+    return unless current_user.demo.ends_at && Time.now > current_user.demo.ends_at
+
+    flash[:failure] = "Thanks for playing! The game is now over."
+    redirect_to :back
   end
 end

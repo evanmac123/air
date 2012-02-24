@@ -2,45 +2,43 @@ Feature: User gets points for connecting to another (if demo configured for it)
 
   Background:
     Given the following demos exists:
-      | name  | points for connecting |
+      | name          | points for connecting |
       | HMFEngage     | 5                     |
       | Towers Watson | 0                     |
       | LameCo        |                       |
     And the following claimed users exist:
-      | name | phone number | connection bounty | points | demo                        |
-      | Dan  | +14155551212 | 0                 | 1      | name: HMFEngage     |
-      | Phil | +18085551212 | 7                 | 0      | name: HMFEngage     |
-      | Vlad | +16175551212 | 0                 | 0      | name: HMFEngage     |
-      | Tom  | +13055551212 | 0                 | 0      | name: Towers Watson |
-      | Fred | +12125551212 | 7                 | 0      | name: Towers Watson |
-      | Bleh | +14085551212 | 0                 | 0      | name: LameCo        |
-      | Feh  | +16505551212 | 7                 | 0      | name: LameCo        |
+      | name | phone number | connection bounty | points | privacy level | demo                |
+      | Dan  | +14155551212 | 0                 | 1      | everybody     | name: HMFEngage     |
+      | Phil | +18085551212 | 7                 | 0      | everybody     | name: HMFEngage     |
+      | Vlad | +16175551212 | 0                 | 0      | everybody     | name: HMFEngage     |
+      | Tom  | +13055551212 | 0                 | 0      | everybody     | name: Towers Watson |
+      | Fred | +12125551212 | 7                 | 0      | everybody     | name: Towers Watson |
+      | Bleh | +14085551212 | 0                 | 0      | everybody     | name: LameCo        |
+      | Feh  | +16505551212 | 7                 | 0      | everybody     | name: LameCo        |
     And "Dan" has password "foobar"
+    And "Vlad" has the SMS slug "vlad"
+    And "Phil" has the SMS slug "phil"
     When I sign in via the login page as "Dan/foobar"
 
   Scenario: User gets points for connecting
-    When I go to the user directory page
-    And I fan "Vlad"
+    When "+14155551212" sends SMS "follow vlad"
     And "+16175551212" sends SMS "yes"
     And I go to the activity page
     Then I should see "Dan is now a fan of Vlad"
     And I should see "5 pts"
 
   Scenario: User gets extra points for connection to a user with a bounty
-    When I go to the user directory page
-    And I fan "Phil"
+    When "+14155551212" sends SMS "follow phil"
     And "+18085551212" sends SMS "yes"
     And I go to the activity page
     Then I should see "Dan is now a fan of Phil"
     And I should see "12 pts"
 
-  @wip
   Scenario: User gets points for connecting just once
-    When I go to the user directory page
-    And I fan "Vlad"
+    When "+14155551212" sends SMS "follow vlad"
     And "+16175551212" sends SMS "yes"
-    And I unfollow "Vlad"
-    And I fan "Vlad"
+    When "+14155551212" sends SMS "unfollow vlad"
+    When "+14155551212" sends SMS "follow vlad"
     And "+16175551212" sends SMS "yes"
     And I go to the activity page
     Then I should see "5 pts" just once

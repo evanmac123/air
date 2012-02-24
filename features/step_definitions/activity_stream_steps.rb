@@ -3,7 +3,7 @@ When /^I follow "([^"]*)" in the activity stream$/ do |link|
 end
 
 When /^I press the see more button in the activity stream$/ do
-  find(:css, '#main #see-more').click
+  find(:css, 'div.seemore #see-more').click
 end
 
 When /^I apply the filter to see only my acts$/ do

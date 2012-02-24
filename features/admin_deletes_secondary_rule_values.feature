@@ -16,7 +16,6 @@ Feature: Admin deletes secondary rule values
     And I sign in as an admin via the login page
     And I go to the admin rules page for "FooCo"
     And I follow "Edit Rule"
-    And I follow "(show secondary values)"
     Then I should see an input with value "bar"
 
     When I press "Delete this rule"

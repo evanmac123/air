@@ -53,20 +53,22 @@ end
 
 # "When I follow" was taken by web_steps.rb, for links
 When /^I fan "(.*?)"$/ do |username|
-  pending
-  user = User.find_by_name(username)
+  When "I go to the user directory page"
+  And %{I fill in "search bar" with "#{username}"}
+  And %{I press "Find!"}
+  And %{I press the follow button for "#{username}"}
+end
 
-  with_scope "\"form[@action='/users/#{user.to_param}/friendship']\"" do
-    find(:css, '.be-a-fan').click
-  end
+When /^I press the follow button for "(.*?)"$/ do |username|
+  user = User.find_by_name(username)
+  form_path = %{form[action="/users/#{user.to_param}/friendship"]}
+  page.execute_script("$('#{form_path}').submit()")
 end
 
 When /^I unfollow "(.*?)"$/ do |username|
   user = User.find_by_name(username)
-
-  with_scope "\"##{dom_id(user)}\"" do
-    find(:css, '.defan').click
-  end
+  form_path = %{form[action="/users/#{user.slug}/friendship"]}
+  page.execute_script("$('#{form_path}').submit()")
 end
 
 When /^I press the button to see more people I am following$/ do
@@ -153,50 +155,19 @@ Then /^all follow buttons on the page should be disabled$/ do
   page.all(:css, 'input.be-a-fan').each{|follow_button| follow_button['disabled'].should be_present}
 end
 
-Then /^"(.*?)" should not be able to follow "([^"]*)"$/ do |follower, followed|
-  followed_user = User.find_by_name(followed)
-  follower_user = User.find_by_name(follower)
-
-  #When "I go to the profile page for \"#{followed}\""
-  #And "I fan \"#{followed}\""
-  #And "\"#{followed_user.phone_number}\" sends SMS \"accept #{follower_user.sms_slug}\""
-  And "I go to the user directory page"
-  And "I fan \"#{followed}\""
-  And "\"#{followed_user.phone_number}\" sends SMS \"accept #{follower_user.sms_slug}\""
-  And "I go to the friends page"
-  And "I fan \"#{followed}\""
-  And "\"#{followed_user.phone_number}\" sends SMS \"accept #{follower_user.sms_slug}\""
-  And "I go to the activity page"
-  Then "I should not see \"#{follower} is now a fan of #{followed}\""
-end
-
 Then /^all follow buttons for "(.*?)" should be disabled$/ do |username|
   When "I go to the profile page for \"#{username}\""
   Then 'all follow buttons on the page should be disabled'
   When 'I go to the user directory page'
   Then 'all follow buttons on the page should be disabled'
-  When 'I go to the friends page'
-  Then 'all follow buttons on the page should be disabled'
 end
 
 Then /^I should( not)? see "([^"]*)" as a follower$/ do |sense, username|
   sense = !sense
+  pending
 
   When "I go to the connections page"
   with_scope '"#followers"' do
-    if sense
-      page.should have_content(username)
-    else
-      page.should have_no_content(username)
-    end
-  end
-end
-
-Then /^I should( not)? see "([^"]*)" as a person I'm following$/ do |sense, username|
-  sense = !sense
-
-  When "I go to the connections page"
-  with_scope '"#fans-of"' do
     if sense
       page.should have_content(username)
     else
@@ -295,3 +266,12 @@ Then /^"([^"]*)" should have received a follow notification email about "([^"]*)
   #Then "they should see \"#{phone_number}\" in the email body"
   #Then "I should be on the connections page"
 end
+
+Then /^I should see (\d+) (person|people) being followed$/ do |count, _nothing|
+  page.all(:css, "#following .user-name").count.should == count.to_i
+end
+
+Then /^I should see (\d+) followers?$/ do |count|
+  page.all(:css, "#followed-by .user-name").count.should == count.to_i
+end
+

@@ -122,18 +122,21 @@ Feature: User approves or ignores follower
     And I go to the activity page
     Then I should see "Alice is now a fan of Bob"
 
-  Scenario: Fandom not reflected on connections page until approved
+  @javascript
+  Scenario: Fandom shows acceptance status on profile page
     Given the following accepted friendship exists:
       | user      | friend      |
       | name: Bob | name: Alice |
     When I sign in via the login page with "Alice/barley"
-    And I go to the connections page
     And I fan "Bob"
     Then I should see "OK, you'll be a fan of Bob, pending their acceptance."
-    And I should not see "Bob" as a person I'm following
+
+    When I go to the profile page for "Alice"
+    Then I should see "Not following anyone yet"
 
     When "+16175551212" sends SMS "yes"
-    Then I should see "Bob" as a person I'm following
+    And I go to the profile page for "Alice"
+    Then I should see "Following Bob"
 
   @slow
   Scenario: User can approve multiple follow requests by SMS
