@@ -33,6 +33,8 @@ class User < ActiveRecord::Base
   has_and_belongs_to_many :levels
 
   validate :normalized_phone_number_unique, :normalized_new_phone_number_unique
+  
+  validate :sms_slug_does_not_match_commands
 
   validates_uniqueness_of :slug, :if => :slug_required
   validates_uniqueness_of :sms_slug, :message => "Sorry, that username is already taken.", :if => :slug_required
@@ -45,7 +47,7 @@ class User < ActiveRecord::Base
   validates_inclusion_of :privacy_level, :in => PRIVACY_LEVELS
 
   validates_format_of :slug, :with => /^[0-9a-z]+$/, :if => :slug_required
-  validates_format_of :sms_slug, :with => /^[0-9a-z]+$/, :if => :slug_required,
+  validates_format_of :sms_slug, :with => /^[0-9a-z]{2,}$/, :if => :slug_required,
                       :message => "Sorry, the username must consist of letters or digits only."
 
   validates_presence_of :demo_id
@@ -118,6 +120,26 @@ class User < ActiveRecord::Base
 
   has_alphabetical_column :name
 
+
+  def sms_slug_does_not_match_commands
+    special_commands = ['follow', 'connect', 'fan', 'myid', 'moreinfo', 'more', 'suggest', 'lastquestion', 
+      'rankings', 'ranking', 'standing', 'standings', 'morerankings', 'help', 'support', 'survey', 
+      'ur2cents', '2ur2cents', 'yes', 'no', 'prizes', 'rules', 'commands', 'mute', 'gotit', 'got']
+    if self.demo && self.demo.rule_values.present?
+      demo_rules = self.demo.rule_values
+      demo_rule_values = demo_rules.collect do |v|
+        v.value
+      end
+    else
+      demo_rule_values = []
+    end
+    
+    all_commands = special_commands + demo_rule_values
+    if all_commands.include? self.sms_slug
+      self.errors.add("sms_slug", "Sorry, but that username is reserved")
+    end
+  end
+  
   def can_see_activity_of(user)
     return true if self == user
     case user.privacy_level
