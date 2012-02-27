@@ -1,5 +1,7 @@
 include ActionView::Helpers::TextHelper 
 
+# TODO: Fix this mess.
+
 def expect_user_details(name, button_type)
   user = User.find_by_name(name)
   user.should_not be_nil
@@ -97,8 +99,8 @@ When /^"([^"]*)" requests to follow "([^"]*)" by SMS$/ do |follower_name, follow
   And "DJ cranks 5 times"
   Then "\"#{follower.phone_number}\" should have received an SMS \"OK, you'll be a fan of #{followed.name}, pending their acceptance.\""
   And "I sign in via the login page with \"#{followed_login_string}\""
-  And "I should not see \"#{follower.name}\" as a follower"
-  But "I should see \"#{follower.name}\" as a pending follower"
+  And %{I go to the profile page for "#{followed_name}"}
+  Then "I should not see \"#{follower.name}\" as a follower"
 end
 
 When /^"([^"]*)" requests to follow "([^"]*)" by web$/ do |follower_login_string, followed_login_string|
@@ -164,10 +166,8 @@ end
 
 Then /^I should( not)? see "([^"]*)" as a follower$/ do |sense, username|
   sense = !sense
-  pending
 
-  When "I go to the connections page"
-  with_scope '"#followers"' do
+  with_scope '"#followed-by"' do
     if sense
       page.should have_content(username)
     else
@@ -208,8 +208,9 @@ Then /^"([^"]*)" should be able to accept "([^"]*)" by SMS( with index \d+)?$/ d
   Then "\"#{follower.phone_number}\" should have received an SMS \"#{followed_name} has approved your request to be a fan.\""
   And "\"#{followed.phone_number}\" should have received an SMS \"OK, #{follower.name} is now your fan.\""
   When "I sign in via the login page with \"#{followed_login_string}\""
+  And %{I go to the profile page for "#{followed_name}"}
   Then "I should see \"#{follower_name}\" as a follower"
-  But "I should not see \"#{follower_name}\" as a pending follower"
+  #But "I should not see \"#{follower_name}\" as a pending follower"
 end
 
 Then /^"([^"]*)" should be able to ignore "([^"]*)" by SMS( with index \d+)?$/ do |followed_login_string, follower_name, request_index_string|
@@ -226,8 +227,9 @@ Then /^"([^"]*)" should be able to ignore "([^"]*)" by SMS( with index \d+)?$/ d
   When "\"#{followed.phone_number}\" sends SMS \"#{rejection_string}\""
   Then "\"#{followed.phone_number}\" should have received an SMS \"OK, we'll ignore the request from #{follower.name} to be your fan.\""
   When "I sign in via the login page with \"#{followed_login_string}\""
+  And %{I go to the profile page for "#{followed_name}"}
   And "I should not see \"#{follower.name}\" as a follower"
-  And "I should not see \"#{follower.name}\" as a pending follower"
+  #And "I should not see \"#{follower.name}\" as a pending follower"
 end
 
 Then /^"([^"]*)" should be able to accept "([^"]*)" by web$/ do |followed_login_string, follower_name|
