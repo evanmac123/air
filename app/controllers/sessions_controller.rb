@@ -17,6 +17,7 @@ class SessionsController < Clearance::SessionsController
       sign_in(@user, params[:session][:remember_me])
       flash_success_after_create
       flash_login_announcement
+      flash[:mp_track_logged_in] = "logged in"
       redirect_back_or(url_after_create)
     end
   end
