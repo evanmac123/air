@@ -3,12 +3,14 @@ class FriendshipsController < ApplicationController
     @user = User.find_by_slug(params[:user_id])
     new_friendship = current_user.befriend(@user)
     @user.reload
+    properties = params[:friend_link] == "follow_to_see_activity" ? {:friend_link => :follow_to_see_activity} : {}
+    
 
     respond_to do |format|
       format.html do
         if new_friendship
           flash[:success] = @user.follow_requested_message
-          flash[:mp_track_friendship] = ["fanned"]
+          flash[:mp_track_friendship] = ["fanned", properties]
         end
         redirect_to :back
       end

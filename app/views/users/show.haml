@@ -21,7 +21,7 @@
   #recent-activity.module
     %h1.headline Recent Activity
     - unless @display_user_stats
-      %p= @reason_for_privacy
+      = render 'follow_link'
     - else
       %ul#user-acts
         %li.act-shim
@@ -45,7 +45,7 @@
   #following.module
     %h1.headline Following
     - unless @display_user_stats
-      %p= @reason_for_privacy
+      = render 'follow_link'
     - else
       %ul.following-users
         - if @accepted_friends.empty?
@@ -62,7 +62,7 @@
   #followed-by.module
     %h1.headline Followed By
     - unless @display_user_stats
-      %p= @reason_for_privacy
+      = render 'follow_link'          
     - else
       %ul.following-users
         - if @accepted_followers.empty?
