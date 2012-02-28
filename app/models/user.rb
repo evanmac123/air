@@ -11,6 +11,8 @@ class User < ActiveRecord::Base
 
   PRIVACY_LEVELS = %w(everybody connected nobody).freeze
 
+  GENDERS = ["female", "male", "other", nil].freeze
+
   DEFAULT_MUTE_NOTICE_THRESHOLD = 10
 
   include Clearance::User
@@ -45,6 +47,8 @@ class User < ActiveRecord::Base
   
   validates_presence_of :privacy_level
   validates_inclusion_of :privacy_level, :in => PRIVACY_LEVELS
+
+  validates_inclusion_of :gender, :in => GENDERS
 
   validates_format_of :slug, :with => /^[0-9a-z]+$/, :if => :slug_required
   validates_format_of :sms_slug, :with => /^[0-9a-z]{2,}$/, :if => :slug_required,
@@ -140,6 +144,17 @@ class User < ActiveRecord::Base
     end
   end
   
+  def her_him
+    case self.gender
+    when "female"
+      return "her"
+    when "male"
+      return "him"
+    else
+      return "them"
+    end
+  end
+  
   def can_see_activity_of(user)
     return true if self == user
     case user.privacy_level
@@ -222,6 +237,10 @@ class User < ActiveRecord::Base
   end
   
   def following?(other)
+    accepted_friends.include?(other)
+  end
+  
+  def following_or_follow_pending?(other)
     friends.include?(other)
   end
   
@@ -660,7 +679,7 @@ class User < ActiveRecord::Base
   def follow_removed_message
     I18n.t(
       "activerecord.models.user.base_follow_message",
-      :default => "OK, you're not longer a fan of %{followed_user_name}.",
+      :default => "OK, you're no longer a fan of %{followed_user_name}.",
       :followed_user_name => self.name
     )
   end
