@@ -4,6 +4,9 @@ Feature: Admin adds and edits rules
     Given the following demo exists:
       | name |
       | FooCorp      |
+    And the following user exists:
+      | sms_slug          | slug              | demo          |
+      | existingsmsslug | existingsmsslug | name: FooCorp |
     And I sign in as an admin via the login page
     And the following rules exist:
       | points | reply   | description      | alltime limit | referral points | suggestible | demo                  |
@@ -120,6 +123,23 @@ Feature: Admin adds and edits rules
     And I should see the following rule:
       | primary_value | secondary_values | points | reply                     | description                    | alltime_limit | referral_points | suggestible |
       | ate oatmeal   | ate some oatmeal | 55     | 55 points for you, bucko. | I ate a big ol bowl of oatmeal | 5             | 19              | false       |
+
+  Scenario: Admin gets a warning if she creates a rule that matches an sms_id in the demo
+    When I go to the admin rules page for "FooCorp"
+    And I follow "Add new rule"
+    And I fill in the following:
+      | Primary value   | existingsmsslug               |
+      | Points          | 55                              |
+      | Reply           | 55 points for you, bucko.       |
+      | Description     | I ate a big ol bowl of oatmeal. |
+      | Alltime limit   | 5                               |
+      | Referral points | 19                              |
+    And I uncheck "Suggestible"
+    And I fill in secondary value field #1 with "ate some oatmeal"
+    And I press "Create Rule"
+  And show me the page
+    Then I should see "Warning: rule value existingsmsslug conflicts with username"
+
 
   Scenario: "Smart" punctuation gets transliterated into normal characters.
     When I go to the admin rules page for the standard playbook

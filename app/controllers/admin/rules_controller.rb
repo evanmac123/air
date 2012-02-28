@@ -23,6 +23,7 @@ class Admin::RulesController < AdminBaseController
     remove_tag_ids_from_params
     @rule = Rule.create_with_rule_values(params[:rule], params[:demo_id], @primary_value, @secondary_values.values)
     set_tag_ids
+    check_conflicts
 
     if @rule.errors.empty?
       flash[:success] = "Rule created."
@@ -42,6 +43,7 @@ class Admin::RulesController < AdminBaseController
     @tag_ids = params[:rule][:tag_ids]
     remove_tag_ids_from_params
     set_tag_ids
+    check_conflicts
 
 
 
@@ -90,5 +92,11 @@ class Admin::RulesController < AdminBaseController
     end
 
     @secondary_values = params[:rule].delete(:secondary_values)
+  end
+  
+  def check_conflicts
+    @rule.conflicts_with_with_sms_slugs.each do |conflict|
+      add_failure conflict
+    end
   end
 end

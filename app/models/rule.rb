@@ -66,6 +66,18 @@ class Rule < ActiveRecord::Base
   def primary_value_text
     self.primary_value.value
   end
+  
+  def conflicts_with_with_sms_slugs
+    conflicts = []
+    self.rule_values.each do |rv|
+      u = User.where(:sms_slug => rv.value.downcase, :demo_id => rv.rule.demo_id).first
+      if u
+        conflict_message = "Warning: rule value #{rv.value} conflicts with username of #{u.name} #{u.email}"
+        conflicts << conflict_message
+      end
+    end
+    return conflicts
+  end
 
   def self.create_with_rule_values(new_attributes, demo_id, primary_value, secondary_values)
     rule = Rule.new(:demo_id => demo_id)
