@@ -10,17 +10,7 @@ class Report::Activity
   end
 
   def report_csv
-    lines = @demo.acts.order('created_at ASC').map do |act|
-      description = (act.rule.try(:primary_value).try(:value)) || act.text
-      date = act.created_at.strftime("%Y-%m-%d")
-      hour = act.created_at.strftime("%H")
-      minute = act.created_at.strftime("%M")
-      second = act.created_at.strftime("%S")
-      data = [date, hour, minute, second, act.user.name, description]
-      CSV.generate_line(data)
-    end
-
-    lines.join("\n") + "\n"
+    (header_line + "\n" + csv_data_per_act.join("\n")).strip + "\n"
   end
 
   def email_to(addresses)
@@ -30,5 +20,28 @@ class Report::Activity
     addresses.split(/,/).each do |address|
       Mailer.activity_report(csv_data, @demo.name, report_time, address).deliver
     end
+  end
+
+  protected
+
+  def demo_acts
+    @demo.acts.order('created_at ASC')  
+  end
+
+  def data_for_act(act)
+    description = (act.rule.try(:primary_value).try(:value)) || act.text
+    date = act.created_at.strftime("%Y-%m-%d")
+    hour = act.created_at.strftime("%H")
+    minute = act.created_at.strftime("%M")
+    second = act.created_at.strftime("%S")
+    [date, hour, minute, second, act.user.name, description]
+  end
+
+  def csv_data_per_act
+    demo_acts.map{|act| CSV.generate_line(data_for_act(act))}
+  end
+  
+  def header_line
+    ""
   end
 end
