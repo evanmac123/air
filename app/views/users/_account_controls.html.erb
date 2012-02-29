@@ -1,0 +1,82 @@
+<div class="account-controls">
+  <h3>Mobile Number</h3>
+  <%= semantic_form_for current_user, :url => account_phone_path do |form| %>
+    <%= form.input :phone_number, :label => 'Enter your new mobile number', :input_html => {:value => current_user.phone_number.as_pretty_phone} %>
+    <%= image_with_hover_submit_tag save_button_skinned, '#save-phone', :id => 'save-phone' %>
+  <% end %>
+  <% unless current_user.new_phone_number.empty? %>
+    <%= semantic_form_for current_user, :url => account_phone_validation_path do |form| %>
+      <%= form.input :new_phone_validation, :label => "Please enter the code below to validate the phone number #{current_user.new_phone_number.as_pretty_phone}", :input_html => {:value => ''} %>
+      <%= image_with_hover_submit_tag save_button_skinned, '#save-phone-validation', :id => 'save-phone-validation' %>
+    <% end %>
+  <% end %>
+
+  <h3>Name</h3>
+  <%= semantic_form_for current_user, :url => account_name_path do |form| %>
+    <%= form.input :name, :label => "Enter a new name" %>
+    <%= image_with_hover_submit_tag save_button_skinned, '#save-name', :id => 'save-name' %>
+  <% end %>
+
+  <h3>Profile Picture</h3>
+  <%= semantic_form_for current_user, :url => account_avatar_path, :html => {:multipart => true, :class => 'set-avatar'} do |form| %>
+    <%= form.input :avatar, :label => 'Choose an image for your picture.' %>
+    <%= image_with_hover_submit_tag save_button_skinned, '#save-avatar', :id => 'save-avatar' %>
+    <p class="loading-message">Uploading, this may take a minute.</p>
+  <% end %>
+
+  <% if current_user.avatar_file_name %>
+    <%= semantic_form_for current_user, :url => account_avatar_path, :html => {:multipart => true, :method => :delete, :class => 'clear-avatar'} do |form| %>
+      Delete the picture you've got and revert to the default picture.
+      <br/>
+      <%= image_with_hover_submit_tag clear_button_skinned, '#clear-picture', :id => 'clear-picture' %>
+    <% end %>
+  <% end %>
+
+  <h3>Username</h3>
+  <%= semantic_form_for current_user, :url => account_sms_slug_path do |form| %>
+    <%= form.input :sms_slug, :label => 'Enter a new username' %>
+    <%= image_with_hover_submit_tag save_button_skinned, '#save-username', :id => 'save-username' %>
+  <% end %>
+
+  <% if true # @locations.present? %>
+    <h3>Location</h3>
+    <%= semantic_form_for current_user, :url => account_location_path, :builder => FancyFormBuilder do |form| %>
+    <% select_html = collection_select :user, :location_id, @locations, :id, :name, :value => nil, :include_blank => "Please choose a location"  %>
+    <%= form.fancy_content :location_id, select_html, :label_text => "Select a Location" %>
+      <%= image_with_hover_submit_tag save_button_skinned, '#save-location', :id => 'save-location' %>
+    <% end %>
+  <% end %>
+
+
+
+  <h3>Notification Settings</h3>
+  <%= semantic_form_for current_user, :url => account_path, :html => {:class => 'notification-method'} do |form| %>
+    <%= form.input :notification_method,
+      :label      => 'When somebody requests to be my fan:',
+      :collection => {
+        "Send an SMS"                      => 'sms',
+        "Send an email"                    => 'email',
+        "Send both an SMS and an email"    => 'both',
+        "Send neither an SMS nor an email" => 'neither'
+      },
+      :include_blank => false
+    %>
+    <%= image_with_hover_submit_tag save_button_skinned, '#save-notification-method', :id => 'save-notification-method' %>
+  <% end %>
+
+  <h3>Demographic Information</h3>
+  <%= semantic_form_for current_user, :url => demographics_path, :class => 'demographics' do |form| %>
+    <%= form.input :weight, :label => "Weight (in pounds)" %>
+
+    <%= form.inputs "Height" do %>
+      <%= label_tag "user[height][feet]", "Feet" %>
+      <%= select_tag "user[height][feet]", options_for_select((4..6), current_user.height_feet), :include_blank => true %>
+      <%= label_tag "user[height][inches]", "Inches" %>
+      <%= select_tag "user[height][inches]", options_for_select((0..12), current_user.height_inches), :include_blank => true %>
+    <% end %>
+
+    <%= form.input :gender, :as => :select, :collection => %w(Female Male), :include_blank => true %>
+    <%= form.input :date_of_birth, :start_year => 1920, :end_year => 1998 %>
+    <%= image_with_hover_submit_tag save_button_skinned, '#save-demographics', :id => 'save-demographics' %>
+  <% end %>
+</div>
