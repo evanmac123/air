@@ -7,7 +7,7 @@ class EmailCommandMailer < ActionMailer::Base
   end
 
   def send_claim_response(email_command)
-    @message = email_command.response
+    @message = construct_reply(email_command.response.dup)
     @user = email_command.user
 
     mail(:to      => email_command.user.email, 

@@ -47,11 +47,6 @@ Feature: User gives credit to game referer via autocomplete field
     Then I should see "Click on the person who referred you:"
     Then I should see "Charlie Brainfield"
     And I should not see "Charlie Moore"
-    And "X" should not be visible
-    When I select the suggestion containing "Charlie Brainfield"
-    Then "X" should be visible
-        
-  
   
   @javascript
   Scenario: User sees the charlie from her own game when entering name 'har'

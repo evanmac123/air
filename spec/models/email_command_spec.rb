@@ -49,7 +49,7 @@ describe EmailCommand, "#receiving" do
       email_command.email_from.should    eql test_email_params['from']
       email_command.email_subject.should eql test_email_params['subject']
       email_command.email_plain.should   eql test_email_params['plain']
-      email_command.clean_command_string.should   eql "here's the command"
+      email_command.clean_body.should   eql "here's the command"
       email_command.status.should        eql EmailCommand::Status::UNKNOWN_EMAIL
     end
   end

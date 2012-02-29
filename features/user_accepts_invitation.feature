@@ -252,3 +252,15 @@ Feature: User accepts invitation
     Then "dan@example.com" should receive 1 email
     When "dan@example.com" opens the email
     Then I should not see "Your invitation code" in the email body
+
+  Scenario: User gets proper copy in invitation email
+    Given a clear email queue
+    When I fill in "Enter your mobile number" with "508-740-7520"
+    And I fill in "Choose a password" with "whatwhat"
+    And I fill in "And confirm that password" with "whatwhat"
+    And I check "Terms and conditions"
+    And I press "Join the game"
+    Then "dan@example.com" should receive 1 email
+    When "dan@example.com" opens the email
+    Then I should not see "@{reply here}" in the email body
+    But I should see "To play, reply to this email with your command. OR you should have received another email from us with instructions for how to log into the web site." in the email body

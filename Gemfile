@@ -46,6 +46,7 @@ group :development, :test do
   gem "flay"
   gem "flog"
   gem "rcov"
+  gem "parallel_tests"
 end
 
 group :development, :staging, :production do

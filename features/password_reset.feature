@@ -3,70 +3,81 @@ Feature: Password reset
   A user
   Should be able to reset it
 
-    Scenario: User is not signed up
-      Given no user exists with an email of "email@person.com"
-      When I request password reset link to be sent to "email@person.com"
-      Then I should see "Unknown email"
+  Scenario: User is not signed up
+    Given no user exists with an email of "email@person.com"
+    When I request password reset link to be sent to "email@person.com"
+    Then I should see "Unknown email"
 
-    Scenario: User is signed up and requests password reset
-      Given I signed up with "email@person.com/password"
-      When I request password reset link to be sent to "email@person.com"
-      Then I should see "instructions for changing your password"
-      And a password reset message should be sent to "email@person.com"
+  Scenario: User is signed up and requests password reset
+    Given I signed up with "email@person.com/password"
+    When I request password reset link to be sent to "email@person.com"
+    Then I should see "instructions for changing your password"
+    And a password reset message should be sent to "email@person.com"
 
-    Scenario: Asking for a password reset is case insensitive
-      Given I signed up with "email@person.com/password"
-      When I request password reset link to be sent to "EmAIl@peRSOn.cOm"
-      Then I should see "instructions for changing your password"
-      And a password reset message should be sent to "email@person.com"
+  Scenario: Asking for a password reset is case insensitive
+    Given I signed up with "email@person.com/password"
+    When I request password reset link to be sent to "EmAIl@peRSOn.cOm"
+    Then I should see "instructions for changing your password"
+    And a password reset message should be sent to "email@person.com"
 
-    Scenario: User is signed up updated his password and types wrong confirmation
-      Given I signed up with "email@person.com/password"
-      And I go to the password reset request page
-      And I fill in the reset email field with "email@person.com"
-      And I press "Reset password"
-      When I follow the password reset link sent to "email@person.com"
-      And I update my password with "newpassword/wrongconfirmation"
-      Then I should see an error message
-      And I should be signed out
+  Scenario: User is signed up updated his password and types wrong confirmation
+    Given I signed up with "email@person.com/password"
+    And I go to the password reset request page
+    And I fill in the reset email field with "email@person.com"
+    And I press "Reset password"
+    When I follow the password reset link sent to "email@person.com"
+    And I update my password with "newpassword/wrongconfirmation"
+    Then I should not see "1 error prohibited this user from being saved"
+    But I should see "Password doesn't match confirmation"
+    And I should be signed out
 
-    Scenario: User is signed up and updates his password
-      Given I signed up with "email@person.com/password"
-      And I go to the password reset request page
-      And I fill in the reset email field with "email@person.com"
-      And I press "Reset password"
-      When I follow the password reset link sent to "email@person.com"
-      And I update my password with "newpassword/newpassword"
-      Then I should be signed in
-      When I sign out
-      Then I should be signed out
-      And I sign in as "email@person.com/newpassword"
-      Then I should be signed in
+  Scenario: Password and confirmation are blanked out on bad confirmation
+    Given I signed up with "email@person.com/password"
+    And I go to the password reset request page
+    And I fill in the reset email field with "email@person.com"
+    And I press "Reset password"
+    When I follow the password reset link sent to "email@person.com"
+    And I update my password with "newpassword/wrongconfirmation"
+    Then the password field should be blank
+    And the password confirmation field should be blank
 
-    Scenario: User tries to update with an under-length password
-      Given I signed up with "email@person.com/password"
-      And I go to the password reset request page
-      And I fill in the reset email field with "email@person.com"
-      And I press "Reset password"
-      When I follow the password reset link sent to "email@person.com"
-      And I update my password with "12345/12345"
-      Then I should see "Password must have at least 6 characters"
-      When I sign in as "email@person.com/12345"
-      Then I should be signed out
-      When I sign in as "email@person.com/password"
-      Then I should be signed in
- 
-    Scenario: User tries using the same password reset token twice
-      Given I signed up with "email@person.com/password"
-      And I go to the password reset request page
-      And I fill in the reset email field with "email@person.com"
-      And I press "Reset password"
-      When "email@person.com" opens the email
-      And I click the first link in the email
-      And I update my password with "newpassword/newpassword"
-      Then I should be signed in
+  Scenario: User is signed up and updates his password
+    Given I signed up with "email@person.com/password"
+    And I go to the password reset request page
+    And I fill in the reset email field with "email@person.com"
+    And I press "Reset password"
+    When I follow the password reset link sent to "email@person.com"
+    And I update my password with "newpassword/newpassword"
+    Then I should be signed in
+    When I sign out
+    Then I should be signed out
+    And I sign in as "email@person.com/newpassword"
+    Then I should be signed in
 
-      When I sign out
-      And I click the first link in the email
-      Then I should be on the password reset request page
-      And I should see "For security reasons, you can use each password reset link just once. If you'd like to reset your password again, please request a new link from this form."
+  Scenario: User tries to update with an under-length password
+    Given I signed up with "email@person.com/password"
+    And I go to the password reset request page
+    And I fill in the reset email field with "email@person.com"
+    And I press "Reset password"
+    When I follow the password reset link sent to "email@person.com"
+    And I update my password with "12345/12345"
+    Then I should see "Password must have at least 6 characters"
+    When I sign in as "email@person.com/12345"
+    Then I should be signed out
+    When I sign in as "email@person.com/password"
+    Then I should be signed in
+
+  Scenario: User tries using the same password reset token twice
+    Given I signed up with "email@person.com/password"
+    And I go to the password reset request page
+    And I fill in the reset email field with "email@person.com"
+    And I press "Reset password"
+    When "email@person.com" opens the email
+    And I click the first link in the email
+    And I update my password with "newpassword/newpassword"
+    Then I should be signed in
+
+    When I sign out
+    And I click the first link in the email
+    Then I should be on the password reset request page
+    And I should see "For security reasons, you can use each password reset link just once. If you'd like to reset your password again, please request a new link from this form."

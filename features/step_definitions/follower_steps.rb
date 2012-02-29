@@ -1,5 +1,7 @@
 include ActionView::Helpers::TextHelper 
 
+# TODO: Fix this mess.
+
 def expect_user_details(name, button_type)
   user = User.find_by_name(name)
   user.should_not be_nil
@@ -53,20 +55,22 @@ end
 
 # "When I follow" was taken by web_steps.rb, for links
 When /^I fan "(.*?)"$/ do |username|
-  pending
-  user = User.find_by_name(username)
+  When "I go to the user directory page"
+  And %{I fill in "search bar" with "#{username}"}
+  And %{I press "Find!"}
+  And %{I press the follow button for "#{username}"}
+end
 
-  with_scope "\"form[@action='/users/#{user.to_param}/friendship']\"" do
-    find(:css, '.be-a-fan').click
-  end
+When /^I press the follow button for "(.*?)"$/ do |username|
+  user = User.find_by_name(username)
+  form_path = %{form[action="/users/#{user.to_param}/friendship"]}
+  page.execute_script("$('#{form_path}').submit()")
 end
 
 When /^I unfollow "(.*?)"$/ do |username|
   user = User.find_by_name(username)
-
-  with_scope "\"##{dom_id(user)}\"" do
-    find(:css, '.defan').click
-  end
+  form_path = %{form[action="/users/#{user.slug}/friendship"]}
+  page.execute_script("$('#{form_path}').submit()")
 end
 
 When /^I press the button to see more people I am following$/ do
@@ -95,12 +99,11 @@ When /^"([^"]*)" requests to follow "([^"]*)" by SMS$/ do |follower_name, follow
   And "DJ cranks 5 times"
   Then "\"#{follower.phone_number}\" should have received an SMS \"OK, you'll be a fan of #{followed.name}, pending their acceptance.\""
   And "I sign in via the login page with \"#{followed_login_string}\""
-  And "I should not see \"#{follower.name}\" as a follower"
-  But "I should see \"#{follower.name}\" as a pending follower"
+  And %{I go to the profile page for "#{followed_name}"}
+  Then "I should not see \"#{follower.name}\" as a follower"
 end
 
 When /^"([^"]*)" requests to follow "([^"]*)" by web$/ do |follower_login_string, followed_login_string|
-  pending
   follower_name, follower_password = split_login_string(follower_login_string)
   followed_name, followed_password = split_login_string(followed_login_string)
 
@@ -109,10 +112,6 @@ When /^"([^"]*)" requests to follow "([^"]*)" by web$/ do |follower_login_string
   And "I fan \"#{followed_name}\""
   Then "I should see \"OK, you'll be a fan of #{followed_name}, pending their acceptance.\""
   But "I should see \"fan of Bob\" just once"
-
-  When "I sign in via the login page as \"#{followed_login_string}\""
-  Then "I should see \"#{follower_name}\" as a pending follower"
-  But "I should not see \"#{follower_name}\" as a follower"
 end
 
 When /^I select the "([^"]*)" notification setting$/ do |notification_value|
@@ -153,50 +152,17 @@ Then /^all follow buttons on the page should be disabled$/ do
   page.all(:css, 'input.be-a-fan').each{|follow_button| follow_button['disabled'].should be_present}
 end
 
-Then /^"(.*?)" should not be able to follow "([^"]*)"$/ do |follower, followed|
-  followed_user = User.find_by_name(followed)
-  follower_user = User.find_by_name(follower)
-
-  #When "I go to the profile page for \"#{followed}\""
-  #And "I fan \"#{followed}\""
-  #And "\"#{followed_user.phone_number}\" sends SMS \"accept #{follower_user.sms_slug}\""
-  And "I go to the user directory page"
-  And "I fan \"#{followed}\""
-  And "\"#{followed_user.phone_number}\" sends SMS \"accept #{follower_user.sms_slug}\""
-  And "I go to the friends page"
-  And "I fan \"#{followed}\""
-  And "\"#{followed_user.phone_number}\" sends SMS \"accept #{follower_user.sms_slug}\""
-  And "I go to the activity page"
-  Then "I should not see \"#{follower} is now a fan of #{followed}\""
-end
-
 Then /^all follow buttons for "(.*?)" should be disabled$/ do |username|
   When "I go to the profile page for \"#{username}\""
   Then 'all follow buttons on the page should be disabled'
   When 'I go to the user directory page'
-  Then 'all follow buttons on the page should be disabled'
-  When 'I go to the friends page'
   Then 'all follow buttons on the page should be disabled'
 end
 
 Then /^I should( not)? see "([^"]*)" as a follower$/ do |sense, username|
   sense = !sense
 
-  When "I go to the connections page"
-  with_scope '"#followers"' do
-    if sense
-      page.should have_content(username)
-    else
-      page.should have_no_content(username)
-    end
-  end
-end
-
-Then /^I should( not)? see "([^"]*)" as a person I'm following$/ do |sense, username|
-  sense = !sense
-
-  When "I go to the connections page"
-  with_scope '"#fans-of"' do
+  with_scope '"#followed-by"' do
     if sense
       page.should have_content(username)
     else
@@ -237,8 +203,9 @@ Then /^"([^"]*)" should be able to accept "([^"]*)" by SMS( with index \d+)?$/ d
   Then "\"#{follower.phone_number}\" should have received an SMS \"#{followed_name} has approved your request to be a fan.\""
   And "\"#{followed.phone_number}\" should have received an SMS \"OK, #{follower.name} is now your fan.\""
   When "I sign in via the login page with \"#{followed_login_string}\""
+  And %{I go to the profile page for "#{followed_name}"}
   Then "I should see \"#{follower_name}\" as a follower"
-  But "I should not see \"#{follower_name}\" as a pending follower"
+  #But "I should not see \"#{follower_name}\" as a pending follower"
 end
 
 Then /^"([^"]*)" should be able to ignore "([^"]*)" by SMS( with index \d+)?$/ do |followed_login_string, follower_name, request_index_string|
@@ -255,8 +222,9 @@ Then /^"([^"]*)" should be able to ignore "([^"]*)" by SMS( with index \d+)?$/ d
   When "\"#{followed.phone_number}\" sends SMS \"#{rejection_string}\""
   Then "\"#{followed.phone_number}\" should have received an SMS \"OK, we'll ignore the request from #{follower.name} to be your fan.\""
   When "I sign in via the login page with \"#{followed_login_string}\""
+  And %{I go to the profile page for "#{followed_name}"}
   And "I should not see \"#{follower.name}\" as a follower"
-  And "I should not see \"#{follower.name}\" as a pending follower"
+  #And "I should not see \"#{follower.name}\" as a pending follower"
 end
 
 Then /^"([^"]*)" should be able to accept "([^"]*)" by web$/ do |followed_login_string, follower_name|
@@ -295,3 +263,12 @@ Then /^"([^"]*)" should have received a follow notification email about "([^"]*)
   #Then "they should see \"#{phone_number}\" in the email body"
   #Then "I should be on the connections page"
 end
+
+Then /^I should see (\d+) (person|people) being followed$/ do |count, _nothing|
+  page.all(:css, "#following .user-name").count.should == count.to_i
+end
+
+Then /^I should see (\d+) followers?$/ do |count|
+  page.all(:css, "#followed-by .user-name").count.should == count.to_i
+end
+

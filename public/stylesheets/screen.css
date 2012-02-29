@@ -937,7 +937,7 @@ body.acts .container #suggested-tasks {
       padding: 10px; }
     body.acts .container #suggested-tasks .suggested-task div.dose-texts {
       float: left;
-      width: 825px; }
+      width: 650px; }
       body.acts .container #suggested-tasks .suggested-task div.dose-texts p {
         display: inline; }
       body.acts .container #suggested-tasks .suggested-task div.dose-texts p.dose-title {
@@ -945,7 +945,7 @@ body.acts .container #suggested-tasks {
         padding-right: 10px; }
   body.acts .container #suggested-tasks .more-tasks {
     border-bottom: 1px #fff solid;
-    margin: 5px 0 20px 0;
+    margin: -13px 0 20px 0;
     text-align: center; }
     body.acts .container #suggested-tasks .more-tasks a {
       border-bottom: 1px #aaaaaa solid;
@@ -1924,3 +1924,14 @@ div.follow-btn, div.stop-following-btn {
   list-style-position: outside; }
 #following ul, #following ol, #followed-by ul, #followed-by ol {
   padding-left: 20px; }
+
+.overflow-tasks {
+  display: none; }
+
+.dd_bonus {
+  color: yellow;
+  font-size: 17px;
+  line-height: 18px;
+  font-weight: bold;
+  float: right;
+  padding-right: 13px; }

@@ -874,3 +874,17 @@ describe User do
     end
   end
 end
+
+describe User, "#sms_slug_does_not_match_commands" do
+  it "should invalidate user if sms_slug matches a command" do
+    demo = Factory(:demo, :name => "my_demo")
+    rule = Factory(:rule, :demo_id => demo.id)
+    rule_value = Factory(:rule_value, :value => "hippa", :rule_id => rule.id)
+    user = Factory.build(:user, :demo_id => demo.id, :sms_slug => 'follow', :slug => 'follow')
+    user.should_not be_valid
+    user = Factory.build(:user, :demo_id => demo.id, :sms_slug => 'hippa', :slug => 'hippa')
+    user.should_not be_valid
+    user = Factory.build(:user, :demo_id => demo.id, :sms_slug => 'followmehome', :slug => 'followmehome')
+    user.should be_valid
+  end
+end

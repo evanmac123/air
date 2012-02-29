@@ -106,7 +106,7 @@ class Mailer < ActionMailer::Base
         [recipient_identifier, DEFAULT_PLAY_ADDRESS]
       end
 
-    @message = message
+    @message = construct_reply(message.dup)
 
     mail(
       :to      => to_email,

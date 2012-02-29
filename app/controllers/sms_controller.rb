@@ -21,7 +21,7 @@ class SmsController < ActionController::Metal
 
     reply = construct_reply(Command.parse(params['From'], params['Body'], :allow_claim_account => true, :channel => :sms, :receiving_number => params['To']))
 
-    OutgoingSms.create!(:to => params['From'], :in_response_to => incoming_sms, :body => reply)
+    OutgoingSms.create!(:to => params['From'], :mate => incoming_sms, :body => reply)
 
     if (user = User.find_by_phone_number(params['From']))
       user.bump_mt_texts_sent_today
@@ -40,7 +40,8 @@ class SmsController < ActionController::Metal
     {
       :say => "text", 
       :Say => "Text",
-      :help_command_explanation => "HELP - help desk, instructions\n"
+      :help_command_explanation => "HELP - help desk, instructions\n",
+      "reply here" => "text to this #"
     }
   end
 end

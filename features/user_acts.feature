@@ -187,7 +187,7 @@ Feature: User acts
   Scenario: Another user gets points for referring you to a command
     When "+15087407520" sends SMS "ate banana paul55"
     And "+15087407520" sends SMS "worked out fred666"
-    And DJ cranks 10 times
+    And DJ cranks 20 times
     And I sign in via the login page as "Dan/foobar"
     And I go to the acts page
     # Then I should see "Paul 1 pt"
@@ -196,7 +196,6 @@ Feature: User acts
     And I should see "5 pts Dan worked out (thanks Fred for the referral) less than a minute"
     And I should see "1 pt Paul told Dan about a command less than a minute ago"
     And I should see "200 pts Fred told Dan about a command less than a minute ago"
-    And I dump all sent texts
     And "+15088675309" should have received an SMS '+1 point, Dan tagged you in the "ate banana" command. Points 1/50, level 1.'
     And "+14155551212" should have received an SMS '+200 points, Dan tagged you in the "worked out" command. Points 201, level 1.'
 

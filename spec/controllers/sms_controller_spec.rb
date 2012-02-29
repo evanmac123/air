@@ -54,7 +54,7 @@ describe SmsController do
         OutgoingSms.count.should == 1
 
         outgoing_sms = OutgoingSms.first
-        outgoing_sms.in_response_to.should == IncomingSms.first
+        outgoing_sms.mate.should == IncomingSms.first
         outgoing_sms.to.should == "+14152613077"
         outgoing_sms.body.should == response.body
       end

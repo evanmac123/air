@@ -35,7 +35,7 @@ Feature: Users can request invitation via email
     Then I should be on the activity page
     
   Scenario: A join email that is not from aself-inviting domain doesn't get an invitation
-    When "nope@alabaster.com" sends email with subject "I Tarzan, You Jane" and body "join"
+    When "nope@alabaster.com" sends email with subject "join" and body "I Tarzan, You Jane"
     And DJ cranks 5 times
     Then "nope@alabaster.com" should receive an email
     When "nope@alabaster.com" opens the email

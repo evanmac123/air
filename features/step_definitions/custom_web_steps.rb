@@ -279,3 +279,11 @@ Then /^there should be a user with email "([^"]*)" in demo "([^"]*)"$/ do |email
   User.where(:email => email, :demo_id => demo_id).should_not be_empty
 end
 
+Then /^the password field should be blank$/ do
+  page.find(:css, "#user_password").value.should be_blank
+end
+
+Then /^the password confirmation field should be blank$/ do
+  page.find(:css, "#user_password_confirmation").value.should be_blank
+end
+

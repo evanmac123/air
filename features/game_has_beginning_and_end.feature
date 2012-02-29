@@ -7,7 +7,7 @@ Feature: Game has a beginning and an end
       | name | begins at               | ends at                 | act too early message | act too late message | 
       | CustomCo     | 2010-04-01 12:00:00 UTC | 2010-05-01 12:00:00 UTC | Hold ur horses        | Too slow!            |
     And the following claimed users exist:
-      | name | phone number | demo                   |
+      | name | phone number | demo           |
       | Phil | +14152613077 | name: BarInc   |
       | Vlad | +16175551212 | name: BarInc   |
       | Bob  | +18085551212 | name: CustomCo |
@@ -56,13 +56,15 @@ Feature: Game has a beginning and an end
     And "+18085551212" should have received an SMS "Hold ur horses"
     And "+18085551212" should have received an SMS "Too slow!"
 
+  @javascript
   Scenario: Following after the game ends via site does nothing
-    Given time is frozen at "2010-05-01 12:00:01 UTC"
-    Then "Phil" should not be able to follow "Vlad"
-
-  Scenario: After the game ends friending buttons are disabled
-    Given time is frozen at "2010-05-01 12:00:01 UTC"
-    Then all follow buttons for "Vlad" should be disabled
+    When I sign in via the login page as "Phil/foobar" and choose to be remembered
+    And I go to the user directory page
+    And time is frozen at "2010-05-01 12:00:01 UTC"
+    And I press the follow button for "Vlad"
+    And DJ cranks 5 times
+    Then "+16175551212" should not have received any SMSes
+    And I should see "Thanks for playing! The game is now over."
 
   Scenario: Following before the game begins via SMS does nothing
     Given time is frozen at "2010-04-01 11:59:59 UTC"
