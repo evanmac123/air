@@ -35,23 +35,27 @@ Feature: User approves or ignores follower
     # And DJ cranks 5 times
     # Then "Bob/fooble" should be able to ignore "Alice" by web
 
+  @javascript
   Scenario: Follower follows by web, followed accepts via SMS
     When "Alice/barley" requests to follow "Bob/fooble" by web
     And DJ cranks 5 times
     Then "Bob/fooble" should be able to accept "Alice" by SMS
 
+  @javascript
   Scenario: Follower follows by web, followed ignores via SMS
     When "Alice/barley" requests to follow "Bob/fooble" by web
     And DJ cranks 5 times
     Then "Bob/fooble" should be able to ignore "Alice" by SMS
 
-  Scenario: Follower follows by web, followed accepts via web
-    When "Alice/barley" requests to follow "Bob/fooble" by web
-    Then "Bob/fooble" should be able to accept "Alice" by web
+  # @javascript
+  # Scenario: Follower follows by web, followed accepts via web
+    # When "Alice/barley" requests to follow "Bob/fooble" by web
+    # Then "Bob/fooble" should be able to accept "Alice" by web
 
-  Scenario: Follower follows by web, followed ignores via web
-    When "Alice/barley" requests to follow "Bob/fooble" by web
-    Then "Bob/fooble" should be able to ignore "Alice" by web
+  # @javascript
+  # Scenario: Follower follows by web, followed ignores via web
+    # When "Alice/barley" requests to follow "Bob/fooble" by web
+    # Then "Bob/fooble" should be able to ignore "Alice" by web
 
   Scenario: Followed attempts to accept or ignore someone who did not request to follow
     When "+16175551212" sends SMS "yes"
@@ -140,7 +144,7 @@ Feature: User approves or ignores follower
     And I go to the profile page for "Alice"
     Then I should see "Following Bob"
 
-  @slow
+  @javascript
   Scenario: User can approve multiple follow requests by SMS
     When "Alice" requests to follow "Bob/fooble" by SMS
     And "Clay/bazquux" requests to follow "Bob/fooble" by web

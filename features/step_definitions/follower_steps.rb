@@ -104,7 +104,6 @@ When /^"([^"]*)" requests to follow "([^"]*)" by SMS$/ do |follower_name, follow
 end
 
 When /^"([^"]*)" requests to follow "([^"]*)" by web$/ do |follower_login_string, followed_login_string|
-  pending
   follower_name, follower_password = split_login_string(follower_login_string)
   followed_name, followed_password = split_login_string(followed_login_string)
 
@@ -113,10 +112,6 @@ When /^"([^"]*)" requests to follow "([^"]*)" by web$/ do |follower_login_string
   And "I fan \"#{followed_name}\""
   Then "I should see \"OK, you'll be a fan of #{followed_name}, pending their acceptance.\""
   But "I should see \"fan of Bob\" just once"
-
-  When "I sign in via the login page as \"#{followed_login_string}\""
-  Then "I should see \"#{follower_name}\" as a pending follower"
-  But "I should not see \"#{follower_name}\" as a follower"
 end
 
 When /^I select the "([^"]*)" notification setting$/ do |notification_value|
