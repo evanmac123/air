@@ -1,0 +1,23 @@
+.admin
+
+  %h1.first Admin
+
+  %h2 Rules
+  %p= link_to "Standard playbook rules", admin_rules_path 
+  %p= link_to "Forbidden rules", admin_forbidden_rules_path 
+  %h2 Filters
+  %p= link_to 'Bad Words', admin_bad_words_path 
+  %h2 Games
+  %p= link_to 'Create New Game', new_admin_demo_path 
+  %p Existing Games:
+  %ul.demos
+    - @demos.each do |demo| 
+      - link_text = demo.name 
+      - extra_info = [] 
+      - extra_info << "#{demo.victory_threshold} points to win" if demo.victory_threshold 
+      - extra_info << "victory email to #{demo.victory_verification_email}" if demo.victory_verification_email 
+      - extra_info << "victory SMS to #{demo.victory_verification_sms_number}" if demo.victory_verification_sms_number 
+      - link_text << " (#{extra_info.join(', ')})" unless extra_info.empty? 
+
+      %li= link_to link_text, admin_demo_path(demo)
+  

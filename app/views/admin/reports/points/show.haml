@@ -1,0 +1,37 @@
+
+.admin
+  .breadcrumb
+    = link_to "Admin", admin_path
+    = "=>"
+    = link_to @demo.name, admin_demo_path(@demo)
+    = "=>"
+    = link_to "Reports", admin_demo_reports_path(@demo)
+    = "=>"
+    Points
+    
+  %h1= @demo.name
+  #export-report= link_to "Export", '#u'
+  .clear
+  .table-title <span class='bold'>Histogram</span>, Points vs Users
+  %table
+    %tr
+      %th Points Achieved
+      %th Number Users
+      %th Percent Users
+    %tr
+      %td{:class => 'label'} 31-40
+      %td 92
+      %td 10%
+    %tr{:class => 'stripe'}
+      %td{:class => 'label'} 21-30
+      %td 333
+      %td 30%
+    %tr
+      %td{:class => 'label'} 11-20
+      %td 492
+      %td 50%
+    %tr{:class => 'stripe'}
+      %td{:class => 'label'} &nbsp;0-10
+      %td 104
+      %td 10%
+      

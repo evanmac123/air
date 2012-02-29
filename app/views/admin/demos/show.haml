@@ -1,0 +1,278 @@
+.admin
+  .breadcrumb
+    = link_to "Admin:", admin_path
+    = @demo.name
+
+
+  = button_to "Send activity dump to Vlad", admin_demo_send_activity_dump_path(@demo.id) 
+
+  %h2 Reports
+  %ul 
+    %li= link_to "Points", admin_demo_reports_points_path(@demo) 
+    %li= link_to "Levels", admin_demo_reports_levels_path(@demo) 
+    %li= link_to "Custom Actions", admin_demo_reports_custom_actions_path(@demo) 
+
+  %h2
+    = @claimed_user_count  
+    users have accepted invitations 
+    = link_to '(send them a blast SMS)', new_admin_demo_blast_sms_path(@demo) 
+  %h2
+    = @user_with_mobile_count  
+    users have added mobile numbers to their accounts
+
+  %ul
+    %li= link_to "Rules for this demo", admin_demo_rules_path(@demo) 
+
+    %li= link_to "Bad words for this demo", admin_demo_bad_words_path(@demo) 
+
+    %li= link_to "Self-inviting domains for this demo", admin_demo_self_inviting_domains_path(@demo) 
+
+    %li= link_to "Locations for this demo", admin_demo_locations_path(@demo) 
+  %h2 Settings
+  %ul
+    %li= link_to "Edit basic settings for this game", edit_admin_demo_path(@demo)
+  %p
+    Game
+    - if @demo.begins_at 
+      begins at
+      = @demo.begins_at.pretty 
+    - else 
+      began immediately upon creation
+
+
+  %p
+    Game
+    - if @demo.ends_at 
+      ends at 
+      = @demo.ends_at.pretty 
+    - else 
+      goes on indefinitely.
+   
+
+
+  - if @demo.victory_threshold 
+    %p
+      = @demo.victory_threshold  
+      points to win.
+ 
+
+  - if @demo.victory_verification_email 
+    %p
+      Victory email to 
+      = @demo.victory_verification_email 
+ 
+
+  - if @demo.victory_verification_sms_number 
+    %p 
+      Victory verification SMS to 
+      = @demo.victory_verification_sms_number 
+ 
+
+  %p
+    New players start with 
+    = @demo.seed_points  
+    points.
+
+  - if @bonus_thresholds.empty? 
+    %p No bonus thresholds.
+  - else 
+    %p Bonus thresholds:
+    %ul
+      - @bonus_thresholds.each do |bonus_threshold| 
+        %li
+          Between 
+          = bonus_threshold.min_points  
+          and 
+          = bonus_threshold.max_points  
+          points: 
+          = bonus_threshold.award  
+          points awarded
+          = link_to '(edit bonus threshold)', edit_admin_bonus_threshold_path(bonus_threshold) 
+          = button_to 'Delete bonus threshold', admin_bonus_threshold_path(bonus_threshold), :method => :delete, :confirm => "Really delete this bonus threshold (#{bonus_threshold.min_points}-#{bonus_threshold.max_points})?" 
+      
+       
+    
+ 
+
+  %ul
+    %li= link_to 'Add bonus threshold', new_admin_demo_bonus_threshold_path(@demo) 
+
+  - if @levels.empty? 
+    %p No levels.
+  - else 
+    %p Levels:
+    %ul
+      - @levels.each do |level| 
+        %li
+          %strong= "#{level.index_within_demo}:" 
+          
+          = level.name  
+          at 
+          = level.threshold  
+          points
+          = link_to '(edit level)', edit_admin_level_path(level.id) 
+          = button_to 'Delete level', admin_level_path(level), :method => :delete, :confirm => "Really delete this level (#{level.name})?" 
+      
+  %ul
+    %li= link_to 'Add level', new_admin_demo_level_path(@demo) 
+
+    %li= link_to "Goals for this demo", admin_demo_goals_path(@demo) 
+
+    %li= link_to "Suggested tasks for this demo", admin_demo_suggested_tasks_path(@demo) 
+
+  %p
+    Welcome message: 
+    = @demo.welcome_message 
+
+  %p
+    Victory achievement message: 
+    = @demo.victory_achievement_message 
+
+  %p
+    Victory SMS: 
+    = @demo.victory_sms 
+
+  %p
+    Victory scoreboard message: 
+    = @demo.victory_scoreboard_message 
+
+  %p
+    - if @demo.followup_welcome_message.present? 
+      Followup welcome message: 
+      = @demo.followup_welcome_message  
+      (send 
+      = @demo.followup_welcome_message_delay
+      minutes after invitation accepted)
+    - else 
+      No followup message.
+   
+
+
+  %p
+    - if @demo.credit_game_referrer_threshold && @demo.game_referrer_bonus 
+      Bonus for referring another user to the game: 
+      = @demo.game_referrer_bonus  
+      points (with a 
+      = @demo.credit_game_referrer_threshold  
+      minute threshold)
+    - else 
+      No bonus for referring another user to the game.
+   
+
+
+  %p
+    - if @demo.referred_credit_bonus 
+      Bonus for crediting the user who referred you to the game: 
+      = @demo.referred_credit_bonus  
+      points
+    - else 
+      No bonus for crediting the user who referred you to the game
+   
+
+
+  %p
+    - if @demo.points_for_connecting 
+      Points for connecting to another user: 
+      = @demo.points_for_connecting 
+    - else 
+      No points for connecting to another user.
+   
+
+
+  %p
+    - if @demo.use_standard_playbook 
+      Game will use standard playbook rules as well as custom rules.
+    - else 
+      Game will not use standard playbook rules, only custom rules.
+   
+
+
+  %p
+    - if @demo.prize.present? 
+      = "Prize response is \"#{@demo.prize}\""
+    - else 
+      Game will have default response about prizes (indicating no prize)  
+   
+
+
+  %p
+    - if @demo.help_message.present? 
+      = "Help message is \"#{@demo.help_message}\"" 
+    - else 
+      Game will have default help message
+   
+  
+  
+  %p
+    - if @demo.unrecognized_user_message.present? 
+      = "Phone-number-not-recognized message is \"#{@demo.unrecognized_user_message}\"" 
+    - else 
+      Game will have default phone-number-not-recognized message
+   
+
+
+  %p
+    - if @demo.act_too_early_message.present? 
+      = "Response to command before game begins is \"#{@demo.act_too_early_message}\"" 
+    - else 
+      Game will have default response to command before game begins.  
+  
+
+
+  %p
+    - if @demo.act_too_late_message.present? 
+      = "Response to command after game ends is \"#{@demo.act_too_late_message}\"" 
+    - else 
+      Game will have default response to command after game ends.  
+   
+
+
+  %p
+    - if @demo.survey_answer_activity_message.present? 
+      = "Activity feed text when user answers a survey question is \"#{@demo.survey_answer_activity_message}\"" 
+    - else 
+      Game will have default activity feed text when user answers a survey question  
+   
+
+
+  %p
+    - if @demo.login_announcement.present? 
+      = "Message user sees on login is \"#{@demo.login_announcement}\"" 
+    - else 
+      User sees no custom message on login
+   
+
+
+  %p
+    - if @demo.mute_notice_threshold 
+      Mute notice to users after 
+      = @demo.mute_notice_threshold  
+      SMSes
+    - else 
+      Game will have default mute notice threshold
+   
+
+
+  %p.explanation= translate('.explanation', :default => "Add HR people from %{company} to this demo, then send them an invitation to the demo.", :company => @demo.name) 
+
+
+  %h2 Users
+  #add-new-user= link_to "Add new user", '#'
+  = content_for :javascript do
+    :javascript
+      $('#add-new-user').click(function(){
+        $('#new-user-form').show();
+      });
+  #new-user-form= render :partial => 'admin/users/new', :locals => { :demo => @demo } 
+
+
+  = link_to "Bulk load users", new_admin_demo_bulk_load_path(@demo) 
+
+  = render 'user_paginator', :demo => @demo 
+
+  = form_tag admin_demo_path(@demo), :method => :delete do 
+    %h2 Destroy game
+    %p Destroying a game is <strong>irrevocable</strong>. There is <strong>no undo</strong>. This will also delete <strong>all associated records, including users and their actions</strong>.
+    %p If you want to save users from this demo, move them to another demo first.
+    = submit_tag "Destroy game", :confirm => "Really destroy this \"#{@demo.name}\" game?" 
+ 

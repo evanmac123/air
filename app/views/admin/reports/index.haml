@@ -1,0 +1,16 @@
+.admin
+  .breadcrumb
+    = link_to "Admin", admin_path
+    = "=>"
+    = link_to "Name of Demo: ", admin_demo_path(1)
+    = "=>"
+    Reports
+    
+    =# link_to "Reports: ", admin_demo_reports_path(1)
+
+  %h1{:style => "text-align: center"} Name of Demo
+  %h3= link_to "Points", admin_demo_reports_path(1) + '/points'
+  %h3= link_to "Levels", admin_demo_reports_path(1) + '/levels'
+  %h3= link_to "Custom Commands", admin_demo_reports_path(1) + '/points'
+
+

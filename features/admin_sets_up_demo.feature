@@ -5,7 +5,7 @@ Feature: Admin sets up demo
 
   Scenario: Admin sets up demo
     When I go to the admin page
-    When I follow "New Demo"
+    When I follow "Create New Game"
     And I fill in "name" with "3M"
     And I fill in "Victory threshold" with "100"
     And I fill in "Min points" with "5"
@@ -55,7 +55,7 @@ Feature: Admin sets up demo
     And I should see "Bonus for referring another user to the game: 5 points (with a 60 minute threshold)"
     And I should see "Bonus for crediting the user who referred you to the game: 17 points"
     And I should see "Points for connecting to another user: 10"
-    And I should see "Game will not use standard playbook rules, only custom rules."
+    And I should see "Game will not use standard playbook rules, only custom rules."    
     And I should see 'Prize response is "More ice cream than you can shake a stick at."'
     And I should see 'Help message is "Get a job"'
     And I should see 'Phone-number-not-recognized message is "Go play in your own yard"'
@@ -67,7 +67,7 @@ Feature: Admin sets up demo
 
   Scenario: Correct defaults
     Given I am on the admin page
-    When I follow "New Demo"
+    When I follow "Create New Game"
     And I fill in "name" with "3M"
     And I press "Submit"
     Then I should see "Welcome message: You've joined the %{name} game! Your username is %{unique_id} (text MYID if you forget). To play, @{reply here}."
@@ -98,7 +98,7 @@ Feature: Admin sets up demo
 
   Scenario: Appropriate restrictions on text that gets SMSed
     Given I am on the admin page
-    When I follow "New Demo"
+    When I follow "Create New Game"
     Then I should see a restricted text field "Custom welcome message"
     And I should see a restricted text field "Custom victory SMS"
     And I should see a restricted text field "Followup welcome message"

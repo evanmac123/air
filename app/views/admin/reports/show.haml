@@ -1,0 +1,15 @@
+.admin
+  .breadcrumb
+    = link_to "Admin", admin_path
+    = "=>"
+    = link_to @demo.name, admin_demo_path(@demo)
+    = "=>"
+    Reports
+
+  %h1= @demo.name
+
+  %h2 Reports
+  %ul 
+    %li= link_to "Points", admin_demo_reports_points_path(@demo) 
+    %li= link_to "Levels", admin_demo_reports_levels_path(@demo) 
+    %li= link_to "Custom Actions", admin_demo_reports_custom_actions_path(@demo)

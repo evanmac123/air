@@ -110,9 +110,12 @@ Health::Application.routes.draw do
       resources :self_inviting_domains
 
       resources :locations
-
+      resource :reports, :only => :show
       namespace :reports do
         resource :location_breakdown, :only => [:show]
+        resource :points, :only => [:show]
+        resource :levels, :only => [:show]
+        resource :custom_actions, :only => [:show]
       end
     end
 

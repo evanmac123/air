@@ -8,6 +8,7 @@
 
 $faq_med_grey: #777;
 @import "faq_mini";
+$twin_peak_radius: 200px;
 
 
 body {
@@ -981,4 +982,113 @@ div.follow-btn, div.stop-following-btn {
   font-weight: bold;
   float: right;
   padding-right: 13px;
+}
+.demos{
+  margin-left: 5ex;
+  list-style-type: disc;
+}
+.admin{
+  h1, h2, h3, h4{
+    line-height: 2em;
+  }
+  h1{
+    text-align: center;
+    font-size: 1.7cm;
+  }
+  .breadcrumb {
+    font-size: 5mm;
+  }
+  p {
+    font-weight: bold;
+  }
+  ul {
+    margin-left: 5ex;
+    list-style-type: disc;
+  }
+  th{font-size: 18px;}
+  th, td{
+    padding-left: 1ex;
+  }
+  .table-title{
+    font-size: 0.7cm;
+    padding-bottom: 0.3cm;
+    padding-top: 3ex;
+  }
+ .select_tags{
+   float: right;
+   width: 139px;
+   padding-top: 32mm;
+   select{
+     width: 100%;
+     display: none;
+     &:first-child{display: block;}
+  }
+   
+ }
+ .body{
+   float: left;
+   width: 600px;
+ }
+ .flip-flop{
+   text-align: center;
+   margin-top: -5mm; 
+  }
+ 
+}
+#new-user-form{
+  display: none;
+}
+#export-report{
+  float: right;
+}
+td.label{
+  font-weight: bold;
+}
+#export-report{
+  @include button-norm;
+  a{color: white;}
+  margin-top: 1.5ex;
+}
+.stripe{
+  background: #cacec8;
+}
+.clear{
+  clear: both;
+}
+#task_popularity_link{
+  -moz-border-radius-topleft: $twin_peak_radius;
+  -webkit-border-top-left-radius: $twin_peak_radius;
+  -moz-border-radius-bottomleft: $twin_peak_radius;
+  -webkit-border-bottom-left-radius: $twin_peak_radius;
+}
+#user_activity_link{
+  -moz-border-radius-topright: $twin_peak_radius;
+  -webkit-border-top-right-radius: $twin_peak_radius;
+  -moz-border-radius-bottomright: $twin_peak_radius;
+  -webkit-border-bottom-right-radius: $twin_peak_radius;
+  position: relative;
+  left: -8px;
+}
+
+
+
+#task_popularity_link, #user_activity_link{
+  &:hover{
+    color: yellow;
+    background: #070;
+  }
+  background: #666;
+  color: #888;
+  padding: 0.7ex 2ex;
+  &.active{
+    color: #fb0;
+    background: #070;
+  }
+}
+
+#user_activity_table{
+  display: none;
+}
+.inline{
+  display: inline;
 }

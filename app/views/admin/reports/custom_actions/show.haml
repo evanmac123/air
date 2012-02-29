@@ -1,0 +1,92 @@
+
+.admin
+  .breadcrumb
+    = link_to "Admin", admin_path
+    = "=>"
+    = link_to @demo.name, admin_demo_path(@demo)
+    = "=>"
+    = link_to "Reports", admin_demo_reports_path(@demo)
+    = "=>"
+    Custom Actions
+  
+  %h1= @demo.name
+  .flip-flop{:style => "text-align: center;"}
+    .inline= link_to "Task Popularity", '#', :id => :task_popularity_link, :class => :active
+    .inline= link_to "User Activity", '#', :id => :user_activity_link
+  = content_for :javascript do
+    :javascript
+      $('#task_popularity_link').click(function(){
+        $('.active').attr('class', '');
+        $(this).attr('class', 'active');
+        $('#task_popularity_table').show();
+        $('#user_activity_table').hide();
+      });
+      
+      $('#user_activity_link').click(function(){
+        $('.active').attr('class', '');
+        $(this).attr('class', 'active');
+        $('#user_activity_table').show();
+        $('#task_popularity_table').hide();
+      });
+      
+  .select_tags
+    %h3 Filter by Tags
+    .put-all-the-selects-in-one-div-so-first-child-will-work
+      - 10.times do
+        =select_tag "tags", options_from_collection_for_select(@tags, 'id', 'name'), :include_blank => true, :selected => nil
+    = content_for :javascript do
+      :javascript
+        $('.select_tags select').change(function(){
+          $(this).next().show();
+          $('.filtered').hide();
+        });
+    #export-report= link_to "Export", '#u'
+  
+  .body
+    #task_popularity_table
+      .table-title <span class='bold'>Bar Graph</span>, Task Popularity
+      %table
+        %tr
+          %th Special Command
+          %th Number Users Completed
+          %th Percent Users Completed
+        %tr
+          %td{:class => 'label'} Read Employee Handbook
+          %td 300
+          %td 24%
+        %tr{:class => 'stripe'}
+          %td{:class => 'label'} Apply for Benefits
+          %td 615
+          %td 45%
+        %tr{:class => 'filtered'}
+          %td{:class => 'label'} Tell 3 Friends
+          %td 192
+          %td 16%
+        %tr{:class => 'stripe filtered'}
+          %td{:class => 'label'} Commit to a Better Life
+          %td 1092
+          %td 90%
+        
+    #user_activity_table
+      .table-title <span class='bold'>Histogram</span>, Number Special Commands Completed vs Users
+      %table
+        %tr
+          %th Completed
+          %th Number Users 
+          %th Percent Users 
+        %tr
+          %td{:class => 'label'} 0
+          %td 433
+          %td 30%
+        %tr{:class => 'stripe'}
+          %td{:class => 'label'} 1
+          %td 250
+          %td 25%
+        %tr{:class => 'filtered'}
+          %td{:class => 'label'} 2
+          %td 202
+          %td 16%
+        %tr{:class => 'stripe filtered'}
+          %td{:class => 'label'} 3
+          %td 404
+          %td 34%
