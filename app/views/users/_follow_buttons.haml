@@ -2,7 +2,7 @@
   - if current_user == user
     .pending_notice This is you!
   -else
-    - unless current_user.following? user  
+    - unless current_user.following_or_follow_pending? user  
       .follow-btn
         Follow
         = form_tag user_friendship_path(user) do

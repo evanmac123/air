@@ -10,9 +10,9 @@ Feature: Directory of other users
       | Mort | mort.png         | name: BetaCo  |
     And "Sven" has no avatar
     And the following friendships exist:
-      | user       | friend     |
-      | name: Dan  | name: Phil |
-      | name: Dan  | name: Vlad |
+      | user       | friend     | state    |
+      | name: Dan  | name: Phil | accepted |
+      | name: Dan  | name: Vlad | accepted |
     And "Dan" has the password "foobar"
     And I sign in via the login page as "Dan/foobar"
     And I go to the users page
@@ -52,4 +52,4 @@ Feature: Directory of other users
     Given I press "Follow"
     Then I should see "OK, you'll be a fan of Sven, pending their acceptance."
     Given I press "Cancel request"
-    Then I should see "OK, you're not longer a fan of Phil."
+    Then I should see "OK, you're no longer a fan of Sven."
