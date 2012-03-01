@@ -43,11 +43,11 @@ class User
     end
 
     def schedule_update_demo_alltime_rankings
-      self.demo.delay.fix_total_user_rankings!
+      #self.demo.delay.fix_total_user_rankings!
     end
 
     def schedule_update_demo_recent_average_rankings
-      self.demo.delay.fix_recent_average_user_rankings!
+      #self.demo.delay.fix_recent_average_user_rankings!
     end
   end
 end

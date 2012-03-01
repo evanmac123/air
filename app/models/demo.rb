@@ -117,6 +117,7 @@ class Demo < ActiveRecord::Base
   # this demo's users' recent moving average scores and related rankings.
 
   def recalculate_all_moving_averages!
+    return
     Demo.transaction do
       self.users.claimed.each do |user|
         user.recalculate_moving_average!
