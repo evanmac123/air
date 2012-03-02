@@ -56,7 +56,7 @@ Feature: Admin moves a user to a new demo
       | Dan  | went running | 10     |
 
   Scenario: In user's profile page, only new acts appear
-    When I sign in via the login page as "Fred/bazlet"
+    When I sign in via the login page as "Bob/barfing"
     And I go to the profile page for "Dan"
     Then I should be on the profile page for "Dan"
     

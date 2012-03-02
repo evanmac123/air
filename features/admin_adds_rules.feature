@@ -137,7 +137,6 @@ Feature: Admin adds and edits rules
     And I uncheck "Suggestible"
     And I fill in secondary value field #1 with "ate some oatmeal"
     And I press "Create Rule"
-  And show me the page
     Then I should see "Warning: rule value existingsmsslug conflicts with username"
 
 
