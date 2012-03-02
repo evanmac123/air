@@ -10,6 +10,6 @@ require 'spec_helper'
 #     end
 #   end
 # end
-describe Admin::Reports::CustomActionsHelper do
+describe Admin::Reports::InteractionsHelper do
   pending "add some examples to (or delete) #{__FILE__}"
 end

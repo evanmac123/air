@@ -2,11 +2,11 @@
 .admin
   .breadcrumb
     = link_to "Admin", admin_path
-    = "=>"
+    = "»"
     = link_to @demo.name, admin_demo_path(@demo)
-    = "=>"
+    = "»"
     = link_to "Reports", admin_demo_reports_path(@demo)
-    = "=>"
+    = "»"
     Points
     
   %h1= @demo.name
@@ -18,20 +18,15 @@
       %th Points Achieved
       %th Number Users
       %th Percent Users
-    %tr
-      %td{:class => 'label'} 31-40
-      %td 92
-      %td 10%
-    %tr{:class => 'stripe'}
-      %td{:class => 'label'} 21-30
-      %td 333
-      %td 30%
-    %tr
-      %td{:class => 'label'} 11-20
-      %td 492
-      %td 50%
-    %tr{:class => 'stripe'}
-      %td{:class => 'label'} &nbsp;0-10
-      %td 104
-      %td 10%
+    - @points_array.each do |blob|
+      - key = blob.split('|').first
+      - val = blob.split('|').last
+      - zebra_stripes = cycle('', 'stripe')
+      %tr{:class => zebra_stripes} 
+        %td{:class => 'label'}= key
+        %td= val
+        %td= "#{"%.1f" % (100.0 * val.to_i / @num_users_this_demo)}%" 
+        
+
+        
       

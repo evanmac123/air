@@ -1,0 +1,72 @@
+.breadcrumb
+  = link_to "Admin", admin_path
+  = "»"
+  = link_to @demo.name, admin_demo_path(@demo)
+  = "»"
+  = link_to "Reports", admin_demo_reports_path(@demo)
+  = "»"
+  Interactions
+
+%h1= @demo.name
+.flip-flop{:style => "text-align: center;"}
+  .inline= link_to "Popularity", '#u', :id => :interaction_popularity_link, :class => :active
+  .inline= link_to "User Activity", '#u', :id => :user_activity_link
+= content_for :javascript do
+  :javascript
+    var left_table_visible = 1;
+    hideOneTable();
+    
+    $('#interaction_popularity_link').click(function(){
+      $('.active').attr('class', '');
+      $(this).attr('class', 'active');
+      left_table_visible = 1;
+      hideOneTable();
+    });
+
+    $('#user_activity_link').click(function(){
+      $('.active').attr('class', '');
+      $(this).attr('class', 'active');
+      left_table_visible = 0;
+      hideOneTable();
+    });
+    
+    function hideOneTable(){
+      var left = $('#interaction_popularity_table');
+      var right = $('#user_activity_table');
+      if (left_table_visible){
+        left.show();
+        right.hide();
+      }else{
+        left.hide();
+        right.show();
+      }
+    }
+    
+
+.select_tags
+  %h3 Filter by Tags
+  .put-all-the-selects-in-one-div-so-first-child-will-work
+    - 20.times do |id|
+      - select_id = "sel_#{id}"
+      =select_tag "tags", options_from_collection_for_select(@tags, 'id', 'name'), :include_blank => true, :selected => nil, :id => select_id, :class => :selected_tag
+  = content_for :javascript do
+    :javascript
+      $('.select_tags select').change(function(){
+        $(this).next().show();
+        $('.filtered').hide();
+        get_new_interaction_content();
+      });
+      function get_new_interaction_content(){
+        $('table').html('Just a moment..');
+        var tag_ids = '';
+        var ids = $.map($('.selected_tag'), function(value){
+          tag_ids += $(value).val() + ', '; 
+        });
+        var options = {format : 'xhr', tag_ids : tag_ids};
+        $.get('interactions#show', options, function(data){
+          $('.body').html(data);
+          hideOneTable();
+        });
+      }
+  #export-report= link_to "Export", '#u'
+

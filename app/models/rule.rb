@@ -14,6 +14,22 @@ class Rule < ActiveRecord::Base
     description || self.primary_value.try(:value) || self.rule_values.oldest.first.value
   end
 
+  def tags_with_primary
+    if self.primary_tag
+      [self.primary_tag] + self.tags
+    else
+      self.tags
+    end
+  end
+
+  def tag_ids_with_primary
+    if self.primary_tag_id
+      [self.primary_tag_id] + self.tag_ids
+    else
+      self.tag_ids
+    end
+  end
+  
   def user_hit_limit?(user)
     return false unless self.alltime_limit
 

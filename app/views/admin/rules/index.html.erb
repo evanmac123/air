@@ -2,9 +2,9 @@
 <img src="/images/down_triangle.png" style="display: none">
 
 <h2 class="first">
-  <%= link_to "Admin", admin_path %>:
+  <%= link_to "Admin", admin_path %> »
   <% if @demo %>
-    <%= link_to @demo.name, admin_demo_path(@demo) %>: Rules
+    <%= link_to @demo.name, admin_demo_path(@demo) %> » Rules
   <% else %>
     Standard Playbook
   <% end %>

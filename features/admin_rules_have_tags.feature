@@ -27,7 +27,9 @@ Feature: Admin rules have tags
     And I fill in "Name" with "cheese"
     And I fill in "Description" with "curdled milk"
     And I press "Create Tag"
-    Then I should see "Name: cheese Description: curdled milk"
+    Then I should see "Tag was successfully created"
+    And I should see "cheese"
+    And I should see "curdled milk"
 
   Scenario: Admin can edit a rule to associate it with a tag
     When I go to the rule edit page for "rode a bike"

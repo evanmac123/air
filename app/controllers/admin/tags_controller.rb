@@ -1,4 +1,9 @@
 class Admin::TagsController < AdminBaseController
+
+  def index
+    @tags = Tag.all
+  end
+  
   def show
     @tag = Tag.find(params[:id])
 
@@ -22,7 +27,7 @@ class Admin::TagsController < AdminBaseController
 
     respond_to do |format|
       if @tag.save
-        format.html { redirect_to(admin_tag_path(@tag), :notice => 'Tag was successfully created.') }
+        format.html { redirect_to(admin_tags_path, :notice => 'Tag was successfully created.') }
         format.xml  { render :xml => @tag, :status => :created, :location => @tag }
       else
         format.html { render :action => "new" }

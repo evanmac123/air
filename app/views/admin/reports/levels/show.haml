@@ -2,35 +2,32 @@
 .admin
   .breadcrumb
     = link_to "Admin", admin_path
-    = "=>"
+    = "»"
     = link_to @demo.name, admin_demo_path(@demo)
-    = "=>"
+    = "»"
     = link_to "Reports", admin_demo_reports_path(@demo)
-    = "=>"
+    = "»"
     Levels
     
   %h1= @demo.name
   #export-report= link_to "Export", '#u'
   .clear
-  .table-title <span class='bold'>Histogram</span>, Highest Level Completed vs Users
+  .table-title <span class='bold'>Histogram</span>, Current Level vs Users
   %table
     %tr
-      %th Highest Level Completed
-      %th Number Users
-      %th Percent Users
-    %tr
-      %td{:class => 'label'} Quantum Fun
-      %td 344
-      %td 30%
-    %tr{:class => 'stripe'}
-      %td{:class => 'label'} Galaxy Fun
-      %td 204
-      %td 20%
-    %tr
-      %td{:class => 'label'} Fun Like a Walk in the Park
-      %td 299
-      %td 40%
-    %tr{:class => 'stripe'}
-      %td{:class => 'label'} Fun Like Homemade Pie
-      %td 91
-      %td 10%
+      %th
+      %th Current Level
+      %th Points Range
+      %th # Users
+      %th % Users
+    - @row_array.each do |row|
+      - zebra_stripes = cycle('', 'stripe')
+      %tr{:class => zebra_stripes}
+        %td= row[:index]
+        %td{:class => 'label'}= row[:name]
+        %td= row[:points_range]
+        %td= row[:num_users] 
+        %td= row[:percent_users] 
+        
+        
+        

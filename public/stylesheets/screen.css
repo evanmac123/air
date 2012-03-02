@@ -1975,6 +1975,22 @@ div.follow-btn, div.stop-following-btn {
 .admin .flip-flop {
   text-align: center;
   margin-top: -5mm; }
+.admin tr:hover {
+  background: #babeb8; }
+  .admin tr:hover .hidden_tags {
+    display: block; }
+.admin .hidden_tags {
+  margin-top: 1ex;
+  display: none;
+  position: absolute;
+  padding: 1ex;
+  background: yellow;
+  text: yellow;
+  -moz-border-radius: 1ex;
+  -webkit-border-radius: 1ex;
+  border-radius: 1ex; }
+  .admin .hidden_tags .description {
+    padding-bottom: 1ex; }
 
 #new-user-form {
   display: none; }
@@ -2027,7 +2043,7 @@ td.label {
 .clear {
   clear: both; }
 
-#task_popularity_link {
+#interaction_popularity_link {
   -moz-border-radius-topleft: 200px;
   -webkit-border-top-left-radius: 200px;
   -moz-border-radius-bottomleft: 200px;
@@ -2041,19 +2057,19 @@ td.label {
   position: relative;
   left: -8px; }
 
-#task_popularity_link, #user_activity_link {
+#interaction_popularity_link, #user_activity_link {
   background: #666;
   color: #888;
   padding: 0.7ex 2ex; }
-  #task_popularity_link:hover, #user_activity_link:hover {
+  #interaction_popularity_link:hover, #user_activity_link:hover {
     color: yellow;
     background: #070; }
-  #task_popularity_link.active, #user_activity_link.active {
+  #interaction_popularity_link.active, #user_activity_link.active {
     color: #fb0;
     background: #070; }
 
-#user_activity_table {
-  display: none; }
+#interaction_popularity_table, #user_activity_table {
+  position: relative; }
 
 .inline {
   display: inline; }

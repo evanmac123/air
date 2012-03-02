@@ -1,0 +1,23 @@
+.admin
+  .breadcrumb
+    = link_to "Admin", admin_path
+    = "»"
+    Tags
+    
+  %h1 Tags
+  
+  %table
+    %tr
+      %th Name
+      %th Description
+      %th
+      %th
+      %th
+    - @tags.each do |tag|
+      %tr
+        %td= tag.name 
+        %td= tag.description 
+        %td= link_to 'Show', admin_tag_path(tag) 
+        %td= link_to 'Edit', edit_admin_tag_path(tag) 
+        %td= link_to 'Destroy', admin_tag_path(tag), :confirm => 'Are you sure?', :method => :delete, :controller => "admin/tags" 
+  = link_to 'New tag', new_admin_tag_path 

@@ -1033,6 +1033,26 @@ div.follow-btn, div.stop-following-btn {
    text-align: center;
    margin-top: -5mm; 
   }
+  tr:hover{
+    background: #babeb8;
+    .hidden_tags{
+      display: block;
+    }
+  } 
+  .hidden_tags{
+    margin-top: 1ex;
+    display: none;
+    position: absolute;
+    padding: 1ex;
+    background: yellow;
+    text: yellow;
+    -moz-border-radius: 1ex;
+    -webkit-border-radius: 1ex;
+    border-radius: 1ex;
+    .description{
+      padding-bottom: 1ex;
+    }
+  }
  
 }
 #new-user-form{
@@ -1055,7 +1075,7 @@ td.label{
 .clear{
   clear: both;
 }
-#task_popularity_link{
+#interaction_popularity_link{
   -moz-border-radius-topleft: $twin_peak_radius;
   -webkit-border-top-left-radius: $twin_peak_radius;
   -moz-border-radius-bottomleft: $twin_peak_radius;
@@ -1072,7 +1092,7 @@ td.label{
 
 
 
-#task_popularity_link, #user_activity_link{
+#interaction_popularity_link, #user_activity_link{
   &:hover{
     color: yellow;
     background: #070;
@@ -1086,9 +1106,12 @@ td.label{
   }
 }
 
-#user_activity_table{
-  display: none;
+
+#interaction_popularity_table, #user_activity_table{
+  position: relative;
 }
 .inline{
   display: inline;
 }
+
+

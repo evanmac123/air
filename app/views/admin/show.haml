@@ -2,14 +2,7 @@
 
   %h1.first Admin
 
-  %h2 Rules
-  %p= link_to "Standard playbook rules", admin_rules_path 
-  %p= link_to "Forbidden rules", admin_forbidden_rules_path 
-  %h2 Filters
-  %p= link_to 'Bad Words', admin_bad_words_path 
   %h2 Games
-  %p= link_to 'Create New Game', new_admin_demo_path 
-  %p Existing Games:
   %ul.demos
     - @demos.each do |demo| 
       - link_text = demo.name 
@@ -20,4 +13,12 @@
       - link_text << " (#{extra_info.join(', ')})" unless extra_info.empty? 
 
       %li= link_to link_text, admin_demo_path(demo)
+  %p= link_to 'Create New Game', new_admin_demo_path 
+  
+  %h2 Game-Agnostic Features
+  %p= link_to "Standard playbook rules", admin_rules_path 
+  %p= link_to "Forbidden rules", admin_forbidden_rules_path 
+  %p= link_to 'Tags', admin_tags_path
+  %p= link_to 'Bad Words', admin_bad_words_path 
+
   

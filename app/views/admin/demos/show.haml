@@ -1,6 +1,7 @@
 .admin
   .breadcrumb
-    = link_to "Admin:", admin_path
+    = link_to "Admin", admin_path
+    »
     = @demo.name
 
 
@@ -10,7 +11,7 @@
   %ul 
     %li= link_to "Points", admin_demo_reports_points_path(@demo) 
     %li= link_to "Levels", admin_demo_reports_levels_path(@demo) 
-    %li= link_to "Custom Actions", admin_demo_reports_custom_actions_path(@demo) 
+    %li= link_to "Interactions", admin_demo_reports_interactions_path(@demo) 
 
   %h2
     = @claimed_user_count  

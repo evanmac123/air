@@ -115,7 +115,7 @@ Health::Application.routes.draw do
         resource :location_breakdown, :only => [:show]
         resource :points, :only => [:show]
         resource :levels, :only => [:show]
-        resource :custom_actions, :only => [:show]
+        resource :interactions, :only => [:show]
       end
     end
 

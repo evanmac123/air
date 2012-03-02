@@ -103,6 +103,10 @@ Factory.define :act do |factory|
   factory.association :user
 end
 
+Factory.define :act_with_rule, :parent => :act do |factory|
+  factory.association :rule
+end
+
 Factory.define :friendship do |factory|
   factory.association :user
   factory.association :friend, :factory => :user

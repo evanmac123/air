@@ -1,7 +1,7 @@
 <% if @demo %>
-  <div class="breadcrumb"><%= link_to "Admin", admin_path %>: <%= link_to @demo.name, admin_demo_path(@demo) %>: Bad words</h2>
+  <div class="breadcrumb"><%= link_to "Admin", admin_path %> » <%= link_to @demo.name, admin_demo_path(@demo) %> » Bad words</h2>
 <% else %>
-  <h2 class="first"><%= link_to "Admin", admin_path %>: Generic bad words</h2>
+  <h2 class="first"><%= link_to "Admin", admin_path %> » Generic bad words</h2>
 <% end %>
 <ul>
 <% @bad_words.each do |bad_word| %>
