@@ -1,6 +1,6 @@
 class Demo < ActiveRecord::Base
   has_many :users, :dependent => :destroy
-  has_many :acts, :through => :users
+  has_many :acts
   has_many :rules, :dependent => :destroy
   has_many :rule_values, :through => :rules
   has_many :surveys, :dependent => :destroy

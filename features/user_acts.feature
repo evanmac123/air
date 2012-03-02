@@ -13,6 +13,7 @@ Feature: User acts
       | Bob  | +18085551212 | everybody     | name: FooCorp | 3      | 1       |
       | Sven | +17145551212 | everybody     | name: BarCorp | 5      | 1       |
     And "Dan" has the password "foobar"
+    And "Sven" has the password "foobar"
     And "Paul" has the SMS slug "paul55"
     And "Fred" has the SMS slug "fred666"
     And "Sven" has the SMS slug "sven"
@@ -45,6 +46,16 @@ Feature: User acts
     Then I should see the following act:
       | name | act         | points |
       | Dan  | ate banana  | 2      |
+
+  Scenario: User doesn't see acts from another demo
+    When "+15087407520" sends SMS "ate banana"
+    And I sign in via the login page as "Dan/foobar"
+    Then I should see the following act:
+      | name | act         | points |
+      | Dan  | ate banana  | 2      |
+    When I sign in via the login page as "Sven/foobar"
+    Then I should be on the activity page
+    But I should not see "ate banana"
 
   Scenario: User can use any rule value to refer to a rule
     When "+15087407520" sends SMS "ate banana"
