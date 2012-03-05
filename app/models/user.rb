@@ -642,15 +642,15 @@ class User < ActiveRecord::Base
   # the action was successful, or an error code if the action failed. As of
   # now the only error code we use is :over_alltime_limit.
 
-  def act_on_rule(rule, rule_value, channel=nil, referring_user=nil)
+  def act_on_rule(rule, rule_value, options={})
     self.last_suggested_items = ''
     self.save!
 
     if rule.user_hit_limit?(self)
       return ["Sorry, you've already done that action.", :over_alltime_limit]
     else
-      credit_referring_user(referring_user, rule, rule_value)
-      return [Act.record_act(self, rule, channel, referring_user), :success]
+      credit_referring_user(options[:referring_user], rule, rule_value)
+      return [Act.record_act(self, rule, options), :success]
     end
   end
 

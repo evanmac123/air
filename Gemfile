@@ -20,6 +20,7 @@ gem "delayed_job"
 gem "heroku_san"
 gem "haml-rails"
 gem "chronic"
+gem "mixpanel"
 
 # RSpec needs to be in :development group to expose generators
 # and rake tasks without having to type RAILS_ENV=test.

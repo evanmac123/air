@@ -24,6 +24,11 @@ RSpec.configure do |config|
   # examples within a transaction, remove the following line or assign false
   # instead of true.
   config.use_transactional_fixtures = true
+
+  config.before(:each) do
+    Mixpanel::Tracker.stubs(:new).with(MIXPANEL_TOKEN, Mocha::ParameterMatchers::KindOf.new(Hash)).returns(FakeMixpanelTracker)
+    FakeMixpanelTracker.clear_tracked_events
+  end
 end
 
 require 'capybara-webkit'

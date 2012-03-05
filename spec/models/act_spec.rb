@@ -1,11 +1,144 @@
 require 'spec_helper'
 
+def expect_act_ping(act, properties={})
+  FakeMixpanelTracker.events_matching("acted", {:distinct_id => act.user.email}.merge(properties)).should be_present
+end
+
 describe Act do
   it { should belong_to(:user) }
   it { should belong_to(:referring_user) }
   it { should belong_to(:rule) }
   it { should belong_to(:demo) }
   it { should have_one(:goal).through(:rule) }
+end
+
+describe Act, "on create" do
+  it "should record a Mixpanel ping" do
+    act = Factory :act
+    Delayed::Worker.new.work_off(20)
+
+    expect_act_ping(act)
+  end
+
+  it "should record the primary value of the related rule" do
+    rule_value = Factory :rule_value, :value => "hey hey", :is_primary => true
+    act = Factory :act, :rule => rule_value.rule
+    Delayed::Worker.new.work_off(20)
+
+    expect_act_ping(act, :rule_value => rule_value.value)
+  end
+
+  it "should record the tags of the related rule" do
+    rule = Factory :rule
+    rule.tags = [Factory(:tag, :name => "woo"), Factory(:tag, :name => "all right"), Factory(:tag, :name => "how about that")]
+
+    act = Factory :act, :rule => rule
+
+    Delayed::Worker.new.work_off(20)
+
+    expect_act_ping(act, :primary_tag => rule.primary_tag.name, :secondary_tags => ["all right", "how about that", "woo"])
+  end
+
+  it "should record what game the user is in" do
+    act = Factory :act
+
+    Delayed::Worker.new.work_off(20)
+
+    expect_act_ping(act, :game => act.user.demo.name)
+  end
+
+  it "should record the number of followers the user has" do
+    user = Factory :user
+
+    5.times {Factory :friendship, :friend => user, :state => 'accepted'}
+    10.times {Factory :friendship, :friend => user, :state => 'pending'}
+
+    act = Factory :act, :user => user
+
+    Delayed::Worker.new.work_off(20)
+
+    expect_act_ping(act, :followers_count => 5)
+  end
+
+  it "should record the number of users the user is following" do
+    user = Factory :user
+
+    3.times {Factory :friendship, :user => user, :state => 'accepted'}
+    10.times {Factory :friendship, :user => user, :state => 'pending'}
+
+    act = Factory :act, :user => user
+
+    Delayed::Worker.new.work_off(20)
+
+    expect_act_ping(act, :following_count => 3)
+  end
+
+  it "should record the user's level" do
+    demo = Factory :demo
+    [10,20,30].each {|threshold| Factory :level, :demo => demo, :threshold => threshold}
+    user = Factory :user, :demo => demo
+
+    act = Factory :act, :user => user, :inherent_points => 17
+    user.top_level_index.should == 2
+
+    Delayed::Worker.new.work_off(20)
+
+    expect_act_ping(act, :level_index => 2)
+  end
+
+  it "should record the user's score" do
+    user = Factory :user
+    act = Factory :act, :user => user, :inherent_points => 47
+
+    Delayed::Worker.new.work_off(20)
+
+    expect_act_ping(act, :score => 47)
+  end
+ 
+  it "should record the user's account creation date" do
+    user = Factory :user
+
+    user.update_attributes(:created_at => Chronic.parse("March 17, 2009, 6:23 AM"))
+    act = Factory :act, :user => user, :inherent_points => 47
+
+    Delayed::Worker.new.work_off(20)
+
+    expect_act_ping(act, :account_creation_date => Date.parse("2009-03-17"))
+  end
+
+  it "should record the tagged user" do
+    other_user = Factory :user
+
+    act = Factory :act, :referring_user => other_user
+
+    Delayed::Worker.new.work_off(20)
+
+    expect_act_ping(act, :tagged_user_id => other_user.id)
+  end
+
+  it "should record the channel" do
+    act = Factory :act, :creation_channel => :magic
+
+    Delayed::Worker.new.work_off(20)
+
+    expect_act_ping(act, :channel => :magic)
+  end
+
+  it "should record if it was created by suggestion" do
+    user = Factory :user
+    rule_value_1 = Factory :rule_value, :is_primary => true
+    rule_value_2 = Factory :rule_value, :is_primary => true
+    rule_value_3 = Factory :rule_value, :is_primary => true
+
+    user.update_attributes(:last_suggested_items => [rule_value_1.id, rule_value_2.id, rule_value_3.id].join('|'))
+    SpecialCommand.use_suggested_item(user, 'b')
+
+    act = Act.last
+    act.rule.primary_value.should == rule_value_2
+   
+    Delayed::Worker.new.work_off(10)
+    expect_act_ping(act, :suggestion_code => 'b')
+  end
 end
 
 describe Act, "#points" do
@@ -185,7 +318,7 @@ describe Act, ".record_act" do
     @referring_user = Factory :user
 
     Act.count.should == 0
-    Act.record_act(@user, @rule, :web, @referring_user)
+    Act.record_act(@user, @rule, :channel => :web, :referring_user => @referring_user)
     Act.count.should == 1
   end
 

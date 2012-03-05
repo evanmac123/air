@@ -94,6 +94,10 @@ class Friendship < ActiveRecord::Base
     self.request_index = last_request ? last_request.request_index + 1 : 1
   end
 
+  def self.accepted
+    where(:state => 'accepted')
+  end
+
   def self.pending(friend, request_index = nil)
     all_pending = self.where(:state => 'pending', :friend_id => friend.id)
 

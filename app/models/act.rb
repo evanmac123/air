@@ -19,11 +19,12 @@ class Act < ActiveRecord::Base
     check_timed_bonuses
 
     trigger_suggested_tasks
+    schedule_mixpanel_ping
   end
 
   scope :recent, lambda {|max| order('created_at DESC').limit(max)}
 
-  attr_accessor :incoming_sms_sid
+  attr_accessor :incoming_sms_sid, :suggestion_code
 
   def points
     self.inherent_points || self.rule.try(:points)
@@ -88,7 +89,7 @@ class Act < ActiveRecord::Base
     rule = rule_value.try(:rule)
 
     if rule
-      reply, error_code = user.act_on_rule(rule, rule_value, options[:channel], referring_user)
+      reply, error_code = user.act_on_rule(rule, rule_value, :channel => options[:channel], :referring_user => referring_user)
       if error_code == :success
         return parsing_success_message(reply)
       else
@@ -117,7 +118,11 @@ class Act < ActiveRecord::Base
     reply
   end
 
-  def self.record_act(user, rule, channel=nil, referring_user = nil)
+  def self.record_act(user, rule, options={})
+    channel = options[:channel]
+    referring_user = options[:referring_user]
+    suggestion_code = options[:suggestion_code]
+                      
     text = rule.to_s
     if referring_user
       text += I18n.translate(
@@ -127,13 +132,41 @@ class Act < ActiveRecord::Base
       )
     end
 
-    act = create!(:user => user, :text => text, :rule => rule, :referring_user => referring_user, :creation_channel => (channel || ''))
+    act = create!(:user => user, :text => text, :rule => rule, :referring_user => referring_user, :creation_channel => (channel || ''), :suggestion_code => suggestion_code)
 
     [rule.reply, act.post_act_summary].join
   end
 
 
   protected
+
+  def schedule_mixpanel_ping
+    Mixpanel::Tracker.new(MIXPANEL_TOKEN, {}).delay.track_event("acted", data_for_mixpanel)
+  end
+
+  def data_for_mixpanel
+    _rule = self.try(:rule)
+    _user = self.user
+
+    secondary_tag_names = _rule ? _rule.tags.map(&:name).sort : []
+
+    {
+      :time                  => Time.now,
+      :distinct_id           => _user.email,
+      :rule_value            => _rule.try(:primary_value).try(:value),
+      :primary_tag           => _rule.try(:primary_tag).try(:name),
+      :secondary_tags        => secondary_tag_names,
+      :game                  => _user.demo.name,
+      :following_count       => Friendship.accepted.where(:user_id => _user.id).count,
+      :followers_count       => Friendship.accepted.where(:friend_id => _user.id).count,
+      :level_index           => _user.top_level_index,
+      :score                 => _user.points,
+      :account_creation_date => _user.created_at.to_date,
+      :tagged_user_id        => self.referring_user_id,
+      :channel               => self.creation_channel,
+      :suggestion_code       => self.suggestion_code
+    }
+  end
 
   def check_goal_completion
     if self.completes_goal?

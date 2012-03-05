@@ -79,7 +79,7 @@ Feature: User completes suggested task
     And the task "Survey task 4" has prerequisite "Survey task 2"
     And the task "Referer task 2" has prerequisite "Referer task 1"
     And the task "Demographic task 2" has prerequisite "Demographic task 1"
-    And DJ cranks 30 times
+    And DJ works off
     When I sign in via the login page with "Joe/foobar"
 
     Then I should see "Rule task 1"
@@ -122,19 +122,19 @@ Feature: User completes suggested task
     And I should not see "Referer task 2"
     And I should not see "Demographic task 2"
 
-    When DJ cranks 5 times after a little while
+    When DJ works off after a little while
     Then "+14152613077" should have received an SMS "Congratulations! You've completed a daily dose."
 
   Scenario: User completes rule suggested task by SMS and gets congrats by SMS
     Given a clear email queue
     When "+14152613077" sends SMS "do 1"
-    When DJ cranks 5 times after a little while
+    When DJ works off after a little while
     Then "+14152613077" should have received an SMS "Congratulations! You've completed a daily dose."
     But "joe@example.com" should receive no email
 
   Scenario: User completes rule suggested task by email and gets congrats by email
     When "joe@example.com" sends email with subject "do 1" and body "do 1"
-    And DJ cranks 5 times after a little while
+    And DJ works off after a little while
     Then "+14152613077" should not have received any SMSes
     But "joe@example.com" should receive an email with "Congratulations! You've completed a daily dose." in the email body
 
@@ -142,7 +142,7 @@ Feature: User completes suggested task
     When I sign in via the login page with "Joe/foobar" and choose to be remembered
     Given a clear email queue
     When I enter the act code "do 1"
-    And DJ cranks 5 times after a little while
+    And DJ works off after a little while
     Then "+14152613077" should not have received any SMSes
     And "joe@example.com" should receive no email
     But I should see "Congratulations! You've completed a daily dose."
@@ -175,7 +175,7 @@ Feature: User completes suggested task
     And I should not see "Referer task 1"
     And I should not see "Demographic task 2"
 
-    When DJ cranks 10 times after a little while
+    When DJ works off after a little while
     Then "+14152613077" should have received an SMS "Congratulations! You've completed a daily dose."
 
   @javascript
@@ -204,7 +204,7 @@ Feature: User completes suggested task
     And I should not see "Referer task 2"
     And I should not see "Demographic task 2"
 
-    When DJ cranks 5 times after a little while
+    When DJ works off after a little while
     Then "+14152613077" should have received an SMS "Congratulations! You've completed a daily dose."
 
   @javascript
@@ -239,7 +239,7 @@ Feature: User completes suggested task
     And I should not see "Referer task 2"
     And I should not see "Demographic task 1"
 
-    When DJ cranks 5 times after a little while
+    When DJ works off after a little while
     Then "+14152613077" should have received an SMS "Congratulations! You've completed a daily dose."  
   
   Scenario: User completes survey suggested task by SMS and gets congrats by SMS
@@ -247,7 +247,7 @@ Feature: User completes suggested task
     When "+14152613077" sends SMS "1"
     And "+14152613077" sends SMS "1"
     And "+14152613077" sends SMS "1"
-    When DJ cranks 5 times after a little while
+    When DJ works off after a little while
     Then "+14152613077" should have received an SMS "Congratulations! You've completed a daily dose."
     But "joe@example.com" should receive no email
 
@@ -263,7 +263,7 @@ Feature: User completes suggested task
     And I enter the act code "1"
     And I enter the act code "1"
     And I enter the act code "1"
-    When DJ cranks 5 times after a little while
+    When DJ works off after a little while
     Then "+14152613077" should not have received any SMSes
     And "joe@example.com" should receive no email
     But I should see "Congratulations! You've completed a daily dose."

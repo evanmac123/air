@@ -103,6 +103,7 @@ GEM
       rspec (~> 2.0)
     erubis (2.6.6)
       abstract (>= 1.0.0)
+    escape (0.0.4)
     factory_girl (1.3.2)
     factory_girl_rails (1.0)
       factory_girl (~> 1.3)
@@ -157,6 +158,10 @@ GEM
     method_source (0.6.6)
       ruby_parser (~> 2.0.5)
     mime-types (1.17.2)
+    mixpanel (1.1.3)
+      escape
+      json
+      rack
     mocha (0.9.8)
       rake
     multi_json (1.0.4)
@@ -311,6 +316,7 @@ DEPENDENCIES
   high_voltage
   linecache (~> 0.43)
   linecache19 (~> 0.5.11)
+  mixpanel
   nokogiri
   paperclip
   parallel_tests

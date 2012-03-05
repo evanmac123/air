@@ -63,7 +63,7 @@ Feature: User gives credit to game referer via autocomplete field
     When I select the suggestion containing "Charlie Brainfield"
     And I follow "Invite selected users"
     Then I should see "You just invited Charlie Brainfield to play H Engage"
-    And DJ cranks 5 times
+    And DJ works off
     Then "1@loaded.com" should receive an email
     When "1@loaded.com" opens the email
     And I click the first link in the email
@@ -78,7 +78,7 @@ Feature: User gives credit to game referer via autocomplete field
     And I wait a second
     Then I should see "Brought to you by"
     Then user with email "1@loaded.com" should show up as referred by "Shelly"
-    And DJ cranks 5 times
+    And DJ works off
     And "+16662221111" should have received SMS "Blowing Smoke gave you credit for referring them to the game. Many thanks and 2000 bonus points!"
     When "pre@loaded.com" opens the email
     Then I should see "Blowing Smoke gave you credit for referring them to the game. Many thanks and 2000 bonus points!" in the email body
@@ -96,7 +96,7 @@ Feature: User gives credit to game referer via autocomplete field
       When I select the suggestion containing "Michelle"
       And I follow "Invite selected users"
       Then I should see "Michelle is already playing"
-      And DJ cranks 5 times
+      And DJ works off
       Then "playing@loaded.com" should receive no email
       
   @javascript
@@ -115,7 +115,7 @@ Feature: User gives credit to game referer via autocomplete field
 
     And I follow "Invite selected users"
     Then I should see "You just invited Charlie Brainfield and Fourfold to play H Engage"
-    And DJ cranks 5 times
+    And DJ works off
     
     # Check that first invitee received email
     Then "4@loaded.com" should receive an email
@@ -139,7 +139,7 @@ Feature: User gives credit to game referer via autocomplete field
     When I follow "Confirm my mobile number later"
     Then I should see "Brought to you by"
     Then user with email "1@loaded.com" should show up as referred by "Shelly"
-    And DJ cranks 5 times
+    And DJ works off
     And "+16662221111" should have received SMS "Blowing Smoke gave you credit for referring them to the game. Many thanks and 2000 bonus points!"
     When "pre@loaded.com" opens the email
     Then I should see "Blowing Smoke gave you credit for referring them to the game. Many thanks and 2000 bonus points!" in the email body
@@ -158,7 +158,7 @@ Feature: User gives credit to game referer via autocomplete field
     When I fill in "email number 1" with "racing22"
     And I press "Invite!"
     Then I should see "You just invited racing22@inviting.com to play H Engage"
-    And DJ cranks 5 times
+    And DJ works off
     Then "racing22@inviting.com" should receive an email
     When "racing22@inviting.com" opens the email
     And I click the first link in the email
@@ -173,7 +173,7 @@ Feature: User gives credit to game referer via autocomplete field
     And I wait a second
     Then I should see "Brought to you by"
     Then user with email "racing22@inviting.com" should show up as referred by "Barnaby"
-    And DJ cranks 5 times
+    And DJ works off
     And "+15554445555" should have received SMS "Blowing Smoke gave you credit for referring them to the game. Many thanks and 2000 bonus points!"
     When "claimed@inviting.com" opens the email
     Then I should see "Blowing Smoke gave you credit for referring them to the game. Many thanks and 2000 bonus points!" in the email body
@@ -196,7 +196,7 @@ Feature: User gives credit to game referer via autocomplete field
     
     And I press "Invite!"
     Then I should see "You just invited racing01@inviting.com, racing02@inviting.com, racing03@inviting.com, racing04@inviting.com, and racing05@inviting.com to play H Engage"
-    And DJ cranks 15 times
+    And DJ works off
     Then "racing03@inviting.com" should receive an email
     When "racing03@inviting.com" opens the email
     And I click the first link in the email
@@ -211,7 +211,7 @@ Feature: User gives credit to game referer via autocomplete field
     And I wait a second
     Then I should see "Brought to you by"
     Then user with email "racing03@inviting.com" should show up as referred by "Barnaby"
-    And DJ cranks 5 times
+    And DJ works off
     And "+15554445555" should have received SMS "Blowing Smoke gave you credit for referring them to the game. Many thanks and 2000 bonus points!"
     When "claimed@inviting.com" opens the email
     Then I should see "Blowing Smoke gave you credit for referring them to the game. Many thanks and 2000 bonus points!" in the email body
@@ -314,5 +314,5 @@ Feature: User gives credit to game referer via autocomplete field
     And I press "Invite!"
     Then I should see "You just invited racing22@inviting.com to play H Engage"
     Then I should not see "seconds.com"    
-    And DJ cranks 5 times
+    And DJ works off
     Then "racing22@inviting.com" should receive an email

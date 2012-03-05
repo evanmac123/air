@@ -134,7 +134,7 @@ module SpecialCommand
     return nil unless suggested_item_indices.length > chosen_index
 
     rule_value = RuleValue.find(suggested_item_indices[chosen_index])
-    parsing_success_message((user.act_on_rule(rule_value.rule, rule_value)).first) # throw away error code in this case
+    parsing_success_message((user.act_on_rule(rule_value.rule, rule_value, :suggestion_code => letter_code)).first) # throw away error code in this case
   end
 
   def self.respond_to_survey(user, choice, channel)
