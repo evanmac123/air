@@ -22,15 +22,21 @@ class Admin::Reports::InteractionsController < ApplicationController
     @tags = Tag.all
 
     @num_users_this_demo = @users.count
-    @user_usage_data = {}
-    @number_rows = @rules.count + 1
-    @number_rows.times do |count|
-      how_many_users = 0
-      @users.each do |u|
-        how_many_users += 1 if Act.where(:user_id => u.id, :rule_id => rule_ids).count == count
-      end
-      @user_usage_data[count] = how_many_users
+    @number_rows = @rules.count + 1    
+    hist = {}
+    
+    (@number_rows).times do |count|
+      hist[count] = 0
     end
+     
+    
+    @users.each do |user|
+      how_many = Act.where(:user_id => user.id, :rule_id => rule_ids).count
+      hist[how_many] = hist[how_many] + 1
+    end
+    @user_usage_data = hist
+    
+
 
     if params[:format] == 'xhr'
       @tables_only = true
