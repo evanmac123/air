@@ -29,19 +29,6 @@ module ApplicationHelper
     end
   end
 
-  def navbar_link_to(link_text, path, options={})
-    last = options.delete(:last)
-
-    if link_text == @current_link_text
-      options[:class] ||= ""
-      options[:class] += "active"
-    end
-
-    output = content_tag('li', options) {link_to(link_text, path)}
-
-    output
-  end
-
   def master_bar_width
     "width: #{current_user.percent_towards_next_threshold}%"
   end

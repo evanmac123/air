@@ -31,24 +31,4 @@ module SkinHelper
     return "" unless (color = skin_value(skin_key, skin))
     css_style(selector, "color: ##{color}")
   end
-
-  def see_more_button_skinned
-    skinned("see_more_button_url", "new_activity/btn_seemore.png")
-  end
-
-  def save_button_skinned
-    skinned("save_button_url", "new_activity/btn_save.png")
-  end
-
-  def fan_button_skinned
-    skinned("fan_button_url", "new_activity/btn_beafan.png")
-  end
-
-  def defan_button_skinned
-    skinned("defan_button_url", "new_activity/btn_defan.png")
-  end
-
-  def clear_button_skinned
-    skinned('clear_button_url', "new_activity/btn_clear.png")
-  end
 end
