@@ -7,9 +7,9 @@ class AddDisplayabilityIndexToActs < ActiveRecord::Migration
   end
 
   def self.down
-    add_index :acts, :demo_id
-    add_index :acts, :hidden
-    add_index :acts, :privacy_level
+    #add_index :acts, :demo_id
+    #add_index :acts, :hidden
+    #add_index :acts, :privacy_level
     remove_index :acts, :column => [:hidden, :demo_id, :user_id, :privacy_level]
   end
 end
