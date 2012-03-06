@@ -8,6 +8,11 @@ class Act < ActiveRecord::Base
   belongs_to :demo
   has_one :goal, :through => :rule
 
+  before_save do
+    self.hidden = self.text.blank?
+    true
+  end
+
   before_create do
     self.demo_id ||= user.demo_id
   end
@@ -47,8 +52,12 @@ class Act < ActiveRecord::Base
     order('created_at desc').limit(limit)
   end
 
+  def self.unhidden
+    where(:hidden => false)  
+  end
+
   def self.displayable_to_user(viewing_user)
-    where("text != ''").allowed_to_view_by_privacy_settings(viewing_user)
+    unhidden.allowed_to_view_by_privacy_settings(viewing_user)
   end
 
   def self.allowed_to_view_by_privacy_settings(viewing_user)
