@@ -111,6 +111,10 @@ class User < ActiveRecord::Base
     suggest_first_level_tasks
   end
 
+  after_update do
+    update_associated_act_privacy_levels
+  end
+
   after_destroy do
     destroy_friendships_where_secondary
     fix_demo_rankings
@@ -985,6 +989,11 @@ class User < ActiveRecord::Base
 
   def mute_notice_threshold
     self.demo.mute_notice_threshold || DEFAULT_MUTE_NOTICE_THRESHOLD
+  end
+
+  def update_associated_act_privacy_levels
+    # See Act for an explanation of why we denormalize privacy_level onto it.
+    Act.update_all({:privacy_level => self.privacy_level}, {:user_id => self.id})
   end
 
   def self.claimable_by_email_address(claim_string)

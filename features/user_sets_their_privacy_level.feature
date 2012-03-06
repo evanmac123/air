@@ -2,10 +2,10 @@ Feature: User sets their privacy level
 
   Background:
     Given the following demo exists:
-      | name |
-      | Privata      |
+      | name    |
+      | Privata |
     And the following users exist:
-      | name      | demo                  |
+      | name      | demo          |
       | Bob       | name: Privata |
       | AlmostFan | name: Privata |
       | TrueFan   | name: Privata |
@@ -16,8 +16,8 @@ Feature: User sets their privacy level
 
   Scenario: User with privacy level of "everybody" shows their acts to everybody in demo
     Given the following user exists:
-      | name  | privacy_level  | demo                  |
-      | WTMI  | everybody      | name: Privata         |
+      | name  | privacy_level  | demo          |
+      | WTMI  | everybody      | name: Privata |
     And the following acts exist:
       | text        | user       |  
       | ate puppy   | name: WTMI |
@@ -104,3 +104,39 @@ Feature: User sets their privacy level
     And I press the button to save privacy settings
     Then I should see "OK, your settings were updated."
     And "Let these people see my actions:" should have "Nobody" selected
+
+  Scenario: User can change their privacy level
+    Given the following user exists:
+      | name  | privacy_level  | demo          |
+      | WTMI  | everybody      | name: Privata |
+    And the following friendship exists:
+      | user          | friend     | state    |
+      | name: TrueFan | name: WTMI | accepted |
+    And "WTMI" has the password "foobar"
+    And the following acts exist:
+      | text        | user       |  
+      | ate puppy   | name: WTMI |
+    And I go to the activity page
+
+    When I sign in via the login page as "Bob/foobar"
+    Then I should see "WTMI ate puppy less than a minute ago"
+    When I sign in via the login page as "TrueFan/foobar"
+    Then I should see "WTMI ate puppy less than a minute ago"
+
+    When "WTMI/foobar" changes their privacy level to "Followers I've accepted"
+    And I sign in via the login page as "Bob/foobar"
+    Then I should not see "WTMI ate puppy less than a minute ago"
+    When I sign in via the login page as "TrueFan/foobar"
+    Then I should see "WTMI ate puppy less than a minute ago"
+
+    When "WTMI/foobar" changes their privacy level to "Nobody"
+    And I sign in via the login page as "Bob/foobar"
+    Then I should not see "WTMI ate puppy less than a minute ago"
+    When I sign in via the login page as "TrueFan/foobar"
+    Then I should not see "WTMI ate puppy less than a minute ago"
+
+    When "WTMI/foobar" changes their privacy level to "Everybody"
+    And I sign in via the login page as "Bob/foobar"
+    Then I should see "WTMI ate puppy less than a minute ago"
+    When I sign in via the login page as "TrueFan/foobar"
+    Then I should see "WTMI ate puppy less than a minute ago"

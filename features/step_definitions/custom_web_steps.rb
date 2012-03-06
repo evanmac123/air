@@ -244,6 +244,13 @@ When /^I close the modal window$/ do
   page.execute_script %{$(document).trigger('close.facebox');}
 end
 
+When /^"([^"]*)" changes their privacy level to "([^"]*)"$/ do |login_string, privacy_level|
+  When %{I sign in via the login page as "#{login_string}"}
+  And %{I go to the settings page}
+  And %{I select "#{privacy_level}" from "Let these people see my actions:"}
+  And %{I press the button to save privacy settings}
+end
+
 Then /^user with email "([^"]*)" should show up as referred by "([^"]*)"$/ do |email, name_passed_in|
   new_user = User.where(:email => email).first
   referrer = new_user.game_referrer

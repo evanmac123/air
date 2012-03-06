@@ -10,6 +10,12 @@ class Act < ActiveRecord::Base
 
   before_save do
     self.hidden = self.text.blank?
+
+    # Privacy level is denormalized from user onto act in the interest of
+    # making #allowed_to_view_by_privacy_settings more efficient. It was
+    # killing our DB.
+
+    self.privacy_level = user.privacy_level
     true
   end
 
@@ -61,7 +67,7 @@ class Act < ActiveRecord::Base
   end
 
   def self.allowed_to_view_by_privacy_settings(viewing_user)
-    act_relation = joins(:user).joins("LEFT JOIN friendships AS permission_friendships ON permission_friendships.friend_id = users.id").where("acts.user_id = ? OR users.privacy_level = 'everybody' OR (users.privacy_level = 'connected' AND permission_friendships.user_id = ? AND permission_friendships.state = 'accepted')", viewing_user.id, viewing_user.id)
+    act_relation = joins("LEFT JOIN friendships AS permission_friendships ON permission_friendships.friend_id = acts.user_id").where("acts.user_id = ? OR acts.privacy_level = 'everybody' OR (acts.privacy_level = 'connected' AND permission_friendships.user_id = ? AND permission_friendships.state = 'accepted')", viewing_user.id, viewing_user.id)
 
     # This is kind of a HACK, but fuck it, select_values is part of the 
     # public API.
