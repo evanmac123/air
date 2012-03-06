@@ -2,7 +2,7 @@ class Admin::Reports::LevelsController < ApplicationController
 
   def show
     @demo = Demo.find(params[:demo_id])
-    @users = User.where(:demo_id => @demo.id)
+    @users = User.claimed.where(:demo_id => @demo.id)
     num_users_this_demo = @users.count
     levels_array = Level.where(:demo_id => @demo.id).sort_by(&:index_within_demo)
     levels_array << Level.new(:demo_id => @demo.id, :name => "1", :threshold => 0, :index_within_demo => 1)
@@ -38,29 +38,3 @@ class Admin::Reports::LevelsController < ApplicationController
   end
   
 end
-
-# 
-#   increment = 10
-#   lower_bound = 0
-#   @points_array = []
-#   first_time = true
-#   loop do 
-#     break if lower_bound > max_points
-#     if first_time
-#       upper_bound = lower_bound + increment
-#     else
-#       upper_bound = lower_bound + increment - 1
-#     end
-#     num_users = @users.where("users.points >= ? AND users.points <= ?", lower_bound, upper_bound).count
-#     @points_array << "#{lower_bound}-#{upper_bound}|#{num_users}"
-#     if first_time
-#       lower_bound += increment + 1
-#     else
-#       lower_bound += increment
-#     end
-#     first_time = false
-#   end
-#   @points_array.reverse!
-#   @num_users_this_demo = @users.count
-#   
-# end

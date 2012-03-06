@@ -6,7 +6,7 @@ Feature: Admin can view reports
       | January    |
       | February   |
       | Some Other |
-    Given the following users exist:
+    Given the following claimed users exist:
       | name      | demo             | points | is_site_admin |
       | George    | name: January    | 9      | false         |
       | Lofty     | name: January    | 10     | false         |
@@ -14,6 +14,9 @@ Feature: Admin can view reports
       | Soprano   | name: February   | 102    | false         |
       | Harrison  | name: February   | 3      | false         |
       | admin     | name: Some Other | 0      | true          |
+    Given the following user exists:
+      | name                         | demo             | points | is_site_admin |
+      | Unclaimed shouldnt count     | name: January    | 0      | false         |
     Given the following rules exist:
       | description      | demo           |
       | flew fast        | name: January  |

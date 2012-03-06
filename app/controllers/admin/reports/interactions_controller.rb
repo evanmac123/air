@@ -3,7 +3,7 @@ class Admin::Reports::InteractionsController < ApplicationController
   def show
     @demo = Demo.find(params[:demo_id])
     @rules = Rule.where(:demo_id => @demo.id).sort_by(&:description)
-    @users = User.where(:demo_id => @demo.id)
+    @users = User.claimed.where(:demo_id => @demo.id)
     unless params[:tag_ids].blank?
       filter_tag_ids = params[:tag_ids].strip.split(',').uniq.collect {|id| id.to_i}
       filter_tag_ids.reject! {|t| t == 0}
@@ -21,7 +21,7 @@ class Admin::Reports::InteractionsController < ApplicationController
     
     @tags = Tag.all
 
-    @num_users_this_demo = User.where(:demo_id => @demo.id).count
+    @num_users_this_demo = @users.count
     @user_usage_data = {}
     @number_rows = @rules.count + 1
     @number_rows.times do |count|

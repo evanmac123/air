@@ -1,7 +1,7 @@
 class Admin::Reports::PointsController < ApplicationController
   def show
     @demo = Demo.find(params[:demo_id])
-    @users = User.where(:demo_id => @demo.id)
+    @users = User.claimed.where(:demo_id => @demo.id)
     points_array = @users.collect  do |u|
       u.points
     end
