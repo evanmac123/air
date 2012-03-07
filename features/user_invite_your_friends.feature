@@ -1,12 +1,12 @@
-Feature: User gives credit to game referer via autocomplete field
+Feature: User invites friends
 
   Background:
     Given the following demo exists:
-      | name | game_referrer_bonus      |
-      | Bratwurst    | 2000             |
-      | Gleason      | 2000             |
-      | Preloaded    | 2000             |
-      | NotStarted   | 2000             |
+      | name       | game_referrer_bonus |
+      | Bratwurst  | 2000                |
+      | Gleason    | 2000                |
+      | Preloaded  | 2000                |
+      | NotStarted | 2000                |
     Given the following self inviting domain exists:
       | domain       | demo             |
       | seconds.com  | name: Bratwurst  |

@@ -93,7 +93,13 @@ class Invitation::FriendInvitationsController < ApplicationController
       add_success(sentence) 
     end
 
-    flash[:mp_track_invited_users] = ['invited friends', {:successful_invitations => users_invited.length}]
+    attempted_invitation_count = hash_of_prepends.values.select(&:present?).length
+    mixpanel_details = {
+      :successful_invitations => users_invited.length, 
+      :attempted_invitations  => attempted_invitation_count
+    }.merge(current_user.data_for_mixpanel) 
+
+    flash[:mp_track_invited_users] = ['invited friends', mixpanel_details]
     redirect_to activity_path 
   end
 

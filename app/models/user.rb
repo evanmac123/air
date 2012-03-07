@@ -409,6 +409,18 @@ class User < ActiveRecord::Base
     self.top_level.try(:index_within_demo) || 1
   end
 
+  def data_for_mixpanel
+    {
+      :distinct_id           => self.email,
+      :game                  => self.demo.name,
+      :following_count       => Friendship.accepted.where(:user_id => self.id).count,
+      :followers_count       => Friendship.accepted.where(:friend_id => self.id).count,
+      :level_index           => self.top_level_index,
+      :score                 => self.points,
+      :account_creation_date => self.created_at.to_date
+    }
+  end
+
   def self.in_canonical_ranking_order
     order("points DESC, name ASC")
   end
