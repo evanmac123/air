@@ -165,26 +165,18 @@ class Act < ActiveRecord::Base
 
   def data_for_mixpanel
     _rule = self.try(:rule)
-    _user = self.user
 
     secondary_tag_names = _rule ? _rule.tags.map(&:name).sort : []
 
     {
       :time                  => Time.now,
-      :distinct_id           => _user.email,
       :rule_value            => _rule.try(:primary_value).try(:value),
       :primary_tag           => _rule.try(:primary_tag).try(:name),
       :secondary_tags        => secondary_tag_names,
-      :game                  => _user.demo.name,
-      :following_count       => Friendship.accepted.where(:user_id => _user.id).count,
-      :followers_count       => Friendship.accepted.where(:friend_id => _user.id).count,
-      :level_index           => _user.top_level_index,
-      :score                 => _user.points,
-      :account_creation_date => _user.created_at.to_date,
       :tagged_user_id        => self.referring_user_id,
       :channel               => self.creation_channel,
       :suggestion_code       => self.suggestion_code
-    }
+    }.merge(self.user.data_for_mixpanel)
   end
 
   def check_goal_completion
