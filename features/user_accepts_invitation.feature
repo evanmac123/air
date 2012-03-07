@@ -31,11 +31,11 @@ Feature: User accepts invitation
     And I press "Join the game"
     Then I should be on the interstitial phone verification page
 
-    When DJ cranks 5 times
+    When DJ works off
     Then "Dan" should receive an SMS containing their new phone validation code
     When "Dan" fills in the new phone validation field with their validation code
     And I press "Validate phone"
-    And DJ cranks 5 times
+    And DJ works off
 
     Then "+15087407520" should have received an SMS "You've joined the 3M game! Your username is dan (text MYID if you forget). To play, text to this #."
     And I should be on the activity page
@@ -263,4 +263,4 @@ Feature: User accepts invitation
     Then "dan@example.com" should receive 1 email
     When "dan@example.com" opens the email
     Then I should not see "@{reply here}" in the email body
-    But I should see "To play, reply to this email with your command. OR you should have received another email from us with instructions for how to log into the web site." in the email body
+    But I should see "If you'd like to play by e-mail instead of texting or going to the website, you can always send your commands to play@playhengage.com." in the email body

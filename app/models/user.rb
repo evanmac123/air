@@ -392,11 +392,17 @@ class User < ActiveRecord::Base
     end
   end
 
-  def reply_email_address
-    if self.demo.email
-      from_email = "#{self.demo.name} <#{self.demo.email}>"
+  def reply_email_address(include_name = true)
+    email_name, email_address = if self.demo.email
+                    [self.demo.name, self.demo.email]
+                  else
+                    ['H Engage', 'play@playhengage.com']
+                  end
+
+    if include_name
+      "#{email_name} <#{email_address}>"
     else
-      from_email = "H Engage <play@playhengage.com>"
+      email_address
     end
   end
 

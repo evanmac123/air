@@ -1,5 +1,5 @@
 module SMS
-  include Reply
+  extend Reply
 
   def self.send_message(to, body, send_at = nil, options={})
     return unless to.present? # no sending to blank numbers
@@ -34,7 +34,7 @@ module SMS
 
   def self.channel_specific_translations
     {
-      "reply here" => "text to this #"
+      "reply here" => "To play, text to this #."
     }
   end
 

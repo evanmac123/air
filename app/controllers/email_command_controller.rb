@@ -127,9 +127,7 @@ class EmailCommandController< ApplicationController
     "The domain '#{domain}' is not valid for this game."
   end
   
-  def self.channel_specific_translations
+  def channel_specific_translations
     {:say => "email", :Say => "Email"}
   end
-  
-  
 end

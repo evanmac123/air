@@ -100,8 +100,8 @@ class Mailer < ActionMailer::Base
     to_email, from_email =
       case recipient_identifier
       when Fixnum:
-        user = User.find(recipient_identifier)
-        [user.email, user.reply_email_address]
+        @user = User.find(recipient_identifier)
+        [@user.email, @user.reply_email_address]
       when String:
         [recipient_identifier, DEFAULT_PLAY_ADDRESS]
       end

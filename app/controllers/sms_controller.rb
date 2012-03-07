@@ -36,12 +36,12 @@ class SmsController < ActionController::Metal
     params['Heartbeat'] == HEARTBEAT_CODE
   end
 
-  def self.channel_specific_translations
+  def channel_specific_translations
     {
       :say => "text", 
       :Say => "Text",
       :help_command_explanation => "HELP - help desk, instructions\n",
-      "reply here" => "text to this #"
+      "reply here" => "To play, text to this #."
     }
   end
 end

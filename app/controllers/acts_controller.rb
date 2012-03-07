@@ -79,7 +79,7 @@ class ActsController < ApplicationController
     current_user.completed_goals.in_demo(current_user.demo)  
   end
 
-  def self.channel_specific_translations
+  def channel_specific_translations
     {
       :say => "type", 
       :Say => "Type",

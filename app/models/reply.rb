@@ -1,24 +1,15 @@
 module Reply
-  extend ActiveSupport::Concern
+  def construct_reply(raw_reply)
+    result = raw_reply
 
-  module InstanceMethods
-    def construct_reply(raw_reply)
-      self.class.construct_reply(raw_reply)
+    # Works like I18n.interpolate, but with interpolation keys set off by
+    # @{key} rather than %{key}.
+
+    channel_specific_translations.each do |translation_key, translation_value|
+      _translation_value = translation_value || ''
+      result.gsub!(/@\{#{translation_key}\}/, _translation_value)
     end
-  end
 
-  module ClassMethods
-    def construct_reply(raw_reply)
-      result = raw_reply
-
-      # Works like I18n.interpolate, but with interpolation keys set off by
-      # @{key} rather than %{key}.
-
-      channel_specific_translations.each do |translation_key, translation_value|
-        result.gsub!(/@\{#{translation_key}\}/, translation_value)
-      end
-
-      result
-    end
+    result
   end
 end

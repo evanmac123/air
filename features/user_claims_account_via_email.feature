@@ -14,7 +14,7 @@ Feature: User claims account via email
     Then "joe@example.com" should receive 1 email
 
     When "joe@example.com" opens the email
-    Then I should see "You've joined the FooCo game! Your username is joe (text MYID if you forget). To play, reply to this email with your command. OR you should have received another email from us with instructions for how to log into the web site." in the email body
+    Then I should see "You've joined the FooCo game! Your username is joe (text MYID if you forget). If you'd like to play by e-mail instead of texting or going to the website, you can always send your commands to play@playhengage.com." in the email body
     But I should not see "text to this #" in the email body
     Then I should see the password reset full URL for "Joe" in the email body
     And I should see the profile page full URL for "Joe" in the email body
@@ -35,10 +35,22 @@ Feature: User claims account via email
     Then "joe@example.com" should receive 1 email
 
     When "joe@example.com" opens the email
-    Then I should see "You've joined the FooCo game! Your username is joe (text MYID if you forget). To play, reply to this email with your command. OR you should have received another email from us with instructions for how to log into the web site." in the email body
+    Then I should see "You've joined the FooCo game! Your username is joe (text MYID if you forget). If you'd like to play by e-mail instead of texting or going to the website, you can always send your commands to play@playhengage.com." in the email body
 
-    
-    
+
+  Scenario: User claims account in a game with custom email address
+    Given the following demo exists:
+      | name     | email                  |
+      | CustomCo | custom@playhengage.com | 
+    And the following user exists:
+      | name | email             | claim code | demo           |
+      | Fred | fred@customco.com | fred       | name: CustomCo |
+    When "fred@customco.com" sends email with subject "fred" and body "hook me up"
+    Then "fred@customco.com" should receive 1 email
+
+    When "fred@customco.com" opens the email
+    Then I should see "If you'd like to play by e-mail instead of texting or going to the website, you can always send your commands to custom@playhengage.com." in the email body
+
   Scenario: User claims account in a game with custom welcome message
     Given the following demo exists:
       | name     | custom welcome message |
