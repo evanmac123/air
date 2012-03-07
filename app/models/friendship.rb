@@ -107,16 +107,4 @@ class Friendship < ActiveRecord::Base
       all_pending.order("created_at ASC")
     end
   end
-
-  def self.pending_between(friend, follower_id)
-    follower = User.find(follower_id)
-    return nil unless follower
-    follower.pending_friendships.where(:friend_id => friend.id).first
-  end
-
-  def self.accepted_between(friend, follower_id)
-    follower = User.find(follower_id)
-    return nil unless follower
-    follower.accepted_friendships.where(:friend_id => friend.id).first
-  end
 end

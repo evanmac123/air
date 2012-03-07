@@ -67,18 +67,6 @@ class ActsController < ApplicationController
     end
   end
 
-  def find_ranked_users
-    @demo.users.claimed.with_ranking_cutoff.order('points DESC')  
-  end
-
-  def achieved_levels
-    current_user.levels.in_demo(current_user.demo).in_threshold_order  
-  end
-
-  def achieved_goals
-    current_user.completed_goals.in_demo(current_user.demo)  
-  end
-
   def channel_specific_translations
     {
       :say => "type", 

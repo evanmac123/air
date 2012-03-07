@@ -14,10 +14,6 @@ class TaskSuggestion < ActiveRecord::Base
     Act.create!(:user_id =>self.user_id, :inherent_points => self.suggested_task.bonus_points, :text => "I completed a daily dose!")
   end
 
-  def unsatisfied
-    !satisfied
-  end
-
   def self.for_task(task)
     where(:suggested_task_id => task.id)
   end

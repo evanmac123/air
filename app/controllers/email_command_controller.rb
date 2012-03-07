@@ -65,10 +65,6 @@ class EmailCommandController< ApplicationController
 
   protected
 
-  def heartbeat_request?
-    params['Heartbeat'] == HEARTBEAT_CODE
-  end
-
   def set_success_response!
     self.response_body = 'success'
     self.content_type  = "text/plain"

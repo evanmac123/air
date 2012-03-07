@@ -5,20 +5,8 @@ class String
     gsub(/'/, '')
   end
 
-  def replace_non_words_with_spaces
-    gsub(/[\W]/, ' ')
-  end
-  
   def remove_non_words
     gsub(/[\W]/, '')
-  end
-
-  def remove_non_words
-    gsub(/[\W]/, '')
-  end
-
-  def replace_spaces_with_hyphens
-    gsub(/\ +/, '-')
   end
 
   # Escape characters with special meanings in Postgres' LIKE and ILIKE

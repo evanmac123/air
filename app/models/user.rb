@@ -182,15 +182,6 @@ class User < ActiveRecord::Base
     return reason
   end
   
-
-  def display_level_name
-    if top_level.nil?
-      return nil
-    else
-      return top_level.name
-    end
-  end
-  
   def points_to_next_unachieved_threshold
     next_threshold = self.next_unachieved_threshold
     return nil if next_threshold.nil?
@@ -216,10 +207,6 @@ class User < ActiveRecord::Base
     self.class.joins("INNER JOIN friendships on users.id = friendships.user_id").where('friendships.friend_id = ?', self.id)
   end
 
-  def pending_followers
-    followers.where('friendships.state' => 'pending')
-  end
-
   def accepted_followers
     followers.where('friendships.state' => 'accepted')
   end
@@ -232,14 +219,6 @@ class User < ActiveRecord::Base
     friends.where('friendships.state' => 'accepted')
   end
 
-  def pending_friendships
-    friendships.where(:state => 'pending')
-  end
-
-  def accepted_friendships
-    friendships.where(:state => 'accepted')
-  end
-  
   def following?(other)
     accepted_friends.include?(other)
   end
@@ -255,7 +234,7 @@ class User < ActiveRecord::Base
   # See comment by Demo#acts_with_current_demo_checked for an explanation of
   # why we do this.
 
-  %w(friends pending_friends accepted_friends followers pending_followers accepted_followers).each do |base_method_name|
+  %w(friends pending_friends accepted_friends followers accepted_followers).each do |base_method_name|
     class_eval <<-END_DEF
       def #{base_method_name}_with_in_current_demo
         #{base_method_name}_without_in_current_demo.where(:demo_id => self.demo_id)
@@ -417,10 +396,6 @@ class User < ActiveRecord::Base
 
   def self.in_canonical_ranking_order
     order("points DESC, name ASC")
-  end
-
-  def self.with_ranking_cutoff(cutoff = DEFAULT_RANKING_CUTOFF)
-    where("ranking <= #{cutoff}")
   end
 
   def self.claim_account(from, claim_code, options={})
@@ -1000,11 +975,6 @@ class User < ActiveRecord::Base
   def update_associated_act_privacy_levels
     # See Act for an explanation of why we denormalize privacy_level onto it.
     Act.update_all({:privacy_level => self.privacy_level}, {:user_id => self.id})
-  end
-
-  def self.claimable_by_email_address(claim_string)
-    normalized_email = claim_string.gsub(/\s+/, '')
-    User.find(:first, :conditions => ["email ILIKE ? AND claim_code != ''", normalized_email.like_escape])
   end
 
   def self.claimable_by_first_name_and_claim_code(claim_string)
