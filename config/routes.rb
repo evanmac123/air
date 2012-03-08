@@ -5,6 +5,7 @@ Health::Application.routes.draw do
   match "scoreboard" => "scores#index"
   match "join"       => "invitations#new"
 
+  resource :sleep_forever
   resource :session, :controller => 'sessions'
 
   resource  :conference_feed, :only => [:show]
