@@ -72,7 +72,6 @@ Feature: Admin can view reports
     And I go to the admin reports page for "January"
     And I follow "Interactions"
     Then I should see "January"
-    And show me the page
     And I should see the following table:
       | Interaction |	# Completed |	% Completed |
       | drove       |	0           |	0.0%        |

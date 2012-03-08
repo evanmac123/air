@@ -29,7 +29,7 @@ class Report::CleanedActivity < Report::Activity
       "is now a fan of someone"
     when /^told .+ about a command$/
       "told someone about a command"
-    when /^(.+)\(thanks (.+) for the referral\)$/
+    when /^(.+) \(thanks (.+) for the referral\)$/
       $1
     else
       act.text
