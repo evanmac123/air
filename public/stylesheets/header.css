@@ -160,8 +160,6 @@ ul {
       -webkit-border-radius: 30px;
       -moz-border-radius: 30px;
       behavior: url(/css3pie/PIE.htc);
-      position: relative;
-      z-index: 0;
       border: 1px #42682d solid;
       height: 56px;
       margin: 0 auto;
@@ -189,6 +187,7 @@ ul {
         /* W3C */
         background-image: url("/images/v3/bg-gray.png");
         background-repeat: repeat-x;
+        position: relative;
         border: 1px #fff solid;
         border-radius: 30px;
         -webkit-border-radius: 30px;
@@ -203,7 +202,7 @@ ul {
           -moz-border-bottom-left-radius: 20px;
           -moz-border-top-left-radius: 20px;
           behavior: url(/css3pie/PIE.htc);
-          color: #588b3d;
+          color: #a8a8a8;
           height: 24px;
           float: left;
           margin: 9px 0 9px 10px;
@@ -290,8 +289,7 @@ ul {
         border-left: none;
         left: -23px;
         position: relative;
-        width: 413px;
-        z-index: -3; }
+        width: 413px; }
         .header .masthead .mast_bottom .bar_progress .bar {
           background-image: url(/images/v3/bar.png);
           background-repeat: no-repeat;

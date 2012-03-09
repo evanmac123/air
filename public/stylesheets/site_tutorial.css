@@ -1,0 +1,143 @@
+/* ---------- customizations ---------- */
+/* ---------- END customizations ---------- */
+/* layout/reset/fonts/etc */
+a {
+  text-decoration: none!important; }
+  a:hover {
+    color: #6eae4d; }
+  a:active {
+    color: #2e2e2c; }
+
+.cf {
+  clear: both;
+  height: 0; }
+
+h1, h2, h3 {
+  letter-spacing: 1px;
+  margin: 0;
+  padding: 0; }
+
+img {
+  border: 0;
+  margin: 0;
+  padding: 0; }
+
+input:focus {
+  outline: 0; }
+
+p {
+  margin: 0;
+  padding: 0; }
+
+ul {
+  list-style-position: outside;
+  list-style-type: none;
+  margin: 0;
+  padding: 0; }
+
+/* ---------- general mixins ---------- */
+/* ------------ colors ------------- */
+/* Game type colors */
+/* other colors */
+#black_tooltip {
+  display: none;
+  font-size: 12px;
+  height: 160px;
+  width: 320px;
+  padding: 25px;
+  color: #eee;
+  z-index: 100;
+  background: transparent url(/images/tooltip/white_arrow_big.png); }
+
+#black_tooltip.inverted {
+  background: transparent url(/images/tooltip/white_arrow_big_inverted.png); }
+
+.overlay {
+  background-color: #222822;
+  bottom: 0;
+  left: 0;
+  opacity: 0.9;
+  /*Takes value between 0 and 1*/
+  filter: alpha(opacity=90);
+  /* IE7, IE8 */
+  position: fixed;
+  right: 0;
+  top: 0; }
+
+.title {
+  color: #dc0;
+  font-size: 34px;
+  text-align: center;
+  padding: 7px 0px; }
+
+#tutorial_menu {
+  position: absolute;
+  right: -7px;
+  top: -7px;
+  width: 100px;
+  padding-bottom: 30px; }
+  #tutorial_menu #gear {
+    float: right;
+    margin-bottom: -2px;
+    cursor: pointer; }
+  #tutorial_menu #arrow {
+    float: right; }
+  #tutorial_menu #options {
+    display: none;
+    background: #ccc;
+    float: right;
+    padding: 0px 2px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px; }
+  #tutorial_menu .close_tutorial {
+    font-size: 12px;
+    float: right; }
+  #tutorial_menu a, #tutorial_menu a:hover {
+    color: #575; }
+
+#steps {
+  text-align: center;
+  font-size: 11px;
+  color: #676;
+  position: absolute;
+  top: 136px;
+  left: 248px;
+  width: 100px; }
+
+.instruct {
+  font-size: 17px;
+  color: green; }
+
+strong {
+  font-style: italic; }
+
+.green {
+  color: #588b3d !important; }
+
+.spotlight {
+  z-index: 20;
+  position: relative; }
+
+.spotlight.nav-directory, .spotlight.user, .spotlight.nav-activity {
+  background: #660;
+  -moz-border-radius: 10em;
+  -webkit-border-radius: 10em;
+  border-radius: 10em; }
+
+.spotlight.user {
+  background: white;
+  border-radius: 1ex; }
+
+#differing_spacings {
+  position: relative; }
+
+#differing_spacings.inverted {
+  top: 23px; }
+
+#next_button {
+  float: right;
+  font-size: 18px;
+  padding-right: 2mm;
+  padding-top: 2mm;
+  text-decoration: underline !important; }

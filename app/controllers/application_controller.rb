@@ -117,4 +117,60 @@ class ApplicationController < ActionController::Base
     cookies.delete(:remember_token)
     self.current_user = nil
   end
+  
+  def set_tutorial_params
+    @step = params[:tt].to_i
+    case @step
+    when 1
+      @title = "Say It!"
+      @instruct = 'Enter "ate a banana" and click Play to get 3 points'
+      @inverted = true
+      @highlighted = '.bar_command'
+      @x = 350
+      @y = -10
+      @position = "bottom left"
+    when 2
+      @title = "Progress"
+      @instruct = "Your activity shows up here"
+      @show_next_button = true
+      @highlighted = '.feeds'
+      @x = 645
+      @y = -10
+      @position = "top left"
+    when 3
+      @title = "Connect with Coworkers"
+      @instruct = "Click here to find people you know"
+      @inverted = true
+      @highlighted = '.nav-directory'
+      @x = 0
+      @y = -10
+      @position = "bottom center"
+    when 4
+      @title = "Find Coworkers"
+      @instruct = 'For example, type "alice", then click FIND!'
+      @inverted = true
+      @highlighted = '#search-box'
+      @x = -80
+      @y = -24
+      @position = "bottom center"
+    when 5
+      @title = "Follow"
+      @instruct = 'Click "Follow" to befriend Alice'
+      @highlighted = '.directory'
+      @x = 0
+      @y = 100
+      @position = "middle right"
+    when 6
+      @title = "See Your Friends"
+      @instruct = 'Click "My Profile" to see who\'s following you'
+      @show_finish_button = true
+      @inverted = true
+      @highlighted = '.nav-activity'
+      @x = 0
+      @y = -10
+      @position = "bottom center"
+    end
+  end
+  
+  
 end

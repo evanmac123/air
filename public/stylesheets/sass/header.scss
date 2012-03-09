@@ -138,6 +138,7 @@ $light:lighten($header-bg, 7%);
 			.bar_command {
 				@include shadow-side;
 				@include bg-progressbar;
+				position: relative;
 				border:1px #fff solid;
 				border-radius: 30px;
 				-webkit-border-radius: 30px;
@@ -154,7 +155,7 @@ $light:lighten($header-bg, 7%);
 					-moz-border-top-left-radius: 20px;
 					behavior: url(/css3pie/PIE.htc);
 					
-					color:$header-bg;
+					color:$med-gray;
 					height:24px;
 					float:left;
 					margin:9px 0 9px 10px;
@@ -206,7 +207,6 @@ $light:lighten($header-bg, 7%);
 				left:-23px;
 				position:relative;
 				width:413px;
-				z-index:-3;
 				
 				.bar {
 					background-image: url(/images/v3/bar.png);

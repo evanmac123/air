@@ -16,7 +16,7 @@ $(function() {
   
   if (document.getElementById('command_central')){
     $('#command_central').focus();
-    var sugg = "Enter a command or action";
+    var sugg = "ate an orange";
     $('#command_central').val(sugg);
     $('#command_central').click(function(){
       $('#command_central').val('');      
@@ -29,6 +29,8 @@ $(function() {
       if (key.keyCode == 13){
        $('#flash_failure').hide();
       }
+      $('#command_central').addClass('green');
+      
     })
   };
 

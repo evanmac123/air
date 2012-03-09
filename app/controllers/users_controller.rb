@@ -2,6 +2,7 @@ class UsersController < Clearance::UsersController
   layout "application"
   
   def index
+    set_tutorial_params
     @other_users = User.claimed.where(['demo_id = ? AND id != ?', current_user.demo_id, current_user.id]).alphabetical
     @friend_ids = current_user.friend_ids
     @search_link_text = "our search bar"

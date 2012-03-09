@@ -6,6 +6,7 @@
   <%= stylesheet_link_tag :flutie %>
   <%= stylesheet_link_tag 'screen'  %>
   <%= stylesheet_link_tag 'autocompletion' %>
+  <%= stylesheet_link_tag 'site_tutorial' %>
   <link href='https://fonts.googleapis.com/css?family=Ubuntu:400,700' rel='stylesheet' type='text/css'>
 
 
@@ -29,6 +30,7 @@
 <body class="<%= body_class %>">
   <%= javascript_include_tag 'jquery' %> <%# must appear before header, with its Assistly widget %>
   <%= javascript_include_tag 'facebox'%>
+  <%= javascript_include_tag 'jquery.tools.min'%>
 
   <%= render :partial => 'shared/header' %>
   <%= render :partial => 'shared/flashes' %>
@@ -39,5 +41,12 @@
 		Copyright © 2012 H Engage, Inc.
   </div>
   <%= render :partial => 'shared/javascript' %>
+  <% if @highlighted %>
+    <%= javascript_include_tag 'site_tutorial' %>
+    <%= render 'acts/tooltips' %>
+    <div class="overlaying" ></div>
+    <%= yield :javascript %>
+  <% end %>
+  
 </body>
 </html>

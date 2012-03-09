@@ -4,6 +4,7 @@ class ActsController < ApplicationController
   layout "application"
 
   def index
+    set_tutorial_params
     @current_link_text = "Home"
 
     @show_only             = params[:show_only]
@@ -74,4 +75,6 @@ class ActsController < ApplicationController
       :help_command_explanation => "HELP - help desk, instructions\n"
     }
   end
+  
+
 end

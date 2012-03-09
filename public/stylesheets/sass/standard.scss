@@ -8,6 +8,7 @@ $dark-gray:			#2e2e2c;
 $flash-f:			#50c1cb;
 $flash-s:			#58d858;
 $gray:				#909090;
+$med-gray:     #a8a8a8;
 $light-gray:		#e9e9e9;
 $outline-gray:		#c0c0c0;
 $white:				#fff;
@@ -198,8 +199,6 @@ ul {list-style-position:outside; list-style-type:none; margin:0; padding:0;}
 	-moz-border-radius: 30px;
 	
 	behavior: url(/css3pie/PIE.htc);
-	position:relative;
-	z-index: 0;
 }
 @mixin shadow-side {
 	-webkit-box-shadow: 7px 0 6px -6px rgba(0, 0, 0, .5);
