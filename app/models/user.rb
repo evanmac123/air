@@ -986,7 +986,7 @@ class User < ActiveRecord::Base
 
   def update_associated_act_privacy_levels
     # See Act for an explanation of why we denormalize privacy_level onto it.
-    Act.update_all({:privacy_level => self.privacy_level}, {:user_id => self.id})
+    Act.update_all({:privacy_level => self.privacy_level}, {:user_id => self.id}) if self.changed.include?('privacy_level')
   end
 
   def self.claimable_by_first_name_and_claim_code(claim_string)
