@@ -14,9 +14,11 @@ class GenericMailer < ActionMailer::Base
     end
   end
 
-  def self.bulk_generic_messages(user_ids, subject, plain_text, html_text)
-    user_ids.each do |user_id|
-      self.delay.send_message(user_id, subject, plain_text, html_text)
+  module BulkSender
+    def self.bulk_generic_messages(user_ids, subject, plain_text, html_text)
+      user_ids.each do |user_id|
+        GenericMailer.delay.send_message(user_id, subject, plain_text, html_text)
+      end
     end
   end
 end
