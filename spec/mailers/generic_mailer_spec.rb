@@ -33,14 +33,14 @@ describe GenericMailer do
     end
   end
 
-  describe "#bulk_generic_messages" do
+  describe "BulkSender#bulk_generic_messages" do
     it "should send a batch of messages" do
       deliver_stub = stub(:deliver => true)
       GenericMailer.stubs(:send_message).returns(deliver_stub)
 
       user_ids = []
       5.times {user_ids << (Factory :user).id}
-      GenericMailer.bulk_generic_messages(user_ids, "This is a subject", "This is plain text", "<p>This is HTML</p>")
+      GenericMailer::BulkSender.bulk_generic_messages(user_ids, "This is a subject", "This is plain text", "<p>This is HTML</p>")
 
       Delayed::Worker.new.work_off(10)
 
