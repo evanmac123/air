@@ -12,6 +12,6 @@
   </li>
 
   <% content_for :javascript do %>
-    <%= mp_track 'saw act', :act_id => act.id %>
+    <%= mp_track 'saw act', :act_id => act.id, :game => act.demo.name %>
   <% end %>
 <% end %>
