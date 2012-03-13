@@ -166,6 +166,7 @@ GEM
       rake
     multi_json (1.0.4)
     multi_xml (0.4.1)
+    newrelic_rpm (3.3.2)
     nokogiri (1.5.0)
     paperclip (2.5.2)
       activerecord (>= 2.3.0)
@@ -317,6 +318,7 @@ DEPENDENCIES
   linecache (~> 0.43)
   linecache19 (~> 0.5.11)
   mixpanel
+  newrelic_rpm
   nokogiri
   paperclip
   parallel_tests
