@@ -40,13 +40,14 @@
   <div id="footer">
 		Copyright © 2012 H Engage, Inc.
   </div>
-  <%= render :partial => 'shared/javascript' %>
   <% if @highlighted %>
     <%= javascript_include_tag 'site_tutorial' %>
-    <%= render 'acts/tooltips' %>
+    <%= render 'acts/site_tutorial' %>
     <div class="overlaying" ></div>
-    <%= yield :javascript %>
   <% end %>
+  <%= render 'acts/tooltips' %>
+  <%= stylesheet_link_tag 'tooltips' %>
+  <%= render :partial => 'shared/javascript' %><!-- This is where 'yield :javascript' takes place -->
   
 </body>
 </html>

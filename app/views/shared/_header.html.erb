@@ -3,11 +3,11 @@
 		<div class="app_by"><p>Brought to you by <a href="http://www.hengage.com" title="H Engage">H Engage</a></p></div>
     <ul class="app_settings">
       <% if current_user.is_site_admin %>
-        <li><%= link_to "Admin", admin_path %></li>
+        <li><%= link_to "Admin", admin_path, :class => 'nav-admin' %></li>
       <% end %>
-      <li><a href=<%= faq_path %> title="Help">Help</a></li><!-- HOOKUP -->
-      <li><%= link_to "Settings", edit_account_settings_path %></li>
-      <li><%= link_to "Sign Out", sign_out_path, :method => :delete %></li>
+      <li><%= link_to "Help", faq_path, :class => 'nav-help' %></li>
+      <li><%= link_to "Settings", edit_account_settings_path, :class => 'nav-settings' %></li>
+      <li><%= link_to "Sign Out", sign_out_path, :method => :delete , :class => 'nav-signout' %></li>
 		</ul>
 	</div>
 	<div class="masthead">

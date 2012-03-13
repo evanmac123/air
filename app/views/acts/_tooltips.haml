@@ -1,20 +1,25 @@
-- @tooltip_class = @inverted ? 'inverted' : ''
-#black_tooltip{:class => @tooltip_class} 
-  #differing_spacings{:class => @tooltip_class}
-    = render 'acts/corner_icon'
-    .title=@title
-    %hr
-    .instruct= @instruct 
-    - if @show_next_button
-      = link_to "Next Slide", "activity?tt=3", :id => :next_button
-    - elsif @show_finish_button
-      = link_to "Finish", "activity", :id => :next_button
-    #steps{:class => @tooltip_class}= "Step #{@step} of 5"
-
-= content_for :javascript do
-  :javascript
-    $(function() {
-      displayToolTip('#{@highlighted}', '#black_tooltip', #{@x}, #{@y}, '#{@position}');
-    });
-
+:ruby
+  tooltip_array = [
+    ['.bar_command', 'Tell us what you did'],
+    ['.bar_progress', 'How many points it is to the next level'],
+    ['#suggested-tasks', 'Daily Dose gives you daily suggestions for healthy activities'],
+    # ['.more-info', 'Learn more about this particular Daily Dose'],
+    ['.nav-settings', 'Allows you to change your photo and contact preferences', 'bottom'],
+    ['.nav-help', 'Frequently Asked Questions, or contact us if you\'re really stumped', 'bottom'],
+    ['.nav-admin', 'Administer games, create users', 'bottom'],
+    ['.nav-directory', 'Find other people you know so you can see their activity'],
+    ['.nav-activity', 'See my recent activity and who I\'m following'],
+    ['.nav-home', 'Bird\'s eye view of the game--including daily doses'],
+    ['.feed-all', 'Show everyone\'s activity'],
+    ['.feed-following', 'See the activity of everyone you\'re following'],
+    ['.feed-mine', 'See my activity only'],
+    ['.invite-module', 'Invite coworkers to join the game and play with you'],
+    ['.follow-btn', 'Click this to friend them', 'right'],
+    ['.stop-following-btn', 'Click this to stop being their friend', 'right'],
+    ['.name-of-user', 'View their profile'],
+    ['#search-box', 'Find users to befriend']
+  ]
   
+= render :partial => 'acts/single_tooltip', :collection => tooltip_array
+
+

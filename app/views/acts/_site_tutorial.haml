@@ -1,0 +1,20 @@
+- @tooltip_class = @inverted ? 'inverted' : ''
+#black_tooltip{:class => @tooltip_class} 
+  #differing_spacings{:class => @tooltip_class}
+    = render 'acts/corner_icon'
+    .title=@title
+    %hr
+    .instruct= @instruct 
+    - if @show_next_button
+      = link_to "Next Slide", "activity?tt=3", :id => :next_button
+    - elsif @show_finish_button
+      = link_to "Finish", "activity", :id => :next_button
+    #steps{:class => @tooltip_class}= "Step #{@step} of 5"
+
+= content_for :javascript do
+  :javascript
+    $(function() {
+      displayToolTip('#{@highlighted}', '#black_tooltip', #{@x}, #{@y}, '#{@position}');
+    });
+
+  

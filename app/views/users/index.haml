@@ -20,7 +20,7 @@
             =link_to user_path(u) do
               = avatar_96(u) 
           .user-info
-            %p= link_to u.name, user_path(u)
+            %p= link_to u.name, user_path(u), :class => 'name-of-user'
             %p= u.email
             = render 'follow_buttons', :user => u
               

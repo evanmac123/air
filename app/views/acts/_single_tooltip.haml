@@ -1,0 +1,36 @@
+- highlighted = single_tooltip[0]
+- bubbly_contents = single_tooltip[1]
+- bubbly_div_id_without_prefix = highlighted[1..-1] + "_bubbly"
+- bubbly_div_id = "#" + bubbly_div_id_without_prefix
+- position = 'top center'
+- direction = 'up'
+- if single_tooltip[2].present?
+  - case single_tooltip[2]
+  - when 'bottom'
+    - position = 'bottom center'
+    - direction = 'down'
+  - when 'right'
+    - position = 'center right'
+    - direction = 'right'
+
+
+  
+  
+%div{:id => bubbly_div_id_without_prefix, :class => "bubbly"}= bubbly_contents
+
+= content_for :javascript do
+  :javascript
+    $(function() {
+      $('#{highlighted}').tooltip(
+        {
+          tip : '#{bubbly_div_id}',
+          effect : 'slide',
+          slideInSpeed : 800,
+          slideOutSpeed : 500,
+          predelay : 1400,
+          delay : 0, 
+          position : '#{position}', 
+          direction : '#{direction}',
+          opacity : 0.9
+        });
+    });

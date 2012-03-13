@@ -18,4 +18,4 @@ Feature: User must be a site admin to use an admin page
   Scenario: Regular user sees no link to the admin page
     Given I sign in via the login page
     When I go to the admin page
-    Then I should not see "Admin"
+    Then I should not be on the admin page
