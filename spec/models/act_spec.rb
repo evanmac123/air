@@ -139,6 +139,15 @@ describe Act, "on create" do
     Delayed::Worker.new.work_off(10)
     expect_act_ping(act, :suggestion_code => 'b')
   end
+
+  it "should record the date the associated user accepted their invitation" do
+    user = Factory :user
+    user.update_attributes(:accepted_invitation_at => Chronic.parse("March 23, 2009, 6:23 AM"))
+
+    act = Factory :act, :user => user
+    Delayed::Worker.new.work_off(10)
+    expect_act_ping(act, :joined_game_date => Date.parse('2009-03-23'))
+  end
 end
 
 describe Act, "#points" do
@@ -206,6 +215,21 @@ describe Act, ".parse" do
         it "should decline to recognize that" do
           Act.parse(user, good_sms).should include("Sorry, I don't understand what that means.")
         end
+      end
+    end
+
+    context "and types a bad value that we can't relate to at all" do
+      before do
+        RuleValue.stubs(:suggestion_for).returns(["fake reply", "19|9|999"])
+      end
+
+      it "should record pertinent data in Mixpanel" do
+        Act.parse(user, "did something mighty peculiar")
+        user.reload.last_suggested_items.should == "19|9|999"
+
+        Delayed::Worker.new.work_off(10)
+        expected_mixpanel_properties = user.data_for_mixpanel.merge(:suggestion_a => '19', :suggestion_b => '9', :suggestion_c => '999')
+        FakeMixpanelTracker.events_matching("got rule suggestion", expected_mixpanel_properties).should be_present
       end
     end
   end

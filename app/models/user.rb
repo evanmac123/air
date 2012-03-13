@@ -417,8 +417,16 @@ class User < ActiveRecord::Base
       :followers_count       => Friendship.accepted.where(:friend_id => self.id).count,
       :level_index           => self.top_level_index,
       :score                 => self.points,
-      :account_creation_date => self.created_at.to_date
+      :account_creation_date => self.created_at.to_date,
+      :joined_game_date      => self.accepted_invitation_at.try(:to_date)
     }
+  end
+
+  def schedule_rule_suggestion_mixpanel_ping
+    suggestion_ids = self.last_suggested_items.present? ? self.last_suggested_items.split('|') : []
+    suggestion_hash = Hash[*([:suggestion_a, :suggestion_b, :suggestion_c].zip(suggestion_ids).flatten)]
+
+    Mixpanel::Tracker.new(MIXPANEL_TOKEN, {}).delay.track_event("got rule suggestion", data_for_mixpanel.merge(suggestion_hash))
   end
 
   def self.in_canonical_ranking_order
