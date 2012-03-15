@@ -33,7 +33,9 @@
 
       - unless show_greeting.nil?
         %p= "Thanks for joining #{current_user.demo.name}" 
-      %h2 Invite your friends
+      %h2 
+        Invite your friends
+        %span{:class => 'whats_this', :id => 'whats_this_invite_your_friends'} ?
       %p It's more fun when people you know are playing too. Plus, get a 5-point referral bonus for each friend that joins the game!
       #points_per_referral= current_user.demo.game_referrer_bonus
 

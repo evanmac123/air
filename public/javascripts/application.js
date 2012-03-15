@@ -19,7 +19,7 @@ $(function() {
     var sugg = "ate an orange";
     $('#command_central').val(sugg);
     $('#command_central').click(function(){
-      $('#command_central').val('');      
+      $('#command_central').val('');   
     });
     
     $('#command_central').keypress(function(key){
