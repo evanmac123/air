@@ -43,12 +43,12 @@ class Admin::RulesController < AdminBaseController
     @tag_ids = params[:rule][:tag_ids]
     remove_tag_ids_from_params
     set_tag_ids
-    check_conflicts
 
 
 
     if @rule.update_with_rule_values(params[:rule], @primary_value, (@secondary_values.try(:values) || []))
       flash[:success] = 'Rule updated'
+      check_conflicts   # Note we are checking conflicts AFTER the update, not before, since we only care about the latest state
     else
       flash[:failure] = "Couldn't update rule: #{@rule.errors.full_messages}"
     end
