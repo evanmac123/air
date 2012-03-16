@@ -31,6 +31,17 @@ RSpec.configure do |config|
   end
 end
 
+# Big Fat Hack (TM) so the ActiveRecord connections are shared across threads.
+# This is a variation of a hack you can find all over the web to make
+# capybara usable without having to switch to non transactional
+# fixtures.
+# http://groups.google.com/group/ruby-capybara/browse_thread/thread/248e89ae2acbf603/e5da9e9bfac733e0
+Thread.main[:activerecord_connection] = ActiveRecord::Base.retrieve_connection
+
+def (ActiveRecord::Base).connection
+  Thread.main[:activerecord_connection]
+end
+
 require 'capybara-webkit'
 Capybara.javascript_driver = :webkit
 

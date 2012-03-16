@@ -219,3 +219,13 @@ end
 Factory.define :demographic_trigger, :class => Trigger::DemographicTrigger do |demographic_trigger|
   demographic_trigger.association :suggested_task
 end
+
+Factory.define :characteristic do |characteristic|
+  characteristic.sequence(:name) {|n| "Char_#{n}"}
+  characteristic.sequence(:description) {|n| "Desc_#{n}"}
+  characteristic.allowed_values {%w(Foo Bar Baz)}
+end
+
+Factory.define :demo_specific_characteristic, :parent => :characteristic do |demo_specific_characteristic|
+  demo_specific_characteristic.association :demo
+end

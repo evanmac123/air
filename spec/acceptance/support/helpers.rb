@@ -2,12 +2,18 @@ module SteakHelperMethods
   def fill_in_signin_fields(user, password)
     visit signin_page
     fill_in "session[email]", :with => user.email
-    fill_in "session[password]", :with => 'foobar'
+    fill_in "session[password]", :with => password
   end
 
   def signin_as(user, password)
     fill_in_signin_fields(user, password)
     click_button "Let's play!"
+  end
+
+  def signin_as_admin
+    admin = Factory :user, :is_site_admin => true
+    has_password(admin, 'foobar')
+    signin_as(admin, 'foobar')
   end
 
   def has_password(user, password)
@@ -56,5 +62,13 @@ module SteakHelperMethods
     style_sought = styles.detect{|style| style =~ /^#{style_key}\s*:\s*(.*)$/}
     style_sought.should_not be_nil
     $1.should == expected_value
+  end
+
+  def expect_content(expected_content)
+    page.body.should include(expected_content)
+  end
+
+  def expect_no_content(unexpected_content)
+    page.body.should_not include(unexpected_content)
   end
 end

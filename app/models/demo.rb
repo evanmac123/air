@@ -12,6 +12,7 @@ class Demo < ActiveRecord::Base
   has_many :suggested_tasks, :dependent => :destroy
   has_many :self_inviting_domains, :dependent => :destroy
   has_many :locations, :dependent => :destroy
+  has_many :characteristics, :dependent => :destroy
 
   has_one :skin
 

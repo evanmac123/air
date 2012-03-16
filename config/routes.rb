@@ -117,7 +117,9 @@ Health::Application.routes.draw do
         resource :levels, :only => [:show]
         resource :interactions, :only => [:show]
       end
-    end
+
+      resources :characteristics
+    end #demo namespace
 
     resources :users, :only => [] do
       resources :invitations, :only => [:create]
@@ -125,5 +127,7 @@ Health::Application.routes.draw do
     end
 
     resources :bad_words
+
+    resources :characteristics
   end
 end
