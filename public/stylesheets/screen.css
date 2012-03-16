@@ -201,11 +201,11 @@ ul {
       border-radius: 30px;
       -webkit-border-radius: 30px;
       -moz-border-radius: 30px;
-      behavior: url(/css3pie/PIE.htc);
       border: 1px #42682d solid;
       height: 56px;
       margin: 0 auto;
-      width: 960px; }
+      width: 960px;
+      background: url("/images/mbar_right.png") no-repeat scroll 178mm 0 transparent; }
       .header .masthead .mast_bottom .bar_section {
         float: left;
         height: 54px; }
@@ -446,7 +446,6 @@ body.interstitial_verifications div.content {
     border-radius: 30px;
     -webkit-border-radius: 30px;
     -moz-border-radius: 30px;
-    behavior: url(/css3pie/PIE.htc);
     background-color: #f6f6f6;
     border: 1px #c5c7c7 solid;
     color: #588b3d;
@@ -641,7 +640,6 @@ body {
       border-radius: 30px;
       -webkit-border-radius: 30px;
       -moz-border-radius: 30px;
-      behavior: url(/css3pie/PIE.htc);
       background-color: #f6f6f6;
       border: 1px #c5c7c7 solid;
       color: #588b3d;
@@ -1182,7 +1180,6 @@ body.acts #facebox .popup {
         border-radius: 30px;
         -webkit-border-radius: 30px;
         -moz-border-radius: 30px;
-        behavior: url(/css3pie/PIE.htc);
         background-color: #f6f6f6;
         border: 1px #c5c7c7 solid;
         color: #588b3d;

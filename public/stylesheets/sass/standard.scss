@@ -198,7 +198,7 @@ ul {list-style-position:outside; list-style-type:none; margin:0; padding:0;}
 	-webkit-border-radius: 30px;
 	-moz-border-radius: 30px;
 	
-	behavior: url(/css3pie/PIE.htc);
+	//behavior: url(/css3pie/PIE.htc);
 }
 @mixin shadow-side {
 	-webkit-box-shadow: 7px 0 6px -6px rgba(0, 0, 0, .5);

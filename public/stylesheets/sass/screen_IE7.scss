@@ -228,3 +228,11 @@ body.users-index {
     float: none;
   }
 }
+
+.header .masthead .mast_bottom{
+  border: none;
+}
+.header .masthead .mast_bottom .bar_command input[type="text"]{
+  padding-top: 8px;
+  padding-bottom: 2px;
+}

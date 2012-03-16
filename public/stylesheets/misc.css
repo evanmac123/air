@@ -58,7 +58,6 @@ body.interstitial_verifications div.content {
     border-radius: 30px;
     -webkit-border-radius: 30px;
     -moz-border-radius: 30px;
-    behavior: url(/css3pie/PIE.htc);
     background-color: #f6f6f6;
     border: 1px #c5c7c7 solid;
     color: #588b3d;
