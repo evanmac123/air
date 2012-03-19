@@ -3,5 +3,6 @@ class EmailInfoRequestsController < ApplicationController
 
   def create
     EmailInfoRequest.create!(params[:email])
+    render :text => ''
   end
 end
