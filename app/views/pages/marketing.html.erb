@@ -147,7 +147,7 @@
           ) */
 
         $.ajax({
-          url: '<%= email_info_requests_url :protocol => ((Rails.env.development? || Rails.env.test?) ? "http" : "https") %>',
+          url: '<%= email_info_requests_url %>',
           crossdomain: true,
           data: formValues,
           type: "POST",
