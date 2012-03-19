@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
 
   before_filter :force_ssl 
   before_filter :authenticate
-
+  before_filter :tutorial_check
   before_filter :initialize_flashes
   after_filter :merge_flashes
 
@@ -117,9 +117,11 @@ class ApplicationController < ActionController::Base
     cookies.delete(:remember_token)
     self.current_user = nil
   end
-  
-  def set_tutorial_params
-    @step = params[:tt].to_i
+
+  def invoke_tutorial
+    return unless current_user.reload.tutorial_active?
+    advance_tutorial
+    @step = current_user.tutorial.current_step
     case @step
     when 1
       @title = "Say It!"
@@ -171,6 +173,32 @@ class ApplicationController < ActionController::Base
       @position = "bottom center"
     end
   end
+
+  def advance_tutorial
+    tutorial = current_user.tutorial
+    path_info = @_env['PATH_INFO']
+    case tutorial.current_step
+    when 1  # Say It!
+      tutorial.bump_step if tutorial.act_completed_since_tutorial_start
+    when 2  # See Activity
+      # They click the "next slide" button to advance
+    when 3  # Click Connect
+      tutorial.bump_step if path_info == "/users"
+    when 4  # Search for Someone
+      tutorial.bump_step if @other_users.present?
+    when 5  # Follow Someone from the Search Results
+      tutorial.back_up_a_step unless @other_users.present?
+      tutorial.bump_step if tutorial.friend_followed_since_tutorial_start
+    when 6
+      # Do nothing
+    else
+      # Do nothing
+    end
+      
+  end
   
+  def tutorial_check
+    current_user.create_tutorial_if_first_login if current_user
+  end  
   
 end

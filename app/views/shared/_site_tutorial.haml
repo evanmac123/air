@@ -6,10 +6,10 @@
     %hr
     .instruct= @instruct 
     - if @show_next_button
-      = link_to "Next Slide", "activity?tt=3", :id => :next_button
+      = link_to "Next Slide", tutorial_path, :method => :put, :id => :next_button
     - elsif @show_finish_button
       = link_to "Finish", "activity", :id => :next_button
-    #steps{:class => @tooltip_class}= "Step #{@step} of 5"
+    #steps{:class => @tooltip_class}= "Step #{@step} of 6"
 
 = content_for :javascript do
   :javascript

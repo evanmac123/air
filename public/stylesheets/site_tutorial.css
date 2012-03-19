@@ -46,7 +46,7 @@ ul {
   width: 320px;
   padding: 25px;
   color: #eee;
-  z-index: 100;
+  z-index: 90;
   background: transparent url(/images/tooltip/white_arrow_big.png); }
 
 #black_tooltip.inverted {
@@ -62,7 +62,8 @@ ul {
   /* IE7, IE8 */
   position: fixed;
   right: 0;
-  top: 0; }
+  top: 0;
+  z-index: 10; }
 
 .title {
   color: #dc0;
@@ -116,7 +117,7 @@ strong {
   color: #588b3d !important; }
 
 .spotlight {
-  z-index: 20;
+  z-index: 20 !important;
   position: relative; }
 
 .spotlight.nav-directory, .spotlight.user, .spotlight.nav-activity {

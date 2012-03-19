@@ -2,7 +2,7 @@ class UsersController < Clearance::UsersController
   layout "application"
   
   def index
-    set_tutorial_params
+  
     @other_users = User.claimed.where(['demo_id = ? AND id != ?', current_user.demo_id, current_user.id]).alphabetical
     @friend_ids = current_user.friend_ids
     @search_link_text = "our search bar"
@@ -19,8 +19,10 @@ class UsersController < Clearance::UsersController
       @search_link_text = "refining your search"
     end
     user_limit = 50
-    @users_cropped = user_limit if @other_users.length > user_limit
+    @users_cropped = user_limit if @other_users.length > user_limit && @search_string
     @other_users = @other_users[0,user_limit]
+    invoke_tutorial
+
   end
 
   def show

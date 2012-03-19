@@ -3,7 +3,7 @@ $bubbly_radius: 6px;
 
 .bubbly{
   display: none;
-  z-index: 1;
+  z-index: 120;
   -moz-border-radius: $bubbly_radius;
   -webkit-border-radius: $bubbly_radius;
   border-radius: $bubbly_radius;   

@@ -100,7 +100,6 @@ class Act < ActiveRecord::Base
 
     rule_value, referring_user, error = extract_rule_value_and_referring_user(user, value)
     return error if error
-
     if rule_value && rule_value.forbidden?
       return parsing_error_message("Sorry, that's not a valid command.")
     end

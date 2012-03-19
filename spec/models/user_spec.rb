@@ -888,3 +888,13 @@ describe User, "#sms_slug_does_not_match_commands" do
     user.should be_valid
   end
 end
+
+
+describe User, "#create_tutorial_if_first_login" do
+  it "should create a new tutorial" do
+    user = Factory(:user, :name => "Brand New")
+    user.create_tutorial_if_first_login
+    user.tutorial.should_not be_nil
+  end
+end
+

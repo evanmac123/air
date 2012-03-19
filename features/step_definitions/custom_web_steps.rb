@@ -294,3 +294,16 @@ Then /^the password confirmation field should be blank$/ do
   page.find(:css, "#user_password_confirmation").value.should be_blank
 end
 
+Then /^"([^"]*)" should have a tutorial with current step "([^"]*)"$/ do |name, step|
+  user = User.find_by_name(name)
+  user.tutorial.should_not be_nil
+  user.tutorial.current_step.should == step.to_i
+end
+
+When /^I close the facebox modal$/ do 
+  find("#facebox .close_image").click()
+end
+
+When /^(?:|I )click within "([^"]*)"$/ do |selector|
+  find(selector).click
+end

@@ -33,7 +33,7 @@ class User < ActiveRecord::Base
   has_many   :suggested_tasks, :through => :task_suggestions
   has_and_belongs_to_many :bonus_thresholds
   has_and_belongs_to_many :levels
-
+  has_one   :tutorial
   validate :normalized_phone_number_unique, :normalized_new_phone_number_unique
   
   validate :sms_slug_does_not_match_commands
@@ -812,6 +812,21 @@ class User < ActiveRecord::Base
     new_flashes
   end
 
+  def tutorial_active?
+    tutorial = self.tutorial
+    if tutorial
+      return false if tutorial.ended_at
+      return true
+    end
+    return false
+  end
+  
+  def create_tutorial_if_first_login
+    if self.session_count <= 1 && self.tutorial.nil?
+      Tutorial.create(:user_id => self.id)
+    end
+  end
+  
   def self.next_dummy_number
    last_assigned = self.where("phone_number LIKE '+1999%'").order("phone_number DESC").limit(1).first
 
@@ -1004,7 +1019,7 @@ class User < ActiveRecord::Base
     return nil unless (first_name && claim_code)
     User.where(["name ILIKE ? AND claim_code = ?", first_name.like_escape + '%', claim_code]).first
   end
-
+  
   def self.claimed
     where("accepted_invitation_at IS NOT NULL")
   end
@@ -1143,7 +1158,7 @@ class User < ActiveRecord::Base
       !changed.include?(demographic_field_name)
     end
   end
-
+  
   def self.get_users_where_like(text, demo, attribute, user_to_exempt = nil)
     users = User.where("LOWER(#{attribute}) like ?", "%" + text + "%").where(:demo_id => demo.id )
     users = users.where('users.id != ?', user_to_exempt.id) if user_to_exempt

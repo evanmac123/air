@@ -3,28 +3,27 @@
     
 #main
   .directory.module
-    %h1.headline User Directory
+    %h1.headline Other Players
     - if @search_string
       #notify_of_search
         %p.title
           Showing search results for
           %i
             = @search_string
-        %p 
-          Click here to
-          = link_to "view entire directory", users_path 
-    %ul#other-users
-      - @other_users.each do |u|
-        %li.user.relative
-          .user-avatar
-            =link_to user_path(u) do
-              = avatar_96(u) 
-          .user-info
-            %p= link_to u.name, user_path(u), :class => 'name-of-user'
-            %p= u.email
-            = render 'follow_buttons', :user => u
-              
-          .cf
+
+      %ul#other-users
+        - @other_users.each do |u|
+          %li.user.relative
+            .user-avatar
+              =link_to user_path(u) do
+                = avatar_96(u) 
+            .user-info
+              %p= link_to u.name, user_path(u), :class => 'name-of-user'
+              %p= u.email
+              = render 'follow_buttons', :user => u
+            .cf
+    - else
+      %p Use the search box at right to search for someone
     - if @users_cropped
       .focus_on_search_bar{:style => "display: inline;"}
         = "(First #{@users_cropped} results returned. Didn't find who you're looking for? Try" 

@@ -56,7 +56,13 @@ $(function() {
 
     }else{
       hideAndRenamePageBasedInviteFriends();
-      $(document).bind('close.facebox', function() { moveInviteFriendsFaceboxToPage(); });
+
+      hideTutorial();
+      $(document).bind('close.facebox', function() { 
+        moveInviteFriendsFaceboxToPage();
+        showTutorial(); 
+        $('.helper').hide();
+      });
       $('#facebox #autocomplete').focus();
     }
 
@@ -390,4 +396,13 @@ function resizeFaceboxToFitSuggestions(){
 }
 function clearAutocompleteStatus(){
   $('#autocomplete_status').text('');
+}
+
+function hideTutorial(){
+  setTimeout("$('#black_tooltip').hide()", 1); // delayed so it waits till it shows up before hiding it
+  setTimeout("$('.overlay').hide()", 1); // delayed so it waits till it shows up 
+}
+function showTutorial(){
+  $('#black_tooltip').show();
+  $('.overlay').show();
 }

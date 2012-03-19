@@ -14,6 +14,10 @@ Factory.define :unnamed_user, :class => User do |factory|
   factory.password_confirmation { "password" }
 end
 
+Factory.define :tutorial do |factory|
+  factory.association :user
+end
+
 Factory.define :user,  :parent => :unnamed_user do |factory|
   factory.name                  { "James Earl Jones" }
   # set_slugs runs if user has a name, so there is no need to create slugs here

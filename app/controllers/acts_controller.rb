@@ -4,7 +4,8 @@ class ActsController < ApplicationController
   layout "application"
 
   def index
-    set_tutorial_params
+    invoke_tutorial
+  
     @current_link_text = "Home"
 
     @show_only             = params[:show_only]
