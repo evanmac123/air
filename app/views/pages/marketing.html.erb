@@ -139,11 +139,20 @@
 
         beforePost(submitForm);
 
+        /* 
         $.post(
-          '<%= email_info_requests_path %>',
+          '<%= email_info_requests_url :protocol => ((Rails.env.development? || Rails.env.test?) ? "http" : "https") %>',
           formValues,
           function() {afterPost(submitForm)}
-        ) 
+          ) */
+
+        $.ajax({
+          url: '<%= email_info_requests_url :protocol => ((Rails.env.development? || Rails.env.test?) ? "http" : "https") %>',
+          crossdomain: true,
+          data: formValues,
+          type: "POST",
+          success: function() {afterPost(submitForm)}
+        })
       });
     }
 
