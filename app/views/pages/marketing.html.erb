@@ -139,7 +139,7 @@
         beforePost(submitForm);
 
         $.post(
-          '<%= email_info_requests_path %>',
+          '<%= email_info_requests_url :protocol => ((Rails.env.development? || Rails.env.test?) ? "http" : "https") %>',
           formValues,
           function() {afterPost(submitForm)}
         )
