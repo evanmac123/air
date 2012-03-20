@@ -57,7 +57,8 @@
         get_new_interaction_content();
       });
       function get_new_interaction_content(){
-        $('table').html('Just a moment..');
+        var notice = "<h2>Just a moment..</h2>"
+        $('#user_activity_table').html(notice);
         var tag_ids = '';
         var ids = $.map($('.selected_tag'), function(value){
           tag_ids += $(value).val() + ', '; 
