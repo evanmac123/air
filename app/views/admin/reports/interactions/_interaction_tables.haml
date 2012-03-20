@@ -16,21 +16,25 @@
         %td= "#{"%.1f" % (100.0 * num / @num_users_this_demo)}%"  
     
 #user_activity_table
-  .table-title <span class='bold'>Histogram</span>, # Interactions vs Users
-  %table
-    %tr
-      %th Interactions Completed
-      %th # Users 
-      %th % Users 
-    - counter = @number_rows - 1
-    - @number_rows.times do 
-      - zebra_stripes = cycle('', 'stripe')
-      %tr{:class => zebra_stripes} 
-        %td= counter
-        - val = @user_usage_data[counter]
-        %td= val
-        %td= "#{"%.1f" % (100.0 * val / @num_users_this_demo)}%" 
-      - counter -= 1 
+  - if @too_many_rules
+    %h2 Please Select More Tags
+    %p= "I'm sorry, but I can only display up to #{@max_rules} rules in this table. Please select more tags and I'll give it another go."
+  - else
+    .table-title <span class='bold'>Histogram</span>, # Interactions vs Users
+    %table
+      %tr
+        %th Interactions Completed
+        %th # Users 
+        %th % Users 
+      - counter = @number_rows - 1
+      - @number_rows.times do 
+        - zebra_stripes = cycle('', 'stripe')
+        %tr{:class => zebra_stripes} 
+          %td= counter
+          - val = @user_usage_data[counter]
+          %td= val
+          %td= "#{"%.1f" % (100.0 * val / @num_users_this_demo)}%" 
+        - counter -= 1 
         
 
     
