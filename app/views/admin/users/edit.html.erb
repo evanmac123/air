@@ -13,6 +13,23 @@
   <% end %>
 </fieldset>
 
+<%= form_tag admin_demo_user_characteristics_path(@user.demo, @user), :method => :put do %>
+  <fieldset>
+    <legend>Characteristics</legend>
+    <div id="agnostic-characteristics">
+      <h2>Demo-agnostic characteristics</h2>
+      <%= characteristic_selects @agnostic_characteristics, @user %>
+    </div>
+
+    <div id="specific-characteristics">
+      <h2>Demo-specific characteristics</h2>
+      <%= characteristic_selects @demo_specific_characteristics, @user %>
+    </div>
+
+    <%= submit_tag "Set characteristics" %>
+  </fieldset>
+<% end %>
+
 <%= semantic_form_for @user, :url => admin_demo_user_path(@user.demo, @user) do |form| %>
   <fieldset>
     <legend>Move User To A Different Demo</legend>
