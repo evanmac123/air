@@ -73,6 +73,7 @@ class User < ActiveRecord::Base
     :bucket => S3_AVATAR_BUCKET
 
   serialize :flashes_for_next_request
+  serialize :characteristics
 
   before_validation do
     # NOTE: This method is only called when you actually CALL the create method

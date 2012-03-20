@@ -118,7 +118,7 @@ class EmailCommand < ActiveRecord::Base
   def self.parse_email_body(email_body)
     return "" if email_body.blank?
     first_line = nil
-    array_of_lines = email_body.to_a
+    array_of_lines = email_body.split("\n")
     array_of_lines.each { |line|
       unless line.gsub(/\s+/, "").empty?
         first_line = line.split.join(' ').downcase
