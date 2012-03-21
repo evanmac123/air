@@ -32,7 +32,7 @@ class Admin::Reports::InteractionsController < ApplicationController
     if rule_ids.length <= @max_rules
       @users.each do |user|
         how_many = Act.where(:user_id => user.id, :rule_id => rule_ids).count
-        hist[how_many] = hist[how_many] + 1
+        hist[how_many] = hist[how_many].nil? ? 1 : hist[how_many] + 1
       end
       @user_usage_data = hist
     else
