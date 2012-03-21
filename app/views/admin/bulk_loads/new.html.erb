@@ -24,8 +24,42 @@
 <p>
   This can take roughly 100 lines at a shot.
 </p>
-
 <%= form_tag admin_demo_bulk_load_path(@demo), :autocomplete => :off do %>
+  <a href="#" id="add-characteristic">Add characteristic</a>
+
+  <div id="characteristic-selects">
+    <%# It's easier to make up one invisible prototype select here with Rails helpers, then use jquery.html() to slurp up its contents, than to try to assemble the proper <option> tags in the JS following this. %>
+    <select id="prototype-characteristic-select" style="display: none">
+      <option value=""></option>
+      <optgroup label="Generic characteristics">
+        <%= options_from_collection_for_select @generic_characteristics, :id, :name, :include_blank => true %>
+      </optgroup>
+      <optgroup label="Demo-specific characteristics">
+        <%= options_from_collection_for_select @demo_specific_characteristics, :id, :name, :include_blank => true %>
+      </optgroup>
+    </select>
+  </div>
+
+  <%= content_for :javascript do %>
+    <%= javascript_tag do %>
+      var nextOptionalColumnId = 4;
+      var characteristicSelectHtml = $('#prototype-characteristic-select').html();
+
+      $('#add-characteristic').click(function(e) {
+        e.preventDefault();
+        var labelText = 'Column ' + (nextOptionalColumnId + 1);
+        var selectName = 'extra_column[' + nextOptionalColumnId + ']'
+        var selectId = 'extra_column_' + nextOptionalColumnId;
+
+        $('#characteristic-selects').
+          append('<label for="' + selectId + '">' + labelText + '</label>').
+          append('<select name="' + selectName + '" id="' + selectId + '">' + characteristicSelectHtml + '</select>'); 
+
+        nextOptionalColumnId += 1;
+      });
+    <% end %>
+  <% end %>
+
   <%= text_area_tag :bulk_user_data %>
   <%= submit_tag "Upload Users" %>
 <% end %>

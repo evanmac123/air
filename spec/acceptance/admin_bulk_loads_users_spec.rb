@@ -46,4 +46,53 @@ Fred Robinson,frobinson@example.com,345345,freddy
     click_link "Bulk load users"
     should_be_on new_admin_demo_bulk_load_path(@demo)
   end
+
+  context "when there are characteristics available" do
+    before(:each) do
+      Factory :characteristic, :name => "Generic Characteristic 1"
+      Factory :characteristic, :name => "Generic Characteristic 2", :allowed_values => %w(green red blue)
+      Factory :demo_specific_characteristic, :name => "Demo Characteristic 1", :demo => @demo, :allowed_values => %w(foo bar baz)
+      Factory :demo_specific_characteristic, :name => "Demo Characteristic 2", :demo => @demo 
+      Factory :demo_specific_characteristic, :name => "Other Demo Characteristic"
+      visit new_admin_demo_bulk_load_path(@demo)
+    end
+
+    it "should allow those to be set while bulk loading", :js => true do
+      3.times { click_link "Add characteristic" }
+      select "Demo Characteristic 1", :from => "extra_column[4]" 
+      select "Generic Characteristic 2", :from => "extra_column[6]"
+
+      bulk_user_csv = <<-END_CSV
+John Smith,jsmith@example.com,123123,johnny,foo,nonsense,blue
+Bob Jones,bjones@example.com,234234,bobby,badvalue,irrelevant,green
+Fred Robinson,frobinson@example.com,345345,freddy,bar,this doesn't matter,badvalue
+Arthur Foobar,afoobar@example.com,456456,art,foo,,
+      END_CSV
+
+      fill_in "bulk_user_data", :with => bulk_user_csv
+      click_button "Upload Users"
+      expect_content "Successfully loaded 2 users"
+
+      visit admin_demo_path(@demo)
+      click_link "Everyone"
+      expect_no_content "Bob Jones"
+      expect_no_content "Fred Robinson"
+      expect_content "John Smith, jsmith@example.com (123123)"
+      expect_content "Arthur Foobar, afoobar@example.com (456456)"
+
+      click_link "(edit John Smith)"
+      expect_selected 'Demo Characteristic 1', 'foo'
+      expect_selected 'Generic Characteristic 2', 'blue'
+      expect_no_option_selected 'Demo Characteristic 2'
+      expect_no_option_selected 'Generic Characteristic 1'
+
+      visit admin_demo_path(@demo)
+      click_link "Everyone"
+      click_link "(edit Arthur Foobar)"
+      expect_selected 'Demo Characteristic 1', 'foo'
+      expect_no_option_selected 'Generic Characteristic 2'
+      expect_no_option_selected 'Demo Characteristic 2'
+      expect_no_option_selected 'Generic Characteristic 1'
+    end
+  end
 end

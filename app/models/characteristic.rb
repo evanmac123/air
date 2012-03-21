@@ -9,6 +9,10 @@ class Characteristic < ActiveRecord::Base
     where(:demo_id => nil)
   end
 
+  def self.generic
+    where(:demo_id => nil)
+  end
+
   def self.in_demo(demo)
     where(:demo_id => demo.id)
   end
