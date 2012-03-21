@@ -73,11 +73,14 @@ ul {
 
 #tutorial_menu {
   position: absolute;
-  right: -7px;
-  top: -7px;
+  right: -5px;
+  top: -13px;
   width: 100px;
   padding-bottom: 30px; }
   #tutorial_menu #gear {
+    font-size: 21px;
+    font-weight: normal;
+    color: #667766;
     float: right;
     margin-bottom: -2px;
     cursor: pointer; }
@@ -92,7 +95,7 @@ ul {
     -webkit-border-radius: 3px;
     border-radius: 3px; }
   #tutorial_menu .close_tutorial {
-    font-size: 12px;
+    font-size: 15px;
     float: right; }
   #tutorial_menu a, #tutorial_menu a:hover {
     color: #575; }
@@ -100,7 +103,7 @@ ul {
 #steps {
   text-align: center;
   font-size: 11px;
-  color: #676;
+  color: #667766;
   position: absolute;
   top: 136px;
   left: 248px;

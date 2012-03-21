@@ -19,9 +19,8 @@ Feature: Talking Chicken
   @javascript
   Scenario: Talking Chicken pops first and foremost
   And I wait a second
-    Then "Brand New" should have a tutorial with current step "1"
-    # This is here to make sure controller processes before next step
-    And show me the page
+    Then "Brand New" should have an open tutorial with current step "1"
+    Then I should see "Directory"
     Given I close the facebox modal
     And I wait a second
     Then "Say It!" should be visible
@@ -38,8 +37,18 @@ Feature: Talking Chicken
     
     Then I should see 'Click "Follow" to befriend Alice'
     When I click within ".follow-btn"
-    # This is here to make sure controller processes before next step
-    And show me the page  
-    Then "Brand New" should have a tutorial with current step "6" 
+    Then I should see "Directory" 
+    Then "Brand New" should have an open tutorial with current step "6" 
     
-    
+    @javascript
+    Scenario: User leaves tutorial
+      Then I should see "Directory"
+      Given I close the facebox modal
+      And I wait a second
+      Then "Brand New" should have an open tutorial with current step "1"
+      And I click within "#gear"
+      And I click within ".close_tutorial"
+      Then I should see "Directory"
+      Then "Brand New" should have a closed tutorial
+      
+      

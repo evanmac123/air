@@ -294,10 +294,17 @@ Then /^the password confirmation field should be blank$/ do
   page.find(:css, "#user_password_confirmation").value.should be_blank
 end
 
-Then /^"([^"]*)" should have a tutorial with current step "([^"]*)"$/ do |name, step|
+Then /^"([^"]*)" should have an open tutorial with current step "([^"]*)"$/ do |name, step|
   user = User.find_by_name(name)
   user.tutorial.should_not be_nil
+  user.tutorial.ended_at.should be_nil  # makes sure it's still open
   user.tutorial.current_step.should == step.to_i
+end
+
+Then /^"([^"]*)" should have a closed tutorial$/ do |name|
+  user = User.find_by_name(name)
+  user.tutorial.should_not be_nil
+  user.tutorial.ended_at.should_not be_nil
 end
 
 When /^I close the facebox modal$/ do 

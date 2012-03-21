@@ -50,15 +50,19 @@ function hideToolTip(){
 function closeTutorial(){
   spotlightOff();
   hideToolTip();
-  
+  var options = { _method : "put", tutorial_request : "close" };
+  $.post('tutorial', options);
 }
 
 
 function showMenu(){
-  var div = $('#options');
-  div.show();
+  var gear = $('#gear');
+  var options = $('#options');
+  options.show();
+  gear.hide();
   $('#tutorial_menu').mouseleave(function(){
-    div.hide();
+    options.hide();
+    gear.show();
   });
 }
     

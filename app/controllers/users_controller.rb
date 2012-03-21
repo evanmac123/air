@@ -3,7 +3,6 @@ class UsersController < Clearance::UsersController
   
   def index
   
-    @other_users = User.claimed.where(['demo_id = ? AND id != ?', current_user.demo_id, current_user.id]).alphabetical
     @friend_ids = current_user.friend_ids
     @search_link_text = "our search bar"
     text = params[:search_string]
@@ -11,18 +10,18 @@ class UsersController < Clearance::UsersController
       @search_string = text
       text = text.downcase.strip.gsub(/\s+/, ' ')
       demo = current_user.demo
+      @other_users = User.claimed.where(['demo_id = ? AND id != ?', current_user.demo_id, current_user.id]).alphabetical
       names = @other_users.where("LOWER(name) like ?", "%" + text + "%")
       slugs = @other_users.where("LOWER(sms_slug) like ?", "%" + text + "%")
       emails = @other_users.where("LOWER(email) like ?", "%" + text + "%")
       @other_users = names + slugs + emails
       @other_users.uniq!
       @search_link_text = "refining your search"
+      user_limit = 50
+      @users_cropped = user_limit if @other_users.length > user_limit && @search_string
+      @other_users = @other_users[0,user_limit]
     end
-    user_limit = 50
-    @users_cropped = user_limit if @other_users.length > user_limit && @search_string
-    @other_users = @other_users[0,user_limit]
     invoke_tutorial
-
   end
 
   def show
