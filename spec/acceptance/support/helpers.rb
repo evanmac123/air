@@ -64,12 +64,16 @@ module SteakHelperMethods
     $1.should == expected_value
   end
 
+  def page_text
+    page.text.gsub(/\s+/, ' ')
+  end
+
   def expect_content(expected_content)
-    page.body.should include(expected_content)
+    page_text.should include(expected_content)
   end
 
   def expect_no_content(unexpected_content)
-    page.body.should_not include(unexpected_content)
+    page_text.should_not include(unexpected_content)
   end
 
   def find_select_element(select_identifier)

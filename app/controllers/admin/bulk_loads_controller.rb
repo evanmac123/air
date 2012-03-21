@@ -15,12 +15,10 @@ class Admin::BulkLoadsController < AdminBaseController
 
       User.where(:email => email.downcase).destroy_all
 
-      user = @demo.users.build(:name => name, :email => email)
+      user = @demo.users.build(:name => name, :email => email, :claim_code => claim_code)
 
       if user.save
-        set_claim_code(user, claim_code)
-        user.update_attribute(:sms_slug, unique_id) if unique_id
-
+        user.update_attributes(:sms_slug => unique_id)
         successful_creations += 1
       else
         @errored_users << user
