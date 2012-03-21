@@ -64,12 +64,31 @@ module SteakHelperMethods
     $1.should == expected_value
   end
 
+  def page_text
+    page.text.gsub(/\s+/, ' ')
+  end
+
   def expect_content(expected_content)
-    page.body.should include(expected_content)
+    page_text.should include(expected_content)
   end
 
   def expect_no_content(unexpected_content)
-    page.body.should_not include(unexpected_content)
+    page_text.should_not include(unexpected_content)
+  end
+
+  def find_select_element(select_identifier)
+    page.find(:xpath, XPath::HTML.select(select_identifier).to_xpath)  
+  end
+
+  def expect_selected(select_identifier, expected_value)
+    select = find_select_element(select_identifier)
+    option_expected_to_be_selected = select.find %{option[@value="#{expected_value}"]}
+    option_expected_to_be_selected['selected'].should be_present
+  end
+
+  def expect_no_option_selected(select_identifier)
+    select = find_select_element(select_identifier)
+    select.all("option[@select]").should be_empty
   end
 
   def find_select_element(select_identifier)
