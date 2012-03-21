@@ -1,7 +1,5 @@
 $(function() {
   // Anything in here gets called onload
-  
-  
   $('.close_tutorial').click(function(){
     closeTutorial();
   });

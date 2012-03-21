@@ -15,7 +15,7 @@
       <div class="logo_container"><a href="<%= activity_path %>"><%= image_tag skinned('logo_url', "logo.png") %></a></div>
 			<div class="welcome">
         <div class="avatar48">
-          <%= default_avatar_tag current_user %>
+          <%= default_avatar_tag current_user, :id => :top_avatar %>
         </div>
 				<div class="welcome_text">
           <p>Welcome back,</p>
