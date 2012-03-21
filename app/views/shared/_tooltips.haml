@@ -1,0 +1,30 @@
+:ruby
+  tooltip_array = [
+    ['.bar_progress', 'Your progress toward the next level'],
+    ['.bar_level', 'The level you\'re on right now'],
+    ['#whats_this_daily_dose', 'The DAILY DOSE suggests new kinds of healthy activities to try'],
+    ['#whats_this_feeds', 'FEEDS show you who\'s doing what'],
+    ['#whats_this_invite_your_friends', 'INVITE YOUR FRIENDS sends invitations to coworkers so they can play with you'],
+    ['#whats_this_command_central', 'The PLAY BAR is where you tell us what you did. For example, \'went for a walk\''],
+    ['.nav-signout', 'Logs you out. Have a nice day!', 'bottom'],
+    ['.nav-settings', 'Allows you to update your photo and your contact preferences', 'bottom'],
+    ['.nav-help', 'Frequently Asked Questions', 'bottom'],
+    ['.nav-admin', 'Shows how much people have been playing', 'bottom'],
+    ['.nav-directory', 'Helps you connect with other players', 'bottom'],
+    ['.nav-activity', 'Shows your recent activity and shows who you\'re following', 'bottom'],
+    ['.nav-home', 'A bird\'s eye view of the game--including daily doses', 'bottom'],
+    ['.feed-all', 'Shows everyone\'s activity'],
+    ['.feed-following', 'Shows the activity of everyone you\'re following'],
+    ['.feed-mine', 'Shows your activity only'],
+    ['.follow-btn', 'Initiates your friendship', 'right'],
+    ['.stop-following-btn', 'Ends your friendship', 'right'],
+    ['.name-of-user', 'Takes you to their profile'],
+    ['#search-box', 'Searches for other players by name or email'],
+    ['.contact_us_link', 'Sends an email to H Engage', 'bottom'],
+    ['.user_avatar', 'Did you know? You can change your photo from \'Settings\'', 'right'],
+    ['.more-info', 'Shows the details of this daily dose']
+  ]
+  
+= render :partial => 'shared/single_tooltip', :collection => tooltip_array
+
+

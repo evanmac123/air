@@ -29,15 +29,10 @@
 			</ul>
 			<div class="cf"></div>
 		</div>
-		<div class="mast_center">
-			<ul class="help">
-				<li class="help_command">Do something!</li>
-				<li class="help_progress">See how it affects your progress!</li>
-				<li class="help_level">Level up!</li>
-			</ul>
-		</div>
+
 		<div class="mast_bottom">
       <div class="bar_section bar_command">
+        <span class='whats_this' id='whats_this_command_central'>?</span>
         <%= form_tag acts_path do %>
           <% game_enabled = @game_pending ? " disabled='true' " : "" %>
           <input type="text" id="command_central" name="act[code]" placeholder="ate an orange" <%= game_enabled %>/>

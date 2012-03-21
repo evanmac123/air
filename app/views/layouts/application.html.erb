@@ -42,12 +42,12 @@
   </div>
   <% if @highlighted %>
     <%= javascript_include_tag 'site_tutorial' %>
-    <%= render 'acts/site_tutorial' %>
+    <%= render 'shared/site_tutorial' %>
     <div class="overlaying" ></div>
   <% end %>
-  <%= render 'acts/tooltips' %>
+  <%= render 'shared/tooltips' %>
   <%= stylesheet_link_tag 'tooltips' %>
   <%= render :partial => 'shared/javascript' %><!-- This is where 'yield :javascript' takes place -->
-  
+  <div id='gradient-triangle'></div>
 </body>
 </html>
