@@ -20,6 +20,16 @@ module SteakHelperMethods
     user.update_password(password)
   end
 
+  def crank_dj(iterations=1)
+    Delayed::Worker.new.work_off(iterations)
+  end
+
+  def crank_off_dj
+    while(Delayed::Job.where("run_at <= ?", Time.now).count > 0)
+      crank_dj(10)
+    end
+  end
+
   def current_email_address
     last_email_address || "dan@bigco.com"
   end

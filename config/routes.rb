@@ -121,6 +121,8 @@ Health::Application.routes.draw do
       end
 
       resources :characteristics
+
+      resource :segmentation
     end #demo namespace
 
     resources :users, :only => [] do

@@ -111,6 +111,10 @@ class User < ActiveRecord::Base
     suggest_first_level_tasks
   end
 
+  after_save do
+    schedule_segmentation_sync
+  end
+
   after_update do
     update_associated_act_privacy_levels
   end
@@ -1081,6 +1085,16 @@ class User < ActiveRecord::Base
   def update_associated_act_privacy_levels
     # See Act for an explanation of why we denormalize privacy_level onto it.
     Act.update_all({:privacy_level => self.privacy_level}, {:user_id => self.id}) if self.changed.include?('privacy_level')
+  end
+
+  def schedule_segmentation_sync
+    return unless changed.include?('characteristics')
+
+    self.delay.sync_segmentation_info
+  end
+
+  def sync_segmentation_info
+    User::SegmentationData.create_or_update_from_user(self)
   end
 
   def self.claimable_by_first_name_and_claim_code(claim_string)

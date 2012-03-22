@@ -25,6 +25,8 @@ gem "chronic"
 gem "mixpanel"
 gem "mixpanel_client"
 gem "newrelic_rpm"
+gem "mongoid"
+gem "bson_ext"
 
 # RSpec needs to be in :development group to expose generators
 # and rake tasks without having to type RAILS_ENV=test.

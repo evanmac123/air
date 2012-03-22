@@ -669,6 +669,14 @@ describe User, "on save" do
     @user.save!
     @user.reload.email.should == 'yelling_guy@uppercase.com'
   end
+
+  %w(characteristics demo_id).each do |field_name|
+    it "should sync to mongo if #{field_name} changes"
+  end
+end
+
+describe User, "on destroy" do
+  it "should destroy the associated mongo data"
 end
 
 describe User, "#move_to_new_demo" do
@@ -870,7 +878,6 @@ describe User, "#sms_slug_does_not_match_commands" do
     user.should be_valid
   end
 end
-
 
 describe User, "#create_tutorial_if_none_yet" do
   it "should create a new tutorial" do

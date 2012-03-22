@@ -3,16 +3,24 @@ class Admin::UsersController < AdminBaseController
   before_filter :find_user, :only => [:edit, :update, :destroy]
 
   def index
-    starts_with = params[:starts_with]
-    if starts_with == "non-alpha"
-      @users = @demo.users.name_starts_with_non_alpha
-    elsif starts_with
-      @users = @demo.users.name_starts_with(params[:starts_with])
-    else
-      @users = @demo.users
-    end
+    respond_to do |format|
+      format.html do 
+        starts_with = params[:starts_with]
+        if starts_with == "non-alpha"
+          @users = @demo.users.name_starts_with_non_alpha
+        elsif starts_with
+          @users = @demo.users.name_starts_with(params[:starts_with])
+        else
+          @users = @demo.users
+        end
 
-    @users = @users.order(&:name)
+        @users = @users.order(&:name)
+      end
+
+      format.js do
+        @users = @demo.users.where(:id => params[:ids])
+      end
+    end
   end
 
   def create

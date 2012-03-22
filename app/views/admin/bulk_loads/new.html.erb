@@ -27,18 +27,7 @@
 <%= form_tag admin_demo_bulk_load_path(@demo), :autocomplete => :off do %>
   <a href="#" id="add-characteristic">Add characteristic</a>
 
-  <div id="characteristic-selects">
-    <%# It's easier to make up one invisible prototype select here with Rails helpers, then use jquery.html() to slurp up its contents, than to try to assemble the proper <option> tags in the JS following this. %>
-    <select id="prototype-characteristic-select" style="display: none">
-      <option value=""></option>
-      <optgroup label="Generic characteristics">
-        <%= options_from_collection_for_select @generic_characteristics, :id, :name, :include_blank => true %>
-      </optgroup>
-      <optgroup label="Demo-specific characteristics">
-        <%= options_from_collection_for_select @demo_specific_characteristics, :id, :name, :include_blank => true %>
-      </optgroup>
-    </select>
-  </div>
+  <%= render 'shared/prototype_characteristic_select', :generic_characteristics => @generic_characteristics, :demo_specific_characteristics => @demo_specific_characteristics %>
 
   <%= content_for :javascript do %>
     <%= javascript_tag do %>

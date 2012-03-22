@@ -1,0 +1,55 @@
+<% if @segmentation_explanation.present? %>
+  <h2><%= @segmentation_explanation %></h2>
+  <p><%= @found_user_ids.length %> users in segment</p>
+  <p><%= link_to "Show users", "#", :id => "show-user-link" %></p>
+  <p id="user-info-target"></p>
+
+  <% content_for :javascript do %>
+    <%= javascript_tag do %>
+      $('#show-user-link').click(function(e) {
+        e.preventDefault();
+        $.get('<%= admin_demo_users_path(@demo, :ids => @found_user_ids, :format => :js) %>');
+      });
+    <% end %>
+  <% end %>
+<% end %>
+
+<%= render 'shared/prototype_characteristic_select', :generic_characteristics => @generic_characteristics, :demo_specific_characteristics => @demo_specific_characteristics %>
+
+<%= form_tag admin_demo_segmentation_path(@demo), :method => :get do %>
+  <select name="segment_column[0]" id="segment_column_0" class="segment-column">
+  </select>
+  <select name="segment_value[0]" id="segment_value_0" class="segment-value">
+  </select>
+
+  <%= submit_tag "Find segment" %>
+<% end %>
+
+
+<%= content_for :javascript do %>
+  <%= javascript_tag do %>
+    var characteristicSelectHtml = $('#prototype-characteristic-select').html();
+    $('#segment_column_0').append(characteristicSelectHtml).data('value_select_id', 'segment_value_0');
+    var allowedValues = <%= @characteristic_allowed_value_json %>;
+
+    $('.segment-column').live('change', function(e) {
+      characteristicId = $(e.target).val();
+
+      if(characteristicId) {
+        options = $.map(allowedValues[characteristicId], function(value) {
+          return('<option>' + value + '</option>')
+        }).join('');
+
+        // Some clients treat the option tag as the target of this, others the
+        // select tag--which is exactly the kind of nonsense jQuery is
+        // supposed to gloss over.
+
+        enclosingSelect = $(e.target).closest('select').first();
+        enclosingSelectId = enclosingSelect.attr('id');
+
+        segmentValueId = enclosingSelectId.replace('column', 'value');
+        $('#' + segmentValueId).html(options);
+      } 
+    });
+  <% end %>
+<% end %>

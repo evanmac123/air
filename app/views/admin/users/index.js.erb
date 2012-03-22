@@ -1,0 +1,5 @@
+target = $('#user-info-target');
+
+<% @users.each do |user| %>
+  target.append('<%= link_to "#{user.name}: #{user.email}", admin_demo_users_path(@demo, user) %>');
+<% end %>
