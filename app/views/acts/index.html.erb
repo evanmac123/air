@@ -1,5 +1,6 @@
 <div class="container">
 	<div id="suggested-tasks">
+
 	  <h2 id='daily_dose_title' style='display: inline;'>Here is your Daily Dose!<span class='whats_this' id='whats_this_daily_dose'>?</span></h2>
 	  <%= render :partial => 'displayable_task_suggestion', :collection => @displayable_task_suggestions %>
 	  <% content_for :javascript do %>
@@ -21,6 +22,7 @@
 		<%= render :partial => "invite_your_friends" %>  
 	</div>
 	<div class="feeds module">
+
 	    <h1 class="headline" id="feeds_title">Feeds<span class='whats_this' id='whats_this_feeds'>?</span></h1>
 
 	    <ul class="tabs" id="activity-feed-tabs">
