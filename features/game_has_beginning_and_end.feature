@@ -59,7 +59,7 @@ Feature: Game has a beginning and an end
   @javascript
   Scenario: Following after the game ends via site does nothing
     When I sign in via the login page as "Phil/foobar" and choose to be remembered
-    And I go to the user directory page
+    And I go to the profile page for "Vlad"
     And time is frozen at "2010-05-01 12:00:01 UTC"
     And I press the follow button for "Vlad"
     And DJ cranks 5 times
