@@ -1,0 +1,31 @@
+:ruby
+  tooltip_array = [
+    ['.bar_progress', 'Your progress toward the next level'],
+    ['.bar_level', 'The level you\'re on right now'],
+    ['#daily_dose_title', "See what's new in #{current_user.demo.name}"],
+    ['#feeds_title', 'See who\'s doing what'],
+    ['#invite_your_friends_title', 'Send invitations to coworkers so they can play too'],
+    ['.bar_command', 'Tell us what you did, or enter a game command. For example, \'went for a walk\''],
+    ['.nav-signout', 'Log yourself out. Have a nice day!', 'bottom'],
+    ['.nav-settings', 'Update your photo and your contact preferences', 'bottom'],
+    ['.nav-help', 'Find frequently asked questions and additional support', 'bottom'],
+    ['.nav-admin', 'Get the latest game reports', 'bottom'],
+    ['.nav-directory', 'Find and connect with other players', 'bottom'],
+    ['.nav-activity', 'View your recent activity and connections', 'bottom'],
+    ['.nav-home', 'See a bird\'s eye view of the game--including your news feed', 'bottom'],
+    ['.feed-all', 'View everyone\'s activity'],
+    ['.feed-following', 'View the activity of everyone you\'re following'],
+    ['.feed-mine', 'View your activity only'],
+    ['.follow-btn', 'Initiate your friendship', 'right'],
+    ['.stop-following-btn', 'End your friendship', 'right'],
+    ['#search-box', 'Search for other players by name or email'],
+    ['.contact_us_link', 'Send an email to H Engage', 'bottom'],
+    ['.avatar48', 'This is you. You can change your photo in \'Settings\'', 'right'],
+    ['.avatar_image', 'This is you. You can change your photo in \'Settings\'', 'bottom'],
+    ['.user', 'Visit their profile'],
+    ['.more-info', 'See the details of this daily dose']
+  ]
+  
+= render :partial => 'shared/single_tooltip', :collection => tooltip_array
+
+

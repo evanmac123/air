@@ -1,0 +1,54 @@
+.bubbly {
+  display: none;
+  z-index: 120;
+  -moz-border-radius: 6px;
+  -webkit-border-radius: 6px;
+  border-radius: 6px;
+  background: #6c6967;
+  color: white;
+  font-size: 14px;
+  padding: 1ex;
+  border: 3px solid #464944;
+  width: 200px; }
+  .bubbly .bubbly-arrow-up, .bubbly .bubbly-arrow-down, .bubbly .bubbly-arrow-left {
+    position: absolute; }
+  .bubbly .bubbly-arrow-up {
+    background: url("/images/triangle30_up.png");
+    left: 92px;
+    top: -15px;
+    height: 15px;
+    width: 30px; }
+  .bubbly .bubbly-arrow-down {
+    background: url("/images/triangle30_down.png");
+    bottom: -15px;
+    left: 92px;
+    height: 15px;
+    width: 30px; }
+  .bubbly .bubbly-arrow-left {
+    background: url("/images/triangle30_left.png");
+    left: -15px;
+    top: 2px;
+    height: 30px;
+    width: 15px; }
+
+.whats_this {
+  display: none;
+  color: #593;
+  font-size: 15px;
+  cursor: help;
+  position: relative;
+  bottom: 5px; }
+
+#whats_this_command_central {
+  left: 322px;
+  position: absolute;
+  top: 6px;
+  z-index: 1; }
+
+#whats_this_invite_your_friends {
+  bottom: 8px;
+  left: -6px; }
+
+#whats_this_feeds {
+  bottom: 8px;
+  left: -1px; }

@@ -12,7 +12,10 @@ $(function() {
     setTimeout("$('#search_for_friends_to_invite form').submit()", 1000);
   });
   
-
+  
+  $("#command_central").click(function(){
+    $('.bubbly').hide();
+  });
   
   if (document.getElementById('command_central')){
     $('#command_central').focus();
