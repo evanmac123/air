@@ -892,7 +892,6 @@ end
 
 describe User, "#create_tutorial_if_first_login" do
   it "should create a new tutorial" do
-    pending
     user = Factory(:user, :name => "Brand New")
     user.create_tutorial_if_first_login
     user.reload.tutorial.should_not be_nil

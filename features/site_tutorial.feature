@@ -17,7 +17,7 @@ Feature: Talking Chicken
     And I sign in via the login page as "Brand New/chicken"
   
   
-  @javascript @wip
+  @javascript 
   Scenario: Talking Chicken pops first and foremost
   And I wait a second
     Then "Brand New" should have an open tutorial with current step "1"
@@ -42,7 +42,7 @@ Feature: Talking Chicken
     Then "Brand New" should have an open tutorial with current step "6" 
     
     
-    @javascript @wip
+    @javascript 
     Scenario: User leaves tutorial
       Then I should see "Directory"
       Given I close the facebox modal
