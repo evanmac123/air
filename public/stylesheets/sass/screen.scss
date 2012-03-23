@@ -38,7 +38,7 @@ body {
 	}
 }
 /* -- nav active states -- */
-.acts .header .navigation .nav-home, .users-show .header .navigation .nav-activity, .users-index .header .navigation .nav-directory, .scores .header .navigation .nav-scores {
+.acts .header .navigation .nav-home, .users-show .header .navigation .my-profile.nav-activity, .users-index .header .navigation .nav-directory, .scores .header .navigation .nav-scores {
 	@include bg-black;
 	@include rounded-nav;
 	border:1px lighten($header-bg, 10%) solid;

@@ -689,7 +689,7 @@ body {
         color: #333333; }
 
 /* -- nav active states -- */
-.acts .header .navigation .nav-home, .users-show .header .navigation .nav-activity, .users-index .header .navigation .nav-directory, .scores .header .navigation .nav-scores {
+.acts .header .navigation .nav-home, .users-show .header .navigation .my-profile.nav-activity, .users-index .header .navigation .nav-directory, .scores .header .navigation .nav-scores {
   background: #1e1f1e;
   /* Old browsers */
   background: -moz-linear-gradient(top, #1e1f1e 13%, #343434 59%);

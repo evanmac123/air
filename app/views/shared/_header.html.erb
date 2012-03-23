@@ -24,7 +24,8 @@
 			</div>
 			<ul class="navigation">
 		        <li><%= link_to "Home", activity_path, :class => 'nav-home' %></li>
-		        <li><%= link_to "My Profile", current_user, :class => 'nav-activity' %></li>
+		        <% nav_activity_class = @viewing_self ? "my-profile nav-activity" : "nav-activity" %>
+		        <li><%= link_to "My Profile", current_user, :class => nav_activity_class %></li>
 		        <li><%= link_to "Directory", users_path, :class => 'nav-directory' %></li><!-- HOOKUP -->
 			</ul>
 			<div class="cf"></div>
