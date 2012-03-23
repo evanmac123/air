@@ -494,3 +494,17 @@ a.feedback {
 .contact_us_link{
   padding-top: 1ex;
 }
+.grey{
+  color: $med-gray !important;
+}
+
+#password_prompt{
+  position: absolute;
+  left: 13px;
+  top: -5px;
+  font-size: 20px;
+  color: $med-gray;
+}
+.inline{
+  display: inline;
+}

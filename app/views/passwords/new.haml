@@ -1,0 +1,17 @@
+#password-wrapper
+  %h2 Reset Password
+  %p We will email you a link to reset your password.
+
+
+  = form_tag passwords_path do -
+    = text_field_tag "password[email]"
+    = submit_tag "Reset password" 
+
+= mp_track_page 'password reset request' 
+
+
+= content_for :javascript do
+  :javascript
+    $(function() {
+      autoFocusColor("#password_email", "email"); 
+    });

@@ -536,3 +536,16 @@ a.feedback {
 
 .contact_us_link {
   padding-top: 1ex; }
+
+.grey {
+  color: #a8a8a8 !important; }
+
+#password_prompt {
+  position: absolute;
+  left: 13px;
+  top: -5px;
+  font-size: 20px;
+  color: #a8a8a8; }
+
+.inline {
+  display: inline; }

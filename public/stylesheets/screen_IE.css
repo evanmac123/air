@@ -98,3 +98,6 @@ input[type="submit"].button_norm {
 
 body.scores div.points {
   width: 82px!important; }
+
+#password_prompt {
+  top: -8px; }

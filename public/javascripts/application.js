@@ -409,3 +409,39 @@ function showTutorial(){
   $('#black_tooltip').show();
   $('.overlay').show();
 }
+
+function autoFocusColor(field, text){
+  // Define Selectors
+  field = $(field);
+  
+  // color class to add to suggestion text
+  var color_class = 'grey';
+  
+  // Autofocus on the field
+  field.focus();
+  field.val('email');
+  field.addClass(color_class);
+  
+  // Clear default text when typing
+  field.keypress(function(key){
+    if (text == field.val()){
+      field.val('');
+    }
+    field.removeClass(color_class);
+  })
+
+  // Clear default text when clicked
+  field.click(function(){
+    if (field.val() == text){
+      field.val('');          
+    }
+  });
+  
+  // Put default text up when you leave the field if nothing entered
+  field.blur(function(){
+    if (field.val() == ''){
+      field.val(text);
+      field.addClass(color_class);          
+    }
+  });
+}
