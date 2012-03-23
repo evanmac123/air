@@ -728,15 +728,11 @@ body {
     font-weight: bold;
     padding: 15px 0 15px 120px; }
   #flash #flash_failure {
-    background-image: url(/images/v3/flash-f.png);
-    background-position: 0 center;
-    background-repeat: no-repeat;
+    background: url(/images/v3/flash-f.png) no-repeat 0 center #ff7777;
     border: 1px #50c1cb solid;
-    color: #8cb5b8; }
+    color: #631; }
   #flash #flash_success {
-    background-image: url(/images/v3/flash-s.png);
-    background-position: 0 center;
-    background-repeat: no-repeat;
+    background: url(/images/v3/flash-s.png) no-repeat 0 center #ffff77;
     border: 1px #58d858 solid;
     color: #87b872; }
 
