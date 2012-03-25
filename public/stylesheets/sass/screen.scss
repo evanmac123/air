@@ -56,14 +56,16 @@ body {
 		padding:15px 0 15px 120px;
 	}
 	#flash_failure {
-		background: url(/images/v3/flash-f.png) no-repeat 0 center #f77;
+		background: url(/images/v3/flash-f.png) no-repeat 0 center;
+		background-color:#87cee2;
 		border:1px $flash-f solid;
-		color:#631;
+		color:#0090b9;
 	}
 	#flash_success {
-		background: url(/images/v3/flash-s.png) no-repeat 0 center #ff7;
+		background: url(/images/v3/flash-s.png) no-repeat 0 center;
+		background-color:#b6e192;
 		border:1px $flash-s solid;
-		color:#87b872;
+		color:#52931d;
 	}
 }
 
