@@ -146,7 +146,8 @@ ul {list-style-position:outside; list-style-type:none; margin:0; padding:0;}
 	font-family:$gotham;
 	font-size:14px;
 	font-weight:900;
-	padding:$gutter;
+	padding:$gutter 0;
+	text-align:left;
 	text-transform:uppercase;
 }
 @mixin headings {
