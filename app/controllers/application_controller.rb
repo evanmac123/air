@@ -120,6 +120,7 @@ class ApplicationController < ActionController::Base
 
   def invoke_tutorial
     return unless current_user.reload.tutorial_active?
+    first_name = Tutorial.example_search_name.split(" ").first
     advance_tutorial
     @step = current_user.tutorial.current_step
     case @step
@@ -149,7 +150,7 @@ class ApplicationController < ActionController::Base
       @position = "bottom center"
     when 4
       @title = "Find Coworkers"
-      @instruct = 'For example, type "alice", then click FIND!'
+      @instruct = "For example, type '#{first_name}', then click FIND!"
       @inverted = true
       @highlighted = '#search-box'
       @x = -80
@@ -157,14 +158,14 @@ class ApplicationController < ActionController::Base
       @position = "bottom center"
     when 5
       @title = "Follow"
-      @instruct = 'Click "Follow" to befriend Alice'
+      @instruct = "Click 'Follow' to befriend #{first_name}"
       @highlighted = '.directory'
       @x = 0
       @y = 100
       @position = "middle right"
     when 6
       @title = "See Your Friends"
-      @instruct = 'Click "My Profile" to see who\'s following you'
+      @instruct = "Click 'My Profile' to see who's following you"
       @show_finish_button = true
       @inverted = true
       @highlighted = '.nav-activity'
@@ -179,6 +180,7 @@ class ApplicationController < ActionController::Base
     path_info = @_env['PATH_INFO']
     case tutorial.current_step
     when 1  # Say It!
+      Tutorial.seed_example_user(current_user.demo)
       tutorial.bump_step if tutorial.act_completed_since_tutorial_start
     when 2  # See Activity
       # They click the "next slide" button to advance

@@ -22,12 +22,18 @@
         hidePromptFocusPassword()
       });
       
+      hidePromptIfPasswordPresent();
+      
       $("#session_password").click(function(){
         hidePromptFocusPassword()
       });
-      
+
+      $("#session_email").keypress(function(){
+        hidePromptIfPasswordPresent();
+      });
+            
       $("#session_password").keypress(function(){
-        hidePromptFocusPassword()
+        hidePromptFocusPassword();
       });
       
       $("#session_password").blur(function(){
@@ -42,3 +48,8 @@
       $("#session_password").focus();
     }
  
+    function hidePromptIfPasswordPresent(){
+      if ($("#session_password").val() != ""){
+        $("#password_prompt").hide();
+      }
+    }

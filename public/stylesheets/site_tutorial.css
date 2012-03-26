@@ -53,12 +53,12 @@ ul {
   background: transparent url(/images/tooltip/white_arrow_big_inverted.png); }
 
 .overlay {
-  background-color: #222822;
+  background-color: #787;
   bottom: 0;
   left: 0;
-  opacity: 0.9;
+  opacity: 0.5;
   /*Takes value between 0 and 1*/
-  filter: alpha(opacity=90);
+  filter: alpha(opacity=50);
   /* IE7, IE8 */
   position: fixed;
   right: 0;

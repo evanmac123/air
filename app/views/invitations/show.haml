@@ -41,6 +41,13 @@
     $("#search_for_referrer .single_suggestion").live('click', function(){
       $("#autocomplete_status").hide();
     });
+     
+    if (document.getElementById('user_phone_number')){
+      $("#user_phone_number").focus();
+    }else{
+      $("#user_name").focus();      
+    }
+ 
     
 - content_for :status do
   - if flash[:failure].present?
@@ -56,6 +63,9 @@
         %h2= "Welcome to H Engage"
         %p.explanation= translate('.explanation', :default => "Ready to play? Just fill in the fields below to get started.")
 
+
+
+    
 = form_for @user, :url => invitation_acceptance_path(:user_id => @user.id), :html => {:autocomplete => :off, :id => "signup-form"}, :builder => FancyFormBuilder do |f|
   %ul
     %div.form-ul-section

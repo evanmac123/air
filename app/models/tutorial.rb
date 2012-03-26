@@ -1,6 +1,7 @@
 class Tutorial < ActiveRecord::Base
   belongs_to :user
 
+
   
   def bump_step
     self.current_step += 1
@@ -23,5 +24,20 @@ class Tutorial < ActiveRecord::Base
     friendships = Friendship.where('created_at > ?', self.created_at)
     friendships.present?
   end
-    
+
+
+
+  def self.example_search_name
+    "Kermit the Frog"
+  end
+  
+  def self.seed_example_user(demo)
+    a = User.where(:demo_id => demo.id, :name => example_search_name)
+    if a.empty?
+      email = example_search_name.gsub(" ", "").downcase + demo.id.to_s + "@sunni.ru"
+      b = User.create!(:name => example_search_name, :demo_id => demo.id, 
+          :email => email, :accepted_invitation_at => Time.now)
+    end
+  end
+      
 end
