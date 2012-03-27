@@ -12,8 +12,10 @@ module SpecialCommand
     normalized_command = text.strip.downcase.gsub(/\s+/, ' ')
     command_name, *args = normalized_command.split
 
+    # Note that these are duplicated in User.sms_slug_does_not_match_commands,
+    # So if you change something here, be sure to add it there too
     case command_name
-    when 'follow', 'connect', 'fan'
+    when 'follow', 'connect', 'fan', 'friend', 'befriend'
       self.follow(user, args.first)
     when 'myid'
       self.myid(user)
@@ -61,12 +63,12 @@ module SpecialCommand
 
     return parsing_error_message("Sorry, we couldn't find a user with the username #{sms_slug_to_follow}.") unless user_to_follow
 
-    return parsing_error_message("Sorry, you can't follow yourself.") if user_following.id == user_to_follow.id
+    return parsing_error_message("Sorry, you can't add yourself as a friend.") if user_following.id == user_to_follow.id
 
     Friendship.transaction do
-      return parsing_success_message("You've already asked to be a fan of #{user_to_follow.name}.") if user_following.pending_friends.where('friendships.friend_id' => user_to_follow.id).present?
+      return parsing_success_message("You've already asked to be friends with #{user_to_follow.name}.") if user_following.pending_friends.where('friendships.friend_id' => user_to_follow.id).present?
 
-      return parsing_success_message("You're already a fan of #{user_to_follow.name}.") if user_following.accepted_friends.where('friendships.friend_id' => user_to_follow.id).present?
+      return parsing_success_message("You're already friends with #{user_to_follow.name}.") if user_following.accepted_friends.where('friendships.friend_id' => user_to_follow.id).present?
 
       return nil unless user_following.befriend(user_to_follow)
     end
@@ -78,7 +80,7 @@ module SpecialCommand
     if request_index && Friendship.pending(user).present?
       parsing_error_message("Looks like you already responded to that request, or didn't have a request with that number")
     else
-      parsing_error_message("You have no pending requests from anyone to be a fan.")      
+      parsing_error_message("You have no pending requests to add someone as a friend.")      
     end
   end
 

@@ -8,50 +8,46 @@ describe Friendship do
   it { should belong_to(:user) }
   it { should belong_to(:friend) }
 
-  describe "on create" do
-    describe "request index" do
-      before do
-        @followed = Factory :user
-        3.times {Factory :accepted_friendship, :friend => @followed}
-        3.times {Factory :friendship}
-      end
-
-      context "when no other pending Friendships exist for this user" do
-        it "should be 1" do
-          Friendship.where(:friend_id => @user, :state => 'pending').should be_empty
-
-          pending_friendship = Factory :friendship, :friend => @followed
-          pending_friendship.request_index.should == 1
-        end
-      end
-
-      context "when other pending Freindships exist for this user" do
-        it "should be 1 greater than the greatest existing request index" do
-          [1,3,5,7].each do |i|
-            friendship = Factory :friendship, :state => 'pending', :friend => @followed
-            friendship.request_index = i
-            friendship.save!
-          end
-
-          pending_friendship = Factory :friendship, :friend => @followed
-          pending_friendship.request_index.should == 8
-        end
-      end
-    end
-
-  end
-
+  
   describe "after create" do
     context "when the friended user has no phone number" do
       before :each do
-        @user = Factory :user
+        @user_1 = Factory :user
+        @user_2 = Factory :user
+        @user_3 = Factory :user
         @friend = Factory :user, :phone_number => '', :notification_method => 'both'
       end
 
       it "should not try to send an SMS to that blank number" do
-        friendship = Factory :friendship, :user => @user, :friend => @friend
+        friendship = Factory :friendship, :user => @user_1, :friend => @friend
         Twilio::SMS.should_not have_received(:create)
+      end
+      it "should set both reciprocal friendships to the same request index" do
+        @user_1.befriend(@friend)
+        initiated_1 = Friendship.where(:user_id => @user_1.id, :friend_id => @friend.id).first
+        initiated_1.request_index.should == 1
+        pending_1 = Friendship.where(:user_id => @friend.id, :friend_id => @user_1.id).first
+        pending_1.request_index.should == 1
+        # Second round
+        @user_2.befriend(@friend)
+        initiated_2 = Friendship.where(:user_id => @user_2.id, :friend_id => @friend.id).first
+        initiated_2.request_index.should == 2
+        pending_2 = Friendship.where(:user_id => @friend.id, :friend_id => @user_2.id).first
+        pending_2.request_index.should == 2
+        # Now manually bump the indices and test a third round
+        initiated_2.request_index = 9
+        initiated_2.save
+        pending_2.request_index = 9
+        pending_2.save
+        # Third round
+        @user_3.befriend(@friend)
+        initiated_3 = Friendship.where(:user_id => @user_3.id, :friend_id => @friend.id).first
+        initiated_3.request_index.should == 10
+        pending_3 = Friendship.where(:user_id => @friend.id, :friend_id => @user_3.id).first
+        pending_3.request_index.should == 10
+        
       end
     end
   end
+
 end

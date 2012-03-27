@@ -23,20 +23,23 @@ class FriendshipsController < ApplicationController
   end
 
   def destroy
-    @user = User.find_by_slug(params[:user_id])
-    friendship = current_user.friendships.where(:friend_id => @user.id).first
-    pending_friendship = current_user.friendships.where(:friend_id => @user.id).first
+    @friend = User.find_by_slug(params[:user_id])
+    friendship = current_user.friendships.where(:friend_id => @friend.id).first
+    reciprocal_friendship = @friend.friendships.where(:friend_id => current_user.id).first
     if friendship
-      friendship.destroy
-      flash[:success] = @user.follow_removed_message
+      Friendship.transaction do
+        friendship.destroy
+        reciprocal_friendship.destroy if reciprocal_friendship
+        flash[:success] = @friend.follow_removed_message
+      end
     else
-      add_success "You were not following #{@user.name}. No action taken"
+      add_success "You were not friends with #{@user.name}. No action taken"
     end
     
     respond_to do |format|
       format.html do
         redirect_to :back
-        flash[:mp_track_friendship] = ["defanned"]
+        flash[:mp_track_friendship] = ["unfriended"]
       end
 
       format.js

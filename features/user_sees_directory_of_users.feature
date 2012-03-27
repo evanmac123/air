@@ -60,6 +60,6 @@ Feature: Directory of other users
     Given I fill in "search bar" with "example.com"
     And I press "Find!"
     Given I press "Follow"
-    Then I should see "OK, you'll be a fan of Sven, pending their acceptance."
+    Then I should see "OK, you'll be friends with Sven, pending their acceptance."
     Given I press "Cancel request"
-    Then I should see "OK, you're no longer a fan of Sven."
+    Then I should see "OK, you're no longer friends with Sven."

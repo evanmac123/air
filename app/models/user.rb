@@ -131,7 +131,7 @@ class User < ActiveRecord::Base
 
 
   def sms_slug_does_not_match_commands
-    special_commands = ['follow', 'connect', 'fan', 'myid', 'moreinfo', 'more', 'suggest', 'lastquestion', 
+    special_commands = ['follow', 'connect', 'fan', 'friend', 'befriend', 'myid', 'moreinfo', 'more', 'suggest', 'lastquestion', 
       'rankings', 'ranking', 'standing', 'standings', 'morerankings', 'help', 'support', 'survey', 
       'ur2cents', '2ur2cents', 'yes', 'no', 'prizes', 'rules', 'commands', 'mute', 'gotit', 'got']
     if self.demo && self.demo.rule_values.present?
@@ -146,6 +146,20 @@ class User < ActiveRecord::Base
     all_commands = special_commands + demo_rule_values
     if all_commands.include? self.sms_slug
       self.errors.add("sms_slug", "Sorry, but that username is reserved")
+    end
+  end
+
+  def make_those_i_followed_my_friends
+    self.friends.each do |friend|
+      existing = Friendship.where(:user_id => friend.id, :friend_id => self.id)
+      Friendship.create(:user_id => friend.id, :friend_id => self.id, :state => "accepted") if existing.empty?
+    end
+  end
+  
+  def make_those_who_followed_me_my_friends
+    self.followers.each do |follower|
+      existing = Friendship.where(:user_id => self.id, :friend_id => follower.id)
+      Friendship.create(:user_id => self.id, :friend_id =>  follower.id, :state => "accepted") if existing.empty?
     end
   end
   
@@ -213,7 +227,7 @@ class User < ActiveRecord::Base
   end
 
   def pending_friends
-    friends.where('friendships.state' => 'pending')
+    friends.where('friendships.state' => 'initiated')
   end
 
   def accepted_friends
@@ -666,17 +680,20 @@ class User < ActiveRecord::Base
 
   def befriend(other)
     return nil unless self.demo.game_open?
-
+    aa = nil
     Friendship.transaction do
       return nil if self.friendships.where(:friend_id => other.id).present?
-      self.friendships.create(:friend_id => other.id)
+      aa = self.friendships.create(:friend_id => other.id, :state => 'initiated')
+      bb = other.friendships.create(:friend_id => self.id, :state => 'pending')
+      bb.update_attribute(:request_index, aa.request_index)
     end
+    aa
   end
 
   def follow_requested_message
     I18n.t(
       "activerecord.models.user.base_follow_message",
-      :default => "OK, you'll be a fan of %{followed_user_name}, pending their acceptance.",
+      :default => "OK, you'll be friends with %{followed_user_name}, pending their acceptance.",
       :followed_user_name => self.name
     )
   end
@@ -685,13 +702,13 @@ class User < ActiveRecord::Base
   def follow_removed_message
     I18n.t(
       "activerecord.models.user.base_follow_message",
-      :default => "OK, you're no longer a fan of %{followed_user_name}.",
+      :default => "OK, you're no longer friends with %{followed_user_name}.",
       :followed_user_name => self.name
     )
   end
   
   def follow_accepted_message
-    message = "#{name} has approved your request to be a fan."
+    message = "#{name} has approved your friendship request."
 
     points_from_demo = self.demo.points_for_connecting
     return message if points_from_demo.nil?

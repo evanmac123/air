@@ -5,7 +5,14 @@ class Friendship < ActiveRecord::Base
   before_create :set_request_index
   after_create :send_follow_notification
 
+  # "initiated" means you are the one who asked her on a date
+  # "pending" means she asked you
+  # "accepted" means whomever was asked accepted, so now it's ON!
+  STATES = ["initiated", "pending", "accepted"].freeze
+  validates_inclusion_of :state, :in => STATES
+
   def send_follow_notification
+    return unless self.state == "initiated"
     case friend.notification_method
     when 'sms'
       send_follow_notification_by_sms
@@ -41,7 +48,9 @@ class Friendship < ActiveRecord::Base
               nil
             end
 
-    self.user.acts.create(:text => "is now a fan of #{self.friend.name}", :inherent_points => award)
+    self.user.acts.create(:text => "is now friends with #{self.friend.name}", :inherent_points => award)
+    self.friend.acts.create(:text => "is now friends with #{self.user.name}", :inherent_points => award)
+    
   end
 
   def create_former_friendship
@@ -49,11 +58,15 @@ class Friendship < ActiveRecord::Base
   end
 
   def accept
-    update_attribute(:state, "accepted")
+    reciprocal_friendship = self.reciprocal
+    Friendship.transaction do
+      reciprocal_friendship.update_attribute(:state, "accepted")
+      update_attribute(:state, "accepted")
+    end
     notify_follower_of_acceptance
     record_follow_act
     create_former_friendship
-    "OK, #{user.name} is now your fan."
+    "OK, you are now friends with #{user.name}."
   end
 
   def ignore
@@ -72,7 +85,7 @@ class Friendship < ActiveRecord::Base
   end
 
   def follow_notification_text
-    "#{user.name} has asked to be your fan. Text\n#{accept_command} to accept,\n#{ignore_command} to ignore (in which case they won't be notified)"
+    "#{user.name} has asked to be your friend. Text\n#{accept_command} to accept,\n#{ignore_command} to ignore (in which case they won't be notified)"
   end
 
   def accept_command
@@ -88,10 +101,14 @@ class Friendship < ActiveRecord::Base
   end
 
   def set_request_index
-    return unless state == 'pending'
-    last_request = Friendship.where(:state => 'pending', :friend_id => friend.id).order("request_index DESC").first
+    return unless state == 'initiated'
+    last_request = Friendship.where(:state => 'initiated', :friend_id => friend.id).order("request_index DESC").first
 
     self.request_index = last_request ? last_request.request_index + 1 : 1
+  end
+  
+  def reciprocal
+    Friendship.where(:user_id => self.friend_id, :friend_id => self.user_id).first
   end
 
   def self.accepted
@@ -99,7 +116,7 @@ class Friendship < ActiveRecord::Base
   end
 
   def self.pending(friend, request_index = nil)
-    all_pending = self.where(:state => 'pending', :friend_id => friend.id)
+    all_pending = self.where(:state => 'initiated', :friend_id => friend.id)
 
     if request_index
       all_pending.where(:request_index => request_index.to_i)
