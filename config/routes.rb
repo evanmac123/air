@@ -120,7 +120,7 @@ Health::Application.routes.draw do
         resource :location_breakdown, :only => [:show]
         resource :points, :only => [:show]
         resource :levels, :only => [:show]
-        resource :interactions, :only => [:show]
+        resource :interactions, :only => [:show, :keepalive]
       end
 
       resources :characteristics

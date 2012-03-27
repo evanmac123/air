@@ -51,23 +51,52 @@
       =select_tag "tags", options_from_collection_for_select(@tags, 'id', 'name'), :include_blank => true, :selected => nil, :id => select_id, :class => :selected_tag
   = content_for :javascript do
     :javascript
+      var interaction_request_handle = 0;
       $('.select_tags select').change(function(){
         $(this).next().show();
         $('.filtered').hide();
         get_new_interaction_content(); 
       });
       function get_new_interaction_content(){
-        var notice = "<h2>Just a moment..</h2>"
-        $('#user_activity_table').html(notice);
+        if(interaction_request_handle){
+          interaction_request_handle.abort();
+        }
+        setTimeout('keepInteractionAlive()', 10000);
+        var notice = "<h2 class='interaction_in_progress'>Just a moment..</h2>"
+        blankThenDisplay('#user_activity_table', notice);
+        blankThenDisplay('#interaction_popularity_table', notice);
         var tag_ids = '';
         var ids = $.map($('.selected_tag'), function(value){
           tag_ids += $(value).val() + ', '; 
         });
         var options = {format : 'xhr', tag_ids : tag_ids};
-        $.get('interactions#show', options, function(data){
+        interaction_request_handle = $.get('interactions#show', options, function(data){
           $('.body').html(data);
           hideOneTable();
+          interaction_request_handle = 0;
+        })
+        .error(function(request, error){ 
+          if (error != 'abort'){
+            var timeout_notice = "<div id='timeout_warning'><h2>Filter by Tags Request Aborted</h2></div>";
+            blankThenDisplay('#user_activity_table', timeout_notice);
+            blankThenDisplay('#interaction_popularity_table', timeout_notice); 
+          } 
+          interaction_request_handle = 0;
         });
       }
-  #export-report= link_to "Export", '#u'
+      function keepInteractionAlive(){
+        var options = {};
+        if (interaction_request_handle){
+          $.get('interactions#keepalive');
+          setTimeout('keepInteractionAlive()', 10000);
+        }
+      }
+      function blankThenDisplay(div1, content){
+        div1 = $(div1);
+        div1.html('');
+        setTimeout(function(){
+          div1.html(content);
+        }, 200);
+      }
+  #reset-report= link_to "Reset", admin_demo_reports_interactions_path
 

@@ -1972,6 +1972,7 @@ div.follow-btn, div.stop-following-btn {
   margin-top: 1ex;
   display: none;
   position: absolute;
+  width: 400px;
   padding: 1ex;
   background: yellow;
   text: yellow;
@@ -1984,13 +1985,10 @@ div.follow-btn, div.stop-following-btn {
 #new-user-form {
   display: none; }
 
-#export-report {
-  float: right; }
-
 td.label {
   font-weight: bold; }
 
-#export-report {
+#reset-report {
   background: #3f3f3f;
   /* Old browsers */
   background: -moz-linear-gradient(top, #3f3f3f 0%, #2e2f2d 100%);
@@ -2018,12 +2016,13 @@ td.label {
   text-shadow: 1px 1px 1px #333333;
   text-transform: uppercase;
   font-weight: 900!important;
-  margin-top: 1.5ex; }
-  #export-report:hover {
+  margin-top: 1.5ex;
+  float: right; }
+  #reset-report:hover {
     background: #588b3d; }
-  #export-report:active {
+  #reset-report:active {
     background: #909090; }
-  #export-report a {
+  #reset-report a {
     color: white; }
 
 .stripe {
@@ -2058,7 +2057,15 @@ td.label {
     background: #070; }
 
 #interaction_popularity_table, #user_activity_table {
-  position: relative; }
+  position: relative;
+  margin-bottom: 6cm; }
 
 .inline {
   display: inline; }
+
+#timeout_warning, #timeout_warning h2 {
+  color: red;
+  padding-top: 1.5cm; }
+
+.interaction_in_progress {
+  padding-top: 1.5cm; }

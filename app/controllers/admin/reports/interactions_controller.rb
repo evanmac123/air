@@ -1,5 +1,9 @@
 class Admin::Reports::InteractionsController < ApplicationController
 
+  def keepalive
+    render :text => "more than one byte"
+  end
+  
   def show
     @demo = Demo.find(params[:demo_id])
     @rules = Rule.where(:demo_id => @demo.id).sort_by(&:description)
@@ -28,7 +32,7 @@ class Admin::Reports::InteractionsController < ApplicationController
     (@number_rows).times do |count|
       hist[count] = 0
     end
-    @max_rules = 12 
+    @max_rules = 20 
     if rule_ids.length <= @max_rules
       @users.each do |user|
         how_many = Act.where(:user_id => user.id, :rule_id => rule_ids).count
