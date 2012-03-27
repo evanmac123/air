@@ -1041,6 +1041,7 @@ div.follow-btn, div.stop-following-btn {
     margin-top: 1ex;
     display: none;
     position: absolute;
+    width: 400px;
     padding: 1ex;
     background: yellow;
     text: yellow;
@@ -1056,16 +1057,15 @@ div.follow-btn, div.stop-following-btn {
 #new-user-form{
   display: none;
 }
-#export-report{
-  float: right;
-}
+
 td.label{
   font-weight: bold;
 }
-#export-report{
+#reset-report{
   @include button-norm;
   a{color: white;}
   margin-top: 1.5ex;
+  float: right;
 }
 .stripe{
   background: #cacec8;
@@ -1107,8 +1107,19 @@ td.label{
 
 #interaction_popularity_table, #user_activity_table{
   position: relative;
+  margin-bottom: 6cm;
 }
 .inline{
   display: inline;
 }
 
+
+
+#timeout_warning, #timeout_warning h2{
+  color: red;
+  padding-top: 1.5cm;
+}
+
+.interaction_in_progress{
+  padding-top: 1.5cm;
+}
