@@ -132,6 +132,7 @@ class ApplicationController < ActionController::Base
       @x = 350
       @y = -10
       @position = "bottom left"
+      @flash_margin_left = "355px"  # This is so any failure messages will be offset & thereby visible
     when 2
       @title = "Progress"
       @instruct = "Your activity shows up here"

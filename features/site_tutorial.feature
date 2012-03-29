@@ -37,9 +37,7 @@ Feature: Talking Chicken
     And I wait a second
     
     Then I should see "Click 'Add to Friends' to befriend Kermit"
-    And show me the page
     When I click within ".follow-btn"
-    And show me the page
     Then I should see "Directory" 
     Then "Brand New" should have an open tutorial with current step "6" 
     And "Click 'My Profile' to see who's following you" should be visible

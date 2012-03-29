@@ -44,6 +44,15 @@
     <%= javascript_include_tag 'site_tutorial' %>
     <%= render 'shared/site_tutorial' %>
     <div class="overlaying" ></div>
+    <% if @flash_margin_left %>
+      <%= content_for :javascript do %>
+        <%= javascript_tag do %>
+          $(function() {
+            $("#flash_failure").css('margin-left', '<%= @flash_margin_left %>');
+          });
+        <% end %>
+      <% end %>
+    <% end%>
   <% end %>
   <%= render 'shared/tooltips' %>
   <%= stylesheet_link_tag 'tooltips' %>
