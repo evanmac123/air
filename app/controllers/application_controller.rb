@@ -158,7 +158,7 @@ class ApplicationController < ActionController::Base
       @position = "bottom center"
     when 5
       @title = "Follow"
-      @instruct = "Click 'Follow' to befriend #{first_name}"
+      @instruct = "Click 'Add to Friends' to befriend #{first_name}"
       @highlighted = '.directory'
       @x = 0
       @y = 100

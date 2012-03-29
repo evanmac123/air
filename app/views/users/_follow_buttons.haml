@@ -4,16 +4,16 @@
   -else
     - unless current_user.following_or_follow_pending? user  
       .follow-btn
-        Follow
+        Add to Friends
         = form_tag user_friendship_path(user) do
           = submit_tag "Follow", :class => :hidden
     - else
       - if current_user.follow_pending? user
-        .pending_notice (requested)
+        .pending_notice (friendship requested)
         - follow_text = "Cancel request"
       - else
-        .pending_notice (following)
-        - follow_text = "Stop following"
+        .pending_notice (already friends)
+        - follow_text = "End friendship"
       .stop-following-btn
         = follow_text
         = form_tag user_friendship_path(user), :method => :delete do

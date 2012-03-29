@@ -25,8 +25,8 @@ class Report::CleanedActivity < Report::Activity
       "got credit for referring someone to the game"
     when /^credited .+ for referring them to the game$/
       "credited someone for referring them to the game"
-    when /^is now a fan of .+$/
-      "is now a fan of someone"
+    when /^is now friends with .+$/
+      "is now friends with someone"
     when /^told .+ about a command$/
       "told someone about a command"
     when /^(.+) \(thanks (.+) for the referral\)$/

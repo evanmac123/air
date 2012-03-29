@@ -898,3 +898,75 @@ describe User, "#create_tutorial_if_first_login" do
   end
 end
 
+describe User, "#befriend" do
+  before(:each) do
+    @demo = Factory(:demo, :name => "It's just a game")
+    @left_user = Factory(:claimed_user, :name => "Lefty Loosey", :demo_id => @demo.id)
+    @right_user = Factory(:claimed_user, :name => "Righty Tighty", :demo_id => @demo.id)
+  end
+  
+  it "should create two friendships, one initiated and one pending" do
+    # Befriend
+    @left_user.befriend(@right_user)
+    # Verify two friendships created, one initiated--one pending
+    first_friendship_array = Friendship.where(:user_id => @left_user.id, :friend_id => @right_user.id)
+    first_friendship_array.length.should == 1
+    first_friendship = first_friendship_array.first
+    first_friendship.state.should == "initiated"
+    second_friendship_array = Friendship.where(:user_id => @right_user.id, :friend_id => @left_user.id)
+    second_friendship_array.length.should == 1
+    second_friendship = second_friendship_array.first
+    second_friendship.state.should == "pending"
+  end
+  
+  it "accepting friendship should make both frienships show up accepted" do
+    # Befriend
+    @left_user.befriend(@right_user)
+    # Verify two friendships created, one initiated--one pending
+    initiated_friendship = Friendship.where(:user_id => @left_user.id, :friend_id => @right_user.id).first
+    pending_friendship = Friendship.where(:user_id => @right_user.id, :friend_id => @left_user.id).first
+    pending_friendship.accept
+    initiated_friendship.reload.state.should == "accepted"
+    pending_friendship.reload.state.should == "accepted"
+  end
+  
+  it "each shows up as each other friend using the .friends construct" do
+    # Befriend
+    @left_user.befriend(@right_user)
+    
+    @left_user.pending_friends.length.should == 1
+    @right_user.pending_friends.should be_empty
+  end
+  
+  it "each shows up as each other friend using the .friends construct" do
+    # Befriend
+    @left_user.befriend(@right_user)
+    pending_friendship = Friendship.where(:user_id => @right_user.id, :friend_id => @left_user.id).first
+    pending_friendship.accept
+    # Should be no more pending friends
+    @left_user.pending_friends.should be_empty
+    @right_user.pending_friends.should be_empty
+    # Each should have one real friend
+    @left_user.friends.length.should == 1
+    @right_user.friends.length.should == 1
+    
+  end
+  
+  it "provides a way to upgrade people I followed to friends" do
+    # Create a "follower" in the old sense of the word
+    Friendship.create(:user_id => @left_user.id, :friend_id => @right_user.id, :state => "accepted")
+    @left_user.make_those_i_followed_my_friends
+    @right_user.friends.should include(@left_user)
+    @left_user.friends.should include(@right_user)
+  end
+  
+  it "provides a way to upgrade those who followed me to be my friends" do
+    # Create a "follower" in the old sense of the word
+    Friendship.create(:user_id => @left_user.id, :friend_id => @right_user.id, :state => "accepted")
+    
+    @right_user.make_those_who_followed_me_my_friends
+    @right_user.friends.should include(@left_user)
+    @left_user.friends.should include(@right_user)
+  end
+
+end

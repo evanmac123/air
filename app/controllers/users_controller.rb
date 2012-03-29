@@ -33,8 +33,8 @@ class UsersController < Clearance::UsersController
 
     @current_link_text = "My Profile" if @viewing_self
     
-    @accepted_followers = @user.accepted_followers
-    @accepted_friends = @user.accepted_friends
+    # @accepted_followers = @user.accepted_followers
+    @accepted_friends = @user.accepted_friends.sort_by {|ff| ff.name}
     @display_user_stats = current_user.can_see_activity_of(@user)
     @reason_for_privacy = @user.name + @user.reason_for_privacy
   end

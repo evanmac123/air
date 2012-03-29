@@ -9,11 +9,15 @@ Feature: Directory of other users
       | Vlad | vlad.png         | name: AlphaCo | 0      | 
       | Mort | mort.png         | name: BetaCo  | 237    |
     And "Sven" has no avatar
+    # Note that there are two friendship objects for each "friendship". One is the reciprocal of the other
     And the following accepted friendships exist:
       | user       | friend     | 
       | name: Dan  | name: Phil | 
+      | name: Phil | name: Dan  | 
       | name: Dan  | name: Vlad | 
+      | name: Vlad | name: Dan  | 
       | name: Sven | name: Dan  | 
+      | name: Dan  | name: Sven | 
     And the following levels exist:
       | name      | threshold   | demo          |
       | GoGettem  | 50          | name: AlphaCo |
