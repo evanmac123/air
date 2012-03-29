@@ -69,7 +69,7 @@ Feature: User can credit another user who got them into the game
 
   Scenario: User credits someone who doesn't exist
     When "+14155551212" sends SMS "jsmith"
-    Then "+14155551212" should have received an SMS including "Sorry, I don't understand what that means"
+    Then "+14155551212" should have received an SMS including "Sorry, I don't understand what "jsmith" means"
 
   Scenario: User credits another but the game's not set up for that
     Given the following demo exists:
@@ -84,12 +84,12 @@ Feature: User can credit another user who got them into the game
     And "+13055551212" sends SMS "krikantis"
     And I sign in via the login page with "Kelli/foobar"
     # Then I should see "Kristina 0 pts"
-    And "+13055551212" should have received an SMS including "Sorry, I don't understand what that means"
+    And "+13055551212" should have received an SMS including "Sorry, I don't understand what "krikantis" means"
     And "+14105551212" should not have received an SMS including "Kelli gave you credit"
 
   Scenario: User can't credit someone in a different demo
     When "+14155551212" sends SMS "freddie"
-    Then "+14155551212" should have received an SMS including "Sorry, I don't understand what that means"
+    Then "+14155551212" should have received an SMS including "Sorry, I don't understand what "freddie" means"
     And "+14085551212" should not have received any SMSes
 
   Scenario: User sends valid rule during their credit period

@@ -29,27 +29,27 @@ Feature: Full text rule search
 
   Scenario: User almost gets a command right
     When "+16175551212" sends SMS "ate baked alaska"
-    Then "+16175551212" should have received an SMS 'I didn't quite get that. Text "a" for "ate banana", "b" for "ate kitten", or "s" to suggest we add what you sent.'
+    Then "+16175551212" should have received an SMS 'I didn't quite get what "ate baked alaska" means. Text "a" for "ate banana", "b" for "ate kitten", or "s" to suggest we add it.'
     
   Scenario: User can throw in punctuation all damn day and it won't break
     When "+16175551212" sends SMS "ate baked alaska!"
     And "+16175551212" sends SMS "worked out (at the gym)."
     And "+16175551212" sends SMS "ate banana's"
     And "+16175551212" sends SMS "worked out @ gym"
-    Then "+16175551212" should have received an SMS 'I didn't quite get that. Text "a" for "ate banana", "b" for "ate kitten", or "s" to suggest we add what you sent.'
-    Then "+16175551212" should have received an SMS 'I didn't quite get that. Text "a" for "worked out", or "s" to suggest we add what you sent.'
+    Then "+16175551212" should have received an SMS 'I didn't quite get what "ate baked alaska!" means. Text "a" for "ate banana", "b" for "ate kitten", or "s" to suggest we add it.'
+    Then "+16175551212" should have received an SMS 'I didn't quite get what "worked out (at the gym)" means. Text "a" for "worked out", or "s" to suggest we add it.'
 
   Scenario: User picks a suggested command
     When "+16175551212" sends SMS "ate baked alaska"
     And "+16175551212" sends SMS "b"
     And I go to the activity page
     Then I should see "Dan ate kitten"
-    Then "+16175551212" should have received an SMS 'I didn't quite get that. Text "a" for "ate banana", "b" for "ate kitten", or "s" to suggest we add what you sent.'
+    Then "+16175551212" should have received an SMS 'I didn't quite get what "ate baked alaska" means. Text "a" for "ate banana", "b" for "ate kitten", or "s" to suggest we add it.'
     And "+16175551212" should have received an SMS including "Gross."
 
   Scenario: Suggestions in the web page refer to typing, not texting
     When I enter the act code "ate baked alaska"
-    Then I should see 'I didn't quite get that. Type "a" for "ate banana", "b" for "ate kitten", or "s" to suggest we add what you sent.'
+    Then I should see 'I didn't quite get what "ate baked alaska" means. Type "a" for "ate banana", "b" for "ate kitten", or "s" to suggest we add it.'
 
   Scenario: User can pick suggested command via the website
     When I enter the act code "ate baked alaska"
@@ -60,23 +60,23 @@ Feature: Full text rule search
     When "+16175551212" sends SMS "ate baked alaska"
     And "+16175551212" sends SMS "b"
     And "+16175551212" sends SMS "b"
-    Then "+16175551212" should have received an SMS 'I didn't quite get that. Text "a" for "ate banana", "b" for "ate kitten", or "s" to suggest we add what you sent.'
+    Then "+16175551212" should have received an SMS 'I didn't quite get what "ate baked alaska" means. Text "a" for "ate banana", "b" for "ate kitten", or "s" to suggest we add it.'
     And "+16175551212" should have received an SMS including "Gross."
-    And "+16175551212" should have received an SMS "Sorry, I don't understand what that means. Text "s" to suggest we add what you sent."    
+    And "+16175551212" should have received an SMS "Sorry, I don't understand what "b" means. Text "s" to suggest we add it."    
 
   Scenario: User picks a suggested command index out of range
     When "+16175551212" sends SMS "ate baked alaska"
     And "+16175551212" sends SMS "c"
-    Then "+16175551212" should have received an SMS 'I didn't quite get that. Text "a" for "ate banana", "b" for "ate kitten", or "s" to suggest we add what you sent.'
-    And "+16175551212" should have received an SMS "Sorry, I don't understand what that means. Text "s" to suggest we add what you sent."    
+    Then "+16175551212" should have received an SMS 'I didn't quite get what "ate baked alaska" means. Text "a" for "ate banana", "b" for "ate kitten", or "s" to suggest we add it.'
+    And "+16175551212" should have received an SMS "Sorry, I don't understand what "c" means. Text "s" to suggest we add it."    
 
   Scenario: User comes nowhere near a command
     When "+16175551212" sends SMS "fought eighteen bears"
-    Then "+16175551212" should have received an SMS "Sorry, I don't understand what that means. Text "s" to suggest we add what you sent."    
+    Then "+16175551212" should have received an SMS "Sorry, I don't understand what "fought eighteen bears" means. Text "s" to suggest we add it."    
 
   Scenario: User doesn't get a suggestion from a different demo
     When "+16175551212" sends SMS "rode unicycle"
-    Then "+16175551212" should have received an SMS "Sorry, I don't understand what that means. Text "s" to suggest we add what you sent."    
+    Then "+16175551212" should have received an SMS "Sorry, I don't understand what "rode unicycle" means. Text "s" to suggest we add it."    
 
   Scenario: User can get a suggestion from a standard playbook rule (belonging to no demo)
     When "+16175551212" sends SMS "made toast"

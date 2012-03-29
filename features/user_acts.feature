@@ -66,7 +66,8 @@ Feature: User acts
   Scenario: User enters bad act via the website
     When I sign in via the login page as "Dan/foobar"
     And I enter the act code "chainsaw massacred"
-    Then I should see the error "Sorry, I don't understand what that means."
+    And show me the page
+    Then I should see the error "Sorry, I don't understand what "chainsaw massacred" means."
 
   Scenario: User acts, with a trailing period
     When "+15087407520" sends SMS "ate banana."
@@ -86,7 +87,7 @@ Feature: User acts
 
   Scenario: User tries to act with an act belonging to a different demo
     When "+15087407520" sends SMS "up the bar"
-    Then "+15087407520" should have received an SMS including "Sorry, I don't understand what that means."
+    Then "+15087407520" should have received an SMS including "Sorry, I don't understand what "up the bar" means."
 
   Scenario: User can act with a standard playbook rule (belonging to no demo) if demo supports it
     Given the following demo exists:

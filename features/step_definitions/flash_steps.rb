@@ -1,10 +1,10 @@
-Then /^I should see the success message "(.*?)"$/ do |message|
+Then /^I should see the success message "(.*)"$/ do |message|
   with_scope '"#flash_success"' do
     page.should have_content(message)
   end
 end
 
-Then /^I should see the error "(.*?)"$/ do |message|
+Then /^I should see the error "(.*)"$/ do |message|
   with_scope '"#flash_failure"' do
     page.should have_content(message)
   end

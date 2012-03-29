@@ -39,7 +39,7 @@ describe EmailCommandController do
         email_command.email_from.should eql @user.email
         email_command.email_subject.should eql params['subject']
         email_command.status.should eql EmailCommand::Status::SUCCESS
-        email_command.response.should eql "Sorry, I don't understand what that means. Email \"s\" to suggest we add what you sent."
+        email_command.response.should eql "Sorry, I don't understand what \"here's the command\" means. Email \"s\" to suggest we add it."
       end
 
       it "should process 'myid' correctly" do

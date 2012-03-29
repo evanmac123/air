@@ -213,7 +213,7 @@ describe Act, ".parse" do
         end
 
         it "should decline to recognize that" do
-          Act.parse(user, good_sms).should include("Sorry, I don't understand what that means.")
+          Act.parse(user, good_sms).should include("Sorry, I don't understand what")
         end
       end
     end
@@ -259,7 +259,7 @@ describe Act, ".find_and_record_rule_suggestion" do
 
   context "when nothing matches well" do
     it "should return a canned message" do
-      Act.send(:find_and_record_rule_suggestion, 'played guitar', @user).should == "Sorry, I don't understand what that means. @{Say} \"s\" to suggest we add what you sent."
+      Act.send(:find_and_record_rule_suggestion, 'played guitar', @user).should == "Sorry, I don't understand what \"played guitar\" means. @{Say} \"s\" to suggest we add it."
     end
   end
 
@@ -268,7 +268,7 @@ describe Act, ".find_and_record_rule_suggestion" do
       rule_value = Factory :rule_value, :value => 'played football'
       rule_value.demo.should_not == @demo
 
-      Act.send(:find_and_record_rule_suggestion, 'played guitar', @user).should == "Sorry, I don't understand what that means. @{Say} \"s\" to suggest we add what you sent."
+      Act.send(:find_and_record_rule_suggestion, 'played guitar', @user).should == "Sorry, I don't understand what \"played guitar\" means. @{Say} \"s\" to suggest we add it."
     end
   end
 
@@ -278,7 +278,7 @@ describe Act, ".find_and_record_rule_suggestion" do
     end
 
     it "should return an appropriate phrase" do
-      @result.should == "I didn't quite get that. @{Say} \"a\" for \"ate kitten\", or \"s\" to suggest we add what you sent."
+      @result.should == "I didn't quite get what \"pet kitten\" means. @{Say} \"a\" for \"ate kitten\", or \"s\" to suggest we add it."
     end
 
     it "should set the user's last suggested rules" do
@@ -292,7 +292,7 @@ describe Act, ".find_and_record_rule_suggestion" do
 
     it "should return an appropriate phrase" do
       @result = Act.send(:find_and_record_rule_suggestion, 'ate raisins', @user)
-      @result.should == "I didn't quite get that. @{Say} \"a\" for \"ate an entire pizza\", \"b\" for \"ate banana\", \"c\" for \"ate kitten\", or \"s\" to suggest we add what you sent."
+      @result.should == "I didn't quite get what \"ate raisins\" means. @{Say} \"a\" for \"ate an entire pizza\", \"b\" for \"ate banana\", \"c\" for \"ate kitten\", or \"s\" to suggest we add it."
     end
 
     it "should set the user's last suggested rules" do

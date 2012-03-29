@@ -93,7 +93,7 @@ class RuleValue < ActiveRecord::Base
     begin
       result = I18n.t(
         'activerecord.models.rule_value.suggestion_sms',
-        :default => "I didn't quite get that. @{Say} %{suggestion_phrase}, or \"s\" to suggest we add what you sent.",
+        :default => "I didn't quite get what \"#{attempted_value}\" means. @{Say} %{suggestion_phrase}, or \"s\" to suggest we add it.",
         :suggestion_phrase => suggestion_phrase(matches)
       )
       matches.pop if result.length > 160
@@ -102,7 +102,7 @@ class RuleValue < ActiveRecord::Base
     if matches.empty?
       result = I18n.t(
         'activerecord.models.act.parse.no_suggestion_sms',
-        :default => "Sorry, I don't understand what that means. @{Say} \"s\" to suggest we add what you sent."
+        :default => "Sorry, I don't understand what \"#{attempted_value}\" means. @{Say} \"s\" to suggest we add it."
       )
 
       return [result, nil]

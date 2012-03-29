@@ -25,12 +25,13 @@ Feature: Full text search suggestions restrict their own length (to under 160 ch
 
   Scenario: A suggestion that can be brought under length by dropping one suggestion
     When "+14155551212" sends SMS "proposal"
-    Then "+14155551212" should have received an SMS 'I didn't quite get that. Text "a" for "a modest proposal", "b" for "an indecent proposal", or "s" to suggest we add what you sent.'
+    And I dump all sent texts
+    Then "+14155551212" should have received an SMS 'I didn't quite get what "proposal" means. Text "a" for "a modest proposal", "b" for "an indecent proposal", or "s" to suggest we add it.'
 
   Scenario: A suggestion that can be brought under length by dropping two suggestions
     When "+14155551212" sends SMS "suggestion"
-    Then "+14155551212" should have received an SMS 'I didn't quite get that. Text "a" for "a brief suggestion", or "s" to suggest we add what you sent.'
+    Then "+14155551212" should have received an SMS 'I didn't quite get what "suggestion" means. Text "a" for "a brief suggestion", or "s" to suggest we add it.'
 
   Scenario: A suggestion with ridiculously long rules where no suggestion will fit
     When "+14155551212" sends SMS "nobody would ever"
-    Then "+14155551212" should have received an SMS "Sorry, I don't understand what that means. Text "s" to suggest we add what you sent."    
+    Then "+14155551212" should have received an SMS "Sorry, I don't understand what "nobody would ever" means. Text "s" to suggest we add it."    

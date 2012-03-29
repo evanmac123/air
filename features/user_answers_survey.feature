@@ -175,7 +175,7 @@ Background:
 
     When "+14155551212" sends SMS "123"
     Then "+14155551212" should not have received an SMS including `Sorry, I don't understand "123" as an answer to that question`
-    And "+14155551212" should have received an SMS `Sorry, I don't understand what that means. Text "s" to suggest we add what you sent.`
+    And "+14155551212" should have received an SMS `Sorry, I don't understand what "123" means. Text "s" to suggest we add it.`
 
   Scenario: User responds to question during the window with a bad value, but there's an actual rule with that value
     Given time is frozen at "2011-05-01 15:00 UTC"
@@ -209,12 +209,12 @@ Background:
   Scenario: User responds to question when the survey is not yet open
     Given time is frozen at "2011-05-01 10:59:59 UTC"
     And "+14155551212" sends SMS "1"
-    Then "+14155551212" should have received an SMS `Sorry, I don't understand what that means. Text "s" to suggest we add what you sent.`
+    Then "+14155551212" should have received an SMS `Sorry, I don't understand what "1" means. Text "s" to suggest we add it.`
 
   Scenario: User resonds to a question after the survey is closed
     Given time is frozen at "2011-05-01 21:00:01 UTC"
     And "+14155551212" sends SMS "1"
-    Then "+14155551212" should have received an SMS `Sorry, I don't understand what that means. Text "s" to suggest we add what you sent.`
+    Then "+14155551212" should have received an SMS `Sorry, I don't understand what "1" means. Text "s" to suggest we add it.`
 
   Scenario: User responds to last question in the survey
     Given the following survey answers exist:
