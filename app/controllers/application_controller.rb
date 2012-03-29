@@ -142,7 +142,7 @@ class ApplicationController < ActionController::Base
       @position = "top left"
     when 3
       @title = "Connect with Coworkers"
-      @instruct = "Click here to find people you know"
+      @instruct = "Click on 'Directory' to find people you know"
       @inverted = true
       @highlighted = '.nav-directory'
       @x = 0
