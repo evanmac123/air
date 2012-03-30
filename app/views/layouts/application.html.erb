@@ -40,8 +40,11 @@
   <div id="footer">
 		Copyright © 2012 H Engage, Inc.
   </div>
-  <% if @highlighted %>
+  <% if @highlighted || @show_introduction %>
     <%= javascript_include_tag 'site_tutorial' %>
+  <% end %>
+  
+  <% if @highlighted %>
     <%= render 'shared/site_tutorial' %>
     <div class="overlaying" ></div>
     <% if @flash_margin_left %>

@@ -12,7 +12,6 @@ $(function() {
     setTimeout("$('#search_for_friends_to_invite form').submit()", 1000);
   });
   
-  
   $("#command_central").click(function(){
     $('.bubbly').hide();
   });
@@ -41,8 +40,9 @@ $(function() {
   $('#lots_of_friends').live('click', function(){
     $('.second_half').show();
     $(this).hide();
-	$('#facebox,.popup,.content').css("height","500px");
+	  $('#facebox,.popup,.content').css("height","500px");
   });
+  
   if (document.getElementById('invite_friends_facebox')){
     $.facebox({ div: '#invite_friends_facebox' });
 
@@ -59,20 +59,21 @@ $(function() {
 
     }else{
       hideAndRenamePageBasedInviteFriends();
-
-      hideTutorial();
       $(document).bind('close.facebox', function() { 
         moveInviteFriendsFaceboxToPage();
-        showTutorial(); 
+        launchTutorialIntroduction(); 
         $('.helper').hide();
       });
       $('#facebox #autocomplete').focus();
     }
 
+  }else{
+    launchTutorialIntroduction();
   }
-
-
-
+  
+  $('#show_tutorial').click(function(){
+    showTutorial();
+  });
     
     
   
@@ -401,14 +402,14 @@ function clearAutocompleteStatus(){
   $('#autocomplete_status').text('');
 }
 
-function hideTutorial(){
-  setTimeout("$('#black_tooltip').hide()", 1); // delayed so it waits till it shows up before hiding it
-  setTimeout("$('.overlay').hide()", 1); // delayed so it waits till it shows up 
-}
-function showTutorial(){
-  $('#black_tooltip').show();
-  $('.overlay').show();
-}
+// function hideTutorial(){
+//   setTimeout("$('#black_tooltip').hide()", 1); // delayed so it waits till it shows up before hiding it
+//   setTimeout("$('.overlay').hide()", 1); // delayed so it waits till it shows up 
+// }
+// function showTutorial(){
+//   $('#black_tooltip').show();
+//   $('.overlay').show();
+// }
 
 function autoFocusColor(field, text){
   // Define Selectors
@@ -445,3 +446,29 @@ function autoFocusColor(field, text){
     }
   });
 }
+
+function launchTutorialIntroduction(){
+  if (document.getElementById('tutorial_introduction')){
+    var div = $('#tutorial_introduction');
+    var intro_content = div.html();
+    var options = {hideOnOverlayClick : false,
+                    showCloseButton	 : false,
+                    speedIn : 4000,
+                		speedOut : 2000,
+                  }
+    $.fancybox(intro_content, options);
+    div.hide();
+  }
+}
+
+function hideTutorialIntroduction(){
+  $('#fancybox-wrap').hide();
+  $('#fancybox-overlay').hide();
+}
+
+function showTutorialIntroduction(){
+  $('#fancybox-wrap').fadeIn(2777);
+  $('#fancybox-overlay').fadeIn(5000);
+}
+
+

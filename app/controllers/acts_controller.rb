@@ -7,7 +7,8 @@ class ActsController < ApplicationController
     invoke_tutorial
   
     @current_link_text = "Home"
-
+    @current_user = current_user
+    
     @show_only             = params[:show_only]
     @demo                  = current_user.demo
     @acts                  = find_requested_acts(@demo)

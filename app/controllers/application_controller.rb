@@ -124,6 +124,8 @@ class ApplicationController < ActionController::Base
     advance_tutorial
     @step = current_user.tutorial.current_step
     case @step
+    when 0
+      @show_introduction = true
     when 1
       @title = "Say It!"
       @instruct = 'Enter "ate a banana" and click Play to get 3 points'
@@ -166,13 +168,21 @@ class ApplicationController < ActionController::Base
       @position = "middle right"
     when 6
       @title = "See Your Friends"
-      @instruct = "Click 'My Profile' to see who's following you"
-      @show_finish_button = true
+      @instruct = "Great! Now you're following Kermit. See him in My Profile"
       @inverted = true
       @highlighted = '.nav-activity'
       @x = 0
       @y = -10
       @position = "bottom center"
+    when 7
+      @title = "You're All Done"
+      @instruct = "Have fun playing!"
+      @show_finish_button = true
+      @inverted = false
+      @highlighted = '#following'
+      @x = 0
+      @y = -10
+      @position = "left center"
     end
   end
 
@@ -180,6 +190,8 @@ class ApplicationController < ActionController::Base
     tutorial = current_user.tutorial
     path_info = @_env['PATH_INFO']
     case tutorial.current_step
+    when 0 # Introductory Slide
+      # They click the "next slide" button to advance
     when 1  # Say It!
       Tutorial.seed_example_user(current_user.demo)
       tutorial.bump_step if tutorial.act_completed_since_tutorial_start
@@ -193,7 +205,9 @@ class ApplicationController < ActionController::Base
       tutorial.back_up_a_step unless @other_users.present?
       tutorial.bump_step if tutorial.friend_followed_since_tutorial_start
     when 6
-      # Do nothing
+      tutorial.bump_step if path_info == user_path(current_user)
+    when 7
+      tutorial.ended_at = Time
     else
       # Do nothing
     end

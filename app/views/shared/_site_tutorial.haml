@@ -8,8 +8,8 @@
     - if @show_next_button
       = link_to "Next", tutorial_path, :method => :put, :id => :next_button
     - elsif @show_finish_button
-      = link_to "Finish", "activity", :id => :next_button
-    #steps{:class => @tooltip_class}= "Step #{@step} of 6"
+      = link_to "Finish", '#', :id => :finish_tutorial_button
+    #steps{:class => @tooltip_class}= "Step #{@step} of 7"
 
 = content_for :javascript do
   :javascript

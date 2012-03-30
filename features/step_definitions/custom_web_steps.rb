@@ -188,7 +188,6 @@ Then /^"(.*?)" should( not)? be visible$/ do |invisible_text, sense|
   sense = !sense
 
   elements = page.all(:css, "*", :text => invisible_text)
-
   if sense
     elements.should_not be_empty
     elements.each{|element| element.should be_visible}
@@ -234,6 +233,10 @@ end
 
 When /^I wait a second$/ do
   sleep 1
+end
+
+When /^I take five$/ do
+  sleep 5
 end
 
 When /^I press the button to save privacy settings$/ do
@@ -301,10 +304,11 @@ Then /^"([^"]*)" should have an open tutorial with current step "([^"]*)"$/ do |
   user.tutorial.current_step.should == step.to_i
 end
 
-Then /^"([^"]*)" should have a closed tutorial$/ do |name|
+Then /^"([^"]*)" should have a closed tutorial with current step "([^"]*)"$/ do |name, step|
   user = User.find_by_name(name)
   user.tutorial.should_not be_nil
   user.tutorial.ended_at.should_not be_nil
+  user.tutorial.current_step.should == step.to_i
 end
 
 When /^I close the facebox modal$/ do 

@@ -37,5 +37,6 @@ class UsersController < Clearance::UsersController
     @accepted_friends = @user.accepted_friends.sort_by {|ff| ff.name}
     @display_user_stats = current_user.can_see_activity_of(@user)
     @reason_for_privacy = @user.name + @user.reason_for_privacy
+    invoke_tutorial
   end
 end

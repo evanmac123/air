@@ -99,7 +99,16 @@
     <%= button_to "Get More Help", faq_path, :method => :get, :style => "float: left;" %>
   </div>
 </div>
-
+<% if @show_introduction %>
+  <div id='tutorial_introduction'>
+    <div id='tutorial_introduction_inner'>
+      <h2>Welcome&nbsp;to&nbsp;<%= @current_user.demo.name %></h2>
+      <p>We're going to take you on a quick tour of the site.</p>
+      <div class='link'><%= link_to "Quick Tour", tutorial_path, :method => :put, :class => 'show_tutorial' %></div>
+      <div class='link'><%= link_to "No thanks", '#', :class => 'no_thanks_tutorial' %></div>
+    </div>
+  </div>
+<% end %>
 
 
 <!--
