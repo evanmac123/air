@@ -28,7 +28,7 @@ Health::Application.routes.draw do
       :controller => 'passwords',
       :only       => [:create, :edit, :update]
 
-    resource :friendship, :only => [:create, :destroy]
+    resource :friendship, :only => [:create, :update, :destroy]
 
     resources :acts, :only => [:index], :controller => "users/acts"
   end

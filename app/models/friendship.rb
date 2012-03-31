@@ -71,6 +71,7 @@ class Friendship < ActiveRecord::Base
 
   def ignore
     destroy
+    self.reciprocal.destroy if self.reciprocal
     "OK, we'll ignore the request from #{user.name} to be your fan."
   end
 

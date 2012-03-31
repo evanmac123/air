@@ -111,6 +111,7 @@ When /^"([^"]*)" befriends "([^"]*)" by web$/ do |follower_login_string, followe
   And "I go to the profile page for \"#{followed_name}\""
   And "I click within \".follow-btn\""
   Then "I should see \"OK, you'll be friends with #{followed_name}, pending their acceptance.\""
+  And "show me the page"
   But "I should see \"friendship requested\" just once"
 end
 
@@ -270,3 +271,8 @@ Then /^I should see (\d+) followers?$/ do |count|
   page.all(:css, "#followed-by .user-name").count.should == count.to_i
 end
 
+Given /^I press the button next to "([^"]*)"$/ do |name|
+  slug = User.find_by_name(name).sms_slug
+  id = "update_friendship_with_" + slug
+  click_button(id)
+end

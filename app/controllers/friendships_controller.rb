@@ -21,19 +21,29 @@ class FriendshipsController < ApplicationController
       format.js
     end
   end
+  
+  def update
+    @user = User.find_by_slug(params[:user_id])
+    friendship = Friendship.where(:user_id => @user.id, :friend_id => current_user.id).first
+    if friendship
+      friendship.accept
+      add_success "You are now friends with #{@user.name}"
+    end
+    redirect_to :back
+  end
 
   def destroy
     @friend = User.find_by_slug(params[:user_id])
     friendship = current_user.friendships.where(:friend_id => @friend.id).first
     reciprocal_friendship = @friend.friendships.where(:friend_id => current_user.id).first
-    if friendship
+    if friendship || reciprocal_friendship
       Friendship.transaction do
-        friendship.destroy
+        friendship.destroy if friendship
         reciprocal_friendship.destroy if reciprocal_friendship
         flash[:success] = @friend.follow_removed_message
       end
     else
-      add_success "You were not friends with #{@user.name}. No action taken"
+      add_success "You were not friends with #{@friend.name}. No action taken"
     end
     
     respond_to do |format|

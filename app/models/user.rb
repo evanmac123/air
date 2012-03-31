@@ -180,7 +180,7 @@ class User < ActiveRecord::Base
     when 'everybody'
       return true 
     when 'connected'
-      return true if self.following? user
+      return true if self.friends_with? user
     end
     return false
   end
@@ -227,6 +227,10 @@ class User < ActiveRecord::Base
   end
 
   def pending_friends
+    friends.where('friendships.state' => 'pending')
+  end
+  
+  def initiated_friends
     friends.where('friendships.state' => 'initiated')
   end
 
@@ -234,18 +238,34 @@ class User < ActiveRecord::Base
     friends.where('friendships.state' => 'accepted')
   end
 
-  def following?(other)
-    accepted_friends.include?(other)
-  end
-  
-  def following_or_follow_pending?(other)
-    friends.include?(other)
-  end
-  
-  def follow_pending?(other)
+  def friendship_pending_with(other)
     pending_friends.include?(other)
   end
-
+  
+  def friends_with?(other)
+    self.relationship_with(other) == "friends"
+  end
+  
+  def relationship_with(other)
+    return "self" if self == other
+    from_me   = Friendship.where(:user_id => self.id, :friend_id => other.id).first
+    from_me_state = from_me ? from_me.state : nil
+    from_them = Friendship.where(:friend_id => self.id, :user_id => other.id).first
+    from_them_state = from_them ? from_them.state : nil
+    
+    if from_me.nil? && (from_them.nil?)
+      return "none"
+    elsif from_me_state == "initiated"
+      return "a_initiated"
+    elsif from_them_state == "initiated"
+      return "b_initiated"
+    elsif from_me_state == "accepted"
+      return "friends"
+    else
+      return "unknown"
+    end
+  end
+    
   # See comment by Demo#acts_with_current_demo_checked for an explanation of
   # why we do this.
 

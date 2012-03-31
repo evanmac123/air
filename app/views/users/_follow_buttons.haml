@@ -1,20 +1,40 @@
-.follow_buttons
-  - if current_user == user
-    .pending_notice This is you!
-  -else
-    - unless current_user.following_or_follow_pending? user  
-      .follow-btn
-        Add to Friends
-        = form_tag user_friendship_path(user) do
-          = submit_tag "Follow", :class => :hidden
-    - else
-      - if current_user.follow_pending? user
-        .pending_notice (friendship requested)
-        - follow_text = "Cancel request"
-      - else
-        .pending_notice (already friends)
-        - follow_text = "End friendship"
-      .stop-following-btn
-        = follow_text
-        = form_tag user_friendship_path(user), :method => :delete do
-          = submit_tag follow_text, :class => :hidden
+- case current_user.relationship_with(user) 
+- when "self"
+  - notice = "This is you!"
+- when "none"
+  - button_content = "Add to Friends"
+  - add_friend = true
+- when "b_initiated"
+  - button_content = "Approve Friendship"
+  - notice = "#{user.first_name} wants to be friends"
+  - approve_friend = true
+- when "a_initiated"
+  - button_content = "Cancel Request"
+  - notice = "friendship requested"
+  - drop_friend = true
+- when "friends"
+  - button_content = "Remove from Friends"
+  - notice = "already friends"
+  - drop_friend = true
+- else
+  - do_not_display = true
+- button_class = drop_friend ? 'stop-following-btn' : 'follow-btn'
+- submit_tag_id = "update_friendship_with_" + user.sms_slug
+
+- unless do_not_display
+  .follow_buttons
+    .pending_notice= notice
+    - if button_content
+      %div{:class => button_class}
+        = button_content 
+        - if drop_friend 
+          = form_tag user_friendship_path(user), :method => :delete do
+            = submit_tag "drop_friend", :class => :hidden, :id => submit_tag_id
+        - if add_friend
+          = form_tag user_friendship_path(user) do
+            = submit_tag "add_friend", :class => :hidden, :id => submit_tag_id
+        - elsif approve_friend
+          = form_tag user_friendship_path(user), :method => :put do
+            = submit_tag "add_friend", :class => :hidden, :id => submit_tag_id
+            
+            

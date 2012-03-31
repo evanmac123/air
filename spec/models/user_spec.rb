@@ -934,8 +934,10 @@ describe User, "#befriend" do
     # Befriend
     @left_user.befriend(@right_user)
     
-    @left_user.pending_friends.length.should == 1
-    @right_user.pending_friends.should be_empty
+    @left_user.initiated_friends.length.should == 1
+    @right_user.initiated_friends.should be_empty
+    @right_user.pending_friends.length.should == 1
+    @left_user.pending_friends.should be_empty
   end
   
   it "each shows up as each other friend using the .friends construct" do

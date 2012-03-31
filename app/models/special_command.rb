@@ -66,7 +66,7 @@ module SpecialCommand
     return parsing_error_message("Sorry, you can't add yourself as a friend.") if user_following.id == user_to_follow.id
 
     Friendship.transaction do
-      return parsing_success_message("You've already asked to be friends with #{user_to_follow.name}.") if user_following.pending_friends.where('friendships.friend_id' => user_to_follow.id).present?
+      return parsing_success_message("You've already asked to be friends with #{user_to_follow.name}.") if user_following.initiated_friends.where('friendships.friend_id' => user_to_follow.id).present?
 
       return parsing_success_message("You're already friends with #{user_to_follow.name}.") if user_following.accepted_friends.where('friendships.friend_id' => user_to_follow.id).present?
 

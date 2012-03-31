@@ -43,7 +43,10 @@
 #right-col
   %h2.title Connections
   #following.module
-    %h1.headline Friends
+    - if @current_user == @user 
+      %h1.headline Your Friends
+    - else
+      %h1.headline= "#{@user.first_name}'s Friends"
     - unless @display_user_stats
       = render 'follow_link'
     - else
@@ -58,23 +61,16 @@
                 Level
                 = friend.top_level_index
     .cf
-    
-  // #followed-by.module
-  //   %h1.headline Followed By
-  //   - unless @display_user_stats
-  //     = render 'follow_link'          
-  //   - else
-  //     %ul.following-users
-  //       - if @accepted_followers.empty?
-  //         %p No followers yet
-  //       - else
-  //         - @accepted_followers.each do |friend|
-  //           %li.user
-  //             %p.user-name= link_to friend.name, user_path(friend)
-  //             %p.user-level
-  //               Level
-  //               = friend.top_level_index
-  //   .cf
+  
+  - if @display_pending_friendships  
+    #followed-by.module
+      %h1.headline#friend_requests_title Your Friend Requests
+      %ul.following-users
+        - @pending_friends.each do |friend|
+          %li.user
+            %p.user-name= link_to friend.name, user_path(friend)
+
+      .cf
 
 - if @viewing_self
   = mp_track_page 'own profile'

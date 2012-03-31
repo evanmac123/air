@@ -59,7 +59,7 @@ Feature: Directory of other users
   Scenario: Success message
     Given I fill in "search bar" with "example.com"
     And I press "Find!"
-    Given I press "Follow"
+    And I press the button next to "Sven"
     Then I should see "OK, you'll be friends with Sven, pending their acceptance."
-    Given I press "Cancel request"
+    And I press the button next to "Sven"
     Then I should see "OK, you're no longer friends with Sven."

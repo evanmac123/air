@@ -104,14 +104,14 @@ Feature: User approves or ignores follower
     # And I should see "You've already ignored that person's request."
 
   Scenario: Follower attempts to follow twice in a row
-    When "+14155551212" sends SMS "follow bob"
-    And "+14155551212" sends SMS "friend bob"
+    When "+14155551212" sends SMS "friend bob"
+    And "+14155551212" sends SMS "follow bob"
     Then "+14155551212" should have received an SMS "OK, you'll be friends with Bob, pending their acceptance."
     And I dump all sent texts
     And "+14155551212" should have received an SMS "You've already asked to be friends with Bob."
 
   Scenario: Follower attempts to follow after one follow already ignored
-    When "+14155551212" sends SMS "follow bob"
+    When "+14155551212" sends SMS "friend bob"
     And "+16175551212" sends SMS "no"
     # Note that 'friend' and 'follow' are synonyms in special_command.rb
     And "+14155551212" sends SMS "friend bob"
@@ -132,11 +132,9 @@ Feature: User approves or ignores follower
 
   @javascript
   Scenario: Fandom shows acceptance status on profile page
-    Given the following accepted friendship exists:
-      | user      | friend      |
-      | name: Bob | name: Alice |
     When I sign in via the login page with "Alice/barley"
     And I find and request to be friends with "Bob"
+    And show me the page
     Then I should see "OK, you'll be friends with Bob, pending their acceptance."
 
     When I go to the profile page for "Alice"

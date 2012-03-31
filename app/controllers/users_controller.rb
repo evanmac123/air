@@ -26,6 +26,7 @@ class UsersController < Clearance::UsersController
 
   def show
     @user = User.find_by_slug(params[:id])
+    @current_user = current_user
     @locations = @user.demo.locations
     @acts = @user.acts.in_user_demo.displayable_to_user(current_user).recent(10)
     @viewing_self = signed_in? && current_user == @user
@@ -33,10 +34,11 @@ class UsersController < Clearance::UsersController
 
     @current_link_text = "My Profile" if @viewing_self
     
-    # @accepted_followers = @user.accepted_followers
+    @pending_friends = @user.pending_friends
     @accepted_friends = @user.accepted_friends.sort_by {|ff| ff.name}
     @display_user_stats = current_user.can_see_activity_of(@user)
     @reason_for_privacy = @user.name + @user.reason_for_privacy
+    @display_pending_friendships = true if @viewing_self && @pending_friends.present?
     invoke_tutorial
   end
 end
