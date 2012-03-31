@@ -878,7 +878,7 @@ div.content {
 }
 
 #faq_toc{
-  .contact_us_link{
+  .contact_us_link, .quick_tour_link{
     @include button-norm;
     font-size:11px;
     margin-top: 1.2ex;

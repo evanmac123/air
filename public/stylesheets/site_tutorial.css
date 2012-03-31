@@ -48,6 +48,8 @@ ul {
   color: #eee;
   z-index: 90;
   background: transparent url(/images/tooltip/white_arrow_big.png); }
+  #black_tooltip hr {
+    margin: 0; }
 
 #black_tooltip.inverted {
   background: transparent url(/images/tooltip/white_arrow_big_inverted.png); }

@@ -1,5 +1,13 @@
 class TutorialsController < ApplicationController
 
+  def create
+    # if existing, delete
+    existing = current_user.tutorial
+    existing.delete if existing
+    Tutorial.create(:user_id => current_user.id)
+    redirect_to activity_path
+  end
+
   def update
     tutorial = current_user.tutorial
     if params[:tutorial_request] == "no_thanks"

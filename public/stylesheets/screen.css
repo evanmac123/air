@@ -1768,7 +1768,7 @@ div.content div#no-login-yet {
 .hidden {
   display: none; }
 
-#faq_toc .contact_us_link {
+#faq_toc .contact_us_link, #faq_toc .quick_tour_link {
   background: #3f3f3f;
   /* Old browsers */
   background: -moz-linear-gradient(top, #3f3f3f 0%, #2e2f2d 100%);
@@ -1799,9 +1799,9 @@ div.content div#no-login-yet {
   font-size: 11px;
   margin-top: 1.2ex;
   width: 129px; }
-  #faq_toc .contact_us_link:hover {
+  #faq_toc .contact_us_link:hover, #faq_toc .quick_tour_link:hover {
     background: #588b3d; }
-  #faq_toc .contact_us_link:active {
+  #faq_toc .contact_us_link:active, #faq_toc .quick_tour_link:active {
     background: #909090; }
 
 .need_help {

@@ -160,14 +160,14 @@ class ApplicationController < ActionController::Base
       @y = -24
       @position = "bottom center"
     when 5
-      @title = "Follow"
+      @title = "Friend Them"
       @instruct = "Click 'Add to Friends' to befriend #{first_name}"
       @highlighted = '.directory'
       @x = 0
       @y = 100
       @position = "middle right"
     when 6
-      @title = "See Your Friends"
+      @title = "See All Your Friends"
       @instruct = "Great! Now you're following Kermit. See him in My Profile"
       @inverted = true
       @highlighted = '.nav-activity'
@@ -175,8 +175,8 @@ class ApplicationController < ActionController::Base
       @y = -10
       @position = "bottom center"
     when 7
-      @title = "You're All Done"
-      @instruct = "Have fun playing!"
+      @title = "Here They Are"
+      @instruct = "That's it! You now know how to connect with friends and how to earn points. Have fun playing!"
       @show_finish_button = true
       @inverted = false
       @highlighted = '#following'

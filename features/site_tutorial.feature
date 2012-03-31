@@ -89,4 +89,27 @@ Feature: Talking Chicken
       And I take five
       Then "Say It!" should not be visible
       
+    @javascript 
+    Scenario: Leah leaves tutorial, then starts it again from FAQ
+      Then I should see "Directory"
+      Given I close the facebox modal
+      And I wait a second
+      And I should see "quick tour"
+      When I click within ".show_tutorial"
+      And I should see "Directory"
+      And I take five
+      Then I should see "Say It!"
+      And I click within "#gear"
+      And I click within ".close_tutorial"
+      Then I should see "Directory"
+      Then "Brand New" should have a closed tutorial with current step "1"
+      And I take five
+      Then "Say It!" should not be visible
+      When I go to the help page
+      And I press "Take Quick Tour"
+      Then I should see "Directory"
+      Then "Brand New" should have an open tutorial with current step "0"
+      And I should be on the activity page
+      And I should see "Welcome"
+      
       

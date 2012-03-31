@@ -51,6 +51,7 @@ Health::Application.routes.draw do
   get "privacy" => "pages#privacy", :as => "privacy"
 
   put "tutorial" => "tutorials#update", :as => "tutorial"
+  post "tutorial" => "tutorials#create", :as => "tutorial"
   
   resource :home,  :only => :show
   resource :admin, :only => :show

@@ -21,7 +21,7 @@
 #faq_toc.module
   .need_help
     Need more help?
-    
+    = button_to 'Take Quick Tour', tutorial_path, :class => :quick_tour_link
     = button_to 'Contact Us', '#', :class => :contact_us_link, :method => :get, :onclick =>"return false"
   = render 'faq_toc'
 #faq_body.module
