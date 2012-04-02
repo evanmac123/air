@@ -32,7 +32,7 @@ Feature: Talking Chicken
     And I press "play_button"
     And I take five
     Then I should see "Your activity shows up here" 
-    When I follow "Next"
+    When I click within "#next_button"
     Then I should see "Connect with Coworkers"
     When I follow "Directory"
     Then I should see "Find Coworkers" 

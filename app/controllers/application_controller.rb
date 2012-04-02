@@ -127,62 +127,64 @@ class ApplicationController < ActionController::Base
     when 0
       @show_introduction = true
     when 1
-      @title = "Say It!"
-      @instruct = 'Enter "ate a banana" and click Play to get 3 points'
-      @inverted = true
+      @title = "1. Say It!"
+      @instruct = "Enter \"<span class='offset'>ate a banana</span>\" and click <span class='offset'>Play</span> to get 3 points"
       @highlighted = '.bar_command'
       @x = 350
       @y = -10
       @position = "bottom left"
+      @arrow_dir = "top-left"
       @flash_margin_left = "355px"  # This is so any failure messages will be offset & thereby visible
     when 2
-      @title = "Progress"
+      @title = "2. Progress"
       @instruct = "Your activity shows up here"
       @show_next_button = true
       @highlighted = '.feeds'
-      @x = 645
-      @y = -10
-      @position = "top left"
-    when 3
-      @title = "Connect with Coworkers"
-      @instruct = "Click on 'Directory' to find people you know"
-      @inverted = true
-      @highlighted = '.nav-directory'
       @x = 0
-      @y = -10
+      @y = -5
+      @position = "top center"
+      @arrow_dir = "bottom-center"
+    when 3
+      @title = "3. Connect with Coworkers"
+      @instruct = "Click on <span class='offset'>Directory</span> to find people you know"
+      @highlighted = '.nav-directory'
+      @x = -141
+      @y = -5
       @position = "bottom center"
+      @arrow_dir = "top-right"
     when 4
-      @title = "Find Coworkers"
-      @instruct = "For example, type '#{first_name}', then click FIND!"
-      @inverted = true
+      @title = "4. Find Coworkers"
+      @instruct = "For example, type \"<span class='offset'>#{first_name}</span>\", then click FIND!"
       @highlighted = '#search-box'
-      @x = -80
-      @y = -24
+      @x = -10
+      @y = -3
       @position = "bottom center"
+      @arrow_dir = "top-left"
     when 5
-      @title = "Friend Them"
-      @instruct = "Click 'Add to Friends' to befriend #{first_name}"
+      @title = "5. Friend Them"
+      @instruct = "Click '<span class='offset'>Add to Friends</span>' to befriend #{first_name}"
       @highlighted = '.directory'
       @x = 0
-      @y = 100
-      @position = "middle right"
+      @y = 298
+      @position = "top right"
+      @arrow_dir = "left"
     when 6
-      @title = "See All Your Friends"
-      @instruct = "Great! Now you're following Kermit. See him in My Profile"
-      @inverted = true
+      @title = "6. See All Your Friends"
+      @instruct = "Great! Now you're following Kermit. See him in <span class='offset'>My Profile</span>"
       @highlighted = '.nav-activity'
       @x = 0
-      @y = -10
+      @y = 0
       @position = "bottom center"
+      @arrow_dir = "top-center"
     when 7
-      @title = "Here They Are"
+      @title = "7. Here They Are"
       @instruct = "That's it! You now know how to connect with friends and how to earn points. Have fun playing!"
       @show_finish_button = true
-      @inverted = false
       @highlighted = '#following'
       @x = 0
-      @y = -10
-      @position = "left center"
+      @y = 128
+      @position = "top left"
+      @arrow_dir = "right"
     end
   end
 

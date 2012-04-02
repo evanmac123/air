@@ -42,25 +42,55 @@ ul {
 #black_tooltip {
   display: none;
   font-size: 12px;
-  height: 160px;
-  width: 320px;
-  padding: 25px;
+  height: 137px;
+  width: 361px;
+  padding: 0px;
   color: #eee;
-  z-index: 90;
-  background: transparent url(/images/tooltip/white_arrow_big.png); }
+  z-index: 90; }
   #black_tooltip hr {
     margin: 0; }
-
-#black_tooltip.inverted {
-  background: transparent url(/images/tooltip/white_arrow_big_inverted.png); }
+  #black_tooltip.bottom-left {
+    background: transparent url(/images/tutorial/bottom-left.png); }
+  #black_tooltip.bottom-center {
+    background: transparent url(/images/tutorial/bottom-center.png); }
+  #black_tooltip.bottom-right {
+    background: transparent url(/images/tutorial/bottom-right.png); }
+  #black_tooltip.top-left {
+    background: transparent url(/images/tutorial/top-left.png); }
+    #black_tooltip.top-left #differing_spacings {
+      top: 12px; }
+  #black_tooltip.top-center {
+    background: transparent url(/images/tutorial/top-center.png); }
+    #black_tooltip.top-center #differing_spacings {
+      top: 12px; }
+  #black_tooltip.top-right {
+    background: transparent url(/images/tutorial/top-right.png); }
+    #black_tooltip.top-right #differing_spacings {
+      top: 12px; }
+  #black_tooltip.left {
+    background: transparent url(/images/tutorial/left.png);
+    width: 372px;
+    height: 129px; }
+    #black_tooltip.left #differing_spacings {
+      left: 12px;
+      top: 3px; }
+    #black_tooltip.left #tutorial_menu {
+      right: 2px; }
+  #black_tooltip.right {
+    background: transparent url(/images/tutorial/right.png);
+    width: 372px;
+    height: 129px; }
+    #black_tooltip.right #tutorial_menu {
+      right: 20px;
+      top: 4px; }
 
 .overlay {
-  background-color: #787;
+  background-color: #353533;
   bottom: 0;
   left: 0;
-  opacity: 0.5;
+  opacity: 0.81;
   /*Takes value between 0 and 1*/
-  filter: alpha(opacity=50);
+  filter: alpha(opacity=81);
   /* IE7, IE8 */
   position: fixed;
   right: 0;
@@ -69,52 +99,64 @@ ul {
   display: none; }
 
 .title {
-  color: #dc0;
-  font-size: 34px;
-  text-align: center;
-  padding: 7px 0px; }
+  color: #d1ba74;
+  font-size: 21px;
+  text-transform: uppercase;
+  font-weight: 500;
+  padding: 12px 0px 7px;
+  line-height: 28px; }
 
 #tutorial_menu {
   position: absolute;
-  right: -5px;
-  top: -13px;
+  right: 7px;
+  top: 4px;
   width: 100px;
   padding-bottom: 30px; }
   #tutorial_menu #gear {
-    font-size: 21px;
-    font-weight: normal;
-    color: #667766;
+    cursor: pointer;
     float: right;
-    margin-bottom: -2px;
-    cursor: pointer; }
-  #tutorial_menu #arrow {
-    float: right; }
+    z-index: 1000;
+    width: 19px;
+    height: 19px; }
+    #tutorial_menu #gear img {
+      padding-top: 3px;
+      padding-left: 3px; }
   #tutorial_menu #options {
     display: none;
-    background: #ccc;
+    background: #f5f0c5;
     float: right;
     padding: 0px 2px;
     -moz-border-radius: 3px;
     -webkit-border-radius: 3px;
-    border-radius: 3px; }
+    border-radius: 3px;
+    border: 1px solid #bb9c3e;
+    z-index: 1000;
+    position: relative;
+    right: 14px;
+    top: -10px; }
   #tutorial_menu .close_tutorial {
     font-size: 15px;
     float: right; }
   #tutorial_menu a, #tutorial_menu a:hover {
-    color: #575; }
+    color: #a88c37; }
 
 #steps {
-  text-align: center;
-  font-size: 11px;
-  color: #667766;
+  text-align: right;
+  font-size: 10px;
+  line-height: 13px;
+  color: #d9ca5a;
   position: absolute;
-  top: 136px;
-  left: 248px;
+  top: 3px;
+  right: 20px;
   width: 100px; }
 
 .instruct {
   font-size: 17px;
-  color: green; }
+  line-height: 21px;
+  color: #5E5E54;
+  padding-top: 13px; }
+  .instruct .offset {
+    color: #ff8411; }
 
 strong {
   font-style: italic; }
@@ -137,17 +179,26 @@ strong {
   border-radius: 1ex; }
 
 #differing_spacings {
-  position: relative; }
+  position: relative;
+  padding: 0px 23px; }
 
-#differing_spacings.inverted {
-  top: 23px; }
-
-#next_button, #finish_tutorial_button {
+#finish_tutorial_button {
   float: right;
   font-size: 18px;
   padding-right: 2mm;
   padding-top: 2mm;
-  text-decoration: underline !important; }
+  text-decoration: underline !important;
+  position: absolute;
+  bottom: 9px;
+  right: 17px; }
+
+#next_button {
+  width: 74px;
+  height: 31px;
+  position: absolute;
+  right: 11px;
+  bottom: 19px;
+  background: url(/images/tutorial/next-btn.png); }
 
 #tutorial_introduction_inner {
   padding: 10mm 10mm 5mm; }

@@ -1,15 +1,14 @@
-- @tooltip_class = @inverted ? 'inverted' : ''
-#black_tooltip{:class => @tooltip_class} 
-  #differing_spacings{:class => @tooltip_class}
+#black_tooltip{:class => @arrow_dir} 
+  - if @show_next_button
+    = link_to tutorial_path, :method => :put do
+      #next_button
+  - elsif @show_finish_button
+    = link_to "Finish", '#', :id => :finish_tutorial_button
+  #differing_spacings{:class => @arrow_dir}
     = render 'shared/corner_icon'
     .title=@title
-    %hr
-    .instruct= @instruct 
-    - if @show_next_button
-      = link_to "Next", tutorial_path, :method => :put, :id => :next_button
-    - elsif @show_finish_button
-      = link_to "Finish", '#', :id => :finish_tutorial_button
-    #steps{:class => @tooltip_class}= "Step #{@step} of 7"
+    .instruct!= @instruct 
+
 
 = content_for :javascript do
   :javascript
