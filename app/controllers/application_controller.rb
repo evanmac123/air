@@ -145,7 +145,7 @@ class ApplicationController < ActionController::Base
       @position = "top center"
       @arrow_dir = "bottom-center"
     when 3
-      @title = "3. Connect with Coworkers"
+      @title = "3. Make Connections"
       @instruct = "Click on <span class='offset'>Directory</span> to find people you know"
       @highlighted = '.nav-directory'
       @x = -141
@@ -153,7 +153,7 @@ class ApplicationController < ActionController::Base
       @position = "bottom center"
       @arrow_dir = "top-right"
     when 4
-      @title = "4. Find Coworkers"
+      @title = "4. Find Your Peeps"
       @instruct = "For example, type \"<span class='offset'>#{first_name}</span>\", then click FIND!"
       @highlighted = '#search-box'
       @x = -10
@@ -162,23 +162,23 @@ class ApplicationController < ActionController::Base
       @arrow_dir = "top-left"
     when 5
       @title = "5. Friend Them"
-      @instruct = "Click '<span class='offset'>Add to Friends</span>' to befriend #{first_name}"
+      @instruct = "Click '<span class='offset'>Add to Friends</span>' to connect with #{first_name}"
       @highlighted = '.directory'
       @x = 0
       @y = 298
       @position = "top right"
       @arrow_dir = "left"
     when 6
-      @title = "6. See All Your Friends"
-      @instruct = "Great! Now you're friends with Kermit. See him in <span class='offset'>My Profile</span>"
+      @title = "6. See Your Profile"
+      @instruct = "Great! Now you're connected with Kermit. See him in <span class='offset'>My Profile</span>"
       @highlighted = '.nav-activity'
       @x = 0
       @y = 0
       @position = "bottom center"
       @arrow_dir = "top-center"
     when 7
-      @title = "7. Here They Are"
-      @instruct = "That's it! You now know how to connect with friends and how to earn points. Have fun playing!"
+      @title = "7. Have Fun Playing!"
+      @instruct = "That's it! You now know how to connect with friends and how to earn points."
       @show_finish_button = true
       @highlighted = '#following'
       @x = 0
