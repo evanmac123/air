@@ -57,8 +57,7 @@
           <h2 class="title"><%= label_tag "user_privacy_level", "Let these people see my actions:" %></h2>
           <%= form.select :privacy_level, [
             ['Everybody', 'everybody'],
-            ["Followers I've accepted", 'connected'],
-            ["Nobody", 'nobody']
+            ["Friends I've accepted", 'connected']
           ] %>
         </div>
         <%= submit_tag 'Save', :class => 'button_norm' %>

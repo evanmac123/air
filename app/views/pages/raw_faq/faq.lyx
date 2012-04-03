@@ -165,7 +165,7 @@ You can watch your points add up, see other people’s game play and how they
 
 \begin_layout Itemize
 Connect with your coworkers.
- You can also do this by sending “connect USER NAME” (e.g., “Connect jsmith”)
+ You can also do this by sending “friend USER NAME” (e.g., “Friend jsmith”)
  as a text or email.
  Your coworker will be notified and asked to confirm that they know you.
 \end_layout
@@ -189,9 +189,9 @@ If you limit your profile page to those you are connected to or nobody,
 \end_layout
 
 \begin_layout Standard
-If a coworker wants to connect with you, they will request to be your fan.
- You will receive a notification when a coworker requests to be your fan,
- and will have the option to confirm or (quietly) reject them.
+If a coworker wants to connect with you, they will request to be your friend.
+ You will receive a notification when a coworker requests to be your friend,
+ and you will have the option to confirm or (quietly) reject them.
  
 \end_layout
 
@@ -550,14 +550,14 @@ Connecting with a coworker is a great way to support their healthy activities.
 \end_layout
 
 \begin_layout Itemize
-You can text or email “connect” followed by their username (i.e., “connect
+You can text or email “friend” followed by their username (i.e., “friend
  jsmith”) 
 \end_layout
 
 \begin_layout Itemize
 Or you can go to hengage.com, look them up in the “Directory” page, click
  their name to go to their profile page, and you'll see a button that you
- can click to follow them.
+ can click to friend them.
 \end_layout
 
 \begin_layout Standard

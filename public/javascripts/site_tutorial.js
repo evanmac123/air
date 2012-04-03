@@ -51,10 +51,15 @@ function displayToolTip(trigger, display, x, y, reference){
           api: true
   });
 
-  setTimeout(function(){
-    wall_tooltip.show() 
-  }, 1500);//then show the first tool tip when document is ready
-  spotlightOn(highlighted);
+
+  if (wall_tooltip === undefined){
+    //do nothing
+  }else{
+    spotlightOn(highlighted);    
+    setTimeout(function(){
+      wall_tooltip.show() 
+    }, 1500);//then show the first tool tip when document is ready
+  }
 }
 
 function hideToolTip(){

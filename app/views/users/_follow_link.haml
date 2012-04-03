@@ -5,5 +5,5 @@
     = hidden_field_tag :friend_link, :follow_to_see_activity
     %p
       = "To see #{@user.name.split.first}'s information,"
-      = link_to "Follow", '#nowhere', :onclick => "$('form.follow_to_see').submit()"
+      = link_to "Friend", '#nowhere', :onclick => "$('form.follow_to_see').submit()"
       = @user.her_him

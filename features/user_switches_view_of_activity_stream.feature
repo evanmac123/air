@@ -111,7 +111,7 @@ Feature: User filters their view of the activity stream
     And I should see "Bob ate 5 puppies"
     But I should not see "Joe ate 5 kittens"
 
-   When I follow "Following"
+   When I follow "Friends"
     Then I should see "Bob ate 11 puppies"
     And I should see "Bob ate 10 puppies"
     And I should see "Bob ate 9 puppies"

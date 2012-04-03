@@ -50,7 +50,7 @@ Feature: User can follow another user by SMS
     Then I should see "No friends yet"
     And "+16178675309" should have received an SMS "Sorry, we couldn't find a user with the username johnsmith."
 
-  Scenario: User tries to follow themselves
+  Scenario: User tries to friend themselves
     When "+16178675309" sends SMS "follow vladgyster"
     And DJ cranks 5 times
     Then "+16178675309" should not have received an SMS including "fan of Vlad Gyster, pending their acceptance"

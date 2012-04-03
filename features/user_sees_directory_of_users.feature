@@ -62,4 +62,4 @@ Feature: Directory of other users
     And I press the button next to "Sven"
     Then I should see "OK, you'll be friends with Sven, pending their acceptance."
     And I press the button next to "Sven"
-    Then I should see "OK, you're no longer friends with Sven."
+    Then I should see "Friendship request canceled"

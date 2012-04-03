@@ -88,22 +88,16 @@ Feature: User sets their privacy level
     Scenarios:
       | level                   |
       | Everybody               |
-      | Followers I've accepted |
-      | Nobody                  |
+      | Friends I've accepted   |
 
   Scenario: User can set their privacy level in the settings page
     When I go to the settings page
-    Then "Let these people see my actions:" should have "Followers I've accepted" selected
+    Then "Let these people see my actions:" should have "Friends I've accepted" selected
 
     When I select "Everybody" from "Let these people see my actions:"
     And I press the button to save privacy settings
     Then I should see "OK, your settings were updated."
     And "Let these people see my actions:" should have "Everybody" selected
-
-    When I select "Nobody" from "Let these people see my actions:"
-    And I press the button to save privacy settings
-    Then I should see "OK, your settings were updated."
-    And "Let these people see my actions:" should have "Nobody" selected
 
   Scenario: User can change their privacy level
     Given the following user exists:
@@ -123,17 +117,11 @@ Feature: User sets their privacy level
     When I sign in via the login page as "TrueFan/foobar"
     Then I should see "WTMI ate puppy less than a minute ago"
 
-    When "WTMI/foobar" changes their privacy level to "Followers I've accepted"
+    When "WTMI/foobar" changes their privacy level to "Friends I've accepted"
     And I sign in via the login page as "Bob/foobar"
     Then I should not see "WTMI ate puppy less than a minute ago"
     When I sign in via the login page as "TrueFan/foobar"
     Then I should see "WTMI ate puppy less than a minute ago"
-
-    When "WTMI/foobar" changes their privacy level to "Nobody"
-    And I sign in via the login page as "Bob/foobar"
-    Then I should not see "WTMI ate puppy less than a minute ago"
-    When I sign in via the login page as "TrueFan/foobar"
-    Then I should not see "WTMI ate puppy less than a minute ago"
 
     When "WTMI/foobar" changes their privacy level to "Everybody"
     And I sign in via the login page as "Bob/foobar"

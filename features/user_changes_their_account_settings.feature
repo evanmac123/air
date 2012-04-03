@@ -93,7 +93,7 @@ Feature: User can edit their account settings
     And "+18085551212" sends SMS "follow phil"
     And DJ cranks 5 times
 
-    Then "+14155551212" should have received SMS "Alice has asked to be your friend. Text\nYES to accept,\nNO to ignore (in which case they won't be notified)"
+    Then "+14155551212" should have received SMS "Alice has asked to be your friend. Text\nYES to accept,\nNO to quietly ignore"
     And "phil@example.com" should have no emails
 
   Scenario: User can choose notification by email and SMS
@@ -104,7 +104,7 @@ Feature: User can edit their account settings
     And "+18085551212" sends SMS "follow phil"
     And DJ cranks 5 times
 
-    Then "+14155551212" should have received SMS "Alice has asked to be your friend. Text\nYES to accept,\nNO to ignore (in which case they won't be notified)"
+    Then "+14155551212" should have received SMS "Alice has asked to be your friend. Text\nYES to accept,\nNO to quietly ignore"
     And "phil@example.com" should have received a follow notification email about "Alice"
 
 #   Scenario: User can choose notification by neither email nor SMS

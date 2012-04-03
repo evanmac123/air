@@ -6,7 +6,7 @@ feature "User Requests Rules"do
 
     mo_sms("+14155551212", "rules")
     expect_mt_sms("+14155551212",
-                  %{FAN [someone's ID] - become a fan (ex: "fan bob12")\nMYID - see your ID\nRANKING - see scoreboard\nHELP - help desk, instructions\nPRIZES - see what you can win}
+                  %{FRIEND [someone's ID] - become friends (ex: "friend bob12")\nMYID - see your ID\nRANKING - see scoreboard\nHELP - help desk, instructions\nPRIZES - see what you can win}
     )
   end
 end

@@ -77,7 +77,7 @@ class Mailer < ActionMailer::Base
 
     mail :to      => to,
          :from => from_address,
-         :subject => "#{follower_name} wants to be your fan on H Engage"
+         :subject => "#{follower_name} wants to be your friend on H Engage"
   end
 
   def set_password(user_id)

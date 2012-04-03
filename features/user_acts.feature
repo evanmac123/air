@@ -66,7 +66,6 @@ Feature: User acts
   Scenario: User enters bad act via the website
     When I sign in via the login page as "Dan/foobar"
     And I enter the act code "chainsaw massacred"
-    And show me the page
     Then I should see the error "Sorry, I don't understand what "chainsaw massacred" means."
 
   Scenario: User acts, with a trailing period

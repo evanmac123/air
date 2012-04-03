@@ -44,7 +44,7 @@ Feature: Talking Chicken
     When I click within ".follow-btn"
     Then I should see "Directory" 
     Then "Brand New" should have an open tutorial with current step "6" 
-    And I should see "Now you're following Kermit"
+    And I should see "Now you're friends with Kermit"
     When I follow "My Profile"
     Then I should see "Kermit the Frog"
     Then "Brand New" should have an open tutorial with current step "7"
@@ -64,7 +64,6 @@ Feature: Talking Chicken
       And I take five
       And I follow "No thanks"
       And I take five
-      And show me the page
       And "No thanks" should not be visible
       Then "Brand New" should have a closed tutorial with current step "0"
       And I go to the activity page

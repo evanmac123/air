@@ -170,7 +170,7 @@ class ApplicationController < ActionController::Base
       @arrow_dir = "left"
     when 6
       @title = "6. See All Your Friends"
-      @instruct = "Great! Now you're following Kermit. See him in <span class='offset'>My Profile</span>"
+      @instruct = "Great! Now you're friends with Kermit. See him in <span class='offset'>My Profile</span>"
       @highlighted = '.nav-activity'
       @x = 0
       @y = 0

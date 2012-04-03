@@ -43,7 +43,7 @@ def expected_request_text(follower, request_index)
   expected_request_command = request_index ? "YES #{request_index}" : "YES"
   expected_ignore_command = request_index ? "NO #{request_index}" : "NO"
 
-  "#{follower.name} has asked to be your friend. Text\n#{expected_request_command} to accept,\n#{expected_ignore_command} to ignore (in which case they won't be notified)"
+  "#{follower.name} has asked to be your friend. Text\n#{expected_request_command} to accept,\n#{expected_ignore_command} to quietly ignore"
 end
 
 Given /^"(.*?)" follows "(.*?)"$/ do |follower_name, followed_name|
@@ -111,7 +111,6 @@ When /^"([^"]*)" befriends "([^"]*)" by web$/ do |follower_login_string, followe
   And "I go to the profile page for \"#{followed_name}\""
   And "I click within \".follow-btn\""
   Then "I should see \"OK, you'll be friends with #{followed_name}, pending their acceptance.\""
-  And "show me the page"
   But "I should see \"friendship requested\" just once"
 end
 
@@ -194,7 +193,6 @@ Then /^"([^"]*)" should be able to accept "([^"]*)" by SMS( with index \d+)?$/ d
   follower = User.find_by_name(follower_name)
 
   request_index = request_index_string.present? ? request_index_string.split.last : nil
-
   acceptance_string = request_index ? "yes #{request_index}" : "yes"
   Then "\"#{followed.phone_number}\" should have received an SMS \"#{expected_request_text(follower, request_index)}\""
   When "\"#{followed.phone_number}\" sends SMS \"#{acceptance_string}\""
@@ -219,7 +217,7 @@ Then /^"([^"]*)" should be able to ignore "([^"]*)" by SMS( with index \d+)?$/ d
 
   Then "\"#{followed.phone_number}\" should have received an SMS \"#{expected_request_text(follower, request_index)}\""
   When "\"#{followed.phone_number}\" sends SMS \"#{rejection_string}\""
-  Then "\"#{followed.phone_number}\" should have received an SMS \"OK, we'll ignore the request from #{follower.name} to be your fan.\""
+  Then "\"#{followed.phone_number}\" should have received an SMS \"OK, we'll ignore the request from #{follower.name} to be your friend.\""
   When "I sign in via the login page with \"#{followed_login_string}\""
   And %{I go to the profile page for "#{followed_name}"}
   And "I should not see \"#{follower.name}\" as a follower"
@@ -254,7 +252,7 @@ end
 Then /^"([^"]*)" should have received a follow notification email about "([^"]*)"( with phone number "(.*?)")?$/ do |address, follower_name, _nothing, phone_number|
   phone_number ||= TWILIO_PHONE_NUMBER.as_pretty_phone
 
-  When "\"#{address}\" opens the email with subject \"#{follower_name} wants to be your fan on H Engage\""
+  When "\"#{address}\" opens the email with subject \"#{follower_name} wants to be your friend on H Engage\""
 
   Then %{they should see "YES" in the email body}
   And %{they should see "NO" in the email body}

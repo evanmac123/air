@@ -134,7 +134,6 @@ Feature: User approves or ignores follower
   Scenario: Fandom shows acceptance status on profile page
     When I sign in via the login page with "Alice/barley"
     And I find and request to be friends with "Bob"
-    And show me the page
     Then I should see "OK, you'll be friends with Bob, pending their acceptance."
 
     When I go to the profile page for "Alice"

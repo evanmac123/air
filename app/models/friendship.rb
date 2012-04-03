@@ -72,7 +72,7 @@ class Friendship < ActiveRecord::Base
   def ignore
     destroy
     self.reciprocal.destroy if self.reciprocal
-    "OK, we'll ignore the request from #{user.name} to be your fan."
+    "OK, we'll ignore the request from #{user.name} to be your friend."
   end
 
   protected
@@ -86,7 +86,7 @@ class Friendship < ActiveRecord::Base
   end
 
   def follow_notification_text
-    "#{user.name} has asked to be your friend. Text\n#{accept_command} to accept,\n#{ignore_command} to ignore (in which case they won't be notified)"
+    "#{user.name} has asked to be your friend. Text\n#{accept_command} to accept,\n#{ignore_command} to quietly ignore"
   end
 
   def accept_command

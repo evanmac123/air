@@ -26,6 +26,10 @@ class UsersController < Clearance::UsersController
 
   def show
     @user = User.find_by_slug(params[:id])
+    unless @user
+      add_failure "No user known by the username #{params[:id]}"
+      redirect_to activity_path and return
+    end
     @current_user = current_user
     @locations = @user.demo.locations
     @acts = @user.acts.in_user_demo.displayable_to_user(current_user).recent(10)
