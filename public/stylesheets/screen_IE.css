@@ -100,4 +100,17 @@ body.scores div.points {
   width: 82px!important; }
 
 #password_prompt {
-  top: -8px; }
+  top: -7px; }
+
+#session_email {
+  padding-left: 15px !important;
+  width: 300px; }
+
+.quick_tour_link {
+  padding-right: 100px !important; }
+
+#feed_wrapper, #bar_command_wrapper, #search_box_wrapper, #directory_wrapper, #following_wrapper {
+  position: relative; }
+
+#bar_command_wrapper {
+  z-index: 1; }

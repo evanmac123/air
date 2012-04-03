@@ -455,8 +455,8 @@ function launchTutorialIntroduction(){
     var options = {hideOnOverlayClick : false,
                     showCloseButton	 : false,
                     speedIn : 4000,
-                		speedOut : 2000,
-                  }
+                		speedOut : 2000
+                  };
     $.fancybox(intro_content, options);
     div.hide();
   }

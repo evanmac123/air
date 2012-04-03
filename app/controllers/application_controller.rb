@@ -129,9 +129,9 @@ class ApplicationController < ActionController::Base
     when 1
       @title = "1. Say It!"
       @instruct = "Enter \"<span class='offset'>ate a banana</span>\" and click <span class='offset'>Play</span> to get 3 points"
-      @highlighted = '.bar_command'
+      @highlighted = '#bar_command_wrapper'
       @x = 350
-      @y = -10
+      @y = 50
       @position = "bottom left"
       @arrow_dir = "top-left"
       @flash_margin_left = "355px"  # This is so any failure messages will be offset & thereby visible
@@ -139,8 +139,8 @@ class ApplicationController < ActionController::Base
       @title = "2. Progress"
       @instruct = "Your activity shows up here"
       @show_next_button = true
-      @highlighted = '.feeds'
-      @x = 0
+      @highlighted = '#feed_wrapper'
+      @x = -196
       @y = -5
       @position = "top center"
       @arrow_dir = "bottom-center"
@@ -155,7 +155,7 @@ class ApplicationController < ActionController::Base
     when 4
       @title = "4. Find Your Peeps"
       @instruct = "For example, type \"<span class='offset'>#{first_name}</span>\", then click FIND!"
-      @highlighted = '#search-box'
+      @highlighted = '#search_box_wrapper'
       @x = -10
       @y = -3
       @position = "bottom center"
@@ -163,7 +163,7 @@ class ApplicationController < ActionController::Base
     when 5
       @title = "5. Friend Them"
       @instruct = "Click '<span class='offset'>Add to Friends</span>' to connect with #{first_name}"
-      @highlighted = '.directory'
+      @highlighted = '#directory_wrapper'
       @x = 0
       @y = 298
       @position = "top right"
@@ -180,7 +180,7 @@ class ApplicationController < ActionController::Base
       @title = "7. Have Fun Playing!"
       @instruct = "That's it! You now know how to connect with friends and how to earn points."
       @show_finish_button = true
-      @highlighted = '#following'
+      @highlighted = '#following_wrapper'
       @x = 0
       @y = 128
       @position = "top left"

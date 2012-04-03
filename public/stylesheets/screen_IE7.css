@@ -180,3 +180,9 @@ body.users-index div.user-info {
 .header .masthead .mast_bottom .bar_command input[type="text"] {
   padding-top: 8px;
   padding-bottom: 2px; }
+
+#password_prompt {
+  top: 7px; }
+
+#command_central {
+  margin-top: 10px; }

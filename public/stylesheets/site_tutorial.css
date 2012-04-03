@@ -75,7 +75,7 @@ ul {
       left: 12px;
       top: 3px; }
     #black_tooltip.left #tutorial_menu {
-      right: 2px; }
+      right: 20px; }
   #black_tooltip.right {
     background: transparent url(/images/tutorial/right.png);
     width: 372px;

@@ -16,6 +16,7 @@ $(function() {
   $('#gear').click(function(){
     showMenu();
   });
+  
 });
 
 
@@ -32,9 +33,15 @@ function spotlightOff() {
 //white background to the html element id passed as an argument in the func
 function spotlightOn(element) {
     $(element).addClass('spotlight');
-    $(element).css(" background-color", "white");
     $('.overlaying').addClass('overlay');
-    $('.overlay').fadeIn(2000);
+
+    
+    
+    $('.overlay').fadeIn(2000, function(){
+      //Force the opacity level for IE7/8 as soon as it's done fading in
+      $('.overlay').css('filter', "alpha(opacity='81')"); 
+    });
+
 }
 
 function displayToolTip(trigger, display, x, y, reference){

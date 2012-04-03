@@ -1,0 +1,118 @@
+.container
+  #suggested-tasks
+
+    %h2#daily_dose_title{:style => 'display: inline;'} Here is your Daily Dose!
+    
+    = render :partial => 'displayable_task_suggestion', :collection => @displayable_task_suggestions 
+    = content_for :javascript do
+      :javascript 
+        $(".recently-completed").css({'border-color': 'white'}).effect('highlight', {}, 500, function(){
+          $(this).fadeOut(2000, function(){$(this).remove()})
+        });
+    - if @displayable_task_suggestions.count > @num_suggestions_to_display 
+    
+      .more-tasks
+        = link_to "#", :title => "Show more suggested tasks"do
+          = image_tag "/images/v3/arrow-down.png", :class => 'grey-show-more-arrows' 
+          %span#show-more-tasks Show more
+          = image_tag "/images/v3/arrow-down.png", :class => 'grey-show-more-arrows' 
+    - else 
+      %div{:style => 'height: 12px;'}
+    
+  .invite-module.module
+    = render :partial => "invite_your_friends"  
+  #feed_wrapper 
+    .feeds.module
+
+      %h1.headline#feeds_title Feeds
+
+      %ul.tabs#activity-feed-tabs
+        = tab "All", acts_path(:format => :js), @active_act_tab, :class => 'feed-all' 
+        = tab "Friends", acts_path(:show_only => 'following', :format => :js), @active_act_tab, :class => 'feed-following' 
+        = tab "Mine", acts_path(:show_only => 'mine', :format => :js), @active_act_tab, :class => 'feed-mine' 
+    
+
+      %hr.cf
+
+      = content_for :javascript do 
+        = mp_track_page 'activity feed', :game => @demo.name 
+        = content_for :javascript_tag do
+          :javascript 
+            $('#show-more-tasks').click(function(){
+              if ($('.overflow-tasks').css('display') == 'none'){
+                $('#show-more-tasks').text('Show less');
+                setTimeout("$('.grey-show-more-arrows').attr('src', '/images/v3/arrow-up.png')", 300);
+              }else{
+                $('#show-more-tasks').text('Show more');  
+                setTimeout("$('.grey-show-more-arrows').attr('src', '/images/v3/arrow-down.png')", 300);            
+              }
+              $('.overflow-tasks').fadeToggle('slow');
+            })
+      
+            function updateShownActs(url) {
+              $('#user-acts').html('= image_tag("spinner.gif") ');
+              $.get(url, function(data) {
+                $('#user-acts').html(data);
+              });
+            }
+
+            $("#activity-feed-tabs a").click(function(e) {
+              updateShownActs($(this).attr('href'));
+              e.preventDefault();
+            });
+    
+
+      %ul#user-acts
+        = render :partial => "shared/new_act", :collection => @acts, :as => :act 
+    
+
+      .seemore
+        = image_tag "/images/v3/arrow-down.png" 
+        = link_to "See more", '#', :id => 'see-more' 
+        = image_tag "/images/v3/arrow-down.png" 
+    
+
+        = image_tag 'spinner.gif', :id => 'see-more-spinner', :style => 'display:none' 
+
+        = render 'shared/bind_see_more', 
+          :offset_var_name     => 'actOffset', 
+          :current_offset      => @acts.length,
+          :button_selector     => '#see-more',
+          :spinner_selector    => '#see-more-spinner',
+          :original_path       => acts_path(:format => :js, :show_only => @show_only, :mode => 'see-more'),
+          :path_var_name       => 'actsPath',
+          :mixpanel_event_name => 'saw more acts'
+    
+
+
+  
+
+
+#faq_mini
+  #faq_mini_inner
+    = render 'pages/faq_mini' 
+    %br
+    .Standard Thanks for reading! Enter "<span class='green bold'>game on</span>" in the play box to earn 3 pts!</div>
+    = button_to "Get More Help", faq_path, :method => :get, :style => "float: left;" 
+
+
+- if @show_introduction 
+  #tutorial_introduction
+    #tutorial_introduction_inner
+      %h2= "Welcome to #{@current_user.demo.name}"
+      %p We're going to take you on a quick tour of the site.
+      .link= link_to "Quick Tour", tutorial_path, :method => :put, :class => 'show_tutorial'
+      .link= link_to "No thanks", '#', :class => 'no_thanks_tutorial' 
+    
+
+
+
+=#Here is the html to put into the daily dose to make it pop:
+=# application.js version
+=# fancyBoxFaqMini();
+=# daily dose version
+=#<a onclick="fancyBoxFaqMini()" href="#">ClickMe</a>
+
+
+= stylesheet_link_tag 'jquery.fancybox-1.3.4' 
+= javascript_include_tag 'jquery.fancybox-1.3.4' 

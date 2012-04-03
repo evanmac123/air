@@ -166,3 +166,10 @@ body.users-index div#secondary input[type="submit"] {
 /* external */
 body.external div.container div.inv-forms form {
   padding-bottom: 6.5ex; }
+
+#command_central {
+  padding: 8px;
+  padding-bottom: 1px;
+  padding-left: 16px;
+  padding-right: 4px;
+  margin-top: 10px; }
