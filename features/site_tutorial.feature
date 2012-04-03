@@ -33,18 +33,18 @@ Feature: Talking Chicken
     And I take five
     Then I should see "Your activity shows up here" 
     When I click within "#next_button"
-    Then I should see "Connect with Coworkers"
+    Then I should see "Click on Directory to find people you know"
     When I follow "Directory"
-    Then I should see "Find Coworkers" 
+    Then I should see 'For example, type "Kermit"'
     When I fill in "search_string" with "Kermit"
     And I press "Find!"
     And I wait a second
     
-    Then I should see "Click 'Add to Friends' to befriend Kermit"
+    Then I should see "Click 'Add to Friends' to connect with Kermit"
     When I click within ".follow-btn"
     Then I should see "Directory" 
     Then "Brand New" should have an open tutorial with current step "6" 
-    And I should see "Now you're friends with Kermit"
+    And I should see "Now you're connected with Kermit"
     When I follow "My Profile"
     Then I should see "Kermit the Frog"
     Then "Brand New" should have an open tutorial with current step "7"

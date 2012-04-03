@@ -1,6 +1,10 @@
 Feature: User can follow another user by SMS
 
   Background:
+    Given the following demos exist:
+      | name     |
+      | Yoyodyne |
+      | BigCorp  |
     Given the following claimed users exist:
       | name        | phone number | demo           | privacy level |
       | Dan Croak   | +16175551212 | name: Yoyodyne | everybody     |
@@ -8,13 +12,13 @@ Feature: User can follow another user by SMS
       | John Smith  | +12125551212 | name: BigCorp  | everybody     |
     And the following users exist:
       | name        | phone number | demo           |
-      | Orange        |              | name: Yoyodyne |
-    And "Orange" has password "foobar"
+      | Joe Bob     |              | name: Yoyodyne |
+    And "Vlad Gyster" has password "foobar"
 
   Scenario: User follows another by SMS
     When "+16178675309" sends SMS "follow dancroak"
     And "+16175551212" sends SMS "yes"
-    And I sign in via the login page as "Orange/foobar"
+    And I sign in via the login page with "Vlad Gyster/foobar"
     And I go to the profile page for "Dan Croak"
     Then I should see "with Vlad Gyster"
     And "+16178675309" should have received an SMS "OK, you'll be friends with Dan Croak, pending their acceptance."
@@ -23,7 +27,7 @@ Feature: User can follow another user by SMS
     When "+16178675309" sends SMS "follow dancroak"
     And "+16175551212" sends SMS "yes"
     And "+16178675309" sends SMS "follow dancroak"
-    And I sign in via the login page as "Orange/foobar"
+    And I sign in via the login page with "Vlad Gyster/foobar"
     And I go to the profile page for "Vlad Gyster"
     Then I should see "is now friends with Dan Croak"
     And "+16178675309" should have received an SMS "You're already friends with Dan Croak."
@@ -31,21 +35,21 @@ Feature: User can follow another user by SMS
   Scenario: User tries to follow another twice while the first request is pending
     When "+16178675309" sends SMS "follow dancroak"
     And "+16178675309" sends SMS "follow dancroak"
-    And I sign in via the login page as "Orange/foobar"
+    And I sign in via the login page with "Vlad Gyster/foobar"
     And I go to the profile page for "Vlad Gyster"
     Then I should see "No friends yet"
     And "+16178675309" should have received an SMS "You've already asked to be friends with Dan Croak."
     
   Scenario: User tries to follow another user who doesn't exist
     When "+16178675309" sends SMS "follow mrnobody"
-    And I sign in via the login page as "Orange/foobar"
+    And I sign in via the login page with "Vlad Gyster/foobar"
     And I go to the profile page for "Vlad Gyster"
     Then I should see "No friends yet"
     And "+16178675309" should have received an SMS "Sorry, we couldn't find a user with the username mrnobody."
 
   Scenario: User tries to follow another user in a different demo
     When "+16178675309" sends SMS "follow johnsmith"
-    And I sign in via the login page as "Orange/foobar"
+    And I sign in via the login page with "Vlad Gyster/foobar"
     And I go to the profile page for "Vlad Gyster"
     Then I should see "No friends yet"
     And "+16178675309" should have received an SMS "Sorry, we couldn't find a user with the username johnsmith."
@@ -59,7 +63,7 @@ Feature: User can follow another user by SMS
   
   Scenario: Request to follow a user who hasn't claimed their account
     When "+16178675309" sends SMS "follow joebob"
-    And I sign in via the login page as "Orange/foobar"
+    And I sign in via the login page with "Vlad Gyster/foobar"
     And I go to the profile page for "Vlad Gyster"
     Then I should see "No friends yet"
     And "+16178675309" should have received an SMS "Sorry, we couldn't find a user with the username joebob."
@@ -72,7 +76,7 @@ Feature: User can follow another user by SMS
     When "+16178675309" sends SMS "connect dancroak"
     And "+16175551212" sends SMS "yes"
     And DJ cranks 10 times
-    And I sign in via the login page as "Orange/foobar"
+    And I sign in via the login page as "Vlad Gyster/foobar"
     And I go to the profile page for "Dan Croak"
     # Then I should see "has 1 fan"
     And "+16178675309" should have received an SMS "Dan Croak has approved your friendship request."

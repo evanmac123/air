@@ -2,7 +2,6 @@ class UsersController < Clearance::UsersController
   layout "application"
   
   def index
-  
     @friend_ids = current_user.friend_ids
     @search_link_text = "our search bar"
     text = params[:search_string]
@@ -25,12 +24,12 @@ class UsersController < Clearance::UsersController
   end
 
   def show
-    @user = User.find_by_slug(params[:id])
+    @user = current_user.demo.users.find_by_slug(params[:id])
     unless @user
-      add_failure "No user known by the username #{params[:id]}"
-      redirect_to activity_path and return
+      render :file => "#{Rails.root}/public/404.html", :status => :not_found, :layout => false
+      return
     end
-    @current_user = current_user
+
     @locations = @user.demo.locations
     @acts = @user.acts.in_user_demo.displayable_to_user(current_user).recent(10)
     @viewing_self = signed_in? && current_user == @user
