@@ -4,7 +4,7 @@ class FriendshipsController < ApplicationController
   def create
     @user = User.find_by_slug(params[:user_id])
     new_friendship = current_user.befriend(@user)
-    new_friendship.accept if @user.name == Tutorial.example_search_name
+    new_friendship.accept if new_friendship && (@user.name == Tutorial.example_search_name)
     @user.reload
     properties = params[:friend_link] == "follow_to_see_activity" ? {:friend_link => :follow_to_see_activity} : {}
     
