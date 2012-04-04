@@ -19,7 +19,6 @@ class SmsController < ActionController::Metal
 
     incoming_sms = IncomingSms.create!(:from => params['From'], :body => params['Body'], :twilio_sid => params['SmsSid'])
 
-    @user = user = User.find_by_phone_number(params['From'])
     reply = construct_reply(Command.parse(params['From'], params['Body'], :allow_claim_account => true, :channel => :sms, :receiving_number => params['To']))
 
     OutgoingSms.create!(:to => params['From'], :mate => incoming_sms, :body => reply)
@@ -38,6 +37,8 @@ class SmsController < ActionController::Metal
   end
 
   def channel_specific_translations
+    @user = User.find_by_phone_number(params['From'])
+
     {
       :say => "text", 
       :Say => "Text",
