@@ -61,7 +61,7 @@ Feature: Game has a beginning and an end
     When I sign in via the login page as "Phil/foobar" and choose to be remembered
     And I go to the profile page for "Vlad"
     And time is frozen at "2010-05-01 12:00:01 UTC"
-    And I press the follow button for "Vlad"
+    And I press the befriend button for "Vlad"
     And DJ cranks 5 times
     Then "+16175551212" should not have received any SMSes
     And I should see "Thanks for playing! The game is now over."

@@ -1,7 +1,7 @@
 @import "standard";
 $options_radius: 3px;
-$steps_color: #D9CA5A;
-$title_color: #D1BA74;
+$steps_color: #a79b4f;
+$title_color: #a79b4f;
 $orange: #FF8411;
 #black_tooltip{
   display:none;
@@ -67,6 +67,7 @@ $orange: #FF8411;
 .title{
   color: $title_color;
   font-size: 21px;
+  font-family: ubuntu, arial, sans-serif;
   text-transform: uppercase;
   font-weight: 500;
   padding: 12px 0px 7px;

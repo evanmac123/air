@@ -67,9 +67,6 @@ Health::Application.routes.draw do
     resource :location, :only => [:update]
   end
 
-  resource :friends, :only => [:show]
-  resource :followers, :only => [:show, :update]
-
   resources :email_info_requests, :only => [:create]
 
   resource :demographics, :only => [:update]

@@ -34,7 +34,7 @@ class Tutorial < ActiveRecord::Base
   def self.seed_example_user(demo)
     a = User.where(:demo_id => demo.id, :name => example_search_name)
     if a.empty?
-      email = example_search_name.gsub(" ", "").downcase + demo.id.to_s + "@sunni.ru"
+      email = example_search_name.gsub(" ", "").downcase + demo.id.to_s + "@hengage.com"
       b = User.create!(:name => example_search_name, :demo_id => demo.id, 
           :email => email, :accepted_invitation_at => Time.now)
     end

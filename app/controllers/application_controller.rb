@@ -131,7 +131,7 @@ class ApplicationController < ActionController::Base
       @instruct = "Enter \"<span class='offset'>ate a banana</span>\" and click <span class='offset'>Play</span> to get 3 points"
       @highlighted = '#bar_command_wrapper'
       @x = 350
-      @y = 50
+      @y = -10
       @position = "bottom left"
       @arrow_dir = "top-left"
       @flash_margin_left = "355px"  # This is so any failure messages will be offset & thereby visible
@@ -153,7 +153,7 @@ class ApplicationController < ActionController::Base
       @position = "bottom center"
       @arrow_dir = "top-right"
     when 4
-      @title = "4. Find Your Peeps"
+      @title = "4. Find Your Friends"
       @instruct = "For example, type \"<span class='offset'>#{first_name}</span>\", then click FIND!"
       @highlighted = '#search_box_wrapper'
       @x = -10

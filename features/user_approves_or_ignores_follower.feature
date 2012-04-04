@@ -25,15 +25,17 @@ Feature: User approves or ignores follower
     When "Alice" befriends "Bob/fooble" by SMS
     Then "Bob/fooble" should be able to ignore "Alice" by SMS
 
-#   Scenario: Follower follows by SMS, followed accepts via web
-    # When "Alice" befriends "Bob/fooble" by SMS
-    # And DJ cranks 5 times
-    # Then "Bob/fooble" should be able to accept "Alice" by web
+  Scenario: Follower follows by SMS, followed accepts via web
+    When "Alice" befriends "Bob/fooble" by SMS
+    And DJ cranks 5 times
+    Then "Bob/fooble" should be able to accept "Alice" by web
 
-  # Scenario: Follower follows by SMS, followed ignores via web
-    # When "Alice" befriends "Bob/fooble" by SMS
-    # And DJ cranks 5 times
-    # Then "Bob/fooble" should be able to ignore "Alice" by web
+  @wip
+  Scenario: Follower follows by SMS, followed ignores via web
+    Still need to add an "ignore" button when viewing someone else's profile page'
+    When "Alice" befriends "Bob/fooble" by SMS
+    And DJ cranks 5 times
+    Then "Bob/fooble" should be able to ignore "Alice" by web
 
   @javascript
   Scenario: Follower follows by web, followed accepts via SMS

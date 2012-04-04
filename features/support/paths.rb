@@ -57,9 +57,6 @@ module NavigationHelpers
       raise "trying to determine password reset URL for user with no confirmation token" unless user.confirmation_token.present?
       edit_user_password_url(:user_id => user.id, :token => user.confirmation_token)
 
-    when /the (friends|connections) page/
-      friends_path
-
     when /the user directory page/
       users_path
 

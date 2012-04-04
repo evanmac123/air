@@ -82,7 +82,7 @@ When /^I press the button to see more followers$/ do
 end
 
 When /^I press the accept button$/ do
-  find(:css, "#pending-followers input.accept").click
+  find(:css, ".follow-btn").click
 end
 
 When /^I press the ignore button$/ do
@@ -100,7 +100,7 @@ When /^"([^"]*)" befriends "([^"]*)" by SMS$/ do |follower_name, followed_login_
   Then "\"#{follower.phone_number}\" should have received an SMS \"OK, you'll be friends with #{followed.name}, pending their acceptance.\""
   And "I sign in via the login page with \"#{followed_login_string}\""
   And %{I go to the profile page for "#{followed_name}"}
-  Then "I should not see \"#{follower.name}\" as a follower"
+  Then "I should not see \"#{follower.name}\" as a friend"
 end
 
 When /^"([^"]*)" befriends "([^"]*)" by web$/ do |follower_login_string, followed_login_string|
@@ -159,7 +159,7 @@ Then /^all follow buttons for "(.*?)" should be disabled$/ do |username|
   Then 'all follow buttons on the page should be disabled'
 end
 
-Then /^I should( not)? see "([^"]*)" as a follower$/ do |sense, username|
+Then /^I should( not)? see "([^"]*)" as a friend$/ do |sense, username|
   sense = !sense
   with_scope '"#accepted_friendships"' do
     if sense
@@ -170,13 +170,13 @@ Then /^I should( not)? see "([^"]*)" as a follower$/ do |sense, username|
   end
 end
 
-Then /^I should( not)? see "([^"]*)" as a pending follower$/ do |sense, username|
+Then /^I should( not)? see a friendship request from "([^"]*)"$/ do |sense, username|
   sense = !sense
 
-  When "I go to the connections page"
+  When "I follow \"My Profile\""
 
-  unless page.all(:css, '#pending-followers').empty? && !sense
-    with_scope '"#pending-followers"' do
+  unless page.all(:css, '#friend_requests').empty? && !sense
+    with_scope '"#friend_requests"' do
       if sense
         page.should have_content(username)
       else
@@ -201,7 +201,7 @@ Then /^"([^"]*)" should be able to accept "([^"]*)" by SMS( with index \d+)?$/ d
   And "\"#{followed.phone_number}\" should have received an SMS \"OK, you are now friends with #{follower.name}.\""
   When "I sign in via the login page with \"#{followed_login_string}\""
   And %{I go to the profile page for "#{followed_name}"}
-  Then "I should see \"#{follower_name}\" as a follower"
+  Then "I should see \"#{follower_name}\" as a friend"
   #But "I should not see \"#{follower_name}\" as a pending follower"
 end
 
@@ -220,7 +220,7 @@ Then /^"([^"]*)" should be able to ignore "([^"]*)" by SMS( with index \d+)?$/ d
   Then "\"#{followed.phone_number}\" should have received an SMS \"OK, we'll ignore the request from #{follower.name} to be your friend.\""
   When "I sign in via the login page with \"#{followed_login_string}\""
   And %{I go to the profile page for "#{followed_name}"}
-  And "I should not see \"#{follower.name}\" as a follower"
+  And "I should not see \"#{follower.name}\" as a friend"
   #And "I should not see \"#{follower.name}\" as a pending follower"
 end
 
@@ -231,13 +231,15 @@ Then /^"([^"]*)" should be able to accept "([^"]*)" by web$/ do |followed_login_
   follower = User.find_by_name(follower_name)
 
   When "I sign in via the login page with \"#{followed_login_string}\""
-  When "I go to the connections page"
-  And "I press the accept button"
+  When "I go to the user page for \"#{follower.name}\""
+  
+  And "I press the button next to \"#{follower_name}\""
   And "DJ cranks 5 times"
+  And "show me the page"
   Then "\"#{follower.phone_number}\" should have received an SMS \"#{followed_name} has approved your friendship request.\""
-  And "I should see \"OK, #{follower_name} is now your fan.\""
-  And "I should see \"#{follower_name}\" as a follower"
-  But "I should not see \"#{follower_name}\" as a pending follower"
+  And "I should see \"You are now friends with #{follower_name}\""
+  And "I should see \"#{followed_name}\" as a friend"
+  But "I should not see a friendship request from \"#{follower_name}\""
 end
 
 Then /^"([^"]*)" should be able to ignore "([^"]*)" by web$/ do |followed_login_string, follower_name|
@@ -245,7 +247,7 @@ Then /^"([^"]*)" should be able to ignore "([^"]*)" by web$/ do |followed_login_
   When "I go to the connections page"
   And "I press the ignore button"
   Then "I should see \"OK, we'll ignore the request from #{follower_name} to be your fan.\""
-  And "I should not see \"#{follower_name}\" as a follower"
+  And "I should not see \"#{follower_name}\" as a friend"
   And "I should not see \"#{follower_name}\" as a pending follower"
 end
 

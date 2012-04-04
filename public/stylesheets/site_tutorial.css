@@ -99,8 +99,9 @@ ul {
   display: none; }
 
 .title {
-  color: #d1ba74;
+  color: #a79b4f;
   font-size: 21px;
+  font-family: ubuntu, arial, sans-serif;
   text-transform: uppercase;
   font-weight: 500;
   padding: 12px 0px 7px;
@@ -129,7 +130,7 @@ ul {
     -moz-border-radius: 3px;
     -webkit-border-radius: 3px;
     border-radius: 3px;
-    border: 1px solid #bb9c3e;
+    border: 1px solid #736b36;
     z-index: 1000;
     position: relative;
     right: 14px;
@@ -138,13 +139,13 @@ ul {
     font-size: 15px;
     float: right; }
   #tutorial_menu a, #tutorial_menu a:hover {
-    color: #a88c37; }
+    color: #625b2e; }
 
 #steps {
   text-align: right;
   font-size: 10px;
   line-height: 13px;
-  color: #d9ca5a;
+  color: #a79b4f;
   position: absolute;
   top: 3px;
   right: 20px;
