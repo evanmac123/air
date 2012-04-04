@@ -8,11 +8,18 @@ class Friendship < ActiveRecord::Base
   # "initiated" means you are the one who asked her on a date
   # "pending" means she asked you
   # "accepted" means whomever was asked accepted, so now it's ON!
-  STATES = ["initiated", "pending", "accepted"].freeze
-  validates_inclusion_of :state, :in => STATES
+
+  module State
+    INITIATED = "initiated".freeze
+    PENDING = "pending".freeze
+    ACCEPTED = "accepted".freeze
+    STATES = [INITIATED, PENDING, ACCEPTED].freeze
+  end
+
+  validates_inclusion_of :state, :in => State::STATES
 
   def send_follow_notification
-    return unless self.state == "initiated"
+    return unless self.state == State::INITIATED
     case friend.notification_method
     when 'sms'
       send_follow_notification_by_sms
@@ -60,8 +67,8 @@ class Friendship < ActiveRecord::Base
   def accept
     reciprocal_friendship = self.reciprocal
     Friendship.transaction do
-      reciprocal_friendship.update_attribute(:state, "accepted")
-      update_attribute(:state, "accepted")
+      reciprocal_friendship.update_attribute(:state, State::ACCEPTED)
+      update_attribute(:state, State::ACCEPTED)
     end
     notify_follower_of_acceptance
     record_follow_act
@@ -73,6 +80,41 @@ class Friendship < ActiveRecord::Base
     destroy
     self.reciprocal.destroy if self.reciprocal
     "OK, we'll ignore the request from #{user.name} to be your friend."
+  end
+  
+  def reciprocal
+    Friendship.where(:user_id => self.friend_id, :friend_id => self.user_id).first
+  end
+
+  def transition_to_new_model
+    states = [self.state, self.reciprocal.try(:state)]
+    case states
+    when [State::PENDING, nil]
+      self.update_attributes!(:state => State::INITIATED)
+      Friendship.create!(:user => self.friend, :friend => self.user, :state => State::PENDING)
+    when [State::PENDING, State::PENDING]
+      self.update_attributes!(:state => State::ACCEPTED)
+      self.reciprocal.update_attributes!(:state => State::ACCEPTED)
+    when [State::PENDING, State::ACCEPTED]
+      self.update_attributes!(:state => State::ACCEPTED)
+    when [State::ACCEPTED, nil]
+      Friendship.create!(:user => self.friend, :friend => self.user, :state => State::ACCEPTED)
+    when [State::ACCEPTED, State::PENDING]
+      self.reciprocal.update_attributes!(:state => State::ACCEPTED)
+    when [State::ACCEPTED, State::ACCEPTED]
+      # Everything's cool, do nothing
+    else
+      raise "UNANTICIPATED CASE: STATES ARE #{states.inspect}, FRIENDSHIP ID IS #{self.id}"
+    end
+  end
+
+  def self.transition_all_to_new_model
+    friendships = Friendship.all
+
+    Friendship.transaction do
+      puts friendships.count
+      friendships.each { |friendship| friendship.transition_to_new_model }
+    end
   end
 
   protected
@@ -102,22 +144,18 @@ class Friendship < ActiveRecord::Base
   end
 
   def set_request_index
-    return unless state == 'initiated'
-    last_request = Friendship.where(:state => 'initiated', :friend_id => friend.id).order("request_index DESC").first
+    return unless state == State::INITIATED
+    last_request = Friendship.where(:state => State::INITIATED, :friend_id => friend.id).order("request_index DESC").first
 
     self.request_index = last_request ? last_request.request_index + 1 : 1
   end
-  
-  def reciprocal
-    Friendship.where(:user_id => self.friend_id, :friend_id => self.user_id).first
-  end
 
   def self.accepted
-    where(:state => 'accepted')
+    where(:state => State::ACCEPTED)
   end
 
   def self.pending(friend, request_index = nil)
-    all_pending = self.where(:state => 'initiated', :friend_id => friend.id)
+    all_pending = self.where(:state => State::INITIATED, :friend_id => friend.id)
 
     if request_index
       all_pending.where(:request_index => request_index.to_i)

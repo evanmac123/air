@@ -29,3 +29,4 @@ feature_profiles/feature_profile*
 tmp/sass-cache/**/*
 public/.sass-cache/*
 **/.DS_Store
+*.dump
