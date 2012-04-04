@@ -6,7 +6,6 @@ module SMS
     return if muted_user?(to)
 
     delay_params = send_at ? {:run_at => send_at} : {}
-
     from_number = if options[:from_demo]
                     options[:from_demo].phone_number || TWILIO_PHONE_NUMBER
                   else
@@ -24,6 +23,7 @@ module SMS
     return if to_number.blank?
 
     if to.kind_of?(User)
+      @to_user = to
       to.bump_mt_texts_sent_today
     end
 
@@ -34,7 +34,7 @@ module SMS
 
   def self.channel_specific_translations
     {
-      "reply here" => "To play, text to this #."
+      "reply here" => (@to_user ? "Your username is #{ @to_user.sms_slug } (text MYID if you forget). To play, text to this #." : "To play, text to this #." )    
     }
   end
 
