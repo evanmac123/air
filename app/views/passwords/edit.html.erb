@@ -1,11 +1,8 @@
 <%= render :partial => 'shared/flashes' -%>
 
 <div id="password-wrapper">
-  <h2>Change your password</h2>
+  <h2>Choose a Password</h2>
 
-  <p>
-    Your password has been reset. Choose a new password below.
-  </p>
 
   <%= form_for(
         @user,
@@ -13,7 +10,7 @@
         :html    => { :method => :put },
         :builder => FancyFormBuilder
       ) do |form| %>
-          <%= form.fancy_password_field :password, :label_text => "Choose password", :value => '' %>
+          <%= form.fancy_password_field :password, :label_text => "Password", :value => '' %>
           <%= form.fancy_password_field :password_confirmation, :label_text => "Confirm password", :value => '' %>
           <div class="submit_field">
             <%= form.submit "Save this password" %>

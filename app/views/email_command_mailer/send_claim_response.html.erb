@@ -1,6 +1,14 @@
 <%= render 'replies_above_this_line' %>
-<p><%= @message %></p>
-<p>Please reply to this email in order to submit commands for points.</p>
-<p>If you'd like to log in to the Web site, you can set your password <%= link_to "here", edit_user_password_url(@user, :token => @user.confirmation_token) %>.</p>
-<p>If you'd also like to play by text message, please first set your password via the link above. After that, you can set your mobile phone number <%= link_to "here", user_url(@user) %>.</p>
+
+
+<p>You've joined the <%= @user.demo.name %> game!</p>
+
+<p>To sign into the web site and learn how to play <a href='<%= edit_user_password_url(@user, :token => @user.confirmation_token) %>'>click here</a>.</p>
+
+<p>On a mobile phone with no web access? No problem.
+First thing to know is that "commands" are key words you can send to H Engage to earn points.
+You can start playing right away by sending "commands" directly to this email address.
+Save it in your address book to make sure you have it handy.</p>
+
+
 <%= render :partial => 'footer' %>

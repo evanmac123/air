@@ -14,10 +14,10 @@ Feature: User claims account via email
     Then "joe@example.com" should receive 1 email
 
     When "joe@example.com" opens the email
-    Then I should see "You've joined the FooCo game! Your username is joe (text MYID if you forget). If you'd like to play by e-mail instead of texting or going to the website, you can always send your commands to play@playhengage.com." in the email body
-    But I should not see "text to this #" in the email body
-    Then I should see the password reset full URL for "Joe" in the email body
-    And I should see the profile page full URL for "Joe" in the email body
+    Then I should see "You've joined the FooCo game!" in the email body
+    # But I should not see "text to this #" in the email body
+    # Then I should see the password reset full URL for "Joe" in the email body
+    # And I should see the profile page full URL for "Joe" in the email body
 
     When I click the first link in the email
     And I fill in "Choose password" with "joejums"
@@ -35,7 +35,7 @@ Feature: User claims account via email
     Then "joe@example.com" should receive 1 email
 
     When "joe@example.com" opens the email
-    Then I should see "You've joined the FooCo game! Your username is joe (text MYID if you forget). If you'd like to play by e-mail instead of texting or going to the website, you can always send your commands to play@playhengage.com." in the email body
+    Then I should see "You've joined the FooCo game! To sign into" in the email body
 
 
   Scenario: User claims account in a game with custom email address
