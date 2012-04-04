@@ -19,12 +19,13 @@ class SmsController < ActionController::Metal
 
     incoming_sms = IncomingSms.create!(:from => params['From'], :body => params['Body'], :twilio_sid => params['SmsSid'])
 
+    @user = user = User.find_by_phone_number(params['From'])
     reply = construct_reply(Command.parse(params['From'], params['Body'], :allow_claim_account => true, :channel => :sms, :receiving_number => params['To']))
 
     OutgoingSms.create!(:to => params['From'], :mate => incoming_sms, :body => reply)
 
-    if (user = User.find_by_phone_number(params['From']))
-      user.bump_mt_texts_sent_today
+    if @user
+      @user.bump_mt_texts_sent_today
     end
 
     self.response_body = reply
@@ -41,7 +42,7 @@ class SmsController < ActionController::Metal
       :say => "text", 
       :Say => "Text",
       :help_command_explanation => "HELP - help desk, instructions\n",
-      "reply here" => "Your username is #{ User.find_by_phone_number(params['From']).sms_slug } (text MYID if you forget). To play, text to this #."
+      "reply here" => (@user && "Your username is #{@user.sms_slug} (text MYID if you forget). To play, text to this #.")
     }
   end
 end
