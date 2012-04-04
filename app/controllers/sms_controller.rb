@@ -41,7 +41,7 @@ class SmsController < ActionController::Metal
       :say => "text", 
       :Say => "Text",
       :help_command_explanation => "HELP - help desk, instructions\n",
-      "reply here" => "To play, text to this #."
+      "reply here" => "Your username is #{ User.find_by_phone_number(params['From']).sms_slug } (text MYID if you forget). To play, text to this #."
     }
   end
 end

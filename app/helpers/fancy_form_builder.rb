@@ -14,7 +14,6 @@ class FancyFormBuilder < ActionView::Helpers::FormBuilder
 
   def fancy_content(method_name, content, options={})
     label_text = options[:label_text]
-
     outer_wrapper(
       method_name,
 
@@ -47,7 +46,7 @@ class FancyFormBuilder < ActionView::Helpers::FormBuilder
 
   def error_content(method_name)
     return unless errors_for_method?(method_name)
-    h self.object.errors.smarter_message(method_name).join(', ')
+    self.object.errors.smarter_message(method_name).join('<br />')
   end
 
   def errors_for_method?(method_name)
