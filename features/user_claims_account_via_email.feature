@@ -15,12 +15,12 @@ Feature: User claims account via email
 
     When "joe@example.com" opens the email
     Then I should see "You've joined the FooCo game!" in the email body
-    # But I should not see "text to this #" in the email body
-    # Then I should see the password reset full URL for "Joe" in the email body
+    But I should not see "text to this #" in the email body
+    Then I should see the password reset full URL for "Joe" in the email body
     # And I should see the profile page full URL for "Joe" in the email body
 
     When I click the first link in the email
-    And I fill in "Choose password" with "joejums"
+    And I fill in "Password" with "joejums"
     And I fill in "Confirm password" with "joejums"
     And I press "Save this password"
     Then I should be on the activity page
@@ -35,10 +35,11 @@ Feature: User claims account via email
     Then "joe@example.com" should receive 1 email
 
     When "joe@example.com" opens the email
-    Then I should see "You've joined the FooCo game! To sign into" in the email body
+    Then I should see "You've joined the FooCo game!" in the email body
 
-
+  @wip
   Scenario: User claims account in a game with custom email address
+    I do not think we need this test, since for all games we just say "reply to this email"
     Given the following demo exists:
       | name     | email                  |
       | CustomCo | custom@playhengage.com | 

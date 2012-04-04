@@ -1,6 +1,5 @@
 <%= render 'replies_above_this_line' %>
-
-You've joined the <%= @user.demo.name %> game!
+<%= @message %>
 
 To sign into the web site and learn how to play click here: <%= edit_user_password_url(@user, :token => @user.confirmation_token) %>
 
