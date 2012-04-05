@@ -44,12 +44,12 @@ module ApplicationHelper
     @_user_flashes ||= {}
 
     flash.each do |key, value|
-      @consolidated_flash[key] = value.to_a
-      @consolidated_flash[key] += @_user_flashes.delete(key.to_s).to_a
+      @consolidated_flash[key] = [value]
+      @consolidated_flash[key] += [@_user_flashes.delete(key.to_s)]
     end
 
     @_user_flashes.each do |key, value|
-      @consolidated_flash[key] = value.to_a
+      @consolidated_flash[key] = [value]
     end
 
     @consolidated_flash

@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 class AdminBaseController < ApplicationController
   before_filter :require_site_admin
   before_filter :strip_smart_punctuation!

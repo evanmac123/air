@@ -38,7 +38,7 @@ group :development, :test do
   end
 
   platforms :mri_19 do
-    gem "ruby-debug19", "~> 0.11.6"
+    gem "debugger"
     gem "linecache19",  "~> 0.5.11"
   end
 
@@ -47,7 +47,6 @@ group :development, :test do
   gem "reek"
   gem "flay"
   gem "flog"
-  gem "rcov"
   gem "parallel_tests"
 end
 

@@ -58,7 +58,7 @@ describe SMS do
       end
 
       it "should send nothing if the user is muted" do
-        Timecop.freeze
+        Timecop.freeze(1)
         @user.update_attributes(:last_muted_at => (23.hours + 59.minutes + 59.seconds).ago)
         SMS.send_message(@user, "hi")
         Delayed::Worker.new.work_off(10)

@@ -149,7 +149,7 @@ end
 
 shared_examples_for "a rankings fixing method" do
   #xit "should recalculate rankings no more than once every 10 minutes" do
-    #Timecop.freeze
+    #Timecop.freeze(1)
 
     #begin
       #demo1 = Factory :demo, updated_at_column => 10.minutes.ago

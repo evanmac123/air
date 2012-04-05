@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 class Invitation::AcceptancesController < ApplicationController
   before_filter :find_user, :only => :update
 

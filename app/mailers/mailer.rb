@@ -99,10 +99,10 @@ class Mailer < ActionMailer::Base
   def side_message(recipient_identifier, message)
     to_email, from_email =
       case recipient_identifier
-      when Fixnum:
+      when Fixnum
         @user = User.find(recipient_identifier)
         [@user.email, @user.reply_email_address]
-      when String:
+      when String
         [recipient_identifier, DEFAULT_PLAY_ADDRESS]
       end
 

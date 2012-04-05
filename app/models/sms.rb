@@ -10,14 +10,18 @@ module SMS
                     options[:from_demo].phone_number || TWILIO_PHONE_NUMBER
                   else
                     case to
-                      when String: TWILIO_PHONE_NUMBER
-                      when User: (to.demo.phone_number || TWILIO_PHONE_NUMBER)
+                      when String
+                        TWILIO_PHONE_NUMBER
+                      when User
+                        (to.demo.phone_number || TWILIO_PHONE_NUMBER)
                     end
                   end
 
     to_number = case to
-                  when String: to
-                  when User: to.phone_number
+                  when String
+                    to
+                  when User
+                    to.phone_number
                 end
 
     return if to_number.blank?

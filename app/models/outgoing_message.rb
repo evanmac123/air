@@ -35,8 +35,9 @@ module OutgoingMessage
 
   def self.default_channels(to)
     case to
-    when User: to.notification_channels
-    when String:
+    when User
+       to.notification_channels
+    when String
       to.is_email_address? ? [:email] : [:sms]
     end
   end

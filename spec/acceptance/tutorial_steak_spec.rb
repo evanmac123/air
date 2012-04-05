@@ -13,7 +13,7 @@ feature "Talking Chicken Tutorial", %q{
     Factory(:claimed_user, :name => Tutorial.example_search_name, :demo_id => demo.id)
     Factory(:tutorial, :user_id => user.id, :current_step => 4) 
     has_password(user, "foobar")
-    signin_as (user, "foobar")
+    signin_as(user, "foobar")
     visit '/users'
   end
   scenario 'only Advance to step 5 if search results show up' do
