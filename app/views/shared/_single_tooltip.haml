@@ -31,6 +31,8 @@
     .bubbly-arrow-up
     - @y = 15
     
+
+    
 = content_for :javascript do
   :javascript
     $(function() {
@@ -40,7 +42,7 @@
           effect : 'slide',
           slideInSpeed : 800,
           slideOutSpeed : 500,
-          predelay : 1000,
+          predelay : #{@tooltip_delay},
           delay : 0, 
           position : '#{position}', 
           direction : '#{direction}',

@@ -925,7 +925,7 @@ describe User, "#befriend" do
     # Verify two friendships created, one initiated--one pending
     initiated_friendship = Friendship.where(:user_id => @left_user.id, :friend_id => @right_user.id).first
     pending_friendship = Friendship.where(:user_id => @right_user.id, :friend_id => @left_user.id).first
-    pending_friendship.accept
+    initiated_friendship.accept
     initiated_friendship.reload.state.should == "accepted"
     pending_friendship.reload.state.should == "accepted"
   end
@@ -943,8 +943,8 @@ describe User, "#befriend" do
   it "each shows up as each other friend using the .friends construct" do
     # Befriend
     @left_user.befriend(@right_user)
-    pending_friendship = Friendship.where(:user_id => @right_user.id, :friend_id => @left_user.id).first
-    pending_friendship.accept
+    initiated_friendship = Friendship.where(:user_id => @left_user.id, :friend_id => @right_user.id).first
+    initiated_friendship.accept
     # Should be no more pending friends
     @left_user.pending_friends.should be_empty
     @right_user.pending_friends.should be_empty
@@ -953,22 +953,6 @@ describe User, "#befriend" do
     @right_user.friends.length.should == 1
     
   end
-  
-  it "provides a way to upgrade people I followed to friends" do
-    # Create a "follower" in the old sense of the word
-    Friendship.create(:user_id => @left_user.id, :friend_id => @right_user.id, :state => "accepted")
-    @left_user.make_those_i_followed_my_friends
-    @right_user.friends.should include(@left_user)
-    @left_user.friends.should include(@right_user)
-  end
-  
-  it "provides a way to upgrade those who followed me to be my friends" do
-    # Create a "follower" in the old sense of the word
-    Friendship.create(:user_id => @left_user.id, :friend_id => @right_user.id, :state => "accepted")
-    
-    @right_user.make_those_who_followed_me_my_friends
-    @right_user.friends.should include(@left_user)
-    @left_user.friends.should include(@right_user)
-  end
+
 
 end

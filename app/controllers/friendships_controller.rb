@@ -25,8 +25,7 @@ class FriendshipsController < ApplicationController
   def update
     @user = User.find_by_slug(params[:user_id])
     friendship = Friendship.where(:user_id => @user.id, :friend_id => current_user.id).first
-    if friendship
-      friendship.accept
+    if friendship && friendship.accept
       add_success "You are now friends with #{@user.name}"
     end
     redirect_to :back

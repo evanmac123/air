@@ -235,7 +235,7 @@ Then /^"([^"]*)" should be able to accept "([^"]*)" by web$/ do |followed_login_
   
   And "I press the button next to \"#{follower_name}\""
   And "DJ cranks 5 times"
-  And "show me the page"
+  And "I dump all sent texts"
   Then "\"#{follower.phone_number}\" should have received an SMS \"#{followed_name} has approved your friendship request.\""
   And "I should see \"You are now friends with #{follower_name}\""
   And "I should see \"#{followed_name}\" as a friend"
@@ -280,6 +280,6 @@ end
 Then /^"([^"]*)" accepts "([^"]*)" as a friend$/ do |accepter_name, initiator_name|
   initiator_id = User.find_by_name(initiator_name)
   accepter_id = User.find_by_name(accepter_name)
-  friendship = Friendship.where(:user_id => accepter_id, :friend_id => initiator_id).first
+  friendship = Friendship.where(:friend_id => accepter_id, :user_id => initiator_id).first
   friendship.accept.should_not be_nil
 end

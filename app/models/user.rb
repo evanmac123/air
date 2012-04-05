@@ -148,20 +148,6 @@ class User < ActiveRecord::Base
       self.errors.add("sms_slug", "Sorry, but that username is reserved")
     end
   end
-
-  def make_those_i_followed_my_friends
-    self.friends.each do |friend|
-      existing = Friendship.where(:user_id => friend.id, :friend_id => self.id)
-      Friendship.create(:user_id => friend.id, :friend_id => self.id, :state => "accepted") if existing.empty?
-    end
-  end
-  
-  def make_those_who_followed_me_my_friends
-    self.followers.each do |follower|
-      existing = Friendship.where(:user_id => self.id, :friend_id => follower.id)
-      Friendship.create(:user_id => self.id, :friend_id =>  follower.id, :state => "accepted") if existing.empty?
-    end
-  end
   
   def her_him
     case self.gender

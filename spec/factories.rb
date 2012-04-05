@@ -27,6 +27,7 @@ end
 
 Factory.define :claimed_user, :parent => :user do |factory|
   factory.accepted_invitation_at {Time.now}
+  factory.session_count {5}
 end
 
 Factory.define :user_with_phone, :parent => :claimed_user do |factory|
@@ -36,6 +37,10 @@ end
 Factory.define :site_admin, :parent => :user do |factory|
   factory.name {"Sylvester McAdmin"}
   factory.is_site_admin {true}
+end
+
+Factory.define :brand_new_user, :parent => :claimed_user do |factory|
+  factory.session_count {0}
 end
 
 Factory.define :demo do |factory|

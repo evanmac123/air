@@ -26,7 +26,7 @@ Feature: User invites friends
       | Charlie Moore      | name: Gleason   | 4@biker.com          | livingit  | livingit    | everybody     |
       | Already Playing    | name: Bratwurst | playing@inviting.com | playing   | playing     | everybody     |
 
-    Given the following claimed user exists:
+    Given the following brand new user exists:
       | name       | demo            | email                       | slug      | sms_slug    | phone_number | privacy level |
       | Barnaby    | name: Bratwurst | claimed@inviting.com        | smoke     | smoke       | +15554445555 | everybody     |
       | Alexander  | name: Bratwurst | also_claimed@inviting.com   | soap      | soap        | +15554442222 | everybody     |

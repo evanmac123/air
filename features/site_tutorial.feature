@@ -9,7 +9,7 @@ Feature: Talking Chicken
     Given the following rule value exists:
       | rule          | value         | is_primary |
       | points: 50    | ate an orange | true       |
-    Given the following claimed users exist:
+    Given the following brand new users exist:
       | name                | demo                 |
       | Brand New           | name: Hell on Wheels |
     Given "Brand New" has password "chicken"
@@ -28,11 +28,15 @@ Feature: Talking Chicken
     And I should see "Directory"
     And I wait a second
     Then I should see "Say It!" 
-    # When I fill in "command_central" with "took a walk"
+    And I wait a second
+    When I fill in "command_central" with "ate an orange"
+    
     And I press "play_button"
     And I take five
+    And show me the page
+    
     Then I should see "Your activity shows up here" 
-    When I click within "#next_button"
+    When I click within "#next_button"  
     Then I should see "Click on Directory to find people you know"
     When I follow "Directory"
     Then I should see 'For example, type "Kermit"'

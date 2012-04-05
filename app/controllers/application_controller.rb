@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   before_filter :force_ssl 
   before_filter :authenticate
   before_filter :tutorial_check
+  before_filter :set_delay_on_tooltips
   before_filter :initialize_flashes
   after_filter :merge_flashes
 
@@ -219,5 +220,15 @@ class ApplicationController < ActionController::Base
   def tutorial_check
     current_user.create_tutorial_if_first_login if current_user
   end  
-  
+
+  def set_delay_on_tooltips
+    days_of_newbie = 2
+    short_delay = 1000
+    long_delay = 2000
+    @tooltip_delay = short_delay
+    if current_user && current_user.accepted_invitation_at
+      when_joined = current_user.accepted_invitation_at
+      @tooltip_delay = (when_joined > days_of_newbie.days.ago) ? short_delay : long_delay
+    end
+  end
 end

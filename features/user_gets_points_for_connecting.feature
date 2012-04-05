@@ -41,6 +41,7 @@ Feature: User gets points for connecting to another (if demo configured for it)
     When "+14155551212" sends SMS "follow vlad"
     And "+16175551212" sends SMS "yes"
     And I go to the activity page
+    And show me the page
     Then "Vlad" should have "5" points
     And "Dan" should have "6" points
 

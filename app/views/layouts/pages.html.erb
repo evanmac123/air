@@ -28,7 +28,7 @@
       <%= form_tag new_session_path, :method => :get, :id => 'activate-login-form' do %>
         <%= image_submit_tag 'marketing/btn_login.png' %>
       <% end %>
-	  <%= link_to (image_tag('marketing/btn_signup.png'), join_path, :class => 'btn-signup') %>
+	  <%= link_to(image_tag('marketing/btn_signup.png'), join_path, :class => 'btn-signup') %>
 
       <div id="navbar">
         <%= yield :navbar %>
