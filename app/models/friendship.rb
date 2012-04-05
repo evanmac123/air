@@ -66,6 +66,7 @@ class Friendship < ActiveRecord::Base
 
   def accept
     reciprocal_friendship = self.reciprocal
+    return nil unless self.state == State::PENDING && (reciprocal_friendship.state == State::INITIATED)
     Friendship.transaction do
       reciprocal_friendship.update_attribute(:state, State::ACCEPTED)
       update_attribute(:state, State::ACCEPTED)

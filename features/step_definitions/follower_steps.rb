@@ -276,3 +276,10 @@ Given /^I press the button next to "([^"]*)"$/ do |name|
   id = "update_friendship_with_" + slug
   click_button(id)
 end
+
+Then /^"([^"]*)" accepts "([^"]*)" as a friend$/ do |accepter_name, initiator_name|
+  initiator_id = User.find_by_name(initiator_name)
+  accepter_id = User.find_by_name(accepter_name)
+  friendship = Friendship.where(:user_id => accepter_id, :friend_id => initiator_id).first
+  friendship.accept.should_not be_nil
+end

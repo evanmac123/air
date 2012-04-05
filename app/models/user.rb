@@ -174,6 +174,17 @@ class User < ActiveRecord::Base
     end
   end
   
+  def her_his
+    case self.gender
+    when "female"
+      return "her"
+    when "male"
+      return "his"
+    else
+      return "their"
+    end
+  end
+  
   def can_see_activity_of(user)
     return true if self == user
     case user.privacy_level
@@ -713,8 +724,9 @@ class User < ActiveRecord::Base
   def follow_requested_message
     I18n.t(
       "activerecord.models.user.base_follow_message",
-      :default => "OK, you'll be friends with %{followed_user_name}, pending their acceptance.",
-      :followed_user_name => self.name
+      :default => "OK, you'll be friends with %{followed_user_name}, pending %{her_his} acceptance.",
+      :followed_user_name => self.name,
+      :her_his => self.her_his
     )
   end
   

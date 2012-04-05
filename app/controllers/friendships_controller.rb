@@ -40,7 +40,7 @@ class FriendshipsController < ApplicationController
       Friendship.transaction do
         friendship.destroy if friendship
         reciprocal_friendship.destroy if reciprocal_friendship
-        if friendship && friendship.state == "friends"
+        if friendship && friendship.state == Friendship::State::ACCEPTED
           flash[:success] = @friend.follow_removed_message
         else
           flash[:success] = "Friendship request canceled"
