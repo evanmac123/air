@@ -38,7 +38,7 @@ class Report::Activity
   end
 
   def csv_data_per_act
-    demo_acts.map{|act| CSV.generate_line(data_for_act(act))}
+    demo_acts.map{|act| CSV.generate_line(data_for_act(act)).gsub("\n", "")}
   end
   
   def header_line

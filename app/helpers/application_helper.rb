@@ -58,8 +58,10 @@ module ApplicationHelper
   def joined_flashes
     joined_content = ''
     [:success, :failure, :notice].each do |flash_key|
-      next unless flash[flash_key].present?
-      joined_content += flash[flash_key].to_a.join(' ') + ' '
+      single = flash[flash_key]
+      next unless single.present?
+      single = [single] unless single.kind_of? Array
+      joined_content += single.join(' ') + ' '
     end
 
     if joined_content.present?

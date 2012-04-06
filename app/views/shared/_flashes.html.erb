@@ -3,7 +3,7 @@
     <% consolidated_flash.each do |key, value| -%>
       <% next if key.to_s =~ /^mp_track/ %>
       <div id="flash_<%= key %>">
-        <% value = value.join %>
+        <% value = value.join.gsub('["', '').gsub('"]', '') %>
         <% unless ApplicationController::FLASHES_ALLOWING_RAW.include?(key.to_s) %>
           <% value = h value %>
           <% value.gsub! "support@hengage.com", link_to("support@hengage.com", "mailto:support@hengage.com") %>

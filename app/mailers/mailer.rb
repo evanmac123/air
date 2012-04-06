@@ -37,7 +37,7 @@ class Mailer < ActionMailer::Base
   def activity_report(csv_data, name, report_time, address)
     puts "Sending activity report for #{name} to #{address}"
 
-    subject_line = "Activity dump for #{name} as of #{report_time.to_s}"
+    subject_line = "Activity dump for #{name} as of #{report_time.pretty}"
 
     normalized_name = name.gsub(/\s+/, '_').gsub(/[^A-Za-z0-9_]/, '')
     attachment_name = [
