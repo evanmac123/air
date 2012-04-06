@@ -49,7 +49,8 @@ module ApplicationHelper
     end
 
     @_user_flashes.each do |key, value|
-      @consolidated_flash[key] = [value]
+      @consolidated_flash[key] ||= []
+      @consolidated_flash[key] += [value]
     end
 
     @consolidated_flash

@@ -26,7 +26,6 @@ Feature: Admin adds user
     And I fill in "Email" with "vlad@hengage.com"
     And I press "Submit"
     Then I should be on the admin "The H Engages" demo page
-    And show me the page
     And I should see "Cannot create that user: Email has already been taken"
 
     When I follow "V"
