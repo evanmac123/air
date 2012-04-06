@@ -111,7 +111,6 @@ GEM
     erubis (2.6.6)
       abstract (>= 1.0.0)
     escape (0.0.4)
-    eventmachine (0.12.10)
     factory_girl (1.3.2)
     factory_girl_rails (1.0)
       factory_girl (~> 1.3)
@@ -153,6 +152,7 @@ GEM
     json (1.6.5)
     jwt (0.1.4)
       json (>= 1.2.4)
+    kgio (2.7.4)
     launchy (2.0.5)
       addressable (~> 2.2.6)
     linecache (0.43)
@@ -214,6 +214,7 @@ GEM
       activesupport (= 3.0.3)
       rake (>= 0.8.7)
       thor (~> 0.14.4)
+    raindrops (0.8.0)
     rake (0.8.7)
     reek (1.2.8)
       ruby2ruby (~> 1.2)
@@ -265,10 +266,6 @@ GEM
     steak (1.1.0)
       rspec (>= 1.3)
     term-ansicolor (1.0.5)
-    thin (1.3.1)
-      daemons (>= 1.0.9)
-      eventmachine (>= 0.12.6)
-      rack (>= 1.0.0)
     thor (0.14.6)
     tilt (1.2.1)
     timecop (0.3.5)
@@ -282,6 +279,10 @@ GEM
       jwt (>= 0.1.3)
       yajl-ruby (~> 1.0.0)
     tzinfo (0.3.31)
+    unicorn (4.2.1)
+      kgio (~> 2.6)
+      rack
+      raindrops (~> 0.7)
     uuidtools (2.1.2)
     validation_reflection (1.0.0)
     will_paginate (2.3.15)
@@ -342,8 +343,8 @@ DEPENDENCIES
   show_me_the_cookies
   sinatra (~> 1.0)
   steak
-  thin
   timecop
   twilio-rb
+  unicorn
   validation_reflection
   will_paginate

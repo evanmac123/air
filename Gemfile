@@ -2,7 +2,7 @@ source :rubygems
 
 gem "rails", "~> 3.0.3"
 gem "rack"
-gem "thin"
+gem "unicorn"   # Some of our capybara webkit tests fail with thin, so we use unicorn
 gem "high_voltage"
 gem "airbrake"
 gem "paperclip"
