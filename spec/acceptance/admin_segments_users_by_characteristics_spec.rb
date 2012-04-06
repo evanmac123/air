@@ -1,7 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/acceptance_helper')
 
 feature "Admin Segments Users By Characteristics" do
-  scenario "sees users segmented by characteristics", :js => true do
+  before(:each) do
     @demo = Factory :demo
     @generic_characteristic_1 = Factory :characteristic, :name => "Color", :allowed_values => %w(red orange yellow green blue indigo violet)
     @generic_characteristic_2 = Factory :characteristic, :name => "Favorite Beatle", :allowed_values => %w(john paul george ringo)
@@ -39,7 +39,12 @@ feature "Admin Segments Users By Characteristics" do
 
     signin_as_admin
     visit admin_demo_segmentation_path(@demo)
+  end
 
+
+
+  scenario "sees users segmented by characteristics", :js => true do
+    # Basic segmentation on just one characteristic
     select "Color", :from => "segment_column[0]"
     select "red", :from => "segment_value[0]"
 
@@ -52,10 +57,28 @@ feature "Admin Segments Users By Characteristics" do
       expect_content "#{red.name}: #{red.email}"
     end
 
+    # Segmenting on multiple characteristics
+    select "Color", :from => "segment_column[0]"
+    select "red", :from => "segment_value[0]"
+    click_link "Segment on more characteristics"
+    select "Favorite Beatle", :from => "segment_column[1]"
+    select "george", :from => "segment_value[1]"
+
+    click_button "Find segment"
+
+    expect_content "Color is red"
+    expect_content "Favorite Beatle is george"
+    expect_content "4 users in segment"
+    click_link "Show users"
+    [@reds[5], @reds[6], @reds[7], @reds[8]].each do |red|
+      expect_content "#{red.name}: #{red.email}"
+    end
     pending
   end
 
   scenario 'should have a proper link from somewhere'
 
   scenario 'should not show users from another demo'
+
+  scenario 'should allow segmentation information to be downloaded in CSV format'
 end

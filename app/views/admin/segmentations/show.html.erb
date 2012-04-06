@@ -17,11 +17,14 @@
 <%= render 'shared/prototype_characteristic_select', :generic_characteristics => @generic_characteristics, :demo_specific_characteristics => @demo_specific_characteristics %>
 
 <%= form_tag admin_demo_segmentation_path(@demo), :method => :get do %>
-  <select name="segment_column[0]" id="segment_column_0" class="segment-column">
-  </select>
-  <select name="segment_value[0]" id="segment_value_0" class="segment-value">
-  </select>
+  <div id="segmentation_parameters">
+    <select name="segment_column[0]" id="segment_column_0" class="segment-column">
+    </select>
+    <select name="segment_value[0]" id="segment_value_0" class="segment-value">
+    </select>
+  </div>
 
+  <%= link_to "Segment on more characteristics", "#", :id => "add_more_characteristics" %>
   <%= submit_tag "Find segment" %>
 <% end %>
 
@@ -31,6 +34,8 @@
     var characteristicSelectHtml = $('#prototype-characteristic-select').html();
     $('#segment_column_0').append(characteristicSelectHtml).data('value_select_id', 'segment_value_0');
     var allowedValues = <%= @characteristic_allowed_value_json %>;
+
+    var nextSegmentationIndex = 1;
 
     $('.segment-column').live('change', function(e) {
       characteristicId = $(e.target).val();
@@ -50,6 +55,24 @@
         segmentValueId = enclosingSelectId.replace('column', 'value');
         $('#' + segmentValueId).html(options);
       } 
+    });
+
+    $('#add_more_characteristics').click(function(e) {
+      e.preventDefault();
+      segmentColumnName = 'segment_column[' + nextSegmentationIndex + ']';
+      segmentColumnId = 'segment_column_' + nextSegmentationIndex;
+      segmentValueName = 'segment_value[' + nextSegmentationIndex + ']';
+      segmentValueId = 'segment_value_' + nextSegmentationIndex;
+      
+      newSelectHtml = [
+        '<select name="' + segmentColumnName + '" id="' + segmentColumnId + '" class="segment-column"></select>',
+        '<select name="' + segmentValueName + '" id="' + segmentValueId + '" class="segment-value"></select>'
+      ].join('');
+
+      $('#segmentation_parameters').append(newSelectHtml);
+      $('#' + segmentColumnId).append(characteristicSelectHtml).data('value_select_id', segmentValueId);
+
+      nextSegmentationIndex += 1;
     });
   <% end %>
 <% end %>

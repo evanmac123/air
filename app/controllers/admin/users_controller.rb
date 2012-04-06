@@ -18,7 +18,7 @@ class Admin::UsersController < AdminBaseController
       end
 
       format.js do
-        @users = @demo.users.where(:id => params[:ids])
+        @users = @demo.users.where(:id => params[:ids]).sort_by(&:name)
       end
     end
   end

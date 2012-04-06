@@ -670,7 +670,7 @@ describe User, "on save" do
     @user.reload.email.should == 'yelling_guy@uppercase.com'
   end
 
-  %w(characteristics demo_id).each do |field_name|
+  %w(characteristics demo_id points accepted_invitation_at location_id date_of_birth height weight gender).each do |field_name|
     it "should sync to mongo if #{field_name} changes"
   end
 end
