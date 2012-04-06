@@ -2,6 +2,7 @@ source :rubygems
 
 gem "rails", "~> 3.0.3"
 gem "rack"
+gem "thin"
 gem "high_voltage"
 gem "airbrake"
 gem "paperclip"

@@ -30,3 +30,4 @@ tmp/sass-cache/**/*
 public/.sass-cache/*
 **/.DS_Store
 *.dump
+.env
