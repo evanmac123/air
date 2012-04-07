@@ -33,12 +33,12 @@ class Demo < ActiveRecord::Base
   #
   # Meanwhile we have a corresponding before_create callback in Act to make
   # sure the demo_id there gets set appropriately.
-
-  def acts_with_current_demo_checked
-    self.acts_without_current_demo_checked.in_demo(self)
+  module ActsWithCurrentDemoChecked
+    def acts
+      self.acts_without_current_demo_checked.in_demo(self)
+    end
   end
-
-  alias_method_chain :acts, :current_demo_checked
+  include ActsWithCurrentDemoChecked
 
   def welcome_message(user=nil)
     custom_message(

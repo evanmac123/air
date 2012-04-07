@@ -2,6 +2,7 @@
 ENV["RAILS_ENV"] ||= 'test'
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
+require 'clearance/testing'
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
@@ -53,7 +54,7 @@ def metal_testing_hack(klass)
     include ActionController::UrlFor
     include ActionController::Testing
     include Rails.application.routes.url_helpers
-    include ActionController::Compatibility
+    include ActionController::Compatibility    # Phil not sure what this does, but commenting it lets 3.1 to run
   end
 end
 

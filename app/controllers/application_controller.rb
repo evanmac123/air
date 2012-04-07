@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
   FLASHES_ALLOWING_RAW = %w(notice)
 
   before_filter :force_ssl 
-  before_filter :authenticate
+  before_filter :authorize
   before_filter :tutorial_check
   before_filter :set_delay_on_tooltips
   before_filter :initialize_flashes
@@ -56,16 +56,27 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def authenticate_with_game_begun_check
-    authenticate_without_game_begun_check
-    if current_user && !(current_user.is_site_admin) && current_user.demo.begins_at && current_user.demo.begins_at > Time.now
-      @game_pending = true
-      render "shared/game_not_yet_begun"
+  def authenticate_without_game_begun_check
+    def authorize
+      # All this does is revert to the previously defined version of "authorize", 
+      # the one before the AuthenticateWithGameBegunCheck module was included
+      super
     end
   end
-
-  alias_method_chain :authenticate, :game_begun_check
-
+  
+  
+  module AuthenticateWithGameBegunCheck
+    def authorize
+      super
+      if current_user && !(current_user.is_site_admin) && current_user.demo.begins_at && current_user.demo.begins_at > Time.now
+        @game_pending = true
+        render "shared/game_not_yet_begun"
+      end
+    end
+  end
+  
+  include AuthenticateWithGameBegunCheck
+  
   def wrong_phone_validation_code_error
     "Sorry, the code you entered was invalid. Please try typing it again."
   end

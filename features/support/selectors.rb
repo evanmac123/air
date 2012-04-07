@@ -28,6 +28,8 @@ module HtmlSelectorsHelpers
     # web steps:
     when /Suggested Users/
       [:xpath, "//*[@id='suggestions']"]
+    when /friends list/
+      [:xpath, "//*[@id='following']"]
     when /^"(.+)"$/
       $1
       

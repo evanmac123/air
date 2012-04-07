@@ -13,7 +13,6 @@ Feature: Evil Kim defects from the Fuji game and joins the Highmark game, and th
     Then "Evil Kim" should be in the "Bolshevik" game
     When I go to the admin page
     Then I should see "Directory"
-    And show me the page
     Then I should see `Bolshevik` within "#which_game"
   
   @javascript

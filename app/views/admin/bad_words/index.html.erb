@@ -13,7 +13,7 @@
 </ul>
 
 <% add_path = @demo ? admin_demo_bad_words_path(@demo) : admin_bad_words_path %>
-<%= form_tag add_path, :autocomplete => :off do |f| %>
+<%= form_tag add_path, :autocomplete => :off do %>
   <%= label_tag 'new_bad_words', 'New bad words' %>
   <%= text_area_tag "new_bad_words" %><br/>
   <p>Separate new bad words with a comma.</p>

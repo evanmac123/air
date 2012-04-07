@@ -23,7 +23,9 @@ module ActionView
           select_tag(options[:field_name] || 'hour', twelve_hour_option_tags(val), options)
         end
       end
-
+# ************  YOU WON'T NEED THIS IN RAILS 3.1 ***********************************
+# Right when you think you need to change this to use 'super', you can just use the
+# :ampm => true option in rails 3.1
       alias_method_chain :select_hour, :twelve_hour_time
 
       def twelve_hour_option_tags(val)

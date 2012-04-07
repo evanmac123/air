@@ -3,7 +3,7 @@
 require 'spec_helper'
 
 class DummyController < AdminBaseController
-  skip_before_filter :authenticate
+  skip_before_filter :authorize
   def echo
     render :text => params[:text]
   end

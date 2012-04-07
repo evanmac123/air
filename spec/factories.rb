@@ -11,7 +11,6 @@ Factory.define :unnamed_user, :class => User do |factory|
   factory.association(:location)
   factory.email                 { Factory.next :email }
   factory.password              { "password" }
-  factory.password_confirmation { "password" }
 end
 
 Factory.define :tutorial do |factory|

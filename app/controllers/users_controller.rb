@@ -31,7 +31,7 @@ class UsersController < Clearance::UsersController
     end
 
     @locations = @user.demo.locations
-    @acts = @user.acts.unhidden.recent(10)
+    @acts = @user.acts.unhidden.same_demo(@user).recent(10)
     @viewing_self = signed_in? && current_user == @user
     @viewing_other = signed_in? && current_user != @user
 

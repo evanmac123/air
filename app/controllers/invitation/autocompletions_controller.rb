@@ -1,5 +1,5 @@
 class Invitation::AutocompletionsController < ApplicationController
-  skip_before_filter :authenticate
+  skip_before_filter :authorize
   def index
     text = params[:entered_text].strip.downcase
 

@@ -124,7 +124,7 @@ class User < ActiveRecord::Base
 
   attr_reader :batch_updating_recent_averages
 
-  attr_accessor :trying_to_accept
+  attr_accessor :trying_to_accept, :password_confirmation
   attr_protected :is_site_admin, :invitation_method
 
   has_alphabetical_column :name
@@ -201,18 +201,20 @@ class User < ActiveRecord::Base
     next_threshold - self.points
   end
   
-  def update_password_with_blank_forbidden(password, password_confirmation)
-    # See comment in user_spec for #update_password.
-    unless password.present?
-      self.errors.add :password, "Please choose a password"
-      return false
-    end
+  module UpdatePasswordWithBlankForbidden
+    def update_password(password)
+      # See comment in user_spec for #update_password.
+      unless password.present?
+        self.errors.add :password, "Please choose a password"
+        return false
+      end
 
-    update_password_without_blank_forbidden(password, password_confirmation)
+      super(password)
+    end
   end
 
-  alias_method_chain :update_password, :blank_forbidden
-
+  include UpdatePasswordWithBlankForbidden
+  
   def followers
     # You'd think you could do this with an association, and if you can figure
     # out how to get that to work, please, be my guest.
@@ -234,6 +236,10 @@ class User < ActiveRecord::Base
 
   def accepted_friends
     friends.where('friendships.state' => 'accepted')
+  end
+  
+  def accepted_friends_same_demo
+    accepted_friends.where(:demo_id => self.demo_id)
   end
 
   def accepted_friends_not_counting_fairy_tale_characters
@@ -271,16 +277,17 @@ class User < ActiveRecord::Base
   # See comment by Demo#acts_with_current_demo_checked for an explanation of
   # why we do this.
 
-  %w(friends pending_friends accepted_friends followers accepted_followers).each do |base_method_name|
-    class_eval <<-END_DEF
-      def #{base_method_name}_with_in_current_demo
-        #{base_method_name}_without_in_current_demo.where(:demo_id => self.demo_id)
-      end
-
-      alias_method_chain :#{base_method_name}, :in_current_demo
-    END_DEF
-
-  end
+  # Commenting this out until I can figure out to redo alias_method_chain with 'super'
+  # %w(friends pending_friends accepted_friends followers accepted_followers).each do |base_method_name|
+  #   class_eval <<-END_DEF
+  #     def #{base_method_name}_with_in_current_demo
+  #       #{base_method_name}_without_in_current_demo.where(:demo_id => self.demo_id)
+  #     end
+  # 
+  #     #alias_method_chain :#{base_method_name}, :in_current_demo
+  #   END_DEF
+  # 
+  # end
 
   def to_param
     slug
@@ -885,15 +892,15 @@ class User < ActiveRecord::Base
   
 
   def profile_page_friends_list
-    self.accepted_friends.sort_by {|ff| ff.name.downcase}
+    self.accepted_friends_same_demo.sort_by {|ff| ff.name.downcase}
   end
   
   def scoreboard_friends_list_by_points
-    (self.accepted_friends + [self]).sort_by {|ff| ff.points}.reverse
+    (self.accepted_friends_same_demo + [self]).sort_by {|ff| ff.points}.reverse
   end
   
   def scoreboard_friends_list_by_name
-    (self.accepted_friends + [self]).sort_by {|ff| ff.name.downcase}
+    (self.accepted_friends_same_demo + [self]).sort_by {|ff| ff.name.downcase}
   end
   
   def self.name_starts_with(start)
@@ -953,6 +960,11 @@ class User < ActiveRecord::Base
     return [nil, {:error => "Your domain is not valid"}] unless domain_object
 
     User.new(:email => email.strip, :demo_id => domain_object.demo_id)
+  end
+  
+  def self.authenticate(email_or_sms_slug, password)
+    user = User.where('sms_slug = ? OR email = ?', email_or_sms_slug.to_s.downcase, email_or_sms_slug.to_s.downcase).first
+    user && user.authenticated?(password) ? user : nil
   end
 
   protected
@@ -1225,5 +1237,9 @@ class User < ActiveRecord::Base
   
   def self.get_claimed_users_where_like(text, demo, attribute)
     get_users_where_like(text, demo, attribute).claimed
+  end
+  
+  def self.passwords_dont_match_error_message
+    "Sorry, your passwords don't match"
   end
 end

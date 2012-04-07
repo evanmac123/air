@@ -8,8 +8,9 @@ feature "User Accepts Invitation" do
     visit invitation_page(user)
     visit activity_page
     should_be_on(signin_page)
-
     visit invitation_page(user)
+
+
     fill_in_required_invitation_fields
     click_button 'Join the game'
     should_be_on(activity_page)

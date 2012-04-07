@@ -131,12 +131,13 @@ Feature: User accepts invitation
     When I press "Join the game"
     Then I should not see "Welcome to the game"
     And I should see "Please choose a password"
-
-    When I fill in "Choose a password" with "foo"
-    And I fill in "And confirm that password" with "bar"
+    And I should see "Please enter the password here too"
+    When I fill in "Choose a password" with "foofoo"
+    And I fill in "And confirm that password" with "barbar"
     And I press "Join the game"
     Then I should not see "Welcome to the game"
-    And I should see "Password doesn't match confirmation"
+    And I should see "Sorry, your passwords don't match"
+    
 
   Scenario: User doesn not have to specify mobile number to join
     When I fill in "Choose a password" with "whatwhat"

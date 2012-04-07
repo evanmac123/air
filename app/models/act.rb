@@ -62,6 +62,10 @@ class Act < ActiveRecord::Base
   def self.unhidden
     where(:hidden => false)  
   end
+  
+  def self.same_demo(user)
+    where(:demo_id => user.demo_id)
+  end
 
   def self.displayable_to_user(viewing_user)
     unhidden.allowed_to_view_by_privacy_settings(viewing_user)

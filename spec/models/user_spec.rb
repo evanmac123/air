@@ -234,10 +234,10 @@ describe User, "#update_password" do
 
     it "should return false and not update" do
       user = Factory :user
-      user.password = user.password_confirmation = "foobar"
+      user.password = "foobar"
       user.save!
 
-      user.update_password("", "").should == false
+      user.update_password("").should == false
       user.password.should == "foobar"
     end
   end

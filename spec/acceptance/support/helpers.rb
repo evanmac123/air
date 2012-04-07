@@ -17,7 +17,7 @@ module SteakHelperMethods
   end
 
   def has_password(user, password)
-    user.update_password(password, password)
+    user.update_password(password)
   end
 
   def current_email_address
