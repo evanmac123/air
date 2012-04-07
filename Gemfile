@@ -1,6 +1,6 @@
 source :rubygems
 
-gem "rails", "~> 3.0.3"
+gem "rails", "~> 3.0.12"
 gem "rack"
 gem "unicorn"   # Some of our capybara webkit tests fail with thin, so we use unicorn
 gem "high_voltage"
