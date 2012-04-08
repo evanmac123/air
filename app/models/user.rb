@@ -397,9 +397,12 @@ class User < ActiveRecord::Base
 
   def notification_channels
     case self.notification_method
-    when 'email': [:email]
-    when 'sms': [:sms]
-    when 'both': [:sms, :email]
+    when 'email'
+      [:email]
+    when 'sms'
+      [:sms]
+    when 'both'
+      [:sms, :email]
     end
   end
 

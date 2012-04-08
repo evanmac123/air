@@ -37,7 +37,7 @@ class Mailer < ActionMailer::Base
   def activity_report(csv_data, name, report_time, address)
     puts "Sending activity report for #{name} to #{address}"
 
-    subject_line = "Activity dump for #{name} as of #{report_time.to_s}"
+    subject_line = "Activity dump for #{name} as of #{report_time.pretty}"
 
     normalized_name = name.gsub(/\s+/, '_').gsub(/[^A-Za-z0-9_]/, '')
     attachment_name = [
@@ -99,10 +99,10 @@ class Mailer < ActionMailer::Base
   def side_message(recipient_identifier, message)
     to_email, from_email =
       case recipient_identifier
-      when Fixnum:
+      when Fixnum
         @user = User.find(recipient_identifier)
         [@user.email, @user.reply_email_address]
-      when String:
+      when String
         [recipient_identifier, DEFAULT_PLAY_ADDRESS]
       end
 

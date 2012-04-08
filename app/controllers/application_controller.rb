@@ -104,7 +104,7 @@ class ApplicationController < ActionController::Base
   end
 
   def merge_flashes
-    unless @flash_successes_for_next_request.empty?
+    unless @flash_successes_for_next_request.empty?      
       flash[:success] = (@flash_successes_for_next_request + [flash[:success]]).join(' ')
     end
 

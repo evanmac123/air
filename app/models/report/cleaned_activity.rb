@@ -16,7 +16,7 @@ class Report::CleanedActivity < Report::Activity
   protected
 
   def header_line
-    CSV.generate_line(["Date", "Hour", "Minute", "User ID", "Text", "Points", "Referring user ID", "User points", "User level"])
+    CSV.generate_line(["Date", "Hour", "Minute", "User ID", "Text", "Points", "Referring user ID", "User points", "User level"]).gsub("\n", "")
   end
 
   def cleaned_text(act)

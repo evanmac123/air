@@ -208,8 +208,10 @@ module SpecialCommand
 
     referred_act_text = I18n.t('special_command.credit_game_referrer.referred_activity_feed_text', :default => "credited %{referrer_name} for referring them to the game", :referrer_name => referring_user.name)
     referred_sms_points_phrase = case demo.referred_credit_bonus
-                                 when nil: ""
-                                 when 1: " (and 1 point)"
+                                 when nil
+                                   ""
+                                 when 1
+                                   " (and 1 point)"
                                  else
                                    " (and #{demo.referred_credit_bonus} points)"
                                  end

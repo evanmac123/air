@@ -26,5 +26,4 @@ Feature: User approves or ignores follower
     And I go to the user page for "Clay"
     Then I should see "already friends"
     And I press the button next to "Clay"
-    And show me the page
     And I should see "OK, you're no longer friends with Clay"

@@ -726,7 +726,7 @@ end
 describe "#mark_as_claimed" do
   before(:each) do
     @user = Factory :user
-    Timecop.freeze
+    Timecop.freeze(1)
   end
 
   after(:each) do

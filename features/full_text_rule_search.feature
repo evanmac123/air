@@ -8,7 +8,7 @@ Feature: Full text rule search
       | poison  | name: FooCorp | false       |  
       | workout | name: FooCorp | true        |  
       | cycled  | name: BarCorp | true        |  
-      | risotto |                       | true        |  
+      | risotto |               | true        |  
       | happy   | name: FooCorp | true        |  
     And the following rule values exist: 
       | value        | is_primary | rule           |

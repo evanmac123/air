@@ -2,6 +2,7 @@ source :rubygems
 
 gem "rails", "~> 3.0.3"
 gem "rack"
+gem "unicorn"   # Some of our capybara webkit tests fail with thin, so we use unicorn
 gem "high_voltage"
 gem "airbrake"
 gem "paperclip"
@@ -38,7 +39,7 @@ group :development, :test do
   end
 
   platforms :mri_19 do
-    gem "ruby-debug19", "~> 0.11.6"
+    gem "debugger"
     gem "linecache19",  "~> 0.5.11"
   end
 
@@ -47,7 +48,6 @@ group :development, :test do
   gem "reek"
   gem "flay"
   gem "flog"
-  gem "rcov"
   gem "parallel_tests"
 end
 

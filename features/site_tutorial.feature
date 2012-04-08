@@ -19,8 +19,8 @@ Feature: Talking Chicken
   @javascript 
   Scenario: Talking Chicken pops first and foremost
   And I wait a second
-    Then "Brand New" should have an open tutorial with current step "0"
     Then I should see "Directory"
+    Then "Brand New" should have an open tutorial with current step "0"
     Given I close the facebox modal
     And I wait a second
     And I should see "quick tour"
@@ -33,7 +33,6 @@ Feature: Talking Chicken
     
     And I press "play_button"
     And I take five
-    And show me the page
     
     Then I should see "Your activity shows up here" 
     When I click within "#next_button"  
