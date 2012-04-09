@@ -1,44 +1,37 @@
-$bubbly_radius: 6px;
 
+
+.bubbly-top-flat{
+  background: url(/images/tooltip/top_flat.png);
+  height: 9px;
+}
+
+.bubbly-middle{
+  background: url(/images/tooltip/middle.png);
+  padding: 0px 12px;
+  color: #494949;
+  font-size: 14px;
+  line-height: 17px;
+}
+
+.bubbly-bottom-flat{
+  background: url(/images/tooltip/bottom_flat.png);
+  height: 9px;
+}
+
+.bubbly-top-arrow{
+  background: url(/images/tooltip/top_arrow.png);
+  height: 23px;
+}
+
+.bubbly-bottom-arrow{
+  background: url(/images/tooltip/bottom_arrow.png);
+  height: 23px;
+}
 
 .bubbly{
   display: none;
   z-index: 120;
-  -moz-border-radius: $bubbly_radius;
-  -webkit-border-radius: $bubbly_radius;
-  border-radius: $bubbly_radius;   
-  background: #6c6967;
   color: white;
   font-size: 14px;
-  padding: 1ex;
-  border: 3px solid #464944;
-  width: 200px;
-
-  .bubbly-arrow-up, .bubbly-arrow-down, .bubbly-arrow-left{
-    position: absolute;
-  }
-  .bubbly-arrow-up{
-    background: url("/images/triangle30_up.png");
-    left: 92px;
-    top: -15px;
-    height: 15px;
-    width: 30px;
-  }
-  
-  .bubbly-arrow-down{
-    background: url("/images/triangle30_down.png");
-    bottom: -15px;
-    left: 92px;
-    height: 15px;
-    width: 30px;
-  }
-  
-  .bubbly-arrow-left{
-    background: url("/images/triangle30_left.png");
-    left: -15px;
-    top: 2px;
-    height: 30px;
-    width: 15px;
-  }
-  
+  width: 205px;
 }

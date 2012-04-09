@@ -384,6 +384,9 @@ ul {
           font-size: 30px;
           margin: 7px 25px 0 0; }
 
+.your_photo {
+  display: inline; }
+
 /* ---------- customizations ---------- */
 /* ---------- END customizations ---------- */
 /* layout/reset/fonts/etc */
