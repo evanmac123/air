@@ -214,6 +214,30 @@ class Demo < ActiveRecord::Base
       self.locations.each {|location| breakdown[location] = location.users.count}
     end
   end
+  
+  def tutorial_success
+    tutorials_in_this_game = Tutorial.all.collect do |tut|
+      tut if tut.user.demo == self
+    end
+    tutorials_in_this_game.reject { |tut| tut.nil? }
+    num_tutorials = tutorials_in_this_game.count
+    num_users_with_at_least_one_friend  = 0
+    num_users_who_completed_one_web_act = 0
+    tutorials_in_this_game.each do |tut|
+      user = tut.user
+      if user.accepted_friends_not_counting_fairy_tale_characters.count > 0
+        num_users_with_at_least_one_friend += 1
+      end
+      if user.acts.where(:creation_channel => "web").count > 0 
+        num_users_who_completed_one_web_act += 1
+      end
+    end
+    percent_with_friend = 100.0 * num_users_with_at_least_one_friend  / num_tutorials
+    percent_who_played  = 100.0 * num_users_who_completed_one_web_act / num_tutorials
+    puts "#{num_tutorials} users in #{self.name} have been offered the guided tour."
+    puts "#{percent_who_played}% of them completed at least one act through the play box"
+    puts "#{percent_with_friend}% of them have at least one accepted friend in the game"
+  end
 
   def self.number_not_found_response(receiving_number)
     demo = self.where(:phone_number => receiving_number).first

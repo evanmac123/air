@@ -235,6 +235,10 @@ class User < ActiveRecord::Base
     friends.where('friendships.state' => 'accepted')
   end
 
+  def accepted_friends_not_counting_fairy_tale_characters
+    accepted_friends.where('users.name != ?', Tutorial.example_search_name)
+  end
+  
   def friendship_pending_with(other)
     pending_friends.include?(other)
   end
