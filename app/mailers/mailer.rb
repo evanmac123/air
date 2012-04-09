@@ -119,8 +119,8 @@ class Mailer < ActionMailer::Base
   def fuji_poke(user_id)
     @user = User.find(user_id)
     mail(
-      :to      => to_email,
-      :from    => from_email
+      :to      => @user.email,
+      :from    => @user.reply_email_address
     )
   end
 end
