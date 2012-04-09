@@ -120,7 +120,8 @@ class Mailer < ActionMailer::Base
     @user = User.find(user_id)
     mail(
       :to      => @user.email,
-      :from    => @user.reply_email_address
+      :from    => @user.reply_email_address,
+      :subject => "Are you in the game?"
     )
   end
 end
