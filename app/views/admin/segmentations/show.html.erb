@@ -1,7 +1,11 @@
 <% if @segmentation_explanation.present? %>
   <h2><%= @segmentation_explanation %></h2>
+
   <p><%= @found_user_ids.length %> users in segment</p>
-  <p><%= link_to "Show users", "#", :id => "show-user-link" %></p>
+  <% unless @found_user_ids.empty? %>
+    <p><%= link_to "Show users", "#", :id => "show-user-link" %></p>
+  <% end %>
+
   <p id="user-info-target"></p>
 
   <% content_for :javascript do %>
