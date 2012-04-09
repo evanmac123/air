@@ -18,7 +18,7 @@ $(function() {
   
   if (document.getElementById('command_central')){
     $('#command_central').focus();
-    var sugg = "Type something healthy that you did or ate";
+    var sugg = "Enter an action";
     $('#command_central').val(sugg);
     $('#command_central').click(function(){
       $('#command_central').val('');   
