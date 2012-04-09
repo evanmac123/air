@@ -115,4 +115,12 @@ class Mailer < ActionMailer::Base
       :template_path => 'email_command_mailer',
       :template_name => "send_response")
   end
+
+  def fuji_poke(user_id)
+    @user = User.find(user_id)
+    mail(
+      :to      => to_email,
+      :from    => from_email
+    )
+  end
 end
