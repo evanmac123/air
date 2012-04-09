@@ -38,6 +38,7 @@ Feature: User accepts invitation
     And DJ works off
 
     Then "+15087407520" should have received an SMS "You've joined the 3M game! Your username is dan (text MYID if you forget). To play, text to this #."
+    But "dan@example.com" should receive exactly 1 email containing "You've joined the 3M game!"
     And I should be on the activity page
     And I should see "Dan joined the game"
 
