@@ -11,7 +11,7 @@ class InterstitialVerificationsController < ApplicationController
     if current_user.validate_new_phone(params[:user][:new_phone_validation])
       current_user.confirm_new_phone_number
       current_user.save!
-      OutgoingMessage.send_message(current_user, current_user.demo.welcome_message(current_user))
+      OutgoingMessage.send_message(current_user, current_user.demo.welcome_message(current_user), nil, :channel => :sms)
       current_user.schedule_followup_welcome_message
       redirect_to activity_path
     else
