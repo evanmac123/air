@@ -131,6 +131,23 @@ feature "Admin segmentation" do
         expect_content "#{user.name}: #{user.email}"
       end
     end
+
+    scenario 'should allow segmentation information to be downloaded in CSV format', :js => true do
+      select "Color", :from => "segment_column[0]"
+      select "red", :from => "segment_value[0]"
+
+      click_button "Find segment"
+
+      expect_content "Segmenting on: Color is red"
+      expect_content "14 users in segment"
+     
+      debugger
+      click_link "Show user names and emails in CSV"
+      @reds.each do |red|
+        expect_content CSV.generate_line([red.name, red.email])
+      end
+      pending
+    end
   end
 
   scenario 'should have a proper link from somewhere' do
@@ -138,8 +155,4 @@ feature "Admin segmentation" do
     click_link "Segment users"
     should_be_on admin_demo_segmentation_path(@demo)
   end
-
-  scenario 'should not show users from another demo'
-
-  scenario 'should allow segmentation information to be downloaded in CSV format'
 end
