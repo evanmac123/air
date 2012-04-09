@@ -4,7 +4,7 @@ class Admin::SegmentationsController < AdminBaseController
   def show
     load_characteristics
 
-    if params[:segment_column].present? && params[:segment_column].values.any?(&:present?)
+    if params[:segment_column].present?# && params[:segment_column].values.any?(&:present?)
       create_segmentation_explanation
       load_segmented_user_information
     end
@@ -24,6 +24,11 @@ class Admin::SegmentationsController < AdminBaseController
   end
 
   def create_segmentation_explanation
+    unless params[:segment_value].present?
+      @segmentation_explanation = 'No segmentation, choosing all users'
+      return
+    end
+
     @segmentation_explanation = "Segmenting on: "
     prefix = ''
 
@@ -36,9 +41,15 @@ class Admin::SegmentationsController < AdminBaseController
 
   def load_segmented_user_information
     criteria = {}
-    params[:segment_column].each do |index, characteristic_id|
-      criteria["characteristics.#{characteristic_id}"] = params[:segment_value][index]
+   
+    if params[:segment_value].present?
+      params[:segment_column].each do |index, characteristic_id|
+        criteria["characteristics.#{characteristic_id}"] = params[:segment_value][index]
+      end
+      @found_user_ids = User::SegmentationData.where(criteria).map(&:ar_id)
+    else
+      @found_user_ids = @demo.users.all.map(&:id)
     end
-    @found_user_ids = User::SegmentationData.where(criteria).map(&:ar_id)
+
   end
 end

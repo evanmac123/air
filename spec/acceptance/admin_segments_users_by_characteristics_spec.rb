@@ -3,6 +3,7 @@ require File.expand_path(File.dirname(__FILE__) + '/acceptance_helper')
 feature "Admin segmentation" do
   before(:each) do
     @demo = Factory :demo
+    signin_as_admin
   end
 
   context "segmenting users" do
@@ -41,7 +42,6 @@ feature "Admin segmentation" do
 
       crank_off_dj
 
-      signin_as_admin
       visit admin_demo_segmentation_path(@demo)
     end
 
@@ -121,9 +121,23 @@ feature "Admin segmentation" do
       expect_content "0 users in segment"
       expect_no_content "Show users"
     end
+
+    scenario "segments in such a way (like by choosing no characteristics) that matches all users", :js => true do
+      click_button "Find segment"
+      expect_content "43 users in segment"
+
+      click_link "Show users"
+      @demo.users.each do |user|
+        expect_content "#{user.name}: #{user.email}"
+      end
+    end
   end
 
-  scenario 'should have a proper link from somewhere'
+  scenario 'should have a proper link from somewhere' do
+    visit admin_demo_path(@demo)
+    click_link "Segment users"
+    should_be_on admin_demo_segmentation_path(@demo)
+  end
 
   scenario 'should not show users from another demo'
 
