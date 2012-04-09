@@ -223,8 +223,8 @@ class ApplicationController < ActionController::Base
 
   def set_delay_on_tooltips
     days_of_newbie = 2
-    short_delay = 1000
-    long_delay = 2000
+    short_delay = 200
+    long_delay = 1000
     @tooltip_delay = short_delay
     if current_user && current_user.accepted_invitation_at
       when_joined = current_user.accepted_invitation_at
