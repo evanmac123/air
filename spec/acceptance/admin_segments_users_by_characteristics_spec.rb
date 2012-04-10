@@ -101,6 +101,18 @@ feature "Admin segmentation" do
       click_link "Show users"
       expect_user_content @greens[9]
     end
+    
+    scenario "sees link to each segmented user", :js => true do
+      select "Color", :from => "segment_column[0]"
+      select "red", :from => "segment_value[0]"
+
+      click_button "Find segment"
+      click_link "Show users"
+
+      first_red = @reds[0]
+      click_link "#{first_red.name}: #{first_red.email} (#{first_red.id})"
+      should_be_on edit_admin_demo_user_path(first_red.demo, first_red)
+    end
 
     scenario "segments in a way that no employees match", :js => true do
       # And let's go for a shutout
