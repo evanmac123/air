@@ -26,5 +26,5 @@ end
 
 Then /^"([^"]*)" should receive exactly (\d+) email containing "([^"]*)"$/ do |address, count, expected_text|
   count = count.to_i
-  unread_emails_for(address).select{|email| email.parts.to_s.include?(expected_text)}.should have(count).emails
+  unread_emails_for(address).select{|email| email.default_part_body.include?(expected_text)}.should have(count).emails
 end

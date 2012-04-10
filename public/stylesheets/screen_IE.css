@@ -81,9 +81,6 @@ input[type="submit"].button_norm {
     background-repeat: repeat-x!important;
     background-position: center center!important;
     color: #fff!important; }
-.suggested-task div {
-  margin: 0;
-  padding: 0; }
 
 .feeds ul.tabs li {
   background-color: #404040; }
@@ -106,11 +103,24 @@ body.scores div.points {
   padding-left: 15px !important;
   width: 300px; }
 
-.quick_tour_link {
-  padding-right: 100px !important; }
+.quick_tour_link, .contact_us_link {
+  width: 140px !important; }
 
 #feed_wrapper, #bar_command_wrapper, #search_box_wrapper, #directory_wrapper, #following_wrapper {
   position: relative; }
 
 #bar_command_wrapper {
   z-index: 1; }
+
+#black_tooltip.left #differing_spacings {
+  left: 7px !important; }
+#black_tooltip.left #tutorial_menu {
+  right: 8px !important; }
+
+#black_tooltip.right #differing_spacings {
+  left: -3px !important; }
+#black_tooltip.right #tutorial_menu {
+  right: 16px !important; }
+
+#tutorial_menu #options {
+  right: 5px; }

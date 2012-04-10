@@ -905,7 +905,7 @@ body.acts .container #suggested-tasks {
       padding: 3px 10px;
       position: relative;
       text-transform: uppercase;
-      top: -3px; }
+      top: 0px; }
       body.acts .container #suggested-tasks .suggested-task a.more-info:hover {
         background: #1e1f1e;
         /* Old browsers */
@@ -1399,7 +1399,7 @@ body.users div#right-col {
     padding: 0 0 5px 0; }
     body.users div#right-col li.user {
       clear: both; }
-      body.users div#right-col li.user p.user-level {
+      body.users div#right-col li.user .user-level {
         color: #4d4d4d;
         float: right;
         font-weight: bold;
@@ -2071,3 +2071,8 @@ td.label {
 
 .interaction_in_progress {
   padding-top: 1.5cm; }
+
+.room_for_two {
+  width: 2.7ex;
+  float: right;
+  text-align: right; }
