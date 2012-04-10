@@ -134,7 +134,7 @@ body.acts {
 					padding:3px 10px;
 					position:relative;
 					text-transform:uppercase;
-					top:-3px;
+					top: 0px;
 					&:hover {
 						@include bg-black;
 					}
@@ -439,7 +439,7 @@ body.users {
 			padding:0 0 5px 0;
 			&.user {
 				clear:both;
-				p.user-level {
+				.user-level {
 					color:lighten($dark-gray,10%);
 					float:right;
 					font-weight:bold;
@@ -1122,4 +1122,9 @@ td.label{
 
 .interaction_in_progress{
   padding-top: 1.5cm;
+}
+.room_for_two{
+  width: 2.7ex;
+  float: right;
+  text-align: right;
 }

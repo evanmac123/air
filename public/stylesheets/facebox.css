@@ -38,8 +38,8 @@
 
 #facebox .close{
   position:absolute;
-  top:5px;
-  right:5px;
+  top:1px;
+  right:-9px;
   padding:2px;
   background:#fff;
 }

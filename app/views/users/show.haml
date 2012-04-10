@@ -58,9 +58,11 @@
             - @accepted_friends.each do |friend|
               %li.user
                 %p.user-name= link_to friend.name, user_path(friend)
-                %p.user-level
-                  Level
-                  = friend.top_level_index
+                .user-level
+                  .room_for_two
+                    = friend.top_level_index
+                  .right Level
+
       .cf
   
   - if @display_pending_friendships  

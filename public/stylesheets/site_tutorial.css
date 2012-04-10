@@ -137,7 +137,8 @@ ul {
     top: -10px; }
   #tutorial_menu .close_tutorial {
     font-size: 15px;
-    float: right; }
+    float: right;
+    right: 5px; }
   #tutorial_menu a, #tutorial_menu a:hover {
     color: #625b2e; }
 

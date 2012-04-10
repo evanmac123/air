@@ -85,10 +85,7 @@ input[type="submit"].button_norm {
 			color:#fff!important;
 		}
 	}
-	div {
-		margin:0;
-		padding:0;
-	}
+
 }
 
 .feeds {
@@ -129,12 +126,24 @@ body.scores {
   padding-left: 15px !important;
   width: 300px;
 }
-.quick_tour_link{
-  padding-right: 100px !important;
+.quick_tour_link, .contact_us_link{
+  width: 140px !important;
 }
 #feed_wrapper, #bar_command_wrapper, #search_box_wrapper, #directory_wrapper, #following_wrapper{
   position: relative;
 }
 #bar_command_wrapper{
   z-index: 1;
+}
+#black_tooltip.left{
+  #differing_spacings{ left: 7px !important; }
+  #tutorial_menu{ right: 8px !important; }
+} 
+
+#black_tooltip.right{
+  #differing_spacings{ left: -3px !important; }
+  #tutorial_menu{ right: 16px !important; }
+}
+#tutorial_menu #options{
+  right: 5px; // This is here to make sure you can still select the .close_tutorial button in the chicken
 }

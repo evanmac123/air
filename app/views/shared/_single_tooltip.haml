@@ -7,30 +7,27 @@
 - @x = 0
 - @y = 0
 - if single_tooltip[2].present?
-  - case single_tooltip[2]
-  - when 'bottom'
+  - if single_tooltip[2] == 'bottom'
     - position = 'bottom center'
     - direction = 'down'
-  - when 'right'
-    - position = 'center right'
-    - direction = 'right'
+
 
 
   
 %div{:id => bubbly_div_id_without_prefix, :class => "bubbly"}
-
-  = bubbly_contents
-  - case direction
-  - when 'up'
-    .bubbly-arrow-down
-    - @y = -15
-  - when 'right'
-    .bubbly-arrow-left
-    - @x = 15
-  - when 'down'
-    .bubbly-arrow-up
-    - @y = 15
-    
+  
+  - if direction == 'up'
+    - @y = -1
+    .bubbly-top-flat
+    .bubbly-middle
+      = bubbly_contents
+    .bubbly-bottom-arrow
+  - else
+    - @y = 1
+    .bubbly-top-arrow
+    .bubbly-middle
+      = bubbly_contents
+    .bubbly-bottom-flat
 
     
 = content_for :javascript do
