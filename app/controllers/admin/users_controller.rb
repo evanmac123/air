@@ -1,3 +1,5 @@
+require 'csv'
+
 class Admin::UsersController < AdminBaseController
   before_filter :find_demo_by_demo_id
   before_filter :find_user, :only => [:edit, :update, :destroy]
@@ -19,6 +21,11 @@ class Admin::UsersController < AdminBaseController
 
       format.js do
         @users = @demo.users.where(:id => params[:ids]).sort_by(&:name)
+      end
+
+      format.csv do
+        @users = @demo.users.where(:id => params[:ids])
+        render :index, :content_type => "text/csv"
       end
     end
   end

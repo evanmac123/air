@@ -6,6 +6,10 @@ feature "Admin segmentation" do
     signin_as_admin
   end
 
+  def expect_user_content(user)
+    expect_content "#{user.name}: #{user.email} (#{user.id})"
+  end
+
   context "segmenting users" do
     before(:each) do
       @generic_characteristic_1 = Factory :characteristic, :name => "Color", :allowed_values => %w(red orange yellow green blue indigo violet)
@@ -55,9 +59,7 @@ feature "Admin segmentation" do
       expect_content "Segmenting on: Color is red"
       expect_content "14 users in segment"
       click_link "Show users"
-      @reds.each do |red|
-        expect_content "#{red.name}: #{red.email}"
-      end
+      @reds.each { |red| expect_user_content red }
     end
 
     scenario "sees users segmented by two characteristics", :js => true do
@@ -74,9 +76,7 @@ feature "Admin segmentation" do
       expect_content "Favorite Beatle is george"
       expect_content "4 users in segment"
       click_link "Show users"
-      [@reds[5], @reds[6], @reds[7], @reds[8]].each do |red|
-        expect_content "#{red.name}: #{red.email}"
-      end
+      [@reds[5], @reds[6], @reds[7], @reds[8]].each { |red| expect_user_content red }
     end
 
     scenario "sees users segmented by three characteristics", :js => true do
@@ -99,7 +99,7 @@ feature "Admin segmentation" do
       expect_content "1 users in segment"
 
       click_link "Show users"
-      expect_content "#{@greens[9].name}: #{@greens[9].email}"
+      expect_user_content @greens[9]
     end
 
     scenario "segments in a way that no employees match", :js => true do
@@ -127,9 +127,7 @@ feature "Admin segmentation" do
       expect_content "43 users in segment"
 
       click_link "Show users"
-      @demo.users.each do |user|
-        expect_content "#{user.name}: #{user.email}"
-      end
+      @demo.users.each { |user| expect_user_content user }
     end
 
     scenario 'should allow segmentation information to be downloaded in CSV format', :js => true do
@@ -141,12 +139,10 @@ feature "Admin segmentation" do
       expect_content "Segmenting on: Color is red"
       expect_content "14 users in segment"
      
-      debugger
       click_link "Show user names and emails in CSV"
-      @reds.each do |red|
-        expect_content CSV.generate_line([red.name, red.email])
-      end
-      pending
+      page.response_headers['Content-Type'].should =~ %r{^text/csv}
+      expect_content "Name,Email,ID"
+      @reds.each { |red| expect_content CSV.generate_line([red.name, red.email, red.id]) }
     end
   end
 
