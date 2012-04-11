@@ -39,7 +39,7 @@
       %p#why_invite It's more fun when people you know are playing too. Plus, get a 5-point referral bonus for each friend that joins the game!
       #points_per_referral= current_user.demo.game_referrer_bonus
 
-    - unless current_user.demo.self_inviting_domains.empty?
+    - if current_user.demo.is_public_game || current_user.demo.is_self_inviting_game 
       =############# SELF INVITING DOMAIN version ################
       = form_tag invitation_invite_friend_path, :autocomplete => :off do  
         %p Enter your friends' email addresses:
@@ -48,20 +48,18 @@
           #potential_bonus_points
             0
           potential bonus points!
-        - domain_object = current_user.self_inviting_domain || current_user.demo.self_inviting_domains.first
-        - domain = "@#{domain_object.domain}"
+
         .first_half
           - 5.times do |f|
             - tag_name = "email_prepends[#{f}]"
             = label_tag tag_name, "email number #{f}"
             = text_field_tag tag_name, '', :style => "margin-bottom: 2px;"
-            %span.domain= domain
+
         .second_half
           - 5.times do |f|
             - tag_name = "email_prepends[#{f + 5}]"
             = label_tag tag_name, "email number #{f + 5}"
             = text_field_tag tag_name
-            = domain
         .invite_or_add    
           = submit_tag "Invite!"
         /   = link_to "I have LOTS of friends", '#m', :id => :lots_of_friends

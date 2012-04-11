@@ -7,4 +7,6 @@ describe SelfInvitingDomain do
   it { should validate_uniqueness_of :domain }
   it { should validate_presence_of :demo_id }
   it { should validate_presence_of :domain }
+  
+      
 end

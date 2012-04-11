@@ -31,12 +31,19 @@ class Invitation::FriendInvitationsController < ApplicationController
     end
     users_invited = []
     
-    # Self-inviting Domain
-    domain = current_user.self_inviting_domain.domain
-    unless domain
-      add_failure "The domain is wrong"
-      redirect_to activity_path and return
+    # Self-inviting Domain or Public Join
+    unless current_user.demo.is_public_game
+      begin
+        domain = current_user.self_inviting_domain.domain
+      rescue
+        domain = nil
+      end
+      unless domain
+        add_failure "Could not find a self-inviting domain for this game that matches '#{current_user.email.email_domain}'. Please contact support@hengage.com."
+        redirect_to activity_path and return
+      end
     end
+    
     hash_of_prepends = params[:email_prepends]
     existing_users = []
     if hash_of_prepends.nil?
@@ -50,13 +57,14 @@ class Invitation::FriendInvitationsController < ApplicationController
       hash_of_prepends.each_pair do |key,prepend|
         next if prepend.empty?
         check_for_all_blank += prepend
-        email = (prepend + "@" + domain).downcase
+        email = prepend.downcase
         users_with_email = User.where(:email => email)
         users_with_email_in_same_demo = User.where(:email => email, :demo_id => current_user.demo_id)
         
-        if prepend.include? "@"
-          add_failure no_at_sign_error_message
-          
+        if email.is_not_email_address? 
+          add_failure "#{email} is not a valid email address"
+        elsif current_user.demo.valid_email_to_create_new_user(email) == false
+          add_failure "#{email} is not on a self-inviting domain. Please enter work email addresses."
         elsif users_with_email.present? && users_with_email_in_same_demo.empty?
           add_failure "Thanks, but #{email} is in a different game than you."
         elsif users_with_email.empty? 

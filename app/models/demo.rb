@@ -1,4 +1,7 @@
 class Demo < ActiveRecord::Base
+  
+  JOIN_TYPES = %w(pre-populated self-inviting public).freeze
+  
   has_many :users, :dependent => :destroy
   has_many :acts
   has_many :rules, :dependent => :destroy
@@ -17,6 +20,8 @@ class Demo < ActiveRecord::Base
   has_one :skin
 
   validate :end_after_beginning
+  
+  validates_inclusion_of :join_type, :in => JOIN_TYPES
 
   has_alphabetical_column :name
 
@@ -247,6 +252,16 @@ class Demo < ActiveRecord::Base
   def self.default_number_not_found_response
     "I can't find your number in my records. Did you claim your account yet? If not, text your first initial and last name (if you are John Smith, text \"jsmith\")."
   end
+  
+  def valid_email_to_create_new_user(email)
+    return false unless email.is_email_address?
+    return true if self.is_public_game
+    domains = self.self_inviting_domains.map do |dom|
+      dom.domain
+    end
+    return true if domains.include? email.email_domain
+    false
+  end
 
   protected
 
@@ -282,5 +297,20 @@ class Demo < ActiveRecord::Base
     if begins_at && ends_at && ends_at <= begins_at
       errors.add(:begins_at, "must come before the ending time")
     end
+  end
+  
+  def is_public_game
+    # Note that to send yourself an invitation, this line in the invitations controller must pass as true:
+    #     ENV['GAME_TYPE'] == 'public'
+    # which must be set on the server
+    self.join_type == 'public'
+  end
+  
+  def is_self_inviting_game
+    self.join_type == 'self-inviting'
+  end
+  
+  def is_pre_populated_game
+    self.join_type == 'pre-populated'
   end
 end

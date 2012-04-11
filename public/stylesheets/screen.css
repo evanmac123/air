@@ -1113,7 +1113,7 @@ body.acts .container .invite-module .invite form {
     color: #909090;
     width: 100%; }
     body.acts .container .invite-module .invite form .first_half input[type="text"], body.acts .container .invite-module .invite form .second_half input[type="text"] {
-      width: 200px; }
+      width: 325px; }
   body.acts .container .invite-module .invite form .invite_or_add {
     clear: both;
     margin-top: 15px;

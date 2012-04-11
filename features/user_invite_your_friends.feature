@@ -2,11 +2,11 @@ Feature: User invites friends
 
   Background:
     Given the following demo exists:
-      | name       | game_referrer_bonus |
-      | Bratwurst  | 2000                |
-      | Gleason    | 2000                |
-      | Preloaded  | 2000                |
-      | NotStarted | 2000                |
+      | name       | game_referrer_bonus | join_type     |
+      | Bratwurst  | 2000                | self-inviting |
+      | Gleason    | 2000                | self-inviting |
+      | Preloaded  | 2000                | pre-populated |
+      | NotStarted | 2000                | self-inviting |
     Given the following self inviting domain exists:
       | domain       | demo             |
       | seconds.com  | name: Bratwurst  |
@@ -93,7 +93,8 @@ Feature: User invites friends
     Given "Barnaby" has the password "foobar"
     Given I sign in via the login page as "Barnaby/foobar"    
     Then I should see "Invite your friends"
-    When I fill in "email number 1" with "racing22"
+    And show me the page
+    When I fill in "email number 1" with "racing22@inviting.com"
     And I press "Invite!"
     Then I should see "You just invited racing22@inviting.com to play H Engage"
     And DJ works off
@@ -119,18 +120,19 @@ Feature: User invites friends
     And I should see "Barnaby got credit for referring Blowing Smoke to the game"
     And I should see "2000 pts"
     
+    
   @javascript
   Scenario: Invite multiple friends at a time on a demo with a self-inviting domain
     Given "Barnaby" has the password "foobar"
     Given I sign in via the login page as "Barnaby/foobar"   
     Then I should see "Invite your friends"
-    When I fill in "email number 0" with "racing01"
+    When I fill in "email number 0" with "racing01@inviting.com"
     And I should see "That's 2000 potential bonus points!"
-    When I fill in "email number 1" with "racing02"
+    When I fill in "email number 1" with "racing02@inviting.com"
     And I should see "That's 4000 potential bonus points!"
-    When I fill in "email number 2" with "racing03"
-    When I fill in "email number 3" with "racing04"
-    When I fill in "email number 4" with "racing05"
+    When I fill in "email number 2" with "racing03@inviting.com"
+    When I fill in "email number 3" with "racing04@inviting.com"
+    When I fill in "email number 4" with "racing05@inviting.com"
     
     And I press "Invite!"
     Then I should see "You just invited racing01@inviting.com, racing02@inviting.com, racing03@inviting.com, racing04@inviting.com, and racing05@inviting.com to play H Engage"
@@ -163,7 +165,7 @@ Feature: User invites friends
     Given "Barnaby" has the password "foobar"
     Given I sign in via the login page as "Barnaby/foobar"    
     Then I should see "Invite your friends"
-    When I fill in "email number 3" with "also_claimed"
+    When I fill in "email number 3" with "also_claimed@inviting.com"
     And I press "Invite!"
     Then I should not see "You just invited"
     And I should see "Thanks, but the following users are already playing the game: also_claimed@inviting.com"
@@ -184,12 +186,12 @@ Feature: User invites friends
     Then I should not see a facebox modal
     
   @javascript
-  Scenario: invitation actually sent when using the modal
+  Scenario: invitation actually sent when using the modal with self-inviting domain
     Given the demo for "NotStarted" starts tomorrow
     And "Yoko" has the password "foobar"
     And I sign in via the login page as "Yoko/foobar"
     Then I should see "Invite your friends" in a facebox modal
-    When I fill in "email number 3" with "mybestfriend"
+    When I fill in "email number 3" with "mybestfriend@started.com"
     And I press "Invite!"
     And I should see "You just invited mybestfriend@started.com to play H Engage"
     
@@ -199,25 +201,25 @@ Feature: User invites friends
     Given "Barnaby" has the password "foobar"
     Given I sign in via the login page as "Barnaby/foobar"   
     Then I should see "Invite your friends"
-    When I fill in "email number 0" with "also_claimed"
+    When I fill in "email number 0" with "also_claimed@inviting.com"
     And I should see "That's 2000 potential bonus points!"
     And I press "Invite!"
     And I should see "Thanks, but the following users are already playing the game: also_claimed@inviting.com"
     
-    When I fill in "email number 0" with "neverheardofyou"
+    When I fill in "email number 0" with "neverheardofyou@inviting.com"
     And I should see "That's 2000 potential bonus points!"
     And I press "Invite!"
     And I should see "You just invited neverheardofyou@inviting.com to play H Engage"
     And I should see "That's 2000 potential bonus points!"
     And there should be a user with email "neverheardofyou@inviting.com" in demo "Bratwurst"
     
-    When I fill in "email number 0" with "different_game"
+    When I fill in "email number 0" with "different_game@inviting.com"
     And I should see "That's 2000 potential bonus points!"
     And I press "Invite!"
     And I should see "Thanks, but different_game@inviting.com is in a different game than you"
     And I should not see "That's 2000 potential bonus points!"
     
-    When I fill in "email number 0" with "different_game"
+    When I fill in "email number 0" with "different_game@inviting.com"
     And I should see "That's 2000 potential bonus points!"
     And I press "Invite!"
     And I should see "Thanks, but different_game@inviting.com is in a different game than you"
@@ -225,13 +227,13 @@ Feature: User invites friends
 
 
   @javascript
-  Scenario: Throw an error if you put an @ symbol in the email prepend
+  Scenario: Throw an error if invalid email entered
     Given "Barnaby" has the password "foobar"
     Given I sign in via the login page as "Barnaby/foobar"    
     Then I should see "Invite your friends"
-    When I fill in "email number 1" with "racing22@harmony.com"
+    When I fill in "email number 1" with "racing22harmony.com"
     And I press "Invite!"
-    Then I should see `Please enter only the part of the email address before the "@" - and remember that only colleagues in your organization can play.`
+    Then I should see `racing22harmony.com is not a valid email address`
 
   @javascript
   Scenario: User should not be able to invite herself
@@ -241,16 +243,5 @@ Feature: User invites friends
     When I fill in "Which coworkers do you wish to invite?" with "loaded"
     Then I should see "Charlie Brainfield"
     And I should not see "Yo Yo Ma" within the suggested users
-    
-  @javascript
-  Scenario: When demo has to self-inviting domains, use the correct one
-    Given "Barnaby" has the password "foobar"
-    Given I sign in via the login page as "Barnaby/foobar"  
-    Then I should see "Invite your friends"
-    Then I should not see "seconds.com" 
-    When I fill in "email number 1" with "racing22"
-    And I press "Invite!"
-    Then I should see "You just invited racing22@inviting.com to play H Engage"
-    Then I should not see "seconds.com"    
-    And DJ works off
-    Then "racing22@inviting.com" should receive an email
+
+
