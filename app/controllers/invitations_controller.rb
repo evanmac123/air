@@ -13,23 +13,20 @@ class InvitationsController < ApplicationController
       render :action => :new
       return
     end
-
-    unless @inviting_domain = @invitation_request.self_inviting_domain
-      render "invalid_inviting_domain"
-      return
-    end
-
     if (@user = @invitation_request.preexisting_user)
       if @user.claimed?
         render "duplicate_email"
-        return
       else
         @user.invite
-        return
+      end
+    else
+      if @inviting_domain = @invitation_request.self_inviting_domain
+        @user = @invitation_request.create_and_invite_user                
+      else
+        render "invalid_inviting_domain"
       end
     end
 
-    @user = @invitation_request.create_and_invite_user
   end
 
   def show

@@ -1,9 +1,10 @@
 Feature: User with proper email domain invites self
 
   Background:
-    Given the following demo exists:
-      | name     | 
-      | Highmark |
+    Given the following demos exist:
+      | name            | 
+      | Highmark        |
+      | PrePopulatedFun |
     And the following self inviting domains exist:
       | domain         | demo           |
       | highmark.com   | name: Highmark |
@@ -12,9 +13,9 @@ Feature: User with proper email domain invites self
       | email            | demo           |
       | joe@highmark.com | name: Highmark |
     And the following users exist:
-      | email             | demo                     |
-      | fred@highmark.com | name: Highmark           |
-      | bob@highmark.com  | name: Evil Highmark Twin |
+      | email               | demo                     |
+      | fred@highmark.com   | name: Highmark           |
+      | bob@somedomain.com  | name: PrePopulatedFun    |
 
     And I go to the new invitation page
 
@@ -70,3 +71,14 @@ Feature: User with proper email domain invites self
     When I press "Request invitation"
 
     Then I should see "You must enter your e-mail address to request an invitation."
+    
+  Scenario: Pre Populated user can request invitation
+    When I fill in "Email" with "bob@somedomain.com"
+    And I press "Request invitation"
+    And show me the page
+    Then I should see "We've received your request for an invitation. You should receive an invitation e-mail at bob@somedomain.com shortly. If you haven't received this e-mail within a few minutes, please request for it to be re-sent here, or contact support@hengage.com for help."
+    When DJ cranks 10 times
+    Then "bob@somedomain.com" should receive an email
+    When "bob@somedomain.com" opens the email
+    And I click the first link in the email
+    Then I should be on the invitation page for "bob@somedomain.com"
