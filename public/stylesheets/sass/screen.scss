@@ -1128,3 +1128,7 @@ td.label{
   float: right;
   text-align: right;
 }
+#message_body{
+  @include rounded;
+  height: 6em;
+}

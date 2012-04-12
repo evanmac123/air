@@ -2076,3 +2076,11 @@ td.label {
   width: 2.7ex;
   float: right;
   text-align: right; }
+
+#message_body {
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  behavior: url(/css3pie/PIE.htc);
+  z-index: 0;
+  height: 6em; }
