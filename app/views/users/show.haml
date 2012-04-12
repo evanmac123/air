@@ -41,30 +41,7 @@
     });
     
 #right-col
-  %h2.title Connections
-  #following_wrapper
-    #following.module
-      - if @current_user == @user 
-        %h1.headline Your Friends
-      - else
-        %h1.headline= "#{@user.first_name}'s Friends"
-      - unless @display_user_stats
-        = render 'follow_link'
-      - else
-        %ul#accepted_friendships
-          - if @accepted_friends.empty?
-            %p No friends yet
-          - else
-            - @accepted_friends.each do |friend|
-              %li.user
-                %p.user-name= link_to friend.name, user_path(friend)
-                .user-level
-                  .room_for_two
-                    = friend.top_level_index
-                  .right Level
-
-      .cf
-  
+  = render 'accepted_friends'
   - if @display_pending_friendships  
     #followed-by.module
       %h1.headline#friend_requests_title Your Friend Requests

@@ -18,9 +18,17 @@
   	  <div style='height: 12px;'>
   	<% end %>
 	</div>
-	<div class="invite-module module">
-		<%= render :partial => "invite_your_friends" %>  
-	</div>
+	
+	<div class="right-column">
+  	<div class="invite-module module">
+  		<%= render :partial => "invite_your_friends" %>  
+  	</div>
+	
+  	<div class="scoreboard-module module">
+  	  <%= render 'scoreboard', :user => @current_user %>
+    </div>
+  </div>
+  
 	<div id="feed_wrapper">
 	  <div class="feeds module">
 

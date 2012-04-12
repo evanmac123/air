@@ -870,6 +870,19 @@ class User < ActiveRecord::Base
     end
   end
   
+
+  def profile_page_friends_list
+    self.accepted_friends.sort_by {|ff| ff.name.downcase}
+  end
+  
+  def scoreboard_friends_list_by_points
+    (self.accepted_friends + [self]).sort_by {|ff| ff.points}.reverse
+  end
+  
+  def scoreboard_friends_list_by_name
+    (self.accepted_friends + [self]).sort_by {|ff| ff.name.downcase}
+  end
+  
   def self.name_starts_with(start)
     where("name ILIKE ?", start.like_escape + "%")
   end

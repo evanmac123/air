@@ -10,6 +10,32 @@ $faq_med_grey: #777;
 @import "faq_mini";
 $twin_peak_radius: 200px;
 
+@mixin purple_javascript_links{
+  cursor: pointer;
+  color: #eaf;
+}
+@mixin scoreboard_and_friends_list{
+  li {
+		padding:0 0 5px 0;
+		&.user {
+			clear:both;
+			.user-level {
+				color:lighten($dark-gray,10%);
+				float:right;
+				font-weight:bold;
+				text-transform:uppercase;
+			}
+			p.user-name {
+				color:$header-bg;
+				float:left;
+				span {
+					color:$gray;
+					margin-right:5px;
+				}
+			}
+		}
+	}
+}
 
 body {
 	background-color:#e9e9e9;
@@ -198,9 +224,13 @@ body.acts {
 				}
 			}
 		}
+		.right-column{
+		 	float: right;
+			width: 38.3%; 
+			@include scoreboard_and_friends_list;
+			.scoreboard-module ul, {padding-left: 20px;}
+		}
 		.invite-module {
-			float: right;
-			width: 35%;
 			#invite_friends_facebox {
 				p {
 					&:first-child {
@@ -435,26 +465,7 @@ body.users {
 	div#right-col {
 		float:right;
 		width:35%;
-		li {
-			padding:0 0 5px 0;
-			&.user {
-				clear:both;
-				.user-level {
-					color:lighten($dark-gray,10%);
-					float:right;
-					font-weight:bold;
-					text-transform:uppercase;
-				}
-				p.user-name {
-					color:$header-bg;
-					float:left;
-					span {
-						color:$gray;
-						margin-right:5px;
-					}
-				}
-			}
-		}
+		@include scoreboard_and_friends_list;
 	}
 }
 
@@ -1131,4 +1142,24 @@ td.label{
 #message_body{
   @include rounded;
   height: 6em;
+}
+#following #scoreboard_list, #scoreboard #friends_list{
+  display: none;
+}
+#sort_by_first_name, #sort_by_points{
+  @include purple_javascript_links; 
+  &:hover{
+    font-weight: bold;
+  }
+}
+#sort_by_points{
+  position: relative;
+  left: 220px;
+}
+#following #sort_by_points{
+  left: 188px;
+}
+
+#this_is_me *{
+  color: orange;
 }

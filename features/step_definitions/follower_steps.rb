@@ -264,7 +264,7 @@ Then /^"([^"]*)" should have received a follow notification email about "([^"]*)
 end
 
 Then /^I should see (\d+) (person|people) being followed$/ do |count, _nothing|
-  page.all(:css, "#following .user-name").count.should == count.to_i
+  page.all(:css, "#friends_list .user-name").count.should == count.to_i
 end
 
 Then /^I should see (\d+) followers?$/ do |count|

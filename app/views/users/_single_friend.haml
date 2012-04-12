@@ -1,0 +1,7 @@
+- this_is_me = current_user == single_friend ? 'this_is_me' : ''
+%li.user{:id => this_is_me}
+  %p.user-name= link_to single_friend.name, user_path(single_friend)
+  .user-level
+    .room_for_two
+      = single_friend.top_level_index
+    .right Level

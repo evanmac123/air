@@ -36,9 +36,8 @@ class UsersController < Clearance::UsersController
     @viewing_other = signed_in? && current_user != @user
 
     @current_link_text = "My Profile" if @viewing_self
-    
+    @has_friends = (@user.accepted_friends.count > 0)
     @pending_friends = @user.pending_friends
-    @accepted_friends = @user.accepted_friends.sort_by {|ff| ff.name}
     @display_user_stats = current_user.can_see_activity_of(@user)
     @reason_for_privacy = @user.name + @user.reason_for_privacy
     @display_pending_friendships = true if @viewing_self && @pending_friends.present?
