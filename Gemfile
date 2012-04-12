@@ -51,10 +51,6 @@ group :development, :test do
   gem "parallel_tests"
 end
 
-group :development, :staging, :production do
-  gem "copycopter_client", "~> 1.0.1"
-end
-
 group :test do
   gem "cucumber-rails"
   gem "factory_girl_rails"
