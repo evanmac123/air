@@ -442,7 +442,8 @@ class User < ActiveRecord::Base
       :level_index           => self.top_level_index,
       :score                 => self.points,
       :account_creation_date => self.created_at.to_date,
-      :joined_game_date      => self.accepted_invitation_at.try(:to_date)
+      :joined_game_date      => self.accepted_invitation_at.try(:to_date),
+      :location              => self.location.try(:name)
     }
   end
 
@@ -869,17 +870,6 @@ class User < ActiveRecord::Base
     end
   end
   
-  def self.next_dummy_number
-   last_assigned = self.where("phone_number LIKE '+1999%'").order("phone_number DESC").limit(1).first
-
-    if last_assigned
-      last_number_int = last_assigned.phone_number.to_i
-      "+" + (last_number_int + 1).to_s
-    else
-      "+19995550000"
-    end
-  end
-
   def self.name_starts_with(start)
     where("name ILIKE ?", start.like_escape + "%")
   end

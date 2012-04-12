@@ -7,7 +7,7 @@ module AccountClaimer
     end
     
     def number_to_join_game_with
-      User.next_dummy_number
+      nil
     end
 
     def existing_user_claimed_message
