@@ -167,6 +167,8 @@ GEM
       escape
       json
       rack
+    mixpanel_client (2.2.1)
+      json (~> 1.6)
     mocha (0.9.8)
       rake
     multi_json (1.0.4)
@@ -323,6 +325,7 @@ DEPENDENCIES
   linecache (~> 0.43)
   linecache19 (~> 0.5.11)
   mixpanel
+  mixpanel_client
   newrelic_rpm
   nokogiri
   paperclip

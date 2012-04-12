@@ -75,7 +75,6 @@ Feature: User with proper email domain invites self
   Scenario: Pre Populated user can request invitation
     When I fill in "Email" with "bob@somedomain.com"
     And I press "Request invitation"
-    And show me the page
     Then I should see "We've received your request for an invitation. You should receive an invitation e-mail at bob@somedomain.com shortly. If you haven't received this e-mail within a few minutes, please request for it to be re-sent here, or contact support@hengage.com for help."
     When DJ cranks 10 times
     Then "bob@somedomain.com" should receive an email

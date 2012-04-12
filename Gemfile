@@ -22,6 +22,7 @@ gem "heroku_san"
 gem "haml-rails"
 gem "chronic"
 gem "mixpanel"
+gem "mixpanel_client"
 gem "newrelic_rpm"
 
 # RSpec needs to be in :development group to expose generators
