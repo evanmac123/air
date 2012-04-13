@@ -17,7 +17,8 @@
 <br>
 
 <%= form_tag admin_demo_blast_sms_path(@demo), :method => :post, :autocomplete => :off do %>
-  <%= label_tag 'message_body' %>
+  <p>You can send up to 140 bytes in an SMS. That's 160 ASCII characters</p>
+  <h2><%= label_tag 'message_body' %></h2>
   <%= text_area_tag :message_body, '', :size => 560, :maxlength => 160 %>
   <%= add_byte_counter_for 'Message body' %>
   <%= field_set_tag do %>
