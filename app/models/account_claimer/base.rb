@@ -38,8 +38,6 @@ module AccountClaimer
       @welcome_message = @user.finish_claim
       after_joining_hook
 
-      record_claim_in_mixpanel
-
       @welcome_message
     end
 
@@ -50,10 +48,6 @@ module AccountClaimer
 
     def find_claimed_user_by_claim_code
       User.claimed.where("claim_code ILIKE ?", @normalized_claim_code.like_escape).first
-    end
-
-    def record_claim_in_mixpanel
-      Mixpanel::Tracker.new(MIXPANEL_TOKEN, {}).delay.track_event("claimed account", @user.data_for_mixpanel)
     end
   end
 end

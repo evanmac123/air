@@ -483,6 +483,7 @@ class User < ActiveRecord::Base
   def mark_as_claimed(number, channel = :web)
     update_attribute(:phone_number, PhoneNumber.normalize(number)) if number.present?
     update_attribute(:accepted_invitation_at, Time.now)
+    record_claim_in_mixpanel(channel)
   end
 
   def finish_claim(reply_mode = :string)
@@ -502,6 +503,10 @@ class User < ActiveRecord::Base
   def join_game(number, reply_mode=:string)
     mark_as_claimed(number)
     finish_claim(reply_mode)
+  end
+
+  def record_claim_in_mixpanel(channel)
+    Mixpanel::Tracker.new(MIXPANEL_TOKEN, {}).delay.track_event("claimed account", {:channel => channel}.merge(self.data_for_mixpanel))
   end
 
   def update_points(new_points, channel=nil)
