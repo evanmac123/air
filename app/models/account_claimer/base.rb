@@ -31,7 +31,7 @@ module AccountClaimer
           return existing_user_claimed_message
         end
 
-        @user.mark_as_claimed(number_to_join_game_with)
+        @user.mark_as_claimed(number_to_join_game_with, channel_name)
       end
       
       @user.forgot_password!

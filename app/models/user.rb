@@ -480,7 +480,7 @@ class User < ActiveRecord::Base
     update_attribute(:invited, true)
   end
 
-  def mark_as_claimed(number)
+  def mark_as_claimed(number, channel = :web)
     update_attribute(:phone_number, PhoneNumber.normalize(number)) if number.present?
     update_attribute(:accepted_invitation_at, Time.now)
   end

@@ -13,5 +13,9 @@ module AccountClaimer
     def existing_user_claimed_message
       Mailer.delay.already_claimed(@from, @claimed_user_with_this_claim_code.id)
     end
+
+    def channel_name
+      :email
+    end
   end
 end
