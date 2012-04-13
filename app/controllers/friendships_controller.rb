@@ -2,18 +2,20 @@ class FriendshipsController < ApplicationController
   before_filter :game_not_closed_yet
 
   def create
+    mixpanel_properties = {:channel => :web}
+    if params[:friend_link] == "follow_to_see_activity" 
+      mixpanel_properties[:friend_link] = :follow_to_see_activity
+    end
+
     @user = User.find_by_slug(params[:user_id])
-    new_friendship = current_user.befriend(@user)
+    new_friendship = current_user.befriend(@user, mixpanel_properties)
     new_friendship.accept if new_friendship && (@user.name == Tutorial.example_search_name)
     @user.reload
-    properties = params[:friend_link] == "follow_to_see_activity" ? {:friend_link => :follow_to_see_activity} : {}
-    
 
     respond_to do |format|
       format.html do
         if new_friendship
           flash[:success] = @user.follow_requested_message
-          flash[:mp_track_friendship] = ["fanned", properties]
         end
         redirect_to :back
       end

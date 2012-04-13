@@ -18,5 +18,9 @@ class FakeMixpanelTracker
     result
   end
 
+  def self.has_event_matching?(name, properties = {})
+    self.events_matching(name, properties).present?
+  end
+
   cattr_accessor :tracked_events
 end

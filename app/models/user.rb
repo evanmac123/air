@@ -703,16 +703,19 @@ class User < ActiveRecord::Base
     self.demo.surveys.open.first
   end
 
-  def befriend(other)
+  def befriend(other, mixpanel_properties={})
     return nil unless self.demo.game_open?
-    aa = nil
+    friendship = nil
     Friendship.transaction do
       return nil if self.friendships.where(:friend_id => other.id).present?
-      aa = self.friendships.create(:friend_id => other.id, :state => 'initiated')
-      bb = other.friendships.create(:friend_id => self.id, :state => 'pending')
-      bb.update_attribute(:request_index, aa.request_index)
+      friendship = self.friendships.create(:friend_id => other.id, :state => 'initiated')
+      reciprocal_friendship = other.friendships.create(:friend_id => self.id, :state => 'pending')
+      reciprocal_friendship.update_attribute(:request_index, friendship.request_index)
     end
-    aa
+
+    Mixpanel::Tracker.new(MIXPANEL_TOKEN, {}).delay.track_event('fanned', self.data_for_mixpanel.merge(mixpanel_properties))
+
+    friendship
   end
 
   def follow_requested_message

@@ -16,7 +16,7 @@ module SpecialCommand
     # So if you change something here, be sure to add it there too
     case command_name
     when 'follow', 'connect', 'fan', 'friend', 'befriend'
-      self.follow(user, args.first)
+      self.follow(user, args.first, options[:channel])
     when 'myid'
       self.myid(user)
     when 'moreinfo', 'more'
@@ -58,7 +58,7 @@ module SpecialCommand
 
   private
 
-  def self.follow(user_following, sms_slug_to_follow)
+  def self.follow(user_following, sms_slug_to_follow, channel)
     user_to_follow = User.claimed.where(:sms_slug => sms_slug_to_follow, :demo_id => user_following.demo_id).first
 
     return parsing_error_message("Sorry, we couldn't find a user with the username #{sms_slug_to_follow}.") unless user_to_follow
@@ -70,7 +70,7 @@ module SpecialCommand
 
       return parsing_success_message("You're already friends with #{user_to_follow.name}.") if user_following.accepted_friends.where('friendships.friend_id' => user_to_follow.id).present?
 
-      return nil unless user_following.befriend(user_to_follow)
+      return nil unless user_following.befriend(user_to_follow, :channel => channel)
     end
 
     user_to_follow.follow_requested_message

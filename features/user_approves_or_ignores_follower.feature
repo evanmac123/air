@@ -119,7 +119,7 @@ Feature: User approves or ignores follower
     And "+14155551212" sends SMS "friend bob"
     And "+16175551212" sends SMS "yes"
 
-    And DJ cranks 5 times
+    And DJ works off
     Then "+14155551212" should have received an SMS "OK, you'll be friends with Bob, pending their acceptance."
     And "+14155551212" should have received an SMS "Bob has approved your friendship request."
 
