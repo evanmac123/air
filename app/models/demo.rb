@@ -219,7 +219,7 @@ class Demo < ActiveRecord::Base
     tutorials_in_this_game = Tutorial.all.collect do |tut|
       tut if tut.user.demo == self
     end
-    tutorials_in_this_game.reject { |tut| tut.nil? }
+    tutorials_in_this_game.reject! { |tut| tut.nil? }
     num_tutorials = tutorials_in_this_game.count
     num_users_with_at_least_one_friend  = 0
     num_users_who_completed_one_web_act = 0
