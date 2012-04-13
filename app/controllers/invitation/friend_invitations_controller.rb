@@ -31,6 +31,7 @@ class Invitation::FriendInvitationsController < ApplicationController
         add_success(sentence) 
       end
       
+      record_mixpanel_ping(users_invited.length, user_ids.length)
       redirect_to activity_path and return        
     end
     
@@ -94,12 +95,8 @@ class Invitation::FriendInvitationsController < ApplicationController
     end
 
     attempted_invitation_count = hash_of_prepends.values.select(&:present?).length
-    mixpanel_details = {
-      :successful_invitations => users_invited.length, 
-      :attempted_invitations  => attempted_invitation_count
-    }.merge(current_user.data_for_mixpanel) 
+    record_mixpanel_ping(users_invited.length, attempted_invitation_count)
 
-    flash[:mp_track_invited_users] = ['invited friends', mixpanel_details]
     redirect_to activity_path 
   end
 
@@ -130,5 +127,14 @@ class Invitation::FriendInvitationsController < ApplicationController
 
   def no_at_sign_error_message
     %{Please enter only the part of the email address before the "@" - and remember that only colleagues in your organization can play.}  
+  end
+
+  def record_mixpanel_ping(successful_invitations, attempted_invitations)
+    mixpanel_details = {
+      :successful_invitations => successful_invitations,
+      :attempted_invitations  => attempted_invitations
+    }.merge(current_user.data_for_mixpanel) 
+
+    flash[:mp_track_invited_users] = ['invited friends', mixpanel_details]
   end
 end
