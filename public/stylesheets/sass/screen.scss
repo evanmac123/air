@@ -1044,11 +1044,11 @@ div.follow-btn, div.stop-following-btn {
   }
   tr:hover{
     background: #babeb8;
-    .hidden_tags{
+    .hidden_tags, .task_details{
       display: block;
     }
   } 
-  .hidden_tags{
+  .hidden_tags, .task_details{
     margin-top: 1ex;
     display: none;
     position: absolute;

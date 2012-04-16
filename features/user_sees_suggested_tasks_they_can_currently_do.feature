@@ -80,6 +80,7 @@ Feature: User sees suggested tasks they can currently do
     And I go to the admin "FooCo" demo page
     And I follow "Suggested tasks for this demo"
     And I follow "Add suggested task"
+    And I fill in "Identifier" with "ident1"
     And I fill in "Name" with "Do new stuff"
     And I press "Create Suggested task"
     And DJ cranks 10 times

@@ -3,9 +3,9 @@ class Admin::SuggestedTasksController < AdminBaseController
   before_filter :find_suggested_task, :only => [:edit, :update]
 
   def index
-    @suggested_tasks = @demo.suggested_tasks.alphabetical.includes(:prerequisites).includes(:rule_triggers)
+    @suggested_tasks = @demo.suggested_tasks.includes(:prerequisites).includes(:rule_triggers).sort_by{|ff| ff.identifier || '' + ff.name}
   end
-
+  
   def new
     @suggested_task = @demo.suggested_tasks.new
     @surveys = @demo.surveys
@@ -15,12 +15,16 @@ class Admin::SuggestedTasksController < AdminBaseController
 
   def create
     @suggested_task = @demo.suggested_tasks.build(params[:suggested_task])
-    @suggested_task.save!
+    if @suggested_task.save
+      flash[:success] = "New suggested task created"
+      redirect_to :action => :index
+      set_up_completion_triggers
+    else
+      add_failure @suggested_task.errors
+      redirect_to :back
+    end
 
-    set_up_completion_triggers
 
-    flash[:success] = "New suggested task created"
-    redirect_to :action => :index
   end
 
   def edit
@@ -35,10 +39,20 @@ class Admin::SuggestedTasksController < AdminBaseController
 
   def update
     @suggested_task.attributes = params[:suggested_task]
-    @suggested_task.save!
-    set_up_completion_triggers
 
-    flash[:success] = "Suggested task updated"
+    if @suggested_task.save
+      flash[:success] = "Suggested task updated"
+      redirect_to :action => :index
+      set_up_completion_triggers
+    else
+      add_failure @suggested_task.errors
+      redirect_to :back
+    end
+  end
+  
+  def destroy
+    suggested_task = SuggestedTask.find(params[:id])
+    add_success "Suggested task \"#{suggested_task.name}\" has been deleted" if suggested_task.delete
     redirect_to :action => :index
   end
 

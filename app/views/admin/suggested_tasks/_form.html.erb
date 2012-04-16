@@ -1,13 +1,26 @@
+<% unless suggested_task.new_record? %>
+  <%= button_to "Delete", admin_demo_suggested_task_path(suggested_task.demo, suggested_task), :method => :delete, :confirm => "Delete?"%>
+<% end %>
+
 <% form_submit_path = suggested_task.new_record? ?
   admin_demo_suggested_tasks_path(suggested_task.demo) :
   admin_demo_suggested_task_path(suggested_task.demo, suggested_task) %>
 <%= semantic_form_for suggested_task, :url => form_submit_path do |f| %>
+  <%= f.input :identifier %>
   <%= f.input :name %>
-  <%= f.input :short_description %>
-  <%= f.input :long_description %>
+  <%= f.input :short_description, :as => :text %>
+  <%= f.input :long_description, :as => :text %>
   <%= f.input :bonus_points %>
   <%= f.input :prerequisite_tasks, :collection => @existing_tasks %>
-  <%= f.input :start_time, :twelve_hour => true, :start_year => Time.now.year %>
+  <div id='start_and_end_times'>
+    <div id='start_time'>
+      <%= f.input :start_time, :twelve_hour => true, :start_year => Time.now.year %>
+    </div>
+    <div id='end_time'>
+      <%= f.input :end_time, :twelve_hour => true, :start_year => Time.now.year %>
+    </div>
+    <div class='clear'>
+  </div>
   <fieldset>
     <legend>Completion Triggers</legend>
       <p>If you don't select any completion triggers, the only way for one to get completed for a user will be for an admin to do so manually.</p>
@@ -33,4 +46,7 @@
       </fieldset>
   </fieldset>
   <%= f.submit %>
+  
+
 <% end %>
+

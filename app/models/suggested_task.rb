@@ -6,6 +6,8 @@ class SuggestedTask < ActiveRecord::Base
   has_one :survey_trigger, :class_name => "Trigger::SurveyTrigger"
   has_one :demographic_trigger, :class_name => 'Trigger::DemographicTrigger'
   has_many :task_suggestions, :dependent => :destroy
+  validates_uniqueness_of :identifier
+  validates_presence_of :identifier
 
   after_create do
     schedule_suggestion
@@ -18,7 +20,12 @@ class SuggestedTask < ActiveRecord::Base
   end
 
   def due?
-    start_time.nil? || start_time < Time.now
+    return true if start_time.nil?
+    if end_time
+      return true if start_time < Time.now && (end_time > Time.now)
+    else
+      return true if start_time < Time.now
+    end
   end
 
   def has_demographic_trigger?
@@ -33,8 +40,8 @@ class SuggestedTask < ActiveRecord::Base
     joins("LEFT JOIN prerequisites ON suggested_tasks.id = prerequisites.suggested_task_id").where("prerequisites.id IS NULL")
   end
 
-  def self.after_start_time
-    where("start_time < ? OR start_time IS NULL", Time.now)
+  def self.after_start_time_and_before_end_time
+    where("start_time < ? AND end_time > ? OR start_time IS NULL", Time.now, Time.now)
   end
 
   def self.bulk_complete(demo_id, suggested_task_id, emails)

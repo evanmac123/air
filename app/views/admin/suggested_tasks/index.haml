@@ -1,0 +1,87 @@
+.breadcrumb
+  = link_to "Admin", admin_path
+  = "»"
+  = link_to @demo.name, admin_demo_path(@demo)
+  = "»"
+  Suggested Tasks
+%br
+
+.admin
+    
+  - if @suggested_tasks.empty? 
+    %p No suggested tasks for this demo.
+  - else 
+    %table{:class => :admin_wide}
+      %tr
+        %th Identifier
+        %th Name
+        %th Prereq
+        %th 
+          Start Time
+          .time_zone
+            (Eastern)
+        %th 
+          End Time
+          .time_zone
+            (Eastern)
+        %th Bonus
+    
+
+      - @suggested_tasks.each do |suggested_task| 
+        - zebra_stripes = cycle('', 'stripe')
+        - active_class = suggested_task.due? ? ' active' : ' inactive'
+        - zebra_stripes += active_class
+
+    
+        %tr{:class => zebra_stripes}
+
+                  
+                  
+          %td= suggested_task.identifier
+          %td
+            = link_to suggested_task.name, edit_admin_demo_suggested_task_path(@demo, suggested_task) 
+            .task_details
+              .name
+                .label Name
+                .value= suggested_task.name
+              .short_desc
+                .label Short Description
+                .value= suggested_task.short_description 
+              .long_desc
+                .label Long Description
+                .value= suggested_task.long_description
+              .completion_triggers
+                - if suggested_task.has_demographic_trigger? 
+                  %p Complete demographics
+
+                - if suggested_task.rule_triggers.present? 
+                  %p="Rules (any of the following#{', referrer required' if suggested_task.rule_triggers.first.referrer_required}):"
+                  %ul
+                    - suggested_task.rule_triggers.each do |rule_trigger| 
+                      %li= rule_trigger.rule.primary_value_text
+              .other
+                - if suggested_task.survey_trigger.present? 
+                  %p 
+                    Survey: 
+                    = suggested_task.survey_trigger.survey.name 
+
+
+                - if suggested_task.only_manually_triggerable? 
+                  %p Manual only.
+                    
+          %td
+            - if suggested_task.prerequisite_tasks.present? 
+              - prerequisite_names = suggested_task.prerequisite_tasks.map(&:name).sort 
+              %ul
+                - prerequisite_names.each do |prerequisite_name| 
+                  %li= prerequisite_name         
+                    
+          %td= suggested_task.start_time ? suggested_task.start_time.pretty_succinct : ''
+          %td= suggested_task.end_time ? suggested_task.end_time.pretty_succinct : ''
+          
+
+          %td= suggested_task.bonus_points 
+        
+
+
+  %p= link_to "Add suggested task", new_admin_demo_suggested_task_path(@demo) 

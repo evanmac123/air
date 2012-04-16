@@ -1191,7 +1191,7 @@ class User < ActiveRecord::Base
   end
 
   def suggest_first_level_tasks
-    self.demo.suggested_tasks.first_level.after_start_time.each do |first_level_task|
+    self.demo.suggested_tasks.first_level.after_start_time_and_before_end_time.each do |first_level_task|
       first_level_task.suggest_to_user(self)
     end
   end

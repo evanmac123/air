@@ -195,6 +195,8 @@ end
 Factory.define :suggested_task do |suggested_task|
   suggested_task.name "Roast chestnuts"
   suggested_task.association :demo
+  suggested_task.sequence(:identifier) {|n| "Identifier#{n}"}
+  
 end
 
 Factory.define :task_suggestion do |task_suggestion|

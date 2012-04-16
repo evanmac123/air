@@ -1,0 +1,49 @@
+
+
+table.admin_wide{
+  width: 1150px;
+  position: relative;
+  left: -110px;
+}
+.task_details{
+  display: none;
+  position: absolute;
+}
+.admin{
+  
+  .name, .short_desc, .long_desc{
+    font-size: 17px;
+    line-height: 21px;
+    color: #444;
+    font-weight: bold;
+  }
+  .label{
+    color: black;
+    font-weight: normal;
+  }
+  .value{
+    padding-left: 20px;
+    padding-bottom: 10px;
+  }
+  .active{
+    color: brown;
+    font-weight: bold;
+  }
+  .inactive{
+    color: grey;
+  }
+  .time_zone{
+    font-size: 11px;
+  }
+  textarea{
+    height: 50px;
+  }
+  #start_time, #end_time{
+    float: left;
+    width: 200px;
+    padding: 20px; 
+  }
+  select{
+    font-size: 18px;  
+  }
+}

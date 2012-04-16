@@ -15,10 +15,9 @@ Feature: Admin edits suggested task
     And I sign in via the login page as an admin
     And I go to the admin suggested tasks page for "TaskCo"
 
-    Then I should see "make toast Start time: May 01, 2015 at 12:00 AM Eastern Prerequisites: bake bread discover fire"
 
   Scenario: Admin edits suggested task
-    When I click the link to edit the task "make toast"
+    When I follow "make toast"
     And I fill in "Name" with "Make roast beef"
     And I fill in "Short description" with "Cook cow flesh"
     And I fill in "Long description" with "Scorch up the muscle of a beef"
@@ -28,10 +27,7 @@ Feature: Admin edits suggested task
     And I press "Update Suggested task"
 
     Then I should not see "make toast"
-    And I should not see "Start time: May 01, 2015 at 12:00 AM Eastern"
-    And I should not see "Prerequisites: bake bread discover fire"
-
-    But I should see "Make roast beef Cook cow flesh Scorch up the muscle of a beef Start time: April 17, 2012 at 03:25 PM Eastern Prerequisites: discover fire domesticate cattle"
+    But I should see "Make roast beef"
 
   Scenario: Editing completion triggers should do what you would expect
     Given the following rules exist:
@@ -47,14 +43,22 @@ Feature: Admin edits suggested task
       | Survey 1 | name: TaskCo |
       | Survey 2 | name: TaskCo |
 
-    When I click the link to edit the task "make toast"
+    When I follow "make toast"
     And I select "do 1" from "Rules"
     And I select "Survey 1" from "Survey"
     And I press "Update Suggested task"
-    Then I should see "make toast Start time: May 01, 2015 at 12:00 AM Eastern Prerequisites: bake bread discover fire Rules (any of the following): do 1 Survey: Survey 1"    
+    Then I should see "make toast"
+    And I should see "discover fire"
+    And I should see "May 01, 2015 @ 12:00 AM"
+    And I should see "do 1"
+    And I should see "Survey 1"
     
-    When I click the link to edit the task "make toast"
+    When I follow "make toast"
     And I select "do 2" from "Rules"
     And I select "Survey 2" from "Survey"
     And I press "Update Suggested task"
-    Then I should see "make toast Start time: May 01, 2015 at 12:00 AM Eastern Prerequisites: bake bread discover fire Rules (any of the following): do 1 do 2 Survey: Survey 2"
+    Then I should see "make toast"
+    And I should see "discover fire"
+    And I should see "May 01, 2015 @ 12:00 AM"
+    And I should see "do 2"
+    And I should see "Survey 2"

@@ -28,50 +28,65 @@ Feature: Admin sets up suggested tasks
     When I follow "Add suggested task"
 
   Scenario: Admin adds first-level suggested task
+    When I fill in "Identifier" with "ident1"
     When I fill in "Name" with "Make toast"
     And I fill in "Short description" with "Earn points and enjoy a toasty treat"
     And I fill in "Long description" with "Toast is a foodstuff that millions have enjoyed since the invention of fire."
     And I press "Create Suggested task"
 
     Then I should be on the admin suggested tasks page for "TaskCo"
-    And I should see "Make toast Earn points and enjoy a toasty treat Toast is a foodstuff that millions have enjoyed since the invention of fire. Manual only."
-    And I should not see "Prerequisites"
+    And I should see "Make toast"
+    And I should see "Earn points and enjoy a toasty treat"
+    And I should see "Toast is a foodstuff that millions have enjoyed since the invention of fire."
+    
 
   Scenario: Admin adds suggested task with prerequisites
+    When I fill in "Identifier" with "ident1"
     When I fill in "Name" with "Discover fire"
     And I press "Create Suggested task"
     And I follow "Add suggested task"
+    When I fill in "Identifier" with "ident2"
     And I fill in "Name" with "Bake bread"
     And I press "Create Suggested task"
     
     And I follow "Add suggested task"
+    When I fill in "Identifier" with "ident2"
     When I fill in "Name" with "Make toast"
     And I fill in "Short description" with "Earn points and enjoy a toasty treat"
     And I fill in "Long description" with "Toast is a foodstuff that millions have enjoyed since the invention of fire."
+    When I fill in "Identifier" with "ident3"
     And I select "Bake bread" from "Prerequisite tasks"
     And I select "Discover fire" from "Prerequisite tasks"
     And I press "Create Suggested task"
 
     Then I should be on the admin suggested tasks page for "TaskCo"
-    And I should see "Make toast Earn points and enjoy a toasty treat Toast is a foodstuff that millions have enjoyed since the invention of fire. Prerequisites: Bake bread Discover fire Manual only."
+    And I should see "Make toast"
+    And I should see "Earn points and enjoy a toasty treat"
+    And I should see "Toast is a foodstuff that millions have enjoyed since the invention of fire."
 
   Scenario: Admin adds first-level suggested task with start time
+    When I fill in "Identifier" with "ident1"
     When I fill in "Name" with "Make toast"
     And I fill in "Short description" with "Earn points and enjoy a toasty treat"
     And I fill in "Long description" with "Toast is a foodstuff that millions have enjoyed since the invention of fire."
     And I set the suggested task start time to "May/1/2015/12 AM/00/00"
     And I press "Create Suggested task"
     Then I should be on the admin suggested tasks page for "TaskCo"
-    And I should see "Make toast Earn points and enjoy a toasty treat Toast is a foodstuff that millions have enjoyed since the invention of fire. Start time: May 01, 2015 at 12:00 AM Eastern Manual only."
+    And I should see "Make toast"
+    And I should see "Earn points and enjoy a toasty treat"
+    And I should see "Toast is a foodstuff that millions have enjoyed since the invention of fire."
 
   Scenario: Admin adds suggested task with prerequisites and start time
+    When I fill in "Identifier" with "ident1"
     When I fill in "Name" with "Discover fire"
     And I press "Create Suggested task"
     And I follow "Add suggested task"
+    When I fill in "Identifier" with "ident2"
     And I fill in "Name" with "Bake bread"
     And I press "Create Suggested task"
     
     And I follow "Add suggested task"
+    When I fill in "Identifier" with "ident3"
     When I fill in "Name" with "Make toast"
     And I fill in "Short description" with "Earn points and enjoy a toasty treat"
     And I fill in "Long description" with "Toast is a foodstuff that millions have enjoyed since the invention of fire."
@@ -81,39 +96,50 @@ Feature: Admin sets up suggested tasks
     And I press "Create Suggested task"
 
     Then I should be on the admin suggested tasks page for "TaskCo"
-    And I should see "Make toast Earn points and enjoy a toasty treat Toast is a foodstuff that millions have enjoyed since the invention of fire. Start time: May 01, 2015 at 12:00 AM Eastern Prerequisites: Bake bread Discover fire Manual only."
-
+    And I should see "Make toast"
+    And I should see "Earn points and enjoy a toasty treat"
+    And I should see "Toast is a foodstuff that millions have enjoyed since the invention of fire."
+    
   Scenario: Admin adds suggested task with rule completion trigger
+    When I fill in "Identifier" with "ident1"
+    
     When I fill in "Name" with "Do thing 2"
     And I select "did thing 2" from "Rules"
     And I select "did thing 4" from "Rules"
     And I press "Create Suggested task"
     Then I should be on the admin suggested tasks page for "TaskCo"
-    And I should see "Do thing 2 Rules (any of the following): did thing 2 did thing 4"
     And I should not see "Manual only"
 
   Scenario: Admin adds suggested task with rule completion trigger and referer required
+    When I fill in "Identifier" with "ident1"
+  
     When I fill in "Name" with "Do thing 2"
     And I select "did thing 2" from "Rules"
     And I select "did thing 4" from "Rules"
     And I check "Referrer required"
     And I press "Create Suggested task"
     Then I should be on the admin suggested tasks page for "TaskCo"
-    And I should see "Do thing 2 Rules (any of the following, referrer required): did thing 2 did thing 4"
+    And I should see "Do thing 2"
+    And I should see "Rules (any of the following, referrer required)"
+    And I should see "did thing 2"
+    And I should see "did thing 4"
     And I should not see "Manual only"
 
   Scenario: Admin adds suggested task with survey trigger
+    When I fill in "Identifier" with "ident1"
     When I fill in "Name" with "Complete survey 1"
     And I select "Survey 1" from "Survey"
     And I press "Create Suggested task"
     Then I should be on the admin suggested tasks page for "TaskCo"
-    And I should see "Complete survey 1 Survey: Survey 1"
+    And I should see "Complete survey 1"
+    And I should see "Survey: Survey 1"
     And I should not see "Manual only"
 
   Scenario: Admin adds suggested task with demographic trigger
+    When I fill in "Identifier" with "ident1"
     When I fill in "Name" with "Complete demographics"
     And I check "Complete by filling in all demographics"
     And I press "Create Suggested task"
     Then I should be on the admin suggested tasks page for "TaskCo"
-    And I should see "Complete demographics Complete demographics"
+    And I should see "Complete demographics"
     And I should not see "Manual only"

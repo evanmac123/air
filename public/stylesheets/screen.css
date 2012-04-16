@@ -1985,9 +1985,9 @@ div.follow-btn, div.stop-following-btn {
   margin-top: -5mm; }
 .admin tr:hover {
   background: #babeb8; }
-  .admin tr:hover .hidden_tags {
+  .admin tr:hover .hidden_tags, .admin tr:hover .task_details {
     display: block; }
-.admin .hidden_tags {
+.admin .hidden_tags, .admin .task_details {
   margin-top: 1ex;
   display: none;
   position: absolute;
@@ -1998,7 +1998,7 @@ div.follow-btn, div.stop-following-btn {
   -moz-border-radius: 1ex;
   -webkit-border-radius: 1ex;
   border-radius: 1ex; }
-  .admin .hidden_tags .description {
+  .admin .hidden_tags .description, .admin .task_details .description {
     padding-bottom: 1ex; }
 
 #new-user-form {

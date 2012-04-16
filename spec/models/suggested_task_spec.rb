@@ -1,4 +1,3 @@
-require 'ruby-debug'
 require 'spec_helper'
 
 describe SuggestedTask do
@@ -25,4 +24,28 @@ describe SuggestedTask do
       user2.reload.task_suggestions.count.should == 1
     end
   end
+  
+  describe "#due?" do
+    it "should tell me whether a task is within the window of opportunity" do
+      demo = Factory.build :demo
+      a = Factory.build :suggested_task, :demo => demo
+      a.update_attribute('start_time', nil)
+      a.update_attribute('end_time', nil)
+      a.should be_due
+      a.update_attribute('start_time', 1.minute.ago)
+      a.should be_due
+      a.update_attribute('start_time', 1.minute.from_now)
+      a.should_not be_due      
+      a.update_attribute('end_time', 1.minute.from_now)
+      a.should_not be_due
+      a.update_attribute('start_time', 1.minute.ago)
+      a.update_attribute('end_time', 1.minute.ago)
+      a.should_not be_due
+      a.update_attribute('end_time', 1.minute.from_now)
+      a.should be_due
+      
+    end
+  end
+  
+  
 end
