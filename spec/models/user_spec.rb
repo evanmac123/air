@@ -736,7 +736,7 @@ describe "#mark_as_claimed" do
   it "should set the user's accepted_invitation_at timestamp" do
     @user.accepted_invitation_at.should be_nil
     @user.mark_as_claimed '+14158675309'
-    @user.reload.accepted_invitation_at.should == Time.now
+    @user.reload.accepted_invitation_at.to_s.should == ActiveSupport::TimeZone['Eastern Time (US & Canada)'].now.to_s
   end
 end
 
