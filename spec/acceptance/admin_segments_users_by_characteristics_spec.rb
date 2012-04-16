@@ -153,8 +153,13 @@ feature "Admin segmentation" do
      
       click_link "Show user names and emails in CSV"
       page.response_headers['Content-Type'].should =~ %r{^text/csv}
+      expect_no_content "<html>"
+      expect_no_content "<head>"
+      expect_no_content "<body>"
       expect_content "Name,Email,ID"
-      @reds.each { |red| expect_content CSV.generate_line([red.name, red.email, red.id]) }
+
+      lines = page.body.split("\n")
+      @reds.each { |red| lines.should include(CSV.generate_line([red.name, red.email, red.id]).strip) }
     end
   end
 

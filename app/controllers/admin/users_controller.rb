@@ -25,7 +25,7 @@ class Admin::UsersController < AdminBaseController
 
       format.csv do
         @users = @demo.users.where(:id => params[:ids])
-        render :index, :content_type => "text/csv"
+        render :index, :content_type => "text/csv", :layout => false
       end
     end
   end
