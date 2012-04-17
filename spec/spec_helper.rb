@@ -31,6 +31,11 @@ RSpec.configure do |config|
     Mixpanel::Tracker.stubs(:new).with(MIXPANEL_TOKEN, Mocha::ParameterMatchers::KindOf.new(Hash)).returns(FakeMixpanelTracker)
     FakeMixpanelTracker.clear_tracked_events
   end
+
+  config.before(:each) do
+    User::SegmentationData.delete_all
+    User::SegmentationResults.delete_all
+  end
 end
 
 # Big Fat Hack (TM) so the ActiveRecord connections are shared across threads.

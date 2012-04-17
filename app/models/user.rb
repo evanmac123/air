@@ -673,6 +673,16 @@ class User < ActiveRecord::Base
     self.recent_average_history_depth - (Date.today - date_of_act).numerator + 1
   end
 
+  def set_segmentation_results!(columns, values, demo)
+    explanation = create_segmentation_explanation(columns, values)
+    ids = load_segmented_user_information(columns, values, demo)
+    User::SegmentationResults.create_or_update_from_search_results(self, explanation, ids)
+  end
+
+  def segmentation_results
+    User::SegmentationResults.where(:owner_id => self.id).first
+  end
+
   def self.claim_code_prefix(user)
     begin
       names = user.name.downcase.split.map(&:remove_non_words)
@@ -1095,6 +1105,36 @@ class User < ActiveRecord::Base
 
   def sync_segmentation_info
     User::SegmentationData.create_or_update_from_user(self)
+  end
+
+  def create_segmentation_explanation(columns, values)
+    unless values.present?
+      return 'No segmentation, choosing all users'
+    end
+
+    segmentation_explanation = "Segmenting on: "
+    prefix = ''
+
+    columns.each do |index, characteristic_id|
+      characteristic = Characteristic.find(characteristic_id)
+      segmentation_explanation += [prefix, characteristic.name, ' is ' + values[index]].join
+      prefix = ', '
+    end
+
+    segmentation_explanation
+  end
+
+  def load_segmented_user_information(columns, values, demo)
+    criteria = {}
+   
+    if values.present?
+      columns.each do |index, characteristic_id|
+        criteria["characteristics.#{characteristic_id}"] = values[index]
+      end
+      User::SegmentationData.where(criteria).map(&:ar_id)
+    else
+      demo.user_ids
+    end
   end
 
   def self.claimable_by_first_name_and_claim_code(claim_string)

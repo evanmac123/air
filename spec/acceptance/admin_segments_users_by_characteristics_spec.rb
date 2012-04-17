@@ -163,6 +163,55 @@ feature "Admin segmentation" do
     end
   end
 
+  scenario 'can display large numbers of users', :js => true do
+    # We need a large number of IDs to expose the problem caused by trying to
+    # jam them all into the URI, but creating 1000 users in the DB for this 
+    # test takes unfeasibly long. So we cheat. And the amount of trouble we
+    # have to go to to cheat is illustrative of why we don't more often.
+
+    highest_user_id = User.order("id DESC").last.id
+    first_fake_id = highest_user_id + 1
+    fake_ids = (first_fake_id..first_fake_id + 999).to_a
+    Demo.any_instance.stubs(:user_ids).returns(fake_ids)
+
+    unsaved_users = []
+    1000.times do |i| 
+      unsaved_user = Factory.build(:user, :demo => @demo)
+      unsaved_user.stubs(:id).returns(fake_ids[i])
+      unsaved_user.stubs(:slug).returns("jimearljones_#{fake_ids[i]}")
+      unsaved_users << unsaved_user
+    end
+    spot_check_users = [unsaved_users[0], unsaved_users[500], unsaved_users[999]]
+
+    fake_arel = Object.new
+    fake_arel.stubs(:where).returns(unsaved_users)
+    Demo.any_instance.stubs(:users).returns(unsaved_users)
+    %w(alphabetical where claimed).each do |method_name|
+      unsaved_users.stubs(method_name.to_s).returns(unsaved_users)
+    end
+   
+    visit admin_demo_path(@demo)
+
+    click_link "Segment users"
+    click_button "Find segment"
+    expect_content "1000 users in segment"
+
+    click_link "Show user names and emails in CSV"
+    expect_no_content "Request-URI Too Large"
+    spot_check_users.each do |unsaved_user|
+      expect_content (CSV.generate_line([unsaved_user.name, unsaved_user.email, unsaved_user.id]).strip)
+    end
+
+    visit admin_demo_path(@demo)
+
+    click_link "Segment users"
+    click_button "Find segment"
+    expect_content "1000 users in segment"
+    click_link "Show users"
+
+    spot_check_users.each { |user| expect_user_content user }
+  end
+
   scenario 'should have a proper link from somewhere' do
     visit admin_demo_path(@demo)
     click_link "Segment users"

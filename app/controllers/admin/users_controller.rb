@@ -20,11 +20,11 @@ class Admin::UsersController < AdminBaseController
       end
 
       format.js do
-        @users = @demo.users.where(:id => params[:ids]).sort_by(&:name)
+        @users = @demo.users.where(:id => current_user.segmentation_results.found_user_ids).sort_by(&:name)
       end
 
       format.csv do
-        @users = @demo.users.where(:id => params[:ids])
+        @users = @demo.users.where(:id => current_user.segmentation_results.found_user_ids)
         render :index, :content_type => "text/csv", :layout => false
       end
     end

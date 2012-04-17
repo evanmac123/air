@@ -1,10 +1,11 @@
-<% if @segmentation_explanation.present? %>
-  <h2><%= @segmentation_explanation %></h2>
+<% if @segmentation_result.present? %>
+  <h2><%= @segmentation_result.explanation %></h2>
+  <% found_user_ids = @segmentation_result.found_user_ids %>
 
-  <p><%= @found_user_ids.length %> users in segment</p>
-  <% unless @found_user_ids.empty? %>
+  <p><%= found_user_ids.length %> users in segment</p>
+  <% unless found_user_ids.empty? %>
     <p><%= link_to "Show users", "#", :id => "show-user-link" %></p>
-    <p><%= link_to "Show user names and emails in CSV", admin_demo_users_path(@demo, :ids => @found_user_ids, :format => :csv)%></p>
+    <p><%= link_to "Show user names and emails in CSV", admin_demo_users_path(@demo, :format => :csv)%></p>
   <% end %>
 
   <p id="user-info-target"></p>
@@ -13,7 +14,7 @@
     <%= javascript_tag do %>
       $('#show-user-link').click(function(e) {
         e.preventDefault();
-        $.get('<%= admin_demo_users_path(@demo, :ids => @found_user_ids, :format => :js) %>');
+        $.get('<%= admin_demo_users_path(@demo, :format => :js) %>');
       });
     <% end %>
   <% end %>
