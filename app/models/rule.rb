@@ -7,7 +7,7 @@ class Rule < ActiveRecord::Base
   has_many   :acts
   has_many   :rule_triggers, :dependent => :destroy, :class_name => "Trigger::RuleTrigger"
   has_many   :rule_values, :dependent => :destroy
-  has_many   :labels
+  has_many   :labels, :dependent => :destroy
   has_many   :tags, :through => :labels
   belongs_to :primary_tag, :class_name => "Tag"
   def to_s
