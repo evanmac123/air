@@ -7,6 +7,61 @@ table.admin_wide {
   display: none;
   position: absolute; }
 
+.admin h1, .admin h2, .admin h3, .admin h4 {
+  line-height: 2em; }
+.admin h1 {
+  text-align: center;
+  font-size: 1.7cm; }
+.admin .breadcrumb {
+  font-size: 5mm; }
+.admin p {
+  font-weight: bold; }
+.admin ul {
+  margin-left: 5ex;
+  list-style-type: disc; }
+.admin th {
+  font-size: 18px; }
+.admin th, .admin td {
+  padding-left: 1ex; }
+.admin .table-title {
+  font-size: 0.7cm;
+  padding-bottom: 0.3cm;
+  padding-top: 3ex; }
+.admin .select_tags {
+  float: right;
+  width: 139px;
+  padding-top: 32mm; }
+  .admin .select_tags select {
+    width: 100%;
+    display: none; }
+    .admin .select_tags select:first-child {
+      display: block; }
+.admin .body {
+  float: left;
+  width: 600px; }
+.admin .flip-flop {
+  text-align: center;
+  margin-top: -5mm; }
+.admin tr:hover {
+  background: #babeb8; }
+  .admin tr:hover .hidden_tags, .admin tr:hover .task_details {
+    display: block; }
+.admin .hidden_tags, .admin .task_details {
+  margin-top: 1ex;
+  display: none;
+  position: absolute;
+  width: 400px;
+  padding: 1ex;
+  background: yellow;
+  text: yellow;
+  -moz-border-radius: 1ex;
+  -webkit-border-radius: 1ex;
+  border-radius: 1ex; }
+  .admin .hidden_tags .description, .admin .task_details .description {
+    padding-bottom: 1ex; }
+.admin .task_details {
+  width: 540px;
+  margin-top: 0.9ex; }
 .admin .name, .admin .short_desc, .admin .long_desc {
   font-size: 17px;
   line-height: 21px;
@@ -17,8 +72,9 @@ table.admin_wide {
   font-weight: normal; }
 .admin .value {
   padding-left: 20px;
-  padding-bottom: 10px; }
-.admin .active {
+  padding-bottom: 10px;
+  color: brown; }
+.admin .brown {
   color: brown;
   font-weight: bold; }
 .admin .inactive {
@@ -33,3 +89,9 @@ table.admin_wide {
   padding: 20px; }
 .admin select {
   font-size: 18px; }
+.admin .long_page {
+  height: 10cm; }
+.admin #completion_rule_ids {
+  height: 5cm;
+  font-size: 15px;
+  line-height: 18px; }

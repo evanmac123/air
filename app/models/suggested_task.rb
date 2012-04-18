@@ -7,7 +7,7 @@ class SuggestedTask < ActiveRecord::Base
   has_one :demographic_trigger, :class_name => 'Trigger::DemographicTrigger'
   has_many :task_suggestions, :dependent => :destroy
   validates_uniqueness_of :identifier
-  validates_presence_of :identifier
+  validates_presence_of :identifier, :message => "Please include an identifier"
 
   after_create do
     schedule_suggestion

@@ -24,7 +24,7 @@
           End Time
           .time_zone
             (Eastern)
-        %th Bonus
+        %th Active
     
 
       - @suggested_tasks.each do |suggested_task| 
@@ -38,50 +38,24 @@
                   
                   
           %td= suggested_task.identifier
-          %td
-            = link_to suggested_task.name, edit_admin_demo_suggested_task_path(@demo, suggested_task) 
-            .task_details
-              .name
-                .label Name
-                .value= suggested_task.name
-              .short_desc
-                .label Short Description
-                .value= suggested_task.short_description 
-              .long_desc
-                .label Long Description
-                .value= suggested_task.long_description
-              .completion_triggers
-                - if suggested_task.has_demographic_trigger? 
-                  %p Complete demographics
-
-                - if suggested_task.rule_triggers.present? 
-                  %p="Rules (any of the following#{', referrer required' if suggested_task.rule_triggers.first.referrer_required}):"
-                  %ul
-                    - suggested_task.rule_triggers.each do |rule_trigger| 
-                      %li= rule_trigger.rule.primary_value_text
-              .other
-                - if suggested_task.survey_trigger.present? 
-                  %p 
-                    Survey: 
-                    = suggested_task.survey_trigger.survey.name 
-
-
-                - if suggested_task.only_manually_triggerable? 
-                  %p Manual only.
-                    
+          %td= link_to suggested_task.name, edit_admin_demo_suggested_task_path(@demo, suggested_task) 
+          
+                  
           %td
             - if suggested_task.prerequisite_tasks.present? 
               - prerequisite_names = suggested_task.prerequisite_tasks.map(&:name).sort 
               %ul
                 - prerequisite_names.each do |prerequisite_name| 
                   %li= prerequisite_name         
-                    
+            = render 'task_details', :suggested_task => suggested_task
+                  
           %td= suggested_task.start_time ? suggested_task.start_time.pretty_succinct : ''
           %td= suggested_task.end_time ? suggested_task.end_time.pretty_succinct : ''
-          
-
-          %td= suggested_task.bonus_points 
         
+
+          %td{:class => "brown"}= suggested_task.due? ? "*" : "" 
+      
 
 
   %p= link_to "Add suggested task", new_admin_demo_suggested_task_path(@demo) 
+  .long_page

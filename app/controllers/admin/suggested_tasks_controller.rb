@@ -7,10 +7,8 @@ class Admin::SuggestedTasksController < AdminBaseController
   end
   
   def new
-    @suggested_task = @demo.suggested_tasks.new
-    @surveys = @demo.surveys
-    @existing_tasks = find_existing_tasks(@demo)
-    @primary_values = RuleValue.visible_from_demo(@demo).primary.alphabetical
+    @suggested_task ||= @demo.suggested_tasks.new
+    load_variables
   end
 
   def create
@@ -20,8 +18,9 @@ class Admin::SuggestedTasksController < AdminBaseController
       redirect_to :action => :index
       set_up_completion_triggers
     else
-      add_failure @suggested_task.errors
-      redirect_to :back
+      load_variables
+      add_failure "Please correct the error(s) listed below in red"
+      render :new
     end
 
 
@@ -57,6 +56,12 @@ class Admin::SuggestedTasksController < AdminBaseController
   end
 
   protected
+  
+  def load_variables
+    @surveys = @demo.surveys
+    @existing_tasks = find_existing_tasks(@demo)
+    @primary_values = RuleValue.visible_from_demo(@demo).primary.alphabetical
+  end
   
   def find_suggested_task
     @suggested_task = SuggestedTask.find(params[:id])
