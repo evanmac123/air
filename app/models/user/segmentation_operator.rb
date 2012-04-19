@@ -2,7 +2,7 @@ class User::SegmentationOperatorError < StandardError; end
 class User::UnknownSegmentationOperatorError < User::SegmentationOperatorError; end
 
 class User::SegmentationOperator
-  def self.characteristic(characteristic_id)
+  def self.mongo_characteristic_name(characteristic_id)
     "characteristics.#{characteristic_id}"
   end
 
@@ -32,13 +32,13 @@ end
 class User::EqualsOperator < User::SegmentationOperator
   def self.add_criterion_to_query(query, characteristic_id, operands)
     other = operands.first
-    query.where(characteristic(characteristic_id) => other)
+    query.where(mongo_characteristic_name(characteristic_id) => other)
   end
 end
 
 class User::NotEqualsOperator < User::SegmentationOperator
   def self.add_criterion_to_query(query, characteristic_id, operands)
     other = operands.first
-    query.where(characteristic(characteristic_id).to_sym.ne => other)
+    query.where(mongo_characteristic_name(characteristic_id).to_sym.ne => other)
   end
 end
