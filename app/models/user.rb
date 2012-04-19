@@ -1125,13 +1125,13 @@ class User < ActiveRecord::Base
   end
 
   def load_segmented_user_information(columns, values, demo)
-    criteria = {}
+    query = User::SegmentationData
    
     if values.present?
       columns.each do |index, characteristic_id|
-        criteria["characteristics.#{characteristic_id}"] = values[index]
+        query = User::SegmentationOperator.add_criterion_to_query!(query, characteristic_id, "equals", values[index])
       end
-      User::SegmentationData.where(criteria).map(&:ar_id)
+      query.map(&:ar_id)
     else
       demo.user_ids
     end
