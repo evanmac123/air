@@ -34,7 +34,7 @@ Factory.define :user_with_phone, :parent => :claimed_user do |factory|
   factory.phone_number {Factory.next :phone}
 end
 
-Factory.define :site_admin, :parent => :user do |factory|
+Factory.define :site_admin, :parent => :claimed_user do |factory|
   factory.name {"Sylvester McAdmin"}
   factory.is_site_admin {true}
 end

@@ -9,6 +9,7 @@ class Act < ActiveRecord::Base
   has_one :goal, :through => :rule
 
   before_save do
+    # if rule.description is blank, then act.text will be blank, and we will set it as hidden
     self.hidden = self.text.blank?
 
     # Privacy level is denormalized from user onto act in the interest of

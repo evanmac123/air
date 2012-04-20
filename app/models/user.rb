@@ -173,6 +173,7 @@ class User < ActiveRecord::Base
   
   def can_see_activity_of(user)
     return true if self == user
+    return true if self.is_site_admin
     case user.privacy_level
     when 'everybody'
       return true 
@@ -721,6 +722,10 @@ class User < ActiveRecord::Base
     Mixpanel::Tracker.new(MIXPANEL_TOKEN, {}).delay.track_event('fanned', self.data_for_mixpanel.merge(mixpanel_properties))
 
     friendship
+  end
+  
+  def accept_friendship_from(other)
+    Friendship.where(:user_id => other.id, :friend_id => self.id).first.accept
   end
 
   def follow_requested_message
