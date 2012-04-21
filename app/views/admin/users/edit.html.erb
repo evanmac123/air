@@ -7,9 +7,9 @@
 <% end %>
 
 <fieldset>
-  <legend>This User's Suggested Tasks</legend>
+  <legend>This User's Tasks</legend>
   <% @task_suggestions.each do |task_suggestion| %>
-    <%= button_to "Complete #{task_suggestion.suggested_task.name} for #{@user.name}", admin_task_suggestion_path(task_suggestion), :method => :put, :confirm => "Complete #{task_suggestion.suggested_task.name} for #{@user.name}?" %>
+    <%= button_to "Complete #{task_suggestion.task.name} for #{@user.name}", admin_task_suggestion_path(task_suggestion), :method => :put, :confirm => "Complete #{task_suggestion.task.name} for #{@user.name}?" %>
   <% end %>
 </fieldset>
 

@@ -20,7 +20,7 @@ describe Demo do
   it { should have_many(:survey_questions).through(:surveys) }
   it { should have_many(:goals) }
   it { should have_many(:levels) }
-  it { should have_many(:suggested_tasks) }
+  it { should have_many(:tasks) }
   it { should have_many(:self_inviting_domains) }
   it { should have_many(:locations) }
   it { should have_many(:characteristics) }

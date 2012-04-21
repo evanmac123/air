@@ -1,6 +1,6 @@
 class TaskSuggestion < ActiveRecord::Base
   belongs_to :user
-  belongs_to :suggested_task
+  belongs_to :task
 
   after_update do
     check_for_new_available_tasks if changed.include?('satisfied')
@@ -11,11 +11,11 @@ class TaskSuggestion < ActiveRecord::Base
   def satisfy!(channel=nil)
     update_attributes(:satisfied => true, :display_completion_on_next_request => true)
     OutgoingMessage.send_side_message(self.user, self.satisfaction_message, :channel => channel)
-    Act.create!(:user_id =>self.user_id, :inherent_points => self.suggested_task.bonus_points, :text => "I completed a daily dose!")
+    Act.create!(:user_id =>self.user_id, :inherent_points => self.task.bonus_points, :text => "I completed a daily dose!")
   end
 
   def self.for_task(task)
-    where(:suggested_task_id => task.id)
+    where(:task_id => task.id)
   end
 
   def self.satisfied
@@ -50,7 +50,7 @@ class TaskSuggestion < ActiveRecord::Base
   protected
 
   def check_for_new_available_tasks
-    potentially_available_tasks = Prerequisite.where(:prerequisite_task_id => self.suggested_task.id).map(&:suggested_task).uniq
+    potentially_available_tasks = Prerequisite.where(:prerequisite_task_id => self.task.id).map(&:task).uniq
 
     potentially_available_tasks.each do |potentially_available_task|
       if self.user.satisfies_all_prerequisites(potentially_available_task) && potentially_available_task.due?
@@ -60,7 +60,7 @@ class TaskSuggestion < ActiveRecord::Base
   end
 
   def satisfaction_message
-    points = self.suggested_task.bonus_points
+    points = self.task.bonus_points
 
     if points && points > 0
       bonus_phrase = if points == 1
@@ -76,7 +76,7 @@ class TaskSuggestion < ActiveRecord::Base
   end
 
   def self.satisfiable_by_trigger_table(trigger_table_name)
-    unsatisfied.joins(:suggested_task).joins("INNER JOIN #{trigger_table_name} ON #{trigger_table_name}.suggested_task_id = suggested_tasks.id")
+    unsatisfied.joins(:task).joins("INNER JOIN #{trigger_table_name} ON #{trigger_table_name}.task_id = tasks.id")
   end
 
   def self.satisfiable_by_object(satisfying_object_or_id, satisfying_object_class, trigger_table_name, satisfying_object_column)

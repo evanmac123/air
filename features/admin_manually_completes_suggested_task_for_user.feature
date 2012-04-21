@@ -1,7 +1,7 @@
-Feature: Admin manually completes a suggested task for a user
+Feature: Admin manually completes a task for a user
 
   @javascript
-  Scenario: Admin manually completes a suggested task for a user
+  Scenario: Admin manually completes a task for a user
     Given the following demo exists:
       | name |
       | TaskCo       |
@@ -9,7 +9,7 @@ Feature: Admin manually completes a suggested task for a user
       | name | phone number | demo                 |
       | Joe  | +14155551212 | name: TaskCo |
     And "Joe" has the password "foobar"
-    And the following suggested tasks exist:
+    And the following tasks exist:
       | name   | demo                 |
       | Task 1 | name: TaskCo |
       | Task 2 | name: TaskCo |

@@ -30,7 +30,7 @@ class Act < ActiveRecord::Base
     check_goal_completion
     check_timed_bonuses
 
-    trigger_suggested_tasks
+    trigger_tasks
     schedule_mixpanel_ping
   end
 
@@ -204,7 +204,7 @@ class Act < ActiveRecord::Base
     end
   end
 
-  def trigger_suggested_tasks
+  def trigger_tasks
     self.user.satisfy_suggestions_by_rule(self.rule_id, self.creation_channel, self.referring_user_id.present?)
   end
 

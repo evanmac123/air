@@ -1,10 +1,10 @@
-Feature: Admin edits suggested task
+Feature: Admin edits task
 
   Background:
     Given the following demo exists:
       | name |
       | TaskCo       |
-    And the following suggested tasks exist:
+    And the following tasks exist:
       | name               | start time          | demo                 |
       | bake bread         |                     | name: TaskCo |
       | discover fire      |                     | name: TaskCo |
@@ -13,18 +13,18 @@ Feature: Admin edits suggested task
     And the task "make toast" has prerequisite "bake bread"
     And the task "make toast" has prerequisite "discover fire"
     And I sign in via the login page as an admin
-    And I go to the admin suggested tasks page for "TaskCo"
+    And I go to the admin tasks page for "TaskCo"
 
 
-  Scenario: Admin edits suggested task
+  Scenario: Admin edits task
     When I follow "make toast"
     And I fill in "Name" with "Make roast beef"
     And I fill in "Short description" with "Cook cow flesh"
     And I fill in "Long description" with "Scorch up the muscle of a beef"
     And I unselect "bake bread" from "Prerequisite tasks"
     And I select "domesticate cattle" from "Prerequisite tasks"
-    And I set the suggested task start time to "April/17/2012/3 PM/25"
-    And I press "Update Suggested task"
+    And I set the task start time to "April/17/2012/3 PM/25"
+    And I press "Update Task"
 
     Then I should not see "make toast"
     But I should see "Make roast beef"
@@ -46,7 +46,7 @@ Feature: Admin edits suggested task
     When I follow "make toast"
     And I select "do 1" from "Rules"
     And I select "Survey 1" from "Survey"
-    And I press "Update Suggested task"
+    And I press "Update Task"
     Then I should see "make toast"
     And I should see "discover fire"
     And I should see "May 01, 2015 @ 12:00 AM"
@@ -56,7 +56,7 @@ Feature: Admin edits suggested task
     When I follow "make toast"
     And I select "do 2" from "Rules"
     And I select "Survey 2" from "Survey"
-    And I press "Update Suggested task"
+    And I press "Update Task"
     Then I should see "make toast"
     And I should see "discover fire"
     And I should see "May 01, 2015 @ 12:00 AM"

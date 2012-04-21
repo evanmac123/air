@@ -1,7 +1,7 @@
-class SuggestedTask < ActiveRecord::Base
+class Task < ActiveRecord::Base
   belongs_to :demo
   has_many :prerequisites
-  has_many :prerequisite_tasks, :class_name => "SuggestedTask", :through => :prerequisites
+  has_many :prerequisite_tasks, :class_name => "Task", :through => :prerequisites
   has_many :rule_triggers, :class_name => "Trigger::RuleTrigger"
   has_one :survey_trigger, :class_name => "Trigger::SurveyTrigger"
   has_one :demographic_trigger, :class_name => 'Trigger::DemographicTrigger'
@@ -16,7 +16,7 @@ class SuggestedTask < ActiveRecord::Base
   has_alphabetical_column :name
 
   def suggest_to_user(user)
-    TaskSuggestion.create!(:user => user, :suggested_task => self)
+    TaskSuggestion.create!(:user => user, :task => self)
   end
 
   def due?
@@ -37,14 +37,14 @@ class SuggestedTask < ActiveRecord::Base
   end
 
   def self.first_level
-    joins("LEFT JOIN prerequisites ON suggested_tasks.id = prerequisites.suggested_task_id").where("prerequisites.id IS NULL")
+    joins("LEFT JOIN prerequisites ON tasks.id = prerequisites.task_id").where("prerequisites.id IS NULL")
   end
 
   def self.after_start_time_and_before_end_time
     where("start_time < ? AND end_time > ? OR start_time IS NULL", Time.now, Time.now)
   end
 
-  def self.bulk_complete(demo_id, suggested_task_id, emails)
+  def self.bulk_complete(demo_id, task_id, emails)
     completion_states = {}
     %w(completed unknown already_completed in_different_game not_assigned).each {|bucket| completion_states[bucket.to_sym] = []}
 
@@ -61,7 +61,7 @@ class SuggestedTask < ActiveRecord::Base
         next
       end
 
-      suggestion = user.task_suggestions.where(:suggested_task_id => suggested_task_id).first
+      suggestion = user.task_suggestions.where(:task_id => task_id).first
       
       unless suggestion 
         completion_states[:not_assigned] << email
@@ -88,7 +88,7 @@ class SuggestedTask < ActiveRecord::Base
 
   def suggest_to_eligible_users
     self.demo.users.each do |user| 
-      next if user.suggested_tasks.include?(self)
+      next if user.tasks.include?(self)
       suggest_to_user(user) if user.satisfies_all_prerequisites(self)
     end
   end

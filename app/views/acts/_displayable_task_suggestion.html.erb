@@ -1,18 +1,18 @@
-<% suggested_task = displayable_task_suggestion.suggested_task %>
+<% task = displayable_task_suggestion.task %>
 <% classes = displayable_task_suggestion.display_completion_on_this_request ? "suggested-task recently-completed" : "suggested-task" %>
 <% classes += " overflow-tasks " if displayable_task_suggestion_counter >= @num_suggestions_to_display %>
-<div class="<%= classes %> gradient freeplay" id="suggested-task-<%= suggested_task.id %>">
+<div class="<%= classes %> gradient freeplay" id="suggested-task-<%= task.id %>">
   <div class="dose-texts">
-    	<p class="dose-title"><%= raw suggested_task.name %></p>
-    	<p class="dose-descript"><%= raw suggested_task.short_description %></p>
+    	<p class="dose-title"><%= raw task.name %></p>
+    	<p class="dose-descript"><%= raw task.short_description %></p>
   </div>
-  <% more_info_link_id = "more-info-#{suggested_task.id}" %>
-  <% long_description_div_id = "long-description-#{suggested_task.id}" %>
+  <% more_info_link_id = "more-info-#{task.id}" %>
+  <% long_description_div_id = "long-description-#{task.id}" %>
   
   <%= link_to 'More info', '#', :id => more_info_link_id, :class => 'more-info' %>
   
-  <% if suggested_task.bonus_points > 0 %>
-    <div class='dd_bonus'>+<%= suggested_task.bonus_points %> bonus</div>
+  <% if task.bonus_points > 0 %>
+    <div class='dd_bonus'>+<%= task.bonus_points %> bonus</div>
   <% end %>
   
   <% content_for :javascript do %>
@@ -27,5 +27,5 @@
     <% end %>
   <% end %>
   <div class="cf"></div>
-  <div class="gradient dose-moreinfo" id="<%= long_description_div_id %>" style="display: none"><%= raw suggested_task.long_description %></div>
+  <div class="gradient dose-moreinfo" id="<%= long_description_div_id %>" style="display: none"><%= raw task.long_description %></div>
 </div>

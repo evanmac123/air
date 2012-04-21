@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe SuggestedTask do
+describe Task do
   it { should belong_to(:demo) }
   it { should have_many(:prerequisites) }
   it { should have_many(:prerequisite_tasks) }
@@ -12,13 +12,13 @@ describe SuggestedTask do
       demo = Factory :demo
       user1 = Factory :user, :demo => demo
       user2 = Factory :user, :demo => demo
-      suggested_task = Factory :suggested_task, :demo => demo
-      Factory :task_suggestion, :user => user1, :suggested_task => suggested_task
+      task = Factory :task, :demo => demo
+      Factory :task_suggestion, :user => user1, :task => task
 
       user1.task_suggestions.count.should == 1
       user2.task_suggestions.count.should == 0
 
-      suggested_task.send(:suggest_to_eligible_users)
+      task.send(:suggest_to_eligible_users)
 
       user1.reload.task_suggestions.count.should == 1
       user2.reload.task_suggestions.count.should == 1
@@ -28,7 +28,7 @@ describe SuggestedTask do
   describe "#due?" do
     it "should tell me whether a task is within the window of opportunity" do
       demo = Factory.build :demo
-      a = Factory.build :suggested_task, :demo => demo
+      a = Factory.build :task, :demo => demo
       a.update_attribute('start_time', nil)
       a.update_attribute('end_time', nil)
       a.should be_due

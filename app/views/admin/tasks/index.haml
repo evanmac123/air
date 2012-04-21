@@ -1,0 +1,61 @@
+.breadcrumb
+  = link_to "Admin", admin_path
+  = "»"
+  = link_to @demo.name, admin_demo_path(@demo)
+  = "»"
+  Tasks
+%br
+
+.admin
+    
+  - if @tasks.empty? 
+    %p No tasks for this demo.
+  - else 
+    %table{:class => :admin_wide}
+      %tr
+        %th Identifier
+        %th Name
+        %th Prereq
+        %th 
+          Start Time
+          .time_zone
+            (Eastern)
+        %th 
+          End Time
+          .time_zone
+            (Eastern)
+        %th Active
+    
+
+      - @tasks.each do |task| 
+        - zebra_stripes = cycle('', 'stripe')
+        - active_class = task.due? ? ' active' : ' inactive'
+        - zebra_stripes += active_class
+
+    
+        %tr{:class => zebra_stripes}
+
+                  
+                  
+          %td= task.identifier
+          %td= link_to task.name, edit_admin_demo_task_path(@demo, task) 
+          
+                  
+          %td
+            - if task.prerequisite_tasks.present? 
+              - prerequisite_names = task.prerequisite_tasks.map(&:name).sort 
+              %ul
+                - prerequisite_names.each do |prerequisite_name| 
+                  %li= prerequisite_name         
+            = render 'task_details', :task => task
+                  
+          %td= task.start_time ? task.start_time.pretty_succinct : ''
+          %td= task.end_time ? task.end_time.pretty_succinct : ''
+        
+
+          %td{:class => "brown"}= task.due? ? "*" : "" 
+      
+
+
+  %p= link_to "Add task", new_admin_demo_task_path(@demo) 
+  .long_page

@@ -1,4 +1,4 @@
-Feature: User completes suggested task
+Feature: User completes task
 
   Background:
     Given the following demo exists:
@@ -11,7 +11,7 @@ Feature: User completes suggested task
     And "Bob" has the SMS slug "bob"
     And "Bob" has the password "foobar"
     And "Joe" has the password "foobar"
-    And the following suggested tasks exist:
+    And the following tasks exist:
       | name               | demo         |
       | Rule task 1        | name: TaskCo |
       | Rule task 2        | name: TaskCo |
@@ -35,11 +35,11 @@ Feature: User completes suggested task
       | value | is primary | rule         |
       | do 1  | true       | reply: did 1 |
     And the following rule triggers exist:
-      | rule         | suggested task    |
+      | rule         | task    |
       | reply: did 1 | name: Rule task 1 |
       | reply: did 5 | name: Rule task 5 |
     And the following rule triggers exist:
-      | rule         | suggested task       | referrer required |
+      | rule         | task       | referrer required |
       | reply: did 1 | name: Referer task 1 | true              |
     And demo "TaskCo" open survey with name "Survey 1" exists
     And demo "TaskCo" survey with name "Survey 2" exists
@@ -66,11 +66,11 @@ Feature: User completes suggested task
       | 1     | text: Q 2-3     |
       | 2     | text: Q 2-3     |
     And the following survey triggers exist:
-      | survey         | suggested task      |
+      | survey         | task      |
       | name: Survey 1 | name: Survey task 1 |
       | name: Survey 2 | name: Survey task 3 |
     And the following demographic triggers exist:
-      | suggested task           |
+      | task           |
       | name: Demographic task 1 |
     And the task "Rule task 2" has prerequisite "Rule task 1"
     And the task "Rule task 4" has prerequisite "Rule task 3"
@@ -100,7 +100,7 @@ Feature: User completes suggested task
     And I should not see "I completed a daily dose!"
 
   @javascript
-  Scenario: User completes suggested task by acting according to rule
+  Scenario: User completes task by acting according to rule
     When "+14152613077" sends SMS "do 1"
     Then "+14152613077" should have received an SMS including "did 1"
     When I go to the activity page
@@ -125,20 +125,20 @@ Feature: User completes suggested task
     When DJ works off after a little while
     Then "+14152613077" should have received an SMS "Congratulations! You've completed a daily dose."
 
-  Scenario: User completes rule suggested task by SMS and gets congrats by SMS
+  Scenario: User completes rule task by SMS and gets congrats by SMS
     Given a clear email queue
     When "+14152613077" sends SMS "do 1"
     When DJ works off after a little while
     Then "+14152613077" should have received an SMS "Congratulations! You've completed a daily dose."
     But "joe@example.com" should receive no email
 
-  Scenario: User completes rule suggested task by email and gets congrats by email
+  Scenario: User completes rule task by email and gets congrats by email
     When "joe@example.com" sends email with subject "do 1" and body "do 1"
     And DJ works off after a little while
     Then "+14152613077" should not have received any SMSes
     But "joe@example.com" should receive an email with "Congratulations! You've completed a daily dose." in the email body
 
-  Scenario: User completes rule suggested task on web and sees congrats in the flash
+  Scenario: User completes rule task on web and sees congrats in the flash
     When I sign in via the login page with "Joe/foobar" and choose to be remembered
     Given a clear email queue
     When I enter the act code "do 1"
@@ -153,7 +153,7 @@ Feature: User completes suggested task
     And I should not see "Congratulations! You've completed a daily dose."
 
   @javascript
-  Scenario: User completes suggested task by acting according to rule with mandatory referrer
+  Scenario: User completes task by acting according to rule with mandatory referrer
     When "+14152613077" sends SMS "do 1 bob"
     Then "+14152613077" should have received an SMS including "did 1"
     When I go to the activity page
@@ -179,7 +179,7 @@ Feature: User completes suggested task
     Then "+14152613077" should have received an SMS "Congratulations! You've completed a daily dose."
 
   @javascript
-  Scenario: User completes suggested task by completing survey
+  Scenario: User completes task by completing survey
     When "+14152613077" sends SMS "survey"
     And "+14152613077" sends SMS "1"
     And "+14152613077" sends SMS "1"
@@ -242,7 +242,7 @@ Feature: User completes suggested task
     When DJ works off after a little while
     Then "+14152613077" should have received an SMS "Congratulations! You've completed a daily dose."  
   
-  Scenario: User completes survey suggested task by SMS and gets congrats by SMS
+  Scenario: User completes survey task by SMS and gets congrats by SMS
     Given a clear email queue
     When "+14152613077" sends SMS "1"
     And "+14152613077" sends SMS "1"
@@ -251,14 +251,14 @@ Feature: User completes suggested task
     Then "+14152613077" should have received an SMS "Congratulations! You've completed a daily dose."
     But "joe@example.com" should receive no email
 
-  Scenario: User completes survey suggested task by email and gets congrats by email
+  Scenario: User completes survey task by email and gets congrats by email
     When "joe@example.com" sends email with subject "1" and body "1"
     When "joe@example.com" sends email with subject "1" and body "1"
     When "joe@example.com" sends email with subject "1" and body "1"
     Then "+14152613077" should not have received any SMSes
     But "joe@example.com" should receive an email with "Congratulations! You've completed a daily dose." in the email body
 
-  Scenario: User completes survey suggested task on web and sees congrats in the flash
+  Scenario: User completes survey task on web and sees congrats in the flash
     When I sign in via the login page with "Joe/foobar"
     And I enter the act code "1"
     And I enter the act code "1"

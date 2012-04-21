@@ -3,11 +3,11 @@
   = "»"
   = link_to @demo.name, admin_demo_path(@demo)
   = "»"
-  = link_to "Suggested Tasks", admin_demo_suggested_tasks_path(@demo)
+  = link_to "Tasks", admin_demo_tasks_path(@demo)
   = "»"
   New
 %br
 
 .admin
   %p Please be aware that after creating this task, it may be a few minutes before it's actually available to players.
-  = render 'form', :suggested_task => @suggested_task
+  = render 'form', :task => @task

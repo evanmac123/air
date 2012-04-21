@@ -1,10 +1,10 @@
-- unless suggested_task.new_record? 
-  = button_to "Delete", admin_demo_suggested_task_path(suggested_task.demo, suggested_task), :method => :delete, :confirm => "Delete?"
+- unless task.new_record? 
+  = button_to "Delete", admin_demo_task_path(task.demo, task), :method => :delete, :confirm => "Delete?"
  
 
-- form_submit_path = suggested_task.new_record? ? admin_demo_suggested_tasks_path(suggested_task.demo) : admin_demo_suggested_task_path(suggested_task.demo, suggested_task) 
+- form_submit_path = task.new_record? ? admin_demo_tasks_path(task.demo) : admin_demo_task_path(task.demo, task) 
 
-= semantic_form_for suggested_task, :url => form_submit_path do |f| 
+= semantic_form_for task, :url => form_submit_path do |f| 
   = f.input :identifier 
   = f.input :name 
   = f.input :short_description, :as => :text 

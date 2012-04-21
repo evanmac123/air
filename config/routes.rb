@@ -106,7 +106,7 @@ Health::Application.routes.draw do
 
       resources :bad_words
 
-      resources :suggested_tasks do
+      resources :tasks do
         resource :bulk_satisfaction, :only => [:create]
       end
 

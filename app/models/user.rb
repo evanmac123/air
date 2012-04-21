@@ -30,7 +30,7 @@ class User < ActiveRecord::Base
   has_many   :completed_goals, :through => :goal_completions, :source => :goal
   has_many   :timed_bonuses, :class_name => "TimedBonus"
   has_many   :task_suggestions, :dependent => :destroy
-  has_many   :suggested_tasks, :through => :task_suggestions
+  has_many   :tasks, :through => :task_suggestions
   has_and_belongs_to_many :bonus_thresholds
   has_and_belongs_to_many :levels
   has_one   :tutorial
@@ -783,11 +783,11 @@ class User < ActiveRecord::Base
   end
 
   def displayable_task_suggestions
-    self.task_suggestions.displayable.includes(:suggested_task)
+    self.task_suggestions.displayable.includes(:task)
   end
 
-  def satisfies_all_prerequisites(suggested_task)
-    suggested_task.prerequisite_tasks.all?{|prerequisite_task| self.task_suggestions.for_task(prerequisite_task).satisfied.present?}
+  def satisfies_all_prerequisites(task)
+    task.prerequisite_tasks.all?{|prerequisite_task| self.task_suggestions.for_task(prerequisite_task).satisfied.present?}
   end
 
   def satisfy_suggestions_by_survey(survey_or_survey_id, channel)
@@ -1196,7 +1196,7 @@ class User < ActiveRecord::Base
   end
 
   def suggest_first_level_tasks
-    self.demo.suggested_tasks.first_level.after_start_time_and_before_end_time.each do |first_level_task|
+    self.demo.tasks.first_level.after_start_time_and_before_end_time.each do |first_level_task|
       first_level_task.suggest_to_user(self)
     end
   end

@@ -1,10 +1,10 @@
-Feature: User sees suggested tasks they can currently do
+Feature: User sees tasks they can currently do
 
   Background:
     Given the following demo exists:
       | name |
       | FooCo        |
-    And the following suggested tasks exist:
+    And the following tasks exist:
       | name              | short description | long description                                  | start time       | demo                |
       | Make toast        | Toast some bread  | Turn bread into toast by the application of fire. |                      | name: FooCo |
       | Make PBJ          | Spread PB and J   | Put peanut butter and jelly on bread              |                      | name: FooCo |
@@ -25,7 +25,7 @@ Feature: User sees suggested tasks they can currently do
     And I sign in via the login page with "Joe/foobar"
 
   @javascript @slow
-  Scenario: User sees suggested tasks they can currently do
+  Scenario: User sees tasks they can currently do
     Then I should see "Make toast"
     And I should see "Toast some bread"
     But "Turn bread into toast by the application of fire." should not be visible
@@ -39,7 +39,7 @@ Feature: User sees suggested tasks they can currently do
     When I follow "More info"
     Then "Turn bread into toast by the application of fire." should be visible
 
-  Scenario: User doesn't see suggested tasks they can't currently do
+  Scenario: User doesn't see tasks they can't currently do
     Then I should not see "Make PBJ"
     And I should not see "Make future toast"
     And I should not see "Make future PBJ"
@@ -55,40 +55,40 @@ Feature: User sees suggested tasks they can currently do
     And I should not see "Butter toast"
     And I should not see "Eat buttery toast"
 
-  Scenario: User doesn't see suggested task they've already done
-    When "Joe" satisfies suggested task "Make toast"
+  Scenario: User doesn't see task they've already done
+    When "Joe" satisfies task "Make toast"
     And I go to the activity page
     Then I should not see "Make toast"
 
   Scenario: User, after completing a task, sees tasks they can now do
-    When "Joe" satisfies suggested task "Make toast"
+    When "Joe" satisfies task "Make toast"
     And I go to the activity page
     Then I should see "Make PBJ"
     And I should see "Butter toast"
     But I should not see "Eat buttery toast"
 
-    When "Joe" satisfies suggested task "Butter toast"
+    When "Joe" satisfies task "Butter toast"
     And I go to the activity page
     Then I should not see "Eat buttery toast"
 
-    When "Joe" satisfies suggested task "Plate toast"
+    When "Joe" satisfies task "Plate toast"
     And I go to the activity page
     Then I should see "Eat buttery toast"
 
-  Scenario: Newly created suggested task shows up for users who are eligible for it
+  Scenario: Newly created task shows up for users who are eligible for it
     When I sign in via the login page as an admin
     And I go to the admin "FooCo" demo page
-    And I follow "Suggested tasks for this demo"
-    And I follow "Add suggested task"
+    And I follow "Tasks for this demo"
+    And I follow "Add task"
     And I fill in "Identifier" with "ident1"
     And I fill in "Name" with "Do new stuff"
-    And I press "Create Suggested task"
+    And I press "Create Task"
     And DJ cranks 10 times
 
     And I sign in via the login page with "Joe/foobar"
     Then I should see "Do new stuff"
 
-  Scenario: Newly created user sees suggested tasks they can do
+  Scenario: Newly created user sees tasks they can do
     Given the following user exists:
       | name | email           | demo                |
       | Bob  | bob@example.com | name: FooCo |

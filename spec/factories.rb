@@ -192,16 +192,16 @@ Factory.define :bad_word do |bad_word|
   bad_word.association :demo
 end
 
-Factory.define :suggested_task do |suggested_task|
-  suggested_task.name "Roast chestnuts"
-  suggested_task.association :demo
-  suggested_task.sequence(:identifier) {|n| "Identifier#{n}"}
+Factory.define :task do |task|
+  task.name "Roast chestnuts"
+  task.association :demo
+  task.sequence(:identifier) {|n| "Identifier#{n}"}
   
 end
 
 Factory.define :task_suggestion do |task_suggestion|
   task_suggestion.association :user
-  task_suggestion.association :suggested_task
+  task_suggestion.association :task
 end
 
 Factory.define :self_inviting_domain do |self_inviting_domain|
@@ -219,16 +219,16 @@ end
 
 Factory.define :rule_trigger, :class => Trigger::RuleTrigger do |rule_trigger|
   rule_trigger.association :rule
-  rule_trigger.association :suggested_task
+  rule_trigger.association :task
 end
 
 Factory.define :survey_trigger, :class => Trigger::SurveyTrigger do |survey_trigger|
   survey_trigger.association :survey
-  survey_trigger.association :suggested_task
+  survey_trigger.association :task
 end
 
 Factory.define :demographic_trigger, :class => Trigger::DemographicTrigger do |demographic_trigger|
-  demographic_trigger.association :suggested_task
+  demographic_trigger.association :task
 end
 
 Factory.define :characteristic do |characteristic|
