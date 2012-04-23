@@ -223,7 +223,7 @@ body.invitations .header #navigation .nav-signup, body.sessions .header #navigat
         z-index: 9999; }
       .container .content .inv-forms div.form-ul-section div.helper.autocomplete {
         position: absolute;
-        right: -211px;
+        left: -280px;
         top: 1px; }
       .container .content .inv-forms .status {
         border-bottom: 1px #fff solid; }
