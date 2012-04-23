@@ -6,34 +6,30 @@ class Invitation::FriendInvitationsController < ApplicationController
   def create
     successful_invitation_count = 0
 
-    users_invited = []
     # Pre-populated Domain
-    if params[:invitee_ids]
-      an_array = params[:invitee_ids].gsub(',', '').strip.split.uniq
-      user_ids = an_array.collect do |f|
-        f.to_i
-      end
-      user_ids.each do |i|
-        user = User.find(i)
-        if user.nil?
-          add_failure "User #{i} not found. "
-        elsif user.claimed?
-          add_failure "Thanks, but #{user.name} is already playing."
-        else
-          @invitation_request = InvitationRequest.new(:email => user.email)
-          user.invite(current_user)
-          users_invited <<  user.name          
-        end        
-      end
-      
-      unless users_invited.empty?
-        sentence = create_sentence_response(users_invited)
-        add_success(sentence) 
-      end
-      
-      record_mixpanel_ping(users_invited.length, user_ids.length)
-      redirect_to activity_path and return        
+    invitee_id = params[:invitee_id]
+    if invitee_id
+      user = User.find(invitee_id)
+      if user.nil?
+        @message =  "User #{i} not found. "
+        attempted, successful = 1,0
+      elsif user.claimed?
+        @message =  "Thanks, but #{user.name} is already playing. Try searching for someone else."
+        attempted, successful = 1,0
+      else
+        @invitation_request = InvitationRequest.new(:email => user.email)
+        user.invite(current_user)
+        demo_name = current_user.demo.name
+        pp = current_user.demo.game_referrer_bonus
+        bonus_message = pp ? "That's <span class='orange'>#{pp}</span> potential points!".html_safe : ''
+        @message = "Invitation sent&#8212;#{bonus_message}<br>Search again to invite more".html_safe  
+        attempted, successful = 1,0      
+      end        
+
+      record_mixpanel_ping(attempted, successful)  
+      return        
     end
+    users_invited = []
     
     # Self-inviting Domain
     domain = current_user.self_inviting_domain.domain

@@ -19,7 +19,7 @@
   <% demo.levels.each_with_index do |level, level_index| %>
     <%= label_tag "demo_levels_#{level_index}_threshold", "Threshold" %>
     <%= text_field_tag "demo[levels][#{level_index}][threshold]" %>
-    <%= label_tag "demo_levels_#{level_index}_name", "Name" %>
+    <%= label_tag "demo_levels_#{level_index}_name", "Name of Level" %>
     <%= text_field_tag "demo[levels][#{level_index}][name]", nil, :maxlength => 140 %>
     <%= add_byte_counter_for('Name') %>
     <br/>

@@ -1,14 +1,21 @@
-- @matched_users.each do |u|
-  - text = "#{u.name}, #{u.email}, #{u.slug}"
+- @matched_users.each do |user|
+  - text = "#{user.name}, #{user.email}, #{user.slug}"
   .single_suggestion
-    .image= default_avatar_tag(u)
+    .image= default_avatar_tag(user)
     .info
-      .bit= u.name
-      .bit= u.email
-      .bit= u.slug
+      .bit= user.name
+      .bit= user.email
+      .bit= user.slug
+    .suggested_user_id= user.id
+    = link_to "X", '#', :class => "remove_referrer"
+    / = form_for user, invitation_invite_friend_path  do |f|
+    /   = f.submit "Invite", :class => "single_click_invite"
     .clear
-    - if @clear_users_text.nil?
-      - @clear_users_text = "Clear User"
-    .suggested_user_id= u.id
-    = link_to @clear_users_text, '#', :class => "remove_referrer"
-  
+    - if user.claimed?
+      .already_playing (already playing)
+      = hidden_field_tag 'referrer_id', user.id  # This is for referrals
+    - else
+      - submit_id = "invite_" + user.slug
+      = form_tag invitation_invite_friend_path, :autocomplete => :off, :remote => true, :style => 'display: inline' do  
+        = hidden_field_tag 'invitee_id', user.id
+        = submit_tag "Invite", :disable_with => "Just a moment..", :class => "single_click_invite", :id => submit_id

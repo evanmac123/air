@@ -11,6 +11,7 @@ describe Invitation::AutocompletionsController do
     @self_inviting_domain1 = Factory(:self_inviting_domain, :domain => "hopper.com", :demo => @demo1)
     @self_inviting_domain2 = Factory(:self_inviting_domain, :domain => "biker.com", :demo => @demo2)
 
+    @user0 = Factory(:claimed_user, :name => "Joining Now 1", :demo => @demo1, :email => "angel@hopper.com", :slug => "angelfire", :sms_slug => "angelfire")
     @user1 = Factory(:claimed_user, :name => "mad house", :demo => @demo1, :email => "manly@hopper.com", :slug => "beau", :sms_slug => "beau")
     @user2 = Factory(:claimed_user, :name => "Lucy", :demo => @demo1, :email => "boob@hopper.com", :slug => "lou", :sms_slug => "lou")
     @user3 = Factory(:claimed_user, :name => "Strange", :demo => @demo1, :email => "surround@hopper.com", :slug => "think", :sms_slug => "think")
@@ -19,6 +20,7 @@ describe Invitation::AutocompletionsController do
     @user6 = Factory(:claimed_user, :name => "Brewski", :demo => @demo2, :email => "three@biker.com", :slug => "gold", :sms_slug => "gold")
     @user7 = Factory(:claimed_user, :name => "Latino", :demo => @demo2, :email => "four@biker.com", :slug => "nutcase", :sms_slug => "nutcase")
     @user8 = Factory(:claimed_user, :name => "Va Va Va Voom", :demo => @demo2, :email => "seven@biker.com", :slug => "sixpack", :sms_slug => "sixpack")
+    @user9 = Factory(:claimed_user, :name => "Joining Now 2", :demo => @demo2, :email => "angel@biker.com", :slug => "damnation", :sms_slug => "damnation")
   
   end
    

@@ -100,31 +100,31 @@ $(function() {
     $('#autocomplete_status').text('');
 
     $(this).insertAfter('#autocomplete');
-    updatePotentialPoints();
+    $("#suggestions").html('');
+    $("#suggestions").hide();
+    //updatePotentialPoints();
   });
 
-  $('#search_for_friends_to_invite .single_suggestion').live('click', function() {
-    // var existing_ids = $('#invitee_ids').val();
-    // var new_id = $(this).find('.suggested_user_id').text();
-    // var new_plus_existing = existing_ids + " " + new_id + ",";
-    // $('#invitee_ids').val(new_plus_existing);
-    $('#autocomplete').val('');
-    $('#autocomplete').focus();
-    //$('#search_for_friends_to_invite #autocomplete').hide();
-    $(this).insertAfter('#put_selected_users_after_this_div');
-    clearAutocompleteStatus();
-    setTimeout('$("#suggestions").html("")', 50);
-    setTimeout('displayPotentialPointsPrepopulated()', 100);
-    
-    $("#hide_me_while_selecting").show();
-    $("#suggestions").hide();
-    setTimeout('resizeFaceboxToFitSuggestions()', 1);
-    
-  });
+  // $('#search_for_friends_to_invite .single_suggestion').live('click', function() {
+  //   // var existing_ids = $('#invitee_ids').val();
+  //   // var new_id = $(this).find('.suggested_user_id').text();
+  //   // var new_plus_existing = existing_ids + " " + new_id + ",";
+  //   // $('#invitee_ids').val(new_plus_existing);
+  //   $('#autocomplete').val('');
+  //   $('#autocomplete').focus();
+  //   //$('#search_for_friends_to_invite #autocomplete').hide();
+  //   $(this).insertAfter('#put_selected_users_after_this_div');
+  //   clearAutocompleteStatus();
+  //   setTimeout('$("#suggestions").html("")', 50);
+  //   setTimeout('displayPotentialPointsPrepopulated()', 100);
+  //   $("#hide_me_while_selecting").show();
+  //   $("#suggestions").hide();
+  //   setTimeout('resizeFaceboxToFitSuggestions()', 1);
+  // });
   
-  $('#facebox .single_suggestion').live('click', function(){
-    increasePopupHeight();
-  })
+  // $('#facebox .single_suggestion').live('click', function(){
+  //   increasePopupHeight();
+  // })
 
   $('.invite-module #search_for_friends_to_invite .single_suggestion').live('click', function() {
   	 var div_to_grow = $('.invite-module');
@@ -181,7 +181,7 @@ $(function() {
 
 
   // These next two are to make the autocompletions disappear if you click on something else
-  $('html').click(function() {
+  $('html3').click(function() {
     setTimeout('$("#suggestions").html("")', 50);
     $('#suggestions').hide();
     clearAutocompleteStatus();
@@ -189,7 +189,7 @@ $(function() {
   });
 
   resizeFaceboxToFitSuggestions();
-
+  $(".single_suggestion").live('click', fadeOutUnclickedSuggestions);
 });
 
 function saveFaqMiniToVariable(){
@@ -480,3 +480,8 @@ function showTutorialIntroduction(){
 }
 
 
+function fadeOutUnclickedSuggestions(){
+  $('.single_suggestion').addClass('fade_out_singles');
+  $(this).removeClass('fade_out_singles');
+  $('.fade_out_singles').fadeOut(1500, resizeFaceboxToFitSuggestions);
+}

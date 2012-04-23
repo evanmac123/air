@@ -1,0 +1,17 @@
+var message = $("#autocomplete_status");
+var suggestions = $("#suggestions");
+
+$("#autocomplete").val('');
+message.val('');
+message.hide();
+suggestions.html('');
+suggestions.hide();
+
+message.html("<%= @message %>");
+
+message.fadeIn(1000, focusOnAutocomplete);
+resizeFaceboxToFitSuggestions();  
+
+function focusOnAutocomplete(){
+  setTimeout('$("#autocomplete").focus()', 1000);
+}

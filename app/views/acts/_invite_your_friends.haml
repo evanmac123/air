@@ -31,12 +31,12 @@
   #search_for_friends_to_invite
     #invite_friends_top
 
-      - unless show_greeting.nil?
-        %p= "Thanks for joining #{current_user.demo.name}" 
+      / - unless show_greeting.nil?
+      /   %p= "Thanks for joining #{current_user.demo.name}" 
 
-      %h2#invite_your_friends_title 
-        Invite your friends
-      %p It's more fun when people you know are playing too. Plus, get a 5-point referral bonus for each friend that joins the game!
+      %h2#invite_your_friends_title Invite your friends
+      
+      %p#why_invite It's more fun when people you know are playing too. Plus, get a 5-point referral bonus for each friend that joins the game!
       #points_per_referral= current_user.demo.game_referrer_bonus
 
     - unless current_user.demo.self_inviting_domains.empty?
@@ -71,17 +71,14 @@
       =#################### PRE POPULATED DOMAIN version #####################
       #invite_friends_middle
     
-        = form_tag invitation_invite_friend_path, :autocomplete => :off do  
-          = hidden_field_tag 'invitee_ids'
 
-          %ul.form-section
-            %li.form-label= label_tag :autocomplete,  "Which coworkers do you wish to invite?"
-            %li.form-input
-              = text_field_tag :autocomplete
-    
-              .relative
-                .helper.autocomplete  
-                  Type part of your coworker's name or email, and we'll look them up.          
+        %ul.form-section
+          %li.form-label= label_tag :autocomplete,  "Which coworkers do you wish to invite?"
+          %li.form-input
+            = text_field_tag :autocomplete, nil, :autocomplete => "off"
+            .relative
+              .helper.autocomplete  
+                Type part of your coworker's name or email, and we'll look them up.          
 
 
     

@@ -283,3 +283,9 @@ Then /^"([^"]*)" accepts "([^"]*)" as a friend$/ do |accepter_name, initiator_na
   friendship = Friendship.where(:friend_id => accepter_id, :user_id => initiator_id).first
   friendship.accept.should_not be_nil
 end
+
+When /^I press the invite button for "([^"]*)"$/ do |name|
+  user = User.find_by_name(name)
+  submit_id_with_pound = "#invite_" + user.slug
+  find(:css, submit_id_with_pound).click
+end

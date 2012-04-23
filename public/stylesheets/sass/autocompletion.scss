@@ -15,6 +15,7 @@ $medium_radius: 12px;
   #relative{
     top: 0px;
   }
+  label {font-weight: bold;}
 }
 
 #relative{
@@ -41,7 +42,7 @@ $medium_radius: 12px;
     display: none;
   }
   .single_suggestion:hover{
-    background: darken($light-gray, 5%);
+    //background: darken($light-gray, 5%);
   }
 }
 
@@ -134,11 +135,11 @@ body #facebox .content {
 #autocomplete_status{
   color: green;
   font-size: 120%;
+  line-height: 133%;
   font-weight: bold;
-  width: 500px;
+  width: 343px;
   padding-top: 4px;
-  padding-bottom: 4px;
-  height: 20px;
+  padding-bottom: 0px;
 }
 
 #indented_to_match_inputs{
@@ -249,7 +250,7 @@ div.helper {
 }
 
 #invite_friends_middle #autocomplete{
-  width: 314px;
+  width: 325px;
   behavior: none;
 }
 
@@ -288,4 +289,29 @@ div.helper {
 }
 .form-input .relative{
   z-index: 2;
+}
+.single_click_invite{
+  position: absolute;
+  right: 7px;
+  bottom: 7px;
+  @include button-norm;
+	margin-top: 10px;
+	font-weight: bold;
+	letter-spacing: .5px;
+}
+.already_playing{
+  position: absolute;
+  right: 7px;
+  bottom: 8px;
+  color: $dark-gray;
+  font-size: 14px;
+  line-height: 16px;
+}
+#why_invite{
+  padding-bottom: 5px;
+}
+#signup-form{
+  .single_click_invite, .already_playing{
+    display: none;
+  }
 }

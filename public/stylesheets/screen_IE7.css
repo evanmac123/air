@@ -189,3 +189,6 @@ body.users-index div.user-info {
 
 .quick_tour_link, .contact_us_link {
   padding-top: 6px !important; }
+
+.single_click_invite {
+  width: 6em; }

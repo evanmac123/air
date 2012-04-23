@@ -51,85 +51,23 @@ Feature: User invites friends
     Then I should see "Click on the person you want to invite:"
     Then I should see "Charlie Brainfield"
     And I should not see "Yo Yo Ma"
-
     
   @javascript
-  Scenario: Invite friends on demo pre-populated with users
+  Scenario: One click invite of friend on pre-populated demo--friend receives invite and joins game
     Given "Shelly" has the password "foobar"
     Given I sign in via the login page as "Shelly/foobar"    
     Then I should see "Invite your friends"
     When I fill in "Which coworkers do you wish to invite?" with "bra"
     Then I should see "Charlie Brainfield"
-    When I select the suggestion containing "Charlie Brainfield"
-    And I follow "Invite selected users"
-    Then I should see "You just invited Charlie Brainfield to play H Engage"
+    When I press the invite button for "Charlie Brainfield"
+    Then I should see "Invitation sent"
     And DJ works off
     Then "1@loaded.com" should receive an email
     When "1@loaded.com" opens the email
     And I click the first link in the email
     Then I should be on the invitation page for "1@loaded.com"
     When I fill in "Enter your mobile number" with "2088834848"
-    And I fill in "Enter your name" with "Blowing Smoke"
-    And I fill in "Choose a username" with "somereallylongtextstring"
-    And I fill in "Choose a password" with "password"
-    And I fill in "And confirm that password" with "password"
-    And I check "Terms and conditions"
-    And I press "Join the game"
-    And I wait a second
-    Then I should see "Brought to you by"
-    Then user with email "1@loaded.com" should show up as referred by "Shelly"
-    And DJ works off
-    And "+16662221111" should have received SMS "Blowing Smoke gave you credit for referring them to the game. Many thanks and 2000 bonus points!"
-    When "pre@loaded.com" opens the email
-    Then I should see "Blowing Smoke gave you credit for referring them to the game. Many thanks and 2000 bonus points!" in the email body
-    When I follow "Confirm my mobile number later"
-    And I should see "Shelly got credit for referring Blowing Smoke to the game"
-    And I should see "2000 pts"
-    
-    @javascript
-    Scenario: Claimed users on a pre-pop game should not receive an invitation
-      Given "Shelly" has the password "foobar"
-      Given I sign in via the login page as "Shelly/foobar"    
-      Then I should see "Invite your friends"
-      When I fill in "Which coworkers do you wish to invite?" with "mic"
-      Then I should see "Michelle"
-      When I select the suggestion containing "Michelle"
-      And I follow "Invite selected users"
-      Then I should see "Michelle is already playing"
-      And DJ works off
-      Then "playing@loaded.com" should receive no email
-      
-  @javascript
-  Scenario: Invite multiple friends at a time on demo pre-populated with users
-    Given "Shelly" has the password "foobar"
-    Given I sign in via the login page as "Shelly/foobar"    
-    Then I should see "Invite your friends"
-    When I fill in "Which coworkers do you wish to invite?" with "bra"
-    Then I should see "Charlie Brainfield"
-    When I select the suggestion containing "Charlie Brainfield"
-    Then I should see "+2000 potential bonus points!"
-    When I fill in "Which coworkers do you wish to invite?" with "our"
-    Then I should see "Fourfold"
-    When I select the suggestion containing "Fourfold"
-    And I should see "+4000 potential bonus points!"
-
-    And I follow "Invite selected users"
-    Then I should see "You just invited Charlie Brainfield and Fourfold to play H Engage"
-    And DJ works off
-    
-    # Check that first invitee received email
-    Then "4@loaded.com" should receive an email
-    When "4@loaded.com" opens the email
-    And I click the first link in the email
-    Then I should be on the invitation page for "4@loaded.com"
-    
-    # Check that second invitee received email and can join game
-    Then "1@loaded.com" should receive an email
-    When "1@loaded.com" opens the email
-    And I click the first link in the email
-    Then I should be on the invitation page for "1@loaded.com"
-    When I fill in "Enter your mobile number" with "2088834848"
-    And I fill in "Enter your name" with "Blowing Smoke"
+    And I fill in "Enter your name" with "Charlie Brainfield"
     And I fill in "Choose a username" with "somereallylongtextstring"
     And I fill in "Choose a password" with "password"
     And I fill in "And confirm that password" with "password"
@@ -140,10 +78,10 @@ Feature: User invites friends
     Then I should see "Brought to you by"
     Then user with email "1@loaded.com" should show up as referred by "Shelly"
     And DJ works off
-    And "+16662221111" should have received SMS "Blowing Smoke gave you credit for referring them to the game. Many thanks and 2000 bonus points!"
+    And "+16662221111" should have received SMS "Charlie Brainfield gave you credit for referring them to the game. Many thanks and 2000 bonus points!"
     When "pre@loaded.com" opens the email
-    Then I should see "Blowing Smoke gave you credit for referring them to the game. Many thanks and 2000 bonus points!" in the email body
-    And I should see "Shelly got credit for referring Blowing Smoke to the game"
+    Then I should see "Charlie Brainfield gave you credit for referring them to the game. Many thanks and 2000 bonus points!" in the email body
+    And I should see "Shelly got credit for referring Charlie Brainfield to the game"
     And I should see "2000 pts"
 
 
