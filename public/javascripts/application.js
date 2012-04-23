@@ -270,7 +270,7 @@ function displayPotentialPointsPrepopulated(){
     msg = "Type part of your coworker's name or email, and we'll look them up."
     $('#hide_me_while_selecting').hide();
   }else if (ppr == ''){
-    alert('Please email support@hengage.com and ask them to set up bonuses for this game');
+    ppr = 0;
   }else{
     ppr = parseInt(ppr);
     $('#potential_bonus_points').text(ppr * num_invitees);
