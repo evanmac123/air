@@ -33,7 +33,7 @@ class User < ActiveRecord::Base
   has_many   :tasks, :through => :task_suggestions
   has_and_belongs_to_many :bonus_thresholds
   has_and_belongs_to_many :levels
-  has_one   :tutorial
+  has_one   :tutorial, :dependent => :destroy
   validate :normalized_phone_number_unique, :normalized_new_phone_number_unique
   
   validate :sms_slug_does_not_match_commands

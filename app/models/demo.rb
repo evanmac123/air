@@ -238,10 +238,12 @@ class Demo < ActiveRecord::Base
       end
     end
     percent_with_friend = 100.0 * num_users_with_at_least_one_friend  / num_tutorials
+    percent_with_friend = "%5.1f" % percent_with_friend
     percent_who_played  = 100.0 * num_users_who_completed_one_web_act / num_tutorials
-    puts "#{num_tutorials} users in #{self.name} have been offered the guided tour."
-    puts "#{percent_who_played}% of them completed at least one act through the play box"
-    puts "#{percent_with_friend}% of them have at least one accepted friend in the game"
+    percent_who_played = "%5.1f" % percent_who_played
+    puts "#{num_tutorials} users in #{self.name} have seen at least the intro slide to the quick tour."
+    puts "#{percent_who_played}% of them completed at least one act through the play box since then"
+    puts "#{percent_with_friend}% of them have at least one accepted friend in the game since then"
   end
 
   def self.number_not_found_response(receiving_number)
