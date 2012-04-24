@@ -1,4 +1,6 @@
-<% unless Rails.env.test? %>
+<% if Rails.env.test? %>
+  <% $ASSISTLY_CALLED = true %>
+<% else %>
   <link href="https://d3j15y3zsn7b4t.cloudfront.net/assets/widget_embed.cssgz?1319781871" media="screen" rel="stylesheet" type="text/css" />
   <!--If you already have fancybox on the page this script tag should be omitted-->
   <script src="https://d3j15y3zsn7b4t.cloudfront.net/assets/widget_embed_libraries.jsgz?1319781873" type="text/javascript"></script>
