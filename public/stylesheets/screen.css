@@ -2107,7 +2107,7 @@ td.label {
 
 #sort_by_first_name, #sort_by_points {
   cursor: pointer;
-  color: #eaf; }
+  color: #333333; }
   #sort_by_first_name:hover, #sort_by_points:hover {
     font-weight: bold; }
 

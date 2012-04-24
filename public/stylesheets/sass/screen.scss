@@ -12,7 +12,7 @@ $twin_peak_radius: 200px;
 
 @mixin purple_javascript_links{
   cursor: pointer;
-  color: #eaf;
+  color: $dark-gray;
 }
 @mixin scoreboard_and_friends_list{
   li {
