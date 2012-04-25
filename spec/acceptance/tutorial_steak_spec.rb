@@ -25,7 +25,7 @@ feature "Talking Chicken Tutorial", %q{
     # Search for a valid user
     fill_in "search_string", :with => "kermit"
     click_button("Find!")
-    page.should have_content("Click 'Add to Friends' to connect with Kermit")
+    page.should have_content("Click ADD TO FRIENDS to connect with Kermit")
     # Go back to /users page (not having searched for anything)
     visit '/users'
     page.should have_content("For example, type \"Kermit\", then click FIND!")
