@@ -243,6 +243,8 @@ div.helper {
 #invite_friends_middle #autocomplete {
   width: 325px;
   behavior: none; }
+#invite_friends_middle .form-label {
+  padding-top: 10px; }
 
 .clear {
   clear: both; }

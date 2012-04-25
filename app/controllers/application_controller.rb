@@ -147,7 +147,7 @@ class ApplicationController < ActionController::Base
       @arrow_dir = "bottom-center"
     when 3
       @title = "3. Make Connections"
-      @instruct = "Click on DIRECTORY to find people you know"
+      @instruct = "Click DIRECTORY to find people you know"
       @highlighted = '.nav-directory'
       @x = -141
       @y = -5
@@ -171,7 +171,7 @@ class ApplicationController < ActionController::Base
       @arrow_dir = "left"
     when 6
       @title = "6. See Your Profile"
-      @instruct = "Great! Now you're connected with Kermit. Click on MY PROFILE to see him."
+      @instruct = "Great! Now you're connected with Kermit. Click MY PROFILE to see him."
       @highlighted = '.nav-activity'
       @x = 0
       @y = 0
@@ -179,7 +179,7 @@ class ApplicationController < ActionController::Base
       @arrow_dir = "top-center"
     when 7
       @title = "7. Have Fun Playing!"
-      @instruct = "That's it! You now know how to connect with friends and how to earn points."
+      @instruct = "That's it! Now you know how to connect with friends and how to earn points."
       @show_finish_button = true
       @highlighted = '#following_wrapper'
       @x = 0

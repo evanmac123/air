@@ -22,7 +22,7 @@ class Invitation::FriendInvitationsController < ApplicationController
         demo_name = current_user.demo.name
         pp = current_user.demo.game_referrer_bonus
         bonus_message = pp ? "That's <span class='orange'>#{pp}</span> potential points!".html_safe : ''
-        @message = "Invitation sent&#8212;#{bonus_message}<br>Search again to invite more".html_safe  
+        @message = "Invitation sent&#8212;#{bonus_message}<br>Search again to invite others".html_safe  
         attempted, successful = 1,0      
       end        
 

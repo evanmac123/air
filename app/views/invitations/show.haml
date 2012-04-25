@@ -143,8 +143,8 @@
       #terms_label
         I accept the 
         = link_to "terms and conditions", terms_path(:id => 'terms')
-      - if @user.errors[:terms_and_conditions]
-        .form-msg= @user.errors[:terms_and_conditions]
+      - if @user.errors[:terms_and_conditions].present?
+        .form-msg= @user.errors[:terms_and_conditions].first
     %ul.form-section.signup-submit
 
       <input name="commit" type="submit" value="Join the game" style="float: left;" id='join_the_game_link'>
