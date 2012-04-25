@@ -32,17 +32,6 @@ class Invitation::FriendInvitationsController < ApplicationController
     users_invited = []
     
     # Self-inviting Domain or Public Join
-    unless current_user.demo.is_public_game
-      begin
-        domain = current_user.self_inviting_domain.domain
-      rescue
-        domain = nil
-      end
-      unless domain
-        add_failure "Could not find a self-inviting domain for this game that matches '#{current_user.email.email_domain}'. Please check that you typed the email address correctly."
-        redirect_to activity_path and return
-      end
-    end
     
     hash_of_prepends = params[:email_prepends]
     existing_users = []
