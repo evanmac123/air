@@ -39,7 +39,7 @@ class Invitation::FriendInvitationsController < ApplicationController
         domain = nil
       end
       unless domain
-        add_failure "Could not find a self-inviting domain for this game that matches '#{current_user.email.email_domain}'. Please contact support@hengage.com."
+        add_failure "Could not find a self-inviting domain for this game that matches '#{current_user.email.email_domain}'. Please check that you typed the email address correctly."
         redirect_to activity_path and return
       end
     end
