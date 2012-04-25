@@ -129,7 +129,7 @@ class ApplicationController < ActionController::Base
       @show_introduction = true
     when 1
       @title = "1. Say It!"
-      @instruct = "Enter \"<span class='offset'>ate a banana</span>\" and click <span class='offset'>Play</span> to get 3 points"
+      @instruct = "Type \"<span class='offset'>ate a banana</span>\" and click PLAY to get 3 points"
       @highlighted = '#bar_command_wrapper'
       @x = 350
       @y = -10
@@ -147,7 +147,7 @@ class ApplicationController < ActionController::Base
       @arrow_dir = "bottom-center"
     when 3
       @title = "3. Make Connections"
-      @instruct = "Click on <span class='offset'>Directory</span> to find people you know"
+      @instruct = "Click on DIRECTORY to find people you know"
       @highlighted = '.nav-directory'
       @x = -141
       @y = -5
@@ -163,7 +163,7 @@ class ApplicationController < ActionController::Base
       @arrow_dir = "top-left"
     when 5
       @title = "5. Friend Them"
-      @instruct = "Click '<span class='offset'>Add to Friends</span>' to connect with #{first_name}"
+      @instruct = "Click ADD TO FRIENDS to connect with #{first_name}"
       @highlighted = '#directory_wrapper'
       @x = 0
       @y = 298
@@ -171,7 +171,7 @@ class ApplicationController < ActionController::Base
       @arrow_dir = "left"
     when 6
       @title = "6. See Your Profile"
-      @instruct = "Great! Now you're connected with Kermit. See him in <span class='offset'>My Profile</span>"
+      @instruct = "Great! Now you're connected with Kermit. Click on MY PROFILE to see him."
       @highlighted = '.nav-activity'
       @x = 0
       @y = 0

@@ -201,13 +201,20 @@ strong{
     padding-bottom: 2mm;
     max-width: 30ex;
   }
+  .no_thanks_tutorial{
+    padding-top: 4px;
+    display: inline-block;
+  }
   a{
     color: $header-bg;
-    font-size: 154%;
+    font-size: 100%;
     font-weight: 500;
   }
   .show_tutorial{
-    font-size: 246%;
+    @include button-norm;
+    background: green;
+    &:hover{color: white; background: #343;}
+    font-size: 155% !important;
   }
   a:hover{
     color: darken($header-bg, 10%);

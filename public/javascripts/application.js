@@ -179,13 +179,17 @@ $(function() {
     $(this).attr('value', '').removeClass('with-hint-text');
   }));
 
-
-  // These next two are to make the autocompletions disappear if you click on something else
-  $('html3').click(function() {
-    setTimeout('$("#suggestions").html("")', 50);
-    $('#suggestions').hide();
-    clearAutocompleteStatus();
-    resizeFaceboxToFitSuggestions();
+  // 
+  // // These next two are to make the autocompletions disappear if you click on something else
+  // $('html').click(function() {
+  //   setTimeout('$("#suggestions").html("")', 50);
+  //   $('#suggestions').hide();
+  //   clearAutocompleteStatus();
+  //   resizeFaceboxToFitSuggestions();
+  // });
+  
+  $('html').click(function(){
+    $(".bubbly").hide();
   });
 
   resizeFaceboxToFitSuggestions();
