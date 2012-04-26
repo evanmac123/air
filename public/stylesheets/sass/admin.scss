@@ -10,6 +10,7 @@ table.admin_wide{
   position: absolute;
 }
 .admin{
+  position: relative;
 
   h1, h2, h3, h4{
     line-height: 2em;
@@ -124,4 +125,13 @@ table.admin_wide{
     font-size: 15px;
     line-height: 18px;
   }
+}
+#which_game{
+  position: absolute;
+  top: 88px;
+  right: 0px;;
+}
+.way_off_screen{
+  position: absolute;
+  right: -30in;
 }

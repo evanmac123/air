@@ -81,6 +81,8 @@ Health::Application.routes.draw do
     resources :tags
 
     resources :labels
+    
+    put "user_transfers", :controller => "user_transfers", :action => :update, :as => "user_transfer"
 
     resources :demos, :only => [:new, :create, :show, :destroy, :edit, :update] do
       # TODO: move :edit and :update onto resources :users below

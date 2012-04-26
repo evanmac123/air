@@ -67,3 +67,8 @@ end
 When /^I press the button to save the new location$/ do
   click_button("save-location")
 end
+
+Then /^"([^"]*)" should be in the "([^"]*)" game$/ do |user_name, demo_name|
+  user = User.find_by_name(user_name)
+  user.demo.should == Demo.find_by_name(demo_name)
+end

@@ -22,6 +22,7 @@ class Demo < ActiveRecord::Base
   validate :end_after_beginning
   
   validates_inclusion_of :join_type, :in => JOIN_TYPES
+  validates_uniqueness_of :name
 
   has_alphabetical_column :name
 

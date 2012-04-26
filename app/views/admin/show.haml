@@ -1,7 +1,17 @@
 .admin
 
   %h1.first Admin
-
+  #which_game
+    %p You are currently in
+    = form_for :user, @current_user, :url => admin_user_transfer_path, :html=>{:method=>:put} do
+      = select :user, :demo_name, Demo.all.collect(&:name), :selected => @current_user.demo.name
+      = submit_tag "Push", :id => :transfer_user, :class => :way_off_screen
+    = content_for :javascript do
+      :javascript 
+        $("option").click(function(){
+          $("#transfer_user").click();
+        });
+     
   %h2 Games
   %ul.demos
     - @demos.each do |demo| 

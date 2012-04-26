@@ -44,7 +44,7 @@ Factory.define :brand_new_user, :parent => :claimed_user do |factory|
 end
 
 Factory.define :demo do |factory|
-  factory.name { "Gillette" }
+  factory.sequence(:name) { |n| "Coolio_#{n}" }
 end
 
 Factory.define :rule do |factory|
