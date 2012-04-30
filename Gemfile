@@ -28,7 +28,7 @@ gem "newrelic_rpm"
 # RSpec needs to be in :development group to expose generators
 # and rake tasks without having to type RAILS_ENV=test.
 group :development, :test do
-  gem "rspec-rails", "~> 2.4.0"
+  gem "rspec-rails"
   gem "pry"
   gem "pry-doc"
   gem "pry_debug"

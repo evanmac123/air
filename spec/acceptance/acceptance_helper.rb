@@ -7,3 +7,5 @@ Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each {|f| require f}
 # Put this here so that helper files can throw methods into SteakHelperMethods.
 #
 RSpec.configuration.include SteakHelperMethods, :type => :acceptance
+include SteakHelperMethods
+include NavigationHelpers
