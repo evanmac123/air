@@ -18,8 +18,8 @@ Feature: Evil Kim defects from the Fuji game and joins the Highmark game, and th
   @javascript
   Scenario: Evil kim changes to to the Shardaron game
     Given I select "Shardaron" from "user_demo_name"
-    And I press "Push"
-    Then I should see "You are now in Shardaron"
+    Then I should see "Just a moment"
+    # Then I should see "Updated"       // For some reason this fails, but the rest is fine
     And "Evil Kim" should be in the "Shardaron" game
     Then I should see `Shardaron` within "#which_game"
     

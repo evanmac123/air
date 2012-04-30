@@ -6,11 +6,10 @@ class Admin::UserTransfersController < AdminBaseController
     if new_demo
       current_user.demo_id = new_demo.id
       if current_user.save
-        add_success "You are now in #{new_demo.name}"
+        @message = "Updated"
       end
     else
-      add_failure "Unable to find game named #{new_demo.name}"
+      @message = "Error: Unable to find game named #{new_demo.name}"
     end
-    redirect_to :back
   end
 end

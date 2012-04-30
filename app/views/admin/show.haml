@@ -3,13 +3,16 @@
   %h1.first Admin
   #which_game
     %p You are currently in
-    = form_for :user, @current_user, :url => admin_user_transfer_path, :html=>{:method=>:put} do
+    = form_for :user, @current_user, :url => admin_user_transfer_path, :remote => true,   :html=>{:method=>:put, :id => 'transfer_user_form'} do
       = select :user, :demo_name, Demo.all.collect(&:name), :selected => @current_user.demo.name
-      = submit_tag "Push", :id => :transfer_user, :class => :way_off_screen
+      #transfer_user_form_message.ajax_notice
     = content_for :javascript do
       :javascript 
-        $("option").click(function(){
-          $("#transfer_user").click();
+        $("#user_demo_name").change(function(){
+          $("#transfer_user_form").submit();
+          $("#transfer_user_form_message").removeClass("bold");
+          $("#transfer_user_form_message").text("Just a moment..");
+          $("#transfer_user_form_message").fadeIn(500);
         });
      
   %h2 Games
