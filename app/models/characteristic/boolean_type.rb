@@ -1,0 +1,2 @@
+class Characteristic::BooleanType
+end

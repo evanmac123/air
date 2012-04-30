@@ -13,12 +13,14 @@
     %tr
       %th Name
       %th Description
+      %th Type
       %th Allowed Values
       %th
     - @characteristics.each do |characteristic|
       %tr
         %td= characteristic.name 
         %td= characteristic.description 
+        %td= characteristic.datatype_name
         %td
           %ul
             -characteristic.allowed_values.each do |allowed_value|

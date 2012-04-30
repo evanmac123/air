@@ -229,15 +229,15 @@ FactoryGirl.define do
     association :task
   end
 
-  factory :characteristic do
+  factory :characteristic do 
     sequence(:name) {|n| "Char_#{n}"}
     sequence(:description) {|n| "Desc_#{n}"}
+    datatype {Characteristic::DiscreteType}
     allowed_values {%w(Foo Bar Baz)}
   end
 
   factory :demo_specific_characteristic, :parent => :characteristic do
     association :demo
   end
-  
 end
 

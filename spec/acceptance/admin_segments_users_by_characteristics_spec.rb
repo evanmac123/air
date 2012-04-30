@@ -2,7 +2,7 @@ require File.expand_path(File.dirname(__FILE__) + '/acceptance_helper')
 
 feature "Admin segmentation" do
   before(:each) do
-    @demo = Factory :demo
+    @demo = FactoryGirl.create(:demo)
     signin_as_admin
   end
 
@@ -12,22 +12,22 @@ feature "Admin segmentation" do
 
   context "segmenting users" do
     before(:each) do
-      @generic_characteristic_1 = Factory :characteristic, :name => "Color", :allowed_values => %w(red orange yellow green blue indigo violet)
-      @generic_characteristic_2 = Factory :characteristic, :name => "Favorite Beatle", :allowed_values => %w(john paul george ringo)
-      @generic_characteristic_3 = Factory :characteristic, :name => "LOLPhrase", :allowed_values => %w(i can haz cheezburger)
-      @demo_specific_characteristic_1 = Factory :demo_specific_characteristic, :name => "Height", :demo => @demo, :allowed_values => %w(low medium high)
-      @demo_specific_characteristic_2 = Factory :demo_specific_characteristic, :name => "Favorite number", :demo => @demo, :allowed_values => %w(seven eight nine)
-      @demo_specific_characteristic_3 = Factory :demo_specific_characteristic, :name => "MomPhrase", :demo => @demo, :allowed_values => %w(hi mom)
+      @generic_characteristic_1 = FactoryGirl.create(:characteristic, :name => "Color", :allowed_values => %w(red orange yellow green blue indigo violet))
+      @generic_characteristic_2 = FactoryGirl.create(:characteristic, :name => "Favorite Beatle", :allowed_values => %w(john paul george ringo))
+      @generic_characteristic_3 = FactoryGirl.create(:characteristic, :name => "LOLPhrase", :allowed_values => %w(i can haz cheezburger))
+      @demo_specific_characteristic_1 = FactoryGirl.create(:demo_specific_characteristic, :name => "Height", :demo => @demo, :allowed_values => %w(low medium high))
+      @demo_specific_characteristic_2 = FactoryGirl.create(:demo_specific_characteristic, :name => "Favorite number", :demo => @demo, :allowed_values => %w(seven eight nine))
+      @demo_specific_characteristic_3 = FactoryGirl.create(:demo_specific_characteristic, :name => "MomPhrase", :demo => @demo, :allowed_values => %w(hi mom))
 
-      @loser = Factory :user, :demo => @demo
+      @loser = FactoryGirl.create(:user, :demo => @demo)
       @reds = []
       @blues = []
       @greens = []
 
       14.times do |i|
-        @reds << Factory(:user, :name => "Red Guy #{i}", :demo => @demo, :characteristics => {@generic_characteristic_1.id => "red"})
-        @blues << Factory(:user, :name => "Blue Guy #{i}", :demo => @demo, :characteristics => {@generic_characteristic_1.id => "blue"})
-        @greens << Factory(:user, :name => "Green Guy #{i}", :demo => @demo, :characteristics => {@generic_characteristic_1.id => "green"})
+        @reds << FactoryGirl.create(:user, :name => "Red Guy #{i}", :demo => @demo, :characteristics => {@generic_characteristic_1.id => "red"})
+        @blues << FactoryGirl.create(:user, :name => "Blue Guy #{i}", :demo => @demo, :characteristics => {@generic_characteristic_1.id => "blue"})
+        @greens << FactoryGirl.create(:user, :name => "Green Guy #{i}", :demo => @demo, :characteristics => {@generic_characteristic_1.id => "green"})
       end
 
       %w(john john paul paul paul george george george george ringo ringo ringo ringo ringo).each_with_index do |name, i|
@@ -56,7 +56,7 @@ feature "Admin segmentation" do
 
       click_button "Find segment"
 
-      expect_content "Segmenting on: Color is red"
+      expect_content "Segmenting on: Color equals red"
       expect_content "14 users in segment"
       click_link "Show users"
       @reds.each { |red| expect_user_content red }
@@ -72,8 +72,8 @@ feature "Admin segmentation" do
 
       click_button "Find segment"
 
-      expect_content "Color is red"
-      expect_content "Favorite Beatle is george"
+      expect_content "Color equals red"
+      expect_content "Favorite Beatle equals george"
       expect_content "4 users in segment"
       click_link "Show users"
       [@reds[5], @reds[6], @reds[7], @reds[8]].each { |red| expect_user_content red }
@@ -93,15 +93,39 @@ feature "Admin segmentation" do
 
       click_button "Find segment"
 
-      expect_content "Color is green"
-      expect_content "Favorite Beatle is ringo"
-      expect_content "Height is medium"
+      expect_content "Color equals green"
+      expect_content "Favorite Beatle equals ringo"
+      expect_content "Height equals medium"
       expect_content "1 users in segment"
 
       click_link "Show users"
       expect_user_content @greens[9]
     end
-    
+  
+    scenario "sees users segmented by a not-equals operator", :js => true do
+      select "Color", :from => "segment_column[0]"
+      select "red", :from => "segment_value[0]"
+      select "does not equal", :from => "segment_operator[0]"
+
+      click_link "Segment on more characteristics"
+
+      select "Favorite Beatle", :from => "segment_column[1]"
+      select "ringo", :from => "segment_value[1]"
+      select "does not equal", :from => "segment_operator[1]"
+
+      click_button "Find segment"
+
+      expect_content "Color does not equal red"
+      expect_content "Favorite Beatle does not equal ringo"
+      expect_content "18 users in segment"
+
+      click_link "Show users"
+      0.upto(8) do |i|
+        expect_user_content @blues[i]
+        expect_user_content @greens[i]
+      end
+    end
+
     scenario "sees link to each segmented user", :js => true do
       select "Color", :from => "segment_column[0]"
       select "red", :from => "segment_value[0]"
@@ -127,9 +151,9 @@ feature "Admin segmentation" do
 
       click_button "Find segment"
 
-      expect_content "Color is green"
-      expect_content "Favorite Beatle is john"
-      expect_content "Height is high"
+      expect_content "Color equals green"
+      expect_content "Favorite Beatle equals john"
+      expect_content "Height equals high"
       expect_content "0 users in segment"
       expect_no_content "Show users"
     end
@@ -148,7 +172,7 @@ feature "Admin segmentation" do
 
       click_button "Find segment"
 
-      expect_content "Segmenting on: Color is red"
+      expect_content "Segmenting on: Color equals red"
       expect_content "14 users in segment"
      
       click_link "Show user names and emails in CSV"
@@ -176,7 +200,7 @@ feature "Admin segmentation" do
 
     unsaved_users = []
     1000.times do |i| 
-      unsaved_user = Factory.build(:user, :demo => @demo)
+      unsaved_user = FactoryGirl.build(:user, :demo => @demo)
       unsaved_user.stubs(:id).returns(fake_ids[i])
       unsaved_user.stubs(:slug).returns("jimearljones_#{fake_ids[i]}")
       unsaved_users << unsaved_user

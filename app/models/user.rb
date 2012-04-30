@@ -673,9 +673,9 @@ class User < ActiveRecord::Base
     self.recent_average_history_depth - (Date.today - date_of_act).numerator + 1
   end
 
-  def set_segmentation_results!(columns, values, demo)
-    explanation = create_segmentation_explanation(columns, values)
-    ids = load_segmented_user_information(columns, values, demo)
+  def set_segmentation_results!(columns, operators, values, demo)
+    explanation = create_segmentation_explanation(columns, operators, values)
+    ids = load_segmented_user_information(columns, operators, values, demo)
     User::SegmentationResults.create_or_update_from_search_results(self, explanation, ids)
   end
 
@@ -1107,29 +1107,29 @@ class User < ActiveRecord::Base
     User::SegmentationData.create_or_update_from_user(self)
   end
 
-  def create_segmentation_explanation(columns, values)
+  def create_segmentation_explanation(columns, operators, values)
     unless values.present?
       return 'No segmentation, choosing all users'
     end
 
-    segmentation_explanation = "Segmenting on: "
+    segmentation_explanation = "Segmenting on:"
     prefix = ''
 
     columns.each do |index, characteristic_id|
       characteristic = Characteristic.find(characteristic_id)
-      segmentation_explanation += [prefix, characteristic.name, ' is ' + values[index]].join
-      prefix = ', '
+      segmentation_explanation += [prefix, characteristic.name, operators[index], values[index]].join(' ')
+      prefix = ','
     end
 
     segmentation_explanation
   end
 
-  def load_segmented_user_information(columns, values, demo)
+  def load_segmented_user_information(columns, operators, values, demo)
     query = User::SegmentationData
    
     if values.present?
       columns.each do |index, characteristic_id|
-        query = User::SegmentationOperator.add_criterion_to_query!(query, characteristic_id, "equals", values[index])
+        query = User::SegmentationOperator.add_criterion_to_query!(query, characteristic_id, operators[index], values[index])
       end
       query.map(&:ar_id)
     else

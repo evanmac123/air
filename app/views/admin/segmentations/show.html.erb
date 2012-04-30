@@ -26,6 +26,8 @@
   <div id="segmentation_parameters">
     <select name="segment_column[0]" id="segment_column_0" class="segment-column">
     </select>
+    <select name="segment_operator[0]" id="segment_operator_0" class="segment-operator">
+    </select>
     <select name="segment_value[0]" id="segment_value_0" class="segment-value">
     </select>
   </div>
@@ -40,44 +42,59 @@
     var characteristicSelectHtml = $('#prototype-characteristic-select').html();
     $('#segment_column_0').append(characteristicSelectHtml).data('value_select_id', 'segment_value_0');
     var allowedValues = <%= @characteristic_allowed_value_json %>;
+    var allowedOperators = <%= @characteristic_allowed_operator_json %>;
 
+    
     var nextSegmentationIndex = 1;
 
+    function valuesToOptionTags(values) {
+      return $.map(values, function(value) {
+               return('<option>' + value + '</option>')
+             }).join('');
+    }
+    
     $('.segment-column').live('change', function(e) {
       characteristicId = $(e.target).val();
 
       if(characteristicId) {
-        options = $.map(allowedValues[characteristicId], function(value) {
-          return('<option>' + value + '</option>')
-        }).join('');
-
-        // Some clients treat the option tag as the target of this, others the
-        // select tag--which is exactly the kind of nonsense jQuery is
-        // supposed to gloss over.
-
-        enclosingSelect = $(e.target).closest('select').first();
-        enclosingSelectId = enclosingSelect.attr('id');
+        allowedValueOptions = valuesToOptionTags(allowedValues[characteristicId]);
+        allowedOperatorOptions = valuesToOptionTags(allowedOperators[characteristicId]);
+        enclosingSelectId = enclosingSelect(e.target).attr('id');
 
         segmentValueId = enclosingSelectId.replace('column', 'value');
-        $('#' + segmentValueId).html(options);
+        $('#' + segmentValueId).html(allowedValueOptions);
+        segmentOperatorId = enclosingSelectId.replace('column', 'operator');
+        $('#' + segmentOperatorId).html(allowedOperatorOptions);
       } 
     });
 
     $('#add_more_characteristics').click(function(e) {
       e.preventDefault();
-      segmentColumnName = 'segment_column[' + nextSegmentationIndex + ']';
-      segmentColumnId = 'segment_column_' + nextSegmentationIndex;
-      segmentValueName = 'segment_value[' + nextSegmentationIndex + ']';
-      segmentValueId = 'segment_value_' + nextSegmentationIndex;
+
+      newSelectName = function(partName) {
+        return 'segment_' + partName + '[' + nextSegmentationIndex + ']'
+      }
+
+      newSelectId = function(partName) {
+        return 'segment_' + partName + '_' + nextSegmentationIndex
+      }
       
+      segmentColumnName = newSelectName('column');
+      segmentColumnId = newSelectId('column');
+      segmentValueName = newSelectName('value');
+      segmentValueId = newSelectId('value');
+      segmentOperatorName = newSelectName('operator');
+      segmentOperatorId = newSelectId('operator');
+
       newSelectHtml = [
         '<select name="' + segmentColumnName + '" id="' + segmentColumnId + '" class="segment-column"></select>',
+        '<select name="' + segmentOperatorName + '" id="' + segmentOperatorId + '" class="segment-operator"></select>',
         '<select name="' + segmentValueName + '" id="' + segmentValueId + '" class="segment-value"></select>'
       ].join('');
 
       $('#segmentation_parameters').append(newSelectHtml);
       $('#' + segmentColumnId).append(characteristicSelectHtml).data('value_select_id', segmentValueId);
-
+      
       nextSegmentationIndex += 1;
     });
   <% end %>

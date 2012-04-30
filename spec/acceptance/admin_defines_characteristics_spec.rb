@@ -11,15 +11,18 @@ require File.expand_path(File.dirname(__FILE__) + '/acceptance_helper')
 
 feature "Admin Defines Characteristics" do
 
-  def expect_characteristic_row(name, description, allowed_values)
+  def expect_characteristic_row(name, description, datatype, allowed_values=nil)
     name_cell = page.find(:css, "td", :text => name)
     name_cell.should be_present
 
     characteristic_row = page.find(:xpath, name_cell.path + "/..")
 
     characteristic_row.find(:css, "td", :text => description).should be_present
+    characteristic_row.find(:css, "td", :text => datatype).should be_present
 
-    allowed_values.each {|allowed_value| characteristic_row.find(:css, "li", :text => allowed_value)}.should be_present
+    if allowed_values.present?
+      allowed_values.each {|allowed_value| characteristic_row.find(:css, "li", :text => allowed_value)}.should be_present
+    end
   end
 
   def expect_allowed_value_text_field(expected_value)
@@ -43,7 +46,7 @@ feature "Admin Defines Characteristics" do
     end
 
     scenario "admin sees existing demo-agnostic characteristics" do
-      expect_characteristic_row 'Favorite pill', 'what kind of pill you like', %w(Viagra Clonozepam Warfarin)
+      expect_characteristic_row 'Favorite pill', 'what kind of pill you like', 'Discrete', %w(Viagra Clonozepam Warfarin)
 
       expect_no_content "Cheese preference"
       expect_no_content "Cake or death"
@@ -70,7 +73,7 @@ feature "Admin Defines Characteristics" do
       click_button "Create Characteristic"
 
       expect_content 'Characteristic "T-shirt size" created'
-      expect_characteristic_row 'T-shirt size', "The size t-shirt you want if you win", %w(S M L XL)
+      expect_characteristic_row 'T-shirt size', "The size t-shirt you want if you win", 'Discrete', %w(S M L XL)
     end
 
     scenario "admin edits existing characteristic" do
@@ -98,7 +101,7 @@ feature "Admin Defines Characteristics" do
       allowed_value_fields[4].set('oh yeah')
       click_button 'Update Characteristic'
 
-      expect_characteristic_row 'Pants size', "How big are your pants?", ["Viagra", "cheese whiz", "oh yeah"]
+      expect_characteristic_row 'Pants size', "How big are your pants?", 'Discrete', ["Viagra", "cheese whiz", "oh yeah"]
       expect_no_content "Favorite pill"
       expect_no_content "what kind of pill you like"    
       expect_no_content 'Clonozepam'
@@ -122,7 +125,7 @@ feature "Admin Defines Characteristics" do
     end
 
     scenario "admin sees characteristics for just that demo" do
-      expect_characteristic_row "Cheese preference", "what sort of cheese does you best", %w(Stinky Extra-Stinky)
+      expect_characteristic_row "Cheese preference", "what sort of cheese does you best", 'Discrete', %w(Stinky Extra-Stinky)
       expect_no_content "Favorite pill"
       expect_no_content "Cake or death"
     end
@@ -137,8 +140,8 @@ feature "Admin Defines Characteristics" do
       should_be_on admin_demo_characteristics_path(@demo)
 
       expect_content 'Characteristic "T-shirt size" created'
-      expect_characteristic_row "Cheese preference", "what sort of cheese does you best", %w(Stinky Extra-Stinky)
-      expect_characteristic_row 'T-shirt size', "The size t-shirt you want if you win", %w(S)
+      expect_characteristic_row "Cheese preference", "what sort of cheese does you best", 'Discrete', %w(Stinky Extra-Stinky)
+      expect_characteristic_row 'T-shirt size', "The size t-shirt you want if you win", 'Discrete', %w(S)
       expect_no_content "Favorite pill"
       expect_no_content "Cake or death"
     end
@@ -151,7 +154,7 @@ feature "Admin Defines Characteristics" do
 
       should_be_on admin_demo_characteristics_path(@demo)
 
-      expect_characteristic_row "Goat preference", "What kind of goat do you want?", %w(Stinky Extra-Stinky)
+      expect_characteristic_row "Goat preference", "What kind of goat do you want?", 'Discrete', %w(Stinky Extra-Stinky)
       expect_no_content "Favorite pill"
       expect_no_content "Cake or death"
     end
@@ -160,6 +163,32 @@ feature "Admin Defines Characteristics" do
       click_button "Destroy"
       should_be_on admin_demo_characteristics_path(@demo)
       expect_no_content "Cheese preference"
+    end
+  end
+
+  context "with type information" do
+    before(:each) do
+      signin_as_admin
+      visit admin_characteristics_path
+    end
+
+    it "should remember the type", :js => true do
+      fill_in "characteristic[name]", :with => "Some number"
+      fill_in "characteristic[description]", :with => "Some numerical type of field"
+      select "Number", :from => "characteristic[datatype]"
+
+      click_button "characteristic_submit"
+      should_be_on admin_characteristics_path
+
+      expect_characteristic_row "Some number", "Some numerical type of field", 'Number'
+    end
+
+    it "should display allowable value fields only for discrete characteristics", :js => true do
+      select "Number", :from => "characteristic[datatype]"
+      page.all('input[@name="characteristic[allowed_values][]"]').select(&:visible?).should be_empty
+
+      select "Discrete", :from => "characteristic[datatype]"
+      page.all('input[@name="characteristic[allowed_values][]"]').select(&:visible?).should_not be_empty
     end
   end
 end
