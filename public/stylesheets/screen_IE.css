@@ -96,9 +96,6 @@ input[type="submit"].button_norm {
 body.scores div.points {
   width: 82px!important; }
 
-#password_prompt {
-  top: -7px; }
-
 #session_email {
   padding-left: 15px !important;
   width: 300px; }

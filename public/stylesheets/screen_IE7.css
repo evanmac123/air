@@ -181,9 +181,6 @@ body.users-index div.user-info {
   padding-top: 8px;
   padding-bottom: 2px; }
 
-#password_prompt {
-  top: 7px; }
-
 #command_central {
   margin-top: 9px; }
 
@@ -192,3 +189,6 @@ body.users-index div.user-info {
 
 .single_click_invite {
   width: 6em; }
+
+#password_prompt {
+  bottom: 21px; }
