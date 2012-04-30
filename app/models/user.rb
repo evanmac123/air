@@ -884,8 +884,8 @@ class User < ActiveRecord::Base
     return false
   end
   
-  def create_tutorial_if_first_login
-    if self.session_count <= 1 && self.tutorial.nil?
+  def create_tutorial_if_none_yet
+    if self.tutorial.nil?
       Tutorial.create(:user_id => self.id)
     end
   end

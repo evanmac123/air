@@ -17,6 +17,10 @@ Factory.define :tutorial do |factory|
   factory.association :user
 end
 
+Factory.define :inactive_tutorial, :parent => :tutorial do |factory|
+  factory.ended_at { 2.days.ago }
+end
+
 Factory.define :user,  :parent => :unnamed_user do |factory|
   factory.name                  { "James Earl Jones" }
   # set_slugs runs if user has a name, so there is no need to create slugs here
@@ -24,9 +28,14 @@ Factory.define :user,  :parent => :unnamed_user do |factory|
   # factory.sequence(:slug)       { |n| "jej#{n}" }
 end
 
-Factory.define :claimed_user, :parent => :user do |factory|
+Factory.define :brand_new_user, :parent => :user do |factory|
   factory.accepted_invitation_at {Time.now}
+  
+end
+
+Factory.define :claimed_user, :parent => :brand_new_user do |factory|
   factory.session_count {5}
+  factory.association :tutorial, :factory => :inactive_tutorial
 end
 
 Factory.define :user_with_phone, :parent => :claimed_user do |factory|
@@ -36,10 +45,6 @@ end
 Factory.define :site_admin, :parent => :claimed_user do |factory|
   factory.name {"Sylvester McAdmin"}
   factory.is_site_admin {true}
-end
-
-Factory.define :brand_new_user, :parent => :claimed_user do |factory|
-  factory.session_count {0}
 end
 
 Factory.define :demo do |factory|

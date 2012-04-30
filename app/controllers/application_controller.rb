@@ -229,7 +229,7 @@ class ApplicationController < ActionController::Base
   end
   
   def tutorial_check
-    current_user.create_tutorial_if_first_login if current_user
+    current_user.create_tutorial_if_none_yet if current_user
   end  
 
   def set_delay_on_tooltips

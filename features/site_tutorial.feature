@@ -72,6 +72,12 @@ Feature: Talking Chicken
       And I go to the activity page
       And I take five
       Then I should not see "quick tour"
+      And I sign out
+      And I sign in via the login page as "Brand New/chicken"
+      And I should see "Directory"
+      Then "Brand New" should have a closed tutorial with current step "0"
+      And I should not see "No thanks"
+      
       
     
     @javascript 
