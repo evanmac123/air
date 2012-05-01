@@ -19,37 +19,58 @@ describe User::SegmentationOperator do
   end
 end
 
-{
-  User::EqualsOperator => [false, true, false],
-  User::NotEqualsOperator => [true, false, true]
-}.each do |operator_class, match_senses|
-  describe operator_class do
-    it "should match the appropriate values" do
-      low = "1"
-      exact = "10"
-      high = "100"
+all_types = [Characteristic::DiscreteType, Characteristic::NumberType, Characteristic::DateType, Characteristic::BooleanType]
+continuous_types = [Characteristic::NumberType, Characteristic::DateType]
+discrete_types =[Characteristic::DiscreteType, Characteristic::BooleanType]
 
-      low_record = User::SegmentationData.create("characteristics" => {"1" => low})
-      exact_record = User::SegmentationData.create("characteristics" => {"1" => exact})
-      high_record = User::SegmentationData.create("characteristics" => {"1" => high})
+values_for_comparison = {
+  Characteristic::DiscreteType => %w(1 10 100),
+  Characteristic::NumberType   => [1, 10, 100],
+  Characteristic::DateType     => ["January 1, 1999", "March 4, 2003", "May 1, 2012"].map{|datestring| Chronic.parse(datestring)},
+  Characteristic::BooleanType  => [false, true, false]
+}
 
-      User::SegmentationData.count.should == 3
+all_types.each do |type|
+  {
+    User::EqualsOperator => [false, true, false],
+    User::NotEqualsOperator => [true, false, true]
+  }.each do |operator_class, match_senses|
+    describe "#{operator_class} applied to #{type}" do
+      it "should match the appropriate values" do
+        characteristic = Factory :characteristic, :datatype => type
 
-      query_result = operator_class.new([exact]).add_criterion_to_query(User::SegmentationData, '1').all
-      [low_record, exact_record, high_record].each_with_index do |record, index|
-        if match_senses[index]
-          query_result.should include(record)
-        else
-          query_result.should_not include(record)
+        low, exact, high = values_for_comparison[type]
+
+        low_record = User::SegmentationData.create("characteristics" => {characteristic.id.to_s => low})
+        exact_record = User::SegmentationData.create("characteristics" => {characteristic.id.to_s => exact})
+        high_record = User::SegmentationData.create("characteristics" => {characteristic.id.to_s => high})
+
+        User::SegmentationData.count.should == 3
+
+        query_result = operator_class.new([exact]).add_criterion_to_query(User::SegmentationData, characteristic.id.to_s).all
+        [low_record, exact_record, high_record].each_with_index do |record, index|
+          if match_senses[index]
+            query_result.should include(record)
+          else
+            query_result.should_not include(record)
+          end
         end
       end
     end
   end
 end
 
-all_types = [Characteristic::DiscreteType, Characteristic::NumberType, Characteristic::DateType, Characteristic::BooleanType]
-continuous_types = [Characteristic::NumberType, Characteristic::DateType]
-discrete_types =[Characteristic::DiscreteType, Characteristic::BooleanType]
+def attempt_application(operator_class, applicable_type)
+  operator_class.add_criterion_to_query(User::SegmentationData, Factory(:characteristic, :datatype => applicable_type).id, operator_class.human_name)
+end
+
+def expect_applicable_to(operator_class, applicable_type)
+  lambda{ attempt_application(operator_class, applicable_type)  }.should_not raise_error
+end
+
+def expect_not_applicable_to(operator_class, applicable_type)
+  lambda{ attempt_application(operator_class, applicable_type)  }.should raise_error(User::NonApplicableSegmentationOperatorError)
+end
 
 {
   User::EqualsOperator    => all_types,
@@ -58,16 +79,24 @@ discrete_types =[Characteristic::DiscreteType, Characteristic::BooleanType]
   describe operator_class do
     applicable_types.each do |applicable_type|
       it "should be applicable to #{applicable_type}" do
-        lambda{ operator_class.add_criterion_to_query(User::SegmentationData, Factory(:characteristic).id, operator_class.human_name) }.should_not raise_error
+        expect_applicable_to(operator_class, applicable_type)
       end
     end
   end
 end
 
-%w(User::LessThanOperator, User::LessThanOrEqualOperator, User::GreaterThanOperator, User::GreaterThanOrEqualOperator).each do |continuous_operator|
-  describe continuous_operator do
+[User::LessThanOperator, User::LessThanOrEqualOperator, User::GreaterThanOperator, User::GreaterThanOrEqualOperator].each do |continuous_operator_class|
+  describe continuous_operator_class do
+    continuous_types.each do |continuous_type|
+      it "should be applicable to #{continuous_type}" do
+        expect_applicable_to(continuous_operator_class, continuous_type)
+      end
+    end
+
     discrete_types.each do |discrete_type|
-      it "should not be applicable to #{discrete_type}"
+      it "should not be applicable to #{discrete_type}" do
+        expect_not_applicable_to(continuous_operator_class, discrete_type)
+      end
     end
   end
 end
