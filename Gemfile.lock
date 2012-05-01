@@ -1,17 +1,3 @@
-GIT
-  remote: git://github.com/thoughtbot/shoulda
-  revision: 36ef11123b454a6eca60c6e5d2fc2fd98ddf72b0
-  specs:
-    shoulda (3.0.0.beta2)
-      shoulda-context (~> 1.0.0.beta1)
-      shoulda-matchers (~> 1.0.0.beta1)
-
-GIT
-  remote: git://github.com/thoughtbot/shoulda-matchers
-  revision: 85d3e5ea000cf162ef672059ea5e5f77f3ca9f03
-  specs:
-    shoulda-matchers (1.0.0.beta3)
-
 GEM
   remote: http://rubygems.org/
   specs:
@@ -262,7 +248,9 @@ GEM
     sexp_processor (3.0.5)
     sham_rack (1.3.3)
       rack
-    shoulda-context (1.0.0.beta1)
+    shoulda (2.11.3)
+    shoulda-matchers (1.1.0)
+      activesupport (>= 3.0.0)
     show_me_the_cookies (0.2.0)
     sinatra (1.1.2)
       rack (~> 1.1)
@@ -344,8 +332,8 @@ DEPENDENCIES
   ruby-debug (~> 0.10.4)
   sass
   sham_rack
-  shoulda!
-  shoulda-matchers!
+  shoulda
+  shoulda-matchers
   show_me_the_cookies
   sinatra (~> 1.0)
   steak

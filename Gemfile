@@ -1,7 +1,7 @@
 source :rubygems
 
 gem "rails", "~> 3.0.12"
-gem "rack"
+gem "rack"  # Update rack to 1.3.0 or later to get rid of utf8 string regex warnings
 gem "unicorn"   # Some of our capybara webkit tests fail with thin, so we use unicorn
 gem "high_voltage"
 gem "airbrake"
@@ -53,7 +53,7 @@ group :development, :test do
 end
 
 group :test do
-  gem "cucumber-rails"
+  gem "cucumber-rails", :require => false
   gem "factory_girl_rails"
   gem "bourne"
   gem "capybara", "~> 1.0.0"
@@ -62,8 +62,8 @@ group :test do
   gem "sham_rack"
   gem "nokogiri"
   gem "timecop"
-  gem "shoulda", :git => "git://github.com/thoughtbot/shoulda", :require => 'shoulda'
-  gem "shoulda-matchers", :git => "git://github.com/thoughtbot/shoulda-matchers", :require => 'shoulda-matchers'
+  gem "shoulda"
+  gem "shoulda-matchers"
   gem "email_spec", "~> 1.1"
   gem "sham_rack"
   gem "show_me_the_cookies"
