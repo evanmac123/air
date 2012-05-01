@@ -20,7 +20,7 @@ describe Friendship do
 
       it "should not try to send an SMS to that blank number" do
         friendship = Factory :friendship, :user => @user_1, :friend => @friend
-        Twilio::SMS.should_not have_received(:create)
+        Twilio::SMS.should have_received(:create).never
       end
       it "should set both reciprocal friendships to the same request index" do
         @user_1.befriend(@friend)

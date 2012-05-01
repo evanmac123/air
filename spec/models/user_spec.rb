@@ -718,7 +718,7 @@ describe User, "#credit_referring_user" do
     it "should not try to send an SMS to that blank number" do
       @user.send(:credit_referring_user, @referring_user, @rule_value.rule, @rule_value)
 
-      Twilio::SMS.should_not have_received(:create)
+      Twilio::SMS.should have_received(:create).never
     end
   end
 end

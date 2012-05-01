@@ -62,7 +62,7 @@ describe SMS do
         @user.update_attributes(:last_muted_at => (23.hours + 59.minutes + 59.seconds).ago)
         SMS.send_message(@user, "hi")
         Delayed::Worker.new.work_off(10)
-        Twilio::SMS.should_not have_received(:create)
+        Twilio::SMS.should have_received(:create).never
 
         @user.update_attributes(:last_muted_at => (24.hours.ago))
         SMS.send_message(@user, "hey")
