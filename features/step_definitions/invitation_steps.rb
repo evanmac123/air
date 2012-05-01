@@ -12,16 +12,16 @@ end
 
 When /^I accept the invitation$/ do
   phone = Factory.next(:phone)
-  When "I fill in \"Enter your mobile number\" with \"#{phone}\""
-  And "I fill in \"Choose a password\" with \"foobar\""
-  And "I fill in \"And confirm that password\" with \"foobar\""
-  And "I fill in \"Enter your name\" with \"foobar\""
-  And "I press \"Join the game\""
+  step "I fill in \"Enter your mobile number\" with \"#{phone}\""
+  step "I fill in \"Choose a password\" with \"foobar\""
+  step "I fill in \"And confirm that password\" with \"foobar\""
+  step "I fill in \"Enter your name\" with \"foobar\""
+  step "I press \"Join the game\""
 end
 
 When /^I fill in the required self-invitation fields$/ do
-  And %{I fill in "Enter your name" with "Chester Humphries"}
-  And %{I fill in "Choose a password" with "foobar"}
-  And %{I fill in "And confirm that password" with "foobar"}
-  And %{I fill in "Choose a username" with "chester"}
+  step %{I fill in "Enter your name" with "Chester Humphries"}
+  step %{I fill in "Choose a password" with "foobar"}
+  step %{I fill in "And confirm that password" with "foobar"}
+  step %{I fill in "Choose a username" with "chester"}
 end

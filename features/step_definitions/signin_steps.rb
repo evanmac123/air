@@ -7,15 +7,15 @@ end
 When /^I fill in the login fields (as|with) "(.*?)"$/ do |_nothing, login_string|
   username, password = login_string.split('/')
   user = User.find_by_name(username)
-  When %{I fill in the email field with "#{user.email}"}
-  When %{I fill in the password field with "#{password}"}
+  step %{I fill in the email field with "#{user.email}"}
+  step %{I fill in the password field with "#{password}"}
 end
 
 When /^I sign in via the login page (as|with) "(.*?)"( and choose to be remembered)?$/ do |_nothing, login_string, remember|
   visit new_session_path
-  When %{I fill in the login fields as "#{login_string}"}
+  step %{I fill in the login fields as "#{login_string}"}
   if remember
-    And %{I check the remember-me checkbox}
+    step %{I check the remember-me checkbox}
   end
 
   click_button "Let's play!"
@@ -25,7 +25,7 @@ When /^I sign in( as an admin)? via the login page( as an admin)?$/ do |is_admin
   is_admin = is_admin_1 || is_admin_2
   factory = is_admin ? :site_admin : :user
   user = Factory factory, :password => 'foobar', :password_confirmation => 'foobar'
-  Then "I sign in via the login page as \"#{user.name}/foobar\""
+  step "I sign in via the login page as \"#{user.name}/foobar\""
 end
 
 When /^I am not logged in$/ do

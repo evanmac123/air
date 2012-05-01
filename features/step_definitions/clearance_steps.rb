@@ -46,7 +46,7 @@ end
 
 Given /^I have signed in with "(.*)\/(.*)"$/ do |email, password|
   Given %{I am signed up as "#{email}/#{password}"}
-  And %{I sign in as "#{email}/#{password}"}
+  step %{I sign in as "#{email}/#{password}"}
 end
 
 Given /^I sign in$/ do
@@ -86,36 +86,36 @@ end
 # Actions
 
 When /^I sign in as "(.*)\/(.*)"$/ do |email, password|
-  When %{I go to the sign in page}
-  And %{I fill in "session[email]" with "#{email}"}
-  And %{I fill in "session[password]" with "#{password}"}
-  And %{I press the sign-in button}
+  step %{I go to the sign in page}
+  step %{I fill in "session[email]" with "#{email}"}
+  step %{I fill in "session[password]" with "#{password}"}
+  step %{I press the sign-in button}
 end
 
 When "I sign out" do
   steps %{
-    When I go to the homepage
-    And I follow "Sign Out"
+    step I go to the homepage
+    step I follow "Sign Out"
   }
 end
 
 When /^I request password reset link to be sent to "(.*)"$/ do |email|
-  When %{I go to the password reset request page}
-  And %{I fill in the reset email field with "#{email}"}
-  And %{I press "Reset password"}
+  step %{I go to the password reset request page}
+  step %{I fill in the reset email field with "#{email}"}
+  step %{I press "Reset password"}
 end
 
 When /^I update my password with "(.*)\/(.*)"$/ do |password, confirmation|
-  And %{I fill in "Password" with "#{password}"}
-  And %{I fill in "Confirm password" with "#{confirmation}"}
-  And %{I press "Save this password"}
+  step %{I fill in "Password" with "#{password}"}
+  step %{I fill in "Confirm password" with "#{confirmation}"}
+  step %{I press "Save this password"}
 end
 
 When /^I return next time$/ do
-  When %{session is cleared}
-  And %{I go to the homepage}
+  step %{session is cleared}
+  step %{I go to the homepage}
 end
 
 When /^I fill in the reset email field with "([^"]*)"$/ do |email|
-  When %{I fill in "password[email]" with "#{email}"}
+  step %{I fill in "password[email]" with "#{email}"}
 end

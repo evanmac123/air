@@ -1,5 +1,5 @@
 When /^I follow "([^"]*)" in the activity stream$/ do |link|
-  When %{I follow "#{link}" within "#main .tabs"}
+  step %{I follow "#{link}" within "#main .tabs"}
 end
 
 When /^I press the see more button in the activity stream$/ do

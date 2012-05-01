@@ -55,10 +55,10 @@ end
 
 # "When I follow" was taken by web_steps.rb, for links
 When /^I find and request to be friends with "(.*?)"$/ do |username|
-  When "I go to the user directory page"
-  And %{I fill in "search bar" with "#{username}"}
-  And %{I press "Find!"}
-  And %{I press the befriend button for "#{username}"}
+  step "I go to the user directory page"
+  step %{I fill in "search bar" with "#{username}"}
+  step %{I press "Find!"}
+  step %{I press the befriend button for "#{username}"}
 end
 
 When /^I press the befriend button for "(.*?)"$/ do |username|
@@ -95,27 +95,27 @@ When /^"([^"]*)" befriends "([^"]*)" by SMS$/ do |follower_name, followed_login_
   follower = User.find_by_name(follower_name)
   followed = User.find_by_name(followed_name)
 
-  When "\"#{follower.phone_number}\" sends SMS \"follow #{followed.sms_slug}\""
-  And "DJ cranks 5 times"
-  Then "\"#{follower.phone_number}\" should have received an SMS \"OK, you'll be friends with #{followed.name}, pending their acceptance.\""
-  And "I sign in via the login page with \"#{followed_login_string}\""
-  And %{I go to the profile page for "#{followed_name}"}
-  Then "I should not see \"#{follower.name}\" as a friend"
+  step "\"#{follower.phone_number}\" sends SMS \"follow #{followed.sms_slug}\""
+  step "DJ cranks 5 times"
+  step "\"#{follower.phone_number}\" should have received an SMS \"OK, you'll be friends with #{followed.name}, pending their acceptance.\""
+  step "I sign in via the login page with \"#{followed_login_string}\""
+  step %{I go to the profile page for "#{followed_name}"}
+  step "I should not see \"#{follower.name}\" as a friend"
 end
 
 When /^"([^"]*)" befriends "([^"]*)" by web$/ do |follower_login_string, followed_login_string|
   follower_name, follower_password = split_login_string(follower_login_string)
   followed_name, followed_password = split_login_string(followed_login_string)
 
-  When "I sign in via the login page as \"#{follower_login_string}\""
-  And "I go to the profile page for \"#{followed_name}\""
-  And "I click within \".follow-btn\""
-  Then "I should see \"OK, you'll be friends with #{followed_name}, pending their acceptance.\""
+  step "I sign in via the login page as \"#{follower_login_string}\""
+  step "I go to the profile page for \"#{followed_name}\""
+  step "I click within \".follow-btn\""
+  step "I should see \"OK, you'll be friends with #{followed_name}, pending their acceptance.\""
   But "I should see \"friendship requested\" just once"
 end
 
 When /^I select the "([^"]*)" notification setting$/ do |notification_value|
-  When "I choose \"#{notification_value}\" within \".notification-method\""
+  step "I choose \"#{notification_value}\" within \".notification-method\""
 end
 
 Then /^I should see these followers:$/ do |table|
@@ -153,10 +153,10 @@ Then /^all follow buttons on the page should be disabled$/ do
 end
 
 Then /^all follow buttons for "(.*?)" should be disabled$/ do |username|
-  When "I go to the profile page for \"#{username}\""
-  Then 'all follow buttons on the page should be disabled'
-  When 'I go to the user directory page'
-  Then 'all follow buttons on the page should be disabled'
+  step "I go to the profile page for \"#{username}\""
+  step 'all follow buttons on the page should be disabled'
+  step 'I go to the user directory page'
+  step 'all follow buttons on the page should be disabled'
 end
 
 Then /^I should( not)? see "([^"]*)" as a friend$/ do |sense, username|
@@ -173,7 +173,7 @@ end
 Then /^I should( not)? see a friendship request from "([^"]*)"$/ do |sense, username|
   sense = !sense
 
-  When "I follow \"My Profile\""
+  step "I follow \"My Profile\""
 
   unless page.all(:css, '#friend_requests').empty? && !sense
     with_scope '"#friend_requests"' do
@@ -194,14 +194,14 @@ Then /^"([^"]*)" should be able to accept "([^"]*)" by SMS( with index \d+)?$/ d
 
   request_index = request_index_string.present? ? request_index_string.split.last : nil
   acceptance_string = request_index ? "yes #{request_index}" : "yes"
-  Then "\"#{followed.phone_number}\" should have received an SMS \"#{expected_request_text(follower, request_index)}\""
-  When "\"#{followed.phone_number}\" sends SMS \"#{acceptance_string}\""
-  And "DJ cranks 5 times"
-  Then "\"#{follower.phone_number}\" should have received an SMS \"#{followed_name} has approved your friendship request.\""
-  And "\"#{followed.phone_number}\" should have received an SMS \"OK, you are now friends with #{follower.name}.\""
-  When "I sign in via the login page with \"#{followed_login_string}\""
-  And %{I go to the profile page for "#{followed_name}"}
-  Then "I should see \"#{follower_name}\" as a friend"
+  step "\"#{followed.phone_number}\" should have received an SMS \"#{expected_request_text(follower, request_index)}\""
+  step "\"#{followed.phone_number}\" sends SMS \"#{acceptance_string}\""
+  step "DJ cranks 5 times"
+  step "\"#{follower.phone_number}\" should have received an SMS \"#{followed_name} has approved your friendship request.\""
+  step "\"#{followed.phone_number}\" should have received an SMS \"OK, you are now friends with #{follower.name}.\""
+  step "I sign in via the login page with \"#{followed_login_string}\""
+  step %{I go to the profile page for "#{followed_name}"}
+  step "I should see \"#{follower_name}\" as a friend"
   #But "I should not see \"#{follower_name}\" as a pending follower"
 end
 
@@ -215,12 +215,12 @@ Then /^"([^"]*)" should be able to ignore "([^"]*)" by SMS( with index \d+)?$/ d
 
   rejection_string = request_index ? "no #{request_index}" : "no"
 
-  Then "\"#{followed.phone_number}\" should have received an SMS \"#{expected_request_text(follower, request_index)}\""
-  When "\"#{followed.phone_number}\" sends SMS \"#{rejection_string}\""
-  Then "\"#{followed.phone_number}\" should have received an SMS \"OK, we'll ignore the request from #{follower.name} to be your friend.\""
-  When "I sign in via the login page with \"#{followed_login_string}\""
-  And %{I go to the profile page for "#{followed_name}"}
-  And "I should not see \"#{follower.name}\" as a friend"
+  step "\"#{followed.phone_number}\" should have received an SMS \"#{expected_request_text(follower, request_index)}\""
+  step "\"#{followed.phone_number}\" sends SMS \"#{rejection_string}\""
+  step "\"#{followed.phone_number}\" should have received an SMS \"OK, we'll ignore the request from #{follower.name} to be your friend.\""
+  step "I sign in via the login page with \"#{followed_login_string}\""
+  step %{I go to the profile page for "#{followed_name}"}
+  step "I should not see \"#{follower.name}\" as a friend"
   #And "I should not see \"#{follower.name}\" as a pending follower"
 end
 
@@ -230,34 +230,34 @@ Then /^"([^"]*)" should be able to accept "([^"]*)" by web$/ do |followed_login_
   followed = User.find_by_name(followed_name)
   follower = User.find_by_name(follower_name)
 
-  When "I sign in via the login page with \"#{followed_login_string}\""
-  When "I go to the user page for \"#{follower.name}\""
+  step "I sign in via the login page with \"#{followed_login_string}\""
+  step "I go to the user page for \"#{follower.name}\""
   
-  And "I press the button next to \"#{follower_name}\""
-  And "DJ cranks 5 times"
-  And "I dump all sent texts"
-  Then "\"#{follower.phone_number}\" should have received an SMS \"#{followed_name} has approved your friendship request.\""
-  And "I should see \"You are now friends with #{follower_name}\""
-  And "I should see \"#{followed_name}\" as a friend"
+  step "I press the button next to \"#{follower_name}\""
+  step "DJ cranks 5 times"
+  step "I dump all sent texts"
+  step "\"#{follower.phone_number}\" should have received an SMS \"#{followed_name} has approved your friendship request.\""
+  step "I should see \"You are now friends with #{follower_name}\""
+  step "I should see \"#{followed_name}\" as a friend"
   But "I should not see a friendship request from \"#{follower_name}\""
 end
 
 Then /^"([^"]*)" should be able to ignore "([^"]*)" by web$/ do |followed_login_string, follower_name|
-  When "I sign in via the login page with \"#{followed_login_string}\""
-  When "I go to the connections page"
-  And "I press the ignore button"
-  Then "I should see \"OK, we'll ignore the request from #{follower_name} to be your fan.\""
-  And "I should not see \"#{follower_name}\" as a friend"
-  And "I should not see \"#{follower_name}\" as a pending follower"
+  step "I sign in via the login page with \"#{followed_login_string}\""
+  step "I go to the connections page"
+  step "I press the ignore button"
+  step "I should see \"OK, we'll ignore the request from #{follower_name} to be your fan.\""
+  step "I should not see \"#{follower_name}\" as a friend"
+  step "I should not see \"#{follower_name}\" as a pending follower"
 end
 
 Then /^"([^"]*)" should have received a follow notification email about "([^"]*)"( with phone number "(.*?)")?$/ do |address, follower_name, _nothing, phone_number|
   phone_number ||= TWILIO_PHONE_NUMBER.as_pretty_phone
 
-  When "\"#{address}\" opens the email with subject \"#{follower_name} wants to be your friend on H Engage\""
+  step "\"#{address}\" opens the email with subject \"#{follower_name} wants to be your friend on H Engage\""
 
-  Then %{they should see "YES" in the email body}
-  And %{they should see "NO" in the email body}
+  step %{they should see "YES" in the email body}
+  step %{they should see "NO" in the email body}
   #And "they click the first link in the email"
   #Then "they should see \"#{phone_number}\" in the email body"
   #Then "I should be on the connections page"

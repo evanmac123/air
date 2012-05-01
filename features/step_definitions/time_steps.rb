@@ -29,7 +29,7 @@ When /^time moves ahead (.*?)$/ do |advancement|
 end
 
 When /^a decent interval has passed$/ do
-  When "time moves ahead 00:00:60"
+  step "time moves ahead 00:00:60"
 end
 
 When /^(\d+) hours pass$/ do |hour_count|

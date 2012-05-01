@@ -25,7 +25,7 @@ Given /^"([^"]*)" has privacy level "([^"]*)"$/ do |username, privacy_level|
 end
 
 When /^an admin moves "(.*?)" to the demo "(.*?)"$/ do |username, name|
-  When "I sign in as an admin via the login page"
+  step "I sign in as an admin via the login page"
 
   user = User.find_by_name(username)
 
