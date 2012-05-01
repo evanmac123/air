@@ -6,128 +6,149 @@ Factory.sequence :phone do |n|
   "+1" + (4155550000 + n).to_s
 end
 
-Factory.define :unnamed_user, :class => User do |factory|
-  factory.association(:demo)
-  factory.association(:location)
-  factory.email                 { FactoryGirl.generate :email }
-  factory.password              { "password" }
-end
 
-Factory.define :tutorial do |factory|
-  factory.association :user
-end
 
-Factory.define :inactive_tutorial, :parent => :tutorial do |factory|
-  factory.ended_at { 2.days.ago }
-end
 
-Factory.define :user,  :parent => :unnamed_user do |factory|
-  factory.name                  { "James Earl Jones" }
-  # set_slugs runs if user has a name, so there is no need to create slugs here
-  # factory.sequence(:sms_slug)   { |n| "jej#{n}" }
-  # factory.sequence(:slug)       { |n| "jej#{n}" }
-end
 
-Factory.define :brand_new_user, :parent => :user do |factory|
-  factory.accepted_invitation_at {Time.now}
+
+
+FactoryGirl.define do
+  
+  factory :unnamed_user, :class => User do 
+    association(:demo)
+    association(:location)
+    email FactoryGirl.generate :email 
+    password  "password" 
+  end
+  
+  
+  factory :tutorial do
+    association :user
+  end
+  
+  factory :inactive_tutorial, :parent => :tutorial do
+    ended_at  2.days.ago 
+  end
+  
+  factory :user,  :parent => :unnamed_user do 
+    name                  "James Earl Jones" 
+    sequence(:email, User.next_id) {|n| "darth_#{n}@vader.com" }
+  end
+  
+  factory :brand_new_user, :parent => :user do 
+    accepted_invitation_at Time.now
+  end  
+  
+  factory :claimed_user, :parent => :brand_new_user do 
+    session_count 5
+    association :tutorial, :factory => :inactive_tutorial
+  end
+  
+  factory :user_with_phone, :parent => :claimed_user do 
+    phone_number FactoryGirl.generate :phone
+  end
+  
+  factory :site_admin, :parent => :claimed_user do
+    name {"Sylvester McAdmin"}
+    is_site_admin {true}
+  end
+  
+  factory :demo do 
+    sequence(:name, Demo.next_id) {|n| "Coolio_#{n}" }
+  end
+  
+  factory :rule do
+    points { 2 }
+    reply  { "Yum. +2 points. Bananas help you fight cancer." }
+    association :demo
+    association :primary_tag, :factory => :tag
+  end
+  
+  factory :coded_rule do
+    value  { "zxcvb" }
+    points { 2 }
+    reply  { "Very good. +2 points." }
+    association :demo
+  end
+
+  factory :rule_value do
+    sequence(:value)  {|n| "ate banana #{n}" }
+    association(:rule)
+  end
+
+  factory :primary_value, :parent => :rule_value do
+    is_primary true
+  end
+
+  factory :forbidden_rule_value, :class => RuleValue do
+    sequence(:value) { |n| "drank beer #{n}" }
+  end
+
+  factory :tag do
+    description "A short description"
+    sequence(:name) {|n| "Cool word #{n}"}
+  end
+
+  factory :label do
+    association(:rule)
+    association(:tag)
+  end
+
+  factory :key do
+    sequence(:name) { |n| "ate_#{n}" }
+  end
+
+  factory :bad_message do
+    phone_number FactoryGirl.generate :phone 
+    received_at  Time.now 
+  end
+
+  factory :new_bad_message, :parent => :bad_message do
+    is_new true
+  end
+
+  factory :watchlisted_bad_message, :parent => :bad_message do
+    after_create do |bad_message|
+      bad_message.update_attributes(:is_new => false, :on_watch_list => true)
+    end
+  end
+
+  factory :bad_message_reply do
+    association :sender, :factory => :user
+    association :bad_message
+  end
+
+  factory :act do
+    association :user
+  end
+
+  factory :act_with_rule, :parent => :act do
+    association :rule
+  end
+
+  factory :friendship do
+    association :user
+    association :friend, :factory => :user
+  end
+
+  factory :accepted_friendship, :parent => :friendship do
+    state 'accepted'
+  end
   
 end
 
-Factory.define :claimed_user, :parent => :brand_new_user do |factory|
-  factory.session_count {5}
-  factory.association :tutorial, :factory => :inactive_tutorial
-end
 
-Factory.define :user_with_phone, :parent => :claimed_user do |factory|
-  factory.phone_number {FactoryGirl.generate :phone}
-end
 
-Factory.define :site_admin, :parent => :claimed_user do |factory|
-  factory.name {"Sylvester McAdmin"}
-  factory.is_site_admin {true}
-end
 
-Factory.define :demo do |factory|
-  factory.sequence(:name) { |n| "Coolio_#{n}" }
-end
 
-Factory.define :rule do |factory|
-  factory.points { 2 }
-  factory.reply  { "Yum. +2 points. Bananas help you fight cancer." }
-  factory.association :demo
-  factory.association :primary_tag, :factory => :tag
-end
 
-Factory.define :coded_rule do |factory|
-  factory.value  { "zxcvb" }
-  factory.points { 2 }
-  factory.reply  { "Very good. +2 points." }
-  factory.association :demo
-end
 
-Factory.define :rule_value do |factory|
-  factory.sequence(:value)  {|n| "ate banana #{n}" }
-  factory.association(:rule)
-end
 
-Factory.define :primary_value, :parent => :rule_value do |factory|
-  factory.is_primary true
-end
 
-Factory.define :forbidden_rule_value, :class => RuleValue do |factory|
-  factory.sequence(:value) { |n| "drank beer #{n}" }
-end
 
-Factory.define :tag do |factory|
-  factory.description {"A short description"}
-  factory.sequence(:name) {|n| "Cool word #{n}"}
-end
 
-Factory.define :label do |factory|
-  factory.association(:rule)
-  factory.association(:tag)
-end
 
-Factory.define :key do |factory|
-  factory.sequence(:name) { |n| "ate_#{n}" }
-end
 
-Factory.define :bad_message do |factory|
-  factory.phone_number { FactoryGirl.generate :phone }
-  factory.received_at  { Time.now }
-end
-
-Factory.define :new_bad_message, :parent => :bad_message do |factory|
-  factory.is_new true
-end
-
-Factory.define :watchlisted_bad_message, :parent => :bad_message do |factory|
-  factory.after_create do |bad_message|
-    bad_message.update_attributes(:is_new => false, :on_watch_list => true)
-  end
-end
-
-Factory.define :bad_message_reply do |factory|
-  factory.association :sender, :factory => :user
-  factory.association :bad_message
-end
-
-Factory.define :act do |factory|
-  factory.association :user
-end
-
-Factory.define :act_with_rule, :parent => :act do |factory|
-  factory.association :rule
-end
-
-Factory.define :friendship do |factory|
-  factory.association :user
-  factory.association :friend, :factory => :user
-end
-
-Factory.define :accepted_friendship, :parent => :friendship do |factory|
-  factory.state 'accepted'
-end
 
 Factory.define :survey do |survey|
   survey.sequence(:name) {|n| "Survey ##{n}"}

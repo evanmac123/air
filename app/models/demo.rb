@@ -308,4 +308,8 @@ class Demo < ActiveRecord::Base
   def is_pre_populated_game
     self.join_type == 'pre-populated'
   end
+  
+  def self.next_id
+    self.last.nil? ? 1 : self.last.id + 1
+  end
 end

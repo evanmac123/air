@@ -2,7 +2,7 @@ Then /^"([^"]*)" should receive an SMS containing their new phone validation cod
   user = User.where(:name => username).first
   token = user.new_phone_validation
   new_phone_number = user.new_phone_number
-  Then "\"#{new_phone_number}\" should have received an SMS including \"#{token}\""
+  step "\"#{new_phone_number}\" should have received an SMS including \"#{token}\""
 end
 
 When /^"([^"]*)" fills in the new phone validation field with their validation code$/ do |username|

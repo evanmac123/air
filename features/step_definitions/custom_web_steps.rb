@@ -172,7 +172,7 @@ Then /^I should see a restricted text field "([^"]*)" with length (\d+)$/ do |lo
 end
 
 Then /^I should see a restricted text field "([^"]*)"$/ do |selector|
-  Then "I should see a restricted text field \"#{selector}\" with length 160"
+  step "I should see a restricted text field \"#{selector}\" with length 160"
 end
 
 Then /^I should see '(.*?)'$/ do |expected_text|

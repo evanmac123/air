@@ -41,6 +41,12 @@ Health::Application.configure do
   Twilio::Config.setup \
     :account_sid => FAKE_TWILIO_ACCOUNT_SID,
     :auth_token => FAKE_TWILIO_AUTH_TOKEN
+    
+    
+  silence_warnings do
+    require 'pry'
+    IRB = Pry    
+  end
   
 end
 

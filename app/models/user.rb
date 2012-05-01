@@ -1240,4 +1240,8 @@ class User < ActiveRecord::Base
   def self.passwords_dont_match_error_message
     "Sorry, your passwords don't match"
   end
+  
+  def self.next_id
+    self.last.nil? ? 1 : self.last.id + 1
+  end
 end

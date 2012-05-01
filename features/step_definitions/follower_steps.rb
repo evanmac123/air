@@ -111,7 +111,7 @@ When /^"([^"]*)" befriends "([^"]*)" by web$/ do |follower_login_string, followe
   step "I go to the profile page for \"#{followed_name}\""
   step "I click within \".follow-btn\""
   step "I should see \"OK, you'll be friends with #{followed_name}, pending their acceptance.\""
-  But "I should see \"friendship requested\" just once"
+  step "I should see \"friendship requested\" just once"
 end
 
 When /^I select the "([^"]*)" notification setting$/ do |notification_value|

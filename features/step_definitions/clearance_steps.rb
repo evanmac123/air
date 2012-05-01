@@ -1,11 +1,11 @@
 # General
 
 Then /^I should see error messages$/ do
-  Then %{I should see "errors prohibited"}
+  step %{I should see "errors prohibited"}
 end
 
 Then /^I should see an error message$/ do
-  Then %{I should see "error prohibited"}
+  step %{I should see "error prohibited"}
 end
 
 # Database
@@ -22,18 +22,18 @@ Given /^I signed up with "(.*)\/(.*)"$/ do |email, password|
 end
 
 Given /^I am signed up as "([^"]+)"$/ do |email_password|
-  Given %{I signed up with "#{email_password}"}
+  step %{I signed up with "#{email_password}"}
 end
 
 # Session
 
 Then /^I should be signed in$/ do
-  Given %{I am on the homepage}
-  Then %{I should see "Sign Out"}
+  step %{I am on the homepage}
+  step %{I should see "Sign Out"}
 end
 
 Then /^I should be signed out$/ do
-  Given %{I am on the homepage}
+  step %{I am on the homepage}
   find('.marketing').tag_name.should == 'body'
 end
 
