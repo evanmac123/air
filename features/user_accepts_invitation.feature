@@ -213,7 +213,7 @@ Feature: User accepts invitation
     And I press "Validate phone"
     Then I should be on the activity page
 
-    When DJ cranks 5 times
+    When DJ works off
     Then "+15087407520" should have received an SMS including "dannyboy"
 
   Scenario: User is not logged until she actually accepts the invitation (and can abandon it and come back later)

@@ -886,7 +886,7 @@ class User < ActiveRecord::Base
   
   def create_tutorial_if_none_yet
     if self.tutorial.nil?
-      Tutorial.create(:user_id => self.id)
+      tut = Tutorial.create(:user_id => self.id)
     end
   end
   

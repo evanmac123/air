@@ -10,12 +10,11 @@ class TutorialsController < ApplicationController
 
   def update
     tutorial = current_user.tutorial
+    
     if params[:tutorial_request] == "no_thanks"
-      tutorial.ended_at = Time.now
-      tutorial.save
+      tutorial.end_it
     elsif params[:tutorial_request] == "close"
-      tutorial.ended_at = Time.now
-      tutorial.save      
+      tutorial.end_it unless tutorial.current_step == 8  # Pressing the X from step 8 doesn't count as a manual exit
     elsif params[:tutorial_request] == "finish"
       tutorial.bump_step
       tutorial.completed = true
