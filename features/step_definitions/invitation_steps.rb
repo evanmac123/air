@@ -11,7 +11,7 @@ When /^"([^"]*)" has received an invitation$/ do |email|
 end
 
 When /^I accept the invitation$/ do
-  phone = Factory.next(:phone)
+  phone = FactoryGirl.generate(:phone)
   step "I fill in \"Enter your mobile number\" with \"#{phone}\""
   step "I fill in \"Choose a password\" with \"foobar\""
   step "I fill in \"And confirm that password\" with \"foobar\""

@@ -50,7 +50,7 @@ Given /^I have signed in with "(.*)\/(.*)"$/ do |email, password|
 end
 
 Given /^I sign in$/ do
-  email = Factory.next(:email)
+  email = FactoryGirl.generate(:email)
   Given %{I have signed in with "#{email}/password"}
 end
 

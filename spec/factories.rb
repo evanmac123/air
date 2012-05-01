@@ -9,7 +9,7 @@ end
 Factory.define :unnamed_user, :class => User do |factory|
   factory.association(:demo)
   factory.association(:location)
-  factory.email                 { Factory.next :email }
+  factory.email                 { FactoryGirl.generate :email }
   factory.password              { "password" }
 end
 
@@ -39,7 +39,7 @@ Factory.define :claimed_user, :parent => :brand_new_user do |factory|
 end
 
 Factory.define :user_with_phone, :parent => :claimed_user do |factory|
-  factory.phone_number {Factory.next :phone}
+  factory.phone_number {FactoryGirl.generate :phone}
 end
 
 Factory.define :site_admin, :parent => :claimed_user do |factory|
@@ -93,7 +93,7 @@ Factory.define :key do |factory|
 end
 
 Factory.define :bad_message do |factory|
-  factory.phone_number { Factory.next :phone }
+  factory.phone_number { FactoryGirl.generate :phone }
   factory.received_at  { Time.now }
 end
 
