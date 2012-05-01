@@ -2,8 +2,8 @@ require File.expand_path(File.dirname(__FILE__) + '/acceptance_helper')
 
 feature "User Sees Only Profile In Current Demo" do
   scenario "User sees only profile in current demo" do
-    @user1 = Factory :claimed_user
-    @user2 = Factory :claimed_user
+    @user1 = FactoryGirl.create :claimed_user
+    @user2 = FactoryGirl.create :claimed_user
 
     @user1.demo.should_not == @user2.demo
     

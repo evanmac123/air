@@ -3,18 +3,18 @@ require 'spec_helper'
 describe Report::Activity do
   describe "report_csv" do
     it "should return the expected data, cleaned of user's names" do
-      @demo = Factory :demo
-      [10,25,45].each {|threshold| Factory :level, :demo => @demo, :threshold => threshold}
+      @demo = FactoryGirl.create :demo
+      [10,25,45].each {|threshold| FactoryGirl.create :level, :demo => @demo, :threshold => threshold}
 
-      @user1 = Factory :user, :demo => @demo
-      @user2 = Factory :user, :demo => @demo
+      @user1 = FactoryGirl.create :user, :demo => @demo
+      @user2 = FactoryGirl.create :user, :demo => @demo
 
-      Factory :act, :demo => @demo, :user => @user1, :text => "made toast", :inherent_points => 7, :created_at => Chronic.parse("5/1/2010 12:43PM")
-      Factory :act, :demo => @demo, :user => @user1, :text => "got credit for referring June Cleaver to the game", :inherent_points => 5, :created_at => Chronic.parse("5/1/2010 12:44PM")
-      Factory :act, :demo => @demo, :user => @user1, :text => "credited Lucy Furr for referring them to the game", :inherent_points => 7, :created_at => Chronic.parse("5/2/2010 2:23PM")
-      Factory :act, :demo => @demo, :user => @user1, :text => "is now friends with Major League Football", :inherent_points => 3, :created_at => Chronic.parse("5/3/2010 9:17PM")
-      Factory :act, :demo => @demo, :user => @user1, :text => "told James Baldwin about a command", :inherent_points => 0, :created_at => Chronic.parse("5/3/2010 9:23PM")
-      Factory :act, :demo => @demo, :user => @user1, :text => "ate a kitten of course (thanks The Tick for the referral)", :inherent_points => 2, :referring_user => @user2, :created_at => Chronic.parse("5/4/2010 5:23PM")
+      FactoryGirl.create :act, :demo => @demo, :user => @user1, :text => "made toast", :inherent_points => 7, :created_at => Chronic.parse("5/1/2010 12:43PM")
+      FactoryGirl.create :act, :demo => @demo, :user => @user1, :text => "got credit for referring June Cleaver to the game", :inherent_points => 5, :created_at => Chronic.parse("5/1/2010 12:44PM")
+      FactoryGirl.create :act, :demo => @demo, :user => @user1, :text => "credited Lucy Furr for referring them to the game", :inherent_points => 7, :created_at => Chronic.parse("5/2/2010 2:23PM")
+      FactoryGirl.create :act, :demo => @demo, :user => @user1, :text => "is now friends with Major League Football", :inherent_points => 3, :created_at => Chronic.parse("5/3/2010 9:17PM")
+      FactoryGirl.create :act, :demo => @demo, :user => @user1, :text => "told James Baldwin about a command", :inherent_points => 0, :created_at => Chronic.parse("5/3/2010 9:23PM")
+      FactoryGirl.create :act, :demo => @demo, :user => @user1, :text => "ate a kitten of course (thanks The Tick for the referral)", :inherent_points => 2, :referring_user => @user2, :created_at => Chronic.parse("5/4/2010 5:23PM")
 
       csv_output = Report::CleanedActivity.new(@demo.id).report_csv
       csv_output.should == <<-END_EXPECTED_CSV

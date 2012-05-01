@@ -11,7 +11,7 @@ module SteakHelperMethods
   end
 
   def signin_as_admin
-    admin = Factory :user, :is_site_admin => true
+    admin = FactoryGirl.create :user, :is_site_admin => true
     has_password(admin, 'foobar')
     signin_as(admin, 'foobar')
   end

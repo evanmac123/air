@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe SurveyQuestion do
-  subject {Factory(:survey_question)}
+  subject {FactoryGirl.create(:survey_question)}
 
   it {should have_many :survey_valid_answers}
   it {should validate_presence_of :text}

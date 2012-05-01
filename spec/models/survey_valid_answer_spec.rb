@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe SurveyValidAnswer do
-  subject {Factory :survey_valid_answer}
+  subject {FactoryGirl.create :survey_valid_answer}
 
   it {should belong_to :survey_question}
   it {should have_one(:survey).through(:survey_question)}

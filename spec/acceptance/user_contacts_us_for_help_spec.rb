@@ -4,7 +4,7 @@ feature "User Contacts Us For Help" do
   scenario "through the contact us modal", :js => true do
     $ASSISTLY_CALLED = false
 
-    user = Factory :user
+    user = FactoryGirl.create :user
     has_password(user, "foobar")
     signin_as(user, "foobar")
 

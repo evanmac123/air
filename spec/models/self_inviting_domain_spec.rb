@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe SelfInvitingDomain do
-  subject {Factory :self_inviting_domain}
+  subject {FactoryGirl.create :self_inviting_domain}
 
   it { should belong_to :demo }
   it { should validate_uniqueness_of :domain }

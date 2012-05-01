@@ -3,7 +3,7 @@ require File.expand_path(File.dirname(__FILE__) + '/acceptance_helper')
 feature "User Accepts Invitation" do
 
   scenario "User gets logged in only when accepting invitation, not when at acceptance form" do
-    user = Factory :user
+    user = FactoryGirl.create :user
 
     visit invitation_page(user)
     visit activity_page

@@ -3,11 +3,11 @@ require File.expand_path(File.dirname(__FILE__) + '/acceptance_helper')
 feature "Admin Sets Characteristics On User" do
 
   scenario "should allow both generic and demo-specific characteristics to be set" do
-    @demo = Factory :demo
-    @generic_characteristic = Factory :characteristic, :name => 'generic', :allowed_values => %w(foo bar baz)
-    @demo_characteristic = Factory :demo_specific_characteristic, :name => 'demo specific', :allowed_values => %w(oh hai dere), :demo => @demo
-    @other_demo_characteristic = Factory :demo_specific_characteristic, :name => 'other demo characteristic', :allowed_values => %w(and so on)
-    @user = Factory :user, :demo => @demo, :name => "Hank Robertson"
+    @demo = FactoryGirl.create :demo
+    @generic_characteristic = FactoryGirl.create :characteristic, :name => 'generic', :allowed_values => %w(foo bar baz)
+    @demo_characteristic = FactoryGirl.create :demo_specific_characteristic, :name => 'demo specific', :allowed_values => %w(oh hai dere), :demo => @demo
+    @other_demo_characteristic = FactoryGirl.create :demo_specific_characteristic, :name => 'other demo characteristic', :allowed_values => %w(and so on)
+    @user = FactoryGirl.create :user, :demo => @demo, :name => "Hank Robertson"
 
     signin_as_admin
     visit edit_admin_demo_user_path(@user.demo, @user)

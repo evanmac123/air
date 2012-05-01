@@ -6,7 +6,7 @@ describe EmailCommandController do
   describe "#create" do
     before(:each) do
       ActionMailer::Base.deliveries.clear
-      @user = Factory :user_with_phone
+      @user = FactoryGirl.create :user_with_phone
 
       @test_params = {
          "to"=>"email_commands@hengage.net",

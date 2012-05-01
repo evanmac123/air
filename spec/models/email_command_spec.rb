@@ -8,21 +8,21 @@ end
 describe EmailCommand, "#status" do
   context "when status value is " do
     it "bad, it should not be valid" do
-      email_command = (Factory :email_command)
+      email_command = (FactoryGirl.create :email_command)
       email_command.status = 'ima bad status'
       email_command.should_not be_valid
     end
     it "'failed', it should be valid" do
-      (Factory :email_command, :status => EmailCommand::Status::FAILED).should be_valid 
+      (FactoryGirl.create :email_command, :status => EmailCommand::Status::FAILED).should be_valid 
     end
     it "'success', it should be valid" do
-      (Factory :email_command, :status => EmailCommand::Status::SUCCESS).should be_valid 
+      (FactoryGirl.create :email_command, :status => EmailCommand::Status::SUCCESS).should be_valid 
     end
     it "'unknown email', it should be valid" do
-      (Factory :email_command, :status => EmailCommand::Status::UNKNOWN_EMAIL).should be_valid 
+      (FactoryGirl.create :email_command, :status => EmailCommand::Status::UNKNOWN_EMAIL).should be_valid 
     end
     it "'user verified', it should be valid" do
-      (Factory :email_command, :status => EmailCommand::Status::USER_VERIFIED).should be_valid 
+      (FactoryGirl.create :email_command, :status => EmailCommand::Status::USER_VERIFIED).should be_valid 
     end
   end
 end
@@ -30,12 +30,12 @@ end
 describe EmailCommand, "#users" do
   context "when associated user " do
     it "is nil, it should be valid" do
-      email_command = (Factory :email_command)
+      email_command = (FactoryGirl.create :email_command)
       email_command.user = nil # defaults this way in this factory, but just to be clear
       email_command.should be_valid
     end
     it "is not nil, it should be valid" do
-      email_command = (Factory :email_command, :user => (Factory :user) )
+      email_command = (FactoryGirl.create :email_command, :user => (FactoryGirl.create :user) )
       email_command.should be_valid
     end
   end
@@ -96,7 +96,7 @@ end
 describe EmailCommand, "#find user by email" do
   context "when an email arrives " do
     it "the user should be findable from the incoming email" do
-      user = Factory :user
+      user = FactoryGirl.create :user
       test_params = test_email_params
       test_params['from'] = user.email
       test_params['from'].should eql user.email

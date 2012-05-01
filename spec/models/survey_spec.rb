@@ -11,7 +11,7 @@ describe Survey do
   it {should have_many :survey_triggers}
 
   it "should require the close time to be after the open time" do
-    survey = Factory :survey
+    survey = FactoryGirl.create :survey
     survey.should be_valid
     survey.close_at = survey.open_at - 1.second
     survey.should_not be_valid

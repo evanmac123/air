@@ -12,14 +12,14 @@ describe Friendship do
   describe "after create" do
     context "when the friended user has no phone number" do
       before :each do
-        @user_1 = Factory :user
-        @user_2 = Factory :user
-        @user_3 = Factory :user
-        @friend = Factory :user, :phone_number => '', :notification_method => 'both'
+        @user_1 = FactoryGirl.create :user
+        @user_2 = FactoryGirl.create :user
+        @user_3 = FactoryGirl.create :user
+        @friend = FactoryGirl.create :user, :phone_number => '', :notification_method => 'both'
       end
 
       it "should not try to send an SMS to that blank number" do
-        friendship = Factory :friendship, :user => @user_1, :friend => @friend
+        friendship = FactoryGirl.create :friendship, :user => @user_1, :friend => @friend
         Twilio::SMS.should have_received(:create).never
       end
       it "should set both reciprocal friendships to the same request index" do

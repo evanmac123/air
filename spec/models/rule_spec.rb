@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Rule do
-  subject { Factory(:rule) }
+  subject { FactoryGirl.create(:rule) }
 
   it { should belong_to(:demo) }
   it { should belong_to(:goal) }
@@ -11,9 +11,9 @@ describe Rule do
 
   describe "#to_s" do
     before(:each) do
-      @rule = Factory :rule
-      rv1 = Factory :rule_value, :value => 'engendered healthificity', :rule => @rule
-      rv2 = Factory :rule_value, :value => 'made a healthiness', :rule => @rule, :is_primary => true
+      @rule = FactoryGirl.create :rule
+      rv1 = FactoryGirl.create :rule_value, :value => 'engendered healthificity', :rule => @rule
+      rv2 = FactoryGirl.create :rule_value, :value => 'made a healthiness', :rule => @rule, :is_primary => true
 
       (rv1.created_at < rv2.created_at).should be_true
     end
@@ -47,7 +47,7 @@ describe Rule do
 
   describe "#primary_value" do
     before(:each) do
-      @rule = Factory :rule
+      @rule = FactoryGirl.create :rule
     end
 
     context "when the rule has no values" do
@@ -62,7 +62,7 @@ describe Rule do
 
     context "when the rule has values, none of which are primary" do
       before(:each) do
-        3.times {Factory :rule_value, :is_primary => false, :rule => @rule}
+        3.times {FactoryGirl.create :rule_value, :is_primary => false, :rule => @rule}
       end
 
       it "should return nil" do
@@ -72,8 +72,8 @@ describe Rule do
 
     context "when the rule has a primary value" do
       before(:each) do
-        3.times {Factory :rule_value, :is_primary => false, :rule => @rule}
-        @primary_value = Factory :rule_value, :is_primary => true, :rule => @rule
+        3.times {FactoryGirl.create :rule_value, :is_primary => false, :rule => @rule}
+        @primary_value = FactoryGirl.create :rule_value, :is_primary => true, :rule => @rule
       end
 
       it "should return that value" do

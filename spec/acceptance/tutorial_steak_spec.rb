@@ -8,10 +8,10 @@ feature "Talking Chicken Tutorial", %q{
 
 
   background do
-    demo = Factory(:demo, :name => "Hell on Wheels")
-    user = Factory(:user, :name => "Brand New", :demo_id => demo.id)
-    Factory(:claimed_user, :name => Tutorial.example_search_name, :demo_id => demo.id)
-    Factory(:tutorial, :user_id => user.id, :current_step => 4) 
+    demo = FactoryGirl.create(:demo, :name => "Hell on Wheels")
+    user = FactoryGirl.create(:user, :name => "Brand New", :demo_id => demo.id)
+    FactoryGirl.create(:claimed_user, :name => Tutorial.example_search_name, :demo_id => demo.id)
+    FactoryGirl.create(:tutorial, :user_id => user.id, :current_step => 4) 
     has_password(user, "foobar")
     signin_as(user, "foobar")
     visit '/users'

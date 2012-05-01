@@ -4,9 +4,9 @@ require 'pry'
 
 describe User, "#relationship_with" do
   before(:each) do
-    @demo = Factory(:demo)
-    @left_user = Factory(:user, :demo_id => @demo.id)
-    @right_user = Factory(:user, :demo_id => @demo.id)
+    @demo = FactoryGirl.create(:demo)
+    @left_user = FactoryGirl.create(:user, :demo_id => @demo.id)
+    @right_user = FactoryGirl.create(:user, :demo_id => @demo.id)
   end
 
   it "should show who you don't have any connections with" do

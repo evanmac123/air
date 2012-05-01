@@ -3,9 +3,9 @@ require 'spec_helper'
 describe Admin::UsersController do
   describe "#create" do
     before(:each) do
-      @demo = Factory :demo
+      @demo = FactoryGirl.create :demo
       @params = {:demo_id => @demo.id, :user => Factory.attributes_for(:user), :set_claim_code => true}
-      @controller.current_user = Factory :site_admin
+      @controller.current_user = FactoryGirl.create :site_admin
     end
 
     describe "with claim code requested" do

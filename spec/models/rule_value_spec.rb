@@ -1,16 +1,16 @@
 require 'spec_helper'
 
 describe RuleValue do
-  subject {Factory :rule_value}
+  subject {FactoryGirl.create :rule_value}
 
   it { should have_one(:demo) }
   it { should validate_presence_of(:value) }
 
   it "should validate that the value is unique within the demo" do
-    demo = Factory :demo
-    rule1 = Factory :rule, :demo => demo
-    rule2 = Factory :rule, :demo => demo
-    rv1 = Factory :rule_value, :rule => rule1
+    demo = FactoryGirl.create :demo
+    rule1 = FactoryGirl.create :rule, :demo => demo
+    rule2 = FactoryGirl.create :rule, :demo => demo
+    rv1 = FactoryGirl.create :rule_value, :rule => rule1
     rv2 = Factory.build :rule_value, :value => rv1.value, :rule => rule2
     rv2.should_not be_valid
     rv2.errors[:value].should_not be_empty
@@ -40,11 +40,11 @@ end
 
 describe RuleValue, "when is_primary is true" do
   it "should validate only if the associated Rule has no other primary RuleValue" do
-    rule_with_single_primary = Factory :rule
-    rule_with_two_primaries = Factory :rule
+    rule_with_single_primary = FactoryGirl.create :rule
+    rule_with_two_primaries = FactoryGirl.create :rule
 
     unique_primary = Factory.build :rule_value, :rule => rule_with_single_primary, :is_primary => true
-    Factory :rule_value, :rule => rule_with_two_primaries, :value => "the real primary", :is_primary => true
+    FactoryGirl.create :rule_value, :rule => rule_with_two_primaries, :value => "the real primary", :is_primary => true
     redundant_primary = Factory.build :rule_value, :rule => rule_with_two_primaries, :is_primary => true
 
     unique_primary.should be_valid

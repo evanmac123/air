@@ -7,7 +7,7 @@ describe SMS do
     end
 
     it "can send to either a User or phone number" do
-      user = Factory :user, :phone_number => "+14155551212"
+      user = FactoryGirl.create :user, :phone_number => "+14155551212"
 
       SMS.send_message(user, "hi 1")
       SMS.send_message("+16175551212", "hi 2")
@@ -20,7 +20,7 @@ describe SMS do
 
     context "when sending to a User" do
       before do
-        @user = Factory :user, :phone_number => "+14155551212"
+        @user = FactoryGirl.create :user, :phone_number => "+14155551212"
       end
 
       context "whose demo has no custom phone number" do

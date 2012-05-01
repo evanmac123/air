@@ -9,11 +9,11 @@ describe Task do
 
   describe "#suggest_to_eligible_users" do
     it "should not add redundant task suggestions to users who already have this task" do
-      demo = Factory :demo
-      user1 = Factory :user, :demo => demo
-      user2 = Factory :user, :demo => demo
-      task = Factory :task, :demo => demo
-      Factory :task_suggestion, :user => user1, :task => task
+      demo = FactoryGirl.create :demo
+      user1 = FactoryGirl.create :user, :demo => demo
+      user2 = FactoryGirl.create :user, :demo => demo
+      task = FactoryGirl.create :task, :demo => demo
+      FactoryGirl.create :task_suggestion, :user => user1, :task => task
 
       user1.task_suggestions.count.should == 1
       user2.task_suggestions.count.should == 0

@@ -15,7 +15,7 @@ Given /^no user exists with an email of "(.*)"$/ do |email|
 end
 
 Given /^I signed up with "(.*)\/(.*)"$/ do |email, password|
-  Factory(:user,
+  FactoryGirl.create(:user,
           :email                 => email,
           :password              => password,
           :password_confirmation => password)

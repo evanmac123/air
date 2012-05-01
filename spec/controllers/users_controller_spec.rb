@@ -4,18 +4,18 @@ describe ::UsersController do
   
   describe "#show" do
     before(:each) do
-      @demo = Factory :demo
-      @user_we_are_viewing = Factory :claimed_user, :demo_id => @demo.id
-      @friend = Factory :claimed_user, :demo_id => @demo.id
-      @pending_friend = Factory :claimed_user, :demo_id => @demo.id
+      @demo = FactoryGirl.create :demo
+      @user_we_are_viewing = FactoryGirl.create :claimed_user, :demo_id => @demo.id
+      @friend = FactoryGirl.create :claimed_user, :demo_id => @demo.id
+      @pending_friend = FactoryGirl.create :claimed_user, :demo_id => @demo.id
       @pending_friend.befriend @user_we_are_viewing
       @user_we_are_viewing.befriend @friend
       @friend.accept_friendship_from @user_we_are_viewing
-      @random_user = Factory :claimed_user, :demo_id => @demo.id
+      @random_user = FactoryGirl.create :claimed_user, :demo_id => @demo.id
     
     end
     it "should allow admin to view information" do
-      @controller.current_user = Factory :site_admin, :demo_id => @demo.id
+      @controller.current_user = FactoryGirl.create :site_admin, :demo_id => @demo.id
       @current_user = @controller.current_user 
       get :show, :id => @user_we_are_viewing.slug
       response.should be_success
