@@ -93,10 +93,8 @@ When /^I sign in as "(.*)\/(.*)"$/ do |email, password|
 end
 
 When "I sign out" do
-  steps %{
-    step I go to the homepage
-    step I follow "Sign Out"
-  }
+  step %{I go to the homepage}
+  step %{I follow "Sign Out"}
 end
 
 When /^I request password reset link to be sent to "(.*)"$/ do |email|
