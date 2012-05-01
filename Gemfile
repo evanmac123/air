@@ -3,13 +3,14 @@ source :rubygems
 gem "rails", "~> 3.0.12"
 gem "rack"  # Update rack to 1.3.0 or later to get rid of utf8 string regex warnings
 gem "unicorn"   # Some of our capybara webkit tests fail with thin, so we use unicorn
+gem 'delayed_job_active_record'
 gem "high_voltage"
 gem "airbrake"
 gem "paperclip"
 gem 'aws-sdk'
 gem "will_paginate"
 gem "validation_reflection"
-gem "formtastic"
+gem "formtastic", "1.2.2"
 gem "pg"
 gem "flutie"
 gem "dynamic_form"
@@ -35,13 +36,13 @@ group :development, :test do
   gem "steak"
 
   platforms :mri_18 do
-    gem "ruby-debug", "~> 0.10.4"
-    gem "linecache",  "~> 0.43"
+    gem "ruby-debug"
+    gem "linecache"
   end
 
   platforms :mri_19 do
     gem "debugger"
-    gem "linecache19",  "~> 0.5.11"
+    gem "linecache19"
   end
 
   gem "factory_girl_rails"
@@ -56,7 +57,7 @@ group :test do
   gem "cucumber-rails", :require => false
   gem "factory_girl_rails"
   gem "bourne"
-  gem "capybara", "~> 1.0.0"
+  gem "capybara"
   gem "database_cleaner"
   gem "fakeweb"
   gem "sham_rack"
@@ -67,6 +68,6 @@ group :test do
   gem "email_spec", "~> 1.1"
   gem "sham_rack"
   gem "show_me_the_cookies"
-  gem "capybara-webkit", ">= 0.6.1"
-  gem "sinatra", "~> 1.0"
+  gem "capybara-webkit"
+  gem "sinatra"
 end
