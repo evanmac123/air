@@ -31,7 +31,6 @@ class User < ActiveRecord::Base
   has_many   :timed_bonuses, :class_name => "TimedBonus"
   has_many   :task_suggestions, :dependent => :destroy
   has_many   :tasks, :through => :task_suggestions
-  has_and_belongs_to_many :bonus_thresholds
   has_and_belongs_to_many :levels
   has_one   :tutorial, :dependent => :destroy
   validate :normalized_phone_number_unique, :normalized_new_phone_number_unique
@@ -521,7 +520,6 @@ class User < ActiveRecord::Base
     old_points = self.points
     increment!(:points, new_points)
     update_recent_average_points(new_points)
-    BonusThreshold.consider_awarding_points_for_crossed_bonus_thresholds(old_points, self, channel)
     Level.check_for_level_up(old_points, self, channel)
     check_for_victory(channel)
   end

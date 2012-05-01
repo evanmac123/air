@@ -38,7 +38,7 @@
   <% end %>
 
   <% if demo.new_record? %>
-    <%= render 'admin/demos/bonus_thresholds_and_levels', :form => form, :demo => demo %>
+    <%= render 'levels', :form => form, :demo => demo %>
   <% end %>
 
   <%= form.inputs :name => "Referral Bonus" do %>

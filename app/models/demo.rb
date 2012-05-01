@@ -8,7 +8,6 @@ class Demo < ActiveRecord::Base
   has_many :rule_values, :through => :rules
   has_many :surveys, :dependent => :destroy
   has_many :survey_questions, :through => :surveys
-  has_many :bonus_thresholds, :dependent => :destroy
   has_many :levels, :dependent => :destroy
   has_many :goals, :dependent => :destroy
   has_many :bad_words, :dependent => :destroy
@@ -238,13 +237,6 @@ class Demo < ActiveRecord::Base
         num_users_who_completed_one_web_act += 1
       end
     end
-    percent_with_friend = 100.0 * num_users_with_at_least_one_friend  / num_tutorials
-    percent_with_friend = "%5.1f" % percent_with_friend
-    percent_who_played  = 100.0 * num_users_who_completed_one_web_act / num_tutorials
-    percent_who_played = "%5.1f" % percent_who_played
-    puts "#{num_tutorials} users in #{self.name} have seen at least the intro slide to the quick tour."
-    puts "#{percent_who_played}% of them completed at least one act through the play box since then"
-    puts "#{percent_with_friend}% of them have at least one accepted friend in the game since then"
   end
 
   def self.number_not_found_response(receiving_number)

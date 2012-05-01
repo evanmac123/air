@@ -92,9 +92,6 @@ Health::Application.routes.draw do
 
       resources :rules, :only => [:index, :new, :create]
 
-      resources :bonus_thresholds, :only => [:edit, :update, :destroy], :shallow => true
-      resources :bonus_thresholds, :only => [:new, :create]
-
       resources :levels, :only => [:edit, :update, :destroy], :shallow => true
       resources :levels, :only => [:new, :create]
 

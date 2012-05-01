@@ -158,13 +158,6 @@ Factory.define :survey_valid_answer do |survey_valid_answer|
   survey_valid_answer.association(:survey_question)
 end
 
-Factory.define :bonus_threshold do |bonus_threshold|
-  bonus_threshold.min_points 5
-  bonus_threshold.max_points 7
-  bonus_threshold.award 2
-  bonus_threshold.association :demo
-end
-
 Factory.define :level do |level|
   level.sequence(:name) {|n| "Level" + n.to_s}
   level.sequence(:threshold) {|n| 30 * n}
