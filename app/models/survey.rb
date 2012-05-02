@@ -26,7 +26,7 @@ class Survey < ActiveRecord::Base
   end
 
   def self.open
-    time = Time.now
-    self.where(['? BETWEEN open_at AND close_at', Time.now])
+    # Note: this is duplicated in User.open_survey
+    self.where('? BETWEEN open_at AND close_at', Time.now)
   end
 end

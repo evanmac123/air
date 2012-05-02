@@ -711,7 +711,9 @@ class User < ActiveRecord::Base
   end
 
   def open_survey
-    self.demo.surveys.open.first
+    # Note: this could be refactored to user Survey.open
+    # But It wasn't working for me. Maybe you're smarter than I?
+    self.demo.surveys.where('? BETWEEN open_at AND close_at', Time.now).first
   end
 
   def befriend(other, mixpanel_properties={})
@@ -796,13 +798,13 @@ class User < ActiveRecord::Base
   end
 
   def satisfy_suggestions_by_survey(survey_or_survey_id, channel)
-    satisfiable_suggestions = self.task_suggestions.satisfiable_by_survey(survey_or_survey_id)
+    satisfiable_suggestions = self.task_suggestions.satisfiable_by_survey(survey_or_survey_id).readonly(false)
     satisfiable_suggestions.each{|satisfiable_suggestion| satisfiable_suggestion.satisfy!(channel)}
   end
 
   def satisfy_suggestions_by_rule(rule_or_rule_id, channel, referring_user_id = nil)
     return unless rule_or_rule_id
-    satisfiable_suggestions = self.task_suggestions.satisfiable_by_rule(rule_or_rule_id)
+    satisfiable_suggestions = self.task_suggestions.satisfiable_by_rule(rule_or_rule_id).readonly(false)
 
     unless referring_user_id
       satisfiable_suggestions = satisfiable_suggestions.without_mandatory_referrer
@@ -1213,7 +1215,7 @@ class User < ActiveRecord::Base
 
   def trigger_demographic_tasks
     if all_demographics_present? && not_all_demographics_previously_present?
-      self.task_suggestions.satisfiable_by_demographics.each(&:satisfy!)
+      self.task_suggestions.satisfiable_by_demographics.readonly(false).each(&:satisfy!)
     end
   end
 

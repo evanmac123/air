@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-metal_testing_hack(SmsController)
+#metal_testing_hack(SmsController)
 
 describe SmsController do
   describe "#create" do

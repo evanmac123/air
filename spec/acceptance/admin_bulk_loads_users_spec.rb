@@ -2,6 +2,7 @@ require File.expand_path(File.dirname(__FILE__) + '/acceptance_helper')
 
 feature "Admin Bulk Loads Users" do
   before do
+    puts "in before"
     @demo = FactoryGirl.create :demo, :name => "H Engage", :credit_game_referrer_threshold => 60, :game_referrer_bonus => 2000
     signin_as_admin
 
@@ -9,6 +10,7 @@ feature "Admin Bulk Loads Users" do
   end
 
   scenario "with claim codes and usernames" do
+    puts "with claim codes"
     bulk_user_csv = <<-END_CSV
 John Smith,jsmith@example.com,123123,johnny
 Bob Jones,bjones@example.com,234234,bobby
@@ -42,6 +44,7 @@ Fred Robinson,frobinson@example.com,345345,freddy
   end
 
   scenario "should have a link from the demo page" do
+    puts "should have a "
     visit admin_demo_path(@demo)
     click_link "Bulk load users"
     should_be_on new_admin_demo_bulk_load_path(@demo)
@@ -49,6 +52,7 @@ Fred Robinson,frobinson@example.com,345345,freddy
 
   context "when there are characteristics available" do
     before(:each) do
+      puts "second before each"
       FactoryGirl.create :characteristic, :name => "Generic Characteristic 1"
       FactoryGirl.create :characteristic, :name => "Generic Characteristic 2", :allowed_values => %w(green red blue)
       FactoryGirl.create :demo_specific_characteristic, :name => "Demo Characteristic 1", :demo => @demo, :allowed_values => %w(foo bar baz)
@@ -58,6 +62,7 @@ Fred Robinson,frobinson@example.com,345345,freddy
     end
 
     it "should allow those to be set while bulk loading", :js => true do
+      puts "should allow"
       3.times { click_link "Add characteristic" }
       select "Demo Characteristic 1", :from => "extra_column[4]" 
       select "Generic Characteristic 2", :from => "extra_column[6]"

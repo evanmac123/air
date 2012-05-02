@@ -132,10 +132,10 @@
 
     %div.form-ul-section
       %div.helper#password Make sure it’s at least 6 characters. (You know the deal, don’t pick something obvious like your birthday, your last name, your employee ID, etc.)
-      = f.fancy_password_field :password, :label_text => "Choose a password"
+      = f.fancy_password_field :password, :label_text => "Choose a password", :value => @user.password
     %div.form-ul-section
       %div.helper#passwordConf And confirm that password – just in case.
-      = f.fancy_password_field :password_confirmation, :label_text => "And confirm that password"
+      = f.fancy_password_field :password_confirmation, :label_text => "And confirm that password", :value => @user.password_confirmation
         
     %ul.form-section
       = f.check_box(:terms_and_conditions)

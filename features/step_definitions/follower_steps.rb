@@ -202,7 +202,7 @@ Then /^"([^"]*)" should be able to accept "([^"]*)" by SMS( with index \d+)?$/ d
   step "I sign in via the login page with \"#{followed_login_string}\""
   step %{I go to the profile page for "#{followed_name}"}
   step "I should see \"#{follower_name}\" as a friend"
-  #But "I should not see \"#{follower_name}\" as a pending follower"
+  #step "I should not see \"#{follower_name}\" as a pending follower"
 end
 
 Then /^"([^"]*)" should be able to ignore "([^"]*)" by SMS( with index \d+)?$/ do |followed_login_string, follower_name, request_index_string|
@@ -239,7 +239,7 @@ Then /^"([^"]*)" should be able to accept "([^"]*)" by web$/ do |followed_login_
   step "\"#{follower.phone_number}\" should have received an SMS \"#{followed_name} has approved your friendship request.\""
   step "I should see \"You are now friends with #{follower_name}\""
   step "I should see \"#{followed_name}\" as a friend"
-  But "I should not see a friendship request from \"#{follower_name}\""
+  step "I should not see a friendship request from \"#{follower_name}\""
 end
 
 Then /^"([^"]*)" should be able to ignore "([^"]*)" by web$/ do |followed_login_string, follower_name|

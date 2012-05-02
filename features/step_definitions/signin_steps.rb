@@ -23,8 +23,8 @@ end
 
 When /^I sign in( as an admin)? via the login page( as an admin)?$/ do |is_admin_1, is_admin_2|
   is_admin = is_admin_1 || is_admin_2
-  factory = is_admin ? :site_admin : :user
-  user = Factory factory, :password => 'foobar', :password_confirmation => 'foobar'
+  factory_type = is_admin ? :site_admin : :user
+  user = FactoryGirl.create factory_type, :password => 'foobar', :password_confirmation => 'foobar'
   step "I sign in via the login page as \"#{user.name}/foobar\""
 end
 

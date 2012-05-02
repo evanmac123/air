@@ -257,6 +257,21 @@ class Demo < ActiveRecord::Base
     return true if domains.include? email.email_domain
     false
   end
+  
+  def is_public_game
+    # Note that to send yourself an invitation, this line in the invitations controller must pass as true:
+    #     ENV['GAME_TYPE'] == 'public'
+    # which must be set on the server
+    self.join_type == 'public'
+  end
+  
+  def is_self_inviting_game
+    self.join_type == 'self-inviting'
+  end
+  
+  def is_pre_populated_game
+    self.join_type == 'pre-populated'
+  end
 
   protected
 
@@ -292,21 +307,6 @@ class Demo < ActiveRecord::Base
     if begins_at && ends_at && ends_at <= begins_at
       errors.add(:begins_at, "must come before the ending time")
     end
-  end
-  
-  def is_public_game
-    # Note that to send yourself an invitation, this line in the invitations controller must pass as true:
-    #     ENV['GAME_TYPE'] == 'public'
-    # which must be set on the server
-    self.join_type == 'public'
-  end
-  
-  def is_self_inviting_game
-    self.join_type == 'self-inviting'
-  end
-  
-  def is_pre_populated_game
-    self.join_type == 'pre-populated'
   end
   
   def self.next_id
