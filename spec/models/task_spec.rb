@@ -27,8 +27,8 @@ describe Task do
   
   describe "#due?" do
     it "should tell me whether a task is within the window of opportunity" do
-      demo = Factory.build :demo
-      a = Factory.build :task, :demo => demo
+      demo = FactoryGirl.build :demo
+      a = FactoryGirl.build :task, :demo => demo
       a.update_attribute('start_time', nil)
       a.update_attribute('end_time', nil)
       a.should be_due

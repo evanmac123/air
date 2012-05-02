@@ -29,7 +29,7 @@ end
 
 describe Demo, "when both begins_at and ends_at are set" do
   it "should validate that ends_at is later than begins_at" do
-    Factory.build(:demo, :begins_at => Time.now + 2.hours, :ends_at => Time.now).should_not be_valid
+    FactoryGirl.build(:demo, :begins_at => Time.now + 2.hours, :ends_at => Time.now).should_not be_valid
   end
 end
 
@@ -130,59 +130,6 @@ describe Demo, '#recalculate_all_moving_averages!' do
       user.expects(:recalculate_moving_average!).add_side_effect(RecalculateMovingAverageSideEffect.new(user, score_to_update_to))
     end
   end
-
-  #xit "should recalculate moving average scores on all users in the demo and rank them appropriately" do
-    #@demo.recalculate_all_moving_averages!
-
-    #@all_users.each_with_index {|user, i| user.recent_average_points.should == @scores_to_update_to[i]}
-
-    #@first.recent_average_ranking.should == 1
-    #@second_tie_1.recent_average_ranking.should == 2
-    #@second_tie_2.recent_average_ranking.should == 2
-    #@fourth.recent_average_ranking.should == 4
-    #@fifth_tie_1.recent_average_ranking.should == 5
-    #@fifth_tie_2.recent_average_ranking.should == 5
-    #@fifth_tie_3.recent_average_ranking.should == 5
-    #@eighth.recent_average_ranking.should == 8
-  #end
-end
-
-shared_examples_for "a rankings fixing method" do
-  #xit "should recalculate rankings no more than once every 10 minutes" do
-    #Timecop.freeze(1)
-
-    #begin
-      #demo1 = FactoryGirl.create :demo, updated_at_column => 10.minutes.ago
-      #demo2 = FactoryGirl.create :demo, updated_at_column => (9.minutes.ago - 59.seconds)
-      #demo3 = FactoryGirl.create :demo, updated_at_column => nil
-
-      #all_demos = [demo1, demo2, demo3]
-      #all_demos.each {|demo| demo.stubs(:fix_user_rankings!)}
-      #all_demos.each(&wrapper_fix_method)
-
-      #demo1.should have_received(:fix_user_rankings!).with(points_column, ranking_column)
-      #demo2.should_not have_received(:fix_user_rankings!)
-      #demo3.should have_received(:fix_user_rankings!).with(points_column, ranking_column)
-    #ensure
-      #Timecop.return
-    #end
-  #end
-end
-
-describe Demo, "#fix_total_user_rankings!" do
-  let(:updated_at_column) {:total_user_rankings_last_updated_at}
-  let(:points_column) {'points'}
-  let(:ranking_column) {'ranking'}
-  let(:wrapper_fix_method) {:fix_total_user_rankings!}
-  it_should_behave_like "a rankings fixing method"
-end
-
-describe Demo, "#fix_recent_average_user_rankings!" do
-  let(:updated_at_column) {:average_user_rankings_last_updated_at}
-  let(:points_column) {'recent_average_points'}
-  let(:ranking_column) {'recent_average_ranking'}
-  let(:wrapper_fix_method) {:fix_recent_average_user_rankings!}
-  it_should_behave_like "a rankings fixing method"
 end
 
 describe Demo, ".recalculate_all_moving_averages!" do

@@ -44,9 +44,9 @@ describe User do
   it "should validate uniqueness of phone number when not blank" do
     user1 = FactoryGirl.create :user, :phone_number => '+14152613077'
     user2 = FactoryGirl.create :user, :phone_number => ''
-    user3 = Factory.build :user, :phone_number => '+14152613077'
-    user4 = Factory.build :user, :phone_number => ''
-    user5 = Factory.build :user, :phone_number => "(415) 261-3077"
+    user3 = FactoryGirl.build :user, :phone_number => '+14152613077'
+    user4 = FactoryGirl.build :user, :phone_number => ''
+    user5 = FactoryGirl.build :user, :phone_number => "(415) 261-3077"
 
     user1.should be_valid
     user2.should be_valid
@@ -105,7 +105,7 @@ describe User do
 
   it "should allow multiple users, each with the same (blank) sms slugs" do
     FactoryGirl.create(:user, :sms_slug => '')
-    user = Factory.build(:user, :sms_slug => '')
+    user = FactoryGirl.build(:user, :sms_slug => '')
     user.should be_valid
   end
 
@@ -194,13 +194,13 @@ describe User do
   end
 
   it "should not require a slug if there is no name" do
-    a = Factory.build(:user, :name => "")
+    a = FactoryGirl.build(:user, :name => "")
     a.should be_valid
     a.slug.should == ""
     a.sms_slug.should == ""
   end
   it "should create a slug upon validation if there is a name" do
-    a = Factory.build(:user, :name => "present")
+    a = FactoryGirl.build(:user, :name => "present")
     a.should be_valid   # Slugs generated before_validation
     a.slug.should == "present"
     a.sms_slug.should == "present"
@@ -214,10 +214,10 @@ describe User do
   end
 
   it "should validate the uniqueness of :slug if name is present" do
-    a = Factory.build(:user, :name =>"present", :slug => "areallylongstring", :sms_slug => "areallylongstring")
+    a = FactoryGirl.build(:user, :name =>"present", :slug => "areallylongstring", :sms_slug => "areallylongstring")
     a.should be_valid
     a.save
-    bb = Factory.build(:user, :name =>"present", :slug => "areallylongstring", :sms_slug => "areallylongstring")
+    bb = FactoryGirl.build(:user, :name =>"present", :slug => "areallylongstring", :sms_slug => "areallylongstring")
     bb.should_not be_valid # since slugs are already present, set_slugs will not be called
     bb.errors[:slug].should include("has already been taken")
     bb.errors[:sms_slug].should include("Sorry, that username is already taken.")
@@ -559,7 +559,7 @@ end
 
 describe User, "on save" do
   it "should downcase email" do
-    @user = Factory.build(:user, :email => 'YELLING_GUY@Uppercase.cOm')
+    @user = FactoryGirl.build(:user, :email => 'YELLING_GUY@Uppercase.cOm')
     @user.save!
     @user.reload.email.should == 'yelling_guy@uppercase.com'
   end
@@ -764,11 +764,11 @@ describe User, "#sms_slug_does_not_match_commands" do
     demo = FactoryGirl.create(:demo, :name => "my_demo")
     rule = FactoryGirl.create(:rule, :demo_id => demo.id)
     rule_value = FactoryGirl.create(:rule_value, :value => "hippa", :rule_id => rule.id)
-    user = Factory.build(:user, :demo_id => demo.id, :sms_slug => 'follow', :slug => 'follow')
+    user = FactoryGirl.build(:user, :demo_id => demo.id, :sms_slug => 'follow', :slug => 'follow')
     user.should_not be_valid
-    user = Factory.build(:user, :demo_id => demo.id, :sms_slug => 'hippa', :slug => 'hippa')
+    user = FactoryGirl.build(:user, :demo_id => demo.id, :sms_slug => 'hippa', :slug => 'hippa')
     user.should_not be_valid
-    user = Factory.build(:user, :demo_id => demo.id, :sms_slug => 'followmehome', :slug => 'followmehome')
+    user = FactoryGirl.build(:user, :demo_id => demo.id, :sms_slug => 'followmehome', :slug => 'followmehome')
     user.should be_valid
   end
 end
