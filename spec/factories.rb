@@ -1,16 +1,10 @@
 Factory.sequence :email do |n|
-  "user#{n}@example.com"
+  "overwritten elsewhere. Not sure why we need this dummy definition"
 end
 
 Factory.sequence :phone do |n|
-  "+1" + (4155550000 + n).to_s
+  "overwritten elsewhere. Not sure why we need this dummy definition"
 end
-
-
-
-
-
-
 
 FactoryGirl.define do
   
@@ -45,7 +39,7 @@ FactoryGirl.define do
   end
   
   factory :user_with_phone, :parent => :claimed_user do 
-    phone_number FactoryGirl.generate :phone
+    sequence(:phone_number, User.next_id + 4442220000) {|n| "+1#{n}" }
   end
   
   factory :site_admin, :parent => :claimed_user do
@@ -134,127 +128,116 @@ FactoryGirl.define do
   factory :accepted_friendship, :parent => :friendship do
     state 'accepted'
   end
+
+
+  factory :survey do
+    sequence(:name) {|n| "Survey ##{n}"}
+    open_at {Time.now}
+    close_at {Time.now + 1.day}
+    association :demo
+  end
+
+  factory :survey_question do
+    sequence(:text) {|n| "Question ##{n} text"}
+    sequence(:index) {|n| n}
+    association :survey
+  end
+
+  factory :survey_prompt do
+    sequence(:text) {|n| "Prompt ##{n} text "}
+    send_time {Time.now}
+    association :survey
+  end
+
+  factory :survey_answer do
+    association :user
+    association :survey_question
+  end
+
+  factory :survey_valid_answer do
+    sequence(:value) {|n| n.to_s}
+    association(:survey_question)
+  end
+
+  factory :level do
+    sequence(:name) {|n| "Level" + n.to_s}
+    sequence(:threshold) {|n| 30 * n}
+    association :demo
+  end
+
+  factory :skin do
+    association :demo
+  end
+
+  factory :goal do
+    sequence(:name) {|n| "Number #{n} Goal"}
+    association :demo
+  end
+
+  factory :email_command do
+    status EmailCommand::Status::UNKNOWN_EMAIL
+  end
+
+  factory :timed_bonus do
+    expires_at {Time.now + 24.hours}
+    points {10}
+    association :user
+    association :demo
+  end
+
+  factory :bad_word do
+    value {"goshdarnit"}
+    association :demo
+  end
+
+  factory :task do
+    name "Roast chestnuts"
+    association :demo
+    sequence(:identifier) {|n| "Identifier#{n}"}
+
+  end
+
+  factory :task_suggestion do
+    association :user
+    association :task
+  end
+
+  factory :self_inviting_domain do
+    sequence(:domain) {|n| "example#{n}.com"}
+    association :demo
+  end
+
+  factory :incoming_sms do
+  end
+
+  factory :location do
+    sequence(:name) {|n| "Plant #{n}"}
+    association :demo
+  end
+
+  factory :rule_trigger, :class => Trigger::RuleTrigger do
+    association :rule
+    association :task
+  end
+
+  factory :survey_trigger, :class => Trigger::SurveyTrigger do
+    association :survey
+    association :task
+  end
+
+  factory :demographic_trigger, :class => Trigger::DemographicTrigger do
+    association :task
+  end
+
+  factory :characteristic do
+    sequence(:name) {|n| "Char_#{n}"}
+    sequence(:description) {|n| "Desc_#{n}"}
+    allowed_values {%w(Foo Bar Baz)}
+  end
+
+  factory :demo_specific_characteristic, :parent => :characteristic do
+    association :demo
+  end
   
 end
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-Factory.define :survey do |survey|
-  survey.sequence(:name) {|n| "Survey ##{n}"}
-  survey.open_at {Time.now}
-  survey.close_at {Time.now + 1.day}
-  survey.association :demo
-end
-
-Factory.define :survey_question do |survey_question|
-  survey_question.sequence(:text) {|n| "Question ##{n} text"}
-  survey_question.sequence(:index) {|n| n}
-  survey_question.association :survey
-end
-
-Factory.define :survey_prompt do |survey_prompt|
-  survey_prompt.sequence(:text) {|n| "Prompt ##{n} text "}
-  survey_prompt.send_time {Time.now}
-  survey_prompt.association :survey
-end
-
-Factory.define :survey_answer do |survey_answer|
-  survey_answer.association :user
-  survey_answer.association :survey_question
-end
-
-Factory.define :survey_valid_answer do |survey_valid_answer|
-  survey_valid_answer.sequence(:value) {|n| n.to_s}
-  survey_valid_answer.association(:survey_question)
-end
-
-Factory.define :level do |level|
-  level.sequence(:name) {|n| "Level" + n.to_s}
-  level.sequence(:threshold) {|n| 30 * n}
-  level.association :demo
-end
-
-Factory.define :skin do |skin|
-  skin.association :demo
-end
-
-Factory.define :goal do |goal|
-  goal.sequence(:name) {|n| "Number #{n} Goal"}
-  goal.association :demo
-end
-
-Factory.define :email_command do |email_command|
-  email_command.status EmailCommand::Status::UNKNOWN_EMAIL
-end
-
-Factory.define :timed_bonus do |timed_bonus|
-  timed_bonus.expires_at {Time.now + 24.hours}
-  timed_bonus.points {10}
-  timed_bonus.association :user
-  timed_bonus.association :demo
-end
-
-Factory.define :bad_word do |bad_word|
-  bad_word.value {"goshdarnit"}
-  bad_word.association :demo
-end
-
-Factory.define :task do |task|
-  task.name "Roast chestnuts"
-  task.association :demo
-  task.sequence(:identifier) {|n| "Identifier#{n}"}
-  
-end
-
-Factory.define :task_suggestion do |task_suggestion|
-  task_suggestion.association :user
-  task_suggestion.association :task
-end
-
-Factory.define :self_inviting_domain do |self_inviting_domain|
-  self_inviting_domain.sequence(:domain) {|n| "example#{n}.com"}
-  self_inviting_domain.association :demo
-end
-
-Factory.define :incoming_sms do
-end
-
-Factory.define :location do |location|
-  location.sequence(:name) {|n| "Plant #{n}"}
-  location.association :demo
-end
-
-Factory.define :rule_trigger, :class => Trigger::RuleTrigger do |rule_trigger|
-  rule_trigger.association :rule
-  rule_trigger.association :task
-end
-
-Factory.define :survey_trigger, :class => Trigger::SurveyTrigger do |survey_trigger|
-  survey_trigger.association :survey
-  survey_trigger.association :task
-end
-
-Factory.define :demographic_trigger, :class => Trigger::DemographicTrigger do |demographic_trigger|
-  demographic_trigger.association :task
-end
-
-Factory.define :characteristic do |characteristic|
-  characteristic.sequence(:name) {|n| "Char_#{n}"}
-  characteristic.sequence(:description) {|n| "Desc_#{n}"}
-  characteristic.allowed_values {%w(Foo Bar Baz)}
-end
-
-Factory.define :demo_specific_characteristic, :parent => :characteristic do |demo_specific_characteristic|
-  demo_specific_characteristic.association :demo
-end
