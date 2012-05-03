@@ -3,16 +3,15 @@
 <head>
   <meta charset="utf-8" />
   <title>H Engage</title>
-  <%= stylesheet_link_tag :flutie %>
-  <%= stylesheet_link_tag 'screen' %>
-  <%= stylesheet_link_tag 'admin' %>
+  <%= stylesheet_link_tag "application-base" %>
+  <%= javascript_include_tag 'application' %>
+
   
 
   <%= csrf_meta_tag %>
   <%= render 'shared/mixpanel' %>
 </head>
 <body class="<%= body_class %>">
-  <%= javascript_include_tag 'jquery' %> <%# must appear before header, with its Assistly widget %>
 
   <%= render :partial => 'shared/header' %>
   <%= render :partial => 'shared/flashes' -%>

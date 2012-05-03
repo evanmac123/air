@@ -1,0 +1,40 @@
+
+
+.bubbly-top-flat{
+  background: image-url('tooltip/top_flat.png');
+  height: 9px;
+}
+
+.bubbly-middle{
+  background: image-url('tooltip/middle.png');
+  padding: 0px 12px;
+  color: #494949;
+  font-size: 14px;
+  line-height: 17px;
+}
+
+.bubbly-bottom-flat{
+  background: image-url('tooltip/bottom_flat.png');
+  height: 9px;
+}
+
+.bubbly-top-arrow{
+  background: image-url('tooltip/top_arrow.png');
+  height: 23px;
+}
+
+.bubbly-bottom-arrow{
+  background: image-url('tooltip/bottom_arrow.png');
+  height: 23px;
+}
+
+.bubbly{
+  display: none;
+  z-index: 120;
+  color: white;
+  font-size: 14px;
+  width: 205px;
+  //opacity is called here instead of an attrubute on the $(div).tooltip() call.                 
+  //otherwise the shadow shows up black in the bona-fide ie7/8 (works fine in ie9 with ie7 mode)
+  opacity: 0.95;
+}

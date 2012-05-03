@@ -4,13 +4,31 @@ require 'rails/all'
 
 # If you have a Gemfile, require the gems listed there, including any gems
 # you've limited to :test, :development, or :production.
-Bundler.require(:default, Rails.env) if defined?(Bundler)
+if defined?(Bundler)
+  # If you precompile assets before deploying to production, use this line
+  Bundler.require *Rails.groups(:assets => %w(development test))
+  # If you want your assets lazily compiled in production,use this line
+  # Bundler.require(:default, :assets, Rails.env)
+end
+
 
 module Health
   class Application < Rails::Application
     config.generators do |generate|
       generate.test_framework :rspec
     end
+    ###################  ASSET PIPELINE  ###########################
+    # Enable the asset pipeline
+    config.assets.enabled = true
+
+    # Version of your assets, change this if you want to expire all your assets
+    config.assets.version = '0.0.1'
+    
+    # Tell rake which assets to precompile (default is application.css and application.js)
+    # Note that even though our files are named .scss, the ones in this list are the plain .css counterparts
+    config.assets.precompile += ['application-base.css', 'application-ie7.css', 'application-ie8.css']
+    ################################################################
+    
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.

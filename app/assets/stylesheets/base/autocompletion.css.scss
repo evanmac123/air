@@ -1,0 +1,319 @@
+$bin_width: 300px;
+$suggestion_radius: 4px;
+$pound_suggestions_padding: 10px;
+$single_suggestion_border_width: 1px;
+$light_green: #87BF4E;
+$gold: #fd1;
+$medium_radius: 12px;
+
+.clear{
+  clear: both;
+}
+#invite_friends_top, #invite_friends_middle, #invite_friends_bottom{
+  width: $bin_width;
+  #relative{
+    top: 0px;
+  }
+  label {font-weight: bold;}
+}
+
+#relative{
+  /* this is relative so the child div will use it as a positioning reference*/
+  position: relative;
+  margin: 0 auto;
+  width: $bin_width;
+  top: -30px;
+  left: -12px;
+}
+
+
+#suggestions{
+  display: none;
+  width: $bin_width + 2 * $pound_suggestions_padding + 2 * $single_suggestion_border_width;
+  padding: $pound_suggestions_padding;
+  margin-top: 14px;
+  z-index: 1;
+  -moz-border-radius: $medium_radius;
+  -webkit-border-radius: $medium_radius;
+  border-radius: $medium_radius;
+	background: grey;
+  .remove_referrer{
+    display: none;
+  }
+  .single_suggestion:hover{
+    //background: darken($light-gray, 5%);
+  }
+}
+
+a.remove_referrer{
+	color:$hengage-bg;
+  position: absolute;
+  left: auto;
+  right: 4px;
+  top: 1px;
+  
+	&:hover {
+		color:lighten($hengage-bg, 15%)!important;
+	}
+}
+
+#suggestions .single_suggestion{
+  background: $light-gray;
+}
+.single_suggestion{
+  width: $bin_width;
+  background-color: #FFFAAD;
+  color:$dark-gray;
+  padding: 10px;
+  width: $bin_width;
+  border: $single_suggestion_border_width solid $hengage-bg;
+  -moz-border-radius: $suggestion_radius;
+  -webkit-border-radius: $suggestion_radius;
+  border-radius: $suggestion_radius;
+  -moz-box-shadow: 0 0 5px #c9c9c9;
+  -webkit-box-shadow: 0 0 5px #c9c9c9;
+  box-shadow: 0 0 5px #c9c9c9;
+  position: relative;
+  behavior: none;
+  img {
+		@include rounded;
+		border:1px $light-gray inset;
+		width:75px;
+	}
+	div.info {
+		div.bit:first-child {
+			color:$hengage-bg;
+			font-size:16px;
+			font-weight:bold;
+		}
+	}
+}
+.single_suggestion + .single_suggestion{
+  margin-top: 2px; 
+}
+#autocomplete + .single_suggestion{
+  margin-top: 5px;
+}
+
+.bit{
+  font-size: 100%;
+}
+.info, .image{
+  float: left;
+}
+.image{
+  padding-right: 10px;
+}
+.suggested_user_id{
+  display: none;
+}
+
+.first_half, .second_half{
+  width: 500px;
+  input{
+    text-align: right;
+  }
+  label{
+    display: none;
+  }
+}
+.second_half{
+  display: none;
+}
+body #facebox .content {
+    height: 340px;
+}
+#potential_bonus_points{
+  display: inline;
+}
+#bonus{
+  display: none;
+  color: green;
+  font-weight: bold;
+}
+#autocomplete_status{
+  color: green;
+  font-size: 120%;
+  line-height: 133%;
+  font-weight: bold;
+  width: 343px;
+  padding-top: 4px;
+  padding-bottom: 0px;
+}
+
+#indented_to_match_inputs{
+  margin: 0 auto;
+  width: $bin_width + 40px;
+  padding-bottom: 23px;
+  margin-top: -12px;
+}
+
+div#search_for_referrer {
+	div#autocomplete_status {
+		color:$gray;
+		margin:0;
+		padding:0;
+		top:-52px;
+		display: none;
+	}
+	div#suggestions {
+		div.single_suggestion {
+			div.image {
+				img {
+					@include rounded;
+					border:1px $light-gray inset;
+					height:95px;
+					width:95px;
+				}
+			}
+		}
+	}
+}
+
+
+
+
+
+#points_per_referral{
+  display: none;
+}
+#lots_of_friends{
+  padding-left: 17ex;
+}
+.inv-forms{
+  a, a:visited, a:hover, a:active{
+    color: #588B3D;
+  }
+}
+.subtle_notice{
+  font-size: 12px;
+  padding: 6px 13px 0;
+}
+
+/*      ############# Stolen from another stylesheet ######################### */
+div.helper {
+	@include rounded;
+	background-color: $hengage-bg;
+	background-image: image-url('v3/texture_darker.png');
+	border: {
+		style:solid;
+		width:1px;
+		
+		bottom: {
+			color: darken($hengage-bg, 15%);
+		}
+		left: {
+			color: darken($hengage-bg, 15%);
+		}
+		right: {
+			color: darken($hengage-bg, 15%);
+		}
+		top: {
+			color: lighten($hengage-bg, 10%);
+		}
+	}
+	box-shadow: 0 0 4px #2c2c2c;
+	color: #fff;
+	display: none;
+	line-height: 16px;
+	padding: 10px;
+	position: absolute;
+//					text-shadow:1px 1px 1px #333;
+	behavior: url(/css3pie/PIE.htc);
+	width: 175px;
+	left: -217px;			
+	z-index: 1;
+}	
+
+/* ###############################   END STOLEN  ################################# */
+.relative{
+  position: relative;
+}
+#selected_users_label{
+  padding-bottom: 2px;
+  padding-left: 1px;
+}
+#hide_me_while_selecting{
+  display: none;
+  background: #aaa;
+  -moz-border-radius: $medium_radius;
+  -webkit-border-radius: $medium_radius;
+  border-radius: $medium_radius;
+  padding-left: 7px;
+  padding-bottom: 7px;
+  width: 330px;  
+}
+
+.gold{
+  color: $gold;
+}
+
+#invite_friends_middle{ 
+  #autocomplete{
+    width: 325px;
+    behavior: none;
+  }
+  .form-label{padding-top: 10px;}
+}
+
+.clear{
+  clear: both;
+}
+
+
+#hide_me_while_selecting #submit_invite_friend{
+  float: right;
+  margin-top: 15px;
+  margin-right: 10px;
+}
+
+#submit_invite_friend {
+	margin-top:4px;
+	a#invite_friends_link {
+		@include button-norm;
+		margin-bottom: 4px;
+		display: inline-block;
+		font-size:11px;
+	}
+}
+.bigger_message{
+  font-size: 26px;
+  line-height: 31px;
+  padding-bottom: 1ex;
+}
+#search_for_friends_to_invite{
+  .helper{
+    top: -27px;
+  }
+}
+.hidden{
+  display: none;
+}
+.form-input .relative{
+  z-index: 2;
+}
+.single_click_invite{
+  position: absolute;
+  right: 7px;
+  bottom: 7px;
+  @include button-norm;
+	margin-top: 10px;
+	font-weight: bold;
+	letter-spacing: .5px;
+}
+.already_playing{
+  position: absolute;
+  right: 7px;
+  bottom: 8px;
+  color: $dark-gray;
+  font-size: 14px;
+  line-height: 16px;
+}
+#why_invite{
+  padding-bottom: 5px;
+}
+#signup-form{
+  .single_click_invite, .already_playing{
+    display: none;
+  }
+}

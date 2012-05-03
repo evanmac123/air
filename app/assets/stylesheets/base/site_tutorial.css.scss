@@ -1,0 +1,237 @@
+$options_radius: 3px;
+$steps_color: #a79b4f;
+$title_color: #a79b4f;
+$orange: #FF8411;
+#black_tooltip{
+  display:none;
+  font-size:12px;
+  height:137px;
+  width:361px;
+  padding:0px;
+  color:#eee;
+  z-index: 90;
+  hr{
+    margin: 0;
+  }
+  &.bottom-left{
+    background:transparent image-url('tutorial/bottom-left.png');
+  }
+  &.bottom-center{
+    background:transparent image-url('tutorial/bottom-center.png');
+  }
+  &.bottom-right{
+    background:transparent image-url('tutorial/bottom-right.png');
+  }
+  &.top-left{
+    background:transparent image-url('tutorial/top-left.png');
+    #differing_spacings{ top: 12px; }
+  }
+  &.top-center{
+    background:transparent image-url('tutorial/top-center.png');
+    #differing_spacings{ top: 12px; }
+  }
+  &.top-right{
+    background:transparent image-url('tutorial/top-right.png');
+    #differing_spacings{ top: 12px; }
+  }
+  &.left{
+    background:transparent image-url('tutorial/left.png');
+    width: 372px;
+    height: 129px;
+    #differing_spacings{ left: 12px; top: 3px;}
+    #tutorial_menu{ right: 20px;}
+  }
+  &.right{
+    background:transparent image-url('tutorial/right.png');
+    width: 372px;
+    height: 129px;
+    #tutorial_menu{ right: 20px; top: 4px;}
+  }
+}
+
+
+
+.overlay {
+	background-color: #353533;
+	bottom: 0;
+	left: 0;
+	opacity: 0.81;/*Takes value between 0 and 1*/
+	filter: alpha(opacity=81); /* IE7, IE8 */
+	position: fixed;
+	right: 0;
+	top: 0;
+	z-index: 10;
+	display: none;
+}
+.title{
+  color: $title_color;
+  font-size: 21px;
+  font-family: ubuntu, arial, sans-serif;
+  text-transform: uppercase;
+  font-weight: 500;
+  padding: 12px 0px 7px;
+  line-height: 28px;
+}
+
+#tutorial_menu{
+  position: absolute;
+  right: 7px;
+  top: 4px;
+  width: 100px;
+  padding-bottom: 30px;
+  #gear{
+    cursor: pointer;
+    float: right;
+    z-index: 1000;
+    width: 19px;
+    height: 19px;
+    img{
+      padding-top: 3px;
+      padding-left: 3px;
+    }
+  }
+
+  #options{
+    display: none;
+    background: #f5f0c5;
+    float: right;
+    padding: 0px 2px;
+    -moz-border-radius: $options_radius;
+    -webkit-border-radius: $options_radius;
+    border-radius: $options_radius;
+    border: 1px solid darken($title_color, 15%);
+    z-index: 1000;
+    position: relative;
+    right: 14px;
+    top: -10px;
+    
+  }
+  // &:hover{
+  //   #options{
+  //     display: block;
+  //   }
+  // }
+  .close_tutorial{
+    font-size: 15px;
+    float: right;
+    right: 5px;;
+  }
+  a, a:hover{
+    color: darken($title_color, 20%);
+  }
+
+}
+
+#steps{
+  text-align: right;
+  font-size: 10px;
+  line-height: 13px;
+  color: $steps_color;
+  position: absolute;
+  top: 3px;
+  right: 20px;
+  width: 100px;
+}
+
+.instruct{
+  font-size: 17px;
+  line-height: 21px;
+  color: #5E5E54;
+  padding-top: 13px;
+  .offset{
+    color: $orange;
+  }
+}
+strong{
+  font-style: italic;
+}
+.green{
+  color: $header-bg !important;
+}
+
+.spotlight{
+  z-index: 20 !important;
+  position: relative;
+}
+.spotlight.nav-directory, .spotlight.user, .spotlight.nav-activity{
+  background: $hengage-bg;
+  -moz-border-radius: 10em;
+  -webkit-border-radius: 10em;
+  border-radius: 10em;
+}
+
+.spotlight.user{
+  background: white;
+
+  border-radius: 1ex;
+}
+#differing_spacings{
+  position: relative;
+  padding: 0px 23px;
+}
+
+#finish_tutorial_button{
+  float: right;
+  font-size: 18px;
+  padding-right: 2mm;
+  padding-top: 2mm;
+  text-decoration: underline !important;
+  position: absolute;
+  bottom: 9px;
+  right: 17px;
+  z-index: 1000;
+}
+#next_button{
+  width: 74px;
+  height: 31px;
+  position: absolute;
+  right: 11px;
+  bottom: 19px;
+  background: image-url('tutorial/next-btn.png');
+}
+
+#tutorial_introduction_inner{
+  padding: 10mm 10mm 5mm;
+  h2, p{
+    color: grey;
+    max-width: 40ex;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  h2{
+    font-size: 10mm;
+    padding-bottom: 2mm;
+    text-align: center;
+  }
+  .no_thanks_tutorial{
+    padding-top: 4px;
+    display: inline-block;
+  }
+  a{
+    color: $header-bg;
+    font-size: 100%;
+    font-weight: 500;
+  }
+  .show_tutorial{
+    @include button-norm;
+    background: green;
+    &:hover{color: white; background: #343;}
+    font-size: 155% !important;
+  }
+  a:hover{
+    color: darken($header-bg, 10%);
+  }
+  .link{
+    text-align: center;
+  }
+  .link + .link{
+    padding-top: 7px;
+  }
+  p{
+    font-size: 120%;
+    text-align: center;
+    padding-bottom: 28px;
+  }
+
+}
+

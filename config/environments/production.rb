@@ -49,6 +49,16 @@ Health::Application.configure do
 
   config.action_mailer.default_url_options = { :host => 'www.hengage.com' }
   
+  ############  ASSETS   ###############
+  # Compress JavaScript and CSS
+  config.assets.compress = true
+
+  # Don't fallback to assets pipeline
+  config.assets.compile = false
+
+  # Generate digests for assets URLs
+  config.assets.digest = true
+  #######################################
   
   ActionMailer::Base.smtp_settings = {
     :address        => 'smtp.sendgrid.net',

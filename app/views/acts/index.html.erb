@@ -11,8 +11,8 @@
   	  <% if @displayable_task_suggestions.count > @num_suggestions_to_display %>
     
     	  <div class="more-tasks">
-    	  	<a href="#" title="Show more tasks"><img class='grey-show-more-arrows' src="/images/v3/arrow-down.png" />
-    	  	  <span id='show-more-tasks'>Show more</span><img class='grey-show-more-arrows' src="/images/v3/arrow-down.png" /></a>
+    	  	<a href="#" title="Show more tasks"><%= image_tag "v3/arrow-down.png", :class => 'grey-show-more-arrows' %>
+    	  	  <span id='show-more-tasks'>Show more</span><%= image_tag 'v3/arrow-down.png', :class => 'grey-show-more-arrows' %></a>
     	  </div>
     	<% else %>
     	  <div style='height: 12px;'>
@@ -49,10 +49,10 @@
   	        $('#show-more-tasks').click(function(){
   	          if ($('.overflow-tasks').css('display') == 'none'){
                 $('#show-more-tasks').text('Show less');
-                setTimeout("$('.grey-show-more-arrows').attr('src', '/images/v3/arrow-up.png')", 300);
+                setTimeout("$('.grey-show-more-arrows').attr('src', '<%= asset_path 'v3/arrow-up.png' %>')", 300);
   	          }else{
                 $('#show-more-tasks').text('Show more');	
-                setTimeout("$('.grey-show-more-arrows').attr('src', '/images/v3/arrow-down.png')", 300);            
+                setTimeout("$('.grey-show-more-arrows').attr('src', '<%= asset_path 'v3/arrow-down.png' %>')", 300);            
   	          }
               $('.overflow-tasks').fadeToggle('slow');
             })
@@ -76,9 +76,9 @@
         </ul>
 
         <div class="seemore">
-  			<img src="/images/v3/arrow-down.png" />
-  			<%= link_to "See more", '#', :id => 'see-more' %>
-  			<img src="/images/v3/arrow-down.png" />
+    			<%= image_tag "v3/arrow-down.png" %>
+    			<%= link_to "See more", '#', :id => 'see-more' %>
+  				<%= image_tag "v3/arrow-down.png" %>
         </div>
 
         <%= image_tag 'spinner.gif', :id => 'see-more-spinner', :style => 'display:none' %>
@@ -129,5 +129,3 @@ fancyBoxFaqMini();
 <a onclick="fancyBoxFaqMini()" href="#">ClickMe</a>
 -->
 
-<%= stylesheet_link_tag 'jquery.fancybox-1.3.4' %>
-<%= javascript_include_tag 'jquery.fancybox-1.3.4' %>

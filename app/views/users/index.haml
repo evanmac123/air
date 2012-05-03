@@ -1,4 +1,3 @@
-= javascript_include_tag 'directory'
 
     
 #main
@@ -30,9 +29,9 @@
           = "(First #{@users_cropped} results returned. Didn't find who you're looking for? Try" 
           = link_to @search_link_text, '#'
           )    
-      .seemore
-        = image_tag "/images/v3/arrow-down.png"
-        =# link_to "See more", '#', :id => 'see-more'
+      / .seemore
+      /   = image_tag "v3/arrow-down.png"
+      /   = link_to "See more", '#', :id => 'see-more'
 #secondary
   #search_box_wrapper
     #search-box.module

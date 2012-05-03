@@ -1,0 +1,1081 @@
+//@import "flick/jquery-ui-1.8.10.custom.css";
+
+@import "header";
+@import "misc";
+
+
+$faq_med_grey: #777;
+@import "faq_mini";
+$twin_peak_radius: 200px;
+
+@mixin scoreboard_and_friends_list{
+  li {
+		padding:0 0 5px 0;
+		&.user {
+			clear:both;
+			.user-level {
+				color:lighten($dark-gray,10%);
+				float:right;
+				font-weight:bold;
+				text-transform:uppercase;
+			}
+			p.user-name {
+				color:$header-bg;
+				float:left;
+				span {
+					color:$gray;
+					margin-right:5px;
+				}
+			}
+		}
+	}
+}
+
+body {
+	background-color:#e9e9e9;
+	background-image:image-url('v3/texture.png');
+	color:#272727;
+	font-family:'Helvetica Neue', Helvetica, Arial, sans-serif;
+	font-size:14px;
+	.content {
+		@include bg-white;
+		@include headings;
+		@include input-text;
+		input[type="submit"].button_norm {
+			@include button-norm;
+			font-weight: bold;
+			letter-spacing: .5px;
+		}
+		margin:$centered;
+		padding:2*$gutter $gutter;
+		width:960px;
+		a {
+			color:$header-bg;
+			font-weight:bold;
+			&:hover {color:lighten($header-bg, 10%);}
+			&:active {color:$dark-gray;}
+		}
+	}
+}
+/* -- nav active states -- */
+.acts .header .navigation .nav-home, .users-show .header .navigation .my-profile.nav-activity, .users-index .header .navigation .nav-directory, .scores .header .navigation .nav-scores {
+	@include bg-black;
+	@include rounded-nav;
+	border:1px lighten($header-bg, 10%) solid;
+}
+/* -- flash messages -- */
+#flash {
+	margin: 15px auto 0 auto;
+	width: 960px;
+
+	div {
+		@include box-shadow;
+		@include rounded;
+		background-color:#fff;
+		font-weight: bold;
+		padding:15px 0 15px 120px;
+	}
+	#flash_failure {
+		background: image-url('v3/flash-f.png') no-repeat 0 center;
+		background-color:#87cee2;
+		border:1px $flash-f solid;
+		color:#346587;
+	}
+	#flash_success {
+		background: image-url('v3/flash-s.png') no-repeat 0 center;
+		background-color:#b6e192;
+		border:1px $flash-s solid;
+		color:#52931d;
+	}
+}
+
+#footer {
+	clear:both;
+	color:$gray;
+	font-size:12px;
+	margin-top:10px;
+	padding:15px;
+	text-align:center;
+}
+/* --------------------------- home/activities/dashboard --------------------------- */
+body.acts {
+	.container {
+		#suggested-tasks {			
+			h2 {
+				@include heading-gray;
+			}
+			
+			/* ---------- game types ----------- */
+			.campaign {
+				@include bg-campaign;   //change for campaign, freeplay, competition
+				div.dose-moreinfo {@include bg-campaign-rev;}
+				a.more-info {border:1px #173647 solid;}
+			}
+			.competition {
+				@include bg-competition;   //change for campaign, freeplay, competition
+				div.dose-moreinfo {@include bg-competition-rev;}
+				a.more-info {border:1px #995200 solid;}
+			}
+			.freeplay {
+				@include bg-freeplay;   //change for campaign, freeplay, competition
+				div.dose-moreinfo {@include bg-freeplay-rev;}
+				a.more-info {
+					border:1px #007563 solid;
+					&:hover {
+						border:1px lighten(#007563, 10%) solid;
+					}
+				}
+			}
+			/* ---------- end game types ----------- */
+			
+			.suggested-task {
+//				@include bg-game-default;
+				@include rounded;
+				color:#fff;
+				margin-bottom: 10px;
+				padding:13px 15px;
+				text-shadow:1px 1px 1px #4A4A4A;
+				
+				a {
+					color: #fff!important;
+					border-bottom: 1px #fff solid;
+					text-decoration: underline;
+				}
+				
+				a.more-info {
+					@include bg-orange;
+					@include rounded-nav;
+					border: 1px $gray solid;
+					color:#fff;
+					float:right;
+					font-family:$gotham;
+					font-size:12px;
+					font-weight: bold;
+					padding:3px 10px;
+					position:relative;
+					text-transform:uppercase;
+					top: 0px;
+					&:hover {
+						@include bg-black;
+					}
+				}
+				div.dose-moreinfo {
+//					@include bg-game-default-rev;
+					@include rounded;
+					margin-top:15px;
+					padding:10px;
+				}
+				div.dose-texts {
+					float: left;
+					width: 650px;
+					p {display:inline;}
+					p.dose-title{
+						font-weight:bold;
+						padding-right:10px;
+					}	
+				}
+			}
+			.more-tasks {
+				border-bottom:1px #fff solid;
+				margin: -13px 0 20px 0;
+				text-align:center;
+				a {
+					border-bottom:1px lighten($gray, 10%) solid;
+					color:$gray;
+					display:block;
+					font-size:12px;
+					font-weight:bold;
+					padding:5px 0;
+					width:100%;
+					
+					&:hover {
+						color:darken($gray, 20%)!important;
+					}
+				}
+				img {margin:0 10px;}
+			}
+		}
+		.feeds {
+			@include acts-feed;
+			float:left;
+			width:58%;
+			
+			h1 {float:left;}
+			ul.tabs {
+				float:left;
+				margin-left:20px;
+				li.active {
+					background:darken($header-bg, 10%);
+				}
+				li {
+					@include button-norm;
+					display:inline;
+					font-size: 11px;
+					margin-right:10px;
+					a {
+						color:#fff;
+					}
+				}
+			}
+		}
+		.right-column{
+		 	float: right;
+			width: 365px; 
+			@include scoreboard_and_friends_list;
+			#scoreboard_wrapper ul, {padding-left: 20px;}
+		}
+		.invite-module {
+			#invite_friends_facebox {
+				p {
+					&:first-child {
+						color:$header-bg;
+						font-weight:bold;
+						padding-bottom:5px;
+					}
+				}
+				
+			}
+			.invite{		
+				div#relative {
+					div#suggestions {
+						left:12px;
+						top:3px;
+						div.single_suggestion {
+							background:lighten($light-gray, 10%);
+							&:hover {
+								background:lighten($header-bg, 55%);
+							}
+						}
+					}
+				}
+				div#search_for_friends_to_invite {
+					div#bonus {
+						color:$gray;
+						padding:10px 0 2px 0;
+						width:87%;
+					}
+					div.single_suggestion {
+//						left:15px;
+						margin:0 0 5px 0!important;
+						a.remove_referrer {
+							color:$gray;
+							&:hover {color:lighten($header-bg,10%);}
+							&:active {color:$dark-gray;}
+						}
+
+					}
+				}
+
+				form {
+					margin-top: 15px;
+					p {
+						font-weight:bold;
+					}
+
+					.first_half, .second_half {
+						clear:both;
+						color:$gray;
+						width:100%;
+						input[type="text"] {
+							width:325px;
+						}
+					}
+					.invite_or_add {
+						clear:both;
+						margin-top:15px;
+						position:relative;
+						a#lots_of_friends {
+							color:$header-bg;
+							margin:0 0 0 10px;
+							padding:0;
+							position:relative;
+							top:2px;
+							&:hover {color:lighten($header-bg, 10%);}
+							&:active {color:$dark-gray;}
+						}
+						input[type="submit"] {
+							margin:0;
+						}
+					}
+				}
+				h2 {
+					color:$dark-gray;
+					font-family:$gotham;
+					font-size:20px;
+					font-weight: 900;
+					padding-bottom:15px;
+					text-transform:uppercase;
+				}
+				input[type="submit"] {
+					@include button-norm;
+					margin-top: 10px;
+					font-weight: bold;
+					letter-spacing: .5px;
+				}
+				label {
+					color: $header-bg;
+					font-weight: bold;
+				}
+				ul.form-section {
+					li.form-label {
+						label {
+							color:$dark-gray;
+						}
+					}
+				}
+			}
+		}
+	}
+	#facebox {
+		.popup {
+			border:none;
+			-webkit-box-shadow:0;
+			-moz-box-shadow:0;
+			box-shadow:0;
+			.content {
+				@include box-shadow;
+				background:$light-gray;
+				padding:10px 20px 5px 20px;
+				position:relative;
+				form {
+					@include input-text;
+					margin:$centered;
+					padding:5px 0;
+					width:415px;
+
+					div#bonus {
+						color:$gray;
+						padding:10px 0 2px 0;
+					}
+					div.first_half, div.second_half {
+						color:$gray;
+					}
+					div.invite_or_add {
+						margin-top:10px;
+						a#lots_of_friends {
+							color:$header-bg;
+							padding-left:10px;
+							&:hover {
+								color:lighten($header-bg, 10%);
+							}
+							&:active {
+								color:$dark-gray;
+							}
+						}
+						input[type="submit"] {
+							@include button-norm;
+							font-weight: bold;
+							letter-spacing: .5px;
+						}
+					}
+					div.single_suggestion {
+						a.remove_referrer {
+							color:$gray;
+							&:hover {color:lighten($header-bg,10%);}
+							&:active {color:$dark-gray;}
+						}
+
+					}
+
+
+					p {font-weight:bold;}
+					ul.form-section {
+						li.form-input {
+						}
+						li.form-label {
+							label {
+								color:$dark-gray;
+								font-weight:bold;
+							}
+						}
+					}
+				}
+				h2 {
+					font-family:$gotham;
+					font-weight:900;
+					padding-bottom:10px;
+					text-transform:uppercase;
+				}
+				p {
+					padding:5px 0;
+					&:first-child {
+						color:$header-bg;
+						font-weight:bold;
+					}
+				}
+			}
+		}
+	}
+}
+
+/* --------------------------- profile page --------------------------- */
+body.users {
+	div#about-player {
+	  position: relative;
+		margin-bottom:15px;
+		div.player-avatar {
+			float:left;
+			a {
+				@include button-norm;
+				display:block;
+				padding:5px 25px;
+			}
+			img {
+				@include rounded;
+				border:1px $gray solid;
+				margin:0;
+			}
+		}
+		ul.player-info {
+			float:left;
+			padding:10px 0 10px 15px;
+			width:65%;
+			h1 {
+				margin:0;
+				padding:0;
+			}
+			li {
+				margin:0;
+				padding:0 0 5px 0;
+				&:last-child{padding-bottom: 0px;}
+			}
+			.points-and-level{
+			  p {
+				  @include orange-text;
+  				font-size:16px;
+  				line-height: 17px;
+  				&.next_level{
+  				  font-size: 14px;
+  				}
+				}
+			}
+		}
+	}
+	div#left-col {
+		@include acts-feed;
+		float:left;
+		width:60%;
+	}
+	div#right-col {
+		float:right;
+		width:365px;
+		@include scoreboard_and_friends_list;
+	}
+}
+
+/* --------------------------- directory --------------------------- */
+body.users-index {
+	h2 {
+		@include heading-black;
+	}
+	div#main {
+		@include a-see-more;
+		float:left;
+		width:60%;
+		div.seemore {
+			padding:0;
+		}
+   ul#other-users {
+      padding-bottom:15px;
+      li.user {
+       border-bottom:1px $light-gray solid;
+        clear:both;
+        padding:15px 0;
+        &:first-child {
+          padding:0 0 15px 0;
+        }
+        div.user-avatar {
+          float:left;
+          height:60px;
+          width:80px;
+         img {
+            @include rounded;
+            height:60px;
+            width:60px;
+          }
+        }
+      }
+    }
+	}
+  div.user-info {
+    float: left;
+    padding:5px;
+    width:45%;
+  }
+	div#secondary {
+		float:right;
+		width:38%;
+		div#search-box {
+			input[type="submit"] {
+				background:$dark-gray;
+				border:0;
+				border-radius:0 20px 20px 0;
+				color:#fff;
+				font-family:$gotham;
+				font-size:11px;
+				font-weight:bold;
+				letter-spacing:1.2px;
+				margin-left:-3px;
+				padding:8px;
+				text-shadow:1px 1px 1px $dark-gray;
+				text-transform:uppercase;
+				behavior: url(/css3pie/PIE.htc);
+				&:hover {
+					background:$header-bg;
+				}
+				&:active {
+					background:$gray;
+				}
+			}
+			input[type="text"] {
+				border-radius:20px 0 0 20px;
+				width:265px;
+			}
+		}
+	}
+}
+/* --------------------------- scoreboard --------------------------- */
+body.scores {
+	div#main {
+		@include a-see-more;
+		margin:$centered;
+		width:660px;
+		div.description {
+			h1 {float:left;}
+			p {
+				color:$gray;
+				font-size:12px;
+				float:right;
+				padding-top:5px;
+			}
+		}
+		div.scoreboard-fill {
+			clear:both;
+			ul.all-listings {
+				li.listing {
+					clear:both;
+					div {
+						display:inline-block;
+							zoom: 1;
+							*display:inline;
+						float:left;
+						height:61px;
+						padding:10px;
+						position:relative;
+						&.cf {
+							height:0;
+						}
+						&.player {
+							border-bottom:1px $light-gray solid;
+							width:450px;
+							a {
+								margin-left:20px;
+								position:absolute;
+								top:36%;
+							}
+							img {
+								height:60px;
+								width:60px;
+							}
+						}
+						&.points {
+							background-color:lighten($light-gray,4%);
+							border-bottom:1px $light-gray solid;
+							border-left:1px $light-gray solid;
+							border-right:1px $light-gray solid;
+							width:80px;
+							p {
+								top:36%;
+							}
+						}
+						&.level {
+							border-bottom:1px $light-gray solid;
+							@include orange-text;
+							font-size:24px;
+							width:40px;
+							p {
+								top:26%;
+							}
+						}
+						p {
+							margin-left:5px;
+							position:absolute;
+						}
+					}
+				}
+			}
+			ul.labels {
+				border-bottom:1px $light-gray solid;
+				border-top:1px $light-gray solid;
+				li {
+					display:inline-block;
+						zoom: 1;
+						*display:inline;
+					font-family:$gotham;
+					font-weight:700;
+					padding:10px;
+					&.label-player {
+						width:70%;
+					}
+					&.label-points {
+						background-color:lighten($light-gray,4%);
+						border-left:1px $light-gray solid;
+						border-right:1px $light-gray solid;
+					}
+					&.label-level {
+					}
+				}
+			}
+		}
+	}
+}
+
+/* --------------------------- settings --------------------------- */
+
+
+body.settings {
+	.container {
+		.about_user {
+			float:left;
+			font-size:$font-small;
+			margin-top:10px;
+			width:47%;
+
+			.settings_avatar {
+				.avatar_image {
+					float:left;
+					margin-right:10px;
+					width:100px;
+				}
+				.avatar_inputs {
+					.clear-avatar {
+						input {
+							background: $light-gray!important;
+							color: $gray;
+							text-shadow: none!important;
+							&:hover {
+								background:$header-bg!important;
+								color: #fff;
+							}
+						}
+					}
+				}
+				img.size-96 {
+					@include rounded;
+		          width: 96px;
+		          height: 96px;
+				}
+			}
+			.settings_dob {
+				clear:both;
+				input[type="text"] {width:427px;}
+			}
+			.settings_user {
+				input[type="text"] {width:427px;}
+				p {clear:both;}
+			}
+			.settings_weight {
+				input[type="text"] {width:250px;}
+				p {
+					color:$gray;
+					display:inline;
+					font-weight:bold;
+					margin:0 0 0 6px;
+				}
+			}
+		} 
+
+		.other_settings {
+			float:right;
+			font-size:$font-small;
+			width:47%;
+			input[type="text"] {width:427px;}
+			
+			.settings_new_number_verification {
+			}
+		}
+		.notification_settings {
+			.settings_new_number_verification {
+				input[type="submit"] {
+					display:block;
+					margin:12px 0;
+				}
+			}
+		}
+		.privacy_settings {
+			margin-top:10px;
+		}
+		
+		label {display:inline;}
+		li {
+			display:inline;
+			margin:0 0 0 10px;
+		}
+	}
+}
+
+/* --------------------------- faq --------------------------- */
+body.pages-faq{
+	.content {
+		margin:$centered;
+		width:960px;
+		#faq_body, #faq_toc {
+			margin-top:20px;
+		}
+		#faq_body {
+			float:left;
+			width:60%;
+			padding-bottom: 60px;
+			padding-right: 15px;
+
+			h1, h2 {
+				color:$dark-gray;
+				font-family:$gotham;
+				font-weight:900;
+			}
+			h1{
+				font-size:26px;
+				text-transform:uppercase;
+				&.Section-{
+			    	//font-size: 40px;
+//					color:$gray;
+//					border-top:1px $light-gray solid;
+//					font-size:16px;
+					@include rounded;
+					background-color:$light-gray;
+					color:$gray;
+					font-weight:900;
+					margin-bottom:10px;
+					padding:10px;
+					position:relative;
+					top:20px;
+				}
+			}
+			h2 {
+				color:$dark-gray;
+				font-size:18px;
+				font-weight:900;
+			  	text-transform: uppercase;
+				padding:25px 0 10px 15px;
+			}
+
+			
+			.Standard {
+				font-size: 110%;
+				color:$faq_med_grey;
+				padding: 0 10px 0 15px;
+        		& + .Standard {padding-top: 1ex;}
+       			& + ul{
+			  		padding-top: 1ex;
+			  	}
+			}
+			ul{
+				padding-left: 49px;
+				& + .Standard{
+			    	padding-top: 1ex;
+			  	}
+			}
+			li{
+				list-style: disc;
+				color: $faq_med_grey;
+				& + li{padding-top: 1ex;}
+			}
+			
+      		.Paragraph{
+				color:lighten($dark-gray, 20%);
+				font-weight: bold;
+				font-size: 115%;
+				padding-top: 1.8ex;
+				padding-bottom: 0.8ex;
+				padding-left: 15px;
+			}
+			.Subparagraph{
+				color:lighten($dark-gray, 20%);
+				font-weight: bold;
+		        font-size: 106%;
+		        padding-left: 5ex;
+		        padding-top: 1ex;
+		        & + ul{
+		        	padding-left: 10ex;
+		        }
+			}
+			i {
+				font-style: normal;
+				font-weight: bold;
+			}
+		}
+		#faq_toc{
+			float:right;
+			width:33%;
+//			background: #e3e3e3;
+			a {
+				color:$header-bg;
+				&:hover {color:lighten($header-bg, 10%);}
+				&:active {color:$dark-gray;}
+			}
+			.toc {
+				margin:15px 0 5px 0;
+				&:first-child {
+					margin-top:0;
+				}
+				a {
+					color:darken($header-bg, 10%);
+					font-size: 130%;
+					font-weight:500;
+					&:hover {color:lighten($header-bg, 10%);}
+					&:active {color:$dark-gray;}
+				}
+		  	}
+
+			.tocindent {
+				
+				padding-bottom:15px;
+				
+				.toc {
+					font-size: 100%;
+				}
+				.tocindent {
+					border-bottom:1px $light-gray solid;
+					padding-left: 2ex;
+					&:last-child {
+						border:0;
+					}
+					a{
+						color:$header-bg;
+						font-size: 100%;
+						font-weight:400;
+						&:hover {color:lighten($header-bg, 10%);}
+						&:active {color:$dark-gray;}
+					}
+					.toc {
+						margin-top:0!important;
+					}
+				}
+			}
+		}
+	}
+}
+
+/* --------------------------- game not started --------------------------- */
+div.content {
+  div#no-login-yet {
+    @include bg-white-free;
+    margin:30px auto 20px auto;
+    width:460px;
+    div.invite#invite_friends {
+      display:none;
+    }
+    h2 {
+      color:$dark-gray;
+      font-family:$gotham;
+      font-size:20px;
+      font-weight: 900;
+      padding-bottom:15px;
+      text-transform:uppercase;
+    }
+  }
+}
+/* --------------------------- pop up for contacting us --------------------------- */
+/* this will be displayed in a facebox when they click the support email links      */
+.hidden{
+  display:none;
+}
+
+#faq_toc{
+  .contact_us_link, .quick_tour_link{
+    @include button-norm;
+    font-size:11px;
+    margin-top: 1.2ex;
+    width: 129px;
+  }
+}
+
+.need_help{
+//  width: 150px;
+	border-bottom:1px $light-gray solid;
+	margin: 0 auto 15px auto;
+	padding:0 0 15px 0;
+	font-size: 17px;
+	text-align: center
+}
+
+body.interstitial_verifications {
+	div.content {
+		div#no-login-yet {
+			@include bg-white-free;
+			margin:30px auto 20px auto;
+			position:relative;
+			width:460px;
+			div.invite#invite_friends {
+				display:none;
+			}
+			h2 {
+				color:$dark-gray;
+				font-family:$gotham;
+				font-size:20px;
+				font-weight: 900;
+				padding-bottom:15px;
+				text-transform:uppercase;
+			}
+		}
+	}
+}
+
+#search-box{
+  padding-right: 0;
+}
+.right{
+  float: right;
+}
+.left{
+  float: left;
+}
+.pending_notice{
+  text-align: center;
+  color: #aaa;
+  padding-bottom: 2px;
+}
+
+.follow_buttons{
+  position: absolute;
+  bottom: 15px;
+  right: 2px;
+}
+#about-player .follow_buttons{
+  right: 15px;
+}
+
+.search_nudge{
+  padding-bottom: 5px;
+}
+#notify_of_search{
+  -moz-border-radius: 6ex;
+  -webkit-border-radius: 6ex;
+  border-radius: 6ex;
+  .title{font-size: 120%;}
+  background: #e8e8e8;
+  margin: 16px 60px;
+  padding: 13px 23px;
+}
+div.follow-btn, div.stop-following-btn {
+	@include button-norm;
+//	width: 100px;
+	//float:right;
+	text-align: center;
+  cursor: pointer;
+	a {color:#fff;}
+}
+#following, #followed-by{
+  li{
+    list-style-position: outside;
+  }
+  ul, ol{
+    padding-left: 20px;
+  }
+}
+
+.overflow-tasks{
+  display: none;
+}
+.dd_bonus{
+  color: yellow;
+  font-size: 17px;
+  line-height: 18px;
+  font-weight: bold;
+  float: right;
+  padding-right: 13px;
+}
+.demos{
+  margin-left: 5ex;
+  list-style-type: disc;
+}
+#new-user-form{
+  display: none;
+}
+
+td.label{
+  font-weight: bold;
+}
+#reset-report{
+  @include button-norm;
+  a{color: white;}
+  margin-top: 1.5ex;
+  float: right;
+}
+.stripe{
+  background: #cacec8;
+}
+.clear{
+  clear: both;
+}
+#interaction_popularity_link{
+  -moz-border-radius-topleft: $twin_peak_radius;
+  -webkit-border-top-left-radius: $twin_peak_radius;
+  -moz-border-radius-bottomleft: $twin_peak_radius;
+  -webkit-border-bottom-left-radius: $twin_peak_radius;
+}
+#user_activity_link{
+  -moz-border-radius-topright: $twin_peak_radius;
+  -webkit-border-top-right-radius: $twin_peak_radius;
+  -moz-border-radius-bottomright: $twin_peak_radius;
+  -webkit-border-bottom-right-radius: $twin_peak_radius;
+  position: relative;
+  left: -8px;
+}
+
+
+
+#interaction_popularity_link, #user_activity_link{
+  &:hover{
+    color: yellow;
+    background: #070;
+  }
+  background: #666;
+  color: #888;
+  padding: 0.7ex 2ex;
+  &.active{
+    color: #fb0;
+    background: #070;
+  }
+}
+
+
+#interaction_popularity_table, #user_activity_table{
+  position: relative;
+  margin-bottom: 6cm;
+}
+.inline{
+  display: inline;
+}
+
+
+
+#timeout_warning, #timeout_warning h2{
+  color: red;
+  padding-top: 1.5cm;
+}
+
+.interaction_in_progress{
+  padding-top: 1.5cm;
+}
+.room_for_two{
+  width: 2.7ex;
+  float: right;
+  text-align: right;
+}
+#message_body{
+  @include rounded;
+  height: 6em;
+}
+#following #scoreboard_list, #scoreboard #friends_list{
+  display: none;
+}
+
+.orange{
+  color: orange;
+}
+.ajax_notice{
+  color: green;
+  font-size: 170%;
+  display: none;
+}

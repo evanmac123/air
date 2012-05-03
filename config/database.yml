@@ -11,3 +11,10 @@ test: &test
 
 cucumber:
   <<: *test
+
+production: 
+  adapter: postgresql
+  min_messages: warning
+  database: production
+  host: localhost
+  encoding: utf8

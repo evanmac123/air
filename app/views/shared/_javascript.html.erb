@@ -1,8 +1,5 @@
-<% unless Rails.env.test? %>
-  <%= javascript_include_tag 'ga' %>
-<% end %>
 
-<%= javascript_include_tag 'jquery-ui', 'rails', 'prefilled_input', 'jquery.jeditable.mini', 'application' %>
+
 
 <%= yield :javascript %>
 

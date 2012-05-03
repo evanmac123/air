@@ -3,37 +3,25 @@
 <head>
   <meta charset="utf-8" />
   <title>H Engage</title>
-  <%= stylesheet_link_tag :flutie %>
-  <%= stylesheet_link_tag 'screen'  %>
-  <%= stylesheet_link_tag 'autocompletion' %>
-  <%= stylesheet_link_tag 'site_tutorial' %>
-  <%= stylesheet_link_tag 'admin' %>
-  <%= stylesheet_link_tag 'scoreboard' %>
-  
+  <%= stylesheet_link_tag "application-base" %>
+  <%= javascript_include_tag 'application' %>
   <link href='https://fonts.googleapis.com/css?family=Ubuntu:400,700' rel='stylesheet' type='text/css'>
 
 
-	<!--[if IE]>
-	    <%= stylesheet_link_tag 'screen_IE' %>
-	<![endif]-->
 	<!--[if IE 8]>
-		<%= stylesheet_link_tag 'screen_IE8' %>
+		<%= stylesheet_link_tag 'application-ie8' %>
 	<![endif]-->
 	<!--[if IE 7]>
-		<%= stylesheet_link_tag 'screen_IE7' %>
+		<%= stylesheet_link_tag 'application-ie7' %>
 	<![endif]-->
 	
 
   <%= render 'shared/skin_styles' %>
-  <%= stylesheet_link_tag 'facebox' %>
 
   <%= csrf_meta_tag %>
   <%= render 'shared/mixpanel' %>
 </head>
 <body class="<%= body_class %>">
-  <%= javascript_include_tag 'jquery' %> <%# must appear before header, with its Assistly widget %>
-  <%= javascript_include_tag 'facebox'%>
-  <%= javascript_include_tag 'jquery.tools.min'%>
 
   <%= render :partial => 'shared/header' %>
   <%= render :partial => 'shared/flashes' %>
@@ -43,9 +31,7 @@
   <div id="footer">
 		Copyright © 2012 H Engage, Inc.
   </div>
-  <% if @highlighted || @show_introduction %>
-    <%= javascript_include_tag 'site_tutorial' %>
-  <% end %>
+
   
   <% if @highlighted %>
     <%= render 'shared/site_tutorial' %>
@@ -64,7 +50,6 @@
   <% end %>
   <% unless Rails.env.test? %>
     <%= render 'shared/tooltips' %>
-    <%= stylesheet_link_tag 'tooltips' %>
   <% end %>
   <%= render :partial => 'shared/javascript' %><!-- This is where 'yield :javascript' takes place -->
   <div id='gradient-triangle'></div>

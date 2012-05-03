@@ -1,6 +1,6 @@
 source :rubygems
 
-gem "rails", "~> 3.0.12"
+gem "rails", "~> 3.1.0"
 gem "rack"  # Update rack to 1.3.0 or later to get rid of utf8 string regex warnings
 gem "unicorn"   # Some of our capybara webkit tests fail with thin, so we use unicorn
 gem 'delayed_job_active_record'
@@ -16,7 +16,6 @@ gem "flutie"
 gem "dynamic_form"
 gem "twilio-rb"
 gem "clearance"
-gem "sass"
 gem "aws-s3"
 gem "delayed_job"
 gem "heroku_san"
@@ -27,6 +26,15 @@ gem "mixpanel_client"
 gem "newrelic_rpm"
 gem "mongoid"
 gem "bson_ext"
+gem 'jquery-rails'
+
+# Gems used only for assets and not required
+# in production environments by default.
+group :assets do
+  gem 'sass-rails', " ~> 3.1.0"
+  gem 'coffee-rails', " ~> 3.1.0"
+  gem 'uglifier'
+end
 
 # RSpec needs to be in :development group to expose generators
 # and rake tasks without having to type RAILS_ENV=test.

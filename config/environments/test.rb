@@ -42,6 +42,15 @@ Health::Application.configure do
     :account_sid => FAKE_TWILIO_ACCOUNT_SID,
     :auth_token => FAKE_TWILIO_AUTH_TOKEN
     
+  #########  ASSETS   ##################################################################
+  # Configure static asset server for tests with Cache-Control for performance
+  config.serve_static_assets = true
+  config.static_cache_control = "public, max-age=3600"
+
+  # Allow pass debug_assets=true as a query parameter to load pages with unpackaged assets
+  config.assets.allow_debugging = true
+  ##########################################################################################
+    
     
   silence_warnings do
     require 'pry'

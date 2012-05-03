@@ -1,0 +1,273 @@
+/* all */
+select {
+	border-radius:0!important;
+}
+/* external */
+body.external {
+	div.container {
+		div.inv-forms {
+			form {
+			  padding-bottom: 0;
+				input[type="submit"] {
+					padding:5px 0!important;
+				}
+			}
+		}
+	}
+}
+body.passwords-new {
+	div.container {
+		div.inv-forms {
+			form {
+				input[type="submit"] {
+					display:inline;
+					margin:3px 0 35px 5px;
+				}
+				input[type="text"] {
+					float:left;
+					width:325px;
+				}
+			}
+		}
+	}
+}
+body.invitations {
+	div#search_for_referrer {
+		position:relative;
+		z-index:9999!important;
+		div#suggestions {
+			position:absolute;
+			z-index:9999!important;
+			div.single_suggestion {
+				position:relative;
+				z-index:99999!important;
+			}
+		}
+	}
+	input[type="password"], input[type="text"] {
+		border-radius:0!important;
+	}
+	select {
+		border-radius:0!important;
+	}
+}
+body.invitations .header #navigation .nav-signup, body.sessions .header #navigation .nav-login {
+	background:$dark-gray;
+	border:1px lighten($hengage-bg, 10%) solid;
+	border-radius:20px!important;
+	position:relative!important;
+	behavior: url(/css3pie/PIE.htc);
+	z-index:1;
+}
+
+/* internal */
+.mast_top {
+	a.a_current {
+		border:1px lighten($header-bg, 10%) solid!important;
+	}
+}
+.mast_bottom {
+	.bar_progress {
+		.bar {
+			.progress {
+				position:absolute;
+			}
+		}
+	}
+}
+
+.suggested-task {
+	$ie-game-color:#008873;
+	background-color: $ie-game-color!important;
+	box-shadow: 0 0 3px 2px #c9c9c9;
+	behavior: url(/css3pie/PIE.htc);
+	a.more-info {
+		background-image:image-url('v3/btn-moreinfo.png')!important;
+		border:0!important;
+		display:inline-block;
+		text-shadow:1px 1px 1px $dark-gray!important;
+		width:75px;
+		&:hover {
+			background:image-url('v3/btn-moreinfo-down.png')!important;
+			background-position:center center;
+		}
+	}
+	div.dose-moreinfo {
+		background-color: darken($ie-game-color,10%)!important;
+		border-radius: 3px;
+		clear: both;
+		position:relative;
+		top:5px;
+		behavior: url(/css3pie/PIE.htc);
+	}
+	div.cf {
+		height:0!important;
+	}
+
+	p.dose-descript, p.dose-title {
+		display:inline;
+	}
+	p.dose-descript, p.dose-title, div.dose-moreinfo {
+		a {
+			color:#fff!important;
+			background:none!important;
+			border:0!important;
+			text-decoration:underline!important;
+			&:hover {color:$light-gray!important;}
+			&:active {color:$dark-gray!important;}
+		}
+	}
+}
+
+
+ul#user-acts {
+	li.act-shim {
+		display:none!important;
+		height:0!important;
+	}
+}
+
+//--------------invite modal--------------
+a#invite_friends_link {
+	position:relative!important;
+}
+.invite-module { //side box
+	div.invite#invite_friends_facebox {
+		form {
+			input[type="text"] {
+				border-radius:0!important;
+			}
+		}
+	}
+}
+#facebox { //popup box
+	a#invite_friends_link {
+		border-radius:0!important;
+	}
+	div.content {
+		background:$light-gray!important;
+		input#autocomplete {
+			border-radius:0!important;
+		}
+		input[type="text"] {
+			width:250px!important;
+		}
+	}
+	div.helper {
+		border-radius:0!important;
+		box-shadow:0!important;
+	}
+}
+div.invite_or_add {
+	input[type="submit"] {
+		background:none!important;
+		border-radius:0!important;
+		color:$header-bg!important;
+		font-size:14px;
+		padding:0!important;
+	}
+}
+
+//--------------misc--------------
+body.interstitial_verifications {
+	div.content {
+		margin:0 auto 40px auto!important;
+		position:relative;
+		top:20px;
+		form {
+			input[type="submit"] {
+				padding:5px 0!important;
+			}
+			input[type="text"] {
+				width:260px!important;
+			}
+		}
+	}
+}
+//--------------scoreboard--------------
+body.scores {
+	div.player {
+		width:447px!important;
+	}
+	div.points {
+		width:87px!important;
+	}
+}
+//--------------directory--------------
+body.users-index {
+	div#secondary {
+		input[type="submit"] {
+			padding:7px 0!important;
+		}
+	}
+}
+
+// // I put this stuff in so the assistly emailer would display in IE7
+// // But now it doesn't seem to need it
+// .fancybox-outer{
+//   width: 800px;
+//   height: 600px;
+// 
+// }
+// .fancybox-inner, .fancybox-iframe{
+//   width: auto;
+//   height: auto;
+// }
+
+#contact_us_from_inv_acceptance_page{
+  padding-top: 2ex;
+}
+
+#faq_mini_inner{
+  padding-bottom: 20px;
+}
+
+body.users-index {
+  div.user-info {
+    float: none;
+  }
+}
+
+.header .masthead .mast_bottom{
+  border: none;
+}
+.header .masthead .mast_bottom .bar_command input[type="text"]{
+  padding-top: 8px;
+  padding-bottom: 2px;
+}
+
+#command_central{
+  margin-top: 9px;
+}
+
+
+.quick_tour_link, .contact_us_link{
+  padding-top: 6px !important;
+}
+
+.single_click_invite{
+  width: 6em;
+}
+
+#password_prompt{
+  bottom: 21px;
+}
+
+/*************** Scoreboard  **************************************/
+
+#sort_by_first_name{
+  position: absolute;
+  top: 5px;
+  left: 59px;
+  width: 185px;
+}
+#sort_by_points{
+  position: absolute;
+  top: 5px;
+  left: 224px;
+}
+#username_header, #userlevel_header, #userprogress_header{
+  display: inline !important;
+  padding-top: 4px;
+  padding-bottom: 6px;
+}

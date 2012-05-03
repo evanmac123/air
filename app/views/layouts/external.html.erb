@@ -1,27 +1,24 @@
 <!DOCTYPE html><html>
 <head>
 <title>H Engage </title>
-  <%= stylesheet_link_tag "styles" %>
+  <%= stylesheet_link_tag "application-base" %>
+  <%= javascript_include_tag 'application' %>
   <%= render 'shared/skin_styles' %>
-  <%= stylesheet_link_tag 'autocompletion' %>
-  <%= stylesheet_link_tag 'facebox' %>
+
   <link href='https://fonts.googleapis.com/css?family=Ubuntu:400,700' rel='stylesheet' type='text/css'>
 
-	<!--[if IE]>
-	    <%= stylesheet_link_tag 'screen_IE' %>
+
+	<!--[if IE 8]>
+		<%= stylesheet_link_tag 'application-ie8' %>
 	<![endif]-->
 	<!--[if IE 7]>
-		<%= stylesheet_link_tag 'screen_IE7' %>
-	<![endif]-->
-	<!--[if IE 8]>
-		<%= stylesheet_link_tag 'screen_IE8' %>
+		<%= stylesheet_link_tag 'application-ie7' %>
 	<![endif]-->
 
   <%= csrf_meta_tag %>
   <%= render 'shared/mixpanel' %>
 </head>
 <body class="<%= body_class %> external">
-  <%= javascript_include_tag 'jquery' %> <%# must appear before header, with its Assistly widget %>
 	<div class="container">
 		<div class="top">
 			<div class="header">

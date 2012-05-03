@@ -3,21 +3,20 @@
 <head>
   <meta charset="utf-8" />
   <title>H Engage</title>
-  <%= stylesheet_link_tag :flutie, 'screen', 'marketing' %>
-  <%= stylesheet_link_tag 'autocompletion' %>
-  <%= stylesheet_link_tag 'facebox' %>
+  <%= stylesheet_link_tag 'application-base' %>
+  <%= javascript_include_tag 'application' %>
+
   
     
+<!-- NOTE: THIS Page used to use ie7hacks.css and cousins. Does it work now? -->
 
-  <!--[if IE 7]>
-    <%= stylesheet_link_tag 'ie7hacks' %>
-  <![endif]-->
-  <!--[if IE 8]>
-    <%= stylesheet_link_tag 'ie8hacks' %>
-  <![endif]-->
+	<!--[if IE 8]>
+		<%= stylesheet_link_tag 'application-ie8' %>
+	<![endif]-->
+	<!--[if IE 7]>
+		<%= stylesheet_link_tag 'application-ie7' %>
+	<![endif]-->
 
-  <%= javascript_include_tag 'jquery' %>
-  <%= javascript_include_tag 'facebox' %>
   <%= csrf_meta_tag %>
   <%= render :partial => 'shared/mixpanel' %>
 </head>
@@ -44,7 +43,6 @@
     Copyright &copy; 2011 H Engage, Inc.
   </div>
 
-  <%= javascript_include_tag 'ga-marketing' %>
 
   <%= content_for :javascript do %>
     <%= javascript_tag do %>
@@ -62,5 +60,6 @@
 
   <%= yield :javascript %>
   <%= yield :slow_javascript %>
+  
 </body>
 </html>

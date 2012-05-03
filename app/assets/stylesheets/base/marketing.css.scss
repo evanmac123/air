@@ -1,0 +1,857 @@
+img {
+  margin: 0;
+}
+
+.clear {
+  clear: both;
+}
+
+input, textarea {
+  font-family: "Helvetica Neue", Arial, sans-serif;
+}
+
+ul {
+  padding-left: 15px;
+}
+
+li {
+  font-size: 16px;
+  list-style-position: outside;
+}
+
+@font-face {
+  font-family: 'Droid Sans';
+  font-style: normal;
+  font-weight: bold;
+  src: local('Droid Sans Bold'), local('DroidSans-Bold'), url('http://themes.googleusercontent.com/font?kit=EFpQQyG9GqCrobXxL-KRMQFhaRv2pGgT5Kf0An0s4MM') format('woff');
+}
+
+@font-face {
+  font-family: 'The Girl Next Door';
+  font-style: normal;
+  font-weight: normal;
+  src: local('The Girl Next Door'), local('TheGirlNextDoor'), url('http://themes.googleusercontent.com/font?kit=cWRA4JVGeEcHGcPl5hmX7rOFxJ5Ig03puUh67ume3us') format('woff');
+}
+
+@font-face {
+  font-family: 'Varela Round';
+  font-style: normal;
+  font-weight: normal;
+  src: local('Varela Round'), local('VarelaRound-Regular'), url('http://themes.googleusercontent.com/font?kit=APH4jr0uSos5wiut5cpjrnhCUOGz7vYGh680lGh-uXM') format('woff');
+}
+
+@font-face {
+  font-family: 'Droid Sans';
+  font-style: normal;
+  font-weight: normal;
+  src: local('Droid Sans'), local('DroidSans'), url('http://themes.googleusercontent.com/font?kit=s-BiyweUPV0v-yRb-cjciBsxEYwM7FgeyaSgU71cLG0') format('woff');
+}
+
+@font-face {
+  font-family: 'Oswald';
+  font-style: normal;
+  font-weight: normal;
+  src: local('Oswald '), local('Oswald'), url('http://themes.googleusercontent.com/static/fonts/oswald/v1/-g5pDUSRgvxvOl5u-a_WHw.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Lato';
+  font-style: italic;
+  font-weight: 900;
+  src: local('Lato Black Italic'), local('Lato-BlackItalic'), url('http://themes.googleusercontent.com/static/fonts/lato/v1/VNUH7ZAcagYBWsAiBBCEY7O3LdcAZYWl9Si6vvxL-qU.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Istok Web';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Istok Web Regular'), local('IstokWeb-Regular'), url('http://themes.googleusercontent.com/font?kit=EvPKapBawcLZ3hbihjhqAT8E0i7KZn-EPnyo3HZu7kw') format('woff');
+}
+
+@mixin droid-sans {
+  font-family: 'Droid Sans', sans-serif;
+}
+
+@mixin link-transition {
+  @include transition(color 0.4s linear);
+}
+
+$email-box-background: #e0e2dd;
+
+$content-width: 900px;
+
+body {
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  background-image: image-url('marketing/background.png');
+}
+
+.thanks-message {
+  font-size: 22px;
+}
+
+#login-form {
+  position: absolute;
+  width: 174px;
+  height: 130px;
+  padding: 12px 15px 24px 11px;
+  background-color: #e0e3dd;
+  border: solid 1px #70846b;
+  top: 31px;
+  right: 0;
+  z-index: +1;
+  display: none;
+  font-size: 12px;
+
+  input[type="text"], input[type="password"] {
+    width: 170px;
+    height: 30px;
+    padding: 0;
+    margin-bottom: 4px;
+  }
+
+  a {
+    display: inline-block;
+    padding-top: 5px;
+    font-size: 12px;
+    position: relative;
+    left: 2px;
+  }
+
+  input[type="image"] {
+    float: right;
+  }
+
+  input#session_remember_me {
+    position: relative;
+    top: -17px;
+  }
+
+  label[for="session_remember_me"] {
+    display: inline-block;
+    width: 150px;
+    margin-bottom: 10px;
+  }
+}
+
+#header {
+  width: 100%;
+  height: 55px;
+  background-image: image-url('marketing/b_tealtop_tile.png');
+  background-repeat: repeat-x;
+
+  #header-contents {
+    width: 950px;
+    margin: 0 auto;
+    padding-top: 7px;
+    position: relative;
+
+    #activate-login-form {
+      display: inline-block;
+      float: right;
+      margin-top: 2px;
+    }
+  }
+}
+
+#navbar {
+  display: inline-block;
+  padding-top: 8px;
+  float: right;
+
+  #buttons {
+    font-weight: bold;
+    font-size: 16px;
+
+    a {
+      @include link-transition;
+      margin-right: 20px;
+      color: white;
+    }
+
+    a:hover {
+      color: #80d422;
+    }
+  }
+}
+
+.marketing-content {
+  width: $content-width;
+  margin: 0 auto;
+  position: relative;
+}
+
+#upper-box {
+  background-color: white;
+  width: 100%;
+  height: 320px;
+  padding-top: 45px;
+
+  img, h1, p, object, video {
+    position: absolute;
+  }
+
+  #logo {
+    top: 15px;
+    left: -25px;
+  }
+
+  #spark-engagement {
+    font-family: "Istok Web", sans-serif;
+    font-size: 30px;
+    font-weight: bold;
+    color: #52910c;
+    top: 110px;
+    left: -25px;
+  }
+
+  #short-explanation {
+    font-family: "Istok Web", sans-serif;
+    font-size: 20px;
+    color: $dark-gray;
+    left: -25px;
+    top: 220px;
+  }
+
+  #wistia_415349, video {
+    top: 45px;
+    left: 500px;
+  }
+}
+
+#factoids {
+  margin-bottom: 45px;
+  background-image: image-url('marketing/tile_2.png');
+
+  h1 {
+    text-align: center;
+    font-family: 'Droid Sans', sans-serif;
+    color: #1d8c0a;
+    font-size: 30px;
+    font-weight: bold;
+  } 
+
+  #factoids-subheader {
+    text-align: center;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 16px;
+    color: $dark-gray;
+  }
+  
+  .marketing-content {
+    padding-left: 90px;
+    padding-top: 25px;
+  }
+
+  .factoid {
+    display: inline-block;
+    margin-right: 35px;
+  }
+}
+
+input.fat-text-field {
+  font-size: 20px;
+  width: 213px;
+  height: 23px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+#how-it-works {
+  padding-top: 35px;
+  padding-bottom: 15px;
+  background-image: image-url('marketing/tile_2.png');
+
+  .marketing-content {
+    width: 1000px;
+  }
+
+  #green-arrow {
+    position: absolute;
+    top: 80px;
+    left: 30px;
+    z-index: +1;
+ 
+  }
+
+  h1, h2 a {
+    text-align: center;
+    font-family: 'Droid Sans', sans-serif;
+  }
+
+  h1 {
+    color: #1d8c0a;
+    font-size: 30px;
+    font-weight: bold;
+  }
+
+  h2 {
+    color: #999999;
+    text-align: center;
+    font-weight: normal;
+    font-size: 36px;
+
+    a {
+      @include link-transition;
+      font-size: 36px;
+      color: #999999;
+      margin-left: 55px;
+      margin-right: 55px;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+  }
+
+  #what-it-does {
+    font-size: 26px;
+    margin-left: 100px;
+    margin-right: 25px;
+    margin-bottom: 50px;
+    font-family: Lato, Georgia, sans-serif;
+    font-style: italic;
+    font-weight: 900;
+  }
+
+  #postits {
+    margin-top: 35px;
+
+    #play-postit {
+      margin-left: 80px;
+    }
+
+    #engage-postit {
+      margin-left: 90px;
+    }
+
+    #measure-postit {
+      margin-left: 135px;
+    }
+
+    #roi-postit {
+      margin-left: 93px;
+    }
+  }
+
+  #cycling-quote-box {
+    width: 100%;
+    height: 65px;
+    background-color: #fcfcfc;
+    margin-bottom: 45px;
+    border: solid #d5dfd4 2px;
+    position: relative;
+
+    #pointer {
+      position: absolute;
+      top: -22px;
+      left: 126px;
+    }
+
+    #quote-text {
+      font-family: Georgia, sans-serif;
+      font-size: 24px;
+      color: #333333;
+      text-align: center;
+      padding-top: 16px;
+
+      a, a:hover, a:visited {
+        color: #6c8f00;
+      }
+
+      img {
+        position: relative;
+        top: 5px;
+        left: 5px;
+      }
+    }
+  }
+}
+
+.subsection {
+  margin: 0 auto;
+  width: 855px;
+  padding-top: 50px;
+  padding-bottom: 40px;
+
+  h3 {
+    font-family: "Istok Web", sans-serif;
+    font-size: 26px;
+    font-weight: bold;
+    color: #666666;
+  }
+
+  h4 {
+    font-family: "Istok Web", sans-serif;
+    font-size: 18px;
+    font-weight: normal;
+    color: #666666;
+    margin-bottom: 30px;
+  }
+
+  .subsection-header {
+    margin-bottom: 30px;
+
+    h2 {
+      font-family: 'Istok Web', sans-serif;
+      font-size: 36px;
+      font-weight: normal;
+      color: #999999;
+      margin: 0 0 0 45px;
+
+      .non-current-section {
+        opacity: 0.5;
+      }
+
+      .current-section {
+        font-weight: bold;
+        color: #1d8c0a;
+      }
+
+      img {
+        position: relative;
+        top: 35px;
+      }
+    }
+  }
+
+  .two-column {
+    p {
+      font-size: 16px;
+      line-height: 1.4;
+
+      img {
+        display: inline-block;
+        margin: 0;
+        float: none;
+        vertical-align: text-top;
+      }
+    }
+
+    .also {
+      font-family: "The Girl Next Door", cursive;
+      font-size: 18px;
+      color: $dark-gray;
+    }
+
+    .left {
+      float: left;
+    }
+
+    .right {
+      float: right;
+    }
+
+    .shim {
+      width: 855px;
+      clear: both;
+    }
+
+    #play-text-1 {
+      width: 315px;
+      padding-left: 50px;
+
+      img {
+        margin-left: 85px;
+      }
+    }
+
+    #play-graphic-1 {
+      width: 455px;
+    }
+
+    #play-text-2 {
+      width: 285px;
+      padding-left: 50px;
+    }
+
+    #play-graphic-2 {
+      width: 455px;
+      padding-left: 20px;
+    }
+
+    #play-text-3 {
+      width: 350px;
+      padding-left: 50px;
+    }
+
+    #play-graphic-3 {
+      width: 455px;
+    }
+
+    #measure-text-1 {
+      width: 385px;
+      padding-left: 50px;
+    }
+
+    #measure-graphic-1 {
+      padding-right: 20px;
+      width: 320px;
+    }
+
+    #roi-text-1 {
+      width: 385px;
+      padding-left: 50px;
+    }
+
+    #roi-graphic-1 {
+    }
+  }
+}
+
+.back-to-top-link {
+  position: relative;
+  left: 800px;
+}
+
+#engage-section .back-to-top-link {
+  top: 20px;
+}
+
+#play-section {
+  .shim {
+    height: 50px;
+  }
+
+  #secondary-play {
+    img {
+      margin: 0 0 40px 190px;
+    }
+
+    .left, .right {
+      text-align: center;
+      width: 285px;
+
+      p {
+        font-size: 16px;
+      }
+    }
+
+    .left {
+      margin-left: 100px;
+    }
+
+    .right {
+      margin-right: 100px;
+    }
+  }
+}
+
+#engage-section {
+  h3, h4 {
+    text-align: center;
+  }
+
+  .left, .right {
+    position: relative;
+
+    h3 {
+      text-align: left;
+      margin-top: 35px;
+      margin-bottom: 25px;
+    }
+
+    h4 {
+      text-align: left;
+    }
+
+    p {
+      margin: 30px 0;
+    }
+  }
+
+  .left {
+    width: 370px;
+
+    #teal-arrow-left {
+      position: absolute;
+      right: 35px;
+    }
+
+    #amy-participates {
+      margin-bottom: 55px;
+    }
+  }
+
+  .right {
+    width: 380px;
+
+    a img {
+      margin-top: 25px;
+    }
+
+    #teal-arrow-right {
+      position: absolute;
+      left: -75px;
+    }
+
+    #h-engage-enhances {
+      margin-bottom: 25px;
+    }
+
+    #key-points {
+    }
+
+    #winning-points-from-poster {
+      ul {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  #we-add-game-mechanics {
+    font-family: "The Girl Next Door", cursive;
+    font-size: 18px;
+    float: right;
+    width: 180px;
+    margin-right: 65px;
+    line-height: 1.2;
+    position: relative;
+
+    img {
+      margin-left: 50px;
+    }
+  }
+
+  #help-drive-traffic {
+    font-family: "The Girl Next Door", cursive;
+    position: relative;
+
+    #teal-arrow-bottom {
+      position: absolute;
+      top: -45px;
+      right: 140px;
+    }
+  }
+}
+
+#blog-section {
+  font-size: 16px;
+
+  #blog-header {
+    vertical-align: bottom;
+
+    h2, h2 a {
+      font-weight: normal;
+      font-family: 'Istok Web', sans-serif;
+      font-size: 36px;
+      color: #1d8c0a;
+      margin: 0;
+      display: inline-block;
+    }
+  }
+
+  #blog-name {
+    font-family: 'Istok Web', sans-serif;
+    font-size: 26px;
+    color: #1d8c0a;
+    margin-top: 45px;
+    margin-bottom: 0;
+
+    a {
+      color: #1d8c0a;
+    }
+  }
+
+  #blog-subname {
+    font-size: 18px;
+    margin-bottom: 45px;
+  }
+
+  .blog-subsection {
+    padding-left: 58px;
+    padding-right: 200px;
+
+    .body-wrapper {
+      margin-bottom: 45px;
+    }
+  }
+
+  .post {
+    .title {
+      font-family: "Helvetica Neue", Arial, sans-serif;
+      font-size: 18px;
+      font-weight: bold;
+      text-transform: uppercase;
+
+      a, a:hover, a:visited {
+        color: $dark-gray;
+      }
+    }
+
+    a.read-more, a.read-more:hover, a.read-more:visited {
+      color: #006699;
+    }
+  }
+}
+
+#engage-section-wrapper, #roi-wrapper, #bottom-comment-box-wrapper {
+  background-image: image-url('marketing/tile_2.png');
+  width: 100%;
+}
+
+#blog-wrapper {
+  width: 100%;
+}
+
+#bottom-comment-box {
+  margin: 0 auto;
+  width: 640px;
+  height: 175px;
+  padding-top: 25px;
+  padding-bottom: 40px;
+
+  h2 {
+    font-family: "Istok Web",sans-serif;
+    font-size: 20px;
+    margin: 0 0 15px 26px;
+  }
+
+  form {
+    position: relative;
+
+    input, textarea {
+      color: #666666;
+    }
+
+    input[type="text"] {
+      margin-bottom: 15px;
+    }
+
+    img {
+      margin: 0 11px;
+    }
+
+    textarea {
+      font-size: 20px;
+      width: 490px;
+      height: 80px;
+      padding: 0;
+      padding-left: 2px;
+    }
+
+    .submit-wrapper {
+      width: 120px;
+      height: 90px;
+      position: relative;
+      float: right;
+    }
+
+    input[type="image"] {
+      position: absolute;
+      bottom: 0;
+    }
+  }
+}
+
+#marketing-footer-wrapper {
+  background-color: $email-box-background;
+  width: 100%;
+}
+
+#marketing-footer {
+  width: $content-width;
+  margin: 0 auto;
+
+  #sm-buttons {
+    width: 230px;
+    float: left;
+    padding-top: 30px;
+
+    a {
+      img {
+        margin-bottom: 4px;
+        margin-right: 10px;
+      }
+
+      .sm-action {
+        vertical-align: top;
+        font-size: 16px;
+      }
+    }
+  }
+
+  #about-us {
+    width: 630px;
+    float: right;
+    padding-top: 20px;
+    padding-bottom: 20px;
+
+    p {
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    .title { 
+      font-weight: bold;
+      font-size: 18px;
+      margin-bottom: 12px;
+    }
+  }
+}
+
+#request-consultation-bar {
+  height: 63px;
+  margin: 0 auto;
+  background-color: #007673;
+  padding-top: 24px;
+  padding-right: 30px;
+  padding-bottom: 10px; 
+  padding-left: 30px;
+  color: white;
+
+  form {
+    margin: 0 auto;
+    width: 925px;
+
+    #request-consultation {
+      float: left;
+      font-family: "Istok Web", sans-serif;
+      font-size: 25px;
+      font-weight: bold;
+      line-height: 1;
+      margin-right: 25px;
+      padding-top: 5px;
+    }
+
+    input[type="text"] {
+      margin-right: 25px;
+    }
+
+    img {
+      position: relative;
+      top: 8px;
+      margin-right: 25px;
+    }
+  }
+
+  .thanks-message {
+    margin-left: 60px;
+  }
+}
+
+#page-footer {
+  height: 50px;
+  line-height: 50px;
+  vertical-align: middle;
+  color: white;
+  clear: both;
+  text-align: center;
+  background-image: image-url('marketing/b_tealbottom.png');
+}
+
+.big_button_below{
+  float: right;
+  position: relative;
+  right: -17px;
+  top: -4px;
+}
+
+#header #header-contents a.btn-signup {
+  float:right;
+  position:relative;
+  margin:2px 10px 0 0;
+}
+
+.external .content{
+  width: 100%;
+}
