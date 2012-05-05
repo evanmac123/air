@@ -3,7 +3,7 @@ def expect_src(selector, expected_src)
   matching_elements.should_not be_empty
 
   matching_elements.each do |matching_element|
-    matching_element['src'].gsub(/\?.*$/, '').should == "/images/#{expected_src}"
+    matching_element['src'].gsub(/\?.*$/, '').should == "/assets/#{expected_src}"
   end
 end
 

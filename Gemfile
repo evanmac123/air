@@ -44,6 +44,9 @@ group :development, :test do
   gem "pry-doc"
   gem "pry_debug"
   gem "steak"
+  gem "rails-dev-tweaks"  # The rails-dev-tweaks gem makes it so assets are not reloaded as often. 
+                          # For instance, XHR requests by themselves do not reload assets when using this gem
+                          # Note that all defaults can be overridden, see the github README for this gem
 
   platforms :mri_18 do
     gem "ruby-debug"

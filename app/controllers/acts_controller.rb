@@ -69,7 +69,7 @@ class ActsController < ApplicationController
     if params[:mode] == 'see-more'
       render :partial => 'shared/more_acts', :locals => {:acts => @acts}
     else
-      render :partial => "refiltered_acts", :locals => {:acts => @acts, :active_tab => @active_act_tab}
+      render :partial => "refiltered_acts", :locals => {:acts => @acts, :active_tab => @active_act_tab}, :content_type => "text/html"
     end
   end
 

@@ -5,7 +5,7 @@
     .relative.inline
       #password_prompt password
       = password_field_tag "session[password]"
-    = label_tag "session[remember_me]", "Remember me (Don't check this on a shared computer)" 
+    = label_tag "session[remember_me]", "Remember me (Don't check this on a shared computer)", :class => :inline
     = check_box_tag "session[remember_me]" 
     = submit_tag "Let's play!" 
    

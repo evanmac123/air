@@ -10,6 +10,7 @@ var autocomplete_waiting = 0;
 var global_contents_of_three_ways_to_play_3838477463535 = '';
 
 $(function() {
+  $.ajaxSetup({ cache: false });
   
   saveFaqMiniToVariable();  
   

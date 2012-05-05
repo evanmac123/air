@@ -27,6 +27,15 @@
   background: image-url('tooltip/bottom_arrow.png');
   height: 23px;
 }
+.bubbly-bottom-arrow, .bubbly-bottom-flat{
+  bottom: 1px;
+  position: relative;
+}
+.bubbly-top-arrow, .bubbly-top-flat{
+  top: 1px;
+  position: relative;
+}
+
 
 .bubbly{
   display: none;

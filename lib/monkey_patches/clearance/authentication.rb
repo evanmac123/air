@@ -4,6 +4,9 @@ module Clearance::Authentication
       def authorize
         super
         if signed_in?
+          # setting this cookie here has no effect. Clearance will just overwrite it. 
+          # That's why we have overwritten Clearance's add_cookie_to_headers method (below)
+          #  -- Jack Desert May 7, 2012
           cookies[:remember_token] = {
             :value   => cookies[:remember_token],
             :expires => remember_token_expiration
@@ -43,5 +46,29 @@ module Clearance::Authentication
         Clearance.configuration.cookie_expiration.call
       end
     end
+  end
+end
+
+
+
+
+module Clearance
+  class Session
+    def add_cookie_to_headers(headers)
+      if cookies && cookies[:remember_me].present?
+        expire_time = 10.years.from_now.utc
+      else
+        expire_time = Clearance.configuration.cookie_expiration.call
+      end
+      
+      if signed_in?
+        Rack::Utils.set_cookie_header!(headers,
+                                       REMEMBER_TOKEN_COOKIE,
+                                       :value => current_user.remember_token,
+                                       :expires => expire_time,
+                                       :path => "/")
+      end
+    end
+
   end
 end
