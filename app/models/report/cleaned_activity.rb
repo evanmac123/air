@@ -5,18 +5,18 @@ class Report::CleanedActivity < Report::Activity
   end
 
   def data_for_act(act)
-    user_points, user_top_level = find_user_data(act)
+    user_points, user_top_level, user_location_name = find_user_data(act)
 
     date = act.created_at.strftime("%Y-%m-%d")
     hour = act.created_at.strftime("%H")
     minute = act.created_at.strftime("%M")
-    [date, hour, minute, act.user_id, cleaned_text(act), act.points, act.referring_user_id, user_points, user_top_level]
+    [date, hour, minute, act.user_id, cleaned_text(act), act.points, act.referring_user_id, user_points, user_top_level, user_location_name]
   end
 
   protected
 
   def header_line
-    CSV.generate_line(["Date", "Hour", "Minute", "User ID", "Text", "Points", "Referring user ID", "User points", "User level"]).gsub("\n", "")
+    CSV.generate_line(["Date", "Hour", "Minute", "User ID", "Text", "Points", "Referring user ID", "User points", "User level", "Location"]).gsub("\n", "")
   end
 
   def cleaned_text(act)
@@ -41,7 +41,7 @@ class Report::CleanedActivity < Report::Activity
       user_data
     else
       user = act.user
-      user_data = [user.points, user.top_level_index]
+      user_data = [user.points, user.top_level_index, user.location.try(:name)]
       @_user_cache[act.user_id] = user_data
       user_data
     end
