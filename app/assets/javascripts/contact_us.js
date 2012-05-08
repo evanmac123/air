@@ -4,4 +4,5 @@ $(function() {
     $('.assistly-widget a').click(); 
   });
 
+
 });

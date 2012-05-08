@@ -27,6 +27,7 @@ gem "newrelic_rpm"
 gem "mongoid"
 gem "bson_ext"
 gem 'jquery-rails'
+gem 'fancybox-rails', :git => "https://github.com/hecticjeff/fancybox-rails.git"
 
 # Gems used only for assets and not required
 # in production environments by default.

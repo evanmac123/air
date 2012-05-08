@@ -1,3 +1,10 @@
+GIT
+  remote: https://github.com/hecticjeff/fancybox-rails.git
+  revision: cba9c756a71601163ae3d04d18e36febff88de41
+  specs:
+    fancybox-rails (0.1.4)
+      railties (>= 3.1.0)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -366,6 +373,7 @@ DEPENDENCIES
   email_spec (~> 1.1)
   factory_girl_rails
   fakeweb
+  fancybox-rails!
   flay
   flog
   flutie

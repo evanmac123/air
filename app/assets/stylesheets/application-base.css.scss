@@ -1,4 +1,5 @@
 /*
+*= require fancybox
 *= require_self
 */
 
@@ -7,12 +8,16 @@
  *(require_tree doesn't allow you to share variables across files, but it works fine for files that
  *don't reference any other files)
 */
+/***************                        I M P O R T A N T                       *******************/
+/*************** Stylesheets must have .css.scss extension to be included       *******************/
+/*************** is there a setting somewhere to we can tell it to compile our vendor stylesheets */
+/*************** with a simple .css extension?                                  *******************/
 
 
 /* THIRD PARTY STYLESHEETS FIRST (so we have the options of overwriting them later) */
-@import "./vendor/facebox.css";
-@import "./vendor/flutie.css";
-@import "./vendor/jquery.fancybox-1.3.4.css";
+@import "./vendor/facebox.css.scss";
+@import "./vendor/flutie.css.scss";
+@import "./vendor/desk.com_with_fancybox.css.scss";
 
 /* MIXIN DEFINITIONS NEXT (so we can use them later) */
 @import "./mixins/standard_colors.css.scss";
