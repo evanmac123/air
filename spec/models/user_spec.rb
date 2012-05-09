@@ -564,6 +564,30 @@ describe User, "on save" do
     @user.reload.email.should == 'yelling_guy@uppercase.com'
   end
 
+  it "should parse characteristics according to the datatypes" do
+    user = FactoryGirl.build :user
+
+    discrete_characteristic = FactoryGirl.create :characteristic, :datatype => Characteristic::DiscreteType, :allowed_values => %w(foo bar baz)
+    number_characteristic = FactoryGirl.create :characteristic, :datatype => Characteristic::NumberType
+    date_characteristic = FactoryGirl.create :characteristic, :datatype => Characteristic::DateType
+    boolean_characteristic = FactoryGirl.create :characteristic, :datatype => Characteristic::BooleanType
+
+    user.characteristics = {
+      discrete_characteristic.id => 'foo',
+      number_characteristic.id   => '27.3',
+      date_characteristic.id     => Chronic.parse("March 1, 2009").to_s,
+      boolean_characteristic.id  => '1'
+    }
+
+    user.save!
+    user.reload
+
+    user.characteristics[discrete_characteristic.id].should == 'foo'
+    user.characteristics[number_characteristic.id].should == 27.3
+    user.characteristics[date_characteristic.id].should == Chronic.parse("March 1, 2009").to_date
+    user.characteristics[boolean_characteristic.id].should == true
+  end
+
   %w(characteristics demo_id points accepted_invitation_at location_id date_of_birth height weight gender).each do |field_name|
     it "should sync to mongo if #{field_name} changes"
   end

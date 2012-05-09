@@ -1,3 +1,0 @@
--select_name = "characteristic[#{characteristic.to_param}]"
-= label_tag select_name, characteristic.name
-= select_tag select_name, options_for_select(characteristic.allowed_values, :selected => user.characteristics.try(:[], characteristic.id)), :include_blank => true

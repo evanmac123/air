@@ -101,6 +101,10 @@ module SteakHelperMethods
     page.find(:xpath, XPath::HTML.select(select_identifier).to_xpath)  
   end
 
+  def find_input_element(input_identifier)
+    page.find(:xpath, XPath::HTML.field(input_identifier).to_xpath)
+  end
+
   def expect_selected(select_identifier, expected_value)
     select = find_select_element(select_identifier)
     option_expected_to_be_selected = select.find %{option[@value="#{expected_value}"]}
@@ -110,5 +114,14 @@ module SteakHelperMethods
   def expect_no_option_selected(select_identifier)
     select = find_select_element(select_identifier)
     select.all("option[@select]").should be_empty
+  end
+
+  def expect_value(input_identifier, expected_value)
+    input = find_input_element(input_identifier)
+    input.value.should == expected_value
+  end
+
+  def expect_checked(checkbox_identifier)
+    pending
   end
 end

@@ -1,4 +1,10 @@
 class Characteristic::BaseType
+  # When rendering a form that allows an admin to change a characteristic of
+  # this type, what input element should be rendered?
+  def self.input_type
+    :text
+  end
+
   def self.ensure_operator_applicable(operator_class)
     raise User::NonApplicableSegmentationOperatorError unless allowed_operators.include?(operator_class)
   end

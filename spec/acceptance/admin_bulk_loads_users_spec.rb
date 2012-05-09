@@ -94,5 +94,7 @@ Arthur Foobar,afoobar@example.com,456456,art,foo,,
       expect_no_option_selected 'Demo Characteristic 2'
       expect_no_option_selected 'Generic Characteristic 1'
     end
+
+    it "should do the right thing when some of these characteristics are non-discrete"
   end
 end

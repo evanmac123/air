@@ -104,6 +104,7 @@ class User < ActiveRecord::Base
 
   before_save do
     downcase_email
+    cast_characteristics
     update_demo_ranked_user_count
   end
 
@@ -992,6 +993,15 @@ class User < ActiveRecord::Base
   def slug_required
     # slug required if there is a name
     self.name.present? || self.trying_to_accept
+  end
+
+  def cast_characteristics
+    return unless changed.include?('characteristics')
+
+    self.characteristics.keys.each do |characteristic_id|
+      characteristic = Characteristic.find(characteristic_id)
+      self.characteristics[characteristic_id] = characteristic.cast_value(characteristics[characteristic_id])
+    end
   end
 
   def downcase_email

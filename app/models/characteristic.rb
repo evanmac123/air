@@ -32,6 +32,10 @@ class Characteristic < ActiveRecord::Base
     DATATYPE_CLASSES_TO_NAMES[self.datatype]
   end
 
+  def cast_value(value)
+    self.datatype.cast_value(value)
+  end
+
   def allowed_operator_names
     self.datatype.allowed_operator_names
   end
