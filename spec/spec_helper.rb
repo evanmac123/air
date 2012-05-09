@@ -55,14 +55,14 @@ Capybara.javascript_driver = :webkit
 # Hack to allow us to use regular controller tests to test SmsController 
 # (which is an ActionController::Metal).
 
-# def metal_testing_hack(klass)
-#   klass.class_eval do
-#     include ActionController::UrlFor
-#     include ActionController::Testing
-#     include Rails.application.routes.url_helpers
-#     include ActionController::Compatibility    # Phil not sure what this does, but commenting it lets 3.1 to run
-#   end
-# end
+def metal_testing_hack(klass)
+  klass.class_eval do
+    include ActionController::UrlFor
+    include ActionController::Testing
+    include Rails.application.routes.url_helpers
+    include ActionController::Compatibility    # Phil not sure what this does, but commenting it lets 3.1 to run
+  end
+end
 
 require 'ruby-debug'
 Rails.logger.level = 4

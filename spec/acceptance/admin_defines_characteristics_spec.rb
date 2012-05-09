@@ -52,7 +52,7 @@ feature "Admin Defines Characteristics" do
       expect_no_content "Cake or death"
     end
 
-    scenario "admin creates new characteristic" do
+    scenario "admin creates new characteristic", :js => true do
       signin_as_admin
       visit admin_characteristics_path
 
@@ -64,7 +64,7 @@ feature "Admin Defines Characteristics" do
       # allowed value fields they fill in, i.e. blank ones should get skipped
       # over silently.
       
-      # 10.times{ click_button "More allowed values" }
+      10.times{ click_button "More allowed values" }
       allowed_value_fields = page.all('input[@name="characteristic[allowed_values][]"]')
 
       allowed_value_fields[1].set("M")
@@ -76,7 +76,7 @@ feature "Admin Defines Characteristics" do
       expect_characteristic_row 'T-shirt size', "The size t-shirt you want if you win", 'Discrete', %w(S M L XL)
     end
 
-    scenario "admin edits existing characteristic" do
+    scenario "admin edits existing characteristic", :js => true do
       signin_as_admin
       visit admin_characteristics_path
       click_link "Edit"
@@ -90,12 +90,12 @@ feature "Admin Defines Characteristics" do
 
       # Overwrite some allowed values, blank out some others, add some new ones, whee.
       allowed_value_fields = page.all('input[@name="characteristic[allowed_values][]"]')
-      # allowed_value_fields.length.should == 3
+      allowed_value_fields.length.should == 3
      
       allowed_value_fields[1].set('')
       allowed_value_fields[2].set('cheese whiz')
 
-      # 3.times{ click_button "More allowed values" }
+      3.times{ click_button "More allowed values" }
       allowed_value_fields = page.all('input[@name="characteristic[allowed_values][]"]')
 
       allowed_value_fields[4].set('oh yeah')

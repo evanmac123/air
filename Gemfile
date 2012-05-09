@@ -1,6 +1,6 @@
 source :rubygems
 
-gem "rails", "~> 3.1.0"
+gem "rails", "~> 3.0.12"
 gem "rack"  # Update rack to 1.3.0 or later to get rid of utf8 string regex warnings
 gem "unicorn"   # Some of our capybara webkit tests fail with thin, so we use unicorn
 gem 'delayed_job_active_record'
