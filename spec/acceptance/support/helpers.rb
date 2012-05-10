@@ -122,6 +122,7 @@ module SteakHelperMethods
   end
 
   def expect_checked(checkbox_identifier)
-    pending
+    checkbox = find_input_element(checkbox_identifier)
+    checkbox.value.to_i.should == 1
   end
 end

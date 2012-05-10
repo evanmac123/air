@@ -72,7 +72,7 @@ class Admin::BulkLoadsController < AdminBaseController
     extra_column_characteristics.each do |column_index, characteristic|
       next unless row[column_index].present?
 
-      if characteristic.allowed_values.include?(row[column_index])
+      if characteristic.value_allowed?(row[column_index])
         user.characteristics ||= {}
         user.characteristics[characteristic.id] = row[column_index]
       else

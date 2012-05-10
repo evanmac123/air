@@ -40,6 +40,11 @@ class Characteristic < ActiveRecord::Base
     self.datatype.allowed_operator_names
   end
 
+  def value_allowed?(value)
+    return true unless allowed_values
+    allowed_values.include?(value)
+  end
+
   def self.datatype_names
     DATATYPE_NAMES_TO_CLASSES.keys
   end

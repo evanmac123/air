@@ -244,6 +244,16 @@ FactoryGirl.define do
       allowed_values nil
     end
 
+    trait :date do
+      datatype Characteristic::DateType
+      allowed_values nil
+    end
+
+    trait :boolean do
+      datatype Characteristic::BooleanType
+      allowed_values nil
+    end
+
     factory :demo_specific_characteristic, traits: [:demo_specific]
   end
 end

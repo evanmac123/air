@@ -95,9 +95,32 @@ Arthur Foobar,afoobar@example.com,456456,art,foo,,
       expect_no_option_selected 'Generic Characteristic 1'
     end
 
-    it "should do the right thing when some of these characteristics are non-discrete" do
-      number_characteristic = FactoryGirl.create(:characteristic, :number)
-      pending
+    it "should interpret non-discrete characteristics correctly", :js => true do
+      number_characteristic = FactoryGirl.create(:characteristic, :number, :name => 'a number')
+      date_characteristic = FactoryGirl.create(:characteristic, :date, :name => 'a date')
+      boolean_characteristic = FactoryGirl.create(:characteristic, :boolean, :name => 'a boolean')
+
+      visit new_admin_demo_bulk_load_path(@demo)
+
+      3.times { click_link "Add characteristic" }
+      select "a number", :from => "extra_column[4]" 
+      select "a date", :from => "extra_column[5]"
+      select "a boolean", :from => "extra_column[6]"
+
+      bulk_user_csv = <<-END_CSV
+John Smith,jsmith@example.com,123123,johnny,27.30,"May 4, 2010",1
+      END_CSV
+      fill_in "bulk_user_data", :with => bulk_user_csv
+      click_button "Upload Users"
+      expect_content "Successfully loaded 1 user"
+
+      visit admin_demo_path(@demo)
+      click_link "Everyone"
+      click_link "(edit John Smith)"
+      
+      expect_value 'a number', '27.3'
+      expect_value 'a date', '2010-05-04'
+      expect_checked 'a boolean'
     end
   end
 end
