@@ -51,9 +51,9 @@ Fred Robinson,frobinson@example.com,345345,freddy
     before(:each) do
       FactoryGirl.create :characteristic, :name => "Generic Characteristic 1"
       FactoryGirl.create :characteristic, :name => "Generic Characteristic 2", :allowed_values => %w(green red blue)
-      FactoryGirl.create :demo_specific_characteristic, :name => "Demo Characteristic 1", :demo => @demo, :allowed_values => %w(foo bar baz)
-      FactoryGirl.create :demo_specific_characteristic, :name => "Demo Characteristic 2", :demo => @demo 
-      FactoryGirl.create :demo_specific_characteristic, :name => "Other Demo Characteristic"
+      FactoryGirl.create :characteristic, :demo_specific, :name => "Demo Characteristic 1", :demo => @demo, :allowed_values => %w(foo bar baz)
+      FactoryGirl.create :characteristic, :demo_specific, :name => "Demo Characteristic 2", :demo => @demo 
+      FactoryGirl.create :characteristic, :demo_specific, :name => "Other Demo Characteristic"
       visit new_admin_demo_bulk_load_path(@demo)
     end
 
@@ -95,6 +95,9 @@ Arthur Foobar,afoobar@example.com,456456,art,foo,,
       expect_no_option_selected 'Generic Characteristic 1'
     end
 
-    it "should do the right thing when some of these characteristics are non-discrete"
+    it "should do the right thing when some of these characteristics are non-discrete" do
+      number_characteristic = FactoryGirl.create(:characteristic, :number)
+      pending
+    end
   end
 end

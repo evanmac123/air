@@ -15,9 +15,9 @@ feature "Admin segmentation" do
       @generic_characteristic_1 = FactoryGirl.create(:characteristic, :name => "Color", :allowed_values => %w(red orange yellow green blue indigo violet))
       @generic_characteristic_2 = FactoryGirl.create(:characteristic, :name => "Favorite Beatle", :allowed_values => %w(john paul george ringo))
       @generic_characteristic_3 = FactoryGirl.create(:characteristic, :name => "LOLPhrase", :allowed_values => %w(i can haz cheezburger))
-      @demo_specific_characteristic_1 = FactoryGirl.create(:demo_specific_characteristic, :name => "Height", :demo => @demo, :allowed_values => %w(low medium high))
-      @demo_specific_characteristic_2 = FactoryGirl.create(:demo_specific_characteristic, :name => "Favorite number", :demo => @demo, :allowed_values => %w(seven eight nine))
-      @demo_specific_characteristic_3 = FactoryGirl.create(:demo_specific_characteristic, :name => "MomPhrase", :demo => @demo, :allowed_values => %w(hi mom))
+      @demo_specific_characteristic_1 = FactoryGirl.create(:characteristic, :demo_specific, :name => "Height", :demo => @demo, :allowed_values => %w(low medium high))
+      @demo_specific_characteristic_2 = FactoryGirl.create(:characteristic, :demo_specific, :name => "Favorite number", :demo => @demo, :allowed_values => %w(seven eight nine))
+      @demo_specific_characteristic_3 = FactoryGirl.create(:characteristic, :demo_specific, :name => "MomPhrase", :demo => @demo, :allowed_values => %w(hi mom))
 
       @loser = FactoryGirl.create(:user, :demo => @demo)
       @reds = []

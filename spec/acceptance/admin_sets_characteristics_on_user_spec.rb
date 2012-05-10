@@ -5,11 +5,11 @@ feature "Admin Sets Characteristics On User" do
   scenario "should allow both generic and demo-specific characteristics to be set" do
     @demo = FactoryGirl.create :demo
     @generic_characteristic = FactoryGirl.create :characteristic, :name => 'generic', :allowed_values => %w(foo bar baz)
-    @demo_characteristic = FactoryGirl.create :demo_specific_characteristic, :name => 'demo specific', :allowed_values => %w(oh hai dere), :demo => @demo
-    @number_characteristic = FactoryGirl.create :demo_specific_characteristic, :name => 'number type', :datatype => Characteristic::NumberType, :demo => @demo
-    @date_characteristic = FactoryGirl.create :demo_specific_characteristic, :name => 'date type', :datatype => Characteristic::DateType, :demo => @demo
-    @boolean_characteristic = FactoryGirl.create :demo_specific_characteristic, :name => 'boolean type', :datatype => Characteristic::BooleanType, :demo => @demo
-    @other_demo_characteristic = FactoryGirl.create :demo_specific_characteristic, :name => 'other demo characteristic', :allowed_values => %w(and so on)
+    @demo_characteristic = FactoryGirl.create :characteristic, :demo_specific, :name => 'demo specific', :allowed_values => %w(oh hai dere), :demo => @demo
+    @number_characteristic = FactoryGirl.create :characteristic, :demo_specific, :name => 'number type', :datatype => Characteristic::NumberType, :demo => @demo
+    @date_characteristic = FactoryGirl.create :characteristic, :demo_specific, :name => 'date type', :datatype => Characteristic::DateType, :demo => @demo
+    @boolean_characteristic = FactoryGirl.create :characteristic, :demo_specific, :name => 'boolean type', :datatype => Characteristic::BooleanType, :demo => @demo
+    @other_demo_characteristic = FactoryGirl.create :characteristic, :demo_specific, :name => 'other demo characteristic', :allowed_values => %w(and so on)
     @user = FactoryGirl.create :user, :demo => @demo, :name => "Hank Robertson"
 
     signin_as_admin

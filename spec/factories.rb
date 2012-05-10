@@ -232,12 +232,19 @@ FactoryGirl.define do
   factory :characteristic do 
     sequence(:name) {|n| "Char_#{n}"}
     sequence(:description) {|n| "Desc_#{n}"}
-    datatype {Characteristic::DiscreteType}
-    allowed_values {%w(Foo Bar Baz)}
-  end
+    datatype Characteristic::DiscreteType
+    allowed_values %w(Foo Bar Baz)
 
-  factory :demo_specific_characteristic, :parent => :characteristic do
-    association :demo
+    trait :demo_specific do
+      association :demo
+    end
+
+    trait :number do
+      datatype Characteristic::NumberType
+      allowed_values nil
+    end
+
+    factory :demo_specific_characteristic, traits: [:demo_specific]
   end
 end
 
