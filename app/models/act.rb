@@ -130,7 +130,7 @@ class Act < ActiveRecord::Base
     if user.demo.detect_bad_words(attempted_value)
       return I18n.t(
         'activerecord.models.act.parse.bad_words_detected',
-        :default => "Sorry, I don't understand what that means."
+        :default => "Sorry, we don't give points for that."
       )
     end
 
