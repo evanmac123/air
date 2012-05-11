@@ -1,21 +1,18 @@
-development:
-  host: localhost
-  database: health_development
+<% mongo_uri = ENV['MONGOHQ_URL'] || "mongodb://localhost:27017/health_#{Rails.env}" %>
+<% parsed_mongo_uri = URI.parse(mongo_uri) %>
+
+development: &default
+  host: <%= parsed_mongo_uri.host %>
+  port: <%= parsed_mongo_uri.port %>
+  username: <%= parsed_mongo_uri.user %>
+  password: <%= parsed_mongo_uri.password %>
+  database: <%= parsed_mongo_uri.path.gsub(%r{^/}, '') %>
 
 test:
-  host: localhost
-  database: health_test
+  <<: *default
 
 staging:
-  host: <%= ENV['MONGOID_HOST'] %>
-  port: <%= ENV['MONGOID_PORT'] %>
-  username: <%= ENV['MONGOID_USERNAME'] %>
-  password: <%= ENV['MONGOID_PASSWORD'] %>
-  database: <%= ENV['MONGOID_DATABASE'] %>
+  <<: *default
 
 production:
-  host: <%= ENV['MONGOID_HOST'] %>
-  port: <%= ENV['MONGOID_PORT'] %>
-  username: <%= ENV['MONGOID_USERNAME'] %>
-  password: <%= ENV['MONGOID_PASSWORD'] %>
-  database: <%= ENV['MONGOID_DATABASE'] %>
+  <<: *default
