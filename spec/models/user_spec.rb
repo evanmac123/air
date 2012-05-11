@@ -594,7 +594,15 @@ describe User, "on save" do
 end
 
 describe User, "on destroy" do
-  it "should destroy the associated mongo data"
+  it "should destroy the associated mongo data" do
+    user = Factory :user
+    crank_dj_clear
+    User::SegmentationData.where(:ar_id => user.id).count.should == 1
+
+    user.destroy
+    crank_dj_clear
+    User::SegmentationData.where(:ar_id => user.id).count.should == 0
+  end
 end
 
 describe User, "#move_to_new_demo" do

@@ -36,7 +36,9 @@ Fred Robinson,frobinson@example.com,345345,freddy
     expect_mt_sms "+16175551212", "You've joined the H Engage game! Your username is bobby (text MYID if you forget). To play, text to this #."
 
     mo_sms "+16175551212", "johnny"
-    Delayed::Worker.new.work_off(10)
+    
+    crank_off_dj
+
     expect_mt_sms "+16175551212", "Got it, John Smith referred you to the game. Thanks for letting us know."
     expect_mt_sms "+14155551212", "Bob Jones gave you credit for referring them to the game. Many thanks and 2000 bonus points!"
   end

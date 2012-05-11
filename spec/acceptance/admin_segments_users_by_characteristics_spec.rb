@@ -117,13 +117,15 @@ feature "Admin segmentation" do
 
       expect_content "Color does not equal red"
       expect_content "Favorite Beatle does not equal ringo"
-      expect_content "18 users in segment"
+      expect_content "19 users in segment"
 
       click_link "Show users"
       0.upto(8) do |i|
         expect_user_content @blues[i]
         expect_user_content @greens[i]
       end
+
+      expect_user_content @loser
     end
 
     scenario "sees link to each segmented user", :js => true do

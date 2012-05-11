@@ -110,13 +110,11 @@ class User < ActiveRecord::Base
 
   after_create do
     suggest_first_level_tasks
-  end
-
-  after_save do
-    schedule_segmentation_sync
+    schedule_segmentation_create
   end
 
   after_update do
+    schedule_segmentation_update
     update_associated_act_privacy_levels
   end
 
@@ -124,6 +122,7 @@ class User < ActiveRecord::Base
     destroy_friendships_where_secondary
     fix_demo_rankings
     decrement_demo_ranked_user_count
+    destroy_segmentation_info
   end
 
   attr_reader :batch_updating_recent_averages
@@ -464,6 +463,15 @@ class User < ActiveRecord::Base
     suggestion_hash = Hash[*([:suggestion_a, :suggestion_b, :suggestion_c].zip(suggestion_ids).flatten)]
 
     Mixpanel::Tracker.new(MIXPANEL_TOKEN, {}).delay.track_event("got rule suggestion", data_for_mixpanel.merge(suggestion_hash))
+  end
+
+  def values_for_segmentation
+    {
+      :ar_id           => self.id,
+      :demo_id         => self.demo_id,
+      :characteristics => self.characteristics.try(:stringify_keys) || {},
+      :updated_at      => self.updated_at.utc
+    }
   end
 
   def self.in_canonical_ranking_order
@@ -1107,14 +1115,26 @@ class User < ActiveRecord::Base
     Act.update_all({:privacy_level => self.privacy_level}, {:user_id => self.id}) if self.changed.include?('privacy_level')
   end
 
-  def schedule_segmentation_sync
-    return unless changed.include?('characteristics')
-
-    self.delay.sync_segmentation_info
+  def schedule_segmentation_create
+    self.delay.create_segmentation_info
   end
 
-  def sync_segmentation_info
-    User::SegmentationData.create_or_update_from_user(self)
+  def schedule_segmentation_update
+    return unless changed.include?('characteristics')
+
+    self.delay.update_segmentation_info
+  end
+
+  def create_segmentation_info
+    User::SegmentationData.create_from_user(self)
+  end
+
+  def update_segmentation_info
+    User::SegmentationData.update_from_user(self)
+  end
+
+  def destroy_segmentation_info
+    User::SegmentationData.destroy_from_user(self)
   end
 
   def create_segmentation_explanation(columns, operators, values)
@@ -1136,6 +1156,10 @@ class User < ActiveRecord::Base
 
   def load_segmented_user_information(columns, operators, values, demo)
     query = User::SegmentationData
+
+    unless demo.nil?
+      query = query.where(:demo_id => demo.id)
+    end
    
     if values.present?
       columns.each do |index, characteristic_id|
