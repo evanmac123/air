@@ -4,7 +4,7 @@ describe Admin::UsersController do
   describe "#create" do
     before(:each) do
       @demo = FactoryGirl.create :demo
-      @params = {:demo_id => @demo.id, :user => Factory.attributes_for(:user), :set_claim_code => true}
+      @params = {:demo_id => @demo.id, :user => FactoryGirl.attributes_for(:user), :set_claim_code => true}
       @controller.current_user = FactoryGirl.create :site_admin
     end
 
@@ -22,7 +22,4 @@ describe Admin::UsersController do
       end
     end
   end
-  
-
-      
 end

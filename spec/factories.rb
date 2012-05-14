@@ -95,7 +95,7 @@ FactoryGirl.define do
   end
 
   factory :watchlisted_bad_message, :parent => :bad_message do
-    after_create do |bad_message|
+    after(:create) do |bad_message|
       bad_message.update_attributes(:is_new => false, :on_watch_list => true)
     end
   end

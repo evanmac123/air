@@ -37,7 +37,7 @@ all_types.each do |type|
   }.each do |operator_class, match_senses|
     describe "#{operator_class} applied to #{type}" do
       it "should match the appropriate values" do
-        characteristic = Factory :characteristic, :datatype => type
+        characteristic = FactoryGirl.create(:characteristic, :datatype => type)
 
         low, exact, high = values_for_comparison[type]
 
@@ -61,7 +61,7 @@ all_types.each do |type|
 end
 
 def attempt_application(operator_class, applicable_type)
-  operator_class.add_criterion_to_query(User::SegmentationData, Factory(:characteristic, :datatype => applicable_type).id, operator_class.human_name)
+  operator_class.add_criterion_to_query(User::SegmentationData, FactoryGirl.create(:characteristic, :datatype => applicable_type).id, operator_class.human_name)
 end
 
 def expect_applicable_to(operator_class, applicable_type)
