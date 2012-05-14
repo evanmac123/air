@@ -602,10 +602,42 @@ describe User, "on save" do
     end
   end
 
-  %w(characteristics demo_id claimed accepted_invitation_at).each do |field_name|
-    context "when #{field_name} is changed" do
-      it "should sync to mongo"    
-    end
+  it "should sync to mongo when characteristics is changed" do
+    user = FactoryGirl.create(:user)
+    characteristic = FactoryGirl.create(:characteristic, :allowed_values => %w(foo bar baz))
+    crank_dj_clear
+    user.segmentation_data.characteristics.should == {}
+
+    user.characteristics = {characteristic.id => 'foo'}
+    user.save
+    crank_dj_clear
+    user.segmentation_data.characteristics.should == {characteristic.id => 'foo'}.stringify_keys
+  end
+
+  it "should sync to mongo when demo_id is changed" do
+    user = FactoryGirl.create(:user)
+    other_demo = FactoryGirl.create(:demo)
+    crank_dj_clear
+    user.segmentation_data.demo_id.should == user.demo.id
+
+    user.demo = other_demo
+    user.save
+    crank_dj_clear
+    user.segmentation_data.demo_id.should == other_demo.id
+  end
+
+  it "should sync to mongo when accepted_invitation_at is changed, updating the value of claimed too" do
+    user = FactoryGirl.create :user
+    crank_dj_clear
+    user.segmentation_data.accepted_invitation_at.should be_nil
+    user.segmentation_data.claimed.should be_false
+
+    accept_time = Chronic.parse("May 1, 2012, 3:00 PM")
+    user.accepted_invitation_at = accept_time
+    user.save!
+    crank_dj_clear
+    user.segmentation_data.accepted_invitation_at.should == accept_time.utc
+    user.segmentation_data.claimed should be_true
   end
 end
 

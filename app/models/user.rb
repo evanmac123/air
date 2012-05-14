@@ -15,7 +15,7 @@ class User < ActiveRecord::Base
 
   DEFAULT_MUTE_NOTICE_THRESHOLD = 10
 
-  FIELDS_TRIGGERING_SEGMENTATION_UPDATE = %w(characteristics points location_id date_of_birth height weight gender)
+  FIELDS_TRIGGERING_SEGMENTATION_UPDATE = %w(characteristics points location_id date_of_birth height weight gender demo_id accepted_invitation_at)
 
   include Clearance::User
   include User::Ranking
@@ -469,16 +469,18 @@ class User < ActiveRecord::Base
 
   def values_for_segmentation
     {
-      :ar_id           => self.id,
-      :demo_id         => self.demo_id,
-      :characteristics => self.characteristics.try(:stringify_keys) || {},
-      :updated_at      => self.updated_at.utc,
-      :points          => self.points,
-      :location_id     => self.location_id,
-      :date_of_birth   => self.date_of_birth.try(:midnight).try(:utc),
-      :height          => self.height,
-      :weight          => self.weight,
-      :gender          => self.gender
+      :ar_id                  => self.id,
+      :demo_id                => self.demo_id,
+      :updated_at             => self.updated_at.utc,
+      :points                 => self.points,
+      :location_id            => self.location_id,
+      :height                 => self.height,
+      :weight                 => self.weight,
+      :gender                 => self.gender,
+      :characteristics        => self.characteristics.try(:stringify_keys) || {},
+      :date_of_birth          => self.date_of_birth.try(:midnight).try(:utc),
+      :accepted_invitation_at => self.accepted_invitation_at.try(:utc),
+      :claimed                => self.accepted_invitation_at.present?
     }
   end
 

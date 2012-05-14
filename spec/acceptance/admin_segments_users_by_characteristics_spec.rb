@@ -189,6 +189,10 @@ feature "Admin segmentation" do
     end
   end
 
+  %w(points location_id date_of_birth height weight gender demo_id accepted_invitation_at claimed).each do |field_name|
+    scenario "should be able to segment on #{field_name}"
+  end
+
   scenario 'can display large numbers of users', :js => true do
     # We need a large number of IDs to expose the problem caused by trying to
     # jam them all into the URI, but creating 1000 users in the DB for this 
