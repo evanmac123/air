@@ -46,7 +46,7 @@ Feature: User sees tasks they can currently do
     But I should see "Plate toast"
 
     When time is frozen at "2020-01-01 00:00:01 UTC"
-    And DJ cranks 10 times
+    And DJ works off
     And I sign in via the login page with "Joe/foobar"
     And I go to the activity page
     Then I should see "Make future toast"
@@ -83,7 +83,7 @@ Feature: User sees tasks they can currently do
     And I fill in "Identifier" with "ident1"
     And I fill in "Name" with "Do new stuff"
     And I press "Create Task"
-    And DJ cranks 10 times
+    And DJ works off
 
     And I sign in via the login page with "Joe/foobar"
     Then I should see "Do new stuff"
@@ -103,7 +103,7 @@ Feature: User sees tasks they can currently do
     And I should not see "Eat buttery toast"
 
     When time is frozen at "2020-01-01 00:00:01 UTC"
-    And DJ cranks 10 times
+    And DJ works off
     And I sign in via the login page with "Bob/barbaz"
     And I go to the activity page
     Then I should see "Make future toast"

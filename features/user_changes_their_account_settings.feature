@@ -60,7 +60,7 @@ Feature: User can edit their account settings
     And I choose "Email"
     And I press the button to save notification settings
     And "+18085551212" sends SMS "follow phil"
-    And DJ cranks 5 times
+    And DJ works off
 
     Then "phil@example.com" should have received a follow notification email about "Alice"
     But "+14155551212" should not have received any SMSes
@@ -80,7 +80,7 @@ Feature: User can edit their account settings
     And I choose "Email"
     And I press the button to save notification settings
     And "+18765551212" sends SMS "follow frank"
-    And DJ cranks 5 times
+    And DJ works off
 
     Then "frank@example.com" should have received a follow notification email about "George" with phone number "(900) 555-1212"
     But "+18885551212" should not have received any SMSes
@@ -91,7 +91,7 @@ Feature: User can edit their account settings
     And I choose "SMS/text message"
     And I press the button to save notification settings
     And "+18085551212" sends SMS "follow phil"
-    And DJ cranks 5 times
+    And DJ works off
 
     Then "+14155551212" should have received SMS "Alice has asked to be your friend. Text\nYES to accept,\nNO to quietly ignore"
     And "phil@example.com" should have no emails
@@ -102,7 +102,7 @@ Feature: User can edit their account settings
     And I choose "Both"
     And I press the button to save notification settings
     And "+18085551212" sends SMS "follow phil"
-    And DJ cranks 5 times
+    And DJ works off
 
     Then "+14155551212" should have received SMS "Alice has asked to be your friend. Text\nYES to accept,\nNO to quietly ignore"
     And "phil@example.com" should have received a follow notification email about "Alice"
@@ -130,7 +130,7 @@ Feature: User can edit their account settings
     Then I should see "We have sent a verification"
     And "Mobile Number" should have value "(415) 555-1212"
     And I should see "To verify the number (415) 261-3077, please enter the validation code we sent to that number:"
-    When DJ cranks 5 times
+    When DJ works off
     And "Phil" should receive an SMS containing their new phone validation code
     When "Phil" fills in the new phone validation field with their validation code
     And I press the button to verify the new phone number
@@ -160,7 +160,7 @@ Feature: User can edit their account settings
     And I clear all sent texts
     And I fill in "Mobile Number" with "(515) 261-3077"
     And I press the button to save notification settings
-    And DJ cranks 10 times
+    And DJ works off
     Then I should be on the settings page
     Then I should see "We have sent a verification"
     And "+15152613077" should not have received an SMS from the default phone number
@@ -173,7 +173,7 @@ Feature: User can edit their account settings
     Then I should be on the settings page
     Then I should see "We have sent a verification"
     And "Mobile Number" should have value "(415) 555-1212"
-    When DJ cranks 5 times
+    When DJ works off
     Then "Phil" should receive an SMS containing their new phone validation code
     When "Phil" fills in the new phone validation field with the wrong validation code
     And I press the button to verify the new phone number

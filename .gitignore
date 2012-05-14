@@ -31,3 +31,4 @@ public/.sass-cache/*
 **/.DS_Store
 *.dump
 .env
+first_bad_rev

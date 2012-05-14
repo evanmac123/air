@@ -139,27 +139,6 @@ describe User do
       user1.reload.friendships.should be_empty
     end
 
-    #xit "should fix the rankings of this user's demo after it's destroyed" do
-      #demo = FactoryGirl.create :demo
-      #user1 = FactoryGirl.create :claimed_user, :demo => demo
-      #user2 = FactoryGirl.create :claimed_user, :demo => demo
-      #user3 = FactoryGirl.create :claimed_user, :demo => demo
-
-      #user1.update_points(10)
-      #user2.update_points(5)
-      #user3.update_points(2)
-
-      #Delayed::Worker.new.work_off(10)
-      #user1.reload.ranking.should == 1
-      #user2.reload.ranking.should == 2
-      #user3.reload.ranking.should == 3
-
-      #user2.destroy
-
-      #user1.reload.ranking.should == 1
-      #user3.reload.ranking.should == 2
-    #end
-
     context "when user has a non-blank phone number" do
       it "should decrement the associated demo's ranked_user_count" do
         demo = FactoryGirl.create :demo
@@ -189,23 +168,19 @@ describe User do
     User.delete_all
   end
 
-  it "should validate the presence of name only if trying to accept now or if already accepted" do
-
-  end
-
   it "should not require a slug if there is no name" do
     a = FactoryGirl.build(:user, :name => "")
     a.should be_valid
     a.slug.should == ""
     a.sms_slug.should == ""
   end
+
   it "should create a slug upon validation if there is a name" do
     a = FactoryGirl.build(:user, :name => "present")
     a.should be_valid   # Slugs generated before_validation
     a.slug.should == "present"
     a.sms_slug.should == "present"
   end
-
 
   it "should create slugs when you create" do
     a = FactoryGirl.create(:user, :name => "present")
@@ -557,6 +532,15 @@ describe User, "#recalculate_moving_average!" do
 
 end
 
+describe User, "on create" do
+  it "should create an associated segmentation info record in mongo" do
+    @user = FactoryGirl.create :user
+    crank_dj_clear
+
+    @user.segmentation_data.should be_present
+  end
+end
+
 describe User, "on save" do
   it "should downcase email" do
     @user = FactoryGirl.build(:user, :email => 'YELLING_GUY@Uppercase.cOm')
@@ -588,14 +572,46 @@ describe User, "on save" do
     user.characteristics[boolean_characteristic.id].should == true
   end
 
-  %w(characteristics demo_id points accepted_invitation_at location_id date_of_birth height weight gender).each do |field_name|
-    it "should sync to mongo if #{field_name} changes"
+  def check_for_segmentation_update(field_name, old_value, new_value, expected_values=[])
+    expected_old_value = expected_values.first || old_value
+    expected_new_value = expected_values.last || new_value
+
+    user = FactoryGirl.create(:user, field_name => old_value)
+    crank_dj_clear
+    user.segmentation_data[field_name].should == expected_old_value
+
+    user.update_attributes(field_name => new_value)
+    crank_dj_clear
+    user.segmentation_data.reload.send(field_name).should == expected_new_value
+  end
+
+  simple_mongo_triggering_fields = {
+    points:                 [50, 60],
+    location_id:            [17, 18],
+    date_of_birth:          [Date.today, Date.tomorrow, [Date.today.midnight.utc, Date.tomorrow.midnight.utc]],
+    height:                 [50, 60],
+    weight:                 [200, 180],
+    gender:                 ['male', 'female']
+  }
+
+  simple_mongo_triggering_fields.each do |field_name, values|
+    context "when #{field_name} is changed" do
+      it "should sync to mongo" do
+        check_for_segmentation_update(field_name, *values)
+      end
+    end
+  end
+
+  %w(characteristics demo_id claimed accepted_invitation_at).each do |field_name|
+    context "when #{field_name} is changed" do
+      it "should sync to mongo"    
+    end
   end
 end
 
 describe User, "on destroy" do
   it "should destroy the associated mongo data" do
-    user = Factory :user
+    user = FactoryGirl.create :user
     crank_dj_clear
     User::SegmentationData.where(:ar_id => user.id).count.should == 1
 

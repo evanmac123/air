@@ -96,7 +96,7 @@ When /^"([^"]*)" befriends "([^"]*)" by SMS$/ do |follower_name, followed_login_
   followed = User.find_by_name(followed_name)
 
   step "\"#{follower.phone_number}\" sends SMS \"follow #{followed.sms_slug}\""
-  step "DJ cranks 5 times"
+  step "DJ works off"
   step "\"#{follower.phone_number}\" should have received an SMS \"OK, you'll be friends with #{followed.name}, pending their acceptance.\""
   step "I sign in via the login page with \"#{followed_login_string}\""
   step %{I go to the profile page for "#{followed_name}"}
@@ -196,7 +196,7 @@ Then /^"([^"]*)" should be able to accept "([^"]*)" by SMS( with index \d+)?$/ d
   acceptance_string = request_index ? "yes #{request_index}" : "yes"
   step "\"#{followed.phone_number}\" should have received an SMS \"#{expected_request_text(follower, request_index)}\""
   step "\"#{followed.phone_number}\" sends SMS \"#{acceptance_string}\""
-  step "DJ cranks 5 times"
+  step "DJ works off"
   step "\"#{follower.phone_number}\" should have received an SMS \"#{followed_name} has approved your friendship request.\""
   step "\"#{followed.phone_number}\" should have received an SMS \"OK, you are now friends with #{follower.name}.\""
   step "I sign in via the login page with \"#{followed_login_string}\""
@@ -234,7 +234,7 @@ Then /^"([^"]*)" should be able to accept "([^"]*)" by web$/ do |followed_login_
   step "I go to the user page for \"#{follower.name}\""
   
   step "I press the button next to \"#{follower_name}\""
-  step "DJ cranks 5 times"
+  step "DJ works off"
   step "I dump all sent texts"
   step "\"#{follower.phone_number}\" should have received an SMS \"#{followed_name} has approved your friendship request.\""
   step "I should see \"You are now friends with #{follower_name}\""

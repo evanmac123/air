@@ -52,7 +52,6 @@ group :development, :test do
   gem "reek"
   gem "flay"
   gem "flog"
-  gem "parallel_tests"
 end
 
 group :test do

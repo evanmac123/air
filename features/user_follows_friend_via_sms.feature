@@ -56,7 +56,7 @@ Feature: User can follow another user by SMS
 
   Scenario: User tries to friend themselves
     When "+16178675309" sends SMS "follow vladgyster"
-    And DJ cranks 5 times
+    And DJ works off
     Then "+16178675309" should not have received an SMS including "fan of Vlad Gyster, pending their acceptance"
     And "+16178675309" should not have received an SMS including "Vlad Gyster has asked to be your friend"
     And "+16178675309" should have received an SMS "Sorry, you can't add yourself as a friend."
@@ -75,7 +75,7 @@ Feature: User can follow another user by SMS
   Scenario: "Connect" should be a synonym for "follow"
     When "+16178675309" sends SMS "connect dancroak"
     And "+16175551212" sends SMS "yes"
-    And DJ cranks 10 times
+    And DJ works off
     And I sign in via the login page as "Vlad Gyster/foobar"
     And I go to the profile page for "Dan Croak"
     # Then I should see "has 1 fan"

@@ -15,6 +15,8 @@ class User < ActiveRecord::Base
 
   DEFAULT_MUTE_NOTICE_THRESHOLD = 10
 
+  FIELDS_TRIGGERING_SEGMENTATION_UPDATE = %w(characteristics points location_id date_of_birth height weight gender)
+
   include Clearance::User
   include User::Ranking
 
@@ -470,8 +472,18 @@ class User < ActiveRecord::Base
       :ar_id           => self.id,
       :demo_id         => self.demo_id,
       :characteristics => self.characteristics.try(:stringify_keys) || {},
-      :updated_at      => self.updated_at.utc
+      :updated_at      => self.updated_at.utc,
+      :points          => self.points,
+      :location_id     => self.location_id,
+      :date_of_birth   => self.date_of_birth.try(:midnight).try(:utc),
+      :height          => self.height,
+      :weight          => self.weight,
+      :gender          => self.gender
     }
+  end
+
+  def segmentation_data
+    SegmentationData.where(:ar_id => self.id).first
   end
 
   def self.in_canonical_ranking_order
@@ -1120,7 +1132,7 @@ class User < ActiveRecord::Base
   end
 
   def schedule_segmentation_update
-    return unless changed.include?('characteristics')
+    return unless FIELDS_TRIGGERING_SEGMENTATION_UPDATE.any?{|field_name| changed.include?(field_name)}
 
     self.delay.update_segmentation_info
   end

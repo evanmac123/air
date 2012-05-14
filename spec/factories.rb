@@ -1,12 +1,5 @@
-Factory.sequence :email do |n|
-  "overwritten elsewhere. Not sure why we need this dummy definition"
-end
-
-Factory.sequence :phone do |n|
-  "overwritten elsewhere. Not sure why we need this dummy definition"
-end
-
 FactoryGirl.define do
+  sequence(:email, User.next_id) {|n| "darth_#{n}@vader.com" }
   
   factory :unnamed_user, :class => User do 
     association(:demo)
@@ -93,7 +86,7 @@ FactoryGirl.define do
   end
 
   factory :bad_message do
-    phone_number FactoryGirl.generate :phone 
+    phone_number "+14155551212"
     received_at  Time.now 
   end
 

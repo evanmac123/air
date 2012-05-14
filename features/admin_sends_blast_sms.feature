@@ -13,7 +13,7 @@ Feature: Admin sends blast SMS
   Scenario: Admin sends immediate blast SMS
     And I fill in "Message body" with "Are we having fun yet?"
     And I press "Send blast"
-    And DJ cranks 10 times
+    And DJ works off
     Then "+14155551212" should have received SMS "Are we having fun yet?"
     And "+16175551212" should have received SMS "Are we having fun yet?"
     But "+18085551212" should not have received any SMSes
@@ -30,12 +30,12 @@ Feature: Admin sends blast SMS
     And I fill in "Message body" with "Are we having fun yet?"
     And I set the datetime selector for "send at" to "2010 May 1 13:00"
     And I press "Send blast"
-    And DJ cranks 10 times
+    And DJ works off
     Then "+14155551212" should not have received any SMSes
     And "+16175551212" should not have received any SMSes
     And "+18085551212" should not have received any SMSes
     When time is frozen at "2010-05-01 13:00:00 EDT"
-    And DJ cranks 10 times
+    And DJ works off
     Then "+14155551212" should have received SMS "Are we having fun yet?"
     And "+16175551212" should have received SMS "Are we having fun yet?"
     But "+18085551212" should not have received any SMSes

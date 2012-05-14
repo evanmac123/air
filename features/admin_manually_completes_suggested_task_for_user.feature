@@ -17,7 +17,7 @@ Feature: Admin manually completes a task for a user
       | Task 4 | name: TaskCo |
     And the task "Task 2" has prerequisite "Task 1"
     And the task "Task 4" has prerequisite "Task 3"
-    And DJ cranks 10 times
+    And DJ works off
     And I sign in via the login page with "Joe/foobar"
 
     Then I should see "Task 1"
@@ -42,5 +42,5 @@ Feature: Admin manually completes a task for a user
     But I should not see "Task 1"
     And I should not see "Task 4"
 
-    When DJ cranks 5 times after a little while
+    When DJ works off after a little while
     And "+14155551212" should have received an SMS "Congratulations! You've completed a daily dose."
