@@ -22,13 +22,12 @@
 	</div>
 	
 	<div class="right-column">
+  	<div class="module" id="scoreboard_wrapper">
+  	  <%= render 'scoreboard', :user => @current_user %>
+    </div>
   	<div class="invite-module module">
   		<%= render :partial => "invite_your_friends" %>  
   	</div>
-	
-  	<div class="scoreboard-module module">
-  	  <%= render 'scoreboard', :user => @current_user %>
-    </div>
   </div>
   
 	<div id="feed_wrapper">

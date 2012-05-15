@@ -1,11 +1,11 @@
-
 %h1.headline Scoreboard
-%ul#scoreboard
+= render 'users/scoreboard_headers'
 
-  %p <span id='sort_by_first_name'>Name</span> <span class='bold' id='sort_by_points'>Level</span>
-  #friends_list
+#friends_list{:style => "display: none;"}
+  %table.scoreboard
     = render :partial => 'users/single_friend', :collection => @current_user.scoreboard_friends_list_by_name
-  #scoreboard_list
+#scoreboard_list
+  %table.scoreboard
     = render :partial => 'users/single_friend', :collection => @current_user.scoreboard_friends_list_by_points
 
 

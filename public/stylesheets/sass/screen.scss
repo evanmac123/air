@@ -10,10 +10,6 @@ $faq_med_grey: #777;
 @import "faq_mini";
 $twin_peak_radius: 200px;
 
-@mixin purple_javascript_links{
-  cursor: pointer;
-  color: $dark-gray;
-}
 @mixin scoreboard_and_friends_list{
   li {
 		padding:0 0 5px 0;
@@ -226,9 +222,9 @@ body.acts {
 		}
 		.right-column{
 		 	float: right;
-			width: 38.3%; 
+			width: 365px; 
 			@include scoreboard_and_friends_list;
-			.scoreboard-module ul, {padding-left: 20px;}
+			#scoreboard_wrapper ul, {padding-left: 20px;}
 		}
 		.invite-module {
 			#invite_friends_facebox {
@@ -464,7 +460,7 @@ body.users {
 	}
 	div#right-col {
 		float:right;
-		width:35%;
+		width:365px;
 		@include scoreboard_and_friends_list;
 	}
 }
@@ -967,7 +963,7 @@ body.interstitial_verifications {
 div.follow-btn, div.stop-following-btn {
 	@include button-norm;
 //	width: 100px;
-	float:right;
+	//float:right;
 	text-align: center;
   cursor: pointer;
 	a {color:#fff;}
@@ -1077,23 +1073,7 @@ td.label{
 #following #scoreboard_list, #scoreboard #friends_list{
   display: none;
 }
-#sort_by_first_name, #sort_by_points{
-  @include purple_javascript_links; 
-  &:hover{
-    font-weight: bold;
-  }
-}
-#sort_by_points{
-  position: relative;
-  left: 220px;
-}
-#following #sort_by_points{
-  left: 188px;
-}
 
-#this_is_me *{
-  color: orange;
-}
 .orange{
   color: orange;
 }

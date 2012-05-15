@@ -192,3 +192,7 @@ body.users-index div.user-info {
 
 #password_prompt {
   bottom: 21px; }
+
+/****************** Scoreboard ***************************/
+#ie7_scoreboard_header_spacer {
+  display: inline !important; }

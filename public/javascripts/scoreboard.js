@@ -1,23 +1,29 @@
-var global_fade_out_time88374635134 = 500;
+var global_fade_out_time88374635134 = 300;
 
 $(function() {
-  $("#sort_by_first_name").click(function(){
+  var this_div = $("#sort_by_first_name");
+  var other_div = $("#sort_by_points");
+  this_div.click(function(){
     fadeOutScoreboard();
+    this_div.addClass('active');
+    other_div.removeClass('active');
   });
   
-  $("#sort_by_points").click(function(){
+  other_div.click(function(){
     fadeOutFriendsList();
+    other_div.addClass('active');
+    this_div.removeClass('active');
   });
   
   
 });
 
 function fadeOutScoreboard(){
-  boldSortByName();
+  $("#friends_list").fadeOut(global_fade_out_time88374635134);
   $("#scoreboard_list").fadeOut(global_fade_out_time88374635134, fadeInFriendsList);
 }
 function fadeOutFriendsList(){
-  boldSortByPoints();
+  $("#scoreboard_list").fadeOut(global_fade_out_time88374635134);
   $("#friends_list").fadeOut(global_fade_out_time88374635134, fadeInScoreboard);
 }
 function fadeInScoreboard(){
@@ -25,12 +31,4 @@ function fadeInScoreboard(){
 }
 function fadeInFriendsList(){
   $("#friends_list").fadeIn(global_fade_out_time88374635134);
-}
-function boldSortByName(){
-  $("#sort_by_first_name").addClass('bold');
-  $("#sort_by_points").removeClass('bold');
-}
-function boldSortByPoints(){
-  $("#sort_by_first_name").removeClass('bold');
-  $("#sort_by_points").addClass('bold');
 }

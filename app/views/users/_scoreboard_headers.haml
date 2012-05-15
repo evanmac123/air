@@ -1,0 +1,19 @@
+:ruby
+  if controller.controller_name == "users"
+    name_active = 'active'
+  else
+    points_active = 'active'
+  end
+%table.scoreboard
+  %tr.header_row
+    %th.user-name
+      .inline Player
+      #ie7_scoreboard_header_spacer &nbsp;
+      #sort_by_first_name{:class => name_active} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    %th.user-level 
+      .inline LVL
+      #ie7_scoreboard_header_spacer &nbsp;
+      #sort_by_points{:class => points_active} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    %th#progress.user-progress Progress
+  %tr#scoreboard_spacer
+  

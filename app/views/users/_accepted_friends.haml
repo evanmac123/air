@@ -1,4 +1,4 @@
-%h2.title Connections
+%h1.title Connections
 #following_wrapper
   #following.module
     - if @current_user == @user 
@@ -7,15 +7,17 @@
       %h1.headline= "#{@user.first_name}'s Friends"
     - unless @display_user_stats
       = render 'follow_link'
-    - else
-      %ul#accepted_friendships
-        - unless @has_friends
-          %p No friends yet
-        - else
-          %p <span class='bold' id='sort_by_first_name'>Name</span> <span id='sort_by_points'>Level</span>
-          #friends_list
+    - else      
+      - unless @has_friends
+        %p No friends yet
+      - else
+        = render 'users/scoreboard_headers'
+
+        #friends_list
+          %table.scoreboard
             = render :partial => 'single_friend', :collection => @user.profile_page_friends_list
-          #scoreboard_list
+        #scoreboard_list{:style => "display: none;"}
+          %table.scoreboard
             = render :partial => 'single_friend', :collection => @user.scoreboard_friends_list_by_points
 
 

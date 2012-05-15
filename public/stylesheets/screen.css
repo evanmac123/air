@@ -1,3 +1,4 @@
+@import url(flick/jquery-ui-1.8.10.custom.css);
 /* ---------- customizations ---------- */
 /* ---------- END customizations ---------- */
 /* layout/reset/fonts/etc */
@@ -39,7 +40,6 @@ ul {
 /* ------------ colors ------------- */
 /* Game type colors */
 /* other colors */
-@import url(flick/jquery-ui-1.8.10.custom.css);
 /* ---------- customizations ---------- */
 /* ---------- END customizations ---------- */
 /* layout/reset/fonts/etc */
@@ -973,7 +973,7 @@ body.acts .container .feeds {
     padding: 13px 0; }
     body.acts .container .feeds .act .act-details {
       float: left;
-      margin-left: 20px;
+      padding-left: 20px;
       position: relative;
       width: 87%; }
       body.acts .container .feeds .act .act-details .description {
@@ -1063,7 +1063,7 @@ body.acts .container .feeds {
         color: #fff; }
 body.acts .container .right-column {
   float: right;
-  width: 38.3%; }
+  width: 365px; }
   body.acts .container .right-column li {
     padding: 0 0 5px 0; }
     body.acts .container .right-column li.user {
@@ -1079,7 +1079,7 @@ body.acts .container .right-column {
         body.acts .container .right-column li.user p.user-name span {
           color: #909090;
           margin-right: 5px; }
-  body.acts .container .right-column .scoreboard-module ul {
+  body.acts .container .right-column #scoreboard_wrapper ul {
     padding-left: 20px; }
 body.acts .container .invite-module #invite_friends_facebox p:first-child {
   color: #588b3d;
@@ -1365,7 +1365,7 @@ body.users div#left-col {
     padding: 13px 0; }
     body.users div#left-col .act .act-details {
       float: left;
-      margin-left: 20px;
+      padding-left: 20px;
       position: relative;
       width: 87%; }
       body.users div#left-col .act .act-details .description {
@@ -1411,7 +1411,7 @@ body.users div#left-col {
         width: 100%; }
 body.users div#right-col {
   float: right;
-  width: 35%; }
+  width: 365px; }
   body.users div#right-col li {
     padding: 0 0 5px 0; }
     body.users div#right-col li.user {
@@ -1918,7 +1918,6 @@ div.follow-btn, div.stop-following-btn {
   text-shadow: 1px 1px 1px #333333;
   text-transform: uppercase;
   font-weight: 900!important;
-  float: right;
   text-align: center;
   cursor: pointer; }
   div.follow-btn:hover, div.stop-following-btn:hover {
@@ -2051,22 +2050,6 @@ td.label {
 
 #following #scoreboard_list, #scoreboard #friends_list {
   display: none; }
-
-#sort_by_first_name, #sort_by_points {
-  cursor: pointer;
-  color: #333333; }
-  #sort_by_first_name:hover, #sort_by_points:hover {
-    font-weight: bold; }
-
-#sort_by_points {
-  position: relative;
-  left: 220px; }
-
-#following #sort_by_points {
-  left: 188px; }
-
-#this_is_me * {
-  color: orange; }
 
 .orange {
   color: orange; }

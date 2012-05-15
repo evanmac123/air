@@ -1,7 +1,31 @@
 - this_is_me = current_user == single_friend ? 'this_is_me' : ''
-%li.user{:id => this_is_me}
-  %p.user-name= link_to single_friend.name, user_path(single_friend)
-  .user-level
-    .room_for_two
+- max_progress = 72
+- progress_percent = eval "1.0 * #{single_friend.point_fraction}" 
+- begin # users have a point fraction of "0/0", which gives NaN
+  - progress_pixels = (progress_percent * max_progress).round
+- rescue
+  - progress_pixels = 0
+- progress_pixels = max_progress if progress_pixels > max_progress
+- middle_width = progress_pixels - 14
+- max_name_length = 22
+- row_class = single_friend_counter.even? ? '' : 'scoreboard_stripe'
+
+
+%tr.user{:id => this_is_me, :class => row_class}
+  %td.user-name= link_to single_friend.name[0,max_name_length], user_path(single_friend)
+  %td.user-level
+    .top_level_index
       = single_friend.top_level_index
-    .right Level
+  %td.user-progress
+    .tight_bar
+      .grey_bubble
+      .orange_bubble{:style => ""}
+        - if progress_pixels <= 14
+          .orange_ball{:style => "left: -#{14 - progress_pixels}px;"}
+        -else
+          .long_bubble_holder
+            .left_cap
+            .middle{:style => "width: #{middle_width}px;"}
+            .right_cap
+      .curved_shield{:class => "white"}
+      

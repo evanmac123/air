@@ -161,7 +161,7 @@ end
 
 Then /^I should( not)? see "([^"]*)" as a friend$/ do |sense, username|
   sense = !sense
-  with_scope '"#accepted_friendships"' do
+  with_scope '"#following"' do
     if sense
       page.should have_content(username)
     else

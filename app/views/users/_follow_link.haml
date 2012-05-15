@@ -3,7 +3,7 @@
 - else
   = form_tag user_friendship_path(@user), :class => "follow_to_see" do
     = hidden_field_tag :friend_link, :follow_to_see_activity
-    %p
+    %p.indent_same_as_table
       = "To see #{@user.name.split.first}'s information,"
       = link_to "Friend", '#nowhere', :onclick => "$('form.follow_to_see').submit()"
       = @user.her_him

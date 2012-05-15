@@ -1,0 +1,105 @@
+.tight_bar {
+  height: 14px;
+  width: 72px;
+  position: relative;
+  overflow: hidden; }
+  .tight_bar .grey_bubble, .tight_bar .left_cap, .tight_bar .right_cap, .tight_bar .middle, .tight_bar .orange_ball, .tight_bar .curved_shield {
+    height: 14px; }
+  .tight_bar .grey_bubble {
+    width: 72px;
+    background: url("/images/scoreboard/grey_bubble.png"); }
+  .tight_bar .left_cap {
+    width: 7px;
+    background: url("/images/scoreboard/left_cap.png"); }
+  .tight_bar .right_cap {
+    width: 7px;
+    background: url("/images/scoreboard/right_cap.png"); }
+  .tight_bar .orange_ball {
+    width: 14px;
+    background: url("/images/scoreboard/orange_ball.png");
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 5; }
+  .tight_bar .curved_shield {
+    width: 7px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10; }
+    .tight_bar .curved_shield.white {
+      background: url("/images/scoreboard/white_mask.png"); }
+    .tight_bar .curved_shield.white {
+      background: url("/images/scoreboard/offwhite_mask.png"); }
+  .tight_bar .long_bubble_holder {
+    position: absolute;
+    left: 0;
+    top: 0; }
+  .tight_bar .left_cap, .tight_bar .right_cap, .tight_bar .middle {
+    float: left; }
+  .tight_bar .middle {
+    background: url("/images/scoreboard/orange_sliver.png"); }
+
+table.scoreboard {
+  margin-bottom: 0; }
+  table.scoreboard th {
+    background: #ebebeb;
+    color: #919191;
+    height: 23px;
+    border-bottom-width: 0; }
+  table.scoreboard td {
+    border: none; }
+  table.scoreboard tr.header_row {
+    border-top: 1px solid #c2c2c2;
+    border-bottom: 1px solid #c2c2c2; }
+  table.scoreboard tr.scoreboard_stripe td {
+    background: #f8f8f8; }
+  table.scoreboard #scoreboard_spacer {
+    height: 11px; }
+  table.scoreboard .user-name {
+    width: 181px;
+    padding-left: 15px;
+    height: 33px; }
+  table.scoreboard .user-level {
+    width: 22px;
+    text-align: right; }
+  table.scoreboard th.user-level {
+    width: 50px;
+    border-left: 1px solid #c2c2c2;
+    border-right: 1px solid #c2c2c2;
+    padding-right: 0;
+    padding-left: 11px;
+    text-align: left; }
+  table.scoreboard .user-progress {
+    padding-left: 53px; }
+  table.scoreboard th.user-progress {
+    padding-left: 11px; }
+  table.scoreboard td, table.scoreboard th {
+    padding: 0; }
+
+#following, #scoreboard_wrapper {
+  padding-left: 0;
+  padding-right: 0; }
+  #following .headline, #scoreboard_wrapper .headline {
+    padding-left: 15px; }
+
+#sort_by_first_name, #sort_by_points {
+  cursor: pointer;
+  position: relative;
+  top: 1px;
+  left: -2px;
+  display: inline;
+  width: 17px;
+  height: 14px;
+  background: url("/images/scoreboard/sort_arrow_huge.png") no-repeat; }
+  #sort_by_first_name.active, #sort_by_first_name:hover, #sort_by_points.active, #sort_by_points:hover {
+    background: url("/images/scoreboard/sort_arrow_huge_darker.png") no-repeat; }
+
+#this_is_me * {
+  color: orange; }
+
+#ie7_scoreboard_header_spacer {
+  display: none; }
+
+.indent_same_as_table {
+  padding-left: 15px; }
