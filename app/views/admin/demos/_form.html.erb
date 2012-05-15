@@ -1,6 +1,6 @@
 <%= semantic_form_for [:admin, demo] do |form| %>
   <%= form.inputs do %>
-    <%= form.input :name, :label => "Company name" %>
+    <%= form.input :name, :label => "Name of Demo" %>
     <%= form.input :victory_threshold, :label => "Victory threshold" %>
     <%= form.input :seed_points, :label => "Starting player score" %>
     <%= form.input :custom_welcome_message, {:maxlength => 160} %>
@@ -38,7 +38,7 @@
   <% end %>
 
   <% if demo.new_record? %>
-    <%= render 'admin/demos/bonus_thresholds_and_levels', :form => form, :demo => demo %>
+    <%= render 'levels', :form => form, :demo => demo %>
   <% end %>
 
   <%= form.inputs :name => "Referral Bonus" do %>
@@ -50,6 +50,6 @@
   <%= form.input :use_standard_playbook, :label => "Use standard playbook rules" %>
 
   <%= form.buttons do %>
-    <%= form.submit 'Submit', :disable_with => 'Please wait...' %>
+    <%= form.submit 'Create Game', :disable_with => 'Please wait...' %>
   <% end %>
 <% end %>

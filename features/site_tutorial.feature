@@ -36,14 +36,14 @@ Feature: Talking Chicken
     
     Then I should see "Your activity shows up here" 
     When I click within "#next_button"  
-    Then I should see "Click on Directory to find people you know"
+    Then I should see "Click DIRECTORY to find people you know"
     When I follow "Directory"
     Then I should see 'For example, type "Kermit"'
     When I fill in "search_string" with "Kermit"
     And I press "Find!"
     And I wait a second
     
-    Then I should see "Click 'Add to Friends' to connect with Kermit"
+    Then I should see "Click ADD TO FRIENDS to connect with Kermit"
     When I click within ".follow-btn"
     Then I should see "Directory" 
     Then "Brand New" should have an open tutorial with current step "6" 
@@ -72,6 +72,12 @@ Feature: Talking Chicken
       And I go to the activity page
       And I take five
       Then I should not see "quick tour"
+      And I sign out
+      And I sign in via the login page as "Brand New/chicken"
+      And I should see "Directory"
+      Then "Brand New" should have a closed tutorial with current step "0"
+      And I should not see "No thanks"
+      
       
     
     @javascript 

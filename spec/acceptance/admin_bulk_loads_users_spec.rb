@@ -2,7 +2,7 @@ require File.expand_path(File.dirname(__FILE__) + '/acceptance_helper')
 
 feature "Admin Bulk Loads Users" do
   before do
-    @demo = Factory :demo, :name => "H Engage", :credit_game_referrer_threshold => 60, :game_referrer_bonus => 2000
+    @demo = FactoryGirl.create :demo, :name => "H Engage", :credit_game_referrer_threshold => 60, :game_referrer_bonus => 2000
     signin_as_admin
 
     visit new_admin_demo_bulk_load_path(@demo)
@@ -49,11 +49,11 @@ Fred Robinson,frobinson@example.com,345345,freddy
 
   context "when there are characteristics available" do
     before(:each) do
-      Factory :characteristic, :name => "Generic Characteristic 1"
-      Factory :characteristic, :name => "Generic Characteristic 2", :allowed_values => %w(green red blue)
-      Factory :demo_specific_characteristic, :name => "Demo Characteristic 1", :demo => @demo, :allowed_values => %w(foo bar baz)
-      Factory :demo_specific_characteristic, :name => "Demo Characteristic 2", :demo => @demo 
-      Factory :demo_specific_characteristic, :name => "Other Demo Characteristic"
+      FactoryGirl.create :characteristic, :name => "Generic Characteristic 1"
+      FactoryGirl.create :characteristic, :name => "Generic Characteristic 2", :allowed_values => %w(green red blue)
+      FactoryGirl.create :demo_specific_characteristic, :name => "Demo Characteristic 1", :demo => @demo, :allowed_values => %w(foo bar baz)
+      FactoryGirl.create :demo_specific_characteristic, :name => "Demo Characteristic 2", :demo => @demo 
+      FactoryGirl.create :demo_specific_characteristic, :name => "Other Demo Characteristic"
       visit new_admin_demo_bulk_load_path(@demo)
     end
 

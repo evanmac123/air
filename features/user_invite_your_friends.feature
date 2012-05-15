@@ -2,11 +2,11 @@ Feature: User invites friends
 
   Background:
     Given the following demo exists:
-      | name       | game_referrer_bonus |
-      | Bratwurst  | 2000                |
-      | Gleason    | 2000                |
-      | Preloaded  | 2000                |
-      | NotStarted | 2000                |
+      | name       | game_referrer_bonus | join_type     |
+      | Bratwurst  | 2000                | self-inviting |
+      | Gleason    | 2000                | self-inviting |
+      | Preloaded  | 2000                | pre-populated |
+      | NotStarted | 2000                | self-inviting |
     Given the following self inviting domain exists:
       | domain       | demo             |
       | seconds.com  | name: Bratwurst  |
@@ -26,7 +26,7 @@ Feature: User invites friends
       | Charlie Moore      | name: Gleason   | 4@biker.com          | livingit  | livingit    | everybody     |
       | Already Playing    | name: Bratwurst | playing@inviting.com | playing   | playing     | everybody     |
 
-    Given the following brand new user exists:
+    Given the following brand new users exist:
       | name       | demo            | email                       | slug      | sms_slug    | phone_number | privacy level |
       | Barnaby    | name: Bratwurst | claimed@inviting.com        | smoke     | smoke       | +15554445555 | everybody     |
       | Alexander  | name: Bratwurst | also_claimed@inviting.com   | soap      | soap        | +15554442222 | everybody     |
@@ -51,85 +51,23 @@ Feature: User invites friends
     Then I should see "Click on the person you want to invite:"
     Then I should see "Charlie Brainfield"
     And I should not see "Yo Yo Ma"
-
     
   @javascript
-  Scenario: Invite friends on demo pre-populated with users
+  Scenario: One click invite of friend on pre-populated demo--friend receives invite and joins game
     Given "Shelly" has the password "foobar"
     Given I sign in via the login page as "Shelly/foobar"    
     Then I should see "Invite your friends"
     When I fill in "Which coworkers do you wish to invite?" with "bra"
     Then I should see "Charlie Brainfield"
-    When I select the suggestion containing "Charlie Brainfield"
-    And I follow "Invite selected users"
-    Then I should see "You just invited Charlie Brainfield to play H Engage"
+    When I press the invite button for "Charlie Brainfield"
+    Then I should see "Invitation sent"
     And DJ works off
     Then "1@loaded.com" should receive an email
     When "1@loaded.com" opens the email
     And I click the first link in the email
     Then I should be on the invitation page for "1@loaded.com"
     When I fill in "Enter your mobile number" with "2088834848"
-    And I fill in "Enter your name" with "Blowing Smoke"
-    And I fill in "Choose a username" with "somereallylongtextstring"
-    And I fill in "Choose a password" with "password"
-    And I fill in "And confirm that password" with "password"
-    And I check "Terms and conditions"
-    And I press "Join the game"
-    And I wait a second
-    Then I should see "Brought to you by"
-    Then user with email "1@loaded.com" should show up as referred by "Shelly"
-    And DJ works off
-    And "+16662221111" should have received SMS "Blowing Smoke gave you credit for referring them to the game. Many thanks and 2000 bonus points!"
-    When "pre@loaded.com" opens the email
-    Then I should see "Blowing Smoke gave you credit for referring them to the game. Many thanks and 2000 bonus points!" in the email body
-    When I follow "Confirm my mobile number later"
-    And I should see "Shelly got credit for referring Blowing Smoke to the game"
-    And I should see "2000 pts"
-    
-    @javascript
-    Scenario: Claimed users on a pre-pop game should not receive an invitation
-      Given "Shelly" has the password "foobar"
-      Given I sign in via the login page as "Shelly/foobar"    
-      Then I should see "Invite your friends"
-      When I fill in "Which coworkers do you wish to invite?" with "mic"
-      Then I should see "Michelle"
-      When I select the suggestion containing "Michelle"
-      And I follow "Invite selected users"
-      Then I should see "Michelle is already playing"
-      And DJ works off
-      Then "playing@loaded.com" should receive no email
-      
-  @javascript
-  Scenario: Invite multiple friends at a time on demo pre-populated with users
-    Given "Shelly" has the password "foobar"
-    Given I sign in via the login page as "Shelly/foobar"    
-    Then I should see "Invite your friends"
-    When I fill in "Which coworkers do you wish to invite?" with "bra"
-    Then I should see "Charlie Brainfield"
-    When I select the suggestion containing "Charlie Brainfield"
-    Then I should see "+2000 potential bonus points!"
-    When I fill in "Which coworkers do you wish to invite?" with "our"
-    Then I should see "Fourfold"
-    When I select the suggestion containing "Fourfold"
-    And I should see "+4000 potential bonus points!"
-
-    And I follow "Invite selected users"
-    Then I should see "You just invited Charlie Brainfield and Fourfold to play H Engage"
-    And DJ works off
-    
-    # Check that first invitee received email
-    Then "4@loaded.com" should receive an email
-    When "4@loaded.com" opens the email
-    And I click the first link in the email
-    Then I should be on the invitation page for "4@loaded.com"
-    
-    # Check that second invitee received email and can join game
-    Then "1@loaded.com" should receive an email
-    When "1@loaded.com" opens the email
-    And I click the first link in the email
-    Then I should be on the invitation page for "1@loaded.com"
-    When I fill in "Enter your mobile number" with "2088834848"
-    And I fill in "Enter your name" with "Blowing Smoke"
+    And I fill in "Enter your name" with "Charlie Brainfield"
     And I fill in "Choose a username" with "somereallylongtextstring"
     And I fill in "Choose a password" with "password"
     And I fill in "And confirm that password" with "password"
@@ -140,10 +78,10 @@ Feature: User invites friends
     Then I should see "Brought to you by"
     Then user with email "1@loaded.com" should show up as referred by "Shelly"
     And DJ works off
-    And "+16662221111" should have received SMS "Blowing Smoke gave you credit for referring them to the game. Many thanks and 2000 bonus points!"
+    And "+16662221111" should have received SMS "Charlie Brainfield gave you credit for referring them to the game. Many thanks and 2000 bonus points!"
     When "pre@loaded.com" opens the email
-    Then I should see "Blowing Smoke gave you credit for referring them to the game. Many thanks and 2000 bonus points!" in the email body
-    And I should see "Shelly got credit for referring Blowing Smoke to the game"
+    Then I should see "Charlie Brainfield gave you credit for referring them to the game. Many thanks and 2000 bonus points!" in the email body
+    And I should see "Shelly got credit for referring Charlie Brainfield to the game"
     And I should see "2000 pts"
 
 
@@ -155,7 +93,7 @@ Feature: User invites friends
     Given "Barnaby" has the password "foobar"
     Given I sign in via the login page as "Barnaby/foobar"    
     Then I should see "Invite your friends"
-    When I fill in "email number 1" with "racing22"
+    When I fill in "email number 1" with "racing22@inviting.com"
     And I press "Invite!"
     Then I should see "You just invited racing22@inviting.com to play H Engage"
     And DJ works off
@@ -181,18 +119,19 @@ Feature: User invites friends
     And I should see "Barnaby got credit for referring Blowing Smoke to the game"
     And I should see "2000 pts"
     
+    
   @javascript
   Scenario: Invite multiple friends at a time on a demo with a self-inviting domain
     Given "Barnaby" has the password "foobar"
     Given I sign in via the login page as "Barnaby/foobar"   
     Then I should see "Invite your friends"
-    When I fill in "email number 0" with "racing01"
+    When I fill in "email number 0" with "racing01@inviting.com"
     And I should see "That's 2000 potential bonus points!"
-    When I fill in "email number 1" with "racing02"
+    When I fill in "email number 1" with "racing02@inviting.com"
     And I should see "That's 4000 potential bonus points!"
-    When I fill in "email number 2" with "racing03"
-    When I fill in "email number 3" with "racing04"
-    When I fill in "email number 4" with "racing05"
+    When I fill in "email number 2" with "racing03@inviting.com"
+    When I fill in "email number 3" with "racing04@inviting.com"
+    When I fill in "email number 4" with "racing05@inviting.com"
     
     And I press "Invite!"
     Then I should see "You just invited racing01@inviting.com, racing02@inviting.com, racing03@inviting.com, racing04@inviting.com, and racing05@inviting.com to play H Engage"
@@ -219,13 +158,27 @@ Feature: User invites friends
     And I should see "Barnaby got credit for referring Blowing Smoke to the game"
     And I should see "2000 pts"
     
+  @javascript
+  Scenario: Error messages in self-inviting game 
+    Given "Barnaby" has the password "foobar"
+    Given I sign in via the login page as "Barnaby/foobar"    
+    Then I should see "Invite your friends"
+    When I fill in "email number 3" with "notanemailaddress@"
+    And I press "Invite!"
+    Then I should not see "You just invited"
+    And I should see "notanemailaddress@ is not a valid email address"
+    When I fill in "email number 3" with "good_address@unlisted-domain.com"
+    And I press "Invite!"
+    Then I should not see "You just invited"
+    And I should see "good_address@unlisted-domain.com is not on a self-inviting domain. Please enter work email addresses."
+
     
   @javascript
   Scenario: user invites someone who already accepted an invitation
     Given "Barnaby" has the password "foobar"
     Given I sign in via the login page as "Barnaby/foobar"    
     Then I should see "Invite your friends"
-    When I fill in "email number 3" with "also_claimed"
+    When I fill in "email number 3" with "also_claimed@inviting.com"
     And I press "Invite!"
     Then I should not see "You just invited"
     And I should see "Thanks, but the following users are already playing the game: also_claimed@inviting.com"
@@ -246,12 +199,12 @@ Feature: User invites friends
     Then I should not see a facebox modal
     
   @javascript
-  Scenario: invitation actually sent when using the modal
+  Scenario: invitation actually sent when using the modal with self-inviting domain
     Given the demo for "NotStarted" starts tomorrow
     And "Yoko" has the password "foobar"
     And I sign in via the login page as "Yoko/foobar"
     Then I should see "Invite your friends" in a facebox modal
-    When I fill in "email number 3" with "mybestfriend"
+    When I fill in "email number 3" with "mybestfriend@started.com"
     And I press "Invite!"
     And I should see "You just invited mybestfriend@started.com to play H Engage"
     
@@ -261,25 +214,25 @@ Feature: User invites friends
     Given "Barnaby" has the password "foobar"
     Given I sign in via the login page as "Barnaby/foobar"   
     Then I should see "Invite your friends"
-    When I fill in "email number 0" with "also_claimed"
+    When I fill in "email number 0" with "also_claimed@inviting.com"
     And I should see "That's 2000 potential bonus points!"
     And I press "Invite!"
     And I should see "Thanks, but the following users are already playing the game: also_claimed@inviting.com"
     
-    When I fill in "email number 0" with "neverheardofyou"
+    When I fill in "email number 0" with "neverheardofyou@inviting.com"
     And I should see "That's 2000 potential bonus points!"
     And I press "Invite!"
     And I should see "You just invited neverheardofyou@inviting.com to play H Engage"
     And I should see "That's 2000 potential bonus points!"
     And there should be a user with email "neverheardofyou@inviting.com" in demo "Bratwurst"
     
-    When I fill in "email number 0" with "different_game"
+    When I fill in "email number 0" with "different_game@inviting.com"
     And I should see "That's 2000 potential bonus points!"
     And I press "Invite!"
     And I should see "Thanks, but different_game@inviting.com is in a different game than you"
     And I should not see "That's 2000 potential bonus points!"
     
-    When I fill in "email number 0" with "different_game"
+    When I fill in "email number 0" with "different_game@inviting.com"
     And I should see "That's 2000 potential bonus points!"
     And I press "Invite!"
     And I should see "Thanks, but different_game@inviting.com is in a different game than you"
@@ -287,13 +240,13 @@ Feature: User invites friends
 
 
   @javascript
-  Scenario: Throw an error if you put an @ symbol in the email prepend
+  Scenario: Throw an error if invalid email entered
     Given "Barnaby" has the password "foobar"
     Given I sign in via the login page as "Barnaby/foobar"    
     Then I should see "Invite your friends"
-    When I fill in "email number 1" with "racing22@harmony.com"
+    When I fill in "email number 1" with "racing22harmony.com"
     And I press "Invite!"
-    Then I should see `Please enter only the part of the email address before the "@" - and remember that only colleagues in your organization can play.`
+    Then I should see `racing22harmony.com is not a valid email address`
 
   @javascript
   Scenario: User should not be able to invite herself
@@ -303,16 +256,5 @@ Feature: User invites friends
     When I fill in "Which coworkers do you wish to invite?" with "loaded"
     Then I should see "Charlie Brainfield"
     And I should not see "Yo Yo Ma" within the suggested users
-    
-  @javascript
-  Scenario: When demo has to self-inviting domains, use the correct one
-    Given "Barnaby" has the password "foobar"
-    Given I sign in via the login page as "Barnaby/foobar"  
-    Then I should see "Invite your friends"
-    Then I should not see "seconds.com" 
-    When I fill in "email number 1" with "racing22"
-    And I press "Invite!"
-    Then I should see "You just invited racing22@inviting.com to play H Engage"
-    Then I should not see "seconds.com"    
-    And DJ works off
-    Then "racing22@inviting.com" should receive an email
+
+

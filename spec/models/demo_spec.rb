@@ -20,7 +20,7 @@ describe Demo do
   it { should have_many(:survey_questions).through(:surveys) }
   it { should have_many(:goals) }
   it { should have_many(:levels) }
-  it { should have_many(:suggested_tasks) }
+  it { should have_many(:tasks) }
   it { should have_many(:self_inviting_domains) }
   it { should have_many(:locations) }
   it { should have_many(:characteristics) }
@@ -35,8 +35,8 @@ end
 
 describe Demo, "#welcome_message" do
   before(:each) do
-    @demo = Factory :demo
-    @user = Factory :user, :demo => @demo
+    @demo = FactoryGirl.create :demo
+    @user = FactoryGirl.create :user, :demo => @demo
   end
 
   context "when the demo has no custom welcome message" do
@@ -62,7 +62,7 @@ end
 
 describe Demo, "#game_over?" do
   before(:each) do
-    @demo = Factory :demo
+    @demo = FactoryGirl.create :demo
   end
 
   context "for a demo with no ending time set" do
@@ -108,16 +108,16 @@ end
 
 describe Demo, '#recalculate_all_moving_averages!' do
   before(:each) do
-    @demo = Factory :demo
+    @demo = FactoryGirl.create :demo
 
-    @first = Factory :user, :demo => @demo
-    @second_tie_1 = Factory :user, :demo => @demo
-    @second_tie_2 = Factory :user, :demo => @demo
-    @fourth = Factory :user, :demo => @demo
-    @fifth_tie_1 = Factory :user, :demo => @demo
-    @fifth_tie_2 = Factory :user, :demo => @demo
-    @fifth_tie_3 = Factory :user, :demo => @demo
-    @eighth = Factory :user, :demo => @demo
+    @first = FactoryGirl.create :user, :demo => @demo
+    @second_tie_1 = FactoryGirl.create :user, :demo => @demo
+    @second_tie_2 = FactoryGirl.create :user, :demo => @demo
+    @fourth = FactoryGirl.create :user, :demo => @demo
+    @fifth_tie_1 = FactoryGirl.create :user, :demo => @demo
+    @fifth_tie_2 = FactoryGirl.create :user, :demo => @demo
+    @fifth_tie_3 = FactoryGirl.create :user, :demo => @demo
+    @eighth = FactoryGirl.create :user, :demo => @demo
 
     @all_users = [@first, @second_tie_1, @second_tie_2, @fourth, @fifth_tie_1, @fifth_tie_2, @fifth_tie_3, @eighth]
     @demo.stubs(:users).returns(@all_users)
@@ -152,9 +152,9 @@ shared_examples_for "a rankings fixing method" do
     #Timecop.freeze(1)
 
     #begin
-      #demo1 = Factory :demo, updated_at_column => 10.minutes.ago
-      #demo2 = Factory :demo, updated_at_column => (9.minutes.ago - 59.seconds)
-      #demo3 = Factory :demo, updated_at_column => nil
+      #demo1 = FactoryGirl.create :demo, updated_at_column => 10.minutes.ago
+      #demo2 = FactoryGirl.create :demo, updated_at_column => (9.minutes.ago - 59.seconds)
+      #demo3 = FactoryGirl.create :demo, updated_at_column => nil
 
       #all_demos = [demo1, demo2, demo3]
       #all_demos.each {|demo| demo.stubs(:fix_user_rankings!)}
@@ -189,7 +189,7 @@ describe Demo, ".recalculate_all_moving_averages!" do
   before(:each) do
     @demos = []
     10.times do
-      demo = Factory :demo
+      demo = FactoryGirl.create :demo
       demo.stubs(:recalculate_all_moving_averages!)
       @demos << demo
     end
@@ -223,8 +223,8 @@ end
 
 describe Demo, ".alphabetical" do
   before do
-    @red_sox  = Factory(:demo, :name => "Red Sox")
-    @gillette = Factory(:demo, :name => "Gillette")
+    @red_sox  = FactoryGirl.create(:demo, :name => "Red Sox")
+    @gillette = FactoryGirl.create(:demo, :name => "Gillette")
   end
 
   it "finds all demos, sorted alphaetically" do
@@ -234,17 +234,36 @@ end
 
 describe Demo, "#tutorial_success" do
   before do
-   @demo = Factory :demo
-   @user1 = Factory :user, :demo_id => @demo.id
-   @user2 = Factory :user, :demo_id => @demo.id
-   @user3 = Factory :user, :demo_id => @demo.id
+   @demo = FactoryGirl.create :demo
+   @user1 = FactoryGirl.create :user, :demo_id => @demo.id
+   @user2 = FactoryGirl.create :user, :demo_id => @demo.id
+   @user3 = FactoryGirl.create :user, :demo_id => @demo.id
    tutorial1 = Tutorial.create(:user_id => @user1.id)
    tutorial2 = Tutorial.create(:user_id => @user2.id) 
   end
   
   it "finds out if we met our goals" do
     @demo.tutorial_success
-    demo2 = Factory :demo
+    demo2 = FactoryGirl.create :demo
     demo2.tutorial_success
+  end
+end
+
+describe Demo, "#email_valid_for_demo" do 
+  before do
+  @self_inviting_demo = Demo.create()
+  @domain_1 = SelfInvitingDomain.create(:domain => 'firstdomain.com', :demo_id => @self_inviting_demo.id)   
+  @domain_2 = SelfInvitingDomain.create(:domain => 'seconddomain.com', :demo_id => @self_inviting_demo.id)   
+  @public_demo = Demo.new(:join_type => "public")
+  @pre_populated_demo = Demo.new()
+  end
+  
+  it "should do stuff" do
+    @public_demo.valid_email_to_create_new_user("bogus_email@bog").should be_false
+    @public_demo.valid_email_to_create_new_user("real_email@real.com").should be_true
+    @self_inviting_demo.valid_email_to_create_new_user("email3@firstdomain.com").should be_true
+    @self_inviting_demo.valid_email_to_create_new_user("email@seconddomain.com").should be_true
+    @self_inviting_demo.valid_email_to_create_new_user("email@wrongdomain.com").should be_false
+    @pre_populated_demo.valid_email_to_create_new_user("real_email@real.com").should be_false
   end
 end

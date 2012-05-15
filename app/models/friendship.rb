@@ -114,7 +114,6 @@ class Friendship < ActiveRecord::Base
     friendships = Friendship.all
 
     Friendship.transaction do
-      puts friendships.count
       friendships.each { |friendship| friendship.transition_to_new_model }
     end
   end

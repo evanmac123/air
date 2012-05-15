@@ -11,13 +11,13 @@ module SteakHelperMethods
   end
 
   def signin_as_admin
-    admin = Factory :user, :is_site_admin => true
+    admin = FactoryGirl.create :user, :is_site_admin => true
     has_password(admin, 'foobar')
     signin_as(admin, 'foobar')
   end
 
   def has_password(user, password)
-    user.update_password(password, password)
+    user.update_password(password)
   end
 
   def current_email_address

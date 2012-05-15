@@ -1,7 +1,7 @@
 Feature: User requests tech support
   Background:
     Given the following demo exists:
-      | name |
+      | name         |
       | PEBCAK       |
     And the following users exist:
       | phone number | name | email          | demo                 |
@@ -22,5 +22,6 @@ Feature: User requests tech support
 
   Scenario: Admin gets emailed support request
     When DJ cranks 2 times
+    
     Then support should have received a support email about "Joe/PEBCAK/joe@pebcak.com/+14155551212" with recent acts "what's up/hello/hi"
     And support should have received a support email about "Bob/PEBCAK/bob@pebcak.com/+14155551213" with recent acts "ferp/derp/herp"

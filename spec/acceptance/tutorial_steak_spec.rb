@@ -8,10 +8,10 @@ feature "Talking Chicken Tutorial", %q{
 
 
   background do
-    demo = Factory(:demo, :name => "Hell on Wheels")
-    user = Factory(:user, :name => "Brand New", :demo_id => demo.id)
-    Factory(:claimed_user, :name => Tutorial.example_search_name, :demo_id => demo.id)
-    Factory(:tutorial, :user_id => user.id, :current_step => 4) 
+    demo = FactoryGirl.create(:demo, :name => "Hell on Wheels")
+    user = FactoryGirl.create(:user, :name => "Brand New", :demo_id => demo.id)
+    FactoryGirl.create(:claimed_user, :name => Tutorial.example_search_name, :demo_id => demo.id)
+    FactoryGirl.create(:tutorial, :user_id => user.id, :current_step => 4) 
     has_password(user, "foobar")
     signin_as(user, "foobar")
     visit '/users'
@@ -25,7 +25,7 @@ feature "Talking Chicken Tutorial", %q{
     # Search for a valid user
     fill_in "search_string", :with => "kermit"
     click_button("Find!")
-    page.should have_content("Click 'Add to Friends' to connect with Kermit")
+    page.should have_content("Click ADD TO FRIENDS to connect with Kermit")
     # Go back to /users page (not having searched for anything)
     visit '/users'
     page.should have_content("For example, type \"Kermit\", then click FIND!")

@@ -1,15 +1,17 @@
 class Demo < ActiveRecord::Base
+  
+  JOIN_TYPES = %w(pre-populated self-inviting public).freeze
+  
   has_many :users, :dependent => :destroy
   has_many :acts
   has_many :rules, :dependent => :destroy
   has_many :rule_values, :through => :rules
   has_many :surveys, :dependent => :destroy
   has_many :survey_questions, :through => :surveys
-  has_many :bonus_thresholds, :dependent => :destroy
   has_many :levels, :dependent => :destroy
   has_many :goals, :dependent => :destroy
   has_many :bad_words, :dependent => :destroy
-  has_many :suggested_tasks, :dependent => :destroy
+  has_many :tasks, :dependent => :destroy
   has_many :self_inviting_domains, :dependent => :destroy
   has_many :locations, :dependent => :destroy
   has_many :characteristics, :dependent => :destroy
@@ -17,6 +19,9 @@ class Demo < ActiveRecord::Base
   has_one :skin
 
   validate :end_after_beginning
+  
+  validates_inclusion_of :join_type, :in => JOIN_TYPES
+  validates_uniqueness_of :name
 
   has_alphabetical_column :name
 
@@ -27,12 +32,12 @@ class Demo < ActiveRecord::Base
   #
   # Meanwhile we have a corresponding before_create callback in Act to make
   # sure the demo_id there gets set appropriately.
-
-  def acts_with_current_demo_checked
-    self.acts_without_current_demo_checked.in_demo(self)
+  module ActsWithCurrentDemoChecked
+    def acts
+      self.acts_without_current_demo_checked.in_demo(self)
+    end
   end
-
-  alias_method_chain :acts, :current_demo_checked
+  include ActsWithCurrentDemoChecked
 
   def welcome_message(user=nil)
     custom_message(
@@ -232,11 +237,6 @@ class Demo < ActiveRecord::Base
         num_users_who_completed_one_web_act += 1
       end
     end
-    percent_with_friend = 100.0 * num_users_with_at_least_one_friend  / num_tutorials
-    percent_who_played  = 100.0 * num_users_who_completed_one_web_act / num_tutorials
-    puts "#{num_tutorials} users in #{self.name} have been offered the guided tour."
-    puts "#{percent_who_played}% of them completed at least one act through the play box"
-    puts "#{percent_with_friend}% of them have at least one accepted friend in the game"
   end
 
   def self.number_not_found_response(receiving_number)
@@ -246,6 +246,16 @@ class Demo < ActiveRecord::Base
 
   def self.default_number_not_found_response
     "I can't find your number in my records. Did you claim your account yet? If not, text your first initial and last name (if you are John Smith, text \"jsmith\")."
+  end
+  
+  def valid_email_to_create_new_user(email)
+    return false unless email.is_email_address?
+    return true if self.is_public_game
+    domains = self.self_inviting_domains.map do |dom|
+      dom.domain
+    end
+    return true if domains.include? email.email_domain
+    false
   end
 
   protected
@@ -282,5 +292,24 @@ class Demo < ActiveRecord::Base
     if begins_at && ends_at && ends_at <= begins_at
       errors.add(:begins_at, "must come before the ending time")
     end
+  end
+  
+  def is_public_game
+    # Note that to send yourself an invitation, this line in the invitations controller must pass as true:
+    #     ENV['GAME_TYPE'] == 'public'
+    # which must be set on the server
+    self.join_type == 'public'
+  end
+  
+  def is_self_inviting_game
+    self.join_type == 'self-inviting'
+  end
+  
+  def is_pre_populated_game
+    self.join_type == 'pre-populated'
+  end
+  
+  def self.next_id
+    self.last.nil? ? 1 : self.last.id + 1
   end
 end

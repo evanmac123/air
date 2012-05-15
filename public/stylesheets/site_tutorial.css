@@ -206,17 +206,58 @@ strong {
 #tutorial_introduction_inner {
   padding: 10mm 10mm 5mm; }
   #tutorial_introduction_inner h2, #tutorial_introduction_inner p {
-    color: grey; }
+    color: grey;
+    max-width: 40ex;
+    margin-left: auto;
+    margin-right: auto; }
   #tutorial_introduction_inner h2 {
     font-size: 10mm;
     padding-bottom: 2mm;
-    max-width: 30ex; }
+    text-align: center; }
+  #tutorial_introduction_inner .no_thanks_tutorial {
+    padding-top: 4px;
+    display: inline-block; }
   #tutorial_introduction_inner a {
     color: #588b3d;
-    font-size: 154%;
+    font-size: 100%;
     font-weight: 500; }
   #tutorial_introduction_inner .show_tutorial {
-    font-size: 246%; }
+    background: #3f3f3f;
+    /* Old browsers */
+    background: -moz-linear-gradient(top, #3f3f3f 0%, #2e2f2d 100%);
+    /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #3f3f3f), color-stop(100%, #2e2f2d));
+    /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, #3f3f3f 0%, #2e2f2d 100%);
+    /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, #3f3f3f 0%, #2e2f2d 100%);
+    /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, #3f3f3f 0%, #2e2f2d 100%);
+    /* IE10+ */
+    background: linear-gradient(top, #3f3f3f 0%, #2e2f2d 100%);
+    /* W3C */
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    border-radius: 20px;
+    behavior: url(/css3pie/PIE.htc);
+    border: 0;
+    color: #fff;
+    font-family: "Ubuntu", Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 11px!important;
+    font-weight: bold;
+    padding: 5px 15px;
+    text-shadow: 1px 1px 1px #2e2e2c;
+    text-transform: uppercase;
+    font-weight: 900!important;
+    background: green;
+    font-size: 155% !important; }
+    #tutorial_introduction_inner .show_tutorial:hover {
+      background: #588b3d; }
+    #tutorial_introduction_inner .show_tutorial:active {
+      background: #909090; }
+    #tutorial_introduction_inner .show_tutorial:hover {
+      color: white;
+      background: #343; }
   #tutorial_introduction_inner a:hover {
     color: #42682d; }
   #tutorial_introduction_inner .link {

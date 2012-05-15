@@ -31,16 +31,19 @@ class UsersController < Clearance::UsersController
     end
 
     @locations = @user.demo.locations
-    @acts = @user.acts.in_user_demo.displayable_to_user(current_user).recent(10)
+    @acts = @user.acts.unhidden.same_demo(@user).recent(10)
     @viewing_self = signed_in? && current_user == @user
     @viewing_other = signed_in? && current_user != @user
 
     @current_link_text = "My Profile" if @viewing_self
     @has_friends = (@user.accepted_friends.count > 0)
     @pending_friends = @user.pending_friends
+    
     @display_user_stats = current_user.can_see_activity_of(@user)
     @reason_for_privacy = @user.name + @user.reason_for_privacy
-    @display_pending_friendships = true if @viewing_self && @pending_friends.present?
+    if @pending_friends.present?
+      @display_pending_friendships = true if @viewing_self || current_user.is_site_admin       
+    end
     invoke_tutorial
   end
 end

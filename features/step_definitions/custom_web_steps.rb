@@ -81,7 +81,7 @@ When /^I press the button to save notification settings$/ do
 end
 
 When /^I press the sign-in button$/ do
-  When %{I press "Let's play!"}
+  step %{I press "Let's play!"}
 end
 
 Then /^the feet select should have "([^"]*)" selected$/ do |value|
@@ -172,7 +172,7 @@ Then /^I should see a restricted text field "([^"]*)" with length (\d+)$/ do |lo
 end
 
 Then /^I should see a restricted text field "([^"]*)"$/ do |selector|
-  Then "I should see a restricted text field \"#{selector}\" with length 160"
+  step "I should see a restricted text field \"#{selector}\" with length 160"
 end
 
 Then /^I should see '(.*?)'$/ do |expected_text|
@@ -248,10 +248,10 @@ When /^I close the modal window$/ do
 end
 
 When /^"([^"]*)" changes their privacy level to "([^"]*)"$/ do |login_string, privacy_level|
-  When %{I sign in via the login page as "#{login_string}"}
-  And %{I go to the settings page}
-  And %{I select "#{privacy_level}" from "Let these people see my actions:"}
-  And %{I press the button to save privacy settings}
+  step %{I sign in via the login page as "#{login_string}"}
+  step %{I go to the settings page}
+  step %{I select "#{privacy_level}" from "Let these people see my actions:"}
+  step %{I press the button to save privacy settings}
 end
 
 Then /^user with email "([^"]*)" should show up as referred by "([^"]*)"$/ do |email, name_passed_in|

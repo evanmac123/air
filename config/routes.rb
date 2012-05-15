@@ -81,6 +81,8 @@ Health::Application.routes.draw do
     resources :tags
 
     resources :labels
+    
+    put "user_transfers", :controller => "user_transfers", :action => :update, :as => "user_transfer"
 
     resources :demos, :only => [:new, :create, :show, :destroy, :edit, :update] do
       # TODO: move :edit and :update onto resources :users below
@@ -89,9 +91,6 @@ Health::Application.routes.draw do
       end
 
       resources :rules, :only => [:index, :new, :create]
-
-      resources :bonus_thresholds, :only => [:edit, :update, :destroy], :shallow => true
-      resources :bonus_thresholds, :only => [:new, :create]
 
       resources :levels, :only => [:edit, :update, :destroy], :shallow => true
       resources :levels, :only => [:new, :create]
@@ -106,7 +105,7 @@ Health::Application.routes.draw do
 
       resources :bad_words
 
-      resources :suggested_tasks do
+      resources :tasks do
         resource :bulk_satisfaction, :only => [:create]
       end
 

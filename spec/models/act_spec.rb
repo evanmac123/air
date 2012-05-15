@@ -14,25 +14,25 @@ end
 
 describe Act, "on create" do
   it "should record a Mixpanel ping" do
-    act = Factory :act
+    act = FactoryGirl.create :act
     Delayed::Worker.new.work_off(20)
 
     expect_act_ping(act)
   end
 
   it "should record the primary value of the related rule" do
-    rule_value = Factory :rule_value, :value => "hey hey", :is_primary => true
-    act = Factory :act, :rule => rule_value.rule
+    rule_value = FactoryGirl.create :rule_value, :value => "hey hey", :is_primary => true
+    act = FactoryGirl.create :act, :rule => rule_value.rule
     Delayed::Worker.new.work_off(20)
 
     expect_act_ping(act, :rule_value => rule_value.value)
   end
 
   it "should record the tags of the related rule" do
-    rule = Factory :rule
-    rule.tags = [Factory(:tag, :name => "woo"), Factory(:tag, :name => "all right"), Factory(:tag, :name => "how about that")]
+    rule = FactoryGirl.create :rule
+    rule.tags = [FactoryGirl.create(:tag, :name => "woo"), FactoryGirl.create(:tag, :name => "all right"), FactoryGirl.create(:tag, :name => "how about that")]
 
-    act = Factory :act, :rule => rule
+    act = FactoryGirl.create :act, :rule => rule
 
     Delayed::Worker.new.work_off(20)
 
@@ -40,7 +40,7 @@ describe Act, "on create" do
   end
 
   it "should record what game the user is in" do
-    act = Factory :act
+    act = FactoryGirl.create :act
 
     Delayed::Worker.new.work_off(20)
 
@@ -48,12 +48,12 @@ describe Act, "on create" do
   end
 
   it "should record the number of followers the user has" do
-    user = Factory :user
+    user = FactoryGirl.create :user
 
-    5.times {Factory :friendship, :friend => user, :state => 'accepted'}
-    10.times {Factory :friendship, :friend => user, :state => 'pending'}
+    5.times {FactoryGirl.create :friendship, :friend => user, :state => 'accepted'}
+    10.times {FactoryGirl.create :friendship, :friend => user, :state => 'pending'}
 
-    act = Factory :act, :user => user
+    act = FactoryGirl.create :act, :user => user
 
     Delayed::Worker.new.work_off(20)
 
@@ -61,12 +61,12 @@ describe Act, "on create" do
   end
 
   it "should record the number of users the user is following" do
-    user = Factory :user
+    user = FactoryGirl.create :user
 
-    3.times {Factory :friendship, :user => user, :state => 'accepted'}
-    10.times {Factory :friendship, :user => user, :state => 'pending'}
+    3.times {FactoryGirl.create :friendship, :user => user, :state => 'accepted'}
+    10.times {FactoryGirl.create :friendship, :user => user, :state => 'pending'}
 
-    act = Factory :act, :user => user
+    act = FactoryGirl.create :act, :user => user
 
     Delayed::Worker.new.work_off(20)
 
@@ -74,11 +74,11 @@ describe Act, "on create" do
   end
 
   it "should record the user's level" do
-    demo = Factory :demo
-    [10,20,30].each {|threshold| Factory :level, :demo => demo, :threshold => threshold}
-    user = Factory :user, :demo => demo
+    demo = FactoryGirl.create :demo
+    [10,20,30].each {|threshold| FactoryGirl.create :level, :demo => demo, :threshold => threshold}
+    user = FactoryGirl.create :user, :demo => demo
 
-    act = Factory :act, :user => user, :inherent_points => 17
+    act = FactoryGirl.create :act, :user => user, :inherent_points => 17
     user.top_level_index.should == 2
 
     Delayed::Worker.new.work_off(20)
@@ -87,8 +87,8 @@ describe Act, "on create" do
   end
 
   it "should record the user's score" do
-    user = Factory :user
-    act = Factory :act, :user => user, :inherent_points => 47
+    user = FactoryGirl.create :user
+    act = FactoryGirl.create :act, :user => user, :inherent_points => 47
 
     Delayed::Worker.new.work_off(20)
 
@@ -96,10 +96,10 @@ describe Act, "on create" do
   end
  
   it "should record the user's account creation date" do
-    user = Factory :user
+    user = FactoryGirl.create :user
 
     user.update_attributes(:created_at => Chronic.parse("March 17, 2009, 6:23 AM"))
-    act = Factory :act, :user => user, :inherent_points => 47
+    act = FactoryGirl.create :act, :user => user, :inherent_points => 47
 
     Delayed::Worker.new.work_off(20)
 
@@ -107,9 +107,9 @@ describe Act, "on create" do
   end
 
   it "should record the tagged user" do
-    other_user = Factory :user
+    other_user = FactoryGirl.create :user
 
-    act = Factory :act, :referring_user => other_user
+    act = FactoryGirl.create :act, :referring_user => other_user
 
     Delayed::Worker.new.work_off(20)
 
@@ -117,7 +117,7 @@ describe Act, "on create" do
   end
 
   it "should record the channel" do
-    act = Factory :act, :creation_channel => :magic
+    act = FactoryGirl.create :act, :creation_channel => :magic
 
     Delayed::Worker.new.work_off(20)
 
@@ -125,10 +125,10 @@ describe Act, "on create" do
   end
 
   it "should record if it was created by suggestion" do
-    user = Factory :user
-    rule_value_1 = Factory :rule_value, :is_primary => true
-    rule_value_2 = Factory :rule_value, :is_primary => true
-    rule_value_3 = Factory :rule_value, :is_primary => true
+    user = FactoryGirl.create :user
+    rule_value_1 = FactoryGirl.create :rule_value, :is_primary => true
+    rule_value_2 = FactoryGirl.create :rule_value, :is_primary => true
+    rule_value_3 = FactoryGirl.create :rule_value, :is_primary => true
 
     user.update_attributes(:last_suggested_items => [rule_value_1.id, rule_value_2.id, rule_value_3.id].join('|'))
     SpecialCommand.use_suggested_item(user, 'b')
@@ -141,10 +141,10 @@ describe Act, "on create" do
   end
 
   it "should record the date the associated user accepted their invitation" do
-    user = Factory :user
+    user = FactoryGirl.create :user
     user.update_attributes(:accepted_invitation_at => Chronic.parse("March 23, 2009, 6:23 AM"))
 
-    act = Factory :act, :user => user
+    act = FactoryGirl.create :act, :user => user
     Delayed::Worker.new.work_off(10)
     expect_act_ping(act, :joined_game_date => Date.parse('2009-03-23'))
   end
@@ -153,20 +153,20 @@ end
 describe Act, "#points" do
   context "for an Act with inherent points" do
     it "should return that value" do
-      (Factory :act, :inherent_points => 5).points.should == 5
+      (FactoryGirl.create :act, :inherent_points => 5).points.should == 5
     end
   end
 
   context "for an act with no inherent points that belongs to a Rule" do
     it "should return that Rule's point value" do
-      rule = Factory(:rule, :points => 12)
-      (Factory :act, :rule => rule).points.should == 12
+      rule = FactoryGirl.create(:rule, :points => 12)
+      (FactoryGirl.create :act, :rule => rule).points.should == 12
     end
   end
 
   context "for an act with no inherent points or Rule" do
     it "should return nil" do
-      (Factory :act).points.should be_nil
+      (FactoryGirl.create :act).points.should be_nil
     end
   end
 end
@@ -183,10 +183,10 @@ describe Act, ".parse" do
   end
 
   context "when user is in the game" do
-    let(:user) { Factory(:user, :phone_number => '+16175551212') }
+    let(:user) { FactoryGirl.create(:user, :phone_number => '+16175551212') }
 
     context "and types a good value" do
-      let(:rule_value) { Factory :rule_value, :is_primary => true, :rule => (Factory :rule, :demo => user.demo) }
+      let(:rule_value) { FactoryGirl.create :rule_value, :is_primary => true, :rule => (FactoryGirl.create :rule, :demo => user.demo) }
       let(:rule)       { rule_value.rule }
       let(:good_sms)   { rule.primary_value.value }
 
@@ -208,7 +208,7 @@ describe Act, ".parse" do
 
       context "that belongs to a different demo" do
         before(:each) do
-          rule.demo = Factory :demo
+          rule.demo = FactoryGirl.create :demo
           rule.save!
         end
 
@@ -237,7 +237,7 @@ end
 
 describe Act, ".find_and_record_rule_suggestion" do
   before(:each) do
-    @demo = Factory :demo
+    @demo = FactoryGirl.create :demo
 
     [
       'ate banana',
@@ -251,10 +251,10 @@ describe Act, ".find_and_record_rule_suggestion" do
       'took a walk',
       'walked outside'
     ].each do |value| 
-      Factory :rule_value, :value => value, :is_primary => true, :rule => (Factory :rule, :demo => @demo)
+      FactoryGirl.create :rule_value, :value => value, :is_primary => true, :rule => (FactoryGirl.create :rule, :demo => @demo)
     end
 
-    @user = Factory :user, :demo => @demo
+    @user = FactoryGirl.create :user, :demo => @demo
   end
 
   context "when nothing matches well" do
@@ -265,7 +265,7 @@ describe Act, ".find_and_record_rule_suggestion" do
 
   context "when something matches but it's not in the same demo" do
     it "should return a canned message" do
-      rule_value = Factory :rule_value, :value => 'played football'
+      rule_value = FactoryGirl.create :rule_value, :value => 'played football'
       rule_value.demo.should_not == @demo
 
       Act.send(:find_and_record_rule_suggestion, 'played guitar', @user).should == "Sorry, I don't understand what \"played guitar\" means. @{Say} \"s\" to suggest we add it."
@@ -337,9 +337,9 @@ end
 
 describe Act, ".record_act" do
   before do
-    @user = Factory :user
-    @rule = Factory :rule, :description => 'some rule'
-    @referring_user = Factory :user
+    @user = FactoryGirl.create :user
+    @rule = FactoryGirl.create :rule, :description => 'some rule'
+    @referring_user = FactoryGirl.create :user
 
     Act.count.should == 0
     Act.record_act(@user, @rule, :channel => :web, :referring_user => @referring_user)

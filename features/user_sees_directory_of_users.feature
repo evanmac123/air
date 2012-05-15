@@ -18,7 +18,7 @@ Feature: Directory of other users
     And I go to the users page
 
   Scenario: Names appear for other users
-    Given I fill in "search bar" with "example.com"
+    Given I fill in "search bar" with "vader.com"
     And I press "Find!"
     Then I should see "Phil" within a link to the user page for "Phil"
     And I should see "Vlad" within a link to the user page for "Vlad"
@@ -26,7 +26,7 @@ Feature: Directory of other users
     And I should not see a link to the user page for "Mort"
   
   Scenario: Avatars appear for other users
-    Given I fill in "search bar" with "example.com"
+    Given I fill in "search bar" with "vader.com"
     And I press "Find!"
     Then I should see an avatar "phil.png" for "Phil"
     And I should see an avatar "vlad.png" for "Vlad"
@@ -34,7 +34,7 @@ Feature: Directory of other users
     And I should not see an avatar "mort.png" for "Mort"
   
   Scenario: Follow controls appear for other users
-    Given I fill in "search bar" with "example.com"
+    Given I fill in "search bar" with "vader.com"
     And I press "Find!"
     Then I should see a follow button for "Sven"
     And I should not see an unfollow button for "Sven"
@@ -46,7 +46,7 @@ Feature: Directory of other users
     And I should not see an unfollow button for "Mort"
 
   Scenario: Other users in alphabetical order
-    Given I fill in "search bar" with "example.com"
+    Given I fill in "search bar" with "vader.com"
     And I press "Find!"
     Then I should see "Phil,Sven,Vlad" in that order
     
@@ -57,7 +57,7 @@ Feature: Directory of other users
     And I should not see a link to the user page for "Vlad"
   
   Scenario: Success message
-    Given I fill in "search bar" with "example.com"
+    Given I fill in "search bar" with "vader.com"
     And I press "Find!"
     And I press the button next to "Sven"
     Then I should see "OK, you'll be friends with Sven, pending their acceptance."

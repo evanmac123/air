@@ -33,7 +33,7 @@ describe SMS::OutgoingMessageJob do
 
       it "should not try to send" do
         @job.perform
-        Twilio::SMS.should_not have_received(:create)
+        Twilio::SMS.should have_received(:create).never
       end
     end
 

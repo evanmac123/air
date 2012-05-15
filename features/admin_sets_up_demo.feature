@@ -6,12 +6,9 @@ Feature: Admin sets up demo
   Scenario: Admin sets up demo
     When I go to the admin page
     When I follow "Create New Game"
-    And I fill in "name" with "3M"
+    And I fill in "Name of Demo" with "3M"
     And I fill in "Victory threshold" with "100"
-    And I fill in "Min points" with "5"
-    And I fill in "Max points" with "8"
-    And I fill in "Award" with "7"
-    And I fill in "Name" with "level 1 (N00b)"
+    And I fill in "Name of Level" with "level 1 (N00b)"
     And I fill in "Threshold" with "10"
     And I fill in "Victory verification email" with "lucille@example.com"
     And I fill in "Victory verification SMS number" with "415-867-5309"
@@ -37,7 +34,7 @@ Feature: Admin sets up demo
     And I fill in "Message user sees on login" with "La llama!"
     And I uncheck "Use standard playbook rules"
     And I fill in "Mute notice threshold" with "17"
-    And I press "Submit"
+    And I press "Create Game"
     Then I should be on the admin "3M" demo page
     And I should see "100 points to win"
     And I should see "Victory email to lucille@example.com"
@@ -50,7 +47,6 @@ Feature: Admin sets up demo
     And I should see "New players start with 5 points"
     And I should see "Game begins at April 01, 2013 at 12:00 PM Eastern"
     And I should see "Game ends at May 01, 2015 at 12:00 PM Eastern"
-    And I should see "Bonus thresholds: Between 5 and 8 points: 7 points awarded"
     And I should see "Levels: 2: level 1 (N00b) at 10 points"
     And I should see "Bonus for referring another user to the game: 5 points (with a 60 minute threshold)"
     And I should see "Bonus for crediting the user who referred you to the game: 17 points"
@@ -68,8 +64,8 @@ Feature: Admin sets up demo
   Scenario: Correct defaults
     Given I am on the admin page
     When I follow "Create New Game"
-    And I fill in "name" with "3M"
-    And I press "Submit"
+    And I fill in "Name of Demo" with "3M"
+    And I press "Create Game"
     Then I should see "Welcome message: You've joined the %{name} game! @{reply here}"
     And I should see "Victory achievement message: You won on %{winning_time}. Congratulations!"
     And I should see "Victory SMS: Congratulations! You've got %{points} points and have qualified for the drawing!"
@@ -80,7 +76,6 @@ Feature: Admin sets up demo
     And I should not see "Victory verification SMS to"
     And I should see "Game began immediately upon creation"
     And I should see "Game goes on indefinitely"
-    And I should see "No bonus thresholds"
     And I should see "No levels"
     And I should see "No followup message"
     And I should see "No bonus for referring another user to the game"
@@ -102,7 +97,7 @@ Feature: Admin sets up demo
     Then I should see a restricted text field "Custom welcome message"
     And I should see a restricted text field "Custom victory SMS"
     And I should see a restricted text field "Followup welcome message"
-    And I should see a restricted text field "Name" with length 140
+    And I should see a restricted text field "Name of Level" with length 140
 
   Scenario: Admin adds user
     Given a demo exists with a name of "3M"

@@ -8,7 +8,7 @@ describe SmsController do
       # We don't use hardly any of these fields, but this is what Twilio 
       # sends.
 
-      @user = Factory :user, :phone_number => "+14152613077"
+      @user = FactoryGirl.create :user, :phone_number => "+14152613077"
       @original_mt_texts_today = @user.mt_texts_today
 
       @params = {

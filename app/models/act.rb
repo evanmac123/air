@@ -9,6 +9,7 @@ class Act < ActiveRecord::Base
   has_one :goal, :through => :rule
 
   before_save do
+    # if rule.description is blank, then act.text will be blank, and we will set it as hidden
     self.hidden = self.text.blank?
 
     # Privacy level is denormalized from user onto act in the interest of
@@ -29,7 +30,7 @@ class Act < ActiveRecord::Base
     check_goal_completion
     check_timed_bonuses
 
-    trigger_suggested_tasks
+    trigger_tasks
     schedule_mixpanel_ping
   end
 
@@ -60,6 +61,10 @@ class Act < ActiveRecord::Base
 
   def self.unhidden
     where(:hidden => false)  
+  end
+  
+  def self.same_demo(user)
+    where(:demo_id => user.demo_id)
   end
 
   def self.displayable_to_user(viewing_user)
@@ -203,7 +208,7 @@ class Act < ActiveRecord::Base
     end
   end
 
-  def trigger_suggested_tasks
+  def trigger_tasks
     self.user.satisfy_suggestions_by_rule(self.rule_id, self.creation_channel, self.referring_user_id.present?)
   end
 

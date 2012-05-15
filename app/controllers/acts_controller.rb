@@ -17,7 +17,7 @@ class ActsController < ApplicationController
     @displayable_task_suggestions = current_user.displayable_task_suggestions
     @displayable_task_suggestions.each {|displayable_task_suggestion| displayable_task_suggestion.display_completion_on_this_request = displayable_task_suggestion.display_completion_on_next_request}
     @displayable_task_suggestions.update_all(:display_completion_on_next_request => false)
-    @displayable_task_suggestions = @displayable_task_suggestions.sort_by &:suggested_task_id
+    @displayable_task_suggestions = @displayable_task_suggestions.sort_by &:task_id
     @num_suggestions_to_display = 3
     respond_to do |format|
       format.html

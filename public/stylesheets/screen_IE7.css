@@ -181,11 +181,14 @@ body.users-index div.user-info {
   padding-top: 8px;
   padding-bottom: 2px; }
 
-#password_prompt {
-  top: 7px; }
-
 #command_central {
   margin-top: 9px; }
 
 .quick_tour_link, .contact_us_link {
   padding-top: 6px !important; }
+
+.single_click_invite {
+  width: 6em; }
+
+#password_prompt {
+  bottom: 21px; }

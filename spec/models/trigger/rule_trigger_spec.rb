@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Trigger::RuleTrigger do
-  it { should belong_to :suggested_task }
+  it { should belong_to :task }
   it { should belong_to :rule }
 
   it "should set referrer_required to false by default" do

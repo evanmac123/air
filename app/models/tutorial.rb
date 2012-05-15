@@ -1,16 +1,30 @@
 class Tutorial < ActiveRecord::Base
   belongs_to :user
 
-
-  
   def bump_step
     self.current_step += 1
     self.save
+    tutorial_mixpanel_ping
   end
   
   def back_up_a_step
     self.current_step -= 1
     self.save
+  end
+  
+  def tutorial_mixpanel_ping(exit = false)
+    user_of_tut = self.user
+    slide_data = {:slide_reached => self.current_step }
+    event_name = exit ? "exited_tutorial_manually" : "tutorial_advanced"
+    
+    mixpanel_details = slide_data.merge(user_of_tut.data_for_mixpanel)
+    Mixpanel::Tracker.new(MIXPANEL_TOKEN, {}).delay.track_event(event_name, mixpanel_details)
+  end
+  
+  def end_it
+    self.ended_at = Time.now
+    self.save
+    self.tutorial_mixpanel_ping(exit = true)   
   end
 
   def act_completed_since_tutorial_start
@@ -25,8 +39,6 @@ class Tutorial < ActiveRecord::Base
     friendships.present?
   end
 
-
-
   def self.example_search_name
     # Note: if you ever change this name, make sure you update his name in the database too,
     # so that the method Demo.tutorial_success can still figure out which friends are real and imaginary
@@ -40,6 +52,11 @@ class Tutorial < ActiveRecord::Base
       b = User.create!(:name => example_search_name, :demo_id => demo.id, 
           :email => email, :accepted_invitation_at => Time.now)
     end
+  end
+  
+  def self.create(*args)
+    tut = super(*args)
+    tut.tutorial_mixpanel_ping
   end
       
 end

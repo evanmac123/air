@@ -1,46 +1,38 @@
 class Invitation::FriendInvitationsController < ApplicationController
   
-  skip_before_filter :authenticate
+  skip_before_filter :authorize
   before_filter :authenticate_without_game_begun_check
   
   def create
     successful_invitation_count = 0
 
-    users_invited = []
     # Pre-populated Domain
-    if params[:invitee_ids]
-      an_array = params[:invitee_ids].gsub(',', '').strip.split.uniq
-      user_ids = an_array.collect do |f|
-        f.to_i
-      end
-      user_ids.each do |i|
-        user = User.find(i)
-        if user.nil?
-          add_failure "User #{i} not found. "
-        elsif user.claimed?
-          add_failure "Thanks, but #{user.name} is already playing."
-        else
-          @invitation_request = InvitationRequest.new(:email => user.email)
-          user.invite(current_user)
-          users_invited <<  user.name          
-        end        
-      end
-      
-      unless users_invited.empty?
-        sentence = create_sentence_response(users_invited)
-        add_success(sentence) 
-      end
-      
-      record_mixpanel_ping(users_invited.length, user_ids.length)
-      redirect_to activity_path and return        
+    invitee_id = params[:invitee_id]
+    if invitee_id
+      user = User.find(invitee_id)
+      if user.nil?
+        @message =  "User #{i} not found. "
+        attempted, successful = 1,0
+      elsif user.claimed?
+        @message =  "Thanks, but #{user.name} is already playing. Try searching for someone else."
+        attempted, successful = 1,0
+      else
+        @invitation_request = InvitationRequest.new(:email => user.email)
+        user.invite(current_user)
+        demo_name = current_user.demo.name
+        pp = current_user.demo.game_referrer_bonus
+        bonus_message = pp ? "That's <span class='orange'>#{pp}</span> potential points!".html_safe : ''
+        @message = "Invitation sent&#8212;#{bonus_message}<br>Search again to invite others".html_safe  
+        attempted, successful = 1,0      
+      end        
+
+      record_mixpanel_ping(attempted, successful)  
+      return        
     end
+    users_invited = []
     
-    # Self-inviting Domain
-    domain = current_user.self_inviting_domain.domain
-    unless domain
-      add_failure "The domain is wrong"
-      redirect_to activity_path and return
-    end
+    # Self-inviting Domain or Public Join
+    
     hash_of_prepends = params[:email_prepends]
     existing_users = []
     if hash_of_prepends.nil?
@@ -54,13 +46,14 @@ class Invitation::FriendInvitationsController < ApplicationController
       hash_of_prepends.each_pair do |key,prepend|
         next if prepend.empty?
         check_for_all_blank += prepend
-        email = (prepend + "@" + domain).downcase
+        email = prepend.downcase
         users_with_email = User.where(:email => email)
         users_with_email_in_same_demo = User.where(:email => email, :demo_id => current_user.demo_id)
         
-        if prepend.include? "@"
-          add_failure no_at_sign_error_message
-          
+        if email.is_not_email_address? 
+          add_failure "#{email} is not a valid email address"
+        elsif current_user.demo.valid_email_to_create_new_user(email) == false
+          add_failure "#{email} is not on a self-inviting domain. Please enter work email addresses."
         elsif users_with_email.present? && users_with_email_in_same_demo.empty?
           add_failure "Thanks, but #{email} is in a different game than you."
         elsif users_with_email.empty? 
@@ -134,7 +127,6 @@ class Invitation::FriendInvitationsController < ApplicationController
       :successful_invitations => successful_invitations,
       :attempted_invitations  => attempted_invitations
     }.merge(current_user.data_for_mixpanel) 
-
-    flash[:mp_track_invited_users] = ['invited friends', mixpanel_details]
+    Mixpanel::Tracker.new(MIXPANEL_TOKEN, {}).delay.track_event('invited friends', mixpanel_details)
   end
 end

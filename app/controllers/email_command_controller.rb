@@ -1,5 +1,5 @@
 class EmailCommandController< ApplicationController
-  skip_before_filter :authenticate
+  skip_before_filter :authorize
   skip_before_filter :force_ssl
   skip_before_filter :verify_authenticity_token
 

@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
   FLASHES_ALLOWING_RAW = %w(notice)
 
   before_filter :force_ssl 
-  before_filter :authenticate
+  before_filter :authorize
   before_filter :tutorial_check
   before_filter :set_delay_on_tooltips
   before_filter :initialize_flashes
@@ -56,16 +56,27 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def authenticate_with_game_begun_check
-    authenticate_without_game_begun_check
-    if current_user && !(current_user.is_site_admin) && current_user.demo.begins_at && current_user.demo.begins_at > Time.now
-      @game_pending = true
-      render "shared/game_not_yet_begun"
+  def authenticate_without_game_begun_check
+    def authorize
+      # All this does is revert to the previously defined version of "authorize", 
+      # the one before the AuthenticateWithGameBegunCheck module was included
+      super
     end
   end
-
-  alias_method_chain :authenticate, :game_begun_check
-
+  
+  
+  module AuthenticateWithGameBegunCheck
+    def authorize
+      super
+      if current_user && !(current_user.is_site_admin) && current_user.demo.begins_at && current_user.demo.begins_at > Time.now
+        @game_pending = true
+        render "shared/game_not_yet_begun"
+      end
+    end
+  end
+  
+  include AuthenticateWithGameBegunCheck
+  
   def wrong_phone_validation_code_error
     "Sorry, the code you entered was invalid. Please try typing it again."
   end
@@ -129,7 +140,7 @@ class ApplicationController < ActionController::Base
       @show_introduction = true
     when 1
       @title = "1. Say It!"
-      @instruct = "Enter \"<span class='offset'>ate a banana</span>\" and click <span class='offset'>Play</span> to get 3 points"
+      @instruct = "Type \"<span class='offset'>ate a banana</span>\" and click PLAY to get 3 points"
       @highlighted = '#bar_command_wrapper'
       @x = 350
       @y = -10
@@ -147,7 +158,7 @@ class ApplicationController < ActionController::Base
       @arrow_dir = "bottom-center"
     when 3
       @title = "3. Make Connections"
-      @instruct = "Click on <span class='offset'>Directory</span> to find people you know"
+      @instruct = "Click DIRECTORY to find people you know"
       @highlighted = '.nav-directory'
       @x = -141
       @y = -5
@@ -163,7 +174,7 @@ class ApplicationController < ActionController::Base
       @arrow_dir = "top-left"
     when 5
       @title = "5. Friend Them"
-      @instruct = "Click '<span class='offset'>Add to Friends</span>' to connect with #{first_name}"
+      @instruct = "Click ADD TO FRIENDS to connect with #{first_name}"
       @highlighted = '#directory_wrapper'
       @x = 0
       @y = 298
@@ -171,7 +182,7 @@ class ApplicationController < ActionController::Base
       @arrow_dir = "left"
     when 6
       @title = "6. See Your Profile"
-      @instruct = "Great! Now you're connected with Kermit. See him in <span class='offset'>My Profile</span>"
+      @instruct = "Great! Now you're connected with Kermit. Click MY PROFILE to see him."
       @highlighted = '.nav-activity'
       @x = 0
       @y = 0
@@ -179,7 +190,7 @@ class ApplicationController < ActionController::Base
       @arrow_dir = "top-center"
     when 7
       @title = "7. Have Fun Playing!"
-      @instruct = "That's it! You now know how to connect with friends and how to earn points."
+      @instruct = "That's it! Now you know how to connect with friends and how to earn points."
       @show_finish_button = true
       @highlighted = '#following_wrapper'
       @x = 0
@@ -218,7 +229,7 @@ class ApplicationController < ActionController::Base
   end
   
   def tutorial_check
-    current_user.create_tutorial_if_first_login if current_user
+    current_user.create_tutorial_if_none_yet if current_user
   end  
 
   def set_delay_on_tooltips

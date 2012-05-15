@@ -3,31 +3,25 @@ class Admin::DemosController < AdminBaseController
 
   def new
     @demo = Demo.new
-    @demo.bonus_thresholds = [BonusThreshold.new]
     @demo.levels = [Level.new]
   end
 
   def create
-    bonus_thresholds_params, levels_params = massage_new_demo_parameters
+    levels_params = massage_new_demo_parameters
 
     begin
       Demo.transaction do
         @demo = Demo.new(params[:demo])
         @demo.save
 
-        # TODO: DRY this mess up, maybe wait until we trigger the Rule Of 3.
-
-        create_bonus_thresholds(bonus_thresholds_params)
         create_levels(levels_params)
       end
 
       flash[:success] = "Demo created."
       redirect_to admin_demo_path(@demo)
     rescue Exception => e
-      # Restore bonus threshold and level parameters to params so we can see
-      # them in Hoptoad later.
+      # Restore level parameters to params so we can see them in Hoptoad later.
      
-      params[:demo][:bonus_thresholds] = bonus_thresholds_params
       params[:demo][:levels] = levels_params
 
       raise e
@@ -38,7 +32,6 @@ class Admin::DemosController < AdminBaseController
     @users = @demo.users.alphabetical
     @user_with_mobile_count = @demo.users.where("phone_number IS NOT NULL AND phone_number != ''").count
     @claimed_user_count = @demo.users.claimed.count
-    @bonus_thresholds = @demo.bonus_thresholds.in_threshold_order
     @levels = @demo.levels.in_threshold_order
     @locations = @demo.locations.alphabetical
   end
@@ -77,20 +70,13 @@ class Admin::DemosController < AdminBaseController
       params[:demo][:victory_verification_sms_number] = PhoneNumber.normalize(raw_number)
     end
 
-    bonus_thresholds_params = params[:demo].delete(:bonus_thresholds)
-    levels_params = params[:demo].delete(:levels)
-
-    [bonus_thresholds_params, levels_params]
+    params[:demo].delete(:levels)
   end
 
-  %w(bonus_threshold level).each do |associated_object|
-    class_eval <<-END_METHOD
-      def create_#{associated_object}s(#{associated_object}s_params)
-        #{associated_object}s_params.values.each do |value|
-          next if value.values.all?(&:blank?)
-          @demo.#{associated_object}s.create!(value)
-        end
-      end
-    END_METHOD
+  def create_levels(levels_params)
+    levels_params.values.each do |value|
+      next if value.values.all?(&:blank?)
+      @demo.levels.create!(value)
+    end
   end
 end

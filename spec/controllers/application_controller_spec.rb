@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe "any controller descended from ApplicationController" do
   controller do
-    skip_before_filter :authenticate
+    skip_before_filter :authorize
 
     def index
       render :inline => 'some nonsense'

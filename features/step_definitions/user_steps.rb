@@ -25,7 +25,7 @@ Given /^"([^"]*)" has privacy level "([^"]*)"$/ do |username, privacy_level|
 end
 
 When /^an admin moves "(.*?)" to the demo "(.*?)"$/ do |username, name|
-  When "I sign in as an admin via the login page"
+  step "I sign in as an admin via the login page"
 
   user = User.find_by_name(username)
 
@@ -67,3 +67,33 @@ end
 When /^I press the button to save the new location$/ do
   click_button("save-location")
 end
+
+Then /^"([^"]*)" should be in the "([^"]*)" game$/ do |user_name, demo_name|
+  user = User.find_by_name(user_name)
+  user.demo.should == Demo.find_by_name(demo_name)
+end
+
+
+Given /^"([^"]*)" is friends with "([^"]*)"$/ do |name_1, name_2|
+  user1 = User.find_by_name(name_1)
+  user2 = User.find_by_name(name_2)
+  user1.befriend(user2)
+  user2.accept_friendship_from(user1)
+end
+
+Given /^"([^"]*)" requests to be friends with "([^"]*)"$/ do |name_1, name_2|
+  user1 = User.find_by_name(name_1)
+  user2 = User.find_by_name(name_2)
+  user1.befriend(user2)
+end
+
+Then /^I should (not )?see "([^"]*)" in the friends list$/ do |sense, text|
+  with_scope('friends list') do
+    if sense
+      page.should_not have_content(text)
+    else
+      page.should have_content(text)
+    end
+  end
+end
+

@@ -1,21 +1,23 @@
 <div class="container">
 	<div id="suggested-tasks">
-
-	  <h2 id='daily_dose_title' style='display: inline;'>Here is your Daily Dose!</h2>
-	  <%= render :partial => 'displayable_task_suggestion', :collection => @displayable_task_suggestions %>
-	  <% content_for :javascript do %>
-	    <%= javascript_tag do %>
-        $('.recently-completed').css({'border-color': 'white'}).effect('highlight', {}, 500, function() {$(this).fadeOut(2000, function(){$(this).remove()})});
-	    <% end %>
-	  <% end %>
-	  <% if @displayable_task_suggestions.count > @num_suggestions_to_display %>
+    <% unless @displayable_task_suggestions.empty? %>
+	    <h2 id='daily_dose_title' style='display: inline;'>Here is your Daily Dose!</h2>
+  	  <%= render :partial => 'displayable_task_suggestion', :collection => @displayable_task_suggestions %>
+  	  <% content_for :javascript do %>
+  	    <%= javascript_tag do %>
+          $('.recently-completed').css({'border-color': 'white'}).effect('highlight', {}, 500, function() {$(this).fadeOut(2000, function(){$(this).remove()})});
+  	    <% end %>
+  	  <% end %>
+  	  <% if @displayable_task_suggestions.count > @num_suggestions_to_display %>
     
-  	  <div class="more-tasks">
-  	  	<a href="#" title="Show more suggested tasks"><img class='grey-show-more-arrows' src="/images/v3/arrow-down.png" />
-  	  	  <span id='show-more-tasks'>Show more</span><img class='grey-show-more-arrows' src="/images/v3/arrow-down.png" /></a>
-  	  </div>
-  	<% else %>
-  	  <div style='height: 12px;'>
+    	  <div class="more-tasks">
+    	  	<a href="#" title="Show more tasks"><img class='grey-show-more-arrows' src="/images/v3/arrow-down.png" />
+    	  	  <span id='show-more-tasks'>Show more</span><img class='grey-show-more-arrows' src="/images/v3/arrow-down.png" /></a>
+    	  </div>
+    	<% else %>
+    	  <div style='height: 12px;'>
+  	    </div>
+    	<% end %>
   	<% end %>
 	</div>
 	
@@ -112,7 +114,7 @@
   <div id='tutorial_introduction'>
     <div id='tutorial_introduction_inner'>
       <h2>Welcome&nbsp;to&nbsp;<%= @current_user.demo.name %></h2>
-      <p>We're going to take you on a quick tour of the site.</p>
+      <p>Before you get started, we'd like to take you on a quick tour of the site.</p>
       <div class='link'><%= link_to "Quick Tour", tutorial_path, :method => :put, :class => 'show_tutorial' %></div>
       <div class='link'><%= link_to "No thanks", '#', :class => 'no_thanks_tutorial' %></div>
     </div>

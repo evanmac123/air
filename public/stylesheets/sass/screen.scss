@@ -12,7 +12,7 @@ $twin_peak_radius: 200px;
 
 @mixin purple_javascript_links{
   cursor: pointer;
-  color: #eaf;
+  color: $dark-gray;
 }
 @mixin scoreboard_and_friends_list{
   li {
@@ -283,7 +283,7 @@ body.acts {
 						color:$gray;
 						width:100%;
 						input[type="text"] {
-							width:200px;
+							width:325px;
 						}
 					}
 					.invite_or_add {
@@ -996,75 +996,6 @@ div.follow-btn, div.stop-following-btn {
   margin-left: 5ex;
   list-style-type: disc;
 }
-.admin{
-  h1, h2, h3, h4{
-    line-height: 2em;
-  }
-  h1{
-    text-align: center;
-    font-size: 1.7cm;
-  }
-  .breadcrumb {
-    font-size: 5mm;
-  }
-  p {
-    font-weight: bold;
-  }
-  ul {
-    margin-left: 5ex;
-    list-style-type: disc;
-  }
-  th{font-size: 18px;}
-  th, td{
-    padding-left: 1ex;
-  }
-  .table-title{
-    font-size: 0.7cm;
-    padding-bottom: 0.3cm;
-    padding-top: 3ex;
-  }
- .select_tags{
-   float: right;
-   width: 139px;
-   padding-top: 32mm;
-   select{
-     width: 100%;
-     display: none;
-     &:first-child{display: block;}
-  }
-   
- }
- .body{
-   float: left;
-   width: 600px;
- }
- .flip-flop{
-   text-align: center;
-   margin-top: -5mm; 
-  }
-  tr:hover{
-    background: #babeb8;
-    .hidden_tags{
-      display: block;
-    }
-  } 
-  .hidden_tags{
-    margin-top: 1ex;
-    display: none;
-    position: absolute;
-    width: 400px;
-    padding: 1ex;
-    background: yellow;
-    text: yellow;
-    -moz-border-radius: 1ex;
-    -webkit-border-radius: 1ex;
-    border-radius: 1ex;
-    .description{
-      padding-bottom: 1ex;
-    }
-  }
- 
-}
 #new-user-form{
   display: none;
 }
@@ -1162,4 +1093,12 @@ td.label{
 
 #this_is_me *{
   color: orange;
+}
+.orange{
+  color: orange;
+}
+.ajax_notice{
+  color: green;
+  font-size: 170%;
+  display: none;
 }

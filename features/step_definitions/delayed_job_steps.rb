@@ -1,5 +1,5 @@
 When /^DJ cranks( once)?( after a little while)?$/ do |_nothing, delay|
-  When "DJ cranks 1 time#{delay}"
+  step "DJ cranks 1 time#{delay}"
 end
 
 When /^DJ cranks (\d+) times?( after a little while)?$/ do |jobs_to_work_off, delay|

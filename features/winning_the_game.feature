@@ -64,7 +64,7 @@ Feature: Player can win the game
   Scenario: Victory admin gets email notification
     When time is frozen at "2010-03-04 17:23:00"
     And "+14155551212" sends SMS "ate a kitten"
-    And "lucille@example.com" opens the email with subject "HEngage victory notification: Bob \(bob@example.com\)"
+    And "lucille@example.com" opens the email with subject "HEngage victory notification: Bob (bob@example.com)"
     Then I should see "Bob (bob@example.com) won the game with 100 points on March 04, 2010 at 05:23 PM Eastern" in the email body
 
   Scenario: Player wins just once

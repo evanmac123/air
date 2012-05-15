@@ -26,13 +26,13 @@ feature "User Sees Correct Values In Master Bar" do
   end
 
   before(:each) do
-    @demo = Factory :demo, :name => "BarCo", :victory_threshold => 100
-    [10, 20, 30, 50, 80, 130].each {|t| Factory :level, :threshold => t, :demo => @demo}
+    @demo = FactoryGirl.create :demo, :name => "BarCo", :victory_threshold => 100
+    [10, 20, 30, 50, 80, 130].each {|t| FactoryGirl.create :level, :threshold => t, :demo => @demo}
   end
 
   user_information.each do |user_attributes, expected_values|
     scenario "#{user_attributes[:name]} with #{user_attributes[:points]} points should see #{expected_values[:points]}/#{expected_values[:points_denominator]} points for #{expected_values[:percent]}%" do
-      user = Factory :user, user_attributes.merge(:demo => @demo)
+      user = FactoryGirl.create :user, user_attributes.merge(:demo => @demo)
       has_password(user, "foobar")
       signin_as(user, "foobar")
 

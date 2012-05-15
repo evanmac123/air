@@ -1,11 +1,11 @@
-Feature: User can't play before game opens
+Feature: User can not play before game opens
 
-  Scenario: User can't login before game opens
+  Scenario: User can log in before demo opens, but can only access settings page and invite friends
     Given the following demo exists:
-      | name | begins at                 |
+      | name         | begins at                 |
       | HoldYrHorses | 2011-05-01 00:00:00 -0400 |
     And the following user exists:
-      | name | email           | demo                       |
+      | name | email           | demo               |
       | Bob  | bob@example.com | name: HoldYrHorses |
     And "Bob" has the password "foobar"
 
@@ -56,7 +56,7 @@ Feature: User can't play before game opens
     And I sign in via the login page with "Bob/foobar"
     Then I should not see "Your game begins on May 01, 2011 at 12:00 AM Eastern"
 
-  Scenario: Admin can log in whenever they please
+  Scenario: Admin can log in and play/view everything whenever they please
     Given the following demo exists:
       | name | begins at                 |
       | HoldYrHorses | 2011-05-01 00:00:00 -0400 |

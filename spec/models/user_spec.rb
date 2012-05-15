@@ -4,7 +4,7 @@ require 'pry'
 
 describe User do
   before do
-    Factory(:user)
+    FactoryGirl.create(:user)
   end
 
   it { should belong_to(:demo) }
@@ -29,7 +29,7 @@ describe User do
   it { should validate_presence_of :privacy_level }
 
   it "should validate that privacy level is set to a valid value" do
-    user = Factory :user
+    user = FactoryGirl.create :user
     user.should be_valid
 
     User::PRIVACY_LEVELS.each do |privacy_level|
@@ -42,8 +42,8 @@ describe User do
   end
 
   it "should validate uniqueness of phone number when not blank" do
-    user1 = Factory :user, :phone_number => '+14152613077'
-    user2 = Factory :user, :phone_number => ''
+    user1 = FactoryGirl.create :user, :phone_number => '+14152613077'
+    user2 = FactoryGirl.create :user, :phone_number => ''
     user3 = Factory.build :user, :phone_number => '+14152613077'
     user4 = Factory.build :user, :phone_number => ''
     user5 = Factory.build :user, :phone_number => "(415) 261-3077"
@@ -58,14 +58,14 @@ describe User do
   end
 
   it "should validate uniqueness of SMS slug when not blank" do
-    user1 = Factory(:claimed_user)
-    user2 = Factory(:claimed_user)
+    user1 = FactoryGirl.create(:claimed_user)
+    user2 = FactoryGirl.create(:claimed_user)
     user2.sms_slug = user1.sms_slug
     user2.should_not be_valid
   end
 
   it "should validate that the SMS slug, if not blank, consists of all letters and digits" do
-    user = Factory :claimed_user
+    user = FactoryGirl.create :claimed_user
     user.should be_valid
 
     user.sms_slug = "i rule"
@@ -81,37 +81,37 @@ describe User do
   end
 
   it "should downcase an SMS slug before validation" do
-    user1 = Factory :user
+    user1 = FactoryGirl.create :user
     user1.update_attributes(:sms_slug => "somedude")
 
-    user2 = Factory :claimed_user
+    user2 = FactoryGirl.create :claimed_user
     user2.should be_valid
 
     user2.sms_slug = 'SomeDude'
     user2.should_not be_valid
     user2.errors[:sms_slug].should == ["Sorry, that username is already taken."]
-    user3 = Factory :user
+    user3 = FactoryGirl.create :user
     user3.update_attributes(:sms_slug => "OtherDude")
     user3.reload.sms_slug.should == "otherdude"
   end
 
 
   it "should allow me to create a user without a name or sms_slug, except when trying to accept" do
-    user = Factory(:user, :sms_slug => '', :name => '')
+    user = FactoryGirl.create(:user, :sms_slug => '', :name => '')
     user.should be_valid
     user.trying_to_accept = true
     user.should_not be_valid
   end
 
   it "should allow multiple users, each with the same (blank) sms slugs" do
-    Factory(:user, :sms_slug => '')
+    FactoryGirl.create(:user, :sms_slug => '')
     user = Factory.build(:user, :sms_slug => '')
     user.should be_valid
   end
 
   it "should send an invitation if sms email is valid" do
       user_or_phone = "blah"
-      domain = Factory(:self_inviting_domain).domain
+      domain = FactoryGirl.create(:self_inviting_domain).domain
       text = "hi@#{domain}"
       User.send_invitation_if_email(user_or_phone, text).should == nil
       user_or_phone = "+12345678901"
@@ -131,8 +131,8 @@ describe User do
 
   describe "on destroy" do
     it "should destroy any Friendships where this user is the friend on destroy" do
-      user1 = Factory(:user)
-      user2 = Factory(:user)
+      user1 = FactoryGirl.create(:user)
+      user2 = FactoryGirl.create(:user)
       Friendship.create!(:user => user1, :friend => user2)
 
       user2.destroy
@@ -140,10 +140,10 @@ describe User do
     end
 
     #xit "should fix the rankings of this user's demo after it's destroyed" do
-      #demo = Factory :demo
-      #user1 = Factory :claimed_user, :demo => demo
-      #user2 = Factory :claimed_user, :demo => demo
-      #user3 = Factory :claimed_user, :demo => demo
+      #demo = FactoryGirl.create :demo
+      #user1 = FactoryGirl.create :claimed_user, :demo => demo
+      #user2 = FactoryGirl.create :claimed_user, :demo => demo
+      #user3 = FactoryGirl.create :claimed_user, :demo => demo
 
       #user1.update_points(10)
       #user2.update_points(5)
@@ -162,9 +162,9 @@ describe User do
 
     context "when user has a non-blank phone number" do
       it "should decrement the associated demo's ranked_user_count" do
-        demo = Factory :demo
+        demo = FactoryGirl.create :demo
 
-        3.times {|i| Factory :user, :demo => demo, :phone_number => "+1415555121#{i}"}
+        3.times {|i| FactoryGirl.create :user, :demo => demo, :phone_number => "+1415555121#{i}"}
 
         demo.users.last.destroy
         demo.reload.ranked_user_count.should == 2
@@ -173,9 +173,9 @@ describe User do
 
     context "when user has a blank phone number" do
       it "should not change the associated demo's ranked_user_count" do
-        demo = Factory :demo
+        demo = FactoryGirl.create :demo
 
-        3.times {|i| Factory :user, :demo => demo}
+        3.times {|i| FactoryGirl.create :user, :demo => demo}
 
         demo.users.last.destroy
         demo.reload.ranked_user_count.should == 0
@@ -208,7 +208,7 @@ describe User do
 
 
   it "should create slugs when you create" do
-    a = Factory(:user, :name => "present")
+    a = FactoryGirl.create(:user, :name => "present")
     a.slug.should == "present"
     a.sms_slug.should == "present"
   end
@@ -233,11 +233,11 @@ describe User, "#update_password" do
     # User. But #update_password should never let a blank password be set.
 
     it "should return false and not update" do
-      user = Factory :user
-      user.password = user.password_confirmation = "foobar"
+      user = FactoryGirl.create :user
+      user.password = "foobar"
       user.save!
 
-      user.update_password("", "").should == false
+      user.update_password("").should == false
       user.password.should == "foobar"
     end
   end
@@ -246,7 +246,7 @@ end
 describe User, "#invitation_code" do
   before do
     Timecop.travel("1/1/11") do
-      @user     = Factory(:user)
+      @user     = FactoryGirl.create(:user)
       @expected = Digest::SHA1.hexdigest("--#{Time.now.utc}--#{@user.email}--")
     end
   end
@@ -258,8 +258,8 @@ end
 
 describe User, ".alphabetical" do
   before do
-    @jobs  = Factory(:user, :name => "Steve Jobs")
-    @gates = Factory(:user, :name => "Bill Gates")
+    @jobs  = FactoryGirl.create(:user, :name => "Steve Jobs")
+    @gates = FactoryGirl.create(:user, :name => "Bill Gates")
   end
 
   it "finds all users, sorted alphaetically" do
@@ -283,7 +283,7 @@ describe User, ".claim_account" do
 
   context "when a user with a matching claim code exists" do
     before(:each) do
-      @user = Factory :user, :claim_code => @claim_code
+      @user = FactoryGirl.create :user, :claim_code => @claim_code
     end
 
     it "should set that user's phone number" do
@@ -305,7 +305,7 @@ describe User, ".claim_account" do
 end
 
 describe User, "#invite" do
-  subject { Factory(:user) }
+  subject { FactoryGirl.create(:user) }
 
   context "when added to demo" do
     it { should_not be_invited }
@@ -334,7 +334,7 @@ end
 describe User, "#slug" do
   context "when John Smith is created" do
     before do
-      @first = Factory(:user, :name => "John Smith")
+      @first = FactoryGirl.create(:user, :name => "John Smith")
     end
 
     it "has text-only slugs" do
@@ -344,7 +344,7 @@ describe User, "#slug" do
 
     context "and another John Smith is created" do
       before do
-        @second = Factory(:user, :name => "John Smith")
+        @second = FactoryGirl.create(:user, :name => "John Smith")
       end
 
       it "has text-and-digit slugs" do
@@ -354,7 +354,7 @@ describe User, "#slug" do
 
       context "and another John Smith is created" do
         before do
-          @third = Factory(:user, :name => "John Smith")
+          @third = FactoryGirl.create(:user, :name => "John Smith")
         end
 
         it "has a unique text-and-digit slug" do
@@ -370,7 +370,7 @@ end
 
 describe User, '#generate_simple_claim_code!' do
   before(:each) do
-    @first = Factory :user
+    @first = FactoryGirl.create :user
   end
 
   it "should set the claim code" do
@@ -381,8 +381,8 @@ describe User, '#generate_simple_claim_code!' do
 
   context "for multiple users with the same name" do
     before(:each) do
-      @second = Factory :user, :name => @first.name
-      @third = Factory :user, :name => @first.name
+      @second = FactoryGirl.create :user, :name => @first.name
+      @third = FactoryGirl.create :user, :name => @first.name
     end
 
     it "should generate the same claim codes" do
@@ -397,9 +397,9 @@ describe User, '#generate_simple_claim_code!' do
 
   context "for a user with middle names" do
     before(:each) do
-      @first = Factory :user, :name => "Lyndon Baines Johnson"
-      @second = Factory :user, :name => "Arthur Andrew Alabama Anderson"
-      @third = Factory :user, :name => "Elizabeth II, Queen of England"
+      @first = FactoryGirl.create :user, :name => "Lyndon Baines Johnson"
+      @second = FactoryGirl.create :user, :name => "Arthur Andrew Alabama Anderson"
+      @third = FactoryGirl.create :user, :name => "Elizabeth II, Queen of England"
     end
 
     it "should use just first and last name" do
@@ -416,7 +416,7 @@ end
 
 describe User, '#generate_unique_claim_code!' do
   before(:each) do
-    @first = Factory :user
+    @first = FactoryGirl.create :user
   end
 
   it "should set the claim code" do
@@ -427,8 +427,8 @@ describe User, '#generate_unique_claim_code!' do
 
   context "for multiple users with the same name" do
     before(:each) do
-      @second = Factory :user, :name => @first.name
-      @third = Factory :user, :name => @first.name
+      @second = FactoryGirl.create :user, :name => @first.name
+      @third = FactoryGirl.create :user, :name => @first.name
     end
 
     it "should generate unique claim codes" do
@@ -445,10 +445,10 @@ end
 
 share_examples_for "a ranking method" do
   before(:each) do
-    @demo = Factory :demo
-    10.downto(6) {|i| Factory :claimed_user, points_column => i, :demo => @demo}
-    1.upto(4) {|i| Factory :claimed_user, points_column => i, :demo => @demo}
-    @user = Factory :claimed_user, points_column => 5, :demo => @demo
+    @demo = FactoryGirl.create :demo
+    10.downto(6) {|i| FactoryGirl.create :claimed_user, points_column => i, :demo => @demo}
+    1.upto(4) {|i| FactoryGirl.create :claimed_user, points_column => i, :demo => @demo}
+    @user = FactoryGirl.create :claimed_user, points_column => 5, :demo => @demo
   end
 
   context "when a user is created" do
@@ -468,7 +468,7 @@ share_examples_for "a ranking method" do
     #end
 
     #xit "should schedule a reset of the ranking of all users who are now below them but weren't before" do
-      #@twin = Factory :claimed_user, points_column => 5, :demo => @demo
+      #@twin = FactoryGirl.create :claimed_user, points_column => 5, :demo => @demo
       #@twin[ranking_column].should == @user[ranking_column]
 
       #@user.send(update_points_method, 3)
@@ -481,9 +481,9 @@ share_examples_for "a ranking method" do
 
     #xit "should work when breaking ties" do
       #User.delete_all
-      #@first = Factory :claimed_user, points_column => 10, :demo => @demo
-      #@second = Factory :claimed_user, points_column => 10, :demo => @demo
-      #@third = Factory :claimed_user, points_column => 10, :demo => @demo
+      #@first = FactoryGirl.create :claimed_user, points_column => 10, :demo => @demo
+      #@second = FactoryGirl.create :claimed_user, points_column => 10, :demo => @demo
+      #@third = FactoryGirl.create :claimed_user, points_column => 10, :demo => @demo
 
       #@first.reload[ranking_column].should == @second[ranking_column]
       #@first.reload[ranking_column].should == @third.reload[ranking_column]
@@ -525,7 +525,7 @@ describe User, "#update_recent_average_points" do
     [6,1,1], [6,2,1], [6,3,1], [6,4,1], [6,5,2], [6,6,2], [6,7,2], [6,8,2], [6,9,3]
   ].each do |history_depth, points_added, expected_point_gain|
     #xit "should increase #recent_average_points by #{expected_point_gain} points when adding #{points_added} points and history depth is #{history_depth}" do
-      #user = Factory :user, :recent_average_history_depth => history_depth
+      #user = FactoryGirl.create :user, :recent_average_history_depth => history_depth
       #user.update_recent_average_points(points_added)
 
       #user.reload.recent_average_points.should == expected_point_gain
@@ -560,7 +560,7 @@ describe User, "#recalculate_moving_average!" do
 
   context "for a user with no acts" do
     it "should leave their recent_average_history_depth at 0" do
-      user = Factory :user
+      user = FactoryGirl.create :user
       user.recalculate_moving_average!
       user.reload.recent_average_history_depth.should == 0
     end
@@ -568,8 +568,8 @@ describe User, "#recalculate_moving_average!" do
 
   context "for a user with an act today but none in the past" do
     it "should leave their recent_average_history_depth at 0" do
-      user = Factory :user
-      Factory :act, :user => user, :created_at => Date.today.midnight + 1.minute
+      user = FactoryGirl.create :user
+      FactoryGirl.create :act, :user => user, :created_at => Date.today.midnight + 1.minute
 
       user.recalculate_moving_average!
       user.reload.recent_average_history_depth.should == 0
@@ -579,14 +579,14 @@ describe User, "#recalculate_moving_average!" do
   1.upto(User::MAX_RECENT_AVERAGE_HISTORY_DEPTH) do |expected_history_depth|
     context "for a user with earliest act #{expected_history_depth} days ago" do
       it "should set their recent_average_history_depth to #{expected_history_depth}" do
-        user = Factory :user
+        user = FactoryGirl.create :user
 
         # Guaranteed to have at least one act expected_history_depth days ago
-        Factory :act, :user => user, :created_at => sometime_on(expected_history_depth.days.ago)
+        FactoryGirl.create :act, :user => user, :created_at => sometime_on(expected_history_depth.days.ago)
 
         # Might have some more recent acts too
         expected_history_depth.downto(1) do |past_day_offset|
-          rand(5).times {Factory :act, :user => user, :created_at => sometime_on(past_day_offset.days.ago)}
+          rand(5).times {FactoryGirl.create :act, :user => user, :created_at => sometime_on(past_day_offset.days.ago)}
         end
 
         user.recalculate_moving_average!
@@ -597,9 +597,9 @@ describe User, "#recalculate_moving_average!" do
 
   context "for a user with an act #{User::MAX_RECENT_AVERAGE_HISTORY_DEPTH} days ago and one #{User::MAX_RECENT_AVERAGE_HISTORY_DEPTH + 1} days ago" do
     it "should set their recent_average_history_depth to #{User::MAX_RECENT_AVERAGE_HISTORY_DEPTH}" do
-      user = Factory :user
-      Factory :act, :user => user, :created_at => sometime_on(User::MAX_RECENT_AVERAGE_HISTORY_DEPTH.days.ago)
-      Factory :act, :user => user, :created_at => sometime_on((User::MAX_RECENT_AVERAGE_HISTORY_DEPTH + 1).days.ago)
+      user = FactoryGirl.create :user
+      FactoryGirl.create :act, :user => user, :created_at => sometime_on(User::MAX_RECENT_AVERAGE_HISTORY_DEPTH.days.ago)
+      FactoryGirl.create :act, :user => user, :created_at => sometime_on((User::MAX_RECENT_AVERAGE_HISTORY_DEPTH + 1).days.ago)
 
       user.recalculate_moving_average!
       user.reload.recent_average_history_depth.should == User::MAX_RECENT_AVERAGE_HISTORY_DEPTH
@@ -608,9 +608,9 @@ describe User, "#recalculate_moving_average!" do
 
   context "for a user with all acts more than #{User::MAX_RECENT_AVERAGE_HISTORY_DEPTH} days ago" do
     it "should set their recent_average_history_depth to 0" do
-      user = Factory :user
+      user = FactoryGirl.create :user
       1.upto(10) do |days_beyond_horizon|
-        3.times {Factory :act, :user => user, :created_at => sometime_on((User::MAX_RECENT_AVERAGE_HISTORY_DEPTH + days_beyond_horizon).days.ago)}
+        3.times {FactoryGirl.create :act, :user => user, :created_at => sometime_on((User::MAX_RECENT_AVERAGE_HISTORY_DEPTH + days_beyond_horizon).days.ago)}
       end
 
       user.recalculate_moving_average!
@@ -629,9 +629,9 @@ describe User, "#recalculate_moving_average!" do
   }.each do |act_signatures, expected_score|
     context "for a user with recent act signatures #{act_signatures}" do
       it "should set their recent_average_points to #{expected_score}" do
-        user = Factory :user
+        user = FactoryGirl.create :user
         act_signatures.each do |days_ago, points|
-          Factory :act, :user => user, :inherent_points => points, :created_at => sometime_on(Date.today - days_ago.days)
+          FactoryGirl.create :act, :user => user, :inherent_points => points, :created_at => sometime_on(Date.today - days_ago.days)
         end
 
         user.recalculate_moving_average!
@@ -641,9 +641,9 @@ describe User, "#recalculate_moving_average!" do
   end
 
   it "should ignore acts that took place in a Demo other than the current one" do
-    user = Factory :user
-    Factory :act, :user => user, :inherent_points => 10
-    Factory :act, :user => user, :inherent_points => 3, :demo_id => (Factory :demo).id, :created_at => Date.yesterday.midnight
+    user = FactoryGirl.create :user
+    FactoryGirl.create :act, :user => user, :inherent_points => 10
+    FactoryGirl.create :act, :user => user, :inherent_points => 3, :demo_id => (FactoryGirl.create :demo).id, :created_at => Date.yesterday.midnight
 
     user.recalculate_moving_average!
     user.reload
@@ -653,7 +653,7 @@ describe User, "#recalculate_moving_average!" do
   end
 
   it "should not touch the user's recent average ranking" do
-    user = Factory :user, :recent_average_points => 100000
+    user = FactoryGirl.create :user, :recent_average_points => 100000
     user.update_attribute(:recent_average_ranking, 1000)
     user.reload.recent_average_ranking.should == 1000
 
@@ -673,14 +673,14 @@ end
 
 describe User, "#move_to_new_demo" do
   before(:each) do
-    @user = Factory :user
-    @new_demo = Factory :demo
+    @user = FactoryGirl.create :user
+    @new_demo = FactoryGirl.create :demo
   end
 
   describe "when the user has acts (plural) in the new demo with nil points" do
     before(:each) do
       2.times do
-        act = Factory :act, :user => @user, :demo_id => @new_demo.id, :created_at => Date.today
+        act = FactoryGirl.create :act, :user => @user, :demo_id => @new_demo.id, :created_at => Date.today
         act.points.should be_nil
       end
     end
@@ -696,9 +696,9 @@ describe User, "#credit_referring_user" do
   before :each do
     Twilio::SMS.stubs(:create)
 
-    @user = Factory :user
-    @rule_value = Factory :rule_value
-    @referring_user = Factory :user
+    @user = FactoryGirl.create :user
+    @rule_value = FactoryGirl.create :rule_value
+    @referring_user = FactoryGirl.create :user
   end
 
   it "should create an Act with the appropriate values" do
@@ -718,14 +718,14 @@ describe User, "#credit_referring_user" do
     it "should not try to send an SMS to that blank number" do
       @user.send(:credit_referring_user, @referring_user, @rule_value.rule, @rule_value)
 
-      Twilio::SMS.should_not have_received(:create)
+      Twilio::SMS.should have_received(:create).never
     end
   end
 end
 
 describe "#mark_as_claimed" do
   before(:each) do
-    @user = Factory :user
+    @user = FactoryGirl.create :user
     Timecop.freeze(1)
   end
 
@@ -743,7 +743,7 @@ end
 describe User, "when phone number changes" do
   context "from blank to non-blank" do
     it "should increment the associated Demo's ranked_user_count" do
-      user = Factory :user
+      user = FactoryGirl.create :user
       user.phone_number.should be_blank
       user.demo.ranked_user_count.should == 0
 
@@ -756,8 +756,8 @@ describe User, "when phone number changes" do
 
   context "from non-blank to blank" do
     it "should decrement the associated Demo's ranked_user_count" do
-      demo = Factory :demo
-      3.times {|i| Factory :user, :demo => demo, :phone_number => "+1415555121#{i}"}
+      demo = FactoryGirl.create :demo
+      3.times {|i| FactoryGirl.create :user, :demo => demo, :phone_number => "+1415555121#{i}"}
 
       user = demo.users.last
       user.phone_number = ""
@@ -769,8 +769,8 @@ describe User, "when phone number changes" do
 
   context "from non-blank to non-blank" do
     it "should not change the associated Demo's ranked_user_count" do
-      demo = Factory :demo
-      3.times {|i| Factory :user, :demo => demo, :phone_number => "+1415555121#{i}"}
+      demo = FactoryGirl.create :demo
+      3.times {|i| FactoryGirl.create :user, :demo => demo, :phone_number => "+1415555121#{i}"}
 
       user = demo.users.last
       user.phone_number = "+16178675309"
@@ -784,10 +784,10 @@ end
 describe User, "when demo_id changes" do
   context "and user has a non-blank phone number" do
     it "should decrement the old demo's ranked_user_count and increment the new demo's" do
-      demo = Factory :demo
-      new_demo = Factory :demo
+      demo = FactoryGirl.create :demo
+      new_demo = FactoryGirl.create :demo
 
-      3.times {|i| Factory :user, :demo => demo, :phone_number => "+1415555121#{i}"}
+      3.times {|i| FactoryGirl.create :user, :demo => demo, :phone_number => "+1415555121#{i}"}
 
       user = demo.users.last
       user.demo = new_demo
@@ -800,10 +800,10 @@ describe User, "when demo_id changes" do
 
   context "when user has a blank phone number" do
     it "should not change either demo's ranked_user_count" do
-      demo = Factory :demo
-      new_demo = Factory :demo
+      demo = FactoryGirl.create :demo
+      new_demo = FactoryGirl.create :demo
 
-      3.times {|i| Factory :user, :demo => demo}
+      3.times {|i| FactoryGirl.create :user, :demo => demo}
 
       user = demo.users.last
       user.demo = new_demo
@@ -817,7 +817,7 @@ end
 
 describe User, "generates a validation token" do
   it "should generate a token" do
-    a = Factory(:user, :email => "a@a.com")
+    a = FactoryGirl.create(:user, :email => "a@a.com")
     a.reload.new_phone_validation.should be_blank
     a.generate_short_numerical_validation_token
     field = a.reload.new_phone_validation
@@ -828,7 +828,7 @@ end
 
 describe User, "reset_all_mt_texts_today_counts!" do
   it "should reset MT text count on all users" do
-    20.times {Factory :user, :mt_texts_today => rand(1000)}
+    20.times {FactoryGirl.create :user, :mt_texts_today => rand(1000)}
     User.reset_all_mt_texts_today_counts!
     User.where(:mt_texts_today => 0).count.should == User.count
   end
@@ -838,8 +838,8 @@ describe User, "#schedule_followup_welcome_message" do
   it "should only send a message once" do
     SMS.stubs(:send_message)
 
-    demo = Factory :demo, :followup_welcome_message => "hey hey", :followup_welcome_message_delay => 0
-    user = Factory :user, :phone_number => "+14155551212", :demo => demo
+    demo = FactoryGirl.create :demo, :followup_welcome_message => "hey hey", :followup_welcome_message_delay => 0
+    user = FactoryGirl.create :user, :phone_number => "+14155551212", :demo => demo
 
     2.times {user.schedule_followup_welcome_message}
     Delayed::Worker.new.work_off(10)
@@ -850,8 +850,8 @@ end
 describe User do
   describe "Privacy Settings" do
     it "should allow anyone to view the activity of a user whose privacy status is 'everybody'" do
-      follower = Factory :user
-      artist = Factory(:user, :privacy_level => "everybody")
+      follower = FactoryGirl.create :user
+      artist = FactoryGirl.create(:user, :privacy_level => "everybody")
       follower.can_see_activity_of(artist).should == true      
     end
   end
@@ -859,9 +859,9 @@ end
 
 describe User, "#sms_slug_does_not_match_commands" do
   it "should invalidate user if sms_slug matches a command" do
-    demo = Factory(:demo, :name => "my_demo")
-    rule = Factory(:rule, :demo_id => demo.id)
-    rule_value = Factory(:rule_value, :value => "hippa", :rule_id => rule.id)
+    demo = FactoryGirl.create(:demo, :name => "my_demo")
+    rule = FactoryGirl.create(:rule, :demo_id => demo.id)
+    rule_value = FactoryGirl.create(:rule_value, :value => "hippa", :rule_id => rule.id)
     user = Factory.build(:user, :demo_id => demo.id, :sms_slug => 'follow', :slug => 'follow')
     user.should_not be_valid
     user = Factory.build(:user, :demo_id => demo.id, :sms_slug => 'hippa', :slug => 'hippa')
@@ -872,19 +872,19 @@ describe User, "#sms_slug_does_not_match_commands" do
 end
 
 
-describe User, "#create_tutorial_if_first_login" do
+describe User, "#create_tutorial_if_none_yet" do
   it "should create a new tutorial" do
-    user = Factory(:user, :name => "Brand New")
-    user.create_tutorial_if_first_login
+    user = FactoryGirl.create(:user, :name => "Brand New")
+    user.create_tutorial_if_none_yet
     user.reload.tutorial.should_not be_nil
   end
 end
 
 describe User, "#befriend" do
   before(:each) do
-    @demo = Factory(:demo, :name => "It's just a game")
-    @left_user = Factory(:claimed_user, :name => "Lefty Loosey", :demo_id => @demo.id)
-    @right_user = Factory(:claimed_user, :name => "Righty Tighty", :demo_id => @demo.id)
+    @demo = FactoryGirl.create(:demo, :name => "It's just a game")
+    @left_user = FactoryGirl.create(:claimed_user, :name => "Lefty Loosey", :demo_id => @demo.id)
+    @right_user = FactoryGirl.create(:claimed_user, :name => "Righty Tighty", :demo_id => @demo.id)
   end
   
   it "should create two friendships, one initiated and one pending" do

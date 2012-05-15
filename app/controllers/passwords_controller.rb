@@ -17,15 +17,22 @@ class PasswordsController < Clearance::PasswordsController
   def update
     @user = ::User.find_by_slug_and_confirmation_token(
                    params[:user_id], params[:token])
-
-    if @user.update_password(params[:user][:password],
-                             params[:user][:password_confirmation])
-      sign_in(@user)
-      flash_success_after_update
-      # redirect_to(url_after_update)
-      redirect_to activity_path
+    password = params[:user][:password]
+    password_confirmation = params[:user][:password_confirmation]
+    unless password == password_confirmation
+      @user.errors[:password] = User.passwords_dont_match_error_message
+    end
+    
+    if @user.errors.present?
+      render :template => 'passwords/edit' and return
     else
-      render :template => 'passwords/edit'
+      if @user.update_password(password)
+        sign_in(@user)
+        flash_success_after_update
+        redirect_to activity_path
+      else
+        render :template => 'passwords/edit' and return
+      end
     end
   end
 
@@ -50,7 +57,9 @@ class PasswordsController < Clearance::PasswordsController
     end
   end
 
-
+  def flash_success_after_update
+    add_success "Your password has been updated"
+  end
 
   def flash_success_after_create
     # No "Signed in" message

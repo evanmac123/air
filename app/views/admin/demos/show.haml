@@ -76,30 +76,6 @@
     = @demo.seed_points  
     points.
 
-  - if @bonus_thresholds.empty? 
-    %p No bonus thresholds.
-  - else 
-    %p Bonus thresholds:
-    %ul
-      - @bonus_thresholds.each do |bonus_threshold| 
-        %li
-          Between 
-          = bonus_threshold.min_points  
-          and 
-          = bonus_threshold.max_points  
-          points: 
-          = bonus_threshold.award  
-          points awarded
-          = link_to '(edit bonus threshold)', edit_admin_bonus_threshold_path(bonus_threshold) 
-          = button_to 'Delete bonus threshold', admin_bonus_threshold_path(bonus_threshold), :method => :delete, :confirm => "Really delete this bonus threshold (#{bonus_threshold.min_points}-#{bonus_threshold.max_points})?" 
-      
-       
-    
- 
-
-  %ul
-    %li= link_to 'Add bonus threshold', new_admin_demo_bonus_threshold_path(@demo) 
-
   - if @levels.empty? 
     %p No levels.
   - else 
@@ -121,7 +97,7 @@
 
     %li= link_to "Goals for this demo", admin_demo_goals_path(@demo) 
 
-    %li= link_to "Suggested tasks for this demo", admin_demo_suggested_tasks_path(@demo) 
+    %li= link_to "Tasks for this demo", admin_demo_tasks_path(@demo) 
 
   %p
     Welcome message: 

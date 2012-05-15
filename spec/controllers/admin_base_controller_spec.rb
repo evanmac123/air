@@ -3,7 +3,7 @@
 require 'spec_helper'
 
 class DummyController < AdminBaseController
-  skip_before_filter :authenticate
+  skip_before_filter :authorize
   def echo
     render :text => params[:text]
   end
@@ -21,7 +21,7 @@ describe DummyController do
   end
 
   before(:each) do
-    @controller.current_user = Factory :site_admin
+    @controller.current_user = FactoryGirl.create :site_admin
   end
 
   describe "#strip_smart_punctuation" do

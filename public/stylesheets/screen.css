@@ -1113,7 +1113,7 @@ body.acts .container .invite-module .invite form {
     color: #909090;
     width: 100%; }
     body.acts .container .invite-module .invite form .first_half input[type="text"], body.acts .container .invite-module .invite form .second_half input[type="text"] {
-      width: 200px; }
+      width: 325px; }
   body.acts .container .invite-module .invite form .invite_or_add {
     clear: both;
     margin-top: 15px;
@@ -1948,59 +1948,6 @@ div.follow-btn, div.stop-following-btn {
   margin-left: 5ex;
   list-style-type: disc; }
 
-.admin h1, .admin h2, .admin h3, .admin h4 {
-  line-height: 2em; }
-.admin h1 {
-  text-align: center;
-  font-size: 1.7cm; }
-.admin .breadcrumb {
-  font-size: 5mm; }
-.admin p {
-  font-weight: bold; }
-.admin ul {
-  margin-left: 5ex;
-  list-style-type: disc; }
-.admin th {
-  font-size: 18px; }
-.admin th, .admin td {
-  padding-left: 1ex; }
-.admin .table-title {
-  font-size: 0.7cm;
-  padding-bottom: 0.3cm;
-  padding-top: 3ex; }
-.admin .select_tags {
-  float: right;
-  width: 139px;
-  padding-top: 32mm; }
-  .admin .select_tags select {
-    width: 100%;
-    display: none; }
-    .admin .select_tags select:first-child {
-      display: block; }
-.admin .body {
-  float: left;
-  width: 600px; }
-.admin .flip-flop {
-  text-align: center;
-  margin-top: -5mm; }
-.admin tr:hover {
-  background: #babeb8; }
-  .admin tr:hover .hidden_tags {
-    display: block; }
-.admin .hidden_tags {
-  margin-top: 1ex;
-  display: none;
-  position: absolute;
-  width: 400px;
-  padding: 1ex;
-  background: yellow;
-  text: yellow;
-  -moz-border-radius: 1ex;
-  -webkit-border-radius: 1ex;
-  border-radius: 1ex; }
-  .admin .hidden_tags .description {
-    padding-bottom: 1ex; }
-
 #new-user-form {
   display: none; }
 
@@ -2107,7 +2054,7 @@ td.label {
 
 #sort_by_first_name, #sort_by_points {
   cursor: pointer;
-  color: #eaf; }
+  color: #333333; }
   #sort_by_first_name:hover, #sort_by_points:hover {
     font-weight: bold; }
 
@@ -2120,3 +2067,11 @@ td.label {
 
 #this_is_me * {
   color: orange; }
+
+.orange {
+  color: orange; }
+
+.ajax_notice {
+  color: green;
+  font-size: 170%;
+  display: none; }

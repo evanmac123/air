@@ -1,13 +1,13 @@
 When /^I enter the act "(.*?)" via the dropdown$/ do |act_string|
   key_name, value = act_string.split(' ', 2)
 
-  Then "I select \"#{key_name}\" from \"act[key_name]\""
-  Then "I select \"#{value}\" from \"act[value]\""
-  Then "I press \"add\""
+  step "I select \"#{key_name}\" from \"act[key_name]\""
+  step "I select \"#{value}\" from \"act[value]\""
+  step "I press \"add\""
 end
 
 When /^I enter the (act code|special command) "(.*?)"$/ do |_nothing, act_code|
-  Then "I fill in \"act[code]\" with \"#{act_code}\""
+  step "I fill in \"act[code]\" with \"#{act_code}\""
   find(:css, ".bar_command input[@type=submit]").click
 end
 

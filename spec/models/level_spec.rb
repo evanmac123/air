@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Level do
-  subject {Factory :level}
+  subject {FactoryGirl.create :level}
 
   it { should validate_presence_of :name }
   it { should validate_presence_of :threshold }

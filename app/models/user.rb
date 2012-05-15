@@ -30,10 +30,9 @@ class User < ActiveRecord::Base
   has_many   :completed_goals, :through => :goal_completions, :source => :goal
   has_many   :timed_bonuses, :class_name => "TimedBonus"
   has_many   :task_suggestions, :dependent => :destroy
-  has_many   :suggested_tasks, :through => :task_suggestions
-  has_and_belongs_to_many :bonus_thresholds
+  has_many   :tasks, :through => :task_suggestions
   has_and_belongs_to_many :levels
-  has_one   :tutorial
+  has_one   :tutorial, :dependent => :destroy
   validate :normalized_phone_number_unique, :normalized_new_phone_number_unique
   
   validate :sms_slug_does_not_match_commands
@@ -124,7 +123,7 @@ class User < ActiveRecord::Base
 
   attr_reader :batch_updating_recent_averages
 
-  attr_accessor :trying_to_accept
+  attr_accessor :trying_to_accept, :password_confirmation
   attr_protected :is_site_admin, :invitation_method
 
   has_alphabetical_column :name
@@ -173,6 +172,7 @@ class User < ActiveRecord::Base
   
   def can_see_activity_of(user)
     return true if self == user
+    return true if self.is_site_admin
     case user.privacy_level
     when 'everybody'
       return true 
@@ -200,18 +200,20 @@ class User < ActiveRecord::Base
     next_threshold - self.points
   end
   
-  def update_password_with_blank_forbidden(password, password_confirmation)
-    # See comment in user_spec for #update_password.
-    unless password.present?
-      self.errors.add :password, "Please choose a password"
-      return false
-    end
+  module UpdatePasswordWithBlankForbidden
+    def update_password(password)
+      # See comment in user_spec for #update_password.
+      unless password.present?
+        self.errors.add :password, "Please choose a password"
+        return false
+      end
 
-    update_password_without_blank_forbidden(password, password_confirmation)
+      super(password)
+    end
   end
 
-  alias_method_chain :update_password, :blank_forbidden
-
+  include UpdatePasswordWithBlankForbidden
+  
   def followers
     # You'd think you could do this with an association, and if you can figure
     # out how to get that to work, please, be my guest.
@@ -233,6 +235,10 @@ class User < ActiveRecord::Base
 
   def accepted_friends
     friends.where('friendships.state' => 'accepted')
+  end
+  
+  def accepted_friends_same_demo
+    accepted_friends.where(:demo_id => self.demo_id)
   end
 
   def accepted_friends_not_counting_fairy_tale_characters
@@ -270,16 +276,17 @@ class User < ActiveRecord::Base
   # See comment by Demo#acts_with_current_demo_checked for an explanation of
   # why we do this.
 
-  %w(friends pending_friends accepted_friends followers accepted_followers).each do |base_method_name|
-    class_eval <<-END_DEF
-      def #{base_method_name}_with_in_current_demo
-        #{base_method_name}_without_in_current_demo.where(:demo_id => self.demo_id)
-      end
-
-      alias_method_chain :#{base_method_name}, :in_current_demo
-    END_DEF
-
-  end
+  # Commenting this out until I can figure out to redo alias_method_chain with 'super'
+  # %w(friends pending_friends accepted_friends followers accepted_followers).each do |base_method_name|
+  #   class_eval <<-END_DEF
+  #     def #{base_method_name}_with_in_current_demo
+  #       #{base_method_name}_without_in_current_demo.where(:demo_id => self.demo_id)
+  #     end
+  # 
+  #     #alias_method_chain :#{base_method_name}, :in_current_demo
+  #   END_DEF
+  # 
+  # end
 
   def to_param
     slug
@@ -513,7 +520,6 @@ class User < ActiveRecord::Base
     old_points = self.points
     increment!(:points, new_points)
     update_recent_average_points(new_points)
-    BonusThreshold.consider_awarding_points_for_crossed_bonus_thresholds(old_points, self, channel)
     Level.check_for_level_up(old_points, self, channel)
     check_for_victory(channel)
   end
@@ -722,6 +728,10 @@ class User < ActiveRecord::Base
 
     friendship
   end
+  
+  def accept_friendship_from(other)
+    Friendship.where(:user_id => other.id, :friend_id => self.id).first.accept
+  end
 
   def follow_requested_message
     I18n.t(
@@ -778,11 +788,11 @@ class User < ActiveRecord::Base
   end
 
   def displayable_task_suggestions
-    self.task_suggestions.displayable.includes(:suggested_task)
+    self.task_suggestions.displayable.includes(:task)
   end
 
-  def satisfies_all_prerequisites(suggested_task)
-    suggested_task.prerequisite_tasks.all?{|prerequisite_task| self.task_suggestions.for_task(prerequisite_task).satisfied.present?}
+  def satisfies_all_prerequisites(task)
+    task.prerequisite_tasks.all?{|prerequisite_task| self.task_suggestions.for_task(prerequisite_task).satisfied.present?}
   end
 
   def satisfy_suggestions_by_survey(survey_or_survey_id, channel)
@@ -872,23 +882,23 @@ class User < ActiveRecord::Base
     return false
   end
   
-  def create_tutorial_if_first_login
-    if self.session_count <= 1 && self.tutorial.nil?
-      Tutorial.create(:user_id => self.id)
+  def create_tutorial_if_none_yet
+    if self.tutorial.nil?
+      tut = Tutorial.create(:user_id => self.id)
     end
   end
   
 
   def profile_page_friends_list
-    self.accepted_friends.sort_by {|ff| ff.name.downcase}
+    self.accepted_friends_same_demo.sort_by {|ff| ff.name.downcase}
   end
   
   def scoreboard_friends_list_by_points
-    (self.accepted_friends + [self]).sort_by {|ff| ff.points}.reverse
+    (self.accepted_friends_same_demo + [self]).sort_by {|ff| ff.points}.reverse
   end
   
   def scoreboard_friends_list_by_name
-    (self.accepted_friends + [self]).sort_by {|ff| ff.name.downcase}
+    (self.accepted_friends_same_demo + [self]).sort_by {|ff| ff.name.downcase}
   end
   
   def self.name_starts_with(start)
@@ -948,6 +958,11 @@ class User < ActiveRecord::Base
     return [nil, {:error => "Your domain is not valid"}] unless domain_object
 
     User.new(:email => email.strip, :demo_id => domain_object.demo_id)
+  end
+  
+  def self.authenticate(email_or_sms_slug, password)
+    user = User.where('sms_slug = ? OR email = ?', email_or_sms_slug.to_s.downcase, email_or_sms_slug.to_s.downcase).first
+    user && user.authenticated?(password) ? user : nil
   end
 
   protected
@@ -1191,7 +1206,7 @@ class User < ActiveRecord::Base
   end
 
   def suggest_first_level_tasks
-    self.demo.suggested_tasks.first_level.after_start_time.each do |first_level_task|
+    self.demo.tasks.first_level.after_start_time_and_before_end_time.each do |first_level_task|
       first_level_task.suggest_to_user(self)
     end
   end
@@ -1220,5 +1235,13 @@ class User < ActiveRecord::Base
   
   def self.get_claimed_users_where_like(text, demo, attribute)
     get_users_where_like(text, demo, attribute).claimed
+  end
+  
+  def self.passwords_dont_match_error_message
+    "Sorry, your passwords don't match"
+  end
+  
+  def self.next_id
+    self.last.nil? ? 1 : self.last.id + 1
   end
 end

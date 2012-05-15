@@ -7,7 +7,7 @@ describe SMS do
     end
 
     it "can send to either a User or phone number" do
-      user = Factory :user, :phone_number => "+14155551212"
+      user = FactoryGirl.create :user, :phone_number => "+14155551212"
 
       SMS.send_message(user, "hi 1")
       SMS.send_message("+16175551212", "hi 2")
@@ -20,7 +20,7 @@ describe SMS do
 
     context "when sending to a User" do
       before do
-        @user = Factory :user, :phone_number => "+14155551212"
+        @user = FactoryGirl.create :user, :phone_number => "+14155551212"
       end
 
       context "whose demo has no custom phone number" do
@@ -62,7 +62,7 @@ describe SMS do
         @user.update_attributes(:last_muted_at => (23.hours + 59.minutes + 59.seconds).ago)
         SMS.send_message(@user, "hi")
         Delayed::Worker.new.work_off(10)
-        Twilio::SMS.should_not have_received(:create)
+        Twilio::SMS.should have_received(:create).never
 
         @user.update_attributes(:last_muted_at => (24.hours.ago))
         SMS.send_message(@user, "hey")

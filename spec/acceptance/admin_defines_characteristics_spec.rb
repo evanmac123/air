@@ -20,10 +20,10 @@ feature "Admin Defines Characteristics" do
   before(:each) do
     signin_as_admin
 
-    @demo = Factory :demo
-    @agnostic_characteristic = Factory :characteristic, :name => "Favorite pill", :description => "what kind of pill you like", :allowed_values => %w(Viagra Clonozepam Warfarin)
-    @characteristic_1 = Factory :demo_specific_characteristic, :demo => @demo, :name => "Cheese preference", :description => "what sort of cheese does you best", :allowed_values => %w(Stinky Extra-Stinky)
-    @characteristic_2 = Factory :demo_specific_characteristic, :name => "Cake or death", :description => "A simple question really", :allowed_values => %w(Cake Death)
+    @demo = FactoryGirl.create :demo
+    @agnostic_characteristic = FactoryGirl.create :characteristic, :name => "Favorite pill", :description => "what kind of pill you like", :allowed_values => %w(Viagra Clonozepam Warfarin)
+    @characteristic_1 = FactoryGirl.create :demo_specific_characteristic, :demo => @demo, :name => "Cheese preference", :description => "what sort of cheese does you best", :allowed_values => %w(Stinky Extra-Stinky)
+    @characteristic_2 = FactoryGirl.create :demo_specific_characteristic, :name => "Cake or death", :description => "A simple question really", :allowed_values => %w(Cake Death)
     
     @characteristic_2.demo.should_not == @demo
   end

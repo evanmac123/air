@@ -32,7 +32,7 @@ class Admin::Reports::InteractionsController < ApplicationController
     (@number_rows).times do |count|
       hist[count] = 0
     end
-    @max_rules = 20 
+    @max_rules = 2000 # Realized later that the time it takes is dependent on number of users, not number of rules
     if rule_ids.length <= @max_rules
       @users.each do |user|
         how_many = Act.where(:user_id => user.id, :rule_id => rule_ids).count

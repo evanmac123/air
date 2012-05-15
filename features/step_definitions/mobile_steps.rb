@@ -2,7 +2,7 @@ Then /^"([^"]*)" should receive an SMS containing their new phone validation cod
   user = User.where(:name => username).first
   token = user.new_phone_validation
   new_phone_number = user.new_phone_number
-  Then "\"#{new_phone_number}\" should have received an SMS including \"#{token}\""
+  step "\"#{new_phone_number}\" should have received an SMS including \"#{token}\""
 end
 
 When /^"([^"]*)" fills in the new phone validation field with their validation code$/ do |username|
@@ -16,10 +16,10 @@ When /^"([^"]*)" fills in the new phone validation field with the wrong validati
 end
 
 When /^I press the button to verify the new phone number$/ do
-  When %{I press "Verify New Number"}
+  step %{I press "Verify New Number"}
 end
 
 Then /^I should not see the new phone validation field$/ do
-  Then %{I should not see a form field called "user_new_phone_validation"}
+  step %{I should not see a form field called "user_new_phone_validation"}
 end
 

@@ -11,6 +11,6 @@ class Admin::BulkSatisfactionsController < AdminBaseController
 
   def schedule_bulk_completes
     emails = params[:completion][:emails].split
-    SuggestedTask.delay.bulk_complete(params[:demo_id], params[:suggested_task_id], emails)
+    Task.delay.bulk_complete(params[:demo_id], params[:task_id], emails)
   end
 end

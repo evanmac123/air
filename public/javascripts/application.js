@@ -100,31 +100,31 @@ $(function() {
     $('#autocomplete_status').text('');
 
     $(this).insertAfter('#autocomplete');
-    updatePotentialPoints();
+    $("#suggestions").html('');
+    $("#suggestions").hide();
+    //updatePotentialPoints();
   });
 
-  $('#search_for_friends_to_invite .single_suggestion').live('click', function() {
-    // var existing_ids = $('#invitee_ids').val();
-    // var new_id = $(this).find('.suggested_user_id').text();
-    // var new_plus_existing = existing_ids + " " + new_id + ",";
-    // $('#invitee_ids').val(new_plus_existing);
-    $('#autocomplete').val('');
-    $('#autocomplete').focus();
-    //$('#search_for_friends_to_invite #autocomplete').hide();
-    $(this).insertAfter('#put_selected_users_after_this_div');
-    clearAutocompleteStatus();
-    setTimeout('$("#suggestions").html("")', 50);
-    setTimeout('displayPotentialPointsPrepopulated()', 100);
-    
-    $("#hide_me_while_selecting").show();
-    $("#suggestions").hide();
-    setTimeout('resizeFaceboxToFitSuggestions()', 1);
-    
-  });
+  // $('#search_for_friends_to_invite .single_suggestion').live('click', function() {
+  //   // var existing_ids = $('#invitee_ids').val();
+  //   // var new_id = $(this).find('.suggested_user_id').text();
+  //   // var new_plus_existing = existing_ids + " " + new_id + ",";
+  //   // $('#invitee_ids').val(new_plus_existing);
+  //   $('#autocomplete').val('');
+  //   $('#autocomplete').focus();
+  //   //$('#search_for_friends_to_invite #autocomplete').hide();
+  //   $(this).insertAfter('#put_selected_users_after_this_div');
+  //   clearAutocompleteStatus();
+  //   setTimeout('$("#suggestions").html("")', 50);
+  //   setTimeout('displayPotentialPointsPrepopulated()', 100);
+  //   $("#hide_me_while_selecting").show();
+  //   $("#suggestions").hide();
+  //   setTimeout('resizeFaceboxToFitSuggestions()', 1);
+  // });
   
-  $('#facebox .single_suggestion').live('click', function(){
-    increasePopupHeight();
-  })
+  // $('#facebox .single_suggestion').live('click', function(){
+  //   increasePopupHeight();
+  // })
 
   $('.invite-module #search_for_friends_to_invite .single_suggestion').live('click', function() {
   	 var div_to_grow = $('.invite-module');
@@ -179,17 +179,21 @@ $(function() {
     $(this).attr('value', '').removeClass('with-hint-text');
   }));
 
-
-  // These next two are to make the autocompletions disappear if you click on something else
-  $('html').click(function() {
-    setTimeout('$("#suggestions").html("")', 50);
-    $('#suggestions').hide();
-    clearAutocompleteStatus();
-    resizeFaceboxToFitSuggestions();
+  // 
+  // // These next two are to make the autocompletions disappear if you click on something else
+  // $('html').click(function() {
+  //   setTimeout('$("#suggestions").html("")', 50);
+  //   $('#suggestions').hide();
+  //   clearAutocompleteStatus();
+  //   resizeFaceboxToFitSuggestions();
+  // });
+  
+  $('html').click(function(){
+    $(".bubbly").hide();
   });
 
   resizeFaceboxToFitSuggestions();
-
+  $(".single_suggestion").live('click', fadeOutUnclickedSuggestions);
 });
 
 function saveFaqMiniToVariable(){
@@ -270,7 +274,7 @@ function displayPotentialPointsPrepopulated(){
     msg = "Type part of your coworker's name or email, and we'll look them up."
     $('#hide_me_while_selecting').hide();
   }else if (ppr == ''){
-    alert('Please email support@hengage.com and ask them to set up bonuses for this game');
+    ppr = 0;
   }else{
     ppr = parseInt(ppr);
     $('#potential_bonus_points').text(ppr * num_invitees);
@@ -480,3 +484,8 @@ function showTutorialIntroduction(){
 }
 
 
+function fadeOutUnclickedSuggestions(){
+  $('.single_suggestion').addClass('fade_out_singles');
+  $(this).removeClass('fade_out_singles');
+  $('.fade_out_singles').fadeOut(1500, resizeFaceboxToFitSuggestions);
+}

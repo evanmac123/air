@@ -2,21 +2,21 @@ require 'spec_helper'
 
 describe Report::Activity do
   before(:each) do
-    @demo = Factory :demo, :name => "Tiny Sparrow"
+    @demo = FactoryGirl.create :demo, :name => "Tiny Sparrow"
 
-    @user1 = Factory :user, :name => "Bob Smith", :demo => @demo
-    @user2 = Factory :user, :name => "Ann Jones", :demo => @demo
+    @user1 = FactoryGirl.create :user, :name => "Bob Smith", :demo => @demo
+    @user2 = FactoryGirl.create :user, :name => "Ann Jones", :demo => @demo
 
-    @rule1 = Factory :rule, :demo_id => @demo.id
-    @rule2 = Factory :rule, :demo_id => nil
+    @rule1 = FactoryGirl.create :rule, :demo_id => @demo.id
+    @rule2 = FactoryGirl.create :rule, :demo_id => nil
 
-    Factory :primary_value, :value => 'ate kitten', :rule => @rule1
-    Factory :primary_value, :value => 'ate sausage', :rule => @rule2
+    FactoryGirl.create :primary_value, :value => 'ate kitten', :rule => @rule1
+    FactoryGirl.create :primary_value, :value => 'ate sausage', :rule => @rule2
 
-    Factory :act, :created_at => "2011-05-01 12:30", :user => @user1, :rule => @rule1, :demo_id => @demo.id
-    Factory :act, :created_at => "2011-05-01 12:00", :user => @user2, :rule => @rule2, :demo_id => @demo.id
-    Factory :act, :created_at => "2011-05-01 11:15", :user => @user2, :text => 'joined the game', :demo_id => @demo.id
-    Factory :act, :created_at => "2011-05-01 11:00", :user => @user1, :text => 'joined the game', :demo_id => @demo.id
+    FactoryGirl.create :act, :created_at => "2011-05-01 12:30", :user => @user1, :rule => @rule1, :demo_id => @demo.id
+    FactoryGirl.create :act, :created_at => "2011-05-01 12:00", :user => @user2, :rule => @rule2, :demo_id => @demo.id
+    FactoryGirl.create :act, :created_at => "2011-05-01 11:15", :user => @user2, :text => 'joined the game', :demo_id => @demo.id
+    FactoryGirl.create :act, :created_at => "2011-05-01 11:00", :user => @user1, :text => 'joined the game', :demo_id => @demo.id
   end
 
   shared_examples_for "a valid instantiation" do

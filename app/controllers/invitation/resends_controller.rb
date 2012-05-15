@@ -1,7 +1,7 @@
 class Invitation::ResendsController < ApplicationController
   layout "external"
 
-  skip_before_filter :authenticate
+  skip_before_filter :authorize
 
   def new
   end

@@ -43,6 +43,10 @@ class String
     return nil if self.include? ".."
     self.strip =~ /^[A-Z0-9_.\-+%]+@([A-Z0-9.\-]+\.[A-Z]{2,4})$/i
   end
+  
+  def is_not_email_address?
+    is_email_address? ? false : true
+  end
 
   def email_domain
     return nil unless self.is_email_address?

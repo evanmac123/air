@@ -1,3 +1,3 @@
 class Trigger::DemographicTrigger < ActiveRecord::Base
-  belongs_to :suggested_task
+  belongs_to :task
 end
