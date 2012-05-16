@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe OutgoingEmail do
-  it "should get created with appropriate values whenever an email is sent spontaneously" do
+  it "should get created with appropriate values whenever an email is sent" do
     OutgoingEmail.count.should == 0
 
     user = FactoryGirl.create :user
@@ -16,6 +16,4 @@ describe OutgoingEmail do
     outgoing_email.to.should == "#{user.email},snoopy@hengage.com"
     outgoing_email.raw.should == ActionMailer::Base.deliveries.first.to_s
   end
-
-  it "should get created with appropriate values whenever an email is sent as a reply to an incoming email"
 end

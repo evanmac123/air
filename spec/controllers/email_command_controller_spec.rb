@@ -19,9 +19,6 @@ describe EmailCommandController do
     end
 
     context "when properly posting an email" do
-      before(:each) do
-      end
-
       it "should return 'success' with a 200 status" do
         params = @test_params.merge({:plain => @test_command})
         post 'create', params
