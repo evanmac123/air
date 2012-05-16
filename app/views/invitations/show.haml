@@ -92,10 +92,9 @@
           .form-input
             = text_field_tag :display_email, @user.email, :disabled => true, :style => disabled_style
 
-        = f.fancy_text_field :phone_number, :label_text => "Enter your mobile number"
+        = f.fancy_text_field :new_phone_number, :label_text => "Enter your mobile number"
       - else
-        = f.fancy_text_field :phone_number, :label_text => "Enter your mobile number"
-
+        = f.fancy_text_field :new_phone_number, :label_text => "Enter your mobile number"
     %div.form-ul-section
       %div.helper#name First and last, please
       = f.fancy_text_field :name, :label_text => "Enter your name"

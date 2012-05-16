@@ -16,9 +16,9 @@ class Invitation::AcceptancesController < ApplicationController
     # be validated before use. But in case there are errors and we have to re-
     # render the form, remember the original phone number entered so we can 
     # stick it back in.
-    entered_phone_number = params[:user][:phone_number]
+    entered_phone_number = params[:user][:new_phone_number]
     unless @user.invitation_requested_via_sms?
-      params[:user][:new_phone_number] = PhoneNumber.normalize(params[:user][:phone_number])
+      params[:user][:new_phone_number] = PhoneNumber.normalize(entered_phone_number)
       params[:user].delete(:phone_number)
     end
     @user.attributes = params[:user]
@@ -46,7 +46,6 @@ class Invitation::AcceptancesController < ApplicationController
     # the below calls @user#save, so we don't save explicitly
     
     if @user.errors.present?
-      @user.phone_number = entered_phone_number # This makes the page reload include the entered number
       render "/invitations/show" and return
     else
       unless @user.update_password(password)

@@ -6,12 +6,6 @@ $(function() {
   
   saveFaqMiniToVariable();  
   
-  $('#invite_friends_link').live('click', function(){
-    grabUsersToInvite();
-    
-    setTimeout("$('#search_for_friends_to_invite form').submit()", 1000);
-  });
-  
   $("#command_central").click(function(){
     $('.bubbly').hide();
   });
@@ -105,35 +99,7 @@ $(function() {
     //updatePotentialPoints();
   });
 
-  // $('#search_for_friends_to_invite .single_suggestion').live('click', function() {
-  //   // var existing_ids = $('#invitee_ids').val();
-  //   // var new_id = $(this).find('.suggested_user_id').text();
-  //   // var new_plus_existing = existing_ids + " " + new_id + ",";
-  //   // $('#invitee_ids').val(new_plus_existing);
-  //   $('#autocomplete').val('');
-  //   $('#autocomplete').focus();
-  //   //$('#search_for_friends_to_invite #autocomplete').hide();
-  //   $(this).insertAfter('#put_selected_users_after_this_div');
-  //   clearAutocompleteStatus();
-  //   setTimeout('$("#suggestions").html("")', 50);
-  //   setTimeout('displayPotentialPointsPrepopulated()', 100);
-  //   $("#hide_me_while_selecting").show();
-  //   $("#suggestions").hide();
-  //   setTimeout('resizeFaceboxToFitSuggestions()', 1);
-  // });
-  
-  // $('#facebox .single_suggestion').live('click', function(){
-  //   increasePopupHeight();
-  // })
 
-  $('.invite-module #search_for_friends_to_invite .single_suggestion').live('click', function() {
-  	 var div_to_grow = $('.invite-module');
-	 var initial_height = div_to_grow.height();
-	 var height_to_add = $('.single_suggestion').height();
-	 var new_height = initial_height + height_to_add;
-	 div_to_grow.height(new_height);
-
-  });
 
   $('.remove_referrer').live('click', function() {
     $('#user_game_referrer_id').val('');
@@ -193,7 +159,7 @@ $(function() {
   });
 
   resizeFaceboxToFitSuggestions();
-  $(".single_suggestion").live('click', fadeOutUnclickedSuggestions);
+  $("#search_for_referrer .single_suggestion").live('click', fadeOutUnclickedSuggestions);
 });
 
 function saveFaqMiniToVariable(){
@@ -206,25 +172,6 @@ function fancyBoxFaqMini(){
   // top of the page, it will wait till you get there before it paints the modal
   setTimeout('$.fancybox(global_contents_of_three_ways_to_play_3838477463535)', 100);
   mpq.track('saw minifaq');
-}
-
-function grabUsersToInvite(){
-  //grab all the user_ids 
-  var invitee_ids = '';
- 
-  var ids = $.map($('.single_suggestion .suggested_user_id'), function(value){
-    invitee_ids += $(value).text() + ', '; 
-   
-  });
-  $('#invitee_ids').val(invitee_ids);
-}
-
-function increasePopupHeight(){
-	var div_to_grow = $('.popup .content');
-	var initial_height = div_to_grow.height();
-	var height_to_add = $('.single_suggestion').height();
-	var new_height = initial_height + height_to_add;
-	div_to_grow.height(new_height);
 }
 
 function hideAndRenamePageBasedInviteFriends(){
@@ -264,28 +211,6 @@ function calculatePoints(){
     }
     $('#potential_bonus_points').text(total_potential);
   }
-}
-
-function displayPotentialPointsPrepopulated(){
-  
-  var ppr = $('#points_per_referral').text();
-  var num_invitees = $('.single_suggestion').length;
-  if (num_invitees == 0){
-    msg = "Type part of your coworker's name or email, and we'll look them up."
-    $('#hide_me_while_selecting').hide();
-  }else if (ppr == ''){
-    ppr = 0;
-  }else{
-    ppr = parseInt(ppr);
-    $('#potential_bonus_points').text(ppr * num_invitees);
-    var pts = ppr * num_invitees;
-    var msg = '';
-    if (pts > 0){
-      msg = "<div class='bigger_message'><span class='gold'>+" + pts + "</span> potential bonus points!</div>Keep going!<br><br>You can add lots of friends to this list and then click 'invite'"; 
-    }
-    $(".helper.autocomplete").html(msg);
-    $('#bonus').show();
-  }  
 }
 
 

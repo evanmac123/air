@@ -1109,7 +1109,6 @@ class User < ActiveRecord::Base
                        else
                          ["phone_number = ? AND id != ?", normalized_number, self.id]
                        end
-
     if self.class.where(where_conditions).limit(1).present?
       self.errors.add(input, "Sorry, but that phone number has already been taken. Need help? Contact support@hengage.com")
     end
