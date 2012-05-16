@@ -4,16 +4,13 @@
   else
     points_active = 'active'
   end
-%table.scoreboard
-  %tr.header_row
-    %th.user-name
-      .inline Player
-      #ie7_scoreboard_header_spacer &nbsp;
-      #sort_by_first_name{:class => name_active} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    %th.user-level 
-      .inline LVL
-      #ie7_scoreboard_header_spacer &nbsp;
-      #sort_by_points{:class => points_active} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    %th#progress.user-progress Progress
-  %tr#scoreboard_spacer
   
+/ scoreboard_headers are 'relative' for ie7
+#scoreboard_headers.relative
+  #username_header{:class => name_active}
+    .inline Player
+    #sort_by_first_name
+  #userlevel_header{:class => points_active}
+    .inline LVL
+    #sort_by_points
+  #userprogress_header Progress

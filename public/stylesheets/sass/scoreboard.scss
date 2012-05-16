@@ -1,7 +1,7 @@
 $width_scoreboard_bar: 72px;
 $height_scoreboard_bar: 14px;
 $table_grey: #c2c2c2;
-
+$scoreboard_header_grey: #919191;
 
 .tight_bar{
   height: $height_scoreboard_bar;
@@ -57,20 +57,10 @@ $table_grey: #c2c2c2;
 }
 table.scoreboard{
   margin-bottom: 0;
-  th{
-    background: #ebebeb;
-    color: #919191;
-    height: 23px;
-    border-bottom-width: 0;
-  }
   td{
     border: none;
   }
   tr{
-    &.header_row{
-      border-top: 1px solid $table_grey;
-      border-bottom: 1px solid $table_grey;
-    }
     // Put background on td instead of tr so it works in IE
     &.scoreboard_stripe td{ background: #f8f8f8;}
   }
@@ -86,14 +76,6 @@ table.scoreboard{
     width: 22px;
     text-align: right;
   }
-  th.user-level{
-    width: 50px;
-    border-left:  1px solid $table_grey; 
-    border-right: 1px solid $table_grey; 
-    padding-right: 0;
-    padding-left: 11px;
-    text-align: left;
-  }
   .user-progress{
     padding-left: 53px;
   }
@@ -101,7 +83,7 @@ table.scoreboard{
     padding-left: 11px;
   }
   
-  td, th{
+  td{
     padding: 0;
   }
 
@@ -116,15 +98,25 @@ table.scoreboard{
 }
 
 #sort_by_first_name, #sort_by_points{
-  cursor: pointer;
   position: relative;
   top: 1px;
   left: -2px;
-  display: inline;
+  display: inline-block;
   width: 17px;
   height: 14px;
   background: url("/images/scoreboard/sort_arrow_huge.png") no-repeat;
-  &.active, &:hover{background: url("/images/scoreboard/sort_arrow_huge_darker.png") no-repeat;}
+}
+#username_header, #userlevel_header{
+  cursor: pointer;
+  &.active{cursor: auto;}
+  &.active, &:hover{
+    background: #ffd;
+    border-top: 1px solid $table_grey !important;
+    border-bottom: 1px solid $table_grey !important;
+    #sort_by_first_name, #sort_by_points{
+      background: url("/images/scoreboard/sort_arrow_huge_darker.png") no-repeat;
+    }
+  }
 }
 
 
@@ -132,9 +124,35 @@ table.scoreboard{
   color: orange;
 }
 
-#ie7_scoreboard_header_spacer{
-  display: none;
-}
 .indent_same_as_table{
   padding-left: 15px;
 }
+#scoreboard_headers{
+  border-top: 1px solid $table_grey;
+  border-bottom: 1px solid $table_grey;
+  background: #f5f5f5;
+  
+  #username_header, #userlevel_header, #userprogress_header{
+    display: inline-block;
+    font-weight: bold;
+    padding-top: 3px;
+    padding-bottom: 4px;
+    color: $scoreboard_header_grey;
+  }
+  #username_header{
+    width: 177px;
+    padding-left: 15px;
+  }
+  #userlevel_header{
+    width: 53px;
+    border-left: 1px solid $table_grey;
+    border-right: 1px solid $table_grey;
+    padding-left: 11px;
+    margin-left: -5px;
+  }
+  #userprogress_header{
+    padding-left: 9px; 
+  }
+}
+
+

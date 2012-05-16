@@ -1,18 +1,22 @@
 var global_fade_out_time88374635134 = 300;
 
 $(function() {
-  var this_div = $("#sort_by_first_name");
-  var other_div = $("#sort_by_points");
+  var this_div = $("#username_header");
+  var other_div = $("#userlevel_header");
   this_div.click(function(){
     fadeOutScoreboard();
-    this_div.addClass('active');
-    other_div.removeClass('active');
+    setTimeout(function(){
+      this_div.addClass('active');
+      other_div.removeClass('active');
+    }, global_fade_out_time88374635134 / 2);
   });
   
   other_div.click(function(){
     fadeOutFriendsList();
-    other_div.addClass('active');
-    this_div.removeClass('active');
+    setTimeout(function(){
+      other_div.addClass('active');
+      this_div.removeClass('active');
+    }, global_fade_out_time88374635134 / 2);
   });
   
   

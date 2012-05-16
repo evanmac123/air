@@ -193,6 +193,19 @@ body.users-index div.user-info {
 #password_prompt {
   bottom: 21px; }
 
-/****************** Scoreboard ***************************/
-#ie7_scoreboard_header_spacer {
-  display: inline !important; }
+/*************** Scoreboard  **************************************/
+#sort_by_first_name {
+  position: absolute;
+  top: 5px;
+  left: 59px;
+  width: 185px; }
+
+#sort_by_points {
+  position: absolute;
+  top: 5px;
+  left: 224px; }
+
+#username_header, #userlevel_header, #userprogress_header {
+  display: inline !important;
+  padding-top: 4px;
+  padding-bottom: 6px; }
