@@ -18,7 +18,7 @@ class Report::Activity
     report_time = Time.now
 
     addresses.split(/,/).each do |address|
-      Mailer.activity_report(csv_data, @demo.name, report_time, address).deliver
+      Mailer.delay.activity_report(csv_data, @demo.name, report_time, address)
     end
   end
 

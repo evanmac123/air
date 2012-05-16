@@ -77,6 +77,7 @@ describe Report::Activity do
     context "when passed a single address" do
       it "should send a CSV file there" do
         @report.email_to("vlad@example.com")
+        crank_dj_clear
 
         Mailer.should have_received(:activity_report).with('fake CSV data', @demo.name, Time.now, 'vlad@example.com')
         @mail.should have_received(:deliver)
@@ -86,6 +87,7 @@ describe Report::Activity do
     context "when passed comma-separated addresses" do
       it "should send a CSV file to each" do
         @report.email_to("vlad@example.com,phil@example.com")
+        crank_dj_clear
 
         Mailer.should have_received(:activity_report).with('fake CSV data', @demo.name, Time.now, 'vlad@example.com')
         Mailer.should have_received(:activity_report).with('fake CSV data', @demo.name, Time.now, 'phil@example.com')

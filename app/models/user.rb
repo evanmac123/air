@@ -1242,7 +1242,7 @@ class User < ActiveRecord::Base
       "#{self.name} (#{self.email}) won with #{self.points} points"
     ) if self.demo.victory_verification_sms_number
 
-    Mailer.victory(self).deliver if self.demo.victory_verification_email
+    Mailer.delay.victory(self) if self.demo.victory_verification_email
   end
 
 
