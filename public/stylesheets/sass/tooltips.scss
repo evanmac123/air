@@ -34,4 +34,7 @@
   color: white;
   font-size: 14px;
   width: 205px;
+  //opacity is called here instead of an attrubute on the $(div).tooltip() call.                 
+  //otherwise the shadow shows up black in the bona-fide ie7/8 (works fine in ie9 with ie7 mode)
+  opacity: 0.95;
 }
