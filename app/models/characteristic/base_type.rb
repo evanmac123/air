@@ -1,4 +1,12 @@
 class Characteristic::BaseType
+  def self.format_value(value)
+    value.to_s
+  end
+
+  def self.cast_value(value)
+    value
+  end
+
   # When rendering a form that allows an admin to change a characteristic of
   # this type, what input element should be rendered?
   def self.input_type

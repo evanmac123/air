@@ -119,7 +119,7 @@ John Smith,jsmith@example.com,123123,johnny,27.30,"May 4, 2010",1
       visit admin_demo_path(@demo)
       click_link "Everyone"
       click_link "(edit John Smith)"
-      
+     
       expect_value 'a number', '27.3'
       expect_value 'a date', '2010-05-04'
       expect_checked 'a boolean'

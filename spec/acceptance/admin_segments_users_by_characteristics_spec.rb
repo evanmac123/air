@@ -189,9 +189,120 @@ feature "Admin segmentation" do
     end
   end
 
+  context "segmenting on a boolean characteristic" do
+    it "should work"
+  end
+
+  context "segmenting on a continuous characteristic" do
+    def expect_all_continuous_operators_to_work(characteristic_name, reference_value, users)
+      visit admin_demo_segmentation_path(@demo)
+      select characteristic_name, :from => "segment_column[0]"
+      select "equals", :from => "segment_operator[0]"
+      fill_in "segment_value[0]", :with => reference_value
+      click_button "Find segment"
+
+      expect_content "Segmenting on: #{characteristic_name} equals #{reference_value}"
+      expect_content "1 users in segment"
+      click_link "Show users"
+      expect_user_content(users[5])
+
+      select characteristic_name, :from => "segment_column[0]"
+      select "does not equal", :from => "segment_operator[0]"
+      fill_in "segment_value[0]", :with => reference_value
+      click_button "Find segment"
+
+      expect_content "Segmenting on: #{characteristic_name} does not equal #{reference_value}"
+      expect_content "9 users in segment"
+      click_link "Show users"
+      ((0..4).to_a + (6..9).to_a).each {|i| expect_user_content(users[i])}
+
+      select characteristic_name, :from => "segment_column[0]"
+      select "greater than", :from => "segment_operator[0]"
+      fill_in "segment_value[0]", :with => reference_value
+      click_button "Find segment"
+
+      expect_content "Segmenting on: #{characteristic_name} is greater than #{reference_value}"
+      expect_content "4 users in segment"
+      click_link "Show users"
+      (6..9).to_a.each {|i| expect_user_content(users[i])}
+
+      select characteristic_name, :from => "segment_column[0]"
+      select "less than", :from => "segment_operator[0]"
+      fill_in "segment_value[0]", :with => reference_value
+      click_button "Find segment"
+
+      expect_content "Segmenting on: #{characteristic_name} is less than #{reference_value}"
+      expect_content "5 users in segment"
+      click_link "Show users"
+      (0..4).to_a.each {|i| expect_user_content(users[i])}
+
+      select characteristic_name, :from => "segment_column[0]"
+      select "greater than or equal to", :from => "segment_operator[0]"
+      fill_in "segment_value[0]", :with => reference_value
+      click_button "Find segment"
+
+      expect_content "Segmenting on: #{characteristic_name} is greater than or equal to #{reference_value}"
+      expect_content "5 users in segment"
+      click_link "Show users"
+      (5..9).to_a.each {|i| expect_user_content(users[i])}
+
+      select characteristic_name, :from => "segment_column[0]"
+      select "less than or equal to", :from => "segment_operator[0]"
+      fill_in "segment_value[0]", :with => reference_value
+      click_button "Find segment"
+
+      expect_content "Segmenting on: #{characteristic_name} is less than or equal to #{reference_value}"
+      expect_content "6 users in segment"
+      click_link "Show users"
+      (0..5).to_a.each {|i| expect_user_content(users[i])}
+    end
+
+    context "of numeric type" do
+      it "should work with all operators", :js => true do
+        characteristic = FactoryGirl.create(:characteristic, :number, :name => "Foo count")
+        users = []
+        0.upto(9) do |i|
+          users << FactoryGirl.create(:user, :demo => @demo, :characteristics => {characteristic.id => i})
+        end
+        crank_dj_clear
+
+        expect_all_continuous_operators_to_work "Foo count", 5, users
+      end
+    end
+
+    context "of date type" do
+      it "should work with all operators", :js => true do
+        reference_value = "May 10, 2010"
+        reference_date = Chronic.parse(reference_value).to_date
+
+        characteristic = FactoryGirl.create(:characteristic, :date, :name => "Date of last decapitation")
+        users = []
+        (-5).upto(4) do |i|
+          users << FactoryGirl.create(:user, :demo => @demo, :characteristics => {characteristic.id => (reference_date + i.days).to_s})
+        end
+        crank_dj_clear
+
+        expect_all_continuous_operators_to_work "Date of last decapitation", reference_date, users
+      end
+    end
+  end
+
   %w(points location_id date_of_birth height weight gender demo_id accepted_invitation_at claimed).each do |field_name|
     scenario "should be able to segment on #{field_name}"
   end
+
+#  scenario 'can segment on points', :js => true do
+    #0.upto(20) do |points|
+      #FactoryGirl.create(:user, :demo => @demo, :points => points)
+    #end
+
+    #signin_as_admin
+    #visit admin_demo_segmentation_path(@demo)
+
+    #select "Points", :from => "segment_column[0]"
+    #select "equals", :from => "segment_operator[0]"
+    #pending
+  #end
 
   scenario 'can display large numbers of users', :js => true do
     # We need a large number of IDs to expose the problem caused by trying to

@@ -41,11 +41,40 @@
   <%= javascript_tag do %>
     var characteristicSelectHtml = $('#prototype-characteristic-select').html();
     $('#segment_column_0').append(characteristicSelectHtml).data('value_select_id', 'segment_value_0');
-    var allowedValues = <%= @characteristic_allowed_value_json %>;
+    var inputSpecifiers = <%= @characteristic_input_specifier_json %>;
     var allowedOperators = <%= @characteristic_allowed_operator_json %>;
 
-    
     var nextSegmentationIndex = 1;
+
+    function nameFromDomId(domId) {
+      nameParts = domId.split('_');
+      index = nameParts.pop();
+      return(nameParts.join('_') + '[' + index + ']');
+    }
+
+    function createSelectFromInputSpecifier(inputSpecifier, domId) {
+      optionHtml = valuesToOptionTags(inputSpecifier.allowed_values);
+
+      return('<select id="' + domId + '" name="' + nameFromDomId(domId) + '">' + optionHtml + '</select>');
+  }
+
+    function createTextFieldFromInputSpecifier(inputSpecifier, domId) {
+      return('<input type="text" id="' + domId + '" name="' + nameFromDomId(domId) + '">');
+  }
+
+    function createCheckboxFromInputSpecifier(inputSpecifier, domId) {
+      return('this is a checkbox');
+  }
+
+    function createInput(inputSpecifier, domId) {
+      var creationFunction = null;
+      switch(inputSpecifier.field_type) {
+        case 'select': creationFunction = createSelectFromInputSpecifier; break;
+        case 'text': creationFunction = createTextFieldFromInputSpecifier; break;
+        case 'checkbox': creationFunction = createCheckboxFromInputSpecifier; break;
+      };
+      return creationFunction(inputSpecifier, domId);
+    }
 
     function valuesToOptionTags(values) {
       return $.map(values, function(value) {
@@ -57,13 +86,16 @@
       characteristicId = $(e.target).val();
 
       if(characteristicId) {
-        allowedValueOptions = valuesToOptionTags(allowedValues[characteristicId]);
-        allowedOperatorOptions = valuesToOptionTags(allowedOperators[characteristicId]);
         enclosingSelectId = enclosingSelect(e.target).attr('id');
-
         segmentValueId = enclosingSelectId.replace('column', 'value');
-        $('#' + segmentValueId).html(allowedValueOptions);
         segmentOperatorId = enclosingSelectId.replace('column', 'operator');
+
+        inputSpecifier = inputSpecifiers[characteristicId];
+        inputSpecifierHtml = createInput(inputSpecifier, segmentValueId);
+
+        allowedOperatorOptions = valuesToOptionTags(allowedOperators[characteristicId]);
+
+        $('#' + segmentValueId).replaceWith(inputSpecifierHtml);
         $('#' + segmentOperatorId).html(allowedOperatorOptions);
       } 
     });

@@ -45,6 +45,26 @@ class Characteristic < ActiveRecord::Base
     allowed_values.include?(value)
   end
 
+  # Information about what sort of input field we should render for this
+  # characteristic
+  def input_specifier
+    field_values = case datatype.input_type
+                   when :select
+                     allowed_values
+                   else 
+                     ''
+                   end
+    {
+      field_type: datatype.input_type,
+      allowed_values: field_values
+    }
+  end
+
+  # How to display a value of this characteristic in an explanation
+  def format_value(value)
+    self.datatype.format_value(value)
+  end
+
   def self.datatype_names
     DATATYPE_NAMES_TO_CLASSES.keys
   end
