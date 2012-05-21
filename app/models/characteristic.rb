@@ -1,4 +1,6 @@
 class Characteristic < ActiveRecord::Base
+  include CharacteristicBehavior
+
   DATATYPE_NAMES_TO_CLASSES = ActiveSupport::OrderedHash.new
   # You're supposed to be able to do the following in one invocation of
   # OrderedHash#[] but I couldn't get it to work.
@@ -32,37 +34,21 @@ class Characteristic < ActiveRecord::Base
     DATATYPE_CLASSES_TO_NAMES[self.datatype]
   end
 
-  def cast_value(value)
-    self.datatype.cast_value(value)
-  end
-
-  def allowed_operator_names
-    self.datatype.allowed_operator_names
-  end
-
   def value_allowed?(value)
     return true unless allowed_values
     allowed_values.include?(value)
   end
 
-  # Information about what sort of input field we should render for this
-  # characteristic
-  def input_specifier
-    field_values = case datatype.input_type
-                   when :select
-                     allowed_values
-                   else 
-                     ''
-                   end
-    {
-      field_type: datatype.input_type,
-      allowed_values: field_values
-    }
+  def self.find_with_dummy_characteristic_ids(id)
+    if id.kind_of?(String) && id !~ /^\d+$/
+      DummyCharacteristic.find_by_dummy_id(id)
+    else
+      find_without_dummy_characteristic_ids(id)
+    end
   end
 
-  # How to display a value of this characteristic in an explanation
-  def format_value(value)
-    self.datatype.format_value(value)
+  class << self
+    alias_method_chain :find, :dummy_characteristic_ids
   end
 
   def self.datatype_names

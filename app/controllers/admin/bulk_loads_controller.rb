@@ -52,6 +52,7 @@ class Admin::BulkLoadsController < AdminBaseController
   end
 
   def find_available_characteristics
+    @dummy_characteristics = DummyCharacteristic.all
     @generic_characteristics = Characteristic.generic
     @demo_specific_characteristics = Characteristic.in_demo(@demo)
   end

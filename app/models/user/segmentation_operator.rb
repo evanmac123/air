@@ -35,7 +35,11 @@ class User::SegmentationOperator
   end
 
   def mongo_characteristic_name(characteristic_id)
-    "characteristics.#{characteristic_id}"
+    if characteristic_id.to_s =~ /^\d+$/
+      "characteristics.#{characteristic_id}"
+    else
+      characteristic_id
+    end
   end
 
   def self.human_name

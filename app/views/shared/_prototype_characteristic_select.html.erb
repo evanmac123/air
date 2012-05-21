@@ -2,6 +2,7 @@
   <%# It's easier to make up one invisible prototype select here with Rails helpers, then use jquery.html() to slurp up its contents, than to try to assemble the proper <option> tags in the JS following this. %>
   <select id="prototype-characteristic-select" style="display: none">
     <option value=""></option>
+      <%= options_from_collection_for_select dummy_characteristics, :id, :name, :include_blank => true %>
     <optgroup label="Generic characteristics">
       <%= options_from_collection_for_select generic_characteristics, :id, :name, :include_blank => true %>
     </optgroup>

@@ -87,7 +87,7 @@ class User
       unless demo.nil?
         query = query.where(:demo_id => demo.id)
       end
-     
+    
       if values.present?
         columns.each do |index, characteristic_id|
           casted_value = Characteristic.find(characteristic_id).cast_value(values[index])

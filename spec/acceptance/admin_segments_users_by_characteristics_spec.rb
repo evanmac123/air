@@ -1,6 +1,69 @@
 require File.expand_path(File.dirname(__FILE__) + '/acceptance_helper')
 
 feature "Admin segmentation" do
+  def expect_all_continuous_operators_to_work(characteristic_name, reference_value, users)
+    visit admin_demo_segmentation_path(@demo)
+    select characteristic_name, :from => "segment_column[0]"
+    select "equals", :from => "segment_operator[0]"
+    fill_in "segment_value[0]", :with => reference_value
+    click_button "Find segment"
+
+    expect_content "Segmenting on: #{characteristic_name} equals #{reference_value}"
+    expect_content "1 users in segment"
+    click_link "Show users"
+    expect_user_content(users[5])
+
+    select characteristic_name, :from => "segment_column[0]"
+    select "does not equal", :from => "segment_operator[0]"
+    fill_in "segment_value[0]", :with => reference_value
+    click_button "Find segment"
+
+    expect_content "Segmenting on: #{characteristic_name} does not equal #{reference_value}"
+    expect_content "9 users in segment"
+    click_link "Show users"
+    ((0..4).to_a + (6..9).to_a).each {|i| expect_user_content(users[i])}
+
+    select characteristic_name, :from => "segment_column[0]"
+    select "greater than", :from => "segment_operator[0]"
+    fill_in "segment_value[0]", :with => reference_value
+    click_button "Find segment"
+
+    expect_content "Segmenting on: #{characteristic_name} is greater than #{reference_value}"
+    expect_content "4 users in segment"
+    click_link "Show users"
+    (6..9).to_a.each {|i| expect_user_content(users[i])}
+
+    select characteristic_name, :from => "segment_column[0]"
+    select "less than", :from => "segment_operator[0]"
+    fill_in "segment_value[0]", :with => reference_value
+    click_button "Find segment"
+
+    expect_content "Segmenting on: #{characteristic_name} is less than #{reference_value}"
+    expect_content "5 users in segment"
+    click_link "Show users"
+    (0..4).to_a.each {|i| expect_user_content(users[i])}
+
+    select characteristic_name, :from => "segment_column[0]"
+    select "greater than or equal to", :from => "segment_operator[0]"
+    fill_in "segment_value[0]", :with => reference_value
+    click_button "Find segment"
+
+    expect_content "Segmenting on: #{characteristic_name} is greater than or equal to #{reference_value}"
+    expect_content "5 users in segment"
+    click_link "Show users"
+    (5..9).to_a.each {|i| expect_user_content(users[i])}
+
+    select characteristic_name, :from => "segment_column[0]"
+    select "less than or equal to", :from => "segment_operator[0]"
+    fill_in "segment_value[0]", :with => reference_value
+    click_button "Find segment"
+
+    expect_content "Segmenting on: #{characteristic_name} is less than or equal to #{reference_value}"
+    expect_content "6 users in segment"
+    click_link "Show users"
+    (0..5).to_a.each {|i| expect_user_content(users[i])}
+  end
+
   before(:each) do
     @demo = FactoryGirl.create(:demo)
     signin_as_admin
@@ -250,69 +313,6 @@ feature "Admin segmentation" do
   end
 
   context "segmenting on a continuous characteristic" do
-    def expect_all_continuous_operators_to_work(characteristic_name, reference_value, users)
-      visit admin_demo_segmentation_path(@demo)
-      select characteristic_name, :from => "segment_column[0]"
-      select "equals", :from => "segment_operator[0]"
-      fill_in "segment_value[0]", :with => reference_value
-      click_button "Find segment"
-
-      expect_content "Segmenting on: #{characteristic_name} equals #{reference_value}"
-      expect_content "1 users in segment"
-      click_link "Show users"
-      expect_user_content(users[5])
-
-      select characteristic_name, :from => "segment_column[0]"
-      select "does not equal", :from => "segment_operator[0]"
-      fill_in "segment_value[0]", :with => reference_value
-      click_button "Find segment"
-
-      expect_content "Segmenting on: #{characteristic_name} does not equal #{reference_value}"
-      expect_content "9 users in segment"
-      click_link "Show users"
-      ((0..4).to_a + (6..9).to_a).each {|i| expect_user_content(users[i])}
-
-      select characteristic_name, :from => "segment_column[0]"
-      select "greater than", :from => "segment_operator[0]"
-      fill_in "segment_value[0]", :with => reference_value
-      click_button "Find segment"
-
-      expect_content "Segmenting on: #{characteristic_name} is greater than #{reference_value}"
-      expect_content "4 users in segment"
-      click_link "Show users"
-      (6..9).to_a.each {|i| expect_user_content(users[i])}
-
-      select characteristic_name, :from => "segment_column[0]"
-      select "less than", :from => "segment_operator[0]"
-      fill_in "segment_value[0]", :with => reference_value
-      click_button "Find segment"
-
-      expect_content "Segmenting on: #{characteristic_name} is less than #{reference_value}"
-      expect_content "5 users in segment"
-      click_link "Show users"
-      (0..4).to_a.each {|i| expect_user_content(users[i])}
-
-      select characteristic_name, :from => "segment_column[0]"
-      select "greater than or equal to", :from => "segment_operator[0]"
-      fill_in "segment_value[0]", :with => reference_value
-      click_button "Find segment"
-
-      expect_content "Segmenting on: #{characteristic_name} is greater than or equal to #{reference_value}"
-      expect_content "5 users in segment"
-      click_link "Show users"
-      (5..9).to_a.each {|i| expect_user_content(users[i])}
-
-      select characteristic_name, :from => "segment_column[0]"
-      select "less than or equal to", :from => "segment_operator[0]"
-      fill_in "segment_value[0]", :with => reference_value
-      click_button "Find segment"
-
-      expect_content "Segmenting on: #{characteristic_name} is less than or equal to #{reference_value}"
-      expect_content "6 users in segment"
-      click_link "Show users"
-      (0..5).to_a.each {|i| expect_user_content(users[i])}
-    end
-
     context "of numeric type" do
       it "should work with all operators", :js => true do
         characteristic = FactoryGirl.create(:characteristic, :number, :name => "Foo count")
@@ -347,18 +347,15 @@ feature "Admin segmentation" do
     scenario "should be able to segment on #{field_name}"
   end
 
-#  scenario 'can segment on points', :js => true do
-    #0.upto(20) do |points|
-      #FactoryGirl.create(:user, :demo => @demo, :points => points)
-    #end
+  scenario 'can segment on points', :js => true do
+    users = []
+    0.upto(9) do |points|
+      users << FactoryGirl.create(:user, :demo => @demo, :points => points)
+    end
+    crank_dj_clear
 
-    #signin_as_admin
-    #visit admin_demo_segmentation_path(@demo)
-
-    #select "Points", :from => "segment_column[0]"
-    #select "equals", :from => "segment_operator[0]"
-    #pending
-  #end
+    expect_all_continuous_operators_to_work "Points", 5, users
+  end
 
   scenario 'can display large numbers of users', :js => true do
     # We need a large number of IDs to expose the problem caused by trying to

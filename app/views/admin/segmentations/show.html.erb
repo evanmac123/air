@@ -20,7 +20,7 @@
   <% end %>
 <% end %>
 
-<%= render 'shared/prototype_characteristic_select', :generic_characteristics => @generic_characteristics, :demo_specific_characteristics => @demo_specific_characteristics %>
+<%= render 'shared/prototype_characteristic_select', :dummy_characteristics => @dummy_characteristics, :generic_characteristics => @generic_characteristics, :demo_specific_characteristics => @demo_specific_characteristics %>
 
 <%= form_tag admin_demo_segmentation_path(@demo), :method => :get do %>
   <div id="segmentation_parameters">
