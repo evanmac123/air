@@ -190,7 +190,63 @@ feature "Admin segmentation" do
   end
 
   context "segmenting on a boolean characteristic" do
-    it "should work"
+    it "should work with equals and does-not-equal", :js => true do
+      characteristic = FactoryGirl.create(:characteristic, :boolean, name: "Likes cheese")
+      demo = FactoryGirl.create(:demo)
+      users = []
+
+      # This leaves the "Likes cheese" characteristic set to true on users
+      # 0, 1, 2, 6, 7, and 8; and set to false on 3, 4, 5, 9, 10 and 11.
+      2.times do
+        3.times { users << FactoryGirl.create(:user, demo: demo, characteristics: {characteristic.id => true}) }
+        3.times { users << FactoryGirl.create(:user, demo: demo, characteristics: {characteristic.id => false}) }
+      end
+
+      crank_dj_clear
+
+      visit admin_demo_segmentation_path(demo)
+      select "Likes cheese", :from => "segment_column[0]"
+      select "equals", :from => "segment_operator[0]"
+      check "segment_value[0]"
+
+      click_button "Find segment"
+
+      expect_content "Segmenting on: Likes cheese equals true"
+      expect_content "6 users in segment"
+      click_link "Show users"
+      [0, 1, 2, 6, 7, 8].each {|i| expect_user_content(users[i])}
+
+      select "Likes cheese", :from => "segment_column[0]"
+      select "does not equal", :from => "segment_operator[0]"
+      check "segment_value[0]"
+
+      click_button "Find segment"
+
+      expect_content "Segmenting on: Likes cheese does not equal true"
+      expect_content "6 users in segment"
+      click_link "Show users"
+      [3, 4, 5, 9, 10, 11].each {|i| expect_user_content(users[i])}
+
+      select "Likes cheese", :from => "segment_column[0]"
+      select "equals", :from => "segment_operator[0]"
+
+      click_button "Find segment"
+
+      expect_content "Segmenting on: Likes cheese equals false"
+      expect_content "6 users in segment"
+      click_link "Show users"
+      [3, 4, 5, 9, 10, 11].each {|i| expect_user_content(users[i])}
+
+      select "Likes cheese", :from => "segment_column[0]"
+      select "does not equal", :from => "segment_operator[0]"
+
+      click_button "Find segment"
+
+      expect_content "Segmenting on: Likes cheese does not equal false"
+      expect_content "6 users in segment"
+      click_link "Show users"
+      [0, 1, 2, 6, 7, 8].each {|i| expect_user_content(users[i])}
+    end
   end
 
   context "segmenting on a continuous characteristic" do

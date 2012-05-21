@@ -52,19 +52,33 @@
       return(nameParts.join('_') + '[' + index + ']');
     }
 
+    function idAttribute(domId) {
+      return('id="' + domId + '"');
+    }
+
+    function nameAttribute(domId) {
+      return('name="' + nameFromDomId(domId) + '"');
+    }
+
+    function nameAndId(domId) {
+      return ([idAttribute(domId), nameAttribute(domId)]).join(' ');
+    }
+
     function createSelectFromInputSpecifier(inputSpecifier, domId) {
       optionHtml = valuesToOptionTags(inputSpecifier.allowed_values);
 
-      return('<select id="' + domId + '" name="' + nameFromDomId(domId) + '">' + optionHtml + '</select>');
-  }
+      return('<select ' + nameAndId(domId) + '>' + optionHtml + '</select>');
+    }
 
     function createTextFieldFromInputSpecifier(inputSpecifier, domId) {
-      return('<input type="text" id="' + domId + '" name="' + nameFromDomId(domId) + '">');
-  }
+      return('<input type="text" ' + nameAndId(domId) + '>');
+    }
 
     function createCheckboxFromInputSpecifier(inputSpecifier, domId) {
-      return('this is a checkbox');
-  }
+      hiddenField = '<input type="hidden" value="0" ' + nameAttribute(domId) + '>';
+      checkboxField = '<input type="checkbox" value="1" ' + nameAndId(domId) + '>';
+      return(hiddenField + checkboxField);
+    }
 
     function createInput(inputSpecifier, domId) {
       var creationFunction = null;
