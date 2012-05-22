@@ -18,13 +18,14 @@ Feature: User acts
     And "Fred" has the SMS slug "fred666"
     And "Sven" has the SMS slug "sven"
     And the following rules exist:
-      | points | referral points | reply                     | alltime_limit | demo                  |
+      | points | referral points | reply                     | alltime_limit | demo          |
       | 2      |                 | Bananas are good for you. |               | name: FooCorp |
       | 5      | 200             | Working out is nice.      |               | name: FooCorp |
       | 20     |                 | Congratulations!          | 2             | name: FooCorp |
       | 8      |                 | So you made toast.        |               | name: FooCorp |
       | 8      |                 | BarCorp rulez!            |               | name: BarCorp |
-      | 10     |                 | Good for you.             |               |                       |
+      | 10     |                 | Good for you.             |               |               |
+      |        |                 | Weak.                     |               | name: FooCorp |
     And the following rule values exist:
       | value         | rule                             |
       | ate banana    | reply: Bananas are good for you. |
@@ -34,6 +35,7 @@ Feature: User acts
       | made toast    | reply: So you made toast.        |
       | up the bar    | reply: BarCorp rulez!            |
       | do good thing | reply: Good for you.             |
+      | weak          | reply: Weak.                     |
     And the following forbidden rule values exist:
       | value       |
       | was naughty | 
@@ -209,6 +211,15 @@ Feature: User acts
     And I should see "200 pts Fred told Dan about a command less than a minute ago"
     And "+15088675309" should have received an SMS '+1 point, Dan tagged you in the "ate banana" command. Points 1/50, level 1.'
     And "+14155551212" should have received an SMS '+200 points, Dan tagged you in the "worked out" command. Points 201, level 1.'
+
+  Scenario: Rule with nil points and referral points doesn't explode on referral
+    When "+15087407520" sends SMS "weak paul55"
+    And DJ cranks 20 times
+    And I sign in via the login page as "Dan/foobar"
+    And I go to the acts page
+    And I dump the page
+    Then I should see "weak"
+    And I should see "Paul told Dan about a command"
 
   Scenario: A helpful error message if you say a nonexistent user referred you
     When "+15087407520" sends SMS "ate banana mrnobody"

@@ -1254,7 +1254,7 @@ class User < ActiveRecord::Base
       :rule_value => rule_value.value
     )
 
-    points_earned_by_referring = (rule.referral_points) || (rule.points / 2)
+    points_earned_by_referring = (rule.referral_points) || (rule.points ? rule.points / 2 : 0)
     points_phrase = points_earned_by_referring == 1 ? "1 point" : "#{points_earned_by_referring} points"
 
     Act.create!(
