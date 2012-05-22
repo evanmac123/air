@@ -12,14 +12,14 @@ Health::Application.routes.draw do
   resource :phone,      :only => [:update] do
     resource :interstitial_verification, :only => [:show, :update]
   end
-
+  get "invitation" => "email_previews#invitation", :as => "invitation_preview"
+  
   resources :invitations, :only => [:new, :create, :show]
   namespace :invitation do
     resource :resend
     resource :acceptance
     get "autocompletion" => "autocompletions#index", :as => "autocompletion"
     post "invite_friend" => "friend_invitations#create", :as => "invite_friend"
-
   end
 
   resources :acts,        :only => [:index, :create]

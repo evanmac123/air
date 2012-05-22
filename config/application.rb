@@ -41,5 +41,11 @@ module Health
 
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password]
+    
+    # Add this block so mongo doesn't scream when we do a rails migration
+    # Reference: http://groups.google.com/group/mongoid/browse_thread/thread/df278a11dba4d331?pli=1
+    config.generators do |g|
+      g.orm :active_record
+    end
   end
 end

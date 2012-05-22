@@ -1,14 +1,12 @@
 class Mailer < ActionMailer::Base
   default :from => "H Engage <play@playhengage.com>"
 
-  def invitation(user, referrer = nil)
+  def invitation(user, referrer = nil, options = {})
     @user = user
     @referrer = referrer
-    if @referrer
-      @referrer_params = "?referrer_id=#{@referrer.id}"
-    else
-      @referrer_params = ''
-    end
+    
+    @referrer_params = User.referrer_params(@referrer)
+
 
     @demo_name = user.demo.name || "H Engage"
     begins = user.demo.begins_at
@@ -22,9 +20,12 @@ class Mailer < ActionMailer::Base
     end
 
     subject = "Invitation to play #{@demo_name}"
+
+    @style = options[:style]
     mail :to      => user.email,
          :subject => subject,
          :from => @user.reply_email_address
+         
   end
 
   def victory(user)

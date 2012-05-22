@@ -2,12 +2,14 @@
 <%= @user.name %>,
 <% end %>
 
-
+ 
 <% if @referrer %>
 <%= @referrer.name %> has invited you to play <%= @demo_name %>. To start playing, follow:
 <% else %>
-Thanks for requesting an invite to play <%= @demo_name %>. To start playing, follow:
+You're Invited!
 <% end %>
+
+<%= @demo_name %> is a fun social game that rewards you for making healthy decisions. Earn points and win prizes like gift cards and iPads!. To start playing, follow:
 
 <%= invitation_url(@user.invitation_code) + @referrer_params%>
 
@@ -19,5 +21,5 @@ Have fun and good luck!
 H Engage
 About Us: http://hengage.com
 Support: support@hengage.com
-
+View this invitation in your browser: <%= @style.image_url %>/invitation?code=<%= @user.invitation_code %>
 =======================================================

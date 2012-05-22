@@ -1,0 +1,28 @@
+%table.G{style.table_reset_hash_set_width}
+  %tr
+    %td
+      %div{style.description_hash} 
+        = "#{@user.demo.name} is a fun social game"
+        - if @user.demo.sponsor
+          = "launched at #{@user.demo.sponsor}" 
+        that rewards you for making healthy decisions. Earn points and win prizes like gift cards and iPads!
+
+%table.H{style.table_reset_hash}
+  %tr
+    %td= image_tag "#{style.image_url}/images/emails/left_screenshot.png", :height => 161, :width => 161, :style => "padding-right: 40px;", :alt => "photo of friends list"
+    %td
+      %div{style.three_ways_hash} Three ways to get points
+      = render 'email_previews/ways_to_get_points', :style => style
+      
+%table.I{style.table_reset_hash_full_width}
+  %tr
+    %td
+      %div{style.not_alone_hash} And you won't be alone!
+      %div{style.connect_hash} Connect with your friends to see how<br>they're playing/doing.
+      = link_to invitation_url(@user.invitation_code) do
+        = image_tag "#{style.image_url}/images/emails/play_now_large.png", :height => 60, :width => 302, :alt => "Click Here to Start Playing"
+    %td{style.image_right}= image_tag "#{style.image_url}/images/emails/right_screenshot.png", :height => 161, :width => 161, :alt => "photo of scoreboard"
+    
+    
+
+    

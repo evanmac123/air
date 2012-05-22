@@ -129,6 +129,10 @@ class ApplicationController < ActionController::Base
     cookies.delete(:remember_token)
     self.current_user = nil
   end
+  
+  def get_image_url
+    root_url[0..-2] # everything but the trailing slash
+  end
 
   def invoke_tutorial
     return unless current_user.reload.tutorial_active?

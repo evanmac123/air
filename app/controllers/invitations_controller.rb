@@ -8,6 +8,7 @@ class InvitationsController < ApplicationController
   end
 
   def create
+    @style = EmailStyling.new(get_image_url)
     @invitation_request = InvitationRequest.new(params[:invitation_request])
     unless @invitation_request.valid?
       render :action => :new
@@ -17,7 +18,7 @@ class InvitationsController < ApplicationController
       if @user.claimed?
         render "duplicate_email"
       else
-        @user.invite
+        @user.invite(nil, style: @style)
       end
     elsif ENV['JOIN_TYPE'] == 'public'
       @user = @invitation_request.create_and_invite_user_to_public_game

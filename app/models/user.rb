@@ -489,8 +489,8 @@ class User < ActiveRecord::Base
     where("phone_number IS NOT NULL AND phone_number != ''")
   end
 
-  def invite(referrer = nil)
-    Mailer.delay.invitation(self, referrer)
+  def invite(referrer = nil, options ={})
+    Mailer.delay.invitation(self, referrer, options)
     update_attribute(:invited, true)
   end
 
@@ -973,6 +973,14 @@ class User < ActiveRecord::Base
     user && user.authenticated?(password) ? user : nil
   end
 
+  def self.referrer_params(referrer)
+    if referrer
+      "?referrer_id=#{referrer.id}"
+    else
+      ""
+    end
+  end
+  
   protected
 
   def name_required

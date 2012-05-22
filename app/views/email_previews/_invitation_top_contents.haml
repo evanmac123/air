@@ -1,0 +1,21 @@
+%table.F{style.table_reset_hash_set_width}
+  %tr
+    %td= image_tag "#{style.image_url}/images/emails/hengage_logo.png", :height => 42, :width => 280, :alt => "H Engage Logo"
+    %td{style.browser_view_hash}
+      - unless @hide_browser_option
+        %div{style.trouble_text_hash} Having trouble viewing this email?
+        %div{style.view_it_hash}= link_to "View it on your browser", "#{style.image_url}/invitation?code=#{@user.invitation_code}", :style => style.link
+      
+      
+      
+  %tr
+    %td{style.youre_invited_hash}
+      %div{style.youre_invited_text_hash} You’re invited!
+      %div{style.get_ready_hash} 
+        Get ready for #{@user.demo.name}
+        - if @user.demo.sponsor
+          = "at #{@user.demo.sponsor}!"
+    %td{style.top_call_hash}
+      = link_to invitation_url(@user.invitation_code) do
+        = image_tag "#{style.image_url}/images/emails/play_now_small.png", :height => 38, :width => 186, :alt => "Click Here to Start Playing"
+    
