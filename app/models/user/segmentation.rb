@@ -11,7 +11,7 @@ class User
         :weight                 => self.weight,
         :gender                 => self.gender,
         :characteristics        => self.characteristics.try(:stringify_keys) || {},
-        :date_of_birth          => self.date_of_birth.try(:midnight).try(:utc),
+        :date_of_birth          => self.date_of_birth.try(:to_time).try(:utc).try(:midnight),
         :accepted_invitation_at => self.accepted_invitation_at.try(:utc),
         :claimed                => self.accepted_invitation_at.present?
       }

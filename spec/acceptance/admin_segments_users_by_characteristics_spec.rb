@@ -343,7 +343,7 @@ feature "Admin segmentation" do
     end
   end
 
-  %w(points location_id date_of_birth height weight gender demo_id accepted_invitation_at claimed).each do |field_name|
+  %w(location_id height weight gender demo_id accepted_invitation_at claimed).each do |field_name|
     scenario "should be able to segment on #{field_name}"
   end
 
@@ -355,6 +355,19 @@ feature "Admin segmentation" do
     crank_dj_clear
 
     expect_all_continuous_operators_to_work "Points", 5, users
+  end
+
+  scenario 'can segment on date of birth', :js => true do
+    reference_value = "May 10, 2010"
+    reference_date = Chronic.parse(reference_value).to_date
+
+    users = []
+    (-5).upto(4) do |i|
+      users << FactoryGirl.create(:user, :demo => @demo, :date_of_birth => (reference_date + i.days).to_s)
+    end
+    crank_dj_clear
+
+    expect_all_continuous_operators_to_work "Date of birth", reference_date, users
   end
 
   scenario 'can display large numbers of users', :js => true do

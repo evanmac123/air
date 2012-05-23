@@ -16,7 +16,10 @@ class DummyCharacteristic
   end
 
   def self.all
-    [PointsDummyCharacteristic.instance]
+    [
+      PointsDummyCharacteristic,
+      DateOfBirthDummyCharacteristic
+    ].map(&:instance)
   end
 end
 
@@ -27,5 +30,15 @@ class PointsDummyCharacteristic < DummyCharacteristic
     @id = 'points'
     @name = 'Points'
     @datatype = Characteristic::NumberType
+  end
+end
+
+class DateOfBirthDummyCharacteristic < DummyCharacteristic
+  include Singleton
+
+  def initialize
+    @id = 'date_of_birth'
+    @name = 'Date of birth'
+    @datatype = Characteristic::DateType
   end
 end

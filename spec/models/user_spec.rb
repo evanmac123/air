@@ -588,7 +588,7 @@ describe User, "on save" do
   simple_mongo_triggering_fields = {
     points:                 [50, 60],
     location_id:            [17, 18],
-    date_of_birth:          [Date.today, Date.tomorrow, [Date.today.midnight.utc, Date.tomorrow.midnight.utc]],
+    date_of_birth:          [Date.today, Date.tomorrow, [Date.today.to_time.utc.midnight, Date.tomorrow.to_time.utc.midnight]],
     height:                 [50, 60],
     weight:                 [200, 180],
     gender:                 ['male', 'female']
