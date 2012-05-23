@@ -5,7 +5,10 @@ class Characteristic < ActiveRecord::Base
   # You're supposed to be able to do the following in one invocation of
   # OrderedHash#[] but I couldn't get it to work.
   [['Discrete', Characteristic::DiscreteType],
-   ['Number', Characteristic::NumberType]
+   ['Number', Characteristic::NumberType],
+   ['Date', Characteristic::DateType],
+   ['Time', Characteristic::TimeType],
+   ['Boolean', Characteristic::BooleanType]
   ].each do |name, klass|
     DATATYPE_NAMES_TO_CLASSES[name] = klass
   end

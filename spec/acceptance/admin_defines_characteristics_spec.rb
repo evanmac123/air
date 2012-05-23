@@ -1,12 +1,3 @@
-# selenium-webdriver 2.21.2 seems to make these tests hang if you 
-# use the :js => true flag. So until we can update beyond
-# selenium-webdriver 2.21.2, I have removed the :js => true
-# flags, and the form now automatically displays enough
-# form fields to run the tests. (You can still click the
-# buton to add more fields, but we don't test that behavior
-# directly) -- Jack Desert, May 2012
-
-
 require File.expand_path(File.dirname(__FILE__) + '/acceptance_helper')
 
 feature "Admin Defines Characteristics" do
@@ -187,6 +178,16 @@ feature "Admin Defines Characteristics" do
       select "Number", :from => "characteristic[datatype]"
       page.all('input[@name="characteristic[allowed_values][]"]').select(&:visible?).should be_empty
 
+      select "Date", :from => "characteristic[datatype]"
+      page.all('input[@name="characteristic[allowed_values][]"]').select(&:visible?).should be_empty
+
+      select "Boolean", :from => "characteristic[datatype]"
+      page.all('input[@name="characteristic[allowed_values][]"]').select(&:visible?).should be_empty
+
+      select "Time", :from => "characteristic[datatype]"
+      page.all('input[@name="characteristic[allowed_values][]"]').select(&:visible?).should be_empty
+
+      # And bring that field back
       select "Discrete", :from => "characteristic[datatype]"
       page.all('input[@name="characteristic[allowed_values][]"]').select(&:visible?).should_not be_empty
     end
