@@ -78,7 +78,7 @@ feature "Admin segmentation" do
       @generic_characteristic_1 = FactoryGirl.create(:characteristic, :name => "Color", :allowed_values => %w(red orange yellow green blue indigo violet))
       @generic_characteristic_2 = FactoryGirl.create(:characteristic, :name => "Favorite Beatle", :allowed_values => %w(john paul george ringo))
       @generic_characteristic_3 = FactoryGirl.create(:characteristic, :name => "LOLPhrase", :allowed_values => %w(i can haz cheezburger))
-      @demo_specific_characteristic_1 = FactoryGirl.create(:characteristic, :demo_specific, :name => "Height", :demo => @demo, :allowed_values => %w(low medium high))
+      @demo_specific_characteristic_1 = FactoryGirl.create(:characteristic, :demo_specific, :name => "Brain size", :demo => @demo, :allowed_values => %w(low medium high))
       @demo_specific_characteristic_2 = FactoryGirl.create(:characteristic, :demo_specific, :name => "Favorite number", :demo => @demo, :allowed_values => %w(seven eight nine))
       @demo_specific_characteristic_3 = FactoryGirl.create(:characteristic, :demo_specific, :name => "MomPhrase", :demo => @demo, :allowed_values => %w(hi mom))
 
@@ -151,14 +151,14 @@ feature "Admin segmentation" do
       select "Favorite Beatle", :from => "segment_column[1]"
       select "ringo", :from => "segment_value[1]"
       click_link "Segment on more characteristics"
-      select "Height", :from => "segment_column[2]"
+      select "Brain size", :from => "segment_column[2]"
       select "medium", :from => "segment_value[2]"
 
       click_button "Find segment"
 
       expect_content "Color equals green"
       expect_content "Favorite Beatle equals ringo"
-      expect_content "Height equals medium"
+      expect_content "Brain size equals medium"
       expect_content "1 users in segment"
 
       click_link "Show users"
@@ -211,14 +211,14 @@ feature "Admin segmentation" do
       select "Favorite Beatle", :from => "segment_column[1]"
       select "john", :from => "segment_value[1]"
       click_link "Segment on more characteristics"
-      select "Height", :from => "segment_column[2]"
+      select "Brain size", :from => "segment_column[2]"
       select "high", :from => "segment_value[2]"
 
       click_button "Find segment"
 
       expect_content "Color equals green"
       expect_content "Favorite Beatle equals john"
-      expect_content "Height equals high"
+      expect_content "Brain size equals high"
       expect_content "0 users in segment"
       expect_no_content "Show users"
     end
@@ -359,8 +359,20 @@ feature "Admin segmentation" do
     end
   end
 
-  %w(location_id height weight gender claimed).each do |field_name|
+  %w(location_id gender claimed).each do |field_name|
     scenario "should be able to segment on #{field_name}"
+  end
+
+  %w(height weight).each do |field_name|
+    scenario "can segment on #{field_name}", :js => true do
+      users = []
+      50.upto(59) do |value|
+        users << FactoryGirl.create(:user, :demo => @demo, field_name => value)
+      end
+      crank_dj_clear
+
+      expect_all_continuous_operators_to_work field_name.capitalize, 55, users
+    end
   end
 
   scenario 'can segment on points', :js => true do
@@ -396,7 +408,7 @@ feature "Admin segmentation" do
     end
     crank_dj_clear
 
-    expect_all_continuous_operators_to_work "Accepted invitation timestamp", reference_time, users
+    expect_all_continuous_operators_to_work "Accepted invitation at", reference_time, users
   end
 
   scenario 'can display large numbers of users', :js => true do

@@ -10,6 +10,8 @@ class DummyCharacteristic
   include CharacteristicBehavior
   include Singleton
 
+  IMPLEMENTATIONS = []
+
   attr_reader :id, :name, :datatype
 
   def self.find_by_dummy_id(id)
@@ -17,34 +19,30 @@ class DummyCharacteristic
   end
 
   def self.all
-    [
-      PointsDummyCharacteristic,
-      DateOfBirthDummyCharacteristic,
-      AcceptedInvitationAtDummyCharacteristic
-    ].map(&:instance)
+    IMPLEMENTATIONS.map(&:instance)
   end
 end
 
-class PointsDummyCharacteristic < DummyCharacteristic
-  def initialize
-    @id = 'points'
-    @name = 'Points'
-    @datatype = Characteristic::NumberType
-  end
-end
+[
+  ['points',                 'Number'],
+  ['date_of_birth',          'Date'],
+  ['accepted_invitation_at', 'Time'],
+  ['height',                 'Number'],
+  ['weight',                 'Number']
+].each do |field_id, datatype_short_name|
+  name = field_id.humanize
+  class_name = field_id.camelize + "DummyCharacteristic"
+  datatype_name = "Characteristic::" + datatype_short_name + "Type"
 
-class DateOfBirthDummyCharacteristic < DummyCharacteristic
-  def initialize
-    @id = 'date_of_birth'
-    @name = 'Date of birth'
-    @datatype = Characteristic::DateType
-  end
-end
+  eval <<-END_CLASS_DEF
+    class #{class_name} < DummyCharacteristic
+      def initialize
+        @id = '#{field_id}'
+        @name = '#{name}'
+        @datatype = #{datatype_name}
+      end
+    end
 
-class AcceptedInvitationAtDummyCharacteristic < DummyCharacteristic
-  def initialize
-    @id = 'accepted_invitation_at'
-    @name = 'Accepted invitation timestamp'
-    @datatype = Characteristic::TimeType
-  end
+    DummyCharacteristic::IMPLEMENTATIONS << #{class_name}
+  END_CLASS_DEF
 end
