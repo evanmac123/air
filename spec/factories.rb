@@ -247,6 +247,11 @@ FactoryGirl.define do
       allowed_values nil
     end
 
+    trait :time do
+      datatype Characteristic::TimeType
+      allowed_values nil
+    end
+
     factory :demo_specific_characteristic, traits: [:demo_specific]
   end
 end

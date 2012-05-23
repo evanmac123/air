@@ -341,9 +341,25 @@ feature "Admin segmentation" do
         expect_all_continuous_operators_to_work "Date of last decapitation", reference_date, users
       end
     end
+
+    context "of time type" do
+      it "should work with all operators", :js => true do
+        reference_value = "May 10, 2010, 12:00 PM"
+        reference_time = Chronic.parse(reference_value)
+
+        characteristic = FactoryGirl.create(:characteristic, :time, :name => "Lunchtime")
+        users = []
+        -5.upto(4) do |i|
+          users << FactoryGirl.create(:user, :demo => @demo, :characteristics => {characteristic.id => (reference_time + i.hours).to_s})
+        end
+        crank_dj_clear
+
+        expect_all_continuous_operators_to_work "Lunchtime", reference_time, users
+      end
+    end
   end
 
-  %w(location_id height weight gender demo_id accepted_invitation_at claimed).each do |field_name|
+  %w(location_id height weight gender claimed).each do |field_name|
     scenario "should be able to segment on #{field_name}"
   end
 
@@ -368,6 +384,19 @@ feature "Admin segmentation" do
     crank_dj_clear
 
     expect_all_continuous_operators_to_work "Date of birth", reference_date, users
+  end
+
+  scenario 'can segment on accepted_invitation_at', :js => true do
+    reference_value = "May 10, 2010, 9:00 AM"
+    reference_time = Chronic.parse(reference_value)
+
+    users = []
+    (-5).upto(4) do |i|
+      users << FactoryGirl.create(:user, :demo => @demo, :accepted_invitation_at => (reference_time + i.days).to_s)
+    end
+    crank_dj_clear
+
+    expect_all_continuous_operators_to_work "Accepted invitation timestamp", reference_time, users
   end
 
   scenario 'can display large numbers of users', :js => true do

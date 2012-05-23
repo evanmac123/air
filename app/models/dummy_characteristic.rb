@@ -8,6 +8,7 @@
 
 class DummyCharacteristic
   include CharacteristicBehavior
+  include Singleton
 
   attr_reader :id, :name, :datatype
 
@@ -18,14 +19,13 @@ class DummyCharacteristic
   def self.all
     [
       PointsDummyCharacteristic,
-      DateOfBirthDummyCharacteristic
+      DateOfBirthDummyCharacteristic,
+      AcceptedInvitationAtDummyCharacteristic
     ].map(&:instance)
   end
 end
 
 class PointsDummyCharacteristic < DummyCharacteristic
-  include Singleton
-
   def initialize
     @id = 'points'
     @name = 'Points'
@@ -34,11 +34,17 @@ class PointsDummyCharacteristic < DummyCharacteristic
 end
 
 class DateOfBirthDummyCharacteristic < DummyCharacteristic
-  include Singleton
-
   def initialize
     @id = 'date_of_birth'
     @name = 'Date of birth'
     @datatype = Characteristic::DateType
+  end
+end
+
+class AcceptedInvitationAtDummyCharacteristic < DummyCharacteristic
+  def initialize
+    @id = 'accepted_invitation_at'
+    @name = 'Accepted invitation timestamp'
+    @datatype = Characteristic::TimeType
   end
 end
