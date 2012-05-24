@@ -29,7 +29,8 @@ end
   ['accepted_invitation_at', 'Time'],
   ['height',                 'Number'],
   ['weight',                 'Number'],
-  ['gender',                 'Discrete']
+  ['gender',                 'Discrete'],
+  ['claimed',                'Boolean']
 ].each do |field_id, datatype_short_name|
   name = field_id.humanize
   class_name = field_id.camelize + "DummyCharacteristic"

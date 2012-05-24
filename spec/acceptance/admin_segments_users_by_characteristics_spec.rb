@@ -359,7 +359,7 @@ feature "Admin segmentation" do
     end
   end
 
-  %w(location_id claimed).each do |field_name|
+  %w(location_id).each do |field_name|
     scenario "should be able to segment on #{field_name}"
   end
 
@@ -447,6 +447,56 @@ feature "Admin segmentation" do
         expected_users[other_key].each{|user| expect_user_content(user)}
       end
     end
+  end
+
+  scenario "can segment on claimed", :js => true do
+    4.times {FactoryGirl.create :user, :claimed, demo: @demo}
+    3.times {FactoryGirl.create :user, demo: @demo}
+    crank_dj_clear
+
+    visit admin_demo_segmentation_path(@demo)
+
+    select 'Claimed', :from => "segment_column[0]"
+    select "equals",  :from => "segment_operator[0]"
+    check "segment_value[0]"
+
+    click_button "Find segment"
+
+    expect_content "Segmenting on: Claimed equals true"
+    expect_content "4 users in segment"
+    click_link "Show users"
+    @demo.users.claimed.each {|claimed_user| expect_user_content(claimed_user)}
+
+    select 'Claimed', :from => "segment_column[0]"
+    select "does not equal",  :from => "segment_operator[0]"
+    check "segment_value[0]"
+
+    click_button "Find segment"
+
+    expect_content "Segmenting on: Claimed does not equal true"
+    expect_content "3 users in segment"
+    click_link "Show users"
+    @demo.users.unclaimed.each {|unclaimed_user| expect_user_content(unclaimed_user)}
+
+    select 'Claimed', :from => "segment_column[0]"
+    select "equals",  :from => "segment_operator[0]"
+
+    click_button "Find segment"
+
+    expect_content "Segmenting on: Claimed equals false"
+    expect_content "3 users in segment"
+    click_link "Show users"
+    @demo.users.unclaimed.each {|unclaimed_user| expect_user_content(unclaimed_user)}
+
+    select 'Claimed', :from => "segment_column[0]"
+    select "does not equal",  :from => "segment_operator[0]"
+
+    click_button "Find segment"
+
+    expect_content "Segmenting on: Claimed does not equal false"
+    expect_content "4 users in segment"
+    click_link "Show users"
+    @demo.users.claimed.each {|claimed_user| expect_user_content(claimed_user)}
   end
 
   scenario 'can display large numbers of users', :js => true do

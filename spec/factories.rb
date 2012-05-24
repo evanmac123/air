@@ -20,6 +20,10 @@ FactoryGirl.define do
   factory :user,  :parent => :unnamed_user do 
     name                  "James Earl Jones" 
     sequence(:email, User.next_id) {|n| "darth_#{n}@vader.com" }
+
+    trait :claimed do
+      accepted_invitation_at Time.now
+    end
   end
   
   factory :brand_new_user, :parent => :user do 
