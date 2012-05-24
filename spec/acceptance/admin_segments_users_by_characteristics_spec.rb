@@ -359,7 +359,7 @@ feature "Admin segmentation" do
     end
   end
 
-  %w(location_id gender claimed).each do |field_name|
+  %w(location_id claimed).each do |field_name|
     scenario "should be able to segment on #{field_name}"
   end
 
@@ -409,6 +409,44 @@ feature "Admin segmentation" do
     crank_dj_clear
 
     expect_all_continuous_operators_to_work "Accepted invitation at", reference_time, users
+  end
+
+  scenario 'can segment on gender', :js => true do
+    expected_users = {'male' => [], 'female' => [], 'other' => []}
+
+    3.times do 
+      expected_users['male'] << FactoryGirl.create(:user, demo: @demo, gender: 'male')
+      expected_users['female'] << FactoryGirl.create(:user, demo: @demo, gender: 'female')
+      expected_users['other'] << FactoryGirl.create(:user, demo: @demo, gender: 'other')
+    end
+    crank_dj_clear
+
+    visit admin_demo_segmentation_path(@demo)
+
+    %w(male female other).each do |gender_name|
+      select 'Gender',    :from => "segment_column[0]"
+      select "equals",    :from => "segment_operator[0]"
+      select gender_name, :from => "segment_value[0]"
+      click_button "Find segment"
+
+      expect_content "Segmenting on: Gender equals #{gender_name}"
+      expect_content "3 users in segment"
+      click_link "Show users"
+      expected_users[gender_name].each{|user| expect_user_content(user)}
+
+      select 'Gender',         :from => "segment_column[0]"
+      select "does not equal", :from => "segment_operator[0]"
+      select gender_name,      :from => "segment_value[0]"
+      click_button "Find segment"
+
+      expect_content "Segmenting on: Gender does not equal #{gender_name}"
+      expect_content "6 users in segment"
+      click_link "Show users"
+      other_keys = expected_users.keys - [gender_name]
+      other_keys.each do |other_key|
+        expected_users[other_key].each{|user| expect_user_content(user)}
+      end
+    end
   end
 
   scenario 'can display large numbers of users', :js => true do

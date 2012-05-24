@@ -28,7 +28,8 @@ end
   ['date_of_birth',          'Date'],
   ['accepted_invitation_at', 'Time'],
   ['height',                 'Number'],
-  ['weight',                 'Number']
+  ['weight',                 'Number'],
+  ['gender',                 'Discrete']
 ].each do |field_id, datatype_short_name|
   name = field_id.humanize
   class_name = field_id.camelize + "DummyCharacteristic"
@@ -45,4 +46,12 @@ end
 
     DummyCharacteristic::IMPLEMENTATIONS << #{class_name}
   END_CLASS_DEF
+end
+
+# For discrete dummy characteristics, we've also got to define allowed values.
+
+class GenderDummyCharacteristic < DummyCharacteristic
+  def allowed_values
+    User::GENDERS
+  end
 end
