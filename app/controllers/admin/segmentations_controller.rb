@@ -12,7 +12,7 @@ class Admin::SegmentationsController < AdminBaseController
   protected
 
   def load_characteristics
-    @dummy_characteristics = DummyCharacteristic.all
+    @dummy_characteristics = DummyCharacteristic.all(:demo_id => @demo.id)
     @generic_characteristics = Characteristic.generic
     @demo_specific_characteristics = Characteristic.in_demo(@demo)
 

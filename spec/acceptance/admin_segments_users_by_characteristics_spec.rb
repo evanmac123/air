@@ -359,8 +359,52 @@ feature "Admin segmentation" do
     end
   end
 
-  %w(location_id).each do |field_name|
-    scenario "should be able to segment on #{field_name}"
+  scenario "can segment on location", :js => true do
+    @demo.update_attributes(name: "AwesomeCo")
+    other_demo = FactoryGirl.create(:demo, name: "Dewey, Cheatem and Howe")
+
+    demo_location_names = ["Puddingville", "North Southerton", "Blahdeblahham"]
+    other_demo_location_names = ["Under the Sea", "Pantstown"]
+    demo_location_names.each {|location_name| FactoryGirl.create(:location, demo: @demo, name: location_name)}
+    other_demo_location_names.each {|location_name| FactoryGirl.create(:location, demo: other_demo, name: location_name)}
+
+    Location.all.each {|location| FactoryGirl.create(:user, location: location, demo: location.demo)}
+    crank_dj_clear
+
+    location = Location.find_by_name('North Southerton')
+
+    visit admin_demo_segmentation_path(@demo)
+    
+    select "Location", :from => "segment_column[0]"
+    select "equals", :from => "segment_operator[0]"
+
+    place_options = page.all('#segment_value_0 option').map(&:text)
+    demo_location_names.each{|demo_location_name| place_options.should include("#{demo_location_name} (AwesomeCo)")}
+    other_demo_location_names.each{|other_demo_location_name| place_options.should_not include("#{other_demo_location_name} (Dewey, Cheatem and Howe)")}
+    select "North Southerton (AwesomeCo)", :from => "segment_value[0]"
+
+    click_button "Find segment"
+
+    expect_content "Segmenting on: Location equals North Southerton (AwesomeCo)"
+    expect_content "1 users in segment"
+
+    expected_location = Location.find_by_name "North Southerton"
+    expected_user = User.find_by_location_id(expected_location.id)
+   
+    click_link "Show users"
+    expect_user_content expected_user
+    
+    select "Location", :from => "segment_column[0]"
+    select "does not equal", :from => "segment_operator[0]"
+    select "North Southerton (AwesomeCo)", :from => "segment_value[0]"
+   
+    click_button "Find segment"
+
+    expect_content "Segmenting on: Location does not equal North Southerton (AwesomeCo)"
+    expect_content "2 users in segment"
+
+    click_link "Show users"
+    (@demo.users - [expected_user]).each {|user| expect_user_content(user)}
   end
 
   %w(height weight).each do |field_name|

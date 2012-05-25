@@ -8,7 +8,6 @@
 
 class DummyCharacteristic
   include CharacteristicBehavior
-  include Singleton
 
   IMPLEMENTATIONS = []
 
@@ -18,8 +17,8 @@ class DummyCharacteristic
     self.all.detect{|instance| instance.id == id}
   end
 
-  def self.all
-    IMPLEMENTATIONS.map(&:instance)
+  def self.all(options = {})
+    IMPLEMENTATIONS.map{|implementation| implementation.new(options)}
   end
 end
 
@@ -30,7 +29,7 @@ end
   ['height',                 'Number'],
   ['weight',                 'Number'],
   ['gender',                 'Discrete'],
-  ['claimed',                'Boolean']
+  ['claimed',                'Boolean'],
 ].each do |field_id, datatype_short_name|
   name = field_id.humanize
   class_name = field_id.camelize + "DummyCharacteristic"
@@ -38,21 +37,63 @@ end
 
   eval <<-END_CLASS_DEF
     class #{class_name} < DummyCharacteristic
-      def initialize
+      def initialize(options = {})
         @id = '#{field_id}'
         @name = '#{name}'
         @datatype = #{datatype_name}
       end
-    end
 
-    DummyCharacteristic::IMPLEMENTATIONS << #{class_name}
+      DummyCharacteristic::IMPLEMENTATIONS << self
+    end
   END_CLASS_DEF
 end
 
 # For discrete dummy characteristics, we've also got to define allowed values.
 
-class GenderDummyCharacteristic < DummyCharacteristic
+class GenderDummyCharacteristic
   def allowed_values
     User::GENDERS
   end
+end
+
+# This dummy characteristic works a little differently, we need to set it up 
+# manually.
+
+class LocationDummyCharacteristic < DummyCharacteristic
+  def initialize(options = {})
+    @id = 'location_id'
+    @name = 'Location'
+    @datatype = Characteristic::DiscreteType
+
+    @demo_id = options[:demo_id]
+  end
+
+  def allowed_values
+    locations.map {|location| location_and_demo_name(location) }
+  end
+
+  def cast_value(value)
+    # Value comes in like "LocationName (DemoName)"
+    value =~ /^(.*?) \((.*?)\)$/
+    location_name, demo_name = [$1, $2]
+    Demo.find_by_name(demo_name).locations.find_by_name(location_name).id
+  end
+
+  protected
+
+  def locations
+    @_locations ||= if (@demo_id)
+                      Demo.find(@demo_id).locations
+                    else
+                      Location.all
+                    end
+
+    @_locations
+  end
+
+  def location_and_demo_name(location)
+    "#{location.name} (#{location.demo.name})"
+  end
+
+  DummyCharacteristic::IMPLEMENTATIONS << self
 end
