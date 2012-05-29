@@ -111,6 +111,16 @@ You can earn points for any of these categories, by sending commands to
 \end_layout
 
 \begin_layout Subsection*
+How do I play by text or email?
+\end_layout
+
+\begin_layout Standard
+If you'd like to play by text, send commands to <GAME_PHONE>.
+ If you'd like to play by email, send commands to: <GAME_EMAIL>.
+ 
+\end_layout
+
+\begin_layout Subsection*
 Does it cost anything to play? 
 \end_layout
 
@@ -144,8 +154,8 @@ Text messaging makes the game fun, but it’s certainly not required.
 \end_layout
 
 \begin_layout Standard
-You can play by sending commands as an email, or by submitting them on hengage.co
-m 
+You can play by emailing commands to <GAME_EMAIL>, or by submitting them
+ on hengage.com 
 \end_layout
 
 \begin_layout Standard
@@ -204,8 +214,8 @@ Where do I enter commands?
 \end_layout
 
 \begin_layout Standard
-You can play by sending commands as a text message or an email, or by submitting
- them on hengage.com 
+You can play by texting commands to <GAME_PHONE>, by emailing commands to
+ <GAME_EMAIL>, or by submitting them on hengage.com 
 \end_layout
 
 \begin_layout Subsection*
@@ -550,8 +560,8 @@ Connecting with a coworker is a great way to support their healthy activities.
 \end_layout
 
 \begin_layout Itemize
-You can text or email “friend” followed by their username (i.e., “friend
- jsmith”) 
+You can text or email “friend” followed by their username (i.e., “friend jsmith”)
+ 
 \end_layout
 
 \begin_layout Itemize

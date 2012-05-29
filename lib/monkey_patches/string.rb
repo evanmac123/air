@@ -1,4 +1,5 @@
 class String
+  # Note: you must restart the server for changes in this file to take effect
   LOWERCASE_RANGE = ('a'..'z').freeze
 
   def remove_mid_word_characters
@@ -31,8 +32,11 @@ class String
     area_code = without_country_code[0,3]
     exchange = without_country_code[3,3]
     rest = without_country_code[6,4]
-
-    "(#{area_code}) #{exchange}-#{rest}"
+    output = "(#{area_code}) #{exchange}-#{rest}"
+    if output == "(914) 380-3854"
+      output.gsub!("3854", "FUJI (3854)")
+    end
+    output
   end
 
   def dummy_phone_number?
