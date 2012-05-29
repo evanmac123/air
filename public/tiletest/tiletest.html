@@ -1,0 +1,49 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>JQuery Cycle Plugin - Basic Demo</title>
+<style type="text/css">
+#slideshow { height: 432px; width: 432px; margin: auto }
+#slideshow img { padding: 15px; border: 1px solid #ccc; background-color: #eee; }
+</style>
+<!-- include jQuery library -->
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
+<!-- include Cycle plugin -->
+<script type="text/javascript" src="http://cloud.github.com/downloads/malsup/cycle/jquery.cycle.all.latest.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+  imageCount = $('#slideshow img').length;
+  positionElement = $('#position');
+
+  updatePositionFunc = function(isNext, slideIndex, slideElement) {
+    newContent = "" + (slideIndex + 1) + "/" + imageCount;
+    positionElement.html(newContent);
+  };
+
+  $('#slideshow').cycle({
+    fx: 'fade',
+    timeout: 0,
+    onPrevNextEvent: updatePositionFunc,
+    next: 'a#next',
+    prev: 'a#prev'
+  });
+
+  updatePositionFunc(false, 0, null);
+});
+</script>
+</head>
+<body>
+  <p id="position">
+  </p>
+  <div id="slideshow">
+    <img src="/tiletest/fake_tile1.gif" width="400" height="400" />
+    <img src="/tiletest/fake_tile2.gif" width="400" height="400" />
+    <img src="/tiletest/fake_tile3.gif" width="400" height="400" />
+  </div>
+  <p>
+    <a href="#" id="prev">Previous</a> <a href="#" id="next">Next</a>
+  </p>
+</body>
+</html>
+
