@@ -855,6 +855,10 @@ class User < ActiveRecord::Base
     _next_point_goal - _last_point_goal
   end
 
+  def email_with_name
+    "#{name} <#{email}>"
+  end
+  
   def mute_for_now
     self.update_attributes(:last_muted_at => Time.now)
   end

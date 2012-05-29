@@ -89,7 +89,7 @@ class EmailStyling
   end
   
   def browser_view_hash
-    {:style => "width: 100%; padding-right: 10px; padding-top: 58px;"}
+    {:style => "width: 100%; padding-right: 10px; padding-top: 31px;"}
   end
   
   def link
@@ -105,7 +105,7 @@ class EmailStyling
   end
   
   def youre_invited_text_hash
-    {:style => "#{@font_def}font-size: 40px; color: #{@bright_green};"}
+    {:style => "#{@font_def}font-size: 40px; color: #{@bright_green}; padding-top: 50px;"}
   end
   
   def get_ready_hash

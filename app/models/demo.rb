@@ -22,6 +22,7 @@ class Demo < ActiveRecord::Base
   
   validates_inclusion_of :join_type, :in => JOIN_TYPES
   validates_uniqueness_of :name
+  validates_presence_of :name
 
   has_alphabetical_column :name
 
@@ -272,7 +273,15 @@ class Demo < ActiveRecord::Base
   def is_pre_populated_game
     self.join_type == 'pre-populated'
   end
-
+  
+  def name_with_sponsor
+    if sponsor
+      "#{name} at #{sponsor}"
+    else
+      name
+    end
+  end      
+        
   protected
 
   def unless_within(cutoff_time, last_done_time)

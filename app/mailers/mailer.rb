@@ -8,7 +8,6 @@ class Mailer < ActionMailer::Base
     @referrer_params = User.referrer_params(@referrer)
 
 
-    @demo_name = user.demo.name || "H Engage"
     begins = user.demo.begins_at
     if begins
       @demo_begins_at = user.demo.begins_at.to_date.as_pretty_date
@@ -19,10 +18,14 @@ class Mailer < ActionMailer::Base
       end
     end
 
-    subject = "Invitation to play #{@demo_name}"
-
+    if @referrer
+      subject = "#{@referrer.name} invited you to play #{@user.demo.name_with_sponsor}"
+    else
+      subject = "Ready to play? #{@user.demo.name_with_sponsor} starts today" 
+    end
+      
     @style = options[:style]
-    mail :to      => user.email,
+    mail :to      => user.email_with_name,
          :subject => subject,
          :from => @user.reply_email_address
          

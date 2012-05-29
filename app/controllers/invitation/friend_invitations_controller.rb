@@ -18,7 +18,8 @@ class Invitation::FriendInvitationsController < ApplicationController
         attempted, successful = 1,0
       else
         @invitation_request = InvitationRequest.new(:email => user.email)
-        user.invite(current_user)
+        style = EmailStyling.new(get_image_url)
+        user.invite(current_user, style: style)
         demo_name = current_user.demo.name
         pp = current_user.demo.game_referrer_bonus
         bonus_message = pp ? "That's <span class='orange'>#{pp}</span> potential points!".html_safe : ''
