@@ -4,22 +4,30 @@
 
  
 <% if @referrer %>
-<%= @referrer.name %> has invited you to play <%= @demo_name %>. To start playing, follow:
+<%= @referrer.name %> has invited you to play <%= @user.demo.name_with_sponsor %>.
 <% else %>
-You're Invited!
+You're invited to join <%= @user.demo.name_with_sponsor %>!
 <% end %>
 
-<%= @demo_name %> is a fun social game that rewards you for making healthy decisions. Earn points and win prizes like gift cards and iPads!. To start playing, follow:
+To start playing, follow <%= invitation_url(@user.invitation_code) + @referrer_params%>
 
-<%= invitation_url(@user.invitation_code) + @referrer_params%>
+<%= @user.demo.name %> is a fun, social game that rewards you for making
+healthy decisions and hunting for colorful squares, called tiles. Earn points and
+win prizes like gift cards and iPads!
+
+You can earn points for:
+  1. Finding tiles
+  2. Eating fruits and veggies
+  3. Exercising and making other healthy choices!
 
 Have fun and good luck!
 
+--
 
-=======================================================
+H Engage http://hengage.com
 
-H Engage
-About Us: http://hengage.com
-Support: support@hengage.com
-View this invitation in your browser: <%= @style.image_url %>/invitation?code=<%= @user.invitation_code %>
-=======================================================
+Support email: support@hengage.com
+
+To view this invitation in your browser, click: <%= @style.image_url %>/invitation?code=<%= @user.invitation_code + @referrer_params %>
+
+To unsubscribe from this list, click: <%% UNSUB %> 

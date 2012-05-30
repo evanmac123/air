@@ -25,7 +25,7 @@ class EmailPreviewsController < ApplicationController
     
     @style = EmailStyling.new(get_image_url)
     @hide_browser_option = true if code
-    render :file => 'mailer/invitation.html.haml', :layout => 'email' #, :layout => 'mailer'
+    render :file => 'mailer/invitation.html.haml', :layout => 'mailer'
   end
   
 

@@ -16,7 +16,7 @@ class EmailStyling
     @grey_text_def = "color: #7d7d7d; "
     @side_borders_def = "border-left: 1px solid #{@grey_background}; border-right: 1px solid #{@grey_background};"
     @table_reset = "border-collapse: collapse; border-spacing: 0;"
-    @nearly_white_def = "color: #e1e1e1;"
+    @nearly_white_def = "color: #e1e1e1 !important;"
   end
     
   def paragraph
@@ -47,6 +47,10 @@ class EmailStyling
     {style: @table_reset}
   end
   
+  def table_reset_hash_3
+    {style: @table_reset + "margin-top: 10px;"}
+  end
+  
   def table_reset_hash_set_width
     table_reset_hash.merge(width: @inner_width)
   end
@@ -68,6 +72,14 @@ class EmailStyling
     "background: #{@grey_background}; padding-top: 20px; padding-bottom: 20px;"
   end
   
+  def footer_hash
+    {:style => footer}
+  end
+  
+  def grey_background_hash
+    {:style => "background: #{@grey_background};"}
+  end
+  
   def body_hash
     {:style => "#{@side_borders_def}background: #{@top_light_grey}; padding-left: 27px; padding-right: 27px; "}
   end
@@ -77,7 +89,7 @@ class EmailStyling
   end
   
   def base_hash
-    {:style => "background: #{@grey_background}; height: 100%; padding: 0; margin: 0;"}
+    {:style => "background: #{@grey_background}; height: 100%; padding: 0; margin: 0; width: 100%; padding-bottom: 30px;"}
   end
   
   def trouble_text_hash
@@ -129,7 +141,7 @@ class EmailStyling
   end
   
   def image
-    "display: inline-block; vertical-align: bottom;"
+    "display: inline-block; vertical-align: bottom; border: none;"
   end
   
   def li_hash
@@ -149,11 +161,15 @@ class EmailStyling
   end
   
   def connect_hash
-    {:style => "#{@font_def + @grey_text_def} font-size: 16px; line-height: 20px; padding-bottom: 16px;"}
+    {:style => "#{@font_def + @grey_text_def} font-size: 16px; line-height: 20px; padding-bottom: 13px;"}
   end
   
   def image_right
-    {:style => "text-align: right; width: 100%; padding-bottom: 26px;"}
+    {:style => "text-align: right; width: 100%; padding-bottom: 16px; padding-top: 10px;"}
+  end
+  
+  def image_left
+    {:style => "width: 201px;"}
   end
   
   def bullet_hash
@@ -164,7 +180,8 @@ class EmailStyling
     "#{@font_def + @nearly_white_def} font-size: 12px; line-height: 23px; text-decoration: none; text-align: center;"
   end
   
-  def footer_hash
-    {:style => footer}
+  def bottom_left_hash
+    {:style => "vertical-align: top; padding-top: 29px;"}
   end
+  
 end
