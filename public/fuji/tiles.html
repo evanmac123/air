@@ -1,0 +1,57 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>HealthFocus at FujiFilm | h.engage</title>
+<link rel="stylesheet" type="text/css" href="master.css" />
+<!-- include jQuery library -->
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
+<!-- google web fonts -->
+<link href='http://fonts.googleapis.com/css?family=Ubuntu:400,500' rel='stylesheet' type='text/css'>
+<!-- include Cycle plugin -->
+<script type="text/javascript" src="http://cloud.github.com/downloads/malsup/cycle/jquery.cycle.all.latest.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+  imageCount = $('#slideshow img').length;
+  positionElement = $('#position');
+
+  updatePositionFunc = function(isNext, slideIndex, slideElement) {
+    newContent = "Tile: " + (slideIndex + 1) + " of " + imageCount;
+    positionElement.html(newContent);
+  };
+
+  $('#slideshow').cycle({
+    fx: 'fade',
+    timeout: 0,
+    onPrevNextEvent: updatePositionFunc,
+    next: 'a#next',
+    prev: 'a#prev'
+  });
+
+  updatePositionFunc(false, 0, null);
+});
+</script>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <img src="img/logo.png" id="logo" alt="h.engage" />
+    <p id="position"></p>
+    <div class="cf"></div>
+  </div>
+  <div class="viewer">
+    <a href="#" id="prev"><span>Previous</span></a>
+    <div id="slideshow">
+      <img src="tiles/FujiFMSU-1.jpg" alt="Tile 1: Trouble sleeping?" />
+      <img src="tiles/FujiFMSU-2.jpg" alt="Tile 2: You're 3 times more likely to catch a cold if you dont..." />
+      <img src="tiles/FujiFMSU-3.jpg" alt="Tile 3: What gives you a snapshot of your health status, plus an action plan for reducing health risks?" />
+    </div>
+    <a href="#" id="next"><span>Next</span></a>
+    <div class="cf"></div>
+  </div>
+</div>
+<div class="footer">
+  <p>Copyright &copy; 2011 H Engage, Inc.</p>
+</div>
+</body>
+</html>
