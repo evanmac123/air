@@ -490,7 +490,7 @@ class User < ActiveRecord::Base
   end
 
   def invite(referrer = nil, options ={})
-    Mailer.invitation(self, referrer, options).deliver
+    Mailer.delay.invitation(self, referrer, options)
     update_attribute(:invited, true)
   end
 
@@ -933,7 +933,7 @@ class User < ActiveRecord::Base
         # If there's someone with this email who hasn't accepted an invitation yet
         # treat this as a request to re-send their invitation.
       
-        existing_user.invite
+        existing_user.invite(nil, options)
         return existing_user.invitation_sent_text
       end
     end
@@ -945,7 +945,7 @@ class User < ActiveRecord::Base
     new_user.phone_number = phone
 
     if new_user.save
-      new_user.invite
+      new_user.invite(nil, options)
       new_user.invitation_sent_text
     else
       nil

@@ -21,7 +21,7 @@ Feature: User requests an invitation via SMS
     Then "+14155551213" should have received an SMS "An invitation has been sent to email.email-_@example.com."
     And "email.email-_@example.com" should receive an email
     When "email.email-_@example.com" opens the email
-    And they click the first link in the email
+    And I click the play now button in the email
     Then I should see "Choose a username"
     And I should not see "Enter your mobile number"
     And I should not see "We'll send you an SMS with instructions on the next step."
@@ -43,7 +43,7 @@ Feature: User requests an invitation via SMS
   Scenario: We remember that user's phone number is pre-confirmed even if the acceptance process takes several tries
     When "+14155551213" sends SMS "email@example.com"
     And "email@example.com" opens the email
-    And they click the first link in the email
+    And I click the play now button in the email
     And I should not see "Enter your mobile number"
 
     When I press "Join the game"
@@ -65,7 +65,7 @@ Feature: User requests an invitation via SMS
     And DJ cranks 5 times
     Then "bob@example.com" should receive an email
     When "bob@example.com" opens the email
-    And they click the first link in the email
+    And I click the play now button in the email
     Then I should be on the invitation page for "bob@example.com"
     And "+14155551212" should have received an SMS "An invitation has been sent to bob@example.com."
 

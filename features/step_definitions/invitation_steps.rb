@@ -7,7 +7,7 @@ end
 
 When /^"([^"]*)" has received an invitation$/ do |email|
   user = User.find_by_email(email)
-  Mailer.invitation(user).deliver
+  Mailer.invitation(user, nil, :style => EmailStyling.new('')).deliver
 end
 
 When /^I accept the invitation$/ do

@@ -130,7 +130,7 @@ class ApplicationController < ActionController::Base
     self.current_user = nil
   end
   
-  def get_image_url
+  def get_image_url # Note this is duplicate of SMSController#get_image_url
     root_url[0..-2] # everything but the trailing slash
   end
 

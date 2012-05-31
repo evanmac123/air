@@ -16,5 +16,5 @@ Feature: Admin resends invitation to user
 
     Then "joe@example.com" should receive 1 email
     When "joe@example.com" opens the email
-    And I click the first link in the email
+    And I click the play now button in the email
     Then I should be on the invitation page for "joe@example.com"

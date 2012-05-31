@@ -64,8 +64,9 @@ Feature: User invites friends
     And DJ works off
     Then "1@loaded.com" should receive an email
     When "1@loaded.com" opens the email
-    And I click the first link in the email
+    And I click the play now button in the email
     Then I should be on the invitation page for "1@loaded.com"
+    And show me the page
     When I fill in "Enter your mobile number" with "2088834848"
     And I fill in "Enter your name" with "Charlie Brainfield"
     And I fill in "Choose a username" with "somereallylongtextstring"
@@ -99,7 +100,7 @@ Feature: User invites friends
     And DJ works off
     Then "racing22@inviting.com" should receive an email
     When "racing22@inviting.com" opens the email
-    And I click the first link in the email
+    And I click the play now button in the email
     Then I should be on the invitation page for "racing22@inviting.com"
     When I fill in "Enter your mobile number" with "2088834848"
     And I fill in "Enter your name" with "Blowing Smoke"
@@ -138,7 +139,7 @@ Feature: User invites friends
     And DJ works off
     Then "racing03@inviting.com" should receive an email
     When "racing03@inviting.com" opens the email
-    And I click the first link in the email
+    And I click the play now button in the email
     Then I should be on the invitation page for "racing03@inviting.com"
     When I fill in "Enter your mobile number" with "2084334848"
     And I fill in "Enter your name" with "Blowing Smoke"

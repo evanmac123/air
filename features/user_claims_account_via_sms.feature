@@ -28,7 +28,7 @@ Feature: User claims account via SMS
     Then I should see "Set your password" in the email subject
     And I should not see "Someone, hopefully you, has requested that we send you a link to change your password." in the email body
 
-    And I click the first link in the email
+    And I click the reset password link in the email
     And I fill in "Password" with "dandan"
     And I fill in "Confirm password" with "dandan"
     And I press "Save this password"

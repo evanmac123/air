@@ -29,7 +29,7 @@ Feature: User gives credit to game referer via autocomplete field
     And DJ cranks 5 times
     Then "new_user@hopper.com" should receive an email
     When "new_user@hopper.com" opens the email
-    And I click the first link in the email
+    And I click the play now button in the email
     Then I should see "And confirm that password"
     Then I should see "Whom can we thank for referring you?"
     And I should see "Your Email Address"

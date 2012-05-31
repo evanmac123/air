@@ -13,7 +13,7 @@ Feature: User gets followup welcome message at some point after starting the gam
 
   Scenario: User gets followup welcome message after accepting invitation on Web
     When "phil@example.com" opens the email
-    And I click the first link in the email
+    And I click the play now button in the email
     When I fill in "Enter your mobile number" with "(415) 261-3077"
     And I fill in "Choose a password" with "ohyeah"
     And I fill in "And confirm that password" with "ohyeah"
@@ -35,7 +35,7 @@ Feature: User gets followup welcome message at some point after starting the gam
   Scenario: User with email notification method gets only welcome email message
     Given "Phil" has notification method "email"
     When "phil@example.com" opens the email
-    And I click the first link in the email
+    And I click the play now button in the email
     Given a clear email queue
     When I fill in "Enter your mobile number" with "(415) 261-3077"
     And I fill in "Choose a password" with "ohyeah"
@@ -52,7 +52,7 @@ Feature: User gets followup welcome message at some point after starting the gam
   Scenario: User with SMS notification method gets only welcome email message
     Given "Phil" has notification method "sms"
     When "phil@example.com" opens the email
-    And I click the first link in the email
+    And I click the play now button in the email
     Given a clear email queue
     When I fill in "Enter your mobile number" with "(415) 261-3077"
     And I fill in "Choose a password" with "ohyeah"
@@ -68,7 +68,7 @@ Feature: User gets followup welcome message at some point after starting the gam
 
   Scenario: User accepts invitation but not enough time has passed
     When "phil@example.com" opens the email
-    And I click the first link in the email
+    And I click the play now button in the email
     When I fill in "Enter your mobile number" with "(415) 261-3077"
     And I fill in "Choose a password" with "ohyeah"
     And I fill in "And confirm that password" with "ohyeah"

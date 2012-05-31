@@ -27,7 +27,7 @@ Feature: User with proper email domain invites self
     When DJ cranks 5 times
     Then "chester@highmark.com" should receive an email
     When "chester@highmark.com" opens the email
-    And I click the first link in the email
+    And I click the play now button in the email
 
     Then I should be on the invitation page for "chester@highmark.com"
     And I should see "Neither Highmark, its subsidiaries or agents, will be held responsible for any charges related to the use of the services."
@@ -56,7 +56,7 @@ Feature: User with proper email domain invites self
     Then "joe@highmark.com" should receive no email
     But "fred@highmark.com" should receive an email
     When "fred@highmark.com" opens the email
-    And I click the first link in the email
+    And I click the play now button in the email
     Then I should be on the invitation page for "fred@highmark.com"
 
   Scenario: User can't invite self with a domain not allowed to do self-invitation
@@ -79,5 +79,5 @@ Feature: User with proper email domain invites self
     When DJ cranks 10 times
     Then "bob@somedomain.com" should receive an email
     When "bob@somedomain.com" opens the email
-    And I click the first link in the email
+    And I click the play now button in the email
     Then I should be on the invitation page for "bob@somedomain.com"

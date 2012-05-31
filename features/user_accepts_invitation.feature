@@ -12,7 +12,7 @@ Feature: User accepts invitation
     And "dan@example.com" has received an invitation
     And "phil@example.com" has received an invitation
     When "dan@example.com" opens the email
-    And I click the first link in the email
+    And I click the play now button in the email
 
   Scenario: Throws error messages if terms and conditions not accepted
     Then I should be on the invitation page for "dan@example.com"
@@ -74,7 +74,7 @@ Feature: User accepts invitation
 
   Scenario: User accepts invitation to game with a custom message
     When "phil@example.com" opens the email
-    And I click the first link in the email
+    And I click the play now button in the email
     And I fill in "Enter your mobile number" with "415-261-3077"
     And I fill in "Choose a password" with "whowho"
     And I fill in "And confirm that password" with "whowho"
@@ -89,7 +89,7 @@ Feature: User accepts invitation
   Scenario: User accepts invitation to game with seed points
     Given time is frozen
     When "phil@example.com" opens the email
-    And I click the first link in the email
+    And I click the play now button in the email
     And I fill in "Enter your mobile number" with "415-261-3077"
     And I fill in "Choose a password" with "whowho"
     And I fill in "And confirm that password" with "whowho"
@@ -103,12 +103,12 @@ Feature: User accepts invitation
   Scenario: User doesn not get seed points twice
     Given time is frozen
     When "phil@example.com" opens the email
-    And I click the first link in the email
+    And I click the play now button in the email
     And I fill in "Enter your mobile number" with "415-261-3077"
     And I fill in "Choose a password" with "whowho"
     And I fill in "And confirm that password" with "whowho"
     And I press "Join the game"
-    And I click the first link in the email
+    And I click the play now button in the email
     And I fill in "Choose a password" with "whowho"
     And I fill in "And confirm that password" with "whowho"
     And I check "Terms and conditions"
@@ -158,7 +158,7 @@ Feature: User accepts invitation
       | Joe  | joe@lateco.com | name: LateCo |
     And "joe@lateco.com" has received an invitation
     When "joe@lateco.com" opens the email
-    And I click the first link in the email
+    And I click the play now button in the email
 
     When I fill in "Enter your mobile number" with "508-740-7520"
     And I fill in "Choose a password" with "whatwhat"
@@ -179,12 +179,12 @@ Feature: User accepts invitation
     Then I should see "Your game begins on May 01, 2011 at 12:00 AM Eastern."
     
   Scenario: User accepts invitation for demo with no locations, and does not see dropdown for it
-    When I click the first link in the email
+    And I click the play now button in the email
     Then I should be on the invitation page for "dan@example.com"
     And I should not see "Location"
 
   Scenario: User can set username when accepting invitation
-    When I click the first link in the email
+    And I click the play now button in the email
     And I fill in "Choose a username" with "phil"
     And I fill in "Enter your mobile number" with "508-740-7520"
     And I fill in "Choose a password" with "whatwhat"
@@ -224,7 +224,7 @@ Feature: User accepts invitation
     ### This is where I abandon my invitation acceptance page and go somewhere else #######################
     And I go to the home page
     ### This is where I come back to the invitation acceptance page at some point (still not accepted)#####
-    When I click the first link in the email
+    And I click the play now button in the email
     Then I should be on the invitation page for "dan@example.com"
     When I fill in "Enter your mobile number" with "508-740-7520"
     And I fill in "Choose a password" with "whatwhat"
@@ -232,12 +232,12 @@ Feature: User accepts invitation
     And I check "Terms and conditions"
     And I press "Join the game"
     Then I should be on the interstitial phone verification page
-    When I click the first link in the email
+    And I click the play now button in the email
     Then I should be on the activity page
     And I should see "You've already accepted your invitation to the game."
 
     When I sign out
-    And I click the first link in the email
+    And I click the play now button in the email
     Then I should be on the signin page
     And I should see "You've already accepted your invitation to the game. Please log in if you'd like to use the site."
 

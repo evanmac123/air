@@ -24,10 +24,10 @@ class InvitationRequest
     SelfInvitingDomain.where(:domain => self.email_domain).first
   end
 
-  def create_and_invite_user
+  def create_and_invite_user(options={})
     user = User.create!(:email => email, :demo => self_inviting_domain.demo)
     user.invitation_method = "web"
-    user.invite
+    user.invite(nil, options)
     user
   end
   

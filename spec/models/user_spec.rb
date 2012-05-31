@@ -113,18 +113,18 @@ describe User do
       user_or_phone = "blah"
       domain = FactoryGirl.create(:self_inviting_domain).domain
       text = "hi@#{domain}"
-      User.send_invitation_if_email(user_or_phone, text).should == nil
+      User.send_invitation_if_email(user_or_phone, text, :style => EmailStyling.new('')).should == nil
       user_or_phone = "+12345678901"
-      User.send_invitation_if_email(user_or_phone, text).should == "An invitation has been sent to #{text}."
+      User.send_invitation_if_email(user_or_phone, text, :style => EmailStyling.new('')).should == "An invitation has been sent to #{text}."
       Delayed::Worker.new.work_off(10)
       mail = ActionMailer::Base.deliveries
       mail.should_not be_empty
       mail.first.parts.first.body.raw_source.should include("invite")
       domain = "notonyourlife.com"
       text = "hi@#{domain}"
-      User.send_invitation_if_email(user_or_phone, text).should == "Your domain is not valid"
+      User.send_invitation_if_email(user_or_phone, text, :style => EmailStyling.new('')).should == "Your domain is not valid"
       text = "not an email address"
-      User.send_invitation_if_email(user_or_phone, text).should == nil
+      User.send_invitation_if_email(user_or_phone, text, :style => EmailStyling.new('')).should == nil
   end
 
 
@@ -298,7 +298,7 @@ describe User, "#invite" do
 
     it "sends invitation to user" do
       Delayed::Worker.new.work_off(10)
-      Mailer.should     have_received(:invitation).with(subject, nil)
+      Mailer.should     have_received(:invitation).with(subject, nil, {})
       invitation.should have_received(:deliver)
     end
 

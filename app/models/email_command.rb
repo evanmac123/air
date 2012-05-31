@@ -14,7 +14,7 @@ class EmailCommand < ActiveRecord::Base
   STATUSES = [ Status::SUCCESS, Status::FAILED, Status::UNKNOWN_EMAIL, Status::USER_VERIFIED, Status::INVITATION ]
   validates :status, :inclusion => { :in => STATUSES, :message => "%{value} is not a valid status value" }
 
-  def send_invitation
+  def send_invitation(options={})
     new_user = User.new_self_inviting_user(self.email_from)
 
     self.response = "This is not the actual response we sent. Actually, we sent them a nicely formatted Invitation email and a dozen roses :)"
@@ -23,7 +23,7 @@ class EmailCommand < ActiveRecord::Base
 
     new_user.invitation_method = "email"
     new_user.save
-    new_user.invite
+    new_user.invite(nil, options)
 
     true  
   end
@@ -36,25 +36,25 @@ class EmailCommand < ActiveRecord::Base
     EmailCommandMailer.delay.send_response_to_non_user(self)
   end
 
-  def invite_new_user_in_self_inviting_domain
+  def invite_new_user_in_self_inviting_domain(options={})
     # Email from non-user's self-inviting domain (regarless of content) gets an invitation
     self.status = EmailCommand::Status::INVITATION
-    self.send_invitation
+    self.send_invitation(options)
   end
 
-  def handle_unknown_user
+  def handle_unknown_user(options={})
     if User.self_inviting_domain(self.email_from)
-      self.invite_new_user_in_self_inviting_domain
+      self.invite_new_user_in_self_inviting_domain(options)
     else
       # Not a user, and not from a self inviting domain -> Tell them to use their work email
       self.send_response_to_non_user
     end
   end
 
-  def reinvite_user
+  def reinvite_user(options={})
     self.status = Status::INVITATION
     save
-    self.user.invite
+    self.user.invite(nil, options)
   end
 
   def all_blank?

@@ -198,9 +198,9 @@ end
 
 describe Demo, "#email_valid_for_demo" do 
   before do
-  @self_inviting_demo = Demo.create()
-  @domain_1 = SelfInvitingDomain.create(:domain => 'firstdomain.com', :demo_id => @self_inviting_demo.id)   
-  @domain_2 = SelfInvitingDomain.create(:domain => 'seconddomain.com', :demo_id => @self_inviting_demo.id)   
+  @self_inviting_demo = Demo.create!(:name => 'game')
+  @domain_1 = SelfInvitingDomain.create!(:domain => 'firstdomain.com', :demo_id => @self_inviting_demo.id)   
+  @domain_2 = SelfInvitingDomain.create!(:domain => 'seconddomain.com', :demo_id => @self_inviting_demo.id)   
   @public_demo = Demo.new(:join_type => "public")
   @pre_populated_demo = Demo.new()
   end

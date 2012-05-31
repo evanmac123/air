@@ -7,7 +7,6 @@ class Mailer < ActionMailer::Base
     
     @referrer_params = User.referrer_params(@referrer)
 
-
     begins = user.demo.begins_at
     if begins
       @demo_begins_at = user.demo.begins_at.to_date.as_pretty_date

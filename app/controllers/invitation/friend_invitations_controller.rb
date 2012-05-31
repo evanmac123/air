@@ -66,14 +66,14 @@ class Invitation::FriendInvitationsController < ApplicationController
           @invitation_request = InvitationRequest.new(:email => user.email)
           add_failure "For some reason, the address #{email} didn't work" unless @invitation_request.valid?
           users_invited << email
-          user.invite(current_user)        
+          user.invite(current_user, :style => EmailStyling.new(get_image_url))        
         elsif User.where(:email => email).first.accepted_invitation_at 
           # user already playing, so discard
           existing_users << email 
         else  
           # user already created, but invitation not accepted, so send invitation again
           user = User.where(:email => email, :demo_id => current_user.demo_id).first
-          user.invite(current_user)
+          user.invite(current_user, :style => EmailStyling.new(get_image_url))
           users_invited << email
         end
       end

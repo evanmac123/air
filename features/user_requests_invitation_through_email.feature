@@ -18,7 +18,7 @@ Feature: Users can request invitation via email
     And DJ cranks 5 times
     Then "alpha@join.com" should receive an email
     When "alpha@join.com" opens the email
-    And I click the first link in the email
+    And I click the play now button in the email
     Then I should be on the invitation page for "alpha@join.com"
     And I should see "Your Email Address:"
     And I should not see "Enter your email address"
@@ -54,12 +54,12 @@ Feature: Users can request invitation via email
     And DJ cranks 5 times
     Then "beta@join.com" should receive an email
     When "beta@join.com" opens the email
-    Then I should see "Thanks for requesting an invite to play JoinCo" in the email body
+    Then I should see "You’re invited..." in the email body
     
     When "alpha@join.com" sends email with subject "I Tarzan, You Jane" and body "join"
     Then "alpha@join.com" should receive an email
     When "alpha@join.com" opens the email
-    And I click the first link in the email
+    And I click the play now button in the email
     Then I should be on the invitation page for "alpha@join.com"
 
   Scenario: Unclaimed user requesting invitation via email gets treated as a request for invitation resend
@@ -68,7 +68,7 @@ Feature: Users can request invitation via email
     Then "joe@join.com" should receive an email
     
     When "joe@join.com" opens the email
-    And I click the first link in the email
+    And I click the play now button in the email
     Then I should be on the invitation page for "joe@join.com"
     
     When "bob@join.com" sends email with subject "lions and tigers and bears" and body "oh my"
@@ -76,5 +76,5 @@ Feature: Users can request invitation via email
     Then "bob@join.com" should receive an email
 
     When "bob@join.com" opens the email
-    And I click the first link in the email
+    And I click the play now button in the email
     Then I should be on the invitation page for "bob@join.com"

@@ -192,3 +192,13 @@ end
 Then /^save and open all raw emails$/ do
   EmailSpec::EmailViewer::save_and_open_all_raw_emails
 end
+
+When /^I click the play now button in the email$/ do
+  regex = /invitations/
+  click_email_link_matching(regex)
+end
+
+When /^I click the reset password link in the email$/ do
+  regex = /password/
+  click_email_link_matching(regex)
+end

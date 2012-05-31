@@ -22,7 +22,7 @@ Feature: User accepts invitation and specifies location
     Then I should see "Gammaville 0"
 
     When "joe@example.com" opens the email
-    And I click the first link in the email
+    And I click the play now button in the email
     Then I should be on the invitation page for "joe@example.com"
     When I fill in "Choose a password" with "whatwhat"
     And I fill in "And confirm that password" with "whatwhat"
@@ -32,7 +32,7 @@ Feature: User accepts invitation and specifies location
     And I should see "Joe joined the game less than a minute ago"
 
     When "bob@example.com" opens the email
-    And I click the first link in the email
+    And I click the play now button in the email
     Then I should be on the invitation page for "bob@example.com"
     When I fill in "Choose a password" with "whatwhat"
     And I fill in "And confirm that password" with "whatwhat"

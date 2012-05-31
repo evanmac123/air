@@ -24,7 +24,7 @@ class InvitationsController < ApplicationController
       @user = @invitation_request.create_and_invite_user_to_public_game
     else
       if @inviting_domain = @invitation_request.self_inviting_domain
-        @user = @invitation_request.create_and_invite_user                
+        @user = @invitation_request.create_and_invite_user(style: EmailStyling.new(get_image_url))                
       else
         render "invalid_inviting_domain"
       end

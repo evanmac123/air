@@ -9,7 +9,7 @@ Feature: User shouldn't get timed out on invitation acceptance page
     And I press "Request invitation"
     And DJ cranks 5 times
     And "bob@example.com" opens the email
-    And I click the first link in the email
+    And I click the play now button in the email
 
     And I fill in the required self-invitation fields
     And 10 minutes pass

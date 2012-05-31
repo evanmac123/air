@@ -6,8 +6,6 @@ class EmailPreviewsController < ApplicationController
   
   def invitation
     
-    
-    
     kermit = User.where(:name => Tutorial.example_search_name).first
     code = params[:code]
     referrer_id = params[:referrer_id]
