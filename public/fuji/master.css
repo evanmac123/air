@@ -3,6 +3,7 @@ body {
   font-family:Helvetica, Arial, sans-serif;
   margin:0;
 }
+  a, img {border:none;}
   .cf {clear:both;}
 
 .container {
