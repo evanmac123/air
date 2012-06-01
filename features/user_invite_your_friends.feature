@@ -66,7 +66,6 @@ Feature: User invites friends
     When "1@loaded.com" opens the email
     And I click the play now button in the email
     Then I should be on the invitation page for "1@loaded.com"
-    And show me the page
     When I fill in "Enter your mobile number" with "2088834848"
     And I fill in "Enter your name" with "Charlie Brainfield"
     And I fill in "Choose a username" with "somereallylongtextstring"

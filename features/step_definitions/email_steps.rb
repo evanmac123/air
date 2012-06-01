@@ -202,3 +202,8 @@ When /^I click the reset password link in the email$/ do
   regex = /password/
   click_email_link_matching(regex)
 end
+
+When /^I click the view in browser link in the email$/ do
+  regex = /code/
+  click_email_link_matching(regex)
+end

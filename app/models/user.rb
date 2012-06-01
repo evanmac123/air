@@ -977,11 +977,11 @@ class User < ActiveRecord::Base
     user && user.authenticated?(password) ? user : nil
   end
 
-  def self.referrer_params(referrer)
+  def self.referrer_hash(referrer)
     if referrer
-      "?referrer_id=#{referrer.id}"
+      {:referrer_id => referrer.id}
     else
-      ""
+      {:referrer_id => nil}
     end
   end
   

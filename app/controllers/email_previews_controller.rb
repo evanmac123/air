@@ -15,13 +15,11 @@ class EmailPreviewsController < ApplicationController
     end
     @demo_name = @user.demo.name
     if referrer_id
-      @referrer = User.find(referrer_id)
-    else
-      @referrer = kermit
+      @referrer = User.where(:id => referrer_id).first
     end
-    @referrer_params = User.referrer_params(@referrer)
-    
+    @referrer_hash = User.referrer_hash(@referrer)
     @style = EmailStyling.new(get_image_url)
+    @preview_url = invitation_preview_url_with_referrer(@user, @referrer, @style.image_url)
     @hide_browser_option = true if code
     render :file => 'mailer/invitation.html.haml', :layout => 'mailer'
   end

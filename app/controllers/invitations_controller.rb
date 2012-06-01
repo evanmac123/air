@@ -43,7 +43,6 @@ class InvitationsController < ApplicationController
     if referrer_id =~ /^\d+$/
       @user.game_referrer_id = referrer_id
     end
-
     if @user
       return if redirect_if_invitation_accepted_already
       log_out_if_logged_in

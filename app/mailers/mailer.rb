@@ -1,11 +1,12 @@
 class Mailer < ActionMailer::Base
+  include EmailPreviewsHelper
   default :from => "H Engage <play@playhengage.com>"
 
   def invitation(user, referrer = nil, options = {})
     @user = user
     @referrer = referrer
     
-    @referrer_params = User.referrer_params(@referrer)
+    @referrer_hash = User.referrer_hash(@referrer)
 
     begins = user.demo.begins_at
     if begins
@@ -22,8 +23,10 @@ class Mailer < ActionMailer::Base
     else
       subject = "Ready to play? #{@user.demo.name_with_sponsor} starts today" 
     end
-      
+    
     @style = options[:style]
+    @preview_url = invitation_preview_url_with_referrer(@user, @referrer, @style.image_url)
+      
     mail :to      => user.email_with_name,
          :subject => subject,
          :from => @user.reply_email_address

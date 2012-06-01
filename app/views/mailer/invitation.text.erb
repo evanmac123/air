@@ -9,7 +9,7 @@
 You're invited to join <%= @user.demo.name_with_sponsor %>!
 <% end %>
 
-To start playing, follow <%= invitation_url(@user.invitation_code) + @referrer_params%>
+To start playing, follow <%= invitation_url(@user.invitation_code, @referrer_hash) %>
 
 <%= @user.demo.name %> is a fun, social game that rewards you for making
 healthy decisions and hunting for colorful squares, called tiles. Earn points and
@@ -28,6 +28,6 @@ H Engage http://hengage.com
 
 Support email: support@hengage.com
 
-To view this invitation in your browser, click: <%= @style.image_url %>/invitation?code=<%= @user.invitation_code + @referrer_params %>
+To view this invitation in your browser, click: <%= @preview_url %>
 
 To unsubscribe from this list, click: <%% UNSUB %> 

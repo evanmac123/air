@@ -15,6 +15,12 @@ class ApplicationController < ActionController::Base
 
   protected
 
+
+  def invitation_preview_url_with_referrer(user, referrer)
+    referrer_hash = User.referrer_hash(referrer)
+    invitation_preview_url({:code => user.invitation_code}.merge(@referrer_hash))
+  end
+  
   def force_ssl
     if (Rails.env.development? || Rails.env.test?) && !$test_force_ssl
       return
