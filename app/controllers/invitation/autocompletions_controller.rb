@@ -9,11 +9,16 @@ class Invitation::AutocompletionsController < ApplicationController
       slugs  = User.get_users_where_like(text, demo, "slug", current_user)
       emails = User.get_users_where_like(text, demo, "email", current_user)
     else            # This means you're trying to sign up and want to locate a referrer
-      email = params[:email].strip.downcase
-      demo = User.find_by_email(email).demo
-      names  = User.get_claimed_users_where_like(text, demo, "name")
-      slugs  = User.get_claimed_users_where_like(text, demo, "slug")
-      emails = User.get_claimed_users_where_like(text, demo, "email")
+      begin
+        email = params[:email].strip.downcase
+        demo = User.find_by_email(email).demo
+        names  = User.get_claimed_users_where_like(text, demo, "name")
+        slugs  = User.get_claimed_users_where_like(text, demo, "slug")
+        emails = User.get_claimed_users_where_like(text, demo, "email")
+      rescue
+        # This line will get called if my login cookie has expired
+	render 'shared/ajax_refresh_page' and return
+      end
     end
 
     @matched_users = names

@@ -4,6 +4,7 @@ class Invitation::FriendInvitationsController < ApplicationController
   before_filter :authenticate_without_game_begun_check
   
   def create
+    render 'shared/ajax_refresh_page' and return unless current_user     
     successful_invitation_count = 0
 
     # Pre-populated Domain
