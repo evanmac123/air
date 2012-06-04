@@ -98,11 +98,11 @@ class RuleValue < ActiveRecord::Base
       )
       matches.pop if result.length > 160
     end while (matches.present? && result.length > 160) 
-
+    length_limit = 80 # Restrict our response length
     if matches.empty?
       result = I18n.t(
         'activerecord.models.act.parse.no_suggestion_sms',
-        :default => "Sorry, I don't understand what \"#{attempted_value}\" means. @{Say} \"s\" to suggest we add it."
+        :default => "Sorry, I don't understand what \"#{attempted_value[0..length_limit]}\" means. @{Say} \"s\" to suggest we add it."
       )
 
       return [result, nil]
