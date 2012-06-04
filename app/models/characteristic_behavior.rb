@@ -26,4 +26,8 @@ module CharacteristicBehavior
   def format_value(value)
     self.datatype.format_value(value)
   end
+
+  def respect_allowed_values?
+    self.datatype.respect_allowed_values?
+  end
 end

@@ -1,6 +1,43 @@
 require File.expand_path(File.dirname(__FILE__) + '/acceptance_helper')
 
 feature "Admin segmentation" do
+  def create_characteristics_and_users
+    @demo = FactoryGirl.create(:demo)
+    @generic_characteristic_1 = FactoryGirl.create(:characteristic, :name => "Color", :allowed_values => %w(red orange yellow green blue indigo violet))
+    @generic_characteristic_2 = FactoryGirl.create(:characteristic, :name => "Favorite Beatle", :allowed_values => %w(john paul george ringo))
+    @generic_characteristic_3 = FactoryGirl.create(:characteristic, :name => "LOLPhrase", :allowed_values => %w(i can haz cheezburger))
+    @demo_specific_characteristic_1 = FactoryGirl.create(:characteristic, :demo_specific, :name => "Brain size", :demo => @demo, :allowed_values => %w(low medium high))
+    @demo_specific_characteristic_2 = FactoryGirl.create(:characteristic, :demo_specific, :name => "Favorite number", :demo => @demo, :allowed_values => %w(seven eight nine))
+    @demo_specific_characteristic_3 = FactoryGirl.create(:characteristic, :demo_specific, :name => "MomPhrase", :demo => @demo, :allowed_values => %w(hi mom))
+
+    @loser = FactoryGirl.create(:user, :demo => @demo)
+    @reds = []
+    @blues = []
+    @greens = []
+
+    14.times do |i|
+      @reds << FactoryGirl.create(:user, :name => "Red Guy #{i}", :demo => @demo, :characteristics => {@generic_characteristic_1.id => "red"})
+      @blues << FactoryGirl.create(:user, :name => "Blue Guy #{i}", :demo => @demo, :characteristics => {@generic_characteristic_1.id => "blue"})
+      @greens << FactoryGirl.create(:user, :name => "Green Guy #{i}", :demo => @demo, :characteristics => {@generic_characteristic_1.id => "green"})
+    end
+
+    %w(john john paul paul paul george george george george ringo ringo ringo ringo ringo).each_with_index do |name, i|
+      [@reds, @blues, @greens].each do |color_array|
+        color_array[i].characteristics[@generic_characteristic_2.id] = name
+        color_array[i].save!
+      end
+    end
+
+    %w(low low low low low low low medium medium medium high high high high).each_with_index do |name, i|
+      [@reds, @blues, @greens].each do |color_array|
+        color_array[i].characteristics[@demo_specific_characteristic_1.id] = name
+        color_array[i].save!
+      end
+    end
+
+    crank_off_dj
+  end
+
   def expect_all_continuous_operators_to_work(characteristic_name, reference_value, users)
     visit admin_demo_segmentation_path(@demo)
     select characteristic_name, :from => "segment_column[0]"
@@ -64,56 +101,17 @@ feature "Admin segmentation" do
     (0..5).to_a.each {|i| expect_user_content(users[i])}
   end
 
-  before(:each) do
-    @demo = FactoryGirl.create(:demo)
-    signin_as_admin
-  end
-
   def expect_user_content(user)
     expect_content "#{user.name}: #{user.email} (#{user.id})"
   end
 
   context "segmenting users" do
-    before(:each) do
-      @generic_characteristic_1 = FactoryGirl.create(:characteristic, :name => "Color", :allowed_values => %w(red orange yellow green blue indigo violet))
-      @generic_characteristic_2 = FactoryGirl.create(:characteristic, :name => "Favorite Beatle", :allowed_values => %w(john paul george ringo))
-      @generic_characteristic_3 = FactoryGirl.create(:characteristic, :name => "LOLPhrase", :allowed_values => %w(i can haz cheezburger))
-      @demo_specific_characteristic_1 = FactoryGirl.create(:characteristic, :demo_specific, :name => "Brain size", :demo => @demo, :allowed_values => %w(low medium high))
-      @demo_specific_characteristic_2 = FactoryGirl.create(:characteristic, :demo_specific, :name => "Favorite number", :demo => @demo, :allowed_values => %w(seven eight nine))
-      @demo_specific_characteristic_3 = FactoryGirl.create(:characteristic, :demo_specific, :name => "MomPhrase", :demo => @demo, :allowed_values => %w(hi mom))
-
-      @loser = FactoryGirl.create(:user, :demo => @demo)
-      @reds = []
-      @blues = []
-      @greens = []
-
-      14.times do |i|
-        @reds << FactoryGirl.create(:user, :name => "Red Guy #{i}", :demo => @demo, :characteristics => {@generic_characteristic_1.id => "red"})
-        @blues << FactoryGirl.create(:user, :name => "Blue Guy #{i}", :demo => @demo, :characteristics => {@generic_characteristic_1.id => "blue"})
-        @greens << FactoryGirl.create(:user, :name => "Green Guy #{i}", :demo => @demo, :characteristics => {@generic_characteristic_1.id => "green"})
-      end
-
-      %w(john john paul paul paul george george george george ringo ringo ringo ringo ringo).each_with_index do |name, i|
-        [@reds, @blues, @greens].each do |color_array|
-          color_array[i].characteristics[@generic_characteristic_2.id] = name
-          color_array[i].save!
-        end
-      end
-
-      %w(low low low low low low low medium medium medium high high high high).each_with_index do |name, i|
-        [@reds, @blues, @greens].each do |color_array|
-          color_array[i].characteristics[@demo_specific_characteristic_1.id] = name
-          color_array[i].save!
-        end
-      end
-
-      crank_off_dj
-
-      visit admin_demo_segmentation_path(@demo)
-    end
-
-    scenario "sees users segmented by one characteristic", :js => true do
+    it "sees users segmented by one characteristic", :js => true do
       # Basic segmentation on just one characteristic
+      create_characteristics_and_users
+      signin_as_admin
+      visit admin_demo_segmentation_path(@demo)
+
       select "Color", :from => "segment_column[0]"
       select "red", :from => "segment_value[0]"
 
@@ -125,8 +123,12 @@ feature "Admin segmentation" do
       @reds.each { |red| expect_user_content red }
     end
 
-    scenario "sees users segmented by two characteristics", :js => true do
+    it "sees users segmented by two characteristics", :js => true do
       # Segmenting on multiple characteristics
+      create_characteristics_and_users
+      signin_as_admin
+      visit admin_demo_segmentation_path(@demo)
+
       select "Color", :from => "segment_column[0]"
       select "red", :from => "segment_value[0]"
       click_link "Segment on more characteristics"
@@ -142,8 +144,11 @@ feature "Admin segmentation" do
       [@reds[5], @reds[6], @reds[7], @reds[8]].each { |red| expect_user_content red }
     end
 
-    scenario "sees users segmented by three characteristics", :js => true do
+    it "sees users segmented by three characteristics", :js => true do
       # How about three?
+      create_characteristics_and_users
+      signin_as_admin
+      visit admin_demo_segmentation_path(@demo)
       
       select "Color", :from => "segment_column[0]"
       select "green", :from => "segment_value[0]"
@@ -165,7 +170,11 @@ feature "Admin segmentation" do
       expect_user_content @greens[9]
     end
   
-    scenario "sees users segmented by a not-equals operator", :js => true do
+    it "sees users segmented by a not-equals operator", :js => true do
+      create_characteristics_and_users
+      signin_as_admin
+      visit admin_demo_segmentation_path(@demo)
+      
       select "Color", :from => "segment_column[0]"
       select "red", :from => "segment_value[0]"
       select "does not equal", :from => "segment_operator[0]"
@@ -191,7 +200,11 @@ feature "Admin segmentation" do
       expect_user_content @loser
     end
 
-    scenario "sees link to each segmented user", :js => true do
+    it "sees link to each segmented user", :js => true do
+      create_characteristics_and_users
+      signin_as_admin
+      visit admin_demo_segmentation_path(@demo)
+      
       select "Color", :from => "segment_column[0]"
       select "red", :from => "segment_value[0]"
 
@@ -203,7 +216,11 @@ feature "Admin segmentation" do
       should_be_on edit_admin_demo_user_path(first_red.demo, first_red)
     end
 
-    scenario "segments in a way that no employees match", :js => true do
+    it "segments in a way that no employees match", :js => true do
+      create_characteristics_and_users
+      signin_as_admin
+      visit admin_demo_segmentation_path(@demo)
+      
       # And let's go for a shutout
       select "Color", :from => "segment_column[0]"
       select "green", :from => "segment_value[0]"
@@ -223,7 +240,11 @@ feature "Admin segmentation" do
       expect_no_content "Show users"
     end
 
-    scenario "segments in such a way (like by choosing no characteristics) that matches all users", :js => true do
+    it "segments in such a way (like by choosing no characteristics) that matches all users", :js => true do
+      create_characteristics_and_users
+      signin_as_admin
+      visit admin_demo_segmentation_path(@demo)
+      
       click_button "Find segment"
       expect_content "43 users in segment"
 
@@ -231,7 +252,11 @@ feature "Admin segmentation" do
       @demo.users.each { |user| expect_user_content user }
     end
 
-    scenario 'should allow segmentation information to be downloaded in CSV format', :js => true do
+    it 'should allow segmentation information to be downloaded in CSV format', :js => true do
+      create_characteristics_and_users
+      signin_as_admin
+      visit admin_demo_segmentation_path(@demo)
+      
       select "Color", :from => "segment_column[0]"
       select "red", :from => "segment_value[0]"
 
@@ -254,6 +279,7 @@ feature "Admin segmentation" do
 
   context "segmenting on a boolean characteristic" do
     it "should work with equals and does-not-equal", :js => true do
+      create_characteristics_and_users
       characteristic = FactoryGirl.create(:characteristic, :boolean, name: "Likes cheese")
       demo = FactoryGirl.create(:demo)
       users = []
@@ -267,6 +293,7 @@ feature "Admin segmentation" do
 
       crank_dj_clear
 
+      signin_as_admin
       visit admin_demo_segmentation_path(demo)
       select "Likes cheese", :from => "segment_column[0]"
       select "equals", :from => "segment_operator[0]"
@@ -316,11 +343,14 @@ feature "Admin segmentation" do
     context "of numeric type" do
       it "should work with all operators", :js => true do
         characteristic = FactoryGirl.create(:characteristic, :number, :name => "Foo count")
+        @demo = FactoryGirl.create(:demo)
         users = []
         0.upto(9) do |i|
           users << FactoryGirl.create(:user, :demo => @demo, :characteristics => {characteristic.id => i})
         end
         crank_dj_clear
+
+        signin_as_admin
 
         expect_all_continuous_operators_to_work "Foo count", 5, users
       end
@@ -328,6 +358,7 @@ feature "Admin segmentation" do
 
     context "of date type" do
       it "should work with all operators", :js => true do
+        @demo = FactoryGirl.create(:demo)
         reference_value = "May 10, 2010"
         reference_date = Chronic.parse(reference_value).to_date
 
@@ -338,12 +369,14 @@ feature "Admin segmentation" do
         end
         crank_dj_clear
 
+        signin_as_admin
         expect_all_continuous_operators_to_work "Date of last decapitation", reference_date, users
       end
     end
 
     context "of time type" do
       it "should work with all operators", :js => true do
+        @demo = FactoryGirl.create(:demo)
         reference_value = "May 10, 2010, 12:00 PM"
         reference_time = Chronic.parse(reference_value)
 
@@ -354,12 +387,14 @@ feature "Admin segmentation" do
         end
         crank_dj_clear
 
+        signin_as_admin
         expect_all_continuous_operators_to_work "Lunchtime", reference_time, users
       end
     end
   end
 
-  scenario "can segment on location", :js => true do
+  it "can segment on location", :js => true do
+    @demo = FactoryGirl.create(:demo)
     @demo.update_attributes(name: "AwesomeCo")
     other_demo = FactoryGirl.create(:demo, name: "Dewey, Cheatem and Howe")
 
@@ -373,6 +408,7 @@ feature "Admin segmentation" do
 
     location = Location.find_by_name('North Southerton')
 
+    signin_as_admin
     visit admin_demo_segmentation_path(@demo)
     
     select "Location", :from => "segment_column[0]"
@@ -408,28 +444,34 @@ feature "Admin segmentation" do
   end
 
   %w(height weight).each do |field_name|
-    scenario "can segment on #{field_name}", :js => true do
+    it "can segment on #{field_name}", :js => true do
+      @demo = FactoryGirl.create(:demo)
       users = []
       50.upto(59) do |value|
         users << FactoryGirl.create(:user, :demo => @demo, field_name => value)
       end
       crank_dj_clear
 
+      signin_as_admin
       expect_all_continuous_operators_to_work field_name.capitalize, 55, users
     end
   end
 
-  scenario 'can segment on points', :js => true do
+  it 'can segment on points', :js => true do
+    @demo = FactoryGirl.create(:demo)
     users = []
     0.upto(9) do |points|
       users << FactoryGirl.create(:user, :demo => @demo, :points => points)
     end
     crank_dj_clear
 
+    signin_as_admin
     expect_all_continuous_operators_to_work "Points", 5, users
   end
 
-  scenario 'can segment on date of birth', :js => true do
+  it 'can segment on date of birth', :js => true do
+    @demo = FactoryGirl.create(:demo)
+
     reference_value = "May 10, 2010"
     reference_date = Chronic.parse(reference_value).to_date
 
@@ -439,10 +481,13 @@ feature "Admin segmentation" do
     end
     crank_dj_clear
 
+    signin_as_admin
     expect_all_continuous_operators_to_work "Date of birth", reference_date, users
   end
 
-  scenario 'can segment on accepted_invitation_at', :js => true do
+  it 'can segment on accepted_invitation_at', :js => true do
+    @demo = FactoryGirl.create(:demo)
+
     reference_value = "May 10, 2010, 9:00 AM"
     reference_time = Chronic.parse(reference_value)
 
@@ -452,19 +497,23 @@ feature "Admin segmentation" do
     end
     crank_dj_clear
 
+    signin_as_admin
     expect_all_continuous_operators_to_work "Accepted invitation at", reference_time, users
   end
 
-  scenario 'can segment on gender', :js => true do
-    expected_users = {'male' => [], 'female' => [], 'other' => []}
+  it 'can segment on gender', :js => true do
+    @demo = FactoryGirl.create(:demo)
 
+    expected_users = {'male' => [], 'female' => [], 'other' => []}
     3.times do 
       expected_users['male'] << FactoryGirl.create(:user, demo: @demo, gender: 'male')
       expected_users['female'] << FactoryGirl.create(:user, demo: @demo, gender: 'female')
       expected_users['other'] << FactoryGirl.create(:user, demo: @demo, gender: 'other')
     end
+
     crank_dj_clear
 
+    signin_as_admin
     visit admin_demo_segmentation_path(@demo)
 
     %w(male female other).each do |gender_name|
@@ -493,11 +542,14 @@ feature "Admin segmentation" do
     end
   end
 
-  scenario "can segment on claimed", :js => true do
+  it "can segment on claimed", :js => true do
+    @demo = FactoryGirl.create(:demo)
+
     4.times {FactoryGirl.create :user, :claimed, demo: @demo}
     3.times {FactoryGirl.create :user, demo: @demo}
     crank_dj_clear
 
+    signin_as_admin
     visit admin_demo_segmentation_path(@demo)
 
     select 'Claimed', :from => "segment_column[0]"
@@ -543,13 +595,14 @@ feature "Admin segmentation" do
     @demo.users.claimed.each {|claimed_user| expect_user_content(claimed_user)}
   end
 
-  scenario 'can display large numbers of users', :js => true do
+  it 'can display large numbers of users', :js => true do
     # We need a large number of IDs to expose the problem caused by trying to
     # jam them all into the URI, but creating 1000 users in the DB for this 
     # test takes unfeasibly long. So we cheat. And the amount of trouble we
     # have to go to to cheat is illustrative of why we don't more often.
 
-    highest_user_id = User.order("id DESC").last.id
+    @demo = FactoryGirl.create(:demo)
+    highest_user_id = User.count > 0 ? User.order("id DESC").last.id : 0
     first_fake_id = highest_user_id + 1
     fake_ids = (first_fake_id..first_fake_id + 999).to_a
     Demo.any_instance.stubs(:user_ids).returns(fake_ids)
@@ -569,7 +622,8 @@ feature "Admin segmentation" do
     %w(alphabetical where claimed).each do |method_name|
       unsaved_users.stubs(method_name.to_s).returns(unsaved_users)
     end
-   
+  
+    signin_as_admin
     visit admin_demo_path(@demo)
 
     click_link "Segment users"
@@ -592,7 +646,9 @@ feature "Admin segmentation" do
     spot_check_users.each { |user| expect_user_content user }
   end
 
-  scenario 'should have a proper link from somewhere' do
+  it 'should have a proper link from somewhere' do
+    @demo = FactoryGirl.create(:demo)
+    signin_as_admin
     visit admin_demo_path(@demo)
     click_link "Segment users"
     should_be_on admin_demo_segmentation_path(@demo)

@@ -60,7 +60,6 @@ def metal_testing_hack(klass)
     include ActionController::UrlFor
     include ActionController::Testing
     include Rails.application.routes.url_helpers
-    include ActionController::Compatibility    # Phil not sure what this does, but commenting it lets 3.1 to run
   end
 end
 

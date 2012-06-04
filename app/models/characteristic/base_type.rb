@@ -20,4 +20,8 @@ class Characteristic::BaseType
   def self.allowed_operator_names
     allowed_operators.map(&:human_name)
   end
+
+  def self.respect_allowed_values?
+    false
+  end
 end

@@ -38,7 +38,7 @@ class Characteristic < ActiveRecord::Base
   end
 
   def value_allowed?(value)
-    return true unless allowed_values
+    return true unless respect_allowed_values?
     allowed_values.include?(value)
   end
 

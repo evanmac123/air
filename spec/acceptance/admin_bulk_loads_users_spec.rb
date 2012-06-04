@@ -1,5 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/acceptance_helper')
 
+metal_testing_hack(SmsController)
+
 feature "Admin Bulk Loads Users" do
   before do
     @demo = FactoryGirl.create :demo, :name => "H Engage", :credit_game_referrer_threshold => 60, :game_referrer_bonus => 2000

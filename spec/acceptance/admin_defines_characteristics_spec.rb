@@ -20,9 +20,9 @@ feature "Admin Defines Characteristics" do
     page.find(:css, %{[@name="characteristic[allowed_values][]"][@value="#{expected_value}"]}).should be_present 
   end
 
-  before(:each) do
-    signin_as_admin
-
+  # We have all this nonsense because before(:each) and :js=>true do not play
+  # well together.
+  def set_up_demo_and_characteristics
     @demo = FactoryGirl.create :demo
     @agnostic_characteristic = FactoryGirl.create :characteristic, :name => "Favorite pill", :description => "what kind of pill you like", :allowed_values => %w(Viagra Clonozepam Warfarin)
     @characteristic_1 = FactoryGirl.create :characteristic, :demo_specific, :demo => @demo, :name => "Cheese preference", :description => "what sort of cheese does you best", :allowed_values => %w(Stinky Extra-Stinky)
@@ -32,18 +32,18 @@ feature "Admin Defines Characteristics" do
   end
 
   context "For demo-agnostic characteristics" do
-    before(:each) do
+    it "admin sees existing demo-agnostic characteristics" do
+      set_up_demo_and_characteristics
+      signin_as_admin
       visit admin_characteristics_path
-    end
-
-    scenario "admin sees existing demo-agnostic characteristics" do
       expect_characteristic_row 'Favorite pill', 'what kind of pill you like', 'Discrete', %w(Viagra Clonozepam Warfarin)
 
       expect_no_content "Cheese preference"
       expect_no_content "Cake or death"
     end
 
-    scenario "admin creates new characteristic", :js => true do
+    it "admin creates new characteristic", :js => true do
+      set_up_demo_and_characteristics
       signin_as_admin
       visit admin_characteristics_path
 
@@ -67,7 +67,8 @@ feature "Admin Defines Characteristics" do
       expect_characteristic_row 'T-shirt size', "The size t-shirt you want if you win", 'Discrete', %w(S M L XL)
     end
 
-    scenario "admin edits existing characteristic", :js => true do
+    it "admin edits existing characteristic", :js => true do
+      set_up_demo_and_characteristics
       signin_as_admin
       visit admin_characteristics_path
       click_link "Edit"
@@ -99,7 +100,11 @@ feature "Admin Defines Characteristics" do
       expect_no_content 'Warfarin'
     end
 
-    scenario "admin destroys existing characteristic" do
+    it "admin destroys existing characteristic" do
+      set_up_demo_and_characteristics
+      signin_as_admin
+      visit admin_characteristics_path
+
       click_button "Destroy"
       should_be_on admin_characteristics_path
       expect_no_content "Favorite pill"
@@ -111,17 +116,20 @@ feature "Admin Defines Characteristics" do
   end
 
   context "For demo-specific characteristics" do
-    before do
+    it "admin sees characteristics for just that demo" do
+      set_up_demo_and_characteristics
+      signin_as_admin
       visit admin_demo_characteristics_path(@demo)
-    end
-
-    scenario "admin sees characteristics for just that demo" do
       expect_characteristic_row "Cheese preference", "what sort of cheese does you best", 'Discrete', %w(Stinky Extra-Stinky)
       expect_no_content "Favorite pill"
       expect_no_content "Cake or death"
     end
 
-    scenario "new characteristic should be created into that demo" do
+    it "new characteristic should be created into that demo" do
+      set_up_demo_and_characteristics
+      signin_as_admin
+      visit admin_demo_characteristics_path(@demo)
+
       fill_in "characteristic[name]", :with => "T-shirt size"
       fill_in "characteristic[description]", :with => "The size t-shirt you want if you win"
       fill_in "characteristic[allowed_values][]", :with => "S"
@@ -137,7 +145,11 @@ feature "Admin Defines Characteristics" do
       expect_no_content "Cake or death"
     end
 
-    scenario "update should return to the right place" do
+    it "update should return to the right place" do
+      set_up_demo_and_characteristics
+      signin_as_admin
+      visit admin_demo_characteristics_path(@demo)
+
       click_link "Edit"
       fill_in "characteristic[name]", :with => "Goat preference"
       fill_in "characteristic[description]", :with => "What kind of goat do you want?"
@@ -150,7 +162,11 @@ feature "Admin Defines Characteristics" do
       expect_no_content "Cake or death"
     end
 
-    scenario "destroy should return to the right place" do
+    it "destroy should return to the right place" do
+      set_up_demo_and_characteristics
+      signin_as_admin
+      visit admin_demo_characteristics_path(@demo)
+
       click_button "Destroy"
       should_be_on admin_demo_characteristics_path(@demo)
       expect_no_content "Cheese preference"
@@ -158,23 +174,26 @@ feature "Admin Defines Characteristics" do
   end
 
   context "with type information" do
-    before(:each) do
+    it "should remember the type", :js => true do
+      set_up_demo_and_characteristics
       signin_as_admin
       visit admin_characteristics_path
-    end
 
-    it "should remember the type", :js => true do
       fill_in "characteristic[name]", :with => "Some number"
       fill_in "characteristic[description]", :with => "Some numerical type of field"
       select "Number", :from => "characteristic[datatype]"
 
-      click_button "characteristic_submit"
+      click_button "Create Characteristic"
       should_be_on admin_characteristics_path
 
       expect_characteristic_row "Some number", "Some numerical type of field", 'Number'
     end
 
     it "should display allowable value fields only for discrete characteristics", :js => true do
+      set_up_demo_and_characteristics
+      signin_as_admin
+      visit admin_characteristics_path
+
       select "Number", :from => "characteristic[datatype]"
       page.all('input[@name="characteristic[allowed_values][]"]').select(&:visible?).should be_empty
 

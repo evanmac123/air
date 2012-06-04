@@ -95,8 +95,6 @@ class User < ActiveRecord::Base
 
   before_create do
     set_invitation_code
-    set_alltime_rankings
-    set_recent_average_rankings
   end
 
   before_update do
@@ -1119,7 +1117,7 @@ class User < ActiveRecord::Base
     claimed.
     in_canonical_ranking_order.
     offset(ranking_offset).
-    map{|user| "#{user.ranking}. #{user.name} (#{user.points})"}
+    map{|user| "#{user.name} (#{user.points})"}
   end
 
   private

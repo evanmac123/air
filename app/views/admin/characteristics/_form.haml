@@ -7,7 +7,7 @@
     #allowed-values-wrapper
       #allowed-values
         =label_tag "characteristic[allowed_values][]", "Allowed values"
-        -(characteristic.allowed_values || ['']).each do |allowed_value|
+        -(characteristic.allowed_values.present? ? characteristic.allowed_values : ['']).each do |allowed_value|
           =text_field_tag "characteristic[allowed_values][]", allowed_value
         =submit_tag "More allowed values", :id => "more-allowed-values-button"
     =form.submit
