@@ -38,7 +38,7 @@ Feature: Talking Chicken
     When I click within "#next_button"  
     Then I should see "Click DIRECTORY to find people you know"
     When I follow "Directory"
-    Then I should see 'For example, type "Kermit"'
+    Then I should see 'Just for practice, type "Kermit"'
     When I fill in "search_string" with "Kermit"
     And I press "Find!"
     And I wait a second

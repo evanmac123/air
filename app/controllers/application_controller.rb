@@ -176,7 +176,7 @@ class ApplicationController < ActionController::Base
       @arrow_dir = "top-right"
     when 4
       @title = "4. Find Your Friends"
-      @instruct = "For example, type \"<span class='offset'>#{first_name}</span>\", then click FIND!"
+      @instruct = "Just for practice, type \"<span class='offset'>#{first_name}</span>\", then click FIND!"
       @highlighted = '#search_box_wrapper'
       @x = -10
       @y = -3
