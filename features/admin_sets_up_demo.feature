@@ -32,6 +32,8 @@ Feature: Admin sets up demo
     And I fill in "Response to command after game ends" with "Too slow!"
     And I fill in "Activity feed text when user answers a survey question" with "responded to an inquiry"
     And I fill in "Message user sees on login" with "La llama!"
+    And I fill in "Custom example for slide 1 of tutorial" with "ran a mile"
+    And I fill in "Custom example for playbox tooltip" with "smoked a joint"
     And I uncheck "Use standard playbook rules"
     And I fill in "Mute notice threshold" with "17"
     And I press "Create Game"
@@ -59,6 +61,8 @@ Feature: Admin sets up demo
     And I should see 'Response to command after game ends is "Too slow!"'
     And I should see 'Activity feed text when user answers a survey question is "responded to an inquiry"'
     And I should see 'Message user sees on login is "La llama!"'
+    And I should see "ran a mile"
+    And I should see "smoked a joint"
     And I should see "Mute notice to users after 17 SMSes"
 
   Scenario: Correct defaults

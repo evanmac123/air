@@ -143,6 +143,7 @@ class ApplicationController < ActionController::Base
   def invoke_tutorial
     return unless current_user.reload.tutorial_active?
     first_name = Tutorial.example_search_name.split(" ").first
+    example_command = current_user.demo.example_tutorial_or_default
     advance_tutorial
     @step = current_user.tutorial.current_step
     case @step
@@ -150,7 +151,7 @@ class ApplicationController < ActionController::Base
       @show_introduction = true
     when 1
       @title = "1. Say It!"
-      @instruct = "Type \"<span class='offset'>ate a banana</span>\" and click PLAY to get 3 points"
+      @instruct = "Type \"<span class='offset'>#{example_command}</span>\" and click PLAY to get 3 points"
       @highlighted = '#bar_command_wrapper'
       @x = 350
       @y = -10

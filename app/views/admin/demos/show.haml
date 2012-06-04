@@ -232,7 +232,20 @@
     - else 
       Game will have default mute notice threshold
    
-
+  %p
+    - if @demo.example_tutorial
+      Custom example for slide 1 of tutorial:
+      = @demo.example_tutorial  
+    - else 
+      Game will have default tutorial example
+   
+  %p
+    - if @demo.example_tooltip
+      Custom example for Playbox tooltip:
+      = @demo.example_tooltip
+    - else 
+      Game will have default tooltip example
+ 
 
   %p.explanation= translate('.explanation', :default => "Add HR people from %{company} to this demo, then send them an invitation to the demo.", :company => @demo.name) 
 

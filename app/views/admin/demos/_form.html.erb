@@ -23,6 +23,8 @@
     <%= form.input :survey_answer_activity_message, :label => "Activity feed text when user answers a survey question" %>
     <%= form.input :login_announcement, :label => "Message user sees on login" %>
     <%= form.input :mute_notice_threshold %>
+    <%= form.input :example_tutorial, :label => "Custom example for slide 1 of tutorial" %>
+    <%= form.input :example_tooltip, :label => "Custom example for playbox tooltip" %>
   <% end %>
 
   <%= form.inputs :name => "Followup welcome message" do %>
@@ -50,6 +52,7 @@
   <%= form.input :use_standard_playbook, :label => "Use standard playbook rules" %>
 
   <%= form.buttons do %>
-    <%= form.submit 'Create Game', :disable_with => 'Please wait...' %>
+    <% button_text = demo.new_record? ? 'Create Game' : 'Update Game' %>
+    <%= form.submit button_text, :disable_with => 'Please wait...' %>
   <% end %>
 <% end %>
