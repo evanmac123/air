@@ -20,7 +20,8 @@ module Health
     ###################  ASSET PIPELINE  ###########################
     # Enable the asset pipeline
     config.assets.enabled = true
-
+    # Tell heroku not to try to talk to the mongo database while it precompiles assets 
+    config.assets.initialize_on_precompile = false
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '0.0.1'
     
