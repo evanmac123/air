@@ -5,11 +5,6 @@ Feature: User gives credit to game referer via autocomplete field
       | name |
       | Bratwurst    |
       | Gleason    |
-    Given the following self inviting domain exists:
-      | domain     | demo                    |
-      | hopper.com | name: Bratwurst |
-      | biker.com  | name: Gleason   |
-
     Given the following claimed users exist:
       | name               | demo                    | email        | slug      | sms_slug    |
       | Barnaby Bueller    | name: Bratwurst | 1@hopper.com | smoke     | smoke       |
@@ -21,18 +16,16 @@ Feature: User gives credit to game referer via autocomplete field
       | Barnaby Watson     | name: Gleason   | 3@biker.com  | mypeeps   | mypeeps     |
       | Charlie Moore      | name: Gleason   | 4@biker.com  | livingit  | livingit    |
     And the following users exist:
-      | name               | demo            | email        | slug      | sms_slug    |
-      | Charlie Smythe     | name: Bratwurst | 5@hopper.com | smythe    | smythe      |
-      | Luther Vandross    | name: Bratwurst | 6@harley.com | luther    | luther      |
-      | Gazpacho           | name: Bratwurst | 7@hopper.com | hardly    | hardly      |
-    Given "new_user@hopper.com" sends email with subject "whatever" and body "join"
-    And DJ cranks 5 times
-    Then "new_user@hopper.com" should receive an email
-    When "new_user@hopper.com" opens the email
+      | name               | demo            | email               | slug      | sms_slug    |
+      | Charlie Smythe     | name: Bratwurst | 5@hopper.com        | smythe    | smythe      |
+      | Luther Vandross    | name: Bratwurst | 6@harley.com        | luther    | luther      |
+      | Gazpacho           | name: Bratwurst | 7@hopper.com        | hardly    | hardly      |
+      | New User           | name: Bratwurst | new_user@hopper.com | newuser   | newuser     |
+    When "new_user@hopper.com" has received an invitation
+    And "new_user@hopper.com" opens the email
     And I click the play now button in the email
     Then I should see "And confirm that password"
     Then I should see "Whom can we thank for referring you?"
-    And I should see "Your Email Address"
 
   @javascript
   Scenario: Status messages display and are not hidden

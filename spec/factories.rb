@@ -185,6 +185,8 @@ if ENV['FIRST_TIME'].nil?
       value {"goshdarnit"}
       association :demo
     end
+    factory :incoming_sms do
+    end
 
     factory :task do
       name "Roast chestnuts"

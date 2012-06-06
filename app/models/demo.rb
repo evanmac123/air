@@ -12,7 +12,6 @@ class Demo < ActiveRecord::Base
   has_many :goals, :dependent => :destroy
   has_many :bad_words, :dependent => :destroy
   has_many :tasks, :dependent => :destroy
-  has_many :self_inviting_domains, :dependent => :destroy
   has_many :locations, :dependent => :destroy
   has_many :characteristics, :dependent => :destroy
 
@@ -258,32 +257,16 @@ class Demo < ActiveRecord::Base
   def self.default_number_not_found_response
     "I can't find your number in my records. Did you claim your account yet? If not, text your first initial and last name (if you are John Smith, text \"jsmith\")."
   end
-  
-  def valid_email_to_create_new_user(email)
-    return false unless email.is_email_address?
-    return true if self.is_public_game
-    domains = self.self_inviting_domains.map do |dom|
-      dom.domain
-    end
-    return true if domains.include? email.email_domain
-    false
-  end
-  
+
   def is_public_game
     # Note that to send yourself an invitation, this line in the invitations controller must pass as true:
     #     ENV['GAME_TYPE'] == 'public'
     # which must be set on the server
     self.join_type == 'public'
   end
-  
-  def is_self_inviting_game
-    self.join_type == 'self-inviting'
-  end
-  
-  def is_pre_populated_game
-    self.join_type == 'pre-populated'
-  end
-  
+
+
+
   def name_with_sponsor
     if sponsor
       "#{name} at #{sponsor}"

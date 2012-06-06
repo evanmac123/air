@@ -39,8 +39,8 @@
       %p#why_invite It's more fun when people you know are playing too. Plus, get a 5-point referral bonus for each friend that joins the game!
       #points_per_referral= current_user.demo.game_referrer_bonus
 
-    - if current_user.demo.is_public_game || current_user.demo.is_self_inviting_game 
-      =############# SELF INVITING DOMAIN version ################
+    - if current_user.demo.is_public_game 
+      =############# PUBLIC JOIN VERSION ################
       = form_tag invitation_invite_friend_path, :autocomplete => :off do  
         %p Enter your friends' email addresses:
         #bonus

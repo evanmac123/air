@@ -4,12 +4,9 @@ describe Invitation::AutocompletionsController do
   before do
     User.delete_all
     Demo.delete_all
-    SelfInvitingDomain.delete_all
     
     @demo1 = FactoryGirl.create(:demo, :name => "Bratwurst")
     @demo2 = FactoryGirl.create(:demo, :name => "Gleason")
-    @self_inviting_domain1 = FactoryGirl.create(:self_inviting_domain, :domain => "hopper.com", :demo => @demo1)
-    @self_inviting_domain2 = FactoryGirl.create(:self_inviting_domain, :domain => "biker.com", :demo => @demo2)
 
     @user0 = FactoryGirl.create(:claimed_user, :name => "Joining Now 1", :demo => @demo1, :email => "angel@hopper.com", :slug => "angelfire", :sms_slug => "angelfire")
     @user1 = FactoryGirl.create(:claimed_user, :name => "mad house", :demo => @demo1, :email => "manly@hopper.com", :slug => "beau", :sms_slug => "beau")

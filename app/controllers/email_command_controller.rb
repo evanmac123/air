@@ -16,10 +16,6 @@ class EmailCommandController< ApplicationController
     elsif email_command.user.nil?
       email_command.handle_unknown_user(style: EmailStyling.new(get_image_url))
       return
-    # or are we asking for a re-invitation?
-    elsif User.self_inviting_domain(email_command.email_from) && email_command.user.unclaimed?
-      email_command.reinvite_user(style: EmailStyling.new(get_image_url))
-      return
     # are we maybe trying to claim an account?
     elsif email_command.user.unclaimed?
       return if email_command.claim_account # we sent response already

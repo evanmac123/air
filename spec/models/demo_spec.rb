@@ -21,7 +21,6 @@ describe Demo do
   it { should have_many(:goals) }
   it { should have_many(:levels) }
   it { should have_many(:tasks) }
-  it { should have_many(:self_inviting_domains) }
   it { should have_many(:locations) }
   it { should have_many(:characteristics) }
   it { should have_one(:skin) }
@@ -214,21 +213,3 @@ describe Demo, "#tutorial_success" do
   end
 end
 
-describe Demo, "#email_valid_for_demo" do 
-  before do
-  @self_inviting_demo = Demo.create!(:name => 'game')
-  @domain_1 = SelfInvitingDomain.create!(:domain => 'firstdomain.com', :demo_id => @self_inviting_demo.id)   
-  @domain_2 = SelfInvitingDomain.create!(:domain => 'seconddomain.com', :demo_id => @self_inviting_demo.id)   
-  @public_demo = Demo.new(:join_type => "public")
-  @pre_populated_demo = Demo.new()
-  end
-  
-  it "should do stuff" do
-    @public_demo.valid_email_to_create_new_user("bogus_email@bog").should be_false
-    @public_demo.valid_email_to_create_new_user("real_email@real.com").should be_true
-    @self_inviting_demo.valid_email_to_create_new_user("email3@firstdomain.com").should be_true
-    @self_inviting_demo.valid_email_to_create_new_user("email@seconddomain.com").should be_true
-    @self_inviting_demo.valid_email_to_create_new_user("email@wrongdomain.com").should be_false
-    @pre_populated_demo.valid_email_to_create_new_user("real_email@real.com").should be_false
-  end
-end

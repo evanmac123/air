@@ -109,7 +109,6 @@ Health::Application.routes.draw do
         resource :bulk_satisfaction, :only => [:create]
       end
 
-      resources :self_inviting_domains
 
       resources :locations
       resource :reports, :only => :show

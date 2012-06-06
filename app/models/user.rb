@@ -400,10 +400,6 @@ class User < ActiveRecord::Base
     self.update_attributes(:new_phone_number => '', :new_phone_validation => '')
   end
 
-  def self_inviting_domain
-    self.class.self_inviting_domain(self.email)
-  end
-
   def bump_mt_texts_sent_today
     increment!(:mt_texts_today)
     if self.mt_texts_today == self.mute_notice_threshold && !(self.suppress_mute_notice)
@@ -946,40 +942,12 @@ class User < ActiveRecord::Base
       end
     end
 
-    new_user, create_details = self.new_self_inviting_user(_text)
-    return create_details[:error] unless new_user
-
-    new_user.invitation_method = 'sms'
-    new_user.phone_number = phone
-
-    if new_user.save
-      new_user.invite(nil, options)
-      new_user.invitation_sent_text
-    else
-      nil
-    end
-  end
-
-  def self.self_inviting_domain(email)
-    domain = email.email_domain
-    SelfInvitingDomain.where(:domain => domain).first
   end
 
   def self.reset_all_mt_texts_today_counts!
     User.update_all :mt_texts_today => 0
   end
 
-  def self.new_self_inviting_user(email)
-
-    domain_string = email.email_domain
-    return [nil, {}] unless domain_string
-
-    domain_object = SelfInvitingDomain.where(:domain => domain_string).first
-    return [nil, {:error => "Your domain is not valid"}] unless domain_object
-
-    User.new(:email => email.strip, :demo_id => domain_object.demo_id)
-  end
-  
   def self.authenticate(email_or_sms_slug, password)
     user = User.where('sms_slug = ? OR email = ?', email_or_sms_slug.to_s.downcase, email_or_sms_slug.to_s.downcase).first
     user && user.authenticated?(password) ? user : nil

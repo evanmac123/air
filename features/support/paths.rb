@@ -26,8 +26,6 @@ module NavigationHelpers
       admin_demo_reports_path(Demo.find_by_name($1))
     when /the admin "(.*)" demo page$/i
       admin_demo_path(Demo.find_by_name($1))
-    when /the admin "(.*)" self-inviting domain page$/
-      admin_demo_self_inviting_domains_path(Demo.find_by_name($1))
     when /the admin "(.*)" user-by-location page$/
       admin_demo_reports_location_breakdown_path(Demo.find_by_name($1))
     when /the admin "(.*)" locations page$/
