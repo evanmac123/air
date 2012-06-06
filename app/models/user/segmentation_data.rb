@@ -20,6 +20,6 @@ class User::SegmentationData
   end
 
   def self.destroy_from_user(user)
-    self.delete_all(:ar_id => user.id)
+    self.delete_all(conditions: {ar_id: user.id})
   end
 end
