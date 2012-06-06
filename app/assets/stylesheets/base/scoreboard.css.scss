@@ -1,0 +1,158 @@
+$width_scoreboard_bar: 72px;
+$height_scoreboard_bar: 14px;
+$table_grey: #c2c2c2;
+$scoreboard_header_grey: #919191;
+
+.tight_bar{
+  height: $height_scoreboard_bar;
+  width: $width_scoreboard_bar;
+  position: relative;
+  overflow: hidden;
+  .grey_bubble, .left_cap, .right_cap, .middle, .orange_ball, .curved_shield{
+    height: $height_scoreboard_bar;
+  } 
+
+  .grey_bubble{
+    width: $width_scoreboard_bar;
+    background: url('/images/scoreboard/grey_bubble.png');
+  }
+  .left_cap{
+    width: $height_scoreboard_bar / 2;
+    background: url('/images/scoreboard/left_cap.png');
+  }
+  .right_cap{
+    width: $height_scoreboard_bar / 2;
+    background: url('/images/scoreboard/right_cap.png');
+  }
+  .orange_ball{
+    width: $height_scoreboard_bar;
+    background: url('/images/scoreboard/orange_ball.png');
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 5;
+  }
+  .curved_shield{
+    width: $height_scoreboard_bar / 2;
+    position: absolute; 
+    top: 0;
+    left: 0;
+    z-index: 10;
+    &.white{background: url('/images/scoreboard/white_mask.png');}
+    &.white{background: url('/images/scoreboard/offwhite_mask.png');}
+    
+    
+  }
+  .long_bubble_holder{
+    position: absolute;
+    left:0;
+    top: 0;
+  }
+  .left_cap, .right_cap, .middle{
+    float: left;
+  }
+  .middle{
+    background: url('/images/scoreboard/orange_sliver.png')
+  }
+}
+table.scoreboard{
+  margin-bottom: 0;
+  td{
+    border: none;
+  }
+  tr{
+    // Put background on td instead of tr so it works in IE
+    &.scoreboard_stripe td{ background: #f8f8f8;}
+  }
+  #scoreboard_spacer{
+    height: 11px;
+  }
+  .user-name{
+    width: 181px;
+    padding-left: 15px;
+    height: 33px;
+  }
+  .user-level{
+    width: 22px;
+    text-align: right;
+  }
+  .user-progress{
+    padding-left: 53px;
+  }
+  th.user-progress{
+    padding-left: 11px;
+  }
+  
+  td{
+    padding: 0;
+  }
+
+  
+}
+#following, #scoreboard_wrapper{
+  padding-left: 0;
+  padding-right: 0;
+  .headline{
+    padding-left: 15px;
+  }
+}
+
+#sort_by_first_name, #sort_by_points{
+  position: relative;
+  top: 1px;
+  left: -2px;
+  display: inline-block;
+  width: 17px;
+  height: 14px;
+  background: url("/images/scoreboard/sort_arrow_huge.png") no-repeat;
+}
+#username_header, #userlevel_header{
+  cursor: pointer;
+  &.active{cursor: auto;}
+  &.active, &:hover{
+    background: #ffd;
+    border-top: 1px solid $table_grey !important;
+    border-bottom: 1px solid $table_grey !important;
+    #sort_by_first_name, #sort_by_points{
+      background: url("/images/scoreboard/sort_arrow_huge_darker.png") no-repeat;
+    }
+  }
+}
+
+
+#this_is_me *{
+  color: orange;
+}
+
+.indent_same_as_table{
+  padding-left: 15px;
+}
+#scoreboard_headers{
+  border-top: 1px solid $table_grey;
+  border-bottom: 1px solid $table_grey;
+  background: #f5f5f5;
+  
+  #username_header, #userlevel_header, #userprogress_header{
+    display: inline-block;
+    font-weight: bold;
+    padding-top: 3px;
+    padding-bottom: 4px;
+    color: $scoreboard_header_grey;
+  }
+  #username_header{
+    width: 177px;
+    padding-left: 15px;
+  }
+  #userlevel_header{
+    width: 53px;
+    border-left: 1px solid $table_grey;
+    border-right: 1px solid $table_grey;
+    padding-left: 11px;
+    margin-left: -5px;
+  }
+  #userprogress_header{
+    padding-left: 9px; 
+  }
+}
+
+
