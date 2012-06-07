@@ -1,5 +1,5 @@
-<img src="/images/right_triangle.png" style="display: none">
-<img src="/images/down_triangle.png" style="display: none">
+<%= image_tag 'right_triangle.png', style: 'display: none' %>
+<%= image_tag 'down_triangle.png', style: 'display: none' %>
 
 <h2 class="first">
   <%= link_to "Admin", admin_path %> »
@@ -33,7 +33,7 @@
     <% @existing_rules.each_with_index do |existing_rule, rule_index| %>
       <tr>
         <td>
-          <img src="/images/right_triangle.png" data-row-to-toggle="tr#aliases_<%=rule_index%>" data-other-graphic-path="/images/down_triangle.png" class="row-toggle-button">
+          <%= image_tag "right_triangle.png", "data-row-to-toggle" => "tr#aliases_#{rule_index}", "data-other-graphic-path" => image_path("down_triangle.png"), :class => "row-toggle-button" %>
           <%= existing_rule.primary_value.value %>
         </td>
 
@@ -81,7 +81,7 @@
     });
 
     $('#show-all-secondary-values').click(function(e) {
-      $('.row-toggle-button').attr('src', '/images/down_triangle.png').data('other-graphic-path', '/images/right_triangle.png');
+      $('.row-toggle-button').attr('src', '<%= image_path "down_triangle.png" %>').data('other-graphic-path', '<%= image_path "right_triangle.png"%>');
       $('.aliases').show();
       e.preventDefault();
     });
