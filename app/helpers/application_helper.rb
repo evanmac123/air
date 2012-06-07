@@ -71,4 +71,16 @@ module ApplicationHelper
       nil
     end
   end
+
+  def characteristic_input_specifiers_as_json(characteristics)
+    characteristic_information_as_json(characteristics, :input_specifier)
+  end
+
+  def characteristic_allowed_operators_as_json(characteristics)
+    characteristic_information_as_json(characteristics, :allowed_operator_names)
+  end
+
+  def characteristic_information_as_json(characteristics, method_name)
+    Hash[characteristics.map {|characteristic| [characteristic.id.to_s, characteristic.send(method_name)]}].to_json.html_safe
+  end
 end

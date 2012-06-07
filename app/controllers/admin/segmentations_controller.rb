@@ -12,19 +12,6 @@ class Admin::SegmentationsController < AdminBaseController
   protected
 
   def load_characteristics
-    @dummy_characteristics = DummyCharacteristic.all(:demo_id => @demo.id)
-    @generic_characteristics = Characteristic.generic
-    @demo_specific_characteristics = Characteristic.in_demo(@demo)
-
-    characteristic_input_specifiers = {}
-    characteristic_allowed_operators = {}
-
-    (@dummy_characteristics + @generic_characteristics + @demo_specific_characteristics).each do |characteristic|
-      characteristic_input_specifiers[characteristic.id.to_s] = characteristic.input_specifier
-      characteristic_allowed_operators[characteristic.id.to_s] = characteristic.allowed_operator_names
-    end
-
-    @characteristic_input_specifier_json = characteristic_input_specifiers.to_json.html_safe
-    @characteristic_allowed_operator_json = characteristic_allowed_operators.to_json.html_safe
+    @dummy_characteristics, @generic_characteristics, @demo_specific_characteristics = Characteristic.visible_from_demo(@demo)
   end
 end
