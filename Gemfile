@@ -64,6 +64,8 @@ group :development, :test do
   gem "reek"
   gem "flay"
   gem "flog"
+
+  gem "cover_me"
 end
 
 group :test do

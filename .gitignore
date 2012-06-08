@@ -34,3 +34,4 @@ public/.sass-cache/*
 *.dump
 .env
 first_bad_rev
+coverage.data
