@@ -317,3 +317,26 @@ div.helper {
     display: none;
   }
 }
+#show_me_the_site_holder{
+  display: none;
+  position: relative;
+  padding: 10px 0;
+  #show_me_the_site{
+    float: right;
+    position: absolute;
+    right: -60px;
+    text-decoration: underline;
+    a{
+      color: grey;
+    }
+    a:hover{
+      font-weight: bold;
+    }
+  }
+}
+#facebox #show_me_the_site_holder{
+  display: block;
+}
+#facebox .close_image{
+  display: none;
+}

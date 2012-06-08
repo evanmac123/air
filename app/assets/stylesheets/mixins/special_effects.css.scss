@@ -4,7 +4,7 @@
   border-radius: $radius;
 }
 
-@mixin box-shadow ($x: 5px, $y: 5px, $blur: 5px, $spread: 5px, $color: $dark-gray) {
+@mixin box-shadow ($x: 0px, $y: 2px, $blur: 4px, $spread: 2px, $color: $dark-gray) {
   -webkit-box-shadow: $x $y $blur $spread $color;
   -moz-box-shadow: $x $y $blur $spread $color;
   box-shadow: $x $y $blur $spread $color;

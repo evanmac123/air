@@ -896,7 +896,16 @@ class User < ActiveRecord::Base
   def create_tutorial_if_none_yet
     if self.tutorial.nil?
       tut = Tutorial.create(:user_id => self.id)
+    else
+      tut = self.tutorial
     end
+  end
+
+  def create_active_tutorial_at_slide_one
+    tut = create_tutorial_if_none_yet
+    tut.current_step = 1
+    tut.ended_at = nil
+    tut.save
   end
 
   def profile_page_friends_list
@@ -982,7 +991,11 @@ class User < ActiveRecord::Base
       {:referrer_id => nil}
     end
   end
-  
+ 
+  def manually_set_confirmation_token
+    update_attribute(:confirmation_token, ActiveSupport::SecureRandom.hex(16))
+  end
+
   protected
 
   def name_required

@@ -1,5 +1,6 @@
 class Tutorial < ActiveRecord::Base
   belongs_to :user
+  after_create :tutorial_mixpanel_ping
 
   def bump_step
     self.current_step += 1
@@ -19,6 +20,7 @@ class Tutorial < ActiveRecord::Base
     
     mixpanel_details = slide_data.merge(user_of_tut.data_for_mixpanel)
     Mixpanel::Tracker.new(MIXPANEL_TOKEN, {}).delay.track_event(event_name, mixpanel_details)
+    self
   end
   
   def end_it
@@ -54,9 +56,4 @@ class Tutorial < ActiveRecord::Base
     end
   end
   
-  def self.create(*args)
-    tut = super(*args)
-    tut.tutorial_mixpanel_ping
-  end
-      
 end

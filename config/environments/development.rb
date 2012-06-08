@@ -40,15 +40,15 @@ Health::Application.configure do
   end
   
   
-  # ActionMailer::Base.smtp_settings = {
-  #   :user_name => "hengage-devel",
-  #   :password => "8765432",
-  #   :domain => "hengage.com",
-  #   :address => "smtp.sendgrid.net",
-  #   :port => 587,
-  #   :authentication => :plain,
-  #   :enable_starttls_auto => true
-  # }
+   ActionMailer::Base.smtp_settings = {
+     :user_name => "hengage-devel",
+     :password => "8765432",
+     :domain => "hengage.com",
+     :address => "smtp.sendgrid.net",
+     :port => 587,
+     :authentication => :plain,
+     :enable_starttls_auto => true
+   }
   
   
   

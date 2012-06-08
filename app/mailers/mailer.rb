@@ -26,12 +26,25 @@ class Mailer < ActionMailer::Base
     
     @style = options[:style]
     @preview_url = invitation_preview_url_with_referrer(@user, @referrer, @style.image_url)
-      
+ 
     mail :to      => user.email_with_name,
          :subject => subject,
          :from => @user.reply_email_address
          
   end
+
+
+  def easy_in(user)
+    @user = user
+    @user.manually_set_confirmation_token
+    @check_it_out_url = invitation_url(@user.invitation_code, :easy_in => true) 
+    @set_password_url = edit_user_password_url(@user, :token => @user.confirmation_token, :protocol => (Rails.env.development? ? 'http' : 'https'))
+    subject = "Wondering what your colleagues are up to in #{@user.demo.name}? Here's an easy way to take a peek"
+    mail :to      => user.email_with_name,
+         :subject => subject,
+         :from => @user.reply_email_address
+  end
+
 
   def victory(user)
     @user = user

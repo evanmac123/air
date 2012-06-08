@@ -1,0 +1,17 @@
+<% unless @user.name.empty? %>
+Hi <%= @user.first_name %>,
+<% end %>
+
+You're busy. We get it. That's why we've made it easier than ever to get into <%= @user.demo.name_with_sponsor %> and see what it's all about.
+
+Just click here and you're in: <%= @check_it_out_url %>
+
+There's no sign-up form and no need to create an account. 
+
+Once you're there, you can: 
+ * Earn points for healthy activities (that you're probably already doing!)
+ * See what your coworkers are up to
+ * Win prizes like an iPad! 
+If you like it and want to keep playing, you can create a password here: <%= @set_password_url %>
+
+<%= render 'basic_footer' %>  

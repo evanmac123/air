@@ -37,6 +37,14 @@ class InvitationsController < ApplicationController
       @user = User.find(params[:user_id])
     else
       @user = User.find_by_invitation_code(params[:id])
+      if params[:easy_in]
+        @user.session_count = 2 # This makes sure invite friends modal does not pop
+        @user.accepted_invitation_at = Time.now
+        @user.save
+        sign_in @user
+        @user.create_active_tutorial_at_slide_one
+        redirect_to root_path and return
+      end
     end
 
     referrer_id = params[:referrer_id]

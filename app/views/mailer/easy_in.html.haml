@@ -1,0 +1,21 @@
+- unless @user.name.empty? 
+  %p= "Hi #{@user.first_name}," 
+
+%p
+  You're busy. We get it. That's why we've made it easier than ever to get into 
+  = @user.demo.name_with_sponsor
+  and see what it's all about.
+%p 
+  Just 
+  = link_to 'click here', @check_it_out_url
+  and you're in. There's no sign-up form and no need to create an account. 
+%p Once you're there, you can: 
+%ul
+  %li Earn points for healthy activities (that you're probably already doing!)
+  %li See what your coworkers are up to
+  %li  Win prizes like an iPad! 
+%p
+  If you like it and want to keep playing, you can 
+  = link_to 'create a password here.', @set_password_url
+= render 'basic_footer'
+
