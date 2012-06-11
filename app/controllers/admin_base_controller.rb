@@ -44,4 +44,14 @@ class AdminBaseController < ApplicationController
   def find_demo_by_demo_id
     @demo = Demo.find(params[:demo_id])
   end
+
+  def load_characteristics(demo)
+    @dummy_characteristics, @generic_characteristics, @demo_specific_characteristics = Characteristic.visible_from_demo(demo)
+  end
+
+  def attempt_segmentation
+    if params[:segment_column].present?
+      @segmentation_result = current_user.set_segmentation_results!(params[:segment_column], params[:segment_operator], params[:segment_value], @demo)
+    end
+  end
 end
