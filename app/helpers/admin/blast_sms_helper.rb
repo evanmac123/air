@@ -1,2 +1,0 @@
-module Admin::BlastSmsHelper
-end
