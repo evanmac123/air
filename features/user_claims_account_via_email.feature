@@ -27,7 +27,7 @@ Feature: User claims account via email
 
     When I sign out
     And I sign in via the login page with "Joe/joejums"
-    Then I should be on the activity page
+    Then I should be on the activity page with HTML forced
 
 
   Scenario: User claims account with claim code in subject

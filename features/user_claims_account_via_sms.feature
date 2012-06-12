@@ -36,7 +36,7 @@ Feature: User claims account via SMS
 
     When I sign out
     And I sign in via the login page with "Dan Croak/dandan"
-    Then I should be on the activity page
+    Then I should be on the activity page with HTML forced
 
   Scenario: Claiming account shows in activity stream as joining the game
     Given the following user exists:

@@ -56,7 +56,7 @@ Feature: User acts
       | name | act         | points |
       | Dan  | ate banana  | 2      |
     When I sign in via the login page as "Sven/foobar"
-    Then I should be on the activity page
+    Then I should be on the activity page with HTML forced
     But I should not see "ate banana"
 
   Scenario: User can use any rule value to refer to a rule
@@ -245,6 +245,6 @@ Feature: User acts
       | text         | inherent points | user        | 
       | did not much | 0               | name: Dan   | 
     When I sign in via the login page with "Dan/foobar"
-    Then I should be on the activity page
+    Then I should be on the activity page with HTML forced
     And I should see "Dan did not much"
     But I should not see "0 pts"

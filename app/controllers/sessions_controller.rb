@@ -23,7 +23,7 @@ class SessionsController < Clearance::SessionsController
   end
 
   def url_after_create
-    activity_path
+    activity_path(:format => :html)
   end
 
   protected

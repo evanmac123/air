@@ -9,7 +9,7 @@ feature "User Sees Only Profile In Current Demo" do
     
     has_password @user1, "foobar"
     signin_as @user1, "foobar"
-    should_be_on activity_page
+    should_be_on activity_path(:format => :html)
 
     visit user_path(@user2)
     page.should_not have_content(@user2.email)

@@ -125,7 +125,7 @@ Feature: User accepts invitation
     And I sign out
     And I sign in via the login page as "Dan/whatwhat"
     And I should not see "Signed in."
-    But I should be on the activity page
+    But I should be on the activity page with HTML forced
 
   Scenario: User must set password when accepting invitation
     When I press "Join the game"

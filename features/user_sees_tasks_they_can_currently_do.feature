@@ -94,7 +94,7 @@ Feature: User sees tasks they can currently do
       | Bob  | bob@example.com | name: FooCo |
     And "Bob" has the password "barbaz"
     And I sign in via the login page with "Bob/barbaz"
-    Then I should be on the activity page
+    Then I should be on the activity page with HTML forced
     And I should see "Make toast"
     But I should not see "Make PBJ"
     And I should not see "Make future toast"

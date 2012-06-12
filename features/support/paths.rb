@@ -10,8 +10,12 @@ module NavigationHelpers
 
     when /^the home\s?page$/
       '/'
-    when /the activity page/
-      '/activity'
+    when /the activity page( with HTML forced)?/
+      if($1)
+        activity_path(:format => :html)
+      else
+        activity_path
+      end
     when /the admin page/
       admin_path
     when /the directory page/

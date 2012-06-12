@@ -17,16 +17,16 @@ feature "User Chooses To Be Remembered Or Not" do
   scenario "User wants to be remembered" do
     check "session[remember_me]"
     click_button "Let's play!"
-    should_be_on activity_page
+    should_be_on activity_path(:format => :html)
 
     Timecop.travel(1.month)
-    visit activity_page
-    should_be_on activity_page
+    visit activity_path
+    should_be_on activity_path
     page.should_not have_content(expiration_message)
 
     Timecop.travel(18.months)
-    visit activity_page
-    should_be_on activity_page
+    visit activity_path
+    should_be_on activity_path
     page.should_not have_content(expiration_message)
 
     Timecop.return
@@ -34,20 +34,20 @@ feature "User Chooses To Be Remembered Or Not" do
 
   scenario "User does not want to be remembered" do
     click_button "Let's play!"
-    should_be_on activity_page
+    should_be_on activity_path(format: :html)
 
     Timecop.travel(4.minutes)
-    visit activity_page
-    should_be_on activity_page
+    visit activity_path
+    should_be_on activity_path
     page.should_not have_content(expiration_message)
 
     Timecop.travel(4.minutes)
-    visit activity_page
-    should_be_on activity_page
+    visit activity_path
+    should_be_on activity_path
     page.should_not have_content(expiration_message)
 
     Timecop.travel(6.minutes)
-    visit activity_page
+    visit activity_path
     should_be_on signin_page
     page.should have_content(expiration_message)
     Timecop.return

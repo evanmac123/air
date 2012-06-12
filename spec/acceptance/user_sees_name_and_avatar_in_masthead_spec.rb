@@ -7,7 +7,7 @@ feature "User Sees Name And Avatar In Masthead" do
     has_password(user, "foobar")
 
     signin_as(user, "foobar")
-    should_be_on activity_page
+    should_be_on activity_path(:format => :html)
 
     within('.masthead') do
       page.should have_content "Welcome back, John"

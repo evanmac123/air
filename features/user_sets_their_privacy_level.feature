@@ -37,15 +37,15 @@ Feature: User sets their privacy level
       | name: TrueFan   | name: Fanny | accepted |
 
     When I sign in via the login page with "Bob/foobar"
-    Then I should be on the activity page
+    Then I should be on the activity page with HTML forced
     But I should not see "Fanny ate kitten"
 
     When I sign in via the login page with "AlmostFan/foobar"
-    Then I should be on the activity page
+    Then I should be on the activity page with HTML forced
     But I should not see "Fanny ate kitten"
 
     When I sign in via the login page with "TrueFan/foobar"
-    Then I should be on the activity page
+    Then I should be on the activity page with HTML forced
     And I should see "Fanny ate kitten"
 
   Scenario: User with privacy level of "nobody" show their acts to nobody    
@@ -61,15 +61,15 @@ Feature: User sets their privacy level
       | name: TrueFan   | name: Private | accepted |
 
     When I sign in via the login page with "Bob/foobar"
-    Then I should be on the activity page
+    Then I should be on the activity page with HTML forced
     But I should not see "Private ate kitten"
 
     When I sign in via the login page with "AlmostFan/foobar"
-    Then I should be on the activity page
+    Then I should be on the activity page with HTML forced
     But I should not see "Private ate kitten"
 
     When I sign in via the login page with "TrueFan/foobar"
-    Then I should be on the activity page
+    Then I should be on the activity page with HTML forced
     But I should not see "Private ate kitten"
 
   Scenario Outline: User can always see their own acts

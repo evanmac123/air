@@ -4,6 +4,6 @@ class HomesController < ApplicationController
   private
 
   def redirect_to_activity
-    redirect_to activity_path
+    redirect_to activity_path, :format => :html
   end
 end

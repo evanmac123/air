@@ -27,7 +27,7 @@ Feature: Sign in
     Given I am signed up as "email@person.com/password"
     When I go to the sign in page
     And I sign in as "email@person.com/password"
-    Then I should be on the activity page
+    Then I should be on the activity page with HTML forced
 
   Scenario: Signing in is case insensitive
     Given I am signed up as "dude@example.com/foobar"
@@ -46,7 +46,7 @@ Feature: Sign in
     And I fill in the email field with "bobsmith"
     And I fill in the password field with "foobar"
     And I press "Let's play!"
-    Then I should be on the activity page
+    Then I should be on the activity page with HTML forced
 
     When I sign out
     And I go to the activity page

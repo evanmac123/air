@@ -18,6 +18,6 @@ Feature: Demos are kept separate
     And "Dan" has the password "foobar"
 
     When I sign in via the login page as "Dan/foobar"
-    Then I should be on the activity page
+    Then I should be on the activity page with HTML forced
     And I should see "Bob"
     But I should not see "Ned"
