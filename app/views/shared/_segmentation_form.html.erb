@@ -1,6 +1,6 @@
 <%= render 'shared/prototype_characteristic_select', :dummy_characteristics => dummy_characteristics, :generic_characteristics => generic_characteristics, :demo_specific_characteristics => demo_specific_characteristics %>
 
-<%= form_tag admin_demo_segmentation_path(demo), :method => :get do %>
+<%= form_tag admin_demo_segmentation_path(demo) do %>
   <div id="segmentation_parameters">
     <select name="segment_column[0]" id="segment_column_0" class="segment-column">
     </select>

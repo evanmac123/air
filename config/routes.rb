@@ -123,6 +123,7 @@ Health::Application.routes.draw do
       resources :characteristics
 
       resource :segmentation
+      resource :targeted_messages
     end #demo namespace
 
     resources :users, :only => [] do
