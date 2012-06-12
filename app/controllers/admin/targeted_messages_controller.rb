@@ -3,5 +3,6 @@ class Admin::TargetedMessagesController < AdminBaseController
 
   def show
     load_characteristics(@demo)
+    @segmentation_results = current_user.segmentation_results
   end
 end

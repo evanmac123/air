@@ -15,12 +15,20 @@ feature 'Admin sends targeted messges using segmentation' do
     signin_as_admin
 
     visit admin_demo_targeted_messages_path(demo)
+
     select agnostic_characteristic.name, :from => "segment_column[0]"
     select "does not equal", :from => "segment_operator[0]"
     select "foo", :from => "segment_value[0]"
+
+    click_link "Segment on more characteristics"
+    select "Points", :from => "segment_column[1]"
+    select "greater than", :from => "segment_operator[1]"
+    fill_in "segment_value[1]", :with => "10"
+
     click_button "Find segment"
 
     should_be_on(admin_demo_targeted_messages_path(demo))
+    expect_content "6 users in segment"
     pending
   end
 
@@ -37,4 +45,6 @@ feature 'Admin sends targeted messges using segmentation' do
   it 'should allow override of notification preferences and send to everyone possible' do
     pending
   end
+
+  it "should have a link from somewhere in the admin side"
 end

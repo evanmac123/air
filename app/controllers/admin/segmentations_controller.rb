@@ -3,7 +3,7 @@ class Admin::SegmentationsController < AdminBaseController
 
   def show
     load_characteristics(@demo)
-    @segmentation_result = current_user.segmentation_results
+    @segmentation_results = current_user.segmentation_results
   end
 
   def create

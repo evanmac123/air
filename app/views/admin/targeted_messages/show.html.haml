@@ -1,2 +1,3 @@
-= render 'shared/segmentation_form', :dummy_characteristics => @dummy_characteristics, :generic_characteristics => @generic_characteristics, :demo_specific_characteristics => @demo_specific_characteristics, :demo => @demo 
+= render 'shared/segmentation_results', segmentation_results: @segmentation_results 
 
+= render 'shared/segmentation_form', :dummy_characteristics => @dummy_characteristics, :generic_characteristics => @generic_characteristics, :demo_specific_characteristics => @demo_specific_characteristics, :demo => @demo 
