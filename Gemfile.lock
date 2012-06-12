@@ -37,7 +37,7 @@ GEM
     activesupport (3.1.5)
       multi_json (>= 1.0, < 1.3)
     addressable (2.2.8)
-    airbrake (3.1.0)
+    airbrake (3.1.1)
       activesupport
       builder
     archive-tar-minitar (0.5.2)

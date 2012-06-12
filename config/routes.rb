@@ -118,6 +118,7 @@ Health::Application.routes.draw do
         resource :points, :only => [:show]
         resource :levels, :only => [:show]
         resource :interactions, :only => [:show, :keepalive]
+        resource :friendships, :only => :show
       end
 
       resources :characteristics

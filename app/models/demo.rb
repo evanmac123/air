@@ -291,7 +291,13 @@ class Demo < ActiveRecord::Base
       name
     end
   end      
-        
+  
+  def print_pending_friendships
+    total_friendships = Friendship.where(:user_id => user_ids).count / 2
+    number_accepted = Friendship.where(:user_id => user_ids, :state => "accepted").count / 2
+    percent = 100.0 * number_accepted / total_friendships
+    "#{name} has #{total_friendships} initiated friendships, #{number_accepted} of which have been accepted (#{percent}%)"
+  end
   protected
 
   def unless_within(cutoff_time, last_done_time)
