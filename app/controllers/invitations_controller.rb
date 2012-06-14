@@ -44,7 +44,7 @@ class InvitationsController < ApplicationController
         @user.save
         sign_in @user
         @user.create_active_tutorial_at_slide_one
-        redirect_to root_path and return
+        redirect_to activity_path and return
       end
     end
 
