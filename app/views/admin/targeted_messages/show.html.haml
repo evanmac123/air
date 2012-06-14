@@ -1,3 +1,12 @@
+= tinymce_assets
+
 = render 'shared/segmentation_results', segmentation_results: @segmentation_results 
 
 = render 'shared/segmentation_form', :dummy_characteristics => @dummy_characteristics, :generic_characteristics => @generic_characteristics, :demo_specific_characteristics => @demo_specific_characteristics, :demo => @demo 
+
+= form_tag admin_demo_targeted_messages_path(@demo), :id => 'message-content' do
+  = text_field_tag "subject"
+  = text_area_tag "html-text", "", :rows => 20, :cols => 100, :class => "tinymce"
+  = submit_tag "DO IT"
+  
+= tinymce unless Rails.env.test?
