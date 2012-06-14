@@ -38,6 +38,7 @@ class InvitationsController < ApplicationController
     else
       @user = User.find_by_invitation_code(params[:id])
       if params[:easy_in]
+        easy_in_mixpanel_ping
         @user.session_count = 2 # This makes sure invite friends modal does not pop
         @user.accepted_invitation_at = Time.now
         @user.save
@@ -62,6 +63,12 @@ class InvitationsController < ApplicationController
   end
 
   protected
+  def easy_in_mixpanel_ping
+    event_name = "clicked email"
+    extra = {:link => "easy in"}
+    mixpanel_details = extra.merge(@user.data_for_mixpanel)
+    Mixpanel::Tracker.new(MIXPANEL_TOKEN, {}).delay.track_event(event_name, mixpanel_details)
+  end
 
   def redirect_if_invitation_accepted_already
     if @user.accepted_invitation_at.present?

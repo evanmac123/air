@@ -2,12 +2,12 @@ Feature: Directory of other users
 
   Background:
     Given the following claimed users exist:
-      | name | avatar file name | demo          |
-      | Dan  | dan.png          | name: AlphaCo |
-      | Sven |                  | name: AlphaCo |
-      | Phil | phil.png         | name: AlphaCo |
-      | Vlad | vlad.png         | name: AlphaCo |
-      | Mort | mort.png         | name: BetaCo  |
+      | name | avatar file name | demo          | email                |
+      | Dan  | dan.png          | name: AlphaCo | dan@vader.com        |
+      | Sven |                  | name: AlphaCo | sven@vader.com       |
+      | Phil | phil.png         | name: AlphaCo | phil@vader.com       |
+      | Vlad | vlad.png         | name: AlphaCo | vlad@vader.com       |
+      | Mort | mort.png         | name: BetaCo  | mortonsalt@vader.com |
     And "Sven" has no avatar
     And the following friendships exist:
       | user       | friend     | state    |

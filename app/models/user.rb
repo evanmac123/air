@@ -993,7 +993,7 @@ class User < ActiveRecord::Base
   end
  
   def manually_set_confirmation_token
-    update_attribute(:confirmation_token, ActiveSupport::SecureRandom.hex(16))
+    update_attribute(:confirmation_token, SecureRandom.hex(16))
   end
 
   protected
