@@ -1,6 +1,10 @@
 require 'spec_helper'
 
 describe PagesController do
+  before(:each) do
+    request.host = 'www.test.host'
+  end
+
   it "should not require authentication" do
     get :show, :id => 'marketing'
     response.should_not be_redirect
@@ -32,5 +36,15 @@ describe PagesController do
     ensure
       $test_force_ssl = false
     end
+  end
+
+  it "should force a redirect if no subdomain specified" do
+    request.host = 'test.host'
+    request.subdomain.should_not be_present
+
+    get :show, :id => 'marketing'
+
+    response.should be_redirect
+    response.location.should == "http://www.test.host/"
   end
 end
