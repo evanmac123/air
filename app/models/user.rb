@@ -904,6 +904,7 @@ class User < ActiveRecord::Base
   def create_active_tutorial_at_slide_one
     tut = create_tutorial_if_none_yet
     tut.current_step = 1
+    tut.created_at = Time.now
     tut.ended_at = nil
     tut.save
   end
