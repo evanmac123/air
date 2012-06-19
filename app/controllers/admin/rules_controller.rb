@@ -35,6 +35,8 @@ class Admin::RulesController < AdminBaseController
   end
 
   def edit
+    demo_id = params[:demo_id]
+    @demo = Demo.find(demo_id) if demo_id
     @primary_value = @rule.primary_value
     @secondary_values = @rule.secondary_values.alphabetical.all
   end

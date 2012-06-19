@@ -21,9 +21,9 @@
   <% end %>
 
   <%= form.input :points %>
-  <%= form.input :reply, :input_html => {:maxlength => 101} %>
+  <%= form.input :reply, :as => :text, :input_html => {maxlength: 101, class: 'small_text_area'} %>
   <%= add_byte_counter_for 'Reply' %>
-  <%= form.input :description, :hint => "Leave this blank and acts resulting from use of this rule won't appear in the activity feed, etc." %>
+  <%= form.input :description, :as => :text, :input_html => {class: 'small_text_area'}, :hint => "Leave this blank and acts resulting from use of this rule won't appear in the activity feed, etc." %>
   <%= form.input :alltime_limit %>
   <%= form.input :referral_points %>
   <div>Tags</div>
