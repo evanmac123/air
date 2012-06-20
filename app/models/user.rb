@@ -997,6 +997,17 @@ class User < ActiveRecord::Base
     update_attribute(:confirmation_token, SecureRandom.hex(16))
   end
 
+  def ping(event, properties)
+    data = data_for_mixpanel.merge(properties) 
+    Mixpanel::Tracker.new(MIXPANEL_TOKEN, {}).delay.track_event(event, data)
+  end
+
+  def ping_page(page)
+    event = 'viewed page'
+    properties = {page_name: page}
+    ping(event, properties)
+  end
+
   protected
 
   def name_required

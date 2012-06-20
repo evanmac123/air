@@ -53,6 +53,7 @@ class InvitationsController < ApplicationController
       @user.game_referrer_id = referrer_id
     end
     if @user
+      @user.ping_page('invitation acceptance')
       return if redirect_if_invitation_accepted_already
       log_out_if_logged_in
       @locations = @user.demo.locations.alphabetical
