@@ -54,6 +54,10 @@ module FakeTwilio
     SMS.sent_messages
   end
 
+  def self.clear_messages
+    SMS.clear_all
+  end
+
   class SMS
     @@sent_messages = []
 

@@ -1,23 +1,27 @@
 require 'acceptance/acceptance_helper'
 
 feature 'Admin sends targeted messges using segmentation' do
-  it 'should send messages to the proper users', :js => true do
-    demo = FactoryGirl.create :demo
-    users = []
-    20.times {|i| users << FactoryGirl.create(:user, points: i, demo: demo)}
+  def set_up_models(options={})
+    user_model_name = options[:use_phone] ? :user_with_phone : :user
+
+    @demo = FactoryGirl.create :demo
+    @users = []
+    20.times {|i| @users << FactoryGirl.create(user_model_name, points: i, demo: @demo)}
     # Also let's make some users in a different demo to make sure we don't get
     # leakage.
-    5.times {FactoryGirl.create(:user)}
+    5.times {FactoryGirl.create(user_model_name)}
 
-    agnostic_characteristic = FactoryGirl.create(:characteristic, name: "Metasyntactic variable", allowed_values: %w(foo bar baz))
-    demo_specific_characteristic = FactoryGirl.create(:characteristic, :number)
+    @agnostic_characteristic = FactoryGirl.create(:characteristic, name: "Metasyntactic variable", allowed_values: %w(foo bar baz))
+    @demo_specific_characteristic = FactoryGirl.create(:characteristic, :number)
 
-    10.upto(19) {|i| users[i].update_attributes(characteristics: {agnostic_characteristic.id.to_s => %w(foo bar baz)[i % 3], demo_specific_characteristic.id.to_s => i % 5})}
+    10.upto(19) {|i| @users[i].update_attributes(characteristics: {@agnostic_characteristic.id.to_s => %w(foo bar baz)[i % 3], @demo_specific_characteristic.id.to_s => i % 5})}
     crank_dj_clear
+  end
 
+  def select_common_form_entries
     signin_as_admin
 
-    visit admin_demo_targeted_messages_path(demo)
+    visit admin_demo_targeted_messages_path(@demo)
 
     select 'Metasyntactic variable', :from => "segment_column[0]"
     select "does not equal", :from => "segment_operator[0]"
@@ -30,29 +34,104 @@ feature 'Admin sends targeted messges using segmentation' do
 
     click_button "Find segment"
 
-    should_be_on(admin_demo_targeted_messages_path(demo))
+    should_be_on(admin_demo_targeted_messages_path(@demo))
     expect_content "6 users in segment"
     expect_content "Segmenting on: Metasyntactic variable does not equal foo, Points is greater than 10"
-    expected_users = [11, 13, 14, 16, 17, 19].map{|i| users[i]}
+    @expected_users = [11, 13, 14, 16, 17, 19].map{|i| @users[i]}
+  end
 
-    fill_in "subject", :with => "Did you know?"
-    fill_in "html-text", :with => "<p>Hello friends!</p><p>H Engage is awesome.</p>"
-
+  def ensure_expected_mails_sent(expected_subject, expected_html_text, expected_plain_text)
     click_button "DO IT"
     expect_content "Scheduled messages to 6 users"
 
     crank_dj_clear
     ActionMailer::Base.deliveries.length.should == 6
-    pending
+    ActionMailer::Base.deliveries.each do |mail| 
+      html_part = mail.parts.select{|part| part.content_type =~ /html/}.first
+      plain_part = mail.parts.select{|part| part.content_type =~ /text/}.first
+
+      mail.subject.should == expected_subject
+      html_part.body.to_s.should == expected_html_text
+      plain_part.body.to_s.should == expected_plain_text
+    end
   end
 
-  it 'should allow preview of emails'
+  context "when an explicit plain text is given" do
+    it "should use that", :js => true do
+      set_up_models
+      select_common_form_entries
 
-  it 'should allow preview of texts'
+      expected_subject = "Hello friends!"
+      expected_html_text = "<p>Did you know?</p><p>H Engage is AWESOME.</p>"
+      expected_plain_text = "Seriously, it is the cat's pajamas.\n\nPajamas!\n\n"
 
-  it "should allow drafts to be saved"
+      fill_in "subject",    :with => expected_subject
+      fill_in "html_text",  :with => expected_html_text
+      fill_in "plain_text", :with => expected_plain_text
 
-  it 'should allow a communication to be tracked after the fact'
+      ensure_expected_mails_sent(expected_subject, expected_html_text, expected_plain_text)
+    end
+  end
+
+  it "should not try sending email if both email text fields are blank", :js => true do
+    set_up_models
+    select_common_form_entries
+
+    fill_in "subject", :with => "blankness"
+
+    click_button "DO IT"
+    expect_content "Email text blank, no emails sent"
+
+    crank_dj_clear
+    ActionMailer::Base.deliveries.should be_empty
+  end
+
+
+  it "should allow texts to be sent", :js => true do
+    set_up_models(use_phone: true)
+    select_common_form_entries
+
+    expected_sms_text = "Here is a text message! Yay!"
+    fill_in "sms_text", :with => expected_sms_text
+
+    click_button "DO IT"
+    expect_content "Email text blank, no emails sent"
+    expect_content "Scheduled SMS to 6 users"
+
+    crank_dj_clear
+
+    @expected_users.each do |expected_user|
+      expect_mt_sms expected_user.phone_number, expected_sms_text
+    end
+  end
+
+  it "should not try sending an SMS if the SMS text is blank", :js => true do
+    set_up_models(use_phone: true)
+    select_common_form_entries
+
+    click_button "DO IT"
+    expect_content "SMS text blank, no SMSes sent"
+
+    crank_dj_clear
+
+    FakeTwilio.sent_messages.should be_empty
+  end
+
+  it "should have helpful messages if email text and sms text are all blank", :js => true do
+    set_up_models(use_phone: true)
+    select_common_form_entries
+
+    click_button "DO IT"
+
+    expect_content "Email text blank, no emails sent"
+    expect_content "SMS text blank, no SMSes sent"
+
+    crank_dj_clear
+    ActionMailer::Base.deliveries.should be_empty
+    FakeTwilio.sent_messages.should be_empty
+  end
+  
+  it "should allow both emails and SMSes to be sent at the same time"
 
   it 'should respect notification preferences by default' do
     pending
@@ -64,7 +143,13 @@ feature 'Admin sends targeted messges using segmentation' do
 
   it "should have a link from somewhere in the admin side"
 
-  it "should have an optional plaintext override field"
+  it "should convert smart punctuation to the plain version"
 
-  it "should automatically compose a plaintext version"
+
+  # The following our are nice-to-haves
+  #it 'should allow preview of emails'
+  #it 'should allow preview of texts'
+  #it "should allow drafts to be saved"
+  #it 'should allow a communication to be tracked after the fact'
+  #it "should automatically infer plain text if none is set"
 end

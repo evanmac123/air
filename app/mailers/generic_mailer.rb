@@ -4,6 +4,10 @@ class GenericMailer < ActionMailer::Base
 
     from_string = user.demo.email.present? ? "#{user.demo.name} <#{user.demo.email}>" : "H Engage <play@playhengage.com>"
 
+    while(plain_text !~ /\n\n$/)
+      plain_text += "\n"
+    end
+
     mail(
       :to      => user.email,
       :subject => subject,

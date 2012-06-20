@@ -6,7 +6,9 @@
 
 = form_tag admin_demo_targeted_messages_path(@demo), :id => 'message-content' do
   = text_field_tag "subject"
-  = text_area_tag "html-text", "", :rows => 20, :cols => 100, :class => "tinymce"
+  = text_area_tag "html_text", "", :rows => 20, :cols => 100, :class => "tinymce"
+  = text_area_tag "plain_text", "", :rows => 20, :cols => 100
+  = text_field_tag "sms_text", "", :length => 160
   = submit_tag "DO IT"
   
 = tinymce unless Rails.env.test?

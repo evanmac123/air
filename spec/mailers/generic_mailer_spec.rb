@@ -11,7 +11,7 @@ describe GenericMailer do
       should have_sent_email.
         to(@user.email).
         with_subject("Here is the subject").
-        with_part('text/plain', 'This is some text').
+        with_part('text/plain', /This is some text\s*/).
         with_part('text/html', '<p>This is some HTML</p>').
         from("play@playhengage.com")
     end
@@ -26,7 +26,7 @@ describe GenericMailer do
         should have_sent_email.
           to(@user.email).
           with_subject("Here is the subject").
-          with_part('text/plain', 'This is some text').
+          with_part('text/plain', /This is some text\s*/).
           with_part('text/html', '<p>This is some HTML</p>').
           from("someco@playhengage.com")
         end

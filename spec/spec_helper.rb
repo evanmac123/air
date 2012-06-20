@@ -38,6 +38,10 @@ RSpec.configure do |config|
     User::SegmentationData.delete_all
     User::SegmentationResults.delete_all
   end
+
+  config.before(:each) do
+    FakeTwilio.clear_messages
+  end
 end
 
 # Big Fat Hack (TM) so the ActiveRecord connections are shared across threads.

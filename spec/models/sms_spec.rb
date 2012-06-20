@@ -1,11 +1,11 @@
 require 'spec_helper'
 
 describe SMS do
-  describe ".send_message" do
-    before do
-      Twilio::SMS.stubs(:create)
-    end
+  before do
+    Twilio::SMS.stubs(:create)
+  end
 
+  describe ".send_message" do
     it "can send to either a User or phone number" do
       user = FactoryGirl.create :user, :phone_number => "+14155551212"
 
@@ -70,6 +70,21 @@ describe SMS do
         Twilio::SMS.should have_received(:create)
         
         Timecop.return
+      end
+    end
+  end
+
+  describe ".bulk_send_messages" do
+    it "should queue up a number of SMSes to be sent by DJ" do
+      users = []
+      3.times {users << FactoryGirl.create(:user_with_phone)}
+
+      SMS.bulk_send_messages(users.map(&:id), "hey friends!")
+      crank_dj_clear
+      Twilio::SMS.should have_received(:create).times(3)
+
+      users.each do |user|
+        Twilio::SMS.should have_received(:create).with(:to => user.phone_number, :from => TWILIO_PHONE_NUMBER, :body => "hey friends!")
       end
     end
   end
