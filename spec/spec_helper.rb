@@ -40,7 +40,10 @@ RSpec.configure do |config|
   end
 
   config.before(:each) do
-    FakeTwilio.clear_messages
+    begin
+      FakeTwilio.clear_messages
+    rescue NameError => e # quietly ignore if FakeTwilio not loaded
+    end
   end
 end
 

@@ -905,6 +905,7 @@ describe User, "#befriend" do
     FakeMixpanelTracker.should have_event_matching("fanned", @left_user.data_for_mixpanel.merge(:channel => :web))
   end
 end
+
 describe User do
   it "should not allow any duplicate email addresses across 'email' or 'overflow_email'" do
     first_email = '123@hi.com'
@@ -918,5 +919,23 @@ describe User do
     @user2.should be_valid
     @user2.overflow_email = first_email
     @user2.should_not be_valid
+
+describe User, ".wants_email" do
+  it "should select users who want email only or both email and SMS" do
+    sms_only = FactoryGirl.create(:user, notification_method: 'sms')
+    email_only = FactoryGirl.create(:user, notification_method: 'email')
+    both = FactoryGirl.create(:user, notification_method: 'both')
+
+    User.wants_email.all.sort.should == [email_only, both].sort
+  end
+end
+
+describe User, ".wants_sms" do
+  it "should select users who want SMS only or both email and SMS" do
+    sms_only = FactoryGirl.create(:user, notification_method: 'sms')
+    email_only = FactoryGirl.create(:user, notification_method: 'email')
+    both = FactoryGirl.create(:user, notification_method: 'both')
+
+    User.wants_sms.all.sort.should == [sms_only, both].sort
   end
 end

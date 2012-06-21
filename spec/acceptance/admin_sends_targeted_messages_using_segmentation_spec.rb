@@ -40,12 +40,14 @@ feature 'Admin sends targeted messges using segmentation' do
     @expected_users = [11, 13, 14, 16, 17, 19].map{|i| @users[i]}
   end
 
-  def ensure_expected_mails_sent(expected_subject, expected_html_text, expected_plain_text)
+  def ensure_expected_mails_sent(expected_subject, expected_html_text, expected_plain_text, options={})
+    expected_mail_count = options[:mail_count] || 6
+
     click_button "DO IT"
-    expect_content "Scheduled messages to 6 users"
+    expect_content "Scheduled email to #{expected_mail_count} users"
 
     crank_dj_clear
-    ActionMailer::Base.deliveries.length.should == 6
+    ActionMailer::Base.deliveries.length.should == expected_mail_count
     ActionMailer::Base.deliveries.each do |mail| 
       html_part = mail.parts.select{|part| part.content_type =~ /html/}.first
       plain_part = mail.parts.select{|part| part.content_type =~ /text/}.first
@@ -131,14 +133,74 @@ feature 'Admin sends targeted messges using segmentation' do
     FakeTwilio.sent_messages.should be_empty
   end
   
-  it "should allow both emails and SMSes to be sent at the same time"
+  it "should allow both emails and SMSes to be sent at the same time", :js => true do
+    set_up_models(use_phone: true)
+    select_common_form_entries
 
-  it 'should respect notification preferences by default' do
-    pending
+    expected_html_text = "<p>Be advised!</p>"
+    expected_sms_text = "be u advised"
+
+    fill_in "html_text", :with => expected_html_text
+    fill_in "sms_text", :with => expected_sms_text
+    click_button "DO IT"
+
+    expect_content "Scheduled email to 6 users"
+    expect_content "Scheduled SMS to 6 users"
+
+    crank_dj_clear
+    ActionMailer::Base.deliveries.length.should == 6
+    FakeTwilio.sent_messages.length.should == 6
   end
 
-  it 'should allow override of notification preferences and send to everyone possible' do
-    pending
+  it 'should respect notification preferences by default', :js => true do
+    set_up_models(use_phone: true)
+    select_common_form_entries
+
+    @expected_users.each_with_index do |expected_user, i|
+      expected_user.update_attributes(notification_method: %w(both email sms)[i % 3])
+    end
+
+    expected_html_text = "<p>Be advised!</p>"
+    expected_sms_text = "be u advised"
+
+    fill_in "html_text", :with => expected_html_text
+    fill_in "sms_text", :with => expected_sms_text
+    click_button "DO IT"
+
+    expect_content "Scheduled email to 4 users"
+    expect_content "Scheduled SMS to 4 users"
+
+    crank_dj_clear
+
+    sms_users = @expected_users.select{|u| u.notification_method == 'sms' || u.notification_method == 'both'}
+    email_users = @expected_users.select{|u| u.notification_method == 'email' || u.notification_method == 'both'}
+
+    ActionMailer::Base.deliveries.map(&:to).flatten.sort.should == email_users.map(&:email).sort
+    FakeTwilio.sent_messages.map{|sms| sms['To']}.sort.should == sms_users.map(&:phone_number).sort
+  end
+
+  it 'should allow override of notification preferences and send to everyone possible', :js => true do
+    set_up_models(use_phone: true)
+    select_common_form_entries
+
+    @expected_users.each_with_index do |expected_user, i|
+      expected_user.update_attributes(notification_method: %w(both email sms)[i % 3])
+    end
+
+    expected_html_text = "<p>Be advised!</p>"
+    expected_sms_text = "be u advised"
+
+    fill_in "html_text", :with => expected_html_text
+    fill_in "sms_text", :with => expected_sms_text
+    uncheck "Respect notification method"
+    click_button "DO IT"
+
+    expect_content "Scheduled email to 6 users"
+    expect_content "Scheduled SMS to 6 users"
+
+    crank_dj_clear
+    ActionMailer::Base.deliveries.should have(6).emails
+    FakeTwilio.sent_messages.should have(6).texts
   end
 
   it "should have a link from somewhere in the admin side"

@@ -8,24 +8,34 @@ class Admin::TargetedMessagesController < AdminBaseController
 
   def create
     user_ids = @segmentation_results.found_user_ids
+    users = User.where(:id => user_ids)
+
     subject = params[:subject]
     plain_text = params[:plain_text]
     html_text = params[:html_text]
     sms_text = params[:sms_text]
+    respect_notification_method = params[:respect_notification_method].present?
 
     successes = []
     notices = []
 
+    if respect_notification_method
+      email_recipients = users.wants_email
+      sms_recipients = users.wants_sms
+    else
+      email_recipients = sms_recipients = users
+    end
+
     if plain_text.present? || html_text.present?
-      GenericMailer::BulkSender.delay.bulk_generic_messages(user_ids, subject, plain_text, html_text)
-      successes << "Scheduled messages to #{user_ids.length} users"
+      GenericMailer::BulkSender.delay.bulk_generic_messages(email_recipients.map(&:id), subject, plain_text, html_text)
+      successes << "Scheduled email to #{email_recipients.length} users"
     else
       notices << "Email text blank, no emails sent"
     end
 
     if sms_text.present?
-      SMS.delay.bulk_send_messages(user_ids, sms_text)
-      successes << "Scheduled SMS to #{user_ids.length} users"
+      SMS.delay.bulk_send_messages(sms_recipients.map(&:id), sms_text)
+      successes << "Scheduled SMS to #{sms_recipients.length} users"
     else
       notices << "SMS text blank, no SMSes sent"
     end

@@ -1003,6 +1003,14 @@ class User < ActiveRecord::Base
     ping(event, properties)
   end
 
+  def self.wants_email
+    where(:notification_method => %w(email both))
+  end
+
+  def self.wants_sms
+    where(:notification_method => %w(sms both))
+  end
+
   protected
 
   def name_required
