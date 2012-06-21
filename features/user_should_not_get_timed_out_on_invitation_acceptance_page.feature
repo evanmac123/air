@@ -1,9 +1,10 @@
 Feature: User shouldn't get timed out on invitation acceptance page
 
+  Background: 
+    Given the following user exists
+      | email           | 
+      | bob@example.com |
   Scenario: User shouldn't get timed out on invitation acceptance page
-    Given the following self inviting domain exists:
-      | domain      |
-      | example.com |
     When I go to the join page
     And I fill in "Email" with "bob@example.com"
     And I press "Request invitation"

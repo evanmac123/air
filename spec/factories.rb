@@ -200,14 +200,6 @@ if ENV['FIRST_TIME'].nil?
       association :task
     end
 
-    factory :self_inviting_domain do
-      sequence(:domain) {|n| "example#{n}.com"}
-      association :demo
-    end
-
-    factory :incoming_sms do
-    end
-
     factory :location do
       sequence(:name) {|n| "Plant #{n}"}
       association :demo

@@ -16,8 +16,7 @@ class EmailCommand < ActiveRecord::Base
 
 
   def send_response_to_non_user
-    parsed_domain = self.email_from.email_domain
-    self.response = invalid_domain_response(parsed_domain) 
+    self.response = non_user_response(self.email_from) 
     self.status = EmailCommand::Status::FAILED
     self.save
     EmailCommandMailer.delay.send_response_to_non_user(self)
@@ -115,7 +114,7 @@ class EmailCommand < ActiveRecord::Base
     {:say => "email", :Say => "Email"}
   end
 
-  def invalid_domain_response(domain)
-    "The domain '#{domain}' is not valid for this game."
+  def non_user_response(email)
+    "The email '#{email}' is not registered for this game."
   end
 end

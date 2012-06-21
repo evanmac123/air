@@ -140,9 +140,6 @@ This is not an offer to trade or roll logs. Void where prohibited. Some assembly
     Given the following demo exists:
       | name     |
       | InviteCo |
-    And the following self inviting domain exists:
-      | domain  | demo           |
-      | foo.com | name: InviteCo |
     And the following claimed user exists:
       | name     | email        | demo           |
       | John Boy | john@foo.com | name: InviteCo |
