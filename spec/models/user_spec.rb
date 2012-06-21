@@ -905,3 +905,18 @@ describe User, "#befriend" do
     FakeMixpanelTracker.should have_event_matching("fanned", @left_user.data_for_mixpanel.merge(:channel => :web))
   end
 end
+describe User do
+  it "should not allow any duplicate email addresses across 'email' or 'overflow_email'" do
+    first_email = '123@hi.com'
+    second_email = '456@hi.com'
+    FactoryGirl.create(:user, email: first_email, overflow_email: second_email)
+    @user2 = FactoryGirl.build(:user, name: 'henry') 
+    @user2.should be_valid
+    @user2.email = second_email
+    @user2.should_not be_valid
+    @user2.email = 'way@different.com'
+    @user2.should be_valid
+    @user2.overflow_email = first_email
+    @user2.should_not be_valid
+  end
+end

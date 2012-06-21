@@ -42,6 +42,7 @@ class User < ActiveRecord::Base
 
   validates_uniqueness_of :slug, :if => :slug_required
   validates_uniqueness_of :sms_slug, :message => "Sorry, that username is already taken.", :if => :slug_required
+  validates_uniqueness_of :overflow_email, :allow_blank => true
 
   validates_presence_of :name, :if => :name_required, :message => "Please enter your first and last name"
   validates_presence_of :sms_slug, :message => "Please choose a username", :if => :slug_required
@@ -63,6 +64,9 @@ class User < ActiveRecord::Base
   validates_acceptance_of :terms_and_conditions, :if => :trying_to_accept, :message => "You must accept the terms and conditions" 
 
   validates_length_of :password, :minimum => 6, :allow_blank => true, :message => 'must have at least 6 characters'
+  validates :email, :with => :email_distinct_from_all_overflow_emails 
+  validates :overflow_email, :with => :overflow_email_distinct_from_all_emails 
+
 
   has_attached_file :avatar,
     :styles => {:thumb => ["96x96#", :png]},
@@ -132,6 +136,28 @@ class User < ActiveRecord::Base
   attr_protected :is_site_admin, :invitation_method
 
   has_alphabetical_column :name
+
+  def corporate_email
+    return email if overflow_email.empty?
+    overflow_email
+  end
+  
+  def email_distinct_from_all_overflow_emails
+    return if email.blank? && overflow_email.blank?
+    if email.blank? && overflow_email.present?
+      self.errors.add(:email, 'must have a primary email if you have a secondary email')
+    elsif User.where(overflow_email: email).present?
+      self.errors.add(:email, 'someone else has your primary email as their secondary email')
+    end
+  end
+
+  def overflow_email_distinct_from_all_emails
+    return if overflow_email.blank? 
+    if User.where(email: overflow_email).present?
+      self.errors.add(:overflow_email, 'someone else has your secondary email as their primary email')
+    end
+  end
+
 
 
   def sms_slug_does_not_match_commands
