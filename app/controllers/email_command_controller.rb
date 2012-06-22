@@ -7,22 +7,18 @@ class EmailCommandController< ApplicationController
     # a status of 404 would reject the mail, we set a trivial body and a 200
     # status
     set_success_response!
+    style_hash = {style: EmailStyling.new(get_image_url)}
 
     email_command = EmailCommand.create_from_incoming_email(params)      
-
     if email_command.all_blank?
       email_command.response = blank_body_response
       email_command.status = EmailCommand::Status::SUCCESS
     elsif email_command.user.nil?
-      email_command.handle_unknown_user(style: EmailStyling.new(get_image_url))
-      return
-    # are we maybe trying to claim an account?
-    elsif email_command.user.unclaimed?
-      return if email_command.claim_account # we sent response already
-      email_command.response = unmatched_claim_code_response
-    elsif email_command.join_email? 
-      email_command.response = "It looks like you are already registered"
-      email_command.status = EmailCommand::Status::FAILED
+      if email_command.claiming_account_by_emailing_their_userid(style_hash)
+        return
+      else
+        email_command.handle_unknown_user(style: EmailStyling.new(get_image_url)) and return
+      end 
     else
       # Note: You can do any of commands but this one using either body or subject.
       # Perhaps someday we will allow general commands to be in the subject line

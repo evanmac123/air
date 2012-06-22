@@ -37,11 +37,21 @@ class EmailCommand < ActiveRecord::Base
     self.clean_body.blank? && self.clean_subject.blank?
   end
 
-  def join_email?
-    [self.clean_body, self.clean_subject].include? "join"  
+  def claiming_account_by_emailing_their_userid(options={})
+    user = User.where(claim_code: self.clean_body).first
+    if user
+      user.overflow_email = user.email
+      user.email = self.email_from
+      user.save
+      user.invite(nil, options)
+      self.user_id = user.id
+      self.save
+      return true
+    end
+    return false
   end
 
-  def claim_account
+  def claim_account______not_using_this_anymore
     self.response = User.claim_account(self.email_from, self.clean_body, :channel => :email)
     unless self.response
       self.response = User.claim_account(self.email_from, self.clean_subject, :channel => :email)

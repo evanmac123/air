@@ -146,14 +146,14 @@ class User < ActiveRecord::Base
     return if email.blank? && overflow_email.blank?
     if email.blank? && overflow_email.present?
       self.errors.add(:email, 'must have a primary email if you have a secondary email')
-    elsif User.where(overflow_email: email).present?
+    elsif User.where(overflow_email: email).reject{|ff| ff == self}.present?
       self.errors.add(:email, 'someone else has your primary email as their secondary email')
     end
   end
 
   def overflow_email_distinct_from_all_emails
     return if overflow_email.blank? 
-    if User.where(email: overflow_email).present?
+    if User.where(email: overflow_email).reject{|ff| ff == self}.present?
       self.errors.add(:overflow_email, 'someone else has your secondary email as their primary email')
     end
   end
@@ -470,6 +470,7 @@ class User < ActiveRecord::Base
   def data_for_mixpanel
     {
       :distinct_id           => self.email,
+      :id                    => self.id,
       :game                  => self.demo.name,
       :following_count       => Friendship.accepted.where(:user_id => self.id).count,
       :followers_count       => Friendship.accepted.where(:friend_id => self.id).count,
