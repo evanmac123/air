@@ -919,6 +919,8 @@ describe User do
     @user2.should be_valid
     @user2.overflow_email = first_email
     @user2.should_not be_valid
+  end
+end
 
 describe User, ".wants_email" do
   it "should select users who want email only or both email and SMS" do
