@@ -40,9 +40,11 @@ class EmailCommand < ActiveRecord::Base
   def claiming_account_by_emailing_their_userid(options={})
     user = User.where(claim_code: self.clean_body).first
     if user
-      user.overflow_email = user.email
-      user.email = self.email_from
-      user.save
+      unless self.email_from == user.email 
+        user.overflow_email = user.email
+        user.email = self.email_from
+        user.save
+      end
       user.invite(nil, options)
       self.user_id = user.id
       self.save

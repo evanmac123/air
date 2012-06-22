@@ -910,6 +910,7 @@ describe User do
   it "should not allow any duplicate email addresses across 'email' or 'overflow_email'" do
     first_email = '123@hi.com'
     second_email = '456@hi.com'
+    third_email = 'something_crafty@sexy.com'
     FactoryGirl.create(:user, email: first_email, overflow_email: second_email)
     @user2 = FactoryGirl.build(:user, name: 'henry') 
     @user2.should be_valid
@@ -919,6 +920,8 @@ describe User do
     @user2.should be_valid
     @user2.overflow_email = first_email
     @user2.should_not be_valid
+    @user10 = FactoryGirl.build(:user, email: third_email, overflow_email: third_email)
+    @user10.should_not be_valid
   end
 end
 

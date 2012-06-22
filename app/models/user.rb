@@ -156,6 +156,9 @@ class User < ActiveRecord::Base
     if User.where(email: overflow_email).reject{|ff| ff == self}.present?
       self.errors.add(:overflow_email, 'someone else has your secondary email as their primary email')
     end
+    if email == overflow_email
+      self.errors.add(:overflow_email, 'your primary and secondary emails cannot be the same')
+    end
   end
 
 
