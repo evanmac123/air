@@ -37,14 +37,10 @@ class EmailCommand < ActiveRecord::Base
     self.clean_body.blank? && self.clean_subject.blank?
   end
 
-  def claiming_account_by_emailing_their_userid(options={})
+  def request_invitation_by_emailing_their_userid(options={})
     user = User.where(claim_code: self.clean_body).first
     if user
-      unless self.email_from == user.email 
-        user.overflow_email = user.email
-        user.email = self.email_from
-        user.save
-      end
+      user.load_personal_email(self.email_from)
       user.invite(nil, options)
       self.user_id = user.id
       self.save

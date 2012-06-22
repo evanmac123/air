@@ -13,12 +13,11 @@ class EmailCommandController< ApplicationController
     if email_command.all_blank?
       email_command.response = blank_body_response
       email_command.status = EmailCommand::Status::SUCCESS
+    elsif email_command.request_invitation_by_emailing_their_userid(style_hash)
+      return
     elsif email_command.user.nil?
-      if email_command.claiming_account_by_emailing_their_userid(style_hash)
-        return
-      else
-        email_command.handle_unknown_user(style: EmailStyling.new(get_image_url)) and return
-      end 
+      email_command.handle_unknown_user(style: EmailStyling.new(get_image_url))
+      return
     else
       # Note: You can do any of commands but this one using either body or subject.
       # Perhaps someday we will allow general commands to be in the subject line

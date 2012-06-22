@@ -923,6 +923,12 @@ describe User do
     @user10 = FactoryGirl.build(:user, email: third_email, overflow_email: third_email)
     @user10.should_not be_valid
   end
+
+  it "should allow two users with phone numbers but no emails to be loaded" do
+    FactoryGirl.create(:user, email: nil, phone_number: '+19993334444').should be_valid
+    FactoryGirl.create(:user, email: nil, phone_number: '+19993334443').should be_valid
+    FactoryGirl.build(:user, email: nil, phone_number: nil).should_not be_valid
+  end
 end
 
 describe User, ".wants_email" do

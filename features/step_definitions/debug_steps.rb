@@ -15,9 +15,5 @@ When /^show me the cookies$/ do
 end
 
 When /^I dump all( sent)? (texts|SMSes)$/ do |_nothing1, _nothing2|
-  puts
-  puts "SENT TEXTS:"
-  puts "-------------------------"
-  FakeTwilio.sent_messages.each {|message| puts message.inspect}
-  puts "-------------------------"
+  dump_sent_texts
 end

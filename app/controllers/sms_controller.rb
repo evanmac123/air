@@ -47,7 +47,7 @@ class SmsController < ActionController::Metal
     }
   end
   
-  def get_image_url # Note this is duplicate of ApplicationController#get_image_url
+  def get_image_url # Note this is nearly the same as ApplicationController#get_image_url
     # Note that since root_url is not available, we are hard coding this to always feed from production. 
     'http://hengage.com' # everything but the trailing slash
   end

@@ -35,4 +35,13 @@ module SteakHelperMethods
   def expect_no_mt_sms_including(receiving_number, expected_text)
     mt_sms_including?(receiving_number, expected_text).should be_false
   end
+
+  def dump_sent_texts
+    puts
+    puts "SENT TEXTS:"
+    puts "-------------------------"
+    FakeTwilio.sent_messages.each {|message| puts message.inspect}
+    puts "-------------------------"
+  end
+
 end

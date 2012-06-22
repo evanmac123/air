@@ -137,6 +137,11 @@ class User < ActiveRecord::Base
 
   has_alphabetical_column :name
 
+  def email_optional?
+    true if phone_number
+  end
+
+
   def corporate_email
     return email if overflow_email.empty?
     overflow_email
@@ -955,23 +960,21 @@ class User < ActiveRecord::Base
     where("name !~* '^[[:alpha:]]'")
   end
 
-  def self.send_invitation_if_email(phone, text, options={})
-    return nil unless phone =~ /^(\+1\d{10})$/
-
+  def self.send_invitation_if_claimed_sms_user_texts_us_an_email_address(from_phone, text, options={})
+    return nil unless from_phone =~ /^(\+1\d{10})$/
+    
     _text = text.downcase.strip.gsub(" ", "")
+    return nil unless _text.is_email_address?
+    
+    user = User.where(phone_number: from_phone).first
 
-    if (existing_user = User.where(:email => _text).first)
-      if existing_user.claimed?
-        return "It looks like you've already joined the game. If you've forgotten your password, you can have it reset online, or contact support@hengage.com for help." 
-      else
-        # If there's someone with this email who hasn't accepted an invitation yet
-        # treat this as a request to re-send their invitation.
-      
-        existing_user.invite(nil, options)
-        return existing_user.invitation_sent_text
-      end
-    end
+    return "No user found with phone number #{from_phone}. Please try again, or contact support@hengage.com for help" unless user
+    return "Please text us your claim code first" unless user.claimed?
 
+
+    user.load_personal_email(_text)
+    user.reload.invite(nil, options)
+    return user.invitation_sent_text
   end
 
   def self.reset_all_mt_texts_today_counts!
@@ -1014,6 +1017,14 @@ class User < ActiveRecord::Base
     where(:notification_method => %w(sms both))
   end
 
+  def load_personal_email(in_email)
+    unless email == in_email
+      self.overflow_email = email
+      self.email = in_email
+      save
+    end
+  end
+  
   protected
 
   def name_required
