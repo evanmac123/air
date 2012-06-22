@@ -28,16 +28,16 @@ class Admin::TargetedMessagesController < AdminBaseController
 
     if plain_text.present? || html_text.present?
       GenericMailer::BulkSender.delay.bulk_generic_messages(email_recipients.map(&:id), subject, plain_text, html_text)
-      successes << "Scheduled email to #{email_recipients.length} users"
+      successes << "Scheduled email to #{email_recipients.length} users."
     else
-      notices << "Email text blank, no emails sent"
+      notices << "Email text blank, no emails sent."
     end
 
     if sms_text.present?
       SMS.delay.bulk_send_messages(sms_recipients.map(&:id), sms_text)
-      successes << "Scheduled SMS to #{sms_recipients.length} users"
+      successes << "Scheduled SMS to #{sms_recipients.length} users."
     else
-      notices << "SMS text blank, no SMSes sent"
+      notices << "SMS text blank, no SMSes sent."
     end
 
     flash[:success] ||= ''
