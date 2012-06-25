@@ -1,3 +1,6 @@
+require 'delayed/syck_ext' # to fix retarded YAML serialization of 
+                           # GenericMailer::BulkSender module
+
 class GenericMailer < ActionMailer::Base
   def send_message(user_id, subject, plain_text, html_text)
     user = User.find(user_id)

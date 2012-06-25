@@ -1,3 +1,5 @@
+require 'delayed/syck_ext' # to fix retarded YAML serialization of SMS module
+
 module SMS
   extend Reply
 
