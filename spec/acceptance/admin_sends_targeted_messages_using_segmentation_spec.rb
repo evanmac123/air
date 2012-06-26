@@ -203,10 +203,14 @@ feature 'Admin sends targeted messges using segmentation' do
     FakeTwilio.sent_messages.should have(6).texts
   end
 
-  it "should have a link from somewhere in the admin side"
+  it "should have a link from somewhere in the admin side" do
+    demo = FactoryGirl.create(:demo)
+    signin_as_admin
 
-  it "should convert smart punctuation to the plain version"
-
+    visit admin_demo_path(demo)
+    click_link "Send targeted messages to users in this demo"
+    should_be_on admin_demo_targeted_messages_path(demo)
+  end
 
   # The following our are nice-to-haves
   #it 'should allow preview of emails'
