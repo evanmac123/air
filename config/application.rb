@@ -27,7 +27,14 @@ module Health
     
     # Tell rake which assets to precompile (default is application.css and application.js)
     # Note that even though our files are named .scss, the ones in this list are the plain .css counterparts
-    config.assets.precompile += ['application-base.css', 'application-ie7.css', 'application-ie8.css']
+    config.assets.precompile += %w(
+      application-base.css
+      application-ie7.css
+      application-ie8.css
+      admin/segmentation.css
+      admin/targeted_messages.css
+    )
+
     ################################################################
     
     # Settings in config/environments/* take precedence over those specified here.
