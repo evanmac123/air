@@ -22,8 +22,6 @@ class User::SegmentationResults
   protected
 
   def set_created_at
-    self.created_at ||= Time.now
+    self.created_at = Time.now
   end
-
-
 end

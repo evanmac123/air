@@ -654,7 +654,8 @@ feature "Admin segmentation" do
     should_be_on admin_demo_segmentation_path(@demo)
   end
 
-  it 'should give the user an idea of when the segment was created', :js => true do
+  it 'should give the user an idea of when the segment was looked up', :js => true do
+    Timecop.freeze(Time.now)
     @demo = FactoryGirl.create(:demo)
 
     signin_as_admin
@@ -667,5 +668,18 @@ feature "Admin segmentation" do
     
     expect_content '0 users in segment'
     expect_content 'Segment looked up less than a minute ago'
+
+    Timecop.travel(10.minutes)
+    Timecop.freeze(Time.now)
+
+    select 'Claimed', :from => "segment_column[0]"
+    select "equals",  :from => "segment_operator[0]"
+    check "segment_value[0]"
+    click_button 'Find segment'
+    
+    expect_content '0 users in segment'
+    expect_content 'Segment looked up less than a minute ago'
+
+    Timecop.return
   end
 end
