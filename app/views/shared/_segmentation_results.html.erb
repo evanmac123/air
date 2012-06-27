@@ -1,8 +1,11 @@
 <% if segmentation_results.present? %>
   <h2><%= segmentation_results.explanation %></h2>
-  <% found_user_ids = segmentation_results.found_user_ids %>
 
-  <p><%= found_user_ids.length %> users in segment</p>
+  <% found_user_ids = segmentation_results.found_user_ids %>
+  <h2><%= found_user_ids.length %> users in segment</h2>
+
+  <h2>Segment looked up <%= time_ago_in_words segmentation_results.created_at %> ago</h2>
+
   <% unless found_user_ids.empty? %>
     <p><%= link_to "Show users", "#", :id => "show-user-link" %></p>
     <p><%= link_to "Show user names and emails in CSV", admin_demo_users_path(@demo, :format => :csv)%></p>

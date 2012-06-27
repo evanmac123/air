@@ -1,17 +1,24 @@
+<%= stylesheet_link_tag 'admin/segmentation' %>
+
 <%= render 'shared/prototype_characteristic_select', :dummy_characteristics => dummy_characteristics, :generic_characteristics => generic_characteristics, :demo_specific_characteristics => demo_specific_characteristics %>
 
-<%= form_tag admin_demo_segmentation_path(demo) do %>
-  <div id="segmentation_parameters">
-    <select name="segment_column[0]" id="segment_column_0" class="segment-column">
-    </select>
-    <select name="segment_operator[0]" id="segment_operator_0" class="segment-operator">
-    </select>
-    <select name="segment_value[0]" id="segment_value_0" class="segment-value">
-    </select>
-  </div>
+<%= form_tag admin_demo_segmentation_path(demo), :id => 'segmentation-form' do %>
+  <fieldset>
+    <legend>Look up new segment</legend>
+    <div id="segmentation_parameters">
+      <div class="segmentation-triple-wrapper">
+        <select name="segment_column[0]" id="segment_column_0" class="segment-column">
+        </select>
+        <select name="segment_operator[0]" id="segment_operator_0" class="segment-operator">
+        </select>
+        <select name="segment_value[0]" id="segment_value_0" class="segment-value">
+        </select>
+      </div>
+    </div>
 
-  <%= link_to "Segment on more characteristics", "#", :id => "add_more_characteristics" %>
-  <%= submit_tag "Find segment" %>
+    <%= link_to "Segment on more characteristics", "#", :id => "add_more_characteristics" %>
+    <%= submit_tag "Find segment" %>
+  </fieldset>
 <% end %>
 
 <%= content_for :javascript do %>
@@ -112,9 +119,11 @@
       segmentOperatorId = newSelectId('operator');
 
       newSelectHtml = [
+        '<div class="segmentation-triple-wrapper">',
         '<select name="' + segmentColumnName + '" id="' + segmentColumnId + '" class="segment-column"></select>',
         '<select name="' + segmentOperatorName + '" id="' + segmentOperatorId + '" class="segment-operator"></select>',
-        '<select name="' + segmentValueName + '" id="' + segmentValueId + '" class="segment-value"></select>'
+        '<select name="' + segmentValueName + '" id="' + segmentValueId + '" class="segment-value"></select>',
+        '</div>'
       ].join('');
 
       $('#segmentation_parameters').append(newSelectHtml);

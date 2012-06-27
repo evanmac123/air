@@ -4,8 +4,11 @@ class User::SegmentationResults
   field :owner_id
   field :explanation
   field :found_user_ids
+  field :created_at
 
-  index :admin_ar_id, :unique => true
+  index :owner_id, :unique => true
+
+  before_save :set_created_at
 
   def self.create_or_update_from_search_results(owner, explanation, found_user_ids)
     result_record = self.where(:owner_id => owner.id).first
@@ -15,4 +18,12 @@ class User::SegmentationResults
     result_record.save!
     result_record
   end
+
+  protected
+
+  def set_created_at
+    self.created_at ||= Time.now
+  end
+
+
 end

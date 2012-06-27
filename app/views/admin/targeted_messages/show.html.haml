@@ -1,3 +1,5 @@
+= stylesheet_link_tag "admin/targeted_messages"
+
 = tinymce_assets
 
 = render 'shared/segmentation_results', segmentation_results: @segmentation_results 
@@ -5,13 +7,30 @@
 = render 'shared/segmentation_form', :dummy_characteristics => @dummy_characteristics, :generic_characteristics => @generic_characteristics, :demo_specific_characteristics => @demo_specific_characteristics, :demo => @demo 
 
 = form_tag admin_demo_targeted_messages_path(@demo), :id => 'message-content' do
-  = text_field_tag "subject"
-  = text_area_tag "html_text", "", :rows => 20, :cols => 100, :class => "tinymce"
-  = text_area_tag "plain_text", "", :rows => 20, :cols => 100
-  = text_field_tag "sms_text", "", :length => 160
+  %fieldset
+    %legend Email
+    =# link_to "Why two text fields for email?", "#", :id => 'email-explanation'
+    #subject-wrapper
+      = label_tag :subject
+      = text_field_tag "subject"
+
+    #html-text-wrapper
+      = label_tag :html_text, "HTML text"
+      = text_area_tag "html_text", "", :rows => 20, :cols => 100, :class => "tinymce"
+
+    #plain-text-wrapper
+      = label_tag :plain_text
+      = text_area_tag "plain_text", "", :rows => 20, :cols => 147
+
+  %fieldset
+    %legend SMS
+    = label_tag :sms_text
+    = text_field_tag "sms_text", "", :length => 160
+
   %br
   = label_tag "respect_notification_method"
   = check_box_tag "respect_notification_method", "1", true
+  %br
   = submit_tag "DO IT"
   
 = tinymce unless Rails.env.test?

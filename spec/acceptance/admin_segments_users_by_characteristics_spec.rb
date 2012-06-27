@@ -653,4 +653,19 @@ feature "Admin segmentation" do
     click_link "Segment users"
     should_be_on admin_demo_segmentation_path(@demo)
   end
+
+  it 'should give the user an idea of when the segment was created', :js => true do
+    @demo = FactoryGirl.create(:demo)
+
+    signin_as_admin
+    visit admin_demo_segmentation_path(@demo)
+
+    select 'Claimed', :from => "segment_column[0]"
+    select "equals",  :from => "segment_operator[0]"
+    check "segment_value[0]"
+    click_button 'Find segment'
+    
+    expect_content '0 users in segment'
+    expect_content 'Segment looked up less than a minute ago'
+  end
 end

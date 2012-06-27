@@ -1,3 +1,28 @@
 // Place all the styles related to the Admin::TargetedMessages controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+fieldset {
+  position: relative;
+}
+
+#email-explanation {
+  position: absolute;
+  right: 20px;
+}
+
+#plain_text {
+  width: auto;
+}
+
+#subject-wrapper, #html-text-wrapper {
+  padding-bottom: 40px;
+}
+
+label[for="respect_notification_method"] {
+  display: inline;
+}
+
+#message-content input[type="submit"] {
+  margin-top: 20px;
+}
