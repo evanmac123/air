@@ -18,6 +18,6 @@
           to play
         = @user.demo.name_with_sponsor
     %td{style.top_call_hash}
-      = link_to invitation_url(@user.invitation_code, @referrer_hash)  do
+      = link_to @play_now_url  do
         = image_tag "#{style.image_url}/images/emails/play_now_small.png", :height => 38, :width => 186, :alt => "Click Here to Start Playing", :style => style.image, :id => :play_now
     

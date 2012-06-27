@@ -21,7 +21,7 @@
           %td{style.connect_hash} Connect with your friends to see how<br>they're playing and what level they're on.
         %tr
           %td
-            = link_to invitation_url(@user.invitation_code, @referrer_hash), :id => :play_now_large do
+            = link_to @play_now_url, :id => :play_now_large do
               = image_tag "#{style.image_url}/images/emails/play_now_large.png", :height => 60, :width => 302, :alt => "Click Here to Start Playing", :style => style.image
     %td{style.image_right}= image_tag "#{style.image_url}/images/emails/right_screenshot.png", :height => 161, :width => 161, :alt => "photo of scoreboard"
     

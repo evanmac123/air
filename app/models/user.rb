@@ -973,7 +973,9 @@ class User < ActiveRecord::Base
 
 
     user.load_personal_email(_text)
-    user.reload.invite(nil, options)
+    return "The email #{_text} #{user.errors.messages[:email].first}." unless user.errors.blank?
+    options_password_only = options.merge(password_only: true)
+    user.reload.invite(nil, options_password_only)
     return user.invitation_sent_text
   end
 

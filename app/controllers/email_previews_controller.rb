@@ -18,6 +18,7 @@ class EmailPreviewsController < ApplicationController
       @referrer = User.where(:id => referrer_id).first
     end
     @referrer_hash = User.referrer_hash(@referrer)
+    @play_now_url = invitation_url(@user.invitation_code, @referrer_hash)
     @style = EmailStyling.new(get_image_url)
     @preview_url = invitation_preview_url_with_referrer(@user, @referrer, @style.image_url)
     @hide_browser_option = true if code

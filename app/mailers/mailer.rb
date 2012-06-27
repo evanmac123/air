@@ -5,8 +5,14 @@ class Mailer < ActionMailer::Base
   def invitation(user, referrer = nil, options = {})
     @user = user
     @referrer = referrer
-    
     @referrer_hash = User.referrer_hash(@referrer)
+    if options[:password_only]
+      @user.manually_set_confirmation_token
+      @play_now_url = edit_user_password_url(@user, :token => @user.confirmation_token)
+      @hide_browser_option = true # We're not passing in the password_only options to the email preview controller, and they flat out requested an invitation--so let's skip the browser option
+    else
+      @play_now_url = invitation_url(@user.invitation_code, @referrer_hash)
+    end
 
     begins = user.demo.begins_at
     if begins
