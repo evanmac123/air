@@ -19,14 +19,6 @@ class PagesController < HighVoltage::PagesController
     render :layout => "/layouts/application"
   end
 
-  def faq_body
-    render :layout => false
-  end
-  
-  def faq_toc
-    render :layout => false
-  end
-  
   protected
 
   def layout_for_page
@@ -35,7 +27,7 @@ class PagesController < HighVoltage::PagesController
       'external'
     when 'faq'
       'application'
-    when 'faq_body', 'faq_toc'
+    when 'faq_body', 'faq_toc', 'marketing'
       false
     else
       'pages'

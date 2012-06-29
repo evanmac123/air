@@ -11,14 +11,14 @@
 	<meta name="description" content="H Engage: Socialize and gamify the HR ecosystem">
 	<meta name="author" content="HEngage.com">
 	<meta name="viewport" content="width=device-width">
-	<%= stylesheet_link_tag 'external/marketing' %>
+	<link rel="stylesheet" href="css/style.css">
    <link href='http://fonts.googleapis.com/css?family=Ubuntu:400,500' rel='stylesheet' type='text/css'>
-	<script src="public/js/libs/modernizr-2.5.3.min.js"></script>
+	<script src="js/libs/modernizr-2.5.3.min.js"></script>
 
 </head>
 <body id="homepage">
 <header>
-	<a href="index.html" id="logo"><%= image_tag "marketing/logo.png", :alt => "H Engage" %></a>
+	<a href="index.html" id="logo"><img src="img/logo.png" alt="H Engage" /></a>
 	<nav>
 		<ul>
 			<li class="links" id="link-blog"><a href="http://hengage.tumblr.com" target="_new">Blog</a></li>
@@ -57,7 +57,7 @@
    <div class="wrap960">
       <section id="all-features">
          <div class="feature" id="analytics">
-            <%= image_tag "marketing/analytics.png", :alt => "Analytics" %>
+            <img src="img/analytics.png" alt="Analytics" />
             <div class="feature-text">
                <h2>Analytics</h2>
                <p>We believe that data drives everything. We create an engagement record that integrates with vendor and HRIS systems. Message your employees better over time, measure the impact of your efforts, and quantify your ROI.</p>
@@ -65,7 +65,7 @@
             <div class="cf"></div>
          </div>
          <div class="feature" id="comm-hub">
-            <%= image_tag "marketing/comm-hub.png", :alt => "Communications hub" %>
+            <img src="img/comm-hub.png" alt="Communications hub" />
             <div class="feature-text">
                <h2>Communications hub</h2>
                <p>Communicating key messages and behaviors means understanding how employees like to be reached – <span>web, mobile and beyond</span>. We help you deliver the right message in the right medium for each person.</p>
@@ -73,7 +73,7 @@
             <div class="cf"></div>
          </div>
          <div class="feature" id="app">
-            <%= image_tag "marketing/app.png", :alt => "Engagement app" %>
+            <img src="img/app.png" alt="Engagement app" />
             <div class="feature-text">
                <h2>Engagement app</h2>
                <p>Embed interaction points throughout the employee experience. Use text messages and posters as mobile calls to action. Employees submit answers and earn points, progress through levels, and enter to win prizes. Increased engagement means greater satisfaction.</p>
@@ -157,6 +157,6 @@ $('[placeholder]').focus(function() {
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
   })();
 </script>
-<%= mp_track_page 'marketing' %>
+
 </body>
 </html>
