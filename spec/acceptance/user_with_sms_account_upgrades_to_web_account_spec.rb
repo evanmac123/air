@@ -22,7 +22,6 @@ feature "User with SMS Account Upgrades to web account" do
     open_email(@personal_email).subject.should include('Ready to play?')
     regex = /password/
     click_email_link_matching(regex)
-    save_and_open_page
     page.should have_content 'Choose a Password'
   end
 
