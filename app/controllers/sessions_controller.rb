@@ -10,6 +10,7 @@ class SessionsController < Clearance::SessionsController
   def create
     @user = ::User.authenticate(params[:session][:email],
                                 params[:session][:password])
+
     if @user.nil?
       flash_failure_after_create
       render :template => 'sessions/new'

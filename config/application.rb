@@ -33,6 +33,7 @@ module Health
       application-ie8.css
       admin/segmentation.css
       admin/targeted_messages.css
+      external/marketing.css
     )
 
     ################################################################

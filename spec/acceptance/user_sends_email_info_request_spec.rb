@@ -7,20 +7,26 @@ feature "User Sends Email Info Request", %q{
 } do
 
   scenario "User requests information through the marketing page", :js => true do
+    @phone = "(332) 334-3322"
+    @name = "James Hennessey IX"
+    @email = "somthingfornothing@james.com"
+    @comment = "You guys kick serious a$$"
     visit marketing_page
  
-    fill_in "email[name]", :with => "James Hennessey IX"
-    fill_in "email[email]", :with => "james@henhen.com"
-    within('#bottom-comment-box') do
-      page.find(:css, "input[@type=image]").click
-    end
+    fill_in "contact_name", :with => @name
+    fill_in "contact_email", :with => @email
+    fill_in "contact_phone", :with => @phone
+    fill_in "contact_comment", :with => @comment
+    click_button "contact-submit"
 
-    page.should have_content "Thanks, we'll be in touch"
+    page.should have_content "Thanks! We'll be in touch"
 
-    crank_dj
+    crank_dj_clear
 
     open_email 'vlad@hengage.com'
-    email_body.should include("James Hennessey IX")
-    email_body.should include("james@henhen.com")
+    email_body.should include(@email)
+    email_body.should include(@phone)
+    email_body.should include(@comment)
+    email_body.should include(@name)
   end
 end

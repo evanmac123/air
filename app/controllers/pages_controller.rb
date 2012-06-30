@@ -14,6 +14,7 @@ class PagesController < HighVoltage::PagesController
 
   layout :layout_for_page
 
+
   def faq
     @current_user = current_user
     render :layout => "/layouts/application"
@@ -22,12 +23,16 @@ class PagesController < HighVoltage::PagesController
   protected
 
   def layout_for_page
-    case params[:id]
+    page_name = params[:id]
+    case page_name
     when 'privacy', 'terms'
       'external'
     when 'faq'
       'application'
-    when 'faq_body', 'faq_toc', 'marketing'
+    when 'faq_body', 'faq_toc'
+      false
+    when 'marketing'
+      Shotgun.ping_page(page_name)
       false
     else
       'pages'

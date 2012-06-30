@@ -1002,7 +1002,7 @@ class User < ActiveRecord::Base
 
   def ping(event, properties)
     data = data_for_mixpanel.merge(properties) 
-    Mixpanel::Tracker.new(MIXPANEL_TOKEN, {}).delay.track_event(event, data)
+    Shotgun.ping(event, data)
   end
 
   def ping_page(page)
@@ -1010,7 +1010,7 @@ class User < ActiveRecord::Base
     properties = {page_name: page}
     ping(event, properties)
   end
-
+  
   def self.wants_email
     where(:notification_method => %w(email both))
   end
