@@ -32,18 +32,19 @@
 <div role="main" id="primary">
 	<section id="login">
       <h2>Player login (clients only)</h2>
-      <form accept-charset="UTF-8" action="/session" method="post">
+      <%= form_for :session, :url => session_path do |f| %>
          <ul>
-            <li id="login-email"><input id="session_email" name="session[email]" type="text" placeholder="Account email" /></li>
-            <li id="login-password"><input id="session_password" name="session[password]" type="password" placeholder="Password" /></li>
-            <li id="login-remember"><input id="session_remember_me" name="session[remember_me]" type="checkbox" value="1" /><label for="session_remember_me">Keep me logged in</label></li>
+           <li id="login-email"><%= f.text_field :email, :placeholder => "Account email" %></li>
+           <li id="login-password"><%= f.text_field :password, :type => "password", :placeholder => "Password" %></li>
+           <li id="login-remember"><%= f.check_box :remember_me, :value => 1 %><label for="session_remember_me">Keep me logged in</label></li>
             <li id="login-submit">
-               <input id='sign_in_button' name="commit" type="submit" value="Let's play!" />
+            <%= f.submit "Let's play!", :id => 'sign_in_button' %>
+
                <span><a href="https://www.hengage.com/invitations/new">Register to play</a></span>
                <div class="cf"></div>
             </li>
          </ul>
-      </form>
+       <% end %>
 	</section>
    <section id="welcome">
       <h1>Socialize and gamify the <br />HR ecosystem</h1>
