@@ -1026,7 +1026,49 @@ class User < ActiveRecord::Base
       save
     end
   end
-  
+ 
+  def bad_friendship_index_error_message(request_index)
+    if request_index && Friendship.pending(self).present?
+      "Looks like you already responded to that request, or didn't have a request with that number"
+    else
+      "You have no pending requests to add someone as a friend."
+    end
+  end
+
+  def credit_game_referrer(referring_user)
+    demo = self.demo
+
+    referrer_act_text = I18n.t('special_command.credit_game_referrer.activity_feed_text', :default => "got credit for referring %{referred_name} to the game", :referred_name => self.name)
+    referrer_sms_text = I18n.t('special_command.credit_game_referrer.referrer_sms', :default => "%{referred_name} gave you credit for referring them to the game. Many thanks and %{points} bonus points!", :referred_name => self.name, :points => demo.game_referrer_bonus)
+
+    referred_act_text = I18n.t('special_command.credit_game_referrer.referred_activity_feed_text', :default => "credited %{referrer_name} for referring them to the game", :referrer_name => referring_user.name)
+    referred_sms_points_phrase = case demo.referred_credit_bonus
+                                 when nil
+                                   ""
+                                 when 1
+                                   " (and 1 point)"
+                                 else
+                                   " (and #{demo.referred_credit_bonus} points)"
+                                 end
+    referred_sms_text = I18n.t('special_command.credit_game_referrer.referred_sms', :default => "Got it, %{referrer_name} referred you to the game. Thanks%{points_phrase} for letting us know.", :referrer_name => referring_user.name, :points_phrase => referred_sms_points_phrase)
+
+    self.update_attribute(:game_referrer_id, referring_user.id)
+
+    referring_user.acts.create!(
+      :text            => referrer_act_text,
+      :inherent_points => demo.game_referrer_bonus
+    )
+
+    self.acts.create!(
+      :text            => referred_act_text,
+      :inherent_points => demo.referred_credit_bonus
+    )
+
+    OutgoingMessage.send_message(referring_user, referrer_sms_text)
+
+    referred_sms_text
+  end
+
   protected
 
   def name_required

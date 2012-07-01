@@ -131,7 +131,7 @@ describe Act, "on create" do
     rule_value_3 = FactoryGirl.create :rule_value, :is_primary => true
 
     user.update_attributes(:last_suggested_items => [rule_value_1.id, rule_value_2.id, rule_value_3.id].join('|'))
-    SpecialCommand.use_suggested_item(user, 'b')
+    SpecialCommand.parse(user, 'b', {})
 
     act = Act.last
     act.rule.primary_value.should == rule_value_2
