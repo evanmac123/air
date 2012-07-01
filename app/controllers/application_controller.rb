@@ -40,27 +40,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def force_no_ssl
-    if (Rails.env.development? || Rails.env.test?) && !$test_force_ssl
-      return
-    end
-
-    if request.ssl?
-      redirect_hostname = Rails.env.staging? ? 
-                            hostname_with_subdomain : 
-                            hostname_without_subdomain
-
-      redirection_parameters = {
-        :protocol   => 'http', 
-        :host       => redirect_hostname, 
-        :action     => action_name, 
-        :controller => controller_name
-      }.reverse_merge(params)
-
-      redirect_to redirection_parameters
-      return false
-    end
-  end
+  alias :force_no_ssl :force_ssl
 
   def authenticate_without_game_begun_check
     def authorize
