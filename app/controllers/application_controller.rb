@@ -15,6 +15,10 @@ class ApplicationController < ActionController::Base
 
   protected
 
+  # Used since our *.hengage.com SSL cert does not cover plain hengage.com.
+  def hostname_with_subdomain
+    request.subdomain.present? ? request.host : "www." + request.host
+  end
 
   def invitation_preview_url_with_referrer(user, referrer)
     referrer_hash = User.referrer_hash(referrer)
@@ -25,8 +29,15 @@ class ApplicationController < ActionController::Base
     if (Rails.env.development? || Rails.env.test?) && !$test_force_ssl
       return
     end
-
+    redirect_required = false
+    unless request.subdomain.present?
+      redirect_required = true
+    end
     unless request.ssl?
+      redirect_required = true
+    end
+    
+    if redirect_required
       redirect_hostname = hostname_with_subdomain
       redirection_parameters = {
         :protocol   => 'https', 
@@ -40,7 +51,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  alias :force_no_ssl :force_ssl
 
   def authenticate_without_game_begun_check
     def authorize
@@ -72,11 +82,6 @@ class ApplicationController < ActionController::Base
   def force_html_format
     request.format = :html
   end
-
-  # Used since our *.hengage.com SSL cert does not cover plain hengage.com.
-  def hostname_with_subdomain
-    request.subdomain.present? ? request.host : "www." + request.host
-  end  
 
   def hostname_without_subdomain
     request.subdomain.present? ? request.host.gsub(/^[^.]+\./, '') : request.host

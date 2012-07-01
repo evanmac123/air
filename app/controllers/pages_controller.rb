@@ -3,9 +3,6 @@ class PagesController < HighVoltage::PagesController
 
   skip_before_filter :authorize, :except => FAQ_PAGES
   before_filter :authenticate_without_game_begun_check, :only => FAQ_PAGES
-  before_filter :force_hostname_with_subdomain
-  skip_before_filter :force_ssl, :except => FAQ_PAGES
-  before_filter :force_no_ssl_on_marketing, :only => [:show]
 
   before_filter :force_html_format
   before_filter :signed_out_only, :except => FAQ_PAGES
@@ -51,16 +48,4 @@ class PagesController < HighVoltage::PagesController
                  end
   end
 
-  def force_no_ssl_on_marketing
-    return unless params[:id] == 'marketing'
-    if request.ssl?
-      force_no_ssl
-    end
-  end
-
-  def force_hostname_with_subdomain
-    return if request.subdomain.present? || request.local?
-    redirect_to(host: hostname_with_subdomain)
-    false
-  end
 end

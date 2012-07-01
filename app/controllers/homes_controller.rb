@@ -1,5 +1,4 @@
 class HomesController < ApplicationController
-  before_filter :force_ssl
   before_filter :redirect_to_activity
 
   private
