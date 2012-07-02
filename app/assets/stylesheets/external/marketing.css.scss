@@ -210,6 +210,7 @@ nav {
   border-bottom:1px #fff solid;
   border-top:1px #fff solid;
   color:#cccccc;
+  display:block;
   padding:40px 0;
 }
 #all-features, #all-extras {
@@ -254,6 +255,8 @@ nav {
     display:block;
     font-size:0;
     height:47px;
+    line-height:999px;
+    overflow:hidden;
     text-indent:99999;
   }
   .extra#media-usage a#to-databook {
@@ -360,22 +363,19 @@ Jack's stuff
 =================================================*/
 #email_status, #name_status, {
   display: none;
-  color: red;
-  font-size: 18px;
+  color: #39B549;
+  font-size: 12px;
 }
 #our_response{
   display: none;
-  color: orange;
-  font-weight: bold;
-  font-size: 30px;
+  color: #39B549;
 }
 #submitting_status{
   position: absolute;
-  right: -147px;
-  top: -27px;
+  right: -74px;
+  top: 54px;
   display: none;
-  font-size: 18px;
-  font-weight: bold;
-  color: grey;
+  font-size: 12px;
+  color: #A3A3A3;
   text-align: center;
 }
