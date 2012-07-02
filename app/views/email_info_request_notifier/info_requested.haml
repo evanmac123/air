@@ -1,0 +1,19 @@
+%p= "#{@snark + @first_name} wants to know more about us." 
+
+%p 
+  Name: 
+  = @name
+%p 
+  Phone: 
+  = @phone 
+%p 
+  Email: 
+  = @email 
+%p{:style => 'font-weight: bold'}Comments:
+.bubble{:style => 'border: 1px solid grey; background: #eee; border-radius: 5px; padding: 0 10px; width: 60ex;'}
+  %p 
+    - @comment.strip.split("\n").each do |row| 
+      = row
+      %br
+
+%p= Time.now.pretty 
