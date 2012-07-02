@@ -12,47 +12,60 @@ module SpecialCommand
     normalized_command = text.strip.downcase.gsub(/\s+/, ' ')
     command_name, *args = normalized_command.split
 
-    # Note that these are duplicated in User.sms_slug_does_not_match_commands,
-    # So if you change something here, be sure to add it there too
-    case command_name
-    when 'follow', 'connect', 'fan', 'friend', 'befriend'
-      SpecialCommandHandlers::FollowHandler.new(user, command_name, args, options, @return_message_type).handle_command 
-    when 'myid'
-      SpecialCommandHandlers::MyIdHandler.new(user, command_name, args, options, @return_message_type).handle_command
-    when 'moreinfo', 'more'
-      SpecialCommandHandlers::MoreInfoHandler.new(user, command_name, args, options, @return_message_type).handle_command
-    when 's', 'suggest'
-      SpecialCommandHandlers::SuggestionHandler.new(user, command_name, args, options, @return_message_type).handle_command
-    when Survey::SURVEY_ANSWER_PATTERN
-      SpecialCommandHandlers::SurveyResponseHandler.new(user, command_name, args, options, @return_message_type).handle_command
-    when /^[a-z]$/
-      SpecialCommandHandlers::UseSuggestedItemHandler.new(user, command_name, args, options, @return_message_type).handle_command
-    when 'lastquestion'
-      SpecialCommandHandlers::LastQuestionReminderHandler.new(user, command_name, args, options, @return_message_type).handle_command
-    when 'rankings', 'ranking', 'standing', 'standings'
-      SpecialCommandHandlers::FirstRankingsPageHandler.new(user, command_name, args, options, @return_message_type).handle_command
-    when 'morerankings'
-      SpecialCommandHandlers::NextRankingsPageHandler.new(user, command_name, args, options, @return_message_type).handle_command
-    when 'help'
-      SpecialCommandHandlers::HelpHandler.new(user, command_name, args, options, @return_message_type).handle_command
-    when 'support'
-      SpecialCommandHandlers::SupportHandler.new(user, command_name, args, options, @return_message_type).handle_command
-    when 'survey', 'ur2cents', '2ur2cents'
-      SpecialCommandHandlers::SurveyHandler.new(user, command_name, args, options, @return_message_type).handle_command
-    when 'yes'
-      SpecialCommandHandlers::AcceptFollowerHandler.new(user, command_name, args, options, @return_message_type).handle_command
-    when 'no'
-      SpecialCommandHandlers::IgnoreFollowerHandler.new(user, command_name, args, options, @return_message_type).handle_command
-    when 'prizes'
-      SpecialCommandHandlers::PrizeHandler.new(user, command_name, args, options, @return_message_type).handle_command
-    when 'rules', 'commands'
-      SpecialCommandHandlers::RulesHandler.new(user, command_name, args, options, @return_message_type).handle_command
-    when 'mute'
-      SpecialCommandHandlers::MuteHandler.new(user, command_name, args, options, @return_message_type).handle_command
-    when 'gotit', 'got'
-      SpecialCommandHandlers::SuppressMuteNoticeHandler.new(user, command_name, args, options, @return_message_type).handle_command
+    handler_class = self.determine_handler_for_command(command_name)
+    handler_class.new(user, command_name, args, options, @return_message_type).handle_command 
+  end
+
+  @@reserved_words ||= []
+
+  def self.reserved_words
+    @@reserved_words
+  end
+
+  protected
+
+  @@registered_handlers ||= ActiveSupport::OrderedHash.new
+  @@default_handler ||= SpecialCommandHandlers::NullHandler
+
+  def self.determine_handler_for_command(command_name)
+    matching_pair = @@registered_handlers.detect do |command_list, handler_class| 
+      command_list.any?{ |candidate_command| candidate_command === command_name}
+    end
+
+    if matching_pair
+      matching_pair.last
     else
-      SpecialCommandHandlers::CreditGameReferrerHandler.new(user, command_name, args, options, @return_message_type).handle_command
+      @@default_handler
     end
   end
+
+  def self.register_command_handler(command_list, handler_class)
+    @@registered_handlers[command_list] = handler_class
+    @@reserved_words += command_list.select{|command| command.kind_of?(String)}
+  end
+
+  def self.register_default_command_handler(handler_class)
+    @@default_handler = handler_class
+  end
+
+  register_command_handler %w(follow connect fan friend befriend),  SpecialCommandHandlers::FollowHandler
+  register_command_handler %w(myid),                                SpecialCommandHandlers::MyIdHandler
+  register_command_handler %w(moreinfo more),                       SpecialCommandHandlers::MoreInfoHandler
+  register_command_handler %w(s suggest),                           SpecialCommandHandlers::SuggestionHandler
+  register_command_handler [Survey::SURVEY_ANSWER_PATTERN],         SpecialCommandHandlers::SurveyResponseHandler
+  register_command_handler [/^[a-z]$/],                             SpecialCommandHandlers::UseSuggestedItemHandler
+  register_command_handler %w(lastquestion),                        SpecialCommandHandlers::LastQuestionReminderHandler
+  register_command_handler %w(rankings ranking standing standings), SpecialCommandHandlers::FirstRankingsPageHandler
+  register_command_handler %w(morerankings),                        SpecialCommandHandlers::NextRankingsPageHandler
+  register_command_handler %w(help),                                SpecialCommandHandlers::HelpHandler
+  register_command_handler %w(support),                             SpecialCommandHandlers::SupportHandler
+  register_command_handler %w(survey ur2cents 2ur2cents),           SpecialCommandHandlers::SurveyHandler
+  register_command_handler %w(yes),                                 SpecialCommandHandlers::AcceptFollowerHandler
+  register_command_handler %w(no),                                  SpecialCommandHandlers::IgnoreFollowerHandler
+  register_command_handler %w(prizes),                              SpecialCommandHandlers::PrizeHandler
+  register_command_handler %w(rules commands),                      SpecialCommandHandlers::RulesHandler
+  register_command_handler %w(mute),                                SpecialCommandHandlers::MuteHandler
+  register_command_handler %w(gotit got),                           SpecialCommandHandlers::SuppressMuteNoticeHandler
+
+  register_default_command_handler SpecialCommandHandlers::CreditGameReferrerHandler
 end

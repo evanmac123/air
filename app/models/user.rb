@@ -169,9 +169,6 @@ class User < ActiveRecord::Base
 
 
   def sms_slug_does_not_match_commands
-    special_commands = ['follow', 'connect', 'fan', 'friend', 'befriend', 'myid', 'moreinfo', 'more', 'suggest', 'lastquestion', 
-      'rankings', 'ranking', 'standing', 'standings', 'morerankings', 'help', 'support', 'survey', 
-      'ur2cents', '2ur2cents', 'yes', 'no', 'prizes', 'rules', 'commands', 'mute', 'gotit', 'got']
     if self.demo && self.demo.rule_values.present?
       demo_rules = self.demo.rule_values
       demo_rule_values = demo_rules.collect do |v|
@@ -181,7 +178,7 @@ class User < ActiveRecord::Base
       demo_rule_values = []
     end
     
-    all_commands = special_commands + demo_rule_values
+    all_commands = SpecialCommand.reserved_words + demo_rule_values
     if all_commands.include? self.sms_slug
       self.errors.add("sms_slug", "Sorry, but that username is reserved")
     end
