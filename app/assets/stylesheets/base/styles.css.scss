@@ -29,16 +29,12 @@ p {margin:0;padding:0;}
 
 
 body.external {
-//	background-color: $ex-bg-gray;
 	background-color:$light-gray; 
 	background-image: image-url('v3/texture_darker.png');
 	font-family:Helvetica, Arial, sans-serif;
 	font-size:13px;
 	margin:0;
 	padding:0;
-	div.inv-forms {
-		padding:20px;
-	}
 	h2 {
 		@include heading-black;
 		font-size: 26px;
@@ -46,6 +42,9 @@ body.external {
 		text-shadow:1px 1px 1px #a8a8a8;
 			behavior: url(/css3pie/PIE.htc);
 	}
+	.content {width:auto!important;}
+	.inv-forms {padding:20px;}
+	.top {background:#588B3D!important;}
 }
 
 body.invitations .header #navigation .nav-signup, body.sessions .header #navigation .nav-login {
@@ -114,8 +113,8 @@ body.invitations .header #navigation .nav-signup, body.sessions .header #navigat
 				padding: 0;
 				
 				img {
-					margin-top:30px;
-					height: 136px;
+					margin-top:50px;
+					height: 106px;
 				}
 			}
 			#navigation {
