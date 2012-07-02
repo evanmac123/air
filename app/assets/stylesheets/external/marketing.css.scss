@@ -77,6 +77,7 @@ body {
   color:#636363;
   font-family:Helvetica, Arial, sans-serif;
   font-size:14px;
+  min-width:960px;
 }
 a { 
   color: #74c04c; 
@@ -256,10 +257,12 @@ nav {
     display:block;
     font-size:0;
     height:47px;
-    line-height:999px;
     overflow:hidden;
     text-indent:99999;
   }
+    .extra#media-usage a span {
+      visibility:hidden;
+    }
   .extra#media-usage a#to-databook {
     background:image-url('marketing/btn-dbook.png') center center no-repeat;
     margin-bottom:10px;
@@ -295,12 +298,9 @@ nav {
 }
 #contact #contact-submit {
   background:image-url('marketing/btn-contact.png') center center no-repeat;
-  border:1px red solid;
-  float:right;
-}
-#contact #contact-submit {
   border:none;
   display:inline-block;
+  float:right;
   font-size:0;
   line-height: 999px;
   height:47px;
