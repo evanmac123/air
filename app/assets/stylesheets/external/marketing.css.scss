@@ -128,34 +128,36 @@ header {
   position:relative;
   width:960px;
 }
-#logo {
-  float:left;
-}
-nav {
-  float:right;
-  margin:30px 0 0 0;
-  position:relative;
-  width:330px;
-} 
-  nav ul {float:right;}
-  nav ul li {
-    background:image-url('marketing/bgpx-dark.png');
-    display: inline;
-    margin-left:1px;
-    padding:10px 20px;
+  #logo {
+    float:left;
   }
-  nav ul li a {
-    color:#818385!important;
-    font-size:16px;
-    -webkit-transition:color 0.2s ease-in;  
-    -moz-transition:color 0.2s ease-in;  
-    -o-transition:color 0.2s ease-in;  
-    transition:color 0.2s ease-in; 
-  }
-  nav ul li a:hover {
-    color:#39b549!important;
-  }
-  nav ul li a:active {color:#72a435;}
+  nav {
+    float:right;
+    margin:30px 0 0 0;
+    position:relative;
+    width:330px;
+  } 
+    nav ul {float:right;}
+    nav ul li {
+      background:image-url('marketing/bgpx-dark.png');
+      display: inline;
+      margin-left:1px;
+      padding:10px 20px;
+    }
+    nav ul li a {
+      color:#818385!important;
+      font-size:16px;
+      -webkit-transition:color 0.2s ease-in;  
+      -moz-transition:color 0.2s ease-in;  
+      -o-transition:color 0.2s ease-in;  
+      transition:color 0.2s ease-in; 
+    }
+    nav ul li a:hover {
+      color:#39b549!important;
+    }
+    nav ul li a:active {color:#72a435;}
+
+#hov-loader {display:none; visibility:hidden;}
 
 #primary {
   margin:40px auto;
