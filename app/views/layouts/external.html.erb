@@ -5,7 +5,7 @@
   <%= javascript_include_tag 'application' %>
   <%= render 'shared/skin_styles' %>
 
-  <link href='https://fonts.googleapis.com/css?family=Ubuntu:400,700' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Ubuntu:400,500' rel='stylesheet' type='text/css'>
 
 
 	<!--[if IE 8]>
@@ -22,19 +22,15 @@
 	<div class="container">
 		<div class="top">
 			<div class="header">
-				<div class="app_bar">
-					<div class="app_by"><p>Brought to you by <a href="http://www.hengage.com" title="H Engage">H Engage</a></p></div>
-				</div>
-				
 				<div id="logo">
-		    <a href="/"><%= image_tag "v3/logo-new.png", :alt => "H Engage tree" %></a>
+		    		<a href="/"><%= image_tag "v4/logo.png", :alt => "H Engage" %></a>
 				</div>
 				<div id="navigation">
 					<ul>
-		      <!-- TODO: Fix current link -->
-		      <li><%= link_to "Home", "/", :class => "nav-links nav-home" %></li>
-		      <li><%= link_to "Sign Up", new_invitation_path, :class => "nav-links nav-signup" %></li>
-		      <li><%= link_to "Log In", sign_in_path, :class => "nav-links nav-login", :id => "activate-login-form" %></li>
+				      <!-- TODO: Fix current link -->
+				      <li><%= link_to "Home", "/", :class => "nav-links nav-home" %></li>
+				      <li><%= link_to "Sign Up", new_invitation_path, :class => "nav-links nav-signup" %></li>
+				      <li><%= link_to "Log In", sign_in_path, :class => "nav-links nav-login", :id => "activate-login-form" %></li>
 					</ul>
 				</div>
 				<div class="cf"></div>
@@ -59,6 +55,28 @@
 			<p>Copyright © 2012 H Engage, Inc.</p>
 		</div>
 	</div>
-  <%= render :partial => 'shared/javascript' %>
+	<script type="text/javascript">
+	$('[placeholder]').focus(function() {
+	  var input = $(this);
+	  if (input.val() == input.attr('placeholder')) {
+	    input.val('');
+	    input.removeClass('placeholder');
+	  }
+	}).blur(function() {
+	  var input = $(this);
+	  if (input.val() == '' || input.val() == input.attr('placeholder')) {
+	    input.addClass('placeholder');
+	    input.val(input.attr('placeholder'));
+	  }
+	}).blur().parents('form').submit(function() {
+	  $(this).find('[placeholder]').each(function() {
+	    var input = $(this);
+	    if (input.val() == input.attr('placeholder')) {
+	      input.val('');
+	    }
+	  });
+	});
+	</script>
+	<%= render :partial => 'shared/javascript' %>
 </body>
 </html>
