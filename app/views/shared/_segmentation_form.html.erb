@@ -18,6 +18,7 @@
 
     <%= link_to "Segment on more characteristics", "#", :id => "add_more_characteristics" %>
     <%= submit_tag "Find segment" %>
+    <%= image_tag "spinner.gif", :style => 'display: none', :id => 'find-segment-spinner' %>
   </fieldset>
 <% end %>
 
@@ -130,6 +131,24 @@
       $('#' + segmentColumnId).append(characteristicSelectHtml).data('value_select_id', segmentValueId);
       
       nextSegmentationIndex += 1;
+    });
+
+    $('#segmentation-form input[type=submit]').click(function(e) {
+      e.preventDefault();
+
+      $('#find-segment-spinner').show();
+
+      segmentationForm = $('#segmentation-form');
+      requestUrl = segmentationForm.attr('action') + '.js';
+      requestParams = segmentationForm.serialize();
+
+      $.post(requestUrl, 
+             requestParams, 
+             function(data) {
+               $('#find-segment-spinner').hide();
+               $('#segmentation-results').replaceWith(data)
+             },
+             'html');
     });
   <% end %>
 <% end %>

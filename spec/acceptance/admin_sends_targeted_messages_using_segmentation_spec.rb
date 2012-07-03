@@ -212,6 +212,32 @@ feature 'Admin sends targeted messges using segmentation' do
     should_be_on admin_demo_targeted_messages_path(demo)
   end
 
+  it "should keep the message fields filled in after a new segmentation", :js => true do
+    set_up_models(use_phone: true)
+    select_common_form_entries
+
+    expected_html_text = "<p>Be advised!</p>"
+    expected_plain_text = "Plainly take advice"
+    expected_sms_text = "be u advised"
+
+    fill_in "html_text", :with => expected_html_text
+    fill_in "plain_text", :with => expected_plain_text
+    fill_in "sms_text", :with => expected_sms_text
+
+    select "Metasyntactic variable", :from => "segment_column[0]"
+    select "equals", :from => "segment_operator[0]"
+    select "foo", :from => "segment_value[0]"
+    click_button "Find segment"
+
+    expect_content "3 users in segment"
+
+    expect_value "html_text", expected_html_text
+    expect_value "plain_text", expected_plain_text
+    expect_value "sms_text", expected_sms_text
+  end
+
+  #it "should keep the message fields filled in after sending a message"
+
   # The following our are nice-to-haves
   #it 'should allow preview of emails'
   #it 'should allow preview of texts'

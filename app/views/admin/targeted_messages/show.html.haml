@@ -6,6 +6,8 @@
 
 = render 'shared/segmentation_form', :dummy_characteristics => @dummy_characteristics, :generic_characteristics => @generic_characteristics, :demo_specific_characteristics => @demo_specific_characteristics, :demo => @demo 
 
+= render 'shared/show_user_links' 
+
 = form_tag admin_demo_targeted_messages_path(@demo), :id => 'message-content' do
   %fieldset
     %legend Email

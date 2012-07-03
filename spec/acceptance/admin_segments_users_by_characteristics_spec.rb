@@ -237,7 +237,6 @@ feature "Admin segmentation" do
       expect_content "Favorite Beatle equals john"
       expect_content "Brain size equals high"
       expect_content "0 users in segment"
-      expect_no_content "Show users"
     end
 
     it "segments in such a way (like by choosing no characteristics) that matches all users", :js => true do
@@ -410,7 +409,7 @@ feature "Admin segmentation" do
 
     signin_as_admin
     visit admin_demo_segmentation_path(@demo)
-    
+
     select "Location", :from => "segment_column[0]"
     select "equals", :from => "segment_operator[0]"
 
@@ -426,7 +425,7 @@ feature "Admin segmentation" do
 
     expected_location = Location.find_by_name "North Southerton"
     expected_user = User.find_by_location_id(expected_location.id)
-   
+  
     click_link "Show users"
     expect_user_content expected_user
     

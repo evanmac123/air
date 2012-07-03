@@ -1,0 +1,13 @@
+<p><%= link_to "Show users", "#", :id => "show-user-link" %><%= image_tag 'spinner.gif', :style => "display: none;", :id => 'show-user-spinner' %></p>
+<p><%= link_to "Show user names and emails in CSV", admin_demo_users_path(@demo, :format => :csv)%></p>
+
+<% content_for :javascript do %>
+  <%= javascript_tag do %>
+    $('#show-user-link').live('click', function(e) {
+      e.preventDefault();
+      $('#show-user-spinner').show();
+      $.get('<%= admin_demo_users_path(@demo, :format => :js) %>', function() { $('#show-user-spinner').hide()});
+    });
+  <% end %>
+<% end %>
+
