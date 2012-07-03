@@ -1,8 +1,17 @@
 class Admin::TargetedMessagesController < AdminBaseController
+  FIELDS_TO_KEEP = %w(subject plain_text html_text sms_text)
+
   before_filter :find_demo_by_demo_id
   before_filter :find_segmentation_results
 
   def show
+    FIELDS_TO_KEEP.each do |field_to_keep|
+      eval <<-END_EVAL
+        @#{field_to_keep} ||= session[:#{field_to_keep}]
+        session.delete(:#{field_to_keep})
+      END_EVAL
+    end
+
     load_characteristics(@demo)
   end
 
@@ -48,6 +57,14 @@ class Admin::TargetedMessagesController < AdminBaseController
 
     flash.delete(:success) if flash[:success].blank?
     flash.delete(:notice) if flash[:notice].blank?
+
+    # Cheap hack to set the message form fields correctly when we land back
+    # on the targeted messages page, since we may want to re-use them.
+
+    FIELDS_TO_KEEP.each do |field_to_keep|
+      session[field_to_keep] = params[field_to_keep]
+    end
+
     redirect_to :back
   end
 

@@ -236,7 +236,30 @@ feature 'Admin sends targeted messges using segmentation' do
     expect_value "sms_text", expected_sms_text
   end
 
-  #it "should keep the message fields filled in after sending a message"
+  it "should keep the message fields filled in after sending a message", :js => true do
+    set_up_models(use_phone: true)
+    select_common_form_entries
+
+    expected_subject = "Some advice from your friends at The H Engages"
+    expected_html_text = "<p>Be advised!</p>"
+    expected_plain_text = "Plainly take advice"
+    expected_sms_text = "be u advised"
+
+    fill_in "subject", :with => expected_subject
+    fill_in "html_text", :with => expected_html_text
+    fill_in "plain_text", :with => expected_plain_text
+    fill_in "sms_text", :with => expected_sms_text
+
+    click_button "DO IT"
+
+    expect_content "Scheduled email to 6 users"
+    expect_content "Scheduled SMS to 6 users"
+   
+    expect_value "subject", expected_subject
+    expect_value "html_text", expected_html_text
+    expect_value "plain_text", expected_plain_text
+    expect_value "sms_text", expected_sms_text
+  end
 
   # The following our are nice-to-haves
   #it 'should allow preview of emails'
