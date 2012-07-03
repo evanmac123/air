@@ -19,7 +19,7 @@ class EmailInfoRequestNotifier < ActionMailer::Base
                      'Get ready for the big time...',
                      'This could be the one...',
                      "One of us must be a frickin' genius. ",
-                     'I shit you not--',
+                     'I kid you not--',
                      'Say hello to our new client: ']
     index = rand(snark_options.length)
     @snark = snark_options[index]
