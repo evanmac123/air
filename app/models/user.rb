@@ -957,7 +957,7 @@ class User < ActiveRecord::Base
   def scoreboard_friends_list_by_name
     (self.accepted_friends_same_demo + [self]).sort_by {|ff| ff.name.downcase}
   end
-  
+
   def self.name_starts_with(start)
     where("name ILIKE ?", start.like_escape + "%")
   end

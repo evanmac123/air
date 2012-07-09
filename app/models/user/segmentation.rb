@@ -32,6 +32,15 @@ class User
       User::SegmentationResults.where(:owner_id => self.id).first
     end
 
+    def rebuild_segmentation_data!
+      self.segmentation_data.destroy
+      self.schedule_segmentation_create
+    end
+
+    def self.rebuild_all_segmentation_data!
+      User.all.each(&:"rebuild_segmentation_data!")
+    end
+
     protected
 
     def cast_characteristics
@@ -97,16 +106,6 @@ class User
         query.map(&:ar_id)
       else
         demo.user_ids
-      end
-    end
-
-    # This is a utility method meant to be run from the Heroku console, after
-    # you add some new fields to segmentation data. Keep in mind that it will
-    # jam up the DJ queue for a bit while it's running.
-
-    def self.update_all_segmentation_data
-      User.all.each do |user|
-        user.delay.update_segmentation_info
       end
     end
   end
