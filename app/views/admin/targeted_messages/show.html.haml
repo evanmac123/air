@@ -11,7 +11,6 @@
 = form_tag admin_demo_targeted_messages_path(@demo), :id => 'message-content' do
   %fieldset
     %legend Email
-    =# link_to "Why two text fields for email?", "#", :id => 'email-explanation'
     #subject-wrapper
       = label_tag :subject
       = text_field_tag "subject", @subject
@@ -27,7 +26,8 @@
   %fieldset
     %legend SMS
     = label_tag :sms_text
-    = text_field_tag "sms_text", @sms_text, :length => 160
+    = text_field_tag "sms_text", @sms_text, :maxlength => 160, :size => 165
+    = add_byte_counter_for "Sms text"
 
   %br
   = label_tag "respect_notification_method"
