@@ -30,6 +30,7 @@ end
   ['weight',                 'Number'],
   ['gender',                 'Discrete'],
   ['claimed',                'Boolean'],
+  ['has_phone_number',       'Boolean']
 ].each do |field_id, datatype_short_name|
   name = field_id.humanize
   class_name = field_id.camelize + "DummyCharacteristic"

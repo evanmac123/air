@@ -541,6 +541,41 @@ feature "Admin segmentation" do
     end
   end
 
+  it "can segment on has_phone_number", :js => true do
+    @demo = FactoryGirl.create(:demo)
+
+    users_with_phone = []
+    users_without_phone = []
+
+    4.times {users_with_phone << FactoryGirl.create(:user, :with_phone_number, demo: @demo)}
+    3.times {users_without_phone << (FactoryGirl.create :user, demo: @demo)}
+    crank_dj_clear
+
+    signin_as_admin
+    visit admin_demo_segmentation_path(@demo)
+
+    select 'Has phone number', :from => "segment_column[0]"
+    select "equals",  :from => "segment_operator[0]"
+    check "segment_value[0]"
+
+    click_button "Find segment"
+
+    expect_content "Segmenting on: Has phone number equals true"
+    expect_content "4 users in segment"
+    click_link "Show users"
+    users_with_phone.each {|claimed_user| expect_user_content(claimed_user)}
+
+    select 'Has phone number', :from => "segment_column[0]"
+    select "equals",  :from => "segment_operator[0]"
+
+    click_button "Find segment"
+
+    expect_content "Segmenting on: Has phone number equals false"
+    expect_content "3 users in segment"
+    click_link "Show users"
+    users_without_phone.each {|unclaimed_user| expect_user_content(unclaimed_user)}
+  end
+
   it "can segment on claimed", :js => true do
     @demo = FactoryGirl.create(:demo)
 
