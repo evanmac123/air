@@ -80,6 +80,24 @@ describe User do
     user.should be_valid
   end
 
+  it "should validate that date of birth, if present, is in the past" do
+    Timecop.freeze(Time.now)
+
+    begin
+      user = FactoryGirl.create :claimed_user
+      user.should be_valid
+
+      user.date_of_birth = Date.today
+      user.should_not be_valid
+      user.errors.full_messages.should include("Date of birth must be in the past")
+
+      user.date_of_birth = Date.yesterday
+      user.should be_valid
+    ensure
+      Timecop.return
+    end
+  end
+
   it "should downcase an SMS slug before validation" do
     user1 = FactoryGirl.create :user
     user1.update_attributes(:sms_slug => "somedude")
@@ -571,7 +589,7 @@ describe User, "on save" do
   simple_mongo_triggering_fields = {
     points:                 [50, 60],
     location_id:            [17, 18],
-    date_of_birth:          [Date.today, Date.tomorrow, [Date.today.to_time.utc.midnight, Date.tomorrow.to_time.utc.midnight]],
+    date_of_birth:          [Date.yesterday, Date.yesterday.yesterday, [Date.yesterday.to_time.utc.midnight, Date.yesterday.yesterday.to_time.utc.midnight]],
     height:                 [50, 60],
     weight:                 [200, 180],
     gender:                 ['male', 'female']

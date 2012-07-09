@@ -36,9 +36,10 @@ class User < ActiveRecord::Base
   has_many   :tasks, :through => :task_suggestions
   has_and_belongs_to_many :levels
   has_one   :tutorial, :dependent => :destroy
+
   validate :normalized_phone_number_unique, :normalized_new_phone_number_unique
-  
   validate :sms_slug_does_not_match_commands
+  validate :date_of_birth_in_the_past
 
   validates_uniqueness_of :slug, :if => :slug_required
   validates_uniqueness_of :sms_slug, :message => "Sorry, that username is already taken.", :if => :slug_required
@@ -181,6 +182,14 @@ class User < ActiveRecord::Base
     all_commands = SpecialCommand.reserved_words + demo_rule_values
     if all_commands.include? self.sms_slug
       self.errors.add("sms_slug", "Sorry, but that username is reserved")
+    end
+  end
+
+  def date_of_birth_in_the_past
+    return unless self.date_of_birth
+
+    unless self.date_of_birth < Date.today
+      self.errors.add(:date_of_birth, "must be in the past")
     end
   end
   
