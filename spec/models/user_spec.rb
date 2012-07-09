@@ -640,6 +640,22 @@ describe User, "on save" do
     user.segmentation_data.accepted_invitation_at.should == accept_time.utc
     user.segmentation_data.claimed should be_true
   end
+
+  it "should sync to mongo whether or not the user has a phone number on record" do
+    user = FactoryGirl.create :user
+    crank_dj_clear
+    user.segmentation_data.has_phone_number.should be_false
+
+    user.phone_number = "+14155551212"
+    user.save!
+    crank_dj_clear
+    user.segmentation_data.has_phone_number.should be_true
+
+    user.phone_number = ""
+    user.save!
+    crank_dj_clear
+    user.segmentation_data.has_phone_number.should be_false
+  end
 end
 
 describe User, "on destroy" do

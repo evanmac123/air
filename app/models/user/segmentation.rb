@@ -13,7 +13,8 @@ class User
         :characteristics        => self.characteristics.try(:stringify_keys) || {},
         :date_of_birth          => self.date_of_birth.try(:to_time).try(:utc).try(:midnight),
         :accepted_invitation_at => self.accepted_invitation_at.try(:utc),
-        :claimed                => self.accepted_invitation_at.present?
+        :claimed                => self.accepted_invitation_at.present?,
+        :has_phone_number       => self.phone_number.present?
       }
     end
 
@@ -99,5 +100,14 @@ class User
       end
     end
 
+    # This is a utility method meant to be run from the Heroku console, after
+    # you add some new fields to segmentation data. Keep in mind that it will
+    # jam up the DJ queue for a bit while it's running.
+
+    def self.update_all_segmentation_data
+      User.all.each do |user|
+        user.delay.update_segmentation_info
+      end
+    end
   end
 end

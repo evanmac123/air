@@ -15,7 +15,7 @@ class User < ActiveRecord::Base
 
   DEFAULT_MUTE_NOTICE_THRESHOLD = 10
 
-  FIELDS_TRIGGERING_SEGMENTATION_UPDATE = %w(characteristics points location_id date_of_birth height weight gender demo_id accepted_invitation_at)
+  FIELDS_TRIGGERING_SEGMENTATION_UPDATE = %w(characteristics points location_id date_of_birth height weight gender demo_id accepted_invitation_at phone_number)
 
   include Clearance::User
   include User::Ranking
