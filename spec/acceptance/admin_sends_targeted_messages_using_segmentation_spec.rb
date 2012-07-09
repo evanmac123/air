@@ -261,10 +261,25 @@ feature 'Admin sends targeted messges using segmentation' do
     expect_value "sms_text", expected_sms_text
   end
 
-  # The following our are nice-to-haves
-  #it 'should allow preview of emails'
-  #it 'should allow preview of texts'
-  #it "should allow drafts to be saved"
+  it "should not attempt to send an SMS to a user with a blank phone number", :js => true do
+    set_up_models(use_phone: true)
+    3.times {FactoryGirl.create(:user, demo: @demo)}
+    signin_as_admin
+
+    visit admin_demo_targeted_messages_path(@demo)
+    click_button "Find segment"
+
+    should_be_on(admin_demo_targeted_messages_path(@demo))
+    expect_content "23 users in segment"
+
+    fill_in "sms_text", :with => 'some nonsense'
+    click_button "DO IT"
+
+    expect_content "Scheduled SMS to 20 users"
+
+    crank_dj_clear
+    FakeTwilio.sent_messages.should have(20).texts
+  end
+
   #it 'should allow a communication to be tracked after the fact'
-  #it "should automatically infer plain text if none is set"
 end

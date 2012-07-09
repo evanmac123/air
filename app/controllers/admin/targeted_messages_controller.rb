@@ -30,7 +30,7 @@ class Admin::TargetedMessagesController < AdminBaseController
 
     if respect_notification_method
       email_recipients = users.wants_email
-      sms_recipients = users.wants_sms
+      sms_recipients = users.wants_sms.with_phone_number
     else
       email_recipients = sms_recipients = users
     end
