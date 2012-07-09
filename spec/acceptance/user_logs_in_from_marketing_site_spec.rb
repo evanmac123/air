@@ -10,7 +10,6 @@ feature "User Requests Rules"do
     fill_in 'session_email', :with => @email
     fill_in 'session_password', :with => @password
     click_button 'sign_in_button'
-    save_and_open_page
     page.should have_content("Welcome back")
   end
 end

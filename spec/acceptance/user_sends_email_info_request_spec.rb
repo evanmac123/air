@@ -7,6 +7,8 @@ feature "User Sends Email Info Request", %q{
 } do
 
   scenario "User requests information through the marketing page", :js => true do
+    EmailInfoRequest.stubs(:"create!")
+
     @phone = "(332) 334-3322"
     @name = "James Hennessey IX"
     @email = "somthingfornothing@james.com"
@@ -21,12 +23,6 @@ feature "User Sends Email Info Request", %q{
 
     page.should have_content "Thanks! We'll be in touch"
 
-    crank_dj_clear
-
-    open_email 'vlad@hengage.com'
-    email_body.should include(@email)
-    email_body.should include(@phone)
-    email_body.should include(@comment)
-    email_body.should include(@name)
+    EmailInfoRequest.should have_received(:"create!").with(email: @email, name: @name, phone: @phone, comment: @comment)
   end
 end
