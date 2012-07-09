@@ -3,7 +3,7 @@
 <% end %>
   
 <%= form_for @invitation_request, :url => invitations_path, :id => "signup-form", :builder => FancyFormBuilder do |f| %>
-  <%= f.fancy_text_field :email, :class => "signup-field" %>
+  <%= f.fancy_text_field :email, :class => "signup-field", :placeholder => "Email address" %>
   <ul class="form-section signup-submit">
     <li><input name="commit" type="submit" value="Request invitation"></li>
   </ul>
