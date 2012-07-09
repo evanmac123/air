@@ -117,6 +117,15 @@ body.sessions { // Log In external pages
     margin:10px 0 0 0;
   }
 }
+body.invitations-show { // Invitations form page
+  div.content {
+    border:1px blue solid;
+    ul {margin:0;}
+  }
+  div.inv-forms {
+    border:1px lime solid;
+  }
+}
 
 /* ============== notes ==============
 + need separate div.status-message's for body.invitations and body.sessions
