@@ -21,10 +21,7 @@ body.external {
     border-bottom:1px #fff solid;
     padding:20px 0;
     text-align:center;
-    div {
-       margin:auto;
-       width:960px;
-    }
+    div {margin:auto; width:960px;}
     div#logo {
        padding:20px 0;
        img {height:100px; margin:0 auto;}
@@ -34,6 +31,7 @@ body.external {
        li {
           background:url('marketing/bgpx-dark.png');
           font-size:16px;
+          margin:0 1px;
           padding:10px 20px;
           text-shadow:none;
           a {color:#818385;}
@@ -41,7 +39,6 @@ body.external {
     }
   } //end of div.header
   div.content {
-    //border:1px red solid;
     color:#CCC;
     font-size:14px;
     margin:20px auto;
@@ -87,6 +84,8 @@ body.external {
       width:141px;
       &:hover { background:image-url('marketing/btnhov-submit.png') center center no-repeat; }
     }
+    li.form-label {color:#777;}
+    ul.form-section {margin-bottom:10px;}
   } // end of div.content
   div.footer {
     color:#777;
@@ -97,34 +96,51 @@ body.external {
 }
 
 body.invitations-new, body.invitations-create { // Sign Up external pages
-  div.status-message p {
-    color:#ccc;
-    //font-size:18px;
-    //padding:0;
-    &:last-child {
-      color:#fff;
-    }
-  }
+  li.form-label {display:none;}
 }
+
 body.sessions { // Log In external pages
   #session-wrapper a {
-    left:20px;
+    display:inline-block;
+    left:10px;
     position:relative;
     top:25px;
   }
-  input[type="submit"] {
-    float:left;
-    margin:10px 0 0 0;
-  }
+  input[type="submit"] {float:left;margin:10px 0 0 0;}
 }
 body.invitations-show { // Invitations form page
   div.content {
-    border:1px blue solid;
+    form {
+      border-bottom:1px #2B2B2B solid;
+      padding-bottom:20px;
+      input#user_terms_and_conditions {
+        float:left;
+        position:relative;
+        top:3px;
+      }
+    }
     ul {margin:0;}
-  }
-  div.inv-forms {
-    border:1px lime solid;
-  }
+  } // div.content ends
+  div.privacy-policy {
+    border-top:1px #464545 solid;
+    clear:both;
+    font-size:13px;
+    padding-top:20px;
+    p {font-weight:bold;}
+    ul {
+      list-style-type:circle;
+      margin-left:20px;
+      padding:5px 0;
+    }
+  } // div.privacy-policy ends
+  /*div.helper { // helper popup modules
+    background:#ccc;
+    border:1px red solid!important;
+  }*/
+}
+body.pages-show, body.pages-terms { // terms of service
+  h1 {color:#fff;}
+  p {padding:10px 0;}
 }
 
 /* ============== notes ==============

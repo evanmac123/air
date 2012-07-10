@@ -144,10 +144,13 @@
         = link_to "terms and conditions", terms_path(:id => 'terms')
       - if @user.errors[:terms_and_conditions].present?
         .form-msg= @user.errors[:terms_and_conditions].first
+
+      .cf
     %ul.form-section.signup-submit
 
       <input name="commit" type="submit" value="Join the game" style="float: left;" id='join_the_game_link'>
-= link_to_function 'Questions?', "setTimeout(\"$('.assistly-widget a').click()\", 500)", :style => "float: right;", :id => :contact_us_from_inv_acceptance_page
+      = link_to_function 'Questions?', "setTimeout(\"$('.assistly-widget a').click()\", 500)", :style => "float: right; padding-top:15px", :id => :contact_us_from_inv_acceptance_page
+      .cf
 
 %div.privacy-policy.form-footnotes
   %p Please remember:

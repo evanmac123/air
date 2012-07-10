@@ -192,33 +192,15 @@ div#search_for_referrer {
 
 /*      ############# Stolen from another stylesheet ######################### */
 div.helper {
-	@include rounded;
-	background-color: $hengage-bg;
-	background-image: image-url('v3/texture_darker.png');
-	border: {
-		style:solid;
-		width:1px;
-		
-		bottom: {
-			color: darken($hengage-bg, 15%);
-		}
-		left: {
-			color: darken($hengage-bg, 15%);
-		}
-		right: {
-			color: darken($hengage-bg, 15%);
-		}
-		top: {
-			color: lighten($hengage-bg, 10%);
-		}
-	}
+  background:#3D3D3D;
+	border:1px #2B2B2B solid;
+  border-radius:5px;
 	box-shadow: 0 0 4px #2c2c2c;
-	color: #fff;
+	color: #39B549;
 	display: none;
 	line-height: 16px;
 	padding: 10px;
 	position: absolute;
-//					text-shadow:1px 1px 1px #333;
 	behavior: url(/css3pie/PIE.htc);
 	width: 175px;
 	left: -217px;			
