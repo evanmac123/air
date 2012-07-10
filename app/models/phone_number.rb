@@ -13,4 +13,8 @@ module PhoneNumber
                         end
     "#{INTERNATIONAL_EXIT_CODE}#{with_country_code}"
   end
+
+  def self.is_valid_number?(number)
+    self.normalize(number).length == 12
+  end
 end

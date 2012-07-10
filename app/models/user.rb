@@ -38,6 +38,7 @@ class User < ActiveRecord::Base
   has_one   :tutorial, :dependent => :destroy
 
   validate :normalized_phone_number_unique, :normalized_new_phone_number_unique
+  validate :new_phone_number_has_valid_number_of_digits
   validate :sms_slug_does_not_match_commands
   validate :date_of_birth_in_the_past
 
@@ -1173,6 +1174,13 @@ class User < ActiveRecord::Base
                        end
     if self.class.where(where_conditions).limit(1).present?
       self.errors.add(input, "Sorry, but that phone number has already been taken. Need help? Contact support@hengage.com")
+    end
+  end
+
+  def new_phone_number_has_valid_number_of_digits
+    return unless self.new_phone_number.present?
+    unless PhoneNumber.is_valid_number?(self.new_phone_number)
+      self.errors.add(:new_phone_number, "Please fill in all ten digits of your mobile number, including the area code")
     end
   end
 
