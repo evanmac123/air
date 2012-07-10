@@ -9,9 +9,9 @@ namespace :cover_me do
 end
 
 task :test do
-  Rake::Task['cover_me:report'].invoke unless ENV['NO_REPORT']
+  Rake::Task['cover_me:report'].invoke if ENV['REPORT']
 end
 
 task :spec do
-  Rake::Task['cover_me:report'].invoke unless ENV['NO_REPORT']
+  Rake::Task['cover_me:report'].invoke if ENV['REPORT']
 end
