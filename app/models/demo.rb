@@ -23,6 +23,9 @@ class Demo < ActiveRecord::Base
   validates_uniqueness_of :name
   validates_presence_of :name
 
+  validate :gold_coin_fields_all_set, :if => :uses_gold_coins
+  validate :gold_coin_maximum_award_gte_minimum, :if => :uses_gold_coins
+
   has_alphabetical_column :name
 
   # We go through this rigamarole since we can move a user from one demo to
@@ -316,7 +319,23 @@ class Demo < ActiveRecord::Base
       errors.add(:begins_at, "must come before the ending time")
     end
   end
-  
+ 
+  def gold_coin_fields_all_set
+    [:gold_coin_threshold, :minimum_gold_coin_award, :maximum_gold_coin_award].each do |field_name|
+      unless self[field_name].present?
+        self.errors.add(field_name, "must be set if you want to use gold coins on this demo")
+      end
+    end
+  end
+
+  def gold_coin_maximum_award_gte_minimum
+    return unless self.maximum_gold_coin_award.present? && self.minimum_gold_coin_award.present?
+
+    if self.maximum_gold_coin_award < self.minimum_gold_coin_award
+      self.errors.add(:maximum_gold_coin_award, "must be greater than or equal to the minimum gold coin award")
+    end
+  end
+
   def self.next_id
     self.last.nil? ? 1 : self.last.id + 1
   end
