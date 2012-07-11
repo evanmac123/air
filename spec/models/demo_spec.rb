@@ -213,3 +213,6 @@ describe Demo, "#tutorial_success" do
   end
 end
 
+describe Demo, "gold coin fields" do
+  it "should be validated all together"
+end

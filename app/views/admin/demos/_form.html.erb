@@ -25,6 +25,19 @@
     <%= form.input :mute_notice_threshold %>
     <%= form.input :example_tutorial, :label => "Custom example for slide 1 of tutorial" %>
     <%= form.input :example_tooltip, :label => "Custom example for playbox tooltip" %>
+
+    <%= form.input :uses_gold_coins, :label => "Use gold coins" %>
+    <%= form.inputs :name => "Gold coin details", :style => "display: none", :id => 'gold-coin-details' do %>
+      <%= form.input :gold_coin_threshold, :label => "Points for gold coin award"  %>
+      <%= form.input :minimum_gold_coin_award, :label => "Minimum number of gold coins awarded" %>
+      <%= form.input :maximum_gold_coin_award, :label => "Maximum number of gold coins awarded" %>
+    <% end %>
+    <%= content_for :javascript do %>
+      <%= javascript_tag do %>
+        $('input#demo_uses_gold_coins').change(function(e) {$('#gold-coin-details').toggle()});
+      <% end %>
+    <% end %>
+
   <% end %>
 
   <%= form.inputs :name => "Followup welcome message" do %>
