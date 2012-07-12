@@ -27,7 +27,8 @@
     <%= form.input :example_tooltip, :label => "Custom example for playbox tooltip" %>
 
     <%= form.input :uses_gold_coins, :label => "Use gold coins" %>
-    <%= form.inputs :name => "Gold coin details", :style => "display: none", :id => 'gold-coin-details' do %>
+    <%- gold_coin_style = @demo.uses_gold_coins ? '' : "display: none" %>
+    <%= form.inputs :name => "Gold coin details", :style => gold_coin_style, :id => 'gold-coin-details' do %>
       <%= form.input :gold_coin_threshold, :label => "Points for gold coin award"  %>
       <%= form.input :minimum_gold_coin_award, :label => "Minimum number of gold coins awarded" %>
       <%= form.input :maximum_gold_coin_award, :label => "Maximum number of gold coins awarded" %>

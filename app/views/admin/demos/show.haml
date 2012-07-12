@@ -250,7 +250,7 @@
   %p 
     = "Game will#{' not' unless @demo.uses_gold_coins} use gold coins"
     -if @demo.uses_gold_coins
-      = "Gold coins are awarded every #{@demo.gold_coin_threshold} points (#{@demo.minimum_gold_coin_award} to #{@demo.maximum_gold_coin_award} coins awarded at a time)"
+      %p= "Gold coins are awarded every #{@demo.gold_coin_threshold} points (#{@demo.minimum_gold_coin_award} to #{@demo.maximum_gold_coin_award} coins awarded at a time)"
 
   %p.explanation= translate('.explanation', :default => "Add HR people from %{company} to this demo, then send them an invitation to the demo.", :company => @demo.name) 
 

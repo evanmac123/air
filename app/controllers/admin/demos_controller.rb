@@ -45,10 +45,14 @@ class Admin::DemosController < AdminBaseController
     end
 
     @demo.attributes = params[:demo]
-    @demo.save!
 
-    flash[:success] = "Demo updated"
-    redirect_to admin_demo_path(@demo)
+    if @demo.save
+      flash[:success] = "Demo updated"
+      redirect_to admin_demo_path(@demo)
+    else
+      flash.now[:failure] = "Couldn't update demo: #{@demo.errors.full_messages.join(', ')}"
+      render :edit
+    end
   end
 
   def destroy
