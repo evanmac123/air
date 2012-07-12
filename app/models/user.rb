@@ -527,7 +527,7 @@ class User < ActiveRecord::Base
 
   def invite(referrer = nil, options ={})
     Mailer.delay.invitation(self, referrer, options)
-    update_attribute(:invited, true)
+    update_attributes(invited: true)
   end
 
   def mark_as_claimed(number, channel = :web)
@@ -1004,7 +1004,7 @@ class User < ActiveRecord::Base
   end
  
   def manually_set_confirmation_token
-    update_attribute(:confirmation_token, SecureRandom.hex(16))
+    update_attributes(confirmation_token: SecureRandom.hex(16))
   end
 
   def ping(event, properties)
@@ -1027,11 +1027,8 @@ class User < ActiveRecord::Base
   end
 
   def load_personal_email(in_email)
-    unless email == in_email
-      self.overflow_email = email
-      self.email = in_email
-      save
-    end
+    return true if email == in_email # do nothing but return true if they try to reload their primary email
+    update_attributes(overflow_email: email, email: in_email)
   end
  
   def bad_friendship_index_error_message(request_index)

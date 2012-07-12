@@ -39,8 +39,7 @@ class EmailCommand < ActiveRecord::Base
 
   def request_invitation_by_emailing_their_userid(options={})
     user = User.where(claim_code: self.clean_body).first
-    if user
-      user.load_personal_email(self.email_from)
+    if user && user.load_personal_email(self.email_from)
       user.invite(nil, options)
       self.user_id = user.id
       self.save

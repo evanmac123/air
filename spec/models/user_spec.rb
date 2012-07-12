@@ -15,6 +15,7 @@ describe User do
   it { should have_many(:survey_answers) }
   it { should have_many(:wins) }
   it { should have_many(:task_suggestions) }
+  it { should validate_uniqueness_of(:email) }
 
 end
 
@@ -984,3 +985,5 @@ describe User, ".wants_sms" do
     User.wants_sms.all.sort.should == [sms_only, both].sort
   end
 end
+
+
