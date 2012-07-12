@@ -262,7 +262,14 @@ describe Demo, "gold coin fields" do
       @demo.uses_gold_coins.should_not be_true
     end
 
-    it "should not care if the other gold coin fields are set"
-    it "should not care if the maximum coin award is greater than or equal to the minimum"
+    it "should not care if the other gold coin fields are set" do
+      @demo.should be_valid
+    end
+
+    it "should not care if the maximum coin award is greater than or equal to the minimum" do
+      @demo.minimum_gold_coin_award = 10
+      @demo.maximum_gold_coin_award = 5
+      @demo.should be_valid
+    end
   end
 end

@@ -125,4 +125,8 @@ module SteakHelperMethods
     checkbox = find_input_element(checkbox_identifier)
     checkbox.value.to_i.should == 1
   end
+
+  def expect_gold_coin_header(expected_coin_count)
+    expect_content "#{expected_coin_count} gold coins"
+  end
 end

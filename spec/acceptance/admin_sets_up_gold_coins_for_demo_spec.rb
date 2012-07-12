@@ -29,7 +29,13 @@ feature 'Admin sets up gold coins for demo', :js => true do
     expect_content "Gold coins are awarded every 10 points (5 to 7 coins awarded at a time)"
   end
 
-  scenario "should show gold coins in the header"
+  scenario "should show gold coins in the header" do
+    demo = FactoryGirl.create(:demo, :with_gold_coins)
+    user = FactoryGirl.create(:user, :claimed, demo: demo, gold_coins: 25)
+    has_password(user, 'foobar')
+    signin_as(user, 'foobar')
+    expect_gold_coin_header(25)
+  end
 end
 
 feature "Admin doesn't turn on gold coins for demo" do

@@ -49,6 +49,13 @@ if ENV['FIRST_TIME'].nil?
     
     factory :demo do 
       sequence(:name, Demo.next_id) {|n| "Coolio_#{n}" }
+
+      trait :with_gold_coins do
+        uses_gold_coins true
+        gold_coin_threshold 20
+        minimum_gold_coin_award 1
+        maximum_gold_coin_award 3
+      end
     end
     
     factory :rule do

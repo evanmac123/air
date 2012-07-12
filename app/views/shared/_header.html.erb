@@ -54,5 +54,6 @@
         <p class="level"><%= current_user.top_level_index %></p>
 			</div>
 		</div>
-	</div>
+  </div>
+  <% if current_user.demo.uses_gold_coins %><%= current_user.gold_coins %> gold coins<% end %>
 </div>
