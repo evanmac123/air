@@ -127,6 +127,11 @@ module SteakHelperMethods
   end
 
   def expect_gold_coin_header(expected_coin_count)
-    expect_content "#{expected_coin_count} gold coins"
+    expect_content (expected_coin_count == 1 ? "1 gold coin" : "#{expected_coin_count} gold coins")
+  end
+
+  def act_via_play_box(text)
+    fill_in 'command_central', :with => text
+    click_button 'play_button'
   end
 end

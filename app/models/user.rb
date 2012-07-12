@@ -107,6 +107,7 @@ class User < ActiveRecord::Base
     schedule_update_demo_alltime_rankings if changed.include?('points')
     schedule_update_demo_recent_average_rankings if (!batch_updating_recent_averages && changed.include?('recent_average_points'))
     trigger_demographic_tasks
+    add_gold_coins
   end
 
   before_save do
@@ -1193,6 +1194,24 @@ class User < ActiveRecord::Base
   def update_associated_act_privacy_levels
     # See Act for an explanation of why we denormalize privacy_level onto it.
     Act.update_all({:privacy_level => self.privacy_level}, {:user_id => self.id}) if self.changed.include?('privacy_level')
+  end
+
+  def add_gold_coins
+    return unless self.demo.uses_gold_coins && self.changed.include?('points')
+
+    old_points, new_points = self.changes['points']
+
+    old_point_tranche = old_points / self.demo.gold_coin_threshold
+    new_point_tranche = new_points / self.demo.gold_coin_threshold
+
+    return if old_point_tranche == new_point_tranche
+
+    if self.demo.minimum_gold_coin_award == self.demo.maximum_gold_coin_award
+      self.gold_coins += self.demo.minimum_gold_coin_award
+    else
+      coins_over_minimum = rand(self.demo.gold_coin_spread + 1)
+      self.gold_coins += (self.demo.minimum_gold_coin_award + coins_over_minimum)
+    end
   end
 
   def self.claimable_by_first_name_and_claim_code(claim_string)

@@ -284,6 +284,13 @@ class Demo < ActiveRecord::Base
     percent = 100.0 * number_accepted / total_friendships
     "#{name} has #{total_friendships} initiated friendships, #{number_accepted} of which have been accepted (#{percent}%)"
   end
+  
+  def gold_coin_spread
+    return nil unless self.uses_gold_coins
+
+    self.maximum_gold_coin_award - self.minimum_gold_coin_award
+  end
+
   protected
 
   def unless_within(cutoff_time, last_done_time)

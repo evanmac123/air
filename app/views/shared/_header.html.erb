@@ -55,5 +55,5 @@
 			</div>
 		</div>
   </div>
-  <% if current_user.demo.uses_gold_coins %><%= current_user.gold_coins %> gold coins<% end %>
+  <% if current_user.demo.uses_gold_coins %><%= pluralize current_user.gold_coins, 'gold coin' %><% end %>
 </div>
