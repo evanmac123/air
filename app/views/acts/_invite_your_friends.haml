@@ -12,26 +12,18 @@
     $("#autocomplete").live('blur', function() {
       $(".helper.autocomplete").fadeOut();
     })
+
+    $('#show_me_the_site').live('click', function(e){
+      e.preventDefault();
+      $.facebox.close();
+    });
     
 
-- if current_user.session_count < 3 && session[:invite_friends_modal_shown].nil?
-  - div_id = 'invite_friends_facebox'
-  - show_greeting = true
-  - session[:invite_friends_modal_shown] = true
-  / %h2 Invite your friends
-  / %p For each friend that joins the game, you get an extra 5 points!
-  / = link_to "Invite friends to play", activity_path
-- else
-  - div_id = 'invite_friends'
-
--###### Uncomment this next line if you want the facebox to pop every time 
--# div_id = 'invite_friends_facebox'
-
-.invite{:id => div_id}
+.invite{:id => @div_id}
   #search_for_friends_to_invite
     #invite_friends_top
 
-      / - unless show_greeting.nil?
+      / - unless @show_greeting.nil?
       /   %p= "Thanks for joining #{current_user.demo.name}" 
 
       %h2#invite_your_friends_title Invite your friends
@@ -89,5 +81,5 @@
         #suggestions
           .clear
         #show_me_the_site_holder
-          #show_me_the_site= link_to "Enter Site"
+          = link_to "Enter Site", nil, :id => :show_me_the_site
 

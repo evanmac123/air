@@ -9,6 +9,18 @@ class ActsController < ApplicationController
     @current_link_text = "Home"
     @current_user = current_user
     
+    if @current_user.session_count < 3 && session[:invite_friends_modal_shown].nil?
+      @div_id = 'invite_friends_facebox'
+      @show_greeting = true
+      session[:invite_friends_modal_shown] = true
+      page_name_to_ping = 'invite friends modal'
+    else
+      @div_id = 'invite_friends'
+      page_name_to_ping = 'activity feed'
+    end
+
+    @current_user.ping_page(page_name_to_ping) 
+    
     @show_only             = params[:show_only]
     @demo                  = current_user.demo
     @acts                  = find_requested_acts(@demo)

@@ -395,6 +395,7 @@ function autoFocusColor(field, text){
 
 function launchTutorialIntroduction(){
   if (document.getElementById('tutorial_introduction')){
+    mixpanelPagePingForTalkingChicken();
     var div = $('#tutorial_introduction');
     var intro_content = div.html();
     var options = {hideOnOverlayClick : false,
@@ -405,6 +406,14 @@ function launchTutorialIntroduction(){
     $.fancybox(intro_content, options);
     div.hide();
   }
+}
+
+function mixpanelPagePingForTalkingChicken(){
+  $.post('/ping', {page_name: 'talking chicken'});
+}
+
+function mixpanelPagePingForActivityFeed(){
+  $.post('/ping', {page_name: 'activity feed'});
 }
 
 function hideTutorialIntroduction(){
