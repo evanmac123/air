@@ -28,7 +28,7 @@ class Admin::RulesController < AdminBaseController
     if @rule.errors.empty?
       flash[:success] = "Rule created."
     else
-      flash[:failure] = "Couldn't create rule: #{@rule.errors.full_messages}"
+      flash[:failure] = "Couldn't create rule: #{@rule.errors.full_messages.join(', ')}"
     end
 
     redirect_to rules_index(params[:demo_id])

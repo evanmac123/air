@@ -124,6 +124,30 @@ Feature: Admin adds and edits rules
       | primary_value | secondary_values | points | reply                     | description                    | alltime_limit | referral_points | suggestible |
       | ate oatmeal   | ate some oatmeal | 55     | 55 points for you, bucko. | I ate a big ol bowl of oatmeal | 5             | 19              | false       |
 
+  Scenario: Trying to create a rule with a duplicate rule value gives a sensible error rather than blowing up
+    When I go to the admin rules page for "FooCorp"
+    And I follow "Add new rule"
+    And I fill in the following:
+      | Primary value   | ate banana                      |
+      | Points          | 55                              |
+      | Reply           | 55 points for you, bucko.       |
+      | Description     | I ate a big ol banana.          |
+    And I press "Create Rule"
+    Then I should be on the admin rules page for "FooCorp"
+    And I should see 'Problem with primary value: Value must be unique within its demo'
+
+    When I go to the admin rules page for "FooCorp"
+    And I follow "Add new rule"
+    And I fill in the following:
+      | Primary value   | konsumed kat                    |
+      | Points          | 55                              |
+      | Reply           | 55 points for you, bucko.       |
+      | Description     | I ate a kittykat.               |
+    And I fill in secondary value field #1 with "ate kitten"
+    And I press "Create Rule"
+    Then I should be on the admin rules page for "FooCorp"
+    And I should see 'Problem with secondary value ate kitten: Value must be unique within its demo'
+
   Scenario: Admin gets a warning if she creates a rule that matches an sms_id in the demo
     When I go to the admin rules page for "FooCorp"
     And I follow "Add new rule"

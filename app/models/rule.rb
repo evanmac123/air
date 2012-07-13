@@ -97,7 +97,12 @@ class Rule < ActiveRecord::Base
 
   def self.create_with_rule_values(new_attributes, demo_id, primary_value, secondary_values)
     rule = Rule.new(:demo_id => demo_id)
-    rule.update_with_rule_values(new_attributes, primary_value, secondary_values)
+    unless rule.update_with_rule_values(new_attributes, primary_value, secondary_values)
+      # Rather than leave this half-baked, trash it, but return it anyway so
+      # we can use it to re-populate the form.
+      rule.destroy
+    end
+
     rule
   end
 
