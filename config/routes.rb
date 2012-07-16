@@ -124,6 +124,9 @@ Health::Application.routes.draw do
 
       resource :segmentation
       resource :targeted_messages
+
+      resource :raffles
+      resource :gold_coin_reset
     end #demo namespace
 
     resources :users, :only => [] do

@@ -1,0 +1,21 @@
+= form_tag admin_demo_raffles_path(@demo), :id => 'pick-a-winner' do
+  = submit_tag "Pick a winner"
+  = image_tag "spinner.gif", :style => "display: none", :id => "winner-spinner"
+
+#winner-target
+
+= form_tag admin_demo_gold_coin_reset_path(@demo) do
+  = submit_tag "Clear all gold coins", :confirm => "Really clear out gold coins for all users in this demo?"
+
+-content_for :javascript do
+  :javascript
+    $('#pick-a-winner').submit(function(e) {
+      e.preventDefault();
+      var targetUrl = $('#pick-a-winner').attr('action');
+
+      $('#winner-spinner').show();
+      $.post(targetUrl, function(data) {
+        $('#winner-target').html(data);
+        $('#winner-spinner').hide();
+      })
+    });

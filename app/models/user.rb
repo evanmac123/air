@@ -505,6 +505,10 @@ class User < ActiveRecord::Base
     Mixpanel::Tracker.new(MIXPANEL_TOKEN, {}).delay.track_event("got rule suggestion", data_for_mixpanel.merge(suggestion_hash))
   end
 
+  def self.with_some_gold_coins
+    where("gold_coins > 0")
+  end
+
   def self.in_canonical_ranking_order
     order("points DESC, name ASC")
   end

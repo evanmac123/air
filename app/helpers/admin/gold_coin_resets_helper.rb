@@ -1,0 +1,2 @@
+module Admin::GoldCoinResetsHelper
+end

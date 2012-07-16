@@ -291,6 +291,23 @@ class Demo < ActiveRecord::Base
     self.maximum_gold_coin_award - self.minimum_gold_coin_award
   end
 
+  def flush_all_user_gold_coins
+    users.with_some_gold_coins.each{|user| user.update_attributes(gold_coins: 0)}
+  end
+
+  def find_raffle_winner
+    eligibles = users.with_some_gold_coins.order("gold_coins ASC")
+    return nil if eligibles.empty?
+
+    chances = []
+    eligibles.each do |user|
+      user.gold_coins.times {chances << user}
+    end
+
+    index = rand(chances.length)
+    chances[index]
+  end
+
   protected
 
   def unless_within(cutoff_time, last_done_time)
