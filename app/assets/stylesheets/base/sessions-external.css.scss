@@ -1,4 +1,5 @@
 $hegreen: #74C04C;
+$hedgreen: #39b549;
 body.external {
   background:url('marketing/bg-dark.jpg');
   a { 
@@ -129,43 +130,51 @@ body.invitations {
     form {
       border-top:1px #fff solid;
       padding-top:20px;
-      #all-inputs {
-        border:1px red solid;
-        .form-ul-section {
-          border:1px yellow solid;
-          input {width:380px;}
-          ul.form-section{
-            .form-label {
-              //border:1px blue solid;
-              float:left;
-              padding:10px 15px;
-              width:220px;
-            }
-            .form-input {
-              //border:1px green solid;
-              //position:relative;
-              margin-left:250px;
-              width:400px;
-            }
-          }
+      input {width:380px!important;}
+      ul.form-section{
+        .form-label {
+          //border:1px blue solid;
+          color:#828282;
+          float:left;
+          font-family:'Ubuntu', Helvetica, Arial, sans-serif;
+          font-weight:500;
+          padding:15px 0 0 15px;
+          width:220px;
+        }
+        .form-input {
+          //border:1px green solid;
+          margin-left:250px;
+          width:400px;
+        }
+        &.signup-location_id {
+          height:50px;
         }
       }
     }
   }
 }
 /* ############ end EXPERIMENTAL ############# */
-/* ############ helper text ############# 
+/* ############ helper text ############# */
 div.helper {
+  //float:right;
+  color:$hedgreen;
+  font-size:12px;
+  position:absolute;
+  right:0;
+  width:280px;
+}
+
+/* div.helper {
   background:#3D3D3D;
   border:1px #2B2B2B solid;
-  border-radius:5px;
-  box-shadow: 0 0 4px #2c2c2c;
+  //border-radius:5px;
+  //box-shadow: 0 0 4px #2c2c2c;
   color: #39B549;
-  display: none;
+  //display: none;
   line-height: 16px;
   padding: 10px;
   position: absolute;
-  behavior: url(/css3pie/PIE.htc);
+  //behavior: url(/css3pie/PIE.htc);
   width: 175px;
   left: -217px;     
   z-index: 1;
