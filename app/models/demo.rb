@@ -295,13 +295,17 @@ class Demo < ActiveRecord::Base
     users.with_some_gold_coins.each{|user| user.update_attributes(gold_coins: 0)}
   end
 
-  def find_raffle_winner
+  def find_raffle_winner(coin_maximum = nil)
     eligibles = users.with_some_gold_coins.order("gold_coins ASC")
     return nil if eligibles.empty?
 
     chances = []
     eligibles.each do |user|
-      user.gold_coins.times {chances << user}
+      if coin_maximum
+        [user.gold_coins, coin_maximum].min.times {chances << user}
+      else
+        user.gold_coins.times {chances << user}
+      end
     end
 
     index = rand(chances.length)

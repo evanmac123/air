@@ -5,7 +5,8 @@ class Admin::RafflesController < AdminBaseController
   end
 
   def create
-    @winner = @demo.find_raffle_winner
+    coin_maximum = params[:coin_maximum].present? ? params[:coin_maximum].to_i : nil
+    @winner = @demo.find_raffle_winner(coin_maximum)
     render :layout => false
   end
 end
