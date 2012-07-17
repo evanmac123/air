@@ -295,8 +295,13 @@ class Demo < ActiveRecord::Base
     users.with_some_gold_coins.each{|user| user.update_attributes(gold_coins: 0)}
   end
 
-  def find_raffle_winner(coin_maximum = nil)
+  def find_raffle_winner(eligible_user_ids, coin_maximum)
     eligibles = users.with_some_gold_coins.order("gold_coins ASC")
+
+    if eligible_user_ids
+      eligibles = eligibles.where(:id => eligible_user_ids)
+    end
+
     return nil if eligibles.empty?
 
     chances = []

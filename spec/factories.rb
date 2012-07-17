@@ -236,6 +236,9 @@ if ENV['FIRST_TIME'].nil?
       datatype Characteristic::DiscreteType
       allowed_values %w(Foo Bar Baz)
 
+      trait :discrete do
+      end
+
       trait :demo_specific do
         association :demo
       end
