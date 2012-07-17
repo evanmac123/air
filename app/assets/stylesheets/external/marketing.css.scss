@@ -71,6 +71,7 @@ td { vertical-align: top; }
 /* ===== Primary Styles ========================================================
    Author: Connie Y. Chan
    ========================================================================== */
+$hegreen: #74C04C;
 body {
   background-color:#f2f3f2;
   background-image:image-url('marketing/bg.png');
@@ -80,7 +81,7 @@ body {
   min-width:960px;
 }
 a { 
-  color: #74c04c; 
+  color: $hegreen; 
   font-family: 'Ubuntu', sans-serif;
   font-weight:500;
   text-decoration: none;
@@ -90,7 +91,7 @@ a {
   transition:color 0.2s ease-in;  
 }
 a:active {color:#72a435;}
-a:visited { color: #74c04c; }
+a:visited { color: $hegreen; }
 a:hover { color: #39b549; }
 a:focus { outline: thin dotted; }
 a:hover, a:active { outline: 0; }
@@ -112,8 +113,8 @@ input[type="text"], input[type="email"], textarea, ul input[type="password"] {
   width:300px;
 }
 input[type="text"]:focus, textarea:focus, input[type="password"]:focus {
-  border:1px #74c04c solid;
-  //color:#74c04c;
+  border:1px $hegreen solid;
+  //color:$hegreen;
   color:#999;
   outline:none;
 }
@@ -199,7 +200,7 @@ header {
 }
 
 #welcome h1 {
-  color:#74c04c;
+  color:$hegreen;
   font-size:40px;
   line-height:45px;
   margin:0;

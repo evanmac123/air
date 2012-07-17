@@ -1,3 +1,4 @@
+$hegreen: #74C04C;
 body.external {
   background:url('marketing/bg-dark.jpg');
   a { 
@@ -21,7 +22,7 @@ body.external {
     border-bottom:1px #fff solid;
     padding:20px 0;
     text-align:center;
-    div {margin:auto; width:960px;}
+    div {margin:auto; width:440px;}
     div#logo {
        padding:20px 0;
        img {height:100px; margin:0 auto;}
@@ -94,11 +95,6 @@ body.external {
     text-align:center;
   }
 }
-
-body.invitations-new, body.invitations-create { // Sign Up external pages
-  li.form-label {display:none;}
-}
-
 body.sessions { // Log In external pages
   #session-wrapper a {
     display:inline-block;
@@ -107,6 +103,77 @@ body.sessions { // Log In external pages
     top:25px;
   }
   input[type="submit"] {float:left;margin:10px 0 0 0;}
+}
+
+/* ############ EXPERIMENTAL ############# */
+body.invitations {
+  background:url('marketing/bg.png');
+  p {color:#636363;}
+  .header {
+    border:none!important;
+    margin:0 auto;
+    width:960px;
+    #logo {
+      float:left;
+      width:auto;
+      img {height:auto!important; width:290px;}
+    }
+    #navigation {display:none;}
+  }
+  .content {
+    width:960px!important;
+    .status {
+      border-bottom:1px #d8d8d8 solid;
+      .welcome-message {h2 {color:$hegreen; font-size:40px;}}
+    }
+    form {
+      border-top:1px #fff solid;
+      padding-top:20px;
+      #all-inputs {
+        border:1px red solid;
+        .form-ul-section {
+          border:1px yellow solid;
+          input {width:380px;}
+          ul.form-section{
+            .form-label {
+              //border:1px blue solid;
+              float:left;
+              padding:10px 15px;
+              width:220px;
+            }
+            .form-input {
+              //border:1px green solid;
+              //position:relative;
+              margin-left:250px;
+              width:400px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+/* ############ end EXPERIMENTAL ############# */
+/* ############ helper text ############# 
+div.helper {
+  background:#3D3D3D;
+  border:1px #2B2B2B solid;
+  border-radius:5px;
+  box-shadow: 0 0 4px #2c2c2c;
+  color: #39B549;
+  display: none;
+  line-height: 16px;
+  padding: 10px;
+  position: absolute;
+  behavior: url(/css3pie/PIE.htc);
+  width: 175px;
+  left: -217px;     
+  z-index: 1;
+} 
+ ############ end helper text ############# */
+
+body.invitations-new, body.invitations-create { // Sign Up external pages
+  li.form-label {display:none;}
 }
 body.invitations-show { // Invitations form page
   div.content {
@@ -133,10 +200,6 @@ body.invitations-show { // Invitations form page
       padding:5px 0;
     }
   } // div.privacy-policy ends
-  /*div.helper { // helper popup modules
-    background:#ccc;
-    border:1px red solid!important;
-  }*/
 }
 body.pages-show, body.pages-terms { // terms of service
   h1 {color:#fff;}

@@ -5,6 +5,7 @@ $single_suggestion_border_width: 1px;
 $light_green: #87BF4E;
 $gold: #fd1;
 $medium_radius: 12px;
+$hengage-bg: #39B549;
 
 .clear{
   clear: both;
@@ -62,7 +63,7 @@ a.remove_referrer{
 }
 .single_suggestion{
   width: $bin_width;
-  background-color: #FFFAAD;
+  background-color: #eff0ef;
   color:$dark-gray;
   padding: 10px;
   width: $bin_width;
@@ -190,24 +191,7 @@ div#search_for_referrer {
   padding: 6px 13px 0;
 }
 
-/*      ############# Stolen from another stylesheet ######################### */
-div.helper {
-  background:#3D3D3D;
-	border:1px #2B2B2B solid;
-  border-radius:5px;
-	box-shadow: 0 0 4px #2c2c2c;
-	color: #39B549;
-	display: none;
-	line-height: 16px;
-	padding: 10px;
-	position: absolute;
-	behavior: url(/css3pie/PIE.htc);
-	width: 175px;
-	left: -217px;			
-	z-index: 1;
-}	
 
-/* ###############################   END STOLEN  ################################# */
 .relative{
   position: relative;
 }
