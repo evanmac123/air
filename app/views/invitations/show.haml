@@ -138,7 +138,7 @@
       = f.fancy_password_field :password, :label_text => "Choose a password", :value => @user.password
     %div.form-ul-section
       %div.helper#passwordConf And confirm that password – just in case.
-      = f.fancy_password_field :password_confirmation, :label_text => "Confirm that password", :value => @user.password_confirmation
+      = f.fancy_password_field :password_confirmation, :label_text => "And confirm that password", :value => @user.password_confirmation
         
     %ul.form-section#check-terms
       = f.check_box(:terms_and_conditions)

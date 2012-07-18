@@ -7,6 +7,11 @@ select {
 body.sessions {
 	input#session_email {width:415px!important;}
 }
+body.invitations-show {
+	ul.form-section .form-input {margin-left:0!important;}
+	#check-terms {margin-left:235px!important;}
+	.signup-submit {width:465px!important;}
+}
 
 /* internal */
 .mast_top {

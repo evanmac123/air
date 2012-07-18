@@ -9,6 +9,7 @@ select {
 body.sessions {
 	input#session_email {width:415px!important;}
 }
+body.invitations-show .user_avatar {z-index:999;}
 
 /* internal */
 .header {
