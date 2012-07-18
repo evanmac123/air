@@ -318,6 +318,13 @@ footer {
   font-size:12px;
   text-align: center;
 }
+#security-center {
+  border:1px red solid;
+  text-align:left;
+  #accred, #practices {width:50%;}
+  #accred {border:1px blue solid;}
+  #practices {border:1px green solid;}
+}
 
 /* =============================================================================
    Media Queries
