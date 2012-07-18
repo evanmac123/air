@@ -18,7 +18,6 @@ describe ::UsersController do
       @controller.current_user = FactoryGirl.create :site_admin, :demo_id => @demo.id
       @current_user = @controller.current_user 
       get :show, :id => @user_we_are_viewing.slug
-      debugger
       response.should be_success
       assigns(:display_user_stats).should be_true
       assigns(:display_pending_friendships).should be_true  
