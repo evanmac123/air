@@ -106,31 +106,63 @@ body.sessions { // Log In external pages
   input[type="submit"] {float:left;margin:10px 0 0 0;}
 }
 
-/* ############ EXPERIMENTAL ############# */
-body.invitations {
+
+body.pages-show, body.pages-terms { // terms of service
+  h1 {color:#fff;}
+  p {padding:10px 0;}
+}
+
+
+
+body.invitations-new, body.invitations-create { // Sign Up external pages
+  li.form-label {display:none;}
+}
+/* #################### INVITATIONS-SHOW #################### */
+body.invitations-show {
   background:url('marketing/bg.png');
   p {color:#636363;}
+  #broughtby {
+    position:absolute;
+    right:160px;
+    top:-63px;
+    p {color:#b9b9b9; font-family:'Ubuntu', sans-serif;}
+  }
   .header {
     border:none!important;
     margin:0 auto;
     width:960px;
     #logo {
-      float:left;
+      float:right;
+      padding:0!important;
       width:auto;
-      img {height:auto!important; width:290px;}
+      img {height:auto!important; width:140px;}
     }
     #navigation {display:none;}
   }
   .content {
+    color:#848484!important;
     width:960px!important;
     .status {
       border-bottom:1px #d8d8d8 solid;
-      .welcome-message {h2 {color:$hegreen; font-size:40px;}}
+      padding-bottom:20px;
+      .welcome-message {
+        background:url('marketing/invitationImg.png') no-repeat right center;
+        h2 {color:$hegreen; font-size:40px;}
+        span {display:block;font-weight:bold;}
+      }
     }
     form {
       border-top:1px #fff solid;
-      padding-top:20px;
-      input {width:380px!important;}
+      border-bottom:1px #D8D8D8 solid!important;
+      padding:40px 0 20px 0;
+      input[type="password"], input[type="text"] {
+        width:380px!important;
+      }
+      input#user_terms_and_conditions {
+        float:left;
+        position:relative;
+        top:3px;
+      }
       ul.form-section{
         .form-label {
           //border:1px blue solid;
@@ -142,19 +174,60 @@ body.invitations {
           width:220px;
         }
         .form-input {
-          //border:1px green solid;
           margin-left:250px;
           width:400px;
         }
         &.signup-location_id {
           height:50px;
+          select {
+            -moz-appearance:icon;
+            -webkit-appearance:icon;
+            background:#fff;
+            border:1px #d3d3d3 solid;
+            color:#999;
+            font-size:16px;
+            height:40px;
+            outline:none;
+            width:400px;
+          }
+        }
+        &#check-terms {
+          float:left;
+          margin:20px 0 0 250px;
+          padding:14px 0 10px 0;
+          width:220px;
+        }
+        &.signup-submit {
+          float:right;
+          margin-top:20px;
+          width:450px;
         }
       }
+      #search_for_referrer ul.form-section {margin:0;}
+    } // end FORM
+    .privacy-policy {
+      border-top:1px #fff solid;
+      clear:both;
+      font-size:13px;
+      padding-top:20px;
+      p {font-family:'Ubuntu', sans-serif; font-weight:bold;}
+      ul {
+        list-style-type:circle;
+        margin-left:20px;
+        padding:5px 0;
+      }
+    } // div.privacy-policy ends
+    ul {margin:0;}
+  } // end CONTENT
+  .footer {
+      background:url('marketing/bg-dark.jpg');
+      border-top:1px #fff solid;
+      margin:0!important;
+      padding:40px;
     }
-  }
 }
-/* ############ end EXPERIMENTAL ############# */
-/* ############ helper text ############# */
+/* #################### end INVITATIONS-SHOW #################### */
+/* ------------- helper text ------------- */
 div.helper {
   //float:right;
   color:$hedgreen;
@@ -163,59 +236,4 @@ div.helper {
   right:0;
   width:280px;
 }
-
-/* div.helper {
-  background:#3D3D3D;
-  border:1px #2B2B2B solid;
-  //border-radius:5px;
-  //box-shadow: 0 0 4px #2c2c2c;
-  color: #39B549;
-  //display: none;
-  line-height: 16px;
-  padding: 10px;
-  position: absolute;
-  //behavior: url(/css3pie/PIE.htc);
-  width: 175px;
-  left: -217px;     
-  z-index: 1;
-} 
- ############ end helper text ############# */
-
-body.invitations-new, body.invitations-create { // Sign Up external pages
-  li.form-label {display:none;}
-}
-body.invitations-show { // Invitations form page
-  div.content {
-    form {
-      border-bottom:1px #2B2B2B solid;
-      padding-bottom:20px;
-      input#user_terms_and_conditions {
-        float:left;
-        position:relative;
-        top:3px;
-      }
-    }
-    ul {margin:0;}
-  } // div.content ends
-  div.privacy-policy {
-    border-top:1px #464545 solid;
-    clear:both;
-    font-size:13px;
-    padding-top:20px;
-    p {font-weight:bold;}
-    ul {
-      list-style-type:circle;
-      margin-left:20px;
-      padding:5px 0;
-    }
-  } // div.privacy-policy ends
-}
-body.pages-show, body.pages-terms { // terms of service
-  h1 {color:#fff;}
-  p {padding:10px 0;}
-}
-
-/* ============== notes ==============
-+ need separate div.status-message's for body.invitations and body.sessions
-+ remove "email" label from body.invitations
-====================================== */
+/* ------------- end helper text ------------- */

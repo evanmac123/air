@@ -37,7 +37,7 @@ $hengage-bg: #39B549;
   -moz-border-radius: $medium_radius;
   -webkit-border-radius: $medium_radius;
   border-radius: $medium_radius;
-	background: grey;
+	// background: grey;
   .remove_referrer{
     display: none;
   }
@@ -67,13 +67,10 @@ a.remove_referrer{
   color:$dark-gray;
   padding: 10px;
   width: $bin_width;
-  border: $single_suggestion_border_width solid $hengage-bg;
+  border: $single_suggestion_border_width solid #d3d3d3;
   -moz-border-radius: $suggestion_radius;
   -webkit-border-radius: $suggestion_radius;
   border-radius: $suggestion_radius;
-  -moz-box-shadow: 0 0 5px #c9c9c9;
-  -webkit-box-shadow: 0 0 5px #c9c9c9;
-  box-shadow: 0 0 5px #c9c9c9;
   position: relative;
   behavior: none;
   img {
@@ -84,6 +81,7 @@ a.remove_referrer{
 	div.info {
 		div.bit:first-child {
 			color:$hengage-bg;
+      font-family:'Ubuntu', Helvetica, Arial, sans-serif;
 			font-size:16px;
 			font-weight:bold;
 		}
@@ -143,15 +141,19 @@ body #facebox .content {
 }
 
 #indented_to_match_inputs{
-  margin: 0 auto;
+  //margin: 0 auto;
+  margin:0 0 20px 250px;
   width: $bin_width + 40px;
-  padding-bottom: 23px;
-  margin-top: -12px;
+  //padding-bottom: 23px;
+  //margin-top: -12px;
 }
 
 div#search_for_referrer {
 	div#autocomplete_status {
-		color:$gray;
+		font-family:'Ubuntu', sans-serif;
+    font-weight:thin;
+    font-size:14px;
+    color:#74C04C;
 		margin:0;
 		padding:0;
 		top:-52px;

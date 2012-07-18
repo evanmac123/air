@@ -1,3 +1,6 @@
+%div#broughtby
+  %p Brought to you by: 
+
 - disabled_style = "color: grey; background: #ddd;"
 
 - content_for(:javascript) do
@@ -47,8 +50,7 @@
     }else{
       $("#user_name").focus();      
     }
- 
-    
+
 - content_for :status do
   - if flash[:failure].present?
     = flash[:failure]
@@ -57,15 +59,17 @@
     - if @user.invitation_requested_via_sms?
       %div.welcome-message
         %h2 Welcome to H Engage
-        %p.explanation= translate('.explanation', :default => "We just need a few details from you so we can get started.")
+        %p.explanation We just need a few details from you so we can get started.
+
     - else
       %div.welcome-message
         %h2 Welcome to H Engage
-        %p.explanation= translate('.explanation', :default => "Ready to play? Just fill in the fields below to get started.")
-
-
-
+        %p.explanation 
+          %span Ready to play?
+          Just fill in the fields below to get started.
     
+
+
 = form_for @user, :url => invitation_acceptance_path(:user_id => @user.id), :html => {:autocomplete => :off, :id => "signup-form"}, :builder => FancyFormBuilder do |f|
   %div#all-inputs
     %div.form-ul-section
@@ -74,13 +78,13 @@
       - if @user.invitation_requested_via_sms?
         = f.hidden_field :phone_number, :value => @user.phone_number
         %ul.form-section
-          %li.form-label Your Phone Number:
+          %li.form-label Your Phone Number
           .form-input
             = text_field_tag :display_phone_number, @user.phone_number.as_pretty_phone, :disabled => true, :style => disabled_style
           .subtle_notice If you want to change or remove your mobile number later, you can do so by going to the Settings page.
 
         %ul.form-section
-          %li.form-label Your Email Address:
+          %li.form-label Your Email Address
           .form-input
             = text_field_tag :display_email, @user.email, :disabled => true, :style => disabled_style
 
@@ -88,7 +92,7 @@
 
         = f.hidden_field :email, :value => @user.email
         %ul.form-section
-          %li.form-label Your Email Address:
+          %li.form-label Your Email Address
           .form-input
             = text_field_tag :display_email, @user.email, :disabled => true, :style => disabled_style
 
@@ -106,7 +110,7 @@
     
     #search_for_referrer
       %ul.form-section
-        %li.form-label= label_tag :autocomplete,  "Whom can we thank for referring you?"
+        %li.form-label= label_tag :autocomplete,  "Did someone refer you?"
         %li.form-input
           = f.hidden_field :game_referrer_id, :class => "form-input"
           - if @user.game_referrer_id
@@ -134,14 +138,14 @@
       = f.fancy_password_field :password, :label_text => "Choose a password", :value => @user.password
     %div.form-ul-section
       %div.helper#passwordConf And confirm that password – just in case.
-      = f.fancy_password_field :password_confirmation, :label_text => "And confirm that password", :value => @user.password_confirmation
+      = f.fancy_password_field :password_confirmation, :label_text => "Confirm that password", :value => @user.password_confirmation
         
-    %ul.form-section
+    %ul.form-section#check-terms
       = f.check_box(:terms_and_conditions)
       = f.label :terms_and_conditions, :style => "display: none;"
       #terms_label
         I accept the 
-        = link_to "terms and conditions", terms_path(:id => 'terms')
+        = link_to "terms & conditions", terms_path(:id => 'terms')
       - if @user.errors[:terms_and_conditions].present?
         .form-msg= @user.errors[:terms_and_conditions].first
 
@@ -151,6 +155,7 @@
       <input name="commit" type="submit" value="Join the game" style="float: left;" id='join_the_game_link'>
       = link_to_function 'Questions?', "setTimeout(\"$('.assistly-widget a').click()\", 500)", :style => "float: right; padding-top:15px", :id => :contact_us_from_inv_acceptance_page
       .cf
+    .cf
 
 %div.privacy-policy.form-footnotes
   %p Please remember:
