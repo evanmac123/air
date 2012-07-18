@@ -1214,6 +1214,10 @@ class User < ActiveRecord::Base
       self.gold_coins += self.demo.minimum_gold_coin_award
     else
       coins_over_minimum = rand(self.demo.gold_coin_spread + 1)
+      Rails.logger.fatal("self.gold_coins is a #{self.gold_coins.class}")
+      Rails.logger.fatal("self.demo.minimum_gold_coin_award is a #{self.demo.minimum_gold_coin_award.class}")
+      Rails.logger.fatal("coins_over_minimum is a #{coins_over_minimum.class}")
+
       self.gold_coins += (self.demo.minimum_gold_coin_award + coins_over_minimum)
     end
   end
