@@ -73,10 +73,11 @@ a.remove_referrer{
   border-radius: $suggestion_radius;
   position: relative;
   behavior: none;
+  z-index:9999;
   img {
 		@include rounded;
-		border:1px $light-gray inset;
 		width:75px;
+    z-index:99999;
 	}
 	div.info {
 		div.bit:first-child {
@@ -161,10 +162,11 @@ div#search_for_referrer {
 	}
 	div#suggestions {
 		div.single_suggestion {
+      z-index:999;
 			div.image {
+        z-index:9999;
 				img {
 					@include rounded;
-					border:1px $light-gray inset;
 					height:95px;
 					width:95px;
 				}

@@ -9,7 +9,8 @@ select {
 body.sessions {
 	input#session_email {width:415px!important;}
 }
-body.invitations-show .user_avatar {z-index:999;}
+body.invitations-show .single_suggestion .image img {z-index:999!important;}
+body.invitations-show div.container div.inv-forms form {padding-bottom:20px!important;}
 
 /* internal */
 .header {
