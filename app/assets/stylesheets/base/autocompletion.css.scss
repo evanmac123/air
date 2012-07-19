@@ -31,7 +31,7 @@ $hengage-bg: #39B549;
 #suggestions{
   display: none;
   width: $bin_width + 2 * $pound_suggestions_padding + 2 * $single_suggestion_border_width;
-  padding: $pound_suggestions_padding;
+  //padding: $pound_suggestions_padding;
   margin-top: 14px;
   z-index: 1;
   -moz-border-radius: $medium_radius;
@@ -62,11 +62,11 @@ a.remove_referrer{
   background: $light-gray;
 }
 .single_suggestion{
-  width: $bin_width;
+  //width: $bin_width;
+  width:380px;
   background-color: #eff0ef;
   color:$dark-gray;
   padding: 10px;
-  width: $bin_width;
   border: $single_suggestion_border_width solid #d3d3d3;
   -moz-border-radius: $suggestion_radius;
   -webkit-border-radius: $suggestion_radius;
