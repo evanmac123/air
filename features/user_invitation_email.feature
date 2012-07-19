@@ -42,7 +42,6 @@ Feature: User invites friends, and invitation email says what it should
     And I should not see "Kermit"
     And I should see "Concord wants you to play Preloaded at Rocket Science"
     And I follow "play_now_large"
-    And show me the page
     Then I should be on the invitation page for "jinx@loaded.com"
     And I should see "Concord"
     
