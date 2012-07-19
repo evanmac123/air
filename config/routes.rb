@@ -33,6 +33,7 @@ Health::Application.routes.draw do
     resources :acts, :only => [:index], :controller => "users/acts"
   end
 
+  post "ping" => "users/pings#create"
   # Override some Clearance routes
   resources :passwords,
     :controller => 'passwords',

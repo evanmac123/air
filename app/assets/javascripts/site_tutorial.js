@@ -1,7 +1,7 @@
 $(function() {
   // Anything in here gets called onload
 
-  $('.no_thanks_tutorial').live('click', function(){
+  $('#no_thanks_tutorial').live('click', function(){
     noThanksTutorial();
   });
 
@@ -77,6 +77,7 @@ function noThanksTutorial(){
   $.fancybox.close();
   var options = { _method : "put", tutorial_request : "no_thanks" };
   $.post('tutorial', options);
+  mixpanelPagePingForActivityFeed();
 }
 
 function closeTutorial(){

@@ -5,6 +5,7 @@ class InterstitialVerificationsController < ApplicationController
   layout "application"
 
   def show
+    current_user.ping_page("interstitial phone verification")
   end
 
   def update

@@ -82,8 +82,7 @@ Feature: User accepts invitation
     And I press "Join the game"
     And "Phil" fills in the new phone validation field with their validation code
     And I press "Validate phone"
-    And DJ cranks 10 times
-    
+    And DJ works off
     Then "+14152613077" should have received an SMS "You, phil, are in the FooCo game."
 
   Scenario: User accepts invitation to game with seed points

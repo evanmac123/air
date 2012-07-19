@@ -1022,6 +1022,13 @@ class User < ActiveRecord::Base
     properties = {page_name: page}
     ping(event, properties)
   end
+
+  def pinged_on_page?(page)
+    return false unless Rails.env.test?
+    FakeMixpanelTracker.has_event_matching?("viewed page", self.data_for_mixpanel.merge(page_name: page))
+  end
+
+
   
   def self.wants_email
     where(:notification_method => %w(email both))

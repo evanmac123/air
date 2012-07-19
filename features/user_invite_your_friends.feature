@@ -81,9 +81,9 @@ Feature: User invites friends
   
      @javascript
   Scenario: modal pops up the first two times I log in
-    Given the demo for "NotStarted" starts tomorrow
     And "Yoko" has the password "foobar"
     And I sign in via the login page as "Yoko/foobar"
+    And show me the page
     Then I should see "Invite your friends" in a facebox modal
     Given I go to the activity page
     Then I should not see a facebox modal
