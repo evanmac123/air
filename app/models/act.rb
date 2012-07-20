@@ -31,7 +31,7 @@ class Act < ActiveRecord::Base
     check_timed_bonuses
 
     trigger_tasks
-    schedule_mixpanel_ping
+    schedule_mixpanel_ping unless user.tutorial_active?
   end
 
   scope :recent, lambda {|max| order('created_at DESC').limit(max)}
@@ -121,7 +121,7 @@ class Act < ActiveRecord::Base
     else
       reply = find_and_record_rule_suggestion(value, user)
       record_bad_message(phone_number, body, reply)
-      user.schedule_rule_suggestion_mixpanel_ping
+      user.schedule_rule_suggestion_mixpanel_ping unless user.tutorial_active?
       return parsing_error_message(reply)
     end
   end
@@ -165,7 +165,9 @@ class Act < ActiveRecord::Base
   protected
 
   def schedule_mixpanel_ping
-    Mixpanel::Tracker.new(MIXPANEL_TOKEN, {}).delay.track_event("acted", data_for_mixpanel)
+    unless user.name == Tutorial.example_search_name 
+      Mixpanel::Tracker.new(MIXPANEL_TOKEN, {}).delay.track_event("acted", data_for_mixpanel)
+    end
   end
 
   def data_for_mixpanel

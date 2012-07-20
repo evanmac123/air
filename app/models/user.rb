@@ -773,8 +773,7 @@ class User < ActiveRecord::Base
       reciprocal_friendship = other.friendships.create(:friend_id => self.id, :state => 'pending')
       reciprocal_friendship.update_attribute(:request_index, friendship.request_index)
     end
-
-    Mixpanel::Tracker.new(MIXPANEL_TOKEN, {}).delay.track_event('fanned', self.data_for_mixpanel.merge(mixpanel_properties))
+    ping('fanned', mixpanel_properties) unless tutorial_active?
 
     friendship
   end
@@ -1017,9 +1016,9 @@ class User < ActiveRecord::Base
     Shotgun.ping(event, data)
   end
 
-  def ping_page(page)
+  def ping_page(page, additional_properties={})
     event = 'viewed page'
-    properties = {page_name: page}
+    properties = {page_name: page}.merge(additional_properties)
     ping(event, properties)
   end
 

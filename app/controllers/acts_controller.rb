@@ -13,13 +13,13 @@ class ActsController < ApplicationController
       @div_id = 'invite_friends_facebox'
       @show_greeting = true
       session[:invite_friends_modal_shown] = true
-      page_name_to_ping = 'invite friends modal'
+      @current_user.ping_page 'invite friends modal'
     else
       @div_id = 'invite_friends'
-      page_name_to_ping = 'activity feed'
+      @current_user.ping_page('activity feed') unless @current_user.tutorial_active?
     end
 
-    @current_user.ping_page(page_name_to_ping) 
+    
     
     @show_only             = params[:show_only]
     @demo                  = current_user.demo
@@ -45,6 +45,7 @@ class ActsController < ApplicationController
     flash[parsing_message_type] = construct_reply(parsing_message)
     flash[:mp_track_activity_box] = ['used activity entry box']
     redirect_to :back
+    current_user.ping('used activity entry box') unless current_user.tutorial_active?
   end
 
   add_method_tracer :index

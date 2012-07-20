@@ -20,7 +20,11 @@ class UsersController < Clearance::UsersController
       @users_cropped = user_limit if @other_users.length > user_limit && @search_string
       @other_users = @other_users[0,user_limit]
     end
-    invoke_tutorial
+    if invoke_tutorial
+      # tutorial ping already sent, so we won't send a 'viewed page' ping
+    else
+      current_user.ping_page('user directory', :game => current_user.demo.name)
+    end
   end
 
   def show
@@ -45,6 +49,13 @@ class UsersController < Clearance::UsersController
     if @pending_friends.present?
       @display_pending_friendships = true if @viewing_self || current_user.is_site_admin       
     end
-    invoke_tutorial
+    
+    if invoke_tutorial
+      # tutorial ping already sent, so we don't send 'viewed page' pings
+    elsif @viewing_self
+      current_user.ping_page 'own profile'
+    elsif @viewing_other
+      current_user.ping_page("profile for someone else", {:viewed_person => @user.name, :viewed_person_id => @user.id})
+    end
   end
 end

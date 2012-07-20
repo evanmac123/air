@@ -126,7 +126,7 @@ class ApplicationController < ActionController::Base
   end
 
   def invoke_tutorial
-    return unless current_user.reload.tutorial_active?
+    return nil unless current_user.reload.tutorial_active?
     first_name = Tutorial.example_search_name.split(" ").first
     example_command = current_user.demo.example_tutorial_or_default
     advance_tutorial
@@ -194,6 +194,7 @@ class ApplicationController < ActionController::Base
       @position = "top left"
       @arrow_dir = "right"
     end
+    return true
   end
 
   def advance_tutorial
