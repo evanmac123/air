@@ -1,6 +1,11 @@
+- if @user.demo.invitation_logo_filename.present?
+  - logo_url = style.custom_image_base + @user.demo.invitation_logo_filename
+- else
+  - logo_url = "#{style.image_url}/images/emails/hengage_logo.png" 
+
 %table.F{style.table_reset_hash_set_width}
   %tr
-    %td= image_tag "#{style.image_url}/images/emails/hengage_logo.png", :height => 42, :width => 280, :alt => "H Engage Logo", :style => 'padding-top: 12px; display: inline-block;'
+    %td= image_tag logo_url, :height => 42, :width => 280, :alt => "H Engage Logo", :style => 'padding-top: 12px; display: inline-block;'
     %td{style.browser_view_hash}
       - unless @hide_browser_option
         %div{style.trouble_text_hash} Having trouble viewing this email?

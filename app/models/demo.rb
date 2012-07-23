@@ -22,6 +22,7 @@ class Demo < ActiveRecord::Base
   validates_inclusion_of :join_type, :in => JOIN_TYPES
   validates_uniqueness_of :name
   validates_presence_of :name
+  validates_length_of :invitation_bullet_1a, :invitation_bullet_1b,:invitation_bullet_2a, :invitation_bullet_2b, :invitation_bullet_3a, :invitation_bullet_3b,  :maximum => 30
 
   validate :gold_coin_fields_all_set, :if => :uses_gold_coins
   validate :gold_coin_maximum_award_gte_minimum, :if => :uses_gold_coins
@@ -315,6 +316,15 @@ class Demo < ActiveRecord::Base
 
     index = rand(chances.length)
     chances[index]
+  end
+
+  def uses_custom_bullets?
+    ['1', '2', '3'].each do |number|
+      ['a', 'b'].each do |letter|
+        return true if eval("invitation_bullet_#{number + letter}.present?")
+      end
+    end
+    false
   end
 
   protected

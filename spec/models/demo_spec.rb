@@ -169,6 +169,7 @@ end
 
 describe Demo, ".alphabetical" do
   before do
+    Demo.delete_all
     @red_sox  = FactoryGirl.create(:demo, :name => "Red Sox")
     @gillette = FactoryGirl.create(:demo, :name => "Gillette")
   end
@@ -271,5 +272,14 @@ describe Demo, "gold coin fields" do
       @demo.maximum_gold_coin_award = 5
       @demo.should be_valid
     end
+  end
+end
+
+describe "Demo" do 
+  it "knows whether it uses custom bullets or not" do
+    demo = FactoryGirl.build(:demo)
+    demo.uses_custom_bullets?.should be_false
+    demo.invitation_bullet_3b = 'something'
+    demo.uses_custom_bullets?.should be_true
   end
 end

@@ -11,14 +11,16 @@ You're invited to join <%= @user.demo.name_with_sponsor %>!
 
 To start playing, follow <%= @play_now_url %>
 
-<%= @user.demo.name %> is a fun, social game that rewards you for making
-healthy decisions and hunting for colorful squares, called tiles. Earn points and
-win prizes like gift cards and iPads!
+<% if @user.demo.invitation_blurb.present? %>
+<%= @user.demo.invitation_blurb %>
+<% else %>
+<%= @user.demo.name %> is a fun, social game that rewards you for making healthy decisions and hunting for colorful squares, called tiles. Earn points and win prizes like gift cards and iPads!
+<% end %>
 
 You can earn points for:
-  1. Finding tiles
-  2. Eating fruits and veggies
-  3. Exercising and making other healthy choices!
+  1. <%= InvitationEmail.bullet_1a(@user) + ' ' + InvitationEmail.bullet_1b(@user) %>
+  2. <%= InvitationEmail.bullet_2a(@user) + ' ' + InvitationEmail.bullet_2b(@user) %>
+  3. <%= InvitationEmail.bullet_3a(@user) + ' ' + InvitationEmail.bullet_3b(@user) %>
 
 Have fun and good luck!
 

@@ -47,6 +47,19 @@
     <%= form.input :followup_welcome_message_delay, :label => "Followup welcome message delay (in minutes)" %>
   <% end %>
 
+
+  <%= form.inputs :name => "Invitation Email Content" do %>
+    <%= form.input :invitation_blurb, :label => "Invitation Email Blurb" %>
+    <%= form.input :invitation_bullet_1a, :label => "Bullet 1, first half",  :maxlength => 30 %>
+    <%= form.input :invitation_bullet_1b, :label => "Bullet 1, second half", :maxlength => 30 %>
+    <%= form.input :invitation_bullet_2a, :label => "Bullet 2, first half",  :maxlength => 30 %>
+    <%= form.input :invitation_bullet_2b, :label => "Bullet 2, second half", :maxlength => 30 %>
+    <%= form.input :invitation_bullet_3a, :label => "Bullet 3, first half",  :maxlength => 30 %>
+    <%= form.input :invitation_bullet_3b, :label => "Bullet 3, second half", :maxlength => 30 %>
+  <% end %>
+
+
+
   <%= form.inputs :name => "Victory Notifications" do %>
     You can specify an e-mail address and/or SMS number that gets notified if and who someone wins this game.
     <%= form.input :victory_verification_email %>

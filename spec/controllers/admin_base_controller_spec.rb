@@ -27,7 +27,7 @@ describe DummyController do
   describe "#strip_smart_punctuation" do
     it "should substitute plain Latin-1 punctuation for the fancy kind put in by a word processor" do
       get :echo, :text => "“”‘’–—"
-
+      response.status.should == 200
       response.body.should == "\"\"''--"
     end
   end

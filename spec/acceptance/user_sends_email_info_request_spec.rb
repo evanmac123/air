@@ -22,6 +22,7 @@ feature "User Sends Email Info Request", %q{
     click_button "contact-submit"
 
     page.should have_content "Thanks! We'll be in touch"
+    crank_dj_clear
 
     EmailInfoRequest.should have_received(:"create!").with(email: @email, name: @name, phone: @phone, comment: @comment)
   end

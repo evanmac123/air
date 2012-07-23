@@ -235,6 +235,7 @@ end
 
 describe User, ".alphabetical" do
   before do
+    User.delete_all
     @jobs  = FactoryGirl.create(:user, :name => "Steve Jobs")
     @gates = FactoryGirl.create(:user, :name => "Bill Gates")
   end
@@ -295,11 +296,10 @@ describe User, "#invite" do
       Mailer.stubs(:invitation => invitation)
       invitation.stubs(:deliver)
       subject.invite
-      Delayed::Worker.new.work_off(10)
+      crank_dj_clear
     end
 
     it "sends invitation to user" do
-      Delayed::Worker.new.work_off(10)
       Mailer.should     have_received(:invitation).with(subject, nil, {})
       invitation.should have_received(:deliver)
     end
@@ -842,7 +842,7 @@ describe User, "#schedule_followup_welcome_message" do
     user = FactoryGirl.create :user, :phone_number => "+14155551212", :demo => demo
 
     2.times {user.schedule_followup_welcome_message}
-    Delayed::Worker.new.work_off(10)
+    crank_dj_clear
     SMS.should have_received(:send_message).once
   end
 end
@@ -968,6 +968,7 @@ end
 
 describe User, ".wants_email" do
   it "should select users who want email only or both email and SMS" do
+    User.delete_all
     sms_only = FactoryGirl.create(:user, notification_method: 'sms')
     email_only = FactoryGirl.create(:user, notification_method: 'email')
     both = FactoryGirl.create(:user, notification_method: 'both')
@@ -978,6 +979,7 @@ end
 
 describe User, ".wants_sms" do
   it "should select users who want SMS only or both email and SMS" do
+    User.delete_all
     sms_only = FactoryGirl.create(:user, notification_method: 'sms')
     email_only = FactoryGirl.create(:user, notification_method: 'email')
     both = FactoryGirl.create(:user, notification_method: 'both')

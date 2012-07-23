@@ -1,10 +1,19 @@
 %table.K{style.table_reset_hash_3}
   %tr
     %td{style.bullet_hash}= image_tag "#{style.image_url}/images/emails/one.png", :height => 20, :width => 20, :alt => "1"
-    %td{style.li_hash} Finding tiles
+    %td{style.li_hash}
+      = InvitationEmail.bullet_1a(@user)
+      %br
+      = InvitationEmail.bullet_1b(@user)
   %tr
     %td{style.bullet_hash}= image_tag "#{style.image_url}/images/emails/two.png", :height => 20, :width => 20, :alt => "2"
-    %td{style.li_hash} Eating fruits and veggies
+    %td{style.li_hash}
+      = InvitationEmail.bullet_2a(@user)
+      %br
+      = InvitationEmail.bullet_2b(@user)
   %tr
     %td{style.bullet_hash}= image_tag "#{style.image_url}/images/emails/three.png", :height => 20, :width => 20, :alt => "3"
-    %td{style.li_hash} Exercising and making other<br>healthy choices!
+    %td{style.li_hash}
+      = InvitationEmail.bullet_3a(@user)
+      %br
+      = InvitationEmail.bullet_3b(@user)

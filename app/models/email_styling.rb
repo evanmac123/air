@@ -18,6 +18,11 @@ class EmailStyling
     @table_reset = "border-collapse: collapse; border-spacing: 0;"
     @nearly_white_def = "color: #e1e1e1 !important;"
   end
+
+  def custom_image_base
+    # This is the bucket on s3 where we house custom email graphics
+    "https://s3.amazonaws.com/hengage-custom-graphics/"
+  end
     
   def paragraph
     "background: url('#{@image_url}/images/justtree.png')"

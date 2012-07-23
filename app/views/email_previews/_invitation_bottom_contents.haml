@@ -1,12 +1,21 @@
+- if @user.demo.invitation_screenshot_filename.present?
+  - left_screenshot_url = style.custom_image_base + @user.demo.invitation_screenshot_filename
+- else
+  - left_screenshot_url = "#{style.image_url}/images/emails/left_screenshot.png"
+
+
 %table.G{style.table_reset_hash_set_width}
   %tr
     %td{style.description_hash} 
-      = "#{@user.demo.name} is a fun social game"
-      that rewards you for making healthy decisions and hunting for colorful squares, called <i>tiles</i>. Earn points and win prizes like gift cards and iPads!
+      - if @user.demo.invitation_blurb.present?
+        = @user.demo.invitation_blurb
+      - else
+        = "#{@user.demo.name} is a fun social game"
+        that rewards you for making healthy decisions and hunting for colorful squares, called <i>tiles</i>. Earn points and win prizes like gift cards and iPads!
 
 %table.H{style.table_reset_hash}
   %tr
-    %td{style.image_left}= image_tag "#{style.image_url}/images/emails/left_screenshot.png", :height => 161, :width => 161, :style => "padding-right: 40px;", :alt => "photo of friends list"
+    %td{style.image_left}= image_tag left_screenshot_url, :height => 161, :width => 161, :style => "padding-right: 40px;", :alt => "photo of friends list"
     %td{style.three_ways_hash} 
       You can earn points for:
       = render 'email_previews/ways_to_get_points', :style => style

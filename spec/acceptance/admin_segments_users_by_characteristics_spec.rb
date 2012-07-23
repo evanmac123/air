@@ -393,6 +393,8 @@ feature "Admin segmentation" do
   end
 
   it "can segment on location", :js => true do
+    Location.delete_all
+    Demo.delete_all
     @demo = FactoryGirl.create(:demo)
     @demo.update_attributes(name: "AwesomeCo")
     other_demo = FactoryGirl.create(:demo, name: "Dewey, Cheatem and Howe")

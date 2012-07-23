@@ -41,8 +41,8 @@ describe GenericMailer do
       user_ids = []
       5.times {user_ids << (FactoryGirl.create :user).id}
       GenericMailer::BulkSender.bulk_generic_messages(user_ids, "This is a subject", "This is plain text", "<p>This is HTML</p>")
-
-      Delayed::Worker.new.work_off(10)
+      
+      crank_dj_clear
 
       user_ids.each do |user_id|
         GenericMailer.should have_received(:send_message).with(user_id, "This is a subject", "This is plain text", "<p>This is HTML</p>")

@@ -5,7 +5,14 @@ Health::Application.configure do
   # test suite.  You never need to work with it otherwise.  Remember that
   # your test database is "scratch space" for the test suite and is wiped
   # and recreated between test runs.  Don't rely on the data there!
-  config.cache_classes = true
+  #
+  ######################## Caching Models, etc.     ###################
+  # Cache classes needs to be false when running Spork, or the models  #
+  # will not get reloaded in between test attempts. However,           #
+  # when not using spork it (should) run faster if caching is true     # 
+  # By the way, ENV['DRB'] is something that is set when spork is used #
+  config.cache_classes = ENV['DRB'].nil?                               #
+  ######################################################################
 
   # Log error messages when you accidentally call methods on nil.
   config.whiny_nils = true
