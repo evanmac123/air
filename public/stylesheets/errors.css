@@ -17,6 +17,7 @@ h1 {color:#74c04c; font-family:'Ubuntu', Helvetica, Arial, sans-serif; font-weig
     padding:40px 0;
     text-align:left;
 }
+.header img {border:0;}
 .dialog {margin-bottom:40px;}
 .dialog p {width:460px;}
 .dialog .error-text {float:left;}
