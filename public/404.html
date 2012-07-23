@@ -1,26 +1,27 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>The page you were looking for doesn't exist (404)</title>
-  <style type="text/css">
-    body { background-color: #fff; color: #666; text-align: center; font-family: arial, sans-serif; }
-    div.dialog {
-      width: 25em;
-      padding: 0 4em;
-      margin: 4em auto 0 auto;
-      border: 1px solid #ccc;
-      border-right-color: #999;
-      border-bottom-color: #999;
-    }
-    h1 { font-size: 100%; color: #f00; line-height: 1.5em; }
-  </style>
+  <title>We're sorry, but something went wrong (500)</title>
+  <link href="/stylesheets/errors.css" type="css" rel="stylesheet" />
+  <link href='http://fonts.googleapis.com/css?family=Ubuntu:400,500' rel='stylesheet' type='text/css'>
 </head>
 
 <body>
-  <!-- This file lives in public/404.html -->
-  <div class="dialog">
-    <h1>The page you were looking for doesn't exist.</h1>
-    <p>You may have mistyped the address or the page may have moved.</p>
+  <!-- This file lives in public/500.html -->
+  <div class="main-contain">
+    <div class="header">
+      <a href="http://www.hengage.com" alt="Back to hengage.com"><img src="/assets/marketing/logo.png" /></a>
+    </div>
+    <div class="dialog">
+      <div class="error-text">
+        <h1>404!</h1>
+        <p>Sorry, the page you're looking for isn't there. Maybe it was deleted or you typed the wrong address?</p>
+      </div>
+      <img class="tree" src="/assets/marketing/tree-draw.png" />
+    </div>
+  </div>
+  <div class="footer">
+    <p class="copyright">Copyright &copy; 2011 H Engage, Inc.</p>
   </div>
 </body>
 </html>
