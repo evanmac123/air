@@ -1,3 +1,4 @@
+
 $bin_width: 300px;
 $suggestion_radius: 4px;
 $pound_suggestions_padding: 10px;
@@ -5,7 +6,6 @@ $single_suggestion_border_width: 1px;
 $light_green: #87BF4E;
 $gold: #fd1;
 $medium_radius: 12px;
-$hengage-bg: #39B549;
 
 .clear{
   clear: both;
@@ -31,13 +31,13 @@ $hengage-bg: #39B549;
 #suggestions{
   display: none;
   width: $bin_width + 2 * $pound_suggestions_padding + 2 * $single_suggestion_border_width;
-  //padding: $pound_suggestions_padding;
+  padding: $pound_suggestions_padding;
   margin-top: 14px;
   z-index: 1;
   -moz-border-radius: $medium_radius;
   -webkit-border-radius: $medium_radius;
   border-radius: $medium_radius;
-	// background: grey;
+    background: grey;
   .remove_referrer{
     display: none;
   }
@@ -47,46 +47,47 @@ $hengage-bg: #39B549;
 }
 
 a.remove_referrer{
-	color:$hengage-bg;
+    color:$hengage-bg;
   position: absolute;
   left: auto;
   right: 4px;
   top: 1px;
   
-	&:hover {
-		color:lighten($hengage-bg, 15%)!important;
-	}
+    &:hover {
+        color:lighten($hengage-bg, 15%)!important;
+    }
 }
 
 #suggestions .single_suggestion{
   background: $light-gray;
 }
 .single_suggestion{
-  //width: $bin_width;
-  width:380px;
-  background-color: #eff0ef;
+  width: $bin_width;
+  background-color: #FFFAAD;
   color:$dark-gray;
   padding: 10px;
-  border: $single_suggestion_border_width solid #d3d3d3;
+  width: $bin_width;
+  border: $single_suggestion_border_width solid $hengage-bg;
   -moz-border-radius: $suggestion_radius;
   -webkit-border-radius: $suggestion_radius;
   border-radius: $suggestion_radius;
+  -moz-box-shadow: 0 0 5px #c9c9c9;
+  -webkit-box-shadow: 0 0 5px #c9c9c9;
+  box-shadow: 0 0 5px #c9c9c9;
   position: relative;
   behavior: none;
-  z-index:9999;
   img {
-		@include rounded;
-		width:75px;
-    z-index:99999;
-	}
-	div.info {
-		div.bit:first-child {
-			color:$hengage-bg;
-      font-family:'Ubuntu', Helvetica, Arial, sans-serif;
-			font-size:16px;
-			font-weight:bold;
-		}
-	}
+        @include rounded;
+        border:1px $light-gray inset;
+        width:75px;
+    }
+    div.info {
+        div.bit:first-child {
+            color:$hengage-bg;
+            font-size:16px;
+            font-weight:bold;
+        }
+    }
 }
 .single_suggestion + .single_suggestion{
   margin-top: 2px; 
@@ -142,37 +143,32 @@ body #facebox .content {
 }
 
 #indented_to_match_inputs{
-  //margin: 0 auto;
-  margin:0 0 20px 250px;
+  margin: 0 auto;
   width: $bin_width + 40px;
-  //padding-bottom: 23px;
-  //margin-top: -12px;
+  padding-bottom: 23px;
+  margin-top: -12px;
 }
 
 div#search_for_referrer {
-	div#autocomplete_status {
-		font-family:'Ubuntu', sans-serif;
-    font-weight:thin;
-    font-size:14px;
-    color:#74C04C;
-		margin:0;
-		padding:0;
-		top:-52px;
-		display: none;
-	}
-	div#suggestions {
-		div.single_suggestion {
-      z-index:999;
-			div.image {
-        z-index:9999;
-				img {
-					@include rounded;
-					height:95px;
-					width:95px;
-				}
-			}
-		}
-	}
+    div#autocomplete_status {
+        color:$gray;
+        margin:0;
+        padding:0;
+        top:-52px;
+        display: none;
+    }
+    div#suggestions {
+        div.single_suggestion {
+            div.image {
+                img {
+                    @include rounded;
+                    border:1px $light-gray inset;
+                    height:95px;
+                    width:95px;
+                }
+            }
+        }
+    }
 }
 
 
@@ -195,7 +191,32 @@ div#search_for_referrer {
   padding: 6px 13px 0;
 }
 
+/*      ############# Stolen from another stylesheet ######################### */
+div.helper {
+    @include rounded;
+    background-color: $hengage-bg;
+    background-image: image-url('v3/texture_darker.png');
+    border: {
+        style:solid;
+        width:1px;
+        bottom: {color: darken($hengage-bg, 15%);}
+        left: {color: darken($hengage-bg, 15%);}
+        right: {color: darken($hengage-bg, 15%);}
+        top: {color: lighten($hengage-bg, 10%);}
+    }
+    box-shadow: 0 0 4px #2c2c2c;
+    color: #fff;
+    display: none;
+    line-height: 16px;
+    padding: 10px;
+    position: absolute;
+    behavior: url(/css3pie/PIE.htc);
+    width: 175px;
+    left: -217px;           
+    z-index: 1;
+}   
 
+/* ###############################   END STOLEN  ################################# */
 .relative{
   position: relative;
 }
@@ -213,10 +234,7 @@ div#search_for_referrer {
   padding-bottom: 7px;
   width: 330px;  
 }
-
-.gold{
-  color: $gold;
-}
+.gold{color: $gold;}
 
 #invite_friends_middle{ 
   #autocomplete{
@@ -226,9 +244,7 @@ div#search_for_referrer {
   .form-label{padding-top: 10px;}
 }
 
-.clear{
-  clear: both;
-}
+.clear{clear: both;}
 
 
 #hide_me_while_selecting #submit_invite_friend{
@@ -238,13 +254,13 @@ div#search_for_referrer {
 }
 
 #submit_invite_friend {
-	margin-top:4px;
-	a#invite_friends_link {
-		@include button-norm;
-		margin-bottom: 4px;
-		display: inline-block;
-		font-size:11px;
-	}
+    margin-top:4px;
+    a#invite_friends_link {
+        @include button-norm;
+        margin-bottom: 4px;
+        display: inline-block;
+        font-size:11px;
+    }
 }
 .bigger_message{
   font-size: 26px;
@@ -267,9 +283,9 @@ div#search_for_referrer {
   right: 7px;
   bottom: 7px;
   @include button-norm;
-	margin-top: 10px;
-	font-weight: bold;
-	letter-spacing: .5px;
+    margin-top: 10px;
+    font-weight: bold;
+    letter-spacing: .5px;
 }
 .already_playing{
   position: absolute;

@@ -226,13 +226,70 @@ body.invitations-show {
     }
 }
 /* #################### end INVITATIONS-SHOW #################### */
-/* ------------- helper text ------------- */
-div.helper {
-  //float:right;
+
+// ********* autocomplete *************
+body.invitations-show #suggestions{
+  background:transparent;
+  padding:0;
+  z-index: 1;
+  border-radius:0;
+  -moz-border-radius:0;
+  -webkit-border-radius:0;
+}
+
+body.invitations-show .single_suggestion{
+  width:380px;
+  background-color: #eff0ef;
+  border: $single_suggestion_border_width solid #d3d3d3;
+  box-shadow:none;
+  -moz-box-shadow: none;
+  -webkit-box-shadow: none;
+  z-index:9999;
+  img {
+    @include rounded;
+    border:none;
+    z-index:99999;
+  }
+  div.info {
+      div.bit:first-child {
+        color:#39B549;
+        font-family:'Ubuntu', Helvetica, Arial, sans-serif;
+      }
+  }
+}
+
+body.invitations-show #indented_to_match_inputs{
+  margin:0 0 20px 250px;
+  padding:0;
+}
+
+body.invitations-show div#search_for_referrer {
+    div#autocomplete_status {
+      font-family:'Ubuntu', sans-serif;
+      font-weight:thin;
+      font-size:14px;
+      color:#74C04C;
+    }
+    div#suggestions {
+        div.single_suggestion {
+          z-index:999;
+          div.image {
+            z-index:9999;
+            img {border:0;}
+          }
+        }
+    }
+}
+
+body.invitations-show div.helper {
+  background:transparent;
+  border:0;
+  box-shadow:none;
+  -moz-box-shadow:0;
+  -webkit-box-shadow:0;
   color:$hedgreen;
-  font-size:12px;
-  position:absolute;
-  right:0;
+  font-size:12px;  
+  left:670px;
+  padding:0;
   width:280px;
 }
-/* ------------- end helper text ------------- */
