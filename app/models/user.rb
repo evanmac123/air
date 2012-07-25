@@ -1011,7 +1011,7 @@ class User < ActiveRecord::Base
     update_attributes(confirmation_token: SecureRandom.hex(16))
   end
 
-  def ping(event, properties)
+  def ping(event, properties={})
     data = data_for_mixpanel.merge(properties) 
     Shotgun.ping(event, data)
   end

@@ -11,5 +11,5 @@ After do
 end
 
 # Get Steak helpers too, to help us gradually transition from Cucumber to Steak
-Dir["#{::Rails.root.to_s}/spec/acceptance/support/**/*.rb"].each {|f| require f}
+Dir["#{::Rails.root.to_s}/spec/support/acceptance/**/*.rb"].each {|f| require f}
 World(SteakHelperMethods)

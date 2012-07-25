@@ -6,6 +6,8 @@ module SteakHelperMethods
   end
 
   def signin_as(user, password)
+    #Note: you can just use Clearance's sign_in_as(user) method instead
+    # Or even try Clearance's sign_in() -- it creates a user for you
     fill_in_signin_fields(user, password)
     click_button "Let's play!"
   end
