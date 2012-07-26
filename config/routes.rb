@@ -73,6 +73,9 @@ Health::Application.routes.draw do
   resource :demographics, :only => [:update]
 
   namespace :admin do
+
+    get 'exception' => 'exceptions#show'
+
     resources :rules, :only => [:index, :new, :create, :edit, :update]
 
     resources :rule_values, :only => [:destroy]
