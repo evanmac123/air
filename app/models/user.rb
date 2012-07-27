@@ -20,6 +20,7 @@ class User < ActiveRecord::Base
   include Clearance::User
   include User::Ranking
   include User::Segmentation
+  extend User::Queries
 
   belongs_to :demo
   belongs_to :location
@@ -505,15 +506,7 @@ class User < ActiveRecord::Base
     Mixpanel::Tracker.new(MIXPANEL_TOKEN, {}).delay.track_event("got rule suggestion", data_for_mixpanel.merge(suggestion_hash))
   end
 
-  def self.with_some_gold_coins
-    where("gold_coins > 0")
-  end
-
-  def self.in_canonical_ranking_order
-    order("points DESC, name ASC")
-  end
-
-  def self.claim_account(from, claim_code, options={})
+  def self.claim_account(from, to, claim_code, options={})
     channel = options[:channel] || :sms
 
     claimer_class = case channel
@@ -523,11 +516,7 @@ class User < ActiveRecord::Base
       AccountClaimer::EmailClaimer
     end
 
-    claimer_class.new(from, claim_code, options).claim
-  end
-
-  def self.with_phone_number
-    where("phone_number IS NOT NULL AND phone_number != ''")
+    claimer_class.new(from, to, claim_code, options).claim
   end
 
   def invite(referrer = nil, options ={})
@@ -535,8 +524,14 @@ class User < ActiveRecord::Base
     update_attributes(invited: true)
   end
 
-  def mark_as_claimed(number, channel = :web)
-    update_attribute(:phone_number, PhoneNumber.normalize(number)) if number.present?
+  def mark_as_claimed(options={})
+    _options = {:channel => :web}.merge(options)
+    channel = _options[:channel]
+    phone_number = _options[:phone_number]
+    email = _options[:email]
+
+    update_attribute(:phone_number, PhoneNumber.normalize(phone_number)) if phone_number.present?
+    update_attribute(:email, email) if email.present?
     update_attribute(:accepted_invitation_at, Time.now)
     record_claim_in_mixpanel(channel)
   end
@@ -556,7 +551,7 @@ class User < ActiveRecord::Base
   end
 
   def join_game(number, reply_mode=:string)
-    mark_as_claimed(number)
+    mark_as_claimed(:phone_number => number)
     finish_claim(reply_mode)
   end
 
@@ -963,14 +958,6 @@ class User < ActiveRecord::Base
     (self.accepted_friends_same_demo + [self]).sort_by {|ff| ff.name.downcase}
   end
 
-  def self.name_starts_with(start)
-    where("name ILIKE ?", start.like_escape + "%")
-  end
-
-  def self.name_starts_with_non_alpha
-    where("name !~* '^[[:alpha:]]'")
-  end
-
   def self.send_invitation_if_claimed_sms_user_texts_us_an_email_address(from_phone, text, options={})
     return nil unless from_phone =~ /^(\+1\d{10})$/
     
@@ -1025,16 +1012,6 @@ class User < ActiveRecord::Base
   def pinged_on_page?(page)
     return false unless Rails.env.test?
     FakeMixpanelTracker.has_event_matching?("viewed page", self.data_for_mixpanel.merge(page_name: page))
-  end
-
-
-  
-  def self.wants_email
-    where(:notification_method => %w(email both))
-  end
-
-  def self.wants_sms
-    where(:notification_method => %w(sms both))
   end
 
   def load_personal_email(in_email)
@@ -1231,14 +1208,6 @@ class User < ActiveRecord::Base
     User.where(["name ILIKE ? AND claim_code = ?", first_name.like_escape + '%', claim_code]).first
   end
   
-  def self.claimed
-    where("accepted_invitation_at IS NOT NULL")
-  end
-
-  def self.unclaimed
-    where(:accepted_invitation_at => nil)
-  end
-
   def self.for_short_ranking_page(ranking_offset)
     claimed.
     in_canonical_ranking_order.
@@ -1368,16 +1337,6 @@ class User < ActiveRecord::Base
     DEMOGRAPHIC_FIELD_NAMES.any? do |demographic_field_name|
       !changed.include?(demographic_field_name)
     end
-  end
-  
-  def self.get_users_where_like(text, demo, attribute, user_to_exempt = nil)
-    users = User.where("LOWER(#{attribute}) like ?", "%" + text + "%").where(:demo_id => demo.id )
-    users = users.where('users.id != ?', user_to_exempt.id) if user_to_exempt
-    users
-  end
-  
-  def self.get_claimed_users_where_like(text, demo, attribute)
-    get_users_where_like(text, demo, attribute).claimed
   end
   
   def self.passwords_dont_match_error_message

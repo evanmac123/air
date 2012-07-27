@@ -19,8 +19,8 @@ Feature: Full text search suggestions restrict their own length (to under 160 ch
       | a suggestion of incredible length that should not actually happen                                           | true       | reply: incredible |
       | the merest suggestion of a sliver of a thing happening                                                      | true       | reply: merest     |
       | surely nobody would ever write a rule of length 65 characters or more, I mean, that would be just psychotic | true       | reply: surely     |
-    And the following user exists:
-      | phone number | demo                  |
+    And the following claimed user exists:
+      | phone number | demo          |
       | +14155551212 | name: WordyCo |
 
   Scenario: A suggestion that can be brought under length by dropping one suggestion

@@ -2,13 +2,13 @@ Feature: Levels control points denominator
 
   Background:
     Given the following demo exists:
-      | name |
-      | FooCo        |
-    And the following users exist:
-      | name | phone number | points | demo                |
+      | name  |
+      | FooCo |
+    And the following claimed users exist:
+      | name | phone number | points | demo        |
       | Vlad | +14155551212 | 7      | name: FooCo |
     And the following rules exist:
-      | reply   | points | demo                |
+      | reply   | points | demo        |
       | blah.   | 1      | name: FooCo |
       | good.   | 3      | name: FooCo |
       | better. | 4      | name: FooCo |
@@ -20,7 +20,7 @@ Feature: Levels control points denominator
       | did better | reply: better. |
       | did best   | reply: best.   |
     And the following levels exist:
-      | name           | threshold | demo                |
+      | name           | threshold | demo        |
       | level 1 (N00b) | 10        | name: FooCo |
       | level 2 (Pawn) | 21        | name: FooCo |
 

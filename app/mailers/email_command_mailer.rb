@@ -14,6 +14,13 @@ class EmailCommandMailer < ActionMailer::Base
          :subject => "Welcome to the game!")
   end
 
+  def send_failed_claim_response(our_address, their_address, claim_response)
+    @claim_response = claim_response
+    mail(:to      => their_address,
+         :from    => our_address,
+         :subject => "Trouble claiming account")
+  end
+
   def send_response_to_non_user(email_command)
     @message = construct_reply_from_email_command(email_command)
     to_address = email_command.email_from

@@ -1,13 +1,13 @@
 Feature: Bad words get dropped unceremoniously
 
   Background:
-    Given the following users exist:
-      | phone number | demo                   |
+    Given the following claimed users exist:
+      | phone number | demo           |
       | +14155551212 | name: PrudeCo  |
       | +16175551212 | name: WhatevCo |
     And the following bad word exists:
-      | value | demo                  |
-      | shit  |                       |
+      | value | demo          |
+      | shit  |               |
       | heck  | name: PrudeCo |
 
   Scenario: User uses generic bad word

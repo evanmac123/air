@@ -20,8 +20,8 @@ Feature: Full text rule search
       | made risotto | true       | reply: risotto |
       | feel happy   | true       | reply: happy   |
       | feel great   | false      | reply: happy   |
-    And the following user exists:
-      | name | phone number | demo                  |
+    And the following claimed user exists:
+      | name | phone number | demo          |
       | Dan  | +16175551212 | name: FooCorp |
     And "Dan" has the password "foobar"
     And I sign in via the login page with "Dan/foobar"

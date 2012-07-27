@@ -6,12 +6,12 @@ module AccountClaimer
       User.claimed.where(:phone_number => @from).first
     end
 
-    def number_to_join_game_with
-      @from
+    def attributes_to_join_game_with
+      super.merge(:phone_number => @from)
     end
 
     def after_joining_hook
-      Mailer.delay.set_password(@user.id)
+      #Mailer.delay.set_password(@user.id)
     end
 
     def existing_user_claimed_message

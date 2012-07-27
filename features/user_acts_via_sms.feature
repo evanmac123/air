@@ -92,13 +92,13 @@ Feature: User acts
 
   Scenario: User can act with a standard playbook rule (belonging to no demo) if demo supports it
     Given the following demo exists:
-      | name | use_standard_playbook |
+      | name         | use_standard_playbook |
       | CustomCo     | false                 |
-    And the following user exists:
-      | phone_number | demo                   |
+    And the following claimed user exists:
+      | phone_number | demo           |
       | +14152613077 | name: CustomCo |
     And the following rule exists:
-      | demo                   | reply                     |
+      | demo           | reply                     |
       | name: CustomCo | Headcheese is disgusting. |
     And the following rule value exists:
       | value          | rule                             |
@@ -171,10 +171,10 @@ Feature: User acts
 
   Scenario: Acts allowed in demo take precedence over forbidden acts
     Given the following demo exists:
-      | name | victory threshold |
+      | name         | victory threshold |
       | NaughtyCo    | 200               |
-    And the following user exists:
-      | phone number | demo                    |
+    And the following claimed user exists:
+      | phone number | demo            |
       | +13025551212 | name: NaughtyCo |
     And the following rule exists:
       | reply            | points | demo                    |

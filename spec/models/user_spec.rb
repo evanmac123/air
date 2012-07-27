@@ -245,43 +245,6 @@ describe User, ".alphabetical" do
   end
 end
 
-describe User, ".claim_account" do
-  before do
-    @from       = "+14155551212"
-    @claim_code = "gwendt17"
-  end
-
-  context "when no user with a matching claim code exists" do
-    it "should return nil" do
-      User.find_by_claim_code(@claim_code).should be_nil
-
-      User.claim_account(@from, @claim_code).should be_nil
-    end
-  end
-
-  context "when a user with a matching claim code exists" do
-    before(:each) do
-      @user = FactoryGirl.create :user, :claim_code => @claim_code
-    end
-
-    it "should set that user's phone number" do
-      @user.phone_number.should be_blank
-      @user.claim_code.should_not be_blank
-
-      User.claim_account(@from, @claim_code)
-
-      @user.reload
-      @user.phone_number.should == @from
-    end
-
-    it "should return some text" do
-      text_response = User.claim_account(@from, @claim_code)
-      text_response.should be_a_kind_of(String)
-      text_response.should_not be_blank
-    end
-  end
-end
-
 describe User, "#invite" do
   subject { FactoryGirl.create(:user) }
 
@@ -733,10 +696,20 @@ describe "#mark_as_claimed" do
     Timecop.return
   end
 
-  it "should set the user's accepted_invitation_at timestamp" do
-    @user.accepted_invitation_at.should be_nil
-    @user.mark_as_claimed '+14158675309'
-    @user.reload.accepted_invitation_at.to_s.should == ActiveSupport::TimeZone['Eastern Time (US & Canada)'].now.to_s
+  context "when called with a phone number" do
+    it "should set the user's accepted_invitation_at timestamp" do
+      @user.accepted_invitation_at.should be_nil
+      @user.mark_as_claimed(:phone_number => '+14158675309')
+      @user.reload.accepted_invitation_at.to_s.should == ActiveSupport::TimeZone['Eastern Time (US & Canada)'].now.to_s
+    end
+  end
+
+  context "when called with an email address" do
+    it "should set the user's accepted_invitation_at timestamp" do
+      @user.accepted_invitation_at.should be_nil
+      @user.mark_as_claimed(:email => 'bob@gmail.com')
+      @user.reload.accepted_invitation_at.to_s.should == ActiveSupport::TimeZone['Eastern Time (US & Canada)'].now.to_s
+    end
   end
 end
 

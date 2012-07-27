@@ -1,7 +1,7 @@
 Feature: User requests their username by SMS
 
   Background:
-    Given the following user exists:
+    Given the following claimed user exists:
       | name           | phone number |
       | Phil Darnowsky | +14152613077 |
     And "Phil Darnowsky" has the SMS slug "iamgod"

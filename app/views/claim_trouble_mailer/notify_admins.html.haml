@@ -1,0 +1,6 @@
+%p We may be hearing from someone who needs a little help claiming their account.
+%p 
+  Here are some candidates for who this may be (though it may also be someone not on this list):
+  %ul
+    -@users.each do |user|
+      %li= "#{user.name}, born #{user.date_of_birth}"

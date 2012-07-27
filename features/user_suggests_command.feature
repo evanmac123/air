@@ -1,8 +1,8 @@
 Feature: User suggests command
 
   Background:
-    Given the following users exist:
-      | name           | phone number | demo                   |
+    Given the following claimed users exist:
+      | name           | phone number | demo           |
       | Vlad Gyster    | +16175551212 | name: H Engage |
       | Phil Darnowsky | +14155551212 | name: H Engage |
     And "Vlad Gyster" has the password "foobar"
