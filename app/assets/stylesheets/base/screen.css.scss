@@ -65,27 +65,44 @@ body {
 }
 /* -- flash messages -- */
 #flash {
-	margin: 15px auto 0 auto;
-	width: 960px;
-
-	div {
-		@include box-shadow;
-		@include rounded;
-		background-color:#fff;
-		font-weight: bold;
-		padding:15px 0 15px 120px;
+	font-family:Helvetica, Arial, sans-serif;
+	font-size:14px;
+	margin:0 auto;
+	position:relative;
+	text-align:left;
+	top:-7px;
+	width:960px;
+	z-index:1;
+}
+#flash_success, #flash_failure, #flash_notice {
+	border:0!important;
+	color:#3e4a39!important;
+	margin:0!important;
+	padding:22px 0 0 0!important;
+	//max-width:620px;
+	//min-width:380px;
+	width:380px;
+	.flash-message {
+		border-radius:0 0 2px 2px;
+		padding:15px;
 	}
-	#flash_failure {
-		background: image-url('v3/flash-f.png') no-repeat 0 center;
-		background-color:#87cee2;
-		border:1px $flash-f solid;
-		color:#346587;
+}
+#flash_failure {
+	background:url('v3/flash-top-f.png') top left no-repeat!important;
+	.flash-message {
+		background-color:#fef7c2!important;
+		border-bottom:1px #e4d772 solid!important;
+		border-left:1px #e4d772 solid!important;
+		border-right:1px #e4d772 solid!important;
 	}
-	#flash_success {
-		background: image-url('v3/flash-s.png') no-repeat 0 center;
-		background-color:#b6e192;
-		border:1px $flash-s solid;
-		color:#52931d;
+}
+#flash_success {
+	background:url('v3/flash-top-s.png') top left no-repeat!important;
+	.flash-message {
+		background-color:#b1e44d!important;
+		border-bottom:1px #92bc41 solid!important;
+		border-left:1px #92bc41 solid!important;
+		border-right:1px #92bc41 solid!important;
 	}
 }
 
