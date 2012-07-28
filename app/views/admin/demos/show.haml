@@ -128,33 +128,69 @@
       minutes after invitation accepted)
     - else 
       No followup message.
-   
-  - if @demo.invitation_blurb.present?
-    %p Custom Invitation Email Content:
-    %div= @demo.invitation_blurb
-  -else
-    Uses default invitation email content
 
-  %p
-    - if @demo.uses_custom_bullets?
-      Custom Invitation Email Bullets: 
-    - else
-      Default Invitation Email Bullets:
+  .box
+    %h2 Invitation Email
+    .drawer
+      %h3 Subject
+      .sub
+        - if @demo.invitation_subject.present?
+          .finger Custom Subject:
+          .in.actual= @demo.invitation_subject
+        - else
+          .finger Uses default subject:
+          .in.actual= InvitationEmail.default_subject(@demo)
+      .sub
+        - smarty_pants = User.new(name: "Smarty Pants")
+        - if @demo.invitation_subject_with_referrer.present?
+          .finger Custom Subject with Referrer:
+          .in.actual= @demo.invitation_subject_with_referrer
+          .in.top_pad With substitution:
+          .in.actual= InvitationEmail.subject_with_referrer(@demo, smarty_pants)
+        - else
+          .finger Uses default subject with referrer:
+          .in.actual= InvitationEmail.default_subject_with_referrer(@demo)
+          .in.top_pad With substitution:
+          .in.actual= InvitationEmail.subject_with_referrer(@demo, smarty_pants)
 
-    - demo_user = User.new(demo: @demo)
-    %ol
-      %li
-        = InvitationEmail.bullet_1a(demo_user)
-        %br
-        = InvitationEmail.bullet_1b(demo_user)
-      %li
-        = InvitationEmail.bullet_2a(demo_user)
-        %br
-        = InvitationEmail.bullet_2b(demo_user)
-      %li
-        = InvitationEmail.bullet_3a(demo_user)
-        %br
-        = InvitationEmail.bullet_3b(demo_user)
+    .drawer
+      %h3 Blurb 
+      .sub
+        - if @demo.invitation_blurb.present?
+          .finger Custom blurb:
+          .in.actual= InvitationEmail.blurb(@demo)
+        -else
+          .finger Uses default blurb 
+          .in.actual= InvitationEmail.default_blurb(@demo)
+      .sub
+        - if @demo.invitation_blurb_with_referrer.present?
+          .finger Custom blurb with referrer:
+          .in.actual= @demo.invitation_blurb_with_referrer
+          .in.top_pad With substitution
+          .in.actual= InvitationEmail.blurb(@demo, smarty_pants)
+        -else
+          .finger Uses default blurb with referrer:
+          .in.actual= InvitationEmail.default_blurb_with_referrer(@demo)
+          .in.top_pad With substitution: 
+          .in.actual= InvitationEmail.blurb(@demo, smarty_pants)
+
+    .drawer
+      %h3 Bullets
+      - if @demo.uses_custom_bullets?
+        .finger Uses custom bullets: 
+      - else
+        .finger Uses default bullets:
+      .in
+        %table
+          %tr
+            %td.number 1.
+            %td.actual= InvitationEmail.bullet_1(@demo)
+          %tr
+            %td.number 2.
+            %td.actual= InvitationEmail.bullet_2(@demo)
+          %tr
+            %td.number 3.
+            %td.actual= InvitationEmail.bullet_3(@demo)
 
 
 

@@ -125,6 +125,74 @@ table.admin_wide{
     font-size: 15px;
     line-height: 18px;
   }
+  #reply_max_length_info_holder, #bullet_instructions_holder, #subject_instructions_holder, .blurb_instructions_holder{
+    position: relative;
+    list-style: none;
+  }
+  #reply_max_length_info, #subject_instructions, .blurb_instructions, .blurb_instructions_dropped{
+    font-weight: bold;
+    position: absolute;
+    left: 124mm;
+    top: 5mm;
+    #current_reply_length{
+      display: inline;
+    }
+  }
+  .blurb_instructions_dropped{
+    top: 8mm !important;
+  }
+  #bullet_instructions{
+    font-weight: bold;
+    position: absolute;
+    left: 88mm;
+    top: 8mm;
+  }
+  .big_block_title legend{
+    font-size: 13mm;
+    padding-top: 17mm;
+  }
+  .box{
+    background: white;
+    padding: 5mm 5mm 1px;
+    border-radius: 5mm;
+    margin: 5mm 0;
+    table, tr, td, th{
+      border: none;
+      &.number{
+        font-size: 18px;
+        width: 20px;
+        font-weight: bold;
+      }
+    }
+    td.actual{
+      line-height: 1.2;
+      padding-top: 4mm;
+    }
+
+    .actual{
+      font-size: 18px;
+    }
+    .finger{
+      font-size: 17px;
+      color: #e70;
+    }
+    .drawer{
+      background: #f1f1f1;
+      border-radius: 5mm;
+      padding: 5mm;
+      margin: 5mm 0;
+    }
+  }
+  .in{
+    padding-left: 5mm;
+    &.top_pad{
+      padding-top: 3mm;
+    }
+  }
+  .sub{
+    padding: 5mm 0;
+  }
+
 }
 #which_game{
   position: absolute;
@@ -133,6 +201,11 @@ table.admin_wide{
 }
 .small_text_area{
   height: 3em;
+}
+.bullet_text_area{
+  height: 4em;
+  width: 20em;
+  margin-left: 2em;
 }
 
 #show-user-spinner {

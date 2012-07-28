@@ -13,7 +13,8 @@ class EmailPreviewsController < ApplicationController
     unless @user
       @user = kermit
     end
-    @demo_name = @user.demo.name
+    @demo = @user.demo
+    @demo_name = @demo.name
     if referrer_id
       @referrer = User.where(:id => referrer_id).first
     end

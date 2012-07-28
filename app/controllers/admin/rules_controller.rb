@@ -27,11 +27,26 @@ class Admin::RulesController < AdminBaseController
 
     if @rule.errors.empty?
       flash[:success] = "Rule created."
+      redirect_to rules_index(params[:demo_id]) and return
     else
-      flash[:failure] = "Couldn't create rule: #{@rule.errors.full_messages.join(', ')}"
+      flash_now_and_keep_primary_secondary_values 
+      render :new
     end
 
-    redirect_to rules_index(params[:demo_id])
+  end
+
+  # move down..
+  def flash_now_and_keep_primary_secondary_values
+      flash.now[:failure] = "Couldn't create rule: #{@rule.errors.full_messages.join(', ')}"
+      @commit_path = create_rule(@demo)
+      @primary_value = RuleValue.new(value: @primary_value)
+      array = []
+      @secondary_values.each_pair do |key, value|
+        array << RuleValue.new(value: value)
+      end
+      @secondary_values = array
+
+
   end
 
   def edit
@@ -51,10 +66,11 @@ class Admin::RulesController < AdminBaseController
     if @rule.update_with_rule_values(params[:rule], @primary_value, (@secondary_values.try(:values) || []))
       flash[:success] = 'Rule updated'
       check_conflicts   # Note we are checking conflicts AFTER the update, not before, since we only care about the latest state
+      redirect_to rules_index(@rule.demo) and return
     else
-      flash[:failure] = "Couldn't update rule: #{@rule.errors.full_messages}"
+      flash_now_and_keep_primary_secondary_values
+      render :edit
     end
-    redirect_to rules_index(@rule.demo)
   end
 
   def remove_tag_ids_from_params

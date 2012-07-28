@@ -4,23 +4,19 @@
 
  
 <% if @referrer %>
-<%= @referrer.name %> has invited you to play <%= @user.demo.name_with_sponsor %>.
+<%= @referrer.name %> has invited you to play <%= @demo.name_with_sponsor %>.
 <% else %>
-You're invited to join <%= @user.demo.name_with_sponsor %>!
+You're invited to join <%= @demo.name_with_sponsor %>!
 <% end %>
 
 To start playing, follow <%= @play_now_url %>
 
-<% if @user.demo.invitation_blurb.present? %>
-<%= @user.demo.invitation_blurb %>
-<% else %>
-<%= @user.demo.name %> is a fun, social game that rewards you for making healthy decisions and hunting for colorful squares, called tiles. Earn points and win prizes like gift cards and iPads!
-<% end %>
+<%= InvitationEmail.plain_blurb(@demo, @referrer) %>
 
 You can earn points for:
-  1. <%= InvitationEmail.bullet_1a(@user) + ' ' + InvitationEmail.bullet_1b(@user) %>
-  2. <%= InvitationEmail.bullet_2a(@user) + ' ' + InvitationEmail.bullet_2b(@user) %>
-  3. <%= InvitationEmail.bullet_3a(@user) + ' ' + InvitationEmail.bullet_3b(@user) %>
+  1. <%= InvitationEmail.plain_bullet_1(@demo) %>
+  2. <%= InvitationEmail.plain_bullet_2(@demo) %>
+  3. <%= InvitationEmail.plain_bullet_3(@demo) %>
 
 Have fun and good luck!
 

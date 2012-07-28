@@ -4,6 +4,7 @@ class Mailer < ActionMailer::Base
 
   def invitation(user, referrer = nil, options = {})
     @user = user
+    @demo = @user.demo
     @referrer = referrer
     @referrer_hash = User.referrer_hash(@referrer)
     if options[:password_only]
@@ -14,9 +15,9 @@ class Mailer < ActionMailer::Base
       @play_now_url = invitation_url(@user.invitation_code, @referrer_hash)
     end
 
-    begins = user.demo.begins_at
+    begins = @demo.begins_at
     if begins
-      @demo_begins_at = user.demo.begins_at.to_date.as_pretty_date
+      @demo_begins_at = @demo.begins_at.to_date.as_pretty_date
       if begins < Time.now
         @already_started = true 
       else
@@ -25,9 +26,9 @@ class Mailer < ActionMailer::Base
     end
 
     if @referrer
-      subject = "#{@referrer.name} invited you to play #{@user.demo.name_with_sponsor}"
+      subject = InvitationEmail.subject_with_referrer(@demo, @referrer)
     else
-      subject = "Ready to play? #{@user.demo.name_with_sponsor} starts today" 
+      subject = InvitationEmail.subject(@demo)
     end
     
     @style = options[:style]

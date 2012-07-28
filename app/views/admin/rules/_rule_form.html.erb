@@ -21,8 +21,14 @@
   <% end %>
 
   <%= form.input :points %>
-  <%= form.input :reply, :as => :text, :input_html => {maxlength: 101, class: 'small_text_area'} %>
-  <%= add_byte_counter_for 'Reply' %>
+  <li id='reply_max_length_info_holder'>
+    <div id='reply_max_length_info'>
+      Max Length: 120 chars, or 100 chars if has goal<br><br>
+      <div class='inline'>Current: &nbsp;</div><div id='current_reply_length'></div>
+    </div>
+  </li>
+  <%= form.input :reply, :as => :text, :input_html => {class: 'small_text_area'} %>
+  <!-- No more byte counter  # add_byte_counter_for 'Reply'  -->
   <%= form.input :description, :as => :text, :input_html => {class: 'small_text_area'}, :hint => "Leave this blank and acts resulting from use of this rule won't appear in the activity feed, etc." %>
   <%= form.input :alltime_limit %>
   <%= form.input :referral_points %>
@@ -49,6 +55,15 @@
 
 <% content_for :javascript do %>
   <%= javascript_tag do %>
+    countReplyCharacters();
+    $('#rule_reply').keypress(function(){
+      setTimeout('countReplyCharacters()', 1);
+    });
+    function countReplyCharacters(){
+      var count = $('#rule_reply').val().length; 
+      $('#current_reply_length').text(count);
+    }
+
     $('a#secondary-value-toggle').click(function(e) {
       $('fieldset#secondary-values').toggle();
       e.preventDefault();

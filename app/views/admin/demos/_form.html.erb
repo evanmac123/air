@@ -48,14 +48,51 @@
   <% end %>
 
 
-  <%= form.inputs :name => "Invitation Email Content" do %>
-    <%= form.input :invitation_blurb, :label => "Invitation Email Blurb" %>
-    <%= form.input :invitation_bullet_1a, :label => "Bullet 1, first half",  :maxlength => 30 %>
-    <%= form.input :invitation_bullet_1b, :label => "Bullet 1, second half", :maxlength => 30 %>
-    <%= form.input :invitation_bullet_2a, :label => "Bullet 2, first half",  :maxlength => 30 %>
-    <%= form.input :invitation_bullet_2b, :label => "Bullet 2, second half", :maxlength => 30 %>
-    <%= form.input :invitation_bullet_3a, :label => "Bullet 3, first half",  :maxlength => 30 %>
-    <%= form.input :invitation_bullet_3b, :label => "Bullet 3, second half", :maxlength => 30 %>
+  <%= form.inputs :name => "Invitation Email", class: 'big_block_title' do %>
+    <p style='position: relative; top: -7mm'>(Anything left blank will use the default value)</p>
+
+    <h2>Subject</h2>
+     
+    <%= form.input :invitation_subject, :label => "Subject" %>
+  
+    <li id='subject_instructions_holder'>
+      <div id='subject_instructions'>
+        <%= render 'referrer_tag' %>  
+      </div>
+    </li>
+   <%= form.input :invitation_subject_with_referrer, :label => "Subject with Referrer" %>
+
+    <h2>Blurb</h2>
+
+    <li class='blurb_instructions_holder'>
+      <div class='blurb_instructions_dropped'>
+        <%= render 'bold_italic_tags' %>
+      </div>
+    </li>
+
+    <%= form.input :invitation_blurb, :label => "Blurb" %>
+
+ 
+    <li class='blurb_instructions_holder'>
+      <div class='blurb_instructions'>
+      <%= render 'bold_italic_referrer_tags' %>
+      </div>
+    </li>
+
+    <%= form.input :invitation_blurb_with_referrer, :label => "Blurb with Referrer" %>
+
+
+   <h2>Bullets</h2>
+    <li id='bullet_instructions_holder'>
+      <div id='bullet_instructions'>
+        Enter text with carriage returns<br>
+        Max length 30 chars per line<br>
+        <%= render 'italic_tags' %>
+      </div>
+    </li>
+    <%= form.input :invitation_bullet_1, :label => "1", :input_html => {class: 'bullet_text_area'} %>
+    <%= form.input :invitation_bullet_2, :label => "2", :input_html => {class: 'bullet_text_area'} %>
+    <%= form.input :invitation_bullet_3, :label => "3", :input_html => {class: 'bullet_text_area'} %>
   <% end %>
 
 

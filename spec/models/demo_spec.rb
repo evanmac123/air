@@ -279,7 +279,28 @@ describe "Demo" do
   it "knows whether it uses custom bullets or not" do
     demo = FactoryGirl.build(:demo)
     demo.uses_custom_bullets?.should be_false
-    demo.invitation_bullet_3b = 'something'
+    demo.invitation_bullet_3 = 'something'
     demo.uses_custom_bullets?.should be_true
+  end
+end
+
+describe "Demo" do
+  context "validates length of each line of a bullet" do
+    before(:each) do
+      @demo = FactoryGirl.build(:demo)
+    end
+    it "should allow a single string with no breaks" do
+      @demo.invitation_bullet_1 = "h" * 30
+      @demo.should be_valid
+      @demo.invitation_bullet_1 = "h" * 31
+      @demo.should_not be_valid
+
+    end
+    it "should not allow any single line to be too long" do
+      @demo.invitation_bullet_1 = "h" * 30 + InvitationEmail.break_char + "short"
+      @demo.should be_valid
+      @demo.invitation_bullet_1 = "h" * 39  + InvitationEmail.break_char + "shorty"
+      @demo.should_not be_valid
+    end
   end
 end

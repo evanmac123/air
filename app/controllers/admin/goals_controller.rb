@@ -2,6 +2,8 @@ class Admin::GoalsController < AdminBaseController
   before_filter :find_demo_by_demo_id
   before_filter :find_goal, :only => [:edit, :update, :destroy]
 
+  class AssociatedRuleException < Exception; end
+
   def index
     @goals = @demo.goals.order(:name)
   end
@@ -12,8 +14,37 @@ class Admin::GoalsController < AdminBaseController
   end
 
   def create
-    @demo.goals.create(params[:goal])
-    redirect_to admin_demo_goals_path(@demo)
+    begin
+      Goal.transaction do
+        @goal = @demo.goals.create!(params[:goal])
+        rule_ids = params[:goal].delete(:rule_ids).try(:map) {|id| id.to_i}
+        set_goal_id_on_each_rule(rule_ids)
+        @demo.goals.create(params[:goal])
+      end
+      redirect_to admin_demo_goals_path(@demo)
+    rescue AssociatedRuleException
+      create_eligible_rule_collection
+      render :new #direct_to new_admin_demo_goal_path(@demo) and return
+    end
+  end
+ 
+  # move down..
+  def set_goal_id_on_each_rule(rule_ids)
+    rule_ids ||= []
+    rules = Rule.find(rule_ids)
+    throw_exception = false
+    rules.each do |rule|
+      # assign a dummy goal_id to see if it passes validation with a goal_id
+      rule.goal_id = -1
+      unless rule.valid?
+        #add_failure rule.errors.messages[:reply]
+        flash.now[:failure] ||= []
+        flash.now[:failure] << rule.errors.messages[:reply].join('. ')
+        throw_exception = true
+      end
+    end
+    raise AssociatedRuleException, "Goal has invalid rules" if throw_exception
+    @goal.rule_ids = rule_ids
   end
 
   def edit

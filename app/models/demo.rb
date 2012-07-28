@@ -1,5 +1,4 @@
 class Demo < ActiveRecord::Base
-  
   JOIN_TYPES = %w(pre-populated self-inviting public).freeze
   
   has_many :users, :dependent => :destroy
@@ -22,10 +21,10 @@ class Demo < ActiveRecord::Base
   validates_inclusion_of :join_type, :in => JOIN_TYPES
   validates_uniqueness_of :name
   validates_presence_of :name
-  validates_length_of :invitation_bullet_1a, :invitation_bullet_1b,:invitation_bullet_2a, :invitation_bullet_2b, :invitation_bullet_3a, :invitation_bullet_3b,  :maximum => 30
 
   validate :gold_coin_fields_all_set, :if => :uses_gold_coins
   validate :gold_coin_maximum_award_gte_minimum, :if => :uses_gold_coins
+  validate :each_line_of_bullet_under_30_chars
 
   has_alphabetical_column :name
 
@@ -42,6 +41,23 @@ class Demo < ActiveRecord::Base
     end
   end
   include ActsWithCurrentDemoChecked
+  
+  def each_line_of_bullet_under_30_chars
+    limit = 30
+    [1,2,3].each do |num|
+      attribute = "invitation_bullet_" + num.to_s
+      text = send(attribute)
+      next if text.blank?
+      lines = text.split(InvitationEmail.break_char)
+      lines.each do |line|
+        if line.length > limit
+          message = "Line '#{line}' of invitation email bullet #{num} is #{line.length} characters long. Please shorten to 30 characters, and separate with a carriage return [ENTER]"
+          errors.add(attribute, message)
+        end
+      end
+    end
+  end
+
 
   def example_tooltip_or_default
     default = "went for a walk"
@@ -320,9 +336,7 @@ class Demo < ActiveRecord::Base
 
   def uses_custom_bullets?
     ['1', '2', '3'].each do |number|
-      ['a', 'b'].each do |letter|
-        return true if eval("invitation_bullet_#{number + letter}.present?")
-      end
+      return true if send("invitation_bullet_#{number}").present?
     end
     false
   end

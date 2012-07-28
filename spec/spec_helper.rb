@@ -117,6 +117,8 @@ Spork.each_run do
   
   # Bit Fat Hack(TM) Part II
   ActiveRecord::Base.shared_connection = ActiveRecord::Base.connection
+  # Not sure why you have to specifically include routes.rb
+  require "#{Rails.root}/config/routes.rb"
 
 end
 

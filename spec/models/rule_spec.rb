@@ -81,4 +81,28 @@ describe Rule do
       end
     end
   end
+  
+  describe "#validates_length_of" do
+    before(:each) do
+      @rule = FactoryGirl.create(:rule, description: "Climbed the Pru")
+    end
+
+    context "when the rule has no goal" do
+      it "should have a reply length limit of 120" do
+        @rule.reply = 'H' * 120
+        @rule.should be_valid
+        @rule.reply = 'H' * 121
+        @rule.should_not be_valid
+      end
+
+      it "should have a reply lenght limit of 100 if it has a goal" do
+        @rule.reply = 'H' * 100
+        goal = FactoryGirl.create(:goal, :rule_ids => [@rule.id])
+        @rule.reload.should be_valid
+        @rule.reply = 'H' * 101
+        @rule.should_not be_valid
+      end
+    end
+  end
+   
 end

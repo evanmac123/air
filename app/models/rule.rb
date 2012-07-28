@@ -10,6 +10,19 @@ class Rule < ActiveRecord::Base
   has_many   :labels, :dependent => :destroy
   has_many   :tags, :through => :labels
   belongs_to :primary_tag, :class_name => "Tag"
+  validates_length_of :reply, :maximum => 120
+  validates :reply, :with => :reply_length_100, :if => :goal_id
+  
+  def reply_length_100
+    if reply.length > 100
+      message = "Rule '#{description}' (id = #{id}) has a #{reply.length}-character reply. Please shorten its reply to 100 before associating it with a goal"
+      errors.add(:reply, message)
+    end
+  end
+
+  def length_message
+      end
+
   def to_s
     description || self.primary_value.try(:value) || self.rule_values.oldest.first.value
   end

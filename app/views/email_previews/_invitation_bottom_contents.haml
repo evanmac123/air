@@ -6,18 +6,13 @@
 
 %table.G{style.table_reset_hash_set_width}
   %tr
-    %td{style.description_hash} 
-      - if @user.demo.invitation_blurb.present?
-        = @user.demo.invitation_blurb
-      - else
-        = "#{@user.demo.name} is a fun social game"
-        that rewards you for making healthy decisions and hunting for colorful squares, called <i>tiles</i>. Earn points and win prizes like gift cards and iPads!
+    %td{style.description_hash}= InvitationEmail.blurb(@demo, @referrer)
 
 %table.H{style.table_reset_hash}
   %tr
     %td{style.image_left}= image_tag left_screenshot_url, :height => 161, :width => 161, :style => "padding-right: 40px;", :alt => "photo of friends list"
     %td{style.three_ways_hash} 
-      You can earn points for:
+      Three ways to get points:
       = render 'email_previews/ways_to_get_points', :style => style
       
 %table.I{style.table_reset_hash_full_width}
@@ -27,7 +22,7 @@
         %tr
           %td{style.not_alone_hash} And you won't be alone!
         %tr
-          %td{style.connect_hash} Connect with your friends to see how<br>they're playing and what level they're on.
+          %td{style.connect_hash} Connect with your colleagues to see how<br>they're playing and what level they're on.
         %tr
           %td
             = link_to @play_now_url, :id => :play_now_large do

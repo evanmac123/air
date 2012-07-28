@@ -207,6 +207,3 @@ Feature: Admin adds and edits rules
     And I follow "Cancel"
     Then I should be on the admin rules page for the standard playbook
 
-  Scenario: Proper restrictions on rule reply length
-    When I go to the rule edit page for "ate banana"
-    Then I should see a restricted text field "Reply" with length 101
