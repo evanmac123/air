@@ -11,7 +11,7 @@ module Airbrake
         # may have an exception in this "begin" block
         custom = self.parameters
 
-        current_user = args[:cgi_data][:clearance].current_user
+        current_user = args[:cgi_data].try(:[], :clearance).try(:current_user)
         current_user_data = current_user ? current_user.to_yaml : 'no current user'
 
         custom.merge!(note: 'edit which parameters get sent at lib/monkey_patches/airbrake/notice.rb')
