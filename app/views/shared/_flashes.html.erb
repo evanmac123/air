@@ -3,17 +3,36 @@
     <% consolidated_flash.each do |key, value| -%>
       <% next if key.to_s =~ /^mp_track/ %>
       <div id="flash_<%= key %>">
-        <% bracketless = value.flatten.compact.map{|value_part| value_part.gsub('["', '').gsub('"]', '')} %>
-        <% result = if ApplicationController::FLASHES_ALLOWING_RAW.include?(key.to_s) %>
-          <% bracketless %>
-        <% else %>
-          <% bracketless = bracketless.map{|value_part| "<p>" + h(value_part) + "</p>"}.join %>
-          <% bracketless.gsub! "support@hengage.com", link_to("support@hengage.com", "mailto:support@hengage.com") %>
-          <% bracketless %>
-        <% end %>
-
-        <%= raw result %>
+        <table border="0" class="flash-box">
+          <tr class="f-top">
+            <td class="f-left"></td>
+            <td class="f-center"></td>
+            <td class="f-right"></td>
+          </tr>
+          <tr class="f-middle">
+            <td class="f-left"></td>
+            <td class="f-center">
+              <% bracketless = value.flatten.compact.map{|value_part| value_part.gsub('["', '').gsub('"]', '')} %>
+              <% result = if ApplicationController::FLASHES_ALLOWING_RAW.include?(key.to_s) %>
+                <% bracketless %>
+              <% else %>
+                <% bracketless = bracketless.map{|value_part| "<p>" + h(value_part) + "</p>"}.join %>
+                <% bracketless.gsub! "support@hengage.com", link_to("support@hengage.com", "mailto:support@hengage.com") %>
+                <% bracketless %>
+              <% end %>
+              <%= raw result %>
+            </td>
+            <td class="f-right"></td>
+          </tr>
+          <tr class="f-bottom">
+            <td class="f-left"></td>
+            <td class="f-center"></td>
+            <td class="f-right"></td>
+          </tr>
+        </table>
       </div>
     <% end -%>
   </div>
 <% end %>
+
+
