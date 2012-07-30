@@ -1,5 +1,6 @@
 require 'rubygems'
 require 'spork'
+require 'pry'
 #uncomment the following line to use spork with the debugger
 require 'spork/ext/ruby-debug'
 
@@ -7,6 +8,20 @@ Spork.prefork do
   # Loading more in this block will cause your tests to run faster. However,
   # if you change any configuration or code from libraries loaded here, you'll
   # need to restart spork for it take effect.
+  #
+  
+  
+  ############  PREVENT PRE-LOADING OF MODEL FILES  #################################
+  # trap_method and trap_class_method save the method being called as a lambda which# 
+  # will instead be called in the Spork.each_run block                              #
+  # Because if models get preloaded here, they don't get REloaded later             #
+  # # Hint: if they do get loaded, put curse words in your model file, start spork, #
+  # # and follow the backtrace to see who it is that's including them               #
+  #                                                                                 #
+  require 'rails/application' # For some reason we need this line                   #
+  require 'active_support/dependencies' # The file that has 'Loadable' in it        #
+  Spork.trap_method(ActiveSupport::Dependencies::Loadable, :load)                   #
+  ###################################################################################
 
   require "cover_me"
 
