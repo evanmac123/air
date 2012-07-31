@@ -6,49 +6,43 @@
 <a class="toc" name="toc-Subsection--1"></a>What is H Engage? 
 </h2>
 <div class="Standard">
-H Engage is a social, mobile game that makes getting healthy fun – and rewarding. 
+H Engage is a social, mobile game that helps you learn about your benefits and take healthy actions. 
 </div>
 <h2 class="Subsection-">
 <a class="toc" name="toc-Subsection--2"></a>How do I play?
 </h2>
 <div class="Standard">
-There are three categories of points: activity points, social points, and tile points (see <a class="Reference" href="#sub:how_can_i_earn_activity_points">How can I earn activity points?↓</a>, <a class="Reference" href="#sub:how_can_i_earn_social_points">How can I earn social points?↓</a>, and <a class="Reference" href="#sub:how_can_i_earn_tile_points">How can I earn tile points?↓</a> for more information). 
+There are two categories of points: social points and game piece points (see <a class="Reference" href="#sub:how_can_i_earn_social_points">How can I earn social points?↓</a>and <a class="Reference" href="#sub:how_can_i_earn_tile_points">How can I earn game piece points?↓</a> for more information). 
 </div>
 <div class="Standard">
-You can earn points for any of these categories, by sending commands to H Engage via text or email, or submitting them online. 
+You can earn points for either of these categories, by sending commands to H Engage. You can choose to send commands via text or email, or submit them online. If you’d like to play by text, send commands to <%= @current_user.demo.phone_number.try(:as_pretty_phone) %>. If you’d like to play by email, send commands to <a href='mailto:<%= @current_user.demo.email %>'><%= @current_user.demo.email %></a>. 
 </div>
 <h2 class="Subsection-">
-<a class="toc" name="toc-Subsection--3"></a>How do I play by text or email?
-</h2>
-<div class="Standard">
-If you’d like to play by text, send commands to <%= @current_user.demo.phone_number.try(:as_pretty_phone) %>. If you’d like to play by email, send commands to <a href='mailto:<%= @current_user.demo.email %>'><%= @current_user.demo.email %></a>. 
-</div>
-<h2 class="Subsection-">
-<a class="toc" name="toc-Subsection--4"></a>Does it cost anything to play? 
+<a class="toc" name="toc-Subsection--3"></a>Does it cost anything to play? 
 </h2>
 <div class="Standard">
 There is no cost to join, but standard message and data rates do apply so there may be some costs associated with the use of this service. For example, your pager or cellular phone service provider may charge you to send or receive wireless text messages. 
 </div>
 <h2 class="Subsection-">
-<a class="toc" name="toc-Subsection--5"></a>Where can I find my user name? 
+<a class="toc" name="toc-Subsection--4"></a>Where can I find my user name? 
 </h2>
 <div class="Standard">
 Your user name was listed in the welcome message you received when you first signed up for the game. Can’t find the welcome message? Text in “MYID” or take a look at the “Settings” page. 
 </div>
 <h2 class="Subsection-">
-<a class="toc" name="toc-Subsection--6"></a>What if I don’t want to play by text messaging? 
+<a class="toc" name="toc-Subsection--5"></a>What if I don’t want to play by text messaging? 
 </h2>
 <div class="Standard">
 Text messaging makes the game fun, but it’s certainly not required. 
 </div>
 <div class="Standard">
-You can play by emailing commands to <a href='mailto:<%= @current_user.demo.email %>'><%= @current_user.demo.email %></a>, or by submitting them on hengage.com 
+You can play by emailing commands to <a href='mailto:<%= @current_user.demo.email %>'><%= @current_user.demo.email %></a>, or by submitting them on HEngage.com 
 </div>
 <div class="Standard">
-If you’ve already entered your mobile number but want to remove it, simply go to hengage.com, click on “Settings” and remove your mobile number. 
+If you’ve already entered your mobile number but want to remove it, simply go to HEngage.com, click on “Settings” and remove your mobile number. 
 </div>
 <h2 class="Subsection-">
-<a class="toc" name="toc-Subsection--7"></a>What can I do on hengage.com?
+<a class="toc" name="toc-Subsection--6"></a>What can I do on HEngage.com?
 </h2>
 <ul>
 <li>
@@ -60,274 +54,97 @@ Connect with your coworkers. You can also do this by sending “friend USER NAME
 
 </ul>
 <h2 class="Subsection-">
-<a class="toc" name="toc-Subsection--8"></a>What information about me can people see on hengage.com? 
+<a class="toc" name="toc-Subsection--7"></a>What information about me can people see on HEngage.com? 
 </h2>
 <div class="Standard">
-We get that privacy is important. That’s why we let you customize your privacy settings on hengage.com. You have the option to show your profile page to all coworkers who are playing the game, only coworkers who you are connected to, or nobody. 
+We get that privacy is important. That’s why we let you customize your privacy settings on HEngage.com. You have the option to show your profile page to all coworkers who are playing the game, only coworkers who you are connected to, or nobody. 
 </div>
 <div class="Standard">
 If you limit your profile page to those you are connected to or nobody, others will only be able to see your name, photo, and email address. 
 </div>
 <div class="Standard">
-If a coworker wants to connect with you, they will request to be your friend. You will receive a notification when a coworker requests to be your friend, and you will have the option to confirm or (quietly) reject them. 
+If a coworker wants to connect with you, they will request to be your friend. You’ll receive a notification that allows you to confirm or (quietly) reject them. 
 </div>
 <h1 class="Section-">
 <a class="toc" name="toc-Section--2"></a>The Rules of the Game
 </h1>
 <h2 class="Subsection-">
-<a class="toc" name="toc-Subsection--9"></a>Where do I enter commands? 
+<a class="toc" name="toc-Subsection--8"></a>Where do I enter commands? 
 </h2>
 <div class="Standard">
-You can play by texting commands to <%= @current_user.demo.phone_number.try(:as_pretty_phone) %>, by emailing commands to <a href='mailto:<%= @current_user.demo.email %>'><%= @current_user.demo.email %></a>, or by submitting them on hengage.com 
+You can play by texting commands to <%= @current_user.demo.phone_number.try(:as_pretty_phone) %>, by emailing commands to <a href='mailto:<%= @current_user.demo.email %>'><%= @current_user.demo.email %></a>, or by submitting them on HEngage.com 
 </div>
 <h2 class="Subsection-">
-<a class="toc" name="toc-Subsection--10"></a>What’s a command? 
+<a class="toc" name="toc-Subsection--9"></a>What’s a command? 
 </h2>
 <div class="Standard">
-A command is what you send to H Engage to earn points. It lets us know that you did a healthy activity (like taking a walk or eating an apple), saw a tile or did an activity with a coworker.
+A command is a word or phrase that you send to H Engage to earn points. It lets us know when you take an action or find a game piece. 
 </div>
-<div class="Standard">
-Here’s how they work:
-</div>
-<ul>
-<li>
-Commands for eating healthy foods and doing healthy activities are pretty self-explanatory… eat an apple, send “ate apple,” take a walk, text “took walk.” See <a class="Reference" href="#sub:how_can_i_earn_activity_points">How can I earn activity points?↓</a> for more information. 
-</li>
-<li>
-Tile commands are based on information you can find right on the tiles, so no guesswork there. 
-</li>
-<li>
-Social commands involve sending a coworker’s username to H Engage so we know you did an activity together (i.e., “took walk jsmith”). See <a class="Reference" href="#sub:how_can_i_earn_social_points">How can I earn social points?↓</a> for more information about how to send social commands.
-</li>
-
-</ul>
 <h2 class="Subsection-">
-<a class="toc" name="toc-Subsection--11"></a>What if the system doesn’t recognize a command? 
+<a class="toc" name="toc-Subsection--10"></a>What if the system doesn’t recognize a command? 
 </h2>
 <div class="Standard">
 There are a few reasons that the system may not recognize a command that you send in. First, you may want to double check what you sent us. For example, make sure that you spelled everything correctly (sent “benefit” not “bnefit”) and that words are in the right order (“4 ur health” not “ur 4 health”). 
 </div>
 <div class="Standard">
-If you’re sending in an activity command, there’s a chance that you did a healthy activity that we haven’t loaded into our system yet. We think we’ve covered all the common – and not so common – activities and healthy foods, but if you find one the system doesn’t recognize, you can send “S” to suggest we add it. 
-</div>
-<div class="Standard">
 And finally, if you’re still having issues, send <a href='#' class='contact_us_link'>support@hengage.com</a> a message and we’ll look into it. 
 </div>
 <h2 class="Subsection-">
-<a class="toc" name="toc-Subsection--12"></a>What if I send a command and don’t receive a response back? 
+<a class="toc" name="toc-Subsection--11"></a>What if I send a command and don’t receive a response back? 
 </h2>
 <div class="Standard">
 We try our best to respond to all commands within a few seconds. Like any system, ours slows down once in awhile so if you don’t see something right away, give us a few minutes. If you still don’t see a response within an hour, send us a note at <a href='#' class='contact_us_link'>support@hengage.com</a> and we’ll look into it. 
 </div>
 <h2 class="Subsection-">
-<a class="toc" name="toc-Subsection--13"></a><a class="Label" name="sub:how_can_i_earn_activity_points"> </a>How can I earn activity points?
+<a class="toc" name="toc-Subsection--12"></a><a class="Label" name="sub:how_can_i_earn_tile_points"> </a>How can I earn game piece points?
 </h2>
 <div class="Standard">
-You can earn points for eating healthy and for doing healthy activities. We think we’ve covered all the common – and not so common – activities and healthy foods, but if you find one the system doesn’t recognize, you can send “S” to suggest we add it. 
-</div>
-<div class="Standard">
-Here are some examples of healthy commands:
-</div>
-<div class="Paragraph">
-<a class="toc" name="toc-Paragraph-1"></a>Eating healthy
-</div>
-<div class="Standard">
-Tell H Engage when you eat healthy foods, like: 
-</div>
-<div class="Subparagraph">
-Fruit 
-</div>
-<ul>
-<li>
-Apple: Send “ate apple” (+3 points) 
-</li>
-<li>
-Banana: Send “ate banana” (+3 points) 
-</li>
-<li>
-Strawberries: Send “ate strawberry” (+3 points) 
-</li>
-
-</ul>
-<div class="Subparagraph">
-Vegetables 
-</div>
-<ul>
-<li>
-Salad: Send “ate salad” (+3 points) 
-</li>
-<li>
-Broccoli: Send “ate broccoli” (+3 points) 
-</li>
-<li>
-Bok choy: Send “ate bok choy” (+3 points) 
-</li>
-
-</ul>
-<div class="Subparagraph">
-Other 
-</div>
-<ul>
-<li>
-Whole grains: Send “ate whole grains” (+3 points) 
-</li>
-<li>
-Almonds: Send “ate almonds” (+3 points) 
-</li>
-<li>
-Peanuts: Send “ate peanuts” (+3 points) 
-</li>
-<li>
-Walnuts: “ate walnuts” (+3 points) 
-</li>
-<li>
-Water: Send “drank water” (+1 point) 
-</li>
-
-</ul>
-<div class="Paragraph">
-<a class="toc" name="toc-Paragraph-2"></a>Doing physical activity. 
-</div>
-<div class="Standard">
-Tell H Engage when you do healthy activities, like: 
-</div>
-<ul>
-<li>
-Took the stairs: Send “took stairs” (+2 points) 
-</li>
-<li>
-Went to the gym: Send “went to gym” (+10 points) 
-</li>
-<li>
-Took a walk: Send “took walk” (+5 points) 
-</li>
-<li>
-Went canoeing: Send “went canoeing” (+6 points) 
-</li>
-<li>
-Played doubles tennis: Send “I played tennis” (+8 points)
-</li>
-
-</ul>
-<h2 class="Subsection-">
-<a class="toc" name="toc-Subsection--14"></a><a class="Label" name="sub:how_can_i_earn_tile_points"> </a>How can I earn tile points?
-</h2>
-<div class="Standard">
-Find and read “tiles”. Look for the fun, colorful squares. Read them and follow the instructions on each one…have your cell phone ready! 
-</div>
-<div class="Standard">
-Tiles will typically include one or more of the following ways to earn points: 
-</div>
-<ul>
-<li>
-✔ Check-in: Let us know you found the tile by sending the command in this box 
-</li>
-<li>
-? Answer a question: Answer a question based on the tile or on the information you receive back from checking-in 
-</li>
-<li>
-★ Make a commitment: Commit to taking an action in the future
-</li>
-
-</ul>
-<h2 class="Subsection-">
-<a class="toc" name="toc-Subsection--15"></a>How can I tell if I’ve found all the tiles?
-</h2>
-<div class="Standard">
-We number the tiles in a series to make it easier to find them all. So for example, the tile you’re looking at may have “1/4” in the upper right corner. This means you’ve found the first of four in the series. To make it easier, when you “check-in” to a tile, (see <a class="Reference" href="#sub:how_can_i_earn_tile_points">How can I earn tile points?↑</a> for more information), the response you receive back will tell you that you’ve found one out of four, two out of four, etc.
+Look for the fun, colorful squares, called &ldquo;game pieces&rdquo;. Read them and follow the instructions! Each game piece will include words or phrases that you can send to H Engage for points…have your cell phone ready! 
 </div>
 <h2 class="Subsection-">
-<a class="toc" name="toc-Subsection--16"></a>How can I tell what Level I am?
+<a class="toc" name="toc-Subsection--13"></a>How can I find out how many points I have or what level I’m on?
 </h2>
 <div class="Standard">
-You can find your Level (and how many points you need to get to the next level) on your homepage on hengage.com. 
+You can find your level (and how many points you need to get to the next level) on your homepage on HEngage.com. 
 </div>
 <div class="Standard">
-You’ll also receive an update on your points when you send in a command. 
-</div>
-<h2 class="Subsection-">
-<a class="toc" name="toc-Subsection--17"></a>How can I find out how many points I have?
-</h2>
-<div class="Standard">
-The easiest way to find out how many points you have is to log on to hengage.com. You’ll be able to see what Level you’re in and how many points you need to level-up right at the top of your homepage. 
-</div>
-<div class="Standard">
-You’ll also receive an update on your points when you send in a command.
+You’ll also receive an update on your points and level each time you send in a command. 
 </div>
 <h1 class="Section-">
 <a class="toc" name="toc-Section--3"></a>Playing with Friends
 </h1>
 <h2 class="Subsection-">
-<a class="toc" name="toc-Subsection--18"></a><a class="Label" name="sub:how_can_i_earn_social_points"> </a>How can I earn social points?
+<a class="toc" name="toc-Subsection--14"></a><a class="Label" name="sub:how_can_i_earn_social_points"> </a>How can I earn social points?
 </h2>
 <div class="Standard">
-We all know that games are more fun when you’re playing with other people. That’s why H Engage gives you two ways to earn points for playing with your coworkers:
+Games are more fun when you’re playing with other people! Here are two ways to play with your coworkers:
 </div>
 <ul>
 <li>
-<i>Referring coworkers.</i> Get 5 points for each coworker you sign up: have your friend respond to their welcome text or email with your user name. 
+<i>Referring coworkers.</i> Get 5 points for each coworker you sign up. Have your friend respond to their welcome text or email with your game user name (so you get credit for referring them). You can also invite your coworkers on HEngage.com. When they join the game, you’ll get credit for referring them! 
 </li>
 <li>
-<i>Playing together.</i> You can earn extra points by doing an activity with a coworker by adding their user name to the end of a command (“took stairs jsmith”) or having them add your user name to the end of a command.
+<i>Connecting with coworkers.</i> Connecting with a coworker is a great way to see how they’re playing the game. There are two ways to connect with a coworker. First, you can text or email “friend” followed by their username (i.e., “friend jsmith”). Or you can go to HEngage.com and look them up in the “Directory” page. Then click their name to go to their profile page, and you’ll see a button that you can click to friend them.
 </li>
 
 </ul>
 <h2 class="Subsection-">
-<a class="toc" name="toc-Subsection--19"></a>How do I connect with a coworker on H Engage?
+<a class="toc" name="toc-Subsection--15"></a>A friend referred me to the game. How do I give them credit?
 </h2>
 <div class="Standard">
-Connecting with a coworker is a great way to support their healthy activities. There are two ways to become friends with a coworker:
+There are a few ways to give your referrer credit. The easiest is to respond to the welcome message you received when you joined with their user name. You can also give them credit when you log on to HEngage.com. 
 </div>
-<ul>
-<li>
-You can text or email “friend” followed by their username (i.e., “friend jsmith”) 
-</li>
-<li>
-Or you can go to hengage.com, look them up in the “Directory” page, click their name to go to their profile page, and you’ll see a button that you can click to friend them.
-</li>
-
-</ul>
-<div class="Standard">
-Either way, the person will be notified and asked to confirm that they know you. 
-</div>
-<h2 class="Subsection-">
-<a class="toc" name="toc-Subsection--20"></a>How do I refer someone to the game? 
-</h2>
-<div class="Standard">
-You can earn points for getting your coworkers to join the game. Just have them sign up for the game (the same way you did) and then ask them to respond to their welcome text or email with your user name. 
-</div>
-<h2 class="Subsection-">
-<a class="toc" name="toc-Subsection--21"></a>A friend referred me to the game. How do I give them credit?
-</h2>
-<div class="Standard">
-There are a few ways to give your referrer credit. The easiest is to respond to the welcome message you received when you joined with their user name. You can also give them credit when you log on to hengage.com. 
-</div>
-<h2 class="Subsection-">
-<a class="toc" name="toc-Subsection--22"></a>A friend told me about a command. How do I give them credit?
-</h2>
-<div class="Standard">
-You can give a friend credit for telling you about a command (or for doing an activity with you) by adding their user name to the end of the command when you send it in. Here are some examples:
-</div>
-<ul>
-<li>
-Took a walk with a coworker? Send “took a walk jsmith” 
-</li>
-<li>
-Ate an apple with a coworker? Send “ate apple jsmith”
-</li>
-
-</ul>
 <h1 class="Section-">
 <a class="toc" name="toc-Section--4"></a>Additional Support
 </h1>
 <h2 class="Subsection-">
-<a class="toc" name="toc-Subsection--23"></a>What if I found something that doesn’t look right?
+<a class="toc" name="toc-Subsection--16"></a>What if I found something that doesn’t look right?
 </h2>
 <div class="Standard">
 We work hard to make sure that everything in our system is working correctly, but if you see something that doesn’t look right, let us know! Send us a note at <a href='#' class='contact_us_link'>support@hengage.com</a>. If you find a bug, we may even give you a couple bonus points for helping us out! 
 </div>
 <h2 class="Subsection-">
-<a class="toc" name="toc-Subsection--24"></a>What if I have other questions about the game? 
+<a class="toc" name="toc-Subsection--17"></a>What if I have other questions about the game? 
 </h2>
 <div class="Standard">
 Send your questions/comments to <a href='#' class='contact_us_link'>support@hengage.com</a>.
