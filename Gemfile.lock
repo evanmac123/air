@@ -433,6 +433,7 @@ DEPENDENCIES
   rack
   rails (~> 3.1.0)
   rails-dev-tweaks
+  rb-fsevent
   reek
   rspec-rails
   ruby-debug
