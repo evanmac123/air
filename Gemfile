@@ -91,7 +91,7 @@ end
 
 group :development do 
   gem 'guard-rspec'
-  gem 'rb-fsevent', :require => false if RUBY_PLATFORM =~ /darwin/i # guard-rspec depends on this, but only OSX operating systems don't have it already
+  #gem 'rb-fsevent', :require => false if RUBY_PLATFORM =~ /darwin/i # guard-rspec depends on this, but only OSX operating systems don't have it already
   gem 'guard-spork'
   gem 'guard-livereload'
 end
