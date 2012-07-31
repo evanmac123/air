@@ -65,6 +65,7 @@ body {
 }
 /* -- flash messages -- */
 #flash {
+	text-align:left;
     margin:0 auto;
     width:960px;
     p {
@@ -88,19 +89,18 @@ body {
 	border:0!important;
 	color:#353535!important;
 	font-weight:medium;
-	margin:-10px 0 0 0!important;
-	max-width:640px;
-    min-width:460px;
+	margin:-10px 0 0 20px!important;
+	max-width:520px;
+    min-width:400px;
 	padding:0!important;
 	position:relative;
 	text-align:left!important;
-	z-index:3;
 }
 #flash_failure {
 	tr.f-bottom td.f-center {background:url('v3/flash/flash-bc-failure.png') repeat-x center left;}
 	tr.f-bottom td.f-left{background:url('v3/flash/flash-bl-failure.png') no-repeat center left;} 
 	tr.f-bottom td.f-right{background:url('v3/flash/flash-br-failure.png') no-repeat center right;} 
-	tr.f-middle {background:url('v3/flash/flash-fail.png') #fdf097 center top;}
+	tr.f-middle td {background:url('v3/flash/flash-fail.png') #fdf097 center top;}
 	tr.f-middle td.f-left {border-left:1px #e4d881 solid;}
 	tr.f-middle td.f-right {border-right:1px #e4d881 solid;}
 	tr.f-top td.f-center {background:url('v3/flash/flash-tc-failure.png') repeat-x center left;}
@@ -111,7 +111,7 @@ body {
 	tr.f-bottom td.f-center {background:url('v3/flash/flash-bc-success.png') repeat-x center left;}
 	tr.f-bottom td.f-left{background:url('v3/flash/flash-bl-success.png') no-repeat center left;} 
 	tr.f-bottom td.f-right{background:url('v3/flash/flash-br-success.png') no-repeat center right;} 
-	tr.f-middle {background:url('v3/flash/flash-success.png') #d1f795 center top;}
+	tr.f-middle td {background:url('v3/flash/flash-success.png') #d1f795 center top;}
 	tr.f-middle td.f-left {border-left:1px #b2d876 solid;}
 	tr.f-middle td.f-right {border-right:1px #b2d876 solid;}
 	tr.f-top td.f-center {background:url('v3/flash/flash-tc-success.png') repeat-x center left;}
