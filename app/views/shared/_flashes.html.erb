@@ -7,7 +7,9 @@
           <tr class="f-top">
             <td class="f-left"></td>
             <td class="f-center"></td>
-            <td class="f-right"></td>
+            <td class="f-right">
+              <a href="#" id="close-flash"><span>x</span></a>
+            </td>
           </tr>
           <tr class="f-middle">
             <td class="f-left"></td>
@@ -35,4 +37,8 @@
   </div>
 <% end %>
 
-
+<script type="text/javascript">
+$('#close-flash').click(function() {
+    $('#flash').slideUp();
+});
+</script>

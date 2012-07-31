@@ -68,6 +68,13 @@ body {
 	text-align:left;
     margin:0 auto;
     width:960px;
+    a#close-flash span {
+    	display:inline-block;
+    	font-family:'Ubuntu', Helvetica, Arial, sans-serif;
+    	font-weight:bold;
+    	margin:7px 0 0 15px;
+    	position:absolute;
+    }
     p {
     	display:block;
     	margin:5px 0;
@@ -97,6 +104,7 @@ body {
 	text-align:left!important;
 }
 #flash_failure {
+	a#close-flash span {color:darken(#e4d881, 10%);}
 	tr.f-bottom td.f-center {background:url('v3/flash/flash-bc-failure.png') repeat-x center left;}
 	tr.f-bottom td.f-left{background:url('v3/flash/flash-bl-failure.png') no-repeat center left;} 
 	tr.f-bottom td.f-right{background:url('v3/flash/flash-br-failure.png') no-repeat center right;} 
@@ -108,6 +116,7 @@ body {
 	tr.f-top td.f-right {background:url('v3/flash/flash-tr-failure.png') no-repeat center right;}
 }
 #flash_success {
+	a#close-flash span {color:darken(#b2d876, 10%);}
 	tr.f-bottom td.f-center {background:url('v3/flash/flash-bc-success.png') repeat-x center left;}
 	tr.f-bottom td.f-left{background:url('v3/flash/flash-bl-success.png') no-repeat center left;} 
 	tr.f-bottom td.f-right{background:url('v3/flash/flash-br-success.png') no-repeat center right;} 
