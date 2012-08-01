@@ -144,6 +144,7 @@ GEM
       actionpack (>= 2.3.7)
       activesupport (>= 2.3.7)
       i18n (>= 0.4.0)
+    getopt (1.4.1)
     gherkin (2.10.0)
       json (>= 1.4.6)
     guard (1.2.3)
@@ -411,6 +412,7 @@ DEPENDENCIES
   flog
   flutie
   formtastic (= 1.2.2)
+  getopt
   guard-livereload
   guard-rspec
   guard-spork

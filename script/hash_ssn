@@ -1,0 +1,37 @@
+#!/usr/bin/env ruby
+
+require 'csv'
+require 'getopt/std'
+require 'digest/sha1'
+
+opt = Getopt::Std.getopts("s:c:h")
+
+salt = opt['s']
+ssn_column_index = opt['c']
+skip_header = opt['h']
+
+unless salt && ssn_column_index
+  puts("usage: hash_ssn -s SALT -c SSN_COLUMN_INDEX [-h]")
+  exit
+end
+
+ssn_column_index = ssn_column_index.to_i
+
+header_skipped = false
+
+while(line = STDIN.gets)
+  if skip_header && !header_skipped
+    puts line
+    header_skipped = true
+    next
+  end
+
+  csv = CSV.parse_line(line)
+  ssn = csv[ssn_column_index]
+  ssn.gsub! /\D/, ''
+  ssn += salt
+
+  ssn_hash = Digest::SHA1.hexdigest ssn
+  csv[ssn_column_index] = ssn_hash
+  puts CSV.generate_line(csv)
+end
