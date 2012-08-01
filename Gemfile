@@ -67,6 +67,7 @@ group :development, :test do
   gem "flog"
 
   gem "cover_me"
+  gem "getopt"
 end
 
 group :test do
