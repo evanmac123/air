@@ -13,6 +13,10 @@ class Admin::TagsController < AdminBaseController
     end
   end
 
+  def edit
+    @tag = Tag.find(params[:id])
+  end
+
   def new
     @tag = Tag.new
 
