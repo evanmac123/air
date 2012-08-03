@@ -41,12 +41,12 @@ class Admin::RulesController < AdminBaseController
       @commit_path = create_rule(@demo)
       @primary_value = RuleValue.new(value: @primary_value)
       array = []
-      @secondary_values.each_pair do |key, value|
-        array << RuleValue.new(value: value)
+      unless @secondary_values.nil? # @secondary_values can be nil when calling #update
+        @secondary_values.each_pair do |key, value|
+          array << RuleValue.new(value: value)
+        end
+        @secondary_values = array
       end
-      @secondary_values = array
-
-
   end
 
   def edit
