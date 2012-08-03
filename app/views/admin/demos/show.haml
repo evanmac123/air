@@ -131,6 +131,11 @@
 
   .box
     %h2 Invitation Email
+    #preview_link_holder
+      #preview_link
+        Preview this game's invitation email:<br>
+        .block=link_to "Invited by us", invitation_preview_path({demo_id: @demo.id})
+        .block=link_to "Referred by a friend", invitation_preview_path({demo_id: @demo.id, referrer: true})
     .drawer
       %h3 Subject
       .sub
