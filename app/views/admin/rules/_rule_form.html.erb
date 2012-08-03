@@ -56,9 +56,16 @@
 <% content_for :javascript do %>
   <%= javascript_tag do %>
     countReplyCharacters();
+    // 'keypress' responds more quickly, but doesn't work with backspace in Chrome
+    // so I add the same thing for 'keyup' for the Chrome users
+    // note that 'keypress' needs a delay to way for the input, while 'keyup' does not
+    $('#rule_reply').keyup(function(){
+      countReplyCharacters();
+    });
     $('#rule_reply').keypress(function(){
       setTimeout('countReplyCharacters()', 1);
     });
+    
     function countReplyCharacters(){
       var count = $('#rule_reply').val().length; 
       $('#current_reply_length').text(count);

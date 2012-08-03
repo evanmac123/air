@@ -64,10 +64,16 @@ describe "InvitationEmail" do
   end
 
   context "#gsub_referrer" do
-    it "should replace [referrer] with the first name" do
-      sailor = User.new(name: 'Popeye the Sailor')
+    before(:each) do
+      @sailor = User.new(name: 'Popeye the Sailor')
+    end
+   it "should replace [referrer] (lowercase) with the name" do
       string = "[referrer] and "
-      InvitationEmail.gsub_referrer(string, sailor).should == "Popeye the Sailor and "
+      InvitationEmail.gsub_referrer(string, @sailor).should == "Popeye the Sailor and "
+    end
+   it "should replace [Referrer] (capitalized) with the name" do
+      string = "[Referrer] and "
+      InvitationEmail.gsub_referrer(string, @sailor).should == "Popeye the Sailor and "
     end
   end
 

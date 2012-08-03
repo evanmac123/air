@@ -32,6 +32,10 @@ class InvitationEmail
     "[referrer]"
   end
 
+  def self.referrer_tag_cap
+    "[Referrer]"
+  end
+
   def self.blurb(demo, referrer=nil)
     attribute = "invitation_blurb"
     attribute += "_with_referrer" if referrer
@@ -56,7 +60,8 @@ class InvitationEmail
   def self.gsub_referrer(html, referrer)
     return html unless referrer
     html = strip_tags_except_bi(html)
-    html.gsub(referrer_tag, referrer.name)
+    html.gsub!(referrer_tag, referrer.name)
+    html.gsub(referrer_tag_cap, referrer.name)
   end
 
   def self.default_subject(demo)
@@ -73,7 +78,7 @@ class InvitationEmail
   end
 
   def self.default_blurb_with_referrer(demo)
-    game_name = strip_tags(demo.name).html_safe
+    game_name = strip_tags(demo.name_with_sponsor).html_safe
     "[referrer] has invited you to play #{game_name}. It's a fun social game that rewards you for making healthy decisions and hunting for colorful squares, called <i>tiles</i>. Earn points and win prizes like gift cards and iPads!".html_safe
   end
 

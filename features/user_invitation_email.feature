@@ -26,13 +26,13 @@ Feature: User invites friends, and invitation email says what it should
     And DJ works off
     Then "jinx@loaded.com" has received an invitation
     When "jinx@loaded.com" opens the email
-    Then I should see "Concord wants you to play" in the email body
+    Then I should see "Concord has invited you to play" in the email body
     
     And I click the play now button in the email
     Then I should be on the invitation page for "jinx@loaded.com"
     And I should see "Concord"
     When "jinx@loaded.com" opens the email    
-    Then I should see "Concord wants you to play" in the email body
+    Then I should see "Concord has invited you to play" in the email body
     And I should see "Preloaded at Rocket Science" in the email body
   
 
@@ -40,7 +40,7 @@ Feature: User invites friends, and invitation email says what it should
     When I click the view in browser link in the email
     Then I should not see "View it in your browser"
     And I should not see "Kermit"
-    And I should see "Concord wants you to play Preloaded at Rocket Science"
+    And I should see "Concord has invited you to play Preloaded at Rocket Science"
     And I follow "play_now_large"
     Then I should be on the invitation page for "jinx@loaded.com"
     And I should see "Concord"

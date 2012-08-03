@@ -174,7 +174,7 @@ describe Demo, ".alphabetical" do
     @gillette = FactoryGirl.create(:demo, :name => "Gillette")
   end
 
-  it "finds all demos, sorted alphaetically" do
+  it "finds all demos, sorted alphabetically" do
     Demo.alphabetical.should == [@gillette, @red_sox]
   end
 end
@@ -300,6 +300,13 @@ describe "Demo" do
       @demo.invitation_bullet_1 = "h" * 30 + InvitationEmail.break_char + "short"
       @demo.should be_valid
       @demo.invitation_bullet_1 = "h" * 39  + InvitationEmail.break_char + "shorty"
+      @demo.should_not be_valid
+    end
+
+    it "should not include <b> and <i> tags in the length count" do
+      @demo.invitation_bullet_1 = "h" * 30 + "<b><i></i></b>" + InvitationEmail.break_char + "short"
+      @demo.should be_valid
+      @demo.invitation_bullet_1 = "h" * 39  + "<b><i></i></b>" + InvitationEmail.break_char + "shorty"
       @demo.should_not be_valid
     end
   end

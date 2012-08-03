@@ -125,11 +125,11 @@ table.admin_wide{
     font-size: 15px;
     line-height: 18px;
   }
-  #reply_max_length_info_holder, #bullet_instructions_holder, #subject_instructions_holder, .blurb_instructions_holder{
+  #reply_max_length_info_holder, #bullet_instructions_holder, #subject_instructions_holder, .blurb_instructions_holder, .example_instructions_holder{
     position: relative;
     list-style: none;
   }
-  #reply_max_length_info, #subject_instructions, .blurb_instructions, .blurb_instructions_dropped{
+  #reply_max_length_info, .blurb_instructions, .blurb_instructions_dropped{
     font-weight: bold;
     position: absolute;
     left: 124mm;
@@ -137,6 +137,18 @@ table.admin_wide{
     #current_reply_length{
       display: inline;
     }
+  }
+  .example_instructions{
+    font-weight: bold;
+    position: absolute;
+    left: 91mm;
+    top: 0mm;
+  }
+ #subject_instructions{
+    font-weight: bold;
+    position: absolute;
+    left: 124mm;
+    top: 1mm;
   }
   .blurb_instructions_dropped{
     top: 8mm !important;
@@ -191,6 +203,9 @@ table.admin_wide{
   }
   .sub{
     padding: 5mm 0;
+  }
+  .subject_line{
+    width: 237mm;
   }
 
 }

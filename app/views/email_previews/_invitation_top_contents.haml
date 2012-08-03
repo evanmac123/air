@@ -16,12 +16,8 @@
   %tr
     %td{style.youre_invited_hash}
       %div{style.youre_invited_text_hash} You’re invited...
-      %div{style.get_ready_hash} 
-        - if @referrer
-          = "#{@referrer.name} wants you to play"
-        - else
-          to play
-        = @user.demo.name_with_sponsor
+      / This next line used to say "So and so wants you to play <game name>"
+      %div{style.get_ready_hash} &nbsp;
     %td{style.top_call_hash}
       = link_to @play_now_url  do
         = image_tag "#{style.image_url}/images/emails/play_now_small.png", :height => 38, :width => 186, :alt => "Click Here to Start Playing", :style => style.image, :id => :play_now

@@ -50,6 +50,7 @@ class Demo < ActiveRecord::Base
       next if text.blank?
       lines = text.split(InvitationEmail.break_char)
       lines.each do |line|
+        line = InvitationEmail.strip_tags(line)
         if line.length > limit
           message = "Line '#{line}' of invitation email bullet #{num} is #{line.length} characters long. Please shorten to 30 characters, and separate with a carriage return [ENTER]"
           errors.add(attribute, message)

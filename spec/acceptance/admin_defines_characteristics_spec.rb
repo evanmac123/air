@@ -7,7 +7,6 @@ feature "Admin Defines Characteristics" do
     name_cell.should be_present
 
     characteristic_row = page.find(:xpath, name_cell.path + "/..")
-
     characteristic_row.find(:css, "td", :text => description).should be_present
     characteristic_row.find(:css, "td", :text => datatype).should be_present
 

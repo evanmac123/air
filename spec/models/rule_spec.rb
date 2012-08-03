@@ -97,6 +97,7 @@ describe Rule do
 
       it "should have a reply lenght limit of 100 if it has a goal" do
         @rule.reply = 'H' * 100
+        @rule.save!
         goal = FactoryGirl.create(:goal, :rule_ids => [@rule.id])
         @rule.reload.should be_valid
         @rule.reply = 'H' * 101
