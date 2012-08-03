@@ -50,28 +50,6 @@ describe EmailCommandController do
         email_command.response.should eql "Your username is #{@user.sms_slug}."
       end
 
-      it "should process 'moreinfo' correctly" do
-        params = @test_params.merge({:plain => "moreinfo"})
-        post 'create', params
-        EmailCommand.count.should eql 1
-        email_command = EmailCommand.first
-        email_command.email_from.should eql @user.email
-        email_command.email_subject.should eql params['subject']
-        email_command.status.should eql EmailCommand::Status::SUCCESS
-        email_command.response.should eql "Great, we'll be in touch. Stay healthy!"
-      end
-
-      it "should process 'more' correctly" do
-        params = @test_params.merge({:plain => "more"})
-        post 'create', params
-        EmailCommand.count.should eql 1
-        email_command = EmailCommand.first
-        email_command.email_from.should eql @user.email
-        email_command.email_subject.should eql params['subject']
-        email_command.status.should eql EmailCommand::Status::SUCCESS
-        email_command.response.should eql "Great, we'll be in touch. Stay healthy!"
-      end
-
       it "should process 's' correctly" do
         params = @test_params.merge({:plain => "s ate kitten"})
         post 'create', params

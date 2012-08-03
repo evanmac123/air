@@ -50,7 +50,7 @@ module SpecialCommand
 
   register_command_handler %w(follow connect fan friend befriend),  SpecialCommandHandlers::FollowHandler
   register_command_handler %w(myid),                                SpecialCommandHandlers::MyIdHandler
-  register_command_handler %w(moreinfo more),                       SpecialCommandHandlers::MoreInfoHandler
+  register_command_handler %w(info),                                SpecialCommandHandlers::MoreInfoHandler
   register_command_handler %w(s suggest),                           SpecialCommandHandlers::SuggestionHandler
   register_command_handler [Survey::SURVEY_ANSWER_PATTERN],         SpecialCommandHandlers::SurveyResponseHandler
   register_command_handler [/^[a-z]$/],                             SpecialCommandHandlers::UseSuggestedItemHandler
@@ -65,7 +65,7 @@ module SpecialCommand
   register_command_handler %w(prizes),                              SpecialCommandHandlers::PrizeHandler
   register_command_handler %w(rules commands),                      SpecialCommandHandlers::RulesHandler
   register_command_handler %w(mute),                                SpecialCommandHandlers::MuteHandler
-  register_command_handler %w(gotit got),                           SpecialCommandHandlers::SuppressMuteNoticeHandler
+  register_command_handler %w(ok),                                  SpecialCommandHandlers::SuppressMuteNoticeHandler
 
   register_default_command_handler SpecialCommandHandlers::CreditGameReferrerHandler
 end

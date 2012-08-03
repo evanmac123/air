@@ -3,7 +3,7 @@ require File.expand_path(File.dirname(__FILE__) + '/acceptance_helper')
 feature "Admin Defines Characteristics" do
 
   def expect_characteristic_row(name, description, datatype, allowed_values=nil)
-    name_cell = page.find(:css, "td", :text => name)
+    name_cell = page.find(:css, "td.characteristic-name", :text => name)
     name_cell.should be_present
 
     characteristic_row = page.find(:xpath, name_cell.path + "/..")

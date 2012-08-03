@@ -33,7 +33,7 @@ describe ActionMailer::Base do
     end
 
 
-    it "html part has real <i>,<b> tags, not escaped. plain part has none", focus: true do
+    it "html part has real <i>,<b> tags, not escaped. plain part has none" do
       @hopscotch.invitation_blurb = "Have a <b><i>GREAT</b></i> time!"
       @hopscotch.invitation_bullet_1 = "Live <b><i>NOW</i></b>!"
       email = Mailer.invitation(@finney, nil, style: @style)

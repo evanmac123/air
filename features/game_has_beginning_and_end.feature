@@ -45,7 +45,7 @@ Feature: Game has a beginning and an end
     And "+14152613077" sends SMS "went gym"
     Then "+14152613077" should have received an SMS "You ate fruit. Points 2, level 1."
     And "+14152613077" should not have received an SMS including "Worked out."
-    And "+14152613077" should have received an SMS "Thanks for playing! The game is now over. If you'd like more information e-mailed to you, please text MORE INFO."
+    And "+14152613077" should have received an SMS "Thanks for playing! The game is now over. If you'd like more information e-mailed to you, please text INFO."
 
   Scenario: Sending actions outside of game window with custom messages
     When time is frozen at "2010-04-01 11:59:59 UTC"
