@@ -1,8 +1,0 @@
-<% content_for :status do %>
-  <p>Sorry, that e-mail domain <%= @invitation_request.email_domain %> is not one that's allowed to request invitations.</p>
-
-  <p>You can contact <%= link_to "support@hengage.com", "mailto:support@hengage.com" %> for help.</p>
-<% end %>
-
-<%= render 'form' %>
-<%= mp_track_page 'invalid self-inviting domain', :attempted_email => @invitation_request.email %>
