@@ -40,7 +40,7 @@ class AccountsController < ApplicationController
     current_user.generate_short_numerical_validation_token
     if current_user.save
       current_user.send_new_phone_validation_token
-      add_success "We have sent a verification code to #{current_user.new_phone_number.as_pretty_phone}. It will arrive momentarily. Please enter it into the box below."
+      add_success "We have sent a verification code to #{current_user.new_phone_number.as_pretty_phone}. It will arrive momentarily. Please enter it into the Notification Preferences box below."
     else
       add_failure current_user.errors[:new_phone_number]
     end
