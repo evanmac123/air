@@ -19,7 +19,6 @@
   <%= render 'shared/skin_styles' %>
 
   <%= csrf_meta_tag %>
-  <%= render 'shared/mixpanel' %>
 </head>
 <body class="<%= body_class %>">
 
@@ -32,6 +31,7 @@
 		Copyright © 2012 H Engage, Inc.
   </div>
 
+  <%= render 'shared/mixpanel' %>
   
   <% if @highlighted %>
     <%= render 'shared/site_tutorial' %>
