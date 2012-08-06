@@ -79,7 +79,7 @@ body {
     p {
     	display:block;
     	margin:5px 0;
-    	&:last-child {font-weight:bold;}
+    	&:first-child {font-weight:bold;}
     }
     table {margin:0;}
     td {
