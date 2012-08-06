@@ -40,5 +40,15 @@
 <script type="text/javascript">
 $('#close-flash').click(function() {
     $('#flash').slideUp();
-});
+    // Delete the cookies that are persisting the flash messages across page refreshes
+    var success = 'saved_flash_success';
+    var failure = 'saved_flash_failure';
+    deleteCookie(success);
+    deleteCookie(failure);
+  });
+
+  function deleteCookie(name) {
+    // Note the path is set to root so that it will clear cookies set from more specific paths
+    document.cookie = name + '=; expires=Thu, 01-Jan-70 00:00:01 GMT; path=/';
+  } 
 </script>

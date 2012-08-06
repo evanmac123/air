@@ -113,7 +113,34 @@ class ApplicationController < ActionController::Base
     unless @flash_failures_for_next_request.empty?
       flash[:failure] = (@flash_failures_for_next_request + [flash[:failure]]).join(' ')
     end
+    keep_flashes_for_next_time
   end
+
+  def keep_flashes_for_next_time
+    # Skip if we're in settings or the admin dashboard 
+    ref = env['HTTP_REFERER'] || ''
+    return if ref.include? "/admin" 
+    return if ref.include? "/settings"
+
+    # Save anything we've shoved into flash using add_success or add_failure into our
+    # own session variable 
+    # This gets used in app/helpers/application_helper#consolidated_flash
+    flash_success = flash[:success]
+    flash_failure = flash[:failure]
+    saved_success = :saved_flash_success
+    saved_failure = :saved_flash_failure
+    if flash_success 
+      cookies[saved_success] = flash_success
+      # Delete the other cookie so we don't get two at a time
+      cookies.delete(saved_failure)
+    end
+
+    if flash_failure
+      cookies[saved_failure] = flash_failure
+      cookies.delete(saved_success)
+    end
+  end
+
  
   def log_out_if_logged_in
     current_user.reset_remember_token! if current_user

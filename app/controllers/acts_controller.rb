@@ -42,7 +42,15 @@ class ActsController < ApplicationController
 
   def create
     parsing_message, parsing_message_type = Command.parse(current_user, params[:act][:code], :return_message_type => true, :channel => :web, :style => EmailStyling.new(get_image_url))
-    flash[parsing_message_type] = construct_reply(parsing_message)
+    reply = construct_reply(parsing_message)
+    case parsing_message_type
+    when :success
+      add_success reply
+    when :failure
+      add_failure reply
+    else
+      flash[parsing_message_type] = reply
+    end
     flash[:mp_track_activity_box] = ['used activity entry box']
     redirect_to :back
     current_user.ping('used activity entry box') unless current_user.tutorial_active?

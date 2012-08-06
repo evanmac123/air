@@ -146,11 +146,8 @@ Feature: User completes task
     Then "+14152613077" should not have received any SMSes
     And "joe@example.com" should receive no email
     But I should see "Congratulations! You've completed a daily dose."
-    # but let's not keep that message hanging around forever, kthx
     When I go to the activity page
     Then I should not see "Your session has expired"
-    And I should not see "did 1"
-    And I should not see "Congratulations! You've completed a daily dose."
 
   @javascript
   Scenario: User completes task by acting according to rule with mandatory referrer

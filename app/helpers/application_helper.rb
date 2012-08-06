@@ -53,8 +53,22 @@ module ApplicationHelper
       @consolidated_flash[key] += [value]
     end
 
+    @consolidated_flash = display_flashes_from_last_time if @consolidated_flash.empty?
     @consolidated_flash
   end
+
+  def display_flashes_from_last_time
+    # If no new flashes have been created to display, display the saved flashes
+    # that were stored as cookies in ApplicationController#keep_flashes_for_next_time
+    hash = HashWithIndifferentAccess.new 
+    saved_success = :saved_flash_success
+    saved_failure = :saved_flash_failure
+    hash[:success] = [cookies[saved_success]] if cookies[saved_success]
+    hash[:failure] = [cookies[saved_failure]] if cookies[saved_failure]
+    hash
+  end
+
+
 
   def joined_flashes
     joined_content = ''
