@@ -99,8 +99,8 @@ reference "sub:how_can_i_earn_tile_points"
 \end_layout
 
 \begin_layout Standard
-You can earn points by sending commands to H Engage via text, email or submittin
-g them online.
+You can earn points by sending commands to H Engage via text, email or submit
+ them online.
  If you'd like to play by text, send commands to <GAME_PHONE>.
  If you'd like to play by email, send commands to <GAME_EMAIL>.
  
@@ -125,8 +125,15 @@ Where can I find my user name?
 \begin_layout Standard
 Your user name was listed in the welcome message you received when you first
  signed up for the game.
- Can’t find the welcome message? Send “MYID” to H Engage (via text or email)
- or take a look at the “Settings” page online.
+ Can’t find the welcome message? Text in “MYID” or take a look at the 
+\begin_inset CommandInset href
+LatexCommand href
+name "Settings"
+target "account/settings/edit"
+
+\end_inset
+
+ page.
  
 \end_layout
 
@@ -142,6 +149,10 @@ Text messaging makes the game fun, but it’s certainly not required.
 \begin_layout Standard
 You can play by emailing commands to <GAME_EMAIL>, or by submitting them
  on HEngage.com.
+ You'll receive a response via email or in the green response bubble below
+ the activity entry box on HEngage.com.
+ Hint: watch the response bubble for any additional commands.
+ 
 \end_layout
 
 \begin_layout Standard
@@ -201,8 +212,15 @@ Where do I enter commands?
 \end_layout
 
 \begin_layout Standard
-You can play by texting commands to <GAME_PHONE>, emailing them to <GAME_EMAIL>,
- or by submitting them on HEngage.com 
+You can play by texting commands to <GAME_PHONE>, by emailing commands to
+ <GAME_EMAIL>, or by submitting them on HEngage.com.
+ You'll receive a response in the same manner that you sent the command.
+ For example: if you text a command, you will recieve a text back.
+ If you email a command, you will recieve an email back and if you enter
+ a command on HEngage.com, you will recieve a response in the green response
+ bubble below the activity entry bar.
+ Hint: watch the responses for any additional commands.
+ 
 \end_layout
 
 \begin_layout Subsection*
@@ -285,7 +303,7 @@ You can find your level (and how many points you need to get to the next
 
 \begin_layout Standard
 You’ll also receive an update on your points and level each time you send
- in a command via text or email.
+ in a command.
  
 \end_layout
 
