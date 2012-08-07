@@ -8,7 +8,7 @@ task :lyx do
   body_created = system(command + raw_file + ' ' + html_body)
   toc_options = " --tocfor #{html_body_as_seen_by_toc_no_erb} "
   toc_created  = system(command + toc_options + raw_file + ' ' + html_toc)
-  raise "Unable to create html from .lyx file" unless body_created && toc_created
+  raise "Unable to create body and toc .html from .lyx file" unless body_created && toc_created
   
   # These next three lines can be used to open the generated file, make some substitutions, and save it again
   toc = IO.read(html_toc)  # You could replace the label 'subsection' here, but we decided to go with elyxer's --notoclabels flag 
@@ -33,7 +33,7 @@ task :lyx_mini do
   raw_file = ' app/views/pages/raw_faq/faq_mini.lyx '
   html_body = 'app/views/pages/_faq_mini.html'
   body_created = system(command + raw_file + ' ' + html_body)
-  raise "Unable to create html from .lyx file" unless body_created
+  raise "Unable to create lyx_mini .html from .lyx file" unless body_created
   
   # These next three lines can be used to open the generated file, make some substitutions, and save it again
 

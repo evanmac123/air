@@ -63,8 +63,8 @@ module ApplicationHelper
     hash = HashWithIndifferentAccess.new 
     saved_success = :saved_flash_success
     saved_failure = :saved_flash_failure
-    hash[:success] = [cookies[saved_success]] if cookies[saved_success]
-    hash[:failure] = [cookies[saved_failure]] if cookies[saved_failure]
+    hash[:success] = [cookies[saved_success]] if cookies[saved_success].try(:present?)
+    hash[:failure] = [cookies[saved_failure]] if cookies[saved_failure].try(:present?)
     hash
   end
 

@@ -134,7 +134,7 @@ body.scores {
   z-index: 1;
 }
 #black_tooltip.left{
-  #differing_spacings{ left: 7px !important; }
+  #differing_spacings{ left: 7px !important; width: 320px !important;}
   #tutorial_menu{ right: 8px !important; }
 } 
 
@@ -144,4 +144,7 @@ body.scores {
 }
 #tutorial_menu #options{
   right: 5px; // This is here to make sure you can still select the .close_tutorial button in the chicken
+}
+#tutorial_introduction_inner .show_tutorial{
+  behavior: none !important;
 }

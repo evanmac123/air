@@ -117,10 +117,12 @@ class ApplicationController < ActionController::Base
   end
 
   def keep_flashes_for_next_time
-    # Skip if we're in settings or the admin dashboard 
+    # Skip if we're in settings or the admin dashboard or if we're signing in
     ref = env['HTTP_REFERER'] || ''
     return if ref.include? "/admin" 
     return if ref.include? "/settings"
+    return if ref.include? "/sign_in"
+    return if ref.include? "/session"
     return if current_user && current_user.tutorial_active?
 
     # Save anything we've shoved into flash using add_success or add_failure into our

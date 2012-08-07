@@ -24,6 +24,8 @@ class SessionsController < Clearance::SessionsController
   end
 
   def url_after_create
+    # For some reason, various people are getting redirected to /activity.js
+    # So now after login we force to /activity.html
     activity_path(:format => :html)
   end
 

@@ -14,7 +14,7 @@ feature "flash messages persist until either another flash message is created to
     signin_as(@fred, 'foobar')
   end
 
-  scenario "persist", js: true, focus: true do 
+  scenario "persist", js: true do 
     @fred.tutorial_active?.should be_false
     command = 'nonsense'
     visit acts_path

@@ -33,8 +33,7 @@ Feature: Talking Chicken
     
     And I press "play_button"
     And I take five
-    
-    Then I should see "guide" 
+    Then I should see "helpful info" 
     When I click within "#next_button"  
     Then I should see "Click DIRECTORY to find people you know"
     When I follow "Directory"
