@@ -121,6 +121,7 @@ class ApplicationController < ActionController::Base
     ref = env['HTTP_REFERER'] || ''
     return if ref.include? "/admin" 
     return if ref.include? "/settings"
+    return if current_user && current_user.tutorial_active?
 
     # Save anything we've shoved into flash using add_success or add_failure into our
     # own session variable 
@@ -171,14 +172,14 @@ class ApplicationController < ActionController::Base
       @arrow_dir = "top-left"
       @flash_margin_left = "355px"  # This is so any failure messages will be offset & thereby visible
     when 2
-      @title = "2. Progress"
-      @instruct = "Your activity shows up here"
+      @title = "2. Dialog Box"
+      @instruct = "This is where you'll get helpful info<br>to guide you".html_safe
       @show_next_button = true
-      @highlighted = '#feed_wrapper'
-      @x = -196
-      @y = -5
-      @position = "top center"
-      @arrow_dir = "bottom-center"
+      @highlighted = '.flash-box'
+      @x = 0
+      @y = 43
+      @position = "center right"
+      @arrow_dir = "left"
     when 3
       @title = "3. Make Connections"
       @instruct = "Click DIRECTORY to find people you know"
@@ -232,7 +233,7 @@ class ApplicationController < ActionController::Base
       # They click the "next slide" button to advance
     when 1  # Say It!
       Tutorial.seed_example_user(current_user.demo)
-      tutorial.bump_step if tutorial.act_completed_since_tutorial_start
+      tutorial.bump_step if session.delete(:typed_something_in_playbox)
     when 2  # See Activity
       # They click the "next slide" button to advance
     when 3  # Click Connect

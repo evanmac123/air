@@ -3,11 +3,19 @@ include SteakHelperMethods
 
 feature "flash messages persist until either another flash message is created to take its place, or until you manually close the flash with the little 'x'" do
   before(:each) do
-    @fred = FactoryGirl.create(:user, password: 'foobar')
+    # Create a user, Fred, with a closed tutorial. Tutorial is closed 
+    # because when the tutorial is active, we do not persist flashes
+    @fred = FactoryGirl.create(:user, name: 'Fred', password: 'foobar')
+
+    # FactoryGirl for some reason creates two users if I create a :claimed users, and 
+    # associates the tutorial with the wrong one! So to let the tail wag the dog,
+    # I am explicitly creating my tutorial. 
+    FactoryGirl.create(:tutorial, user: @fred, ended_at: Time.now)
     signin_as(@fred, 'foobar')
   end
 
-  scenario "persist", js: true do 
+  scenario "persist", js: true, focus: true do 
+    @fred.tutorial_active?.should be_false
     command = 'nonsense'
     visit acts_path
     fill_in 'command_central', with: command

@@ -38,7 +38,7 @@ $orange: #FF8411;
     background:transparent image-url('tutorial/left.png');
     width: 372px;
     height: 129px;
-    #differing_spacings{ left: 12px; top: 3px;}
+    #differing_spacings{ left: 12px; top: 3px; width: 327px;}
     #tutorial_menu{ right: 20px;}
   }
   &.right{
@@ -188,6 +188,10 @@ strong{
   right: 11px;
   bottom: 19px;
   background: image-url('tutorial/next-btn.png');
+  z-index: 100;
+}
+.left #next_button{
+  bottom: 10px;
 }
 
 #tutorial_introduction_inner{

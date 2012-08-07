@@ -29,12 +29,12 @@ Feature: Talking Chicken
     And I wait a second
     Then I should see "Say It!" 
     And I wait a second
-    When I fill in "command_central" with "ate an orange"
+    When I fill in "command_central" with "some command you've never heard of"
     
     And I press "play_button"
     And I take five
     
-    Then I should see "Your activity shows up here" 
+    Then I should see "guide" 
     When I click within "#next_button"  
     Then I should see "Click DIRECTORY to find people you know"
     When I follow "Directory"

@@ -53,7 +53,11 @@ class ActsController < ApplicationController
     end
     flash[:mp_track_activity_box] = ['used activity entry box']
     redirect_to :back
-    current_user.ping('used activity entry box') unless current_user.tutorial_active?
+    if current_user.tutorial_active?
+      session[:typed_something_in_playbox] = true if current_user.tutorial.current_step == 1
+    else
+      current_user.ping('used activity entry box')   
+    end
   end
 
   add_method_tracer :index
