@@ -194,7 +194,7 @@ feature 'User claims account' do
               end
 
               it "should send back a helpful error message" do
-                expect_reply %(That ID "bob" is already taken. If you're trying to register your account, please text in your own ID first by itself.)
+                expect_reply %(That ID "bob" is already taken. If you're trying to register your account, please send in your own ID first by itself.)
               end
 
               it "should let the user try again" do
@@ -210,7 +210,7 @@ feature 'User claims account' do
                 expect_contact_unset @expected_user
               end
             else
-              it_should_behave_like "email overflow or reclaim", %w(bob), "fred", %(That ID "bob" is already taken. If you're trying to register your account, please text in your own ID first by itself.)
+              it_should_behave_like "email overflow or reclaim", %w(bob), "fred", %(That ID "bob" is already taken. If you're trying to register your account, please send in your own ID first by itself.)
             end
           end
         end
@@ -227,7 +227,7 @@ feature 'User claims account' do
             send_message "someotherguy"
 
             @expected_user.reload.should_not be_claimed
-            expect_reply "I can't find your number in my records. Did you claim your account yet? If not, text your first initial and last name (if you are John Smith, text \"jsmith\")."
+            expect_reply "I can't find you in my records. Did you claim your account yet? If not, send your first initial and last name (if you are John Smith, send \"jsmith\")."
           end
         end
 
