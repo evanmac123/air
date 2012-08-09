@@ -18,11 +18,11 @@ $scoreboard_header_grey: #919191;
   }
   .left_cap{
     width: $height_scoreboard_bar / 2;
-    background: url('/images/scoreboard/left_cap.png');
+    background: url('scoreboard/left_cap.png');
   }
   .right_cap{
     width: $height_scoreboard_bar / 2;
-    background: url('/images/scoreboard/right_cap.png');
+    background: url('scoreboard/right_cap.png');
   }
   .orange_ball{
     width: $height_scoreboard_bar;
@@ -52,7 +52,7 @@ $scoreboard_header_grey: #919191;
     float: left;
   }
   .middle{
-    background: url('/images/scoreboard/orange_sliver.png')
+    background: url('scoreboard/orange_sliver.png')
   }
 }
 table.scoreboard{
