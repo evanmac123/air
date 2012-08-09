@@ -1,4 +1,4 @@
-defined?(AssetSync) do
+begin
   AssetSync.configure do |config|
     config.fog_provider = 'AWS'
     config.aws_access_key_id = 'AKIAJVBKNOIHHPUOUHYA'
@@ -21,4 +21,5 @@ defined?(AssetSync) do
     # Fail silently.  Useful for environments such as Heroku
     config.fail_silently = true
   end
+rescue NameError
 end
