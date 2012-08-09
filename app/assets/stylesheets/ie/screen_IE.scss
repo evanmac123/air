@@ -3,32 +3,32 @@
 
 @mixin ie-bg-black {
 	background-color:#404040!important;
-	background-image:image-url('v3/bg-black.png')!important;
+	background-image:url('v3/bg-black.png')!important;
 	background-repeat:repeat-x!important;
 	background-position:center center;
 }
 
 @mixin ie-bg-black-rev {
 	background-color:#2e2f2d!important;
-	background-image:image-url('v3/bg-black-rev.png')!important;
+	background-image:url('v3/bg-black-rev.png')!important;
 	background-repeat:repeat-x!important;
 	background-position:center center!important;
 }
 @mixin ie-bg-orange {
 	background-color:transparent!important;
 	background-color:#ffd04b;
-	background-image:image-url('v3/bg-orange.png')!important;
+	background-image:url('v3/bg-orange.png')!important;
 	background-position:center center!important;
 }
 @mixin ie-bg-orange-btn {
 	background-color:transparent!important;
-	background-image:image-url('v3/btn_play.png')!important;
+	background-image:url('v3/btn_play.png')!important;
 	background-repeat:no-repeat!important;
 	background-repeat:no-repeat;
 }
 @mixin ie-bg-orange-btn-down {
 	background-color:transparent!important;
-	background-image:image-url('v3/btn_play_down.png')!important;
+	background-image:url('v3/btn_play_down.png')!important;
 	background-repeat:no-repeat!important;
 	background-repeat:no-repeat;
 }

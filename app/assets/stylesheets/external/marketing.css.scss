@@ -74,7 +74,7 @@ td { vertical-align: top; }
 $hegreen: #74C04C;
 body {
   background-color:#f2f3f2;
-  background-image:image-url('marketing/bg.png');
+  background-image:url('marketing/bg.png');
   color:#636363;
   font-family:Helvetica, Arial, sans-serif;
   font-size:14px;
@@ -140,7 +140,7 @@ header {
   } 
     nav ul {float:right;}
     nav ul li {
-      background:image-url('marketing/bgpx-dark.png');
+      background:url('marketing/bgpx-dark.png');
       display: inline;
       margin-left:1px;
       padding:10px 20px;
@@ -178,7 +178,7 @@ header {
     padding:0 10px;
   }
 #login #login-submit input[type="submit"] {
-  background:image-url('marketing/btn-submit.png') center center no-repeat;
+  background:url('marketing/btn-submit.png') center center no-repeat;
   border:none;
   display:inline-block;
   float:left;
@@ -189,7 +189,7 @@ header {
   height:45px;
   width:141px;
 }
-#login #login-submit input[type="submit"]:hover { background:image-url('marketing/btnhov-submit.png') center center no-repeat; }
+#login #login-submit input[type="submit"]:hover { background:url('marketing/btnhov-submit.png') center center no-repeat; }
 #login #login-submit span { float:right; margin:13px 90px 0 0; }
 
 #welcome {
@@ -208,7 +208,7 @@ header {
 #welcome p {font-size:18px;}
 
 #secondary {
-  background:image-url('marketing/bg-dark.jpg');
+  background:url('marketing/bg-dark.jpg');
   border-bottom:1px #fff solid;
   border-top:1px #fff solid;
   color:#cccccc;
@@ -265,19 +265,19 @@ header {
       visibility:hidden;
     }
   .extra#media-usage a#to-databook {
-    background:image-url('marketing/btn-dbook.png') center center no-repeat;
+    background:url('marketing/btn-dbook.png') center center no-repeat;
     margin-bottom:10px;
     width:382px;
   }
     .extra#media-usage a#to-databook:hover {
-      background:image-url('marketing/btnhov-dbook.png') center center no-repeat;
+      background:url('marketing/btnhov-dbook.png') center center no-repeat;
     }
   .extra#media-usage a#to-slideshare {
-    background:image-url('marketing/btn-slideshare.png') center center no-repeat;
+    background:url('marketing/btn-slideshare.png') center center no-repeat;
     width:304px;
   }
     .extra#media-usage a#to-slideshare:hover {
-      background:image-url('marketing/btnhov-slideshare.png') center center no-repeat;
+      background:url('marketing/btnhov-slideshare.png') center center no-repeat;
     }
   .extra#media-usage ul {
     padding:0;
@@ -298,7 +298,7 @@ header {
   width:400px;
 }
 #contact #contact-submit {
-  background:image-url('marketing/btn-contact.png') center center no-repeat;
+  background:url('marketing/btn-contact.png') center center no-repeat;
   border:none;
   display:inline-block;
   float:right;
@@ -311,7 +311,7 @@ header {
   width:180px;
 }
   #contact #contact-submit:hover {
-    background:image-url('marketing/btnhov-contact.png') center center no-repeat;
+    background:url('marketing/btnhov-contact.png') center center no-repeat;
   }
 footer {
   border-top:1px #DEDEDE solid;

@@ -47,7 +47,7 @@ $light:lighten($header-bg, 7%);
 
 	.masthead {
 		background-color:$header-bg;
-		background-image:image-url('v3/texture_darker.png');
+		background-image:url('v3/texture_darker.png');
 		border-top:1px $light solid;
 		border-bottom:1px $dark solid;
 		padding-bottom:15px;
@@ -124,7 +124,7 @@ $light:lighten($header-bg, 7%);
 			height:56px;
 			margin:$centered;
 			width:960px;
-			background: image-url('mbar_right.png') no-repeat scroll 178mm 0 transparent;
+			background: url('mbar_right.png') no-repeat scroll 178mm 0 transparent;
 			
 			.bar_section {
 
@@ -206,7 +206,7 @@ $light:lighten($header-bg, 7%);
 				width:413px;
 				
 				.bar {
-					background-image: image-url('v3/bar.png');
+					background-image: url('v3/bar.png');
 					background-repeat: no-repeat;
 					height:35px;
 					margin:9px 0 0 35px;
@@ -216,7 +216,7 @@ $light:lighten($header-bg, 7%);
 					
 					.progress {
 						@include rounded-nav;
-						background-image: image-url('v3/progressBar.png');
+						background-image: url('v3/progressBar.png');
 						background-repeat: no-repeat;
 						height:100%;
 						margin:0;

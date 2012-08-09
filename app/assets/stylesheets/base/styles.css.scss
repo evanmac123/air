@@ -30,7 +30,7 @@ p {margin:0;padding:0;}
 
 body.external {
 	background-color:$light-gray; 
-	background-image: image-url('v3/texture_darker.png');
+	background-image: url('v3/texture_darker.png');
 	font-family:Helvetica, Arial, sans-serif;
 	font-size:13px;
 	margin:0;
@@ -57,7 +57,7 @@ body.invitations .header #navigation .nav-signup, body.sessions .header #navigat
 .container {
 
 	.top {
-		background-image: image-url('v3/texture_darker.png');
+		background-image: url('v3/texture_darker.png');
 		border-bottom: 1px darken($hengage-bg, 15%) solid;
 		height: 354px;
 		
@@ -144,7 +144,7 @@ body.invitations .header #navigation .nav-signup, body.sessions .header #navigat
 	
 	.content {
 		background-color:$light-gray;
-		background-image: image-url('v3/texture_darker.png');
+		background-image: url('v3/texture_darker.png');
 		border-top: 1px lighten($light-gray, 20%) solid;
 		z-index: -99;
 		
@@ -179,7 +179,7 @@ body.invitations .header #navigation .nav-signup, body.sessions .header #navigat
 				div.helper {
 					@include rounded;
 					background-color: $hengage-bg;
-					background-image: image-url('v3/texture_darker.png');
+					background-image: url('v3/texture_darker.png');
 					border: {
 						style:solid;
 						width:1px;
@@ -247,7 +247,7 @@ body.invitations .header #navigation .nav-signup, body.sessions .header #navigat
 	
 	.footer {
 		background-color:$light-gray;
-		background-image: image-url('v3/texture_darker.png');
+		background-image: url('v3/texture_darker.png');
 		color: $gray;
 		font-size: 11px;
 		padding: 0 0 20px 0;

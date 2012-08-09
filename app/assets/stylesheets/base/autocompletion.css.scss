@@ -195,7 +195,7 @@ div#search_for_referrer {
 div.helper {
     @include rounded;
     background-color: $hengage-bg;
-    background-image: image-url('v3/texture_darker.png');
+    background-image: url('v3/texture_darker.png');
     border: {
         style:solid;
         width:1px;

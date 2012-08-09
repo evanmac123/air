@@ -25,7 +25,7 @@ a:hover {
 body {
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-size: 14px;
-  background-image: image-url('marketing/background.png');
+  background-image: url('marketing/background.png');
   padding-top: 40px;
 }
 
@@ -61,7 +61,7 @@ img {
 }
 
 .header {
-  background: image-url('new_activity/header_gradient.png');
+  background: url('new_activity/header_gradient.png');
   height: 73px;
 
   padding-left: $left-gutter;

@@ -36,13 +36,13 @@ body.invitations-show {
 	box-shadow: 0 0 3px 2px #c9c9c9;
 	behavior: url(/css3pie/PIE.htc);
 	a.more-info {
-		background-image:image-url('v3/btn-moreinfo.png')!important;
+		background-image:url('v3/btn-moreinfo.png')!important;
 		border:0!important;
 		display:inline-block;
 		text-shadow:1px 1px 1px $dark-gray!important;
 		width:75px;
 		&:hover {
-			background:image-url('v3/btn-moreinfo-down.png')!important;
+			background:url('v3/btn-moreinfo-down.png')!important;
 			background-position:center center;
 		}
 	}

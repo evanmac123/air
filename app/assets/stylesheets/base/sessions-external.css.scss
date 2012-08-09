@@ -75,7 +75,7 @@ body.external {
       }
     }
     input[type="submit"] {
-      background:image-url('marketing/btn-submit.png') center center no-repeat;
+      background:url('marketing/btn-submit.png') center center no-repeat;
       border:none;
       display:block;
       font-size:0;
@@ -84,7 +84,7 @@ body.external {
       text-indent:99999;
       height:45px;
       width:141px;
-      &:hover { background:image-url('marketing/btnhov-submit.png') center center no-repeat; }
+      &:hover { background:url('marketing/btnhov-submit.png') center center no-repeat; }
     }
     li.form-label {color:#777;}
     ul.form-section {margin-bottom:10px;}

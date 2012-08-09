@@ -14,35 +14,35 @@ $orange: #FF8411;
     margin: 0;
   }
   &.bottom-left{
-    background:transparent image-url('tutorial/bottom-left.png');
+    background:transparent url('tutorial/bottom-left.png');
   }
   &.bottom-center{
-    background:transparent image-url('tutorial/bottom-center.png');
+    background:transparent url('tutorial/bottom-center.png');
   }
   &.bottom-right{
-    background:transparent image-url('tutorial/bottom-right.png');
+    background:transparent url('tutorial/bottom-right.png');
   }
   &.top-left{
-    background:transparent image-url('tutorial/top-left.png');
+    background:transparent url('tutorial/top-left.png');
     #differing_spacings{ top: 12px; }
   }
   &.top-center{
-    background:transparent image-url('tutorial/top-center.png');
+    background:transparent url('tutorial/top-center.png');
     #differing_spacings{ top: 12px; }
   }
   &.top-right{
-    background:transparent image-url('tutorial/top-right.png');
+    background:transparent url('tutorial/top-right.png');
     #differing_spacings{ top: 12px; }
   }
   &.left{
-    background:transparent image-url('tutorial/left.png');
+    background:transparent url('tutorial/left.png');
     width: 372px;
     height: 129px;
     #differing_spacings{ left: 12px; top: 3px; width: 327px;}
     #tutorial_menu{ right: 20px;}
   }
   &.right{
-    background:transparent image-url('tutorial/right.png');
+    background:transparent url('tutorial/right.png');
     width: 372px;
     height: 129px;
     #tutorial_menu{ right: 20px; top: 4px;}
@@ -187,7 +187,7 @@ strong{
   position: absolute;
   right: 11px;
   bottom: 19px;
-  background: image-url('tutorial/next-btn.png');
+  background: url('tutorial/next-btn.png');
   z-index: 100;
 }
 .left #next_button{

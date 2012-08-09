@@ -1,12 +1,12 @@
 
 
 .bubbly-top-flat{
-  background: image-url('tooltip/top_flat.png');
+  background: url('tooltip/top_flat.png');
   height: 9px;
 }
 
 .bubbly-middle{
-  background: image-url('tooltip/middle.png');
+  background: url('tooltip/middle.png');
   padding: 0px 12px;
   color: #494949;
   font-size: 14px;
@@ -14,17 +14,17 @@
 }
 
 .bubbly-bottom-flat{
-  background: image-url('tooltip/bottom_flat.png');
+  background: url('tooltip/bottom_flat.png');
   height: 9px;
 }
 
 .bubbly-top-arrow{
-  background: image-url('tooltip/top_arrow.png');
+  background: url('tooltip/top_arrow.png');
   height: 23px;
 }
 
 .bubbly-bottom-arrow{
-  background: image-url('tooltip/bottom_arrow.png');
+  background: url('tooltip/bottom_arrow.png');
   height: 23px;
 }
 .bubbly-bottom-arrow, .bubbly-bottom-flat{
