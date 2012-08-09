@@ -96,7 +96,7 @@ class EmailCommand < ActiveRecord::Base
   
   def self.clean_email_address(email)
     stripped_version = email.match(/<(.*?)>/)
-    (stripped_version.nil? ? email : stripped_version[1])
+    (stripped_version.nil? ? email : stripped_version[1]).downcase
   end
 
   def self.clean_subject_line(text)
