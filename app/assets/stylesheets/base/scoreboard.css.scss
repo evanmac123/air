@@ -26,7 +26,7 @@ $scoreboard_header_grey: #919191;
   }
   .orange_ball{
     width: $height_scoreboard_bar;
-    background: url('/images/scoreboard/orange_ball.png');
+    background: url('scoreboard/orange_ball.png');
     position: absolute;
     top: 0;
     left: 0;
@@ -38,8 +38,8 @@ $scoreboard_header_grey: #919191;
     top: 0;
     left: 0;
     z-index: 10;
-    &.white{background: url('/images/scoreboard/white_mask.png');}
-    &.white{background: url('/images/scoreboard/offwhite_mask.png');}
+    &.white{background: url('scoreboard/white_mask.png');}
+    &.white{background: url('scoreboard/offwhite_mask.png');}
     
     
   }
@@ -104,7 +104,7 @@ table.scoreboard{
   display: inline-block;
   width: 17px;
   height: 14px;
-  background: url("/images/scoreboard/sort_arrow_huge.png") no-repeat;
+  background: url("scoreboard/sort_arrow_huge.png") no-repeat;
 }
 #username_header, #userlevel_header{
   cursor: pointer;
@@ -114,7 +114,7 @@ table.scoreboard{
     border-top: 1px solid $table_grey !important;
     border-bottom: 1px solid $table_grey !important;
     #sort_by_first_name, #sort_by_points{
-      background: url("/images/scoreboard/sort_arrow_huge_darker.png") no-repeat;
+      background: url("scoreboard/sort_arrow_huge_darker.png") no-repeat;
     }
   }
 }
