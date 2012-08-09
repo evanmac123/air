@@ -1,0 +1,32 @@
+#!/usr/bin/env ruby
+
+require 'csv'
+
+location_csv = File.read("/home/phil/docs/hengage/covidien/location_mapping.csv")
+user_csv = File.read("/home/phil/docs/hengage/covidien/initial_users_with_initial_reward_dates_2012_08_08.csv")
+
+location_data = CSV.parse(location_csv)
+user_data = CSV.parse(user_csv)
+
+location_map = {}
+location_data.each do |row|
+  location_map[row[0]] = row[1]
+end
+
+is_header = true
+user_data.each do |row|
+  raw_loc = row[9]
+
+  he_location = if is_header
+                  "HE Location"
+                elsif raw_loc.nil?
+                  nil
+                else
+                  loc = location_map[raw_loc]
+                  raise "MISSING LOC #{loc}" if loc.nil?
+                  loc
+                end
+
+  puts CSV.generate_line(row + [he_location])
+  is_header = false
+end

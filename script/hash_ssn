@@ -28,6 +28,12 @@ while(line = STDIN.gets)
 
   csv = CSV.parse_line(line)
   ssn = csv[ssn_column_index]
+
+  if ssn.nil?
+    puts line
+    next
+  end
+
   ssn.gsub! /\D/, ''
   ssn += salt
 

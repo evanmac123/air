@@ -1,0 +1,31 @@
+#!/usr/bin/env ruby
+
+require 'csv'
+
+user_csv = File.read("/home/phil/docs/hengage/covidien/initial_users_with_initial_reward_dates_and_he_locations_2012_08_08.csv")
+user_data = CSV.parse(user_csv)
+
+is_header = true
+spouses = []
+
+user_data.each do |row|
+  if is_header
+    puts CSV.generate_line(row + ["Is spouse?"])
+  else
+    spouse_name, spouse_gender, employee_dob, spouse_zip, he_location, raw_location, location_code = [17, 18, 3, 19, 22, 9, 8].map{|i| row[i]}
+
+    if spouse_name && spouse_name !~ /^\s+$/
+      spouses << [spouse_name, spouse_gender, employee_dob, spouse_zip, he_location, raw_location, location_code]
+    end
+
+    puts CSV.generate_line(row + ["false"])
+  end
+
+  is_header = false
+end
+
+spouses.each do |spouse|
+  spouse_name, spouse_gender, employee_dob, spouse_zip, he_location, raw_location, location_code = spouse
+  massaged_spouse = [nil, nil, spouse_name, employee_dob, spouse_gender, spouse_zip, nil, nil, location_code, raw_location, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, he_location, true]
+  puts CSV.generate_line(massaged_spouse)
+end

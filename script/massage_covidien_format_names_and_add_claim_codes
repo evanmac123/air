@@ -1,0 +1,30 @@
+#!/usr/bin/env ruby
+
+require 'csv'
+
+user_csv = File.read("/home/phil/docs/hengage/covidien/initial_users_with_initial_reward_dates_and_he_locations_and_spouses_extraneous_information_removed_2012_08_08.csv")
+
+user_data = CSV.parse(user_csv)
+
+is_header = true
+
+user_data.each do |row|
+  if is_header
+    puts CSV.generate_line(["Claim code"] + row)
+  else
+    raw_name = row[1]
+    name_parts = raw_name.split
+    row[1] = name_parts.map{|part| %w(II III IV).include?(part) ? part : part.capitalize}.join(' ')
+
+    while(%w(SR JR II III IV).include?(name_parts.last))
+      name_parts.pop
+    end
+
+    row[3] = (row[3] == "F" ? "female" : "male")
+
+    claim_code = (name_parts.first[0,1] + name_parts.last).downcase
+    puts CSV.generate_line([claim_code] + row)
+  end
+
+  is_header = false
+end

@@ -1,0 +1,20 @@
+#!/usr/bin/env ruby
+
+require 'csv'
+
+user_csv = File.read("/home/phil/docs/hengage/covidien/covidien_users_ssnhashed_2012_08_08.csv")
+reward_status_csv = File.read("/home/phil/docs/hengage/covidien/initial_rewards_status_ssnhashed_2012_08_08.csv")
+
+user_data = CSV.parse(user_csv)
+reward_status_data = CSV.parse(reward_status_csv)
+
+reward_dates = {}
+reward_status_data.each do |row|
+  next if row.first.nil? || row.first == ''
+  reward_dates[row[0]] = [row[2], row[3]]
+end
+
+user_data.each do |row|
+  ssn_hash = row[0]
+  puts CSV.generate_line(row + (reward_dates[ssn_hash] || [nil, nil]))
+end

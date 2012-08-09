@@ -1,0 +1,12 @@
+#!/usr/bin/env ruby
+
+require 'csv'
+
+user_csv = File.read "/home/phil/docs/hengage/covidien/initial_users_massaged_with_bad_dobs_2012_08_08.csv"
+user_data = CSV.parse(user_csv)
+
+user_data.each do |row|
+  dob_parts = row[3].split("/")
+  row[3] = [dob_parts[2], dob_parts[0], dob_parts[1]].join('-')
+  puts CSV.generate_line(row)
+end
