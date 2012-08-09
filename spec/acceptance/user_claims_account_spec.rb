@@ -135,11 +135,12 @@ feature 'User claims account' do
 
         it "should not re-claim that user" do
           @expected_user.reload
-          @expected_user.accepted_invitation_at.should == @original_claim_time
+          @expected_user.accepted_invitation_at.utc.should == @original_claim_time.utc
           expect_contact_unset @expected_user
         end              
       end
-    end
+
+   end
 
   END_EMAIL_METHODS
 
@@ -160,7 +161,7 @@ feature 'User claims account' do
       context "when the contact in question is not associated with a user yet" do
         before(:each) do
           @demo = FactoryGirl.create(:demo, :name => "Global Tetrahedron", :credit_game_referrer_threshold => 60, :game_referrer_bonus => 1000)
-          @expected_user = FactoryGirl.create(:user, :demo => @demo, :claim_code => "bob", :email => nil)
+          @expected_user = FactoryGirl.create(:user, :demo => @demo, :claim_code => "bob", :email => '')
           @expected_user.should_not be_claimed
           @expected_referrer = FactoryGirl.create(:user, :demo => @demo)
           @expected_referrer.update_attributes(:sms_slug => "referrer")
