@@ -14,7 +14,7 @@ $scoreboard_header_grey: #919191;
 
   .grey_bubble{
     width: $width_scoreboard_bar;
-    background: url('/images/scoreboard/grey_bubble.png');
+    background: url('<%= asset_path "scoreboard/grey_bubble.png" %>');
   }
   .left_cap{
     width: $height_scoreboard_bar / 2;
