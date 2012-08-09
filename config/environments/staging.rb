@@ -32,7 +32,7 @@ Health::Application.configure do
   config.serve_static_assets = false
 
   # Enable serving of images, stylesheets, and javascripts from an asset server
-  # config.action_controller.asset_host = "http://assets.example.com"
+  config.action_controller.asset_host = "https://#{ENV['FOG_DIRECTORY']}.s3.amazonaws.com"
 
   # Disable delivery errors, bad email addresses will be ignored
   # config.action_mailer.raise_delivery_errors = false
@@ -72,6 +72,4 @@ Health::Application.configure do
     :domain         => 'hengage.com'
   }
   ActionMailer::Base.delivery_method = :smtp
-  
-  
 end

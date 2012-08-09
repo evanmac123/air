@@ -70,7 +70,6 @@ class User < ActiveRecord::Base
   validates :email, :with => :email_distinct_from_all_overflow_emails 
   validates :overflow_email, :with => :overflow_email_distinct_from_all_emails 
 
-
   has_attached_file :avatar,
     :styles => {:thumb => ["96x96#", :png]},
     :default_style => :thumb,
@@ -79,7 +78,8 @@ class User < ActiveRecord::Base
     :s3_credentials => S3_CREDENTIALS,
     :s3_protocol => 'https',
     :path => "/avatars/:id/:style/:filename",
-    :bucket => S3_AVATAR_BUCKET
+    :bucket => S3_AVATAR_BUCKET,
+    :default_url => "/assets/avatars/thumb/missing.png"
 
   serialize :flashes_for_next_request
   serialize :characteristics

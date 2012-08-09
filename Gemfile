@@ -29,6 +29,7 @@ gem "bson_ext"
 gem 'jquery-rails'
 gem 'fancybox-rails', :git => "https://github.com/hecticjeff/fancybox-rails.git"
 gem 'tinymce-rails'
+gem 'asset_sync'
 
 # Gems used only for assets and not required
 # in production environments by default.
