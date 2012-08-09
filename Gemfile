@@ -29,11 +29,11 @@ gem "bson_ext"
 gem 'jquery-rails'
 gem 'fancybox-rails', :git => "https://github.com/hecticjeff/fancybox-rails.git"
 gem 'tinymce-rails'
-#gem 'asset_sync'
 
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
+  gem 'asset_sync'
   gem 'sass-rails', "3.1.4" #Locking sass-rails at 3.1.4 so that assets will precompile
   gem 'coffee-rails', " ~> 3.1.0"
   gem 'uglifier'
