@@ -32,8 +32,7 @@ Health::Application.configure do
   config.serve_static_assets = false
 
   # Enable serving of images, stylesheets, and javascripts from an asset server
-  config.action_controller.asset_host = "//#{ENV['FOG_DIRECTORY']}.s3.amazonaws.com"
-  puts "ASSET HOST IS #{config.action_controller.asset_host}"
+  config.action_controller.asset_host = "//hengage-assets.s3.amazonaws.com"
 
   # Disable delivery errors, bad email addresses will be ignored
   # config.action_mailer.raise_delivery_errors = false
