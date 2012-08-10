@@ -46,6 +46,8 @@ class Invitation::AcceptancesController < ApplicationController
     # the below calls @user#save, so we don't save explicitly
     
     if @user.errors.present?
+      @html_body_controller_name = "invitations"
+      @html_body_action_name = "show"
       render "/invitations/show" and return
     else
       unless @user.update_password(password)

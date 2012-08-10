@@ -51,6 +51,11 @@
       $("#user_name").focus();      
     }
 
+    var erroredFields = $('.field_with_errors input');
+    if(erroredFields.length > 0) {
+      erroredFields.first().focus();
+    }
+
 - content_for :status do
   - if flash[:failure].present?
     = flash[:failure]

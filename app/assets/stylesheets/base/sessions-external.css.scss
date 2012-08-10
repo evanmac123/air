@@ -201,8 +201,19 @@ body.invitations-show {
           margin-top:20px;
           width:450px;
         }
+        .form-msg {
+          .msg {
+            color: red;
+            margin-left: 250px;
+          }
+        }
       }
       #search_for_referrer ul.form-section {margin:0;}
+      #check-terms {
+        .form-msg {
+          color: red;
+        }
+      }
     } // end FORM
     .privacy-policy {
       border-top:1px #fff solid;
