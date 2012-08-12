@@ -101,7 +101,10 @@ body.invitations .header #navigation .nav-signup, body.sessions .header #navigat
 					&:active {
 						text-shadow: none!important;
 					}
-				}
+        }
+        a.nav-contact-us {
+          color: #FF8600;
+        }	
 			}
 			
 			

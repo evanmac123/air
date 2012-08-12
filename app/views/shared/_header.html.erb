@@ -2,6 +2,7 @@
 	<div class="app_bar">
 		<div class="app_by"><p>Brought to you by <a href="http://www.hengage.com" title="H Engage">H Engage</a></p></div>
     <ul class="app_settings">
+      <li><%= link_to "Contact Us", "#", :class => 'nav-contact-us' %></li>
       <% if current_user.is_site_admin %>
         <li><%= link_to "Admin", admin_path, :class => 'nav-admin' %></li>
       <% end %>

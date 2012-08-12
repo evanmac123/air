@@ -34,6 +34,9 @@ $light:lighten($header-bg, 7%);
 				color:$gray!important;
 			}
 		}
+    a.nav-contact-us {
+      color: #FF8600;
+    }
 		.app_by {
 			float:left;
 			margin:$centered;

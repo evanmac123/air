@@ -169,6 +169,11 @@ $(function() {
 
   resizeFaceboxToFitSuggestions();
   $("#search_for_referrer .single_suggestion").live('click', fadeOutUnclickedSuggestions);
+
+  $('.nav-contact-us').click(function(e){
+    e.preventDefault();
+    $('.assistly-widget a').click(); 
+  });
 });
 
 function saveFaqMiniToVariable(){

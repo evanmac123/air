@@ -21,6 +21,9 @@
   <%= csrf_meta_tag %>
 </head>
 <body class="<%= body_class %>">
+  <div class="hidden">
+    <%= render 'shared/assistly_widget' %>
+  </div>
 
   <%= render :partial => 'shared/header' %>
   <%= render :partial => 'shared/flashes' %>
