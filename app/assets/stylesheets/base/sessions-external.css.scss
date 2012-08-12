@@ -1,7 +1,7 @@
 $hegreen: #74C04C;
 $hedgreen: #39b549;
 body.external {
-  background:url('marketing/bg-dark.jpg');
+  background:image-url('marketing/bg-dark.jpg');
   a { 
    color: #74c04c; 
    font-family: 'Ubuntu', sans-serif;
@@ -19,7 +19,7 @@ body.external {
   a:hover, a:active { outline: 0; }
   h1, h2, h3 {font-family:'Ubuntu', Helvetica, Arial, sans-serif; font-weight:400;}
   div.header {
-    background:url('marketing/bg.png');
+    background:image-url('marketing/bg.png');
     border-bottom:1px #fff solid;
     padding:20px 0;
     text-align:center;
@@ -31,7 +31,7 @@ body.external {
     div#navigation {
        padding:10px 0;
        li {
-          background:url('marketing/bgpx-dark.png');
+          background:image-url('/marketing/bgpx-dark.png');
           font-size:16px;
           margin:0 1px;
           padding:10px 20px;
@@ -75,7 +75,7 @@ body.external {
       }
     }
     input[type="submit"] {
-      background:url('marketing/btn-submit.png') center center no-repeat;
+      background:image-url('marketing/btn-submit.png') center center no-repeat;
       border:none;
       display:block;
       font-size:0;
@@ -84,7 +84,7 @@ body.external {
       text-indent:99999;
       height:45px;
       width:141px;
-      &:hover { background:url('marketing/btnhov-submit.png') center center no-repeat; }
+      &:hover { background:image-url('marketing/btnhov-submit.png') center center no-repeat; }
     }
     li.form-label {color:#777;}
     ul.form-section {margin-bottom:10px;}
@@ -119,7 +119,7 @@ body.invitations-new, body.invitations-create { // Sign Up external pages
 }
 /* #################### INVITATIONS-SHOW #################### */
 body.invitations-show {
-  background:url('marketing/bg.png');
+  background:image-url('marketing/bg.png');
   p {color:#636363;}
   #broughtby {
     position:absolute;
@@ -146,7 +146,7 @@ body.invitations-show {
       border-bottom:1px #d8d8d8 solid;
       padding-bottom:20px;
       .welcome-message {
-        background:url('marketing/invitationImg.png') no-repeat right center;
+        background:image-url('marketing/invitationImg.png') no-repeat right center;
         h2 {color:$hegreen; font-size:40px;}
         span {display:block;font-weight:bold;}
       }
@@ -230,7 +230,7 @@ body.invitations-show {
     ul {margin:0;}
   } // end CONTENT
   .footer {
-      background:url('marketing/bg-dark.jpg');
+      background:image-url('marketing/bg-dark.jpg');
       border-top:1px #fff solid;
       margin:0!important;
       padding:40px;

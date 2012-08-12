@@ -47,7 +47,7 @@
             <li id="login-submit">
             <%= f.submit "Let's play!", :id => 'sign_in_button' %>
 
-               <span><a href="https://www.hengage.com/invitations/new">Register to play</a></span>
+              <span><%= link_to "Register to play", new_invitation_path %></a></span>
                <div class="cf"></div>
             </li>
          </ul>
