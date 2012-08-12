@@ -87,7 +87,8 @@ body.external {
       &:hover { background:image-url('marketing/btnhov-submit.png') center center no-repeat; }
     }
     li.form-label {color:#777;}
-    ul.form-section {margin-bottom:10px;}
+    li.secondary-form-label {position: absolute; top: 1.2em; left: 0;}
+    ul.form-section {margin-bottom:10px; position: relative;}
   } // end of div.content
   div.footer {
     color:#777;
@@ -126,6 +127,18 @@ body.invitations-show {
     right:160px;
     top:-63px;
     p {color:#b9b9b9; font-family:'Ubuntu', sans-serif;}
+
+    #sponsoredBy {
+      margin-top: 20px;
+
+      #clientName {
+        position: absolute;
+        font-size: 2em;
+        right: -160px;
+        top: 30px;
+        color:#636363;
+      }
+    }
   }
   .header {
     border:none!important;
@@ -144,9 +157,7 @@ body.invitations-show {
     width:960px!important;
     .status {
       border-bottom:1px #d8d8d8 solid;
-      padding-bottom:20px;
       .welcome-message {
-        background:image-url('marketing/invitationImg.png') no-repeat right center;
         h2 {color:$hegreen; font-size:40px;}
         span {display:block;font-weight:bold;}
       }
@@ -230,8 +241,6 @@ body.invitations-show {
     ul {margin:0;}
   } // end CONTENT
   .footer {
-      background:image-url('marketing/bg-dark.jpg');
-      border-top:1px #fff solid;
       margin:0!important;
       padding:40px;
     }
@@ -299,7 +308,7 @@ body.invitations-show div.helper {
   -moz-box-shadow:0;
   -webkit-box-shadow:0;
   color:$hedgreen;
-  font-size:12px;  
+  font-size:16px;  
   left:670px;
   padding:0;
   width:280px;
