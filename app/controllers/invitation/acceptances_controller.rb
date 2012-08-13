@@ -23,7 +23,6 @@ class Invitation::AcceptancesController < ApplicationController
     end
     @user.attributes = params[:user]
     
-    @user.slug = params[:user][:sms_slug]
     @user.valid?
     @user.errors.add(:terms_and_conditions, "You must accept the terms and conditions") unless params[:user][:terms_and_conditions]
     password = params[:user][:password]
@@ -31,12 +30,6 @@ class Invitation::AcceptancesController < ApplicationController
     if password.blank?
       @user.errors.add(:password, "Please choose a password") 
       @user.errors.add(:password_confirmation, "Please enter the password here too") 
-    end
-    
-    if params[:user][:sms_slug].blank?  
-      # make sure you don't three errors when only one is relevant
-      @user.errors[:sms_slug].clear
-      @user.errors[:sms_slug] = "Please choose a username"
     end
     
     unless password == password_confirmation

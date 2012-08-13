@@ -16,7 +16,7 @@ Feature: User gets followup welcome message at some point after starting the gam
     And I click the play now button in the email
     When I fill in "Enter your mobile number" with "(415) 261-3077"
     And I fill in "Choose a password" with "ohyeah"
-    And I fill in "And confirm that password" with "ohyeah"
+    And I fill in "Confirm password" with "ohyeah"
     And I check "Terms and conditions"
     And I press "Join the game"
     And "Phil" fills in the new phone validation field with their validation code
@@ -39,7 +39,7 @@ Feature: User gets followup welcome message at some point after starting the gam
     Given a clear email queue
     When I fill in "Enter your mobile number" with "(415) 261-3077"
     And I fill in "Choose a password" with "ohyeah"
-    And I fill in "And confirm that password" with "ohyeah"
+    And I fill in "Confirm password" with "ohyeah"
     And I check "Terms and conditions"
     And I press "Join the game"
     And "Phil" fills in the new phone validation field with their validation code
@@ -56,7 +56,7 @@ Feature: User gets followup welcome message at some point after starting the gam
     Given a clear email queue
     When I fill in "Enter your mobile number" with "(415) 261-3077"
     And I fill in "Choose a password" with "ohyeah"
-    And I fill in "And confirm that password" with "ohyeah"
+    And I fill in "Confirm password" with "ohyeah"
     And I check "Terms and conditions"
     And I press "Join the game"
     And "Phil" fills in the new phone validation field with their validation code
@@ -71,7 +71,7 @@ Feature: User gets followup welcome message at some point after starting the gam
     And I click the play now button in the email
     When I fill in "Enter your mobile number" with "(415) 261-3077"
     And I fill in "Choose a password" with "ohyeah"
-    And I fill in "And confirm that password" with "ohyeah"
+    And I fill in "Confirm password" with "ohyeah"
     And I check "Terms and conditions"
     And I press "Join the game"
     And "Phil" fills in the new phone validation field with their validation code

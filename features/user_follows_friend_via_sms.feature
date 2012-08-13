@@ -70,7 +70,7 @@ Feature: User can follow another user by SMS
 
   Scenario: Request to follow from a user who isn't registered
     When "+18085551212" sends SMS "follow dancroak"
-    Then "+18085551212" should have received an SMS 'I can't find your number in my records. Did you claim your account yet? If not, text your first initial and last name (if you are John Smith, text "jsmith").'
+    Then "+18085551212" should have received an SMS 'I can't find you in my records. Did you claim your account yet? If not, send your first initial and last name (if you are John Smith, send "jsmith").'
 
   Scenario: "Connect" should be a synonym for "follow"
     When "+16178675309" sends SMS "connect dancroak"

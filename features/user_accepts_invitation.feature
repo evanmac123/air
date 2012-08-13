@@ -18,7 +18,7 @@ Feature: User accepts invitation
     Then I should be on the invitation page for "dan@example.com"
     When I fill in "Enter your mobile number" with "508-740-7520"
     And I fill in "Choose a password" with "whatwhat"
-    And I fill in "And confirm that password" with "whatwhat"
+    And I fill in "Confirm password" with "whatwhat"
     And I press "Join the game"
     And I should see "You must accept the terms and conditions"
     
@@ -26,7 +26,7 @@ Feature: User accepts invitation
     Then I should be on the invitation page for "dan@example.com"
     When I fill in "Enter your mobile number" with "508-740-7520"
     And I fill in "Choose a password" with "whatwhat"
-    And I fill in "And confirm that password" with "whatwhat"
+    And I fill in "Confirm password" with "whatwhat"
     And I check "Terms and conditions"
     And I press "Join the game"
     Then I should be on the interstitial phone verification page
@@ -44,7 +44,7 @@ Feature: User accepts invitation
 
   Scenario: User accepting invitation without a phone number does not go through the phone number validation page
     When I fill in "Choose a password" with "whatwhat"
-    And I fill in "And confirm that password" with "whatwhat"
+    And I fill in "Confirm password" with "whatwhat"
     And I check "Terms and conditions"
     And I press "Join the game"
     Then I should be on the activity page
@@ -52,7 +52,7 @@ Feature: User accepts invitation
   Scenario: User accepting invitation who has trouble validating phone number gets redirected to the validation page with an appropriate error
     When I fill in "Enter your mobile number" with "508-740-7520"
     And I fill in "Choose a password" with "whatwhat"
-    And I fill in "And confirm that password" with "whatwhat"
+    And I fill in "Confirm password" with "whatwhat"
     And I check "Terms and conditions"
     And I press "Join the game"
     Then I should be on the interstitial phone validation page
@@ -66,7 +66,7 @@ Feature: User accepts invitation
   Scenario: User accepting invitation shows on profile page as joining the game
     When I fill in "Enter your mobile number" with "508-740-7520"
     And I fill in "Choose a password" with "whatwhat"
-    And I fill in "And confirm that password" with "whatwhat"
+    And I fill in "Confirm password" with "whatwhat"
     And I check "Terms and conditions"
     And I press "Join the game"
     And I go to the profile page for "Dan"
@@ -77,7 +77,7 @@ Feature: User accepts invitation
     And I click the play now button in the email
     And I fill in "Enter your mobile number" with "415-261-3077"
     And I fill in "Choose a password" with "whowho"
-    And I fill in "And confirm that password" with "whowho"
+    And I fill in "Confirm password" with "whowho"
     And I check "Terms and conditions"
     And I press "Join the game"
     And "Phil" fills in the new phone validation field with their validation code
@@ -91,7 +91,7 @@ Feature: User accepts invitation
     And I click the play now button in the email
     And I fill in "Enter your mobile number" with "415-261-3077"
     And I fill in "Choose a password" with "whowho"
-    And I fill in "And confirm that password" with "whowho"
+    And I fill in "Confirm password" with "whowho"
     And I check "Terms and conditions"
     And I press "Join the game"
     And I follow "Confirm my mobile number later"
@@ -105,11 +105,11 @@ Feature: User accepts invitation
     And I click the play now button in the email
     And I fill in "Enter your mobile number" with "415-261-3077"
     And I fill in "Choose a password" with "whowho"
-    And I fill in "And confirm that password" with "whowho"
+    And I fill in "Confirm password" with "whowho"
     And I press "Join the game"
     And I click the play now button in the email
     And I fill in "Choose a password" with "whowho"
-    And I fill in "And confirm that password" with "whowho"
+    And I fill in "Confirm password" with "whowho"
     And I check "Terms and conditions"
     And I press "Join the game"
     Then I should be on the activity page
@@ -118,7 +118,7 @@ Feature: User accepts invitation
   Scenario: User sets password when accepting invitation
     When I fill in "Enter your mobile number" with "508-740-7520"
     And I fill in "Choose a password" with "whatwhat"
-    And I fill in "And confirm that password" with "whatwhat"
+    And I fill in "Confirm password" with "whatwhat"
     And I check "Terms and conditions"
     And I press "Join the game"
     And I sign out
@@ -132,7 +132,7 @@ Feature: User accepts invitation
     And I should see "Please choose a password"
     And I should see "Please enter the password here too"
     When I fill in "Choose a password" with "foofoo"
-    And I fill in "And confirm that password" with "barbar"
+    And I fill in "Confirm password" with "barbar"
     And I press "Join the game"
     Then I should not see "Welcome to the game"
     And I should see "Sorry, your passwords don't match"
@@ -140,7 +140,7 @@ Feature: User accepts invitation
 
   Scenario: User doesn not have to specify mobile number to join
     When I fill in "Choose a password" with "whatwhat"
-    And I fill in "And confirm that password" with "whatwhat"
+    And I fill in "Confirm password" with "whatwhat"
     And I check "Terms and conditions"
     And I press "Join the game"
     And DJ cranks once
@@ -161,7 +161,7 @@ Feature: User accepts invitation
 
     When I fill in "Enter your mobile number" with "508-740-7520"
     And I fill in "Choose a password" with "whatwhat"
-    And I fill in "And confirm that password" with "whatwhat"
+    And I fill in "Confirm password" with "whatwhat"
     And I check "Terms and conditions"
     And I press "Join the game"
 
@@ -182,43 +182,10 @@ Feature: User accepts invitation
     Then I should be on the invitation page for "dan@example.com"
     And I should not see "Location"
 
-  Scenario: User can set username when accepting invitation
-    And I click the play now button in the email
-    And I fill in "Choose a username" with "phil"
-    And I fill in "Enter your mobile number" with "508-740-7520"
-    And I fill in "Choose a password" with "whatwhat"
-    And I fill in "And confirm that password" with "whatwhat"
-    And I check "Terms and conditions"
-    And I press "Join the game"
-    Then I should not see "Welcome to the game"
-    And I should see "Sorry, that username is already taken."
-    
-    When I fill in "Choose a username" with "         "
-    And I press "Join the game"
-    Then I should not see "Welcome to the game"
-    And I should see "Please choose a username"
-
-    When I fill in "Choose a username" with "i rule"
-    And I press "Join the game"
-    
-    Then I should not see "Welcome to the game"
-    
-    And I should see "Sorry, the username must consist of letters or digits only."
-
-    When I fill in "Choose a username" with "DannyBoy"
-    And I check "Terms and conditions"
-    And I press "Join the game"
-    When "Dan" fills in the new phone validation field with their validation code
-    And I press "Validate phone"
-    Then I should be on the activity page
-
-    When DJ works off
-    Then "+15087407520" should have received an SMS including "dannyboy"
-
   Scenario: User is not logged until she actually accepts the invitation (and can abandon it and come back later)
     When I fill in "Enter your mobile number" with "508-740-7520"
     And I fill in "Choose a password" with "whatwhat"
-    And I fill in "And confirm that password" with "whatwhat"
+    And I fill in "Confirm password" with "whatwhat"
     And I check "Terms and conditions"
     ### This is where I abandon my invitation acceptance page and go somewhere else #######################
     And I go to the home page
@@ -227,7 +194,7 @@ Feature: User accepts invitation
     Then I should be on the invitation page for "dan@example.com"
     When I fill in "Enter your mobile number" with "508-740-7520"
     And I fill in "Choose a password" with "whatwhat"
-    And I fill in "And confirm that password" with "whatwhat"
+    And I fill in "Confirm password" with "whatwhat"
     And I check "Terms and conditions"
     And I press "Join the game"
     Then I should be on the interstitial phone verification page
@@ -247,7 +214,7 @@ Feature: User accepts invitation
     Given a clear email queue
     When I fill in "Enter your mobile number" with "508-740-7520"
     And I fill in "Choose a password" with "whatwhat"
-    And I fill in "And confirm that password" with "whatwhat"
+    And I fill in "Confirm password" with "whatwhat"
     And I check "Terms and conditions"
     And I press "Join the game"
     Then "dan@example.com" should receive 1 email
@@ -258,7 +225,7 @@ Feature: User accepts invitation
     Given a clear email queue
     When I fill in "Enter your mobile number" with "508-740-7520"
     And I fill in "Choose a password" with "whatwhat"
-    And I fill in "And confirm that password" with "whatwhat"
+    And I fill in "Confirm password" with "whatwhat"
     And I check "Terms and conditions"
     And I press "Join the game"
     Then "dan@example.com" should receive 1 email

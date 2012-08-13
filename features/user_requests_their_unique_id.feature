@@ -18,4 +18,4 @@ Feature: User requests their username by SMS
 
   Scenario: Nonexistent user requests their username by SMS
     When "+14155551212" sends SMS "myid"
-    Then "+14155551212" should have received an SMS 'I can't find your number in my records. Did you claim your account yet? If not, text your first initial and last name (if you are John Smith, text "jsmith").'
+    Then "+14155551212" should have received an SMS 'I can't find you in my records. Did you claim your account yet? If not, send your first initial and last name (if you are John Smith, send "jsmith").'

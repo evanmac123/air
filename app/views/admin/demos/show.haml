@@ -38,6 +38,13 @@
   %h2 Settings
   %ul
     %li= link_to "Edit basic settings for this game", edit_admin_demo_path(@demo)
+
+  %p
+    - if @demo.client_name.present?
+      = "Client name is #{@demo.client_name}"
+    - else
+      No client name set
+
   %p
     Game
     - if @demo.begins_at 

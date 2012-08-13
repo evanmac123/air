@@ -61,10 +61,8 @@ Feature: User invites friends
     And I click the play now button in the email
     Then I should be on the invitation page for "1@loaded.com"
     When I fill in "Enter your mobile number" with "2088834848"
-    And I fill in "Enter your name" with "Charlie Brainfield"
-    And I fill in "Choose a username" with "somereallylongtextstring"
     And I fill in "Choose a password" with "password"
-    And I fill in "And confirm that password" with "password"
+    And I fill in "Confirm password" with "password"
     And I check "Terms and conditions"
     And I press "Join the game"
     And I wait a second

@@ -42,5 +42,5 @@ Then /^I should( not)? see an avatar "(.*?)" for "(.*?)"$/ do |sense, filename, 
 end
 
 Then /^I should see the default avatar for "(.*?)"$/ do |username|
-  page.should have_css("img[src^='/avatars/thumb/missing.png']")
+  page.should have_css("img[src^='/assets/avatars/thumb/missing.png']")
 end

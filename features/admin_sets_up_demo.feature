@@ -65,6 +65,7 @@ Feature: Admin sets up demo
     And I should see "ran a mile"
     And I should see "smoked a joint"
     And I should see "Mute notice to users after 17 SMSes"
+    And I should see "Client name is BigCorp"
 
   Scenario: Correct defaults
     Given I am on the admin page
