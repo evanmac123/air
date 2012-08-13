@@ -4,10 +4,10 @@ metal_testing_hack(SmsController)
 
 feature 'User claims account' do
 
-  sms_methods = <<-END_SMS_METHODS
+  module SMSMethods
     def expect_welcome_message(user = nil)
       expected_user = user || @expected_user
-      expect_mt_sms "+14152613077", "You've joined the #\{expected_user.demo.name} game! Your username is #\{expected_user.sms_slug} (text MYID if you forget). To play, text to this #."
+      expect_mt_sms "+14152613077", "You've joined the #{expected_user.demo.name} game! Your username is #{expected_user.sms_slug} (text MYID if you forget). To play, text to this #."
     end
 
     def send_message(message_text)
@@ -34,26 +34,31 @@ feature 'User claims account' do
       FactoryGirl.create(:user, :claimed, phone_number: "+14152613077", points: 10)
     end
 
-    it "should not try to send a password reset message to an empty e-mail address" do
-      ActionMailer::Base.deliveries.should be_empty
+    # This is a hack, since for some reason these modules have 
+    # shared_examples_for defined but not context. Who can say?
 
-      user = FactoryGirl.create(:user, email: nil, claim_code: 'bob')
-      send_message "bob"
-      crank_dj_clear
+    shared_examples_for "behaviors specific to SMS" do
+      it "should not try to send a password reset message to an empty e-mail address" do
+        ActionMailer::Base.deliveries.should be_empty
 
-      user.reload.should be_claimed
-      ActionMailer::Base.deliveries.should be_empty
+        user = FactoryGirl.create(:user, email: nil, claim_code: 'bob')
+        send_message "bob"
+        crank_dj_clear
+
+        user.reload.should be_claimed
+        ActionMailer::Base.deliveries.should be_empty
+      end
     end
-  END_SMS_METHODS
+  end
 
-  email_methods = <<-END_EMAIL_METHODS
+  module EmailMethods
     before(:each) do
       ActionMailer::Base.deliveries.clear
     end
 
     def expect_welcome_message(user = nil)
       expected_user = user || @expected_user
-      expect_reply "You've joined the #\{expected_user.demo.name} game! If you'd like to play by e-mail instead of texting or going to the website, you can always send your commands to #\{expected_user.reply_email_address(false)}.", expected_user.email
+      expect_reply "You've joined the #{expected_user.demo.name} game! If you'd like to play by e-mail instead of texting or going to the website, you can always send your commands to #{expected_user.reply_email_address(false)}.", expected_user.email
     end
 
     def send_message(message_text)
@@ -140,22 +145,27 @@ feature 'User claims account' do
         end              
       end
 
-   end
-
-  END_EMAIL_METHODS
+    end
+  end
 
   [
-    ["SMS", sms_methods],
-    ["email", email_methods]
-  ].each do |channel_name, method_code|
+    ["SMS", SMSMethods],
+    ["email", EmailMethods]
+  ].each do |channel_name, channel_module|
     context "by #{channel_name}" do
-      eval(method_code)
+      include channel_module
 
       def expect_referral_still_works
         clear_messages
         send_message "referrer"
         @expected_user.reload.game_referrer.should == @expected_referrer
         expect_reply "Got it, #{@expected_referrer.name} referred you to the game. Thanks for letting us know."
+      end
+
+      if(channel_name == 'SMS')
+        # See comment up by shared_examples_for "behaviors specific to SMS"
+        # to see why we do this silly thing.
+        it_should_behave_like "behaviors specific to SMS"
       end
 
       context "when the contact in question is not associated with a user yet" do
