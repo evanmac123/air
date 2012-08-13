@@ -222,14 +222,51 @@ end
 
 describe User, "#invitation_code" do
   before do
-    Timecop.travel("1/1/11") do
+    Timecop.freeze("1/1/11") do
       @user     = FactoryGirl.create(:user)
-      @expected = Digest::SHA1.hexdigest("--#{Time.now.utc}--#{@user.email}--")
+      @expected = Digest::SHA1.hexdigest("--#{Time.now.to_f}--#{@user.email}--#{@user.name}--")
     end
+  end
+
+  after do
+    Timecop.return
   end
 
   it "should create unique invitation code" do
     @user.invitation_code.should == @expected
+  end
+
+  context "when invitation code is not blank" do
+    it "should validate uniqueness" do
+      user1 = Factory :user
+      user2 = Factory :user
+
+      user1.invitation_code.should_not be_blank
+      user2.should be_valid
+
+      user2.invitation_code = user1.invitation_code
+      user2.should_not be_valid
+    end
+  end
+end
+
+describe User, '#set_invitation_code' do
+  it "should retry until unique" do
+    first_code = "asdasdasdasdasd"
+    second_code = "qweqweqweqweqwe"
+
+    user1 = FactoryGirl.create(:user)
+    user2 = FactoryGirl.create(:user)
+
+    user1.update_attributes(invitation_code: first_code)
+
+    Digest::SHA1.stubs(:hexdigest).returns(first_code, second_code)
+
+    user2.set_invitation_code
+
+    user2.invitation_code.should == second_code
+    user2.should be_valid
+    Digest::SHA1.should have_received(:hexdigest).twice
   end
 end
 

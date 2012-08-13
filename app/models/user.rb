@@ -46,6 +46,7 @@ class User < ActiveRecord::Base
   validates_uniqueness_of :slug, :if => :slug_required
   validates_uniqueness_of :sms_slug, :message => "Sorry, that username is already taken.", :if => :slug_required
   validates_uniqueness_of :overflow_email, :allow_blank => true
+  validates_uniqueness_of :invitation_code, :allow_blank => true
 
   validates_presence_of :name, :if => :name_required, :message => "Please enter your first and last name"
   validates_presence_of :sms_slug, :message => "Please choose a username", :if => :slug_required
@@ -578,7 +579,17 @@ class User < ActiveRecord::Base
   end
 
   def set_invitation_code
-    self.invitation_code = Digest::SHA1.hexdigest("--#{Time.now.utc}--#{email}--")
+    possibly_finished = false
+
+    until(possibly_finished && (self.valid? || self.errors[:invitation_code].empty?))
+      possibly_finished = true
+      self.invitation_code = Digest::SHA1.hexdigest("--#{Time.now.to_f}--#{self.email}--#{self.name}--")
+    end
+  end
+
+  def set_invitation_code!
+    set_invitation_code
+    save!
   end
 
   def find_same_slug(possible_slug)
