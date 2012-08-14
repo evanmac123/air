@@ -50,6 +50,10 @@ if ENV['FIRST_TIME'].nil?
     factory :demo do 
       sequence(:name, Demo.next_id) {|n| "Coolio_#{n}" }
 
+      trait :with_email do
+        sequence(:email, Demo.next_id) {|n| "demo_#{n}@example.com"}
+      end
+
       trait :with_gold_coins do
         uses_gold_coins true
         gold_coin_threshold 20

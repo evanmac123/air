@@ -215,6 +215,28 @@ class Demo < ActiveRecord::Base
     end
   end
 
+  def reply_email_name
+    if custom_reply_email_name.present?
+      custom_reply_email_name
+    else
+      name
+    end
+  end
+
+  def reply_email_address(include_name = true)
+    email_name, email_address = if self.email
+                    [self.reply_email_name, self.email]
+                  else
+                    ['H Engage', 'play@playhengage.com']
+                  end
+
+    if include_name
+      "#{email_name} <#{email_address}>"
+    else
+      email_address
+    end
+  end
+
   def self.recalculate_all_moving_averages!
     Demo.all.each do |demo|
       begin

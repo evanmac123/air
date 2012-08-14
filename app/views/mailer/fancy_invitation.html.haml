@@ -1,0 +1,50 @@
+%table.A{@style.base_hash}
+  %tr
+    %td{:style => "vertical-align: top;"}
+      %table.AA{@style.table_hash}
+        %tr
+          %td{:style => @style.masthead_top_shim}
+        %tr
+          %td{:style => @style.top_bar}= image_tag "#{@style.image_url}/images/emails/top_bar.png", :width => @style.table_width, :height => 9, :alt => '', :style => @style.image 
+
+
+
+    
+      %table.B{@style.table_hash}
+        %tr
+          %td{@style.body_hash}      
+            = render 'email_previews/invitation_top_contents', :style => @style
+      %table.C{@style.table_hash}
+        %tr
+          %td{@style.just_borders_hash}= image_tag "#{@style.image_url}/images/emails/icons.png", :height => 113, :width => 600, :style => @style.image + "padding-top: 29px;", :alt => "Play by Text, by Email, or Through the Browser"
+
+      %table.CC{@style.table_hash}
+        %tr
+          %td{@style.tag_line_hash} Interact. Earn points. Win prizes!
+    
+      %table.CC{@style.table_hash}
+        %tr
+          %td{@style.just_borders_hash}= image_tag "#{@style.image_url}/images/emails/diagonal.png", :height => 35, :width => 600, :style => @style.image, :alt => ""      
+      
+      %table.D{@style.table_hash}
+        %tr
+          %td{@style.bottom_body_hash}      
+            = render 'email_previews/invitation_bottom_contents', :style => @style
+
+
+
+      %table.E{@style.table_hash}
+
+        %tr
+          %td{:style => @style.top_bar}= image_tag "#{@style.image_url}/images/emails/bottom_bar.png", :width => @style.table_width, :height => 9, :alt => '', :style => "vertical-align: top;"
+        %tr
+          %td{:style => @style.footer}
+      
+      %table.J{@style.table_hash}
+        %tr{@style.grey_background_hash}
+          %td{@style.footer_hash} 
+            Copyright © 2012 H Engage, All rights reserved.<br>
+            = link_to "www.hengage.com", "http://hengage.com", :style => @style.footer + "font-weight: bold;"
+            | 
+            = link_to "unsubscribe from this list", '<% UNSUB %>'.html_safe, :style => @style.footer + "font-weight: bold;"
+          

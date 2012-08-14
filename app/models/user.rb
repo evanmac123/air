@@ -463,17 +463,7 @@ class User < ActiveRecord::Base
   end
 
   def reply_email_address(include_name = true)
-    email_name, email_address = if self.demo.email
-                    [self.demo.name, self.demo.email]
-                  else
-                    ['H Engage', 'play@playhengage.com']
-                  end
-
-    if include_name
-      "#{email_name} <#{email_address}>"
-    else
-      email_address
-    end
+    self.demo.reply_email_address(include_name)
   end
 
   def top_level
