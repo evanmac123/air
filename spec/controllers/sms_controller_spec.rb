@@ -8,7 +8,7 @@ describe SmsController do
       # We don't use hardly any of these fields, but this is what Twilio 
       # sends.
 
-      @user = FactoryGirl.create :user, :phone_number => "+14152613077"
+      @user = FactoryGirl.create :user, :phone_number => "+14152613077", :demo => (FactoryGirl.create(:demo, phone_number: "+14158675309"))
       @original_mt_texts_today = @user.mt_texts_today
 
       @params = {
@@ -19,7 +19,7 @@ describe SmsController do
         'FromState'     => 'MA',
         'ToZip'         => '02128',
         'ToState'       => 'MA',
-        'To'            => '+16179970269',
+        'To'            => '+14158675309',
         'ToCountry'     => 'US',
         'FromCountry'   => 'US',
         'SmsMessageSid' => 'SM12ac8c0c64e01188d32fa2d4b40f1b5d',

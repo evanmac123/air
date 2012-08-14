@@ -3,8 +3,8 @@ Feature: User gets followup welcome message at some point after starting the gam
   Background:
     Given time is frozen at "2011-05-01 12:00:00 EST"
     And the following demo exists:
-      | name         | followup welcome message   | followup welcome message delay |
-      | FooCorp      | Play. Or die. Your choice. | 30                             |
+      | name         | followup welcome message   | followup welcome message delay | phone number |
+      | FooCorp      | Play. Or die. Your choice. | 30                             | +14158675309 |
     And the following users exist:
       | name | email            | demo          | claim code |
       | Phil | phil@example.com | name: FooCorp |            |
@@ -27,7 +27,7 @@ Feature: User gets followup welcome message at some point after starting the gam
     And "phil@example.com" should receive an email with "Play. Or die. Your choice." in the email body
 
   Scenario: User gets followup welcome message after claiming account via SMS
-    When "+16175551212" sends SMS "vladig"
+    When "+16175551212" sends SMS "vladig" to "+14158675309"
     And time moves ahead 30
     And DJ cranks 10 times
     Then "+16175551212" should have received an SMS "Play. Or die. Your choice."
@@ -81,7 +81,7 @@ Feature: User gets followup welcome message at some point after starting the gam
     Then "+14152613077" should not have received an SMS including "Play. Or die. Your choice."
 
   Scenario: User claims account but not enough time has passed
-    When "+16175551212" sends SMS "vladig"
+    When "+16175551212" sends SMS "vladig" to "+14158675309"
     And time moves ahead 29:59
     And DJ cranks 10 times
     Then "+16175551212" should not have received an SMS "Play. Or die. Your choice."

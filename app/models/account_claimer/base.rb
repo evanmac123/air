@@ -18,7 +18,8 @@ module AccountClaimer
           end
         end
 
-        claim_state_machine = ClaimStateMachine.find_by_to(@to)
+        @demo = find_demo_by_to(@to)
+        claim_state_machine = @demo.claim_state_machine
         @user, error_message = claim_state_machine.find_unique_user(@from, @normalized_claim_information)
 
         if @user

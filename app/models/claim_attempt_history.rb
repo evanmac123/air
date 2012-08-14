@@ -1,4 +1,6 @@
 class ClaimAttemptHistory < ActiveRecord::Base
+  belongs_to :demo
+
   serialize :claim_information
 
   def add_new_claim_information!(claim_information)
@@ -12,7 +14,7 @@ class ClaimAttemptHistory < ActiveRecord::Base
       return [nil, format_error]
     end
 
-    users = claim_information.inject(User) do |query, pair|
+    users = claim_information.inject(demo.users) do |query, pair|
       query.send(*pair)
     end
 
@@ -35,16 +37,16 @@ class ClaimAttemptHistory < ActiveRecord::Base
   end
 
   def claim_state_machine
-    DefaultClaimStateMachine.new
+    DefaultClaimStateMachine.new(demo)
   end
 
   def claim_state
     claim_state_machine.find_claim_state(claim_state_id)
   end
 
-  def self.find_or_create_by_from(from, start_state_id)
-    obj = self.where(from: from).first
-    obj || self.create(from: from, claim_state_id: start_state_id)
+  def self.find_or_create_by_from(from, start_state_id, demo)
+    obj = self.where(from: from, demo_id: demo.id).first
+    obj || self.create(from: from, claim_state_id: start_state_id, demo_id: demo.id)
   end
 
   protected

@@ -2,6 +2,10 @@ module AccountClaimer
   class SMSClaimer < Base
     protected
 
+    def find_demo_by_to(to)
+      Demo.find_by_phone_number(to)
+    end
+
     def find_claimed_user_by_from
       User.claimed.where(:phone_number => @from).first
     end

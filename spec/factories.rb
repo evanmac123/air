@@ -60,6 +60,10 @@ if ENV['FIRST_TIME'].nil?
         minimum_gold_coin_award 1
         maximum_gold_coin_award 3
       end
+
+      trait :with_phone_number do
+        sequence(:phone_number) {|i| "+" + (16172222222 + 1).to_s}
+      end
     end
     
     factory :rule do

@@ -1,12 +1,12 @@
 class ClaimStateMachine
-  def find_unique_user(from, claim_information)
-    claim_history = claim_attempt_histories.find_or_create_by_from(from, start_state_id)
-    claim_history.add_new_claim_information!(claim_information)
-    claim_history.unique_user
+  def initialize(demo)
+    @demo = demo
   end
 
-  def self.find_by_to(to)
-    DefaultClaimStateMachine.new
+  def find_unique_user(from, claim_information)
+    claim_history = claim_attempt_histories.find_or_create_by_from(from, start_state_id, @demo)
+    claim_history.add_new_claim_information!(claim_information)
+    claim_history.unique_user
   end
 end
 

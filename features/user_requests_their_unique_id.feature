@@ -2,8 +2,8 @@ Feature: User requests their username by SMS
 
   Background:
     Given the following claimed user exists:
-      | name           | phone number |
-      | Phil Darnowsky | +14152613077 |
+      | name           | phone number | demo                       |
+      | Phil Darnowsky | +14152613077 | phone_number: +14158675309 |
     And "Phil Darnowsky" has the SMS slug "iamgod"
 
   Scenario: User requests their username by SMS
@@ -17,5 +17,5 @@ Feature: User requests their username by SMS
     Then I should see the success message "Your username is iamgod."
 
   Scenario: Nonexistent user requests their username by SMS
-    When "+14155551212" sends SMS "myid"
+    When "+14155551212" sends SMS "myid" to "+14158675309"
     Then "+14155551212" should have received an SMS 'I can't find you in my records. Did you claim your account yet? If not, send your first initial and last name (if you are John Smith, send "jsmith").'

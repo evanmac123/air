@@ -2,9 +2,9 @@ Feature: User can follow another user by SMS
 
   Background:
     Given the following demos exist:
-      | name     |
-      | Yoyodyne |
-      | BigCorp  |
+      | name     | phone number |
+      | Yoyodyne | +12155551212 |
+      | BigCorp  | +19085551212 |
     Given the following claimed users exist:
       | name        | phone number | demo           | privacy level |
       | Dan Croak   | +16175551212 | name: Yoyodyne | everybody     |
@@ -69,7 +69,7 @@ Feature: User can follow another user by SMS
     And "+16178675309" should have received an SMS "Sorry, we couldn't find a user with the username joebob."
 
   Scenario: Request to follow from a user who isn't registered
-    When "+18085551212" sends SMS "follow dancroak"
+    When "+18085551212" sends SMS "follow dancroak" to "+12155551212"
     Then "+18085551212" should have received an SMS 'I can't find you in my records. Did you claim your account yet? If not, send your first initial and last name (if you are John Smith, send "jsmith").'
 
   Scenario: "Connect" should be a synonym for "follow"

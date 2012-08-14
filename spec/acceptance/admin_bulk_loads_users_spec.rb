@@ -4,7 +4,7 @@ metal_testing_hack(SmsController)
 
 feature "Admin Bulk Loads Users" do
   before do
-    @demo = FactoryGirl.create :demo, :name => "H Engage", :credit_game_referrer_threshold => 60, :game_referrer_bonus => 2000
+    @demo = FactoryGirl.create :demo, :with_phone_number, :name => "H Engage", :credit_game_referrer_threshold => 60, :game_referrer_bonus => 2000
     signin_as_admin
 
     visit new_admin_demo_bulk_load_path(@demo)
@@ -31,8 +31,8 @@ Fred Robinson,frobinson@example.com,345345,freddy
     click_link "F"
     expect_content "Fred Robinson, frobinson@example.com (345345)"
 
-    mo_sms "+14155551212", "123123"
-    mo_sms "+16175551212", "234234"
+    mo_sms "+14155551212", "123123", @demo.phone_number
+    mo_sms "+16175551212", "234234", @demo.phone_number
 
     crank_dj_clear
     expect_mt_sms "+14155551212", "You've joined the H Engage game! Your username is johnny (text MYID if you forget). To play, text to this #."

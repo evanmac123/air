@@ -364,6 +364,10 @@ class Demo < ActiveRecord::Base
     false
   end
 
+  def claim_state_machine
+    DefaultClaimStateMachine.new(self)
+  end
+
   protected
 
   def unless_within(cutoff_time, last_done_time)

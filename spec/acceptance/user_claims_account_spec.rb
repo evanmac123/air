@@ -10,8 +10,13 @@ feature 'User claims account' do
       expect_mt_sms "+14152613077", "You've joined the #{expected_user.demo.name} game! Your username is #{expected_user.sms_slug} (text MYID if you forget). To play, text to this #."
     end
 
-    def send_message(message_text)
-      mo_sms "+14152613077", message_text
+    def send_message(message_text, to_number = nil)
+      to_number ||= @expected_user.try(:demo).try(:phone_number)
+      mo_sms "+14152613077", message_text, to_number
+    end
+
+    def send_message_to_other_demo(message_text)
+      mo_sms "+14152613077", message_text, @other_demo.phone_number
     end
 
     def expect_reply(message_text)
@@ -61,8 +66,13 @@ feature 'User claims account' do
       expect_reply "You've joined the #{expected_user.demo.name} game! If you'd like to play by e-mail instead of texting or going to the website, you can always send your commands to #{expected_user.reply_email_address(false)}.", expected_user.email
     end
 
-    def send_message(message_text)
-      email_originated_message_received("phil@darnowsky.com", "", message_text + "\n\n\n---\nPhil Darnowsky\nChief Technical Officer and Code Walloper\nH Engage, Inc.\n\n")
+    def send_message(message_text, to = nil)
+      to ||= @expected_user.try(:demo).try(:email)
+      email_originated_message_received("phil@darnowsky.com", "", message_text + "\n\n\n---\nPhil Darnowsky\nChief Technical Officer and Code Walloper\nH Engage, Inc.\n\n", to)
+    end
+
+    def send_message_to_other_demo(message_text)
+      send_message(message_text, @other_demo.email)
     end
 
     def expect_reply(message_text, email="phil@darnowsky.com")
@@ -170,7 +180,8 @@ feature 'User claims account' do
 
       context "when the contact in question is not associated with a user yet" do
         before(:each) do
-          @demo = FactoryGirl.create(:demo, :name => "Global Tetrahedron", :credit_game_referrer_threshold => 60, :game_referrer_bonus => 1000)
+          @demo = FactoryGirl.create(:demo, :name => "Global Tetrahedron", :credit_game_referrer_threshold => 60, :game_referrer_bonus => 1000, :email => 'gtet@playhengage.com', :phone_number => "+19085551212")
+          @other_demo = FactoryGirl.create(:demo, :name => "Amalgamated Consolidated", :credit_game_referrer_threshold => 60, :game_referrer_bonus => 1000, :email => 'ac@playhengage.com', :phone_number => "+12155551212")
           @expected_user = FactoryGirl.create(:user, :demo => @demo, :claim_code => "bob", :email => '')
           @expected_user.should_not be_claimed
           @expected_referrer = FactoryGirl.create(:user, :demo => @demo)
@@ -224,6 +235,19 @@ feature 'User claims account' do
               it_should_behave_like "email overflow or reclaim", %w(bob), "fred", %(That ID "bob" is already taken. If you're trying to register your account, please send in your own ID first by itself.)
             end
           end
+
+          context "and that user has a twin in another demo" do
+            before(:each) do
+              @twin = FactoryGirl.create(:user, demo: @other_demo, email: '', claim_code: 'bob')
+            end
+
+            it "should claim the correct account, depending where the incoming message goes to" do
+              send_message_to_other_demo('bob')
+              @expected_user.reload.should_not be_claimed
+              @twin.reload.should be_claimed
+              pending
+            end
+          end
         end
 
         ['b ob', 'b. ob', '"bob"', 'B. Ob'].each do |claim_code_variation|
@@ -245,7 +269,7 @@ feature 'User claims account' do
         context "and the claim code doesn't uniquely identify a user, but claim code + ZIP code do" do
           before(:each) do
             @expected_user.update_attributes(zip_code: '02139')
-            @other_user = FactoryGirl.create(:user, claim_code: @expected_user.claim_code, zip_code: '94110')
+            @other_user = FactoryGirl.create(:user, claim_code: @expected_user.claim_code, zip_code: '94110', demo: @expected_user.demo)
           end
 
           it "should claim the user when we get both pieces of information" do
@@ -345,9 +369,9 @@ feature 'User claims account' do
         context "and it takes claim code, ZIP and birth month/day to uniquely identify the user" do
           before(:each) do
             @expected_user.update_attributes(zip_code: "02139", date_of_birth: Date.parse("September 10, 1977"))
-            FactoryGirl.create(:user, claim_code: @expected_user.claim_code, zip_code: '21201', date_of_birth: Date.parse("September 10, 1977"))
-            @other_user = FactoryGirl.create(:user, claim_code: @expected_user.claim_code, zip_code: '02139', date_of_birth: Date.parse("September 11, 1974"))
-            FactoryGirl.create(:user, claim_code: @expected_user.claim_code, zip_code: '02139', date_of_birth: Date.parse("April 17, 1977"))
+            FactoryGirl.create(:user, claim_code: @expected_user.claim_code, zip_code: '21201', date_of_birth: Date.parse("September 10, 1977"), demo: @expected_user.demo)
+            @other_user = FactoryGirl.create(:user, claim_code: @expected_user.claim_code, zip_code: '02139', date_of_birth: Date.parse("September 11, 1974"), demo: @expected_user.demo)
+            FactoryGirl.create(:user, claim_code: @expected_user.claim_code, zip_code: '02139', date_of_birth: Date.parse("April 17, 1977"), demo: @expected_user.demo)
           end
 
           it "should claim the user when we get all three pieces of information" do
@@ -484,10 +508,10 @@ feature 'User claims account' do
         context "and even claim code, ZIP and birthdate together are not enough" do
           before(:each) do
             @expected_user.update_attributes(zip_code: "02139", date_of_birth: Date.parse("September 10, 1977"))
-            @ambiguous_1 = FactoryGirl.create(:user, name: "Some Guy", claim_code: @expected_user.claim_code, zip_code: '02139', date_of_birth: Date.parse("September 11, 1974"))
-            @ambiguous_2 = FactoryGirl.create(:user, name: "Some Other Guy", claim_code: @expected_user.claim_code, zip_code: '02139', date_of_birth: Date.parse("September 11, 1984"))
-            FactoryGirl.create(:user, claim_code: @expected_user.claim_code, zip_code: '21201', date_of_birth: Date.parse("September 10, 1977"))
-            FactoryGirl.create(:user, claim_code: @expected_user.claim_code, zip_code: '02139', date_of_birth: Date.parse("April 17, 1977"))
+            @ambiguous_1 = FactoryGirl.create(:user, name: "Some Guy", claim_code: @expected_user.claim_code, zip_code: '02139', date_of_birth: Date.parse("September 11, 1974"), demo: @expected_user.demo)
+            @ambiguous_2 = FactoryGirl.create(:user, name: "Some Other Guy", claim_code: @expected_user.claim_code, zip_code: '02139', date_of_birth: Date.parse("September 11, 1984"), demo: @expected_user.demo)
+            FactoryGirl.create(:user, claim_code: @expected_user.claim_code, zip_code: '21201', date_of_birth: Date.parse("September 10, 1977"), demo: @expected_user.demo)
+            FactoryGirl.create(:user, claim_code: @expected_user.claim_code, zip_code: '02139', date_of_birth: Date.parse("April 17, 1977"), demo: @expected_user.demo)
 
             send_message "bob"
             send_message "02139"

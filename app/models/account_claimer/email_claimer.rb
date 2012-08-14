@@ -2,6 +2,10 @@ module AccountClaimer
   class EmailClaimer < Base
     protected
 
+    def find_demo_by_to(to)
+      Demo.find_by_email(to)
+    end
+
     def find_claimed_user_by_from
       User.claimed.where("email ILIKE ?", @from.like_escape).first
     end

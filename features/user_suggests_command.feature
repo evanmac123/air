@@ -1,6 +1,9 @@
 Feature: User suggests command
 
   Background:
+    Given the following demo exists:
+      | name     | phone number |
+      | H Engage | +14158675309 |
     Given the following claimed users exist:
       | name           | phone number | demo           |
       | Vlad Gyster    | +16175551212 | name: H Engage |
@@ -25,7 +28,7 @@ Feature: User suggests command
     And "+16175551212" should have received an SMS "Thanks! We'll take your suggestion into consideration."
 
   Scenario: Unknown number suggests something
-    When "+18088675309" sends SMS "s ate goat cheese"
+    When "+18088675309" sends SMS "s ate goat cheese" to "+14158675309"
     Then we should not have recorded any suggestions
 
   Scenario: "SUGGEST" is a synonym for "S"
