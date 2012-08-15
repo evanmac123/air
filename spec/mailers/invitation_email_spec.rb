@@ -15,6 +15,7 @@ describe ActionMailer::Base do
     end
 
     it "builds the email with custom content" do
+      pending
       @hopscotch.should be_valid 
       email = Mailer.invitation(@finney, nil, style: @style)
       
@@ -34,6 +35,7 @@ describe ActionMailer::Base do
 
 
     it "html part has real <i>,<b> tags, not escaped. plain part has none" do
+      pending
       @hopscotch.invitation_blurb = "Have a <b><i>GREAT</b></i> time!"
       @hopscotch.invitation_bullet_1 = "Live <b><i>NOW</i></b>!"
       email = Mailer.invitation(@finney, nil, style: @style)

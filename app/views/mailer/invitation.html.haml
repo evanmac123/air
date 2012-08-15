@@ -1,31 +1,60 @@
 =image_tag "https://s3.amazonaws.com/covidien-miscellaneous-assets/covidien_masthead.jpg"
 %br
 
-%p We recently launched a new, social game, sponsored by Covidien and powered by H Engage. This round of the game will help you and your spouse/domestic partner learn about changes to your benefits and avoid paying up to $1,500 more on medical coverage in 2013. 
+.copy{:style => "width: 600px; margin-left: 12px; margin-top: 10px"}
+  %p 
+    -if @referrer
+      =@referrer.name
+      invited you to
+    -else
+      We recently launched 
+    a new, social game, sponsored by Covidien and powered by H Engage. This round of the game will help you and your spouse/domestic partner learn about changes to your benefits and avoid paying up to $1,500 more on medical coverage in 2013. 
 
-%p It's fun and easy. You can play via text message, email or online from any device -- at work, at home or on the go. [link]Click here to join[/link].
+  %p 
+    It's fun and easy. You can play via text message, email or online from any device -- at work, at home or on the go. 
+    = (link_to "Click here to join", invitation_url(@user.invitation_code)) + '.'
 
-%p The more you play, the better your chances to win an iPad or a $500 Amazon gift card.
+  %p The more you play, the better your chances to win an iPad or a $500 Amazon gift card.
 
-%p Join thousands already playing. See your coworkers' activity feeds in action.
+  %p Join thousands already playing. See your coworkers' activity feeds in action.
 
-%p 
-  %b Join the game
-  %br
-  We've made it easy for you: just
-  = link_to "sign up here", invitation_url(@user.invitation_code)
+  %p
+    \----------------
+    %br
+    %b Join the game
+    %br
+    We've made it easy for you: just
+    = (link_to "sign up here", invitation_url(@user.invitation_code)) + '.'
 
-%p
-  %b Game play
-  Spot the game tree icon around your Covidien location, in your benefits materials or online at 
-  = link_to "www.HEngage.com", "https://www.hengage.com"
-  %br
-  Reply with the key words on the game piece via text, email, or online to earn points. The more points you earn, the more levels you'll reach.
-  %br
-  Be on the lookout for more game pieces in the coming weeks!
-  %br
-  The more levels you complete, the greater your chance of winning.
+  %p
+    %b Game play
+    %br
+    Spot the game tree icon around your Covidien location, in your benefits materials or online at 
+    = (link_to "www.HEngage.com", "https://www.hengage.com") + "."
+    %br
+    %br
+    Reply with the key words on the game piece via text, email, or online to earn points. The more points you earn, the more levels you'll reach.
+    %br
+    %br
+    Be on the lookout for more game pieces in the coming weeks!
+    %br
+    %br
+    The more levels you complete, the greater your chance of winning.
 
-%p
-  %b Recruit coworkers for more chances to win
-  When you first log in, invite them to the game. The top two recruiters by August 23 will win their choice of an iPad or a $500 Amazon.com gift card.
+  %p
+    %b Recruit coworkers for more chances to win
+    %br
+    When you first log in, invite them to the game. The top two recruiters by August 23 will win their choice of an iPad or a $500 Amazon.com gift card.
+
+  .legal-footer{:style => "margin-top: 30px; font-size:0.8em"}
+    Copyright &copy; 2012 H Engage. All Rights Reserved.
+    %br
+    %br
+    Our mailing address is:
+    %br
+    222 Newbury St.
+    %br
+    Floor 3
+    %br
+    Boston, MA 02116
+

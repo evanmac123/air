@@ -17,6 +17,7 @@ feature "User with SMS Account Upgrades to web account" do
   end
 
   scenario "Juan (sms account) with no corporate email creates web account via personal email and clicks through to set password"  do
+    pending
     mo_sms(@juan_phone, @personal_email)
     crank_dj_clear 
     open_email(@personal_email).subject.should include('Ready to play?')
