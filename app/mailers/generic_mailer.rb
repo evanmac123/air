@@ -5,7 +5,7 @@ class GenericMailer < ActionMailer::Base
   def send_message(user_id, subject, plain_text, html_text)
     user = User.find(user_id)
 
-    from_string = user.demo.email.present? ? "#{user.demo.name} <#{user.demo.email}>" : "H Engage <play@playhengage.com>"
+    from_string = user.demo.email.present? ? user.demo.reply_email_address : "H Engage <play@playhengage.com>"
 
     while(plain_text !~ /\n\n$/)
       plain_text += "\n"
