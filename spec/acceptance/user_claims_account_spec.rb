@@ -140,7 +140,7 @@ feature 'User claims account' do
 
         it "should not re-claim that user" do
           @expected_user.reload
-          @expected_user.accepted_invitation_at.utc.should == @original_claim_time.utc
+          @expected_user.accepted_invitation_at.utc.to_s.should == @original_claim_time.utc.to_s
           expect_contact_unset @expected_user
         end              
       end

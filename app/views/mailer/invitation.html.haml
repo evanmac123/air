@@ -1,6 +1,6 @@
 =image_tag "https://s3.amazonaws.com/covidien-miscellaneous-assets/covidien_masthead.jpg", :alt => 'Covidien masthead'
+-_invitation_url = @referrer ? invitation_url(@user.invitation_code, :referrer_id => @referrer.id) : invitation_url(@user.invitation_code)
 %br
-
 .copy{:style => "width: 600px; margin-left: 12px; margin-top: 10px"}
   %p 
     -if @referrer
@@ -12,7 +12,7 @@
 
   %p 
     It's fun and easy. You can play via text message, email or online from any device -- at work, at home or on the go. 
-    = (link_to "Click here to join", invitation_url(@user.invitation_code)) + '.'
+    = (link_to "Click here to join", _invitation_url) + '.'
 
   %p The more you play, the better your chances to win an iPad or a $500 Amazon gift card.
 
@@ -24,7 +24,7 @@
     %b Join the game
     %br
     We've made it easy for you: just
-    = (link_to "sign up here", invitation_url(@user.invitation_code)) + '.'
+    = (link_to "sign up here", _invitation_url) + '.'
 
   %p
     %b Game play

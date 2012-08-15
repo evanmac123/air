@@ -48,7 +48,7 @@ class Mailer < ActionMailer::Base
     subject = "Wondering what your colleagues are up to in #{@user.demo.name}? Here's an easy way to take a peek"
     mail :to      => user.email_with_name,
          :subject => subject,
-         :from    => @demo.reply_email_address
+         :from    => @user.demo.reply_email_address
   end
 
 
