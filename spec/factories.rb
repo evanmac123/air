@@ -273,5 +273,10 @@ if ENV['FIRST_TIME'].nil?
 
       factory :demo_specific_characteristic, traits: [:demo_specific]
     end
+ 
+    factory :claim_state_machine do |claim_state_machine|
+      claim_state_machine.states { {} }
+      claim_state_machine.association :demo
+    end
   end
 end

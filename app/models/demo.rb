@@ -15,6 +15,7 @@ class Demo < ActiveRecord::Base
   has_many :characteristics, :dependent => :destroy
 
   has_one :skin
+  has_one :claim_state_machine
 
   validate :end_after_beginning
   
@@ -237,6 +238,12 @@ class Demo < ActiveRecord::Base
     end
   end
 
+  def claim_state_machine_with_default
+    claim_state_machine_without_default || ClaimStateMachine.default_claim_state_machine(self)
+  end
+
+  alias_method_chain :claim_state_machine, :default
+
   def self.recalculate_all_moving_averages!
     Demo.all.each do |demo|
       begin
@@ -362,10 +369,6 @@ class Demo < ActiveRecord::Base
       return true if send("invitation_bullet_#{number}").present?
     end
     false
-  end
-
-  def claim_state_machine
-    DefaultClaimStateMachine.new(self)
   end
 
   protected

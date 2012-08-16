@@ -37,7 +37,8 @@ class ClaimAttemptHistory < ActiveRecord::Base
   end
 
   def claim_state_machine
-    DefaultClaimStateMachine.new(demo)
+    @_claim_state_machine ||= demo.claim_state_machine
+    @_claim_state_machine
   end
 
   def claim_state

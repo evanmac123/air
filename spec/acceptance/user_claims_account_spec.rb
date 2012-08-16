@@ -181,7 +181,11 @@ feature 'User claims account' do
       context "when the contact in question is not associated with a user yet" do
         before(:each) do
           @demo = FactoryGirl.create(:demo, :name => "Global Tetrahedron", :credit_game_referrer_threshold => 60, :game_referrer_bonus => 1000, :email => 'gtet@playhengage.com', :phone_number => "+19085551212")
+          FactoryGirl.create(:claim_state_machine, :states => ClaimStateMachine::PredefinedMachines::COVIDIEN_THREE_STEP_STYLE, :demo => @demo)
+
           @other_demo = FactoryGirl.create(:demo, :name => "Amalgamated Consolidated", :credit_game_referrer_threshold => 60, :game_referrer_bonus => 1000, :email => 'ac@playhengage.com', :phone_number => "+12155551212")
+          FactoryGirl.create(:claim_state_machine, :states => ClaimStateMachine::PredefinedMachines::COVIDIEN_THREE_STEP_STYLE, :demo => @other_demo)
+
           @expected_user = FactoryGirl.create(:user, :demo => @demo, :claim_code => "bob", :email => '')
           @expected_user.should_not be_claimed
           @expected_referrer = FactoryGirl.create(:user, :demo => @demo)
@@ -228,7 +232,7 @@ feature 'User claims account' do
 
               it "should not re-claim that user" do
                 @expected_user.reload
-                @expected_user.accepted_invitation_at.should == @original_claim_time
+                @expected_user.accepted_invitation_at.to_s.should == @original_claim_time.to_s
                 expect_contact_unset @expected_user
               end
             else
@@ -236,7 +240,7 @@ feature 'User claims account' do
             end
           end
 
-          context "and that user has a twin in another demo" do
+          context "and that user has a twin in another demo with similar rules" do
             before(:each) do
               @twin = FactoryGirl.create(:user, demo: @other_demo, email: '', claim_code: 'bob')
             end
@@ -245,7 +249,6 @@ feature 'User claims account' do
               send_message_to_other_demo('bob')
               @expected_user.reload.should_not be_claimed
               @twin.reload.should be_claimed
-              pending
             end
           end
         end
@@ -319,7 +322,7 @@ feature 'User claims account' do
 
               it "should not re-claim that user" do
                 @expected_user.reload
-                @expected_user.accepted_invitation_at.should == @original_claim_time
+                @expected_user.accepted_invitation_at.to_s.should == @original_claim_time.to_s
                 expect_contact_unset @expected_user
               end
             else
@@ -556,6 +559,40 @@ feature 'User claims account' do
         it "should send a helpful error message" do
           send_message 'otherguy'
           expect_reply "You've already claimed your account, and have 10 pts. If you're trying to credit another user, ask them to check their username with the MYID command."
+        end
+      end
+
+      context "in a demo with default claiming" do
+        before(:each) do
+          @default_demo = FactoryGirl.create(:demo, :with_email, :with_phone_number)
+
+          @expected_user = FactoryGirl.create(:user, demo: @default_demo, claim_code: 'sven')
+
+          @evil_twin = FactoryGirl.create(:user, claim_code: 'sven')
+          @evil_twin.demo.should_not == @expected_user.demo
+
+          @other_user = FactoryGirl.create(:user, demo: @default_demo, claim_code: 'lars')
+          @claimed_user = FactoryGirl.create(:user, :claimed, demo: @default_demo, claim_code: 'beethoven', overflow_email: 'hey@example.com')
+        end
+
+        it "should act in the old-school fashion" do
+          send_message 'ohaithere'
+          expect_reply "I can't find you in my records. Did you claim your account yet? If not, send your first initial and last name (if you are John Smith, send \"jsmith\")."
+
+          clear_messages
+          send_message 'ohaithere'
+          expect_reply "I can't find you in my records. Did you claim your account yet? If not, send your first initial and last name (if you are John Smith, send \"jsmith\")."
+
+          clear_messages
+          send_message 'beethoven'
+          expect_reply "It looks like that account is already claimed. Please try again, or contact support@hengage.com for help."
+
+          clear_messages
+          [@expected_user, @evil_twin, @other_user].each{|u| u.should_not be_claimed}
+          send_message 'sven'
+          @expected_user.reload.should be_claimed
+          [@evil_twin, @other_user].each{|u| u.reload.should_not be_claimed}
+          expect_welcome_message
         end
       end
     end
