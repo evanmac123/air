@@ -390,7 +390,7 @@ feature 'User claims account' do
             @expected_user.reload
 
             @expected_user.should_not be_claimed
-            expect_reply "Sorry, we need a little more info to create your account. Please send your month & day of birth (format: MMDD). Spouses send the COV employee's date of birth."
+            expect_reply "Sorry, we need a little more info to create your account. Please send your month & day of birth (format: MMDD)."
 
             clear_messages
             send_message "0910"
@@ -477,7 +477,7 @@ feature 'User claims account' do
               end
 
               it "should send an appropriate error message" do
-                expect_reply "Sorry, I didn't quite get that. Please send your month & date of birth as MMDD (example: September 10 = 0910). Spouses should send COV employee's date of birth."
+                expect_reply "Sorry, I didn't quite get that. Please send your month & date of birth as MMDD (example: September 10 = 0910)."
               end
 
               it "should allow them to try again" do
@@ -495,7 +495,7 @@ feature 'User claims account' do
               end
 
               it "should send an appropriate error message" do
-                expect_reply "Sorry, I didn't quite get that. Please send your month & date of birth as MMDD (example: September 10 = 0910). Spouses should send COV employee's date of birth."
+                expect_reply "Sorry, I didn't quite get that. Please send your month & date of birth as MMDD (example: September 10 = 0910)."
               end
 
               it "should allow them to try again" do
@@ -571,6 +571,9 @@ feature 'User claims account' do
           @evil_twin = FactoryGirl.create(:user, claim_code: 'sven')
           @evil_twin.demo.should_not == @expected_user.demo
 
+          @ambiguous_user_1 = FactoryGirl.create(:user, demo: @default_demo, claim_code: 'duplicate')
+          @ambiguous_user_2 = FactoryGirl.create(:user, demo: @default_demo, claim_code: 'duplicate')
+
           @other_user = FactoryGirl.create(:user, demo: @default_demo, claim_code: 'lars')
           @claimed_user = FactoryGirl.create(:user, :claimed, demo: @default_demo, claim_code: 'beethoven', overflow_email: 'hey@example.com')
         end
@@ -586,6 +589,12 @@ feature 'User claims account' do
           clear_messages
           send_message 'beethoven'
           expect_reply "It looks like that account is already claimed. Please try again, or contact support@hengage.com for help."
+
+          clear_messages
+          send_message 'duplicate'
+          @ambiguous_user_1.reload.should_not be_claimed
+          @ambiguous_user_2.reload.should_not be_claimed
+          expect_reply "Sorry, we're having a little trouble, it looks like we'll have to get a human involved. Please contact support@hengage.com for help joining the game. Thank you!"
 
           clear_messages
           [@expected_user, @evil_twin, @other_user].each{|u| u.should_not be_claimed}
