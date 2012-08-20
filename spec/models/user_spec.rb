@@ -238,8 +238,8 @@ describe User, "#invitation_code" do
 
   context "when invitation code is not blank" do
     it "should validate uniqueness" do
-      user1 = Factory :user
-      user2 = Factory :user
+      user1 = FactoryGirl.create(:user)
+      user2 = FactoryGirl.create(:user)
 
       user1.invitation_code.should_not be_blank
       user2.should be_valid

@@ -3,40 +3,23 @@ class Mailer < ActionMailer::Base
   default :from => "H Engage <play@playhengage.com>"
 
   def invitation(user, referrer = nil, options = {})
-    @user = user
-    @demo = @user.demo
-    @referrer = referrer
-    @referrer_hash = User.referrer_hash(@referrer)
-    if options[:password_only]
-      @user.manually_set_confirmation_token
-      @play_now_url = edit_user_password_url(@user, :token => @user.confirmation_token)
-      @hide_browser_option = true # We're not passing in the password_only options to the email preview controller, and they flat out requested an invitation--so let's skip the browser option
-    else
-      @play_now_url = invitation_url(@user.invitation_code, @referrer_hash)
-    end
+    demo = user.demo
+    email_template = demo.invitation_email
+    referrer_hash = User.referrer_hash(referrer)
 
-    begins = @demo.begins_at
-    if begins
-      @demo_begins_at = @demo.begins_at.to_date.as_pretty_date
-      if begins < Time.now
-        @already_started = true 
-      else
-        @begins_soon = true
-      end
-    end
+    invitation_url = if options[:password_only]
+                       user.manually_set_confirmation_token
+                       edit_user_password_url(user, :token => user.confirmation_token) 
+                     else
+                       invitation_url(user.invitation_code, referrer_hash)
+                     end
 
-    if @referrer
-      subject = InvitationEmail.subject_with_referrer(@demo, @referrer)
-    else
-      subject = InvitationEmail.subject(@demo)
-    end
-    
-    @style = options[:style]
-    @preview_url = invitation_preview_url_with_referrer(@user, @referrer, @style.image_url)
- 
-    mail :to      => user.email_with_name,
-         :subject => subject,
-         :from    => @demo.reply_email_address
+    mail(:to      => user.email_with_name,
+         :subject => email_template.subject(user, referrer, invitation_url),
+         :from    => demo.reply_email_address) do |format|
+           format.html {email_template.html_text(user, referrer, invitation_url)}
+           format.text {email_template.plain_text(user, referrer, invitation_url)}
+         end
   end
 
 

@@ -11,7 +11,7 @@ class Invitation::ResendsController < ApplicationController
 
     if user
       if user.accepted_invitation_at.nil?
-        user.invite(nil, :style => EmailStyling.new(get_image_url))
+        user.invite
         flash[:notice] = %{We've resent your invitation to #{user.email}. If you haven't received it within a few minutes, please try again, or email <a href="mailto:support@hengage.com">support@hengage.com</a> for help.}
       else
         flash[:notice] = "It looks like you've already joined the game. You can log in <a href=\"#{new_session_path}\">here</a>, or if you've forgotten your password, you can reset it <a href=\"#{new_password_path}\">here</a>."

@@ -24,13 +24,6 @@ Feature: Admin edits existing demo
       | Victory verification SMS number                       | +16175551212                 |
       | Bonus for referring another to the game               | 60                           |
       | Threshold to credit user who referred you to the game | 90                           |
-      | Subject                                               | Hot People Unite             |
-      | Subject with Referrer                                 | [referrer] likes your art    |
-      | Blurb                                                 | Blurb Blurb Blurb            |
-      | Blurb with Referrer                                   | [referrer] says bullshit     |
-      | 1                                                     | Chasing stars,               |
-      | 2                                                     | Drinking milk,               |
-      | 3                                                     | Listening to Babasónicos     |
     And I set the start time to "April/20/2013/6 AM/25"
     And I set the end time to "June/20/2014/7 AM/30"
     And I press "Update Game"
@@ -48,21 +41,6 @@ Feature: Admin edits existing demo
     And I should see "Followup welcome message: Did you figure it out? (send 666 minutes after invitation accepted)"
     And I should see "Bonus for referring another user to the game: 60 points (with a 90 minute threshold)"
     And I should see "Points for connecting to another user: 20"
-    And I should see "Hot People Unite"
-    And I should see "Smarty Pants likes your art"
-    And I should see "Blurb Blurb Blurb"
-    And I should see "Smarty Pants says bullshit"
-    And I should see "Chasing stars,"
-    And I should see "Drinking milk,"
-    And I should see "Listening to Babasónicos"
-    # Exercise the email preview links, with and without referrer
-    And I follow "Invited by us"
-    #And I should see "Drinking milk"
-    And I should not see "Smarty Pants"
-    And I go to the admin "BarCo" demo page
-    And I follow "Referred by a friend"
-    #And I should see "Drinking milk"
-    And I should see "Smarty Pants"
     
   Scenario: Admin blanks out certain values, and that means something
     When I fill in the following:

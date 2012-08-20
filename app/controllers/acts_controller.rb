@@ -41,7 +41,7 @@ class ActsController < ApplicationController
   end
 
   def create
-    parsing_message, parsing_message_type = Command.parse(current_user, params[:act][:code], :return_message_type => true, :channel => :web, :style => EmailStyling.new(get_image_url))
+    parsing_message, parsing_message_type = Command.parse(current_user, params[:act][:code], :return_message_type => true, :channel => :web)
     reply = construct_reply(parsing_message)
     case parsing_message_type
     when :success

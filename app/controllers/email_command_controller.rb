@@ -7,7 +7,6 @@ class EmailCommandController< ApplicationController
     # a status of 404 would reject the mail, we set a trivial body and a 200
     # status
     set_success_response!
-    style_hash = {style: EmailStyling.new(get_image_url)}
 
     email_command = EmailCommand.create_from_incoming_email(params)      
     if email_command.all_blank?

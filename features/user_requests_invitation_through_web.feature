@@ -48,38 +48,3 @@ Feature: User sends herself an invitation
     When "bob@somedomain.com" opens the email
     And I click the play now button in the email
     Then I should be on the invitation page for "bob@somedomain.com" 
-
-
-############################################################################################
-##################   SAVE FOR LATER FOR USE WITH PUBLIC JOIN GAME    --Jack ################
-#  Scenario: User with an email in the proper domain invites themself
-#    And I fill in "Email" with "chester@highmark.com"
-#    And I press "Request invitation"
-#    Then I should see "We've received your request for an invitation. You should receive an invitation e-mail at chester@highmark.com shortly. If you haven't received this e-mail within a few minutes, please request for it to be re-sent here, or contact support@hengage.com for help."
-#
-#    When DJ cranks 5 times
-#    Then "chester@highmark.com" should receive an email
-#    When "chester@highmark.com" opens the email
-#    And I click the play now button in the email
-#
-#    Then I should be on the invitation page for "chester@highmark.com"
-#    And I should see "Neither Highmark, its subsidiaries or agents, will be held responsible for any charges related to the use of the services."
-#    When I fill in "Enter your mobile number" with "415-867-5309"
-#    And I fill in "Enter your name" with "Chester Humphries"
-#    And I fill in "Choose a password" with "foobar"
-#    And I fill in "And confirm that password" with "foobar"
-#    And I fill in "Choose a username" with "chester"
-#
-#    And I check "Terms and conditions"
-#    And I press "Join the game"
-#    And I follow "Confirm my mobile number later"
-#    Then I should be on the activity page
-#    And I should see "Chester Humphries joined the game"
-#  Scenario: User can't invite self with a domain not allowed to do self-invitation
-#    And I fill in "Email" with "chester@noway.com"
-#    And I press "Request invitation"
-#    Then I should see "Sorry, that e-mail domain noway.com is not one that's allowed to request invitations. You can contact support@hengage.com for help."
-#
-#    When DJ cranks 5 times
-#    Then "chester@noway.com" should receive no email
-#

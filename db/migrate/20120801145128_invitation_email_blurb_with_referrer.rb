@@ -4,6 +4,6 @@ class InvitationEmailBlurbWithReferrer < ActiveRecord::Migration
   end
 
   def down
-    remove_columns :demos, :invitation_blurb_with_referrer
+    remove_column :demos, :invitation_blurb_with_referrer
   end
 end

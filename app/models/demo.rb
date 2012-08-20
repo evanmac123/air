@@ -16,6 +16,7 @@ class Demo < ActiveRecord::Base
 
   has_one :skin
   has_one :claim_state_machine
+  has_one :custom_invitation_email
 
   validate :end_after_beginning
   
@@ -25,7 +26,6 @@ class Demo < ActiveRecord::Base
 
   validate :gold_coin_fields_all_set, :if => :uses_gold_coins
   validate :gold_coin_maximum_award_gte_minimum, :if => :uses_gold_coins
-  validate :each_line_of_bullet_under_30_chars
 
   has_alphabetical_column :name
 
@@ -43,24 +43,6 @@ class Demo < ActiveRecord::Base
   end
   include ActsWithCurrentDemoChecked
   
-  def each_line_of_bullet_under_30_chars
-    limit = 30
-    [1,2,3].each do |num|
-      attribute = "invitation_bullet_" + num.to_s
-      text = send(attribute)
-      next if text.blank?
-      lines = text.split(InvitationEmail.break_char)
-      lines.each do |line|
-        line = InvitationEmail.strip_tags(line)
-        if line.length > limit
-          message = "Line '#{line}' of invitation email bullet #{num} is #{line.length} characters long. Please shorten to 30 characters, and separate with a carriage return [ENTER]"
-          errors.add(attribute, message)
-        end
-      end
-    end
-  end
-
-
   def example_tooltip_or_default
     default = "went for a walk"
     example_tooltip.blank? ? default : example_tooltip
@@ -364,11 +346,8 @@ class Demo < ActiveRecord::Base
     chances[index]
   end
 
-  def uses_custom_bullets?
-    ['1', '2', '3'].each do |number|
-      return true if send("invitation_bullet_#{number}").present?
-    end
-    false
+  def invitation_email
+    self.custom_invitation_email || CustomInvitationEmail.new(demo: self)
   end
 
   protected

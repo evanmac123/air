@@ -19,8 +19,7 @@ class Invitation::FriendInvitationsController < ApplicationController
         attempted, successful = 1,0
       else
         @invitation_request = InvitationRequest.new(:email => user.email)
-        style = EmailStyling.new(get_image_url)
-        user.invite(current_user, style: style)
+        user.invite(current_user)
         demo_name = current_user.demo.name
         pp = current_user.demo.game_referrer_bonus
         bonus_message = pp ? "That's <span class='orange'>#{pp}</span> potential points!".html_safe : ''
@@ -67,14 +66,14 @@ class Invitation::FriendInvitationsController < ApplicationController
           @invitation_request = InvitationRequest.new(:email => user.email)
           add_failure "For some reason, the address #{email} didn't work" unless @invitation_request.valid?
           users_invited << email
-          user.invite(current_user, :style => EmailStyling.new(get_image_url))        
+          user.invite(current_user)        
         elsif User.where(:email => email).first.accepted_invitation_at 
           # user already playing, so discard
           existing_users << email 
         else  
           # user already created, but invitation not accepted, so send invitation again
           user = User.where(:email => email, :demo_id => current_user.demo_id).first
-          user.invite(current_user, :style => EmailStyling.new(get_image_url))
+          user.invite(current_user)
           users_invited << email
         end
       end

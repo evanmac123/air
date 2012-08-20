@@ -149,10 +149,6 @@ class ApplicationController < ActionController::Base
     cookies.delete(:remember_token)
     self.current_user = nil
   end
-  
-  def get_image_url # Note this is duplicate of SMSController#get_image_url
-    root_url[0..-2] # everything but the trailing slash
-  end
 
   def invoke_tutorial
     return nil unless current_user.reload.tutorial_active?

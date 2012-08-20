@@ -278,5 +278,9 @@ if ENV['FIRST_TIME'].nil?
       claim_state_machine.states { {} }
       claim_state_machine.association :demo
     end
+
+    factory :custom_invitation_email do |custom_invitation_email|
+      association :demo
+    end
   end
 end
