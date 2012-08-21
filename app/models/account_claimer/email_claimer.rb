@@ -3,7 +3,8 @@ module AccountClaimer
     protected
 
     def find_demo_by_to(to)
-      Demo.find_by_email(to)
+      normalized = to.gsub(/^</, '').gsub(/>$/, '').downcase
+      Demo.find_by_email(normalized)
     end
 
     def find_claimed_user_by_from
