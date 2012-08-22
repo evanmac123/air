@@ -41,7 +41,7 @@ Health::Application.routes.draw do
 
   match "sign_in"  => "sessions#new"
   match "sign_up"  => "users#new"
-  match "sign_out" => "clearance/sessions#destroy"
+  match "sign_out" => "sessions#destroy"
 
   root :to => 'pages#show', :id => 'marketing'
   get "faq" => "pages#faq", :as => "faq"

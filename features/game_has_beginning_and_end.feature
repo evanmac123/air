@@ -64,6 +64,7 @@ Feature: Game has a beginning and an end
     And I press the befriend button for "Vlad"
     And DJ cranks 5 times
     Then "+16175551212" should not have received any SMSes
+    And time is unfrozen
     And I should see "Thanks for playing! The game is now over."
 
   Scenario: Following before the game begins via SMS does nothing

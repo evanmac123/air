@@ -124,23 +124,22 @@ class ApplicationController < ActionController::Base
     return if ref.include? "/sign_in"
     return if ref.include? "/session"
     return if current_user && current_user.tutorial_active?
+    return if flash[:failure] == FailureMessages::SESSION_EXPIRED
 
     # Save anything we've shoved into flash using add_success or add_failure into our
     # own session variable 
     # This gets used in app/helpers/application_helper#consolidated_flash
     flash_success = flash[:success]
     flash_failure = flash[:failure]
-    saved_success = :saved_flash_success
-    saved_failure = :saved_flash_failure
     if flash_success 
-      cookies[saved_success] = flash_success
+      cookies[SavedFlashes::SUCCESS_KEY] = flash_success
       # Delete the other cookie so we don't get two at a time
-      cookies.delete(saved_failure)
+      cookies.delete(SavedFlashes::FAILURE_KEY)
     end
 
     if flash_failure
-      cookies[saved_failure] = flash_failure
-      cookies.delete(saved_success)
+      cookies[SavedFlashes::FAILURE_KEY] = flash_failure
+      cookies.delete(SavedFlashes::SUCCESS_KEY)
     end
   end
 

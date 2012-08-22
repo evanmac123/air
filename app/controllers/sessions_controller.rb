@@ -1,5 +1,6 @@
 class SessionsController < Clearance::SessionsController
   before_filter :downcase_email
+  include SavedFlashesHelper
 
   layout "external" 
 
@@ -21,6 +22,12 @@ class SessionsController < Clearance::SessionsController
       flash[:mp_track_logged_in] = "logged in"
       redirect_back_or(url_after_create)
     end
+  end
+
+  def destroy
+    delete_saved_flashes
+    sign_out
+    redirect_to(url_after_destroy)
   end
 
   def url_after_create

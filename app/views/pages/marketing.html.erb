@@ -43,7 +43,7 @@
          <ul>
            <li id="login-email"><%= f.text_field :email, :placeholder => "Account email" %></li>
            <li id="login-password"><%= f.text_field :password, :type => "password", :placeholder => "Password" %></li>
-           <li id="login-remember"><%= f.check_box :remember_me, :value => 1 %><label for="session_remember_me">Keep me logged in</label></li>
+           <li id="login-remember"><%= f.check_box :remember_me  %><label for="session_remember_me">Keep me logged in</label></li>
             <li id="login-submit">
             <%= f.submit "Let's play!", :id => 'sign_in_button' %>
 
