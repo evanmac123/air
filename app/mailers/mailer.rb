@@ -17,8 +17,8 @@ class Mailer < ActionMailer::Base
     mail(:to      => user.email_with_name,
          :subject => email_template.subject(user, referrer, invitation_url),
          :from    => demo.reply_email_address) do |format|
-           format.html {email_template.html_text(user, referrer, invitation_url)}
            format.text {email_template.plain_text(user, referrer, invitation_url)}
+           format.html {email_template.html_text(user, referrer, invitation_url)}
          end
   end
 
