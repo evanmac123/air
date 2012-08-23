@@ -1,6 +1,7 @@
 class RuleValue < ActiveRecord::Base
   belongs_to :rule
   has_one :demo, :through => :rule
+  has_many :acts
 
   validates_presence_of :value
 

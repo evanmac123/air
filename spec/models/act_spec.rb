@@ -8,6 +8,7 @@ describe Act do
   it { should belong_to(:user) }
   it { should belong_to(:referring_user) }
   it { should belong_to(:rule) }
+  it { should belong_to(:rule_value) }
   it { should belong_to(:demo) }
   it { should have_one(:goal).through(:rule) }
 end
@@ -339,10 +340,14 @@ describe Act, ".record_act" do
   before do
     @user = FactoryGirl.create :user
     @rule = FactoryGirl.create :rule, :description => 'some rule'
+    @primary_value = FactoryGirl.create :rule_value, value: 'primary', rule: @rule
+    @primary_value.update_attributes(is_primary: true)
+    @secondary_value = FactoryGirl.create :rule_value, value: 'secondary', rule: @rule
+    @rule.reload
     @referring_user = FactoryGirl.create :user
 
     Act.count.should == 0
-    Act.record_act(@user, @rule, :channel => :web, :referring_user => @referring_user)
+    Act.record_act(@user, @rule, @secondary_value, :channel => :web, :referring_user => @referring_user)
     Act.count.should == 1
   end
 
@@ -356,5 +361,9 @@ describe Act, ".record_act" do
     it "should record the channel" do
       Act.last.creation_channel.should == "web"
     end
+  end
+
+  it "should record the rule value" do
+    Act.last.rule_value.should == @secondary_value
   end
 end

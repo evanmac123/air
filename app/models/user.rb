@@ -512,6 +512,7 @@ class User < ActiveRecord::Base
 
   def invite(referrer = nil, options ={})
     Mailer.delay.invitation(self, referrer, options)
+    #Mailer.invitation(self, referrer, options).deliver
     update_attributes(invited: true)
   end
 
@@ -750,7 +751,7 @@ class User < ActiveRecord::Base
       return ["Sorry, you've already done that action.", :over_alltime_limit]
     else
       credit_referring_user(options[:referring_user], rule, rule_value)
-      return [Act.record_act(self, rule, options), :success]
+      return [Act.record_act(self, rule, rule_value, options), :success]
     end
   end
 

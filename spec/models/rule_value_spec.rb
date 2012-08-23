@@ -5,6 +5,7 @@ describe RuleValue do
 
   it { should have_one(:demo) }
   it { should validate_presence_of(:value) }
+  it { should have_many(:acts) }
 
   it "should validate that the value is unique within the demo" do
     demo = FactoryGirl.create :demo

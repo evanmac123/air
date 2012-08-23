@@ -5,6 +5,7 @@ class Act < ActiveRecord::Base
   belongs_to :user
   belongs_to :referring_user, :class_name => "User"
   belongs_to :rule
+  belongs_to :rule_value
   belongs_to :demo
   has_one :goal, :through => :rule
 
@@ -142,7 +143,7 @@ class Act < ActiveRecord::Base
     reply
   end
 
-  def self.record_act(user, rule, options={})
+  def self.record_act(user, rule, rule_value, options={})
     channel = options[:channel]
     referring_user = options[:referring_user]
     suggestion_code = options[:suggestion_code]
@@ -156,7 +157,7 @@ class Act < ActiveRecord::Base
       )
     end
 
-    act = create!(:user => user, :text => text, :rule => rule, :referring_user => referring_user, :creation_channel => (channel || ''), :suggestion_code => suggestion_code)
+    act = create!(:user => user, :text => text, :rule => rule, :rule_value => rule_value, :referring_user => referring_user, :creation_channel => (channel || ''), :suggestion_code => suggestion_code)
 
     [rule.reply, act.post_act_summary].join
   end
