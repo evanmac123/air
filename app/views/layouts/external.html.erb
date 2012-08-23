@@ -16,7 +16,6 @@
 	<![endif]-->
 
   <%= csrf_meta_tag %>
-  <%= render 'shared/mixpanel' %>
 </head>
 <body class="<%= body_class %> external">
 	<div class="container">
@@ -78,5 +77,6 @@
 	});
 	</script>
 	<%= render :partial => 'shared/javascript' %>
+  <%= render 'shared/mixpanel' %>
 </body>
 </html>
