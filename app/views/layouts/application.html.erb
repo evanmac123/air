@@ -25,6 +25,7 @@
     <%= render 'shared/assistly_widget' %>
   </div>
 
+  <%= render 'shared/unsupported_browser' if @old_browser %>
   <%= render :partial => 'shared/header' %>
   <%= render :partial => 'shared/flashes' %>
   <div class="content">

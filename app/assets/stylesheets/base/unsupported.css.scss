@@ -1,0 +1,33 @@
+div#unsupported_browser {
+    background:#333333;
+    border-bottom:1px #555 solid;
+    font-family:'Ubuntu', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    padding:20px 0;
+    .doc, .marty {
+        color:#292929; 
+        font-size:1.25em; 
+        margin: 0 auto;
+        width:500px;
+    }
+    .doc {
+        background:url('v3/unsupported1.png') top left no-repeat;
+        padding:23px 0 20px 20px;
+    }
+    .marty {
+        background:url('v3/unsupported2.png') top right no-repeat;
+        text-align:right;
+        padding:23px 20px 10px 0;
+    }
+   #statement {
+        color:#FFE01E;
+        font-size:1.75em;
+        padding:20px 0 0 0;
+        text-align:center;
+    }
+   #nicer_statement {
+        color:#FFE01E;
+        font-size:1.75em;
+        padding:20px 0 0 0;
+        text-align:center;
+    }
+}
