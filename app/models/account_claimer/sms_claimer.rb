@@ -15,7 +15,7 @@ module AccountClaimer
     end
 
     def after_joining_hook
-      #Mailer.delay.set_password(@user.id)
+      Mailer.delay.set_password(@user.id) if @user.email.present?
     end
 
     def existing_user_claimed_message
