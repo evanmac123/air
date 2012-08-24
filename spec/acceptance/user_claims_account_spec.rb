@@ -120,7 +120,7 @@ feature 'User claims account' do
         end
 
         it "should not update accepted_invitation_at" do
-          @expected_user.reload.accepted_invitation_at.should == @original_claim_time
+          @expected_user.reload.accepted_invitation_at.to_s.should == @original_claim_time.to_s
         end
 
         it "should say something helpful" do

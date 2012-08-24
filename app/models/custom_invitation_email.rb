@@ -81,9 +81,24 @@ class CustomInvitationEmail < ActiveRecord::Base
   end
 
   DEFAULTS = {
-    custom_subject: "You've been invited to play H Engage!",
-    custom_subject_with_referrer: "You've been invited to play H Engage by [referrer]!",
-    custom_plain_text: "Dummy default plain text",
-    custom_html_text: %{Dummy default HTML, with <a href="[invitation_url]">invitation link</a>}
+    custom_subject: "Play [game_name] Now and Learn about your HR Benefits",
+    custom_subject_with_referrer: "[referrer] Invited you to Play [game_name] and Learn about HR Benefits",
+
+    custom_plain_text: %{PLAY AT WORK
+
+[game_name] is the new game brought to you by your HR department and H Engage. Playing will help you learn about and get the most from your HR benefits and programs.
+
+It's fun and easy. You can play via text message, email or online from any device -- at work, at home or on the go. 
+
+Go to [invitation_url] to play now.},
+
+
+    custom_html_text: %{<h2>Play at Work</h2>
+
+<p>[game_name] is the new game brought to you by your HR department and H Engage. Playing will help you learn about and get the most from your HR benefits and programs.</p>
+
+<p>It's fun and easy. You can play via text message, email or online from any device -- at work, at home or on the go.</p>
+
+<p><a href="[invitation_url]">Click here</a> to play now.</p>}
   }
 end

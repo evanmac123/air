@@ -94,7 +94,7 @@ feature 'User gets invitation email' do
   context "from a demo that has no custom HTML" do
     it "should use the default HTML" do
       @user.invite
-      expect_email_content "Dummy default HTML"
+      expect_email_content "<p>#{@demo.name} is the new game brought to you by your HR department and H Engage. Playing will help you learn about and get the most from your HR benefits and programs.</p>"
     end
   end
 
@@ -165,7 +165,7 @@ Either way, welcome.
   context "from a demo with no custom plain text" do
     it "should use the default text" do
       @user.invite
-      expect_email_content "Dummy default plain text"
+      expect_email_content "PLAY AT WORK\n\n#{@demo.name} is the new game brought to you by your HR department and H Engage."
     end
   end
 
@@ -185,7 +185,7 @@ Either way, welcome.
     context "but there's no custom subject-with-referrer" do
       it "should use the default" do
         @user.invite(@referrer)
-        expect_subject "You've been invited to play H Engage by #{@referrer.name}!"
+        expect_subject "#{@referrer.name} Invited you to Play #{@demo.name} and Learn about HR Benefits"
       end
     end
   end
@@ -202,7 +202,7 @@ Either way, welcome.
     context "but there's no custom subject" do
       it "should use the default" do
         @user.invite
-        expect_subject "You've been invited to play H Engage!"
+        expect_subject "Play #{@demo.name} Now and Learn about your HR Benefits"
       end
     end
   end
