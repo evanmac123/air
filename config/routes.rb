@@ -13,7 +13,8 @@ Health::Application.routes.draw do
     resource :interstitial_verification, :only => [:show, :update]
   end
   get "invitation" => "email_previews#invitation", :as => "invitation_preview"
-  
+ 
+  resource :unsubscribe, :only => [:new, :create, :show]
   resources :invitations, :only => [:new, :create, :show]
   namespace :invitation do
     resource :resend

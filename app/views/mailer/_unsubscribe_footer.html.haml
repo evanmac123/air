@@ -1,0 +1,21 @@
+.legal-footer{:style => "margin-top: 30px; font-size:0.8em"}
+  Copyright &copy; 2012 H Engage. All Rights Reserved.
+  %br
+  %br
+  Our mailing address is:
+  %br
+  222 Newbury St.
+  %br
+  Floor 3
+  %br
+  Boston, MA 02116
+
+.unsubscribe{:style => "font-size: 0.8em;"}
+  %p 
+    You are getting this email because your HR Department wants to help you understand your benefits. But we don't have to email you. We could send these notifications to your phone, either. 
+    Click here to 
+    = link_to "update your contact preferences.", email_account_settings_link
+  %p
+    If you're really not interested in expanding your knowledge of benefits, you can 
+    = link_to "completely unsubscribe", email_unsubscribe_link(@user)
+

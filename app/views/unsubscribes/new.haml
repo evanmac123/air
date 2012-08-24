@@ -1,0 +1,18 @@
+#unsubscribe
+  %h2 Update Contact Preferences
+  %p Let us know how you would like to receive communications from us
+  = button_to "Edit Contact Prefs", edit_account_settings_path, :method => :get
+  .spacer
+  %h2 Completely Unsubscribe
+  %p We are sorry to see you go. Please take a moment to tell us why
+  = form_for :unsubscribe, url: unsubscribe_path do |f|
+    = f.hidden_field :user_id, value: @user.id.to_s
+    = f.hidden_field :token, value: @token
+    = f.text_area :reason
+    %table
+      %tr
+        %td
+          = f.submit "Completely Unsubscribe"
+        %td
+          = button_to "Cancel", activity_path 
+

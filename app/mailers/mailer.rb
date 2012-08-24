@@ -1,7 +1,9 @@
 class Mailer < ActionMailer::Base
-  include EmailPreviewsHelper
-  default :from => "H Engage <play@playhengage.com>"
+  include EmailPreviewsHelper # Only includes the module for this controller (not for the views)
+  helper :email  # loads app/helpers/email_helper.rb & includes EmailHelper into the VIEW
 
+  default :from => "H Engage <play@playhengage.com>"
+  
   def invitation(user, referrer = nil, options = {})
     demo = user.demo
     email_template = demo.invitation_email
@@ -24,6 +26,7 @@ class Mailer < ActionMailer::Base
 
 
   def easy_in(user)
+
     @user = user
     @user.manually_set_confirmation_token
     @check_it_out_url = invitation_url(@user.invitation_code, :easy_in => true) 

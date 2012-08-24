@@ -43,9 +43,7 @@ end
 # and rake tasks without having to type RAILS_ENV=test.
 group :development, :test do
   gem "rspec-rails"
-  gem "pry"
-  gem "pry-doc"
-  gem "pry_debug"
+  gem "pry-debugger"
   gem "steak"
   gem "rails-dev-tweaks"  # The rails-dev-tweaks gem makes it so assets are not reloaded as often. 
                           # For instance, XHR requests by themselves do not reload assets when using this gem

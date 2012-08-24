@@ -1,0 +1,19 @@
+#unsubscribe {
+  *{
+    cursor: default;
+  }
+  input[type='submit']{
+    width: auto;
+    background: green;
+    font-size: 20px;
+    border: auto;
+    cursor: pointer;
+  }
+  .spacer{
+    height: 1cm;
+  }
+  textarea{
+    height: 3em;
+    width: 30em;
+  }
+}

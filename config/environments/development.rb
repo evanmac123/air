@@ -1,4 +1,7 @@
 Health::Application.configure do
+
+  require(Rails.root + 'config/initializers/constants')
+  
   # Settings specified here will take precedence over those in config/application.rb
 
   # In the development environment your application's code is reloaded on
@@ -38,11 +41,10 @@ Health::Application.configure do
     require 'pry'
     IRB = Pry    
   end
-  
-  
+
    ActionMailer::Base.smtp_settings = {
-     :user_name => "hengage-devel",
-     :password => "8765432",
+     :user_name => SendGrid::DEV_USERNAME,
+     :password => SendGrid::DEV_PASSWORD,
      :domain => "hengage.com",
      :address => "smtp.sendgrid.net",
      :port => 587,
