@@ -1,4 +1,5 @@
 class ClaimTroubleMailer < ActionMailer::Base
+  helper :email
   default from: "noreply@hengage.com",
           to:   "supporters@hengage.com"
 

@@ -65,7 +65,7 @@ class ApplicationController < ActionController::Base
   module AuthenticateWithGameBegunCheck
     def authorize
       super
-      if current_user && !(current_user.is_site_admin) && current_user.demo.begins_at && current_user.demo.begins_at > Time.now
+      if current_user && !(current_user.is_site_admin) && (controller_name != "settings") && current_user.demo.begins_at && current_user.demo.begins_at > Time.now
         @game_pending = true
         render "shared/game_not_yet_begun"
       end

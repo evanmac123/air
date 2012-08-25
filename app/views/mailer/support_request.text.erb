@@ -2,3 +2,5 @@ Support requested by <%= @user_name %> of <%= @game_name %> (<%= @user_email %>,
 
 Recent messages:
 <%= @sms_bodies.join("\n") %>
+
+<%  "Not including an unsubscribe link, because there is no user to unsubscribe   render 'shared/unsubscribe_footer'" %>

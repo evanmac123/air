@@ -1,4 +1,5 @@
 class BulkCompleteMailer < ActionMailer::Base
+  helper :email
   default :to => Admin::BulkSatisfactionsController::REPORT_RECIPIENT,
           :from => "donotreply@hengage.com"
 

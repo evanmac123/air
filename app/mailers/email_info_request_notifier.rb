@@ -1,5 +1,6 @@
 class EmailInfoRequestNotifier < ActionMailer::Base
   default :from => "email_info_requested@hengage.com"
+  helper :email
 
   def info_requested(name, email, phone, comment)
     @name = name
