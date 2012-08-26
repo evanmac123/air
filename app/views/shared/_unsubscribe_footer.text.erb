@@ -6,8 +6,8 @@ Floor 3
 Boston, MA 02116
 
 <% if @user.present? %>
-  You are getting this email because your HR Department wants to help you understand your benefits. But we don't have to email you. We could send these notifications to your phone, either. 
-  Click here to update your contact preferences: <%= email_account_settings_link %>
+  You are getting this email because your HR Department wants to help you understand your benefits. <% if @user.claimed? -%>But we don't have to email you. We could send these notifications to your phone, either. 
+  Click here to update your contact preferences: <%= email_account_settings_link %><% end %>
 
   If you're really not interested in expanding your knowledge of benefits, click here to completely unsubscribe:  <%= email_unsubscribe_link(@user) %>
 <% end %>

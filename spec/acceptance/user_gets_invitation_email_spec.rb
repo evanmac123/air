@@ -1,10 +1,18 @@
 require 'acceptance/acceptance_helper'
 
+include EmailHelper
+
 feature 'User gets invitation email' do
   def expect_email_content(expected_content)
     crank_dj_clear
     open_email(@user.email)
     current_email.to_s.gsub(/\r\n/, "\n").should include(expected_content)
+  end
+
+  def expect_no_email_content(unexpected_content)
+    crank_dj_clear
+    open_email(@user.email)
+    current_email.to_s.gsub(/\r\n/, "\n").should_not include(unexpected_content)
   end
 
   def expect_subject(expected_subject)
@@ -289,5 +297,15 @@ If you're smart you'll go to [invitation_url] and play.
         page.find("input#user_game_referrer_id").value.should == @referrer.id.to_s
       end
     end
+  end
+
+  it "should get a footer with our address and an unsubscribe link, but no link to account settings" do
+    @user.invite
+    expect_email_content "Our mailing address is:"
+
+    visit_in_email "completely unsubscribe"
+    should_be_on new_unsubscribe_path
+
+    expect_no_email_content email_account_settings_link
   end
 end

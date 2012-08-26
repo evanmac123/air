@@ -16,12 +16,13 @@ class Mailer < ActionMailer::Base
                        invitation_url(user.invitation_code, referrer_hash)
                      end
 
+    @plain_text = email_template.plain_text(user, referrer, invitation_url)
+    @html_text = email_template.html_text(user, referrer, invitation_url).html_safe
+    @user = user
+
     mail(:to      => user.email_with_name,
          :subject => email_template.subject(user, referrer, invitation_url),
-         :from    => demo.reply_email_address) do |format|
-           format.text {email_template.plain_text(user, referrer, invitation_url)}
-           format.html {email_template.html_text(user, referrer, invitation_url)}
-         end
+         :from    => demo.reply_email_address)  
   end
 
 
