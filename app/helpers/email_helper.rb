@@ -11,9 +11,9 @@ module EmailHelper
 
   def email_link_host
     if Rails.env.production? 
-      "hengage.com"
+      "www.hengage.com"
     elsif Rails.env.staging?
-      "hengagestaging.com"
+      "www.hengagestaging.com"
     elsif Rails.env.development?
       "localhost"
     else
