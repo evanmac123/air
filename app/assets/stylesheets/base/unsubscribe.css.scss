@@ -1,15 +1,11 @@
 $ugrey: #282828;
 
 #unsubscribe {
-  *{
-    cursor: default;
-  }
   input[type='submit']{
     width: auto;
     background: green;
     font-size: 20px;
     border: 2px solid $ugrey;
-    cursor: pointer;
     line-height: 1;
     color: $ugrey;
     border-radius: 13px;
@@ -25,5 +21,8 @@ $ugrey: #282828;
     height: 3em;
     width: 30em;
     border-radius: 3px;
+  }
+  form {
+    margin-top: 30px;
   }
 }

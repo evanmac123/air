@@ -19,14 +19,37 @@ feature "Leah unsubscribes" do
   it "should create an unsubscribe" do
     Unsubscribe.count.should == 0
     visit @unsubscribe_url
-    fill_in 'unsubscribe_reason', with: @reason 
-    click_button 'Completely Unsubscribe'
+    #fill_in 'unsubscribe_reason', with: @reason 
+    click_button 'Unsubscribe'
     page.should have_content 'You have been unsubscribed'
     Unsubscribe.count.should == 1
     a = Unsubscribe.first
     a.user_id.should == @leah.id
-    a.reason.should == @reason
+    #a.reason.should == @reason
+  end
+
+  context "when Leah is unclaimed" do
+    before do
+      @leah.should_not be_claimed
+    end
+
+    it "should not have a link to the account preferences page" do
+      visit @unsubscribe_url
+      expect_no_content "change your contact preferences"
+    end
+  end
+
+  context "when Leah is claimed" do
+    before do
+      @leah.update_attributes(accepted_invitation_at: Time.now)
+      has_password @leah, 'foobar'
+      signin_as @leah, 'foobar'
+    end
+
+    it "should have a link to the account preferences page" do
+      visit @unsubscribe_url
+      click_link "change your contact preferences"
+      should_be_on edit_account_settings_path
+    end
   end
 end
-
-

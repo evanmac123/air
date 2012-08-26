@@ -1,16 +1,15 @@
 #unsubscribe
-  %h2 Update Contact Preferences
-  %p Let us know how you would like to receive communications from us
-  = button_to "Edit Contact Preferences", edit_account_settings_path, :method => :get
-  .spacer
-  %h2 Completely Unsubscribe
-  %p We are sorry to see you go. Please take a moment to tell us why
-  = form_for :unsubscribe, url: unsubscribe_path do |f|
+  %h2 Confirm unsubscribe
+
+  %p 
+    You may miss some important updates from your employer.
+    -if @user.claimed?
+      Maybe you would rather
+      =(link_to "change your contact preferences", edit_account_settings_path) + "?"
+      If not, please click "unsubscribe" to confirm.
+
+  = form_for :unsubscribe, url: unsubscribe_path, do |f|
     = f.hidden_field :user_id, value: @user.id.to_s
     = f.hidden_field :token, value: @token
-    = f.text_area :reason
-    %table
-      %tr
-        %td
-          = f.submit "Completely Unsubscribe"
+    = f.submit "Unsubscribe"
 

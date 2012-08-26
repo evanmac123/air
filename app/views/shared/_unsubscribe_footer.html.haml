@@ -13,13 +13,13 @@
 -if @user.present?
   .unsubscribe{:style => "font-size: 0.8em;"}
     %p 
-      You are getting this email because your HR Department wants to help you understand your benefits. 
+      You are getting this email because your company is using H Engage to help people better understand HR programs.
       -if @user.claimed?
-        But we don't have to email you. We could send these notifications to your phone, either. 
-        Click here to 
+        If you would rather not receive notifications, click here to
         = link_to "update your contact preferences.", email_account_settings_link
 
     %p
-      If you're really not interested in expanding your knowledge of benefits, you can 
-      = link_to "completely unsubscribe", email_unsubscribe_link(@user)
+      Or,
+      = link_to "click here to completely unsubscribe", email_unsubscribe_link(@user)
+      from any email communications.
 
