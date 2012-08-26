@@ -606,4 +606,6 @@ feature 'User claims account' do
       end
     end
   end
+
+  it "should have unsubscribe links but not account settings links"
 end
