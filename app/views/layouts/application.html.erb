@@ -5,6 +5,7 @@
   <title>H Engage</title>
   <%= stylesheet_link_tag "application-base" %>
   <%= javascript_include_tag 'application' %>
+  <%= javascript_include_tag asset_path('ga.js') if ENV['USE_GA'] %>
   <link href='https://fonts.googleapis.com/css?family=Ubuntu:400,700' rel='stylesheet' type='text/css'>
 
 

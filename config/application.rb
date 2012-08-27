@@ -23,7 +23,7 @@ module Health
     # Tell heroku not to try to talk to the mongo database while it precompiles assets 
     config.assets.initialize_on_precompile = false
     # Version of your assets, change this if you want to expire all your assets
-    config.assets.version = '0.0.1'
+    config.assets.version = '0.0.3'
     
     # Tell rake which assets to precompile (default is application.css and application.js)
     # Note that even though our files are named .scss, the ones in this list are the plain .css counterparts
@@ -34,6 +34,8 @@ module Health
       admin/segmentation.css
       admin/targeted_messages.css
       external/marketing.css
+      ga.js
+      ga-marketing.js
     )
 
     ################################################################
