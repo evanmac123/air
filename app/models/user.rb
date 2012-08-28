@@ -34,6 +34,7 @@ class User < ActiveRecord::Base
   has_many   :completed_goals, :through => :goal_completions, :source => :goal
   has_many   :timed_bonuses, :class_name => "TimedBonus"
   has_many   :task_suggestions, :dependent => :destroy
+  has_many   :unsubscribes, :dependent => :destroy
   has_many   :tasks, :through => :task_suggestions
   has_and_belongs_to_many :levels
   has_one   :tutorial, :dependent => :destroy
