@@ -5,7 +5,7 @@ class PagesController < HighVoltage::PagesController
   before_filter :authenticate_without_game_begun_check, :only => FAQ_PAGES
 
   before_filter :force_html_format
-  before_filter :signed_out_only, :except => FAQ_PAGES
+  before_filter :signed_out_only, :except => FAQ_PAGES << :public_help
   before_filter :set_login_url
 
 
@@ -15,6 +15,10 @@ class PagesController < HighVoltage::PagesController
   def faq
     @current_user = current_user
     render :layout => "/layouts/application"
+  end
+
+  def public_help
+    render :layout => 'external'
   end
 
   protected
