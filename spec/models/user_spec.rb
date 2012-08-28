@@ -998,4 +998,23 @@ describe User, ".wants_sms" do
   end
 end
 
+describe User, "loads personal email" do
+  before(:each) do
+    @email = 'hi@hi.com'
+    @alternate_email = 'there@there.com'
+    @leah = FactoryGirl.create(:user, email: @email)
+  end
 
+  it "should return nil if fed a bogus email address" do
+    @leah.load_personal_email(nil).should == nil
+    @leah.reload.email.should == @email
+    @leah.overflow_email.should be_blank
+  end
+
+  it "should load as primary if primary is blank" do
+    @leah.email = ''
+    @leah.load_personal_email(@alternate_email)
+    @leah.reload.email.should == @alternate_email
+    @leah.overflow_email.should be_blank
+  end
+end

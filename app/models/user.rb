@@ -1017,6 +1017,7 @@ class User < ActiveRecord::Base
   end
 
   def load_personal_email(in_email)
+    return nil unless in_email.try(:is_email_address?)
     return true if email == in_email # do nothing but return true if they try to reload their primary email
     update_attributes(overflow_email: email, email: in_email)
   end
