@@ -9,6 +9,7 @@ class SessionsController < Clearance::SessionsController
   end
 
   def create
+    delete_saved_flashes
     @user = ::User.authenticate(params[:session][:email],
                                 params[:session][:password])
 
