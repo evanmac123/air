@@ -403,3 +403,8 @@ Jack's stuff
   color: #A3A3A3;
   text-align: center;
 }
+
+@import "../base/sign_in.css.scss";
+#password_placeholder{
+  padding-top: 24px;
+}

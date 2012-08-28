@@ -6,6 +6,7 @@ class SessionsController < Clearance::SessionsController
 
   def new
     super
+    Shotgun.ping_page('login')
   end
 
   def create
