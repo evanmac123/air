@@ -302,8 +302,7 @@ If you're smart you'll go to [invitation_url] and play.
   it "should get a footer with our address and an unsubscribe link, but no link to account settings" do
     @user.invite
     expect_email_content "Our mailing address is:"
-
-    visit_in_email "completely unsubscribe"
+    visit_in_email "unsubscribe"
     should_be_on new_unsubscribe_path
 
     expect_no_email_content email_account_settings_link

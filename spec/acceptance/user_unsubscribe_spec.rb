@@ -46,10 +46,5 @@ feature "Leah unsubscribes" do
       signin_as @leah, 'foobar'
     end
 
-    it "should have a link to the account preferences page" do
-      visit @unsubscribe_url
-      click_link "change your contact preferences"
-      should_be_on edit_account_settings_path
-    end
   end
 end
