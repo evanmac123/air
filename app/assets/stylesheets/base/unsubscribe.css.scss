@@ -3,15 +3,21 @@ $ugrey: #282828;
 #unsubscribe {
   input[type='submit']{
     width: auto;
-    background: green;
-    font-size: 20px;
-    border: 2px solid $ugrey;
+    background: #85d92b;
+    font-family:'Ubuntu', sans-serif;
+    font-size: 18px;
+    font-weight:500;
+    text-transform:uppercase;
+    border: 1px solid #5fbb43;
     line-height: 1;
-    color: $ugrey;
-    border-radius: 13px;
-    padding: 0 1ex;
+    color: #fff;
+    border-radius: 5px;
+    padding: 1ex 1.5ex;
+    text-shadow: 1px 1px 2px #58901c;
+        filter: dropshadow(color=#58901c, offx=1, offy=1);
     &:hover{
       background: lighten(green, 10%);
+      border:1px #319b3e solid;
     }
   }
   .spacer{
