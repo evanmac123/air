@@ -1,308 +1,165 @@
 <!doctype html>
-<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
-<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
-<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
-<head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-
-	<title>H Engage</title>
-	<meta name="description" content="H Engage: Socialize and gamify the HR ecosystem">
-	<meta name="author" content="HEngage.com">
-	<meta name="viewport" content="width=device-width">
-	<%= stylesheet_link_tag 'external/marketing' %>
-   <link href='https://fonts.googleapis.com/css?family=Ubuntu:400,500' rel='stylesheet' type='text/css'>
-	<script src="marketing/js/libs/modernizr-2.5.3.min.js"></script>
-
-</head>
-<body id="homepage">
-<header>
-	<a href="#" id="logo"><%= image_tag "marketing/logo.png", :alt => "H Engage" %></a>
-	<nav>
-		<ul>
-			<li class="links" id="link-blog"><a href="http://hengage.tumblr.com" target="_new">Blog</a></li>
-			<li class="links" id="link-contact"><a href="#contact" name="contact">Contact us</a></li>
-			<li class="links" id="link-twitter"><a href="http://twitter.com/hengage" target="_new">Twitter</a></li>
-		</ul>
-	</nav>
-   <div class="cf"></div>
-</header>
-
-<div id="hov-loader" style='display:none'>
-  <%= image_tag "marketing/btnhov-contact.png" %>
-  <%= image_tag "marketing/btnhov-dbook.png" %>
-  <%= image_tag "marketing/btnhov-slideshare.png" %>
-  <%= image_tag "marketing/btnhov-submit.png" %>
-</div>
-
-<div role="main" id="primary">
-	<section id="login">
-      <h2>Player login (clients only)</h2>
-      <%= form_for :session, :url => session_path do |f| %>
-         <ul>
-           <li id="login-email"><%= f.text_field :email, :placeholder => "Account email" %></li>
-           <li id="login-password"><%= f.text_field :password, :type => "password", :placeholder => "Password" %></li>
-           <li id="login-remember"><%= f.check_box :remember_me  %><label for="session_remember_me">Keep me logged in</label></li>
-            <li id="login-submit">
-            <%= f.submit "Let's play!", :id => 'sign_in_button' %>
-
-              <span><%= link_to "Register to play", new_invitation_path %></a></span>
-               <div class="cf"></div>
-            </li>
-         </ul>
-       <% end %>
-	</section>
-   <section id="welcome">
-      <h1>Connect employees to your HR ecosystem using technologies people love.</h1>
-      <p>The h.engage solution is a new way for HR to make programs more fun and relevant.</p>
-      <p>Inspire employees and reward their engagement.</p>
-   </section>
-   <div class="cf"></div>
-</div>
-
-<div role="main" id="secondary">
-   <div class="wrap960">
-      <section id="all-features">
-         <div class="feature" id="analytics">
-            <%= image_tag "marketing/analytics.png", :alt => "Analytics" %>
-            <div class="feature-text">
-               <h2>Analytics</h2>
-               <p>We believe that data drives everything. We create an engagement record that integrates with vendor and HRIS systems. Message your employees better over time, measure the impact of your efforts, and quantify your ROI.</p>
-            </div>
-            <div class="cf"></div>
-         </div>
-         <div class="feature" id="comm-hub">
-            <%= image_tag "marketing/comm-hub.png", :alt => "Communications hub" %>
-            <div class="feature-text">
-               <h2>Communications hub</h2>
-               <p>Communicating key messages and behaviors means understanding how employees like to be reached – <span>web, mobile and beyond</span>. We help you deliver the right message in the right medium for each person.</p>
-            </div>
-            <div class="cf"></div>
-         </div>
-         <div class="feature" id="app">
-            <%= image_tag "marketing/app.png", :alt => "Engagement app" %>
-            <div class="feature-text">
-               <h2>Engagement app</h2>
-               <p>Embed interaction points throughout the employee experience. Use text messages and posters as mobile calls to action. Employees submit answers and earn points, progress through levels, and enter to win prizes. Increased engagement means greater satisfaction.</p>
-            </div>
-            <div class="cf"></div>
-         </div>
-      </section>
-
-      <section id="all-extras">
-         <div class="extra" id="yahoo-video">
-           <h2>Yahoo! testimonial:</h2>
-
-           <a href="https://fast.wistia.com/embed/iframe/0eb4fc3b44?autoPlay=true&controlsVisibleOnLoad=true&popover=true&version=v1&videoHeight=360&videoWidth=640" class="wistia-popover[height=360,width=640]"><img src="https://wistia.sslcs.cdngc.net/deliveries/429b353e5607ec26625aab1d1e17d9788bee0d98.jpg?image_play_button=true&image_crop_resized=380x214" alt="" /></a>
-		<script charset="ISO-8859-1" src="https://fast.wistia.com/static/popover-v1.js"></script>
-
-
-         </div>
-         <div class="extra" id="media-usage">
-            <h2>Media usage facts:</h2>
-            <ul>
-               <li><p>88% of adults in the U.S. now own a cell phone.</p></li>
-               <li><p>Adults with smartphones (46%) now outnumber those with feature phones (41%).</p></li>
-               <li><p>The lowest income bracket saw the fastest growth in smartphone ownership.</p></li>
-               <li><p>80% of adults use the Internet.</p></li>
-               <li><p>20-30% of Facebook “power users” drive the vast majority of activity.</p></li>
-            </ul>
-            <a href="http://hengage.com/h_engage_data_book_may_2012.ppt"  id="to-databook"><span>Download and use our Data Book powerpoint</span></a>
-            <a href="http://www.slideshare.net/hengage/h-engage-data-book-may-2012-12943396" target="_new" id="to-slideshare"><span>View on Slideshare.net</span></a>
-         </div>
-      </section>
-      <div class="cf"></div>
-   </div>
-</div>
-<div role="main" id="contact">
-  <h2 id='our_promise'>Contact us and we'll be in touch within two business days</h2>
-  <h2 id='our_response'>Thanks! We'll be in touch.</h2>
-   <%= form_tag email_info_requests_path, :class => 'request-info', :remote => true do %>
-     <ul id="contact-form-left">
-        <li id='name_status'>Please enter your name</li>
-        <li id="contact-name"><%= text_field_tag :contact_name, nil, :placeholder => "Your name" %></li>
-        <li id='email_status'>Please enter your email</li>
-        <li id="contact-email"><%= text_field_tag :contact_email, nil, :placeholder => "Email address" %></li>
-         <li id="contact-phone"><%= text_field_tag :contact_phone, nil, :placeholder => "Phone number (optional)" %></li>
-      </ul>
-      <ul id="contact-form-right" style='position: relative'>
-        <div id='submitting_status'>Uploading...</div>
-         <li id="contact-comment"><%= text_area_tag :contact_comment, nil, :placeholder => "Thoughts and comments (optional)" %></li>
-       </ul>
-     <% end %>
-      <input id="contact-submit" type="button" value="Contact us" />
-      <div class="cf"></div>
-   </form>
-</div>
-<footer>
-   <section id="security-center">
-    <div id="accred">
-      <h2>Data Center Security</h2>
-      <h3>Our hosting provider's data center is accredited under:</h3>
-        <ul>
-          <li>ISO 27001</li>
-          <li>SOC 1/SSAE 16/ISAE 3402 <br />(Previously SAS 70 Type II)</li>
-        </ul>
-        <ul>
-          <li>PCI Level 1</li>
-          <li>FISMA Moderate</li>
-          <li>Sarbanes-Oxley (SOX)</li>
-        </ul>
-    </div>
-    <div id="practices">
-      <h2>Network and Data Security</h2>
-      <h3>Our security practices include:</h3>
-      <ul>
-        <li>Managed firewalls</li>
-        <li>Distributed DOS mitigation</li>
-        <li>Port scanning detection</li>
-      </ul>
-      <ul>
-        <li>Round-the-clock monitoring with automated notification</li>
-        <li>SSL encryption</li>
-        <li>Encrypted database connections</li>
-      </ul>
-    </div>
-    <div class="cf"></div>
-   </section>
-   <p class="copyright">Copyright © 2011 H Engage, Inc.</p>
-</footer>
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-<script>window.jQuery || document.write('<script src="js/libs/jquery-1.7.2.min.js"><\/script>')</script>
-<script type="text/javascript">
-$('[placeholder]').focus(function() {
-  var input = $(this);
-  if (input.val() == input.attr('placeholder')) {
-    input.val('');
-    input.removeClass('placeholder');
-  }
-}).blur(function() {
-  var input = $(this);
-  if (input.val() == '' || input.val() == input.attr('placeholder')) {
-    input.addClass('placeholder');
-    input.val(input.attr('placeholder'));
-  }
-}).blur().parents('form').submit(function() {
-  $(this).find('[placeholder]').each(function() {
-    var input = $(this);
-    if (input.val() == input.attr('placeholder')) {
-      input.val('');
-    }
-  });
-});
-</script>
-<script type="text/javascript">
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-21795640-1']);
-  _gaq.push(['_trackPageview']);
-
-  (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
-</script>
-<%= javascript_tag do %>
-  var contact_name = $('#contact_name');
-  var contact_email = $('#contact_email');
-  var contact_phone = $('#contact_phone');
-  var contact_comment = $('#contact_comment');
-  var name_status = $('#name_status');
-  var email_status = $('#email_status');
-  var contact_errors = 0;
-  var contact_form = $('.request-info');
-  var submitting_status = $('#submitting_status');
-
-    var default_name = '<%= EmailInfoRequest.name_prompt %>';
-    var default_email = '<%= EmailInfoRequest.email_prompt %>';
-    var default_phone = '<%= EmailInfoRequest.phone_prompt %>';
-    var default_comment = '<%= EmailInfoRequest.comment_prompt %>';
-
-    restartForm();
-
-  contact_name.blur(function(){
-    validateName(0);
-  });
-
-  contact_email.blur(function(){
-    validateEmail(0);
-  });
-
-  function validateInfoRequestForm(){
-    validateName(1);
-    validateEmail(1);
-  }
-
-  function validateName(display_error){  
-    if ((contact_name.val() == default_name) || (contact_name.val() == '')){
-      contact_errors = 'name';
-      if (display_error){
-        name_status.show();
-      }
-    }else{
-      name_status.hide();
-    } 
-  }
-
-  function validateEmail(){
-    if ((contact_email.val() == default_email) || (contact_email.val() == '')){
-      contact_errors = 'email';
-      email_status.show();
-    }else{
-      email_status.hide();
-    } 
- 
-  }
-
-
-  function disableInputFields(form) {
-    form.find('input, textarea').attr('disabled', 'disabled');
-    }
-
-  function restartForm(){
-    contact_form.find('input, textarea').removeAttr('disabled');
-    contact_email.val(default_email);
-    contact_phone.val(default_phone);
-    contact_name.val(default_name);
-    contact_comment.val(default_comment);
-  }
-
-  function showSuccessMessage(){
-    $('#our_promise').hide();
-    $('#our_response').show();
-  }
-
-
-  function doAfterInfoRequest() {
-    showSuccessMessage();
-    $('#email-info-request').find('#spinner').hide();
-    disableInputFields(contact_form);
-    submitting_status.hide();
-  }
-
-  function submitInfoRequest(form) {
-  submitting_status.show();
-  var data = {contact_email: contact_email.val(),
-              contact_phone: contact_phone.val(),
-              contact_name: contact_name.val(),
-              contact_comment: contact_comment.val()}
-  $.post('email_info_requests', data, function(message){
-
-  });
-
-  }
-
-  $('#contact-submit').click(function(e){
-    e.preventDefault();
-    contact_errors = 0;
-    validateInfoRequestForm();
-    if (contact_errors == 0){
-      submitInfoRequest(contact_form);
-    }
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     
-  });
-<% end %>
-</body>
+    <title>H Engage | Help employees <3 HR</title>
+
+    <!-- Meta tags -->
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Don't forget to update the bookmark icons (favicon.ico and apple-touch-icons) -->
+
+    <!-- CSS -->
+    <%= stylesheet_link_tag 'external/marketing' %>
+    <link href='https://fonts.googleapis.com/css?family=Ubuntu:400,500' rel='stylesheet' type='text/css'>
+    
+    <!-- JavaScript -->
+    <script src="marketing/js/libs/modernizr-2.5.3.min.js"></script>
+
+    <!--[if IE]><![endif]-->
+    <!--[if lt IE 9]>
+    <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <script src="assets/js/respond.min.js"></script>
+  </head>
+  <body id="homepage">
+    <header>
+      <ul id="mast">
+        <li id="logo"><img src="../assets/images/marketing/logo-2x.png" class="logo-head" /></li>
+        <li id="signup"><a href="signup.html" class="signup">Sign up</a></li>
+        <li id="login"><a href="login.html" class="login">Login</a></li>
+      </ul>
+      <ul id="nav">
+        <li id="tour"><a href="reach.html" class="tour">Product tour</a></li>
+        <li id="solutions"><a href="solutions.html" class="solutions">Solutions</a></li>
+        <li id="blog"><a href="#" target="_new" class="blog">What's new</a></li>
+        <li id="contact"><a href="#" class="contact">Contact us</a></li>
+        <li id="number"><h2>(617) 555-5555</h2></li>
+      </ul>
+    </header>
+
+    <section id="hero">
+      <h1>Help employees <span class="heart">&#60;3</span> HR</h1>
+      <h2>Connect employees to HR with technologies people love</h2>
+      <ul>
+        <li><a href="reach.html" class="tour">Product tour</a></li>
+        <li><a href="#" class="contact">Contact us</a></li>
+      </ul>
+      <p>New player? <a href="signup.html" class="signup">Request an invite</a></p>
+      <div id="video"></div>
+    </section>
+
+    <section id="3points">
+      <ul class="tour-nav">
+        <li class="reach"><a href="reach.html">Reach hard-to-reach employees</a></li>
+        <li class="spark"><a href="spark.html">Spark engagement</a></li>
+        <li class="drive"><a href="drive.html">Drive ROI</a></li>
+      </ul>
+    </section>
+
+    <section id="ecs">
+      <h2>Engagement &#38; Communications Systems (ECS)</h2>
+      <p>Software platform that helps people value and understand HR Programs. Learns employee media preferences, connects via preferred channels, measures and improves.</p>
+      <table border="0">
+        <tr>
+          <td><img src="#" /> Text messages</td>
+          <td><img src="#" />Personal emails</td>
+        </tr>
+        <tr>
+          <td><img src="#" />Social media</td>
+          <td><img src="#" />Game mechanics</td>
+        </tr>
+      </table>
+      <a href="reach.html">Learn more about ECS</a>
+    </section>
+
+    <section id="quotes">
+      <ul class="features">
+        <li>401k participation</li>
+        <li>Wellness</li>
+        <li>Total rewards</li>
+        <li>Onboarding</li>
+        <li>Communications</li>
+        <li>Learning and development</li>
+      </ul>
+      <div class="employee">
+        <!-- maybs add pics on a list? onhover state hide/show? -->
+      </div>
+      <div class="employee-quote">
+        <h2>Quote title</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce tristique urna eget arcu tempus sed porttitor diam imperdiet. Nulla vehicula hendrerit neque nec luctus. Quisque feugiat, nisl vel sollicitudin congue, ipsum sem consectetur nunc, ac condimentum nunc nulla id nisl. Donec vel nisl massa. </p>
+      </div>
+    </section>
+
+    <section id="clients">
+      <h2>We are <span>the leader</span> in engaging employees using technology</h2>
+      <!-- Michelin -->
+      <div class="client" id="michelin">
+        <img src="#" />
+        <ul>
+          <li><h2>Reducing waste</h2></li>
+          <li><p>"We partnered with H Engage to pilot adding interactive text messaging to our traditional print outreach. Employees responded well and participants' HRA completion rates increased by 26%. We've since integrated their text messaging solution into our annual enrollment process.”</p></li>
+          <li><p class="caption"><span>Laura Maillet</span>, Health and Wellness Program Manager, Michelin North America, Inc.</p></li>
+        </ul>
+      </div>
+      <!-- Yahoo! -->
+      <div class="client" id="yahoo">
+        <img src="#" />
+        <ul>
+          <li><h2>Educating employees</h2></li>
+          <li><p>“Over 60% of our employees who participated actually said that their awareness and their appreciation of our benefit plans had increased.”</p></li>
+          <li><p class="caption"><span>Bernie Knobbe</span>, Senior Director for Global Benefits, Yahoo!</p></li>
+        </ul>
+      </div>
+      <!-- FujiFilm -->
+      <div class="client" id="fuji">
+        <img src="#" />
+        <ul>
+          <li><h2>Bridging the gaps</h2></li>
+          <li><p>At FUJIFILM, we engaged a wide variety of workers in wellness – from factories to offices and even the remote sales team.</p></li>
+        </ul>
+      </div>
+      <!-- Highmark BGBS -->
+      <div class="client" id="highmark">
+        <img src="#" />
+        <ul>
+          <li><h2>Leveraging social influence</h2></li>
+          <li><p>The wellness campaign run through Highmark, an independent licensee of the Blue Cross and Blue Shield Association, owed much of its success to being spread virally through peer to peer influence. 82% of players were signed up by a fellow employee.</p></li>
+        </ul>
+      </div>
+
+      <a href="reach.html" class="tour">See how we can help you</a>
+    </section>
+
+    <footer>
+      <img src="assets/img/logo-f-2x.png" class="logo-foot" />
+      <ul id="footer-nav">
+        <li><a href="about.html" class="about">About us</a></li>
+        <li><a href="#" class="contact">Contact us</a></li>
+        <li><a href="security.html" class="security">Security</a></li>
+        <li><a href="reach.html" class="tour">Product tour</a></li>
+        <li><a href="solutions.html" class="solutions">Solutions</a></li>
+        <li><a href="login.html" class="login">Player login</a></li>
+      </ul>
+      <ul id="footer-social">
+        <li><a href="#">RSS</a></li>
+        <li><a href="#">Twitter</a></li>
+        <li><a href="#">Facebook</a></li>
+        <li><a href="#">LinkedIn</a></li>
+      </ul>
+      <h2>(617) 555-5555</h2>
+      <p class="caption">Copyright (c) 2012 H Engage, Inc.</p>
+    </footer>
+  </body>
 </html>
+
+
+
+
+
+
+
+
