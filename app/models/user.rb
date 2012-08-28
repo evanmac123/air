@@ -747,12 +747,18 @@ class User < ActiveRecord::Base
     self.last_suggested_items = ''
     self.save!
 
-    if rule.user_hit_limit?(self)
-      return ["Sorry, you've already done that action.", :over_alltime_limit]
-    else
-      credit_referring_user(options[:referring_user], rule, rule_value)
-      return [Act.record_act(self, rule, rule_value, options), :success]
+    result = nil
+
+    User.transaction do
+      if rule.user_hit_limit?(self)
+        return ["Sorry, you've already done that action.", :over_alltime_limit]
+      end
+      
+      result = [Act.record_act(self, rule, rule_value, options), :success]
     end
+
+    credit_referring_user(options[:referring_user], rule, rule_value)
+    result
   end
 
   def open_survey

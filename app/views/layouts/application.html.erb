@@ -36,7 +36,7 @@
 		Copyright © 2012 H Engage, Inc.
   </div>
 
-  <%= render 'shared/mixpanel' %>
+  <%= render 'shared/mixpanel' unless @is_admin_page %>
   
   <% if @highlighted %>
     <%= render 'shared/site_tutorial' %>

@@ -444,6 +444,41 @@ feature "Admin segmentation" do
     (@demo.users - [expected_user]).each {|user| expect_user_content(user)}
   end
 
+  it "can segment on location when the location name has parenthesees", :js => true do
+    Location.delete_all
+    Demo.delete_all
+    @demo = FactoryGirl.create(:demo)
+    @demo.update_attributes(name: "AwesomeCo")
+    other_demo = FactoryGirl.create(:demo, name: "Dewey, Cheatem and Howe")
+
+    demo_location_names = ["Puddingville (Site A)", "Puddingville (Site B)", "Puddingville (Down The Road A Little)", "Pantstown"]
+    other_demo_location_names = ["Under the Sea", "Pantstown"]
+    demo_location_names.each {|location_name| FactoryGirl.create(:location, demo: @demo, name: location_name)}
+    other_demo_location_names.each {|location_name| FactoryGirl.create(:location, demo: other_demo, name: location_name)}
+
+    Location.all.each {|location| 3.times{FactoryGirl.create(:user, location: location, demo: location.demo)}}
+    crank_dj_clear
+
+    location = Location.find_by_name('Puddingville (Site B)')
+
+    signin_as_admin
+    visit admin_demo_segmentation_path(@demo)
+
+    select "Location", :from => "segment_column[0]"
+    select "equals", :from => "segment_operator[0]"
+    select "Puddingville (Site B)", :from => "segment_value[0]"
+    click_button "Find segment"
+
+    expect_content "Segmenting on: Location equals Puddingville (Site B) (AwesomeCo)"
+    expect_content "3 users in segment"
+
+    expected_location = Location.find_by_name "Puddingville (Site B)"
+    expected_users = User.where(location_id: expected_location.id)
+  
+    click_link "Show users"
+    expected_users.each {|expected_user| expect_user_content expected_user}
+  end
+
   %w(height weight).each do |field_name|
     it "can segment on #{field_name}", :js => true do
       @demo = FactoryGirl.create(:demo)

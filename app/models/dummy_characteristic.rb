@@ -75,7 +75,7 @@ class LocationDummyCharacteristic < DummyCharacteristic
 
   def cast_value(value)
     # Value comes in like "LocationName (DemoName)"
-    value =~ /^(.*?) \((.*?)\)$/
+    value =~ /^(.*) \((.*?)\)$/
     location_name, demo_name = [$1, $2]
     Demo.find_by_name(demo_name).locations.find_by_name(location_name).id
   end

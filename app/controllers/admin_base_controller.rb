@@ -3,6 +3,7 @@
 class AdminBaseController < ApplicationController
   before_filter :require_site_admin
   before_filter :strip_smart_punctuation!
+  before_filter :set_admin_page_flag
 
   protected
 
@@ -53,5 +54,9 @@ class AdminBaseController < ApplicationController
     if params[:segment_column].present?
       @segmentation_result = current_user.set_segmentation_results!(params[:segment_column], params[:segment_operator], params[:segment_value], @demo)
     end
+  end
+
+  def set_admin_page_flag
+    @is_admin_page = true
   end
 end
