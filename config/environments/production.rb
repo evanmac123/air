@@ -32,6 +32,9 @@ Health::Application.configure do
   config.serve_static_assets = false
 
   # Enable serving of images, stylesheets, and javascripts from an asset server
+  # Note that you must run 
+  # heroku labs:enable user_env_compile --app <appname>
+  # In order for assets to be compiled during push
   config.action_controller.asset_host = "//hengage-assets.s3.amazonaws.com"
 
   # Disable delivery errors, bad email addresses will be ignored
