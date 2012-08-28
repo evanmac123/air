@@ -1,3 +1,5 @@
+<!-- nav & footer should be loaded in -->
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -28,10 +30,11 @@
   <body id="homepage">
     <header>
       <ul id="mast">
-        <li id="logo"><%= image_tag "marketing/logo-2x.png" %></li>
+        <li id="logo"><%= image_tag "marketing/logo-2x.png", :class => "logo-head" %></li>
         <li id="signup"><a href="signup.html" class="signup">Sign up</a></li>
         <li id="login"><a href="login.html" class="login">Login</a></li>
       </ul>
+
       <ul id="nav">
         <li id="tour"><a href="reach.html" class="tour">Product tour</a></li>
         <li id="solutions"><a href="solutions.html" class="solutions">Solutions</a></li>
@@ -39,18 +42,18 @@
         <li id="contact"><a href="#" class="contact">Contact us</a></li>
         <li id="number"><h2>(617) 555-5555</h2></li>
       </ul>
-    </header>
 
-    <section id="hero">
-      <h1>Help employees <span class="heart">&#60;3</span> HR</h1>
-      <h2>Connect employees to HR with technologies people love</h2>
-      <ul>
-        <li><a href="reach.html" class="tour">Product tour</a></li>
-        <li><a href="#" class="contact">Contact us</a></li>
-      </ul>
-      <p>New player? <a href="signup.html" class="signup">Request an invite</a></p>
-      <div id="video"></div>
-    </section>
+      <section id="hero">
+        <h1>Help employees <span class="heart">&#60;3</span> HR</h1>
+        <h2>Connect employees to HR with technologies people love</h2>
+        <ul>
+          <li><a href="reach.html" class="tour">Product tour</a></li>
+          <li><a href="#" class="contact">Contact us</a></li>
+        </ul>
+        <p>New player? <a href="signup.html" class="signup">Request an invite</a></p>
+        <div id="video"></div>
+      </section>
+    </header>
 
     <section id="3points">
       <ul class="tour-nav">
@@ -135,7 +138,7 @@
     </section>
 
     <footer>
-      <img src="assets/img/logo-f-2x.png" class="logo-foot" />
+      <%= image_tag "marketing/logo-f-2x.png", :class => "logo-foot" %>
       <ul id="footer-nav">
         <li><a href="about.html" class="about">About us</a></li>
         <li><a href="#" class="contact">Contact us</a></li>
