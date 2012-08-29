@@ -41,6 +41,7 @@ end
 # RSpec needs to be in :development group to expose generators
 # and rake tasks without having to type RAILS_ENV=test.
 group :development, :test do
+  gem "colored"
   gem "rspec-rails"
   gem "pry-debugger"
   gem "steak"
