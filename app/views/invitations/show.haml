@@ -5,7 +5,8 @@
       Sponsored by: 
       %span#clientName= @user.demo.client_name
 
-- disabled_style = '' #"color: grey; background: #ddd;"
+- disabled_style = "color: grey; background: #ddd;"
+- optional_style = "background: white;"
 
 - content_for(:javascript) do
   =# need hidden div here so contact us can pop
@@ -118,9 +119,9 @@
           .form-input
             = text_field_tag :display_email, @user.email, :disabled => true, :style => disabled_style
 
-        = f.fancy_text_field :new_phone_number, :label_text => "Enter your mobile number<br>(optional)", :value => (@user.new_phone_number.present? ? @user.new_phone_number.as_pretty_phone : "xxx-xxx-xxxx (optional)"), :class => 'with-hint-text'
+        = f.fancy_text_field :new_phone_number, :label_text => "Enter your mobile number<br>(optional)", :value => (@user.new_phone_number.present? ? @user.new_phone_number.as_pretty_phone : "xxx-xxx-xxxx (optional)"), :class => 'with-hint-text', :style => optional_style
       - else
-        = f.fancy_text_field :new_phone_number, :label_text => "Enter your mobile number<br>(optional)".html_safe, :value => (@user.new_phone_number.present? ? @user.new_phone_number.as_pretty_phone : "xxx-xxx-xxxx"), :class => 'with-hint-text'
+        = f.fancy_text_field :new_phone_number, :label_text => "Enter your mobile number<br>(optional)".html_safe, :value => (@user.new_phone_number.present? ? @user.new_phone_number.as_pretty_phone : "xxx-xxx-xxxx"), :class => 'with-hint-text', :style => optional_style
 
  
     #search_for_referrer
@@ -135,7 +136,7 @@
             = text_field_tag :autocomplete, '', :style => "display: none;"
           - else
             %div.form-ul-section
-            = text_field_tag :autocomplete, "Enter their name", :class => 'with-hint-text'
+            = text_field_tag :autocomplete, "Enter their name", :class => 'with-hint-text', :style => optional_style
       #indented_to_match_inputs
         #autocomplete_status
         #suggestions
