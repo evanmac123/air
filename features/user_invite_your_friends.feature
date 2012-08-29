@@ -64,7 +64,7 @@ Feature: User invites friends
     And I fill in "Choose a password" with "password"
     And I fill in "Confirm password" with "password"
     And I check "Terms and conditions"
-    And I press "Join the game"
+    And I press "Log in"
     And I wait a second
     When I follow "Confirm my mobile number later"
     Then I should see "Brought to you by"
@@ -126,7 +126,7 @@ Feature: User invites friends
 #    And I fill in "Choose a password" with "password"
 #    And I fill in "And confirm that password" with "password"
 #    And I check "Terms and conditions"
-#    And I press "Join the game"
+#    And I press "Log in"
 #    And I wait a second
 #    Then I should see "Brought to you by"
 #    Then user with email "racing22@inviting.com" should show up as referred by "Barnaby"
@@ -165,7 +165,7 @@ Feature: User invites friends
 #    And I fill in "Choose a password" with "password"
 #    And I fill in "And confirm that password" with "password"
 #    And I check "Terms and conditions"
-#    And I press "Join the game"
+#    And I press "Log in"
 #    And I wait a second
 #    Then I should see "Brought to you by"
 #    Then user with email "racing03@inviting.com" should show up as referred by "Barnaby"
