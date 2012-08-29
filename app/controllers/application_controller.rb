@@ -51,34 +51,22 @@ class ApplicationController < ActionController::Base
       return false
     end
   end
-
-
-  def authenticate_without_game_begun_check
-    def authorize
-      # All this does is revert to the previously defined version of "authorize", 
-      # the one before the AuthenticateWithGameBegunCheck module was included
-      super
-    end
-  end
-  
-  
-  module AuthenticateWithGameBegunCheck
-    def authorize
-      super
-      if current_user && !(current_user.is_site_admin) && (controller_name != "settings") && current_user.demo.begins_at && current_user.demo.begins_at > Time.now
-        @game_pending = true
-        render "shared/game_not_yet_begun"
-      end
-    end
-  end
-  
-  include AuthenticateWithGameBegunCheck
   
   def wrong_phone_validation_code_error
     "Sorry, the code you entered was invalid. Please try typing it again."
   end
 
   private
+
+  # See page 133 of Metaprogramming Ruby for details on how to use an "around alias"
+  alias  authenticate_without_game_begun_check authorize
+  def authorize
+    authenticate_without_game_begun_check
+    if current_user && !(current_user.is_site_admin) && (controller_name != "settings") && current_user.demo.begins_at && current_user.demo.begins_at > Time.now
+      @game_pending = true
+      render "shared/game_not_yet_begun"
+    end
+  end
 
   def force_html_format
     request.format = :html

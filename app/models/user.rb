@@ -34,6 +34,7 @@ class User < ActiveRecord::Base
   has_many   :completed_goals, :through => :goal_completions, :source => :goal
   has_many   :timed_bonuses, :class_name => "TimedBonus"
   has_many   :task_suggestions, :dependent => :destroy
+  has_many   :unsubscribes, :dependent => :destroy
   has_many   :tasks, :through => :task_suggestions
   has_and_belongs_to_many :levels
   has_one   :tutorial, :dependent => :destroy
@@ -746,12 +747,18 @@ class User < ActiveRecord::Base
     self.last_suggested_items = ''
     self.save!
 
-    if rule.user_hit_limit?(self)
-      return ["Sorry, you've already done that action.", :over_alltime_limit]
-    else
-      credit_referring_user(options[:referring_user], rule, rule_value)
-      return [Act.record_act(self, rule, rule_value, options), :success]
+    result = nil
+
+    User.transaction do
+      if rule.user_hit_limit?(self)
+        return ["Sorry, you've already done that action.", :over_alltime_limit]
+      end
+      
+      result = [Act.record_act(self, rule, rule_value, options), :success]
     end
+
+    credit_referring_user(options[:referring_user], rule, rule_value)
+    result
   end
 
   def open_survey
@@ -1016,6 +1023,7 @@ class User < ActiveRecord::Base
   end
 
   def load_personal_email(in_email)
+    return nil unless in_email.try(:is_email_address?)
     return true if email == in_email # do nothing but return true if they try to reload their primary email
     update_attributes(overflow_email: email, email: in_email)
   end

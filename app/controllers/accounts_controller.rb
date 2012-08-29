@@ -6,7 +6,7 @@ class AccountsController < ApplicationController
     update_phone_number
     current_user.attributes = params[:user]
     
-    if current_user.save
+    if current_user.changed? && current_user.save
       add_success "Your account settings have been updated."
     end
 

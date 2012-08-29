@@ -6,9 +6,11 @@ class SessionsController < Clearance::SessionsController
 
   def new
     super
+    Shotgun.ping_page('login')
   end
 
   def create
+    delete_saved_flashes
     @user = ::User.authenticate(params[:session][:email],
                                 params[:session][:password])
 

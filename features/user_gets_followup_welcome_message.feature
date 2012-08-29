@@ -18,7 +18,7 @@ Feature: User gets followup welcome message at some point after starting the gam
     And I fill in "Choose a password" with "ohyeah"
     And I fill in "Confirm password" with "ohyeah"
     And I check "Terms and conditions"
-    And I press "Join the game"
+    And I press "Log in"
     And "Phil" fills in the new phone validation field with their validation code
     And I press "Validate phone"
     And time moves ahead 30
@@ -41,7 +41,7 @@ Feature: User gets followup welcome message at some point after starting the gam
     And I fill in "Choose a password" with "ohyeah"
     And I fill in "Confirm password" with "ohyeah"
     And I check "Terms and conditions"
-    And I press "Join the game"
+    And I press "Log in"
     And "Phil" fills in the new phone validation field with their validation code
     And I press "Validate phone"
     And time moves ahead 30
@@ -58,7 +58,7 @@ Feature: User gets followup welcome message at some point after starting the gam
     And I fill in "Choose a password" with "ohyeah"
     And I fill in "Confirm password" with "ohyeah"
     And I check "Terms and conditions"
-    And I press "Join the game"
+    And I press "Log in"
     And "Phil" fills in the new phone validation field with their validation code
     And I press "Validate phone"
     And time moves ahead 30
@@ -73,7 +73,7 @@ Feature: User gets followup welcome message at some point after starting the gam
     And I fill in "Choose a password" with "ohyeah"
     And I fill in "Confirm password" with "ohyeah"
     And I check "Terms and conditions"
-    And I press "Join the game"
+    And I press "Log in"
     And "Phil" fills in the new phone validation field with their validation code
     And I press "Validate phone"
     And time moves ahead 29:59

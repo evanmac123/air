@@ -9,19 +9,19 @@ class Mailer < ActionMailer::Base
     email_template = demo.invitation_email
     referrer_hash = User.referrer_hash(referrer)
 
-    invitation_url = if options[:password_only]
+    @invitation_url = if options[:password_only]
                        user.manually_set_confirmation_token
                        edit_user_password_url(user, :token => user.confirmation_token) 
                      else
                        invitation_url(user.invitation_code, referrer_hash)
                      end
 
-    @plain_text = email_template.plain_text(user, referrer, invitation_url)
-    @html_text = email_template.html_text(user, referrer, invitation_url).html_safe
+    @plain_text = email_template.plain_text(user, referrer, @invitation_url)
+    @html_text = email_template.html_text(user, referrer, @invitation_url).html_safe
     @user = user
 
     mail(:to      => user.email_with_name,
-         :subject => email_template.subject(user, referrer, invitation_url),
+         :subject => email_template.subject(user, referrer, @invitation_url),
          :from    => demo.reply_email_address)  
   end
 

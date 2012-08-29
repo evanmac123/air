@@ -28,7 +28,6 @@ gem "mongoid"
 gem "bson_ext"
 gem 'jquery-rails'
 gem 'fancybox-rails', :git => "https://github.com/hecticjeff/fancybox-rails.git"
-gem 'tinymce-rails'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -42,6 +41,7 @@ end
 # RSpec needs to be in :development group to expose generators
 # and rake tasks without having to type RAILS_ENV=test.
 group :development, :test do
+  gem "colored"
   gem "rspec-rails"
   gem "pry-debugger"
   gem "steak"

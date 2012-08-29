@@ -5,7 +5,7 @@
       Sponsored by: 
       %span#clientName= @user.demo.client_name
 
-- disabled_style = "color: grey; background: #ddd;"
+- disabled_style = '' #"color: grey; background: #ddd;"
 
 - content_for(:javascript) do
   =# need hidden div here so contact us can pop
@@ -77,31 +77,22 @@
     - else
       %div.welcome-message
         %h2= welcome_text
-        %p.explanation 
-          %span Create your account
+        %p.explanation.hidden
+          %span Just set a password, and you're ready to go
     
 
 
 = form_for @user, :url => invitation_acceptance_path(:user_id => @user.id), :html => {:autocomplete => :off, :id => "signup-form"}, :builder => FancyFormBuilder do |f|
   %div#all-inputs
-   
-    #search_for_referrer
-      %ul.form-section
-        %li.form-label= label_tag :autocomplete,  "Who referred you?"
-        %li.form-label.secondary-form-label= label_tag :autocomplete, "(Leave blank if nobody did)"
-        %li.form-input
-          = f.hidden_field :game_referrer_id, :class => "form-input"
-          - if @user.game_referrer_id
-            - @matched_users = User.where(:id => @user.game_referrer_id)
-            = render  :template => "invitation/autocompletions/index"
-            = text_field_tag :autocomplete, '', :style => "display: none;"
-          - else
-            %div.form-ul-section
-            = text_field_tag :autocomplete, "Enter the person's name (optional)", :class => 'with-hint-text'
-      #indented_to_match_inputs
-        #autocomplete_status
-        #suggestions
-
+ 
+    %div.form-ul-section
+      %div.helper#password Make sure it’s at least 6 characters. (You know the deal, don’t pick something obvious like your birthday, your last name, your employee ID, etc.)
+      = f.fancy_password_field :password, :label_text => "Choose a password", :value => @user.password
+    %div.form-ul-section
+      %div.helper#passwordConf And confirm that password – just in case.
+      = f.fancy_password_field :password_confirmation, :label_text => "Confirm password", :value => @user.password_confirmation
+        
+ 
     %div.form-ul-section
       %div.helper#number 
         This is optional, but you'll have a better experience if you add it. Your usual data and text costs apply.
@@ -127,17 +118,28 @@
           .form-input
             = text_field_tag :display_email, @user.email, :disabled => true, :style => disabled_style
 
-        = f.fancy_text_field :new_phone_number, :label_text => "Enter your mobile number", :value => (@user.new_phone_number.present? ? @user.new_phone_number.as_pretty_phone : "xxx-xxx-xxxx (optional)"), :class => 'with-hint-text'
+        = f.fancy_text_field :new_phone_number, :label_text => "Enter your mobile number<br>(optional)", :value => (@user.new_phone_number.present? ? @user.new_phone_number.as_pretty_phone : "xxx-xxx-xxxx (optional)"), :class => 'with-hint-text'
       - else
-        = f.fancy_text_field :new_phone_number, :label_text => "Enter your mobile number", :value => (@user.new_phone_number.present? ? @user.new_phone_number.as_pretty_phone : "xxx-xxx-xxxx (optional)"), :class => 'with-hint-text'
+        = f.fancy_text_field :new_phone_number, :label_text => "Enter your mobile number<br>(optional)".html_safe, :value => (@user.new_phone_number.present? ? @user.new_phone_number.as_pretty_phone : "xxx-xxx-xxxx"), :class => 'with-hint-text'
 
-    %div.form-ul-section
-      %div.helper#password Make sure it’s at least 6 characters. (You know the deal, don’t pick something obvious like your birthday, your last name, your employee ID, etc.)
-      = f.fancy_password_field :password, :label_text => "Choose a password", :value => @user.password
-    %div.form-ul-section
-      %div.helper#passwordConf And confirm that password – just in case.
-      = f.fancy_password_field :password_confirmation, :label_text => "Confirm password", :value => @user.password_confirmation
-        
+ 
+    #search_for_referrer
+      %ul.form-section
+        %li.form-label= label_tag :autocomplete,  "Did anyone refer you?"
+        %li.form-label.secondary-form-label= label_tag :autocomplete, "(optional)"
+        %li.form-input
+          = f.hidden_field :game_referrer_id, :class => "form-input"
+          - if @user.game_referrer_id
+            - @matched_users = User.where(:id => @user.game_referrer_id)
+            = render  :template => "invitation/autocompletions/index"
+            = text_field_tag :autocomplete, '', :style => "display: none;"
+          - else
+            %div.form-ul-section
+            = text_field_tag :autocomplete, "Enter their name", :class => 'with-hint-text'
+      #indented_to_match_inputs
+        #autocomplete_status
+        #suggestions
+
     %ul.form-section#check-terms
       = f.check_box(:terms_and_conditions)
       = f.label :terms_and_conditions, :style => "display: none;"
@@ -150,7 +152,7 @@
       .cf
     %ul.form-section.signup-submit
 
-      <input name="commit" type="submit" value="Join the game" style="float: left;" id='join_the_game_link'>
+      #non_image_submit.green= f.submit "Log in", :style => 'float: left;',  :id => 'join_the_game_link'
       = link_to_function 'Need help?', "setTimeout(\"$('.assistly-widget a').click()\", 500)", :style => "float: right; padding-top:15px", :id => :contact_us_from_inv_acceptance_page
       .cf
     .cf

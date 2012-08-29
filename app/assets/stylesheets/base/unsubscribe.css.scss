@@ -1,6 +1,6 @@
 $ugrey: #282828;
 
-#unsubscribe {
+#unsubscribe, #non_image_submit {
   input[type='submit']{
     width: auto;
     background: #818385;
@@ -30,4 +30,11 @@ $ugrey: #282828;
   form {
     margin-top: 30px;
   }
+}
+$button_green: #74c04c;
+$button_green_hover: #39b149;
+#non_image_submit.green input[type='submit']{
+  background: $button_green;
+  border-color: darken($button_green, 10%);
+  &:hover{background: $button_green_hover;}
 }

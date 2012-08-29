@@ -19,7 +19,7 @@ Feature: User accepts invitation
     When I fill in "Enter your mobile number" with "508-740-7520"
     And I fill in "Choose a password" with "whatwhat"
     And I fill in "Confirm password" with "whatwhat"
-    And I press "Join the game"
+    And I press "Log in"
     And I should see "You must accept the terms and conditions"
     
   Scenario: User accepts invitation
@@ -28,7 +28,7 @@ Feature: User accepts invitation
     And I fill in "Choose a password" with "whatwhat"
     And I fill in "Confirm password" with "whatwhat"
     And I check "Terms and conditions"
-    And I press "Join the game"
+    And I press "Log in"
     Then I should be on the interstitial phone verification page
 
     When DJ works off
@@ -46,7 +46,7 @@ Feature: User accepts invitation
     When I fill in "Choose a password" with "whatwhat"
     And I fill in "Confirm password" with "whatwhat"
     And I check "Terms and conditions"
-    And I press "Join the game"
+    And I press "Log in"
     Then I should be on the activity page
 
   Scenario: User accepting invitation who has trouble validating phone number gets redirected to the validation page with an appropriate error
@@ -54,7 +54,7 @@ Feature: User accepts invitation
     And I fill in "Choose a password" with "whatwhat"
     And I fill in "Confirm password" with "whatwhat"
     And I check "Terms and conditions"
-    And I press "Join the game"
+    And I press "Log in"
     Then I should be on the interstitial phone validation page
     
     When "Dan" fills in the new phone validation field with the wrong validation code
@@ -68,7 +68,7 @@ Feature: User accepts invitation
     And I fill in "Choose a password" with "whatwhat"
     And I fill in "Confirm password" with "whatwhat"
     And I check "Terms and conditions"
-    And I press "Join the game"
+    And I press "Log in"
     And I go to the profile page for "Dan"
     Then I should see "Dan joined the game"
 
@@ -79,7 +79,7 @@ Feature: User accepts invitation
     And I fill in "Choose a password" with "whowho"
     And I fill in "Confirm password" with "whowho"
     And I check "Terms and conditions"
-    And I press "Join the game"
+    And I press "Log in"
     And "Phil" fills in the new phone validation field with their validation code
     And I press "Validate phone"
     And DJ works off
@@ -93,7 +93,7 @@ Feature: User accepts invitation
     And I fill in "Choose a password" with "whowho"
     And I fill in "Confirm password" with "whowho"
     And I check "Terms and conditions"
-    And I press "Join the game"
+    And I press "Log in"
     And I follow "Confirm my mobile number later"
     Then I should be on the activity page
     # And I should see "Phil 10 pts"
@@ -106,12 +106,12 @@ Feature: User accepts invitation
     And I fill in "Enter your mobile number" with "415-261-3077"
     And I fill in "Choose a password" with "whowho"
     And I fill in "Confirm password" with "whowho"
-    And I press "Join the game"
+    And I press "Log in"
     And I click the play now button in the email
     And I fill in "Choose a password" with "whowho"
     And I fill in "Confirm password" with "whowho"
     And I check "Terms and conditions"
-    And I press "Join the game"
+    And I press "Log in"
     Then I should be on the activity page
     And I should not see "Phil 20 points"
 
@@ -120,20 +120,20 @@ Feature: User accepts invitation
     And I fill in "Choose a password" with "whatwhat"
     And I fill in "Confirm password" with "whatwhat"
     And I check "Terms and conditions"
-    And I press "Join the game"
+    And I press "Log in"
     And I sign out
     And I sign in via the login page as "Dan/whatwhat"
     And I should not see "Signed in."
     But I should be on the activity page with HTML forced
 
   Scenario: User must set password when accepting invitation
-    When I press "Join the game"
+    When I press "Log in"
     Then I should not see "Welcome to the game"
     And I should see "Please choose a password"
     And I should see "Please enter the password here too"
     When I fill in "Choose a password" with "foofoo"
     And I fill in "Confirm password" with "barbar"
-    And I press "Join the game"
+    And I press "Log in"
     Then I should not see "Welcome to the game"
     And I should see "Sorry, your passwords don't match"
     
@@ -142,7 +142,7 @@ Feature: User accepts invitation
     When I fill in "Choose a password" with "whatwhat"
     And I fill in "Confirm password" with "whatwhat"
     And I check "Terms and conditions"
-    And I press "Join the game"
+    And I press "Log in"
     And DJ cranks once
     Then I should be on the activity page
     And I should see "Dan joined the game less than a minute ago"
@@ -163,7 +163,7 @@ Feature: User accepts invitation
     And I fill in "Choose a password" with "whatwhat"
     And I fill in "Confirm password" with "whatwhat"
     And I check "Terms and conditions"
-    And I press "Join the game"
+    And I press "Log in"
 
     Then I should be on the interstitial phone verification page
     And I should not see "Your game begins on May 01, 2011 at 12:00 AM Eastern."
@@ -196,7 +196,7 @@ Feature: User accepts invitation
     And I fill in "Choose a password" with "whatwhat"
     And I fill in "Confirm password" with "whatwhat"
     And I check "Terms and conditions"
-    And I press "Join the game"
+    And I press "Log in"
     Then I should be on the interstitial phone verification page
     And I click the play now button in the email
     Then I should be on the activity page
@@ -216,7 +216,7 @@ Feature: User accepts invitation
     And I fill in "Choose a password" with "whatwhat"
     And I fill in "Confirm password" with "whatwhat"
     And I check "Terms and conditions"
-    And I press "Join the game"
+    And I press "Log in"
     Then "dan@example.com" should receive 1 email
     When "dan@example.com" opens the email
     Then I should not see "Your invitation code" in the email body
@@ -227,7 +227,7 @@ Feature: User accepts invitation
     And I fill in "Choose a password" with "whatwhat"
     And I fill in "Confirm password" with "whatwhat"
     And I check "Terms and conditions"
-    And I press "Join the game"
+    And I press "Log in"
     Then "dan@example.com" should receive 1 email
     When "dan@example.com" opens the email
     Then I should not see "@{reply here}" in the email body

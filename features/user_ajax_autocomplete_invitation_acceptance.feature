@@ -25,43 +25,43 @@ Feature: User gives credit to game referer via autocomplete field
     And "new_user@hopper.com" opens the email
     And I click the play now button in the email
     Then I should see "And confirm that password"
-    Then I should see "Who referred you?"
+    Then I should see "Did anyone refer you?"
 
   @javascript
   Scenario: Status messages display and are not hidden
-    When I fill in "Who referred you?" with "2"
+    When I fill in "Did anyone refer you?" with "2"
     Then "3+ letters, please" should be visible
     And I should see "3+ letters, please"
-    When I fill in "Who referred you?" with "jdidillvididkkemmffii"
+    When I fill in "Did anyone refer you?" with "jdidillvididkkemmffii"
     Then I should not see "3+ letters, please"
     And I should see "Hmmm...no match"
     And I should see "Please try again"
-    When I fill in "Who referred you?" with "har"
+    When I fill in "Did anyone refer you?" with "har"
     Then I should see "Click on the person who referred you:"
     Then I should see "Charlie Brainfield"
     And I should not see "Charlie Moore"
   
   @javascript
   Scenario: User sees the charlie from her own game when entering name 'har'
-    When I fill in "Who referred you?" with "har"
+    When I fill in "Did anyone refer you?" with "har"
     Then I should see "Charlie Brainfield"
     And I should not see "Charlie Moore"
 
   @javascript
   Scenario: User sees no users at all if text only matches other company_s email
-    When I fill in "Who referred you?" with "bike"
+    When I fill in "Did anyone refer you?" with "bike"
     Then I should not see "Bruce Springsteen"
     And I should not see "Barnaby Bueller"
 
   @javascript
   Scenario: User sees users from her own game when searching on slug
-    When I fill in "Who referred you?" with "air"
+    When I fill in "Did anyone refer you?" with "air"
     Then I should see "Charlie Brainfield"
     And I should not see "Bruce Springsteen"
 
   @javascript
   Scenario: User sees only claimed users
-    When I fill in "Who referred you?" with "har"
+    When I fill in "Did anyone refer you?" with "har"
     Then I should see "Charlie Brainfield"
     But I should not see "Charlie Smythe"
     And I should not see "Luther Vandross"
@@ -69,7 +69,7 @@ Feature: User gives credit to game referer via autocomplete field
 
   @javascript
   Scenario: Field is populated with what the user clicks on
-    When I fill in "Who referred you?" with "barnaby"
+    When I fill in "Did anyone refer you?" with "barnaby"
     Then I should see "Barnaby Bueller"
     And I should see "1@hopper.com"
     And I should see "smoke"
@@ -80,22 +80,22 @@ Feature: User gives credit to game referer via autocomplete field
   Scenario: When I submit with errors, I am brought back to the same page
     I should see "new_user@hopper.com"
     And I check "Terms and conditions"
-    When I press "Join the game"
+    When I press "Log in"
     Then I should see "I accept the"
     And I should see "terms & conditions"
 
   @javascript
   Scenario: When I select a referrer, then submit with errors, the referrer is still there
-    When I fill in "Who referred you?" with "barnaby"
+    When I fill in "Did anyone refer you?" with "barnaby"
     Then I should see "Barnaby Bueller"
     When I select the suggestion containing "Barnaby Bueller"
     And I check "Terms and conditions"
-    And I press "Join the game"
+    And I press "Log in"
     Then I should see "Barnaby Bueller"
 
   @javascript
   Scenario: User can change her mind about which user referred her
-  When I fill in "Who referred you?" with "barnaby"
+  When I fill in "Did anyone refer you?" with "barnaby"
   Then I should see "Barnaby Bueller"
   When I select the suggestion containing "Barnaby Bueller"
   And I follow "X"
@@ -104,14 +104,14 @@ Feature: User gives credit to game referer via autocomplete field
 
   @javascript
   Scenario: Game referrer id gets saved to database
-  When I fill in "Who referred you?" with "barnaby"
+  When I fill in "Did anyone refer you?" with "barnaby"
   Then I should see "Barnaby Bueller"
   When I select the suggestion containing "Barnaby Bueller"
   When I fill in "Enter your mobile number" with "2088834848"
   And I fill in "Choose a password" with "password"
   And I fill in "Confirm password" with "password"
   And I check "Terms and conditions"
-  And I press "Join the game"
+  And I press "Log in"
   And I wait a second
   Then I should see "Brought to you by"
   Then user with email "new_user@hopper.com" should show up as referred by "Barnaby Bueller"

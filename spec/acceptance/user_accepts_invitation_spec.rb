@@ -14,7 +14,7 @@ feature "User Accepts Invitation" do
 
 
     fill_in_required_invitation_fields
-    click_button 'Join the game'
+    click_button 'Log in'
     should_be_on(activity_page)
   end
 

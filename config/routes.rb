@@ -48,6 +48,7 @@ Health::Application.routes.draw do
   get "faq" => "pages#faq", :as => "faq"
   get "faq_body" => "pages#faq_body", :as => "faq_toc"
   get "faq_toc" => "pages#faq_toc", :as => "faq_body"
+  get "public_help" => "pages#public_help"
 
   get "terms" => "pages#terms", :as => "terms"
   get "privacy" => "pages#privacy", :as => "privacy"
