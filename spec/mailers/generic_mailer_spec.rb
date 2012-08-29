@@ -16,6 +16,16 @@ describe GenericMailer do
         from("play@playhengage.com")
     end
 
+    it "should have an unsubscribe footer" do
+      @user = FactoryGirl.create :user
+      GenericMailer.send_message(@user.id, "Here is the subject", "This is some text", "<p>This is some HTML</p>").deliver
+
+      should have_sent_email.
+        to(@user.email).
+        with_part('text/plain', /Our mailing address is:/).
+        with_part('text/html', /Our mailing address is:/)
+    end
+
     context "when called with a user in a demo that has a custom reply address" do
       it "should send from that address" do
         @demo = FactoryGirl.create :demo, :email => "someco@playhengage.com"
