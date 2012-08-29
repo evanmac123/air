@@ -1,0 +1,61 @@
+header {
+    background:url('/assets/marketing/header-bg.png') top center no-repeat $dark-green;
+    border-bottom:1px darken($dark-green, 5%) solid;
+}
+#nav {border-bottom:1px darken($dark-green, 5%) solid;}
+
+#hero, #points, #ecs, #clients {
+    margin:0 auto;
+    width:960px;
+}
+
+#hero {
+    border-top:1px lighten($dark-green, 5%) solid;
+    color:#fff;
+    padding:35px 0 0 0;
+    div.left {
+        float:left;
+        padding:0 0 1px 0;
+        width:50%;
+    }
+    div#video {
+        background:#fff;
+        display:block;
+        float:right;
+        height:260px;
+        margin:-10px 0 0 560px;
+        position:absolute;
+        width:400px;
+    }
+    h1, h2 {color:#fff;}
+    h2 {font-weight:300;}
+    li {
+        display:inline;
+        a {padding-left:90px;}
+        &#hero-tour {
+            float:left;
+            a {
+                border-right:0;
+                border-radius:5px 0 0 5px;
+            }
+        }
+        &#hero-contact a {
+            border-radius:0 5px 5px 0;
+        }
+    }
+    ul {margin-top:30px;}
+}
+
+#points {
+    margin-top:30px;
+    ul {
+        background:white;
+    }
+    li {
+        box-sizing:border-box;
+        border:1px blue solid;
+        display:inline-block;;
+        height:185px;
+        width:33%;
+    }
+}
