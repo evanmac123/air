@@ -36,6 +36,7 @@ module Health
       external/marketing.css
       ga.js
       ga-marketing.js
+      sign_in.js
     )
 
     ################################################################
