@@ -6,6 +6,7 @@ $ ->
   loadDivs()
   showOrHidePlaceholder()
   connectPasswordFocus()
+  connectDetectPasswordWhenTypingEmail()
 
 ############# find a way to only include this once ###########
 delay = (ms, func) -> setTimeout func, ms
@@ -26,9 +27,17 @@ showOrHidePlaceholder = () ->
       password_placeholder.show()
     else
       password_placeholder.hide()
-    
+
+connectDetectPasswordWhenTypingEmail = () ->
+  session_email.keypress -> 
+    showOrHidePlaceholder()
+  session_email.keyup ->
+    showOrHidePlaceholder()
+
 connectPasswordFocus = () ->
   session_password.focus ->
-    password_placeholder.hide()
+    # There is only a delay here so it will work properly when tabbing into from the email field
+    delay 1, ->
+      password_placeholder.hide()
   session_password.blur ->
     showOrHidePlaceholder()
