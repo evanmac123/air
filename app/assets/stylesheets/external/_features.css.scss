@@ -1,0 +1,47 @@
+#points {
+    box-sizing:border-box;
+    border-bottom:1px #e6e6e6 solid;
+    margin-top:40px;
+    padding-bottom:20px;
+    text-align:center;
+    a {
+        background:url('/assets/marketing/sprite-features.png') no-repeat;
+        display:block;
+        height:120px;
+        margin:0 auto;
+        width:120px;
+        &:hover {
+            -webkit-transition: none;
+            -moz-transition: none;
+            -ms-transition: none;
+            -o-transition: none;
+            transition: none;
+        }
+        &#reach {
+            background-position:-1px -4px;
+            &:hover {background-position: -1px -126px;}
+        }
+        &#spark {
+            background-position:-125px -4px;
+            &:hover {background-position: -125px -126px;}
+        }
+        &#drive {
+            background-position:-250px -4px;
+            &:hover {background-position: -250px -126px;}
+        }
+
+    }
+    h3 {font-size:1.25em; margin-top:20px;}
+    ul {
+        background:url('/assets/marketing/featuresBar.png') center 40px no-repeat;
+        height:185px;
+        width:100%;
+    }
+    li {
+        box-sizing:border-box;
+        display:inline-block;
+        float:left;
+        height:100%;
+        width:33.3%;
+    }
+}

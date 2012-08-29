@@ -16,7 +16,6 @@
 
     <!-- CSS -->
     <%= stylesheet_link_tag 'external/marketing' %>
-    <%= stylesheet_link_tag 'external/home' %>
     <link href='http://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700' rel='stylesheet' type='text/css'>
     
     <!-- JavaScript -->
@@ -36,7 +35,7 @@
   <body id="homepage">
     <header>
       <ul id="mast">
-        <li id="logo"><%= image_tag "marketing/logo-2x.png", :class => "logo-head" %></li>
+        <li id="logo"><a href="index.html"><%= image_tag "marketing/logo-2x.png", :alt => "HEngage.com", :class => "logo-head" %></a></li>
         <li id="signup"><a href="signup.html" class="signup button green-btn gradient">Sign up</a></li>
         <li id="login"><a href="login.html" class="login button orange-btn gradient">Login</a></li>
       </ul>
@@ -67,9 +66,9 @@
 
     <section id="points">
       <ul class="tour-nav">
-        <li class="reach"><a href="reach.html">Reach hard-to-reach employees</a></li>
-        <li class="spark"><a href="spark.html">Spark engagement</a></li>
-        <li class="drive"><a href="drive.html">Drive ROI</a></li>
+        <li class="reach"><a href="reach.html" id="reach"></a><h3>Reach hard-to-reach<br/>employees</h3></li>
+        <li class="spark"><a href="spark.html" id="spark"></a><h3>Spark engagement</h3></li>
+        <li class="drive"><a href="drive.html" id="drive"></a><h3>Drive ROI</h3></li>
       </ul>
     </section>
 
@@ -78,15 +77,17 @@
       <p>Software platform that helps people value and understand HR Programs. Learns employee media preferences, connects via preferred channels, measures and improves.</p>
       <table border="0">
         <tr>
-          <td><img src="#" /> Text messages</td>
-          <td><img src="#" />Personal emails</td>
+          <td><img src="#" /><p>Text messages</p></td>
+          <td><img src="#" /><p>Personal emails</p></td>
         </tr>
         <tr>
-          <td><img src="#" />Social media</td>
-          <td><img src="#" />Game mechanics</td>
+          <td><img src="#" /><p>Social media</p></td>
+          <td><img src="#" /><p>Game mechanics</p></td>
         </tr>
       </table>
-      <a href="reach.html" class="button orange-btn gradient">Learn more about ECS</a>
+      <div class="cf">
+        <a href="reach.html" class="button orange-btn gradient">Learn more about ECS</a>
+      </div>
     </section>
 
     <section id="quotes">

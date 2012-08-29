@@ -99,6 +99,7 @@ h2 {
 
 h3 {
   font-size: 1.5em; /* 24px */
+  font-weight:300;
   line-height: 1em;
   margin: 0 0 1em;
 }
@@ -254,11 +255,12 @@ a, a:visited {
 }
 
 a:hover {
-  color:lighten($yellow, 40%);
-  -webkit-transition:color 0.2s ease-in;  
-  -moz-transition:color 0.2s ease-in;  
-  -o-transition:color 0.2s ease-in;  
-  transition:color 0.2s ease-in;  
+  color:lighten($yellow, 35%);
+  -webkit-transition: all .1s ease-in-out;
+    -moz-transition: all .1s ease-in-out;
+    -ms-transition: all .1s ease-in-out;
+    -o-transition: all .1s ease-in-out;
+    transition: all .1s ease-in-out;
 }
 
 a:focus {
@@ -379,6 +381,7 @@ sub {
 
 /* Primary styles
 ---------------------------------------- */
+section {clear:both;}
 #mast, #nav {
   margin:0 auto;
   width:960px;
@@ -414,6 +417,7 @@ sub {
 }
 
 @import "home";
+@import "features";
 
 
 /* Media queries
