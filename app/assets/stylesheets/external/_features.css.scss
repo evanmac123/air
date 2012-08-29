@@ -1,11 +1,12 @@
 #points {
     box-sizing:border-box;
-    border-bottom:1px #e6e6e6 solid;
     margin-top:40px;
     padding-bottom:20px;
     text-align:center;
     a {
         background:url('/assets/marketing/sprite-features.png') no-repeat;
+        -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#00FFFFFF,endColorstr=#00FFFFFF)"; /* IE8 */  
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#00FFFFFF,endColorstr=#00FFFFFF);   /* IE6 & 7 */      
         display:block;
         height:120px;
         margin:0 auto;

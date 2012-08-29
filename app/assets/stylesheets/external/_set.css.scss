@@ -8,6 +8,20 @@ $yellow: #d4dd25;
   text-shadow: 1px 1px 1px #818181;
     filter: dropshadow(color=#818181, offx=1, offy=1); 
 }
+@mixin arrow {
+  border-style: solid;
+  position:absolute;
+  height: 0px;
+  width: 0px;
+}
+@mixin right-arrow {
+  @include arrow;
+  border-width: 20px 0 20px 20px;
+}
+@mixin left-arrow {
+  @include arrow;
+  border-width: 20px 20px 20px 0;
+}
 
 .cf {clear:both;}
 

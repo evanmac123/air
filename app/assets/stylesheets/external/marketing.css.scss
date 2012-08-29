@@ -44,7 +44,7 @@ audio:not([controls]) {
   * To add a background to the WRAPPER, set it in the 'body' element
 */
 html {
-  background:url('/assets/marketing/bg.gif') #fff;
+  background:url('/assets/marketing/bg-dark.gif');
   height: 100%;
   font-size: 100%;
   overflow-y: scroll; /* Force a scrollbar in non-IE */
@@ -53,6 +53,7 @@ html {
 }
 
 body {
+  background:url('/assets/marketing/bg.gif') #fff;
   margin: 0 auto;
   min-height: 100%;
 }
@@ -323,6 +324,7 @@ del {
 
 /* Others
 ---------------------------------------- */
+div, ul {box-sizing:border-box;}
 
 hr {
   display: block;
@@ -382,11 +384,11 @@ sub {
 /* Primary styles
 ---------------------------------------- */
 section {clear:both;}
-#mast, #nav {
+#mast, #nav, footer .wrap {
   margin:0 auto;
   width:960px;
-  li {display:inline-block;}
 }
+#mast li, #nav li {display:inline-block;}
 #mast {
   img {
     display:inline-block; 
@@ -413,6 +415,63 @@ section {clear:both;}
       margin-right:0;
       h2 {color:#fff; font-size:1.25em;}
     }
+  }
+}
+footer {
+  background:url('/assets/marketing/bg-dark.gif');
+  border-top:1px #fff solid;
+  padding:40px 0;
+  div.wrap {
+    a {
+      color:$green;
+      font-weight:400;
+      text-shadow:none;
+      &:hover{
+        color:lighten($yellow, 35%);
+      }
+    }
+    img, ul {display:inline-block;}
+    img, ul.footer-nav {float:left;}
+  }
+  .footer-nav {
+    width:160px;
+  }
+  #footer-rest {
+    float:right;
+    h3 {
+      color:#fff;
+      font-weight:400;
+    }
+    small {float:right;}
+  }
+  #footer-social {
+    top:-20px;
+    position:relative;
+    width:220px;
+    a {
+      background:url('/assets/marketing/sprite-social.png') no-repeat;
+      -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#00FFFFFF,endColorstr=#00FFFFFF)"; /* IE8 */  
+      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#00FFFFFF,endColorstr=#00FFFFFF);   /* IE6 & 7 */      
+      color:transparent; 
+      display:inline-block;
+      font-size:0; 
+      height:32px;
+      line-height:0;
+      width:34px;
+      &#twitter {background-position:-43px 0;}
+      &#facebook {background-position:-86px 0;}
+      &#linkedin {background-position:-130px 0;}
+    }
+    li {
+      display:inline-block; 
+      margin:0; 
+      padding:0;
+    }
+
+  }
+  img.logo-foot {
+    max-width:140px;
+    padding-right:100px;
   }
 }
 
