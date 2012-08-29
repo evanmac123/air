@@ -53,8 +53,8 @@ feature 'Admin sends targeted messges using segmentation' do
       plain_part = mail.parts.select{|part| part.content_type =~ /text/}.first
 
       mail.subject.should == expected_subject
-      html_part.body.to_s.should == expected_html_text
-      plain_part.body.to_s.should == expected_plain_text
+      html_part.body.to_s.should include(expected_html_text)
+      plain_part.body.to_s.should include(expected_plain_text)
     end
   end
 

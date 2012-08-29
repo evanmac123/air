@@ -3,7 +3,7 @@ require "spec_helper"
 describe GenericMailer do
   subject { GenericMailer }
 
-  describe "#generic_message" do
+  describe "#send_message" do
     it "should send a message" do
       @user = FactoryGirl.create :user
       GenericMailer.send_message(@user.id, "Here is the subject", "This is some text", "<p>This is some HTML</p>").deliver
@@ -12,7 +12,7 @@ describe GenericMailer do
         to(@user.email).
         with_subject("Here is the subject").
         with_part('text/plain', /This is some text\s*/).
-        with_part('text/html', '<p>This is some HTML</p>').
+        with_part('text/html', %r!<p>This is some HTML</p>!).
         from("play@playhengage.com")
     end
 
@@ -27,7 +27,7 @@ describe GenericMailer do
           to(@user.email).
           with_subject("Here is the subject").
           with_part('text/plain', /This is some text\s*/).
-          with_part('text/html', '<p>This is some HTML</p>').
+          with_part('text/html', %r!<p>This is some HTML</p>!).
           from("someco@playhengage.com")
         end
     end

@@ -5,22 +5,23 @@ class GenericMailer < ActionMailer::Base
   helper :email
 
   def send_message(user_id, subject, plain_text, html_text)
-    user = User.find(user_id)
+    @html_text = html_text.html_safe
 
-    from_string = user.demo.email.present? ? user.demo.reply_email_address : "H Engage <play@playhengage.com>"
+    @plain_text = plain_text
 
-    while(plain_text !~ /\n\n$/)
-      plain_text += "\n"
+    @user = User.find(user_id)
+
+    from_string = @user.demo.email.present? ? @user.demo.reply_email_address : "H Engage <play@playhengage.com>"
+
+    while(@plain_text !~ /\n\n$/)
+      @plain_text += "\n"
     end
 
     mail(
-      :to      => user.email,
+      :to      => @user.email,
       :subject => subject,
       :from    => from_string
-    ) do |format|
-      format.text {render :text => plain_text}
-      format.html {render :text => html_text}
-    end
+    ) 
   end
 
   module BulkSender
