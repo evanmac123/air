@@ -1,3 +1,9 @@
+.pt ul.pt-buttons li {display:inline-block;}
+.pt section.s960 div.text {padding:20px 0;}
+div.image {
+    text-align:center;
+    width:440px;
+}
 div.text {
     padding:10px;
     width:480px;
@@ -32,8 +38,52 @@ div.right {float:right;}
     ul#mobilefirst {border-bottom:1px lighten($gray, 40%) solid;}
     ul#leverage {border-top:1px #fff solid; padding-top:20px;}
 }
-#identify {
-    ul.pt-buttons li {
-        display:inline-block;
+
+#perpeng ul#perpeng-features {
+    h1,p {box-sizing:border-box; display:inline-block; margin:0;}
+    h1 {
+        color:$gray;
+        float:left;
+        padding:10px 0;
+        text-align:center;
+        width:60px;
     }
+    p {
+        float:right;
+        padding:10px;
+        width:418px;
+    }
+    li {
+        clear:both;
+        margin:20px 0;
+        &#pef-1 p {margin-top:15px;}
+        &#pef-2 h1 {padding:20px 0;}
+        &.selected {
+            h1, p {color:#fff;}
+            h1 {background:darken($dark-green, 5%);}
+            background:$dark-green;
+        }
+    }
+}
+#exciteaction div.image {text-align:left; padding-top:45px;}
+#pt-spark ul.pt-buttons {padding:40px 0; text-align:center;}
+
+#pt-drive section#section-head {
+    background:#fff url('/assets/marketing/bg-grid.gif') center bottom repeat-x;
+    height:341px;
+    margin-bottom:30px;
+    padding:0;
+    div.wrap{
+        background:url('/assets/marketing/chart.png') bottom center no-repeat;
+        height:100%;
+        margin:0 auto;
+        padding:40px 10px 0 10px;
+        width:980px;
+    }
+}
+#pt-drive section#oneplatform div.image {
+    @include drop-shadow;
+    border:8px #fff solid;
+    height:240px;
+    width:402px;
 }

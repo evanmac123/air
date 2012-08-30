@@ -6,7 +6,11 @@ $orange: #ff7d00;
 $yellow: #d4dd25;
 @mixin text-shadow {
   text-shadow: 1px 1px 1px #818181;
-    filter: dropshadow(color=#818181, offx=1, offy=1); 
+  filter: dropshadow(color=#818181, offx=1, offy=1); 
+}
+@mixin drop-shadow {
+  -webkit-box-shadow:  0px 0px 4px 0px #c4c4c4;
+  box-shadow:  0px 0px 4px 0px #c4c4c4;
 }
 @mixin arrow {
   border-style: solid;
@@ -112,6 +116,14 @@ a.button {
     margin-right:10px;
   }
 }
+a.callout {
+  background:$green;
+  padding:5px;
+  &:hover{
+    background:$dark-green;
+    color:#fff;
+  }
+}
 a.green-btn {
   @include green-btn;
 }
@@ -135,6 +147,12 @@ a.orange-btn.tour span {
 a.green-btn.contact span {
   // green email icon
   background-position:-104px 0;
+  height:28px;
+  width:29px;
+}
+a.orange-btn.contact span {
+  // orange email icon
+  background-position:-34px 0;
   height:28px;
   width:29px;
 }
