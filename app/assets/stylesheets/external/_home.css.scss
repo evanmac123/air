@@ -152,7 +152,7 @@ header {
     #michelin, #fuji {
         div.arrow {
             @include right-arrow;
-            margin-top:-10px;
+            margin-top:-20px;
             margin-left:328px;
         }
         div.logo-holder {float:left;}
@@ -161,7 +161,7 @@ header {
     #yahoo, #highmark {
         div.arrow {
             @include left-arrow;
-            margin-top:-10px;
+            margin-top:-20px;
             margin-left:-20px;
         }
         div.logo-holder {float:right;}
