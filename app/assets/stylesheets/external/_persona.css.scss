@@ -1,0 +1,58 @@
+#quotes {
+    background:#292929;
+    border-top:1px #fff solid;
+    div.arrow {
+        @include left-arrow;
+        border-color: transparent #fff;
+        margin:3px 0 0 530px;
+    }
+    div.employee {
+        background:#888;
+        display:inline-block;
+        float:left;
+        height:100%;
+        overflow:hidden;
+        width:310px;
+        ul {
+            border:1px blue solid;
+            height:100%;
+            //width:100%;
+        }
+        li {
+            border:1px red solid;
+            height:100%;
+            margin:0 auto;
+            //width:100%;
+            img {
+                height:100%;
+                //width:100%;
+            }
+        }
+    }
+    div.employee-quote {
+        background:#fff;
+        color:#6a6a6a;
+        float:right;
+        height:100%;
+        overflow:scroll;
+        padding:20px;
+        width:410px;
+        p {font-style:italic; font-size:.875em; line-height:22.75px;}
+    }
+    div.wrap {
+        height:300px;
+        margin:20px auto;
+    }
+    ul.features {
+        background:$dark-green;
+        float:left;
+        width:240px;
+        a {
+            box-sizing:border-box;
+            display:inline-block;
+            padding:12px;
+            width:100%;
+            &.selected, &:hover {background:darken($dark-green, 5%);}
+        }
+    }
+}

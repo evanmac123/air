@@ -390,6 +390,16 @@ section {clear:both;}
 }
 #mast li, #nav li {display:inline-block;}
 #mast {
+  #login span {
+    background-position:-24px -41px;
+    height:20px;
+    width:26px;
+  }
+  #signup span {
+    background-position:0 -41px;
+    height:20px;
+    width:16px;
+  }
   img {
     display:inline-block; 
     margin:20px 0 10px 0;

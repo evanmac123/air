@@ -1,4 +1,21 @@
-<%= render 'september_header' %>
+<header>
+  <%= render 'september_header' %>
+  <section id="hero">
+    <h1>Help employees <span class="heart"></span> HR</h1>
+    <div class="left">
+      <h2>Connect employees to HR with technologies people love</h2>
+      <ul>
+        <li id="hero-tour"><a href="reach.html" class="tour button orange-btn gradient"><span></span> Product tour</a></li>
+        <li id="hero-contact"><a href="#" class="contact button orange-btn gradient"><span></span> Contact us</a></li>
+      </ul>
+      <div class="cf"></div>
+      <p>New player? <%= link_to "Request an invite", new_invitation_path, :class => "signup" %></p>
+    </div>
+    <div id="video"></div>
+    <div class="cf"></div>
+  </section>
+</header>
+
 <section id="points">
   <ul class="tour-nav">
     <li class="reach"><a href="reach.html" id="reach"></a><h3>Reach hard-to-reach<br/>employees</h3></li>
@@ -21,7 +38,7 @@
     </tr>
   </table>
   <div class="cf">
-    <a href="reach.html" class="button orange-btn gradient">Learn more about ECS</a>
+    <a href="reach.html" class="button orange-btn gradient"><span></span> Learn more about ECS</a>
   </div>
 </section>
 
@@ -36,13 +53,43 @@
       <li><a href="#">Learning and development</a></li>
     </ul>
     <div class="employee">
-      <!-- maybs add pics on a list? onhover state hide/show? 
-           or change background images? -->
+      <ul>
+        <li class="401k"><img src="assets/marketing/personas/401k.jpg" /></li>
+        <li class="wellness"><img src="assets/marketing/personas/wellness.jpg" /></li>
+        <li class="rewards"><img src="assets/marketing/personas/rewards.jpg" /></li>
+        <li class="onboarding"><img src="assets/marketing/personas/onboarding.jpg" /></li>
+        <li class="communications"><img src="assets/marketing/personas/communications.jpg" /></li>
+        <li class="learndev"><img src="assets/marketing/personas/learndev.jpg" /></li>
+      </ul>
     </div>
     <div class="arrow"></div>
     <div class="employee-quote">
-      <h2>Rather semi-long heading title here</h2>
-      <p>Learning what works and what doesn't is so basic. But often we're just trying to keep our heads above water. There's not time to put data together the way we wish we could. H Engage made it easy and fast to show how our investments were paying off using our existing information. It's made me a better strategic partner.</p>
+      <ul>
+        <li class="401k">
+          <h2>401k Participation</h2>
+          <p>I loved that HR sent me a text reminder about the 401k. I texted right back to learn more about. It felt like I was talking to someone!</p>
+        </li>
+        <li class="wellness">
+          <h2>Wellness</h2>
+          <p>I never took wellness seriously. But when the game started, my friend signed me up and I got a little competitive. I loved playing right from my phone since I'm not usually near a computer.</p>
+        </li>
+        <li class="rewards">
+          <h2>Total rewards</h2>
+          <p>I can't believe all of the programs I'd been missing out on. The gym benefit? Vision? Course reimbursement? It's actually fun coming back every week and learning more. </p>
+        </li>
+        <li class="onboarding">
+          <h2>Onboarding</h2>
+          <p>The first day is always intimidating. Hard to talk to people and so much to take in. I didn't believe my manager when she said, "Ready to play a game?" By the end of the day, I talked to 5 people, learned about the safety program, and felt like part of the team.</p>
+        </li>
+        <li class="communications">
+          <h2>Communications</h2>
+          <p>Learning what works and what doesn't is so basic. But often we're just trying to keep our heads above water. There's not time to put data together the way we wish we could. H Engage made it easy and fast to show how our investments were paying off using our existing information. It's made me a better strategic partner.</p>
+        </li>
+        <li class="learndev">
+          <h2>Learning and Development</h2>
+          <p>We're always putting up posters around the worksite. Making those interactive drove a lot of attention from employees that weren't exactly in the habit of reading them.</p>
+        </li>
+      </ul>
     </div>
   </div>
   <div class="cf"></div>
@@ -84,7 +131,7 @@
       <img src="blahblahblah" />
       <div class="arrow"></div>
     </div>
-    
+
     <ul>
       <li><h2>Bridging the gaps</h2></li>
       <li><p>At FUJIFILM, we engaged a wide variety of workers in wellness – from factories to offices and even the remote sales team.</p></li>
@@ -105,6 +152,6 @@
     <div class="cf"></div>
   </div>
 
-  <a href="reach.html" class="tour button green-btn gradient">See how we can help you</a>
+  <a href="reach.html" class="tour button green-btn gradient"><span></span> See how we can help you</a>
 </section>
 <%= render 'september_footer' %>
