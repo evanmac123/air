@@ -391,7 +391,10 @@ sub {
 
 /* Primary styles
 ---------------------------------------- */
-header {background:$dark-green; border-bottom:1px darken($dark-green, 5%) solid;}
+header {
+  background:url('/assets/marketing/header-bg.png') top center no-repeat $dark-green; 
+  border-bottom:1px darken($dark-green, 5%) solid;
+}
 section {clear:both;}
 #mast, #nav, footer .wrap {
   margin:0 auto;
@@ -426,6 +429,7 @@ section {clear:both;}
   }
 }
 #nav {
+  border-bottom:1px darken($dark-green, 5%) solid;
   padding:10px 0 20px 0;
   li {
     margin-right:50px;
@@ -497,6 +501,7 @@ footer {
 @import "home";
 @import "features";
 @import "prodtour";
+@import "solutions";
 
 
 /* Media queries

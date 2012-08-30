@@ -1,3 +1,8 @@
+.pt header {background-position:center -50px;}
+.pt header div.nav-arrow {
+    @include nav-arrow;
+    margin:38px 0 0 -500px;
+}
 .pt ul.pt-buttons li {display:inline-block;}
 .pt section.s960 div.text {padding:20px 0;}
 div.image {
@@ -33,13 +38,13 @@ div.right {float:right;}
     }
 }
 
-#mobile {
+#pt-reach #mobile {
     ul {margin:0;}
     ul#mobilefirst {border-bottom:1px lighten($gray, 40%) solid;}
     ul#leverage {border-top:1px #fff solid; padding-top:20px;}
 }
 
-#perpeng ul#perpeng-features {
+#pt-spark #perpeng ul#perpeng-features {
     h1,p {box-sizing:border-box; display:inline-block; margin:0;}
     h1 {
         color:$gray;
@@ -65,7 +70,7 @@ div.right {float:right;}
         }
     }
 }
-#exciteaction div.image {text-align:left; padding-top:45px;}
+#pt-spark #exciteaction div.image {text-align:left; padding-top:45px;}
 #pt-spark ul.pt-buttons {padding:40px 0; text-align:center;}
 
 #pt-drive section#section-head {
@@ -87,3 +92,4 @@ div.right {float:right;}
     height:240px;
     width:402px;
 }
+#pt-drive section#oneplatform {margin-bottom:40px;}
