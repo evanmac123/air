@@ -36,8 +36,8 @@
     <header>
       <ul id="mast">
         <li id="logo"><a href="index.html"><%= image_tag "marketing/logo-2x.png", :alt => "HEngage.com", :class => "logo-head" %></a></li>
-        <li id="login"><%= link_to "Log In", sign_in_path, :class => "login button orange-btn gradient" %></li>
-        <li id="signup"><%= link_to "Sign up", new_invitation_path, :class => "signup button green-btn gradient" %></li>
+        <li id="login"><%= link_to "<span></span> Log In".html_safe, sign_in_path, :class => "login button orange-btn gradient" %></li>
+        <li id="signup"><%= link_to "<span></span> Sign up".html_safe, new_invitation_path, :class => "signup button green-btn gradient" %></li>
       </ul>
 
       <ul id="nav">
@@ -101,13 +101,43 @@
           <li><a href="#">Learning and development</a></li>
         </ul>
         <div class="employee">
-          <!-- maybs add pics on a list? onhover state hide/show? 
-               or change background images? -->
+          <ul>
+            <li class="401k"><img src="assets/marketing/personas/401k.jpg" /></li>
+            <li class="wellness"><img src="assets/marketing/personas/wellness.jpg" /></li>
+            <li class="rewards"><img src="assets/marketing/personas/rewards.jpg" /></li>
+            <li class="onboarding"><img src="assets/marketing/personas/onboarding.jpg" /></li>
+            <li class="communications"><img src="assets/marketing/personas/communications.jpg" /></li>
+            <li class="learndev"><img src="assets/marketing/personas/learndev.jpg" /></li>
+          </ul>
         </div>
         <div class="arrow"></div>
         <div class="employee-quote">
-          <h2>Rather semi-long heading title here</h2>
-          <p>Learning what works and what doesn't is so basic. But often we're just trying to keep our heads above water. There's not time to put data together the way we wish we could. H Engage made it easy and fast to show how our investments were paying off using our existing information. It's made me a better strategic partner.</p>
+          <ul>
+            <li class="401k">
+              <h2>401k Participation</h2>
+              <p>I loved that HR sent me a text reminder about the 401k. I texted right back to learn more about. It felt like I was talking to someone!</p>
+            </li>
+            <li class="wellness">
+              <h2>Wellness</h2>
+              <p>I never took wellness seriously. But when the game started, my friend signed me up and I got a little competitive. I loved playing right from my phone since I'm not usually near a computer.</p>
+            </li>
+            <li class="rewards">
+              <h2>Total rewards</h2>
+              <p>I can't believe all of the programs I'd been missing out on. The gym benefit? Vision? Course reimbursement? It's actually fun coming back every week and learning more. </p>
+            </li>
+            <li class="onboarding">
+              <h2>Onboarding</h2>
+              <p>The first day is always intimidating. Hard to talk to people and so much to take in. I didn't believe my manager when she said, "Ready to play a game?" By the end of the day, I talked to 5 people, learned about the safety program, and felt like part of the team.</p>
+            </li>
+            <li class="communications">
+              <h2>Communications</h2>
+              <p>Learning what works and what doesn't is so basic. But often we're just trying to keep our heads above water. There's not time to put data together the way we wish we could. H Engage made it easy and fast to show how our investments were paying off using our existing information. It's made me a better strategic partner.</p>
+            </li>
+            <li class="learndev">
+              <h2>Learning and Development</h2>
+              <p>We're always putting up posters around the worksite. Making those interactive drove a lot of attention from employees that weren't exactly in the habit of reading them.</p>
+            </li>
+          </ul>
         </div>
       </div>
       <div class="cf"></div>
