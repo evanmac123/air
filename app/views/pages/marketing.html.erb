@@ -36,8 +36,9 @@
     <header>
       <ul id="mast">
         <li id="logo"><a href="index.html"><%= image_tag "marketing/logo-2x.png", :alt => "HEngage.com", :class => "logo-head" %></a></li>
-        <li id="signup"><a href="signup.html" class="signup button green-btn gradient">Sign up</a></li>
-        <li id="login"><a href="login.html" class="login button orange-btn gradient">Login</a></li>
+        <li id="login"><%= link_to "Log In", sign_in_path, :class => "login button orange-btn gradient" %></li>
+        <li><a href="/google" class="login button orange-btn gradient">TEST BUTTON</a></li>
+        <li id="signup"><%= link_to "Sign up", new_invitation_path, :class => "signup button green-btn gradient" %></li>
       </ul>
 
       <ul id="nav">
@@ -57,7 +58,7 @@
             <li id="hero-contact"><a href="#" class="contact button orange-btn gradient">Contact us</a></li>
           </ul>
           <div class="cf"></div>
-          <p>New player? <a href="signup.html" class="signup">Request an invite</a></p>
+          <p>New player? <%= link_to "Request an invite", new_invitation_path, :class => "signup" %></p>
         </div>
         <div id="video"></div>
         <div class="cf"></div>

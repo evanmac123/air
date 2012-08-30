@@ -1,7 +1,7 @@
-$hegreen: #74C04C;
-$hedgreen: #39b549;
+@import "./external/_set.css.scss";
+
 body.external {
-  background:image-url('marketing/bg-dark.jpg');
+  background:url('/assets/marketing/bg.gif');
   a { 
    color: #74c04c; 
    font-family: 'Ubuntu', sans-serif;
@@ -19,8 +19,7 @@ body.external {
   a:hover, a:active { outline: 0; }
   h1, h2, h3 {font-family:'Ubuntu', Helvetica, Arial, sans-serif; font-weight:400;}
   div.header {
-    background:image-url('marketing/bg.png');
-    border-bottom:1px #fff solid;
+    background:url('/assets/marketing/bg.gif');
     padding:20px 0;
     text-align:center;
     div {margin:auto; width:440px;}
@@ -31,7 +30,6 @@ body.external {
     div#navigation {
        padding:10px 0;
        li {
-          background:image-url('/marketing/bgpx-dark.png');
           font-size:16px;
           margin:0 1px;
           padding:10px 20px;
@@ -41,7 +39,7 @@ body.external {
     }
   } //end of div.header
   div.content {
-    color:#CCC;
+    color:$gray;
     font-size:14px;
     margin:20px auto;
     padding:0;
@@ -52,7 +50,7 @@ body.external {
       margin:0 auto 20px auto;
       p {padding:5px 0;}
     }
-    h2 {color:#fff; font-size:30px; margin:0; padding:0 0 20px 0;}
+    h2 {color:$dark-green; font-size:30px; margin:0; padding:0 0 20px 0;}
     input[type="text"], input[type="password"] {
       border:1px #d3d3d3 solid;
       border-radius:5px;
@@ -75,16 +73,21 @@ body.external {
       }
     }
     input[type="submit"] {
-      background:image-url('marketing/btn-submit.png') center center no-repeat;
-      border:none;
-      display:block;
-      font-size:0;
-      line-height: 999px;
-      overflow:hidden;
-      text-indent:99999;
-      height:45px;
-      width:141px;
-      &:hover { background:image-url('marketing/btnhov-submit.png') center center no-repeat; }
+      @include orange-btn;
+      font-family:'Ubuntu', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-size:16px;
+      font-weight:500;
+      padding:10px 15px;
+      text-decoration: none;
+      @include text-shadow;
+      color: #fff;
+      &:hover {
+        -webkit-transition: all .1s ease-in-out;
+          -moz-transition: all .1s ease-in-out;
+          -ms-transition: all .1s ease-in-out;
+          -o-transition: all .1s ease-in-out;
+          transition: all .1s ease-in-out;
+      }
     }
     li.form-label {color:#777;}
     li.secondary-form-label {position: absolute; top: 1.2em; left: 0;}
@@ -120,7 +123,6 @@ body.invitations-new, body.invitations-create { // Sign Up external pages
 }
 /* #################### INVITATIONS-SHOW #################### */
 body.invitations-show {
-  background:image-url('marketing/bg.png');
   p {color:#636363;}
   #broughtby {
     position:absolute;
@@ -158,7 +160,7 @@ body.invitations-show {
     .status {
       border-bottom:1px #d8d8d8 solid;
       .welcome-message {
-        h2 {color:$hegreen; font-size:40px;}
+        h2 {color:$green; font-size:40px;}
         span {display:block;font-weight:bold;}
       }
     }
@@ -307,7 +309,7 @@ body.invitations-show div.helper {
   box-shadow:none;
   -moz-box-shadow:0;
   -webkit-box-shadow:0;
-  color:$hedgreen;
+  color:$dark-green;
   font-size:16px;  
   left:670px;
   padding:0;

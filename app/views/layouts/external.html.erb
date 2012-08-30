@@ -3,7 +3,9 @@
 <title>H Engage </title>
   <%= stylesheet_link_tag "application-base" %>
   <%= javascript_include_tag 'application' %>
+  <%= javascript_include_tag 'modernizr' %>
   <%= javascript_include_tag asset_path('ga-marketing.js') if ENV['USE_GA'] %>
+
   <%= render 'shared/skin_styles' %>
 
   <link href='https://fonts.googleapis.com/css?family=Ubuntu:400,500' rel='stylesheet' type='text/css'>
