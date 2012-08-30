@@ -1,0 +1,31 @@
+<header>
+  <ul id="mast">
+    <li id="logo"><a href="index.html"><%= image_tag "marketing/logo-2x.png", :alt => "HEngage.com", :class => "logo-head" %></a></li>
+    <li id="login"><%= link_to "Log In", sign_in_path, :class => "login button orange-btn gradient" %></li>
+    <li id="signup"><%= link_to "Sign up", new_invitation_path, :class => "signup button green-btn gradient" %></li>
+  </ul>
+
+  <ul id="nav">
+    <li id="tour"><a href="reach.html" class="tour">Product tour</a></li>
+    <li id="solutions"><a href="solutions.html" class="solutions">Solutions</a></li>
+    <li id="blog"><a href="#" target="_new" class="blog">What's new</a></li>
+    <li id="contact"><a href="#" class="contact">Contact us</a></li>
+    <li id="number"><h2>(617) 555-5555</h2></li>
+  </ul>
+
+  <section id="hero">
+    <h1>Help employees <span class="heart">&#60;3</span> HR</h1>
+    <div class="left">
+      <h2>Connect employees to HR with technologies people love</h2>
+      <ul>
+        <li id="hero-tour"><a href="reach.html" class="tour button orange-btn gradient">Product tour</a></li>
+        <li id="hero-contact"><a href="#" class="contact button orange-btn gradient">Contact us</a></li>
+      </ul>
+      <div class="cf"></div>
+      <p>New player? <%= link_to "Request an invite", new_invitation_path, :class => "signup" %></p>
+    </div>
+    <div id="video"></div>
+    <div class="cf"></div>
+  </section>
+</header>
+

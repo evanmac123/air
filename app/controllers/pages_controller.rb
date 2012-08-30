@@ -24,17 +24,19 @@ class PagesController < HighVoltage::PagesController
   protected
 
   def layout_for_page
-    page_name = params[:id]
+    page_name = params[:id] || params[:action]
     case page_name
     when 'privacy', 'terms'
       'external'
+    when 'reach', 'spark', 'drive', 'solutions'
+      'september_external'
     when 'faq'
       'application'
     when 'faq_body', 'faq_toc'
       false
     when 'marketing'
       Shotgun.ping_page(page_name)
-      false
+      'september_external'   #false
     else
       'pages'
     end
