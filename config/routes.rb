@@ -53,6 +53,11 @@ Health::Application.routes.draw do
   get "terms" => "pages#terms", :as => "terms"
   get "privacy" => "pages#privacy", :as => "privacy"
 
+  get "reach" => "pages#reach", :as => "reach"
+  get "spark" => "pages#spark", :as => "spark"
+  get "drive" => "pages#drive", :as => "drive"
+  get "solutions" => "pages#solutions", :as => "solutions"
+
   put "tutorial" => "tutorials#update", :as => "tutorial"
   post "tutorial" => "tutorials#create", :as => "tutorial"
   

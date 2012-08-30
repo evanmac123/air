@@ -1,232 +1,157 @@
-<!-- nav & footer should be loaded in -->
-
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    
-    <title>H Engage | Help employees <3 HR</title>
-
-    <!-- Meta tags -->
-    <meta name="description" content="" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-    <!-- Don't forget to update the bookmark icons (favicon.ico and apple-touch-icons) -->
-
-    <!-- CSS -->
-    <%= stylesheet_link_tag 'external/marketing' %>
-    <link href='http://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700' rel='stylesheet' type='text/css'>
-    
-    <!-- JavaScript -->
-    <script src="marketing/js/libs/modernizr-2.5.3.min.js"></script>
-
-    <!--[if IE]><![endif]-->
-    <!--[if lt IE 9]>
-    <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <style type="text/css">
-    .gradient {
-       filter: none;
-    }
-  </style>
-    <![endif]-->
-    <script src="marketing/js/libs/respond.min.js"></script>
-  </head>
-  <body id="homepage">
-    <header>
-      <ul id="mast">
-        <li id="logo"><a href="index.html"><%= image_tag "marketing/logo-2x.png", :alt => "HEngage.com", :class => "logo-head" %></a></li>
-        <li id="login"><%= link_to "<span></span> Log In".html_safe, sign_in_path, :class => "login button orange-btn gradient" %></li>
-        <li id="signup"><%= link_to "<span></span> Sign up".html_safe, new_invitation_path, :class => "signup button green-btn gradient" %></li>
+<header>
+  <%= render 'september_header' %>
+  <section id="hero">
+    <h1>Help employees <span class="heart"></span> HR</h1>
+    <div class="left">
+      <h2>Connect employees to HR with technologies people love</h2>
+      <ul>
+        <li id="hero-tour"><a href="reach.html" class="tour button orange-btn gradient"><span></span> Product tour</a></li>
+        <li id="hero-contact"><a href="#" class="contact button orange-btn gradient"><span></span> Contact us</a></li>
       </ul>
-
-      <ul id="nav">
-        <li id="tour"><a href="reach.html" class="tour">Product tour</a></li>
-        <li id="solutions"><a href="solutions.html" class="solutions">Solutions</a></li>
-        <li id="blog"><a href="#" target="_new" class="blog">What's new</a></li>
-        <li id="contact"><a href="#" class="contact">Contact us</a></li>
-        <li id="number"><h2>(617) 555-5555</h2></li>
-      </ul>
-
-      <section id="hero">
-        <h1>Help employees <span class="heart"></span> HR</h1>
-        <div class="left">
-          <h2>Connect employees to HR with technologies people love</h2>
-          <ul>
-            <li id="hero-tour"><a href="reach.html" class="tour button orange-btn gradient"><span></span> Product tour</a></li>
-            <li id="hero-contact"><a href="#" class="contact button orange-btn gradient"><span></span> Contact us</a></li>
-          </ul>
-          <div class="cf"></div>
-          <p>New player? <%= link_to "Request an invite", new_invitation_path, :class => "signup" %></p>
-        </div>
-        <div id="video"></div>
-        <div class="cf"></div>
-      </section>
-    </header>
-
-    <section id="points">
-      <ul class="tour-nav">
-        <li class="reach"><a href="reach.html" id="reach"></a><h3>Reach hard-to-reach<br/>employees</h3></li>
-        <li class="spark"><a href="spark.html" id="spark"></a><h3>Spark engagement</h3></li>
-        <li class="drive"><a href="drive.html" id="drive"></a><h3>Drive ROI</h3></li>
-      </ul>
-    </section>
-
-    <section id="ecs">
-      <h2>Engagement &#38; Communications Systems (ECS)</h2>
-      <p>Software platform that helps people value and understand HR Programs. Learns employee media preferences, connects via preferred channels, measures and improves.</p>
-      <table border="0">
-        <tr>
-          <td><div id="ecs-text"></div><p>Text messages</p></td>
-          <td><div id="ecs-email"></div><p>Personal emails</p></td>
-        </tr>
-        <tr>
-          <td><div id="ecs-social"></div><p>Social media</p></td>
-          <td><div id="ecs-game"></div><p>Game mechanics</p></td>
-        </tr>
-      </table>
-      <div class="cf">
-        <a href="reach.html" class="button orange-btn gradient"><span></span> Learn more about ECS</a>
-      </div>
-    </section>
-
-    <section id="quotes">
-      <div class="wrap">
-        <ul class="features">
-          <li><a href="#" class="selected">401k participation</a></li>
-          <li><a href="#">Wellness</a></li>
-          <li><a href="#">Total rewards</a></li>
-          <li><a href="#">Onboarding</a></li>
-          <li><a href="#">Communications</a></li>
-          <li><a href="#">Learning and development</a></li>
-        </ul>
-        <div class="employee">
-          <ul>
-            <li class="401k"><img src="assets/marketing/personas/401k.jpg" /></li>
-            <li class="wellness"><img src="assets/marketing/personas/wellness.jpg" /></li>
-            <li class="rewards"><img src="assets/marketing/personas/rewards.jpg" /></li>
-            <li class="onboarding"><img src="assets/marketing/personas/onboarding.jpg" /></li>
-            <li class="communications"><img src="assets/marketing/personas/communications.jpg" /></li>
-            <li class="learndev"><img src="assets/marketing/personas/learndev.jpg" /></li>
-          </ul>
-        </div>
-        <div class="arrow"></div>
-        <div class="employee-quote">
-          <ul>
-            <li class="401k">
-              <h2>401k Participation</h2>
-              <p>I loved that HR sent me a text reminder about the 401k. I texted right back to learn more about. It felt like I was talking to someone!</p>
-            </li>
-            <li class="wellness">
-              <h2>Wellness</h2>
-              <p>I never took wellness seriously. But when the game started, my friend signed me up and I got a little competitive. I loved playing right from my phone since I'm not usually near a computer.</p>
-            </li>
-            <li class="rewards">
-              <h2>Total rewards</h2>
-              <p>I can't believe all of the programs I'd been missing out on. The gym benefit? Vision? Course reimbursement? It's actually fun coming back every week and learning more. </p>
-            </li>
-            <li class="onboarding">
-              <h2>Onboarding</h2>
-              <p>The first day is always intimidating. Hard to talk to people and so much to take in. I didn't believe my manager when she said, "Ready to play a game?" By the end of the day, I talked to 5 people, learned about the safety program, and felt like part of the team.</p>
-            </li>
-            <li class="communications">
-              <h2>Communications</h2>
-              <p>Learning what works and what doesn't is so basic. But often we're just trying to keep our heads above water. There's not time to put data together the way we wish we could. H Engage made it easy and fast to show how our investments were paying off using our existing information. It's made me a better strategic partner.</p>
-            </li>
-            <li class="learndev">
-              <h2>Learning and Development</h2>
-              <p>We're always putting up posters around the worksite. Making those interactive drove a lot of attention from employees that weren't exactly in the habit of reading them.</p>
-            </li>
-          </ul>
-        </div>
-      </div>
       <div class="cf"></div>
-    </section>
+      <p>New player? <%= link_to "Request an invite", new_invitation_path, :class => "signup" %></p>
+    </div>
+    <div id="video"></div>
+    <div class="cf"></div>
+  </section>
+</header>
 
-    <section id="clients">
-      <h3>We are <span>the leader</span> in engaging employees using technology</h3>
-      <!-- Michelin -->
-      <div class="client" id="michelin">
-        <div class="logo-holder">
-          <img src="#" />
-          <div class="arrow"></div>
-        </div>
+<section id="points">
+  <ul class="tour-nav">
+    <li class="reach"><a href="reach.html" id="reach"></a><h3>Reach hard-to-reach<br/>employees</h3></li>
+    <li class="spark"><a href="spark.html" id="spark"></a><h3>Spark engagement</h3></li>
+    <li class="drive"><a href="drive.html" id="drive"></a><h3>Drive ROI</h3></li>
+  </ul>
+</section>
 
-        <ul>
-          <li><h2>Reducing waste</h2></li>
-          <li><p>"We partnered with H Engage to pilot adding interactive text messaging to our traditional print outreach. Employees responded well and participants' HRA completion rates increased by 26%. We've since integrated their text messaging solution into our annual enrollment process.”</p></li>
-          <li><p class="caption"><span>Laura Maillet</span>, Health and Wellness Program Manager, Michelin North America, Inc.</p></li>
-        </ul>
-        <div class="cf"></div>
-      </div>
-      <!-- Yahoo! -->
-      <div class="client" id="yahoo">
-        <div class="logo-holder">
-          <img src="#" />
-          <div class="arrow"></div>
-        </div>
+<section id="ecs">
+  <h2>Engagement &#38; Communications Systems (ECS)</h2>
+  <p>Software platform that helps people value and understand HR Programs. Learns employee media preferences, connects via preferred channels, measures and improves.</p>
+  <table border="0">
+    <tr>
+      <td><div id="ecs-text"></div><p>Text messages</p></td>
+      <td><div id="ecs-email"></div><p>Personal emails</p></td>
+    </tr>
+    <tr>
+      <td><div id="ecs-social"></div><p>Social media</p></td>
+      <td><div id="ecs-game"></div><p>Game mechanics</p></td>
+    </tr>
+  </table>
+  <div class="cf">
+    <a href="reach.html" class="button orange-btn gradient"><span></span> Learn more about ECS</a>
+  </div>
+</section>
 
-        <ul>
-          <li><h2>Educating employees</h2></li>
-          <li><p>“Over 60% of our employees who participated actually said that their awareness and their appreciation of our benefit plans had increased.”</p></li>
-          <li><p class="caption"><span>Bernie Knobbe</span>, Senior Director for Global Benefits, Yahoo!</p></li>
-        </ul>
-        <div class="cf"></div>
-      </div>
-      <!-- FujiFilm -->
-      <div class="client" id="fuji">
-        <div class="logo-holder">
-          <img src="#" />
-          <div class="arrow"></div>
-        </div>
-        
-        <ul>
-          <li><h2>Bridging the gaps</h2></li>
-          <li><p>At FUJIFILM, we engaged a wide variety of workers in wellness – from factories to offices and even the remote sales team.</p></li>
-        </ul>
-        <div class="cf"></div>
-      </div>
-      <!-- Highmark BGBS -->
-      <div class="client" id="highmark">
-        <div class="logo-holder">
-          <img src="#" />
-          <div class="arrow"></div>
-        </div>
+<section id="quotes">
+  <div class="wrap">
+    <ul class="features">
+      <li><a href="#" class="selected">401k participation</a></li>
+      <li><a href="#">Wellness</a></li>
+      <li><a href="#">Total rewards</a></li>
+      <li><a href="#">Onboarding</a></li>
+      <li><a href="#">Communications</a></li>
+      <li><a href="#">Learning and development</a></li>
+    </ul>
+    <div class="employee">
+      <ul>
+        <li class="401k"><img src="assets/marketing/personas/401k.jpg" /></li>
+        <li class="wellness"><img src="assets/marketing/personas/wellness.jpg" /></li>
+        <li class="rewards"><img src="assets/marketing/personas/rewards.jpg" /></li>
+        <li class="onboarding"><img src="assets/marketing/personas/onboarding.jpg" /></li>
+        <li class="communications"><img src="assets/marketing/personas/communications.jpg" /></li>
+        <li class="learndev"><img src="assets/marketing/personas/learndev.jpg" /></li>
+      </ul>
+    </div>
+    <div class="arrow"></div>
+    <div class="employee-quote">
+      <ul>
+        <li class="401k">
+          <h2>401k Participation</h2>
+          <p>I loved that HR sent me a text reminder about the 401k. I texted right back to learn more about. It felt like I was talking to someone!</p>
+        </li>
+        <li class="wellness">
+          <h2>Wellness</h2>
+          <p>I never took wellness seriously. But when the game started, my friend signed me up and I got a little competitive. I loved playing right from my phone since I'm not usually near a computer.</p>
+        </li>
+        <li class="rewards">
+          <h2>Total rewards</h2>
+          <p>I can't believe all of the programs I'd been missing out on. The gym benefit? Vision? Course reimbursement? It's actually fun coming back every week and learning more. </p>
+        </li>
+        <li class="onboarding">
+          <h2>Onboarding</h2>
+          <p>The first day is always intimidating. Hard to talk to people and so much to take in. I didn't believe my manager when she said, "Ready to play a game?" By the end of the day, I talked to 5 people, learned about the safety program, and felt like part of the team.</p>
+        </li>
+        <li class="communications">
+          <h2>Communications</h2>
+          <p>Learning what works and what doesn't is so basic. But often we're just trying to keep our heads above water. There's not time to put data together the way we wish we could. H Engage made it easy and fast to show how our investments were paying off using our existing information. It's made me a better strategic partner.</p>
+        </li>
+        <li class="learndev">
+          <h2>Learning and Development</h2>
+          <p>We're always putting up posters around the worksite. Making those interactive drove a lot of attention from employees that weren't exactly in the habit of reading them.</p>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="cf"></div>
+</section>
 
-        <ul>
-          <li><h2>Leveraging social influence</h2></li>
-          <li><p>The wellness campaign run through Highmark, an independent licensee of the Blue Cross and Blue Shield Association, owed much of its success to being spread virally through peer to peer influence. 82% of players were signed up by a fellow employee.</p></li>
-        </ul>
-        <div class="cf"></div>
-      </div>
+<section id="clients">
+  <h3>We are <span>the leader</span> in engaging employees using technology</h3>
+  <!-- Michelin -->
+  <div class="client" id="michelin">
+    <div class="logo-holder">
+      <img src="#" />
+      <div class="arrow"></div>
+    </div>
 
-      <a href="reach.html" class="tour button green-btn gradient"><span></span> See how we can help you</a>
-    </section>
+    <ul>
+      <li><h2>Reducing waste</h2></li>
+      <li><p>"We partnered with H Engage to pilot adding interactive text messaging to our traditional print outreach. Employees responded well and participants' HRA completion rates increased by 26%. We've since integrated their text messaging solution into our annual enrollment process.”</p></li>
+      <li><p class="caption"><span>Laura Maillet</span>, Health and Wellness Program Manager, Michelin North America, Inc.</p></li>
+    </ul>
+    <div class="cf"></div>
+  </div>
+  <!-- Yahoo! -->
+  <div class="client" id="yahoo">
+    <div class="logo-holder">
+      <img src="#" />
+      <div class="arrow"></div>
+    </div>
 
-    <footer>
-      <div class="wrap">
-        <%= image_tag "marketing/logo-f-2x.png", :class => "logo-foot" %>
-        <ul class="footer-nav" id="footer-us">
-          <li><a href="about.html" class="about">About us</a></li>
-          <li><a href="#" class="contact">Contact us</a></li>
-          <li><a href="security.html" class="security">Security</a></li>
-        </ul>
-        <ul class="footer-nav" id="footer-client">
-          <li><a href="reach.html" class="tour">Product tour</a></li>
-          <li><a href="solutions.html" class="solutions">Solutions</a></li>
-          <li><a href="login.html" class="login">Player login</a></li>
-        </ul>
-        <ul id="footer-social">
-          <li><a href="#" id="rss">RSS</a></li>
-          <li><a href="#" id="twitter">Twitter</a></li>
-          <li><a href="#" id="facebook">Facebook</a></li>
-          <li><a href="#" id="linkedin">LinkedIn</a></li>
-        </ul>
-        <ul id="footer-rest">
-          <li><h3>(617) 555-5555</h3></li>
-          <li><small>Copyright &#169; 2012 H Engage, Inc.</small></li>
-        </ul>
-      </div>
-    </footer>
-  </body>
-</html>
+    <ul>
+      <li><h2>Educating employees</h2></li>
+      <li><p>“Over 60% of our employees who participated actually said that their awareness and their appreciation of our benefit plans had increased.”</p></li>
+      <li><p class="caption"><span>Bernie Knobbe</span>, Senior Director for Global Benefits, Yahoo!</p></li>
+    </ul>
+    <div class="cf"></div>
+  </div>
+  <!-- FujiFilm -->
+  <div class="client" id="fuji">
+    <div class="logo-holder">
+      <img src="#" />
+      <div class="arrow"></div>
+    </div>
+
+    <ul>
+      <li><h2>Bridging the gaps</h2></li>
+      <li><p>At FUJIFILM, we engaged a wide variety of workers in wellness – from factories to offices and even the remote sales team.</p></li>
+    </ul>
+    <div class="cf"></div>
+  </div>
+  <!-- Highmark BGBS -->
+  <div class="client" id="highmark">
+    <div class="logo-holder">
+      <img src="#" />
+      <div class="arrow"></div>
+    </div>
+
+    <ul>
+      <li><h2>Leveraging social influence</h2></li>
+      <li><p>The wellness campaign run through Highmark, an independent licensee of the Blue Cross and Blue Shield Association, owed much of its success to being spread virally through peer to peer influence. 82% of players were signed up by a fellow employee.</p></li>
+    </ul>
+    <div class="cf"></div>
+  </div>
+
+  <a href="reach.html" class="tour button green-btn gradient"><span></span> See how we can help you</a>
+</section>
+<%= render 'september_footer' %>
