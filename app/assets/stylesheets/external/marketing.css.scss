@@ -86,6 +86,7 @@ h1, h2, h3, h4, h5, h6 {
 h1 {
   // should be CoconOT
   font-size: 3.125em; /* 50px */
+  color:$dark-green;
   line-height: 1.1471em;
   margin: 0 0 0.3824em;
 }
@@ -253,6 +254,13 @@ a, a:visited {
   text-decoration: none;
   @include text-shadow;
   color: #fff;
+  &.bodylink {
+    color:$dark-gray;
+    text-shadow:none;
+    &:hover{
+      color:$green;
+    }
+  }
 }
 
 a:hover {
@@ -383,6 +391,7 @@ sub {
 
 /* Primary styles
 ---------------------------------------- */
+header {background:$dark-green; border-bottom:1px darken($dark-green, 5%) solid;}
 section {clear:both;}
 #mast, #nav, footer .wrap {
   margin:0 auto;
@@ -487,6 +496,7 @@ footer {
 
 @import "home";
 @import "features";
+@import "prodtour";
 
 
 /* Media queries

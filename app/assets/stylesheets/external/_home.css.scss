@@ -1,13 +1,5 @@
-header {
-    background:url('/assets/marketing/header-bg.png') top center no-repeat $dark-green;
-    border-bottom:1px darken($dark-green, 5%) solid;
-}
+#homepage header {background:url('/assets/marketing/header-bg.png') top center no-repeat $dark-green;}
 #nav {border-bottom:1px darken($dark-green, 5%) solid;}
-
-#hero, #points, #ecs, #clients, #quotes div.wrap {
-    margin:0 auto;
-    width:960px;
-}
 
 #hero {
     border-top:1px lighten($dark-green, 5%) solid;
@@ -55,7 +47,16 @@ header {
     }
     ul {margin-top:30px;}
 }
-#points {border-bottom:1px #e6e6e6 solid;}
+#homepage #points {
+    border-bottom:1px #e6e6e6 solid;
+    padding-bottom:20px;
+    h3 {
+        color:$dark-gray; 
+        font-size:1.25em;
+        font-weight:400;
+        text-shadow:none;
+    }
+}
 #ecs {
     border-top:1px #fff solid;
     padding:40px 0;
@@ -98,11 +99,6 @@ header {
         display:block;
         margin:0 auto;
         width:255px;
-        span {
-            background-position:-70px 0;
-            height:27px;
-            width:27px;
-        }
     }
     h3 {border-bottom:1px #e6e6e6 solid; color:$gray; padding-bottom:10px;}
     p.caption {font-size:.875em;}

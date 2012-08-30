@@ -1,7 +1,6 @@
 #points {
     box-sizing:border-box;
     margin-top:40px;
-    padding-bottom:20px;
     text-align:center;
     a {
         background:url('/assets/marketing/sprite-features.png') no-repeat;
@@ -32,7 +31,13 @@
         }
 
     }
-    h3 {font-size:1.25em; margin-top:20px;}
+    h3 {
+        color:#fff;
+        font-size:.875em;
+        font-weight:500;
+        margin-top:20px;
+        @include text-shadow;
+    }
     ul {
         background:url('/assets/marketing/featuresBar.png') center 40px no-repeat;
         height:185px;
@@ -46,3 +51,7 @@
         width:33.3%;
     }
 }
+
+#pt-reach ul.tour-nav li.reach a#reach {background-position: -1px -126px;}
+#pt-spark ul.tour-nav li.spark a#spark {background-position: -125px -126px;}
+#pt-drive ul.tour-nav li.drive a#drive {background-position: -250px -126px;}

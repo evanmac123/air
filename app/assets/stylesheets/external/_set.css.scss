@@ -87,6 +87,7 @@ $yellow: #d4dd25;
 }
 
 .cf {clear:both;}
+.s960 {margin:0 auto; width:960px;}
 span.heart {
   background:url('/assets/marketing/sprite-icons.png') no-repeat;
   background-position:-5px 0;
@@ -116,4 +117,23 @@ a.green-btn {
 }
 a.orange-btn {
   @include orange-btn;
+}
+
+a.green-btn.tour span { 
+  //green -> arrow
+  background-position:-70px 0;
+  height:27px;
+  width:27px;
+}
+a.orange-btn.tour span { 
+  //orange -> arrow
+  background-position:0 0;
+  height:27px;
+  width:27px;
+}
+a.green-btn.contact span {
+  // green email icon
+  background-position:-104px 0;
+  height:28px;
+  width:29px;
 }

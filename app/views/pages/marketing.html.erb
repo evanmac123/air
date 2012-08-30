@@ -1,6 +1,7 @@
+<body id="homepage">
 <header>
   <%= render 'september_header' %>
-  <section id="hero">
+  <section id="hero" class="s960">
     <h1>Help employees <span class="heart"></span> HR</h1>
     <div class="left">
       <h2>Connect employees to HR with technologies people love</h2>
@@ -16,15 +17,9 @@
   </section>
 </header>
 
-<section id="points">
-  <ul class="tour-nav">
-    <li class="reach"><a href="reach.html" id="reach"></a><h3>Reach hard-to-reach<br/>employees</h3></li>
-    <li class="spark"><a href="spark.html" id="spark"></a><h3>Spark engagement</h3></li>
-    <li class="drive"><a href="drive.html" id="drive"></a><h3>Drive ROI</h3></li>
-  </ul>
-</section>
+<%= render 'september_PTheader' %>
 
-<section id="ecs">
+<section id="ecs" class="s960">
   <h2>Engagement &#38; Communications Systems (ECS)</h2>
   <p>Software platform that helps people value and understand HR Programs. Learns employee media preferences, connects via preferred channels, measures and improves.</p>
   <table border="0">
@@ -43,7 +38,7 @@
 </section>
 
 <section id="quotes">
-  <div class="wrap">
+  <div class="wrap s960">
     <ul class="features">
       <li><a href="#" class="selected">401k participation</a></li>
       <li><a href="#">Wellness</a></li>
@@ -155,3 +150,4 @@
   <a href="reach.html" class="tour button green-btn gradient"><span></span> See how we can help you</a>
 </section>
 <%= render 'september_footer' %>
+</body>
