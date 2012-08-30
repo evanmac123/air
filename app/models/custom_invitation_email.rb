@@ -63,7 +63,7 @@ class CustomInvitationEmail < ActiveRecord::Base
   end
 
   def strip_tags(text, handling)
-    result = text
+    result = text.dup
 
     handling.each do |tag_name, disposition|
       open_tag = %!\\[#{tag_name}\\]!
@@ -71,9 +71,9 @@ class CustomInvitationEmail < ActiveRecord::Base
 
       case disposition
       when :remove
-        result.gsub!(/#{open_tag}(.*?)#{close_tag}\n?/, '')
+        result.gsub!(/#{open_tag}(.*?)#{close_tag}\n?/m, '')
       when :clean
-        result.gsub!(/(#{open_tag}|#{close_tag})/, '')
+        result.gsub!(/(#{open_tag}|#{close_tag})/m, '')
       end
     end
 
