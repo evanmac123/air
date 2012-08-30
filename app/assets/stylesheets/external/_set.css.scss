@@ -87,9 +87,15 @@ $yellow: #d4dd25;
 }
 
 .cf {clear:both;}
+span.heart {
+  background:url('/assets/marketing/sprite-icons.png') no-repeat;
+  background-position:-5px 0;
+  display:inline-block;
+  height:50px;
+  width:55px;
+}
 
 /* /////////////////// buttons /////////////////// */
-
 a.button {
   padding:15px 20px;
   background:#000;
