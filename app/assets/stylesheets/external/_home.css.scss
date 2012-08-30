@@ -34,7 +34,11 @@ header {
     h2 {font-weight:300;}
     li {
         display:inline;
-        a {padding-left:90px;}
+        a {padding:15px 30px 12px 30px;}
+        span {
+            height:29px;
+            width:29px;
+        }
         &#hero-tour {
             float:left;
             a {
@@ -42,8 +46,11 @@ header {
                 border-radius:5px 0 0 5px;
             }
         }
-        &#hero-contact a {
-            border-radius:0 5px 5px 0;
+        &#hero-contact {
+            a {
+                border-radius:0 5px 5px 0;
+            }
+            span {background-position:-34px 0;}
         }
     }
     ul {margin-top:30px;}
@@ -52,6 +59,10 @@ header {
 #ecs {
     border-top:1px #fff solid;
     padding:40px 0;
+    a.button span {
+        height:27px;
+        width:27px;
+    }
     div.cf {margin-top:40px; text-align:center;}
     h2 {padding-bottom:15px;}
     p {
@@ -126,7 +137,12 @@ header {
     a.button {
         display:block;
         margin:0 auto;
-        width:220px;
+        width:255px;
+        span {
+            background-position:-70px 0;
+            height:27px;
+            width:27px;
+        }
     }
     h3 {border-bottom:1px #e6e6e6 solid; color:$gray; padding-bottom:10px;}
     p.caption {font-size:.875em;}

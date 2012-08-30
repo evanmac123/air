@@ -91,10 +91,18 @@ $yellow: #d4dd25;
 /* /////////////////// buttons /////////////////// */
 
 a.button {
-  padding:15px 20px 15px 45px;
+  padding:15px 20px;
   background:#000;
   &:hover {
     color:#fff;
+  }
+  span {
+    background:url('/assets/marketing/sprite.png') no-repeat;
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#00FFFFFF,endColorstr=#00FFFFFF)"; /* IE8 */  
+      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#00FFFFFF,endColorstr=#00FFFFFF);   /* IE6 & 7 */      
+    display:inline-block;
+    float:left;
+    margin-right:10px;
   }
 }
 a.green-btn {
