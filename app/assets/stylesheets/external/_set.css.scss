@@ -4,6 +4,7 @@ $green: #74c04c;
 $gray: #818385;
 $orange: #ff7d00;
 $yellow: #d4dd25;
+
 @mixin text-shadow {
   text-shadow: 1px 1px 1px #818181;
   filter: dropshadow(color=#818181, offx=1, offy=1); 

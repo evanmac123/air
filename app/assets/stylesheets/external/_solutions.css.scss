@@ -5,3 +5,85 @@
         margin:38px 0 0 -365px;
     }
 }
+// initial hides
+#offerings, #measure {
+    div {&#play-feats, &#post-feats {display:none;}}
+    ul {&#play-measure, &#post-measure {display:none;}}
+}
+
+#solutions-menu {
+    background:#fff;
+    border-bottom:1px lighten($gray, 35%) solid;
+    a {
+        color:$green;
+        font-size:1.75em;
+        font-weight:400;
+        text-shadow:none;
+        &:hover{
+            color:$orange;
+        }
+        &.selected {color:$orange; font-weight:500;}
+    }
+    p {
+        font-size:.875em;
+        margin:0; 
+        padding:0;
+        &.caption {color:$gray;}
+    }
+    ul {
+        background:url('/assets/marketing/sprite.png') no-repeat #fff;
+        border-right:1px lighten($gray, 35%) solid;
+        display:inline-block;
+        float:left;
+        margin:0;
+        padding:20px 10px 20px 100px;
+        width:33.33%;
+        &#lvl1 {background-position:0 -110px;}
+        &#lvl2 {background-position:35px -280px;}
+        &#lvl3 {background-position:25px -465px; border:0;}
+    }
+}
+#measure, #offerings {
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#00FFFFFF,endColorstr=#00FFFFFF)"; /* IE8 */  
+      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#00FFFFFF,endColorstr=#00FFFFFF);   /* IE6 & 7 */      
+    padding:40px 0;
+    h2, ul {padding:0 10px;}
+    h3 {clear:both; color:$gray; padding-top:40px;}
+    ul {
+        max-width:960px;
+        li {
+            background:url('/assets/marketing/sprite.png') no-repeat;
+            background-position:0 -635px;
+            box-sizing:border-box;
+            float:left;
+            margin:5px 0;
+            padding:0 80px 0 15px;
+            width:380px;
+        }
+        /*sub-lists
+        ul {
+            margin:0;
+            max-width:380px;
+            li {
+                float:left;
+                font-size:.875em;
+                width:50%;
+            }
+        }*/
+    }
+}
+#measure {
+    background:url('/assets/marketing/sprite-icons-bg.png') -200px 20px no-repeat;
+    border-top:1px #fff solid;
+    .cf {padding:40px 0 20px 0; text-align:center;}
+}
+#offerings {
+    border-bottom:1px #e6e6e6 solid;
+    h2 {max-width:640px;}
+    div.wrap {
+        background:url('/assets/marketing/sprite-icons-bg.png') no-repeat;
+        &#message-feats {background-position:760px 10px;}
+        &#post-feats {background-position:780px -600px;}
+        &#play-feats {background-position:-200px -530px;}
+    }
+}
