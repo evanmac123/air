@@ -15,11 +15,11 @@
     <!-- Don't forget to update the bookmark icons (favicon.ico and apple-touch-icons) -->
 
     <!-- CSS -->
-    <%= stylesheet_link_tag 'external/marketing' %>
+    <%= stylesheet_link_tag 'app-external' %>
     <link href='http://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700' rel='stylesheet' type='text/css'>
     
     <!-- JavaScript -->
-    <script src="marketing/js/libs/modernizr-2.5.3.min.js"></script>
+    <%= javascript_include_tag 'app-external' %>
 
     <!--[if IE]><![endif]-->
     <!--[if lt IE 9]>
@@ -30,10 +30,9 @@
     }
   </style>
     <![endif]-->
-    <script src="marketing/js/libs/respond.min.js"></script>
   </head>
-
-  
+  <body class="homepage external">
     <%= yield %> 
+  </body>
   
 </html>

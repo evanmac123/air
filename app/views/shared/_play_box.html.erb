@@ -1,0 +1,22 @@
+<div class="mast_bottom">
+  <div id='bar_command_wrapper' style="float: left">
+    <div class="bar_section bar_command">
+      <%= form_tag acts_path do %>
+        <% game_enabled = @game_pending ? " disabled='true' " : "" %>
+        <input type="text" id="command_central" name="act[code]" autocomplete='off' <%= game_enabled %>/>
+        <input type="submit" value="Play" id="play_button"<%= game_enabled %> />
+      <% end %>
+    </div>
+  </div>
+  <div class="bar_section bar_progress">
+    <div class="bar">
+      <div class="progress" style="<%= master_bar_width %>"></div>
+      <p><%= master_bar_point_content %></p>
+    </div>
+  </div>
+  <div class="bar_section bar_level">
+    <p>Current Level :</p>
+    <p class="level"><%= current_user.top_level_index %></p>
+  </div>
+</div>
+

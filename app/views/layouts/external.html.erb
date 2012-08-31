@@ -1,8 +1,8 @@
 <!DOCTYPE html><html>
 <head>
 <title>H Engage </title>
-  <%= stylesheet_link_tag "application-base" %>
-  <%= javascript_include_tag 'application' %>
+  <%= stylesheet_link_tag "app-external" %>
+  <%= javascript_include_tag 'app-external' %>
   <%= javascript_include_tag asset_path('ga-marketing.js') if ENV['USE_GA'] %>
 
   <%= render 'shared/skin_styles' %>
@@ -12,9 +12,6 @@
 
 	<!--[if IE 8]>
 		<%= stylesheet_link_tag 'application-ie8' %>
-	<![endif]-->
-	<!--[if IE 7]>
-		<%= stylesheet_link_tag 'application-ie7' %>
 	<![endif]-->
 
   <%= csrf_meta_tag %>

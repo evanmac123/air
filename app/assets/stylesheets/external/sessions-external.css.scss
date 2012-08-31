@@ -1,7 +1,7 @@
 @import "./external/_set.css.scss";
 
 body.external {
-  background:url('/assets/marketing/bg.gif');
+  background:url('/assets/marketing/bg_darker.gif');
   a { 
    color: #74c04c; 
    font-family: 'Ubuntu', sans-serif;
@@ -262,7 +262,7 @@ body.invitations-show #suggestions{
 body.invitations-show .single_suggestion{
   width:380px;
   background-color: #eff0ef;
-  border: $single_suggestion_border_width solid #d3d3d3;
+  border: 1px solid #d3d3d3;
   box-shadow:none;
   -moz-box-shadow: none;
   -webkit-box-shadow: none;

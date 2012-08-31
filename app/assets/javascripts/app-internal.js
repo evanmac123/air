@@ -1,9 +1,9 @@
 //= require jquery
 //= require jquery_ujs
-//= require_tree ../../../vendor/assets/javascripts/.
+//= require_tree ../../../vendor/assets/javascripts/internal/.
 //= require fancybox
 //= require_self
-//= require_tree .
+//= require_tree ./internal/.
 
 
 var autocomplete_in_progress = 0;

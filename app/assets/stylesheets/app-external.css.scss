@@ -1,0 +1,38 @@
+/*
+*= require_self
+*/
+
+
+/*Include each file individually so you can control the order of inclusion
+ *(require_tree doesn't allow you to share variables across files, but it works fine for files that
+ *don't reference any other files)
+*/
+/***************                        I M P O R T A N T                       *******************/
+/*************** Stylesheets must have .css.scss extension to be included       *******************/
+/*************** is there a setting somewhere to we can tell it to compile our vendor stylesheets */
+/*************** with a simple .css extension?                                  *******************/
+
+
+/* THIRD PARTY STYLESHEETS FIRST (so we have the options of overwriting them later) */
+
+/* MIXIN DEFINITIONS NEXT (so we can use them later) */
+@import "./mixins/standard_colors.css.scss";
+@import "./mixins/standard.css.scss";
+
+/* CUSTOM STYLESHEETS LAST */
+@import "./external/sessions-external.css.scss";
+@import "./external/unsubscribe.css.scss";
+@import "./external/sign_in.css.scss";
+@import "./external/_features.css.scss";
+@import "./external/marketing.css.scss";
+@import "./external/_prodtour.css.scss";
+@import "./external/_solutions.css.scss";
+@import "./external/_home.css.scss";
+@import "./external/_persona.css.scss";
+@import "./external/_set.css.scss";
+
+
+      
+
+
+

@@ -1,5 +1,4 @@
 /*
-*= require fancybox
 *= require_self
 */
 
@@ -15,32 +14,22 @@
 
 
 /* THIRD PARTY STYLESHEETS FIRST (so we have the options of overwriting them later) */
-@import "./vendor/facebox.css.scss";
 @import "./vendor/flutie.css.scss";
-@import "./vendor/desk.com_with_fancybox.css.scss";
 
 /* MIXIN DEFINITIONS NEXT (so we can use them later) */
 @import "./mixins/standard_colors.css.scss";
 @import "./mixins/standard.css.scss";
-@import "./mixins/ex_button.css.scss";
-@import "./mixins/special_effects.css.scss";
 
 /* CUSTOM STYLESHEETS LAST */
-@import "./base/admin.css.scss";
-@import "./base/autocompletion.css.scss";
-@import "./base/faq_mini.css.scss";
-@import "./base/header.css.scss";
-@import "./base/misc.css.scss";
-@import "./base/mobile.css.scss";
-@import "./base/screen.css.scss";
-@import "./base/site_tutorial.css.scss";
-@import "./base/sessions-external.css.scss";
-@import "./base/tooltips.css.scss";
-@import "./base/scoreboard.css.scss";
-@import "./base/topbar.css.scss";
-@import "./base/tinymce.css.scss";
-@import "./base/unsupported.css.scss";
-@import "./base/unsubscribe.css.scss";
-@import "./base/sign_in.css.scss";
+@import "./admin/admin.css.scss";
+@import "./internal/header.css.scss";
+@import "./internal/topbar.css.scss";
+@import "./admin/tinymce.css.scss";
+@import "./admin/tinymce.css.scss";
+@import "./admin/gold_coin_resets.css.scss";
+@import "./admin/raffles.css.scss";
+@import "./admin/segmentation.css.scss";
+@import "./admin/targeted_messages.css.scss";
+      
 
 

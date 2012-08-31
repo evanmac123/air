@@ -29,14 +29,14 @@ class PagesController < HighVoltage::PagesController
     when 'privacy', 'terms'
       'external'
     when 'reach', 'spark', 'drive', 'solutions'
-      'september_external'
+      'external'
     when 'faq'
       'application'
     when 'faq_body', 'faq_toc'
       false
     when 'marketing'
       Shotgun.ping_page(page_name)
-      'september_external'   #false
+      'external_marketing'
     else
       'pages'
     end

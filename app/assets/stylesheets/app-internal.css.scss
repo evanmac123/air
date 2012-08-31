@@ -1,0 +1,41 @@
+/*
+*= require fancybox
+*= require_self
+*/
+
+
+/*Include each file individually so you can control the order of inclusion
+ *(require_tree doesn't allow you to share variables across files, but it works fine for files that
+ *don't reference any other files)
+*/
+/***************                        I M P O R T A N T                       *******************/
+/*************** Stylesheets must have .css.scss extension to be included       *******************/
+/*************** is there a setting somewhere to we can tell it to compile our vendor stylesheets */
+/*************** with a simple .css extension?                                  *******************/
+
+
+/* THIRD PARTY STYLESHEETS FIRST (so we have the options of overwriting them later) */
+@import "./vendor/facebox.css.scss";
+@import "./vendor/flutie.css.scss";
+@import "./vendor/desk.com_with_fancybox.css.scss";
+
+/* MIXIN DEFINITIONS NEXT (so we can use them later) */
+@import "./mixins/standard_colors.css.scss";
+@import "./mixins/standard.css.scss";
+@import "./mixins/ex_button.css.scss";
+@import "./mixins/special_effects.css.scss";
+
+/* CUSTOM STYLESHEETS LAST */
+@import "./internal/autocompletion.css.scss";
+@import "./internal/faq_mini.css.scss";
+@import "./internal/header.css.scss";
+@import "./internal/misc.css.scss";
+@import "./internal/mobile.css.scss";
+@import "./internal/screen.css.scss";
+@import "./internal/site_tutorial.css.scss";
+@import "./internal/tooltips.css.scss";
+@import "./internal/scoreboard.css.scss";
+@import "./internal/topbar.css.scss";
+@import "./internal/unsupported.css.scss";
+
+
