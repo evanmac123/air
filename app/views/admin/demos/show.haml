@@ -244,6 +244,12 @@
       Game will have default mute notice threshold
 
   %p
+    - if @demo.custom_support_reply.present?
+      = %{Custom support reply is "#{@demo.custom_support_reply}"}
+    - else
+      No custom support reply.
+
+  %p
     - if @demo.use_post_act_summaries
       Post-act summaries will be sent
     - else
