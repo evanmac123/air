@@ -1,0 +1,16 @@
+%h1 Check Your Phone
+%p We sent a text message to your phone to verify your number
+#enter_code
+  = form_for current_user, :url => phone_interstitial_verification_path, :method => :put do |f|
+    .relative
+      #phone_placeholder Enter code here
+    .inline= f.text_field :new_phone_validation, :value => ''
+    .inline
+      = submit_tag 'Enter' 
+  .block &nbsp;
+  .left
+    = form_for current_user, :url => resend_phone_verification_path, :method => :post, :html => {:id => :resend} do |f|
+      #resend_phone_verification_btn= link_to "Resend", '#'
+  .right
+    = form_for current_user, :url => cancel_phone_verification_path, :method => :delete, :id => :cancel, :html => {:id => :cancel} do |f|
+      #cancel_phone_verification_btn= link_to "Skip this step", '#'

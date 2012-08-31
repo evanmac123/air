@@ -32,7 +32,11 @@ Health::Application.routes.draw do
     resource :friendship, :only => [:create, :update, :destroy]
 
     resources :acts, :only => [:index], :controller => "users/acts"
+
   end
+
+  post 'resend_phone_verification' => 'users/phone_verification#create', :as => 'resend_phone_verification'
+  delete 'cancel_phone_verification' => 'users/phone_verification#destroy', :as => 'cancel_phone_verification'
 
   post "ping" => "users/pings#create"
   # Override some Clearance routes

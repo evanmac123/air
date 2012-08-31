@@ -34,7 +34,7 @@ Feature: User accepts invitation
     When DJ works off
     Then "Dan" should receive an SMS containing their new phone validation code
     When "Dan" fills in the new phone validation field with their validation code
-    And I press "Validate phone"
+    And I press "Enter"
     And DJ works off
 
     Then "+15087407520" should have received an SMS "You've joined the 3M game! Your username is dan (text MYID if you forget). To play, text to this #."
@@ -58,7 +58,7 @@ Feature: User accepts invitation
     Then I should be on the interstitial phone validation page
     
     When "Dan" fills in the new phone validation field with the wrong validation code
-    And I press "Validate phone"
+    And I press "Enter"
     Then I should be on the interstitial phone validation page
     And I should see "Sorry, the code you entered was invalid. Please try typing it again."
 
@@ -81,7 +81,7 @@ Feature: User accepts invitation
     And I check "Terms and conditions"
     And I press "Log in"
     And "Phil" fills in the new phone validation field with their validation code
-    And I press "Validate phone"
+    And I press "Enter"
     And DJ works off
     Then "+14152613077" should have received an SMS "You, phil, are in the FooCo game."
 
@@ -168,7 +168,7 @@ Feature: User accepts invitation
     Then I should be on the interstitial phone verification page
     And I should not see "Your game begins on May 01, 2011 at 12:00 AM Eastern."
     When "Joe" fills in the new phone validation field with their validation code
-    And I press "Validate phone"
+    And I press "Enter"
 
     Then I should be on the activity page
     And I should see "Your game begins on May 01, 2011 at 12:00 AM Eastern."

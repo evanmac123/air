@@ -1,8 +1,14 @@
 /* ----- phone interstitial verification ----- */
 body.interstitial_verifications {
+  *{
+    font-family: $gotham;
+  }
 	div.content {
 		@include input-text;
-		
+	  table, tr, td{
+      border: none;
+    }
+    p{padding-top: 10px;}
 		border:1px #bebebe solid;
 		-webkit-border-radius: 3px;
 		-moz-border-radius: 3px;
@@ -29,17 +35,26 @@ body.interstitial_verifications {
 		}
 		form {
 			margin-bottom:10px;
+      margin-top: 20px;
 		}
 		input[type="submit"] {
 			@include button-norm;
 			margin-left:15px;
 		}
 		input[type="text"] {
-			width:275px;
+			width:13ex;
+      font-size: 18px;
 		}
 		p {
 			color:$dark-gray;
 			padding-bottom:15px;
 		}
+    #phone_placeholder{
+      position: absolute;
+      font-size: 17px;
+      top: 6px;
+      left: 13px;
+      color: grey;
+    }
 	}
 }

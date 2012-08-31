@@ -944,6 +944,15 @@ div.content {
 
 body.interstitial_verifications {
 	div.content {
+    #enter_code{
+      margin-left: 20mm;
+      display: inline-block;
+    }
+    margin-top: 16mm;
+    input[type='submit']{
+      font-size: 17px !important;
+      margin: 0;
+    }
 		div#no-login-yet {
 			@include bg-white-free;
 			margin:30px auto 20px auto;
@@ -1089,6 +1098,9 @@ td.label{
 }
 .inline{
   display: inline;
+}
+.inline-block{
+  display: inline-block;
 }
 
 
