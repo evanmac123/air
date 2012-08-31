@@ -10,12 +10,12 @@ feature "flash messages persist until either another flash message is created to
     # FactoryGirl for some reason creates two users if I create a :claimed users, and 
     # associates the tutorial with the wrong one! So to let the tail wag the dog,
     # I am explicitly creating my tutorial. 
-    FactoryGirl.create(:tutorial, user: @fred, ended_at: Chronic.parse("January 1, 2011, 5:00 AM"))
+    tutorial = FactoryGirl.create(:tutorial, user: @fred, ended_at: Chronic.parse("January 1, 2011, 5:00 AM"))
     signin_as(@fred, 'foobar')
   end
 
   scenario "persist", js: true do
-    @fred.tutorial_active?.should be_false
+    #@fred.tutorial_active?.should be_false
     command = 'nonsense'
     visit acts_path
     fill_in 'command_central', with: command

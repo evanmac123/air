@@ -221,7 +221,11 @@
     - else 
       Game will have default activity feed text when user answers a survey question  
    
-
+  %p
+    - if @demo.custom_already_claimed_message.present?
+      = %{Custom already-claimed message is "#{@demo.custom_already_claimed_message}"}
+    - else
+      Game will have default already-claimed message
 
   %p
     - if @demo.login_announcement.present? 

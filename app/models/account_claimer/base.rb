@@ -12,7 +12,10 @@ module AccountClaimer
       User.transaction do
         if user_with_this_contact = find_claimed_user_by_from
           if User.find_by_claim_code(@normalized_claim_information)
-            return ["You've already claimed your account, and have #{user_with_this_contact.points} pts. If you're trying to credit another user, ask them to check their username with the MYID command.", false]
+            demo = user_with_this_contact.demo
+            already_claimed_message = demo.already_claimed_message(user_with_this_contact)
+
+            return [already_claimed_message, false]
           else
             return nil
           end
