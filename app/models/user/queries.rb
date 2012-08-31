@@ -59,4 +59,17 @@ module User::Queries
 
     where("EXTRACT(MONTH FROM date_of_birth) = ? AND EXTRACT(DAY FROM date_of_birth) = ?", month_part, day_part)
   end
+
+  def by_employee_or_spouse_code(code)
+    case code.downcase
+    when 'e'
+      where(is_employee: true)
+    when 's'
+      where(is_employee: false)
+    end
+  end
+
+  def by_employee_id(employee_id)
+    where(employee_id: employee_id)
+  end
 end

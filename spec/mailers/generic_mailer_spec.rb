@@ -26,6 +26,16 @@ describe GenericMailer do
         with_part('text/html', /Our mailing address is:/)
     end
 
+    it "should be able to interpolate invitation URLs" do
+      @user = FactoryGirl.create :user
+      GenericMailer.send_message(@user.id, "Here is the subject", "This is some text, and you should go to [invitation_url]", "<p>This is some HTML. Go to [invitation_url]</p>").deliver
+
+      should have_sent_email.
+        to(@user.email).
+        with_part('text/html', /#{@user.invitation_code}/).
+        with_part('text/plain', /#{@user.invitation_code}/)
+    end
+
     context "when called with a user in a demo that has a custom reply address" do
       it "should send from that address" do
         @demo = FactoryGirl.create :demo, :email => "someco@playhengage.com"

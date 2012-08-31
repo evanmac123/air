@@ -1,4 +1,7 @@
 class CustomInvitationEmail < ActiveRecord::Base
+  include EmailInterpolations::SelfClosingTag
+  include EmailInterpolations::InvitationUrl
+
   belongs_to :demo
 
   validates_presence_of :demo_id
@@ -44,14 +47,6 @@ class CustomInvitationEmail < ActiveRecord::Base
 
   def interpolate_game_name(text)
     interpolate_self_closing_tag('game_name', demo.name, text)
-  end
-
-  def interpolate_invitation_url(invitation_url, text)
-    interpolate_self_closing_tag('invitation_url', invitation_url, text)
-  end
-
-  def interpolate_self_closing_tag(tag_name, text_to_interpolate, text)
-    text.gsub(/\[#{tag_name}\]/, text_to_interpolate)
   end
 
   def select_referrer_blocks(referrer, text)
