@@ -44,6 +44,8 @@ audio:not([controls]) {
   * To add a background to the WRAPPER, set it in the 'body' element
 */
 html {
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#00FFFFFF,endColorstr=#00FFFFFF)"; /* IE8 */  
+      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#00FFFFFF,endColorstr=#00FFFFFF);   /* IE6 & 7 */      
   background:url('/assets/marketing/bg-dark.gif');
   height: 100%;
   font-size: 100%;
