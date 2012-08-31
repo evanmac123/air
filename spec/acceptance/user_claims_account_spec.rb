@@ -552,13 +552,24 @@ feature 'User claims account' do
 
       context "when the contact in question is associated with a user" do
         before(:each) do
-          create_claimed_user
+          @user = create_claimed_user
           FactoryGirl.create(:user, :claim_code => 'otherguy')
         end
 
         it "should send a helpful error message" do
           send_message 'otherguy'
           expect_reply "You've already claimed your account, and have 10 pts. If you're trying to credit another user, ask them to check their username with the MYID command."
+        end
+
+        context "and the demo has a custom already-claimed message" do
+          before(:each) do
+            @user.demo.update_attributes(custom_already_claimed_message: "You're in, Flynn, with %{points} points. It's cool.")
+          end
+
+          it "should use that" do
+            send_message 'otherguy'
+            expect_reply "You're in, Flynn, with 10 points. It's cool."
+          end
         end
       end
 

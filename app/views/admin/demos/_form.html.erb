@@ -21,6 +21,8 @@
     <%= add_byte_counter_for "Response to command before game begins" %>
     <%= form.input :act_too_late_message, :label => "Response to command after game ends", :input_html => {:maxlength => 160} %>
     <%= add_byte_counter_for "Response to command after game ends" %>
+    <%= form.input :custom_already_claimed_message, :label => "Custom already-claimed message", :input_html => {:maxlength => 160} %>
+    <%= add_byte_counter_for "Custom already-claimed message" %>
     <%= form.input :survey_answer_activity_message, :label => "Activity feed text when user answers a survey question" %>
     <%= form.input :login_announcement, :label => "Message user sees on login" %>
     <%= form.input :mute_notice_threshold %>
