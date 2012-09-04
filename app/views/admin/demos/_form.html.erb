@@ -21,9 +21,14 @@
     <%= add_byte_counter_for "Response to command before game begins" %>
     <%= form.input :act_too_late_message, :label => "Response to command after game ends", :input_html => {:maxlength => 160} %>
     <%= add_byte_counter_for "Response to command after game ends" %>
+    <%= form.input :custom_already_claimed_message, :label => "Custom already-claimed message", :input_html => {:maxlength => 160} %>
+    <%= add_byte_counter_for "Custom already-claimed message" %>
+    <%= form.input :custom_support_reply %>
+    <%= add_byte_counter_for "Custom support reply" %>
     <%= form.input :survey_answer_activity_message, :label => "Activity feed text when user answers a survey question" %>
     <%= form.input :login_announcement, :label => "Message user sees on login" %>
     <%= form.input :mute_notice_threshold %>
+    <%= form.input :use_post_act_summaries, label: "Send post-act summaries with act replies" %>
     <div class='example_instructions_holder'>
       <div class='example_instructions'>
         Make sure the custom examples for slide 1 of the tutorial and for the playbox tooltip are real rules associated with your game.

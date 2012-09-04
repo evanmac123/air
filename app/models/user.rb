@@ -653,6 +653,8 @@ class User < ActiveRecord::Base
   end
 
   def point_and_ranking_summary(prefix = [])
+    return "" unless self.demo.use_post_act_summaries
+
     result_parts = prefix.clone
     result_parts << self.point_summary
     result_parts << self.level_summary
@@ -753,7 +755,7 @@ class User < ActiveRecord::Base
       if rule.user_hit_limit?(self)
         return ["Sorry, you've already done that action.", :over_alltime_limit]
       end
-      
+     
       result = [Act.record_act(self, rule, rule_value, options), :success]
     end
 

@@ -1,10 +1,15 @@
+//initial hide
+#quotes div.employee ul li, #quotes div.employee-quote ul li {
+    display:none;
+    &.p401k {display:block;}
+}
+
 #quotes {
     background:#292929;
     border-top:1px #fff solid;
     div.arrow {
         @include left-arrow;
         border-color: transparent #fff;
-        margin:3px 0 0 530px;
     }
     div.employee {
         background:#888;
@@ -13,20 +18,10 @@
         height:100%;
         overflow:hidden;
         width:310px;
-        ul {
-            border:1px blue solid;
-            height:100%;
-            //width:100%;
-        }
+        ul {height:100%;}
         li {
-            border:1px red solid;
             height:100%;
             margin:0 auto;
-            //width:100%;
-            img {
-                height:100%;
-                //width:100%;
-            }
         }
     }
     div.employee-quote {
@@ -34,10 +29,18 @@
         color:#6a6a6a;
         float:right;
         height:100%;
-        overflow:scroll;
         padding:20px;
         width:410px;
         p {font-style:italic; font-size:.875em; line-height:22.75px;}
+        li {
+            div.arrow {margin-left:-40px;}
+            &.p401k div.arrow {margin-top:-20px;}
+            &.wellness div.arrow {margin-top:35px;}
+            &.rewards div.arrow {margin-top:85px;}
+            &.onboarding div.arrow {margin-top:135px;}
+            &.communications div.arrow {margin-top:185px;}
+            &.learndev div.arrow {margin-top:240px;}
+        }
     }
     div.wrap {
         height:300px;

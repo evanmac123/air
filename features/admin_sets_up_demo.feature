@@ -37,6 +37,9 @@ Feature: Admin sets up demo
     And I uncheck "Use standard playbook rules"
     And I fill in "Mute notice threshold" with "17"
     And I fill in "Client name" with "BigCorp"
+    And I fill in "Custom already-claimed message" with "You're in, fool."
+    And I uncheck "Send post-act summaries with act replies"
+    And I fill in "Custom support reply" with "We'll call you."
     And I press "Create Game"
     Then I should be on the admin "3M" demo page
     And I should see "100 points to win"
@@ -66,6 +69,9 @@ Feature: Admin sets up demo
     And I should see "smoked a joint"
     And I should see "Mute notice to users after 17 SMSes"
     And I should see "Client name is BigCorp"
+    And I should see `Custom already-claimed message is "You're in, fool."`
+    And I should see "No post-act summaries will be sent"
+    And I should see `Custom support reply is "We'll call you."`
 
   Scenario: Correct defaults
     Given I am on the admin page
@@ -97,6 +103,9 @@ Feature: Admin sets up demo
     And I should see "Game will have default mute notice threshold"
     And I should see "User sees no custom message on login"
     And I should see "No client name set"
+    And I should see "Game will have default already-claimed message"
+    And I should see "Post-act summaries will be sent"
+    And I should see "No custom support reply"
 
   Scenario: Appropriate restrictions on text that gets SMSed
     Given I am on the admin page

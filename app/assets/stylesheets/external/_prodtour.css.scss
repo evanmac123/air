@@ -44,6 +44,10 @@ div.right {float:right;}
     ul#leverage {border-top:1px #fff solid; padding-top:20px;}
 }
 
+#pt-spark #perpeng div.image {
+    img.pef-2, img.pef-3, img.pef-4 {display:none;}
+    img.pef-4 {margin-top:200px;}
+}
 #pt-spark #perpeng ul#perpeng-features {
     h1,p {box-sizing:border-box; display:inline-block; margin:0;}
     h1 {
@@ -64,6 +68,7 @@ div.right {float:right;}
         &#pef-1 p {margin-top:15px;}
         &#pef-2 h1 {padding:20px 0;}
         &.selected {
+            a.callout:hover {background:#fff; color:$dark-green; text-shadow:none;}
             h1, p {color:#fff;}
             h1 {background:darken($dark-green, 5%);}
             background:$dark-green;

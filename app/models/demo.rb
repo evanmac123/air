@@ -251,6 +251,22 @@ class Demo < ActiveRecord::Base
     )
   end
 
+  def already_claimed_message(user)
+    custom_message(
+      :custom_already_claimed_message,
+      "You've already claimed your account, and have %{points} pts. If you're trying to credit another user, ask them to check their username with the MYID command.",
+      user,
+      :points => [:points]
+    )
+  end
+
+  def support_reply
+    custom_message(
+      :custom_support_reply,
+      "Got it. We'll have someone email you shortly. Tech support is open 9 AM to 6 PM ET. If it's outside those hours, we'll follow-up first thing when we open."
+    )
+  end
+
   def detect_bad_words(attempted_value)
     words = attempted_value.split
     BadWord.reachable_from_demo(self).including_any_word(words).limit(1).present?
