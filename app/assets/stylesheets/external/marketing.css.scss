@@ -180,6 +180,8 @@ button, input[type="button"], input[type="reset"], input[type="submit"] {
 
 input[type="checkbox"], input[type="radio"] {
   box-sizing: border-box;
+  -moz-box-sizing:border-box;
+  -webkit-box-sizing:border-box;
 }
 
 input[type="search"] {
@@ -332,7 +334,11 @@ del {
 
 /* Others
 ---------------------------------------- */
-div, ul {box-sizing:border-box;}
+div, ul {
+  box-sizing:border-box;
+  -moz-box-sizing:border-box;
+  -webkit-box-sizing:border-box;
+}
 
 hr {
   display: block;
@@ -430,7 +436,11 @@ section {clear:both;}
 }
 #nav {
   border-bottom:1px darken($dark-green, 5%) solid;
-  padding:10px 0 20px 0;
+  a {
+    background:$dark-green;
+    display:inline-block;
+    padding:10px 20px 10px 0;
+  }
   li {
     margin-right:50px;
     &#number {

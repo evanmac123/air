@@ -2,7 +2,11 @@ a#fancybox-close {
   -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#00FFFFFF,endColorstr=#00FFFFFF)"; /* IE8 */  
       filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#00FFFFFF,endColorstr=#00FFFFFF);   /* IE6 & 7 */      
 }
-#fancybox-wrap, #fancybox-wrap div, #fancybox-wrap ul {box-sizing:content-box}
+#fancybox-wrap, #fancybox-wrap div, #fancybox-wrap ul {
+  box-sizing:content-box;
+  -moz-box-sizing: content-box;
+  -webkit-box-sizing: content-box;
+}
 #contact-form {
     //initial hide
     h2#our_response, .statuses {display:none;}
@@ -18,6 +22,8 @@ a#fancybox-close {
         border:1px lighten($gray, 30%) solid;
         border-radius:5px;
         box-sizing:border-box;
+        -moz-box-sizing:border-box;
+        -webkit-box-sizing:border-box;
         color:$gray;
         outline:none;
         padding:10px 15px;
@@ -39,6 +45,8 @@ a#fancybox-close {
     }
     ul {
       box-sizing:border-box;
+      -moz-box-sizing:border-box;
+      -webkit-box-sizing:border-box;
       height:100%;
       margin:0;
       padding:10px;

@@ -49,7 +49,11 @@ div.right {float:right;}
     img.pef-4 {margin-top:200px;}
 }
 #pt-spark #perpeng ul#perpeng-features {
-    h1,p {box-sizing:border-box; display:inline-block; margin:0;}
+    h1,p {
+        box-sizing:border-box; 
+        -moz-box-sizing:border-box;
+        -webkit-box-sizing:border-box;
+        display:inline-block; margin:0;}
     h1 {
         color:$gray;
         float:left;
