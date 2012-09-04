@@ -248,3 +248,8 @@ Feature: User acts
     Then I should be on the activity page with HTML forced
     And I should see "Dan did not much"
     But I should not see "0 pts"
+
+  Scenario: User acts in a demo that doesn't use post-act summaries
+    Given the demo "FooCorp" doesn't use post-act summaries
+    When "+15087407520" sends SMS "ate banana"
+    Then "+15087407520" should have received an SMS "Bananas are good for you."

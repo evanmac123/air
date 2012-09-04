@@ -242,7 +242,19 @@
       SMSes
     - else 
       Game will have default mute notice threshold
-   
+
+  %p
+    - if @demo.custom_support_reply.present?
+      = %{Custom support reply is "#{@demo.custom_support_reply}"}
+    - else
+      No custom support reply.
+
+  %p
+    - if @demo.use_post_act_summaries
+      Post-act summaries will be sent
+    - else
+      No post-act summaries will be sent
+
   %p
     - if @demo.example_tutorial
       Custom example for slide 1 of tutorial:

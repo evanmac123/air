@@ -20,3 +20,9 @@ Then /^I should see a list of demos$/ do
     page.should have_css("li a", :text => "Mastercard")
   end
 end
+
+Given /^the demo "(.*?)" doesn't use post\-act summaries$/ do |demo_name|
+  demo = Demo.find_by_name(demo_name)
+  demo.update_attributes(use_post_act_summaries: false)
+end
+

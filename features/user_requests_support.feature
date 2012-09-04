@@ -25,3 +25,13 @@ Feature: User requests tech support
     
     Then support should have received a support email about "Joe/PEBCAK/joe@pebcak.com/+14155551212" with recent acts "what's up/hello/hi"
     And support should have received a support email about "Bob/PEBCAK/bob@pebcak.com/+14155551213" with recent acts "ferp/derp/herp"
+
+  Scenario: Demo has custom support reply
+    Given the following demo exists:
+      | name | phone number | custom support reply |
+      | derp | +19099999999 | On it, chief.        |
+    And the following user exists:
+      | phone number | demo       |
+      | +18088888888 | name: derp |
+    When "+18088888888" sends SMS "support" to "+19099999999"
+    Then "+18088888888" should have received SMS "On it, chief."
