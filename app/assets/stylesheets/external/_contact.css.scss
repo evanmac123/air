@@ -1,6 +1,5 @@
 a#fancybox-close {
-  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#00FFFFFF,endColorstr=#00FFFFFF)"; /* IE8 */  
-      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#00FFFFFF,endColorstr=#00FFFFFF);   /* IE6 & 7 */      
+  @include ie-png;
 }
 #fancybox-wrap, #fancybox-wrap div, #fancybox-wrap ul {
   box-sizing:content-box;
