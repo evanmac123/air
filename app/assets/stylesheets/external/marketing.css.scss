@@ -408,20 +408,49 @@ section {clear:both;}
 }
 #mast li, #nav li {display:inline-block;}
 #mast {
+  height:83px;
   #login span {
     background-position:-24px -41px;
     height:20px;
     width:26px;
   }
+  #logo {
+    box-sizing:border-box;
+      -moz-box-sizing:border-box;
+      -webkit-box-sizing:border-box;
+    height:100%; 
+    padding-top:15px;
+    width:245px;
+    a {
+      display:inline-block;
+      margin:0;
+      padding:0;
+      width:100%;
+      &:hover {
+        span {
+          background-position:-66px -37px;
+          -webkit-transition: all .2s ease-in-out;
+          -moz-transition: all .2s ease-in-out;
+          -ms-transition: all .2s ease-in-out;
+          -o-transition: all .2s ease-in-out;
+          transition: all .2s ease-in-out;}
+      }
+    }
+    img {margin:0; max-width:205px;}
+    span {
+      background:url('/assets/marketing/sprite.png') no-repeat;
+      background-position:-100px -37px;
+      display:inline-block;
+      float:right;
+      height:28px;
+      margin-top:15px;
+      width:28px;
+    }
+  }
   #signup span {
     background-position:0 -41px;
     height:20px;
     width:16px;
-  }
-  img {
-    display:inline-block; 
-    margin:20px 0 10px 0;
-    max-width:205px;
   }
   #signup, #login {
     float:right;
