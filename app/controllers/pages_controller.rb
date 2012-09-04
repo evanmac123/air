@@ -29,7 +29,7 @@ class PagesController < HighVoltage::PagesController
     when 'privacy', 'terms'
       'external'
     when 'reach', 'spark', 'drive', 'solutions'
-      'external'
+      'external_marketing'
     when 'faq'
       'application'
     when 'faq_body', 'faq_toc'
