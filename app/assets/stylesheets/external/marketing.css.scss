@@ -430,7 +430,11 @@ section {clear:both;}
 }
 #nav {
   border-bottom:1px darken($dark-green, 5%) solid;
-  padding:10px 0 20px 0;
+  a {
+    background:$dark-green;
+    display:inline-block;
+    padding:10px 20px 10px 0;
+  }
   li {
     margin-right:50px;
     &#number {
