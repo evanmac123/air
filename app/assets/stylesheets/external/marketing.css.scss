@@ -436,8 +436,9 @@ section {clear:both;}
           transition: all .2s ease-in-out;}
       }
     }
-    img {margin:0; max-width:205px;}
+    img {margin:0; max-width:205px; @include ie-png;}
     span {
+      @include ie-png;
       background:image-url('marketing/sprite.png') no-repeat;
       background-position:-100px -37px;
       display:inline-block;
@@ -514,9 +515,8 @@ footer {
     position:relative;
     width:210px;
     a {
+      @include ie-png;
       background:image-url('marketing/sprite-social.png') no-repeat;
-      -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#00FFFFFF,endColorstr=#00FFFFFF)"; /* IE8 */  
-      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#00FFFFFF,endColorstr=#00FFFFFF);   /* IE6 & 7 */      
       color:transparent; 
       display:inline-block;
       font-size:0; 

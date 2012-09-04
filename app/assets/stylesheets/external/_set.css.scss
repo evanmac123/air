@@ -4,7 +4,10 @@ $green: #74c04c;
 $gray: #818385;
 $orange: #ff7d00;
 $yellow: #d4dd25;
-
+@mixin ie-png {
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#00FFFFFF,endColorstr=#00FFFFFF)"; /* IE8 */  
+      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#00FFFFFF,endColorstr=#00FFFFFF);   /* IE6 & 7 */      
+}
 @mixin text-shadow {
   text-shadow: 1px 1px 1px #818181;
   filter: dropshadow(color=#818181, offx=1, offy=1); 
@@ -35,8 +38,8 @@ $yellow: #d4dd25;
 }
 
 @mixin green-btn {
-  background: #afda71;
-  background: image-url('placeholder_for_ie8.png');
+  background: #72b833;
+  background: #72b833 image-url('marketing/green-btn-ie.png');
   background: -moz-linear-gradient(top,  #afda71 0%, #a9d468 7%, #90c849 17%, #88c440 23%, #87c33f 63%, #80bf3a 77%, #6db630 100%);
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#afda71), color-stop(7%,#a9d468), color-stop(17%,#90c849), color-stop(23%,#88c440), color-stop(63%,#87c33f), color-stop(77%,#80bf3a), color-stop(100%,#6db630));
   background: -webkit-linear-gradient(top,  #afda71 0%,#a9d468 7%,#90c849 17%,#88c440 23%,#87c33f 63%,#80bf3a 77%,#6db630 100%);
@@ -52,7 +55,7 @@ $yellow: #d4dd25;
   text-transform:uppercase;
   &:hover {
     background: #92bf5a;
-    background: image-url('placeholder_for_ie8.png');
+    //background: image-url('placeholder_for_ie8.png');
     background: -moz-linear-gradient(top,  #92bf5a 0%, #82b743 4%, #7fb53d 6%, #7db339 11%, #7db33b 55%, #78af37 68%, #65a42f 91%, #6aa635 96%, #78b04d 100%);
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#92bf5a), color-stop(4%,#82b743), color-stop(6%,#7fb53d), color-stop(11%,#7db339), color-stop(55%,#7db33b), color-stop(68%,#78af37), color-stop(91%,#65a42f), color-stop(96%,#6aa635), color-stop(100%,#78b04d));
     background: -webkit-linear-gradient(top,  #92bf5a 0%,#82b743 4%,#7fb53d 6%,#7db339 11%,#7db33b 55%,#78af37 68%,#65a42f 91%,#6aa635 96%,#78b04d 100%);
@@ -66,8 +69,8 @@ $yellow: #d4dd25;
   }
 }
 @mixin orange-btn {
-  background: #ffa600;
-  background: image-url('placeholder_for_ie8.png');
+  background: #ff6b08;
+  background: #ff6b08 image-url('marketing/orange-btn-ie.png') repeat-x;
   background: -moz-linear-gradient(top,  #ffa600 0%, #ff9f00 7%, #ff7f00 20%, #ff7c00 60%, #ff6100 100%);
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffa600), color-stop(7%,#ff9f00), color-stop(20%,#ff7f00), color-stop(60%,#ff7c00), color-stop(100%,#ff6100));
   background: -webkit-linear-gradient(top,  #ffa600 0%,#ff9f00 7%,#ff7f00 20%,#ff7c00 60%,#ff6100 100%);
@@ -85,7 +88,7 @@ $yellow: #d4dd25;
     -webkit-box-shadow: inset 0px 0px 5px 0px #c46000;
     box-shadow: inset 0px 0px 5px 0px #c46000;
     background: #ee8a28;
-    background: image-url('placeholder_for_ie8.png');
+    //background: image-url('placeholder_for_ie8.png');
     background: -moz-linear-gradient(top,  #ee8a28 0%, #ed8019 2%, #ed7a0d 4%, #ea7504 5%, #ec7300 7%, #eb7400 28%, #e96a00 74%, #e75c00 93%, #e7610c 96%, #e96817 98%, #eb7229 100%);
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ee8a28), color-stop(2%,#ed8019), color-stop(4%,#ed7a0d), color-stop(5%,#ea7504), color-stop(7%,#ec7300), color-stop(28%,#eb7400), color-stop(74%,#e96a00), color-stop(93%,#e75c00), color-stop(96%,#e7610c), color-stop(98%,#e96817), color-stop(100%,#eb7229));
     background: -webkit-linear-gradient(top,  #ee8a28 0%,#ed8019 2%,#ed7a0d 4%,#ea7504 5%,#ec7300 7%,#eb7400 28%,#e96a00 74%,#e75c00 93%,#e7610c 96%,#e96817 98%,#eb7229 100%);
@@ -115,9 +118,8 @@ a.button {
     color:#fff;
   }
   span {
+    @include ie-png;
     background:image-url('marketing/sprite.png') no-repeat;
-    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#00FFFFFF,endColorstr=#00FFFFFF)"; /* IE8 */  
-      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#00FFFFFF,endColorstr=#00FFFFFF);   /* IE6 & 7 */      
     display:inline-block;
     float:left;
     margin-right:10px;

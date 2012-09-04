@@ -3,9 +3,8 @@
     margin-top:40px;
     text-align:center;
     a {
+        @include ie-png;
         background:image-url('marketing/sprite-features.png') no-repeat;
-        -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#00FFFFFF,endColorstr=#00FFFFFF)"; /* IE8 */  
-            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#00FFFFFF,endColorstr=#00FFFFFF);   /* IE6 & 7 */      
         display:block;
         height:120px;
         margin:0 auto;
