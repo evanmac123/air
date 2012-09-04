@@ -512,7 +512,7 @@ footer {
   #footer-social {
     top:-20px;
     position:relative;
-    width:220px;
+    width:210px;
     a {
       background:url('/assets/marketing/sprite-social.png') no-repeat;
       -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#00FFFFFF,endColorstr=#00FFFFFF)"; /* IE8 */  
@@ -539,13 +539,6 @@ footer {
     padding-right:100px;
   }
 }
-
-@import "home";
-@import "contact";
-@import "features";
-@import "prodtour";
-@import "solutions";
-
 
 /* Media queries
 ---------------------------------------- */
