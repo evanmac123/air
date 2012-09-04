@@ -437,15 +437,18 @@ section {clear:both;}
 #nav {
   border-bottom:1px darken($dark-green, 5%) solid;
   a {
-    background:$dark-green;
     display:inline-block;
-    padding:10px 20px 10px 0;
+    padding:10px 15px;
   }
   li {
-    margin-right:50px;
+    margin-right:20px;
     &#number {
+      box-sizing:border-box;
+      -moz-box-sizing:border-box;
+      -webkit-box-sizing:border-box;
       float:right;
       margin-right:0;
+      padding-top:10px;
       h2 {color:#fff; font-size:1.25em;}
     }
   }
