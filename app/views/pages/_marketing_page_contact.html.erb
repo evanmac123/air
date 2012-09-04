@@ -1,22 +1,26 @@
 <div style="display:none;">
 <div id="contact-form">
     <h2 id='our_promise'>Contact us and we'll be in touch within two business days</h2>
-    <h2 id='our_response'>Thanks! We'll be in touch.</h2>
     <%= form_tag email_info_requests_path, :class => 'request-info', :remote => true do %>
         <ul id="contact-form-left">
-        <li id='name_status'>Please enter your name</li>
+        <li id='name_status' class="statuses">Please enter your name</li>
         <li id="contact-name"><%= text_field_tag :contact_name, nil, :placeholder => "Your name" %></li>
-        <li id='email_status'>Please enter your email</li>
+        <li id='email_status' class="statuses">Please enter your email</li>
         <li id="contact-email"><%= text_field_tag :contact_email, nil, :placeholder => "Email address" %></li>
          <li id="contact-phone"><%= text_field_tag :contact_phone, nil, :placeholder => "Phone number (optional)" %></li>
         </ul>
         <ul id="contact-form-right" style='position: relative'>
-        <div id='submitting_status'>Uploading...</div>
          <li id="contact-comment"><%= text_area_tag :contact_comment, nil, :placeholder => "Thoughts and comments (optional)" %></li>
         </ul>
+        <div class="cf"></div>
     <% end %>
-    <input id="contact-submit" type="button" value="Contact us" />
+    <div style="padding:10px">
+      <input id="contact-submit" type="button" value="Contact us" />
+      <div id='submitting_status' class="statuses">Uploading...</div>
+      <h2 id='our_response'>Thanks! We'll be in touch.</h2>
+    </div>
    </form>
+   
 </div>
 </div>
 
@@ -24,10 +28,9 @@
 
 $(document).ready(function() {
     $("a.contact").fancybox({
-        'hideOnContentClick': true
+        'hideOnContentClick': false
     });
 });
-
 
   var contact_name = $('#contact_name');
   var contact_email = $('#contact_email');
@@ -94,7 +97,6 @@ $(document).ready(function() {
   }
 
   function showSuccessMessage(){
-    $('#our_promise').hide();
     $('#our_response').show();
   }
 

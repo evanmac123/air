@@ -44,8 +44,6 @@ audio:not([controls]) {
   * To add a background to the WRAPPER, set it in the 'body' element
 */
 html {
-  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#00FFFFFF,endColorstr=#00FFFFFF)"; /* IE8 */  
-      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#00FFFFFF,endColorstr=#00FFFFFF);   /* IE6 & 7 */      
   background:url('/assets/marketing/bg-dark.gif');
   height: 100%;
   font-size: 100%;
@@ -398,7 +396,6 @@ header {
   border-bottom:1px darken($dark-green, 5%) solid;
 }
 section {clear:both;}
-#fancybox-wrap, #fancybox-wrap div, #fancybox-wrap ul {box-sizing:content-box!important;}
 #mast, #nav, footer .wrap {
   margin:0 auto;
   width:960px;
