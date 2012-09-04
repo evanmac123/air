@@ -79,7 +79,11 @@
 #measure {
     background:url('/assets/marketing/sprite-icons-bg.png') -200px 20px no-repeat;
     border-top:1px #fff solid;
-    .cf {padding:40px 0 20px 0; text-align:center;}
+    .cf {
+        padding-top:40px;
+        height:100px;
+        text-align:center;
+    }
 }
 #offerings {
     border-bottom:1px #e6e6e6 solid;

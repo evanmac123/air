@@ -56,12 +56,15 @@
 }
 #ecs {
     border-top:1px #fff solid;
-    padding:40px 0;
+    padding:40px 0 30px 0;
     a.button span {
         height:27px;
         width:27px;
     }
-    div.cf {margin-top:40px; text-align:center;}
+    div.cf {
+        height:60px;
+        text-align:center;
+    }
     h2 {padding-bottom:15px;}
     p {
         float:left;
