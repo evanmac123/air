@@ -44,7 +44,7 @@ audio:not([controls]) {
   * To add a background to the WRAPPER, set it in the 'body' element
 */
 html {
-  background:url('/assets/marketing/bg-dark.gif');
+  background:image-url('marketing/bg-dark.gif');
   height: 100%;
   font-size: 100%;
   overflow-y: scroll; /* Force a scrollbar in non-IE */
@@ -53,7 +53,7 @@ html {
 }
 
 body {
-  background:url('/assets/marketing/bg.gif') #fff;
+  background:image-url('marketing/bg.gif') #fff;
   margin: 0 auto;
   min-height: 100%;
 }
@@ -398,7 +398,7 @@ sub {
 /* Primary styles
 ---------------------------------------- */
 header {
-  background:url('/assets/marketing/header-bg.png') top center no-repeat $dark-green; 
+  background:image-url('marketing/header-bg.png') top center no-repeat $dark-green; 
   border-bottom:1px darken($dark-green, 5%) solid;
 }
 section {clear:both;}
@@ -438,7 +438,7 @@ section {clear:both;}
     }
     img {margin:0; max-width:205px;}
     span {
-      background:url('/assets/marketing/sprite.png') no-repeat;
+      background:image-url('marketing/sprite.png') no-repeat;
       background-position:-100px -37px;
       display:inline-block;
       float:right;
@@ -483,7 +483,7 @@ section {clear:both;}
   }
 }
 footer {
-  background:url('/assets/marketing/bg-dark.gif');
+  background:image-url('marketing/bg-dark.gif');
   border-top:1px #fff solid;
   padding:40px 0;
   div.wrap {
@@ -514,7 +514,7 @@ footer {
     position:relative;
     width:210px;
     a {
-      background:url('/assets/marketing/sprite-social.png') no-repeat;
+      background:image-url('marketing/sprite-social.png') no-repeat;
       -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#00FFFFFF,endColorstr=#00FFFFFF)"; /* IE8 */  
       filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#00FFFFFF,endColorstr=#00FFFFFF);   /* IE6 & 7 */      
       color:transparent; 

@@ -89,12 +89,12 @@ div.right {float:right;}
 #pt-spark ul.pt-buttons {padding:40px 0; text-align:center;}
 
 #pt-drive section#section-head {
-    background:#fff url('/assets/marketing/bg-grid.gif') center bottom repeat-x;
+    background:#fff image-url('marketing/bg-grid.gif') center bottom repeat-x;
     height:341px;
     margin-bottom:30px;
     padding:0;
     div.wrap{
-        background:url('/assets/marketing/chart.png') bottom center no-repeat;
+        background:image-url('marketing/chart.png') bottom center no-repeat;
         height:100%;
         margin:0 auto;
         padding:40px 10px 0 10px;

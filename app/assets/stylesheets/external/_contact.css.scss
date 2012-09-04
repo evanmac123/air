@@ -11,7 +11,7 @@ a#fancybox-close {
     //initial hide
     h2#our_response, .statuses {display:none;}
 
-    background:url('/assets/marketing/bg.gif') #fff;
+    background:image-url('marketing/bg.gif') #fff;
     padding:20px;
     div#submitting_status {
       color:lighten($gray, 30%);

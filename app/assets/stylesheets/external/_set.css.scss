@@ -100,7 +100,7 @@ $yellow: #d4dd25;
 .cf {clear:both;}
 .s960 {margin:0 auto; width:960px;}
 span.heart {
-  background:url('/assets/marketing/sprite-icons.png') no-repeat;
+  background:image-url('marketing/sprite-icons.png') no-repeat;
   background-position:-5px 0;
   display:inline-block;
   height:50px;
@@ -115,7 +115,7 @@ a.button {
     color:#fff;
   }
   span {
-    background:url('/assets/marketing/sprite.png') no-repeat;
+    background:image-url('marketing/sprite.png') no-repeat;
     -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#00FFFFFF,endColorstr=#00FFFFFF)"; /* IE8 */  
       filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#00FFFFFF,endColorstr=#00FFFFFF);   /* IE6 & 7 */      
     display:inline-block;

@@ -3,7 +3,7 @@
     margin-top:40px;
     text-align:center;
     a {
-        background:url('/assets/marketing/sprite-features.png') no-repeat;
+        background:image-url('marketing/sprite-features.png') no-repeat;
         -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#00FFFFFF,endColorstr=#00FFFFFF)"; /* IE8 */  
             filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#00FFFFFF,endColorstr=#00FFFFFF);   /* IE6 & 7 */      
         display:block;
@@ -39,7 +39,7 @@
         @include text-shadow;
     }
     ul {
-        background:url('/assets/marketing/featuresBar.png') center 40px no-repeat;
+        background:image-url('marketing/featuresBar.png') center 40px no-repeat;
         height:185px;
         width:100%;
     }
