@@ -35,7 +35,8 @@ Health::Application.configure do
   # Note that you must run 
   # heroku labs:enable user_env_compile --app <appname>
   # In order for assets to be compiled during push
-  config.action_controller.asset_host = "//hengage-assets.s3.amazonaws.com"
+  config.action_controller.asset_host = "//#{ENV['FOG_DIRECTORY']}.s3.amazonaws.com"
+
 
   # Disable delivery errors, bad email addresses will be ignored
   # config.action_mailer.raise_delivery_errors = false
