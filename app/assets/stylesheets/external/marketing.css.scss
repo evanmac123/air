@@ -398,6 +398,7 @@ header {
   border-bottom:1px darken($dark-green, 5%) solid;
 }
 section {clear:both;}
+#fancybox-wrap, #fancybox-wrap div, #fancybox-wrap ul {box-sizing:content-box!important;}
 #mast, #nav, footer .wrap {
   margin:0 auto;
   width:960px;
@@ -501,6 +502,7 @@ footer {
 }
 
 @import "home";
+@import "contact";
 @import "features";
 @import "prodtour";
 @import "solutions";
