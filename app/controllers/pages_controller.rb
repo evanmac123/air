@@ -30,6 +30,7 @@ class PagesController < HighVoltage::PagesController
       'external'
     when 'reach', 'spark', 'drive', 'solutions'
       @body_id = "pt-" + page_name
+      Shotgun.ping_page(page_name)
       'external_marketing'
     when 'faq'
       'application'
