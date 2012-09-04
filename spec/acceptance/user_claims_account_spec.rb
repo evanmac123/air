@@ -642,4 +642,26 @@ feature 'User claims account' do
       end
     end
   end
+
+  it "should not overflow an SMS-only user when they then claim by email" do
+    user = FactoryGirl.create(:user, claim_code: 'phoneguy', email: "")
+    user.demo.update_attributes(phone_number: "+16175551212", email: "demo@playhengage.com")
+    user.should_not be_claimed
+
+    mo_sms "+14152613077", "phoneguy", "+16175551212"
+    user.reload.should be_claimed
+    user.email.should == ""
+    user.overflow_email.should == ""
+
+    email_originated_message_received("phil@darnowsky.com", "", "phoneguy", "demo@playhengage.com")
+
+    user.reload.email.should == "phil@darnowsky.com"
+    user.overflow_email.should == ""
+    
+    crank_dj_clear
+    open_email('phil@darnowsky.com')
+    current_email.to_s.should_not include("OK, we've got your new email address phil@darnowsky.com, and will still remember  too.")
+
+    current_email.to_s.should include("OK, we've now got your email address phil@darnowsky.com.")
+  end
 end
