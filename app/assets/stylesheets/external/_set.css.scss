@@ -20,12 +20,10 @@ $yellow: #d4dd25;
   width: 0px;
 }
 @mixin nav-arrow {
-  background:url('/assets/marketing/sprite.png') no-repeat;
-  background-position:-70px -48px;
+  @include arrow;
+  border-width: 9px 9px 0 9px;
   display:inline-block;
   position:absolute;
-  height:8px;
-  width:15px;
 }
 @mixin right-arrow {
   @include arrow;
