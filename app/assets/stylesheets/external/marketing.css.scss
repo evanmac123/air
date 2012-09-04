@@ -415,16 +415,20 @@ section {clear:both;}
     width:26px;
   }
   #logo {
+    box-sizing:border-box;
+    -moz-box-sizing:border-box;
+    -webkit-box-sizing:border-box;
+    height:100%; 
     a {
-      border:1px red solid;
-      //background:url('/assets/marketing/logo-2x.png') ;
       display:inline-block;
-      height:100%;
+      padding-top:15px;
       width:305px;
+      span {visibility:hidden;}
+      &:hover span {
+        visibility:visible;
+      }
     }
-    img {
-      max-width:205px;
-    }
+    img {max-width:205px;}
   }
   #signup span {
     background-position:0 -41px;
