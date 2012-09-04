@@ -408,20 +408,28 @@ section {clear:both;}
 }
 #mast li, #nav li {display:inline-block;}
 #mast {
+  height:83px;
   #login span {
     background-position:-24px -41px;
-    height:20px;
+    height:100%;
     width:26px;
+  }
+  #logo {
+    a {
+      border:1px red solid;
+      //background:url('/assets/marketing/logo-2x.png') ;
+      display:inline-block;
+      height:100%;
+      width:305px;
+    }
+    img {
+      max-width:205px;
+    }
   }
   #signup span {
     background-position:0 -41px;
     height:20px;
     width:16px;
-  }
-  img {
-    display:inline-block; 
-    margin:20px 0 10px 0;
-    max-width:205px;
   }
   #signup, #login {
     float:right;
