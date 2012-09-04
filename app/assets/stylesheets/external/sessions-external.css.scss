@@ -1,26 +1,26 @@
 @import "./external/_set.css.scss";
 
 body.external {
-  background:url('/assets/marketing/bg_darker.gif');
+  background:url('/assets/marketing/bg.gif');
   a { 
-   color: #74c04c; 
+    color:$green;
    font-family: 'Ubuntu', sans-serif;
    font-weight:500;
    text-decoration: none;
-   -webkit-transition:color 0.2s ease-in;  
+   text-shadow:none;
+   &:hover {
+    color:$dark-green;
+    -webkit-transition:color 0.2s ease-in;  
    -moz-transition:color 0.2s ease-in;  
    -o-transition:color 0.2s ease-in;  
    transition:color 0.2s ease-in;  
+   }
   }
-  a:active {color:#72a435;}
-  a:visited { color: #74c04c; }
-  a:hover { color: #39b549!important; }
-  a:focus { outline: thin dotted; }
-  a:hover, a:active { outline: 0; }
+  
   h1, h2, h3 {font-family:'Ubuntu', Helvetica, Arial, sans-serif; font-weight:400;}
   div.header {
     background:url('/assets/marketing/bg.gif');
-    padding:20px 0;
+    padding:20px 0 0 0;
     text-align:center;
     div {margin:auto; width:440px;}
     div#logo {
@@ -28,19 +28,27 @@ body.external {
        img {height:100px; margin:0 auto;}
     }
     div#navigation {
-       padding:10px 0;
        li {
+          display:inline-block;
           font-size:16px;
           margin:0 1px;
           padding:10px 20px;
           text-shadow:none;
-          a {color:#818385;}
+          a {color:$gray;
+          &:hover {
+            color:$dark-green;
+            -webkit-transition:color 0.2s ease-in;  
+           -moz-transition:color 0.2s ease-in;  
+           -o-transition:color 0.2s ease-in;  
+           transition:color 0.2s ease-in;  
+           }
+         }
        }
     }
   } //end of div.header
   div.content {
     color:$gray;
-    font-size:14px;
+    font-size:.875em;
     margin:20px auto;
     padding:0;
     position:relative;
@@ -50,7 +58,7 @@ body.external {
       margin:0 auto 20px auto;
       p {padding:5px 0;}
     }
-    h2 {color:$dark-green; font-size:30px; margin:0; padding:0 0 20px 0;}
+    h2 {color:$green; font-size:30px; margin:0; padding:0 0 20px 0;}
     input[type="text"], input[type="password"] {
       border:1px #d3d3d3 solid;
       border-radius:5px;
@@ -127,8 +135,8 @@ body.invitations-show {
   #broughtby {
     position:absolute;
     right:160px;
-    top:-63px;
-    p {color:#b9b9b9; font-family:'Ubuntu', sans-serif;}
+    top:-67px;
+    p {color:#b9b9b9; font-family:'Ubuntu', sans-serif; font-size:.875em;}
 
     #sponsoredBy {
       margin-top: 20px;
@@ -204,15 +212,14 @@ body.invitations-show {
           }
         }
         &#check-terms {
-          float:left;
-          margin:20px 0 0 250px;
-          padding:14px 0 10px 0;
-          width:220px;
+          position:relative;
+          margin:0 0 0 250px;
+          width:230px;
         }
         &.signup-submit {
-          float:right;
-          margin-top:20px;
-          width:450px;
+          float:left;
+          margin:20px 0 0 250px;
+          width:180px;
         }
         .form-msg {
           .msg {
@@ -310,8 +317,9 @@ body.invitations-show div.helper {
   -moz-box-shadow:0;
   -webkit-box-shadow:0;
   color:$dark-green;
-  font-size:16px;  
+  display: none;
   left:670px;
   padding:0;
+  position: absolute;
   width:280px;
 }
