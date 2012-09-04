@@ -1,12 +1,12 @@
 .pt header {
     background-position:center -50px;
     li#tour a {
-        background:url('/assets/marketing/bg-dark-px.png');
+        background:darken($dark-green, 5%);
     }
     div.nav-arrow {
         @include nav-arrow;
-        border-color: $dark-green transparent;
-        margin:38px 0 0 -490px;
+        border-color: darken($dark-green, 5%) transparent;
+        margin:47px 0 0 -490px;
     }
 }
 .pt ul.pt-buttons li {display:inline-block;}

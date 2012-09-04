@@ -21,13 +21,9 @@ $yellow: #d4dd25;
 }
 @mixin nav-arrow {
   @include arrow;
-  border-width: 0 9px 9px 9px;
+  border-width: 9px 9px 0 9px;
   display:inline-block;
   position:absolute;
-  //background:url('/assets/marketing/sprite.png') no-repeat;
-  //background-position:-70px -48px;
-  //height:8px;
-  //width:15px;
 }
 @mixin right-arrow {
   @include arrow;
