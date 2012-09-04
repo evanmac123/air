@@ -11,8 +11,9 @@ module AccountClaimer
     def claim
       User.transaction do
         if user_with_this_contact = find_claimed_user_by_from
-          if User.find_by_claim_code(@normalized_claim_information)
-            demo = user_with_this_contact.demo
+          demo = user_with_this_contact.demo
+
+          if demo.users.find_by_claim_code(@normalized_claim_information)
             already_claimed_message = demo.already_claimed_message(user_with_this_contact)
 
             return [already_claimed_message, false]

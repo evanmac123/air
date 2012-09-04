@@ -23,6 +23,14 @@ feature 'User claims account' do
       expect_mt_sms "+14152613077", message_text
     end
 
+    def expect_reply_including(message_text)
+      expect_mt_sms_including "+14152613077", message_text
+    end
+
+    def expect_no_reply_including(message_text)
+      expect_no_mt_sms_including "+14152613077", message_text
+    end
+
     def expect_contact_set(user)
       user.reload.phone_number.should == "+14152613077"
     end
@@ -81,6 +89,16 @@ feature 'User claims account' do
       current_email.to_s.should include(message_text)
       current_email.to_s.should include("---Please put replies ABOVE this line---")
       current_email.to_s.should include("Please note that we look for your command in the first line of the body of your email.")
+    end
+
+    def expect_reply_including(message_text)
+      expect_reply(message_text)
+    end
+
+    def expect_no_reply_including(message_text, email="phil@darnowsky.com")
+      crank_dj_clear
+      open_email(email)
+      current_email.to_s.should_not include(message_text)
     end
 
     def expect_contact_set(user)
@@ -434,7 +452,7 @@ feature 'User claims account' do
 
               it "should not re-claim that user" do
                 @expected_user.reload
-                @expected_user.accepted_invitation_at.should == @original_claim_time
+                @expected_user.accepted_invitation_at.utc.to_s.should == @original_claim_time.utc.to_s
                 expect_contact_unset @expected_user
               end
             else
@@ -553,12 +571,19 @@ feature 'User claims account' do
       context "when the contact in question is associated with a user" do
         before(:each) do
           @user = create_claimed_user
-          FactoryGirl.create(:user, :claim_code => 'otherguy')
+          @other_user = FactoryGirl.create(:user, :claim_code => 'otherguy', demo: @user.demo)
+          FactoryGirl.create(:user, claim_code: "badguy")
         end
 
         it "should send a helpful error message" do
           send_message 'otherguy'
           expect_reply "You've already claimed your account, and have 10 pts. If you're trying to credit another user, ask them to check their username with the MYID command."
+        end
+
+        it "should not send an already-claimed message if it looks like the user is trying to claim an account in a different demo entirely" do
+          send_message "badguy"
+          expect_no_reply_including "You've already claimed your account"
+          expect_reply_including %{Sorry, I don't understand}
         end
 
         context "and the demo has a custom already-claimed message" do
