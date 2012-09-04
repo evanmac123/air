@@ -21,7 +21,7 @@ $yellow: #d4dd25;
 }
 @mixin nav-arrow {
   @include arrow;
-  border-width: 0 9px 9px 9px;
+  border-width: 9px 9px 0 9px;
   display:inline-block;
   position:absolute;
 }
