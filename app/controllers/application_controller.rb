@@ -12,8 +12,6 @@ class ApplicationController < ActionController::Base
   include Clearance::Authentication
   protect_from_forgery
 
-  layout 'old_application'
-
   protected
 
   # Used since our *.hengage.com SSL cert does not cover plain hengage.com.

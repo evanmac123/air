@@ -1,5 +1,4 @@
 class UsersController < Clearance::UsersController
-  layout "application"
   
   def index
     @friend_ids = current_user.friend_ids
