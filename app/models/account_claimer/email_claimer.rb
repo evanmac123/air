@@ -27,9 +27,17 @@ module AccountClaimer
       if user.overflow_email.present?
         failure(error_message)
       else
+        had_email_already = user.email.present?
+
         user.load_personal_email @from
         user.reload
-        success("OK, we've got your new email address #{user.email}, and will still remember #{user.overflow_email} too.")
+
+        success_message = if had_email_already
+                            "OK, we've got your new email address #{user.email}, and will still remember #{user.overflow_email} too."
+                          else
+                            "OK, we've now got your email address #{user.email}."
+                          end
+        success(success_message)
       end
     end
   end
