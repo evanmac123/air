@@ -1,8 +1,6 @@
 class ActsController < ApplicationController
   include Reply
 
-  layout "application"
-
   def index
     invoke_tutorial
   

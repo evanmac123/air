@@ -1,5 +1,4 @@
 class SettingsController < ApplicationController
-  layout "application"
 
   before_filter :parse_date_of_birth, :only => :update
   before_filter :authenticate_without_game_begun_check
