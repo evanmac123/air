@@ -6,7 +6,7 @@
     div.nav-arrow {
         @include nav-arrow;
         border-color: darken($dark-green, 5%) transparent;
-        margin:47px 0 0 -354px;
+        margin:47px 0 0 -334px;
     }
 }
 // initial hides
@@ -37,22 +37,26 @@
     ul {
         background:image-url('marketing/sprite.png') no-repeat #fff;
         border-right:1px lighten($gray, 35%) solid;
+        cursor:pointer;
         display:inline-block;
         float:left;
         margin:0;
         padding:20px 10px 20px 100px;
         width:33.33%;
-        &#lvl1 {background-position:0 -110px;}
-        &#lvl2 {background-position:35px -280px;}
-        &#lvl3 {background-position:25px -465px; border:0;}
+        &:hover {
+            a {color:$orange; font-weight:500;}
+        }
+        &#message {background-position:0 -110px;}
+        &#post {background-position:35px -280px;}
+        &#play {background-position:25px -465px; border:0;}
     }
 }
 #measure, #offerings {
     -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#00FFFFFF,endColorstr=#00FFFFFF)"; /* IE8 */  
       filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#00FFFFFF,endColorstr=#00FFFFFF);   /* IE6 & 7 */      
     padding:40px 0;
-    h2, ul {padding:0 10px;}
-    h3 {clear:both; color:$gray; padding-top:40px;}
+    h2, h3, ul {padding:0 10px;}
+    h3 {clear:both; color:$gray;}
     ul {
         max-width:960px;
         li {
@@ -64,16 +68,6 @@
             padding:0 80px 0 15px;
             width:380px;
         }
-        /*sub-lists
-        ul {
-            margin:0;
-            max-width:380px;
-            li {
-                float:left;
-                font-size:.875em;
-                width:50%;
-            }
-        }*/
     }
 }
 #measure {

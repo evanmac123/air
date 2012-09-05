@@ -31,14 +31,14 @@ function connectTour(){
 
 // Solutions page
 function connectSolutions(){
-  $('a.solution-name').click(function() {
+  $('ul.a-solution').click(function() {
       $('#offerings .wrap').hide();
       $('#measure ul').hide();
       $('a.solution-name').removeClass('selected');
 
       $('#'+this.id+'-feats').fadeIn();
       $('#'+this.id+'-measure').fadeIn();
-      $(this).addClass('selected');
+      $('ul.a-solution#'+this.id+' a.solution-name').addClass('selected');
   });
 
   //tooltips
