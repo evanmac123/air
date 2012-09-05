@@ -400,6 +400,7 @@ sub {
 header {
   background:image-url('marketing/header-bg.png') top center no-repeat $dark-green; 
   border-bottom:1px darken($dark-green, 5%) solid;
+  width:100%;
 }
 section {clear:both;}
 #mast, #nav, footer .wrap {
