@@ -112,7 +112,16 @@
         border-radius:5px;
         display:inline-block;
         height:140px;
+        padding:0 20px;
+        position:relative;
         width:330px;
+        img {
+            position:absolute;
+            margin:auto;
+            top:0;
+            bottom:0;
+            max-width:280px;
+        }
     }
     ul {
         height:100%;
@@ -121,8 +130,8 @@
     #michelin, #fuji {
         div.arrow {
             @include right-arrow;
-            margin-top:-20px;
-            margin-left:328px;
+            margin-left:308px;
+            margin-top:40px;
         }
         div.logo-holder {float:left;}
         ul {float:right;}
@@ -130,8 +139,8 @@
     #yahoo, #highmark {
         div.arrow {
             @include left-arrow;
-            margin-top:-20px;
-            margin-left:-20px;
+            margin-left:-40px;
+            margin-top:40px;
         }
         div.logo-holder {float:right;}
         ul {float:left;}
