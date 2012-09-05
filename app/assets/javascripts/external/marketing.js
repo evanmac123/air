@@ -40,4 +40,17 @@ function connectSolutions(){
       $('#'+this.id+'-measure').fadeIn();
       $(this).addClass('selected');
   });
+
+  //tooltips
+  $('.pt a.callout').mouseover(function(pos) {
+    $('div#'+this.id+'-tt').css({
+      left:pos.pageX, top:pos.pageY
+    }).fadeIn(300);
+  }).mousemove(function(pos2) {
+    $('div#'+this.id+'-tt').css({
+      left:pos2.pageX-100, top:pos2.pageY+15
+    })
+  }).mouseout(function(){
+    $('div#'+this.id+'-tt').fadeOut(300);
+  });
 }
