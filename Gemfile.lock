@@ -203,6 +203,9 @@ GEM
     jquery-rails (1.0.19)
       railties (~> 3.0)
       thor (~> 0.14)
+    jquery-ui-rails (2.0.0)
+      jquery-rails
+      railties (>= 3.1.0)
     json (1.7.3)
     jwt (0.1.4)
       json (>= 1.2.4)
@@ -436,6 +439,7 @@ DEPENDENCIES
   heroku_san
   high_voltage
   jquery-rails
+  jquery-ui-rails
   linecache
   linecache19
   mixpanel
