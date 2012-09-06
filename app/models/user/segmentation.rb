@@ -2,19 +2,20 @@ class User
   module Segmentation
     def values_for_segmentation
       {
-        :ar_id                  => self.id,
-        :demo_id                => self.demo_id,
-        :updated_at             => self.updated_at.utc,
-        :points                 => self.points,
-        :location_id            => self.location_id,
-        :height                 => self.height,
-        :weight                 => self.weight,
-        :gender                 => self.gender,
-        :characteristics        => self.characteristics.try(:stringify_keys) || {},
-        :date_of_birth          => self.date_of_birth.try(:to_time).try(:utc).try(:midnight),
-        :accepted_invitation_at => self.accepted_invitation_at.try(:utc),
-        :claimed                => self.accepted_invitation_at.present?,
-        :has_phone_number       => self.phone_number.present?
+        :ar_id                     => self.id,
+        :demo_id                   => self.demo_id,
+        :updated_at                => self.updated_at.utc,
+        :points                    => self.points,
+        :location_id               => self.location_id,
+        :height                    => self.height,
+        :weight                    => self.weight,
+        :gender                    => self.gender,
+        :characteristics           => self.characteristics.try(:stringify_keys) || {},
+        :date_of_birth             => self.date_of_birth.try(:to_time).try(:utc).try(:midnight),
+        :accepted_invitation_at    => self.accepted_invitation_at.try(:utc),
+        :claimed                   => self.accepted_invitation_at.present?,
+        :has_phone_number          => self.phone_number.present?,
+        :email_has_internal_domain => self.email_has_internal_domain?,
       }
     end
 
