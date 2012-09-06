@@ -188,11 +188,11 @@ feature "Admin Defines Characteristics" do
       expect_characteristic_row "Some number", "Some numerical type of field", 'Number'
     end
 
-    it "should display allowable value fields only for discrete characteristics", :js => true, focus: true do
+    it "should display allowable value fields only for discrete characteristics", :js => true do
       set_up_demo_and_characteristics
       signin_as_admin
       visit admin_characteristics_path
-binding.pry
+
       select "Number", :from => "characteristic[datatype]"
       page.all('input[@name="characteristic[allowed_values][]"]').select(&:visible?).should be_empty
 
