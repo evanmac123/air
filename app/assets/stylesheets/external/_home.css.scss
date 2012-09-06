@@ -127,7 +127,7 @@
         height:100%;
         width:380px;
     }
-    #michelin, #fuji {
+    #michelin, #highmark {
         div.arrow {
             @include right-arrow;
             margin-left:308px;
@@ -136,7 +136,7 @@
         div.logo-holder {float:left;}
         ul {float:right;}
     }
-    #yahoo, #highmark {
+    #yahoo, #fuji {
         div.arrow {
             @include left-arrow;
             margin-left:-40px;
