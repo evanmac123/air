@@ -56,11 +56,13 @@
 #post-section, #play-section {display:none;}
 
 section.offering-section {
-    padding:40px 0 0 0;
+    padding:20px 0 0 0;
     &#post-section .buttons {padding-top:40px;}
     div.wrap {
         background:image-url('marketing/sprite-icons-bg.png') no-repeat;
         border-bottom:1px #e6e6e6 solid;
+        margin:0 auto;
+        max-width:960px;
         padding-bottom:20px;
         &#message-feats {background-position:760px 10px;}
         &#post-feats {background-position:780px -600px;}
@@ -68,8 +70,9 @@ section.offering-section {
     }
     h2, h3, ul {clear:both; padding:0 10px;}
     h2 {max-width:640px;}
-    h3 {color:$gray;}
+    h3 {color:$gray; padding:20px 10px 0 10px;}
     ul {
+        margin:0 auto;
         max-width:960px;
         &.measure {
             background:image-url('marketing/sprite-icons-bg.png') -200px 20px no-repeat;
