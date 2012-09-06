@@ -5,6 +5,7 @@ body {
 }
   a, img {border:none;}
   .cf {clear:both;}
+  ul {list-style-type: none}
 
 .container {
   background-image:url('img/rough_diagonal.png');
@@ -14,9 +15,12 @@ body {
 }
 
 .header {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
   margin:auto;
   padding:20px 0;
-  width:670px;
+  width:665px;
 }
   img#logo {
     float:left;
@@ -34,9 +38,13 @@ body {
   }
 
 .viewer {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  //border:1px red solid;
   margin:auto;
   position:relative;
-  width:786px;
+  width:780px;
 }
 
 a#prev, a#next {
@@ -70,21 +78,20 @@ a#prev, a#next {
     }
 
 #slideshow {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  background:url('img/bg-transwhite.png');
+  border: 1px solid #f8f8f8; 
+  border-radius:5px;
+  box-shadow:inset 0 0 10px #949494;
   display:inline-block;
   float:left;
   margin: auto;
+  padding: 20px; 
   position:relative;
-  width: 670px; 
+  width:660px;
 }
-  #slideshow img {
-    padding: 22px; 
-    background:url('img/bg-transwhite.png');
-    border: 1px solid #f8f8f8; 
-    border-radius:5px;
-    box-shadow:inset 0 0 10px #949494;
-    height:620px;
-    width:620px;
-  }
 
 .footer {
   border-top:1px white solid;
