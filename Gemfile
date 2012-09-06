@@ -36,6 +36,7 @@ group :assets do
   gem 'sass-rails', "3.1.4" #Locking sass-rails at 3.1.4 so that assets will precompile
   gem 'coffee-rails', " ~> 3.1.0"
   gem 'uglifier'
+  gem 'jquery-ui-rails'
 end
 
 # RSpec needs to be in :development group to expose generators

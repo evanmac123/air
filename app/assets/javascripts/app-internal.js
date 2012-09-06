@@ -1,4 +1,5 @@
 //= require jquery
+//= require jquery.effects.highlight
 //= require jquery_ujs
 //= require_tree ../../../vendor/assets/javascripts/internal/.
 //= require fancybox
