@@ -8,27 +8,43 @@
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
 <!-- google web fonts -->
 <link href='http://fonts.googleapis.com/css?family=Ubuntu:400,500' rel='stylesheet' type='text/css'>
-<!-- include Cycle plugin -->
-<script type="text/javascript" src="http://cloud.github.com/downloads/malsup/cycle/jquery.cycle.all.latest.js"></script>
+
 <script type="text/javascript">
 $(document).ready(function() {
-  imageCount = $('#slideshow img').length;
-  positionElement = $('#position');
+  imageCount = $('#slideshow li').length;
+  $('span#allTiles').text(imageCount);
 
-  updatePositionFunc = function(isNext, slideIndex, slideElement) {
-    newContent = "Tile: " + (slideIndex + 1) + " of " + imageCount;
-    positionElement.html(newContent);
-  };
+  //initial states
+  counter = 1;
+  $('span#currentTile').text(counter);
 
-  $('#slideshow').cycle({
-    fx: 'fade',
-    timeout: 0,
-    onPrevNextEvent: updatePositionFunc,
-    next: 'a#next',
-    prev: 'a#prev'
+  display = function(current) {
+    $('span#currentTile').text(current);
+    $('#slideshow li').hide();
+    $('#slideshow li:nth-child('+current+')').fadeIn();
+  }
+
+  $('a#next').click(function(){
+    if(counter < imageCount) {
+      counter++;
+      display(counter);
+    }
+    else {
+      counter = 1;
+      display(counter);
+    }
   });
 
-  updatePositionFunc(false, 0, null);
+  $('a#prev').click(function(){
+    if(counter <= imageCount) {
+      counter--;
+      display(counter);
+    }
+    if(counter < 1) {
+      counter = imageCount;
+      display(counter);
+    }
+  });
 });
 </script>
 <script type="text/javascript">
@@ -50,17 +66,17 @@ $(document).ready(function() {
 <div class="container">
   <div class="header">
     <a href="http://www.hengage.com" title="h.engage"><img src="https://s3.amazonaws.com/covidien-tiles/img/logo.png" id="logo" alt="h.engage" /></a>
-    <p id="position"></p>
+    <p id="position">Tile: <span id="currentTile"></span> of <span id="allTiles"></span></p>
     <div class="cf"></div>
   </div>
   <div class="viewer">
     <a href="#" id="prev"><span>Previous</span></a>
-    <div id="slideshow">
-      <img src="https://s3.amazonaws.com/covidien-tiles/tiles/COV1.jpg"  />
-      <img src="https://s3.amazonaws.com/covidien-tiles/tiles/COV2.jpg"  />
-      <img src="https://s3.amazonaws.com/covidien-tiles/tiles/COV3.jpg"  />
-      <img src="https://s3.amazonaws.com/covidien-tiles/tiles/COV4.jpg"  />
-    </div>
+    <ul id="slideshow">
+      <li><img src="https://s3.amazonaws.com/covidien-tiles/tiles/COV1.jpg"  /></li>
+      <li><img src="https://s3.amazonaws.com/covidien-tiles/tiles/COV2.jpg"  /></li>
+      <li><img src="https://s3.amazonaws.com/covidien-tiles/tiles/COV3.jpg"  /></li>
+      <li><img src="https://s3.amazonaws.com/covidien-tiles/tiles/COV4.jpg"  /></li>
+    </ul>
     <a href="#" id="next"><span>Next</span></a>
     <div class="cf"></div>
   </div>
