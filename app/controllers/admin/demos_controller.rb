@@ -1,5 +1,6 @@
 class Admin::DemosController < AdminBaseController
   before_filter :find_demo_by_id, :only => [:show, :edit, :update, :destroy]
+  before_filter :normalize_internal_domains, :only => [:create, :update]
 
   def new
     @demo = Demo.new
@@ -74,14 +75,16 @@ class Admin::DemosController < AdminBaseController
       params[:demo][:victory_verification_sms_number] = PhoneNumber.normalize(raw_number)
     end
 
+    params[:demo].delete(:levels)
+  end
+
+  def normalize_internal_domains
     internal_domain_string = params[:demo][:internal_domains]
     params[:demo][:internal_domains] = if internal_domain_string.present?
-                                         internal_domain_string.split(',').map(&:strip)
+                                         internal_domain_string.split(',').map(&:strip).map(&:downcase)
                                        else
                                          []
                                        end
-
-    params[:demo].delete(:levels)
   end
 
   def create_levels(levels_params)
