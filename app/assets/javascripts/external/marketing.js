@@ -31,13 +31,26 @@ function connectTour(){
 
 // Solutions page
 function connectSolutions(){
-  $('a.solution-name').click(function() {
+  $('ul.a-solution').click(function() {
       $('#offerings .wrap').hide();
       $('#measure ul').hide();
       $('a.solution-name').removeClass('selected');
 
       $('#'+this.id+'-feats').fadeIn();
       $('#'+this.id+'-measure').fadeIn();
-      $(this).addClass('selected');
+      $('ul.a-solution#'+this.id+' a.solution-name').addClass('selected');
+  });
+
+  //tooltips
+  $('.pt a.callout').mouseover(function(pos) {
+    $('div#'+this.id+'-tt').css({
+      left:pos.pageX, top:pos.pageY
+    }).fadeIn(300);
+  }).mousemove(function(pos2) {
+    $('div#'+this.id+'-tt').css({
+      left:pos2.pageX-100, top:pos2.pageY+15
+    })
+  }).mouseout(function(){
+    $('div#'+this.id+'-tt').fadeOut(300);
   });
 }
