@@ -41,7 +41,8 @@ $(function() {
     
     return false;
   });
-}
+});
+
 
 function autocompleteIfNoneRunning(options){
   //Only allow one request at a time
@@ -66,6 +67,7 @@ function autocompleteIfNoneRunningAndResetQueue(options){
   autocomplete_waiting = 0;
   autocompleteIfNoneRunning(options);
 }
+
 function getAutocomplete(options){
   var entered_text = $(options['calling_div'] + ' #autocomplete').val();
   if (entered_text.length > 2){
@@ -120,3 +122,18 @@ function fadeOutUnclickedSuggestions(){
   $(this).removeClass('fade_out_singles');
   $('.fade_out_singles').fadeOut(1500, resizeFaceboxToFitSuggestions);
 }
+
+function resizeFaceboxToFitSuggestions(){
+  var show_div = $("#search_for_friends_to_invite");
+  var show_div_height = show_div.height();
+  var extra = 10;
+  var new_height = show_div_height + extra;
+  var facebox_version = $("#facebox .content");
+  facebox_version.css("height", new_height);
+  var page_version = $(".invite-module");
+  page_version.css("height", new_height);
+}
+function clearAutocompleteStatus(){
+  $('#autocomplete_status').text('');
+}
+

@@ -1,7 +1,6 @@
 var global_contents_of_three_ways_to_play_3838477463535 = '';
 
 $(function() {
-  $.ajaxSetup({ cache: false });
   
   saveFaqMiniToVariable();  
   
@@ -101,10 +100,6 @@ $(function() {
     $('.avatar-controls').show();
     e.preventDefault();
   });
-
-  $('.with-hint-text').live('focus', (function(e) {
-    $(this).attr('value', '').removeClass('with-hint-text');
-  }));
 
   // 
   // // These next two are to make the autocompletions disappear if you click on something else
@@ -217,20 +212,6 @@ function addByteCounterFor(locator) {
     }, 1);
     
   });
-}
-
-function resizeFaceboxToFitSuggestions(){
-  var show_div = $("#search_for_friends_to_invite");
-  var show_div_height = show_div.height();
-  var extra = 10;
-  var new_height = show_div_height + extra;
-  var facebox_version = $("#facebox .content");
-  facebox_version.css("height", new_height);
-  var page_version = $(".invite-module");
-  page_version.css("height", new_height);
-}
-function clearAutocompleteStatus(){
-  $('#autocomplete_status').text('');
 }
 
 // function hideTutorial(){
