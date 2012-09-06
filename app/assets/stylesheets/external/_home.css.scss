@@ -94,9 +94,8 @@
 #clients {
     padding:40px 0;
     a.button {
-        display:block;
+        display:inline-block;
         margin:0 auto;
-        width:255px;
     }
     h3 {border-bottom:1px #e6e6e6 solid; color:$gray; margin:0 auto 40px auto; padding-bottom:20px; width:960px;}
     span {font-weight:700;}
@@ -123,6 +122,7 @@
             max-width:280px;
         }
     }
+    div.wrap {text-align:center;}
     ul {
         height:100%;
         width:380px;
