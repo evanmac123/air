@@ -60,6 +60,7 @@ section.offering-section {
     &#post-section .buttons {padding-top:40px;}
     div.wrap {
         background:image-url('marketing/sprite-icons-bg.png') no-repeat;
+        @include ie-png;
         border-bottom:1px #e6e6e6 solid;
         margin:0 auto;
         max-width:960px;
@@ -76,12 +77,14 @@ section.offering-section {
         max-width:960px;
         &.measure {
             background:image-url('marketing/sprite-icons-bg.png') -200px 20px no-repeat;
+            @include ie-png;
             border-top:1px #fff solid; 
             min-height:200px;
             padding-top:20px;
         }
         li {
             background:image-url('marketing/sprite.png') no-repeat;
+            @include ie-png;
             background-position:0 -635px;
             box-sizing:border-box;
             float:left;
