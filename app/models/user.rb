@@ -15,7 +15,7 @@ class User < ActiveRecord::Base
 
   DEFAULT_MUTE_NOTICE_THRESHOLD = 10
 
-  FIELDS_TRIGGERING_SEGMENTATION_UPDATE = %w(characteristics points location_id date_of_birth height weight gender demo_id accepted_invitation_at phone_number)
+  FIELDS_TRIGGERING_SEGMENTATION_UPDATE = %w(characteristics points location_id date_of_birth height weight gender demo_id accepted_invitation_at phone_number email)
 
   include Clearance::User
   include User::Ranking
@@ -496,6 +496,12 @@ class User < ActiveRecord::Base
     suggestion_hash = Hash[*([:suggestion_a, :suggestion_b, :suggestion_c].zip(suggestion_ids).flatten)]
 
     Mixpanel::Tracker.new(MIXPANEL_TOKEN, {}).delay.track_event("got rule suggestion", data_for_mixpanel.merge(suggestion_hash))
+  end
+
+  def email_has_internal_domain?
+    return false unless (self.email.present?) && (self.email =~ /@(.*)$/)
+    domain = $1.downcase
+    self.demo.internal_domains.include? domain
   end
 
   def self.claim_account(from, to, claim_code, options={})
