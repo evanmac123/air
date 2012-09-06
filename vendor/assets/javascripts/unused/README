@@ -1,0 +1,1 @@
+Note that we are now including the bits of jquery-ui that we acutally use (effect('highlight') via the jquery-ui-rails gem
