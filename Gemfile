@@ -49,6 +49,16 @@ group :development, :test do
                           # For instance, XHR requests by themselves do not reload assets when using this gem
                           # Note that all defaults can be overridden, see the github README for this gem
 
+  platforms :mri_18 do
+    gem "ruby-debug"
+    gem "linecache"
+  end
+
+  platforms :mri_19 do
+    gem "debugger"
+    gem "linecache19"
+  end
+
   gem "factory_girl_rails"
 
   gem "reek"
