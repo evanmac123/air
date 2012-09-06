@@ -27,19 +27,6 @@ function connectTour(){
       $(this).addClass('selected');
       $('#perpeng div.image img.'+this.id).show();
   });
-}
-
-// Solutions page
-function connectSolutions(){
-  $('ul.a-solution').click(function() {
-      $('#offerings .wrap').hide();
-      $('#measure ul').hide();
-      $('a.solution-name').removeClass('selected');
-
-      $('#'+this.id+'-feats').fadeIn();
-      $('#'+this.id+'-measure').fadeIn();
-      $('ul.a-solution#'+this.id+' a.solution-name').addClass('selected');
-  });
 
   //tooltips
   $('.pt a.callout').mouseover(function(pos) {
@@ -52,5 +39,29 @@ function connectSolutions(){
     })
   }).mouseout(function(){
     $('div#'+this.id+'-tt').fadeOut(300);
+  });
+}
+
+// Solutions page
+function connectSolutions(){
+  $('ul.a-solution').click(function() {
+      $('section.offering-section').hide();
+      $('a.solution-name').removeClass('selected');
+
+      $('section#'+this.id+'-section').fadeIn();
+      $('ul.a-solution#'+this.id+' a.solution-name').addClass('selected');
+  });
+
+  $('#next-post').click(function() {
+    $('section.offering-section').hide();
+    $('a.solution-name').removeClass('selected');
+    $('section.offering-section#post-section').fadeIn();
+    $('ul.a-solution#post a.solution-name').addClass('selected');
+  });
+  $('#next-play').click(function() {
+    $('section.offering-section').hide();
+    $('a.solution-name').removeClass('selected');
+    $('section.offering-section#play-section').fadeIn();
+    $('ul.a-solution#play a.solution-name').addClass('selected');
   });
 }
