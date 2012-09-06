@@ -17,6 +17,8 @@ $(document).ready(function() {
   //initial states
   counter = 1;
   $('span#currentTile').text(counter);
+  $('#slideshow li').slice(counter).hide();
+
 
   display = function(current) {
     $('span#currentTile').text(current);
