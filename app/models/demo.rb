@@ -1,6 +1,8 @@
 class Demo < ActiveRecord::Base
   JOIN_TYPES = %w(pre-populated self-inviting public).freeze
-  
+
+  serialize :internal_domains, Array
+
   has_many :users, :dependent => :destroy
   has_many :acts
   has_many :rules, :dependent => :destroy

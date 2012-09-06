@@ -666,6 +666,46 @@ feature "Admin segmentation" do
     @demo.users.claimed.each {|claimed_user| expect_user_content(claimed_user)}
   end
 
+  it "can segment on internal email", :js => true do
+    internal_domains = %w(pets.com boo.com)
+    demo = FactoryGirl.create(:demo, internal_domains: internal_domains)
+
+    internal_users = []
+    internal_domains.each do |internal_domain_name|
+      internal_users << FactoryGirl.create(:user, email: "bob@#{internal_domain_name}", demo: demo)
+    end
+
+    external_users = []
+    3.times{external_users << FactoryGirl.create(:user, demo: demo)}
+
+    crank_dj_clear
+
+    signin_as_admin
+    visit admin_demo_segmentation_path(demo)
+
+    select 'Email has internal domain', :from => "segment_column[0]"
+    select "equals",  :from => "segment_operator[0]"
+    check "segment_value[0]"
+
+    click_button "Find segment"
+
+    expect_content "Segmenting on: Email has internal domain equals true"
+    expect_content "2 users in segment"
+    click_link "Show users"
+    internal_users.each {|claimed_user| expect_user_content(claimed_user)}
+
+    select 'Email has internal domain', :from => "segment_column[0]"
+    select "equals",  :from => "segment_operator[0]"
+    uncheck "segment_value[0]"
+
+    click_button "Find segment"
+
+    expect_content "Segmenting on: Email has internal domain equals false"
+    expect_content "3 users in segment"
+    click_link "Show users"
+    external_users.each {|claimed_user| expect_user_content(claimed_user)}
+  end
+
   it 'can display large numbers of users', :js => true do
     # We need a large number of IDs to expose the problem caused by trying to
     # jam them all into the URI, but creating 1000 users in the DB for this 

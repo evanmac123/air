@@ -74,6 +74,13 @@ class Admin::DemosController < AdminBaseController
       params[:demo][:victory_verification_sms_number] = PhoneNumber.normalize(raw_number)
     end
 
+    internal_domain_string = params[:demo][:internal_domains]
+    params[:demo][:internal_domains] = if internal_domain_string.present?
+                                         internal_domain_string.split(',').map(&:strip)
+                                       else
+                                         []
+                                       end
+
     params[:demo].delete(:levels)
   end
 
