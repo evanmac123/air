@@ -45,7 +45,8 @@
     }
     div.rollover {
         @include rollover;
-        margin:-62px 0 0 -55px;
+        //float:left;
+        margin:-62px 0 0 -610px;
     }
     div.wrap {
         height:300px;
