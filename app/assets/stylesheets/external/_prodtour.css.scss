@@ -55,6 +55,10 @@ div.right {float:right;}
     img.pef-4 {margin-top:200px;}
 }
 #pt-spark #perpeng ul#perpeng-features {
+    div.rollover {
+        @include rollover;
+        margin:-50px 0 0 -60px;
+    }
     h1,p {
         box-sizing:border-box; 
         -moz-box-sizing:border-box;

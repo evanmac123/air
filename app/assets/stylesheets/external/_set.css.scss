@@ -35,6 +35,14 @@ $yellow: #d4dd25;
   @include arrow;
   border-width: 20px 20px 20px 0;
 }
+@mixin rollover {
+  display:inline-block;
+  background:image-url('marketing/sprite-icons.png') no-repeat;
+  background-position:-3px -81px;
+  position:absolute;
+  height:95px;
+  width:50px;
+}
 
 @mixin green-btn {
   background: #72b833;

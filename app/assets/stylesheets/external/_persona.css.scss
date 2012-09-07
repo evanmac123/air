@@ -43,6 +43,10 @@
             &.communications div.arrow {margin-top:240px;}
         }
     }
+    div.rollover {
+        @include rollover;
+        margin:-62px 0 0 -55px;
+    }
     div.wrap {
         height:300px;
         margin:20px auto;
