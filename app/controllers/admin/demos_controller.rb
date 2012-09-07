@@ -31,8 +31,9 @@ class Admin::DemosController < AdminBaseController
 
   def show
     @users = @demo.users.alphabetical
-    @user_with_mobile_count = @demo.users.where("phone_number IS NOT NULL AND phone_number != ''").count
+    @user_with_mobile_count = @demo.users.with_phone_number.count
     @claimed_user_count = @demo.users.claimed.count
+    @user_with_game_referrer_count = @demo.users.with_game_referrer.count
     @levels = @demo.levels.in_threshold_order
     @locations = @demo.locations.alphabetical
   end

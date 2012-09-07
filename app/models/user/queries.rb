@@ -72,4 +72,8 @@ module User::Queries
   def by_employee_id(employee_id)
     where(employee_id: employee_id)
   end
+
+  def with_game_referrer
+    where("game_referrer_id IS NOT NULL")
+  end
 end
