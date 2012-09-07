@@ -1,5 +1,8 @@
 class User
   module Segmentation
+    SEGMENTATION_CREATE_PRIORITY = 100
+    SEGMENTATION_UPDATE_PRIORITY = 100 
+
     def values_for_segmentation
       {
         :ar_id                     => self.id,
@@ -54,21 +57,21 @@ class User
     end
 
     def schedule_segmentation_create
-      self.delay.create_segmentation_info
+      self.delay(priority: SEGMENTATION_CREATE_PRIORITY).create_segmentation_info
     end
 
-    def schedule_segmentation_update
-      return unless FIELDS_TRIGGERING_SEGMENTATION_UPDATE.any?{|field_name| changed.include?(field_name)}
+    def schedule_segmentation_update(force = false)
+      return unless force || FIELDS_TRIGGERING_SEGMENTATION_UPDATE.any?{|field_name| changed.include?(field_name)}
 
-      self.delay.update_segmentation_info
+      self.delay(priority: SEGMENTATION_UPDATE_PRIORITY).update_segmentation_info(force)
     end
 
     def create_segmentation_info
       User::SegmentationData.create_from_user(self)
     end
 
-    def update_segmentation_info
-      User::SegmentationData.update_from_user(self)
+    def update_segmentation_info(force = false)
+      User::SegmentationData.update_from_user(self, force)
     end
 
     def destroy_segmentation_info

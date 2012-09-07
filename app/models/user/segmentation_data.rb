@@ -15,8 +15,13 @@ class User::SegmentationData
     self.create!(user.values_for_segmentation)
   end
 
-  def self.update_from_user(user)
-    segmentation_record = self.where(:ar_id => user.id, :updated_at.lt => user.updated_at.utc).update_all(user.values_for_segmentation)
+  def self.update_from_user(user, force = false)
+    segmentation_record = self.where(:ar_id => user.id)
+    unless force
+      segmentation_record = segmentation_record.where(:updated_at.lt => user.updated_at.utc)
+    end
+    
+    segmentation_record.update_all(user.values_for_segmentation)
   end
 
   def self.destroy_from_user(user)

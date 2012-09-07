@@ -29,6 +29,8 @@ class Demo < ActiveRecord::Base
   validate :gold_coin_fields_all_set, :if => :uses_gold_coins
   validate :gold_coin_maximum_award_gte_minimum, :if => :uses_gold_coins
 
+  after_save :schedule_resegment_on_internal_domains
+
   has_alphabetical_column :name
 
   # We go through this rigamarole since we can move a user from one demo to
@@ -418,6 +420,17 @@ class Demo < ActiveRecord::Base
     if self.maximum_gold_coin_award < self.minimum_gold_coin_award
       self.errors.add(:maximum_gold_coin_award, "must be greater than or equal to the minimum gold coin award")
     end
+  end
+
+  def schedule_resegment_on_internal_domains
+    return unless self.changed.include?('internal_domains')
+
+    self.delay.resegment_everyone
+  end
+
+  def resegment_everyone
+    self.user_ids.each {|user_id| User.find(user_id).send(:schedule_segmentation_update, true)}
+
   end
 
   def self.next_id
