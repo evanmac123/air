@@ -9,12 +9,6 @@
         margin:47px 0 0 -334px;
     }
 }
-// initial hides
-#offerings, #measure {
-    div {&#play-feats, &#post-feats {display:none;}}
-    ul {&#play-measure, &#post-measure {display:none;}}
-}
-
 #solutions-menu {
     background:#fff;
     border-bottom:1px lighten($gray, 35%) solid;
@@ -51,16 +45,46 @@
         &#play {background-position:25px -465px; border:0;}
     }
 }
-#measure, #offerings {
-    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#00FFFFFF,endColorstr=#00FFFFFF)"; /* IE8 */  
-      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#00FFFFFF,endColorstr=#00FFFFFF);   /* IE6 & 7 */      
-    padding:40px 0;
-    h2, h3, ul {padding:0 10px;}
-    h3 {clear:both; color:$gray;}
-    ul {
+
+#solutions .buttons {
+    clear:both;
+    padding-bottom:40px;
+    text-align:center;
+}
+
+// initial hides
+#post-section, #play-section {display:none;}
+
+section.offering-section {
+    padding:20px 0 0 0;
+    &#post-section .buttons {padding-top:40px;}
+    div.wrap {
+        background:image-url('marketing/sprite-icons-bg.png') no-repeat;
+        @include ie-png;
+        border-bottom:1px #e6e6e6 solid;
+        margin:0 auto;
         max-width:960px;
+        padding-bottom:20px;
+        &#message-feats {background-position:760px 10px;}
+        &#post-feats {background-position:780px -600px;}
+        &#play-feats {background-position:-200px -530px;}
+    }
+    h2, h3, ul {clear:both; padding:0 10px;}
+    h2 {max-width:640px;}
+    h3 {color:$gray; padding:20px 10px 0 10px;}
+    ul {
+        margin:0 auto;
+        max-width:960px;
+        &.measure {
+            background:image-url('marketing/sprite-icons-bg.png') -200px 20px no-repeat;
+            @include ie-png;
+            border-top:1px #fff solid; 
+            min-height:200px;
+            padding-top:20px;
+        }
         li {
             background:image-url('marketing/sprite.png') no-repeat;
+            @include ie-png;
             background-position:0 -635px;
             box-sizing:border-box;
             float:left;
@@ -68,24 +92,5 @@
             padding:0 80px 0 15px;
             width:380px;
         }
-    }
-}
-#measure {
-    background:image-url('marketing/sprite-icons-bg.png') -200px 20px no-repeat;
-    border-top:1px #fff solid;
-    .cf {
-        padding-top:40px;
-        height:100px;
-        text-align:center;
-    }
-}
-#offerings {
-    border-bottom:1px #e6e6e6 solid;
-    h2 {max-width:640px;}
-    div.wrap {
-        background:image-url('marketing/sprite-icons-bg.png') no-repeat;
-        &#message-feats {background-position:760px 10px;}
-        &#post-feats {background-position:780px -600px;}
-        &#play-feats {background-position:-200px -530px;}
     }
 }

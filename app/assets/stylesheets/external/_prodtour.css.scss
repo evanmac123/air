@@ -76,9 +76,20 @@ div.right {float:right;}
         clear:both;
         margin:20px 0;
         &#pef-1 p {margin-top:15px;}
-        &#pef-2 h1 {padding:20px 0;}
+        &#pef-2 {
+            h1 {padding:20px 0;}
+            &.selected div.arrow {
+                border-width:49px 0 49px 25px;
+            }
+        }
         &.selected {
             a.callout:hover {background:#fff; color:$dark-green; text-shadow:none;}
+            div.arrow {
+                @include right-arrow;
+                border-color:transparent $dark-green;
+                border-width:39px 0 39px 25px;
+                margin-left:480px;
+            }
             h1, p {color:#fff;}
             h1 {background:darken($dark-green, 5%);}
             background:$dark-green;
