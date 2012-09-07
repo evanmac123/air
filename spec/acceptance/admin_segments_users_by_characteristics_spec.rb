@@ -730,10 +730,10 @@ feature "Admin segmentation" do
     fake_arel = Object.new
     fake_arel.stubs(:where).returns(unsaved_users)
     Demo.any_instance.stubs(:users).returns(unsaved_users)
-    %w(alphabetical where claimed).each do |method_name|
+    %w(alphabetical where claimed with_phone_number with_game_referrer).each do |method_name|
       unsaved_users.stubs(method_name.to_s).returns(unsaved_users)
     end
-  
+ 
     signin_as_admin
     visit admin_demo_path(@demo)
 

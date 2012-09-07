@@ -27,6 +27,10 @@ if ENV['FIRST_TIME'].nil?
       trait :with_phone_number do
         sequence(:phone_number, User.next_id + 4442220000) {|n| "+1#{n}" }
       end
+
+      trait :with_game_referrer do
+        association :game_referrer, :factory => :user
+      end
     end
     
     factory :brand_new_user, :parent => :user do 
