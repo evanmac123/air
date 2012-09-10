@@ -1,7 +1,7 @@
 a#fancybox-close {
   @include ie-png;
 }
-#fancybox-wrap, #fancybox-wrap div, #fancybox-wrap ul {
+#fancybox-wrap, #fancybox-wrap *, #fancybox-overlay, #fancybox-tmp, #fancybox-loading, #fancybox-loading *, .fancybox-ie, .fancybox-ie * {
   box-sizing:content-box;
   -moz-box-sizing: content-box;
   -webkit-box-sizing: content-box;

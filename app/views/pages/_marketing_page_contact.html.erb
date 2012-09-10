@@ -27,9 +27,12 @@
 <%= javascript_tag do %>
 
 $(document).ready(function() {
-  $("a#marketingposter").fancybox();
+  $("a#marketingposter").fancybox({
+    'autoScale':false
+  });
   $("a.contact").fancybox({
-      'hideOnContentClick': false
+      'hideOnContentClick': false,
+      'centerOnScroll': true
   });
 });
 
