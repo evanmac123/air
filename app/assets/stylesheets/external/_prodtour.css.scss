@@ -6,7 +6,7 @@
     div.nav-arrow {
         @include nav-arrow;
         border-color: darken($dark-green, 5%) transparent;
-        margin:47px 0 0 -605px;
+        margin:47px 0 0 -575px;
     }
 }
 .pt ul.pt-buttons li {display:inline-block;}
@@ -51,8 +51,8 @@ div.right {float:right;}
 }
 
 #pt-spark #perpeng div.image {
-    img.pef-2, img.pef-3, img.pef-4 {display:none;}
-    img.pef-4 {margin-top:200px;}
+    img.pef-2, img.pef-3 {display:none;}
+    img.pef-3 {padding-top:199px;}
 }
 #pt-spark #perpeng ul#perpeng-features {
     div.rollover {
@@ -80,10 +80,10 @@ div.right {float:right;}
         clear:both;
         margin:20px 0;
         &#pef-1 p {margin-top:15px;}
-        &#pef-2 {
-            h1 {padding:20px 0;}
+        &#pef-3 {
+            h1 {padding:22px 0;}
             &.selected div.arrow {
-                border-width:49px 0 49px 25px;
+                border-width:50px 0 50px 25px;
             }
         }
         &.selected {
@@ -103,6 +103,7 @@ div.right {float:right;}
 #pt-spark #exciteaction div.image {text-align:left; padding-top:45px;}
 #pt-spark ul.pt-buttons {padding:40px 0; text-align:center;}
 
+#pt-drive section#linkincrease div.left ul h2 {margin-top:34px;}
 #pt-drive section#section-head {
     background:#fff image-url('marketing/bg-grid.gif') center bottom repeat-x;
     height:341px;

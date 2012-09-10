@@ -27,9 +27,10 @@
 <%= javascript_tag do %>
 
 $(document).ready(function() {
-    $("a.contact").fancybox({
-        'hideOnContentClick': false
-    });
+  $("a#marketingposter").fancybox();
+  $("a.contact").fancybox({
+      'hideOnContentClick': false
+  });
 });
 
   var contact_name = $('#contact_name');

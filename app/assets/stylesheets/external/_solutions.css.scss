@@ -6,7 +6,7 @@
     div.nav-arrow {
         @include nav-arrow;
         border-color: darken($dark-green, 5%) transparent;
-        margin:47px 0 0 -468px;
+        margin:47px 0 0 -438px;
     }
 }
 #solutions-menu {
@@ -59,38 +59,24 @@ section.offering-section {
     padding:20px 0 0 0;
     &#post-section .buttons {padding-top:40px;}
     div.wrap {
-        background:image-url('marketing/sprite-icons-bg.png') no-repeat;
-        @include ie-png;
-        border-bottom:1px #e6e6e6 solid;
         margin:0 auto;
         max-width:960px;
         padding-bottom:20px;
-        &#message-feats {background-position:760px 10px;}
-        &#post-feats {background-position:780px -600px;}
-        &#play-feats {background-position:-200px -530px;}
     }
-    h2, h3, ul {clear:both; padding:0 10px;}
+    h2, h3 {clear:both; padding:0 10px;}
     h2 {max-width:640px;}
     h3 {color:$gray; padding:20px 10px 0 10px;}
     ul {
-        margin:0 auto;
-        max-width:960px;
-        &.measure {
-            background:image-url('marketing/sprite-icons-bg.png') -200px 20px no-repeat;
-            @include ie-png;
-            border-top:1px #fff solid; 
-            min-height:200px;
-            padding-top:20px;
-        }
+        float:left;
+        padding:0 10px;
+        width:380px;
         li {
             background:image-url('marketing/sprite.png') no-repeat;
             @include ie-png;
             background-position:0 -635px;
             box-sizing:border-box;
-            float:left;
             margin:5px 0;
             padding:0 80px 0 15px;
-            width:380px;
         }
     }
 }
