@@ -8,7 +8,7 @@ class PeerInvitation < ActiveRecord::Base
   validates_presence_of :demo_id
 
   def self.between_times(start_time, end_time)
-    query = self
+    query = where('1 = 1')
 
     if start_time
       query = query.where("created_at >= ?", start_time)
