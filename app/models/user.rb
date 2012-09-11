@@ -519,6 +519,11 @@ class User < ActiveRecord::Base
 
   def invite(referrer = nil, options ={})
     Mailer.delay.invitation(self, referrer, options)
+
+    if referrer
+      PeerInvitation.create!(inviter: referrer, invitee: self, demo: referrer.demo)
+    end
+
     update_attributes(invited: true)
   end
 

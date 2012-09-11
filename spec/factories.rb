@@ -286,5 +286,10 @@ if ENV['FIRST_TIME'].nil?
     factory :custom_invitation_email do |custom_invitation_email|
       association :demo
     end
+
+    factory :peer_invitation do |peer_invitation|
+      association :inviter, :factory => :user
+      association :invitee, :factory => :user
+    end
   end
 end

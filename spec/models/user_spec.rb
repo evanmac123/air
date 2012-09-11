@@ -306,6 +306,31 @@ describe User, "#invite" do
 
     it { should be_invited }
   end
+
+  context "when no referrer is given" do
+    it "should not record a PeerInvitation" do
+      PeerInvitation.count.should == 0
+      subject.invite
+
+      PeerInvitation.count.should == 0
+    end
+  end
+
+  context "when a referrer is given" do
+    it "should record a PeerInvitation" do
+      other_user = FactoryGirl.create(:user)
+
+      PeerInvitation.count.should == 0
+      subject.invite(other_user)
+
+      PeerInvitation.count.should == 1
+
+      invitation = PeerInvitation.first
+      invitation.inviter.should == other_user
+      invitation.invitee.should == subject
+      invitation.demo.should == other_user.demo
+    end
+  end
 end
 
 describe User, "#slug" do

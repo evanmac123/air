@@ -138,6 +138,7 @@ Health::Application.routes.draw do
 
       resource :raffles
       resource :gold_coin_reset
+      resource :peer_invitations, :only => [:show]
     end #demo namespace
 
     resources :users, :only => [] do
