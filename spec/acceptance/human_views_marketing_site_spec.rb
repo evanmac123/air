@@ -5,7 +5,7 @@ feature "Human views marketing site" do
   scenario "Human views marketing site", js: true do
     visit root_path
     # Product Tour
-    page.should have_content("Connect employees to HR")
+    page.should have_content("Increase engagement in HR")
     click_link "Product tour"
     page.should have_content("Find the best path to each person")
     click_link "spark"
@@ -14,10 +14,10 @@ feature "Human views marketing site" do
     page.should have_content("Measure effectiveness and maximize resources to be the best strategic partner")
     # Solutions
     click_link "Solutions"
-    page.should have_content("Cut through the noise")
+    page.should have_content("Send messages to employees in their preferred communication channels")
     page.find("#post").click
-    page.should have_content("Build ongoing engagement")
+    page.should have_content("Build sustained engagement")
     page.find("#play").click
-    page.should have_content("data brought to life")
+    page.should have_content("Transform messages and behaviors into a social, mobile game.")
   end
 end
