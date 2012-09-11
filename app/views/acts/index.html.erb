@@ -1,18 +1,18 @@
 <div class="container">
-	<div id="suggested-tasks">
-    <% unless @displayable_task_suggestions.empty? %>
+	<div id="suggested-tiles">
+    <% unless @displayable_tiles.empty? %>
 	    <h2 id='daily_dose_title' style='display: inline;'>Here is your Daily Dose!</h2>
-  	  <%= render :partial => 'displayable_task_suggestion', :collection => @displayable_task_suggestions %>
+  	  <%= render :partial => 'displayable_tile', :collection => @displayable_tiles %>
   	  <% content_for :javascript do %>
   	    <%= javascript_tag do %>
           $('.recently-completed').css({'border-color': 'white'}).effect('highlight', {}, 500, function() {$(this).fadeOut(2000, function(){$(this).remove()})});
   	    <% end %>
   	  <% end %>
-  	  <% if @displayable_task_suggestions.count > @num_suggestions_to_display %>
+  	  <% if @displayable_tiles.count > @num_suggestions_to_display %>
     
-    	  <div class="more-tasks">
-    	  	<a href="#s" title="Show more tasks"><%= image_tag "v3/arrow-down.png", :class => 'grey-show-more-arrows' %>
-    	  	  <span id='show-more-tasks'>Show more</span><%= image_tag 'v3/arrow-down.png', :class => 'grey-show-more-arrows' %></a>
+    	  <div class="more-tiles">
+    	  	<a href="#s" title="Show more tiles"><%= image_tag "v3/arrow-down.png", :class => 'grey-show-more-arrows' %>
+    	  	  <span id='show-more-tiles'>Show more</span><%= image_tag 'v3/arrow-down.png', :class => 'grey-show-more-arrows' %></a>
     	  </div>
     	<% else %>
     	  <div style='height: 12px;'>
@@ -45,15 +45,15 @@
 
   	    <% content_for :javascript do %>
   	      <%= javascript_tag do %>
-  	        $('#show-more-tasks').click(function(){
-  	          if ($('.overflow-tasks').css('display') == 'none'){
-                $('#show-more-tasks').text('Show less');
+  	        $('#show-more-tiles').click(function(){
+  	          if ($('.overflow-tiles').css('display') == 'none'){
+                $('#show-more-tiles').text('Show less');
                 setTimeout("$('.grey-show-more-arrows').attr('src', '<%= asset_path 'v3/arrow-up.png' %>')", 300);
   	          }else{
-                $('#show-more-tasks').text('Show more');	
+                $('#show-more-tiles').text('Show more');	
                 setTimeout("$('.grey-show-more-arrows').attr('src', '<%= asset_path 'v3/arrow-down.png' %>')", 300);            
   	          }
-              $('.overflow-tasks').fadeToggle('slow');
+              $('.overflow-tiles').fadeToggle('slow');
             })
         
   	        function updateShownActs(url) {

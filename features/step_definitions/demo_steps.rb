@@ -26,3 +26,6 @@ Given /^the demo "(.*?)" doesn't use post\-act summaries$/ do |demo_name|
   demo.update_attributes(use_post_act_summaries: false)
 end
 
+Given /^a fresh start$/ do
+  Demo.find_each {|f| f.destroy}
+end

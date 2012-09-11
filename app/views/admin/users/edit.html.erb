@@ -7,9 +7,13 @@
 <% end %>
 
 <fieldset>
-  <legend>This User's Tasks</legend>
-  <% @task_suggestions.each do |task_suggestion| %>
-    <%= button_to "Complete #{task_suggestion.task.name} for #{@user.name}", admin_task_suggestion_path(task_suggestion), :method => :put, :confirm => "Complete #{task_suggestion.task.name} for #{@user.name}?" %>
+  <legend>This User's Tiles</legend>
+  <% @satisfiable_tiles.each do |tile| %>
+    <%= form_for :tile, :url => admin_user_tile_completions_path(@user)  do %>
+      <%= hidden_field_tag :user_slug, @user.slug %>
+      <%= hidden_field_tag :tile_id, tile.id %>
+      <%= submit_tag "Complete #{tile.name} for #{@user.name}", :confirm => "Complete #{tile.name} for #{@user.name}?" %>
+    <% end %>
   <% end %>
 </fieldset>
 

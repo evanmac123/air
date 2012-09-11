@@ -116,7 +116,7 @@ Health::Application.routes.draw do
 
       resources :bad_words
 
-      resources :tasks do
+      resources :tiles do
         resource :bulk_satisfaction, :only => [:create]
       end
 
@@ -143,7 +143,7 @@ Health::Application.routes.draw do
 
     resources :users, :only => [] do
       resources :invitations, :only => [:create]
-      resources :task_suggestions, :only => [:update], :shallow => true
+      resources :tile_completions, :only => [:create]
     end
 
     resources :bad_words

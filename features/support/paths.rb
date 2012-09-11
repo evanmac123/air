@@ -99,14 +99,14 @@ module NavigationHelpers
     when /the forbidden rule admin page/
       admin_forbidden_rules_path
 
-    when /the admin tasks page for "(.*?)"/
-      admin_demo_tasks_path(Demo.find_by_name($1))
+    when /the admin tiles page for "(.*?)"/
+      admin_demo_tiles_path(Demo.find_by_name($1))
 
     when /the edit admin demo user page for company "(.*?)" and user "(.*?)"/
       edit_admin_demo_user_path(Demo.find_by_name($1).id, User.find_by_name($2).slug)
 
-    when /the edit admin task page for company "(.*?)" and task "(.*?)"/
-      edit_admin_demo_task_path(Demo.find_by_name($1), Task.find_by_name($2))
+    when /the edit admin tile page for company "(.*?)" and tile "(.*?)"/
+      edit_admin_demo_tile_path(Demo.find_by_name($1), Tile.find_by_name($2))
 
     when /the new admin tag page/
       new_admin_tag_path

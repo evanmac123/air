@@ -31,7 +31,7 @@ class Act < ActiveRecord::Base
     check_goal_completion
     check_timed_bonuses
 
-    trigger_tasks
+    trigger_tiles
     schedule_mixpanel_ping unless user.tutorial_active?
   end
 
@@ -211,8 +211,8 @@ class Act < ActiveRecord::Base
     end
   end
 
-  def trigger_tasks
-    self.user.satisfy_suggestions_by_rule(self.rule_id, self.creation_channel, self.referring_user_id.present?)
+  def trigger_tiles
+    self.user.satisfy_tiles_by_rule(self.rule_id, self.creation_channel, self.referring_user_id.present?)
   end
 
   def self.record_bad_message(phone_number, body, reply = '')

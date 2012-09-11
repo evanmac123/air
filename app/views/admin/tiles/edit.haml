@@ -3,16 +3,16 @@
   = "»"
   = link_to @demo.name, admin_demo_path(@demo)
   = "»"
-  = link_to "Tasks", admin_demo_tasks_path(@demo)
+  = link_to "Tiles", admin_demo_tiles_path(@demo)
   = "»"
   Edit
 %br
 
 .admin
-  = render 'form', :task => @task 
+  = render 'form', :tile => @tile 
   %br
   %br
-  = form_tag admin_demo_task_bulk_satisfaction_path(@demo, @task) do 
+  = form_tag admin_demo_tile_bulk_satisfaction_path(@demo, @tile) do 
     %p
       = label_tag "completion[emails]", "Manually complete for multiple users" 
       Enter one e-mail address per line

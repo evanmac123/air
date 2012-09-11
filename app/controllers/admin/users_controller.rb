@@ -46,7 +46,7 @@ class Admin::UsersController < AdminBaseController
 
   def edit
     @demos = Demo.alphabetical
-    @task_suggestions = @user.task_suggestions.unsatisfied.joins(:task)
+    @satisfiable_tiles = Tile.satisfiable_to_user(@user)
     @agnostic_characteristics = Characteristic.agnostic
     @demo_specific_characteristics = Characteristic.in_demo(@user.demo)
   end

@@ -12,7 +12,7 @@ class Demo < ActiveRecord::Base
   has_many :levels, :dependent => :destroy
   has_many :goals, :dependent => :destroy
   has_many :bad_words, :dependent => :destroy
-  has_many :tasks, :dependent => :destroy
+  has_many :tiles, :dependent => :destroy
   has_many :locations, :dependent => :destroy
   has_many :characteristics, :dependent => :destroy
   has_many :peer_invitations
@@ -33,6 +33,8 @@ class Demo < ActiveRecord::Base
   after_save :schedule_resegment_on_internal_domains
 
   has_alphabetical_column :name
+
+  extend Sequenceable
 
   # We go through this rigamarole since we can move a user from one demo to
   # another, and usually we will only be concerned with acts belonging to the

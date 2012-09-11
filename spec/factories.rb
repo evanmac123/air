@@ -3,7 +3,8 @@ if ENV['FIRST_TIME'].nil?
     
     factory :unnamed_user, :class => User do 
       association(:demo)
-      association(:location)
+      # Need to find a way to set the location of a user without creating an entirely new demo
+      # association(:location)
       password  "password" 
       sequence(:email, User.next_id) {|n| "darth_#{n}@sunni.ru" }
     end
@@ -99,7 +100,7 @@ if ENV['FIRST_TIME'].nil?
 
     factory :tag do
       description "A short description"
-      sequence(:name) {|n| "Cool word #{n}"}
+      sequence(:name, Tag.next_id) {|n| "Cool word #{n}"}
     end
 
     factory :label do
@@ -211,16 +212,15 @@ if ENV['FIRST_TIME'].nil?
     factory :incoming_sms do
     end
 
-    factory :task do
+    factory :tile do
       name "Roast chestnuts"
       association :demo
-      sequence(:identifier) {|n| "Identifier#{n}"}
-
+      sequence(:identifier, Tile.next_id) {|n| "Identifier#{n}"}
     end
 
-    factory :task_suggestion do
+    factory :tile_completion do
       association :user
-      association :task
+      association :tile
     end
 
     factory :location do
@@ -230,16 +230,16 @@ if ENV['FIRST_TIME'].nil?
 
     factory :rule_trigger, :class => Trigger::RuleTrigger do
       association :rule
-      association :task
+      association :tile
     end
 
     factory :survey_trigger, :class => Trigger::SurveyTrigger do
       association :survey
-      association :task
+      association :tile
     end
 
     factory :demographic_trigger, :class => Trigger::DemographicTrigger do
-      association :task
+      association :tile
     end
 
     factory :characteristic do 

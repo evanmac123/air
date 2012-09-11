@@ -21,6 +21,7 @@ class User < ActiveRecord::Base
   include User::Ranking
   include User::Segmentation
   extend User::Queries
+  extend Sequenceable
 
   belongs_to :demo
   belongs_to :location
@@ -33,9 +34,8 @@ class User < ActiveRecord::Base
   has_many   :goal_completions
   has_many   :completed_goals, :through => :goal_completions, :source => :goal
   has_many   :timed_bonuses, :class_name => "TimedBonus"
-  has_many   :task_suggestions, :dependent => :destroy
+  has_many   :tile_completions, :dependent => :destroy
   has_many   :unsubscribes, :dependent => :destroy
-  has_many   :tasks, :through => :task_suggestions
   has_and_belongs_to_many :levels
   has_one   :tutorial, :dependent => :destroy
 
@@ -109,7 +109,7 @@ class User < ActiveRecord::Base
   before_update do
     schedule_update_demo_alltime_rankings if changed.include?('points')
     schedule_update_demo_recent_average_rankings if (!batch_updating_recent_averages && changed.include?('recent_average_points'))
-    trigger_demographic_tasks
+    trigger_demographic_tiles
     add_gold_coins
   end
 
@@ -120,7 +120,6 @@ class User < ActiveRecord::Base
   end
 
   after_create do
-    suggest_first_level_tasks
     schedule_segmentation_create
   end
 
@@ -852,28 +851,32 @@ class User < ActiveRecord::Base
     next_unachieved_threshold || greatest_achievable_threshold
   end
 
-  def displayable_task_suggestions
-    self.task_suggestions.displayable.includes(:task)
+  def displayable_tiles
+    Tile.displayable_to_user(self)
   end
 
-  def satisfies_all_prerequisites(task)
-    task.prerequisite_tasks.all?{|prerequisite_task| self.task_suggestions.for_task(prerequisite_task).satisfied.present?}
+  def satisfies_all_prerequisites(tile)
+    tile.prerequisite_tiles.all?{|prerequisite_tile| self.tile_completions.for_tile(prerequisite_tile).satisfied.present?}
   end
 
-  def satisfy_suggestions_by_survey(survey_or_survey_id, channel)
-    satisfiable_suggestions = self.task_suggestions.satisfiable_by_survey(survey_or_survey_id).readonly(false)
-    satisfiable_suggestions.each{|satisfiable_suggestion| satisfiable_suggestion.satisfy!(channel)}
-  end
-
-  def satisfy_suggestions_by_rule(rule_or_rule_id, channel, referring_user_id = nil)
-    return unless rule_or_rule_id
-    satisfiable_suggestions = self.task_suggestions.satisfiable_by_rule(rule_or_rule_id).readonly(false)
-
-    unless referring_user_id
-      satisfiable_suggestions = satisfiable_suggestions.without_mandatory_referrer
+  def satisfy_tiles_by_survey(survey_or_survey_id, channel)
+    satisfiable_tiles = Tile.satisfiable_by_survey_to_user(survey_or_survey_id, self)
+    satisfiable_tiles.each do |tile|
+      tile.satisfy_for_user!(self, channel) 
     end
+  end
 
-    satisfiable_suggestions.each{|satisfiable_suggestion| satisfiable_suggestion.satisfy!(channel)}
+  def satisfy_tiles_by_rule(rule_or_rule_id, channel, referring_user_id = nil)
+    return unless rule_or_rule_id
+
+    satisfiable_tiles = Tile.satisfiable_by_rule_to_user(rule_or_rule_id, self)
+
+    satisfiable_tiles.each do |tile|
+      required = tile.rule_triggers.map(&:referrer_required).include? true
+      if referring_user_id or not required
+        tile.satisfy_for_user!(self, channel) 
+      end
+    end
   end
 
   def height_feet
@@ -1339,15 +1342,11 @@ class User < ActiveRecord::Base
     Demo.decrement_counter(:ranked_user_count, demo_id)
   end
 
-  def suggest_first_level_tasks
-    self.demo.tasks.first_level.after_start_time_and_before_end_time.each do |first_level_task|
-      first_level_task.suggest_to_user(self)
-    end
-  end
-
-  def trigger_demographic_tasks
+  def trigger_demographic_tiles
     if all_demographics_present? && not_all_demographics_previously_present?
-      self.task_suggestions.satisfiable_by_demographics.readonly(false).each(&:satisfy!)
+      Tile.satisfiable_by_demographics_to_user(self).each do |tile|
+        tile.satisfy_for_user!(self)
+      end
     end
   end
 
@@ -1365,7 +1364,4 @@ class User < ActiveRecord::Base
     "Sorry, your passwords don't match"
   end
   
-  def self.next_id
-    self.last.nil? ? 1 : self.last.id + 1
-  end
 end

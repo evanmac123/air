@@ -1,13 +1,13 @@
-Feature: User follows links in task
+Feature: User follows links in tile
 
-  Scenario: A task with a link in it is follow-able
+  Scenario: A tile with a link in it is follow-able
     Given the following demo exists:
       | name |
       | Linkeria Inc |
     # LOLHAX. But due to the way that Capybara seems to not play well with
     # external URLs (which is reasonable on reflection) we have to test this 
     # with a URL local to the site.
-    And the following task exists:
+    And the following tile exists:
       | name                                     | short description                           | long description                                     | demo                       |
       | <a href="/account/settings/edit">Click me</a> | <a href="/account/settings/edit">Go on do it</a> | <a href="/account/settings/edit">Find out what's here</a> | name: Linkeria Inc |
     And the following user exists:

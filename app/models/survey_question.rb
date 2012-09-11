@@ -24,7 +24,7 @@ class SurveyQuestion < ActiveRecord::Base
     next_question = survey.latest_question_for(user)
     unless next_question
       record_completion_act(user)
-      trigger_tasks(user, channel)
+      trigger_tiles(user, channel)
     end
 
     question_acknowledgement_phrase(next_question)
@@ -95,7 +95,7 @@ class SurveyQuestion < ActiveRecord::Base
     next_question ? next_question.text : "That was the last question. Thanks for completing the survey!"
   end
 
-  def trigger_tasks(user, channel)
-    user.satisfy_suggestions_by_survey(self.survey_id, channel)
+  def trigger_tiles(user, channel)
+    user.satisfy_tiles_by_survey(self.survey_id, channel)
   end
 end

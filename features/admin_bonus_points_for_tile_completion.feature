@@ -1,4 +1,4 @@
-Feature: Admin sets bonus points for tasks
+Feature: Admin sets bonus points for tiles
 
   Background:
     Given the following demo exists:
@@ -7,7 +7,7 @@ Feature: Admin sets bonus points for tasks
     And the following claimed user exists:
       | name | phone number | is site admin | demo                          |
       | Phil | +14155551212 | true          | name: NobodysBusiness |
-    And the following task exists:
+    And the following tile exists:
       | name            | demo                          | bonus points |
       | ride a tricycle | name: NobodysBusiness | 11           |
 
@@ -17,14 +17,14 @@ Feature: Admin sets bonus points for tasks
     And DJ cranks 5 times
 
 
-  Scenario: Admin assigns bonus points to a Task
-    When I go to the edit admin task page for company "NobodysBusiness" and task "ride a tricycle"
+  Scenario: Admin assigns bonus points to a Tile
+    When I go to the edit admin tile page for company "NobodysBusiness" and tile "ride a tricycle"
     Then I should see "Bonus points"
     And I should see an input with value "ride a tricycle"
     And I should see "11"
 
     When I fill in "Bonus points" with "15"
-    And I press "Update Task"
+    And I press "Update Tile"
     Then I should see "15"
 
      When I go to the homepage

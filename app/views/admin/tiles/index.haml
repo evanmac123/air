@@ -3,13 +3,13 @@
   = "»"
   = link_to @demo.name, admin_demo_path(@demo)
   = "»"
-  Tasks
+  Tiles
 %br
 
 .admin
     
-  - if @tasks.empty? 
-    %p No tasks for this demo.
+  - if @tiles.empty? 
+    %p No tiles for this demo.
   - else 
     %table{:class => :admin_wide}
       %tr
@@ -27,9 +27,9 @@
         %th Active
     
 
-      - @tasks.each do |task| 
+      - @tiles.each do |tile| 
         - zebra_stripes = cycle('', 'stripe')
-        - active_class = task.due? ? ' active' : ' inactive'
+        - active_class = tile.due? ? ' active' : ' inactive'
         - zebra_stripes += active_class
 
     
@@ -37,25 +37,25 @@
 
                   
                   
-          %td= task.identifier
-          %td= link_to task.name, edit_admin_demo_task_path(@demo, task) 
+          %td= tile.identifier
+          %td= link_to tile.name, edit_admin_demo_tile_path(@demo, tile) 
           
                   
           %td
-            - if task.prerequisite_tasks.present? 
-              - prerequisite_names = task.prerequisite_tasks.map(&:name).sort 
+            - if tile.prerequisite_tiles.present? 
+              - prerequisite_names = tile.prerequisite_tiles.map(&:name).sort 
               %ul
                 - prerequisite_names.each do |prerequisite_name| 
                   %li= prerequisite_name         
-            = render 'task_details', :task => task
+            = render 'tile_details', :tile => tile
                   
-          %td= task.start_time ? task.start_time.pretty_succinct : ''
-          %td= task.end_time ? task.end_time.pretty_succinct : ''
+          %td= tile.start_time ? tile.start_time.pretty_succinct : ''
+          %td= tile.end_time ? tile.end_time.pretty_succinct : ''
         
 
-          %td{:class => "brown"}= task.due? ? "*" : "" 
+          %td{:class => "brown"}= tile.due? ? "*" : "" 
       
 
 
-  %p= link_to "Add task", new_admin_demo_task_path(@demo) 
+  %p= link_to "Add tile", new_admin_demo_tile_path(@demo) 
   .long_page

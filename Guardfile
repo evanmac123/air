@@ -37,8 +37,8 @@ guard 'rspec', {:version => 2}.merge(options) do
   watch(%r{^spec/.+_spec\.rb$})
 
   # Support files
-  watch('spec/spec_helper.rb')  { "spec" }
-  watch(%r{^spec/support/(.+)\.rb$})                  { "spec" }
+  #watch('spec/spec_helper.rb')  { "spec" }
+  #watch(%r{^spec/support/(.+)\.rb$})                  { "spec" }
   
   # Capybara request specs
   watch(%r{^app/views/(.+)/.*\.(erb|haml)$})          { |m| "spec/requests/#{m[1]}_spec.rb" }

@@ -1,0 +1,31 @@
+.tile_details
+  .name
+    .label Name
+    .value= tile.name
+  .short_desc
+    .label Short Description
+    .value= tile.short_description 
+  .long_desc
+    .label Long Description
+    .value= tile.long_description
+  .completion_triggers
+    - if tile.has_demographic_trigger? 
+      %p Complete demographics
+
+    - if tile.rule_triggers.present? 
+      %p="Rules (any of the following#{', referrer required' if tile.rule_triggers.first.referrer_required}):"
+      %ul
+        - tile.rule_triggers.each do |rule_trigger| 
+          %li.brown= rule_trigger.rule.primary_value_text
+  .other
+    - if tile.survey_trigger.present? 
+      %p 
+        Survey: 
+        = tile.survey_trigger.survey.name 
+
+
+    - if tile.only_manually_triggerable? 
+      %p Manual only.
+  .bonus
+    .label Bonus Points
+    .value= tile.bonus_points
