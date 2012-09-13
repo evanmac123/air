@@ -948,25 +948,25 @@ body.interstitial_verifications {
 			box-sizing:border-box;
 			-moz-box-sizing:border-box;
 			-webkit-box-sizing:border-box;
-			&#notification_pref {
-				border-top:1px $light-gray solid;
-				margin-top:20px;
-				padding-top:30px;
-				form {margin-top:0;}
-				h1 {padding-bottom:0;}
-				div.module_inner {
-					li {
-						display:inline-block;
-						margin-right:20px;
-						label {color:$header-bg; display:inline-block; margin-left:5px; font-weight:bold;}
-					}
+		}
+		#notification_pref {
+			border-top:1px $light-gray solid;
+			margin-top:20px;
+			padding-top:30px;
+			form {margin-top:0;}
+			h1 {padding-bottom:0;}
+			div.module_inner {
+				li {
+
+					display:inline-block;
+					margin-right:20px;
+					label {color:$header-bg; display:inline-block!important; margin-left:5px; font-weight:bold;}
 				}
 			}
 		}
 	    #enter_code{
 		    display: inline-block;
 		    width:100%;
-		    //div#phone_placeholder {padding-left:10px;}
 		    input#user_new_phone_validation {margin-right:10px; width:70%;}
 	    }
 	    margin-top: 16mm;

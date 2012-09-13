@@ -34,7 +34,7 @@
 
 <div id="notification_pref" class="verify_section">
   <h1 class="headline">Notification Preferences</h1>
-  <%= form_for current_user, :url => account_path do |form| %>
+  <%= form_for current_user, :url => account_path, :html => {:id => :second_form} do |form| %>
     <div class="module_inner settings_notification">
       <p>Notify me via...</p>
         <ul>
