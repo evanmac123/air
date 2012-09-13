@@ -944,15 +944,36 @@ div.content {
 
 body.interstitial_verifications {
 	div.content {
-    #enter_code{
-      margin-left: 20mm;
-      display: inline-block;
-    }
-    margin-top: 16mm;
-    input[type='submit']{
-      font-size: 17px !important;
-      margin: 0;
-    }
+		.verify_section, #enter_code {
+			box-sizing:border-box;
+			-moz-box-sizing:border-box;
+			-webkit-box-sizing:border-box;
+			&#notification_pref {
+				border-top:1px $light-gray solid;
+				margin-top:20px;
+				padding-top:30px;
+				form {margin-top:0;}
+				h1 {padding-bottom:0;}
+				div.module_inner {
+					li {
+						display:inline-block;
+						margin-right:20px;
+						label {color:$header-bg; display:inline-block; margin-left:5px; font-weight:bold;}
+					}
+				}
+			}
+		}
+	    #enter_code{
+		    display: inline-block;
+		    width:100%;
+		    //div#phone_placeholder {padding-left:10px;}
+		    input#user_new_phone_validation {margin-right:10px; width:70%;}
+	    }
+	    margin-top: 16mm;
+	    input[type='submit']{
+	      font-size: 17px !important;
+	      margin: 0;
+	    }
 		div#no-login-yet {
 			@include bg-white-free;
 			margin:30px auto 20px auto;

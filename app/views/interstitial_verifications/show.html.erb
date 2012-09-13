@@ -1,0 +1,48 @@
+<div id="check_phone" class="verify_section">
+  <h1>Check Your Phone</h1>
+  <p>We sent a text message to your phone to verify your number</p>
+  <div id="enter_code">
+    <%= form_for current_user, :url => phone_interstitial_verification_path, :method => :put do |f| %>
+      <div class="relative">
+        <div id="phone_placeholder"> 
+          Enter code here
+        </div>
+      </div>
+      <div class="inline">
+        <%= f.text_field :new_phone_validation, :value => '' %>
+      </div>
+      <div class="inline">
+        <%= submit_tag 'Enter' %>
+      </div>
+    <% end %>
+    <div class="left">
+      <%= form_for current_user, :url => resend_phone_verification_path, :method => :post, :html => {:id => :resend} do |f| %>
+        <div id="resend_phone_verification_btn">
+          <%= link_to "Resend", '#' %>
+        </div>
+      <% end %>
+      </div>
+    <div class="right">
+      <%= form_for current_user, :url => cancel_phone_verification_path, :method => :delete, :id => :cancel, :html => {:id => :cancel} do |f| %>
+        <div id="cancel_phone_verification_btn">
+          <%= link_to "Skip this step", '#' %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<div id="notification_pref" class="verify_section">
+  <h1 class="headline">Notification Preferences</h1>
+  <%= form_for current_user, :url => account_path do |form| %>
+    <div class="module_inner settings_notification">
+      <p>Notify me via...</p>
+        <ul>
+          <% [["SMS/text message", :sms], ["Email", :email], ["Both", :both] ].each do |label_text, method_name| %>
+            <li><%= form.radio_button :notification_method, method_name, :class => 'notification_pref', :id => method_name %><%= label_tag method_name, label_text, :class => 'check_label' %></li>
+          <% end %>
+          <li><%= submit_tag 'Save', :class => 'button_norm', :id => 'save-notification-settings' %></li>
+        </ul>
+    </div>
+  <% end %>
+</div>
