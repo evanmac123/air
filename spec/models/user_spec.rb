@@ -1043,3 +1043,26 @@ describe User, "loads personal email" do
     @leah.overflow_email.should be_blank
   end
 end
+
+describe User, "finds by either email" do
+  before(:each) do
+    @leah_email = 'leah@princess.net'
+    @leah_personal = 'leah@personal.net'
+    @leah = FactoryGirl.create(:user, email: @leah_personal, overflow_email: @leah_email) 
+    @rice_email = 'rice@princess.net'
+    @rice_personal = 'rice@personal.net'
+    @rice = FactoryGirl.create(:user, email: @rice_personal, overflow_email: @rice_email) 
+    @jay_email = 'jay@princess.net'
+    @jay_personal = 'jay@personal.net'
+    @jay = FactoryGirl.create(:user, email: @jay_personal, overflow_email: @jay_email) 
+  end
+  
+  it "should find by either email" do
+    User.find_by_either_email(@leah_email).should == @leah
+    User.find_by_either_email(@leah_personal).should == @leah
+    User.find_by_either_email(@jay_email).should == @jay
+    User.find_by_either_email(@jay_personal).should == @jay
+    User.find_by_either_email(@rice_email).should == @rice
+    User.find_by_either_email(@rice_personal).should == @rice
+  end
+end

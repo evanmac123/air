@@ -14,7 +14,11 @@
           $("#transfer_user_form_message").text("Just a moment..");
           $("#transfer_user_form_message").fadeIn(500);
         });
-     
+    #locate_user
+      %p Find a lost user
+      = form_for :user, :url => admin_lost_user_path do |f|
+        = f.text_field :email, :placeholder => 'email'
+        = f.submit "Find"
   %h2 Games
   %ul.demos
     - @demos.each do |demo| 

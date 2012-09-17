@@ -94,6 +94,7 @@ Health::Application.routes.draw do
     resources :labels
     
     put "user_transfers", :controller => "user_transfers", :action => :update, :as => "user_transfer"
+    post "lost_user", :controller => "lost_users", :action => :create, :as => "lost_user"
 
     resources :demos, :only => [:new, :create, :show, :destroy, :edit, :update] do
       # TODO: move :edit and :update onto resources :users below
@@ -117,6 +118,7 @@ Health::Application.routes.draw do
       resources :bad_words
 
       resources :tiles do
+        collection { post :sort }
         resource :bulk_satisfaction, :only => [:create]
       end
 
@@ -145,6 +147,8 @@ Health::Application.routes.draw do
       resources :invitations, :only => [:create]
       resources :tile_completions, :only => [:create]
     end
+
+    delete "reset_tiles" => "tile_completions#destroy", :as => :reset_tiles
 
     resources :bad_words
 

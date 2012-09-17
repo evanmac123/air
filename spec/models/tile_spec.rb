@@ -9,45 +9,62 @@ describe Tile do
  
   describe "#due?" do
     it "should tell me whether a tile is within the window of opportunity" do
-      demo = FactoryGirl.build :demo
-      a = FactoryGirl.build :tile, :demo => demo
+      Demo.find_each { |f| f.destroy }
+      demo = FactoryGirl.create :demo
+      a = FactoryGirl.create :tile, :demo => demo
       past = 1.hour.ago
       future = 1.hour.from_now
       ################ NO TIMES SET  #######################
       a.start_time = nil
       a.end_time = nil
       a.should be_due
+      a.save!
+      Tile.after_start_time_and_before_end_time.should == [a]
       
       ################ HAS START TIME ONLY #################
       a.start_time = past
       a.end_time = nil
       a.should be_due
+      a.save!
+      Tile.after_start_time_and_before_end_time.should == [a]
 
       a.start_time = future
       a.end_time = nil
       a.should_not be_due
+      a.save!
+      Tile.after_start_time_and_before_end_time.should == []
 
       ################# HAS END TIME ONLY ##################
       a.start_time = nil
       a.end_time = past
       a.should_not be_due
+      a.save!
+      Tile.after_start_time_and_before_end_time.should == []
 
       a.start_time = nil
       a.end_time = future
       a.should be_due
+      a.save!
+      Tile.after_start_time_and_before_end_time.should == [a]
 
       ############## HAS START AND END TIME ################
       a.start_time = past
       a.end_time = future
       a.should be_due
+      a.save!
+      Tile.after_start_time_and_before_end_time.should == [a]
 
       a.start_time = past
       a.end_time = past
       a.should_not be_due
+      a.save!
+      Tile.after_start_time_and_before_end_time.should == []
 
       a.start_time = future 
       a.end_time = future
       a.should_not be_due
+      a.save!
+      Tile.after_start_time_and_before_end_time.should == []
     end
   end
 
@@ -78,7 +95,7 @@ describe Tile do
       @not_fun = FactoryGirl.create(:demo, name: 'Not so Fun')
       @leah = FactoryGirl.create(:user, name: 'Leah', demo: @fun)
       @water_plants = FactoryGirl.create(:tile, demo: @fun, name: 'Water plants')
-      @already_watered = FactoryGirl.create(:tile_completion, tile: @water_plants, user: @leah, satisfied: true)
+      @already_watered = FactoryGirl.create(:tile_completion, tile: @water_plants, user: @leah)
       @wash = FactoryGirl.create(:tile, demo: @fun, name: 'Wash the Dishes')
       @dry = FactoryGirl.create(:tile, demo: @not_fun, name: 'Dry the Dishes')
       @color_after_washing = FactoryGirl.create(:tile, demo: @fun, name: 'Choose a beautiful color for your wall')
@@ -161,8 +178,7 @@ describe Tile do
       tiles_before = Tile.satisfiable_by_rule_to_user(@take_mud_bath, leah)
       tiles_before.should == [@mud_bath]
       completion = FactoryGirl.create(:tile_completion, tile: @mud_bath, user: leah)
-      completion.satisfied.should be_true
-      tiles_after = Tile.satisfiable_by_rule_to_user(@take_mud_bath, leah)
+      tiles_after = Tile.satisfiable_by_rule_to_user(@take_mud_bath, leah.reload)
       tiles_after.should be_empty
     end
 
@@ -177,5 +193,90 @@ describe Tile do
     end
   end
 
-  
+  describe "set position within demo" do
+    before(:each) do
+      @fun = FactoryGirl.create(:demo, name: 'Fun')
+      @something_else = FactoryGirl.create(:demo, name: 'Something Else')
+      5.times do
+        FactoryGirl.create(:tile, demo: @something_else)
+      end
+      @leah = FactoryGirl.create(:user, demo: @fun, name: 'Leah')
+      # Tiles
+      @one = FactoryGirl.create(:tile, demo: @fun)
+      @two = FactoryGirl.create(:tile, demo: @fun)
+      @three = FactoryGirl.create(:tile, demo: @fun)
+      @four = FactoryGirl.create(:tile, demo: @fun)
+      # Mark one tile as completed--it will still show up as displayable because it has not been
+      # displayed 'one_final_time'
+      @completion = FactoryGirl.create(:tile_completion, user: @leah, tile: @two)
+      2.times do
+        FactoryGirl.create(:tile, demo: @something_else)
+      end
+    end
+    
+    it "should order by position" do
+      tiles = Tile.displayable_to_user(@leah)
+      tiles.should == [@one, @two, @three, @four]
+      expected = [@two, @four, @three, @one]
+      params = Hash.new
+      params[:tile] = expected.map do |tile|
+        tile.id.to_s
+      end
+      Tile.set_position_within_demo(@fun, params[:tile])
+      tiles = Tile.displayable_to_user(@leah)
+      tiles.should == expected
+
+    end
+  end
+
+  describe "Bulk Complete" do
+    before(:each) do
+      Demo.find_each { |f| f.destroy }
+      @fun = FactoryGirl.create(:demo, name: 'Fun')
+      @not_fun = FactoryGirl.create(:demo, name: 'Not Fun')
+      @stretch = FactoryGirl.create(:tile, demo: @fun, name: 'Stretch')
+      @sip = FactoryGirl.create(:tile, demo: @fun, name: 'Sip')
+      @breathe = FactoryGirl.create(:tile, demo: @fun, name: 'Breathe')
+
+      @lucy  = FactoryGirl.create(:user, demo: @fun, name: 'Lucy')
+      @james = FactoryGirl.create(:user, demo: @fun, name: 'James')
+      @reath = FactoryGirl.create(:user, demo: @not_fun, name: 'Reath')
+      @benji = FactoryGirl.create(:user, demo: @not_fun, name: 'Benji')
+
+      @random_email = "nothing@sucks_more.org"
+    end
+
+    it "completes only tiles for users in this demo" do
+      emails = [@reath.email, @lucy.email, @random_email]
+      Tile.bulk_complete(@fun.id, @stretch.id, emails)
+      TileCompletion.count.should == 1
+      TileCompletion.first.user.should == @lucy
+      TileCompletion.first.tile.should == @stretch
+    end
+
+    it "does no completions if blank string sent" do 
+      emails = []
+      Tile.bulk_complete(@fun.id, @stretch.id, emails)
+      TileCompletion.count.should == 0
+    end
+  end
+
+  describe "Reset Tiles" do
+    before(:each) do 
+      Demo.find_each { |f| f.destroy }
+      @fast = FactoryGirl.create(:demo, name: 'Fast Game')
+      @slow = FactoryGirl.create(:demo, name: 'Slow Game')
+      @fast_tile = FactoryGirl.create(:tile, demo: @fast)
+      @slow_tile = FactoryGirl.create(:tile, demo: @slow)
+      @leah = FactoryGirl.create(:site_admin, name: 'Leah')
+      @fast_completion = FactoryGirl.create(:tile_completion, tile: @fast_tile, user: @leah)
+      @slow_completion = FactoryGirl.create(:tile_completion, tile: @slow_tile, user: @leah)
+    end
+    it "resets Leah's tiles for one demo only" do
+      TileCompletion.count.should == 2
+      Tile.reset_tiles_for_user_within_an_arbitrary_demo(@leah, @fast)
+      TileCompletion.count.should == 1
+      TileCompletion.first.should == @slow_completion
+    end
+  end
 end

@@ -4,7 +4,12 @@ class Admin::TilesController < AdminBaseController
 
   
   def index
-    @tiles = @demo.tiles.alphabetical.includes(:prerequisites).includes(:rule_triggers)
+    @tiles = @demo.tiles.alphabetical.includes(:prerequisites).includes(:rule_triggers).sort_by(&:position)
+  end
+
+  def sort
+    Tile.set_position_within_demo(@demo, params[:tile])
+    render :nothing => true
   end
 
   def new
@@ -14,6 +19,8 @@ class Admin::TilesController < AdminBaseController
 
   def create
     @tile = @demo.tiles.build(params[:tile])
+    @tile.position = Tile.next_position(@demo)
+
     if @tile.valid?
       @tile.save!
       set_up_completion_triggers

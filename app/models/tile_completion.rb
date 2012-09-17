@@ -1,22 +1,10 @@
 class TileCompletion < ActiveRecord::Base
   belongs_to :user
   belongs_to :tile
+  validates_uniqueness_of :tile_id, :scope => :user_id
 
-  after_update do
-    check_for_new_available_tiles if changed.include?('satisfied')
-  end
-
-  
   def self.for_tile(tile)
     where(:tile_id => tile.id)
-  end
-
-  def self.satisfied
-    where(:satisfied => true)
-  end
-
-  def self.unsatisfied
-    where(:satisfied => false)
   end
 
   def self.already_displayed_one_final_time
@@ -33,12 +21,8 @@ class TileCompletion < ActiveRecord::Base
   end
 
   def self.waiting_to_display_one_final_time
-    satisfied.where(:displayed_one_final_time => false)
+    where(:displayed_one_final_time => false)
   end
-
-  # def self.displayable
-    # where("satisfied = false OR (satisfied = true AND display_completion_on_next_request = true)").where(:tile_id => Tile.due_ids)
-  # end
 
   def self.without_mandatory_referrer
     # Assumes we've already joined to RuleTrigger
@@ -63,13 +47,4 @@ class TileCompletion < ActiveRecord::Base
 
   protected
 
-  def check_for_new_available_tiles
-    potentially_available_tiles = Prerequisite.where(:prerequisite_tile_id => self.tile.id).map(&:tile).uniq
-
-    potentially_available_tiles.each do |potentially_available_tile|
-      if self.user.satisfies_all_prerequisites(potentially_available_tile) && potentially_available_tile.due?
-        potentially_available_tile.suggest_to_user(self.user)
-      end
-    end
-  end
 end

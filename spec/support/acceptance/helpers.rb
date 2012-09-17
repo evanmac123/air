@@ -13,6 +13,14 @@ module SteakHelperMethods
   end
 
   def signin_as_admin
+    # For some reason I'm getting an 
+    # ActiveRecord::AssociationTypeMismatch:
+    #        Demo(#69995131463640) expected, got Demo(#69995116100040)
+    # error if I call this method from guard/spork and then 
+    # make a call to FactoryGirl.create(:tile, demo: @some_demo_ive_already_created)
+    # Works fine from rspec.
+    # So in guard/spork I'm just making my call to signin_as_admin AFTER creating my 
+    # other factories. (Cross fingers)
     admin = FactoryGirl.create :user, :is_site_admin => true
     has_password(admin, 'foobar')
     signin_as(admin, 'foobar')

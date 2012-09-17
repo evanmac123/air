@@ -156,8 +156,9 @@ class User < ActiveRecord::Base
     return if email.blank? && overflow_email.blank?
     if email.blank? && overflow_email.present?
       self.errors.add(:email, 'must have a primary email if you have a secondary email')
-    elsif User.where(overflow_email: email).reject{|ff| ff == self}.present?
-      self.errors.add(:email, 'someone else has your primary email as their secondary email')
+    else 
+      users_with_your_email = User.where(overflow_email: email).reject{|ff| ff == self}
+      self.errors.add(:email, "'#{email}' is already taken") if users_with_your_email.present?
     end
   end
 
@@ -855,10 +856,6 @@ class User < ActiveRecord::Base
     Tile.displayable_to_user(self)
   end
 
-  def satisfies_all_prerequisites(tile)
-    tile.prerequisite_tiles.all?{|prerequisite_tile| self.tile_completions.for_tile(prerequisite_tile).satisfied.present?}
-  end
-
   def satisfy_tiles_by_survey(survey_or_survey_id, channel)
     satisfiable_tiles = Tile.satisfiable_by_survey_to_user(survey_or_survey_id, self)
     satisfiable_tiles.each do |tile|
@@ -1084,6 +1081,10 @@ class User < ActiveRecord::Base
     OutgoingMessage.send_message(referring_user, referrer_sms_text)
 
     referred_sms_text
+  end
+
+  def self.find_by_either_email(email)
+    where("email = ? OR overflow_email = ?", email, email).first
   end
 
   protected

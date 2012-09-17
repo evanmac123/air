@@ -6,8 +6,9 @@ class Tile < ActiveRecord::Base
   has_one :survey_trigger, :class_name => "Trigger::SurveyTrigger"
   has_one :demographic_trigger, :class_name => 'Trigger::DemographicTrigger'
   has_many :tile_completions, :dependent => :destroy
-  validates_uniqueness_of :identifier
+  validates_uniqueness_of :identifier, :scope => :demo_id
   validates_presence_of :identifier, :message => "Please include an identifier"
+  validates_uniqueness_of :position, :scope => :demo_id
   attr_accessor :display_completion_on_this_request
 
   has_alphabetical_column :name
@@ -35,11 +36,7 @@ class Tile < ActiveRecord::Base
   end
 
   def self.due_ids
-    due_tile_ids = []
-    find_each do |tile|
-      due_tile_ids << tile.id if tile.due?
-    end
-    due_tile_ids
+    self.after_start_time_and_before_end_time.map(&:id)
   end
 
   def self.displayable_to_user(user)
@@ -52,7 +49,7 @@ class Tile < ActiveRecord::Base
       tile.display_completion_on_this_request = true
       tile
     end
-    satisfiable_tiles + recently_completed_tiles
+    (satisfiable_tiles + recently_completed_tiles).sort_by(&:position)
   end
 
   def self.satisfiable_by_rule_to_user(rule_or_rule_id, user)
@@ -68,8 +65,8 @@ class Tile < ActiveRecord::Base
   end
 
   def self.satisfiable_to_user(user)
-    tiles_due_in_demo = where(demo_id: user.demo.id, id: due_ids)
-    ids_completed = user.tile_completions.satisfied.map(&:tile_id)
+    tiles_due_in_demo = after_start_time_and_before_end_time.where(demo_id: user.demo.id)
+    ids_completed = user.tile_completions.map(&:tile_id)
     satisfiable_tiles = tiles_due_in_demo.reject {|t| ids_completed.include? t.id}
     # Reject the ones whose prereqs have not been met
     satisfiable_tiles.reject! do |t|
@@ -84,20 +81,26 @@ class Tile < ActiveRecord::Base
     satisfiable_tiles
   end
 
-  def self.first_level
-    joins("LEFT JOIN prerequisites ON tiles.id = prerequisites.tile_id").where("prerequisites.id IS NULL")
+  def self.after_start_time_and_before_end_time
+    after_start_time.before_end_time
   end
 
-  def self.after_start_time_and_before_end_time
-    where("start_time < ? AND end_time > ? OR start_time IS NULL", Time.now, Time.now)
+  def self.after_start_time
+    where("start_time < ? OR start_time IS NULL", Time.now)
+  end
+
+  def self.before_end_time
+    where("end_time > ? OR end_time IS NULL", Time.now)
   end
 
   def self.bulk_complete(demo_id, tile_id, emails)
     completion_states = {}
-    %w(completed unknown already_completed in_different_game not_assigned).each {|bucket| completion_states[bucket.to_sym] = []}
+    %w(completed unknown already_completed in_different_game).each {|bucket| completion_states[bucket.to_sym] = []}
+
+    tile = Tile.find(tile_id)
 
     emails.each do |email|
-      user = User.where(:email => email).first
+      user = User.find_by_either_email(email)
 
       unless user
         completion_states[:unknown] << email
@@ -109,20 +112,13 @@ class Tile < ActiveRecord::Base
         next
       end
 
-      suggestion = user.tile_completions.where(:tile_id => tile_id).first
-      
-      unless suggestion 
-        completion_states[:not_assigned] << email
-        next
-      end
-      
-      if suggestion.satisfied
+      if satisfiable_to_user(user).include? tile
+        tile.satisfy_for_user!(user)
+        completion_states[:completed] << email
+      else
         completion_states[:already_completed] << email
-        next
       end
 
-      completion_states[:completed] << email
-      suggestion.satisfy!
     end
 
     BulkCompleteMailer.delay.report(completion_states)
@@ -138,6 +134,26 @@ class Tile < ActiveRecord::Base
 
   def self.satisfiable_by_demographics
     satisfiable_by_trigger_table('trigger_demographic_triggers')
+  end
+
+  def self.next_position(demo)
+    where(demo_id: demo.id).maximum(:position).to_i + 1
+  end
+
+  def self.set_position_within_demo(demo, id_order)
+    count = 1 # Using 1-based counting since the admins see this number
+    id_order.each do |tile_id|
+      where(id: tile_id).each do |tile|
+        tile.update_column(:position, count)
+      end
+      count += 1
+    end
+  end
+  
+  def self.reset_tiles_for_user_within_an_arbitrary_demo(user, demo)
+    TileCompletion.where(user_id: user.id).each do |completion|
+      completion.destroy if completion.tile.demo == demo
+    end
   end
 
   protected

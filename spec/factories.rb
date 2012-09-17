@@ -216,6 +216,7 @@ if ENV['FIRST_TIME'].nil?
       name "Roast chestnuts"
       association :demo
       sequence(:identifier, Tile.next_id) {|n| "Identifier#{n}"}
+      sequence(:position){ |n| n }
     end
 
     factory :tile_completion do

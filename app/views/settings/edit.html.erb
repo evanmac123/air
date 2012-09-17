@@ -18,7 +18,7 @@
         <div class="cf"></div>
     </div>
 
-    <%= form_for current_user, :url => account_settings_path do |form| %>
+    <%= form_for current_user, :url => account_settings_path, :html => {id: :username_dob_gender} do |form| %>
       <div class="module_inner settings_user">
         <h2 class="title">Username</h2>
         <%= label_tag "user[sms_slug]", "Change your username." %>

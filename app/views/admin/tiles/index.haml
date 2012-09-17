@@ -7,54 +7,61 @@
 %br
 
 .admin
+  #reset_my_tiles
+    = form_tag admin_reset_tiles_path, :method => :delete do
+      = hidden_field_tag :demo_id, @demo.id
+      = button_tag "Reset my tiles for #{@demo.name}"
+      #square_label= "(Makes it as though you have completed no tiles in #{@demo.name} so you can see all available tiles again.)"
+  #drag
+    %h3 Drag to rearrange
     
   - if @tiles.empty? 
     %p No tiles for this demo.
   - else 
-    %table{:class => :admin_wide}
-      %tr
-        %th Identifier
-        %th Name
-        %th Prereq
-        %th 
-          Start Time
-          .time_zone
-            (Eastern)
-        %th 
-          End Time
-          .time_zone
-            (Eastern)
-        %th Active
-    
-
-      - @tiles.each do |tile| 
-        - zebra_stripes = cycle('', 'stripe')
-        - active_class = tile.due? ? ' active' : ' inactive'
-        - zebra_stripes += active_class
-
-    
-        %tr{:class => zebra_stripes}
-
-                  
-                  
-          %td= tile.identifier
-          %td= link_to tile.name, edit_admin_demo_tile_path(@demo, tile) 
-          
-                  
-          %td
-            - if tile.prerequisite_tiles.present? 
-              - prerequisite_names = tile.prerequisite_tiles.map(&:name).sort 
-              %ul
-                - prerequisite_names.each do |prerequisite_name| 
-                  %li= prerequisite_name         
-            = render 'tile_details', :tile => tile
-                  
-          %td= tile.start_time ? tile.start_time.pretty_succinct : ''
-          %td= tile.end_time ? tile.end_time.pretty_succinct : ''
-        
-
-          %td{:class => "brown"}= tile.due? ? "*" : "" 
+    %table{:id => :tiles_index, :class => :admin_wide}
+      %tbody{:class => :sortable_body, 'data-update-url' => sort_admin_demo_tiles_url}
+        %tr
+          %th Active
+          %th Name
+          %th Identifier
+          %th 
+            Start Time
+            .time_zone
+              (Eastern)
+          %th 
+            End Time
+            .time_zone
+              (Eastern)
+          %th Prereq
       
+        - count = 0
+        - @tiles.each do |tile| 
+          - zebra_stripes = cycle('', 'stripe')
+          - zebra_stripes += ' draggable '
+          - active_class = tile.due? ? ' active' : ' inactive'
+          - zebra_stripes += active_class
+
+      
+          %tr{:id => "tile_#{tile.id}", :class => zebra_stripes}
+
+                    
+                    
+            %td{:class => "brown"}= count += 1 if tile.due?
+            %td= link_to tile.name, edit_admin_demo_tile_path(@demo, tile) 
+            %td
+              = tile.identifier
+              = render 'tile_details', :tile => tile
+                   
+            %td= tile.start_time ? tile.start_time.pretty_succinct : ''
+            %td= tile.end_time ? tile.end_time.pretty_succinct : ''
+            %td
+              - if tile.prerequisite_tiles.present? 
+                - prerequisite_names = tile.prerequisite_tiles.map(&:name).sort 
+                %ul
+                  - prerequisite_names.each do |prerequisite_name| 
+                    %li= prerequisite_name         
+          
+
 
 
   %p= link_to "Add tile", new_admin_demo_tile_path(@demo) 

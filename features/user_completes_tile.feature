@@ -223,6 +223,7 @@ Feature: User completes tile
     And I should see "Survey tile 1"
     And I should see "Survey tile 3"
     And I should see "Referer tile 1"
+    And I should not see "Demographic tile 1"
     And I should see "Demographic tile 2"
     And I should see "I completed a daily dose!"
 
