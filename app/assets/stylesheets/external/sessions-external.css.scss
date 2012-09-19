@@ -274,10 +274,15 @@ body.invitations-show .single_suggestion{
   -moz-box-shadow: none;
   -webkit-box-shadow: none;
   z-index:9999;
-  img {
-    @include rounded;
-    border:none;
-    z-index:99999;
+  div.image {
+    width:auto;
+    z-index:9999;
+      img {
+        @include rounded;
+        border:none;
+        margin:0;
+        z-index:99999;
+      }
   }
   div.info {
       div.bit:first-child {
@@ -300,13 +305,7 @@ body.invitations-show div#search_for_referrer {
       color:#74C04C;
     }
     div#suggestions {
-        div.single_suggestion {
-          z-index:999;
-          div.image {
-            z-index:9999;
-            img {border:0;}
-          }
-        }
+        div.single_suggestion {z-index:999;}
     }
 }
 
