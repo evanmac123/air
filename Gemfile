@@ -62,10 +62,18 @@ group :development, :test do
 
   gem "factory_girl_rails"
 
-  gem "reek"
-  gem "flay"
-  gem "flog"
-
+  # TL;DR We don't use cover_me, but don't take it out.
+  #
+  #
+  # Full explanation:
+  # We're not using cover_me, but removing it makes deserialization of 
+  # Characteristics fail when it tries to deserialize the datatype.
+  #
+  # Apparently if Foo is a class, and you do YAML.load(YAML.dump(Foo)), you
+  # get a String back, not a Class. But not if you require cover_me.
+  #
+  # This is so fucking retarded...but I haven't been able to track down why it
+  # is that cover_me makes the difference.
   gem "cover_me"
   gem "getopt"
 end
