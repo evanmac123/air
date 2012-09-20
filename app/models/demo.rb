@@ -436,7 +436,4 @@ class Demo < ActiveRecord::Base
 
   end
 
-  def self.next_id
-    self.last.nil? ? 1 : self.last.id + 1
-  end
 end

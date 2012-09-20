@@ -137,7 +137,11 @@ class Tile < ActiveRecord::Base
   end
 
   def self.next_position(demo)
-    where(demo_id: demo.id).maximum(:position).to_i + 1
+    if table_exists?
+      where(demo_id: demo.id).maximum(:position).to_i + 1
+    else
+      1
+    end
   end
 
   def self.set_position_within_demo(demo, id_order)
