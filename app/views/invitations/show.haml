@@ -122,8 +122,14 @@
         = f.fancy_text_field :new_phone_number, :label_text => "Enter your mobile number<br>(optional)", :value => (@user.new_phone_number.present? ? @user.new_phone_number.as_pretty_phone : "xxx-xxx-xxxx (optional)"), :class => 'with-hint-text', :style => optional_style
       - else
         = f.fancy_text_field :new_phone_number, :label_text => "Enter your mobile number<br>(optional)".html_safe, :value => (@user.new_phone_number.present? ? @user.new_phone_number.as_pretty_phone : "xxx-xxx-xxxx"), :class => 'with-hint-text', :style => optional_style
+        %ul.form-section#notification_prefs
+          %li.form-label Notify me via...
+          %li.form-input
+            - [["SMS/text message", :sms], ["Email", :email], ["Both", :both] ].each do |label_text, method_name| 
+              = f.radio_button :notification_method, method_name, :class => 'notification_pref', :id => method_name
+              = label_tag method_name, label_text, :class => 'check_label'
+          .clear
 
- 
     #search_for_referrer
       %ul.form-section
         %li.form-label= label_tag :autocomplete,  "Did anyone refer you?"
