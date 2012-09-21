@@ -44,6 +44,7 @@ Feature: Admin edits tile
       | Survey 2 | name: TileCo |
 
     When I follow "make toast"
+    And I choose "tile_poly_true"
     And I select "do 1" from "Rules"
     And I select "Survey 1" from "Survey"
     And I press "Update Tile"

@@ -871,7 +871,7 @@ class User < ActiveRecord::Base
     satisfiable_tiles.each do |tile|
       required = tile.rule_triggers.map(&:referrer_required).include? true
       if referring_user_id or not required
-        tile.satisfy_for_user!(self, channel) 
+        tile.satisfy_for_user!(self, channel) if tile.all_rule_triggers_satisfied_to_user(self)
       end
     end
   end

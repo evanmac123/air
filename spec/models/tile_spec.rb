@@ -279,4 +279,37 @@ describe Tile do
       TileCompletion.first.should == @slow_completion
     end
   end
+
+  describe "Tiles with all_required" do
+    before(:each) do
+      Demo.find_each { |f| f.destroy }
+      @fun = FactoryGirl.create(:demo, name: 'F U N')
+      @leah = FactoryGirl.create(:user, name: 'Leah', demo: @fun)
+      @tile = FactoryGirl.create(:tile, name: 'Tile with Require All', demo: @fun, poly: true)
+      @rule_1 = FactoryGirl.create(:rule, demo: @fun)
+      @rule_2 = FactoryGirl.create(:rule, demo: @fun)
+      @trigger_1 = FactoryGirl.create(:rule_trigger, tile: @tile, rule: @rule_1)
+      @trigger_2 = FactoryGirl.create(:rule_trigger, tile: @tile, rule: @rule_2)
+    end
+
+    it "should satisfy the rule only after both rules are satisfied" do
+      Tile.satisfiable_to_user(@leah).should == [@tile]
+      @tile.all_rule_triggers_satisfied_to_user(@leah).should be_false
+      Act.count.should == 0
+      # Create one of the required acts to satisfy the rule
+      FactoryGirl.create(:act, user: @leah, rule: @rule_1) 
+      @tile.all_rule_triggers_satisfied_to_user(@leah).should be_false
+      Act.count.should == 1
+      Tile.satisfiable_to_user(@leah.reload).should == [@tile]
+      # Create the second act, so now it should actually be satisfied
+      FactoryGirl.create(:act, user: @leah, rule: @rule_2) 
+      @tile.all_rule_triggers_satisfied_to_user(@leah).should be_true
+      Act.count.should == 3 # two acts and one tile completion
+      TileCompletion.count.should == 1
+      completion = TileCompletion.first
+      completion.user.should == @leah
+      completion.tile.should == @tile
+      Tile.satisfiable_to_user(@leah.reload).should be_empty
+    end
+  end
 end

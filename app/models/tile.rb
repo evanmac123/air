@@ -35,6 +35,13 @@ class Tile < ActiveRecord::Base
     self.rule_triggers.empty? && self.survey_trigger.blank? && !self.has_demographic_trigger?
   end
 
+  def all_rule_triggers_satisfied_to_user(user)
+    return true unless self.poly
+    required_rule_ids = rule_triggers.map(&:rule_id).to_set
+    completed_rule_ids = Act.where(user_id: user.id).map(&:rule_id).to_set
+    required_rule_ids.subset? completed_rule_ids
+  end
+
   def self.due_ids
     self.after_start_time_and_before_end_time.map(&:id)
   end

@@ -275,3 +275,13 @@ select{
     padding-top: 1mm;
   }
 }
+#tile_boolean_method{
+  .inline label{
+    display: inline;
+    text-transform: uppercase;
+  }
+  position: absolute;
+  left: 1mm;
+  bottom: 1mm;
+  font-size: 5mm;
+}
