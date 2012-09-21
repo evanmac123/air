@@ -5,11 +5,11 @@ Feature: Admin edits tile
       | name |
       | TileCo       |
     And the following tiles exist:
-      | name               | start time          | demo                 |
-      | bake bread         |                     | name: TileCo |
-      | discover fire      |                     | name: TileCo |
-      | domesticate cattle |                     | name: TileCo |
-      | make toast         | 2015-05-01 00:00:00 | name: TileCo |
+      | name               | start time              | demo         |
+      | bake bread         |                         | name: TileCo |
+      | discover fire      |                         | name: TileCo |
+      | domesticate cattle |                         | name: TileCo |
+      | make toast         | 2015-05-01 08:00:00 UTC | name: TileCo |
     And the tile "make toast" has prerequisite "bake bread"
     And the tile "make toast" has prerequisite "discover fire"
     And I sign in via the login page as an admin
@@ -19,15 +19,15 @@ Feature: Admin edits tile
   Scenario: Admin edits tile
     When I follow "make toast"
     And I fill in "Name" with "Make roast beef"
-    And I fill in "Short description" with "Cook cow flesh"
-    And I fill in "Long description" with "Scorch up the muscle of a beef"
     And I unselect "bake bread" from "Prerequisite tiles"
     And I select "domesticate cattle" from "Prerequisite tiles"
-    And I set the tile start time to "April/17/2012/3 PM/25"
+    And I fill in "Start time" with "April 17,2012 3:25 PM"
     And I press "Update Tile"
 
     Then I should not see "make toast"
     But I should see "Make roast beef"
+    And I should see "domesticate cattle"
+    And I should see "Apr 17, 2012 @ 03:25 PM"
 
   Scenario: Editing completion triggers should do what you would expect
     Given the following rules exist:
@@ -50,7 +50,7 @@ Feature: Admin edits tile
     And I press "Update Tile"
     Then I should see "make toast"
     And I should see "discover fire"
-    And I should see "May 01, 2015 @ 12:00 AM"
+    And I should see "May 01, 2015 @ 04:00 AM"
     And I should see "do 1"
     And I should see "Survey 1"
     
@@ -60,6 +60,6 @@ Feature: Admin edits tile
     And I press "Update Tile"
     Then I should see "make toast"
     And I should see "discover fire"
-    And I should see "May 01, 2015 @ 12:00 AM"
+    And I should see "May 01, 2015 @ 04:00 AM"
     And I should see "do 2"
     And I should see "Survey 2"

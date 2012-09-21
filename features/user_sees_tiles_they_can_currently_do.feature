@@ -5,16 +5,16 @@ Feature: User sees tiles they can currently do
       | name |
       | FooCo        |
     And the following tiles exist:
-      | name              | short description | long description                                  | start time           | end_time             | demo        |
-      | Make toast        | Toast some bread  | Turn bread into toast by the application of fire. |                      |                      | name: FooCo |
-      | Make PBJ          | Spread PB and J   | Put peanut butter and jelly on bread              |                      |                      | name: FooCo |
-      | Butter toast      | Butter it up      | No peanut butter just regular butter this time    |                      |                      | name: FooCo |
-      | Plate toast       | Put it on a plate | Were you born in a barn?                          |                      |                      | name: FooCo |
-      | Eat buttery toast | Eat it up yum     | It's bad for your arteries though                 |                      |                      | name: FooCo |
-      | Make future toast | Space toast!      | Make toast using lasers and shit                  | 2020-01-01 00:00 UTC |                      | name: FooCo |
-      | Make future PBJ   | Space PBJ!        | Make PBJ using lasers and shit                    | 2020-01-01 00:00 UTC |                      | name: FooCo |
-      | Think past toast  | Once was toast!   | Drool over toast of yesterday                     |                      | 1900-01-01 00:00 UTC | name: FooCo |
-      | Think past PBJ    | Once was PBJ!     | Drool over PBJ of yesterday                       |                      | 1900-01-01 00:00 UTC | name: FooCo |
+      | name              | start time           | end_time             | demo        |
+      | Make toast        |                      |                      | name: FooCo |
+      | Make PBJ          |                      |                      | name: FooCo |
+      | Butter toast      |                      |                      | name: FooCo |
+      | Plate toast       |                      |                      | name: FooCo |
+      | Eat buttery toast |                      |                      | name: FooCo |
+      | Make future toast | 2020-01-01 00:00 UTC |                      | name: FooCo |
+      | Make future PBJ   | 2020-01-01 00:00 UTC |                      | name: FooCo |
+      | Think past toast  |                      | 1900-01-01 00:00 UTC | name: FooCo |
+      | Think past PBJ    |                      | 1900-01-01 00:00 UTC | name: FooCo |
     And the tile "Make PBJ" has prerequisite "Make toast"
     And the tile "Butter toast" has prerequisite "Make toast"
     And the tile "Eat buttery toast" has prerequisite "Butter toast"
@@ -26,20 +26,8 @@ Feature: User sees tiles they can currently do
     And "Joe" has the password "foobar"
     And I sign in via the login page with "Joe/foobar"
 
-  @javascript @slow
   Scenario: User sees tiles they can currently do
     Then I should see "Make toast"
-    And I should see "Toast some bread"
-    But "Turn bread into toast by the application of fire." should not be visible
-
-    When I follow "More info"
-    Then "Turn bread into toast by the application of fire." should be visible
-
-    When I follow "Less info"
-    Then "Turn bread into toast by the application of fire." should not be visible
-
-    When I follow "More info"
-    Then "Turn bread into toast by the application of fire." should be visible
 
   Scenario: User doesn't see tiles they can't currently do
     Then I should not see "Make PBJ"

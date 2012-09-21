@@ -1,7 +1,7 @@
 class Admin::TilesController < AdminBaseController
   before_filter :find_demo_by_demo_id
   before_filter :find_tile, :only => [:edit, :update, :destroy]
-
+  before_filter :parse_times, :only => [:create, :update]
   
   def index
     @tiles = @demo.tiles.alphabetical.includes(:prerequisites).includes(:rule_triggers).sort_by(&:position)
@@ -109,6 +109,13 @@ class Admin::TilesController < AdminBaseController
       Trigger::DemographicTrigger.create!(:tile => @tile)
     else
       @tile.demographic_trigger.destroy
+    end
+  end
+
+  def parse_times
+    [:start_time, :end_time].each do |time_name|
+      next unless params[:tile][time_name].present?
+      params[:tile][time_name] = Chronic.parse(params[:tile][time_name]).to_s
     end
   end
 end
