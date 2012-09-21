@@ -7,16 +7,13 @@
 = semantic_form_for tile, :url => form_submit_path do |f| 
   = f.input :identifier 
   = f.input :name 
-  = f.input :short_description, :as => :text 
-  = f.input :long_description, :as => :text 
   = f.input :bonus_points 
   = f.input :prerequisite_tiles, :collection => @existing_tiles 
   #start_and_end_times
     #start_time
-      = f.input :start_time, :twelve_hour => true, :start_year => Time.now.year 
-    
+      = f.input :start_time, :as => :string
     #end_time
-      = f.input :end_time, :twelve_hour => true, :start_year => Time.now.year 
+      = f.input :end_time, :as => :string
     
     .clear
   

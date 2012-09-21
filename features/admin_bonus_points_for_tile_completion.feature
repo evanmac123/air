@@ -5,10 +5,10 @@ Feature: Admin sets bonus points for tiles
       | name |
       | NobodysBusiness |
     And the following claimed user exists:
-      | name | phone number | is site admin | demo                          |
+      | name | phone number | is site admin | demo                  |
       | Phil | +14155551212 | true          | name: NobodysBusiness |
     And the following tile exists:
-      | name            | demo                          | bonus points |
+      | name            | demo                  | bonus points |
       | ride a tricycle | name: NobodysBusiness | 11           |
 
 
@@ -21,7 +21,7 @@ Feature: Admin sets bonus points for tiles
     When I go to the edit admin tile page for company "NobodysBusiness" and tile "ride a tricycle"
     Then I should see "Bonus points"
     And I should see an input with value "ride a tricycle"
-    And I should see "11"
+    And I should see an input with value "11"
 
     When I fill in "Bonus points" with "15"
     And I press "Update Tile"

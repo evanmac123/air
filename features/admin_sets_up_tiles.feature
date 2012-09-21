@@ -31,15 +31,10 @@ Feature: Admin sets up tiles
   Scenario: Admin adds first-level tile
     When I fill in "Identifier" with "ident1"
     When I fill in "Name" with "Make toast"
-    And I fill in "Short description" with "Earn points and enjoy a toasty treat"
-    And I fill in "Long description" with "Toast is a foodstuff that millions have enjoyed since the invention of fire."
     And I press "Create Tile"
 
     Then I should be on the admin tiles page for "TileCo"
     And I should see "Make toast"
-    And I should see "Earn points and enjoy a toasty treat"
-    And I should see "Toast is a foodstuff that millions have enjoyed since the invention of fire."
-    
 
   Scenario: Admin adds tile with prerequisites
     When I fill in "Identifier" with "ident1"
@@ -53,8 +48,6 @@ Feature: Admin sets up tiles
     And I follow "Add tile"
     When I fill in "Identifier" with "ident2"
     When I fill in "Name" with "Make toast"
-    And I fill in "Short description" with "Earn points and enjoy a toasty treat"
-    And I fill in "Long description" with "Toast is a foodstuff that millions have enjoyed since the invention of fire."
     When I fill in "Identifier" with "ident3"
     And I select "Bake bread" from "Prerequisite tiles"
     And I select "Discover fire" from "Prerequisite tiles"
@@ -62,20 +55,17 @@ Feature: Admin sets up tiles
 
     Then I should be on the admin tiles page for "TileCo"
     And I should see "Make toast"
-    And I should see "Earn points and enjoy a toasty treat"
-    And I should see "Toast is a foodstuff that millions have enjoyed since the invention of fire."
 
-  Scenario: Admin adds first-level tile with start time
+  Scenario: Admin adds first-level tile with start and end time
     When I fill in "Identifier" with "ident1"
     When I fill in "Name" with "Make toast"
-    And I fill in "Short description" with "Earn points and enjoy a toasty treat"
-    And I fill in "Long description" with "Toast is a foodstuff that millions have enjoyed since the invention of fire."
-    And I set the tile start time to "May/1/2015/12 AM/00/00"
+    And I fill in "Start time" with "5/1/2015, 12:00 AM"
+    And I fill in "End time" with "8/5/2015, 12:00 PM"
     And I press "Create Tile"
     Then I should be on the admin tiles page for "TileCo"
     And I should see "Make toast"
-    And I should see "Earn points and enjoy a toasty treat"
-    And I should see "Toast is a foodstuff that millions have enjoyed since the invention of fire."
+    And I should see "May 01, 2015 @ 12:00 AM"
+    And I should see "Aug 05, 2015 @ 12:00 PM"
 
   Scenario: Admin adds tile with prerequisites and start time
     When I fill in "Identifier" with "ident1"
@@ -89,17 +79,14 @@ Feature: Admin sets up tiles
     And I follow "Add tile"
     When I fill in "Identifier" with "ident3"
     When I fill in "Name" with "Make toast"
-    And I fill in "Short description" with "Earn points and enjoy a toasty treat"
-    And I fill in "Long description" with "Toast is a foodstuff that millions have enjoyed since the invention of fire."
     And I select "Bake bread" from "Prerequisite tiles"
     And I select "Discover fire" from "Prerequisite tiles"
-    And I set the tile start time to "May/1/2015/12 AM/00/00"
+    And I fill in "Start time" with "5-1-2015, 12:00 AM"
     And I press "Create Tile"
 
     Then I should be on the admin tiles page for "TileCo"
     And I should see "Make toast"
-    And I should see "Earn points and enjoy a toasty treat"
-    And I should see "Toast is a foodstuff that millions have enjoyed since the invention of fire."
+    And I should see "May 01, 2015 @ 12:00 AM"
     
   Scenario: Admin adds tile with rule completion trigger
     When I fill in "Identifier" with "ident1"

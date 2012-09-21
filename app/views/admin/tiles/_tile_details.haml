@@ -3,12 +3,6 @@
     .name
       .label Name
       .value= tile.name
-    .short_desc
-      .label Short Description
-      .value= tile.short_description 
-    .long_desc
-      .label Long Description
-      .value= tile.long_description
     .completion_triggers
       - if tile.has_demographic_trigger? 
         %p Complete demographics
