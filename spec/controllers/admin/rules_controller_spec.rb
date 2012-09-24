@@ -34,6 +34,9 @@ describe Admin::RulesController do
       @params[:rule][:reply] = 'H' * 132
       post :create, @params
       response.status.should == 200 # should not redirect
+      # Make sure @demo is set so that when you finally get it saved that it's still associated   
+      # with the correct demo
+      assigns[:demo].should_not be_nil
     end
   end
 
@@ -71,6 +74,9 @@ describe Admin::RulesController do
       @params[:rule]['secondary_values'].should be_nil
       put :update, @params
       response.status.should == 200
+      # Make sure @demo is set so that when you finally get it saved that it's still associated   
+      # with the correct demo
+      assigns[:demo].should_not be_nil
     end
 
 

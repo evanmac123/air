@@ -1,9 +1,10 @@
 class Admin::RulesController < AdminBaseController
   include Admin::RulesHelper
 
-  before_filter :find_demo, :only => [:index, :new]
-  before_filter :find_existing_rules, :only => [:index]
   before_filter :find_rule, :only => [:edit, :update]
+  before_filter :find_demo_from_rule, :only => [:update]
+  before_filter :find_demo_from_params, :only => [:index, :new, :create]
+  before_filter :find_existing_rules, :only => [:index]
   before_filter :extract_primary_and_secondary_values, :only => [:create, :update]
 
   def index
@@ -93,8 +94,14 @@ class Admin::RulesController < AdminBaseController
 
   protected
 
-  def find_demo
+  def find_demo_from_params
+    # Some rules have demo_ids. Others  are part of the 'standard playbook' and therefore don't
+    # have demo_ids
     @demo = Demo.find(params[:demo_id]) if params[:demo_id]
+  end
+
+  def find_demo_from_rule
+    @demo = @rule.try(:demo)
   end
 
   def find_rule
