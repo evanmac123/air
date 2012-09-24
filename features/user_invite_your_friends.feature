@@ -66,7 +66,7 @@ Feature: User invites friends
     And I check "Terms and conditions"
     And I press "Log in"
     And I wait a second
-    When I follow "Confirm my mobile number later"
+    When I follow "Skip this step"
     Then I should see "Brought to you by"
     Then user with email "1@loaded.com" should show up as referred by "Shelly"
     And DJ works off
@@ -134,7 +134,7 @@ Feature: User invites friends
 #    And "+15554445555" should have received SMS "Blowing Smoke gave you credit for referring them to the game. Many thanks and 2000 bonus points!"
 #    When "claimed@inviting.com" opens the email
 #    Then I should see "Blowing Smoke gave you credit for referring them to the game. Many thanks and 2000 bonus points!" in the email body
-#    When I follow "Confirm my mobile number later"
+#    When I follow "Skip this step"
 #    And I should see "Barnaby got credit for referring Blowing Smoke to the game"
 #    And I should see "2000 pts"
 #    
@@ -173,7 +173,7 @@ Feature: User invites friends
 #    And "+15554445555" should have received SMS "Blowing Smoke gave you credit for referring them to the game. Many thanks and 2000 bonus points!"
 #    When "claimed@inviting.com" opens the email
 #    Then I should see "Blowing Smoke gave you credit for referring them to the game. Many thanks and 2000 bonus points!" in the email body
-#    When I follow "Confirm my mobile number later"
+#    When I follow "Skip this step"
 #    And I should see "Barnaby got credit for referring Blowing Smoke to the game"
 #    And I should see "2000 pts"
 #    

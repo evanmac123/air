@@ -1,4 +1,4 @@
-class InterstitialVerificationsController < ApplicationController
+class VerificationsController < ApplicationController
   skip_before_filter :authorize
   before_filter :authenticate_without_game_begun_check
 

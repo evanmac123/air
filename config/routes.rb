@@ -10,7 +10,7 @@ Health::Application.routes.draw do
   resource  :conference_feed, :only => [:show]
 
   resource :phone,      :only => [:update] do
-    resource :interstitial_verification, :only => [:show, :update]
+    resource :verification, :only => [:show, :update]
   end
   get "invitation" => "email_previews#invitation", :as => "invitation_preview"
  

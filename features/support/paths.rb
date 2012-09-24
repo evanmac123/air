@@ -118,7 +118,7 @@ module NavigationHelpers
       sign_in_path
 
     when /the interstitial phone (verification|validation) page/
-      phone_interstitial_verification_path
+      phone_verification_path
     else
 
       begin

@@ -94,9 +94,7 @@ Feature: User accepts invitation
     And I fill in "Confirm password" with "whowho"
     And I check "Terms and conditions"
     And I press "Log in"
-    And I follow "Confirm my mobile number later"
-    Then I should be on the activity page
-    # And I should see "Phil 10 pts"
+    And I go to the activity page
     And I should see "10 pts Phil joined the game less than a minute ago"
 
   Scenario: User doesn not get seed points twice

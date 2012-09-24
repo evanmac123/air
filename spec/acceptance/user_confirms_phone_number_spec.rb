@@ -8,7 +8,7 @@ feature "User Confirms Phone number" do
     @leah = FactoryGirl.create(:user, new_phone_number: @phone_number, password: password)
     @leah.generate_short_numerical_validation_token
     signin_as(@leah, password)
-    visit phone_interstitial_verification_path
+    visit phone_verification_path
   end
 
   it "should confirm her phone number if she enters her code" do
@@ -23,14 +23,14 @@ feature "User Confirms Phone number" do
   it "should flash an error message if the wrong code is input" do
     fill_in 'user_new_phone_validation', :with => '883848838828348384283842834823848348384'
     click_button 'Enter'
-    current_path.should == phone_interstitial_verification_path
+    current_path.should == phone_verification_path
     page.should have_content("Sorry, the code you entered was invalid")
   end
 
   it "should resend the code if she clicks Resend", js: true do
     Delayed::Job.delete_all
     click_link "Resend"
-    current_path.should == phone_interstitial_verification_path
+    current_path.should == phone_verification_path
     page.should have_content("We have resent your phone validation code to#{@leah.phone_number.as_pretty_phone}")
     @leah.reload.new_phone_number.should == @phone_number
     @leah.phone_number.should be_blank

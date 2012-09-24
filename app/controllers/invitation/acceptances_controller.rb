@@ -61,7 +61,7 @@ class Invitation::AcceptancesController < ApplicationController
     else
       @user.generate_short_numerical_validation_token
       @user.send_new_phone_validation_token
-      redirect_to phone_interstitial_verification_path
+      redirect_to phone_verification_path
     end
   end
   

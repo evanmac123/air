@@ -22,7 +22,7 @@ feature "Make sure mixpanel pings fire" do
     @user.reload # Reload so it can pick up the join date, or it will fail the next line
     @user.should be_pinged_on_page('interstitial phone verification')
     fill_in 'user_new_phone_validation', :with => @user.reload.new_phone_validation
-    click_button 'Validate phone'
+    click_button 'Enter'
     page.should have_content('Invite your friends')# This just makes sure page has refreshed already
     crank_dj_clear
     @user.should be_pinged_on_page('invite friends modal')
