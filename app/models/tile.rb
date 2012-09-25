@@ -9,6 +9,8 @@ class Tile < ActiveRecord::Base
   validates_uniqueness_of :identifier, :scope => :demo_id
   validates_presence_of :identifier, :message => "Please include an identifier"
   validates_uniqueness_of :position, :scope => :demo_id
+  validates_presence_of :headline, :allow_blank => false
+  validates_length_of :headline, :maximum => 30
   attr_accessor :display_completion_on_this_request
 
   has_alphabetical_column :name

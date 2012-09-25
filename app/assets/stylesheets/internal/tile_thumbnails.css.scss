@@ -1,0 +1,78 @@
+// hover delta is per side
+$thumb_dim: 220px;
+$thumb_hovered_dim: 240px;
+$hover_delta: ($thumb_hovered_dim - $thumb_dim)/2;
+$thumb_margin: 12px;
+$thumb_hovered_margin: $thumb_margin - $hover_delta;
+$rapper_dim: 254px;
+#tile_thumbnail_carousel{
+  .jcarousel-item{
+    height: 295px;
+    width: 295px;
+    display: inline-block;
+  }
+  .rapper{
+    padding: 2px;
+    height: $rapper_dim;
+    width: $rapper_dim;
+    display: inline-block;
+    border: 1px dashed #ccc;
+  }
+  .tile_thumbnail{
+    background: blue;
+    height: $thumb_dim;
+    width: $thumb_dim;
+    margin: $thumb_margin;
+    &:hover{
+      height: $thumb_hovered_dim;
+      width: $thumb_hovered_dim;
+      margin: $thumb_hovered_margin;
+      .headline_overlay{ 
+        width: $thumb_hovered_dim; 
+        top: 170px + 2 * $hover_delta;
+      }
+      .text{
+        top: 170px + 2 * $hover_delta;
+      }
+    }
+    display: inline-block;
+  }
+  .white_box_with_shadow{
+    box-shadow: 0px 0px 2px grey;
+    background: yellow;
+    padding: 4px;
+    display: inline-block;
+  }
+  .headline{
+    position: relative;
+    .headline_overlay{
+      height: 50px;
+      width: $thumb_dim;
+      background: orange;
+      opacity: 0.4;
+      position: absolute;
+      top: 170px;
+    }
+    .text{
+      position: absolute;
+      color: white;
+      z-index: 10;
+      top: 170px; 
+      padding: 0 5px;
+      font-size: 20px;
+    }
+  }
+
+}
+#carousel_wrapper{
+  .jcarousel-container{
+    width: 878px;
+    height: 259px;
+    margin-bottom: 2px;
+  }
+  .jcarousel-clip{
+    width: 878px;
+    height: 400px;
+  }
+}
+*{border: 1px solid red;}

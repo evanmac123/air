@@ -1,0 +1,12 @@
+:ruby
+  tile = displayable_tile
+  classes = ''
+  classes = 'recently_completed' if tile.display_completion_on_this_request
+
+%li{class: classes, id: "tile-thumbnail-#{tile.id }"}
+  .rapper
+    .white_box_with_shadow
+      .tile_thumbnail
+        .headline
+          .text= tile.headline
+          .headline_overlay
