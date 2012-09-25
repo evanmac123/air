@@ -13,7 +13,7 @@ class Admin::TileCompletionsController < AdminBaseController
   def destroy
     demo = Demo.find(params[:demo_id])
     Tile.reset_tiles_for_user_within_an_arbitrary_demo(current_user, demo)
-    add_success "#{current_user.name}'s tiles for #{demo.name} have been reset"
+    add_success "#{current_user.name}'s tiles for #{demo.name} have been reset. Associated acts have been destroyed"
     redirect_to :back
   end
 

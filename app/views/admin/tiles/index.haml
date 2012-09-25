@@ -11,7 +11,7 @@
     = form_tag admin_reset_tiles_path, :method => :delete do
       = hidden_field_tag :demo_id, @demo.id
       = button_tag "Reset my tiles for #{@demo.name}"
-      #square_label= "(Makes it as though you have completed no tiles in #{@demo.name} so you can see all available tiles again.)"
+    #square_label= "Makes all tiles for #{@demo.name} visible to you until completed anew. Some of your acts will be destroyed in the process."
   #drag
     %h3 Drag to rearrange
     

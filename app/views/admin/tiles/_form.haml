@@ -22,17 +22,16 @@
   
   %fieldset
     %legend 
-      .relative
-        #tile_boolean_method
-          %p Trigger Type
-          .inline
-            = f.radio_button :poly, true, :checked => tile.poly 
-            = f.label 'AND'
-          .block
-          .inline
-            = f.radio_button :poly, false, :checked => !tile.poly
-            = f.label 'OR'
-      Completion Triggers
+      %h3 Completion Triggers
+      #tile_boolean_method
+        %p Trigger Type
+        .inline
+          = f.radio_button :poly, true, :checked => tile.poly 
+          = f.label 'AND'
+        .block
+        .inline
+          = f.radio_button :poly, false, :checked => !tile.poly
+          = f.label 'OR'
       %p If you don't select any completion triggers, the only way for one to get completed for a user will be for an admin to do so manually.
       %fieldset
         = label_tag "completion[rule_ids]", "Rules" 

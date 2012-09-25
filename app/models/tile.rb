@@ -165,6 +165,11 @@ class Tile < ActiveRecord::Base
     TileCompletion.where(user_id: user.id).each do |completion|
       completion.destroy if completion.tile.demo == demo
     end
+    Tile.where(demo_id: demo.id).each do |tile|
+      tile.rule_triggers.each do |rule_trigger|
+        Act.where(user_id: user.id, rule_id: rule_trigger.rule_id).each { |act| act.destroy }
+      end
+    end
   end
 
   protected

@@ -264,19 +264,32 @@ describe Tile do
   describe "Reset Tiles" do
     before(:each) do 
       Demo.find_each { |f| f.destroy }
-      @fast = FactoryGirl.create(:demo, name: 'Fast Game')
-      @slow = FactoryGirl.create(:demo, name: 'Slow Game')
-      @fast_tile = FactoryGirl.create(:tile, demo: @fast)
-      @slow_tile = FactoryGirl.create(:tile, demo: @slow)
-      @leah = FactoryGirl.create(:site_admin, name: 'Leah')
-      @fast_completion = FactoryGirl.create(:tile_completion, tile: @fast_tile, user: @leah)
-      @slow_completion = FactoryGirl.create(:tile_completion, tile: @slow_tile, user: @leah)
+      @fun = FactoryGirl.create(:demo, name: 'Fun')
+      @leah = FactoryGirl.create(:site_admin, name: 'Leah', demo: @fun)
+      @rule = FactoryGirl.create(:rule, demo: @fun)
+      @tile = FactoryGirl.create(:tile, demo: @fun)
+      @rule_trigger = FactoryGirl.create(:rule_trigger, rule: @rule, tile: @tile)
+      TileCompletion.count.should == 0
+      @act = FactoryGirl.create(:act, rule: @rule, user: @leah, demo: @fun)
+      TileCompletion.count.should == 1
+      @completion = TileCompletion.first
+      Act.count.should == 2 # @act plus the daily dose completion act
+     
+      # One more act for Leah that should stay around after resetting
+      FactoryGirl.create(:act, user: @leah, demo: @fun)
+
+      # Some random stuff that doesn't matter
+      FactoryGirl.create(:act)
+      FactoryGirl.create(:tile_completion)
     end
     it "resets Leah's tiles for one demo only" do
       TileCompletion.count.should == 2
-      Tile.reset_tiles_for_user_within_an_arbitrary_demo(@leah, @fast)
+      Act.count.should == 4
+      Tile.reset_tiles_for_user_within_an_arbitrary_demo(@leah, @fun)
       TileCompletion.count.should == 1
-      TileCompletion.first.should == @slow_completion
+      Act.count.should == 3
+      TileCompletion.all.map(&:id).should_not include(@completion.id)
+      Act.all.map(&:id).should_not include(@act.id)
     end
   end
 
