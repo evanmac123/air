@@ -4,3 +4,4 @@ S3_CREDENTIALS = {
 }
 
 S3_AVATAR_BUCKET = ENV['AVATAR_BUCKET'] || 'hengage-avatars-development'
+S3_TILE_BUCKET = ENV['TILE_BUCKET'] || 'hengage-tiles-development'

@@ -143,8 +143,16 @@ module SteakHelperMethods
     expect_content (expected_coin_count == 1 ? "1 gold coin" : "#{expected_coin_count} gold coins")
   end
 
+  def expect_link(text, url)
+    page.find(:xpath, "//a[@href='#{url}']", :text => text).should be_present
+  end
+
   def act_via_play_box(text)
     fill_in 'command_central', :with => text
     click_button 'play_button'
+  end
+
+  def tile_fixture_path(filename)
+    Rails.root.join('spec/support/fixtures/tiles', filename)  
   end
 end

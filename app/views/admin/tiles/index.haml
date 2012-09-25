@@ -32,6 +32,8 @@
             End Time
             .time_zone
               (Eastern)
+          %th
+            Image filename
           %th Prereq
       
         - count = 0
@@ -54,6 +56,9 @@
                    
             %td= tile.start_time ? tile.start_time.pretty_succinct : ''
             %td= tile.end_time ? tile.end_time.pretty_succinct : ''
+            %td
+              -if tile.image.present?
+                = link_to tile.image_file_name, tile.image.url
             %td
               - if tile.prerequisite_tiles.present? 
                 - prerequisite_names = tile.prerequisite_tiles.map(&:name).sort 
