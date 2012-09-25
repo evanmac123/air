@@ -154,4 +154,4 @@ end
 
 
 
-
+require Rails.root.join('features/support/fake_s3')

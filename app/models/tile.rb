@@ -14,6 +14,16 @@ class Tile < ActiveRecord::Base
   has_alphabetical_column :name
   extend Sequenceable
 
+  has_attached_file :image,
+    #:styles => {:thumb => ["96x96#", :png]},
+    #:default_style => :thumb,
+    #:processors => [:png],
+    :storage => :s3,
+    :s3_credentials => S3_CREDENTIALS,
+    :s3_protocol => 'https',
+    :path => "/tiles/:id/:filename",
+    :bucket => S3_TILE_BUCKET
+
   def satisfy_for_user!(user, channel=nil)
     completion = TileCompletion.create!(:tile_id => id, :user_id => user.id)
     OutgoingMessage.send_side_message(user, completion.satisfaction_message, :channel => channel)

@@ -4,7 +4,7 @@
 
 - form_submit_path = tile.new_record? ? admin_demo_tiles_path(tile.demo) : admin_demo_tile_path(tile.demo, tile) 
 
-= semantic_form_for tile, :url => form_submit_path do |f| 
+= semantic_form_for tile, :url => form_submit_path, :html => {:multipart => true} do |f| 
   = f.input :identifier 
   = f.input :name 
   = f.input :bonus_points 
@@ -20,15 +20,17 @@
   %fieldset
     %legend 
       %h3 Completion Triggers
-      #tile_boolean_method
-        %p Trigger Type
-        .inline
-          = f.radio_button :poly, true, :checked => tile.poly 
-          = f.label 'AND'
-        .block
-        .inline
-          = f.radio_button :poly, false, :checked => !tile.poly
-          = f.label 'OR'
+      .relative
+        #tile_boolean_method
+          %p Trigger Type
+          .inline
+            = f.radio_button :poly, true, :checked => tile.poly 
+            = label_tag 'tile_poly_true', 'AND'
+          .block
+          .inline
+            = f.radio_button :poly, false, :checked => !tile.poly
+            = label_tag 'tile_poly_false', 'OR'
+      Completion Triggers
       %p If you don't select any completion triggers, the only way for one to get completed for a user will be for an admin to do so manually.
       %fieldset
         = label_tag "completion[rule_ids]", "Rules" 
@@ -47,6 +49,9 @@
       %fieldset
         = label_tag "completion[demographics]", "Complete by filling in all demographics" 
         = check_box_tag "completion[demographics]", '1', @complete_by_demographic 
+
+  %fieldset
+    = f.file_field 'image'
 
   = f.submit 
   
