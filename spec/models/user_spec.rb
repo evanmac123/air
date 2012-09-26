@@ -1096,8 +1096,8 @@ describe User, "finds by either email" do
   end
   
   it "should find by either email" do
-    User.find_by_either_email(@leah_email).should == @leah
-    User.find_by_either_email(@leah_personal).should == @leah
+    User.find_by_either_email("    " + @leah_email + " ").should == @leah
+    User.find_by_either_email(@leah_personal.upcase).should == @leah
     User.find_by_either_email(@jay_email).should == @jay
     User.find_by_either_email(@jay_personal).should == @jay
     User.find_by_either_email(@rice_email).should == @rice

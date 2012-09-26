@@ -1087,6 +1087,7 @@ class User < ActiveRecord::Base
   end
 
   def self.find_by_either_email(email)
+    email = email.strip.downcase
     where("email = ? OR overflow_email = ?", email, email).first
   end
 
