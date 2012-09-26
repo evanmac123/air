@@ -51,7 +51,7 @@
             %td{:class => "brown"}= count += 1 if tile.due?
             %td= link_to tile.name, edit_admin_demo_tile_path(@demo, tile) 
             %td
-              = tile.identifier
+              = link_to tile.identifier, edit_admin_demo_tile_path(@demo, tile) 
               = render 'tile_details', :tile => tile
                    
             %td= tile.start_time ? tile.start_time.pretty_succinct : ''
