@@ -58,6 +58,8 @@
       = link_to tile.image_file_name, tile.image.url
       = f.submit "Remove image"
     = f.file_field 'image'
+    - if tile.image.present?
+      = f.submit "Remove image"
 
   = f.submit 
   
