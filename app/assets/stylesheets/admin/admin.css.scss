@@ -268,11 +268,18 @@ select{
 }
 #reset_my_tiles{
   position: absolute;
+  z-index: 10;
   right: 0mm;
   top: -5mm;
+  &:hover #square_label{ display: block; }
   #square_label{
-    width: 30ex;
-    padding-top: 1mm;
+    display: none;
+    width: 25ex;
+    padding: 10mm 1mm 1mm 1mm ;
+    position: relative;
+    top: -8mm;
+    background: white;
+    z-index: -1;
   }
 }
 #tile_boolean_method{
