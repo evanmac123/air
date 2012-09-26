@@ -77,6 +77,7 @@ feature 'Admin edits tile' do
     expect_content 'cov1.jpg'
 
     click_link 'make toast'
+    expect_link "cov1.jpg", Tile.last.image.url
     click_button 'Remove image'
     
     should_be_on admin_demo_tiles_path(@demo)
