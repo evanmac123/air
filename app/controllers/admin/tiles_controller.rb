@@ -45,11 +45,17 @@ class Admin::TilesController < AdminBaseController
   end
 
   def update
-    @tile.attributes = params[:tile]
-    @tile.save!
-    set_up_completion_triggers
+    if params[:commit] == 'Remove image'
+      remove_image
+      flash[:success] = "Image removed"
+    else
+      @tile.attributes = params[:tile]
+      @tile.save!
+      set_up_completion_triggers
 
-    flash[:success] = "Tile updated"
+      flash[:success] = "Tile updated"
+    end
+
     redirect_to :action => :index
   end
 
@@ -117,5 +123,10 @@ class Admin::TilesController < AdminBaseController
       next unless params[:tile][time_name].present?
       params[:tile][time_name] = Chronic.parse(params[:tile][time_name]).to_s
     end
+  end
+
+  def remove_image
+    @tile.image = nil
+    @tile.save!
   end
 end
