@@ -15,14 +15,21 @@ class Tile < ActiveRecord::Base
   extend Sequenceable
 
   has_attached_file :image,
-    #:styles => {:thumb => ["96x96#", :png]},
-    #:default_style => :thumb,
-    #:processors => [:png],
     :storage => :s3,
     :s3_credentials => S3_CREDENTIALS,
     :s3_protocol => 'https',
     :path => "/tiles/:id/:filename",
     :bucket => S3_TILE_BUCKET
+
+  has_attached_file :thumbnail,
+    :styles => {:carousel => ["220x220#", :png], :hover => ["240x240#", :png]},
+    :default_style => :carousel,
+    :storage => :s3,
+    :s3_credentials => S3_CREDENTIALS,
+    :s3_protocol => 'https',
+    :path => "/tile_thumbnails/:id/:style/:filename",
+    #:default_url => "/assets/avatars/thumb/missing.png",
+    :bucket => S3_TILE_THUMBNAIL_BUCKET
 
   def satisfy_for_user!(user, channel=nil)
     completion = TileCompletion.create!(:tile_id => id, :user_id => user.id)

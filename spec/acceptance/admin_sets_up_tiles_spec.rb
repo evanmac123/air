@@ -21,4 +21,15 @@ feature 'Admin sets up tiles' do
     expect_link 'cov1.jpg', Tile.last.image.url
   end
 
+  scenario "and uploads a thumbnail" do
+    fill_in "Identifier", :with => 'tile with image'
+
+    attach_file "tile[thumbnail]", tile_fixture_path('cov1_thumbnail.jpg')
+    click_button "Create Tile"
+
+    expect_content 'tile with image'
+    expect_content 'cov1_thumbnail.jpg'
+
+    expect_link 'cov1_thumbnail.jpg', Tile.last.thumbnail.url
+  end
 end

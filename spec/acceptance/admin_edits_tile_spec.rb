@@ -83,4 +83,27 @@ feature 'Admin edits tile' do
     should_be_on admin_demo_tiles_path(@demo)
     expect_no_content 'cov1.jpg'
   end
+
+  scenario "uploading a new thumbnail" do
+    attach_file "tile[thumbnail]", tile_fixture_path('cov1_thumbnail.jpg')
+    click_button 'Update Tile'
+    expect_content 'cov1_thumbnail.jpg'
+
+    click_link 'make toast'
+    attach_file "tile[thumbnail]", tile_fixture_path('cov2_thumbnail.jpg')
+    click_button 'Update Tile'
+    expect_content 'cov2_thumbnail.jpg'
+  end
+
+  scenario "deleting the thumbnail" do
+    attach_file "tile[thumbnail]", tile_fixture_path('cov1_thumbnail.jpg')
+    click_button 'Update Tile'
+    expect_content 'cov1_thumbnail.jpg'
+
+    click_link 'make toast'
+    click_button 'Remove thumbnail'
+    
+    should_be_on admin_demo_tiles_path(@demo)
+    expect_no_content 'cov1_thumbnail.jpg'
+  end
 end

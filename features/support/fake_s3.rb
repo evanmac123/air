@@ -1,20 +1,18 @@
 require 'sinatra/base'
 
 class FakeS3App < Sinatra::Base
-  put "/:bucket/avatars/:user_id/:filename" do
-    "OK"
-  end
+  [
+    "/:bucket/avatars/:user_id/:filename",
+    "/:bucket/tiles/:id/:filename",
+    "/:bucket/tile_thumbnails/:id/:style/:filename"
+  ].each do |path|
+    put path do
+      "OK"
+    end
 
-  delete "/:bucket/avatars/:user_id/:filename" do
-    "OK"
-  end
-
-  put "/:bucket/tiles/:id/:filename" do
-    "OK"
-  end
-
-  delete "/:bucket/tiles/:id/:filename" do
-    "OK"
+    delete path do
+      "OK"
+    end
   end
 end
 

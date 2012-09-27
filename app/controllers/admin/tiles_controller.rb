@@ -45,9 +45,13 @@ class Admin::TilesController < AdminBaseController
   end
 
   def update
-    if params[:commit] == 'Remove image'
+    case params[:commit]
+    when 'Remove image'
       remove_image
       flash[:success] = "Image removed"
+    when 'Remove thumbnail'
+      remove_thumbnail
+      flash[:success] = "Thumbnail removed"
     else
       @tile.attributes = params[:tile]
       @tile.save!
@@ -127,6 +131,11 @@ class Admin::TilesController < AdminBaseController
 
   def remove_image
     @tile.image = nil
+    @tile.save!
+  end
+
+  def remove_thumbnail
+    @tile.thumbnail = nil
     @tile.save!
   end
 end

@@ -51,8 +51,16 @@
         = check_box_tag "completion[demographics]", '1', @complete_by_demographic 
 
   %fieldset
-    %legend Full-size image
+    %legend Images
 
+    %h3 Thumbnail
+    = f.file_field 'thumbnail'
+    - if tile.thumbnail.present?
+      Current thumbnail is:
+      = link_to tile.thumbnail_file_name, tile.thumbnail.url
+      = f.submit "Remove thumbnail"
+
+    %h3 Full-size image
     - if tile.image.present?
       Current image is:
       = link_to tile.image_file_name, tile.image.url
