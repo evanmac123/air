@@ -18,6 +18,7 @@
 @import "./vendor/facebox.css.scss";
 @import "./vendor/flutie.css.scss";
 @import "./vendor/desk.com_with_fancybox.css.scss";
+@import "./vendor/jcarousel_skin.css.scss";
 
 /* MIXIN DEFINITIONS NEXT (so we can use them later) */
 @import "./mixins/standard_colors.css.scss";
@@ -37,5 +38,6 @@
 @import "./internal/scoreboard.css.scss";
 //@import "./internal/topbar.css.scss";
 @import "./internal/unsupported.css.scss";
+@import "./internal/tile_thumbnails.css.scss";
 
 

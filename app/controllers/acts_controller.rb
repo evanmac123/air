@@ -25,7 +25,6 @@ class ActsController < ApplicationController
     @active_act_tab        = active_act_tab
     @displayable_tiles = current_user.displayable_tiles
     TileCompletion.mark_displayed_one_final_time(@current_user)
-    @num_suggestions_to_display = 3
     respond_to do |format|
       format.html
 

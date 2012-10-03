@@ -14,6 +14,14 @@ class FakeS3App < Sinatra::Base
       "OK"
     end
   end
+
+  put "/:bucket/tiles/:id/:filename" do
+    "OK"
+  end
+
+  delete "/:bucket/tiles/:id/:filename" do
+    "OK"
+  end
 end
 
 ShamRack.at('s3.amazonaws.com', 443).rackup do

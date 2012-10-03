@@ -1,25 +1,16 @@
 <div class="container">
-	<div id="suggested-tiles">
-    <% unless @displayable_tiles.empty? %>
-	    <h2 id='daily_dose_title' style='display: inline;'>Here is your Daily Dose!</h2>
-  	  <%= render :partial => 'displayable_tile', :collection => @displayable_tiles %>
-  	  <% content_for :javascript do %>
-  	    <%= javascript_tag do %>
-          $('.recently-completed').css({'border-color': 'white'}).effect('highlight', {}, 500, function() {$(this).fadeOut(2000, function(){$(this).remove()})});
-  	    <% end %>
-  	  <% end %>
-  	  <% if @displayable_tiles.count > @num_suggestions_to_display %>
-    
-    	  <div class="more-tiles">
-    	  	<a href="#s" title="Show more tiles"><%= image_tag "v3/arrow-down.png", :class => 'grey-show-more-arrows' %>
-    	  	  <span id='show-more-tiles'>Show more</span><%= image_tag 'v3/arrow-down.png', :class => 'grey-show-more-arrows' %></a>
-    	  </div>
-    	<% else %>
-    	  <div style='height: 12px;'>
-  	    </div>
-    	<% end %>
-  	<% end %>
-	</div>
+  <% unless @displayable_tiles.empty? %>
+    <div id='carousel_wrapper'>
+      <ul id='tile_thumbnail_carousel' class='jcarousel-skin-tango'>
+        <%= render :partial => 'displayable_tile', :collection => @displayable_tiles %>
+      </ul>
+    </div>
+    <% content_for :javascript do %>
+      <%= javascript_tag do %>
+        $('.recently-completed').css({'border-color': 'white'}).effect('highlight', {}, 500, function() {$(this).fadeOut(2000, function(){$(this).remove()})});
+      <% end %>
+    <% end %>
+  <% end %>
 	
 	<div class="right-column">
   	<div class="module" id="scoreboard_wrapper">
@@ -45,17 +36,6 @@
 
   	    <% content_for :javascript do %>
   	      <%= javascript_tag do %>
-  	        $('#show-more-tiles').click(function(){
-  	          if ($('.overflow-tiles').css('display') == 'none'){
-                $('#show-more-tiles').text('Show less');
-                setTimeout("$('.grey-show-more-arrows').attr('src', '<%= asset_path 'v3/arrow-up.png' %>')", 300);
-  	          }else{
-                $('#show-more-tiles').text('Show more');	
-                setTimeout("$('.grey-show-more-arrows').attr('src', '<%= asset_path 'v3/arrow-down.png' %>')", 300);            
-  	          }
-              $('.overflow-tiles').fadeToggle('slow');
-            })
-        
   	        function updateShownActs(url) {
   	          $('#user-acts').html('<%= image_tag("spinner.gif") %>');
   	          $.get(url, function(data) {

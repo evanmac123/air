@@ -155,4 +155,16 @@ module SteakHelperMethods
   def tile_fixture_path(filename)
     Rails.root.join('spec/support/fixtures/tiles', filename)  
   end
+
+  def buttons_with_text(text)
+    page.all(:xpath, "//input[@type='submit'][@value='#{text}']")  
+  end
+
+  def expect_button(text)
+    buttons_with_text(text).should_not be_empty
+  end
+
+  def expect_no_button(text)
+    buttons_with_text(text).should be_empty
+  end
 end

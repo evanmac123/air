@@ -12,21 +12,21 @@ Feature: User completes tile
     And "Bob" has the password "foobar"
     And "Joe" has the password "foobar"
     And the following tiles exist:
-      | name               | demo         |
-      | Rule tile 1        | name: TileCo |
-      | Rule tile 2        | name: TileCo |
-      | Rule tile 3        | name: TileCo |
-      | Rule tile 4        | name: TileCo |
-      | Rule tile 5        | name: TileCo |
-      | Rule tile 6        | name: TileCo |
-      | Referer tile 1     | name: TileCo |
-      | Referer tile 2     | name: TileCo |
-      | Survey tile 1      | name: TileCo |
-      | Survey tile 2      | name: TileCo |
-      | Survey tile 3      | name: TileCo |
-      | Survey tile 4      | name: TileCo |
-      | Demographic tile 1 | name: TileCo |
-      | Demographic tile 2 | name: TileCo |
+      | name               | headline           | demo         |
+      | Rule tile 1        | Rule tile 1        | name: TileCo |
+      | Rule tile 2        | Rule tile 2        | name: TileCo |
+      | Rule tile 3        | Rule tile 3        | name: TileCo |
+      | Rule tile 4        | Rule tile 4        | name: TileCo |
+      | Rule tile 5        | Rule tile 5        | name: TileCo |
+      | Rule tile 6        | Rule tile 6        | name: TileCo |
+      | Referer tile 1     | Referer tile 1     | name: TileCo |
+      | Referer tile 2     | Referer tile 2     | name: TileCo |
+      | Survey tile 1      | Survey tile 1      | name: TileCo |
+      | Survey tile 2      | Survey tile 2      | name: TileCo |
+      | Survey tile 3      | Survey tile 3      | name: TileCo |
+      | Survey tile 4      | Survey tile 4      | name: TileCo |
+      | Demographic tile 1 | Demographic tile 1 | name: TileCo |
+      | Demographic tile 2 | Demographic tile 2 | name: TileCo |
     And the following rules exist:
       | reply | demo         |
       | did 1 | name: TileCo |
@@ -35,11 +35,11 @@ Feature: User completes tile
       | value | is primary | rule         |
       | do 1  | true       | reply: did 1 |
     And the following rule triggers exist:
-      | rule         | tile    |
+      | rule         | tile              |
       | reply: did 1 | name: Rule tile 1 |
       | reply: did 5 | name: Rule tile 5 |
     And the following rule triggers exist:
-      | rule         | tile       | referrer required |
+      | rule         | tile                 | referrer required |
       | reply: did 1 | name: Referer tile 1 | true              |
     And demo "TileCo" open survey with name "Survey 1" exists
     And demo "TileCo" survey with name "Survey 2" exists
@@ -103,6 +103,8 @@ Feature: User completes tile
     When "+14152613077" sends SMS "do 1"
     Then "+14152613077" should have received an SMS including "did 1"
     When I go to the activity page
+    # This takes care of the tutorial popup
+    And I click "No thanks"
     Then I should see "Rule tile 2"
     And I should see "Rule tile 3"
     And I should see "Rule tile 5"
@@ -152,6 +154,7 @@ Feature: User completes tile
     When "+14152613077" sends SMS "do 1 bob"
     Then "+14152613077" should have received an SMS including "did 1"
     When I go to the activity page
+    And I click "No thanks"
 
     Then I should see "Rule tile 2"
     And I should see "Rule tile 3"
@@ -181,6 +184,7 @@ Feature: User completes tile
     And "+14152613077" sends SMS "1"
     Then "+14152613077" should have received an SMS including "Thanks for completing the survey"
     When I go to the activity page
+    And I click "No thanks"
 
     Then I should see "Rule tile 1"
     And I should see "Rule tile 3"
@@ -208,6 +212,8 @@ Feature: User completes tile
     And I fill in most of my demographic information
     And I press the button to save the user's settings
     And I go to the activity page
+    And I click "No thanks"
+
     Then I should see "Demographic tile 1"
     But I should not see "Demographic tile 2"
     And I should not see "I completed a daily dose!"
@@ -216,6 +222,7 @@ Feature: User completes tile
     And I fill in "Date of Birth" with "September 10, 1977"
     And I press the button to save the user's settings
     And I go to the activity page
+    And I click "No thanks"
 
     Then I should see "Rule tile 1"
     And I should see "Rule tile 3"
