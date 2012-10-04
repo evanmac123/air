@@ -28,34 +28,6 @@ Feature: Game has a beginning and an end
     And "Vlad" has the SMS slug "vgyster"
     And I sign in via the login page with "Phil/foobar"
 
-  Scenario: Sending actions before the game begins
-    When time is frozen at "2010-04-01 11:59:59 UTC"
-    And "+14152613077" sends SMS "ate fruit"
-    And time is frozen at "2010-04-01 12:00:00 UTC"
-    And "+14152613077" sends SMS "went gym"
-    And I dump all sent texts
-    Then "+14152613077" should have received an SMS "Worked out. Points 3, level 1."
-    And "+14152613077" should not have received an SMS including "You ate fruit."
-    And "+14152613077" should have received an SMS "The game will begin April 01, 2010 at 08:00 AM Eastern. Please try again after that time."
-
-  Scenario: Sending actions after the game ends
-    When time is frozen at "2010-05-01 12:00:00 UTC"
-    And "+14152613077" sends SMS "ate fruit"
-    And time is frozen at "2010-05-01 12:00:01 UTC"
-    And "+14152613077" sends SMS "went gym"
-    Then "+14152613077" should have received an SMS "You ate fruit. Points 2, level 1."
-    And "+14152613077" should not have received an SMS including "Worked out."
-    And "+14152613077" should have received an SMS "Thanks for playing! The game is now over. If you'd like more information e-mailed to you, please text INFO."
-
-  Scenario: Sending actions outside of game window with custom messages
-    When time is frozen at "2010-04-01 11:59:59 UTC"
-    And "+18085551212" sends SMS "customs"
-    And time is frozen at "2010-05-01 12:00:01 UTC"
-    And "+18085551212" sends SMS "customs"
-    Then "+18085551212" should not have received an SMS including "Did customs"
-    And "+18085551212" should have received an SMS "Hold ur horses"
-    And "+18085551212" should have received an SMS "Too slow!"
-
   @javascript
   Scenario: Following after the game ends via site does nothing
     When I sign in via the login page as "Phil/foobar" and choose to be remembered

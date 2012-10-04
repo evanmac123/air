@@ -1,4 +1,5 @@
 require 'acceptance/acceptance_helper'
+metal_testing_hack(SmsController)
 
 feature 'Game has beginning and end' do
   before(:each) do
@@ -22,6 +23,12 @@ feature 'Game has beginning and end' do
       visit edit_account_settings_path
 
       yield user
+    end
+  end
+
+  def for_both_demos
+    [@future_demo, @past_demo].each do |demo|
+      yield demo
     end
   end
 
@@ -98,5 +105,40 @@ feature 'Game has beginning and end' do
       end
     end
 
+  end
+
+  context "sending messages to the game" do
+    before(:each) do
+      @past_user.update_attributes(phone_number: "+14155551212")
+      @future_user.update_attributes(phone_number: "+16175551212")
+
+      @rule = FactoryGirl.create(:rule, reply: "You did a thing")
+      FactoryGirl.create(:rule_value, value: 'did thing', is_primary: true, rule: @rule)
+    end
+
+    scenario "should send back a reasonable error message" do
+      mo_sms(@past_user.phone_number, 'did thing')
+      mo_sms(@future_user.phone_number, 'did thing')
+      crank_dj_clear
+
+      expect_mt_sms(@past_user.phone_number, "Thanks for playing! The game is now over. If you'd like more information e-mailed to you, please text INFO.")
+      expect_mt_sms(@future_user.phone_number, "The game will begin #{@future_demo.begins_at.pretty}. Please try again after that time.")
+    end
+
+    context "in a game with custom messages for this" do
+      before(:each) do
+        @past_demo.update_attributes(act_too_late_message: "Too late!")
+        @future_demo.update_attributes(act_too_early_message: "Too early!")
+      end
+
+      it "should send those back" do
+        mo_sms(@past_user.phone_number, 'did thing')
+        mo_sms(@future_user.phone_number, 'did thing')
+        crank_dj_clear
+
+        expect_mt_sms(@past_user.phone_number, "Too late!")
+        expect_mt_sms(@future_user.phone_number, "Too early!")
+      end
+    end
   end
 end
