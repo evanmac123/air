@@ -64,11 +64,16 @@ module SteakHelperMethods
     check "user_terms_and_conditions"
   end
 
-  def expect_avatar48(expected_filename)
+  def expect_avatar_in_masthead(expected_filename)
     within('.avatar48') do 
       avatar = page.find(:css, 'img')
-      avatar['src'].should =~ /#{expected_filename}$/
+      avatar_url = avatar['src'].gsub(/\?.*$/, '') # Chop off query params
+      avatar_url.should =~ /#{expected_filename}$/
     end
+  end
+
+  def expect_default_avatar_in_masthead
+    expect_avatar_in_masthead('missing.png')
   end
 
   def expect_inline_style(css_selector, style_key, expected_value)
@@ -99,17 +104,6 @@ module SteakHelperMethods
     page.find(:xpath, XPath::HTML.select(select_identifier).to_xpath)  
   end
 
-  def expect_selected(select_identifier, expected_value)
-    select = find_select_element(select_identifier)
-    option_expected_to_be_selected = select.find %{option[@value="#{expected_value}"]}
-    option_expected_to_be_selected['selected'].should be_present
-  end
-
-  def expect_no_option_selected(select_identifier)
-    select = find_select_element(select_identifier)
-    select.all("option[@select]").should be_empty
-  end
-
   def find_select_element(select_identifier)
     page.find(:xpath, XPath::HTML.select(select_identifier).to_xpath)  
   end
@@ -118,9 +112,9 @@ module SteakHelperMethods
     page.find(:xpath, XPath::HTML.field(input_identifier).to_xpath)
   end
 
-  def expect_selected(select_identifier, expected_value)
-    select = find_select_element(select_identifier)
-    option_expected_to_be_selected = select.find %{option[@value="#{expected_value}"]}
+  def expect_selected(expected_value, select_identifier = nil)
+    option_context = select_identifier ? find_select_element(select_identifier) : page
+    option_expected_to_be_selected = option_context.find %{option[@value="#{expected_value}"]}
     option_expected_to_be_selected['selected'].should be_present
   end
 
@@ -134,9 +128,18 @@ module SteakHelperMethods
     input.value.should == expected_value
   end
 
-  def expect_checked(checkbox_identifier)
-    checkbox = find_input_element(checkbox_identifier)
-    checkbox.value.to_i.should == 1
+  def expect_checked(input_identifier)
+    input_element = find_input_element(input_identifier)
+    raise "checkable element #{input_identifier} not found" unless input_element
+
+    case input_element['type']
+    when 'checkbox'
+      input_element.value.to_i.should == 1
+    when 'radio'
+      input_element['checked'].should be_present
+    else
+      raise "element #{input_identifier} was expected to be radio or checkbox, but was a #{input_element['type']}"
+    end
   end
 
   def expect_gold_coin_header(expected_coin_count)
@@ -146,5 +149,13 @@ module SteakHelperMethods
   def act_via_play_box(text)
     fill_in 'command_central', :with => text
     click_button 'play_button'
+  end
+
+  def expect_none_selected(input_name)
+    page.all(:css, "input[@name='#{input_name}']").any?(&:checked?).should_not be_true
+  end
+
+  def click_submit_in_form(form_selector)
+    page.find(:css, "#{form_selector} input[@type='submit']").click
   end
 end

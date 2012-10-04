@@ -4,8 +4,8 @@ Feature: Game has a beginning and an end
       | name | begins at               | ends at                 |
       | BarInc       | 2010-04-01 12:00:00 UTC | 2010-05-01 12:00:00 UTC |
     And the following demo exists:
-      | name | begins at               | ends at                 | act too early message | act too late message | 
-      | CustomCo     | 2010-04-01 12:00:00 UTC | 2010-05-01 12:00:00 UTC | Hold ur horses        | Too slow!            |
+      | name     | begins at               | ends at                 | act too early message | act too late message | 
+      | CustomCo | 2010-04-01 12:00:00 UTC | 2010-05-01 12:00:00 UTC | Hold ur horses        | Too slow!            |
     And the following claimed users exist:
       | name | phone number | demo           |
       | Phil | +14152613077 | name: BarInc   |
@@ -15,7 +15,7 @@ Feature: Game has a beginning and an end
       | user        | friend     |
       | name: Vlad  | name: Phil |
     And the following rules exist:
-      | reply          | points | demo                   | 
+      | reply          | points | demo           | 
       | You ate fruit. | 2      | name: BarInc   | 
       | Worked out.    | 3      | name: BarInc   | 
       | Did customs    | 10     | name: CustomCo |

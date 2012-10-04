@@ -25,8 +25,8 @@ feature "Admin Sets Characteristics On User" do
 
     should_be_on edit_admin_demo_user_path(@user.demo, @user)
     expect_content("Characteristics for Hank Robertson updated")
-    expect_selected('generic', 'bar')
-    expect_selected('demo specific', 'hai')
+    expect_selected('bar', 'generic')
+    expect_selected('hai', 'demo specific')
 
     select '', :from => 'generic'
     select 'oh', :from => 'demo specific'
@@ -35,7 +35,7 @@ feature "Admin Sets Characteristics On User" do
     should_be_on edit_admin_demo_user_path(@user.demo, @user)
     expect_content("Characteristics for Hank Robertson updated")
     expect_no_option_selected('generic')
-    expect_selected('demo specific', 'oh')
+    expect_selected('oh', 'demo specific')
     expect_value('number type', '666.0')
     expect_value('date type', '2010-03-01')
     expect_checked('boolean type')

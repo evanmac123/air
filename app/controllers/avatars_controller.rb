@@ -1,4 +1,7 @@
 class AvatarsController < ApplicationController
+  skip_before_filter :authorize
+  before_filter :authenticate_without_game_begun_check
+
   def update
     if params[:user].blank? || params[:user][:avatar].blank?
       flash[:failure] = "Please choose a file to use for your avatar."
