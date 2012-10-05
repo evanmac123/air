@@ -19,13 +19,9 @@
     });
     
 
-.invite{:id => @div_id}
+.invite{:id => @invite_in_modal ? 'invite_friends_facebox' : 'invite_friends'}
   #search_for_friends_to_invite
     #invite_friends_top
-
-      / - unless @show_greeting.nil?
-      /   %p= "Thanks for joining #{current_user.demo.name}" 
-
       %h2#invite_your_friends_title Invite your friends
       
       %p#why_invite It's more fun when people you know are playing too. Plus, get a 5-point referral bonus for each friend that joins the game!

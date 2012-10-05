@@ -20,7 +20,6 @@ feature 'Game has beginning and end' do
   def as_both_users
     [@future_user, @past_user].each do |user|
       signin_as user, 'foobar'
-      visit edit_account_settings_path
 
       yield user
     end
@@ -35,6 +34,7 @@ feature 'Game has beginning and end' do
   context 'user changes settings' do
     it 'should allow user to change DOB when game is not open' do
       as_both_users do
+        visit edit_account_settings_path
         expect_value "Date of Birth", nil
 
         fill_in "Date of Birth", :with => "Jan 1, 1984"
@@ -47,6 +47,7 @@ feature 'Game has beginning and end' do
 
     it 'should allow user to change gender when game is not open' do
       as_both_users do
+        visit edit_account_settings_path
         expect_none_selected "user[gender]"
         choose "male"
         click_username_dob_gender_submit_button
@@ -57,6 +58,7 @@ feature 'Game has beginning and end' do
 
     it 'should allow user to change privacy settings when game is not open' do
       as_both_users do
+        visit edit_account_settings_path
         expect_selected "connected"
         select 'Everybody', :from => 'user[privacy_level]'
         page.find(:css, '#save-privacy-level').click
@@ -67,6 +69,7 @@ feature 'Game has beginning and end' do
 
     it 'should allow user to change avatar when game is not open' do
       as_both_users do
+        visit edit_account_settings_path
         attach_file "user[avatar]", Rails.root.join('features', 'support', 'fixtures', 'avatars', 'maggie.jpg')
         click_button "Upload"
         expect_avatar_in_masthead 'maggie.png'
@@ -84,6 +87,7 @@ feature 'Game has beginning and end' do
         phone_number = "(415) 261-307" + last_digit_of_phone_number.to_s
         formatted_phone = "+1415261307" + last_digit_of_phone_number.to_s
 
+        visit edit_account_settings_path
         fill_in "Mobile Number", :with => phone_number
         click_button 'save-notification-settings'
         expect_content "We have sent a verification code to #{phone_number}."
@@ -98,6 +102,7 @@ feature 'Game has beginning and end' do
 
     it 'should allow user to change notification preferences when game is not open' do
       as_both_users do
+        visit edit_account_settings_path
         expect_checked "both"
         choose "SMS"
         page.find(:css, '#save-notification-settings').click
@@ -138,6 +143,15 @@ feature 'Game has beginning and end' do
 
         expect_mt_sms(@past_user.phone_number, "Too late!")
         expect_mt_sms(@future_user.phone_number, "Too early!")
+      end
+    end
+  end
+
+  context "the invite modal on the activity page" do
+    it "should appear as normal", :js => true do
+      as_both_users do
+        should_be_on activity_path(:format => :html)
+        page.find('#facebox').should have_content('Invite your friends')
       end
     end
   end
