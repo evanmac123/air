@@ -12,6 +12,8 @@ Laptop setup
 Many Mac users use [Textmate](http://macromates.com/) to write their code.
 If you use Textmate, set your tabs to "Soft Tabs: 2". This is one of the drop-down options at the very bottom of your window.
 
+### (We Don't Do) Windows
+
 ### Linux
 The following instructions are for an Ubuntu system; some slight modifications may need to be made for other distributions.
 
@@ -21,8 +23,11 @@ The following instructions are for an Ubuntu system; some slight modifications m
 3. postgresql
 4. libqtwebkit-dev
 5. libpq-dev
+6. pgadmin3 (Optional: PostgreSQL GUI admin tool)
+7. curl (Optional: If using RVM - see below)
 
-### (We Don't Do) Windows
+#### Ruby Version Manager (RVM)
+Additional packages need to be installed when using RVM with (MRI) Ruby. Enter the command `rvm requirements` to see the list.
 
 Aliases for faster workflow
 ---------------------------
