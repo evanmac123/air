@@ -19,13 +19,14 @@ The following instructions are for an Ubuntu system; some slight modifications m
 
 #### Install the following packages
 1. build-essential
-2. git
-3. postgresql
-4. libqtwebkit-dev
-5. libpq-dev
-6. nodejs
-7. pgadmin3 (Optional: PostgreSQL GUI admin tool)
-8. curl (Optional: If using RVM - see below)
+1. git
+1. postgresql
+1. mongodb
+1. libqtwebkit-dev
+1. libpq-dev
+1. nodejs
+1. pgadmin3 (Optional: PostgreSQL GUI admin tool)
+1. curl (Optional: If using RVM - see below)
 
 Since the _Package Manager_ is used to install these packages they might not be as up-to-date as needed. 
 If this is the case you will need to go to the appropriate site to get the latest and greatest version.
