@@ -27,7 +27,8 @@ The following instructions are for an Ubuntu system; some slight modifications m
 7. pgadmin3 (Optional: PostgreSQL GUI admin tool)
 8. curl (Optional: If using RVM - see below)
 
-If `node.js` is not current enough, you can get it at [Node.js](http://nodejs.org/)
+Since the _Package Manager_ is used to install these packages they might not be as up-to-date as needed. 
+If this is the case you will need to go to the appropriate site to get the latest and greatest version.
 
 #### Git
 Run the following commands:
