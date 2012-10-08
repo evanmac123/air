@@ -32,6 +32,21 @@ Run the following commands:
     git config --global user.name "Joe Blow"
     git config --global user.email "joe@hengage.com"
 
+#### PostgreSQL
+
+Phil put it pretty well, so might as well quote him:
+
+> Getting Postgres authorization set up can be somewhat confusing and frustrating. 
+> So, in the best tradition of programmers everywhere, we're going to cheat. 
+> I've included a file called *pg_hba.conf* which configures authorization for Postgres: 
+> you should be able to just drop this in place once you have Postgres installed, overwriting the default one. 
+>
+> What the settings in this file basically say is "*Anyone on the local machine is allowed to access any database; 
+> nobody from outside the local machine is allowed to access any database.*" 
+> This would be sketchy for a production machine, but it's perfect for development.
+
+So get `pg_hba.conf` from Phil and drop it into `/etc/postgresql/9.1/main/` (version number might be different)
+
 #### Ruby Version Manager (RVM)
 Additional packages need to be installed when using RVM with (MRI) Ruby. Enter this command to see the list: `rvm requirements`
 
