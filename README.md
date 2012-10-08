@@ -8,7 +8,7 @@ Laptop setup
 
 First, get your machine set up by following the instructions here:
 
-    https://github.com/thoughtbot/laptop
+    [https://github.com/thoughtbot/laptop](Thoughtbot Setup)
 
 If you need a text editor, use Textmate:
 
