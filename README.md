@@ -9,10 +9,18 @@ Laptop setup
 ### Mac
 [Thoughtbot Laptop](https://github.com/thoughtbot/laptop) is a script to set up a Mac OS X laptop for Rails development.
 
-Many Mac users use [Textmate](http://macromates.com/) as their development environment.
+Many Mac users use [Textmate](http://macromates.com/) to write their code.
 If you use Textmate, set your tabs to "Soft Tabs: 2". This is one of the drop-down options at the very bottom of your window.
 
 ### Linux
+The following instructions are for an Ubuntu system; some slight modifications may need to be made for other distributions.
+
+#### Install the following packages
+1. build-essential
+2. git
+3. postgresql
+4. libqtwebkit-dev
+5. libpq-dev
 
 ### (We Don't Do) Windows
 
