@@ -23,8 +23,11 @@ The following instructions are for an Ubuntu system; some slight modifications m
 3. postgresql
 4. libqtwebkit-dev
 5. libpq-dev
-6. pgadmin3 (Optional: PostgreSQL GUI admin tool)
-7. curl (Optional: If using RVM - see below)
+6. nodejs
+7. pgadmin3 (Optional: PostgreSQL GUI admin tool)
+8. curl (Optional: If using RVM - see below)
+
+If `node.js` is not current enough, you can get it at [Node.js](http://nodejs.org/)
 
 #### Git
 Run the following commands:
