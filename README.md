@@ -26,8 +26,26 @@ The following instructions are for an Ubuntu system; some slight modifications m
 6. pgadmin3 (Optional: PostgreSQL GUI admin tool)
 7. curl (Optional: If using RVM - see below)
 
+#### Git
+Run the following commands:
+
+    git config --global user.name "Joe Blow"
+    git config --global user.email "joe@hengage.com"
+
 #### Ruby Version Manager (RVM)
-Additional packages need to be installed when using RVM with (MRI) Ruby. Enter the command `rvm requirements` to see the list.
+Additional packages need to be installed when using RVM with (MRI) Ruby. Enter this command to see the list: `rvm requirements`
+
+We use MRI Ruby 1.9.2 => Run this command: `rvm install 1.9.2`
+
+Create an _hengage_ gemset and make it the default:
+
+    joe@hengage:~$ rvm gemset create hengage
+    gemset created hengage    => /home/joe/.rvm/gems/ruby-1.9.2-p320@hengage
+    joe@hengage:~$ rvm use ruby-1.9.2-p320@hengage --default
+    Using /home/joe/.rvm/gems/ruby-1.9.2-p320 with gemset hengage
+    joe@hengage:~$ rvm current
+    ruby-1.9.2-p320@hengage
+
 
 Aliases for faster workflow
 ---------------------------
