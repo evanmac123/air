@@ -1,37 +1,37 @@
 H Engage
 ========
 
-This is the H Engage Rails app.
+Information about the H Engage Rails app
 
 Laptop setup
 ------------
 
-First, get your machine set up by following the instructions here:
+### Mac
+[Thoughtbot Laptop](https://github.com/thoughtbot/laptop) is a script to set up a Mac OS X laptop for Rails development.
 
-    [https://github.com/thoughtbot/laptop](Thoughtbot Setup)
-
-If you need a text editor, use Textmate:
-
-    http://macromates.com/
-
+Many Mac users use [Textmate](http://macromates.com/) as their development environment.
 If you use Textmate, set your tabs to "Soft Tabs: 2". This is one of the drop-down options at the very bottom of your window.
 
-Faster workflow
----------------
+### Linux
 
-Set up some git aliases: (~/.gitconfig)
+### (We Don't Do) Windows
+
+Aliases for faster workflow
+---------------------------
+
+Git aliases: add to ~/.gitconfig
 
     [alias]
       up = !git fetch origin && git rebase origin/master
       mm = !test `git rev-parse master` = $(git merge-base HEAD master) && git checkout master && git merge HEAD@{1} || echo "Non-fastforward"
 
-Set up some shell aliases: (~/.aliases)
+Shell aliases: add to ~/.aliases
 
     alias be="bundle exec"
     alias s="bundle exec rspec"
     alias cuc="bundle exec cucumber"
 
-For the aliases to take effect, add this to your ~/.bash_profile:
+ * For the aliases to take effect, add this to your ~/.bash_profile:
 
     if [ -e "$HOME/.aliases" ]; then
       source "$HOME/.aliases"
