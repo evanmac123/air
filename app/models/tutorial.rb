@@ -52,7 +52,7 @@ class Tutorial < ActiveRecord::Base
     if a.empty?
       email = example_search_name.gsub(" ", "").downcase + demo.id.to_s + "@hengage.com"
       b = User.create!(:name => example_search_name, :demo_id => demo.id, 
-          :email => email, :accepted_invitation_at => Time.now)
+          :email => email, :accepted_invitation_at => Time.now, :gender => 'male')
     end
   end
   
