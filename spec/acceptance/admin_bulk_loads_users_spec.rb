@@ -86,15 +86,15 @@ Arthur Foobar,afoobar@example.com,456456,art,foo,,
       expect_content "Arthur Foobar, afoobar@example.com (456456)"
 
       click_link "(edit John Smith)"
-      expect_selected 'Demo Characteristic 1', 'foo'
-      expect_selected 'Generic Characteristic 2', 'blue'
+      expect_selected 'foo', 'Demo Characteristic 1'
+      expect_selected 'blue', 'Generic Characteristic 2'
       expect_no_option_selected 'Demo Characteristic 2'
       expect_no_option_selected 'Generic Characteristic 1'
 
       visit admin_demo_path(@demo)
       click_link "Everyone"
       click_link "(edit Arthur Foobar)"
-      expect_selected 'Demo Characteristic 1', 'foo'
+      expect_selected 'foo', 'Demo Characteristic 1'
       expect_no_option_selected 'Generic Characteristic 2'
       expect_no_option_selected 'Demo Characteristic 2'
       expect_no_option_selected 'Generic Characteristic 1'

@@ -1,37 +1,107 @@
 H Engage
 ========
 
-This is the H Engage Rails app.
+Information about the H Engage Rails app
 
 Laptop setup
 ------------
 
-First, get your machine set up by following the instructions here:
+### Mac
+[Thoughtbot Laptop](https://github.com/thoughtbot/laptop) is a script to set up a Mac OS X laptop for Rails development.
 
-    https://github.com/thoughtbot/laptop
-
-If you need a text editor, use Textmate:
-
-    http://macromates.com/
-
+Many Mac users use [Textmate](http://macromates.com/) to write their code.
 If you use Textmate, set your tabs to "Soft Tabs: 2". This is one of the drop-down options at the very bottom of your window.
 
-Faster workflow
----------------
+### (We Don't Do) Windows
 
-Set up some git aliases: (~/.gitconfig)
+### Linux
+The following instructions are for an Ubuntu system; some slight modifications may need to be made for other distributions.
+
+#### Install the following packages
+1. build-essential
+1. git
+1. postgresql
+1. mongodb
+1. libqtwebkit-dev
+1. libpq-dev
+1. nodejs
+1. pgadmin3 (Optional: PostgreSQL GUI admin tool)
+1. curl (Optional: If using RVM - see below)
+
+Since the _Package Manager_ is used to install these packages they might not be as up-to-date as needed. 
+If this is the case you will need to go to the appropriate site to get the latest and greatest version.
+
+#### Git
+Run the following commands:
+
+    git config --global user.name "Joe Blow"
+    git config --global user.email "joe@hengage.com"
+
+#### PostgreSQL
+
+Phil put it pretty well, so might as well quote him:
+
+> Getting Postgres authorization set up can be somewhat confusing and frustrating. 
+> So, in the best tradition of programmers everywhere, we're going to cheat. 
+> I've included a file called *pg_hba.conf* which configures authorization for Postgres: 
+> you should be able to just drop this in place once you have Postgres installed, overwriting the default one. 
+>
+> What the settings in this file basically say is "*Anyone on the local machine is allowed to access any database; 
+> nobody from outside the local machine is allowed to access any database.*" 
+> This would be sketchy for a production machine, but it's perfect for development.
+
+So get `pg_hba.conf` from Phil and drop it into `/etc/postgresql/9.1/main/` (version number might be different)
+
+__Potential Problem__
+
+The above worked fine on one laptop, however, on another machine a _FATAL: role "joe" does not exist_ error reared its ugly head.
+
+The following seemed to do the trick:
+
+    joe@hengage:~$ psql -U postgres
+    psql: FATAL:  Peer authentication failed for user "postgres"
+
+    joe@hengage:~$ sudo gedit /etc/postgresql/9.1/main/pg_hba.conf
+    # local   all   postgres    peer  --> Comment out this line and replace with line below; restart SQL server
+    local   all   postgres    trust
+
+    joe@hengage:~$ psql -U postgres
+    postgres=# CREATE ROLE joe LOGIN;
+    postgres=# ALTER USER joe WITH superuser;
+    postgres=# \q
+    joe@hengage:~$
+
+#### Ruby Version Manager (RVM)
+Additional packages need to be installed when using RVM with (MRI) Ruby. Enter this command to see the list: `rvm requirements`
+
+We use MRI Ruby 1.9.2 => Run this command: `rvm install 1.9.2`
+
+Create an _hengage_ gemset and make it the default:
+
+    joe@hengage:~$ rvm gemset create hengage
+    gemset created hengage    => /home/joe/.rvm/gems/ruby-1.9.2-p320@hengage
+    joe@hengage:~$ rvm use ruby-1.9.2-p320@hengage --default
+    Using /home/joe/.rvm/gems/ruby-1.9.2-p320 with gemset hengage
+    joe@hengage:~$ rvm current
+    ruby-1.9.2-p320@hengage
+
+
+Aliases for faster workflow
+---------------------------
+
+Git aliases: add to ~/.gitconfig
 
     [alias]
       up = !git fetch origin && git rebase origin/master
       mm = !test `git rev-parse master` = $(git merge-base HEAD master) && git checkout master && git merge HEAD@{1} || echo "Non-fastforward"
 
-Set up some shell aliases: (~/.aliases)
+Shell aliases: add to ~/.aliases
 
     alias be="bundle exec"
     alias s="bundle exec rspec"
     alias cuc="bundle exec cucumber"
 
-For the aliases to take effect, add this to your ~/.bash_profile:
+ * For the aliases to take effect, add this to your ~/.bash_profile:
 
     if [ -e "$HOME/.aliases" ]; then
       source "$HOME/.aliases"
@@ -59,7 +129,7 @@ Install the dependent Ruby libraries:
 
     bundle
 
-Create your development and test databases:
+Create your development and test databases. (Note: Two distinct steps: 1 for development and 1 for test):
 
     rake db:create
 
@@ -67,6 +137,16 @@ Migrate the development database:
 
     rake db:migrate
 
+Prepare the test database:
+
+    rake db:test:prepare
+    
+You need to create one user before firing up the app, so after you've cloned the repository and got everything
+else set up, fire up a Rails console and create a user thusly (password must have at least 6 characters):
+
+    user = FactoryGirl.build :user, name: 'Joe Blow', password: 'joeblow', password_confirmation: 'joeblow', email: 'joe@blow.com', is_site_admin: true
+    user.save
+    
 Staging and production environments
 -----------------------------------
 

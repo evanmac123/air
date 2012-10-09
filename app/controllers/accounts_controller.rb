@@ -1,4 +1,7 @@
 class AccountsController < ApplicationController
+  skip_before_filter :authorize
+  before_filter :authenticate_without_game_begun_check
+
   before_filter :initialize_flashes
   after_filter :merge_flashes
 

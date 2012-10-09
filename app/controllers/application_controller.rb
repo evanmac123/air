@@ -57,7 +57,7 @@ class ApplicationController < ActionController::Base
   private
 
   # See page 133 of Metaprogramming Ruby for details on how to use an "around alias"
-  alias  authenticate_without_game_begun_check authorize
+  alias authenticate_without_game_begun_check authorize
   def authorize
     authenticate_without_game_begun_check
     if current_user && !(current_user.is_site_admin) && (controller_name != "settings") && current_user.demo.begins_at && current_user.demo.begins_at > Time.now

@@ -77,7 +77,7 @@ Feature: User invites friends
     And I should see "2000 pts"
 
   
-     @javascript
+  @javascript
   Scenario: modal pops up the first two times I log in
     And "Yoko" has the password "foobar"
     And I sign in via the login page as "Yoko/foobar"
