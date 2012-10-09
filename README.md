@@ -141,6 +141,12 @@ Prepare the test database:
 
     rake db:test:prepare
     
+You need to create one user before firing up the app, so after you've cloned the repository and got everything
+else set up, fire up a Rails console and create a user thusly (password must have at least 6 characters):
+
+    user = FactoryGirl.build :user, name: 'Joe Blow', password: 'joeblow', password_confirmation: 'joeblow', email: 'joe@blow.com', is_site_admin: true
+    user.save
+    
 Staging and production environments
 -----------------------------------
 
