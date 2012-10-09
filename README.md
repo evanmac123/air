@@ -52,6 +52,25 @@ Phil put it pretty well, so might as well quote him:
 
 So get `pg_hba.conf` from Phil and drop it into `/etc/postgresql/9.1/main/` (version number might be different)
 
+__Potential Problem__
+
+The above worked fine on one laptop, however, on another machine a _FATAL: role "joe" does not exist_ error reared its ugly head.
+
+The following seemed to do the trick:
+
+    joe@hengage:~$ psql -U postgres
+    psql: FATAL:  Peer authentication failed for user "postgres"
+
+    joe@hengage:~$ sudo gedit /etc/postgresql/9.1/main/pg_hba.conf
+    # local   all   postgres    peer  --> Comment out this line and replace with line below; restart SQL server
+    local   all   postgres    trust
+
+    joe@hengage:~$ psql -U postgres
+    postgres=# CREATE ROLE joe LOGIN;
+    postgres=# ALTER USER joe WITH superuser;
+    postgres=# \q
+    joe@hengage:~$
+
 #### Ruby Version Manager (RVM)
 Additional packages need to be installed when using RVM with (MRI) Ruby. Enter this command to see the list: `rvm requirements`
 
@@ -110,7 +129,7 @@ Install the dependent Ruby libraries:
 
     bundle
 
-Create your development and test databases:
+Create your development and test databases. (Note: Two distinct steps: 1 for development and 1 for test):
 
     rake db:create
 
@@ -118,6 +137,10 @@ Migrate the development database:
 
     rake db:migrate
 
+Prepare the test database:
+
+    rake db:test:prepare
+    
 Staging and production environments
 -----------------------------------
 
