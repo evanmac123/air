@@ -55,7 +55,7 @@ So get `pg_hba.conf` from Phil and drop it into `/etc/postgresql/9.1/main/` (ver
 Then you'll need to create a database user (Postgres keeps its own lists of users separate from the system's) to use:
 
     $ sudo su postgres
-    $ createuser larry # this should be the same as your system username
+    $ createuser joe # this should be the same as your system username
 
 It will ask if the new user should be a superuser: say yes. Again, this is fine for a development machine but not a production server.
 
