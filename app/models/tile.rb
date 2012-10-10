@@ -13,12 +13,16 @@ class Tile < ActiveRecord::Base
 
   has_alphabetical_column :name
   extend Sequenceable
+  HASH_SECRET = "Kid Sister Diary Security"
 
   has_attached_file :image,
+    :styles => {:viewer => ["620", :png]},
+    :default_style => :viewer,
     :storage => :s3,
     :s3_credentials => S3_CREDENTIALS,
     :s3_protocol => 'https',
-    :path => "/tiles/:id/:filename",
+    :path => "/tiles/:id/:hash__:filename",
+    :hash_secret => HASH_SECRET,
     :bucket => S3_TILE_BUCKET
 
   has_attached_file :thumbnail,
@@ -27,7 +31,8 @@ class Tile < ActiveRecord::Base
     :storage => :s3,
     :s3_credentials => S3_CREDENTIALS,
     :s3_protocol => 'https',
-    :path => "/tile_thumbnails/:id/:style/:filename",
+    :path => "/tile_thumbnails/:id/:style/:hash__:filename",
+    :hash_secret => HASH_SECRET,
     #:default_url => "/assets/avatars/thumb/missing.png",
     :bucket => S3_TILE_THUMBNAIL_BUCKET
 

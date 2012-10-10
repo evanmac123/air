@@ -1,0 +1,17 @@
+.container
+  .tile_viewer_header
+    = link_to activity_path do
+      = image_tag 'tile_viewer/logo.png', :id => "logo", :alt=> "h.engage"
+    %p#position
+    .cf
+  .viewer
+    = link_to "#", :id => :prev do
+      %span Previous
+    #slideshow
+      - @displayable_tiles.each do |tile|
+        = image_tag tile.image.url, :class => :tile_image, :id => tile.id
+    = link_to "#", :id => :next do
+      %span Next
+    .cf
+.footer
+  %p Copyright &copy; 2012 H Engage, Inc.

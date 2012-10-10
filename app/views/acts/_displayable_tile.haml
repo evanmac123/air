@@ -18,9 +18,10 @@
 %img{src: tile.thumbnail(:hover), style: "display: none; visibility: hidden;"}
 
 %li{class: classes}
-  .tile-wrapper
-    .white_box_with_shadow
-      .tile_thumbnail{id: thumbnail_id}
-        .headline
-          .text= tile.headline
-          .headline_overlay
+  = link_to tiles_path do
+    .tile-wrapper
+      .white_box_with_shadow
+        .tile_thumbnail{id: thumbnail_id}
+          .headline
+            .text= tile.headline
+            .headline_overlay

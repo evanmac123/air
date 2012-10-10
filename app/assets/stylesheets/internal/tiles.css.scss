@@ -1,0 +1,106 @@
+body#tile_viewer {
+  background:image-url('tile_viewer/broken_noise.png');
+  font-family:Helvetica, Arial, sans-serif;
+  margin:0;
+}
+
+#tile_viewer{
+  a, img {border:none;}
+  .cf {clear:both;}
+
+  .container {
+    background-image:image-url('tile_viewer/rough_diagonal.png');
+    margin:auto;
+    padding:0 0 10px 0;
+    width:100%;
+  }
+
+  .tile_viewer_header {
+    margin:auto;
+    padding:20px 0;
+    width:670px;
+  }
+  img#logo {
+    float:left;
+  }
+  .tile_image{
+    display: none;
+  }
+  p#position {
+    background:#818385;
+    border:1px white solid;
+    border-radius:5px;
+    box-shadow:inset 0 0 10px #68696b;
+    color:white;
+    font-family: 'Ubuntu', sans-serif;
+    float:right;
+    margin:0;
+    padding:13px 23px;
+  }
+
+  .viewer {
+    margin:auto;
+    position:relative;
+    width:786px;
+  }
+
+  a#prev, a#next {
+    display:inline-block;
+    height:60px;
+    margin:65px 0 0 0;
+    width:60px;
+  }
+  a#prev span, a#next span {
+    font-size:0;
+    text-decoration:none;
+    text-indent:-10px;
+    visibility: hidden;
+  }
+  a#prev {
+    background:image-url('tile_viewer/prevbtn.png') no-repeat;
+    float:left;
+    position:relative;
+  }
+    a#prev:hover {
+      background:image-url('tile_viewer/prevbtn-hover.png') no-repeat;
+    }
+  a#next {
+    background:image-url('tile_viewer/nextbtn.png') no-repeat;
+    float:left;
+    padding:0;
+    position:relative;
+  }
+    a#next:hover {
+      background:image-url('tile_viewer/nextbtn-hover.png') no-repeat;
+    }
+
+  #slideshow {
+    display:inline-block;
+    float:left;
+    margin: auto;
+    position:relative;
+    width: 666px; 
+    height: 2000px;
+  }
+  #slideshow img {
+    padding: 22px; 
+    background:image-url('tile_viewer/bg-transwhite.png');
+    border: 1px solid #f8f8f8; 
+    border-radius:5px;
+    box-shadow:inset 0 0 10px #949494;
+  }
+
+  .footer {
+    border-top:1px white solid;
+    height:100%;
+    margin:0;
+    min-height:100%;
+    position:relative;
+  }
+  .footer p {
+    color:#afafaf;
+    font-size:13px;
+    padding:26px 15px 15px;
+    text-align:center;
+  }
+}

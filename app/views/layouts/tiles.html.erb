@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title><%= current_user.demo.name %> Game Pieces | h.engage</title>
+
+<%= stylesheet_link_tag 'app-internal' %>
+<%= javascript_include_tag 'app-internal' %>
+
+<!-- google web fonts -->
+<link href='https://fonts.googleapis.com/css?family=Ubuntu:400,500' rel='stylesheet' type='text/css'>
+
+<% #the csrf_meta_tag is here so that ajax requests appear as logged in %>
+<%= csrf_meta_tag  %>
+
+</head>
+<body id='tile_viewer'>
+  <%= yield %>
+</body>
+</html>
