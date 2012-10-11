@@ -260,6 +260,11 @@
       No post-act summaries will be sent
 
   %p
+    Users
+    = @demo.show_invite_modal_when_game_closed ? "can" : "cannot"
+    invite friends before game is open
+
+  %p
     - if @demo.example_tutorial
       Custom example for slide 1 of tutorial:
       = @demo.example_tutorial  

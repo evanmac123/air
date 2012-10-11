@@ -65,7 +65,6 @@ feature 'Game has beginning and end' do
         expect_selected 'everybody'
       end
     end
-  # Didn't work * Cannot add an avatar * Cannot update phone number ** Cannot change notification preferences (text, email or both)
 
     it 'should allow user to change avatar when game is not open' do
       as_both_users do
@@ -147,9 +146,22 @@ feature 'Game has beginning and end' do
     end
   end
 
-  context "the invite modal on the activity page" do
-    it "should appear as normal", :js => true do
-      as_both_users do
+  context "the invite modal on the activity page of a game that hasn't begun" do
+    context "if the demo is not set to have it show when the game is closed (the default)" do
+      it "should not appear", :js => true do
+        signin_as @future_user, 'foobar'
+        should_be_on activity_path(:format => :html)
+        page.all('#facebox').should be_empty
+      end
+    end
+
+    context "if the demo is set to have it show when the game is closed" do
+      before(:each) do
+        @future_demo.update_attributes(show_invite_modal_when_game_closed: true)
+      end
+
+      it "should appear as normal", :js => true do
+        signin_as @future_user, 'foobar'
         should_be_on activity_path(:format => :html)
         page.find('#facebox').should have_content('Invite your friends')
       end

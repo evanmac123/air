@@ -1,6 +1,6 @@
 <div id="no-login-yet">
   <% @invite_in_modal = true %>
-  <%= render :partial => "acts/invite_your_friends" %>  
+  <%= render :partial => "acts/invite_your_friends" if current_user.demo.show_invite_modal_when_game_closed %>  
 	
   <h2>Your game will start soon</h2>
 
