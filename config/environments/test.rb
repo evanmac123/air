@@ -62,7 +62,7 @@ Health::Application.configure do
   silence_warnings do
     require 'pry'
     IRB = Pry    
-  end
+  end unless Dir.pwd == '/home/larry/RubyMine/Hengage'
   
 end
 
