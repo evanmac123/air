@@ -1,6 +1,7 @@
 require 'spec_helper'
-require 'ruby-debug'
-require 'pry'
+
+require 'ruby-debug' unless Dir.pwd == '/home/larry/RubyMine/Hengage'
+require 'pry'        unless Dir.pwd == '/home/larry/RubyMine/Hengage'
 
 describe User, "#relationship_with" do
   before(:each) do

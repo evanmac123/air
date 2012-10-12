@@ -44,7 +44,7 @@ end
 group :development, :test do
   gem "colored"
   gem "rspec-rails"
-  gem "pry-debugger"
+  gem "pry-debugger" unless Dir.pwd == '/home/larry/RubyMine/Hengage'
   gem "steak"
   gem "rails-dev-tweaks"  # The rails-dev-tweaks gem makes it so assets are not reloaded as often. 
                           # For instance, XHR requests by themselves do not reload assets when using this gem
@@ -56,7 +56,7 @@ group :development, :test do
   end
 
   platforms :mri_19 do
-    gem "debugger"
+    gem "debugger" unless Dir.pwd == '/home/larry/RubyMine/Hengage'
     gem "linecache19"
   end
 
