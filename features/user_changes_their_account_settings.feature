@@ -2,10 +2,10 @@ Feature: User can edit their account settings
 
   Background:
     Given the following demo exists:
-      | name |
+      | name         |
       | Big Machines |
     Given the following claimed users exist:
-      | name  | phone number | email             | demo                      |
+      | name  | phone number | email             | demo              |
       | Phil  | +14155551212 | phil@example.com  | name: BigMachines |
       | Alice | +18085551212 | alice@example.com | name: BigMachines |
     And "Phil" has the password "foobar"
@@ -40,7 +40,7 @@ Feature: User can edit their account settings
 
   Scenario: User can change their location    
     Given the following locations exist:
-      | name         | demo |
+      | name         | demo              |
       | Philadelphia | name: BigMachines |
       | Baltimore    | name: BigMachines |    
     When I go to the settings page for "Phil"
@@ -84,39 +84,6 @@ Feature: User can edit their account settings
 
     Then "frank@example.com" should have received a follow notification email about "George" with phone number "(900) 555-1212"
     But "+18885551212" should not have received any SMSes
-
-  Scenario: User can choose notification by SMS
-    When I sign in via the login page with "Phil/foobar"
-    And I go to the settings page
-    And I choose "SMS/text message"
-    And I press the button to save notification settings
-    And "+18085551212" sends SMS "follow phil"
-    And DJ works off
-
-    Then "+14155551212" should have received SMS "Alice has asked to be your friend. Text\nYES to accept,\nNO to quietly ignore"
-    And "phil@example.com" should have no emails
-
-  Scenario: User can choose notification by email and SMS
-    When I sign in via the login page with "Phil/foobar"
-    And I go to the settings page
-    And I choose "Both"
-    And I press the button to save notification settings
-    And "+18085551212" sends SMS "follow phil"
-    And DJ works off
-
-    Then "+14155551212" should have received SMS "Alice has asked to be your friend. Text\nYES to accept,\nNO to quietly ignore"
-    And "phil@example.com" should have received a follow notification email about "Alice"
-
-#   Scenario: User can choose notification by neither email nor SMS
-    # When I sign in via the login page with "Phil/foobar"
-    # And I go to the settings page
-    # And I choose "No notifications"
-    # And I press the button to save notification settings
-    # And "+18085551212" sends SMS "follow phil"
-    # And DJ cranks 5 times
-
-    # Then "+14155551212" should not have received any SMSes
-    # And "phil@example.com" should have no emails
 
   Scenario: User sees their mobile number on their settings
     When I go to the settings page

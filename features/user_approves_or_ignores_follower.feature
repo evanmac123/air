@@ -17,14 +17,6 @@ Feature: User approves or ignores follower
     And "Alice" has password "barley"
     And "Clay" has password "bazquux"
 
-  Scenario: Follower follows by SMS, followed accepts via SMS
-    When "Alice" befriends "Bob/fooble" by SMS
-    Then "Bob/fooble" should be able to accept "Alice" by SMS
-
-  Scenario: Follower follows by SMS, followed ignores via SMS
-    When "Alice" befriends "Bob/fooble" by SMS
-    Then "Bob/fooble" should be able to ignore "Alice" by SMS
-
   Scenario: Follower follows by SMS, followed accepts via web
     When "Alice" befriends "Bob/fooble" by SMS
     And DJ works off
@@ -36,18 +28,6 @@ Feature: User approves or ignores follower
     When "Alice" befriends "Bob/fooble" by SMS
     And DJ works off
     Then "Bob/fooble" should be able to ignore "Alice" by web
-
-  @javascript
-  Scenario: Follower follows by web, followed accepts via SMS
-    When "Alice/barley" befriends "Bob/fooble" by web
-    And DJ works off
-    Then "Bob/fooble" should be able to accept "Alice" by SMS
-
-  @javascript
-  Scenario: Follower follows by web, followed ignores via SMS
-    When "Alice/barley" befriends "Bob/fooble" by web
-    And DJ works off
-    Then "Bob/fooble" should be able to ignore "Alice" by SMS
 
   # @javascript
   # Scenario: Follower follows by web, followed accepts via web
