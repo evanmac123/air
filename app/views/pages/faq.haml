@@ -27,4 +27,5 @@
 #faq_body.module
   %h1 Frequently Asked Questions
   = render 'faq_body'
-= mp_track_page 'faq'
+= content_for :javascript do
+  = mp_track_page 'faq'
