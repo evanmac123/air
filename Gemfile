@@ -40,6 +40,22 @@ group :assets do
   gem 'jquery-ui-rails'
 end
 
+# A Note About Debuggers:
+# -----------------------
+# Used to load the 'debugger' and 'pry-debugger' gems, but then a (wimped-out) employee decided to
+# develop using an IDE instead of the command line and encountered a conflict with those gems and
+# his 'ruby-debug-ide' gem, i.e. his debugger would not work if the other debugger gems were included
+# in the mix.
+# Conditional inclusion in this 'Gemfile' screwed up 'gemfile.lock' => not a solution.
+# So all references to debugger-related gems have been removed => each developer is responsible
+# for loading whatever debugger gems s/he needs.
+# The code contains several references to the original gems, which will screw up those who do not have
+# them loaded. The solution to this problem is for those people to define an environment variable called
+# 'NO_DEBUGGER' so the problem statements can be suffixed with an " unless ENV['NO_DEBUGGER'] " qualifier.
+# If you need to go this route, make sure you define 'NO_DEBUGGER' at the system level and not the user one.
+# For example, in Ubuntu this means adding the line "NO_DEBUGGER=true" in '/etc/environment' instead of
+# the line "export NO_DEBUGGER=true" in '~/.bashrc'
+
 # RSpec needs to be in :development group to expose generators
 # and rake tasks without having to type RAILS_ENV=test.
 group :development, :test do
