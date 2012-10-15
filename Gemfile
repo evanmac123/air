@@ -28,12 +28,13 @@ gem "mongoid"
 gem "bson_ext"
 gem 'jquery-rails'
 gem 'fancybox-rails', :git => "https://github.com/hecticjeff/fancybox-rails.git"
+gem "linecache19"
 
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
   gem 'asset_sync'
-  gem 'sass-rails', "3.1.4" #Locking sass-rails at 3.1.4 so that assets will precompile
+  gem 'sass-rails', "3.1.4" # Locking sass-rails at 3.1.4 so that assets will precompile
   gem 'coffee-rails', " ~> 3.1.0"
   gem 'uglifier'
   gem 'jquery-ui-rails'
@@ -44,23 +45,11 @@ end
 group :development, :test do
   gem "colored"
   gem "rspec-rails"
-  gem "pry-debugger" unless Dir.pwd == '/home/larry/RubyMine/Hengage'
+  gem "factory_girl_rails"
   gem "steak"
   gem "rails-dev-tweaks"  # The rails-dev-tweaks gem makes it so assets are not reloaded as often. 
                           # For instance, XHR requests by themselves do not reload assets when using this gem
                           # Note that all defaults can be overridden, see the github README for this gem
-
-  platforms :mri_18 do
-    gem "ruby-debug"
-    gem "linecache"
-  end
-
-  platforms :mri_19 do
-    gem "debugger" unless Dir.pwd == '/home/larry/RubyMine/Hengage'
-    gem "linecache19"
-  end
-
-  gem "factory_girl_rails"
 
   # TL;DR We don't use cover_me, but don't take it out.
   #
