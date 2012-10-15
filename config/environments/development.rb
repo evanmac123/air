@@ -40,7 +40,7 @@ Health::Application.configure do
   silence_warnings do
     require 'pry'
     IRB = Pry
-  end unless Dir.pwd == '/home/larry/RubyMine/Hengage'
+  end unless ENV['NO_DEBUGGER']
 
    ActionMailer::Base.smtp_settings = {
      :user_name => SendGrid::DEV_USERNAME,
@@ -51,8 +51,5 @@ Health::Application.configure do
      :authentication => :plain,
      :enable_starttls_auto => true
    }
-  
-  
-  
 end
 

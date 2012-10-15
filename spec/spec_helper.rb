@@ -2,8 +2,8 @@ require 'rubygems'
 require 'spork'
 
 #uncomment the following line to use spork with the debugger
-require 'spork/ext/ruby-debug' unless Dir.pwd == '/home/larry/RubyMine/Hengage'
-require 'pry'                  unless Dir.pwd == '/home/larry/RubyMine/Hengage'
+require 'spork/ext/ruby-debug' unless ENV['NO_DEBUGGER']
+require 'pry'                  unless ENV['NO_DEBUGGER']
 
 Spork.prefork do
   # Loading more in this block will cause your tests to run faster. However,
