@@ -81,6 +81,7 @@ group :development, :test do
   # is that cover_me makes the difference.
   gem "cover_me"
   gem "getopt"
+  gem "ruby-debug19"
 end
 
 group :test do

@@ -1,3 +1,16 @@
+silence_warnings do
+  begin
+    require 'pry'
+    IRB = Pry
+  rescue LoadError
+  end
+
+  begin
+    require 'ruby-debug'
+  rescue LoadError
+  end
+end unless ENV['NO_DEBUGGER']
+  
 Health::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
@@ -58,11 +71,5 @@ Health::Application.configure do
   config.assets.allow_debugging = true
   ##########################################################################################
     
-    
-  silence_warnings do
-    require 'pry'
-    IRB = Pry    
-  end unless ENV['NO_DEBUGGER']
-  
 end
 

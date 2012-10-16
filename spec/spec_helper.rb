@@ -2,8 +2,11 @@ require 'rubygems'
 require 'spork'
 
 #uncomment the following line to use spork with the debugger
-require 'spork/ext/ruby-debug' unless ENV['NO_DEBUGGER']
-require 'pry'                  unless ENV['NO_DEBUGGER']
+begin
+  require 'spork/ext/ruby-debug' unless ENV['NO_DEBUGGER']
+  require 'pry'                  unless ENV['NO_DEBUGGER']
+rescue LoadError
+end
 
 Spork.prefork do
   # Loading more in this block will cause your tests to run faster. However,
