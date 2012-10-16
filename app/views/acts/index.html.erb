@@ -5,11 +5,6 @@
         <%= render :partial => 'displayable_tile', :collection => @displayable_tiles %>
       </ul>
     </div>
-    <% content_for :javascript do %>
-      <%= javascript_tag do %>
-        $('.recently-completed').css({'border-color': 'white'}).effect('highlight', {}, 500, function() {$(this).fadeOut(2000, function(){$(this).remove()})});
-      <% end %>
-    <% end %>
   <% end %>
 	
 	<div class="right-column">

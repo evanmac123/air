@@ -11,7 +11,7 @@ a {
 	&:hover {color:lighten($header-bg, 10%);}
 	&:active {color:$dark-gray;}
 }
-.cf {
+.cf, .clear {
 	clear:both;
 	height:0;
 }

@@ -1,8 +1,8 @@
 .relative
   .tile_details
-    .name
-      .label Name
-      .value= tile.name
+    .headline
+      .label Headline 
+      .value= tile.headline
     .completion_triggers
       - if tile.has_demographic_trigger? 
         %p Complete demographics

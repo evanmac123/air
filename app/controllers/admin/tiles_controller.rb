@@ -4,7 +4,7 @@ class Admin::TilesController < AdminBaseController
   before_filter :parse_times, :only => [:create, :update]
   
   def index
-    @tiles = @demo.tiles.alphabetical.includes(:prerequisites).includes(:rule_triggers).sort_by(&:position)
+    @tiles = @demo.tiles.includes(:prerequisites).includes(:rule_triggers).sort_by(&:position)
   end
 
   def sort
@@ -65,7 +65,7 @@ class Admin::TilesController < AdminBaseController
 
   def destroy
     @tile.destroy
-    add_success "Tile #{@tile.name} has been destroyed"
+    add_success "Tile '#{@tile.headline}' has been destroyed"
     redirect_to admin_demo_tiles_path
   end
 
@@ -76,7 +76,7 @@ class Admin::TilesController < AdminBaseController
   end
 
   def find_existing_tiles(demo)
-    @demo.tiles.alphabetical  
+    @demo.tiles.alphabetical
   end
   
   def load_surveys_tiles_and_values
@@ -125,7 +125,9 @@ class Admin::TilesController < AdminBaseController
   def parse_times
     [:start_time, :end_time].each do |time_name|
       next unless params[:tile][time_name].present?
-      params[:tile][time_name] = Chronic.parse(params[:tile][time_name]).to_s
+      # using guess => false and <returned_time>.first to force our default time of day to 00:00
+      opts = {:ambiguous_time_range => 6, :guess => false}
+      params[:tile][time_name] = Chronic.parse(params[:tile][time_name], opts).first.to_s
     end
   end
 

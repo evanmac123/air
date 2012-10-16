@@ -22,7 +22,7 @@
       %tbody{:class => :sortable_body, 'data-update-url' => sort_admin_demo_tiles_url}
         %tr
           %th Active
-          %th Name
+          %th Headline 
           %th Identifier
           %th 
             Start Time
@@ -32,8 +32,8 @@
             End Time
             .time_zone
               (Eastern)
-          %th Image filename
           %th Thumbnail filename
+          %th Image filename
           %th Prereq
       
         - count = 0
@@ -49,7 +49,7 @@
                     
                     
             %td{:class => "brown"}= count += 1 if tile.due?
-            %td= link_to tile.name, edit_admin_demo_tile_path(@demo, tile) 
+            %td= link_to tile.headline, edit_admin_demo_tile_path(@demo, tile) 
             %td
               = link_to tile.identifier, edit_admin_demo_tile_path(@demo, tile) 
               = render 'tile_details', :tile => tile
@@ -57,11 +57,11 @@
             %td= tile.start_time ? tile.start_time.pretty_succinct : ''
             %td= tile.end_time ? tile.end_time.pretty_succinct : ''
             %td
-              -if tile.image.present?
-                = link_to tile.image_file_name, tile.image.url
-            %td
               -if tile.thumbnail.present?
                 = link_to tile.thumbnail_file_name, tile.thumbnail.url
+            %td
+              -if tile.image.present?
+                = link_to tile.image_file_name, tile.image.url
             %td
               - if tile.prerequisite_tiles.present? 
                 - prerequisite_names = tile.prerequisite_tiles.map(&:name).sort 

@@ -4,6 +4,7 @@ $ ->
   loadDivs()
   initSlideShow()
   updatePositionFunc(false, 0, null)
+  displayTileThumbnails()
 
 
 ############# find a way to only include this once ###########
@@ -19,6 +20,10 @@ loadDivs = () ->
   slideshow = $('#slideshow')
   positionElement = $('#position')
   imageCount = $('#slideshow img').length
+
+displayTileThumbnails = () ->
+  # These are hidden initially so we don't see them load in a big long line
+  $('.tile_thumbnail').show()
 
 initSlideShow = () ->
   slideshow.cycle

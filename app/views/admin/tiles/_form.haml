@@ -6,11 +6,11 @@
 
 = semantic_form_for tile, :url => form_submit_path, :html => {:multipart => true} do |f| 
   = f.input :identifier 
-  = f.input :name 
   = f.input :headline
   = f.input :bonus_points 
   = f.input :prerequisite_tiles, :collection => @existing_tiles 
   #start_and_end_times
+    %p Examples: "tomorrow", "tomorrow 3pm", "friday noon", "oct 30"
     #start_time
       = f.input :start_time, :as => :string
     #end_time
@@ -59,14 +59,14 @@
     - if tile.thumbnail.present?
       Current thumbnail is:
       = link_to tile.thumbnail_file_name, tile.thumbnail.url
-      = f.submit "Remove thumbnail"
+      .hidden= f.submit "Remove thumbnail"
 
     %h3 Full-size image
+    = f.file_field 'image'
     - if tile.image.present?
       Current image is:
       = link_to tile.image_file_name, tile.image.url
-      = f.submit "Remove image"
-    = f.file_field 'image'
+      .hidden= f.submit "Remove image"
 
   = f.submit 
   

@@ -1,10 +1,11 @@
 // hover delta is per side
-$thumb_dim: 220px;
-$thumb_hovered_dim: 240px;
+$thumb_dim: 238px;
+$thumb_hovered_dim: 258px;
 $hover_delta: ($thumb_hovered_dim - $thumb_dim)/2;
 $thumb_margin: 12px;
 $thumb_hovered_margin: $thumb_margin - $hover_delta;
 $tile_wrapper_dim: 254px;
+$headline_overlay_top: 148px;
 #tile_thumbnail_carousel{
   .jcarousel-item{
     height: 295px;
@@ -16,61 +17,84 @@ $tile_wrapper_dim: 254px;
     height: $tile_wrapper_dim;
     width: $tile_wrapper_dim;
     display: inline-block;
-    border: 1px dashed #ccc;
+    border: 1px dashed transparent;
   }
   .tile_thumbnail{
     height: $thumb_dim;
     width: $thumb_dim;
     margin: $thumb_margin;
+    border: 3px solid white;
+    border-radius: 5px;
+    box-shadow: 0px 0px 3px grey;
     &:hover{
       height: $thumb_hovered_dim;
       width: $thumb_hovered_dim;
       margin: $thumb_hovered_margin;
       .headline_overlay{ 
         width: $thumb_hovered_dim; 
-        top: 170px + 2 * $hover_delta;
+        top: $headline_overlay_top + 2 * $hover_delta;
       }
       .text{
-        top: 170px + 2 * $hover_delta;
+        top: $headline_overlay_top + 2 * $hover_delta;
+        font-size: 18px;
+        line-height: 23px;
       }
     }
     display: inline-block;
   }
   .white_box_with_shadow{
-    box-shadow: 0px 0px 2px grey;
-    background: yellow;
+    //box-shadow: 0px 0px 2px grey;
+    //background: yellow;
     padding: 4px;
     display: inline-block;
   }
   .headline{
     position: relative;
     .headline_overlay{
-      height: 50px;
+      height: 89px;
       width: $thumb_dim;
-      background: orange;
-      opacity: 0.4;
+      background: black;
+      opacity: 0.7;
       position: absolute;
-      top: 170px;
+      top: $headline_overlay_top;
     }
     .text{
       position: absolute;
       color: white;
       z-index: 10;
-      top: 170px; 
-      padding: 0 5px;
-      font-size: 20px;
+      top: $headline_overlay_top; 
+      padding: 10px 11px;
+      font-size: 16px;
+      line-height: 21px;
+      font-family: ubuntu, arial, sans-serif;
     }
   }
 
 }
 #carousel_wrapper{
   .jcarousel-container{
-    width: 878px;
+    width: 833px;
     height: 259px;
     margin-bottom: 2px;
+    padding: 20px 62px 20px 57px;
+    border: 1px solid transparent;
+    top: -20px;
+    left: 3px;
   }
   .jcarousel-clip{
-    width: 878px;
+    width: 840px;
     height: 400px;
+  }
+  .jcarousel-item{
+    margin-right: 0px;
+    width: 278px;
+  }
+  .jcarousel-prev-horizontal{
+    top: 140px;
+    left: 2px;
+  }
+  .jcarousel-next-horizontal{
+    top: 140px;
+    right: 2px;
   }
 }

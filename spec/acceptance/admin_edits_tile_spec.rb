@@ -3,21 +3,21 @@ require 'acceptance/acceptance_helper'
 feature 'Admin edits tile' do
   before(:each) do
     @demo = FactoryGirl.create(:demo)
-    ['bake bread', 'discover fire', 'domesticate cattle', 'make toast'].each do |tile_name|
-      FactoryGirl.create(:tile, name: tile_name, demo: @demo)
+    ['bake bread', 'discover fire', 'domesticate cattle', 'make toast'].each do |tile_headline|
+      FactoryGirl.create(:tile, headline: tile_headline, demo: @demo)
     end
 
-    @make_toast = Tile.find_by_name('make toast')
+    @make_toast = Tile.find_by_headline('make toast')
     @make_toast.update_attributes(start_time: Time.parse('2015-05-01 08:00:00 UTC'))
-    Prerequisite.create(tile: @make_toast, prerequisite_tile: Tile.find_by_name('bake bread'))
-    Prerequisite.create(tile: @make_toast, prerequisite_tile: Tile.find_by_name('discover fire'))
+    Prerequisite.create(tile: @make_toast, prerequisite_tile: Tile.find_by_headline('bake bread'))
+    Prerequisite.create(tile: @make_toast, prerequisite_tile: Tile.find_by_headline('discover fire'))
     
     signin_as_admin
     visit edit_admin_demo_tile_path(@demo, @make_toast)
   end
 
   scenario 'tweaking the basic settings' do
-    fill_in "Name", :with => "Make roast beef"
+    fill_in "Headline", :with => "Make roast beef"
     unselect "bake bread", :from => "Prerequisite tiles"
     select "domesticate cattle", :from => "Prerequisite tiles"
     fill_in "Start time", :with => "April 17, 2012, 3:25 PM"
