@@ -573,6 +573,46 @@ describe User, "on save" do
     @user.reload.email.should == 'yelling_guy@uppercase.com'
   end
 
+  describe 'spousal relationship synchronization' do
+    let(:member) { FactoryGirl.create :user }
+
+    describe 'on create' do
+      it 'should not link spouse if not specfied' do
+        user = FactoryGirl.create :user
+        member.reload.spouse_id.should be_nil
+      end
+
+      it 'should link spouse if specfied' do
+        user = FactoryGirl.create :user, spouse_id: member.id
+        member.reload.spouse_id.should == user.id
+      end
+    end
+
+    describe 'on update' do
+      let(:user) { FactoryGirl.create :user }
+
+      it 'should not link spouse if other field updated' do
+        user.update_attribute :weight, 100
+        member.reload.spouse_id.should be_nil
+      end
+
+      it 'should link spouse if specfied' do
+        member.reload.spouse_id.should be_nil
+
+        user.update_attribute :spouse_id, member.id
+        member.reload.spouse_id.should == user.id
+      end
+
+      it 'should unlink spouse if nullified' do
+        user = FactoryGirl.create :user, spouse_id: member.id
+        member.reload.spouse_id.should == user.id
+
+        user.update_attribute :spouse_id, nil
+        member.reload.spouse_id.should be_nil
+      end
+    end
+  end
+
   it "should parse characteristics according to the datatypes" do
     user = FactoryGirl.build :user
 
