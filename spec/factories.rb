@@ -212,7 +212,6 @@ FactoryGirl.define do
   end
 
   factory :tile do
-    name "Roast chestnuts"
     headline "Riceburners Back in Style"
     association :demo
     sequence(:identifier, Tile.next_id) {|n| "Identifier#{n}"}

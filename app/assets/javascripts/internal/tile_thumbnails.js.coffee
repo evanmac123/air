@@ -5,6 +5,7 @@
 $ ->
   loadDivs()
   connectCarousel()
+  displayTileThumbnails()
   connectFadeCompletedTiles()
 
 ############# find a way to only include this once ###########
@@ -22,6 +23,10 @@ connectCarousel = () ->
   tile_thumbnail_carousel.jcarousel(
     {}
   )
+
+displayTileThumbnails = () ->
+  # These are hidden initially so we don't see them load in a big long line
+  $('.tile_thumbnail').show()
 
 connectFadeCompletedTiles = () ->
   recent.css({'border-color': 'black', 'border-thickness': '5px'})

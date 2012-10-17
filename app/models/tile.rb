@@ -10,32 +10,21 @@ class Tile < ActiveRecord::Base
   validates_presence_of :identifier, :message => "Please include an identifier"
   validates_uniqueness_of :position, :scope => :demo_id
   validates_presence_of :headline, :allow_blank => false
-  validates_with AttachmentPresenceValidator, :attributes => [:image, :thumbnail]
+  validates_with AttachmentPresenceValidator, :attributes => [:image, :thumbnail], :if => :require_images
   attr_accessor :display_completion_on_this_request
 
   extend Sequenceable
-  HASH_SECRET = "Kid Sister Diary Security"
   has_alphabetical_column :headline
   has_attached_file :image,
-    :styles => {:viewer => ["620", :png]},
+    {:styles => {:viewer => ["620", :png]},
     :default_style => :viewer,
-    :storage => :s3,
-    :s3_credentials => S3_CREDENTIALS,
-    :s3_protocol => 'https',
-    :path => "/tiles/:id/:hash__:filename",
-    :hash_secret => HASH_SECRET,
-    :bucket => S3_TILE_BUCKET
+    :bucket => S3_TILE_BUCKET}.merge(TILE_IMAGE_OPTIONS)
 
   has_attached_file :thumbnail,
-    :styles => {:carousel => ["238x238#", :png], :hover => ["258x258#", :png]},
+    {:styles => {:carousel => ["238x238#", :png], :hover => ["258x258#", :png]},
     :default_style => :carousel,
-    :storage => :s3,
-    :s3_credentials => S3_CREDENTIALS,
-    :s3_protocol => 'https',
-    :path => "/tile_thumbnails/:id/:style/:hash__:filename",
-    :hash_secret => HASH_SECRET,
     #:default_url => "/assets/avatars/thumb/missing.png",
-    :bucket => S3_TILE_THUMBNAIL_BUCKET
+    :bucket => S3_TILE_THUMBNAIL_BUCKET}.merge(TILE_THUMBNAIL_OPTIONS)
 
   def name
     # this is only here so formtastic's input in app/views/admin/tiles/_form.haml

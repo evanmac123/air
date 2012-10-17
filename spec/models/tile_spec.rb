@@ -72,15 +72,15 @@ describe Tile do
     it "should tell me the ids of all the due tiles" do
       Demo.find_each {|f| f.destroy}
       # Too early
-      too_early = FactoryGirl.create(:tile, name: 'early', start_time: 1.minute.from_now)
+      too_early = FactoryGirl.create(:tile, headline: 'early', start_time: 1.minute.from_now)
       too_early.should_not be_due
 
       # Too late
-      too_late = FactoryGirl.create(:tile, name: 'late', end_time: 1.minute.ago)
+      too_late = FactoryGirl.create(:tile, headline: 'late', end_time: 1.minute.ago)
       too_late.should_not be_due
 
       # Just right
-      just_right = FactoryGirl.create(:tile, name: 'right', start_time: 1.minute.ago, end_time: 1.minute.from_now)
+      just_right = FactoryGirl.create(:tile, headline: 'right', start_time: 1.minute.ago, end_time: 1.minute.from_now)
       just_right.should be_due
 
       # due_ids
@@ -94,11 +94,11 @@ describe Tile do
       @fun = FactoryGirl.create(:demo, name: 'Fun')
       @not_fun = FactoryGirl.create(:demo, name: 'Not so Fun')
       @leah = FactoryGirl.create(:user, name: 'Leah', demo: @fun)
-      @water_plants = FactoryGirl.create(:tile, demo: @fun, name: 'Water plants')
+      @water_plants = FactoryGirl.create(:tile, demo: @fun, headline: 'Water plants')
       @already_watered = FactoryGirl.create(:tile_completion, tile: @water_plants, user: @leah)
-      @wash = FactoryGirl.create(:tile, demo: @fun, name: 'Wash the Dishes')
-      @dry = FactoryGirl.create(:tile, demo: @not_fun, name: 'Dry the Dishes')
-      @color_after_washing = FactoryGirl.create(:tile, demo: @fun, name: 'Choose a beautiful color for your wall')
+      @wash = FactoryGirl.create(:tile, demo: @fun, headline: 'Wash the Dishes')
+      @dry = FactoryGirl.create(:tile, demo: @not_fun, headline: 'Dry the Dishes')
+      @color_after_washing = FactoryGirl.create(:tile, demo: @fun, headline: 'Choose a beautiful color for your wall')
 
       # two tiles that don't need to be done right now
       @shovel_snow = FactoryGirl.create(:tile, demo: @fun, start_time: 5.months.from_now)
@@ -131,7 +131,7 @@ describe Tile do
     before(:each) do
       Demo.find_each {|f| f.destroy}
       @fun = FactoryGirl.create(:demo, name: 'A Good Time')
-      @mud_bath = FactoryGirl.create(:tile, name: 'Mud Bath', demo: @fun)
+      @mud_bath = FactoryGirl.create(:tile, headline: 'Mud Bath', demo: @fun)
       @leah = FactoryGirl.create(:user, name: 'Leah Eckles', demo: @fun)
       @take_a_bath = FactoryGirl.create(:rule, demo: @fun)
       FactoryGirl.create(:rule_trigger, rule: @take_a_bath, tile: @mud_bath)
@@ -148,9 +148,9 @@ describe Tile do
     before(:each) do
       Demo.find_each {|f| f.destroy}
       @fun = FactoryGirl.create(:demo, name: 'A Good Time')
-      @mud_bath = FactoryGirl.create(:tile, name: 'Mud Bath', demo: @fun)
-      @sponge_bath = FactoryGirl.create(:tile, name: 'Sponge Bath', demo: @fun)
-      @hot_shower = FactoryGirl.create(:tile, name: 'Hot Shower', demo: @fun)
+      @mud_bath = FactoryGirl.create(:tile, headline: 'Mud Bath', demo: @fun)
+      @sponge_bath = FactoryGirl.create(:tile, headline: 'Sponge Bath', demo: @fun)
+      @hot_shower = FactoryGirl.create(:tile, headline: 'Hot Shower', demo: @fun)
 
       # Make rules and rule triggers for mud_bath and sponge_bath
       @take_mud_bath = FactoryGirl.create(:rule, demo: @fun)
@@ -234,9 +234,9 @@ describe Tile do
       Demo.find_each { |f| f.destroy }
       @fun = FactoryGirl.create(:demo, name: 'Fun')
       @not_fun = FactoryGirl.create(:demo, name: 'Not Fun')
-      @stretch = FactoryGirl.create(:tile, demo: @fun, name: 'Stretch')
-      @sip = FactoryGirl.create(:tile, demo: @fun, name: 'Sip')
-      @breathe = FactoryGirl.create(:tile, demo: @fun, name: 'Breathe')
+      @stretch = FactoryGirl.create(:tile, demo: @fun, headline: 'Stretch')
+      @sip = FactoryGirl.create(:tile, demo: @fun, headline: 'Sip')
+      @breathe = FactoryGirl.create(:tile, demo: @fun, headline: 'Breathe')
 
       @lucy  = FactoryGirl.create(:user, demo: @fun, name: 'Lucy')
       @james = FactoryGirl.create(:user, demo: @fun, name: 'James')
@@ -298,7 +298,7 @@ describe Tile do
       Demo.find_each { |f| f.destroy }
       @fun = FactoryGirl.create(:demo, name: 'F U N')
       @leah = FactoryGirl.create(:user, name: 'Leah', demo: @fun)
-      @tile = FactoryGirl.create(:tile, name: 'Tile with Require All', demo: @fun, poly: true)
+      @tile = FactoryGirl.create(:tile, headline: 'Tile with Require All', demo: @fun, poly: true)
       @rule_1 = FactoryGirl.create(:rule, demo: @fun)
       @rule_2 = FactoryGirl.create(:rule, demo: @fun)
       @trigger_1 = FactoryGirl.create(:rule_trigger, tile: @tile, rule: @rule_1)

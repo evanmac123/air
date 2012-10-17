@@ -4,7 +4,6 @@ $ ->
   loadDivs()
   initSlideShow()
   updatePositionFunc(false, start_tile, null)
-  displayTileThumbnails()
 
 
 ############# find a way to only include this once ###########
@@ -21,10 +20,6 @@ loadDivs = () ->
   positionElement = $('#position')
   imageCount = $('#slideshow img').length
   start_tile = parseInt($('#start_tile').text())
-
-displayTileThumbnails = () ->
-  # These are hidden initially so we don't see them load in a big long line
-  $('.tile_thumbnail').show()
 
 initSlideShow = () ->
   slideshow.cycle
@@ -55,9 +50,11 @@ sendViewedTilePing = (tile_id) ->
   $.post('/ping', data)
 
 resizeSlideshow = () -> 
-  current_image = $('#slideshow img:visible')
-  current_image_height = current_image.height()
+  array_of_images = $('#slideshow img')
   offset = 45
-  slideshow.height(current_image_height + offset)
+  max_height = 0
+  $.map array_of_images, (image) ->
+    max_height = image.height if (image.height > max_height)
+  slideshow.height(max_height + offset)
 
 
