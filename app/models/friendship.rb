@@ -20,15 +20,9 @@ class Friendship < ActiveRecord::Base
 
   def send_follow_notification
     return unless self.state == State::INITIATED
-    case friend.notification_method
-    when 'sms'
-      send_follow_notification_by_sms
-    when 'email'
-      send_follow_notification_by_email
-    when 'both'
-      send_follow_notification_by_sms
-      send_follow_notification_by_email
-    end
+    return unless %w(both email).include?(friend.notification_method)
+
+    send_follow_notification_by_email
   end
 
   def send_follow_notification_by_sms

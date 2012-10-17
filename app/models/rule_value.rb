@@ -5,7 +5,7 @@ class RuleValue < ActiveRecord::Base
 
   validates_presence_of :value
 
-  validate :value_has_more_than_one_character
+  validate :value_is_not_single_letter
   validate :at_most_one_primary_rule_value_per_rule
   validate :value_unique_within_demo
 
@@ -78,14 +78,9 @@ class RuleValue < ActiveRecord::Base
     end
   end
 
-  def value_has_more_than_one_character
-    if self.value.try(:length) == 1
-      # Single-digit values are OK, though you run the risk of screwing up
-      # surveys.
-      return if self.value =~ /^[0-9]$/
-
-      self.errors.add(:value, "Can't have a single-character value, those are reserved for other purposes.")
-    end
+  def value_is_not_single_letter
+    return unless self.value =~ /^[[:alpha:]]$/
+    self.errors.add(:value, "Can't have a single-letter value, those are reserved for other purposes.")
   end
 
   def self.suggestion_for(attempted_value, user)

@@ -28,39 +28,44 @@ gem "mongoid"
 gem "bson_ext"
 gem 'jquery-rails'
 gem 'fancybox-rails', :git => "https://github.com/hecticjeff/fancybox-rails.git"
+gem "linecache19"
 
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
   gem 'asset_sync'
-  gem 'sass-rails', "3.1.4" #Locking sass-rails at 3.1.4 so that assets will precompile
+  gem 'sass-rails', "3.1.4" # Locking sass-rails at 3.1.4 so that assets will precompile
   gem 'coffee-rails', " ~> 3.1.0"
   gem 'uglifier'
   gem 'jquery-ui-rails'
 end
+
+# A Note About Debuggers:
+# -----------------------
+# Used to load the 'debugger' and 'pry-debugger' gems, but then a (wimped-out) employee decided to
+# develop using an IDE instead of the command line and encountered a conflict with those gems and
+# his 'ruby-debug-ide' gem, i.e. his debugger would not work if the other debugger gems were included
+# in the mix.
+# Conditional inclusion in this 'Gemfile' screwed up 'gemfile.lock' => not a solution.
+# So all references to debugger-related gems have been removed => each developer is responsible
+# for loading whatever debugger gems s/he needs.
+# The code contains several references to the original gems, which will screw up those who do not have
+# them loaded. The solution to this problem is for those people to define an environment variable called
+# 'NO_DEBUGGER' so the problem statements can be suffixed with an " unless ENV['NO_DEBUGGER'] " qualifier.
+# If you need to go this route, make sure you define 'NO_DEBUGGER' at the system level and not the user one.
+# For example, in Ubuntu this means adding the line "NO_DEBUGGER=true" in '/etc/environment' instead of
+# the line "export NO_DEBUGGER=true" in '~/.bashrc'
 
 # RSpec needs to be in :development group to expose generators
 # and rake tasks without having to type RAILS_ENV=test.
 group :development, :test do
   gem "colored"
   gem "rspec-rails"
-  gem "pry-debugger"
+  gem "factory_girl_rails"
   gem "steak"
   gem "rails-dev-tweaks"  # The rails-dev-tweaks gem makes it so assets are not reloaded as often. 
                           # For instance, XHR requests by themselves do not reload assets when using this gem
                           # Note that all defaults can be overridden, see the github README for this gem
-
-  platforms :mri_18 do
-    gem "ruby-debug"
-    gem "linecache"
-  end
-
-  platforms :mri_19 do
-    gem "debugger"
-    gem "linecache19"
-  end
-
-  gem "factory_girl_rails"
 
   # TL;DR We don't use cover_me, but don't take it out.
   #
@@ -76,6 +81,7 @@ group :development, :test do
   # is that cover_me makes the difference.
   gem "cover_me"
   gem "getopt"
+  gem "ruby-debug19"
 end
 
 group :test do

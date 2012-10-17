@@ -120,6 +120,10 @@ class User < ActiveRecord::Base
     update_demo_ranked_user_count
   end
 
+  after_save do
+    sync_spouses
+  end
+
   after_create do
     schedule_segmentation_create
   end
@@ -172,8 +176,6 @@ class User < ActiveRecord::Base
       self.errors.add(:overflow_email, 'your primary and secondary emails cannot be the same')
     end
   end
-
-
 
   def sms_slug_does_not_match_commands
     if self.demo && self.demo.rule_values.present?
@@ -1104,6 +1106,15 @@ class User < ActiveRecord::Base
 
   def downcase_email
     self.email = email.to_s.downcase
+  end
+
+  # Assumes spouse exists (or wouldn't be changing the spousal status)
+  def sync_spouses
+    if spouse_id_changed?
+      my_spouse_id = spouse_id.nil? ? spouse_id_was : spouse_id
+      my_spouse = User.find(my_spouse_id)
+      my_spouse.update_attribute :spouse_id, spouse_id.nil? ? nil : id
+    end
   end
 
   def destroy_friendships_where_secondary

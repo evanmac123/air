@@ -25,6 +25,7 @@ The following instructions are for an Ubuntu system; some slight modifications m
 1. libqtwebkit-dev
 1. libpq-dev
 1. nodejs
+1. ImageMagick
 1. pgadmin3 (Optional: PostgreSQL GUI admin tool)
 1. curl (Optional: If using RVM - see below)
 
@@ -52,24 +53,12 @@ Phil put it pretty well, so might as well quote him:
 
 So get `pg_hba.conf` from Phil and drop it into `/etc/postgresql/9.1/main/` (version number might be different)
 
-__Potential Problem__
+Then you'll need to create a database user (Postgres keeps its own lists of users separate from the system's) to use:
 
-The above worked fine on one laptop, however, on another machine a _FATAL: role "joe" does not exist_ error reared its ugly head.
+    $ sudo su postgres
+    $ createuser joe # this should be the same as your system username
 
-The following seemed to do the trick:
-
-    joe@hengage:~$ psql -U postgres
-    psql: FATAL:  Peer authentication failed for user "postgres"
-
-    joe@hengage:~$ sudo gedit /etc/postgresql/9.1/main/pg_hba.conf
-    # local   all   postgres    peer  --> Comment out this line and replace with line below; restart SQL server
-    local   all   postgres    trust
-
-    joe@hengage:~$ psql -U postgres
-    postgres=# CREATE ROLE joe LOGIN;
-    postgres=# ALTER USER joe WITH superuser;
-    postgres=# \q
-    joe@hengage:~$
+It will ask if the new user should be a superuser: say yes. Again, this is fine for a development machine but not a production server.
 
 #### Ruby Version Manager (RVM)
 Additional packages need to be installed when using RVM with (MRI) Ruby. Enter this command to see the list: `rvm requirements`
@@ -142,9 +131,9 @@ Prepare the test database:
     rake db:test:prepare
     
 You need to create one user before firing up the app, so after you've cloned the repository and got everything
-else set up, fire up a Rails console and create a user thusly (password must have at least 6 characters):
+else set up, fire up a Rails console and create a (claimed, admin) user thusly (password must have at least 6 characters):
 
-    user = FactoryGirl.build :user, name: 'Joe Blow', password: 'joeblow', password_confirmation: 'joeblow', email: 'joe@blow.com', is_site_admin: true
+    user = FactoryGirl.build :user, :claimed, name: 'Joe Blow', password: 'joeblow', password_confirmation: 'joeblow', email: 'joe@blow.com', is_site_admin: true
     user.save
     
 Staging and production environments

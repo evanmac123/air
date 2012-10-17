@@ -1,3 +1,16 @@
+silence_warnings do
+  begin
+    require 'pry'
+    IRB = Pry
+  rescue LoadError
+  end
+
+  begin
+    require 'ruby-debug'
+  rescue LoadError
+  end
+end unless ENV['NO_DEBUGGER']
+
 Health::Application.configure do
 
   require(Rails.root + 'config/initializers/constants')
@@ -37,10 +50,6 @@ Health::Application.configure do
   #########################################
   
   ##
-  silence_warnings do
-    require 'pry'
-    IRB = Pry    
-  end
 
    ActionMailer::Base.smtp_settings = {
      :user_name => SendGrid::DEV_USERNAME,
@@ -51,8 +60,5 @@ Health::Application.configure do
      :authentication => :plain,
      :enable_starttls_auto => true
    }
-  
-  
-  
 end
 

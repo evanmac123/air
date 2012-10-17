@@ -17,16 +17,16 @@ describe RuleValue do
     rv2.errors[:value].should_not be_empty
   end
 
-  it "should validate that the value has more than one character (though a single digit is OK)" do
-    valid_chars = %w(0 1 2 3 4 5 6 7 8 9)
-    invalid_chars = %w(a b q k o [ ^)
+  it "should validate that the value is not a single letter" do
+    valid_values = %w(0 1 2 3 4 5 6 7 8 9 $ ^ foobar)
+    invalid_chars = %w(a b q k o)
 
-    valid_chars.each {|valid_char| FactoryGirl.build(:rule_value, :value => valid_char).should be_valid}
+    valid_values.each {|valid_value| FactoryGirl.build(:rule_value, :value => valid_value).should be_valid}
 
     invalid_chars.each do |invalid_char|
       rule_value = FactoryGirl.build(:rule_value, :value => invalid_char)
       rule_value.should_not be_valid
-      rule_value.errors[:value].should include("Can't have a single-character value, those are reserved for other purposes.")
+      rule_value.errors[:value].should include("Can't have a single-letter value, those are reserved for other purposes.")
     end
   end
 
