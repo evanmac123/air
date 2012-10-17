@@ -2,10 +2,10 @@
   tile = displayable_tile
   if tile.display_completion_on_this_request
     classes = 'recently_completed' 
-    link_to_tile = tiles_path
+    link_to_tile = '#'
   else
     classes = ''
-    link_to_tile = '#'
+    link_to_tile = tiles_path
   end
 
 -thumbnail_id = "tile-thumbnail-#{tile.id }"
@@ -25,7 +25,7 @@
 %img{src: tile.thumbnail, style: "display: none; visibility: hidden;"}
 
 %li{class: classes}
-  = link_to link_to_tile, :target => "_blank" do
+  = link_to tiles_path(:start => displayable_tile_counter), :target => "_blank", :method => :post do
     .tile-wrapper
       .white_box_with_shadow
         / style is set to display: none initially so they don't load outside of the clip

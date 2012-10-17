@@ -3,7 +3,7 @@
 $ ->
   loadDivs()
   initSlideShow()
-  updatePositionFunc(false, 0, null)
+  updatePositionFunc(false, start_tile, null)
   displayTileThumbnails()
 
 
@@ -13,13 +13,14 @@ delay = (ms, func) -> setTimeout func, ms
 
 # This is me setting all variables in the local scope so I can use them later
 first_ping_after_load = 1
-slideshow = positionElement = imageCount = 0
+slideshow = positionElement = imageCount = start_tile = 0
 
 # This is a function definition
 loadDivs = () ->
   slideshow = $('#slideshow')
   positionElement = $('#position')
   imageCount = $('#slideshow img').length
+  start_tile = parseInt($('#start_tile').text())
 
 displayTileThumbnails = () ->
   # These are hidden initially so we don't see them load in a big long line
@@ -27,6 +28,7 @@ displayTileThumbnails = () ->
 
 initSlideShow = () ->
   slideshow.cycle
+    startingSlide: start_tile,
     timeout: 0,
     onPrevNextEvent: updatePositionFunc,
     after: callbacksAfterTileTransition,
