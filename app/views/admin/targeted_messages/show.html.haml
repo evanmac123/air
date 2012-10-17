@@ -26,6 +26,11 @@
     = add_byte_counter_for "Sms text"
 
   %br
+  = label_tag "send_at"
+  = text_field_tag "send_at"
+  If you leave this blank, we'll try to send the message as soon as possible.
+
+  %br
   = label_tag "respect_notification_method"
   = check_box_tag "respect_notification_method", "1", true
   %br

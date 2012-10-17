@@ -335,5 +335,50 @@ feature 'Admin sends targeted messges using segmentation' do
     page.find('#sms_text').value.should == sms_text
   end
 
-  #it 'should allow a communication to be tracked after the fact'
+  context "when the admin wishes to send a push later" do
+    before(:each) do
+      @demo = FactoryGirl.create(:demo)
+      @user = FactoryGirl.create(:user, :with_phone_number, demo: @demo)
+
+      crank_dj_clear
+      FakeTwilio.clear_messages
+      ActionMailer::Base.deliveries.clear
+
+      signin_as_admin
+      visit admin_demo_targeted_messages_path(@demo)
+      click_button "Find segment"
+
+      fill_in 'plain_text', :with => "Plain text"
+      fill_in 'html_text',  :with => "<p>Some HTML</p>"
+      fill_in 'subject',    :with => "The subject of our push"
+      fill_in 'sms_text',   :with => "A short message"
+
+      @base_time = Time.now
+
+      fill_in 'Send at', :with => (@base_time + 10.minutes).to_s
+
+      click_button "DO IT"
+    end
+
+    after(:each) do
+      Timecop.return
+    end
+
+    it 'should allow a communication to be sent later', :js => true do
+      expect_content "Scheduled email to 1 users"
+      expect_content "Scheduled SMS to 1 users"
+      crank_dj_clear
+
+      FakeTwilio.sent_messages.should be_empty
+      ActionMailer::Base.deliveries.should be_empty
+
+      Timecop.travel(10.minutes + 1.second)
+      crank_dj_clear
+
+      FakeTwilio.sent_messages.should have(1).sms
+      ActionMailer::Base.deliveries.should have(1).email
+    end
+
+    it 'should allow a communication to be tracked after the fact'
+  end
 end
