@@ -25,6 +25,7 @@ The following instructions are for an Ubuntu system; some slight modifications m
 1. libqtwebkit-dev
 1. libpq-dev
 1. nodejs
+1. ImageMagick
 1. pgadmin3 (Optional: PostgreSQL GUI admin tool)
 1. curl (Optional: If using RVM - see below)
 
