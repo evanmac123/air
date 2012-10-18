@@ -16,6 +16,7 @@ class Demo < ActiveRecord::Base
   has_many :locations, :dependent => :destroy
   has_many :characteristics, :dependent => :destroy
   has_many :peer_invitations
+  has_many :push_messages
 
   has_one :skin
   has_one :claim_state_machine

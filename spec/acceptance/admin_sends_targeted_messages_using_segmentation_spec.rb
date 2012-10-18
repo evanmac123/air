@@ -354,8 +354,9 @@ feature 'Admin sends targeted messges using segmentation' do
       fill_in 'sms_text',   :with => "A short message"
 
       @base_time = Time.now
+      @send_time = @base_time + 10.minutes
 
-      fill_in 'Send at', :with => (@base_time + 10.minutes).to_s
+      fill_in 'Send at', :with => (@send_time).to_s
 
       click_button "DO IT"
     end
@@ -379,6 +380,17 @@ feature 'Admin sends targeted messges using segmentation' do
       ActionMailer::Base.deliveries.should have(1).email
     end
 
-    it 'should allow a communication to be tracked after the fact'
+    it 'should allow a communication to be tracked after the fact', :js => true do
+      expect_content "Scheduled email to 1 users"
+
+      crank_dj_clear
+      visit admin_demo_targeted_messages_path(@demo)
+      expect_content "#{@send_time.pretty_succinct} No segmentation, choosing all users The subject of our push A short message"
+
+      Timecop.travel(10.minutes + 1.second)
+      crank_dj_clear
+      visit admin_demo_targeted_messages_path(@demo)
+      expect_content "No incomplete pushes scheduled"
+    end
   end
 end

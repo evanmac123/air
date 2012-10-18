@@ -14,37 +14,50 @@ class Admin::TargetedMessagesController < AdminBaseController
         session.delete(:#{field_to_keep})
       END_EVAL
     end
+
+    load_characteristics(@demo)
+    @scheduled_pushes = @demo.push_messages.incomplete.in_time_order
   end
 
   def create
     user_ids = @segmentation_results.found_user_ids
     users = User.where(:id => user_ids)
 
-    @subject = params[:subject]
-    @plain_text = params[:plain_text]
-    @html_text = params[:html_text]
-    @sms_text = params[:sms_text]
-    @respect_notification_method = params[:respect_notification_method].present?
+    subject = params[:subject]
+    plain_text = params[:plain_text]
+    html_text = params[:html_text]
+    sms_text = params[:sms_text]
+    respect_notification_method = params[:respect_notification_method].present?
 
     successes = []
     notices = []
 
-    if @respect_notification_method
+    if respect_notification_method
       email_recipients = users.wants_email
       sms_recipients = users.wants_sms.with_phone_number
     else
       email_recipients = sms_recipients = users
     end
 
-    if @plain_text.present? || sendable_html(@html_text)
-      GenericMailer::BulkSender.delay.bulk_generic_messages(email_recipients.map(&:id), @subject, @plain_text, @html_text)
+    PushMessage.schedule(
+      subject:             subject, 
+      plain_text:          plain_text, 
+      html_text:           html_text, 
+      sms_text:            sms_text, 
+      scheduled_for:       send_at, 
+      email_recipient_ids: email_recipients.map(&:id), 
+      sms_recipient_ids:   sms_recipients.map(&:id),
+      segment_description: @segmentation_results.explanation,
+      demo_id:             @demo.id
+    )
+
+    if plain_text.present? || html_text.present?
       successes << "Scheduled email to #{email_recipients.length} users."
     else
       notices << "Email text blank, no emails sent."
     end
 
-    if @sms_text.present?
-      SMS.delay.bulk_send_messages(sms_recipients.map(&:id), @sms_text)
+    if sms_text.present?
       successes << "Scheduled SMS to #{sms_recipients.length} users."
     else
       notices << "SMS text blank, no SMSes sent."

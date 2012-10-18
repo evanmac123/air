@@ -36,6 +36,24 @@
   %br
   = submit_tag "It's going to be OK"
 
+%hr
+  %h2 Scheduled pushes
+  - if @scheduled_pushes.empty?
+    %p No incomplete pushes scheduled
+  - else
+    %table
+      %tr
+        %th Scheduled for
+        %th Segment
+        %th Mail subject
+        %th SMS text
+      - @scheduled_pushes.each do |scheduled_push|
+        %tr
+          %td= scheduled_push.scheduled_for.try(:pretty_succinct) || "ASAP"
+          %td= scheduled_push.segment_description
+          %td= scheduled_push.subject
+          %td= scheduled_push.sms_text
+
 - unless Rails.env.test?
   -# This is not done through the asset pipeline since that leads to problems
   -# with inter-iframe communication when we load other TinyMCE windows such
