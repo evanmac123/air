@@ -31,6 +31,8 @@ Feature: Admin sets up tiles
   Scenario: Admin adds first-level tile
     When I fill in "Identifier" with "ident1"
     When I fill in "Headline" with "Make toast"
+    And I attach an image to the tile
+    And I attach a thumbnail to the tile
     And I press "Create Tile"
 
     Then I should be on the admin tiles page for "TileCo"
@@ -39,10 +41,14 @@ Feature: Admin sets up tiles
   Scenario: Admin adds tile with prerequisites
     When I fill in "Identifier" with "ident1"
     When I fill in "Headline" with "Discover fire"
+    And I attach an image to the tile
+    And I attach a thumbnail to the tile
     And I press "Create Tile"
     And I follow "Add tile"
     When I fill in "Identifier" with "ident2"
     And I fill in "Headline" with "Bake bread"
+    And I attach an image to the tile
+    And I attach a thumbnail to the tile
     And I press "Create Tile"
     
     And I follow "Add tile"
@@ -51,6 +57,8 @@ Feature: Admin sets up tiles
     When I fill in "Identifier" with "ident3"
     And I select "Bake bread" from "Prerequisite tiles"
     And I select "Discover fire" from "Prerequisite tiles"
+    And I attach an image to the tile
+    And I attach a thumbnail to the tile
     And I press "Create Tile"
 
     Then I should be on the admin tiles page for "TileCo"
@@ -61,6 +69,8 @@ Feature: Admin sets up tiles
     When I fill in "Headline" with "Make toast"
     And I fill in "Start time" with "5/1/2015, 12:00 AM"
     And I fill in "End time" with "8/5/2015, 12:00 PM"
+    And I attach an image to the tile
+    And I attach a thumbnail to the tile
     And I press "Create Tile"
     Then I should be on the admin tiles page for "TileCo"
     And I should see "Make toast"
@@ -70,10 +80,14 @@ Feature: Admin sets up tiles
   Scenario: Admin adds tile with prerequisites and start time
     When I fill in "Identifier" with "ident1"
     When I fill in "Headline" with "Discover fire"
+    And I attach an image to the tile
+    And I attach a thumbnail to the tile
     And I press "Create Tile"
     And I follow "Add tile"
     When I fill in "Identifier" with "ident2"
     And I fill in "Headline" with "Bake bread"
+    And I attach an image to the tile
+    And I attach a thumbnail to the tile
     And I press "Create Tile"
     
     And I follow "Add tile"
@@ -82,6 +96,8 @@ Feature: Admin sets up tiles
     And I select "Bake bread" from "Prerequisite tiles"
     And I select "Discover fire" from "Prerequisite tiles"
     And I fill in "Start time" with "5-1-2015, 12:00 AM"
+    And I attach an image to the tile
+    And I attach a thumbnail to the tile
     And I press "Create Tile"
 
     Then I should be on the admin tiles page for "TileCo"
@@ -94,6 +110,8 @@ Feature: Admin sets up tiles
     When I fill in "Headline" with "Do thing 2"
     And I select "did thing 2" from "Rules"
     And I select "did thing 4" from "Rules"
+    And I attach an image to the tile
+    And I attach a thumbnail to the tile
     And I press "Create Tile"
     Then I should be on the admin tiles page for "TileCo"
     And I should not see "Manual only"
@@ -105,6 +123,8 @@ Feature: Admin sets up tiles
     And I select "did thing 2" from "Rules"
     And I select "did thing 4" from "Rules"
     And I check "Referrer required"
+    And I attach an image to the tile
+    And I attach a thumbnail to the tile
     And I press "Create Tile"
     Then I should be on the admin tiles page for "TileCo"
     And I should see "Do thing 2"
@@ -117,6 +137,8 @@ Feature: Admin sets up tiles
     When I fill in "Identifier" with "ident1"
     When I fill in "Headline" with "Complete survey 1"
     And I select "Survey 1" from "Survey"
+    And I attach an image to the tile
+    And I attach a thumbnail to the tile
     And I press "Create Tile"
     Then I should be on the admin tiles page for "TileCo"
     And I should see "Complete survey 1"
@@ -127,8 +149,9 @@ Feature: Admin sets up tiles
     When I fill in "Identifier" with "ident1"
     When I fill in "Headline" with "Complete demographics"
     And I check "Complete by filling in all demographics"
+    And I attach an image to the tile
+    And I attach a thumbnail to the tile
     And I press "Create Tile"
     Then I should be on the admin tiles page for "TileCo"
-    And I pry
     And I should see "Complete demographics"
     And I should not see "Manual only"

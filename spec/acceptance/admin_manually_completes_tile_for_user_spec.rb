@@ -4,10 +4,10 @@ feature 'Admin manually completes tile for user' do
 
   scenario 'should work', :js => true do
     demo = FactoryGirl.create(:demo)
-    1.upto(4) {|i| FactoryGirl.create(:tile, name: "Tile #{i}", headline: "Tile #{i}", demo: demo)}
+    1.upto(4) {|i| FactoryGirl.create(:tile, headline: "Tile #{i}", headline: "Tile #{i}", demo: demo)}
 
-    Prerequisite.create!(prerequisite_tile: Tile.find_by_name("Tile 1"), tile: Tile.find_by_name("Tile 2"))
-    Prerequisite.create!(prerequisite_tile: Tile.find_by_name("Tile 3"), tile: Tile.find_by_name("Tile 4"))
+    Prerequisite.create!(prerequisite_tile: Tile.find_by_headline("Tile 1"), tile: Tile.find_by_headline("Tile 2"))
+    Prerequisite.create!(prerequisite_tile: Tile.find_by_headline("Tile 3"), tile: Tile.find_by_headline("Tile 4"))
 
     # Tutorial is getting in the way of some of the things we want to do on
     # the page, so we use the trick where we let the tail wag the dog: we

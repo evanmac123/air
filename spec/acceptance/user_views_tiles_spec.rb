@@ -5,12 +5,12 @@ feature 'User views tile' do
     Demo.find_each {|f| f.destroy }
     @demo = FactoryGirl.create(:demo)
     @kendra = FactoryGirl.create(:user, demo_id: @demo.id, password: 'milking')
-    ['make toast', 'discover fire'].each do |tile_name|
-      FactoryGirl.create(:tile, name: tile_name, demo: @demo)
+    ['make toast', 'discover fire'].each do |tile_headline|
+      FactoryGirl.create(:tile, headline: tile_headline, demo: @demo)
     end
 
-    @make_toast = Tile.find_by_name('make toast')
-    @discover_fire = Tile.find_by_name('discover fire')
+    @make_toast = Tile.find_by_headline('make toast')
+    @discover_fire = Tile.find_by_headline('discover fire')
     signin_as_admin
 
     # Add thumbnail and image to @make_toast
@@ -36,7 +36,14 @@ feature 'User views tile' do
 
   scenario 'views tile image', js: true do
     # find the image with the thumbnail for attach_file "tile[image]", tile_fixture_path('cov1.jpg')
-    page.find("#tile-thumbnail-#{@make_toast.id}").click
+    # Verify that @make_toast is enclosed in a link that points to '/tiles'
+    first_tile_link = "/tiles?start=0"
+    page.find("a[href='#{first_tile_link}'] #tile-thumbnail-#{@make_toast.id}").click
+    # Verify that we're still on the same page (since that link opens in a new tab, which 
+    # is untrackable by capybara-webkit)
+    current_path.should == activity_path
+    # Now we'll manually go to the link instead
+    visit first_tile_link
     expect_content "Tile: 1 of 2"
 
     # Verify mixpanel ping for 'viewed tile', "via" => "thumbnail"

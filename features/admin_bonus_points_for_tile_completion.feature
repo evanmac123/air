@@ -8,8 +8,8 @@ Feature: Admin sets bonus points for tiles
       | name | phone number | is site admin | demo                  |
       | Phil | +14155551212 | true          | name: NobodysBusiness |
     And the following tile exists:
-      | headline            | demo                  | bonus points | require_images |
-      | ride a tricycle     | name: NobodysBusiness | 11           | false          |
+      | headline            | demo                  | bonus points |
+      | ride a tricycle     | name: NobodysBusiness | 11           |
 
 
     And "Phil" has the password "foobar"

@@ -213,6 +213,7 @@ FactoryGirl.define do
 
   factory :tile do
     headline "Riceburners Back in Style"
+    require_images false
     association :demo
     sequence(:identifier, Tile.next_id) {|n| "Identifier#{n}"}
     sequence(:position){ |n| n }

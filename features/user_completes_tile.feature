@@ -12,21 +12,21 @@ Feature: User completes tile
     And "Bob" has the password "foobar"
     And "Joe" has the password "foobar"
     And the following tiles exist:
-      | name               | headline           | demo         |
-      | Rule tile 1        | Rule tile 1        | name: TileCo |
-      | Rule tile 2        | Rule tile 2        | name: TileCo |
-      | Rule tile 3        | Rule tile 3        | name: TileCo |
-      | Rule tile 4        | Rule tile 4        | name: TileCo |
-      | Rule tile 5        | Rule tile 5        | name: TileCo |
-      | Rule tile 6        | Rule tile 6        | name: TileCo |
-      | Referer tile 1     | Referer tile 1     | name: TileCo |
-      | Referer tile 2     | Referer tile 2     | name: TileCo |
-      | Survey tile 1      | Survey tile 1      | name: TileCo |
-      | Survey tile 2      | Survey tile 2      | name: TileCo |
-      | Survey tile 3      | Survey tile 3      | name: TileCo |
-      | Survey tile 4      | Survey tile 4      | name: TileCo |
-      | Demographic tile 1 | Demographic tile 1 | name: TileCo |
-      | Demographic tile 2 | Demographic tile 2 | name: TileCo |
+      | headline           | demo         |
+      | Rule tile 1        | name: TileCo |
+      | Rule tile 2        | name: TileCo |
+      | Rule tile 3        | name: TileCo |
+      | Rule tile 4        | name: TileCo |
+      | Rule tile 5        | name: TileCo |
+      | Rule tile 6        | name: TileCo |
+      | Referer tile 1     | name: TileCo |
+      | Referer tile 2     | name: TileCo |
+      | Survey tile 1      | name: TileCo |
+      | Survey tile 2      | name: TileCo |
+      | Survey tile 3      | name: TileCo |
+      | Survey tile 4      | name: TileCo |
+      | Demographic tile 1 | name: TileCo |
+      | Demographic tile 2 | name: TileCo |
     And the following rules exist:
       | reply | demo         |
       | did 1 | name: TileCo |
@@ -35,12 +35,12 @@ Feature: User completes tile
       | value | is primary | rule         |
       | do 1  | true       | reply: did 1 |
     And the following rule triggers exist:
-      | rule         | tile              |
-      | reply: did 1 | name: Rule tile 1 |
-      | reply: did 5 | name: Rule tile 5 |
+      | rule         | tile                  |
+      | reply: did 1 | headline: Rule tile 1 |
+      | reply: did 5 | headline: Rule tile 5 |
     And the following rule triggers exist:
       | rule         | tile                 | referrer required |
-      | reply: did 1 | name: Referer tile 1 | true              |
+      | reply: did 1 | headline: Referer tile 1 | true              |
     And demo "TileCo" open survey with name "Survey 1" exists
     And demo "TileCo" survey with name "Survey 2" exists
     And the following survey questions exist:
@@ -66,12 +66,12 @@ Feature: User completes tile
       | 1     | text: Q 2-3     |
       | 2     | text: Q 2-3     |
     And the following survey triggers exist:
-      | survey         | tile      |
-      | name: Survey 1 | name: Survey tile 1 |
-      | name: Survey 2 | name: Survey tile 3 |
+      | survey         | tile                    |
+      | name: Survey 1 | headline: Survey tile 1 |
+      | name: Survey 2 | headline: Survey tile 3 |
     And the following demographic triggers exist:
       | tile           |
-      | name: Demographic tile 1 |
+      | headline: Demographic tile 1 |
     And the tile "Rule tile 2" has prerequisite "Rule tile 1"
     And the tile "Rule tile 4" has prerequisite "Rule tile 3"
     And the tile "Rule tile 6" has prerequisite "Rule tile 5"
