@@ -119,7 +119,9 @@ Health::Application.routes.draw do
 
       resource :blast_sms, :only => [:new, :create]
 
-      resource :send_activity_dump, :only => [:create]
+      namespace :reports do
+        resource :activities, :only => [:create]
+      end
 
       resources :bad_words
 
