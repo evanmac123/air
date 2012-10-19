@@ -1,6 +1,0 @@
-class Admin::Reports::FrienshipsController < ApplicationController
-
-  def show
-  end
-
-end
