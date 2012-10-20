@@ -22,13 +22,14 @@ loadDivs = () ->
   start_tile = parseInt($('#start_tile').text())
 
 initSlideShow = () ->
-  slideshow.cycle
-    startingSlide: start_tile,
-    timeout: 0,
-    onPrevNextEvent: updatePositionFunc,
-    after: callbacksAfterTileTransition,
-    next: 'a#next',
-    prev: 'a#prev'
+  if slideshow.length
+    slideshow.cycle
+      startingSlide: start_tile,
+      timeout: 0,
+      onPrevNextEvent: updatePositionFunc,
+      after: callbacksAfterTileTransition,
+      next: 'a#next',
+      prev: 'a#prev'
 
 updatePositionFunc = (isNext, slideIndex, slideElement) ->
   newContent = "Tile: " + (slideIndex + 1) + " of " + imageCount
