@@ -39,9 +39,9 @@ class TileCompletion < ActiveRecord::Base
                        "#{points} bonus points"
                      end
 
-      "Congratulations! You've earned #{bonus_phrase} for completing a daily dose."
+      "Congratulations! You've earned #{bonus_phrase} for completing a game piece."
     else
-      "Congratulations! You've completed a daily dose."
+      "Congratulations! You've completed a game piece."
     end
   end
 

@@ -273,7 +273,7 @@ describe Tile do
       @act = FactoryGirl.create(:act, rule: @rule, user: @leah, demo: @fun)
       TileCompletion.count.should == 1
       @completion = TileCompletion.first
-      Act.count.should == 2 # @act plus the daily dose completion act
+      Act.count.should == 2 # @act plus the game piece completion act
      
       # One more act for Leah that should stay around after resetting
       FactoryGirl.create(:act, user: @leah, demo: @fun)

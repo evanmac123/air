@@ -37,7 +37,7 @@ Feature: Admin sets bonus points for tiles
     And I click "OK"
     And I go to the homepage
     # Then I should see "15points"
-    And I should see "15 pts Phil I completed a daily dose!"
+    And I should see "15 pts Phil I completed a game piece!"
 
     When DJ cranks 10 times after a little while
-    And "+14155551212" should have received an SMS "Congratulations! You've earned 15 bonus points for completing a daily dose."
+    And "+14155551212" should have received an SMS "Congratulations! You've earned 15 bonus points for completing a game piece."
