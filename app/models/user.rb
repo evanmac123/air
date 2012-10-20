@@ -37,6 +37,8 @@ class User < ActiveRecord::Base
   has_many   :timed_bonuses, :class_name => "TimedBonus"
   has_many   :tile_completions, :dependent => :destroy
   has_many   :unsubscribes, :dependent => :destroy
+  has_many   :peer_invitations_as_invitee, :class_name => "PeerInvitation", :foreign_key => :invitee_id
+  has_many   :peer_invitations_as_inviter, :class_name => "PeerInvitation", :foreign_key => :inviter_id
   has_and_belongs_to_many :levels
   has_one   :tutorial, :dependent => :destroy
 
@@ -521,6 +523,8 @@ class User < ActiveRecord::Base
   end
 
   def invite(referrer = nil, options ={})
+    return if referrer && self.peer_invitations_as_invitee.length >= PeerInvitation::CUTOFF
+
     Mailer.delay.invitation(self, referrer, options)
 
     if referrer
