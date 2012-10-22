@@ -404,7 +404,6 @@ DEPENDENCIES
   high_voltage
   jquery-rails
   jquery-ui-rails
-  linecache19
   mixpanel
   mixpanel_client
   mongoid
