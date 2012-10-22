@@ -35,6 +35,7 @@ module Health
       app-admin.js
       app-internal.js
       app-external.js
+      errors.css
       ga.js
       ga-marketing.js
     )
