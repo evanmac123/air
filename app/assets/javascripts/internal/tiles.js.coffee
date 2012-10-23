@@ -12,7 +12,7 @@ delay = (ms, func) -> setTimeout func, ms
 
 # This is me setting all variables in the local scope so I can use them later
 first_ping_after_load = 1
-slideshow = positionElement = imageCount = start_tile = 0
+slideshow = positionElement = imageCount = start_tile = tile_image = 0
 
 # This is a function definition
 loadDivs = () ->
@@ -20,16 +20,21 @@ loadDivs = () ->
   positionElement = $('#position')
   imageCount = $('#slideshow img').length
   start_tile = parseInt($('#start_tile').text())
+  tile_image = $('.tile_image')
 
 initSlideShow = () ->
   if slideshow.length
-    slideshow.cycle
-      startingSlide: start_tile,
-      timeout: 0,
-      onPrevNextEvent: updatePositionFunc,
-      after: callbacksAfterTileTransition,
-      next: 'a#next',
-      prev: 'a#prev'
+    if tile_image.length == 1
+      tile_image.show()
+      resizeSlideshow()
+    else
+      slideshow.cycle
+        startingSlide: start_tile,
+        timeout: 0,
+        onPrevNextEvent: updatePositionFunc,
+        after: callbacksAfterTileTransition,
+        next: 'a#next',
+        prev: 'a#prev'
 
 updatePositionFunc = (isNext, slideIndex, slideElement) ->
   newContent = "Tile: " + (slideIndex + 1) + " of " + imageCount

@@ -23,5 +23,6 @@ feature 'Admin sets up tiles' do
 
     expect_link 'cov1.jpg', Tile.last.image.url
     expect_link 'cov1_thumbnail.jpg', Tile.last.thumbnail.url
+    Tile.last.image.width.should == 620
   end
 end

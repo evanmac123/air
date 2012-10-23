@@ -107,6 +107,6 @@ $headline_overlay_top: 148px;
     // doesn't throw a "Error: jCarousel: No width/height set for items. This will cause an infinite loop. Aborting..." error
     // So we set it to NEAR zero
     background: none;
-    width: 0.1px;
+    width: 1px;
   }
 }
