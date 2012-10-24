@@ -328,6 +328,25 @@ describe User, "#invite" do
       invitation.invitee.should == subject
       invitation.demo.should == other_user.demo
     end
+
+    context "and the user already has #{PeerInvitation::CUTOFF} invitations" do
+      before(:each) do
+        PeerInvitation::CUTOFF.times {FactoryGirl.create(:peer_invitation, invitee: subject, demo: subject.demo)}
+        subject.reload.peer_invitations_as_invitee.count.should == PeerInvitation::CUTOFF
+
+        other_user = FactoryGirl.create(:user)
+        subject.invite(other_user)
+        crank_dj_clear
+      end
+
+      it "should not send another invitation email" do
+        ActionMailer::Base.deliveries.should be_empty
+      end
+
+      it "should not record another PeerInvitation" do
+        subject.reload.peer_invitations_as_invitee.count.should == PeerInvitation::CUTOFF
+      end
+    end
   end
 end
 

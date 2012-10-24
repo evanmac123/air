@@ -1,7 +1,11 @@
 <!DOCTYPE html>
+<!-- Note that this file is just checked in here for convenience: if you want 
+     to update it in production, you must also upload it to S3 (the 
+     heroku_error_page bucket) -->
+
 <html>
 <head>
-  <title>We're sorry, but something went wrong (404)</title>
+  <title>We're sorry, but something went wrong (503)</title>
   <link rel="stylesheet" type="text/css" href="https://s3.amazonaws.com/hengage-assets/assets/errors.css" />
   <link href='http://fonts.googleapis.com/css?family=Ubuntu:400,500' rel='stylesheet' type='text/css'>
 </head>
@@ -14,8 +18,8 @@
     </div>
     <div class="dialog">
       <div class="error-text">
-        <h1>404!</h1>
-        <p>Sorry, the page you're looking for isn't there. Maybe it was deleted or you typed the wrong address?</p>
+        <h1>503!</h1>
+        <p>The page you requested has timed out. Please refresh your browser and try again.</p>
       </div>
       <img class="tree" src="https://s3.amazonaws.com/hengage-assets/assets/marketing/tree-draw.png" />
     </div>

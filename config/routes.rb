@@ -86,8 +86,8 @@ Health::Application.routes.draw do
   resource :demographics, :only => [:update]
 
   namespace :admin do
-
     get 'exception' => 'exceptions#show'
+    get 'sleep_forever' => 'sleep_forever#show'
 
     resources :rules, :only => [:index, :new, :create, :edit, :update]
 

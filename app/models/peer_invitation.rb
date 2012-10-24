@@ -7,6 +7,9 @@ class PeerInvitation < ActiveRecord::Base
   validates_presence_of :invitee_id
   validates_presence_of :demo_id
 
+  CUTOFF = 3 # max number of peer invitations we'll send to a user before we
+             # start silently dropping them on the floor
+
   def self.between_times(start_time, end_time)
     query = where('1 = 1')
 
