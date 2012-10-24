@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<!-- Note that this file is just checked in here for convenience: if you want 
+     to update it in production, you must also upload it to S3 (the 
+     heroku_error_page bucket) -->
+
+<html>
+<head>
+  <title>We're sorry, but something went wrong (503)</title>
+  <link rel="stylesheet" type="text/css" href="https://s3.amazonaws.com/hengage-assets/assets/errors.css" />
+  <link href='http://fonts.googleapis.com/css?family=Ubuntu:400,500' rel='stylesheet' type='text/css'>
+</head>
+
+<body>
+  <!-- This file lives in public/500.html -->
+  <div class="main-contain">
+    <div class="header">
+      <a href="http://www.hengage.com"><img src="https://s3.amazonaws.com/hengage-assets/assets/marketing/logo.png" alt="Back to hengage.com" /></a>
+    </div>
+    <div class="dialog">
+      <div class="error-text">
+        <h1>503!</h1>
+        <p>The page you requested has timed out. Please refresh your browser and try again.</p>
+      </div>
+      <img class="tree" src="https://s3.amazonaws.com/hengage-assets/assets/marketing/tree-draw.png" />
+    </div>
+  </div>
+  <div class="footer">
+    <p class="copyright">Copyright &copy; 2011 H Engage, Inc.</p>
+  </div>
+</body>
+</html>
