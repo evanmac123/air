@@ -99,4 +99,14 @@ $headline_overlay_top: 148px;
     top: 140px;
     right: 2px;
   }
+  .jcarousel-item-placeholder{
+    // The placeholder width is being set to near zero
+    // We don't want placeholders to actually show, since they 
+    // show up after tiles are completed and we click on a thumbnail.
+    // We want their size to be non-zero so the jcarousel library
+    // doesn't throw a "Error: jCarousel: No width/height set for items. This will cause an infinite loop. Aborting..." error
+    // So we set it to NEAR zero
+    background: none;
+    width: 1px;
+  }
 }

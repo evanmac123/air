@@ -7,6 +7,7 @@ gem 'delayed_job_active_record'
 gem "high_voltage"
 gem "airbrake"
 gem "paperclip"
+gem "paperclip-meta"
 gem 'aws-sdk'
 gem "will_paginate"
 gem "validation_reflection"

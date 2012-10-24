@@ -10,9 +10,12 @@
       %span Previous
     #slideshow
       - @displayable_tiles.each do |tile|
-        = image_tag tile.image.url, :class => :tile_image, :id => tile.id
+        = image_tag tile.image.url, :class => :tile_image, :id => tile.id, :size => tile.image.image_size
     = link_to "#", :id => :next do
       %span Next
     .cf
 .footer
   %p Copyright &copy; 2012 H Engage, Inc.
+#preload_hover_images{:style => "display: none"}
+  = image_tag "tile_viewer/nextbtn-hover.png"
+  = image_tag "tile_viewer/prevbtn-hover.png"
