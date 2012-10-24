@@ -61,7 +61,7 @@ class ActsController < ApplicationController
 
   def set_link_target
     agent = env['HTTP_USER_AGENT'] 
-    if agent.include? "MSIE 8"
+    if agent && (agent.include? "MSIE 8")
       @link_target = "_self"
     else
       @link_target = "_blank"
