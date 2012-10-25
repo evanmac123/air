@@ -19,7 +19,7 @@ describe Admin::Reports::ActivitiesController do
     end
 
     it 'should assign the correct message to the flash' do
-      flash[:success].should =~ /An activities report has been sent/
+      flash[:success].should =~ /An Activity Report has been sent/
     end
   end
 end
