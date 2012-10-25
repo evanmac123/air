@@ -19,7 +19,8 @@ loadDivs = () ->
   slideshow = $('#slideshow')
   positionElement = $('#position')
   imageCount = $('#slideshow img').length
-  start_tile = parseInt($('#start_tile').text())
+  start_tile_id = $('#start_tile').text()
+  start_tile = $('#' + start_tile_id).index()
   tile_image = $('.tile_image')
 
 initSlideShow = () ->
