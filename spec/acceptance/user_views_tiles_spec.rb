@@ -37,7 +37,7 @@ feature 'User views tile' do
   scenario 'views tile image', js: true do
     # find the image with the thumbnail for attach_file "tile[image]", tile_fixture_path('cov1.jpg')
     # Verify that @make_toast is enclosed in a link that points to '/tiles'
-    first_tile_link = "/tiles?start=0"
+    first_tile_link = "/tiles?start=#{@make_toast.id}"
     page.find("a[href='#{first_tile_link}'] #tile-thumbnail-#{@make_toast.id}").click
     # Verify that we're still on the same page (since that link opens in a new tab, which 
     # is untrackable by capybara-webkit)
