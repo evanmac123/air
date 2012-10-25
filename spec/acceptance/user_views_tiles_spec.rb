@@ -42,8 +42,9 @@ feature 'User views tile' do
     # Verify that we're still on the same page (since that link opens in a new tab, which 
     # is untrackable by capybara-webkit)
     current_path.should == activity_path
-    # Now we'll manually go to the link instead
-    visit first_tile_link
+    # Now we'll manually go to the link instead (note we are using GET, so we are not hitting the  create
+    # method like you would if you actually clicked a tile
+    visit tiles_path 
     expect_content "Tile: 1 of 2"
 
     # Verify mixpanel ping for 'viewed tile', "via" => "thumbnail"

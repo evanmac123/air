@@ -1,7 +1,7 @@
 require 'acceptance/acceptance_helper'
 include SteakHelperMethods
 
-feature "flash messages persist until either another flash message is created to take its place, or until you manually close the flash with the little 'x'" do
+feature "flash messages only display a single time" do
   before(:each) do
     # Create a user, Fred, with a closed tutorial. Tutorial is closed 
     # because when the tutorial is active, we do not persist flashes
@@ -14,22 +14,28 @@ feature "flash messages persist until either another flash message is created to
     signin_as(@fred, 'foobar')
   end
 
-  scenario "persist", js: true do
-    #@fred.tutorial_active?.should be_false
+  scenario "single use", js: true do
     command = 'nonsense'
+    response = "I don't understand"
     visit acts_path
     fill_in 'command_central', with: command
     click_button "Play"
     # here is the flash
-    page.should have_content("I don't understand")
+    page.should have_content(response)
     # Now revisite the page, and the flash should still be there
     visit acts_path
-    page.should have_content("I don't understand")
+    page.should_not have_content(response)
+
+    fill_in 'command_central', with: command
+    click_button "Play"
+
+    page.should have_content(response)
+
     # Close the flash manually
     click_link 'close-flash'
     wait_until {page.find("#close-flash").visible? == false}
     # Revisit the page, and the flash should be gone
     visit acts_path
-    page.should_not have_content("I don't understand")
+    page.should_not have_content(response)
   end
 end

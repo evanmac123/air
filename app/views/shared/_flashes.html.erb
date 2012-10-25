@@ -40,9 +40,6 @@
 <script type="text/javascript">
 $('#close-flash').click(function() {
     $('#flash').slideUp();
-    // Delete the cookies that are persisting the flash messages across page refreshes
-    deleteCookie('<%= SavedFlashes::SUCCESS_KEY %>');
-    deleteCookie('<%= SavedFlashes::FAILURE_KEY %>');
   });
 
   function deleteCookie(name) {

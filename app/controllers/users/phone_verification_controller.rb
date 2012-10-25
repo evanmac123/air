@@ -14,7 +14,6 @@ class Users::PhoneVerificationController < ApplicationController
   end
 
   def destroy
-    delete_saved_flashes
     current_user.cancel_new_phone_number
     redirect_to activity_path
   end

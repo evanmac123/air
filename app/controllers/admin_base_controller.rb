@@ -4,7 +4,6 @@ class AdminBaseController < ApplicationController
   before_filter :require_site_admin
   before_filter :strip_smart_punctuation!
   before_filter :set_admin_page_flag
-  before_filter :delete_saved_flashes
 
   layout 'admin'
   protected

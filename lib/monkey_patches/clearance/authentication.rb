@@ -22,7 +22,6 @@ module Clearance::Authentication
     end
 
     module YouveBeenSignedOutMessage
-      include SavedFlashesHelper
       def authorize
         super
         unless signed_in?
@@ -36,7 +35,6 @@ module Clearance::Authentication
 
           # It doesn't make sense to carry over saved flashes from one session 
           # to the next, we we'll delete them here
-          delete_saved_flashes
         end 
       end
     end

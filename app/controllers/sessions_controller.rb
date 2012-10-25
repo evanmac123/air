@@ -1,6 +1,5 @@
 class SessionsController < Clearance::SessionsController
   before_filter :downcase_email
-  include SavedFlashesHelper
 
   layout "external" 
 
@@ -10,7 +9,6 @@ class SessionsController < Clearance::SessionsController
   end
 
   def create
-    delete_saved_flashes
     @user = ::User.authenticate(params[:session][:email],
                                 params[:session][:password])
 
@@ -27,7 +25,6 @@ class SessionsController < Clearance::SessionsController
   end
 
   def destroy
-    delete_saved_flashes
     sign_out
     redirect_to(url_after_destroy)
   end
