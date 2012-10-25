@@ -43,7 +43,7 @@ feature 'Admin sends targeted messges using segmentation' do
   def ensure_expected_mails_sent(expected_subject, expected_html_text, expected_plain_text, options={})
     expected_mail_count = options[:mail_count] || 6
 
-    click_button "DO IT"
+    click_button "It's going to be OK"
     expect_content "Scheduled email to #{expected_mail_count} users"
 
     crank_dj_clear
@@ -81,7 +81,7 @@ feature 'Admin sends targeted messges using segmentation' do
 
     fill_in "subject", :with => "blankness"
 
-    click_button "DO IT"
+    click_button "It's going to be OK"
     expect_content "Email text blank, no emails sent"
 
     crank_dj_clear
@@ -96,7 +96,7 @@ feature 'Admin sends targeted messges using segmentation' do
     expected_sms_text = "Here is a text message! Yay!"
     fill_in "sms_text", :with => expected_sms_text
 
-    click_button "DO IT"
+    click_button "It's going to be OK"
     expect_content "Email text blank, no emails sent"
     expect_content "Scheduled SMS to 6 users"
 
@@ -111,7 +111,7 @@ feature 'Admin sends targeted messges using segmentation' do
     set_up_models(use_phone: true)
     select_common_form_entries
 
-    click_button "DO IT"
+    click_button "It's going to be OK"
     expect_content "SMS text blank, no SMSes sent"
 
     crank_dj_clear
@@ -123,7 +123,7 @@ feature 'Admin sends targeted messges using segmentation' do
     set_up_models(use_phone: true)
     select_common_form_entries
 
-    click_button "DO IT"
+    click_button "It's going to be OK"
 
     expect_content "Email text blank, no emails sent"
     expect_content "SMS text blank, no SMSes sent"
@@ -142,7 +142,7 @@ feature 'Admin sends targeted messges using segmentation' do
 
     fill_in "html_text", :with => expected_html_text
     fill_in "sms_text", :with => expected_sms_text
-    click_button "DO IT"
+    click_button "It's going to be OK"
 
     expect_content "Scheduled email to 6 users"
     expect_content "Scheduled SMS to 6 users"
@@ -165,7 +165,7 @@ feature 'Admin sends targeted messges using segmentation' do
 
     fill_in "html_text", :with => expected_html_text
     fill_in "sms_text", :with => expected_sms_text
-    click_button "DO IT"
+    click_button "It's going to be OK"
 
     expect_content "Scheduled email to 4 users"
     expect_content "Scheduled SMS to 4 users"
@@ -193,7 +193,7 @@ feature 'Admin sends targeted messges using segmentation' do
     fill_in "html_text", :with => expected_html_text
     fill_in "sms_text", :with => expected_sms_text
     uncheck "Respect notification method"
-    click_button "DO IT"
+    click_button "It's going to be OK"
 
     expect_content "Scheduled email to 6 users"
     expect_content "Scheduled SMS to 6 users"
@@ -250,7 +250,7 @@ feature 'Admin sends targeted messges using segmentation' do
     fill_in "plain_text", :with => expected_plain_text
     fill_in "sms_text", :with => expected_sms_text
 
-    click_button "DO IT"
+    click_button "It's going to be OK"
 
     expect_content "Scheduled email to 6 users"
     expect_content "Scheduled SMS to 6 users"
@@ -273,7 +273,7 @@ feature 'Admin sends targeted messges using segmentation' do
     expect_content "23 users in segment"
 
     fill_in "sms_text", :with => 'some nonsense'
-    click_button "DO IT"
+    click_button "It's going to be OK"
 
     expect_content "Scheduled SMS to 20 users"
 
@@ -296,7 +296,7 @@ feature 'Admin sends targeted messges using segmentation' do
     fill_in "subject", :with => mail_subject
     fill_in "sms_text", :with => sms_text
 
-    click_button "DO IT"
+    click_button "It's going to be OK"
     page.status_code.should_not == 500
     page.find('#html_text').value.should == long_text
     page.find('#plain_text').value.should == long_text
