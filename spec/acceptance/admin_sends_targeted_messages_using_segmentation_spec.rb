@@ -281,5 +281,28 @@ feature 'Admin sends targeted messges using segmentation' do
     FakeTwilio.sent_messages.should have(20).texts
   end
 
+  it "should not show a misleading error message after scheduling a long email", :js => true do
+    set_up_models
+    signin_as_admin
+    visit admin_demo_targeted_messages_path(@demo)
+    click_button "Find segment"
+
+    mail_subject = "A selection from \"Three Men In A Boat\""
+    long_text = File.read(Rails.root.join %w(spec support fixtures three_men_in_a_boat_four_paragraphs.txt).join('/'))
+    sms_text = "Go read \"Three Men In A Boat\""
+
+    fill_in "html_text", :with => long_text
+    fill_in "plain_text", :with => long_text
+    fill_in "subject", :with => mail_subject
+    fill_in "sms_text", :with => sms_text
+
+    click_button "DO IT"
+    page.status_code.should_not == 500
+    page.find('#html_text').value.should == long_text
+    page.find('#plain_text').value.should == long_text
+    page.find('#subject').value.should == mail_subject
+    page.find('#sms_text').value.should == sms_text
+  end
+
   #it 'should allow a communication to be tracked after the fact'
 end
