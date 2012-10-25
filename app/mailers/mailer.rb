@@ -46,23 +46,15 @@ class Mailer < ActionMailer::Base
          :subject => "HEngage victory notification: #{user.name} (#{user.email})"
   end
 
-  def activity_report(csv_data, name, report_time, address)
-    puts "Sending activity report for #{name} to #{address}"
-
-    subject_line = "Activity dump for #{name} as of #{report_time.pretty}"
-
-    normalized_name = name.gsub(/\s+/, '_').gsub(/[^A-Za-z0-9_]/, '')
-    attachment_name = [
-      normalized_name,
-      '-',
-      report_time.strftime("%Y_%m_%d_%H%M"),
-      '.csv'
-    ].join('')
+  def activity_report(csv_data, demo_name, report_time, address)
+    # Convert spaces to '_'s and remove any garbage characters
+    normalized_name = demo_name.gsub(/\s+/, '_').gsub(/[^A-Za-z0-9_]/, '')
+    attachment_name = normalized_name + '_' + report_time.strftime("%Y_%m_%d_%H%M") + '.csv'
 
     attachments[attachment_name] = csv_data
 
     mail :to      => address,
-         :subject => subject_line
+         :subject => "Activity dump for #{demo_name} as of #{report_time.pretty}"
   end
 
   def support_request(user_name, user_email, user_phone, game_name, sms_bodies)

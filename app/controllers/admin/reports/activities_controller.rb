@@ -1,8 +1,7 @@
 class Admin::Reports::ActivitiesController < AdminBaseController
   def create
-    Report::Activity.new(params[:demo_id]).delay.email_to('larry@hengage.com')
-
-    flash[:success] = "*****...scheduled! Check for it in a few minutes."
+    Report::Activity.new(params[:demo_id]).delay.send_email(current_user.email)
+    flash[:success] = "An activities report has been sent. Please check your email in a few minutes."
     redirect_to :back
   end
 end

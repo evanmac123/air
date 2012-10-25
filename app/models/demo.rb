@@ -5,6 +5,7 @@ class Demo < ActiveRecord::Base
 
   has_many :users, :dependent => :destroy
   has_many :acts
+  has_many :rule_based_acts, :class_name => 'Act', :conditions =>  "rule_id IS NOT NULL"
   has_many :rules, :dependent => :destroy
   has_many :rule_values, :through => :rules
   has_many :surveys, :dependent => :destroy

@@ -1,7 +1,45 @@
 require 'spec_helper'
 
 describe Report::Activity do
+  let!(:demo) { FactoryGirl.create :demo, id: 1, name: 'RobertJohnsonDemo' }
+
+  describe '#new' do
+    it 'creates a valid object if associated demo exists' do
+      lambda { Report::Activity.new(1) }.should_not raise_error
+    end
+
+    it 'raises an exception if associated demo does not exist' do
+      lambda { Report::Activity.new(2) }.should raise_error(ActiveRecord::RecordNotFound)
+    end
+  end
+
+  describe '#send_email' do
+    let(:act_report) { Report::Activity.new(1) }
+
+    before(:each) do
+      Demo.stubs(:find).returns(demo)
+      act_report.stubs(:csv_data).returns('xxx')
+    end
+
+    #addresses.split(/,/).each { |address| Mailer.activity_report(csv_data, demo.name, Time.now, address).deliver }
+
+    it 'sends an email to one address' do
+      Mailer.stubs(:activity_report)
+      #Mail::Message.any_instance.stubs(:deliver).returns(true)
+      act_report.send_email 'robert@johnson.com'
+      Mailer.should have_received(:activity_report).once
+      #Mailer.should have_received(:activity_report).with(instance_of(String), instance_of(String), instance_of(Time), 'robert@johnson.com')
+    end
+
+    it 'sends an email to multiple addresses (separated by commas)' do
+      act_report.send_email 'robert@johnson.com,keb@mo.com,eric@clapton.com'
+    end
+  end
+
   before(:each) do
+
+#todo will need to create different locations for demos
+
     @demo = FactoryGirl.create :demo, :name => "Tiny Sparrow"
 
     @user1 = FactoryGirl.create :user, :name => "Bob Smith", :demo => @demo
@@ -76,7 +114,7 @@ describe Report::Activity do
 
     context "when passed a single address" do
       it "should send a CSV file there" do
-        @report.email_to("vlad@example.com")
+        @report.send_email("vlad@example.com")
         crank_dj_clear
 
         Mailer.should have_received(:activity_report).with('fake CSV data', @demo.name, Time.now, 'vlad@example.com')
@@ -86,7 +124,7 @@ describe Report::Activity do
     
     context "when passed comma-separated addresses" do
       it "should send a CSV file to each" do
-        @report.email_to("vlad@example.com,phil@example.com")
+        @report.send_email("vlad@example.com,phil@example.com")
         crank_dj_clear
 
         Mailer.should have_received(:activity_report).with('fake CSV data', @demo.name, Time.now, 'vlad@example.com')

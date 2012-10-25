@@ -1,47 +1,42 @@
 require 'csv'
 
 class Report::Activity
-  def initialize(game_specifier)
-    @demo = Demo.where(["name = ? OR id = ?", game_specifier.to_s, game_specifier.to_i]).first
-
-    unless @demo
-      raise ArgumentError, "No demo found with company name or ID \"#{game_specifier}\""
-    end
+  def initialize(demo_id)
+    Demo.find(demo_id.to_i)  # Failure to find the requested demo raises an ActiveRecord::RecordNotFound exception
+    @demo_id = demo_id       # Gets stuffed in the DelayedJob table/queue => just save the id
   end
 
-  def report_csv
-    (header_line + "\n" + csv_data_per_act.join("\n")).strip + "\n"
-  end
-
-  def email_to(addresses)
-    csv_data = report_csv
-    report_time = Time.now
-
-    addresses.split(/,/).each do |address|
-      Mailer.delay.activity_report(csv_data, @demo.name, report_time, address)
-    end
+  def send_email(addresses)
+    demo = Demo.find @demo_id
+    addresses.split(/,/).each { |address| Mailer.activity_report(csv_data, demo.name, Time.now, address).deliver }
   end
 
   protected
 
-  def demo_acts
-    @demo.acts.order('created_at ASC')  
-  end
-
-  def data_for_act(act)
-    description = (act.rule.try(:primary_value).try(:value)) || act.text
-    date = act.created_at.strftime("%Y-%m-%d")
-    hour = act.created_at.strftime("%H")
-    minute = act.created_at.strftime("%M")
-    second = act.created_at.strftime("%S")
-    [date, hour, minute, second, act.user.name, description]
+  def csv_data
+    ("id,location,rule,date" + "\n" + csv_data_per_act.join('')).strip
   end
 
   def csv_data_per_act
-    demo_acts.map{|act| CSV.generate_line(data_for_act(act)).gsub("\n", "")}
+    csv_all_acts = []
+
+    @demo.rule_based_acts.find_each(:batch_size => 1000) { |act| csv_all_acts << CSV.generate_line(act_data(act)) }
+
+    # 1000 records is the default. Specifying just to make clear what we are doing and in case we need to tweak it.
+    #Act.find_each(conditions: ["demo_id = ? AND rule_id IS NOT NULL", @demo_id],
+    #              batch_size: 1000) do |act|
+    #  csv_all_acts << CSV.generate_line(act_data(act))
+    #end
+
+    csv_all_acts
   end
-  
-  def header_line
-    ""
+
+  def act_data(act)
+    id = act.user_id
+    location = act.user.location.try(:name)
+    rule = act.rule.primary_value.value
+    date = act.created_at.strftime("%m-%d-%Y")
+
+    [id, location, rule, date]
   end
 end
