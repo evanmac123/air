@@ -7,8 +7,8 @@ class Report::Activity
   end
 
   def send_email(addresses)
-    demo = Demo.find @demo_id
-    addresses.split(/,/).each { |address| Mailer.activity_report(csv_data, demo.name, Time.now, address).deliver }
+    @demo = Demo.find @demo_id
+    addresses.split(/,/).each { |address| Mailer.activity_report(csv_data, @demo.name, Time.now, address).deliver }
   end
 
   protected
