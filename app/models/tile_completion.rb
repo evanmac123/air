@@ -29,21 +29,21 @@ class TileCompletion < ActiveRecord::Base
     where("trigger_rule_triggers.referrer_required" => false)
   end
 
-  def satisfaction_message
-    points = self.tile.bonus_points
+  #def satisfaction_message
+    #points = self.tile.bonus_points
 
-    if points && points > 0
-      bonus_phrase = if points == 1
-                       "1 bonus point"
-                     else
-                       "#{points} bonus points"
-                     end
+    #if points && points > 0
+      #bonus_phrase = if points == 1
+                       #"1 bonus point"
+                     #else
+                       #"#{points} bonus points"
+                     #end
 
-      "Congratulations! You've earned #{bonus_phrase} for completing a game piece."
-    else
-      "Congratulations! You've completed a game piece."
-    end
-  end
+      #"Congratulations! You've earned #{bonus_phrase} for completing a game piece."
+    #else
+      #"Congratulations! You've completed a game piece."
+    #end
+  #end
 
   protected
 

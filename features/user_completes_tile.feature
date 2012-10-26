@@ -120,32 +120,32 @@ Feature: User completes tile
     And I should not see "Referer tile 2"
     And I should not see "Demographic tile 2"
 
-    When DJ works off after a little while
-    Then "+14152613077" should have received an SMS "Congratulations! You've completed a game piece."
+    # When DJ works off after a little while
+    # Then "+14152613077" should have received an SMS "Congratulations! You've completed a game piece."
 
-  Scenario: User completes rule tile by SMS and gets congrats by SMS
-    Given a clear email queue
-    When "+14152613077" sends SMS "do 1"
-    When DJ works off after a little while
-    Then "+14152613077" should have received an SMS "Congratulations! You've completed a game piece."
-    But "joe@example.com" should receive no email
+#   Scenario: User completes rule tile by SMS and gets congrats by SMS
+    # Given a clear email queue
+    # When "+14152613077" sends SMS "do 1"
+    # When DJ works off after a little while
+    # Then "+14152613077" should have received an SMS "Congratulations! You've completed a game piece."
+    # But "joe@example.com" should receive no email
 
-  Scenario: User completes rule tile by email and gets congrats by email
-    When "joe@example.com" sends email with subject "do 1" and body "do 1"
-    And DJ works off after a little while
-    Then "+14152613077" should not have received any SMSes
-    But "joe@example.com" should receive an email with "Congratulations! You've completed a game piece." in the email body
+  # Scenario: User completes rule tile by email and gets congrats by email
+    # When "joe@example.com" sends email with subject "do 1" and body "do 1"
+    # And DJ works off after a little while
+    # Then "+14152613077" should not have received any SMSes
+    # But "joe@example.com" should receive an email with "Congratulations! You've completed a game piece." in the email body
 
-  Scenario: User completes rule tile on web and sees congrats in the flash
-    When I sign in via the login page with "Joe/foobar" and choose to be remembered
-    Given a clear email queue
-    When I enter the act code "do 1"
-    And DJ works off after a little while
-    Then "+14152613077" should not have received any SMSes
-    And "joe@example.com" should receive no email
-    But I should see "Congratulations! You've completed a game piece."
-    When I go to the activity page
-    Then I should not see "Your session has expired"
+  # Scenario: User completes rule tile on web and sees congrats in the flash
+    # When I sign in via the login page with "Joe/foobar" and choose to be remembered
+    # Given a clear email queue
+    # When I enter the act code "do 1"
+    # And DJ works off after a little while
+    # Then "+14152613077" should not have received any SMSes
+    # And "joe@example.com" should receive no email
+    # But I should see "Congratulations! You've completed a game piece."
+    # When I go to the activity page
+    # Then I should not see "Your session has expired"
 
   @javascript
   Scenario: User completes tile by acting according to rule with mandatory referrer
@@ -170,8 +170,8 @@ Feature: User completes tile
     And I should not see "Referer tile 1"
     And I should not see "Demographic tile 2"
 
-    When DJ works off after a little while
-    Then "+14152613077" should have received an SMS "Congratulations! You've completed a game piece."
+    # When DJ works off after a little while
+    # Then "+14152613077" should have received an SMS "Congratulations! You've completed a game piece."
 
   @javascript
   Scenario: User completes tile by completing survey
@@ -199,8 +199,8 @@ Feature: User completes tile
     And I should not see "Referer tile 2"
     And I should not see "Demographic tile 2"
 
-    When DJ works off after a little while
-    Then "+14152613077" should have received an SMS "Congratulations! You've completed a game piece."
+    # When DJ works off after a little while
+    # Then "+14152613077" should have received an SMS "Congratulations! You've completed a game piece."
 
   @javascript
   Scenario: User completes demographic tile by filling in their details
@@ -236,31 +236,31 @@ Feature: User completes tile
     And I should not see "Referer tile 2"
     And I should not see "Demographic tile 1"
 
-    When DJ works off after a little while
-    Then "+14152613077" should have received an SMS "Congratulations! You've completed a game piece."  
+    # When DJ works off after a little while
+    # Then "+14152613077" should have received an SMS "Congratulations! You've completed a game piece."  
   
-  Scenario: User completes survey tile by SMS and gets congrats by SMS
-    Given a clear email queue
-    When "+14152613077" sends SMS "1"
-    And "+14152613077" sends SMS "1"
-    And "+14152613077" sends SMS "1"
-    When DJ works off after a little while
-    Then "+14152613077" should have received an SMS "Congratulations! You've completed a game piece."
-    But "joe@example.com" should receive no email
+#   Scenario: User completes survey tile by SMS and gets congrats by SMS
+    # Given a clear email queue
+    # When "+14152613077" sends SMS "1"
+    # And "+14152613077" sends SMS "1"
+    # And "+14152613077" sends SMS "1"
+    # When DJ works off after a little while
+    # Then "+14152613077" should have received an SMS "Congratulations! You've completed a game piece."
+    # But "joe@example.com" should receive no email
 
-  Scenario: User completes survey tile by email and gets congrats by email
-    When "joe@example.com" sends email with subject "1" and body "1"
-    When "joe@example.com" sends email with subject "1" and body "1"
-    When "joe@example.com" sends email with subject "1" and body "1"
-    Then "+14152613077" should not have received any SMSes
-    But "joe@example.com" should receive an email with "Congratulations! You've completed a game piece." in the email body
+  # Scenario: User completes survey tile by email and gets congrats by email
+    # When "joe@example.com" sends email with subject "1" and body "1"
+    # When "joe@example.com" sends email with subject "1" and body "1"
+    # When "joe@example.com" sends email with subject "1" and body "1"
+    # Then "+14152613077" should not have received any SMSes
+    # But "joe@example.com" should receive an email with "Congratulations! You've completed a game piece." in the email body
 
-  Scenario: User completes survey tile on web and sees congrats in the flash
-    When I sign in via the login page with "Joe/foobar"
-    And I enter the act code "1"
-    And I enter the act code "1"
-    And I enter the act code "1"
-    When DJ works off after a little while
-    Then "+14152613077" should not have received any SMSes
-    And "joe@example.com" should receive no email
-    But I should see "Congratulations! You've completed a game piece."
+  # Scenario: User completes survey tile on web and sees congrats in the flash
+    # When I sign in via the login page with "Joe/foobar"
+    # And I enter the act code "1"
+    # And I enter the act code "1"
+    # And I enter the act code "1"
+    # When DJ works off after a little while
+    # Then "+14152613077" should not have received any SMSes
+    # And "joe@example.com" should receive no email
+#     But I should see "Congratulations! You've completed a game piece."

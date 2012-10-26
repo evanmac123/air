@@ -35,7 +35,7 @@ class Tile < ActiveRecord::Base
 
   def satisfy_for_user!(user, channel=nil)
     completion = TileCompletion.create!(:tile_id => id, :user_id => user.id)
-    OutgoingMessage.send_side_message(user, completion.satisfaction_message, :channel => channel)
+    #OutgoingMessage.send_side_message(user, completion.satisfaction_message, :channel => channel)
     Act.create!(:user_id =>user.id, :inherent_points => bonus_points, :text => "")
   end
 
