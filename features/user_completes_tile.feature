@@ -96,7 +96,6 @@ Feature: User completes tile
     And I should not see "Survey tile 4"
     And I should not see "Referer tile 2"
     And I should not see "Demographic tile 2"
-    And I should not see "I completed a game piece!"
 
   @javascript
   Scenario: User completes tile by acting according to rule
@@ -112,7 +111,6 @@ Feature: User completes tile
     And I should see "Survey tile 3"
     And I should see "Referer tile 1"
     And I should see "Demographic tile 1"
-    And I should see "I completed a game piece!"
 
     But I should not see "Rule tile 1"
     And I should not see "Rule tile 4"
@@ -163,7 +161,6 @@ Feature: User completes tile
     And I should see "Survey tile 3"
     And I should see "Referer tile 2"
     And I should see "Demographic tile 1"
-    And I should see "I completed a game piece!"
 
     But I should not see "Rule tile 1"
     And I should not see "Rule tile 4"
@@ -193,7 +190,6 @@ Feature: User completes tile
     And I should see "Survey tile 3"
     And I should see "Referer tile 1"
     And I should see "Demographic tile 1"
-    And I should see "I completed a game piece!"
 
     But I should not see "Rule tile 2"
     And I should not see "Rule tile 4"
@@ -216,7 +212,6 @@ Feature: User completes tile
 
     Then I should see "Demographic tile 1"
     But I should not see "Demographic tile 2"
-    And I should not see "I completed a game piece!"
 
     When I go to the settings page
     And I fill in "Date of Birth" with "September 10, 1977"
@@ -232,7 +227,6 @@ Feature: User completes tile
     And I should see "Referer tile 1"
     And I should not see "Demographic tile 1"
     And I should see "Demographic tile 2"
-    And I should see "I completed a game piece!"
 
     But I should not see "Rule tile 2"
     And I should not see "Rule tile 4"
