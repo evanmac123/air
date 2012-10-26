@@ -104,8 +104,8 @@ class Act < ActiveRecord::Base
     error = ensure_game_currently_running(user.demo)
     return error if error
 
-    rule_value, referring_user, error = extract_rule_value_and_referring_user(user, value)
-    return error if error
+    rule_value = user.first_eligible_rule_value(value)
+
     if rule_value && rule_value.forbidden?
       return parsing_error_message("Sorry, that's not a valid command.")
     end
@@ -113,7 +113,7 @@ class Act < ActiveRecord::Base
     rule = rule_value.try(:rule)
 
     if rule
-      reply, error_code = user.act_on_rule(rule, rule_value, :channel => options[:channel], :referring_user => referring_user)
+      reply, error_code = user.act_on_rule(rule, rule_value, :channel => options[:channel])
       if error_code == :success
         return parsing_success_message(reply)
       else
@@ -239,34 +239,5 @@ class Act < ActiveRecord::Base
     if demo.game_over?
       return parsing_error_message(demo.game_over_response)
     end
-  end
-
-  def self.extract_rule_value_and_referring_user(user, value)
-    rule_value = user.first_eligible_rule_value(value)
-    error = nil
-
-    if rule_value.nil? && value
-      rule_value, referring_user = try_extracting_rule_value_with_referring_user(user, value)
-      if (rule_value && !referring_user)
-        error = parsing_error_message("We understood what you did, but not the user who referred you. Perhaps you could have them check their username with the MYID command?")
-      end
-
-      if referring_user == user
-        error = parsing_error_message("Now now. It wouldn't be fair to try to get extra points by referring yourself.")
-      end
-    end
-
-    [rule_value, referring_user, error]
-  end
-
-  def self.try_extracting_rule_value_with_referring_user(user, value)
-    value_tokens = value.split(' ')
-    referring_user_sms_slug = value_tokens.pop
-    truncated_value = value_tokens.join(' ')
-
-    rule_value = user.first_eligible_rule_value(truncated_value)
-    referring_user = User.where(:sms_slug => referring_user_sms_slug, :demo_id => user.demo_id).first
-
-    [rule_value, referring_user]
   end
 end

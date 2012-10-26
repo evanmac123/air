@@ -197,49 +197,6 @@ Feature: User acts
     But "+15087407520" should not have received an SMS including "Congratulations! Points 60"
     And "+15087407520" should have received an SMS "Sorry, you've already done that action."
 
-  Scenario: Another user gets points for referring you to a command
-    When "+15087407520" sends SMS "ate banana paul55"
-    And "+15087407520" sends SMS "worked out fred666"
-    And DJ cranks 20 times
-    And I sign in via the login page as "Dan/foobar"
-    And I go to the acts page
-    # Then I should see "Paul 1 pt"
-    # And I should see "Fred 201 pts"
-    And I should see "2 pts Dan ate banana (thanks Paul for the referral) less than a minute"
-    And I should see "5 pts Dan worked out (thanks Fred for the referral) less than a minute"
-    And I should see "1 pt Paul told Dan about a command less than a minute ago"
-    And I should see "200 pts Fred told Dan about a command less than a minute ago"
-    And "+15088675309" should have received an SMS '+1 point, Dan tagged you in the "ate banana" command. Points 1/50, level 1.'
-    And "+14155551212" should have received an SMS '+200 points, Dan tagged you in the "worked out" command. Points 201, level 1.'
-
-  Scenario: Rule with nil points and referral points doesn't explode on referral
-    When "+15087407520" sends SMS "weak paul55"
-    And DJ cranks 20 times
-    And I sign in via the login page as "Dan/foobar"
-    And I go to the acts page
-    And I dump the page
-    Then I should see "weak"
-    And I should see "Paul told Dan about a command"
-
-  Scenario: A helpful error message if you say a nonexistent user referred you
-    When "+15087407520" sends SMS "ate banana mrnobody"
-    # And I sign in via the login page as "Dan/foobar"
-    # And I go to the acts page
-    # Then I should see "Dan 0 pts"
-    And "+15087407520" should have received an SMS "We understood what you did, but not the user who referred you. Perhaps you could have them check their username with the MYID command?"
-
-  Scenario: Can't say a user in a different demo referred you
-    When "+15087407520" sends SMS "ate banana sven"
-    Then "+15087407520" should have received an SMS "We understood what you did, but not the user who referred you. Perhaps you could have them check their username with the MYID command?"
-
-  Scenario: A helpful and slightly snarky error message if you say you referred yourself
-    Given "Dan" has the SMS slug "dan4444"
-    When "+15087407520" sends SMS "ate banana dan4444"
-    # And I sign in via the login page as "Dan/foobar"
-    # And I go to the acts page
-    # Then I should see "Dan 0 pts"
-    And "+15087407520" should have received an SMS "Now now. It wouldn't be fair to try to get extra points by referring yourself."
-
   Scenario: Act with 0 points should not mention that
     Given the following act exists:
       | text         | inherent points | user        | 

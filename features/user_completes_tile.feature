@@ -147,28 +147,28 @@ Feature: User completes tile
     # When I go to the activity page
     # Then I should not see "Your session has expired"
 
-  @javascript
-  Scenario: User completes tile by acting according to rule with mandatory referrer
-    When "+14152613077" sends SMS "do 1 bob"
-    Then "+14152613077" should have received an SMS including "did 1"
-    When I go to the activity page
-    And I click "No thanks"
+#   @javascript
+  # Scenario: User completes tile by acting according to rule with mandatory referrer
+    # When "+14152613077" sends SMS "do 1 bob"
+    # Then "+14152613077" should have received an SMS including "did 1"
+    # When I go to the activity page
+    # And I click "No thanks"
 
-    Then I should see "Rule tile 2"
-    And I should see "Rule tile 3"
-    And I should see "Rule tile 5"
-    And I should see "Survey tile 1"
-    And I should see "Survey tile 3"
-    And I should see "Referer tile 2"
-    And I should see "Demographic tile 1"
+    # Then I should see "Rule tile 2"
+    # And I should see "Rule tile 3"
+    # And I should see "Rule tile 5"
+    # And I should see "Survey tile 1"
+    # And I should see "Survey tile 3"
+    # And I should see "Referer tile 2"
+    # And I should see "Demographic tile 1"
 
-    But I should not see "Rule tile 1"
-    And I should not see "Rule tile 4"
-    And I should not see "Rule tile 6"
-    And I should not see "Survey tile 2"
-    And I should not see "Survey tile 4"
-    And I should not see "Referer tile 1"
-    And I should not see "Demographic tile 2"
+    # But I should not see "Rule tile 1"
+    # And I should not see "Rule tile 4"
+    # And I should not see "Rule tile 6"
+    # And I should not see "Survey tile 2"
+    # And I should not see "Survey tile 4"
+    # And I should not see "Referer tile 1"
+#     And I should not see "Demographic tile 2"
 
     # When DJ works off after a little while
     # Then "+14152613077" should have received an SMS "Congratulations! You've completed a game piece."
