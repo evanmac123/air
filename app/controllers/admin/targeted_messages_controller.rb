@@ -36,7 +36,7 @@ class Admin::TargetedMessagesController < AdminBaseController
       email_recipients = sms_recipients = users
     end
 
-    if @plain_text.present? || @html_text.present?
+    if @plain_text.present? || sendable_html(@html_text)
       GenericMailer::BulkSender.delay.bulk_generic_messages(email_recipients.map(&:id), @subject, @plain_text, @html_text)
       successes << "Scheduled email to #{email_recipients.length} users."
     else
@@ -66,5 +66,13 @@ class Admin::TargetedMessagesController < AdminBaseController
 
   def find_segmentation_results
     @segmentation_results = current_user.segmentation_results
+  end
+
+  def sendable_html(html)
+    # Don't send HTML that's all tags, no text, unless one of those tags is an
+    # <img> tag (which presumably contains the information we want to convey)
+
+    parsed_html = Nokogiri::HTML(html)
+    parsed_html.css('img').present? || parsed_html.text.present?
   end
 end

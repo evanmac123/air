@@ -88,6 +88,37 @@ feature 'Admin sends targeted messges using segmentation' do
     ActionMailer::Base.deliveries.should be_empty
   end
 
+  context "when plain text field is all whitespace and HTML text field has no non-whitespace text" do
+    it "should not send an email", :js => true do
+      set_up_models
+      select_common_form_entries
+      fill_in "subject", :with => "blankitude"
+      fill_in "html_text", :with => "<p>     </p><br/><br/><p></p>"
+      fill_in "plain_text", :with => "\n\n\n        \n\n"
+
+      click_button "It's going to be OK"
+      expect_content "Email text blank, no emails sent"
+
+      crank_dj_clear
+      ActionMailer::Base.deliveries.should be_empty
+    end
+
+    context "but the HTML text field has got an image in it" do
+      it "should send an email", :js => true do
+        set_up_models
+        select_common_form_entries
+        fill_in "subject", :with => "blankitude"
+        fill_in "html_text", :with => "<p>     </p><img src=\"foobar\"><br/><br/><p></p>"
+        fill_in "plain_text", :with => "\n\n\n        \n\n"
+
+        click_button "It's going to be OK"
+        expect_no_content "Email text blank, no emails sent"
+
+        crank_dj_clear
+        ActionMailer::Base.deliveries.should_not be_empty
+      end
+    end
+  end
 
   it "should allow texts to be sent", :js => true do
     set_up_models(use_phone: true)
