@@ -73,6 +73,6 @@ class Admin::TargetedMessagesController < AdminBaseController
     # <img> tag (which presumably contains the information we want to convey)
 
     parsed_html = Nokogiri::HTML(html)
-    parsed_html.css('img').present? || parsed_html.text.present?
+    parsed_html.css('img').present? || parsed_html.text.gsub(/[[:space:]]/, '').present?
   end
 end

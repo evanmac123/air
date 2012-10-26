@@ -93,7 +93,7 @@ feature 'Admin sends targeted messges using segmentation' do
       set_up_models
       select_common_form_entries
       fill_in "subject", :with => "blankitude"
-      fill_in "html_text", :with => "<p>     </p><br/><br/><p></p>"
+      fill_in "html_text", :with => "<p>&nbsp;</p><p>&nbsp;</p><p>     </p><p>&nbsp;</p><p>&nbsp;</p><br/><br/><p></p>"
       fill_in "plain_text", :with => "\n\n\n        \n\n"
 
       click_button "It's going to be OK"
@@ -108,7 +108,7 @@ feature 'Admin sends targeted messges using segmentation' do
         set_up_models
         select_common_form_entries
         fill_in "subject", :with => "blankitude"
-        fill_in "html_text", :with => "<p>     </p><img src=\"foobar\"><br/><br/><p></p>"
+        fill_in "html_text", :with => "<p>&nbsp;</p><p>&nbsp;</p><p>     </p><img src=\"foobar\"><br/><br/><p></p>"
         fill_in "plain_text", :with => "\n\n\n        \n\n"
 
         click_button "It's going to be OK"
