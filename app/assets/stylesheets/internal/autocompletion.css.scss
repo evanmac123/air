@@ -42,7 +42,8 @@ $medium_radius: 12px;
     display: none;
   }
   .single_suggestion:hover{
-    //background: darken($light-gray, 5%);
+    background: darken($light-gray, 5%);
+    cursor: pointer;
   }
 }
 
