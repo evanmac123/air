@@ -6,13 +6,13 @@ describe PagesController do
     $test_force_ssl = true
   end
 
-  it "should force a redirect if no subdomain specified" do
-    request.host = 'test.host'
-    request.subdomain.should_not be_present
+  it "should force a redirect if a subdomain is specified" do
+    request.host = 'sub.test.host'
+    request.subdomain.should be_present
 
     get :show, :id => 'marketing'
 
     response.should be_redirect
-    response.location.should == "https://www.test.host/"
+    response.location.should == "https://test.host/"
   end
 end

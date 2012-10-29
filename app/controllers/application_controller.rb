@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
 
   protected
 
-  # Used since our *.hengage.com SSL cert does not cover plain hengage.com.
+  # Used back when our *.hengage.com SSL cert did not cover plain hengage.com.
   def hostname_with_subdomain
     request.subdomain.present? ? request.host : "www." + request.host
   end
@@ -29,7 +29,7 @@ class ApplicationController < ActionController::Base
       return
     end
     redirect_required = false
-    unless request.subdomain.present?
+    if request.subdomain.present?
       redirect_required = true
     end
     unless request.ssl?
@@ -37,7 +37,7 @@ class ApplicationController < ActionController::Base
     end
     
     if redirect_required
-      redirect_hostname = hostname_with_subdomain
+      redirect_hostname = hostname_without_subdomain
       redirection_parameters = {
         :protocol   => 'https', 
         :host       => redirect_hostname, 
