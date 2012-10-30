@@ -42,7 +42,7 @@ feature 'User views tile' do
     # Now we'll manually go to the link instead (note we are using GET, so we are not hitting the  create
     # method like you would if you actually clicked a tile
     expect_content "Tile: 1 of 2"
-    expect_content "My Profile"
+    expect_content "MY PROFILE"
 
     # Verify mixpanel ping for 'viewed tile', "via" => "thumbnail"
     data = {"via" => "thumbnail", "tile_id" => @make_toast.id.to_s}.merge(@kendra.data_for_mixpanel)

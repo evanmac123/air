@@ -5,6 +5,7 @@ body#tile_viewer {
 }
 
 .tiles.tiles-index{
+  *{font-family: ubuntu, arial, sans-serif;}
   a, img {border:none;}
   .cf {clear:both;}
 
@@ -106,5 +107,13 @@ body#tile_viewer {
     font-size:13px;
     padding:26px 15px 15px;
     text-align:center;
+  }
+  #tiles_done_message{
+    p{ 
+      font-size: 20px;
+      padding-bottom: 8px;
+    }
+    a{ font-size: 17px;}
+
   }
 }
