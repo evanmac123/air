@@ -1,11 +1,5 @@
 <div class="container">
-  <% unless @displayable_tiles.empty? %>
-    <div id='carousel_wrapper'>
-      <ul id='tile_thumbnail_carousel' class='jcarousel-skin-tango'>
-        <%= render :partial => 'displayable_tile', :collection => @displayable_tiles %>
-      </ul>
-    </div>
-  <% end %>
+  <%= render 'shared/tiles_carousel' %>
 	
 	<div class="right-column">
   	<div class="module" id="scoreboard_wrapper">

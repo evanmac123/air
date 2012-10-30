@@ -4,21 +4,22 @@ body#tile_viewer {
   margin:0;
 }
 
-#tile_viewer{
+.tiles.tiles-index{
   a, img {border:none;}
   .cf {clear:both;}
 
   .container {
-    background-image:image-url('tile_viewer/rough_diagonal.png');
+    //background-image:image-url('tile_viewer/rough_diagonal.png');
     margin:auto;
     padding:0 0 10px 0;
     width:100%;
   }
 
   .tile_viewer_header {
-    margin:auto;
-    padding:20px 0;
+    position: relative;
+    margin: auto;
     width:670px;
+    height: 10px;
   }
   img#logo {
     float:left;
@@ -27,6 +28,7 @@ body#tile_viewer {
     display: none;
   }
   p#position {
+    position: absolute;
     background:#818385;
     border:1px white solid;
     border-radius:5px;
@@ -36,6 +38,8 @@ body#tile_viewer {
     float:right;
     margin:0;
     padding:13px 23px;
+    right: -116px;
+    top: 11px;
   }
 
   .viewer {

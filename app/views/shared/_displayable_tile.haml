@@ -25,7 +25,7 @@
 %img{src: tile.thumbnail, style: "display: none; visibility: hidden;"}
 
 %li{class: classes}
-  = link_to tiles_path(:start => tile.id), :target => @link_target, :method => :post do
+  = link_to tiles_path(:start => tile.id), :method => :post do
     .tile-wrapper
       .white_box_with_shadow
         / style is set to display: none initially so they don't load outside of the clip

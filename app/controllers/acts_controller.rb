@@ -1,8 +1,6 @@
 class ActsController < ApplicationController
   include Reply
 
-  before_filter :set_link_target, :only => :index
-
   def index
     invoke_tutorial
   
@@ -56,15 +54,6 @@ class ActsController < ApplicationController
   add_method_tracer :create
 
   protected
-
-  def set_link_target
-    agent = env['HTTP_USER_AGENT'] 
-    if agent && (agent.include? "MSIE 8")
-      @link_target = "_self"
-    else
-      @link_target = "_blank"
-    end
-  end
 
   def find_requested_acts(demo)
     demo.acts.displayable_to_user(current_user).recent(10).includes(:rule)

@@ -35,17 +35,14 @@ feature 'User views tile' do
   end
 
   scenario 'views tile image', js: true do
-    # find the image with the thumbnail for attach_file "tile[image]", tile_fixture_path('cov1.jpg')
-    # Verify that @make_toast is enclosed in a link that points to '/tiles'
+    # Click on the first tile, and it should take you to the tiles  path
     first_tile_link = "/tiles?start=#{@make_toast.id}"
     page.find("a[href='#{first_tile_link}'] #tile-thumbnail-#{@make_toast.id}").click
-    # Verify that we're still on the same page (since that link opens in a new tab, which 
-    # is untrackable by capybara-webkit)
-    current_path.should == activity_path
+    current_path.should == tiles_path
     # Now we'll manually go to the link instead (note we are using GET, so we are not hitting the  create
     # method like you would if you actually clicked a tile
-    visit tiles_path 
     expect_content "Tile: 1 of 2"
+    expect_content "My Profile"
 
     # Verify mixpanel ping for 'viewed tile', "via" => "thumbnail"
     data = {"via" => "thumbnail", "tile_id" => @make_toast.id.to_s}.merge(@kendra.data_for_mixpanel)

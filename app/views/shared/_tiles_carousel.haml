@@ -1,0 +1,4 @@
+- unless  @displayable_tiles.empty?
+  #carousel_wrapper
+    %ul#tile_thumbnail_carousel.jcarousel-skin-tango
+      = render :partial => 'shared/displayable_tile', :collection => @displayable_tiles

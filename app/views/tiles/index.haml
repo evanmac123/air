@@ -1,21 +1,25 @@
 .container
-  #start_tile.hidden= @start_tile
-  .tile_viewer_header
-    = link_to activity_path do
-      = image_tag 'tile_viewer/logo.png', :id => "logo", :alt=> "h.engage"
-    %p#position
-    .cf
-  .viewer
-    = link_to "#", :id => :prev do
-      %span Previous
-    #slideshow
-      - @displayable_tiles.each do |tile|
-        = image_tag tile.image.url, :class => :tile_image, :id => tile.id, :size => tile.image.image_size
-    = link_to "#", :id => :next do
-      %span Next
-    .cf
-.footer
-  %p Copyright &copy; 2012 H Engage, Inc.
+  - if @displayable_tiles.empty?
+    %p Please check back tomorrow for more tiles
+    = link_to "Return to homepage", activity_path
+  - else
+    = render 'shared/tiles_carousel'
+  - unless @satisfiable_tiles.empty?
+    #start_tile.hidden= @start_tile
+    .tile_viewer_header
+      = link_to activity_path do
+        =# image_tag 'tile_viewer/logo.png', :id => "logo", :alt=> "h.engage"
+      %p#position
+      .cf
+    .viewer
+      = link_to "#", :id => :prev do
+        %span Previous
+      #slideshow
+        - @satisfiable_tiles.each do |tile|
+          = image_tag tile.image.url, :class => :tile_image, :id => tile.id, :size => tile.image.image_size
+      = link_to "#", :id => :next do
+        %span Next
+      .cf
 #preload_hover_images{:style => "display: none"}
   = image_tag "tile_viewer/nextbtn-hover.png"
   = image_tag "tile_viewer/prevbtn-hover.png"
