@@ -23,9 +23,9 @@ describe "any controller descended from ApplicationController" do
 
   context "when an http request is made" do
     context "and no subdomain is specified" do
-      it "should redirect to the corresponding HTTPS endpoint, still with no subdomain" do
+      it "should redirect to the corresponding HTTPS endpoint, with www subdomain" do
         get :index
-        response.should redirect_to("https://test.host/activity")
+        response.should redirect_to("https://www.test.host/activity")
       end
     end
 
@@ -34,9 +34,9 @@ describe "any controller descended from ApplicationController" do
         request.host = "secure.test.host"
       end
 
-      it "should redirect to the corresponding HTTPS endpoint, but should strip out the subdomain" do
+      it "should redirect to the corresponding HTTPS endpoint, using the original subdomain" do
         get :index
-        response.should redirect_to("https://test.host/activity")
+        response.should redirect_to("https://secure.test.host/activity")
       end
     end
 
