@@ -8,9 +8,6 @@ class Report::Activity
 
   def send_email(address)
     @demo = Demo.find @demo_id
-
-    #csv_data.split("\n").each { |line| p "*** #{line}" }
-
     Mailer.activity_report(csv_data, @demo.name, Time.now, address).deliver
   end
 
