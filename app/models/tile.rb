@@ -104,7 +104,7 @@ class Tile < ActiveRecord::Base
       end
       hide
     end
-    satisfiable_tiles
+    satisfiable_tiles.sort_by(&:position)
   end
 
   def self.after_start_time_and_before_end_time
