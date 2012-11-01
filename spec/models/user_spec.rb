@@ -942,7 +942,7 @@ describe User, "#schedule_followup_welcome_message" do
     SMS.stubs(:send_message)
 
     demo = FactoryGirl.create :demo, :followup_welcome_message => "hey hey", :followup_welcome_message_delay => 0
-    user = FactoryGirl.create :user, :phone_number => "+14155551212", :demo => demo
+    user = FactoryGirl.create :user, :phone_number => "+14155551212", :demo => demo, :notification_method => :both
 
     2.times {user.schedule_followup_welcome_message}
     crank_dj_clear
@@ -1088,6 +1088,12 @@ describe User, ".wants_sms" do
     both = FactoryGirl.create(:user, notification_method: 'both')
 
     User.wants_sms.all.sort.should == [sms_only, both].sort
+  end
+end
+
+describe User, "default notification method" do
+  it "should set the default notification method to 'email'" do
+    User.new.notification_method.should == 'email'
   end
 end
 
