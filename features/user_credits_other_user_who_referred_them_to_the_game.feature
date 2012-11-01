@@ -5,7 +5,7 @@ Feature: User can credit another user who got them into the game
       | name | credit game referrer threshold | game referrer bonus | referred credit bonus | victory threshold |
       | FooCorp      | 60                             | 5                   |                       |                   |
       | QuuxCorp     | 60                             | 10                  | 6                     | 50                |
-    And the following users exist:
+    And the following user with phone exist:
       | name | phone number | accepted invitation at | demo           | privacy level |
       | Phil | +14155551212 | 2011-05-01 12:00 EST   | name: FooCorp  | everybody     |
       | Vlad | +16175551212 | 2011-05-01 11:59 EST   | name: FooCorp  | everybody     |

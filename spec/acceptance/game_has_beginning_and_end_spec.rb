@@ -102,7 +102,7 @@ feature 'Game has beginning and end' do
     it 'should allow user to change notification preferences when game is not open' do
       as_both_users do
         visit edit_account_settings_path
-        expect_checked "both"
+        expect_checked "email"
         choose "SMS"
         page.find(:css, '#save-notification-settings').click
         expect_checked 'SMS'

@@ -6,13 +6,13 @@ Feature: User can follow another user by SMS
       | Yoyodyne | +12155551212 |
       | BigCorp  | +19085551212 |
     Given the following claimed users exist:
-      | name        | phone number | demo           | privacy level |
-      | Dan Croak   | +16175551212 | name: Yoyodyne | everybody     |
-      | Vlad Gyster | +16178675309 | name: Yoyodyne | everybody     |
-      | John Smith  | +12125551212 | name: BigCorp  | everybody     |
-    And the following users exist:
-      | name        | phone number | demo           |
-      | Joe Bob     |              | name: Yoyodyne |
+      | name        | phone number | demo           | privacy level | notification_method |
+      | Dan Croak   | +16175551212 | name: Yoyodyne | everybody     | both                |
+      | Vlad Gyster | +16178675309 | name: Yoyodyne | everybody     | both                |
+      | John Smith  | +12125551212 | name: BigCorp  | everybody     | both                |
+    And the following user exist:
+      | name        | phone number | demo           | notification_method |
+      | Joe Bob     |              | name: Yoyodyne | both                |
     And "Vlad Gyster" has password "foobar"
 
   Scenario: User follows another by SMS

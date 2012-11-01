@@ -16,6 +16,7 @@ module AccountClaimer
 
     def after_joining_hook
       Mailer.delay.set_password(@user.id) if @user.email.present?
+      @user.update_column(:notification_method, 'sms')
     end
 
     def existing_user_claimed_message

@@ -15,6 +15,7 @@ Feature: User gets followup welcome message at some point after starting the gam
     When "phil@example.com" opens the email
     And I click the play now button in the email
     When I fill in "Enter your mobile number" with "(415) 261-3077"
+    And I choose "Both"
     And I fill in "Choose a password" with "ohyeah"
     And I fill in "Confirm password" with "ohyeah"
     And I check "Terms and conditions"

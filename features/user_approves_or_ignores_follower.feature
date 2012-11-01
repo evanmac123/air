@@ -7,12 +7,12 @@ Feature: User approves or ignores follower
       | name |
       | FooCo        |
     And the following claimed users exist:
-      | name  | email             | phone number | privacy level | demo        |
-      | Alice | alice@example.com | +14155551212 | everybody     | name: FooCo |
-      | Bob   | bob@example.com   | +16175551212 | everybody     | name: FooCo |
-      | Clay  | clay@example.com  | +13055551212 | everybody     | name: FooCo |
-      | Don   | don@example.com   | +18085551212 | everybody     | name: FooCo |
-      | Ed    | ed@example.com    | +12125551212 | everybody     | name: FooCo |
+      | name  | email             | phone number | privacy level | demo        | notification_method |
+      | Alice | alice@example.com | +14155551212 | everybody     | name: FooCo | both |
+      | Bob   | bob@example.com   | +16175551212 | everybody     | name: FooCo | both |
+      | Clay  | clay@example.com  | +13055551212 | everybody     | name: FooCo | both |
+      | Don   | don@example.com   | +18085551212 | everybody     | name: FooCo | both |
+      | Ed    | ed@example.com    | +12125551212 | everybody     | name: FooCo | both |
     And "Bob" has password "fooble"
     And "Alice" has password "barley"
     And "Clay" has password "bazquux"

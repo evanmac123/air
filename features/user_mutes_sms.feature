@@ -1,7 +1,7 @@
 Feature: User mutes SMS
 
   Background:
-    Given the following claimed users exist:
+    Given the following user with phone exist:
       | name     | phone number | email               |
       | Joe Bob  | +14155551212 | joebob@example.com  |
       | Bob Fred | +16175551212 | bobfred@example.com |
@@ -68,7 +68,7 @@ Feature: User mutes SMS
     Given the following demo exists:
       | name     | mute notice threshold |
       | CustomCo | 7                     |
-    And the following user exists:
+    And the following user with phone exists:
       | name            | phone number | demo           |
       | Frank Dillinger | +13055551212 | name: CustomCo |
     When the system sends "Text 1" to user "Frank Dillinger"

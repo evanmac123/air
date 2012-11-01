@@ -7,14 +7,14 @@ Feature: User gets points for connecting to another (if demo configured for it)
       | Towers Watson | 0                     |
       | LameCo        |                       |
     And the following claimed users exist:
-      | name | phone number | connection bounty | points | privacy level | demo                |
-      | Dan  | +14155551212 | 0                 | 1      | everybody     | name: HMFEngage     |
-      | Phil | +18085551212 | 7                 | 0      | everybody     | name: HMFEngage     |
-      | Vlad | +16175551212 | 0                 | 0      | everybody     | name: HMFEngage     |
-      | Tom  | +13055551212 | 0                 | 0      | everybody     | name: Towers Watson |
-      | Fred | +12125551212 | 7                 | 0      | everybody     | name: Towers Watson |
-      | Bleh | +14085551212 | 0                 | 0      | everybody     | name: LameCo        |
-      | Feh  | +16505551212 | 7                 | 0      | everybody     | name: LameCo        |
+      | name | phone number | connection bounty | points | privacy level | demo                | notification_method |
+      | Dan  | +14155551212 | 0                 | 1      | everybody     | name: HMFEngage     | both                |
+      | Phil | +18085551212 | 7                 | 0      | everybody     | name: HMFEngage     | both                |
+      | Vlad | +16175551212 | 0                 | 0      | everybody     | name: HMFEngage     | both                |
+      | Tom  | +13055551212 | 0                 | 0      | everybody     | name: Towers Watson | both                |
+      | Fred | +12125551212 | 7                 | 0      | everybody     | name: Towers Watson | both                |
+      | Bleh | +14085551212 | 0                 | 0      | everybody     | name: LameCo        | both                |
+      | Feh  | +16505551212 | 7                 | 0      | everybody     | name: LameCo        | both                |
     And "Dan" has password "foobar"
     And "Vlad" has the SMS slug "vlad"
     And "Phil" has the SMS slug "phil"

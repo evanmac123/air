@@ -32,7 +32,7 @@ FactoryGirl.define do
       association :game_referrer, :factory => :user
     end
   end
-  
+
   factory :brand_new_user, :parent => :user do 
     accepted_invitation_at Time.now
   end  
@@ -44,6 +44,7 @@ FactoryGirl.define do
   
   factory :user_with_phone, :parent => :claimed_user do 
     sequence(:phone_number, User.next_id + 4442220000) {|n| "+1#{n}" }
+    notification_method "both"
   end
   
   factory :site_admin, :parent => :claimed_user do

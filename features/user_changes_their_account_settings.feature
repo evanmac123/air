@@ -4,7 +4,7 @@ Feature: User can edit their account settings
     Given the following demo exists:
       | name         |
       | Big Machines |
-    Given the following claimed users exist:
+    Given the following user with phone exist:
       | name  | phone number | email             | demo              |
       | Phil  | +14155551212 | phil@example.com  | name: BigMachines |
       | Alice | +18085551212 | alice@example.com | name: BigMachines |

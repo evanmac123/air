@@ -21,13 +21,13 @@ Feature: User invites friends
       | Already Playing    | name: Bratwurst | playing@inviting.com | playing   | playing     | everybody     |
 
     Given the following brand new users exist:
-      | name       | demo            | email                       | slug      | sms_slug    | phone_number | privacy level |
-      | Barnaby    | name: Bratwurst | claimed@inviting.com        | smoke     | smoke       | +15554445555 | everybody     |
-      | Alexander  | name: Bratwurst | also_claimed@inviting.com   | soap      | soap        | +15554442222 | everybody     |
-      | Outsider   | name: Gleason   | different_game@inviting.com | box       | box         | +15554442211 | everybody     |
-      | Shelly     | name: Preloaded | pre@loaded.com              | nada      | nada        | +16662221111 | everybody     |
-      | Michelle   | name: Preloaded | playing@loaded.com          | sexy      | sexy        | +16662221199 | everybody     |
-      | Yoko       | name: NotStarted| not@started.com             | abb       | abb         | +13384848484 | everybody     |
+      | name       | demo            | email                       | slug      | sms_slug    | phone_number | privacy level | notification_method |
+      | Barnaby    | name: Bratwurst | claimed@inviting.com        | smoke     | smoke       | +15554445555 | everybody     | both                |
+      | Alexander  | name: Bratwurst | also_claimed@inviting.com   | soap      | soap        | +15554442222 | everybody     | both                |
+      | Outsider   | name: Gleason   | different_game@inviting.com | box       | box         | +15554442211 | everybody     | both                |
+      | Shelly     | name: Preloaded | pre@loaded.com              | nada      | nada        | +16662221111 | everybody     | both                |
+      | Michelle   | name: Preloaded | playing@loaded.com          | sexy      | sexy        | +16662221199 | everybody     | both                |
+      | Yoko       | name: NotStarted| not@started.com             | abb       | abb         | +13384848484 | everybody     | both                |
 
 
   @javascript

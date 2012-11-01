@@ -7,11 +7,11 @@ feature 'User answers survey' do
     @fooco = FactoryGirl.create(:demo, name: 'FooCo')
     @barco = FactoryGirl.create(:demo, name: 'BarCo')
 
-    @dan = FactoryGirl.create(:user, :claimed, name: 'Dan',  phone_number: '+14155551212', demo: @fooco)
-    @vlad = FactoryGirl.create(:user, :claimed, name: 'Vlad', phone_number: '+16175551212', demo: @fooco)
-    @tom = FactoryGirl.create(:user, :claimed, name: 'Tom',  phone_number: '+18085551212', demo: @fooco)
-    @bob = FactoryGirl.create(:user, :claimed, name: 'Bob',  phone_number: '+14105551212', demo: @fooco)
-    @sam = FactoryGirl.create(:user, :claimed, name: 'Sam',  phone_number: '+19995551212', demo: @barco)
+    @dan = FactoryGirl.create(:user_with_phone, :claimed, name: 'Dan',  phone_number: '+14155551212', demo: @fooco)
+    @vlad = FactoryGirl.create(:user_with_phone, :claimed, name: 'Vlad', phone_number: '+16175551212', demo: @fooco)
+    @tom = FactoryGirl.create(:user_with_phone, :claimed, name: 'Tom',  phone_number: '+18085551212', demo: @fooco)
+    @bob = FactoryGirl.create(:user_with_phone, :claimed, name: 'Bob',  phone_number: '+14105551212', demo: @fooco)
+    @sam = FactoryGirl.create(:user_with_phone, :claimed, name: 'Sam',  phone_number: '+19995551212', demo: @barco)
 
     @fooco_player_phone_numbers = %w(+14155551212 +16175551212 +18085551212 +14105551212)
     @barco_player_number = '+19995551212'

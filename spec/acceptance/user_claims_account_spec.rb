@@ -55,10 +55,12 @@ feature 'User claims account' do
         ActionMailer::Base.deliveries.should be_empty
 
         user = FactoryGirl.create(:user, email: nil, claim_code: 'bob')
+        user.notification_method.should == 'email'
         send_message "bob"
         crank_dj_clear
 
         user.reload.should be_claimed
+        user.notification_method.should == 'sms'
         ActionMailer::Base.deliveries.should be_empty
       end
     end
@@ -664,4 +666,6 @@ feature 'User claims account' do
 
     current_email.to_s.should include("OK, we've now got your email address phil@darnowsky.com.")
   end
+  
+
 end
