@@ -25,7 +25,6 @@ Feature: Full text search suggestions restrict their own length (to under 160 ch
 
   Scenario: A suggestion that can be brought under length by dropping one suggestion
     When "+14155551212" sends SMS "proposal"
-    And I dump all sent texts
     Then "+14155551212" should have received an SMS 'I didn't quite get what "proposal" means. Text "a" for "a modest proposal", "b" for "an indecent proposal", or "s" to suggest we add it.'
 
   Scenario: A suggestion that can be brought under length by dropping two suggestions

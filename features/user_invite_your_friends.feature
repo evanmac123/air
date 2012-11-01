@@ -75,22 +75,7 @@ Feature: User invites friends
     Then I should see "Charlie Brainfield gave you credit for referring them to the game. Many thanks and 2000 bonus points!" in the email body
     And I should see "Shelly got credit for referring Charlie Brainfield to the game"
     And I should see "2000 pts"
-
-  
-  @javascript
-  Scenario: modal pops up the first two times I log in
-    And "Yoko" has the password "foobar"
-    And I sign in via the login page as "Yoko/foobar"
-    Then I should see "Invite your friends" in a facebox modal
-    Given I go to the activity page
-    Then I should not see a facebox modal
-    And I sign out
-    And I sign in via the login page as "Yoko/foobar"
-    Then I should see "Invite your friends" in a facebox modal
-    And I sign out
-    And I sign in via the login page as "Yoko/foobar"
-    Then I should not see a facebox modal
-    
+   
 
   @javascript
   Scenario: User should not be able to invite herself

@@ -2,6 +2,8 @@ require 'acceptance/acceptance_helper'
 
 feature 'User views tile' do
   before(:each) do
+    User.any_instance.stubs(:create_tutorial_if_none_yet)
+
     Demo.find_each {|f| f.destroy }
     @demo = FactoryGirl.create(:demo)
     @kendra = FactoryGirl.create(:user, demo_id: @demo.id, password: 'milking')
@@ -13,34 +15,16 @@ feature 'User views tile' do
     @discover_fire = Tile.find_by_headline('discover fire')
     signin_as_admin
 
-    # Add thumbnail and image to @make_toast
-    visit edit_admin_demo_tile_path(@demo, @make_toast)
-    attach_file "tile[image]", tile_fixture_path('cov1.jpg')
-    attach_file "tile[thumbnail]", tile_fixture_path('cov1_thumbnail.jpg')
-    click_button 'Update Tile'
-    
-    # Add thumbnail and image to @discover_fire
-    visit edit_admin_demo_tile_path(@demo, @discover_fire)
-    attach_file "tile[image]", tile_fixture_path('cov2.jpg')
-    attach_file "tile[thumbnail]", tile_fixture_path('cov2_thumbnail.jpg')
-    click_button 'Update Tile'
-
-    expect_content 'cov1.jpg'
-    expect_content 'cov1_thumbnail.jpg'
-    expect_content 'cov2.jpg'
-    expect_content 'cov2_thumbnail.jpg'
     signin_as(@kendra, 'milking')
     visit activity_path
     Delayed::Job.delete_all
   end
 
-  scenario 'views tile image', js: true do
+  scenario 'views tile image', js: :webkit do
     # Click on the first tile, and it should take you to the tiles  path
     first_tile_link = "/tiles?start=#{@make_toast.id}"
     page.find("a[href='#{first_tile_link}'] #tile-thumbnail-#{@make_toast.id}").click
     current_path.should == tiles_path
-    # Now we'll manually go to the link instead (note we are using GET, so we are not hitting the  create
-    # method like you would if you actually clicked a tile
     expect_content "Tile: 1 of 2"
     expect_content "MY PROFILE"
 
@@ -65,5 +49,4 @@ feature 'User views tile' do
     FakeMixpanelTracker.tracked_events.count.should == 1
     FakeMixpanelTracker.events_matching("viewed tile", data).should be_present
   end
-
 end

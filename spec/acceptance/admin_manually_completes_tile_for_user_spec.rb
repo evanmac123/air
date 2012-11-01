@@ -35,7 +35,6 @@ feature 'Admin manually completes tile for user' do
 
     signin_as user, 'foobar'
     visit activity_path
-    click_link 'Enter Site'
     expect_content "Tile 2"
     expect_content "Tile 3"
     expect_no_content "Tile 1"

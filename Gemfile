@@ -101,6 +101,7 @@ group :test do
   gem "sham_rack"
   gem "show_me_the_cookies"
   gem "capybara-webkit"
+  gem "poltergeist"
   gem "sinatra"
   gem 'spork', '~> 1.0rc' 
 end

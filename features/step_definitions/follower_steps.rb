@@ -287,5 +287,5 @@ end
 When /^I press the invite button for "([^"]*)"$/ do |name|
   user = User.find_by_name(name)
   submit_id_with_pound = "#invite_" + user.slug
-  find(:css, submit_id_with_pound).click
+  find(:css, submit_id_with_pound).trigger('click')
 end

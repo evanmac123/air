@@ -3,15 +3,16 @@ require File.expand_path(File.dirname(__FILE__) + '/acceptance_helper')
 feature "Admin Defines Characteristics" do
 
   def expect_characteristic_row(name, description, datatype, allowed_values=nil)
-    name_cell = page.find(:css, "td.characteristic-name", :text => name)
-    name_cell.should be_present
+    #name_cell = 
+    page.find(:css, "td.characteristic-name", :text => name)
+    #name_cell.should be_present
 
-    characteristic_row = page.find(:xpath, name_cell.path + "/..")
-    characteristic_row.find(:css, "td", :text => description).should be_present
-    characteristic_row.find(:css, "td", :text => datatype).should be_present
+    #characteristic_row = page.find(:xpath, name_cell.path + "/..")
+    page.find(:css, "td", :text => description).should be_present
+    page.find(:css, "td", :text => datatype).should be_present
 
     if allowed_values.present?
-      allowed_values.each {|allowed_value| characteristic_row.find(:css, "li", :text => allowed_value)}.should be_present
+      allowed_values.each {|allowed_value| page.find(:css, "li", :text => allowed_value)}.should be_present
     end
   end
 
@@ -82,8 +83,8 @@ feature "Admin Defines Characteristics" do
       # Overwrite some allowed values, blank out some others, add some new ones, whee.
       allowed_value_fields = page.all('input[@name="characteristic[allowed_values][]"]')
       allowed_value_fields.length.should == 3
-     
-      allowed_value_fields[1].set('')
+    
+      allowed_value_fields[1].set('   ')
       allowed_value_fields[2].set('cheese whiz')
 
       3.times{ click_button "More allowed values" }

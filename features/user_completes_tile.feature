@@ -102,8 +102,6 @@ Feature: User completes tile
     When "+14152613077" sends SMS "do 1"
     Then "+14152613077" should have received an SMS including "did 1"
     When I go to the activity page
-    # This takes care of the tutorial popup
-    And I click "No thanks"
     Then I should see "Rule tile 2"
     And I should see "Rule tile 3"
     And I should see "Rule tile 5"
@@ -181,7 +179,6 @@ Feature: User completes tile
     And "+14152613077" sends SMS "1"
     Then "+14152613077" should have received an SMS including "Thanks for completing the survey"
     When I go to the activity page
-    And I click "No thanks"
 
     Then I should see "Rule tile 1"
     And I should see "Rule tile 3"
@@ -199,16 +196,12 @@ Feature: User completes tile
     And I should not see "Referer tile 2"
     And I should not see "Demographic tile 2"
 
-    # When DJ works off after a little while
-    # Then "+14152613077" should have received an SMS "Congratulations! You've completed a game piece."
-
   @javascript
   Scenario: User completes demographic tile by filling in their details
     When I go to the settings page
     And I fill in most of my demographic information
     And I press the button to save the user's settings
     And I go to the activity page
-    And I click "No thanks"
 
     Then I should see "Demographic tile 1"
     But I should not see "Demographic tile 2"
@@ -217,7 +210,6 @@ Feature: User completes tile
     And I fill in "Date of Birth" with "September 10, 1977"
     And I press the button to save the user's settings
     And I go to the activity page
-    And I click "No thanks"
 
     Then I should see "Rule tile 1"
     And I should see "Rule tile 3"
@@ -235,32 +227,3 @@ Feature: User completes tile
     And I should not see "Survey tile 4"
     And I should not see "Referer tile 2"
     And I should not see "Demographic tile 1"
-
-    # When DJ works off after a little while
-    # Then "+14152613077" should have received an SMS "Congratulations! You've completed a game piece."  
-  
-#   Scenario: User completes survey tile by SMS and gets congrats by SMS
-    # Given a clear email queue
-    # When "+14152613077" sends SMS "1"
-    # And "+14152613077" sends SMS "1"
-    # And "+14152613077" sends SMS "1"
-    # When DJ works off after a little while
-    # Then "+14152613077" should have received an SMS "Congratulations! You've completed a game piece."
-    # But "joe@example.com" should receive no email
-
-  # Scenario: User completes survey tile by email and gets congrats by email
-    # When "joe@example.com" sends email with subject "1" and body "1"
-    # When "joe@example.com" sends email with subject "1" and body "1"
-    # When "joe@example.com" sends email with subject "1" and body "1"
-    # Then "+14152613077" should not have received any SMSes
-    # But "joe@example.com" should receive an email with "Congratulations! You've completed a game piece." in the email body
-
-  # Scenario: User completes survey tile on web and sees congrats in the flash
-    # When I sign in via the login page with "Joe/foobar"
-    # And I enter the act code "1"
-    # And I enter the act code "1"
-    # And I enter the act code "1"
-    # When DJ works off after a little while
-    # Then "+14152613077" should not have received any SMSes
-    # And "joe@example.com" should receive no email
-#     But I should see "Congratulations! You've completed a game piece."

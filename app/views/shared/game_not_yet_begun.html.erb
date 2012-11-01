@@ -6,4 +6,6 @@
 
   <p>Your game begins on <%= current_user.demo.begins_at.pretty %>. Please try back after then.</p>
 </div>
-<%= mp_track_page 'game not yet begun' %>
+<% content_for(:javascript) do %>
+  <%= mp_track_page 'game not yet begun' %>
+<% end %>

@@ -32,7 +32,7 @@ feature "flash messages only display a single time" do
     page.should have_content(response)
 
     # Close the flash manually
-    click_link 'close-flash'
+    page.find('#close-flash').trigger('click')
     wait_until {page.find("#close-flash").visible? == false}
     # Revisit the page, and the flash should be gone
     visit acts_path

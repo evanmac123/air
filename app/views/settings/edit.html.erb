@@ -93,4 +93,6 @@
 	</div>
 	<div class="cf"></div>
 </div>
-<%= mp_track_page 'settings' %>
+<% content_for :javascript do %>
+  <%= mp_track_page 'settings' %>
+<% end %>

@@ -8,7 +8,7 @@ feature "User Contacts Us For Help" do
     has_password(user, "foobar")
     signin_as(user, "foobar")
 
-    click_link "Help"
+    page.find('.nav-help').trigger('click')
     page.find(".contact_us_link").click
     $ASSISTLY_CALLED.should be_true
   end

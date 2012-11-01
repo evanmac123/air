@@ -280,10 +280,6 @@ Then /^I should see "([^"]*)" in a facebox modal$/ do |arg1|
   page.find('#facebox').should have_content(arg1)
 end
 
-Then /^I should not see a facebox modal$/ do
- page.should_not have_selector('#facebox')
-end
-
 Then /^there should be a user with email "([^"]*)" in demo "([^"]*)"$/ do |email, name|
   demo_id = Demo.find_by_name(name).id
   User.where(:email => email, :demo_id => demo_id).should_not be_empty
@@ -312,7 +308,7 @@ Then /^"([^"]*)" should have a closed tutorial with current step "([^"]*)"$/ do 
 end
 
 When /^I close the facebox modal$/ do 
-  find("#facebox .close_image").click()
+  find("#facebox .close_image").trigger('click')
 end
 
 When /^(?:|I )click within "([^"]*)"$/ do |selector|

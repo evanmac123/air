@@ -26,7 +26,6 @@ Feature: Levels control points denominator
 
   Scenario: User acts and sees point threshold of next or highest level as denominator
     When "+14155551212" sends SMS "did blah"
-    And I dump all sent texts
     Then "+14155551212" should have received an SMS including "blah. Points 8/10, level 1"
 
     When "+14155551212" sends SMS "did blah"
@@ -57,7 +56,6 @@ Feature: Levels control points denominator
     Given "FooCo" has victory threshold 40
 
     When "+14155551212" sends SMS "did best"
-    And I dump all sent texts
     Then "+14155551212" should have received an SMS including "best. Points 0/19, level 3"
 
     When "+14155551212" sends SMS "did best"

@@ -89,7 +89,6 @@ Feature: User approves or ignores follower
     When "+14155551212" sends SMS "friend bob"
     And "+14155551212" sends SMS "follow bob"
     Then "+14155551212" should have received an SMS "OK, you'll be friends with Bob, pending their acceptance."
-    And I dump all sent texts
     And "+14155551212" should have received an SMS "You've already asked to be friends with Bob."
 
   Scenario: Follower attempts to follow after one follow already ignored

@@ -37,7 +37,7 @@ $(function() {
     if ($('#potential_bonus_points').text() == '0'){
       $('#hide_me_while_selecting').hide();
     }
-    displayPotentialPointsPrepopulated();
+    //displayPotentialPointsPrepopulated();
     
     return false;
   });

@@ -7,15 +7,27 @@ require "cover_me"
 # files.
 
 require 'cucumber/rails'
+require 'capybara/poltergeist'
 
 # Capybara defaults to XPath selectors rather than Webrat's default of CSS3. In
 # order to ease the transition to Capybara we set the default here. If you'd
 # prefer to use XPath just remove this line and adjust any selectors in your
 # steps to use the XPath syntax.
 Capybara.save_and_open_page_path = 'tmp'
-Capybara.javascript_driver = :webkit
+Capybara.javascript_driver = :poltergeist
 Capybara.default_selector = :css
 Capybara.default_wait_time = 10
+
+# Some JS features just plain don't work with poltergeist. Some of these will 
+# be fixable in time, others...well...
+
+Before('@capybara-webkit') do
+  Capybara.current_driver = :webkit
+end
+
+After('@capybara-webkit') do
+  Capybara.use_default_driver
+end
 
 # By default, any exception happening in your Rails application will bubble up
 # to Cucumber so that your scenario will fail. This is a different from how 

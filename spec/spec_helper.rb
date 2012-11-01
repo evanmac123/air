@@ -100,8 +100,8 @@ Spork.prefork do
   end
 
 
-  require 'capybara-webkit'
-  Capybara.javascript_driver = :webkit
+  require 'capybara/poltergeist'
+  Capybara.javascript_driver = :poltergeist
 
   # Hack to allow us to use regular controller tests to test SmsController 
   # (which is an ActionController::Metal).

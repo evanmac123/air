@@ -24,6 +24,7 @@ module SteakHelperMethods
     admin = FactoryGirl.create :user, :is_site_admin => true
     has_password(admin, 'foobar')
     signin_as(admin, 'foobar')
+    admin
   end
 
   def clearance_signin_as_admin
