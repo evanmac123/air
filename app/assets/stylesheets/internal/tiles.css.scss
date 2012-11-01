@@ -18,8 +18,9 @@ body#tile_viewer {
 
   .tile_viewer_header {
     position: relative;
+    z-index: 4;
     margin: auto;
-    width:670px;
+    width: 850px;
     height: 10px;
   }
   img#logo {
@@ -38,9 +39,11 @@ body#tile_viewer {
     font-family: 'Ubuntu', sans-serif;
     float:right;
     margin:0;
-    padding:13px 23px;
-    right: -116px;
+    padding:13px 0;
+    left: 757px;
     top: 11px;
+    text-align: center;
+    width: 13ex;
   }
 
   .viewer {
