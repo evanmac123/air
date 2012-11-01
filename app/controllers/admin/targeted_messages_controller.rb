@@ -5,6 +5,7 @@ class Admin::TargetedMessagesController < AdminBaseController
   before_filter :find_segmentation_results
   before_filter do
     load_characteristics(@demo)
+    @scheduled_pushes = @demo.push_messages.incomplete.in_time_order
   end
 
   def show
@@ -14,9 +15,6 @@ class Admin::TargetedMessagesController < AdminBaseController
         session.delete(:#{field_to_keep})
       END_EVAL
     end
-
-    load_characteristics(@demo)
-    @scheduled_pushes = @demo.push_messages.incomplete.in_time_order
   end
 
   def create
@@ -44,7 +42,7 @@ class Admin::TargetedMessagesController < AdminBaseController
       plain_text:          plain_text, 
       html_text:           html_text, 
       sms_text:            sms_text, 
-      scheduled_for:       send_at, 
+      #scheduled_for:       send_at, 
       email_recipient_ids: email_recipients.map(&:id), 
       sms_recipient_ids:   sms_recipients.map(&:id),
       segment_description: @segmentation_results.explanation,

@@ -358,7 +358,7 @@ feature 'Admin sends targeted messges using segmentation' do
 
       fill_in 'Send at', :with => (@send_time).to_s
 
-      click_button "DO IT"
+      click_button "It's going to be OK"
     end
 
     after(:each) do
