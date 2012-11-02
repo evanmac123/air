@@ -56,6 +56,20 @@ describe User do
     user3.errors[:phone_number].should == ["Sorry, but that phone number has already been taken. Need help? Contact support@hengage.com"]
   end
 
+  it 'should validate 5-digit zipcode' do
+    user = FactoryGirl.build :user
+    user.should be_valid  # no zipcode is okay
+
+    user.zip_code = 'xxxxx'
+    user.should_not be_valid
+
+    user.zip_code = '12345-6789'
+    user.should_not be_valid
+
+    user.zip_code = '12345'
+    user.should be_valid
+  end
+
   it "should validate uniqueness of SMS slug when not blank" do
     user1 = FactoryGirl.create(:claimed_user)
     user2 = FactoryGirl.create(:claimed_user)
@@ -125,9 +139,6 @@ describe User do
     user = FactoryGirl.build(:user, :sms_slug => '')
     user.should be_valid
   end
-
-
-
 
   describe "on destroy" do
     it "should destroy any Friendships where this user is the friend on destroy" do

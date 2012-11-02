@@ -97,3 +97,13 @@ Then /^I should (not )?see "([^"]*)" in the friends list$/ do |sense, text|
   end
 end
 
+When /^the new-phone fields for "(.*)" should( not)? be blank$/ do |name, boolean|
+  user = User.find_by_name(name)
+  if boolean.blank?
+    user.new_phone_number.should     be_blank
+    user.new_phone_validation.should be_blank
+  else
+    user.new_phone_number.should_not     be_blank
+    user.new_phone_validation.should_not be_blank
+  end
+end

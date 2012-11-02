@@ -65,6 +65,8 @@ class User < ActiveRecord::Base
   validates_format_of :sms_slug, :with => /^[0-9a-z]{2,}$/, :if => :slug_required,
                       :message => "Sorry, the username must consist of letters or digits only."
 
+  validates_format_of :zip_code, with: /^\d{5}$/, allow_blank: true
+
   validates_presence_of :demo_id
   validates_numericality_of :height, :allow_blank => true, :message => "Please use a numeric value for your height, and express it in inches"
   validates_numericality_of :weight, :allow_blank => true, :message => "Please use a numeric value for your weight, and express it in pounds"

@@ -293,3 +293,8 @@ select{
 #start_and_end_times{
   padding-top: 10mm;
 }
+
+.date li,
+.date li label {
+  display: inline;
+}

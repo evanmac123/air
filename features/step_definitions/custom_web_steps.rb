@@ -314,3 +314,20 @@ end
 When /^(?:|I )click within "([^"]*)"$/ do |selector|
   find(selector).click
 end
+
+When /^the Year listbox should contain the correct years$/ do
+  page.should have_select 'Year', options: (1930..Time.now.year - 10).to_a.collect(&:to_s).unshift("")
+end
+
+When /^the "(.*)" field should be "(.*)"$/ do |field, value|
+  if value == 'blank'
+    field_labeled(field).value.should be_blank
+  else
+    page.should have_field field, with: value
+  end
+end
+
+When /^the "(.*)" listbox should be "(.*)"$/ do |listbox, value|
+  value = "" if value == 'blank'
+  page.should have_select listbox, selected: value
+end

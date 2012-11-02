@@ -22,6 +22,8 @@ module NavigationHelpers
       users_path
     when /the help page/
       faq_path
+    when /the admin edits user "(.*)" in the "(.*)" demo$/
+      admin_demo_user_path Demo.find_by_name($2), User.find_by_name($1)
     when /the admin reports page for "(.*)"$/
       admin_demo_reports_path(Demo.find_by_name($1))
     when /the admin "(.*)" demo page$/i

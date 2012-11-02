@@ -87,6 +87,7 @@ When /^(?:|I )fill in the following:$/ do |fields|
 end
 
 When /^(?:|I )select "([^"]*)" from "([^"]*)"$/ do |value, field|
+  value = "" if value.blank?  # For listboxes with a blank first element
   select(value, :from => field)
 end
 

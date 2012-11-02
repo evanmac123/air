@@ -55,18 +55,19 @@ class Admin::UsersController < AdminBaseController
     new_demo_id = params[:user].delete(:demo_id)
 
     @user.attributes = params[:user]
-    if params[:user].has_key?(:claim_code) && params[:user][:claim_code].blank?
-      @user.claim_code = nil
-    end
+
+    @user.claim_code = nil if params[:user].has_key?(:claim_code) && params[:user][:claim_code].blank?
+    @user.new_phone_number = @user.new_phone_validation = "" if ! params[:user][:phone_number].blank?
 
     if @user.save
       @user.move_to_new_demo(new_demo_id) if new_demo_id
       flash[:success] = "User updated."
+      redirect_to admin_demo_path(@demo)
     else
+      edit
       flash[:failure] = "Couldn't update user: #{@user.errors.full_messages.join(', ')}"
+      render :edit
     end
-
-    redirect_to admin_demo_path(@demo)
   end
 
   def destroy
