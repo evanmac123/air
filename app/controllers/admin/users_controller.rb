@@ -49,6 +49,8 @@ class Admin::UsersController < AdminBaseController
     @satisfiable_tiles = Tile.satisfiable_to_user(@user)
     @agnostic_characteristics = Characteristic.agnostic
     @demo_specific_characteristics = Characteristic.in_demo(@user.demo)
+
+    @user.phone_number = @user.phone_number.as_pretty_phone
   end
 
   def update
@@ -57,7 +59,11 @@ class Admin::UsersController < AdminBaseController
     @user.attributes = params[:user]
 
     @user.claim_code = nil if params[:user].has_key?(:claim_code) && params[:user][:claim_code].blank?
-    @user.new_phone_number = @user.new_phone_validation = "" if ! params[:user][:phone_number].blank?
+
+    if ! params[:user][:phone_number].blank?
+      @user.new_phone_number = @user.new_phone_validation = ""
+      @user.phone_number = PhoneNumber.normalize @user.phone_number
+    end
 
     if @user.save
       @user.move_to_new_demo(new_demo_id) if new_demo_id

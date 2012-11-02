@@ -34,7 +34,7 @@ Feature: Admin edits users
       And I follow "(edit Bobby)"
     Then the "Name" field should be "Bobby"
       And the "Email" field should be "bobby@bp.com"
-      And the "Phone number" field should be "666-666-6666"
+      And the "Phone number" field should be "(666) 666-6666"
       And the "Zip code" field should be "12345"
       And the "Month" listbox should be "January"
       And the "Day" listbox should be "1"
@@ -58,13 +58,17 @@ Feature: Admin edits users
       And the "Year" field should be "blank"
       And the "Claim code" field should be "blank"
 
-  Scenario: Admin enters a phone number for the user, causing existing new-phone attributes to be cleared
-    Then the new-phone fields for "Bob" should not be blank
-    When I fill in "Phone number" with "666-666-6666"
+  Scenario: When admin enters a phone number for a user, it is internally converted and causes existing new-phone attributes to be cleared
+    Then the new-phone attributes for "Bob" should not be blank
+    When I fill in "Phone number" with "666-123-4567"
       And I press "Update User"
-    Then the new-phone fields for "Bob" should be blank
+    Then the new-phone attributes for "Bob" should be blank
+      And the phone-number attribute for "Bob" should be "+16661234567"
+    When I follow "B"
+      And I follow "(edit Bob)"
+    Then the "Phone number" field should be "(666) 123-4567"
 
-  Scenario: Admin enters invalid data for a user
+  Scenario: Admin entering invalid data for a user causes an error message to be displayed
     When I fill in "Zip code" with "12345-6789"
       And I press "Update User"
     Then I should be on the admin edits user "Bob" in the "British Petroleum" demo
