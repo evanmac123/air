@@ -21,16 +21,19 @@ class Admin::TargetedMessagesController < AdminBaseController
     user_ids = @segmentation_results.found_user_ids
     users = User.where(:id => user_ids)
 
-    subject = params[:subject]
-    plain_text = params[:plain_text]
-    html_text = params[:html_text]
-    sms_text = params[:sms_text]
-    respect_notification_method = params[:respect_notification_method].present?
+    @subject = params[:subject]
+    @plain_text = params[:plain_text]
+    @html_text = params[:html_text]
+    @sms_text = params[:sms_text]
+    @respect_notification_method = params[:respect_notification_method].present?
+    @send_at = Chronic.parse(params[:send_at])
+
+    @html_text = '' unless sendable_html?(@html_text)
 
     successes = []
     notices = []
 
-    if respect_notification_method
+    if @respect_notification_method
       email_recipients = users.wants_email
       sms_recipients = users.wants_sms.with_phone_number
     else
@@ -38,24 +41,24 @@ class Admin::TargetedMessagesController < AdminBaseController
     end
 
     PushMessage.schedule(
-      subject:             subject, 
-      plain_text:          plain_text, 
-      html_text:           html_text, 
-      sms_text:            sms_text, 
-      #scheduled_for:       send_at, 
+      subject:             @subject, 
+      plain_text:          @plain_text, 
+      html_text:           @html_text, 
+      sms_text:            @sms_text, 
+      scheduled_for:       @send_at, 
       email_recipient_ids: email_recipients.map(&:id), 
       sms_recipient_ids:   sms_recipients.map(&:id),
       segment_description: @segmentation_results.explanation,
       demo_id:             @demo.id
     )
 
-    if plain_text.present? || html_text.present?
+    if @plain_text.present? || @html_text.present?
       successes << "Scheduled email to #{email_recipients.length} users."
     else
       notices << "Email text blank, no emails sent."
     end
 
-    if sms_text.present?
+    if @sms_text.present?
       successes << "Scheduled SMS to #{sms_recipients.length} users."
     else
       notices << "SMS text blank, no SMSes sent."
@@ -79,7 +82,8 @@ class Admin::TargetedMessagesController < AdminBaseController
     @segmentation_results = current_user.segmentation_results
   end
 
-  def sendable_html(html)
+  def sendable_html?(html)
+    return false unless html.present?
     # Don't send HTML that's all tags, no text, unless one of those tags is an
     # <img> tag (which presumably contains the information we want to convey)
 
