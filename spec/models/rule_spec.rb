@@ -14,8 +14,7 @@ describe Rule do
       @rule = FactoryGirl.create :rule
       rv1 = FactoryGirl.create :rule_value, :value => 'engendered healthificity', :rule => @rule
       rv2 = FactoryGirl.create :rule_value, :value => 'made a healthiness', :rule => @rule, :is_primary => true
-
-      (rv1.created_at < rv2.created_at).should be_true
+      rv1.update_attributes(created_at: 1.hour.ago)
     end
 
     context "when no description is set" do
