@@ -27,7 +27,7 @@ class Report::Activity
   def act_data(act)
     id = act.user_id
     location = act.user.location.try(:name)  # Not all users have a location
-    rule = act.rule.primary_value.value
+    rule = act.rule ? act.rule.primary_value.value : "[deleted rule with ID #{act.rule_id}]"
     date = act.created_at.strftime("%m-%d-%Y")
 
     [id, location, rule, date]
