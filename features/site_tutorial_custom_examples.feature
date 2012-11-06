@@ -17,15 +17,14 @@ Feature: Talking Chicken
   And I wait a second
     Given "Brand New" has password "chicken"
     And I sign in via the login page as "Brand New/chicken"
-  
     Then I should see "Directory"
+    When I go to the help page
+    And I press "Take Quick Tour"
     Then "Brand New" should have an open tutorial with current step "0"
-    Given I close the facebox modal
-    And I wait a second
     And I should see "quick tour"
     When I click within ".show_tutorial"
-    And I should see "Directory"
-    And I wait a second
+    Then I should see "Directory"
+    When I wait a second
     Then I should see "ate a banana"
 
   @javascript 
@@ -34,11 +33,11 @@ Feature: Talking Chicken
     Given "Old School" has password "foxylady"
     And I sign in via the login page as "Old School/foxylady"
     Then I should see "Directory"
-    Then "Brand New" should have an open tutorial with current step "0"
-    Given I close the facebox modal
-    And I wait a second
+    When I go to the help page
+    And I press "Take Quick Tour"
+    Then "Old School" should have an open tutorial with current step "0"
     And I should see "quick tour"
     When I click within ".show_tutorial"
-    And I should see "Directory"
-    And I wait a second
+    Then I should see "Directory"
+    When I wait a second
     Then I should see "read a book"

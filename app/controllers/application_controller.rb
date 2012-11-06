@@ -4,7 +4,13 @@ class ApplicationController < ActionController::Base
   before_filter :sniff_browser_version
   before_filter :force_ssl 
   before_filter :authorize
-  before_filter :tutorial_check
+
+  # Decided not to show the tutorial to first-time users => commenting this out.
+  # Didn't remove entirely because then some of the code below wouldn't make sense
+  # and if you didn't know to go to 'git' and check the history you'd be shaking your
+  # head (and probably swearing).
+  #before_filter :tutorial_check
+
   before_filter :set_delay_on_tooltips
   before_filter :initialize_flashes
   after_filter :merge_flashes
