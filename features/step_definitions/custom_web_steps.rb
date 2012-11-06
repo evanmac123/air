@@ -307,7 +307,11 @@ Then /^"([^"]*)" should have a closed tutorial with current step "([^"]*)"$/ do 
   user.tutorial.current_step.should == step.to_i
 end
 
-When /^I close the facebox modal$/ do 
+Then /^"([^"]*)" should not have any tutorials$/ do |name|
+  User.find_by_name(name).tutorial.should be_nil
+end
+
+When /^I close the facebox modal$/ do
   find("#facebox .close_image").trigger('click')
 end
 
