@@ -28,6 +28,9 @@ $headline_overlay_top: 148px;
     background-repeat:no-repeat;
     border: 3px solid white;
     border-radius: 5px;
+    // The carousel is not playing nicely with css3pie, so leaving it 
+    // out for now
+    //behavior: url(/css3pie/PIE.htc);
     box-shadow: 0px 0px 3px grey;
     &:hover{
       height: $thumb_hovered_dim;

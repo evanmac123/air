@@ -180,6 +180,7 @@ ul {list-style-position:outside; list-style-type:none; margin:0; padding:0;}
 	-moz-border-radius: 20px;
 	border-radius: 20px;
 	behavior: url(/css3pie/PIE.htc);
+  position: relative;
 }
 @mixin rounded-progress {
 	border-radius: 30px;

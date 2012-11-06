@@ -30,16 +30,10 @@ body.invitations-show div.container div.inv-forms form {padding-bottom:20px!impo
 }
 
 
-.acts .header .navigation .nav-home, .tiles .header .navigation .nav-tiles, .users .header .navigation .my-profile.nav-activity, .scores .header .navigation .nav-scores, .users-index .header .navigation .nav-directory {
-	border-radius:0!important;
-	z-index:9999!important;
-}
-
-.tile-thumbnail {
+#tile_thumbnail_carousel .tile-thumbnail {
 	$ie-game-color:#008873;
 	background-color: $ie-game-color!important;
 	box-shadow: 0 0 3px 2px #c9c9c9;
-	behavior: url(/css3pie/PIE.htc);
 	z-index:99!important;
 	a.more-info {
 		background-image:url('v3/btn-moreinfo.png')!important;

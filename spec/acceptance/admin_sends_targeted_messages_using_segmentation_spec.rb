@@ -338,7 +338,7 @@ feature 'Admin sends targeted messges using segmentation' do
   context "when the admin wishes to send a push later" do
     before(:each) do
       @demo = FactoryGirl.create(:demo)
-      @user = FactoryGirl.create(:user, :with_phone_number, demo: @demo)
+      @user = FactoryGirl.create(:user, :with_phone_number, demo: @demo, notification_method: 'both')
 
       crank_dj_clear
       FakeTwilio.clear_messages
