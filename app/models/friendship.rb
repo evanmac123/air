@@ -36,20 +36,11 @@ class Friendship < ActiveRecord::Base
   end
 
   def send_follow_notification_by_email
-    p "**************************** FOLLOW NOTIFY"
-
     Delayed::Job.enqueue FollowNotification.new(friend.email,
                                                 user.name,
                                                 accept_command,
                                                 ignore_command,
                                                 (friend.demo.phone_number || TWILIO_PHONE_NUMBER).as_pretty_phone)
-    #Mailer.delay.follow_notification(
-    #  friend.email,
-    #  user.name,
-    #  accept_command,
-    #  ignore_command,
-    #  (friend.demo.phone_number || TWILIO_PHONE_NUMBER).as_pretty_phone
-    #)
   end
 
   def record_follow_act
