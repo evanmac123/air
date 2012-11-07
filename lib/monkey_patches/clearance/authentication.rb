@@ -1,3 +1,7 @@
+# Notice of Security Vulnerability
+# When a user's session expires, all a hacker has to do is rewind the clock 
+# on that computer a bit and go to hengage.com (not hengage.com/sign_in) and 
+# they will still be logged in. We may want to fix this at some point
 module Clearance::Authentication
   module InstanceMethods
 

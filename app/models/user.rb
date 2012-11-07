@@ -50,6 +50,7 @@ class User < ActiveRecord::Base
   validates_uniqueness_of :slug, :if => :slug_required
   validates_uniqueness_of :sms_slug, :message => "Sorry, that username is already taken.", :if => :slug_required
   validates_uniqueness_of :overflow_email, :allow_blank => true
+  # validates_uniqueness_of :email comes from Clearance
   validates_uniqueness_of :invitation_code, :allow_blank => true
 
   validates_presence_of :name, :if => :name_required, :message => "Please enter your first and last name"

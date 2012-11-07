@@ -15,7 +15,6 @@ feature "User Chooses To Be Remembered Or Not" do
   end
 
   scenario "User wants to be remembered" do
-    check "session[remember_me]"
     click_button "Let's play!"
     should_be_on activity_path(:format => :html)
     
@@ -28,25 +27,25 @@ feature "User Chooses To Be Remembered Or Not" do
     visit activity_path
     should_be_on activity_path
     page.should_not have_content(expiration_message)
-
     Timecop.return
   end
 
   scenario "User does not want to be remembered" do
+    uncheck "session[remember_me]"
     click_button "Let's play!"
     should_be_on activity_path(format: :html)
 
-    Timecop.travel(4.minutes)
+    Timecop.travel(19.minutes)
     visit activity_path
     should_be_on activity_path
     page.should_not have_content(expiration_message)
 
-    Timecop.travel(4.minutes)
+    Timecop.travel(19.minutes)
     visit activity_path
     should_be_on activity_path
     page.should_not have_content(expiration_message)
 
-    Timecop.travel(6.minutes)
+    Timecop.travel(50.minutes)
     visit activity_path
     should_be_on signin_page
     page.should have_content(expiration_message)

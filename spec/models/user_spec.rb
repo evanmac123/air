@@ -13,6 +13,7 @@ describe User do
   it { should have_many(:survey_answers) }
   it { should have_many(:wins) }
   it { should have_many(:tile_completions) }
+  # Note that our validates_uniqueness_of :email is called in the Clearance gem
   it { should validate_uniqueness_of(:email) }
 
 end
@@ -1052,11 +1053,15 @@ describe User do
     FactoryGirl.create(:user, email: first_email, overflow_email: second_email)
     @user2 = FactoryGirl.build(:user, name: 'henry') 
     @user2.should be_valid
+    @user2.email = first_email
+    @user2.should_not be_valid
     @user2.email = second_email
     @user2.should_not be_valid
     @user2.email = 'way@different.com'
     @user2.should be_valid
     @user2.overflow_email = first_email
+    @user2.should_not be_valid
+    @user2.overflow_email = second_email
     @user2.should_not be_valid
     @user10 = FactoryGirl.build(:user, email: third_email, overflow_email: third_email)
     @user10.should_not be_valid
