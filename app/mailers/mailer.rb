@@ -39,13 +39,6 @@ class Mailer < ActionMailer::Base
   end
 
 
-  def victory(user)
-    @user = user
-
-    mail :to      => user.demo.victory_verification_email,
-         :subject => "HEngage victory notification: #{user.name} (#{user.email})"
-  end
-
   def activity_report(csv_data, demo_name, report_time, address)
     # Convert spaces to '_'s and remove any garbage characters
     normalized_name = demo_name.gsub(/\s+/, '_').gsub(/[^A-Za-z0-9_]/, '')

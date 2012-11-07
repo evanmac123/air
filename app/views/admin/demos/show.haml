@@ -65,26 +65,6 @@
       = @demo.ends_at.pretty 
     - else 
       goes on indefinitely.
-   
-
-
-  - if @demo.victory_threshold 
-    %p
-      = @demo.victory_threshold  
-      points to win.
- 
-
-  - if @demo.victory_verification_email 
-    %p
-      Victory email to 
-      = @demo.victory_verification_email 
- 
-
-  - if @demo.victory_verification_sms_number 
-    %p 
-      Victory verification SMS to 
-      = @demo.victory_verification_sms_number 
- 
 
   %p
     New players start with 
@@ -117,18 +97,6 @@
   %p
     Welcome message: 
     = @demo.welcome_message 
-
-  %p
-    Victory achievement message: 
-    = @demo.victory_achievement_message 
-
-  %p
-    Victory SMS: 
-    = @demo.victory_sms 
-
-  %p
-    Victory scoreboard message: 
-    = @demo.victory_scoreboard_message 
 
   %p
     - if @demo.followup_welcome_message.present? 

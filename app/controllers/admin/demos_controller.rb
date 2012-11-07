@@ -42,10 +42,6 @@ class Admin::DemosController < AdminBaseController
   end
 
   def update
-    %w(victory_verification_email victory_verification_sms_number).each do |nullable_field_name|
-      params[:demo][nullable_field_name] = nil if params[:demo][nullable_field_name].blank?
-    end
-
     @demo.attributes = params[:demo]
 
     if @demo.save
@@ -66,14 +62,8 @@ class Admin::DemosController < AdminBaseController
   protected
 
   def massage_new_demo_parameters
-    %w(custom_welcome_message victory_threshold victory_verification_email victory_verification_sms_number).each do |field_name|
-      if params[:demo][field_name].blank?
-        params[:demo].delete(field_name)
-      end
-    end
-
-    if (raw_number = params[:demo][:victory_verification_sms_number])
-      params[:demo][:victory_verification_sms_number] = PhoneNumber.normalize(raw_number)
+    if params[:demo][:custom_welcome_message].blank?
+      params[:demo].delete(:custom_welcome_message)
     end
 
     params[:demo].delete(:levels)

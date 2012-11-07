@@ -16,17 +16,14 @@ feature "User Sees Correct Values In Master Bar" do
       [{:name => 'Cal', :points => 23}, {:points => 3, :points_denominator => 10, :percent => 30.0}],
       [{:name => 'Dave', :points => 39}, {:points => 9, :points_denominator => 20, :percent => 45.0}],
       [{:name => 'Ed', :points => 62}, {:points => 12, :points_denominator => 30, :percent => 40.0}],
-      [{:name => 'Fred', :points => 87}, {:points => 7, :points_denominator => 20, :percent => 35.0}],
-      [{:name => 'Ger', :points => 120}, {:points => 20, :points_denominator => 30, :percent => 66.67}],
       [{:name => 'Hal', :points => 10}, {:points => 0, :points_denominator => 10, :percent => 0.0}],
       [{:name => 'Ike', :points => 0}, {:points => 0, :points_denominator => 10, :percent => 0.0}],
       [{:name => 'Jay', :points => 30}, {:points => 0, :points_denominator => 20, :percent => 0.0}],
-      [{:name => 'Kay', :points => 100}, {:points => 0, :points_denominator => 30, :percent => 0.0}]
     ]
   end
 
   before(:each) do
-    @demo = FactoryGirl.create :demo, :name => "BarCo", :victory_threshold => 100
+    @demo = FactoryGirl.create :demo, :name => "BarCo"
     [10, 20, 30, 50, 80, 130].each {|t| FactoryGirl.create :level, :threshold => t, :demo => @demo}
   end
 

@@ -31,7 +31,6 @@ class User < ActiveRecord::Base
   has_many   :friendships, :dependent => :destroy
   has_many   :friends, :through => :friendships
   has_many   :survey_answers
-  has_many   :wins, :dependent => :destroy
   has_many   :goal_completions
   has_many   :completed_goals, :through => :goal_completions, :source => :goal
   has_many   :timed_bonuses, :class_name => "TimedBonus"
@@ -577,7 +576,6 @@ class User < ActiveRecord::Base
     increment!(:points, new_points)
     update_recent_average_points(new_points)
     Level.check_for_level_up(old_points, self, channel)
-    check_for_victory(channel)
   end
 
   def update_recent_average_points(new_points)
@@ -751,7 +749,6 @@ class User < ActiveRecord::Base
     new_demo = Demo.find(new_demo_id)
 
     self.demo = new_demo
-    self.won_at = self.wins.where(:demo_id => new_demo_id).first.try(:created_at)
     self.points = self.acts.where(:demo_id => new_demo_id).map(&:points).compact.sum
     self.save!
     self.recalculate_moving_average!
@@ -1134,26 +1131,15 @@ class User < ActiveRecord::Base
   end
 
   def last_achieved_threshold
-    threshold_from_last_level = self.last_level.try(:threshold)
-
-    [achieved_victory_threshold_from_demo, threshold_from_last_level].compact.max
+    self.last_level.try(:threshold)
   end
 
   def next_unachieved_threshold
-    threshold_from_next_level = self.next_level.try(:threshold)
-
-    [unachieved_victory_threshold_from_demo, threshold_from_next_level].compact.min
+    self.next_level.try(:threshold)
   end
 
   def greatest_achievable_threshold
-    threshold_from_demo = self.demo.victory_threshold
-    threshold_from_highest_level = self.highest_possible_level.try(:threshold)
-
-    if threshold_from_demo && self.points > threshold_from_demo
-      [threshold_from_highest_level, threshold_from_demo].compact.max
-    else
-      threshold_from_demo || threshold_from_highest_level
-    end
+    self.highest_possible_level.try(:threshold)
   end
   
   def last_level
@@ -1166,24 +1152,6 @@ class User < ActiveRecord::Base
 
   def highest_possible_level
     demo.levels.order("threshold DESC").limit(1).first
-  end
-
-  def unachieved_victory_threshold_from_demo
-    threshold_from_demo = self.demo.victory_threshold
-    if threshold_from_demo && threshold_from_demo > self.points
-      threshold_from_demo
-    else
-      nil
-    end
-  end
-
-  def achieved_victory_threshold_from_demo
-    threshold_from_demo = self.demo.victory_threshold
-    if threshold_from_demo && threshold_from_demo <= self.points
-      threshold_from_demo
-    else
-      nil
-    end
   end
 
   def normalized_new_phone_number_unique
@@ -1274,31 +1242,6 @@ class User < ActiveRecord::Base
   def add_joining_to_activity_stream
     self.class.add_joining_to_activity_stream(self)
   end
-
-  def check_for_victory(channel=nil)
-    return unless (victory_threshold = self.demo.victory_threshold)
-
-    if !self.won_at && self.points >= victory_threshold
-      self.won_at = Time.now
-      self.save!
-
-      self.wins.create!(:demo_id => self.demo_id, :created_at => self.won_at)
-
-      send_victory_notices(channel)
-    end
-  end
-
-  def send_victory_notices(channel = nil)
-    OutgoingMessage.send_side_message(self, self.demo.victory_sms(self), :channel => channel)
-
-    OutgoingMessage.send_message(
-      self.demo.victory_verification_sms_number,
-      "#{self.name} (#{self.email}) won with #{self.points} points"
-    ) if self.demo.victory_verification_sms_number
-
-    Mailer.delay.victory(self) if self.demo.victory_verification_email
-  end
-
 
   def credit_referring_user(referring_user, rule, rule_value)
     return unless referring_user

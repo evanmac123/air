@@ -11,7 +11,6 @@ describe User do
   it { should have_many(:friendships) }
   it { should have_many(:friends).through(:friendships) }
   it { should have_many(:survey_answers) }
-  it { should have_many(:wins) }
   it { should have_many(:tile_completions) }
   # Note that our validates_uniqueness_of :email is called in the Clearance gem
   it { should validate_uniqueness_of(:email) }

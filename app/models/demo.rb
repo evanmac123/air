@@ -72,32 +72,6 @@ class Demo < ActiveRecord::Base
     )
   end
 
-  def victory_achievement_message(user = nil)
-    custom_message(
-      :custom_victory_achievement_message,
-      'You won on %{winning_time}. Congratulations!',
-      user,
-      :winning_time => [:won_at, :pretty]
-    )
-  end
-
-  def victory_sms(user = nil)
-    custom_message(
-      :custom_victory_sms,
-      "Congratulations! You've got %{points} points and have qualified for the drawing!",
-      user,
-      :points => [:points]
-    )
-  end
-
-  def victory_scoreboard_message(user = nil)
-    custom_message(
-      :custom_victory_scoreboard_message,
-      "Won game!",
-      user
-    )
-  end
-
   def prize_message(user = nil)
     custom_message(
       :prize,

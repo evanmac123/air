@@ -14,7 +14,7 @@ feature 'Admin moves user to new demo' do
   before(:each) do
     Timecop.freeze(Time.parse("2010-05-01 12:00 EST"))
 
-    @thoughtbot = FactoryGirl.create(:demo, victory_threshold: 15)
+    @thoughtbot = FactoryGirl.create(:demo)
     @ibm = FactoryGirl.create(:demo)
     
     @dan = FactoryGirl.create(:user, :claimed, :with_phone_number, name: 'Dan', points: 0, privacy_level: 'everybody', demo: @thoughtbot)

@@ -2,14 +2,9 @@
   <%= form.inputs do %>
     <%= form.input :name, :label => "Name of Demo" %>
     <%= form.input :client_name %>
-    <%= form.input :victory_threshold, :label => "Victory threshold" %>
     <%= form.input :seed_points, :label => "Starting player score" %>
     <%= form.input :custom_welcome_message, {:maxlength => 160} %>
     <%= add_byte_counter_for 'Custom welcome message' %>
-    <%= form.input :custom_victory_achievement_message %>
-    <%= form.input :custom_victory_sms, :label => "Custom victory SMS", :input_html => {:maxlength => 160} %>
-    <%= add_byte_counter_for 'Custom victory SMS' %>
-    <%= form.input :custom_victory_scoreboard_message %>
     <%= form.input :begins_at, :label => "Game begins at", :twelve_hour => true, :start_year => Time.now.year %>
     <%= form.input :ends_at, :label => "Game ends at", :twelve_hour => true, :start_year => Time.now.year %>
     <%= form.input :points_for_connecting, :label => "Points for connecting to another player" %>
@@ -63,12 +58,6 @@
     <%= form.input :followup_welcome_message %>
     <%= add_byte_counter_for 'Followup welcome message' %>
     <%= form.input :followup_welcome_message_delay, :label => "Followup welcome message delay (in minutes)" %>
-  <% end %>
-
-  <%= form.inputs :name => "Victory Notifications" do %>
-    You can specify an e-mail address and/or SMS number that gets notified if and who someone wins this game.
-    <%= form.input :victory_verification_email %>
-    <%= form.input :victory_verification_sms_number, :label => 'Victory verification SMS number' %>
   <% end %>
 
   <% if demo.new_record? %>
