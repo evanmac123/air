@@ -16,6 +16,12 @@ class Friendship < ActiveRecord::Base
     STATES = [INITIATED, PENDING, ACCEPTED].freeze
   end
 
+  class FollowNotification < Struct.new(:to, :follower_name, :accept_command, :ignore_command, :reply_phone_number)
+    def perform
+      Mailer.follow_notification(to, follower_name, accept_command, ignore_command, reply_phone_number).deliver
+    end
+  end
+
   validates_inclusion_of :state, :in => State::STATES
 
   def send_follow_notification
@@ -30,13 +36,20 @@ class Friendship < ActiveRecord::Base
   end
 
   def send_follow_notification_by_email
-    Mailer.delay.follow_notification(
-      friend.email, 
-      user.name, 
-      accept_command,
-      ignore_command,
-      (friend.demo.phone_number || TWILIO_PHONE_NUMBER).as_pretty_phone
-    )
+    p "**************************** FOLLOW NOTIFY"
+
+    Delayed::Job.enqueue FollowNotification.new(friend.email,
+                                                user.name,
+                                                accept_command,
+                                                ignore_command,
+                                                (friend.demo.phone_number || TWILIO_PHONE_NUMBER).as_pretty_phone)
+    #Mailer.delay.follow_notification(
+    #  friend.email,
+    #  user.name,
+    #  accept_command,
+    #  ignore_command,
+    #  (friend.demo.phone_number || TWILIO_PHONE_NUMBER).as_pretty_phone
+    #)
   end
 
   def record_follow_act
@@ -119,6 +132,7 @@ class Friendship < ActiveRecord::Base
   end
 
   def notify_follower_of_acceptance
+p "**************************** OUTGOING"
     OutgoingMessage.send_message(user, friend.follow_accepted_message)
   end
 
