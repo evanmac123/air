@@ -127,7 +127,6 @@ class Friendship < ActiveRecord::Base
   end
 
   def notify_follower_of_acceptance
-p "**************************** OUTGOING"
     OutgoingMessage.send_message(user, friend.follow_accepted_message)
   end
 
