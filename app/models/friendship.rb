@@ -16,6 +16,10 @@ class Friendship < ActiveRecord::Base
     STATES = [INITIATED, PENDING, ACCEPTED].freeze
   end
 
+  # Switched to this implementation (instead of having the 'send_follow_notification_by_email' method below call
+  # 'Mailer.delay.follow_notification' directly because that way stopped working in Development Mode due
+  # to DJ barfing on trying to put a class method in the DJ queue. See http://www.kiakroas.com/blog/48/
+  # for more details. (We were getting the "TypeError: can't dump anonymous class Class" error message.)
   class FollowNotification < Struct.new(:to, :follower_name, :accept_command, :ignore_command, :reply_phone_number)
     def perform
       Mailer.follow_notification(to, follower_name, accept_command, ignore_command, reply_phone_number).deliver
