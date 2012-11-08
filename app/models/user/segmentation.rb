@@ -8,6 +8,7 @@ class User
         :ar_id                     => self.id,
         :demo_id                   => self.demo_id,
         :updated_at                => self.updated_at.utc,
+        :last_acted_at             => self.last_acted_at.try(:utc),
         :points                    => self.points,
         :location_id               => self.location_id,
         :height                    => self.height,
@@ -37,7 +38,7 @@ class User
     end
 
     def rebuild_segmentation_data!
-      self.segmentation_data.destroy
+      self.segmentation_data.try(:destroy)
       self.schedule_segmentation_create
     end
 

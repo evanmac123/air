@@ -15,7 +15,7 @@ class User < ActiveRecord::Base
 
   DEFAULT_MUTE_NOTICE_THRESHOLD = 10
 
-  FIELDS_TRIGGERING_SEGMENTATION_UPDATE = %w(characteristics points location_id date_of_birth height weight gender demo_id accepted_invitation_at phone_number email)
+  FIELDS_TRIGGERING_SEGMENTATION_UPDATE = %w(characteristics points location_id date_of_birth height weight gender demo_id accepted_invitation_at last_acted_at phone_number email)
 
   include Clearance::User
   include User::Ranking
@@ -155,6 +155,11 @@ class User < ActiveRecord::Base
     true if phone_number
   end
 
+  def update_last_acted_at
+    reload if changed? # Let's scrap any dirty changes so we don't get unwanted side-effects
+    self.last_acted_at = Time.now
+    save!
+  end
 
   def corporate_email
     return email if overflow_email.empty?

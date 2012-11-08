@@ -26,6 +26,7 @@ class Act < ActiveRecord::Base
   end
 
   after_create do
+    user.update_last_acted_at
     user.update_points(points, self.creation_channel) if points
 
     check_goal_completion

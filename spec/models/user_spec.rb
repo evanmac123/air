@@ -721,6 +721,16 @@ describe User, "on save" do
     user.segmentation_data.demo_id.should == other_demo.id
   end
 
+  it "should sync to mongo when a user acts" do
+    user = FactoryGirl.create :user
+    crank_dj_clear
+    user.segmentation_data.last_acted_at.should be_nil
+    act = FactoryGirl.create(:act, user: user)
+    crank_dj_clear
+    now = Time.now
+    user.segmentation_data.last_acted_at.should_not be_nil
+  end
+
   it "should sync to mongo when accepted_invitation_at is changed, updating the value of claimed too" do
     user = FactoryGirl.create :user
     crank_dj_clear
