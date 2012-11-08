@@ -37,22 +37,6 @@ Feature: User can edit their account settings
     And I should see "OK, your settings were updated."
     And "Male" should be chosen
     And "Date of Birth" should have value "September 10, 1977"
-
-  Scenario: User can change their location    
-    Given the following locations exist:
-      | name         | demo              |
-      | Philadelphia | name: BigMachines |
-      | Baltimore    | name: BigMachines |    
-    When I go to the settings page for "Phil"
-    Then I should see "Location"
-    When I select "Baltimore" from "Location"
-    And I press the button to save the user's settings
-    Then "Location" should have "Baltimore" selected
-    And I should see "OK, your settings were updated."
-
-  Scenario: User doesn't see location dropdown if demo has no locations
-    Then I should not see "Location"
-    And I should not see a form field called "Location"
   
   Scenario: User can choose notification by email
     When I sign in via the login page with "Phil/foobar"

@@ -38,12 +38,6 @@
         </ul>
       </div>
 
-      <% if @locations.present? %>
-        <div class="module_inner settings_location">
-          <h2 class="title"><%= label_tag 'user_location_id', 'Location' %></h2>
-          <%= form.collection_select :location_id, @locations, :id, :name, :include_blank => true %>
-        </div>
-      <% end %>
       <%= form.submit 'Save', :class => "button_norm" %>
     <% end %>
 

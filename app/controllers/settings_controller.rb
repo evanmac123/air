@@ -4,7 +4,6 @@ class SettingsController < ApplicationController
   before_filter :authenticate_without_game_begun_check
 
   def edit
-    @locations = current_user.demo.locations.alphabetical
   end
 
   def update
