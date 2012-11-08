@@ -100,4 +100,5 @@ group :development do
   #gem 'rb-fsevent', :require => false if RUBY_PLATFORM =~ /darwin/i # guard-rspec depends on this, but only OSX operating systems don't have it already
   gem 'guard-spork'
   gem 'guard-livereload'
+  gem 'letter_opener'
 end

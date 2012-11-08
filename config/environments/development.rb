@@ -52,6 +52,9 @@ Health::Application.configure do
   
   ##
 
+  # Uses gem from Ryan Bates. See https://github.com/ryanb/letter_opener for details.
+  config.action_mailer.delivery_method = :letter_opener
+
    ActionMailer::Base.smtp_settings = {
      :user_name => SendGrid::DEV_USERNAME,
      :password => SendGrid::DEV_PASSWORD,
