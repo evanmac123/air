@@ -6,12 +6,12 @@ Feature: User can credit another user who got them into the game
       | FooCorp  | 60                             | 5                   |                       |
       | QuuxCorp | 60                             | 10                  | 6                     |
     And the following users exist:
-      | name | phone number | accepted invitation at | demo           | privacy level |
-      | Phil | +14155551212 | 2011-05-01 12:00 EST   | name: FooCorp  | everybody     |
-      | Vlad | +16175551212 | 2011-05-01 11:59 EST   | name: FooCorp  | everybody     |
-      | Dan  | +18085551212 | 2011-05-01 12:00 EST   | name: FooCorp  | everybody     |
-      | Joe  | +17145551212 | 2011-05-01 12:00 EST   | name: QuuxCorp | everybody     |
-      | Fred | +14085551212 | 2011-05-01 12:00 EST   | name: QuuxCorp | everybody     |
+      | name | phone number | accepted invitation at | demo           | privacy level | notification method |
+      | Phil | +14155551212 | 2011-05-01 12:00 EST   | name: FooCorp  | everybody     | email               |
+      | Vlad | +16175551212 | 2011-05-01 11:59 EST   | name: FooCorp  | everybody     | email               |
+      | Dan  | +18085551212 | 2011-05-01 12:00 EST   | name: FooCorp  | everybody     | both                |
+      | Joe  | +17145551212 | 2011-05-01 12:00 EST   | name: QuuxCorp | everybody     | email               |
+      | Fred | +14085551212 | 2011-05-01 12:00 EST   | name: QuuxCorp | everybody     | both                |
     And the following rule exists:
       | reply  | points | demo                  |
       | kitten | 5      | name: FooCorp |
