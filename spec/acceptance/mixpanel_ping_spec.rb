@@ -31,7 +31,10 @@ feature "Make sure mixpanel pings fire" do
     click_link 'show_me_the_site'
     sleep 1
     crank_dj_clear
-    @user.should_not be_pinged_on_page('talking chicken')
+    @user.should be_pinged_on_page('talking chicken')
     @user.should_not be_pinged_on_page('activity feed')
+    click_link 'no_thanks_tutorial'
+    crank_dj_clear
+    @user.should be_pinged_on_page('activity feed')
   end
 end

@@ -39,6 +39,7 @@ class InvitationsController < ApplicationController
         @user.accepted_invitation_at = Time.now
         @user.save
         sign_in @user
+        @user.create_active_tutorial_at_slide_one
         redirect_to activity_path and return
       end
     end
