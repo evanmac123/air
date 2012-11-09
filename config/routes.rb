@@ -84,6 +84,14 @@ Health::Application.routes.draw do
 
   resources :email_info_requests, :only => [:create]
 
+  # Not using any of the 7 RESTful actions because these guys are
+  # fired off from links within emails => Need to be 'get'
+  resources :email_friendships do
+    member do
+      get 'accept', 'ignore'
+    end
+  end
+
   resource :demographics, :only => [:update]
 
   resource :logged_in_user_password, :only => [:update]
