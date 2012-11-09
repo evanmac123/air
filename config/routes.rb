@@ -85,6 +85,8 @@ Health::Application.routes.draw do
 
   resource :demographics, :only => [:update]
 
+  resource :logged_in_user_password, :only => [:update]
+
   namespace :admin do
     get 'exception' => 'exceptions#show'
     get 'sleep_forever' => 'sleep_forever#show'

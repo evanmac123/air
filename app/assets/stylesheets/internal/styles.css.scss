@@ -1,20 +1,4 @@
-
-$ex-bg-gray: #2c2b2b;
-
-
-@mixin ex-textfield {
-	@include rounded-nav;
-	background-color:lighten($light-gray, 5%); 
-	border: 1px #c5c7c7 solid;
-	color:$hengage-bg;
-	display: inline;
-	font-size:20px;
-	padding:7px 10px;			
-	&:focus {
-		background-color:#fff;
-		border:1px $hengage-bg solid;
-	}
-}
+@import "ex-textfield";
 
 .cf {clear:both;}
 h2 {font-weight:900; margin:0; padding:0;}

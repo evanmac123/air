@@ -2,6 +2,7 @@
 
 @import "header";
 @import "misc";
+@import "ex-textfield";
 
 
 $faq_med_grey: #777;
@@ -732,8 +733,14 @@ body.settings {
 			float:right;
 			font-size:$font-small;
 			width:47%;
-			input[type="text"] {width:427px;}
-			
+			input[type="text"], input[type="password"] {
+        @include ex-textfield;
+        width:427px;
+        height: 15px;
+        padding: 5px 10px;
+        font-size: inherit;
+      }
+		  	
 			.settings_new_number_verification {
 			}
 		}
