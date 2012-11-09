@@ -66,17 +66,14 @@ class Mailer < ActionMailer::Base
     headers['Reply-To'] = @user_email
   end
 
-  def follow_notification(to, follower_name, accept_command, ignore_command, reply_phone_number)
-    from_address = to.kind_of?(User) ? to.reply_email_address : DEFAULT_PLAY_ADDRESS
+  def follow_notification(friend_name, friend_address, reply_address, user_name, friendship_id)
+    @friend_name   = friend_name.split[0]
+    @user_name     = user_name
+    @friendship_id = friendship_id
 
-    @follower_name = follower_name
-    @accept_command = accept_command
-    @ignore_command = ignore_command
-    @reply_phone_number = reply_phone_number
-
-    mail :to      => to,
-         :from => from_address,
-         :subject => "#{follower_name} wants to be your friend on H Engage"
+    mail :to      => friend_address,
+         :from    => reply_address,
+         :subject => "#{user_name} wants to be your friend on H Engage"
   end
 
   def set_password(user_id)
@@ -96,23 +93,21 @@ class Mailer < ActionMailer::Base
   end
 
   def side_message(recipient_identifier, message)
-    to_email, from_email =
-      case recipient_identifier
-      when Fixnum
-        @user = User.find(recipient_identifier)
-        [@user.email, @user.reply_email_address]
-      when String
-        [recipient_identifier, DEFAULT_PLAY_ADDRESS]
-      end
+    to_email, from_email = case recipient_identifier
+                           when Fixnum
+                             @user = User.find(recipient_identifier)
+                             [@user.email, @user.reply_email_address]
+                           when String
+                             [recipient_identifier, DEFAULT_PLAY_ADDRESS]
+                           end
 
     @message = construct_reply(message.dup)
 
-    mail(
-      :to      => to_email,
-      :from    => from_email,
-      :subject => "Message from H Engage",
-      :template_path => 'email_command_mailer',
-      :template_name => "send_response")
+    mail :to      => to_email,
+         :from    => from_email,
+         :subject => "Message from H Engage",
+         :template_path => 'email_command_mailer',
+         :template_name => "send_response"
   end
 
   def fuji_poke(user_id)

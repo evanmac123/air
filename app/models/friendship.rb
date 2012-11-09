@@ -20,9 +20,9 @@ class Friendship < ActiveRecord::Base
   # 'Mailer.delay.follow_notification' directly because that way stopped working in Development Mode due
   # to DJ barfing on trying to put a class method in the DJ queue. See http://www.kiakroas.com/blog/48/
   # for more details. (We were getting the "TypeError: can't dump anonymous class Class" error message.)
-  class FollowNotification < Struct.new(:to, :follower_name, :accept_command, :ignore_command, :reply_phone_number)
+  class FollowNotification < Struct.new(:friend_name, :friend_address, :reply_address, :user_name, :friendship_id)
     def perform
-      Mailer.follow_notification(to, follower_name, accept_command, ignore_command, reply_phone_number).deliver
+      Mailer.follow_notification(friend_name, friend_address, reply_address, user_name, friendship_id).deliver
     end
   end
 
@@ -40,11 +40,7 @@ class Friendship < ActiveRecord::Base
   end
 
   def send_follow_notification_by_email
-    Delayed::Job.enqueue FollowNotification.new(friend.email,
-                                                user.name,
-                                                accept_command,
-                                                ignore_command,
-                                                (friend.demo.phone_number || TWILIO_PHONE_NUMBER).as_pretty_phone)
+    Delayed::Job.enqueue FollowNotification.new(friend.name, friend.email, friend.reply_email_address, user.name, id)
   end
 
   def record_follow_act

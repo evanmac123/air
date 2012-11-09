@@ -1,6 +1,13 @@
 module OutgoingMessage
   DEFAULT_SIDE_MESSAGE_DELAY = ENV['SIDE_MESSAGE_DELAY'] || 5
 
+  # See Friendship::FollowNotification for reason as to why doing it this way.
+  class SideMessage < Struct.new(:recipient_identifier, :body)
+    def perform
+      Mailer.side_message(recipient_identifier, body).deliver
+    end
+  end
+
   def self.send_message(to, body, send_at = nil, options = {})
     channels = determine_channels(to, options)
 

@@ -1,0 +1,12 @@
+Hi #{@friend_name},
+\
+#{@user_name} has asked to be your friend on H Engage.
+\
+To accept this request, click #{url_for accept_email_friendship_url(@friendship_id)}
+\
+To ignore this request, click #{url_for ignore_email_friendship_url(@friendship_id)}
+\
+Thanks,
+The folks at H Engage
+\
+=render 'shared/unsubscribe_footer'
