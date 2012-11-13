@@ -101,3 +101,4 @@ feature "User tries to friend someone" do
     @friend.should_not be_friends_with user
   end
 end
+
