@@ -1,24 +1,20 @@
 class UsersController < Clearance::UsersController
-  
+  USER_LIMIT = 50
+
   def index
     @friend_ids = current_user.friend_ids
     @search_link_text = "our search bar"
-    text = params[:search_string]
-    if text
-      @search_string = text
-      text = text.downcase.strip.gsub(/\s+/, ' ')
-      demo = current_user.demo
-      @other_users = User.claimed.where(['demo_id = ? AND id != ?', current_user.demo_id, current_user.id]).alphabetical
-      names = @other_users.where("LOWER(name) like ?", "%" + text + "%")
-      slugs = @other_users.where("LOWER(sms_slug) like ?", "%" + text + "%")
-      emails = @other_users.where("LOWER(email) like ?", "%" + text + "%")
-      @other_users = names + slugs + emails
-      @other_users.uniq!
+    @search_string = params[:search_string]
+
+    if @search_string
+      @search_string = @search_string.downcase.strip.gsub(/\s+/, ' ')
+      @other_users = User.claimed.demo_mates(current_user).alphabetical.name_like(@search_string)
+      @users_cropped = USER_LIMIT if @other_users.length > USER_LIMIT
+      @other_users = @other_users[0, USER_LIMIT]
+
       @search_link_text = "refining your search"
-      user_limit = 50
-      @users_cropped = user_limit if @other_users.length > user_limit && @search_string
-      @other_users = @other_users[0,user_limit]
     end
+
     if invoke_tutorial
       # tutorial ping already sent, so we won't send a 'viewed page' ping
     else

@@ -19,6 +19,10 @@ module User::Queries
     where("name !~* '^[[:alpha:]]'")
   end
 
+  def name_like(text)
+    where("LOWER(name) like ?", "%" + text + "%")  
+  end
+
   def wants_email
     where(:notification_method => %w(email both))
   end
@@ -75,5 +79,9 @@ module User::Queries
 
   def with_game_referrer
     where("game_referrer_id IS NOT NULL")
+  end
+
+  def demo_mates(current_user)
+    where(['demo_id = ? AND id != ?', current_user.demo_id, current_user.id])  
   end
 end
