@@ -10,7 +10,8 @@ Feature: Sign in
     Given I am signed up as "email@person.com/password"
     When I go to the sign in page
     And I sign in as "email@person.com/wrongpassword"
-    Then I should see "Sorry, that's an invalid username or password."    
+    Then I should see "Sorry, that's an invalid username or password."
+    Then the "session_email" field should be "email@person.com"
     And I should be signed out
 
   Scenario: User signs in successfully

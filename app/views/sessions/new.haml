@@ -1,10 +1,10 @@
 #session-wrapper
   %h2 Log In
   = form_tag session_path do  
-    = text_field_tag "session[email]",nil, :placeholder => "Email address"
+    = text_field_tag "session[email]", (params[:session] and params[:session][:email]), :placeholder => "Email address"
     #password_placeholder_holder
       #password_placeholder Password
-    = password_field_tag "session[password]",nil
+    = password_field_tag "session[password]", nil
     = label_tag "session[remember_me]", "Remember me (Don't check this on a shared computer)", :class => :inline
     = check_box_tag "session[remember_me]", 1, true
     = submit_tag "Let's play!" 
