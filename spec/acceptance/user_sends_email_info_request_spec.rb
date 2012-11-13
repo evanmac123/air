@@ -6,7 +6,7 @@ feature "User Sends Email Info Request", %q{
   I want to ask for information
 } do
 
-  scenario "User requests information through the marketing page", :js => :webkit do
+  scenario "User requests information through the marketing page", :js => true do
     EmailInfoRequest.stubs(:"create!")
 
     @phone = "(332) 334-3322"
