@@ -930,6 +930,10 @@ div.content {
 .hidden{
   display:none;
 }
+.flash-preload {
+	height:0;
+	visibility:hidden;
+}
 
 #faq_toc{
   .contact_us_link, .quick_tour_link{
