@@ -1,5 +1,6 @@
 class UsersController < Clearance::UsersController
   USER_LIMIT = 50
+  MINIMUM_SEARCH_STRING_LENGTH = 3
 
   def index
     @friend_ids = current_user.friend_ids
@@ -8,11 +9,17 @@ class UsersController < Clearance::UsersController
 
     if @search_string
       @search_string = @search_string.downcase.strip.gsub(/\s+/, ' ')
-      @other_users = User.claimed.demo_mates(current_user).alphabetical.name_like(@search_string)
-      @users_cropped = USER_LIMIT if @other_users.length > USER_LIMIT
-      @other_users = @other_users[0, USER_LIMIT]
 
-      @search_link_text = "refining your search"
+      if @search_string.length < MINIMUM_SEARCH_STRING_LENGTH
+        flash[:failure] = "Please enter at least #{MINIMUM_SEARCH_STRING_LENGTH} letters to search on if you'd like to search"
+        @other_users = []
+      else
+        @other_users = User.claimed.demo_mates(current_user).alphabetical.name_like(@search_string)
+        @users_cropped = USER_LIMIT if @other_users.length > USER_LIMIT
+        @other_users = @other_users[0, USER_LIMIT]
+
+        @search_link_text = "refining your search"
+      end
     end
 
     if invoke_tutorial
