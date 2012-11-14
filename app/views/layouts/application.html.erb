@@ -19,9 +19,6 @@
   <%= csrf_meta_tag %>
 </head>
 <body class="<%= body_class %>">
-  <div class="hidden">
-    <%= render 'shared/assistly_widget' %>
-  </div>
   <div class="flash-preload">
     <%= image_tag 'v3/flash/flash-bc-failure.png' %>
     <%= image_tag 'v3/flash/flash-bc-success.png' %>
@@ -54,6 +51,7 @@
   </div>
 
   <%= render 'shared/mixpanel' unless @is_admin_page %>
+  <%= render 'shared/intercom' %>
   
   <% if @highlighted %>
     <%= render 'shared/site_tutorial' %>

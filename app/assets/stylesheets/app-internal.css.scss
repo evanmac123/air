@@ -17,7 +17,6 @@
 /* THIRD PARTY STYLESHEETS FIRST (so we have the options of overwriting them later) */
 @import "./vendor/facebox.css.scss";
 @import "./vendor/flutie.css.scss";
-@import "./vendor/desk.com_with_fancybox.css.scss";
 @import "./vendor/jcarousel_skin.css.scss";
 
 /* MIXIN DEFINITIONS NEXT (so we can use them later) */
@@ -40,5 +39,6 @@
 @import "./internal/unsupported.css.scss";
 @import "./internal/tile_thumbnails.css.scss";
 @import "./internal/tiles.css.scss";
+@import "./internal/intercom.css.scss";
 
 

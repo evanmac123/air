@@ -1,0 +1,45 @@
+<% if Rails.env.production? || Rails.env.staging? || ENV['INTERCOM'] %>
+  <% http_host = controller.env['HTTP_HOST'] %>
+  <% intercom_user = current_user || @user %>
+  <script id="IntercomSettingsScriptTag">
+    var intercomSettings = {
+      app_id: 'iukuloq8',
+      email: '<%= intercom_user.email %>', // User's e-mail address
+      created_at: <%= intercom_user.accepted_invitation_at.to_i %>, // User's sign-up date, Unix timestamp
+      name: '<%= intercom_user.name %>',
+      user_id: '<%= intercom_user.id %>', // Sending user_id so if email changes they can still track it
+      user_hash: '<%= Digest::SHA1.hexdigest('9rlx8hyy' + intercom_user.id.to_s) %>',
+      custom_data:{
+        demo: "<%= intercom_user.demo.name %>",
+        location: "<%= intercom_user.location %>",
+        notification_method: "<%= intercom_user.notification_method %>",
+        last_acted_at: "<%= intercom_user.last_acted_at %>",
+        date_of_birth: "<%= intercom_user.date_of_birth %>",
+        profile: "<%= 'https://' + http_host + '/users/' + intercom_user.slug %>",
+        points: <%= intercom_user.points %>
+      },
+      widget: {
+        activator: '#IntercomDefaultWidget',
+        label: 'Support',
+        use_counter: true
+      }
+    };
+  </script>
+  <script>
+    (function() {
+      function async_load() {
+        var s = document.createElement('script');
+        s.type = 'text/javascript'; s.async = true;
+        s.src = 'https://api.intercom.io/api/js/library.js';
+        var x = document.getElementsByTagName('script')[0];
+        x.parentNode.insertBefore(s, x);
+      }
+      if (window.attachEvent) {
+        window.attachEvent('onload', async_load);
+      } else {
+        window.addEventListener('load', async_load, false);
+      }
+    })();
+  </script>
+<% end %>
+

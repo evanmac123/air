@@ -9,9 +9,6 @@
 - optional_style = "background: white;"
 
 - content_for(:javascript) do
-  =# need hidden div here so contact us can pop
-  .hidden
-    = render 'shared/assistly_widget'
 
   :javascript
     $("input#user_phone_number").focus(function () {
@@ -160,6 +157,8 @@
     %ul.form-section.signup-submit
 
       .orange-btn= f.submit "Log in", :style => 'float: left;',  :id => 'join_the_game_link'
-      = link_to_function 'Need help?', "setTimeout(\"$('.assistly-widget a').click()\", 500)", :style => "float: right; padding-top:15px", :id => :contact_us_from_inv_acceptance_page
+      .contact_us_link{:style => "float: right; padding-top:15px"} 
+        = link_to "Need help?"
       .cf
     .cf
+= render 'shared/intercom'

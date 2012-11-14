@@ -119,7 +119,7 @@ $(function() {
 
   $('.nav-contact-us').click(function(e){
     e.preventDefault();
-    $('.assistly-widget a').click(); 
+    $('#IntercomDefaultWidget').click(); 
   });
 });
 

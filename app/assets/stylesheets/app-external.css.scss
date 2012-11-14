@@ -15,7 +15,6 @@
 
 
 /* THIRD PARTY STYLESHEETS FIRST (so we have the options of overwriting them later) */
-@import "./vendor/desk.com_with_fancybox.css.scss"; /* We are using desk.com on the join page */
 
 /* MIXIN DEFINITIONS NEXT (so we can use them later) */
 @import "./mixins/standard_colors.css.scss";
@@ -35,3 +34,4 @@
 @import "./external/_features.css.scss";
 @import "./external/_contact.css.scss";
 @import "./external/join.css.scss";
+@import "./internal/intercom.css.scss";

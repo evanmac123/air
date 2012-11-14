@@ -1,0 +1,28 @@
+#IModal #IntercomNewMessageContainer{
+  width: 625px;
+  textarea{
+    height: 314px !important;
+  }
+  .header{
+    height: 110px;
+    a {
+      top: 9px;
+    }
+    h1, h2{
+      font-family: neue helvetica, helvetica, arial, sans-serif;
+    }
+    h1{
+      top: 40px;
+      left: 14px;
+      font-size: 23px;
+    }
+    h2{
+      position: absolute;
+      top: 68px;
+      left: 14px;
+      width: 47ex;
+      line-height: 1.15;
+    }
+  }
+}
+
