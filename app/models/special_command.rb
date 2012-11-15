@@ -48,6 +48,7 @@ module SpecialCommand
     @@default_handler = handler_class
   end
 
+  register_command_handler %w(stop),                                SpecialCommandHandlers::StopHandler
   register_command_handler %w(follow connect fan friend befriend),  SpecialCommandHandlers::FollowHandler
   register_command_handler %w(myid),                                SpecialCommandHandlers::MyIdHandler
   register_command_handler %w(info),                                SpecialCommandHandlers::MoreInfoHandler
