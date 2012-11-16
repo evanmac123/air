@@ -21,7 +21,7 @@ feature "User tries to friend someone" do
     user.update_attribute :session_count, 10              # Uses 'facebox'  css selectors
 
     # NOTE: Can't use the 'let!' statement below with the other 'let's (above) because the
-    # friend never gets created, even though there's a '!' on the end of 'let'... wtf!
+    # friend never gets created, even though there's a '!' on the end of 'let'
     # let!(:friend) { FactoryGirl.create :user, :claimed, demo: demo, name: 'Sue Friend' }
 
     @friend = FactoryGirl.create :user, :claimed, demo: demo, name: 'Sue Friend', email: 'sue@friend.com'
@@ -39,15 +39,13 @@ feature "User tries to friend someone" do
     # click_button 'add_friend'
 
     page.find('div.follow-btn').click
-  end
-
-  scenario "Notice is displayed on page and friend-request email is sent", js: true  do
     page.should have_content "OK, you'll be friends with Sue Friend, pending their acceptance"
 
-    deliver_and_open_email @friend
+    crank_dj_clear
+    open_email(@friend.email)
 
     # NOTE: For debugging, creates a file like /tmp/email-123456789.txt
-    #EmailSpec::EmailViewer.save_and_open_email(current_email)
+    # EmailSpec::EmailViewer.save_and_open_email(current_email)
 
     current_email.should be_delivered_to(@friend.email)
     current_email.should be_delivered_from(@friend.reply_email_address)
