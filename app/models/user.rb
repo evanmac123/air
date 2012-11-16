@@ -507,7 +507,7 @@ class User < ActiveRecord::Base
     suggestion_ids = self.last_suggested_items.present? ? self.last_suggested_items.split('|') : []
     suggestion_hash = Hash[*([:suggestion_a, :suggestion_b, :suggestion_c].zip(suggestion_ids).flatten)]
 
-    Mixpanel::Tracker.new(MIXPANEL_TOKEN, {}).delay.track_event("got rule suggestion", data_for_mixpanel.merge(suggestion_hash))
+    Mixpanel::Tracker.new(MIXPANEL_TOKEN, {}).delay.track("got rule suggestion", data_for_mixpanel.merge(suggestion_hash))
   end
 
   def email_has_internal_domain?
@@ -573,7 +573,7 @@ class User < ActiveRecord::Base
   end
 
   def record_claim_in_mixpanel(channel)
-    Mixpanel::Tracker.new(MIXPANEL_TOKEN, {}).delay.track_event("claimed account", {:channel => channel}.merge(self.data_for_mixpanel))
+    Mixpanel::Tracker.new(MIXPANEL_TOKEN, {}).delay.track("claimed account", {:channel => channel}.merge(self.data_for_mixpanel))
   end
 
   def update_points(new_points, channel=nil)

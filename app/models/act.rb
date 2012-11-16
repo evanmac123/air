@@ -168,7 +168,7 @@ class Act < ActiveRecord::Base
 
   def schedule_mixpanel_ping
     unless user.name == Tutorial.example_search_name 
-      Mixpanel::Tracker.new(MIXPANEL_TOKEN, {}).delay.track_event("acted", data_for_mixpanel)
+      Mixpanel::Tracker.new(MIXPANEL_TOKEN, {}).delay.track("acted", data_for_mixpanel)
     end
   end
 

@@ -1,5 +1,5 @@
 <%= render 'replies_above_this_line' %>
-<%= @message %>
+<%= @message.html_safe %>
 
 To sign into the web site and learn how to play click here: <%= edit_user_password_url(@user, :token => @user.confirmation_token) %>
 

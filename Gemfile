@@ -1,6 +1,8 @@
 source :rubygems
 
-gem "rails", "~> 3.1.0"
+ruby '1.9.3'
+
+gem "rails", "~> 3.2.0"
 gem "rack"  # Update rack to 1.3.0 or later to get rid of utf8 string regex warnings
 gem "unicorn"   # Some of our capybara webkit tests fail with thin, so we use unicorn
 gem 'delayed_job_active_record'
@@ -10,8 +12,7 @@ gem "paperclip"
 gem "paperclip-meta"
 gem 'aws-sdk'
 gem "will_paginate"
-gem "validation_reflection"
-gem "formtastic", "1.2.2"
+gem "formtastic"
 gem "pg"
 gem "flutie"
 gem "dynamic_form"
@@ -35,8 +36,8 @@ gem 'nokogiri'
 # in production environments by default.
 group :assets do
   gem 'asset_sync'
-  gem 'sass-rails', "3.1.4" # Locking sass-rails at 3.1.4 so that assets will precompile
-  gem 'coffee-rails', " ~> 3.1.0"
+  gem 'sass-rails'
+  gem 'coffee-rails'
   gem 'uglifier'
   gem 'jquery-ui-rails'
 end
@@ -83,7 +84,8 @@ group :development, :test do
   # is that cover_me makes the difference.
   gem "cover_me"
   gem "getopt"
-  gem "ruby-debug19"
+  #gem "ruby-debug19", :require => 'ruby-debug'
+  gem 'debugger'
 end
 
 group :test do

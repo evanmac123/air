@@ -6,7 +6,7 @@ class User::SegmentationResults
   field :found_user_ids
   field :created_at
 
-  index :owner_id, :unique => true
+  index({owner_id: 1}, {:unique => true})
 
   before_save :set_created_at
 

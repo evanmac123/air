@@ -6,10 +6,10 @@ class User::SegmentationData
   field :characteristics
   field :updated_at
 
-  index :ar_id, :unique => true
-  index :demo_id
-  index :characteristics
-  index :updated_at
+  index({ar_id: 1}, {unique: true})
+  index({demo_id: 1})
+  index({characteristics: 1})
+  index({updated_at: 1})
 
   def self.create_from_user(user)
     self.create!(user.values_for_segmentation)

@@ -5,7 +5,7 @@ FactoryGirl.define do
     # Need to find a way to set the location of a user without creating an entirely new demo
     # association(:location)
     password  "password" 
-    sequence(:email, User.next_id) {|n| "darth_#{n}@sunni.ru" }
+    sequence(:email) {|n| "darth_#{n}@sunni.ru" }
   end
   
   
@@ -25,7 +25,7 @@ FactoryGirl.define do
     end
 
     trait :with_phone_number do
-      sequence(:phone_number, User.next_id + 4442220000) {|n| "+1#{n}" }
+      sequence(:phone_number) {|n| "+1#{4442220000 + n}" }
     end
 
     trait :with_game_referrer do
@@ -43,7 +43,7 @@ FactoryGirl.define do
   end
   
   factory :user_with_phone, :parent => :claimed_user do 
-    sequence(:phone_number, User.next_id + 4442220000) {|n| "+1#{n}" }
+    sequence(:phone_number) {|n| "+1#{4442220000 + n}" }
     notification_method "both"
   end
   
@@ -53,10 +53,10 @@ FactoryGirl.define do
   end
   
   factory :demo do 
-    sequence(:name, Demo.next_id) {|n| "Coolio_#{n}" }
+    sequence(:name) {|n| "Coolio_#{n}" }
 
     trait :with_email do
-      sequence(:email, Demo.next_id) {|n| "demo_#{n}@example.com"}
+      sequence(:email) {|n| "demo_#{n}@example.com"}
     end
 
     trait :with_gold_coins do
@@ -100,7 +100,7 @@ FactoryGirl.define do
 
   factory :tag do
     description "A short description"
-    sequence(:name, Tag.next_id) {|n| "Cool word #{n}"}
+    sequence(:name) {|n| "Cool word #{n}"}
   end
 
   factory :label do
@@ -216,7 +216,7 @@ FactoryGirl.define do
     headline "Riceburners Back in Style"
     require_images false
     association :demo
-    sequence(:identifier, Tile.next_id) {|n| "Identifier#{n}"}
+    sequence(:identifier) {|n| "Identifier#{n}"}
     sequence(:position){ |n| n }
   end
 

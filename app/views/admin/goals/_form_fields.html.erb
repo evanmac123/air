@@ -3,4 +3,4 @@
 <%= form.input :completion_sms_text, :label => "Completion SMS text", :input_html => {:maxlength => 160} %>
 <%= add_byte_counter_for 'Completion SMS text' %>
 <%= form.input :rules, :as => :select, :collection => @eligible_rule_collection %>
-<%= form.commit_button %>
+<%= form.submit %>

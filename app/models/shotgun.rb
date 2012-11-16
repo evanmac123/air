@@ -1,6 +1,6 @@
 class Shotgun
   def self.ping(event, data_hash)
-    Mixpanel::Tracker.new(MIXPANEL_TOKEN, {}).delay.track_event(event, data_hash)
+    Mixpanel::Tracker.new(MIXPANEL_TOKEN, {}).delay.track(event, data_hash)
   end
 
   def self.ping_page(page)

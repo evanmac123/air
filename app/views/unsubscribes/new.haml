@@ -10,7 +10,7 @@
     /  =(link_to "change your contact preferences", edit_account_settings_path) + "?"
     /  If not, please click "unsubscribe" to confirm.
 
-  = form_for :unsubscribe, url: unsubscribe_path, do |f|
+  = form_for :unsubscribe, url: unsubscribe_path do |f|
     = f.hidden_field :user_id, value: @user.id.to_s
     = f.hidden_field :token, value: @token
     = f.submit "Unsubscribe"

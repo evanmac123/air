@@ -64,7 +64,7 @@ class InvitationsController < ApplicationController
     event_name = "clicked email"
     extra = {:link => "easy in"}
     mixpanel_details = extra.merge(@user.data_for_mixpanel)
-    Mixpanel::Tracker.new(MIXPANEL_TOKEN, {}).delay.track_event(event_name, mixpanel_details)
+    Mixpanel::Tracker.new(MIXPANEL_TOKEN, {}).delay.track(event_name, mixpanel_details)
   end
 
   def redirect_if_invitation_accepted_already

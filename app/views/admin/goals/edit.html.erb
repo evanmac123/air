@@ -4,6 +4,6 @@
 
 <% unless @goal.new_record? %>
   <%= button_to "Delete Goal", admin_demo_goal_path(@demo, @goal), :method => :delete, :confirm => "Really delete this goal?" do |form| %>
-    <%= form.commit_button %>
+    <%= form.submit %>
   <% end %>
 <% end %>

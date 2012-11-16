@@ -30,6 +30,7 @@ class UsersController < Clearance::UsersController
   end
 
   def show
+    debugger if $FRUITBAT
     @user = current_user.demo.users.find_by_slug(params[:id])
     @current_user = current_user
     unless @user

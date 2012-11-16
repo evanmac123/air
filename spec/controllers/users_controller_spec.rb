@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe ::UsersController do
-  
   describe "#show" do
     before(:each) do
       @demo = FactoryGirl.create :demo
@@ -12,8 +11,9 @@ describe ::UsersController do
       @user_we_are_viewing.befriend @friend
       @friend.accept_friendship_from @user_we_are_viewing
       @random_user = FactoryGirl.create :claimed_user, :demo_id => @demo.id
-    
+      $test_force_ssl = false
     end
+
     it "should allow admin to view information" do
       @controller.current_user = FactoryGirl.create :site_admin, :demo_id => @demo.id
       @current_user = @controller.current_user 

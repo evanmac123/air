@@ -4,6 +4,9 @@
 development: &default
   sessions:
     default:
+      port: <%= parsed_mongo_uri.port %>
+      username: <%= parsed_mongo_uri.user %>
+      password: <%= parsed_mongo_uri.password %>
       database: <%= parsed_mongo_uri.path.gsub(%r{^/}, '') %>
       hosts: 
         - <%= parsed_mongo_uri.host %>

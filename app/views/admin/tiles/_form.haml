@@ -12,9 +12,11 @@
   #start_and_end_times
     %p Examples: "tomorrow", "tomorrow 3pm", "friday noon", "oct 30"
     #start_time
-      = f.input :start_time, :as => :string
+      = f.label :start_time
+      = f.text_field :start_time, :value => f.object.start_time.try(:to_s)
     #end_time
-      = f.input :end_time, :as => :string
+      = f.label :end_time
+      = f.text_field :end_time, :value => f.object.end_time.try(:to_s)
     
     .clear
   

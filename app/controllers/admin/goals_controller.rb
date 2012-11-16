@@ -17,7 +17,11 @@ class Admin::GoalsController < AdminBaseController
     begin
       Goal.transaction do
         @goal = @demo.goals.create!(params[:goal])
-        rule_ids = params[:goal].delete(:rule_ids).try(:map) {|id| id.to_i}
+        rule_ids = params[:goal].delete(:rule_ids)
+        if rule_ids
+          rule_ids = rule_ids.select(&:present?).map(&:to_i)
+        end
+
         set_goal_id_on_each_rule(rule_ids)
         @demo.goals.create(params[:goal])
       end
@@ -28,25 +32,6 @@ class Admin::GoalsController < AdminBaseController
     end
   end
  
-  # move down..
-  def set_goal_id_on_each_rule(rule_ids)
-    rule_ids ||= []
-    rules = Rule.find(rule_ids)
-    throw_exception = false
-    rules.each do |rule|
-      # assign a dummy goal_id to see if it passes validation with a goal_id
-      rule.goal_id = -1
-      unless rule.valid?
-        #add_failure rule.errors.messages[:reply]
-        flash.now[:failure] ||= []
-        flash.now[:failure] << rule.errors.messages[:reply].join('. ')
-        throw_exception = true
-      end
-    end
-    raise AssociatedRuleException, "Goal has invalid rules" if throw_exception
-    @goal.rule_ids = rule_ids
-  end
-
   def edit
     create_eligible_rule_collection
   end
@@ -75,4 +60,23 @@ class Admin::GoalsController < AdminBaseController
       @eligible_rule_collection[eligible_rule_value] = eligible_rule_id
     end
   end
+
+  def set_goal_id_on_each_rule(rule_ids)
+    rule_ids ||= []
+    rules = Rule.find(rule_ids)
+    throw_exception = false
+    rules.each do |rule|
+      # assign a dummy goal_id to see if it passes validation with a goal_id
+      rule.goal_id = -1
+      unless rule.valid?
+        #add_failure rule.errors.messages[:reply]
+        flash.now[:failure] ||= []
+        flash.now[:failure] << rule.errors.messages[:reply].join('. ')
+        throw_exception = true
+      end
+    end
+    raise AssociatedRuleException, "Goal has invalid rules" if throw_exception
+    @goal.rule_ids = rule_ids
+  end
+
 end

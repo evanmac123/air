@@ -73,7 +73,7 @@
 
   <%= form.input :use_standard_playbook, :label => "Use standard playbook rules" %>
 
-  <%= form.buttons do %>
+  <%= form.actions do %>
     <% button_text = demo.new_record? ? 'Create Game' : 'Update Game' %>
     <%= form.submit button_text, :disable_with => 'Please wait...' %>
   <% end %>

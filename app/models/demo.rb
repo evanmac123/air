@@ -47,7 +47,7 @@ class Demo < ActiveRecord::Base
   # sure the demo_id there gets set appropriately.
   module ActsWithCurrentDemoChecked
     def acts
-      self.acts_without_current_demo_checked.in_demo(self)
+      super.in_demo(self)
     end
   end
   include ActsWithCurrentDemoChecked

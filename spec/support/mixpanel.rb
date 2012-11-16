@@ -1,7 +1,7 @@
 require 'singleton'
 
 class FakeMixpanelTracker
-  def self.track_event(name, properties)
+  def self.track(name, properties)
     self.tracked_events << [name, properties]
   end
 

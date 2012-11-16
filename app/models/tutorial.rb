@@ -19,7 +19,7 @@ class Tutorial < ActiveRecord::Base
     event_name = exit ? "exited_tutorial_manually" : "tutorial_advanced"
     
     mixpanel_details = slide_data.merge(user_of_tut.data_for_mixpanel)
-    Mixpanel::Tracker.new(MIXPANEL_TOKEN, {}).delay.track_event(event_name, mixpanel_details)
+    Mixpanel::Tracker.new(MIXPANEL_TOKEN, {}).delay.track(event_name, mixpanel_details)
     self
   end
   

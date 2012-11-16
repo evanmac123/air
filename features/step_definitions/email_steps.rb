@@ -93,7 +93,7 @@ Then /^(?:I|they) should see \/([^"]*?)\/ in the email subject$/ do |text|
 end
 
 Then /^(?:I|they) should see "([^"]*?)" in the email body$/ do |text|
-  current_email.default_part_body.to_s.should include(text)
+  current_email.to_s.should include(text)
 end
 
 Then /^(?:I|they) should see \/([^"]*?)\/ in the email body$/ do |text|

@@ -6,7 +6,7 @@
   <%= form.input :date_of_birth, start_year: 1930, end_year: Time.now.year - 10, order: [:month, :day, :year], include_blank: true %>
   <%= form.input :claim_code %>
   <%= form.input :connection_bounty %>
-  <%= form.commit_button %>
+  <%= form.submit %>
 <% end %>
 
 <fieldset>
@@ -42,7 +42,7 @@
     <legend>Move User To A Different Demo</legend>
     <p>If you move this user, any actions they did under the original demo will still exist in the database, but won't show up until such time as you move them back to that original demo.</p>
     <%= form.input :demo, :collection => @demos, :label_method => :name, :include_blank => false %>
-    <%= form.commit_button 'Move User' %>
+    <%= form.submit 'Move User' %>
   </fieldset>
 <% end %>
 

@@ -36,7 +36,7 @@ Feature: User invites friends
     Given I sign in via the login page as "Shelly/foobar"    
     Then I should see "Invite your friends"
     When I fill in "Which coworkers do you wish to invite?" with "br"
-    Then "3+ letters" should be visible
+    Then I should see "3+ letters"
     When I fill in "Which coworkers do you wish to invite?" with "jdidillvididkkemmffii"
     Then I should not see "3+ letters, please"
     And I should see "Hmmm...no match"

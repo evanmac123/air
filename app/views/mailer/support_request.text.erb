@@ -1,6 +1,6 @@
 Support requested by <%= @user_name %> of <%= @game_name %> (<%= @user_email %>, <%= @user_phone %>)
 
 Recent messages:
-<%= @sms_bodies.join("\n") %>
+<%= @sms_bodies.join("\n").html_safe %>
 
-<%  "Not including an unsubscribe link, because there is no user to unsubscribe   render 'shared/unsubscribe_footer'" %>
+<%# Not including an unsubscribe link, because there is no user to unsubscribe %>

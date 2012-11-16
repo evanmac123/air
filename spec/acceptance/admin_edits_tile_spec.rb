@@ -8,7 +8,7 @@ feature 'Admin edits tile' do
     end
 
     @make_toast = Tile.find_by_headline('make toast')
-    @make_toast.update_attributes(start_time: Time.parse('2015-05-01 08:00:00 UTC'))
+    @make_toast.update_attributes(start_time: Time.parse('2015-05-01 04:00:00 EDT'))
     Prerequisite.create(tile: @make_toast, prerequisite_tile: Tile.find_by_headline('bake bread'))
     Prerequisite.create(tile: @make_toast, prerequisite_tile: Tile.find_by_headline('discover fire'))
     
