@@ -16,7 +16,7 @@ class UnsubscribesController < ApplicationController
   def create
     @user = User.find(params[:unsubscribe][:user_id])
     @reason = params[:unsubscribe][:reason] || ''
-    if Unsubscribe.validate_token(@user, params[:unsubscribe][:token])
+    if EmailLink.validate_token(@user, params[:unsubscribe][:token])
       answer = tell_sendgrid_to_unsub(@user)
       @user.ping 'unsubscribed'
       if answer.include? 'success'

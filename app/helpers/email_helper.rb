@@ -1,6 +1,18 @@
 module EmailHelper
+  def accept_friendship_url(friendship_id)
+    accept_email_friendship_url friendship_id, email_friendship_params(friendship_id)
+  end
+
+  def ignore_friendship_url(friendship_id)
+    ignore_email_friendship_url friendship_id, email_friendship_params(friendship_id)
+  end
+
+  def email_friendship_params(friendship_id)
+    { host: email_link_host, protocol: email_link_protocol, token: EmailLink.generate_token(Friendship.find friendship_id) }
+  end
+
   def email_unsubscribe_link(user)
-    token = Unsubscribe.generate_token(user) 
+    token = EmailLink.generate_token(user)
     new_unsubscribe_url(:host => email_link_host, :protocol => email_link_protocol, user_id: user.id, token: token)
   end
 
@@ -8,14 +20,13 @@ module EmailHelper
     edit_account_settings_url(host: email_link_host, protocol: email_link_protocol)
   end
 
-
   def email_link_host
     if Rails.env.production? 
       "www.hengage.com"
     elsif Rails.env.staging?
       "www.hengagestaging.com"
     elsif Rails.env.development?
-      "localhost"
+      "localhost:3000"
     else
       "example.com"
     end

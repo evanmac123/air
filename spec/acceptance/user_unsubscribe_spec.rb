@@ -4,7 +4,7 @@ feature "Leah unsubscribes" do
   before(:each) do
     Unsubscribe.delete_all
     @leah = FactoryGirl.create(:user, name: 'Leah Eckles')
-    @token = Unsubscribe.generate_token(@leah)
+    @token = EmailLink.generate_token(@leah)
     @unsubscribe_url = new_unsubscribe_path({user_id: @leah.id, token: @token})
     @reason = "I'm just having way too much fun on YouTube"
   end

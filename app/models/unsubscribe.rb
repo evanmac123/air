@@ -1,19 +1,5 @@
 class Unsubscribe < ActiveRecord::Base
-  SALT = 'Please Stay!'
-
   belongs_to :user
-
-  def self.validate_token(user, in_token)
-    return nil unless user
-    return nil unless in_token
-    token = generate_token(user)
-    token == in_token
-  end
-
-  def self.generate_token(user)
-    key = user.id.to_s + SALT
-    Digest::SHA1.hexdigest(key)
-  end
 
   def self.url(user)
     base = "https://sendgrid.com/api/unsubscribes.add.xml?api_user=[api_email]&api_key=[api_key]&email=[email_to_unsubscribe]"
