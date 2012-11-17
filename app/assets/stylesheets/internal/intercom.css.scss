@@ -1,5 +1,4 @@
 #IModal #IntercomNewMessageContainer{
-  width: 625px;
   textarea{
     height: 314px !important;
   }
@@ -26,3 +25,10 @@
   }
 }
 
+// For some reason when we load this with the external layout, the widths come out
+// screwed up. Therefore, for that case we will set the widths explicitly
+.invitations #IModal{
+  #IntercomNewMessageContainer, #IntercomMessageViewContainer, #IntercomMessageListView{
+    width: 625px;
+  }
+}
