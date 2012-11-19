@@ -1,0 +1,31 @@
+Hi <%= @friend_name %>,
+
+<p><%= @user_name %> has asked to be your friend on H Engage.</p>
+
+<table border="0" cellspacing="20" cellpadding="0" style='margin-bottom: 10px'>
+  <tr>
+    <td style="border:1px #2b8838 solid; background:#39b149;">
+      <table border="0" cellspacing="0" style="background:#39b149; border-top:1px #4edf61 solid;">
+        <tr>
+          <td>
+            <a href = '<%= accept_friendship_url(@friendship_id) %>' style="display:block; padding:10px 15px; text-decoration:none;">
+              <span style="text-decoration:none; color:#fff; font-family: Ubuntu, helvetica, arial, sans-serif; font-size:16px; font-weight:500;">Accept</span>
+            </a>
+          </td>
+        </tr>
+      </table>
+    </td>
+    <td style="border:1px #2b8838 solid; background:#39b149">
+      <table border="0" cellspacing="0" style="background:#39b149; border-top:1px #4edf61 solid">
+        <tr>
+          <td>
+            <a href = '<%= ignore_friendship_url(@friendship_id) %>' style="display:block; padding:10px 15px; text-decoration:none;">
+              <span style="text-decoration:none; color:#fff; font-family: Ubuntu, helvetica, arial, sans-serif; font-size:16px; font-weight:500;">Ignore</span>
+            </a>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<%= render 'shared/unsubscribe_footer' %>
