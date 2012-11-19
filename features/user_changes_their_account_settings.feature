@@ -38,37 +38,6 @@ Feature: User can edit their account settings
     And "Male" should be chosen
     And "Date of Birth" should have value "September 10, 1977"
   
-  Scenario: User can choose notification by email
-    When I sign in via the login page with "Phil/foobar"
-    And I go to the settings page
-    And I choose "Email"
-    And I press the button to save notification settings
-    And "+18085551212" sends SMS "follow phil"
-    And DJ works off
-
-    Then "phil@example.com" should have received a follow notification email about "Alice"
-    But "+14155551212" should not have received any SMSes
-
-  Scenario: User who gets notification by email and is in a demo with a custom phone number sees that number
-    Given the following demo exists:
-      | name | phone number |
-      | CustomCo     | +19005551212 |
-    And the following claimed users exists:
-      | name   | phone number | email              | demo                   |
-      | Frank  | +18885551212 | frank@example.com  | name: CustomCo |
-      | George | +18765551212 | george@example.com | name: CustomCo |
-    And "Frank" has the password "quuxstein"
-
-    When I sign in via the login page with "Frank/quuxstein"
-    And I go to the settings page
-    And I choose "Email"
-    And I press the button to save notification settings
-    And "+18765551212" sends SMS "follow frank"
-    And DJ works off
-
-    Then "frank@example.com" should have received a follow notification email about "George" with phone number "(900) 555-1212"
-    But "+18885551212" should not have received any SMSes
-
   Scenario: User sees their mobile number on their settings
     When I go to the settings page
     Then "Mobile Number" should have value "(415) 555-1212"
