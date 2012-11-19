@@ -7,12 +7,12 @@ class EmailFriendshipsController< ApplicationController
   # fired off from links within emails => Need to be 'get'
 
   def accept
-    valid_token? ? flash[:success] = friendship.accept : bad_token_message
+    valid_token? ? (flash[:success] = friendship.accept) : bad_token_message
     redirect_to home_url
   end
 
   def ignore
-    valid_token? ? flash[:success] = friendship.ignore : bad_token_message
+    valid_token? ? (flash[:success] = friendship.ignore) : bad_token_message
     redirect_to home_url
   end
 
