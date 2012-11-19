@@ -3,8 +3,8 @@
 
 <% if current_user.present? %>
   <%= javascript_tag do %>
-    mpq.identify('<%= current_user.email %>');
-    mpq.name_tag('<%= current_user.name %>');
+    mpq.identify("<%= current_user.email %>");
+    mpq.name_tag("<%= current_user.name %>");
   <% end %>
 <% end %>
 <% flash.select{|k,v| k.to_s =~ /^mp_track/}.each do |k, v| %>
