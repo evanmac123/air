@@ -1,12 +1,9 @@
 <% mongo_uri = ENV['MONGOHQ_URL'] || "mongodb://localhost:27017/health_#{Rails.env}" %>
-<% parsed_mongo_uri = URI.parse(mongo_uri) %>
 
 development: &default
   sessions:
     default:
-      database: <%= parsed_mongo_uri.path.gsub(%r{^/}, '') %>
-      hosts: 
-        - <%= parsed_mongo_uri.host %>
+      uri: <%= mongo_uri %>
 
 test:
   <<: *default
