@@ -57,6 +57,7 @@ body.external {
       font-size:18px;
       margin:0 auto 20px auto;
       p {padding:5px 0;}
+      .red_text { color: red; }  // Display bad login error message in red
     }
     h2 {color:$green; font-size:30px; margin:0; padding:0 0 20px 0;}
     input[type="text"], input[type="password"] {

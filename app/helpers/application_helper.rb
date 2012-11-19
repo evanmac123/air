@@ -80,6 +80,9 @@ module ApplicationHelper
     end
 
     if joined_content.present?
+      # Want the following error message to be in red. However, making all status messages red
+      # didn't look right elsewhere (really can't remember where), so just do it for a bad login attempt.
+      joined_content = content_tag(:span, joined_content, class: 'red_text') if joined_content =~ /invalid username or password/
       joined_content
     else
       nil
