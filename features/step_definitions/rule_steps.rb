@@ -36,14 +36,6 @@ Then /^I should see the following rules?:$/ do |table|
   table.hashes.each {|row_hash| expect_rule_rows(row_hash)}
 end
 
-Then /^I should see all existing rules for (.*)$/ do |name|
-  demo = Demo.find_by_name name
-
-  demo.rules.each do |rule|
-    expect_rule_rows(rule)
-  end
-end
-
 Then /^I should see all the standard rulebook rules$/ do
   Rule.where(:demo_id => nil).each do |rule|
     expect_rule_rows(rule)
