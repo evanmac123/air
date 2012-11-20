@@ -36,7 +36,7 @@ feature "Email is sent when a user tries to friend someone" do
     open_email(@friend.email)
 
     # NOTE: For debugging, creates a file like /tmp/email-123456789.txt
-    # EmailSpec::EmailViewer.save_and_open_email(current_email)
+    EmailSpec::EmailViewer.save_and_open_email(current_email)
 
     current_email.should be_delivered_to(@friend.email)
     current_email.should be_delivered_from(@friend.reply_email_address)
@@ -48,10 +48,9 @@ feature "Email is sent when a user tries to friend someone" do
   end
 
   scenario "User accepts the friend request", js: true  do
-    visit_in_email('Accept')
-
-    # NOTE: Use the method below to find/click a link based upon actual href
-    # click_email_link_matching /email_friendships/
+    # Use this method which finds/clicks a link based upon actual href
+    # (In the HTML email the word "Accept" is actually in a <span> tag, not an <a href='xxx'> one
+    click_email_link_matching /accept/
 
     page.should have_content "OK, you are now friends with #{user.name}."
 
@@ -68,29 +67,14 @@ feature "Email is sent when a user tries to friend someone" do
     current_email.should have_body_text /#{@friend.name} has approved your friendship request./
   end
 
-  scenario "User rejects the friend request", js: true do
-    visit_in_email('Ignore')
+  scenario "User tries to force processing of the friend request with an invalid token", js: true do
+    # Chop off the last character of the authenticity token
+    link = links_in_email(current_email).find { |link| link =~ /accept/ }.chop
+    visit request_uri(link)
 
-    page.should have_content "OK, we'll ignore the request from #{user.name} to be your friend."
+    page.should have_content "Invalid authenticity token. Friendship operation cancelled."
 
     user.should_not be_friends_with @friend
     @friend.should_not be_friends_with user
-
-    reset_mailer
-    crank_dj_clear
-    all_emails.should be_empty
-  end
-
-  scenario "User tries to force processing of the friend request with an invalid token", js: true do
-    %w(accept ignore).each do |action|
-      # Chop off the last character of the authenticity token
-      link = links_in_email(current_email).find { |link| link =~ /#{action}/ }.chop
-      visit request_uri(link)
-
-      page.should have_content "Invalid authenticity token. Friendship operation cancelled."
-
-      user.should_not be_friends_with @friend
-      @friend.should_not be_friends_with user
-    end
   end
 end

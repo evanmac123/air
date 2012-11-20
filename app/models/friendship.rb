@@ -26,6 +26,12 @@ class Friendship < ActiveRecord::Base
     end
   end
 
+  class FollowNotificationAcceptance < Struct.new(:user_name, :user_address, :reply_address, :friend_name)
+    def perform
+      Mailer.follow_notification_acceptance(user_name, user_address, reply_address, friend_name).deliver
+    end
+  end
+
   validates_inclusion_of :state, :in => State::STATES
 
   def send_follow_notification
@@ -123,7 +129,7 @@ class Friendship < ActiveRecord::Base
   end
 
   def notify_follower_of_acceptance
-    OutgoingMessage.send_message(user, friend.follow_accepted_message)
+    Delayed::Job.enqueue FollowNotificationAcceptance.new user.name, user.email, user.reply_email_address, friend.name
   end
 
   def follow_notification_text

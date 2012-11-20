@@ -76,6 +76,15 @@ class Mailer < ActionMailer::Base
          :subject => "#{user_name} wants to be your friend on H Engage"
   end
 
+  def follow_notification_acceptance(user_name, user_address, reply_address, friend_name)
+    @user_name   = user_name.split[0]
+    @friend_name = friend_name
+
+    mail :to      => user_address,
+         :from    => reply_address,
+         :subject => "Message from H Engage"
+  end
+
   def set_password(user_id)
     @user = User.find(user_id)
 
