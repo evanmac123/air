@@ -27,7 +27,7 @@ class Characteristic::BaseType
 
   class << self
     # The following is stolen from delayed_job
-    yaml_as "tag:ruby.yaml.org,2002:module"
+    yaml_as "tag:hengage.com,2012:characteristic_type"
 
     def self.yaml_new(klass, tag, val)
       val.constantize

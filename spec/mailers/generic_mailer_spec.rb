@@ -55,20 +55,18 @@ describe GenericMailer do
 
   describe "BulkSender#bulk_generic_messages" do
     it "should send a batch of messages" do
-      deliver_stub = stub(:deliver => true)
-      GenericMailer.stubs(:send_message).returns(deliver_stub)
+      GenericMailer.stubs(:delay_mail)
 
       user_ids = []
       5.times {user_ids << (FactoryGirl.create :user).id}
-      GenericMailer::BulkSender.bulk_generic_messages(user_ids, "This is a subject", "This is plain text", "<p>This is HTML</p>")
+      GenericMailer::BulkSender.new(user_ids, "This is a subject", "This is plain text", "<p>This is HTML</p>").send_bulk_mails
       
-      crank_dj_clear
 
       user_ids.each do |user_id|
-        GenericMailer.should have_received(:send_message).with(user_id, "This is a subject", "This is plain text", "<p>This is HTML</p>")
+        GenericMailer.should have_received(:delay_mail).with(:send_message, user_id, "This is a subject", "This is plain text", "<p>This is HTML</p>")
       end
 
-      deliver_stub.should have_received(:deliver).times(5)
+      GenericMailer.should have_received(:delay_mail).times(5)
     end
   end
 end

@@ -19,7 +19,7 @@ class EmailCommand < ActiveRecord::Base
     self.response = non_user_response(self.email_from) 
     self.status = EmailCommand::Status::FAILED
     self.save
-    EmailCommandMailer.delay.send_response_to_non_user(self)
+    EmailCommandMailer.delay_mail(:send_response_to_non_user, self)
   end
 
 
@@ -59,11 +59,11 @@ class EmailCommand < ActiveRecord::Base
       self.status = EmailCommand::Status::SUCCESS
       self.user = User.where(:email => self.email_from).first
       self.save
-      EmailCommandMailer.delay.send_claim_response(self)
+      EmailCommandMailer.delay_mail(:send_claim_response, self)
     else
       self.status = EmailCommand::Status::FAILED
       self.save
-      EmailCommandMailer.delay.send_failed_claim_response(self.email_to, self.email_from, claim_response)
+      EmailCommandMailer.delay_mail(:send_failed_claim_response, self.email_to, self.email_from, claim_response)
     end
 
 

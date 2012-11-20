@@ -1,4 +1,6 @@
 class Mailer < ActionMailer::Base
+  has_delay_mail
+
   include EmailPreviewsHelper # Only includes the module for this controller (not for the views)
   helper :email  # loads app/helpers/email_helper.rb & includes EmailHelper into the VIEW
 

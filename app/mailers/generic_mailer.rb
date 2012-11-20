@@ -5,6 +5,7 @@ class GenericMailer < ActionMailer::Base
   include EmailInterpolations::InvitationUrl
 
   helper :email
+  has_delay_mail
 
   def send_message(user_id, subject, plain_text, html_text)
     @user = User.find(user_id)
@@ -27,10 +28,17 @@ class GenericMailer < ActionMailer::Base
     ) 
   end
 
-  module BulkSender
-    def self.bulk_generic_messages(user_ids, subject, plain_text, html_text)
-      user_ids.each do |user_id|
-        GenericMailer.delay.send_message(user_id, subject, plain_text, html_text)
+  class BulkSender
+    def initialize(user_ids, subject, plain_text, html_text)
+      @user_ids = user_ids
+      @subject = subject
+      @plain_text = plain_text
+      @html_text = html_text
+    end
+
+    def send_bulk_mails
+      @user_ids.each do |user_id|
+        GenericMailer.delay_mail(:send_message, user_id, @subject, @plain_text, @html_text)
       end
     end
   end

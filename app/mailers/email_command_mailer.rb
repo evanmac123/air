@@ -1,5 +1,7 @@
 class EmailCommandMailer < ActionMailer::Base
   helper :email
+  has_delay_mail
+
   def send_response(email_command)
     @message = construct_reply_from_email_command(email_command)
     mail(:to      => email_command.user.email, 

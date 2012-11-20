@@ -39,8 +39,7 @@ module SMS
   end
 
   def self.bulk_send_messages(user_ids, body)
-    users = User.where(:id => user_ids)
-    users.each {|user| self.send_message(user, body)}
+    Delayed::Job.enqueue SMS::BulkSendingJob.new(user_ids, body)
   end
 
   def self.channel_specific_translations

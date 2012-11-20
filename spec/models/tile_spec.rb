@@ -249,6 +249,7 @@ describe Tile do
     it "completes only tiles for users in this demo" do
       emails = [@reath.email, @lucy.email, @random_email]
       Tile.bulk_complete(@fun.id, @stretch.id, emails)
+      crank_dj_clear
       TileCompletion.count.should == 1
       TileCompletion.first.user.should == @lucy
       TileCompletion.first.tile.should == @stretch

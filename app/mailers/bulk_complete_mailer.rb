@@ -1,4 +1,6 @@
 class BulkCompleteMailer < ActionMailer::Base
+  has_delay_mail
+
   helper :email
   default :to => Admin::BulkSatisfactionsController::REPORT_RECIPIENT,
           :from => "donotreply@hengage.com"

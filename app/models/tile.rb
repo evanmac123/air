@@ -120,34 +120,7 @@ class Tile < ActiveRecord::Base
   end
 
   def self.bulk_complete(demo_id, tile_id, emails)
-    completion_states = {}
-    %w(completed unknown already_completed in_different_game).each {|bucket| completion_states[bucket.to_sym] = []}
-
-    tile = Tile.find(tile_id)
-
-    emails.each do |email|
-      user = User.find_by_either_email(email)
-
-      unless user
-        completion_states[:unknown] << email
-        next
-      end
-
-      unless user.demo_id == demo_id.to_i
-        completion_states[:in_different_game] << email
-        next
-      end
-
-      if satisfiable_to_user(user).include? tile
-        tile.satisfy_for_user!(user)
-        completion_states[:completed] << email
-      else
-        completion_states[:already_completed] << email
-      end
-
-    end
-
-    BulkCompleteMailer.delay.report(completion_states)
+    Delayed::Job.enqueue TileBulkCompletionJob.new(demo_id, tile_id, emails)
   end
 
   def self.satisfiable_by_rule(rule_or_rule_id)
@@ -206,4 +179,43 @@ class Tile < ActiveRecord::Base
     object_or_object_id.kind_of?(expected_class) ? object_or_object_id.id : object_or_object_id
   end
 
+  class TileBulkCompletionJob
+    def initialize(demo_id, tile_id, emails)
+      @demo_id = demo_id
+      @tile_id = tile_id
+      @emails = emails
+    end
+
+    def perform
+      completion_states = {}
+      %w(completed unknown already_completed in_different_game).each {|bucket| completion_states[bucket.to_sym] = []}
+
+      tile = Tile.find(@tile_id)
+
+      @emails.each do |email|
+        user = User.find_by_either_email(email)
+
+        unless user
+          completion_states[:unknown] << email
+          next
+        end
+
+        unless user.demo_id == @demo_id.to_i
+          completion_states[:in_different_game] << email
+          next
+        end
+
+        if Tile.satisfiable_to_user(user).include? tile
+          tile.satisfy_for_user!(user)
+          completion_states[:completed] << email
+        else
+          completion_states[:already_completed] << email
+        end
+
+      end
+
+      BulkCompleteMailer.delay_mail(:report, completion_states)
+    end
+  end
 end
+

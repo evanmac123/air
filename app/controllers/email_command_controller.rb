@@ -24,7 +24,7 @@ class EmailCommandController< ApplicationController
     email_command.save
 
     # let DJ handle the email response
-    EmailCommandMailer.delay.send_response(email_command)
+    EmailCommandMailer.delay_mail(:send_response, email_command)
   end
 
   protected

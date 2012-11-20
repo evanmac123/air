@@ -1,4 +1,6 @@
 class ClaimTroubleMailer < ActionMailer::Base
+  has_delay_mail
+
   helper :email
   default from: "noreply@hengage.com",
           to:   "supporters@hengage.com"

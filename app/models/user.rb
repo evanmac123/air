@@ -388,7 +388,7 @@ class User < ActiveRecord::Base
   def send_support_request
     latest_act_descriptions = IncomingSms.where(:from => self.phone_number).order("created_at DESC").limit(20).map(&:body)
 
-    Mailer.delay.support_request(self.name, self.email, self.phone_number, self.demo.name, latest_act_descriptions)
+    Mailer.delay_mail(:support_request, self.name, self.email, self.phone_number, self.demo.name, latest_act_descriptions)
   end
 
   def first_eligible_rule_value(value)
@@ -532,7 +532,7 @@ class User < ActiveRecord::Base
   def invite(referrer = nil, options ={})
     return if referrer && self.peer_invitations_as_invitee.length >= PeerInvitation::CUTOFF
 
-    Mailer.delay.invitation(self, referrer, options)
+    Mailer.delay_mail(:invitation, self, referrer, options)
 
     if referrer
       PeerInvitation.create!(inviter: referrer, invitee: self, demo: referrer.demo)

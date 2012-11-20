@@ -14,11 +14,11 @@ class PushMessage < ActiveRecord::Base
     update_attributes(state: SENDING)
 
     if plain_text.present? || html_text.present?
-      GenericMailer::BulkSender.delay.bulk_generic_messages(email_recipient_ids, subject, plain_text, html_text)
+      GenericMailer::BulkSender.new(email_recipient_ids, subject, plain_text, html_text).delay.send_bulk_mails
     end
 
     if sms_text.present?
-      SMS.delay.bulk_send_messages(sms_recipient_ids, sms_text)
+      SMS.bulk_send_messages(sms_recipient_ids, sms_text)
     end
 
     update_attributes(state: COMPLETED)
