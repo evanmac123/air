@@ -29,6 +29,10 @@ module NavigationHelpers
     "/acts"
   end
 
+  def profile_page(user)
+    user_path(user.slug)
+  end
+
   def should_be_on(expected_path)
     current_path = URI.parse(current_url).path
     current_path.should == expected_path
