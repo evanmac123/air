@@ -66,9 +66,10 @@ class Mailer < ActionMailer::Base
     headers['Reply-To'] = @user_email
   end
 
-  def follow_notification(friend_name, friend_address, reply_address, user_name, friendship_id)
+  def follow_notification(friend_name, friend_address, reply_address, user_name, user_id, friendship_id)
     @friend_name   = friend_name.split[0]
     @user_name     = user_name
+    @user_id       = user_id
     @friendship_id = friendship_id
 
     mail :to      => friend_address,

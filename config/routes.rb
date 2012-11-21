@@ -31,7 +31,9 @@ Health::Application.routes.draw do
       :controller => 'passwords',
       :only       => [:create, :edit, :update]
 
-    resource :friendship, :only => [:create, :update, :destroy]
+    resource :friendship, :only => [:create, :update, :destroy] do
+      get 'accept', :on => :member  # For "Accept" link in friendship-request email
+    end
 
     resources :acts, :only => [:index], :controller => "users/acts"
 
@@ -81,11 +83,6 @@ Health::Application.routes.draw do
   end
 
   resources :email_info_requests, :only => [:create]
-
-  # Not using any of the 7 RESTful actions because this guy is fired off from link within email
-  resources :email_friendships, :only => :accept do
-    get 'accept', :on => :member
-  end
 
   resource :demographics, :only => [:update]
 

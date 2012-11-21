@@ -1,8 +1,10 @@
 module EmailHelper
-  def accept_friendship_url(friendship_id)
-    accept_email_friendship_url friendship_id, host:     email_link_host,
-                                               protocol: email_link_protocol,
-                                               token:    EmailLink.generate_token(Friendship.find friendship_id)
+  def accept_friendship_url(user_id, friendship_id)
+    accept_user_friendship_url user_id:       user_id,
+                               friendship_id: friendship_id,
+                               host:          email_link_host,
+                               protocol:      email_link_protocol,
+                               token:         EmailLink.generate_token(Friendship.find friendship_id)
   end
 
   def email_unsubscribe_link(user)
