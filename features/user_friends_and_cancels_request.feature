@@ -13,7 +13,7 @@ Feature: User approves or ignores follower
     And "Alice" has password "barley"
     And "Clay" has password "bazquux"
 
-  Scenario: Follower follows by SMS, followed accepts via SMS
+  Scenario: User decides to friend and changes mind and changes mind
     And I sign in via the login page with "Alice/barley"
     And I go to the user page for "Clay"
     And I press the button next to "Clay"
