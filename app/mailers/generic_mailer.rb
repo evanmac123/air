@@ -1,6 +1,3 @@
-require 'delayed/syck_ext' # to fix retarded YAML serialization of 
-                           # GenericMailer::BulkSender module
-
 class GenericMailer < ActionMailer::Base
   include EmailInterpolations::InvitationUrl
 

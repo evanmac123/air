@@ -61,7 +61,6 @@ end
 # RSpec needs to be in :development group to expose generators
 # and rake tasks without having to type RAILS_ENV=test.
 group :development, :test do
-  gem "pry-debugger"
   gem "colored"
   gem "rspec-rails"
   gem "factory_girl_rails"
@@ -70,19 +69,6 @@ group :development, :test do
                           # For instance, XHR requests by themselves do not reload assets when using this gem
                           # Note that all defaults can be overridden, see the github README for this gem
 
-  # TL;DR We don't use cover_me, but don't take it out.
-  #
-  #
-  # Full explanation:
-  # We're not using cover_me, but removing it makes deserialization of 
-  # Characteristics fail when it tries to deserialize the datatype.
-  #
-  # Apparently if Foo is a class, and you do YAML.load(YAML.dump(Foo)), you
-  # get a String back, not a Class. But not if you require cover_me.
-  #
-  # This is so fucking retarded...but I haven't been able to track down why it
-  # is that cover_me makes the difference.
-  gem "cover_me"
   gem "getopt"
   #gem "ruby-debug19", :require => 'ruby-debug'
   gem 'debugger'

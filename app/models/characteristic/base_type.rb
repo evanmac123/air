@@ -24,26 +24,4 @@ class Characteristic::BaseType
   def self.respect_allowed_values?
     false
   end
-
-  class << self
-    # The following is stolen from delayed_job
-    yaml_as "tag:hengage.com,2012:characteristic_type"
-
-    def self.yaml_new(klass, tag, val)
-      val.constantize
-    end
-
-    def to_yaml(options = {})
-      YAML.quick_emit(nil, options) do |out|
-        out.scalar(taguri, name, :plain)
-      end
-    end
-
-    def yaml_tag_read_class(name)
-      # Constantize the object so that ActiveSupport can attempt
-      # its auto loading magic. Will raise LoadError if not successful.
-      name.constantize
-      name
-    end
-  end
 end
