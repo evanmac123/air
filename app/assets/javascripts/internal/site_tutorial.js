@@ -18,6 +18,14 @@ $(function() {
   });
   
 });
+// Increase talking_chicken_speed to make the chicken appear snappier
+// Also note that in 
+// app/assets/javascripts/internal/jumbled_mix_of_things#LaunchTutorialIntroduction
+// is where you set the speed of the introductory slide
+var talking_chicken_speed = 1.5; // Adjust just this one and everything will scale
+var overlay_fade_in_time_ms = 1200.0/talking_chicken_speed;
+var highlight_delay_ms = 1000.0/talking_chicken_speed;
+var highlight_fade_in_speed = 700.0/talking_chicken_speed;
 
 
   //This function removes overlay to free the UI
@@ -37,7 +45,7 @@ function spotlightOn(element) {
 
     
     
-    $('.overlay').fadeIn(2000, function(){
+    $('.overlay').fadeIn(overlay_fade_in_time_ms, function(){
       //Force the opacity level for IE7/8 as soon as it's done fading in
       $('.overlay').css('filter', "alpha(opacity='81')"); 
     });
@@ -49,7 +57,7 @@ function displayToolTip(trigger, display, x, y, reference){
   var wall_tooltip = highlighted.tooltip({ // binding the tooltip to the html element with id = wall
           tip: display,
           effect: 'fade',
-          fadeInSpeed: 1000,
+          fadeInSpeed: highlight_fade_in_speed,
           fadeOutSpeed: 100,
           predelay: 400,
           delay: 100000000,
@@ -65,7 +73,7 @@ function displayToolTip(trigger, display, x, y, reference){
     spotlightOn(highlighted);    
     setTimeout(function(){
       wall_tooltip.show() 
-    }, 1500);//then show the first tool tip when document is ready
+    }, highlight_delay_ms);
   }
 }
 
