@@ -14,12 +14,14 @@ class Level < ActiveRecord::Base
   after_destroy :set_demo_level_indices
   after_create :schedule_retroactive_awards
 
+  CHANNELS_THAT_GET_LEVEL_UP_MESSAGES = %w(web sms)
+
   def level_up(user, channel)
     return nil if user.levels.include?(self)
 
     user.levels << self
 
-    OutgoingMessage.send_side_message(user, self.name, :channel => channel)
+    OutgoingMessage.send_side_message(user, self.name, :channel => channel) if channel_gets_level_up_messages?(channel)
   end
 
   def self.check_for_level_up(old_points, user, channel)
@@ -46,5 +48,9 @@ class Level < ActiveRecord::Base
 
   def set_demo_level_indices
     self.demo.set_level_indices
+  end
+
+  def channel_gets_level_up_messages?(channel)
+    CHANNELS_THAT_GET_LEVEL_UP_MESSAGES.include?(channel.to_s)
   end
 end

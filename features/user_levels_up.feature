@@ -41,12 +41,14 @@ Feature: User levels up
     When I enter the act code "did best"
     Then I should see that I'm on level 3
 
-  Scenario: User levels via email when hitting point threshold
+  Scenario: User levels via email when hitting point threshold but doesn't get notification by email
     When "vlad@example.com" sends email with subject "did good" and body "did good"
     And a decent interval has passed
     And DJ works off
     Then "+14155551212" should not have received any SMSes
-    But "vlad@example.com" should receive an email with "level 2 (N00b)" in the email body
+    And "vlad@example.com" should receive 1 email
+    When "vlad@example.com" opens the email
+    Then I should not see "N00b" in the email body
 
   Scenario: User levels via web when hitting point threshold
     When I enter the act code "did good"
