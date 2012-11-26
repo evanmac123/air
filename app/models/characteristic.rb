@@ -21,7 +21,7 @@ class Characteristic < ActiveRecord::Base
   validates_uniqueness_of :name
 
   serialize :allowed_values, Array
-  serialize :datatype, Class
+  serialize :datatype
 
   def datatype=(value)
     datatype_class = if value.kind_of?(Class)
