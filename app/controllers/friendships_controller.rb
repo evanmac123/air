@@ -1,7 +1,7 @@
 class FriendshipsController < ApplicationController
   before_filter :game_not_closed_yet
 
-  skip_before_filter :authorize, :verify_authenticity_token, :game_not_closed_yet, :only => :accept
+  skip_before_filter :verify_authenticity_token, :game_not_closed_yet, :only => :accept
 
   def create
     mixpanel_properties = {:channel => :web}
@@ -63,18 +63,17 @@ class FriendshipsController < ApplicationController
     end
   end
 
-
   # This action is accessed from a link within an email
   def accept
     friendship = Friendship.find params[:friendship_id].to_i
 
     if EmailLink.validate_token(friendship, params[:token])
-      flash[:success] = friendship.accept
+      add_success(friendship.accept)
     else
-      flash[:failure] = 'Invalid authenticity token. Friendship operation cancelled.'
+      add_failure('Invalid authenticity token. Friendship operation cancelled.')
     end
 
-    redirect_to home_url
+    redirect_to activity_url
   end
 
   protected
