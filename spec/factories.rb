@@ -216,7 +216,6 @@ FactoryGirl.define do
     headline "Riceburners Back in Style"
     require_images false
     association :demo
-    sequence(:identifier) {|n| "Identifier#{n}"}
     sequence(:position){ |n| n }
   end
 

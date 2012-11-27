@@ -19,7 +19,7 @@ class ActsController < ApplicationController
     
     @demo                  = current_user.demo
     @acts                  = find_requested_acts(@demo)
-    @displayable_tiles = current_user.displayable_tiles
+    @displayable_tiles = Tile.displayable_to_user_with_sample(current_user)
     TileCompletion.mark_displayed_one_final_time(@current_user)
     respond_to do |format|
       format.html
@@ -44,7 +44,7 @@ class ActsController < ApplicationController
     flash[:mp_track_activity_box] = ['used activity entry box']
     redirect_to :back
     if current_user.tutorial_active?
-      session[:typed_something_in_playbox] = true if current_user.tutorial.current_step == 1
+      session[:typed_something_in_playbox] = true if current_user.tutorial.current_step == 2
     else
       current_user.ping('used activity entry box')   
     end

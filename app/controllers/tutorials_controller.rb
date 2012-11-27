@@ -14,13 +14,14 @@ class TutorialsController < ApplicationController
     if params[:tutorial_request] == "no_thanks"
       tutorial.end_it
     elsif params[:tutorial_request] == "close"
-      tutorial.end_it unless tutorial.current_step == 8  # Pressing the X from step 8 doesn't count as a manual exit
+      tutorial.end_it unless tutorial.current_step == 9  # Pressing the X from step 9 doesn't count as a manual exit
     elsif params[:tutorial_request] == "finish"
       tutorial.bump_step
       tutorial.completed = true
       tutorial.ended_at = Time.now
       tutorial.save
-    elsif tutorial.present? && ([0,2].include? tutorial.current_step) 
+    elsif tutorial.present? && ([0,3].include? tutorial.current_step) 
+      # This is where you arrive after clicking the 'next' button in the tutorial
       tutorial.bump_step
     end
     

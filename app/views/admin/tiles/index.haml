@@ -23,7 +23,6 @@
         %tr
           %th Active
           %th Headline 
-          %th Identifier
           %th 
             Start Time
             .time_zone
@@ -50,9 +49,8 @@
                     
                     
             %td{:class => "brown"}= count += 1 if tile.due?
-            %td= link_to tile.headline, edit_admin_demo_tile_path(@demo, tile) 
             %td
-              = link_to tile.identifier, edit_admin_demo_tile_path(@demo, tile) 
+              = link_to tile.headline, edit_admin_demo_tile_path(@demo, tile) 
               = render 'tile_details', :tile => tile
                    
             %td= tile.start_time ? tile.start_time.pretty_succinct : ''

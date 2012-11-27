@@ -82,6 +82,7 @@ function hideToolTip(){
 }
 
 function noThanksTutorial(){
+  hideSampleTile();
   $.fancybox.close();
   var options = { _method : "put", tutorial_request : "no_thanks" };
   $.post('tutorial', options);
@@ -89,6 +90,7 @@ function noThanksTutorial(){
 }
 
 function closeTutorial(){
+  hideSampleTile();
   spotlightOff();
   hideToolTip();
   var options = { _method : "put", tutorial_request : "close" };
@@ -100,6 +102,10 @@ function finishTutorial(){
   hideToolTip();
   var options = { _method : "put", tutorial_request : "finish" };
   $.post('/tutorial', options);
+}
+
+function hideSampleTile(){
+  $('#tile-thumbnail-0').parents('.jcarousel-item').hide();
 }
 
 function showMenu(){

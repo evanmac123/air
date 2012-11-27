@@ -74,7 +74,6 @@ Feature: User sees tiles they can currently do
     And I go to the admin "FooCo" demo page
     And I follow "Tiles for this demo"
     And I follow "Add tile"
-    And I fill in "Identifier" with "ident1"
     And I fill in "Headline" with "Do new stuff"
     And I attach an image to the tile
     And I attach a thumbnail to the tile

@@ -17,7 +17,7 @@ feature "An easy in to the site, like having a secret pass" do
     open_email(@user.email)
     regex = /invitation/
     click_email_link_matching(regex)
-    page.body.should include "Step 1 of 7"
+    page.body.should include "Step 1 of 8"
     Delayed::Worker.new.work_off(10)
     data = {:link => "easy in"}.merge(@user.data_for_mixpanel)
     FakeMixpanelTracker.events_matching("clicked email", data).should be_present

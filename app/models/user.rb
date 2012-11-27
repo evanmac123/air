@@ -837,10 +837,6 @@ class User < ActiveRecord::Base
     next_unachieved_threshold || greatest_achievable_threshold
   end
 
-  def displayable_tiles
-    Tile.displayable_to_user(self)
-  end
-
   def satisfy_tiles_by_survey(survey_or_survey_id, channel)
     satisfiable_tiles = Tile.satisfiable_by_survey_to_user(survey_or_survey_id, self)
     satisfiable_tiles.each do |tile|
