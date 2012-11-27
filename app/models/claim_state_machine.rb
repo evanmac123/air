@@ -51,7 +51,6 @@ class ClaimStateMachine < ActiveRecord::Base
         unrecognized_information_message: "Sorry, we're having a little trouble, it looks like we'll have to get a human involved. Please contact support@hengage.com for help joining the game. Thank you!", 
         valid_format:                     /^\d{4}$/, 
         invalid_format_message:           "Sorry, I didn't quite get that. Please send your month & date of birth as MMDD (example: September 10 = 0910).", 
-        notify_admins_on_failure:         true, 
         already_claimed_message:          "It looks like that account is already claimed. Please try a different date of birth, or contact support@hengage.com for help."
     )}
 

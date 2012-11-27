@@ -554,19 +554,6 @@ feature 'User claims account' do
             @expected_user.reload.should be_claimed
             expect_welcome_message
           end
-
-          it "should notify admins to watch for this user" do
-            ActionMailer::Base.deliveries.should be_empty
-            send_message "0911"
-            crank_dj_clear
-
-            ActionMailer::Base.deliveries.should_not be_empty
-            open_email("supporters@hengage.com")
-            [@ambiguous_1, @ambiguous_2].each do |candidate|
-              current_email.body.should include(candidate.name)
-              current_email.body.should include(candidate.date_of_birth.to_s)
-            end
-          end
         end
       end
 

@@ -29,7 +29,6 @@ class ClaimAttemptHistory < ActiveRecord::Base
     when 0
       [nil, claim_state.unrecognized_information_message]
     else
-      notify_admins(users) if claim_state.notify_admins_on_failure
       old_claim_state = claim_state
       update_attributes(claim_state_id: old_claim_state.next_state_on_ambiguity_id)
       [nil, old_claim_state.ambiguity_message]
@@ -60,9 +59,5 @@ class ClaimAttemptHistory < ActiveRecord::Base
 
   def current_method
     claim_state.finder_method
-  end
-
-  def notify_admins(users)
-    ClaimTroubleMailer.delay.notify_admins(users)
   end
 end
