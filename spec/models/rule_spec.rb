@@ -5,9 +5,13 @@ describe Rule do
 
   it { should belong_to(:demo) }
   it { should belong_to(:goal) }
+  it { should belong_to(:primary_tag) }
+
   it { should have_many(:acts) }
-  it { should have_many(:rule_values) }
-  it { should have_many(:rule_triggers) }
+  it { should have_many(:tags).through(:labels) }
+  it { should have_many(:rule_values).dependent(:destroy) }
+  it { should have_many(:rule_triggers).dependent(:destroy) }
+  it { should have_many(:labels).dependent(:destroy) }
 
   describe "#to_s" do
     before(:each) do
