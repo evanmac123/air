@@ -7,14 +7,13 @@ feature 'Admin sets up tiles' do
 
     signin_as_admin
     visit new_admin_demo_tile_path(@demo)
+    fill_in "Identifier", :with => 'tile with image'
+    fill_in "Headline", :with => 'bad ASS'
+    attach_file "tile[image]", tile_fixture_path('cov1.jpg')
+    attach_file "tile[thumbnail]", tile_fixture_path('cov1_thumbnail.jpg')
   end
 
   scenario 'and uploads an image' do
-    fill_in "Identifier", :with => 'tile with image'
-    fill_in "Headline", :with => 'bad ASS'
-
-    attach_file "tile[image]", tile_fixture_path('cov1.jpg')
-    attach_file "tile[thumbnail]", tile_fixture_path('cov1_thumbnail.jpg')
     click_button "Create Tile"
 
     expect_content 'tile with image'
@@ -24,5 +23,13 @@ feature 'Admin sets up tiles' do
     expect_link 'cov1.jpg', Tile.last.image.url
     expect_link 'cov1_thumbnail.jpg', Tile.last.thumbnail.url
     Tile.last.image.width.should == 620
+  end
+
+  scenario "and fills in a link address" do
+    fill_in "Address to link to (optional)", :with => "http://www.google.com"
+    click_button "Create Tile"
+
+    visit admin_demo_tiles_path(@demo)
+    expect_link "http://www.google.com", "http://www.google.com"
   end
 end

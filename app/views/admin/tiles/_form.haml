@@ -70,6 +70,9 @@
       = link_to tile.image_file_name, tile.image.url
       .hidden= f.submit "Remove image"
 
+  = f.label 'link_address', "Address to link to (optional)"
+  = f.text_field 'link_address'
+
   = f.submit 
   
 

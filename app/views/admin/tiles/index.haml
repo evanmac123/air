@@ -32,6 +32,7 @@
             End Time
             .time_zone
               (Eastern)
+          %th Link
           %th Thumbnail filename
           %th Image filename
           %th Prereq
@@ -56,6 +57,10 @@
                    
             %td= tile.start_time ? tile.start_time.pretty_succinct : ''
             %td= tile.end_time ? tile.end_time.pretty_succinct : ''
+            %td
+              -if tile.link_address.present?
+                = link_to tile.link_address, tile.link_address
+
             %td
               -if tile.thumbnail.present?
                 = link_to tile.thumbnail_file_name, tile.thumbnail.url

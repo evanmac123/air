@@ -29,6 +29,9 @@ body#tile_viewer {
   .tile_image{
     display: none;
   }
+  a.tile_link img.tile_image {
+    display: inherit;
+  }
   p#position {
     position: absolute;
     background:#818385;

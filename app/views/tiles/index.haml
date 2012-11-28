@@ -15,7 +15,7 @@
         %span Previous
       #slideshow
         - @satisfiable_tiles.each do |tile|
-          = image_tag tile.image.url, :class => :tile_image, :id => tile.id, :size => tile.image.image_size, :alt => tile.headline
+          = render 'full_size_tile', :tile => tile
       = link_to "#", :id => :next do
         %span Next
       .cf
