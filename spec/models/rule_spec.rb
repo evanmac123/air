@@ -3,6 +3,9 @@ require 'spec_helper'
 describe Rule do
   subject { FactoryGirl.create(:rule) }
 
+  it { should have_one(:primary_value).dependent(:destroy) }
+  it { should have_many(:secondary_values).dependent(:destroy) }
+
   it { should belong_to(:demo) }
   it { should belong_to(:goal) }
   it { should belong_to(:primary_tag) }

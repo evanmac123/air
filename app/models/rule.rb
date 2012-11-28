@@ -2,8 +2,8 @@ class Rule < ActiveRecord::Base
   belongs_to :demo
   belongs_to :goal
 
-  has_one    :primary_value, :class_name => "RuleValue", :conditions => {:is_primary => true}
-  has_many   :secondary_values, :class_name => "RuleValue", :conditions => {:is_primary => false}
+  has_one    :primary_value,    :class_name => "RuleValue", :dependent => :destroy, :conditions => {:is_primary => true}
+  has_many   :secondary_values, :class_name => "RuleValue", :dependent => :destroy, :conditions => {:is_primary => false}
   has_many   :acts
   has_many   :rule_triggers, :dependent => :destroy, :class_name => "Trigger::RuleTrigger"
   has_many   :rule_values, :dependent => :destroy
