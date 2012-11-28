@@ -10,6 +10,7 @@ class Rule < ActiveRecord::Base
   has_many   :labels, :dependent => :destroy
   has_many   :tags, :through => :labels
   belongs_to :primary_tag, :class_name => "Tag"
+
   validates_length_of :reply, :maximum => 120
   validates :reply, :with => :reply_length_100, :if => :goal_id
   
@@ -19,9 +20,6 @@ class Rule < ActiveRecord::Base
       errors.add(:reply, message)
     end
   end
-
-  def length_message
-      end
 
   def to_s
     description || self.primary_value.try(:value) || self.rule_values.oldest.first.value
