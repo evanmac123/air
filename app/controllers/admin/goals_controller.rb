@@ -23,12 +23,11 @@ class Admin::GoalsController < AdminBaseController
         end
 
         set_goal_id_on_each_rule(rule_ids)
-        @demo.goals.create(params[:goal])
       end
       redirect_to admin_demo_goals_path(@demo)
     rescue AssociatedRuleException
       create_eligible_rule_collection
-      render :new #direct_to new_admin_demo_goal_path(@demo) and return
+      render :new
     end
   end
  

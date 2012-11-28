@@ -53,9 +53,9 @@ Feature: Admin sets up goals
     And I press "Create Goal"
 
     Then I should be on the admin goals page for "GoalCo"
-    And I should see "Cherries"
-    And I should see "Chose cheer"
-    And I should see "Changed chaps"
+    And I should see "Cherries" just once
+    And I should see "Chose cheer" just once
+    And I should see "Changed chaps" just once
     And I should see "2 rules: chalk cheese"
 
   Scenario: Admin edits existing goal
