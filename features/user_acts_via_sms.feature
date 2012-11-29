@@ -189,9 +189,6 @@ Feature: User acts
     When "+15087407520" sends SMS "saw poster"
     And "+15087407520" sends SMS "saw poster"
     And "+15087407520" sends SMS "saw poster"
-    # And I sign in via the login page as "Dan/foobar"
-    # And I go to the acts page
-    # Then I should see "Dan 40 pts"
     And "+15087407520" should have received an SMS "Congratulations! Points 20, level 1."
     And "+15087407520" should have received an SMS "Congratulations! Points 40, level 1."
     But "+15087407520" should not have received an SMS including "Congratulations! Points 60"

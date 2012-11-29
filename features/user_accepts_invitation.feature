@@ -97,7 +97,7 @@ Feature: User accepts invitation
     And I go to the activity page
     And I should see "10 pts Phil joined the game less than a minute ago"
 
-  Scenario: User doesn not get seed points twice
+  Scenario: User does not get seed points twice
     Given time is frozen
     When "phil@example.com" opens the email
     And I click the play now button in the email
@@ -135,16 +135,6 @@ Feature: User accepts invitation
     Then I should not see "Welcome to the game"
     And I should see "Sorry, your passwords don't match"
     
-
-  Scenario: User doesn not have to specify mobile number to join
-    When I fill in "Choose a password" with "whatwhat"
-    And I fill in "Confirm password" with "whatwhat"
-    And I check "Terms and conditions"
-    And I press "Log in"
-    And DJ cranks once
-    Then I should be on the activity page
-    And I should see "Dan joined the game less than a minute ago"
-
   Scenario: User accepts invitation before game begins
     Given the following demo exists:
       | name | begins_at                 |
@@ -204,9 +194,6 @@ Feature: User accepts invitation
     And I click the play now button in the email
     Then I should be on the signin page
     And I should see "You've already accepted your invitation to the game. Please log in if you'd like to use the site."
-
-  Scenario: User doesn't see Highmark-specific copy
-    Then I should not see "Neither Highmark, its subsidiaries or agents, will be held responsible for any charges related to the use of the services."
 
   Scenario: User gets phone verification code to phone only
     Given a clear email queue
