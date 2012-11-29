@@ -25,7 +25,7 @@ class SampleTile < Tile
 
 
   def headline
-    "Sample Tile"
+    "Learn to Play"
   end
 
   def save

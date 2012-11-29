@@ -204,7 +204,10 @@ class ApplicationController < ActionController::Base
     when 4  # Click Connect
       tutorial.bump_step if path_info == "/users"
     when 5  # Search for Someone
-      tutorial.bump_step if @other_users.present?
+      if @other_users.present?
+        tutorial.bump_step
+        Tutorial.unfriend_kermit_from(current_user)
+      end
     when 6  # Follow Someone from the Search Results
       tutorial.back_up_a_step unless @other_users.present?
       tutorial.bump_step if tutorial.friend_followed_since_tutorial_start

@@ -41,12 +41,23 @@ class Tutorial < ActiveRecord::Base
     friendships.present?
   end
 
+  def self.unfriend_kermit_from(user)
+    return unless user
+    # Call this to destroy the friendship with Kermit the Frog so they can friend him again
+    kermit = User.where(demo_id: user.demo_id, name: example_search_name).first
+    return unless kermit
+    friendship = Friendship.where(user_id: kermit.id, friend_id: user.id).first
+    reciprocal = friendship.try(:reciprocal)
+    friendship.try(:destroy)
+    reciprocal.try(:destroy)
+  end
+
   def self.example_search_name
     # Note: if you ever change this name, make sure you update his name in the database too,
     # so that the method Demo.tutorial_success can still figure out which friends are real and imaginary
     "Kermit the Frog"
   end
-  
+
   def self.seed_example_user(demo)
     a = User.where(:demo_id => demo.id, :name => example_search_name)
     if a.empty?
