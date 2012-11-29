@@ -102,21 +102,5 @@ CSV
 
       Mailer.should have_received(:activity_report).with(expected_csv.strip, 'MuddyWaters', '2011-05-01 13:00:00 -0400', 'muddy@waters.com')
     end
-
-    context "when certain acts correspond to a rule that has been deleted" do
-      it "should not try to include those" do
-        vanishing_rule = FactoryGirl.create(:rule, demo: @demo)
-        vanishing_rule_id = vanishing_rule.id
-        freaky_act = FactoryGirl.create(:act, rule: vanishing_rule, demo: @demo)
-
-        vanishing_rule.destroy
-        freaky_act.reload
-        freaky_act.rule_id.should == vanishing_rule_id
-        freaky_act.rule.should be_nil
-        Report::Activity.new(@demo.id).send_email('phil@hengage.com')
-        sent_csv = ActionMailer::Base.deliveries.first.parts.detect{|part| part.content_type.include?("text/csv")}
-        sent_csv.to_s.should include("[deleted rule with ID #{vanishing_rule_id}]")
-      end
-    end
   end
 end
