@@ -240,10 +240,6 @@ FactoryGirl.define do
     association :tile
   end
 
-  factory :demographic_trigger, :class => Trigger::DemographicTrigger do
-    association :tile
-  end
-
   factory :characteristic do 
     sequence(:name) {|n| "Char_#{n}"}
     sequence(:description) {|n| "Desc_#{n}"}

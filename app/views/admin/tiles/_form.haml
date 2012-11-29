@@ -49,10 +49,6 @@
         - survey_options = options_from_collection_for_select(@surveys, :id, :name, :selected => @selected_survey_id) 
         = select_tag "completion[survey_id]", survey_options, :include_blank => true 
 
-      %fieldset
-        = label_tag "completion[demographics]", "Complete by filling in all demographics" 
-        = check_box_tag "completion[demographics]", '1', @complete_by_demographic 
-
   %fieldset
     %legend Images
 

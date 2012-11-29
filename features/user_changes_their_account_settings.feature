@@ -36,7 +36,6 @@ Feature: User can edit their account settings
     Then I should be on the settings page
     And I should see "OK, your settings were updated."
     And "Male" should be chosen
-    And "Date of Birth" should have value "September 10, 1977"
   
   Scenario: User sees their mobile number on their settings
     When I go to the settings page

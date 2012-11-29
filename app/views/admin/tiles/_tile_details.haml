@@ -4,9 +4,6 @@
       .label Headline 
       .value= tile.headline
     .completion_triggers
-      - if tile.has_demographic_trigger? 
-        %p Complete demographics
-
       - if tile.rule_triggers.present? 
         %p="Rules (any of the following#{', referrer required' if tile.rule_triggers.first.referrer_required}):"
         %ul

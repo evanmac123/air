@@ -41,7 +41,6 @@ class Admin::TilesController < AdminBaseController
     @selected_rule_ids = @tile.rule_triggers.map(&:rule_id)
     @require_referrer = @tile.rule_triggers.first.try(:referrer_required)
     @selected_survey_id = @tile.survey_trigger.try(:survey_id)
-    @complete_by_demographic = @tile.has_demographic_trigger?
   end
 
   def update
@@ -91,7 +90,6 @@ class Admin::TilesController < AdminBaseController
 
     set_up_rule_triggers(params[:completion][:rule_ids], params[:completion][:referrer_required])
     set_up_survey_trigger(params[:completion][:survey_id])
-    set_up_demographic_trigger(params[:completion][:demographics])
   end
 
   def set_up_rule_triggers(rule_ids, referrer_required)
@@ -109,16 +107,6 @@ class Admin::TilesController < AdminBaseController
 
     if _survey_id
       @tile.survey_trigger = Trigger::SurveyTrigger.create!(:survey_id => _survey_id)
-    end
-  end
-
-  def set_up_demographic_trigger(use_demographic)
-    return if use_demographic.present? == @tile.has_demographic_trigger?
-
-    if use_demographic
-      Trigger::DemographicTrigger.create!(:tile => @tile)
-    else
-      @tile.demographic_trigger.destroy
     end
   end
 

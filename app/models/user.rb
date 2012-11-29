@@ -7,8 +7,6 @@ class User < ActiveRecord::Base
 
   DEFAULT_RANKING_CUTOFF = 15
 
-  DEMOGRAPHIC_FIELD_NAMES = %w(gender date_of_birth).freeze
-
   PRIVACY_LEVELS = %w(everybody connected nobody).freeze
 
   GENDERS = ["female", "male", "other", nil].freeze
@@ -114,7 +112,6 @@ class User < ActiveRecord::Base
   before_update do
     schedule_update_demo_alltime_rankings if changed.include?('points')
     schedule_update_demo_recent_average_rankings if (!batch_updating_recent_averages && changed.include?('recent_average_points'))
-    trigger_demographic_tiles
     add_gold_coins
   end
 
@@ -1287,24 +1284,6 @@ class User < ActiveRecord::Base
     Demo.decrement_counter(:ranked_user_count, demo_id)
   end
 
-  def trigger_demographic_tiles
-    if all_demographics_present? && not_all_demographics_previously_present?
-      Tile.satisfiable_by_demographics_to_user(self).each do |tile|
-        tile.satisfy_for_user!(self)
-      end
-    end
-  end
-
-  def all_demographics_present?
-    DEMOGRAPHIC_FIELD_NAMES.all?{|field_name| self[field_name].present?}
-  end
-
-  def not_all_demographics_previously_present?
-    DEMOGRAPHIC_FIELD_NAMES.any? do |demographic_field_name|
-      !changed.include?(demographic_field_name)
-    end
-  end
-  
   def self.passwords_dont_match_error_message
     "Sorry, your passwords don't match"
   end

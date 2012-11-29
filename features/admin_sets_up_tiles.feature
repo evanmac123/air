@@ -144,14 +144,3 @@ Feature: Admin sets up tiles
     And I should see "Complete survey 1"
     And I should see "Survey: Survey 1"
     And I should not see "Manual only"
-
-  Scenario: Admin adds tile with demographic trigger
-    When I fill in "Identifier" with "ident1"
-    When I fill in "Headline" with "Complete demographics"
-    And I check "Complete by filling in all demographics"
-    And I attach an image to the tile
-    And I attach a thumbnail to the tile
-    And I press "Create Tile"
-    Then I should be on the admin tiles page for "TileCo"
-    And I should see "Complete demographics"
-    And I should not see "Manual only"

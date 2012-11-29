@@ -69,16 +69,12 @@ Feature: User completes tile
       | survey         | tile                    |
       | name: Survey 1 | headline: Survey tile 1 |
       | name: Survey 2 | headline: Survey tile 3 |
-    And the following demographic triggers exist:
-      | tile           |
-      | headline: Demographic tile 1 |
     And the tile "Rule tile 2" has prerequisite "Rule tile 1"
     And the tile "Rule tile 4" has prerequisite "Rule tile 3"
     And the tile "Rule tile 6" has prerequisite "Rule tile 5"
     And the tile "Survey tile 2" has prerequisite "Survey tile 1"
     And the tile "Survey tile 4" has prerequisite "Survey tile 2"
     And the tile "Referer tile 2" has prerequisite "Referer tile 1"
-    And the tile "Demographic tile 2" has prerequisite "Demographic tile 1"
     And DJ works off
     When I sign in via the login page with "Joe/foobar"
     Then I should see "Rule tile 1"
@@ -87,7 +83,6 @@ Feature: User completes tile
     And I should see "Survey tile 1"
     And I should see "Survey tile 3"
     And I should see "Referer tile 1"
-    And I should see "Demographic tile 1"
 
     But I should not see "Rule tile 2"
     And I should not see "Rule tile 4"
@@ -95,7 +90,6 @@ Feature: User completes tile
     And I should not see "Survey tile 2"
     And I should not see "Survey tile 4"
     And I should not see "Referer tile 2"
-    And I should not see "Demographic tile 2"
 
   @javascript
   Scenario: User completes tile by acting according to rule
@@ -108,7 +102,6 @@ Feature: User completes tile
     And I should see "Survey tile 1"
     And I should see "Survey tile 3"
     And I should see "Referer tile 1"
-    And I should see "Demographic tile 1"
 
     But I should not see "Rule tile 1"
     And I should not see "Rule tile 4"
@@ -116,60 +109,6 @@ Feature: User completes tile
     And I should not see "Survey tile 2"
     And I should not see "Survey tile 4"
     And I should not see "Referer tile 2"
-    And I should not see "Demographic tile 2"
-
-    # When DJ works off after a little while
-    # Then "+14152613077" should have received an SMS "Congratulations! You've completed a game piece."
-
-#   Scenario: User completes rule tile by SMS and gets congrats by SMS
-    # Given a clear email queue
-    # When "+14152613077" sends SMS "do 1"
-    # When DJ works off after a little while
-    # Then "+14152613077" should have received an SMS "Congratulations! You've completed a game piece."
-    # But "joe@example.com" should receive no email
-
-  # Scenario: User completes rule tile by email and gets congrats by email
-    # When "joe@example.com" sends email with subject "do 1" and body "do 1"
-    # And DJ works off after a little while
-    # Then "+14152613077" should not have received any SMSes
-    # But "joe@example.com" should receive an email with "Congratulations! You've completed a game piece." in the email body
-
-  # Scenario: User completes rule tile on web and sees congrats in the flash
-    # When I sign in via the login page with "Joe/foobar" and choose to be remembered
-    # Given a clear email queue
-    # When I enter the act code "do 1"
-    # And DJ works off after a little while
-    # Then "+14152613077" should not have received any SMSes
-    # And "joe@example.com" should receive no email
-    # But I should see "Congratulations! You've completed a game piece."
-    # When I go to the activity page
-    # Then I should not see "Your session has expired"
-
-#   @javascript
-  # Scenario: User completes tile by acting according to rule with mandatory referrer
-    # When "+14152613077" sends SMS "do 1 bob"
-    # Then "+14152613077" should have received an SMS including "did 1"
-    # When I go to the activity page
-    # And I click "No thanks"
-
-    # Then I should see "Rule tile 2"
-    # And I should see "Rule tile 3"
-    # And I should see "Rule tile 5"
-    # And I should see "Survey tile 1"
-    # And I should see "Survey tile 3"
-    # And I should see "Referer tile 2"
-    # And I should see "Demographic tile 1"
-
-    # But I should not see "Rule tile 1"
-    # And I should not see "Rule tile 4"
-    # And I should not see "Rule tile 6"
-    # And I should not see "Survey tile 2"
-    # And I should not see "Survey tile 4"
-    # And I should not see "Referer tile 1"
-#     And I should not see "Demographic tile 2"
-
-    # When DJ works off after a little while
-    # Then "+14152613077" should have received an SMS "Congratulations! You've completed a game piece."
 
   @javascript
   Scenario: User completes tile by completing survey
@@ -186,7 +125,6 @@ Feature: User completes tile
     And I should see "Survey tile 2"
     And I should see "Survey tile 3"
     And I should see "Referer tile 1"
-    And I should see "Demographic tile 1"
 
     But I should not see "Rule tile 2"
     And I should not see "Rule tile 4"
@@ -194,36 +132,3 @@ Feature: User completes tile
     And I should not see "Survey tile 1"
     And I should not see "Survey tile 4"
     And I should not see "Referer tile 2"
-    And I should not see "Demographic tile 2"
-
-  @javascript
-  Scenario: User completes demographic tile by filling in their details
-    When I go to the settings page
-    And I fill in most of my demographic information
-    And I press the button to save the user's settings
-    And I go to the activity page
-
-    Then I should see "Demographic tile 1"
-    But I should not see "Demographic tile 2"
-
-    When I go to the settings page
-    And I fill in "Date of Birth" with "September 10, 1977"
-    And I press the button to save the user's settings
-    And I go to the activity page
-
-    Then I should see "Rule tile 1"
-    And I should see "Rule tile 3"
-    And I should see "Rule tile 5"
-    And I should see "Survey tile 1"
-    And I should see "Survey tile 3"
-    And I should see "Referer tile 1"
-    And I should not see "Demographic tile 1"
-    And I should see "Demographic tile 2"
-
-    But I should not see "Rule tile 2"
-    And I should not see "Rule tile 4"
-    And I should not see "Rule tile 6"
-    And I should not see "Survey tile 2"
-    And I should not see "Survey tile 4"
-    And I should not see "Referer tile 2"
-    And I should not see "Demographic tile 1"

@@ -4,7 +4,6 @@ class Tile < ActiveRecord::Base
   has_many :prerequisite_tiles, :class_name => "Tile", :through => :prerequisites
   has_many :rule_triggers, :class_name => "Trigger::RuleTrigger"
   has_one :survey_trigger, :class_name => "Trigger::SurveyTrigger"
-  has_one :demographic_trigger, :class_name => 'Trigger::DemographicTrigger'
   has_many :tile_completions, :dependent => :destroy
   validates_uniqueness_of :identifier, :scope => :demo_id
   validates_presence_of :identifier, :message => "Please include an identifier"
@@ -46,12 +45,8 @@ class Tile < ActiveRecord::Base
     true
   end
 
-  def has_demographic_trigger?
-    self.demographic_trigger.present?
-  end
-
   def only_manually_triggerable?
-    self.rule_triggers.empty? && self.survey_trigger.blank? && !self.has_demographic_trigger?
+    self.rule_triggers.empty? && self.survey_trigger.blank?
   end
 
   def all_rule_triggers_satisfied_to_user(user)
@@ -84,10 +79,6 @@ class Tile < ActiveRecord::Base
 
   def self.satisfiable_by_survey_to_user(survey_or_survey_id, user)
     satisfiable_by_survey(survey_or_survey_id).satisfiable_to_user(user)
-  end
-
-  def self.satisfiable_by_demographics_to_user(user)
-    satisfiable_by_demographics.satisfiable_to_user(user)
   end
 
   def self.satisfiable_to_user(user)
@@ -129,10 +120,6 @@ class Tile < ActiveRecord::Base
 
   def self.satisfiable_by_survey(survey_or_survey_id)
     satisfiable_by_object(survey_or_survey_id, Survey, "trigger_survey_triggers", "survey_id")
-  end
-
-  def self.satisfiable_by_demographics
-    satisfiable_by_trigger_table('trigger_demographic_triggers')
   end
 
   def self.next_position(demo)

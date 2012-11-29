@@ -32,19 +32,6 @@ feature 'Game has beginning and end' do
   end
 
   context 'user changes settings' do
-    it 'should allow user to change DOB when game is not open' do
-      as_both_users do
-        visit edit_account_settings_path
-        expect_value "Date of Birth", nil
-
-        fill_in "Date of Birth", :with => "Jan 1, 1984"
-        click_username_dob_gender_submit_button
-        expect_content "OK, your settings were updated."
-        expect_value "Date of Birth", "January 01, 1984"
-      end
-    end
-
-
     it 'should allow user to change gender when game is not open' do
       as_both_users do
         visit edit_account_settings_path

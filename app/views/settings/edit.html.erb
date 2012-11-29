@@ -25,10 +25,6 @@
         <%= form.text_field "sms_slug" %>
       </div>
 
-      <div class="module_inner settings_dob">
-        <h2 class="title"><%= label_tag 'user_date_of_birth', "Date of Birth" %></h2>
-        <%= form.text_field :date_of_birth, :value => current_user.date_of_birth.try(:as_pretty_date) %>
-      </div>
       <div class="module_inner settings_gender">
         <h2 class="title">Gender</h2>
         <ul>
