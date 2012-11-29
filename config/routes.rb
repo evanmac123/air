@@ -92,7 +92,7 @@ Health::Application.routes.draw do
     get 'exception' => 'exceptions#show'
     get 'sleep_forever' => 'sleep_forever#show'
 
-    resources :rules, :only => [:index, :new, :create, :edit, :update]
+    resources :rules, :except => :show
 
     resources :rule_values, :only => [:destroy]
 

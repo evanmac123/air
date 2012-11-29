@@ -1,8 +1,8 @@
 class Admin::RulesController < AdminBaseController
   include Admin::RulesHelper
 
-  before_filter :find_rule, :only => [:edit, :update]
-  before_filter :find_demo_from_rule, :only => [:update]
+  before_filter :find_rule, :only => [:edit, :update, :destroy]
+  before_filter :find_demo_from_rule, :only => [:update, :destroy]
   before_filter :find_demo_from_params, :only => [:index, :new, :create]
   before_filter :find_existing_rules, :only => [:index]
   before_filter :extract_primary_and_secondary_values, :only => [:create, :update]
@@ -66,8 +66,6 @@ class Admin::RulesController < AdminBaseController
     remove_tag_ids_from_params
     set_tag_ids
 
-
-
     if @rule.update_with_rule_values(params[:rule], @primary_value, (@secondary_values.try(:values) || []))
       flash[:success] = 'Rule updated'
       check_conflicts   # Note we are checking conflicts AFTER the update, not before, since we only care about the latest state
@@ -76,6 +74,13 @@ class Admin::RulesController < AdminBaseController
       flash_now_and_keep_primary_secondary_values
       render :edit
     end
+  end
+
+  def destroy
+    flash[:success] = "The '#{@rule.primary_value.value}' rule was deleted"
+    @rule.destroy
+
+    redirect_to @demo ? admin_demo_rules_path(@demo) : admin_rules_path
   end
 
   def remove_tag_ids_from_params

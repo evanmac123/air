@@ -111,5 +111,18 @@ describe Rule do
       end
     end
   end
-   
+
+  describe 'deleting a rule' do
+    it 'nullifies associated acts' do
+      rule = FactoryGirl.create :rule
+      acts = FactoryGirl.create_list :act, 3, rule: rule
+
+      acts.each { |act| act.rule.should_not be_nil }
+
+      rule.destroy
+
+      Rule.count.should == 0
+      acts.each { |act| act.reload.rule.should be_nil }
+    end
+  end
 end

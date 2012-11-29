@@ -14,6 +14,8 @@ class Rule < ActiveRecord::Base
 
   validates_length_of :reply, :maximum => 120
   validates :reply, :with => :reply_length_100, :if => :goal_id
+
+  before_destroy :nullify_acts
   
   def reply_length_100
     if reply.length > 100
@@ -124,5 +126,11 @@ class Rule < ActiveRecord::Base
     else
       where(["demo_id = ? AND goal_id IS NULL", goal.demo.id])
     end
+  end
+
+  private
+
+  def nullify_acts
+    acts.each { |act| act.update_attribute :rule_id, nil }
   end
 end

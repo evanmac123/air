@@ -54,6 +54,9 @@
         <td>
           <%= link_to 'Edit Rule', edit_admin_rule_path(existing_rule) %>
         </td>
+        <td>
+          <%= link_to 'Delete Rule', admin_rule_path(existing_rule), :method => :delete %>
+        </td>
       </tr>
 
       <tr class="aliases" id="aliases_<%=rule_index%>">
