@@ -1,4 +1,5 @@
-<%= form_for(@tag, :url => admin_tags_path, method: :post) do |f| %>
+<% form_url, form_method = @tag.new_record? ? [admin_tags_path, :post] : [admin_tag_path(@tag), :put] %>
+<%= form_for @tag, :url => form_url, method: form_method do |f| %>
   <% if @tag.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@tag.errors.count, "error") %> prohibited this tag from being saved:</h2>
