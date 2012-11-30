@@ -81,7 +81,7 @@
       <%= submit_tag 'Save', :class => 'button_norm', :id => 'save-notification-settings' %>
     <% end %>
 	</div>
-	<div class="module other_settings password_change">
+	<div class="module other_settings" id="password_change">
     <h1 class="headline">Change Password</h1>
     <%= form_for current_user, :url => logged_in_user_password_path do |form| %>
       <div class="module_inner settings_new_password">
