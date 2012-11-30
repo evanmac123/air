@@ -5,13 +5,13 @@
   <script id="IntercomSettingsScriptTag">
     var intercomSettings = {
       app_id: 'iukuloq8',
-      email: "<%= intercom_user.email %>", // User's e-mail address
+      email: "<%= intercom_user.email.html_safe %>", // User's e-mail address
       created_at: <%= intercom_user.accepted_invitation_at.to_i %>, // User's sign-up date, Unix timestamp
       name: "<%= intercom_user.name %>",
       user_id: "<%= intercom_user_id_with_env %>", // Sending user_id so if email changes they can still track it
       user_hash: "<%= Digest::SHA1.hexdigest('9rlx8hyy' + intercom_user_id_with_env) %>",
       custom_data:{
-        demo: "<%= intercom_user.demo.name %>",
+        demo: "<%= intercom_user.demo.name.html_safe %>",
         location: "<%= intercom_user.location.try(:name) %>",
         notification_method: "<%= intercom_user.notification_method %>",
         last_acted_at: "<%= intercom_user.last_acted_at.to_i %>",
