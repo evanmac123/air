@@ -198,7 +198,11 @@ class ApplicationController < ActionController::Base
       tutorial.bump_step if path_info == tiles_path
     when 2  # Read for Points
       Tutorial.seed_example_user(current_user.demo)
-      tutorial.bump_step if session.delete(:typed_something_in_playbox)
+      if path_info == tiles_path
+        tutorial.bump_step if session.delete(:typed_something_in_playbox)
+      elsif path_info == activity_path
+        tutorial.back_up_a_step
+      end
     when 3  # See Activity
       # They click the "next slide" button to advance
     when 4  # Click Connect
