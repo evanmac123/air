@@ -118,16 +118,24 @@ class ApplicationController < ActionController::Base
     when 0
       @show_introduction = true
     when 1
-      @title = "1. Say It!"
-      @instruct = "Type \"<span class='offset'>#{example_command}</span>\" and click PLAY to get 3 points"
-      @highlighted = '#bar_command_wrapper'
-      @x = 350
-      @y = -10
-      @position = "bottom left"
-      @arrow_dir = "top-left"
-      @flash_margin_left = "355px"  # This is so any failure messages will be offset & thereby visible
+      @title = "1. Click It!"
+      @instruct = "Click to open the tile and earn points for learning about your benefits"
+      @highlighted = '#tile-thumbnail-0' # The sample tile always has and id of 0
+      @x = 0
+      @y = -66
+      @position = "center right"
+      @arrow_dir = "left"
     when 2
-      @title = "2. Dialog Box"
+      @title = "2. Read for Points!"
+      @instruct = "Read the tile below, then enter the key word here for points."
+      @highlighted = '#bar_command_wrapper'
+      @x = -3
+      @y = 36 
+      @position = "center right"
+      @arrow_dir = "left"
+      @flash_margin_left = "355px"  # This is so any failure messages will be offset & thereby visible
+    when 3
+      @title = "3. Dialogue Box"
       @instruct = "This is where you'll get helpful info<br>to guide you".html_safe
       @show_next_button = true
       @highlighted = '.flash-box'
@@ -135,40 +143,40 @@ class ApplicationController < ActionController::Base
       @y = 43
       @position = "center right"
       @arrow_dir = "left"
-    when 3
-      @title = "3. Make Connections"
+    when 4
+      @title = "4. Make Connections"
       @instruct = "Click DIRECTORY to find people you know"
       @highlighted = '.nav-directory'
       @x = -141
       @y = -5
       @position = "bottom center"
       @arrow_dir = "top-right"
-    when 4
-      @title = "4. Find Your Friends"
+    when 5
+      @title = "5. Find Your Friends"
       @instruct = "Just for practice, type \"<span class='offset'>#{first_name}</span>\", then click FIND!"
       @highlighted = '#search_box_wrapper'
       @x = -10
       @y = -3
       @position = "bottom center"
       @arrow_dir = "top-left"
-    when 5
-      @title = "5. Friend Them"
+    when 6
+      @title = "6. Friend Them"
       @instruct = "Click ADD TO FRIENDS to connect with #{first_name}"
       @highlighted = '#directory_wrapper'
       @x = 0
       @y = 298
       @position = "top right"
       @arrow_dir = "left"
-    when 6
-      @title = "6. See Your Profile"
+    when 7
+      @title = "7. See Your Profile"
       @instruct = "Great! Now you're connected with Kermit. Click MY PROFILE to see him."
       @highlighted = '.nav-activity'
       @x = 0
       @y = 0
       @position = "bottom center"
       @arrow_dir = "top-center"
-    when 7
-      @title = "7. Have Fun Playing!"
+    when 8
+      @title = "8. Have Fun Playing!"
       @instruct = "That's it! Now you know how to connect with friends and how to earn points."
       @show_finish_button = true
       @highlighted = '#following_wrapper'
@@ -186,21 +194,30 @@ class ApplicationController < ActionController::Base
     case tutorial.current_step
     when 0 # Introductory Slide
       # They click the "next slide" button to advance
-    when 1  # Say It!
+    when 1 # Click It!
+      tutorial.bump_step if path_info == tiles_path
+    when 2  # Read for Points
       Tutorial.seed_example_user(current_user.demo)
-      tutorial.bump_step if session.delete(:typed_something_in_playbox)
-    when 2  # See Activity
+      if path_info == tiles_path
+        tutorial.bump_step if session.delete(:typed_something_in_playbox)
+      elsif path_info == activity_path
+        tutorial.back_up_a_step
+      end
+    when 3  # See Activity
       # They click the "next slide" button to advance
-    when 3  # Click Connect
+    when 4  # Click Connect
       tutorial.bump_step if path_info == "/users"
-    when 4  # Search for Someone
-      tutorial.bump_step if @other_users.present?
-    when 5  # Follow Someone from the Search Results
+    when 5  # Search for Someone
+      if @other_users.present?
+        tutorial.bump_step
+        Tutorial.unfriend_kermit_from(current_user)
+      end
+    when 6  # Follow Someone from the Search Results
       tutorial.back_up_a_step unless @other_users.present?
       tutorial.bump_step if tutorial.friend_followed_since_tutorial_start
-    when 6
-      tutorial.bump_step if path_info == user_path(current_user)
     when 7
+      tutorial.bump_step if path_info == user_path(current_user)
+    when 8
       tutorial.ended_at = Time
     else
       # Do nothing

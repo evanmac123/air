@@ -60,3 +60,7 @@ end
 When /^I attach a thumbnail to the tile$/ do
   attach_file "tile[thumbnail]", tile_fixture_path('cov1_thumbnail.jpg')
 end
+
+When /^I click the sample tile$/ do
+  page.find('#tile-thumbnail-0').click
+end

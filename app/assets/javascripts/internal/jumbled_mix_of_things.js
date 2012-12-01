@@ -227,8 +227,8 @@ function launchTutorialIntroduction(){
     var intro_content = div.html();
     var options = {hideOnOverlayClick : false,
                     showCloseButton	 : false,
-                    speedIn : 4000,
-                		speedOut : 2000
+                    speedIn : 1200, // Time it takes to fade in the intro slide
+                		speedOut : 200 // Time to fade out the intro slide if they decline
                   };
     $.fancybox(intro_content, options);
     div.hide();

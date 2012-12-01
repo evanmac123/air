@@ -5,8 +5,6 @@ class Tile < ActiveRecord::Base
   has_many :rule_triggers, :class_name => "Trigger::RuleTrigger"
   has_one :survey_trigger, :class_name => "Trigger::SurveyTrigger"
   has_many :tile_completions, :dependent => :destroy
-  validates_uniqueness_of :identifier, :scope => :demo_id
-  validates_presence_of :identifier, :message => "Please include an identifier"
   validates_uniqueness_of :position, :scope => :demo_id
   validates_presence_of :headline, :allow_blank => false
   validates_with AttachmentPresenceValidator, :attributes => [:image, :thumbnail], :if => :require_images
@@ -96,6 +94,24 @@ class Tile < ActiveRecord::Base
       hide
     end
     satisfiable_tiles.sort_by(&:position)
+  end
+
+  def self.satisfiable_to_user_with_sample(user)
+    satisfiable_tiles = satisfiable_to_user(user)
+    if user.tutorial_active?
+      satisfiable_tiles.prepend(SampleTile.new)
+    else
+      satisfiable_tiles
+    end
+  end
+
+  def self.displayable_to_user_with_sample(user)
+    displayable_tiles = displayable_to_user(user)
+    if user.tutorial_active?
+      displayable_tiles.prepend(SampleTile.new)
+    else
+      displayable_tiles
+    end
   end
 
   def self.after_start_time_and_before_end_time

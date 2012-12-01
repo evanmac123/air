@@ -47,7 +47,8 @@ body.invitations-show input#user_terms_and_conditions {top:0!important;}
 		.bar_command { 
 			input[type="submit"] {
 				@include ie-bg-orange-btn;
-				color:#3b3b3b!important;
+				//color:#3b3b3b!important;
+        color: #906109 !important;
 				padding-top:0px!important;
 				&:hover {
 					@include ie-bg-orange-btn-down;
@@ -62,7 +63,8 @@ body.invitations-show input#user_terms_and_conditions {top:0!important;}
 			}
 		}
 		.bar_level {
-			p.level {color:#2e2f2d!important;}
+			//p.level {color:#2e2f2d!important;}
+			p.level {color:#FFB901 !important;}
 		}
 	}	
 }

@@ -1,21 +1,28 @@
 
 var autocomplete_in_progress = 0;
 var autocomplete_waiting = 0;
+var new_chars_entered = 0;
+var delay_before_send = 300; // How long of a delay must exist after typing before we send a request
+var watchdog_running = 0;
+var last_keypress = 0;
 
 $(function() {
   $('#search_for_referrer #autocomplete').keypress(function(){
       var email = $('#user_email').val();
       var options = {email : email, calling_div : '#search_for_referrer' };
-      autocompleteIfNoneRunning(options);
+      startWatchDog(options);
+      markForSend();
   });
 
   $('#search_for_friends_to_invite #autocomplete').live('keypress', function(){
       var email = $('#user_email').val();
       var options = {email : email, calling_div : '#search_for_friends_to_invite'};
-      autocompleteIfNoneRunning(options);
+      startWatchDog(options);
+      markForSend();
   });
 
   $('#search_for_referrer .single_suggestion').live('click', function() {
+    stopWatchDog();
     $('#user_game_referrer_id').val($(this).find('.suggested_user_id').text());
     $('#search_for_referrer #autocomplete').hide();
     $('#autocomplete_status').text('');
@@ -42,6 +49,56 @@ $(function() {
     return false;
   });
 });
+
+function startWatchDog(options){
+  if(!watchdog_running){
+    watchdog_running = 1;
+    watchDogSender(options);
+  }else{
+  }
+}
+
+function stopWatchDog(){
+  watchdog_running = 0;
+}
+
+function watchDogSender(options){
+  // This function repeats every 100ms until we stop the watchdog
+  if(watchdog_running){
+    autocompleteIfNewCharsEnteredAndNoKeypressesRecently(options);
+    setTimeout(function(){watchDogSender(options);}, 100);
+  }
+}
+
+function autocompleteIfNewCharsEnteredAndNoKeypressesRecently(options){
+  if (new_chars_entered &&  noKeypressesRecently()){
+    unmarkForSend();
+    autocompleteIfNoneRunning(options);
+  }
+}
+
+
+function markForSend(){
+   new_chars_entered = 1;
+   last_keypress = timeNowMS();
+}
+ 
+function unmarkForSend(){
+   new_chars_entered = 0;
+}
+
+function noKeypressesRecently(){
+  now = timeNowMS();
+  if (now - last_keypress > delay_before_send){
+    return true;
+  }
+  return false;
+}
+
+function timeNowMS(){
+  time_string = new Date;
+  return time_string.getTime();
+}
 
 
 function autocompleteIfNoneRunning(options){

@@ -30,6 +30,7 @@ Feature: User gives credit to game referer via autocomplete field
   @javascript
   Scenario: Status messages display and are not hidden
     When I fill in "Did anyone refer you?" with "2"
+    And I wait a second
     Then "3+ letters, please" should be visible
     And I should see "3+ letters, please"
     When I fill in "Did anyone refer you?" with "jdidillvididkkemmffii"

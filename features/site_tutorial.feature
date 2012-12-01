@@ -27,7 +27,9 @@ Feature: Talking Chicken
     When I click within ".show_tutorial"
     And I should see "Directory"
     And I wait a second
-    Then I should see "Say It!" 
+    Then I should see "Click It"
+    When I click the sample tile
+    Then I should see "Read for Points" 
     And I wait a second
     When I fill in "command_central" with "some command you've never heard of"
     
@@ -45,11 +47,11 @@ Feature: Talking Chicken
     Then I should see "Click ADD TO FRIENDS to connect with Kermit"
     When I click within ".follow-btn"
     Then I should see "Directory" 
-    Then "Brand New" should have an open tutorial with current step "6" 
+    Then "Brand New" should have an open tutorial with current step "7" 
     And I should see "Now you're connected with Kermit"
     When I follow "My Profile"
     Then I should see "Kermit the Frog"
-    Then "Brand New" should have an open tutorial with current step "7"
+    Then "Brand New" should have an open tutorial with current step "8"
     And I take five
     When I follow "Finish"
     Then "Finish" should not be visible 
@@ -88,13 +90,15 @@ Feature: Talking Chicken
       When I click within ".show_tutorial"
       And I should see "Directory"
       And I take five
-      Then I should see "Say It!"
+      Then I should see "Click It"
+      When I click the sample tile
+      Then I should see "Read for Points"
       And I click within "#gear"
       And I click within ".close_tutorial"
       Then I should see "Directory"
-      Then "Brand New" should have a closed tutorial with current step "1"
+      Then "Brand New" should have a closed tutorial with current step "2"
       And I take five
-      Then "Say It!" should not be visible
+      Then "Read for Points" should not be visible
       
     @javascript 
     Scenario: Leah leaves tutorial, then starts it again from FAQ
@@ -105,13 +109,15 @@ Feature: Talking Chicken
       When I click within ".show_tutorial"
       And I should see "Directory"
       And I take five
-      Then I should see "Say It!"
+      Then I should see "Click It"
+      When I click the sample tile
+      Then I should see "Read for Points"
       And I click within "#gear"
       And I click within ".close_tutorial"
       Then I should see "Directory"
-      Then "Brand New" should have a closed tutorial with current step "1"
+      Then "Brand New" should have a closed tutorial with current step "2"
       And I take five
-      Then "Say It!" should not be visible
+      Then "Read for Points" should not be visible
       When I go to the help page
       And I press "Take Quick Tour"
       Then I should see "Directory"
