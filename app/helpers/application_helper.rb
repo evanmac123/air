@@ -34,7 +34,7 @@ module ApplicationHelper
   end
 
   def master_bar_point_content
-    "#{current_user.point_fraction} points"
+    "#{current_user.pretty_point_fraction} points"
   end
 
   def consolidated_flash

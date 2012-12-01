@@ -656,6 +656,14 @@ class User < ActiveRecord::Base
   end
 
   def point_fraction
+    point_denominator = self.point_threshold_spread
+    return 0.0 if point_denominator == 0
+
+    points = self.points_towards_next_threshold
+    points.to_f / point_denominator
+  end
+
+  def pretty_point_fraction
     points = self.points_towards_next_threshold
     point_denominator = self.point_threshold_spread
     "#{points}/#{point_denominator}"
@@ -663,7 +671,7 @@ class User < ActiveRecord::Base
 
   def point_summary
     if self.point_threshold_spread > 0
-      "points #{self.point_fraction}"
+      "points #{self.pretty_point_fraction}"
     else
       "points #{self.points}"
     end
