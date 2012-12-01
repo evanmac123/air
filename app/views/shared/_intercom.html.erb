@@ -17,7 +17,7 @@
         last_acted_at: "<%= intercom_user.last_acted_at.to_i %>",
         date_of_birth: "<%= intercom_user.date_of_birth %>",
         profile: "<%= 'https://' + http_host + '/users/' + intercom_user.slug %>",
-        points: <%= intercom_user.points %>
+        points: "<%= intercom_user.points %>"
       },
       widget: {
         activator: '#IntercomDefaultWidget',
