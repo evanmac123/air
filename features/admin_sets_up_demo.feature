@@ -64,6 +64,7 @@ Feature: Admin sets up demo
     And I should see `Custom support reply is "We'll call you."`
     And I should see "Internal email domains are: example.com foo.com bar.com"
     And I should see "Users can invite friends before game is open"
+    And I should see "NO PHONE NUMBER SET FOR THIS GAME, MAKE SURE THAT IS WHAT YOU REALLY WANT"
 
   Scenario: Correct defaults
     Given I am on the admin page
@@ -95,6 +96,7 @@ Feature: Admin sets up demo
     And I should see "No custom support reply"
     And I should see "No email domains will be considered internal"
     And I should see "Users cannot invite friends before game is open"
+    And I should see "NO PHONE NUMBER SET FOR THIS GAME, MAKE SURE THAT IS WHAT YOU REALLY WANT"
 
   Scenario: Appropriate restrictions on text that gets SMSed
     Given I am on the admin page
@@ -111,3 +113,11 @@ Feature: Admin sets up demo
     Then I should be on the admin "3M" demo page
     When I follow "B"
     Then I should see "Bobby Jones"
+
+  Scenario: Admin sees phone number for game
+    Given the following demo exists:
+      | name  | phone number |
+      | FooCo | +14155551212 |
+    When I go to the admin "FooCo" demo page
+    Then I should see "Phone number for this game is (415) 555-1212"
+    And I should not see "NO PHONE NUMBER SET FOR THIS GAME, MAKE SURE THAT IS WHAT YOU REALLY WANT"

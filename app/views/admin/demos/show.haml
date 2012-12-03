@@ -44,6 +44,13 @@
     %li= link_to "Edit basic settings for this game", edit_admin_demo_path(@demo)
 
   %p
+    - if @demo.phone_number.present?
+      Phone number for this game is 
+      = @demo.phone_number.as_pretty_phone
+    - else
+      NO PHONE NUMBER SET FOR THIS GAME, MAKE SURE THAT IS WHAT YOU REALLY WANT
+
+  %p
     - if @demo.client_name.present?
       = "Client name is #{@demo.client_name}"
     - else
