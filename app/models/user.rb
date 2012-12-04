@@ -968,6 +968,22 @@ class User < ActiveRecord::Base
     (self.accepted_friends_same_demo + [self]).sort_by {|ff| ff.name.downcase}
   end
 
+  def reset_tiles(demo=nil)
+    demo ||= self.demo
+
+    # Why the fuck does changing this to self.tile_completions not work?
+    TileCompletion.where(user_id: self.id).each do |completion|
+      completion.destroy if completion.tile.demo == demo
+    end
+
+    Tile.where(demo_id: demo.id).each do |tile|
+      tile.rule_triggers.each do |rule_trigger|
+        Act.where(user_id: self.id, rule_id: rule_trigger.rule_id).each { |act| act.destroy }
+      end
+    end
+  end
+
+
   def self.send_invitation_if_claimed_sms_user_texts_us_an_email_address(from_phone, text, options={})
     return nil unless from_phone =~ /^(\+1\d{10})$/
     

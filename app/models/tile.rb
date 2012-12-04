@@ -156,17 +156,6 @@ class Tile < ActiveRecord::Base
     end
   end
   
-  def self.reset_tiles_for_user_within_an_arbitrary_demo(user, demo)
-    TileCompletion.where(user_id: user.id).each do |completion|
-      completion.destroy if completion.tile.demo == demo
-    end
-    Tile.where(demo_id: demo.id).each do |tile|
-      tile.rule_triggers.each do |rule_trigger|
-        Act.where(user_id: user.id, rule_id: rule_trigger.rule_id).each { |act| act.destroy }
-      end
-    end
-  end
-
   protected
 
   def self.satisfiable_by_trigger_table(trigger_table_name)

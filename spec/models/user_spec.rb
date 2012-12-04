@@ -1154,3 +1154,35 @@ describe User, "finds by either email" do
     User.find_by_either_email(@rice_personal).should == @rice
   end
 end
+
+describe User, "#reset_tiles" do
+  before(:each) do 
+    @fun = FactoryGirl.create(:demo, name: 'Fun')
+    @leah = FactoryGirl.create(:site_admin, name: 'Leah', demo: @fun)
+    @rule = FactoryGirl.create(:rule, demo: @fun)
+    @tile = FactoryGirl.create(:tile, demo: @fun)
+    @rule_trigger = FactoryGirl.create(:rule_trigger, rule: @rule, tile: @tile)
+    TileCompletion.count.should == 0
+    @act = FactoryGirl.create(:act, rule: @rule, user: @leah, demo: @fun)
+    TileCompletion.count.should == 1
+    @completion = TileCompletion.first
+    Act.count.should == 2 # @act plus the game piece completion act
+   
+    # One more act for Leah that should stay around after resetting
+    FactoryGirl.create(:act, user: @leah, demo: @fun)
+
+    # Some random stuff that doesn't matter
+    FactoryGirl.create(:act)
+    FactoryGirl.create(:tile_completion)
+  end
+
+  it "resets Leah's tiles for one demo only" do
+    TileCompletion.count.should == 2
+    Act.count.should == 4
+    @leah.reset_tiles(@fun)
+    TileCompletion.count.should == 1
+    Act.count.should == 3
+    TileCompletion.all.map(&:id).should_not include(@completion.id)
+    Act.all.map(&:id).should_not include(@act.id)
+  end
+end
