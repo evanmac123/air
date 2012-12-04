@@ -19,7 +19,7 @@ feature "User with SMS Account Upgrades to web account" do
   scenario "Juan (sms account) with no corporate email creates web account via personal email and clicks through to set password"  do
     mo_sms(@juan_phone, @personal_email)
     crank_dj_clear 
-    open_email(@personal_email).subject.should include("Play #{@juan_without_email.demo.name} Now")
+    open_email(@personal_email).subject.should include("Play #{@juan_without_email.demo.name} and make the most of your HR programs and benefits")
     regex = /password/
     click_email_link_matching(regex)
     page.should have_content 'Choose a Password'
@@ -28,13 +28,13 @@ feature "User with SMS Account Upgrades to web account" do
   scenario "Lolita (sms account) with corporate email creates web account via corporate email" do
     mo_sms(@lolita_phone, @corporate_email) 
     crank_dj_clear 
-    open_email(@corporate_email).subject.should include("Play #{@lolita_with_email.demo.name} Now")
+    open_email(@corporate_email).subject.should include("Play #{@lolita_with_email.demo.name} and make the most of your HR programs and benefits")
   end
   
   scenario "Lolita (sms account) with corporate email creates web account via personal email" do
     mo_sms(@lolita_phone, @personal_email)
     crank_dj_clear 
-    open_email(@personal_email).subject.should include("Play #{@lolita_with_email.demo.name} Now")
+    open_email(@personal_email).subject.should include("Play #{@lolita_with_email.demo.name} and make the most of your HR programs and benefits")
   end
 
   scenario "Juan (sms account) accidentally sends a taken email" do

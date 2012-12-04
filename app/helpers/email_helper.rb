@@ -35,4 +35,12 @@ module EmailHelper
       'http'
     end
   end
+
+  def link_styled_like_button(link_text, url)
+    %{
+    <a href = "#{url}" style="display:block; padding:2px 7px; text-decoration:none;">
+      <span style="text-decoration:none; color:#fff; font-family: Ubuntu, helvetica, arial, sans-serif; font-size:16px; font-weight:500;">#{link_text}</span>
+    </a>
+    }.html_safe
+  end
 end

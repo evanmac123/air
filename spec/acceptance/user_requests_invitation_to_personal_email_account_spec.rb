@@ -17,7 +17,7 @@ feature "Spiderman offers ten dollars to anyone who can name all the ways to joi
     juan = FactoryGirl.create(:claimed_user, email: nil, phone_number: juan_phone)
     mo_sms(juan_phone, personal_email)
     crank_dj_clear
-    open_email(personal_email).subject.should include("Play #{juan.demo.name} Now")
+    open_email(personal_email).subject.should include("Play #{juan.demo.name} and make the most of your HR programs and benefits")
     juan.reload.email.should == personal_email
     juan.overflow_email.should be_blank
   end
@@ -29,7 +29,7 @@ feature "Spiderman offers ten dollars to anyone who can name all the ways to joi
     juan = FactoryGirl.create(:claimed_user, email: corporate_email, phone_number: juan_phone)
     mo_sms(juan_phone, personal_email)
     crank_dj_clear
-    open_email(personal_email).subject.should include("Play #{juan.demo.name} Now")
+    open_email(personal_email).subject.should include("Play #{juan.demo.name} and make the most of your HR programs and benefits")
     juan.reload.email.should == personal_email
     juan.overflow_email.should == corporate_email 
   end

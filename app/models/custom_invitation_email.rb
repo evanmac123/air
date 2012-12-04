@@ -1,6 +1,7 @@
 class CustomInvitationEmail < ActiveRecord::Base
   include EmailInterpolations::SelfClosingTag
   include EmailInterpolations::InvitationUrl
+  extend EmailHelper
 
   belongs_to :demo
 
@@ -76,24 +77,37 @@ class CustomInvitationEmail < ActiveRecord::Base
   end
 
   DEFAULTS = {
-    custom_subject: "Play [game_name] Now and Learn about your HR Benefits",
-    custom_subject_with_referrer: "[referrer] Invited you to Play [game_name] and Learn about HR Benefits",
+    custom_subject: "Play [game_name] and make the most of your HR programs and benefits",
 
-    custom_plain_text: %{PLAY AT WORK
+    custom_subject_with_referrer: "[referrer] invited you to play [game_name] and make the most of your HR programs and benefits",
 
-[game_name] is the new game brought to you by your HR department and H Engage. Playing will help you learn about and get the most from your HR benefits and programs.
+    custom_plain_text: %{Welcome to H Engage! A fun social app that helps you make the most of HR programs and benefits.
+  
+Get started at [invitation_url]
 
-It's fun and easy. You can play via text message, email or online from any device -- at work, at home or on the go. 
+How it works:
 
-Go to [invitation_url] to play now.},
+1.) Read tiles: Bite-size messages and information about your programs and benefits.
+
+2.) Earn points: Check-in and answer questions.
+
+3.) Win prizes: Redeem points for prize entries like iPads and gift cards.
+  
+  
+  },
 
 
-    custom_html_text: %{<h2>Play at Work</h2>
+    custom_html_text: %{<p>Welcome to H Engage! A fun social app that helps you make the most of HR programs and benefits.</p>
 
-<p>[game_name] is the new game brought to you by your HR department and H Engage. Playing will help you learn about and get the most from your HR benefits and programs.</p>
+<p>#{link_styled_like_button "Get started", "[invitation_url]"}</p>
 
-<p>It's fun and easy. You can play via text message, email or online from any device -- at work, at home or on the go.</p>
-
-<p><a href="[invitation_url]">Click here</a> to play now.</p>}
+<p>How it works:
+<ol>
+<li>Read tiles: Bite-size messages and information about your programs and benefits.</li>
+<li>Earn points: Check-in and answer questions.</li>
+<li>Win prizes: Redeem points for prize entries like iPads and gift cards.</li>
+</ol>
+</p>
+    }
   }
 end

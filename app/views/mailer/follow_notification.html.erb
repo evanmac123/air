@@ -8,9 +8,7 @@
       <table border="0" cellspacing="0" style="background:#39b149; border-top:1px #4edf61 solid;">
         <tr>
           <td>
-            <a href = "<%= accept_friendship_url(@user_id, @friendship_id) %>" style="display:block; padding:2px 7px; text-decoration:none;">
-              <span style="text-decoration:none; color:#fff; font-family: Ubuntu, helvetica, arial, sans-serif; font-size:16px; font-weight:500;">Accept</span>
-            </a>
+            <%= link_styled_like_button "Accept", accept_friendship_url(@user_id, @friendship_id) %>
           </td>
         </tr>
       </table>
