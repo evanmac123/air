@@ -119,4 +119,10 @@ class Mailer < ActionMailer::Base
          :template_path => 'email_command_mailer',
          :template_name => "send_response"
   end
+
+  def fuji_snafu_response(recipient)
+    mail :to => recipient,
+         :from => 'fuji@playhengage.com',
+         :subject => "We received your submission"
+  end
 end
