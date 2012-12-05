@@ -57,7 +57,8 @@ class Admin::UsersController < AdminBaseController
     new_demo_id = params[:user].delete(:demo_id)
 
     @user.attributes = params[:user]
-
+    @user.is_client_admin = params[:user][:is_client_admin] # protected attribute
+ 
     @user.claim_code = nil if params[:user].has_key?(:claim_code) && params[:user][:claim_code].blank?
 
     if ! params[:user][:phone_number].blank?

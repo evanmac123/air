@@ -144,7 +144,7 @@ class User < ActiveRecord::Base
   attr_reader :batch_updating_recent_averages
 
   attr_accessor :trying_to_accept, :password_confirmation
-  attr_protected :is_site_admin, :invitation_method
+  attr_protected :is_site_admin, :is_client_admin, :invitation_method
 
   has_alphabetical_column :name
 
@@ -1088,6 +1088,17 @@ class User < ActiveRecord::Base
     referred_sms_text
   end
 
+  def authorized_to?(page_class)
+    case page_class.to_sym
+    when :site_admin
+      is_site_admin
+    when :client_admin
+      is_site_admin || is_client_admin
+    else
+      true
+    end
+  end
+
   def self.find_by_either_email(email)
     email = email.strip.downcase
     where("email = ? OR overflow_email = ?", email, email).first
@@ -1307,5 +1318,4 @@ class User < ActiveRecord::Base
   def self.passwords_dont_match_error_message
     "Sorry, your passwords don't match"
   end
-  
 end

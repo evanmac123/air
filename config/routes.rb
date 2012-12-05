@@ -70,6 +70,7 @@ Health::Application.routes.draw do
   
   resource :home,  :only => :show
   resource :admin, :only => :show
+  resource :client_admin, :only => :show
 
   resources :pages, :only => :show
 

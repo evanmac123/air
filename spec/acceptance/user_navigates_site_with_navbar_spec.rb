@@ -8,7 +8,8 @@ feature 'User navigates site with navbar' do
   end
 
   {
-    'Admin'      => "admin_path",
+    'Site admin' => "admin_path",
+    'Admin'      => "client_admin_path",
     'Settings'   => "edit_account_settings_path",
     'Sign Out'   => "sign_in_path",
     'Home'       => 'activity_path',

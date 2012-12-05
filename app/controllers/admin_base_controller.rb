@@ -1,19 +1,13 @@
 # encoding: utf-8
 
 class AdminBaseController < ApplicationController
-  before_filter :require_site_admin
+  must_be_authorized_to :site_admin
+
   before_filter :strip_smart_punctuation!
   before_filter :set_admin_page_flag
 
   layout 'admin'
   protected
-
-  def require_site_admin
-    unless current_user.is_site_admin
-      redirect_to '/'
-      return false
-    end
-  end
 
   def strip_smart_punctuation!
     strip_smart_punctuation_from_hash!(params)

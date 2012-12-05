@@ -11,8 +11,7 @@ feature "Admin deletes a rule" do
       acts = FactoryGirl.create_list :act, 3, rule: rule
 
       signin_as_admin
-      click_link 'Admin'
-      click_link 'Standard playbook rules'
+      visit admin_rules_path
       click_link 'Delete Rule'
 
       current_path.should == admin_rules_path
@@ -33,9 +32,7 @@ feature "Admin deletes a rule" do
       acts = FactoryGirl.create_list :act, 3, rule: rule
 
       signin_as_admin
-      click_link 'Admin'
-      click_link 'wwoz'
-      click_link 'Rules for this demo'
+      visit admin_demo_rules_path(demo)
       click_link 'Delete Rule'
 
       current_path.should == admin_demo_rules_path(demo)

@@ -27,6 +27,13 @@ module SteakHelperMethods
     admin
   end
 
+  def signin_as_client_admin
+    admin = FactoryGirl.create :user, :is_client_admin => true
+    has_password(admin, 'foobar')
+    signin_as(admin, 'foobar')
+    admin
+  end
+
   def clearance_signin_as_admin
     admin = FactoryGirl.create :user, :is_site_admin => true
     sign_in_as(admin) # This is clearance's built in method

@@ -250,4 +250,13 @@ class ApplicationController < ActionController::Base
       @easter_egg = true if params[:easter_egg].present?
     end
   end
+
+  def self.must_be_authorized_to(page_class)
+    before_filter do
+      unless current_user.authorized_to?(page_class)
+        redirect_to '/'
+        return false
+      end
+    end
+  end
 end

@@ -9,7 +9,7 @@ class EmailCommandController< ApplicationController
     set_success_response!
 
     # Terrible, brutal hack to mitigate a mistaken email address printed on 11 billion little cards
-    if params['to'].include? 'fujivote'
+    if params['to'].present? && params['to'].include?('fujivote')
       message_text = %{
 FUJI vote from #{params['from']}
 
