@@ -17,14 +17,6 @@ class RuleValue < ActiveRecord::Base
     self.value = self.value.strip.downcase.gsub(/\s+/, ' ')
   end
 
-  def forbidden?
-    self.rule_id.nil?
-  end
-
-  def not_forbidden?
-    !self.forbidden?
-  end
-
   def self.partially_matching_value(value)
     normalized_value = value.gsub(/[^[:alnum:][:space:]]/, '').strip
     query_string = Rule.connection.quote_string(normalized_value.gsub(/\s+/, '|'))
@@ -44,10 +36,6 @@ class RuleValue < ActiveRecord::Base
 
   def self.oldest
     order('created_at ASC').limit(1)
-  end
-
-  def self.forbidden
-    where(:rule_id => nil)
   end
 
   def self.primary

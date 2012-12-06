@@ -94,10 +94,6 @@ FactoryGirl.define do
     is_primary true
   end
 
-  factory :forbidden_rule_value, :class => RuleValue do
-    sequence(:value) { |n| "drank beer #{n}" }
-  end
-
   factory :tag do
     description "A short description"
     sequence(:name) {|n| "Cool word #{n}"}

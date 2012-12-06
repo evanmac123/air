@@ -30,10 +30,6 @@ Feature: User acts via email
       | made toast    | reply: So you made toast.        |
       | up the bar    | reply: BarCorp rulez!            |
       | do good thing | reply: Good for you.             |
-    And the following forbidden rule values exist:
-      | value       |
-      | was naughty | 
-    And time is frozen at "2011-05-23 00:00 UTC"
 
   Scenario: User acts via email
     When "dan@bigco.com" sends email with subject "me tarzan, you jane" and body "ate banana"

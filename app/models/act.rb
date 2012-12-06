@@ -107,10 +107,6 @@ class Act < ActiveRecord::Base
 
     rule_value = user.first_eligible_rule_value(value)
 
-    if rule_value && rule_value.forbidden?
-      return parsing_error_message("Sorry, that's not a valid command.")
-    end
-
     rule = rule_value.try(:rule)
 
     if rule

@@ -97,8 +97,6 @@ Health::Application.routes.draw do
 
     resources :rule_values, :only => [:destroy]
 
-    resources :forbidden_rules, :only => [:index, :create, :destroy]
-
     resources :tags
 
     resources :labels

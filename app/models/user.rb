@@ -389,8 +389,7 @@ class User < ActiveRecord::Base
   end
 
   def first_eligible_rule_value(value)
-    matching_rule_values = RuleValue.visible_from_demo(self).where(:value => value)
-    matching_rule_values.select{|rule_value| rule_value.not_forbidden?}.first || matching_rule_values.first
+    RuleValue.visible_from_demo(self).where(:value => value).first
   end
 
   def generate_short_numerical_validation_token
