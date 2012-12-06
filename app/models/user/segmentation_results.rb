@@ -6,6 +6,10 @@ class User::SegmentationResults
   field :found_user_ids
   field :created_at
 
+  field :seq_query_columns
+  field :seq_query_operators
+  field :seq_query_values
+
   index({owner_id: 1}, {:unique => true})
 
   before_save :set_created_at
