@@ -30,9 +30,6 @@ class Admin::TargetedMessagesController < AdminBaseController
 
     @html_text = '' unless sendable_html?(@html_text)
 
-    successes = []
-    notices = []
-
     if @respect_notification_method
       email_recipients = users.wants_email
       sms_recipients = users.wants_sms.with_phone_number
@@ -41,16 +38,27 @@ class Admin::TargetedMessagesController < AdminBaseController
     end
 
     PushMessage.schedule(
-      subject:             @subject, 
-      plain_text:          @plain_text, 
-      html_text:           @html_text, 
-      sms_text:            @sms_text, 
-      scheduled_for:       @send_at, 
-      email_recipient_ids: email_recipients.map(&:id), 
-      sms_recipient_ids:   sms_recipients.map(&:id),
+      subject:    @subject,
+      plain_text: @plain_text,
+      html_text:  @html_text,
+      sms_text:   @sms_text,
+
+      email_recipient_ids: email_recipients.collect(&:id),
+      sms_recipient_ids:   sms_recipients.collect(&:id),
+
+      # Saving these values allows us to fetch the users in this segment right before the job is actually run
+      respect_notification_method: @respect_notification_method,
+      seq_query_columns:   @segmentation_results.seq_query_columns,
+      seq_query_operators: @segmentation_results.seq_query_operators,
+      seq_query_values:    @segmentation_results.seq_query_values,
+
       segment_description: @segmentation_results.explanation,
+      scheduled_for:       @send_at,
       demo_id:             @demo.id
     )
+
+    successes = []
+    notices   = []
 
     if @plain_text.present? || @html_text.present?
       successes << "Scheduled email to #{email_recipients.length} users."

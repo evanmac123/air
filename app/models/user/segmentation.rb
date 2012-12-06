@@ -27,14 +27,30 @@ class User
       SegmentationData.where(:ar_id => self.id).first
     end
 
-    def set_segmentation_results!(columns, operators, values, demo)
-      explanation = create_segmentation_explanation(columns, operators, values)
-      ids = load_segmented_user_information(columns, operators, values, demo)
-      User::SegmentationResults.create_or_update_from_search_results(self, explanation, ids)
-    end
-
     def segmentation_results
       User::SegmentationResults.where(:owner_id => self.id).first
+    end
+
+    def set_segmentation_results!(columns, operators, values, demo)
+      explanation = create_segmentation_explanation(columns, operators, values)
+      ids = User::Segmentation.load_segmented_user_information(columns, operators, values, demo.id)
+
+      User::SegmentationResults.create_or_update_from_search_results(self, explanation, ids, columns, operators, values)
+    end
+
+    def self.load_segmented_user_information(columns, operators, values, demo_id)
+      query = User::SegmentationData
+      query = query.where(:demo_id => demo_id) if demo_id
+
+      if values.present?
+        columns.each do |index, characteristic_id|
+          casted_value = Characteristic.find(characteristic_id).cast_value(values[index])
+          query = User::SegmentationOperator.add_criterion_to_query!(query, characteristic_id, operators[index], casted_value)
+        end
+        query.collect(&:ar_id)
+      else
+        Demo.find(demo_id).user_ids
+      end
     end
 
     def rebuild_segmentation_data!
@@ -94,24 +110,6 @@ class User
       end
 
       segmentation_explanation
-    end
-
-    def load_segmented_user_information(columns, operators, values, demo)
-      query = User::SegmentationData
-
-      unless demo.nil?
-        query = query.where(:demo_id => demo.id)
-      end
-    
-      if values.present?
-        columns.each do |index, characteristic_id|
-          casted_value = Characteristic.find(characteristic_id).cast_value(values[index])
-          query = User::SegmentationOperator.add_criterion_to_query!(query, characteristic_id, operators[index], casted_value)
-        end
-        query.map(&:ar_id)
-      else
-        demo.user_ids
-      end
     end
   end
 end
