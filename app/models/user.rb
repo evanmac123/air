@@ -1094,7 +1094,7 @@ class User < ActiveRecord::Base
     when :client_admin
       is_site_admin || is_client_admin
     else
-      true
+      false
     end
   end
 
