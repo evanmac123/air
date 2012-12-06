@@ -76,6 +76,11 @@ class Act < ActiveRecord::Base
   def self.allowed_to_view_by_privacy_settings(viewing_user)
     #act_relation = joins("LEFT JOIN friendships AS permission_friendships ON permission_friendships.friend_id = acts.user_id").where("acts.user_id = ? OR acts.privacy_level = 'everybody' OR (acts.privacy_level = 'connected' AND permission_friendships.user_id = ? AND permission_friendships.state = 'accepted')", viewing_user.id, viewing_user.id)
 
+    if viewing_user.is_site_admin
+      # Site admins get to see anything they please.
+      return where("1 = 1")
+    end
+
     friends = viewing_user.accepted_friends.where("users.privacy_level != 'nobody'")
     viewable_user_ids = friends.map(&:id) + [viewing_user.id]
 
@@ -159,6 +164,9 @@ class Act < ActiveRecord::Base
     [rule.reply, act.post_act_summary].join
   end
 
+  def self.for_profile(viewing_user, _offset=0)
+    in_user_demo.displayable_to_user(viewing_user).recent(10).offset(_offset)
+  end
 
   protected
 
