@@ -5,7 +5,7 @@ $centered: 0 auto;
 $font-small:12px;
 $gotham: 'Ubuntu', Gotham, 'Helvetica Neue', Helvetica, Arial, sans-serif;
 $gutter:10px;
-	$body-width:960px - 2*$gutter;
+	$body-width:960px;
 a {
 	text-decoration:none!important;
 	&:hover {color:lighten($header-bg, 10%);}

@@ -1,0 +1,135 @@
+h1, h2, h3 {font-family:$gotham;}
+* {box-sizing:border-box;}
+body.client_admins {
+    background:url('marketing/bg.gif');
+    color:$text-color;
+    font-family:'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+/* ////// General sections ////// */
+.nav-client-admin {color:$light-green;}
+//.content {border-bottom:$border-light;}
+#footer {//border-top:$border-dark;
+ padding:1em 0;}
+
+/*  ////////////////////////// 
+    COLUMN STRUCTURE 
+    ///////////////////////// */
+#full-bg {margin:0 auto; width:960px;}
+.twocol {
+    background:url('client_admin/light-bg.png');
+    width:100%;
+    margin:0 auto;
+}
+.equal {
+    height:100%;
+    padding:3em $gutter;
+    /* ////// Navigation Col ////// */
+    &#left {
+        border-right:$border-dark;
+        float:left;
+        width:17.7%;
+        .admin-nav-section {
+            padding-bottom:1.25em;
+            span {
+                background:url('client_admin/sprites.png') no-repeat transparent;
+                display:inline-block; 
+                height:16px;
+                margin-right:9px;
+                width:16px;
+            }
+            ul.inner {color:lighten($text-color, 70%); margin-left:26px;}
+            &#admin-overview {
+                span{background-position:-22px 1px;}
+                a {color:$dark-green; font-weight:500;}
+            }
+            &#admin-measure span {background-position:-42px 1px;}
+            &#admin-message span {background-position:-64px 1px;}
+            &#admin-users span {background-position:-84px 1px;}
+            &#admin-post span {background-position:-104px 1px;}
+        }
+        a, a:link {
+            color:#7a7a7a;
+            font-family:$gotham;
+            font-size:1.4em;
+            font-weight:300;
+        }
+    }
+    /* ////// Content Col ////// */
+    &#right {
+        background:url('marketing/bg.gif');
+        float:right;
+        border-left:$border-light;
+        padding-left:$gutter+50px;
+        padding-right:$gutter;
+        width:82.3%;
+    }
+}
+
+/*  ////////////////////////// 
+    CONTENT AREA 
+    ///////////////////////// */
+#right .wrap {
+    margin:0 auto;
+    padding:0 $gutter;
+}
+ul.section-name {
+    position:relative;
+    left:-25px;
+    h1 {
+        color:$dark-green;
+        font-size:2.7em;
+        font-weight:300;
+    }
+    .icon {
+        background:url('client_admin/sprites.png') no-repeat transparent;
+        display:inline-block;
+        float:left;
+        height:29px;
+        width:32px;
+        &#icon-overview {background-position: -1px -15px;}
+    }
+}
+.stats {
+    padding:4em 0 2em 0;
+    text-align: center;
+}
+    .stat-group {
+        width:33.33%;
+        float:left;
+        text-align:center;
+        .numbers h2 {
+            background:url('client_admin/circle-bg.png') center center no-repeat;
+            color:$orange;
+            display:block;
+            font-family:$gotham;
+            font-size:2.5em;
+            font-weight:500;
+            height:160px;
+            margin:0 auto;
+            overflow-wrap:break-word;
+            padding-top:27%;
+            vertical-align: middle;
+            width:160px;
+            word-wrap:break-word;
+        }
+        .labels {
+            color:lighten($text-color, 50%);
+            font-family:$gotham;
+            font-size:1.25em;
+            font-weight:500;
+            padding:1em 0;
+            text-transform: uppercase
+        }
+    }
+.info {
+    padding:2em $gutter;
+    h2 {
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        font-weight:300;
+        font-size:2em;
+        padding-bottom:.25em;
+        color:#686868;
+    }
+}
+#footer {clear:both; text-align: center;}

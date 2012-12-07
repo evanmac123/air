@@ -1,9 +1,9 @@
 <div class="app_bar">
   <div class="app_by"><p>Brought to you by <a href="http://www.hengage.com" title="H Engage">H Engage</a></p></div>
   <ul class="app_settings">
-    <li><%= link_to "Contact Us", "#", :class => 'nav-contact-us' %></li>
+    <li id="nav-contact"><span></span><%= link_to "Contact Us", "#", :class => 'nav-contact-us' %></li>
     <% if current_user.authorized_to?(:client_admin) %>
-      <li><%= link_to "Admin", client_admin_path, :class => 'nav-admin' %></li>
+      <li><%= link_to "Admin", client_admin_path, :class => 'nav-admin nav-client-admin' %></li>
     <% end %>
     <% if current_user.authorized_to?(:site_admin) %>
       <li><%= link_to "Site admin", admin_path, :class => 'nav-admin' %></li>
