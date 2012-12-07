@@ -207,6 +207,28 @@ class Demo < ActiveRecord::Base
     claim_state_machine_without_default || ClaimStateMachine.default_claim_state_machine(self)
   end
 
+  def claimed_user_count
+    users.claimed.count
+  end
+
+  def claimed_user_with_phone_fraction
+    _claimed_user_count = claimed_user_count
+    if _claimed_user_count > 0
+      users.claimed.with_phone_number.count.to_f / claimed_user_count
+    else
+      0.0
+    end
+  end
+
+  def claimed_user_with_peer_invitation_fraction
+    _claimed_user_count = claimed_user_count
+    if _claimed_user_count > 0
+      users.claimed.with_game_referrer.count.to_f / claimed_user_count
+    else
+      0.0
+    end
+  end
+
   alias_method_chain :claim_state_machine, :default
 
   def self.recalculate_all_moving_averages!
