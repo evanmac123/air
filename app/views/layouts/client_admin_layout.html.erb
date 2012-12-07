@@ -27,10 +27,12 @@
   <%# Copied this from app/assets/javascripts/internal/jumbled_mix_of_things.js,
     since I have no idea if it's safe to pull it out and put it in contact_us.js.coffee. %>
 
-  $('.nav-contact-us').click(function(e){
-    e.preventDefault();
-    $('#IntercomDefaultWidget').click(); 
-  });
+  <%= content_for :javascript do %>
+    $('.nav-contact-us').click(function(e){
+      e.preventDefault();
+      $('#IntercomDefaultWidget').click(); 
+    });
+  <% end %>
 
   <%= render :partial => 'shared/javascript' %><!-- This is where 'yield :javascript' takes place -->
   <div id='gradient-triangle'></div>
