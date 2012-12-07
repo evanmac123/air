@@ -28,10 +28,12 @@
     since I have no idea if it's safe to pull it out and put it in contact_us.js.coffee. %>
 
   <%= content_for :javascript do %>
-    $('.nav-contact-us').click(function(e){
-      e.preventDefault();
-      $('#IntercomDefaultWidget').click(); 
-    });
+    <%= javascript_tag do %>
+      $('.nav-contact-us').click(function(e){
+        e.preventDefault();
+        $('#IntercomDefaultWidget').click(); 
+      });
+    <% end %>
   <% end %>
 
   <%= render :partial => 'shared/javascript' %><!-- This is where 'yield :javascript' takes place -->
