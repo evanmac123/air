@@ -9,26 +9,34 @@ body.client_admins {
 /* ////// General sections ////// */
 .nav-client-admin {color:$light-green;}
 //.content {border-bottom:$border-light;}
-#footer {//border-top:$border-dark;
- padding:1em 0;}
+#footer {color:lighten($text-color, 75%);padding:1em 0;}
 
 /*  ////////////////////////// 
     COLUMN STRUCTURE 
     ///////////////////////// */
-#full-bg {margin:0 auto; width:960px;}
-.twocol {
-    background:url('client_admin/light-bg.png');
+.col-container {
+    display:table;
+    table-layout: fixed;
     width:100%;
-    margin:0 auto;
+}
+    #far-left, #col-main, #far-right {
+        display:table-cell;
+    }
+    #far-left, #left-nav {
+        background:url('client_admin/light-bg.png');
+    }
+#col-main {
+    width:960px;
+    table-layout: fixed;
 }
 .equal {
-    height:100%;
+    display:table-cell;
     padding:3em $gutter;
+
     /* ////// Navigation Col ////// */
-    &#left {
+    &#left-nav {
         border-right:$border-dark;
-        float:left;
-        width:17.7%;
+        width:170px;
         .admin-nav-section {
             padding-bottom:1.25em;
             span {
@@ -56,9 +64,8 @@ body.client_admins {
         }
     }
     /* ////// Content Col ////// */
-    &#right {
+    &#right-content {
         background:url('marketing/bg.gif');
-        float:right;
         border-left:$border-light;
         padding-left:$gutter+50px;
         padding-right:$gutter;
@@ -69,7 +76,7 @@ body.client_admins {
 /*  ////////////////////////// 
     CONTENT AREA 
     ///////////////////////// */
-#right .wrap {
+#right-content .wrap {
     margin:0 auto;
     padding:0 $gutter;
 }
@@ -91,6 +98,7 @@ ul.section-name {
     }
 }
 .stats {
+    border-bottom:$border-light;
     padding:4em 0 2em 0;
     text-align: center;
 }
@@ -123,6 +131,7 @@ ul.section-name {
         }
     }
 .info {
+    border-top:$border-dark;
     padding:2em $gutter;
     h2 {
         font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
