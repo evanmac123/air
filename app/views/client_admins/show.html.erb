@@ -42,15 +42,15 @@
                 <div class="stats">
                     <ul class="stat-group">
                         <li class="numbers"><h2><%= number_with_delimiter @claimed_user_count %></h2></li>
-                        <li class="labels">Players joined</li>
+                        <li class="labels">Participants</li>
                     </ul>
                     <ul class="stat-group">
                         <li class="numbers"><h2><%= @with_phone_percentage %></h2></li>
-                        <li class="labels">With mobile numbers</li>
+                        <li class="labels">Added mobile numbers</li>
                     </ul>
                     <ul class="stat-group">
                         <li class="numbers"><h2><%= @with_peer_invitation_fraction %></h2></li>
-                        <li class="labels">Joined via peer referral</li>
+                        <li class="labels">Joined via peer</li>
                     </ul>
                     <div class="clear"></div>
                 </div>
@@ -58,7 +58,8 @@
 
                 <div class="info">
                     <h2>More features will be available soon.</h2>
-                    <h2>Check back often!</h2>
+                    <h3><%= link_to "Contact us", "#", :class => 'nav-contact-us' %> with questions or ideas.</h3>
+                    <div style="height:180px; visbility:hidden;"></div>
                 </div>
 
             </div>

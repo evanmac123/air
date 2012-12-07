@@ -17,7 +17,20 @@ $light:lighten($header-bg, 7%);
 			text-shadow: none!important;
 		}
 	}
-	li {display:inline;}
+	li {
+		display:inline;
+		position:relative;
+		//&#nav-contact a {color:$orange;}
+		&#nav-contact span {
+			background:url('client_admin/sprites.png') top left no-repeat transparent;
+			display:inline-block;
+			float:left;
+			position:relative;
+			margin-right:-20px;
+			width:18px;
+			height:20px;
+		}
+	}
 	
 	.app_bar {
 		color:$gray;

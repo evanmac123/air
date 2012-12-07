@@ -7,9 +7,15 @@ body.client_admins {
 }
 
 /* ////// General sections ////// */
-.nav-client-admin {color:$light-green;}
+.nav-client-admin {color:$light-green!important;}
 .content {border-bottom:$border-light;}
-#footer {color:lighten($text-color, 75%);padding:1em 0;}
+#footer {
+    border-top:$border-dark;
+    clear:both; 
+    color:lighten($text-color, 55%);
+    padding:1em 0;
+    text-align: center;
+}
 
 /*  ////////////////////////// 
     COLUMN STRUCTURE 
@@ -49,7 +55,7 @@ body.client_admins {
             ul.inner {color:lighten($text-color, 70%); margin-left:26px;}
             &#admin-overview {
                 span{background-position:-22px 1px;}
-                a {color:$dark-green; font-weight:500;}
+                a {color:$dark-green; font-weight:bold;}
             }
             &#admin-measure span {background-position:-42px 1px;}
             &#admin-message span {background-position:-64px 1px;}
@@ -111,7 +117,7 @@ ul.section-name {
             display:block;
             font-family:$gotham;
             font-size:2.5em;
-            font-weight:500;
+            font-weight:700;
             height:160px;
             margin:0 auto;
             overflow-wrap:break-word;
@@ -122,25 +128,24 @@ ul.section-name {
         }
         .labels {
             color:lighten($text-color, 50%);
-            font-family:$gotham;
             font-size:1.25em;
-            font-weight:500;
+            font-weight:bold;
             padding:1em 0;
-            text-transform: uppercase
         }
     }
 .info {
-    padding:2em $gutter;
-    h2 {
+    padding:4em $gutter 2em $gutter;
+    h2, h3 {
         font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
         font-weight:300;
+    }
+    h2 {
         font-size:2em;
         padding-bottom:.25em;
         color:#686868;
     }
-}
-#footer {
-    border-top:$border-dark;
-    clear:both; 
-    text-align: center;
+    h3 a {
+        color:$dark-green;
+        &:hover {color:darken($dark-green, 5%);}
+    }
 }
