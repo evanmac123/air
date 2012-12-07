@@ -28,6 +28,7 @@ module Health
     # Note that even though our files are named .scss, the ones in this list are the plain .css counterparts
     config.assets.precompile += %w(
       app-admin.css
+      app-client-admin.css
       app-external.css
       app-internal.css
       application-ie8.css
