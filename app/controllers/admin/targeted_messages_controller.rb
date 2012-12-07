@@ -18,9 +18,6 @@ class Admin::TargetedMessagesController < AdminBaseController
   end
 
   def create
-    user_ids = @segmentation_results.found_user_ids
-    users = User.where(:id => user_ids)
-
     @subject = params[:subject]
     @plain_text = params[:plain_text]
     @html_text = params[:html_text]
@@ -30,12 +27,8 @@ class Admin::TargetedMessagesController < AdminBaseController
 
     @html_text = '' unless sendable_html?(@html_text)
 
-    if @respect_notification_method
-      email_recipients = users.wants_email
-      sms_recipients = users.wants_sms.with_phone_number
-    else
-      email_recipients = sms_recipients = users
-    end
+    user_ids = @segmentation_results.found_user_ids
+    email_recipient_ids, sms_recipient_ids = User.push_message_recipients(@respect_notification_method, user_ids)
 
     PushMessage.schedule(
       subject:    @subject,
@@ -43,14 +36,14 @@ class Admin::TargetedMessagesController < AdminBaseController
       html_text:  @html_text,
       sms_text:   @sms_text,
 
-      email_recipient_ids: email_recipients.collect(&:id),
-      sms_recipient_ids:   sms_recipients.collect(&:id),
+      email_recipient_ids: email_recipient_ids,
+      sms_recipient_ids:   sms_recipient_ids,
 
       # Saving these values allows us to fetch the users in this segment right before the job is actually run
-      respect_notification_method: @respect_notification_method,
-      seq_query_columns:   @segmentation_results.seq_query_columns,
-      seq_query_operators: @segmentation_results.seq_query_operators,
-      seq_query_values:    @segmentation_results.seq_query_values,
+      respect_notification_method:  @respect_notification_method,
+      segment_query_columns:        @segmentation_results.segment_query_columns,
+      segment_query_operators:      @segmentation_results.segment_query_operators,
+      segment_query_values:         @segmentation_results.segment_query_values,
 
       segment_description: @segmentation_results.explanation,
       scheduled_for:       @send_at,
@@ -61,13 +54,13 @@ class Admin::TargetedMessagesController < AdminBaseController
     notices   = []
 
     if @plain_text.present? || @html_text.present?
-      successes << "Scheduled email to #{email_recipients.length} users."
+      successes << "Scheduled email to #{email_recipient_ids.length} users."
     else
       notices << "Email text blank, no emails sent."
     end
 
     if @sms_text.present?
-      successes << "Scheduled SMS to #{sms_recipients.length} users."
+      successes << "Scheduled SMS to #{sms_recipient_ids.length} users."
     else
       notices << "SMS text blank, no SMSes sent."
     end

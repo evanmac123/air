@@ -84,4 +84,17 @@ module User::Queries
   def demo_mates(current_user)
     where(['demo_id = ? AND id != ?', current_user.demo_id, current_user.id])  
   end
+
+  def push_message_recipients(respect_notification_method, user_ids)
+    users = User.where(:id => user_ids)
+
+    if respect_notification_method
+      email_recipient_ids = users.wants_email.pluck(:id)
+      sms_recipient_ids = users.wants_sms.with_phone_number.pluck(:id)
+    else
+      email_recipient_ids = sms_recipient_ids = user_ids
+    end
+
+    return email_recipient_ids, sms_recipient_ids
+  end
 end

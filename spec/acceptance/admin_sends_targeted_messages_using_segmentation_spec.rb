@@ -1,14 +1,13 @@
 require 'acceptance/acceptance_helper'
 
-feature 'Admin sends targeted messges using segmentation' do
+feature 'Admin sends targeted messages using segmentation' do
   def set_up_models(options={})
     user_model_name = options[:use_phone] ? :user_with_phone : :user
 
     @demo = FactoryGirl.create :demo
     @users = []
     20.times {|i| @users << FactoryGirl.create(user_model_name, points: i, demo: @demo)}
-    # Also let's make some users in a different demo to make sure we don't get
-    # leakage.
+    # Also let's make some users in a different demo to make sure we don't get leakage.
     5.times {FactoryGirl.create(user_model_name)}
 
     @agnostic_characteristic = FactoryGirl.create(:characteristic, name: "Metasyntactic variable", allowed_values: %w(foo bar baz))
@@ -391,6 +390,89 @@ feature 'Admin sends targeted messges using segmentation' do
       crank_dj_clear
       visit admin_demo_targeted_messages_path(@demo)
       expect_content "No incomplete pushes scheduled"
+    end
+  end
+
+  context 'list of qualified recipients changes between time scheduled and time sent' do
+
+    def check_emails_and_texts(num_emails, num_texts)
+      ActionMailer::Base.deliveries.should have(num_emails).emails
+      FakeTwilio.sent_messages.should have(num_texts).texts
+
+      ActionMailer::Base.deliveries.map(&:to).flatten.sort.should == @email_users.collect(&:email).sort
+      FakeTwilio.sent_messages.map{ |sms| sms['To'] }.sort.should == @text_users.collect(&:phone_number).sort
+    end
+
+    def check_push_message_recipients
+      push_message = PushMessage.first
+      push_message.email_recipient_ids.sort.should == @email_users.collect(&:id).sort
+      push_message.sms_recipient_ids.sort.should   == @text_users.collect(&:id).sort
+    end
+
+    # Originally had more than one test, but finally consolidated down to one. This is a pretty complex
+    # operation => might need some more tests someday => leave it set up like this.
+    before(:each) do
+      @demo = FactoryGirl.create :demo
+
+      @email_users = FactoryGirl.create_list :user,            3, demo: @demo, points: 4, notification_method: 'email'
+      @text_users  = FactoryGirl.create_list :user_with_phone, 5, demo: @demo, points: 4, notification_method: 'sms'
+
+      # Make sure characteristic-qualifying users who belong to a different demo are not included
+      FactoryGirl.create_list :user_with_phone, 2, points: 4, notification_method: 'both'
+
+      crank_dj_clear  # Get user info into MongoDB
+
+      signin_as_admin
+      visit admin_demo_targeted_messages_path(@demo)
+
+      select "Points", :from => "segment_column[0]"
+      select "is greater than", :from => "segment_operator[0]"
+      fill_in "segment_value[0]", :with => "3"
+
+      click_button "Find segment"  # Get list of (original) recipients
+
+      expect_content "Segmenting on: Points is greater than 3"
+      expect_content "8 users in segment"
+
+      fill_in "subject",   :with => 'email subject'
+      fill_in "html_text", :with => 'email text'
+      fill_in "sms_text",  :with => 'sms text'
+
+      @send_time = Time.now + 10.minutes
+      fill_in 'Send at', :with => (@send_time).to_s
+
+      click_button "It's going to be OK"  # Schedule the messages
+
+      expect_content "Scheduled email to 3 users"
+      expect_content "Scheduled SMS to 5 users"
+
+      check_push_message_recipients  # Original list of recipients
+
+      # Now create some new qualifiers and remove qualifications from some original qualifiers
+
+      new_email_users = FactoryGirl.create_list :user,            2, demo: @demo, points: 4, notification_method: 'email'
+      new_text_users  = FactoryGirl.create_list :user_with_phone, 2, demo: @demo, points: 4, notification_method: 'sms'
+
+      @email_users[0].update_attribute :points, 3  # These users no
+      @text_users[0].update_attribute :points,  3  # longer qualify
+
+      crank_dj_clear  # Add new users and update old users in MongoDB
+
+      (@email_users += new_email_users).shift  # Add the new qualifiers and remove the
+      (@text_users  += new_text_users).shift   # no-longer-qualified from expected results
+    end
+
+    after(:each) do
+      Timecop.return
+    end
+
+    it "new users who qualify should be on the list, old users who no longer qualify should be off the list, and \
+        the database record for this targeted message should be updated to reflect the new list of recipients", :js => true do
+      Timecop.travel(@send_time + 1.second)  # Send the
+      crank_dj_clear                         # messages
+
+      check_emails_and_texts(4, 6)   # Original list had (3, 5) - Subtracted 1 and added 2 to each list
+      check_push_message_recipients  # New list of recipients
     end
   end
 end

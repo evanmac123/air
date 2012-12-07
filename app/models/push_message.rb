@@ -10,22 +10,27 @@ class PushMessage < ActiveRecord::Base
   serialize :email_recipient_ids, Array
   serialize :sms_recipient_ids,   Array
 
-  serialize :seq_query_columns,   Hash
-  serialize :seq_query_operators, Hash
-  serialize :seq_query_values,    Hash
+  serialize :segment_query_columns,   Hash
+  serialize :segment_query_operators, Hash
+  serialize :segment_query_values,    Hash
 
   def perform
     update_attributes(state: SENDING)
 
-    user_ids = User::Segmentation.load_segmented_user_information(seq_query_columns, seq_query_operators, seq_query_values, demo_id)
-    users = User.where(:id => user_ids)
+    user_ids = User::Segmentation.load_segmented_user_information(segment_query_columns,
+                                                                  segment_query_operators,
+                                                                  segment_query_values,
+                                                                  demo_id)
+    #users = User.where(:id => user_ids)
 
-    if respect_notification_method?
-      email_recipient_ids = users.wants_email.pluck(:id)
-      sms_recipient_ids = users.wants_sms.with_phone_number.pluck(:id)
-    else
-      email_recipient_ids = sms_recipient_ids = user_ids
-    end
+    email_recipient_ids, sms_recipient_ids = User.push_message_recipients(respect_notification_method?, user_ids)
+
+    #if respect_notification_method?
+    #  email_recipient_ids = users.wants_email.pluck(:id)
+    #  sms_recipient_ids = users.wants_sms.with_phone_number.pluck(:id)
+    #else
+    #  email_recipient_ids = sms_recipient_ids = user_ids
+    #end
 
     # Mailing list may have changed since job was created => Update list of recipients
     update_attributes email_recipient_ids: email_recipient_ids, sms_recipient_ids: sms_recipient_ids
