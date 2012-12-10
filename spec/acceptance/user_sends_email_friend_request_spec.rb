@@ -85,7 +85,7 @@ feature "User tries to friend someone" do
     current_email.should have_body_text /#{friend.name} has approved your friendship request./
   end
 
-  scenario "A logged-in friend should see a a flash notification upon accepting the friendship", js: true  do
+  scenario "A logged-in friend should see the appropriate flash notification upon accepting the friendship", js: true  do
     click_link "Sign Out"
     signin_as(friend, friend.password)
 
@@ -93,6 +93,17 @@ feature "User tries to friend someone" do
     accept_the_friendship
 
     page.should have_content "OK, you are now friends with #{user.name}."
+  end
+
+  scenario "A logged-in friend should see the appropriate flash notification message upon accepting the friendship twice", js: true  do
+    click_link "Sign Out"
+    signin_as(friend, friend.password)
+
+    deliver_and_open_email_for(friend)
+    accept_the_friendship
+    accept_the_friendship
+
+    page.should have_content "You are already friends with #{user.name}."
   end
 
   scenario "A not-logged-in friend should see a a flash notification upon \
