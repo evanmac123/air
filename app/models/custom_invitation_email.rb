@@ -91,7 +91,7 @@ How it works:
 
 2.) Earn points: Check-in and answer questions.
 
-3.) Win prizes: Redeem points for prize entries like iPads and gift cards.
+3.) Win prizes: Redeem points for entries toward great prizes!
   
   
   },
@@ -105,7 +105,7 @@ How it works:
 <ol>
 <li>Read tiles: Bite-size messages and information about your programs and benefits.</li>
 <li>Earn points: Check-in and answer questions.</li>
-<li>Win prizes: Redeem points for prize entries like iPads and gift cards.</li>
+<li>Win prizes: Redeem points for entries toward great prizes!</li>
 </ol>
 </p>
     }
