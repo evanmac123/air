@@ -1,4 +1,4 @@
-require File.expand_path(File.dirname(__FILE__) + '/acceptance_helper')
+require 'acceptance/acceptance_helper'
 
 # Documentation for the simulateDragSortable script is at 
 # https://github.com/mattheworiordan/jquery.simulate.drag-sortable.js

@@ -1,5 +1,4 @@
-require File.expand_path(File.dirname(__FILE__) + '/acceptance_helper')
-
+require 'acceptance/acceptance_helper'
 
 feature "Make sure when I email someone else's claim code from my claimed account and registered email that it gives referrer credit to them, and does not change their email to mine." do
   before do

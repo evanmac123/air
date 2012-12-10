@@ -1,4 +1,4 @@
-require File.expand_path(File.dirname(__FILE__) + '/acceptance_helper')
+require 'acceptance/acceptance_helper'
 
 feature "User Sees Correct Values In Master Bar" do
   def master_bar_progress_selector

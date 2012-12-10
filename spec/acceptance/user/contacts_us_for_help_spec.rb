@@ -1,4 +1,4 @@
-require File.expand_path(File.dirname(__FILE__) + '/acceptance_helper')
+require 'acceptance/acceptance_helper'
 
 feature "User Contacts Us For Help" do
   scenario "through the contact us modal", :js => true do
