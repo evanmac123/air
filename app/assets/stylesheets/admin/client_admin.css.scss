@@ -7,7 +7,6 @@ body.client_admins {
 }
 
 /* ////// General sections ////// */
-.app_bar {height:30px;}
 .nav-client-admin {color:$light-green!important;}
 .content {border-bottom:$border-light;}
 #footer {
@@ -120,9 +119,10 @@ ul.section-name {
             font-size:2.5em;
             font-weight:700;
             height:160px;
+            line-height: 5em;
             margin:0 auto;
             overflow-wrap:break-word;
-            padding-top:27%;
+            //padding-top:27%;
             vertical-align: middle;
             width:160px;
             word-wrap:break-word;
