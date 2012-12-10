@@ -13,5 +13,7 @@ class ClientAdminsController < ApplicationController
     @claimed_user_count = demo.claimed_user_count
     @with_phone_percentage = demo.claimed_user_with_phone_fraction.as_rounded_percentage
     @with_peer_invitation_fraction = demo.claimed_user_with_peer_invitation_fraction.as_rounded_percentage
+
+    Mixpanel::Tracker.new(MIXPANEL_TOKEN, {}).delay.track("viewed page", {page_name: 'client admin dashboard'}.merge(current_user.data_for_mixpanel))
   end
 end
