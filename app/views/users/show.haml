@@ -26,9 +26,7 @@
       %ul#user-acts
         %li.act-shim
         = render :partial => 'shared/new_act', :collection => @acts, :as => :act
-    .seemore
-      = image_tag "v3/arrow-down.png"
-      = link_to "See more", '#', :id => 'see-more'
+    = render 'shared/see_more'
 = content_for :javascript do
   :javascript
     var actOffset = #{@acts.length};

@@ -36,11 +36,7 @@
   	      <%= render :partial => "shared/new_act", :collection => @acts, :as => :act %>
         </ul>
 
-        <div class="seemore">
-    			<%= image_tag "v3/arrow-down.png" %>
-    			<%= link_to "See more", '#', :id => 'see-more' %>
-  				<%= image_tag "v3/arrow-down.png" %>
-        </div>
+        <%= render 'shared/see_more' %>
 
         <%= image_tag 'spinner.gif', :id => 'see-more-spinner', :style => 'display:none' %>
 
