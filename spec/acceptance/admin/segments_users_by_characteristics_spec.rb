@@ -188,6 +188,42 @@ feature "Admin segmentation" do
       expect_user_content @greens[9]
     end
   
+    it "characteristics can be removed", :js => true do
+      create_characteristics_and_users
+      signin_as_admin
+      visit admin_demo_segmentation_path(@demo)
+
+      select "Color", :from => "segment_column[0]"
+      select "green", :from => "segment_value[0]"
+
+      click_link "Segment on more characteristics"
+      select "Favorite Beatle", :from => "segment_column[1]"
+      select "ringo", :from => "segment_value[1]"
+
+      click_link "Segment on more characteristics"
+      select "Brain size", :from => "segment_column[2]"
+      select "medium", :from => "segment_value[2]"
+
+      click_link "Segment on more characteristics"
+      select "Favorite number", :from => "segment_column[3]"
+      select "nine", :from => "segment_value[3]"
+
+      click_link 'remove_this_characteristic_1'
+      click_link 'remove_this_characteristic_3'
+
+      click_button "Find segment"
+
+      expect_content "Color equals green"
+      expect_content "Brain size equals medium"
+      expect_content "3 users in segment"
+
+      expect_no_content "Favorite Beatle equals ringo"
+      expect_no_content "Favorite number equals nine"
+
+      click_link "Show users"
+      (7..9).each { |i| expect_user_content @greens[i] }
+    end
+
     it "sees users segmented by a not-equals operator", :js => true do
       create_characteristics_and_users
       signin_as_admin

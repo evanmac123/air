@@ -11,7 +11,7 @@
         </select>
         <select name="segment_value[0]" id="segment_value_0" class="segment-value">
         </select>
-        <%= link_to 'Remove', '#', class: 'remove_this_characteristic' %>
+        <%= link_to 'Remove', '#', id: 'remove_this_characteristic_0', class: 'remove_this_characteristic' %>
       </div>
     </div>
 
@@ -126,12 +126,14 @@
       segmentOperatorName = newSelectName('operator');
       segmentOperatorId = newSelectId('operator');
 
+      removeId = 'remove_this_characteristic_' + nextSegmentationIndex;
+
       newSelectHtml = [
         '<div class="segmentation-triple-wrapper">',
         '<select name="' + segmentColumnName + '" id="' + segmentColumnId + '" class="segment-column"></select>',
         '<select name="' + segmentOperatorName + '" id="' + segmentOperatorId + '" class="segment-operator"></select>',
         '<select name="' + segmentValueName + '" id="' + segmentValueId + '" class="segment-value"></select>',
-        '<a class="remove_this_characteristic" href="#">Remove</a>',
+        '<a id="' + removeId + '" class="remove_this_characteristic" href="#">Remove</a>',
         '</div>'
       ].join('');
 
