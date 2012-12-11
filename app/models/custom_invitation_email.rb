@@ -110,7 +110,7 @@ class CustomInvitationEmail < ActiveRecord::Base
       <td width="33%" valign="top" style="font-size:14px; padding-right:10px;"><b>Earn points:</b><br/> Check-in and answer questions.</td>
       <td width="33%" valign="top" style="font-size:14px;"><b>Win prizes:</b><br/> Redeem points for entries toward great prizes!</td>
     </tr>
-  </table>
+  </table><br/>
 </div></center>
 
     }
