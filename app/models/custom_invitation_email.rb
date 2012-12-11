@@ -95,21 +95,23 @@ class CustomInvitationEmail < ActiveRecord::Base
   },
 
     custom_html_text: %{
-      <center><div style="font-size:14px;width:500px;">
-        <h1 style="color:#9a9a9a;font-size:2em;font-weight:300;">Welcome to H Engage!</h1>
-        <p>A fun social app that helps you make the most of HR programs and benefits.</p>
+      
+<center><div style="font-size:14px;text-align:left;width:550px;">
+  <h1 style="color:#9a9a9a;font-size:2em;font-weight:300;">Welcome to H Engage!</h1>
+  <p style="font-size:14px;">A fun social app that helps you make the most of HR programs and benefits.</p>
 
-        #{link_styled_like_button "Get started", "[invitation_url]"}
+  <p style="font-size:18px;">#{link_styled_like_button "Get started", "[invitation_url]"}</p>
 
-        <h2 style="color:#9a9a9a;font-size:1.3em;font-weight:300;">How it works:</h2>
-        <table width="100%" border="0" cellspacing="10" style="font-size:14px; text-align:left;">
-          <tr>
-            <td width="33%" valign="top"><b>Read tiles:</b><br/>Bite-size messages and information about your programs and benefits.</td>
-            <td width="33%" valign="top"><b>Earn points:</b><br/> Check-in and answer questions.</td>
-            <td width="33%" valign="top"><b>Win prizes:</b><br/> Redeem points for entries toward great prizes!</td>
-          </tr>
-        </table>
-      </div></center>
+  <h2 style="color:#9a9a9a;font-size:1.3em;font-weight:300;">How it works:</h2>
+  <table width="550px" border="0" cellspacing="10">
+    <tr>
+      <td width="33%" valign="top" style="font-size:14px;"><b>Read tiles:</b><br/>Bite-size messages and information about your programs and benefits.</td>
+      <td width="33%" valign="top" style="font-size:14px;"><b>Earn points:</b><br/> Check-in and answer questions.</td>
+      <td width="33%" valign="top" style="font-size:14px;"><b>Win prizes:</b><br/> Redeem points for entries toward great prizes!</td>
+    </tr>
+  </table>
+</div></center>
+
     }
   }
 end
