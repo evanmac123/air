@@ -38,67 +38,85 @@ feature "Admin segmentation" do
     crank_off_dj
   end
 
-  def expect_all_continuous_operators_to_work(characteristic_name, reference_value, users)
+  def expect_all_continuous_operators_to_work(characteristic_name, reference_value, users, skip_operators = [])
+
+    skip_operators.each do |operator|
+      raise ArgumentError, "Attempting to skip non-existent operator: #{operator}" unless User::SegmentationOperator::CLASS_BY_NAME.keys.include?(operator)
+    end
+
     visit admin_demo_segmentation_path(@demo)
-    select characteristic_name, :from => "segment_column[0]"
-    select "equals", :from => "segment_operator[0]"
-    fill_in "segment_value[0]", :with => reference_value
-    click_button "Find segment"
 
-    expect_content "Segmenting on: #{characteristic_name} equals #{reference_value}"
-    expect_content "1 users in segment"
-    click_link "Show users"
-    expect_user_content(users[5])
+    unless skip_operators.include? 'equals'
+      select characteristic_name, :from => "segment_column[0]"
+      select "equals", :from => "segment_operator[0]"
+      fill_in "segment_value[0]", :with => reference_value
+      click_button "Find segment"
 
-    select characteristic_name, :from => "segment_column[0]"
-    select "does not equal", :from => "segment_operator[0]"
-    fill_in "segment_value[0]", :with => reference_value
-    click_button "Find segment"
+      expect_content "Segmenting on: #{characteristic_name} equals #{reference_value}"
+      expect_content "1 users in segment"
+      click_link "Show users"
+      expect_user_content(users[5])
+    end
 
-    expect_content "Segmenting on: #{characteristic_name} does not equal #{reference_value}"
-    expect_content "9 users in segment"
-    click_link "Show users"
-    ((0..4).to_a + (6..9).to_a).each {|i| expect_user_content(users[i])}
+    unless skip_operators.include? 'does not equal'
+      select characteristic_name, :from => "segment_column[0]"
+      select "does not equal", :from => "segment_operator[0]"
+      fill_in "segment_value[0]", :with => reference_value
+      click_button "Find segment"
 
-    select characteristic_name, :from => "segment_column[0]"
-    select "greater than", :from => "segment_operator[0]"
-    fill_in "segment_value[0]", :with => reference_value
-    click_button "Find segment"
+      expect_content "Segmenting on: #{characteristic_name} does not equal #{reference_value}"
+      expect_content "9 users in segment"
+      click_link "Show users"
+      ((0..4).to_a + (6..9).to_a).each {|i| expect_user_content(users[i])}
+    end
 
-    expect_content "Segmenting on: #{characteristic_name} is greater than #{reference_value}"
-    expect_content "4 users in segment"
-    click_link "Show users"
-    (6..9).to_a.each {|i| expect_user_content(users[i])}
+    unless skip_operators.include? 'greater than'
+      select characteristic_name, :from => "segment_column[0]"
+      select "greater than", :from => "segment_operator[0]"
+      fill_in "segment_value[0]", :with => reference_value
+      click_button "Find segment"
 
-    select characteristic_name, :from => "segment_column[0]"
-    select "less than", :from => "segment_operator[0]"
-    fill_in "segment_value[0]", :with => reference_value
-    click_button "Find segment"
+      expect_content "Segmenting on: #{characteristic_name} is greater than #{reference_value}"
+      expect_content "4 users in segment"
+      click_link "Show users"
+      (6..9).to_a.each {|i| expect_user_content(users[i])}
+    end
 
-    expect_content "Segmenting on: #{characteristic_name} is less than #{reference_value}"
-    expect_content "5 users in segment"
-    click_link "Show users"
-    (0..4).to_a.each {|i| expect_user_content(users[i])}
+    unless skip_operators.include? 'less than'
+      select characteristic_name, :from => "segment_column[0]"
+      select "less than", :from => "segment_operator[0]"
+      fill_in "segment_value[0]", :with => reference_value
+      click_button "Find segment"
 
-    select characteristic_name, :from => "segment_column[0]"
-    select "greater than or equal to", :from => "segment_operator[0]"
-    fill_in "segment_value[0]", :with => reference_value
-    click_button "Find segment"
+      expect_content "Segmenting on: #{characteristic_name} is less than #{reference_value}"
+      expect_content "5 users in segment"
+      click_link "Show users"
+      (0..4).to_a.each {|i| expect_user_content(users[i])}
+    end
 
-    expect_content "Segmenting on: #{characteristic_name} is greater than or equal to #{reference_value}"
-    expect_content "5 users in segment"
-    click_link "Show users"
-    (5..9).to_a.each {|i| expect_user_content(users[i])}
+    unless skip_operators.include? 'greater than or equal to'
+      select characteristic_name, :from => "segment_column[0]"
+      select "greater than or equal to", :from => "segment_operator[0]"
+      fill_in "segment_value[0]", :with => reference_value
+      click_button "Find segment"
 
-    select characteristic_name, :from => "segment_column[0]"
-    select "less than or equal to", :from => "segment_operator[0]"
-    fill_in "segment_value[0]", :with => reference_value
-    click_button "Find segment"
+      expect_content "Segmenting on: #{characteristic_name} is greater than or equal to #{reference_value}"
+      expect_content "5 users in segment"
+      click_link "Show users"
+      (5..9).to_a.each {|i| expect_user_content(users[i])}
+    end
 
-    expect_content "Segmenting on: #{characteristic_name} is less than or equal to #{reference_value}"
-    expect_content "6 users in segment"
-    click_link "Show users"
-    (0..5).to_a.each {|i| expect_user_content(users[i])}
+    unless skip_operators.include? 'less than or equal to'
+      select characteristic_name, :from => "segment_column[0]"
+      select "less than or equal to", :from => "segment_operator[0]"
+      fill_in "segment_value[0]", :with => reference_value
+      click_button "Find segment"
+
+      expect_content "Segmenting on: #{characteristic_name} is less than or equal to #{reference_value}"
+      expect_content "6 users in segment"
+      click_link "Show users"
+      (0..5).to_a.each {|i| expect_user_content(users[i])}
+    end
   end
 
   def expect_user_content(user)
@@ -504,7 +522,7 @@ feature "Admin segmentation" do
     expect_all_continuous_operators_to_work "Points", 5, users
   end
 
-  it 'can segment on date of birth', :js => true do
+  it 'can segment on date of birth, and strict equality operators are not present', :js => true do
     @demo = FactoryGirl.create(:demo)
 
     reference_value = "May 10, 2010"
@@ -516,8 +534,18 @@ feature "Admin segmentation" do
     end
     crank_dj_clear
 
+    skip_operators = ['equals', 'does not equal']
+
     signin_as_admin
-    expect_all_continuous_operators_to_work "Date of birth", reference_date, users
+    expect_all_continuous_operators_to_work "Date of birth", reference_date, users, skip_operators
+
+    skip_operators.each do |operator|
+      # Selecting 'operator' will be attempted; selecting other skip-operators will not.
+      other_skip_operators = skip_operators - [operator]
+      expect {
+        expect_all_continuous_operators_to_work('Date of birth', reference_value, users, other_skip_operators)
+      }.to raise_error(Capybara::ElementNotFound, /no option with text '#{operator}' in select box/)
+    end
   end
 
   it 'can segment on accepted_invitation_at', :js => true do

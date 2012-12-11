@@ -29,6 +29,10 @@
     var inputSpecifiers = <%= characteristic_input_specifiers_as_json(all_characteristics) %>;
     var allowedOperators = <%= characteristic_allowed_operators_as_json(all_characteristics) %>;
 
+    // Strict equality tests for DoB didn't work sometimes => Yank them out (just for DoB, not other date characteristics)
+    allowedOperators['date_of_birth'].splice(allowedOperators['date_of_birth'].indexOf('equals'),1);
+    allowedOperators['date_of_birth'].splice(allowedOperators['date_of_birth'].indexOf('does not equal'),1);
+
     var nextSegmentationIndex = 1;
 
     function nameFromDomId(domId) {
