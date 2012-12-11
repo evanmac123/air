@@ -1,13 +1,25 @@
 h1, h2, h3 {font-family:$gotham;}
 * {box-sizing:border-box;}
-body.client_admins {
+body.client_admin_main {
     background:url('marketing/bg.gif');
     color:$text-color;
     font-family:'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
-/* ////// General sections ////// */
+/* ////// CURRENT PAGE ANCHORS ////// */
+// In black bar
 .nav-client-admin {color:$light-green!important;}
+
+// In left nav
+body.client_admins #admin-overview a,
+body.client_admins #admin-overview a:link {color:$dark-green; font-weight:bold;}
+body.client_admin-segmentations #admin-analytics a,
+body.client_admin-segmentations #admin-analytics a:link {color:$dark-green; font-weight:bold;}
+
+// Content area icon
+body.client_admins .icon#icon-overview {background-position: -1px -15px;}
+
+/* ////// General sections ////// */
 .content {border-bottom:$border-light;}
 #footer {
     border-top:$border-dark;
@@ -55,9 +67,8 @@ body.client_admins {
             ul.inner {color:lighten($text-color, 70%); margin-left:26px;}
             &#admin-overview {
                 span{background-position:-22px 1px;}
-                a {color:$dark-green; font-weight:bold;}
             }
-            &#admin-measure span {background-position:-42px 1px;}
+            &#admin-analytics span {background-position:-42px 1px;}
             &#admin-message span {background-position:-64px 1px;}
             &#admin-users span {background-position:-84px 1px;}
             &#admin-post span {background-position:-104px 1px;}
@@ -100,7 +111,6 @@ ul.section-name {
         float:left;
         height:29px;
         width:32px;
-        &#icon-overview {background-position: -1px -15px;}
     }
 }
 .stats {

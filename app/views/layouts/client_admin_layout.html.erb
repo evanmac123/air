@@ -9,13 +9,51 @@
 
   <%= csrf_meta_tag %>
 </head>
-<body class="<%= body_class %>">
+<body class="<%= body_class %> client_admin_main">
   <div class="header">
     <%= render 'shared/nav' %>
   </div>
 
+  <!-- < %= render 'shared/clinet_admin_nav' %> -->
   <div class="content">
-    <%= yield %>
+    <div class="col-container">
+    <div id="far-left"></div> <!-- extends light bg -->
+    <div id="col-main">
+        <div id="left-nav" class="equal">
+            <ul id="admin-nav">
+                <li id="admin-overview" class="admin-nav-section"><span></span><a href="/">Overview</a></li>
+                <li id="admin-analytics" class="admin-nav-section"><span></span><a>Analytics</a></li>
+                <li id="admin-message" class="admin-nav-section">
+                    <span></span><a>Message</a>
+                    <ul class="inner">
+                        <li>Coming soon</li>
+                    </ul>
+                </li>
+                <li id="admin-users" class="admin-nav-section">
+                    <span></span><a>Users</a>
+                    <ul class="inner">
+                        <li>Coming soon</li>
+                    </ul>
+                </li>
+                <li id="admin-post" class="admin-nav-section">
+                    <span></span><a>Post</a>
+                    <ul class="inner">
+                        <li>Coming soon</li>
+                    </ul>
+                </li>
+            </ul>
+            <div class="clear"></div>
+        </div>
+
+        <div id="right-content" class="equal">
+            <div class="wrap">
+              <%= yield %>
+            </div>
+        </div>
+    </div>
+    <div id="far-right"></div>
+</div>
+
   </div>
   
   <div id="footer">
