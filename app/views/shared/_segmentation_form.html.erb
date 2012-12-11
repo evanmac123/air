@@ -104,6 +104,10 @@
       } 
     });
 
+    $('.remove_this_characteristic').live('click', function(e) {
+      $(e.target).parent().remove();
+    });
+
     $('#add_more_characteristics').click(function(e) {
       e.preventDefault();
 
