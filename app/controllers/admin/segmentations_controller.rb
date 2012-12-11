@@ -7,11 +7,6 @@ class Admin::SegmentationsController < AdminBaseController
   end
 
   def create
-    attempt_segmentation
-
-    respond_to do |format|
-      format.html { redirect_to :back }
-      format.js   { render partial: "shared/segmentation_results", locals: {segmentation_results: @segmentation_result}, layout: false }
-    end
+    attempt_segmentation(@demo)
   end
 end

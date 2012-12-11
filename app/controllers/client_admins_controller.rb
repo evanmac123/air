@@ -1,7 +1,4 @@
-class ClientAdminsController < ApplicationController
-  must_be_authorized_to :client_admin
-  layout "client_admin_layout"
-
+class ClientAdminsController < ClientAdminBaseController
   def show
     # Note that we don't check for a divide-by-zero error since we should 
     # always have at least one claimed user: the very client admin who is
