@@ -83,31 +83,33 @@ class CustomInvitationEmail < ActiveRecord::Base
 
     custom_plain_text: %{Welcome to H Engage! A fun social app that helps you make the most of HR programs and benefits.
   
-Get started at [invitation_url]
+      Get started at [invitation_url]
 
-How it works:
+      How it works:
 
-1.) Read tiles: Bite-size messages and information about your programs and benefits.
+      1.) Read tiles: Bite-size messages and information about your programs and benefits.
 
-2.) Earn points: Check-in and answer questions.
+      2.) Earn points: Check-in and answer questions.
 
-3.) Win prizes: Redeem points for entries toward great prizes!
-  
-  
+      3.) Win prizes: Redeem points for entries toward great prizes!
   },
 
+    custom_html_text: %{
+      <center><div style="text-align:left;width:70%;">
+        <h1 style="color:#9a9a9a;font-size:2em;font-weight:300;">Welcome to H Engage!</h1>
+        <p>A fun social app that helps you make the most of HR programs and benefits.</p>
 
-    custom_html_text: %{<p>Welcome to H Engage! A fun social app that helps you make the most of HR programs and benefits.</p>
+        <p>#{link_styled_like_button "Get started", "[invitation_url]"}</p>
 
-<p>#{link_styled_like_button "Get started", "[invitation_url]"}</p>
-
-<p>How it works:
-<ol>
-<li>Read tiles: Bite-size messages and information about your programs and benefits.</li>
-<li>Earn points: Check-in and answer questions.</li>
-<li>Win prizes: Redeem points for entries toward great prizes!</li>
-</ol>
-</p>
+        <h2 style="color:#9a9a9a;font-size:1.3em;font-weight:300;">How it works:</h2>
+        <table width="100%" border="0">
+          <tr>
+            <td width="33%" valign="top"><b>Read tiles:</b><br/>Bite-size messages and information about your programs and benefits.</td>
+            <td width="33%" valign="top"><b>Earn points:</b><br/> Check-in and answer questions.</td>
+            <td width="33%" valign="top"><b>Win prizes:</b><br/> Redeem points for entries toward great prizes!</td>
+          </tr>
+        </table>
+      </div></center>
     }
   }
 end
