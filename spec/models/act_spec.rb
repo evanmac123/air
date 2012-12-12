@@ -74,19 +74,6 @@ describe Act, "on create" do
     expect_act_ping(act, :following_count => 3)
   end
 
-  it "should record the user's level" do
-    demo = FactoryGirl.create :demo
-    [10,20,30].each {|threshold| FactoryGirl.create :level, :demo => demo, :threshold => threshold}
-    user = FactoryGirl.create :user, :demo => demo
-
-    act = FactoryGirl.create :act, :user => user, :inherent_points => 17
-    user.top_level_index.should == 2
-
-    Delayed::Worker.new.work_off(20)
-
-    expect_act_ping(act, :level_index => 2)
-  end
-
   it "should record the user's score" do
     user = FactoryGirl.create :user
     act = FactoryGirl.create :act, :user => user, :inherent_points => 47

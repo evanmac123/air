@@ -78,25 +78,7 @@
     = @demo.seed_points  
     points.
 
-  - if @levels.empty? 
-    %p No levels.
-  - else 
-    %p Levels:
-    %ul
-      - @levels.each do |level| 
-        %li
-          %strong= "#{level.index_within_demo}:" 
-          
-          = level.name  
-          at 
-          = level.threshold  
-          points
-          = link_to '(edit level)', edit_admin_level_path(level.id) 
-          = button_to 'Delete level', admin_level_path(level), :method => :delete, :confirm => "Really delete this level (#{level.name})?" 
-      
   %ul
-    %li= link_to 'Add level', new_admin_demo_level_path(@demo) 
-
     %li= link_to "Goals for this demo", admin_demo_goals_path(@demo) 
 
     %li= link_to "Tiles for this demo", admin_demo_tiles_path(@demo) 

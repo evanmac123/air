@@ -534,7 +534,6 @@ class User < ActiveRecord::Base
   def update_points(new_points, channel=nil)
     old_points = self.points
     increment!(:points, new_points)
-    Level.check_for_level_up(old_points, self, channel)
   end
 
   def password_optional?
@@ -1043,17 +1042,20 @@ class User < ActiveRecord::Base
   def greatest_achievable_threshold
     self.highest_possible_level.try(:threshold)
   end
-  
+
   def last_level
-    demo.levels.where("threshold <= ?", self.points).order("threshold DESC").limit(1).first
+    #demo.levels.where("threshold <= ?", self.points).order("threshold DESC").limit(1).first
+    nil
   end
 
   def next_level
-    demo.levels.where("threshold > ?", self.points).order("threshold ASC").limit(1).first
+    #demo.levels.where("threshold > ?", self.points).order("threshold ASC").limit(1).first
+    nil
   end
 
   def highest_possible_level
-    demo.levels.order("threshold DESC").limit(1).first
+    #demo.levels.order("threshold DESC").limit(1).first
+    nil
   end
 
   def normalized_new_phone_number_unique

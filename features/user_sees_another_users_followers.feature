@@ -18,9 +18,6 @@ Feature: Directory of other users
       | name: Vlad | name: Dan  | 
       | name: Sven | name: Dan  | 
       | name: Dan  | name: Sven | 
-    And the following levels exist:
-      | name      | threshold   | demo          |
-      | GoGettem  | 50          | name: AlphaCo |
     And "Dan" has the password "foobar"
     And I sign in via the login page as "Dan/foobar"
     And I go to the user page for "Dan"

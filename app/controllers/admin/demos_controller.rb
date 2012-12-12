@@ -4,29 +4,16 @@ class Admin::DemosController < AdminBaseController
 
   def new
     @demo = Demo.new
-    @demo.levels = [Level.new]
   end
 
   def create
-    levels_params = massage_new_demo_parameters
-
-    begin
-      Demo.transaction do
-        @demo = Demo.new(params[:demo])
-        @demo.save
-
-        create_levels(levels_params)
-      end
-
-      flash[:success] = "Demo created."
-      redirect_to admin_demo_path(@demo)
-    rescue Exception => e
-      # Restore level parameters to params so we can see them in Hoptoad later.
-     
-      params[:demo][:levels] = levels_params
-
-      raise e
+    Demo.transaction do
+      @demo = Demo.new(params[:demo])
+      @demo.save!
     end
+
+    flash[:success] = "Demo created."
+    redirect_to admin_demo_path(@demo)
   end
 
   def show
@@ -34,7 +21,6 @@ class Admin::DemosController < AdminBaseController
     @user_with_mobile_count = @demo.users.with_phone_number.count
     @claimed_user_count = @demo.users.claimed.count
     @user_with_game_referrer_count = @demo.users.with_game_referrer.count
-    @levels = @demo.levels.in_threshold_order
     @locations = @demo.locations.alphabetical
   end
 
@@ -76,12 +62,5 @@ class Admin::DemosController < AdminBaseController
                                        else
                                          []
                                        end
-  end
-
-  def create_levels(levels_params)
-    levels_params.values.each do |value|
-      next if value.values.all?(&:blank?)
-      @demo.levels.create!(value)
-    end
   end
 end

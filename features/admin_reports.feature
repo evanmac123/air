@@ -32,12 +32,6 @@ Feature: Admin can view reports
     Given the following act with rule exist:
       | user         | inherent_points | rule                   |
       | name: George | 0               | description: flew fast |
-    Given the following levels exist: 
-      | demo            | name           | threshold  |
-      | name: January   | level one      | 10         |
-      | name: January   | level two      | 20         |
-      | name: January   | level three    | 50         |
-      | name: February  | level one      | 13         |
     Given the following tag exists:
       | name      |
       | longevity |
@@ -56,18 +50,6 @@ Feature: Admin can view reports
       | 11-20           |	1            | 33.3%         |
       | 0-10            |	2            | 66.7%         |
     
-  Scenario: I can view the levels reports
-    And I go to the admin reports page for "January"
-    And I follow "Levels"
-    Then I should see "January"
-    And I should see the following table:
-    	|   | Current Level           |	Points Range | # Users |	% Users |
-      | 4 | level three             | 50+          | 0       | 0.0%     |
-      | 3 | level two               | 20-49        | 0       | 0.0%     |
-      | 2 | level one               | 10-19        | 2       | 66.7%    |
-      | 1 | 1                       | 0-9          | 1       | 33.3%    |
-
-
   Scenario: I can view the interaction popularity report
     And I go to the admin reports page for "January"
     And I follow "Interactions"

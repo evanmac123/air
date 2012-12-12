@@ -10,7 +10,6 @@ class Demo < ActiveRecord::Base
   has_many :rule_values, :through => :rules
   has_many :surveys, :dependent => :destroy
   has_many :survey_questions, :through => :surveys
-  has_many :levels, :dependent => :destroy
   has_many :goals, :dependent => :destroy
   has_many :bad_words, :dependent => :destroy
   has_many :tiles, :dependent => :destroy
