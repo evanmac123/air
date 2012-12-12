@@ -1,0 +1,47 @@
+.stats {
+    padding:4em 0 2em 0;
+    text-align: center;
+}
+    .stat-group {
+        width:33.33%;
+        float:left;
+        text-align:center;
+        .numbers h2 {
+            background:url('client_admin/circle-bg.png') center center no-repeat;
+            color:$orange;
+            display:block;
+            font-family:$gotham;
+            font-size:2.5em;
+            font-weight:700;
+            height:160px;
+            line-height: 5em;
+            margin:0 auto;
+            overflow-wrap:break-word;
+            //padding-top:27%;
+            vertical-align: middle;
+            width:160px;
+            word-wrap:break-word;
+        }
+        .labels {
+            color:lighten($text-color, 50%);
+            font-size:1.25em;
+            font-weight:bold;
+            padding:1em 0;
+        }
+    }
+.info {
+    padding:4em $gutter 2em $gutter;
+    h2, h3 {
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        font-weight:300;
+    }
+    h2 {
+        font-size:2em;
+        padding-bottom:.25em;
+        color:#686868;
+    }
+    h3 a {
+        color:$dark-green;
+        &:hover {color:darken($dark-green, 5%);}
+    }
+}

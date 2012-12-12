@@ -2,22 +2,20 @@
 
 <%= form_tag segmentation_url, :id => 'segmentation-form' do %>
   <fieldset>
-    <legend>Look up new segment</legend>
+    <h2 class="form_title">Look up new segment</h2>
     <div id="segmentation_parameters">
-      <div class="segmentation-triple-wrapper">
-        <select name="segment_column[0]" id="segment_column_0" class="segment-column">
-        </select>
-        <select name="segment_operator[0]" id="segment_operator_0" class="segment-operator">
-        </select>
-        <select name="segment_value[0]" id="segment_value_0" class="segment-value">
-        </select>
-        <%= link_to 'Remove', '#', id: 'remove_this_characteristic_0', class: 'remove_this_characteristic' %>
+      <p class="label">Select a property:</p>
+      <!--mustbelikethisforspacing-->
+      <div class="segmentation-triple-wrapper"><%= link_to 'Remove', '#', id: 'remove_this_characteristic_0', class: 'remove_this_characteristic' %><ul class="characteristics"><li><select name="segment_column[0]" id="segment_column_0" class="segment-column"></select></li><li><select name="segment_operator[0]" id="segment_operator_0" class="segment-operator"></select></li><li><select name="segment_value[0]" id="segment_value_0" class="segment-value"></select></li></ul>
+      <!--end-->
       </div>
     </div>
-
-    <%= link_to "Segment on more characteristics", "#", :id => "add_more_characteristics" %>
-    <%= submit_tag "Find segment" %>
-    <%= image_tag "spinner.gif", :style => 'display: none', :id => 'find-segment-spinner' %>
+    <div id="segmentation_buttons">
+      <div id="add_more_wrap"><a href="#" id="add_more_characteristics"><span></span>Add another</a></div>
+      <!--< %= link_to "Add another", "#", :id => "add_more_characteristics" %>-->
+      <%= submit_tag "Find segment" %>
+      <%= image_tag "spinner.gif", :style => 'display: none', :id => 'find-segment-spinner' %>
+    </div>
   </fieldset>
 <% end %>
 
@@ -126,10 +124,12 @@
 
       newSelectHtml = [
         '<div class="segmentation-triple-wrapper">',
-        '<select name="' + segmentColumnName + '" id="' + segmentColumnId + '" class="segment-column"></select>',
-        '<select name="' + segmentOperatorName + '" id="' + segmentOperatorId + '" class="segment-operator"></select>',
-        '<select name="' + segmentValueName + '" id="' + segmentValueId + '" class="segment-value"></select>',
         '<a id="' + removeId + '" class="remove_this_characteristic" href="#">Remove</a>',
+        '<ul class="characteristics">',
+        '<li><select name="' + segmentColumnName + '" id="' + segmentColumnId + '" class="segment-column"></select></li>',
+        '<li><select name="' + segmentOperatorName + '" id="' + segmentOperatorId + '" class="segment-operator"></select></li>',
+        '<li><select name="' + segmentValueName + '" id="' + segmentValueId + '" class="segment-value"></select></li>',
+        '</ul>',
         '</div>'
       ].join('');
 

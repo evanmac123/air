@@ -100,7 +100,7 @@ class User
         return 'No segmentation, choosing all users'
       end
 
-      segmentation_explanation = "Segmenting on:"
+      segmentation_explanation = ""
       prefix = ''
 
       columns.each do |index, characteristic_id|
