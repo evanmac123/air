@@ -58,16 +58,16 @@ Feature: User acts via email
   Scenario: User can send in email commands and have them processed correctly
     When "dan@bigco.com" sends email with subject "me tarzan, you jane" and body "ate banana"
     Then "dan@bigco.com" should receive 1 email
-    And "dan@bigco.com" have an email command history with the phrase "Bananas are good for you. Points 2, level 1."
+    And "dan@bigco.com" have an email command history with the phrase "Bananas are good for you. Points 2."
     When "dan@bigco.com" opens the email
-    Then I should see "Bananas are good for you. Points 2, level 1." in the email body
+    Then I should see "Bananas are good for you. Points 2." in the email body
 
     Given a clear email queue
 
   	When "dan@bigco.com" sends email with subject "me tarzan, you jane" and body "ate banana"
-    Then "dan@bigco.com" have an email command history with the phrase "Bananas are good for you. Points 4, level 1."
+    Then "dan@bigco.com" have an email command history with the phrase "Bananas are good for you. Points 4."
     When "dan@bigco.com" opens the email
-    Then I should see "Bananas are good for you. Points 4, level 1." in the email body
+    Then I should see "Bananas are good for you. Points 4." in the email body
 
   Scenario: User sends an email with a long body
     When "dan@bigco.com" sends email with subject "me tarzan, you jane" and the following body:
@@ -78,7 +78,7 @@ This is a confidential communication of TarzanCo (a subsidiary of Burroughs Inc.
 
 This is not an offer to trade or roll logs. Void where prohibited. Some assembly required. Not intended for children under 65. I'm not wearing any pants. Do you ever wake up in the middle of the night wondering when you're going to die?
 """
-    Then "dan@bigco.com" have an email command history with the phrase "Bananas are good for you. Points 2, level 1."
+    Then "dan@bigco.com" have an email command history with the phrase "Bananas are good for you. Points 2."
 
     When I sign in via the login page as "Dan/foobar"
     And I go to the acts page
@@ -86,7 +86,7 @@ This is not an offer to trade or roll logs. Void where prohibited. Some assembly
       | name | act         | points |
       | Dan  | ate banana  | 2      |
     When "dan@bigco.com" opens the email
-    Then I should see "Bananas are good for you. Points 2, level 1." in the email body
+    Then I should see "Bananas are good for you. Points 2." in the email body
 
   Scenario: User plays by email in a game with a custom email address
     Given the following demo exists:

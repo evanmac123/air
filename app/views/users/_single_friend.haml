@@ -9,9 +9,7 @@
 
 %tr.user{:id => this_is_me, :class => row_class}
   %td.user-name= link_to single_friend.name[0,max_name_length], user_path(single_friend)
-  %td.user-level
-    .top_level_index
-      = single_friend.top_level_index
+  -#HRFF
   %td.user-progress
     .tight_bar
       .grey_bubble

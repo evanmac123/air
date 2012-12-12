@@ -9,8 +9,9 @@
       %li
         .points-and-level 
           %p
-            Level
-            = @user.top_level_index
+            -#HRFF
+            -#Level
+            -#= @user.top_level_index
           - if (points_to_go = @user.points_to_next_unachieved_threshold)
             %p.next_level= "(#{points_to_go} points to next level)"
       %li

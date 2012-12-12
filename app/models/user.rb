@@ -31,7 +31,6 @@ class User < ActiveRecord::Base
   has_many   :unsubscribes, :dependent => :destroy
   has_many   :peer_invitations_as_invitee, :class_name => "PeerInvitation", :foreign_key => :invitee_id
   has_many   :peer_invitations_as_inviter, :class_name => "PeerInvitation", :foreign_key => :inviter_id
-  has_and_belongs_to_many :levels
   has_one   :tutorial, :dependent => :destroy
 
   validate :normalized_phone_number_unique, :normalized_new_phone_number_unique
@@ -450,7 +449,6 @@ class User < ActiveRecord::Base
       :game                  => self.demo.name,
       :following_count       => Friendship.accepted.where(:user_id => self.id).count,
       :followers_count       => Friendship.accepted.where(:friend_id => self.id).count,
-      :level_index           => self.top_level_index,
       :score                 => self.points,
       :account_creation_date => self.created_at.to_date,
       :joined_game_date      => self.accepted_invitation_at.try(:to_date),
@@ -627,16 +625,11 @@ class User < ActiveRecord::Base
     end
   end
 
-  def level_summary
-    "level #{self.top_level_index}"
-  end
-
   def point_and_ranking_summary(prefix = [])
     return "" unless self.demo.use_post_act_summaries
 
     result_parts = prefix.clone
     result_parts << self.point_summary
-    result_parts << self.level_summary
 
     ' ' + result_parts.join(', ').capitalize + '.'
   end
