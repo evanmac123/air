@@ -1,12 +1,15 @@
 <div id="segmentation-results">
   <% if segmentation_results.present? %>
     <h1>Segmenting on:</h1>
-    <h2><%= segmentation_results.explanation %></h2>
+    <div id="segmentation-explanation">
+        <p><%= segmentation_results.explanation %></p>
+        <p id="segmented-at-timestamp">Segment looked up <%= time_ago_in_words segmentation_results.created_at %> ago</p>
+    </div>
 
-    <% found_user_ids = segmentation_results.found_user_ids %>
-    <h2><%= found_user_ids.length %> users in segment</h2>
-
-    <h2>Segment looked up <%= time_ago_in_words segmentation_results.created_at %> ago</h2>
+    <div id="segmentation-numbers">
+        <% found_user_ids = segmentation_results.found_user_ids %>
+        <h2><span><%= found_user_ids.length %></span>users in segment</h2>
+    </div>
 
     <p id="user-info-target"></p>
   <% else %>

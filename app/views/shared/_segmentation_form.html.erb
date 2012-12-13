@@ -11,9 +11,10 @@
       </div>
     </div>
     <div id="segmentation_buttons">
-      <div id="add_more_wrap"><a href="#" id="add_more_characteristics"><span></span>Add another</a></div>
+      <div class="button_wrap" id="add"><a href="#" id="add_more_characteristics"><span></span>Add another</a></div>
       <!--< %= link_to "Add another", "#", :id => "add_more_characteristics" %>-->
-      <%= submit_tag "Find segment" %>
+      or
+      <div class="button_wrap" id="find"><%= submit_tag "Find segment" %></div>
       <%= image_tag "spinner.gif", :style => 'display: none', :id => 'find-segment-spinner' %>
     </div>
   </fieldset>
@@ -60,7 +61,7 @@
 
     function createCheckboxFromInputSpecifier(inputSpecifier, domId) {
       hiddenField = '<input type="hidden" value="0" ' + nameAttribute(domId) + '>';
-      checkboxField = '<input type="checkbox" value="1" ' + nameAndId(domId) + '>';
+      checkboxField = '<input type="checkbox" value="1" ' + nameAndId(domId) + '><span>True</span>';
       return(hiddenField + checkboxField);
     }
 
