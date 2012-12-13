@@ -100,16 +100,18 @@ class User
         return 'No segmentation, choosing all users'
       end
 
-      segmentation_explanation = ""
-      prefix = ''
-
-      columns.each do |index, characteristic_id|
+      columns.map do |index, characteristic_id|
         characteristic = Characteristic.find(characteristic_id)
-        segmentation_explanation += [prefix, characteristic.name, operators[index], Characteristic.find(characteristic_id).format_value(values[index])].join(' ')
-        prefix = ','
+        [characteristic.name, operators[index], Characteristic.find(characteristic_id).format_value(values[index])].join(' ')
       end
 
-      segmentation_explanation
+      #columns.each do |index, characteristic_id|
+      #  characteristic = Characteristic.find(characteristic_id)
+      #  segmentation_explanation += [prefix, characteristic.name, operators[index], Characteristic.find(characteristic_id).format_value(values[index])].join(' ')
+      #  prefix = ','
+      #end
+
+      #segmentation_explanation
     end
   end
 end

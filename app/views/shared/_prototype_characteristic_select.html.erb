@@ -3,11 +3,5 @@
   <select id="prototype-characteristic-select" style="display: none">
     <option value=""></option>
       <%= options_from_collection_for_select dummy_characteristics, :id, :name, :include_blank => true %>
-    <optgroup label="Generic characteristics">
-      <%= options_from_collection_for_select generic_characteristics, :id, :name, :include_blank => true %>
-    </optgroup>
-    <optgroup label="Demo-specific characteristics">
-      <%= options_from_collection_for_select demo_specific_characteristics, :id, :name, :include_blank => true %>
-    </optgroup>
   </select>
 </div>

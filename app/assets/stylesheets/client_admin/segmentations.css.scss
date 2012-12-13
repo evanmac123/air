@@ -118,10 +118,23 @@ form {
 
 #segmentation-results {
     border-top:$border-dark;
-    padding:1em 0;
+    padding:2em 0;
     h1 {
         color:$gray;
         font-size:1.75em;
         font-weight:300;
+        padding-bottom:.75em;
+    }
+    #segmentation-explanation {
+        border:1px red solid;
+        display:inline-block;
+        vertical-align: top;
+        width:60%;
+
+    }
+    #segmentation-numbers {
+        border:1px blue solid;
+        display:inline-block;
+        vertical-align: top;
     }
 }
