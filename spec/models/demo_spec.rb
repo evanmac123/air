@@ -143,6 +143,7 @@ describe Demo, "ticket fields" do
   context "when uses_tickets is set" do
     before(:each) do
       @demo = FactoryGirl.build_stubbed(:demo, uses_tickets: true)
+      @demo.ticket_threshold = nil
     end
 
     it "should validate that the other gold coin fields are set" do
