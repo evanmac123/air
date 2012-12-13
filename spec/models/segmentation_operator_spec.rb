@@ -19,7 +19,7 @@ describe User::SegmentationOperator do
   end
 end
 
-all_types = [Characteristic::DiscreteType, Characteristic::NumberType, Characteristic::DateType, Characteristic::BooleanType]
+all_types = [Characteristic::DiscreteType, Characteristic::NumberType, Characteristic::BooleanType]
 continuous_types = [Characteristic::NumberType, Characteristic::DateType]
 discrete_types =[Characteristic::DiscreteType, Characteristic::BooleanType]
 
