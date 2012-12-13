@@ -31,7 +31,7 @@ end
   ['gender',                    'Discrete'],
   ['claimed',                   'Boolean'],
   ['has_phone_number',          'Boolean'],
-  ['last_acted_at',          'Time'],
+  ['last_acted_at',             'Time'],
   ['email_has_internal_domain', 'Boolean']
 ].each do |field_id, datatype_short_name|
   name = field_id.humanize
