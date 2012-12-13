@@ -8,5 +8,7 @@
     <h2>Segment looked up <%= time_ago_in_words segmentation_results.created_at %> ago</h2>
 
     <p id="user-info-target"></p>
+  <% else %>
+    <%= render partial: 'shared/flashes' %>
   <% end %>
 </div>

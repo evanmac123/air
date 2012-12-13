@@ -15,8 +15,12 @@ end unless ENV['NO_DEBUGGER']
 Health::Application.configure do
 
   require(Rails.root + 'config/initializers/constants')
-  
+
   # Settings specified here will take precedence over those in config/application.rb
+
+  config.dev_tweaks.autoload_rules do
+    keep :xhr  # Disables caching of ajax requests
+  end
 
   # In the development environment your application's code is reloaded on
   # every request.  This slows down response time but is perfect for development

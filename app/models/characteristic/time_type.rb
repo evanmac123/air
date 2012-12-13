@@ -1,6 +1,6 @@
 class Characteristic::TimeType < Characteristic::BaseType
   def self.allowed_operators
-    User::SegmentationOperator::ALL_OPERATORS
+    User::SegmentationOperator::CONTINUOUS_OPERATORS
   end
 
   def self.cast_value(value)

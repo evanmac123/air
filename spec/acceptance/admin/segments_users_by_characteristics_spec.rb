@@ -38,85 +38,88 @@ feature "Admin segmentation" do
     crank_off_dj
   end
 
-  def expect_all_continuous_operators_to_work(characteristic_name, reference_value, users, skip_operators = [])
-
-    skip_operators.each do |operator|
-      raise ArgumentError, "Attempting to skip non-existent operator: #{operator}" unless User::SegmentationOperator::CLASS_BY_NAME.keys.include?(operator)
-    end
-
+  def expect_discrete_operators_to_not_be_present(characteristic_name)
     visit admin_demo_segmentation_path(@demo)
 
-    unless skip_operators.include? 'equals'
+    ['equals', 'does not equal'].each do |operator|
       select characteristic_name, :from => "segment_column[0]"
-      select "equals", :from => "segment_operator[0]"
-      fill_in "segment_value[0]", :with => reference_value
-      click_button "Find segment"
-
-      expect_content "Segmenting on: #{characteristic_name} equals #{reference_value}"
-      expect_content "1 users in segment"
-      click_link "Show users"
-      expect_user_content(users[5])
+      expect {
+        select "#{operator}", :from => "segment_operator[0]"
+      }.to raise_error(Capybara::ElementNotFound, /no option with text '#{operator}' in select box/)
     end
+  end
 
-    unless skip_operators.include? 'does not equal'
-      select characteristic_name, :from => "segment_column[0]"
-      select "does not equal", :from => "segment_operator[0]"
-      fill_in "segment_value[0]", :with => reference_value
-      click_button "Find segment"
+  def expect_all_operators_to_work(characteristic_name, reference_value, users)
+    expect_all_discrete_operators_to_work(characteristic_name, reference_value, users)
+    expect_all_continuous_operators_to_work(characteristic_name, reference_value, users)
+  end
 
-      expect_content "Segmenting on: #{characteristic_name} does not equal #{reference_value}"
-      expect_content "9 users in segment"
-      click_link "Show users"
-      ((0..4).to_a + (6..9).to_a).each {|i| expect_user_content(users[i])}
-    end
+  def expect_all_discrete_operators_to_work(characteristic_name, reference_value, users)
+    visit admin_demo_segmentation_path(@demo)
 
-    unless skip_operators.include? 'greater than'
-      select characteristic_name, :from => "segment_column[0]"
-      select "greater than", :from => "segment_operator[0]"
-      fill_in "segment_value[0]", :with => reference_value
-      click_button "Find segment"
+    select characteristic_name, :from => "segment_column[0]"
+    select "equals", :from => "segment_operator[0]"
+    fill_in "segment_value[0]", :with => reference_value
+    click_button "Find segment"
 
-      expect_content "Segmenting on: #{characteristic_name} is greater than #{reference_value}"
-      expect_content "4 users in segment"
-      click_link "Show users"
-      (6..9).to_a.each {|i| expect_user_content(users[i])}
-    end
+    expect_content "Segmenting on: #{characteristic_name} equals #{reference_value}"
+    expect_content "1 users in segment"
+    click_link "Show users"
+    expect_user_content(users[5])
 
-    unless skip_operators.include? 'less than'
-      select characteristic_name, :from => "segment_column[0]"
-      select "less than", :from => "segment_operator[0]"
-      fill_in "segment_value[0]", :with => reference_value
-      click_button "Find segment"
+    select characteristic_name, :from => "segment_column[0]"
+    select "does not equal", :from => "segment_operator[0]"
+    fill_in "segment_value[0]", :with => reference_value
+    click_button "Find segment"
 
-      expect_content "Segmenting on: #{characteristic_name} is less than #{reference_value}"
-      expect_content "5 users in segment"
-      click_link "Show users"
-      (0..4).to_a.each {|i| expect_user_content(users[i])}
-    end
+    expect_content "Segmenting on: #{characteristic_name} does not equal #{reference_value}"
+    expect_content "9 users in segment"
+    click_link "Show users"
+    ((0..4).to_a + (6..9).to_a).each {|i| expect_user_content(users[i])}
+  end
 
-    unless skip_operators.include? 'greater than or equal to'
-      select characteristic_name, :from => "segment_column[0]"
-      select "greater than or equal to", :from => "segment_operator[0]"
-      fill_in "segment_value[0]", :with => reference_value
-      click_button "Find segment"
+  def expect_all_continuous_operators_to_work(characteristic_name, reference_value, users)
+    visit admin_demo_segmentation_path(@demo)
 
-      expect_content "Segmenting on: #{characteristic_name} is greater than or equal to #{reference_value}"
-      expect_content "5 users in segment"
-      click_link "Show users"
-      (5..9).to_a.each {|i| expect_user_content(users[i])}
-    end
+    select characteristic_name, :from => "segment_column[0]"
+    select "greater than", :from => "segment_operator[0]"
+    fill_in "segment_value[0]", :with => reference_value
+    click_button "Find segment"
 
-    unless skip_operators.include? 'less than or equal to'
-      select characteristic_name, :from => "segment_column[0]"
-      select "less than or equal to", :from => "segment_operator[0]"
-      fill_in "segment_value[0]", :with => reference_value
-      click_button "Find segment"
+    expect_content "Segmenting on: #{characteristic_name} is greater than #{reference_value}"
+    expect_content "4 users in segment"
+    click_link "Show users"
+    (6..9).to_a.each {|i| expect_user_content(users[i])}
 
-      expect_content "Segmenting on: #{characteristic_name} is less than or equal to #{reference_value}"
-      expect_content "6 users in segment"
-      click_link "Show users"
-      (0..5).to_a.each {|i| expect_user_content(users[i])}
-    end
+    select characteristic_name, :from => "segment_column[0]"
+    select "less than", :from => "segment_operator[0]"
+    fill_in "segment_value[0]", :with => reference_value
+    click_button "Find segment"
+
+    expect_content "Segmenting on: #{characteristic_name} is less than #{reference_value}"
+    expect_content "5 users in segment"
+    click_link "Show users"
+    (0..4).to_a.each {|i| expect_user_content(users[i])}
+
+    select characteristic_name, :from => "segment_column[0]"
+    select "greater than or equal to", :from => "segment_operator[0]"
+    fill_in "segment_value[0]", :with => reference_value
+    click_button "Find segment"
+
+    expect_content "Segmenting on: #{characteristic_name} is greater than or equal to #{reference_value}"
+    expect_content "5 users in segment"
+    click_link "Show users"
+    (5..9).to_a.each {|i| expect_user_content(users[i])}
+
+    select characteristic_name, :from => "segment_column[0]"
+    select "less than or equal to", :from => "segment_operator[0]"
+    fill_in "segment_value[0]", :with => reference_value
+    click_button "Find segment"
+
+    expect_content "Segmenting on: #{characteristic_name} is less than or equal to #{reference_value}"
+    expect_content "6 users in segment"
+    click_link "Show users"
+    (0..5).to_a.each {|i| expect_user_content(users[i])}
   end
 
   def expect_user_content(user)
@@ -391,56 +394,59 @@ feature "Admin segmentation" do
     end
   end
 
-  context "segmenting on a continuous characteristic" do
-    context "of numeric type" do
-      it "should work with all operators", :js => true do
-        characteristic = FactoryGirl.create(:characteristic, :number, :name => "Foo count")
-        @demo = FactoryGirl.create(:demo)
-        users = []
-        0.upto(9) do |i|
-          users << FactoryGirl.create(:user, :demo => @demo, :characteristics => {characteristic.id => i})
-        end
-        crank_dj_clear
-
-        signin_as_admin
-
-        expect_all_continuous_operators_to_work "Foo count", 5, users
+  context "of numeric type" do
+    it "should work with all operators", :js => true do
+      characteristic = FactoryGirl.create(:characteristic, :number, :name => "Foo count")
+      @demo = FactoryGirl.create(:demo)
+      users = []
+      0.upto(9) do |i|
+        users << FactoryGirl.create(:user, :demo => @demo, :characteristics => {characteristic.id => i})
       end
+      crank_dj_clear
+
+      signin_as_admin
+
+      expect_all_operators_to_work "Foo count", 5, users
     end
 
-    context "of date type" do
-      it "should work with all operators", :js => true do
-        @demo = FactoryGirl.create(:demo)
-        reference_value = "May 10, 2010"
-        reference_date = Chronic.parse(reference_value).to_date
+    context "segmenting on a continuous characteristic" do
+      context "of date type" do
+        it "should work with all continuous operators, but not discrete one", :js => true do
+          @demo = FactoryGirl.create(:demo)
+          reference_value = "May 10, 2010"
+          reference_date = Chronic.parse(reference_value).to_date
 
-        characteristic = FactoryGirl.create(:characteristic, :date, :name => "Date of last decapitation")
-        users = []
-        (-5).upto(4) do |i|
-          users << FactoryGirl.create(:user, :demo => @demo, :characteristics => {characteristic.id => (reference_date + i.days).to_s})
+          characteristic = FactoryGirl.create(:characteristic, :date, :name => "Date of last decapitation")
+          users = []
+          (-5).upto(4) do |i|
+            users << FactoryGirl.create(:user, :demo => @demo, :characteristics => {characteristic.id => (reference_date + i.days).to_s})
+          end
+          crank_dj_clear
+
+          signin_as_admin
+
+          expect_all_continuous_operators_to_work "Date of last decapitation", reference_date, users
+          expect_discrete_operators_to_not_be_present "Date of last decapitation"
         end
-        crank_dj_clear
-
-        signin_as_admin
-        expect_all_continuous_operators_to_work "Date of last decapitation", reference_date, users
       end
-    end
 
-    context "of time type" do
-      it "should work with all operators", :js => true do
-        @demo = FactoryGirl.create(:demo)
-        reference_value = "May 10, 2010, 12:00 PM"
-        reference_time = Chronic.parse(reference_value)
+      context "of time type" do
+        it "should work with all continuous operators, but not discrete ones", :js => true do
+          @demo = FactoryGirl.create(:demo)
+          reference_value = "May 10, 2010, 12:00 PM"
+          reference_time = Chronic.parse(reference_value)
 
-        characteristic = FactoryGirl.create(:characteristic, :time, :name => "Lunchtime")
-        users = []
-        -5.upto(4) do |i|
-          users << FactoryGirl.create(:user, :demo => @demo, :characteristics => {characteristic.id => (reference_time + i.hours).to_s})
+          characteristic = FactoryGirl.create(:characteristic, :time, :name => "Lunchtime")
+          users = []
+          -5.upto(4) do |i|
+            users << FactoryGirl.create(:user, :demo => @demo, :characteristics => {characteristic.id => (reference_time + i.hours).to_s})
+          end
+          crank_dj_clear
+
+          signin_as_admin
+          expect_all_continuous_operators_to_work "Lunchtime", reference_time, users
+          expect_discrete_operators_to_not_be_present "Lunchtime"
         end
-        crank_dj_clear
-
-        signin_as_admin
-        expect_all_continuous_operators_to_work "Lunchtime", reference_time, users
       end
     end
   end
@@ -459,8 +465,6 @@ feature "Admin segmentation" do
 
     Location.all.each {|location| FactoryGirl.create(:user, location: location, demo: location.demo)}
     crank_dj_clear
-
-    location = Location.find_by_name('North Southerton')
 
     signin_as_admin
     visit admin_demo_segmentation_path(@demo)
@@ -497,7 +501,7 @@ feature "Admin segmentation" do
     (@demo.users - [expected_user]).each {|user| expect_user_content(user)}
   end
 
-  it "can segment on location when the location name has parenthesees", :js => true do
+  it "can segment on location when the location name has parentheses", :js => true do
     Location.delete_all
     Demo.delete_all
     @demo = FactoryGirl.create(:demo)
@@ -511,8 +515,6 @@ feature "Admin segmentation" do
 
     Location.all.each {|location| 3.times{FactoryGirl.create(:user, location: location, demo: location.demo)}}
     crank_dj_clear
-
-    location = Location.find_by_name('Puddingville (Site B)')
 
     signin_as_admin
     visit admin_demo_segmentation_path(@demo)
@@ -542,7 +544,7 @@ feature "Admin segmentation" do
       crank_dj_clear
 
       signin_as_admin
-      expect_all_continuous_operators_to_work field_name.capitalize, 55, users
+      expect_all_operators_to_work field_name.capitalize, 55, users
     end
   end
 
@@ -555,10 +557,10 @@ feature "Admin segmentation" do
     crank_dj_clear
 
     signin_as_admin
-    expect_all_continuous_operators_to_work "Points", 5, users
+    expect_all_operators_to_work "Points", 5, users
   end
 
-  it 'can segment on date of birth, and strict equality operators are not present', :js => true do
+  it 'can segment on date of birth, and discrete operators should not be present', :js => true do
     @demo = FactoryGirl.create(:demo)
 
     reference_value = "May 10, 2010"
@@ -570,21 +572,13 @@ feature "Admin segmentation" do
     end
     crank_dj_clear
 
-    skip_operators = ['equals', 'does not equal']
-
     signin_as_admin
-    expect_all_continuous_operators_to_work "Date of birth", reference_date, users, skip_operators
 
-    skip_operators.each do |operator|
-      # Selecting 'operator' will be attempted; selecting other skip-operators will not.
-      other_skip_operators = skip_operators - [operator]
-      expect {
-        expect_all_continuous_operators_to_work('Date of birth', reference_value, users, other_skip_operators)
-      }.to raise_error(Capybara::ElementNotFound, /no option with text '#{operator}' in select box/)
-    end
+    expect_all_continuous_operators_to_work "Date of birth", reference_date, users
+    expect_discrete_operators_to_not_be_present "Date of birth"
   end
 
-  it 'can segment on accepted_invitation_at', :js => true do
+  it 'can segment on accepted_invitation_at, and discrete operators should not be present', :js => true do
     @demo = FactoryGirl.create(:demo)
 
     reference_value = "May 10, 2010, 9:00 AM"
@@ -597,7 +591,9 @@ feature "Admin segmentation" do
     crank_dj_clear
 
     signin_as_admin
+
     expect_all_continuous_operators_to_work "Accepted invitation at", reference_time, users
+    expect_discrete_operators_to_not_be_present "Accepted invitation at"
   end
 
   it 'can segment on gender', :js => true do
@@ -844,5 +840,50 @@ feature "Admin segmentation" do
     expect_content 'Segment looked up less than a minute ago'
 
     Timecop.return
+  end
+
+  context 'blank search fields' do
+    SEGMENTATION_ERROR_MESSAGE = 'One or more of your characteristic fields is blank'
+
+    let(:demo) { FactoryGirl.create(:demo) }
+
+    before(:each) do
+      signin_as_admin
+      visit admin_demo_segmentation_path(demo)
+    end
+
+    it 'detects and reports blank value', :js => true  do
+      select 'Gender', :from => "segment_column[0]"
+
+      click_link "Segment on more characteristics"
+      select 'Points', :from => "segment_column[1]"
+
+      click_link "Segment on more characteristics"
+      select 'Has phone number', :from => "segment_column[2]"
+
+      click_button 'Find segment'
+      expect_content SEGMENTATION_ERROR_MESSAGE
+
+      fill_in "segment_value[1]", :with => 3
+
+      click_button 'Find segment'
+      expect_no_content SEGMENTATION_ERROR_MESSAGE
+    end
+
+    it 'detects and reports blank characteristic (only when multiple segment criteria)', :js => true do
+      click_link "Segment on more characteristics"  # Add another blank segment criterion
+
+      click_button 'Find segment'
+      expect_content SEGMENTATION_ERROR_MESSAGE
+
+      # First one will now be okay, but second blank one still remains
+      select 'Gender', :from => "segment_column[0]"
+      click_button 'Find segment'
+      expect_content SEGMENTATION_ERROR_MESSAGE
+
+      click_link 'remove_this_characteristic_1'  # Remove the blank one which is causing the problem
+      click_button 'Find segment'
+      expect_no_content SEGMENTATION_ERROR_MESSAGE
+    end
   end
 end

@@ -17,6 +17,6 @@ class Characteristic::DateType < Characteristic::BaseType
   end
 
   def self.allowed_operators
-    User::SegmentationOperator::ALL_OPERATORS
+    User::SegmentationOperator::CONTINUOUS_OPERATORS
   end
 end

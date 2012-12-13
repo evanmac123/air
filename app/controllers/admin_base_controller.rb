@@ -47,7 +47,12 @@ class AdminBaseController < ApplicationController
 
   def attempt_segmentation
     if params[:segment_column].present?
-      @segmentation_result = current_user.set_segmentation_results!(params[:segment_column], params[:segment_operator], params[:segment_value], @demo)
+      if (params[:segment_column].length > 1 and params[:segment_column].values.include?("")) or
+         (params[:segment_value] and params[:segment_value].values.include?(""))
+        flash.now[:failure] = "One or more of your characteristic fields is blank."
+      else
+        @segmentation_result = current_user.set_segmentation_results!(params[:segment_column], params[:segment_operator], params[:segment_value], @demo)
+      end
     end
   end
 
