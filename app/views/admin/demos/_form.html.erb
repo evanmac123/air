@@ -33,16 +33,16 @@
     <%= form.input :example_tutorial, :label => "Custom example for slide 1 of tutorial" %>
     <%= form.input :example_tooltip, :label => "Custom example for playbox tooltip" %>
 
-    <%= form.input :uses_gold_coins, :label => "Use gold coins" %>
-    <%- gold_coin_style = @demo.uses_gold_coins ? '' : "display: none" %>
-    <%= form.inputs :name => "Gold coin details", :style => gold_coin_style, :id => 'gold-coin-details' do %>
-      <%= form.input :gold_coin_threshold, :label => "Points for gold coin award"  %>
-      <%= form.input :minimum_gold_coin_award, :label => "Minimum number of gold coins awarded" %>
-      <%= form.input :maximum_gold_coin_award, :label => "Maximum number of gold coins awarded" %>
+    <%= form.input :uses_tickets, :label => "Use tickets" %>
+    <%- ticket_style = @demo.uses_tickets ? '' : "display: none" %>
+    <%= form.inputs :name => "Ticket details", :style => ticket_style, :id => 'gold-coin-details' do %>
+      <%= form.input :ticket_threshold, :label => "Points for ticket award"  %>
+      <%= form.input :minimum_ticket_award, :label => "Minimum number of tickets awarded" %>
+      <%= form.input :maximum_ticket_award, :label => "Maximum number of tickets awarded" %>
     <% end %>
     <%= content_for :javascript do %>
       <%= javascript_tag do %>
-        $('input#demo_uses_gold_coins').change(function(e) {$('#gold-coin-details').toggle()});
+        $('input#demo_uses_tickets').change(function(e) {$('#gold-coin-details').toggle()});
       <% end %>
     <% end %>
 

@@ -59,11 +59,11 @@ FactoryGirl.define do
       sequence(:email) {|n| "demo_#{n}@example.com"}
     end
 
-    trait :with_gold_coins do
-      uses_gold_coins true
-      gold_coin_threshold 20
-      minimum_gold_coin_award 1
-      maximum_gold_coin_award 3
+    trait :with_tickets do
+      uses_tickets true
+      ticket_threshold 20
+      minimum_ticket_award 1
+      maximum_ticket_award 3
     end
 
     trait :with_phone_number do

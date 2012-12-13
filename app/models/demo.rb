@@ -28,8 +28,8 @@ class Demo < ActiveRecord::Base
   validates_uniqueness_of :name
   validates_presence_of :name
 
-  validate :gold_coin_fields_all_set, :if => :uses_gold_coins
-  validate :gold_coin_maximum_award_gte_minimum, :if => :uses_gold_coins
+  validate :ticket_fields_all_set, :if => :uses_tickets
+  validate :ticket_maximum_award_gte_minimum, :if => :uses_tickets
 
   after_save :schedule_resegment_on_internal_domains
 
@@ -271,18 +271,18 @@ class Demo < ActiveRecord::Base
     "#{name} has #{total_friendships} initiated friendships, #{number_accepted} of which have been accepted (#{percent}%)"
   end
   
-  def gold_coin_spread
-    return nil unless self.uses_gold_coins
+  def ticket_spread
+    return nil unless self.uses_tickets
 
-    self.maximum_gold_coin_award - self.minimum_gold_coin_award
+    self.maximum_ticket_award - self.minimum_ticket_award
   end
 
-  def flush_all_user_gold_coins
-    users.with_some_gold_coins.each{|user| user.update_attributes(gold_coins: 0)}
+  def flush_all_user_tickets
+    users.with_some_tickets.each{|user| user.update_attributes(tickets: 0)}
   end
 
-  def find_raffle_winner(eligible_user_ids, coin_maximum)
-    eligibles = users.with_some_gold_coins.order("gold_coins ASC")
+  def find_raffle_winner(eligible_user_ids, ticket_maximum)
+    eligibles = users.with_some_tickets.order("tickets ASC")
 
     if eligible_user_ids
       eligibles = eligibles.where(:id => eligible_user_ids)
@@ -292,10 +292,10 @@ class Demo < ActiveRecord::Base
 
     chances = []
     eligibles.each do |user|
-      if coin_maximum
-        [user.gold_coins, coin_maximum].min.times {chances << user}
+      if ticket_maximum
+        [user.tickets, ticket_maximum].min.times {chances << user}
       else
-        user.gold_coins.times {chances << user}
+        user.tickets.times {chances << user}
       end
     end
 
@@ -343,19 +343,19 @@ class Demo < ActiveRecord::Base
     end
   end
  
-  def gold_coin_fields_all_set
-    [:gold_coin_threshold, :minimum_gold_coin_award, :maximum_gold_coin_award].each do |field_name|
+  def ticket_fields_all_set
+    [:ticket_threshold, :minimum_ticket_award, :maximum_ticket_award].each do |field_name|
       unless self[field_name].present?
         self.errors.add(field_name, "must be set if you want to use gold coins on this demo")
       end
     end
   end
 
-  def gold_coin_maximum_award_gte_minimum
-    return unless self.maximum_gold_coin_award.present? && self.minimum_gold_coin_award.present?
+  def ticket_maximum_award_gte_minimum
+    return unless self.maximum_ticket_award.present? && self.minimum_ticket_award.present?
 
-    if self.maximum_gold_coin_award < self.minimum_gold_coin_award
-      self.errors.add(:maximum_gold_coin_award, "must be greater than or equal to the minimum gold coin award")
+    if self.maximum_ticket_award < self.minimum_ticket_award
+      self.errors.add(:maximum_ticket_award, "must be greater than or equal to the minimum gold coin award")
     end
   end
 

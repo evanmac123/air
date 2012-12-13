@@ -150,8 +150,8 @@ module SteakHelperMethods
     end
   end
 
-  def expect_gold_coin_header(expected_coin_count)
-    expect_content (expected_coin_count == 1 ? "1 gold coin" : "#{expected_coin_count} gold coins")
+  def expect_ticket_header(expected_ticket_count)
+    expect_content (expected_ticket_count == 1 ? "1 ticket" : "#{expected_ticket_count} tickets")
   end
 
   def expect_link(text, url)

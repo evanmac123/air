@@ -139,54 +139,53 @@ describe Demo, "#tutorial_success" do
   end
 end
 
-describe Demo, "gold coin fields" do
-  context "when uses_gold_coins is set" do
+describe Demo, "ticket fields" do
+  context "when uses_tickets is set" do
     before(:each) do
-      @demo = FactoryGirl.build_stubbed(:demo, uses_gold_coins: true)
-      @demo.gold_coin_threshold = nil
+      @demo = FactoryGirl.build_stubbed(:demo, uses_tickets: true)
     end
 
     it "should validate that the other gold coin fields are set" do
       @demo.should_not be_valid
-      [:gold_coin_threshold, :minimum_gold_coin_award, :maximum_gold_coin_award].each {|field_name| @demo.errors.keys.should include(field_name)}
       @demo.errors.keys.should have(3).keys
+      [:ticket_threshold, :minimum_ticket_award, :maximum_ticket_award].each {|field_name| @demo.errors.keys.should include(field_name)}
 
-      @demo.gold_coin_threshold = 20
+      @demo.ticket_threshold = 20
       @demo.should_not be_valid
-      [:minimum_gold_coin_award, :maximum_gold_coin_award].each {|field_name| @demo.errors.keys.should include(field_name)}
       @demo.errors.keys.should have(2).keys
+      [:minimum_ticket_award, :maximum_ticket_award].each {|field_name| @demo.errors.keys.should include(field_name)}
 
-      @demo.minimum_gold_coin_award = 2
+      @demo.minimum_ticket_award = 2
       @demo.should_not be_valid
-      [:maximum_gold_coin_award].each {|field_name| @demo.errors.keys.should include(field_name)}
       @demo.errors.keys.should have(1).key
+      [:maximum_ticket_award].each {|field_name| @demo.errors.keys.should include(field_name)}
 
-      @demo.maximum_gold_coin_award = 5
+      @demo.maximum_ticket_award = 5
       @demo.should be_valid
     end
 
     it "should validate that the maximum coin award is greater than or equal to the minimum" do
-      @demo.gold_coin_threshold = 30
+      @demo.ticket_threshold = 30
 
-      @demo.minimum_gold_coin_award = 10
-      @demo.maximum_gold_coin_award = 9
+      @demo.minimum_ticket_award = 10
+      @demo.maximum_ticket_award = 9
       
       @demo.should_not be_valid
 
-      @demo.errors[:maximum_gold_coin_award].should include("must be greater than or equal to the minimum gold coin award")
+      @demo.errors[:maximum_ticket_award].should include("must be greater than or equal to the minimum gold coin award")
 
-      @demo.maximum_gold_coin_award = 10
+      @demo.maximum_ticket_award = 10
       @demo.should be_valid
 
-      @demo.maximum_gold_coin_award = 11
+      @demo.maximum_ticket_award = 11
       @demo.should be_valid
     end
   end
 
-  context "when uses_gold_coins is set" do
+  context "when uses_tickets is set" do
     before(:each) do
       @demo = FactoryGirl.build_stubbed(:demo)
-      @demo.uses_gold_coins.should_not be_true
+      @demo.uses_tickets.should_not be_true
     end
 
     it "should not care if the other gold coin fields are set" do
@@ -194,8 +193,8 @@ describe Demo, "gold coin fields" do
     end
 
     it "should not care if the maximum coin award is greater than or equal to the minimum" do
-      @demo.minimum_gold_coin_award = 10
-      @demo.maximum_gold_coin_award = 5
+      @demo.minimum_ticket_award = 10
+      @demo.maximum_ticket_award = 5
       @demo.should be_valid
     end
   end

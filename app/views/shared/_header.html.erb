@@ -2,7 +2,7 @@
   <%= render 'shared/nav' %>
   <div class='masthead'>
     <%= render 'shared/masthead' %>
-    <%= render 'shared/play_box' %>
+    <%= render 'shared/play_box' if show_play_box %>
   </div>
-  <% if current_user.demo.uses_gold_coins %><%= pluralize current_user.gold_coins, 'gold coin' %><% end %>
+  <% if current_user.demo.uses_tickets %><%= pluralize current_user.tickets, 'ticket' %><% end %>
 </div>

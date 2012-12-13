@@ -104,7 +104,9 @@ class User < ActiveRecord::Base
   end
 
   before_update do
-    add_gold_coins
+    schedule_update_demo_alltime_rankings if changed.include?('points')
+    schedule_update_demo_recent_average_rankings if (!batch_updating_recent_averages && changed.include?('recent_average_points'))
+    add_tickets
   end
 
   before_save do
@@ -1094,21 +1096,21 @@ class User < ActiveRecord::Base
     Act.update_all({:privacy_level => self.privacy_level}, {:user_id => self.id}) if self.changed.include?('privacy_level')
   end
 
-  def add_gold_coins
-    return unless self.demo.uses_gold_coins && self.changed.include?('points')
+  def add_tickets
+    return unless self.demo.uses_tickets && self.changed.include?('points')
 
     old_points, new_points = self.changes['points']
 
-    old_point_tranche = old_points / self.demo.gold_coin_threshold
-    new_point_tranche = new_points / self.demo.gold_coin_threshold
+    old_point_tranche = old_points / self.demo.ticket_threshold
+    new_point_tranche = new_points / self.demo.ticket_threshold
 
     return if old_point_tranche == new_point_tranche
 
-    if self.demo.minimum_gold_coin_award == self.demo.maximum_gold_coin_award
-      self.gold_coins += self.demo.minimum_gold_coin_award
+    if self.demo.minimum_ticket_award == self.demo.maximum_ticket_award
+      self.tickets += self.demo.minimum_ticket_award
     else
-      coins_over_minimum = rand(self.demo.gold_coin_spread + 1)
-      self.gold_coins += (self.demo.minimum_gold_coin_award + coins_over_minimum)
+      coins_over_minimum = rand(self.demo.ticket_spread + 1)
+      self.tickets += (self.demo.minimum_ticket_award + coins_over_minimum)
     end
   end
 

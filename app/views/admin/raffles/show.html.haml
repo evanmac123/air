@@ -3,10 +3,10 @@
 
 = form_tag admin_demo_raffles_path(@demo), :id => 'pick-a-winner' do
   %p
-    = label_tag :coin_maximum, "Only count coins up to:"
-    = text_field_tag :coin_maximum
+    = label_tag :ticket_maximum, "Only count tickets up to:"
+    = text_field_tag :ticket_maximum
     %br
-    (leave blank to count all coins with no limit)
+    (leave blank to count all tickets with no limit)
 
   = submit_tag "Pick a winner"
   = image_tag "spinner.gif", :style => "display: none", :id => "winner-spinner"
@@ -14,7 +14,7 @@
 #winner-target
 
 = form_tag admin_demo_gold_coin_reset_path(@demo) do
-  = submit_tag "Clear all gold coins", :confirm => "Really clear out gold coins for all users in this demo?"
+  = submit_tag "Clear all tickets", :confirm => "Really clear out tickets for all users in this demo?"
 
 -content_for :javascript do
   :javascript

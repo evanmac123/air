@@ -1,8 +1,0 @@
-<div class="header">
-  <%= render 'shared/nav' %>
-  <div class='masthead'>
-    <%= render 'shared/masthead' %>
-    <% # 'we don't need the play box on the admin dashboard' render 'shared/play_box' %>
-  </div>
-  <% if current_user.demo.uses_gold_coins %><%= pluralize current_user.gold_coins, 'gold coin' %><% end %>
-</div>

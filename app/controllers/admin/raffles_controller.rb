@@ -6,8 +6,8 @@ class Admin::RafflesController < AdminBaseController
   end
 
   def create
-    coin_maximum = params[:coin_maximum].present? ? params[:coin_maximum].to_i : nil
-    @winner = @demo.find_raffle_winner(current_user.segmentation_results.try(:found_user_ids), coin_maximum)
+    ticket_maximum = params[:ticket_maximum].present? ? params[:ticket_maximum].to_i : nil
+    @winner = @demo.find_raffle_winner(current_user.segmentation_results.try(:found_user_ids), ticket_maximum)
     render :layout => false
   end
 end

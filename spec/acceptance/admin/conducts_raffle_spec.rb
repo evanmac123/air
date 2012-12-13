@@ -6,18 +6,18 @@ feature 'Admin conducts raffle' do
   end
 
   def expect_no_winner_text
-    expect_content "Nobody has any coins, so nobody is a winner. Or everybody is."
+    expect_content "Nobody has any tickets, so nobody is a winner. Or everybody is."
   end
 
   before(:each) do
-    @demo = FactoryGirl.create(:demo, :with_gold_coins)
+    @demo = FactoryGirl.create(:demo, :with_tickets)
   end
 
   context "when no segment is selected" do
-    context "and no users have coins" do
+    context "and no users have tickets" do
       it "should say so", :js => true do
         5.times{ FactoryGirl.create(:user, demo: @demo)}
-        @demo.users.map(&:gold_coins).sum.should be_zero
+        @demo.users.map(&:tickets).sum.should be_zero
 
         signin_as_admin
         visit admin_demo_raffles_path(@demo)
@@ -28,15 +28,15 @@ feature 'Admin conducts raffle' do
       end
     end
 
-    context "and some users have coins" do
+    context "and some users have tickets" do
       before(:each) do
         @users = []
-        5.times{|i| @users << FactoryGirl.create(:user, demo: @demo, name: "Dude #{i}", gold_coins: i * 3)}
-        @demo.users.map(&:gold_coins).sum.should == 30
+        5.times{|i| @users << FactoryGirl.create(:user, demo: @demo, name: "Dude #{i}", tickets: i * 3)}
+        @demo.users.map(&:tickets).sum.should == 30
       end
 
-      context "and no maximum coin amount is specified" do
-        it "should select a user pseudorandomly proportional to how many coins they have", :js => true do
+      context "and no maximum ticket amount is specified" do
+        it "should select a user pseudorandomly proportional to how many tickets they have", :js => true do
           Demo.any_instance.stubs(:rand).with(30).returns(0, 2, 3, 8, 9, 17, 18, 29)
           signin_as_admin
           visit admin_demo_raffles_path(@demo)
@@ -51,14 +51,14 @@ feature 'Admin conducts raffle' do
       end
 
       context "and a maximum count amount is specified" do
-        it "should select a user pseudorandomly proportional to how many coins they have, subject to that maximum", :js => true do
+        it "should select a user pseudorandomly proportional to how many tickets they have, subject to that maximum", :js => true do
           Demo.any_instance.stubs(:rand).with(18).returns(0, 2, 3, 7, 8, 12, 13, 17)
           signin_as_admin
           visit admin_demo_raffles_path(@demo)
 
           1.upto(4) do |i|
             2.times do
-              fill_in "Only count coins up to:", :with => "5"
+              fill_in "Only count tickets up to:", :with => "5"
               click_button "Pick a winner"
               expect_winner_line @users[i]
             end
@@ -93,13 +93,13 @@ feature 'Admin conducts raffle' do
       characteristic_hash = {@characteristic.id => 'medium'}
       5.times { @expected_segment_users << FactoryGirl.create(:user, :claimed, characteristics: characteristic_hash, location: @locations[0], demo: @demo) }
 
-      4.times { FactoryGirl.create(:user, :claimed, characteristics: characteristic_hash, gold_coins: 15, demo: @demo) }
-      3.times { FactoryGirl.create(:user, :claimed, location: @locations[0], gold_coins: 15, demo: @demo) }
+      4.times { FactoryGirl.create(:user, :claimed, characteristics: characteristic_hash, tickets: 15, demo: @demo) }
+      3.times { FactoryGirl.create(:user, :claimed, location: @locations[0], tickets: 15, demo: @demo) }
 
       crank_dj_clear
     end
 
-    context "and noUsers in that segment have coins" do
+    context "and no users in that segment have tickets" do
       it "should say so", :js => true do
         signin_as_admin
         visit admin_demo_raffles_path(@demo)
@@ -110,16 +110,16 @@ feature 'Admin conducts raffle' do
       end
     end
 
-    context "and someUsers in that segment have coins" do
+    context "and some users in that segment have tickets" do
       before(:each) do
         @expected_segment_users.each_with_index do |user, i|
-          user.update_attributes(gold_coins: i * 3)
+          user.update_attributes(tickets: i * 3)
         end
 
         crank_dj_clear
       end
 
-      it "should select a user pseudorandomly proportional to how many coins they have", :js => true do
+      it "should select a user pseudorandomly proportional to how many tickets they have", :js => true do
         Demo.any_instance.stubs(:rand).with(30).returns(0, 2, 3, 8, 9, 17, 18, 29)
         signin_as_admin
         visit admin_demo_raffles_path(@demo)

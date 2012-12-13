@@ -236,9 +236,9 @@
       Game will have default tooltip example
 
   %p 
-    = "Game will#{' not' unless @demo.uses_gold_coins} use gold coins"
-    -if @demo.uses_gold_coins
-      %p= "Gold coins are awarded every #{@demo.gold_coin_threshold} points (#{@demo.minimum_gold_coin_award} to #{@demo.maximum_gold_coin_award} coins awarded at a time)"
+    = "Game will#{' not' unless @demo.uses_tickets} use tickets"
+    -if @demo.uses_tickets
+      %p= "Tickets are awarded every #{@demo.ticket_threshold} points (#{@demo.minimum_ticket_award} to #{@demo.maximum_ticket_award} tickets awarded at a time)"
 
   %p
     - unless @demo.internal_domains.empty?

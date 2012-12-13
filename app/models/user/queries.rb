@@ -1,6 +1,6 @@
 module User::Queries
-  def with_some_gold_coins
-    where("gold_coins > 0")
+  def with_some_tickets
+    where("tickets > 0")
   end
 
   def in_canonical_ranking_order

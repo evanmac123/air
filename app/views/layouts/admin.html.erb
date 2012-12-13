@@ -10,8 +10,8 @@
 </head>
 <body class="<%= body_class %>">
 
-  <%= render :partial => 'shared/admin_header' %>
-  <%= render :partial => 'shared/flashes' %>
+  <%= render 'shared/header', :show_play_box => false %>
+  <%= render 'shared/flashes' %>
   <div class="content">
     <%= yield %>
   </div>
