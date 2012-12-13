@@ -7,8 +7,8 @@
       </div>
     </div>
     <div class="welcome_text">
-      <p>Welcome back,</p>
-      <p><%= link_to current_user.first_name, current_user %></p>
+      <p>Hi, <%= link_to current_user.first_name, current_user %></p>
+      <p>Total points: <%= number_with_delimiter current_user.points %></p>
     </div>
   </div>
   <ul class="navigation">
