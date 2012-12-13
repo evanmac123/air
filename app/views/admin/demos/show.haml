@@ -238,7 +238,7 @@
   %p 
     = "Game will#{' not' unless @demo.uses_tickets} use tickets"
     -if @demo.uses_tickets
-      %p= "Tickets are awarded every #{@demo.ticket_threshold} points (#{@demo.minimum_ticket_award} to #{@demo.maximum_ticket_award} tickets awarded at a time)"
+      %p= "Tickets are awarded every #{@demo.ticket_threshold} points"
 
   %p
     - unless @demo.internal_domains.empty?

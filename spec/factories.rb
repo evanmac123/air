@@ -61,9 +61,6 @@ FactoryGirl.define do
 
     trait :with_tickets do
       uses_tickets true
-      ticket_threshold 20
-      minimum_ticket_award 1
-      maximum_ticket_award 3
     end
 
     trait :with_phone_number do

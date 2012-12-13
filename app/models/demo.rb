@@ -29,7 +29,6 @@ class Demo < ActiveRecord::Base
   validates_presence_of :name
 
   validate :ticket_fields_all_set, :if => :uses_tickets
-  validate :ticket_maximum_award_gte_minimum, :if => :uses_tickets
 
   after_save :schedule_resegment_on_internal_domains
 
@@ -344,18 +343,8 @@ class Demo < ActiveRecord::Base
   end
  
   def ticket_fields_all_set
-    [:ticket_threshold, :minimum_ticket_award, :maximum_ticket_award].each do |field_name|
-      unless self[field_name].present?
-        self.errors.add(field_name, "must be set if you want to use gold coins on this demo")
-      end
-    end
-  end
-
-  def ticket_maximum_award_gte_minimum
-    return unless self.maximum_ticket_award.present? && self.minimum_ticket_award.present?
-
-    if self.maximum_ticket_award < self.minimum_ticket_award
-      self.errors.add(:maximum_ticket_award, "must be greater than or equal to the minimum gold coin award")
+    unless ticket_threshold.present?
+      self.errors.add(:ticket_threshold, "must be set if you want to use gold coins on this demo")
     end
   end
 

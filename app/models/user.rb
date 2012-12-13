@@ -1104,13 +1104,8 @@ class User < ActiveRecord::Base
     old_point_tranche = old_points / self.demo.ticket_threshold
     new_point_tranche = new_points / self.demo.ticket_threshold
 
-    return if old_point_tranche == new_point_tranche
-
-    if self.demo.minimum_ticket_award == self.demo.maximum_ticket_award
-      self.tickets += self.demo.minimum_ticket_award
-    else
-      coins_over_minimum = rand(self.demo.ticket_spread + 1)
-      self.tickets += (self.demo.minimum_ticket_award + coins_over_minimum)
+    if new_point_tranche > old_point_tranche
+      self.tickets += 1
     end
   end
 

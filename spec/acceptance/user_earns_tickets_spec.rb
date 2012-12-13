@@ -19,59 +19,20 @@ feature 'User earns tickets' do
     expect_ticket_header 0
   end
 
-  context "in a demo with a fixed gold coin award" do
-    before(:each) do
-      @demo.minimum_ticket_award = @demo.maximum_ticket_award = 3
-      @demo.save!
-    end
+  it "should award a ticket every time the user passes the threshold" do
+    act_via_play_box 'rule1'   # 9 points
+    expect_ticket_header 0
 
-    it "should award that fixed amount every time the user passes the threshold" do
-      act_via_play_box 'rule1'   # 9 points
-      expect_ticket_header 0
+    act_via_play_box 'rule2'   # 10 points
+    expect_ticket_header 1
 
-      act_via_play_box 'rule2'   # 10 points
-      expect_ticket_header 3
+    act_via_play_box 'rule1'   # 19 points
+    expect_ticket_header 1
 
-      act_via_play_box 'rule1'   # 19 points
-      expect_ticket_header 3
+    act_via_play_box 'rule3'   # 21 points
+    expect_ticket_header 2
 
-      act_via_play_box 'rule3'   # 21 points
-      expect_ticket_header 6
-
-      act_via_play_box 'rule2'   # 22 points
-      expect_ticket_header 6
-    end
-  end
-
-  context "in a demo with separate gold coin awards" do
-    before(:each) do
-      @demo.minimum_ticket_award = 1
-      @demo.maximum_ticket_award = 3
-      @demo.save!
-    end
-
-    it "should award something in that range" do
-      User.any_instance.stubs(:rand).with(@demo.ticket_spread + 1).returns(0,1,2)
-      act_via_play_box 'rule1'   # 9 points
-      expect_ticket_header 0
-
-      act_via_play_box 'rule2'   # 10 points
-      expect_ticket_header 1
-
-      act_via_play_box 'rule1'   # 19 points
-      expect_ticket_header 1
-
-      act_via_play_box 'rule3'   # 21 points
-      expect_ticket_header 3
-
-      act_via_play_box 'rule2'   # 22 points
-      expect_ticket_header 3
-
-      act_via_play_box 'rule1'   # 31 points
-      expect_ticket_header 6
-
-      act_via_play_box 'rule2'   # 32 points
-      expect_ticket_header 6
-    end
+    act_via_play_box 'rule2'   # 22 points
+    expect_ticket_header 2
   end
 end

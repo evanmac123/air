@@ -12,21 +12,15 @@ feature 'Admin sets up tickets for demo', :js => true do
 
     # These guys are hidden and revealed with some JS
     expect_no_content "Points for ticket award"
-    expect_no_content "Minimum number of tickets awarded"
-    expect_no_content "Maximum number of tickets awarded"
     check "Use tickets"
     expect_content "Points for ticket award"
-    expect_content "Minimum number of tickets awarded"
-    expect_content "Maximum number of tickets awarded"
 
     fill_in "Points for ticket award", :with => '10'
-    fill_in "Minimum number of tickets awarded", :with => 5
-    fill_in "Maximum number of tickets awarded", :with => 7
 
     click_button "Update Game"
 
     expect_content "Game will use tickets"
-    expect_content "Tickets are awarded every 10 points (5 to 7 tickets awarded at a time)"
+    expect_content "Tickets are awarded every 10 points"
   end
 
   scenario "should show tickets in the header" do

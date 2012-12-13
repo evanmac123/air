@@ -37,8 +37,6 @@
     <%- ticket_style = @demo.uses_tickets ? '' : "display: none" %>
     <%= form.inputs :name => "Ticket details", :style => ticket_style, :id => 'gold-coin-details' do %>
       <%= form.input :ticket_threshold, :label => "Points for ticket award"  %>
-      <%= form.input :minimum_ticket_award, :label => "Minimum number of tickets awarded" %>
-      <%= form.input :maximum_ticket_award, :label => "Maximum number of tickets awarded" %>
     <% end %>
     <%= content_for :javascript do %>
       <%= javascript_tag do %>

@@ -146,56 +146,11 @@ describe Demo, "ticket fields" do
       @demo.ticket_threshold = nil
     end
 
-    it "should validate that the other gold coin fields are set" do
+    it "should validate that ticket_threshold is set" do
       @demo.should_not be_valid
-      @demo.errors.keys.should have(3).keys
-      [:ticket_threshold, :minimum_ticket_award, :maximum_ticket_award].each {|field_name| @demo.errors.keys.should include(field_name)}
+      @demo.errors.keys.should include(:ticket_threshold)
 
-      @demo.ticket_threshold = 20
-      @demo.should_not be_valid
-      @demo.errors.keys.should have(2).keys
-      [:minimum_ticket_award, :maximum_ticket_award].each {|field_name| @demo.errors.keys.should include(field_name)}
-
-      @demo.minimum_ticket_award = 2
-      @demo.should_not be_valid
-      @demo.errors.keys.should have(1).key
-      [:maximum_ticket_award].each {|field_name| @demo.errors.keys.should include(field_name)}
-
-      @demo.maximum_ticket_award = 5
-      @demo.should be_valid
-    end
-
-    it "should validate that the maximum coin award is greater than or equal to the minimum" do
-      @demo.ticket_threshold = 30
-
-      @demo.minimum_ticket_award = 10
-      @demo.maximum_ticket_award = 9
-      
-      @demo.should_not be_valid
-
-      @demo.errors[:maximum_ticket_award].should include("must be greater than or equal to the minimum gold coin award")
-
-      @demo.maximum_ticket_award = 10
-      @demo.should be_valid
-
-      @demo.maximum_ticket_award = 11
-      @demo.should be_valid
-    end
-  end
-
-  context "when uses_tickets is set" do
-    before(:each) do
-      @demo = FactoryGirl.build_stubbed(:demo)
-      @demo.uses_tickets.should_not be_true
-    end
-
-    it "should not care if the other gold coin fields are set" do
-      @demo.should be_valid
-    end
-
-    it "should not care if the maximum coin award is greater than or equal to the minimum" do
-      @demo.minimum_ticket_award = 10
-      @demo.maximum_ticket_award = 5
+      @demo.ticket_threshold = 5
       @demo.should be_valid
     end
   end
