@@ -12,7 +12,7 @@ form {
         color:darken($gray, 20%);
         font-family:$sans;
         font-size:1.5em;
-        font-weight:500;
+        font-weight:600;
         padding:.5em 1em;
         width:100%;
     }
@@ -142,8 +142,9 @@ form {
                 //margin-left:1em;
             }
             .explanation {
-                border-bottom:$border-dark;
-                border-top:$border-light;
+                //border-bottom:$border-dark;
+                //border-top:$border-light;
+                border-bottom:1px lighten($light-gray, 4%) solid;
                 padding:.75em 0;
                 &:nth-of-type(1) {border-top:0;}
             }
@@ -155,7 +156,7 @@ form {
                 color:lighten($text-color, 50%);
                 font-family:$sans;
                 font-size:1.20em;
-                font-weight:500;
+                font-weight:600;
                 span {
                     background:url('client_admin/circleL-bg.png') center center no-repeat transparent;
                     color:$text-color;
