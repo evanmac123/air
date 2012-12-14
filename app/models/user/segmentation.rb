@@ -97,7 +97,7 @@ class User
 
     def create_segmentation_explanation(columns, operators, values)
       unless values.present?
-        return 'No segmentation, choosing all users'
+        return ['No segmentation, choosing all users']
       end
 
       columns.map do |index, characteristic_id|

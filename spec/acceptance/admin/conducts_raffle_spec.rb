@@ -74,14 +74,14 @@ feature 'Admin conducts raffle' do
       select "equals", :from => "segment_operator[0]"
       select "#{@locations[0].name} (#{@demo.name})", :from => "segment_value[0]"
 
-      click_link "Segment on more characteristics"
+      click_link "Add another"
       select "Shirt size", :from => "segment_column[1]"
       select "equals", :from => "segment_operator[1]"
       select "medium", :from => "segment_value[1]"
 
       click_button "Find segment"
 
-      expect_content "5 users in segment"
+      expect_content "5Users in segment"
     end
 
     before(:each) do
@@ -99,7 +99,7 @@ feature 'Admin conducts raffle' do
       crank_dj_clear
     end
 
-    context "and no users in that segment have coins" do
+    context "and noUsers in that segment have coins" do
       it "should say so", :js => true do
         signin_as_admin
         visit admin_demo_raffles_path(@demo)
@@ -110,7 +110,7 @@ feature 'Admin conducts raffle' do
       end
     end
 
-    context "and some users in that segment have coins" do
+    context "and someUsers in that segment have coins" do
       before(:each) do
         @expected_segment_users.each_with_index do |user, i|
           user.update_attributes(gold_coins: i * 3)

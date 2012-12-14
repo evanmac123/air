@@ -1,4 +1,5 @@
-<%= render 'shared/prototype_characteristic_select', :dummy_characteristics => dummy_characteristics, :generic_characteristics => generic_characteristics, :demo_specific_characteristics => demo_specific_characteristics %>
+<% all_characteristics = dummy_characteristics + generic_characteristics + demo_specific_characteristics %>
+<%= render 'shared/prototype_characteristic_select', :all_characteristics => all_characteristics %>
 
 <%= form_tag segmentation_url, :id => 'segmentation-form' do %>
   <fieldset>
@@ -25,7 +26,6 @@
     var characteristicSelectHtml = $('#prototype-characteristic-select').html();
     $('#segment_column_0').append(characteristicSelectHtml).data('value_select_id', 'segment_value_0');
 
-    <% all_characteristics = dummy_characteristics + generic_characteristics + demo_specific_characteristics %>
     var inputSpecifiers = <%= characteristic_input_specifiers_as_json(all_characteristics) %>;
     var allowedOperators = <%= characteristic_allowed_operators_as_json(all_characteristics) %>;
 

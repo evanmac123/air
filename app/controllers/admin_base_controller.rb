@@ -45,17 +45,6 @@ class AdminBaseController < ApplicationController
     @dummy_characteristics, @generic_characteristics, @demo_specific_characteristics = Characteristic.visible_from_demo(demo)
   end
 
-  def attempt_segmentation
-    if params[:segment_column].present?
-      if (params[:segment_column].length > 1 and params[:segment_column].values.include?("")) or
-         (params[:segment_value] and params[:segment_value].values.include?(""))
-        flash.now[:failure] = "One or more of your characteristic fields is blank."
-      else
-        @segmentation_result = current_user.set_segmentation_results!(params[:segment_column], params[:segment_operator], params[:segment_value], @demo)
-      end
-    end
-  end
-
   def set_admin_page_flag
     @is_admin_page = true
   end

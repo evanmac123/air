@@ -7,7 +7,7 @@ feature 'Admin sends targeted messages using segmentation' do
     @demo = FactoryGirl.create :demo
     @users = []
     20.times {|i| @users << FactoryGirl.create(user_model_name, points: i, demo: @demo)}
-    # Also let's make some users in a different demo to make sure we don't get leakage.
+    # Also let's make someUsers in a different demo to make sure we don't get leakage.
     5.times {FactoryGirl.create(user_model_name)}
 
     @agnostic_characteristic = FactoryGirl.create(:characteristic, name: "Metasyntactic variable", allowed_values: %w(foo bar baz))
@@ -26,7 +26,7 @@ feature 'Admin sends targeted messages using segmentation' do
     select "does not equal", :from => "segment_operator[0]"
     select "foo", :from => "segment_value[0]"
 
-    click_link "Segment on more characteristics"
+    click_link "Add another"
     select "Points", :from => "segment_column[1]"
     select "greater than", :from => "segment_operator[1]"
     fill_in "segment_value[1]", :with => "10"
@@ -34,8 +34,8 @@ feature 'Admin sends targeted messages using segmentation' do
     click_button "Find segment"
 
     should_be_on(admin_demo_targeted_messages_path(@demo))
-    expect_content "6 users in segment"
-    expect_content "Segmenting on: Metasyntactic variable does not equal foo, Points is greater than 10"
+    expect_content "6Users in segment"
+    expect_content "Segmenting on: Metasyntactic variable does not equal foo Points is greater than 10"
     @expected_users = [11, 13, 14, 16, 17, 19].map{|i| @users[i]}
   end
 
@@ -259,7 +259,7 @@ feature 'Admin sends targeted messages using segmentation' do
     select "foo", :from => "segment_value[0]"
     click_button "Find segment"
 
-    expect_content "3 users in segment"
+    expect_content "3Users in segment"
 
     expect_value "html_text", expected_html_text
     expect_value "plain_text", expected_plain_text
@@ -300,7 +300,7 @@ feature 'Admin sends targeted messages using segmentation' do
     click_button "Find segment"
 
     should_be_on(admin_demo_targeted_messages_path(@demo))
-    expect_content "23 users in segment"
+    expect_content "23Users in segment"
 
     fill_in "sms_text", :with => 'some nonsense'
     click_button "It's going to be OK"
@@ -384,7 +384,8 @@ feature 'Admin sends targeted messages using segmentation' do
 
       crank_dj_clear
       visit admin_demo_targeted_messages_path(@demo)
-      expect_content "#{@send_time.pretty_succinct} No segmentation, choosing all users The subject of our push A short message"
+      expect_content "#{@send_time.pretty_succinct}"
+      expect_content "No segmentation, choosing all users The subject of our push A short message"
 
       Timecop.travel(10.minutes + 1.second)
       crank_dj_clear
@@ -432,7 +433,7 @@ feature 'Admin sends targeted messages using segmentation' do
       click_button "Find segment"  # Get list of (original) recipients
 
       expect_content "Segmenting on: Points is greater than 3"
-      expect_content "8 users in segment"
+      expect_content "8Users in segment"
 
       fill_in "subject",   :with => 'email subject'
       fill_in "html_text", :with => 'email text'
@@ -456,7 +457,7 @@ feature 'Admin sends targeted messages using segmentation' do
       @email_users[0].update_attribute :points, 3  # These users no
       @text_users[0].update_attribute :points,  3  # longer qualify
 
-      crank_dj_clear  # Add new users and update old users in MongoDB
+      crank_dj_clear  # Add new users and update oldUsers in MongoDB
 
       (@email_users += new_email_users).shift  # Add the new qualifiers and remove the
       (@text_users  += new_text_users).shift   # no-longer-qualified from expected results

@@ -218,22 +218,23 @@ describe Demo, "gold coin fields" do
   context "when uses_gold_coins is set" do
     before(:each) do
       @demo = FactoryGirl.build_stubbed(:demo, uses_gold_coins: true)
+      @demo.gold_coin_threshold = nil
     end
 
     it "should validate that the other gold coin fields are set" do
       @demo.should_not be_valid
-      @demo.errors.keys.should have(3).keys
       [:gold_coin_threshold, :minimum_gold_coin_award, :maximum_gold_coin_award].each {|field_name| @demo.errors.keys.should include(field_name)}
+      @demo.errors.keys.should have(3).keys
 
       @demo.gold_coin_threshold = 20
       @demo.should_not be_valid
-      @demo.errors.keys.should have(2).keys
       [:minimum_gold_coin_award, :maximum_gold_coin_award].each {|field_name| @demo.errors.keys.should include(field_name)}
+      @demo.errors.keys.should have(2).keys
 
       @demo.minimum_gold_coin_award = 2
       @demo.should_not be_valid
-      @demo.errors.keys.should have(1).key
       [:maximum_gold_coin_award].each {|field_name| @demo.errors.keys.should include(field_name)}
+      @demo.errors.keys.should have(1).key
 
       @demo.maximum_gold_coin_award = 5
       @demo.should be_valid

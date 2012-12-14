@@ -102,7 +102,8 @@ feature 'User gets invitation email' do
   context "from a demo that has no custom HTML" do
     it "should use the default HTML" do
       @user.invite
-      expect_email_content "<p>Welcome to H Engage! A fun social app that helps you make the most of HR programs and benefits.</p>"
+      expect_email_content "Welcome to H Engage!"
+      expect_email_content "A fun social app that helps you make the most of HR programs and benefits."
     end
   end
 
