@@ -1,4 +1,4 @@
-h1, h2, h3 {font-family:$gotham;}
+h1, h2, h3 {font-family:$sans;}
 * {box-sizing:border-box;}
 body.client_admin_main {
     background:url('marketing/bg.gif');
@@ -76,7 +76,7 @@ body.client_admin-segmentations .icon#icon-analytics {background-position: -33px
         }
         a, a:link {
             color:#7a7a7a;
-            font-family:$gotham;
+            font-family:$sans;
             font-size:1.4em;
             font-weight:300;
         }
