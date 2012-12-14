@@ -40,7 +40,7 @@ form {
                 right:{width:1px;}
             }
             span {
-                background:url('client_admin/sprites.png') no-repeat -30px -56px transparent;
+                background:image-url('client_admin/sprites.png') no-repeat -30px -56px transparent;
                 display:inline-block;
                 height:16px;
                 margin-right:5px;
@@ -52,7 +52,7 @@ form {
         // ======= Submit button =======
         .button_wrap#find {
             @include square-button-wrap($dark-green);
-            background:url('client_admin/search.png') no-repeat 7px 8px $dark-green;
+            background:image-url('client_admin/search.png') no-repeat 7px 8px $dark-green;
             border:1px darken($dark-green, 10%) solid;
             margin-left:1em;
             &:hover {background-color:darken($dark-green, 3%);}
@@ -79,7 +79,7 @@ form {
         background:#fff;
         padding:1.5em 0;
         a.remove_this_characteristic {
-            background:url('client_admin/sprites.png') no-repeat transparent;
+            background:image-url('client_admin/sprites.png') no-repeat transparent;
             background-position:0 -49px;
             display:inline-block;
             float:left;
@@ -158,7 +158,7 @@ form {
                 font-size:1.20em;
                 font-weight:600;
                 span {
-                    background:url('client_admin/circleL-bg.png') center center no-repeat transparent;
+                    background:image-url('client_admin/circleL-bg.png') center center no-repeat transparent;
                     color:$text-color;
                     font-family:$gotham;
                     display:block;
