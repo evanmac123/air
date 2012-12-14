@@ -1,0 +1,27 @@
+#flash * {
+    background:none;
+    border:none;
+    font-size:1.05em;
+    font-weight:600;
+    margin:0;
+    padding:0;
+    position:relative;
+    td.f-center, tr.f-left {float:left;}
+    tr.f-top {
+        float:right;
+        position:absolute;
+        right:0;
+    }
+    #close-flash span {
+        background:url('client_admin/sprites.png') no-repeat transparent;
+        background-position:0 -49px;
+        display:inline-block;
+        float:left;
+        height:27px;
+        vertical-align: top;
+        width:22px;
+
+        font-size:0;
+        text-indent: -99999px;
+    }
+}
