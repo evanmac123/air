@@ -1,7 +1,7 @@
 h1, h2, h3 {font-family:$sans;}
 * {box-sizing:border-box;}
 body.client_admin_main {
-    background:url('marketing/bg.gif');
+    background:image-url('marketing/bg.gif');
     color:$text-color;
     font-family:'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
@@ -42,7 +42,7 @@ body.client_admin-segmentations .icon#icon-analytics {background-position: -33px
         display:table-cell;
     }
     #far-left, #left-nav {
-        background:url('client_admin/light-bg.png');
+        background:image-url('client_admin/light-bg.png');
     }
 #col-main {
     width:960px;
@@ -59,7 +59,7 @@ body.client_admin-segmentations .icon#icon-analytics {background-position: -33px
         .admin-nav-section {
             padding-bottom:1.25em;
             span {
-                background:url('client_admin/sprites.png') no-repeat transparent;
+                background:image-url('client_admin/sprites.png') no-repeat transparent;
                 display:inline-block; 
                 height:16px;
                 margin-right:9px;
@@ -83,7 +83,7 @@ body.client_admin-segmentations .icon#icon-analytics {background-position: -33px
     }
     /* ////// Content Col ////// */
     &#right-content {
-        background:url('marketing/bg.gif');
+        background:image-url('marketing/bg.gif');
         border-left:$border-light;
         padding-left:$gutter+50px;
         padding-right:$gutter;
@@ -107,7 +107,7 @@ ul.section-name {
         font-weight:300;
     }
     .icon {
-        background:url('client_admin/sprites.png') no-repeat transparent;
+        background:image-url('client_admin/sprites.png') no-repeat transparent;
         display:inline-block;
         float:left;
         height:29px;
