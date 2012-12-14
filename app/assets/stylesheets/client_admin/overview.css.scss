@@ -29,19 +29,3 @@
             padding:1em 0;
         }
     }
-.info {
-    padding:4em $gutter 2em $gutter;
-    h2, h3 {
-        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-        font-weight:300;
-    }
-    h2 {
-        font-size:2em;
-        padding-bottom:.25em;
-        color:#686868;
-    }
-    h3 a {
-        color:$dark-green;
-        &:hover {color:darken($dark-green, 5%);}
-    }
-}

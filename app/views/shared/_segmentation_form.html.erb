@@ -7,7 +7,7 @@
     <div id="segmentation_parameters">
       <p class="label">Select a property:</p>
       <!--mustbelikethisforspacing-->
-      <div class="segmentation-triple-wrapper"><%= link_to 'Remove', '#', id: 'remove_this_characteristic_0', class: 'remove_this_characteristic' %><ul class="characteristics"><li><select name="segment_column[0]" id="segment_column_0" class="segment-column"></select></li><li><select name="segment_operator[0]" id="segment_operator_0" class="segment-operator"></select></li><li><select name="segment_value[0]" id="segment_value_0" class="segment-value"></select></li></ul>
+      <div class="segmentation-triple-wrapper"><%= link_to 'Remove', '#', id: 'remove_this_characteristic_0', class: 'remove_this_characteristic' %><ul class="characteristics"><li class="segment-col1"><select name="segment_column[0]" id="segment_column_0" class="segment-column"></select></li><li class="segment-col2"><select name="segment_operator[0]" id="segment_operator_0" class="segment-operator"></select></li><li class="segment-col3"><select name="segment_value[0]" id="segment_value_0" class="segment-value"></select></li></ul>
       <!--end-->
       </div>
     </div>
@@ -127,9 +127,9 @@
         '<div class="segmentation-triple-wrapper">',
         '<a id="' + removeId + '" class="remove_this_characteristic" href="#">Remove</a>',
         '<ul class="characteristics">',
-        '<li><select name="' + segmentColumnName + '" id="' + segmentColumnId + '" class="segment-column"></select></li>',
-        '<li><select name="' + segmentOperatorName + '" id="' + segmentOperatorId + '" class="segment-operator"></select></li>',
-        '<li><select name="' + segmentValueName + '" id="' + segmentValueId + '" class="segment-value"></select></li>',
+        '<li class="segment-col1"><select name="' + segmentColumnName + '" id="' + segmentColumnId + '" class="segment-column"></select></li>',
+        '<li class="segment-col2"><select name="' + segmentOperatorName + '" id="' + segmentOperatorId + '" class="segment-operator"></select></li>',
+        '<li class="segment-col3"><select name="' + segmentValueName + '" id="' + segmentValueId + '" class="segment-value"></select></li>',
         '</ul>',
         '</div>'
       ].join('');
