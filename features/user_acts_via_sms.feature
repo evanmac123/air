@@ -166,6 +166,7 @@ Feature: User acts
     When "+15087407520" sends SMS "saw poster"
     And "+15087407520" sends SMS "saw poster"
     And "+15087407520" sends SMS "saw poster"
+    And I dump all sent texts
     And "+15087407520" should have received an SMS "Congratulations! Points 20."
     And "+15087407520" should have received an SMS "Congratulations! Points 40."
     But "+15087407520" should not have received an SMS including "Congratulations! Points 60"
