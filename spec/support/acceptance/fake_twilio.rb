@@ -79,8 +79,12 @@ module FakeTwilio
       messages_to(phone).select{ |message| message["Body"] == body}
     end
 
-    def self.has_sent_text?(phone, body)
-     sent_text(phone, body).present?
+    def self.has_sent_text?(phone, body, expected_count=nil)
+      if expected_count
+        sent_text(phone, body).length == expected_count
+      else
+        sent_text(phone, body).present?
+      end
     end
 
     def self.has_sent_text_to?(phone)

@@ -59,8 +59,8 @@ Feature: User acts
   Scenario: User can use any rule value to refer to a rule
     When "+15087407520" sends SMS "ate banana"
     And "+15087407520" sends SMS "ate bananas"
-    Then "+15087407520" should have received SMS "Bananas are good for you. Points 2."
-    And "+15087407520" should have received SMS "Bananas are good for you. Points 4."
+    Then "+15087407520" should have received SMS "Bananas are good for you. Points 2/20."
+    And "+15087407520" should have received SMS "Bananas are good for you. Points 4/20."
 
   Scenario: User enters bad act via the website
     When I sign in via the login page as "Dan/foobar"
@@ -114,7 +114,7 @@ Feature: User acts
 
   Scenario: User gets a reply from the game on acting with points and ranking information
     When "+15087407520" sends SMS "ate banana"
-    Then "+15087407520" should have received an SMS "Bananas are good for you. Points 2."
+    Then "+15087407520" should have received an SMS "Bananas are good for you. Points 2/20."
 
   Scenario: User achieves part of a goal by acting
     Given the following goals exist:
@@ -142,34 +142,31 @@ Feature: User acts
       | diligence | reply: So is diligence too |
 
     When "+15087407520" sends SMS "lust"
-    Then "+15087407520" should have received SMS "Lust woo! Deadly sins 1/3, points 2."
+    Then "+15087407520" should have received SMS "Lust woo! Deadly sins 1/3, points 2/20."
 
     When "+15087407520" sends SMS "lust"
-    Then "+15087407520" should have received SMS "Lust woo! Deadly sins 1/3, points 4."
+    Then "+15087407520" should have received SMS "Lust woo! Deadly sins 1/3, points 4/20."
 
     When "+15087407520" sends SMS "charity"
-    Then "+15087407520" should have received SMS "Charity good for u. Redeeming virtues 1/2, points 15."
+    Then "+15087407520" should have received SMS "Charity good for u. Redeeming virtues 1/2, points 15/20."
 
     When "+15088675309" sends SMS "diligence"
-    Then "+15088675309" should have received SMS "So is diligence too Redeeming virtues 1/2, points 15."
+    Then "+15088675309" should have received SMS "So is diligence too Redeeming virtues 1/2, points 15/20."
 
     When "+15087407520" sends SMS "diligence"
-    Then "+15087407520" should have received SMS "So is diligence too Redeeming virtues 2/2, points 30."
+    Then "+15087407520" should have received SMS "So is diligence too Redeeming virtues 2/2, points 10/20."
 
     When "+15087407520" sends SMS "pride"
-    Then "+15087407520" should have received SMS "Pride boo! Deadly sins 2/3, points 35."
+    Then "+15087407520" should have received SMS "Pride boo! Deadly sins 2/3, points 15/20."
 
     When "+15087407520" sends SMS "lust"
-    Then "+15087407520" should have received SMS "Lust woo! Deadly sins 2/3, points 37."
+    Then "+15087407520" should have received SMS "Lust woo! Deadly sins 2/3, points 17/20."
 
   Scenario: User can only get credit for rules up to their limits
     When "+15087407520" sends SMS "saw poster"
     And "+15087407520" sends SMS "saw poster"
     And "+15087407520" sends SMS "saw poster"
-    And I dump all sent texts
-    And "+15087407520" should have received an SMS "Congratulations! Points 20."
-    And "+15087407520" should have received an SMS "Congratulations! Points 40."
-    But "+15087407520" should not have received an SMS including "Congratulations! Points 60"
+    And "+15087407520" should have received an SMS "Congratulations! Points 0/20." exactly 2 times
     And "+15087407520" should have received an SMS "Sorry, you've already done that action."
 
   Scenario: Act with 0 points should not mention that

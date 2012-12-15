@@ -104,6 +104,10 @@ module SteakHelperMethods
     page_text.should include(expected_content)
   end
 
+  def expect_content_case_insensitive(expected_content)
+    page_text.downcase.should include(expected_content.downcase)
+  end
+
   def expect_no_content(unexpected_content)
     page_text.should_not include(unexpected_content)
   end
@@ -151,7 +155,7 @@ module SteakHelperMethods
   end
 
   def expect_ticket_header(expected_ticket_count)
-    expect_content (expected_ticket_count == 1 ? "1 ticket" : "#{expected_ticket_count} tickets")
+    expect_content_case_insensitive "Tickets: #{expected_ticket_count}"
   end
 
   def expect_link(text, url)

@@ -4,5 +4,4 @@
     <%= render 'shared/masthead' %>
     <%= render 'shared/play_box' if show_play_box %>
   </div>
-  <% if current_user.demo.uses_tickets %><%= pluralize current_user.tickets, 'ticket' %><% end %>
 </div>

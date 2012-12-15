@@ -606,7 +606,7 @@ class User < ActiveRecord::Base
   end
 
   def point_fraction
-    point_denominator = self.point_threshold_spread
+    point_denominator = self.demo.ticket_threshold
     return 0.0 if point_denominator == 0
 
     points = self.points_towards_next_threshold
@@ -615,12 +615,12 @@ class User < ActiveRecord::Base
 
   def pretty_point_fraction
     points = self.points_towards_next_threshold
-    point_denominator = self.point_threshold_spread
+    point_denominator = self.demo.ticket_threshold
     "#{points}/#{point_denominator}"
   end
 
   def point_summary
-    if self.point_threshold_spread > 0
+    if self.demo.ticket_threshold > 0
       "points #{self.pretty_point_fraction}"
     else
       "points #{self.points}"
@@ -730,11 +730,15 @@ class User < ActiveRecord::Base
   end
 
   def last_point_goal
-    last_achieved_threshold || 0
+    (points - ticket_threshold_base) - ((points - ticket_threshold_base) % demo.ticket_threshold)
   end
 
   def next_point_goal
-    next_unachieved_threshold || greatest_achievable_threshold
+    last_point_goal + demo.ticket_threshold
+  end
+
+  def ticket_threshold_base
+    0
   end
 
   def satisfy_tiles_by_survey(survey_or_survey_id, channel)
@@ -777,19 +781,11 @@ class User < ActiveRecord::Base
     numerator = self.points - last_point_goal
     return 0.0 if numerator == 0
   
-    denominator = point_threshold_spread
-    return 100.0 if denominator == 0
+    denominator = demo.ticket_threshold
 
     percent = (numerator.to_f / denominator.to_f * 100).round(2)
 
     percent > 100 ? 100.0 : percent
-  end
-
-  def point_threshold_spread
-    _next_point_goal = next_point_goal
-    _last_point_goal = last_point_goal
-    return 0 if _next_point_goal.nil? || _last_point_goal.nil?
-    _next_point_goal - _last_point_goal
   end
 
   def email_with_name
@@ -1032,10 +1028,6 @@ class User < ActiveRecord::Base
 
   def next_unachieved_threshold
     self.next_level.try(:threshold)
-  end
-
-  def greatest_achievable_threshold
-    self.highest_possible_level.try(:threshold)
   end
 
   def last_level

@@ -11,6 +11,10 @@ Then /^"([^"]*)" should have received( an)? SMS "(.*)"$/m do |phone_number, _not
   FakeTwilio::SMS.should have_sent_text(phone_number, text_message.gsub(/\\n/, "\n"))
 end
 
+When /^"(.*?)" should have received an SMS "(.*?)" exactly (\d+) times$/ do |phone_number, text_message, expected_count|
+  FakeTwilio::SMS.should have_sent_text(phone_number, text_message.gsub(/\\n/, "\n"), expected_count.to_i)
+end
+
 Then /^"([^"]*)" should have received( an)? SMS '(.*)'$/ do |phone_number, _nothing, text_message|
   FakeTwilio::SMS.should have_sent_text(phone_number, text_message)
 end

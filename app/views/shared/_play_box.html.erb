@@ -15,9 +15,10 @@
     </div>
   </div>
   <div class="bar_section bar_level">
-    <p>Current Level :</p>
-    <!-- HRFF -->
-    <p class="level"></p>
+    <% if current_user.demo.uses_tickets %>
+      <p>Tickets: </p>
+      <p class="level"><%= current_user.tickets %></p>
+    <% end %>
   </div>
 </div>
 
