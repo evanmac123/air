@@ -12,7 +12,6 @@ class User < ActiveRecord::Base
   FIELDS_TRIGGERING_SEGMENTATION_UPDATE = %w(characteristics points location_id date_of_birth height weight gender demo_id accepted_invitation_at last_acted_at phone_number email)
 
   include Clearance::User
-  include User::Ranking
   include User::Segmentation
   extend User::Queries
   extend Sequenceable
@@ -106,8 +105,6 @@ class User < ActiveRecord::Base
   end
 
   before_update do
-    schedule_update_demo_alltime_rankings if changed.include?('points')
-    schedule_update_demo_recent_average_rankings if (!batch_updating_recent_averages && changed.include?('recent_average_points'))
     add_gold_coins
   end
 
@@ -132,12 +129,9 @@ class User < ActiveRecord::Base
 
   after_destroy do
     destroy_friendships_where_secondary
-    fix_demo_rankings
     decrement_demo_ranked_user_count
     destroy_segmentation_info
   end
-
-  attr_reader :batch_updating_recent_averages
 
   attr_accessor :trying_to_accept, :password_confirmation
   attr_protected :is_site_admin, :is_client_admin, :invitation_method
@@ -345,37 +339,6 @@ class User < ActiveRecord::Base
 
   def to_param
     slug
-  end
-
-  def short_rankings_page!(options={})
-    more_rankings_prompt = I18n.t('activerecord.models.user.more_rankings_prompt', :default => 'Send MORERANKINGS for more.')
-
-    _ranking_query_offset = !(options[:use_offset] == false) ? ranking_query_offset : nil
-    rankings_strings = self.demo.users.for_short_ranking_page(_ranking_query_offset)
-
-    if rankings_strings.empty?
-      # back to the top
-      self.ranking_query_offset = 0
-      self.save!
-      return I18n.translate('activerecord.models.user.end_of_rankings', :default => "That's everybody! Send RANKINGS to start over from the top.")
-    end
-
-
-    rankings_string = rankings_strings.join("\n")
-    response = (rankings_strings + [more_rankings_prompt]).join("\n")
-
-    while(rankings_strings.present? && response.length > 160)
-      rankings_strings.pop
-      response = (rankings_strings + [more_rankings_prompt]).join("\n")
-    end
-
-    if options[:reset_offset] || self.ranking_query_offset.nil?
-      self.ranking_query_offset = 0
-    end
-    self.ranking_query_offset += rankings_strings.length
-    self.save!
-
-    response
   end
 
   def send_support_request
@@ -699,11 +662,6 @@ class User < ActiveRecord::Base
     self.demo = new_demo
     self.points = self.acts.where(:demo_id => new_demo_id).map(&:points).compact.sum
     self.save!
-
-    [old_demo, new_demo].each do |demo|
-      demo.fix_total_user_rankings!
-      demo.fix_recent_average_user_rankings!
-    end
   end
 
   # Returns a list [reply, reply_type] where reply_type should be :success if
@@ -1071,11 +1029,6 @@ class User < ActiveRecord::Base
     Friendship.destroy_all(:friend_id => self.id)
   end
 
-  def fix_demo_rankings
-    self.demo.fix_total_user_rankings!
-    self.demo.fix_recent_average_user_rankings!
-  end
-
   def last_achieved_threshold
     self.last_level.try(:threshold)
   end
@@ -1168,13 +1121,6 @@ class User < ActiveRecord::Base
     User.where(["name ILIKE ? AND claim_code = ?", first_name.like_escape + '%', claim_code]).first
   end
   
-  def self.for_short_ranking_page(ranking_offset)
-    claimed.
-    in_canonical_ranking_order.
-    offset(ranking_offset).
-    map{|user| "#{user.name} (#{user.points})"}
-  end
-
   private
 
   def self.add_joining_to_activity_stream(user)

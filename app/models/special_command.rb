@@ -56,8 +56,6 @@ module SpecialCommand
   register_command_handler [Survey::SURVEY_ANSWER_PATTERN],         SpecialCommandHandlers::SurveyResponseHandler
   register_command_handler [/^[a-z]$/],                             SpecialCommandHandlers::UseSuggestedItemHandler
   register_command_handler %w(lastquestion),                        SpecialCommandHandlers::LastQuestionReminderHandler
-  register_command_handler %w(rankings ranking standing standings), SpecialCommandHandlers::FirstRankingsPageHandler
-  register_command_handler %w(morerankings),                        SpecialCommandHandlers::NextRankingsPageHandler
   register_command_handler %w(help),                                SpecialCommandHandlers::HelpHandler
   register_command_handler %w(support),                             SpecialCommandHandlers::SupportHandler
   register_command_handler %w(survey ur2cents 2ur2cents),           SpecialCommandHandlers::SurveyHandler
