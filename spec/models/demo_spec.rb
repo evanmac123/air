@@ -1,17 +1,5 @@
 require 'spec_helper'
 
-class RecalculateMovingAverageSideEffect
-  def initialize(user, score)
-    @user = user
-    @score = score
-  end
-
-  def perform
-    User.update_all({:recent_average_points => @score}, {:id => @user.id})
-    @user.reload
-  end
-end
-
 describe Demo do
   it { should have_many(:users) }
   it { should have_many(:rules) }
@@ -101,68 +89,6 @@ describe Demo, "#game_over?" do
       it "should return true" do
         @demo.game_over?.should be_true
       end
-    end
-  end
-end
-
-describe Demo, '#recalculate_all_moving_averages!' do
-  before(:each) do
-    @demo = FactoryGirl.create :demo
-
-    @first = FactoryGirl.create :user, :demo => @demo
-    @second_tie_1 = FactoryGirl.create :user, :demo => @demo
-    @second_tie_2 = FactoryGirl.create :user, :demo => @demo
-    @fourth = FactoryGirl.create :user, :demo => @demo
-    @fifth_tie_1 = FactoryGirl.create :user, :demo => @demo
-    @fifth_tie_2 = FactoryGirl.create :user, :demo => @demo
-    @fifth_tie_3 = FactoryGirl.create :user, :demo => @demo
-    @eighth = FactoryGirl.create :user, :demo => @demo
-
-    @all_users = [@first, @second_tie_1, @second_tie_2, @fourth, @fifth_tie_1, @fifth_tie_2, @fifth_tie_3, @eighth]
-    @demo.stubs(:users).returns(@all_users)
-    @all_users.stubs(:claimed).returns(@all_users)
-    @all_users.stubs(:order).with('recent_average_points DESC').returns(@all_users)
-
-    @scores_to_update_to = [100, 95, 95, 90, 85, 85, 85, 80]
-    @all_users.each_with_index do |user, i| 
-      score_to_update_to = @scores_to_update_to[i]
-      user.expects(:recalculate_moving_average!).add_side_effect(RecalculateMovingAverageSideEffect.new(user, score_to_update_to))
-    end
-  end
-end
-
-describe Demo, ".recalculate_all_moving_averages!" do
-  before(:each) do
-    @demos = []
-    10.times do
-      demo = FactoryGirl.create :demo
-      demo.stubs(:recalculate_all_moving_averages!)
-      @demos << demo
-    end
-    Demo.stubs(:all).returns(@demos)
-  end
-
-  it "should call #recalculate_all_moving_averages! on all existing Demos" do
-    Demo.recalculate_all_moving_averages!
-    @demos.each {|demo| demo.should have_received(:recalculate_all_moving_averages!)}
-  end
-
-  context "when a demo raises an error on #recalculate_all_moving_averages!" do
-    before(:each) do
-      @recalculation_error = RuntimeError.new("Something TERRIBLE happened")
-      @demos.first.stubs(:recalculate_all_moving_averages!).raises(@recalculation_error)
-
-      Airbrake.stubs(:notify).with(anything)
-
-      Demo.recalculate_all_moving_averages!
-    end
-
-    it "should keep going even if one demo has errors" do
-      @demos.each {|demo| demo.should have_received(:recalculate_all_moving_averages!)}
-    end
-
-    it "should report the error to Airbrake" do
-      Airbrake.should have_received(:notify).with(@recalculation_error)
     end
   end
 end

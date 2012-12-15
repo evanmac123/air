@@ -3,10 +3,6 @@ require 'digest/sha1'
 class User < ActiveRecord::Base
   # Maximum number of days back we will consider acts in the moving average
   # (counting today as day 0)
-  MAX_RECENT_AVERAGE_HISTORY_DEPTH = 6
-
-  DEFAULT_RANKING_CUTOFF = 15
-
   PRIVACY_LEVELS = %w(everybody connected nobody).freeze
 
   GENDERS = ["female", "male", "other", nil].freeze
@@ -575,14 +571,7 @@ class User < ActiveRecord::Base
   def update_points(new_points, channel=nil)
     old_points = self.points
     increment!(:points, new_points)
-    update_recent_average_points(new_points)
     Level.check_for_level_up(old_points, self, channel)
-  end
-
-  def update_recent_average_points(new_points)
-    point_gain_factor = (recent_average_history_depth + 1).to_f / (1..(recent_average_history_depth + 1)).sum.to_f
-    actual_point_gain = (new_points * point_gain_factor).ceil
-    increment!(:recent_average_points, actual_point_gain)
   end
 
   def password_optional?
@@ -694,56 +683,6 @@ class User < ActiveRecord::Base
     self.class.claim_code_prefix(self)
   end
 
-  # This is meant to be called by a cron job just after midnight, to
-  # recalculate this user's moving average score. Note that this does _not_
-  # update the user's ranking, since it's expected that this will be called on
-  # a whole batch of users at once, and it'll be more efficient to recalculate
-  # all rankings at once afterwards.
-
-  def recalculate_moving_average!
-    acts_in_horizon = find_acts_in_horizon
-    oldest_act_in_horizon = acts_in_horizon.first
-
-    self.recent_average_history_depth = if oldest_act_in_horizon
-                             # Date#- returns not an integer, but a Rational,
-                             # for doubtless the best of reasons.
-                             (Date.today - oldest_act_in_horizon.created_at.to_date).numerator
-                           else
-                             0
-                           end
-
-    self.recent_average_points = (recent_average_point_numerator(acts_in_horizon) / recent_average_point_denominator).ceil
-
-    # Remember we're deliberately skipping callbacks here because we
-    # anticipate updating rankings all in a batch.
-    @batch_updating_recent_averages = true
-    self.save
-    @batch_updating_recent_averages = false
-  end
-
-  def recent_average_point_numerator(acts_in_horizon)
-    grouped_acts = acts_in_horizon.group_by{|act| act.created_at.to_date}
-
-    point_numerator = 0
-    grouped_acts.each do |date_of_act, acts_on_date|
-      point_numerator += date_weight(date_of_act) * acts_on_date.map(&:points).compact.sum
-    end
-    point_numerator.to_f
-  end
-
-  def recent_average_point_denominator
-    (1..self.recent_average_history_depth + 1).sum
-  end
-
-  def find_acts_in_horizon
-    horizon = (Date.today - MAX_RECENT_AVERAGE_HISTORY_DEPTH.days).midnight
-    acts_in_horizon = acts.where('created_at >= ? AND demo_id = ?', horizon, self.demo_id).order(:created_at)
-  end
-
-  def date_weight(date_of_act)
-    self.recent_average_history_depth - (Date.today - date_of_act).numerator + 1
-  end
-
   def self.claim_code_prefix(user)
     begin
       names = user.name.downcase.split.map(&:remove_non_words)
@@ -760,7 +699,6 @@ class User < ActiveRecord::Base
     self.demo = new_demo
     self.points = self.acts.where(:demo_id => new_demo_id).map(&:points).compact.sum
     self.save!
-    self.recalculate_moving_average!
 
     [old_demo, new_demo].each do |demo|
       demo.fix_total_user_rankings!

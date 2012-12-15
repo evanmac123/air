@@ -5,11 +5,11 @@ Feature: User acts via email
       | name    | 
       | FooCorp |
     Given the following claimed users exist:
-      | name | phone number | demo                  | points | ranking | email             |
-      | Dan  | +15087407520 | name: FooCorp | 0      | 3       | dan@bigco.com     |
-      | Paul | +15088675309 | name: FooCorp | 0      | 3       | paul@littleco.com |
-      | Fred | +14155551212 | name: FooCorp | 1      | 2       | fred@nocobro.com  |
-      | Bob  | +18085551212 | name: FooCorp | 3      | 1       | bob@bob.net       |
+      | name | phone number | demo          | points | email             |
+      | Dan  | +15087407520 | name: FooCorp | 0      | dan@bigco.com     |
+      | Paul | +15088675309 | name: FooCorp | 0      | paul@littleco.com |
+      | Fred | +14155551212 | name: FooCorp | 1      | fred@nocobro.com  |
+      | Bob  | +18085551212 | name: FooCorp | 3      | bob@bob.net       |
     And "Dan" has the password "foobar"
     And "Paul" has the SMS slug "paul55"
     And "Fred" has the SMS slug "fred666"

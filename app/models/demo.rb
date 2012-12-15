@@ -116,20 +116,6 @@ class Demo < ActiveRecord::Base
     !game_open?
   end
 
-  # This is meant to be called by a cron job just after midnight, to update
-  # this demo's users' recent moving average scores and related rankings.
-
-  def recalculate_all_moving_averages!
-    return
-    Demo.transaction do
-      self.users.claimed.each do |user|
-        user.recalculate_moving_average!
-      end
-
-      self.fix_recent_average_user_rankings!
-    end
-  end
-
   def fix_user_rankings!(points_column, ranking_column)
     ordered_users = self.users.claimed.order("#{points_column} DESC")
     ordered_users.each_with_index do |user, i|
@@ -230,16 +216,6 @@ class Demo < ActiveRecord::Base
   end
 
   alias_method_chain :claim_state_machine, :default
-
-  def self.recalculate_all_moving_averages!
-    Demo.all.each do |demo|
-      begin
-        demo.recalculate_all_moving_averages!
-      rescue StandardError => e
-        Airbrake.notify(e)
-      end
-    end
-  end
 
   def schedule_blast_sms(text, send_time)
     delay(:run_at => send_time).send_blast_sms(text)
