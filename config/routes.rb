@@ -9,8 +9,6 @@ Health::Application.routes.draw do
 
   resource :session, :controller => 'sessions'
 
-  resource  :conference_feed, :only => [:show]
-
   resource :phone,      :only => [:update] do
     resource :verification, :only => [:show, :update]
   end

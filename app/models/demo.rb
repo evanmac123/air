@@ -116,36 +116,6 @@ class Demo < ActiveRecord::Base
     !game_open?
   end
 
-  def fix_user_rankings!(points_column, ranking_column)
-    ordered_users = self.users.claimed.order("#{points_column} DESC")
-    ordered_users.each_with_index do |user, i|
-      user[ranking_column] = if i == 0
-                                      1
-                                    else
-                                      previous_user = ordered_users[i - 1]
-                                      if user[points_column] == previous_user[points_column]
-                                        previous_user[ranking_column]
-                                      else
-                                        i + 1
-                                      end
-                                    end
-
-      User.update_all({ranking_column => user[ranking_column]}, {:id => user.id})
-    end
-  end
-
-  def fix_total_user_rankings!
-    #Demo.transaction do
-      #unless_within(10.minutes.ago, total_user_rankings_last_updated_at) {fix_user_rankings!('points', 'ranking')}
-    #end
-  end
-
-  def fix_recent_average_user_rankings!
-    #Demo.transaction do
-      #unless_within(10.minutes.ago, average_user_rankings_last_updated_at) {fix_user_rankings!('recent_average_points', 'recent_average_ranking')}
-    #end
-  end
-
   def has_rule_value_matching?(value)
     self.rule_values.where(:value => value).present?
   end
