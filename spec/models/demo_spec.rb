@@ -142,7 +142,8 @@ end
 describe Demo, "ticket fields" do
   context "when uses_tickets is set" do
     before(:each) do
-      @demo = FactoryGirl.build_stubbed(:demo, uses_tickets: true)
+      @demo = FactoryGirl.build_stubbed(:demo)
+      @demo.uses_tickets.should be_true
       @demo.ticket_threshold = nil
     end
 

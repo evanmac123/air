@@ -306,6 +306,12 @@ class Demo < ActiveRecord::Base
     self.custom_invitation_email || CustomInvitationEmail.new(demo: self)
   end
 
+  def uses_tickets
+    # We may allow demos in the future that don't use tickets, for now we just
+    # clamp this to...
+    true
+  end
+
   protected
 
   def unless_within(cutoff_time, last_done_time)

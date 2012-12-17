@@ -33,16 +33,18 @@
     <%= form.input :example_tutorial, :label => "Custom example for slide 1 of tutorial" %>
     <%= form.input :example_tooltip, :label => "Custom example for playbox tooltip" %>
 
-    <%= form.input :uses_tickets, :label => "Use tickets" %>
-    <%- ticket_style = @demo.uses_tickets ? '' : "display: none" %>
-    <%= form.inputs :name => "Ticket details", :style => ticket_style, :id => 'gold-coin-details' do %>
-      <%= form.input :ticket_threshold, :label => "Points for ticket award"  %>
-    <% end %>
-    <%= content_for :javascript do %>
-      <%= javascript_tag do %>
-        $('input#demo_uses_tickets').change(function(e) {$('#gold-coin-details').toggle()});
-      <% end %>
-    <% end %>
+    <%= form.input :ticket_threshold, :label => "Points for ticket award"  %>
+    <%# For now, uses_tickets is hard-coded to true. %>
+    <%#= form.input :uses_tickets, :label => "Use tickets" %>
+    <%#- ticket_style = @demo.uses_tickets ? '' : "display: none" %>
+    <%#= form.inputs :name => "Ticket details", :style => ticket_style, :id => 'gold-coin-details' do %>
+    <%#= form.input :ticket_threshold, :label => "Points for ticket award"  %>
+    <%# end %>
+    <%#= content_for :javascript do %>
+      <%#= javascript_tag do %>
+        <!--$('input#demo_uses_tickets').change(function(e) {$('#gold-coin-details').toggle()});-->
+      <%# end %>
+    <%# end %>
 
   <% end %>
 

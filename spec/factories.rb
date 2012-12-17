@@ -60,7 +60,9 @@ FactoryGirl.define do
     end
 
     trait :with_tickets do
-      uses_tickets true
+      # Currently a no-op since uses_tickets is, for the moment, hardcoded to
+      # true in demo.rb
+      #uses_tickets true
     end
 
     trait :with_phone_number do

@@ -25,7 +25,7 @@ feature "User sees correct values in master bar" do
   user_information.each do |user_attributes, expected_values|
     scenario "#{user_attributes[:name]} with #{user_attributes[:points]} points should see #{expected_values[:points]}/#{expected_values[:points_denominator]} points for #{expected_values[:percent]}%" do
       user = FactoryGirl.create :user, user_attributes
-      user.demo.update_attributes uses_tickets: true
+      user.demo.uses_tickets.should be_true
 
       has_password(user, "foobar")
       signin_as(user, "foobar")
