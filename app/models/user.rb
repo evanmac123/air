@@ -104,8 +104,6 @@ class User < ActiveRecord::Base
   end
 
   before_update do
-    schedule_update_demo_alltime_rankings if changed.include?('points')
-    schedule_update_demo_recent_average_rankings if (!batch_updating_recent_averages && changed.include?('recent_average_points'))
     add_tickets
   end
 
