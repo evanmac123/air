@@ -625,13 +625,18 @@ class User < ActiveRecord::Base
     end
   end
 
-  def point_and_ranking_summary(prefix = [])
+  def ticket_summary
+    "tix #{self.tickets}"
+  end
+
+  def point_and_ticket_summary(prefix = [])
     return "" unless self.demo.use_post_act_summaries
 
     result_parts = prefix.clone
     result_parts << self.point_summary
+    result_parts << self.ticket_summary
 
-    ' ' + result_parts.join(', ').capitalize + '.'
+    ' ' + result_parts.compact.join(', ').capitalize + '.'
   end
 
   def claim_code_prefix
@@ -1139,11 +1144,11 @@ class User < ActiveRecord::Base
     )
 
     sms_text = I18n.interpolate(
-      %{+%{points}, %{name} tagged you in the "%{rule_value}" command.%{point_and_ranking_summary}},
+      %{+%{points}, %{name} tagged you in the "%{rule_value}" command.%{point_and_ticket_summary}},
       :points                    => points_phrase,
       :name                      => self.name,
       :rule_value                => rule_value.value,
-      :point_and_ranking_summary => referring_user.point_and_ranking_summary
+      :point_and_ticket_summary  => referring_user.point_and_ticket_summary
     )
 
     OutgoingMessage.send_message(referring_user, sms_text)

@@ -46,9 +46,9 @@ class Act < ActiveRecord::Base
 
   def post_act_summary
     if self.goal
-      user.point_and_ranking_summary([self.goal.progress_text(user)])
+      user.point_and_ticket_summary([self.goal.progress_text(user)])
     else
-      user.point_and_ranking_summary
+      user.point_and_ticket_summary
     end
   end
 
