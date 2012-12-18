@@ -741,7 +741,7 @@ class User < ActiveRecord::Base
   end
 
   def ticket_threshold_base
-    0
+    read_attribute(:ticket_threshold_base) || 0
   end
 
   def satisfy_tiles_by_survey(survey_or_survey_id, channel)
@@ -1096,8 +1096,8 @@ class User < ActiveRecord::Base
 
     old_points, new_points = self.changes['points']
 
-    old_point_tranche = old_points / self.demo.ticket_threshold
-    new_point_tranche = new_points / self.demo.ticket_threshold
+    old_point_tranche = (old_points - ticket_threshold_base) / self.demo.ticket_threshold
+    new_point_tranche = (new_points - ticket_threshold_base) / self.demo.ticket_threshold
 
     if new_point_tranche > old_point_tranche
       self.tickets += 1

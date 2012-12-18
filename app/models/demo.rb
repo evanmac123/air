@@ -277,7 +277,7 @@ class Demo < ActiveRecord::Base
   end
 
   def flush_all_user_tickets
-    users.with_some_tickets.each{|user| user.update_attributes(tickets: 0)}
+    users.find_each{|user| user.update_attributes(tickets: 0, ticket_threshold_base: user.points)}
   end
 
   def find_raffle_winner(eligible_user_ids, ticket_maximum)

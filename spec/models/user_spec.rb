@@ -1072,3 +1072,26 @@ describe User, "#reset_tiles" do
     Act.all.map(&:id).should_not include(@act.id)
   end
 end
+
+describe User, "add_tickets" do
+  it "should use the user's ticket threshold base" do
+    @user = FactoryGirl.create(:user, points: 19, ticket_threshold_base: 19)
+    @user.tickets.should be_zero
+
+    @user.points += (@user.demo.ticket_threshold - 1)
+    @user.save!
+    @user.reload.tickets.should be_zero
+
+    @user.points += 1
+    @user.save!
+    @user.reload.tickets.should == 1
+
+    @user.points += (@user.demo.ticket_threshold - 1)
+    @user.save!
+    @user.reload.tickets.should == 1
+
+    @user.points += 1
+    @user.save!
+    @user.reload.tickets.should == 2
+  end
+end
