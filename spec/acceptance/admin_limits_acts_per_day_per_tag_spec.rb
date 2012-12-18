@@ -70,4 +70,22 @@ feature 'Admin limits acts per day per tag' do
     FakeTwilio.sent_messages.each{|sent_message| sent_message['Body'].should include("Points")}
     expect_no_mt_sms_including user.phone_number, "Sorry"
   end
+
+  it "should work with the primary tag" do
+    tag = FactoryGirl.create(:tag, daily_limit: 3)
+    rule = FactoryGirl.create(:rule, demo_id: nil, primary_tag: tag)
+    FactoryGirl.create(:rule_value, rule: rule, is_primary: true)
+    user = FactoryGirl.create(:user_with_phone)
+
+    Timecop.freeze(Date.today.midnight)
+    3.times { mo_sms user.phone_number, rule.primary_value.value }
+
+    FakeTwilio.sent_messages.each{|sent_message| sent_message['Body'].should include("Points")}
+    expect_no_mt_sms_including user.phone_number, "Sorry"
+
+    FakeTwilio.clear_messages
+    mo_sms user.phone_number, rule.primary_value.value
+    expect_no_mt_sms_including user.phone_number, "Points"
+    expect_mt_sms user.phone_number, "Sorry, you've done as many of that kind of action as you can do today."
+  end
 end

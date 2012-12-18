@@ -51,11 +51,13 @@ class Rule < ActiveRecord::Base
   end
 
   def user_hit_daily_limit?(user)
-    limiting_tags = tags.with_daily_limit.order("daily_limit ASC")
+    limiting_tags = tags.with_daily_limit.order("daily_limit ASC").to_a
+    limiting_tags << primary_tag if (primary_tag && primary_tag.daily_limit)
+
     return false if limiting_tags.empty?
 
     limiting_tags.each do |limiting_tag|
-      if user.acts.done_today.where(rule_id: limiting_tag.rule_ids).count >= limiting_tag.daily_limit
+      if user.acts.done_today.where(rule_id: limiting_tag.rule_ids + limiting_tag.rules_as_primary_tag_ids).count >= limiting_tag.daily_limit
         return true
       end
     end
