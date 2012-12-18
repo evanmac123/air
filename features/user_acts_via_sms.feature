@@ -170,6 +170,14 @@ Feature: User acts
     And "+15087407520" should have received an SMS "Congratulations! Points 0/20, tix 2."
     And "+15087407520" should have received an SMS "Sorry, you've already done that action."
 
+  Scenario: User gets side message for getting ticket
+    When "+15087407520" sends SMS "saw poster"
+    And DJ works off after a little while
+    Then "+15087407520" should have received an SMS "Congratulations - You've earned 1 ticket!"
+    When "+15087407520" sends SMS "saw poster"
+    And DJ works off after a little while
+    Then "+15087407520" should have received an SMS "Congratulations - You've earned 2 tickets!"
+
   Scenario: Act with 0 points should not mention that
     Given the following act exists:
       | text         | inherent points | user        | 

@@ -71,8 +71,7 @@ Feature: User invites friends
     Then user with email "1@loaded.com" should show up as referred by "Shelly"
     And DJ works off
     And "+16662221111" should have received SMS "Charlie Brainfield gave you credit for referring them to the game. Many thanks and 2000 bonus points!"
-    When "pre@loaded.com" opens the email
-    Then I should see "Charlie Brainfield gave you credit for referring them to the game. Many thanks and 2000 bonus points!" in the email body
+    And "pre@loaded.com" should receive an email with "Charlie Brainfield gave you credit for referring them to the game. Many thanks and 2000 bonus points!" in the email body
     And I should see "Shelly got credit for referring Charlie Brainfield to the game"
     And I should see "2000 pts"
    

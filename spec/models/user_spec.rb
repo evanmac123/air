@@ -1078,19 +1078,19 @@ describe User, "add_tickets" do
     @user = FactoryGirl.create(:user, points: 19, ticket_threshold_base: 19)
     @user.tickets.should be_zero
 
-    @user.points += (@user.demo.ticket_threshold - 1)
+    @user.update_points(@user.demo.ticket_threshold - 1)
     @user.save!
     @user.reload.tickets.should be_zero
 
-    @user.points += 1
+    @user.update_points(1)
     @user.save!
     @user.reload.tickets.should == 1
 
-    @user.points += (@user.demo.ticket_threshold - 1)
+    @user.update_points(@user.demo.ticket_threshold - 1)
     @user.save!
     @user.reload.tickets.should == 1
 
-    @user.points += 1
+    @user.update_points(1)
     @user.save!
     @user.reload.tickets.should == 2
   end

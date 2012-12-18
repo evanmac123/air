@@ -13,6 +13,7 @@ class User < ActiveRecord::Base
 
   include Clearance::User
   include User::Segmentation
+  include ActionView::Helpers::TextHelper
   extend User::Queries
   extend Sequenceable
 
@@ -101,10 +102,6 @@ class User < ActiveRecord::Base
 
   before_create do
     set_invitation_code
-  end
-
-  before_update do
-    add_tickets
   end
 
   before_save do
@@ -529,9 +526,12 @@ class User < ActiveRecord::Base
     Mixpanel::Tracker.new(MIXPANEL_TOKEN, {}).delay.track("claimed account", {:channel => channel}.merge(self.data_for_mixpanel))
   end
 
-  def update_points(new_points, channel=nil)
+  def update_points(point_increment, channel=nil)
     old_points = self.points
-    increment!(:points, new_points)
+    increment!(:points, point_increment)
+
+    new_points = self.points
+    add_ticket(old_points, new_points, channel)
   end
 
   def password_optional?
@@ -1091,17 +1091,20 @@ class User < ActiveRecord::Base
     Act.update_all({:privacy_level => self.privacy_level}, {:user_id => self.id}) if self.changed.include?('privacy_level')
   end
 
-  def add_tickets
-    return unless self.demo.uses_tickets && self.changed.include?('points')
+  def add_ticket(old_points, new_points, channel)
+    return unless self.demo.uses_tickets
 
-    old_points, new_points = self.changes['points']
-
-    old_point_tranche = (old_points - ticket_threshold_base) / self.demo.ticket_threshold
-    new_point_tranche = (new_points - ticket_threshold_base) / self.demo.ticket_threshold
+    old_point_tranche = ticket_tranche(old_points)
+    new_point_tranche = ticket_tranche(new_points)
 
     if new_point_tranche > old_point_tranche
-      self.tickets += 1
+      self.increment!(:tickets)
+      OutgoingMessage.send_side_message(self, "Congratulations - You've earned #{pluralize tickets, 'ticket'}!", channel: channel)
     end
+  end
+
+  def ticket_tranche(point_value)
+    (point_value - ticket_threshold_base) / self.demo.ticket_threshold
   end
 
   def self.claimable_by_first_name_and_claim_code(claim_string)
