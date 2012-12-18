@@ -32,5 +32,6 @@ feature 'Admin resets tickets for demo' do
     @user1.ticket_threshold_base.should == 104
     @user2.ticket_threshold_base.should == 7
     @user3.ticket_threshold_base.should == 59
+    [@user1, @user2, @user3].each{|user| user.points_towards_next_threshold.should == 0}
   end
 end

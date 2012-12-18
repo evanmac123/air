@@ -775,7 +775,7 @@ class User < ActiveRecord::Base
   end
 
   def points_towards_next_threshold
-    self.points - last_point_goal
+    points - last_point_goal - ticket_threshold_base
   end
 
   def percent_towards_next_threshold
