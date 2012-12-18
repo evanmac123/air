@@ -20,7 +20,9 @@ feature "Admin drags and drops tiles into position" do
     distance = 2
     script = "$('#tile_#{@tile_1.id}').simulateDragSortable({ move: #{distance}});"
     page.execute_script(script)
-    wait_until { @tile_1.reload.position != 1}
+
+    sleep 1  # This (hopefully) works better than: " wait_until { @tile_1.reload.position != 1} "
+
     [@tile_1, @tile_2, @tile_3, @tile_4].each { |tile| tile.reload }
     @tile_2.position.should == 1
     @tile_3.position.should == 2
