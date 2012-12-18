@@ -26,10 +26,7 @@ feature "User tries to friend someone" do
   let!(:friend) { FactoryGirl.create :user, :claimed, demo: demo, name: 'Sue Friend' }
 
   before(:each) do
-    # NOTE: Need these guys to get rid of overlay screens for talking-chicken tutorial and inviting people
-    # to join the game. If don't get rid of these screens => can't click on any links because they are "covered".
-    User.any_instance.stubs(:create_tutorial_if_none_yet) # Uses 'fancybox' css selectors
-    user.update_attribute :session_count, 10              # Uses 'facebox'  css selectors
+    bypass_modal_overlays(user)
   end
 
   background do
