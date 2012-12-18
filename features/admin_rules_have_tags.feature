@@ -5,7 +5,7 @@ Feature: Admin rules have tags
      | name  | is_site_admin |
      | jesus | true          |
     Given the following rule exists:
-      | description | primary_tag     | demo                |
+      | description | primary_tag     | demo        |
       | ridebike    | name: generated | name: FooCo |
     Given the following rule value exists:
       | value        | rule                  | is_primary |
@@ -27,10 +27,12 @@ Feature: Admin rules have tags
     When I go to the new admin tag page
     And I fill in "Name" with "cheese"
     And I fill in "Description" with "curdled milk"
+    And I fill in "Daily limit" with "47666"
     And I press "Create Tag"
     Then I should see "Tag was successfully created"
     And I should see "cheese"
     And I should see "curdled milk"
+    And I should see "47666"
 
   Scenario: Admin can edit a rule to associate it with a tag
     When I go to the rule edit page for "rode a bike"

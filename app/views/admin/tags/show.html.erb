@@ -10,6 +10,10 @@
   <%= @tag.description %>
 </p>
 
+<p>
+  <b>Daily limit:</b>
+  <%= @tag.daily_limit || "unlimited" %>
+</p>
 
 <%= link_to 'Edit', edit_admin_tag_path(@tag) %> |
 <%= link_to 'Back', admin_tags_path %>

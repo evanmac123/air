@@ -10,13 +10,15 @@
     %tr
       %th Name
       %th Description
-      %th
+      %th Daily limit
+      %th 
       %th
       %th
     - @tags.each do |tag|
       %tr
         %td= tag.name 
         %td= tag.description 
+        %td= tag.daily_limit
         %td= link_to 'Show', admin_tag_path(tag) 
         %td= link_to 'Edit', edit_admin_tag_path(tag) 
         %td= link_to 'Destroy', admin_tag_path(tag), :confirm => 'Are you sure?', :method => :delete, :controller => "admin/tags" 
