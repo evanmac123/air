@@ -665,8 +665,7 @@ class User < ActiveRecord::Base
   end
 
   # Returns a list [reply, reply_type] where reply_type should be :success if
-  # the action was successful, or an error code if the action failed. As of
-  # now the only error code we use is :over_alltime_limit.
+  # the action was successful, or an error code if the action failed.
 
   def act_on_rule(rule, rule_value, options={})
     self.last_suggested_items = ''
@@ -677,6 +676,10 @@ class User < ActiveRecord::Base
     User.transaction do
       if rule.user_hit_limit?(self)
         return ["Sorry, you've already done that action.", :over_alltime_limit]
+      end
+
+      if rule.user_hit_daily_limit?(self)
+        return ["Sorry, you've done as many of that kind of action as you can do today.", :over_daily_limit]
       end
      
       result = [Act.record_act(self, rule, rule_value, options), :success]

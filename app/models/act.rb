@@ -245,4 +245,8 @@ class Act < ActiveRecord::Base
       return parsing_error_message(demo.game_over_response)
     end
   end
+
+  def self.done_today
+    where("created_at BETWEEN ? AND ?", Date.today.midnight, Date.tomorrow.midnight)
+  end
 end

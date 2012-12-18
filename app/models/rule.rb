@@ -50,6 +50,19 @@ class Rule < ActiveRecord::Base
     self.acts.where(:user_id => user.id).count >= self.alltime_limit
   end
 
+  def user_hit_daily_limit?(user)
+    limiting_tags = tags.with_daily_limit.order("daily_limit ASC")
+    return false if limiting_tags.empty?
+
+    limiting_tags.each do |limiting_tag|
+      if user.acts.done_today.where(rule_id: limiting_tag.rule_ids).count >= limiting_tag.daily_limit
+        return true
+      end
+    end
+
+    false
+  end
+
   # Convenience methods to set the primary and secondary values from a string
   # or array of strings, respectively.
 
