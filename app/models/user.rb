@@ -851,8 +851,8 @@ class User < ActiveRecord::Base
     self.accepted_friends_same_demo.sort_by {|ff| ff.name.downcase}
   end
   
-  def scoreboard_friends_list_by_points
-    (self.accepted_friends_same_demo + [self]).sort_by {|ff| ff.points}.reverse
+  def scoreboard_friends_list_by_tickets
+    (self.accepted_friends_same_demo + [self]).sort_by(&:tickets).reverse
   end
   
   def scoreboard_friends_list_by_name
