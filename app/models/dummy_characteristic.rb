@@ -26,8 +26,6 @@ end
   ['points',                    'Number'],
   ['date_of_birth',             'Date'],
   ['accepted_invitation_at',    'Time'],
-  ['height',                    'Number'],
-  ['weight',                    'Number'],
   ['gender',                    'Discrete'],
   ['claimed',                   'Boolean'],
   ['has_phone_number',          'Boolean'],

@@ -534,20 +534,6 @@ feature "Admin segmentation" do
     expected_users.each {|expected_user| expect_user_content expected_user}
   end
 
-  %w(height weight).each do |field_name|
-    it "can segment on #{field_name}", :js => true do
-      @demo = FactoryGirl.create(:demo)
-      users = []
-      50.upto(59) do |value|
-        users << FactoryGirl.create(:user, :demo => @demo, field_name => value)
-      end
-      crank_dj_clear
-
-      signin_as_admin
-      expect_all_operators_to_work field_name.capitalize, 55, users
-    end
-  end
-
   it 'can segment on points', :js => true do
     @demo = FactoryGirl.create(:demo)
     users = []
