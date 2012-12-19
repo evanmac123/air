@@ -679,7 +679,7 @@ class User < ActiveRecord::Base
       end
 
       if rule.user_hit_daily_limit?(self)
-        return ["Sorry, you've done as many of that kind of action as you can do today.", :over_daily_limit]
+        return ["Sorry, you've reached the limit for the number of times you can earn points for that kind of action today. Enter it tomorrow!", :over_daily_limit]
       end
      
       result = [Act.record_act(self, rule, rule_value, options), :success]

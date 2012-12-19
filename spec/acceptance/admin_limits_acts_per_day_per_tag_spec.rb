@@ -40,7 +40,7 @@ feature 'Admin limits acts per day per tag' do
     first_tag_rules.each do |rule|
       FakeTwilio.clear_messages
       mo_sms user.phone_number, rule.primary_value.value
-      expect_mt_sms user.phone_number, "Sorry, you've done as many of that kind of action as you can do today."
+      expect_mt_sms user.phone_number, "Sorry, you've reached the limit for the number of times you can earn points for that kind of action today. Enter it tomorrow!"
     end
     other_tag_rules.each do |rule|
       FakeTwilio.clear_messages
@@ -53,7 +53,7 @@ feature 'Admin limits acts per day per tag' do
     first_tag_rules.each do |rule|
       FakeTwilio.clear_messages
       mo_sms user.phone_number, rule.primary_value.value
-      expect_mt_sms user.phone_number, "Sorry, you've done as many of that kind of action as you can do today."
+      expect_mt_sms user.phone_number, "Sorry, you've reached the limit for the number of times you can earn points for that kind of action today. Enter it tomorrow!"
     end
     other_tag_rules.each do |rule|
       FakeTwilio.clear_messages
@@ -86,6 +86,6 @@ feature 'Admin limits acts per day per tag' do
     FakeTwilio.clear_messages
     mo_sms user.phone_number, rule.primary_value.value
     expect_no_mt_sms_including user.phone_number, "Points"
-    expect_mt_sms user.phone_number, "Sorry, you've done as many of that kind of action as you can do today."
+    expect_mt_sms user.phone_number, "Sorry, you've reached the limit for the number of times you can earn points for that kind of action today. Enter it tomorrow!"
   end
 end

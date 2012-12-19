@@ -1,4 +1,4 @@
-class SurveyDemographicRule_allNeedTileInsteadOfTask < ActiveRecord::Migration
+class SurveyDemographicRuleAllNeedTileInsteadOfTask < ActiveRecord::Migration
   def up
     rename_column :trigger_survey_triggers, :task_id, :tile_id
     rename_column :trigger_demographic_triggers, :task_id, :tile_id
