@@ -578,8 +578,8 @@ feature "Admin segmentation" do
 
     signin_as_admin
 
-    expect_all_continuous_operators_to_work "Accepted invitation at", reference_time, users
-    expect_discrete_operators_to_not_be_present "Accepted invitation at"
+    expect_all_continuous_operators_to_work "Joined at", reference_time, users
+    expect_discrete_operators_to_not_be_present "Joined at"
   end
 
   it 'can segment on gender', :js => true do
@@ -668,44 +668,44 @@ feature "Admin segmentation" do
     signin_as_admin
     visit admin_demo_segmentation_path(@demo)
 
-    select 'Claimed', :from => "segment_column[0]"
+    select 'Joined?', :from => "segment_column[0]"
     select "equals",  :from => "segment_operator[0]"
     check "segment_value[0]"
 
     click_button "Find segment"
 
-    expect_content "Segmenting on: Claimed equals true"
+    expect_content "Segmenting on: Joined? equals true"
     expect_content "4Users in segment"
     click_link "Show users"
     @demo.users.claimed.each {|claimed_user| expect_user_content(claimed_user)}
 
-    select 'Claimed', :from => "segment_column[0]"
+    select 'Joined?', :from => "segment_column[0]"
     select "does not equal",  :from => "segment_operator[0]"
     check "segment_value[0]"
 
     click_button "Find segment"
 
-    expect_content "Segmenting on: Claimed does not equal true"
+    expect_content "Segmenting on: Joined? does not equal true"
     expect_content "3Users in segment"
     click_link "Show users"
     @demo.users.unclaimed.each {|unclaimed_user| expect_user_content(unclaimed_user)}
 
-    select 'Claimed', :from => "segment_column[0]"
+    select 'Joined?', :from => "segment_column[0]"
     select "equals",  :from => "segment_operator[0]"
 
     click_button "Find segment"
 
-    expect_content "Segmenting on: Claimed equals false"
+    expect_content "Segmenting on: Joined? equals false"
     expect_content "3Users in segment"
     click_link "Show users"
     @demo.users.unclaimed.each {|unclaimed_user| expect_user_content(unclaimed_user)}
 
-    select 'Claimed', :from => "segment_column[0]"
+    select 'Joined?', :from => "segment_column[0]"
     select "does not equal",  :from => "segment_operator[0]"
 
     click_button "Find segment"
 
-    expect_content "Segmenting on: Claimed does not equal false"
+    expect_content "Segmenting on: Joined? does not equal false"
     expect_content "4Users in segment"
     click_link "Show users"
     @demo.users.claimed.each {|claimed_user| expect_user_content(claimed_user)}
@@ -728,24 +728,24 @@ feature "Admin segmentation" do
     signin_as_admin
     visit admin_demo_segmentation_path(demo)
 
-    select 'Email has internal domain', :from => "segment_column[0]"
+    select 'Corporate email?', :from => "segment_column[0]"
     select "equals",  :from => "segment_operator[0]"
     check "segment_value[0]"
 
     click_button "Find segment"
 
-    expect_content "Segmenting on: Email has internal domain equals true"
+    expect_content "Segmenting on: Corporate email? equals true"
     expect_content "2Users in segment"
     click_link "Show users"
     internal_users.each {|claimed_user| expect_user_content(claimed_user)}
 
-    select 'Email has internal domain', :from => "segment_column[0]"
+    select 'Corporate email?', :from => "segment_column[0]"
     select "equals",  :from => "segment_operator[0]"
     uncheck "segment_value[0]"
 
     click_button "Find segment"
 
-    expect_content "Segmenting on: Email has internal domain equals false"
+    expect_content "Segmenting on: Corporate email? equals false"
     expect_content "3Users in segment"
     click_link "Show users"
     external_users.each {|claimed_user| expect_user_content(claimed_user)}
@@ -806,7 +806,7 @@ feature "Admin segmentation" do
     signin_as_admin
     visit admin_demo_segmentation_path(@demo)
 
-    select 'Claimed', :from => "segment_column[0]"
+    select 'Joined?', :from => "segment_column[0]"
     select "equals",  :from => "segment_operator[0]"
     check "segment_value[0]"
     click_button 'Find segment'
@@ -817,7 +817,7 @@ feature "Admin segmentation" do
     Timecop.travel(10.minutes)
     Timecop.freeze(Time.now)
 
-    select 'Claimed', :from => "segment_column[0]"
+    select 'Joined?', :from => "segment_column[0]"
     select "equals",  :from => "segment_operator[0]"
     check "segment_value[0]"
     click_button 'Find segment'

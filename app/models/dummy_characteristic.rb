@@ -23,16 +23,15 @@ class DummyCharacteristic
 end
 
 [
-  ['points',                    'Number'],
-  ['date_of_birth',             'Date'],
-  ['accepted_invitation_at',    'Time'],
-  ['gender',                    'Discrete'],
-  ['claimed',                   'Boolean'],
-  ['has_phone_number',          'Boolean'],
-  ['last_acted_at',             'Time'],
-  ['email_has_internal_domain', 'Boolean']
-].each do |field_id, datatype_short_name|
-  name = field_id.humanize
+  ['points',                    'Points',           'Number'],
+  ['date_of_birth',             'Date of birth',    'Date'],
+  ['accepted_invitation_at',    'Joined at',        'Time'],
+  ['gender',                    'Gender',           'Discrete'],
+  ['claimed',                   'Joined?',          'Boolean'],
+  ['has_phone_number',          'Has phone number', 'Boolean'],
+  ['last_acted_at',             'Last acted at',    'Time'],
+  ['email_has_internal_domain', 'Corporate email?', 'Boolean']
+].each do |field_id, human_name, datatype_short_name|
   class_name = field_id.camelize + "DummyCharacteristic"
   datatype_name = "Characteristic::" + datatype_short_name + "Type"
 
@@ -40,7 +39,7 @@ end
     class #{class_name} < DummyCharacteristic
       def initialize(options = {})
         @id = '#{field_id}'
-        @name = '#{name}'
+        @name = '#{human_name}'
         @datatype = #{datatype_name}
       end
 
