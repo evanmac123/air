@@ -8,8 +8,8 @@ class TilesController < ApplicationController
     session.delete(:start_tile)
   end
 
-  def create
-    session[:start_tile] = params[:start]
+  def show
+    session[:start_tile] = params[:id]
     redirect_to tiles_path
   end
 
