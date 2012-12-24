@@ -2,7 +2,7 @@ require 'sinatra/base'
 
 class FakeS3App < Sinatra::Base
   [
-    "/:bucket/avatars/:user_id/:filename",
+    "/avatars/:user_id/:style/:filename", # no bucket, hostname will take care of that below
     "/:bucket/tiles/:id/:filename",
     "/:bucket/tile_thumbnails/:id/:style/:filename"
   ].each do |path|
@@ -11,6 +11,10 @@ class FakeS3App < Sinatra::Base
     end
 
     delete path do
+      "OK"
+    end
+
+    post path do
       "OK"
     end
   end
@@ -28,3 +32,7 @@ ShamRack.at('s3.amazonaws.com', 443).rackup do
   run FakeS3App
 end
 
+
+ShamRack.at('hengage-avatars-development.s3.amazonaws.com', 443).rackup do
+  run FakeS3App
+end
