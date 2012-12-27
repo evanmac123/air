@@ -257,15 +257,6 @@ class Demo < ActiveRecord::Base
     "I can't find your number in my records. Did you claim your account yet? If not, text your first initial and last name (if you are John Smith, text \"jsmith\")."
   end
 
-  def is_public_game
-    # Note that to send yourself an invitation, this line in the invitations controller must pass as true:
-    #     ENV['GAME_TYPE'] == 'public'
-    # which must be set on the server
-    self.join_type == 'public'
-  end
-
-
-
   def name_with_sponsor
     if sponsor
       "#{name} at #{sponsor}"

@@ -63,3 +63,7 @@ end
 #     DatabaseCleaner.strategy = :transaction
 #   end
 #
+
+# an incredible amount of stuff, which we virtually never look at in testing, 
+# is logged unless we set the log level way high.
+Rails.logger.level = 4 

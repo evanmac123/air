@@ -30,68 +30,6 @@ class Invitation::FriendInvitationsController < ApplicationController
       record_mixpanel_ping(attempted, successful)  
       return        
     end
-    users_invited = []
-    
-    # Self-inviting Domain or Public Join
-    
-    hash_of_prepends = params[:email_prepends]
-    existing_users = []
-    if hash_of_prepends.nil?
-      add_failure no_at_sign_error_message
-      redirect_to activity_path and return        
-    end      
-
-    check_for_all_blank = ''
-
-    User.transaction do
-      hash_of_prepends.each_pair do |key,prepend|
-        next if prepend.empty?
-        check_for_all_blank += prepend
-        email = prepend.downcase
-        users_with_email = User.where(:email => email)
-        users_with_email_in_same_demo = User.where(:email => email, :demo_id => current_user.demo_id)
-        
-        if email.is_not_email_address? 
-          add_failure "#{email} is not a valid email address"
-        elsif current_user.demo.valid_email_to_create_new_user(email) == false
-          add_failure "#{email} is not on a self-inviting domain. Please enter work email addresses."
-        elsif users_with_email.present? && users_with_email_in_same_demo.empty?
-          add_failure "Thanks, but #{email} is in a different game than you."
-        elsif users_with_email.empty? 
-          # create a new user, then invite
-          user = User.new(:email => email, :demo_id => current_user.demo_id)
-          unless user.save
-            add_failure "Unable to create user with email address #{email}"
-          end
-          @invitation_request = InvitationRequest.new(:email => user.email)
-          add_failure "For some reason, the address #{email} didn't work" unless @invitation_request.valid?
-          users_invited << email
-          user.invite(current_user)        
-        elsif User.where(:email => email).first.accepted_invitation_at 
-          # user already playing, so discard
-          existing_users << email 
-        else  
-          # user already created, but invitation not accepted, so send invitation again
-          user = User.where(:email => email, :demo_id => current_user.demo_id).first
-          user.invite(current_user)
-          users_invited << email
-        end
-      end
-    end
-
-    add_failure "Please enter the first part of your friends' email address, then click 'Invite'" if check_for_all_blank.empty?
-    unless existing_users.empty?
-      add_failure "Thanks, but the following users are already playing the game: " + existing_users.join(', ') 
-    end
-    unless users_invited.empty?
-      sentence = create_sentence_response(users_invited)
-      add_success(sentence) 
-    end
-
-    attempted_invitation_count = hash_of_prepends.values.select(&:present?).length
-    record_mixpanel_ping(users_invited.length, attempted_invitation_count)
-
-    redirect_to activity_path 
   end
 
   def create_sentence_response(name_array)
