@@ -1,19 +1,19 @@
-#black_tooltip{:class => @arrow_dir} 
-  - if @show_next_button
+#black_tooltip{:class => @tutorial_step.arrow_dir} 
+  - if @tutorial_step.show_next_button
     = link_to tutorial_path, :method => :put do
       #next_button
-  - elsif @show_finish_button
+  - elsif @tutorial_step.show_finish_button
     = link_to "Finish", '#', :id => :finish_tutorial_button
-  #differing_spacings{:class => @arrow_dir}
+  #differing_spacings{:class => @tutorial_step.arrow_dir}
     = render 'shared/corner_icon'
-    .title=@title
-    .instruct!= @instruct 
+    .title=@tutorial_step.title
+    .instruct!= @tutorial_step.instruct 
 
 
 = content_for :javascript do
   :javascript
     $(function() {
-      displayToolTip('#{@highlighted}', '#black_tooltip', #{@x}, #{@y}, '#{@position}');
+      displayToolTip('#{@tutorial_step.highlighted}', '#black_tooltip', #{@tutorial_step.x}, #{@tutorial_step.y}, '#{@tutorial_step.position}');
     });
 
   

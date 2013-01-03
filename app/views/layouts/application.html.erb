@@ -53,14 +53,14 @@
   <%= render 'shared/mixpanel' unless @is_admin_page %>
   <%= render 'shared/intercom' %>
   
-  <% if @highlighted %>
+  <% if @tutorial_step.try(:highlighted) %>
     <%= render 'shared/site_tutorial' %>
     <div class="overlaying" ></div>
-    <% if @flash_margin_left %><!-- Make the error flash visible alongside the talking chicken -->
+    <% if @tutorial_step.flash_margin_left %><!-- Make the error flash visible alongside the talking chicken -->
       <%= content_for :javascript do %>
         <%= javascript_tag do %>
           $(function() {
-            $("#flash_failure").css('margin-left', '<%= @flash_margin_left %>');
+            $("#flash_failure").css('margin-left', '<%= @tutorial_step.flash_margin_left %>');
             $("#flash_failure").css('z-index', '20');
             $("#flash_failure").css('position', 'relative');
             $("#slideshow").css('z-index', '20');

@@ -110,83 +110,13 @@ class ApplicationController < ActionController::Base
 
   def invoke_tutorial
     return nil unless current_user.reload.tutorial_active?
-    first_name = Tutorial.example_search_name.split(" ").first
     example_command = current_user.demo.example_tutorial_or_default
     advance_tutorial
-    @step = current_user.tutorial.current_step
-    case @step
-    when 0
-      @show_introduction = true
-    when 1
-      @title = "1. Click It!"
-      @instruct = "Click to open the tile and earn points for learning about your benefits"
-      @highlighted = '#tile-thumbnail-0' # The sample tile always has and id of 0
-      @x = 0
-      @y = -66
-      @position = "center right"
-      @arrow_dir = "left"
-    when 2
-      @title = "2. Read for Points!"
-      @instruct = "Read the tile below, then enter the key word here for points."
-      @highlighted = '#bar_command_wrapper'
-      @x = -3
-      @y = 36 
-      @position = "center right"
-      @arrow_dir = "left"
-      @flash_margin_left = "355px"  # This is so any failure messages will be offset & thereby visible
-    when 3
-      @title = "3. Dialogue Box"
-      @instruct = "This is where you'll get helpful info<br>to guide you".html_safe
-      @show_next_button = true
-      @highlighted = '.flash-box'
-      @x = 0
-      @y = 43
-      @position = "center right"
-      @arrow_dir = "left"
-    when 4
-      @title = "4. Make Connections"
-      @instruct = "Click DIRECTORY to find people you know"
-      @highlighted = '.nav-directory'
-      @x = -141
-      @y = -5
-      @position = "bottom center"
-      @arrow_dir = "top-right"
-    when 5
-      @title = "5. Find Your Friends"
-      @instruct = "Just for practice, type \"<span class='offset'>#{first_name}</span>\", then click FIND!"
-      @highlighted = '#search_box_wrapper'
-      @x = -10
-      @y = -3
-      @position = "bottom center"
-      @arrow_dir = "top-left"
-    when 6
-      @title = "6. Friend Them"
-      @instruct = "Click ADD TO FRIENDS to connect with #{first_name}"
-      @highlighted = '#directory_wrapper'
-      @x = 0
-      @y = 298
-      @position = "top right"
-      @arrow_dir = "left"
-    when 7
-      @title = "7. See Your Profile"
-      @instruct = "Great! Now you're connected with Kermit. Click MY PROFILE to see him."
-      @highlighted = '.nav-activity'
-      @x = 0
-      @y = 0
-      @position = "bottom center"
-      @arrow_dir = "top-center"
-    when 8
-      @title = "8. Have Fun Playing!"
-      @instruct = "That's it! Now you know how to connect with friends and how to earn points."
-      @show_finish_button = true
-      @highlighted = '#following_wrapper'
-      @x = 0
-      @y = 128
-      @position = "top left"
-      @arrow_dir = "right"
-    end
-    return true
+    @tutorial_step = TutorialStep.new(current_user.tutorial.current_step)
   end
+
+  # TODO: This clearly doesn't belong here. It's not readily apparent where we
+  # could put it, though.
 
   def advance_tutorial
     tutorial = current_user.tutorial

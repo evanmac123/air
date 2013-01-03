@@ -66,7 +66,7 @@
     <%= button_to "Get More Help", faq_path, :method => :get, :style => "float: left;" %>
   </div>
 </div>
-<% if @show_introduction %>
+<% if @tutorial_step.try(:show_introduction) %>
   <div id='tutorial_introduction'>
     <div id='tutorial_introduction_inner'>
       <h2>Welcome&nbsp;to&nbsp;<%= @current_user.demo.name %></h2>
