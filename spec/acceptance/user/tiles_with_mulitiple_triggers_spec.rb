@@ -28,11 +28,11 @@ feature 'User interacts with single- and multiple-trigger tiles' do
                                                  reply: 'You have satisfied the bowls-of-beans requirement',
                                                  primary_value: FactoryGirl.create(:rule_value, value: 'Ate bowl #3 of beans')}
 
-  let(:single_tile) { FactoryGirl.create :tile, demo: demo, poly: false, headline: 'Single Tile' }
-  let(:or_tile)     { FactoryGirl.create :tile, demo: demo, poly: false, headline: 'Or Tile' }
-  let(:and_tile)    { FactoryGirl.create :tile, demo: demo, poly: true,  headline: 'And Tile' }
+  let(:single_tile) { FactoryGirl.create :tile, demo: demo, poly: false }
+  let(:or_tile)     { FactoryGirl.create :tile, demo: demo, poly: false }
+  let(:and_tile)    { FactoryGirl.create :tile, demo: demo, poly: true  }
 
-  # Note the '!'s because these variables aren't referenced in the tests
+  # Note the '!'s (because these variables aren't referenced in the tests)
   let!(:trigger_single) { FactoryGirl.create :rule_trigger, tile: single_tile, rule: fish_rule }
 
   let!(:trigger_or_1) { FactoryGirl.create :rule_trigger, tile: or_tile, rule: walk_rule }
@@ -50,46 +50,10 @@ feature 'User interacts with single- and multiple-trigger tiles' do
     signin_as(user, user.password)
   end
 
-  # My first custom matcher! Yippee!!
-  RSpec::Matchers.define :be_tile do |tile|
-    match do |current_tile|
-      current_tile.should == tile.id.to_s
-    end
-
-    failure_message_for_should do |current_tile|
-      "expected current tile to have an id of #{current_tile}, but got #{tile.id} instead "
-    end
-
-    failure_message_for_should_not do |current_tile|
-      "expected current tile *not* to have an id of #{current_tile}, but that is what we got"
-    end
-  end
-
-  def click_carousel_tile(tile)
-    find("a[href='#{tile_path(tile)}']").click
-  end
-
-  def show_previous_tile
-    page.find("#prev").click
-  end
-
-  def show_next_tile
-    page.find("#next").click
-  end
-
-  def current_slideshow_tile
-    sleep 0.5  # Give tile attributes time to change
-
-    # Use the z-index to determine which tile is visible. (Not crazy about it, but since it's the only thing that works...)
-    current_tile = all('#slideshow img').sort_by { |img| img[:style].slice(/(z-index: )(\d)/, 2) }.last
-
-    current_tile[:id]  # 'current_tile' is a Capybara::Node::Element => return its 'id' attribute
-  end
-
 =begin
 Tile specs (at least these tile specs) need 'js' to be 'webkit', not 'true' (which => 'poltergeist'). Why?
-The first batch shows the slideshow-tile tags when using :webkit, the second batch shows those same tags when using :poltergeist
-Since we need to test which tiles are visible... well, which one would you use?
+The first batch shows the slideshow-tile tags when using :webkit, the second batch shows those same tags when using :poltergeist.
+The problem is that poltergeist (currently) does not update the attributes for the image tiles => no way for us to deduce the current tile.
 
 <div id="slideshow">
   <img id="315" class="tile_image" style="top: 0px; left: 0px; z-index: 1; position: absolute; display: none; " src="/home/larry/RubyMine/Hengage/public/images/viewer/missing.png" alt="Single Tile">
@@ -104,7 +68,11 @@ Since we need to test which tiles are visible... well, which one would you use?
 </div>
 =end
 
-  scenario "tile should remain the same (i.e. not go back to #1) if user is not done completing multiple 'AND' triggers", js: :webkit do
+  scenario "current tile should not change (i.e. go back to tile #1) if user is not done completing multiple 'AND' triggers", js: :webkit do
+    # TODO Put this in => does not work due to server response timeout error
+    #click_link "Home"
+    #click_carousel_tile(and_tile)
+
     fill_in 'command_central', with: 'Ate bowl #1 of beans'
     click_button "Play"
     page.should have_content('You have eaten 1 out of 3 bowls of beans')
@@ -125,16 +93,8 @@ Since we need to test which tiles are visible... well, which one would you use?
     show_next_tile
     current_slideshow_tile.should be_tile(and_tile)
 
-    # TODO Uncomment either of the first statements in the groups => all steps still run to completion
-    # TODO Then uncomment either of the second statements in the groups => hangs.
-    # TODO But these same group of statements work upstairs. ^%$#@!$#@!!
-    # TODO Well, this used to be true, but now uncommenting the first stmt. in the first group no longer passes. Sigh...
-
-    #click_link "Home"
-    #click_carousel_tile(single_tile)
-    #current_slideshow_tile.should be_tile(single_tile)
-
-    #fill_in 'command_central', with: 'Walked one mile'
+    fill_in 'command_central', with: 'Walked one mile'
+    pending 'Upgrading Cabybara and Poltergeist'
     #click_button "Play"
     #page.should have_content('You have satisfied the walking requirement')
   end

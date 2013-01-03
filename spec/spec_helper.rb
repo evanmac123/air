@@ -70,9 +70,11 @@ class ActiveRecord::Base
 end
 ActiveRecord::Base.shared_connection = ActiveRecord::Base.connection
 
+  require 'capybara/poltergeist'
+  Capybara.javascript_driver = :poltergeist
 
-require 'capybara/poltergeist'
-Capybara.javascript_driver = :poltergeist
+  require 'capybara-screenshot/rspec'
+  Capybara::Screenshot.autosave_on_failure = false
 
 # Hack to allow us to use regular controller tests to test SmsController 
 # (which is an ActionController::Metal).
