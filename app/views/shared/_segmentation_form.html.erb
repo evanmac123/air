@@ -61,7 +61,7 @@
 
     function createCheckboxFromInputSpecifier(inputSpecifier, domId) {
       hiddenField = '<input type="hidden" value="0" ' + nameAttribute(domId) + '>';
-      checkboxField = '<input type="checkbox" value="1" ' + nameAndId(domId) + '><span>True</span>';
+      checkboxField = '<span ' + idAttribute(domId) + '><input type="checkbox" value="1" ' + nameAttribute(domId) + '>True</span>';
       return(hiddenField + checkboxField);
     }
 
