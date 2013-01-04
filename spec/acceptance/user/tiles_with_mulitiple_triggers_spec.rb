@@ -69,9 +69,10 @@ The problem is that poltergeist (currently) does not update the attributes for t
 =end
 
   scenario "current tile should not change (i.e. go back to tile #1) if user is not done completing multiple 'AND' triggers", js: :webkit do
-    # TODO Put this in => does not work due to server response timeout error
-    #click_link "Home"
-    #click_carousel_tile(and_tile)
+    pending 'Upgrading Cabybara and Poltergeist'
+
+    click_link "Home"
+    click_carousel_tile(and_tile)
 
     fill_in 'command_central', with: 'Ate bowl #1 of beans'
     click_button "Play"
@@ -94,8 +95,7 @@ The problem is that poltergeist (currently) does not update the attributes for t
     current_slideshow_tile.should be_tile(and_tile)
 
     fill_in 'command_central', with: 'Walked one mile'
-    pending 'Upgrading Cabybara and Poltergeist'
-    #click_button "Play"
-    #page.should have_content('You have satisfied the walking requirement')
+    click_button "Play"
+    page.should have_content('You have satisfied the walking requirement')
   end
 end
