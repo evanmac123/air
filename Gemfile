@@ -31,6 +31,7 @@ gem "bson_ext"
 gem 'jquery-rails'
 gem 'fancybox-rails', :git => "https://github.com/hecticjeff/fancybox-rails.git"
 gem 'nokogiri'
+gem 'lazy_high_charts'
 
 # Gems used only for assets and not required
 # in production environments by default.
