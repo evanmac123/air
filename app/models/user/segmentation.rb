@@ -11,8 +11,6 @@ class User
         :last_acted_at             => self.last_acted_at.try(:utc),
         :points                    => self.points,
         :location_id               => self.location_id,
-        :height                    => self.height,
-        :weight                    => self.weight,
         :gender                    => self.gender,
         :characteristics           => self.characteristics.try(:stringify_keys) || {},
         :date_of_birth             => self.date_of_birth.try(:to_time).try(:utc).try(:midnight),

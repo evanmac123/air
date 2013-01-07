@@ -9,7 +9,7 @@ class User < ActiveRecord::Base
 
   DEFAULT_MUTE_NOTICE_THRESHOLD = 10
 
-  FIELDS_TRIGGERING_SEGMENTATION_UPDATE = %w(characteristics points location_id date_of_birth height weight gender demo_id accepted_invitation_at last_acted_at phone_number email)
+  FIELDS_TRIGGERING_SEGMENTATION_UPDATE = %w(characteristics points location_id date_of_birth gender demo_id accepted_invitation_at last_acted_at phone_number email)
 
   include Clearance::User
   include User::Segmentation
@@ -61,8 +61,6 @@ class User < ActiveRecord::Base
   validates_format_of :zip_code, with: /^\d{5}$/, allow_blank: true
 
   validates_presence_of :demo_id
-  validates_numericality_of :height, :allow_blank => true, :message => "Please use a numeric value for your height, and express it in inches"
-  validates_numericality_of :weight, :allow_blank => true, :message => "Please use a numeric value for your weight, and express it in pounds"
 
   validates_acceptance_of :terms_and_conditions, :if => :trying_to_accept, :message => "You must accept the terms and conditions" 
 
@@ -753,16 +751,6 @@ class User < ActiveRecord::Base
         tile.satisfy_for_user!(self, channel) if tile.all_rule_triggers_satisfied_to_user(self)
       end
     end
-  end
-
-  def height_feet
-    return nil unless height
-    height / 12
-  end
-
-  def height_inches
-    return nil unless height
-    height % 12
   end
 
   def points_towards_next_threshold
