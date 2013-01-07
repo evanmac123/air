@@ -17,7 +17,8 @@ when 'production', 'staging'
     :storage => :s3,
     :s3_protocol => 'https', 
     :s3_credentials => S3_CREDENTIALS, 
-    :hash_secret => "Kid Sister Diary Secure"}
+    :hash_secret => "Kid Sister Diary Secure",
+    :url            => ":s3_domain_url"}
   TILE_IMAGE_OPTIONS[:path] = "/tiles/:id/:hash__:filename"
   TILE_THUMBNAIL_OPTIONS[:path] = "/tile_thumbnails/:id/:hash__:filename"
 when 'test', 'development'
