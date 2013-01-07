@@ -430,15 +430,6 @@ class User < ActiveRecord::Base
     self.demo.reply_email_address(include_name)
   end
 
-  def top_level
-    return nil if self.levels.empty?
-    self.levels.order("threshold DESC").limit(1).first
-  end
-
-  def top_level_index
-    self.top_level.try(:index_within_demo) || 1
-  end
-
   def data_for_mixpanel
     {
       :distinct_id           => self.email,
@@ -1023,29 +1014,6 @@ class User < ActiveRecord::Base
 
   def destroy_friendships_where_secondary
     Friendship.destroy_all(:friend_id => self.id)
-  end
-
-  def last_achieved_threshold
-    self.last_level.try(:threshold)
-  end
-
-  def next_unachieved_threshold
-    self.next_level.try(:threshold)
-  end
-
-  def last_level
-    #demo.levels.where("threshold <= ?", self.points).order("threshold DESC").limit(1).first
-    nil
-  end
-
-  def next_level
-    #demo.levels.where("threshold > ?", self.points).order("threshold ASC").limit(1).first
-    nil
-  end
-
-  def highest_possible_level
-    #demo.levels.order("threshold DESC").limit(1).first
-    nil
   end
 
   def normalized_new_phone_number_unique
