@@ -174,12 +174,6 @@ FactoryGirl.define do
     association(:survey_question)
   end
 
-  factory :level do
-    sequence(:name) {|n| "Level" + n.to_s}
-    sequence(:threshold) {|n| 30 * n}
-    association :demo
-  end
-
   factory :skin do
     association :demo
   end

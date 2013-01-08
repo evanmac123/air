@@ -113,9 +113,6 @@ Health::Application.routes.draw do
 
       resources :rules, :only => [:index, :new, :create]
 
-      resources :levels, :only => [:edit, :update, :destroy], :shallow => true
-      resources :levels, :only => [:new, :create]
-
       resources :goals
 
       resource :bulk_load, :only => [:new, :create]
@@ -139,7 +136,6 @@ Health::Application.routes.draw do
       namespace :reports do
         resource :location_breakdown, :only => [:show]
         resource :points, :only => [:show]
-        resource :levels, :only => [:show]
         resource :interactions, :only => [:show, :keepalive]
         resource :friendships, :only => :show
       end

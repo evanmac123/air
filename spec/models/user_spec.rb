@@ -23,8 +23,6 @@ describe User do
     ActionMailer::Base.deliveries.clear
   end
 
-  it { should validate_numericality_of(:height).with_message("Please use a numeric value for your height, and express it in inches") }
-
   it { should validate_presence_of :privacy_level }
 
   it "should validate that privacy level is set to a valid value" do
@@ -508,7 +506,7 @@ describe User, "on save" do
       let(:user) { FactoryGirl.create :user }
 
       it 'should not link spouse if other field updated' do
-        user.update_attribute :weight, 100
+        user.update_attribute :name, "Fred Flintstone"
         member.reload.spouse_id.should be_nil
       end
 
@@ -570,8 +568,6 @@ describe User, "on save" do
     points:                 [50, 60],
     location_id:            [17, 18],
     date_of_birth:          [Date.yesterday, Date.yesterday.yesterday, [Date.yesterday.to_time.utc.midnight, Date.yesterday.yesterday.to_time.utc.midnight]],
-    height:                 [50, 60],
-    weight:                 [200, 180],
     gender:                 ['male', 'female']
   }
 

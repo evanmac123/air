@@ -9,7 +9,7 @@ class User < ActiveRecord::Base
 
   DEFAULT_MUTE_NOTICE_THRESHOLD = 10
 
-  FIELDS_TRIGGERING_SEGMENTATION_UPDATE = %w(characteristics points location_id date_of_birth height weight gender demo_id accepted_invitation_at last_acted_at phone_number email)
+  FIELDS_TRIGGERING_SEGMENTATION_UPDATE = %w(characteristics points location_id date_of_birth gender demo_id accepted_invitation_at last_acted_at phone_number email)
 
   include Clearance::User
   include User::Segmentation
@@ -61,8 +61,6 @@ class User < ActiveRecord::Base
   validates_format_of :zip_code, with: /^\d{5}$/, allow_blank: true
 
   validates_presence_of :demo_id
-  validates_numericality_of :height, :allow_blank => true, :message => "Please use a numeric value for your height, and express it in inches"
-  validates_numericality_of :weight, :allow_blank => true, :message => "Please use a numeric value for your weight, and express it in pounds"
 
   validates_acceptance_of :terms_and_conditions, :if => :trying_to_accept, :message => "You must accept the terms and conditions" 
 
@@ -430,15 +428,6 @@ class User < ActiveRecord::Base
     self.demo.reply_email_address(include_name)
   end
 
-  def top_level
-    return nil if self.levels.empty?
-    self.levels.order("threshold DESC").limit(1).first
-  end
-
-  def top_level_index
-    self.top_level.try(:index_within_demo) || 1
-  end
-
   def data_for_mixpanel
     {
       :distinct_id           => self.email,
@@ -764,16 +753,6 @@ class User < ActiveRecord::Base
     end
   end
 
-  def height_feet
-    return nil unless height
-    height / 12
-  end
-
-  def height_inches
-    return nil unless height
-    height % 12
-  end
-
   def points_towards_next_threshold
     points - last_point_goal - ticket_threshold_base
   end
@@ -1023,29 +1002,6 @@ class User < ActiveRecord::Base
 
   def destroy_friendships_where_secondary
     Friendship.destroy_all(:friend_id => self.id)
-  end
-
-  def last_achieved_threshold
-    self.last_level.try(:threshold)
-  end
-
-  def next_unachieved_threshold
-    self.next_level.try(:threshold)
-  end
-
-  def last_level
-    #demo.levels.where("threshold <= ?", self.points).order("threshold DESC").limit(1).first
-    nil
-  end
-
-  def next_level
-    #demo.levels.where("threshold > ?", self.points).order("threshold ASC").limit(1).first
-    nil
-  end
-
-  def highest_possible_level
-    #demo.levels.order("threshold DESC").limit(1).first
-    nil
   end
 
   def normalized_new_phone_number_unique
