@@ -16,7 +16,6 @@ Feature: Admin sets up demo
     And I fill in "Threshold to credit user who referred you to the game (in minutes)" with "60"
     And I fill in "Bonus for referring another to the game" with "5"
     And I fill in "Bonus for crediting the user who referred you to the game" with "17"
-    And I fill in "Points for connecting to another player" with "10"
     And I fill in "Prize text" with "More ice cream than you can shake a stick at."
     And I fill in "Help message" with "Get a job"
     And I fill in "Phone-number-not-recognized message" with "Go play in your own yard"
@@ -43,7 +42,6 @@ Feature: Admin sets up demo
     And I should see "Game ends at May 01, 2015 at 12:00 PM Eastern"
     And I should see "Bonus for referring another user to the game: 5 points (with a 60 minute threshold)"
     And I should see "Bonus for crediting the user who referred you to the game: 17 points"
-    And I should see "Points for connecting to another user: 10"
     And I should see "Game will not use standard playbook rules, only custom rules."    
     And I should see 'Prize response is "More ice cream than you can shake a stick at."'
     And I should see 'Help message is "Get a job"'
@@ -76,7 +74,6 @@ Feature: Admin sets up demo
     And I should see "No followup message"
     And I should see "No bonus for referring another user to the game"
     And I should see "No bonus for crediting the user who referred you to the game"
-    And I should see "No points for connecting to another user"
     And I should see "Game will use standard playbook rules as well as custom rules."
     And I should see "Game will have default response about prizes (indicating no prize)"
     And I should see "Game will have default help message"

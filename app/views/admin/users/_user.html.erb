@@ -9,9 +9,6 @@
   <% if user.location %>
     (location: <%= user.location.name %>)
   <% end %>
-  <% if user.connection_bounty > 0 %>
-    (connection bounty: <%= user.connection_bounty %> points)
-  <% end %>
 
   <span class="edit-link"><%= link_to "(edit #{user.name})", edit_admin_demo_user_path(user.demo, user) %></span>
 

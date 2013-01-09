@@ -5,7 +5,6 @@
   <%= form.input :zip_code, hint: '5 digits' %>
   <%= form.input :date_of_birth, start_year: 1930, end_year: Time.now.year - 10, order: [:month, :day, :year], include_blank: true %>
   <%= form.input :claim_code %>
-  <%= form.input :connection_bounty %>
   <%= form.label :is_client_admin, "Is client admin:" %>
   <%= form.check_box :is_client_admin %>
   <br/>

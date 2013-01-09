@@ -50,22 +50,8 @@ class Friendship < ActiveRecord::Base
   end
 
   def record_follow_act
-    points_from_demo = user.demo.points_for_connecting
-    points_from_friend = friend.connection_bounty
-
-    award = if points_from_demo && first_time_friendship?(user, friend)
-              points_from_demo + points_from_friend
-            else
-              nil
-            end
-
-    self.user.acts.create(:text => "is now friends with #{self.friend.name}", :inherent_points => award)
-    self.friend.acts.create(:text => "is now friends with #{self.user.name}", :inherent_points => award)
-    
-  end
-
-  def create_former_friendship
-    FormerFriendship.create!(:user => self.user, :friend => self.friend)
+    self.user.acts.create(:text => "is now friends with #{self.friend.name}")
+    self.friend.acts.create(:text => "is now friends with #{self.user.name}")
   end
 
   def accept
@@ -83,7 +69,6 @@ class Friendship < ActiveRecord::Base
     end
     notify_follower_of_acceptance
     record_follow_act
-    create_former_friendship
     "OK, you are now friends with #{user.name}."
   end
 
@@ -128,10 +113,6 @@ class Friendship < ActiveRecord::Base
   end
 
   protected
-
-  def first_time_friendship?(user, friend)
-    FormerFriendship.where(:user_id => user.id, :friend_id => friend.id).empty?
-  end
 
   def notify_follower_of_acceptance
     Delayed::Job.enqueue FollowNotificationAcceptance.new user.name, user.email, user.reply_email_address, friend.name

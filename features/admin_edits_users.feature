@@ -27,7 +27,6 @@ Feature: Admin edits users
       And I select "1" from "Day"
       And I select "2000" from "Year"
       And I fill in "Claim code" with "bp_bobby"
-      And I fill in "Connection bounty" with "7"
       And I press "Update User"
     Then I should be on the admin "British Petroleum" demo page
     When I follow "B"
@@ -40,7 +39,6 @@ Feature: Admin edits users
       And the "Day" listbox should be "1"
       And the "Year" listbox should be "2000"
       And the "Claim code" field should be "bp_bobby"
-      And the "Connection bounty" field should be "7"
     When I fill in "Phone number" with ""
       And I fill in "Zip code" with ""
       And I select "" from "Month"
