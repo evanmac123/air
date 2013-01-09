@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 require 'ruby-debug' unless ENV['NO_DEBUGGER']
-require 'pry'        unless ENV['NO_DEBUGGER']
 
 describe User, "#relationship_with" do
   before(:each) do

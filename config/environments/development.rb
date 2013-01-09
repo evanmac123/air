@@ -1,15 +1,5 @@
 silence_warnings do
-  # FIXME
-#  begin
-    #require 'pry'
-    #IRB = Pry
-  #rescue LoadError
-  #end
-
-  #begin
-    require 'debugger'
-  #rescue LoadError
-  #end
+  require 'debugger'
 end unless ENV['NO_DEBUGGER']
 
 Health::Application.configure do

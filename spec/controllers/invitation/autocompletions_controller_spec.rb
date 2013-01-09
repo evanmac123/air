@@ -51,22 +51,4 @@ describe Invitation::AutocompletionsController do
       assigns[:matched_users].should include @user8
     end
   end
-  
-    # # Search for 'luc' and should return user named Lucy, but only the one from demo1
-    # @returned = User.get_users_where_like('luc', @demo1, "name")
-    # binding.pry unless @returned == [@user2]
-    # 
-    # # Search for 'hop' should return all users with 'hopper.com' email
-    # @returned = User.get_users_where_like('hop', @demo1, "email")
-    # binding.pry unless @returned == [@user1, @user2, @user3, @user4]
-    # 
-    # # Search for '' should return all users with 'hopper.com' email
-    # @returned = User.get_users_where_like('boob', @demo1, "email")
-    # binding.pry unless @returned == [@user1, @user2, @user3, @user4]
-    #  
-    # get :index, @params = {:email => @user1.email, :entered_text => 'luc'}
-    # @matched_users.should == [@user2]
-    # 
-    # puts "WHEEEEEEEEEE!!!!! All Tests Passing!"
-    
 end

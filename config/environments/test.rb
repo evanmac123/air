@@ -1,31 +1,12 @@
 silence_warnings do
   begin
-    require 'pry'
-    IRB = Pry
-  rescue LoadError
-  end
-
-  begin
     require 'ruby-debug'
   rescue LoadError
   end
 end unless ENV['NO_DEBUGGER']
   
 Health::Application.configure do
-  # Settings specified here will take precedence over those in config/application.rb
-
-  # The test environment is used exclusively to run your application's
-  # test suite.  You never need to work with it otherwise.  Remember that
-  # your test database is "scratch space" for the test suite and is wiped
-  # and recreated between test runs.  Don't rely on the data there!
-  #
-  ######################## Caching Models, etc.     ###################
-  # Cache classes needs to be false when running Spork, or the models  #
-  # will not get reloaded in between test attempts. However,           #
-  # when not using spork it (should) run faster if caching is true     # 
-  # By the way, ENV['DRB'] is something that is set when spork is used #
-  config.cache_classes = ENV['DRB'].nil?                               #
-  ######################################################################
+  config.cache_classes = true
 
   # Log error messages when you accidentally call methods on nil.
   config.whiny_nils = true
