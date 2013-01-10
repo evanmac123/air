@@ -1,5 +1,7 @@
-<p>Hi <%= @friend_name %>,</p>
+<div style="margin:10px auto; width:550px;">
+    <p>Hi <%= @friend_name %>,</p>
 
-<p><%= @user_name %> has asked to be your friend on H Engage.</p>
-<%= link_styled_like_button "Accept", accept_friendship_url(@user_id, @friendship_id) %>
+    <p><%= @user_name %> has asked to be your friend on H Engage.</p>
+    <%= link_styled_like_button "Accept", accept_friendship_url(@user_id, @friendship_id) %>
+</div>
 <%= render 'shared/unsubscribe_footer' %>
