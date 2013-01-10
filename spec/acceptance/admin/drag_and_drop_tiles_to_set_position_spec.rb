@@ -6,7 +6,6 @@ require 'acceptance/acceptance_helper'
 feature "Admin drags and drops tiles into position" do
   before(:each) do
     Demo.find_each { |f| f.destroy }
-    signin_as_admin
     @fun = FactoryGirl.create(:demo, name: 'Frickin FUN')
     @tile_1 = FactoryGirl.create(:tile, demo: @fun, headline: 'Tile 1', position: 1)
     @tile_2 = FactoryGirl.create(:tile, demo: @fun, headline: 'Tile 2', position: 2)
@@ -15,7 +14,7 @@ feature "Admin drags and drops tiles into position" do
   end
 
   it "should update the position", js: true do
-    visit admin_demo_tiles_path(@fun)
+    visit admin_demo_tiles_path(@fun, as: an_admin)
     # Drag tile 1 down two places
     distance = 2
     script = "$('#tile_#{@tile_1.id}').simulateDragSortable({ move: #{distance}});"

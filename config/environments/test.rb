@@ -4,7 +4,33 @@ silence_warnings do
   rescue LoadError
   end
 end unless ENV['NO_DEBUGGER']
-  
+ 
+# config/environments/test.rb
+class ClearanceBackDoor
+  def initialize(app)
+    @app = app
+  end
+
+  def call(env)
+    @env = env
+    sign_in_through_the_back_door
+    @app.call(@env)
+  end
+
+  private
+
+  def sign_in_through_the_back_door
+    if user_id = params['as']
+      user = User.find_by_slug(user_id)
+      @env[:clearance].sign_in(user)
+    end
+  end
+
+  def params
+    Rack::Utils.parse_query(@env['QUERY_STRING'])
+  end
+end
+
 Health::Application.configure do
   config.cache_classes = true
 
@@ -51,6 +77,8 @@ Health::Application.configure do
   # Allow pass debug_assets=true as a query parameter to load pages with unpackaged assets
   config.assets.allow_debugging = true
   ##########################################################################################
+  
+  config.middleware.use ClearanceBackDoor
     
 end
 

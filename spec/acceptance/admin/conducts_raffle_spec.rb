@@ -19,8 +19,7 @@ feature 'Admin conducts raffle' do
         5.times{ FactoryGirl.create(:user, demo: @demo)}
         @demo.users.map(&:tickets).sum.should be_zero
 
-        signin_as_admin
-        visit admin_demo_raffles_path(@demo)
+        visit admin_demo_raffles_path(@demo, as: an_admin)
 
         click_button "Pick a winner"
 
@@ -38,8 +37,7 @@ feature 'Admin conducts raffle' do
       context "and no maximum ticket amount is specified" do
         it "should select a user pseudorandomly proportional to how many tickets they have", :js => true do
           Demo.any_instance.stubs(:rand).with(30).returns(0, 2, 3, 8, 9, 17, 18, 29)
-          signin_as_admin
-          visit admin_demo_raffles_path(@demo)
+          visit admin_demo_raffles_path(@demo, as: an_admin)
 
           1.upto(4) do |i|
             2.times do
@@ -53,8 +51,7 @@ feature 'Admin conducts raffle' do
       context "and a maximum count amount is specified" do
         it "should select a user pseudorandomly proportional to how many tickets they have, subject to that maximum", :js => true do
           Demo.any_instance.stubs(:rand).with(18).returns(0, 2, 3, 7, 8, 12, 13, 17)
-          signin_as_admin
-          visit admin_demo_raffles_path(@demo)
+          visit admin_demo_raffles_path(@demo, as: an_admin)
 
           1.upto(4) do |i|
             2.times do
@@ -101,8 +98,7 @@ feature 'Admin conducts raffle' do
 
     context "and no users in that segment have tickets" do
       it "should say so", :js => true do
-        signin_as_admin
-        visit admin_demo_raffles_path(@demo)
+        visit admin_demo_raffles_path(@demo, as: an_admin)
         segment_users
 
         click_button "Pick a winner"
@@ -121,8 +117,7 @@ feature 'Admin conducts raffle' do
 
       it "should select a user pseudorandomly proportional to how many tickets they have", :js => true do
         Demo.any_instance.stubs(:rand).with(30).returns(0, 2, 3, 8, 9, 17, 18, 29)
-        signin_as_admin
-        visit admin_demo_raffles_path(@demo)
+        visit admin_demo_raffles_path(@demo, as: an_admin)
         segment_users
 
         1.upto(4) do |i|

@@ -10,8 +10,7 @@ feature "Admin deletes a rule" do
       FactoryGirl.create :primary_value, rule: rule, value: 'drink more coffee'
       acts = FactoryGirl.create_list :act, 3, rule: rule
 
-      signin_as_admin
-      visit admin_rules_path
+      visit admin_rules_path(as: an_admin)
       click_link 'Delete Rule'
 
       current_path.should == admin_rules_path
@@ -31,8 +30,7 @@ feature "Admin deletes a rule" do
       FactoryGirl.create :primary_value, rule: rule, value: 'drink more coffee'
       acts = FactoryGirl.create_list :act, 3, rule: rule
 
-      signin_as_admin
-      visit admin_demo_rules_path(demo)
+      visit admin_demo_rules_path(demo, as: an_admin)
       click_link 'Delete Rule'
 
       current_path.should == admin_demo_rules_path(demo)

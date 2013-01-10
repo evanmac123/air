@@ -12,8 +12,7 @@ feature 'Admin edits tile' do
     Prerequisite.create(tile: @make_toast, prerequisite_tile: Tile.find_by_headline('bake bread'))
     Prerequisite.create(tile: @make_toast, prerequisite_tile: Tile.find_by_headline('discover fire'))
     
-    signin_as_admin
-    visit edit_admin_demo_tile_path(@demo, @make_toast)
+    visit edit_admin_demo_tile_path(@demo, @make_toast, as: an_admin)
   end
 
   scenario 'tweaking the basic settings' do
@@ -35,7 +34,7 @@ feature 'Admin edits tile' do
     FactoryGirl.create(:survey, name: 'Survey 1', demo: @demo)
     FactoryGirl.create(:survey, name: 'Survey 2', demo: @demo)
     
-    visit edit_admin_demo_tile_path(@demo, @make_toast)
+    visit edit_admin_demo_tile_path(@demo, @make_toast, as: an_admin)
 
     choose 'AND'
     select 'do 1', :from => 'Rules'

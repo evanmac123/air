@@ -23,10 +23,6 @@ feature 'Admin adds and edits rules' do
     end
   end
 
-  before :each do
-    signin_as_admin
-  end
-
   context "in the current demo" do
     before(:each) do
       @demo = FactoryGirl.create(:demo)
@@ -47,12 +43,12 @@ feature 'Admin adds and edits rules' do
       end
 
       scenario 'and sees existing rules' do
-        visit admin_demo_rules_path(@demo)
+        visit admin_demo_rules_path(@demo, as: an_admin)
         [@banana_rule, @kitten_rule].each {|rule| expect_rule_rows(rule)}
       end
 
       scenario 'and edits all rule values' do
-        visit edit_admin_rule_path(@banana_rule)
+        visit edit_admin_rule_path(@banana_rule, as: an_admin)
         fill_in "rule[secondary_values][0]", :with => 'consumed banana'
         fill_in "rule[secondary_values][1]", :with => 'ate me a banana'
         click_button "Update Rule"
@@ -71,7 +67,7 @@ feature 'Admin adds and edits rules' do
       end
 
       scenario 'and edits some but not all rule values' do
-        visit edit_admin_rule_path(@banana_rule)
+        visit edit_admin_rule_path(@banana_rule, as: an_admin)
         fill_in "rule[secondary_values][1]", :with => 'ate me a banana'
         click_button "Update Rule"
 
@@ -89,7 +85,7 @@ feature 'Admin adds and edits rules' do
       end
 
       scenario 'and deletes a secondary rule value by blanking it out' do
-        visit edit_admin_rule_path(@banana_rule)
+        visit edit_admin_rule_path(@banana_rule, as: an_admin)
         fill_in "rule[secondary_values][1]", :with => 'ate me a banana'
         click_button "Update Rule"
 
@@ -107,7 +103,7 @@ feature 'Admin adds and edits rules' do
       end
 
       scenario 'and tries to delete the primary rule value by blanking it out' do
-        visit edit_admin_rule_path(@banana_rule)
+        visit edit_admin_rule_path(@banana_rule, as: an_admin)
         fill_in "rule[primary_value]", :with => ''
         click_button "Update Rule"
 
@@ -116,7 +112,7 @@ feature 'Admin adds and edits rules' do
       end
 
       scenario 'and edits the properties of a rule' do
-        visit edit_admin_rule_path(@banana_rule)
+        visit edit_admin_rule_path(@banana_rule, as: an_admin)
         fill_in "Primary value", :with => 'ate bananafruit'
         fill_in 'Points', :with => 100
         fill_in 'Reply', :with => '100 points! Toast is the God Food!'
@@ -140,7 +136,7 @@ feature 'Admin adds and edits rules' do
       end
 
       scenario "trying to add a rule with a duplicate rule value gives a sensible error instead of blowing up" do
-        visit new_admin_demo_rule_path(@demo)
+        visit new_admin_demo_rule_path(@demo, as: an_admin)
         fill_in "Primary value", :with => 'ate banana'
         fill_in "Points", :with => 55
         fill_in "Reply", :with => '55 points for you, bucko.'
@@ -150,7 +146,7 @@ feature 'Admin adds and edits rules' do
         should_be_on admin_demo_rules_path(@demo)
         expect_content 'Problem with primary value: Value must be unique within its demo'
 
-        visit new_admin_demo_rule_path(@demo)
+        visit new_admin_demo_rule_path(@demo, as: an_admin)
         fill_in "Primary value", :with => 'konsumed kat'
         fill_in "Points", :with => 55
         fill_in "Reply", :with => '55 points for you, bucko.'
@@ -163,14 +159,14 @@ feature 'Admin adds and edits rules' do
       end
  
       scenario "cancel link from rule edit page goes to the right place" do
-        visit edit_admin_rule_path(@banana_rule)
+        visit edit_admin_rule_path(@banana_rule, as: an_admin)
         click_link "Cancel"
         should_be_on admin_demo_rules_path(@demo)
       end
     end
 
     scenario "can add a new rule" do
-      visit new_admin_demo_rule_path(@demo)
+      visit new_admin_demo_rule_path(@demo, as: an_admin)
       fill_in "Primary value", :with => 'ate oatmeal'
       fill_in "Points", :with => 55
       fill_in "Reply", :with => '55 points for you, bucko.'
@@ -196,7 +192,7 @@ feature 'Admin adds and edits rules' do
 
     scenario "gets a warning if they create a rule that matches an SMS slug in the demo" do
       conflicting_user = FactoryGirl.create(:user, demo: @demo)
-      visit new_admin_demo_rule_path(@demo)
+      visit new_admin_demo_rule_path(@demo, as: an_admin)
       fill_in "Primary value", :with => conflicting_user.sms_slug
       fill_in "Points", :with => 55
       fill_in "Reply", :with => '55 points for you, bucko.'
@@ -218,12 +214,12 @@ feature 'Admin adds and edits rules' do
     end
 
     scenario "admin sees standard playbook rules" do
-      visit admin_rules_path
+      visit admin_rules_path(as: an_admin)
       [@jogging_rule, @weights_rule].each {|rule| expect_rule_rows(rule)}
     end
 
     scenario "admin adds standard playbook rule" do
-      visit new_admin_rule_path
+      visit new_admin_rule_path(as: an_admin)
       fill_in "Primary value", :with => 'ate oatmeal'
       fill_in "Points", :with => 55
       fill_in "Reply", :with => '55 points for you, bucko.'
@@ -248,7 +244,7 @@ feature 'Admin adds and edits rules' do
     end
 
     scenario "admin edits standard playbook rule" do
-      visit edit_admin_rule_path(@jogging_rule)
+      visit edit_admin_rule_path(@jogging_rule, as: an_admin)
       fill_in "Primary value", :with => 'ate bananafruit'
       fill_in "rule[secondary_values][0]", :with => 'bananaed up'
       fill_in "rule[secondary_values][1]", :with => 'got banana-ey'
@@ -274,14 +270,14 @@ feature 'Admin adds and edits rules' do
     end
 
     scenario "cancel link from standard playbook rule edit page goes to the right place" do
-      visit edit_admin_rule_path(@jogging_rule)
+      visit edit_admin_rule_path(@jogging_rule, as: an_admin)
       click_link "Cancel"
       should_be_on admin_rules_path
     end
   end
 
   scenario '"smart" punctuation gets tranasliterated into normal happy ASCII characters' do
-    visit new_admin_rule_path
+    visit new_admin_rule_path(as: an_admin)
 
     # This reads: I added this with “smart punctuation”—can you tell?
     fill_in "Primary value", :with => %{I added this with \u201csmart punctuation\u201d\u2014can you tell?}

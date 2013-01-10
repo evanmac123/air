@@ -34,8 +34,7 @@ feature "Admin Defines Characteristics" do
   context "For demo-agnostic characteristics" do
     it "admin sees existing demo-agnostic characteristics" do
       set_up_demo_and_characteristics
-      signin_as_admin
-      visit admin_characteristics_path
+      visit admin_characteristics_path(as: an_admin)
       expect_characteristic_row 'Favorite pill', 'what kind of pill you like', 'Discrete', %w(Viagra Clonozepam Warfarin)
 
       expect_no_content "Cheese preference"
@@ -44,8 +43,7 @@ feature "Admin Defines Characteristics" do
 
     it "admin creates new characteristic", :js => true do
       set_up_demo_and_characteristics
-      signin_as_admin
-      visit admin_characteristics_path
+      visit admin_characteristics_path(as: an_admin)
 
       fill_in "characteristic[name]", :with => "T-shirt size"
       fill_in "characteristic[description]", :with => "The size t-shirt you want if you win"
@@ -69,8 +67,7 @@ feature "Admin Defines Characteristics" do
 
     it "admin edits existing characteristic", :js => true do
       set_up_demo_and_characteristics
-      signin_as_admin
-      visit admin_characteristics_path
+      visit admin_characteristics_path(as: an_admin)
       click_link "Edit"
 
       expect_allowed_value_text_field 'Viagra'
@@ -102,8 +99,7 @@ feature "Admin Defines Characteristics" do
 
     it "admin destroys existing characteristic" do
       set_up_demo_and_characteristics
-      signin_as_admin
-      visit admin_characteristics_path
+      visit admin_characteristics_path(as: an_admin)
 
       click_button "Destroy"
       should_be_on admin_characteristics_path
@@ -118,8 +114,7 @@ feature "Admin Defines Characteristics" do
   context "For demo-specific characteristics" do
     it "admin sees characteristics for just that demo" do
       set_up_demo_and_characteristics
-      signin_as_admin
-      visit admin_demo_characteristics_path(@demo)
+      visit admin_demo_characteristics_path(@demo, as: an_admin)
       expect_characteristic_row "Cheese preference", "what sort of cheese does you best", 'Discrete', %w(Stinky Extra-Stinky)
       expect_no_content "Favorite pill"
       expect_no_content "Cake or death"
@@ -127,8 +122,7 @@ feature "Admin Defines Characteristics" do
 
     it "new characteristic should be created into that demo" do
       set_up_demo_and_characteristics
-      signin_as_admin
-      visit admin_demo_characteristics_path(@demo)
+      visit admin_demo_characteristics_path(@demo, as: an_admin)
 
       fill_in "characteristic[name]", :with => "T-shirt size"
       fill_in "characteristic[description]", :with => "The size t-shirt you want if you win"
@@ -147,8 +141,7 @@ feature "Admin Defines Characteristics" do
 
     it "update should return to the right place" do
       set_up_demo_and_characteristics
-      signin_as_admin
-      visit admin_demo_characteristics_path(@demo)
+      visit admin_demo_characteristics_path(@demo, as: an_admin)
 
       click_link "Edit"
       fill_in "characteristic[name]", :with => "Goat preference"
@@ -164,8 +157,7 @@ feature "Admin Defines Characteristics" do
 
     it "destroy should return to the right place" do
       set_up_demo_and_characteristics
-      signin_as_admin
-      visit admin_demo_characteristics_path(@demo)
+      visit admin_demo_characteristics_path(@demo, as: an_admin)
 
       click_button "Destroy"
       should_be_on admin_demo_characteristics_path(@demo)
@@ -176,8 +168,7 @@ feature "Admin Defines Characteristics" do
   context "with type information" do
     it "should remember the type", :js => true do
       set_up_demo_and_characteristics
-      signin_as_admin
-      visit admin_characteristics_path
+      visit admin_characteristics_path(as: an_admin)
 
       fill_in "characteristic[name]", :with => "Some number"
       fill_in "characteristic[description]", :with => "Some numerical type of field"
@@ -191,8 +182,7 @@ feature "Admin Defines Characteristics" do
 
     it "should display allowable value fields only for discrete characteristics", :js => true do
       set_up_demo_and_characteristics
-      signin_as_admin
-      visit admin_characteristics_path
+      visit admin_characteristics_path(as: an_admin)
 
       select "Number", :from => "characteristic[datatype]"
       page.all('input[@name="characteristic[allowed_values][]"]').select(&:visible?).should be_empty

@@ -39,7 +39,7 @@ feature "Admin segmentation" do
   end
 
   def expect_discrete_operators_to_not_be_present(characteristic_name)
-    visit admin_demo_segmentation_path(@demo)
+    visit admin_demo_segmentation_path(@demo, as: an_admin)
 
     ['equals', 'does not equal'].each do |operator|
       select characteristic_name, :from => "segment_column[0]"
@@ -55,7 +55,7 @@ feature "Admin segmentation" do
   end
 
   def expect_all_discrete_operators_to_work(characteristic_name, reference_value, users)
-    visit admin_demo_segmentation_path(@demo)
+    visit admin_demo_segmentation_path(@demo, as: an_admin)
 
     select characteristic_name, :from => "segment_column[0]"
     select "equals", :from => "segment_operator[0]"
@@ -79,7 +79,7 @@ feature "Admin segmentation" do
   end
 
   def expect_all_continuous_operators_to_work(characteristic_name, reference_value, users)
-    visit admin_demo_segmentation_path(@demo)
+    visit admin_demo_segmentation_path(@demo, as: an_admin)
 
     select characteristic_name, :from => "segment_column[0]"
     select "greater than", :from => "segment_operator[0]"
@@ -130,8 +130,8 @@ feature "Admin segmentation" do
     it "sees users segmented by one characteristic", :js => true do
       # Basic segmentation on just one characteristic
       create_characteristics_and_users
-      signin_as_admin
-      visit admin_demo_segmentation_path(@demo)
+      
+      visit admin_demo_segmentation_path(@demo, as: an_admin)
 
       select "Color", :from => "segment_column[0]"
       select "red", :from => "segment_value[0]"
@@ -147,8 +147,8 @@ feature "Admin segmentation" do
     it "sees users segmented by two characteristics", :js => true do
       # Segmenting on multiple characteristics
       create_characteristics_and_users
-      signin_as_admin
-      visit admin_demo_segmentation_path(@demo)
+      
+      visit admin_demo_segmentation_path(@demo, as: an_admin)
 
       select "Color", :from => "segment_column[0]"
       select "red", :from => "segment_value[0]"
@@ -168,8 +168,8 @@ feature "Admin segmentation" do
     it "sees users segmented by three characteristics", :js => true do
       # How about three?
       create_characteristics_and_users
-      signin_as_admin
-      visit admin_demo_segmentation_path(@demo)
+      
+      visit admin_demo_segmentation_path(@demo, as: an_admin)
       
       select "Color", :from => "segment_column[0]"
       select "green", :from => "segment_value[0]"
@@ -193,8 +193,8 @@ feature "Admin segmentation" do
   
     it "characteristics can be removed", :js => true do
       create_characteristics_and_users
-      signin_as_admin
-      visit admin_demo_segmentation_path(@demo)
+      
+      visit admin_demo_segmentation_path(@demo, as: an_admin)
 
       select "Color", :from => "segment_column[0]"
       select "green", :from => "segment_value[0]"
@@ -229,8 +229,8 @@ feature "Admin segmentation" do
 
     it "sees users segmented by a not-equals operator", :js => true do
       create_characteristics_and_users
-      signin_as_admin
-      visit admin_demo_segmentation_path(@demo)
+      
+      visit admin_demo_segmentation_path(@demo, as: an_admin)
       
       select "Color", :from => "segment_column[0]"
       select "red", :from => "segment_value[0]"
@@ -259,8 +259,8 @@ feature "Admin segmentation" do
 
     it "sees link to each segmented user", :js => true do
       create_characteristics_and_users
-      signin_as_admin
-      visit admin_demo_segmentation_path(@demo)
+      
+      visit admin_demo_segmentation_path(@demo, as: an_admin)
       
       select "Color", :from => "segment_column[0]"
       select "red", :from => "segment_value[0]"
@@ -275,8 +275,8 @@ feature "Admin segmentation" do
 
     it "segments in a way that no employees match", :js => true do
       create_characteristics_and_users
-      signin_as_admin
-      visit admin_demo_segmentation_path(@demo)
+      
+      visit admin_demo_segmentation_path(@demo, as: an_admin)
       
       # And let's go for a shutout
       select "Color", :from => "segment_column[0]"
@@ -298,8 +298,8 @@ feature "Admin segmentation" do
 
     it "segments in such a way (like by choosing no characteristics) that matches all users", :js => true do
       create_characteristics_and_users
-      signin_as_admin
-      visit admin_demo_segmentation_path(@demo)
+      
+      visit admin_demo_segmentation_path(@demo, as: an_admin)
       
       click_button "Find segment"
       expect_content "43Users in segment"
@@ -310,8 +310,8 @@ feature "Admin segmentation" do
 
     it 'should allow segmentation information to be downloaded in CSV format' do
       create_characteristics_and_users
-      admin = signin_as_admin
-      visit admin_demo_segmentation_path(@demo)
+      admin = an_admin
+      visit admin_demo_segmentation_path(@demo, as: admin)
 
       # We rig this up this way because it seems like Poltergeist doesn't get
       # the body of the CSV file when we click the link for same, even though
@@ -348,8 +348,8 @@ feature "Admin segmentation" do
 
       crank_dj_clear
 
-      signin_as_admin
-      visit admin_demo_segmentation_path(demo)
+      
+      visit admin_demo_segmentation_path(demo, as: an_admin)
       select "Likes cheese", :from => "segment_column[0]"
       select "equals", :from => "segment_operator[0]"
       check "segment_value[0]"
@@ -404,7 +404,7 @@ feature "Admin segmentation" do
       end
       crank_dj_clear
 
-      signin_as_admin
+      
 
       expect_all_operators_to_work "Foo count", 5, users
     end
@@ -423,7 +423,7 @@ feature "Admin segmentation" do
           end
           crank_dj_clear
 
-          signin_as_admin
+          
 
           expect_all_continuous_operators_to_work "Date of last decapitation", reference_date, users
           expect_discrete_operators_to_not_be_present "Date of last decapitation"
@@ -443,7 +443,7 @@ feature "Admin segmentation" do
           end
           crank_dj_clear
 
-          signin_as_admin
+          
           expect_all_continuous_operators_to_work "Lunchtime", reference_time, users
           expect_discrete_operators_to_not_be_present "Lunchtime"
         end
@@ -466,8 +466,8 @@ feature "Admin segmentation" do
     Location.all.each {|location| FactoryGirl.create(:user, location: location, demo: location.demo)}
     crank_dj_clear
 
-    signin_as_admin
-    visit admin_demo_segmentation_path(@demo)
+    
+    visit admin_demo_segmentation_path(@demo, as: an_admin)
 
     select "Location", :from => "segment_column[0]"
     select "equals", :from => "segment_operator[0]"
@@ -516,8 +516,8 @@ feature "Admin segmentation" do
     Location.all.each {|location| 3.times{FactoryGirl.create(:user, location: location, demo: location.demo)}}
     crank_dj_clear
 
-    signin_as_admin
-    visit admin_demo_segmentation_path(@demo)
+    
+    visit admin_demo_segmentation_path(@demo, as: an_admin)
 
     select "Location", :from => "segment_column[0]"
     select "equals", :from => "segment_operator[0]"
@@ -542,7 +542,7 @@ feature "Admin segmentation" do
     end
     crank_dj_clear
 
-    signin_as_admin
+    
     expect_all_operators_to_work "Points", 5, users
   end
 
@@ -558,7 +558,7 @@ feature "Admin segmentation" do
     end
     crank_dj_clear
 
-    signin_as_admin
+    
 
     expect_all_continuous_operators_to_work "Date of birth", reference_date, users
     expect_discrete_operators_to_not_be_present "Date of birth"
@@ -576,7 +576,7 @@ feature "Admin segmentation" do
     end
     crank_dj_clear
 
-    signin_as_admin
+    
 
     expect_all_continuous_operators_to_work "Joined at", reference_time, users
     expect_discrete_operators_to_not_be_present "Joined at"
@@ -594,8 +594,8 @@ feature "Admin segmentation" do
 
     crank_dj_clear
 
-    signin_as_admin
-    visit admin_demo_segmentation_path(@demo)
+    
+    visit admin_demo_segmentation_path(@demo, as: an_admin)
 
     %w(male female other).each do |gender_name|
       select 'Gender',    :from => "segment_column[0]"
@@ -633,8 +633,8 @@ feature "Admin segmentation" do
     3.times {users_without_phone << (FactoryGirl.create :user, demo: @demo)}
     crank_dj_clear
 
-    signin_as_admin
-    visit admin_demo_segmentation_path(@demo)
+    
+    visit admin_demo_segmentation_path(@demo, as: an_admin)
 
     select 'Has phone number', :from => "segment_column[0]"
     select "equals",  :from => "segment_operator[0]"
@@ -665,8 +665,8 @@ feature "Admin segmentation" do
     3.times {FactoryGirl.create :user, demo: @demo}
     crank_dj_clear
 
-    signin_as_admin
-    visit admin_demo_segmentation_path(@demo)
+    
+    visit admin_demo_segmentation_path(@demo, as: an_admin)
 
     select 'Joined?', :from => "segment_column[0]"
     select "equals",  :from => "segment_operator[0]"
@@ -725,8 +725,8 @@ feature "Admin segmentation" do
 
     crank_dj_clear
 
-    signin_as_admin
-    visit admin_demo_segmentation_path(demo)
+    
+    visit admin_demo_segmentation_path(demo, as: an_admin)
 
     select 'Corporate email?', :from => "segment_column[0]"
     select "equals",  :from => "segment_operator[0]"
@@ -779,8 +779,8 @@ feature "Admin segmentation" do
       unsaved_users.stubs(method_name.to_s).returns(unsaved_users)
     end
  
-    signin_as_admin
-    visit admin_demo_path(@demo)
+    
+    visit admin_demo_path(@demo, as: an_admin)
 
     click_link "Segment users"
     click_button "Find segment"
@@ -793,8 +793,8 @@ feature "Admin segmentation" do
 
   it 'should have a proper link from somewhere' do
     @demo = FactoryGirl.create(:demo)
-    signin_as_admin
-    visit admin_demo_path(@demo)
+    
+    visit admin_demo_path(@demo, as: an_admin)
     click_link "Segment users"
     should_be_on admin_demo_segmentation_path(@demo)
   end
@@ -803,8 +803,8 @@ feature "Admin segmentation" do
     Timecop.freeze(Time.now)
     @demo = FactoryGirl.create(:demo)
 
-    signin_as_admin
-    visit admin_demo_segmentation_path(@demo)
+    
+    visit admin_demo_segmentation_path(@demo, as: an_admin)
 
     select 'Joined?', :from => "segment_column[0]"
     select "equals",  :from => "segment_operator[0]"
@@ -834,8 +834,8 @@ feature "Admin segmentation" do
     let(:demo) { FactoryGirl.create(:demo) }
 
     before(:each) do
-      signin_as_admin
-      visit admin_demo_segmentation_path(demo)
+      
+      visit admin_demo_segmentation_path(demo, as: an_admin)
     end
 
     it 'detects and reports blank value', :js => true  do
