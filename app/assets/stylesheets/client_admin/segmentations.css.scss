@@ -110,9 +110,9 @@ form {
                 padding:3px;
             }
             select.segment-operator {width:170px;}
+            .segment-col1 select {width:225px;}
             .segment-col3 {
-                select, 
-                input[type="text"] {width:200px;}
+                select, input[type="text"] {width:200px;}
             }
         }
     }
