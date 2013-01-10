@@ -75,41 +75,135 @@ H Engage is a social, mobile game that helps you learn about your benefits
 \end_layout
 
 \begin_layout Subsection*
-How do I play?
+How can I earn points?
 \end_layout
 
 \begin_layout Standard
-There are two categories of points: social points and game piece points
- (see 
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "sub:how_can_i_earn_social_points"
-
-\end_inset
-
-and 
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "sub:how_can_i_earn_tile_points"
-
-\end_inset
-
- for more information).
- 
+Look for the fun, colorful squares, called tiles on Hengage.com or hung around
+ your work location.
+ Read them and follow the instructions! Each tile will include commands
+ (words or phrases) that you can send to H Engage for points.
 \end_layout
 
 \begin_layout Standard
-You can earn points by sending commands to H Engage via text, email or submit
- them online.
- If you'd like to play by text, send commands to <GAME_PHONE>.
- If you'd like to play by email, send commands to <GAME_EMAIL>.
- If you'd like to play online, submit your commands in the activity entry
- box on HEngage.com.
- 
+You can also earn points for eating healthy and for doing healthy activities.
+ We think we’ve covered all the common – and not so common – activities
+ and healthy foods, but if you find one the system doesn’t recognize, you
+ can send “S” to suggest we add it.
+\end_layout
+
+\begin_layout Standard
+Here are some examples of healthy commands:
+\end_layout
+
+\begin_layout Subsubsection*
+Eating healthy
+\end_layout
+
+\begin_layout Standard
+Tell H Engage when you eat healthy foods, like fruit:
+\end_layout
+
+\begin_layout Itemize
+Apple: Send ATE APPLE (+3 points)
+\end_layout
+
+\begin_layout Itemize
+Banana: Send ATE BANANA (+3 points)
+\end_layout
+
+\begin_layout Itemize
+Strawberries: Send ATE STRAWBERRY (+3 points)
+\end_layout
+
+\begin_layout Standard
+Or vegetables:
+\end_layout
+
+\begin_layout Itemize
+Salad: Send ATE SALAD (+3 points)
+\end_layout
+
+\begin_layout Itemize
+Broccoli: Send ATE BROCCOLI (+3 points)
+\end_layout
+
+\begin_layout Itemize
+Bok choy: Send ATE BOK CHOY (+3 points)
+\end_layout
+
+\begin_layout Subsubsection*
+Doing physical activity
+\end_layout
+
+\begin_layout Standard
+Tell H Engage when you do healthy activities, like:
+\end_layout
+
+\begin_layout Itemize
+Took the stairs: Send TOOK STAIRS (+2 points)
+\end_layout
+
+\begin_layout Itemize
+Went to the gym: Send WENT TO GYM (+10 points)
+\end_layout
+
+\begin_layout Itemize
+Took a walk: Send TOOK WALK (+5 points)
+\end_layout
+
+\begin_layout Itemize
+Played tennis: Send PLAYED TENNIS (+8 points)
 \end_layout
 
 \begin_layout Subsection*
-Does it cost anything to play? 
+What about earning social points?
+\end_layout
+
+\begin_layout Standard
+Games are more fun when you’re playing with other people!
+\end_layout
+
+\begin_layout Standard
+Earn 5 points for each coworker you sign up.
+ Invite your coworkers on HEngage.com or have them respond to their welcome
+ text or email with your game user name (so you get credit for referring
+ them).
+\end_layout
+
+\begin_layout Standard
+You can also connect with coworkers to see how they're playing the game.
+ To connect with someone, search for them in the “Directory” and click “Add
+ to friends.” Your coworker will be notified and asked to confirm that they
+ know you.
+\end_layout
+
+\begin_layout Subsection*
+What’s a command?
+\end_layout
+
+\begin_layout Standard
+A command is a word or phrase that you send to H Engage to earn points.
+ It lets us know when you take an action or find a game piece.
+\end_layout
+
+\begin_layout Subsection*
+How can I find out how many points I have or how many tickets I've earned?
+\end_layout
+
+\begin_layout Standard
+You can find your ticket count (and how many points you need to get to earn
+ the next ticket) on your homepage on HEngage.com.
+ You’ll also receive an update on your points and ticket count each time
+ you send in a command.
+\end_layout
+
+\begin_layout Section*
+The Basics
+\end_layout
+
+\begin_layout Subsection*
+Does it cost anything to play?
 \end_layout
 
 \begin_layout Standard
@@ -117,35 +211,32 @@ There is no cost to join, but standard message and data rates do apply so
  there may be some costs associated with the use of this service.
  For example, your pager or cellular phone service provider may charge you
  to send or receive wireless text messages.
- 
 \end_layout
 
 \begin_layout Subsection*
-Where can I find my user name? 
+Where can I find my user name?
 \end_layout
 
 \begin_layout Standard
 Your user name was listed in the welcome message you received when you first
  signed up for the game.
- Can’t find the welcome message? Text in “MYID” or take a look at the 
+ You can also find it by sending MYID or taking a look at the 
 \begin_inset CommandInset href
 LatexCommand href
 name "Settings"
-target "account/settings/edit"
+target "/account/settings/edit"
 
 \end_inset
 
  page.
- 
 \end_layout
 
 \begin_layout Subsection*
-What if I don’t want to play by text messaging? 
+What if I don’t want to play by text messaging?
 \end_layout
 
 \begin_layout Standard
 Text messaging makes the game fun, but it’s certainly not required.
- 
 \end_layout
 
 \begin_layout Standard
@@ -154,109 +245,52 @@ You can play by emailing commands to <GAME_EMAIL>, or by submitting them
  You'll receive a response via email or in the dialog box below the activity
  entry box on HEngage.com.
  Hint: watch the dialog box for any additional commands.
- 
 \end_layout
 
 \begin_layout Standard
 If you’ve already entered your mobile number but want to remove it, simply
  go to HEngage.com, click on “Settings” and remove your mobile number.
- 
 \end_layout
 
 \begin_layout Subsection*
-What can I do on HEngage.com?
-\end_layout
-
-\begin_layout Itemize
-You can watch your points add up, see other people’s game play and how they
- compare to you on the scoreboard.
- 
-\end_layout
-
-\begin_layout Itemize
-Connect with your coworkers.
- You can also do this by sending “friend USER NAME” (e.g., “Friend jsmith”)
- as a text or email.
- Your coworker will be notified and asked to confirm that they know you.
-\end_layout
-
-\begin_layout Subsection*
-What information about me can people see on HEngage.com? 
+What information about me can people see on HEngage.com?
 \end_layout
 
 \begin_layout Standard
 We get that privacy is important.
  That’s why we let you customize your privacy settings on HEngage.com.
- You have the option to show your profile page to all coworkers who are
- playing the game, only coworkers who you are connected to, or nobody.
- 
 \end_layout
 
 \begin_layout Standard
-If you limit your profile page to those you are connected to or nobody,
- others will only be able to see your name, photo, and email address.
- 
-\end_layout
-
-\begin_layout Standard
-If a coworker wants to connect with you, they will request to be your friend.
+You have the option to show your profile page to all coworkers or only coworkers
+ who you are connected to.
+ If you limit your privacy settings to those you are connected to, others
+ will only be able to see your name, photo and email address.
+ If a coworker wants to connect with you, they will request to be your friend.
  You'll receive a notification that allows you to confirm or (quietly) reject
  them.
- 
-\end_layout
-
-\begin_layout Section*
-The Rules of the Game
 \end_layout
 
 \begin_layout Subsection*
-Where do I enter commands? 
-\end_layout
-
-\begin_layout Standard
-You can play by texting commands to <GAME_PHONE>, by emailing commands to
- <GAME_EMAIL>, or by submitting them on HEngage.com.
- You'll receive a response in the same manner that you sent the command.
- For example: if you text a command, you will recieve a text back.
- If you email a command, you will recieve an email back and if you enter
- a command on HEngage.com, you will recieve a response in the dialog box
- below the activity entry bar.
- Hint: watch the responses for any additional commands.
- 
-\end_layout
-
-\begin_layout Subsection*
-What’s a command? 
-\end_layout
-
-\begin_layout Standard
-A command is a word or phrase that you send to H Engage to earn points.
- It lets us know when you take an action or find a game piece.
- 
-\end_layout
-
-\begin_layout Subsection*
-What if the system doesn’t recognize a command? 
+What if the system doesn’t recognize a command I send?
 \end_layout
 
 \begin_layout Standard
 There are a few reasons that the system may not recognize a command that
  you send in.
- First, you may want to double check what you sent us.
+ First, you may want to double-check what you sent us.
  For example, make sure that you spelled everything correctly (sent “benefit”
  not “bnefit”) and that words are in the right order (“4 ur health” not
  “ur 4 health”).
- 
 \end_layout
 
 \begin_layout Standard
 And finally, if you’re still having issues, send support@hengage.com a message
  and we’ll look into it.
- 
 \end_layout
 
 \begin_layout Subsection*
-What if I send a command and don’t receive a response back? 
+What if I send a command and don’t receive a response back?
 \end_layout
 
 \begin_layout Standard
@@ -265,96 +299,22 @@ We try our best to respond to all commands within a few seconds.
  right away, give us a few minutes.
  If you still don’t see a response within an hour, send us a note at support@hen
 gage.com and we’ll look into it.
- 
-\end_layout
-
-\begin_layout Subsection*
-\begin_inset CommandInset label
-LatexCommand label
-name "sub:how_can_i_earn_tile_points"
-
-\end_inset
-
-How can I earn game piece points?
-\end_layout
-
-\begin_layout Standard
-Look for the fun, colorful squares, called 
-\begin_inset Quotes eld
-\end_inset
-
-game pieces
-\begin_inset Quotes erd
-\end_inset
-
-.
- Read them and follow the instructions! Each game piece will include words
- or phrases that you can send to H Engage for points…have your cell phone
- ready! 
-\end_layout
-
-\begin_layout Subsection*
-How can I find out how many points I have or what level I'm on?
-\end_layout
-
-\begin_layout Standard
-You can find your level (and how many points you need to get to the next
- level) on your homepage on HEngage.com.
- 
-\end_layout
-
-\begin_layout Standard
-You’ll also receive an update on your points and level each time you send
- in a command.
- 
 \end_layout
 
 \begin_layout Section*
-Playing with Friends
+Additional Support
 \end_layout
 
 \begin_layout Subsection*
-\begin_inset CommandInset label
-LatexCommand label
-name "sub:how_can_i_earn_social_points"
-
-\end_inset
-
-How can I earn social points?
+What if I found something that doesn’t look right?
 \end_layout
 
 \begin_layout Standard
-Games are more fun when you’re playing with other people! Here are two ways
- to play with your coworkers:
-\end_layout
-
-\begin_layout Itemize
-
-\emph on
-Referring coworkers.
-
-\emph default
- Get 5 points for each coworker you sign up.
- Have your friend respond to their welcome text or email with your game
- user name (so you get credit for referring them).
- You can also invite your coworkers on HEngage.com.
- When they join the game, you'll get credit for referring them! 
-\end_layout
-
-\begin_layout Itemize
-
-\emph on
-Connecting with coworkers.
-
-\emph default
- Connecting with a coworker is a great way to see how they're playing the
- game.
- There are two ways to connect with a coworker.
- First, you can text or email “friend” followed by their username (i.e., “friend
- jsmith”).
- Or you can go to HEngage.com and look them up in the “Directory” page.
- Then click their name to go to their profile page, and you'll see a button
- that you can click to friend them.
+We work hard to make sure that everything in our system is working correctly,
+ but if you see something that doesn’t look right, let us know! Send us
+ a note at support@hengage.com.
+ If you find a bug, we may even give you a couple bonus points for helping
+ us out!
 \end_layout
 
 \begin_layout Subsection*
