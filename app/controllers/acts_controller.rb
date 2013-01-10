@@ -42,7 +42,15 @@ class ActsController < ApplicationController
       flash[parsing_message_type] = reply
     end
     flash[:mp_track_activity_box] = ['used activity entry box']
+
+    # Remain on current tile instead of going back to first one if current tile has more rules for them to complete
+    unless params['current_tile'].blank?
+      tile = Tile.find params['current_tile']
+      session[:start_tile] = params['current_tile'] if (tile.poly? and not tile.all_rule_triggers_satisfied_to_user(current_user))
+    end
+
     redirect_to :back
+
     if current_user.tutorial_active?
       session[:typed_something_in_playbox] = true if current_user.tutorial.current_step == 2
     else

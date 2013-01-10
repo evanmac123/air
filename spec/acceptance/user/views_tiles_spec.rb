@@ -15,7 +15,7 @@ feature 'User views tile' do
     @discover_fire = Tile.find_by_headline('discover fire')
 
     signin_as(@kendra, 'milking')
-    @first_tile_link = "/tiles?start=#{@make_toast.id}"
+    @first_tile_link = "/tiles/#{@make_toast.id}"
   end
 
   scenario 'views tile image', js: :webkit do

@@ -65,6 +65,8 @@ GEM
       rack-test (>= 0.5.4)
       selenium-webdriver (~> 2.0)
       xpath (~> 0.1.4)
+    capybara-screenshot (0.3.3)
+      capybara (>= 1.0, < 3)
     capybara-webkit (0.13.0)
       capybara (>= 1.0.0, < 1.2)
       json
@@ -345,6 +347,7 @@ DEPENDENCIES
   bourne
   bson_ext
   capybara
+  capybara-screenshot
   capybara-webkit
   chronic
   clearance

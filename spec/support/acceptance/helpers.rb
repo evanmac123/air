@@ -1,4 +1,12 @@
 module SteakHelperMethods
+
+  # Need these guys to get rid of overlays for the talking-chicken tutorial and inviting people
+  # to join the game. If don't get rid of them => can't click on any links because they are "covered".
+  def bypass_modal_overlays(user)
+    User.any_instance.stubs(:create_tutorial_if_none_yet) # Uses 'fancybox' css selectors
+    user.update_attribute :session_count, 10              # Uses 'facebox'  css selectors
+  end
+
   def fill_in_signin_fields(user, password)
     visit signin_page
     fill_in "session[email]", :with => user.email
@@ -181,5 +189,46 @@ module SteakHelperMethods
 
   def click_submit_in_form(form_selector)
     page.find(:css, "#{form_selector} input[@type='submit']").click
+  end
+
+  # My first custom matcher! Yippee!!
+  RSpec::Matchers.define :be_tile do |tile|
+    match do |current_tile|
+      current_tile.should == tile.id.to_s
+    end
+
+    failure_message_for_should do |current_tile|
+      "expected current tile to have an id of #{current_tile}, but got #{tile.id} instead "
+    end
+
+    failure_message_for_should_not do |current_tile|
+      "expected current tile *not* to have an id of #{current_tile}, but that is what we got"
+    end
+  end
+
+  def click_carousel_tile(tile)
+    find("a[href='#{tile_path(tile)}']").click
+  end
+
+  def show_previous_tile
+    page.find("#prev").click
+  end
+
+  def show_next_tile
+    page.find("#next").click
+  end
+
+  def current_slideshow_tile
+    sleep 0.5  # Seems to help...
+    # Use the z-index to determine which tile is visible
+    current_tile = all('#slideshow img').sort_by { |img| img[:style].slice(/(z-index: )(\d)/, 2) }.last
+    current_tile[:id]  # 'current_tile' is a Capybara::Node::Element => return its 'id' attribute
+  end
+
+  # First is Capybara capability. Second is auxiliary gem; info can be found at:
+  # https://github.com/mattheworiordan/capybara-screenshot
+  def show_me_some_love
+    save_and_open_page
+    screenshot_and_open_image
   end
 end

@@ -79,6 +79,7 @@ group :test do
   gem "factory_girl_rails"
   gem "bourne"
   gem "capybara"
+  gem 'capybara-screenshot'
   gem "database_cleaner"
   gem "fakeweb"
   gem "sham_rack"

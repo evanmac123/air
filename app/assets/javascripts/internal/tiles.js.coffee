@@ -44,6 +44,10 @@ updatePositionFunc = (isNext, slideIndex, slideElement) ->
 callbacksAfterTileTransition = (currSlideElement, nextSlideElement, options, forwardFlag) -> 
   resizeSlideshow()
   sendViewedTilePing(currSlideElement.id)
+  setCurrentTile()
+
+setCurrentTile = () ->
+  $('input#current_tile').val($('#slideshow img:visible').attr('id'))
 
 sendViewedTilePing = (tile_id) ->
   via = 0

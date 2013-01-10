@@ -5,7 +5,7 @@ Health::Application.routes.draw do
   match "scoreboard" => "scores#index"
   match "join"       => "invitations#new"
 
-  resources :tiles, :only => [:index, :create]
+  resources :tiles, :only => [:index, :show]
 
   resource :session, :controller => 'sessions'
 
