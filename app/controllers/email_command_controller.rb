@@ -8,22 +8,6 @@ class EmailCommandController< ApplicationController
     # status
     set_success_response!
 
-    # Terrible, brutal hack to mitigate a mistaken email address printed on 11 billion little cards
-    if params['to'].present? && params['to'].include?('fujivote')
-      message_text = %{
-FUJI vote from #{params['from']}
-
-Subject: #{params['subject']}
-
-#{params['plain']}
-
-      }
-
-      Mailer.delay_mail(:side_message, 'fujivote@hengage.com', message_text)
-      Mailer.delay_mail(:fuji_snafu_response, params['from'])
-      return
-    end
-
     email_command = EmailCommand.create_from_incoming_email(params)      
     if email_command.all_blank?
       email_command.response = blank_body_response
