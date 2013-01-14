@@ -44,7 +44,7 @@ class ActsController < ApplicationController
     flash[:mp_track_activity_box] = ['used activity entry box']
 
     # Remain on current tile instead of going back to first one if current tile has more rules for them to complete
-    unless params['current_tile'].blank?
+    unless params['current_tile'].blank? || params['current_tile'].to_i.zero? # 0 is the default tile for talking chicken
       tile = Tile.find params['current_tile']
       session[:start_tile] = params['current_tile'] if (tile.poly? and not tile.all_rule_triggers_satisfied_to_user(current_user))
     end
