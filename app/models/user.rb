@@ -615,7 +615,7 @@ class User < ActiveRecord::Base
   end
 
   def ticket_summary
-    "tix #{self.tickets}"
+    "Tix #{self.tickets}"
   end
 
   def point_and_ticket_summary(prefix = [])
@@ -625,7 +625,7 @@ class User < ActiveRecord::Base
     result_parts << self.point_summary
     result_parts << self.ticket_summary
 
-    ' ' + result_parts.compact.join(', ').capitalize + '.'
+    ' ' + result_parts.map(&:capitalize).compact.join(', ') + '.'
   end
 
   def claim_code_prefix

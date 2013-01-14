@@ -6,7 +6,7 @@ Feature: User acts
       | FooCorp |
       | BarCorp |
     Given the following claimed users exist:
-      | name | phone number | privacy level | demo          | points |
+      | name | phone number | privacy level | demo          | Points |
       | Dan  | +15087407520 | everybody     | name: FooCorp | 0      |
       | Paul | +15088675309 | everybody     | name: FooCorp | 0      |
       | Fred | +14155551212 | everybody     | name: FooCorp | 1      |
@@ -18,7 +18,7 @@ Feature: User acts
     And "Fred" has the SMS slug "fred666"
     And "Sven" has the SMS slug "sven"
     And the following rules exist:
-      | points | referral points | reply                     | alltime_limit | demo          |
+      | Points | referral Points | reply                     | alltime_limit | demo          |
       | 2      |                 | Bananas are good for you. |               | name: FooCorp |
       | 5      | 200             | Working out is nice.      |               | name: FooCorp |
       | 20     |                 | Congratulations!          | 2             | name: FooCorp |
@@ -43,14 +43,14 @@ Feature: User acts
     And I sign in via the login page as "Dan/foobar"
     And I go to the acts page
     Then I should see the following act:
-      | name | act         | points |
+      | name | act         | Points |
       | Dan  | ate banana  | 2      |
 
   Scenario: User doesn't see acts from another demo
     When "+15087407520" sends SMS "ate banana"
     And I sign in via the login page as "Dan/foobar"
     Then I should see the following act:
-      | name | act         | points |
+      | name | act         | Points |
       | Dan  | ate banana  | 2      |
     When I sign in via the login page as "Sven/foobar"
     Then I should be on the activity page with HTML forced
@@ -59,8 +59,9 @@ Feature: User acts
   Scenario: User can use any rule value to refer to a rule
     When "+15087407520" sends SMS "ate banana"
     And "+15087407520" sends SMS "ate bananas"
-    Then "+15087407520" should have received SMS "Bananas are good for you. Points 2/20, tix 0."
-    And "+15087407520" should have received SMS "Bananas are good for you. Points 4/20, tix 0."
+    And I dump all sent texts
+    Then "+15087407520" should have received SMS "Bananas are good for you. Points 2/20, Tix 0."
+    And "+15087407520" should have received SMS "Bananas are good for you. Points 4/20, Tix 0."
 
   Scenario: User enters bad act via the website
     When I sign in via the login page as "Dan/foobar"
@@ -72,7 +73,7 @@ Feature: User acts
     And I sign in via the login page as "Dan/foobar"
     And I go to the acts page
     Then I should see the following act:
-      | name | act         | points |
+      | name | act         | Points |
       | Dan  | ate banana  | 2      |
 
   Scenario: User acts, with trailing whitespace
@@ -80,7 +81,7 @@ Feature: User acts
     And I sign in via the login page as "Dan/foobar"
     And I go to the acts page
     Then I should see the following act:
-      | name | act         | points |
+      | name | act         | Points |
       | Dan  | ate banana  | 2      |
 
   Scenario: User tries to act with an act belonging to a different demo
@@ -105,16 +106,16 @@ Feature: User acts
     And I go to the acts page
     Then "+15087407520" should have received an SMS including "Good for you."
     And I should see the following act:
-      | name | act                             | points |
+      | name | act                             | Points |
       | Dan  | do good thing  | 10     |
     When "+14152613077" sends SMS "do good thing"
     Then "+14152613077" should not have received an SMS including "Good for you."
     When "+14152613077" sends SMS "ate headcheese"
     Then "+14152613077" should have received an SMS including "Headcheese is disgusting."
 
-  Scenario: User gets a reply from the game on acting with points and ranking information
+  Scenario: User gets a reply from the game on acting with Points and ranking information
     When "+15087407520" sends SMS "ate banana"
-    Then "+15087407520" should have received an SMS "Bananas are good for you. Points 2/20, tix 0."
+    Then "+15087407520" should have received an SMS "Bananas are good for you. Points 2/20, Tix 0."
 
   Scenario: User achieves part of a goal by acting
     Given the following goals exist:
@@ -122,7 +123,7 @@ Feature: User acts
       | deadly sins       | name: FooCorp |
       | redeeming virtues | name: FooCorp |
     And the following rules exist:
-      | reply               | points | demo                  |
+      | reply               | Points | demo                  |
       | Lust woo!           | 2      | name: FooCorp |
       | Pride boo!          | 5      | name: FooCorp |
       | Envy who?           | 6      | name: FooCorp |
@@ -142,32 +143,32 @@ Feature: User acts
       | diligence | reply: So is diligence too |
 
     When "+15087407520" sends SMS "lust"
-    Then "+15087407520" should have received SMS "Lust woo! Deadly sins 1/3, points 2/20, tix 0."
+    Then "+15087407520" should have received SMS "Lust woo! Deadly sins 1/3, Points 2/20, Tix 0."
 
     When "+15087407520" sends SMS "lust"
-    Then "+15087407520" should have received SMS "Lust woo! Deadly sins 1/3, points 4/20, tix 0."
+    Then "+15087407520" should have received SMS "Lust woo! Deadly sins 1/3, Points 4/20, Tix 0."
 
     When "+15087407520" sends SMS "charity"
-    Then "+15087407520" should have received SMS "Charity good for u. Redeeming virtues 1/2, points 15/20, tix 0."
+    Then "+15087407520" should have received SMS "Charity good for u. Redeeming virtues 1/2, Points 15/20, Tix 0."
 
     When "+15088675309" sends SMS "diligence"
-    Then "+15088675309" should have received SMS "So is diligence too Redeeming virtues 1/2, points 15/20, tix 0."
+    Then "+15088675309" should have received SMS "So is diligence too Redeeming virtues 1/2, Points 15/20, Tix 0."
 
     When "+15087407520" sends SMS "diligence"
-    Then "+15087407520" should have received SMS "So is diligence too Redeeming virtues 2/2, points 10/20, tix 1."
+    Then "+15087407520" should have received SMS "So is diligence too Redeeming virtues 2/2, Points 10/20, Tix 1."
 
     When "+15087407520" sends SMS "pride"
-    Then "+15087407520" should have received SMS "Pride boo! Deadly sins 2/3, points 15/20, tix 1."
+    Then "+15087407520" should have received SMS "Pride boo! Deadly sins 2/3, Points 15/20, Tix 1."
 
     When "+15087407520" sends SMS "lust"
-    Then "+15087407520" should have received SMS "Lust woo! Deadly sins 2/3, points 17/20, tix 1."
+    Then "+15087407520" should have received SMS "Lust woo! Deadly sins 2/3, Points 17/20, Tix 1."
 
   Scenario: User can only get credit for rules up to their limits
     When "+15087407520" sends SMS "saw poster"
     And "+15087407520" sends SMS "saw poster"
     And "+15087407520" sends SMS "saw poster"
-    And "+15087407520" should have received an SMS "Congratulations! Points 0/20, tix 1."
-    And "+15087407520" should have received an SMS "Congratulations! Points 0/20, tix 2."
+    And "+15087407520" should have received an SMS "Congratulations! Points 0/20, Tix 1."
+    And "+15087407520" should have received an SMS "Congratulations! Points 0/20, Tix 2."
     And "+15087407520" should have received an SMS "Sorry, you've already done that action."
 
   Scenario: User gets side message for getting ticket
@@ -178,9 +179,9 @@ Feature: User acts
     And DJ works off after a little while
     Then "+15087407520" should have received an SMS "Congratulations - You've earned 2 tickets!"
 
-  Scenario: Act with 0 points should not mention that
+  Scenario: Act with 0 Points should not mention that
     Given the following act exists:
-      | text         | inherent points | user        | 
+      | text         | inherent Points | user        | 
       | did not much | 0               | name: Dan   | 
     When I sign in via the login page with "Dan/foobar"
     Then I should be on the activity page with HTML forced
