@@ -15,8 +15,8 @@ class ClientAdminsController < ClientAdminBaseController
 
     demo = Demo.find(13)
 
-    @hc_day  = demo.highchart(:daily, DateTime.new(2012, 12, 10), DateTime.new(2012, 12, 19))
-    #@hc_day  = demo.highchart(:daily, DateTime.new(2012, 12, 10), DateTime.new(2012, 12, 19))
-    #@hc_hour = demo.highchart(:hourly, start_date, end_date = nil)
+    # todo don't need 1st arg; one arg => hourly, two args => daily
+    @hc_day  = demo.highchart(:daily, DateTime.new(2012, 12, 1), DateTime.new(2012, 12, 31))
+    @hc_hour = demo.highchart(:hourly, DateTime.new(2012, 12, 15))
   end
 end
