@@ -969,6 +969,10 @@ class User < ActiveRecord::Base
     end
   end
 
+  def flush_tickets
+    update_attributes(tickets: 0, ticket_threshold_base: points)  
+  end
+
   def self.find_by_either_email(email)
     email = email.strip.downcase
     where("email = ? OR overflow_email = ?", email, email).first
