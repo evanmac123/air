@@ -13,7 +13,8 @@ class ClientAdminsController < ClientAdminBaseController
 
     Mixpanel::Tracker.new(MIXPANEL_TOKEN, {}).delay.track("viewed page", {page_name: 'client admin dashboard'}.merge(current_user.data_for_mixpanel))
 
-    @hc_day  = Demo.find(13).highchart
-    @hc_hour = Demo.find(13).highchart
+    demo = Demo.find(13)
+    @hc_day  = demo.highchart
+    @hc_hour = demo.highchart
   end
 end
