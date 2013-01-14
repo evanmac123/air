@@ -1,9 +1,0 @@
-
-2012-02-08T16:36:22+00:00 app[web.4]: Started POST "/account/avatar" for 10.245.205.43 at Wed Feb 08 11:36:22 -0500 2012
-
-2012-02-08T16:36:23+00:00 heroku[router]: POST www.hengage.com/account/avatar dyno=web.4 queue=0 wait=0ms service=756ms status=200 bytes=7119
-
-2012-02-08T16:36:23+00:00 heroku[nginx]: 10.245.205.43 - - [08/Feb/2012:16:36:23 +0000] "POST /account/avatar HTTP/1.1" 200 2392 "https://www.hengage.com/account/settings/edit" "Mozilla/5.0 
-(Macintosh; Intel Mac OS X 10.7; rv:10.0) Gecko/20100101 Firefox/10.0" www.hengage.com
-
-2012-02-08T16:36:23+00:00 heroku[nginx]: 127.0.0.1 - - [08/Feb/2012:16:36:23 +0000] "POST /account/avatar HTTP/1.0" 200 7119 "https://www.hengage.com/account/settings/edit" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.7; rv:10.0) Gecko/20100101 Firefox/10.0" www.hengage.com
