@@ -52,22 +52,34 @@ module Highcharts
     %S: Two digits seconds, 00 through 59
 =end
 
-  def highchart
-    return nil if acts.count == 0
+  def highchart(type, start_date, end_date = nil)
+    raise ArgumentError.new("Invalid Highchart Type: #{type.to_s}") unless ([:daily, :hourly].include?(type))
 
-    min_date = acts.minimum(:created_at).to_date
-    max_date = acts.maximum(:created_at).to_date
+    # todo need to handle this case
+    return nil if acts.count == 0
 
     all_acts_per_day = {}
     unique_acts_per_day = {}
 
-    # Populate hash of all-days-to-plot with 0 acts for that day
-    (min_date..max_date).each { |date| all_acts_per_day[date] = unique_acts_per_day[date] = 0 }
+    # Pre-populate hash of all-days-to-plot with 0 acts for that day
+    # Note: Can't group by time because each distinct hour/minute/second would warrant its own group
+    # Note: Can't group by day because range can overlap => duplicate day numbers
+    date_range = start_date..end_date
+    date_range.each { |date| all_acts_per_day[date.to_date] = unique_acts_per_day[date.to_date] = 0 }
 
     num_all_acts_per_day = {}
     num_unique_acts_per_day = {}
 
-    raw_acts_per_day = acts.group_by { |act| act.created_at.to_date }
+    # todo embellish this comment
+    # AR dates are UTC time. Need to reject dbase entries like this "created_at: 2012-12-10 02:37:36" because
+    # if you do an 'act.created_at' for that time you get "Sun, 09 Dec 2012 21:37:36 EST -05:00", which would
+    # not fall in the 10..20 range. Note that the class of 'act.created_at' is actually 'ActiveSupport::TimeWithZone'
+    # thus you need to convert it if you want to test range inclusion.
+    # Here's the fucked-up thing: range is expressed in DateTime's, but if you do an 'act.created_at.to_datetime'
+    # then *nothing* gets rejected.
+    plot_acts = acts.where(created_at:(date_range)).reject { |act| not date_range.include?(act.created_at.to_date) }
+
+    raw_acts_per_day = plot_acts.group_by { |act| act.created_at.to_date }
 
     raw_acts_per_day.each do |k,v|
       num_all_acts_per_day[k] = v.length
@@ -95,6 +107,7 @@ module Highcharts
       hc.options[:colors][1] = '#F00'
 
       hc.title(text: "H Engage #{name} Chart")
+      hc.subtitle(text: "#{start_date.to_s(:long)} thru #{end_date.to_s(:long)}")
 
       hc.chart(zoomType: 'x')
 
@@ -103,10 +116,10 @@ module Highcharts
 
       # Point interval is (number of seconds in) one day.
       # (LazyHighCharts gem converts to number of milliseconds, which Highcharts uses.)
-      hc.plotOptions(line: {pointStart: min_date, pointInterval: 60 * 60 * 24})
+      hc.plotOptions(line: {pointStart: start_date.to_date, pointInterval: 60 * 60 * 24})
 
       hc.series(name: 'All Acts', data: all_data)
-      hc.series(name: 'Number of unique acts', data: unique_data)
+      hc.series(name: 'Unique Acts', data: unique_data)
     end
   end
 end
