@@ -52,23 +52,217 @@ module Highcharts
     %S: Two digits seconds, 00 through 59
 =end
 
-  def highchart(type, start_date, end_date = nil)
-    raise ArgumentError.new("Invalid Highchart Type: #{type.to_s}") unless ([:daily, :hourly].include?(type))
+  #def highchart(type, start_date, end_date = nil)
+  #  raise ArgumentError.new("Invalid Highchart Type: #{type.to_s}") unless ([:daily, :hourly].include?(type))
+  #
+  #  # todo need to handle this case
+  #  return nil if acts.count == 0
+  #
+  #  all_acts_per_day = {}
+  #  unique_acts_per_day = {}
+  #
+  #  all_acts_per_hour = {}
+  #  unique_acts_per_hour = {}
+  #
+  #  # Pre-populate hash of all-days-to-plot with 0 acts for that day
+  #  # Note: Can't group by time because each distinct hour/minute/second would warrant its own group
+  #  # Note: Can't group by day because range can overlap => duplicate day numbers
+  #  date_range = start_date..end_date unless type == :hourly
+  #  date_range.each { |date| all_acts_per_day[date.to_date] = unique_acts_per_day[date.to_date] = 0 } unless type == :hourly
+  #
+  #  start = start_date.beginning_of_day
+  #  stop = start_date.end_of_day
+  #
+  #  while stop > start
+  #    all_acts_per_hour[start.hour] = unique_acts_per_hour[start.hour] = 0
+  #    start += 1.hour
+  #  end
+  #
+  #  start = start_date.beginning_of_day  # Need to reset
+  #  hour_range = start..stop
+  #
+  #  num_all_acts_per_day = {}
+  #  num_unique_acts_per_day = {}
+  #
+  #  num_all_acts_per_hour = {}
+  #  num_unique_acts_per_hour = {}
+  #
+  #  # todo embellish this comment
+  #  # AR dates are UTC time. Need to reject dbase entries like this "created_at: 2012-12-10 02:37:36" because
+  #  # if you do an 'act.created_at' for that time you get "Sun, 09 Dec 2012 21:37:36 EST -05:00", which would
+  #  # not fall in the 10..20 range. Note that the class of 'act.created_at' is actually 'ActiveSupport::TimeWithZone'
+  #  # thus you need to convert it if you want to test range inclusion.
+  #  # Here's the fucked-up thing: range is expressed in DateTime's, but if you do an 'act.created_at.to_datetime'
+  #  # then *nothing* gets rejected.
+  #  plot_acts = acts.where(created_at:(date_range)) unless type == :hourly
+  #  #plot_acts = acts.where(created_at:(date_range)).reject { |act| not date_range.include?(act.created_at.to_date) } unless type == :hourly
+  #  hour_acts = acts.where(created_at:(hour_range))  # todo need something like this? : .reject { |act| not date_range.include?(act.created_at.to_date) }
+  #
+  #  raw_acts_per_day = plot_acts.group_by { |act| act.created_at.to_date } unless type == :hourly
+  #  raw_acts_per_hour = hour_acts.group_by { |act| act.created_at.hour }
+  #
+  #  raw_acts_per_day.each do |k,v|
+  #    num_all_acts_per_day[k] = v.length
+  #
+  #    by_user = v.group_by &:user
+  #    num_unique_acts_per_day[k] = by_user.keys.length
+  #  end unless type == :hourly
+  #
+  #  raw_acts_per_hour.each do |k,v|
+  #    num_all_acts_per_hour[k] = v.length
+  #
+  #    by_user = v.group_by &:user
+  #    num_unique_acts_per_hour[k] = by_user.keys.length
+  #  end
+  #
+  #  # 'merge' => any acts for a given day replace the initial '0' acts for that day, while
+  #  #  keeping initial '0' for non-act days so have something to plot for each day.
+  #  # 'sort' => by keys, i.e. creation date. Returns array of the form: [ [k,v], [k,v], [k,v], [k,v] ]
+  #  all_data = all_acts_per_day.merge!(num_all_acts_per_day).sort unless type == :hourly
+  #  unique_data = unique_acts_per_day.merge!(num_unique_acts_per_day).sort unless type == :hourly
+  #
+  #  all_hour_data = all_acts_per_hour.merge!(num_all_acts_per_hour).sort
+  #  unique_hour_data = unique_acts_per_hour.merge!(num_unique_acts_per_hour).sort
+  #
+  #  # Change the 'k' value (i.e. the date) for each [k,v] point to a string => Highcharts will not
+  #  # use this value as the x-coordinate, but instead will treat it as the name of the point.
+  #  # (Don't need it to be a true x/date value because we always plot one point per x-axis interval.)
+  #  # todo if don't have option to display every other point => just pass array of y values
+  #  (all_data + unique_data).each_with_index { |point, i| i.even? ? point[0] = '' : point[0] = point[1].to_s } unless type == :hourly
+  #  (all_hour_data + unique_hour_data).each_with_index { |point, i| i.even? ? point[0] = '' : point[0] = point[1].to_s }
+  #
+  #  if (type == :daily)
+  #    LazyHighCharts::HighChart.new do |hc|
+  #      # Initialize the Highcharts default color array. Colors used in order and recycled => start off with H-Engage green
+  #      # (Tried a whole bunch of ways to set these colors and this is the only way that worked. Beats me.)
+  #      hc.colors
+  #      hc.options[:colors][0] = '#4D7A36'
+  #      hc.options[:colors][1] = '#F00'
+  #
+  #      hc.title(text: "H Engage #{name} Chart")
+  #      hc.subtitle(text: "#{start_date.to_s(:long)} thru #{end_date.to_s(:long)}")
+  #
+  #      hc.chart(zoomType: 'x')
+  #
+  #      hc.xAxis(title: {text: 'Date'}, type: 'datetime')
+  #      hc.yAxis(title: {text: 'Acts'}, min: 0)
+  #
+  #      # Point interval is (number of seconds in) one day.
+  #      # (LazyHighCharts gem converts to number of milliseconds, which Highcharts uses.)
+  #      # todo if don't have option to display every other point => remove 'formatter' function
+  #      hc.plotOptions(line: {pointStart: start_date.to_date, pointInterval: 60 * 60 * 24,
+  #                            dataLabels: {enabled: true, fontWeight: 'bold', formatter: %|function() { return this.point.name; }|.js_code}})
+  #
+  #      hc.series(name: 'All Acts', data: all_data)
+  #      hc.series(name: 'Unique Acts', data: unique_data)
+  #    end
+  #  else
+  #    LazyHighCharts::HighChart.new do |hc|
+  #      # Initialize the Highcharts default color array. Colors used in order and recycled => start off with H-Engage green
+  #      # (Tried a whole bunch of ways to set these colors and this is the only way that worked. Beats me.)
+  #      hc.colors
+  #      hc.options[:colors][0] = '#4D7A36'
+  #      hc.options[:colors][1] = '#F00'
+  #
+  #      hc.title(text: "H Engage #{name} Chart")
+  #      hc.subtitle(text: "For #{start_date.to_s(:long)}")
+  #
+  #      hc.chart(zoomType: 'x')
+  #
+  #      hc.xAxis(title: {text: 'Date'}, type: 'datetime')
+  #      hc.yAxis(title: {text: 'Acts'}, min: 0)
+  #
+  #      # Point interval is (number of seconds in) one day.
+  #      # (LazyHighCharts gem converts to number of milliseconds, which Highcharts uses.)
+  #      # todo if don't have option to display every other point => remove 'formatter' function
+  #      hc.plotOptions(line: {pointStart: start_date.to_date, pointInterval: 60 * 60,
+  #                            dataLabels: {enabled: true, fontWeight: 'bold', formatter: %|function() { return this.point.name; }|.js_code}})
+  #
+  #      hc.series(name: 'All Acts', data: all_hour_data)
+  #      hc.series(name: 'Unique Acts', data: unique_hour_data)
+  #    end
+  #  end
+  #end
 
-    # todo need to handle this case
-    return nil if acts.count == 0
+  def highchart_daily(start_date, end_date)
+    return nil if acts.count == 0  # todo need to gracefully handle this case
 
     all_acts_per_day = {}
     unique_acts_per_day = {}
 
-    all_acts_per_hour = {}
-    unique_acts_per_hour = {}
-
     # Pre-populate hash of all-days-to-plot with 0 acts for that day
     # Note: Can't group by time because each distinct hour/minute/second would warrant its own group
     # Note: Can't group by day because range can overlap => duplicate day numbers
-    date_range = start_date..end_date unless type == :hourly
-    date_range.each { |date| all_acts_per_day[date.to_date] = unique_acts_per_day[date.to_date] = 0 } unless type == :hourly
+    date_range = start_date..end_date
+    date_range.each { |date| all_acts_per_day[date.to_date] = unique_acts_per_day[date.to_date] = 0 }
+
+    num_all_acts_per_day = {}
+    num_unique_acts_per_day = {}
+
+    # todo embellish this comment
+    # AR dates are UTC time. Need to reject dbase entries like this "created_at: 2012-12-10 02:37:36" because
+    # if you do an 'act.created_at' for that time you get "Sun, 09 Dec 2012 21:37:36 EST -05:00", which would
+    # not fall in the 10..20 range. Note that the class of 'act.created_at' is actually 'ActiveSupport::TimeWithZone'
+    # thus you need to convert it if you want to test range inclusion.
+    # Here's the fucked-up thing: range is expressed in DateTime's, but if you do an 'act.created_at.to_datetime'
+    # then *nothing* gets rejected.
+    date_range = Time.zone.local(start_date.year, start_date.month, start_date.day)..Time.zone.local(end_date.year, end_date.month, end_date.day)
+    plot_acts = acts.where(created_at:(date_range))
+    #plot_acts = acts.where(created_at:(date_range)).reject { |act| not date_range.include?(act.created_at.to_date) }
+
+    raw_acts_per_day = plot_acts.group_by { |act| act.created_at.to_date }
+
+    raw_acts_per_day.each do |k,v|
+      num_all_acts_per_day[k] = v.length
+
+      by_user = v.group_by &:user
+      num_unique_acts_per_day[k] = by_user.keys.length
+    end
+
+    # 'merge' => any acts for a given day replace the initial '0' acts for that day, while
+    #  keeping initial '0' for non-act days so have something to plot for each day.
+    # 'sort' => by keys, i.e. creation date. Returns array of the form: [ [k,v], [k,v], [k,v], [k,v] ]
+    all_data = all_acts_per_day.merge!(num_all_acts_per_day).sort
+    unique_data = unique_acts_per_day.merge!(num_unique_acts_per_day).sort
+
+    # Change the 'k' value (i.e. the date) for each [k,v] point to a string => Highcharts will not
+    # use this value as the x-coordinate, but instead will treat it as the name of the point.
+    # (Don't need it to be a true x/date value because we always plot one point per x-axis interval.)
+    # todo if don't have option to display every other point => just pass array of y values
+    (all_data + unique_data).each_with_index { |point, i| i.even? ? point[0] = '' : point[0] = point[1].to_s }
+
+    LazyHighCharts::HighChart.new do |hc|
+      # Initialize the Highcharts default color array. Colors used in order and recycled => start off with H-Engage green
+      # (Tried a whole bunch of ways to set these colors and this is the only way that worked. Beats me.)
+      hc.colors
+      hc.options[:colors][0] = '#4D7A36'
+      hc.options[:colors][1] = '#F00'
+
+      hc.title(text: "H Engage #{name} Chart")
+      hc.subtitle(text: "#{start_date.to_s(:long)} thru #{end_date.to_s(:long)}")
+
+      hc.chart(zoomType: 'x')
+
+      hc.xAxis(title: {text: 'Date'}, type: 'datetime')
+      hc.yAxis(title: {text: 'Acts'}, min: 0)
+
+      # Point interval is (number of seconds in) one day.
+      # (LazyHighCharts gem converts to number of milliseconds, which Highcharts uses.)
+      # todo if don't have option to display every other point => remove 'formatter' function
+      hc.plotOptions(line: {pointStart: start_date.to_date, pointInterval: 60 * 60 * 24,
+                            dataLabels: {enabled: true, fontWeight: 'bold', formatter: %|function() { return this.point.name; }|.js_code}})
+
+      hc.series(name: 'All Acts', data: all_data)
+      hc.series(name: 'Unique Acts', data: unique_data)
+    end
+  end
+
+  def highchart_hourly(start_date)
+    # todo need to handle this case
+    return nil if acts.count == 0
+
+    all_acts_per_hour = {}
+    unique_acts_per_hour = {}
 
     start = start_date.beginning_of_day
     stop = start_date.end_of_day
@@ -77,12 +271,6 @@ module Highcharts
       all_acts_per_hour[start.hour] = unique_acts_per_hour[start.hour] = 0
       start += 1.hour
     end
-
-    start = start_date.beginning_of_day  # Need to reset
-    hour_range = start..stop
-
-    num_all_acts_per_day = {}
-    num_unique_acts_per_day = {}
 
     num_all_acts_per_hour = {}
     num_unique_acts_per_hour = {}
@@ -94,18 +282,10 @@ module Highcharts
     # thus you need to convert it if you want to test range inclusion.
     # Here's the fucked-up thing: range is expressed in DateTime's, but if you do an 'act.created_at.to_datetime'
     # then *nothing* gets rejected.
-    plot_acts = acts.where(created_at:(date_range)).reject { |act| not date_range.include?(act.created_at.to_date) } unless type == :hourly
-    hour_acts = acts.where(created_at:(hour_range))  # todo need something like this? : .reject { |act| not date_range.include?(act.created_at.to_date) }
+    hour_range = Time.zone.local(start_date.year, start_date.month, start_date.day).beginning_of_day..Time.zone.local(start_date.year, start_date.month, start_date.day).end_of_day
+    hour_acts = acts.where(created_at:(hour_range))
 
-    raw_acts_per_day = plot_acts.group_by { |act| act.created_at.to_date } unless type == :hourly
     raw_acts_per_hour = hour_acts.group_by { |act| act.created_at.hour }
-
-    raw_acts_per_day.each do |k,v|
-      num_all_acts_per_day[k] = v.length
-
-      by_user = v.group_by &:user
-      num_unique_acts_per_day[k] = by_user.keys.length
-    end unless type == :hourly
 
     raw_acts_per_hour.each do |k,v|
       num_all_acts_per_hour[k] = v.length
@@ -117,9 +297,6 @@ module Highcharts
     # 'merge' => any acts for a given day replace the initial '0' acts for that day, while
     #  keeping initial '0' for non-act days so have something to plot for each day.
     # 'sort' => by keys, i.e. creation date. Returns array of the form: [ [k,v], [k,v], [k,v], [k,v] ]
-    all_data = all_acts_per_day.merge!(num_all_acts_per_day).sort unless type == :hourly
-    unique_data = unique_acts_per_day.merge!(num_unique_acts_per_day).sort unless type == :hourly
-
     all_hour_data = all_acts_per_hour.merge!(num_all_acts_per_hour).sort
     unique_hour_data = unique_acts_per_hour.merge!(num_unique_acts_per_hour).sort
 
@@ -127,59 +304,31 @@ module Highcharts
     # use this value as the x-coordinate, but instead will treat it as the name of the point.
     # (Don't need it to be a true x/date value because we always plot one point per x-axis interval.)
     # todo if don't have option to display every other point => just pass array of y values
-    (all_data + unique_data).each_with_index { |point, i| i.even? ? point[0] = '' : point[0] = point[1].to_s } unless type == :hourly
     (all_hour_data + unique_hour_data).each_with_index { |point, i| i.even? ? point[0] = '' : point[0] = point[1].to_s }
 
-    if (type == :daily)
-      LazyHighCharts::HighChart.new do |hc|
-        # Initialize the Highcharts default color array. Colors used in order and recycled => start off with H-Engage green
-        # (Tried a whole bunch of ways to set these colors and this is the only way that worked. Beats me.)
-        hc.colors
-        hc.options[:colors][0] = '#4D7A36'
-        hc.options[:colors][1] = '#F00'
+    LazyHighCharts::HighChart.new do |hc|
+      # Initialize the Highcharts default color array. Colors used in order and recycled => start off with H-Engage green
+      # (Tried a whole bunch of ways to set these colors and this is the only way that worked. Beats me.)
+      hc.colors
+      hc.options[:colors][0] = '#4D7A36'
+      hc.options[:colors][1] = '#F00'
 
-        hc.title(text: "H Engage #{name} Chart")
-        hc.subtitle(text: "#{start_date.to_s(:long)} thru #{end_date.to_s(:long)}")
+      hc.title(text: "H Engage #{name} Chart")
+      hc.subtitle(text: "#{start_date.to_s(:long)}")
 
-        hc.chart(zoomType: 'x')
+      hc.chart(zoomType: 'x')
 
-        hc.xAxis(title: {text: 'Date'}, type: 'datetime')
-        hc.yAxis(title: {text: 'Acts'}, min: 0)
+      hc.xAxis(title: {text: 'Date'}, type: 'datetime')
+      hc.yAxis(title: {text: 'Acts'}, min: 0)
 
-        # Point interval is (number of seconds in) one day.
-        # (LazyHighCharts gem converts to number of milliseconds, which Highcharts uses.)
-        # todo if don't have option to display every other point => remove 'formatter' function
-        hc.plotOptions(line: {pointStart: start_date.to_date, pointInterval: 60 * 60 * 24,
-                              dataLabels: {enabled: true, fontWeight: 'bold', formatter: %|function() { return this.point.name; }|.js_code}})
+      # Point interval is (number of seconds in) one day.
+      # (LazyHighCharts gem converts to number of milliseconds, which Highcharts uses.)
+      # todo if don't have option to display every other point => remove 'formatter' function
+      hc.plotOptions(line: {pointStart: start_date.to_date, pointInterval: 60 * 60,
+                            dataLabels: {enabled: true, fontWeight: 'bold', formatter: %|function() { return this.point.name; }|.js_code}})
 
-        hc.series(name: 'All Acts', data: all_data)
-        hc.series(name: 'Unique Acts', data: unique_data)
-      end
-    else
-      LazyHighCharts::HighChart.new do |hc|
-        # Initialize the Highcharts default color array. Colors used in order and recycled => start off with H-Engage green
-        # (Tried a whole bunch of ways to set these colors and this is the only way that worked. Beats me.)
-        hc.colors
-        hc.options[:colors][0] = '#4D7A36'
-        hc.options[:colors][1] = '#F00'
-
-        hc.title(text: "H Engage #{name} Chart")
-        hc.subtitle(text: "For #{start_date.to_s(:long)}")
-
-        hc.chart(zoomType: 'x')
-
-        hc.xAxis(title: {text: 'Date'}, type: 'datetime')
-        hc.yAxis(title: {text: 'Acts'}, min: 0)
-
-        # Point interval is (number of seconds in) one day.
-        # (LazyHighCharts gem converts to number of milliseconds, which Highcharts uses.)
-        # todo if don't have option to display every other point => remove 'formatter' function
-        hc.plotOptions(line: {pointStart: start_date.to_date, pointInterval: 60 * 60,
-                              dataLabels: {enabled: true, fontWeight: 'bold', formatter: %|function() { return this.point.name; }|.js_code}})
-
-        hc.series(name: 'All Acts', data: all_hour_data)
-        hc.series(name: 'Unique Acts', data: unique_hour_data)
-      end
+      hc.series(name: 'All Acts', data: all_hour_data)
+      hc.series(name: 'Unique Acts', data: unique_hour_data)
     end
   end
 end

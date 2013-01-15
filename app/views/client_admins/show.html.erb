@@ -1,5 +1,5 @@
-<%= high_chart('hc_day',  @hc_day) %>
-<%= high_chart('hc_hour', @hc_hour) %>
+<%= high_chart('hc_day',  @hc_day) if @hc_day %>
+<%= high_chart('hc_hour', @hc_hour) if @hc_hour %>
 
 <ul class="section-name">
     <li class="section-icon"><span class="icon" id="icon-overview"></span></li>
