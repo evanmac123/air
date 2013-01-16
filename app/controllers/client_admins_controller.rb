@@ -12,11 +12,7 @@ class ClientAdminsController < ClientAdminBaseController
     Mixpanel::Tracker.new(MIXPANEL_TOKEN, {}).delay.track("viewed page", {page_name: 'client admin dashboard'}.merge(current_user.data_for_mixpanel))
 
     demo = Demo.find(13)
-    # todo KEEP THESE AROUND SO CAN VERIFY THAT GET SAME GRAPHS!!!
-    #@hc_day  = demo.highchart_daily(DateTime.new(2012, 12, 1), DateTime.new(2012, 12, 31))
-    #@hc_hour = demo.highchart_hourly(DateTime.new(2012, 12, 15))
-
-    @hc_day  = demo.highchart(DateTime.new(2012, 12, 1), DateTime.new(2012, 12, 31), true, false)
-    @hc_hour = demo.highchart(DateTime.new(2012, 12, 15), false, true)
+    @hc_day  = demo.highchart(DateTime.new(2012, 12, 1), DateTime.new(2012, 12, 31), true, true)
+    @hc_hour = demo.highchart(DateTime.new(2012, 12, 15), true, true)
   end
 end
