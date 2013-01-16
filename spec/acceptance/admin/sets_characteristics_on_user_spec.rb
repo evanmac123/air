@@ -12,8 +12,7 @@ feature "Admin Sets Characteristics On User" do
     @other_demo_characteristic = FactoryGirl.create :characteristic, :demo_specific, :name => 'other demo characteristic', :allowed_values => %w(and so on)
     @user = FactoryGirl.create :user, :demo => @demo, :name => "Hank Robertson"
 
-    signin_as_admin
-    visit edit_admin_demo_user_path(@user.demo, @user)
+    visit edit_admin_demo_user_path(@user.demo, @user, as: an_admin)
     expect_no_content('other demo characteristic')
 
     select 'bar', :from => 'generic'

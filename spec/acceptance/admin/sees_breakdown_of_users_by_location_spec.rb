@@ -15,11 +15,10 @@ feature "Admin sees breakdown of users by location" do
       FactoryGirl.create(:user, location: @detroit)
     end
     FactoryGirl.create(:user, location: @whoville)
-    signin_as_admin
   end
 
   it "should display who's in what location " do
-    visit admin_demo_reports_location_breakdown_path(@farm)
+    visit admin_demo_reports_location_breakdown_path(@farm, as: an_admin)
     page.should have_content("Detroit 2 Emptyville 0 North Pole 3 Whoville 1")
   end
 end

@@ -12,8 +12,7 @@ feature 'Admin resets tiles for user' do
     TileCompletion.count.should == 1
     Act.count.should == 2 # @act plus the game piece completion act
 
-    signin_as_admin
-    visit edit_admin_demo_user_path(user.demo_id, user)
+    visit edit_admin_demo_user_path(user.demo_id, user, as: an_admin)
     click_button "Reset tiles for this user in #{user.demo.name}"
 
     should_be_on edit_admin_demo_user_path(user.demo_id, user)
@@ -23,7 +22,7 @@ feature 'Admin resets tiles for user' do
   end
 
   scenario 'to be specific, themselves' do
-    user = signin_as_admin
+    user = an_admin
     rule = FactoryGirl.create(:rule, demo: user.demo)
     FactoryGirl.create(:rule_value, value: 'hey', is_primary: true, rule: rule)
     tile = FactoryGirl.create(:tile, demo: user.demo)
@@ -34,7 +33,7 @@ feature 'Admin resets tiles for user' do
     TileCompletion.count.should == 1
     Act.count.should == 2 # @act plus the game piece completion act
 
-    visit admin_demo_tiles_path(user.demo)
+    visit admin_demo_tiles_path(user.demo, as: user)
     click_button "Reset my tiles for #{user.demo.name}"
 
     should_be_on admin_demo_tiles_path(user.demo)

@@ -14,31 +14,32 @@ feature 'Admin manually completes tile for user' do
     # create the tutorial first rather than the user.
     tutorial = FactoryGirl.create(:tutorial, ended_at: Time.now)
     user = tutorial.user
-    user.update_attributes(accepted_invitation_at: Time.now, demo: demo, phone_number: "+14155551212")
+    user.update_attributes(accepted_invitation_at: Time.now, demo: demo, phone_number: "+14155551212", name: "Johann McGillicuddy")
     has_password user, "foobar"
     crank_dj_clear
 
-    signin_as user, 'foobar'
+    visit activity_path(as: user)
     expect_content "Tile 1"
     expect_content "Tile 3"
     expect_no_content "Tile 2"
     expect_no_content "Tile 4"
 
-    signin_as_admin
-    visit edit_admin_demo_user_path(demo, user)
-    click_button "Complete Tile 1 for James Earl Jones"
+    visit edit_admin_demo_user_path(demo, user, as: an_admin)
+    click_button "Complete Tile 1 for Johann McGillicuddy"
 
-    expect_button "Complete Tile 2 for James Earl Jones"
-    expect_button "Complete Tile 3 for James Earl Jones"
-    expect_no_button "Complete Tile 1 for James Earl Jones"
-    expect_no_button "Complete Tile 4 for James Earl Jones"
+    expect_button "Complete Tile 2 for Johann McGillicuddy"
+    expect_button "Complete Tile 3 for Johann McGillicuddy"
+    expect_no_button "Complete Tile 1 for Johann McGillicuddy"
+    expect_no_button "Complete Tile 4 for Johann McGillicuddy"
 
-    signin_as user, 'foobar'
-    visit activity_path
+    visit activity_path(as: user)
     expect_content "Tile 2"
     expect_content "Tile 3"
-    expect_no_content "Tile 1"
+    expect_content "Tile 1" # needs to fade away...
     expect_no_content "Tile 4"
+
+    visit activity_path(as: user)
+    expect_no_content "Tile 1" # needs to fade away...
   end
 
 end

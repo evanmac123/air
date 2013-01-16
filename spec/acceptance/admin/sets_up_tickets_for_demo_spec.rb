@@ -3,12 +3,10 @@ require 'acceptance/acceptance_helper'
 feature 'Admin sets up tickets for demo', :js => true do
   scenario "should do what it says" do
     demo = FactoryGirl.create(:demo)
-    signin_as_admin
-
 #    visit admin_demo_path(demo)
     #expect_content "Game will not use tickets"
 
-    visit edit_admin_demo_path(demo)
+    visit edit_admin_demo_path(demo, as: an_admin)
 
     # These guys are hidden and revealed with some JS
     #expect_no_content "Points for ticket award"
@@ -27,7 +25,7 @@ feature 'Admin sets up tickets for demo', :js => true do
     demo = FactoryGirl.create(:demo, :with_tickets)
     user = FactoryGirl.create(:user, :claimed, demo: demo, tickets: 25)
     has_password(user, 'foobar')
-    signin_as(user, 'foobar')
+    visit activity_path(as: user)
     expect_ticket_header(25)
   end
 end

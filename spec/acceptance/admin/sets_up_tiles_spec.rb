@@ -5,8 +5,7 @@ feature 'Admin sets up tiles' do
   before(:each) do
     @demo = FactoryGirl.create(:demo)
 
-    signin_as_admin
-    visit new_admin_demo_tile_path(@demo)
+    visit new_admin_demo_tile_path(@demo, as: an_admin)
     fill_in "Headline", :with => 'bad ASS'
     attach_file "tile[image]", tile_fixture_path('cov1.jpg')
     attach_file "tile[thumbnail]", tile_fixture_path('cov1_thumbnail.jpg')
@@ -27,7 +26,7 @@ feature 'Admin sets up tiles' do
     fill_in "Address to link to (optional)", :with => "http://www.google.com"
     click_button "Create Tile"
 
-    visit admin_demo_tiles_path(@demo)
+    visit admin_demo_tiles_path(@demo, as: an_admin)
     expect_link "http://www.google.com", "http://www.google.com"
   end
 end

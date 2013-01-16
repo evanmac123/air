@@ -13,8 +13,7 @@ feature 'Admin sees number of invitations' do
       invitation.update_attributes(created_at: @base_time - offset.hours)
     end
 
-    signin_as_admin
-    visit admin_demo_peer_invitations_path(@demo)
+    visit admin_demo_peer_invitations_path(@demo, as: an_admin)
   end
 
   context 'specifying only a start date' do

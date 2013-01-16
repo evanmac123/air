@@ -10,8 +10,7 @@ feature 'Admin resets tickets for demo' do
 
     [@user1, @user2, @user3, @other_demo_user].each{|user| has_password(user, 'foobar')}
 
-    signin_as_admin
-    visit admin_demo_path(@demo)
+    visit admin_demo_path(@demo, as: an_admin)
     click_link "Conduct raffle"
 
     click_button "Clear all tickets"

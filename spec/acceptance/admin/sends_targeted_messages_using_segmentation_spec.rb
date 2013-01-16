@@ -18,9 +18,9 @@ feature 'Admin sends targeted messages using segmentation' do
   end
 
   def select_common_form_entries
-    signin_as_admin
+    
 
-    visit admin_demo_targeted_messages_path(@demo)
+    visit admin_demo_targeted_messages_path(@demo, as: an_admin)
 
     select 'Metasyntactic variable', :from => "segment_column[0]"
     select "does not equal", :from => "segment_operator[0]"
@@ -235,9 +235,9 @@ feature 'Admin sends targeted messages using segmentation' do
 
   it "should have a link from somewhere in the admin side" do
     demo = FactoryGirl.create(:demo)
-    signin_as_admin
+    
 
-    visit admin_demo_path(demo)
+    visit admin_demo_path(demo, as: an_admin)
     click_link "Send targeted messages to users in this demo"
     should_be_on admin_demo_targeted_messages_path(demo)
   end
@@ -294,9 +294,9 @@ feature 'Admin sends targeted messages using segmentation' do
   it "should not attempt to send an SMS to a user with a blank phone number", :js => true do
     set_up_models(use_phone: true)
     3.times {FactoryGirl.create(:user, demo: @demo)}
-    signin_as_admin
+    
 
-    visit admin_demo_targeted_messages_path(@demo)
+    visit admin_demo_targeted_messages_path(@demo, as: an_admin)
     click_button "Find segment"
 
     should_be_on(admin_demo_targeted_messages_path(@demo))
@@ -313,8 +313,8 @@ feature 'Admin sends targeted messages using segmentation' do
 
   it "should not show a misleading error message after scheduling a long email", :js => true do
     set_up_models
-    signin_as_admin
-    visit admin_demo_targeted_messages_path(@demo)
+    
+    visit admin_demo_targeted_messages_path(@demo, as: an_admin)
     click_button "Find segment"
 
     mail_subject = "A selection from \"Three Men In A Boat\""
@@ -343,8 +343,8 @@ feature 'Admin sends targeted messages using segmentation' do
       FakeTwilio.clear_messages
       ActionMailer::Base.deliveries.clear
 
-      signin_as_admin
-      visit admin_demo_targeted_messages_path(@demo)
+      
+      visit admin_demo_targeted_messages_path(@demo, as: an_admin)
       click_button "Find segment"
 
       fill_in 'plain_text', :with => "Plain text"
@@ -383,13 +383,13 @@ feature 'Admin sends targeted messages using segmentation' do
       expect_content "Scheduled email to 1 users"
 
       crank_dj_clear
-      visit admin_demo_targeted_messages_path(@demo)
+      visit admin_demo_targeted_messages_path(@demo, as: an_admin)
       expect_content "#{@send_time.pretty_succinct}"
       expect_content "No segmentation, choosing all users The subject of our push A short message"
 
       Timecop.travel(10.minutes + 1.second)
       crank_dj_clear
-      visit admin_demo_targeted_messages_path(@demo)
+      visit admin_demo_targeted_messages_path(@demo, as: an_admin)
       expect_content "No incomplete pushes scheduled"
     end
   end
@@ -423,8 +423,8 @@ feature 'Admin sends targeted messages using segmentation' do
 
       crank_dj_clear  # Get user info into MongoDB
 
-      signin_as_admin
-      visit admin_demo_targeted_messages_path(@demo)
+      
+      visit admin_demo_targeted_messages_path(@demo, as: an_admin)
 
       select "Points", :from => "segment_column[0]"
       select "is greater than", :from => "segment_operator[0]"

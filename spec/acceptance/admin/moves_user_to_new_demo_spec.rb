@@ -4,9 +4,7 @@ metal_testing_hack(SmsController)
 
 feature 'Admin moves user to new demo' do
   def move_user(user, new_demo)
-    signin_as_admin
-
-    visit(edit_admin_demo_user_path(user.demo, user))
+    visit(edit_admin_demo_user_path(user.demo, user, as: an_admin))
     select(new_demo.name, :from => 'user[demo_id]')
     click_button 'Move User'
   end
@@ -43,23 +41,23 @@ feature 'Admin moves user to new demo' do
   end
 
   scenario "User's new acts appear in the new demo" do
-    signin_as @bob, 'foobar'
+    visit activity_path(as: @bob)
     expect_content "10 pts Dan went running"
   end
 
   scenario "User's old acts don't appear in the new demo" do
-    signin_as @bob, 'foobar'
+    visit activity_path(as: @bob)
     expect_no_content 'Dan ate banana'
     expect_no_content 'Dan walked dog'
   end
 
   scenario "User's new acts don't appear in the old demo" do
-    signin_as @fred, 'foobar'
+    visit activity_path(as: @fred)
     expect_no_content 'Dan went running'
   end
 
   scenario "In user's profile page, only new acts appear" do
-    signin_as @bob, 'foobar'
+    visit activity_path(as: @bob)
     click_link "Dan"
     expect_content 'went running'
     expect_no_content 'ate banana'
@@ -68,14 +66,14 @@ feature 'Admin moves user to new demo' do
 
   scenario "User's old acts reappear when moved back to the original demo" do
     move_user @dan.reload, @thoughtbot
-    signin_as @fred, 'foobar'
+    visit activity_path(as: @fred)
     expect_content 'Dan ate banana'
     expect_content 'Dan walked dog'
   end
 
   scenario "User disappears from view in the new demo when moved back to the original demo" do
     move_user @dan.reload, @thoughtbot
-    signin_as @bob, 'foobar'
+    visit activity_path(as: @bob)
     expect_no_content 'Dan'
   end
 end
