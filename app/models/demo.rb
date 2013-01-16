@@ -34,7 +34,6 @@ class Demo < ActiveRecord::Base
 
   has_alphabetical_column :name
 
-  include Highcharts
   extend Sequenceable
 
   # We go through this rigamarole since we can move a user from one demo to
