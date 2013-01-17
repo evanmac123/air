@@ -260,8 +260,7 @@ class Demo < ActiveRecord::Base
   end
 
   def flush_all_user_tickets
-    Delayed::Job.enqueue TicketFlusher.new(user_ids)
-    #users.find_each{|user| user.update_attributes(tickets: 0, ticket_threshold_base: user.points)}
+    User.delay.update_all("tickets = 0, ticket_threshold_base = points", {demo_id: self.id})
   end
 
   def find_raffle_winner(eligible_user_ids, ticket_maximum)
