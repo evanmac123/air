@@ -148,7 +148,10 @@ class Highchart
       plot_acts = @demo.acts.where(created_at: date_range)
 
       raw_acts_per_week = {}
-      date_range = start_date..end_date
+
+      date_range = start_date..end_date  # reset range back to DateTime's
+      # It would be nice if the 'array' 'delete' method worked like it does for hashes (i.e. returns the deleted elements)
+      # but since it doesn't... (There might be a single method that can accomplish this, but I couldn't find one.)
       date_range.step(7) do |date|
         partition = plot_acts.partition { |act| act.created_at.to_date < date + 7.days }
         raw_acts_per_week[date] = partition[0]
