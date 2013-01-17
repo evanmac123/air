@@ -52,174 +52,74 @@ class Highchart
     %S: Two digits seconds, 00 through 59
 =end
 
-  class << self
+  def self.chart(type, demo, start_date, end_date, acts, users)
+    # todo beef up and handle in the controller (flash?) and/or view
+    return "Nothing to plot" if ( ! (acts or users) or (demo.acts.count == 0) )
 
-    def chart(demo, start_date, end_date, acts, users)
-      unless (start_date.instance_of?(DateTime) and (end_date.nil? or end_date.instance_of?(DateTime)))
-        raise ArgumentError.new("Date argument(s) must be DateTime")
-      end
+    chart = case type
+              when :hour then self::Hourly.new(demo, start_date, end_date, acts, users)
+              when :day  then self::Daily.new(demo, start_date, end_date, acts, users)
+              when :week then self::Weekly.new(demo, start_date, end_date, acts, users)
+            end
 
-      return "Nothing to plot" if ( ! (acts or users) or (demo.acts.count == 0) )
+    act_points, user_points = chart.data_points
 
+    (act_points + user_points).each_with_index { |point, i| i.even? ? point[0] = '' : point[0] = point[1].to_s }
+
+    LazyHighCharts::HighChart.new do |hc|
+      # Tried a bunch of ways to set these colors and this is the only way that worked. Beats me...
+      hc.colors
+      hc.options[:colors][0] = '#4D7A36'
+      hc.options[:colors][1] = '#F00'
+
+      hc.exporting(buttons: {printButton: {enabled: false}})
+
+      hc.title(text: "H Engage #{demo.name} Chart")
+      hc.subtitle(text: chart.subtitle)
+
+      hc.xAxis(title: {text: nil}, type: 'datetime')
+      hc.yAxis(title: {text: nil}, min: 0)  # todo min not 0 ; might be chart-dependent
+
+      hc.plotOptions(line: {pointStart: start_date.to_date,
+                            pointInterval: chart.point_interval,
+                            dataLabels: {enabled: true,
+                                         fontWeight: 'bold',
+                                         formatter: "function() { return this.point.name; }".js_code}})
+
+      hc.series(name: 'Acts',  data: act_points)  if acts
+      hc.series(name: 'Users', data: user_points) if users
+    end
+  end
+
+  # Someone else said it better than I could (which still doesn't make this the "best way"):
+  # Generally I think using nested classes for real helper classes that can conceptually
+  # only be used with the parent class is a useful way of avoiding namespace clutter.
+
+  private
+
+  class Hourly
+    def initialize(demo, start_date, end_date, acts, users)
       @demo = demo
-
-      # todo this can actually go within 'if' stmt. below. Can switch to 'case' statement => 3 different classes???
-      act_data, user_data = end_date ? weekly_data(start_date, end_date, acts, users) :
-                                       hourly_data(start_date, acts, users)
-
-      #act_data, user_data = end_date ? daily_data(start_date, end_date, acts, users) :
-      #                                 hourly_data(start_date, acts, users)
-      #
-      # xxx_data are arrays of the form: [ [k,v], [k,v], [k,v], [k,v] ]
-      # Change the 'k' value (i.e. the date) for each [k,v] point to a string => Highcharts will not
-      # use this value as the x-coordinate, but instead will treat it as the name of the point.
-      # (Don't need it to be a true x/date value because we always plot one point per x-axis interval.)
-      # todo if don't have option to display every other point => just pass array of y values
-      (act_data + user_data).each_with_index { |point, i| i.even? ? point[0] = '' : point[0] = point[1].to_s }
-
-      if end_date
-        subtitle = "#{start_date.to_s(:long)} thru #{end_date.to_s(:long)} BY WEEK"
-        x_axis_label = 'Date'
-        point_interval = 60 * 60 * 24 * 7
-
-        #subtitle = "#{start_date.to_s(:long)} thru #{end_date.to_s(:long)}"
-        #x_axis_label = 'Date'
-        #point_interval = 60 * 60 * 24
-      else
-        subtitle = "#{start_date.to_s(:long)}"
-        x_axis_label = 'Hour'
-        point_interval = 60 * 60
-      end
-
-      LazyHighCharts::HighChart.new do |hc|
-        # Initialize the Highcharts default color array. Colors used in order and recycled => start off with H-Engage green
-        # (Tried a whole bunch of ways to set these colors and this is the only way that worked. Beats me.)
-        hc.colors
-        hc.options[:colors][0] = '#4D7A36'
-        hc.options[:colors][1] = '#F00'
-
-        hc.exporting(buttons: {printButton: {enabled: false}})
-
-        hc.title(text: "H Engage #{@demo.name} Chart")
-
-        hc.subtitle(text: subtitle)
-
-        hc.chart(zoomType: 'x')  # todo take this out ? (Could also lea)
-
-        hc.xAxis(title: {text: x_axis_label}, type: 'datetime')
-        # todo min not 0 ; also, axis not always acts - could be users
-
-        # todo but displaying "y-axis" => remove
-        hc.yAxis(min: 0)  # No title because might be showing both acts and users
-
-        # Point interval is (number of seconds in) one day.
-        # (LazyHighCharts gem converts to number of milliseconds, which Highcharts uses.)
-        # todo if don't have option to display every other point => remove 'formatter' function
-        hc.plotOptions(line: {pointStart: start_date.to_date, pointInterval: point_interval,
-                              dataLabels: {enabled: true, fontWeight: 'bold', formatter: %|function() { return this.point.name; }|.js_code}})
-
-        hc.series(name: 'Acts',    data: act_data)    if acts
-        hc.series(name: 'Users', data: user_data) if users
-      end
+      @start_date = start_date
+      @end_date = end_date
+      @acts = acts
+      @users = users
     end
 
-    private
-
-    # Since have to calculate acts in order to get users, just always calculate
-    # both instead of littering the code with a bunch of confusing conditionals
-    def weekly_data(start_date, end_date, acts, users)
-      acts_per_week = {}
-      users_per_week = {}
-
-      date_range = start_date..end_date
-      date_range.step(7) { |date| acts_per_week[date.to_date] = users_per_week[date.to_date] = 0 }
-
-      num_acts_per_week = {}
-      num_users_per_week = {}
-
-      # Switch range from DateTime to Time.zone.local because ActiveRecord's timestamps are UTC => for example, that an
-      # act stored in the database at Dec. 25 at 2am would actually be an act for Dec. 24 at 9am because UTC is
-      # 5 hours ahead of EST. Here is an example of how the 2 different times look:
-      #   day = DateTime.new(2012, 12, 25)
-      #   Tue, 25 Dec 2012 00:00:00 +0000
-      #   Time.zone.local(day.year, day.month, day.day)
-      #   Tue, 25 Dec 2012 00:00:00 EST -05:00
-      date_range = Time.zone.local(start_date.year, start_date.month, start_date.day)..Time.zone.local(end_date.year, end_date.month, end_date.day)
-      plot_acts = @demo.acts.where(created_at: date_range)
-
-      raw_acts_per_week = {}
-
-      date_range = start_date..end_date  # reset range back to DateTime's
-      # It would be nice if the 'array' 'delete' method worked like it does for hashes (i.e. returns the deleted elements)
-      # but since it doesn't... (There might be a single method that can accomplish this, but I couldn't find one.)
-      date_range.step(7) do |date|
-        partition = plot_acts.partition { |act| act.created_at.to_date < date + 7.days }
-        raw_acts_per_week[date] = partition[0]
-        plot_acts = partition[1]
-      end
-
-      # todo rename k,v day, acts (or else comment what each is)
-      raw_acts_per_week.each do |k,v|
-        num_acts_per_week[k] = v.length
-
-        by_user = v.group_by &:user
-        num_users_per_week[k] = by_user.keys.length
-      end
-
-      # 'merge' => any acts for a given day replace the initial '0' acts for that day, while
-      #  keeping initial '0' for non-act days so have something to plot for each day.
-      # 'sort' => by keys, i.e. creation date. Returns array of the form: [ [k,v], [k,v], [k,v], [k,v] ]
-      act_data    = acts ? acts_per_week.merge!(num_acts_per_week).sort  : []
-      user_data = users ? users_per_week.merge!(num_users_per_week).sort : []
-
-      [act_data, user_data]
+    def subtitle
+      "#{@start_date.to_s(:long)}"
     end
 
-    def daily_data(start_date, end_date, acts, users)
-      acts_per_day = {}
-      users_per_day = {}
-
-      date_range = start_date..end_date
-      date_range.each { |date| acts_per_day[date.to_date] = users_per_day[date.to_date] = 0 }
-
-      num_acts_per_day = {}
-      num_users_per_day = {}
-
-      # Switch range from DateTime to Time.zone.local because ActiveRecord's timestamps are UTC => for example, that an
-      # act stored in the database at Dec. 25 at 2am would actually be an act for Dec. 24 at 9am because UTC is
-      # 5 hours ahead of EST. Here is an example of how the 2 different times look:
-      #   day = DateTime.new(2012, 12, 25)
-      #   Tue, 25 Dec 2012 00:00:00 +0000
-      #   Time.zone.local(day.year, day.month, day.day)
-      #   Tue, 25 Dec 2012 00:00:00 EST -05:00
-      date_range = Time.zone.local(start_date.year, start_date.month, start_date.day)..Time.zone.local(end_date.year, end_date.month, end_date.day)
-      plot_acts = @demo.acts.where(created_at: date_range)
-
-      raw_acts_per_day = plot_acts.group_by { |act| act.created_at.to_date }
-
-      # todo rename k,v day, acts (or else comment what each is)
-      raw_acts_per_day.each do |k,v|
-        num_acts_per_day[k] = v.length
-
-        by_user = v.group_by &:user
-        num_users_per_day[k] = by_user.keys.length
-      end
-
-      # 'merge' => any acts for a given day replace the initial '0' acts for that day, while
-      #  keeping initial '0' for non-act days so have something to plot for each day.
-      # 'sort' => by keys, i.e. creation date. Returns array of the form: [ [k,v], [k,v], [k,v], [k,v] ]
-      act_data    = acts     ? acts_per_day.merge!(num_acts_per_day).sort         : []
-      user_data = users ? users_per_day.merge!(num_users_per_day).sort : []
-
-      [act_data, user_data]
+    def point_interval
+      60 * 60
     end
 
-    def hourly_data(date, acts, users)
+    def data_points
       acts_per_hour = {}
       users_per_hour = {}
 
-      start = date.beginning_of_day
-      stop = date.end_of_day
+      start = @start_date.beginning_of_day
+      stop = @start_date.end_of_day
 
       while stop > start
         acts_per_hour[start.hour] = users_per_hour[start.hour] = 0
@@ -229,20 +129,136 @@ class Highchart
       num_acts_per_hour = {}
       num_users_per_hour = {}
 
-      hour_range = Time.zone.local(date.year, date.month, date.day).beginning_of_day..Time.zone.local(date.year, date.month, date.day).end_of_day
+      # todo move comments to daily
+
+      # Switch range from DateTime to Time.zone.local because ActiveRecord's timestamps are UTC => for example, that an
+      # act stored in the database at Dec. 25 at 2am would actually be an act for Dec. 24 at 9am because UTC is
+      # 5 hours ahead of EST. Here is an example of how the 2 different times look (Rails console output):
+      #   day = DateTime.new(2012, 12, 25)
+      #   Tue, 25 Dec 2012 00:00:00 +0000
+      #   Time.zone.local(day.year, day.month, day.day)
+      #   Tue, 25 Dec 2012 00:00:00 EST -05:00
+      hour_range = Time.zone.local(@start_date.year, @start_date.month, @start_date.day).beginning_of_day..Time.zone.local(@start_date.year, @start_date.month, @start_date.day).end_of_day
       plot_acts = @demo.acts.where(created_at: hour_range)
 
       raw_acts_per_hour = plot_acts.group_by { |act| act.created_at.hour }
 
+      # todo rename k,v day, acts (or else comment what each is)
       raw_acts_per_hour.each do |k,v|
         num_acts_per_hour[k] = v.length
 
+        # todo maybe wrap this in an "if users" stmt.
         by_user = v.group_by &:user
         num_users_per_hour[k] = by_user.keys.length
       end
 
-      act_data    = acts     ? acts_per_hour.merge!(num_acts_per_hour).sort  : []
-      user_data = users ? users_per_hour.merge!(num_users_per_hour).sort : []
+      # 'merge' => any acts for a given day replace the initial '0' acts for that day, while
+      #  keeping initial '0' for non-act days so have something to plot for each day.
+      # 'sort' => by keys, i.e. creation date. Returns array of the form: [ [k,v], [k,v], [k,v], [k,v] ]
+      act_data  = @acts  ? acts_per_hour.merge!(num_acts_per_hour).sort   : []
+      user_data = @users ? users_per_hour.merge!(num_users_per_hour).sort : []
+
+      [act_data, user_data]
+    end
+  end
+
+  class Daily
+    def initialize(demo, start_date, end_date, acts, users)
+      @demo = demo
+      @start_date = start_date
+      @end_date = end_date
+      @acts = acts
+      @users = users
+    end
+
+    def subtitle
+      "#{@start_date.to_s(:long)} thru #{@end_date.to_s(:long)}"
+    end
+
+    def point_interval
+      60 * 60 * 24
+    end
+
+    def data_points
+      acts_per_day = {}
+      users_per_day = {}
+
+      date_range = @start_date..@end_date
+      date_range.each { |date| acts_per_day[date.to_date] = users_per_day[date.to_date] = 0 }
+
+      num_acts_per_day = {}
+      num_users_per_day = {}
+
+      date_range = Time.zone.local(@start_date.year, @start_date.month, @start_date.day)..Time.zone.local(@end_date.year, @end_date.month, @end_date.day)
+      plot_acts = @demo.acts.where(created_at: date_range)
+
+      raw_acts_per_day = plot_acts.group_by { |act| act.created_at.to_date }
+
+      raw_acts_per_day.each do |k,v|
+        num_acts_per_day[k] = v.length
+
+        by_user = v.group_by &:user
+        num_users_per_day[k] = by_user.keys.length
+      end
+
+      act_data  = @acts  ? acts_per_day.merge!(num_acts_per_day).sort   : []
+      user_data = @users ? users_per_day.merge!(num_users_per_day).sort : []
+
+      [act_data, user_data]
+    end
+  end
+
+  class Weekly
+    def initialize(demo, start_date, end_date, acts, users)
+      @demo = demo
+      @start_date = start_date
+      @end_date = end_date
+      @acts = acts
+      @users = users
+    end
+
+    def subtitle
+      "#{@start_date.to_s(:long)} thru #{@end_date.to_s(:long)} BY WEEK"
+    end
+
+    def point_interval
+      60 * 60 * 24 * 7
+    end
+
+    def data_points
+      acts_per_week = {}
+      users_per_week = {}
+
+      date_range = @start_date..@end_date
+      date_range.step(7) { |date| acts_per_week[date.to_date] = users_per_week[date.to_date] = 0 }
+
+      num_acts_per_week = {}
+      num_users_per_week = {}
+
+      date_range = Time.zone.local(@start_date.year, @start_date.month, @start_date.day)..Time.zone.local(@end_date.year, @end_date.month, @end_date.day)
+      plot_acts = @demo.acts.where(created_at: date_range)
+
+      raw_acts_per_week = {}
+
+      # Reset the range back to DateTime's. Also, it would be nice if the 'array' 'delete' method worked
+      # like it does for hashes (i.e. returns the deleted elements) but since it doesn't...
+      # (There might be a single method that can accomplish this, but I couldn't find one.)
+      date_range = @start_date..@end_date
+      date_range.step(7) do |date|
+        partition = plot_acts.partition { |act| act.created_at.to_date < date + 7.days }
+        raw_acts_per_week[date] = partition[0]
+        plot_acts = partition[1]
+      end
+
+      raw_acts_per_week.each do |k,v|
+        num_acts_per_week[k] = v.length
+
+        by_user = v.group_by &:user
+        num_users_per_week[k] = by_user.keys.length
+      end
+
+      act_data  = @acts ? acts_per_week.merge!(num_acts_per_week).sort    : []
+      user_data = @users ? users_per_week.merge!(num_users_per_week).sort : []
 
       [act_data, user_data]
     end
