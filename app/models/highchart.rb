@@ -57,20 +57,20 @@ class Highchart
   (in /vendor/assets/javascripts/admin) and adding both to /app/assets/javascripts/app-admin.js. (The order matters.)
 =end
 
-  def self.chart(type, demo, start_date, end_date, acts, users)
+  def self.chart(demo, interval, start_date, end_date, acts, users, label_points)
     # todo beef up and handle in the controller (flash?) and/or view
     return "Nothing to plot" if ( ! (acts or users) or (demo.acts.count == 0) )
 
-    chart = case type
-              when :hour then Hourly.new(demo, start_date, end_date, acts, users)
-              when :day  then Daily.new(demo, start_date, end_date, acts, users)
-              when :week then Weekly.new(demo, start_date, end_date, acts, users)
+    chart = case interval
+              when 'Hourly' then Hourly.new(demo, start_date, end_date, acts, users)
+              when 'Daily'  then Daily.new(demo, start_date, end_date, acts, users)
+              when 'Weekly' then Weekly.new(demo, start_date, end_date, acts, users)
             end
 
     act_points, user_points = chart.data_points
 
     # How we label the points: none, all, every 2, every 3
-    (act_points + user_points).each_with_index { |point, i| point[0] = (i % 3 == 0) ? point[1].to_s : '' }
+    (act_points + user_points).each_with_index { |point, i| point[0] = (i % label_points.to_i == 0) ? point[1].to_s : '' }
 
     LazyHighCharts::HighChart.new do |hc|
       # Tried a bunch of ways to set these colors and this is the only way that worked. Beats me...
