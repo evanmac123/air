@@ -1,6 +1,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery.ui.sortable
+//= require jquery.ui.datepicker
 
 // highcharts.js and exporting.js are both from Highcharts, and the load order matters
 //= require ../../../vendor/assets/javascripts/admin/highcharts
