@@ -1,3 +1,3 @@
 $(document).ready(function() {
-  $('#start_date').datepicker();
+  $('#start_date, #end_date').datepicker();
 });

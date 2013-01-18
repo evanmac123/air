@@ -10,9 +10,20 @@ class ClientAdminsController < ClientAdminBaseController
     @with_peer_invitation_fraction = demo.claimed_user_with_peer_invitation_fraction.as_rounded_percentage
 
     Mixpanel::Tracker.new(MIXPANEL_TOKEN, {}).delay.track("viewed page", {page_name: 'client admin dashboard'}.merge(current_user.data_for_mixpanel))
+  end
 
-    @hc_hour = Highchart.chart(:hour, demo, DateTime.new(2012, 12, 15), nil, true, true)
-    @hc_day  = Highchart.chart(:day,  demo, DateTime.new(2012, 12, 1), DateTime.new(2012, 12, 31), true, true)
-    @hc_week = Highchart.chart(:week, demo, DateTime.new(2012, 12, 1), DateTime.new(2012, 12, 31), true, true)
+  def chart
+    @chart = Highchart.chart(current_user.demo,
+                             params[:interval],
+                             convert_date(params[:start_date]),
+                             convert_date(params[:end_date]),
+                             params[:acts],
+                             params[:users],
+                             params[:label_points])
+    render :show
+  end
+
+  def convert_date(date_string)
+    date_string.sub(/(\d{1,2})\/(\d{1,2})\/(\d{1,4})/, '\2/\1/\3').to_datetime
   end
 end
