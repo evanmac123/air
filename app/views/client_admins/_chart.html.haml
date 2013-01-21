@@ -1,28 +1,26 @@
 :css
-  input.hasDatepicker { width: 200px; }
-  .ui-datepicker { z-index: 999999 !important; }
-  label[for=interval] { margin-top: 30px; }
+  form { font-size: 150%; }
+  form p, label[for=interval] { margin-top: 20px; }
   label[for=acts] , label[for=users] { display: inline; }
+  input.hasDatepicker { width: 200px; }
+  #ui-datepicker-div { z-index: 999999 !important; }
 
 = form_tag chart_path do
-  -#= label_tag :start_date
-  = text_field_tag :start_date
-
-  -#= label_tag :end_date
-  = text_field_tag :end_date
-
-  = label_tag :interval
-  = select_tag :interval, options_for_select(%w(Daily Weekly Hourly))
-  %br
-  = check_box_tag :acts
-  = label_tag :acts, 'Acts'
-  %br
-  = check_box_tag :users
-  = label_tag :users, 'Users'
-  %br
-  = label_tag :label_points
-  = select_tag :label_points, options_for_select((0..3).to_a)
-  %br
-  = submit_tag "Show Me The Chart"
+  = text_field_tag :start_date, params[:start_date]
+  = text_field_tag :end_date, params[:end_date]
+  %p
+    = label_tag :interval
+    = select_tag :interval, options_for_select(%w(Daily Weekly Hourly), selected = params[:interval])
+  %p
+    = check_box_tag :acts, nil, checked = params[:acts]
+    = label_tag :acts, 'Acts'
+  %p
+    = check_box_tag :users, nil, checked = params[:users]
+    = label_tag :users, 'Users'
+  %p
+    = label_tag :label_points
+    = select_tag :label_points, options_for_select((0..3).to_a, selected = params[:label_points])
+  %p
+    = submit_tag "Show Me The Chart"
 
 = high_chart('chart', @chart) if @chart

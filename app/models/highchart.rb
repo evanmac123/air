@@ -14,6 +14,7 @@ class Highchart
   The first statement above works, but the second one results in a "calling []= on nil" error.
   There is a bug description on this at: https://github.com/michelson/lazy_high_charts/pull/77
   The doc implies that subsequent releases incorporated a bug fix, but that doesn't seem to be the case.
+
   Regardless, if you want to do it that way you need to do is this for the second statement:
     hc.options[:xAxis][:title] = {}
     hc.options[:xAxis][:title][:text] = 'x title'
@@ -21,10 +22,10 @@ class Highchart
   Highcharts API
   ==============
 
-  What you plot is a 'series', for which you specify various options for, e.g. 'name' and 'data'.
+  What you plot is a 'series', for which you specify various options, e.g. 'name' and 'data'.
 
   You can include any of the appropriate 'plotOptions' options as part of the 'series' params.
-  Instead of duplicating parameters for 'acts' and 'users' (and future) graphs, specify same-value
+  Instead of duplicating parameters for 'acts' and 'users' (and future) graphs we specify same-value
   params as part of the 'plotOptions'.
 
   Zooming is disabled because (a) the K's never used it and (b) if allowed => should keep the
@@ -58,19 +59,16 @@ class Highchart
 =end
 
   def self.chart(demo, interval, start_date, end_date, acts, users, label_points)
-    # todo beef up and handle in the controller (flash?) and/or view
-    return "Nothing to plot" if ( ! (acts or users) or (demo.acts.count == 0) )
-
-    chart = case interval
-              when 'Hourly' then Hourly.new(demo, start_date, end_date, acts, users)
-              when 'Daily'  then Daily.new(demo, start_date, end_date, acts, users)
-              when 'Weekly' then Weekly.new(demo, start_date, end_date, acts, users)
-            end
+    # 'chart' will be a new 'Hourly', 'Daily', or 'Weekly' object (defined below)
+    chart = "Highchart::#{interval}".constantize.new(demo, start_date, end_date, acts, users)
 
     act_points, user_points = chart.data_points
 
-    # How we label the points: none, all, every 2, every 3
-    (act_points + user_points).each_with_index { |point, i| point[0] = (i % label_points.to_i == 0) ? point[1].to_s : '' }
+    # Currently have an option to label every 0 (none), 1 (all), 2, or 3 points.
+    # If we do attach a label, make it just the value for that point (i.e. without the date)
+    (act_points + user_points).each_with_index do |point, i|
+      point[0] = (i % label_points.to_i == 0) ? point[1].to_s : ''
+    end unless label_points == '0'
 
     LazyHighCharts::HighChart.new do |hc|
       # Tried a bunch of ways to set these colors and this is the only way that worked. Beats me...
@@ -84,16 +82,17 @@ class Highchart
       hc.title(text: "H Engage #{demo.name} Chart")
       hc.subtitle(text: chart.subtitle)
 
-      hc.xAxis(title: {text: nil}, type: 'datetime')
-      hc.yAxis(title: {text: nil}, min: 0)  # todo min not 0 ; might be chart-dependent
+      # Bump up the 'maxPadding' a little because the right-hand edge of last date was getting chopped
+      hc.xAxis(title: {text: nil}, type: 'datetime', maxPadding: 0.02, labels: {formatter: chart.x_axis_label.js_code})
+      hc.yAxis(title: {text: nil}, min: 0)
 
       # Defining a javascript function for the formatter is what allows us to label every n points
       # See the Highcharts API for 'dataLabels:formatter' and the LazyHighcharts GitHub page for '~~~.js_code'
-      hc.plotOptions(line: {pointStart: start_date.to_date,
+      hc.plotOptions(line: {pointStart:    start_date.to_date,
                             pointInterval: chart.point_interval,
-                            dataLabels: {enabled: true,
-                                         fontWeight: 'bold',
-                                         formatter: "function() { return this.point.name; }".js_code}})
+                            dataLabels:    {enabled:    label_points != '0',
+                                            fontWeight: 'bold',
+                                            formatter:  "function() { return this.point.name; }".js_code}})
 
       hc.series(name: 'Acts',  data: act_points)  if acts
       hc.series(name: 'Users', data: user_points) if users
@@ -102,7 +101,7 @@ class Highchart
 
   #================================== Helper Classes =======================================
 
-  # Someone else said it better than I could (which still doesn't make this "the best way"):
+  # Someone else said it better than I could:
   #   Generally I think using nested classes for real helper classes that can conceptually
   #   only be used with the parent class is a useful way of avoiding namespace clutter.
 
@@ -148,7 +147,7 @@ class Highchart
       acts_per_interval.each do |interval, acts|
         @num_acts_per_interval[interval] = acts.length
 
-        by_user = acts.group_by &:user
+        by_user = acts.group_by &:user_id
         @num_users_per_interval[interval] = by_user.keys.length
       end
     end
@@ -169,7 +168,11 @@ class Highchart
   #--------------------------- Chart-Specific Child Class ----------------------------
   class Hourly < Chart
     def subtitle
-      "#{@start_date.to_s(:long)}"
+      "#{@start_date.to_s(:hc_subtitle_one_day)} : By Hour"
+    end
+
+    def x_axis_label
+      "function() { return Highcharts.dateFormat('%l %p', this.value); }"
     end
 
     def point_interval
@@ -200,7 +203,11 @@ class Highchart
   #--------------------------- Chart-Specific Child Class ----------------------------
   class Daily < Chart
     def subtitle
-      "#{@start_date.to_s(:long)} thru #{@end_date.to_s(:long)}"
+      "#{@start_date.to_s(:hc_subtitle_range)} through #{@end_date.to_s(:hc_subtitle_range)} : By Day"
+    end
+
+    def x_axis_label
+      "function() { return Highcharts.dateFormat('%b. %d', this.value); }"
     end
 
     def point_interval
@@ -226,7 +233,11 @@ class Highchart
   #--------------------------- Chart-Specific Child Class ----------------------------
   class Weekly < Chart
     def subtitle
-      "#{@start_date.to_s(:long)} thru #{@end_date.to_s(:long)} BY WEEK"
+      "#{@start_date.to_s(:hc_subtitle_range)} through #{@end_date.to_s(:hc_subtitle_range)} : By Week"
+    end
+
+    def x_axis_label
+      "function() { return Highcharts.dateFormat('%b. %d', this.value); }"
     end
 
     def point_interval
