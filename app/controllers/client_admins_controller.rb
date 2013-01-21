@@ -23,6 +23,8 @@ class ClientAdminsController < ClientAdminBaseController
     render :show
   end
 
+  # todo Phil: Do we want to stash this somewhere, e.g. lib/monkey_patches/date_helper.rb ( => TESTS! )
+  # Converts "day/month/year" to "month/day/year", e.g. 17/7/2013 to 7/17/2013
   def convert_date(date_string)
     date_string.sub(/(\d{1,2})\/(\d{1,2})\/(\d{1,4})/, '\2/\1/\3').to_datetime
   end
