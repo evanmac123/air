@@ -59,8 +59,6 @@ module SpecialCommand
   register_command_handler %w(help),                                SpecialCommandHandlers::HelpHandler
   register_command_handler %w(support),                             SpecialCommandHandlers::SupportHandler
   register_command_handler %w(survey ur2cents 2ur2cents),           SpecialCommandHandlers::SurveyHandler
-  register_command_handler %w(yes),                                 SpecialCommandHandlers::AcceptFollowerHandler
-  register_command_handler %w(no),                                  SpecialCommandHandlers::IgnoreFollowerHandler
   register_command_handler %w(prizes),                              SpecialCommandHandlers::PrizeHandler
   register_command_handler %w(rules commands),                      SpecialCommandHandlers::RulesHandler
   register_command_handler %w(mute),                                SpecialCommandHandlers::MuteHandler
