@@ -42,9 +42,7 @@
         border:$border-dark;
         color:$dark-gray;
         font-size:1em;
-        //line-height:50px;
         outline:0;
-        //padding:100px;
     }
     #show-chart {
         @include square-button-wrap($dark-green);
@@ -52,6 +50,18 @@
         a {
             @include square-button;
             border-color:lighten($dark-green, 5%);
+            &:hover {
+                background:darken($dark-green, 5%);
+                border-color:$dark-green;
+            }
+            span {
+                background:image-url('client_admin/sprites.png') no-repeat transparent -61px -54px;
+                display:inline-block;
+                height:19px;
+                margin-right:.5em;
+                vertical-align: middle;
+                width:19px;
+            }
         }
     }
 }
