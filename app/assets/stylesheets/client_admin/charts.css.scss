@@ -43,6 +43,7 @@
         color:$dark-gray;
         font-size:1em;
         outline:0;
+        padding:5px 4px;
     }
     #show-chart {
         @include square-button-wrap($dark-green);
