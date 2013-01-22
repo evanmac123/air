@@ -31,14 +31,7 @@ form {
         }
         a#add_more_characteristics {
             @include square-button;
-            border:{
-                style:solid;
-                color:lighten($gray, 5%);
-                top:{width:1px;}
-                bottom:{width:0;}
-                left:{width:1px;}
-                right:{width:1px;}
-            }
+            border-color:lighten($gray, 5%);
             span {
                 background:image-url('client_admin/sprites.png') no-repeat -30px -56px transparent;
                 display:inline-block;
@@ -60,14 +53,7 @@ form {
         input[type="submit"] { 
             @include square-button;
             background:transparent;
-            border:{
-                style:solid;
-                color:lighten($dark-green, 5%);
-                top:{width:1px;}
-                bottom:{width:0;}
-                left:{width:1px;}
-                right:{width:1px;}
-            }
+            border-color:lighten($dark-green, 5%);
             font-family:$sans;
             margin:0 0 1px 0;
             padding-left:28px;
@@ -121,13 +107,6 @@ form {
 #segmentation-results {
     border-top:$border-dark;
     padding:2em 0;
-    h1 {
-        color:$gray;
-        font-family:$sans;
-        font-size:2em;
-        font-weight:300;
-        padding-bottom:.75em;
-    }
     .segmentation-results-col {
         display:inline-block;
         float:left;

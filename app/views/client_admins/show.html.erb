@@ -19,3 +19,36 @@
     </ul>
     <div class="clear"></div>
 </div>
+
+<div class="charting">
+    <form id="activity-chart">
+        <div id="chart-header">
+            <h1 class="subsection-head">Activity:</h1>
+            <ul id="display-options">
+                <li><input type="checkbox" name="display" value="total" id="total"><label for="total">Total activity</label></li>
+                <li><input type="checkbox" name="display" value="unique" id="unique"><label for="unique">Unique users</label></li>
+            </ul>
+        </div>
+        <ul id="chart-options">
+            <li id="chart-dates">
+                <input type="text" class="datepicker" name="start-date" placeholder="Start date" id="start-date">
+                <span>to</span>
+                <input type="text" class="datepicker" name="end-date" placeholder="End date" id="end-date">
+            </li>
+            <li id="chart-intervals"><select id="interval-options">
+                <option value="weekly">Weekly</option>
+                <option value="daily">Daily</option>
+                <option value="hourly">Hourly</option>
+            </select></li>
+            <li id="chart-labeling"><span>Label</span> <select id="label-options">
+                <option value="all">All points</option>
+                <option value="alt">Every other</option>
+                <option value="none">None</option>
+            </select></li>
+            <li id="show-button">
+                <div class="button_wrap" id="show-chart"><a href="#" id="show-chart-link"><span></span>Show</a></div>
+            </li>
+            <div class="cf"></div>
+        </ul>
+    </form>
+</div>
