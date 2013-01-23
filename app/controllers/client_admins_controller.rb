@@ -14,18 +14,12 @@ class ClientAdminsController < ClientAdminBaseController
 
   def chart
     @chart = Highchart.chart(current_user.demo,
-                             params[:interval],
-                             convert_date(params[:start_date]),
-                             convert_date(params[:end_date]),
-                             params[:acts],
-                             params[:users],
-                             params[:label_points])
+                             params[:chart_interval],
+                             params[:chart_start_date],
+                             params[:chart_end_date],
+                             params[:chart_plot_acts],
+                             params[:chart_plot_users],
+                             params[:chart_label_points])
     render :show
-  end
-
-  # todo Phil: Do we want to stash this somewhere, e.g. lib/monkey_patches/date_helper.rb ( => TESTS! )
-  # Converts "day/month/year" to "month/day/year", e.g. 17/7/2013 to 7/17/2013
-  def convert_date(date_string)
-    date_string.sub(/(\d{1,2})\/(\d{1,2})\/(\d{1,4})/, '\2/\1/\3').to_datetime
   end
 end

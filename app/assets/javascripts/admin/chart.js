@@ -1,7 +1,8 @@
 $(document).ready(function() {
-  $('#start_date, #end_date').datepicker();
+  $('#chart_start_date, #chart_end_date').datepicker();
 
-  $('#interval').change(function() {
-    $('#end_date').val($('#start_date').val());
+  $('#chart_interval, #chart_start_date').change(function() {
+    if ($('#chart_interval').val() == 'Hourly')
+      $('#chart_end_date').val($('#chart_start_date').val());
   });
 });
