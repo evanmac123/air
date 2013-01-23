@@ -77,16 +77,23 @@ ul {list-style-position:outside; list-style-type:none; margin:0; padding:0;}
 			.when, .flag {
 				color: $gray;
 				font-size: 12px;
-        padding-right: 5%
 			}
 
       .when {
-				width: 40%;
+  		padding-right: 5%;
+		width: 40%;
       }
 
       .flag {
         float: right;
-        width: 20%;
+        padding-right:.9em;
+        text-align: right;
+        a {
+        	color:$light-gray;
+        	font-weight:300;
+        	letter-spacing: .15em;
+        	&:hover{color:$gray;}
+        }
       }
 		}
 		.avatar43 {
