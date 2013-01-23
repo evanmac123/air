@@ -1,4 +1,11 @@
 h1, h2, h3 {font-family:$sans;}
+h1.subsection-head {
+    color:$gray;
+    font-family:$sans;
+    font-size:2em;
+    font-weight:300;
+    padding-bottom:.75em;
+}
 * {box-sizing:border-box;}
 body.client_admin_main {
     background:image-url('marketing/bg.gif');

@@ -1,7 +1,7 @@
 <div id="segmentation-results">
   <% if segmentation_results.present? %>
     <div id="segmentation-explanation" class="segmentation-results-col">
-        <h1>Segmenting on:</h1>
+        <h1 class="subsection-head">Segmenting on:</h1>
         <ul><% segmentation_results.explanation.each do |explanation_part| %>
             <li class="explanation"><%= explanation_part %></li>
         <% end %></ul>

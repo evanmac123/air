@@ -1,0 +1,68 @@
+.stats {
+    border-bottom:$border-dark;
+}
+.charting {
+    border-top:$border-light;
+    padding-top:2.25em;
+    form {border:0; margin:0; padding:0;}
+}
+#chart-header {
+    .subsection-head {display:inline-block;}
+    #display-options {
+        display:inline-block;
+        padding-left:2em;
+        li, label {display:inline-block;}
+        label {
+            color:$dark-gray;
+            font-size:1.25em;
+            font-weight:700;
+            margin-right:2em;
+        }
+    }
+}
+#chart-options {
+    li {
+        display:inline-block;
+        margin-right:2em;
+        &#chart-dates span, &#chart-labeling span {color:$gray; font-size:.75em; text-transform: uppercase;}
+        &#show-button {float:right; margin-right:0;}
+    }
+    input {
+        font-family:$sans;
+        color:$gray;
+        &.datepicker {
+            background:#fff;
+            border:$border-dark;
+            font-size:1em;
+            padding:5px 7px;
+            width:115px;
+        }
+    }
+    select {
+        border:$border-dark;
+        color:$dark-gray;
+        font-size:1em;
+        outline:0;
+        padding:5px 4px;
+    }
+    #show-chart {
+        @include square-button-wrap($dark-green);
+        border:1px darken($dark-green, 10%) solid;
+        a {
+            @include square-button;
+            border-color:lighten($dark-green, 5%);
+            &:hover {
+                background:darken($dark-green, 5%);
+                border-color:$dark-green;
+            }
+            span {
+                background:image-url('client_admin/sprites.png') no-repeat transparent -61px -54px;
+                display:inline-block;
+                height:19px;
+                margin-right:.5em;
+                vertical-align: middle;
+                width:19px;
+            }
+        }
+    }
+}
