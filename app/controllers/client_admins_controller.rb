@@ -12,6 +12,7 @@ class ClientAdminsController < ClientAdminBaseController
     Mixpanel::Tracker.new(MIXPANEL_TOKEN, {}).delay.track("viewed page", {page_name: 'client admin dashboard'}.merge(current_user.data_for_mixpanel))
   end
 
+  # todo okay to add this method to this controller?
   def chart
     @chart = Highchart.chart(current_user.demo,
                              params[:chart_interval],

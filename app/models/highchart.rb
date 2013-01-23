@@ -131,18 +131,19 @@ class Highchart
     end
 
     def data_points
-      initialize_all_data_points_to_zero
+      initialize_all_data_points_to_zero   # child-class specific
 
       all_acts = get_all_acts_between_start_and_end_dates
 
-      acts_per_interval = group_acts_per_time_interval(all_acts)
+      acts_per_interval = group_acts_per_time_interval(all_acts)  # child-class specific
 
       calculate_number_per_time_interval(acts_per_interval)
 
       prepare_and_return_results
     end
 
-    def get_all_acts(range)
+    def get_all_acts_between_start_and_end_dates
+      range = @start_date..@end_date
       @demo.acts.where(created_at: range)
     end
 
@@ -193,13 +194,22 @@ class Highchart
       end
     end
 
-    def get_all_acts_between_start_and_end_dates
-      range = @start_date..@end_date
-      get_all_acts(range)
-    end
-
+    # Need to adjust the key for the grouping to fit into a 0 - 23 (hour) range.
+    # Why? Best to show by sample output from the following 'p' statement for all acts that were created on Dec. 25, 2012:
+    # Note that single-digit keys correspond to acts with the 'day' actually Dec. 24 in the database due to EST/UTC mismatch.
+    #
+    # p "created_at is #{act.created_at} and hour is #{act.created_at.hour} and adjusted hour is #{(act.created_at.hour + 5) % 24}"
+    #
+    #"created_at is 2012-12-24 19:01:00 -0500 and hour is 19 and adjusted hour is 0"
+    #"created_at is 2012-12-25 18:58:59 -0500 and hour is 18 and adjusted hour is 23"
+    #"created_at is 2012-12-24 20:00:00 -0500 and hour is 20 and adjusted hour is 1"
+    #"created_at is 2012-12-25 17:59:59 -0500 and hour is 17 and adjusted hour is 22"
+    #"created_at is 2012-12-24 19:02:00 -0500 and hour is 19 and adjusted hour is 0"
+    #"created_at is 2012-12-25 18:57:59 -0500 and hour is 18 and adjusted hour is 23"
+    #"created_at is 2012-12-24 21:00:00 -0500 and hour is 21 and adjusted hour is 2"
+    #"created_at is 2012-12-25 16:59:59 -0500 and hour is 16 and adjusted hour is 21"
     def group_acts_per_time_interval(acts)
-      acts.group_by { |act| act.created_at.hour }
+      acts.group_by { |act| (act.created_at.hour + 5) % 24 }
     end
   end
 
@@ -222,12 +232,7 @@ class Highchart
       range.each { |date| @acts_per_interval[date.to_date] = @users_per_interval[date.to_date] = 0 }
     end
 
-    # todo probably move this to base class once get hourly and weekly sql queries passing
-    def get_all_acts_between_start_and_end_dates
-      range = @start_date..@end_date
-      get_all_acts(range)
-    end
-
+    # todo 5 needs to be a variable FUCK
     def group_acts_per_time_interval(acts)
       # Need to add in the EST/UTC difference in order to get correct grouping
       acts.group_by { |act| (act.created_at + 5.hours).to_date }
@@ -253,20 +258,19 @@ class Highchart
       range.step(7) { |date| @acts_per_interval[date.to_date] = @users_per_interval[date.to_date] = 0 }
     end
 
-    def get_all_acts_between_start_and_end_dates
-      range = @start_date..@end_date
-      get_all_acts(range)
-    end
-
     def group_acts_per_time_interval(acts)
       # Each 'week point' will contain all acts from that day up to, but not including, the next day in the range.
       # (Which means the last 'week point' will contain all acts from the last day up to the end of the range)
       acts_per_interval = {}
 
       (@start_date..@end_date).step(7) do |date|
+        # Need to add in the EST/UTC difference in order to get correct grouping
         partition = acts.partition { |act| (act.created_at + 5.hours).to_date < date + 7.days }
-        acts_per_interval[date] = partition[0]
-        acts = partition[1]
+
+        unless partition[0].empty?  # Only create a date pointing to an array of acts if there's an array of acts
+          acts_per_interval[date] = partition[0]
+          acts = partition[1]
+        end
       end
 
       acts_per_interval
