@@ -20,7 +20,7 @@
     <div class="clear"></div>
 </div>
 
-<!-- todo fix indenting and use english values for plot-which-points ; also, what about 'checked =' and 'selected =' should they be ':'s -->
+<!-- todo use english values for plot-which-points ; also, what about 'checked =' and 'selected =' should they be ':'s -->
 <div class="charting">
     <%= form_tag(chart_path, id: "activity-chart") do %>
         <div id="chart-header">
@@ -46,7 +46,7 @@
               <%= select_tag :chart_interval, options_for_select(%w(Weekly Daily Hourly), selected = params[:chart_interval]) %>
             </li>
             <li id="chart-labeling">
-              <%= label_tag :chart_label_points, 'Label' %>
+              <span>Label</span>
               <%= select_tag :chart_label_points, options_for_select([ ['All points', 1], ['Every other', 2], ['None', 0] ], selected = params[:chart_label_points]) %>
             </li>
             <li id="show-button">

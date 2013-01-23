@@ -48,20 +48,15 @@
     #show-chart {
         @include square-button-wrap($dark-green);
         border:1px darken($dark-green, 10%) solid;
-        a {
+        #show-chart-link {
             @include square-button;
+            background:image-url('client_admin/sprites.png') no-repeat transparent -55px -48px;
             border-color:lighten($dark-green, 5%);
+            margin:0;
+            text-indent:1.8em;
             &:hover {
-                background:darken($dark-green, 5%);
+                background:image-url('client_admin/sprites.png') no-repeat darken($dark-green, 5%) -55px -48px;
                 border-color:$dark-green;
-            }
-            span {
-                background:image-url('client_admin/sprites.png') no-repeat transparent -61px -54px;
-                display:inline-block;
-                height:19px;
-                margin-right:.5em;
-                vertical-align: middle;
-                width:19px;
             }
         }
     }
