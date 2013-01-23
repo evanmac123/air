@@ -18,7 +18,7 @@
     - else
       %ul#user-acts
         %li.act-shim
-        = render :partial => 'shared/new_act', :collection => @acts, :as => :act
+        = render :partial => 'shared/act', :collection => @acts, :as => :act
     = render 'shared/see_more'
 = content_for :javascript do
   :javascript

@@ -16,7 +16,6 @@ class ActsController < ApplicationController
     end
 
     
-    
     @demo                  = current_user.demo
     @acts                  = find_requested_acts(@demo)
     @displayable_tiles = Tile.displayable_to_user_with_sample(current_user)

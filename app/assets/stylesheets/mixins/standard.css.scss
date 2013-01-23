@@ -73,11 +73,21 @@ ul {list-style-position:outside; list-style-type:none; margin:0; padding:0;}
 					&:active {color:$dark-gray;}
 				}
 			}
-			.when {
+
+			.when, .flag {
 				color: $gray;
 				font-size: 12px;
-				width: 80%;
+        padding-right: 5%
 			}
+
+      .when {
+				width: 40%;
+      }
+
+      .flag {
+        float: right;
+        width: 20%;
+      }
 		}
 		.avatar43 {
 			@include rounded;
