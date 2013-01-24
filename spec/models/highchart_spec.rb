@@ -27,15 +27,17 @@ describe Highchart do
 
 end
 
-describe Highchart::Chart do
-
-  describe '#data_points' do
-
-  end
-end
-
 describe 'Chart Types' do
   let(:demo) { FactoryGirl.create :demo }
+
+  let(:john)   { FactoryGirl.create :user, demo: demo }
+  let(:paul)   { FactoryGirl.create :user, demo: demo }
+  let(:george) { FactoryGirl.create :user, demo: demo }
+  let(:ringo)  { FactoryGirl.create :user, demo: demo }
+
+  let(:acts_hash) { {} }
+
+  # ---------------------------------------------------
 
   context 'Hourly Points' do
     let(:start_date) { '12/25/2012' }
@@ -49,6 +51,9 @@ describe 'Chart Types' do
       (1..2).each do |i|
         FactoryGirl.create :act, demo: demo, created_at: start_boundary - i.minutes
         FactoryGirl.create :act, demo: demo, created_at: end_boundary + i.minutes
+
+        FactoryGirl.create(:act, demo: demo, created_at: start_boundary - i.hours)
+        FactoryGirl.create(:act, demo: demo, created_at: end_boundary + i.hours)
       end
 
       # Create some acts that span the boundary day by minutes and also some that land squarely within the range
@@ -73,7 +78,7 @@ describe 'Chart Types' do
           acts.collect(&:id).sort.should == @sorted_ids
 
           acts.count.should == 8
-          demo.acts.count.should == 12  # Make sure the bad acts were created
+          demo.acts.count.should == 16  # Make sure the bad acts were created
         end
       end
 
@@ -98,6 +103,74 @@ describe 'Chart Types' do
           grouped_acts.keys.count.should == 6
         end
       end
+
+      describe '#calculate_number_per_time_interval' do
+        it 'should report the correct number of acts and unique users for each interval' do
+          day = Highchart.convert_date('7/21/12')
+          hour_1  = day + 1.hour
+          hour_2  = day + 2.hours
+          hour_3  = day + 3.hours
+          hour_21 = day + 21.hours
+          hour_22 = day + 22.hours
+          hour_23 = day + 23.hours
+
+          # All 4 create multiple -----------------------------------------
+          hour_1_john_3   = FactoryGirl.create_list :act, 3, demo: demo, created_at: hour_1, user: john
+          hour_1_paul_2   = FactoryGirl.create_list :act, 2, demo: demo, created_at: hour_1, user: paul
+          hour_1_george_5 = FactoryGirl.create_list :act, 5, demo: demo, created_at: hour_1, user: george
+          hour_1_ringo_1  = FactoryGirl.create_list :act, 1, demo: demo, created_at: hour_1, user: ringo
+
+          acts_hash[hour_1] = hour_1_john_3 + hour_1_paul_2 + hour_1_george_5 + hour_1_ringo_1
+
+          # All 4 create one each -----------------------------------------
+          hour_2_john_1   = FactoryGirl.create_list :act, 1, demo: demo, created_at: hour_2, user: john
+          hour_2_paul_1   = FactoryGirl.create_list :act, 1, demo: demo, created_at: hour_2, user: paul
+          hour_2_george_1 = FactoryGirl.create_list :act, 1, demo: demo, created_at: hour_2, user: george
+          hour_2_ringo_1  = FactoryGirl.create_list :act, 1, demo: demo, created_at: hour_2, user: ringo
+
+          acts_hash[hour_2] = hour_2_john_1 + hour_2_paul_1 + hour_2_george_1 + hour_2_ringo_1
+
+          # Nothing for hour_3 ----------------------------------------------
+
+          # 1 creates multiple and 1 creates 1 -------------------------------
+          hour_21_john_5   = FactoryGirl.create_list :act, 5, demo: demo, created_at: hour_21, user: john
+          hour_21_paul_1   = FactoryGirl.create_list :act, 1, demo: demo, created_at: hour_21, user: paul
+
+          acts_hash[hour_21] = hour_21_john_5 + hour_21_paul_1
+
+          # 1 creates multiple -------------------------------
+          hour_22_george_3 = FactoryGirl.create_list :act, 3, demo: demo, created_at: hour_22, user: george
+
+          acts_hash[hour_22] = hour_22_george_3
+
+          # 1 creates 1 -------------------------------
+          hour_23_ringo_1  = FactoryGirl.create_list :act, 1, demo: demo, created_at: hour_23, user: ringo
+
+          acts_hash[hour_23] = hour_23_ringo_1
+
+          # Calculations -------------------------------------
+          hourly.calculate_number_per_time_interval(acts_hash)
+
+          # Read 'em and weep (Hopefully) -------------------
+          hourly.num_acts_per_interval[hour_1].should == 11
+          hourly.num_users_per_interval[hour_1].should == 4
+
+          hourly.num_acts_per_interval[hour_2].should == 4
+          hourly.num_users_per_interval[hour_2].should == 4
+
+          hourly.num_acts_per_interval[hour_3].should be_nil
+          hourly.num_users_per_interval[hour_3].should be_nil
+
+          hourly.num_acts_per_interval[hour_21].should == 6
+          hourly.num_users_per_interval[hour_21].should == 2
+
+          hourly.num_acts_per_interval[hour_22].should == 3
+          hourly.num_users_per_interval[hour_22].should == 1
+
+          hourly.num_acts_per_interval[hour_23].should == 1
+          hourly.num_users_per_interval[hour_23].should == 1
+        end
+      end
     end
   end
 
@@ -114,6 +187,9 @@ describe 'Chart Types' do
       (1..2).each do |i|
         FactoryGirl.create :act, demo: demo, created_at: start_boundary - i.minutes
         FactoryGirl.create :act, demo: demo, created_at: end_boundary + i.minutes
+
+        FactoryGirl.create(:act, demo: demo, created_at: start_boundary - i.hours)
+        FactoryGirl.create(:act, demo: demo, created_at: end_boundary + i.hours)
       end
 
       # Create some acts that span the boundary days by minutes and also some that land squarely within the range
@@ -138,7 +214,7 @@ describe 'Chart Types' do
           acts.collect(&:id).sort.should == @sorted_ids
 
           acts.count.should == 8
-          demo.acts.count.should == 12  # Make sure the bad acts were created
+          demo.acts.count.should == 16  # Make sure the bad acts were created
         end
       end
 
@@ -160,6 +236,73 @@ describe 'Chart Types' do
 
           # And finally, make sure no other days snuck into the grouping hash
           grouped_acts.keys.count.should == 6
+        end
+      end
+
+      describe '#calculate_number_per_time_interval' do
+        it 'should report the correct number of acts and unique users for each interval' do
+          day_1 = Highchart.convert_date('7/1/12')
+          day_2 = Highchart.convert_date('7/4/12')
+          day_3 = Highchart.convert_date('7/11/12')
+          day_4 = Highchart.convert_date('7/19/12')
+          day_5 = Highchart.convert_date('7/21/12')
+          day_6 = Highchart.convert_date('7/31/12')
+
+          # All 4 create multiple -----------------------------------------
+          day_1_john_3   = FactoryGirl.create_list :act, 3, demo: demo, created_at: day_1, user: john
+          day_1_paul_2   = FactoryGirl.create_list :act, 2, demo: demo, created_at: day_1, user: paul
+          day_1_george_5 = FactoryGirl.create_list :act, 5, demo: demo, created_at: day_1, user: george
+          day_1_ringo_1  = FactoryGirl.create_list :act, 1, demo: demo, created_at: day_1, user: ringo
+
+          acts_hash[day_1] = day_1_john_3 + day_1_paul_2 + day_1_george_5 + day_1_ringo_1
+
+          # All 4 create one each -----------------------------------------
+          day_2_john_1   = FactoryGirl.create_list :act, 1, demo: demo, created_at: day_2, user: john
+          day_2_paul_1   = FactoryGirl.create_list :act, 1, demo: demo, created_at: day_2, user: paul
+          day_2_george_1 = FactoryGirl.create_list :act, 1, demo: demo, created_at: day_2, user: george
+          day_2_ringo_1  = FactoryGirl.create_list :act, 1, demo: demo, created_at: day_2, user: ringo
+
+          acts_hash[day_2] = day_2_john_1 + day_2_paul_1 + day_2_george_1 + day_2_ringo_1
+
+          # Nothing for day_3 ----------------------------------------------
+
+          # 1 creates multiple and 1 creates 1 -------------------------------
+          day_4_john_5   = FactoryGirl.create_list :act, 5, demo: demo, created_at: day_4, user: john
+          day_4_paul_1   = FactoryGirl.create_list :act, 1, demo: demo, created_at: day_4, user: paul
+
+          acts_hash[day_4] = day_4_john_5 + day_4_paul_1
+
+          # 1 creates multiple -------------------------------
+          day_5_george_3 = FactoryGirl.create_list :act, 3, demo: demo, created_at: day_5, user: george
+
+          acts_hash[day_5] = day_5_george_3
+
+          # 1 creates 1 -------------------------------
+          day_6_ringo_1  = FactoryGirl.create_list :act, 1, demo: demo, created_at: day_6, user: ringo
+
+          acts_hash[day_6] = day_6_ringo_1
+
+          # Calculations -------------------------------------
+          daily.calculate_number_per_time_interval(acts_hash)
+
+          # Read 'em and weep (Hopefully) -------------------
+          daily.num_acts_per_interval[day_1].should == 11
+          daily.num_users_per_interval[day_1].should == 4
+
+          daily.num_acts_per_interval[day_2].should == 4
+          daily.num_users_per_interval[day_2].should == 4
+
+          daily.num_acts_per_interval[day_3].should be_nil
+          daily.num_users_per_interval[day_3].should be_nil
+
+          daily.num_acts_per_interval[day_4].should == 6
+          daily.num_users_per_interval[day_4].should == 2
+
+          daily.num_acts_per_interval[day_5].should == 3
+          daily.num_users_per_interval[day_5].should == 1
+
+          daily.num_acts_per_interval[day_6].should == 1
+          daily.num_users_per_interval[day_6].should == 1
         end
       end
     end
@@ -196,7 +339,7 @@ Su	Mo	Tu	We	Th	Fr	Sa
           acts.collect(&:id).sort.should == @sorted_ids
 
           acts.count.should == 8
-          demo.acts.count.should == 12  # Make sure the bad acts were created
+          demo.acts.count.should == 16  # Make sure the bad acts were created
         end
       end
 
@@ -221,6 +364,104 @@ Su	Mo	Tu	We	Th	Fr	Sa
 
           # And finally, make sure no other weeks snuck into the grouping hash
           grouped_acts.keys.count.should == 3
+        end
+      end
+
+      describe '#calculate_number_per_time_interval' do
+        it 'should report the correct number of acts and unique users for each interval' do
+          week_1 = Highchart.convert_date('7/1/12')
+          week_2 = week_1 + 7.days
+          week_3 = week_2 + 7.days
+          week_4 = week_3 + 7.days
+          week_5 = week_4 + 7.days
+          week_6 = week_5 + 7.days
+
+          # All 4 create multiple -----------------------------------------
+          week_1_john_3_x_7   = []
+          0.upto(6) { |i| week_1_john_3_x_7 << FactoryGirl.create_list(:act, 3, demo: demo, created_at: week_1 + i.days, user: john)   }
+          week_1_john_3_x_7.flatten!
+
+          week_1_paul_2_x_7   = []
+          0.upto(6) { |i| week_1_paul_2_x_7 << FactoryGirl.create_list(:act, 2, demo: demo, created_at: week_1 + i.days, user: paul)   }
+          week_1_paul_2_x_7.flatten!
+
+          week_1_george_5_x_7 = []
+          0.upto(6) { |i| week_1_george_5_x_7 << FactoryGirl.create_list(:act, 5, demo: demo, created_at: week_1 + i.days, user: george) }
+          week_1_george_5_x_7.flatten!
+
+          week_1_ringo_1_x_7  = []
+          0.upto(6) { |i| week_1_ringo_1_x_7 << FactoryGirl.create_list(:act, 1, demo: demo, created_at: week_1 + i.days, user: ringo)  }
+          week_1_ringo_1_x_7.flatten!
+
+          acts_hash[week_1] = week_1_john_3_x_7 + week_1_paul_2_x_7 + week_1_george_5_x_7 + week_1_ringo_1_x_7
+
+          # All 4 create one each -----------------------------------------
+          week_2_john_1_x_7   = []
+          0.upto(6) { |i| week_2_john_1_x_7 << FactoryGirl.create_list(:act, 1, demo: demo, created_at: week_2 + i.days, user: john)   }
+          week_2_john_1_x_7.flatten!
+
+          week_2_paul_1_x_7   = []
+          0.upto(6) { |i| week_2_paul_1_x_7 << FactoryGirl.create_list(:act, 1, demo: demo, created_at: week_2 + i.days, user: paul)   }
+          week_2_paul_1_x_7.flatten!
+
+          week_2_george_1_x_7 = []
+          0.upto(6) { |i| week_2_george_1_x_7 << FactoryGirl.create_list(:act, 1, demo: demo, created_at: week_2 + i.days, user: george) }
+          week_2_george_1_x_7.flatten!
+
+          week_2_ringo_1_x_7  = []
+          0.upto(6) { |i| week_2_ringo_1_x_7 << FactoryGirl.create_list(:act, 1, demo: demo, created_at: week_2 + i.days, user: ringo)  }
+          week_2_ringo_1_x_7.flatten!
+
+          acts_hash[week_2] = week_2_john_1_x_7 + week_2_paul_1_x_7 + week_2_george_1_x_7 + week_2_ringo_1_x_7
+
+          # Nothing for week_3 ----------------------------------------------
+
+          # 1 creates multiple and 1 creates 1 -------------------------------
+          week_4_john_5_x_7   = []
+          0.upto(6) { |i| week_4_john_5_x_7 << FactoryGirl.create_list(:act, 5, demo: demo, created_at: week_4 + i.days, user: john) }
+          week_4_john_5_x_7.flatten!
+
+          week_4_paul_1_x_7   = []
+          0.upto(6) { |i| week_4_paul_1_x_7 << FactoryGirl.create_list(:act, 1, demo: demo, created_at: week_4 + i.days, user: paul) }
+          week_4_paul_1_x_7.flatten!
+
+          acts_hash[week_4] = week_4_john_5_x_7 + week_4_paul_1_x_7
+
+          # 1 creates multiple -------------------------------
+          week_5_george_3_x_7 = []
+          0.upto(6) { |i| week_5_george_3_x_7 << FactoryGirl.create_list(:act, 3, demo: demo, created_at: week_5 + i.days, user: george) }
+          week_5_george_3_x_7.flatten!
+
+          acts_hash[week_5] = week_5_george_3_x_7
+
+          # 1 creates 1 -------------------------------
+          week_6_ringo_1_x_7  = []
+          0.upto(6) { |i| week_6_ringo_1_x_7 << FactoryGirl.create_list(:act, 1, demo: demo, created_at: week_6 + i.days, user: ringo) }
+          week_6_ringo_1_x_7.flatten!
+
+          acts_hash[week_6] = week_6_ringo_1_x_7
+
+          # Calculations -------------------------------------
+          weekly.calculate_number_per_time_interval(acts_hash)
+
+          # Read 'em and weep (Hopefully) -------------------
+          weekly.num_acts_per_interval[week_1].should == 77
+          weekly.num_users_per_interval[week_1].should == 4
+
+          weekly.num_acts_per_interval[week_2].should == 28
+          weekly.num_users_per_interval[week_2].should == 4
+
+          weekly.num_acts_per_interval[week_3].should be_nil
+          weekly.num_users_per_interval[week_3].should be_nil
+
+          weekly.num_acts_per_interval[week_4].should == 42
+          weekly.num_users_per_interval[week_4].should == 2
+
+          weekly.num_acts_per_interval[week_5].should == 21
+          weekly.num_users_per_interval[week_5].should == 1
+
+          weekly.num_acts_per_interval[week_6].should == 7
+          weekly.num_users_per_interval[week_6].should == 1
         end
       end
     end
