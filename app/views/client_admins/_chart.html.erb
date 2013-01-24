@@ -4,11 +4,11 @@
         <h1 class="subsection-head">Activity:</h1>
         <ul id="display-options">
           <li>
-            <%= check_box_tag :chart_plot_acts, nil, params[:chart_plot_acts], id: "total" %>
+            <%= check_box_tag :chart_plot_acts, nil, params[:chart_plot_acts] %>
             <%= label_tag :chart_plot_acts, 'Total activity' %>
           </li>
           <li>
-            <%= check_box_tag :chart_plot_users, nil, params[:chart_plot_users], id: "unique" %>
+            <%= check_box_tag :chart_plot_users, nil, params[:chart_plot_users] %>
             <%= label_tag :chart_plot_users, 'Unique users' %>
           </li>
         </ul>
