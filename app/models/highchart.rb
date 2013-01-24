@@ -111,6 +111,9 @@ class Highchart
 
   #--------------------------- Generic Parent Class ----------------------------
   class Chart
+
+    attr_reader(:num_acts_per_interval, :num_users_per_interval) if Rails.env.test?  # Only needed for testing
+
     def initialize(demo, start_date, end_date, plot_acts, plot_users)
       @demo = demo
 
