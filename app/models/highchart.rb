@@ -56,6 +56,8 @@ class Highchart
 
   Saving and printing the chart is accomplished by including 'exporting.js' along with 'highcharts.js'
   (in /vendor/assets/javascripts/admin) and adding both to /app/assets/javascripts/app-admin.js
+
+  There are unfinished items/bugs for charts - see Sprint.ly for details. (The corresponding features have been disabled.)
 =end
 
   # Converts a (form-input) "month/day/year" string into a "day/month/year" (datetime-expected) string,
@@ -70,9 +72,9 @@ class Highchart
 
     act_points, user_points = chart.data_points
 
-    # Currently have an option to label all, none, or every other point.
-    # If we do attach a label, make it just the value for that point (i.e. without the date)
-    # todo this will change with Connie's new UI
+    # Currently have an option to label all or every other point => attach the point's value as the label for that point.
+    # Note that the 'label_points == 0' condition => option to not label any points => this code block not executed.
+    # Had a problem with 'no labels' in Hourly mode: the x-axis labels were all 12am => removed this option (noted in Sprint.ly)
     (act_points + user_points).each_with_index do |point, i|
       point[0] = (i % label_points.to_i == 0) ? point[1].to_s : ''
     end unless label_points == '0'
@@ -85,7 +87,7 @@ class Highchart
       # Remove the 'Print' button (but keep the 'Save As Image/PDF' one)
       hc.exporting(buttons: {printButton: {enabled: false}})
 
-      hc.title(text: "H Engage #{demo.name} Chart")
+      hc.title(text: "H Engage Chart For #{demo.name}")
       hc.subtitle(text: chart.subtitle)
 
       # Bump up the 'maxPadding' a little because the right-hand edge of last date was getting chopped
@@ -107,17 +109,13 @@ class Highchart
 
   #================================== Helper Classes =======================================
 
-  # Someone else said it better than I could:
-  #   Generally I think using nested classes for real helper classes that can conceptually
-  #   only be used with the parent class is a useful way of avoiding namespace clutter.
-
   #--------------------------- Generic Parent Class ----------------------------
   class Chart
     def initialize(demo, start_date, end_date, plot_acts, plot_users)
       @demo = demo
 
-      @start_date = Highchart.convert_date(start_date).beginning_of_day  # Starts at 12:00:00 am
-      @end_date   = Highchart.convert_date(end_date).end_of_day          # Ends at 11:59:59 pm
+      @start_date = Highchart.convert_date(start_date).beginning_of_day  # Start at 12:00:00 am
+      @end_date   = Highchart.convert_date(end_date).end_of_day          # End at 11:59:59 pm
 
       @plot_acts  = plot_acts
       @plot_users = plot_users
@@ -130,11 +128,11 @@ class Highchart
     end
 
     def data_points
-      initialize_all_data_points_to_zero   # child-class specific
+      initialize_all_data_points_to_zero   # child-class implementation
 
       all_acts = get_all_acts_between_start_and_end_dates
 
-      acts_per_interval = group_acts_per_time_interval(all_acts)  # child-class specific
+      acts_per_interval = group_acts_per_time_interval(all_acts)  # child-class implementation
 
       calculate_number_per_time_interval(acts_per_interval)
 
@@ -142,8 +140,7 @@ class Highchart
     end
 
     def get_all_acts_between_start_and_end_dates
-      range = @start_date..@end_date
-      @demo.acts.where(created_at: range)
+      @demo.acts.where(created_at: @start_date..@end_date)
     end
 
     # 'acts_per_interval' is a hash containing many entries of the form { time-interval-point => [ acts for that point ] }
@@ -195,20 +192,16 @@ class Highchart
 
     # Need to adjust the key for the grouping to fit into a 0 - 23 (hour) range.
     # Why? Best to show by sample output from the following 'p' statement for all acts that were created on Dec. 25, 2012:
-    # Note that single-digit keys correspond to acts with the 'day' actually Dec. 24 in the database due to EST/UTC mismatch.
+    # Note that single-digit keys (0, 1, 2) correspond to acts with the 'day' actually Dec. 24 in the database due to EST/UTC mismatch.
     #
     # p "created_at is #{act.created_at} and hour is #{act.created_at.hour} and adjusted hour is #{(act.created_at.hour + 5) % 24}"
     #
     #"created_at is 2012-12-24 19:01:00 -0500 and hour is 19 and adjusted hour is 0"
-    #"created_at is 2012-12-25 18:58:59 -0500 and hour is 18 and adjusted hour is 23"
     #"created_at is 2012-12-24 20:00:00 -0500 and hour is 20 and adjusted hour is 1"
+    #"created_at is 2012-12-25 18:58:59 -0500 and hour is 18 and adjusted hour is 23"
     #"created_at is 2012-12-25 17:59:59 -0500 and hour is 17 and adjusted hour is 22"
-    #"created_at is 2012-12-24 19:02:00 -0500 and hour is 19 and adjusted hour is 0"
-    #"created_at is 2012-12-25 18:57:59 -0500 and hour is 18 and adjusted hour is 23"
-    #"created_at is 2012-12-24 21:00:00 -0500 and hour is 21 and adjusted hour is 2"
-    #"created_at is 2012-12-25 16:59:59 -0500 and hour is 16 and adjusted hour is 21"
     def group_acts_per_time_interval(acts)
-      acts.group_by { |act| (act.created_at.hour + 5) % 24 }
+      acts.group_by { |act| (act.created_at + 5.hours).hour % 24 }
     end
   end
 
@@ -231,7 +224,6 @@ class Highchart
       range.each { |date| @acts_per_interval[date.to_date] = @users_per_interval[date.to_date] = 0 }
     end
 
-    # todo 5 needs to be a variable FUCK
     def group_acts_per_time_interval(acts)
       # Need to add in the EST/UTC difference in order to get correct grouping
       acts.group_by { |act| (act.created_at + 5.hours).to_date }
@@ -259,7 +251,7 @@ class Highchart
 
     def group_acts_per_time_interval(acts)
       # Each 'week point' will contain all acts from that day up to, but not including, the next day in the range.
-      # (Which means the last 'week point' will contain all acts from the last day up to the end of the range)
+      # (Which means the last 'week point' on the plot will contain all acts from that last day up to the end of the range)
       acts_per_interval = {}
 
       (@start_date..@end_date).step(7) do |date|

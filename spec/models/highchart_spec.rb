@@ -81,22 +81,17 @@ describe 'Chart Types' do
         it 'should group the right acts in the right days' do
           grouped_acts = hourly.group_acts_per_time_interval(acts)
 
-          grouped_acts.each { |group| p group.inspect }
-
-          # todo convert 'time' to ??? so don't have to worry about todo's below
           # For each of the hours that should contain acts...
           [start_boundary, start_boundary + 1.hour, start_boundary + 2.hours,
            end_boundary,   end_boundary - 1.hour,   end_boundary - 2.hours].each do |time|
 
             # Make sure this hour contains the correct number of acts
             # (Boundary hour got acts for +/- 1- and 2-minutes, while inner hours got just one act per hour)
-            grouped_acts[(time.hour + 5.hours) % 24].should have((time == start_boundary or time == end_boundary) ? 2 : 1).acts
+            grouped_acts[time.hour % 24].should have((time == start_boundary or time == end_boundary) ? 2 : 1).acts
 
             # Make sure each act belongs in this hour
-            # todo Phil: Perfect example:
-            # todo 1st time must b 5.hours or else get "undefined method `each' for nil:NilClass"
-            # todo 2nd time must just 5 or else get "expected 0, got 19 mismatch"
-            grouped_acts[(time.hour + 5.hours) % 24].each { |act| ((act.created_at.hour + 5) % 24).should == time.hour }
+            # (Had to add 5.hours to each act to get it into the right group => do the same thing here)
+            grouped_acts[time.hour % 24].each { |act| ((act.created_at + 5.hours).hour % 24).should == time.hour }
           end
 
           # And finally, make sure no other hours snuck into the grouping hash
@@ -126,6 +121,7 @@ describe 'Chart Types' do
       (1..2).each do |i|
         in_range_acts << FactoryGirl.create(:act, demo: demo, created_at: start_boundary + i.minutes)
         in_range_acts << FactoryGirl.create(:act, demo: demo, created_at: end_boundary - i.minutes)
+
         in_range_acts << FactoryGirl.create(:act, demo: demo, created_at: start_boundary + i.days)
         in_range_acts << FactoryGirl.create(:act, demo: demo, created_at: end_boundary - i.days)
       end
@@ -178,7 +174,7 @@ describe 'Chart Types' do
     # Week 3: Jan 8 thru Jan 14  ; Jan 8 should contain 1 act (14 - 1)
     # Week 4: Jan 15 thru Jan 16 ; Jan 15 should contain 3 acts (15 - 1, 16 - 2)
     #
-    # This ensures that we test a last plotted-point (Jan 15) occurring before the end date of the range
+    # This ensures that we test a last-plotted-point (Jan 15) occurring before the end date of the range
 =begin
         DECEMBER 2012
 Su	Mo	Tu	We	Th	Fr	Sa
