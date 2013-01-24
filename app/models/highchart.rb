@@ -191,10 +191,8 @@ class Highchart
     end
 
     # Need to adjust the key for the grouping to fit into a 0 - 23 (hour) range.
-    # Why? Best to show by sample output from the following 'p' statement for all acts that were created on Dec. 25, 2012:
+    # Why? Best to show by sample output for all acts created on Dec. 25, 2012
     # Note that single-digit keys (0, 1, 2) correspond to acts with the 'day' actually Dec. 24 in the database due to EST/UTC mismatch.
-    #
-    # p "created_at is #{act.created_at} and hour is #{act.created_at.hour} and adjusted hour is #{(act.created_at.hour + 5) % 24}"
     #
     #"created_at is 2012-12-24 19:01:00 -0500 and hour is 19 and adjusted hour is 0"
     #"created_at is 2012-12-24 20:00:00 -0500 and hour is 20 and adjusted hour is 1"
