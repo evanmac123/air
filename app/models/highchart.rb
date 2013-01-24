@@ -78,10 +78,9 @@ class Highchart
     end unless label_points == '0'
 
     LazyHighCharts::HighChart.new do |hc|
-      # Tried a bunch of ways to set these colors and this is the only way that worked. Beats me...
-      hc.colors
-      hc.options[:colors][0] = '#4D7A36'
-      hc.options[:colors][1] = '#F00'
+      hc.colors  # Need this line or else doesn't work. Beats me.
+      hc.options[:colors][0] = '#00b318'
+      hc.options[:colors][1] = '#56678e '
 
       # Remove the 'Print' button (but keep the 'Save As Image/PDF' one)
       hc.exporting(buttons: {printButton: {enabled: false}})

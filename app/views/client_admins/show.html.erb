@@ -1,4 +1,3 @@
-
 <ul class="section-name">
     <li class="section-icon"><span class="icon" id="icon-overview"></span></li>
     <li class="section-title"><h1>Dashboard overview</h1></li>
@@ -19,78 +18,6 @@
     </ul>
     <div class="clear"></div>
 </div>
-
-<!-- todo use english values for plot-which-points ; also, what about 'checked =' and 'selected =' should they be ':'s -->
-<div class="charting">
-    <%= form_tag(chart_path, id: "activity-chart") do %>
-        <div id="chart-header">
-            <h1 class="subsection-head">Activity:</h1>
-            <ul id="display-options">
-                <li>
-                  <%= check_box_tag :chart_plot_acts, nil, checked = params[:chart_plot_acts], id: "total" %>
-                  <%= label_tag :chart_plot_acts, 'Total activity' %>
-                </li>
-                <li>
-                  <%= check_box_tag :chart_plot_users, nil, checked = params[:chart_plot_users], id: "unique" %>
-                  <%= label_tag :chart_plot_users, 'Unique users' %>
-                </li>
-            </ul>
-        </div>
-        <ul id="chart-options">
-            <li id="chart-dates">
-              <%= text_field_tag :chart_start_date, params[:chart_start_date], id: "start-date", class: "datepicker", placeholder: "Start date" %>
-              <span>to</span>
-              <%= text_field_tag :chart_end_date, params[:chart_end_date], id: "end-date", class: "datepicker", placeholder: "End date" %>
-            </li>
-            <li id="chart-intervals">
-              <%= select_tag :chart_interval, options_for_select(%w(Weekly Daily Hourly), selected = params[:chart_interval]) %>
-            </li>
-            <li id="chart-labeling">
-              <span>Label</span>
-              <%= select_tag :chart_label_points, options_for_select([ ['All points', 1], ['Every other', 2], ['None', 0] ], selected = params[:chart_label_points]) %>
-            </li>
-            <li id="show-button">
-              <div class="button_wrap" id="show-chart">
-                <%= submit_tag "Show", id: "show-chart-link" %>
-              </div>
-            </li>
-            <div class="cf"></div>
-        </ul>
-    <% end %>
-</div>
-
-<!--<div class="charting">-->
-    <!--<form id="activity-chart">-->
-        <!--<div id="chart-header">-->
-            <!--<h1 class="subsection-head">Activity:</h1>-->
-            <!--<ul id="display-options">-->
-                <!--<li><input type="checkbox" name="display" value="total" id="total"><label for="total">Total activity</label></li>-->
-                <!--<li><input type="checkbox" name="display" value="unique" id="unique"><label for="unique">Unique users</label></li>-->
-            <!--</ul>-->
-        <!--</div>-->
-        <!--<ul id="chart-options">-->
-            <!--<li id="chart-dates">-->
-                <!--<input type="text" class="datepicker" name="start-date" placeholder="Start date" id="start-date">-->
-                <!--<span>to</span>-->
-                <!--<input type="text" class="datepicker" name="end-date" placeholder="End date" id="end-date">-->
-            <!--</li>-->
-            <!--<li id="chart-intervals"><select id="interval-options">-->
-                <!--<option value="weekly">Weekly</option>-->
-                <!--<option value="daily">Daily</option>-->
-                <!--<option value="hourly">Hourly</option>-->
-            <!--</select></li>-->
-            <!--<li id="chart-labeling"><span>Label</span> <select id="label-options">-->
-                <!--<option value="all">All points</option>-->
-                <!--<option value="alt">Every other</option>-->
-                <!--<option value="none">None</option>-->
-            <!--</select></li>-->
-            <!--<li id="show-button">-->
-                <!--<div class="button_wrap" id="show-chart"><a href="#" id="show-chart-link"><span></span>Show</a></div>-->
-            <!--</li>-->
-            <!--<div class="cf"></div>-->
-        <!--</ul>-->
-    <!--</form>-->
-<!--</div>-->
 
 <%= render 'chart' %>
 

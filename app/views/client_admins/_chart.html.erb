@@ -1,0 +1,40 @@
+<div class="charting">
+  <%= form_tag(chart_path, id: "activity-chart") do %>
+      <div id="chart-header">
+        <h1 class="subsection-head">Activity:</h1>
+        <ul id="display-options">
+          <li>
+            <%= check_box_tag :chart_plot_acts, nil, params[:chart_plot_acts], id: "total" %>
+            <%= label_tag :chart_plot_acts, 'Total activity' %>
+          </li>
+          <li>
+            <%= check_box_tag :chart_plot_users, nil, params[:chart_plot_users], id: "unique" %>
+            <%= label_tag :chart_plot_users, 'Unique users' %>
+          </li>
+        </ul>
+      </div>
+      <ul id="chart-options">
+        <li id="chart-dates">
+          <%= text_field_tag :chart_start_date, params[:chart_start_date], class: "datepicker", placeholder: "Start date" %>
+          <span>to</span>
+          <%= text_field_tag :chart_end_date, params[:chart_end_date], class: "datepicker", placeholder: "End date" %>
+        </li>
+        <li id="chart-intervals">
+          <%= select_tag :chart_interval, options_for_select(%w(Weekly Daily Hourly), selected: params[:chart_interval]) %>
+        </li>
+        <li id="chart-labeling">
+          <span>Label</span>
+          <%= select_tag :chart_label_points, options_for_select([ ['All points', 1], ['Every other', 2] ], selected: params[:chart_label_points]) %>
+        </li>
+        <li id="show-button">
+          <div class="button_wrap" id="show-chart">
+            <%= submit_tag "Show", id: "show-chart-link" %>
+          </div>
+        </li>
+        <div class="cf"></div>
+      </ul>
+  <% end %>
+</div>
+
+<%= high_chart('chart', @chart) if @chart %>
+

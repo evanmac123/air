@@ -49,7 +49,6 @@
     #show-chart {
         @include square-button-wrap($dark-green);
         border:1px darken($dark-green, 10%) solid;
-        margin-top: 1em;
         #show-chart-link {
             @include square-button;
             background:image-url('client_admin/sprites.png') no-repeat transparent -55px -48px;
