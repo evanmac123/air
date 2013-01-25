@@ -36,5 +36,9 @@
   <% end %>
 </div>
 
-<%= high_chart('chart', @chart) if @chart %>
+<% if @chart %>
+  <%= high_chart('chart', @chart) if @chart %>
+<% else %>
+  <%= render 'shared/flashes' %>
+<% end %>
 

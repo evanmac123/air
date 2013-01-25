@@ -24,6 +24,9 @@ class ClientAdminsController < ClientAdminBaseController
                              params[:chart_plot_acts],
                              params[:chart_plot_users],
                              params[:chart_label_points])
+
+    flash.now[:failure] = 'You did not specify anything to plot. Please check your settings and try again.' if @chart.nil?
+
     render :show
   end
 end
