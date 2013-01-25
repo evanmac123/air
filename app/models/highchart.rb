@@ -76,8 +76,11 @@ class Highchart
     act_points, user_points = chart.data_points
 
     # Currently have an option to label all or every other point => attach the point's value as the label for that point.
-    # Note that the 'label_points == 0' condition => option to not label any points => this code block not executed.
-    # Had a problem with 'no labels' in Hourly mode: the x-axis labels were all 12am => removed this option (noted in Sprint.ly)
+    # 1) The 'label_points == 0' condition => option to not label any points => this code block will not executed.
+    #    But had a problem with 'no labels' in Hourly mode: the x-axis labels were all 12am => removed this option for now.
+    # 2) The raw point data is an array of [x,y] values. Normally points are not labelled on graphs. To get them labelled
+    #    the first argument of the point array must be a string. But remember, the first argument is the x-value, which
+    #    we don't want as the label for the point; instead we want the y-value as the label, hence the 'point[0] = point[1].to_s'
     (act_points + user_points).each_with_index do |point, i|
       point[0] = (i % label_points.to_i == 0) ? point[1].to_s : ''
     end unless label_points == '0'
