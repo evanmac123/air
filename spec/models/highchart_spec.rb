@@ -28,14 +28,8 @@ describe Highchart do
 end
 
 describe 'Chart Types' do
+
   let(:demo) { FactoryGirl.create :demo }
-
-  let(:john)   { FactoryGirl.create :user, demo: demo }
-  let(:paul)   { FactoryGirl.create :user, demo: demo }
-  let(:george) { FactoryGirl.create :user, demo: demo }
-  let(:ringo)  { FactoryGirl.create :user, demo: demo }
-
-  let(:acts_hash) { {} }
 
   # ---------------------------------------------------
 
@@ -101,88 +95,6 @@ describe 'Chart Types' do
 
           # And finally, make sure no other hours snuck into the grouping hash
           grouped_acts.keys.count.should == 6
-        end
-      end
-
-      describe '#calculate_number_per_time_interval' do
-        it 'should report the correct number of acts and unique users for each interval' do
-
-          # Interestingly enough, the Daily and Weekly tests that use dates in July (i.e. Daylight Savings Time
-          # which results in an ActiveRecord offset of 4 hours in database records) pass.
-          #
-          # However, if you use a July date in this Hourly test it returns results that are off by 1 hour
-          # because we adjust for the EST/UTC time difference by adding 5 hours to our act objects.
-          # Bottom Line: Use a date that is not in Daylight Savings Time (March 11 thru November 4 for 2012)
-
-          day = Highchart.convert_date('11/11/2012')
-          hour_1  = day + 1.hour
-          hour_2  = day + 2.hours
-          hour_3  = day + 3.hours
-          hour_21 = day + 21.hours
-          hour_22 = day + 22.hours
-          hour_23 = day + 23.hours
-
-          # All 4 create multiple -----------------------------------------
-          hour_1_john_3   = FactoryGirl.create_list :act, 3, demo: demo, created_at: hour_1, user: john
-          hour_1_paul_2   = FactoryGirl.create_list :act, 2, demo: demo, created_at: hour_1, user: paul
-          hour_1_george_5 = FactoryGirl.create_list :act, 5, demo: demo, created_at: hour_1, user: george
-          hour_1_ringo_1  = FactoryGirl.create_list :act, 1, demo: demo, created_at: hour_1, user: ringo
-
-          acts_hash[hour_1] = hour_1_john_3 + hour_1_paul_2 + hour_1_george_5 + hour_1_ringo_1
-
-          # All 4 create one each -----------------------------------------
-          hour_2_john_1   = FactoryGirl.create_list :act, 1, demo: demo, created_at: hour_2, user: john
-          hour_2_paul_1   = FactoryGirl.create_list :act, 1, demo: demo, created_at: hour_2, user: paul
-          hour_2_george_1 = FactoryGirl.create_list :act, 1, demo: demo, created_at: hour_2, user: george
-          hour_2_ringo_1  = FactoryGirl.create_list :act, 1, demo: demo, created_at: hour_2, user: ringo
-
-          acts_hash[hour_2] = hour_2_john_1 + hour_2_paul_1 + hour_2_george_1 + hour_2_ringo_1
-
-          # Nothing for hour_3 ----------------------------------------------
-
-          # 1 creates multiple and 1 creates 1 -------------------------------
-          hour_21_john_5   = FactoryGirl.create_list :act, 5, demo: demo, created_at: hour_21, user: john
-          hour_21_paul_1   = FactoryGirl.create_list :act, 1, demo: demo, created_at: hour_21, user: paul
-
-          acts_hash[hour_21] = hour_21_john_5 + hour_21_paul_1
-
-          # 1 creates multiple -------------------------------
-          hour_22_george_3 = FactoryGirl.create_list :act, 3, demo: demo, created_at: hour_22, user: george
-
-          acts_hash[hour_22] = hour_22_george_3
-
-          # 1 creates 1 -------------------------------
-          hour_23_ringo_1  = FactoryGirl.create_list :act, 1, demo: demo, created_at: hour_23, user: ringo
-
-          acts_hash[hour_23] = hour_23_ringo_1
-
-          hourly = Highchart::Hourly.new(demo, '11/11/2012', '11/11/2012', true, true)
-          a_points, u_points = hourly.data_points
-
-          p "******* #{a_points.inspect}"
-          p "******* #{u_points.inspect}"
-
-          # Calculations -------------------------------------
-          hourly.calculate_number_per_time_interval(acts_hash)
-
-          # Read 'em and weep (Hopefully) -------------------
-          hourly.num_acts_per_interval[hour_1].should == 11
-          hourly.num_users_per_interval[hour_1].should == 4
-
-          hourly.num_acts_per_interval[hour_2].should == 4
-          hourly.num_users_per_interval[hour_2].should == 4
-
-          hourly.num_acts_per_interval[hour_3].should be_nil
-          hourly.num_users_per_interval[hour_3].should be_nil
-
-          hourly.num_acts_per_interval[hour_21].should == 6
-          hourly.num_users_per_interval[hour_21].should == 2
-
-          hourly.num_acts_per_interval[hour_22].should == 3
-          hourly.num_users_per_interval[hour_22].should == 1
-
-          hourly.num_acts_per_interval[hour_23].should == 1
-          hourly.num_users_per_interval[hour_23].should == 1
         end
       end
     end
@@ -252,76 +164,6 @@ describe 'Chart Types' do
           grouped_acts.keys.count.should == 6
         end
       end
-
-      describe '#calculate_number_per_time_interval' do
-        it 'should report the correct number of acts and unique users for each interval' do
-          day_1 = Highchart.convert_date('7/1/2012')
-          day_2 = Highchart.convert_date('7/4/2012')
-          day_3 = Highchart.convert_date('7/11/2012')
-          day_4 = Highchart.convert_date('7/19/2012')
-          day_5 = Highchart.convert_date('7/21/2012')
-          day_6 = Highchart.convert_date('7/31/2012')
-
-          # All 4 create multiple -----------------------------------------
-          day_1_john_3   = FactoryGirl.create_list :act, 3, demo: demo, created_at: day_1, user: john
-          day_1_paul_2   = FactoryGirl.create_list :act, 2, demo: demo, created_at: day_1, user: paul
-          day_1_george_5 = FactoryGirl.create_list :act, 5, demo: demo, created_at: day_1, user: george
-          day_1_ringo_1  = FactoryGirl.create_list :act, 1, demo: demo, created_at: day_1, user: ringo
-
-          acts_hash[day_1] = day_1_john_3 + day_1_paul_2 + day_1_george_5 + day_1_ringo_1
-
-          # All 4 create one each -----------------------------------------
-          day_2_john_1   = FactoryGirl.create_list :act, 1, demo: demo, created_at: day_2, user: john
-          day_2_paul_1   = FactoryGirl.create_list :act, 1, demo: demo, created_at: day_2, user: paul
-          day_2_george_1 = FactoryGirl.create_list :act, 1, demo: demo, created_at: day_2, user: george
-          day_2_ringo_1  = FactoryGirl.create_list :act, 1, demo: demo, created_at: day_2, user: ringo
-
-          acts_hash[day_2] = day_2_john_1 + day_2_paul_1 + day_2_george_1 + day_2_ringo_1
-
-          # Nothing for day_3 ----------------------------------------------
-
-          # 1 creates multiple and 1 creates 1 -------------------------------
-          day_4_john_5   = FactoryGirl.create_list :act, 5, demo: demo, created_at: day_4, user: john
-          day_4_paul_1   = FactoryGirl.create_list :act, 1, demo: demo, created_at: day_4, user: paul
-
-          acts_hash[day_4] = day_4_john_5 + day_4_paul_1
-
-          # 1 creates multiple -------------------------------
-          day_5_george_3 = FactoryGirl.create_list :act, 3, demo: demo, created_at: day_5, user: george
-
-          acts_hash[day_5] = day_5_george_3
-
-          # 1 creates 1 -------------------------------
-          day_6_ringo_1  = FactoryGirl.create_list :act, 1, demo: demo, created_at: day_6, user: ringo
-
-          acts_hash[day_6] = day_6_ringo_1
-
-          daily = Highchart::Daily.new(demo, '7/1/2012', '7/31/2012', true, true)
-          a_points, u_points = daily.data_points
-
-          # Calculations -------------------------------------
-          daily.calculate_number_per_time_interval(acts_hash)
-
-          # Read 'em and weep (Hopefully) -------------------
-          daily.num_acts_per_interval[day_1].should == 11
-          daily.num_users_per_interval[day_1].should == 4
-
-          daily.num_acts_per_interval[day_2].should == 4
-          daily.num_users_per_interval[day_2].should == 4
-
-          daily.num_acts_per_interval[day_3].should be_nil
-          daily.num_users_per_interval[day_3].should be_nil
-
-          daily.num_acts_per_interval[day_4].should == 6
-          daily.num_users_per_interval[day_4].should == 2
-
-          daily.num_acts_per_interval[day_5].should == 3
-          daily.num_users_per_interval[day_5].should == 1
-
-          daily.num_acts_per_interval[day_6].should == 1
-          daily.num_users_per_interval[day_6].should == 1
-        end
-      end
     end
 
     # The weekly plot gets a little confusing, so here's a visual representation of what we are dealing with.
@@ -383,7 +225,236 @@ Su	Mo	Tu	We	Th	Fr	Sa
           grouped_acts.keys.count.should == 3
         end
       end
+    end
+  end
 
+  # These tests require a more complex and time-consuming set-up than the others, hence the separate context.
+  # For those same reasons, two methods are tested in each Hourly/Daily/Weekly test:
+  # 1) 'calculate_number_per_time_interval' : Each Hourly/Daily/Weekly child-class is responsible for implementing
+  #     this method. The test ensures that given a hash of time-interval keys with an array of associated
+  #     acts as values, it groups/reports the number-of-acts and number-of-unique-users for each day or hour.
+  # 2) 'data_points' : Implemented at the Chart parent-class level, this method is responsible for the end-to-end
+  #                    orchestration of producing the x/y values to plot given a demo and start/end dates.
+  #
+  context 'End-to-End Calculations' do
+    let(:john)   { FactoryGirl.create :user, demo: demo }
+    let(:paul)   { FactoryGirl.create :user, demo: demo }
+    let(:george) { FactoryGirl.create :user, demo: demo }
+    let(:ringo)  { FactoryGirl.create :user, demo: demo }
+
+    let(:acts_hash) { {} }
+
+    # Dealing with arrays of point, i.e. [ [x,y], [x,y], ... [x,y] ] => these values are array indices
+    let(:x) { 0 }
+    let(:y) { 1 }
+
+    Y = Struct.new(:acts, :users)  # Simplifies creating hash of expected values
+
+    describe 'Hourly' do
+      describe '#calculate_number_per_time_interval' do
+        it 'should report the correct number of acts and unique users for each interval' do
+
+          # Interestingly enough, the Daily and Weekly tests that use dates in July (i.e. Daylight Savings Time
+          # which results in an ActiveRecord offset of 4 hours in database records) pass.
+          #
+          # However, if you use a July date in this Hourly test it returns results that are off by 1 hour
+          # because we adjust for the EST/UTC time difference by adding 5 hours to our act objects.
+          #
+          # Bottom Line: Use a date that is not in Daylight Savings Time (March 11 thru November 4 for 2012)
+
+          day = Highchart.convert_date('11/11/2012')
+          hour_1  = day + 1.hour
+          hour_2  = day + 2.hours
+          hour_3  = day + 3.hours
+          hour_21 = day + 21.hours
+          hour_22 = day + 22.hours
+          hour_23 = day + 23.hours
+
+          # All 4 create multiple -----------------------------------------
+          hour_1_john_3   = FactoryGirl.create_list :act, 3, demo: demo, created_at: hour_1, user: john
+          hour_1_paul_2   = FactoryGirl.create_list :act, 2, demo: demo, created_at: hour_1, user: paul
+          hour_1_george_5 = FactoryGirl.create_list :act, 5, demo: demo, created_at: hour_1, user: george
+          hour_1_ringo_1  = FactoryGirl.create_list :act, 1, demo: demo, created_at: hour_1, user: ringo
+
+          acts_hash[hour_1] = hour_1_john_3 + hour_1_paul_2 + hour_1_george_5 + hour_1_ringo_1
+
+          # All 4 create one each -----------------------------------------
+          hour_2_john_1   = FactoryGirl.create_list :act, 1, demo: demo, created_at: hour_2, user: john
+          hour_2_paul_1   = FactoryGirl.create_list :act, 1, demo: demo, created_at: hour_2, user: paul
+          hour_2_george_1 = FactoryGirl.create_list :act, 1, demo: demo, created_at: hour_2, user: george
+          hour_2_ringo_1  = FactoryGirl.create_list :act, 1, demo: demo, created_at: hour_2, user: ringo
+
+          acts_hash[hour_2] = hour_2_john_1 + hour_2_paul_1 + hour_2_george_1 + hour_2_ringo_1
+
+          # Nothing for hour_3 ----------------------------------------------
+
+          # 1 creates multiple and 1 creates 1 -------------------------------
+          hour_21_john_5   = FactoryGirl.create_list :act, 5, demo: demo, created_at: hour_21, user: john
+          hour_21_paul_1   = FactoryGirl.create_list :act, 1, demo: demo, created_at: hour_21, user: paul
+
+          acts_hash[hour_21] = hour_21_john_5 + hour_21_paul_1
+
+          # 1 creates multiple -------------------------------
+          hour_22_george_3 = FactoryGirl.create_list :act, 3, demo: demo, created_at: hour_22, user: george
+
+          acts_hash[hour_22] = hour_22_george_3
+
+          # 1 creates 1 -------------------------------
+          hour_23_ringo_1  = FactoryGirl.create_list :act, 1, demo: demo, created_at: hour_23, user: ringo
+
+          acts_hash[hour_23] = hour_23_ringo_1
+
+          # Create an Hourly object to process these acts
+          hourly = Highchart::Hourly.new(demo, '11/11/2012', '11/11/2012', true, true)
+
+          # TEST 1 : Parent-class-implemented, grand-orchestrator method
+          act_points, user_points = hourly.data_points
+
+          # Dealing with arrays of points, i.e. [ [x,y], [x,y], ... [x,y] ]
+          # x = 0 and y = 1 are pre-defined index constants ; Y is a struct of (:acts, :users)
+          #
+          # Keys are x-values we are expecting y-values for. Define these expected (act, user) y-values.
+          # For all other x-values both the 'act' and 'user' y-value should be 0.
+          y_values = Hash[1  => Y.new(11, 4),
+                          2  => Y.new(4, 4),
+                          21 => Y.new(6, 2),
+                          22 => Y.new(3, 1),
+                          23 => Y.new(1, 1)]
+          y_values.default = Y.new(0, 0)
+
+          0.upto(23) do |hour|
+            act_points[hour][x].should == hour
+            user_points[hour][x].should == hour
+
+            act_points[hour][y].should == y_values[hour].acts
+            user_points[hour][y].should == y_values[hour].users
+          end
+
+          # TEST 2 : Child-class-implemented, smaller-piece-of-the-puzzle method
+          hourly.calculate_number_per_time_interval(acts_hash)
+
+          # Read 'em and weep (Hopefully) -------------------
+          hourly.num_acts_per_interval[hour_1].should == 11
+          hourly.num_users_per_interval[hour_1].should == 4
+
+          hourly.num_acts_per_interval[hour_2].should == 4
+          hourly.num_users_per_interval[hour_2].should == 4
+
+          hourly.num_acts_per_interval[hour_3].should be_nil
+          hourly.num_users_per_interval[hour_3].should be_nil
+
+          hourly.num_acts_per_interval[hour_21].should == 6
+          hourly.num_users_per_interval[hour_21].should == 2
+
+          hourly.num_acts_per_interval[hour_22].should == 3
+          hourly.num_users_per_interval[hour_22].should == 1
+
+          hourly.num_acts_per_interval[hour_23].should == 1
+          hourly.num_users_per_interval[hour_23].should == 1
+        end
+      end
+    end
+
+    describe 'Daily' do
+      describe '#calculate_number_per_time_interval' do
+        it 'should report the correct number of acts and unique users for each interval' do
+          day_1 = Highchart.convert_date('7/1/2012')
+          day_2 = Highchart.convert_date('7/4/2012')
+          day_3 = Highchart.convert_date('7/11/2012')
+          day_4 = Highchart.convert_date('7/19/2012')
+          day_5 = Highchart.convert_date('7/21/2012')
+          day_6 = Highchart.convert_date('7/31/2012')
+
+          # All 4 create multiple -----------------------------------------
+          day_1_john_3   = FactoryGirl.create_list :act, 3, demo: demo, created_at: day_1, user: john
+          day_1_paul_2   = FactoryGirl.create_list :act, 2, demo: demo, created_at: day_1, user: paul
+          day_1_george_5 = FactoryGirl.create_list :act, 5, demo: demo, created_at: day_1, user: george
+          day_1_ringo_1  = FactoryGirl.create_list :act, 1, demo: demo, created_at: day_1, user: ringo
+
+          acts_hash[day_1] = day_1_john_3 + day_1_paul_2 + day_1_george_5 + day_1_ringo_1
+
+          # All 4 create one each -----------------------------------------
+          day_2_john_1   = FactoryGirl.create_list :act, 1, demo: demo, created_at: day_2, user: john
+          day_2_paul_1   = FactoryGirl.create_list :act, 1, demo: demo, created_at: day_2, user: paul
+          day_2_george_1 = FactoryGirl.create_list :act, 1, demo: demo, created_at: day_2, user: george
+          day_2_ringo_1  = FactoryGirl.create_list :act, 1, demo: demo, created_at: day_2, user: ringo
+
+          acts_hash[day_2] = day_2_john_1 + day_2_paul_1 + day_2_george_1 + day_2_ringo_1
+
+          # Nothing for day_3 ----------------------------------------------
+
+          # 1 creates multiple and 1 creates 1 -------------------------------
+          day_4_john_5   = FactoryGirl.create_list :act, 5, demo: demo, created_at: day_4, user: john
+          day_4_paul_1   = FactoryGirl.create_list :act, 1, demo: demo, created_at: day_4, user: paul
+
+          acts_hash[day_4] = day_4_john_5 + day_4_paul_1
+
+          # 1 creates multiple -------------------------------
+          day_5_george_3 = FactoryGirl.create_list :act, 3, demo: demo, created_at: day_5, user: george
+
+          acts_hash[day_5] = day_5_george_3
+
+          # 1 creates 1 -------------------------------
+          day_6_ringo_1  = FactoryGirl.create_list :act, 1, demo: demo, created_at: day_6, user: ringo
+
+          acts_hash[day_6] = day_6_ringo_1
+
+          # Create a Daily object to process these acts
+          daily = Highchart::Daily.new(demo, '7/1/2012', '7/31/2012', true, true)
+
+          # TEST 1 : Parent-class-implemented, grand-orchestrator method
+          act_points, user_points = daily.data_points
+
+          # Dealing with arrays of points, i.e. [ [x,y], [x,y], ... [x,y] ]
+          # x = 0 and y = 1 are pre-defined index constants ; Y is a struct of (:acts, :users)
+          #
+          # Keys are x-values we are expecting y-values for. Define these expected (act, user) y-values.
+          # For all other x-values both the 'act' and 'user' y-value should be 0.
+          y_values = Hash[day_1 => Y.new(11, 4),
+                          day_2 => Y.new(4, 4),
+                          day_4 => Y.new(6, 2),
+                          day_5 => Y.new(3, 1),
+                          day_6 => Y.new(1, 1)]
+          y_values.default = Y.new(0, 0)
+
+          i = 0  # No 'each_with_index' available for DateTimes. (Don't see why not...)
+          (day_1..day_6).each do |day|
+            act_points[i][x].should  == day
+            user_points[i][x].should == day
+
+            act_points[i][y].should  == y_values[day].acts
+            user_points[i][y].should == y_values[day].users
+
+            i += 1
+          end
+          i.should == 31  # Make sure cycled through all 31 days so as to test default values of 0, as they get plotted, too
+
+          # TEST 2 : Child-class-implemented, smaller-piece-of-the-puzzle method
+          daily.calculate_number_per_time_interval(acts_hash)
+
+          # Read 'em and weep (Hopefully) -------------------
+          daily.num_acts_per_interval[day_1].should == 11
+          daily.num_users_per_interval[day_1].should == 4
+
+          daily.num_acts_per_interval[day_2].should == 4
+          daily.num_users_per_interval[day_2].should == 4
+
+          daily.num_acts_per_interval[day_3].should be_nil
+          daily.num_users_per_interval[day_3].should be_nil
+
+          daily.num_acts_per_interval[day_4].should == 6
+          daily.num_users_per_interval[day_4].should == 2
+
+          daily.num_acts_per_interval[day_5].should == 3
+          daily.num_users_per_interval[day_5].should == 1
+
+          daily.num_acts_per_interval[day_6].should == 1
+          daily.num_users_per_interval[day_6].should == 1
+        end
+      end
+    end
+
+    describe 'Weekly' do
       describe '#calculate_number_per_time_interval' do
         it 'should report the correct number of acts and unique users for each interval' do
           week_1 = Highchart.convert_date('7/21/2012')
@@ -458,10 +529,38 @@ Su	Mo	Tu	We	Th	Fr	Sa
 
           acts_hash[week_6] = week_6_ringo_1_x_7
 
+          # Create an Weekly object to process these acts
           weekly = Highchart::Weekly.new(demo, '7/21/2012', '9/1/2012', true, true)
-          a_points, u_points = weekly.data_points
 
-          # Calculations -------------------------------------
+          # TEST 1 : Parent-class-implemented, grand-orchestrator method
+          act_points, user_points = weekly.data_points
+
+          # Dealing with arrays of points, i.e. [ [x,y], [x,y], ... [x,y] ]
+          # x = 0 and y = 1 are pre-defined index constants ; Y is a struct of (:acts, :users)
+          #
+          # Keys are x-values we are expecting y-values for. Define these expected (act, user) y-values.
+          # For all other x-values both the 'act' and 'user' y-value should be 0.
+          y_values = Hash[week_1 => Y.new(77, 4),
+                          week_2 => Y.new(28, 4),
+                          week_4 => Y.new(42, 2),
+                          week_5 => Y.new(21, 1),
+                          week_6 => Y.new(7, 1)]
+          y_values.default = Y.new(0, 0)
+
+          # Can't just step up to 'week_6' because that is '8/25/2012' => Step up to the actual end date (just like the code does)
+          i = 0
+          (week_1..Highchart.convert_date('9/1/2012').end_of_day).step(7) do |week|
+            act_points[i][x].should  == week
+            user_points[i][x].should == week
+
+            act_points[i][y].should  == y_values[week].acts
+            user_points[i][y].should == y_values[week].users
+
+            i += 1
+          end
+          i.should == 7  # Make sure cycled through all 7 weeks so as to test default values of 0, as they get plotted, too
+
+          # TEST 2 : Child-class-implemented, smaller-piece-of-the-puzzle method
           weekly.calculate_number_per_time_interval(acts_hash)
 
           # Read 'em and weep (Hopefully) -------------------
