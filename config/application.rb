@@ -38,6 +38,7 @@ module Health
       errors.css
       ga.js
       ga-marketing.js
+      flick/jquery-ui-1.8.10.custom.css
     )
 
     ################################################################
