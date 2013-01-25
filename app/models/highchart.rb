@@ -67,6 +67,9 @@ class Highchart
   end
 
   def self.chart(demo, interval, start_date, end_date, plot_acts, plot_users, label_points)
+
+    return nil if start_date.blank? or end_date.blank? or (plot_acts.nil? and plot_users.nil?)
+
     # 'chart' will be a new 'Hourly', 'Daily', or 'Weekly' object (defined below)
     chart = "Highchart::#{interval}".constantize.new(demo, start_date, end_date, plot_acts, plot_users)
 
