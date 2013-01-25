@@ -23,7 +23,7 @@ class ClientAdminsController < ClientAdminBaseController
                              params[:chart_end_date],
                              params[:chart_plot_acts],
                              params[:chart_plot_users],
-                             params[:chart_label_points])
+                             params[:chart_label_points]) unless params[:chart_start_date].blank? or params[:chart_end_date].blank?
     render :show
   end
 end
