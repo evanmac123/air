@@ -30,11 +30,11 @@ module ApplicationHelper
   end
 
   def master_bar_width
-    "width: #{current_user.percent_towards_next_threshold}%"
+    "width: #{current_user.to_ticket_progress_calculator.percent_towards_next_threshold}%"
   end
 
   def master_bar_point_content
-    "#{current_user.pretty_point_fraction} points"
+    "#{current_user.to_ticket_progress_calculator.pretty_point_fraction} points"
   end
 
   def consolidated_flash

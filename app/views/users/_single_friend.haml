@@ -1,6 +1,6 @@
 - this_is_me = current_user == single_friend ? 'this_is_me' : ''
 - max_progress = 72
-- progress_pixels = (single_friend.point_fraction * max_progress).round
+- progress_pixels = (single_friend.to_ticket_progress_calculator.point_fraction * max_progress).round
 - progress_pixels = max_progress if progress_pixels > max_progress
 - middle_width = progress_pixels - 14
 - max_name_length = 22

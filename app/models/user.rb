@@ -237,12 +237,6 @@ class User < ActiveRecord::Base
     return reason
   end
   
-  def points_to_next_unachieved_threshold
-    next_threshold = self.next_unachieved_threshold
-    return nil if next_threshold.nil?
-    next_threshold - self.points
-  end
-  
   module UpdatePasswordWithBlankForbidden
     def update_password(password)
       # See comment in user_spec for #update_password.
@@ -592,23 +586,9 @@ class User < ActiveRecord::Base
     potential_claim_code
   end
 
-  def point_fraction
-    point_denominator = self.demo.ticket_threshold
-    return 0.0 if point_denominator == 0
-
-    points = self.points_towards_next_threshold
-    points.to_f / point_denominator
-  end
-
-  def pretty_point_fraction
-    points = self.points_towards_next_threshold
-    point_denominator = self.demo.ticket_threshold
-    "#{points}/#{point_denominator}"
-  end
-
   def point_summary
     if self.demo.ticket_threshold > 0
-      "points #{self.pretty_point_fraction}"
+      "points #{self.to_ticket_progress_calculator.pretty_point_fraction}"
     else
       "points #{self.points}"
     end
@@ -716,22 +696,6 @@ class User < ActiveRecord::Base
       :followed_user_name => self.name
     )
   end
-  
-  def points_denominator
-    next_point_goal
-  end
-
-  def last_point_goal
-    (points - ticket_threshold_base) - ((points - ticket_threshold_base) % demo.ticket_threshold)
-  end
-
-  def next_point_goal
-    last_point_goal + demo.ticket_threshold
-  end
-
-  def ticket_threshold_base
-    read_attribute(:ticket_threshold_base) || 0
-  end
 
   def satisfy_tiles_by_survey(survey_or_survey_id, channel)
     satisfiable_tiles = Tile.satisfiable_by_survey_to_user(survey_or_survey_id, self)
@@ -751,23 +715,6 @@ class User < ActiveRecord::Base
         tile.satisfy_for_user!(self, channel) if tile.all_rule_triggers_satisfied_to_user(self)
       end
     end
-  end
-
-  def points_towards_next_threshold
-    points - last_point_goal - ticket_threshold_base
-  end
-
-  def percent_towards_next_threshold
-    return 100.0 unless next_point_goal
-
-    numerator = self.points - last_point_goal
-    return 0.0 if numerator == 0
-  
-    denominator = demo.ticket_threshold
-
-    percent = (numerator.to_f / denominator.to_f * 100).round(2)
-
-    percent > 100 ? 100.0 : percent
   end
 
   def email_with_name
@@ -969,8 +916,8 @@ class User < ActiveRecord::Base
     end
   end
 
-  def flush_tickets
-    update_attributes(tickets: 0, ticket_threshold_base: points)  
+  def to_ticket_progress_calculator
+    User::TicketProgressCalculator.new(self)
   end
 
   def self.find_by_either_email(email)
