@@ -80,20 +80,16 @@ ul {list-style-position:outside; list-style-type:none; margin:0; padding:0;}
 			}
 
       .when {
-      	//border:1px lime solid;
         padding-right: .5em;
         width: auto;
       }
 
       .flag {
-      	//border:1px blue solid;
       	display:inline-block;
-        //padding-right:.9em;
         text-align: left;
         vertical-align: middle;
         a {
-        	background:url('client_admin/sprites.png') -96px -56px no-repeat transparent;
-      		//border:1px red solid;
+        	background:image-url('client_admin/sprites.png') -96px -56px no-repeat transparent;
         	display:inline-block;
         	height:14px;
     		width:14px;
