@@ -80,18 +80,26 @@ ul {list-style-position:outside; list-style-type:none; margin:0; padding:0;}
 			}
 
       .when {
-        padding-right: 5%;
-        width: 40%;
+      	//border:1px lime solid;
+        padding-right: .5em;
+        width: auto;
       }
 
       .flag {
-        padding-right:.9em;
-        text-align: right;
+      	//border:1px blue solid;
+      	display:inline-block;
+        //padding-right:.9em;
+        text-align: left;
+        vertical-align: middle;
         a {
-        	color:$light-gray;
-        	font-weight:300;
-        	letter-spacing: .15em;
-        	&:hover{color:$gray;}
+        	background:url('client_admin/sprites.png') -96px -56px no-repeat transparent;
+      		//border:1px red solid;
+        	display:inline-block;
+        	height:14px;
+    		width:14px;
+        	&:hover{
+        		background-position:-119px -56px;
+        	}
         }
       }
 		}
