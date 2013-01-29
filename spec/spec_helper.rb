@@ -98,4 +98,4 @@ end
 
 Rails.logger.level = 4
 
-require Rails.root.join('features/support/fake_s3')
+#require Rails.root.join('features/support/fake_s3')
