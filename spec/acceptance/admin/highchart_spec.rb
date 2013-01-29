@@ -41,13 +41,18 @@ feature 'Highchart Plot' do
     find('.highcharts-legend')
   end
 
-  # Highcharts assigns the same class to x and y axis labels, but that's okay because we only need to check the x axis
   def x_axis
-    find('.highcharts-axis-labels')
+    find('.highcharts-legend + .highcharts-axis-labels')
   end
 
-  def points
+  def act_labels
     find('.highcharts-data-labels')
+  end
+
+  def user_labels
+    # If acts and users are both plotted the 1st set of labels is always for the acts and the 2nd is always for the users
+    page.has_css?('.highcharts-data-labels', count: 2) ? find('.highcharts-data-labels + .highcharts-data-labels') :
+                                                         find('.highcharts-data-labels')
   end
 
   # -------------------------------------------------
@@ -156,6 +161,7 @@ feature 'Highchart Plot' do
 
     # -------------------------------------------------
 
+    # Let them know if they did not supply enough parameters to plot something
     scenario 'Error Message' do
       click_button 'Show'
       should_be_error_message
@@ -176,6 +182,11 @@ feature 'Highchart Plot' do
 
   # -------------------------------------------------
 
+  # The basic (and big) problem is that Capybara does not recognize non-html tags, i.e. all of the svg tags in the plot.
+  # We can, however, test the label values on the points. But in order to know if we have "selected" the correct points,
+  # the set of points (i.e. y values) for acts and users must be mutually exclusive. Even to the point of no intersection
+  # of numerals, e.g. an '11' for acts is not allowed because there is a '1' for users. ^%$#@!
+
   context 'Plotted Points', js: :webkit  do
     let(:john)   { FactoryGirl.create :user, demo: demo }
     let(:paul)   { FactoryGirl.create :user, demo: demo }
@@ -189,8 +200,6 @@ feature 'Highchart Plot' do
     # -------------------------------------------------
 
     background do
-      acts_hash = {}
-
       # Days with activities in them
       day_12_25 = Highchart.convert_date('12/25/2012')
       day_12_29 = Highchart.convert_date('12/29/2012')
@@ -200,45 +209,42 @@ feature 'Highchart Plot' do
       day_1_16  = Highchart.convert_date('1/16/2013')
 
       # All 4 create multiple -----------------------------------------
-      day_12_25_john_3   = FactoryGirl.create_list :act, 3, demo: demo, created_at: day_12_25, user: john
-      day_12_25_paul_2   = FactoryGirl.create_list :act, 2, demo: demo, created_at: day_12_25, user: paul
-      day_12_25_george_5 = FactoryGirl.create_list :act, 5, demo: demo, created_at: day_12_25, user: george
-      day_12_25_ringo_1  = FactoryGirl.create_list :act, 1, demo: demo, created_at: day_12_25, user: ringo
+      FactoryGirl.create_list :act, 3, demo: demo, created_at: day_12_25, user: john
+      FactoryGirl.create_list :act, 2, demo: demo, created_at: day_12_25, user: paul
+      FactoryGirl.create_list :act, 2, demo: demo, created_at: day_12_25, user: george
+      FactoryGirl.create_list :act, 2, demo: demo, created_at: day_12_25, user: ringo
 
-      acts_hash[day_12_25] = day_12_25_john_3 + day_12_25_paul_2 + day_12_25_george_5 + day_12_25_ringo_1
-
-      # All 4 create one each -----------------------------------------
-      day_12_29_john_1   = FactoryGirl.create_list :act, 1, demo: demo, created_at: day_12_29, user: john
-      day_12_29_paul_1   = FactoryGirl.create_list :act, 1, demo: demo, created_at: day_12_29, user: paul
-      day_12_29_george_1 = FactoryGirl.create_list :act, 1, demo: demo, created_at: day_12_29, user: george
-      day_12_29_ringo_1  = FactoryGirl.create_list :act, 1, demo: demo, created_at: day_12_29, user: ringo
-
-      acts_hash[day_12_29] = day_12_29_john_1 + day_12_29_paul_1 + day_12_29_george_1 + day_12_29_ringo_1
+      # 3 create 1 and 1 creates multiple -----------------------------------------
+      FactoryGirl.create_list :act, 1, demo: demo, created_at: day_12_29, user: john
+      FactoryGirl.create_list :act, 4, demo: demo, created_at: day_12_29, user: paul
+      FactoryGirl.create_list :act, 1, demo: demo, created_at: day_12_29, user: george
+      FactoryGirl.create_list :act, 1, demo: demo, created_at: day_12_29, user: ringo
 
       # 2 create multiple and 1 creates 1 ----------------------------------------------
-      day_12_31_john_4   = FactoryGirl.create_list :act, 4, demo: demo, created_at: day_12_31, user: john
-      day_12_31_paul_4   = FactoryGirl.create_list :act, 4, demo: demo, created_at: day_12_31, user: paul
-      day_12_31_george_1 = FactoryGirl.create_list :act, 1, demo: demo, created_at: day_12_31, user: george
-
-      acts_hash[day_12_31] = day_12_31_john_4 + day_12_31_paul_4 + day_12_31_george_1
+      FactoryGirl.create_list :act, 4, demo: demo, created_at: day_12_31, user: john
+      FactoryGirl.create_list :act, 4, demo: demo, created_at: day_12_31, user: paul
+      FactoryGirl.create_list :act, 1, demo: demo, created_at: day_12_31, user: george
 
       # 1 creates multiple and 1 creates 1 -------------------------------
-      day_1_1_john_5   = FactoryGirl.create_list :act, 5, demo: demo, created_at: day_1_1, user: john
-      day_1_1_paul_1   = FactoryGirl.create_list :act, 1, demo: demo, created_at: day_1_1, user: paul
-
-      acts_hash[day_1_1] = day_1_1_john_5 + day_1_1_paul_1
+      FactoryGirl.create_list :act, 5, demo: demo, created_at: day_1_1, user: john
+      FactoryGirl.create_list :act, 1, demo: demo, created_at: day_1_1, user: paul
 
       # 1 creates multiple -------------------------------
-      day_1_2_george_3 = FactoryGirl.create_list :act, 3, demo: demo, created_at: day_1_2, user: george
+      FactoryGirl.create_list :act, 8, demo: demo, created_at: day_1_2, user: george
 
-      acts_hash[day_1_2] = day_1_2_george_3
-
-      # 1 creates 1 -------------------------------
-      day_1_16_ringo_1  = FactoryGirl.create_list :act, 1, demo: demo, created_at: day_1_16, user: ringo
-
-      acts_hash[day_1_16] = day_1_16_ringo_1
+      # 2 create multiple -------------------------------
+      FactoryGirl.create_list :act, 2, demo: demo, created_at: day_1_16, user: john
+      FactoryGirl.create_list :act, 3, demo: demo, created_at: day_1_16, user: ringo
     end
 
+    # When all is said and done:
+    #
+    # 12/25: 9 acts by 4 users
+    # 12/29: 7 acts by 4 users
+    # 12/31: 9 acts by 3 users
+    # 1/1:   6 acts by 2 users
+    # 1/2:   8 acts by 1 users
+    # 12/25: 5 acts by 2 users
     # -------------------------------------------------
 
     scenario 'Daily' do
@@ -246,18 +252,18 @@ feature 'Highchart Plot' do
       check 'Unique users'
 
       set_start_date start_date
-      set_end_date end_date
+      set_end_date   end_date
 
       set_plot_interval 'Daily'
       set_label_points 'All points'
 
       click_button 'Show'
 
-      # Put these statements in for debugging screenshots. Need to sleep for a bit to give lines time to be drawn.
+      # Put these statements in for debugging screenshots. (Need to sleep for a bit to give lines time to be drawn.)
       #sleep 1
       #show_me_some_love
 
-      title.should have_content 'Talk to the Duck'
+      title.should have_content "H Engage Chart For #{demo.name}"
       subtitle.should have_content "#{date_subtitle(start_date)} through #{date_subtitle(end_date)} : By Day"
 
       legend.should have_content 'Acts'
@@ -267,18 +273,65 @@ feature 'Highchart Plot' do
       ['Dec. 26', 'Dec. 30', 'Jan. 01', 'Jan. 15'].each { |day| x_axis.should     have_content day }
       ['Dec. 20', 'Dec. 24', 'Jan. 17', 'Jan. 18'].each { |day| x_axis.should_not have_content day }
 
-      %w(4 11 9 6 3).each { |y| points.should have_content y }
+      # Many 0's exist for both acts and users
+      act_labels.should  have_content '0'
+      user_labels.should have_content '0'
+
+      # Make sure no invalid points (within reason, of course)
+      %w(10 11 12).each { |y| act_labels.should_not  have_content y }
+      %w(5 6 7).each    { |y| user_labels.should_not have_content y }
+
+      # Valid points, i.e. labels
+      act_points  = %w(5 6 7 8 9)
+      user_points = %w(1 2 3 4)
+
+      act_points.each  { |y| act_labels.should  have_content y }
+      user_points.each { |y| user_labels.should have_content y }
 
       uncheck 'Total activity'
       click_button 'Show'
+
       legend.should_not have_content 'Acts'
       legend.should     have_content 'Users'
+
+      act_points.each  { |y| act_labels.should_not have_content y }
+      user_points.each { |y| user_labels.should    have_content y }
 
       check 'Total activity'
       uncheck 'Unique users'
       click_button 'Show'
+
       legend.should     have_content 'Acts'
       legend.should_not have_content 'Users'
+
+      act_points.each  { |y| act_labels.should      have_content y }
+      user_points.each { |y| user_labels.should_not have_content y }
+
+      check 'Total activity'
+      uncheck 'Unique users'
+
+      set_label_points 'Every other'
+      click_button 'Show'
+
+      %w(5 7 8 9).each  { |y| act_labels.should      have_content y }
+      %w(6).each        { |y| act_labels.should_not  have_content y }
+
+      uncheck 'Total activity'
+      check   'Unique users'
+
+      set_label_points 'All points'
+      click_button 'Show'
+
+      show_me_some_love
+
+      set_label_points 'Every other'
+      click_button 'Show'
+
+      show_me_some_love
+
+      #%w(5 7 8 9).each  { |y| act_labels.should      have_content y }
+      #%w(6).each        { |y| act_labels.should_not  have_content y }
+
     end
 
     #scenario 'Plots' do
