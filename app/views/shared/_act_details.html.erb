@@ -14,8 +14,6 @@
 <span class="flag">
   <%= link_to "", "#", :id => flag_link_id %>
 </span>
-<% content_for :javascript do %>
-  <%= javascript_tag do %>
-    connectFlagLink('<%= flag_link_id %>', <%= act.id %>, <%= act.user_id %>)
-  <% end %>
+<%= javascript_tag do %>
+  connectFlagLink('<%= flag_link_id %>', <%= act.id %>, <%= act.user_id %>)
 <% end %>

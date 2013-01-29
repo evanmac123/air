@@ -1,9 +1,19 @@
 require 'acceptance/acceptance_helper'
 
 feature 'User flags act' do
-  def click_flag_icon
-    flag_link = page.find(:css, 'span.flag a')
+  def click_flag_icon(act = nil)
+    link_path = if act
+                  link_path_for_act(act)
+                else
+                  'span.flag a'
+                end
+
+    flag_link = page.find(:css, link_path)
     flag_link.click
+  end
+
+  def link_path_for_act(act)
+    "a#flag_#{act.id}"
   end
 
   before do
@@ -13,18 +23,39 @@ feature 'User flags act' do
     @act = FactoryGirl.create(:act, user: @cheating_user, text: "Hey kids!")
 
     bypass_modal_overlays(@user)
-    visit activity_path(as: @user)
-    click_flag_icon
   end
 
-  scenario 'and it gets reported to Mixpanel', js: true do
-    expected_mixpanel_properties = {
-      user_id:    @user.id,
-      suspect_id: @cheating_user.id,
-      act_id:     @act.id
-    }
+  context "when the act is on the first page" do
+    before do
+      visit activity_path(as: @user)
+    end
 
-    crank_dj_clear
-    FakeMixpanelTracker.events_matching("flagged act").should be_present#, expected_mixpanel_properties).should be_present
+    scenario 'it gets reported to Mixpanel', js: true do
+      click_flag_icon
+      crank_dj_clear
+      FakeMixpanelTracker.events_matching("flagged act").should be_present
+    end
+  end
+
+  context "when the act is on a later page" do
+    before do
+      extra_acts = []
+      15.downto(1) do |i|
+        extra_acts << FactoryGirl.create(:act, user: @cheating_user, text: "Hey kids!", created_at: Time.now - i.minutes)
+      end
+
+      @second_page_act = extra_acts.first
+      visit activity_path(as: @user)
+    end
+
+    scenario 'it gets reported to Mixpanel', js: true do
+      page.all(:css, link_path_for_act(@second_page_act)).should be_empty
+
+      click_link "see-more"
+      click_flag_icon @second_page_act
+
+      crank_dj_clear
+      FakeMixpanelTracker.events_matching("flagged act").should be_present
+    end
   end
 end
