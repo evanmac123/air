@@ -1,6 +1,11 @@
 require 'acceptance/acceptance_helper'
 
 feature 'User flags act' do
+  def click_flag_icon
+    flag_link = page.find(:css, 'span.flag a')
+    flag_link.click
+  end
+
   before do
     @demo = FactoryGirl.create(:demo)
     @cheating_user = FactoryGirl.create(:user, demo: @demo, privacy_level: 'everybody')
@@ -9,7 +14,7 @@ feature 'User flags act' do
 
     bypass_modal_overlays(@user)
     visit activity_path(as: @user)
-    click_link "Flag"
+    click_flag_icon
   end
 
   scenario 'and it gets reported to Mixpanel', js: true do
@@ -21,11 +26,5 @@ feature 'User flags act' do
 
     crank_dj_clear
     FakeMixpanelTracker.events_matching("flagged act").should be_present#, expected_mixpanel_properties).should be_present
-  end
-
-  scenario 'and the link text changes', js: true do
-    within '.flag' do
-      expect_content 'Flagged'
-    end
   end
 end
