@@ -58,6 +58,8 @@ feature 'Highchart Plot' do
     click_link "Admin"
   end
 
+  # -------------------------------------------------
+
   context 'Controls Only (No Plotted Points)', js: :webkit  do
     def start_date_value
       find('#chart_start_date').value
@@ -67,14 +69,67 @@ feature 'Highchart Plot' do
       find('#chart_end_date').value
     end
 
+    def total_activity
+      find '#chart_plot_acts'
+    end
+
+    def unique_users
+      find '#chart_plot_users'
+    end
+
+    def interval_should_be(interval)
+      page.should have_select 'chart_interval', selected: interval
+    end
+
+    def label_should_be(label)
+      page.should have_select 'chart_label_points', selected: label
+    end
+
     def should_be_error_message(boolean = true)
       err_msg = 'You did not supply the necessary plot parameters. Please check and try again.'
       boolean ? (page.should have_content(err_msg)) : (page.should_not have_content(err_msg))
     end
 
-    scenario 'Control Initialization' do
+    # -------------------------------------------------
 
+    scenario 'Control Initialization and Retaining Values' do
+      # Initial state
+      total_activity.checked?.should be_false
+      unique_users.checked?.should be_false
+
+      start_date_value.should be_blank
+      end_date_value.should be_blank
+
+      interval_should_be 'Weekly'
+      label_should_be 'All points'
+
+      # Interact with the controls
+      check 'Total activity'
+      check 'Unique users'
+
+      set_start_date(start_date)
+      set_end_date(end_date)
+
+      set_plot_interval 'Daily'
+      set_label_points 'Every other'
+
+      click_button 'Show'
+
+      # Controls should reflect most-recent selections
+      total_activity.checked?.should be_true
+      unique_users.checked?.should be_true
+
+      start_date_value.should == start_date
+      end_date_value.should == end_date
+
+      interval_should_be 'Daily'
+      label_should_be 'Every other'
+
+      # And finally, make sure page contains the highchart-button to save chart to an image file
+      page.should have_selector '#exportButton'
     end
+
+    # -------------------------------------------------
 
     # Basically, start- and end-dates should be kept in synch when in 'Hourly' mode (only)
     scenario 'Date Control Synchronization' do
@@ -99,6 +154,8 @@ feature 'Highchart Plot' do
       start_date_value.should == start_date
     end
 
+    # -------------------------------------------------
+
     scenario 'Error Message' do
       click_button 'Show'
       should_be_error_message
@@ -117,6 +174,8 @@ feature 'Highchart Plot' do
     end
   end
 
+  # -------------------------------------------------
+
   context 'Plotted Points', js: :webkit  do
     let(:john)   { FactoryGirl.create :user, demo: demo }
     let(:paul)   { FactoryGirl.create :user, demo: demo }
@@ -126,6 +185,8 @@ feature 'Highchart Plot' do
     def date_subtitle(date)
       Highchart.convert_date(date).to_s(:chart_subtitle_range)
     end
+
+    # -------------------------------------------------
 
     background do
       acts_hash = {}
@@ -178,13 +239,14 @@ feature 'Highchart Plot' do
       acts_hash[day_1_16] = day_1_16_ringo_1
     end
 
-    # No chart is generated using 'poltergeist' => Need to use 'webkit'
-    scenario 'Headings' do
+    # -------------------------------------------------
+
+    scenario 'Daily' do
       check 'Total activity'
       check 'Unique users'
 
       set_start_date start_date
-      set_end_date   end_date
+      set_end_date end_date
 
       set_plot_interval 'Daily'
       set_label_points 'All points'
@@ -195,17 +257,28 @@ feature 'Highchart Plot' do
       #sleep 1
       #show_me_some_love
 
-      page.should have_selector '#exportButton'  # Save chart to image file
-
       title.should have_content 'Talk to the Duck'
       subtitle.should have_content "#{date_subtitle(start_date)} through #{date_subtitle(end_date)} : By Day"
 
       legend.should have_content 'Acts'
       legend.should have_content 'Users'
 
-      ['Dec. 26', 'Dec. 30', 'Jan. 01', 'Jan. 15'].each { |day| x_axis.should have_content day }
+      # Make sure the day labels are correct (both content and format) and that days outside the range are not present
+      ['Dec. 26', 'Dec. 30', 'Jan. 01', 'Jan. 15'].each { |day| x_axis.should     have_content day }
+      ['Dec. 20', 'Dec. 24', 'Jan. 17', 'Jan. 18'].each { |day| x_axis.should_not have_content day }
 
       %w(4 11 9 6 3).each { |y| points.should have_content y }
+
+      uncheck 'Total activity'
+      click_button 'Show'
+      legend.should_not have_content 'Acts'
+      legend.should     have_content 'Users'
+
+      check 'Total activity'
+      uncheck 'Unique users'
+      click_button 'Show'
+      legend.should     have_content 'Acts'
+      legend.should_not have_content 'Users'
     end
 
     #scenario 'Plots' do
