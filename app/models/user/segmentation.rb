@@ -56,6 +56,13 @@ class User
       self.schedule_segmentation_create
     end
 
+    def schedule_segmentation_update(force = false)
+      return unless force || FIELDS_TRIGGERING_SEGMENTATION_UPDATE.any?{|field_name| changed.include?(field_name)}
+
+      self.delay(priority: SEGMENTATION_UPDATE_PRIORITY).update_segmentation_info(force)
+    end
+
+
     def self.rebuild_all_segmentation_data!
       User.all.each(&:"rebuild_segmentation_data!")
     end
@@ -73,12 +80,6 @@ class User
 
     def schedule_segmentation_create
       self.delay(priority: SEGMENTATION_CREATE_PRIORITY).create_segmentation_info
-    end
-
-    def schedule_segmentation_update(force = false)
-      return unless force || FIELDS_TRIGGERING_SEGMENTATION_UPDATE.any?{|field_name| changed.include?(field_name)}
-
-      self.delay(priority: SEGMENTATION_UPDATE_PRIORITY).update_segmentation_info(force)
     end
 
     def create_segmentation_info

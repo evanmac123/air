@@ -28,11 +28,56 @@ class FakeS3App < Sinatra::Base
   end
 end
 
-ShamRack.at('s3.amazonaws.com', 443).rackup do
-  run FakeS3App
+[
+  ['s3.amazonaws.com', 80],
+  ['s3.amazonaws.com', 443]
+].each do |location|
+  ShamRack.at(*location).rackup {run FakeS3App}
 end
 
+# This is a mock for classes that use the AWS::SDK S3 API.
 
-ShamRack.at('hengage-avatars-development.s3.amazonaws.com', 443).rackup do
-  run FakeS3App
+class MockS3
+  class MockS3Object
+    def initialize(file_path, chunk_size)
+      @file_path = file_path
+      @chunk_size = chunk_size
+    end
+
+    def read
+      if @chunk_size && block_given?
+        File.open(@file_path, "r") do |file|
+          while (buffer = file.read(@chunk_size))
+            yield buffer
+          end
+        end
+      else
+        File.read(@file_path)
+      end
+    end
+  end
+
+  def initialize
+    @objects = {}
+  end
+
+  def buckets
+    self
+  end
+
+  def [](_ignored)
+    self
+  end
+
+  def mount_file(object_key, file_path, chunk_size = nil)
+    @objects[object_key] = MockS3Object.new(file_path, chunk_size)
+  end
+
+  attr_reader :objects
+
+  def self.install
+    mock_s3 = self.new
+    AWS::S3.stubs(:new).returns(mock_s3)
+    mock_s3
+  end
 end

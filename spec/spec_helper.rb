@@ -97,5 +97,3 @@ def metal_testing_hack(klass)
 end
 
 Rails.logger.level = 4
-
-#require Rails.root.join('features/support/fake_s3')
