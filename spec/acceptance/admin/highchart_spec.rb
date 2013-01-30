@@ -156,7 +156,7 @@ feature 'Highchart Plot' do
 
   # -------------------------------------------------
 
-  # The basic (and big) problem is that Capybara does not recognize non-html tags, i.e. all of the svg tags in the plot.
+  # The basic - and big - problem is that Capybara does not recognize non-html tags, i.e. all of the svg tags in the plot.
   # We can, however, test the label values on the points. But in order to know if we have "selected" the correct points,
   # the set of points (i.e. y values) for acts and users must be mutually exclusive - even to the point of no intersection
   # of numerals, e.g. an '11' for acts is not allowed because there is a '1' for users. ^%$#@!
@@ -267,6 +267,7 @@ feature 'Highchart Plot' do
       FactoryGirl.create_list :act, 3, demo: demo, created_at: day_1_16, user: ringo
 
       # When all is said and done - set as instance variables tests implemented by helper methods
+      # (Remember, these two groups of numbers must be mutually exclusive in order for the tests to work)
       #
       # 12/25: 9 acts by 4 users
       # 12/29: 7 acts by 4 users
@@ -370,7 +371,7 @@ feature 'Highchart Plot' do
       FactoryGirl.create_list :act, 1, demo: demo, created_at: day_11_16, user: ringo
 
       # When all is said and done - set as instance variables tests implemented by helper methods
-      #
+      # (These 2 sets of numbers do *not* have to be mutually exclusive in order for the tests to work)
       # 11/11: 8 acts by 4 users
       # 11/12: 7 acts by 3 users
       # 11/13: 6 acts by 2 users
@@ -416,6 +417,319 @@ feature 'Highchart Plot' do
       # Labels for 2, 4 ; No labels for 1, 3
       2.step(4, 2) { |y| user_labels.should     have_content y.to_s }
       1.step(4, 2) { |y| user_labels.should_not have_content y.to_s }
+    end
+
+    # The weekly plot gets a little confusing, so here's a visual representation of what we are dealing with.
+    # Remember, the range is Dec. 25 thru Jan 16. These days were picked to not only straddle both a month
+    # and a year, but to test the weekly view's "problem end points."
+    #
+    # Specifically, the plot points and ranges are:
+    # Week 1: Dec 25 thru Dec 31 ; Dec 25 should contain 9 acts (25 - 3, 26 - 2, 29 - 3, 31 - 1)
+    # Week 2: Jan 1 thru Jan 7   ; Jan 1 should contain 8 acts (1 - 2, 2 - 2, 3 - 2, 7 - 2)
+    # Week 3: Jan 8 thru Jan 14  ; Jan 8 should contain 6 acts (8 - 3, 14 - 3)
+    # Week 4: Jan 15 thru Jan 16 ; Jan 15 should contain 5 acts (15 - 3, 16 - 2)
+    #
+    # This ensures that we test a last-plotted-point (Jan 15) occurring before the end date of the range
+=begin
+        DECEMBER 2012
+Su	Mo	Tu	We	Th	Fr	Sa
+23	24	25	26	27	28	29
+30	31  1   2   3   4   5
+        JANUARY 2013
+Su	Mo	Tu	We	Th	Fr	Sa
+30  31  1	  2	  3	  4	  5
+6	  7	  8	  9	  10	11	12
+13	14	15	16	17	18	19
+=end
+    scenario 'Weekly - everything including labelling every other point' do
+      # Week 1
+      day_12_25 = Highchart.convert_date('12/25/2012')
+      day_12_26 = Highchart.convert_date('12/26/2012')
+      day_12_29 = Highchart.convert_date('12/29/2012')
+      day_12_31 = Highchart.convert_date('12/31/2012')
+
+      # Week 2
+      day_1_1 = Highchart.convert_date('1/1/2013')
+      day_1_2 = Highchart.convert_date('1/2/2013')
+      day_1_3 = Highchart.convert_date('1/3/2013')
+      day_1_7 = Highchart.convert_date('1/7/2013')
+
+      # Week 3
+      day_1_8 = Highchart.convert_date('1/8/2013')
+      day_1_14 = Highchart.convert_date('1/14/2013')
+
+      # Week 4
+      day_1_15 = Highchart.convert_date('1/15/2013')
+      day_1_16 = Highchart.convert_date('1/16/2013')
+
+      # Week 1: Dec 25 thru Dec 31 : 25 - 3, 26 - 2, 29 - 3, 31 - 1
+      FactoryGirl.create_list :act, 1, demo: demo, created_at: day_12_25, user: john
+      FactoryGirl.create_list :act, 1, demo: demo, created_at: day_12_25, user: paul
+      FactoryGirl.create_list :act, 1, demo: demo, created_at: day_12_25, user: george
+
+      FactoryGirl.create_list :act, 2, demo: demo, created_at: day_12_26, user: ringo
+
+      FactoryGirl.create_list :act, 1, demo: demo, created_at: day_12_29, user: george
+      FactoryGirl.create_list :act, 2, demo: demo, created_at: day_12_29, user: ringo
+
+      FactoryGirl.create_list :act, 1, demo: demo, created_at: day_12_31, user: george
+
+      # Week 2: Jan 1 thru Jan 7 : 1 - 2, 2 - 2, 3 - 2, 7 - 2
+      FactoryGirl.create_list :act, 1, demo: demo, created_at: day_1_1, user: john
+      FactoryGirl.create_list :act, 1, demo: demo, created_at: day_1_1, user: paul
+
+      FactoryGirl.create_list :act, 1, demo: demo, created_at: day_1_2, user: john
+      FactoryGirl.create_list :act, 1, demo: demo, created_at: day_1_2, user: george
+
+      FactoryGirl.create_list :act, 2, demo: demo, created_at: day_1_3, user: paul
+
+      FactoryGirl.create_list :act, 2, demo: demo, created_at: day_1_7, user: george
+
+      # Week 3: Jan 8 thru Jan 14 : 8 - 3, 14 - 3
+      FactoryGirl.create_list :act, 1, demo: demo, created_at: day_1_8, user: john
+      FactoryGirl.create_list :act, 2, demo: demo, created_at: day_1_8, user: ringo
+
+      FactoryGirl.create_list :act, 2, demo: demo, created_at: day_1_14, user: john
+      FactoryGirl.create_list :act, 1, demo: demo, created_at: day_1_14, user: ringo
+
+      # Week 4: Jan 15 thru Jan 16 ; Jan 15 should contain 5 acts (15 - 3, 16 - 2)
+      FactoryGirl.create_list :act, 3, demo: demo, created_at: day_1_15, user: paul
+
+      FactoryGirl.create_list :act, 2, demo: demo, created_at: day_1_16, user: paul
+
+      # When all is said and done - set as instance variables tests implemented by helper methods
+      # (Remember, these two groups of numbers must be mutually exclusive in order for the tests to work)
+      #
+      # 12/25: 9 acts by 4 users
+      # 1/1:   8 acts by 3 users
+      # 1/8:   6 acts by 2 users
+      # 1/15:  5 acts by 1 users
+
+      @valid_act_points  = %w(5 6 8 9)
+      @valid_user_points = %w(1 2 3 4)
+
+      @invalid_act_points  = %w(2 4 11)
+      @invalid_user_points = %w(5 6 7)
+
+      # -------------------------------------------------
+
+      check 'Total activity'
+      check 'Unique users'
+
+      set_start_date start_date
+      set_end_date   end_date
+
+      set_plot_interval 'Weekly'
+      set_label_points 'All points'
+
+      click_button 'Show'
+
+      title.should have_content "H Engage Chart For #{demo.name}"
+      subtitle.should have_content "#{date_in_subtitle(start_date)} through #{date_in_subtitle(end_date)} : By Week"
+
+      legend.should have_content 'Acts'
+      legend.should have_content 'Users'
+
+      # Make sure the day labels are correct (both content and format) and that days outside the range are not present
+      ['Dec. 26', 'Dec. 30', 'Jan. 01', 'Jan. 15'].each { |day| x_axis.should     have_content day }
+      ['Dec. 20', 'Dec. 24', 'Jan. 17', 'Jan. 18'].each { |day| x_axis.should_not have_content day }
+
+      # Aren't any 0's in this plot
+      act_labels.should_not  have_content '0'
+      user_labels.should_not have_content '0'
+
+      no_invalid_points_in_plot
+
+      acts_in_plot(true)
+      users_in_plot(true)
+
+      uncheck 'Total activity'
+      check 'Unique users'
+      click_button 'Show'
+
+      acts_in_plot(false)
+      users_in_plot(true)
+
+      check 'Total activity'
+      uncheck 'Unique users'
+      click_button 'Show'
+
+      acts_in_plot(true)
+      users_in_plot(false)
+
+      # Now check out labelling every other point...
+
+      check 'Total activity'
+      uncheck 'Unique users'
+
+      set_label_points 'All points'
+      click_button 'Show'
+
+      # Labels for all values
+      @valid_act_points.each { |y| act_labels.should have_content y }
+
+      set_label_points 'Every other'
+      click_button 'Show'
+
+      # Labels for 6, 9 ; No labels for 5, 8
+      %w(6 9).each { |y| act_labels.should     have_content y }
+      %w(5 8).each { |y| act_labels.should_not have_content y }
+
+      uncheck 'Total activity'
+      check 'Unique users'
+
+      set_label_points 'All points'
+      click_button 'Show'
+
+      # Labels for all values
+      @valid_user_points.each { |y| user_labels.should have_content y }
+
+      set_label_points 'Every other'
+      click_button 'Show'
+
+      # Labels for 2, 4 ; No labels for 1, 3
+      %w(2 4).each { |y| user_labels.should     have_content y }
+      %w(1 3).each { |y| user_labels.should_not have_content y }
+    end
+
+    scenario 'Hourly - everything including labelling every other point' do
+      end_date = start_date  # This is how the app behaves in real life in hourly mode
+
+      start_boundary = Highchart.convert_date(start_date).beginning_of_day
+      end_boundary   = Highchart.convert_date(end_date).end_of_day
+
+      # Hours with activities in them
+      hour_1 = start_boundary + 1.hours + 1.minute
+      hour_2 = start_boundary + 2.hours + 1.minute
+      hour_3 = start_boundary + 3.hours + 1.minute
+
+      hour_20 = end_boundary - 3.hours - 1.minute
+      hour_21 = end_boundary - 2.hours - 1.minute
+      hour_22 = end_boundary - 1.hours - 1.minute
+
+      # All 4 create multiple -----------------------------------------
+      FactoryGirl.create_list :act, 3, demo: demo, created_at: hour_1, user: john
+      FactoryGirl.create_list :act, 2, demo: demo, created_at: hour_1, user: paul
+      FactoryGirl.create_list :act, 2, demo: demo, created_at: hour_1, user: george
+      FactoryGirl.create_list :act, 2, demo: demo, created_at: hour_1, user: ringo
+
+      # 3 create 1 and 1 creates multiple -----------------------------------------
+      FactoryGirl.create_list :act, 1, demo: demo, created_at: hour_2, user: john
+      FactoryGirl.create_list :act, 4, demo: demo, created_at: hour_2, user: paul
+      FactoryGirl.create_list :act, 1, demo: demo, created_at: hour_2, user: george
+      FactoryGirl.create_list :act, 1, demo: demo, created_at: hour_2, user: ringo
+
+      # 2 create multiple and 1 creates 1 ----------------------------------------------
+      FactoryGirl.create_list :act, 4, demo: demo, created_at: hour_3, user: john
+      FactoryGirl.create_list :act, 4, demo: demo, created_at: hour_3, user: paul
+      FactoryGirl.create_list :act, 1, demo: demo, created_at: hour_3, user: george
+
+      # 1 creates multiple and 1 creates 1 -------------------------------
+      FactoryGirl.create_list :act, 5, demo: demo, created_at: hour_20, user: john
+      FactoryGirl.create_list :act, 1, demo: demo, created_at: hour_20, user: paul
+
+      # 1 creates multiple -------------------------------
+      FactoryGirl.create_list :act, 8, demo: demo, created_at: hour_21, user: george
+
+      # 2 create multiple -------------------------------
+      FactoryGirl.create_list :act, 2, demo: demo, created_at: hour_22, user: john
+      FactoryGirl.create_list :act, 3, demo: demo, created_at: hour_22, user: ringo
+
+      # When all is said and done - set as instance variables tests implemented by helper methods
+      # (Remember, these two groups of numbers must be mutually exclusive in order for the tests to work)
+      #
+      # hour 1:  9 acts by 4 users
+      # hour 2:  7 acts by 4 users
+      # hour 3:  9 acts by 3 users
+      # hour 20: 6 acts by 2 users
+      # hour 21: 8 acts by 1 users
+      # hour 22: 5 acts by 2 users
+
+      @valid_act_points  = %w(5 6 7 8 9)
+      @valid_user_points = %w(1 2 3 4)
+
+      @invalid_act_points  = %w(10 11 12)
+      @invalid_user_points = %w(5 6 7)
+
+      # -------------------------------------------------
+
+      check 'Total activity'
+      check 'Unique users'
+
+      set_start_date start_date
+      set_end_date   end_date
+
+      set_plot_interval 'Hourly'
+      set_label_points 'All points'
+
+      click_button 'Show'
+
+      title.should have_content "H Engage Chart For #{demo.name}"
+      subtitle.should have_content "#{Highchart.convert_date(start_date).to_s(:chart_subtitle_one_day)} : By Hour"
+
+      legend.should have_content 'Acts'
+      legend.should have_content 'Users'
+
+      # Make sure the hour labels are correct (both content and format) and that no date info is on the axis
+      ['12 AM', '4 AM', '8 AM', '12 PM', '4 PM', '8 PM'].each { |day| x_axis.should have_content day }
+      ['Dec. 25', 'Dec.', '25',].each { |day| x_axis.should_not have_content day }
+
+      # Many 0's exist for both acts and users
+      act_labels.should  have_content '0'
+      user_labels.should have_content '0'
+
+      no_invalid_points_in_plot
+
+      acts_in_plot(true)
+      users_in_plot(true)
+
+      uncheck 'Total activity'
+      check 'Unique users'
+      click_button 'Show'
+
+      acts_in_plot(false)
+      users_in_plot(true)
+
+      check 'Total activity'
+      uncheck 'Unique users'
+      click_button 'Show'
+
+      acts_in_plot(true)
+      users_in_plot(false)
+
+      # Now check out labelling every other point...
+
+      check 'Total activity'
+      uncheck 'Unique users'
+
+      set_label_points 'All points'
+      click_button 'Show'
+
+      # Labels for all values
+      @valid_act_points.each { |y| act_labels.should have_content y }
+
+      set_label_points 'Every other'
+      click_button 'Show'
+
+      # Labels for 5, 6, 7 ; No labels for 8, 9
+      %w(5 6 7).each { |y| act_labels.should     have_content y }
+      %w(8 9).each   { |y| act_labels.should_not have_content y }
+
+      uncheck 'Total activity'
+      check 'Unique users'
+
+      set_label_points 'All points'
+      click_button 'Show'
+
+      # Labels for all values
+      @valid_user_points.each { |y| user_labels.should have_content y }
+
+      set_label_points 'Every other'
+      click_button 'Show'
+
+      # Labels for 2, 4 ; No labels for 1, 3
+      %w(2 4).each { |y| user_labels.should     have_content y }
+      %w(1 3).each { |y| user_labels.should_not have_content y }
     end
   end
 end
