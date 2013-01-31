@@ -52,7 +52,12 @@ FactoryGirl.define do
     is_site_admin {true}
   end
   
-  factory :demo do 
+  factory :client_admin, :parent => :claimed_user do
+    name {"Bo Diddley"}
+    is_client_admin {true}
+  end
+
+  factory :demo do
     sequence(:name) {|n| "Coolio_#{n}" }
 
     trait :with_email do

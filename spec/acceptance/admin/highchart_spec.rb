@@ -39,6 +39,17 @@ feature 'Highchart Plot' do
 
   # -------------------------------------------------
 
+  scenario 'Client admin should not be able to plot' do
+    click_link "Sign Out"
+
+    client_admin = FactoryGirl.create :client_admin, demo: demo
+    signin_as(client_admin, client_admin.password)
+    click_link "Admin"
+
+    expect_no_content 'Total activity'
+    expect_no_content 'Unique users'
+  end
+
   context 'Controls Only (No Plotted Points)', js: :webkit  do
     def start_date_value
       find('#chart_start_date').value
