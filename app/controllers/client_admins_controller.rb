@@ -1,9 +1,6 @@
 class ClientAdminsController < ClientAdminBaseController
 
-  # todo But base class has: must_be_authorized_to :client_admin
-  # must_be_authorized_to :site_admin
-  # todo this?
-  # before_filter :set_admin_page_flag, only: chart
+  must_be_authorized_to :site_admin, only: :chart
 
   def show
     # Note that we don't check for a divide-by-zero error since we should always have

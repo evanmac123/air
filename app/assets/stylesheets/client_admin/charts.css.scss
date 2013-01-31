@@ -1,8 +1,10 @@
 @import "flick/jquery-ui-1.8.10.custom.css";
 
+// Commented out for now because resulted in stand-alone border line for client-admins (who cannot see chart controls)
 .stats {
-    border-bottom:$border-dark;
+    //border-bottom:$border-dark;
 }
+
 .charting {
     border-top:$border-light;
     padding-top:2.25em;
