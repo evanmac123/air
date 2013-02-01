@@ -1,6 +1,6 @@
-# { 
-#  :short_date  => "%x",              # 04/13/10
-#  :long_date   => "%a, %b %d, %Y"    # Tue, Apr 13, 2010
-# }.each do |format_name, format_string|
-#   Time::DATE_FORMATS[format_name] = format_string
-# end
+{
+  chart_subtitle_range:   "%a, %b %d, %Y",    # Thurs, Jul 04, 2013
+  chart_subtitle_one_day: "%A, %B %d, %Y"     # Thursday, July 04, 2013
+}.each do |format_name, format_string|
+   Time::DATE_FORMATS[format_name] = format_string
+end

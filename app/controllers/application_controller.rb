@@ -206,8 +206,8 @@ class ApplicationController < ActionController::Base
   end
 
 
-  def self.must_be_authorized_to(page_class)
-    before_filter do
+  def self.must_be_authorized_to(page_class, options={})
+    before_filter(options) do
       unless current_user.authorized_to?(page_class)
         redirect_to '/'
         return false

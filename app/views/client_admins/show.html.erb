@@ -1,4 +1,3 @@
-
 <ul class="section-name">
     <li class="section-icon"><span class="icon" id="icon-overview"></span></li>
     <li class="section-title"><h1>Dashboard overview</h1></li>
@@ -19,3 +18,6 @@
     </ul>
     <div class="clear"></div>
 </div>
+
+<%= render 'chart' if current_user.is_site_admin %>
+
