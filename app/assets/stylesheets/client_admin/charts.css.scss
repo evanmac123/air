@@ -55,12 +55,12 @@
         border:1px darken($dark-green, 10%) solid;
         #show-chart-link {
             @include square-button;
-            background:image-url('client_admin/sprites.png') no-repeat transparent -55px -48px;
+            background:image-url('client_admin/sprites.png') no-repeat transparent 7px -87px;
             border-color:lighten($dark-green, 5%);
             margin:0;
             text-indent:1.8em;
             &:hover {
-                background:image-url('client_admin/sprites.png') no-repeat darken($dark-green, 5%) -55px -48px;
+                background-color:darken($dark-green, 5%);
                 border-color:$dark-green;
             }
         }
