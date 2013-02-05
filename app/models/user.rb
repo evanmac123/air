@@ -153,7 +153,8 @@ class User < ActiveRecord::Base
     return if email.blank? && overflow_email.blank?
     if email.blank? && overflow_email.present?
       self.errors.add(:email, 'must have a primary email if you have a secondary email')
-    else 
+    else
+      # HRFF: no need to check this unless emails changed
       users_with_your_email = User.where(overflow_email: email).reject{|ff| ff == self}
       self.errors.add(:email, "'#{email}' is already taken") if users_with_your_email.present?
     end
@@ -161,6 +162,7 @@ class User < ActiveRecord::Base
 
   def overflow_email_distinct_from_all_emails
     return if overflow_email.blank? 
+    # HRFF: no need to check this unless emails changed
     if User.where(email: overflow_email).reject{|ff| ff == self}.present?
       self.errors.add(:overflow_email, 'someone else has your secondary email as their primary email')
     end

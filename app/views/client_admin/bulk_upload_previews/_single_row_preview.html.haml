@@ -1,0 +1,4 @@
+-style = is_visible ? '' : 'display: none'
+%ul{style: style}
+  -row_for_preview.each do |cell_content|
+    %li= cell_content

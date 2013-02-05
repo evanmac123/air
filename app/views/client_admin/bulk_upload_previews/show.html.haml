@@ -1,0 +1,36 @@
+= link_to "Prev", "#", id: 'prev-link'
+= link_to "Next", "#", id: 'next-link'
+
+.sample-rows
+  - @rows_for_preview.each_with_index do |row_for_preview, i|
+    = render 'single_row_preview', row_for_preview: row_for_preview, is_visible: (i == 0)
+
+- content_for :javascript do
+  :javascript
+    var visibleRow = 0;
+    var rowCount = $('.sample-rows ul').length;
+
+    function bumpRow(offset) {
+      visibleRow += offset;
+      visibleRow = visibleRow % rowCount;
+      $('.sample-rows ul').hide();
+      $('.sample-rows ul').eq(visibleRow).show();
+    }
+
+    function advanceRow() {
+      bumpRow(1);
+    }
+
+    function retreatRow() {
+      bumpRow(-1);
+    }
+
+    $('#next-link').click(function(e) {
+      e.preventDefault();
+      advanceRow();
+    });
+
+    $('#prev-link').click(function(e) {
+      e.preventDefault();
+      retreatRow();
+    });

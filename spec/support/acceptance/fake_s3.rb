@@ -30,7 +30,7 @@ end
 
 [
   ['s3.amazonaws.com', 80],
-  ['s3.amazonaws.com', 443]
+  ['s3.amazonaws.com', 443],
 ].each do |location|
   ShamRack.at(*location).rackup {run FakeS3App}
 end

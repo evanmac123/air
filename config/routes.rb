@@ -73,6 +73,8 @@ Health::Application.routes.draw do
   resource :client_admin, :only => :show
   namespace :client_admin do
     resource :segmentation
+    resource :bulk_upload
+    resource :bulk_upload_preview
   end
 
   resources :pages, :only => :show

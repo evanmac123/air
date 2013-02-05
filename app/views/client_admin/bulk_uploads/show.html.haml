@@ -1,0 +1,11 @@
+=form_tag @uploader.direct_fog_url, multipart: true do
+  %input{:name => "utf8", :type => "hidden"}
+  %input{:type => "hidden", :name => "key", :value => @uploader.key}
+  %input{:type => "hidden", :name => "AWSAccessKeyId", :value => @uploader.aws_access_key_id}
+  %input{:type => "hidden", :name => "acl", :value => @uploader.acl}
+  %input{:type => "hidden", :name => "success_action_redirect", :value => @uploader.success_action_redirect}
+  %input{:type => "hidden", :name => "policy", :value => @uploader.policy}
+  %input{:type => "hidden", :name => "signature", :value => @uploader.signature}
+
+  =file_field_tag "file"
+  =submit_tag "Upload"

@@ -33,6 +33,8 @@ gem 'fancybox-rails', :git => "https://github.com/hecticjeff/fancybox-rails.git"
 gem 'nokogiri'
 gem 'lazy_high_charts'
 gem 'json', ">= 1.7.7"
+gem 'carrierwave_direct'
+gem 'redis'
 
 # Gems used only for assets and not required
 # in production environments by default.
