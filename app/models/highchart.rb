@@ -66,9 +66,9 @@ class Highchart
     date_string.sub(/(\d{1,2})\/(\d{1,2})\/(\d{1,4})/, '\2/\1/\3').to_datetime
   end
 
-  def self.chart(demo, interval, start_date, end_date, plot_acts, plot_users, label_points)
-
-    return nil if start_date.blank? or end_date.blank? or (plot_acts.nil? and plot_users.nil?)
+  def self.chart(demo, start_date, end_date, plot_content, interval, label_points)
+    plot_acts  = true if plot_content == 'Total activity' or plot_content == 'Both'
+    plot_users = true if plot_content == 'Unique users'   or plot_content == 'Both'
 
     # 'chart' will be a new 'Hourly', 'Daily', or 'Weekly' object (defined below)
     chart = "Highchart::#{interval}".constantize.new(demo, start_date, end_date, plot_acts, plot_users)
@@ -93,8 +93,10 @@ class Highchart
       # Remove the 'Print' button (but keep the 'Save As Image/PDF' one)
       hc.exporting(buttons: {printButton: {enabled: false}})
 
-      hc.title(text: "H Engage Chart For #{demo.name}")
+      hc.title(text: "Engagement Levels")
       hc.subtitle(text: chart.subtitle)
+
+      hc.legend(layout: 'horizontal')
 
       # Bump up the 'maxPadding' a little because the right-hand edge of last date was getting chopped
       hc.xAxis(title: {text: nil}, type: 'datetime', maxPadding: 0.02, labels: {formatter: chart.x_axis_label.js_code})
