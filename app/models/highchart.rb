@@ -86,21 +86,17 @@ class Highchart
     end unless label_points == '0'
 
     LazyHighCharts::HighChart.new do |hc|
-      hc.colors  # Need this line or else doesn't work. Beats me.
-      hc.options[:colors][0] = '#00b318'
-      hc.options[:colors][1] = '#56678e '
-
       # Remove the 'Print' button (but keep the 'Save As Image/PDF' one)
       hc.exporting(buttons: {printButton: {enabled: false}})
 
-      hc.title(text: "Engagement Levels")
-      hc.subtitle(text: chart.subtitle)
+      hc.title(text: "Engagement Levels", style: {color: '#666666'})
+      hc.subtitle(text: chart.subtitle, style: {color: '#a8a8a8'})
 
       hc.legend(layout: 'horizontal')
 
       # Bump up the 'maxPadding' a little because the right-hand edge of last date was getting chopped
       hc.xAxis(title: {text: nil}, type: 'datetime', maxPadding: 0.02, labels: {formatter: chart.x_axis_label.js_code})
-      hc.yAxis(title: {text: nil}, min: 0)
+      hc.yAxis(title: {text: nil}, min: 0, gridLineColor: '#DED7D7')
 
       # Defining a javascript function for the formatter is what allows us to label every n points
       # See the Highcharts API for 'dataLabels:formatter' and the LazyHighcharts GitHub page for '~~~.js_code'
@@ -110,8 +106,8 @@ class Highchart
                                             fontWeight: 'bold',
                                             formatter:  "function() { return this.point.name; }".js_code}})
 
-      hc.series(name: 'Acts',  data: act_points)  if plot_acts
-      hc.series(name: 'Users', data: user_points) if plot_users
+      hc.series(name: 'Acts',  data: act_points,  color: '#82b989')  if plot_acts
+      hc.series(name: 'Users', data: user_points, color: '#7588b4')  if plot_users
     end
   end
 
