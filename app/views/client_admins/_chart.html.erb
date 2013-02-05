@@ -17,7 +17,7 @@
         </li>
         <li id="chart-labeling">
           <span>Label</span>
-          <%= select_tag :chart_label_points, options_for_select([ ['All points', 1], ['Every other', 2] ], selected: params[:chart_label_points]) %>
+          <%= select_tag :chart_label_points, options_for_select([ ['None', 0], ['All points', 1], ['Every other', 2] ], selected: params[:chart_label_points]) %>
         </li>
         <li id="show-button">
           <div class="button_wrap" id="show-chart">

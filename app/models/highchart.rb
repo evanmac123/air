@@ -73,41 +73,40 @@ class Highchart
     # 'chart' will be a new 'Hourly', 'Daily', or 'Weekly' object (defined below)
     chart = "Highchart::#{interval}".constantize.new(demo, start_date, end_date, plot_acts, plot_users)
 
-    act_points, user_points = chart.data_points
+    act_points, user_points = chart.data_points  # Get the points to plot
 
-    # Currently have an option to label all or every other point => attach the point's value as the label for that point.
-    # 1) The 'label_points == 0' condition => option to not label any points => this code block will not executed.
-    #    But had a problem with 'no labels' in Hourly mode: the x-axis labels were all 12am => removed this option for now.
-    # 2) The raw point data is an array of [x,y] values. Normally points are not labelled on graphs. To get them labelled
-    #    the first argument of the point array must be a string. But remember, the first argument is the x-value, which
-    #    we don't want as the label for the point; instead we want the y-value as the label, hence the 'point[0] = point[1].to_s'
-    (act_points + user_points).each_with_index do |point, i|
-      point[0] = (i % label_points.to_i == 0) ? point[1].to_s : ''
-    end unless label_points == '0'
+    # Figure out the labeling. Remember that 'act_points' and 'user_points' are arrays of the form: [ [k,v], [k,v], [k,v] ]
+    # where the key is the date/time x-axis point and the value is the number of acts/users y-axis value for that point
+    data_labels = { enabled: true, formatter: "function() { return this.y; }".js_code }
+
+    if label_points == '1'
+      act_points = act_points.collect   { |act|  {y: act.second,  dataLabels: data_labels} }
+      user_points = user_points.collect { |user| {y: user.second, dataLabels: data_labels} }
+    elsif label_points == '2'
+      act_points.each_with_index  { |act, i|  act_points[i]  = i.even? ? {y: act.second, dataLabels:  data_labels} : act.second }
+      user_points.each_with_index { |user, i| user_points[i] = i.even? ? {y: user.second, dataLabels: data_labels} : user.second }
+    else
+      act_points = act_points.collect   &:second
+      user_points = user_points.collect &:second
+    end
 
     LazyHighCharts::HighChart.new do |hc|
-      # Remove the 'Print' button (but keep the 'Save As Image/PDF' one)
-      hc.exporting(buttons: {printButton: {enabled: false}})
+      hc.exporting(buttons: {printButton: {enabled: false}})  # Remove 'Print' button ; keep 'Save As Image/PDF'
 
       hc.title(text: "Engagement Levels", style: {color: '#666666'})
       hc.subtitle(text: chart.subtitle, style: {color: '#a8a8a8'})
 
       hc.legend(layout: 'horizontal')
 
-      # Bump up the 'maxPadding' a little because the right-hand edge of last date was getting chopped
+      # Bump 'maxPadding' because the right-hand edge of last date was getting chopped
       hc.xAxis(title: {text: nil}, type: 'datetime', maxPadding: 0.02, labels: {formatter: chart.x_axis_label.js_code})
       hc.yAxis(title: {text: nil}, min: 0, gridLineColor: '#DED7D7')
 
-      # Defining a javascript function for the formatter is what allows us to label every n points
-      # See the Highcharts API for 'dataLabels:formatter' and the LazyHighcharts GitHub page for '~~~.js_code'
-      hc.plotOptions(line: {pointStart:    Highchart.convert_date(start_date).to_date,
-                            pointInterval: chart.point_interval,
-                            dataLabels:    {enabled:    label_points != '0',
-                                            fontWeight: 'bold',
-                                            formatter:  "function() { return this.point.name; }".js_code}})
+      hc.plotOptions(line: {pointStart: Highchart.convert_date(start_date).to_date, pointInterval: chart.point_interval})
+      hc.plotOptions(tooltip: {xDateFormat: '%A, %b %e, %l %p' }) if interval == 'Hourly'
 
-      hc.series(name: 'Acts',  data: act_points,  color: '#82b989')  if plot_acts
-      hc.series(name: 'Users', data: user_points, color: '#7588b4')  if plot_users
+      hc.series(name: 'Acts',  data: act_points,  color: '#82b989') if plot_acts
+      hc.series(name: 'Users', data: user_points, color: '#7588b4') if plot_users
     end
   end
 
