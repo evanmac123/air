@@ -13,7 +13,7 @@ $(document).ready(function() {
       $('#chart_start_date').val($('#chart_end_date').val());
   });
 
-  // Chart parameters are initialized in controller's 'show' action (e.g. Acts and Users for previous month)
+  // Chart parameters are initialized in controller's 'show' action (e.g. Daily view for acts and users for the previous month)
   //  => submit the form with those params when the page is initially loaded.
   $('#activity-chart').submit();
 });
