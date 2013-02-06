@@ -25,29 +25,29 @@ feature 'Highchart Plot' do
   end
 
   def set_plot_content(content)
-    page.select content, from: 'chart_plot_content'
+    select content, from: 'chart_plot_content'
   end
 
   def set_plot_interval(interval)
-    page.select interval, from: 'chart_interval'
+    select interval, from: 'chart_interval'
   end
 
   def set_label_points(label)
-    page.select label, from: 'chart_label_points'
+    select label, from: 'chart_label_points'
   end
 
   # -------------------------------------------------
 
   background do
-    #bypass_modal_overlays(admin)
-    #signin_as(admin, admin.password)
-    #click_link "Admin"
+    bypass_modal_overlays(admin)
+    signin_as(admin, admin.password)
+    click_link "Admin"
   end
 
   # -------------------------------------------------
 
   scenario 'Client admin should not be able to plot' do
-    #click_link "Sign Out"
+    click_link "Sign Out"
 
     client_admin = FactoryGirl.create :client_admin, demo: demo
     signin_as(client_admin, client_admin.password)
@@ -57,7 +57,7 @@ feature 'Highchart Plot' do
     expect_no_content 'Unique users'
   end
 
-  context 'Controls Only (No Plotted Points)' do
+  context 'Controls Only (No Plotted Points)', js: :webkit do
     def start_date_value
       find('#chart_start_date').value
     end
@@ -80,18 +80,7 @@ feature 'Highchart Plot' do
 
     # -------------------------------------------------
 
-    scenario 'Control Initialization and Retaining Values', js: :webkit   do
-# todo also: need below?
-      bypass_modal_overlays(admin)
-
-p "********admin is #{admin.inspect}"
-#show_me_some_love
-      signin_as(admin, admin.password)
-      click_link "Admin"
-      puts page.body
-
-#      visit(client_admin_path as: admin)
-p "****** got it!"
+    scenario 'Control Initialization and Retaining Values' do
       # Initial state
       start_date_value.should == initial_start_date
       end_date_value.should == initial_end_date
@@ -155,7 +144,7 @@ p "****** got it!"
   # the set of points (i.e. y values) for acts and users must be mutually exclusive - even to the point of no intersection
   # of numerals, e.g. an '11' for acts is not allowed because there is a '1' for users. ^%$#@!
 
-  context 'Plotted Points', js: :webkit  do
+  context 'Plotted Points', js: :webkit do
     let(:john)   { FactoryGirl.create :user, demo: demo }
     let(:paul)   { FactoryGirl.create :user, demo: demo }
     let(:george) { FactoryGirl.create :user, demo: demo }
@@ -278,9 +267,6 @@ p "****** got it!"
 
       # -------------------------------------------------
 
-      #check 'Total activity'
-      #check 'Unique users'
-
       set_start_date start_date
       set_end_date   end_date
 
@@ -309,17 +295,11 @@ p "****** got it!"
       acts_in_plot(true)
       users_in_plot(true)
 
-      #uncheck 'Total activity'
-      #check 'Unique users'
-
       set_plot_content 'Unique users'
       click_button 'Show'
 
       acts_in_plot(false)
       users_in_plot(true)
-
-      #check 'Total activity'
-      #uncheck 'Unique users'
 
       set_plot_content 'Total activity'
       click_button 'Show'
@@ -385,11 +365,8 @@ p "****** got it!"
 
       set_plot_content 'Total activity'
       set_plot_interval 'Daily'
-
-      #check 'Total activity'
-      #uncheck 'Unique users'
-
       set_label_points 'All points'
+
       click_button 'Show'
 
       # Labels for 1..8
@@ -402,11 +379,7 @@ p "****** got it!"
       4.step(8, 2) { |y| act_labels.should     have_content y.to_s }
       3.step(8, 2) { |y| act_labels.should_not have_content y.to_s }
 
-      #uncheck 'Total activity'
-      #check 'Unique users'
-
       set_plot_content 'Unique users'
-      set_label_points 'All points'
       click_button 'Show'
 
       # Labels for 1..4
@@ -514,9 +487,6 @@ Su	Mo	Tu	We	Th	Fr	Sa
 
       # -------------------------------------------------
 
-      #check 'Total activity'
-      #check 'Unique users'
-
       set_start_date start_date
       set_end_date   end_date
 
@@ -545,17 +515,11 @@ Su	Mo	Tu	We	Th	Fr	Sa
       acts_in_plot(true)
       users_in_plot(true)
 
-      #uncheck 'Total activity'
-      #check 'Unique users'
-
       set_plot_content 'Unique users'
       click_button 'Show'
 
       acts_in_plot(false)
       users_in_plot(true)
-
-      #check 'Total activity'
-      #uncheck 'Unique users'
 
       set_plot_content 'Total activity'
       click_button 'Show'
@@ -564,9 +528,6 @@ Su	Mo	Tu	We	Th	Fr	Sa
       users_in_plot(false)
 
       # Now check out labelling every other point...
-
-      #check 'Total activity'
-      #uncheck 'Unique users'
 
       set_label_points 'All points'
       click_button 'Show'
@@ -580,9 +541,6 @@ Su	Mo	Tu	We	Th	Fr	Sa
       # Labels for 6, 9 ; No labels for 5, 8
       %w(6 9).each { |y| act_labels.should     have_content y }
       %w(5 8).each { |y| act_labels.should_not have_content y }
-
-      #uncheck 'Total activity'
-      #check 'Unique users'
 
       set_plot_content 'Unique users'
       set_label_points 'All points'
@@ -660,9 +618,6 @@ Su	Mo	Tu	We	Th	Fr	Sa
 
       # -------------------------------------------------
 
-      #check 'Total activity'
-      #check 'Unique users'
-
       set_start_date start_date
       set_end_date   end_date
 
@@ -691,17 +646,11 @@ Su	Mo	Tu	We	Th	Fr	Sa
       acts_in_plot(true)
       users_in_plot(true)
 
-      #uncheck 'Total activity'
-      #check 'Unique users'
-
       set_plot_content 'Unique users'
       click_button 'Show'
 
       acts_in_plot(false)
       users_in_plot(true)
-
-      #check 'Total activity'
-      #uncheck 'Unique users'
 
       set_plot_content 'Total activity'
       click_button 'Show'
@@ -710,9 +659,6 @@ Su	Mo	Tu	We	Th	Fr	Sa
       users_in_plot(false)
 
       # Now check out labelling every other point...
-
-      #check 'Total activity'
-      #uncheck 'Unique users'
 
       set_label_points 'All points'
       click_button 'Show'
@@ -726,9 +672,6 @@ Su	Mo	Tu	We	Th	Fr	Sa
       # Labels for 5, 6, 7 ; No labels for 8, 9
       %w(5 6 7).each { |y| act_labels.should     have_content y }
       %w(8 9).each   { |y| act_labels.should_not have_content y }
-
-      #uncheck 'Total activity'
-      #check 'Unique users'
 
       set_plot_content 'Unique users'
       set_label_points 'All points'
