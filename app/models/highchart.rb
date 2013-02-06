@@ -103,7 +103,9 @@ class Highchart
       hc.yAxis(title: {text: nil}, min: 0, gridLineColor: '#DED7D7')
 
       hc.plotOptions(line: {pointStart: Highchart.convert_date(start_date).to_date, pointInterval: chart.point_interval})
-      hc.plotOptions(tooltip: {xDateFormat: '%A, %b %e, %l %p' }) if interval == 'Hourly'
+
+      # todo fix or remove these!!!
+      #hc.plotOptions(tooltip: {xDateFormat: '%A, %b %e, %l %p' }) if interval == 'Hourly'
 
       hc.series(name: 'Acts',  data: act_points,  color: '#82b989') if plot_acts
       hc.series(name: 'Users', data: user_points, color: '#7588b4') if plot_users
