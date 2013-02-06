@@ -501,6 +501,39 @@ feature "Admin segmentation" do
     (@demo.users - [expected_user]).each {|user| expect_user_content(user)}
   end
 
+  it "can segment on multiple location not-equal parameters", :js => true do
+    Location.delete_all
+    Demo.delete_all
+    @demo = FactoryGirl.create(:demo)
+
+    { 
+      "Boston"     => 2,
+      "Cambridge"  => 1,
+      "Brookline"  => 5,
+      "Somerville" => 8
+    }.each do |location_name, user_count|
+      location = FactoryGirl.create(:location, name: location_name, demo: @demo)
+      user_count.times {FactoryGirl.create(:user, location: location, demo: @demo) }
+    end
+
+    crank_dj_clear
+    visit admin_demo_segmentation_path(@demo, as: an_admin)
+
+    select "Location", :from => "segment_column[0]"
+    select "does not equal", :from => "segment_operator[0]"
+    select "Cambridge", :from => "segment_value[0]"
+
+    click_link "Add another"
+
+    select "Location", :from => "segment_column[1]"
+    select "does not equal", :from => "segment_operator[1]"
+    select "Somerville", :from => "segment_value[1]"
+
+    click_button "Find segment"
+
+    expect_content "7Users in segment"
+  end
+
   it "can segment on location when the location name has parentheses", :js => true do
     Location.delete_all
     Demo.delete_all

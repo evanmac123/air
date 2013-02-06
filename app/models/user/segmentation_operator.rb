@@ -67,7 +67,7 @@ class User::SegmentationOperator
 
   def simple_mongo_translation(query, characteristic_id, mongo_operator)
     other = @operands.first
-    query.where(mongo_characteristic_name(characteristic_id).to_sym.send(mongo_operator) => other)
+    query.and(mongo_characteristic_name(characteristic_id).to_sym.send(mongo_operator) => other)
   end
 
   def ensure_applicable_to_characteristic(characteristic_id)
