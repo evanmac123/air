@@ -11,6 +11,9 @@ feature 'Highchart Plot' do
   let(:start_date) { '12/25/2012' }
   let(:end_date)   { '01/16/2013' }
 
+  let(:initial_start_date) { (Time.now - 30.days).to_s(:chart_start_end_day) }
+  let(:initial_end_date)   { Time.now.to_s(:chart_start_end_day) }
+
   # -------------------------------------------------
 
   def set_start_date(date)
@@ -21,26 +24,30 @@ feature 'Highchart Plot' do
     fill_in 'chart_end_date', with: date
   end
 
+  def set_plot_content(content)
+    page.select content, from: 'chart_plot_content'
+  end
+
   def set_plot_interval(interval)
-    select interval, from: 'chart_interval'
+    page.select interval, from: 'chart_interval'
   end
 
   def set_label_points(label)
-    select label, from: 'chart_label_points'
+    page.select label, from: 'chart_label_points'
   end
 
   # -------------------------------------------------
 
   background do
-    bypass_modal_overlays(admin)
-    signin_as(admin, admin.password)
-    click_link "Admin"
+    #bypass_modal_overlays(admin)
+    #signin_as(admin, admin.password)
+    #click_link "Admin"
   end
 
   # -------------------------------------------------
 
   scenario 'Client admin should not be able to plot' do
-    click_link "Sign Out"
+    #click_link "Sign Out"
 
     client_admin = FactoryGirl.create :client_admin, demo: demo
     signin_as(client_admin, client_admin.password)
@@ -50,7 +57,7 @@ feature 'Highchart Plot' do
     expect_no_content 'Unique users'
   end
 
-  context 'Controls Only (No Plotted Points)', js: :webkit  do
+  context 'Controls Only (No Plotted Points)' do
     def start_date_value
       find('#chart_start_date').value
     end
@@ -59,12 +66,8 @@ feature 'Highchart Plot' do
       find('#chart_end_date').value
     end
 
-    def total_activity
-      find '#chart_plot_acts'
-    end
-
-    def unique_users
-      find '#chart_plot_users'
+    def content_should_be(content)
+      page.should have_select 'chart_plot_content', selected: content
     end
 
     def interval_should_be(interval)
@@ -75,44 +78,44 @@ feature 'Highchart Plot' do
       page.should have_select 'chart_label_points', selected: label
     end
 
-    def should_be_error_message(boolean = true)
-      err_msg = 'You did not supply the necessary plot parameters. Please check and try again.'
-      boolean ? (page.should have_content(err_msg)) : (page.should_not have_content(err_msg))
-    end
-
     # -------------------------------------------------
 
-    scenario 'Control Initialization and Retaining Values' do
+    scenario 'Control Initialization and Retaining Values', js: :webkit   do
+# todo also: need below?
+      bypass_modal_overlays(admin)
+
+p "********admin is #{admin.inspect}"
+#show_me_some_love
+      signin_as(admin, admin.password)
+      click_link "Admin"
+      puts page.body
+
+#      visit(client_admin_path as: admin)
+p "****** got it!"
       # Initial state
-      total_activity.checked?.should be_false
-      unique_users.checked?.should be_false
+      start_date_value.should == initial_start_date
+      end_date_value.should == initial_end_date
 
-      start_date_value.should be_blank
-      end_date_value.should be_blank
-
-      interval_should_be 'Weekly'
-      label_should_be 'All points'
+      content_should_be  'Both'
+      interval_should_be 'Daily'
+      label_should_be    'All points'
 
       # Interact with the controls
-      check 'Total activity'
-      check 'Unique users'
-
       set_start_date(start_date)
       set_end_date(end_date)
 
-      set_plot_interval 'Daily'
+      set_plot_content 'Unique users'
+      set_plot_interval 'Weekly'
       set_label_points 'Every other'
 
       click_button 'Show'
 
       # Controls should reflect most-recent selections
-      total_activity.checked?.should be_true
-      unique_users.checked?.should be_true
-
       start_date_value.should == start_date
       end_date_value.should == end_date
 
-      interval_should_be 'Daily'
+      interval_should_be 'Unique users'
+      interval_should_be 'Weekly'
       label_should_be 'Every other'
 
       # And finally, make sure page contains the highchart-button to save chart to an image file
@@ -125,10 +128,10 @@ feature 'Highchart Plot' do
     scenario 'Date Control Synchronization' do
       set_plot_interval 'Weekly'
       set_start_date(start_date)
-      end_date_value.should be_blank
+      end_date_value.should == initial_end_date
 
       set_plot_interval 'Daily'
-      end_date_value.should be_blank
+      end_date_value.should  == initial_end_date
 
       set_plot_interval 'Hourly'
       end_date_value.should == start_date
@@ -142,26 +145,6 @@ feature 'Highchart Plot' do
       set_plot_interval 'Weekly'
       set_end_date(end_date)
       start_date_value.should == start_date
-    end
-
-    # -------------------------------------------------
-
-    # Let them know if they did not supply enough parameters to plot something
-    scenario 'Error Message' do
-      click_button 'Show'
-      should_be_error_message
-
-      set_start_date(start_date)
-      click_button 'Show'
-      should_be_error_message
-
-      set_end_date(end_date)
-      click_button 'Show'
-      should_be_error_message
-
-      check 'Total activity'
-      click_button 'Show'
-      should_be_error_message(false)
     end
   end
 
@@ -295,18 +278,19 @@ feature 'Highchart Plot' do
 
       # -------------------------------------------------
 
-      check 'Total activity'
-      check 'Unique users'
+      #check 'Total activity'
+      #check 'Unique users'
 
       set_start_date start_date
       set_end_date   end_date
 
+      set_plot_content  'Both'
       set_plot_interval 'Daily'
-      set_label_points 'All points'
+      set_label_points  'All points'
 
       click_button 'Show'
 
-      title.should have_content "H Engage Chart For #{demo.name}"
+      title.should have_content "Engagement Levels"
       subtitle.should have_content "#{date_in_subtitle(start_date)} through #{date_in_subtitle(end_date)} : By Day"
 
       legend.should have_content 'Acts'
@@ -325,15 +309,19 @@ feature 'Highchart Plot' do
       acts_in_plot(true)
       users_in_plot(true)
 
-      uncheck 'Total activity'
-      check 'Unique users'
+      #uncheck 'Total activity'
+      #check 'Unique users'
+
+      set_plot_content 'Unique users'
       click_button 'Show'
 
       acts_in_plot(false)
       users_in_plot(true)
 
-      check 'Total activity'
-      uncheck 'Unique users'
+      #check 'Total activity'
+      #uncheck 'Unique users'
+
+      set_plot_content 'Total activity'
       click_button 'Show'
 
       acts_in_plot(true)
@@ -395,10 +383,11 @@ feature 'Highchart Plot' do
       set_start_date start_date
       set_end_date   end_date
 
+      set_plot_content 'Total activity'
       set_plot_interval 'Daily'
 
-      check 'Total activity'
-      uncheck 'Unique users'
+      #check 'Total activity'
+      #uncheck 'Unique users'
 
       set_label_points 'All points'
       click_button 'Show'
@@ -413,9 +402,10 @@ feature 'Highchart Plot' do
       4.step(8, 2) { |y| act_labels.should     have_content y.to_s }
       3.step(8, 2) { |y| act_labels.should_not have_content y.to_s }
 
-      uncheck 'Total activity'
-      check 'Unique users'
+      #uncheck 'Total activity'
+      #check 'Unique users'
 
+      set_plot_content 'Unique users'
       set_label_points 'All points'
       click_button 'Show'
 
@@ -524,18 +514,19 @@ Su	Mo	Tu	We	Th	Fr	Sa
 
       # -------------------------------------------------
 
-      check 'Total activity'
-      check 'Unique users'
+      #check 'Total activity'
+      #check 'Unique users'
 
       set_start_date start_date
       set_end_date   end_date
 
+      set_plot_content  'Both'
       set_plot_interval 'Weekly'
-      set_label_points 'All points'
+      set_label_points  'All points'
 
       click_button 'Show'
 
-      title.should have_content "H Engage Chart For #{demo.name}"
+      title.should have_content "Engagement Levels"
       subtitle.should have_content "#{date_in_subtitle(start_date)} through #{date_in_subtitle(end_date)} : By Week"
 
       legend.should have_content 'Acts'
@@ -554,15 +545,19 @@ Su	Mo	Tu	We	Th	Fr	Sa
       acts_in_plot(true)
       users_in_plot(true)
 
-      uncheck 'Total activity'
-      check 'Unique users'
+      #uncheck 'Total activity'
+      #check 'Unique users'
+
+      set_plot_content 'Unique users'
       click_button 'Show'
 
       acts_in_plot(false)
       users_in_plot(true)
 
-      check 'Total activity'
-      uncheck 'Unique users'
+      #check 'Total activity'
+      #uncheck 'Unique users'
+
+      set_plot_content 'Total activity'
       click_button 'Show'
 
       acts_in_plot(true)
@@ -570,8 +565,8 @@ Su	Mo	Tu	We	Th	Fr	Sa
 
       # Now check out labelling every other point...
 
-      check 'Total activity'
-      uncheck 'Unique users'
+      #check 'Total activity'
+      #uncheck 'Unique users'
 
       set_label_points 'All points'
       click_button 'Show'
@@ -586,9 +581,10 @@ Su	Mo	Tu	We	Th	Fr	Sa
       %w(6 9).each { |y| act_labels.should     have_content y }
       %w(5 8).each { |y| act_labels.should_not have_content y }
 
-      uncheck 'Total activity'
-      check 'Unique users'
+      #uncheck 'Total activity'
+      #check 'Unique users'
 
+      set_plot_content 'Unique users'
       set_label_points 'All points'
       click_button 'Show'
 
@@ -664,18 +660,19 @@ Su	Mo	Tu	We	Th	Fr	Sa
 
       # -------------------------------------------------
 
-      check 'Total activity'
-      check 'Unique users'
+      #check 'Total activity'
+      #check 'Unique users'
 
       set_start_date start_date
       set_end_date   end_date
 
+      set_plot_content  'Both'
       set_plot_interval 'Hourly'
-      set_label_points 'All points'
+      set_label_points  'All points'
 
       click_button 'Show'
 
-      title.should have_content "H Engage Chart For #{demo.name}"
+      title.should have_content "Engagement Levels"
       subtitle.should have_content "#{Highchart.convert_date(start_date).to_s(:chart_subtitle_one_day)} : By Hour"
 
       legend.should have_content 'Acts'
@@ -694,15 +691,19 @@ Su	Mo	Tu	We	Th	Fr	Sa
       acts_in_plot(true)
       users_in_plot(true)
 
-      uncheck 'Total activity'
-      check 'Unique users'
+      #uncheck 'Total activity'
+      #check 'Unique users'
+
+      set_plot_content 'Unique users'
       click_button 'Show'
 
       acts_in_plot(false)
       users_in_plot(true)
 
-      check 'Total activity'
-      uncheck 'Unique users'
+      #check 'Total activity'
+      #uncheck 'Unique users'
+
+      set_plot_content 'Total activity'
       click_button 'Show'
 
       acts_in_plot(true)
@@ -710,8 +711,8 @@ Su	Mo	Tu	We	Th	Fr	Sa
 
       # Now check out labelling every other point...
 
-      check 'Total activity'
-      uncheck 'Unique users'
+      #check 'Total activity'
+      #uncheck 'Unique users'
 
       set_label_points 'All points'
       click_button 'Show'
@@ -726,9 +727,10 @@ Su	Mo	Tu	We	Th	Fr	Sa
       %w(5 6 7).each { |y| act_labels.should     have_content y }
       %w(8 9).each   { |y| act_labels.should_not have_content y }
 
-      uncheck 'Total activity'
-      check 'Unique users'
+      #uncheck 'Total activity'
+      #check 'Unique users'
 
+      set_plot_content 'Unique users'
       set_label_points 'All points'
       click_button 'Show'
 
