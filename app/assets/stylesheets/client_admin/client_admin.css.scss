@@ -53,11 +53,12 @@ body.client_admin-segmentations #admin-analytics a:link {color:$dark-green; font
 }
 .equal {
     display:table-cell;
-    padding:3em $gutter;
+    padding:3em 0;
 
     /* ////// Navigation Col ////// */
     &#left-nav {
         border-right:$border-dark;
+        padding-left:$gutter;
         width:170px;
         .admin-nav-section {
             padding-bottom:1.25em;
@@ -89,7 +90,6 @@ body.client_admin-segmentations #admin-analytics a:link {color:$dark-green; font
         background:image-url('marketing/bg.gif');
         border-left:$border-light;
         padding-left:$gutter+50px;
-        padding-right:$gutter;
         width:82.3%;
     }
 }
@@ -99,7 +99,7 @@ body.client_admin-segmentations #admin-analytics a:link {color:$dark-green; font
     ///////////////////////// */
 #right-content .wrap {
     margin:0 auto;
-    padding:0 $gutter;
+    padding:0;
 }
 
 // Content area title & icon
