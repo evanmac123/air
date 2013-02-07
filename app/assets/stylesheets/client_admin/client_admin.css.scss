@@ -23,10 +23,6 @@ body.client_admins #admin-overview a:link {color:$dark-green; font-weight:bold;}
 body.client_admin-segmentations #admin-analytics a,
 body.client_admin-segmentations #admin-analytics a:link {color:$dark-green; font-weight:bold;}
 
-// Content area icon
-body.client_admins .icon#icon-overview {background-position: -1px -15px;}
-body.client_admin-segmentations .icon#icon-analytics {background-position: -33px -15px;}
-
 /* ////// General sections ////// */
 .content {border-bottom:$border-light;}
 #footer {
@@ -105,19 +101,21 @@ body.client_admin-segmentations .icon#icon-analytics {background-position: -33px
     margin:0 auto;
     padding:0 $gutter;
 }
-ul.section-name {
-    position:relative;
-    left:-25px;
-    h1 {
-        color:$dark-green;
-        font-size:2.7em;
-        font-weight:300;
-    }
-    .icon {
+
+// Content area title & icon
+h1.section-title {
+    color:$dark-green;
+    font-size:2.7em;
+    font-weight:300;
+    &:before{
         background:image-url('client_admin/sprites.png') no-repeat transparent;
+        content: "";
         display:inline-block;
-        float:left;
         height:29px;
+        margin-left:-35px;
+        margin-right:.1em;
         width:32px;
     }
 }
+body.client_admins h1#title-overview:before {background-position:-1px -15px;}
+body.client_admin-segmentations h1#title-analytics:before {background-position:-33px -15px;}
