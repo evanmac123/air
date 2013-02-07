@@ -64,5 +64,8 @@
     tinyMCE.init({
       mode: "exact",
       elements: "html_text",
-      convert_urls: false
+      convert_urls: false,
+      style_formats: [
+        {title: 'bullet with elbow room', selector: 'li', styles: {'padding-bottom': '0.7em'}}
+      ]
     });
