@@ -5,14 +5,14 @@
 # files.
 
 require 'cucumber/rails'
-require 'capybara/poltergeist'
+#require 'capybara/poltergeist'
 
 # Capybara defaults to XPath selectors rather than Webrat's default of CSS3. In
 # order to ease the transition to Capybara we set the default here. If you'd
 # prefer to use XPath just remove this line and adjust any selectors in your
 # steps to use the XPath syntax.
 Capybara.save_and_open_page_path = 'tmp'
-Capybara.javascript_driver = :poltergeist
+Capybara.javascript_driver = :webkit
 Capybara.default_selector = :css
 Capybara.default_wait_time = 10
 
