@@ -8,9 +8,16 @@ class Characteristic::BooleanType < Characteristic::BaseType
   end
 
   def self.cast_value(value)
-    return value if value == true || value == false
+    normalized_value = value.to_s.downcase
 
-    value.to_i != 0
+    # Truthy values
+    return true if %w(yes y true t 1).include? normalized_value
+
+    # Falsy values
+    return false if %w(no n false f 0).include? normalized_value
+
+    # We won't try to guess, kthx
+    nil
   end
 
   def self.input_type
