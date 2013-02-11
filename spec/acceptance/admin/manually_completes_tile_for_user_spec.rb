@@ -14,7 +14,9 @@ feature 'Admin manually completes tile for user' do
     # create the tutorial first rather than the user.
     tutorial = FactoryGirl.create(:tutorial, ended_at: Time.now)
     user = tutorial.user
-    user.update_attributes(accepted_invitation_at: Time.now, demo: demo, phone_number: "+14155551212", name: "Johann McGillicuddy")
+    user.update_attributes(accepted_invitation_at: Time.now, phone_number: "+14155551212", name: "Johann McGillicuddy")
+    user.demo = demo
+    user.save!
     has_password user, "foobar"
     crank_dj_clear
 
