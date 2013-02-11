@@ -1,4 +1,5 @@
 require 'acceptance/acceptance_helper'
+include SteakHelperMethods
 
 # NOTE: Need to run these specs using 'webkit', not (the default) 'poltergeist'
 #       since the latter seems to not run any javascript.
@@ -41,7 +42,7 @@ feature 'Highchart Plot' do
   background do
     bypass_modal_overlays(admin)
     signin_as(admin, admin.password)
-    click_link "Admin"
+    click_link "nav-admin-link"
   end
 
   # -------------------------------------------------
@@ -51,7 +52,7 @@ feature 'Highchart Plot' do
 
     client_admin = FactoryGirl.create :client_admin, demo: demo
     signin_as(client_admin, client_admin.password)
-    click_link "Admin"
+    click_link "nav-admin-link"
 
     expect_no_content 'Total activity'
     expect_no_content 'Unique users'
@@ -103,7 +104,7 @@ feature 'Highchart Plot' do
       start_date_value.should == start_date
       end_date_value.should == end_date
 
-      interval_should_be 'Unique users'
+      content_should_be 'Unique users'
       interval_should_be 'Weekly'
       label_should_be 'Every other'
 
@@ -206,7 +207,7 @@ feature 'Highchart Plot' do
     end
 
     # Redefine to give time for plotted lines to appear in both the screenshot and webpage
-    def show_me_some_love
+    def show_page
       sleep 1
       super
     end
@@ -275,6 +276,12 @@ feature 'Highchart Plot' do
       set_label_points  'All points'
 
       click_button 'Show'
+
+      # todo page works, others do not
+      # todo also use this for logging in: visit admin_rules_path(as: an_admin)
+      # todo use these instead: expect_content and expect_no_content
+      page.should have_content "Engagement Levels"
+      page.should have_content "#{date_in_subtitle(start_date)} through #{date_in_subtitle(end_date)} : By Day"
 
       title.should have_content "Engagement Levels"
       subtitle.should have_content "#{date_in_subtitle(start_date)} through #{date_in_subtitle(end_date)} : By Day"

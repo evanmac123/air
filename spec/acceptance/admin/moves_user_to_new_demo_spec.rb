@@ -58,7 +58,7 @@ feature 'Admin moves user to new demo' do
 
   scenario "In user's profile page, only new acts appear" do
     visit activity_path(as: @bob)
-    click_link "Dan"
+    find('a.name-of-user', text: 'Dan').click
     expect_content 'went running'
     expect_no_content 'ate banana'
     expect_no_content 'walked dog'

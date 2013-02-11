@@ -34,9 +34,6 @@ feature 'User navigates to different tiles' do
   end
 
   scenario "clicking tiles in the carousel and next- and previous-tile arrows display the correct tiles", js: :webkit do
-
-    pending 'Upgrading Cabybara and Poltergeist'
-
     click_link "Home"
     click_carousel_tile(tile_2)
     current_slideshow_tile.should be_tile(tile_2)

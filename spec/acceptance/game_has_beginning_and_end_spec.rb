@@ -36,7 +36,9 @@ feature 'Game has beginning and end' do
       as_both_users do
         visit edit_account_settings_path
         expect_none_selected "user[gender]"
-        choose "male"
+        # Can't use " choose 'Male' " because ambiguous (due to presence of "female")
+        # and Capy2 doesn't like that
+        find("#male").set(true)
         click_username_dob_gender_submit_button
         expect_content "OK, your settings were updated"
         expect_checked "Male"
@@ -150,7 +152,7 @@ feature 'Game has beginning and end' do
       it "should appear as normal", :js => true do
         signin_as @future_user, 'foobar'
         should_be_on activity_path(:format => :html)
-        page.find('#facebox').should have_content('Invite your friends')
+        page.find('#facebox').should have_content('INVITE YOUR FRIENDS')
       end
     end
   end

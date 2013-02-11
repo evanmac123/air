@@ -231,7 +231,7 @@ module SteakHelperMethods
 
   # First is Capybara capability. Second is auxiliary gem; info can be found at:
   # https://github.com/mattheworiordan/capybara-screenshot
-  def show_me_some_love
+  def show_page
     save_and_open_page
     screenshot_and_open_image
   end
