@@ -1,4 +1,4 @@
-Name,Email,ID
+Name,Email,ID,Location,Employee ID
 <%- @users.each do |user| -%>
-<%= CSV.generate_line([user.name, user.email, user.id]) -%>
+<%= CSV.generate_line([user.name, user.email, user.id, user.location.try(&:name), user.employee_id]) -%>
 <% end %>

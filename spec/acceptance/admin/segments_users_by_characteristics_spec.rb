@@ -10,15 +10,18 @@ feature "Admin segmentation" do
     @demo_specific_characteristic_2 = FactoryGirl.create(:characteristic, :demo_specific, :name => "Favorite number", :demo => @demo, :allowed_values => %w(seven eight nine))
     @demo_specific_characteristic_3 = FactoryGirl.create(:characteristic, :demo_specific, :name => "MomPhrase", :demo => @demo, :allowed_values => %w(hi mom))
 
+    %w(Here There Everywhere).each {|location_name| FactoryGirl.create(:location, name: location_name, demo: @demo)}
+    @locations = @demo.locations.all
+
     @loser = FactoryGirl.create(:user, :demo => @demo)
     @reds = []
     @blues = []
     @greens = []
 
     14.times do |i|
-      @reds << FactoryGirl.create(:user, :name => "Red Guy #{i}", :demo => @demo, :characteristics => {@generic_characteristic_1.id => "red"})
-      @blues << FactoryGirl.create(:user, :name => "Blue Guy #{i}", :demo => @demo, :characteristics => {@generic_characteristic_1.id => "blue"})
-      @greens << FactoryGirl.create(:user, :name => "Green Guy #{i}", :demo => @demo, :characteristics => {@generic_characteristic_1.id => "green"})
+      @reds << FactoryGirl.create(:user, :name => "Red Guy #{i}", :demo => @demo, :location => @locations[rand(3)], :employee_id => "reddude#{i}", :characteristics => {@generic_characteristic_1.id => "red"})
+      @blues << FactoryGirl.create(:user, :name => "Blue Guy #{i}", :demo => @demo, :location => @locations[rand(3)], :employee_id => "bluedude#{i}", :characteristics => {@generic_characteristic_1.id => "blue"})
+      @greens << FactoryGirl.create(:user, :name => "Green Guy #{i}", :demo => @demo, :location => @locations[rand(3)], :employee_id => "greendude#{i}", :characteristics => {@generic_characteristic_1.id => "green"})
     end
 
     %w(john john paul paul paul george george george george ringo ringo ringo ringo ringo).each_with_index do |name, i|
@@ -325,10 +328,10 @@ feature "Admin segmentation" do
       expect_no_content "<html>"
       expect_no_content "<head>"
       expect_no_content "<body>"
-      expect_content "Name,Email,ID"
+      expect_content "Name,Email,ID,Location,Employee ID"
 
       lines = page.body.split("\n")
-      @reds.each { |red| lines.should include(CSV.generate_line([red.name, red.email, red.id]).strip) }
+      @reds.each { |red| lines.should include(CSV.generate_line([red.name, red.email, red.id, red.location.name, red.employee_id]).strip) }
     end
   end
 
