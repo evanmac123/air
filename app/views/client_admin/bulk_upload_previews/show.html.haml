@@ -1,9 +1,52 @@
-= link_to "Prev", "#", id: 'prev-link'
-= link_to "Next", "#", id: 'next-link'
+%h1{class:"section-title", id: "title-database"}Player database
 
-.sample-rows
-  - @rows_for_preview.each_with_index do |row_for_preview, i|
-    = render 'single_row_preview', row_for_preview: row_for_preview, is_visible: (i == 0)
+%h2{class:"form_title"} Create the database
+%div{id: "db-editor"}
+  %p{class:"help"} Donec id elit non mi porta gravida at eget metus. Donec sed odio dui. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam id dolor id nibh ultricies vehicula ut id elit. Nullam quis risus eget urna mollis ornare vel eu leo.
+  %div{class:"help", id:"uid-help"}
+    %p Vestibulum id ligula porta felis euismod semper. Integer posuere erat a ante venenatis dapibus posuere velit aliquet.
+  %table{id: "data-table"}
+    %tbody
+      %tr{id: "table-label"}
+        %td{class: "data", id: "data-label"}
+          %p Your data
+          %div{class:"switch-preview"}
+            = link_to "Prev", "#", id: 'prev-link'
+            %span Cycle samples
+            = link_to "Next", "#", id: 'next-link'
+        %td{class: "types", id: "types-label"} 
+          %p What is it?
+        %td{class: "uid-picker", id: "uid-picker-label"} 
+          %p Unique ID
+      %tr{id: "loaded-data"}
+        %td{class: "data"}
+          .sample-rows
+            - @rows_for_preview.each_with_index do |row_for_preview, i|
+              = render 'single_row_preview', row_for_preview: row_for_preview, is_visible: (i == 0)
+        %td{class:"types"}
+          %ul
+            %li
+              %select
+                %option
+            %li
+              %select
+                %option
+            %li
+              %select
+                %option
+        %td{class:"uid-picker"}
+          %ul
+            %li
+              %input{:type => "radio"}
+            %li
+              %input{:type => "radio"}
+            %li
+              %input{:type => "radio"}
+  %input{:type => "checkbox", id: "ignore"}
+  %label{:for => "ignore"} Ignore first row of the uploaded spreadsheet
+
+  %div{class:"button_wrap"}
+    =submit_tag "Save data"
 
 - content_for :javascript do
   :javascript

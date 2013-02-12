@@ -1,6 +1,8 @@
-form {
+body.client_admin-segmentations #title-analytics:before {background-position:-33px -15px;}
+
+body.client_admin-segmentations form, body.client_admin-segmentations-show form {
     border-bottom:$border-light;
-    padding:2em 0;
+    padding:0 0 2em 0;
     fieldset {
         background:transparent;
         border:$border-dark;

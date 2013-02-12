@@ -1,12 +1,20 @@
--#=form_tag @uploader.direct_fog_url, multipart: true do
-  -#%input{:name => "utf8", :type => "hidden"}
-  -#%input{:type => "hidden", :name => "key", :value => @uploader.key}
-  -#%input{:type => "hidden", :name => "AWSAccessKeyId", :value => @uploader.aws_access_key_id}
-  -#%input{:type => "hidden", :name => "acl", :value => @uploader.acl}
-  -#%input{:type => "hidden", :name => "success_action_redirect", :value => @uploader.success_action_redirect}
-  -#%input{:type => "hidden", :name => "policy", :value => @uploader.policy}
-  -#%input{:type => "hidden", :name => "signature", :value => @uploader.signature}
+%h1{class:"section-title", id: "title-database"}Player database
 
-=form_tag client_admin_bulk_upload_preview_path, method: "GET" do
-  =file_field_tag "file"
-  =submit_tag "Upload"
+%div{id: "uploader"}
+  %div{id: "directions"}
+    %p Donec ullamcorper nulla non metus auctor fringilla. Donec sed odio dui. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam porta sem malesuada magna mollis euismod. Nullam quis risus eget urna mollis ornare vel eu leo. Integer posuere erat a ante venenatis dapibus posuere velit aliquet.
+    %p Vestibulum id ligula porta felis euismod semper. Nulla vitae elit libero, a pharetra augue. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Praesent commodo cursus magna, vel scelerisque nisl consectetur et.
+    =form_tag @uploader.direct_fog_url, multipart: true do
+      %input{:name => "utf8", :type => "hidden"}
+      %input{:type => "hidden", :name => "key", :value => @uploader.key}
+      %input{:type => "hidden", :name => "AWSAccessKeyId", :value => @uploader.aws_access_key_id}
+      %input{:type => "hidden", :name => "acl", :value => @uploader.acl}
+      %input{:type => "hidden", :name => "success_action_redirect", :value => @uploader.success_action_redirect}
+      %input{:type => "hidden", :name => "policy", :value => @uploader.policy}
+      %input{:type => "hidden", :name => "signature", :value => @uploader.signature}
+
+      =file_field_tag "file"
+      %div{class:"button_wrap"}
+        =submit_tag "Upload"
+  %div{id: "example-image"}
+    %div{style:"border:1px green dashed; color:green; padding:3em 1em; text-align:center; width:100%;"} Image placeholder

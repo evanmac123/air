@@ -15,9 +15,11 @@ body.client_admin_main {
     color:$text-color;
     font-family:'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
+.button_wrap {@include square-button-wrap($dark-green);}
 
 /* ////// CURRENT PAGE ANCHORS ////// */
 // In black bar
+.app_bar p {margin-bottom:0;}
 .nav-client-admin {color:$light-green!important;}
 
 // In left nav
@@ -111,6 +113,7 @@ h1.section-title {
     color:$dark-green;
     font-size:2.7em;
     font-weight:300;
+    margin-bottom:1em;
     &:before{
         background:image-url('client_admin/sprites.png') no-repeat transparent;
         content: "";
@@ -121,5 +124,3 @@ h1.section-title {
         width:32px;
     }
 }
-body.client_admins h1#title-overview:before {background-position:-1px -15px;}
-body.client_admin-segmentations h1#title-analytics:before {background-position:-33px -15px;}
