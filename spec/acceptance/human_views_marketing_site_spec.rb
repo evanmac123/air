@@ -5,7 +5,7 @@ feature "Human views marketing site" do
   scenario "Human views marketing site", js: true do
     visit root_path
     # Product Tour
-    page.should have_content("Increase engagement in HR")
+    page.should have_content("Increase engagement in workplace programs")
     click_link "Product tour"
     page.should have_content("Find the best path to each person")
     click_link "spark"
