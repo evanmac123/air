@@ -9,7 +9,7 @@ Feature: Admin edits users
       | Bob  | bob@bp.com | bp_bob     | name: British Petroleum | 617-666-6666     | 1234                 |
     When I sign in as an admin via the login page
       And I am on the admin "British Petroleum" demo page
-      And I follow "B"
+      And I click on the letter "B"
       And I follow "(edit Bob)"
 
   Scenario: Admin edits a user, both filling in and then clearing fields
@@ -29,7 +29,7 @@ Feature: Admin edits users
       And I fill in "Claim code" with "bp_bobby"
       And I press "Update User"
     Then I should be on the admin "British Petroleum" demo page
-    When I follow "B"
+    When I click on the letter "B"
       And I follow "(edit Bobby)"
     Then the "Name" field should be "Bobby"
       And the "Email" field should be "bobby@bp.com"
@@ -47,7 +47,7 @@ Feature: Admin edits users
       And I fill in "Claim code" with ""
       And I press "Update User"
     Then I should be on the admin "British Petroleum" demo page
-    When I follow "B"
+    When I click on the letter "B"
       And I follow "(edit Bobby)"
     Then the "Phone number" field should be "blank"
       And the "Zip code" field should be "blank"
@@ -62,7 +62,7 @@ Feature: Admin edits users
       And I press "Update User"
     Then the new-phone attributes for "Bob" should be blank
       And the phone-number attribute for "Bob" should be "+16661234567"
-    When I follow "B"
+    When I click on the letter "B"
       And I follow "(edit Bob)"
     Then the "Phone number" field should be "(666) 123-4567"
 

@@ -19,7 +19,7 @@ When /^I enter "([^"]*)" into the bonus points field$/ do |arg1|
 end
 
 When /^I click "([^"]*)"$/ do |arg1|
-  page.click_button(:tile_submit)
+  page.click_button('tile_submit')
 end
 
 Given /^the tile "([^"]*)" has prerequisite "([^"]*)"$/ do |tile_headline, prerequisite_headline|

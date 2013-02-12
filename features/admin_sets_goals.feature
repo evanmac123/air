@@ -59,7 +59,7 @@ Feature: Admin sets up goals
     And I should see "2 rules: chalk cheese"
 
   Scenario: Admin edits existing goal
-    When I follow "(edit this goal)"
+    When I follow the first "(edit this goal)"
     Then I should see "lust" 
     And I should see "wrath"
     And I should see "sloth"
@@ -82,7 +82,7 @@ Feature: Admin sets up goals
 
   Scenario: Admin deletes goal
     Given I should be on the admin goals page for "GoalCo"
-    And I follow "(edit this goal)"
+    And I follow the first "(edit this goal)"
     And I press "Delete Goal"
 
     Then I should be on the admin goals page for "GoalCo"

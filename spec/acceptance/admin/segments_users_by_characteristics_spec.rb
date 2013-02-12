@@ -48,7 +48,7 @@ feature "Admin segmentation" do
       select characteristic_name, :from => "segment_column[0]"
       expect {
         select "#{operator}", :from => "segment_operator[0]"
-      }.to raise_error(Capybara::ElementNotFound, /no option with text '#{operator}' in select box/)
+      }.to raise_error(Capybara::ElementNotFound, /Unable to find option "#{operator}"/)
     end
   end
 
@@ -85,7 +85,7 @@ feature "Admin segmentation" do
     visit admin_demo_segmentation_path(@demo, as: an_admin)
 
     select characteristic_name, :from => "segment_column[0]"
-    select "greater than", :from => "segment_operator[0]"
+    select "is greater than", :from => "segment_operator[0]"
     fill_in "segment_value[0]", :with => reference_value
     click_button "Find segment"
 
@@ -95,7 +95,7 @@ feature "Admin segmentation" do
     (6..9).to_a.each {|i| expect_user_content(users[i])}
 
     select characteristic_name, :from => "segment_column[0]"
-    select "less than", :from => "segment_operator[0]"
+    select "is less than", :from => "segment_operator[0]"
     fill_in "segment_value[0]", :with => reference_value
     click_button "Find segment"
 
@@ -105,7 +105,7 @@ feature "Admin segmentation" do
     (0..4).to_a.each {|i| expect_user_content(users[i])}
 
     select characteristic_name, :from => "segment_column[0]"
-    select "greater than or equal to", :from => "segment_operator[0]"
+    select "is greater than or equal to", :from => "segment_operator[0]"
     fill_in "segment_value[0]", :with => reference_value
     click_button "Find segment"
 
@@ -115,7 +115,7 @@ feature "Admin segmentation" do
     (5..9).to_a.each {|i| expect_user_content(users[i])}
 
     select characteristic_name, :from => "segment_column[0]"
-    select "less than or equal to", :from => "segment_operator[0]"
+    select "is less than or equal to", :from => "segment_operator[0]"
     fill_in "segment_value[0]", :with => reference_value
     click_button "Find segment"
 
@@ -425,9 +425,6 @@ feature "Admin segmentation" do
             users << FactoryGirl.create(:user, :demo => @demo, :characteristics => {characteristic.id => (reference_date + i.days).to_s})
           end
           crank_dj_clear
-
-          
-
           expect_all_continuous_operators_to_work "Date of last decapitation", reference_date, users
           expect_discrete_operators_to_not_be_present "Date of last decapitation"
         end
@@ -507,7 +504,7 @@ feature "Admin segmentation" do
   it "can segment on multiple location not-equal parameters", :js => true do
     Location.delete_all
     Demo.delete_all
-    @demo = FactoryGirl.create(:demo)
+    @demo = FactoryGirl.create(:demo, name: 'MilesDavis')
 
     { 
       "Boston"     => 2,
@@ -524,13 +521,13 @@ feature "Admin segmentation" do
 
     select "Location", :from => "segment_column[0]"
     select "does not equal", :from => "segment_operator[0]"
-    select "Cambridge", :from => "segment_value[0]"
+    select "Cambridge (MilesDavis)", :from => "segment_value[0]"
 
     click_link "Add another"
 
     select "Location", :from => "segment_column[1]"
     select "does not equal", :from => "segment_operator[1]"
-    select "Somerville", :from => "segment_value[1]"
+    select "Somerville (MilesDavis)", :from => "segment_value[1]"
 
     click_button "Find segment"
 
@@ -557,7 +554,7 @@ feature "Admin segmentation" do
 
     select "Location", :from => "segment_column[0]"
     select "equals", :from => "segment_operator[0]"
-    select "Puddingville (Site B)", :from => "segment_value[0]"
+    select "Puddingville (Site B) (AwesomeCo)", :from => "segment_value[0]"
     click_button "Find segment"
 
     expect_content "Segmenting on: Location equals Puddingville (Site B) (AwesomeCo)"

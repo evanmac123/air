@@ -18,8 +18,6 @@ feature 'Admin sends targeted messages using segmentation' do
   end
 
   def select_common_form_entries
-    
-
     visit admin_demo_targeted_messages_path(@demo, as: an_admin)
 
     select 'Metasyntactic variable', :from => "segment_column[0]"
@@ -28,7 +26,7 @@ feature 'Admin sends targeted messages using segmentation' do
 
     click_link "Add another"
     select "Points", :from => "segment_column[1]"
-    select "greater than", :from => "segment_operator[1]"
+    select "is greater than", :from => "segment_operator[1]"
     fill_in "segment_value[1]", :with => "10"
 
     click_button "Find segment"

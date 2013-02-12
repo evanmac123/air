@@ -13,21 +13,21 @@ Feature: Admin sees users who have a mobile number on their account
     And I go to the admin "DaimlerChrysler" demo page 
     Then I should see "4 users have added mobile numbers to their accounts"
 
-    When I follow "F"
+    When I click on the letter "F"
     Then I should not see "+19086969696"
     And I should not see "+14155551212"
     And I should not see "+16179876543"
     And I should not see "+17075551212"
     And I should not see "+19995551212"
 
-    When I follow "J"
+    When I click on the letter "J"
     Then I should see "+14155551212"
     And I should not see "+16179876543"
     And I should not see "+19086969696"
     And I should not see "+17075551212"
     And I should not see "+19995551212"
 
-    When I follow "P"
+    When I click on the letter "P"
     Then I should see "+16179876543"
     And I should not see "+14155551212"
     And I should not see "+19086969696"

@@ -319,6 +319,11 @@ When /^(?:|I )click within "([^"]*)"$/ do |selector|
   find(selector).click
 end
 
+# Capy2 rears its ugly head...
+When /^I follow the first "(.*)"$/ do |link|
+  first(:link, link).click
+end
+
 When /^the Year listbox should contain the correct years$/ do
   page.should have_select 'Year', options: (1930..Time.now.year - 10).to_a.collect(&:to_s).unshift("")
 end

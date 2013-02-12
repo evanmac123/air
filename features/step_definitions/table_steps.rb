@@ -30,4 +30,6 @@ Then /^I should see the following table:$/ do |table|
   amended.should include(bit)
 end
 
-
+When /^I follow "(.*)" for entry number "(.*)"$/ do |link, row|
+  find("tr:nth-child(#{row.to_i + 1})").click_link(link)
+end

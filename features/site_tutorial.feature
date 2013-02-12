@@ -19,13 +19,13 @@ Feature: Talking Chicken
   @javascript 
   Scenario: Talking Chicken pops first and foremost
   And I wait a second
-    Then I should see "Directory"
+    Then I should see "DIRECTORY"
     Then "Brand New" should have an open tutorial with current step "0"
     Given I close the facebox modal
     And I wait a second
     And I should see "quick tour"
     When I click within ".show_tutorial"
-    And I should see "Directory"
+    And I should see "DIRECTORY"
     And I wait a second
     Then I should see "Click It"
     When I click the sample tile
@@ -38,7 +38,7 @@ Feature: Talking Chicken
     Then I should see "helpful info" 
     When I click within "#next_button"  
     Then I should see "Click DIRECTORY to find people you know"
-    When I follow "Directory"
+    When I follow "DIRECTORY"
     Then I should see 'Just for practice, type "Kermit"'
     When I fill in "search_string" with "Kermit"
     And I press "Find!"
@@ -46,7 +46,7 @@ Feature: Talking Chicken
     
     Then I should see "Click ADD TO FRIENDS to connect with Kermit"
     When I click within ".follow-btn"
-    Then I should see "Directory" 
+    Then I should see "DIRECTORY"
     Then "Brand New" should have an open tutorial with current step "7" 
     And I should see "Now you're connected with Kermit"
     When I follow "My Profile"
@@ -61,7 +61,7 @@ Feature: Talking Chicken
     Scenario: Leah does not start tutorial
       And I wait a second
       Then "Brand New" should have an open tutorial with current step "0"
-      Then I should see "Directory"
+      Then I should see "DIRECTORY"
       Given I close the facebox modal
       And I wait a second
       And I should see "quick tour"
@@ -75,7 +75,7 @@ Feature: Talking Chicken
       Then I should not see "quick tour"
       And I sign out
       And I sign in via the login page as "Brand New/chicken"
-      And I should see "Directory"
+      And I should see "DIRECTORY"
       Then "Brand New" should have a closed tutorial with current step "0"
       And I should not see "No thanks"
       

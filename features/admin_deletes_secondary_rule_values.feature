@@ -17,7 +17,6 @@ Feature: Admin deletes secondary rule values
     And I go to the admin rules page for "FooCo"
     And I follow "Edit Rule"
     Then I should see an input with value "bar"
-
-    When I press "Delete this rule"
+    When I click the "Delete this rule" button for value "bar"
     Then I should be on the rule edit page for "foo"
     And I should not see an input with value "bar"
