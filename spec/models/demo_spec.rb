@@ -157,6 +157,14 @@ describe Demo, "ticket fields" do
   end
 end
 
+describe Demo, "phone number" do
+  it "should normalize itself on save" do
+    @demo = FactoryGirl.build(:demo)
+    @demo.phone_number = "(617) 555-1212"
+    @demo.save
+    @demo.reload.phone_number.should == "+16175551212"
+  end
+end
 describe Demo, "when internal email domains are changed" do
   it "should re-segment everybody" do
     demo = FactoryGirl.create(:demo)

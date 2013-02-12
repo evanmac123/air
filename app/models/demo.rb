@@ -30,6 +30,7 @@ class Demo < ActiveRecord::Base
 
   validate :ticket_fields_all_set, :if => :uses_tickets
 
+  before_save :normalize_phone_number_if_changed
   after_save :schedule_resegment_on_internal_domains
 
   has_alphabetical_column :name
@@ -335,6 +336,11 @@ class Demo < ActiveRecord::Base
     unless ticket_threshold.present?
       self.errors.add(:ticket_threshold, "must be set if you want to use gold coins on this demo")
     end
+  end
+
+  def normalize_phone_number_if_changed
+    return unless self.changed.include?('phone_number')
+    self.phone_number = PhoneNumber.normalize(self.phone_number)
   end
 
   def schedule_resegment_on_internal_domains
