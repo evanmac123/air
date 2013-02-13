@@ -26,12 +26,13 @@
 @import "./mixins/special_effects.css.scss";
 
 /* CUSTOM STYLESHEETS LAST */
+@import "./internal/mast.css.scss";
 @import "./internal/autocompletion.css.scss";
 @import "./internal/faq_mini.css.scss";
 @import "./internal/header.css.scss";
 @import "./internal/misc.css.scss";
 @import "./internal/mobile.css.scss";
-@import "./internal/screen.css.scss";
+//@import "./internal/screen.css.scss";
 @import "./internal/site_tutorial.css.scss";
 @import "./internal/tooltips.css.scss";
 @import "./internal/scoreboard.css.scss";

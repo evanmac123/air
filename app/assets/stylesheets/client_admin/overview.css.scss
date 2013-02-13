@@ -1,6 +1,11 @@
 .stats {
-    padding:4em 0 2em 0;
+    padding:2em 0 1em 0;
     text-align: center;
+    &:after{
+        clear: both;
+        content:"";
+        display: block;
+    }
 }
     .stat-group {
         width:33.33%;
@@ -10,14 +15,13 @@
             background:url('client_admin/circle-bg.png') center center no-repeat;
             color:$orange;
             display:block;
-            font-family:$gotham;
+            font-family:$sans;
             font-size:2.5em;
             font-weight:700;
             height:160px;
             line-height: 5em;
             margin:0 auto;
             overflow-wrap:break-word;
-            //padding-top:27%;
             vertical-align: middle;
             width:160px;
             word-wrap:break-word;

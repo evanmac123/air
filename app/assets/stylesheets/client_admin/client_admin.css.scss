@@ -1,3 +1,4 @@
+a:link {text-decoration: none;}
 h1, h2, h3 {font-family:$sans;}
 h1.subsection-head {
     color:$gray;
@@ -6,6 +7,7 @@ h1.subsection-head {
     font-weight:300;
     padding-bottom:.75em;
 }
+ul {list-style-type: none;}
 * {box-sizing:border-box;}
 body.client_admin_main {
     background:image-url('marketing/bg.gif');
@@ -48,7 +50,7 @@ body.client_admin-segmentations #admin-analytics a:link {color:$dark-green; font
         background:image-url('client_admin/light-bg.png');
     }
 #col-main {
-    width:960px;
+    width:984px;
     table-layout: fixed;
 }
 .equal {
@@ -58,7 +60,6 @@ body.client_admin-segmentations #admin-analytics a:link {color:$dark-green; font
     /* ////// Navigation Col ////// */
     &#left-nav {
         border-right:$border-dark;
-        padding-left:$gutter;
         width:170px;
         .admin-nav-section {
             padding-bottom:1.25em;
@@ -90,7 +91,7 @@ body.client_admin-segmentations #admin-analytics a:link {color:$dark-green; font
         background:image-url('marketing/bg.gif');
         border-left:$border-light;
         padding-left:$gutter+50px;
-        width:82.3%;
+        width:83.3%;
     }
 }
 
