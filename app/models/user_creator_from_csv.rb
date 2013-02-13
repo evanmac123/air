@@ -35,6 +35,24 @@ class UserCreatorFromCsv
   end
 
   def add_regular_field!(column_name, value, new_user_attributes)
-    new_user_attributes[column_name] = value
+    new_user_attributes[column_name] = normalize_value(column_name, value)
+  end
+
+  def normalize_value(column_name, value)
+    case column_name
+    when 'date_of_birth'
+      Chronic.parse(value).to_date
+    when 'gender'
+      case value.downcase.first
+      when 'm'
+        'male'
+      when 'f'
+        'female'
+      when 'o'
+        'other'
+      end
+    else
+      value
+    end
   end
 end

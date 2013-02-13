@@ -47,6 +47,44 @@ describe UserCreatorFromCsv do
       user.characteristics[boolean_characteristic.id].should == false
     end
 
+    def expect_attribute_flexibility(attribute_name, attribute_value, expected_model_value)
+      schema = basic_schema + [attribute_name]
+      attributes = basic_attributes + [attribute_value]
+
+      creator = UserCreatorFromCsv.new(demo.id, schema)
+      creator.create_user(CSV.generate_line(attributes))
+
+      demo.users.first[attribute_name].should == expected_model_value
+    end
+
+    context "should parse date of birth with some flexibility" do
+      ["1977-09-10", "1977/09/10", "9/10/1977", "9-10-1977", "Sep 10, 1977", "Sep 10 1977"].each do |date_string|
+        it "such as parsing #{date_string} as September 10, 1977" do
+          expect_attribute_flexibility('date_of_birth', date_string, Date.parse('1977-09-10'))
+        end
+      end
+    end
+
+    context "should parse gender with some flexibility" do
+      %w(male Male M m).each do |male_string|
+        it "such as interpreting #{male_string} as male" do
+          expect_attribute_flexibility('gender', male_string, 'male')
+        end
+      end
+
+      %w(female Female F f).each do |female_string|
+        it "such as interpreting #{female_string} as female" do
+          expect_attribute_flexibility('gender', female_string, 'female')
+        end
+      end
+
+      %w(other Other o O).each do |other_string|
+        it "such as interpreting #{other_string} as other" do
+          expect_attribute_flexibility('gender', other_string, 'other')
+        end
+      end
+    end
+
     context "when loading characteristics" do
       context "should allow some flexibility in boolean formats" do
         %w(yes Yes Y true True t T 1).each do |true_string|
@@ -74,9 +112,17 @@ describe UserCreatorFromCsv do
         end
       end
 
-      %w(date time).each do |characteristic_type|
-        it "should allow some flexibility in #{characteristic_type} formats" do
-          pending
+      context "should allow some flexibility in date formats" do
+        ["2012-05-01", "2012/05/01", "5/1/2012", "5-1-2012", "May 1, 2012", "May 1 2012"].each do |date_string|
+          it "such as recognizing \"#{date_string}\" as meaning May 1, 2012" do
+            schema = basic_schema + ["characteristic_#{date_characteristic.id}"]
+            attributes = basic_attributes + [date_string]
+
+            creator = UserCreatorFromCsv.new(demo.id, schema)
+            creator.create_user(CSV.generate_line(attributes))
+
+            demo.users.first.characteristics[date_characteristic.id].should == Date.parse("2012-05-01")
+          end
         end
       end
     end
