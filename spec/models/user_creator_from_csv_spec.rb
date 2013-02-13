@@ -12,7 +12,7 @@ describe UserCreatorFromCsv do
  
   describe "#create_user" do
     it "should build and attempt to save a user" do
-      creator = UserCreatorFromCsv.new(demo.id, basic_schema)
+      creator = UserCreatorFromCsv.new(demo.id, basic_schema, :email)
 
       demo.users.count.should be_zero
       creator.create_user(CSV.generate_line(basic_attributes))
@@ -23,12 +23,23 @@ describe UserCreatorFromCsv do
       user.email.should == basic_attributes.last
     end
 
+    it "should update existing users should there be any" do
+      demo.users.create!(name: "Jim Robinson", email: "bigjim@example.com")
+      creator = UserCreatorFromCsv.new(demo.id, basic_schema, :email) # email is the "unique ID" when loading
+      creator.create_user(CSV.generate_line(basic_attributes))
+
+      demo.users.reload.count.should == 1 # as opposed to 2
+      user = demo.users.first
+      user.name.should == basic_attributes.first
+      user.email.should == basic_attributes.last
+    end
+
     it "should be able to set characteristics too" do
       schema = basic_schema.dup
       [discrete_characteristic, number_characteristic, date_characteristic, time_characteristic, boolean_characteristic].each do |characteristic|
         schema << "characteristic_#{characteristic.id}"
       end
-      creator = UserCreatorFromCsv.new(demo.id, schema)
+      creator = UserCreatorFromCsv.new(demo.id, schema, :email)
 
       demo.users.count.should be_zero
 
@@ -51,7 +62,7 @@ describe UserCreatorFromCsv do
       schema = basic_schema + [attribute_name]
       attributes = basic_attributes + [attribute_value]
 
-      creator = UserCreatorFromCsv.new(demo.id, schema)
+      creator = UserCreatorFromCsv.new(demo.id, schema, :email)
       creator.create_user(CSV.generate_line(attributes))
 
       demo.users.first[attribute_name].should == expected_model_value
@@ -92,7 +103,7 @@ describe UserCreatorFromCsv do
             schema = basic_schema + ["characteristic_#{boolean_characteristic.id}"]
             attributes = basic_attributes + [true_string]
 
-            creator = UserCreatorFromCsv.new(demo.id, schema)
+            creator = UserCreatorFromCsv.new(demo.id, schema, :email)
             creator.create_user(CSV.generate_line(attributes))
 
             demo.users.first.characteristics[boolean_characteristic.id].should be_true
@@ -104,7 +115,7 @@ describe UserCreatorFromCsv do
             schema = basic_schema + ["characteristic_#{boolean_characteristic.id}"]
             attributes = basic_attributes + [false_string]
 
-            creator = UserCreatorFromCsv.new(demo.id, schema)
+            creator = UserCreatorFromCsv.new(demo.id, schema, :email)
             creator.create_user(CSV.generate_line(attributes))
 
             demo.users.first.characteristics[boolean_characteristic.id].should be_false
@@ -118,7 +129,7 @@ describe UserCreatorFromCsv do
             schema = basic_schema + ["characteristic_#{date_characteristic.id}"]
             attributes = basic_attributes + [date_string]
 
-            creator = UserCreatorFromCsv.new(demo.id, schema)
+            creator = UserCreatorFromCsv.new(demo.id, schema, :email)
             creator.create_user(CSV.generate_line(attributes))
 
             demo.users.first.characteristics[date_characteristic.id].should == Date.parse("2012-05-01")

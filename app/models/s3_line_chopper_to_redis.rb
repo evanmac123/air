@@ -1,4 +1,6 @@
 class S3LineChopperToRedis < S3LineChopper
+  include MemoizedRedisClient
+
   def feed_to_redis(lines_to_preview)
     count = 0
 
@@ -15,15 +17,5 @@ class S3LineChopperToRedis < S3LineChopper
 
   def redis_load_queue_key
     "bulk_upload:load:#{@object_key}"
-  end
-
-  protected
-
-  def redis
-    unless @_redis
-      @_redis = Redis.new(url: ENV['REDISTOGO_URL'])
-    end
-
-    @_redis
   end
 end

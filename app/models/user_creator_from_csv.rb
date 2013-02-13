@@ -1,9 +1,11 @@
 require 'csv'
 
 class UserCreatorFromCsv
-  def initialize(demo_id, schema)
+  def initialize(demo_id, schema, unique_id_field)
     @demo_id = demo_id
     @schema = schema
+    @unique_id_field = unique_id_field
+    @unique_id_field_index_in_schema = @schema.find_index(@unique_id_field.to_s)
   end
 
   def create_user(csv_line)
@@ -19,7 +21,15 @@ class UserCreatorFromCsv
     end
 
     new_user_attributes[:demo_id] = @demo_id
-    User.create(new_user_attributes)
+
+    user = User.where(demo_id: @demo_id).where(@unique_id_field => user_data[@unique_id_field_index_in_schema]).first
+
+    if user
+      user.attributes = new_user_attributes
+      user.save
+    else
+      User.create(new_user_attributes)
+    end
   end
 
   protected
