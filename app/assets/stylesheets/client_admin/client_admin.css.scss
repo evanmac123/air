@@ -8,7 +8,7 @@ h1.subsection-head {
     padding-bottom:.75em;
 }
 ul {list-style-type: none;}
-* {box-sizing:border-box;}
+* {-moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;}
 body.client_admin_main {
     background:image-url('marketing/bg.gif');
     color:$text-color;

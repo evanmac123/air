@@ -17,9 +17,12 @@
   </div>
   <div class="bar_section bar_level">
     <% if current_user.demo.uses_tickets %>
-      <p>Tickets: </p>
-      <p class="level"><%= current_user.tickets %></p>
+      <p class="level"><%= current_user.tickets %></p>      
+      <p>Tix</p>
     <% end %>
   </div>
-</div>
 
+  <%= default_avatar_tag current_user, :id => :top_avatar %>
+  <p id="total_xp">Experience Points: <%= number_with_delimiter current_user.points %></p>
+
+</div>

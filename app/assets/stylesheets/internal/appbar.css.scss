@@ -4,10 +4,16 @@ $dark:darken($header-bg, 14%);
 $light:lighten($header-bg, 7%);
 
 /* ---------- masthead ---------- */
-.header {
+.header {background-color:$dark-gray;}
+.app_bar {
 	background-color:$dark-gray;
-	font-weight:bold;
-	
+	color:$gray;
+	font-size:$font-small;
+	font-weight: 500;
+	margin:$centered;
+	padding:.5em 0 0 0;
+	width:$body-width;
+
 	a {
 		color:#fff;
 		&:hover {color:lighten($header-bg, 50%)!important;}
@@ -29,35 +35,30 @@ $light:lighten($header-bg, 7%);
 			height:20px;
 		}
 	}
+
 	
-	.app_bar {
-		color:$gray;
+	&:after{
+		clear:both;
+		content:"";
+		display:block;
+	}
+	a {
 		font-size:$font-small;
-		font-weight: 500;
+		text-decoration: none;
+		&:active {color:$gray!important;}
+	}
+	.app_by {
+		float:left;
 		margin:$centered;
-		padding:.5em 0 0 0;
-		width:$body-width;
-		&:after{
-			clear:both;
-			content:"";
-			display:block;
-		}
-		a {
-			font-size:$font-small;
-			text-decoration: none;
-			&:active {color:$gray!important;}
-		}
-		.app_by {
-			float:left;
-			margin:$centered;
-		}
-		.app_settings {
-			float:right;
-			margin:0;
-			li {padding-left:20px; font-size: 12px;}
-		}
+	}
+	.app_settings {
+		float:right;
+		margin:0;
+		a {color:$light-gray;}
+		li {padding-left:20px; font-size: 12px;}
 	}
 }
+
 .your_photo{
   display: inline;
 }
