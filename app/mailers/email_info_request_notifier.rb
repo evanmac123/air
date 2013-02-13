@@ -31,7 +31,7 @@ class EmailInfoRequestNotifier < ActionMailer::Base
       @cc = []
     else
       @to = 'vlad@hengage.com'
-      @cc = ['phil@hengage.com', 'kim@hengage.com', 'kate@hengage.com', 'josh@hengage.com']
+      @cc = ['phil@hengage.com', 'kim@hengage.com', 'kate@hengage.com']
     end
     mail(:from    => 'H Engage Notifier<notify@hengage.com>',
          :to      => @to,
