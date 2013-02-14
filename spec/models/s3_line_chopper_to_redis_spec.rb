@@ -24,6 +24,12 @@ describe S3LineChopperToRedis do
     end
   end
 
+  describe "#redis_lines_completed_key" do
+    it "should return a key based on the S3 object key" do
+      chopper.redis_lines_completed_key.should == "bulk_upload:lines_completed:#{EXPECTED_OBJECT_KEY}"
+    end
+  end
+
   describe "#feed_to_redis" do
     let (:lines_to_preview) {5}
     
@@ -47,6 +53,19 @@ describe S3LineChopperToRedis do
 
     it "should put every line into a Redis queue for loading" do
       expect_lines_in_queue(chopper.redis_load_queue_key, File.read(TEST_FILE_PATH).lines.to_a.length)
+    end
+
+    it "should record the number of lines processed to Redis on a running basis" do
+      mock_redis = stub("Redis client", lpush: nil, set: nil)
+      chopper.stubs(:redis).returns(mock_redis)
+
+      chopper.feed_to_redis(1) do
+      end
+
+      line_count_sequence = sequence('line_count')
+      1.upto(20).each do |expected_count|
+        mock_redis.should have_received(:set).with(chopper.redis_lines_completed_key, expected_count).in_sequence(line_count_sequence)
+      end
     end
   end
 end

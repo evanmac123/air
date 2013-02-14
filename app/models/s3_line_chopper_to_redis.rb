@@ -7,7 +7,9 @@ class S3LineChopperToRedis < S3LineChopper
     chop do |line|
       redis.lpush(redis_preview_queue_key, line) if count < lines_to_preview
       redis.lpush(redis_load_queue_key, line)
+
       count += 1
+      redis.set(redis_lines_completed_key, count)
     end
   end
 
@@ -17,5 +19,9 @@ class S3LineChopperToRedis < S3LineChopper
 
   def redis_load_queue_key
     "bulk_upload:load:#{@object_key}"
+  end
+
+  def redis_lines_completed_key
+    "bulk_upload:lines_completed:#{@object_key}"
   end
 end

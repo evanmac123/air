@@ -24,6 +24,4 @@ describe S3LineChopper do
   end
 
   it "should have some kind of way of indicating that it's done"
-
-  it "should record its progress somewhere"
 end
