@@ -22,6 +22,4 @@ describe S3LineChopper do
 
     read_lines.join("").should == expected_text
   end
-
-  it "should have some kind of way of indicating that it's done"
 end

@@ -7,7 +7,6 @@ describe S3LineChopperToRedis do
   before do
     mock_s3 = MockS3.install
     mock_s3.mount_file(EXPECTED_OBJECT_KEY, TEST_FILE_PATH, 100)
-    Redis.new.flushdb
   end
 
   let(:chopper) {S3LineChopperToRedis.new("some_bucket", EXPECTED_OBJECT_KEY)}
@@ -30,14 +29,22 @@ describe S3LineChopperToRedis do
     end
   end
 
+  describe "#redis_all_lines_chopped_key" do
+    it "should return a key based on the S3 object key" do
+      chopper.redis_all_lines_chopped_key.should == "bulk_upload:all_lines_chopped:#{EXPECTED_OBJECT_KEY}"
+    end
+  end
+
   describe "#feed_to_redis" do
     let (:lines_to_preview) {5}
     
     before(:each) do
-      chopper.feed_to_redis(lines_to_preview)
+      Redis.new.flushdb
     end
    
     def expect_lines_in_queue(key, expected_count)
+      chopper.feed_to_redis(lines_to_preview)
+
       redis = Redis.new
       redis.llen(key).should == expected_count
 
@@ -66,6 +73,15 @@ describe S3LineChopperToRedis do
       1.upto(20).each do |expected_count|
         mock_redis.should have_received(:set).with(chopper.redis_lines_completed_key, expected_count).in_sequence(line_count_sequence)
       end
+    end
+
+    it "should have some kind of way of indicating that it's done" do
+      Redis.new.get(chopper.redis_all_lines_chopped_key).should be_nil
+
+      chopper.feed_to_redis(1) do
+      end
+
+      Redis.new.get(chopper.redis_all_lines_chopped_key).should be_present
     end
   end
 end
