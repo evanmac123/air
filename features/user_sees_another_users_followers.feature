@@ -23,9 +23,9 @@ Feature: Directory of other users
     And I go to the user page for "Dan"
 
   Scenario: Names appear for other users
-    Then I should see "Phil" within a link to the user page for "Phil"
-    And I should see "Vlad" within a link to the user page for "Vlad"
-    And I should see "Sven" within a link to the user page for "Sven"
+    Then I should see "Phil" within a link to the user page for "Phil" in my Friends list
+    And I should see "Vlad" within a link to the user page for "Vlad" in my Friends list
+    And I should see "Sven" within a link to the user page for "Sven" in my Friends list
     And I should not see a link to the user page for "Mort"
   
   Scenario: No follow button for yourself

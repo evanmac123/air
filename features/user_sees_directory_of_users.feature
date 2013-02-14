@@ -41,11 +41,11 @@ Feature: Directory of other users
   Scenario: Users are searchable
     Given I fill in "search bar" with "phi"
     And I press "Find!"
-    Then I should see "Phil Darnowsky" within a link to the user page for "Phil Darnowsky"
+    Then I should see "Phil Darnowsky" within a link to the user page for "Phil Darnowsky" in the Other Players list
     And I should see an avatar "phil.png" for "Phil Darnowsky"
-    And I should see "Phil Aaronson" within a link to the user page for "Phil Aaronson"
+    And I should see "Phil Aaronson" within a link to the user page for "Phil Aaronson" in the Other Players list
     And I should see an avatar "vlad.png" for "Phil Aaronson"
-    And I should see "Phil Zymurgy" within a link to the user page for "Phil Zymurgy"
+    And I should see "Phil Zymurgy" within a link to the user page for "Phil Zymurgy" in the Other Players list
     And I should see the default avatar for "Phil Zymurgy"
     And I should not see "Sven"
     And I should not see "Phil Othergame"

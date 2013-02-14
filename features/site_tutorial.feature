@@ -3,19 +3,18 @@ Feature: Talking Chicken
     Given the following demo exists:
       | name           |
       | Hell on Wheels | 
-    Given the following rule exists:
+    And the following rule exists:
       | points | demo                 |
       | 50     | name: Hell on Wheels |
-    Given the following rule value exists:
+    And the following rule value exists:
       | rule          | value         | is_primary |
       | points: 50    | ate an orange | true       |
-    Given the following brand new users exist:
+    And the following brand new users exist:
       | name                | demo                 |
       | Brand New           | name: Hell on Wheels |
-    Given "Brand New" has password "chicken"
+    And "Brand New" has password "chicken"
     And I sign in via the login page as "Brand New/chicken"
-  
-  
+
   @javascript 
   Scenario: Talking Chicken pops first and foremost
   And I wait a second
@@ -24,26 +23,25 @@ Feature: Talking Chicken
     Given I close the facebox modal
     And I wait a second
     And I should see "quick tour"
-    When I click within ".show_tutorial"
+    # There are 2 ".show_tutorial" links (they have text "Quick Tour") and Capy2 requires uniqueness, so specify container
+    When I click within "#fancybox-content .show_tutorial"
     And I should see "DIRECTORY"
     And I wait a second
-    Then I should see "Click It"
+    Then I should see "CLICK IT"
     When I click the sample tile
-    Then I should see "Read for Points" 
+    Then I should see "READ FOR POINTS"
     And I wait a second
     When I fill in "command_central" with "some command you've never heard of"
-    
     And I press "play_button"
     And I take five
     Then I should see "helpful info" 
     When I click within "#next_button"  
     Then I should see "Click DIRECTORY to find people you know"
-    When I follow "DIRECTORY"
+    When I follow "Directory"
     Then I should see 'Just for practice, type "Kermit"'
     When I fill in "search_string" with "Kermit"
     And I press "Find!"
     And I wait a second
-    
     Then I should see "Click ADD TO FRIENDS to connect with Kermit"
     When I click within ".follow-btn"
     Then I should see "DIRECTORY"
@@ -56,7 +54,6 @@ Feature: Talking Chicken
     When I follow "Finish"
     Then "Finish" should not be visible 
     
-    
     @javascript
     Scenario: Leah does not start tutorial
       And I wait a second
@@ -65,8 +62,8 @@ Feature: Talking Chicken
       Given I close the facebox modal
       And I wait a second
       And I should see "quick tour"
-      And I take five
-      And I follow "No thanks"
+      And I wait a second
+      And I click within "#fancybox-content #no_thanks_tutorial"
       And I take five
       And "No thanks" should not be visible
       Then "Brand New" should have a closed tutorial with current step "0"
@@ -78,51 +75,47 @@ Feature: Talking Chicken
       And I should see "DIRECTORY"
       Then "Brand New" should have a closed tutorial with current step "0"
       And I should not see "No thanks"
-      
-      
-    
+
     @javascript 
     Scenario: Leah leaves tutorial
-      Then I should see "Directory"
+      Then I should see "DIRECTORY"
       Given I close the facebox modal
       And I wait a second
       And I should see "quick tour"
-      When I click within ".show_tutorial"
-      And I should see "Directory"
+      When I click within "#fancybox-content .show_tutorial"
+      And I should see "DIRECTORY"
       And I take five
-      Then I should see "Click It"
+      Then I should see "CLICK IT"
       When I click the sample tile
-      Then I should see "Read for Points"
+      Then I should see "READ FOR POINTS"
       And I click within "#gear"
       And I click within ".close_tutorial"
-      Then I should see "Directory"
+      Then I should see "DIRECTORY"
       Then "Brand New" should have a closed tutorial with current step "2"
       And I take five
-      Then "Read for Points" should not be visible
+      Then "READ FOR POINTS" should not be visible
       
     @javascript 
     Scenario: Leah leaves tutorial, then starts it again from FAQ
-      Then I should see "Directory"
+      Then I should see "DIRECTORY"
       Given I close the facebox modal
       And I wait a second
       And I should see "quick tour"
-      When I click within ".show_tutorial"
-      And I should see "Directory"
+      When I click within "#fancybox-content .show_tutorial"
+      And I should see "DIRECTORY"
       And I take five
-      Then I should see "Click It"
+      Then I should see "CLICK IT"
       When I click the sample tile
-      Then I should see "Read for Points"
+      Then I should see "READ FOR POINTS"
       And I click within "#gear"
       And I click within ".close_tutorial"
-      Then I should see "Directory"
+      Then I should see "DIRECTORY"
       Then "Brand New" should have a closed tutorial with current step "2"
       And I take five
-      Then "Read for Points" should not be visible
+      Then "READ FOR POINTS" should not be visible
       When I go to the help page
       And I press "Take Quick Tour"
-      Then I should see "Directory"
+      Then I should see "DIRECTORY"
       Then "Brand New" should have an open tutorial with current step "0"
       And I should be on the activity page
       And I should see "Welcome"
-      
-      

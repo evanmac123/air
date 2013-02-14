@@ -31,5 +31,5 @@
         / style is set to display: none initially so they don't load outside of the clip
         .tile_thumbnail{id: thumbnail_id, :style => "display: none;"}
           .headline
-            .text= tile.headline
+            %div{id: "for_test_#{tile.headline.underscore}", class: 'text'}= tile.headline
             .headline_overlay

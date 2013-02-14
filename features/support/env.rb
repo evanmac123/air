@@ -11,12 +11,18 @@ require 'cucumber/rails'
 # order to ease the transition to Capybara we set the default here. If you'd
 # prefer to use XPath just remove this line and adjust any selectors in your
 # steps to use the XPath syntax.
+#
+# Set to ':webkit_debug' to get debug info printed out while running tests.
+#
 Capybara.save_and_open_page_path = 'tmp'
 Capybara.javascript_driver = :webkit
 Capybara.default_selector = :css
 Capybara.default_wait_time = 10
 
-# Some JS features just plain don't work with poltergeist. Some of these will 
+require 'capybara-screenshot/cucumber'
+Capybara::Screenshot.autosave_on_failure = false
+
+# Some JS features just plain don't work with poltergeist. Some of these will
 # be fixable in time, others...well...
 
 Before('@capybara-webkit') do

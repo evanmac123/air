@@ -2,11 +2,11 @@ Feature: User gives credit to game referer via autocomplete field
 
   Background:
     Given the following demo exists:
-      | name |
-      | Bratwurst    |
-      | Gleason    |
+      | name      |
+      | Bratwurst |
+      | Gleason   |
     Given the following claimed users exist:
-      | name               | demo                    | email        | slug      | sms_slug    |
+      | name               | demo            | email        | slug      | sms_slug    |
       | Barnaby Bueller    | name: Bratwurst | 1@hopper.com | smoke     | smoke       |
       | Charlie Brainfield | name: Bratwurst | 2@hopper.com | airplane  | airplane    |
       | Yo Yo Ma           | name: Bratwurst | 3@hopper.com | naked     | naked       |
@@ -24,7 +24,7 @@ Feature: User gives credit to game referer via autocomplete field
     When "new_user@hopper.com" has received an invitation
     And "new_user@hopper.com" opens the email
     And I click the play now button in the email
-    Then I should see "And confirm that password"
+    Then I should see "Confirm password"
     Then I should see "Did anyone refer you?"
 
   @javascript

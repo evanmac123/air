@@ -207,7 +207,7 @@ feature 'Highchart Plot' do
     end
 
     # Redefine to give time for plotted lines to appear in both the screenshot and webpage
-    def show_page
+    def show_me_the_page
       sleep 1
       super
     end

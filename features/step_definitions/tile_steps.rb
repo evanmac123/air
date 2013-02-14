@@ -64,3 +64,8 @@ end
 When /^I click the sample tile$/ do
   page.find('#tile-thumbnail-0').click
 end
+
+When /^I should see the "(.*)" tile$/ do |tile|
+  #page.should have_selector 'div.text', text: tile, visible: false
+  find('.text', text: tile).should_not be_nil
+end

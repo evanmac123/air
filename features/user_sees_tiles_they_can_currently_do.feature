@@ -27,7 +27,9 @@ Feature: User sees tiles they can currently do
     And I sign in via the login page with "Joe/foobar"
 
   Scenario: User sees tiles they can currently do
-    Then I should see "Make toast"
+    And I take five
+    And show me the page
+    Then I should see the "Make toast" tile
 
   Scenario: User doesn't see tiles they can't currently do
     Then I should not see "Make PBJ"
