@@ -43,3 +43,11 @@ $border-light:      1px #fff solid;
         right:{width:1px;}
     }
 }
+
+@mixin ease {
+    -webkit-transition: all .15s ease-in-out;
+    -moz-transition: all .15s ease-in-out;
+    -ms-transition: all .15s ease-in-out;
+    -o-transition: all .15s ease-in-out;
+    transition: all .15s ease-in-out;
+}

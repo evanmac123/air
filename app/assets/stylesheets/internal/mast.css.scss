@@ -1,12 +1,19 @@
 body {
     font-size:14px;
-    * {-moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;}
+    * {
+        -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;
+        font-family:$sans;
+    }
 }
 .masthead{
     background:#f1f1f1;
+    border-top:$border-light;
     border-bottom:4px $white solid;
+    a {@include ease;}
 }
 .mast_top, .mast_bottom {margin:$centered;  width:$body-width;}
+
+/* -- game nav -- */
 .mast_top {
     border-bottom: $border-dark;
     font-size:1.25em;
@@ -41,6 +48,7 @@ body {
                     margin-right:.35em;
                     width:18px;
                 }
+                &:hover {border-bottom:2px $dark-green solid;}
                 &.nav-home:hover:before {background-position:-1px -22px;}
                 &.nav-tiles {
                     &:before {background-position:-28px -1px;}
@@ -58,235 +66,150 @@ body {
         }
     }
     #welcome-text {
-        background:$white;
-        padding:.45em;
-        max-width:192px;
-        overflow: hidden;
-        text-overflow:ellipsis;
-        white-space: nowrap;
+        margin-left:1em;
+        p {
+            background:$white;
+            color:lighten($gray, 10%);
+            display: inline-block;
+            float:left;
+            padding:.45em;
+            a {
+                color:$gray; font-weight:500;
+                &:hover {color:$dark-green;}
+            }
+        }
+        &:before {
+            border-bottom: 8px solid transparent;
+            border-right: 8px solid $white;
+            border-top: 8px solid transparent;
+            content:"";
+            display:inline-block;
+            float:left;
+            margin-top:10px;
+        }
     }
 }
+
+/* -- nav active states -- */
+body.acts .nav-home, body.tiles .nav-tiles, 
+body.users-show .nav-activity, body.users-index .nav-tiles {font-weight:700!important;}
+body.acts .nav-home:before {background-position:-1px -22px!important;}
+body.tiles .nav-tiles:before {background-position:-28px -22px!important;}
+body.users-show .nav-activity:before {background-position:-55px -22px!important;}
+body.users-index .nav-tiles:before {background-position:-83px -21px!important;}
+
+/* -- game stats -- */
 .mast_bottom {
     border-top:$border-light;
-}
-
-/*
-.masthead {
-    background-color:$header-bg;
-    background-image:url('v3/texture_darker.png');
-    border-top:1px $light solid;
-    border-bottom:1px $dark solid;
-    padding-bottom:15px;
-
-    .mast_top {
-        color:$light-gray;
-        margin:$centered;
-        padding:15px $gutter;
-        width:$body-width;
-        
-        .logo_container {
-            float:left;
-            margin-top:5px;
-            
-            img {
-                width:130px;
-            }
-        }
-        .welcome {
-            color:lighten($header-bg, 45%);
-            float:left;
-            margin:0.80% 0 0 25px;
-            position:relative;
-            overflow:hidden;
-            width:235px;
-            
-            img {
-                @include rounded;
-                border:1px lighten($header-bg, 10%) inset;
-                float:left;
-                height:60px;
-                margin:0 15px 0 0!important;
-                width:60px;
-            }
-            
-            .welcome_text {
-                float:left;
-                position:relative;
-                width:155px;
-                top:2px;
-                #total_xp {padding-top:.5em;}
-            }
-        }
-        .navigation {
-            float:right;
-            left:15px;
-            margin:2% 0 0 0;
-            text-transform:uppercase;
-
-            a {
-                display:block;
-                float:left;
-                font-family:$gotham;
-                font-size:15px;
-                letter-spacing: 1px;
-                padding:6px 15px;
-            }
-        }
+    &:after {
+        clear:both;
+        content:"";
+        display:block;
     }
-    .mast_center {
-        border-top:1px $light solid;
-        color:lighten($header-bg, 33%);
-        font-size:$font-small;
-        margin:$centered;
-        padding:$gutter $gutter 2px $gutter;
-        width:$body-width;
-        
-        li.help_command {padding:0 316px 0 5px;}
-        li.help_progress {padding-right:202px;}
+    .bar_section {
+        display:inline-block;
+        float:left;
+        font-size:.85em;
+        padding:20px 0;
+        p {display: inline-block;}
     }
-    .mast_bottom {
-        @include bg-progressbar;
-        @include rounded-progress;
-        border:1px darken($header-bg, 10%) solid;
-        height:56px;
-        margin:$centered;
-        width:960px;
-        background: url('mbar_right.png') no-repeat scroll 178mm 0 transparent;
-        
-        .bar_section {
-
-            float:left;
-            height:54px;
+    #bar_command {
+        border-right:$border-dark;
+        padding:21px 0;
+        width:336px;
+        input {float:left;}
+        input[type="text"] {
+            border:$border-dark;
+            color:$orange;
+            font-weight:700;
+            margin:0;
+            outline:0;
+            padding:.95em;
+            text-transform: uppercase;
+            width:268px;
+            &:focus {border:1px $orange solid;}
         }
-        
-        .bar_command {
-            @include shadow-side;
-            @include bg-progressbar;
-            position: relative;
-            border:1px #fff solid;
-            border-radius: 30px;
-            -webkit-border-radius: 30px;
-            -moz-border-radius: 30px;
-            behavior: url(/css3pie/PIE.htc);
-            width:400px;
-            z-index:1;
-            input[type="text"] {
-                border:1px darken($light-gray, 10%) solid;  
-                border-radius:20px 0 0 20px;
-                -webkit-border-bottom-left-radius: 20px;
-                -webkit-border-top-left-radius: 20px;
-                -moz-border-bottom-left-radius: 20px;
-                -moz-border-top-left-radius: 20px;
-                behavior: url(/css3pie/PIE.htc);
-                
-                color:$med-gray;
-                height:24px;
-                float:left;
-                margin:9px 0 9px 10px;
-                padding:5px 10px;
-                width:300px;
-            }
-            input[type="submit"] {
-                @include bg-orange;
-                border:0;   
-                border-radius:0 20px 20px 0;    
-                -webkit-border-bottom-right-radius: 20px;
-                -webkit-border-top-right-radius: 20px;
-                -moz-border-bottom-right-radius: 20px;
-                -moz-border-top-right-radius: 20px; 
-                behavior: url(/css3pie/PIE.htc);                
-                
-                color:#fff;
-                float:right;
-                font-family:$gotham;
-                font-size:14px;
-                font-weight: bold;
-                height:35px;
-                left:-15px;
-                margin-top:10px;
-                padding-top:5px;
-                position:relative;
-                text-indent:-2px;
-                text-shadow:1px 1px 1px $dark-gray;
-                text-transform:uppercase;
-                width:54px;
-                
-                &:hover {
-                    @include bg-orange-rev;
-                }
-            }
-        }
-        
-        .bar_progress {
-            @include shadow-side;
-            @include bg-progressbar;
-
-            border:1px #fff solid;
-            border-radius:0 30px 30px 0;
-            -webkit-border-top-right-radius: 30px;
-            -moz-border-top-right-radius: 30px;
-            behavior: url(/css3pie/PIE.htc);
-
-            border-left:none;
-            left:-26px;
-            position:relative;
-            width:413px;
-            
-            .bar {
-                background-image: url('v3/bar.png');
-                background-repeat: no-repeat;
-                height:35px;
-                margin:9px 0 0 35px;
-                overflow:hidden;
-                position: absolute;
-                width:360px;
-                
-                .progress {
-                    @include rounded-nav;
-                    background-image: url('v3/progressBar.png');
-                    background-repeat: no-repeat;
-                    height:100%;
-                    margin:0;
-                    overflow: hidden;
-                    padding:0;
-                    position:relative;
-                    width:30%;
-                }
-                
-                p {
-                    color:#906109;
-                    font-size:15px;
-                    font-weight:bold;
-                    margin: -28px 0 0 0;
-                    position: relative;
-                    text-align: center;
-                    text-shadow:none;
-                }
-            }
-        }
-        
-        .bar_level {
+        input[type="submit"] {
+            background:$gray;
             border:0;
-            width:140px;
-            
-            p {
-                color:$header-bg;
-                float:left;
-                font-family:$gotham;
-                font-size:$font-small;
-                margin: 20px 0 0 -10px;
-                padding:0;
-                text-align: right;
-                text-shadow:none;
-                text-transform:uppercase;
-                width:60px;
-            }
-            p.level {
-                @include orange-text;
-                float:right;
-                font-size:30px;
-                margin:7px 25px 0 0;
-            }
+            color:$white;
+            font-size:1em;
+            font-weight: 700;
+            margin:0;
+            padding:1.03em;
+            text-transform: uppercase;
+            &:hover {background:darken($gray, 5%);}
         }
     }
-*/
+    #bar_progress {
+        border-left:$border-light;
+        padding-left:2em;
+        position: relative;
+        .bar {
+            background:#3f3f3f;
+            display:inline-block;
+            height:40px;
+            position:relative;
+            width:287px;
+        }
+        .progress {
+            background:image-url('v5/bar.png') no-repeat center left transparent;
+            height:100%;
+            position:absolute;
+            width:60%; //REMOVE ME
+        }
+        p {
+            color:$white;
+            font-weight:700;
+            margin:0;
+            padding:0;
+            position:absolute;
+            right:1em;
+            top:40%;
+        }
+    }
+    #bar_tix, #bar_me {.label{color:$med-gray;}}
+    #bar_tix {
+        &:before {
+            background:image-url('v5/sprites.png') $orange no-repeat 5px -38px;
+            content:"";
+            display:inline-block;
+            float:left;
+            height:40px;
+            width:40px;
+        }
+        ul {
+            display: inline-block;
+            margin-left:1em;
+            width:72px;
+        }
+        #tix_count {
+            color:$orange;
+            font-size:1.85em;
+            font-weight: 700;
+            line-height:1.15em;
+        }
+        .label:before {
+            background:image-url('v5/sprites.png') no-repeat transparent -40px -47px;
+            content:"";
+            display:inline-block;
+            height:10px;
+            margin-right:.35em;
+            width:11px;
+        }
+    }
+    #bar_me {
+        float:right;
+        padding:18px 0;
+        width:192px;
+        img, ul {display: inline-block; vertical-align: middle;}
+        img {border:1px $white solid; width:48px}
+        ul {margin-left:1em;}
+        #xp_count {
+            color:$gray;
+            font-size:1.85em;
+            font-weight:300;
+            line-height:1.15em;
+        }
+    }
+}

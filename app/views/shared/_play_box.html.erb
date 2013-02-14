@@ -1,28 +1,33 @@
 <div class="mast_bottom">
-  <div id='bar_command_wrapper' style="float: left">
-    <div class="bar_section bar_command">
-      <%= form_tag acts_path do %>
-        <% game_enabled = @game_pending ? " disabled='true' " : "" %>
-        <%= hidden_field_tag 'current_tile' %>
-        <input type="text" id="command_central" name="act[code]" autocomplete='off' <%= game_enabled %>/>
-        <input type="submit" value="Play" id="play_button"<%= game_enabled %> />
-      <% end %>
-    </div>
-  </div>
-  <div class="bar_section bar_progress">
-    <div class="bar">
-      <div class="progress" style="<%= master_bar_width %>"></div>
-      <p><%= master_bar_point_content %></p>
-    </div>
-  </div>
-  <div class="bar_section bar_level">
-    <% if current_user.demo.uses_tickets %>
-      <p class="level"><%= current_user.tickets %></p>      
-      <p>Tix</p>
+  <div id="bar_command" class="bar_section">
+    <%= form_tag acts_path do %>
+      <% game_enabled = @game_pending ? " disabled='true' " : "" %>
+      <%= hidden_field_tag 'current_tile' %>
+      <input type="text" id="command_central" name="act[code]" autocomplete='off' <%= game_enabled %>/>
+      <input type="submit" value="Go" id="play_button"<%= game_enabled %> />
     <% end %>
   </div>
-
-  <%= default_avatar_tag current_user, :id => :top_avatar %>
-  <p id="total_xp">Experience Points: <%= number_with_delimiter current_user.points %></p>
-
+  <div id="bar_progress" class="bar_section">
+    <div class="bar">
+      <!-- <div class="progress" style="< %= master_bar_width %>"></div>-->
+      <div class="progress"></div>
+    </div>
+    <p><%= master_bar_point_content %></p>
+  </div>
+  <div id="bar_tix" class="bar_section">
+    <% if current_user.demo.uses_tickets %>
+      <ul>
+      <!--<li id="tix_count">< %= current_user.tickets %></li>-->
+      <li id="tix_count">831</li>
+      <li class="label">Tix</li>
+      </ul>
+    <% end %>
+  </div>
+  <div id="bar_me" class="bar_section">
+    <%= default_avatar_tag current_user, :id => :top_avatar %>
+    <ul>
+      <li id="xp_count"><%= number_with_delimiter current_user.points %></li>
+      <li class="label">Experience pts</li>
+    </ul>
+  </div>
 </div>
