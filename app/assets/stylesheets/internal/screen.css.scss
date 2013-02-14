@@ -1,15 +1,26 @@
 a, a:link, a:visited {
+	@include ease;
 	color:$dark-green;
 	font-weight:bold;
 	text-decoration: none!important;
-	&:hover {color:$light-green;}
-	&:active {color:$light-gray;}
+	&:hover {color:darken($dark-green, 5%);}
+	&:active {color:darken($dark-green, 5%);}
 }
 h1, h2, h3 {margin:0; padding:0;}
 img {border:0; margin:0; padding:0;}
 input:focus {outline: 0;}
 p {margin:0;padding:0;}
 ul {list-style-position:outside; list-style-type:none; margin:0; padding:0;}
+
+input[type="text"] {
+	border:$border-dark;
+	color:$gray;
+	padding:.75em;
+	&:focus {
+		color:$dark-green;
+		border:1px $dark-green solid;
+	}
+}
 
 .hidden{display:none;}
 .flash-preload {
@@ -28,6 +39,7 @@ body {
 		padding:0;
 		width:$body-width;
 		&:after{@include clear;}
+		.seemore {text-align: center;}
 	}
 	.left-col, .right-col {
 		border-top:$border-dark;

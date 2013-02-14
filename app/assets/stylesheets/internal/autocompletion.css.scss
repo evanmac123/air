@@ -11,7 +11,6 @@ $medium_radius: 12px;
   clear: both;
 }
 #invite_friends_top, #invite_friends_middle, #invite_friends_bottom{
-  width: $bin_width;
   #relative{
     top: 0px;
   }
@@ -239,7 +238,11 @@ div.helper {
     width: 325px;
     behavior: none;
   }
-  .form-label{padding-top: 10px;}
+  .form-label{padding:1em 0;}
+  .form-label label {
+    font-weight:500;
+    font-size:1.15em;
+  }
 }
 
 .clear{clear: both;}
