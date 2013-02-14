@@ -1,0 +1,94 @@
+/* --------------------------- settings --------------------------- */
+
+
+body.settings {
+    .container {
+        .about_user {
+            float:left;
+            font-size:$font-small;
+            margin-top:10px;
+            width:47%;
+
+            .settings_avatar {
+                .avatar_image {
+                    float:left;
+                    margin-right:10px;
+                    width:100px;
+                }
+                .avatar_inputs {
+                    .clear-avatar {
+                        input {
+                            background: $light-gray!important;
+                            color: $gray;
+                            text-shadow: none!important;
+                            &:hover {
+                                background:$header-bg!important;
+                                color: #fff;
+                            }
+                        }
+                    }
+                }
+                img.size-96 {
+                  width: 96px;
+                  height: 96px;
+                }
+            }
+            .settings_dob {
+                clear:both;
+                input[type="text"] {width:427px;}
+            }
+            .settings_user {
+                input[type="text"] {width:427px;}
+                p {clear:both;}
+            }
+            .settings_weight {
+                input[type="text"] {width:250px;}
+                p {
+                    color:$gray;
+                    display:inline;
+                    font-weight:bold;
+                    margin:0 0 0 6px;
+                }
+            }
+        } 
+
+        .other_settings {
+            float:right;
+            font-size:$font-small;
+            width:47%;
+            input[type="text"], input[type="password"] {
+                display: inline;
+                font-size:20px;
+                padding:7px 10px;   
+                width:427px;
+                height: 15px;
+                padding: 5px 10px;
+                font-size: inherit;
+              }
+            
+            .settings_new_number_verification {
+            }
+        }
+
+    #password_change {
+      float: left;
+    }
+        .notification_settings {
+            .settings_new_number_verification {
+                input[type="submit"] {
+                    display:block;
+                    margin:12px 0;
+                }
+            }
+        }
+        .privacy_settings {
+            margin-top:10px;
+        }
+        
+        label {display:inline;}
+        li {
+            display:inline;
+            margin:0 0 0 10px;
+        }
+    }
+}

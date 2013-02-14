@@ -48,14 +48,14 @@ $medium_radius: 12px;
 }
 
 a.remove_referrer{
-    color:$hengage-bg;
+    color:$dark-green;
   position: absolute;
   left: auto;
   right: 4px;
   top: 1px;
   
     &:hover {
-        color:lighten($hengage-bg, 15%)!important;
+        color:lighten($dark-green, 15%)!important;
     }
 }
 
@@ -68,7 +68,7 @@ a.remove_referrer{
   color:$dark-gray;
   padding: 10px;
   width: $bin_width;
-  border: $single_suggestion_border_width solid $hengage-bg;
+  border: $single_suggestion_border_width solid $dark-green;
   -moz-border-radius: $suggestion_radius;
   -webkit-border-radius: $suggestion_radius;
   border-radius: $suggestion_radius;
@@ -78,13 +78,12 @@ a.remove_referrer{
   position: relative;
   behavior: none;
   img {
-        @include rounded;
         border:1px $light-gray inset;
         width:75px;
     }
     div.info {
         div.bit:first-child {
-            color:$hengage-bg;
+            color:$dark-green;
             font-size:16px;
             font-weight:bold;
         }
@@ -162,7 +161,6 @@ div#search_for_referrer {
         div.single_suggestion {
             div.image {
                 img {
-                    @include rounded;
                     border:1px $light-gray inset;
                     height:95px;
                     width:95px;
@@ -194,16 +192,15 @@ div#search_for_referrer {
 
 /*      ############# Stolen from another stylesheet ######################### */
 div.helper {
-    @include rounded;
-    background-color: $hengage-bg;
+    background-color: $dark-green;
     background-image: url('v3/texture_darker.png');
     border: {
         style:solid;
         width:1px;
-        bottom: {color: darken($hengage-bg, 15%);}
-        left: {color: darken($hengage-bg, 15%);}
-        right: {color: darken($hengage-bg, 15%);}
-        top: {color: lighten($hengage-bg, 10%);}
+        bottom: {color: darken($dark-green, 15%);}
+        left: {color: darken($dark-green, 15%);}
+        right: {color: darken($dark-green, 15%);}
+        top: {color: lighten($dark-green, 10%);}
     }
     box-shadow: 0 0 4px #2c2c2c;
     color: #fff;
@@ -257,7 +254,6 @@ div.helper {
 #submit_invite_friend {
     margin-top:4px;
     a#invite_friends_link {
-        @include button-norm;
         margin-bottom: 4px;
         display: inline-block;
         font-size:11px;
@@ -283,7 +279,6 @@ div.helper {
   position: absolute;
   right: 7px;
   bottom: 7px;
-  @include button-norm;
     margin-top: 10px;
     font-weight: bold;
     letter-spacing: .5px;

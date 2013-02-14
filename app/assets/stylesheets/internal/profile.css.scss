@@ -1,0 +1,70 @@
+
+/* --------------------------- profile page --------------------------- */
+body.users {
+    div#about-player {
+      position: relative;
+        margin-bottom:15px;
+        div.player-avatar {
+            float:left;
+            a {
+                display:block;
+                padding:5px 25px;
+            }
+            img {
+                border:1px $gray solid;
+                margin:0;
+            }
+        }
+        ul.player-info {
+            float:left;
+            padding:10px 0 10px 15px;
+            width:65%;
+            h1 {
+                margin:0;
+                padding:0;
+            }
+            li {
+                margin:0;
+                padding:0 0 5px 0;
+                &:last-child{padding-bottom: 0px;}
+            }
+            .points-and-level{
+              p {
+                font-size:16px;
+                line-height: 17px;
+                &.next_level{
+                  font-size: 14px;
+                }
+                }
+            }
+        }
+    }
+    div#left-col {
+        float:left;
+        width:60%;
+    }
+    div#right-col {
+        float:right;
+        width:365px;
+        li {
+        padding:0 0 5px 0;
+        &.user {
+            clear:both;
+            .user-level {
+                color:lighten($dark-gray,10%);
+                float:right;
+                font-weight:bold;
+                text-transform:uppercase;
+            }
+            p.user-name {
+                color:$header-bg;
+                float:left;
+                span {
+                    color:$gray;
+                    margin-right:5px;
+                }
+            }
+        }
+    }
+    }
+}

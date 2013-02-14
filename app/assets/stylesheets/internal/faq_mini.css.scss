@@ -15,11 +15,27 @@ $green: #588B3D;
 	  margin: 2ex !important;
 	}
   input{
-    @include ex-button;
+    background-color: $dark-green;
+    border:0; 
+    color:#fff;
+    display: block;
+    font-family: $sans;
+    font-size: 15px;
+    font-weight:900;
+    letter-spacing:.15ex;
+    padding: 5px 16px;
+    text-shadow:1px 1px 1px #333;
+    text-transform: uppercase;
+    &:hover {
+        background-color: $dark-gray;
+    } 
+    &:active {
+        background-color: $gray;
+    }
   }
 	h1, h2 {
 		color:$dark-gray;
-		font-family:$gotham;
+		font-family:$sans;
 		font-weight:900;
 	}
 	h1{

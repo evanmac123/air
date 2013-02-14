@@ -154,7 +154,7 @@ strong{
   position: relative;
 }
 .spotlight.nav-directory, .spotlight.user, .spotlight.nav-activity{
-  background: $hengage-bg;
+  background: $dark-green;
   -moz-border-radius: 10em;
   -webkit-border-radius: 10em;
   border-radius: 10em;
@@ -217,7 +217,6 @@ strong{
     font-weight: 500;
   }
   .show_tutorial{
-    @include button-norm;
     background: green;
     &:hover{color: white; background: #343;}
     font-size: 155% !important;

@@ -1,22 +1,11 @@
 /* ----- phone interstitial verification ----- */
 body.verifications {
-  *{
-    font-family: $gotham;
-  }
 	div.content {
-		@include input-text;
 	  table, tr, td{
       border: none;
     }
     p{padding-top: 10px;}
 		border:1px #bebebe solid;
-		-webkit-border-radius: 3px;
-		-moz-border-radius: 3px;
-		border-radius:3px;
-		-moz-box-shadow: 0 0 5px #c9c9c9;
-		-webkit-box-shadow: 0 0 5px #c9c9c9;
-		box-shadow: 0 0 5px #c9c9c9;
-		behavior: url(/css3pie/PIE.htc);
 		background-color:#ffffff;
 		color:$dark-gray;
 		margin:20px auto 0 auto;
@@ -38,7 +27,6 @@ body.verifications {
       margin-top: 20px;
 		}
 		input[type="submit"] {
-			@include button-norm;
 			margin-left:15px;
 		}
 		input[type="text"] {
@@ -57,4 +45,236 @@ body.verifications {
       color: grey;
     }
 	}
+}
+
+
+/* --------------------------- game not started --------------------------- */
+div.content {
+  div#no-login-yet {
+    margin:30px auto 20px auto;
+    width:460px;
+    div.invite#invite_friends {
+      display:none;
+    }
+    h2 {
+      color:$dark-gray;
+      font-family:$sans;
+      font-size:20px;
+      font-weight: 900;
+      padding-bottom:15px;
+      text-transform:uppercase;
+    }
+  }
+}
+/* --------------------------- pop up for contacting us --------------------------- */
+/* this will be displayed in a facebox when they click the support email links      */
+
+
+#faq_toc{
+  .contact_us_link, .quick_tour_link{
+    font-size:11px;
+    margin-top: 1.2ex;
+    width: 129px;
+  }
+}
+
+.need_help{
+//  width: 150px;
+    border-bottom:1px $light-gray solid;
+    margin: 0 auto 15px auto;
+    padding:0 0 15px 0;
+    font-size: 17px;
+    text-align: center
+}
+
+body.verifications {
+    div.content {
+        #notification_pref {
+            border-top:1px $light-gray solid;
+            margin-top:20px;
+            padding-top:30px;
+            form {margin-top:0;}
+            h1 {padding-bottom:0;}
+            div.module_inner {
+                li {
+                    display:inline-block;
+                    margin-right:20px;
+                    label {color:$header-bg; display:inline-block!important; margin-left:5px; font-weight:bold;}
+                }
+            }
+        }
+        #enter_code{
+            display: inline-block;
+            width:100%;
+            input#user_new_phone_validation {margin-right:10px; width:70%;}
+        }
+        margin-top: 16mm;
+        input[type='submit']{
+          font-size: 17px !important;
+          margin: 0;
+        }
+        div#no-login-yet {
+            margin:30px auto 20px auto;
+            position:relative;
+            width:460px;
+            div.invite#invite_friends {
+                display:none;
+            }
+            h2 {
+                color:$dark-gray;
+                font-family:$sans;
+                font-size:20px;
+                font-weight: 900;
+                padding-bottom:15px;
+                text-transform:uppercase;
+            }
+        }
+    }
+}
+
+#search-box{
+  padding-right: 0;
+}
+.right{
+  float: right;
+}
+.left{
+  float: left;
+}
+.pending_notice{
+  text-align: center;
+  color: #aaa;
+  padding-bottom: 2px;
+}
+
+.follow_buttons{
+  position: absolute;
+  bottom: 15px;
+  right: 2px;
+}
+#about-player .follow_buttons{
+  right: 15px;
+}
+
+.search_nudge{
+  padding-bottom: 5px;
+}
+#notify_of_search{
+  -moz-border-radius: 6ex;
+  -webkit-border-radius: 6ex;
+  border-radius: 6ex;
+  .title{font-size: 120%;}
+  background: #e8e8e8;
+  margin: 16px 60px;
+  padding: 13px 23px;
+}
+div.follow-btn, div.stop-following-btn {
+    text-align: center;
+  cursor: pointer;
+    a {color:#fff;}
+}
+#following, #followed-by{
+  li{
+    list-style-position: outside;
+  }
+  ul, ol{
+    padding-left: 20px;
+  }
+}
+
+.overflow-tiles{
+  display: none;
+}
+.dd_bonus{
+  color: yellow;
+  font-size: 17px;
+  line-height: 18px;
+  font-weight: bold;
+  float: right;
+  padding-right: 13px;
+}
+.demos{
+  margin-left: 5ex;
+  list-style-type: disc;
+}
+#new-user-form{
+  display: none;
+}
+
+td.label{
+  font-weight: bold;
+}
+#reset-report{
+  a{color: white;}
+  margin-top: 1.5ex;
+  float: right;
+}
+.stripe{
+  background: #cacec8;
+}
+.clear{
+  clear: both;
+}
+#user_activity_link{
+  position: relative;
+  left: -8px;
+}
+
+
+
+#interaction_popularity_link, #user_activity_link{
+  &:hover{
+    color: yellow;
+    background: #070;
+  }
+  background: #666;
+  color: #888;
+  padding: 0.7ex 2ex;
+  &.active{
+    color: #fb0;
+    background: #070;
+  }
+}
+
+
+#interaction_popularity_table, #user_activity_table{
+  position: relative;
+  margin-bottom: 6cm;
+}
+.inline{
+  display: inline;
+}
+.inline-block{
+  display: inline-block;
+}
+
+
+
+#timeout_warning, #timeout_warning h2{
+  color: red;
+  padding-top: 1.5cm;
+}
+
+.interaction_in_progress{
+  padding-top: 1.5cm;
+}
+.room_for_two{
+  width: 2.7ex;
+  float: right;
+  text-align: right;
+}
+#message_body{
+  height: 6em;
+}
+#following #scoreboard_list, #scoreboard #friends_list{
+  display: none;
+}
+
+.orange{
+  color: orange;
+}
+.ajax_notice{
+  color: green;
+  font-size: 170%;
+  display: none;
 }

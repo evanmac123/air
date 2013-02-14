@@ -24,7 +24,6 @@ body.external {
 		font-size: 26px;
 		letter-spacing: 0;
 		text-shadow:1px 1px 1px #a8a8a8;
-			behavior: url(/css3pie/PIE.htc);
 	}
 	.content {width:auto!important;}
 	.inv-forms {padding:20px;}
@@ -34,7 +33,7 @@ body.external {
 body.invitations .header #navigation .nav-signup, body.sessions .header #navigation .nav-login {
 	@include bg-black;
 	@include rounded-nav;
-	border:1px lighten($hengage-bg, 5%) solid;
+	border:1px lighten($dark-green, 5%) solid;
 }
 
 /* ============== layout =============== */
@@ -42,12 +41,12 @@ body.invitations .header #navigation .nav-signup, body.sessions .header #navigat
 
 	.top {
 		background-image: url('v3/texture_darker.png');
-		border-bottom: 1px darken($hengage-bg, 15%) solid;
+		border-bottom: 1px darken($dark-green, 15%) solid;
 		height: 354px;
 		
 		a {
 			&:hover {
-				color:lighten($hengage-bg, 55%)!important;
+				color:lighten($dark-green, 55%)!important;
 			}
 			&:active {
 				color:$dark-gray!important;
@@ -94,7 +93,7 @@ body.invitations .header #navigation .nav-signup, body.sessions .header #navigat
 			
 			#logo {
 			  background: $header-bg;
-				border-top: 1px lighten($hengage-bg, 11%) solid;
+				border-top: 1px lighten($dark-green, 11%) solid;
 				height: 192px;
 				overflow: hidden;
 				padding: 0;
@@ -165,23 +164,23 @@ body.invitations .header #navigation .nav-signup, body.sessions .header #navigat
 			div.form-ul-section {
 				div.helper {
 					@include rounded;
-					background-color: $hengage-bg;
+					background-color: $dark-green;
 					background-image: url('v3/texture_darker.png');
 					border: {
 						style:solid;
 						width:1px;
 						
 						bottom: {
-							color: darken($hengage-bg, 15%);
+							color: darken($dark-green, 15%);
 						}
 						left: {
-							color: darken($hengage-bg, 15%);
+							color: darken($dark-green, 15%);
 						}
 						right: {
-							color: darken($hengage-bg, 15%);
+							color: darken($dark-green, 15%);
 						}
 						top: {
-							color: lighten($hengage-bg, 10%);
+							color: lighten($dark-green, 10%);
 						}
 					}
 					box-shadow: 0 0 4px #2c2c2c;
@@ -261,9 +260,9 @@ body.invitations-show, body.invitation-acceptances {
 /* ====== special case: INVITATIONS New ====== */
 body.invitations-new, body.invitations-create {
 	a {
-		color:$hengage-bg;
+		color:$dark-green;
 		&:hover {
-			color:lighten($hengage-bg, 10%);
+			color:lighten($dark-green, 10%);
 		}
 		&:active {
 			color:$dark-gray;
@@ -364,7 +363,7 @@ body.sessions .content .inv-forms {
 		}
 		
 		a {
-			color:$hengage-bg;
+			color:$dark-green;
 			font-weight:bold;
 			&:hover {
 				color:$dark-gray;
@@ -438,7 +437,7 @@ ul.form-section {
 	@include rounded-nav;
 	border: 1px #c5c7c7 solid;
 	background-color:lighten($light-gray, 5%); 
-	color:$hengage-bg;
+	color:$dark-green;
 	font-size:20px;
 	margin:5px auto 0 auto;
 	padding:7px 10px;
@@ -446,7 +445,7 @@ ul.form-section {
 }
 	.form-input input:focus {
 		background-color:#fff;
-		border:1px $hengage-bg solid;
+		border:1px $dark-green solid;
 	}
 .form-input .field_with_errors input, .form-input .field_with_errors input {border:2px #e11a00 solid;}
 
