@@ -1,4 +1,4 @@
-a {
+a, a:link, a:visited {
 	color:$dark-green;
 	font-weight:bold;
 	text-decoration: none!important;
@@ -11,9 +11,7 @@ input:focus {outline: 0;}
 p {margin:0;padding:0;}
 ul {list-style-position:outside; list-style-type:none; margin:0; padding:0;}
 
-.hidden{
-  display:none;
-}
+.hidden{display:none;}
 .flash-preload {
 	height:0;
 	visibility:hidden;
@@ -29,6 +27,21 @@ body {
 		margin:$centered;
 		padding:0;
 		width:$body-width;
+		&:after{@include clear;}
+	}
+	.left-col, .right-col {
+		border-top:$border-dark;
+		display:inline-block;
+		margin-top:2em;
+		vertical-align: top;
+	}
+	.left-col {width:63%;}
+	.right-col {float:right; width:34%;}
+	h1.headline {
+		font-size:2em;
+		font-weight:300;
+		color:$headlines;
+		padding:.75em 0;
 	}
 }
 

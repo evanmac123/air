@@ -1,61 +1,55 @@
-<div class="container">
-  <%= render 'shared/tiles_carousel' %>
-	
-	<div class="right-column">
-  	<div class="module" id="scoreboard_wrapper">
-  	  <%= render 'scoreboard', :user => @current_user %>
-    </div>
-  	<div class="invite-module module">
-  		<%= render :partial => "invite_your_friends" %>  
-  	</div>
-  </div>
-  
-	<div id="feed_wrapper">
-	  <div class="feeds module">
+<%= render 'shared/tiles_carousel' %>
 
-  	    <h1 class="headline" id="feeds_title">Activity</h1>
+<div id="feed_wrapper" class="left-col">
+  <div class="feeds module">
 
-  		<div class="cf"></div>
+    <h1 class="headline" id="feeds_title">Activity</h1>
 
-  	    <% content_for :javascript do %>
-  	      <%= javascript_tag do %>
-  	        $('#show-more-tiles').click(function(){
-  	          if ($('.overflow-tiles').css('display') == 'none'){
-                $('#show-more-tiles').text('Show less');
-                setTimeout("$('.grey-show-more-arrows').attr('src', '<%= asset_path 'v3/arrow-up.png' %>')", 300);
-  	          }else{
-                $('#show-more-tiles').text('Show more');	
-                setTimeout("$('.grey-show-more-arrows').attr('src', '<%= asset_path 'v3/arrow-down.png' %>')", 300);            
-  	          }
-              $('.overflow-tiles').fadeToggle('slow');
-            })
-  	      <% end %>
-  	    <% end %>
+	    <% content_for :javascript do %>
+	      <%= javascript_tag do %>
+	        $('#show-more-tiles').click(function(){
+	          if ($('.overflow-tiles').css('display') == 'none'){
+              $('#show-more-tiles').text('Show less');
+              setTimeout("$('.grey-show-more-arrows').attr('src', '<%= asset_path 'v3/arrow-up.png' %>')", 300);
+	          }else{
+              $('#show-more-tiles').text('Show more');	
+              setTimeout("$('.grey-show-more-arrows').attr('src', '<%= asset_path 'v3/arrow-down.png' %>')", 300);            
+	          }
+            $('.overflow-tiles').fadeToggle('slow');
+          })
+	      <% end %>
+	    <% end %>
 
-        <ul id="user-acts">
-  	      <%= render :partial => "shared/act", :collection => @acts, :as => :act %>
-        </ul>
+      <ul id="user-acts">
+	      <%= render :partial => "shared/act", :collection => @acts, :as => :act %>
+      </ul>
 
-        <%= render 'shared/see_more' %>
+      <%= render 'shared/see_more' %>
 
-        <%= image_tag 'spinner.gif', :id => 'see-more-spinner', :style => 'display:none' %>
+      <%= image_tag 'spinner.gif', :id => 'see-more-spinner', :style => 'display:none' %>
 
-  	    <%= render 'shared/bind_see_more', 
-  	      :offset_var_name     => 'actOffset', 
-  	      :current_offset      => @acts.length,
-  	      :button_selector     => '#see-more',
-  	      :spinner_selector    => '#see-more-spinner',
-  	      :original_path       => acts_path(:format => :js, :show_only => @show_only, :mode => 'see-more'),
-  	      :path_var_name       => 'actsPath',
-  	      :mixpanel_event_name => 'saw more acts'
-  	    %>
+	    <%= render 'shared/bind_see_more', 
+	      :offset_var_name     => 'actOffset', 
+	      :current_offset      => @acts.length,
+	      :button_selector     => '#see-more',
+	      :spinner_selector    => '#see-more-spinner',
+	      :original_path       => acts_path(:format => :js, :show_only => @show_only, :mode => 'see-more'),
+	      :path_var_name       => 'actsPath',
+	      :mixpanel_event_name => 'saw more acts'
+	    %>
 
-  	</div>
 	</div>
-<!--	<div class="active-games module">
-		<h1 class="headline">Your active games</h1>
-	</div> -->
 </div>
+
+<div class="right-col">
+  <div class="module" id="scoreboard_wrapper">
+    <%= render 'scoreboard', :user => @current_user %>
+  </div>
+  <div class="invite-module module">
+    <%= render :partial => "invite_your_friends" %>  
+  </div>
+</div>
+
 
 
 <div id='faq_mini'>

@@ -14,7 +14,7 @@ $light:lighten($header-bg, 7%);
 	padding:.5em 0 0 0;
 	width:$body-width;
 
-	a {
+	a, a:link, a:visited {
 		color:#fff;
 		&:hover {color:lighten($header-bg, 50%)!important;}
 		&:active {
@@ -37,11 +37,7 @@ $light:lighten($header-bg, 7%);
 	}
 
 	
-	&:after{
-		clear:both;
-		content:"";
-		display:block;
-	}
+	&:after{@include clear;}
 	a {
 		font-size:$font-small;
 		text-decoration: none;

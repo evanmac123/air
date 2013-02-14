@@ -19,10 +19,17 @@ $light-green:       #89c440;
 $dark-green:        #00b318;
 $orange:            #ff7d00;
 $text-color:        #292929;
+$headlines:         #636363;
 $light-gray:        #dfdfdf;
 
 $border-dark:       1px $light-gray solid;
 $border-light:      1px #fff solid;
+
+@mixin clear {
+    clear:both;
+    content:"";
+    display:block;
+}
 
 @mixin square-button-wrap($bg) {
     background:#{$bg};

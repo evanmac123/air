@@ -1,4 +1,4 @@
-#left-col
+.left-col
   #about-player.module
     .player-avatar
       = avatar_96(@user)
@@ -30,7 +30,7 @@
       e.preventDefault();
     });
     
-#right-col
+.right-col
   = render 'accepted_friends'
   - if @display_pending_friendships  
     #followed-by.module

@@ -1,0 +1,22 @@
+@mixin ex-button {
+	  @include rounded-nav;
+	background-color: $hengage-bg;
+	border:0; 
+	color:#fff;
+	display: block;
+	font-family: $gotham;
+	font-size: 15px;
+	font-weight:900;
+	letter-spacing:.15ex;
+	padding: 5px 16px;
+	text-shadow:1px 1px 1px #333;
+	//behavior: url(/css3pie/PIE.htc);
+	behavior: none;
+	text-transform: uppercase;
+	&:hover {
+		background-color: $dark-gray;
+	} 
+	&:active {
+		background-color: $gray;
+	}
+}

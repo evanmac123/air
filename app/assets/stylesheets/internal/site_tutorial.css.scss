@@ -146,7 +146,7 @@ strong{
   font-style: italic;
 }
 .green{
-  color: $header-bg;
+  color: $dark-green;
 }
 
 .spotlight{
@@ -212,7 +212,7 @@ strong{
     display: inline-block;
   }
   a{
-    color: $header-bg;
+    color: $dark-green;
     font-size: 100%;
     font-weight: 500;
   }
@@ -222,7 +222,7 @@ strong{
     font-size: 155% !important;
   }
   a:hover{
-    color: darken($header-bg, 10%);
+    color: darken($dark-green, 10%);
   }
   .link{
     text-align: center;
