@@ -87,6 +87,7 @@ body#tile_viewer {
     float:left;
     margin: auto;
     position:relative;
+    text-align: center;
     width: 666px; 
     height: 2000px;
   }
@@ -94,7 +95,7 @@ body#tile_viewer {
     padding: 1em; 
     background:$white;
     border: $border-light; 
-    width:100%!important;
+    width:100%;
   }
 
   .footer {
