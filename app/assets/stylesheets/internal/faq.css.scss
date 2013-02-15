@@ -1,144 +1,53 @@
 /* --------------------------- faq --------------------------- */
 body.pages-faq{
-    .content {
-        margin:$centered;
-        width:960px;
-        #faq_body, #faq_toc {
-            margin-top:20px;
-        }
-        #faq_body {
-            float:left;
-            width:60%;
-            padding-bottom: 60px;
-            padding-right: 15px;
+    // FAQ body content
+    .left-col h1.headline {padding-bottom:0;}
+    h1.Section- {
+        background:$white;
+        font-size:1.75em;
+        margin:1em 0;
+        padding:.5em;
+    }
+    h2.Subsection- {
+        border-top:$border-dark;
+        font-weight:500;
+        font-size:1.15em;
+        margin-top:.5em;
+        padding:1em 0;
+    }
+    h3.Subsubsection- {
+        color:$orange;
+        font-size:1em;
+        padding-bottom:1em;
+    }
+    .left-col .Standard, ul, ol {padding-bottom:1em;}
+    .left-col ul, ol {list-style-type:disc; margin-left:1.25em;}
 
-            h1, h2, h3 {
-                color:$dark-gray;
-                font-family:$sans;
-                font-weight:900;
-            }
-            h1{
-                font-size:26px;
-                text-transform:uppercase;
-                &.Section-{
-                    background-color:$light-gray;
-                    color:$gray;
-                    font-weight:900;
-                    margin-bottom:10px;
-                    padding:10px;
-                    position:relative;
-                    top:20px;
-                }
-            }
-            h2 {
-                color:$dark-gray;
-                font-size:18px;
-                font-weight:900;
-                text-transform: uppercase;
-                padding:25px 0 10px 15px;
-            }
+    // FAQ menu
+    .need_help {
+        margin-bottom:2em;
+    }
+    .faq_menu {
+        border-top:$border-dark;
+        .tocindent .toc {
+            padding:1em 0;
 
-      h3 {
-        font-size: inherit;
-        padding: 25px 0 10px 15px;
-      }
-            
-            .Standard {
-                font-size: 110%;
-                color:$med-gray;
-                padding: 0 10px 0 15px;
-                & + .Standard {padding-top: 1ex;}
-                & + ul{
-                    padding-top: 1ex;
-                }
-            }
-            ul{
-                padding-left: 49px;
-                & + .Standard{
-                    padding-top: 1ex;
-                }
-            }
-            li{
-                list-style: disc;
-                color: $med-gray;
-                & + li{padding-top: 1ex;}
-            }
-            
-            .Paragraph{
-                color:lighten($dark-gray, 20%);
-                font-weight: bold;
-                font-size: 115%;
-                padding-top: 1.8ex;
-                padding-bottom: 0.8ex;
-                padding-left: 15px;
-            }
-            .Subparagraph{
-                color:lighten($dark-gray, 20%);
-                font-weight: bold;
-                font-size: 106%;
-                padding-left: 5ex;
-                padding-top: 1ex;
-                & + ul{
-                    padding-left: 10ex;
-                }
-            }
-            i {
-                font-style: normal;
-                font-weight: bold;
+            a, a:link, a:visited {
+                color:$text-color;
+                font-size:1.15em;
+                font-weight:300;
             }
         }
-        #faq_toc{
-            float:right;
-            width:33%;
-//          background: #e3e3e3;
-            a {
-                color:$header-bg;
-                &:hover {color:lighten($header-bg, 10%);}
-                &:active {color:$dark-gray;}
-            }
+        .tocindent .tocindent {
+            .tocindent {margin-left:1.25em;}
             .toc {
-                margin:15px 0 5px 0;
-                &:first-child {
-                    margin-top:0;
-                }
-                a {
-                    color:darken($header-bg, 10%);
-                    font-size: 130%;
-                    font-weight:500;
-                    &:hover {color:lighten($header-bg, 10%);}
-                    &:active {color:$dark-gray;}
-                }
+                border-top:0;
+                padding:0 0 .35em 0;
             }
-
-            .tocindent {
-                
-                padding-bottom:15px;
-                
-                .toc {
-                    font-size: 100%;
-                }
-                .tocindent {
-                    border-bottom:1px $light-gray solid;
-                    padding-left: 2ex;
-                    &:last-child {
-                        border:0;
-                    }
-                    a{
-                        color:$header-bg;
-                        font-size: 100%;
-                        font-weight:400;
-                        &:hover {color:lighten($header-bg, 10%);}
-                        &:active {color:$dark-gray;}
-                    }
-                    .toc {
-                        margin-top:0!important;
-                    }
-
-          .tocindent {
-            border: 0;
-            padding-bottom: 0;
-          }
-                }
+            a, a:link, a:visited {
+                color:$dark-green;
+                font-size:.85em;
+                font-weight:700;
             }
         }
     }

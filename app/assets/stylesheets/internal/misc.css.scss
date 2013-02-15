@@ -70,23 +70,6 @@ div.content {
 /* this will be displayed in a facebox when they click the support email links      */
 
 
-#faq_toc{
-  .contact_us_link, .quick_tour_link{
-    font-size:11px;
-    margin-top: 1.2ex;
-    width: 129px;
-  }
-}
-
-.need_help{
-//  width: 150px;
-    border-bottom:1px $light-gray solid;
-    margin: 0 auto 15px auto;
-    padding:0 0 15px 0;
-    font-size: 17px;
-    text-align: center
-}
-
 body.verifications {
     div.content {
         #notification_pref {

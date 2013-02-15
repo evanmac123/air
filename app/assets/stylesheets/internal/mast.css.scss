@@ -95,11 +95,13 @@ body {
 }
 
 /* -- nav active states -- */
-body.acts .nav-home, body.tiles .nav-tiles, 
-body.users-show .nav-activity, body.users-index .nav-directory {font-weight:700!important;}
+body.acts .nav-home, 
+body.tiles .nav-tiles, 
+body.users-show .my-profile.nav-activity, 
+body.users-index .nav-directory {font-weight:700!important;}
 body.acts .nav-home:before {background-position:-1px -22px!important;}
 body.tiles .nav-tiles:before {background-position:-28px -22px!important;}
-body.users-show .nav-activity:before {background-position:-55px -22px!important;}
+body.users-show .my-profile.nav-activity:before {background-position:-55px -22px!important;}
 body.users-index .nav-directory:before {background-position:-83px -21px!important;}
 
 /* -- game stats -- */
