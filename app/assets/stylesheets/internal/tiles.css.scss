@@ -33,17 +33,14 @@ body#tile_viewer {
   }
   p#position {
     position: absolute;
-    background:#818385;
-    border:1px white solid;
-    border-radius:5px;
-    behavior: url(/css3pie/PIE.htc);
-    box-shadow:inset 0 0 10px #68696b;
+    background:$gray;
+    border:$border-light;
     color:white;
-    font-family: 'Ubuntu', sans-serif;
+    font-family:$sans;
     float:right;
     margin:0;
     padding:13px 0;
-    left: 757px;
+    left: 765px;
     top: 11px;
     text-align: center;
     width: 13ex;
@@ -94,11 +91,9 @@ body#tile_viewer {
     height: 2000px;
   }
   #slideshow img {
-    padding: 22px; 
-    background:image-url('tile_viewer/bg-transwhite.png');
-    border: 1px solid #f8f8f8; 
-    border-radius:5px;
-    box-shadow:inset 0 0 10px #949494;
+    padding: 1em; 
+    background:$white;
+    border: $border-light; 
   }
 
   .footer {

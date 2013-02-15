@@ -13,7 +13,7 @@ class Tile < ActiveRecord::Base
   extend Sequenceable
   has_alphabetical_column :headline
   has_attached_file :image,
-    {:styles => {:viewer => ["620", :png]},
+    {:styles => {:viewer => ["666", :png]},
     :default_style => :viewer,
     :bucket => S3_TILE_BUCKET}.merge(TILE_IMAGE_OPTIONS)
 
