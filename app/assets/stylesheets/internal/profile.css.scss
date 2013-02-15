@@ -20,10 +20,6 @@
 }
 
 // Friend's list scoreboard
-#friends_list table, #scoreboard_list table {
-    background:$white;
-    .scoreboard_stripe {background:lighten($light-gray, 10%);}
-    .scoreboard_stripe td {background: transparent;}
-}
+#friends_list table, #scoreboard_list table {background:$white;}
 
 .indent_same_as_table {color:$gray;}

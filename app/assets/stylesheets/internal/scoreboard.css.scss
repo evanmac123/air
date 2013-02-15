@@ -62,7 +62,7 @@ table.scoreboard{
   td{border: none; padding:0;}
   tr{
     // Put background on td instead of tr so it works in IE
-    &.scoreboard_stripe td{ background: #f8f8f8;}
+    &.scoreboard_stripe td{background:lighten($light-gray, 5%);}
   }
   #scoreboard_spacer{height: 11px;}
   .user-name{

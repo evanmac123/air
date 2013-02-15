@@ -72,14 +72,13 @@ $headline_overlay_top: 148px;
       padding: 10px 11px;
       font-size: 16px;
       line-height: 21px;
-      font-family: ubuntu, arial, sans-serif;
     }
   }
 
 }
 #carousel_wrapper{
   .jcarousel-container{
-    width: 833px;
+    width: 100%;
     height: 259px;
     margin-bottom: 2px;
     padding: 20px 62px 20px 57px;
@@ -87,8 +86,8 @@ $headline_overlay_top: 148px;
     left: 3px;
   }
   .jcarousel-clip{
-    width: 840px;
-    height: 400px;
+    width: 100%;
+    height: 260px;
   }
   .jcarousel-item{
     margin-right: 0px;
