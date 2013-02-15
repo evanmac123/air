@@ -4,7 +4,7 @@
       <% game_enabled = @game_pending ? " disabled='true' " : "" %>
       <%= hidden_field_tag 'current_tile' %>
       <input type="text" id="command_central" name="act[code]" autocomplete='off' <%= game_enabled %>/>
-      <input type="submit" value="Go" id="play_button"<%= game_enabled %> />
+      <div class="button_wrap"><input type="submit" value="Go" id="play_button"<%= game_enabled %> /></div>
     <% end %>
   </div>
   <div id="bar_progress" class="bar_section">

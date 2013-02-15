@@ -7,12 +7,23 @@ a, a:link, a:visited {
 	&:active {color:darken($dark-green, 5%);}
 }
 h1, h2, h3 {margin:0; padding:0;}
+h1.headline {
+	font-size:2em;
+	font-weight:300;
+	color:$headlines;
+	padding:.75em 0;
+}
+h2.subhead {
+	font-weight:500;
+    font-size:1.15em;
+    padding-bottom:.75em;
+}
 img {border:0; margin:0; padding:0;}
 input:focus {outline: 0;}
 p {margin:0;padding:0;}
 ul {list-style-position:outside; list-style-type:none; margin:0; padding:0;}
 
-input[type="text"] {
+input[type="text"], input[type="password"] {
 	border:$border-dark;
 	color:$gray;
 	padding:.75em;
@@ -40,6 +51,18 @@ body {
 		width:$body-width;
 		&:after{@include clear;}
 		.seemore {text-align: center;}
+
+		// GREEN BUTTONS
+	    .button_wrap {
+	    	@include square-button-wrap($dark-green);
+	        border:1px darken($dark-green, 5%) solid;
+		    .button_norm {
+		        @include square-button;
+		        background: $dark-green;
+		        border-color:lighten($dark-green, 5%);
+		        &:hover {background:darken($dark-green, 3%);}
+		    }
+		}
 	}
 	.left-col, .right-col {
 		display:inline-block;
@@ -47,12 +70,6 @@ body {
 	}
 	.left-col {width:63%;}
 	.right-col {float:right; width:34%;}
-	h1.headline {
-		font-size:2em;
-		font-weight:300;
-		color:$headlines;
-		padding:.75em 0;
-	}
 	.module {
 		border-top:$border-dark;
     	margin-top:2em;

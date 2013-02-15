@@ -1,94 +1,49 @@
-/* --------------------------- settings --------------------------- */
+body.settings .left-col .module_inner {background:$white; margin-bottom:2em; padding:1em;}
+body.settings .right-col .module_inner {margin-bottom:1em;}
 
-
-body.settings {
-    .container {
-        .about_user {
-            float:left;
-            font-size:$font-small;
-            margin-top:10px;
-            width:47%;
-
-            .settings_avatar {
-                .avatar_image {
-                    float:left;
-                    margin-right:10px;
-                    width:100px;
-                }
-                .avatar_inputs {
-                    .clear-avatar {
-                        input {
-                            background: $light-gray!important;
-                            color: $gray;
-                            text-shadow: none!important;
-                            &:hover {
-                                background:$header-bg!important;
-                                color: #fff;
-                            }
-                        }
-                    }
-                }
-                img.size-96 {
-                  width: 96px;
-                  height: 96px;
-                }
-            }
-            .settings_dob {
-                clear:both;
-                input[type="text"] {width:427px;}
-            }
-            .settings_user {
-                input[type="text"] {width:427px;}
-                p {clear:both;}
-            }
-            .settings_weight {
-                input[type="text"] {width:250px;}
-                p {
-                    color:$gray;
-                    display:inline;
-                    font-weight:bold;
-                    margin:0 0 0 6px;
-                }
-            }
-        } 
-
-        .other_settings {
-            float:right;
-            font-size:$font-small;
-            width:47%;
-            input[type="text"], input[type="password"] {
-                display: inline;
-                font-size:20px;
-                padding:7px 10px;   
-                width:427px;
-                height: 15px;
-                padding: 5px 10px;
-                font-size: inherit;
-              }
-            
-            .settings_new_number_verification {
-            }
-        }
-
-    #password_change {
-      float: left;
+#about_user {
+    .avatar_image, .avatar_inputs {
+        display:inline-block;
+        vertical-align: middle;
     }
-        .notification_settings {
-            .settings_new_number_verification {
-                input[type="submit"] {
-                    display:block;
-                    margin:12px 0;
-                }
+    .avatar_inputs {margin: 0 0 0 1em;}
+
+    #username_dob_gender {
+        .settings_user {
+            padding:0;
+            &:after{@include clear;}
+
+            #username_change, #gender_change {
+                padding:1em;
+                vertical-align: top;
+                width:50%;
             }
-        }
-        .privacy_settings {
-            margin-top:10px;
-        }
-        
-        label {display:inline;}
-        li {
-            display:inline;
-            margin:0 0 0 10px;
+            #username_change {
+                border-right:1px lighten($light-gray, 7%) solid;
+                float:left;
+                input[type="text"] {margin-top:1em; width:93%;}
+            }
+            #gender_change {
+                float:right;
+                padding-left:1em;
+                li {display:inline-block; margin-right:1em;}
+                li label {display:inline-block;}
+            }
         }
     }
 }
+
+#password_change {
+    ul {
+        display: inline-block;
+        float:left;
+        width:50%;
+        input[type="password"] {width:97%;}
+    }
+    .button_wrap {clear:both;}
+}
+
+#privacy_settings select {font-size:1.5em;}
+
+#notification_settings li {display:inline-block; margin-right:1em;}
+#notification_settings li label {display:inline-block;}

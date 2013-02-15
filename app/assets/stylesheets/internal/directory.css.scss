@@ -2,17 +2,9 @@
     &:after{@include clear;}
     #search_string, .button_wrap {float:left;}
     #search_string {margin:0; width:80%;}
-    .button_wrap {
-        @include square-button-wrap($dark-green);
-        border:1px darken($dark-green, 5%) solid;
-    }
     #find_button {
-        @include square-button;
-        background:$dark-green;
-        border-color:lighten($dark-green, 5%);
         border-bottom:1px $dark-green solid;
         height:37px;
-        margin:0;
         padding:.5em .5em;
     }
 }

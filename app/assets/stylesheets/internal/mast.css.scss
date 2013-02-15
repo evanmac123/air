@@ -117,7 +117,7 @@ body.users-index .nav-directory:before {background-position:-83px -21px!importan
         border-right:$border-dark;
         padding:21px 0;
         width:336px;
-        input {float:left;}
+        input, .button_wrap {float:left;}
         input[type="text"] {
             border:$border-dark;
             color:$orange;
@@ -129,14 +129,20 @@ body.users-index .nav-directory:before {background-position:-83px -21px!importan
             width:268px;
             &:focus {border:1px $orange solid;}
         }
+        .button_wrap {
+            @include square-button-wrap($gray);
+            border:1px darken($gray, 5%) solid;
+        }
         input[type="submit"] {
+            @include square-button;
             background:$gray;
-            border:0;
-            color:$white;
+            border-color:lighten($gray, 7%);
+            border-bottom:1px $gray solid;
+            cursor:pointer;
             font-size:1em;
             font-weight: 700;
             margin:0;
-            padding:1.03em;
+            padding:.9em;
             text-transform: uppercase;
             &:hover {background:darken($gray, 5%);}
         }
