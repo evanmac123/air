@@ -8,3 +8,65 @@
         padding:.5em .5em;
     }
 }
+
+#notify_of_search {margin-bottom:2em;}
+
+#other-users .user {
+    margin-bottom:2em;
+    &:after {@include clear;}
+    .user-avatar, .user-info, .user-name_email, .follow_buttons {
+        display:inline-block;
+        vertical-align: top;
+    }
+    .user-avatar {width:75px; img{width:74px;}}
+    .user-info {
+        background:$white;
+        float: right;
+        position: relative;
+        width:85%;
+        &:before {
+            border-bottom: 8px solid transparent;
+            border-right: 8px solid $white;
+            border-top: 8px solid transparent;
+            content:"";
+            display:inline-block;
+            top:1em;
+            left:-8px;
+            position: absolute;
+        }
+        &:after{@include clear;}
+    }
+    .user-name_email {
+        border-right:1px lighten($light-gray, 7%) solid;
+        padding:1em;
+        width:67%;
+        .name-of-user {font-size:1.15em;}
+        .user-email {padding-top:.5em;}
+    }
+    .follow_buttons {
+        padding:1em;
+        text-align: center;
+        width:32%;
+    }
+}
+
+// affects Directory and Profile pages
+.follow_buttons {
+    .follow-btn, .stop-following-btn {
+        @include ease;
+        cursor: pointer;
+        &:hover{color:$dark-green;}
+    }
+    .follow-btn {
+        font-weight:700;
+        &:before {
+            background:image-url('v5/sprites.png') no-repeat transparent -1px -80px;
+            content:"";
+            display: inline-block;
+            margin-right:.25em;
+            height:20px;
+            width:20px;
+        }
+        &:hover:before{background-position:-26px -80px;}
+    }
+}

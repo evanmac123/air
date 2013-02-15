@@ -4,7 +4,7 @@
       %h1.headline Other Players
       - if @search_string
         #notify_of_search
-          %p.title
+          %h2.subhead
             Showing search results for
             %i
               = @search_string
@@ -16,10 +16,11 @@
                 =link_to user_path(u) do
                   = avatar_96(u) 
               .user-info
-                %p= link_to u.name, user_path(u), :class => 'name-of-user'
-                %p= u.email
+                .user-name_email
+                  %p= link_to u.name, user_path(u), :class => 'name-of-user'
+                  %p.user-email= u.email
                 = render 'follow_buttons', :user => u
-              .cf
+
       - else
         %p Use the search box at right to search for someone
       - if @users_cropped

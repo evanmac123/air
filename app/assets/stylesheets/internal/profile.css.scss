@@ -12,18 +12,18 @@
 #about-player {
     padding-top:2em;
     position:relative;
-}
-.follow_buttons {
-    position:absolute;
-    right:0;
-    top:6.05em;
-    div.follow-btn, div.stop-following-btn {
-        background:$dark-green;
-        text-align: center;
-        cursor: pointer;
-        a {color:#fff;}
-        &:hover {background:darken($dark-green,5%);}
+    .follow_buttons {
+        position:absolute;
+        right:0;
+        top:3em;
     }
+}
+
+// Friend's list scoreboard
+#friends_list table, #scoreboard_list table {
+    background:$white;
+    .scoreboard_stripe {background:lighten($light-gray, 10%);}
+    .scoreboard_stripe td {background: transparent;}
 }
 
 .indent_same_as_table {color:$gray;}
