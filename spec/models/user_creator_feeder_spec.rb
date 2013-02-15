@@ -25,7 +25,9 @@ describe UserCreatorFeeder do
       lines.each {|line| mock_user_creator.should have_received(:create_user).with(line).in_sequence(line_order)}
     end
 
-    it "should log errors to some queue somewhere"
+    it "should log errors to some queue somewhere" do
+      pending
+    end
   end
 
   describe "#done?" do

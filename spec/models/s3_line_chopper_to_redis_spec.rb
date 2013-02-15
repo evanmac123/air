@@ -11,30 +11,6 @@ describe S3LineChopperToRedis do
 
   let(:chopper) {S3LineChopperToRedis.new("some_bucket", EXPECTED_OBJECT_KEY)}
 
-  describe "#redis_preview_queue_key" do
-    it "should return a key based on the S3 object key" do
-      chopper.redis_preview_queue_key.should == "bulk_upload:preview:#{EXPECTED_OBJECT_KEY}"
-    end
-  end
-
-  describe "#redis_load_queue_key" do
-    it "should return a key based on the S3 object key" do
-      chopper.redis_load_queue_key.should == "bulk_upload:load:#{EXPECTED_OBJECT_KEY}"
-    end
-  end
-
-  describe "#redis_lines_completed_key" do
-    it "should return a key based on the S3 object key" do
-      chopper.redis_lines_completed_key.should == "bulk_upload:lines_completed:#{EXPECTED_OBJECT_KEY}"
-    end
-  end
-
-  describe "#redis_all_lines_chopped_key" do
-    it "should return a key based on the S3 object key" do
-      chopper.redis_all_lines_chopped_key.should == "bulk_upload:all_lines_chopped:#{EXPECTED_OBJECT_KEY}"
-    end
-  end
-
   describe "#feed_to_redis" do
     let (:lines_to_preview) {5}
     

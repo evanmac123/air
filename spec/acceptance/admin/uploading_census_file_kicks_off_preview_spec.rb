@@ -20,7 +20,7 @@ feature 'Uploading census file' do
     mock_s3 = MockS3.install
     mock_s3.mount_file(object_key, uploaded_path, 50)
 
-    Redis.new.del("bulk_upload:preview:#{object_key}")
+    Redis.new.flushdb
 
     visit client_admin_bulk_upload_preview_path(object_key: object_key, as: an_admin)
     crank_dj_clear
