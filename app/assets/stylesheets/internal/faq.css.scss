@@ -16,7 +16,7 @@ body.pages-faq{
         padding:1em 0;
     }
     h3.Subsubsection- {
-        color:$orange;
+        color:$blue;
         font-size:1em;
         padding-bottom:1em;
     }
@@ -25,13 +25,28 @@ body.pages-faq{
 
     // FAQ menu
     .need_help {
+
         margin-bottom:2em;
+        .quick_tour_link {
+            @include square-button;
+            background:$dark-green;
+            border-color:lighten($dark-green, 5%);
+            &:hover {background:darken($dark-green, 3%);}
+        }
+        #contact_button {
+            border:1px darken($gray, 5%) solid;
+        }
+        .contact_us_link {
+            @include square-button;
+            background:$gray;
+            border-color:lighten($gray, 5%);
+            &:hover {background:darken($gray, 3%);}
+        }
     }
     .faq_menu {
         border-top:$border-dark;
         .tocindent .toc {
             padding:1em 0;
-
             a, a:link, a:visited {
                 color:$text-color;
                 font-size:1.15em;
@@ -39,6 +54,8 @@ body.pages-faq{
             }
         }
         .tocindent .tocindent {
+            background:$white;
+            padding:1em;
             .tocindent {margin-left:1.25em;}
             .toc {
                 border-top:0;
@@ -46,8 +63,9 @@ body.pages-faq{
             }
             a, a:link, a:visited {
                 color:$dark-green;
-                font-size:.85em;
+                font-size:1em;
                 font-weight:700;
+                &:hover {color:darken($dark-green, 5%);}
             }
         }
     }
