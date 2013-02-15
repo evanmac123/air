@@ -2,15 +2,15 @@
   #about-player.module
     .player-avatar
       = avatar_96(@user)
-      = render 'follow_buttons', :user => @user
+      
     %ul.player-info
       %li
         %h1.headline= @user.name
       %li
         = link_to @user.email, "mailto:#{@user.email}"
-    .cf
 
-  %h2.title Player History
+    = render 'follow_buttons', :user => @user
+
   #recent-activity.module
     %h1.headline Recent Activity
     - unless @display_user_stats

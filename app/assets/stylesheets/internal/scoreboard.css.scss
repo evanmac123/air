@@ -103,9 +103,6 @@ table.scoreboard{
   color: orange;
 }
 
-.indent_same_as_table{
-  padding-left: 15px;
-}
 #scoreboard_headers{
   background:$med-gray;
   &:after{@include clear;}

@@ -42,9 +42,7 @@ body {
 		.seemore {text-align: center;}
 	}
 	.left-col, .right-col {
-		border-top:$border-dark;
 		display:inline-block;
-		margin-top:2em;
 		vertical-align: top;
 	}
 	.left-col {width:63%;}
@@ -55,8 +53,11 @@ body {
 		color:$headlines;
 		padding:.75em 0;
 	}
+	.module {
+		border-top:$border-dark;
+    	margin-top:2em;
+	}
 }
-
 
 #footer {
 	clear:both;

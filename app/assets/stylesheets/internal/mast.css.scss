@@ -28,7 +28,10 @@ body {
         display: inline-block;
         vertical-align: middle;
     }
-    #logo-container img {max-width:152px;}
+    #logo-container {
+        max-width:152px;
+        img {max-width:152px;}
+    }
     #navigation {
         position: absolute;
         top:35%;
@@ -67,6 +70,7 @@ body {
     }
     #welcome-text {
         margin-left:1em;
+        position:relative;
         p {
             background:$white;
             color:lighten($gray, 10%);
@@ -92,11 +96,11 @@ body {
 
 /* -- nav active states -- */
 body.acts .nav-home, body.tiles .nav-tiles, 
-body.users-show .nav-activity, body.users-index .nav-activity {font-weight:700!important;}
+body.users-show .nav-activity, body.users-index .nav-directory {font-weight:700!important;}
 body.acts .nav-home:before {background-position:-1px -22px!important;}
 body.tiles .nav-tiles:before {background-position:-28px -22px!important;}
 body.users-show .nav-activity:before {background-position:-55px -22px!important;}
-body.users-index .nav-activity:before {background-position:-83px -21px!important;}
+body.users-index .nav-directory:before {background-position:-83px -21px!important;}
 
 /* -- game stats -- */
 .mast_bottom {

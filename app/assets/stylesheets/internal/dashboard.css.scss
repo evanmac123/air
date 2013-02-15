@@ -1,4 +1,4 @@
-#feed_wrapper .act {
+.act {
     margin-bottom:2em;
     &:after {@include clear;}
     .avatar43, .act-details {display:inline-block;}
@@ -46,9 +46,4 @@
             }
           }
     }
-}
-
-#invite-module {
-    border-top:$border-dark;
-    margin-top:2em;
 }
