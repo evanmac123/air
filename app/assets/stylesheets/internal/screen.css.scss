@@ -36,7 +36,8 @@ input[type="text"], input[type="password"] {
 .hidden{display:none;}
 .flash-preload {
 	height:0;
-	visibility:hidden;
+	position:absolute;
+	top:-900px;
 }
 
 body {

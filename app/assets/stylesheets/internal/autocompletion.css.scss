@@ -278,21 +278,11 @@ div.helper {
   position: relative;
   padding: 10px 0;
   #show_me_the_site{
-    float: right;
     position: absolute;
-    right: -60px;
-    text-decoration: underline;
-    a{
-      color: grey;
-    }
-    a:hover{
-      font-weight: bold;
-    }
+    right: 0;
+    top:0;
   }
 }
 #facebox #show_me_the_site_holder{
   display: block;
-}
-#facebox .close_image{
-  display: none;
 }
