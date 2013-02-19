@@ -1,4 +1,3 @@
-
 $bin_width: 300px;
 $suggestion_radius: 4px;
 $pound_suggestions_padding: 10px;
@@ -7,9 +6,8 @@ $light_green: #87BF4E;
 $gold: #fd1;
 $medium_radius: 12px;
 
-.clear{
-  clear: both;
-}
+.clear{clear: both;}
+
 #invite_friends_top, #invite_friends_middle, #invite_friends_bottom{
   #relative{
     top: 0px;
@@ -29,21 +27,14 @@ $medium_radius: 12px;
 
 #suggestions{
   display: none;
-  width: $bin_width + 2 * $pound_suggestions_padding + 2 * $single_suggestion_border_width;
-  padding: $pound_suggestions_padding;
-  margin-top: 14px;
+  //width: $bin_width + 2 * $pound_suggestions_padding + 2 * $single_suggestion_border_width;
+  width:100%;
+  padding:0;
+  margin: 1em 0 0 0;
   z-index: 1;
-  -moz-border-radius: $medium_radius;
-  -webkit-border-radius: $medium_radius;
-  border-radius: $medium_radius;
-    background: grey;
-  .remove_referrer{
-    display: none;
-  }
-  .single_suggestion:hover{
-    background: darken($light-gray, 5%);
-    cursor: pointer;
-  }
+  //background: grey;
+  .remove_referrer{display: none;}
+  .single_suggestion:hover{background: lighten($light-gray, 5%);}
 }
 
 a.remove_referrer{
@@ -58,24 +49,14 @@ a.remove_referrer{
     }
 }
 
-#suggestions .single_suggestion{
-  background: $light-gray;
-}
 .single_suggestion{
-  width: $bin_width;
-  background-color: #FFFAAD;
+  background-color: $white;
   color:$dark-gray;
+  margin-bottom:1em;
   padding: 10px;
-  width: $bin_width;
-  border: $single_suggestion_border_width solid $dark-green;
-  -moz-border-radius: $suggestion_radius;
-  -webkit-border-radius: $suggestion_radius;
-  border-radius: $suggestion_radius;
-  -moz-box-shadow: 0 0 5px #c9c9c9;
-  -webkit-box-shadow: 0 0 5px #c9c9c9;
-  box-shadow: 0 0 5px #c9c9c9;
+  width: 100%;
+  border: 1px $white solid;
   position: relative;
-  behavior: none;
   img {
         border:1px $light-gray inset;
         width:75px;
@@ -83,8 +64,9 @@ a.remove_referrer{
     div.info {
         div.bit:first-child {
             color:$dark-green;
-            font-size:16px;
-            font-weight:bold;
+            font-size:1.15em;
+            font-weight:700;
+            padding:.5em 0;
         }
     }
 }
@@ -128,14 +110,13 @@ body #facebox .content {
 }
 #bonus{
   display: none;
-  color: green;
+  color: $dark-green;
   font-weight: bold;
 }
 #autocomplete_status{
-  color: green;
-  font-size: 120%;
-  line-height: 133%;
-  font-weight: bold;
+  color: $dark-green;
+  font-size: 1em;
+  font-weight: 700;
   width: 343px;
   padding-top: 4px;
   padding-bottom: 0px;
@@ -191,26 +172,20 @@ div#search_for_referrer {
 
 /*      ############# Stolen from another stylesheet ######################### */
 div.helper {
-    background-color: $dark-green;
-    background-image: url('v3/texture_darker.png');
-    border: {
-        style:solid;
-        width:1px;
-        bottom: {color: darken($dark-green, 15%);}
-        left: {color: darken($dark-green, 15%);}
-        right: {color: darken($dark-green, 15%);}
-        top: {color: lighten($dark-green, 10%);}
-    }
-    box-shadow: 0 0 4px #2c2c2c;
-    color: #fff;
-    display: none;
-    line-height: 16px;
-    padding: 10px;
-    position: absolute;
-    behavior: url(/css3pie/PIE.htc);
-    width: 175px;
-    left: -217px;           
-    z-index: 1;
+  &:before {
+    @include arrow-right($dark-gray);
+    position:absolute;
+    right:-8px;
+    top:1em;
+  }
+  background-color: $dark-gray;
+  color: #fff;
+  display: none;
+  padding: 10px;
+  position: absolute;
+  width: 175px;
+  left: -187px;           
+  z-index: 1;
 }   
 
 /* ###############################   END STOLEN  ################################# */
@@ -234,10 +209,7 @@ div.helper {
 .gold{color: $gold;}
 
 #invite_friends_middle{ 
-  #autocomplete{
-    width: 325px;
-    behavior: none;
-  }
+  #autocomplete{width: 100%;}
   .form-label{padding:1em 0;}
   .form-label label {
     font-weight:500;
@@ -269,7 +241,7 @@ div.helper {
 }
 #search_for_friends_to_invite{
   .helper{
-    top: -27px;
+    top: -41px;
   }
 }
 .hidden{
@@ -290,9 +262,8 @@ div.helper {
   position: absolute;
   right: 7px;
   bottom: 8px;
-  color: $dark-gray;
-  font-size: 14px;
-  line-height: 16px;
+  color: $light-gray;
+  font-size: .75em;
 }
 #why_invite{
   padding-bottom: 5px;

@@ -60,13 +60,13 @@
     .follow-btn {
         font-weight:700;
         &:before {
-            background:image-url('v5/sprites.png') no-repeat transparent -1px -80px;
+            background:image-url('v5/sprites.png') no-repeat transparent -1px -79px;
             content:"";
             display: inline-block;
             margin-right:.25em;
             height:20px;
             width:20px;
         }
-        &:hover:before{background-position:-26px -80px;}
+        &:hover:before{background-position:-26px -79px;}
     }
 }

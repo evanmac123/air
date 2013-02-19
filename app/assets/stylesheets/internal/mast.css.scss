@@ -83,11 +83,7 @@ body {
             }
         }
         &:before {
-            border-bottom: 8px solid transparent;
-            border-right: 8px solid $white;
-            border-top: 8px solid transparent;
-            content:"";
-            display:inline-block;
+            @include arrow-left($white);
             float:left;
             margin-top:10px;
         }
@@ -144,7 +140,7 @@ body.users-index .nav-directory:before {background-position:-83px -21px!importan
             font-size:1em;
             font-weight: 700;
             margin:0;
-            padding:.9em;
+            padding:.87em;
             text-transform: uppercase;
             &:hover {background:darken($gray, 5%);}
         }
@@ -154,14 +150,14 @@ body.users-index .nav-directory:before {background-position:-83px -21px!importan
         padding-left:2em;
         position: relative;
         .bar {
-            background:#3f3f3f;
+            background:image-url('v5/bar.png') no-repeat bottom left #3f3f3f;
             display:inline-block;
             height:40px;
             position:relative;
             width:287px;
         }
         .progress {
-            background:image-url('v5/bar.png') no-repeat center left transparent;
+            background:image-url('v5/bar.png') no-repeat top left transparent;
             height:100%;
             position:absolute;
         }

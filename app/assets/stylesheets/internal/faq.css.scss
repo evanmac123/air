@@ -35,6 +35,7 @@ body.pages-faq .content {
         }
         #contact_button {
             border:1px darken($gray, 5%) solid;
+            margin-left:1em;
         }
         .contact_us_link {
             @include square-button;
@@ -56,6 +57,16 @@ body.pages-faq .content {
         .tocindent .tocindent {
             background:$white;
             padding:1em;
+            a, a:link, a:visited {
+                &:before {
+                    content:"";
+                    display: inline-block;
+                    height:3px;
+                    width:3px;
+                    margin-right:.5em;
+                    background:$light-gray;
+                }
+            }
             .tocindent {margin-left:1.25em;}
             .toc {
                 border-top:0;

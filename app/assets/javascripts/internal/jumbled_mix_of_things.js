@@ -10,7 +10,7 @@ $(function() {
   
   if (document.getElementById('command_central')){
     $('#command_central').focus();
-    var sugg = "Enter an action";
+    var sugg = "Enter a keyword";
     $('#command_central').val(sugg);
     $('#command_central').click(function(){
       $('#command_central').val('');   

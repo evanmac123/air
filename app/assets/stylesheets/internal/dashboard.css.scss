@@ -10,23 +10,29 @@
         padding:1em;
         width:83%;
         &:before {
-            border-bottom: 8px solid transparent;
-            border-right: 8px solid $white;
-            border-top: 8px solid transparent;
-            content:"";
-            display:inline-block;
+            @include arrow-left($white);
             position:absolute;
             top:1em;
             left:-8px;
         }
         .points {
             background:$orange;
-            border:1px darken($orange, 10%) solid;
+            border:1px darken($orange, 5%) solid;
             color:$white;
             display: inline-block;
             float: right;
             font-weight:700;
-            padding:.1em .25em;
+            .point-value {
+                border: {
+                    top:1px lighten($orange, 7%) solid;
+                    left:1px lighten($orange, 7%) solid;
+                    right:1px lighten($orange, 7%) solid;
+                    bottom:0;
+                }
+                display: inline-block;
+                margin:0;
+                padding:.1em .25em;
+            }
         }
         .user {font-size:1.15em;}
         .description {padding:.75em 0;}
