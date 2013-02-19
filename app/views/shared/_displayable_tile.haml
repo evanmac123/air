@@ -28,8 +28,9 @@
   = link_to tile_path(tile) do
     .tile-wrapper
       .white_box_with_shadow
-        / style is set to display: none initially so they don't load outside of the clip
+        -# style is set to display: none initially so they don't load outside of the clip
+        -# Added 'for-test' attribute so Capy2 can detect "invisible" tiles
         .tile_thumbnail{id: thumbnail_id, :style => "display: none;"}
           .headline
-            %div{id: "for_test_#{tile.headline.underscore}", class: 'text'}= tile.headline
+            %div{data: {'for-test' => tile.headline.downcase.sub(' ', '-')}, class: 'text'}= tile.headline
             .headline_overlay

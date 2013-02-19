@@ -65,7 +65,7 @@ When /^I click the sample tile$/ do
   page.find('#tile-thumbnail-0').click
 end
 
-When /^I should see the "(.*)" tile$/ do |tile|
-  #page.should have_selector 'div.text', text: tile, visible: false
-  find('.text', text: tile).should_not be_nil
+When /^I should( not)? see the "(.*)" tile$/ do |nott, tile|
+  selector = "div.text[data-for-test='#{tile.downcase.sub(' ', '-')}']"
+  nott ? (page.should have_no_selector(selector)) : (page.should have_selector(selector))
 end

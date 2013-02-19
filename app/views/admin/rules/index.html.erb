@@ -32,7 +32,7 @@
 
     <% @existing_rules.each_with_index do |existing_rule, rule_index| %>
       <tr>
-        <td>
+        <td class='data-for-test-primary-value'>
           <%= image_tag "right_triangle.png", "data-row-to-toggle" => "tr#aliases_#{rule_index}", "data-other-graphic-path" => image_path("down_triangle.png"), :class => "row-toggle-button" %>
           <%= existing_rule.primary_value.value %>
         </td>

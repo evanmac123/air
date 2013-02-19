@@ -6,14 +6,15 @@ feature "Human views marketing site" do
     visit root_path
     # Product Tour
     page.should have_content("Increase engagement in workplace programs")
-    click_link "Product tour"
+
+    click_first_link "Product tour"
     page.should have_content("Find the best path to each person")
     click_link "spark"
     page.should have_content("Generate excitement and motivate action")
     click_link "drive"
     page.should have_content("Measure effectiveness and maximize resources to be the best strategic partner")
     # Solutions
-    click_link "Solutions"
+    click_first_link "Solutions"
     page.should have_content("Send messages to employees in their preferred communication channels")
     page.find("#post").click
     page.should have_content("Build sustained engagement")

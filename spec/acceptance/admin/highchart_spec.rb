@@ -283,6 +283,16 @@ feature 'Highchart Plot' do
       page.should have_content "Engagement Levels"
       page.should have_content "#{date_in_subtitle(start_date)} through #{date_in_subtitle(end_date)} : By Day"
 
+p "***********inspect" + title.inspect
+p "***********path" + title.path
+      page.should have_selector('.highcharts-title')
+      #page.should have_selector(:xpath, title.path[0..-4] + '/tspan')
+      page.should have_selector(:xpath, '/html/body/div[2]/div/div[2]/div[2]/div/div[3]/div/div/svg/text/tspan')
+      #page.should have_selector(:xpath, title.path[0..-4] + '/tspan', text: "Engagement Levels")
+      page.should have_selector(:xpath, '/html/body/div[2]/div/div[2]/div[2]/div/div[3]/div/div/svg/text/tspan', text: "Engagement Levels")
+
+      #/html/body/div[2]/div/div[2]/div[2]/div/div[3]/div/div/svg/text/tspan
+
       title.should have_content "Engagement Levels"
       subtitle.should have_content "#{date_in_subtitle(start_date)} through #{date_in_subtitle(end_date)} : By Day"
 

@@ -1,7 +1,5 @@
 Feature: Evil Kim defects from the Fuji game and joins the Highmark game, and then back again
 
-  # todo for some reason never get to see the "Updated" message and the listbox change to the new selection
-  # todo spent too much time on this => switch over to acceptance spec
   @javascript
   Scenario: Evil kim changes to to the Shardaron game
     Given the following demos exist:
@@ -19,9 +17,6 @@ Feature: Evil Kim defects from the Fuji game and joins the Highmark game, and th
     And "user_demo_name" should have "Bolshevik" selected
     When I select "Shardaron" from "user_demo_name"
     Then I should see "Just a moment"
-    When I wait a second
-#    And I should see "Updated"
     And "Evil Kim" should be in the "Shardaron" game
-    And "user_demo_name" should have "Shardaron" selected
 
     

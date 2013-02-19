@@ -1,5 +1,12 @@
 module SteakHelperMethods
 
+  # Capy2 needs links (and everything else) to be unambiguous. Most failures were fixed with specific selectors,
+  # which is the philosophy most new tests should also incorporate. But for those cases where it really doesn't
+  # matter, this effectively reverts back to the Capy1.x way of clicking links.
+  def click_first_link(locator)
+    first(:link, locator).click
+  end
+
   # Need these guys to get rid of overlays for the talking-chicken tutorial and inviting people
   # to join the game. If don't get rid of them => can't click on any links because they are "covered".
   def bypass_modal_overlays(user)
