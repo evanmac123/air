@@ -135,7 +135,7 @@ strong{font-style: italic;}
 #fancybox-wrap * {-moz-box-sizing: content-box; -webkit-box-sizing: content-box; box-sizing: content-box;}
 #fancybox-content {border-color:$dark-gray!important;}
 #tutorial_introduction_inner{
-  background:$white;
+  background:$dark-gray;
   padding: 1em;
   text-align: center;
   h2{
@@ -146,7 +146,7 @@ strong{font-style: italic;}
     text-align: center;
   }
   p {
-    color:$headlines;
+    color:$white;
     font-weight:500;
     font-size:1.15em;
     padding-bottom:1.5em;
@@ -154,7 +154,7 @@ strong{font-style: italic;}
   .link {@include square-button-wrap($dark-green); margin-right:1em;}
   .show_tutorial{@include square-button($dark-green);}
   #no_thanks_tutorial{
-    color:$med-gray;
+    color:$headlines;
     font-size:.85em;
     font-weight:500;
     &:hover{color:darken($gray, 5%);}
