@@ -1,3 +1,7 @@
+#fancybox-wrap * {-moz-box-sizing: content-box; -webkit-box-sizing: content-box; box-sizing: content-box;}
+#fancybox-content {
+  border-width:0;
+}
 #black_tooltip{
   background:$dark-gray;
   display:none;
@@ -6,7 +10,7 @@
   width:300px;
   z-index: 90;
   hr{margin: 0;}
-  &.top-left:before{
+  &.top-left:before, &.top-center:before, &.top-right:before {
     border-bottom:8px solid $dark-gray;
     border-left:8px solid transparent;
     border-right:8px solid transparent;
@@ -14,28 +18,10 @@
     display:inline-block;
     position:absolute;
     top:-8px;
-    left:1em;
   }
-  &.top-center:before{
-    border-bottom:8px solid $dark-gray;
-    border-left:8px solid transparent;
-    border-right:8px solid transparent;
-    content:"";
-    display:inline-block;
-    position:absolute;
-    top:-8px;
-    left:50%;
-  }
-  &.top-right:before{
-    border-bottom:8px solid $dark-gray;
-    border-left:8px solid transparent;
-    border-right:8px solid transparent;
-    content:"";
-    display:inline-block;
-    position:absolute;
-    top:-8px;
-    right:1em;
-  } 
+  &.top-left:before{left:1em;}
+  &.top-center:before{left:50%;}
+  &.top-right:before{right:1em;} 
   &.left:before{
     @include arrow-left($dark-gray);
     position:absolute;
@@ -49,8 +35,6 @@
     top:1em;
   }
 }
-
-
 
 .overlay {
 	background-color: $light-gray;
@@ -119,25 +103,17 @@
   font-size: 1em;
   color: $white;
   padding-top: 1em;
-  .offset{
-    color: $dark-green;
-  }
+  .offset{color: $dark-green;}
 }
-strong{
-  font-style: italic;
-}
-.green{
-  color: $dark-green;
-}
+strong{font-style: italic;}
+.green{color: $dark-green;}
 
 .spotlight{
   z-index: 20 !important;
   position: relative;
 }
 
-.spotlight.user{
-  background: white;
-}
+.spotlight.user{background: white;}
 #differing_spacings{
   position: relative;
   margin:0;
@@ -158,47 +134,26 @@ strong{
 }
 
 #tutorial_introduction_inner{
-  padding: 10mm 10mm 5mm;
-  h2, p{
-    color: grey;
-    max-width: 40ex;
-    margin-left: auto;
-    margin-right: auto;
-  }
+  padding: 1em;
+  text-align: center;
   h2{
-    font-size: 10mm;
-    padding-bottom: 2mm;
+    color:$headlines;
+    font-size: 2em;
+    font-weight:300;
+    padding-bottom: .75em;
     text-align: center;
   }
+  p {
+    font-weight:500;
+    font-size:1.15em;
+    padding-bottom:.75em;
+  }
+  .link {@include square-button-wrap($dark-green);}
+  .show_tutorial{@include square-button($dark-green);}
   #no_thanks_tutorial{
     padding-top: 4px;
     display: inline-block;
   }
-  a{
-    color: $dark-green;
-    font-size: 100%;
-    font-weight: 500;
-  }
-  .show_tutorial{
-    background: green;
-    &:hover{color: white; background: #343;}
-    font-size: 155% !important;
-  }
-  a:hover{
-    color: darken($dark-green, 10%);
-  }
-  .link{
-    text-align: center;
-  }
-  .link + .link{
-    padding-top: 7px;
-  }
-  p{
-    font-size: 120%;
-    text-align: center;
-    padding-bottom: 28px;
-  }
-
 }
 
 
