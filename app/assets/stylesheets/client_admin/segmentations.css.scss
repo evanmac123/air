@@ -26,13 +26,12 @@ form {
         // ========== "Add another" button ==========
         .button_wrap#add {
             @include square-button-wrap($gray);
-            border:1px darken($gray, 10%) solid;
             margin-right:1em;
             &:hover {background:darken($gray, 3%);}
         }
         a#add_more_characteristics {
-            @include square-button;
-            border-color:lighten($gray, 5%);
+            @include square-button($gray);
+            background:transparent;
             span {
                 background:image-url('client_admin/sprites.png') no-repeat -30px -56px transparent;
                 display:inline-block;
@@ -47,18 +46,16 @@ form {
         .button_wrap#find {
             @include square-button-wrap($dark-green);
             background:image-url('client_admin/search.png') no-repeat 7px 8px $dark-green;
-            border:1px darken($dark-green, 10%) solid;
             margin-left:1em;
             &:hover {background-color:darken($dark-green, 3%);}
         }
         input[type="submit"] { 
-            @include square-button;
+            @include square-button($dark-green);
             background:transparent;
-            border-color:lighten($dark-green, 5%);
             font-family:$sans;
             margin:0 0 1px 0;
             padding-left:28px;
-            &:hover{cursor:pointer;}
+            &:hover{background:transparent; cursor:pointer;}
         }
 
     }

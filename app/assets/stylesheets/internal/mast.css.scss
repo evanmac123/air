@@ -129,12 +129,9 @@ body.users-index .nav-directory:before {background-position:-83px -21px!importan
         }
         .button_wrap {
             @include square-button-wrap($gray);
-            border:1px darken($gray, 5%) solid;
         }
         input[type="submit"] {
-            @include square-button;
-            background:$gray;
-            border-color:lighten($gray, 7%);
+            @include square-button($gray);
             border-bottom:1px $gray solid;
             cursor:pointer;
             font-size:1em;
@@ -142,7 +139,6 @@ body.users-index .nav-directory:before {background-position:-83px -21px!importan
             margin:0;
             padding:.87em;
             text-transform: uppercase;
-            &:hover {background:darken($gray, 5%);}
         }
     }
     #bar_progress {

@@ -56,11 +56,8 @@ body {
 		// GREEN BUTTONS
 	    .button_wrap {
 	    	@include square-button-wrap($dark-green);
-	        border:1px darken($dark-green, 5%) solid;
 		    .button_norm {
-		        @include square-button;
-		        background: $dark-green;
-		        border-color:lighten($dark-green, 5%);
+		        @include square-button($dark-green);
 		        &:hover {background:darken($dark-green, 3%);}
 		    }
 		}

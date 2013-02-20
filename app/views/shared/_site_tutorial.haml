@@ -1,13 +1,13 @@
 #black_tooltip{:class => @tutorial_step.arrow_dir} 
-  - if @tutorial_step.show_next_button
-    = link_to tutorial_path, :method => :put do
-      #next_button
-  - elsif @tutorial_step.show_finish_button
-    = link_to "Finish", '#', :id => :finish_tutorial_button
   #differing_spacings{:class => @tutorial_step.arrow_dir}
     = render 'shared/corner_icon'
     .title=@tutorial_step.title
     .instruct!= @tutorial_step.instruct 
+    - if @tutorial_step.show_next_button
+      = link_to tutorial_path, :id => "tut_button_wrap", :method => :put do
+        %span#next_button Next
+    - elsif @tutorial_step.show_finish_button
+      = link_to "Finish", '#', :id => :finish_tutorial_button
 
 
 = content_for :javascript do

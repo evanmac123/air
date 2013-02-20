@@ -1,58 +1,59 @@
-$options_radius: 3px;
-$steps_color: #a79b4f;
-$title_color: #a79b4f;
-$orange: #FF8411;
 #black_tooltip{
+  background:$dark-gray;
   display:none;
-  font-size:12px;
-  height:137px;
-  width:361px;
-  padding:0px;
+  padding:1em;
   color:#eee;
+  width:300px;
   z-index: 90;
-  hr{
-    margin: 0;
+  hr{margin: 0;}
+  &.top-left:before{
+    border-bottom:8px solid $dark-gray;
+    border-left:8px solid transparent;
+    border-right:8px solid transparent;
+    content:"";
+    display:inline-block;
+    position:absolute;
+    top:-8px;
+    left:1em;
   }
-  &.bottom-left{
-    background:transparent url('tutorial/bottom-left.png');
+  &.top-center:before{
+    border-bottom:8px solid $dark-gray;
+    border-left:8px solid transparent;
+    border-right:8px solid transparent;
+    content:"";
+    display:inline-block;
+    position:absolute;
+    top:-8px;
+    left:50%;
   }
-  &.bottom-center{
-    background:transparent url('tutorial/bottom-center.png');
+  &.top-right:before{
+    border-bottom:8px solid $dark-gray;
+    border-left:8px solid transparent;
+    border-right:8px solid transparent;
+    content:"";
+    display:inline-block;
+    position:absolute;
+    top:-8px;
+    right:1em;
+  } 
+  &.left:before{
+    @include arrow-left($dark-gray);
+    position:absolute;
+    left:-8px;
+    top:1.35em;
   }
-  &.bottom-right{
-    background:transparent url('tutorial/bottom-right.png');
-  }
-  &.top-left{
-    background:transparent url('tutorial/top-left.png');
-    #differing_spacings{ top: 12px; }
-  }
-  &.top-center{
-    background:transparent url('tutorial/top-center.png');
-    #differing_spacings{ top: 12px; }
-  }
-  &.top-right{
-    background:transparent url('tutorial/top-right.png');
-    #differing_spacings{ top: 12px; }
-  }
-  &.left{
-    background:transparent url('tutorial/left.png');
-    width: 372px;
-    height: 129px;
-    #differing_spacings{ left: 12px; top: 3px; width: 327px;}
-    #tutorial_menu{ right: 20px;}
-  }
-  &.right{
-    background:transparent url('tutorial/right.png');
-    width: 372px;
-    height: 129px;
-    #tutorial_menu{ right: 20px; top: 4px;}
+  &.right:before{
+    @include arrow-right($dark-gray);
+    position:absolute;
+    right:-8px;
+    top:1em;
   }
 }
 
 
 
 .overlay {
-	background-color: #353533;
+	background-color: $light-gray;
 	bottom: 0;
 	left: 0;
 	opacity: 0.81;/*Takes value between 0 and 1*/
@@ -64,60 +65,42 @@ $orange: #FF8411;
 	display: none;
 }
 .title{
-  color: $title_color;
-  font-size: 21px;
-  font-family: ubuntu, arial, sans-serif;
-  text-transform: uppercase;
-  font-weight: 500;
-  padding: 12px 0px 7px;
-  line-height: 28px;
+  color: $light-green;
+  font-size: 1.35em;
+  font-weight: 300;
 }
 
 #tutorial_menu{
   position: absolute;
-  right: 7px;
-  top: 4px;
+  right: 0;
+  top: 0;
   width: 100px;
-  padding-bottom: 30px;
   #gear{
+    background:image-url('v5/sprites.png') no-repeat -56px -46px transparent;
     cursor: pointer;
     float: right;
     z-index: 1000;
-    width: 19px;
-    height: 19px;
-    img{
-      padding-top: 3px;
-      padding-left: 3px;
-    }
+    width: 13px;
+    height: 13px;
+    &:hover{background-position:-71px -46px;}
   }
 
   #options{
     display: none;
-    background: #f5f0c5;
+    background: $dark-gray;
+    border:1px lighten($dark-gray, 10%) solid;
     float: right;
-    padding: 0px 2px;
-    -moz-border-radius: $options_radius;
-    -webkit-border-radius: $options_radius;
-    border-radius: $options_radius;
-    border: 1px solid darken($title_color, 15%);
+    padding: .5em;
     z-index: 1000;
     position: relative;
-    right: 14px;
-    top: -10px;
+    right: 1.25em;
+    top: -1em;
     
   }
-  // &:hover{
-  //   #options{
-  //     display: block;
-  //   }
-  // }
-  .close_tutorial{
-    font-size: 15px;
-    float: right;
-    right: 5px;;
-  }
-  a, a:hover{
-    color: darken($title_color, 20%);
+  a, a:link, a:visited{
+    color: $dark-green;
+    font-size:.85em;
+    &:hover{color:darken($dark-green, 5%);}
   }
 
 }
@@ -126,20 +109,18 @@ $orange: #FF8411;
   text-align: right;
   font-size: 10px;
   line-height: 13px;
-  color: $steps_color;
+  color: $gray;
   position: absolute;
-  top: 3px;
   right: 20px;
   width: 100px;
 }
 
 .instruct{
-  font-size: 17px;
-  line-height: 21px;
-  color: #5E5E54;
-  padding-top: 13px;
+  font-size: 1em;
+  color: $white;
+  padding-top: 1em;
   .offset{
-    color: $orange;
+    color: $dark-green;
   }
 }
 strong{
@@ -153,45 +134,27 @@ strong{
   z-index: 20 !important;
   position: relative;
 }
-.spotlight.nav-directory, .spotlight.user, .spotlight.nav-activity{
-  background: $dark-green;
-  -moz-border-radius: 10em;
-  -webkit-border-radius: 10em;
-  border-radius: 10em;
-}
 
 .spotlight.user{
   background: white;
-
-  border-radius: 1ex;
 }
 #differing_spacings{
   position: relative;
-  padding: 0px 23px;
+  margin:0;
+  padding:0;
+  width:100%;
 }
 
 #finish_tutorial_button{
-  float: right;
-  font-size: 18px;
-  padding-right: 2mm;
-  padding-top: 2mm;
-  text-decoration: underline !important;
-  position: absolute;
-  bottom: 9px;
-  right: 17px;
+  @include square-button($dark-green);
+  margin-top:.65em;
   z-index: 1000;
 }
 #next_button{
-  width: 74px;
-  height: 31px;
-  position: absolute;
-  right: 11px;
-  bottom: 19px;
-  background: url('tutorial/next-btn.png');
+  @include square-button($dark-green);
+  font-size:1em;
+  margin-top:.65em;
   z-index: 100;
-}
-.left #next_button{
-  bottom: 10px;
 }
 
 #tutorial_introduction_inner{

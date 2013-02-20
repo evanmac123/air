@@ -28,20 +28,14 @@ body.pages-faq .content {
 
         margin-bottom:2em;
         .quick_tour_link {
-            @include square-button;
-            background:$dark-green;
-            border-color:lighten($dark-green, 5%);
-            &:hover {background:darken($dark-green, 3%);}
+            @include square-button($dark-green);
         }
         #contact_button {
             border:1px darken($gray, 5%) solid;
             margin-left:1em;
         }
         .contact_us_link {
-            @include square-button;
-            background:$gray;
-            border-color:lighten($gray, 5%);
-            &:hover {background:darken($gray, 3%);}
+            @include square-button($gray);
         }
     }
     .faq_menu {
