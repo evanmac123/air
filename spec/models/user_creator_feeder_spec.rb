@@ -11,7 +11,12 @@ describe UserCreatorFeeder do
   let (:schema)          {%w(foo bar baz)}
   let (:unique_id_field) {:email}
   let (:feeder)          {UserCreatorFeeder.new(object_name, demo_id, schema, unique_id_field)}
-  
+
+  before do
+    # Pretend the chopper is done
+    Redis.new.set(feeder.redis_all_lines_chopped_key, "done")
+  end
+
   describe "#feed" do
     it "should feed lines from Redis to a UserCreatorFromCsv" do
       mock_user_creator = stub('UserCreatorFromCsv')
@@ -52,6 +57,22 @@ describe UserCreatorFeeder do
   end
 
   describe "#done?" do
-    it "should check against the chopper's status"
+    it "should check the flag that the chopper is meant to set, as well as the length of the queue" do
+      # queue empty but not signalled done yet from the chopper
+      Redis.new.del(feeder.redis_all_lines_chopped_key)
+      feeder.should_not be_done
+
+      # queue not empty and no signal from the chopper
+      3.times {Redis.new.lpush(feeder.redis_load_queue_key, "hey")}
+      feeder.should_not be_done
+
+      # chopper signals done, but we still have to work off some of the queue
+      Redis.new.set(feeder.redis_all_lines_chopped_key, "done")
+      feeder.should_not be_done
+
+      # chopper signals done and we've worked through the entire queue, we're done
+      Redis.new.del(feeder.redis_load_queue_key)
+      feeder.should be_done
+    end
   end
 end

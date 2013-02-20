@@ -15,6 +15,8 @@ class UserCreatorFeeder
   def feed
     while !done?
       line = redis.rpop(redis_load_queue_key)
+      redo unless line
+
       @line_index += 1
 
       user = user_creator.create_user(line)
@@ -26,6 +28,7 @@ class UserCreatorFeeder
   end
 
   def done?
+    redis.get(redis_all_lines_chopped_key) == 'done' &&
     redis.llen(redis_load_queue_key) == 0
   end
 
