@@ -134,6 +134,7 @@ strong{font-style: italic;}
 }
 
 #tutorial_introduction_inner{
+  background:$white;
   padding: 1em;
   text-align: center;
   h2{
@@ -151,8 +152,9 @@ strong{font-style: italic;}
   .link {@include square-button-wrap($dark-green);}
   .show_tutorial{@include square-button($dark-green);}
   #no_thanks_tutorial{
-    padding-top: 4px;
-    display: inline-block;
+    color:$gray;
+    font-weight:500;
+    &:hover{color:darken($gray, 5%);}
   }
 }
 

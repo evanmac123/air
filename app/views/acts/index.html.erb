@@ -66,7 +66,7 @@
       <h2>Welcome&nbsp;to&nbsp;<%= @current_user.demo.name %></h2>
       <p>Before you get started, we'd like to take you on a quick tour of the site.</p>
       <div class='link'><%= link_to "Quick Tour", tutorial_path, :method => :put, :class => 'show_tutorial' %></div>
-      <div class='link'><%= link_to "No thanks", '#', :id => 'no_thanks_tutorial' %></div>
+      <%= link_to "No thanks", '#', :id => 'no_thanks_tutorial' %>
     </div>
   </div>
 <% end %>
