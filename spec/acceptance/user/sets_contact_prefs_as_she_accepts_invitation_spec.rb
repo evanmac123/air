@@ -16,26 +16,25 @@ feature "User Accepts Invitation" do
 
   it "sets contact prefs to 'email'", js: true do
     choose 'Email'
-    user = @user
     click_button 'Log in'
-    sleep(5)
-    wait_until { @user.reload.accepted_invitation_at }
+    sleep(1)
+    @user.reload.accepted_invitation_at
     @user.reload.notification_method.should == 'email'
   end
 
   it "sets contact prefs to 'sms'", js: true do
     choose 'SMS/text message'
     click_button 'Log in'
-    sleep(5)
-    wait_until { @user.reload.accepted_invitation_at }
+    sleep(1)
+    @user.reload.accepted_invitation_at
     @user.notification_method.should == 'sms'
   end
 
   it "sets contact prefs to 'both'", js: true do
     choose 'Both'
     click_button 'Log in'
-    sleep(5)
-    wait_until { @user.reload.accepted_invitation_at }
+    sleep(1)
+    @user.reload.accepted_invitation_at
     @user.notification_method.should == 'both'
   end
 end
