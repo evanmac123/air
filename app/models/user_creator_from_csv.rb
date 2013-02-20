@@ -28,8 +28,10 @@ class UserCreatorFromCsv
       user.attributes = new_user_attributes
       user.save
     else
-      User.create(new_user_attributes)
+      user = User.create(new_user_attributes)
     end
+
+    user
   end
 
   protected

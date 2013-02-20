@@ -5,19 +5,20 @@ describe UserCreatorFeeder do
     Redis.new.flushdb
   end
 
-  let (:key)     {"test_queue"}
-  let (:lines)   {["Line 1", "Line 2", "Line 3"]} 
-  let (:demo_id) {1}
-  let (:schema)  {%w(foo bar baz)}
-  let (:feeder)  {UserCreatorFeeder.new(key, demo_id, schema)}
+  let (:object_name)     {"test_key"}
+  let (:lines)           {["Line 1", "Line 2", "Line 3"]} 
+  let (:demo_id)         {1}
+  let (:schema)          {%w(foo bar baz)}
+  let (:unique_id_field) {:email}
+  let (:feeder)          {UserCreatorFeeder.new(object_name, demo_id, schema, unique_id_field)}
   
   describe "#feed" do
     it "should feed lines from Redis to a UserCreatorFromCsv" do
       mock_user_creator = stub('UserCreatorFromCsv')
-      mock_user_creator.stubs(:create_user).with(kind_of(String)).returns(true)
-      UserCreatorFromCsv.stubs(:new).with(kind_of(Integer), kind_of(Enumerable)).returns(mock_user_creator)
+      mock_user_creator.stubs(:create_user).with(kind_of(String)).returns(stub("User", "invalid?" => false))
+      UserCreatorFromCsv.stubs(:new).returns(mock_user_creator)
 
-      Redis.new.lpush(key, lines)
+      Redis.new.lpush(feeder.redis_load_queue_key, lines)
 
       feeder.feed
 
@@ -26,19 +27,31 @@ describe UserCreatorFeeder do
     end
 
     it "should log errors to some queue somewhere" do
-      pending
+      existing_user = FactoryGirl.create(:user)
+      demo_id = existing_user.demo_id
+      email = existing_user.email
+      email.should be_present
+
+      schema = %w(name email)
+
+      User.any_instance.stubs(:invalid?).returns(true)
+      ActiveModel::Errors.any_instance.stubs(:full_messages).returns(["Error message 1"], ["Error message 2"])
+
+      Redis.new.lpush(feeder.redis_load_queue_key, [
+        CSV.generate_line(["John Smith,jsmith@example.com"]),
+        CSV.generate_line(["Joe Blow,#{existing_user.email}"])
+      ])
+
+      feeder = UserCreatorFeeder.new(object_name, demo_id, schema, unique_id_field)
+      feeder.feed
+
+      Redis.new.llen(feeder.redis_failed_load_queue_key).should == 2
+      Redis.new.rpop(feeder.redis_failed_load_queue_key).should == "Line 1: Error message 1"
+      Redis.new.rpop(feeder.redis_failed_load_queue_key).should == "Line 2: Error message 2"
     end
   end
 
   describe "#done?" do
-    it "should return true if the queue is empty" do
-      Redis.new.llen(key).should be_zero
-      feeder.done?.should be_true
-    end
-
-    it "should return false if the queue is not empty" do
-      Redis.new.lpush(key, lines)
-      feeder.done?.should be_false
-    end
+    it "should check against the chopper's status"
   end
 end

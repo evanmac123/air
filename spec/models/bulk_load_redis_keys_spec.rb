@@ -1,9 +1,9 @@
 require 'spec_helper'
 
 describe BulkLoadRedisKeys do
-  EXPECTED_OBJECT_KEY = 'foobar'
-
   class Dummy
+    EXPECTED_OBJECT_KEY = 'foobar'
+
     include BulkLoadRedisKeys
 
     def object_key
@@ -13,27 +13,21 @@ describe BulkLoadRedisKeys do
 
   let(:dummy) {Dummy.new}
 
-  describe "#redis_preview_queue_key" do
-    it "should return a key based on the S3 object key" do
-      dummy.redis_preview_queue_key.should == "bulk_upload:preview_queue:#{EXPECTED_OBJECT_KEY}"
+  def self.expect_key(key_method, expected_key)
+    describe "##{key_method}" do
+      it "should return a key based on the S3 object key" do
+        dummy.send(key_method).should == expected_key
+      end
     end
   end
 
-  describe "#redis_load_queue_key" do
-    it "should return a key based on the S3 object key" do
-      dummy.redis_load_queue_key.should == "bulk_upload:load_queue:#{EXPECTED_OBJECT_KEY}"
-    end
-  end
+  expect_key :redis_preview_queue_key, "bulk_upload:preview_queue:#{Dummy::EXPECTED_OBJECT_KEY}"
 
-  describe "#redis_lines_completed_key" do
-    it "should return a key based on the S3 object key" do
-      dummy.redis_lines_completed_key.should == "bulk_upload:lines_completed:#{EXPECTED_OBJECT_KEY}"
-    end
-  end
+  expect_key :redis_load_queue_key, "bulk_upload:load_queue:#{Dummy::EXPECTED_OBJECT_KEY}"
 
-  describe "#redis_all_lines_chopped_key" do
-    it "should return a key based on the S3 object key" do
-      dummy.redis_all_lines_chopped_key.should == "bulk_upload:all_lines_chopped:#{EXPECTED_OBJECT_KEY}"
-    end
-  end
+  expect_key :redis_lines_completed_key, "bulk_upload:lines_completed:#{Dummy::EXPECTED_OBJECT_KEY}"
+
+  expect_key :redis_all_lines_chopped_key, "bulk_upload:all_lines_chopped:#{Dummy::EXPECTED_OBJECT_KEY}"
+
+  expect_key :redis_failed_load_queue_key, "bulk_upload:failed_load_queue:#{Dummy::EXPECTED_OBJECT_KEY}"
 end
