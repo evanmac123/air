@@ -4,7 +4,7 @@ RSpec.configure do |config|
       Capybara.current_driver = case example.metadata[:js]
                                 when :poltergeist
                                   :poltergeist
-                                when true, :webkit
+                                when true, :webkit   # NOTE: Use ':webkit_debug' to get debug output
                                   :webkit
                                 end
     end
