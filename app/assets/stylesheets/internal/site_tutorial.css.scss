@@ -1,7 +1,3 @@
-#fancybox-wrap * {-moz-box-sizing: content-box; -webkit-box-sizing: content-box; box-sizing: content-box;}
-#fancybox-content {
-  border-width:0;
-}
 #black_tooltip{
   background:$dark-gray;
   display:none;
@@ -133,26 +129,33 @@ strong{font-style: italic;}
   z-index: 100;
 }
 
+/* Tutorial welcome screen */
+
+#fancybox-overlay {background:$light-gray;}
+#fancybox-wrap * {-moz-box-sizing: content-box; -webkit-box-sizing: content-box; box-sizing: content-box;}
+#fancybox-content {border-color:$dark-gray!important;}
 #tutorial_introduction_inner{
   background:$white;
   padding: 1em;
   text-align: center;
   h2{
-    color:$headlines;
+    color:$light-green;
     font-size: 2em;
     font-weight:300;
     padding-bottom: .75em;
     text-align: center;
   }
   p {
+    color:$headlines;
     font-weight:500;
     font-size:1.15em;
-    padding-bottom:.75em;
+    padding-bottom:1.5em;
   }
-  .link {@include square-button-wrap($dark-green);}
+  .link {@include square-button-wrap($dark-green); margin-right:1em;}
   .show_tutorial{@include square-button($dark-green);}
   #no_thanks_tutorial{
-    color:$gray;
+    color:$med-gray;
+    font-size:.85em;
     font-weight:500;
     &:hover{color:darken($gray, 5%);}
   }
