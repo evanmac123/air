@@ -1,7 +1,6 @@
 .tiles.tiles-index{
   .container {
     &:after{@include clear;}
-    border:1px red solid;
     margin:auto;
     padding:0 0 10px 0;
     width:100%;
@@ -14,15 +13,8 @@
     width: 850px;
     height: 10px;
   }
-  img#logo {
-    float:left;
-  }
-  .tile_image{
-    display: none;
-  }
-  a.tile_link img.tile_image {
-    display: inherit;
-  }
+  img#logo {float:left;}
+  .tile_image{display: none;}
   p#position {
     position: absolute;
     background:$gray;
@@ -78,12 +70,13 @@
     text-align: center;
     width: 666px; 
     height: 2000px;
-  }
-  #slideshow img {
-    margin:$centered;
-    padding: 1em; 
-    background:$white;
-    width:100%!important;
+    .tile_link, img {
+      margin:$centered;
+      padding: 1em; 
+      background:$white;
+      height:auto;
+      width:100%;
+    }
   }
 
   .footer {
