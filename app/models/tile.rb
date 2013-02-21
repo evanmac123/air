@@ -12,16 +12,10 @@ class Tile < ActiveRecord::Base
 
   extend Sequenceable
   has_alphabetical_column :headline
-  has_attached_file :image,
-    {:styles => {:viewer => ["620", :png]},
-    :default_style => :viewer,
-    :default_url => "/assets/avatars/thumb/missing.png",
-    :bucket => S3_TILE_BUCKET}.merge(TILE_IMAGE_OPTIONS)
 
-  # From what I can tell (i.e. from Git history), the ":default_url => ~~~" option was commented out from Day 1.
-  # And that was fine for several months. But then Capy2 came along and started skipping cucumber features
-  # without giving a reason. Specifically, one scenario in a feature file would pass, but all subsequent ones
-  # would just be skipped. No reason was given - just a "Skipped step" output for each step.
+  # The ":default_url => ~~~" option was not needed for Capy 1.x, but then Capy2 came along and started skipping
+  # cucumber features without giving a reason. Specifically, one scenario in a feature file would pass, but
+  # all subsequent ones would just be skipped. No reason was given - just a "Skipped step" output for each step.
   #
   # The frustrating part was the all of the failing tests would pass if run individually.
   #
@@ -41,10 +35,13 @@ class Tile < ActiveRecord::Base
   # in 'support/env.rb' in order to see it.
   #
   # Can you say: WTF!!!!! (I sure can!)
-  #
-  # BTW Part 2: This problem also reared its ugly head for 'has_attached_file :image' above =>
-  # Use the same URL as we really don't care what the image looks like while we are testing.
-  #
+
+  has_attached_file :image,
+    {:styles => {:viewer => ["620", :png]},
+    :default_style => :viewer,
+    :default_url => "/assets/avatars/thumb/missing.png",
+    :bucket => S3_TILE_BUCKET}.merge(TILE_IMAGE_OPTIONS)
+
   has_attached_file :thumbnail,
     {:styles => {:carousel => ["238x238#", :png], :hover => ["258x258#", :png]},
     :default_style => :carousel,
