@@ -71,10 +71,11 @@
     height: 2000px;
     .tile_holder {
       background:$white;
+      height:auto!important;
       min-height:200px;
       padding: 1em; 
       text-align: center;
-      width:100%;
+      width:100%!important;
       &:after{@include clear;}
       .tile_link, img {
         display:block;
