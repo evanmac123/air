@@ -10,30 +10,28 @@
     position: relative;
     z-index: 4;
     margin: auto;
-    width: 850px;
+    width: 100%;
     height: 10px;
   }
   img#logo {float:left;}
   .tile_image{display: none;}
   p#position {
     position: absolute;
-    background:$gray;
-    border:$border-light;
+    background:$dark-gray;
     color:white;
     font-family:$sans;
-    float:right;
     margin:0;
-    padding:13px 0;
-    left: 765px;
+    padding:.75em 1em;
+    left:825px;
     top: 11px;
     text-align: center;
-    width: 13ex;
   }
 
   .viewer {
     margin:auto;
     position:relative;
     width:786px;
+    &:after{@include clear;}
   }
 
   a#prev, a#next, #slideshow {
@@ -41,28 +39,35 @@
     float:left;
   }
   a#prev, a#next {
+    background:$dark-green;
+    border:1px darken($dark-green, 5%) solid;
     height:60px;
     margin:65px 0 0 0;
+    padding:0;
     width:60px;
     span {
+      background:image-url('v5/sprites.png') transparent no-repeat;
+      border:{
+        style:solid;
+        color:lighten($dark-green, 5%);
+        top:{width:1px;}
+        bottom:{width:0;}
+        left:{width:1px;}
+        right:{width:1px;}
+    }
+      display:inline-block;
+      float:left;
+      height:100%;
+      width:100%;
+
       font-size:0;
       text-decoration:none;
       text-indent:-10px;
-      visibility: hidden;
     }
+    &:hover{background:darken($dark-green, 5%);}
   }
-  a#prev {
-    background:image-url('tile_viewer/prevbtn.png') no-repeat;
-    //float:left;
-    position:relative;
-  }
-    a#prev:hover {background:image-url('tile_viewer/prevbtn-hover.png') no-repeat;}
-  a#next {
-    background:image-url('tile_viewer/nextbtn.png') no-repeat;
-    padding:0;
-    position:relative;
-  }
-    a#next:hover {background:image-url('tile_viewer/nextbtn-hover.png') no-repeat;}
+  a#prev span {background-position: -1px -173px;}
+  a#next span {background-position: -63px -173px;}
 
   #slideshow {
     margin: auto;
