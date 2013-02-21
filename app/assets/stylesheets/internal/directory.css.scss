@@ -53,7 +53,7 @@
 // affects Directory and Profile pages
 .follow_buttons {
     .follow-btn, .stop-following-btn {
-        @include ease;
+        @include ease(.15s);
         cursor: pointer;
         &:hover{color:$dark-green;}
     }

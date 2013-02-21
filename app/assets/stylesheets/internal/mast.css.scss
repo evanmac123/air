@@ -9,7 +9,7 @@ body {
     background:#f1f1f1;
     border-top:$border-light;
     border-bottom:4px $white solid;
-    a {@include ease;}
+    a {@include ease(.15s);}
 }
 .mast_top, .mast_bottom {margin:$centered;  width:$body-width;}
 

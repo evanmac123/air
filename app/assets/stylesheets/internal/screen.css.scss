@@ -1,5 +1,5 @@
 a, a:link, a:visited {
-	@include ease;
+	@include ease(.15s);
 	color:$dark-green;
 	font-weight:bold;
 	text-decoration: none!important;

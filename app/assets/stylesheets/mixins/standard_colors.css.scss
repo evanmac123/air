@@ -77,10 +77,10 @@ $border-light:      1px #fff solid;
     }
 }
 
-@mixin ease {
-    -webkit-transition: all .15s ease-in-out;
-    -moz-transition: all .15s ease-in-out;
-    -ms-transition: all .15s ease-in-out;
-    -o-transition: all .15s ease-in-out;
-    transition: all .15s ease-in-out;
+@mixin ease($time) {
+    -webkit-transition: all #{$time} ease-in-out;
+    -moz-transition: all #{$time} ease-in-out;
+    -ms-transition: all #{$time} ease-in-out;
+    -o-transition: all #{$time} ease-in-out;
+    transition: all #{$time} ease-in-out;
 }
