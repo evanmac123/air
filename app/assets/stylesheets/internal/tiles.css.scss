@@ -70,18 +70,17 @@
     width: 666px; 
     height: 2000px;
     .tile_holder {
-      border:1px red solid;
       background:$white;
       min-height:200px;
       padding: 1em; 
       text-align: center;
       width:100%;
       &:after{@include clear;}
-    }
-    .tile_link, img {
-      border:1px blue solid;
-      display:block;
-      margin:$centered;
+      .tile_link, img {
+        display:block;
+        margin:$centered;
+      }
+      img {height:auto; max-width:100%;}
     }
   }
 
