@@ -67,15 +67,21 @@
   #slideshow {
     margin: auto;
     position:relative;
-    text-align: center;
     width: 666px; 
     height: 2000px;
-    .tile_link, img {
-      margin:$centered;
-      padding: 1em; 
+    .tile_holder {
+      border:1px red solid;
       background:$white;
-      height:auto;
-      width:100%!important;
+      min-height:200px;
+      padding: 1em; 
+      text-align: center;
+      width:100%;
+      &:after{@include clear;}
+    }
+    .tile_link, img {
+      border:1px blue solid;
+      display:block;
+      margin:$centered;
     }
   }
 
