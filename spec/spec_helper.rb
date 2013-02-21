@@ -71,6 +71,10 @@ end
 ActiveRecord::Base.shared_connection = ActiveRecord::Base.connection
 
   #require 'capybara/poltergeist'
+
+  # Note that there is a "  Capybara.current_driver = :webkit" line in '/support/acceptance/javascript.rb'
+  # Don't know why or what the priority is, but if you're going to set ':webkit' to ':webkit_debug' you probably better do both.
+
   Capybara.javascript_driver = :webkit
 
   require 'capybara-screenshot/rspec'
