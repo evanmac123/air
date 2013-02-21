@@ -1,15 +1,7 @@
-body#tile_viewer {
-  background:image-url('tile_viewer/broken_noise.png');
-  font-family:Helvetica, Arial, sans-serif;
-  margin:0;
-}
-
 .tiles.tiles-index{
-  a, img {border:none;}
-  .cf {clear:both;}
-
   .container {
-    //background-image:image-url('tile_viewer/rough_diagonal.png');
+    &:after{@include clear;}
+    border:1px red solid;
     margin:auto;
     padding:0 0 10px 0;
     width:100%;
@@ -52,39 +44,35 @@ body#tile_viewer {
     width:786px;
   }
 
-  a#prev, a#next {
+  a#prev, a#next, #slideshow {
     display:inline-block;
+    float:left;
+  }
+  a#prev, a#next {
     height:60px;
     margin:65px 0 0 0;
     width:60px;
-  }
-  a#prev span, a#next span {
-    font-size:0;
-    text-decoration:none;
-    text-indent:-10px;
-    visibility: hidden;
+    span {
+      font-size:0;
+      text-decoration:none;
+      text-indent:-10px;
+      visibility: hidden;
+    }
   }
   a#prev {
     background:image-url('tile_viewer/prevbtn.png') no-repeat;
-    float:left;
+    //float:left;
     position:relative;
   }
-    a#prev:hover {
-      background:image-url('tile_viewer/prevbtn-hover.png') no-repeat;
-    }
+    a#prev:hover {background:image-url('tile_viewer/prevbtn-hover.png') no-repeat;}
   a#next {
     background:image-url('tile_viewer/nextbtn.png') no-repeat;
-    float:left;
     padding:0;
     position:relative;
   }
-    a#next:hover {
-      background:image-url('tile_viewer/nextbtn-hover.png') no-repeat;
-    }
+    a#next:hover {background:image-url('tile_viewer/nextbtn-hover.png') no-repeat;}
 
   #slideshow {
-    display:inline-block;
-    float:left;
     margin: auto;
     position:relative;
     text-align: center;
@@ -92,10 +80,10 @@ body#tile_viewer {
     height: 2000px;
   }
   #slideshow img {
+    margin:$centered;
     padding: 1em; 
     background:$white;
-    border: $border-light; 
-    width:100%;
+    width:100%!important;
   }
 
   .footer {
