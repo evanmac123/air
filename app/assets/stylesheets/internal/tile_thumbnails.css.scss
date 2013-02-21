@@ -8,7 +8,7 @@ $tile_wrapper_dim: 254px;
 $headline_overlay_top: 148px;
 #tile_thumbnail_carousel{
   .jcarousel-item{
-    height: 295px;
+    height: 278px;
     width: 295px;
     display: inline-block;
   }
@@ -26,81 +26,83 @@ $headline_overlay_top: 148px;
     background-color:#272727;
     background-position:center center;
     background-repeat:no-repeat;
-    border: 3px solid white;
-    border-radius: 5px;
-    // The carousel is not playing nicely with css3pie, so leaving it 
-    // out for now
-    //behavior: url(/css3pie/PIE.htc);
-    box-shadow: 0px 0px 3px grey;
+    box-shadow: 0px 0px 3px $gray;
     &:hover{
       height: $thumb_hovered_dim;
       width: $thumb_hovered_dim;
       margin: $thumb_hovered_margin;
-      .headline_overlay{ 
-        width: $thumb_hovered_dim; 
-        top: $headline_overlay_top + 2 * $hover_delta;
-      }
-      .text{
-        top: $headline_overlay_top + 2 * $hover_delta;
-        font-size: 18px;
-        line-height: 23px;
-      }
+      .headline .headline_overlay, .headline .text{height:41%;}
     }
     display: inline-block;
   }
   .white_box_with_shadow{
-    //box-shadow: 0px 0px 2px grey;
-    //background: yellow;
     padding: 4px;
     display: inline-block;
   }
   .headline{
+    height:100%;
     position: relative;
+    &:after{@include clear;}
     .headline_overlay{
-      height: 89px;
-      width: $thumb_dim;
+      height: 40%;
+      width: 100%;
       background: black;
       opacity: 0.7;
       position: absolute;
-      top: $headline_overlay_top;
+      bottom:0;
     }
     .text{
+      bottom:0;
       position: absolute;
       color: white;
       z-index: 10;
-      top: $headline_overlay_top; 
-      padding: 10px 11px;
-      font-size: 16px;
-      line-height: 21px;
+      height:40%;
+      padding: .5em;
+      font-size: 1.15em;
+      font-weight: 300;
+      line-height: 1.15em
     }
   }
-
 }
 #carousel_wrapper{
+  margin-top:1em;
   .jcarousel-container{
     width: 100%;
-    height: 259px;
-    margin-bottom: 2px;
-    padding: 20px 62px 20px 57px;
-    top: -20px;
-    left: 3px;
+    padding: 0 3em;
   }
   .jcarousel-clip{
     width: 100%;
-    height: 260px;
+    height: 100%;
   }
   .jcarousel-item{
     margin-right: 0px;
     width: 278px;
   }
+  .jcarousel-prev-horizontal, .jcarousel-next-horizontal {
+    background:image-url('v5/sprites.png') no-repeat transparent;
+    top:45%;
+  }
   .jcarousel-prev-horizontal{
-    top: 140px;
-    left: 2px;
+    background-position: 0px -106px;
+    left: 0;
+    &:hover, &:focus {background-position:-34px -106px;}
   }
+    .jcarousel-prev-disabled-horizontal,
+    .jcarousel-prev-disabled-horizontal:hover,
+    .jcarousel-prev-disabled-horizontal:focus,
+    .jcarousel-prev-disabled-horizontal:active {
+        background-position: -68px -106px;}
   .jcarousel-next-horizontal{
-    top: 140px;
-    right: 2px;
+    background-position: 0px -140px;
+    right: 0;
+    &:hover, &:focus {background-position:-34px -140px;}
   }
+    .jcarousel-next-disabled-horizontal,
+    .jcarousel-next-disabled-horizontal:hover,
+    .jcarousel-next-disabled-horizontal:focus,
+    .jcarousel-next-disabled-horizontal:active {
+      background-position: -68px -140px;}
+
   .jcarousel-item-placeholder{
     // The placeholder width is being set to near zero
     // We don't want placeholders to actually show, since they 
