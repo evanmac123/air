@@ -76,7 +76,7 @@ feature 'Highchart Plot' do
     expect_no_content 'Unique users'
   end
 
-  context 'Controls Only (No Plotted Points)', js: :webkit do
+  context 'Controls Only (No Plotted Points)', js: true do
     def start_date_value
       find('#chart_start_date').value
     end
@@ -163,7 +163,7 @@ feature 'Highchart Plot' do
   # the set of points (i.e. y values) for acts and users must be mutually exclusive - even to the point of no intersection
   # of numerals, e.g. an '11' for acts is not allowed because there is a '1' for users. ^%$#@!
 
-  context 'Plotted Points', js: :webkit do
+  context 'Plotted Points', js: true do
     let(:john)   { FactoryGirl.create :user, demo: demo }
     let(:paul)   { FactoryGirl.create :user, demo: demo }
     let(:george) { FactoryGirl.create :user, demo: demo }

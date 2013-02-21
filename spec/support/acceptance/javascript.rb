@@ -4,11 +4,17 @@ RSpec.configure do |config|
   config.before(:each) do
     if example.metadata[:js]
       Capybara.current_driver = case example.metadata[:js]
-                                when :poltergeist
+                                when true, :poltergeist
                                   :poltergeist
-                                when true, :webkit
-                                  :webkit_debug
+                                when :webkit
+                                  :poltergeist
                                 end
+      #Capybara.current_driver = case example.metadata[:js]
+      #                          when :poltergeist
+      #                            :poltergeist
+      #                          when true, :webkit
+      #                            :webkit_debug
+      #                          end
     end
   end
 

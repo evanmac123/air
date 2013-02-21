@@ -7,6 +7,11 @@ module SteakHelperMethods
     first(:link, locator).click
   end
 
+  # Capy2 doesn't like the fact that the visible "No Thanks" to the Quick Tour is duplicated from a non-visible template
+  def dismiss_tutorial
+    find('div#fancybox-content div div#tutorial_introduction_inner div.link a#no_thanks_tutorial').click
+  end
+
   # Need these guys to get rid of overlays for the talking-chicken tutorial and inviting people
   # to join the game. If don't get rid of them => can't click on any links because they are "covered".
   def bypass_modal_overlays(user)

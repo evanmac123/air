@@ -14,7 +14,9 @@ feature 'User views tile' do
     @make_toast = Tile.find_by_headline('make toast')
     @discover_fire = Tile.find_by_headline('discover fire')
 
+    bypass_modal_overlays(@kendra)
     signin_as(@kendra, 'milking')
+
     @first_tile_link = "/tiles/#{@make_toast.id}"
   end
 

@@ -92,7 +92,7 @@ group :test do
   gem "email_spec", "~> 1.1"
   gem "sham_rack"
   gem "capybara-webkit"
-  #gem "poltergeist"
+  gem "poltergeist"
   gem "sinatra"
 end
 

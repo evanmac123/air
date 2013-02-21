@@ -3,6 +3,10 @@ require 'acceptance/acceptance_helper'
 feature "Admin Defines Characteristics" do
 
   def expect_characteristic_row(name, description, datatype, allowed_values=nil)
+
+    # todo why is this here? use down below?
+    # todo also, why does one call work but not the others?
+
     page.find(:css, "td.characteristic-name", :text => name)
 
     # Have to do a little screwing around because of Capy2. (Found multiple "<td>Discrete</td>" => Need to be specific)
@@ -14,6 +18,11 @@ feature "Admin Defines Characteristics" do
     description_column = page.find(:css, "td", :text => description)
     description_column.should be_present
 
+    # From a Capybara post:
+    # Selenium doesn't support retrieving the #path from elements.
+    # So maybe Poltergeist doesn't either? (But why did it work once???)
+    # This is from the doc: Method: Capybara::Driver::Node#path just raises 'NotSupportedByDriverError' =>
+    # could this be what you are calling #path on instead of an element? (No - printed it out before.)
     description_column_path = description_column.path
     description_column_path[-2] = (description_column_path[-2].to_i + 1).to_s
 
