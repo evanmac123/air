@@ -135,11 +135,6 @@ body.scores {
 #bar_command_wrapper{
   z-index: 1;
 }
-
-#black_tooltip.right{
-  #differing_spacings{ left: -3px !important; }
-  #tutorial_menu{ right: 16px !important; }
-}
 #tutorial_menu #options{
   right: 5px; // This is here to make sure you can still select the .close_tutorial button in the chicken
 }
