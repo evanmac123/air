@@ -1,73 +1,13 @@
 // hover delta is per side
 $thumb_dim: 238px;
 $thumb_hovered_dim: 258px;
-$hover_delta: ($thumb_hovered_dim - $thumb_dim)/2;
 $thumb_margin: 12px;
-$thumb_hovered_margin: $thumb_margin - $hover_delta;
 $tile_wrapper_dim: 254px;
 $headline_overlay_top: 148px;
-#tile_thumbnail_carousel{
-  .jcarousel-item{
-    height: 278px;
-    width: 295px;
-    display: inline-block;
-  }
-  .tile-wrapper{
-    padding: 2px;
-    height: $tile_wrapper_dim;
-    width: $tile_wrapper_dim;
-    display: inline-block;
-    border: 1px dashed transparent;
-  }
-  .tile_thumbnail{
-    @include ease(.025s);
-    height: $thumb_dim;
-    width: $thumb_dim;
-    margin: $thumb_margin;
-    background-color:#272727;
-    background-position:center center;
-    background-repeat:no-repeat;
-    box-shadow: 0px 0px 3px $gray;
-    &:hover{
-      height: $thumb_hovered_dim;
-      width: $thumb_hovered_dim;
-      margin: $thumb_hovered_margin;
-      .headline_overlay{height:41%;}
-    }
-    display: inline-block;
-  }
-  .white_box_with_shadow{
-    padding: 4px;
-    display: inline-block;
-  }
-  .headline{
-    height:100%;
-    position: relative;
-    &:after{@include clear;}
-    .headline_overlay{
-      height: 40%;
-      width: 100%;
-      background: black;
-      opacity: 0.8;
-      position: absolute;
-      bottom:0;
-    }
-    .text{
-      bottom:0;
-      position: absolute;
-      width:238px;
-      color: white;
-      z-index: 10;
-      height:40%;
-      padding: .5em;
-      font-size: 1.15em;
-      font-weight: 300;
-      line-height: 1.15em
-    }
-  }
-}
+
+
 #carousel_wrapper{
-  margin-top:1em;
+  margin-top:2em;
   .jcarousel-container{
     width: 100%;
     padding: 0 3em;
@@ -77,10 +17,73 @@ $headline_overlay_top: 148px;
     height: 100%;
   }
   .jcarousel-item{
+    display: inline-block;
     margin-right: 0px;
-    //width: 278px;
-    width:300px;
+    height: 264px;
+    text-align:center;
+    width: 299px;
+    
+
+    a, a:link, a:visited {
+      display:inline-block;
+      .tile-wrapper{
+        display: inline-block;
+        height: $tile_wrapper_dim;
+        width: $tile_wrapper_dim;
+
+        .white_box_with_shadow{
+          display: inline-block;
+
+          .tile_thumbnail{
+            @include ease(.025s);
+            background-color:#272727;
+            background-position:center center;
+            background-repeat:no-repeat;
+            box-shadow: 0px 0px 3px $gray;
+            display: inline-block;
+            height: $thumb_dim;
+            margin-top:.65em;
+            width: $thumb_dim;
+            &:hover{
+              height: $thumb_hovered_dim;
+              margin-top:0;
+              width: $thumb_hovered_dim;
+              .headline_overlay{height:41%;}
+            }
+            
+            .headline{
+              height:100%;
+              position: relative;
+              text-align: left;
+              &:after{@include clear;}
+              .headline_overlay{
+                height: 40%;
+                width: 100%;
+                background: black;
+                opacity: 0.8;
+                position: absolute;
+                bottom:0;
+              }
+              .text{
+                bottom:0;
+                position: absolute;
+                width:238px;
+                color: white;
+                z-index: 10;
+                height:40%;
+                padding: .5em;
+                font-size: 1.15em;
+                font-weight: 300;
+                line-height: 1.15em
+              }
+            }
+          }
+        }
+      }
+    }
   }
+
+  // =========== Buttons ===========
   .jcarousel-prev-horizontal, .jcarousel-next-horizontal {
     background:image-url('v5/sprites.png') no-repeat transparent;
     top:45%;

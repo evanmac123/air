@@ -50,7 +50,7 @@ unbindNextArrow = () ->
   next_horz = $('.jcarousel-next-horizontal')
   next_horz_hover = $('.jcarousel-next-horizontal:hover')
   what = "background-position"
-  where = "-900px 0px"
+  where = "-96px 0px"
   next.off()
   next.css("cursor", "default")
   next_horz.css(what, where)
