@@ -1,7 +1,7 @@
 #flash {
-    text-align:left;
+  text-align:left;
   margin:0 auto;
-  width:960px;
+  width:$body-width;
   position: relative;
   z-index: 11;
   a#close-flash span {
@@ -29,16 +29,19 @@
     td.f-right {box-sizing:border-box; width:30px;}
 }
 #flash_failure, #flash_notice, #flash_success {
-    background:none!important;
-    border:0!important;
-    color:#353535!important;
+    background:none;
+    border:0;
+    color:#353535;
     font-weight:medium;
-    margin:-10px 0 0 20px!important;
     max-width:520px;
     min-width:400px;
-    padding:0!important;
+    padding:0;
     position:relative;
-    text-align:left!important;
+    text-align:left;
+
+    margin:0;
+    top:-1.3em;
+    left:0;
 }
 #flash_failure {
     a#close-flash span {color:darken(#e4d881, 10%);}

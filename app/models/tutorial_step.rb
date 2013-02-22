@@ -17,9 +17,9 @@ class TutorialStep < Struct.new(:index, :show_introduction, :title, :instruct, :
     2 => {
       title: "2. Read for Points!",
       instruct: "Read the tile below, then enter the key word here for points.",
-      highlighted: '#bar_command_wrapper',
+      highlighted: '#bar_command',
       x: -3,
-      y: 36 ,
+      y: 23 ,
       position: "center right",
       arrow_dir: "left",
       flash_margin_left: "355px",  # This is so any failure messages will be offset & thereby visible

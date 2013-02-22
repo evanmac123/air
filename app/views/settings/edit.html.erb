@@ -1,6 +1,6 @@
 <div class="left-col">
   <div class="module personal_settings" id="about_user">
-  	<h1 class="headline">User information</h1>
+  	<h1 class="headline">User Information</h1>
     <div class="module_inner settings_avatar">
         <h2 class="subhead">Change your avatar</h2>
         <%= avatar_96 current_user %>
@@ -80,17 +80,17 @@
   <div class="module other_settings" id="notification_settings">
     <h1 class="headline">Notification Preferences</h1>
     <% if current_user.new_phone_number_needs_verification? %>
-      <div class="module_inner settings_new_number_verification">
+      <div class="module_inner" id="settings_new_number_verification">
         <%= form_for current_user, :url => phone_path, :method => :put do |form| %>
-          <h2 class="subhead"><%= label_tag "user_new_phone_validation", "To verify the number #{current_user.new_phone_number.as_pretty_phone}, please enter the validation code we sent to that number:" %></h2>
+          <p><%= label_tag "user_new_phone_validation", "To verify the number #{current_user.new_phone_number.as_pretty_phone}, please enter the validation code we sent to that number:" %></p>
           <%= form.text_field :new_phone_validation, :value => '' %>
-          <div class="button_wrap"><%= submit_tag 'Verify New Number', :class => 'button_norm' %></div>
+          <div class="button_wrap"><%= submit_tag 'Verify new number', :class => 'button_norm' %></div>
         <% end %>
       </div>
     <% end %>
     <%= form_for current_user, :url => account_path do |form| %>
       <div class="module_inner settings_number">
-        <h2 class="subhead"><%= label_tag 'user_phone_number', "Mobile Number" %></h2>
+        <h2 class="subhead"><%= label_tag 'user_phone_number', "Mobile number" %></h2>
         <%= form.text_field :phone_number, :value => current_user.phone_number.try(:as_pretty_phone) %>
       </div>
       <div class="module_inner settings_notification">

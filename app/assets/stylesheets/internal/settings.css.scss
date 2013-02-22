@@ -33,6 +33,10 @@ body.settings .right-col .module_inner {margin-bottom:1em;}
     }
 }
 
+#user_new_phone_validation {margin-bottom:1em;}
+label[for="user_new_phone_validation"] {padding-bottom:1em;}
+#settings_new_number_verification {margin-bottom: 2em;}
+
 #password_change {
     ul {
         display: inline-block;

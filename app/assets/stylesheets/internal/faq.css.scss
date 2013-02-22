@@ -51,21 +51,11 @@ body.pages-faq .content {
         .tocindent .tocindent {
             background:$white;
             padding:1em;
-            a, a:link, a:visited {
-                &:before {
-                    content:"";
-                    display: inline-block;
-                    height:3px;
-                    width:3px;
-                    margin-right:.5em;
-                    background:$light-gray;
-                }
-            }
-            .tocindent {margin-left:1.25em;}
             .toc {
                 border-top:0;
-                padding:0 0 .35em 0;
+                padding:.35em 0;
             }
+            .tocindent {padding:0 0 0 1em;}
             a, a:link, a:visited {
                 color:$dark-green;
                 font-size:1em;
