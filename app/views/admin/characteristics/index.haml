@@ -20,7 +20,7 @@
       %tr
         %td.characteristic-name= characteristic.name 
         %td= characteristic.description 
-        %td= characteristic.datatype_name
+        %td{data: {'for-test' => characteristic.name.downcase.sub(' ', '-')}}= characteristic.datatype_name
         %td
           %ul
             -characteristic.allowed_values.each do |allowed_value|

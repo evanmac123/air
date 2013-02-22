@@ -3,35 +3,11 @@ require 'acceptance/acceptance_helper'
 feature "Admin Defines Characteristics" do
 
   def expect_characteristic_row(name, description, datatype, allowed_values=nil)
+    page.find(:css, "td.characteristic-name", :text => name).should be_present
+    page.find(:css, "td", :text => description).should be_present
+    page.find(:css, "td[data-for-test='#{name.downcase.sub(' ', '-')}']", :text => datatype).should be_present
 
-    # todo why is this here? use down below?
-    # todo also, why does one call work but not the others?
-
-    page.find(:css, "td.characteristic-name", :text => name)
-
-    # Have to do a little screwing around because of Capy2. (Found multiple "<td>Discrete</td>" => Need to be specific)
-    # The cool thing is that once you find the 'description' column, you know the 'type' should be the adjoining one!
-    # Specifically, the 'description' column's xpath is: '/html/body/div[3]/div/table/tbody/tr[3]/td[2]'
-    # Which means the correct 'type' column is just that, but with a 'td[3]' at the end.
-    #
-    # Similarly, down below (in the 'allowed_values' block), the correct 'allowed values' column has a 'td[4]' at the end
-    description_column = page.find(:css, "td", :text => description)
-    description_column.should be_present
-
-    # From a Capybara post:
-    # Selenium doesn't support retrieving the #path from elements.
-    # So maybe Poltergeist doesn't either? (But why did it work once???)
-    # This is from the doc: Method: Capybara::Driver::Node#path just raises 'NotSupportedByDriverError' =>
-    # could this be what you are calling #path on instead of an element? (No - printed it out before.)
-    description_column_path = description_column.path
-    description_column_path[-2] = (description_column_path[-2].to_i + 1).to_s
-
-    page.find(:xpath, description_column_path, text: datatype).should be_present
-
-    if allowed_values.present?
-      description_column_path[-2] = (description_column_path[-2].to_i + 1).to_s
-      allowed_values.each {|allowed_value| page.find(:xpath, description_column_path).find(:css, "li", :text => allowed_value)}.should be_present
-    end
+    allowed_values.each { |allowed_value| page.find(:css, "td li", :text => allowed_value).should be_present } if allowed_values.present?
   end
 
   def expect_allowed_value_text_field(expected_value)
@@ -52,6 +28,7 @@ feature "Admin Defines Characteristics" do
     it "admin sees existing demo-agnostic characteristics" do
       set_up_demo_and_characteristics
       visit admin_characteristics_path(as: an_admin)
+
       expect_characteristic_row 'Favorite pill', 'what kind of pill you like', 'Discrete', %w(Viagra Clonozepam Warfarin)
 
       expect_no_content "Cheese preference"
@@ -64,7 +41,7 @@ feature "Admin Defines Characteristics" do
 
       fill_in "characteristic[name]", :with => "T-shirt size"
       fill_in "characteristic[description]", :with => "The size t-shirt you want if you win"
-      fill_in "characteristic[allowed_values][]", :with => "S"
+      fill_in "characteristic[allowed_values][]", :with => "Small"
 
       # Should do the Right Thing even if the admin is sloppy about which allowed
       # value fields they fill in, i.e. blank ones should get skipped over silently.
@@ -72,12 +49,11 @@ feature "Admin Defines Characteristics" do
       10.times{ click_button "More allowed values" }
       allowed_value_fields = page.all('input[@name="characteristic[allowed_values][]"]')
 
-      allowed_value_fields[1].set("M")
-      allowed_value_fields[3].set("L")
+      allowed_value_fields[1].set("Medium")
+      allowed_value_fields[3].set("Large")
       click_button "Create Characteristic"
-
       expect_content 'Characteristic "T-shirt size" created'
-      expect_characteristic_row 'T-shirt size', "The size t-shirt you want if you win", 'Discrete', %w(S M L)
+      expect_characteristic_row 'T-shirt size', "The size t-shirt you want if you win", 'Discrete', %w(Small Medium Large)
     end
 
     it "admin edits existing characteristic", :js => true do
@@ -141,7 +117,7 @@ feature "Admin Defines Characteristics" do
 
       fill_in "characteristic[name]", :with => "T-shirt size"
       fill_in "characteristic[description]", :with => "The size t-shirt you want if you win"
-      fill_in "characteristic[allowed_values][]", :with => "S"
+      fill_in "characteristic[allowed_values][]", :with => "Small"
 
       click_button "Create Characteristic"
 
@@ -149,7 +125,7 @@ feature "Admin Defines Characteristics" do
 
       expect_content 'Characteristic "T-shirt size" created'
       expect_characteristic_row "Cheese preference", "what sort of cheese does you best", 'Discrete', %w(Stinky Extra-Smelly)
-      expect_characteristic_row 'T-shirt size', "The size t-shirt you want if you win", 'Discrete', %w(S)
+      expect_characteristic_row 'T-shirt size', "The size t-shirt you want if you win", 'Discrete', %w(Small)
       expect_no_content "Favorite pill"
       expect_no_content "Cake or death"
     end

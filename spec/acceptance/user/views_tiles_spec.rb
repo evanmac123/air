@@ -20,7 +20,7 @@ feature 'User views tile' do
     @first_tile_link = "/tiles/#{@make_toast.id}"
   end
 
-  scenario 'views tile image', js: :webkit do
+  scenario 'views tile image', js: true do
     # Click on the first tile, and it should take you to the tiles  path
     page.find("a[href='#{@first_tile_link}'] #tile-thumbnail-#{@make_toast.id}").click
 

@@ -1,20 +1,13 @@
-# Note that there is a "  Capybara.javascript_driver = :webkit" line in '/spec_helper.rb'
-# Don't know why or what the priority is, but if you're going to set ':webkit' to ':webkit_debug' you probably better do both.
+# If you want to use capy-webkit instead of Poltergeist just use ":js => :webkit" instead of ":js => true" in your scenario definition.
+# Also, if you want the super-duper debug output, change ':webkit' down below to ':webkit_debug'
+
 RSpec.configure do |config|
   config.before(:each) do
     if example.metadata[:js]
       Capybara.current_driver = case example.metadata[:js]
-                                when true, :poltergeist
-                                  :poltergeist
-                                when :webkit
-                                  :poltergeist
+                                  when true, :poltergeist then :poltergeist
+                                  when :webkit            then :webkit
                                 end
-      #Capybara.current_driver = case example.metadata[:js]
-      #                          when :poltergeist
-      #                            :poltergeist
-      #                          when true, :webkit
-      #                            :webkit_debug
-      #                          end
     end
   end
 

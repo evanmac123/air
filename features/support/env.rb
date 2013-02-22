@@ -11,7 +11,7 @@ Capybara.save_and_open_page_path = 'tmp'
 
 Capybara.javascript_driver = :poltergeist
 
-# Uncomment these lines for debug output
+#Uncomment these lines for debug output
 #Capybara.register_driver :poltergeist do |app|
 #  Capybara::Poltergeist::Driver.new(app, debug: true)
 #end

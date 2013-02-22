@@ -107,8 +107,4 @@ if self.respond_to?(:Before)
   Before do
     FakeTwilio::SMS.clear_all
   end
-else
-  #before(:each) do
-    #FakeTwilio::SMS.clear_all
-  #end
 end
