@@ -119,16 +119,27 @@ Then /^I should not see "([^"]*)" within the suggested users$/ do |text|
   end
 end
 
-Then /^I should see "(.*?)" within a link to (.*?)$/ do |text, page_name|
+# The last argument is optional, and if present must be one of the 2 options listed in the '(~~~)?' (The '?' means 0 or 1)
+Then /^I should see "(.*?)" within a link to (.*?)( in my Friends list| in the Other Players list)?$/ do |text, page_name, list_context|
   expected_href = path_to(page_name)
 
-
-  with_scope("\"a[href='#{expected_href}']\"") do
-    begin
-      page.should have_content(text)
-    rescue
-      page.should have_css('img', :alt => text) 
-    end 
+  # This step-def originally consisted of just the code in the 'else' block of this 'if' statement.
+  # But then Capy2 reared its ugly head...
+  # I needed to disambiguate some link-selectors so I added the optional 'list_context' argument to the end of the step-def.
+  # It reads fine - see '/user_sees_another_users_followers.feature' or '/user_sees_directory_of_users.feature' for examples.
+  # Anyway, the part in the 'else' block looked kinda hairy and I wasn't sure how much it was being used, so I decided
+  # to only process my special cases if necessary and fall back to the existing test code if not.
+  if list_context
+    scope = list_context == ' in my Friends list' ? '#friends_list' : '.user-info'
+    within("#{scope} a[href='#{expected_href}']") { page.should have_content text}
+  else
+    with_scope("\"a[href='#{expected_href}']\"") do
+      begin
+        page.should have_content(text)
+      rescue
+        page.should have_css('img', :alt => text)
+      end
+    end
   end
 end
 
@@ -317,6 +328,11 @@ end
 
 When /^(?:|I )click within "([^"]*)"$/ do |selector|
   find(selector).click
+end
+
+# Capy2 rears its ugly head...
+When /^I follow the first "(.*)"$/ do |link|
+  first(:link, link).click
 end
 
 When /^the Year listbox should contain the correct years$/ do

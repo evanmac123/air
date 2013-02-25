@@ -21,7 +21,7 @@ When /^I attach the avatar "(.*?)"$/ do |filename|
 end
 
 When /^I press the avatar submit button$/ do
-  page.find(:css, ".avatar_inputs input[@type=submit]").click
+  page.find(:css, ".set-avatar input[@type=submit]").click
 end
 
 When /^I press the avatar clear button$/ do

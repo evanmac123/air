@@ -12,15 +12,40 @@ class Tile < ActiveRecord::Base
 
   extend Sequenceable
   has_alphabetical_column :headline
+
+  # The ":default_url => ~~~" option was not needed for Capy 1.x, but then Capy2 came along and started skipping
+  # cucumber features without giving a reason. Specifically, one scenario in a feature file would pass, but
+  # all subsequent ones would just be skipped. No reason was given - just a "Skipped step" output for each step.
+  #
+  # The frustrating part was the all of the failing tests would pass if run individually.
+  #
+  # Turns out that Tiles always (well, almost always - see the next paragraph) require a corresponding thumbnail,
+  # as witnessed by the "validates_with AttachmentPresenceValidator" above and the default for ':require_images'
+  # being set to 'true' in the migration.
+  #
+  # However, the Factory for a Tile sets 'require_images' to 'false' => '/thumbnails/carousel/missing.png' and
+  # '/thumbnails/hover/missing.png' were being generated (by Paperclip) for the default tile image path when one
+  # wasn't provided in Test mode, which happened a lot because we normally don't care about the specific image.
+  #
+  # The fact that these 2 files do not exist never caused a problem in pre-Capy2 days, but with Capy2 they led to the
+  # behavior described above, i.e. the first cuke scenario generated an "HTML 500 response code - Internal Server Error"
+  # which had no effect on the test that spawned the error, but which would cause all subsequent steps to be skipped!
+  #
+  # BTW, none of this info appeared in the 'test.log' file; you have to set "Capybara.javascript_driver = :webkit_debug"
+  # in 'support/env.rb' in order to see it.
+  #
+  # Can you say: WTF!!!!! (I sure can!)
+
   has_attached_file :image,
     {:styles => {:viewer => ["666", :png]},
     :default_style => :viewer,
+    :default_url => "/assets/avatars/thumb/missing.png",
     :bucket => S3_TILE_BUCKET}.merge(TILE_IMAGE_OPTIONS)
 
   has_attached_file :thumbnail,
     {:styles => {:carousel => ["238x238#", :png], :hover => ["258x258#", :png]},
     :default_style => :carousel,
-    #:default_url => "/assets/avatars/thumb/missing.png",
+    :default_url => "/assets/avatars/thumb/missing.png",
     :bucket => S3_TILE_THUMBNAIL_BUCKET}.merge(TILE_THUMBNAIL_OPTIONS)
 
   def name

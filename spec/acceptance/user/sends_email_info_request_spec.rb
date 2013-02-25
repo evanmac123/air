@@ -14,7 +14,7 @@ feature "User Sends Email Info Request", %q{
     @email = "somthingfornothing@james.com"
     @comment = "You guys kick serious a$$"
     visit marketing_page
-    click_link "Request a Demo"
+    click_first_link "Request a Demo"
  
     fill_in "contact_name", :with => @name
     fill_in "contact_email", :with => @email

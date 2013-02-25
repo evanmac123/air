@@ -29,3 +29,7 @@ end
 Given /^a fresh start$/ do
   Demo.find_each {|f| f.destroy}
 end
+
+Given /^I click on the letter "(.*)"$/ do |letter|
+  find("a[href $= #{letter}]").click
+end

@@ -52,3 +52,7 @@ Then /^the radio button for "([^"]*)" should be checked$/ do |arg1|
 
   page.find(:css, "#rule_primary_tag_id_#{id_of_primary_tag}")
 end
+
+When /^I click the "(.*)" button for value "(.*)"$/ do |button, value|
+  find("input[value = '#{button}'][data-value-text = '#{value}']").click
+end

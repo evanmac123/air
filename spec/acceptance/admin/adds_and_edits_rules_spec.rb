@@ -6,15 +6,16 @@ feature 'Admin adds and edits rules' do
       [rule_or_hash.primary_value.value, rule_or_hash.secondary_values.map(&:value)] :
       [rule_or_hash['primary_value'], rule_or_hash['secondary_values'].split(',')]
 
-    primary_value_cell = page.find(:css, 'td', :text => primary_value)
+    primary_value_cell = page.find(:css, 'td.data-for-test-primary-value', :text => primary_value)
     primary_value_cell.should_not be_nil, "Found no rule row for \"#{primary_value}\""
 
     main_rule_row = primary_value_cell.find(:xpath, '..')
     cell_path = main_rule_row.path + "/td"
 
-    %w(points reply description alltime_limit referral_points suggestible).each do |field_name|
+    %w(points reply description alltime_limit referral_points suggestible).each_with_index do |field_name, i|
       expected_value = rule_or_hash[field_name].to_s
-      page.find(:xpath, cell_path, :text => expected_value).should_not be_nil, "Found no cell containing #{field_name} (expected value \"#{expected_value}\")"
+      # Need to specify exact cell number for duplicate things like "55" and "55 points" both being in a <td>
+      page.find(:xpath, "#{cell_path}[#{(i + 2).to_s}]", :text => expected_value).should_not be_nil, "Found no cell containing #{field_name} (expected value \"#{expected_value}\")"
     end
 
     secondary_values_cell_path = main_rule_row.path + "/following-sibling::tr/td"

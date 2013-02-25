@@ -34,7 +34,7 @@ Feature: User invites friends
   Scenario: Status messages when inviting friends on a pre-populated demo
     Given "Shelly" has the password "foobar"
     Given I sign in via the login page as "Shelly/foobar"    
-    Then I should see "Invite your friends"
+    Then I should see "INVITE YOUR FRIENDS"
     When I fill in "Which coworkers do you wish to invite?" with "br"
     Then I should see "3+ letters"
     When I fill in "Which coworkers do you wish to invite?" with "jdidillvididkkemmffii"
@@ -50,7 +50,7 @@ Feature: User invites friends
   Scenario: One click invite of friend on pre-populated demo--friend receives invite and joins game
     Given "Shelly" has the password "foobar"
     Given I sign in via the login page as "Shelly/foobar"    
-    Then I should see "Invite your friends"
+    Then I should see "INVITE YOUR FRIENDS"
     When I fill in "Which coworkers do you wish to invite?" with "bra"
     Then I should see "Charlie Brainfield"
     When I press the invite button for "Charlie Brainfield"
@@ -80,7 +80,7 @@ Feature: User invites friends
   Scenario: User should not be able to invite herself
     Given "Yo Yo Ma" has the password "yummies"
     Given I sign in via the login page as "Yo Yo Ma/yummies"    
-    Then I should see "Invite your friends"
+    Then I should see "INVITE YOUR FRIENDS"
     When I fill in "Which coworkers do you wish to invite?" with "loaded"
     Then I should see "Charlie Brainfield"
     And I should not see "Yo Yo Ma" within the suggested users

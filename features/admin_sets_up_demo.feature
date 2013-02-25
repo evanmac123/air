@@ -8,8 +8,8 @@ Feature: Admin sets up demo
     When I follow "Create New Game"
     And I fill in "Name of Demo" with "3M"
     And I fill in "Custom welcome message" with "3M will rule you all!"
-    And I fill in "Followup welcome message" with "That's right."
-    And I fill in "Followup welcome message delay (in minutes)" with "30"
+    And I fill in "demo_followup_welcome_message" with "That's right."
+    And I fill in "demo_followup_welcome_message_delay" with "30"
     And I fill in "Starting player score" with "5"
     And I set the start time to "April/1/2013/12 PM/00"
     And I set the end time to "May/1/2015/12 PM/00"
@@ -108,5 +108,5 @@ Feature: Admin sets up demo
     And I fill in "Email" with "bobby@example.com"
     And I press "Submit"
     Then I should be on the admin "3M" demo page
-    When I follow "B"
+    When I click on the letter "B"
     Then I should see "Bobby Jones"

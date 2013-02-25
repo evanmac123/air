@@ -100,20 +100,3 @@ describe EmailCommandController do
     end
   end
 end
-
-
-=begin
-May want to test these additional special commands.
-
-# create a user, have another user try to friend them.
-'follow', 'connect'
-  self.follow(user, args.first)
-/^\d+$/
-  self.respond_to_survey(user, command_name)
-/^[a-z]$/
-  self.use_suggested_item(user, command_name)
-'accept'
-  self.accept_follower(user, args.first)
-'ignore'
-  self.ignore_follow_request(user, args.first)
-=end

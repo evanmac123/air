@@ -62,10 +62,10 @@ Feature: Admin rules have tags
 
   Scenario: Admin can edit an existing tag
     When I go to the admin tags page
-    And I follow "Edit"
+    And I follow "Edit" for entry number "1"
     And I fill in "Name" with "george"
     And I fill in "Description" with "George Forman"
-    And I click "Update Tag"
+    And I press "Update Tag"
     Then I should not see "Name has already been taken"
     But I should see "george"
     And I should see "George Forman"
@@ -73,6 +73,6 @@ Feature: Admin rules have tags
 
   Scenario: Admin can delete an existing tag
     When I go to the admin tags page
-    And I follow "Destroy"
+    And I follow "Destroy" for entry number "1"
     Then I should not see "black"
     And I should see "Tag deleted"

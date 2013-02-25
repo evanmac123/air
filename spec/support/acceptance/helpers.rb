@@ -1,5 +1,17 @@
 module SteakHelperMethods
 
+  # Capy2 needs links (and everything else) to be unambiguous. Most failures were fixed with specific selectors,
+  # which is the philosophy most new tests should also incorporate. But for those cases where it really doesn't
+  # matter, this effectively reverts back to the Capy1.x way of clicking links.
+  def click_first_link(locator)
+    first(:link, locator).click
+  end
+
+  # Capy2 doesn't like the fact that the visible "No Thanks" to the Quick Tour is duplicated from a non-visible template
+  def dismiss_tutorial
+    find('div#fancybox-content div div#tutorial_introduction_inner div.link a#no_thanks_tutorial').click
+  end
+
   # Need these guys to get rid of overlays for the talking-chicken tutorial and inviting people
   # to join the game. If don't get rid of them => can't click on any links because they are "covered".
   def bypass_modal_overlays(user)
@@ -231,7 +243,7 @@ module SteakHelperMethods
 
   # First is Capybara capability. Second is auxiliary gem; info can be found at:
   # https://github.com/mattheworiordan/capybara-screenshot
-  def show_me_some_love
+  def show_me_the_page
     save_and_open_page
     screenshot_and_open_image
   end

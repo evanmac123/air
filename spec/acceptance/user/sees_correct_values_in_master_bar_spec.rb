@@ -37,8 +37,4 @@ feature "User sees correct values in master bar" do
       find(:css, master_bar_selector).text.strip.should == expected_points_text
     end
   end
-
-  context "when the demo doesn't use tickets" do
-    it "should do the right thing"
-  end
 end

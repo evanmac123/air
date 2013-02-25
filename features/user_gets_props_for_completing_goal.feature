@@ -36,32 +36,26 @@ Feature: User gets some props for finishing a goal
     And DJ cranks 10 times after a little while
     Then "+14155551212" should not have received SMS "You've won at winning everything!"
 
-#   Scenario: User gets an achievement for finishing a goal
-    # When I sign in via the login page with "Bob/foobar"
-    # And I go to the activity page
-    # Then I should not see "You won at winning!"
+   Scenario: User gets an achievement for finishing a goal
+    When I sign in via the login page with "Bob/foobar"
+    And I go to the activity page
+    Then I should not see "You won at winning!"
 
-    # When "+14155551212" sends SMS "win 1"
-    # And I go to the activity page
-    # Then I should not see "You won at winning!"
+    When "+14155551212" sends SMS "win 1"
+    And I go to the activity page
+    Then I should not see "You won at winning!"
 
-    # When "+14155551212" sends SMS "win 2"
-    # And I go to the activity page
-    # Then I should not see "You won at winning!"
+    When "+14155551212" sends SMS "win 2"
+    And I go to the activity page
+    Then I should not see "You won at winning!"
 
-    # When "+14155551212" sends SMS "win 2"
-    # And I go to the activity page
-    # Then I should not see "You won at winning!"
+    When "+14155551212" sends SMS "win 2"
+    And I go to the activity page
+    Then I should not see "You won at winning!"
 
-    # When "+14155551212" sends SMS "win 3"
-    # And I go to the activity page
-    # Then I should see "You won at winning!"
-
-    # When "+14155551212" sends SMS "win 1"
-    # And "+14155551212" sends SMS "win 2"
-    # And "+14155551212" sends SMS "win 3"
-    # And I go to the activity page
-    # Then I should see "You won at winning!" just once
+    When "+14155551212" sends SMS "win 3"
+    And I go to the activity page
+    Then I should see "Bob Experience Points: 14"
 
   Scenario: User gets an SMS for finishing a goal via SMS
     Given a clear email queue

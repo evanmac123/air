@@ -70,11 +70,19 @@ class ActiveRecord::Base
 end
 ActiveRecord::Base.shared_connection = ActiveRecord::Base.connection
 
-  require 'capybara/poltergeist'
-  Capybara.javascript_driver = :poltergeist
+# Regarding Poltergeist vs. Capy-Webkit: We prefer the former over the latter and strive to use it whenever possible.
+# But if you really need to use Capy-Webkit you can. See '/support/acceptance/javascript.rb' for instructions on how.
 
-  require 'capybara-screenshot/rspec'
-  Capybara::Screenshot.autosave_on_failure = false
+require 'capybara/poltergeist'
+Capybara.javascript_driver = :poltergeist
+
+# Uncomment these lines for debug output
+#Capybara.register_driver :poltergeist do |app|
+#  Capybara::Poltergeist::Driver.new(app, debug: true)
+#end
+
+require 'capybara-screenshot/rspec'
+Capybara::Screenshot.autosave_on_failure = false
 
 # Hack to allow us to use regular controller tests to test SmsController 
 # (which is an ActionController::Metal).

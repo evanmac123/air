@@ -19,7 +19,7 @@ When /^I enter "([^"]*)" into the bonus points field$/ do |arg1|
 end
 
 When /^I click "([^"]*)"$/ do |arg1|
-  page.click_button(:tile_submit)
+  page.click_button('tile_submit')
 end
 
 Given /^the tile "([^"]*)" has prerequisite "([^"]*)"$/ do |tile_headline, prerequisite_headline|
@@ -63,4 +63,9 @@ end
 
 When /^I click the sample tile$/ do
   page.find('#tile-thumbnail-0').click
+end
+
+When /^I should( not)? see the "(.*)" tile$/ do |nott, tile|
+  selector = "div.text[data-for-test='#{tile.downcase.sub(' ', '-')}']"
+  nott ? (page.should have_no_selector(selector)) : (page.should have_selector(selector))
 end

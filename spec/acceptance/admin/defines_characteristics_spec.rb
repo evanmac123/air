@@ -3,29 +3,22 @@ require 'acceptance/acceptance_helper'
 feature "Admin Defines Characteristics" do
 
   def expect_characteristic_row(name, description, datatype, allowed_values=nil)
-    #name_cell = 
-    page.find(:css, "td.characteristic-name", :text => name)
-    #name_cell.should be_present
-
-    #characteristic_row = page.find(:xpath, name_cell.path + "/..")
+    page.find(:css, "td.characteristic-name", :text => name).should be_present
     page.find(:css, "td", :text => description).should be_present
-    page.find(:css, "td", :text => datatype).should be_present
+    page.find(:css, "td[data-for-test='#{name.downcase.sub(' ', '-')}']", :text => datatype).should be_present
 
-    if allowed_values.present?
-      allowed_values.each {|allowed_value| page.find(:css, "li", :text => allowed_value)}.should be_present
-    end
+    allowed_values.each { |allowed_value| page.find(:css, "td li", :text => allowed_value).should be_present } if allowed_values.present?
   end
 
   def expect_allowed_value_text_field(expected_value)
     page.find(:css, %{[@name="characteristic[allowed_values][]"][@value="#{expected_value}"]}).should be_present 
   end
 
-  # We have all this nonsense because before(:each) and :js=>true do not play
-  # well together.
+  # We have all this nonsense because before(:each) and :js=>true do not play well together.
   def set_up_demo_and_characteristics
     @demo = FactoryGirl.create :demo
     @agnostic_characteristic = FactoryGirl.create :characteristic, :name => "Favorite pill", :description => "what kind of pill you like", :allowed_values => %w(Viagra Clonozepam Warfarin)
-    @characteristic_1 = FactoryGirl.create :characteristic, :demo_specific, :demo => @demo, :name => "Cheese preference", :description => "what sort of cheese does you best", :allowed_values => %w(Stinky Extra-Stinky)
+    @characteristic_1 = FactoryGirl.create :characteristic, :demo_specific, :demo => @demo, :name => "Cheese preference", :description => "what sort of cheese does you best", :allowed_values => %w(Stinky Extra-Smelly)
     @characteristic_2 = FactoryGirl.create :characteristic, :demo_specific, :name => "Cake or death", :description => "A simple question really", :allowed_values => %w(Cake Death)
     
     @characteristic_2.demo.should_not == @demo
@@ -35,6 +28,7 @@ feature "Admin Defines Characteristics" do
     it "admin sees existing demo-agnostic characteristics" do
       set_up_demo_and_characteristics
       visit admin_characteristics_path(as: an_admin)
+
       expect_characteristic_row 'Favorite pill', 'what kind of pill you like', 'Discrete', %w(Viagra Clonozepam Warfarin)
 
       expect_no_content "Cheese preference"
@@ -47,22 +41,19 @@ feature "Admin Defines Characteristics" do
 
       fill_in "characteristic[name]", :with => "T-shirt size"
       fill_in "characteristic[description]", :with => "The size t-shirt you want if you win"
-      fill_in "characteristic[allowed_values][]", :with => "S"
+      fill_in "characteristic[allowed_values][]", :with => "Small"
 
-      # Should do the Right Thing even if the admin is sloppy about which
-      # allowed value fields they fill in, i.e. blank ones should get skipped
-      # over silently.
+      # Should do the Right Thing even if the admin is sloppy about which allowed
+      # value fields they fill in, i.e. blank ones should get skipped over silently.
       
       10.times{ click_button "More allowed values" }
       allowed_value_fields = page.all('input[@name="characteristic[allowed_values][]"]')
 
-      allowed_value_fields[1].set("M")
-      allowed_value_fields[3].set("L")
-      allowed_value_fields[4].set("XL")
+      allowed_value_fields[1].set("Medium")
+      allowed_value_fields[3].set("Large")
       click_button "Create Characteristic"
-
       expect_content 'Characteristic "T-shirt size" created'
-      expect_characteristic_row 'T-shirt size', "The size t-shirt you want if you win", 'Discrete', %w(S M L XL)
+      expect_characteristic_row 'T-shirt size', "The size t-shirt you want if you win", 'Discrete', %w(Small Medium Large)
     end
 
     it "admin edits existing characteristic", :js => true do
@@ -115,7 +106,7 @@ feature "Admin Defines Characteristics" do
     it "admin sees characteristics for just that demo" do
       set_up_demo_and_characteristics
       visit admin_demo_characteristics_path(@demo, as: an_admin)
-      expect_characteristic_row "Cheese preference", "what sort of cheese does you best", 'Discrete', %w(Stinky Extra-Stinky)
+      expect_characteristic_row "Cheese preference", "what sort of cheese does you best", 'Discrete', %w(Stinky Extra-Smelly)
       expect_no_content "Favorite pill"
       expect_no_content "Cake or death"
     end
@@ -126,15 +117,15 @@ feature "Admin Defines Characteristics" do
 
       fill_in "characteristic[name]", :with => "T-shirt size"
       fill_in "characteristic[description]", :with => "The size t-shirt you want if you win"
-      fill_in "characteristic[allowed_values][]", :with => "S"
+      fill_in "characteristic[allowed_values][]", :with => "Small"
 
       click_button "Create Characteristic"
 
       should_be_on admin_demo_characteristics_path(@demo)
 
       expect_content 'Characteristic "T-shirt size" created'
-      expect_characteristic_row "Cheese preference", "what sort of cheese does you best", 'Discrete', %w(Stinky Extra-Stinky)
-      expect_characteristic_row 'T-shirt size', "The size t-shirt you want if you win", 'Discrete', %w(S)
+      expect_characteristic_row "Cheese preference", "what sort of cheese does you best", 'Discrete', %w(Stinky Extra-Smelly)
+      expect_characteristic_row 'T-shirt size', "The size t-shirt you want if you win", 'Discrete', %w(Small)
       expect_no_content "Favorite pill"
       expect_no_content "Cake or death"
     end
@@ -150,7 +141,7 @@ feature "Admin Defines Characteristics" do
 
       should_be_on admin_demo_characteristics_path(@demo)
 
-      expect_characteristic_row "Goat preference", "What kind of goat do you want?", 'Discrete', %w(Stinky Extra-Stinky)
+      expect_characteristic_row "Goat preference", "What kind of goat do you want?", 'Discrete', %w(Stinky Extra-Smelly)
       expect_no_content "Favorite pill"
       expect_no_content "Cake or death"
     end

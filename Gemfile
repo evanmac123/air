@@ -91,7 +91,6 @@ group :test do
   gem "shoulda-matchers"
   gem "email_spec", "~> 1.1"
   gem "sham_rack"
-  gem "show_me_the_cookies"
   gem "capybara-webkit"
   gem "poltergeist"
   gem "sinatra"

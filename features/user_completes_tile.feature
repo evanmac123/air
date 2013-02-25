@@ -83,7 +83,6 @@ Feature: User completes tile
     And I should see "Survey tile 1"
     And I should see "Survey tile 3"
     And I should see "Referer tile 1"
-
     But I should not see "Rule tile 2"
     And I should not see "Rule tile 4"
     And I should not see "Rule tile 6"
@@ -102,7 +101,6 @@ Feature: User completes tile
     And I should see "Survey tile 1"
     And I should see "Survey tile 3"
     And I should see "Referer tile 1"
-
     But I should not see "Rule tile 1"
     And I should not see "Rule tile 4"
     And I should not see "Rule tile 6"
@@ -118,14 +116,12 @@ Feature: User completes tile
     And "+14152613077" sends SMS "1"
     Then "+14152613077" should have received an SMS including "Thanks for completing the survey"
     When I go to the activity page
-
     Then I should see "Rule tile 1"
     And I should see "Rule tile 3"
     And I should see "Rule tile 5"
     And I should see "Survey tile 2"
     And I should see "Survey tile 3"
     And I should see "Referer tile 1"
-
     But I should not see "Rule tile 2"
     And I should not see "Rule tile 4"
     And I should not see "Rule tile 6"

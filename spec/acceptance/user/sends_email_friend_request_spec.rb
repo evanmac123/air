@@ -111,7 +111,7 @@ feature "User tries to friend someone" do
     deliver_and_open_email_for(friend)
     accept_the_friendship
 
-    page.should have_content "Log In Your session has expired"
+    page.should have_content "Log In"
     signin_as(friend, friend.password)
 
     page.should have_content "OK, you are now friends with #{user.name}."

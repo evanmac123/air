@@ -8,13 +8,14 @@ Feature: Admin edits existing demo
     And I go to the admin "FooCo" demo page
     And I follow "Edit basic settings for this game"
 
+  # Had to use id's for 2 followup-message fields because of Capy2
   Scenario: Admin edits existing demo
     When I fill in the following:
       | Name                                                  | BarCo                        |
       | Starting player score                                 | 10                           |
       | Custom welcome message                                | Sup.                         |
-      | Followup welcome message                              | Did you figure it out?       |
-      | Followup welcome message delay (in minutes)           | 666                          |
+      | demo_followup_welcome_message                         | Did you figure it out?       |
+      | demo_followup_welcome_message_delay                   | 666                          |
       | Bonus for referring another to the game               | 60                           |
       | Threshold to credit user who referred you to the game | 90                           |
     And I set the start time to "April/20/2013/6 AM/25"
