@@ -22,7 +22,7 @@
     <% end %>
   </div>
   <div id="bar_me" class="bar_section">
-    <%= default_avatar_tag current_user, :id => :top_avatar %>
+    <%= default_avatar_tag current_user, :id => :top_avatar, :class => "avatar48" %>
     <ul>
       <li id="xp_count"><%= number_with_delimiter current_user.points %></li>
       <li class="label">Experience pts</li>
