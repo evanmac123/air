@@ -28,14 +28,14 @@ feature 'User views tile' do
     expect_content "Tile: 1 of 2"
     expect_content "My Profile"
 
-    page.find("img##{@make_toast.id}").should be_visible
-    page.find("img##{@discover_fire.id}").should_not be_visible
+    page.find(".tile_holder##{@make_toast.id}").should be_visible
+    page.find(".tile_holder##{@discover_fire.id}").should_not be_visible
 
     page.find("#next").click
 
-    find("img##{@discover_fire.id}").should be_visible
+    find(".tile_holder##{@discover_fire.id}").should be_visible
     sleep 1
-    find("img##{@make_toast.id}").should_not be_visible
+    find(".tile_holder##{@make_toast.id}").should_not be_visible
 
     expect_content "Tile: 2 of 2"
   end

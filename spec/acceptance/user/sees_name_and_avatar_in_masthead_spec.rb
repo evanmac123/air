@@ -10,7 +10,7 @@ feature "User proper stuff in masthead" do
 
     within('.masthead') do
       page.should have_content "Hi John"
-      page.should have_content "Experience Points: 1,234"
+      page.should have_content "1,234 Experience pts"
       expect_avatar_in_masthead('ein_berliner.png')
     end
 
