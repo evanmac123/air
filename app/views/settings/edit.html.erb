@@ -104,18 +104,6 @@
       <div class="button_wrap"><%= submit_tag 'Save', :class => 'button_norm', :id => 'save-notification-settings' %></div>
     <% end %>
 	</div>
-	<div class="module other_settings" id="password_change">
-    <h1 class="headline">Change Password</h1>
-    <%= form_for current_user, :url => logged_in_user_password_path do |form| %>
-      <div class="module_inner settings_new_password">
-        <h2 class="title"><%= label_tag 'user_password', "New password" %></h2>
-        <%= form.password_field :password %>
-        <h2 class="title"><%= label_tag 'user_password_confirmation', "Confirm new password" %></h2>
-        <%= form.password_field :password_confirmation %>
-      </div>
-      <%= submit_tag 'Save new password', :class => 'button_norm', :id => 'save-password-settings' %>
-    <% end %>
-  </div>
 </div>
 
 <% content_for :javascript do %>

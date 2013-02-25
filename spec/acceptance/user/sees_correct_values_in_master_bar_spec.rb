@@ -6,7 +6,7 @@ feature "User sees correct values in master bar" do
   end
 
   def master_bar_selector
-    '.mast_bottom .bar'
+    '#bar_progress .bar'
   end
 
   def self.user_information
