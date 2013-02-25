@@ -23,7 +23,7 @@ feature "Make sure mixpanel pings fire" do
     @user.should be_pinged_on_page('interstitial phone verification')
     fill_in 'user_new_phone_validation', :with => @user.reload.new_phone_validation
     click_button 'Enter'
-    page.should have_content('INVITE YOUR FRIENDS') # This just makes sure page has refreshed already
+    page.should have_content('Invite your friends') # This just makes sure page has refreshed already
     crank_dj_clear
     @user.should be_pinged_on_page('invite friends modal')
     @user.should_not be_pinged_on_page('talking chicken')
