@@ -12,7 +12,7 @@ feature 'User navigates site with navbar' do
     'Admin'      => "client_admin_path",
     'Settings'   => "edit_account_settings_path",
     'Sign Out'   => "sign_in_path",
-    'Home'       => 'activity_path',
+    'Dashboard'       => 'activity_path',
     'My Profile' => 'user_path(@joe)',
     'Directory'  => 'users_path',
     'Help'       => 'faq_path'

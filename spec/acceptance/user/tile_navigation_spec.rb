@@ -34,7 +34,7 @@ feature 'User navigates to different tiles' do
   end
 
   scenario "clicking tiles in the carousel and next- and previous-tile arrows display the correct tiles", js: true do
-    click_link "Home"
+    click_link "Dashboard"
     click_carousel_tile(tile_2)
     current_slideshow_tile.should be_tile(tile_2)
 
@@ -50,7 +50,7 @@ feature 'User navigates to different tiles' do
     show_next_tile
     current_slideshow_tile.should be_tile(tile_3)
 
-    click_link "Home"
+    click_link "Dashboard"
     click_carousel_tile(tile_1)
     current_slideshow_tile.should be_tile(tile_1)
   end

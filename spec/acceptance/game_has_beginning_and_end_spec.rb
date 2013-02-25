@@ -152,7 +152,7 @@ feature 'Game has beginning and end' do
       it "should appear as normal", :js => true do
         signin_as @future_user, 'foobar'
         should_be_on activity_path(:format => :html)
-        page.find('#facebox').should have_content('INVITE YOUR FRIENDS')
+        page.find('#facebox').should have_content('Invite your friends')
       end
     end
   end

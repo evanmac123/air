@@ -26,7 +26,7 @@ feature 'User views tile' do
 
     should_be_on tiles_path
     expect_content "Tile: 1 of 2"
-    expect_content "MY PROFILE"
+    expect_content "My Profile"
 
     page.find("img##{@make_toast.id}").should be_visible
     page.find("img##{@discover_fire.id}").should_not be_visible

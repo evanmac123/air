@@ -52,14 +52,14 @@ feature 'User interacts with single- and multiple-trigger tiles' do
   end
 
   scenario "current tile should not change (i.e. go back to tile #1) if user is not done completing multiple 'AND' triggers", js: true do
-    click_link "Home"
+    click_link "Dashboard"
     click_carousel_tile(and_tile)
 
     fill_in 'command_central', with: 'Ate bowl #1 of beans'
     click_button "Play"
     page.should have_content('You have eaten 1 out of 3 bowls of beans')
 
-    click_link "Home"
+    click_link "Dashboard"
     click_carousel_tile(or_tile)
     current_slideshow_tile.should be_tile(or_tile)
 

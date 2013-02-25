@@ -6,13 +6,13 @@ feature 'User invites friends' do
     has_password user, 'foobar'
     signin_as user, 'foobar'
     within('#facebox') do
-      expect_content 'INVITE YOUR FRIENDS'
+      expect_content 'Invite your friends'
     end
 
     # Second time around, same thing...
     signin_as user, 'foobar'
     within('#facebox') do
-      expect_content 'INVITE YOUR FRIENDS'
+      expect_content 'Invite your friends'
     end
 
     # But the third time...

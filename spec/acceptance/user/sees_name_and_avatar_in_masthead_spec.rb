@@ -9,7 +9,7 @@ feature "User proper stuff in masthead" do
     should_be_on activity_path(:format => :html)
 
     within('.masthead') do
-      page.should have_content "Hi, John"
+      page.should have_content "Hi John"
       page.should have_content "Experience Points: 1,234"
       expect_avatar_in_masthead('ein_berliner.png')
     end
