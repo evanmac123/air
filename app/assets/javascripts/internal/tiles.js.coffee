@@ -18,7 +18,7 @@ slideshow = positionElement = imageCount = start_tile = tile_image = 0
 loadDivs = () ->
   slideshow = $('#slideshow')
   positionElement = $('#position')
-  imageCount = $('#slideshow img').length
+  imageCount = $('#slideshow .tile_holder').length
   start_tile_id = $('#start_tile').text()
   start_tile = $('#' + start_tile_id).index()
   tile_image = $('.tile_image')

@@ -1,5 +1,5 @@
-<div class="tile_holder">
-    <% tile_html = image_tag tile.image.url, :class => :tile_image, :id => tile.id, :size => tile.image.image_size, :alt => tile.headline %>
+<div class="tile_holder" id="<%= tile.id %>">
+    <% tile_html = image_tag tile.image.url, :class => :tile_image, :size => tile.image.image_size, :alt => tile.headline %>
     <% if tile.link_address.present? %>
       <% tile_html = content_tag('a', href: tile.link_address, target: '_blank', class: 'tile_link') {tile_html} %>
     <% end %>
