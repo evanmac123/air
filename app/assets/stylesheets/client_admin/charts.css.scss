@@ -1,15 +1,12 @@
 @import "flick/jquery-ui-1.8.10.custom.css";
 
-// Commented out for now because resulted in stand-alone border line for client-admins (who cannot see chart controls)
-.stats {
-    //border-bottom:$border-dark;
-}
+.stats {border-bottom:$border-light;}
 
 // Need to specify this or else page jumps to the top every time you re-plot with new params
 #my-chart { height: 400px; }
 
 .charting {
-    border-top: $border-light;
+    border-top: $border-dark;
     padding-top:2.25em;
     form {border:0; margin:0; padding:0;}
 }
