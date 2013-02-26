@@ -18,7 +18,7 @@ feature "Make sure mixpanel pings fire" do
     fill_in 'user_password_confirmation', :with => @pass
     check 'user_terms_and_conditions'
     click_button 'join_the_game_link'
-    page.should have_content('Dashboard')  # This just makes sure page has refreshed already
+    page.should have_content('Home')  # This just makes sure page has refreshed already
 
     crank_dj_clear
     @user.reload # Reload so it can pick up the join date, or it will fail the next line

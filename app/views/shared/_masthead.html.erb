@@ -4,7 +4,7 @@
     <p>Hi <%= link_to current_user.first_name, current_user %>!</p>
   </div>
   <ul id="navigation">
-      <li><%= link_to "Dashboard", activity_path, :class => 'nav-home' %></li>
+      <li><%= link_to "Home", activity_path, :class => 'nav-home' %></li>
       <li><%= link_to "Tiles", tiles_path, :class => 'nav-tiles' %></li>
       <% nav_activity_class = @viewing_self ? "my-profile nav-activity" : "nav-activity" %>
       <li><%= link_to "My Profile", current_user, :class => nav_activity_class %></li>
