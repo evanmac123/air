@@ -6,7 +6,14 @@ body.settings .right-col .module_inner {margin-bottom:1em;}
         display:inline-block;
         vertical-align: middle;
     }
-    .avatar_inputs {margin: 0 0 0 1em;}
+    .avatar_inputs {
+        margin: 0 0 0 1em;
+        form {display:inline-block;}
+        .set-avatar .button_wrap {@include square-button-wrap($dark-green);}
+        .set-avatar input[type="submit"] {@include square-button($dark-green);}
+        .clear-avatar .button_wrap {@include square-button-wrap($light-gray);}
+        .clear-avatar input[type="submit"] {@include square-button($light-gray);}
+    }
 
     #username_dob_gender {
         .settings_user {
@@ -28,6 +35,9 @@ body.settings .right-col .module_inner {margin-bottom:1em;}
                 padding-left:1em;
                 li {display:inline-block; margin-right:1em;}
                 li label {display:inline-block;}
+            }
+            .button_wrap {
+                display:block;
             }
         }
     }
