@@ -76,15 +76,15 @@ feature 'Game has beginning and end' do
         formatted_phone = "+1415261307" + last_digit_of_phone_number.to_s
 
         visit edit_account_settings_path
-        fill_in "Mobile Number", :with => phone_number
+        fill_in "Mobile number", :with => phone_number
         click_button 'save-notification-settings'
         expect_content "We have sent a verification code to #{phone_number}."
         crank_dj_clear
         expect_mt_sms_including formatted_phone, 'Your code to verify this phone'
         user.reload.new_phone_validation.should_not be_nil
         fill_in 'user_new_phone_validation', :with => user.new_phone_validation
-        click_button 'Verify New Number'
-        expect_value 'Mobile Number', phone_number
+        click_button 'Verify new number'
+        expect_value 'Mobile number', phone_number
       end
     end
 

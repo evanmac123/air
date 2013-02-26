@@ -16,7 +16,7 @@ When /^"([^"]*)" fills in the new phone validation field with the wrong validati
 end
 
 When /^I press the button to verify the new phone number$/ do
-  step %{I press "Verify New Number"}
+  step %{I press "Verify new number"}
 end
 
 Then /^I should not see the new phone validation field$/ do

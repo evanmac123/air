@@ -18,14 +18,14 @@ Feature: Talking Chicken
   @javascript 
   Scenario: Talking Chicken pops first and foremost
   And I wait a second
-    Then I should see "DIRECTORY"
+    Then I should see "Directory"
     Then "Brand New" should have an open tutorial with current step "0"
     Given I close the facebox modal
     And I wait a second
-    And I should see "quick tour"
+    And I should see "Take Quick Tour"
     # There are 2 ".show_tutorial" links (they have text "Quick Tour") and Capy2 requires uniqueness, so specify container
     When I click within "#fancybox-content .show_tutorial"
-    And I should see "DIRECTORY"
+    And I should see "Directory"
     And I wait a second
     Then I should see "CLICK IT"
     When I click the sample tile
@@ -44,7 +44,7 @@ Feature: Talking Chicken
     And I wait a second
     Then I should see "Click ADD TO FRIENDS to connect with Kermit"
     When I click within ".follow-btn"
-    Then I should see "DIRECTORY"
+    Then I should see "Directory"
     Then "Brand New" should have an open tutorial with current step "7" 
     And I should see "Now you're connected with Kermit"
     When I follow "My Profile"
@@ -58,10 +58,10 @@ Feature: Talking Chicken
     Scenario: Leah does not start tutorial
       And I wait a second
       Then "Brand New" should have an open tutorial with current step "0"
-      Then I should see "DIRECTORY"
+      Then I should see "Directory"
       Given I close the facebox modal
       And I wait a second
-      And I should see "quick tour"
+      And I should see "Take Quick Tour"
       And I wait a second
       And I click within "#fancybox-content #no_thanks_tutorial"
       And I take five
@@ -69,53 +69,53 @@ Feature: Talking Chicken
       Then "Brand New" should have a closed tutorial with current step "0"
       And I go to the activity page
       And I take five
-      Then I should not see "quick tour"
+      Then I should not see "Take Quick Tour"
       And I sign out
       And I sign in via the login page as "Brand New/chicken"
-      And I should see "DIRECTORY"
+      And I should see "Directory"
       Then "Brand New" should have a closed tutorial with current step "0"
       And I should not see "No thanks"
 
     @javascript 
     Scenario: Leah leaves tutorial
-      Then I should see "DIRECTORY"
+      Then I should see "Directory"
       Given I close the facebox modal
       And I wait a second
-      And I should see "quick tour"
+      And I should see "Take Quick Tour"
       When I click within "#fancybox-content .show_tutorial"
-      And I should see "DIRECTORY"
+      And I should see "Directory"
       And I take five
       Then I should see "CLICK IT"
       When I click the sample tile
       Then I should see "READ FOR POINTS"
       And I click within "#gear"
       And I click within ".close_tutorial"
-      Then I should see "DIRECTORY"
+      Then I should see "Directory"
       Then "Brand New" should have a closed tutorial with current step "2"
       And I take five
       Then "READ FOR POINTS" should not be visible
       
     @javascript 
     Scenario: Leah leaves tutorial, then starts it again from FAQ
-      Then I should see "DIRECTORY"
+      Then I should see "Directory"
       Given I close the facebox modal
       And I wait a second
-      And I should see "quick tour"
+      And I should see "Take Quick Tour"
       When I click within "#fancybox-content .show_tutorial"
-      And I should see "DIRECTORY"
+      And I should see "Directory"
       And I take five
       Then I should see "CLICK IT"
       When I click the sample tile
       Then I should see "READ FOR POINTS"
       And I click within "#gear"
       And I click within ".close_tutorial"
-      Then I should see "DIRECTORY"
+      Then I should see "Directory"
       Then "Brand New" should have a closed tutorial with current step "2"
       And I take five
       Then "READ FOR POINTS" should not be visible
       When I go to the help page
       And I press "Take Quick Tour"
-      Then I should see "DIRECTORY"
+      Then I should see "Directory"
       Then "Brand New" should have an open tutorial with current step "0"
       And I should be on the activity page
       And I should see "Welcome"

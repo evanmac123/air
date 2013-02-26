@@ -89,11 +89,9 @@ module SteakHelperMethods
   end
 
   def expect_avatar_in_masthead(expected_filename)
-    within('.avatar48') do 
-      avatar = page.find(:css, 'img')
-      avatar_url = avatar['src'].gsub(/\?.*$/, '') # Chop off query params
-      avatar_url.should =~ /#{expected_filename}$/
-    end
+    avatar = page.find(:css, 'img.avatar48')
+    avatar_url = avatar['src'].gsub(/\?.*$/, '') # Chop off query params
+    avatar_url.should =~ /#{expected_filename}$/
   end
 
   def expect_default_avatar_in_masthead
@@ -171,7 +169,7 @@ module SteakHelperMethods
   end
 
   def expect_ticket_header(expected_ticket_count)
-    expect_content_case_insensitive "Tickets: #{expected_ticket_count}"
+    expect_content_case_insensitive "#{expected_ticket_count} Tickets"
   end
 
   def expect_link(text, url)
@@ -237,7 +235,7 @@ module SteakHelperMethods
   def current_slideshow_tile
     sleep 0.5  # Seems to help...
     # Use the z-index to determine which tile is visible
-    current_tile = all('#slideshow img').sort_by { |img| img[:style].slice(/(z-index: )(\d)/, 2) }.last
+    current_tile = all('#slideshow .tile_holder').sort_by { |img| img[:style].slice(/(z-index: )(\d)/, 2) }.last
     current_tile[:id]  # 'current_tile' is a Capybara::Node::Element => return its 'id' attribute
   end
 

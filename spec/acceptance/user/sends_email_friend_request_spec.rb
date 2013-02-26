@@ -32,7 +32,7 @@ feature "User tries to friend someone" do
   background do
     signin_as(user, user.password)
 
-    click_link 'Directory'
+    visit users_path
     fill_in 'search_string', with: 'Sue'
     click_button 'Find!'
 

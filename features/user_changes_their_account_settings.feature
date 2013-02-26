@@ -39,40 +39,40 @@ Feature: User can edit their account settings
   
   Scenario: User sees their mobile number on their settings
     When I go to the settings page
-    Then "Mobile Number" should have value "(415) 555-1212"
+    Then "Mobile number" should have value "(415) 555-1212"
 
   Scenario: User can change their own mobile number
     When I go to the settings page
-    And I fill in "Mobile Number" with "(415) 261-3077"
+    And I fill in "Mobile number" with "(415) 261-3077"
     And I press the button to save notification settings
     Then I should be on the settings page
     Then I should see "We have sent a verification"
-    And "Mobile Number" should have value "(415) 555-1212"
+    And "Mobile number" should have value "(415) 555-1212"
     And I should see "To verify the number (415) 261-3077, please enter the validation code we sent to that number:"
     When DJ works off
     And "Phil" should receive an SMS containing their new phone validation code
     When "Phil" fills in the new phone validation field with their validation code
     And I press the button to verify the new phone number
     Then I should see "You have updated your phone number"
-    And "Mobile Number" should have value "(415) 261-3077"
+    And "Mobile number" should have value "(415) 261-3077"
 
   Scenario: User tries to change their mobile number to a bad (non-ten-digit) number
     When I go to the settings page
-    And I fill in "Mobile Number" with "(415) 261-307"
+    And I fill in "Mobile number" with "(415) 261-307"
     And I press the button to save notification settings
     Then I should be on the settings page
     And I should not see "We have sent a verification"
     But I should see "Please fill in all ten digits of your mobile number, including the area code"
-    And "Mobile Number" should have value "(415) 555-1212"
+    And "Mobile number" should have value "(415) 555-1212"
 
-    When I fill in "Mobile Number" with "(415) 261-30777"
+    When I fill in "Mobile number" with "(415) 261-30777"
     And I press the button to save notification settings
     Then I should be on the settings page
     And I should not see "We have sent a verification"
     But I should see "Please fill in all ten digits of your mobile number, including the area code"
-    And "Mobile Number" should have value "(415) 555-1212"
+    And "Mobile number" should have value "(415) 555-1212"
 
-    When I fill in "Mobile Number" with "1-415-261-3077"
+    When I fill in "Mobile number" with "1-415-261-3077"
     And I press the button to save notification settings
     Then I should be on the settings page
     And I should see "We have sent a verification"
@@ -81,10 +81,10 @@ Feature: User can edit their account settings
 
   Scenario: User can cancel new phone number by re-entering their current one
     When I go to the settings page
-    And I fill in "Mobile Number" with "(415) 261-3077"
+    And I fill in "Mobile number" with "(415) 261-3077"
     And I press the button to save notification settings
     Then I should see "To verify the number (415) 261-3077, please enter the validation code we sent to that number:"
-    When I fill in "Mobile Number" with "(415) 555-1212"
+    When I fill in "Mobile number" with "(415) 555-1212"
     And I press the button to save notification settings
     And I press the button to save notification settings
     Then I should not see "please enter the validation code"
@@ -100,7 +100,7 @@ Feature: User can edit their account settings
     When I sign in via the login page with "Joe Smith/foobar"
     And I go to the settings page
     And I clear all sent texts
-    And I fill in "Mobile Number" with "(515) 261-3077"
+    And I fill in "Mobile number" with "(515) 261-3077"
     And I press the button to save notification settings
     And DJ works off
     Then I should be on the settings page
@@ -110,11 +110,11 @@ Feature: User can edit their account settings
     
   Scenario: User gets error messages when inputs wrong validation code to change mobile number
     When I go to the settings page
-    And I fill in "Mobile Number" with "(415) 261-3077"
+    And I fill in "Mobile number" with "(415) 261-3077"
     And I press the button to save notification settings
     Then I should be on the settings page
     Then I should see "We have sent a verification"
-    And "Mobile Number" should have value "(415) 555-1212"
+    And "Mobile number" should have value "(415) 555-1212"
     When DJ works off
     Then "Phil" should receive an SMS containing their new phone validation code
     When "Phil" fills in the new phone validation field with the wrong validation code
@@ -124,7 +124,7 @@ Feature: User can edit their account settings
 
   Scenario: User can enter a blank mobile number
     When I go to the settings page
-    And I fill in "Mobile Number" with ""
+    And I fill in "Mobile number" with ""
     And I press the button to save notification settings
     Then I should not see "Phone number can't be blank"
     And I should not see "() -"
@@ -134,17 +134,17 @@ Feature: User can edit their account settings
 
   Scenario: User tries to change their mobile number to a taken number
     When I go to the settings page
-    And I fill in "Mobile Number" with "808-555-1212"
+    And I fill in "Mobile number" with "808-555-1212"
     And I press the button to save notification settings
     Then I should be on the settings page
     And I should see "Sorry, but that phone number has already been taken. Need help? Contact support@hengage.com"
     And there should be a mail link to support in the flash
-    And "Mobile Number" should have value "(415) 555-1212"
+    And "Mobile number" should have value "(415) 555-1212"
 
   Scenario: Nothing much happens if phone number is left unchanged
     When I go to the settings page
-    And I fill in "Mobile Number" with "4155551212"
+    And I fill in "Mobile number" with "4155551212"
     And I press the button to save notification settings
     Then I should be on the settings page
-    And "Mobile Number" should have value "(415) 555-1212"
+    And "Mobile number" should have value "(415) 555-1212"
     And I should not see the new phone validation field

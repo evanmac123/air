@@ -251,7 +251,7 @@ When /^I take five$/ do
 end
 
 When /^I press the button to save privacy settings$/ do
-  find(:css, ".privacy_settings input[type=submit]").click
+  find(:css, "#save-privacy-level").click
 end
 
 When /^I close the modal window$/ do

@@ -31,4 +31,4 @@ Feature: Admin sets bonus points for tiles
     Then I should see an input with value "Phil"
     When I press "Complete ride a tricycle for Phil"
      And I go to the homepage
-    Then I should see "Experience Points: 15"
+    Then I should see "15 Experience pts"

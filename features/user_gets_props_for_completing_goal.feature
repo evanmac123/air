@@ -55,7 +55,7 @@ Feature: User gets some props for finishing a goal
 
     When "+14155551212" sends SMS "win 3"
     And I go to the activity page
-    Then I should see "Bob Experience Points: 14"
+    Then I should see "14 Experience pts"
 
   Scenario: User gets an SMS for finishing a goal via SMS
     Given a clear email queue

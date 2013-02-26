@@ -91,7 +91,7 @@
     <%= form_for current_user, :url => account_path do |form| %>
       <div class="module_inner settings_number">
         <h2 class="subhead"><%= label_tag 'user_phone_number', "Mobile number" %></h2>
-        <%= form.text_field :phone_number, :name => "Mobile number", :value => current_user.phone_number.try(:as_pretty_phone) %>
+        <%= form.text_field :phone_number, :value => current_user.phone_number.try(:as_pretty_phone) %>
       </div>
       <div class="module_inner settings_notification">
         <h2 class="subhead">Notify me via...</h2>
