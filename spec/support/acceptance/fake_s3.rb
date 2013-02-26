@@ -75,6 +75,15 @@ class MockS3
 
   attr_reader :objects
 
+  def self.simulate_census_file_upload(uploaded_path)
+    object_key = "uploaded_user_data.csv"
+    mock_s3 = MockS3.install
+    mock_s3.mount_file(object_key, uploaded_path, 50)
+
+    Redis.new.flushdb
+    object_key
+  end
+
   def self.install
     mock_s3 = self.new
     AWS::S3.stubs(:new).returns(mock_s3)

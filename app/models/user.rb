@@ -45,7 +45,7 @@ class User < ActiveRecord::Base
   # validates_uniqueness_of :email comes from Clearance
   validates_uniqueness_of :invitation_code, :allow_blank => true
 
-  validates_presence_of :name, :if => :name_required, :message => "Please enter your first and last name"
+  validates_presence_of :name, :message => "Please enter your first and last name"
   validates_presence_of :sms_slug, :message => "Please choose a username", :if => :slug_required
   validates_presence_of :slug, :if => :slug_required
   
@@ -930,12 +930,6 @@ class User < ActiveRecord::Base
   end
 
   protected
-
-  def name_required
-    # While trying to accept the invitation and at any point after the invitation
-    # is accepted, a user must have both a name and an sms slug. Until then, anything goes.
-    self.accepted_invitation_at || self.trying_to_accept
-  end
 
   def slug_required
     # slug required if there is a name

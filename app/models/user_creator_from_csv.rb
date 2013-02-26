@@ -47,7 +47,16 @@ class UserCreatorFromCsv
   end
 
   def add_regular_field!(column_name, value, new_user_attributes)
-    new_user_attributes[column_name] = normalize_value(column_name, value)
+    new_user_attributes[attribute_to_set(column_name)] = normalize_value(column_name, value)
+  end
+
+  def attribute_to_set(column_name)
+    case column_name
+    when 'location_name'
+      'location_id'
+    else
+      column_name
+    end
   end
 
   def normalize_value(column_name, value)
@@ -63,8 +72,16 @@ class UserCreatorFromCsv
       when 'o'
         'other'
       end
+    when 'location_name'
+      existing_or_new_location_id(value)
     else
       value
     end
+  end
+
+  def existing_or_new_location_id(location_name)
+    location = Location.where(demo_id: @demo_id, name: location_name).first
+    location ||= Location.create(demo_id: @demo_id, name: location_name)    
+    location.id
   end
 end

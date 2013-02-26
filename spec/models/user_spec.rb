@@ -14,6 +14,7 @@ describe User do
   it { should have_many(:tile_completions) }
   # Note that our validates_uniqueness_of :email is called in the Clearance gem
   it { should validate_uniqueness_of(:email) }
+  it { should validate_presence_of(:name).with_message("Please enter your first and last name") }
 
 end
 
@@ -125,13 +126,6 @@ describe User do
   end
 
 
-  it "should allow me to create a user without a name or sms_slug, except when trying to accept" do
-    user = FactoryGirl.create(:user, :sms_slug => '', :name => '')
-    user.should be_valid
-    user.trying_to_accept = true
-    user.should_not be_valid
-  end
-
   it "should allow multiple users, each with the same (blank) sms slugs" do
     FactoryGirl.create(:user, :sms_slug => '')
     user = FactoryGirl.build(:user, :sms_slug => '')
@@ -153,13 +147,6 @@ end
 describe User do
   before do
     User.delete_all
-  end
-
-  it "should not require a slug if there is no name" do
-    a = FactoryGirl.build(:user, :name => "")
-    a.should be_valid
-    a.slug.should == ""
-    a.sms_slug.should == ""
   end
 
   it "should create a slug upon validation if there is a name" do

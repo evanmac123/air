@@ -58,6 +58,44 @@ describe UserCreatorFromCsv do
       user.characteristics[boolean_characteristic.id].should == false
     end
 
+    it "should allow locations to be set by name" do
+      schema = basic_schema + ['location_name']
+      boston_location = FactoryGirl.create(:location, demo: demo, name: 'Boston')
+      attributes = basic_attributes + ['Boston']
+
+      creator = UserCreatorFromCsv.new(demo.id, schema, :email)
+
+      demo.users.count.should be_zero
+
+      creator.create_user(CSV.generate_line(attributes))
+
+      demo.users.reload.count.should == 1
+      user = demo.users.first
+      user.name.should == attributes[0]
+      user.email.should == attributes[1]
+      user.location.should == boston_location
+    end
+
+    it "should create locations on the fly if need be" do
+      schema = basic_schema + ['location_name']
+      attributes = basic_attributes + ['Boston']
+
+      creator = UserCreatorFromCsv.new(demo.id, schema, :email)
+
+      demo.users.count.should be_zero
+      demo.locations.count.should be_zero
+
+      creator.create_user(CSV.generate_line(attributes))
+
+      demo.users.reload.count.should == 1
+      demo.locations.reload.count.should == 1
+
+      user = demo.users.first
+      user.name.should == attributes[0]
+      user.email.should == attributes[1]
+      user.location.should == demo.locations.first
+    end
+
     def expect_attribute_flexibility(attribute_name, attribute_value, expected_model_value)
       schema = basic_schema + [attribute_name]
       attributes = basic_attributes + [attribute_value]
