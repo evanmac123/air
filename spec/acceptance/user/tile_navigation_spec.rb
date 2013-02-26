@@ -50,7 +50,7 @@ feature 'User navigates to different tiles' do
     show_next_tile
     current_slideshow_tile.should be_tile(tile_3)
 
-    click_link "Dashboard"
+    visit activity_path
     click_carousel_tile(tile_1)
     current_slideshow_tile.should be_tile(tile_1)
   end

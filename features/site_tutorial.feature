@@ -22,14 +22,14 @@ Feature: Talking Chicken
     Then "Brand New" should have an open tutorial with current step "0"
     Given I close the facebox modal
     And I wait a second
-    And I should see "Take Quick Tour"
+    And I should see "Quick Tour"
     # There are 2 ".show_tutorial" links (they have text "Quick Tour") and Capy2 requires uniqueness, so specify container
     When I click within "#fancybox-content .show_tutorial"
     And I should see "Directory"
     And I wait a second
-    Then I should see "CLICK IT"
+    Then I should see "Click It!"
     When I click the sample tile
-    Then I should see "READ FOR POINTS"
+    Then I should see "Read for Points!"
     And I wait a second
     When I fill in "command_central" with "some command you've never heard of"
     And I press "play_button"
@@ -61,7 +61,7 @@ Feature: Talking Chicken
       Then I should see "Directory"
       Given I close the facebox modal
       And I wait a second
-      And I should see "Take Quick Tour"
+      And I should see "Quick Tour"
       And I wait a second
       And I click within "#fancybox-content #no_thanks_tutorial"
       And I take five
@@ -69,7 +69,7 @@ Feature: Talking Chicken
       Then "Brand New" should have a closed tutorial with current step "0"
       And I go to the activity page
       And I take five
-      Then I should not see "Take Quick Tour"
+      Then I should not see "Quick Tour"
       And I sign out
       And I sign in via the login page as "Brand New/chicken"
       And I should see "Directory"
@@ -81,40 +81,40 @@ Feature: Talking Chicken
       Then I should see "Directory"
       Given I close the facebox modal
       And I wait a second
-      And I should see "Take Quick Tour"
+      And I should see "Quick Tour"
       When I click within "#fancybox-content .show_tutorial"
       And I should see "Directory"
       And I take five
-      Then I should see "CLICK IT"
+      Then I should see "Click It!"
       When I click the sample tile
-      Then I should see "READ FOR POINTS"
+      Then I should see "Read for Points!"
       And I click within "#gear"
       And I click within ".close_tutorial"
       Then I should see "Directory"
       Then "Brand New" should have a closed tutorial with current step "2"
       And I take five
-      Then "READ FOR POINTS" should not be visible
+      Then "Read for Points!" should not be visible
       
     @javascript 
     Scenario: Leah leaves tutorial, then starts it again from FAQ
       Then I should see "Directory"
       Given I close the facebox modal
       And I wait a second
-      And I should see "Take Quick Tour"
+      And I should see "Quick Tour"
       When I click within "#fancybox-content .show_tutorial"
       And I should see "Directory"
       And I take five
-      Then I should see "CLICK IT"
+      Then I should see "Click It!"
       When I click the sample tile
-      Then I should see "READ FOR POINTS"
+      Then I should see "Read for Points!"
       And I click within "#gear"
       And I click within ".close_tutorial"
       Then I should see "Directory"
       Then "Brand New" should have a closed tutorial with current step "2"
       And I take five
-      Then "READ FOR POINTS" should not be visible
+      Then "Read for Points!" should not be visible
       When I go to the help page
-      And I press "Take Quick Tour"
+      And I press "Quick Tour"
       Then I should see "Directory"
       Then "Brand New" should have an open tutorial with current step "0"
       And I should be on the activity page
