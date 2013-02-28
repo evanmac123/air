@@ -15,7 +15,7 @@ body.client_admin-bulk_uploads {
                 }
                 input[type="file"] {display:block;}
                 input[type="submit"] {
-                    @include square-button;
+                    @include square-button($gray);
                     background:$dark-green;
                     border-color:lighten($dark-green, 5%);
                     margin:0;
