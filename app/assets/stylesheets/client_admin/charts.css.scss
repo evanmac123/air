@@ -14,15 +14,18 @@
     .subsection-head {display:inline-block;}
 }
 
-#my-new-chart { margin-top: 2em; }
 #chart-options {
-    margin-bottom: 5em;
+    margin-bottom: 2em;
     li {
         display:inline-block;
         margin-right:1em;
+
         &#chart-dates span, &#chart-labeling span {color:$gray; font-size:.75em; text-transform: uppercase;}
         &#show-button {float:right; margin-right:0;}
         &#chart-labeling {margin-right:1em;}
+        &#chart-spinner {margin-left:2em; vertical-align:top;}
+
+        img {margin: 0em;}
     }
     input {
         font-family:$sans;

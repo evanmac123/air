@@ -457,12 +457,13 @@ Su	Mo	Tu	We	Th	Fr	Sa
     describe 'Weekly' do
       describe '#calculate_number_per_time_interval' do
         it 'should report the correct number of acts and unique users for each interval' do
-          week_1 = Highchart.convert_date('7/21/2012')
-          week_2 = week_1 + 7.days  # 7/28/2012
-          week_3 = week_2 + 7.days  # 8/4/2012
-          week_4 = week_3 + 7.days  # 8/11/2012
-          week_5 = week_4 + 7.days  # 8/18/2012
-          week_6 = week_5 + 7.days  # 8/25/2012
+          # Will actually be 7/16/2012 because Postgresql groups weeks by starting-on-previous-monday
+          week_1 = Highchart.convert_date('7/21/2012').beginning_of_week
+          week_2 = week_1 + 7.days  # 7/23/2012
+          week_3 = week_2 + 7.days  # 7/30/2012
+          week_4 = week_3 + 7.days  # 8/6/2012
+          week_5 = week_4 + 7.days  # 8/13/2012
+          week_6 = week_5 + 7.days  # 8/20/2012
 
           # All 4 create multiple -----------------------------------------
           week_1_john_3_x_7   = []

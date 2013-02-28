@@ -19,18 +19,16 @@
           <span>Label</span>
           <%= select_tag :chart_label_points, options_for_select([ ['None', 0], ['All points', 1], ['Every other', 2] ], selected: params[:chart_label_points]) %>
         </li>
+        <li id="chart-spinner">
+          <%= image_tag 'spinner.gif', :style => "display: none;", :id => 'show-user-spinner', :size => '25x25' %>
+        </li>
         <li id="show-button">
           <div class="button_wrap" id="show-chart">
             <%= submit_tag "Show", id: "show-chart-link" %>
           </div>
-          <br />
-          <%= submit_tag "New Chart" %>
         </li>
       </ul>
   <% end %>
 </div>
 
-<%= image_tag 'spinner.gif', :style => "display: none;", :id => 'show-user-spinner' %>
-
 <div id='my-chart'></div>
-<div id='my-new-chart'></div>

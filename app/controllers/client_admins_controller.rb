@@ -1,7 +1,5 @@
 class ClientAdminsController < ClientAdminBaseController
 
-  must_be_authorized_to :site_admin, only: :chart
-
   def show
     # Note that we don't check for a divide-by-zero error since we should always have
     # at least one claimed user: the very client admin who is looking at this page.
@@ -22,21 +20,11 @@ class ClientAdminsController < ClientAdminBaseController
   end
 
   def chart
-    if params[:commit] == 'Show' or params[:commit].blank?
-      @chart = Highchart.chart(current_user.demo,
-                               params[:chart_start_date],
-                               params[:chart_end_date],
-                               params[:chart_plot_content],
-                               params[:chart_interval],
-                               params[:chart_label_points])
-    else
-      @new_chart = Highchart.new_chart(current_user.demo,
-                                       params[:chart_start_date],
-                                       params[:chart_end_date],
-                                       params[:chart_plot_content],
-                                       params[:chart_interval],
-                                       params[:chart_label_points])
-      render 'new_chart'
-    end
+    @chart = Highchart.chart(current_user.demo,
+                             params[:chart_start_date],
+                             params[:chart_end_date],
+                             params[:chart_plot_content],
+                             params[:chart_interval],
+                             params[:chart_label_points])
   end
 end
