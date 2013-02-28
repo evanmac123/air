@@ -1,6 +1,7 @@
-body.settings .left-col .module_inner {background:$white; margin-bottom:2em; padding:1em;}
+body.settings .left-col .module_inner {background:$white; margin-bottom:1em; padding:1em;}
 body.settings .right-col .module_inner {margin-bottom:1em;}
 
+// Left side
 #about_user {
     .avatar_image, .avatar_inputs {
         display:inline-block;
@@ -17,8 +18,12 @@ body.settings .right-col .module_inner {margin-bottom:1em;}
 
     #username_dob_gender {
         .settings_user {
-            padding:0;
-            &:after{@include clear;}
+            padding:0 0 1em 0;
+            
+            #settings_changes:after{
+                @include clear;
+                border-bottom:1px lighten($light-gray, 7%) solid;
+            }
 
             #username_change, #gender_change {
                 padding:1em;
@@ -36,28 +41,29 @@ body.settings .right-col .module_inner {margin-bottom:1em;}
                 li {display:inline-block; margin-right:1em;}
                 li label {display:inline-block;}
             }
-            .button_wrap {
-                display:block;
-            }
+            .button_wrap {margin:1em 0 0 1em;}
         }
     }
 }
 
 #user_new_phone_validation {margin-bottom:1em;}
 label[for="user_new_phone_validation"] {padding-bottom:1em;}
-#settings_new_number_verification {margin-bottom: 2em;}
 
 #password_change {
+    form {background:$white; padding-bottom:1em;}
     ul {
         display: inline-block;
         float:left;
+        margin-bottom:0;
         width:50%;
         input[type="password"] {width:97%;}
     }
-    .button_wrap {clear:both;}
+    .button_wrap {clear:both; margin-left:1em;}
 }
 
+// Right side
 #privacy_settings select {font-size:1.15em;}
 
 #notification_settings li {display:inline-block; margin-right:1em;}
 #notification_settings li label {display:inline-block;}
+#settings_new_number_verification {margin-bottom: 2em;}
