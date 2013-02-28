@@ -23,9 +23,14 @@
           <div class="button_wrap" id="show-chart">
             <%= submit_tag "Show", id: "show-chart-link" %>
           </div>
+          <br />
+          <%= submit_tag "New Chart" %>
         </li>
       </ul>
   <% end %>
 </div>
 
+<%= image_tag 'spinner.gif', :style => "display: none;", :id => 'show-user-spinner' %>
+
 <div id='my-chart'></div>
+<div id='my-new-chart'></div>

@@ -83,8 +83,54 @@ class Highchart
       act_points = act_points.collect   { |act|  {y: act.second,  dataLabels: data_labels} }
       user_points = user_points.collect { |user| {y: user.second, dataLabels: data_labels} }
     elsif label_points == '2'
-      act_points.each_with_index  { |act, i|  act_points[i]  = i.even? ? {y: act.second, dataLabels:  data_labels} : act.second }
+      act_points.each_with_index  { |act, i|  act_points[i]  = i.even? ? {y: act.second,  dataLabels: data_labels} : act.second }
       user_points.each_with_index { |user, i| user_points[i] = i.even? ? {y: user.second, dataLabels: data_labels} : user.second }
+    else
+      act_points = act_points.collect   &:second
+      user_points = user_points.collect &:second
+    end
+
+    LazyHighCharts::HighChart.new do |hc|
+      hc.exporting(buttons: {printButton: {enabled: false}})  # Remove 'Print' button ; keep 'Save As Image/PDF'
+
+      hc.title(text: "Engagement Levels", style: {color: '#666666'})
+      hc.subtitle(text: chart.subtitle, style: {color: '#a8a8a8'})
+
+      hc.legend(layout: 'horizontal')
+
+      # Bump 'maxPadding' because the right-hand edge of last date was getting chopped
+      hc.xAxis(title: {text: nil}, type: 'datetime', maxPadding: 0.02, labels: {formatter: chart.x_axis_label.js_code})
+      hc.yAxis(title: {text: nil}, min: 0, gridLineColor: '#DED7D7')
+
+      hc.plotOptions(line: {pointStart: Highchart.convert_date(start_date).to_date, pointInterval: chart.point_interval})
+
+      # todo fix or remove these!!!
+      #hc.plotOptions(tooltip: {xDateFormat: '%A, %b %e, %l %p' }) if interval == 'Hourly'
+
+      hc.series(name: 'Acts',  data: act_points,  color: '#82b989') if plot_acts
+      hc.series(name: 'Users', data: user_points, color: '#7588b4') if plot_users
+    end
+  end
+
+  def self.new_chart(demo, start_date, end_date, plot_content, interval, label_points)
+    plot_acts  = true if plot_content == 'Total activity' or plot_content == 'Both'
+    plot_users = true if plot_content == 'Unique users'   or plot_content == 'Both'
+
+    # 'chart' will be a new 'Hourly', 'Daily', or 'Weekly' object (defined below)
+    chart = "Highchart::New#{interval}".constantize.new(demo, start_date, end_date, plot_acts, plot_users)
+
+    act_points, user_points = chart.data_points  # Get the points to plot
+
+    # Figure out the labeling. Remember that 'act_points' and 'user_points' are arrays of the form: [ [k,v], [k,v], [k,v] ]
+    # where the key is the date/time x-axis point and the value is the number of acts/users y-axis value for that point
+    data_labels = { enabled: true, formatter: "function() { return this.y; }".js_code }
+
+    if label_points == '1'
+      act_points = act_points.collect   { |act|  {y: act.second,  dataLabels: data_labels} }
+      user_points = user_points.collect { |user| {y: user.second, dataLabels: data_labels} }
+    elsif label_points == '2'
+      act_points = act_points.each_with_index.collect   { |act, i|  i.even? ? {y: act.second,  dataLabels: data_labels} : act.second }
+      user_points = user_points.each_with_index.collect { |user, i| i.even? ? {y: user.second, dataLabels: data_labels} : user.second }
     else
       act_points = act_points.collect   &:second
       user_points = user_points.collect &:second
@@ -251,6 +297,8 @@ class Highchart
     end
 
     def initialize_all_data_points_to_zero
+      @start_date = @start_date.beginning_of_week
+
       range = @start_date..@end_date
       range.step(7) { |date| @acts_per_interval[date.to_date] = @users_per_interval[date.to_date] = 0 }
     end
@@ -271,6 +319,150 @@ class Highchart
       end
 
       acts_per_interval
+    end
+  end
+
+  ######################################################################################
+  ######################################################################################
+  ######################################################################################
+
+  class NewChart
+
+    attr_reader(:num_acts_per_interval, :num_users_per_interval) if Rails.env.test?  # Only needed for testing
+
+    def initialize(demo, start_date, end_date, plot_acts, plot_users)
+      @demo = demo
+
+      @start_date = Highchart.convert_date(start_date).beginning_of_day  # Start at 12:00:00 am
+      @end_date   = Highchart.convert_date(end_date).end_of_day          # End at 11:59:59 pm
+
+      @plot_acts  = plot_acts
+      @plot_users = plot_users
+
+      @acts_per_interval  = {}
+      @users_per_interval = {}
+    end
+
+    def data_points
+      acts_per_interval  = {}
+      users_per_interval = {}
+
+      initialize_all_data_points_to_zero   # child-class implementation
+
+      grouped_acts = @demo.acts.select("date_trunc('#{time_unit}', created_at), user_id")
+                               .where(created_at: @start_date..@end_date)
+                               .group("date_trunc('#{time_unit}', created_at)")
+                               .group('user_id')
+                               .order("date_trunc('#{time_unit}', created_at)")
+                               .count
+                               .group_by { |k,v| k[0] }
+
+      grouped_acts.each do |time, act_group|
+        acts_per_interval[time_key(time)]  = act_group.inject(0) { |sum, acts_for_user| sum + acts_for_user[1] }
+        users_per_interval[time_key(time)] = act_group.length
+      end
+
+      # Merge initialized-to-zero hash elements with elements that have values =>
+      # will always have (zero or non-zero) value to plot for each point.
+      act_data  = @plot_acts  ? @acts_per_interval.merge!(acts_per_interval)   : []
+      user_data = @plot_users ? @users_per_interval.merge!(users_per_interval) : []
+
+      [act_data, user_data]
+    end
+  end
+
+  ######################################################################################
+  class NewHourly < NewChart
+    def subtitle
+      "#{@start_date.to_s(:chart_subtitle_one_day)} : By Hour"
+    end
+
+    def x_axis_label
+      "function() { return Highcharts.dateFormat('%l %p', this.value); }"
+    end
+
+    def time_unit
+      'hour'
+    end
+
+    def time_key(time)
+      time.to_time.hour
+    end
+
+    def point_interval
+      60 * 60
+    end
+
+    def initialize_all_data_points_to_zero
+      start = @start_date
+      stop  = @end_date
+
+      while stop > start
+        @acts_per_interval[start.hour] = @users_per_interval[start.hour] = 0
+        start += 1.hour
+      end
+    end
+  end
+
+  ######################################################################################
+  class NewDaily < NewChart
+    def subtitle
+      "#{@start_date.to_s(:chart_subtitle_range)} through #{@end_date.to_s(:chart_subtitle_range)} : By Day"
+    end
+
+    def x_axis_label
+      "function() { return Highcharts.dateFormat('%b. %d', this.value); }"
+    end
+
+    def time_unit
+      'day'
+    end
+
+    def time_key(time)
+      time.to_date
+    end
+
+    def point_interval
+      60 * 60 * 24
+    end
+
+    def initialize_all_data_points_to_zero
+      range = @start_date..@end_date
+      range.each { |date| @acts_per_interval[date.to_date] = @users_per_interval[date.to_date] = 0 }
+    end
+  end
+
+  ######################################################################################
+  class NewWeekly < NewChart
+    def subtitle
+      "#{@start_date.to_s(:chart_subtitle_range)} through #{@end_date.to_s(:chart_subtitle_range)} : By Week"
+    end
+
+    def x_axis_label
+      "function() { return Highcharts.dateFormat('%b. %d', this.value); }"
+    end
+
+    def time_unit
+      'week'
+    end
+
+    def time_key(time)
+      time.to_date
+    end
+
+    def point_interval
+      60 * 60 * 24 * 7
+    end
+
+    def initialize_all_data_points_to_zero
+      # When Postgresql groups by week, it does so using a "weeks begin on Monday" rule.
+      # This is intuitively good for Tues..Sat, as the @start_date is just backed up to the preceding Monday - in the same week.
+      # But it's counter-intuitive for Sundays: the @start_date is still backed up to the preceding Monday,
+      # which happens to be in the *previous* week. (Not bad or an error, just something to be aware of.)
+      @start_date = @start_date.beginning_of_week
+
+      range = @start_date..@end_date
+      range.step(7) { |date| @acts_per_interval[date.to_date] = @users_per_interval[date.to_date] = 0 }
     end
   end
 end

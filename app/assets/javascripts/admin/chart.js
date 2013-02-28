@@ -1,4 +1,8 @@
 $(document).ready(function() {
+
+  $(document).ajaxStart(function() { $('#show-user-spinner').show(); })
+             .ajaxStop(function()  { $('#show-user-spinner').hide(); });
+
   $('#chart_start_date, #chart_end_date').datepicker();
 
   // This is the "usual" case

@@ -16,17 +16,27 @@ class ClientAdminsController < ClientAdminBaseController
     params[:chart_end_date]     = Time.now.to_s(:chart_start_end_day)
     params[:chart_plot_content] = 'Both'
     params[:chart_interval]     = 'Daily'
-    params[:chart_label_points] = '1'
+    params[:chart_label_points] = '0'
 
     Mixpanel::Tracker.new(MIXPANEL_TOKEN, {}).delay.track("viewed page", {page_name: 'client admin dashboard'}.merge(current_user.data_for_mixpanel))
   end
 
   def chart
-    @chart = Highchart.chart(current_user.demo,
-                             params[:chart_start_date],
-                             params[:chart_end_date],
-                             params[:chart_plot_content],
-                             params[:chart_interval],
-                             params[:chart_label_points])
+    if params[:commit] == 'Show' or params[:commit].blank?
+      @chart = Highchart.chart(current_user.demo,
+                               params[:chart_start_date],
+                               params[:chart_end_date],
+                               params[:chart_plot_content],
+                               params[:chart_interval],
+                               params[:chart_label_points])
+    else
+      @new_chart = Highchart.new_chart(current_user.demo,
+                                       params[:chart_start_date],
+                                       params[:chart_end_date],
+                                       params[:chart_plot_content],
+                                       params[:chart_interval],
+                                       params[:chart_label_points])
+      render 'new_chart'
+    end
   end
 end
