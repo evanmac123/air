@@ -22,7 +22,7 @@ body.client_admin_main {
 
 // In left nav
 body.client_admins #admin-overview a,
-body.client_admins #admin-overview a:link {color:$dark-green; font-weight:bold;}
+body.client_admins #admin-overview a:link, 
 body.client_admin-segmentations #admin-analytics a,
 body.client_admin-segmentations #admin-analytics a:link {color:$dark-green; font-weight:bold;}
 
@@ -85,6 +85,7 @@ body.client_admin-segmentations #admin-analytics a:link {color:$dark-green; font
             font-family:$sans;
             font-size:1.4em;
             font-weight:300;
+            text-decoration: none;
         }
     }
     /* ////// Content Col ////// */

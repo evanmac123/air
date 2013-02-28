@@ -40,24 +40,24 @@ connectFadeCompletedTiles = () ->
     # we get an accurate count later
     carousel.remove($(this).attr('jcarouselindex'))
     $(this).remove()
-    unbindNextArrow() if threeOrLessThumbnails()
+    hideArrows() if noThumbnails()
 
-   
-unbindNextArrow = () ->
-  # After completing a task, they should fade out, and if there are less than 
-  # four tiles, we disable the "next" arrow
-  next = $('.jcarousel-next')
+hideArrows = () ->
+  # After completing a task, they should fade out, and if there are no 
+  # four tiles, we disable the arrows
   next_horz = $('.jcarousel-next-horizontal')
   next_horz_hover = $('.jcarousel-next-horizontal:hover')
+  prev_horz = $('.jcarousel-prev-horizontal')
+
   what = "background-position"
-  where = "-96px 0px"
-  next.off()
-  next.css("cursor", "default")
+  where = "-100px 0px"
+
   next_horz.css(what, where)
   next_horz_hover.css(what, where)
+  prev_horz.css(what, where)
 
-threeOrLessThumbnails = () ->
+
+noThumbnails = () ->
   # Note this is not using the variable version of tile_thumbnail, because
   # if it uses that, the length is not recalculated dynamically
-  $('.tile_thumbnail').length < 4
-
+  $('.tile_thumbnail').length < 1
