@@ -22,28 +22,16 @@ class Invitation::AcceptancesController < ApplicationController
       params[:user].delete(:phone_number)
     end
     @user.attributes = params[:user]
-    
-    @user.valid?
-    @user.errors.add(:terms_and_conditions, "You must accept the terms and conditions") unless params[:user][:terms_and_conditions]
-    password = params[:user][:password]
-    password_confirmation = params[:user][:password_confirmation]
-    if password.blank?
-      @user.errors.add(:password, "Please choose a password") 
-      @user.errors.add(:password_confirmation, "Please enter the password here too") 
-    end
-    
-    unless password == password_confirmation
-      @user.errors[:password] = User.passwords_dont_match_error_message
-    end
-    
-    # the below calls @user#save, so we don't save explicitly
+
+    add_user_errors
     
     if @user.errors.present?
       @html_body_controller_name = "invitations"
       @html_body_action_name = "show"
       render "/invitations/show" and return
     else
-      unless @user.update_password(password)
+      # the below calls @user#save, so we don't save explicitly
+      unless @user.update_password(params[:user][:password])
         @user.phone_number = entered_phone_number
         @locations = @user.demo.locations.alphabetical
       end
@@ -56,13 +44,7 @@ class Invitation::AcceptancesController < ApplicationController
 
     sign_in(@user)
 
-    if @user.invitation_requested_via_sms? || @user.new_phone_number.blank?
-      redirect_to activity_path
-    else
-      @user.generate_short_numerical_validation_token
-      @user.send_new_phone_validation_token
-      redirect_to phone_verification_path
-    end
+    verify_phone_number_by_interstitial_if_needed
   end
   
 
@@ -71,5 +53,28 @@ class Invitation::AcceptancesController < ApplicationController
 
   def find_user
     @user = User.find(params[:user_id])
+  end
+
+  def add_user_errors
+    @user.valid?
+    @user.errors.add(:terms_and_conditions, "You must accept the terms and conditions") unless params[:user][:terms_and_conditions]
+    if params[:user][:password].blank?
+      @user.errors.add(:password, "Please choose a password") 
+      @user.errors.add(:password_confirmation, "Please enter the password here too") 
+    end
+    
+    unless params[:user][:password] == params[:user][:password_confirmation]
+      @user.errors[:password] = User.passwords_dont_match_error_message
+    end
+  end
+
+  def verify_phone_number_by_interstitial_if_needed
+    if @user.invitation_requested_via_sms? || @user.new_phone_number.blank?
+      redirect_to activity_path
+    else
+      @user.generate_short_numerical_validation_token
+      @user.send_new_phone_validation_token
+      redirect_to phone_verification_path
+    end
   end
 end
