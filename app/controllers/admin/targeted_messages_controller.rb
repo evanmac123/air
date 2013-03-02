@@ -50,6 +50,26 @@ class Admin::TargetedMessagesController < AdminBaseController
       demo_id:             @demo.id
     )
 
+    set_flashes!(email_recipient_ids, sms_recipient_ids)
+    render :action => 'show'
+  end
+
+  protected
+
+  def find_segmentation_results
+    @segmentation_results = current_user.segmentation_results
+  end
+
+  def sendable_html?(html)
+    return false unless html.present?
+    # Don't send HTML that's all tags, no text, unless one of those tags is an
+    # <img> tag (which presumably contains the information we want to convey)
+
+    parsed_html = Nokogiri::HTML(html)
+    parsed_html.css('img').present? || parsed_html.text.gsub(/[[:space:]]/, '').present?
+  end
+
+  def set_flashes!(email_recipient_ids, sms_recipient_ids)
     successes = []
     notices   = []
 
@@ -74,21 +94,5 @@ class Admin::TargetedMessagesController < AdminBaseController
     flash.delete(:success) if flash[:success].blank?
     flash.delete(:notice) if flash[:notice].blank?
 
-    render :action => 'show'
-  end
-
-  protected
-
-  def find_segmentation_results
-    @segmentation_results = current_user.segmentation_results
-  end
-
-  def sendable_html?(html)
-    return false unless html.present?
-    # Don't send HTML that's all tags, no text, unless one of those tags is an
-    # <img> tag (which presumably contains the information we want to convey)
-
-    parsed_html = Nokogiri::HTML(html)
-    parsed_html.css('img').present? || parsed_html.text.gsub(/[[:space:]]/, '').present?
   end
 end
