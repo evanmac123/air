@@ -35,7 +35,7 @@ connectFadeCompletedTiles = () ->
   recent.css({'border-color': 'black', 'border-thickness': '5px'})
   # $('.recently_completed').effect 'highlight', {color: '#fff'}, 500
 
-  recent.fadeOut 3000, ->
+  recent.fadeOut 600, ->
     # They are already hidden, but we now remove them as well so that 
     # we get an accurate count later
     carousel.remove($(this).attr('jcarouselindex'))
@@ -43,18 +43,7 @@ connectFadeCompletedTiles = () ->
     hideArrows() if noThumbnails()
 
 hideArrows = () ->
-  # After completing a task, they should fade out, and if there are no 
-  # four tiles, we disable the arrows
-  next_horz = $('.jcarousel-next-horizontal')
-  next_horz_hover = $('.jcarousel-next-horizontal:hover')
-  prev_horz = $('.jcarousel-prev-horizontal')
-
-  what = "background-position"
-  where = "-100px 0px"
-
-  next_horz.css(what, where)
-  next_horz_hover.css(what, where)
-  prev_horz.css(what, where)
+  $('#carousel_wrapper').hide()
 
 
 noThumbnails = () ->
