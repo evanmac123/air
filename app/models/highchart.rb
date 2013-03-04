@@ -104,8 +104,17 @@ class Highchart
 
       hc.plotOptions(line: {pointStart: Highchart.convert_date(start_date).to_date, pointInterval: chart.point_interval})
 
-      # todo fix or remove these!!!
+      # In Hourly Mode (and only Hourly Mode) the tooltips report the time in military time, e.g. for 3am they say
+      # '03:00', but for 3pm they say '15:00'. Asked a question on StackOverflow:
+      # http://stackoverflow.com/questions/14718828/formatting-highcharts-date-in-tooltip-causes-values-to-change
+      # but still couldn't get the &%$#@! thing to work.
+      # The problem is that when you use either of the attempts below, all of the times on the x-axis say '12am'
+      # and the tooltip times are in %$#@! milliseconds!
+      # Spent too much time on this and have other stuff to do. If it becomes necessary to solve this the commented-out
+      # code is a good starting point as you will know what *won't* work.
+      #
       #hc.plotOptions(tooltip: {xDateFormat: '%A, %b %e, %l %p' }) if interval == 'Hourly'
+      #hc.plotOptions(tooltip: {formatter: "function() { return Highcharts.dateFormat('%A, %b %e, %l %p', this.value); }".js_code }) if interval == 'Hourly'
 
       hc.series(name: 'Acts',  data: act_points,  color: '#82b989') if plot_acts
       hc.series(name: 'Users', data: user_points, color: '#7588b4') if plot_users
