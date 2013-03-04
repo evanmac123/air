@@ -21,10 +21,11 @@ body.client_admin_main {
 .nav-client-admin {color:$light-green!important;}
 
 // In left nav
-body.client_admins #admin-overview a,
-body.client_admins #admin-overview a:link, 
-body.client_admin-segmentations #admin-analytics a,
-body.client_admin-segmentations #admin-analytics a:link {color:$dark-green; font-weight:bold;}
+body.client_admins #admin-overview,
+body.client_admin-segmentations #admin-analytics,
+body.client_admin-users #admin-users {
+    a, a:link, a:visited {color:$dark-green; font-weight:500;}
+}
 
 /* ////// General sections ////// */
 .content {border-bottom:$border-light;}
