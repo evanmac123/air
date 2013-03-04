@@ -139,6 +139,40 @@ class Highchart
 
       initialize_all_data_points_to_zero   # child-class implementation
 
+      # This query groups all acts within the specified dates by the appropriate time interval (i.e. day, hour, week)
+      # and then groups the acts within each of those groups by the user_id.
+      # It then orders those results by the time interval and counts the number of elements within each group.
+      #
+      # So what we have at this point would look something like this (for hourly mode):
+      # [[[2013-01-30 00:00:00, 43], 1], [[2013-01-30 00:00:00, 54], 3], [[2013-01-30 01:00:00, 62], 2], [[2013-01-30 03:00:00, 33], 4]]
+      # Which is interpreted thusly: An array where each element consists of a hash and an integer.
+      # The (element-1) hash has a key of time-interval and a value of the user_id for this "group"
+      # The (element-2) integer is the number of acts that that user completed during that time interval.
+      # So in the example above, at hour-0 user-43 did 1 act, at hour-0 user-54 did 3 acts, at hour-1 user-62 did 2 acts, at hour-3 user-33 did 4 acts
+      #
+      # Still with me? Good!
+      #
+      # We then want to group all of those elements by time interval. To do so we grab the first element, which is a hash
+      # whose key is a 2-element array of the time-interval that we want coupled with a user_id => take the [0]th element of that key.
+      #
+      # Which finally results in something (hash, actually) like this:
+      # { 2013-01-30 00:00:00 => [[[2013-01-30 00:00:00, 43], 1], [[2013-01-30 00:00:00, 54], 3]],
+      #   2013-01-30 01:00:00 => [[[2013-01-30 01:00:00, 62], 2]],
+      #   2013-01-30 03:00:00 => [[[2013-01-30 03:00:00, 33], 4]] }
+      #
+      # So the result contains all of the information we need broken down by time-interval to plot => the only thing
+      # we need to do in Ruby code is calculate the number-of-acts and number-of-users for each interval, which is
+      # done in the code block below the query.
+      #
+      # The number-of-users for each time interval is just the number of entries for that interval, as each entry is for a
+      # specific user.
+      # For the number-of-acts we have to cycle through each entry and total up the number of acts that each of the users did.
+      #
+      # When we're done with that we need to remember that we only have values for time-intervals where acts occurred.
+      # But we have to plot all points - including those with '0' acts => merge with previously initialized 0-value hash.
+      #
+      # Still with me? No you're not. Not even I am, so quit fucking lying!!!
+      #
       grouped_acts = @demo.acts.select("date_trunc('#{time_unit}', created_at), user_id")
                                .where(created_at: @start_date..@end_date)
                                .group("date_trunc('#{time_unit}', created_at)")
@@ -188,6 +222,7 @@ class Highchart
       start = @start_date
       stop  = @end_date
 
+      # Result looks like: {0 => 0, 1 => 0, 2 => 0, 3 => 0, ... 11 => 0, 12 => 0, 13 => 0, ... 21 => 0, 22 => 0, 23 => 0}
       while stop > start
         @acts_per_interval[start.hour] = @users_per_interval[start.hour] = 0
         start += 1.hour
@@ -218,6 +253,7 @@ class Highchart
       60 * 60 * 24
     end
 
+    # Result looks like: {Wed, 30 Jan 2013 => 0, Thu, 31 Jan 2013 => 0, Fri, 01 Feb 2013 => 0, Sat, 02 Feb 2013 => 0, ...}
     def initialize_all_data_points_to_zero
       range = @start_date..@end_date
       range.each { |date| @acts_per_interval[date.to_date] = @users_per_interval[date.to_date] = 0 }
@@ -247,6 +283,7 @@ class Highchart
       60 * 60 * 24 * 7
     end
 
+    # Result looks like: {Mon, 28 Jan 2013 => 0, Mon, 04 Feb 2013 => 0, Mon, 11 Feb 2013 => 0, Mon, 18 Feb 2013 => 0, ...}
     def initialize_all_data_points_to_zero
       # When Postgresql groups by week, it does so using a "weeks begin on Monday" rule.
       # This is intuitively good for Tues..Sat, as the @start_date is just backed up to the preceding Monday - in the same week.
