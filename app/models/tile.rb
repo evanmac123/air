@@ -79,6 +79,10 @@ class Tile < ActiveRecord::Base
     required_rule_ids.subset? completed_rule_ids
   end
 
+  def has_rules_left_for_user(user)
+    poly? && !all_rule_triggers_satisfied_to_user(user)
+  end
+
   def self.due_ids
     self.after_start_time_and_before_end_time.map(&:id)
   end

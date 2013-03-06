@@ -59,7 +59,6 @@ Feature: User acts
   Scenario: User can use any rule value to refer to a rule
     When "+15087407520" sends SMS "ate banana"
     And "+15087407520" sends SMS "ate bananas"
-    And I dump all sent texts
     Then "+15087407520" should have received SMS "Bananas are good for you. Points 2/20, Tix 0."
     And "+15087407520" should have received SMS "Bananas are good for you. Points 4/20, Tix 0."
 

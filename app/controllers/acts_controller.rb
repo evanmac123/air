@@ -32,20 +32,12 @@ class ActsController < ApplicationController
   def create
     parsing_message, parsing_message_type = Command.parse(current_user, params[:act][:code], :return_message_type => true, :channel => :web)
     reply = construct_reply(parsing_message)
-    case parsing_message_type
-    when :success
-      add_success reply
-    when :failure
-      add_failure reply
-    else
-      flash[parsing_message_type] = reply
-    end
+    add_flash!(parsing_message_type, reply)
     flash[:mp_track_activity_box] = ['used activity entry box']
 
     # Remain on current tile instead of going back to first one if current tile has more rules for them to complete
-    unless params['current_tile'].blank? || params['current_tile'].to_i.zero? # 0 is the default tile for talking chicken
-      tile = Tile.find params['current_tile']
-      session[:start_tile] = params['current_tile'] if (tile.poly? and not tile.all_rule_triggers_satisfied_to_user(current_user))
+    unless no_current_tile || on_talking_chicken_example_tile
+      remain_on_current_tile_if_rules_left_on_it
     end
 
     redirect_to :back
@@ -79,5 +71,27 @@ class ActsController < ApplicationController
     }
   end
   
+  def add_flash!(parsing_message_type, reply)
+    case parsing_message_type
+    when :success
+      add_success reply
+    when :failure
+      add_failure reply
+    else
+      flash[parsing_message_type] = reply
+    end
+  end
 
+  def no_current_tile
+    params['current_tile'].blank?
+  end
+
+  def on_talking_chicken_example_tile
+    params['current_tile'].to_i.zero? # 0 is the default tile for talking chicken
+  end
+
+  def remain_on_current_tile_if_rules_left_on_it
+    tile = Tile.find params['current_tile']
+    session[:start_tile] = params['current_tile'] if tile.has_rules_left_for_user(current_user)
+  end
 end
