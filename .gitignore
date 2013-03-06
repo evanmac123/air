@@ -39,3 +39,6 @@ coverage.data
 C:\\nppdf32Log\\debuglog.txt
 
 *debuglog.txt
+dump.rdb
+spec/support/fixtures/simple_bulk_load_*
+flog_report
