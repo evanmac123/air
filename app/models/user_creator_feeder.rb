@@ -10,6 +10,10 @@ class UserCreatorFeeder
     @schema = schema
     @unique_id_field = unique_id_field
     @line_index = 0
+
+    if @schema.kind_of?(String)
+      @schema = CSV.parse_line(@schema)
+    end
   end
 
   def feed
