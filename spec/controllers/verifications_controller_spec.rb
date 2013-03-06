@@ -5,6 +5,4 @@ describe VerificationsController do
     get :show
     response.should be_redirect
   end
-    
-
 end
