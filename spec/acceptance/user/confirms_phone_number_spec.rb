@@ -18,7 +18,9 @@ feature "User Confirms Phone number" do
     page.should have_content "Directory"
     current_path.should == activity_path
     @leah.reload.phone_number.should == @phone_number
-  end
+    page.should have_content("Your phone number has been validated")
+    expect_no_mt_sms(@phone_number)
+    end
 
   it "should flash an error message if the wrong code is input" do
     fill_in 'user_new_phone_validation', :with => '883848838828348384283842834823848348384'

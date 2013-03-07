@@ -10,8 +10,7 @@ class VerificationsController < ApplicationController
     if current_user.validate_new_phone(params[:user][:new_phone_validation])
       current_user.confirm_new_phone_number
       current_user.save!
-      OutgoingMessage.send_message(current_user, current_user.demo.welcome_message(current_user), nil, :channel => :sms)
-      current_user.schedule_followup_welcome_message
+      add_success "Your phone number has been validated"
       redirect_to activity_path
     else
       add_failure wrong_phone_validation_code_error

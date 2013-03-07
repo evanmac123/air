@@ -17,7 +17,7 @@ module OutgoingMessage
 
     if channels.include?(:email)
       recipient_identifier = to.kind_of?(User) ? to.id : to
-      Mailer.delay_mail(:side_message, recipient_identifier, body)
+      Mailer.delay_mail(:side_message, recipient_identifier, body, options)
     end
 
     if channels.include?(:web)

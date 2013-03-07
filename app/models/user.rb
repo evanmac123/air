@@ -387,14 +387,13 @@ class User < ActiveRecord::Base
 
   def schedule_followup_welcome_message
     return if self.demo.followup_welcome_message.blank?
-    #self.send_followup_welcome_message
     self.delay(:run_at => Time.now + demo.followup_welcome_message_delay.minutes).send_followup_welcome_message
   end
 
   def send_followup_welcome_message
     User.transaction do
       unless self.follow_up_message_sent_at
-        OutgoingMessage.send_message(self, self.demo.followup_welcome_message)
+        OutgoingMessage.send_message(self, self.demo.followup_welcome_message, nil, just_message: true)
         self.update_attributes(:follow_up_message_sent_at => Time.now)
       end
     end
@@ -499,7 +498,7 @@ class User < ActiveRecord::Base
 
     case reply_mode
     when :send
-      OutgoingMessage.send_message(self, welcome_message)
+      OutgoingMessage.send_message(self, welcome_message, nil, just_message: true)
     when :string
       welcome_message
     end

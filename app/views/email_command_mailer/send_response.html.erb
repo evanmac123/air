@@ -1,3 +1,15 @@
-<%= render 'email_command_mailer/replies_above_this_line' %>
+<%= render :partial => 'email_command_mailer/replies_above_this_line' unless @just_message %>
+
 <p><%= @message %></p>
-<%= render :partial => 'email_command_mailer/footer' %>
+
+<%# Don't want this (and above) info in the "Welcome" messages because confusing because no commands to enter. %>
+<%# Have to do it this way because many other partials called the 'footer' partial => didn't want to muck around with that. %>
+<% unless @just_message %>
+  <p>Please note that we look for your command in the first line of the body of your email. Please avoid writing anything else. We know, it's a little terse. But we're a computer. We don't take offense (since we're not programmed to).</p>
+  <p>If you're having problems, please email or text us with the command "HELP".</p>
+<% end %>
+
+<p>Thanks,<br/>
+H Engage</p>
+
+<%= render :partial => 'shared/unsubscribe_footer' %>

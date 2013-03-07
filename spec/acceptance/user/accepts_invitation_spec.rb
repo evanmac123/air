@@ -34,10 +34,10 @@ feature "User Accepts Invitation" do
 
     should_be_on activity_path
     expect_content "#{@user.name} joined the game"
+    expect_content "Your phone number has been validated"
 
     ActionMailer::Base.deliveries.clear
     crank_dj_clear
-    expect_mt_sms "+15087407520", "You've joined the #{@user.demo.name} game! Your username is #{@user.sms_slug} (text MYID if you forget). To play, text to this #."
     ActionMailer::Base.deliveries.should be_empty # no validation code to email
   end
 
@@ -69,9 +69,7 @@ feature "User Accepts Invitation" do
 
     fill_in "user[new_phone_validation]", :with => @user.reload.new_phone_validation
     click_button "Enter"
-
-    crank_dj_clear
-    expect_mt_sms("+15087407520", "You, #{@user.sms_slug}, are in the #{@user.demo.name} game.")
+    expect_content "Your phone number has been validated"
   end
 
   scenario "user gets seed points on accepting invitation to game with them, but just once" do
@@ -148,17 +146,21 @@ feature "User Accepts Invitation" do
     expect_content "You've already accepted your invitation to the game. Please log in if you'd like to use the site."
   end
 
-  scenario "gets proper copy in welcome email" do
+  scenario "gets proper copy in welcome email, and it does not include reply-related information above the message " do
     visit invitation_url(@user.invitation_code)
     fill_in_acceptance_page_fields
     click_button "Log in"
 
     crank_dj_clear
+
     ActionMailer::Base.deliveries.last.to_s.should_not include("@{reply here}")
+    ActionMailer::Base.deliveries.last.to_s.should_not include("Please put replies ABOVE this line")
+    ActionMailer::Base.deliveries.last.to_s.should_not include("we look for your command in the first line of the body of your email")
+
     ActionMailer::Base.deliveries.last.to_s.should include("If you'd like to play by e-mail instead of texting or going to the website, you can always send your commands to play@playhengage.com.")
   end
 
-  scenario "User gets logged in only when accepting invitation, not when at acceptance form" do
+  scenario "User gets logged in only when accepting invitation, not when at acceptance form. And the email does not include reply-related information above the message" do
     visit invitation_page(@user)
     visit activity_page
     should_be_on(signin_page)
@@ -167,6 +169,14 @@ feature "User Accepts Invitation" do
     fill_in_required_invitation_fields
     click_button 'Log in'
     should_be_on(activity_page)
+
+    crank_dj_clear
+
+    ActionMailer::Base.deliveries.last.to_s.should_not include("@{reply here}")
+    ActionMailer::Base.deliveries.last.to_s.should_not include("Please put replies ABOVE this line")
+    ActionMailer::Base.deliveries.last.to_s.should_not include("we look for your command in the first line of the body of your email")
+
+    ActionMailer::Base.deliveries.last.to_s.should include("If you'd like to play by e-mail instead of texting or going to the website, you can always send your commands to play@playhengage.com.")
   end
 
   context "when there is no client name specified for the demo" do

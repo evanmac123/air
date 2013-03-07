@@ -102,7 +102,7 @@ class Mailer < ActionMailer::Base
          :subject => "ID already taken"
   end
 
-  def side_message(recipient_identifier, message)
+  def side_message(recipient_identifier, message, options = {})
     to_email, from_email = case recipient_identifier
                            when Fixnum
                              @user = User.find(recipient_identifier)
@@ -112,6 +112,7 @@ class Mailer < ActionMailer::Base
                            end
 
     @message = construct_reply(message.dup)
+    @just_message = options[:just_message]
 
     mail :to      => to_email,
          :from    => from_email,
