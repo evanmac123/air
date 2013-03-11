@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 def expect_act_ping(act, properties={})
-  FakeMixpanelTracker.events_matching("acted", {:distinct_id => act.user.email}.merge(properties)).should be_present
+  FakeMixpanelTracker.events_matching("acted", {:distinct_id => act.user.id}.merge(properties)).should be_present
 end
 
 describe Act do

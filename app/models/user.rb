@@ -428,8 +428,9 @@ class User < ActiveRecord::Base
 
   def data_for_mixpanel
     {
-      :distinct_id           => self.email,
+      :distinct_id           => self.id,
       :id                    => self.id,
+      :email                 => self.email,
       :game                  => self.demo.name,
       :following_count       => Friendship.accepted.where(:user_id => self.id).count,
       :followers_count       => Friendship.accepted.where(:friend_id => self.id).count,
