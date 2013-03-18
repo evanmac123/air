@@ -565,7 +565,7 @@ feature 'User claims account' do
         end
 
         it "should send a helpful error message" do
-          send_message 'otherguy'
+          send_message 'otherguy', "playhengage@example.com"
           expect_reply "You've already claimed your account, and have 10 pts. If you're trying to credit another user, ask them to check their username with the MYID command."
         end
 
@@ -581,7 +581,7 @@ feature 'User claims account' do
           end
 
           it "should use that" do
-            send_message 'otherguy'
+            send_message 'otherguy', "playhengage@example.com"
             expect_reply "You're in, Flynn, with 10 points. It's cool."
           end
         end
