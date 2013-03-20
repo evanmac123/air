@@ -105,7 +105,6 @@ class User < ActiveRecord::Base
   before_save do
     downcase_email
     cast_characteristics
-    update_demo_ranked_user_count
   end
 
   after_save do
@@ -123,7 +122,6 @@ class User < ActiveRecord::Base
 
   after_destroy do
     destroy_friendships_where_secondary
-    decrement_demo_ranked_user_count
     destroy_segmentation_info
   end
 
@@ -1066,40 +1064,6 @@ class User < ActiveRecord::Base
     )
 
     OutgoingMessage.send_message(referring_user, sms_text)
-  end
-
-  def update_demo_ranked_user_count
-    return unless (changes['phone_number'] || changes['demo_id'])
-
-    old_number, new_number = changes['phone_number']
-    old_demo_id, new_demo_id = changes['demo_id']
-
-    if (!old_number.nil? && !new_number.nil?)
-      update_demo_ranked_user_count_based_on_phone_number(old_number, new_number)
-    else
-      update_demo_ranked_user_count_based_on_demo_id(old_demo_id, new_demo_id)
-    end
-  end
-
-  def update_demo_ranked_user_count_based_on_phone_number(old_number, new_number)
-    case [old_number.present?, new_number.present?]
-    when [false, true]
-      Demo.increment_counter(:ranked_user_count, demo_id)
-    when [true, false]
-      Demo.decrement_counter(:ranked_user_count, demo_id)
-    end
-  end
-
-  def update_demo_ranked_user_count_based_on_demo_id(old_demo_id, new_demo_id)
-    return unless phone_number.present?
-
-    Demo.increment_counter(:ranked_user_count, new_demo_id)
-    Demo.decrement_counter(:ranked_user_count, old_demo_id)
-  end
-
-  def decrement_demo_ranked_user_count
-    return unless phone_number.present?
-    Demo.decrement_counter(:ranked_user_count, demo_id)
   end
 
   def self.passwords_dont_match_error_message

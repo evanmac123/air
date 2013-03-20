@@ -147,28 +147,6 @@ describe User do
       user2.destroy
       user1.reload.friendships.should be_empty
     end
-
-    context "when user has a non-blank phone number" do
-      it "should decrement the associated demo's ranked_user_count" do
-        demo = FactoryGirl.create :demo
-
-        3.times {|i| FactoryGirl.create :user, :demo => demo, :phone_number => "+1415555121#{i}"}
-
-        demo.users.last.destroy
-        demo.reload.ranked_user_count.should == 2
-      end
-    end
-
-    context "when user has a blank phone number" do
-      it "should not change the associated demo's ranked_user_count" do
-        demo = FactoryGirl.create :demo
-
-        3.times {|i| FactoryGirl.create :user, :demo => demo}
-
-        demo.users.last.destroy
-        demo.reload.ranked_user_count.should == 0
-      end
-    end
   end
 end
 
@@ -731,81 +709,6 @@ describe "#mark_as_claimed" do
       @user.accepted_invitation_at.should be_nil
       @user.mark_as_claimed(:email => 'bob@gmail.com')
       @user.reload.accepted_invitation_at.to_s.should == ActiveSupport::TimeZone['Eastern Time (US & Canada)'].now.to_s
-    end
-  end
-end
-
-describe User, "when phone number changes" do
-  context "from blank to non-blank" do
-    it "should increment the associated Demo's ranked_user_count" do
-      user = FactoryGirl.create :user
-      user.phone_number.should be_blank
-      user.demo.ranked_user_count.should == 0
-
-      user.phone_number = "+14155551212"
-      user.save!
-
-      user.demo.reload.ranked_user_count.should == 1
-    end
-  end
-
-  context "from non-blank to blank" do
-    it "should decrement the associated Demo's ranked_user_count" do
-      demo = FactoryGirl.create :demo
-      3.times {|i| FactoryGirl.create :user, :demo => demo, :phone_number => "+1415555121#{i}"}
-
-      user = demo.users.last
-      user.phone_number = ""
-      user.save!
-
-      demo.reload.ranked_user_count.should == 2
-    end
-  end
-
-  context "from non-blank to non-blank" do
-    it "should not change the associated Demo's ranked_user_count" do
-      demo = FactoryGirl.create :demo
-      3.times {|i| FactoryGirl.create :user, :demo => demo, :phone_number => "+1415555121#{i}"}
-
-      user = demo.users.last
-      user.phone_number = "+16178675309"
-      user.save!
-
-      demo.reload.ranked_user_count.should == 3
-    end
-  end
-end
-
-describe User, "when demo_id changes" do
-  context "and user has a non-blank phone number" do
-    it "should decrement the old demo's ranked_user_count and increment the new demo's" do
-      demo = FactoryGirl.create :demo
-      new_demo = FactoryGirl.create :demo
-
-      3.times {|i| FactoryGirl.create :user, :demo => demo, :phone_number => "+1415555121#{i}"}
-
-      user = demo.users.last
-      user.demo = new_demo
-      user.save!
-
-      demo.reload.ranked_user_count.should == 2
-      new_demo.reload.ranked_user_count.should == 1
-    end
-  end
-
-  context "when user has a blank phone number" do
-    it "should not change either demo's ranked_user_count" do
-      demo = FactoryGirl.create :demo
-      new_demo = FactoryGirl.create :demo
-
-      3.times {|i| FactoryGirl.create :user, :demo => demo}
-
-      user = demo.users.last
-      user.demo = new_demo
-      user.save!
-
-      demo.reload.ranked_user_count.should == 0
-      new_demo.reload.ranked_user_count.should == 0
     end
   end
 end
