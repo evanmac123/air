@@ -54,8 +54,6 @@ describe UserCreatorFeeder do
       Redis.new.rpop(feeder.redis_failed_load_queue_key).should == "Line 1: Error message 1"
       Redis.new.rpop(feeder.redis_failed_load_queue_key).should == "Line 2: Error message 2"
     end
-
-    it "should detect and log duplicates (by unique ID)"
   end
 
   describe "#done?" do
