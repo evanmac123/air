@@ -1,6 +1,10 @@
 class Characteristic::DateType < Characteristic::BaseType
   def self.format_value(value)
-    value.to_date.to_s
+    if value.respond_to? :strftime
+      value.strftime("%B %-d, %Y") # example: "January 1, 2012"
+    else
+      value
+    end
   end
 
   def self.cast_value(value)
@@ -13,6 +17,7 @@ class Characteristic::DateType < Characteristic::BaseType
     # TL;DR: Dealing with times and dates is still disproportionately a pain
     # in the ass, and this works, so don't fuck with it.
 
+    return nil unless value.present?
     Chronic.parse(value).to_date.to_time.utc.midnight
   end
 

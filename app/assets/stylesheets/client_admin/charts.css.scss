@@ -7,12 +7,10 @@
 
 .charting {
     border-top: $border-dark;
-    padding-top:2.25em;
+    padding-top:.25em;
     form {border:0; margin:0; padding:0;}
 }
-#chart-header {
-    .subsection-head {display:inline-block;}
-}
+#chart-header .subsection-head {display:inline-block;}
 
 #chart-options {
     margin-bottom: 2em;
@@ -45,14 +43,13 @@
         outline:0;
         padding:5px 4px;
     }
-    #show-chart {
-        @include square-button-wrap($dark-green);
-        border:1px darken($dark-green, 10%) solid;
+    .button_wrap#show-chart {
         #show-chart-link {
             @include square-button($dark-green);
-            background:image-url('client_admin/sprites.png') no-repeat transparent 7px -87px;
+            background:image-url('client_admin/sprites.png') no-repeat transparent -149px -87px;
             margin:0;
             text-indent:1.8em;
+            &:hover{background:image-url('client_admin/sprites.png') no-repeat darken($dark-green, 5%) -149px -87px;}
         }
     }
 }

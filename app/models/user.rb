@@ -39,24 +39,25 @@ class User < ActiveRecord::Base
   validate :sms_slug_does_not_match_commands
   validate :date_of_birth_in_the_past
 
-  validates_uniqueness_of :slug, :if => :slug_required
-  validates_uniqueness_of :sms_slug, :message => "Sorry, that username is already taken.", :if => :slug_required
+  validates_uniqueness_of :slug
+  validates_uniqueness_of :sms_slug, :message => "Sorry, that username is already taken."
   validates_uniqueness_of :overflow_email, :allow_blank => true
   # validates_uniqueness_of :email comes from Clearance
   validates_uniqueness_of :invitation_code, :allow_blank => true
 
-  validates_presence_of :name, :message => "Please enter your first and last name"
-  validates_presence_of :sms_slug, :message => "Please choose a username", :if => :slug_required
-  validates_presence_of :slug, :if => :slug_required
+  validates_presence_of :name, :message => "Please enter a first and last name"
+  validates_presence_of :sms_slug, :if => :name_present?, :message => "Please choose a username"
+  validates_presence_of :slug, :if => :name_present?
   
   validates_presence_of :privacy_level
   validates_inclusion_of :privacy_level, :in => PRIVACY_LEVELS
 
   validates_inclusion_of :gender, :in => GENDERS
 
-  validates_format_of :slug, :with => /^[0-9a-z]+$/, :if => :slug_required
-  validates_format_of :sms_slug, :with => /^[0-9a-z]{2,}$/, :if => :slug_required,
-                      :message => "Sorry, the username must consist of letters or digits only."
+  validates_format_of :slug, :with => /^[0-9a-z]+$/, :if => :name_present?
+  validates_format_of :sms_slug, :with => /^[0-9a-z]{2,}$/,
+                      :message => "Sorry, the username must consist of letters or digits only.",
+                      :if => :name_present?
 
   validates_format_of :zip_code, with: /^\d{5}$/, allow_blank: true
 
@@ -86,16 +87,14 @@ class User < ActiveRecord::Base
     # NOTE: This method is only called when you actually CALL the create method
     # (Not when you ask if the method is valid :on => :create.)
     # creating a new object and testing x.valid? :on => :create does not send us to this function
-    if slug_required
-      unless trying_to_accept
-        set_slugs_based_on_name if self.slug.blank? || self.sms_slug.blank?
-      end
+    unless trying_to_accept
+      set_slugs_based_on_name if name_present? && (self.slug.blank? || self.sms_slug.blank?)
     end
   end
 
 
   before_validation do
-    downcase_sms_slug if slug_required
+    downcase_sms_slug
   end
 
   before_create do
@@ -931,11 +930,6 @@ class User < ActiveRecord::Base
 
   protected
 
-  def slug_required
-    # slug required if there is a name
-    self.name.present? || self.trying_to_accept
-  end
-
   def downcase_email
     self.email = email.to_s.downcase
   end
@@ -985,6 +979,11 @@ class User < ActiveRecord::Base
   def downcase_sms_slug
     return unless self.sms_slug
     self.sms_slug.downcase!
+  end
+
+  def name_present?
+    # this is wrapped up like so so that we can use it in validations
+    name.present?
   end
 
   def mute_notice_threshold

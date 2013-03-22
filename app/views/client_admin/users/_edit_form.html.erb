@@ -1,0 +1,6 @@
+<%= form_for user, url: client_admin_user_path(user), html: {class: "user-profile", id: "single-form"} do |f| %>
+  <%= render 'basic_form_fields', form: f, user: user, show_phone_number: true %>
+  <%= render 'edit_specific_form_fields', user: user %>
+  <%= render 'characteristic_form_fields', visible_characteristics: visible_characteristics, user: user %>
+  <%= render 'form_buttons', submit_button_text: "Save edits", reset_link_text: "Cancel changes", show_delete_link: true, user: user %>
+<% end %>

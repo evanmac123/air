@@ -97,4 +97,8 @@ module User::Queries
 
     return email_recipient_ids, sms_recipient_ids
   end
+
+  def alphabetical_by_name
+    order("name")
+  end
 end

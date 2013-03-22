@@ -1,6 +1,10 @@
-body.client_admin-segmentations #title-analytics:before {background-position:-33px -15px;}
+// <<<<<<< HEAD
+// body.client_admin-segmentations #title-analytics:before {background-position:-33px -15px;}
 
-body.client_admin-segmentations form, body.client_admin-segmentations-show form {
+// body.client_admin-segmentations form, body.client_admin-segmentations-show form {
+// =======
+body.client_admin-segmentations form {
+// >>>>>>> client_admin_user_management_copy
     border-bottom:$border-light;
     padding:0 0 2em 0;
     fieldset {
@@ -8,16 +12,6 @@ body.client_admin-segmentations form, body.client_admin-segmentations-show form 
         border:$border-dark;
         margin:0;
         padding:0;
-    }
-    .form_title {
-        border-bottom:$border-dark;
-        color:darken($gray, 20%);
-        font-family:$sans;
-        font-size:1.5em;
-        font-weight:600;
-        margin:0;
-        padding:.5em 1em;
-        width:100%;
     }
     .segmentation-triple-wrapper {margin-bottom:.5em; padding:0 1em;}
     #segmentation_buttons {
@@ -46,13 +40,11 @@ body.client_admin-segmentations form, body.client_admin-segmentations-show form 
 
         // ======= Submit button =======
         .button_wrap#find {
-            @include square-button-wrap($dark-green);
             background:image-url('client_admin/search.png') no-repeat 7px 8px $dark-green;
             margin-left:1em;
             &:hover {background-color:darken($dark-green, 3%);}
         }
         input[type="submit"] { 
-            @include square-button($dark-green);
             background:transparent;
             font-family:$sans;
             margin:0 0 1px 0;
@@ -106,7 +98,6 @@ body.client_admin-segmentations form, body.client_admin-segmentations-show form 
 
 #segmentation-results {
     border-top:$border-dark;
-    padding:2em 0;
     .segmentation-results-col {
         display:inline-block;
         float:left;
@@ -127,6 +118,7 @@ body.client_admin-segmentations form, body.client_admin-segmentations-show form 
             }
         }
         &#segmentation-numbers {
+            padding-top:2em;
             text-align: center;
             width:37%;
             h2 {

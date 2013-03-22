@@ -1,5 +1,6 @@
 class Characteristic::NumberType < Characteristic::BaseType
   def self.cast_value(value)
+    return nil unless value.present?
     value.to_f
   end
 

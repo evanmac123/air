@@ -34,6 +34,7 @@ module Health
       app-admin.js
       app-internal.js
       app-external.js
+      app-client-admin.js
       errors.css
       external/join.js
       external/sliders.js

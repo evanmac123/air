@@ -1,0 +1,216 @@
+// ================== For all Manage Users pages ==================
+body.client_admin-users {
+    form.user-profile {
+        &:after{@include clear;}
+        .info-cols {
+            display:inline-block;
+            float:left;
+            width:50%;
+            &#employer-info {padding-left:1em;}
+        }
+        .info-cols li {
+            padding-bottom:.75em;
+            #birthday-selects {
+                display:inline-block;
+                margin:0;
+            }
+            select#user_location_id {max-width:67%;}
+        }
+        label {display:inline-block; width:7em;}
+        input[type="text"] {color:$dark-green; width:19em;}
+        #user-characteristics ul {
+            &:after{@include clear;}
+            li {
+                display:inline-block;
+                float:left;
+                margin:0 1.25em 0 0;
+                min-height:100px;
+                padding:1em 0 1em 0;
+                width:31%;
+                input, select {max-width:90%;}
+                label {
+                    display:block; 
+                    font-size:1em;
+                    font-weight:500;
+                    padding-bottom:.5em; 
+                    width:100%; 
+                    word-wrap:break-word;
+                }
+            }
+        }
+        #confirm-add-user {
+            #delete-user {
+                @include link($blue); 
+                display:inline-block; 
+                float:right;
+                margin-top:.5em;
+            }
+            li {display: inline-block; vertical-align: middle;}
+            li#toggle-more-options {
+                .button_wrap {@include square-button-wrap($blue);}
+                a {@include square-button($blue); height:28px;}
+            }
+            li#add-user-button input {height:28px;}
+        }
+    }
+    a.clear-form, a#back-to-index {
+        @include link($med-gray);
+        font-weight:normal;
+        margin-left:.75em;
+    }
+    a#back-to-index {
+        float:right;
+        margin-top:1.5em;
+    }
+    .section {
+        border-top:$border-light;
+        .headline {border-top:$border-dark;}
+    }
+}
+// ================== Index ==================
+    #find-users, #bulk-load {
+        display:inline-block;
+        vertical-align: top;
+        width:48%;
+    }
+    #find-users {
+        margin-right:1.75em;
+        h2.subhead {padding-bottom:.5em;}
+        #name-search {margin-bottom:1em;}
+        #letter-search {
+            margin-bottom:.75em;
+            .button_wrap {
+                background:image-url('client_admin/search.png') no-repeat 7px 8px $dark-green;
+                &:hover {background-color:darken($dark-green, 3%);}
+                input[type="submit"] {
+                    background:transparent;
+                    padding-left:28px;
+                    &:hover{background:transparent; cursor:pointer;}
+                }
+            }
+            select {color:$dark-green;}
+        }
+        select {font-size:1.25em;}
+        #show-everyone {@include link($blue);}
+    }
+    #bulk-load .button_wrap {
+        @include square-button-wrap($gray);
+        margin-top:1em;
+        a, a:link, a:visited {@include square-button($gray);}
+    }
+
+    #add-single-user {
+        &:before {@include clear;}
+        border:$border-dark;
+        margin-top:3em;        
+        form.user-profile#single-form {
+            background:$white;
+            padding:1em;
+            #loaded-user-data {
+                padding-bottom:1em;
+                h1.headline {display:none;}
+            }
+        }
+        #user-data-entry {margin-bottom:1em;&:after{@include clear;}}
+        #user-characteristics {display:none; margin-bottom:1em;}
+    }
+// ================== Search results ==================
+body.client_admin-users-show {
+    .page-title {border-bottom:$border-light;}
+    .headline {border-top:$border-dark;}
+}
+body.client_admin-users-show .headline span {font-style:italic;}
+#search-results-table {
+    border:$border-dark;
+    table-layout: fixed;
+    width:100%;
+    td {border:0; vertical-align: top; word-wrap:break-word;}
+        .results-name {width:230px;}
+        .results-email {width:230px;}
+        .results-joined, .results-send-invite{
+            text-align:center;
+            width:50px;
+        }
+        .results-joined .joined, .results-send-invite a {
+            @include hide-text;
+            background:image-url('client_admin/sprites.png') no-repeat transparent;
+            display:inline-block;
+            vertical-align: middle;
+        }
+        .results-joined .joined {
+            background-position: -58px -55px;
+            height:17px;
+            width:18px;
+        }
+        .results-send-invite a {
+            @include ease(0);
+            height:19px;
+            width:22px;
+            &.send-invite {
+                background-position: -30px -94px;
+                &:hover{background-position: -55px -94px;}
+            }
+            &.resend-invite {
+                background-position: -30px -75px;
+                &:hover{background-position:-56px -75px;}
+            }
+        }
+    #search-labels th {
+        border-bottom:$border-dark;
+        font-weight:500;
+        padding:.5em;
+    }
+    .found-user {
+        background:$white;
+        border-bottom:$border-dark;
+        &:nth-of-type(odd) {background:lighten($light-gray, 10%);}
+        a.edit-user {@include link($blue);}
+        td {padding:1em .5em;}
+    }
+}
+// ================== User profile ==================
+body.client_admin-users-edit {
+    .section {margin-bottom:2em;}
+    #toggle-more-options {display:none!important;}
+}
+#loaded-user-data:after{@include clear;}
+#about-this-account {
+    ul:after{@include clear;}
+    li {
+        display:inline-block;
+        float:left;
+        vertical-align:top;
+        width:33%;
+        &#claimcode span {display:block; font-weight:bold;}
+    }
+    .join-status {
+        display:block; font-size:1.25em; font-weight:bold;
+        &:before {
+            background:image-url('client_admin/sprites.png') no-repeat transparent;
+            content:"";
+            display: inline-block;
+            margin-right:.65em;
+            vertical-align: top;
+        }
+        &.joined {
+            color:$dark-green;
+            &:before {
+                background-position: -58px -55px;
+                height:17px;
+                width:18px;
+            }
+        }
+        &.not-joined {
+            color:darken($gray, 30%);
+            &:before {
+                background-position: -77px -56px;
+                height:16px;
+                width:13px;
+            }
+        }
+    }
+    .send-invite {
+        @include link($blue);
+        margin-left:1.85em;
+    }
+}

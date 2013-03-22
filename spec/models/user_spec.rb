@@ -14,7 +14,7 @@ describe User do
   it { should have_many(:tile_completions) }
   # Note that our validates_uniqueness_of :email is called in the Clearance gem
   it { should validate_uniqueness_of(:email) }
-  it { should validate_presence_of(:name).with_message("Please enter your first and last name") }
+  it { should validate_presence_of(:name).with_message("Please enter a first and last name") }
 
 end
 
@@ -125,6 +125,7 @@ describe User do
     user3.reload.sms_slug.should == "otherdude"
   end
 
+#<<<<<<< HEAD
 
   it "should allow multiple users, each with the same (blank) sms slugs" do
     FactoryGirl.create(:user, :sms_slug => '')
@@ -132,6 +133,8 @@ describe User do
     user.should be_valid
   end
 
+#=======
+#>>>>>>> client_admin_user_management_copy
   describe "on destroy" do
     it "should destroy any Friendships where this user is the friend on destroy" do
       user1 = FactoryGirl.create(:user)
@@ -149,6 +152,17 @@ describe User do
     User.delete_all
   end
 
+#<<<<<<< HEAD
+#=======
+  it "should not require a slug if there is no name" do
+    # That way, there's only the one error if the name is blank
+    a = FactoryGirl.build(:user, :name => "")
+    a.should_not be_valid
+    a.errors[:slug].should be_empty
+    a.errors[:sms_slug].should be_empty
+  end
+
+#>>>>>>> client_admin_user_management_copy
   it "should create a slug upon validation if there is a name" do
     a = FactoryGirl.build(:user, :name => "present")
     a.should be_valid   # Slugs generated before_validation

@@ -5,6 +5,7 @@
   <title>H Engage</title>
   <%= stylesheet_link_tag "app-client-admin" %>
   <%= javascript_include_tag 'app-admin' %>
+  <%= javascript_include_tag 'app-client-admin' %>
   <link href='https://fonts.googleapis.com/css?family=Ubuntu:300,400,500' rel='stylesheet' type='text/css'>
 
   <%= csrf_meta_tag %>
@@ -21,8 +22,9 @@
     <div id="col-main">
         <nav id="left-nav" class="equal">
             <ul id="admin-nav">
-                <li id="admin-overview" class="admin-nav-section"><span></span><a href="/client_admin">Overview</a></li>
-                <li id="admin-analytics" class="admin-nav-section"><span></span><a href="/client_admin/segmentation">Analytics</a></li>
+                <li id="admin-overview" class="admin-nav-section"><a href="/client_admin">Overview</a></li>
+                <li id="admin-analytics" class="admin-nav-section"><a href="/client_admin/segmentation">Analytics</a></li>
+                <li id="admin-users" class="admin-nav-section"><a href="/client_admin/users">Manage</a></li>
             </ul>
             <div class="clear"></div>
         </nav>

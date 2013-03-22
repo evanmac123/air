@@ -32,6 +32,7 @@ $border-light:      1px #fff solid;
     content:"";
     display:block;
 }
+
 @mixin arrow-top($color) {
     border-right: 8px solid transparent;
     border-left: 8px solid transparent;
@@ -39,6 +40,7 @@ $border-light:      1px #fff solid;
     content:"";
     display:inline-block;
 }
+
 @mixin arrow-left($color) {
     border-bottom: 8px solid transparent;
     border-right: 8px solid #{$color};
@@ -56,6 +58,7 @@ $border-light:      1px #fff solid;
 @mixin hide-text {
     color:transparent;
     font-size:1em;
+    font-size:0;
     overflow:hidden;
     text-indent:100%;
     white-space:nowrap;
@@ -112,6 +115,7 @@ a, a:link, a:visited {@include link($dark-green);}
 h1, h2, h3 {font-family:$sans; margin:0; padding:0;}
 img {border:0; margin:0; padding:0;}
 input:focus,textarea {outline: 0;}
+
 p {margin:0;padding:0;}
 ol, ul {list-style-position:outside; list-style-type:none; margin:0; padding:0;}
 h1.headline {
@@ -125,6 +129,7 @@ h2.subhead {
     font-size:1.15em;
     padding-bottom:.75em;
 }
+
 input[type="text"], input[type="password"],textarea {
     border:$border-dark;
     color:$gray;
@@ -135,6 +140,7 @@ input[type="text"], input[type="password"],textarea {
         border:1px $dark-green solid;
     }
 }
+
 select {border:$border-dark;}
 #footer {
     clear:both;

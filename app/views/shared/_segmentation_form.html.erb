@@ -1,7 +1,7 @@
 <% all_characteristics = dummy_characteristics + generic_characteristics + demo_specific_characteristics %>
 <%= render 'shared/prototype_characteristic_select', :all_characteristics => all_characteristics %>
 
-<%= form_tag segmentation_url, :id => 'segmentation-form' do %>
+<%= form_tag segmentation_url, :class => 'section', :id => 'segmentation-form' do %>
   <fieldset>
     <h2 class="form_title">Look up new segment</h2>
     <div id="segmentation_parameters">

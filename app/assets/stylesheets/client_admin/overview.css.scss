@@ -1,7 +1,11 @@
 body.client_admins #title-overview:before {background-position:-1px -15px;}
 .stats {
-    border-bottom:$border-light;
-    padding:0 0 2em 0;
+// <<<<<<< HEAD
+    // border-bottom:$border-light;
+    // padding:0 0 2em 0;
+// =======
+    padding:0 0 1em 0;
+// >>>>>>> client_admin_user_management_copy
     text-align: center;
     &:after{
         clear: both;

@@ -1,3 +1,3 @@
-module Admin::UsersHelper
+module ClientAdmin::UsersHelper
   include CharacteristicInputs
 end

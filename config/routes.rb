@@ -69,11 +69,9 @@ Health::Application.routes.draw do
   namespace :client_admin do
     resource :segmentation
 
-    resource :bulk_upload
-    resource :bulk_upload_preview
-
-    resource :simple_bulk_upload
-    resource :simple_bulk_upload_acceptance
+    resources :users do
+      resource :invitation, :only => :create
+    end
   end
 
   resources :pages, :only => :show

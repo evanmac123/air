@@ -45,7 +45,6 @@ connectFadeCompletedTiles = () ->
 hideArrows = () ->
   $('#carousel_wrapper').hide()
 
-
 noThumbnails = () ->
   # Note this is not using the variable version of tile_thumbnail, because
   # if it uses that, the length is not recalculated dynamically

@@ -36,7 +36,7 @@ feature "Admin Sets Characteristics On User" do
     expect_no_option_selected('generic')
     expect_selected('oh', 'demo specific')
     expect_value('number type', '666.0')
-    expect_value('date type', '2010-03-01')
+    expect_value('date type', 'March 1, 2010')
     expect_checked('boolean type')
   end
 end

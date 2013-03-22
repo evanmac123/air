@@ -1,0 +1,45 @@
+#flash_failure, #flash_notice, #flash_success {
+  background:$white;
+  border:0;
+  border-radius:0;
+  margin-bottom:2em;
+  padding:0;
+  position:relative;
+  p {font-size:1.15em; font-weight:500;}
+  table {border:0; margin:0;}
+  td {border:0; padding:0;}
+  tr.f-bottom, tr.f-top {td {height:1.25em;}}
+  td.f-left {width:1em;}
+  #close-flash {float:right; position:absolute; right:.5em; top:.5em;}
+  #close-flash span {
+    background:image-url('v5/sprites.png') no-repeat -56px -46px transparent;
+    color:transparent;
+    display: inline-block;
+    height:13px;
+    overflow:hidden;
+    text-indent:100%;
+    white-space:nowrap;
+    width:13px;
+    &:hover{background-position:-71px -46px;}
+  }
+  &:after{
+    position:absolute;
+    left:-8px;
+    top:1.35em;
+  }
+}
+#flash_success {
+  color:$dark-green;
+  td.f-left {border-left:5px $dark-green solid;}
+  &:after{@include arrow-left($dark-green);}
+}
+#flash_failure {
+  color:$red;
+  td.f-left {border-left:5px $red solid;}
+  &:after{@include arrow-left($red);}
+}
+#flash_notice {
+  color:$blue;
+  td.f-left {border-left:5px $blue solid;}
+  &:after{@include arrow-left($blue);}
+}

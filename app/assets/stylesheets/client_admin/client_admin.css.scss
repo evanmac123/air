@@ -1,19 +1,23 @@
-a:link {text-decoration: none;}
-h1, h2, h3 {font-family:$sans;}
-h1.subsection-head {
-    color:$gray;
-    font-family:$sans;
-    font-size:2em;
-    font-weight:300;
-    padding-bottom:.75em;
-}
-ul, ol {margin-bottom:0;}
-ul {list-style-type: none;}
-* {-moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;}
 body.client_admin_main {
     background:image-url('marketing/bg.gif');
     color:$text-color;
     font-family:'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size:13px;
+    h1.headline {color:$gray;}
+}
+.button_wrap {
+    @include square-button-wrap($dark-green);
+    input[type="submit"] {@include square-button($dark-green);}
+}
+.form_title {
+    border-bottom:$border-dark;
+    color:darken($gray, 20%);
+    font-family:$sans;
+    font-size:1.25em;
+    font-weight:600;
+    margin:0;
+    padding:.5em 1em;
+    width:100%;
 }
 .button_wrap {@include square-button-wrap($dark-green);}
 
@@ -31,13 +35,7 @@ body.client_admin-users #admin-users {
 
 /* ////// General sections ////// */
 .content {border-bottom:$border-light;}
-#footer {
-    border-top:$border-dark;
-    clear:both; 
-    color:lighten($text-color, 55%);
-    padding:1em 0;
-    text-align: center;
-}
+#footer {border-top:$border-dark; padding:1em 0;}
 
 /*  ////////////////////////// 
     COLUMN STRUCTURE 
@@ -47,12 +45,8 @@ body.client_admin-users #admin-users {
     table-layout: fixed;
     width:100%;
 }
-    #far-left, #col-main, #far-right {
-        display:table-cell;
-    }
-    #far-left, #left-nav {
-        background:image-url('client_admin/light-bg.png');
-    }
+    #far-left, #col-main, #far-right {display:table-cell;}
+    #far-left, #left-nav {background:image-url('client_admin/light-bg.png');}
 #col-main {
     width:984px;
     table-layout: fixed;
@@ -67,29 +61,29 @@ body.client_admin-users #admin-users {
         width:170px;
         .admin-nav-section {
             padding-bottom:1.25em;
-            span {
+            &:before {
                 background:image-url('client_admin/sprites.png') no-repeat transparent;
+                content:"";
                 display:inline-block; 
                 height:16px;
                 margin-right:9px;
                 width:16px;
             }
             ul.inner {color:lighten($text-color, 70%); margin-left:26px;}
-            &#admin-overview {
-                span{background-position:-22px 1px;}
-            }
-            &#admin-analytics span {background-position:-42px 1px;}
-            &#admin-message span {background-position:-64px 1px;}
-            &#admin-users span {background-position:-84px 1px;}
-            &#admin-post span {background-position:-104px 1px;}
+            &#admin-overview:before {background-position:-22px 1px;}
+            &#admin-analytics:before {background-position:-42px 1px;}
+            &#admin-message:before {background-position:-64px 1px;}
+            &#admin-users:before {background-position:-84px 1px;}
+            &#admin-post:before {background-position:-104px 1px;}
         }
-        a, a:link {
+        a, a:link, a:visited {
             color:#7a7a7a;
             font-family:$sans;
             font-size:1.4em;
             font-weight:300;
             text-decoration: none;
         }
+        a:hover {color:$dark-green;}
     }
     /* ////// Content Col ////// */
     &#right-content {
@@ -97,6 +91,7 @@ body.client_admin-users #admin-users {
         border-left:$border-light;
         padding-left:$gutter+50px;
         width:83.3%;
+        z-index:0;
     }
 }
 
@@ -105,15 +100,20 @@ body.client_admin-users #admin-users {
     ///////////////////////// */
 #right-content .wrap {
     margin:0 auto;
+    position:relative;
     padding:0;
 }
 
 // Content area title & icon
-h1.section-title {
+h1.page-title {
     color:$dark-green;
     font-size:2.7em;
     font-weight:300;
-    margin-bottom:1em;
+// <<<<<<< HEAD
+    // margin-bottom:1em;
+// =======
+    padding-bottom:.65em;
+// >>>>>>> client_admin_user_management_copy
     &:before{
         background:image-url('client_admin/sprites.png') no-repeat transparent;
         content: "";
@@ -124,3 +124,9 @@ h1.section-title {
         width:32px;
     }
 }
+// <<<<<<< HEAD
+// =======
+body.client_admins h1#title:before {background-position:-1px -15px;}
+body.client_admin-segmentations h1#title:before {background-position:-33px -15px;}
+body.client_admin-users h1#title:before {background-position:-65px -15px;}
+// >>>>>>> client_admin_user_management_copy

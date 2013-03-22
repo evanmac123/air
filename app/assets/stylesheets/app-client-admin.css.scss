@@ -1,14 +1,19 @@
 @import "./vendor/flutie.css.scss";
 @import "./mixins/standard_colors.css.scss";
 
-
 /* CUSTOM STYLESHEETS LAST */
 @import "./internal/appbar.css.scss";
 @import "./client_admin/client_admin.css.scss";
+@import "./client_admin/flash_message.css.scss";
 @import "./client_admin/segmentations.css.scss";
 @import "./client_admin/overview.css.scss";
 //@import "./admin/targeted_messages.css.scss";
-@import "./client_admin/client_admin_flash.css.scss";
+// <<<<<<< HEAD
+// @import "./client_admin/client_admin_flash.css.scss";
+// @import "./client_admin/charts.css.scss";
+// @import "./client_admin/bulk_uploads.css.scss";
+// @import "./client_admin/bulk_upload_previews.css.scss";
+// =======
 @import "./client_admin/charts.css.scss";
-@import "./client_admin/bulk_uploads.css.scss";
-@import "./client_admin/bulk_upload_previews.css.scss";
+@import "./client_admin/user_manager.css.scss";
+// >>>>>>> client_admin_user_management_copy
