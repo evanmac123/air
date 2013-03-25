@@ -20,14 +20,15 @@
       <style type="text/css">.gradient {filter: none;}</style>
     <![endif]-->
   </head>
-  <body class="<%= body_class %> marketing">
+  <body class="<%= body_class %> game_demo">
     <i id="blue" class="colorbar"></i>
     <i id="orange" class="colorbar"></i>
     
     <div class="wrapper">
-    <%= render "pages/header" %>
     <%= yield %> 
-    <%= render "pages/footer" %>
+    <footer>
+      Copyright &copy; 2013 H.Engage, Inc.
+    </footer>
     </div>
   </body>
 </html>

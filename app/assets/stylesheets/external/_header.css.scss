@@ -1,0 +1,37 @@
+header {
+  background:$white;
+  .container {
+    @include centered-section;
+    padding:0 10px;
+    &:after{@include clear;}
+  }
+}
+#logo {
+  float:left;
+  padding:1.5em 0;
+  width:182px;
+  img {width:100%;}
+}
+nav {
+  float:right;
+  font-size:1.125em;
+  padding:1.95em 0;
+  text-align: right;
+  li {display:inline-block; margin-left:1.5em; vertical-align: middle;}
+  a, a:link, a:visited {
+    color:$blue;
+    font-weight:300;
+    &:hover{color:$orange;}
+    &#login {
+      background:$blue;
+      border-bottom:4px darken($blue, 8%) solid;
+      color:$white;
+      font-weight:600;
+      padding:.35em .75em;
+      &:hover{
+        background:$orange;
+        border-color:darken($orange, 6%);
+      }
+    }
+  }
+}

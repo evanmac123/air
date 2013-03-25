@@ -1,0 +1,29 @@
+@mixin centered-section {
+  max-width:1280px;
+  min-width:960px;
+  margin:$centered;
+}
+
+body{
+  background:$white;
+  border-top:7px $dark-green solid;
+  font-size:100%;
+  font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  margin:0;
+  h1, h2, h3 {font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;}
+  h1 {color:#4d4d4d; font-size:2.25em; font-weight:600;}
+  h2 {color:#919191; font-size:1.65em; font-weight:300;}
+}
+.colorbar {
+  display: inline-block;
+  height:7px;
+  position: absolute;
+  top:0;
+  width:16.5%;
+  &#blue {background:$blue; right:16.5%;}
+  &#orange {background:$orange; right:0;}
+}
+.wrapper {
+  color:$text-color;
+  font-weight:300;
+}

@@ -1,0 +1,38 @@
+// Styles for Game self-setup pages
+body.game_demo {
+  background:image-url('marketing/bg.gif');
+  footer {
+    color:$gray;
+    font-size:.75em;
+    text-align: center;
+  }
+  .wrapper {@include centered-section;}
+  section {
+    background:$white;
+    margin:2em auto;
+    padding:1em;
+    width:75%;
+  }
+
+}
+
+form#priorities {
+  h2 {border-top:$border-dark; margin-top:.5em; padding:.5em 0;}
+}
+#priorities_tiles {
+  text-align: center;
+  .type_tile {
+    display:inline-block;
+    font-size:.85em;
+    margin-bottom:1.5em;
+    vertical-align: top;
+    width:24%;
+    img{
+      -moz-box-sizing: content-box; -webkit-box-sizing: content-box; box-sizing: content-box;
+      border:0;
+      margin:5px;
+      width:95%;
+    }
+    input[type="checkbox"]{display: none;}
+  }
+}

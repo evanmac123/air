@@ -28,10 +28,6 @@ class PagesController < HighVoltage::PagesController
     case page_name
     when 'privacy', 'terms'
       'external'
-    when 'reach', 'spark', 'drive', 'solutions'
-      @body_id = "pt-" + page_name
-      Shotgun.ping_page(page_name)
-      'external_marketing'
     when 'faq'
       'application'
     when 'faq_body', 'faq_toc'
@@ -40,6 +36,8 @@ class PagesController < HighVoltage::PagesController
       @body_id = "homepage"
       Shotgun.ping_page(page_name)
       'external_marketing'
+    when 'waitingroom'
+      'game'
     else
       'pages'
     end
