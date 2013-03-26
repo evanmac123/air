@@ -7,7 +7,7 @@ feature 'Invites user' do
     visit edit_client_admin_user_path(user, as: client_admin)
 
     user.should_not be_invited
-    click_link "Send an invite?" 
+    click_link "Send an invite"
 
     should_be_on edit_client_admin_user_path(user)
     user.reload.should be_invited
