@@ -1,0 +1,105 @@
+#slider {
+  position:relative;
+   //.slide_hidden {display:none;}
+  .slide {
+    border:1px transparent solid;
+    background:no-repeat top center $white;
+    height:565px;
+    form {
+      margin-left:8em;
+      position:relative;
+      width:39%;
+      h1 {
+        padding-bottom:.75em;
+        &.light-headline {
+          text-shadow: 1px 1px 1px #616161;
+          filter: dropshadow(color=#616161, offx=1, offy=1);
+        }
+      }
+      p {padding-bottom:1em; width:90%;}
+      .slider_forms p {display:inline-block; margin-left:1em; width:auto;}
+    }
+    input[type="text"] {
+      font-size:1.125em;
+      font-weight:300;
+      padding:.65em .85em;
+      margin-bottom:.65em;
+      width:80%;
+    }
+    input[type="submit"] {
+      @include pop-button($orange);
+      font-size:1.125em;
+      font-weight:600;
+      padding:.5em 1em;
+      text-transform: uppercase;
+      &:hover {@include pop-button(darken($orange,5%)); padding:.5em 1em;}
+    }
+    &#s_play, &#s_message {h1, h2, p {color:$white;}}
+    &#s_play {
+      background-image:image-url('marketing/play.jpg');
+      form {margin-top:5.35em;}
+    }
+    &#s_message {
+      background-image:image-url('marketing/message.jpg');
+      form {margin-top:5%;}
+    }
+    &#s_interact {
+      background-image:image-url('marketing/interact.jpg');
+      form {margin-top:6.35em;}
+    }
+    &#s_measure {
+      background-image:image-url('marketing/measure.jpg');
+      form {margin-top:7.65em;}
+    }
+  }
+  #slider_controllers {
+    #slide_buttons {
+      a, a:link, a:visited {
+        border:2px $white solid;
+        color:$white;
+        opacity:.75;
+        padding:.65em;
+        position:absolute;
+        top:265px;
+        &:hover {opacity:1;}
+        &#prev_slide {left:1em;}
+        &#next_slide {right:1em;}
+      }
+    }
+    #slide_name {
+      left:30%;
+      position:absolute;
+      top:565px;
+      &:after{@include clear;}
+      li {
+        @include ease(.15s);
+        background:$blue;
+        display: inline-block;
+        float:left;
+        position: relative;
+        &.current_slide {
+          background:$dark-green;
+          &:before{
+            @include arrow-top($dark-green);
+            background:transparent;
+            position:absolute;
+            top:-8px;
+            left:40%;
+          }
+          &:hover{background:$dark-green;}
+        }
+        &:hover{background:$orange;}
+        a, a:link, a:visited {
+          color:$white;
+          display: inline-block;
+          padding:1em 2em;
+        }
+      }
+    }
+  }
+}
+
+#why_now {
+  background:image-url('marketing/bg.gif');
+  height:300px;
+}

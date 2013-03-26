@@ -41,5 +41,12 @@ body{
   h2 {color:#919191; font-size:1.65em; font-weight:300;}
   input {@include ease(.15s);}
 }
+section.contained {@include centered-section;}
+footer {
+  color:$light-gray;
+  margin-top:5em;
+  text-align: center;
+  padding-bottom:2em;
+}
+
 .text-placeholder {color: #AAA !important}
-footer {padding-bottom:2em;}
