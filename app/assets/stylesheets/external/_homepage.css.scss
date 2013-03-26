@@ -1,10 +1,14 @@
 #slider {
   position:relative;
-   //.slide_hidden {display:none;}
+  height:620px;
   .slide {
     border:1px transparent solid;
     background:no-repeat top center $white;
+    display: none;
     height:565px;
+    position: absolute;
+    width:100%;
+    &#s_play {display:block;}
     form {
       margin-left:8em;
       position:relative;
@@ -55,19 +59,23 @@
   #slider_controllers {
     #slide_buttons {
       a, a:link, a:visited {
-        border:2px $white solid;
+        @include hide-text;
+        background:image-url('marketing/sprites.png') no-repeat transparent 0 -32px;
+        border:3px $white solid;
         color:$white;
-        opacity:.75;
-        padding:.65em;
+        display:inline-block;
+        height:50px;
+        width:50px;
+        opacity:.5;
         position:absolute;
         top:265px;
         &:hover {opacity:1;}
-        &#prev_slide {left:1em;}
-        &#next_slide {right:1em;}
+        &#prev_slide {left:10px;}
+        &#next_slide {background-position:-35px -32px; right:10px;}
       }
     }
     #slide_name {
-      left:30%;
+      left:20%;
       position:absolute;
       top:565px;
       &:after{@include clear;}
@@ -77,23 +85,42 @@
         display: inline-block;
         float:left;
         position: relative;
+        a {
+          color:$white;
+          display: inline-block;
+          padding:1em 2em;
+          vertical-align: middle;
+          &:before{
+            background:image-url('marketing/sprites.png') no-repeat transparent -120px 0;
+            border:1px red solid;
+            display:inline-block;
+            content:"";
+            height:30px;
+            margin-right:.5em;
+            position:relative;
+            vertical-align: middle;
+            width:30px;
+          }
+        }
+        &#sn_message a:before {background-position:-150px 0;}
+        &#sn_interact a:before {background-position:-180px 0;}
+        &#sn_measure a:before {background-position:-210px 0;}
         &.current_slide {
           background:$dark-green;
           &:before{
             @include arrow-top($dark-green);
-            background:transparent;
+            background:transparent!important;
             position:absolute;
             top:-8px;
             left:40%;
           }
+          &#sn_play a:before {background-position:0 0;}
+          &#sn_message a:before {background-position:-30px 0;}
+          &#sn_interact a:before {background-position:-60px 0;}
+          &#sn_measure a:before {background-position:-90px 0;}
           &:hover{background:$dark-green;}
         }
-        &:hover{background:$orange;}
-        a, a:link, a:visited {
-          color:$white;
-          display: inline-block;
-          padding:1em 2em;
-        }
+        &:hover{background:darken($blue, 7%);}
       }
     }
   }
