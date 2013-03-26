@@ -23,12 +23,13 @@
   <body class="<%= body_class %> game_demo">
     <i id="blue" class="colorbar"></i>
     <i id="orange" class="colorbar"></i>
-    
+
     <div class="wrapper">
-    <%= yield %> 
-    <footer>
-      Copyright &copy; 2013 H.Engage, Inc.
-    </footer>
+      <%= render "pages/header" %>
+      <%= yield %> 
+      <footer>
+        Copyright &copy; 2013 H.Engage, Inc.
+      </footer>
     </div>
   </body>
 </html>

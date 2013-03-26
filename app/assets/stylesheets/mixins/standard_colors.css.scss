@@ -94,6 +94,7 @@ $border-light:      1px #fff solid;
     @include ease(.15s);
     color:$color;
     font-weight:bold;
+    font-weight:600;
     text-decoration: none!important;
     &:hover {color:darken($color, 10%);}
     &:active {color:darken($color, 5%);}

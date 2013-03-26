@@ -1,38 +1,95 @@
 // Styles for Game self-setup pages
 body.game_demo {
   background:image-url('marketing/bg.gif');
+  header {
+    background:transparent;
+    margin:0 auto;
+    width:85%;
+    nav {display: none;}
+  }
+  .wrapper {@include centered-section;}
+  section {
+    background:$white;
+    margin:0 auto 3em auto;
+    padding:1em;
+    width:85%;
+  }
   footer {
     color:$gray;
     font-size:.75em;
     text-align: center;
   }
-  .wrapper {@include centered-section;}
-  section {
-    background:$white;
-    margin:2em auto;
-    padding:1em;
-    width:75%;
-  }
-
 }
 
-form#priorities {
+#new_game form#priorities {
+  margin-top:1em;
   h2 {border-top:$border-dark; margin-top:.5em; padding:.5em 0;}
-}
-#priorities_tiles {
-  text-align: center;
-  .type_tile {
-    display:inline-block;
-    font-size:.85em;
-    margin-bottom:1.5em;
-    vertical-align: top;
-    width:24%;
-    img{
-      -moz-box-sizing: content-box; -webkit-box-sizing: content-box; box-sizing: content-box;
-      border:0;
-      margin:5px;
-      width:95%;
+  #demo_setup {
+    padding-bottom:1.5em;
+    input[type="text"] {
+      font-size:1.25em;
+      &#name_game {color:$dark-green; width:44%;}
+      &#game_pass, &#game_pass_confirm {width:27%;}
     }
-    input[type="checkbox"]{display: none;}
+  }
+  #priorities_tiles {
+    text-align: center;
+    .type_tile {
+      display:inline-block;
+      font-size:.85em;
+      margin-bottom:1.5em;
+      vertical-align: top;
+      width:24%;
+      img{
+        -moz-box-sizing: content-box; -webkit-box-sizing: content-box; box-sizing: content-box;
+        border:0;
+        margin:5px;
+        width:95%;
+      }
+      input[type="checkbox"]{display: none;}
+    }
+  }
+  input[type="submit"] {
+    @include pop-button($blue);
+    font-size:1.25em;
+    &:hover{@include pop-button($orange);}
+  }
+}
+
+#waiting_room {
+  text-align: center;
+  h2 {
+    border-bottom:$border-dark;
+    padding-bottom:.85em;
+  }
+  #game_status {
+    padding:2em 0 1em 0;
+    text-align: left;
+    &:after{@include clear;}
+    p, #suggestions {
+      display:inline-block;
+      vertical-align: top;
+    }
+    p {
+      float:left;
+      width:26%;
+      a, a:link, a:visited {
+        @include link($blue); 
+        display:block; 
+        margin-top:.65em;
+      }
+    }
+    #suggestions {
+      float:right;
+      width:72%;
+    }
+    .video_placeholder {
+      border:1px $blue solid;
+      background:lighten($blue, 5%);
+      display: inline-block;
+      height:150px;
+      margin-right:.4em;
+      width:32%;
+    }
   }
 }

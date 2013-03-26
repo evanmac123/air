@@ -1,7 +1,13 @@
 <section id="new_game">
   <h1>Customize your game</h1>
+
   <form method="GET" id="priorities">
-    <h2>Name your game</h2>
+    <h2>Set up</h2>
+    <div id="demo_setup">
+      <input type="text" id="name_game" placeholder="Name your game" />
+      <input type="text" id="game_pass" placeholder="Password" />
+      <input type="text" id="game_pass_confirm" placeholder="Confirm password" />
+    </div>
 
     <h2>Select up to three workplace priorities</h2>
     <div id="priorities_tiles">
@@ -48,6 +54,7 @@
     </div>
     <input type="submit">
   </form>
-
-  <a href="#">Help</a>
 </section>
+<script>
+$("[placeholder]").textPlaceholder();
+</script>
