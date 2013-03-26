@@ -1,4 +1,6 @@
 //= require jquery
 //= require_tree ../../../vendor/assets/javascripts/external/.
-//= require_tree ./external/.
-//= require_tree ./internal_and_external/.
+//= require ./external/marketing.js
+//= require ./external/prefilled_input.js
+//= require ./internal_and_external/autocomplete.js
+//= require ./internal_and_external/intercom.js.coffee
