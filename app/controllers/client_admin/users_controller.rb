@@ -38,7 +38,7 @@ class ClientAdmin::UsersController < ClientAdminBaseController
       flash[:success] = "OK, we've added #{@user.name}."
       redirect_to client_admin_users_path
     else
-      flash[:failure] = "Sorry, we weren't able to add that user. " + user_errors
+      flash.now[:failure] = "Sorry, we weren't able to add that user. " + user_errors
       render :template => 'client_admin/users/index'
     end
   end
@@ -61,7 +61,7 @@ class ClientAdmin::UsersController < ClientAdminBaseController
     else
       load_characteristics
       load_locations
-      flash[:failure] = "Sorry, we weren't able to change that user's information. " + user_errors
+      flash.now[:failure] = "Sorry, we weren't able to change that user's information. " + user_errors
       render :template => "client_admin/users/edit"
     end
   end
