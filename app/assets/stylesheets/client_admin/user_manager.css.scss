@@ -131,7 +131,7 @@ body.client_admin-users-show .headline span {font-style:italic;}
             text-align:center;
             width:50px;
         }
-        .results-joined .joined, .results-send-invite a {
+        .results-joined .joined, .results-joined .not-joined, .results-send-invite a {
             @include hide-text;
             background:image-url('client_admin/sprites.png') no-repeat transparent;
             display:inline-block;
@@ -141,6 +141,11 @@ body.client_admin-users-show .headline span {font-style:italic;}
             background-position: -58px -55px;
             height:17px;
             width:18px;
+        }
+        .results-joined .not-joined {
+            background-position: -77px -56px;
+            height:16px;
+            width:13px;
         }
         .results-send-invite a {
             @include ease(0);

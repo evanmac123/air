@@ -18,7 +18,13 @@
       <td class="results-name"><%= link_to user.name, edit_client_admin_user_path(user), class: 'edit-user' %></td>
       <td class="results-email"><%= user.email %></td>
       <td class="results-location"><%= user.location.try(:name) %></td>
-      <td class="results-joined"><span class="joined"><%= user.accepted_invitation_at ? "Yes" : "No" %></span></td>
+      <td class="results-joined">
+        <% if user.claimed? %>
+          <span class="joined">Yes</span>
+        <% else %>
+          <span class="not-joined">No</span>
+        <% end %>
+      </td>
       <td class="results-send-invite">
         <%= link_to "Send", client_admin_user_invitation_path(user), method: :post, class: 'send-invite' %>
       </td>
