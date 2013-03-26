@@ -52,7 +52,7 @@ class User < ActiveRecord::Base
   validates_presence_of :privacy_level
   validates_inclusion_of :privacy_level, :in => PRIVACY_LEVELS
 
-  validates_inclusion_of :gender, :in => GENDERS
+  validates_inclusion_of :gender, :in => GENDERS, :allow_blank => true
 
   validates_format_of :slug, :with => /^[0-9a-z]+$/, :if => :name_present?
   validates_format_of :sms_slug, :with => /^[0-9a-z]{2,}$/,
