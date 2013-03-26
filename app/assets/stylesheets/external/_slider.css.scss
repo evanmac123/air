@@ -10,6 +10,7 @@
     width:100%;
     &#s_play {display:block;}
     form {
+      margin-top:5%;
       margin-left:8em;
       position:relative;
       width:39%;
@@ -39,22 +40,10 @@
       &:hover {@include pop-button(darken($orange,5%)); padding:.5em 1em;}
     }
     &#s_play, &#s_message {h1, h2, p {color:$white;}}
-    &#s_play {
-      background-image:image-url('marketing/play.jpg');
-      form {margin-top:5.35em;}
-    }
-    &#s_message {
-      background-image:image-url('marketing/message.jpg');
-      form {margin-top:5%;}
-    }
-    &#s_interact {
-      background-image:image-url('marketing/interact.jpg');
-      form {margin-top:6.35em;}
-    }
-    &#s_measure {
-      background-image:image-url('marketing/measure.jpg');
-      form {margin-top:7.65em;}
-    }
+    &#s_play {background-image:image-url('marketing/play.jpg');}
+    &#s_message {background-image:image-url('marketing/message.jpg');}
+    &#s_interact {background-image:image-url('marketing/interact.jpg');}
+    &#s_measure {background-image:image-url('marketing/measure.jpg');}
   }
   #slider_controllers {
     #slide_buttons {
@@ -114,7 +103,7 @@
             background:transparent!important;
             position:absolute;
             top:-8px;
-            left:40%;
+            left:46%;
           }
           &:hover{background:$dark-green;}
         }
