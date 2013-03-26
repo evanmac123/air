@@ -88,7 +88,6 @@ body.client_admin-users {
                     &:hover{background:transparent; cursor:pointer;}
                 }
             }
-            select {color:$dark-green;}
         }
         select {font-size:1.25em;}
         #show-everyone {@include link($blue);}
