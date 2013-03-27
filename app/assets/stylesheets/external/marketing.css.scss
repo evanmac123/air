@@ -1,6 +1,6 @@
 @mixin centered-section {
   max-width:1280px;
-  min-width:960px;
+  //min-width:960px;
   margin:$centered;
 }
 @mixin pop-button($bg) {

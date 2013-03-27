@@ -85,6 +85,23 @@ a.pop-button.get_started {@include pop-button($dark-green); padding:.65em 1.5em;
   height:300px;
   padding:3em 0;
   #why_now {
-    text-align: center;
+    position:relative;
+    h2{text-align: center;}
+    div {
+      border:1px red solid;
+      display:inline-block;
+      position:absolute;
+    }
+  }
+  #bridging_tech {
+    left:24.7%;
+    //width:40.3em; //Set break point for this, move tech types down
+    width:50px;
+  }
+  .tech_type {
+    border:1px red solid;
+    width:22.5%;
+    &#new_tech {text-align:right; left:0;}
+    &#traditional {text-align: left; right:0;}
   }
 }
