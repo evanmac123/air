@@ -49,11 +49,6 @@ body.game_demo {
       input[type="checkbox"]{display: none;}
     }
   }
-  input[type="submit"] {
-    @include pop-button($blue);
-    font-size:1.125em;
-    &:hover{@include pop-button($orange);}
-  }
 }
 
 #waiting_room {

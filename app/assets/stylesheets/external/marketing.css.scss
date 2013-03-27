@@ -14,7 +14,14 @@
     right:{width:0;}
   }
   color:$white;
+  cursor:pointer;
+  font-weight:600;
   padding:.35em .75em;
+  &:hover{
+    color:$white; 
+    background:$orange; 
+    border-color:darken($orange, 8%);
+  }
 }
 
 body{
@@ -24,6 +31,39 @@ body{
   font-size:100%;
   margin:0;
 }
+a, a:link, a:visited {
+  @include link($blue);
+  &:hover{color:$orange;}
+  &.pop-button {@include pop-button($blue);}
+}
+input[type="submit"] {
+  @include pop-button($blue);
+  font-size:1.125em;
+  &:hover{@include pop-button($orange);}
+}
+table {
+  display:inline-block;
+  th {
+    color:lighten($text-color, 20%);
+    font-weight:600;
+    text-align: left;
+  }
+  td {
+    font-size:.85em;
+    vertical-align: top;
+    ul li {padding:.15em 0;}
+    ul li:before{
+      background:$dark-green;
+      content:"";
+      display:inline-block;
+      height:3px;
+      margin-right:.5em;
+      width:3px;
+      vertical-align: middle;
+    }
+  }
+}
+
 .colorbar {
   display: inline-block;
   height:7px;

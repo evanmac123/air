@@ -16,10 +16,7 @@
       width:39%;
       h1 {
         padding-bottom:.75em;
-        &.light-headline {
-          text-shadow: 1px 1px 1px #616161;
-          filter: dropshadow(color=#616161, offx=1, offy=1);
-        }
+        &.light-headline {text-shadow: 1px 1px 1px #616161;}
       }
       p {padding-bottom:1em; width:90%;}
       .slider_forms p {display:inline-block; margin-left:1em; width:auto;}
@@ -33,11 +30,13 @@
     }
     input[type="submit"] {
       @include pop-button($orange);
-      font-size:1.125em;
-      font-weight:600;
       padding:.5em 1em;
       text-transform: uppercase;
-      &:hover {@include pop-button(darken($orange,5%)); padding:.5em 1em;}
+      &:hover {
+        background:darken($orange,4%);
+        border-color:darken($orange, 10%);
+        padding:.5em 1em;
+      }
     }
     &#s_play, &#s_message {h1, h2, p {color:$white;}}
     &#s_play {background-image:image-url('marketing/play.jpg');}

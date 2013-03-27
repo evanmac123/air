@@ -55,7 +55,7 @@ $border-light:      1px #fff solid;
 }
 @mixin hide-text {
     color:transparent;
-    font-size:0;
+    font-size:1em;
     overflow:hidden;
     text-indent:100%;
     white-space:nowrap;

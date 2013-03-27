@@ -21,11 +21,6 @@ header {
       color:$blue;
       font-weight:300;
       &:hover{color:$orange;}
-      &#login {
-        @include pop-button($blue);
-        font-weight:600;
-        &:hover{@include pop-button($orange);}
-      }
     }
   }
 }

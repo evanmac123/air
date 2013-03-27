@@ -1,4 +1,90 @@
-#why_now {
+body.marketing .wrappee, #any_objective, #clients {@include centered-section;}
+
+// One platform, any objective
+section#any_objective {
+  padding:5em 0;
+  text-align: center;
+  div, #objectives_table {text-align:left; vertical-align: top;}
+  div {
+    display:inline-block;
+    margin-right:1.5em;
+    padding:0 10px;
+    width:32%;
+    h1 {border-bottom:$border-dark; margin-bottom:.5em; padding-bottom:.5em;}
+    p {padding-bottom:1em;}
+  }
+}
+#objectives_table {
+  th, td {padding:1em;}
+  tr > * {background:lighten($light-gray, 10%);}
+}
+section#clients {
+  border-bottom:$border-dark;
+  margin-bottom:1.5em;
+  text-align: center;
+  ul {padding:1.5em 0;}
+  ul li {
+    display: inline-block;
+    margin:0 .65em;
+    width:19%;
+    a {
+      @include hide-text;
+      background:transparent no-repeat center center;
+      background-size:80%;
+      display: inline-block;
+      height:75px;
+      width:100%;
+    }
+    &#fujifilm a {background-image:image-url('marketing/clients/fuji.jpg');}
+    &#highmark a {background-image:image-url('marketing/clients/highmark.jpg');}
+    &#michelin a {background-image:image-url('marketing/clients/michelin.gif');}
+    &#yahoo a {background-image:image-url('marketing/clients/yahoo.jpg');}
+  }
+}
+
+// Platform features list
+section#platform_features {
+  border-bottom:$border-dark;
+  padding-bottom:1.5em;
+  ul {text-align: center;}
+  ul li {
+    display:inline-block; 
+    margin:1em;
+    text-align:right;
+    vertical-align: top;
+    a.pop-button {display:inline-block; font-size:1.125em; padding:.65em 1.5em;}
+    p {color:$gray; font-size:.75em; padding-top:.65em;}
+  }
+}
+a.pop-button.get_started {@include pop-button($dark-green); padding:.65em 1.5em;}
+#features_table {
+  th, td {width:25%;}
+  th {
+    padding:1em;
+    p:before {
+      background:image-url('marketing/sprites.png') no-repeat transparent -120px 0;
+      content:"";
+      display: inline-block;
+      height:33px;
+      margin-right:.5em;
+      vertical-align: middle;
+      width:30px;
+    }
+    p#f_esafe:before {background-position:-150px 0;}
+    p#f_noit:before {background-position:-180px 0;}
+    p#f_analytics:before {background-position:-210px 0;}
+  }
+  td {padding:0 1em;}
+}
+
+// Why now? and more about our platform
+#platform_details {
   background:image-url('marketing/bg.gif');
+  border-bottom:$border-dark;
+  border-top:$border-light;
   height:300px;
+  padding:3em 0;
+  #why_now {
+    text-align: center;
+  }
 }
