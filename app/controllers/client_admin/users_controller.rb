@@ -106,14 +106,35 @@ class ClientAdmin::UsersController < ClientAdminBaseController
   def search_results_as_json
     normalized_term = params[:term].downcase.strip.gsub(/\s+/, ' ')
     users = current_user.demo.users.name_like(normalized_term).alphabetical_by_name.limit(10)
-    users.map{|user| search_result(user)}.to_json
+
+    if users.empty?
+      add_user_json(normalized_term)
+    else
+      users.map{|user| search_result(user)}.to_json
+    end
   end
 
   def search_result(user)
     {
       label: ERB::Util.h(user.name), 
-      value: edit_client_admin_user_url(user)
+      value: {
+        found: true,
+        url:   edit_client_admin_user_url(user)
+      }
     } 
+  end
+
+  def add_user_json(normalized_name)
+    name = normalized_name.split.map(&:capitalize).join(' ')
+    label = ERB::Util.h(%{No match for "#{name}". Click to add this user.})
+
+    [{
+      label: label,
+      value: {
+        found: false,
+        name: name
+      }
+    }].to_json
   end
 
   def link_to_edit_user(user)

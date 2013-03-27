@@ -36,6 +36,7 @@
     });
   <% end %>
 <% end %>
+
 <% content_for :javascript do %>
   <%= javascript_tag do %>
     bindUserNameSearchAutocomplete('#name-substring', '#name-autocomplete-target', '<%= client_admin_users_path %>');

@@ -4,6 +4,16 @@ feature 'Searches for user by name' do
   let (:client_admin) { FactoryGirl.create :user, is_client_admin: true }
   let (:demo)         { client_admin.demo }
 
+  let (:user_data) do
+    [
+      ["Franklin Pierce", "fpierce@example.com", "Boston", nil, true],
+      ["Ben Franklin", "bfranklin@example.com", "Cambridge", 20.minutes.ago, true],
+      ["Frank Sinatra", "fsinatra@example.com", "Dedham", nil, true],
+      ["Frankie Valli", "fvalli@example.com", "Arlington", nil, false],
+      ["Martha Stewart", "mstewart@example.com", "Boston", 3.weeks.ago, true]
+    ]  
+  end
+
   def create_user_from_tuple(user_tuple, demo)
     name, email, location_name, accepted_invitation_at, in_given_demo = user_tuple
     attributes = {
@@ -49,19 +59,21 @@ feature 'Searches for user by name' do
     end
   end
 
-  it "should show links for users with the given substring in the same demo as the given user, in alphabetical order", js: :webkit do
+  def expect_autocomplete_link_to_create_user(user_name)
+    wait_for_autocomplete
+
+    within "#name-autocomplete-target" do
+      expect_content %{No match for "#{user_name}". Click to add this user.}
+      pending "See other pending remark regarding the shoddiness of Javascript testing"
+    end
+  end
+
+  before do
     %w(Arlington Boston Cambridge Dedham Everett).each { |name| FactoryGirl.create(:location, name: name, demo: demo) }
-
-    user_data = [
-      ["Franklin Pierce", "fpierce@example.com", "Boston", nil, true],
-      ["Ben Franklin", "bfranklin@example.com", "Cambridge", 20.minutes.ago, true],
-      ["Frank Sinatra", "fsinatra@example.com", "Dedham", nil, true],
-      ["Frankie Valli", "fvalli@example.com", "Arlington", nil, false],
-      ["Martha Stewart", "mstewart@example.com", "Boston", 3.weeks.ago, true]
-    ]
-    
     user_data.each { |user_tuple| create_user_from_tuple(user_tuple, demo) }
+  end
 
+  it "should show links for users with the given substring in the same demo as the given user, in alphabetical order", js: :webkit do
     visit client_admin_users_path(as: client_admin)
 
     fill_in_name_search "Frank"
@@ -71,5 +83,13 @@ feature 'Searches for user by name' do
     pending "\n\n\nClicking on the link to go to the edit page for that user works, but currently Poltergeist hangs up if you try it, and Capybara-webkit doesn't change location. You can switch this over to Selenium if you want to see for yourself. Check back here after the next capy-webkit update.\n\nSomeday we'll have a stable Javascript acceptance testing solution. Whether or not this happens before I retire is the question.\n\n"
     page.all('.ui-autocomplete a').select{|link| link.text == "Frank Sinatra"}.first.click
     should_be_on edit_client_admin_user_path(User.find_by_name('Frank Sinatra'))
+  end
+
+  it "should link to the add-user page when there are no matches", js: :webkit do
+    visit client_admin_users_path(as: client_admin)
+
+    fill_in_name_search "joey bananas"
+    expect_no_user_autocomplete_entries(user_data)
+    expect_autocomplete_link_to_create_user "Joey Bananas"
   end
 end
