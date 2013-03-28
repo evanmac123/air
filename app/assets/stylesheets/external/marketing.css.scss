@@ -1,3 +1,4 @@
+$font: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 @mixin centered-section {
   max-width:1280px;
   margin:$centered;
@@ -38,21 +39,23 @@
 body{
   background:$white;
   border-top:7px $dark-green solid;
-  font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: $font;
   font-size:100%;
   margin:0;
-  min-width:915px;
-  height:100%!important; width:100%!important;
+  height:100%; width:100%;
+  min-width:925px;
 }
 a, a:link, a:visited {
   @include link($blue);
   &:hover{color:$orange;}
   &.pop-button {@include pop-button($blue);}
 }
+input{font-family:$font;}
 input[type="submit"] {
   @include pop-button($blue);
+  font-family: $font;
   font-size:1.125em;
-  &:hover{@include pop-button($orange);}
+  font-weight:600;
 }
 table {
   display:inline-block;
