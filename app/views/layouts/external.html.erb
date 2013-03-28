@@ -26,10 +26,10 @@
 
     <div class="wrapper">
       <%= render "pages/header" %>
+      <%= render "shared/flashes" %>
       <%= yield %> 
       <%= render "pages/footer" %>
     </div>
-    <%= render :partial => 'shared/javascript' %>
     <%= render 'shared/mixpanel' %>
     <%= javascript_include_tag asset_path('ga-marketing.js') if ENV['USE_GA'] %>
   </body>
