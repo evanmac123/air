@@ -10,6 +10,8 @@
 
 - content_for(:javascript) do
 
+  = javascript_include_tag 'external/join'
+
   :javascript
     $("input#user_phone_number").focus(function () {
     	$(".helper").hide();
