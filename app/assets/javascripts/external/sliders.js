@@ -51,10 +51,6 @@ function centerSliderNames() {
     leftMargin = (sliderWidth-namesBox)/2;    
     $("#slide_name").css("marginLeft", leftMargin); 
 }
-$(document).ready(function() {
-    centerSliderNames();
-    $(window).resize(function() {centerSliderNames();});
-});
 
 // ========== Our stats slider, beepboop ===========
 $('#stats_name li').hover(function(){
@@ -71,4 +67,11 @@ $('#stats_name li').hover(function(){
     $(this).addClass('current_stat_name');
     currentStat.show();
     currentUse.show();
+});
+
+// ========== Run it, run it, run things on load ===========
+$(document).ready(function() {
+    centerSliderNames();
+    $(window).resize(function() {centerSliderNames();});
+    $('#stats_usage li').eq(0).show();
 });

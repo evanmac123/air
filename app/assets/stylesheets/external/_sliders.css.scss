@@ -33,11 +33,7 @@
       @include pop-button($orange);
       padding:.5em 1em;
       text-transform: uppercase;
-      &:hover {
-        background:darken($orange,4%);
-        border-color:darken($orange, 10%);
-        padding:.5em 1em;
-      }
+      &:hover {padding:.5em 1em;}
     }
     &#s_play, &#s_message {h1, h2, p {color:$white;}}
     &#s_play {background-image:image-url('marketing/play.jpg');}
@@ -115,9 +111,8 @@
 
 // Stats slider
 #platform_extras {
-  border-top:$border-light;
   border-bottom:$border-dark;
-  padding:2em 0;
+  padding-bottom:1em;
   text-align: center;
   .wrap, #stats_slider {
     display:inline-block;
@@ -140,10 +135,10 @@
       margin-bottom:.5em;
       li {
         display: inline-block;
-        color:$blue;
+        color:$dark-green;
         font-weight:600;
         padding:.65em;
-        &.current_stat_name {background:$blue;color:$white;}
+        &.current_stat_name {background:$dark-green;color:$white;}
       }
     }
     #stats_holder {

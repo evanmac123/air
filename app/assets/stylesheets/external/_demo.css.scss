@@ -7,6 +7,7 @@ body.game_demo {
     width:85%;
     nav {display: none;}
   }
+  footer div {width:85%;}
   .wrapper {@include centered-section;}
   section {
     background:$white;
@@ -14,39 +15,45 @@ body.game_demo {
     padding:1em;
     width:85%;
   }
-  footer {
-    color:$gray;
-    font-size:.75em;
-    text-align: center;
-  }
 }
 
 #new_game form#priorities {
   margin-top:1em;
-  h2 {border-top:$border-dark; color:darken($gray, 15%); margin-top:.5em; padding:.5em 0;}
-  #demo_setup {
-    padding-bottom:1.5em;
-    input[type="text"] {
-      font-size:1.25em;
-      &#name_game {color:$dark-green; width:44%;}
-      &#game_pass, &#game_pass_confirm {width:27%;}
-    }
+  h3 {font-size:1em; font-weight:300;margin-top:.5em; padding:1em 0;}
+  input[type="text"]#name_game {
+    border-left:0;
+    border-right:0;
+    border-top:0;
+    color:$dark-green;
+    font-size:1.5em;
+    margin:.5em 0 1em 0;
+    padding-left:0;
+    width:100%;
   }
   #priorities_tiles {
     text-align: center;
+    &:after{@include clear;}
     .type_tile {
       display:inline-block;
+      float:left;
       font-size:.85em;
       margin-bottom:1.5em;
+      overflow:hidden;
       vertical-align: top;
-      width:24%;
-      img{
-        -moz-box-sizing: content-box; -webkit-box-sizing: content-box; box-sizing: content-box;
-        border:0;
-        margin:5px;
-        width:95%;
-      }
+      width:25%;
       input[type="checkbox"]{display: none;}
+      p {
+        background:$dark-green;
+        border:$border-light;
+        display:inline-block;
+        color:$white;
+        cursor: pointer;
+        font-size:1.75em;
+        height:125px;
+        padding:1em;
+        width:100%;
+        &:hover{background:darken($dark-green, 5%);}
+      }
     }
   }
 }

@@ -21,6 +21,18 @@
     background:$orange; 
     border-color:darken($orange, 8%);
   }
+  @if $bg == $orange {
+    &:hover{
+      background:darken($orange, 4%);
+      border-color:darken($orange, 10%);
+    }
+  }
+  @elseif $bg == $dark-green {
+    &:hover{
+      background:darken($dark-green,6%);
+      border-color:darken($dark-green, 12%);
+    }
+  }
 }
 
 body{
@@ -85,10 +97,27 @@ table {
 }
 section.contained {@include centered-section;}
 footer {
-  color:$light-gray;
-  margin-top:5em;
-  text-align: center;
-  padding-bottom:2em;
+  background:image-url('marketing/bg.gif');
+  color:$gray;
+  font-size:.75em;
+  padding:2em 10px;
+  div {@include centered-section; &:after{@include clear;}}
+  p {float:left;}
+  ul {float:right;}
+  p, ul, ul li {display: inline-block;}
+  ul li a, ul li a:link, ul li a:visited {
+    @include hide-text;
+    @include ease(0);
+    background:image-url('marketing/sprites.png') no-repeat transparent -119px -36px;
+    display: inline-block;
+    height:22px;
+    width:22px;
+    &#facebook {background-position:-139px -36px;}
+    &#linkedin {background-position:-159px -36px;}
+    &#twitter:hover {background-position:-179px -36px;}
+    &#facebook:hover {background-position:-199px -36px;}
+    &#linkedin:hover {background-position:-219px -36px;}
+  }
 }
 
 .text-placeholder {color: #AAA !important}

@@ -58,7 +58,7 @@ section#platform_features {
     p {color:$gray; font-size:.75em; padding-top:.65em;}
   }
 }
-a.pop-button.get_started {@include pop-button($dark-green); padding:.65em 1.5em;}
+//a.pop-button.get_started {@include pop-button($orange);}
 #features_table {
   th, td {width:25%;}
   th {
@@ -82,42 +82,6 @@ a.pop-button.get_started {@include pop-button($dark-green); padding:.65em 1.5em;
 // Why now? and more about our platform
 #platform_details {
   background:image-url('marketing/bg.gif');
-  border-bottom:$border-dark;
   border-top:$border-light;
-  padding:3em 0;
-  #why_now {
-    border-bottom:$border-dark;
-    height:510px;
-    position:relative;
-    h2{padding-bottom:1em; text-align: center;}
-    div {
-      display:inline-block;
-      position:absolute;
-    }  
-    #bridging_tech {
-      background:image-url('marketing/bridgingTech.png') center top no-repeat transparent;
-      height:425px;
-      left:22.5%;
-      width:55%;
-      span {
-        font-weight:600;
-        position:absolute;
-        &.t_gray {color:$gray;}
-        &.t_green {color:$dark-green;}
-        &#b_smedia {left:50%; top:14%;}
-      }
-    }
-    .tech_type {
-      top:35%; padding:0 10px; width:22.5%;
-      h3 {padding-bottom:1em;}
-      &#new_tech {
-        text-align:right; left:0;
-        h3 {color:$dark-green;}
-      }
-      &#traditional {
-        text-align: left; right:0;
-        h3 {color:$gray;}
-      }
-    }
-  }
+  padding:3em 0 0 0;
 }
