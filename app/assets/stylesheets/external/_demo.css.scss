@@ -26,18 +26,18 @@ body.game_demo {
     border-top:0;
     color:$dark-green;
     font-size:1.5em;
-    margin:.5em 0 1em 0;
+    margin:.5em 0;
     padding-left:0;
     width:100%;
   }
   #priorities_tiles {
+    padding-bottom:1.75em;
     text-align: center;
     &:after{@include clear;}
     .type_tile {
       display:inline-block;
       float:left;
       font-size:.85em;
-      margin-bottom:1.5em;
       overflow:hidden;
       vertical-align: top;
       width:25%;
@@ -48,9 +48,10 @@ body.game_demo {
         display:inline-block;
         color:$white;
         cursor: pointer;
-        font-size:1.75em;
-        height:125px;
+        font-size:1.35em;
+        height:93px;
         padding:1em;
+        text-align: left;
         width:100%;
         &:hover{background:darken($dark-green, 5%);}
       }
