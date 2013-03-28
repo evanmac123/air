@@ -44,7 +44,7 @@ body{
   h1 {color:#4d4d4d; font-size:2.25em; font-weight:600;}
   h2 {color:$gray; font-size:1.65em; font-weight:300;}
   h3 {font-weight:600;}
-  input, textarea {@include ease(.15s); font-family:$font;}
+  input, textarea {@include ease(.15s); font-family:$font; font-size:1em;}
 }
 a, a:link, a:visited {
   @include link($blue);
@@ -126,12 +126,12 @@ footer {
   form {margin-top:1em;
     input[type="text"],textarea {
       display: block;
-      font-size:1em;
       margin-bottom:.5em;
       width:100%;
     }
     textarea {height:6em;}
   }
-  p {padding-top:1em;}
+  p {padding:.5em 0;}
 }
+.get_started.pop-button.on-button {@include pop-button(darken($blue, 10%));}
 .text-placeholder {color: #AAA !important}
