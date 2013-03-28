@@ -1,6 +1,5 @@
 @mixin centered-section {
   max-width:1280px;
-  //min-width:960px;
   margin:$centered;
 }
 @mixin pop-button($bg) {
@@ -30,6 +29,8 @@ body{
   font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-size:100%;
   margin:0;
+  min-width:915px;
+  height:100%!important; width:100%!important;
 }
 a, a:link, a:visited {
   @include link($blue);
@@ -63,7 +64,6 @@ table {
     }
   }
 }
-
 .colorbar {
   display: inline-block;
   height:7px;
@@ -76,9 +76,11 @@ table {
 .wrapper {
   color:$text-color;
   font-weight:300;
+  width:100%;
   h1, h2, h3 {font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;}
   h1 {color:#4d4d4d; font-size:2.25em; font-weight:600;}
-  h2 {color:#919191; font-size:1.65em; font-weight:300;}
+  h2 {color:$gray; font-size:1.65em; font-weight:300;}
+  h3 {font-weight:600;}
   input {@include ease(.15s);}
 }
 section.contained {@include centered-section;}

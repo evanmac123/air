@@ -1,3 +1,4 @@
+// Main slider
 #slider {
   position:relative;
   height:630px;
@@ -107,6 +108,58 @@
           &:hover{background:$dark-green;}
         }
         &:hover{background:darken($blue, 7%);}
+      }
+    }
+  }
+}
+
+// Stats slider
+#platform_extras {
+  border-top:$border-light;
+  border-bottom:$border-dark;
+  padding:2em 0;
+  text-align: center;
+  .wrap, #stats_slider {
+    display:inline-block;
+    position:relative;
+    text-align: left;
+    vertical-align: top;
+  }
+  .wrap {
+    margin-right:1.25em;
+    padding:0 10px;
+    width:30%;
+    h2 {color:#4d4d4d; font-weight:600;}
+    p {padding-top:1em;}
+  }
+  #stats_usage li, #stats_holder ul {display:none; position:absolute;}
+  #stats_slider {
+    width:50%;
+    #stats_name {
+      background:$white;
+      margin-bottom:.5em;
+      li {
+        display: inline-block;
+        color:$blue;
+        font-weight:600;
+        padding:.65em;
+        &.current_stat_name {background:$blue;color:$white;}
+      }
+    }
+    #stats_holder {
+      height:130px;
+      padding:0 1em;
+      position:relative;
+      ul#stats_mobile {display: block;}
+      ul li {padding:.5em 0;}
+      ul li:before {
+        background:$blue;
+        content:"";
+        display: inline-block;
+        height:3px;
+        margin-right:.5em;
+        vertical-align: middle;
+        width:3px;
       }
     }
   }

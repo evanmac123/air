@@ -1,4 +1,6 @@
-body.marketing .wrappee, #any_objective, #clients {@include centered-section;}
+#platform_features div,
+#any_objective, #clients, #why_now, 
+#platform_extras {@include centered-section;}
 
 // One platform, any objective
 section#any_objective {
@@ -7,9 +9,9 @@ section#any_objective {
   div, #objectives_table {text-align:left; vertical-align: top;}
   div {
     display:inline-block;
-    margin-right:1.5em;
+    margin-right:1.25em;
     padding:0 10px;
-    width:32%;
+    width:30.5%;
     h1 {border-bottom:$border-dark; margin-bottom:.5em; padding-bottom:.5em;}
     p {padding-bottom:1em;}
   }
@@ -82,26 +84,40 @@ a.pop-button.get_started {@include pop-button($dark-green); padding:.65em 1.5em;
   background:image-url('marketing/bg.gif');
   border-bottom:$border-dark;
   border-top:$border-light;
-  height:300px;
   padding:3em 0;
   #why_now {
+    border-bottom:$border-dark;
+    height:510px;
     position:relative;
-    h2{text-align: center;}
+    h2{padding-bottom:1em; text-align: center;}
     div {
-      border:1px red solid;
       display:inline-block;
       position:absolute;
+    }  
+    #bridging_tech {
+      background:image-url('marketing/bridgingTech.png') center top no-repeat transparent;
+      height:425px;
+      left:22.5%;
+      width:55%;
+      span {
+        font-weight:600;
+        position:absolute;
+        &.t_gray {color:$gray;}
+        &.t_green {color:$dark-green;}
+        &#b_smedia {left:50%; top:14%;}
+      }
     }
-  }
-  #bridging_tech {
-    left:24.7%;
-    //width:40.3em; //Set break point for this, move tech types down
-    width:50px;
-  }
-  .tech_type {
-    border:1px red solid;
-    width:22.5%;
-    &#new_tech {text-align:right; left:0;}
-    &#traditional {text-align: left; right:0;}
+    .tech_type {
+      top:35%; padding:0 10px; width:22.5%;
+      h3 {padding-bottom:1em;}
+      &#new_tech {
+        text-align:right; left:0;
+        h3 {color:$dark-green;}
+      }
+      &#traditional {
+        text-align: left; right:0;
+        h3 {color:$gray;}
+      }
+    }
   }
 }
