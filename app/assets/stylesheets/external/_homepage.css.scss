@@ -46,8 +46,8 @@ section#clients {
 section#platform_features {
   border-bottom:$border-dark;
   padding-bottom:1.5em;
-  ul {text-align: center;}
-  ul li {
+  #pros_list ul {text-align: center;}
+  #pros_list ul li {
     display:inline-block; 
     margin:1em;
     text-align:right;
@@ -55,8 +55,25 @@ section#platform_features {
     a.pop-button {display:inline-block; font-size:1.125em; padding:.65em 1.5em;}
     p {color:$gray; font-size:.75em; padding-top:.65em;}
   }
+  #get_started_form {
+    border-top:$border-dark;
+    display: none;
+    min-width:500px;
+    max-width:650px;
+    padding:1em;
+    position:relative;
+    text-align: center;
+    &:before{
+      @include arrow-top($blue);
+      position:absolute;
+      top:-8px;
+      left:32%;
+    }
+    ul li {display:inline-block; vertical-align: top;}
+    ul li p {display: none;}
+    input[type="submit"]{@include pop-button($orange);}
+  }
 }
-// a.pop-button.request_a_demo {@include pop-button($dark-green);}
 #features_table {
   th, td {width:25%;}
   th {

@@ -50,7 +50,7 @@
 </section>
 
 <section id="platform_features">
-  <div>
+  <div id="pros_list">
     <table id="features_table">
       <tr>
         <th><p id="f_simple">Simple to use</p></th>
@@ -70,6 +70,16 @@
       <li><a href="#!" class="request_a_demo pop-button">Request a demo</a></li>
     </ul>
   </div>
+  <div id="get_started_form">
+  <!-- PHIL, this form can be a partial, shared with the slider forms -->
+  <form>
+    <ul>
+      <li><input type="text" placeholder="First and last name" /></li>
+      <li><input type="text" placeholder="Email" /></li>
+      <li><input type="submit" value="Start a game" /><p>14 day free trial</p></li>
+    </ul>
+  </form>
+</div>
 </section>
 
 <section id="platform_details">
@@ -78,3 +88,9 @@
 
 <%= render "shared/request_demo" %>
 <%= javascript_include_tag 'external/sliders.js' %>
+<script>
+$(".get_started").click(function(){
+  $("#get_started_form").slideToggle();
+  $(this).toggleClass('on-button');
+});
+</script>

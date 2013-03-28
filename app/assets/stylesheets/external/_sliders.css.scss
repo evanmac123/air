@@ -10,7 +10,7 @@
     position: absolute;
     width:100%;
     &#s_play {display:block;}
-    form {
+    .slider_content_holder {
       margin-top:5%;
       margin-left:10%;
       position:relative;
@@ -20,7 +20,7 @@
         &.light-headline {text-shadow: 1px 1px 1px #616161;}
       }
       p {padding-bottom:1em; width:90%;}
-      .slider_forms p {display:inline-block; margin-left:1em; width:auto;}
+    form ul p {display:inline-block; margin-left:1em; width:auto;}
     }
     input[type="text"] {
       font-size:1.125em;
