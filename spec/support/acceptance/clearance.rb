@@ -3,7 +3,7 @@ module SteakHelperMethods
     # Copied this directly from the Cucumber steak of the same name. Don't
     # quite understand the signifigance.
     visit '/'
-    find('#homepage').tag_name.should == 'body'
+    expect_marketing_page_blurb
   end
 
   def should_be_signed_in

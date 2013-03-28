@@ -259,4 +259,8 @@ module SteakHelperMethods
     save_and_open_page
     screenshot_and_open_image
   end
+
+  def expect_marketing_page_blurb
+    expect_content "One platform, any objective We use our deep domain expertise in each of these subject areas to speak to the market in the terms they easily understand."
+  end
 end
