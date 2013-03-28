@@ -28,19 +28,17 @@ section#clients {
   ul li {
     display: inline-block;
     margin:0 .65em;
-    width:19%;
+    overflow: hidden;
+    position: relative;
+    width:24%;
     a {
-      @include hide-text;
-      background:transparent no-repeat center center;
-      background-size:80%;
       display: inline-block;
-      height:75px;
+      height:70px;
+      position: relative;
+      vertical-align: middle;
       width:100%;
     }
-    &#fujifilm a {background-image:image-url('marketing/clients/fuji.jpg');}
-    &#highmark a {background-image:image-url('marketing/clients/highmark.jpg');}
-    &#michelin a {background-image:image-url('marketing/clients/michelin.gif');}
-    &#yahoo a {background-image:image-url('marketing/clients/yahoo.jpg');}
+    &#highmark, &#yahoo {a {padding-top:1em;}}
   }
 }
 
