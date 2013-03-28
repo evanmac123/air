@@ -1,4 +1,48 @@
 // Styles for Login/Signup external page
 body.external {
   background:image-url('marketing/bg.gif');
+  header {
+    background:transparent;
+    margin:0 auto;
+    width:85%;
+    nav {display: none;}
+  }
+  footer div {width:85%;}
+  .wrapper {@include centered-section;}
+  section {
+    background:$white;
+    margin:0 auto 3em auto;
+    padding:1em;
+    width:85%;
+  }
+  #session-wrapper {
+    background:$white;
+    margin:1em auto;
+    padding:1em;
+    width:50%;
+    h1 {text-align: center;}
+    p {padding:0 0 1em 0;}
+    form {
+      width:87%;
+      margin:1.5em auto 1em auto;
+      a {font-size:.85em; font-weight:300;}
+      input[type="text"], input[type="password"] {
+        display: block;
+        font-size:1.125em;
+        margin:0 0 .5em 0;
+        padding:.5em .85em;
+        width:100%;
+      }
+      label {font-size:.85em;}
+      .wrap {display: block; padding-bottom:1em;}
+    }
+  }
+}
+
+#password_placeholder_holder {
+  color:#AAA;
+  font-size:1.125em;
+  font-weight:400;
+  padding:.4em .85em;
+  position:absolute;
 }

@@ -1,10 +1,10 @@
-#password-wrapper
-  %h2 Reset Password
-  %p We will email you a link to reset your password.
-
+#session-wrapper
+  %h1 Reset Password
+  
 
   = form_tag passwords_path do
-    = text_field_tag "password[email]"
+    %p We will email you a link to reset your password.
+    = text_field_tag "password[email]", "", placeholder: "Email address"
     = submit_tag "Reset password" 
 
 = mp_track_page 'password reset request' 

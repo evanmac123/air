@@ -1,6 +1,3 @@
-if(location.search)
-    alert(location.search);
-
 $('.type_tile p').live('click', function(){
     if(!$(this).prev('input[type="checkbox"]').prop('checked')){
         $(this).prev('input[type="checkbox"]').prop('checked', true).attr('checked','checked');

@@ -1,6 +1,6 @@
 class GamesController < ApplicationController
   skip_before_filter :authorize
-  layout 'game' 
+  layout 'external' 
   def new
   end
 end

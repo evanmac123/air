@@ -6,83 +6,31 @@
     
     <title>H.Engage</title>
 
-    <!-- Meta tags -->
     <meta name="description" content="Drive engagement in workplace programs using social mobile gaming." />
     <meta name="keywords" content="Workplace,programs,HR,benefits,social,mobile,gaming" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- CSS -->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300,600' rel='stylesheet' type='text/css'>
     <%= stylesheet_link_tag 'app-external' %>
-    
-    <!-- JavaScript -->
     <%= javascript_include_tag 'app-external' %>
-    <%= javascript_include_tag asset_path('ga-marketing.js') if ENV['USE_GA'] %>
+    
 
     <!--[if lt IE 9]>
-    <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <style type="text/css">.gradient {filter: none;}</style>
+      <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+      <style type="text/css">.gradient {filter: none;}</style>
     <![endif]-->
   </head>
-  
-<body class="<%= body_class %> external">
-  <div class="wrapper">
+  <body class="<%= body_class %> external">
     <i id="blue" class="colorbar"></i>
     <i id="orange" class="colorbar"></i>
-    <header>
-      <div class="container">
-        <div id="logo">
-          <a href="/"><%= image_tag "v4/logo.png", :alt => "H.Engage" %></a>
-        </div>
-        <nav>
-          <ul>
-            <li><%= link_to "Sign Up", new_invitation_path %></li>
-            <li><%= link_to "User login", sign_in_path, :id => "login" %></li>
-          </ul>
-        </nav>
-      </div>
-    </header>
 
-    <div class="content">
-      <% status_content = yield :status %>
-      <% status_content = joined_flashes unless status_content.present? %>
-        
-      <div class="inv-forms">
-        <% if status_content.present? %>
-          <div class="status">
-          <div class="status-message">
-              <%= status_content %>
-          </div>
-          </div>
-        <% end %>
-          <%= yield %>
-      </div>
+    <div class="wrapper">
+      <%= render "pages/header" %>
+      <%= yield %> 
+      <%= render "pages/footer" %>
     </div>
-
-    <%= render "pages/footer" %>
-  </div>
-	<script type="text/javascript">
-	$('[placeholder]').focus(function() {
-	  var input = $(this);
-	  if (input.val() == input.attr('placeholder')) {
-	    input.val('');
-	    input.removeClass('placeholder');
-	  }
-	}).blur(function() {
-	  var input = $(this);
-	  if (input.val() == '' || input.val() == input.attr('placeholder')) {
-	    input.addClass('placeholder');
-	    input.val(input.attr('placeholder'));
-	  }
-	}).blur().parents('form').submit(function() {
-	  $(this).find('[placeholder]').each(function() {
-	    var input = $(this);
-	    if (input.val() == input.attr('placeholder')) {
-	      input.val('');
-	    }
-	  });
-	});
-	</script>
-	<%= render :partial => 'shared/javascript' %>
-  <%= render 'shared/mixpanel' %>
-</body>
+    <%= render :partial => 'shared/javascript' %>
+    <%= render 'shared/mixpanel' %>
+    <%= javascript_include_tag asset_path('ga-marketing.js') if ENV['USE_GA'] %>
+  </body>
 </html>

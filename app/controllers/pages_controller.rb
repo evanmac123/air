@@ -37,7 +37,7 @@ class PagesController < HighVoltage::PagesController
       Shotgun.ping_page(page_name)
       'external_marketing'
     when 'waitingroom'
-      'game'
+      'external'
     else
       'pages'
     end

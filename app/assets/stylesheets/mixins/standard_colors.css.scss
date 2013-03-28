@@ -129,10 +129,11 @@ input[type="text"], input[type="password"] {
     border:$border-dark;
     color:$gray;
     padding:.5em;
+    &:hover{border-color:$dark-green;}
     &:focus {
-            color:$dark-green;
-            border:1px $dark-green solid;
-        }
+        color:$dark-green;
+        border:1px $dark-green solid;
+    }
 }
 select {border:$border-dark;}
 #footer {
