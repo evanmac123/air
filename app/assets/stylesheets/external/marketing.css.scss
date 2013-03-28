@@ -17,21 +17,17 @@ $font: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   cursor:pointer;
   font-weight:600;
   padding:.35em .75em;
-  &:hover{
-    color:$white; 
-    background:$orange; 
-    border-color:darken($orange, 8%);
-  }
-  @if $bg == $orange {
+  &:hover{color:$white;}
+  @if $bg == $blue {
     &:hover{
-      background:darken($orange, 4%);
-      border-color:darken($orange, 10%);
+      background:$orange; 
+      border-color:darken($orange, 8%);
     }
   }
-  @elseif $bg == $dark-green {
+  @else {
     &:hover{
-      background:darken($dark-green,6%);
-      border-color:darken($dark-green, 12%);
+      background:darken($bg, 4%);
+      border-color:darken($bg, 10%);
     }
   }
 }
@@ -44,13 +40,17 @@ body{
   margin:0;
   height:100%; width:100%;
   min-width:925px;
+  h1, h2, h3 {font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;}
+  h1 {color:#4d4d4d; font-size:2.25em; font-weight:600;}
+  h2 {color:$gray; font-size:1.65em; font-weight:300;}
+  h3 {font-weight:600;}
+  input, textarea {@include ease(.15s); font-family:$font;}
 }
 a, a:link, a:visited {
   @include link($blue);
   &:hover{color:$orange;}
   &.pop-button {@include pop-button($blue);}
 }
-input{font-family:$font;}
 input[type="submit"] {
   @include pop-button($blue);
   font-family: $font;
@@ -92,11 +92,6 @@ table {
   color:$text-color;
   font-weight:300;
   width:100%;
-  h1, h2, h3 {font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;}
-  h1 {color:#4d4d4d; font-size:2.25em; font-weight:600;}
-  h2 {color:$gray; font-size:1.65em; font-weight:300;}
-  h3 {font-weight:600;}
-  input {@include ease(.15s);}
 }
 section.contained {@include centered-section;}
 footer {
@@ -123,5 +118,20 @@ footer {
   }
 }
 
+#request_demo {
+  background:$white;
+  display: none;
+  padding:1em;
+  width:500px;
+  form {margin-top:1em;
+    input[type="text"],textarea {
+      display: block;
+      font-size:1em;
+      margin-bottom:.5em;
+      width:100%;
+    }
+    textarea {height:6em;}
+  }
+  p {padding-top:1em;}
+}
 .text-placeholder {color: #AAA !important}
-body.external #flash a#close-flash span {margin:23px 0 0 15px;}

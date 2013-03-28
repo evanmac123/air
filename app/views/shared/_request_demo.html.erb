@@ -1,0 +1,20 @@
+<section id="request_demo">
+  <h1>Great!</h1>
+  <h2>We just need some info to get started.</h2>
+  <form>
+    <ul id="demo_basics">
+      <li><input type="text" id="sign_up" placeholder="First and last name" /></li>
+      <li><input type="text" placeholder="Email address" /></li>
+      <li><input type="text" placeholder="Company name" /></li>
+      <li><textarea placeholder="Tell us about your interests and priorities!"></textarea></li>
+    </ul>
+    <input type="submit" value="All set!" />
+  </form>
+  <p>Thanks, we'll be in touch within two business days!</p>
+</section>
+
+<script>
+$('.request_a_demo').click(function(){
+  $("#request_demo").lightbox_me();
+});
+</script>
