@@ -1,5 +1,6 @@
 header {
   background:$white;
+  width:100%;
   .container {
     @include centered-section;
     padding:0 10px;

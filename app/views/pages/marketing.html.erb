@@ -51,7 +51,7 @@
 </section>
 
 <section id="platform_features">
-  <div class="wrappee">
+  <div>
     <table id="features_table">
       <tr>
         <th><p id="f_simple">Simple to use</p></th>
@@ -74,19 +74,19 @@
 </section>
 
 <section id="platform_details">
-  <div id="why_now" class="wrappee">
+  <div id="why_now">
     <h2>Why now?</h2>
-    
+
     <div id="bridging_tech">
-      <span id="b_smedia">Social media</span>
-      <span id="b_gaming">Gaming</span>
-      <span id="b_mobile">Mobile</span>
-      <span id="b_personal">Personalization</span>
-      <span id="b_posters">Posters</span>
-      <span id="b_intranet">Intranet</span>
-      <span id="b_email">E-mail</span>
-      <span id="b_bulletin">Bulletin board</span>
-      <span id="b_ppl">Managers &amp; HR</span>
+      <!-- <span id="b_smedia" class="t_green">Social media</span>
+      <span id="b_gaming" class="t_green">Gaming</span>
+      <span id="b_mobile" class="t_green">Mobile</span>
+      <span id="b_personal" class="t_green">Personalization</span>
+      <span id="b_posters" class="t_gray">Posters</span>
+      <span id="b_intranet" class="t_gray">Intranet</span>
+      <span id="b_email" class="t_gray">E-mail</span>
+      <span id="b_bulletin" class="t_gray">Bulletin board</span>
+      <span id="b_ppl" class="t_gray">Managers &amp; HR</span> -->
     </div>
     <div class="tech_type" id="new_tech">
       <h3>New technologies</h3>
@@ -97,5 +97,8 @@
       <p>Traditional communications aren’t being heard, leading to low engagement and ROI.</p>
     </div>
   </div>
+
+  <%= render "pages/stats_slider" %>
+
 </section>
-<script src="assets/external/slider.js"></script>
+<script src="assets/external/sliders.js"></script>

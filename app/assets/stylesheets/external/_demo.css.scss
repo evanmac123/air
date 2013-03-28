@@ -23,7 +23,7 @@ body.game_demo {
 
 #new_game form#priorities {
   margin-top:1em;
-  h2 {border-top:$border-dark; margin-top:.5em; padding:.5em 0;}
+  h2 {border-top:$border-dark; color:darken($gray, 15%); margin-top:.5em; padding:.5em 0;}
   #demo_setup {
     padding-bottom:1.5em;
     input[type="text"] {

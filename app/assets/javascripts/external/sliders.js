@@ -1,4 +1,4 @@
-// Our ~*custom*~ slider!
+// ========== Our ~*custom*~ slider! ===========
 slideCount = 0;
 $names = $("#slide_name li");
 $slides = $("#slider .slide");
@@ -54,4 +54,21 @@ function centerSliderNames() {
 $(document).ready(function() {
     centerSliderNames();
     $(window).resize(function() {centerSliderNames();});
+});
+
+// ========== Our stats slider, beepboop ===========
+$('#stats_name li').hover(function(){
+    allNames = $('#stats_name li');
+    allStats = $('#stats_holder ul');
+    allUses = $('#stats_usage li');
+    namePosition = $(this).index();
+    currentStat = allStats.eq(namePosition);
+    currentUse = allUses.eq(namePosition);
+
+    allNames.removeClass('current_stat_name');
+    allStats.hide();
+    allUses.hide();
+    $(this).addClass('current_stat_name');
+    currentStat.show();
+    currentUse.show();
 });
