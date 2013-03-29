@@ -1,44 +1,22 @@
 <section id="new_game">
   <h1>Customize your game</h1>
 
-  <form method="GET" id="priorities">
-    <input type="text" autofocus id="name_game" placeholder="What would you like to call your game?" />
+  <%= form_tag games_path, id: "priorities" do %>
+    <%= hidden_field_tag :customer_name, params[:customer_name] %>
+    <%= hidden_field_tag :customer_email, params[:customer_email] %>
+    <input type="text" autofocus id="name_game" name="company_name" placeholder="What would you like to call your game?" />
 
     <p>Select up to three workplace priorities:</p>
     <div id="priorities_tiles">
-      <span class="type_tile">
-          <input type="checkbox" name="open-enrollment" value="1" />
-          <p>Open enrollment</p>
-      </span>
-      <span class="type_tile">
-          <input type="checkbox" name="wellness" value="1" />
-          <p>Wellness</p>
-      </span>
-      <span class="type_tile">
-          <input type="checkbox" name="healthcare" value="1" />
-          <p>Health care reform</p>
-      </span>
-      <span class="type_tile">
-          <input type="checkbox" name="fined" value="1" />
-          <p>Financial education &amp; retirement</p>
-      </span>
-      <span class="type_tile">
-          <input type="checkbox" name="safety" value="1" />
-          <p>Safety</p>
-      </span>
-      <span class="type_tile">
-          <input type="checkbox" name="training" value="1" />
-          <p>Training</p>
-      </span>
-      <span class="type_tile">
-          <input type="checkbox" name="onboarding" value="1" />
-          <p>Onboarding</p>
-      </span>
-      <span class="type_tile">
-          <input type="checkbox" name="hrabio" value="1" />
-          <p>HRA/Biometrics</p>
-      </span>
+      <%= render 'type_tile', tile_text: "Open Enrollment" %>
+      <%= render 'type_tile', tile_text: "Wellness" %>
+      <%= render 'type_tile', tile_text: "Health care reform" %>
+      <%= render 'type_tile', tile_text: "Financial education & retirement" %>
+      <%= render 'type_tile', tile_text: "Safety" %>
+      <%= render 'type_tile', tile_text: "Training" %>
+      <%= render 'type_tile', tile_text: "Onboarding" %>
+      <%= render 'type_tile', tile_text: "HRA/Biometrics" %>
     </div>
     <input type="submit" value="Complete setup">
-  </form>
+  <% end %>
 </section>
