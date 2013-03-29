@@ -27,7 +27,7 @@
     <div class="wrapper">
       <%= render "pages/header" %>
       <%= render "shared/flashes" %>
-      <%= yield :status %> 
+      <div id="status"><%= yield :status %></div>
       <%= yield %>
       <%= render "pages/footer" %>
     </div>

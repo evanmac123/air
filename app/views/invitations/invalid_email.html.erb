@@ -1,3 +1,4 @@
+<div id="session-wrapper">
 <% content_for :status do %>
   <p>Sorry, it looks like we don't have the email address '<%= @invitation_request.email %>' on file. H Engage is a social game available to an exclusive group of companies.
 
@@ -6,3 +7,4 @@
 
 <%= render 'form' %>
 <%= mp_track_page 'invalid self-inviting domain', :attempted_email => @invitation_request.email %>
+</p>

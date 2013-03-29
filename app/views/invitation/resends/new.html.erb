@@ -1,3 +1,4 @@
+<div id="session-wrapper">
 <% content_for :status do %>
   <% if flash[:success].present? %>
     <%= flash[:success] %>
@@ -10,10 +11,11 @@
 
 <%= form_tag invitation_resend_path, :id => 'signup-form' do %>
   <ul>
-    <li class="form-label"><%= label_tag :email %></li>
+    <li class="form-label"><h2><%= label_tag :email %></h2></li>
     <li class="form-input"><%= text_field_tag :email %></li>
     <%= submit_tag "Re-send invitation" %>
   </ul>
 <% end %>
 
 <%= mp_track_page 'invitation resend' %>
+</div>
