@@ -31,13 +31,13 @@ module Health
       app-client-admin.css
       app-external.css
       app-internal.css
-      application-ie8.css
       app-admin.js
       app-internal.js
       app-external.js
       errors.css
       ga.js
       ga-marketing.js
+      external/sliders.js
       flick/jquery-ui-1.8.10.custom.css
     )
 
