@@ -31,7 +31,6 @@ module Health
       app-client-admin.css
       app-external.css
       app-internal.css
-      application-ie8.css
       app-admin.js
       app-internal.js
       app-external.js

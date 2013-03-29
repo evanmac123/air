@@ -7,10 +7,6 @@
   <%= javascript_include_tag 'app-internal' %>
   <%= javascript_include_tag asset_path('ga.js') if ENV['USE_GA'] %>
 
-	<!--[if IE 8]>
-		<%= stylesheet_link_tag 'application-ie8' %>
-	<![endif]-->
-	
   <%= render 'shared/skin_styles' %>
 
   <%= csrf_meta_tag %>
