@@ -27,7 +27,8 @@
     <div class="wrapper">
       <%= render "pages/header" %>
       <%= render "shared/flashes" %>
-      <%= yield %> 
+      <%= yield :status %> 
+      <%= yield %>
       <%= render "pages/footer" %>
     </div>
     <%= render 'shared/mixpanel' %>
