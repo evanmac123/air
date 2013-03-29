@@ -6,7 +6,7 @@ Feature: User shouldn't get timed out on invitation acceptance page
       | bob@example.com |
   Scenario: User shouldn't get timed out on invitation acceptance page
     When I go to the join page
-    And I fill in "Email" with "bob@example.com"
+    And I fill in "invitation_request_email" with "bob@example.com"
     And I press "Request invitation"
     And DJ cranks 5 times
     And "bob@example.com" opens the email

@@ -14,7 +14,6 @@ Feature: User requests their invitation email to be resent
 
     Then I should be on the invitation resend page
     And I should see "We've resent your invitation to joe@example.com."
-    And there should be a mail link to support in the status area
     And "joe@example.com" should receive 1 email
 
     When "joe@example.com" opens the email
@@ -26,14 +25,12 @@ Feature: User requests their invitation email to be resent
     And I press "Re-send invitation"
     Then I should be on the invitation resend page
     And I should see "It looks like you haven't been invited yet. You can request an invitation here, or contact support@hengage.com for help." 
-    And there should be a mail link to support in the status area
     And "bob@example.com" should receive no email
 
     When I fill in "Email" with "nobody@nowhere.com"
     And I press "Re-send invitation"
     Then I should be on the invitation resend page
     And I should see "It looks like you haven't been invited yet. You can request an invitation here, or contact support@hengage.com for help." 
-    And there should be a mail link to support in the status area
     And "nobody@nowhere.com" should receive no email
 
   Scenario: User requestes invitation to be resent to an account already joined

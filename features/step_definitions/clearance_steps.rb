@@ -34,7 +34,7 @@ end
 
 Then /^I should be signed out$/ do
   step %{I am on the homepage}
-  find('#homepage').tag_name.should == 'body'
+  expect_marketing_page_blurb
 end
 
 When /^session is cleared$/ do
