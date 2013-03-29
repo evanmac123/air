@@ -145,7 +145,7 @@ feature "User tries to friend someone" do
     link = links_in_email(current_email).find { |link| link =~ /accept/ }.chop
     visit request_uri(link)
 
-    page.should have_content "User login Your session has expired"
+    page.should have_content "Your session has expired"
     signin_as(friend, friend.password)
 
     page.should have_content "Invalid authenticity token. Friendship operation cancelled."
