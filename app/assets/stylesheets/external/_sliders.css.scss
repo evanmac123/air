@@ -10,16 +10,18 @@
     position: absolute;
     width:100%;
     &#s_play {display:block;}
+    &#s_measure .slider_content_holder{margin-top:11%;}
     .slider_content_holder {
       margin-top:5%;
       margin-left:10%;
-      position:relative;
+      position:absolute;
       width:39%;
+      a.pop-button {font-size:1.125em; margin-top:1em;}
       h1 {
         padding-bottom:.75em;
         &.light-headline {text-shadow: 1px 1px 1px #616161;}
       }
-      p {padding-bottom:1em; width:90%;}
+      p {display:block; padding-bottom:1em; width:90%;}
     form ul p {display:inline-block; margin-left:1em; width:auto;}
     }
     input[type="text"] {
@@ -29,15 +31,33 @@
       margin-bottom:.65em;
       width:80%;
     }
-    input[type="submit"] {
-      @include pop-button($orange);
+    input[type="submit"]{@include pop-button($orange);}
+    input[type="submit"], .slider_content_holder a.pop-button {
       padding:.5em 1em;
       text-transform: uppercase;
       &:hover {padding:.5em 1em;}
     }
     &#s_play, &#s_message {h1, h2, p {color:$white;}}
-    &#s_play {background-image:image-url('marketing/play.jpg');}
-    &#s_message {background-image:image-url('marketing/message.jpg');}
+    &#s_play {
+      background-image:image-url('marketing/play.jpg');
+      form ul li p {text-shadow: 1px 1px 1px #616161;}
+    }
+    &#s_message {
+      background-image:image-url('marketing/message.jpg');
+      #phone_messages {
+        position:absolute;
+        left:50%;
+        top:230px;
+        margin-left:153px;
+        width:300px;
+        li {
+          padding:.55em;
+          &#pm_2 {margin-top:81px;}
+          &#pm_3 {margin-top:50px;}
+        }
+        li p {color:$text-color;}
+      }
+    }
     &#s_interact {background-image:image-url('marketing/interact.jpg');}
     &#s_measure {background-image:image-url('marketing/measure.jpg');}
   }

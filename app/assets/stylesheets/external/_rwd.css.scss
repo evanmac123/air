@@ -15,7 +15,14 @@
   #slide_name li {text-align:center; width:25%;}
   section#any_objective {
     padding:0;
-    div {padding:5%;}
-    table {margin-bottom:3em;}
+    .wrap {width:100%;}
+    .wrap div, #objectives_table {
+      display: block;
+      float:none;
+      margin:0 auto;
+      width:80%;
+    }
+    .wrap div {padding:5% 0;}
+    #objectives_table {margin-bottom:3em; }
   }
 }

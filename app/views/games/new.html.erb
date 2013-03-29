@@ -4,9 +4,9 @@
   <%= form_tag games_path, id: "priorities" do %>
     <%= hidden_field_tag :customer_name, params[:customer_name] %>
     <%= hidden_field_tag :customer_email, params[:customer_email] %>
-    <input type="text" autofocus id="name_game" name="company_name" placeholder="What would you like to call your game?" />
+    <input type="text" autofocus id="name_game" name="company_name" placeholder="Name your game" />
 
-    <p>Select up to three workplace priorities:</p>
+    <p>Select up to three priorities:</p>
     <div id="priorities_tiles">
       <%= render 'type_tile', tile_text: "Open Enrollment" %>
       <%= render 'type_tile', tile_text: "Wellness" %>
@@ -16,6 +16,14 @@
       <%= render 'type_tile', tile_text: "Training" %>
       <%= render 'type_tile', tile_text: "Onboarding" %>
       <%= render 'type_tile', tile_text: "HRA/Biometrics" %>
+      <%= render 'type_tile', tile_text: "Retirement readiness" %>
+      <%= render 'type_tile', tile_text: "Financial wellness" %>
+      <%= render 'type_tile', tile_text: "Benefits appreciation" %>
+      <%= render 'type_tile', tile_text: "Employee engagement" %>
+      <%= render 'type_tile', tile_text: "Survey & feedback" %>
+      <%= render 'type_tile', tile_text: "General announcements" %>
+      <%= render 'type_tile', tile_text: "Corporate communications" %>
+      <%= render 'type_tile', tile_text: "Other" %>
     </div>
     <input type="submit" value="Complete setup" disabled="disabled">
   <% end %>

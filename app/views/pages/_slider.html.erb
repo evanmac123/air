@@ -8,19 +8,29 @@
   <div id="s_message" class="slide">
     <div class="slider_content_holder">
       <h1 class="light-headline">Send personalized messages to groups of employees on any device.</h1>
-        <p>We help collect and store personal e-mail and text message numbers, no prior information needed.</p>
+
+      <p>We help collect and store personal e-mail and text message numbers, no prior information needed.</p>
+      <%= render 'sign_up_form' %>
     </div>
+    <ul id="phone_messages">
+      <li id="pm_1"><p>Stop by to welcome our new Director of Finance! 3rd floor @ 1 PM today.</p></li>
+      <li id="pm_2"><p>Weather alert: Store will have a delayed opening tomorrow.</p></li>
+      <li id="pm_3"><p>Don't forget the benefits enrollment deadline is November 7th</p></li>
+      
+    </ul>
   </div>
   <div id="s_interact" class="slide">
     <div class="slider_content_holder">
-      <h1>Make print communications interactive and measurable.</h1>
-      <%= render 'sign_up_form' %>
+      <h1>Make any print or online communication interactive and measurable.</h1>
+      <p>Embed questions and other interactions into any communication. Employees send in key words for points from any device.</p>
+      <a href="#!" class="request_a_demo pop-button">Request a demo</a>
     </div>
   </div>
   <div id="s_measure" class="slide">
     <div class="slider_content_holder">
       <h1>Gather metrics.</h1>
-      <p>Real time reporting helps show results.</p>
+      <p>Track engagement in any communication or behavior.</p>
+      <%= render 'sign_up_form' %>
     </div>
   </div>
   <div id="slider_controllers">
@@ -36,3 +46,31 @@
     </ul>
   </div>
 </section>
+
+<script>
+$('#slider #slider_controllers #prev_slide').click(function(){
+  mixpanel.track("Slider prev button clicked");
+});
+$('#slider #slider_controllers #next_slide').click(function(){
+  mixpanel.track("Slider next button clicked");
+});
+$('#slider #s_interact .request_a_demo').click(function(){
+  mixpanel.track("Slider: Interact demo request button clicked");
+})
+$("#slider #slide_name #sn_play a").click(function(){
+  mixpanel.track("Slider Control: Play clicked");
+})
+$("#slider #slide_name #sn_message a").click(function(){
+  mixpanel.track("Slider Control: Message clicked");
+})
+$("#slider #slide_name #sn_interact a").click(function(){
+  mixpanel.track("Slider Control: Interact clicked");
+})
+$("#slider #slide_name #sn_measure a").click(function(){
+  mixpanel.track("Slider Control: Measure clicked");
+})
+mixpanel.track_forms("#slider #s_play form", "Slider: Play form submission");
+mixpanel.track_forms("#slider #s_message form", "Slider: Message form submission");
+mixpanel.track_forms("#slider #s_measure form", "Slider: Measure form submission");
+
+</script>

@@ -1,4 +1,5 @@
-<% content_for :status do %>
+<div id="session-wrapper">
+  <% content_for :status do %>
   <p>That e-mail address is already taken.</p>
 
   <p>If this is your address, and you've already requested an invitation but lost the invitation e-mail, you can request for it to be re-sent <%= link_to "here", new_invitation_resend_path %>.</p>
@@ -11,3 +12,4 @@
 <%= render 'form' %>
 
 <%= mp_track_page "duplicate email error" %>
+</div>
