@@ -17,6 +17,8 @@ section#any_objective {
   }
 }
 #objectives_table {
+  width:55%;
+  td {width:25%;}
   th, td {padding:1em;}
   tr > * {background:lighten($light-gray, 10%);}
 }
@@ -46,11 +48,11 @@ section#clients {
 section#platform_features {
   border-bottom:$border-dark;
   padding-bottom:1.5em;
-  #pros_list ul {text-align: center;}
-  #pros_list ul li {
+  #try_platform_buttons {text-align: center;}
+  #try_platform_buttons li {
     display:inline-block; 
-    margin:1em;
-    text-align:right;
+    margin:.5em;
+    text-transform: center;
     vertical-align: top;
     a.pop-button {display:inline-block; font-size:1.125em; padding:.65em 1.5em;}
     p {color:$gray; font-size:.75em; padding-top:.65em;}
