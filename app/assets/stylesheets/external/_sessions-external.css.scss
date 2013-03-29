@@ -42,9 +42,9 @@ body.external {
 }
 
 #password_placeholder_holder {
-  color:#AAA;
+  color:lighten(#AAA, 5%);
   font-size:1.125em;
   font-weight:400;
-  padding:.4em .85em;
+  padding:.5em .85em;
   position:absolute;
 }

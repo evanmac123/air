@@ -63,12 +63,6 @@ section#platform_features {
     padding:1em;
     position:relative;
     text-align: center;
-    &:before{
-      @include arrow-top($blue);
-      position:absolute;
-      top:-8px;
-      left:32%;
-    }
     ul li {display:inline-block; vertical-align: top;}
     ul li p {display: none;}
     input[type="submit"]{@include pop-button($orange);}
