@@ -19,6 +19,7 @@
       <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
       <style type="text/css">input[type="password"]{font-family:Arial!important;} .gradient {filter: none;}</style>
     <![endif]-->
+    <%= render 'shared/mixpanel' %>
   </head>
   <body class="<%= body_class %> external">
     <i id="blue" class="colorbar"></i>
@@ -31,7 +32,6 @@
       <%= yield %>
       <%= render "pages/footer" %>
     </div>
-    <%= render 'shared/mixpanel' %>
     <%= javascript_include_tag asset_path('ga-marketing.js') if ENV['USE_GA'] %>
   </body>
 </html>

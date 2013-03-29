@@ -66,15 +66,15 @@
     </ul>
   </div>
   <div id="get_started_form">
-  <!-- PHIL, this form can be a partial, shared with the slider forms -->
-  <form>
-    <ul>
-      <li><input type="text" placeholder="First and last name" /></li>
-      <li><input type="text" placeholder="Email" /></li>
-      <li><input type="submit" value="Start a game" /><p>14 day free trial</p></li>
-    </ul>
-  </form>
-</div>
+    <!-- PHIL, this form can be a partial, shared with the slider forms -->
+    <form>
+      <ul>
+        <li><input type="text" placeholder="First and last name" /></li>
+        <li><input type="text" placeholder="Email" /></li>
+        <li><input type="submit" value="Start a game" /><p>14 day free trial</p></li>
+      </ul>
+    </form>
+  </div>
 </section>
 
 <!--<section id="platform_details">
@@ -84,8 +84,15 @@
 <%= render "shared/request_demo" %>
 <%= javascript_include_tag 'external/sliders.js' %>
 <script>
+mixpanel.track("Homepage visit")
+mixpanel.track_links("#nav", "Nav link clicked", {'referrer': document.referrer });
+mixpanel.track_forms("#platform_features #get_started_form form", "Homepage body Request Demo form submission");
 $(".get_started").click(function(){
   $("#get_started_form").slideToggle();
   $(this).toggleClass('on-button');
+  mixpanel.track("Get Started toggle signup clicked");
+});
+$(".request_a_demo").click(function(){
+  mixpanel.track("Request Demo form opened");
 });
 </script>

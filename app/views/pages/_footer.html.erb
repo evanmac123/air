@@ -8,4 +8,8 @@
   </ul>
 </div>
 </footer>
-<script>$("[placeholder]").textPlaceholder();</script>
+<script>
+$("[placeholder]").textPlaceholder();
+mixpanel.track_links(".our_socmedia", "Social media link clicked", {'referrer': document.referrer });
+
+</script>

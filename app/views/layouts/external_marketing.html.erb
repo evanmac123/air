@@ -18,6 +18,7 @@
       <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
       <style type="text/css">.gradient {filter: none;}</style>
     <![endif]-->
+    <%= render 'shared/mixpanel' %>
   </head>
   <body class="<%= body_class %> marketing">
     <div class="wrapper">
@@ -27,7 +28,6 @@
     <%= yield %> 
     <%= render "pages/footer" %>
     </div>
-    <%= render 'shared/mixpanel' %>
     <%= javascript_include_tag asset_path('ga-marketing.js') if ENV['USE_GA'] %>
   </body>
 </html>
