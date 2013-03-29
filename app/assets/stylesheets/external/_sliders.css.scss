@@ -16,7 +16,7 @@
       margin-left:10%;
       position:absolute;
       width:39%;
-      a.pop-button {margin-top:1em;}
+      a.pop-button {font-size:1.125em; margin-top:1em;}
       h1 {
         padding-bottom:.75em;
         &.light-headline {text-shadow: 1px 1px 1px #616161;}
@@ -46,14 +46,14 @@
       background-image:image-url('marketing/message.jpg');
       #phone_messages {
         position:absolute;
-        left:63%;
+        left:50%;
         top:230px;
+        margin-left:153px;
         width:300px;
         li {
-          border:1px transparent solid;
-          padding:1em;
-          &#pm_2 {margin-top:64px;}
-          &#pm_3 {margin-top:37px;}
+          padding:.55em;
+          &#pm_2 {margin-top:81px;}
+          &#pm_3 {margin-top:50px;}
         }
         li p {color:$text-color;}
       }

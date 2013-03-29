@@ -1,36 +1,38 @@
 <%= render "pages/slider" %>
 <section id="any_objective">
-  <div>
-    <h1>One platform, any objective</h1>
-    <p>Drive engagement in any benefit, program, communication or process.</p>
-    <a href="#!" class="request_a_demo">Set up a time to discuss your priority</a>
+  <div class="wrap">
+    <div>
+      <h1>One platform, any objective</h1>
+      <p>Drive engagement in any benefit, program, communication or process.</p>
+      <a href="#!" class="request_a_demo">Set up a time to discuss your priority</a>
+    </div>
+    <table id="objectives_table">
+      <tr>
+        <td>Health care reform</td>
+        <td>Lifestyle wellness</td>
+        <td>HRA &amp; biometrics participation</td>
+        <td>Open enrollment</td>
+      </tr>
+      <tr>
+        <td>Retirement readiness</td>
+        <td>Financial wellness</td>
+        <td>Benefits appreciation</td>
+        <td>Employee engagement</td>
+      </tr>
+      <tr>
+        <td>Survey &amp; feedback</td>
+        <td>Training, learning &amp; development</td>
+        <td>Shift changes</td>
+        <td>General announcements</td>
+      </tr>
+      <tr>
+        <td>Emergency messages</td>
+        <td>Corporate communications</td>
+        <td>Safety</td>
+        <td>Onboarding</td>
+      </tr>
+    </table>
   </div>
-  <table id="objectives_table">
-    <tr>
-      <td>Health care reform</td>
-      <td>Lifestyle wellness</td>
-      <td>HRA &amp; biometrics participation</td>
-      <td>Open enrollment</td>
-    </tr>
-    <tr>
-      <td>Retirement readiness</td>
-      <td>Financial wellness</td>
-      <td>Benefits appreciation</td>
-      <td>Employee engagement</td>
-    </tr>
-    <tr>
-      <td>Survey &amp; feedback</td>
-      <td>Training, learning &amp; development</td>
-      <td>Shift changes</td>
-      <td>General announcements</td>
-    </tr>
-    <tr>
-      <td>Emergency messages</td>
-      <td>Corporate communications</td>
-      <td>Safety</td>
-      <td>Onboarding</td>
-    </tr>
-  </table>
 </section>
 
 <section id="clients">
@@ -75,9 +77,9 @@
 </div>
 </section>
 
-<section id="platform_details">
-  <!--< %= render "pages/stats_slider" %>-->
-</section>
+<!--<section id="platform_details">
+  < %= render "pages/stats_slider" %>
+</section>-->
 
 <%= render "shared/request_demo" %>
 <%= javascript_include_tag 'external/sliders.js' %>

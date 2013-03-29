@@ -5,22 +5,28 @@
 // One platform, any objective
 section#any_objective {
   padding:5em 0;
-  text-align: center;
-  div, #objectives_table {text-align:left; vertical-align: top;}
-  div {
+  .wrap {
+    margin:$centered;
+    width:85%;
+    &:after{@include clear;}
+  }
+  .wrap div, #objectives_table {text-align:left; vertical-align: top;}
+  .wrap div {
     display:inline-block;
+    float:left;
     margin-right:1.25em;
     padding:0 10px;
-    width:30.5%;
+    width:33%;
     h1 {border-bottom:$border-dark; margin-bottom:.5em; padding-bottom:.5em;}
     p {padding-bottom:1em;}
   }
-}
-#objectives_table {
-  width:55%;
-  td {width:25%;}
-  th, td {padding:1em;}
-  tr > * {background:lighten($light-gray, 10%);}
+  #objectives_table {
+    float:right;
+    width:63%;
+    td {width:25%;}
+    th, td {padding:1em;}
+    tr > * {background:lighten($light-gray, 10%);}
+  }
 }
 section#clients {
   border-bottom:$border-dark;
@@ -48,6 +54,7 @@ section#clients {
 section#platform_features {
   border-bottom:$border-dark;
   padding-bottom:1.5em;
+  text-align: center;
   #try_platform_buttons {text-align: center;}
   #try_platform_buttons li {
     display:inline-block; 
@@ -71,6 +78,8 @@ section#platform_features {
   }
 }
 #features_table {
+  text-align: left;
+  width:85%;
   th, td {width:25%;}
   th {
     padding:1em;

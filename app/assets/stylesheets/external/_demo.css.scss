@@ -68,15 +68,19 @@
     }
     #suggestions {
       float:right;
+      text-align: center;
       width:72%;
     }
-    .video_placeholder {
-      border:1px $blue solid;
-      background:lighten($blue, 5%);
+    .resource_holder {
+      background:$light-gray;
       display: inline-block;
       height:150px;
       margin:0 .3em .3em 0;
-      width:32%;
+      vertical-align: top;
+      width:31.75%;
+      &#lauraVideo {
+        overflow:hidden;
+      }
     }
   }
 }
