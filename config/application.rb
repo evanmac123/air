@@ -38,6 +38,7 @@ module Health
       ga.js
       ga-marketing.js
       external/sliders.js
+      external/select_interests.js
       flick/jquery-ui-1.8.10.custom.css
     )
 

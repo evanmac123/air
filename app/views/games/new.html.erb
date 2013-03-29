@@ -17,6 +17,8 @@
       <%= render 'type_tile', tile_text: "Onboarding" %>
       <%= render 'type_tile', tile_text: "HRA/Biometrics" %>
     </div>
-    <input type="submit" value="Complete setup">
+    <input type="submit" value="Complete setup" disabled="disabled">
   <% end %>
 </section>
+
+<%= javascript_include_tag 'external/select_interests' %>
