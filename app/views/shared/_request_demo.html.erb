@@ -16,6 +16,7 @@
 <script>
 $('.request_a_demo').click(function(){
   $("#request_demo").lightbox_me();
+  mixpanel.track("Request Demo form opened");
 });
 mixpanel.track_forms("#request_demo form", "Request Demo form submission");
 </script>

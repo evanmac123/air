@@ -38,9 +38,9 @@
 <section id="clients">
  <h2>For any workforce, from high-tech to manufacturing</h2>
  <ul>
-  <li id="highmark" class="client"><a href="#!" target="_new"><img src="assets/marketing/clients/highmark.png" /></a></li>
-  <li id="michelin" class="client"><a href="#!" target="_new"><img src="assets/marketing/clients/michelin.png" /></a></li>
-  <li id="yahoo" class="client"><a href="#!" target="_new"><img src="assets/marketing/clients/yahoo.png" /></a></li>
+  <li id="highmark" class="client"><a href="https://www.highmark.com/" target="_new"><img src="assets/marketing/clients/highmark.png" /></a></li>
+  <li id="michelin" class="client"><a href="http://www.michelinman.com/" target="_new"><img src="assets/marketing/clients/michelin.png" /></a></li>
+  <li id="yahoo" class="client"><a href="http://www.yahoo.com/" target="_new"><img src="assets/marketing/clients/yahoo.png" /></a></li>
  </ul>
 </section>
 
@@ -86,13 +86,11 @@
 <script>
 mixpanel.track("Homepage visit")
 mixpanel.track_links("#nav", "Nav link clicked", {'referrer': document.referrer });
+mixpanel.track_links("#clients", "Client logo clicked", {'referrer': document.referrer });
 mixpanel.track_forms("#platform_features #get_started_form form", "Homepage body Request Demo form submission");
 $(".get_started").click(function(){
   $("#get_started_form").slideToggle();
   $(this).toggleClass('on-button');
   mixpanel.track("Get Started toggle signup clicked");
-});
-$(".request_a_demo").click(function(){
-  mixpanel.track("Request Demo form opened");
 });
 </script>

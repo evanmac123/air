@@ -11,3 +11,7 @@
     = submit_tag "Let's play!" 
     = link_to "Forgot password?", new_password_path 
   .cf
+
+:javascript
+  mixpanel.track("Login visit");
+  mixpanel.track_forms(".sessions-new #session-wrapper form", "Login form submission");

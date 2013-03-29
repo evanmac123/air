@@ -8,3 +8,6 @@
 <%= render 'form' %>
 <%= mp_track_page 'invalid self-inviting domain', :attempted_email => @invitation_request.email %>
 </div>
+<script>
+mixpanel.track("Invalid Email for Invitation page visited");
+</script>

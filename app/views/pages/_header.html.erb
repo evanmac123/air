@@ -5,13 +5,16 @@
     </div>
     <nav id="nav">
       <ul>
-        <li><a href="http://blog.hengage.com" target="_new">Blog</a></li>
+        <li><a href="http://blog.hengage.com" id="blog" target="_new">Blog</a></li>
         <li><a href="/sign_in" id="login" class="pop-button">User login</a></li>
       </ul>
     </nav>
   </div>
 </header>
 <script>
+$('#blog').click(function(){
+  mixpanel.track("Blog link clicked");
+})
 $('#login').click(function(){
   mixpanel.track("Login button clicked");
 })
