@@ -1,15 +1,16 @@
+<!-- HOOKUP -->
 <section id="request_demo">
   <h1>Great!</h1>
   <h2>We just need some info to get started.</h2>
   <form>
     <ul id="demo_basics">
-      <li><input type="text" id="sign_up" placeholder="First and last name" /></li>
-      <li><input type="text" placeholder="Email address" /></li>
-      <li><input type="text" placeholder="Company name" /></li>
-      <li><textarea placeholder="Tell us about your interests and priorities!"></textarea></li>
+      <li><input type="text" id="contact_name" placeholder="First and last name" /></li>
+      <li><input type="text" id="contact_email" placeholder="Email address" /></li>
+      <li><input type="text" id="contact_company" placeholder="Company name" /></li>
+      <li><textarea id="company_comment" placeholder="Tell us about your interests and priorities!"></textarea></li>
     </ul>
-    <p>Thanks, we'll be in touch within two business days!</p>
     <input type="submit" value="All set!" />
+    <p>Thanks, we'll be in touch within two business days!</p>
   </form>
 </section>
 
@@ -19,4 +20,109 @@ $('.request_a_demo').click(function(){
   mixpanel.track("Request Demo form opened");
 });
 mixpanel.track_forms("#request_demo form", "Request Demo form submission");
+
+
+  var contact_name = $('#contact_name');
+  var contact_email = $('#contact_email');
+  var contact_company = $('#contact_company');
+  var contact_comment = $('#contact_comment');
+  // var name_status = $('#name_status');
+  // var email_status = $('#email_status');
+  var contact_errors = 0;
+  var contact_form = $('.request-info');
+  var submitting_status = $('#submitting_status');
+
+    var default_name = '<%= EmailInfoRequest.name_prompt %>';
+    var default_email = '<%= EmailInfoRequest.email_prompt %>';
+    var default_phone = '<%= EmailInfoRequest.phone_prompt %>';
+    var default_comment = '<%= EmailInfoRequest.comment_prompt %>';
+
+    restartForm();
+
+  contact_name.blur(function(){
+    validateName(0);
+  });
+
+  contact_email.blur(function(){
+    validateEmail(0);
+  });
+
+  function validateInfoRequestForm(){
+    validateName(1);
+    validateEmail(1);
+  }
+
+  function validateName(display_error){  
+    if ((contact_name.val() == default_name) || (contact_name.val() == '')){
+      contact_errors = 'name';
+      if (display_error){
+        //name_status.show();
+        contact_name.css('border','1px red solid');
+      }
+    }else{
+      //name_status.hide();
+      contact_name.css('border','1px #4FAA60 solid');
+    } 
+  }
+
+  function validateEmail(){
+    if ((contact_email.val() == default_email) || (contact_email.val() == '')){
+      contact_errors = 'email';
+      //email_status.show();
+      contact_email.css('border','1px red solid');
+    }else{
+      //email_status.hide();
+      contact_email.css('border','1px #4FAA60 solid');
+    } 
+ 
+  }
+
+
+  function disableInputFields(form) {
+    form.find('input, textarea').attr('disabled', 'disabled');
+    }
+
+  function restartForm(){
+    contact_form.find('input, textarea').removeAttr('disabled');
+    contact_email.val(default_email);
+    contact_company.val(default_phone);
+    contact_name.val(default_name);
+    contact_comment.val(default_comment);
+  }
+
+  function showSuccessMessage(){
+    $('#our_response').show();
+  }
+
+
+  function doAfterInfoRequest() {
+    showSuccessMessage();
+    $('#email-info-request').find('#spinner').hide();
+    disableInputFields(contact_form);
+    submitting_status.hide();
+  }
+
+  function submitInfoRequest(form) {
+  submitting_status.show();
+  var data = {contact_email: contact_email.val(),
+              contact_company: contact_company.val(),
+              contact_name: contact_name.val(),
+              contact_comment: contact_comment.val()}
+  $.post('email_info_requests', data, function(message){
+
+  });
+
+  }
+
+  $('#contact-submit').click(function(e){
+    e.preventDefault();
+    contact_errors = 0;
+    validateInfoRequestForm();
+    if (contact_errors == 0){
+      submitInfoRequest(contact_form);
+    }
+    
+  });
+
+
 </script>
