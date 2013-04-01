@@ -1,8 +1,9 @@
 @media (max-width:680px) {
+  body {border:5px red solid!important;}
   header #logo {width:140px;}
   header nav {font-size:1em;}
-  #slider {height:650px;}
-  // Turns slider buttons squarer
+  //Turns slider buttons squarer
+  // #slider {height:585px;}
   // #slide_name li {text-align: center;}
   // #slider #slider_controllers #slide_name a {padding:1em 0;}
   // #slider #slider_controllers #slide_name a:before {display:block; margin:0 auto;}

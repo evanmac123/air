@@ -1,21 +1,22 @@
 // Main slider
 #slider {
   position:relative;
-  height:630px;
+  height:590px;
   .slide {
     border:1px transparent solid;
     background:no-repeat top center $white;
     display: none;
-    height:565px;
+    height:525px;
     position: absolute;
     width:100%;
     &#s_play {display:block;}
-    &#s_measure .slider_content_holder{margin-top:11%;}
+    &#s_measure .slider_content_holder{margin-top:130px;}
     .slider_content_holder {
       margin-top:5%;
-      margin-left:10%;
+      margin-left:7%;
       position:absolute;
-      width:39%;
+      width:45%;
+      max-width:500px;
       a.pop-button {font-size:1.125em; margin-top:1em;}
       h1 {
         padding-bottom:.75em;
@@ -53,7 +54,7 @@
         li {
           padding:.55em;
           &#pm_2 {margin-top:81px;}
-          &#pm_3 {margin-top:50px;}
+          &#pm_3 {height:40px; margin-top:53px; overflow:hidden;}
         }
         li p {color:$text-color;}
       }
@@ -81,12 +82,12 @@
     }
     #slide_name {
       position:absolute;
-      top:565px;
+      top:525px;
       &:after{@include clear;}
       a {
         color:$white;
         display: inline-block;
-        padding:1em 2em;
+        padding:.85em 2em;
         vertical-align: middle;
         &:before{
           background:black;

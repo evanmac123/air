@@ -72,14 +72,18 @@
       width:72%;
     }
     .resource_holder {
-      background:$light-gray;
       display: inline-block;
-      height:150px;
       margin:0 .3em .3em 0;
+      position: relative;
       vertical-align: top;
       width:31.75%;
-      &#lauraVideo {
+      &#datadeck a {
+        font-size:1.125em; 
+        width:100%;
+      }
+      &#bernieVideo, &#lauraVideo {
         overflow:hidden;
+        a {width:100%; img {width:100%;}}
       }
     }
   }
