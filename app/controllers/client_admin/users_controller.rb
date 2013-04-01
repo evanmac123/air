@@ -74,7 +74,7 @@ class ClientAdmin::UsersController < ClientAdminBaseController
   protected
 
   def browse_request?
-    params[:begins_with].present? || params[:show_everyone].present?
+    params[:show_everyone].present?
   end
 
   def render_browse_page
@@ -82,12 +82,7 @@ class ClientAdmin::UsersController < ClientAdminBaseController
 
     @users = current_user.demo.users.alphabetical.limit(PAGE_SIZE).offset(@offset)
     
-    if params[:begins_with].present?
-      @users = @users.name_starts_with(params[:begins_with])
-      @result_description = '"' + params[:begins_with] + '"'
-    else
-      @result_description = "everyone"
-    end
+    @result_description = "everyone"
 
     @show_previous_link = @offset > 0
     @show_next_link = @offset + PAGE_SIZE < current_user.demo.users.count

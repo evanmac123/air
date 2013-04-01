@@ -13,11 +13,6 @@
     <%= text_field_tag 'name-substring', nil, placeholder: "First or last name" %>
     <div id="name-autocomplete-target"></div>
   </div>
-  <%= form_tag client_admin_users_path, method: :get, id: 'letter-search' do %>
-    <h2 class="subhead">List of users by first name:</h2>
-    <%= select_tag :begins_with, options_for_select('A'..'Z'), prompt: 'Select a letter'  %>
-    <div class="button_wrap"><input type="submit" value="Find"></div>
-  <% end %>
   <%= link_to "Show everyone", client_admin_users_path(show_everyone: true), id: "show-everyone" %>
 </div>
 

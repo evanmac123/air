@@ -3,14 +3,6 @@ require 'acceptance/acceptance_helper'
 feature 'Browses user lists' do
   let(:client_admin) { FactoryGirl.create(:client_admin) }
 
-  def select_letter_to_browse(letter)
-    within('#letter-search') { select 'A' }
-  end
-
-  def click_browse_button
-    within('#letter-search') { click_button 'Find' }
-  end
-
   def expect_browse_row(user, sense=true)
     within '#search-results-table' do
       expected_text = [user.name, user.email, user.location.try(:name), (user.claimed? ? "Yes" : "No"), "Send"].compact.join(' ')
@@ -20,27 +12,6 @@ feature 'Browses user lists' do
 
   def expect_no_browse_row(user)
     expect_browse_row(user, false)
-  end
-
-  it "should let the admin browse users by first letter" do
-    alfred = FactoryGirl.create(:user, :with_location, name: "Alfred Jones", demo: client_admin.demo)
-    arthur = FactoryGirl.create(:user, :with_location, name: "Arthur Smith", demo: client_admin.demo)
-    bailey = FactoryGirl.create(:user, :with_location, name: "Bailey Jones", demo: client_admin.demo)
-    other_demo_alfred = FactoryGirl.create(:user, :with_location, name: "Alfred Robinson")
-    other_demo_alfred.demo.should_not == client_admin.demo
-
-    visit client_admin_users_path(as: client_admin)
-    select_letter_to_browse 'A'
-    click_browse_button
-
-    expect_browse_row(alfred)
-    expect_browse_row(arthur)
-    expect_no_browse_row(bailey)
-    expect_no_browse_row(other_demo_alfred)
-    expect_content "Showing results for \"A\""
-
-    click_link "Alfred Jones"
-    should_be_on edit_client_admin_user_path(alfred)
   end
 
   it "should show everyone if asked" do
