@@ -14,6 +14,7 @@ Feature: Talking Chicken
       | Brand New           | name: Hell on Wheels |
     And "Brand New" has password "chicken"
     And I sign in via the login page as "Brand New/chicken"
+    And I need to rewrite this test so it isn't garbage
 
   @javascript 
   Scenario: Talking Chicken pops first and foremost
