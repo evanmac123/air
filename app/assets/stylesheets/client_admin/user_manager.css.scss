@@ -6,7 +6,6 @@ body.client_admin-users {
             display:inline-block;
             float:left;
             width:50%;
-            &#employer-info {padding-left:1em;}
         }
         .info-cols li {
             padding-bottom:.75em;
@@ -109,7 +108,8 @@ body.client_admin-users {
             }
         }
         #user-data-entry {margin-bottom:1em;&:after{@include clear;}}
-        #user-characteristics {display:none; margin-bottom:1em;}
+        .extra-user-info {display:none;}
+        #user-characteristics {margin-bottom:1em;}
     }
 // ================== Search results ==================
 body.client_admin-users-show {

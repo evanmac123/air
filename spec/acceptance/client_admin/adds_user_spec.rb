@@ -21,6 +21,8 @@ feature 'Adds user' do
   def fill_in_user_information
     fill_in "Name",        :with => "Jehosaphat Emshwiller"
     fill_in "Email",       :with => "jemsh@example.com"
+
+    click_link "More options"
     fill_in "Employee ID", :with => "012345"
     fill_in "Zip code",    :with => "02139"
 
@@ -30,7 +32,6 @@ feature 'Adds user' do
     select_date_of_birth("April", "17", "1977")
 
     # And the characteristics
-    click_link "More options"
     check 'Likes cats'
     fill_in "Date of last teeth cleaning", :with => "Jan 1, 2012"
     fill_in "Remaining teeth", :with => "27"

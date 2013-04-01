@@ -5,7 +5,7 @@ $(document).ready(function() {
   var i = 1;
   
   $('#toggle-more-options a').click(function(event) {
-    $('#user-characteristics').fadeToggle();
+    $('.extra-user-info').fadeToggle();
     i++;
     if (i%2 != 0) {
       $(this).html(more);

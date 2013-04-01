@@ -1,18 +1,21 @@
 <div id="loaded-user-data" class="section">
-  <h1 class="headline">User profile</h1>
-  <ul id="personal-info" class="info-cols">
+  <ul class="info-cols">
     <li><%= form.label "name" %><%= form.text_field "name", placeholder: "First and last" %></li>
+  </ul>
+  <ul class="info-cols">
     <li><%= form.label "email" %><%= form.text_field "email", placeholder: "name@example.com" %></li>
     <% if show_phone_number %>
       <li><%= form.label "phone_number" %><%= form.text_field "phone_number", value: user.phone_number.as_pretty_phone %></li>
     <% end %>
+  </ul>
+  <ul class="info-cols extra-user-info">
     <li><label>Birthday</label><div id="birthday-selects">
         <%= form.date_select :date_of_birth, order: [:month, :day, :year], start_year: 1920, end_year: Date.today.year - 18, prompt: true %>
       </div>
     </li>
     <li><%= form.label :gender %><%= form.select :gender, User::GENDERS.select(&:present?), :include_blank => true %></li>
   </ul>
-  <ul id="employer-info" class="info-cols">
+  <ul class="info-cols extra-user-info">
     <li><%= form.label "employee_id", "Employee ID" %><%= form.text_field "employee_id" %></li>
     <li><%= form.label "zip_code" %><%= form.text_field "zip_code", placeholder: "#####" %></li>
     <li><%= form.label "location_id", "Location code" %><%= form.select :location_id, options_from_collection_for_select(@locations, :id, :name, user.location_id), :include_blank => true %></li>

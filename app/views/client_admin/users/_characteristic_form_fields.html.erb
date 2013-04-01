@@ -1,7 +1,6 @@
-<div id="user-characteristics" class="section">
+<div id="user-characteristics" class="section extra-user-info">
   <h1 class="headline">User characteristics</h1>
   <ul>
-    <%# CONNIE these are a total mess, please make them look...better %>
     <% visible_characteristics.each do |visible_characteristic| %>
       <li><%= characteristic_input(visible_characteristic, user, namespace: "user[characteristics]") %></li>
     <% end %>
