@@ -2,8 +2,8 @@
 
 <h1 class="page-title" id="title">Manage users</h1>
 
+<h1 class="headline">Add user</h1>
 <div id="add-single-user" class="section">
-  <h2 class="form_title">Add single user</h2>
   <%= render 'add_form', user: @user, visible_characteristics: @visible_characteristics %>
 </div>
 
@@ -14,12 +14,6 @@
     <div id="name-autocomplete-target"></div>
   </div>
   <%= link_to "Show everyone", client_admin_users_path(show_everyone: true), id: "show-everyone" %>
-</div>
-
-<div id="bulk-load" class="section">
-  <h1 class="headline">Add or edit multiple users</h1>
-  <p>Nullam id dolor id nibh ultricies vehicula ut id elit. Nullam quis risus eget urna mollis ornare vel eu leo. Donec ullamcorper nulla non metus auctor fringilla. Donec ullamcorper nulla non metus auctor fringilla. Nulla vitae elit libero, a pharetra augue. Sed posuere consectetur est at lobortis.</p>
-  <div class="button_wrap"><a href="#">Send us a file</a></div>
 </div>
 
 <% content_for :javascript do %>

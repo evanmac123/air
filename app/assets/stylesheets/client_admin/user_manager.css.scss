@@ -100,7 +100,6 @@ body.client_admin-users {
     #add-single-user {
         &:before {@include clear;}
         border:$border-dark;
-        margin-top:3em;        
         form.user-profile#single-form {
             background:$white;
             padding:1em;
