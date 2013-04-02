@@ -74,7 +74,8 @@
     <input type="submit" value="Complete setup">
   </form>
 </section>
+<%= javascript_include_tag 'external/select_interests' %>
 <script>
-mixpanel.track("Game Setup visit");
-mixpanel.track_forms("#priorities", "Game Setup form submission");
+  mixpanel.track("Game Setup visit");
+  mixpanel.track_forms("#priorities", "Game Setup form submission");
 </script>
