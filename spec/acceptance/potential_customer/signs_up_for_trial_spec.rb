@@ -27,6 +27,7 @@ feature 'Signs up for trial' do
 
   def enter_name_and_email
     visit root_path
+    debugger
     page.first(trial_name_input_selector).set("Joey Bananas")
     page.first(trial_email_input_selector).set("joey@mafia.com")
     click_start_game_button

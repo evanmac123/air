@@ -84,13 +84,8 @@
 <%= render "shared/request_demo" %>
 <%= javascript_include_tag 'external/sliders.js' %>
 <script>
-mixpanel.track("Homepage visit");
-mixpanel.track_links("#nav", "Nav link clicked", {'referrer': document.referrer });
-mixpanel.track_links("#clients", "Client logo clicked", {'referrer': document.referrer });
-mixpanel.track_forms("#platform_features #get_started_form form", "Homepage body Request Demo form submission");
 $(".get_started").click(function(){
   $("#get_started_form").slideToggle();
   $(this).toggleClass('on-button');
-  mixpanel.track("Get Started toggle signup clicked");
 });
 </script>

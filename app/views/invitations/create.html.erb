@@ -4,7 +4,3 @@
   <p>If you haven't received this e-mail within a few minutes, please request for it to be re-sent <%= link_to "here", new_invitation_resend_path %>, or contact <%= link_to "support@hengage.com", "mailto:support@hengage.com" %> for help.</p>
 <% end %>
 <%= mp_track_page 'invitation request confirmation' %>
-
-<script>
-mixpanel.track("Invitation requested page visited");
-</script>
