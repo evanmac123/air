@@ -1,77 +1,32 @@
 <section id="new_game">
   <h1>Customize your game</h1>
 
-  <form method="GET" id="priorities">
-    <input type="text" autofocus id="name_game" placeholder="Name your game" />
+  <%= form_tag games_path, id: "priorities" do %>
+    <%= hidden_field_tag :customer_name, params[:customer_name] %>
+    <%= hidden_field_tag :customer_email, params[:customer_email] %>
+    <input type="text" autofocus id="name_game" name="company_name" placeholder="Name your game" />
 
     <p>Select up to three priorities:</p>
     <div id="priorities_tiles">
-      <span class="type_tile">
-          <input type="checkbox" name="open-enrollment" value="1" />
-          <p>Open enrollment</p>
-      </span>
-      <span class="type_tile">
-          <input type="checkbox" name="life-wellness" value="1" />
-          <p>Lifestyle wellness</p>
-      </span>
-      <span class="type_tile">
-          <input type="checkbox" name="healthcare" value="1" />
-          <p>Health care reform</p>
-      </span>
-      <span class="type_tile">
-          <input type="checkbox" name="fined" value="1" />
-          <p>Financial education &amp; retirement</p>
-      </span>
-      <span class="type_tile">
-          <input type="checkbox" name="safety" value="1" />
-          <p>Safety</p>
-      </span>
-      <span class="type_tile">
-          <input type="checkbox" name="training" value="1" />
-          <p>Training</p>
-      </span>
-      <span class="type_tile">
-          <input type="checkbox" name="onboarding" value="1" />
-          <p>Onboarding</p>
-      </span>
-      <span class="type_tile">
-          <input type="checkbox" name="hrabio" value="1" />
-          <p>HRA/Biometrics</p>
-      </span>
-      <span class="type_tile">
-          <input type="checkbox" name="retirement" value="1" />
-          <p>Retirement readiness</p>
-      </span>
-      <span class="type_tile">
-          <input type="checkbox" name="fin_wellness" value="1" />
-          <p>Financial wellness</p>
-      </span>
-      <span class="type_tile">
-          <input type="checkbox" name="benefits" value="1" />
-          <p>Benefits appreciation</p>
-      </span>
-      <span class="type_tile">
-          <input type="checkbox" name="engagement" value="1" />
-          <p>Employee engagement</p>
-      </span>
-      <span class="type_tile">
-          <input type="checkbox" name="feedback" value="1" />
-          <p>Survey &amp; feedback</p>
-      </span>
-      <span class="type_tile">
-          <input type="checkbox" name="announcements" value="1" />
-          <p>General announcements</p>
-      </span>
-      <span class="type_tile">
-          <input type="checkbox" name="corp-comm" value="1" />
-          <p>Corporate communications</p>
-      </span>
-      <span class="type_tile">
-          <input type="checkbox" name="other" value="1" />
-          <p>Other</p>
-      </span>
+      <%= render 'type_tile', tile_text: "Open Enrollment" %>
+      <%= render 'type_tile', tile_text: "Wellness" %>
+      <%= render 'type_tile', tile_text: "Health care reform" %>
+      <%= render 'type_tile', tile_text: "Financial education & retirement" %>
+      <%= render 'type_tile', tile_text: "Safety" %>
+      <%= render 'type_tile', tile_text: "Training" %>
+      <%= render 'type_tile', tile_text: "Onboarding" %>
+      <%= render 'type_tile', tile_text: "HRA/Biometrics" %>
+      <%= render 'type_tile', tile_text: "Retirement readiness" %>
+      <%= render 'type_tile', tile_text: "Financial wellness" %>
+      <%= render 'type_tile', tile_text: "Benefits appreciation" %>
+      <%= render 'type_tile', tile_text: "Employee engagement" %>
+      <%= render 'type_tile', tile_text: "Survey & feedback" %>
+      <%= render 'type_tile', tile_text: "General announcements" %>
+      <%= render 'type_tile', tile_text: "Corporate communications" %>
+      <%= render 'type_tile', tile_text: "Other" %>
     </div>
-    <input type="submit" value="Complete setup">
-  </form>
+    <input type="submit" value="Complete setup" disabled="disabled">
+  <% end %>
 </section>
+
 <%= javascript_include_tag 'external/select_interests' %>

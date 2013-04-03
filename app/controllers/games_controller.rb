@@ -1,6 +1,7 @@
 class GamesController < ApplicationController
   skip_before_filter :authorize
   layout 'external' 
+
   def new
     redirect_if_missing_information
   end
