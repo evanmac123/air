@@ -263,4 +263,12 @@ module SteakHelperMethods
   def expect_marketing_page_blurb
     expect_content "Drive engagement in workplace programs using social mobile gaming."
   end
+
+  def expect_disabled(element)
+    element["disabled"].should_not be_nil
+  end
+
+  def expect_not_disabled(element)
+    element["disabled"].should be_nil
+  end
 end

@@ -8,9 +8,17 @@ feature 'Signs up for trial' do
   def trial_email_input_selector
     ".customer-email"
   end
- 
+
+  def start_game_button_selector
+    "input[value='Start a game']"
+  end
+
+  def start_game_button
+    page.first start_game_button_selector
+  end
+
   def click_start_game_button
-    page.first("input[value='Start a game']").click
+    start_game_button.click
   end
 
   def game_name_input_selector
@@ -34,11 +42,11 @@ feature 'Signs up for trial' do
   end
 
   def expect_setup_button_disabled
-    setup_button["disabled"].should_not be_nil
+    expect_disabled(setup_button)
   end
 
   def expect_setup_button_enabled
-    setup_button["disabled"].should be_nil
+    expect_not_disabled(setup_button)
   end
 
   def find_checkbox_by_value(text)
@@ -128,27 +136,22 @@ feature 'Signs up for trial' do
   end
 
   context 'omitting their name or email' do
-    it 'should give them a gentle rebuke' do
+    it 'should leave the start-game button disabled until they ante up', js: true do
       visit root_path
-      click_start_game_button
-
-      should_be_on root_path
-      pending
-      expect_missing_name_or_email_error
+      expect_disabled(start_game_button)
 
       page.first(trial_name_input_selector).set("Joey Bananas")
-      click_start_game_button
-      should_be_on root_path
-      expect_missing_name_or_email_error
-
+      expect_disabled(start_game_button)
+      
       page.first(trial_email_input_selector).set("joey@mafia.com")
-      click_start_game_button
-      should_be_on root_path
-      expect_missing_name_or_email_error
+      expect_not_disabled(start_game_button)
+
+      page.first(trial_name_input_selector).set("")
+      expect_disabled(start_game_button)
 
       page.first(trial_name_input_selector).set("Joey Bananas")
-      page.first(trial_email_input_selector).set("joey@mafia.com")
-      should_be_on new_game_path
+      page.first(trial_email_input_selector).set("")
+      expect_disabled(start_game_button)
     end
   end
 
