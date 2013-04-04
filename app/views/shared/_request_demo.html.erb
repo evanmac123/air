@@ -1,4 +1,3 @@
-<!-- HOOKUP -->
 <section id="request_demo">
   <h1>Great!</h1>
   <h2>We just need some info to get started.</h2>
@@ -6,11 +5,12 @@
     <ul id="demo_basics">
       <li><input type="text" id="contact_name" placeholder="First and last name" /></li>
       <li><input type="text" id="contact_email" placeholder="Email address" /></li>
-      <li><input type="text" id="contact_company" placeholder="Company name" /></li>
-      <li><textarea id="company_comment" placeholder="Tell us about your interests and priorities!"></textarea></li>
+      <li><input type="text" id="contact_phone" placeholder="Phone number (optional)" /></li>
+      <li><textarea id="contact_comment" placeholder="Tell us about your interests and priorities!"></textarea></li>
     </ul>
     <input type="submit" value="All set!" />
-    <p>Thanks, we'll be in touch within two business days!</p>
+    <span class="submitting_status" style="display:none">Submitting...</span>
+    <span class="submitted" style="display:none">Thanks, we'll be in touch within two business days!</span>
   </form>
 </section>
 
@@ -22,20 +22,19 @@ $('.request_a_demo').click(function(){
 
   var contact_name = $('#contact_name');
   var contact_email = $('#contact_email');
-  var contact_company = $('#contact_company');
+  var contact_phone = $('#contact_phone');
   var contact_comment = $('#contact_comment');
-  // var name_status = $('#name_status');
-  // var email_status = $('#email_status');
   var contact_errors = 0;
   var contact_form = $('.request-info');
-  var submitting_status = $('#submitting_status');
+  var submitting_status = $('.submitting_status');
+  var submitted = $('.submitted');
 
-    var default_name = '<%= EmailInfoRequest.name_prompt %>';
-    var default_email = '<%= EmailInfoRequest.email_prompt %>';
-    var default_phone = '<%= EmailInfoRequest.phone_prompt %>';
-    var default_comment = '<%= EmailInfoRequest.comment_prompt %>';
+  var default_name = 'Your name';
+  var default_email = 'Email address';
+  var default_phone = 'Phone number (optional)';
+  var default_comment = 'Thoughts and comments (optional)';
 
-    restartForm();
+  restartForm();
 
   contact_name.blur(function(){
     validateName(0);
@@ -83,36 +82,32 @@ $('.request_a_demo').click(function(){
   function restartForm(){
     contact_form.find('input, textarea').removeAttr('disabled');
     contact_email.val(default_email);
-    contact_company.val(default_phone);
+    contact_phone.val(default_phone);
     contact_name.val(default_name);
     contact_comment.val(default_comment);
   }
 
-  function showSuccessMessage(){
-    $('#our_response').show();
-  }
-
 
   function doAfterInfoRequest() {
-    showSuccessMessage();
-    $('#email-info-request').find('#spinner').hide();
-    disableInputFields(contact_form);
     submitting_status.hide();
+    submitted.show();
+    disableInputFields(contact_form);
   }
 
   function submitInfoRequest(form) {
-  submitting_status.show();
-  var data = {contact_email: contact_email.val(),
-              contact_company: contact_company.val(),
-              contact_name: contact_name.val(),
-              contact_comment: contact_comment.val()}
-  $.post('email_info_requests', data, function(message){
-
-  });
+    submitting_status.show();
+    console.log(contact_comment.val());
+    var data = {contact_email: contact_email.val(),
+                contact_phone: contact_phone.val(),
+                contact_name: contact_name.val(),
+                contact_comment: contact_comment.val()}
+    $.post('email_info_requests', data, function(message){
+      doAfterInfoRequest();
+    });
 
   }
 
-  $('#contact-submit').click(function(e){
+  $('#request_demo form input[type=submit]').click(function(e){
     e.preventDefault();
     contact_errors = 0;
     validateInfoRequestForm();

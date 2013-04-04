@@ -3,20 +3,15 @@ require 'spec_helper'
 describe EmailInfoRequest do
   include Shoulda::Matchers::ActionMailer 
 
-  describe "after create" do
-    before(:each) do
+  describe "#notify_the_ks_of_demo_request" do
+    it "should create a job that notifies Vlad that someone wants our wares" do
       ActionMailer::Base.deliveries.clear
 
-      EmailInfoRequest.create!(:name => 'Dude Duderson', :email => 'dude@bigco.com', :comment => 'Hot shit!')
-    end
+      request = EmailInfoRequest.create!(:name => 'Dude Duderson', :email => 'dude@bigco.com', :comment => 'Hot shit!')
+      request.notify_the_ks_of_demo_request
+      Delayed::Worker.new.work_off
 
-    context "should create a job that notifies Vlad that someone wants our wares" do
-      before(:each) do
-        ActionMailer::Base.deliveries.should be_empty
-
-        Delayed::Worker.new.work_off
-      end
-      it { should have_sent_email.to('vlad@hengage.com').with_body(/Dude Duderson.*dude@bigco.com.*Comment.*Hot shit!/m).with_subject(/Information Request/) }
+      should have_sent_email.to('team_k@hengage.com').with_body(/Dude Duderson.*dude@bigco.com.*Comment.*Hot shit!/m).with_subject(/Information Request/)
     end
   end
 end
