@@ -18,6 +18,7 @@ $font: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   cursor:pointer;
   font-weight:600;
   padding:.35em .75em;
+  &:disabled, &:disabled:hover{background-color: $light-gray; border-color: $light-gray;}
   &:hover{color:$white;}
   @if $bg == $blue {
     &:hover{
