@@ -3,6 +3,8 @@ class GameCreationRequestMailer < ActionMailer::Base
 
   def notify_ks(game_creation_request)
     @interests = game_creation_request.interests
+    @name = game_creation_request.customer_name
+    @email = game_creation_request.customer_email
 
     to_address = ENV['GAME_CREATION_REQUEST_ADDRESS'] || 'team_k@hengage.com'
 

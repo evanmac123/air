@@ -12,6 +12,7 @@
     margin:.5em 0;
     padding-left:0;
     width:100%;
+    @include placeholder_color($orange)
   }
   #priorities_tiles {
     padding-bottom:1.75em;
