@@ -18,11 +18,15 @@ gameNameBlank = ->
   normalizedGameName().length == 0
 
 
+formShouldBeDisabled = -> (checkedInterestCheckboxesCount() == 0) || gameNameBlank()
+
 
 enableSubmitButtonWhenRequiredInputsFilled = ->
-  disableButton = (checkedInterestCheckboxesCount() == 0) || gameNameBlank()
-  submitButton.prop('disabled', disableButton)
+  submitButton.prop('disabled', formShouldBeDisabled)
 
+
+cancelFormSubmitIfMissingRequiredDocumentation = (e) ->
+  e.preventDefault() if formShouldBeDisabled()
 
 
 toggleInterestTileChecking = (event) ->
@@ -41,4 +45,5 @@ toggleInterestTileChecking = (event) ->
 
 
 $(document).on('click', '.type_tile p', toggleInterestTileChecking)
+$(document).on('submit', 'form', cancelFormSubmitIfMissingRequiredDocumentation)
 gameNameTextField.bind 'keyup', enableSubmitButtonWhenRequiredInputsFilled
