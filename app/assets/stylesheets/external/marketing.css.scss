@@ -116,6 +116,7 @@ footer {
   }
 }
 
+
 #sign_up_form_error {
   border:1px darken($red, 5%) solid;
   text-align: center;
@@ -127,16 +128,8 @@ footer {
   padding:.5em 1em;
   margin-top:.5em;
   max-width:100%;
-  // &:before, &:after {
-  //   content: "";
-  //   display: inline-block;
-  //   background:darken($red, 5%);
-  //   height:.1em;
-  //   margin:0 .25em;
-  //   vertical-align: middle;
-  //   width:10%;
-  // }
 }
+input.unfilled-field {border:2px $red solid;}
 #request_demo {
   background:$white;
   display: none;
