@@ -38,6 +38,7 @@ section#clients {
     margin:0 .65em;
     overflow: hidden;
     position: relative;
+    vertical-align: middle;
     width:24%;
     a {
       display: inline-block;
@@ -55,7 +56,7 @@ section#platform_features {
   border-bottom:$border-dark;
   padding-bottom:1.5em;
   text-align: center;
-  #try_platform_buttons {text-align: center;}
+  #try_platform_buttons {margin-top:1em; text-align: center;}
   #try_platform_buttons li {
     display:inline-block; 
     margin:.5em;
