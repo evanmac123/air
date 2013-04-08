@@ -129,7 +129,7 @@ footer {
   margin-top:.5em;
   max-width:100%;
 }
-input.unfilled-field {border:2px $red solid;}
+input.unfilled-field {border-color:$red;}
 #request_demo {
   background:$white;
   display: none;
