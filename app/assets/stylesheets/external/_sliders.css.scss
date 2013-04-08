@@ -34,6 +34,7 @@
     }
     input[type="submit"]{@include pop-button($orange);}
     input[type="submit"], .slider_content_holder a.pop-button {
+      margin:0;
       padding:.5em 1em;
       text-transform: uppercase;
       &:hover {padding:.5em 1em;}
@@ -129,16 +130,6 @@
     }
   }
 }
-
-// Disabled top slider button states
-#slider .slide input[type="submit"]:disabled, 
-#slider .slide input[type="submit"]:disabled:hover {
-  background:darken($orange, 5%);
-  border-color:darken($orange, 8%);
-  color:darken($orange, 12%);
-}
-
-
 
 // Stats slider
 #platform_extras {

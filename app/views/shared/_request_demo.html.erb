@@ -5,8 +5,10 @@
     <ul id="demo_basics">
       <li><input type="text" id="contact_name" placeholder="First and last name" /></li>
       <li><input type="text" id="contact_email" placeholder="Email address" /></li>
-      <li><input type="text" id="contact_phone" placeholder="Phone number (optional)" /></li>
-      <li><textarea id="contact_comment" placeholder="Tell us about your interests and priorities!"></textarea></li>
+      <li><input type="text" id="contact_company" placeholder="Company" /></li>
+      <li><input type="text" id="contact_role" placeholder="Role" /></li>
+      <li><input type="text" id="contact_size" placeholder="Company size" /></li>
+      <li><textarea id="contact_comment" placeholder="Tell us about your interests and priorities"></textarea></li>
     </ul>
     <input type="submit" value="All set!" />
     <span class="submitting_status" style="display:none">Submitting...</span>
@@ -28,11 +30,6 @@ $('.request_a_demo').click(function(){
   var contact_form = $('.request-info');
   var submitting_status = $('.submitting_status');
   var submitted = $('.submitted');
-
-  var default_name = 'Your name';
-  var default_email = 'Email address';
-  var default_phone = 'Phone number (optional)';
-  var default_comment = 'Thoughts and comments (optional)';
 
   restartForm();
 
