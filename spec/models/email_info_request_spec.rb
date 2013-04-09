@@ -4,14 +4,33 @@ describe EmailInfoRequest do
   include Shoulda::Matchers::ActionMailer 
 
   describe "#notify_the_ks_of_demo_request" do
-    it "should create a job that notifies Vlad that someone wants our wares" do
+    it "should create a job that notifies us that someone wants our wares" do
       ActionMailer::Base.deliveries.clear
 
-      request = EmailInfoRequest.create!(:name => 'Dude Duderson', :email => 'dude@bigco.com', :comment => 'Hot shit!')
+      request = EmailInfoRequest.create!(
+        name:    'Dude Duderson', 
+        email:   'dude@bigco.com', 
+        comment: 'Hot shit!', 
+        company: "Big Machines", 
+        role:    "Widget Flinger", 
+        size:    "300"
+      )
+
       request.notify_the_ks_of_demo_request
       Delayed::Worker.new.work_off
 
-      should have_sent_email.to('team_k@hengage.com').with_body(/Dude Duderson.*dude@bigco.com.*Comment.*Hot shit!/m).with_subject(/Information Request/)
+      open_email 'team_k@hengage.com'
+      current_email.subject.should include("Information Request")
+      [
+        "Dude Duderson",
+        "dude@bigco.com",
+        "Hot shit!",
+        "Big Machines",
+        "Widget Flinger",
+        "300"
+      ].each do |text_piece|
+        current_email.body.should include(text_piece)
+      end
     end
   end
 end

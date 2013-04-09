@@ -28,9 +28,9 @@
   var contact_size = $('#contact_size');
   var contact_comment = $('#contact_comment');
   var contact_errors = 0;
-  var contact_form = $('.request-info');
   var submitting_status = $('.submitting_status');
-  var request_demo = $('#request_demo')
+  var request_demo = $('#request_demo');
+  var contact_form = request_demo.find('form');
 
   restartForm();
 
@@ -100,10 +100,16 @@
 
   function submitInfoRequest(form) {
     submitting_status.show();
-    // HRFF: serialize form
-    var data = {contact_email: contact_email.val(),
-                contact_name: contact_name.val(),
-                contact_comment: contact_comment.val()}
+    var data = {
+      // .serialize should work but doesn't.
+      contact_name:    contact_name.val(),
+      contact_email:   contact_email.val(),
+      contact_company: contact_company.val(),
+      contact_role:    contact_role.val(),
+      contact_size:    contact_size.val(),
+      contact_comment: contact_comment.val()
+    };
+    console.log(data);
     $.post('email_info_requests', data, function(message){
       doAfterInfoRequest();
     });

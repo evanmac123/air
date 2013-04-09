@@ -3,16 +3,14 @@ class EmailInfoRequestNotifier < ActionMailer::Base
   helper :email
   has_delay_mail
 
-  def info_requested(name, email, phone, comment)
-    @name = name
+  def info_requested(email_info_request)
     begin
-      @first_name = name.split.first
+      @first_name = email_info_request.name.split.first
     rescue
-      @first_name = name
+      @first_name = email_info_request.name
     end
-    @email = email
-    @phone = phone
-    @comment = comment
+
+    @email_info_request = email_info_request
 
     mail(:from    => 'H Engage Notifier<notify@hengage.com>',
          :to      => ENV['GAME_CREATION_REQUEST_ADDRESS'] || 'team_k@hengage.com',
