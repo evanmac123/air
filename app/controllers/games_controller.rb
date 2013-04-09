@@ -1,5 +1,6 @@
 class GamesController < ApplicationController
   skip_before_filter :authorize
+  before_filter :display_social_links
   layout 'external' 
 
   def new

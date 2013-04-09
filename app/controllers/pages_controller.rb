@@ -7,6 +7,7 @@ class PagesController < HighVoltage::PagesController
   before_filter :force_html_format
   before_filter :signed_out_only, :except => FAQ_PAGES << :public_help
   before_filter :set_login_url
+  before_filter :display_social_links_if_marketing_or_waiting_room
 
 
   layout :layout_for_page
@@ -55,4 +56,7 @@ class PagesController < HighVoltage::PagesController
                  end
   end
 
+  def display_social_links_if_marketing_or_waiting_room
+    display_social_links if %w(waitingroom marketing).include?(params[:id])
+  end
 end

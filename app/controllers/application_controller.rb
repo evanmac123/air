@@ -205,6 +205,9 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def display_social_links
+    @display_social_links = true
+  end
 
   def self.must_be_authorized_to(page_class, options={})
     before_filter(options) do
