@@ -1,4 +1,4 @@
-<section id="request_demo">
+<section id="request_demo" class="lightbox-content">
   <h1>Great!</h1>
   <h2>We just need some info to get started.</h2>
   <form>
@@ -12,24 +12,25 @@
     </ul>
     <input type="submit" value="All set!" />
     <span class="submitting_status" style="display:none">Submitting...</span>
-    <span class="submitted" style="display:none">Thanks, we'll be in touch within two business days!</span>
   </form>
 </section>
 
 <script>
-$('.request_a_demo').click(function(){
-  $("#request_demo").lightbox_me();
-});
+  $('.request_a_demo').click(function(){
+    $("#request_demo").lightbox_me();
+  });
 
 
   var contact_name = $('#contact_name');
   var contact_email = $('#contact_email');
-  var contact_phone = $('#contact_phone');
+  var contact_company = $('#contact_company');
+  var contact_role = $('#contact_role');
+  var contact_size = $('#contact_size');
   var contact_comment = $('#contact_comment');
   var contact_errors = 0;
   var contact_form = $('.request-info');
   var submitting_status = $('.submitting_status');
-  var submitted = $('.submitted');
+  var request_demo = $('#request_demo')
 
   restartForm();
 
@@ -46,8 +47,12 @@ $('.request_a_demo').click(function(){
     validateEmail(1);
   }
 
+  function blankField(field) {
+    return($.trim(field.val()) == '');
+  }
+
   function validateName(display_error){  
-    if ((contact_name.val() == default_name) || (contact_name.val() == '')){
+    if (blankField(contact_name)){
       contact_errors = 'name';
       if (display_error){
         //name_status.show();
@@ -60,7 +65,7 @@ $('.request_a_demo').click(function(){
   }
 
   function validateEmail(){
-    if ((contact_email.val() == default_email) || (contact_email.val() == '')){
+    if (blankField(contact_email)){
       contact_errors = 'email';
       //email_status.show();
       contact_email.css('border','1px red solid');
@@ -76,26 +81,27 @@ $('.request_a_demo').click(function(){
     form.find('input, textarea').attr('disabled', 'disabled');
     }
 
+  
   function restartForm(){
     contact_form.find('input, textarea').removeAttr('disabled');
-    contact_email.val(default_email);
-    contact_phone.val(default_phone);
-    contact_name.val(default_name);
-    contact_comment.val(default_comment);
+    contact_form.find('input[type=text], textarea').val('')
   }
 
+  function fadeOutThanksMessage() {
+    request_demo.animate({opacity: 0}, {complete: function() {request_demo.trigger('close');}});
+  }
 
   function doAfterInfoRequest() {
     submitting_status.hide();
-    submitted.show();
     disableInputFields(contact_form);
+    request_demo.text("Thanks! We'll be in touch.");
+    window.setTimeout(fadeOutThanksMessage, 3000);
   }
 
   function submitInfoRequest(form) {
     submitting_status.show();
-    console.log(contact_comment.val());
+    // HRFF: serialize form
     var data = {contact_email: contact_email.val(),
-                contact_phone: contact_phone.val(),
                 contact_name: contact_name.val(),
                 contact_comment: contact_comment.val()}
     $.post('email_info_requests', data, function(message){
