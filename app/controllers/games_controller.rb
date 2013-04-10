@@ -4,7 +4,11 @@ class GamesController < ApplicationController
   layout 'external' 
 
   def new
-    redirect_if_missing_information
+    if missing_information?
+      remember_name_and_email
+      show_error_next_request
+      redirect_to :back
+    end
   end
 
   def create
@@ -25,9 +29,16 @@ class GamesController < ApplicationController
     game_creation_request.schedule_notification
   end
 
-  def redirect_if_missing_information
-    unless params[:customer_name].present? && params[:customer_email].present?
-      redirect_to :back
-    end
+  def remember_name_and_email
+    flash[:customer_name] = params[:customer_name]
+    flash[:customer_email] = params[:customer_email]
+  end
+
+  def show_error_next_request
+    flash[:show_sign_up_form_error] = true
+  end
+
+  def missing_information?
+    params[:customer_name].blank? || params[:customer_email].blank?
   end
 end

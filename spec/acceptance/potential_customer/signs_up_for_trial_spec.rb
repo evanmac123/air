@@ -61,8 +61,16 @@ feature 'Signs up for trial' do
     find_checkbox_by_value(text).should_not be_checked
   end
 
+  def missing_name_or_email_error
+    "Please enter both your name and an e-mail address."
+  end
+
   def expect_missing_name_or_email_error
-    expect_content "Please enter your name and email address to request a trial."
+    expect_content missing_name_or_email_error
+  end
+
+  def expect_no_missing_name_or_email_error
+    expect_no_content missing_name_or_email_error
   end
 
   context 'with their name, email and interests' do
@@ -87,6 +95,34 @@ feature 'Signs up for trial' do
       current_email.subject.should == "Game creation request from Joey Bananas (Legitimate Businessmen's Social Club)"
       current_email.body.should include("Wellness")
       current_email.body.should include("Onboarding")
+    end
+  end
+
+  context 'omitting their name or email' do
+    before do
+      visit root_path
+    end
+
+    it "should return them to the main marketing path" do
+      click_start_game_button
+      should_be_on root_path
+    end
+
+    it "should show an error" do
+      expect_no_missing_name_or_email_error
+      click_start_game_button
+      expect_missing_name_or_email_error
+    end
+
+    it "should keep any entries they have made" do
+      page.first(trial_name_input_selector).set("Joey Bananas")
+      click_start_game_button
+      page.first(trial_name_input_selector).value.should == "Joey Bananas"
+
+      visit root_path
+      page.first(trial_email_input_selector).set("joey@mafia.org")
+      click_start_game_button
+      page.first(trial_email_input_selector).value.should == "joey@mafia.org"
     end
   end
 
@@ -132,26 +168,6 @@ feature 'Signs up for trial' do
       click_interest_tile "Wellness"
       click_interest_tile "Training"
       expect_interest_tile_selected "Training"
-    end
-  end
-
-  context 'omitting their name or email' do
-    it 'should leave the start-game button disabled until they ante up', js: true do
-      visit root_path
-      expect_disabled(start_game_button)
-
-      page.first(trial_name_input_selector).set("Joey Bananas")
-      expect_disabled(start_game_button)
-      
-      page.first(trial_email_input_selector).set("joey@mafia.com")
-      expect_not_disabled(start_game_button)
-
-      page.first(trial_name_input_selector).set("")
-      expect_disabled(start_game_button)
-
-      page.first(trial_name_input_selector).set("Joey Bananas")
-      page.first(trial_email_input_selector).set("")
-      expect_disabled(start_game_button)
     end
   end
 
