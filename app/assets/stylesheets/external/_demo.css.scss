@@ -6,13 +6,13 @@
     border-left:0;
     border-right:0;
     border-top:0;
-    color:$dark-green;
+    color:$orange;
     font-size:1.5em;
     font-weight:300;
     margin:.5em 0;
     padding-left:0;
     width:100%;
-    @include placeholder_color($orange)
+    @include placeholder_color($blue)
   }
   #priorities_tiles {
     padding-bottom:1.75em;
