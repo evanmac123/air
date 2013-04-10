@@ -7,7 +7,6 @@
       <li><input type="text" id="contact_email" placeholder="Email address" /></li>
       <li><input type="text" id="contact_company" placeholder="Company" /></li>
       <li><input type="text" id="contact_role" placeholder="Role" /></li>
-      <li><input type="text" id="contact_size" placeholder="Company size" /></li>
       <li><textarea id="contact_comment" placeholder="Tell us about your interests and priorities"></textarea></li>
     </ul>
     <input type="submit" value="All set!" />
@@ -25,62 +24,44 @@
   var contact_email = $('#contact_email');
   var contact_company = $('#contact_company');
   var contact_role = $('#contact_role');
-  var contact_size = $('#contact_size');
   var contact_comment = $('#contact_comment');
   var contact_errors = 0;
   var submitting_status = $('.submitting_status');
   var request_demo = $('#request_demo');
   var contact_form = request_demo.find('form');
 
+  var required_fields = [contact_name, contact_email, contact_company, contact_role, contact_comment];
+
   restartForm();
 
-  contact_name.blur(function(){
-    validateName(0);
-  });
+  function bindValidationToBlur(field) {
+    field.blur(function() {validateField(field)});
+  }
 
-  contact_email.blur(function(){
-    validateEmail(0);
-  });
+  _.each(required_fields, bindValidationToBlur);
 
   function validateInfoRequestForm(){
-    validateName(1);
-    validateEmail(1);
+    _.each(required_fields, validateField);
   }
 
   function blankField(field) {
     return($.trim(field.val()) == '');
   }
 
-  function validateName(display_error){  
-    if (blankField(contact_name)){
-      contact_errors = 'name';
-      if (display_error){
-        //name_status.show();
-        contact_name.css('border','1px red solid');
-      }
-    }else{
-      //name_status.hide();
-      contact_name.css('border','1px #4FAA60 solid');
-    } 
-  }
+  function validateField(field) {
+    var _field = $(field);
 
-  function validateEmail(){
-    if (blankField(contact_email)){
-      contact_errors = 'email';
-      //email_status.show();
-      contact_email.css('border','1px red solid');
-    }else{
-      //email_status.hide();
-      contact_email.css('border','1px #4FAA60 solid');
-    } 
- 
+    if(blankField(_field)) {
+      _field.css('border','1px red solid');
+      contact_errors = true;
+    } else {
+      _field.css('border','1px #4FAA60 solid');
+    }
   }
-
 
   function disableInputFields(form) {
     form.find('input, textarea').attr('disabled', 'disabled');
-    }
-
+  }
   
   function restartForm(){
     contact_form.find('input, textarea').removeAttr('disabled');
@@ -106,10 +87,8 @@
       contact_email:   contact_email.val(),
       contact_company: contact_company.val(),
       contact_role:    contact_role.val(),
-      contact_size:    contact_size.val(),
       contact_comment: contact_comment.val()
     };
-    console.log(data);
     $.post('email_info_requests', data, function(message){
       doAfterInfoRequest();
     });
@@ -118,12 +97,11 @@
 
   $('#request_demo form input[type=submit]').click(function(e){
     e.preventDefault();
-    contact_errors = 0;
+    contact_errors = false;
     validateInfoRequestForm();
-    if (contact_errors == 0){
+    if (!contact_errors){
       submitInfoRequest(contact_form);
     }
-    
   });
 
 

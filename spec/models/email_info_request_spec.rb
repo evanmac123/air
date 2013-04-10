@@ -13,7 +13,6 @@ describe EmailInfoRequest do
         comment: 'Hot shit!', 
         company: "Big Machines", 
         role:    "Widget Flinger", 
-        size:    "300"
       )
 
       request.notify_the_ks_of_demo_request
@@ -27,7 +26,6 @@ describe EmailInfoRequest do
         "Hot shit!",
         "Big Machines",
         "Widget Flinger",
-        "300"
       ].each do |text_piece|
         current_email.body.should include(text_piece)
       end
