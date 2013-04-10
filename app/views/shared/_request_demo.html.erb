@@ -12,6 +12,7 @@
     </ul>
     <input type="submit" value="All set!" />
     <span class="submitting_status" style="display:none">Submitting...</span>
+    <span class="all_fields_error" style="display:none">Please fill in all fields.</span>
   </form>
 </section>
 
@@ -28,6 +29,7 @@
   var contact_comment = $('#contact_comment');
   var contact_errors = 0;
   var submitting_status = $('.submitting_status');
+  var all_fields_error = $('.all_fields_error');
   var request_demo = $('#request_demo');
   var contact_form = request_demo.find('form');
 
@@ -36,7 +38,9 @@
   restartForm();
 
   function bindValidationToBlur(field) {
-    field.blur(function() {validateField(field)});
+    field.blur(function() {
+      validateField(field);
+    });
   }
 
   _.each(required_fields, bindValidationToBlur);
@@ -57,6 +61,7 @@
       contact_errors = true;
     } else {
       _field.css('border','1px #4FAA60 solid');
+      all_fields_error.hide();
     }
   }
 
@@ -95,11 +100,17 @@
 
   }
 
+  function showErrorMessage() {
+    all_fields_error.show();
+  }
+
   $('#request_demo form input[type=submit]').click(function(e){
     e.preventDefault();
     contact_errors = false;
     validateInfoRequestForm();
-    if (!contact_errors){
+    if (contact_errors) {
+      showErrorMessage();
+    } else {
       submitInfoRequest(contact_form);
     }
   });
