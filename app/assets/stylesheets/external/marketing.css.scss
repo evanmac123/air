@@ -145,5 +145,6 @@ input.unfilled-field {border-color:$red;}
   }
   p {padding:.5em 0;}
 }
+.close_request_demo {font-size:.75em;position:absolute; top:.5em; right:.5em;}
 .get_started.pop-button.on-button {@include pop-button(darken($blue, 10%));}
 .text-placeholder {color: #AAA !important}
