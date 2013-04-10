@@ -1,11 +1,29 @@
 <%= form_tag new_game_path, method: :get do |f| %>
   <ul>
-    <%= text_field_tag "customer_name", flash[:customer_name], class: "customer-name unfilled-field", placeholder: "First and last name" %>
-    <%= text_field_tag "customer_email", flash[:customer_email], class: "customer-email unfilled-field", placeholder: "Email" %>
+    <% name_field_css_class = "customer-name signup-field" %>
+    <% email_field_css_class = "customer-email signup-field" %>
+
+    <% if flash[:show_sign_up_form_error] %>
+      <% name_field_css_class += " unfilled-field" if flash[:customer_name].blank? %>
+      <% email_field_css_class += " unfilled-field" if flash[:customer_email].blank? %>
+    <% end %>
+
+    <%= text_field_tag "customer_name", flash[:customer_name], class: name_field_css_class, placeholder: "First and last name" %>
+    <%= text_field_tag "customer_email", flash[:customer_email], class: email_field_css_class, placeholder: "Email" %>
     <li><input type="submit" value="Start a game" class="start-game-button"/><p>14 day free trial</p></li>
   </ul>
 <% end %>
 
 <% if flash[:show_sign_up_form_error] %>
   <div id="sign_up_form_error">Please enter both your name and an e-mail address.</div>
+<% end %>
+
+<%= javascript_tag do %>
+  $('.signup-field').blur(function(e) {
+    var field = $(e.target);
+    
+    var isBlank = ($.trim(field.val()) == '');
+
+    field.toggleClass('unfilled-field', isBlank);
+  })
 <% end %>
