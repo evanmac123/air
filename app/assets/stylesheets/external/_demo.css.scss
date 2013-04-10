@@ -42,6 +42,11 @@
       }
     }
   }
+
+  .game_request_error {
+    color: red;
+    display: none;
+  }
 }
 
 #waiting_room {

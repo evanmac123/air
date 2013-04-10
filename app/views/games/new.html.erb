@@ -5,6 +5,8 @@
     <%= hidden_field_tag :customer_name, params[:customer_name] %>
     <%= hidden_field_tag :customer_email, params[:customer_email] %>
     <input type="text" autofocus id="name_game" name="company_name" placeholder="Name your game" />
+    <div id="name_error_message" class="game_request_error">Please choose a name for your game.</div>
+    <div id="priorities_error_message" class="game_request_error">Please choose one to three priorities.</div>
 
     <p>Select up to three priorities:</p>
     <div id="priorities_tiles">
@@ -25,7 +27,7 @@
       <%= render 'type_tile', tile_text: "Corporate communications" %>
       <%= render 'type_tile', tile_text: "Other" %>
     </div>
-    <input type="submit" value="Complete setup" disabled="disabled">
+    <input type="submit" value="Complete setup">
   <% end %>
 </section>
 

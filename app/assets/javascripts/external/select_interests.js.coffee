@@ -1,6 +1,10 @@
 submitButton = $("input[type='submit']")
 interestCheckboxes = $("input[name='interests[]']")
 gameNameTextField = $('#name_game')
+nameErrorMessage = $('#name_error_message')
+prioritiesErrorMessage = $('#priorities_error_message')
+
+
 
 checkedInterestCheckboxesCount = ->
   interestCheckboxes.filter(':checked').length
@@ -18,15 +22,22 @@ gameNameBlank = ->
   normalizedGameName().length == 0
 
 
-formShouldBeDisabled = -> (checkedInterestCheckboxesCount() == 0) || gameNameBlank()
+noInterestsChecked = ->
+  checkedInterestCheckboxesCount() == 0
 
 
-enableSubmitButtonWhenRequiredInputsFilled = ->
-  submitButton.prop('disabled', formShouldBeDisabled)
+formShouldBeDisabled = -> noInterestsChecked() || gameNameBlank()
 
+
+showErrors = ->
+  nameErrorMessage.toggle gameNameBlank()
+  prioritiesErrorMessage.toggle noInterestsChecked()
+  
 
 cancelFormSubmitIfMissingRequiredDocumentation = (e) ->
-  e.preventDefault() if formShouldBeDisabled()
+  if formShouldBeDisabled()
+    showErrors()
+    e.preventDefault()
 
 
 toggleInterestTileChecking = (event) ->
@@ -41,9 +52,7 @@ toggleInterestTileChecking = (event) ->
       checkbox.prop('checked', true).attr('checked', 'checked')
       paragraph.css 'background', '#ff7d00'
 
-  enableSubmitButtonWhenRequiredInputsFilled()
 
 
 $(document).on('click', '.type_tile p', toggleInterestTileChecking)
 $(document).on('submit', 'form', cancelFormSubmitIfMissingRequiredDocumentation)
-gameNameTextField.bind 'keyup', enableSubmitButtonWhenRequiredInputsFilled

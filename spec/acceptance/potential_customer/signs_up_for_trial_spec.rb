@@ -41,14 +41,6 @@ feature 'Signs up for trial' do
     should_be_on new_game_path
   end
 
-  def expect_setup_button_disabled
-    expect_disabled(setup_button)
-  end
-
-  def expect_setup_button_enabled
-    expect_not_disabled(setup_button)
-  end
-
   def find_checkbox_by_value(text)
     page.find("input[value='#{text}']")  
   end
@@ -71,6 +63,16 @@ feature 'Signs up for trial' do
 
   def expect_no_missing_name_or_email_error
     expect_no_content missing_name_or_email_error
+  end
+
+  def expect_form_disabled
+    click_button "Complete setup"
+    should_be_on new_game_path
+  end
+
+  def expect_form_enabled
+    click_button "Complete setup"
+    should_be_on page_path("waitingroom")
   end
 
   context 'with their name, email and interests' do
@@ -127,31 +129,56 @@ feature 'Signs up for trial' do
   end
 
   context "when they select no interests" do
-    it "should keep the submit button disabled", js: true do
+    it "should keep the form disabled", js: true do
       enter_name_and_email
       fill_in game_name_input_selector, with: "Just some guys"
-      expect_setup_button_disabled
+      expect_form_disabled
 
       click_interest_tile "Wellness"
-      expect_setup_button_enabled
+      expect_form_enabled
 
+      enter_name_and_email
+      fill_in game_name_input_selector, with: "Just some guys"
+      click_interest_tile "Wellness"
       click_interest_tile "Onboarding"
-      expect_setup_button_enabled
+      expect_form_enabled
 
+      enter_name_and_email
+      fill_in game_name_input_selector, with: "Just some guys"
+      click_interest_tile "Wellness"
+      click_interest_tile "Onboarding"
       click_interest_tile "Safety"
-      expect_setup_button_enabled
+      expect_form_enabled
 
       # and now let's switch 'em off
 
+      enter_name_and_email
+      fill_in game_name_input_selector, with: "Just some guys"
       click_interest_tile "Wellness"
-      expect_setup_button_enabled
-
       click_interest_tile "Onboarding"
-      expect_setup_button_enabled
+      click_interest_tile "Safety"
+      click_interest_tile "Wellness"
+      expect_form_enabled
+
+      enter_name_and_email
+      fill_in game_name_input_selector, with: "Just some guys"
+      click_interest_tile "Wellness"
+      click_interest_tile "Onboarding"
+      click_interest_tile "Safety"
+      click_interest_tile "Wellness"
+      click_interest_tile "Onboarding"
+      expect_form_enabled
 
       # still one selected, but now...
+      enter_name_and_email
+      fill_in game_name_input_selector, with: "Just some guys"
+      click_interest_tile "Wellness"
+      click_interest_tile "Onboarding"
       click_interest_tile "Safety"
-      expect_setup_button_disabled
+      click_interest_tile "Wellness"
+      click_interest_tile "Onboarding"
+      click_interest_tile "Safety"
+      expect_form_disabled
     end
   end
 
@@ -172,20 +199,24 @@ feature 'Signs up for trial' do
   end
 
   context 'not filling in a company name' do
-    it "should keep the submit button disabled", js: true do
+    it "should keep the form disabled", js: true do
       enter_name_and_email
 
       click_interest_tile "Wellness"
-      expect_setup_button_disabled
+      expect_form_disabled
 
       fill_in game_name_input_selector, with: "Legitimate Businessmen's Social Club"
-      expect_setup_button_enabled
+      expect_form_enabled
 
+      enter_name_and_email
+      click_interest_tile "Wellness"
       fill_in game_name_input_selector, with: "       "
-      expect_setup_button_disabled
+      expect_form_disabled
 
+      enter_name_and_email
+      click_interest_tile "Wellness"
       fill_in game_name_input_selector, with: ''
-      expect_setup_button_disabled
+      expect_form_disabled
     end
   end
 end
