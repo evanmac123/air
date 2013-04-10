@@ -130,6 +130,8 @@ footer {
   max-width:100%;
 }
 input.unfilled-field {border-color:$red;}
+.close_request_demo {font-size:.75em;position:absolute; top:.5em; right:.5em;}
+.all_fields_error {color:$red;}
 .lightbox-content {
   background:$white;
   display: none;
@@ -145,6 +147,5 @@ input.unfilled-field {border-color:$red;}
   }
   p {padding:.5em 0;}
 }
-.close_request_demo {font-size:.75em;position:absolute; top:.5em; right:.5em;}
 .get_started.pop-button.on-button {@include pop-button(darken($blue, 10%));}
 .text-placeholder {color: #AAA !important}
