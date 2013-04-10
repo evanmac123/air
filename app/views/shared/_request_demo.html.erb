@@ -19,9 +19,6 @@
   $('.request_a_demo').click(function(){
     $("#request_demo").lightbox_me();
   });
-  $('.close_request_demo').click(function(){
-    $('#request_demo').trigger('close');
-  });
 
 
   var contact_name = $('#contact_name');
@@ -107,5 +104,5 @@
     }
   });
 
-
+  $(document).on('click', '.close_request_demo', function(){ $('#request_demo').trigger('close'); });
 </script>
