@@ -1,4 +1,5 @@
 <section id="request_demo" class="lightbox-content">
+  <a href="#!" class="close_request_demo">Close</a>
   <h1>Great!</h1>
   <h2>We just need some info to get started.</h2>
   <form>
@@ -18,6 +19,9 @@
 <script>
   $('.request_a_demo').click(function(){
     $("#request_demo").lightbox_me();
+  });
+  $('.close_request_demo').click(function(){
+    $('#request_demo').trigger('close');
   });
 
 
@@ -94,8 +98,7 @@
   function doAfterInfoRequest() {
     submitting_status.hide();
     disableInputFields(contact_form);
-    request_demo.text("Thanks! We'll be in touch.");
-    window.setTimeout(fadeOutThanksMessage, 3000);
+    request_demo.html("<a href='#!' class='close_request_demo'>Close</a><h1>Thanks!</h1><h2>We'll be in touch.</h2>");
   }
 
   function submitInfoRequest(form) {
