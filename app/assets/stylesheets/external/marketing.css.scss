@@ -117,7 +117,7 @@ footer {
 }
 
 
-#sign_up_form_error {
+#sign_up_form_error, .game_request_error {
   border:1px darken($red, 5%) solid;
   text-align: center;
   background:$red;
@@ -131,7 +131,7 @@ footer {
 }
 input.unfilled-field {border-color:$red;}
 .close_request_demo {font-size:.75em;position:absolute; top:.5em; right:.5em;}
-.all_fields_error, .game_request_error {color:$red!important;}
+.all_fields_error {color:$red!important;}
 .lightbox-content {
   background:$white;
   display: none;

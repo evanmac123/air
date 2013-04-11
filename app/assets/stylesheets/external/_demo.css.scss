@@ -43,10 +43,7 @@
     }
   }
 
-  .game_request_error {
-    color: red;
-    display: none;
-  }
+  .game_request_error {display: none; width:50%;}
 }
 
 #waiting_room {
@@ -59,45 +56,51 @@
     padding:2em 0 1em 0;
     text-align: left;
     &:after{@include clear;}
-    // p {text-align: left}
     #status_blurb, #suggestions {
-      //border:1px red solid;
       display:inline-block;
       vertical-align: top;
     }
     #status_blurb {
       float:left;
-      // width:26%;
-      width:32%;
-      a, a:link, a:visited {
-        @include link($blue); 
-        display:block; 
-        margin-top:.65em;
-      }
+      width:29%;
+      // a, a:link, a:visited {
+      //   @include link($blue); 
+      //   display:block; 
+      //   margin-top:.65em;
+      // }
     }
     #suggestions {
-      // color:$gray;
       float:right;
       font-size:.875em;
       font-weight:600;
       text-align: center;
-      // width:72%;
-      width:66%;
+      width:69%;
     }
     .resource_holder {
       display: inline-block;
       margin:0 .3em .3em 0;
       position: relative;
       vertical-align: top;
-      width:48%;
-      &#datadeck a {
-        font-size:1.125em; 
-        width:100%;
-      }
-      &#bernieVideo, &#lauraVideo {
-        overflow:hidden;
-        a {width:100%; img {width:100%;}}
-      }
+      width:32%;
+
+      overflow:hidden;
+      a {width:100%; img {width:100%;}}
+      // &#datadeck {
+      //   // background:$blue;
+      //   // border-bottom:4px darken($blue, 8%) solid;
+      //   border:1px red solid;
+      //   a {
+      //     color:$white;
+      //     font-size:1.125em; 
+      //     min-height:94px;
+      //     padding:2em .5em;
+      //     width:100%;
+      //   }
+      // }
+      // &#bernieVideo, &#lauraVideo {
+      //   overflow:hidden;
+      //   a {width:100%; img {width:100%;}}
+      // }
     }
   }
 }
