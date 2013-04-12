@@ -1,34 +1,17 @@
 <div id="check_phone" class="verify_section">
-  <h1>Check Your Phone</h1>
+  <h1 class="headline">Check Your Phone</h1>
   <p>We sent a text message to your phone to verify your number</p>
   <div id="enter_code">
     <%= form_for current_user, :url => phone_verification_path, :method => :put do |f| %>
-      <div class="relative">
-        <div id="phone_placeholder"> 
-          Enter code here
-        </div>
-      </div>
-      <div class="inline">
-        <%= f.text_field :new_phone_validation, :value => '' %>
-      </div>
-      <div class="inline">
-        <%= submit_tag 'Enter' %>
-      </div>
+      <%= f.text_field :new_phone_validation, :value => '', :placeholder => 'Enter code here' %>
+      <div class="button_wrap"><%= submit_tag 'Enter' %></div>
     <% end %>
-    <div class="left">
-      <%= form_for current_user, :url => resend_phone_verification_path, :method => :post, :html => {:id => :resend} do |f| %>
-        <div id="resend_phone_verification_btn">
-          <%= link_to "Resend", '#' %>
-        </div>
-      <% end %>
-      </div>
-    <div class="right">
-      <%= form_for current_user, :url => cancel_phone_verification_path, :method => :delete, :id => :cancel, :html => {:id => :cancel} do |f| %>
-        <div id="cancel_phone_verification_btn">
-          <%= link_to "Skip this step", '#' %>
-        </div>
-      <% end %>
-    </div>
+    <%= form_for current_user, :url => resend_phone_verification_path, :method => :post, :html => {:id => :resend} do |f| %>
+      <%= link_to "Resend", '#' %>  
+    <% end %>
+    <%= form_for current_user, :url => cancel_phone_verification_path, :method => :delete, :id => :cancel, :html => {:id => :cancel} do |f| %>
+      <%= link_to "Skip this step", '#' %>
+    <% end %>
   </div>
 </div>
 
