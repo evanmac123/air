@@ -56,7 +56,7 @@ body.external {
 }
 
 body.invitations-show form {
-  #all-inputs {position: relative;}
+  .form-ul-section {margin-bottom:1em;position: relative;}
   .helper {
     display: none;
     background:$blue;
@@ -73,8 +73,11 @@ body.invitations-show form {
       left:-8px;
       top:.75em;
     }
-    &#passwordConf {top:7em;}
-    &#number {top:12.25em;}
+  }
+  #notification_prefs {
+    border:1px lighten($light-gray, 5%) dashed;
+    padding:1em;
+    .form-label {padding-bottom:.5em;}
   }
   #check-terms {
     margin:.5em 0;

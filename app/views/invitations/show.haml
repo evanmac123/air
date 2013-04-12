@@ -1,10 +1,4 @@
 %div#session-wrapper
-  %div#broughtby
-    %p Brought to you by:
-    - if @user.demo.client_name.present?
-      %p#sponsoredBy 
-        Sponsored by: 
-        %span#clientName= @user.demo.client_name
 
   - disabled_style = "color: grey; background: #ddd;"
   - optional_style = "background: white;"
@@ -117,9 +111,9 @@
             .form-input
               = text_field_tag :display_email, @user.email, :disabled => true, :style => disabled_style
 
-          = f.fancy_text_field :new_phone_number, :label_text => "Enter your mobile number (optional)", :value => (@user.new_phone_number.present? ? @user.new_phone_number.as_pretty_phone : "xxx-xxx-xxxx (optional)"), :class => 'with-hint-text', :style => optional_style
+          = f.fancy_text_field :new_phone_number, :label_text => "Enter your mobile number (optional)", :placeholder => '(xxx) xxx-xxxxx', :class => 'with-hint-text', :style => optional_style
         - else
-          = f.fancy_text_field :new_phone_number, :label_text => "Enter your mobile number (optional)".html_safe, :value => (@user.new_phone_number.present? ? @user.new_phone_number.as_pretty_phone : "xxx-xxx-xxxx"), :class => 'with-hint-text', :style => optional_style
+          = f.fancy_text_field :new_phone_number, :label_text => "Enter your mobile number (optional)".html_safe, :placeholder => '(xxx) xxx-xxxxx', :class => 'with-hint-text', :style => optional_style
           %ul.form-section#notification_prefs
             %li.form-label Notify me via...
             %li.form-input
@@ -128,7 +122,7 @@
                 = label_tag method_name, label_text, :class => 'check_label'
             .clear
 
-      #search_for_referrer
+      %div.form-ul-section#search_for_referrer
         %ul.form-section
           %li.form-label= label_tag :autocomplete,  "Did anyone refer you? (optional)"
           / %li.form-label.secondary-form-label= label_tag :autocomplete, "(optional)"
@@ -139,8 +133,7 @@
               = render  :template => "invitation/autocompletions/index"
               = text_field_tag :autocomplete, '', :style => "display: none;"
             - else
-              %div.form-ul-section
-              = text_field_tag :autocomplete, "Enter their name", :class => 'with-hint-text', :style => optional_style
+              = text_field_tag :autocomplete, nil, :placeholder => 'Enter their name', :class => 'with-hint-text', :style => optional_style
         #indented_to_match_inputs
           #autocomplete_status
           #suggestions
