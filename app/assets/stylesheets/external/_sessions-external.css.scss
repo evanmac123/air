@@ -54,3 +54,31 @@ body.external {
   padding:.5em .85em;
   position:absolute;
 }
+
+body.invitations-show form {
+  #all-inputs {position: relative;}
+  .helper {
+    display: none;
+    background:$blue;
+    color:$white;
+    font-size:.875em;
+    padding:.65em;
+    position:absolute;
+    right:-275px;
+    top:1.65em;
+    width:250px;
+    &:before {
+      @include arrow-left($blue);
+      position:absolute;
+      left:-8px;
+      top:.75em;
+    }
+    &#passwordConf {top:7em;}
+    &#number {top:12.25em;}
+  }
+  #check-terms {
+    margin:.5em 0;
+    input, label, #terms_label {display:inline-block;}
+  }
+  .signup-submit:after {@include clear;}
+}

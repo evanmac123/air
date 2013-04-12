@@ -1,166 +1,164 @@
-%div#broughtby
-  %p Brought to you by:
-  - if @user.demo.client_name.present?
-    %p#sponsoredBy 
-      Sponsored by: 
-      %span#clientName= @user.demo.client_name
+%div#session-wrapper
+  %div#broughtby
+    %p Brought to you by:
+    - if @user.demo.client_name.present?
+      %p#sponsoredBy 
+        Sponsored by: 
+        %span#clientName= @user.demo.client_name
 
-- disabled_style = "color: grey; background: #ddd;"
-- optional_style = "background: white;"
+  - disabled_style = "color: grey; background: #ddd;"
+  - optional_style = "background: white;"
 
-- content_for(:javascript) do
-
-  :javascript
-    $("input#user_phone_number").focus(function () {
-    	$(".helper").hide();
-    	$(".helper#number").fadeIn();
-    });
-    $("input#user_new_phone_number").focus(function () {
-    	$(".helper").hide();
-    	$(".helper#number").fadeIn();
-    });
-    $("input#user_name").focus(function () {
-    	$(".helper").hide();
-    	$(".helper#name").fadeIn();
-    });
-    $("input#user_sms_slug").focus(function () {
-    	$(".helper").hide();
-    	$(".helper#username").fadeIn();
-    });
-    $("input#autocomplete").focus(function () {
-    	$(".helper").hide();
-    	$(".helper.autocomplete").fadeIn();
-    });
-    $("input#user_password").focus(function () {
-    	$(".helper").hide();
-    	$(".helper#password").fadeIn();
-    });
-    $("input#user_password_confirmation").focus(function () {
-    	$(".helper").hide();
-    	$(".helper#passwordConf").fadeIn();
-    });
-    $("li.form-input").focusout(function () {
-    	$(".helper").fadeOut();
-    });
-    
-    $("#search_for_referrer #autocomplete").focus(function(){
-      $("#autocomplete_status").show();
-    });
-
-    $("#search_for_referrer .single_suggestion").live('click', function(){
-      $("#autocomplete_status").hide();
-    });
-     
-    if (document.getElementById('user_phone_number')){
-      $("#user_phone_number").focus();
-    }else{
-      $("#user_name").focus();      
-    }
-
-    var erroredFields = $('.field_with_errors input');
-    if(erroredFields.length > 0) {
-      erroredFields.first().focus();
-    }
-
-- content_for :status do
-  - if flash[:failure].present?
-    = flash[:failure]
-  - else
-    - welcome_text = "Welcome, #{@user.first_name}"
-    - if @user.invitation_requested_via_sms?
-      %div.welcome-message
-        %h2= welcome_text
-        %p.explanation We just need a few details from you so we can get started.
-
+  - content_for :status do
+    - if flash[:failure].present?
+      = flash[:failure]
     - else
-      %div.welcome-message
-        %h2= welcome_text
-        %p.explanation.hidden
-          %span Just set a password, and you're ready to go
-    
-
-
-= form_for @user, :url => invitation_acceptance_path(:user_id => @user.id), :html => {:autocomplete => :off, :id => "signup-form"}, :builder => FancyFormBuilder do |f|
-  %div#all-inputs
- 
-    %div.form-ul-section
-      %div.helper#password Make sure it’s at least 6 characters. (You know the deal, don’t pick something obvious like your birthday, your last name, your employee ID, etc.)
-      = f.fancy_password_field :password, :label_text => "Choose a password", :value => @user.password
-    %div.form-ul-section
-      %div.helper#passwordConf And confirm that password – just in case.
-      = f.fancy_password_field :password_confirmation, :label_text => "Confirm password", :value => @user.password_confirmation
-        
- 
-    %div.form-ul-section
-      %div.helper#number 
-        This is optional, but you'll have a better experience if you add it. Your usual data and text costs apply.
-      = f.hidden_field :email, :value => @user.email
+      - welcome_text = "Welcome, #{@user.first_name}"
       - if @user.invitation_requested_via_sms?
-        = f.hidden_field :phone_number, :value => @user.phone_number
-        %ul.form-section
-          %li.form-label Your Phone Number
-          .form-input
-            = text_field_tag :display_phone_number, @user.phone_number.as_pretty_phone, :disabled => true, :style => disabled_style
-          .subtle_notice If you want to change or remove your mobile number later, you can do so by going to the Settings page.
+        %div.welcome-message
+          %h2= welcome_text
+          %p.explanation We just need a few details from you so we can get started.
 
-        %ul.form-section
-          %li.form-label Your Email Address
-          .form-input
-            = text_field_tag :display_email, @user.email, :disabled => true, :style => disabled_style
-
-      - elsif @user.invitation_requested_via_email? || @user.invitation_requested_via_web?
-
-        = f.hidden_field :email, :value => @user.email
-        %ul.form-section
-          %li.form-label Your Email Address
-          .form-input
-            = text_field_tag :display_email, @user.email, :disabled => true, :style => disabled_style
-
-        = f.fancy_text_field :new_phone_number, :label_text => "Enter your mobile number<br>(optional)", :value => (@user.new_phone_number.present? ? @user.new_phone_number.as_pretty_phone : "xxx-xxx-xxxx (optional)"), :class => 'with-hint-text', :style => optional_style
       - else
-        = f.fancy_text_field :new_phone_number, :label_text => "Enter your mobile number<br>(optional)".html_safe, :value => (@user.new_phone_number.present? ? @user.new_phone_number.as_pretty_phone : "xxx-xxx-xxxx"), :class => 'with-hint-text', :style => optional_style
-        %ul.form-section#notification_prefs
-          %li.form-label Notify me via...
+        %div.welcome-message
+          %h2= welcome_text
+          %p.explanation.hidden
+            %span Just set a password, and you're ready to go
+      
+
+
+  = form_for @user, :url => invitation_acceptance_path(:user_id => @user.id), :html => {:autocomplete => :off, :id => "signup-form"}, :builder => FancyFormBuilder do |f|
+    %div#all-inputs
+   
+      %div.form-ul-section
+        %div.helper#password Make sure it’s at least 6 characters. (You know the deal, don’t pick something obvious like your birthday, your last name, your employee ID, etc.)
+        = f.fancy_password_field :password, :label_text => "Choose a password", :value => @user.password
+      %div.form-ul-section
+        %div.helper#passwordConf And confirm that password – just in case.
+        = f.fancy_password_field :password_confirmation, :label_text => "Confirm password", :value => @user.password_confirmation
+          
+   
+      %div.form-ul-section
+        %div.helper#number 
+          This is optional, but you'll have a better experience if you add it. Your usual data and text costs apply.
+        = f.hidden_field :email, :value => @user.email
+        - if @user.invitation_requested_via_sms?
+          = f.hidden_field :phone_number, :value => @user.phone_number
+          %ul.form-section
+            %li.form-label Your Phone Number
+            .form-input
+              = text_field_tag :display_phone_number, @user.phone_number.as_pretty_phone, :disabled => true, :style => disabled_style
+            .subtle_notice If you want to change or remove your mobile number later, you can do so by going to the Settings page.
+
+          %ul.form-section
+            %li.form-label Your Email Address
+            .form-input
+              = text_field_tag :display_email, @user.email, :disabled => true, :style => disabled_style
+
+        - elsif @user.invitation_requested_via_email? || @user.invitation_requested_via_web?
+
+          = f.hidden_field :email, :value => @user.email
+          %ul.form-section
+            %li.form-label Your Email Address
+            .form-input
+              = text_field_tag :display_email, @user.email, :disabled => true, :style => disabled_style
+
+          = f.fancy_text_field :new_phone_number, :label_text => "Enter your mobile number (optional)", :value => (@user.new_phone_number.present? ? @user.new_phone_number.as_pretty_phone : "xxx-xxx-xxxx (optional)"), :class => 'with-hint-text', :style => optional_style
+        - else
+          = f.fancy_text_field :new_phone_number, :label_text => "Enter your mobile number (optional)".html_safe, :value => (@user.new_phone_number.present? ? @user.new_phone_number.as_pretty_phone : "xxx-xxx-xxxx"), :class => 'with-hint-text', :style => optional_style
+          %ul.form-section#notification_prefs
+            %li.form-label Notify me via...
+            %li.form-input
+              - [["SMS/text message", :sms], ["Email", :email], ["Both", :both] ].each do |label_text, method_name| 
+                = f.radio_button :notification_method, method_name, :class => 'notification_pref', :id => method_name
+                = label_tag method_name, label_text, :class => 'check_label'
+            .clear
+
+      #search_for_referrer
+        %ul.form-section
+          %li.form-label= label_tag :autocomplete,  "Did anyone refer you? (optional)"
+          / %li.form-label.secondary-form-label= label_tag :autocomplete, "(optional)"
           %li.form-input
-            - [["SMS/text message", :sms], ["Email", :email], ["Both", :both] ].each do |label_text, method_name| 
-              = f.radio_button :notification_method, method_name, :class => 'notification_pref', :id => method_name
-              = label_tag method_name, label_text, :class => 'check_label'
-          .clear
+            = f.hidden_field :game_referrer_id, :class => "form-input"
+            - if @user.game_referrer_id
+              - @matched_users = User.where(:id => @user.game_referrer_id)
+              = render  :template => "invitation/autocompletions/index"
+              = text_field_tag :autocomplete, '', :style => "display: none;"
+            - else
+              %div.form-ul-section
+              = text_field_tag :autocomplete, "Enter their name", :class => 'with-hint-text', :style => optional_style
+        #indented_to_match_inputs
+          #autocomplete_status
+          #suggestions
 
-    #search_for_referrer
-      %ul.form-section
-        %li.form-label= label_tag :autocomplete,  "Did anyone refer you?"
-        %li.form-label.secondary-form-label= label_tag :autocomplete, "(optional)"
-        %li.form-input
-          = f.hidden_field :game_referrer_id, :class => "form-input"
-          - if @user.game_referrer_id
-            - @matched_users = User.where(:id => @user.game_referrer_id)
-            = render  :template => "invitation/autocompletions/index"
-            = text_field_tag :autocomplete, '', :style => "display: none;"
-          - else
-            %div.form-ul-section
-            = text_field_tag :autocomplete, "Enter their name", :class => 'with-hint-text', :style => optional_style
-      #indented_to_match_inputs
-        #autocomplete_status
-        #suggestions
+      %ul.form-section#check-terms
+        = f.check_box(:terms_and_conditions)
+        = f.label :terms_and_conditions, :style => "display: none;"
+        #terms_label
+          I accept the 
+          = link_to "terms & conditions", terms_path(:id => 'terms')
+        - if @user.errors[:terms_and_conditions].present?
+          .form-msg= @user.errors[:terms_and_conditions].first
 
-    %ul.form-section#check-terms
-      = f.check_box(:terms_and_conditions)
-      = f.label :terms_and_conditions, :style => "display: none;"
-      #terms_label
-        I accept the 
-        = link_to "terms & conditions", terms_path(:id => 'terms')
-      - if @user.errors[:terms_and_conditions].present?
-        .form-msg= @user.errors[:terms_and_conditions].first
+      %ul.form-section.signup-submit
 
-      .cf
-    %ul.form-section.signup-submit
+        .orange-btn= f.submit "Log in", :style => 'float: left;',  :id => 'join_the_game_link'
+        .contact_us_link{:style => "float: right; padding-top:15px"} 
+          = link_to "Need help?"
 
-      .orange-btn= f.submit "Log in", :style => 'float: left;',  :id => 'join_the_game_link'
-      .contact_us_link{:style => "float: right; padding-top:15px"} 
-        = link_to "Need help?"
-      .cf
-    .cf
-= render 'shared/intercom'
-= javascript_include_tag 'external/join'
+  - content_for(:javascript) do
+
+    :javascript
+      $("input#user_phone_number").focus(function () {
+        $(".helper").hide();
+        $(".helper#number").fadeIn();
+      });
+      $("input#user_new_phone_number").focus(function () {
+        $(".helper").hide();
+        $(".helper#number").fadeIn();
+      });
+      $("input#user_name").focus(function () {
+        $(".helper").hide();
+        $(".helper#name").fadeIn();
+      });
+      $("input#user_sms_slug").focus(function () {
+        $(".helper").hide();
+        $(".helper#username").fadeIn();
+      });
+      $("input#autocomplete").focus(function () {
+        $(".helper").hide();
+        $(".helper.autocomplete").fadeIn();
+      });
+      $("input#user_password").focus(function () {
+        $(".helper").hide();
+        $(".helper#password").fadeIn();
+      });
+      $("input#user_password_confirmation").focus(function () {
+        $(".helper").hide();
+        $(".helper#passwordConf").fadeIn();
+      });
+      $("li.form-input").focusout(function () {
+        $(".helper").fadeOut();
+      });
+      
+      $("#search_for_referrer #autocomplete").focus(function(){
+        $("#autocomplete_status").show();
+      });
+
+      $("#search_for_referrer .single_suggestion").live('click', function(){
+        $("#autocomplete_status").hide();
+      });
+       
+      if (document.getElementById('user_phone_number')){
+        $("#user_phone_number").focus();
+      }else{
+        $("#user_name").focus();      
+      }
+
+      var erroredFields = $('.field_with_errors input');
+      if(erroredFields.length > 0) {
+        erroredFields.first().focus();
+      }
+  = render 'shared/intercom'
+  = javascript_include_tag 'external/join'
 

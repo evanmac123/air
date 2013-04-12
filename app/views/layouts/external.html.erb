@@ -6,19 +6,22 @@
     
     <title>H.Engage</title>
 
+    <meta property="og:title" content="H.Engage" />
+    <meta property="og:image" content="http:<%= path_to_image "marketing/thumb.jpg" %>" />
+    <meta property="og:image:width" content="200" />
+    <meta property="og:image:height" content="200" />
     <meta name="description" content="Drive engagement in workplace programs using social mobile gaming." />
-    <meta name="keywords" content="Workplace,programs,HR,benefits,social,mobile,gaming" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300,600' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300,600' rel='stylesheet' type='text/css'>
     <%= stylesheet_link_tag 'app-external' %>
     <%= javascript_include_tag 'app-external' %>
     
-
     <!--[if lt IE 9]>
       <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
       <style type="text/css">input[type="password"]{font-family:Arial!important;} .gradient {filter: none;}</style>
     <![endif]-->
+    <%= javascript_include_tag asset_path('ga.js') if ENV['USE_GA'] %>
+
   </head>
   <body class="<%= body_class %> external">
     <i id="blue" class="colorbar"></i>
