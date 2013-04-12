@@ -7,10 +7,14 @@
       <div class="button_wrap"><%= submit_tag 'Enter' %></div>
     <% end %>
     <%= form_for current_user, :url => resend_phone_verification_path, :method => :post, :html => {:id => :resend} do |f| %>
-      <%= link_to "Resend", '#' %>  
+      <div id="resend_phone_verification_btn">
+        <%= link_to "Resend", '#' %>  
+      </div>
     <% end %>
     <%= form_for current_user, :url => cancel_phone_verification_path, :method => :delete, :id => :cancel, :html => {:id => :cancel} do |f| %>
-      <%= link_to "Skip this step", '#' %>
+      <div id="cancel_phone_verification_btn">
+        <%= link_to "Skip this step", '#' %>
+      </div>
     <% end %>
   </div>
 </div>
