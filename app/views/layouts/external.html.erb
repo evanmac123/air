@@ -36,5 +36,6 @@
     </div>
     <%= render 'shared/mixpanel' %>
     <%= javascript_include_tag asset_path('ga-marketing.js') if ENV['USE_GA'] %>
+    <%= yield :javascript %>  
   </body>
 </html>
