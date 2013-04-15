@@ -1,5 +1,4 @@
 %div#session-wrapper
-
   - disabled_style = "color: grey; background: #ddd;"
   - optional_style = "background: white;"
 
@@ -76,6 +75,12 @@
 
 
   = form_for @user, :url => invitation_acceptance_path(:user_id => @user.id), :html => {:autocomplete => :off, :id => "signup-form"}, :builder => FancyFormBuilder do |f|
+    - if @user.demo.client_name.present?
+      %div#broughtby
+        %p#sponsoredBy 
+          Sponsored by: 
+          %span#clientName= @user.demo.client_name
+
     %div#all-inputs
    
       %div.form-ul-section
