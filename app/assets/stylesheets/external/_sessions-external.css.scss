@@ -55,8 +55,28 @@ body.external {
   position:absolute;
 }
 
+
+// Styles for Invitations show/acceptance page
 body.invitations-show form {
   .form-ul-section {margin-bottom:1em;position: relative;}
+  #broughtby {
+    text-align: center;
+    &:after{@include clear;}
+    #sponsoredBy {
+      font-size:.875em;
+      font-weight:600;
+      color:$dark-green;
+      margin-bottom:1em;
+      &:before, &:after {
+        content:"";
+        display: inline-block;
+        background: $light-gray;
+        height:1px;
+        width:3em;
+        vertical-align: middle;
+      }
+    }
+  }
   .helper {
     display: none;
     background:$blue;
