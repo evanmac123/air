@@ -270,6 +270,7 @@ module SteakHelperMethods
 
   def expect_not_disabled(element)
     element["disabled"].should be_nil
+  end
 
   def wait_until(timeout = Capybara.default_wait_time)
     Capybara.send(:timeout, timeout, page.driver) { yield }
