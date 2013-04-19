@@ -142,10 +142,6 @@ class ClientAdmin::UsersController < ClientAdminBaseController
     @visible_characteristics = @generic_characteristics + @demo_specific_characteristics
   end
 
-  def load_locations
-    @locations = current_user.demo.locations.alphabetical
-  end
-
   def find_user
     @user = current_user.demo.users.find_by_slug(params[:id])
   end

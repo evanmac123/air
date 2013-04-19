@@ -26,7 +26,7 @@ feature 'Adds user' do
     fill_in "Employee ID", :with => "012345"
     fill_in "Zip code",    :with => "02139"
 
-    select "Boston", :from => "Location code"
+    select "Boston", :from => "Location"
     select "other",  :from => "Gender"
 
     select_date_of_birth("April", "17", "1977")
