@@ -1,3 +1,12 @@
+startLoadingFeedback = () ->
+  # stub stub
+  console.log 'starting feedback'
+
+stopLoadingFeedback = () ->
+  # stub stub
+  console.log 'stopping feedback'
+
+
 updateLocationList = (selector) ->
   (data) -> 
     $(selector).replaceWith(data)
@@ -12,8 +21,9 @@ createNewLocation = (selector, addOptionValue, postURL) ->
     
     newLocationName = window.prompt "What shall we call the new location?"
     if newLocationName
+      startLoadingFeedback()
       postOptions = {name: newLocationName}
-      $.post postURL, postOptions, updateLocationList(selector), 'html'
+      $.post(postURL, postOptions, updateLocationList(selector), 'html').complete(stopLoadingFeedback)
 
 
 
