@@ -19,14 +19,6 @@ feature 'Edits user' do
                       )
   end
 
-  def create_characteristics(demo)
-    @boolean_characteristic = FactoryGirl.create :characteristic, :boolean, name: "Likes cats", demo_id: demo.id
-    @date_characteristic = FactoryGirl.create :characteristic, :date, name: "Date of last teeth cleaning", demo_id: demo.id
-    @number_characteristic = FactoryGirl.create :characteristic, :number, name: "Remaining teeth", demo_id: demo.id
-    @time_characteristic = FactoryGirl.create :characteristic, :time, name: "Lunchtime", demo_id: demo.id
-    @discrete_characteristic = FactoryGirl.create :characteristic, :discrete, name: "Favorite Beatle", allowed_values: %w(John Paul George Ringo), demo_id: demo.id
-  end
-
   def expect_name(expected_name)
     page.find("input#user_name").value.should == expected_name
   end
@@ -84,10 +76,6 @@ feature 'Edits user' do
     select year,  :from => "user_date_of_birth_1i"
   end
 
-  before do
-    create_characteristics(demo)
-  end
-
   it "should update of the same attributes as creation" do
     visit(edit_client_admin_user_path(user, as: client_admin))
     expect_name "Francis X. McGillicuddy"
@@ -106,12 +94,6 @@ feature 'Edits user' do
     fill_in "Zip code",     :with => "94110"
     set_date_of_birth "May", "20", "1975"
 
-    check "Likes cats"
-    fill_in "Date of last teeth cleaning", :with => "Jan 1, 2012"
-    fill_in "Remaining teeth",             :with => "44"
-    fill_in "Lunchtime",                   :with => "March 13, 2013, 7 PM"
-    select "George",                       :from => "Favorite Beatle"
-
     click_button "Save edits"
     expect_name "Frances McGillicuddy"
     expect_email "fran@example.com"
@@ -120,12 +102,6 @@ feature 'Edits user' do
     expect_gender "female"
     expect_employee_id "09876"
     expect_zip_code "94110"
-
-    expect_characteristic "Remaining teeth", "44.0"
-    expect_characteristic "Lunchtime", "March 13, 2013, 07:00 PM"
-    expect_characteristic "Likes cats", true
-    expect_characteristic "Favorite Beatle", "George"
-    expect_characteristic "Date of last teeth cleaning", "January 1, 2012"
 
     expect_content "OK, we've updated this user's information"
   end

@@ -1,8 +1,0 @@
-<div id="user-characteristics" class="section extra-user-info">
-  <h1 class="headline">User characteristics</h1>
-  <ul>
-    <% visible_characteristics.each do |visible_characteristic| %>
-      <li><%= characteristic_input(visible_characteristic, user, namespace: "user[characteristics]") %></li>
-    <% end %>
-  </ul>
-</div>

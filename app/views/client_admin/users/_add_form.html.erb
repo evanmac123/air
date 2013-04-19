@@ -1,5 +1,4 @@
 <%= form_for user, url: client_admin_users_path, html: {class: "user-profile", id: "single-form"} do |f| %>
   <%= render 'basic_form_fields', form: f, user: user, show_phone_number: false %>
-  <%= render 'characteristic_form_fields', visible_characteristics: visible_characteristics, user: user %>
   <%= render 'form_buttons', submit_button_text: "Add user", reset_link_text: "Clear fields", show_delete_link: false %>
 <% end %>

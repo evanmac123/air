@@ -30,13 +30,6 @@ feature 'Adds user' do
     select "other",  :from => "Gender"
 
     select_date_of_birth("April", "17", "1977")
-
-    # And the characteristics
-    check 'Likes cats'
-    fill_in "Date of last teeth cleaning", :with => "Jan 1, 2012"
-    fill_in "Remaining teeth", :with => "27"
-    fill_in "Lunchtime", :with => "March 12, 2013, 2:30 PM"
-    select "George", :from => "Favorite Beatle"
   end
 
   def create_characteristics(demo)
@@ -74,13 +67,6 @@ feature 'Adds user' do
     new_user.claim_code.should be_present
     new_user.date_of_birth.should == Date.parse("1977-04-17")
     new_user.gender.should == "other"
-
-    new_user.characteristics[@boolean_characteristic.id].should == true
-    new_user.characteristics[@discrete_characteristic.id].should == 'George'
-    new_user.characteristics[@date_characteristic.id].should == Date.parse('2012-01-01')
-    new_user.characteristics[@time_characteristic.id].should == Time.parse("2013-03-12 14:30")
-    new_user.characteristics[@number_characteristic.id].should == 27
-
     expect_add_message "Jehosaphat Emshwiller"
   end
 
