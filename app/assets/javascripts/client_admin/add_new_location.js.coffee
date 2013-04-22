@@ -1,9 +1,12 @@
 startLoadingFeedback = () ->
-  # stub stub
+  # disable dropdown
+  do $('#adding_location img').show
+  $('select#user_location_id').attr disabled: 'disabled'
   console.log 'starting feedback'
 
 stopLoadingFeedback = () ->
-  # stub stub
+  # reenable dropdown
+  do $('#adding_location img').hide
   console.log 'stopping feedback'
 
 

@@ -114,7 +114,7 @@ $border-light:      1px #fff solid;
 a, a:link, a:visited {@include link($dark-green);}
 h1, h2, h3 {font-family:$sans; margin:0; padding:0;}
 img {border:0; margin:0; padding:0;}
-input:focus,textarea {outline: 0;}
+input:focus, select, textarea {outline: 0;}
 
 p {margin:0;padding:0;}
 ol, ul {list-style-position:outside; list-style-type:none; margin:0; padding:0;}
@@ -141,7 +141,7 @@ input[type="text"], input[type="password"],textarea {
     }
 }
 
-select {border:$border-dark;}
+select {border:$border-dark; padding:.5em;}
 #footer {
     clear:both;
     color:$light-gray;

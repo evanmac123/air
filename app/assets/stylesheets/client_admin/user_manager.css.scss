@@ -1,5 +1,9 @@
 // ================== For all Manage Users pages ==================
 body.client_admin-users {
+    .page-title {border-bottom:$border-light;}
+    .headline {border-top:$border-dark;}
+}
+body.client_admin-users {
     form.user-profile {
         &:after{@include clear;}
         .info-cols {
@@ -13,7 +17,7 @@ body.client_admin-users {
                 display:inline-block;
                 margin:0;
             }
-            select#user_location_id {max-width:67%;}
+            select#user_location_id {display:inline-block; max-width:61.5%;}
         }
         label {display:inline-block; width:7em;}
         input[type="text"] {color:$dark-green; width:19em;}
@@ -36,6 +40,12 @@ body.client_admin-users {
                     word-wrap:break-word;
                 }
             }
+        }
+        #adding_location {
+            display:inline-block;
+            position: relative;
+            top:4px;
+            img {display:none;}
         }
         #confirm-add-user {
             #delete-user {
@@ -61,43 +71,41 @@ body.client_admin-users {
         float:right;
         margin-top:1.5em;
     }
-    .section {
-        border-top:$border-light;
-    }
+    .section {border-top:$border-light;}
 }
-// ================== Index ==================
-    #find-users {
-        display:inline-block;
-        vertical-align: top;
-    }
-    #find-users {
-        margin-right:1.75em;
-        h2.subhead {padding-bottom:.5em;}
-        #name-search, #show-everyone {display: inline-block;}
-        #name-search {margin-right:1em;}
-        #show-everyone {@include link($blue);}
-    }
 
-    #add-single-user {
-        &:before {@include clear;}
-        border:$border-dark;
-        form.user-profile#single-form {
-            background:$white;
-            padding:1em;
-            #loaded-user-data {
-                padding-bottom:1em;
-                h1.headline {display:none;}
-            }
-        }
-        #user-data-entry {margin-bottom:1em;&:after{@include clear;}}
-        .extra-user-info {display:none;}
-        #user-characteristics {margin-bottom:1em;}
-    }
-// ================== Search results ==================
-body.client_admin-users-show {
-    .page-title {border-bottom:$border-light;}
-    .headline {border-top:$border-dark;}
+#find-users {
+    display:inline-block;
+    vertical-align: top;
 }
+#find-users {
+    margin-right:1.75em;
+    h2.subhead {padding-bottom:.5em;}
+    #name-search, #show-everyone {display: inline-block;}
+    #name-search {margin-right:1em;}
+    #show-everyone {@include link($blue);}
+}
+
+#add-single-user {
+    border-top:0;
+    &:before {@include clear;}
+    
+    form.user-profile#single-form {
+        background:$white;
+        border:$border-dark;
+        padding:1em;
+        #loaded-user-data {
+            padding-bottom:1em;
+            h1.headline {display:none;}
+        }
+    }
+    #user-data-entry {margin-bottom:1em;&:after{@include clear;}}
+    .extra-user-info {display:none;}
+    #user-characteristics {margin-bottom:1em;}
+}
+
+
+// ================== Search results ==================
 body.client_admin-users-show .headline span {font-style:italic;}
 #search-results-table {
     border:$border-dark;
@@ -152,10 +160,14 @@ body.client_admin-users-show .headline span {font-style:italic;}
         td {padding:1em .5em;}
     }
 }
+
+
 // ================== User profile ==================
 body.client_admin-users-edit {
     .section {margin-bottom:2em;}
     #toggle-more-options {display:none!important;}
+    form#single-form {border-top:$border-dark; padding-top:2em;}
+    form#single-form #loaded-user-data {border-top:0;}
 }
 #loaded-user-data:after{@include clear;}
 #about-this-account {
