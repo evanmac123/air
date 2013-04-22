@@ -35,7 +35,7 @@ class ClientAdmin::UsersController < ClientAdminBaseController
 
     if @user.save
       @user.generate_simple_claim_code!
-      flash[:success] = "OK, we've added #{@user.name}."
+      flash[:success] = "OK, we've added #{@user.name}. They can join the game with the claim code #{@user.claim_code.upcase} or by going to #{invitation_url(@user.invitation_code, protocol: 'https')}"
       redirect_to client_admin_users_path
     else
       flash.now[:failure] = "Sorry, we weren't able to add that user. " + user_errors
