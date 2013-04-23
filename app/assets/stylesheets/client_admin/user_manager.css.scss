@@ -66,34 +66,16 @@ body.client_admin-users {
     }
 }
 // ================== Index ==================
-    #find-users, #bulk-load {
+    #find-users {
         display:inline-block;
         vertical-align: top;
-        width:48%;
     }
     #find-users {
         margin-right:1.75em;
         h2.subhead {padding-bottom:.5em;}
-        #name-search {margin-bottom:1em;}
-        #letter-search {
-            margin-bottom:.75em;
-            .button_wrap {
-                background:image-url('client_admin/search.png') no-repeat 7px 8px $dark-green;
-                &:hover {background-color:darken($dark-green, 3%);}
-                input[type="submit"] {
-                    background:transparent;
-                    padding-left:28px;
-                    &:hover{background:transparent; cursor:pointer;}
-                }
-            }
-        }
-        select {font-size:1.25em;}
+        #name-search, #show-everyone {display: inline-block;}
+        #name-search {margin-right:1em;}
         #show-everyone {@include link($blue);}
-    }
-    #bulk-load .button_wrap {
-        @include square-button-wrap($gray);
-        margin-top:1em;
-        a, a:link, a:visited {@include square-button($gray);}
     }
 
     #add-single-user {
