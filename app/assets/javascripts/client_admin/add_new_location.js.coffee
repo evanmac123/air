@@ -9,25 +9,41 @@ stopLoadingFeedback = () ->
 
 
 updateLocationList = (selector) ->
-  (data) -> 
+  (data) ->
     $(selector).replaceWith(data)
 
 
-
-
-createNewLocation = (selector, addOptionValue, postURL) ->
+createNewLocation = (locationSelectSelector, lightboxSelector, creationURL) ->
   (event) ->
-    selectedValue = $(event.target).val()
-    return unless selectedValue == addOptionValue
-    
-    newLocationName = window.prompt "What shall we call the new location?"
-    if newLocationName
-      startLoadingFeedback()
-      postOptions = {name: newLocationName}
-      $.post(postURL, postOptions, updateLocationList(selector), 'html').complete(stopLoadingFeedback)
+    event.preventDefault()
+
+    lightbox = $(lightboxSelector)
+
+    params = lightbox.find('form').serialize()
+
+    lightbox.trigger('close')
+
+    startLoadingFeedback()
+    $.post(creationURL, params, updateLocationList(locationSelectSelector), 'html').complete(stopLoadingFeedback())
 
 
 
 
-window.bindNewLocationCreation = (selector, addOptionText, postURL) ->
-  $(document).on('change', selector, createNewLocation(selector, addOptionText, postURL))
+focusLocationName = (lightbox) ->
+  () -> lightbox.find('input[type=text]').focus()
+
+
+
+showNewLocationLightbox = (triggeringValue, lightboxSelector) ->
+  (event) ->
+    if $(event.target).val() == triggeringValue
+      event.preventDefault()
+      lightbox = $(lightboxSelector)
+      lightbox.lightbox_me(onLoad: focusLocationName(lightbox))
+
+
+
+
+window.bindShowNewLocationLightbox = (locationSelectSelector, triggeringValue, lightboxSelector, creationURL) ->
+  $(lightboxSelector).find('form').on('submit', createNewLocation(locationSelectSelector, lightboxSelector, creationURL))
+  $(locationSelectSelector).on('change', showNewLocationLightbox(triggeringValue, lightboxSelector))

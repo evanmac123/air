@@ -24,9 +24,22 @@
   </ul>
 </div>
 
+<% content_for :lightbox do %>
+  <div id="new_location_lightbox">
+    <form>
+      <%= label_tag "location_name", "New location name" %> 
+      <%= text_field_tag "location_name" %>
+      <%= submit_tag "Save new location" %>
+    </form>
+  </div>
+<% end %>
+
+
+<%= javascript_include_tag "jquery.lightbox_me" %>
 <%= javascript_include_tag "client_admin/add_new_location" %>
+
 <% content_for :javascript do %>
   <%= javascript_tag do %>
-    bindNewLocationCreation('select#user_location_id', 'Add new...', '<%= client_admin_locations_url %>');
+    bindShowNewLocationLightbox('select#user_location_id', 'Add new...', '#new_location_lightbox', '<%= client_admin_locations_path %>');
   <% end %>
 <% end %>

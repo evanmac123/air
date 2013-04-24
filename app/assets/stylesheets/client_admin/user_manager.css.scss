@@ -1,3 +1,5 @@
+@import "mixins/lightbox";
+
 // ================== For all Manage Users pages ==================
 body.client_admin-users {
     .page-title {border-bottom:$border-light;}
@@ -104,6 +106,9 @@ body.client_admin-users {
     #user-characteristics {margin-bottom:1em;}
 }
 
+#new_location_lightbox {
+  @include lightbox;
+}
 
 // ================== Search results ==================
 body.client_admin-users-show .headline span {font-style:italic;}

@@ -58,6 +58,7 @@
     <% end %>
   <% end %>
 
+  <%= yield :lightbox %>
   <%= render :partial => 'shared/javascript' %><!-- This is where 'yield :javascript' takes place -->
   <div id='gradient-triangle'></div>
 </body>

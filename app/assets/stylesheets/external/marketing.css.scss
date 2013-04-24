@@ -133,10 +133,7 @@ input.unfilled-field {border-color:$red;}
 .close_request_demo {font-size:.75em;position:absolute; top:.5em; right:.5em;}
 .all_fields_error {color:$red!important;}
 .lightbox-content {
-  background:$white;
-  display: none;
-  padding:1em;
-  width:500px;
+  @include lightbox;
   form {margin-top:1em;
     input[type="text"],textarea {
       display: block;
