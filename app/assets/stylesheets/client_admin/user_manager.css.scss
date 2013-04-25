@@ -111,6 +111,7 @@ body.client_admin-users {
 
 #new_location_lightbox {
   @include lightbox;
+  label {margin-bottom:.75em;}
 }
 
 // ================== Search results ==================
