@@ -215,3 +215,12 @@ body.client_admin-users-edit {
         margin-left:1.85em;
     }
 }
+
+#name-autocomplete-target {
+  .ui-state-hover {
+    // override standard jQuery UI background with our standard colors
+    background-color: $blue;
+    border-color: $blue;
+    background-image: none;
+  }
+}
