@@ -63,6 +63,11 @@ body.client_admin-users {
             }
             li#add-user-button input {height:28px;}
         }
+        .required_label {
+            color:$red;
+            font-size:.85em;
+        }
+        p.required_label {margin-bottom:1em;}
     }
     a.clear-form, a#back-to-index {
         @include link($med-gray);
@@ -78,10 +83,8 @@ body.client_admin-users {
 
 #find-users {
     display:inline-block;
+    margin-top:2em;
     vertical-align: top;
-}
-#find-users {
-    margin-right:1.75em;
     h2.subhead {padding-bottom:.5em;}
     #name-search, #show-everyone {display: inline-block;}
     #name-search {margin-right:1em;}
@@ -97,7 +100,7 @@ body.client_admin-users {
         border:$border-dark;
         padding:1em;
         #loaded-user-data {
-            padding-bottom:1em;
+            // padding-bottom:1em;
             h1.headline {display:none;}
         }
     }

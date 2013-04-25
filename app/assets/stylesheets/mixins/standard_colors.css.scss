@@ -130,8 +130,9 @@ h2.subhead {
     padding-bottom:.75em;
 }
 
+input[type="text"], input[type="password"],
+textarea, select {border:$border-dark;}
 input[type="text"], input[type="password"],textarea {
-    border:$border-dark;
     color:$gray;
     padding:.5em;
     &:hover{border-color:$dark-green;}
@@ -141,7 +142,10 @@ input[type="text"], input[type="password"],textarea {
     }
 }
 
-select {border:$border-dark; padding:.5em;}
+select { 
+    padding:.35em;
+    &:focus {outline:1px $dark-green solid;}
+}
 #footer {
     clear:both;
     color:$light-gray;
