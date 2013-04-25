@@ -43,6 +43,7 @@ module Health
       external/start_game_button_needs_information_filled_in.js
       external/track_form_fields.js
       flick/jquery-ui-1.8.10.custom.css
+      jquery.lightbox_me.js
       ga.js
       ga-marketing.js
     )
