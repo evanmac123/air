@@ -30,3 +30,12 @@
     </div>
   </div>
 </section>
+
+<%= javascript_tag do %>
+  $('.resource_holder a').click(function() {
+    var encloser = $(this).parents('.resource_holder');
+    mpq.track('clicked waiting room resource', {resource: encloser.attr('id')});
+  });
+<% end %>
+
+<%= mp_track_page "waiting room" %>

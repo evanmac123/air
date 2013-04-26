@@ -18,7 +18,13 @@
 
 <script>
   $('.request_a_demo').click(function(){
+    var encloser = $(this).parents('.slide');
+    if(encloser.size() == 0) {
+      encloser = $(this).parents('section');
+    }
+
     $("#request_demo").lightbox_me();
+    mpq.track('alternate demo request form opened', {opened_from: encloser.attr('id')});
   });
 
 
@@ -28,6 +34,7 @@
   var contact_role = $('#contact_role');
   var contact_comment = $('#contact_comment');
   var contact_errors = 0;
+  var blankFields = [];
   var submitting_status = $('.submitting_status');
   var all_fields_error = $('.all_fields_error');
   var request_demo = $('#request_demo');
@@ -59,6 +66,7 @@
     if(blankField(_field)) {
       _field.css('border','1px #BC4C40 solid');
       contact_errors = true;
+      blankFields = blankFields.concat(_field.attr('id'));
     } else {
       _field.css('border','1px #4FAA60 solid');
       all_fields_error.hide();
@@ -107,11 +115,14 @@
   $('#request_demo form input[type=submit]').click(function(e){
     e.preventDefault();
     contact_errors = false;
+    blankFields = [];
     validateInfoRequestForm();
     if (contact_errors) {
       showErrorMessage();
+      mpq.track('alternate demo request form error', {blank_fields: blankFields});
     } else {
       submitInfoRequest(contact_form);
+      mpq.track('alternate demo request form submit', {});
     }
   });
 

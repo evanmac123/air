@@ -6,6 +6,11 @@
     <% if flash[:show_sign_up_form_error] %>
       <% name_field_css_class += " unfilled-field" if flash[:customer_name].blank? %>
       <% email_field_css_class += " unfilled-field" if flash[:customer_email].blank? %>
+
+      <% unless @error_already_tracked %>
+        <%= mp_track "returned to marketing page because of signup form error" %>
+      <% end %>
+      <% @error_already_tracked = true %>
     <% end %>
 
     <%= text_field_tag "customer_name", flash[:customer_name], class: name_field_css_class, placeholder: "First and last name" %>

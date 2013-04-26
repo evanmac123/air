@@ -11,3 +11,7 @@
     </nav>
   </div>
 </header>
+
+<%= javascript_tag do %>
+  $('#blog').click(function() { mpq.track("Clicked blog link", {}); });
+<% end %>

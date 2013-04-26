@@ -28,20 +28,25 @@ $("#slide_buttons a").click(function(){
     if (id == "next_slide") {slideCount++;}
     if (id == "prev_slide") {slideCount--;}
     doTheSlide();
+
+    var currentSlideID = $('.current_slide').attr('id');
+    mpq.track('clicked arrow button', {button_id: id, new_slide: currentSlideID});
 });
 
 $("#slide_name a").click(function (){
-    slideBoxes = $("#slide_name li");
-    currentSlideBox = $(this).parent();
-    currentSlideName = $(this).parent().attr('id');
+  slideBoxes = $("#slide_name li");
+  currentSlideBox = $(this).parent();
+  currentSlideName = $(this).parent().attr('id');
 
-    slideBoxes.removeClass("current_slide");
-    currentSlideBox.addClass("current_slide");
-    if (currentSlideName == "sn_play") {slideCount = 0;}
-    if (currentSlideName == "sn_message") {slideCount = 1;}
-    if (currentSlideName == "sn_interact") {slideCount = 2;}
-    if (currentSlideName == "sn_measure") {slideCount = 3;}
-    doTheSlide();
+  mpq.track('clicked slider jump button', {name: currentSlideName});
+
+  slideBoxes.removeClass("current_slide");
+  currentSlideBox.addClass("current_slide");
+  if (currentSlideName == "sn_play") {slideCount = 0;}
+  if (currentSlideName == "sn_message") {slideCount = 1;}
+  if (currentSlideName == "sn_interact") {slideCount = 2;}
+  if (currentSlideName == "sn_measure") {slideCount = 3;}
+  doTheSlide();
 });
 
 // Center the slider names

@@ -11,5 +11,9 @@
 </div>
 </footer>
 <script>
-$("[placeholder]").placeholder();
+  $("[placeholder]").placeholder();
+  $("#linkedin, #twitter, #facebook").click(function() {
+    var socialLinkId = $(this).attr('id');
+    mpq.track('clicked social link', {link_to: socialLinkId});
+  });
 </script>

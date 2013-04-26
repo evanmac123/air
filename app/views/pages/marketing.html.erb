@@ -76,9 +76,19 @@
 
 <%= render "shared/request_demo" %>
 <%= javascript_include_tag 'external/sliders.js' %>
+<%= javascript_include_tag 'external/track_form_fields.js' %>
+
 <script>
 $(".get_started").click(function(){
   $("#get_started_form").slideToggle();
   $(this).toggleClass('on-button');
+
+  if($(this).hasClass('on-button')) {
+    mpq.track('open demo request form from get started button', {});
+  } else {
+    mpq.track('close demo request form from get started button', {});
+  }
 });
 </script>
+
+<%= mp_track_page 'marketing' %>

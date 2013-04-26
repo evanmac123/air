@@ -32,3 +32,12 @@
 </section>
 
 <%= javascript_include_tag 'external/select_interests' %>
+
+<%= javascript_tag do %>
+  $('#name_game').blur(function() {
+    var gameNameBlank = $(this).val().trim() == '';
+    mpq.track('blur game name', {isBlank: gameNameBlank});
+  });
+<% end %>
+
+<%= mp_track_page "game customization" %>

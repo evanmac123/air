@@ -25,6 +25,7 @@
     <![endif]-->
     <%= javascript_include_tag asset_path('ga.js') if ENV['USE_GA'] %>
 
+    <%= render 'shared/mixpanel' %>
   </head>
   <body class="<%= body_class %> external">
     <i id="blue" class="colorbar"></i>
@@ -37,7 +38,6 @@
       <%= yield %>
       <%= render "pages/footer" %>
     </div>
-    <%= render 'shared/mixpanel' %>
     <%= javascript_include_tag asset_path('ga-marketing.js') if ENV['USE_GA'] %>
     <%= yield :javascript %>  
   </body>
