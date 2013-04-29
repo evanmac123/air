@@ -34,7 +34,7 @@ class ClientAdmin::UsersController < ClientAdminBaseController
     @user = current_user.demo.users.new(user_params)
 
     if @user.save
-      @user.generate_simple_claim_code!
+      @user.generate_unique_claim_code!
       flash[:success] = %{OK, we've added #{@user.name}. They can join the game with the claim code #{@user.claim_code.upcase}<span id="user_invitation">, or you can <a href="#{client_admin_user_invitation_path(@user)}" class="invite-user">click here to invite them</a>. <span id="inviting-message" style="display: none">Inviting...</span></span>}
       flash[:success_allow_raw] = true
       redirect_to client_admin_users_path

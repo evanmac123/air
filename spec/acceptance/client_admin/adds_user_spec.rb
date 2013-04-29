@@ -99,4 +99,15 @@ feature 'Adds user' do
     expect_content "and you've sent them an invitation email"
     expect_no_content "click here to invite them"
   end
+
+  it "should generate unique claim codes for each user" do
+    2.times do
+      fill_in "Name", with: "John Smith"
+      click_button "Add user"
+    end
+
+    john_smiths = demo.reload.users.where(name: "John Smith")
+    john_smiths.length.should == 2
+    john_smiths[0].claim_code.should_not == john_smiths[1].claim_code
+  end
 end
