@@ -7,6 +7,10 @@ body.client_admin-users {
 }
 body.client_admin-users {
     form.user-profile {
+        .field_with_errors {
+          display: inline-block;
+        }
+
         &:after{@include clear;}
         .info-cols {
             display:inline-block;
