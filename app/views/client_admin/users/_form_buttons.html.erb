@@ -1,11 +1,8 @@
 <ul id="confirm-add-user">
-  <li id="toggle-more-options"><div class="button_wrap"><a href="#">More options</a></div></li>
   <li id="add-user-button"><div class="button_wrap">
     <%= submit_tag submit_button_text %>
   </div></li>
-  <li><a href="#" class="clear-form"><%= reset_link_text %></a></li>
-  <%# Stupid hack since apparently jQuery doesn't have an easy way to reset forms %>
-  <input type="reset" style="display: none; visibility: hidden"/>
+  <li id="toggle-more-options"><a href="#">More options</a></li>
 
   <% if show_delete_link %>
     <%= link_to "Delete user",

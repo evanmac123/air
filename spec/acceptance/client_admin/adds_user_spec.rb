@@ -12,7 +12,7 @@ feature 'Adds user' do
       url.gsub!("www.example.com", "127.0.0.1:#{page.server.port}")
     end
 
-    expect_content "OK, we've added #{name}. They can join the game with the claim code #{claim_code.upcase} or by going to #{url}"
+    expect_content "OK, we've added #{name}. They can join the game with the claim code #{claim_code.upcase}, or you can click here to invite them."
   end
 
   def expect_add_failed_message(error)
@@ -84,5 +84,19 @@ feature 'Adds user' do
 
     demo.users.reload.count.should == 1
     expect_add_failed_message "Please enter a first and last name"
+  end
+
+  it "should have a link in the add message to invite the newly-created user", js: true do
+    fill_in_user_information
+    click_button "Add user"
+
+    new_user = demo.users.order("created_at DESC").first
+    new_user.invited.should be_false
+  
+    click_link "click here to invite them"
+
+    new_user.reload.invited.should be_true
+    expect_content "and you've sent them an invitation email"
+    expect_no_content "click here to invite them"
   end
 end

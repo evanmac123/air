@@ -100,4 +100,8 @@ module ApplicationHelper
   def characteristic_information_as_json(characteristics, method_name)
     Hash[characteristics.map {|characteristic| [characteristic.id.to_s, characteristic.send(method_name)]}].to_json.html_safe
   end
+
+  def raw_allowed_in_flash?(flash_key)
+    ApplicationController::FLASHES_ALLOWING_RAW.include?(flash_key.to_s) || flash[(flash_key.to_s + "_allow_raw").to_sym]
+  end
 end

@@ -56,12 +56,14 @@ body.client_admin-users {
                 float:right;
                 margin-top:.5em;
             }
-            li {display: inline-block; vertical-align: middle;}
+            li {display: inline-block; vertical-align: middle; float: right;}
             li#toggle-more-options {
-                .button_wrap {@include square-button-wrap($blue);}
-                a {@include square-button($blue); height:28px;}
+              margin-right: 0.9em;
             }
-            li#add-user-button input {height:28px;}
+            li#add-user-button {
+              margin-right: 28px;
+              input {height:28px;}
+            }
         }
         .required_label {
             color:$red;

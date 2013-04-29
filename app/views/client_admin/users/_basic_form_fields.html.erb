@@ -1,6 +1,6 @@
 <div id="loaded-user-data" class="section">
   <ul class="info-cols">
-    <li><label for="user_name">Name <span class="required_label">*</span></label><%= form.text_field "name", placeholder: "First and last (required)", :autofocus=>true %></li>
+    <li><label for="user_name">Name</label><%= form.text_field "name", placeholder: "First and last (required)", :autofocus=>true %></li>
   </ul>
   <ul class="info-cols">
     <li><%= form.label "email" %><%= form.text_field "email", placeholder: "name@example.com" %></li>
@@ -23,7 +23,6 @@
     </li>
   </ul>
 </div>
-<p class="required_label">* Required field</p>
 
 <% content_for :lightbox do %>
   <div id="new_location_lightbox">
@@ -34,6 +33,7 @@
     </form>
   </div>
 <% end %>
+
 <%= javascript_include_tag "jquery.lightbox_me" %>
 <%= javascript_include_tag "client_admin/add_new_location" %>
 

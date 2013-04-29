@@ -1,7 +1,6 @@
 <%= render "shared/flashes" %>
 
 <h1 class="page-title" id="title">Manage users</h1>
-
 <div id="add-single-user" class="section">
   <h1 class="headline">Add user</h1>
   <%= render 'add_form', user: @user, visible_characteristics: @visible_characteristics %>
@@ -21,6 +20,16 @@
     $('.clear-form').click(function(event) {
       event.preventDefault();
       $('#single-form input[type=reset]').click();
+    });
+
+    $('a.invite-user').click(function(event) {
+      event.preventDefault();
+      var postURL = $(this).attr('href');
+      $('#inviting-message').show();
+      $.post(postURL, function() { 
+        $('#inviting-message').hide();
+        $('#user_invitation').replaceWith(", and you've sent them an invitation email.");
+      });
     });
   <% end %>
 <% end %>
