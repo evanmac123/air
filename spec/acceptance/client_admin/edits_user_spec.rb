@@ -124,6 +124,20 @@ feature 'Edits user' do
     expect_name "" # but we keep the bad data so we can continue editing it
   end
 
+  it "should allow a valid update after fixing a failed update" do
+    # To address this bug: https://sprint.ly/product/1872/#!/item/899
+
+    visit(edit_client_admin_user_path(user, as: client_admin))
+    fill_in "Name", :with => ""
+    click_button "Save edits"
+
+    fill_in "Name", :with => "Luther Vandross"
+    click_button "Save edits"
+
+    expect_content "OK, we've updated this user's information"
+    expect_name "Luther Vandross"
+  end
+
   it "should show whether or not the user has joined" do
     user.update_attributes(accepted_invitation_at: nil)
     user.should_not be_claimed

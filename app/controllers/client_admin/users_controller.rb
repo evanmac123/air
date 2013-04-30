@@ -58,7 +58,7 @@ class ClientAdmin::UsersController < ClientAdminBaseController
 
     if @user.save
       flash[:success] = "OK, we've updated this user's information"
-      redirect_to :back
+      redirect_to edit_client_admin_user_path(@user)
     else
       load_characteristics
       load_locations
