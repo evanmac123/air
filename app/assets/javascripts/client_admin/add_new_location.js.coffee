@@ -11,6 +11,7 @@ stopLoadingFeedback = () ->
 updateLocationList = (selector) ->
   (data) ->
     $(selector).replaceWith(data)
+    stopLoadingFeedback()
 
 
 createNewLocation = (locationSelectSelector, lightboxSelector, creationURL) ->
@@ -24,7 +25,7 @@ createNewLocation = (locationSelectSelector, lightboxSelector, creationURL) ->
     lightbox.trigger('close')
 
     startLoadingFeedback()
-    $.post(creationURL, params, updateLocationList(locationSelectSelector), 'html').complete(stopLoadingFeedback())
+    $.post creationURL, params, updateLocationList(locationSelectSelector), 'html'
 
 
 
