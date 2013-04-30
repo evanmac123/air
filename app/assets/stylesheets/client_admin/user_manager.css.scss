@@ -54,18 +54,23 @@ body.client_admin-users {
             img {display:none;}
         }
         #confirm-add-user {
+            &:after{@include clear;}
+            li {display: inline-block; vertical-align: middle; float: right;}
             #delete-user {
-                @include link($blue); 
+                @include link($gray); 
                 display:inline-block; 
                 float:right;
                 margin-top:.5em;
             }
-            li {display: inline-block; vertical-align: middle; float: right;}
             li#toggle-more-options {
-              margin-right: 0.9em;
+                a {@include link($blue);}
+                // border:1px red solid;
+                // margin-right: 0.9em;
+                margin-top:.45em;
             }
             li#add-user-button {
-              margin-right: 28px;
+              // margin-right: 28px;
+              margin-left: 0.9em;
               input {height:28px;}
             }
         }
