@@ -183,12 +183,13 @@ body.client_admin-users-show .headline span {font-style:italic;}
 
 
 // ================== User profile ==================
-body.client_admin-users-edit {
+body.client_admin-users-edit, body.client_admin-users-update {
     .section {margin-bottom:2em;}
     #toggle-more-options {display:none!important;}
     form#single-form {border-top:$border-dark; padding-top:2em;}
     form#single-form #loaded-user-data {border-top:0;}
 }
+
 #loaded-user-data:after{@include clear;}
 #about-this-account {
     ul:after{@include clear;}
