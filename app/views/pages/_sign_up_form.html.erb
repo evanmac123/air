@@ -23,6 +23,10 @@
   <div id="sign_up_form_error">Please enter both your name and an e-mail address.</div>
 <% end %>
 
+<p class="log-in-elsewhere">
+  Already playing? <%= link_to "Log in here", sign_in_path %>
+</p>
+
 <%= javascript_tag do %>
   $('.signup-field').blur(function(e) {
     var field = $(e.target);
@@ -31,4 +35,8 @@
 
     field.toggleClass('unfilled-field', isBlank);
   })
+
+  $('.log-in-elsewhere a').click(function(e) {
+    mpq.track("clicked alternate user login link", {});
+  });
 <% end %>
