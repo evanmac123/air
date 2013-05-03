@@ -160,10 +160,6 @@ feature 'Edits user' do
     expect_content "Claim code: #{user.claim_code}"
   end
 
-  it "should allow the user to be made an admin" do
-    pending "how should the interface for this work?"
-  end
-
   it "should allow the user to be deleted", js: true do
     visit(edit_client_admin_user_path(user, as: client_admin))
     click_link "Delete user"
