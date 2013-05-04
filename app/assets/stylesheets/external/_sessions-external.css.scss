@@ -104,4 +104,66 @@ body.invitations-show form {
     input, label, #terms_label {display:inline-block;}
   }
   .signup-submit:after {@include clear;}
+
+  .single_suggestion{
+    width:380px;
+    background-color: #eff0ef;
+    border: 1px solid #d3d3d3;
+    box-shadow:none;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    z-index:9999;
+    padding: 10px;
+    margin-bottom: 1em;
+    position: relative;
+
+    .image {
+      float: left;
+    }
+
+    div.image {
+      width:auto;
+      z-index:9999;
+      padding-right: 10px;
+      img {
+        // @include rounded;
+        border:none;
+        margin:0;
+        z-index:99999;
+      }
+    }
+
+    div.info {
+      div.bit:first-child {
+        color:#39B549;
+        font-family:'Ubuntu', Helvetica, Arial, sans-serif;
+        font-size: 1.15em;
+        font-weight: 700;
+      }
+
+      padding-bottom: 0.5em;
+    }
+
+    .suggested_user_id: {
+      display: none;
+    }
+
+    a.remove_referrer {
+      position: absolute;
+      left: auto;
+      right: 4px;
+      top: 1px;
+      color: $dark-green;
+    }
+
+    .already_playing {
+      display: none;
+    }
+
+    img {
+      width: 75px;
+    }
+  }
+
+
 }

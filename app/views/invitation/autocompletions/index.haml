@@ -6,7 +6,7 @@
       .bit= user.name
       .bit= user.email
       .bit= user.slug
-    .suggested_user_id= user.id
+    .suggested_user_id{style: "display:none"}= user.id
     = link_to "X", '#', :class => "remove_referrer"
     / = form_for user, invitation_invite_friend_path  do |f|
     /   = f.submit "Invite", :class => "single_click_invite"
