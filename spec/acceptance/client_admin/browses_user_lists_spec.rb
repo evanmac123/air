@@ -5,7 +5,7 @@ feature 'Browses user lists' do
 
   def expect_browse_row(user, sense=true)
     within '#search-results-table' do
-      expected_text = [user.name, user.email, user.location.try(:name), (user.claimed? ? "Yes" : "No"), "Send"].compact.join(' ')
+      expected_text = [user.name, user.email, user.location.try(:name), (user.claimed? ? "Yes" : "No"), (user.invitable? ? "Send" : nil)].compact.join(' ')
       page.all('.found-user').any? { |row| row.text == expected_text }.should == sense
     end
   end
@@ -74,12 +74,20 @@ feature 'Browses user lists' do
     expect_no_browse_row(client_admin)
   end
 
-  it "allows admin to invite user from the browse results page" do
+  it "allows admin to invite user from the browse results page, assuming they have an email address" do
     alfred = FactoryGirl.create(:user, :with_location, name: "Alfred Jones", demo: client_admin.demo)
     alfred.should_not be_invited
     visit client_admin_users_path(show_everyone: true, as: client_admin)
     within("tr:nth-of-type(2)") { click_link "Send" }
     alfred.reload.should be_invited
     expect_content "OK, we've just sent #{alfred.name} an invitation."
+  end
+
+  it "should not present the option for an admin to try to invite a user without an email" do
+    alfred = FactoryGirl.create(:user, :with_location, name: "Alfred Jones", demo: client_admin.demo, email: '')
+    alfred.should_not be_invited
+    visit client_admin_users_path(show_everyone: true, as: client_admin)
+
+    page.all("a[href='#{client_admin_user_invitation_path(alfred)}']").should be_empty
   end
 end

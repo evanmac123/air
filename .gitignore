@@ -43,3 +43,5 @@ dump.rdb
 spec/support/fixtures/simple_bulk_load_*
 flog_report
 redis_connection_stack_trace
+*.incantation
+*incantation

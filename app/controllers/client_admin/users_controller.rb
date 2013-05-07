@@ -35,8 +35,7 @@ class ClientAdmin::UsersController < ClientAdminBaseController
 
     if @user.save
       @user.generate_unique_claim_code!
-      flash[:success] = %{OK, we've added #{@user.name}. They can join the game with the claim code #{@user.claim_code.upcase}<span id="user_invitation">, or you can <a href="#{client_admin_user_invitation_path(@user)}" class="invite-user">click here to invite them</a>. <span id="inviting-message" style="display: none">Inviting...</span></span>}
-      flash[:success_allow_raw] = true
+      put_add_success_in_flash
       redirect_to client_admin_users_path
     else
       flash.now[:failure] = "Sorry, we weren't able to add that user. " + user_errors
@@ -155,5 +154,14 @@ class ClientAdmin::UsersController < ClientAdminBaseController
 
   def user_errors
     @user.errors.smarter_full_messages.join(', ') + '.'  
+  end
+
+  def put_add_success_in_flash
+    if @user.invitable?
+      flash[:success] = %{OK, we've added #{@user.name}. They can join the game with the claim code #{@user.claim_code.upcase}<span id="user_invitation">, or you can <a href="#{client_admin_user_invitation_path(@user)}" class="invite-user">click here to invite them</a>. <span id="inviting-message" style="display: none">Inviting...</span></span>}
+      flash[:success_allow_raw] = true
+    else
+      flash[:success] = "OK, we've added #{@user.name}. They can join the game with the claim code #{@user.claim_code.upcase}."
+    end
   end
 end

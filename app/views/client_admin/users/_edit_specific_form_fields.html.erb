@@ -7,7 +7,9 @@
       <% else %>
         <span class="join-status not-joined">Not joined yet</span>
       <% end %>
-      <%= link_to "Send an invite", client_admin_user_invitation_path(user), method: :post %>
+      <% if user.invitable? %>
+        <%= link_to "Send an invite", client_admin_user_invitation_path(user), method: :post %>
+      <% end %>
       
     </li>
     <li id="claimcode">Claim code: <span><%= user.claim_code %></span></li>

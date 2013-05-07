@@ -26,7 +26,9 @@
         <% end %>
       </td>
       <td class="results-send-invite">
-        <%= link_to "Send", client_admin_user_invitation_path(user), method: :post, class: 'send-invite' %>
+        <% if user.invitable? %>
+          <%= link_to "Send", client_admin_user_invitation_path(user), method: :post, class: 'send-invite' %>
+        <% end %>
       </td>
     </tr>
   <% end %>

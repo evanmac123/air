@@ -86,20 +86,6 @@ feature 'Adds user' do
     expect_add_failed_message "Please enter a first and last name"
   end
 
-  it "should have a link in the add message to invite the newly-created user", js: true do
-    fill_in_user_information
-    click_button "Add user"
-
-    new_user = demo.users.order("created_at DESC").first
-    new_user.invited.should be_false
-  
-    click_link "click here to invite them"
-
-    new_user.reload.invited.should be_true
-    expect_content "and you've sent them an invitation email"
-    expect_no_content "click here to invite them"
-  end
-
   it "should generate unique claim codes for each user" do
     2.times do
       fill_in "Name", with: "John Smith"

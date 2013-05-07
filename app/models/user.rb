@@ -477,6 +477,10 @@ class User < ActiveRecord::Base
     update_attributes(invited: true)
   end
 
+  def invitable?
+    email.present?
+  end
+
   def mark_as_claimed(options={})
     _options = {:channel => :web}.merge(options)
     channel = _options[:channel]
