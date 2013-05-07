@@ -54,6 +54,8 @@ body.client_admin-users {
             img {display:none;}
         }
         #confirm-add-user {
+          padding-right: 2.1em;
+
             &:after{@include clear;}
             li {display: inline-block; vertical-align: middle; float: right;}
             #delete-user {
