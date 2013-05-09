@@ -33,11 +33,15 @@ class ClientAdmin::UsersController < ClientAdminBaseController
     user_params = params[:user].filter_by_key(*SETTABLE_USER_ATTRIBUTES)
     @user = current_user.demo.users.new(user_params)
 
-    if @user.save
+    if save_if_date_good(@user) # sigh
       @user.generate_unique_claim_code!
       put_add_success_in_flash
       redirect_to client_admin_users_path
     else
+      # This is a stupid hack. The more time goes on, the more I think Rails
+      # validations are just not where they should be.
+
+      add_date_of_birth_error_if_needed(@user)
       flash.now[:failure] = "Sorry, we weren't able to add that user. " + user_errors
       render :template => 'client_admin/users/index'
     end
@@ -55,10 +59,11 @@ class ClientAdmin::UsersController < ClientAdminBaseController
       @user.phone_number = PhoneNumber.normalize(@user.phone_number)
     end
 
-    if @user.save
+    if save_if_date_good(@user)
       flash[:success] = "OK, we've updated this user's information"
       redirect_to edit_client_admin_user_path(@user)
     else
+      add_date_of_birth_error_if_needed(@user)
       load_characteristics
       load_locations
       flash.now[:failure] = "Sorry, we weren't able to change that user's information. " + user_errors
@@ -162,6 +167,23 @@ class ClientAdmin::UsersController < ClientAdminBaseController
       flash[:success_allow_raw] = true
     else
       flash[:success] = "OK, we've added #{@user.name}. They can join the game with the claim code #{@user.claim_code.upcase}."
+    end
+  end
+
+  def all_date_of_birth_parts_valid?(user)
+    date_part_keys = %w{date_of_birth(1i) date_of_birth(2i) date_of_birth(3i)}
+    number_present = date_part_keys.count {|date_part_key| params[:user][date_part_key].present?}
+
+    number_present == 0 || number_present == 3
+  end
+
+  def save_if_date_good(user)
+    all_date_of_birth_parts_valid?(user) && user.save
+  end
+
+  def add_date_of_birth_error_if_needed(user)
+    unless all_date_of_birth_parts_valid?(user)
+      user.errors.add(:base, "Please enter a full date of birth")
     end
   end
 end

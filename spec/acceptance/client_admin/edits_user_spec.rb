@@ -167,4 +167,13 @@ feature 'Edits user' do
     should_be_on client_admin_users_path
     expect {user.reload}.to raise_error(ActiveRecord::RecordNotFound)
   end
+
+  it "should do date of birth partss all-or-none" do
+    visit(edit_client_admin_user_path(user, as: client_admin))
+    select 'Year', from: "user_date_of_birth_1i"
+    click_button "Save edits"
+
+    user.reload.date_of_birth.should == Date.parse("1977-04-17")
+    expect_content "Sorry, we weren't able to change that user's information. Please enter a full date of birth"
+  end
 end

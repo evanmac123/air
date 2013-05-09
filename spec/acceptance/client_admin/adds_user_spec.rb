@@ -84,6 +84,13 @@ feature 'Adds user' do
 
     demo.users.reload.count.should == 1
     expect_add_failed_message "Please enter a first and last name"
+
+    fill_in "Name", with: "Bob Smith"
+    select "January", from: "user[date_of_birth(2i)]"
+    click_button "Add user"
+
+    demo.users.reload.count.should == 1
+    expect_add_failed_message "Please enter a full date of birth"
   end
 
   it "should generate unique claim codes for each user" do
