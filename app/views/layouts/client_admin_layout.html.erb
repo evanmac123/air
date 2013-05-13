@@ -25,7 +25,10 @@
                 <li id="admin-overview" class="admin-nav-section"><a href="/client_admin">Overview</a></li>
                 <li id="admin-analytics" class="admin-nav-section"><a href="/client_admin/segmentation">Model</a></li>
                 <li id="admin-users" class="admin-nav-section"><a href="/client_admin/users">Users</a></li>
-                <li id="admin-help" class="admin-nav-section"><span></span><%= link_to "Help pages", DeskSSO.new(current_user).url, target: "_blank" %></li>
+                <% if current_user.authorized_to? :site_admin %>
+                  <%# Will open this up to client admins too, once we have an interesting amount of content in the help pages %>
+                  <li id="admin-help" class="admin-nav-section"><span></span><%= link_to "Help pages", DeskSSO.new(current_user).url, target: "_blank" %></li>
+                <% end %>
             </ul>
             <div class="clear"></div>
         </nav>
