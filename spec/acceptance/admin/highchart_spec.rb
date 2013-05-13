@@ -221,12 +221,14 @@ feature 'Highchart Plot' do
       #  legend.should_not have_content 'Users'
       #  @valid_user_points.each { |y| user_labels.should_not have_content y }
       #end
-      if boolean
-        page.should have_content 'Users'
-        @valid_user_points.each { |y| page.should have_content y }
-      else
-        page.should_not have_content 'Users'
-        #@valid_user_points.each { |y| page.should_not have_content y }
+      within '#my-chart' do
+        if boolean
+          page.should have_content 'Users'
+          @valid_user_points.each { |y| page.should have_content y }
+        else
+          page.should_not have_content 'Users'
+          #@valid_user_points.each { |y| page.should_not have_content y }
+        end
       end
     end
 
