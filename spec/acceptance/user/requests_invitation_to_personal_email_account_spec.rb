@@ -1,6 +1,6 @@
 require 'acceptance/acceptance_helper'
 
-feature "Spiderman offers ten dollars to anyone who can name all the ways to join H Engage" do
+feature "Spiderman offers ten dollars to anyone who can name all the ways to join H.Engage" do
     include EmailSpec::Helpers
     include EmailSpec::Matchers
 
