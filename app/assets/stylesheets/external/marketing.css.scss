@@ -39,8 +39,9 @@ body{
   font-family: $font;
   font-size:100%;
   margin:0;
-  height:100%; width:100%;
-  min-width:925px;
+  height:100%; 
+  width:100%;
+    min-width:925px;
   h1, h2, h3 {font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;}
   h1 {color:#4d4d4d; font-size:2.25em; font-weight:600;}
   h2 {color:$gray; font-size:1.65em; font-weight:300;}
@@ -117,6 +118,16 @@ footer {
 }
 
 
+.log-in-elsewhere {
+  background-image: image-url('v5/half_opaque_white_pixel.png');
+  margin-top: 0.5em;
+  width: 80%;
+  padding: 0.5em !important;
+  color: $text-color !important; 
+  a {color: $dark-green;}
+}
+
+#get_started_form .log-in-elsewhere { display: none; }
 #sign_up_form_error, .game_request_error {
   border:1px darken($red, 5%) solid;
   text-align: center;
@@ -125,7 +136,7 @@ footer {
   display: inline-block;
   font-size:.875em;
   font-weight:600;
-  padding:.5em 1em;
+  padding:.5em 0;
   margin-top:.5em;
   width:80%;
 }
@@ -146,19 +157,3 @@ input.unfilled-field {border-color:$red;}
 }
 .get_started.pop-button.on-button {@include pop-button(darken($blue, 10%));}
 .text-placeholder {color: #AAA !important}
-
-.log-in-elsewhere {
-  background-image: image-url('v5/half_opaque_white_pixel.png');
-  margin-top: 0.5em;
-  width: 80% !important;
-  padding: 0.5em !important;
-  color: $text-color !important; 
-
-  a {
-    color: $dark-green;
-  }
-}
-
-#get_started_form {
-  .log-in-elsewhere { display: none; }
-}

@@ -23,9 +23,9 @@
   <div id="sign_up_form_error">Please enter both your name and an e-mail address.</div>
 <% end %>
 
-<p class="log-in-elsewhere">
+<div class="log-in-elsewhere">
   Already playing? <%= link_to "Log in here", sign_in_path %>
-</p>
+</div>
 
 <%= javascript_tag do %>
   $('.signup-field').blur(function(e) {

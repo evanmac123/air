@@ -1,10 +1,10 @@
 <section id="new_game">
-  <h1>Customize your game</h1>
+  <h1>Customize your setup</h1>
 
   <%= form_tag games_path, id: "priorities" do %>
     <%= hidden_field_tag :customer_name, params[:customer_name] %>
     <%= hidden_field_tag :customer_email, params[:customer_email] %>
-    <input type="text" autofocus id="name_game" name="company_name" placeholder="Name your game" />
+    <input type="text" autofocus id="name_game" name="company_name" placeholder="Type in a name for your game" />
     <div id="name_error_message" class="game_request_error">Please choose a name for your game.</div>
     <div id="priorities_error_message" class="game_request_error">Please choose one to three priorities.</div>
 

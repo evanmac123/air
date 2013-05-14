@@ -9,8 +9,9 @@
   section#any_objective div {margin-right:0; width:100%;}
   section#any_objective table td ul li {font-size:.9em;}
 }
-@media (max-width:959px) and (min-width:681px) {section#any_objective div {width:80%;}}
-@media (max-width:959px) {
+@media (max-width:1000px) and (min-width:681px) {section#any_objective div {width:80%;}}
+@media (max-width:1000px) {
+  #slider .slide .slider_content_holder {width:50%;}
   #slide_name {background:$blue; width:100%;}
   #slide_name li {text-align:center; width:25%;}
   section#any_objective {
