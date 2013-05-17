@@ -1,7 +1,6 @@
 class ClientAdmin::UsersController < ClientAdminBaseController
   include ClientAdmin::UsersHelper
 
-  must_be_authorized_to :client_admin
   before_filter :load_characteristics, only: [:create, :edit]
   before_filter :load_locations, only: [:create, :edit]
   before_filter :find_user, only: [:edit, :update, :destroy]
