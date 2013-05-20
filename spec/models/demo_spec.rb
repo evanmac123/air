@@ -1,5 +1,5 @@
 require 'spec_helper'
-=begin
+
 describe Demo do
   it { should have_many(:users) }
   it { should have_many(:rules) }
@@ -193,7 +193,6 @@ describe Demo, "when internal email domains are changed" do
     [user1, user3].all?{|u| u.segmentation_data.reload.email_has_internal_domain == true}.should be_true
   end
 end
-=end
 
 describe Demo, 'tiles digest email' do
   let(:last_digest_sent_at) { 3.days.ago.at_midnight }
