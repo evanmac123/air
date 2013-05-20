@@ -51,11 +51,12 @@ module SteakHelperMethods
     sign_in_as(admin) # This is clearance's built in method
   end
 
-  # These two methods are convenient for calling with the Clearance backdoor,
+  # These methods are convenient for calling with the Clearance backdoor,
   # e.g.:
   #
   # visit foo_path(as: an_admin)
   # visit foo_path(as: a_client_admin)
+  # visit foo_path(as: a_regular_user)
 
   def an_admin
     FactoryGirl.create :user, is_site_admin: true  
@@ -67,6 +68,10 @@ module SteakHelperMethods
     else
       FactoryGirl.create :user, is_client_admin: true
     end
+  end
+
+  def a_regular_user
+    FactoryGirl.create :user
   end
 
   def has_password(user, password)

@@ -2,3 +2,7 @@
   #carousel_wrapper
     %ul#tile_thumbnail_carousel.jcarousel-skin-tango
       = render :partial => 'shared/displayable_tile', :collection => @displayable_tiles
+
+- if current_user.authorized_to?(:client_admin)
+  #tile_links
+    = link_to "Add a new tile", client_admin_tiles_path
