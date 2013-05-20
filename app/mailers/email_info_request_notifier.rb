@@ -12,8 +12,8 @@ class EmailInfoRequestNotifier < ActionMailer::Base
 
     @email_info_request = email_info_request
 
-    mail(:from    => 'H Engage Notifier<notify@hengage.com>',
+    mail(:from    => 'H.Engage Notifier<notify@hengage.com>',
          :to      => ENV['GAME_CREATION_REQUEST_ADDRESS'] || 'team_k@hengage.com',
-         :subject => 'Information Request -- H Engage Marketing Site')
+         :subject => 'Information Request -- H.Engage Marketing Site')
   end
 end

@@ -50,10 +50,10 @@ feature "User tries to friend someone" do
     current_email.should be_delivered_to(friend.email)
     current_email.should be_delivered_from(friend.reply_email_address)
 
-    current_email.should have_subject("#{user.name} wants to be your friend on H Engage")
+    current_email.should have_subject("#{user.name} wants to be your friend on H.Engage")
 
     current_email.should have_body_text /Hi #{first_name(friend)}/
-    current_email.should have_body_text /#{user.name} has asked to be your friend on H Engage./
+    current_email.should have_body_text /#{user.name} has asked to be your friend on H.Engage./
   end
 
   scenario "when the friend accepts the request, the user should get a notification email \
@@ -78,7 +78,7 @@ feature "User tries to friend someone" do
     current_email.should be_delivered_to(user.email)
     current_email.should be_delivered_from(user.reply_email_address)
 
-    current_email.should have_subject("Message from H Engage")
+    current_email.should have_subject("Message from H.Engage")
     current_email.should have_body_text /#{friend.name} has approved your friendship request./
   end
 

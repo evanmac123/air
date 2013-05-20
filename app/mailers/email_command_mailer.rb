@@ -29,7 +29,7 @@ class EmailCommandMailer < ActionMailer::Base
     to_address = email_command.email_from
     mail(:to      => to_address, 
          :from    => DEFAULT_PLAY_ADDRESS,
-         :subject => "Welcome to H Engage")
+         :subject => "Welcome to H.Engage")
   end
 
   protected

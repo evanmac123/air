@@ -4,7 +4,7 @@ class Mailer < ActionMailer::Base
   include EmailPreviewsHelper # Only includes the module for this controller (not for the views)
   helper :email  # loads app/helpers/email_helper.rb & includes EmailHelper into the VIEW
 
-  default :from => "H Engage <play@playhengage.com>"
+  default :from => "H.Engage <play@playhengage.com>"
   
   def invitation(user, referrer = nil, options = {})
     demo = user.demo
@@ -74,7 +74,7 @@ class Mailer < ActionMailer::Base
 
     mail :to      => friend_address,
          :from    => reply_address,
-         :subject => "#{user_name} wants to be your friend on H Engage"
+         :subject => "#{user_name} wants to be your friend on H.Engage"
   end
 
   def follow_notification_acceptance(user_name, user_address, reply_address, friend_name)
@@ -83,7 +83,7 @@ class Mailer < ActionMailer::Base
 
     mail :to      => user_address,
          :from    => reply_address,
-         :subject => "Message from H Engage"
+         :subject => "Message from H.Engage"
   end
 
   def set_password(user_id)
@@ -116,14 +116,8 @@ class Mailer < ActionMailer::Base
 
     mail :to      => to_email,
          :from    => from_email,
-         :subject => "Message from H Engage",
+         :subject => "Message from H.Engage",
          :template_path => 'email_command_mailer',
          :template_name => "send_response"
-  end
-
-  def fuji_snafu_response(recipient)
-    mail :to => recipient,
-         :from => 'fuji@playhengage.com',
-         :subject => "We received your submission"
   end
 end

@@ -1,7 +1,7 @@
-H Engage
+H.Engage
 ========
 
-Information about the H Engage Rails app
+Information about the H.Engage Rails app
 
 Laptop setup
 ------------
@@ -110,7 +110,7 @@ To make life easier, install a few Ruby gems:
 Setting up the app itself
 -------------------------
 
-Get the H Engage source code:
+Get the H.Engage source code:
 
     git clone git@github.com:vladig17/hengage.git
 

@@ -52,7 +52,7 @@ feature 'User gets invitation email' do
   context "from a demo that has custom email HTML" do
     before(:each) do
       @expected_html = <<-END_HTML
-<p>Welcome to H Engage!</p>
+<p>Welcome to H.Engage!</p>
 <p>It's awesome. You'll love it.</p>
       END_HTML
 
@@ -65,7 +65,7 @@ feature 'User gets invitation email' do
     end
 
     custom_html_with_blocks = <<-END_HTML
-<p>Welcome to H Engage!</p>[referrer_block]<p>You have a referrer.<p>[/referrer_block][no_referrer_block]<p>You have no referrer.</p>[/no_referrer_block][referrer_block]<p>That person must think you're awesome.</p>[/referrer_block][no_referrer_block]<p>Nobody loves you.</p>[/no_referrer_block][referrer_block]<p>Your friend [referrer] must love you very much.</p>[/referrer_block]<p>Either way, welcome.</p>
+<p>Welcome to H.Engage!</p>[referrer_block]<p>You have a referrer.<p>[/referrer_block][no_referrer_block]<p>You have no referrer.</p>[/no_referrer_block][referrer_block]<p>That person must think you're awesome.</p>[/referrer_block][no_referrer_block]<p>Nobody loves you.</p>[/no_referrer_block][referrer_block]<p>Your friend [referrer] must love you very much.</p>[/referrer_block]<p>Either way, welcome.</p>
     END_HTML
 
     context "when there's a referrer" do
@@ -76,7 +76,7 @@ feature 'User gets invitation email' do
         @user.invite(@referrer)
 
         expected_html = <<-END_EXPECTED_HTML
-<p>Welcome to H Engage!</p><p>You have a referrer.<p><p>That person must think you're awesome.</p><p>Your friend #{@referrer.name} must love you very much.</p><p>Either way, welcome.</p>
+<p>Welcome to H.Engage!</p><p>You have a referrer.<p><p>That person must think you're awesome.</p><p>Your friend #{@referrer.name} must love you very much.</p><p>Either way, welcome.</p>
         END_EXPECTED_HTML
 
         expect_email_content expected_html
@@ -91,7 +91,7 @@ feature 'User gets invitation email' do
         @user.invite
 
         expected_html = <<-END_EXPECTED_HTML
-<p>Welcome to H Engage!</p><p>You have no referrer.</p><p>Nobody loves you.</p><p>Either way, welcome.</p>
+<p>Welcome to H.Engage!</p><p>You have no referrer.</p><p>Nobody loves you.</p><p>Either way, welcome.</p>
         END_EXPECTED_HTML
 
         expect_email_content expected_html
@@ -102,7 +102,7 @@ feature 'User gets invitation email' do
   context "from a demo that has no custom HTML" do
     it "should use the default HTML" do
       @user.invite
-      expect_email_content "Welcome to H Engage!"
+      expect_email_content "Welcome to H.Engage!"
       expect_email_content "A fun social app that helps you make the most of HR programs and benefits."
     end
   end
@@ -110,7 +110,7 @@ feature 'User gets invitation email' do
   context "from a demo with custom plain text" do
     before(:each) do
       @expected_text = <<-END_TEXT
-Some would say H Engage is the greatest thing since sliced bread.
+Some would say H.Engage is the greatest thing since sliced bread.
 We say it's better.
       END_TEXT
 
@@ -123,7 +123,7 @@ We say it's better.
     end
     
     custom_plain_text_with_blocks = <<-END_PLAINTEXT
-Welcome to H Engage!
+Welcome to H.Engage!
 [referrer_block]You have a referrer.[/referrer_block]
 [no_referrer_block]You have no referrer.[/no_referrer_block]
 [referrer_block]That person must think you're awesome.[/referrer_block]
@@ -141,7 +141,7 @@ Either way, welcome.
         @user.invite(@referrer)
 
         expected_text = <<-END_EXPECTED_TEXT
-Welcome to H Engage!
+Welcome to H.Engage!
 You have a referrer.
 That person must think you're awesome.
 Your friend #{@referrer.name} must love you very much.
@@ -160,7 +160,7 @@ Either way, welcome.
         @user.invite
 
         expected_text = <<-END_EXPECTED_TEXT
-Welcome to H Engage!
+Welcome to H.Engage!
 You have no referrer.
 Nobody loves you.
 Either way, welcome.
@@ -174,7 +174,7 @@ Either way, welcome.
   context "from a demo with no custom plain text" do
     it "should use the default text" do
       @user.invite
-      expect_email_content "Welcome to H Engage! A fun social app that helps you make the most of HR programs and benefits."
+      expect_email_content "Welcome to H.Engage! A fun social app that helps you make the most of HR programs and benefits."
     end
   end
 

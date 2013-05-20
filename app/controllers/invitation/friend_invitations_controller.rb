@@ -48,7 +48,7 @@ class Invitation::FriendInvitationsController < ApplicationController
       end
       which_time += 1
     end
-    success_string += " to play H Engage. "
+    success_string += " to play H.Engage. "
     unless current_user.demo.game_referrer_bonus.nil?
       success_string += "That's #{current_user.demo.game_referrer_bonus * name_array.length} potential bonus points!"
     end

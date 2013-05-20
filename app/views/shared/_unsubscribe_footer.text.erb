@@ -1,6 +1,6 @@
 -----------------------------------------------------------
 
-Copyright (C) 2013 H Engage. All Rights Reserved.
+Copyright (C) 2013 H.Engage. All Rights Reserved.
 
 Our mailing address is:
 222 Newbury St.
@@ -8,7 +8,7 @@ Floor 3
 Boston, MA 02116
 
 <% if @user.present? %>
-You are getting this email because your company is using H Engage to help people better understand HR programs. <% if @user.claimed? -%>If you would rather not receive notifications, go to: <%= email_account_settings_link %><% end %>
+You are getting this email because your company is using H.Engage to help people better understand HR programs. <% if @user.claimed? -%>If you would rather not receive notifications, go to: <%= email_account_settings_link %><% end %>
 
 Or, to completely unsubscribe from any email communications, go to:  <%= email_unsubscribe_link(@user) %>
 <% end %>

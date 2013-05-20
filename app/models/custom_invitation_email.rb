@@ -81,7 +81,7 @@ class CustomInvitationEmail < ActiveRecord::Base
 
     custom_subject_with_referrer: "[referrer] invited you to play [game_name] and make the most of your HR programs and benefits",
 
-    custom_plain_text: %{Welcome to H Engage! A fun social app that helps you make the most of HR programs and benefits.
+    custom_plain_text: %{Welcome to H.Engage! A fun social app that helps you make the most of HR programs and benefits.
   
       Get started at [invitation_url]
 
@@ -98,7 +98,7 @@ class CustomInvitationEmail < ActiveRecord::Base
       
 
 <center><div style="font-size:14px;width:550px;-webkit-text-size-adjust: none;">
-  <h1 style="color:#9a9a9a;font-size:2em;font-weight:300;">Welcome to H Engage!</h1>
+  <h1 style="color:#9a9a9a;font-size:2em;font-weight:300;">Welcome to H.Engage!</h1>
   <p style="font-size:14px;">A fun social app that helps you make the most of HR programs and benefits.</p>
 
   <div style="font-size:16px;-webkit-text-size-adjust: none;">#{link_styled_like_button "Get started", "[invitation_url]"}</div>
