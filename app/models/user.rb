@@ -15,7 +15,6 @@ class User < ActiveRecord::Base
   include User::Segmentation
   include ActionView::Helpers::TextHelper
   extend User::Queries
-  extend Sequenceable
 
   belongs_to :demo
   belongs_to :location

@@ -40,8 +40,6 @@ class Demo < ActiveRecord::Base
 
   has_alphabetical_column :name
 
-  extend Sequenceable
-
   # We go through this rigamarole since we can move a user from one demo to
   # another, and usually we will only be concerned with acts belonging to the
   # current demo. The :conditions option on has_many isn't quite flexible

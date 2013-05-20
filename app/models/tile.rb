@@ -10,7 +10,6 @@ class Tile < ActiveRecord::Base
   validates_with AttachmentPresenceValidator, :attributes => [:image, :thumbnail], :if => :require_images
   attr_accessor :display_completion_on_this_request
 
-  extend Sequenceable
   has_alphabetical_column :headline
 
   # The ":default_url => ~~~" option was not needed for Capy 1.x, but then Capy2 came along and started skipping
