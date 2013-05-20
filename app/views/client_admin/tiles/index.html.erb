@@ -1,0 +1,25 @@
+<%= render "shared/flashes" %>
+
+<h1 class="page-title" id="title">Manage tiles</h1>
+
+<div id="tile-manager-tabs">
+
+  <ul>
+    <li><a href="#live">Live</a></li>
+    <li><a href="#archive">Archive</a></li>
+  </ul>
+
+  <div id="live">
+
+    <%= content_tag :div, render(partial: 'client_admin/tile_digest_notifications/show'), id: 'digest_notifications' %>
+
+    <div id='tiles'>
+      <hr />
+      <h3> This is the main tile section</h3>
+    </div>
+  </div>
+
+  <div id="archive">
+    <h2>ARCHIVE TAB</h2>
+  </div>
+</div>

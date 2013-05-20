@@ -74,6 +74,9 @@ Health::Application.routes.draw do
     end
 
     resources :locations, :only => :create
+
+    resources :tiles
+    resources :tile_digest_notifications, only: [:show, :create, :update]
   end
 
   resources :pages, :only => :show

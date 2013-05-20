@@ -1,6 +1,8 @@
 class Demo < ActiveRecord::Base
   JOIN_TYPES = %w(pre-populated self-inviting public).freeze
 
+  TILE_DIGEST_EMAIL_SEND_ON = %w(Never Monday Tuesday Wednesday Thursday Friday Saturday Sunday)
+
   serialize :internal_domains, Array
 
   has_many :users, :dependent => :destroy
@@ -25,6 +27,9 @@ class Demo < ActiveRecord::Base
   validate :end_after_beginning
   
   validates_inclusion_of :join_type, :in => JOIN_TYPES
+
+  validates_inclusion_of :tile_digest_email_send_on, :in => TILE_DIGEST_EMAIL_SEND_ON, :allow_nil => true
+
   validates_uniqueness_of :name
   validates_presence_of :name
 
@@ -51,6 +56,10 @@ class Demo < ActiveRecord::Base
   end
   include ActsWithCurrentDemoChecked
   
+  def num_tiles_in_digest_email
+    tiles.where("created_at > ?", self.tile_digest_email_sent_at).count
+  end
+
   def example_tooltip_or_default
     default = "went for a walk"
     example_tooltip.blank? ? default : example_tooltip
@@ -291,8 +300,7 @@ class Demo < ActiveRecord::Base
   end
 
   def uses_tickets
-    # We may allow demos in the future that don't use tickets, for now we just
-    # clamp this to...
+    # We may allow demos in the future that don't use tickets, for now we just clamp this to...
     true
   end
 
@@ -351,7 +359,5 @@ class Demo < ActiveRecord::Base
 
   def resegment_everyone
     self.user_ids.each {|user_id| User.find(user_id).send(:schedule_segmentation_update, true)}
-
   end
-
 end
