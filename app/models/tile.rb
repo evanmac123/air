@@ -184,7 +184,27 @@ class Tile < ActiveRecord::Base
       count += 1
     end
   end
-  
+
+  def self.simplified_create(demo, parameters)
+    tile = demo.tiles.build
+
+    if parameters.present?
+      tile.image = parameters[:image]
+      tile.thumbnail = parameters[:image]
+      tile.headline = parameters[:headline]
+    end
+
+    tile.position = Tile.next_position(demo)
+
+    tile.save
+
+    if tile.image_file_name.blank?
+      tile.errors.delete(:thumbnail)
+    end
+
+    tile
+  end
+
   protected
 
   def self.satisfiable_by_trigger_table(trigger_table_name)
