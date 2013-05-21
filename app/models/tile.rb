@@ -6,8 +6,9 @@ class Tile < ActiveRecord::Base
   has_one :survey_trigger, :class_name => "Trigger::SurveyTrigger"
   has_many :tile_completions, :dependent => :destroy
   validates_uniqueness_of :position, :scope => :demo_id
-  validates_presence_of :headline, :allow_blank => false
-  validates_with AttachmentPresenceValidator, :attributes => [:image, :thumbnail], :if => :require_images
+  validates_presence_of :headline, :allow_blank => false, :message => "headline can't be blank"
+  validates_with AttachmentPresenceValidator, :attributes => [:image], :if => :require_images, :message => "please attach an image"
+  validates_with AttachmentPresenceValidator, :attributes => [:thumbnail], :if => :require_images
   attr_accessor :display_completion_on_this_request
 
   has_alphabetical_column :headline
@@ -42,7 +43,7 @@ class Tile < ActiveRecord::Base
     :bucket => S3_TILE_BUCKET}.merge(TILE_IMAGE_OPTIONS)
 
   has_attached_file :thumbnail,
-    {:styles => {:carousel => ["238x238#", :png], :hover => ["258x258#", :png]},
+    {:styles => {:carousel => ["238x238", :png], :hover => ["258x258", :png]},
     :default_style => :carousel,
     :default_url => "/assets/avatars/thumb/missing.png",
     :bucket => S3_TILE_THUMBNAIL_BUCKET}.merge(TILE_THUMBNAIL_OPTIONS)

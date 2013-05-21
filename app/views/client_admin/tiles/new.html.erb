@@ -1,0 +1,8 @@
+<%= render "shared/flashes" %>
+
+<%= form_for @tile, url: client_admin_tiles_path do |f| %>
+  <%= f.label :headline %>
+  <%= f.text_field :headline %>
+  <%= f.file_field "image" %>
+  <%= f.submit %>
+<% end %>
