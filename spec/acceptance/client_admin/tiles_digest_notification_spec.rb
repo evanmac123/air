@@ -39,6 +39,9 @@ feature 'Client admin and the digest email for tiles', js: true do
     have_select 'digest_send_on', options
   end
 
+  def change_send_on(day)
+    select day, from: 'digest_send_on'
+  end
   # -------------------------------------------------
 
   scenario 'Tile-manager tabs work' do
@@ -103,6 +106,21 @@ feature 'Client admin and the digest email for tiles', js: true do
       demo.update_attributes tile_digest_email_send_on: 'Tuesday'
       refresh_tile_manager_page
       tab('Live').should have_send_on_selector(selected: 'Tuesday')
+    end
+
+    scenario "The 'send_on' dropdown control updates the day and displays a flash message"  do
+      FactoryGirl.create :tile, demo: demo
+      visit manage_tiles_page
+
+      tab('Live').should have_send_on_selector(selected: 'Never')
+
+      change_send_on('Tuesday')
+      refresh_tile_manager_page
+      tab('Live').should have_send_on_selector(selected: 'Tuesday')
+
+      change_send_on('Friday')
+      refresh_tile_manager_page
+      tab('Live').should have_send_on_selector(selected: 'Friday')
     end
 
     scenario 'The last-email-digest-email-sent-on date is correct' do
