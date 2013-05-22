@@ -9,7 +9,7 @@ module ClientAdmin::TilesHelper
   end
 
   def num_tiles_in_digest_email_message
-    "A digest email containing #{@num_tiles_in_digest_email} newly-added tiles is set to go out on "
+    "A digest email containing #{pluralize @num_tiles_in_digest_email, 'tile'} is set to go out on "
   end
 
   def digest_email_sent_on_message
