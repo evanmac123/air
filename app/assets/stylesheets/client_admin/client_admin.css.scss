@@ -109,11 +109,7 @@ h1.page-title {
     color:$dark-green;
     font-size:2.7em;
     font-weight:300;
-// <<<<<<< HEAD
-    // margin-bottom:1em;
-// =======
     padding-bottom:.65em;
-// >>>>>>> client_admin_user_management_copy
     &:before{
         background:image-url('client_admin/sprites.png') no-repeat transparent;
         content: "";
@@ -124,9 +120,6 @@ h1.page-title {
         width:32px;
     }
 }
-// <<<<<<< HEAD
-// =======
 body.client_admins h1#title:before {background-position:-1px -15px;}
 body.client_admin-segmentations h1#title:before {background-position:-33px -15px;}
 body.client_admin-users h1#title:before {background-position:-65px -15px;}
-// >>>>>>> client_admin_user_management_copy
