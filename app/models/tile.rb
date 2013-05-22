@@ -7,6 +7,7 @@ class Tile < ActiveRecord::Base
   has_many :tile_completions, :dependent => :destroy
   validates_uniqueness_of :position, :scope => :demo_id
   validates_presence_of :headline, :allow_blank => false, :message => "headline can't be blank"
+  validates_presence_of :supporting_content, :allow_blank => false, :message => "supporting content can't be blank", :on => :client_admin
   validates_with AttachmentPresenceValidator, :attributes => [:image], :if => :require_images, :message => "please attach an image"
   validates_with AttachmentPresenceValidator, :attributes => [:thumbnail], :if => :require_images
   attr_accessor :display_completion_on_this_request
@@ -185,18 +186,19 @@ class Tile < ActiveRecord::Base
     end
   end
 
-  def self.simplified_create(demo, parameters)
+  def self.client_admin_create(demo, parameters)
     tile = demo.tiles.build
 
     if parameters.present?
       tile.image = parameters[:image]
       tile.thumbnail = parameters[:image]
       tile.headline = parameters[:headline]
+      tile.supporting_content = parameters[:supporting_content]
     end
 
     tile.position = Tile.next_position(demo)
 
-    tile.save
+    tile.save(:context => :client_admin)
 
     if tile.image_file_name.blank?
       tile.errors.delete(:thumbnail)

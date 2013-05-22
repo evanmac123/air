@@ -13,7 +13,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
   end
 
   def create
-    @tile = Tile.simplified_create(@demo, params[:tile])
+    @tile = Tile.client_admin_create(@demo, params[:tile])
     
     if @tile.persisted?
       flash[:success] = "OK, you've created a new tile."

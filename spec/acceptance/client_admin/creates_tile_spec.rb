@@ -8,10 +8,11 @@ feature 'Creates tile' do
     visit new_client_admin_tile_path(as: client_admin)
   end
 
-  scenario 'by uploading an image' do
+  scenario 'by uploading an image and supplying some information' do
     demo.tiles.should be_empty
     attach_file "tile[image]", tile_fixture_path('cov1.jpg')
     fill_in "Headline", with: "Ten pounds of cheese"
+    fill_in "Supporting content", with: "Ten pounds of cheese. Yes? Or no?"
     click_button "Create Tile"
 
     demo.tiles.reload.should have(1).tile
@@ -19,6 +20,7 @@ feature 'Creates tile' do
     new_tile.image_file_name.should == 'cov1.jpg'
     new_tile.thumbnail_file_name.should == 'cov1.jpg'
     new_tile.headline.should == "Ten pounds of cheese"
+    new_tile.supporting_content.should == "Ten pounds of cheese. Yes? Or no?"
     
     expect_content "OK, you've created a new tile."
   end
@@ -27,6 +29,6 @@ feature 'Creates tile' do
     click_button "Create Tile"
 
     demo.tiles.reload.should be_empty
-    expect_content "Sorry, we couldn't save this tile: headline can't be blank, please attach an image."
+    expect_content "Sorry, we couldn't save this tile: headline can't be blank, supporting content can't be blank, please attach an image."
   end
 end
