@@ -18,7 +18,7 @@ FactoryGirl.define do
   end
   
   factory :user,  :parent => :unnamed_user do 
-    name                  "James Earl Jones" 
+    name "James Earl Jones"
 
     trait :claimed do
       accepted_invitation_at Time.now
@@ -38,7 +38,7 @@ FactoryGirl.define do
   end
 
   factory :brand_new_user, :parent => :user do 
-    accepted_invitation_at Time.now
+    accepted_invitation_at { Time.now }
   end  
   
   factory :claimed_user, :parent => :brand_new_user do 
@@ -52,13 +52,13 @@ FactoryGirl.define do
   end
   
   factory :site_admin, :parent => :claimed_user do
-    name {"Sylvester McAdmin"}
-    is_site_admin {true}
+    name          "Sylvester McAdmin"
+    is_site_admin true
   end
   
   factory :client_admin, :parent => :claimed_user do
-    name {"Bo Diddley"}
-    is_client_admin {true}
+    name            "Bo Diddley"
+    is_client_admin true
   end
 
   factory :demo do
@@ -77,19 +77,21 @@ FactoryGirl.define do
     trait :with_phone_number do
       sequence(:phone_number) {|i| "+" + (16172222222 + 1).to_s}
     end
+
+    tile_digest_email_sent_at { Time.now }
   end
   
   factory :rule do
-    points { 2 }
-    reply  { "Yum. +2 points. Bananas help you fight cancer." }
+    points  2
+    reply  "Yum. +2 points. Bananas help you fight cancer."
     association :demo
     association :primary_tag, :factory => :tag
   end
   
   factory :coded_rule do
-    value  { "zxcvb" }
-    points { 2 }
-    reply  { "Very good. +2 points." }
+    value   "zxcvb"
+    points  2
+    reply   "Very good. +2 points."
     association :demo
   end
 
@@ -118,7 +120,7 @@ FactoryGirl.define do
 
   factory :bad_message do
     phone_number "+14155551212"
-    received_at  Time.now 
+    received_at  { Time.now }
   end
 
   factory :new_bad_message, :parent => :bad_message do
@@ -198,13 +200,13 @@ FactoryGirl.define do
 
   factory :timed_bonus do
     expires_at {Time.now + 24.hours}
-    points {10}
+    points 10
     association :user
     association :demo
   end
 
   factory :bad_word do
-    value {"goshdarnit"}
+    value "goshdarnit"
     association :demo
   end
   factory :incoming_sms do
