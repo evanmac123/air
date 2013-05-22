@@ -1,0 +1,20 @@
+= render "shared/flashes"
+
+%h1#title.page-title Manage tiles
+
+%div#tile-manager-tabs
+
+  -# For some reason using '%li= link_to' with an 'anchor' option didn't work - and I'm sure it wasn't my fault. Right...
+  %ul
+    %li
+      %a{href: "#live"} Live
+    %li
+      %a{href: "#archive"} Archive
+
+  %div#live
+    = render partial: 'digest_section'
+    %hr
+    %h3 Live tab section
+
+  %div#archive
+    %h3 Archive tab section

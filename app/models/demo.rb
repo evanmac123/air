@@ -1,7 +1,7 @@
 class Demo < ActiveRecord::Base
   JOIN_TYPES = %w(pre-populated self-inviting public).freeze
 
-  TILE_DIGEST_EMAIL_SEND_ON = %w(Never Monday Tuesday Wednesday Thursday Friday Saturday Sunday)
+  TILE_DIGEST_EMAIL_SEND_ON = %w(Never) + Date::DAYNAMES
 
   serialize :internal_domains, Array
 

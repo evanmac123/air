@@ -1,0 +1,4 @@
+- if digest_email?
+  %div#digest-email-yes= render partial: 'digest_email'
+- else
+  %div#digest-email-no= no_digest_email_message
