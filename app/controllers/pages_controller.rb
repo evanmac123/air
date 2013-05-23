@@ -39,6 +39,8 @@ class PagesController < HighVoltage::PagesController
       'external_marketing'
     when 'waitingroom'
       'external'
+    when 'june2013_landing'
+      'landing'
     else
       'pages'
     end
