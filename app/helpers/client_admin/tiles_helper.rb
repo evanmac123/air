@@ -21,4 +21,9 @@ module ClientAdmin::TilesHelper
     message << " since the last one was sent on #{digest_email_sent_on}" unless @tile_digest_email_sent_at.nil?
     message
   end
+
+  # Decided not to give this initial value of 'Never' => Also need to check if 'nil'
+  def send_on_time
+    content_tag :span, (@tile_digest_email_send_on.nil? or @tile_digest_email_send_on == 'Never') ? nil : 'at noon, ', id: 'digest-send-on-time'
+  end
 end

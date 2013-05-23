@@ -13,15 +13,15 @@ $(document).ready(function() {
 
   var sendOnDayChange = function() {
     var $sendOn = $(this);
+    var sendOnVal = $sendOn.val();
 
-    var params = { send_on: $sendOn.val(), _method: 'put' };
+    var sendOnTime = sendOnVal == 'Never' ? null : 'at noon, ';
+    $('#digest-send-on-time').html(sendOnTime);
+
+    var params = { send_on: sendOnVal, _method: 'put' };
     params = add_csrf_protection(params);
 
-    $.post($sendOn.attr('data-action'), params, function(data) { /*$('#report_link_response').html(data);*/ });
-  };
-
-  var sendNow = function() {
-    alert('Send Now');
+    $.post($sendOn.attr('data-action'), params, function(data) { $('#digest-feedback').html(data).fadeIn('slow'); });
   };
 
   // -------------------------------------------------------
@@ -29,5 +29,4 @@ $(document).ready(function() {
   $('#tile-manager-tabs').tabs();
 
   $('#digest_send_on').change(sendOnDayChange);
-  $('#digest-email-yes input:submit').click(sendNow);
 });

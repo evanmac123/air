@@ -108,19 +108,27 @@ feature 'Client admin and the digest email for tiles', js: true do
       tab('Live').should have_send_on_selector(selected: 'Tuesday')
     end
 
-    scenario "The 'send_on' dropdown control updates the day and displays a flash message"  do
+    scenario "The 'send_on' dropdown control updates the day and time, and displays a confirmation message"  do
       FactoryGirl.create :tile, demo: demo
       visit manage_tiles_page
 
       tab('Live').should have_send_on_selector(selected: 'Never')
+      tab('Live').should_not contain 'at noon,'
 
       change_send_on('Tuesday')
-      refresh_tile_manager_page
       tab('Live').should have_send_on_selector(selected: 'Tuesday')
+      tab('Live').should contain 'Send-on day updated to Tuesday'
+      tab('Live').should contain 'at noon,'
 
       change_send_on('Friday')
-      refresh_tile_manager_page
       tab('Live').should have_send_on_selector(selected: 'Friday')
+      tab('Live').should contain 'Send-on day updated to Friday'
+      tab('Live').should contain 'at noon,'
+
+      refresh_tile_manager_page
+      tab('Live').should contain 'at noon,'
+      change_send_on('Never')
+      tab('Live').should_not contain 'at noon,'
     end
 
     scenario 'The last-email-digest-email-sent-on date is correct' do
@@ -129,6 +137,25 @@ feature 'Client admin and the digest email for tiles', js: true do
 
       visit manage_tiles_page
       tab('Live').should contain 'Last digest email was sent on Thursday, July 04, 2013'
+    end
+
+    scenario "The 'Send now' button displays a confirmation message and updates the date in the 'Last email sent on' text"  do
+      demo.update_attributes tile_digest_email_sent_at: Time.new(2013, 7, 4)
+      FactoryGirl.create :tile, demo: demo, created_at: Time.new(2013, 7, 5)
+
+      Timecop.travel Time.new(2013, 7, 6)
+
+      visit manage_tiles_page
+      tab('Live').should contain 'Last digest email was sent on Thursday, July 04, 2013'
+
+      click_button 'Send now'
+      tab('Live').should contain 'Digest email sent'
+      tab('Live').should contain 'Last digest email was sent on Saturday, July 06, 2013'
+
+      visit manage_tiles_page
+      tab('Live').should contain 'No digest email is scheduled to be sent because no new tiles have been added'
+
+      Timecop.return
     end
   end
 end
