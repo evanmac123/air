@@ -38,16 +38,16 @@ feature 'Client admin and the digest email for tiles', js: true do
     tab('Archive')
   end
 
+  def tab(label)
+    find("#tile-manager-tabs ##{label.downcase}")
+  end
+
   def select_tab(tab)
     click_link tab
   end
 
   def manage_tiles_page
     client_admin_tiles_path
-  end
-
-  def tab(label)
-    find("#tile-manager-tabs ##{label.downcase}")
   end
 
   def contain(text)
