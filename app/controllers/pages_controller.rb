@@ -40,7 +40,7 @@ class PagesController < HighVoltage::PagesController
     when 'waitingroom'
       'external'
     when 'june2013_landing'
-      'landing'
+      'standalone'
     else
       'pages'
     end

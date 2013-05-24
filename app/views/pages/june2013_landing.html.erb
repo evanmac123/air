@@ -1,9 +1,11 @@
 <header>
   <div class="row">
     <div class="small-16 columns">
-      <a href="/" id="continue_to_home">Continue to home</a>
+      <a href="http://www.hengage.com" class="continue_to_home">Go to HEngage.com</a>
       <!-- Vlad's video goes here -->
-      <div id="video_placeholder"></div>
+      <div id="video_placeholder">
+        <h1>H.Engage</h1>
+      </div>
     </div>
   </div>
 </header>
@@ -12,7 +14,7 @@
   <div class="small-16 small-centered columns">
     <h1>Workplace communications made engaging</h1>
     <h2>Easily turn any message into a game-like experience for your employees.</h2>
-    <a href="#" class="free_trial_button pop-button">Sign up for a free trial</a>
+    <a href="#!" id="free_trial_button" class="pop-button">Sign up for our pilot</a>
   </div>
 </section>
 
@@ -76,21 +78,71 @@
   </div>
 </section>
 
-<div class="row">
-  <div class="small-16 columns">
     <%= render "pages/our_clients" %>
-  </div>
-</div>
+
 
 <footer>
-  <div class="row">
+  <div class="row" id="sign_up">
     <div class="small-16 columns">
-      <h1>Sign up for a free 60 day trial version.</h1>
+      <h1>Sign up to be a part of our pilot.</h1>
       <h2>Experience how simple it is.</h2>
-      <form>
-        <input type="text" placeholder="Just enter your email" name="email"/>
-        <input type="submit" value="Sign up" >
+      <form id="signup_form">
+        <input type="text" id="contact_email" placeholder="Just enter your email" name="email" />
+        <input type="submit" value="Sign up" />
       </form>
+      <div id="signup_responses">
+        <div id="submitting_signup_form" class="signup_message" style="display: none">Please wait...</div>
+        <div id="signup_error" class="signup_message" style="display: none">Please enter your email</div>
+        <div id="signup_thanks" class="signup_message" style="display: none">Thanks! We'll be in touch when it's ready!</div>
+      </div>
+    </div>
+  </div>
+  <div class="row" id="footer_details">
+    <div class="small-10 columns">
+      <p class="copyright">Copyright &copy; 2013 H.Engage, Inc.</p>
+    </div>
+    <div class="small-6 columns">
+      <a href="http://www.hengage.com" class="continue_to_home">Go to H.Engage</a>
     </div>
   </div>
 </footer>
+
+<script>
+$("[placeholder]").placeholder();
+window.HEngage = {
+  scrollToElement: function(selector) {
+    var topOffset = $(selector).offset().top;
+    $('html, body').animate({scrollTop: topOffset}, 850);
+  }
+};
+
+$('#free_trial_button').click(function(){
+  HEngage.scrollToElement('#signup_form');
+  $('#signup_form input[type="text"]').focus();
+  mixpanel.track("June 2013 signup clicked");
+  // alert('mixpanel here');
+});
+
+$('#signup_form').submit(function(e) {
+  e.preventDefault();
+  $('#signup_error, #signup_thanks').hide();
+
+  var trimmedEmail = $.trim($('#contact_email').val());
+
+  if(trimmedEmail == '') {
+    $('#signup_error').slideDown();
+  } else {
+    $('#submitting_signup_form').show();
+    $.post( 
+      '<%= email_info_requests_path %>', 
+      {contact_email: trimmedEmail, silent: true}, 
+      function() {
+        $('#signup_thanks').slideDown();
+        $('#submitting_signup_form').hide();
+      }
+    )
+  }
+});
+</script>
+
+<%= mp_track_page "June 2013 landing page" %>

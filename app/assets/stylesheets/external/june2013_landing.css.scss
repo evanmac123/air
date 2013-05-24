@@ -2,31 +2,34 @@ body {
   font-family:$font;
   font-size:1em;
   min-width:100%;
-  p {
-    font-weight:300;
-    line-height: 1.4em
-  }
+  p { font-weight:300; line-height: 1.4em}
   span.em {font-weight:600;}
+  .continue_to_home {font-size:.65em; float:right;}
 }
 header {
   background:image-url('marketing/bg.gif');
-  #continue_to_home {
-    float:right;
-    font-size:.75em;
-    padding:1em 0;
-  }
+  .continue_to_home {padding:1em 0;}
   #video_placeholder {
-    border:1px $light-gray dashed;
     max-width:100%;
-    height:350px;
     margin-top:2.25em;
+    padding:1em 0 4em 0;
+    text-align: center;
+    h1 {
+      @include hide-text;
+      background:image-url('v4/logo.png') center center no-repeat transparent;
+      background-size:100%;
+      display: inline-block;
+      height:150px;
+      width:100%;
+      max-width:661px;
+    }
   }
 }
 #welcome, footer .row {
   h1 {
     font-size:2.45em;
     font-weight:300;
-    margin-bottom:.75em;
+    margin-bottom:.5em;
   }
   h2 {
     font-size:1.25em;
@@ -36,11 +39,10 @@ header {
 }
 #welcome {
   border-bottom:2px $light-gray solid;
-  margin-bottom:4em;
   padding:2em 0 4em 0;
   text-align: center;
   h1 {color:$dark-green;}
-  .free_trial_button {
+  #free_trial_button {
     @include pop-button($orange);
     font-size:1.2em;
     padding:.75em 1em;
@@ -48,10 +50,10 @@ header {
 }
 
 .values {
-  margin-bottom: 4em;
-  &:last-of-type {margin-bottom:1em;}
-  .text {
-    padding-bottom:2em;
+  // border:1px red solid;
+  margin:5.5em auto;
+  &:last-of-type {margin-bottom:0;}
+  .text {padding-bottom:2em;
     h2 {
       color:$blue;
       font-size:1.75em;
@@ -70,17 +72,65 @@ section#clients {
 
 footer {
   background:$blue;
-  padding:4em 0;
-  .row {
+  font-size:1em;
+  padding:4em 0 2em 0;
+  
+  #sign_up {
     text-align: center;
     h1, h2 {color:$white;}
+    form#signup_form {
+      input{
+        font-size:1.25em;
+        vertical-align: middle;
+      }
+      input[type="text"] {
+        border:2px lighten($blue, 20%) solid;
+        color:$orange;
+        padding: .35em .75em;
+        min-width:14.25em;
+        width:45%;
+        &:hover,&:focus {border-color:$orange;}
+      }
+      input[type="submit"] {
+        @include pop-button($orange);
+        display: block;
+        margin:.5em auto 0 auto;
+      }
+    }
+    #signup_responses {
+      padding-top:1em;
+      .signup_message {
+        color:#fff;
+        display: inline-block;
+        font-weight:300;
+        padding:.75em 1em;
+        &#signup_error {background:$red;}
+        &#signup_thanks {background:$dark-green;}
+        &#submitting_signup_form {color:lighten($blue, 20%); font-weight:300;}
+      }
+    }
+  }
+
+  #footer_details {
+    margin-top:4em;
+    .continue_to_home {
+      @include link(lighten($blue, 20%));
+      padding:.4em 0 0 0;
+    }
+    .copyright {
+      color:lighten($blue, 20%);
+      float:none;
+      font-size:.675em;
+      font-weight:300;
+    }
   }
 }
 
 
-@media only screen and (min-width: 48em) {
+@media only screen and (min-width: 35em) {
   body {font-size:1.125em;}
-  #welcome h1 {margin-bottom:.35em;}
+  #welcome, footer .row {h1 {margin-bottom:.25em;}}
+  footer #sign_up form#signup_form input[type="submit"] {display: inline-block; margin:auto;}
 }
 @media only screen and (min-width: 62.5em) {
   #hub, #beautiful_content, #incentives, 
