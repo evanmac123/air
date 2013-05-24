@@ -15,6 +15,29 @@ feature 'Client admin and the digest email for tiles', js: true do
 
   # -------------------------------------------------
 
+  DATE_REG_EXPR = /(\d{1,2})\/(\d{1,2})\/(\d{4})/  # e.g. 7/4/2013
+
+  # So we can use the same kind of date-strings throughout the tests. (Need to redefine a class method.)
+  class << Timecop
+    alias old_travel travel
+
+    def travel(day)
+      day.match DATE_REG_EXPR
+      time = Time.new $3, $1, $2
+      old_travel(time)
+    end
+  end
+
+  # -------------------------------------------------
+
+  def live_tab
+    tab('Live')
+  end
+
+  def archive_tab
+    tab('Archive')
+  end
+
   def select_tab(tab)
     click_link tab
   end
@@ -35,23 +58,46 @@ feature 'Client admin and the digest email for tiles', js: true do
     visit manage_tiles_page
   end
 
-  def have_send_on_selector(options = {})
+  def have_send_on_selector(select = nil)
+    options = select.nil? ? {} : {selected: select}
     have_select 'digest_send_on', options
   end
 
   def change_send_on(day)
     select day, from: 'digest_send_on'
   end
+
+  def set_send_on(day)
+    demo.update_attributes tile_digest_email_send_on: day
+  end
+
+  def set_last_sent_on(day)
+    day.match DATE_REG_EXPR
+    time = Time.new $3, $1, $2
+
+    demo.update_attributes tile_digest_email_sent_at: time
+  end
+
+  def create_tile(options = {})
+    date = options.delete :on
+    if date
+      date.match DATE_REG_EXPR
+      options[:created_at] = Time.new $3, $1, $2
+    end
+
+    FactoryGirl.create :tile, options.merge(demo: demo)
+  end
+
   # -------------------------------------------------
 
   scenario 'Tile-manager tabs work' do
     visit manage_tiles_page
 
     select_tab 'Archive'
-    tab('Archive').should contain 'Archive tab section'
+    archive_tab.should contain 'Archive tab section'
 
     select_tab 'Live'
-    tab('Live').should contain 'Live tab section'
+    live_tab.should contain 'Live tab section'
   end
 
   context 'No tiles exist for digest email' do
@@ -61,99 +107,100 @@ feature 'Client admin and the digest email for tiles', js: true do
     scenario 'Tab text is correct when there are no new tiles for the digest email' do
       last_email_sent_text = 'since the last one was sent on Thursday, July 04, 2013'
 
-      tab('Live').should contain 'No digest email is scheduled to be sent because no new tiles have been added'
-      tab('Live').should_not contain last_email_sent_text
+      live_tab.should contain 'No digest email is scheduled to be sent because no new tiles have been added'
+      live_tab.should_not contain last_email_sent_text
 
-      demo.update_attributes tile_digest_email_sent_at: Time.new(2013, 7, 4)
+      set_last_sent_on '7/4/2013'
       refresh_tile_manager_page
 
-      tab('Live').should contain last_email_sent_text
+      live_tab.should contain last_email_sent_text
     end
 
     scenario 'Form components and text are not on the page when there are no new tiles for the digest email' do
-      tab('Live').should_not have_send_on_selector
-      tab('Live').should_not have_button 'Send now'
-      tab('Live').should_not have_link   'View email'
+      live_tab.should_not have_send_on_selector
+      live_tab.should_not have_button 'Send now'
+      live_tab.should_not have_link   'View email'
 
-      tab('Live').should_not contain 'A digest email containing'
+      live_tab.should_not contain 'A digest email containing'
 
-      demo.update_attributes tile_digest_email_sent_at: Time.new(2013, 7, 4)
+      set_last_sent_on '7/4/2013'
       refresh_tile_manager_page
 
-      tab('Live').should_not contain 'Last digest email was sent on'
+      live_tab.should_not contain 'Last digest email was sent on'
     end
   end
 
   context 'Tiles exist for digest email' do
     scenario "The number of tiles is correct, as is the plurality of the word 'tile'" do
-      FactoryGirl.create :tile, demo: demo
+      create_tile
       visit manage_tiles_page
-      tab('Live').should contain 'A digest email containing 1 tile is set to go out'
+      live_tab.should contain 'A digest email containing 1 tile is set to go out'
 
-      FactoryGirl.create :tile, demo: demo
+      create_tile
       refresh_tile_manager_page
-      tab('Live').should contain 'A digest email containing 2 tiles is set to go out'
+      live_tab.should contain 'A digest email containing 2 tiles is set to go out'
     end
 
     scenario 'The appropriate form components are on the page and properly initialized' do
-      FactoryGirl.create :tile, demo: demo
+      create_tile
       visit manage_tiles_page
 
-      tab('Live').should have_send_on_selector(selected: 'Never')
-      tab('Live').should have_button 'Send now'
-      tab('Live').should have_link   'View email'
+      live_tab.should have_send_on_selector('Never')
+      live_tab.should have_button 'Send now'
+      live_tab.should have_link   'View email'
 
-      demo.update_attributes tile_digest_email_send_on: 'Tuesday'
+      set_send_on 'Tuesday'
       refresh_tile_manager_page
-      tab('Live').should have_send_on_selector(selected: 'Tuesday')
+      live_tab.should have_send_on_selector('Tuesday')
     end
 
     scenario "The 'send_on' dropdown control updates the day and time, and displays a confirmation message"  do
-      FactoryGirl.create :tile, demo: demo
+      create_tile
       visit manage_tiles_page
 
-      tab('Live').should have_send_on_selector(selected: 'Never')
-      tab('Live').should_not contain 'at noon,'
+      live_tab.should have_send_on_selector('Never')
+      live_tab.should_not contain 'at noon,'
 
-      change_send_on('Tuesday')
-      tab('Live').should have_send_on_selector(selected: 'Tuesday')
-      tab('Live').should contain 'Send-on day updated to Tuesday'
-      tab('Live').should contain 'at noon,'
+      change_send_on 'Tuesday'
+      live_tab.should have_send_on_selector('Tuesday')
+      live_tab.should contain 'Send-on day updated to Tuesday'
+      live_tab.should contain 'at noon,'
 
-      change_send_on('Friday')
-      tab('Live').should have_send_on_selector(selected: 'Friday')
-      tab('Live').should contain 'Send-on day updated to Friday'
-      tab('Live').should contain 'at noon,'
+      change_send_on 'Friday'
+      live_tab.should have_send_on_selector('Friday')
+      live_tab.should contain 'Send-on day updated to Friday'
+      live_tab.should contain 'at noon,'
 
       refresh_tile_manager_page
-      tab('Live').should contain 'at noon,'
-      change_send_on('Never')
-      tab('Live').should_not contain 'at noon,'
+      live_tab.should contain 'at noon,'
+
+      change_send_on 'Never'
+      live_tab.should_not contain 'at noon,'
     end
 
-    scenario 'The last-email-digest-email-sent-on date is correct' do
-      demo.update_attributes tile_digest_email_sent_at: Time.new(2013, 7, 4)
-      FactoryGirl.create :tile, demo: demo, created_at: Time.new(2013, 7, 5)
+    scenario 'The last-digest-email-sent-on date is correct' do
+      set_last_sent_on '7/4/2013'
+      create_tile on: '7/5/2013'
 
       visit manage_tiles_page
-      tab('Live').should contain 'Last digest email was sent on Thursday, July 04, 2013'
+      live_tab.should contain 'Last digest email was sent on Thursday, July 04, 2013'
     end
 
     scenario "The 'Send now' button displays a confirmation message and updates the date in the 'Last email sent on' text"  do
-      demo.update_attributes tile_digest_email_sent_at: Time.new(2013, 7, 4)
-      FactoryGirl.create :tile, demo: demo, created_at: Time.new(2013, 7, 5)
+      set_last_sent_on '7/4/2013'
+      create_tile on: '7/5/2013'
 
-      Timecop.travel Time.new(2013, 7, 6)
+      Timecop.travel '7/6/2013'
 
       visit manage_tiles_page
-      tab('Live').should contain 'Last digest email was sent on Thursday, July 04, 2013'
+      live_tab.should contain 'Last digest email was sent on Thursday, July 04, 2013'
 
       click_button 'Send now'
-      tab('Live').should contain 'Digest email sent'
-      tab('Live').should contain 'Last digest email was sent on Saturday, July 06, 2013'
+      live_tab.should contain 'Digest email sent'
+      live_tab.should contain 'Last digest email was sent on Saturday, July 06, 2013'
 
       visit manage_tiles_page
-      tab('Live').should contain 'No digest email is scheduled to be sent because no new tiles have been added'
+      live_tab.should contain 'No digest email is scheduled to be sent because no new tiles have been added'
 
       Timecop.return
     end
