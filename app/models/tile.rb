@@ -13,10 +13,11 @@ class Tile < ActiveRecord::Base
 
   validates_presence_of :headline, :allow_blank => false, :message => "headline can't be blank"
   validates_presence_of :supporting_content, :allow_blank => false, :message => "supporting content can't be blank", :on => :client_admin
+  validates_presence_of :question, :allow_blank => false, :message => "question can't be blank", :on => :client_admin
 
   validates_inclusion_of :status, in: STATUS
 
-  validates_with AttachmentPresenceValidator, :attributes => [:image], :if => :require_images, :message => "please attach an image"
+  validates_with AttachmentPresenceValidator, :attributes => [:image], :if => :require_images, :message => "image is missing"
   validates_with AttachmentPresenceValidator, :attributes => [:thumbnail], :if => :require_images
 
   attr_accessor :display_completion_on_this_request
@@ -194,27 +195,6 @@ class Tile < ActiveRecord::Base
       end
       count += 1
     end
-  end
-
-  def self.client_admin_create(demo, parameters)
-    tile = demo.tiles.build
-
-    if parameters.present?
-      tile.image = parameters[:image]
-      tile.thumbnail = parameters[:image]
-      tile.headline = parameters[:headline]
-      tile.supporting_content = parameters[:supporting_content]
-    end
-
-    tile.position = Tile.next_position(demo)
-
-    tile.save(:context => :client_admin)
-
-    if tile.image_file_name.blank?
-      tile.errors.delete(:thumbnail)
-    end
-
-    tile
   end
 
   protected

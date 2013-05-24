@@ -9,19 +9,19 @@ class ClientAdmin::TilesController < ClientAdminBaseController
   end
 
   def new
-    @tile = Tile.new
+    @tile_builder_form = TileBuilderForm.new(@demo)
   end
 
   def create
-    @tile = Tile.client_admin_create(@demo, params[:tile])
+    @tile_builder_form = TileBuilderForm.new(@demo, parameters: params[:tile_builder_form])
     
-    if @tile.persisted?
+    if @tile_builder_form.create_objects
       flash[:success] = "OK, you've created a new tile."
       redirect_to new_client_admin_tile_path
     else
       # TODO: validation and ActiveRecord errors are done in a surprisingly
       # bullshit manner in Rails. Surely we can improve on this.
-      flash[:failure] = "Sorry, we couldn't save this tile: " + @tile.errors.messages.values.join(", ") + "."
+      flash[:failure] = "Sorry, we couldn't save this tile: " + @tile_builder_form.error_messages
       render "new"
     end
   end

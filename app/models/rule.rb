@@ -15,6 +15,8 @@ class Rule < ActiveRecord::Base
   validates_length_of :reply, :maximum => 120
   validates :reply, :with => :reply_length_100, :if => :goal_id
 
+  validates :points, :with => :present_and_non_negative, :on => :client_admin
+
   before_destroy :nullify_acts
   
   def reply_length_100
@@ -122,6 +124,14 @@ class Rule < ActiveRecord::Base
       end
     end
     return conflicts
+  end
+
+  def present_and_non_negative
+    if points.present?
+      self.errors.add(:base, "points can't be negative") if points < 0
+    else
+      self.errors.add(:base, "points can't be blank") 
+    end
   end
 
   def self.create_with_rule_values(new_attributes, demo_id, primary_value, secondary_values)
