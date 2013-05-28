@@ -31,9 +31,14 @@ module Health
       app-client-admin.css
       app-external.css
       app-internal.css
+      app-landing.css
+      vendor/foundation.min.css
+      vendor/ie8-grid-foundation-4.css
+      vendor/normalize.css
       app-admin.js
       app-internal.js
       app-external.js
+      app-landing.js
       app-client-admin.js
       client_admin/add_new_location.js
       errors.css
@@ -42,6 +47,8 @@ module Health
       external/select_interests.js
       external/start_game_button_needs_information_filled_in.js
       external/track_form_fields.js
+      external/prefilled_input.js
+      vendor/foundation.min.js
       flick/jquery-ui-1.8.10.custom.css
       jquery.lightbox_me.js
       ga.js
