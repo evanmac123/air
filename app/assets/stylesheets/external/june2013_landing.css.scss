@@ -82,7 +82,8 @@ footer {
   
   #sign_up {
     text-align: center;
-    h1, h2 {color:$white;}
+    h1 {color:$white;}
+    h2 {color:$light-gray; margin-top:.75em;}
     form#signup_form {
       ul {
         float:none;
