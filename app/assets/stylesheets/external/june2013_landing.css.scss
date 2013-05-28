@@ -39,6 +39,7 @@ header {
 }
 #welcome {
   border-bottom:2px $light-gray solid;
+  margin-bottom:1em;
   padding:2em 0 4em 0;
   text-align: center;
   h1 {color:$dark-green;}
@@ -49,10 +50,11 @@ header {
   }
 }
 
-.values {
-  // border:1px red solid;
-  margin:5.5em auto;
+.row.values {
+  font-size:1em;
+  padding:3em 0;
   &:last-of-type {margin-bottom:0;}
+  &:after{@include clear;}
   .text {padding-bottom:2em;
     h2 {
       color:$blue;
@@ -60,7 +62,10 @@ header {
       margin-bottom:1em;
     }
   }
-  .visual {text-align:center;}
+  .visual {
+    text-align:center;
+    img {max-width:90%;}
+  }
 }
 
 section#clients {
@@ -79,6 +84,11 @@ footer {
     text-align: center;
     h1, h2 {color:$white;}
     form#signup_form {
+      ul {
+        float:none;
+        width:100%;
+        li {display:block;}
+      }
       input{
         font-size:1.25em;
         vertical-align: middle;
@@ -87,13 +97,11 @@ footer {
         border:2px lighten($blue, 20%) solid;
         color:$orange;
         padding: .35em .75em;
-        min-width:14.25em;
-        width:45%;
+        width:100%;
         &:hover,&:focus {border-color:$orange;}
       }
       input[type="submit"] {
         @include pop-button($orange);
-        display: block;
         margin:.5em auto 0 auto;
       }
     }
@@ -130,12 +138,13 @@ footer {
 @media only screen and (min-width: 35em) {
   body {font-size:1.125em;}
   #welcome, footer .row {h1 {margin-bottom:.25em;}}
-  footer #sign_up form#signup_form input[type="submit"] {display: inline-block; margin:auto;}
+  footer #sign_up form#signup_form ul li#email_field {width:45%;}
+  footer #sign_up form#signup_form ul li {display: inline-block; vertical-align: bottom;}
 }
 @media only screen and (min-width: 62.5em) {
   #hub, #beautiful_content, #incentives, 
   #track_metrics, #create_habit {
-    .text {padding-top:4em;}
+    .text {padding-top:3em;}
   }
-  #save_resources .text {padding-top:5em;} 
+  #save_resources .text {padding-top:4em;} 
 }

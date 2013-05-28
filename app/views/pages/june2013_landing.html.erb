@@ -87,8 +87,10 @@
       <h1>Sign up to be a part of our pilot.</h1>
       <h2>Experience how simple it is.</h2>
       <form id="signup_form">
-        <input type="text" id="contact_email" placeholder="Just enter your email" name="email" />
-        <input type="submit" value="Sign up" />
+        <ul>
+          <li id="email_field"><input type="text" id="contact_email" placeholder="Just enter your email" name="email" /></li>
+          <li id="submit_field"><input type="submit" value="Sign up" /></li>
+        </ul>
       </form>
       <div id="signup_responses">
         <div id="submitting_signup_form" class="signup_message" style="display: none">Please wait...</div>
@@ -119,8 +121,7 @@ window.HEngage = {
 $('#free_trial_button').click(function(){
   HEngage.scrollToElement('#signup_form');
   $('#signup_form input[type="text"]').focus();
-  mixpanel.track("June 2013 signup clicked");
-  // alert('mixpanel here');
+  mpq.track("June 2013 signup clicked");
 });
 
 $('#signup_form').submit(function(e) {

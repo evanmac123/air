@@ -1,7 +1,17 @@
-.lt-ie9 .row.values {margin-bottom:3em;}
+/* Page styles ---------------------- */
+body {font-size:1.125em; background:#fff;}
+#welcome h1, footer .row h1{margin-bottom:.25em;}
+#welcome {margin-bottom:3em;} 
+.row.values {padding:1em 0;} 
+footer #sign_up form#signup_form ul li#email_field {width:45%;}
+footer #sign_up form#signup_form ul li {display: inline-block; vertical-align: bottom;}
+ #hub .text, #beautiful_content .text, #incentives .text, #track_metrics .text, #create_habit .text {padding-top:3em;}
+ #save_resources .text {padding-top:4em;} 
+
 
 /* The Grid ---------------------- */
-.lt-ie9 .row { width: 940px; max-width: 100%; min-width: 768px; margin: 0 auto; }
+.lt-ie9 .row.values {margin-bottom:3em;}
+.lt-ie9 .row { width: 1024px; max-width: 100%; min-width: 768px; margin: 0 auto; }
 .lt-ie9 .row .row { width: auto; max-width: none; min-width: 0; margin: 0 -15px; }
 .lt-ie9 .row.large-collapse .column, 
 .lt-ie9 .row.large-collapse .columns { padding: 0; }

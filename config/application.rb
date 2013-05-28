@@ -32,9 +32,7 @@ module Health
       app-external.css
       app-internal.css
       app-landing.css
-      vendor/foundation.min.css
       vendor/ie8-grid-foundation-4.css
-      vendor/normalize.css
       app-admin.js
       app-internal.js
       app-external.js
