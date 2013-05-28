@@ -1,16 +1,26 @@
 class Tile < ActiveRecord::Base
+  STATUS = %w(active archive draft)
+
   belongs_to :demo
+
   has_many :prerequisites
   has_many :prerequisite_tiles, :class_name => "Tile", :through => :prerequisites
   has_many :rule_triggers, :class_name => "Trigger::RuleTrigger"
   has_one :survey_trigger, :class_name => "Trigger::SurveyTrigger"
   has_many :tile_completions, :dependent => :destroy
+
   validates_uniqueness_of :position, :scope => :demo_id
+
   validates_presence_of :headline, :allow_blank => false, :message => "headline can't be blank"
   validates_presence_of :supporting_content, :allow_blank => false, :message => "supporting content can't be blank", :on => :client_admin
+
+  validates_inclusion_of :status, in: STATUS
+
   validates_with AttachmentPresenceValidator, :attributes => [:image], :if => :require_images, :message => "please attach an image"
   validates_with AttachmentPresenceValidator, :attributes => [:thumbnail], :if => :require_images
+
   attr_accessor :display_completion_on_this_request
+
 
   has_alphabetical_column :headline
 

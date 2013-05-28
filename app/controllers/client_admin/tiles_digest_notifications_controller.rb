@@ -7,6 +7,7 @@ class ClientAdmin::TilesDigestNotificationsController < ClientAdminBaseControlle
   end
 
   def show
+    @message = TilesDigestMailer.notify
     render layout: false
   end
 

@@ -7,14 +7,14 @@
   -# For some reason using '%li= link_to' with an 'anchor' option didn't work - and I'm sure it wasn't my fault. Right...
   %ul
     %li
-      %a{href: "#live"} Live
+      %a{href: "#active"} Active
     %li
       %a{href: "#archive"} Archive
 
-  %div#live
+  %div#active
     = render partial: 'digest_section'
     %hr
-    %h3 Live tab section
+    %h3 Active tab section
 
   %div#archive
     %h3 Archive tab section

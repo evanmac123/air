@@ -194,27 +194,30 @@ describe Demo, "when internal email domains are changed" do
   end
 end
 
-describe Demo, 'tiles digest email' do
+describe Demo, 'digest email for new tiles' do
   let(:last_digest_sent_at) { 3.days.ago.at_midnight }
   let(:demo) { FactoryGirl.create :demo, tile_digest_email_sent_at: last_digest_sent_at }
 
-  let!(:last_digest) do
-    last_digest = []  # accumulate the id's
-    (1..4).each { |i| last_digest << FactoryGirl.create(:tile, demo: demo, created_at: last_digest_sent_at - 1.minute).id }
-    last_digest
-  end
-
   let!(:this_digest) do
     this_digest = []  # accumulate the id's
-    (1..5).each { |i| this_digest << FactoryGirl.create(:tile, demo: demo, created_at: last_digest_sent_at + 1.minute).id }
+    (1..5).each { |i| this_digest << FactoryGirl.create(:tile, demo: demo, status: 'active', created_at: last_digest_sent_at + i.minutes).id }
     this_digest
   end
 
-  it '#tiles_in_digest_email returns the tiles created since the last digest email' do
+  before(:each) do
+    # Create some 'active' tiles that went out in the last digest email
+    (1..2).each { |i| FactoryGirl.create(:tile, demo: demo, status: 'active', created_at: last_digest_sent_at - i.minutes).id }
+    # Create some tiles that would be included in this digest email - if their 'status' wasn't bad
+    %w(archive draft).each do |bad_status|
+      (1..2).each { |i| FactoryGirl.create(:tile, demo: demo, status: bad_status, created_at: last_digest_sent_at + i.minutes).id }
+    end
+  end
+
+  it "#tiles_in_digest_email returns only 'active' tiles created since the last digest email" do
     demo.tiles_in_digest_email.pluck(:id).sort.should == this_digest.sort
   end
 
-  it '#num_tiles_in_digest_email returns the number of tiles created since the last digest email' do
+  it "#num_tiles_in_digest_email returns the number of 'active' tiles created since the last digest email" do
     demo.num_tiles_in_digest_email.should == 5
   end
 end

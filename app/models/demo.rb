@@ -55,7 +55,7 @@ class Demo < ActiveRecord::Base
   include ActsWithCurrentDemoChecked
   
   def tiles_in_digest_email
-    tiles.where("created_at > ?", self.tile_digest_email_sent_at)
+    tiles.where("status = ? AND created_at > ?", 'active', self.tile_digest_email_sent_at)
   end
 
   def num_tiles_in_digest_email
