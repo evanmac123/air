@@ -118,7 +118,8 @@ window.HEngage = {
   }
 };
 
-$('#free_trial_button').click(function(){
+$('#free_trial_button').click(function(event){
+  event.preventDefault();
   HEngage.scrollToElement('#signup_form');
   $('#signup_form input[type="text"]').focus();
   mpq.track("June 2013 signup clicked");
@@ -136,7 +137,7 @@ $('#signup_form').submit(function(e) {
     $('#submitting_signup_form').show();
     $.post( 
       '<%= email_info_requests_path %>', 
-      {contact_email: trimmedEmail, silent: true}, 
+      {contact_email: trimmedEmail, contact_comment: "From June 2013 landing page", silent: true}, 
       function() {
         $('#signup_thanks').slideDown();
         $('#submitting_signup_form').hide();
