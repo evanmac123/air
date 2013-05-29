@@ -1,0 +1,7 @@
+- if no_digest_email?
+  %div#digest-email-no= no_digest_email_message
+- else
+  %div#digest-email-yes= render partial: 'digest_email'
+
+%hr
+%h2 Digest tiles

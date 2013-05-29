@@ -1,10 +1,14 @@
-#digest-email-view {
-  float: right
-}
-
-#digest-last-email-message {
+#digest-last-email {
   font-style: italic;
   color: #808080
+}
+
+#feedback {
+  padding-left: 2em;
+  color: blue;
+  display: none;
+  font-style: italic;
+  float: right;
 }
 
 #show-user-spinner {
@@ -12,13 +16,10 @@
   padding-left: 1em;
 }
 
-#digest-feedback {
-  padding-left: 2em;
-  color: blue;
-  display: none;
-  font-style: italic;
-}
-
 form.button_to {
   display: inline-block;
+}
+
+#digest hr {
+  margin-top: 2em;
 }

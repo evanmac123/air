@@ -4,17 +4,14 @@
 
 %div#tile-manager-tabs
 
-  -# For some reason using '%li= link_to' with an 'anchor' option didn't work - and I'm sure it wasn't my fault. Right...
   %ul
     %li
       %a{href: "#active"} Active
     %li
+      %a{href: "#digest"} Digest
+    %li
       %a{href: "#archive"} Archive
 
-  %div#active
-    = render partial: 'digest_section'
-    %hr
-    %h3 Active tab section
-
-  %div#archive
-    %h3 Archive tab section
+  %div#active=  render partial: 'active'
+  %div#digest=  render partial: 'digest'
+  %div#archive= render partial: 'archive'

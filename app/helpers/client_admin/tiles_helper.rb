@@ -1,7 +1,7 @@
 module ClientAdmin::TilesHelper
 
-  def digest_email?
-    @num_tiles_in_digest_email > 0
+  def no_digest_email?
+    @num_tiles_in_digest_email == 0
   end
 
   def digest_email_sent_on
