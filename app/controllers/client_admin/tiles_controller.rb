@@ -5,7 +5,8 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     @tile_digest_email_sent_at = @demo.tile_digest_email_sent_at  # Demo...
     @tile_digest_email_send_on = @demo.tile_digest_email_send_on  # ...attributes
 
-    @num_tiles_in_digest_email = @demo.num_tiles_in_digest_email
+    @digest_tiles = @demo.tiles_in_digest_email
+    @num_digest_tiles = @demo.num_tiles_in_digest_email
   end
 
   def new

@@ -4,4 +4,6 @@
   %div#digest-email-yes= render partial: 'digest_email'
 
 %hr
-%h2 Digest tiles
+
+- @digest_tiles.each do |tile|
+  = image_tag tile.thumbnail

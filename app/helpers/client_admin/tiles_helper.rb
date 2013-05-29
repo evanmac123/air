@@ -1,7 +1,7 @@
 module ClientAdmin::TilesHelper
 
   def no_digest_email?
-    @num_tiles_in_digest_email == 0
+    @num_digest_tiles == 0
   end
 
   def digest_email_sent_on
@@ -9,7 +9,7 @@ module ClientAdmin::TilesHelper
   end
 
   def num_tiles_in_digest_email_message
-    "A digest email containing #{pluralize @num_tiles_in_digest_email, 'tile'} is set to go out on "
+    "A digest email containing #{pluralize @num_digest_tiles, 'tile'} is set to go out on "
   end
 
   def digest_email_sent_on_message

@@ -103,7 +103,7 @@ feature 'Client admin and the digest email for tiles', js: true do
     archive_tab.should contain 'Archived tiles'
 
     select_tab 'Digest'
-    digest_tab.should contain 'Digest tiles'
+    digest_tab.should contain 'No digest email is scheduled to be sent '
 
     select_tab 'Active'
     active_tab.should contain 'Active tiles'
