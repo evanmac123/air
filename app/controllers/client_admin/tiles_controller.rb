@@ -14,7 +14,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
 
   def create
     @tile_builder_form = TileBuilderForm.new(@demo, parameters: params[:tile_builder_form])
-    
+
     if @tile_builder_form.create_objects
       flash[:success] = "OK, you've created a new tile."
       redirect_to new_client_admin_tile_path

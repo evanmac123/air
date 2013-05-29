@@ -82,6 +82,7 @@ class TileBuilderForm
     end
 
     @tile.position = Tile.next_position(@demo)
+    @tile.status = Tile::ACTIVE
   end
 
   def build_rule

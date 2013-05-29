@@ -1,5 +1,8 @@
 class Tile < ActiveRecord::Base
-  STATUS = %w(active archive draft)
+  ACTIVE  = 'active'.freeze
+  ARCHIVE = 'archive'.freeze
+  DRAFT   = 'draft'.freeze
+  STATUS  = [ACTIVE, ARCHIVE, DRAFT].freeze
 
   belongs_to :demo
 
