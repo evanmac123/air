@@ -17,20 +17,14 @@ feature 'Client admin and the digest email for tiles', js: true do
 
   DATE_REG_EXPR = /(\d{1,2})\/(\d{1,2})\/(\d{4})/  # e.g. 7/4/2013
 
-  # So we can use the same kind of date-strings throughout the tests. (Need to redefine a class method.)
-  class << Timecop
-    alias old_travel travel
-
-    def travel(day)
-      day.match DATE_REG_EXPR
-      time = Time.new $3, $1, $2
-      old_travel(time)
-    end
+  def travel_to_day(day)
+    day.match DATE_REG_EXPR
+    time = Time.new $3, $1, $2
+    Timecop.travel(time)
   end
 
-
   def on_day(day)
-    Timecop.travel day
+    travel_to_day day
     yield
   ensure
     Timecop.return
