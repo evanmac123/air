@@ -217,6 +217,7 @@ FactoryGirl.define do
     require_images false
     association :demo
     sequence(:position){ |n| n }
+    status 'active'
   end
 
   factory :tile_completion do
