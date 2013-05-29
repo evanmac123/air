@@ -5,16 +5,16 @@ Feature: User sees tiles they can currently do
       | name |
       | FooCo        |
     And the following tiles exist:
-      | headline              | start time            | end_time             | demo        |
-      | Make toast            |                       |                      | name: FooCo |
-      | Make PBJ              |                       |                      | name: FooCo |
-      | Butter toast          |                       |                      | name: FooCo |
-      | Plate toast           |                       |                      | name: FooCo |
-      | Eat buttery toast     |                       |                      | name: FooCo |
-      | Make future toast     |  2020-01-01 00:00 UTC |                      | name: FooCo |
-      | Make future PBJ       |  2020-01-01 00:00 UTC |                      | name: FooCo |
-      | Think past toast      |                       | 1900-01-01 00:00 UTC | name: FooCo |
-      | Think past PBJ        |                       | 1900-01-01 00:00 UTC | name: FooCo |
+      | headline              | start time            | end_time             | demo        | status |
+      | Make toast            |                       |                      | name: FooCo | active |
+      | Make PBJ              |                       |                      | name: FooCo | active |
+      | Butter toast          |                       |                      | name: FooCo | active |
+      | Plate toast           |                       |                      | name: FooCo | active |
+      | Eat buttery toast     |                       |                      | name: FooCo | active |
+      | Make future toast     |  2020-01-01 00:00 UTC |                      | name: FooCo | active |
+      | Make future PBJ       |  2020-01-01 00:00 UTC |                      | name: FooCo | active |
+      | Think past toast      |                       | 1900-01-01 00:00 UTC | name: FooCo | active |
+      | Think past PBJ        |                       | 1900-01-01 00:00 UTC | name: FooCo | active |
     And the tile "Make PBJ" has prerequisite "Make toast"
     And the tile "Butter toast" has prerequisite "Make toast"
     And the tile "Eat buttery toast" has prerequisite "Butter toast"
