@@ -11,6 +11,7 @@ class Tile < ActiveRecord::Base
   has_many :rule_triggers, :class_name => "Trigger::RuleTrigger"
   has_one :survey_trigger, :class_name => "Trigger::SurveyTrigger"
   has_many :tile_completions, :dependent => :destroy
+  has_many :triggering_rules, :class_name => "Rule", :through => :rule_triggers
 
   validates_uniqueness_of :position, :scope => :demo_id
 
@@ -96,6 +97,15 @@ class Tile < ActiveRecord::Base
 
   def has_rules_left_for_user(user)
     poly? && !all_rule_triggers_satisfied_to_user(user)
+  end
+
+  def first_rule
+    first_trigger = rule_triggers.order("created_at ASC").first
+    first_trigger && first_trigger.rule
+  end
+
+  def appears_client_created
+    supporting_content.present? && question.present?
   end
 
   def self.due_ids

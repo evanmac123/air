@@ -19,6 +19,6 @@ class TilesController < ApplicationController
     TileCompletion.mark_displayed_one_final_time(current_user)
     @satisfiable_tiles = Tile.satisfiable_to_user_with_sample(current_user)
     @first_id = @satisfiable_tiles.first.try(:id)
+    @client_created_tiles = @satisfiable_tiles.inject({}) {|hash, tile| hash.merge({tile => tile.appears_client_created})}
   end
-
 end

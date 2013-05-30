@@ -69,7 +69,7 @@ describe Tile do
     end
   end
 
-  describe "due_ids" do
+  describe ".due_ids" do
     it "should tell me the ids of all the due tiles" do
       Demo.find_each {|f| f.destroy}
       # Too early
@@ -89,7 +89,7 @@ describe Tile do
     end
   end
   
-  describe "displayable_to_user" do 
+  describe ".displayable_to_user" do 
     before(:each) do
       Demo.find_each {|f| f.destroy}
       @fun = FactoryGirl.create(:demo, name: 'Fun')
@@ -125,6 +125,32 @@ describe Tile do
       tiles.should include (@wash)
       tiles.should include (@water_plants)
       tiles.should_not include(@color_after_washing)
+    end
+  end
+
+  describe "#first_rule" do
+    it "should return nil for a tile with no rule triggers" do
+      FactoryGirl.create(:tile).first_rule.should be_nil
+    end
+
+    it "should return the first rule associated through a rule trigger, if such exists" do
+      first_trigger = FactoryGirl.create(:rule_trigger)
+      tile = first_trigger.tile
+      3.times { FactoryGirl.create(:rule_trigger, tile: tile) }
+      tile.first_rule.should == first_trigger.rule
+    end
+  end
+
+  describe "#appears_client_created" do
+    it "is true if the tile has supporting content and a question" do
+      tile = FactoryGirl.create(:tile, :client_created)
+      tile.appears_client_created.should be_true
+
+      tile.update_attributes(supporting_content: nil)
+      tile.appears_client_created.should be_false
+
+      tile.update_attributes(supporting_content: "support", question: nil)
+      tile.appears_client_created.should be_false
     end
   end
 

@@ -218,6 +218,14 @@ FactoryGirl.define do
     association :demo
     sequence(:position){ |n| n }
     status 'active'
+
+    trait :client_created do
+      supporting_content "This is some extra text by the tile"
+      question "Who loves ya, baby?"
+      after(:create) do |tile|
+        rule_trigger = FactoryGirl.create(:rule_trigger, tile: tile)
+      end
+    end
   end
 
   factory :tile_completion do
