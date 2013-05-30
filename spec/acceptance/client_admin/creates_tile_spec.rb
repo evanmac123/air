@@ -44,6 +44,7 @@ feature 'Creates tile' do
     demo.rules.reload.should have(1).rule
     new_rule = Rule.last
     new_rule.points.should == 23
+    new_rule.alltime_limit.should == 1
 
     new_rule.rule_values.should have(2).rule_values
     new_rule.rule_values.pluck(:value).sort.should == %w(me you)

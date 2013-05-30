@@ -86,7 +86,7 @@ class TileBuilderForm
   end
 
   def build_rule
-    @rule = @demo.rules.build
+    @rule = @demo.rules.build(alltime_limit: 1)
 
     if @parameters.present?
       rule.points = @parameters[:points]
