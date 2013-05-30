@@ -1,0 +1,151 @@
+body {
+  font-family:$font;
+  font-size:1em;
+  min-width:100%;
+  p { font-weight:300; line-height: 1.4em}
+  span.em {font-weight:600;}
+  .continue_to_home {font-size:.65em; float:right;}
+}
+header {
+  background:image-url('marketing/bg.gif');
+  .continue_to_home {padding:1em 0;}
+  #video_placeholder {
+    max-width:100%;
+    margin-top:2.25em;
+    padding:1em 0 4em 0;
+    text-align: center;
+    h1 {
+      @include hide-text;
+      background:image-url('v4/logo.png') center center no-repeat transparent;
+      background-size:100%;
+      display: inline-block;
+      height:150px;
+      width:100%;
+      max-width:661px;
+    }
+  }
+}
+#welcome, footer .row {
+  h1 {
+    font-size:2.45em;
+    font-weight:300;
+    margin-bottom:.5em;
+  }
+  h2 {
+    font-size:1.25em;
+    font-weight:500;
+    margin-bottom:2em;
+  }
+}
+#welcome {
+  border-bottom:2px $light-gray solid;
+  margin-bottom:1em;
+  padding:2em 0 4em 0;
+  text-align: center;
+  h1 {color:$dark-green;}
+  #free_trial_button {
+    @include pop-button($orange);
+    font-size:1.2em;
+    padding:.75em 1em;
+  }
+}
+
+.row.values {
+  font-size:1em;
+  padding:3em 0;
+  &:last-of-type {margin-bottom:0;}
+  &:after{@include clear;}
+  .text {padding-bottom:2em;
+    h2 {
+      color:$blue;
+      font-size:1.75em;
+      margin-bottom:1em;
+    }
+  }
+  .visual {
+    text-align:center;
+    img {max-width:90%;}
+  }
+}
+
+section#clients {
+  border-top:2px $light-gray solid;
+  border-bottom:0;
+  padding-top:3em;
+  h2 {font-size:1.25em;}
+}
+
+footer {
+  background:$blue;
+  font-size:1em;
+  padding:4em 0 2em 0;
+  
+  #sign_up {
+    text-align: center;
+    h1 {color:$white;}
+    h2 {color:$light-gray; margin-top:.75em;}
+    form#signup_form {
+      ul {
+        float:none;
+        width:100%;
+        li {display:block;}
+      }
+      input{
+        font-size:1.25em;
+        vertical-align: middle;
+      }
+      input[type="text"] {
+        border:2px lighten($blue, 20%) solid;
+        color:$orange;
+        padding: .35em .75em;
+        width:100%;
+        &:hover,&:focus {border-color:$orange;}
+      }
+      input[type="submit"] {
+        @include pop-button($orange);
+        margin:.5em auto 0 auto;
+      }
+    }
+    #signup_responses {
+      padding-top:1em;
+      .signup_message {
+        color:#fff;
+        display: inline-block;
+        font-weight:300;
+        padding:.75em 1em;
+        &#signup_error {background:$red;}
+        &#signup_thanks {background:$dark-green;}
+        &#submitting_signup_form {color:lighten($blue, 20%); font-weight:300;}
+      }
+    }
+  }
+
+  #footer_details {
+    margin-top:4em;
+    .continue_to_home {
+      @include link(lighten($blue, 20%));
+      padding:.4em 0 0 0;
+    }
+    .copyright {
+      color:lighten($blue, 20%);
+      float:none;
+      font-size:.675em;
+      font-weight:300;
+    }
+  }
+}
+
+
+@media only screen and (min-width: 35em) {
+  body {font-size:1.125em;}
+  #welcome, footer .row {h1 {margin-bottom:.25em;}}
+  footer #sign_up form#signup_form ul li#email_field {width:45%;}
+  footer #sign_up form#signup_form ul li {display: inline-block; vertical-align: bottom;}
+}
+@media only screen and (min-width: 62.5em) {
+  #hub, #beautiful_content, #incentives, 
+  #track_metrics, #create_habit {
+    .text {padding-top:3em;}
+  }
+  #save_resources .text {padding-top:4em;} 
+}

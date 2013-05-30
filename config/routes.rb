@@ -4,6 +4,7 @@ Health::Application.routes.draw do
   match "activity"   => "acts#index"
   match "scoreboard" => "scores#index"
   match "join"       => "invitations#new"
+  match "next"       => "pages#show", :id => "june2013_landing"
 
   resources :tiles, :only => [:index, :show]
 
