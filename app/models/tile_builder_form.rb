@@ -17,7 +17,8 @@ class TileBuilderForm
     build_answers
 
     # Check validity of all objects first, so that we can get the error
-    # messages on all of them.
+    # messages on all of them. Otherwise, since #all short-circuits, we'd stop
+    # at the first invalid object.
 
     validities = main_objects.map{|object| object.valid?(:client_admin)}
     if validities.all? 
@@ -90,6 +91,10 @@ class TileBuilderForm
 
     if @parameters.present?
       rule.points = @parameters[:points]
+
+      headline = @parameters[:headline]
+      rule.reply = "+#{@parameters[:points]} points! Great job! You completed the \"#{headline}\" tile."
+      rule.description = "Answered a question on the \"#{headline}\" tile."
     end
   end
 

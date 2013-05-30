@@ -45,6 +45,8 @@ feature 'Creates tile' do
     new_rule = Rule.last
     new_rule.points.should == 23
     new_rule.alltime_limit.should == 1
+    new_rule.reply.should == %{+23 points! Great job! You completed the "Ten pounds of cheese" tile.}
+    new_rule.description.should == %{Answered a question on the "Ten pounds of cheese" tile.}
 
     new_rule.rule_values.should have(2).rule_values
     new_rule.rule_values.pluck(:value).sort.should == %w(me you)
