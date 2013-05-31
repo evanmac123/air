@@ -89,8 +89,6 @@ module NavigationHelpers
 
     when /the new admin rule page/
       new_admin_rule_path
-    when /the blast SMS page for "(.*?)"/
-      new_admin_demo_blast_sms_path(Demo.find_by_name($1))
 
     when /the marketing page/
       page_path(:id => 'marketing')

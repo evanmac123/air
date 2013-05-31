@@ -180,14 +180,6 @@ class Demo < ActiveRecord::Base
 
   alias_method_chain :claim_state_machine, :default
 
-  def schedule_blast_sms(text, send_time)
-    delay(:run_at => send_time).send_blast_sms(text)
-  end
-
-  def send_blast_sms(text)
-    users.with_phone_number.each {|user| OutgoingMessage.send_message(user, text)}
-  end
-
   def number_not_found_response
     custom_message(
       :unrecognized_user_message,
