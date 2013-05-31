@@ -1,9 +1,9 @@
-- if no_digest_email?
-  %div#digest-email-no= no_digest_email_message
-- else
-  %div#digest-email-yes= render partial: 'digest_email'
+%div#digest_management
+  - if no_digest_email?
+    %div.no_tiles_message= no_digest_email_message
+  - else
+    %div#digest-email= render partial: 'digest_management'
 
 %hr
 
-- @digest_tiles.each do |tile|
-  = image_tag tile.thumbnail
+= render partial: 'tiles_table', locals: {tiles: @digest_tiles, type: :digest}

@@ -168,6 +168,22 @@ class Tile < ActiveRecord::Base
     end
   end
 
+  def self.active
+    where("status = ?", ACTIVE)
+  end
+
+  def self.archive
+    where("status = ?", ARCHIVE)
+  end
+
+  def self.draft
+    where("status = ?", DRAFT)
+  end
+
+  def self.digest(demo)
+    active.where("created_at > ?", demo.tile_digest_email_sent_at)
+  end
+
   def self.after_start_time_and_before_end_time
     after_start_time.before_end_time
   end

@@ -54,12 +54,20 @@ class Demo < ActiveRecord::Base
   end
   include ActsWithCurrentDemoChecked
   
-  def tiles_in_digest_email
-    tiles.where("status = ? AND created_at > ?", 'active', self.tile_digest_email_sent_at)
+  def active_tiles
+    tiles.active
   end
 
-  def num_tiles_in_digest_email
-    tiles_in_digest_email.count
+  def archive_tiles
+    tiles.archive
+  end
+
+  def draft_tiles
+    tiles.draft
+  end
+
+  def digest_tiles
+    tiles.digest(self)
   end
 
   def example_tooltip_or_default

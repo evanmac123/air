@@ -1,14 +1,19 @@
-#digest-last-email {
-  font-style: italic;
-  color: #808080
+#digest-status-messages {
+  #last-email {
+    font-style: italic;
+    color: #808080
+  }
+  #feedback {
+    padding-left: 2em;
+    color: blue;
+    display: none;
+    font-style: italic;
+    float: right;
+  }
 }
 
-#feedback {
-  padding-left: 2em;
-  color: blue;
-  display: none;
-  font-style: italic;
-  float: right;
+.no_tiles_message {
+  font-size: 1.5em;
 }
 
 #show-user-spinner {
@@ -22,4 +27,20 @@ form.button_to {
 
 #digest hr {
   margin: 2em 0em;
+}
+
+td.tile_thumbnail {
+  text-align: center;
+
+  img {
+    width:  222px;
+    height: 222px;
+  }
+  .headline {
+    font-weight: bold;
+    font-size: 1.5em;
+  }
+  .shelf_life {
+    font-style: italic;
+  }
 }

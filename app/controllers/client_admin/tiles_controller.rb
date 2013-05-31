@@ -5,8 +5,9 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     @tile_digest_email_sent_at = @demo.tile_digest_email_sent_at  # Demo...
     @tile_digest_email_send_on = @demo.tile_digest_email_send_on  # ...attributes
 
-    @digest_tiles = @demo.tiles_in_digest_email
-    @num_digest_tiles = @demo.num_tiles_in_digest_email
+    @active_tiles  = @demo.active_tiles
+    @archive_tiles = @demo.archive_tiles
+    @digest_tiles  = @demo.digest_tiles
   end
 
   def new
@@ -24,6 +25,20 @@ class ClientAdmin::TilesController < ClientAdminBaseController
       # bullshit manner in Rails. Surely we can improve on this.
       flash[:failure] = "Sorry, we couldn't save this tile: " + @tile_builder_form.error_messages
       render "new"
+    end
+  end
+
+  def update
+    tile = Tile.find params[:id]
+
+    # Check because figure there will be other entirely-different situations where we are updating a tile...
+    if params[:update_status]
+      if tile.update_attributes status: params[:update_status]
+        flash[:success] = "The #{tile.headline} tile has been archived"
+      else
+        flash[:failure] = "There was a problem archiving this tile. Please try again."
+      end
+      redirect_to action: :index
     end
   end
 

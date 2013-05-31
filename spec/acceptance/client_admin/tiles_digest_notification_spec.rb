@@ -60,6 +60,10 @@ feature 'Client admin and the digest email for tiles', js: true do
     have_text text
   end
 
+  def have_tile_image(options)
+    have_selector '.tile_thumbnail img', options
+  end
+
   def refresh_tile_manager_page
     visit manage_tiles_page
   end
@@ -95,19 +99,6 @@ feature 'Client admin and the digest email for tiles', js: true do
   end
 
   # -------------------------------------------------
-
-  scenario 'Tile-manager tabs work' do
-    visit manage_tiles_page
-
-    select_tab 'Archive'
-    archive_tab.should contain 'Archived tiles'
-
-    select_tab 'Digest'
-    digest_tab.should contain 'No digest email is scheduled to be sent '
-
-    select_tab 'Active'
-    active_tab.should contain 'Active tiles'
-  end
 
   context 'No tiles exist for digest email' do
 
@@ -208,24 +199,35 @@ feature 'Client admin and the digest email for tiles', js: true do
       digest_tab.should contain 'Last digest email was sent on Thursday, July 04, 2013'
     end
 
-    scenario "The 'Send now' button displays a confirmation message and updates the date in the 'Last email sent on' text"  do
+    scenario "The 'Send now' button causes all digest tiles to become invisible and a no-digest-tiles message to be displayed"  do
       set_last_sent_on '7/4/2013'
-      create_tile on: '7/5/2013'
+      2.times { |i| create_tile on: '7/5/2013', headline: "Headline #{i + 1}"}
 
       on_day '7/6/2013' do
         visit manage_tiles_page
         select_tab 'Digest'
 
-        digest_tab.should contain 'Last digest email was sent on Thursday, July 04, 2013'
+        digest_tab.should     contain 'A digest email containing 2 tiles is set to go out'
+        digest_tab.should_not contain 'No digest email is scheduled to be sent'
+        digest_tab.should_not contain 'since the last one was sent on Saturday, July 06, 2013'
+
+        digest_tab.should contain 'Headline 1'
+        digest_tab.should contain 'Headline 2'
+        digest_tab.should contain 'Forever'
+
+        digest_tab.should have_tile_image count: 2, visible: true
 
         click_button 'Send now'
-        digest_tab.should contain 'Digest email sent'
-        digest_tab.should contain 'Last digest email was sent on Saturday, July 06, 2013'
 
-        visit manage_tiles_page
-        select_tab 'Digest'
+        digest_tab.should_not contain 'A digest email containing 2 tiles is set to go out'
+        digest_tab.should     contain 'No digest email is scheduled to be sent'
+        digest_tab.should     contain 'since the last one was sent on Saturday, July 06, 2013'
 
-        digest_tab.should contain 'No digest email is scheduled to be sent because no new tiles have been added'
+        digest_tab.should_not contain 'Headline 1'
+        digest_tab.should_not contain 'Headline 2'
+        digest_tab.should_not contain 'Forever'
+
+        digest_tab.should have_tile_image count: 2, visible: false
       end
     end
   end

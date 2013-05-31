@@ -1,4 +1,2 @@
-$('#digest-status-messages #feedback').html('Digest email sent').fadeIn('slow');
-// The 'escape_javascript' call isn't really necessary for this output, but it's probably a good habit to get into.
-// And even though it's a mouthful, think it's better than its shortened version which could be easily missed: 'j'
-$('#digest-status-messages #last-email').html("<%= escape_javascript digest_email_sent_on_message %>").fadeIn('slow');
+$('#digest_management').html("<div class='no_tiles_message'><%= no_digest_email_message %></div>");
+$("td.tile_thumbnail.digest").fadeOut(2000);

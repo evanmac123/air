@@ -8,6 +8,49 @@ describe Tile do
   it { should have_one(:survey_trigger) }
   it { should ensure_inclusion_of(:status).in_array(Tile::STATUS) }
 
+  describe 'finders based on status' do
+    it 'should return the correct tiles for each status type in the specified demo' do
+      last_digest_sent_at = 3.days.ago.at_midnight
+      demo = FactoryGirl.create :demo, tile_digest_email_sent_at: last_digest_sent_at
+
+      # These guys hold just the id's, not the entire objects
+      draft   = []
+      archive = []
+      active  = []
+      digest  = []
+
+      (1..3).each do |i|
+        # Note that all of these tiles qualify for "digest" tiles because they are created after the last digest email
+        # was sent => We can test that only "active" tiles go out in the digest email
+        draft   << FactoryGirl.create(:tile, demo: demo, status: Tile::DRAFT,   created_at: last_digest_sent_at + i.minutes).id
+        archive << FactoryGirl.create(:tile, demo: demo, status: Tile::ARCHIVE, created_at: last_digest_sent_at + i.minutes).id
+
+        # These 'active' tiles were created *before* the last digest email => should not also be considered "digest" tiles
+        active << FactoryGirl.create(:tile, demo: demo, status: Tile::ACTIVE, created_at: last_digest_sent_at - i.minutes).id
+
+        # These 'active' tiles were created *after* the last digest email => should also be considered "digest" tiles
+        tile = FactoryGirl.create(:tile, demo: demo, status: Tile::ACTIVE, created_at: last_digest_sent_at + i.minutes).id
+        active << tile
+        digest << tile
+      end
+
+      # Create some tiles of each type that belong to a different demo
+      bad_demo = FactoryGirl.create :demo, tile_digest_email_sent_at: last_digest_sent_at
+      (1..2).each do |i|
+        FactoryGirl.create(:tile, demo: bad_demo, status: Tile::DRAFT,   created_at: last_digest_sent_at + i.minutes).id
+        FactoryGirl.create(:tile, demo: bad_demo, status: Tile::ARCHIVE, created_at: last_digest_sent_at + i.minutes).id
+
+        FactoryGirl.create(:tile, demo: bad_demo, status: Tile::ACTIVE, created_at: last_digest_sent_at - i.minutes).id
+        FactoryGirl.create(:tile, demo: bad_demo, status: Tile::ACTIVE, created_at: last_digest_sent_at + i.minutes).id
+      end
+
+      demo.draft_tiles.pluck(:id).sort.should   == draft.sort
+      demo.archive_tiles.pluck(:id).sort.should == archive.sort
+      demo.active_tiles.pluck(:id).sort.should  == active.sort
+      demo.digest_tiles.pluck(:id).sort.should  == digest.sort
+    end
+  end
+
   describe "#due?" do
     it "should tell me whether a tile is within the window of opportunity" do
       Demo.find_each { |f| f.destroy }
