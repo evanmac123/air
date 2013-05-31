@@ -9,7 +9,6 @@
       = link_to activity_path do
         =# image_tag 'tile_viewer/logo.png', :id => "logo", :alt=> "h.engage"
       %p#position
-      .cf
     .viewer
       = link_to "#", :id => :prev do
         %span Previous
@@ -18,4 +17,3 @@
           = render 'full_size_tile', :tile => tile
       = link_to "#", :id => :next do
         %span Next
-      .cf

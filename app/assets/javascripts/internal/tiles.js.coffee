@@ -62,10 +62,11 @@ sendViewedTilePing = (tile_id) ->
 
 resizeSlideshow = () -> 
   array_of_images = $('#slideshow img')
+  tile_texts = $('.tile_texts_container')
   offset = 45
   max_height = 0
   $.map array_of_images, (image) ->
-    max_height = image.height if (image.height > max_height)
+    max_height = tile_texts.height if (image.height > max_height)
   slideshow.height(max_height + offset)
 
 

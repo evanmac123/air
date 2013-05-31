@@ -1,0 +1,85 @@
+.tiles.tiles-index {
+  // Full size tiles holder
+  #slideshow {
+    * {font-family:$open;}
+    // border:1px red solid;
+    position:relative;
+    width:85%!important;
+    &:after{@include clear;}
+  }
+}
+
+// Actual tile, holds everything together
+.tile_holder {
+  background:$white;
+  // border:5px $white solid;
+  display: block;
+  margin:0 auto;
+  text-align: left;
+  width:100%!important;
+}
+
+.tile_full_image {
+  background:$light-gray;
+  text-align: center;
+  img {width:100%; max-width:auto;}
+  &:after{@include clear;}
+}
+.tile_texts_container {
+  background:$white;
+  line-height: 1.125em;
+  padding-top:1em;
+  .tile_headline, .tile_supporting_content {
+    font-weight:300;
+    padding:1em 0;
+    margin: 0 auto;
+    width:86%;
+  }
+  .tile_headline {
+    color:$blue;
+    font-size:2.75em;
+  }
+  .tile_supporting_content {
+    color:$dark-gray;
+    font-size:1.25em;
+    line-height:1.3em;
+    margin-bottom:.8em;
+  }
+  .tile_quiz {
+    background:$light-gray;
+    padding:2em 0 2.5em 0;
+    position: relative;
+    .tile_points {
+      color:$orange;
+      display: inline-block;
+      font-weight:600;
+      text-align: center;
+      
+      position:absolute;
+      top:0;
+      left:7%;
+      vertical-align: middle;
+      span {
+        display:inline-block;
+        padding:1em 0 .75em 0;
+        vertical-align: middle;
+        &.num_of_points {
+          background:$orange;
+          color:$white;
+          font-size:2em;
+          margin-right:.15em;
+          width:2.125em;
+        }
+        &.points_label {
+          font-size:1.25em;
+        }
+      }
+    }
+    .tile_question {
+      font-weight:600;
+      font-size:1.25em;
+      margin: 0 0 0 23%;
+      width:70%;
+    }
+  }
+}

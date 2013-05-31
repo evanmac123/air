@@ -10,6 +10,7 @@ body {
 	color:$text-color;
 	font-family:$sans;
 	font-size:14px;
+	line-height: 1em;
 	* {-moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;}
 	.content {
 		margin:$centered;

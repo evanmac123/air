@@ -1,49 +1,39 @@
+@import 'tiles_thumbnails';
+@import 'tiles_fullsize';
+
 .tiles.tiles-index{
-  .container {
-    &:after{@include clear;}
-    margin:auto;
-    padding:0 0 10px 0;
-    width:100%;
-  }
+  .container:after{@include clear;}
 
   .tile_viewer_header {
-    position: relative;
-    z-index: 4;
-    margin: auto;
-    width: 100%;
-    height: 10px;
+    text-align: center;
+    width: 100%;    
   }
-  img#logo {float:left;}
-  .tile_image{display: none;}
   p#position {
-    position: absolute;
     background:$dark-gray;
     color:white;
-    font-family:$sans;
-    margin:0;
+    display: inline-block;
+    margin:1em auto;
     padding:.75em 1em;
-    left:825px;
-    top: 11px;
-    text-align: center;
   }
 
   .viewer {
     margin:auto;
     position:relative;
-    width:786px;
+    text-align: center;
+    width:82%;
     &:after{@include clear;}
   }
 
-  a#prev, a#next, #slideshow {
-    display:inline-block;
-    float:left;
-  }
+  // Buttons
+  a#prev, a#next, #slideshow {display:inline-block;}
   a#prev, a#next {
     background:$dark-green;
     border:1px darken($dark-green, 5%) solid;
     height:60px;
-    margin:65px 0 0 0;
+    margin:0;
     padding:0;
+    position: absolute;
+    top:6em;
     width:60px;
     span {
       background:image-url('v5/sprites.png') transparent no-repeat;
@@ -66,46 +56,14 @@
     }
     &:hover{background:darken($dark-green, 5%);}
   }
+  a#prev {left:0;}
+  a#next {right:0;}
   a#prev span {background-position: -1px -173px;}
   a#next span {background-position: -63px -173px;}
 
-  #slideshow {
-    margin: auto;
-    position:relative;
-    width: 666px; 
-    height: 2000px;
-    .tile_holder {
-      background:$white;
-      height:auto!important;
-      min-height:200px;
-      padding: 1em; 
-      text-align: center;
-      width:100%!important;
-      &:after{@include clear;}
-      .tile_link, img {
-        display:block;
-        margin:$centered;
-      }
-      img {height:auto; max-width:100%;}
-    }
-  }
-
-  .footer {
-    border-top:1px white solid;
-    height:100%;
-    margin:0;
-    min-height:100%;
-    position:relative;
-  }
-  .footer p {
-    color:#afafaf;
-    font-size:13px;
-    padding:26px 15px 15px;
-    text-align:center;
-  }
   #tiles_done_message{
-    padding-top:2em;
+    padding-top:4em;
     text-align: center;
-    p{font-size: 2em; padding-bottom:1em;}
+    p{font-size: 2em; line-height:1em; padding-bottom:1em;}
   }
 }
