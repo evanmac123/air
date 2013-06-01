@@ -9,6 +9,10 @@ feature 'Creates tile' do
     fields[index].set(text)
   end
 
+  def expect_character_counter_for(selector, max_characters)
+    pending
+  end
+
   before do
     visit new_client_admin_tile_path(as: client_admin)
   end
@@ -64,4 +68,14 @@ feature 'Creates tile' do
     demo.tiles.reload.should be_empty
     expect_content "Sorry, we couldn't save this tile: headline can't be blank, supporting content can't be blank, question can't be blank, image is missing, points can't be blank, must have at least one answer."
   end
+
+  scenario "should see character (not byte) counters on each text field", js: true do
+    expect_character_counter_for '#tile_builder_form_headline', 75
+    expect_character_counter_for '#tile_builder_form_supporting_content', 300
+    expect_character_counter_for '#tile_builder_form_question', 150
+    expect_character_counter_for '.answer-field:nth-of-type(1)', 25
+    pending 'multiple answers'
+  end
+
+  scenario "should enforce character limit"
 end

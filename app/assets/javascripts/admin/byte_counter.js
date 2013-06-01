@@ -15,24 +15,27 @@ function lengthInBytes(string) {
   return result;
 }
 
-function updateCharacterCounter(from, to) {
+function updateByteCount(from, to) {
   maxLength = $(from).attr('maxlength');
   currentLength = lengthInBytes($(from).val());
   $(to).text('' + ((maxLength * 7 / 8) - currentLength) + ' bytes left');
 }
 
-function addByteCounterFor(locator) {
+function addCounter(locator, countUpdater) {
   var ghettoUniqueId = "counter_" + Math.round(Math.random() * 10000000);
   $(locator).after('<span class="character-counter" id="' + ghettoUniqueId + '"></span>');
-  updateCharacterCounter(locator, '#'+ghettoUniqueId);
+  countUpdater(locator, '#'+ghettoUniqueId);
   // I'm using keyup here instead of keypress so that it plays nicely in Chrome
   $(locator).keyup(function() {
     // Put a tiny timeout in this so it waits for the data to hit the field before it calculates it
     setTimeout(function(){
-      updateCharacterCounter(locator, '#'+ghettoUniqueId);
+      countUpdater(locator, '#'+ghettoUniqueId);
     }, 1);
-    
   });
+}
+
+function addByteCounterFor(locator) {
+  addCounter(locator, updateByteCount)
 }
 
 
