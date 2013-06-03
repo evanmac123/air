@@ -1,6 +1,5 @@
 require 'acceptance/acceptance_helper'
 
-# After this initial creation, note that 'admin' is used instead of 'client-admin'
 feature 'Client admin and the digest email for tiles', js: true do
 
   let(:admin) { FactoryGirl.create :client_admin }
@@ -14,59 +13,6 @@ feature 'Client admin and the digest email for tiles', js: true do
   end
 
   # -------------------------------------------------
-
-  DATE_REG_EXPR = /(\d{1,2})\/(\d{1,2})\/(\d{4})/  # e.g. 7/4/2013
-
-  def travel_to_day(day)
-    day.match DATE_REG_EXPR
-    time = Time.new $3, $1, $2
-    Timecop.travel(time)
-  end
-
-  def on_day(day)
-    travel_to_day day
-    yield
-  ensure
-    Timecop.return
-  end
-
-  # -------------------------------------------------
-
-  def active_tab
-    tab('Active')
-  end
-
-  def digest_tab
-    tab('Digest')
-  end
-
-  def archive_tab
-    tab('Archive')
-  end
-
-  def tab(label)
-    find("#tile-manager-tabs ##{label.downcase}")
-  end
-
-  def select_tab(tab)
-    click_link tab
-  end
-
-  def manage_tiles_page
-    client_admin_tiles_path
-  end
-
-  def contain(text)
-    have_text text
-  end
-
-  def have_tile_image(options)
-    have_selector '.tile_thumbnail img', options
-  end
-
-  def refresh_tile_manager_page
-    visit manage_tiles_page
-  end
 
   def have_send_on_selector(select = nil)
     options = select.nil? ? {} : {selected: select}
@@ -88,22 +34,12 @@ feature 'Client admin and the digest email for tiles', js: true do
     demo.update_attributes tile_digest_email_sent_at: time
   end
 
-  def create_tile(options = {})
-    date = options.delete :on
-    if date
-      date.match DATE_REG_EXPR
-      options[:created_at] = Time.new $3, $1, $2
-    end
-
-    FactoryGirl.create :tile, options.merge(demo: demo)
-  end
-
   # -------------------------------------------------
 
   context 'No tiles exist for digest email' do
 
     before(:each) do
-      visit manage_tiles_page
+      visit tile_manager_page
       select_tab 'Digest'
     end
 
@@ -135,7 +71,7 @@ feature 'Client admin and the digest email for tiles', js: true do
   context 'Tiles exist for digest email' do
     scenario "The number of tiles is correct, as is the plurality of the word 'tile'" do
       create_tile
-      visit manage_tiles_page
+      visit tile_manager_page
       select_tab 'Digest'
 
       digest_tab.should contain 'A digest email containing 1 tile is set to go out'
@@ -149,7 +85,7 @@ feature 'Client admin and the digest email for tiles', js: true do
 
     scenario 'The appropriate form components are on the page and properly initialized' do
       create_tile
-      visit manage_tiles_page
+      visit tile_manager_page
       select_tab 'Digest'
 
       digest_tab.should have_send_on_selector('Never')
@@ -164,7 +100,7 @@ feature 'Client admin and the digest email for tiles', js: true do
 
     scenario "The 'send_on' dropdown control updates the day and time, and displays a confirmation message"  do
       create_tile
-      visit manage_tiles_page
+      visit tile_manager_page
       select_tab 'Digest'
 
       digest_tab.should have_send_on_selector('Never')
@@ -191,9 +127,9 @@ feature 'Client admin and the digest email for tiles', js: true do
 
     scenario 'The last-digest-email-sent-on date is correct' do
       set_last_sent_on '7/4/2013'
-      create_tile on: '7/5/2013'
+      create_tile on_day: '7/5/2013'
 
-      visit manage_tiles_page
+      visit tile_manager_page
       select_tab 'Digest'
 
       digest_tab.should contain 'Last digest email was sent on Thursday, July 04, 2013'
@@ -201,10 +137,10 @@ feature 'Client admin and the digest email for tiles', js: true do
 
     scenario "The 'Send now' button causes all digest tiles to become invisible and a no-digest-tiles message to be displayed"  do
       set_last_sent_on '7/4/2013'
-      2.times { |i| create_tile on: '7/5/2013', headline: "Headline #{i + 1}"}
+      2.times { |i| create_tile on_day: '7/5/2013', headline: "Headline #{i + 1}"}
 
       on_day '7/6/2013' do
-        visit manage_tiles_page
+        visit tile_manager_page
         select_tab 'Digest'
 
         digest_tab.should     contain 'A digest email containing 2 tiles is set to go out'
@@ -215,7 +151,7 @@ feature 'Client admin and the digest email for tiles', js: true do
         digest_tab.should contain 'Headline 2'
         digest_tab.should contain 'Forever'
 
-        digest_tab.should have_tile_image count: 2, visible: true
+        digest_tab.should have_num_tiles(2, visible: true)
 
         click_button 'Send now'
 
@@ -227,7 +163,7 @@ feature 'Client admin and the digest email for tiles', js: true do
         digest_tab.should_not contain 'Headline 2'
         digest_tab.should_not contain 'Forever'
 
-        digest_tab.should have_tile_image count: 2, visible: false
+        digest_tab.should have_num_tiles(2, visible: false)
       end
     end
   end

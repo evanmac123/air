@@ -1,7 +1,7 @@
 %tr
   - columns.size.times do |col|
     - tile = columns[col]
-    %td.tile_thumbnail{class: type == :digest && 'digest'}
+    %td.tile_thumbnail{class: type, data: {tile_id: tile.id}}
       %div.image= image_tag tile.thumbnail
       %div.headline= tile.headline
       %div.shelf_life= shelf_life(tile)

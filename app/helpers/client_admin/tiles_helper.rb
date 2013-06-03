@@ -1,9 +1,5 @@
 module ClientAdmin::TilesHelper
 
-  def no_digest_email?
-    @digest_tiles.empty?
-  end
-
   def digest_email_sent_on
     @tile_digest_email_sent_at.to_s(:tile_digest_email_sent_at)
   end
@@ -29,7 +25,6 @@ module ClientAdmin::TilesHelper
 
   def shelf_life(tile)
     case
-      when tile.status == Tile::ARCHIVE               then ""
       when tile.start_time.nil? && tile.end_time.nil? then "Forever"
       when tile.start_time      && tile.end_time.nil? then "#{tile.start_time.to_s(:tile_digest_email_shelf_life)} - Forever"
       when tile.start_time      && tile.end_time      then "#{tile.start_time.to_s(:tile_digest_email_shelf_life)} - #{tile.end_time.to_s(:tile_digest_email_shelf_life)}"
