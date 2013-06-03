@@ -52,6 +52,7 @@ module Health
       jquery.lightbox_me.js
       ga.js
       ga-marketing.js
+      admin/byte_counter.js
     )
 
     ################################################################

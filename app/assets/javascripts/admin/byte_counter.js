@@ -15,10 +15,18 @@ function lengthInBytes(string) {
   return result;
 }
 
+function maxLength(element) {
+  return($(element).attr('maxlength'));
+}
+
 function updateByteCount(from, to) {
-  maxLength = $(from).attr('maxlength');
   currentLength = lengthInBytes($(from).val());
-  $(to).text('' + ((maxLength * 7 / 8) - currentLength) + ' bytes left');
+  $(to).text('' + ((maxLength(from) * 7 / 8) - currentLength) + ' bytes left');
+}
+
+function updateCharacterCount(from, to) {
+  currentLength = $(from).val().length;
+  $(to).text('' + maxLength(from) - currentLength + ' characters left');
 }
 
 function addCounter(locator, countUpdater) {
@@ -38,4 +46,6 @@ function addByteCounterFor(locator) {
   addCounter(locator, updateByteCount)
 }
 
-
+function addCharacterCounterFor(locator) {
+  addCounter(locator, updateCharacterCount)
+}

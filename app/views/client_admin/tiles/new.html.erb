@@ -2,10 +2,10 @@
 
 <%= form_for @tile_builder_form, url: client_admin_tiles_path do |f| %>
   <%= f.label :headline %>
-  <%= f.text_field :headline %>
+  <%= f.text_field :headline, {maxlength: 45} %>
 
   <%= f.label :supporting_content %>
-  <%= f.text_field :supporting_content %>
+  <%= f.text_field :supporting_content, {maxlength: 300} %>
 
   <%= f.file_field "image" %>
 
@@ -15,7 +15,7 @@
   <%= f.label "answers[]", "Answer" %>
   <div id="answers">
     <% f.object.answers.each_with_index do |answer, i| %>
-      <%= text_field_tag "tile_builder_form[answers][]", answer.value, class: 'answer-field' %>
+      <%= text_field_tag "tile_builder_form[answers][]", answer.value, class: 'answer-field', maxlength: 25 %>
     <% end %>
   </div>
   <%= link_to "Add another answer", "#", id: "add-answer-link" %>
@@ -27,6 +27,7 @@
 <% end %>
 
 <% content_for :javascript do %>
+  <%= javascript_include_tag 'admin/byte_counter' %>
   <%= javascript_tag do %>
     $(function() {
       var prototypeAnswerField = $('.answer-field').first();
@@ -36,7 +37,12 @@
         var newField = prototypeAnswerField.clone();
         newField.attr('value', '');
         $('#answers').append(newField);
+        addCharacterCounterFor('.answer-field:last-of-type');
       });
     });
+
+    addCharacterCounterFor('#tile_builder_form_headline');
+    addCharacterCounterFor('#tile_builder_form_supporting_content');
+    addCharacterCounterFor('.answer-field');
   <% end %>
 <% end %>
