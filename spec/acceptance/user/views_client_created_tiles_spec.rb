@@ -10,7 +10,7 @@ feature 'User views client created tiles' do
   end
 
   def expect_points(points)
-    expect_content "+#{points} points"
+    expect_content "#{points} points"
   end
 
   scenario 'and all the extra cool stuff around them' do
