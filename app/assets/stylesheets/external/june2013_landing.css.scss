@@ -2,8 +2,9 @@ body {
   font-family:$font;
   font-size:1em;
   min-width:100%;
-  p { font-weight:300; line-height: 1.4em}
-  span.em {font-weight:600;}
+  a {font-family:$open-600;}
+  p { line-height: 1.4em}
+  span.em {font-family:$open-600;}
   .continue_to_home {font-size:.65em; float:right;}
 }
 header {
@@ -28,12 +29,11 @@ header {
 #welcome, footer .row {
   h1 {
     font-size:2.45em;
-    font-weight:300;
     margin-bottom:.5em;
   }
   h2 {
     font-size:1.25em;
-    font-weight:500;
+    font-family:$open-400;
     margin-bottom:2em;
   }
 }
@@ -41,7 +41,7 @@ header {
   margin-bottom:1em;
   padding:2em 0 4em 0;
   text-align: center;
-  h1 {color:$dark-green;}
+  h1 {color:$dark-green; font-family:$font;}
   #free_trial_button {
     @include pop-button($orange);
     font-size:1.2em;
@@ -98,7 +98,7 @@ footer {
   
   #sign_up {
     text-align: center;
-    h1 {color:$white;}
+    h1 {color:$white; font-family:$font;}
     h2 {color:$light-gray; margin-top:.75em;}
     form#signup_form {
       ul {
@@ -127,11 +127,10 @@ footer {
       .signup_message {
         color:#fff;
         display: inline-block;
-        font-weight:300;
         padding:.75em 1em;
         &#signup_error {background:$red;}
         &#signup_thanks {background:$dark-green;}
-        &#submitting_signup_form {color:lighten($blue, 20%); font-weight:300;}
+        &#submitting_signup_form {color:lighten($blue, 20%);}
       }
     }
   }
@@ -146,7 +145,6 @@ footer {
       color:lighten($blue, 20%);
       float:none;
       font-size:.675em;
-      font-weight:300;
     }
   }
 }

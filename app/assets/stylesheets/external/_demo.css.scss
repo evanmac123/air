@@ -8,7 +8,7 @@
     border-top:0;
     color:$orange;
     font-size:1.5em;
-    font-weight:600;
+    font-family:$open-600;
     margin:.5em 0;
     padding-left:0;
     width:100%;
@@ -72,7 +72,7 @@
     #suggestions {
       float:right;
       font-size:.875em;
-      font-weight:600;
+      font-family:$open-600;
       text-align: center;
       width:69%;
     }

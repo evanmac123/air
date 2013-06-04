@@ -27,7 +27,6 @@
     }
     input[type="text"] {
       font-size:1.125em;
-      font-weight:300;
       padding:.65em .85em;
       margin-bottom:.65em;
       width:80%;
@@ -89,6 +88,7 @@
       a {
         color:$white;
         display: inline-block;
+        font-family:$open-600;
         padding:.85em 2em;
         vertical-align: middle;
         &:before{
@@ -147,7 +147,7 @@
     margin-right:1.25em;
     padding:0 10px;
     width:30%;
-    h2 {color:#4d4d4d; font-weight:600;}
+    h2 {color:#4d4d4d; font-family:$open-600;}
     p {padding-top:1em;}
   }
   #stats_usage li, #stats_holder ul {display:none; position:absolute;}
@@ -159,7 +159,7 @@
       li {
         display: inline-block;
         color:$dark-green;
-        font-weight:600;
+        font-family:$open-600;
         padding:.65em;
         &.current_stat_name {background:$dark-green;color:$white;}
       }

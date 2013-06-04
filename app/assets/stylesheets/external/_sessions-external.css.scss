@@ -33,7 +33,7 @@ body.external {
     form {
       width:87%;
       margin:1.5em auto 1em auto;
-      a {font-size:.85em; font-weight:300;}
+      a {font-size:.85em;}
       input[type="text"], input[type="password"] {
         display: block;
         font-size:1.125em;
@@ -50,7 +50,7 @@ body.external {
 #password_placeholder_holder {
   color:lighten(#AAA, 5%);
   font-size:1.125em;
-  font-weight:400;
+  font-family:$open-400;
   padding:.5em .85em;
   position:absolute;
 }
@@ -64,7 +64,7 @@ body.invitations-show form {
     &:after{@include clear;}
     #sponsoredBy {
       font-size:.875em;
-      font-weight:600;
+      font-family:$open-600;
       color:$dark-green;
       margin-bottom:1em;
       &:before, &:after {
@@ -137,7 +137,7 @@ body.invitations-show form {
       div.bit:first-child {
         color:#39B549;
         font-size: 1.15em;
-        font-weight: 700;
+        font-family:$open-600;
       }
 
       padding-bottom: 0.5em;

@@ -8,7 +8,6 @@
   <%= javascript_include_tag asset_path('ga.js') if ENV['USE_GA'] %>
 
   <%= render 'shared/skin_styles' %>
-  <link href='//fonts.googleapis.com/css?family=Open+Sans:300,600' rel='stylesheet' type='text/css'>
 
   <%= csrf_meta_tag %>
   <%= render 'shared/mixpanel' unless @is_admin_page %>

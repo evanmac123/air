@@ -1,4 +1,4 @@
-$font: 'Open Sans', $sans;
+$font: $sans;
 @mixin centered-section {
   max-width:1280px;
   margin:$centered;
@@ -16,7 +16,7 @@ $font: 'Open Sans', $sans;
   display:inline-block;
   color:$white;
   cursor:pointer;
-  font-weight:600;
+  font-family:$open-600;
   padding:.35em .75em;
   &:hover{color:$white;}
   @if $bg == $blue {
@@ -44,9 +44,9 @@ body{
   width:100%;
     min-width:925px;
   h1, h2, h3 {font-family: $font;}
-  h1 {color:#4d4d4d; font-size:2.25em; font-weight:600;}
-  h2 {color:$gray; font-size:1.65em; font-weight:300;}
-  h3 {font-weight:600;}
+  h1 {color:#4d4d4d; font-size:2.25em; font-family:$open-600;}
+  h2 {color:$gray; font-size:1.65em;}
+  h3 {font-family:$open-600;}
   input, textarea {@include ease(.15s); font-family:$font; font-size:1em;}
 }
 a, a:link, a:visited {
@@ -56,15 +56,14 @@ a, a:link, a:visited {
 }
 input[type="submit"] {
   @include pop-button($blue);
-  font-family: $font;
+  font-family: $open-600;
   font-size:1.125em;
-  font-weight:600;
 }
 table {
   display:inline-block;
   th {
     color:lighten($text-color, 20%);
-    font-weight:600;
+    font-family:$open-600;
     text-align: left;
   }
   td {
@@ -93,7 +92,6 @@ table {
 }
 .wrapper {
   color:$text-color;
-  font-weight:300;
   width:100%;
 }
 section.contained {@include centered-section;}

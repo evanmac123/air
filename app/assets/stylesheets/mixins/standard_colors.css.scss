@@ -1,6 +1,36 @@
-// ~~~~~~~~~~ AS OF FEB 2013 
-$sans: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-$open: 'Open Sans',$sans;
+@font-face {
+    font-family: 'OpenSansLight';
+    src: url('OpenSans-Light-webfont.eot');
+    src: url('OpenSans-Light-webfont.eot?#iefix') format('embedded-opentype'),
+         url('OpenSans-Light-webfont.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+
+}
+@font-face {
+    font-family: 'OpenSansRegular';
+    src: url('OpenSans-Regular-webfont.eot');
+    src: url('OpenSans-Regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('OpenSans-Regular-webfont.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+
+}
+@font-face {
+    font-family: 'OpenSansSemibold';
+    src: url('OpenSans-Semibold-webfont.eot');
+    src: url('OpenSans-Semibold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('OpenSans-Semibold-webfont.ttf') format('truetype');
+    font-weight: 600;
+    font-style: normal;
+}
+
+$default:   'Helvetica Neue', Helvetica, Arial, sans-serif;
+$open-300:  'OpenSansLight';
+$sans: $open-300, $default;
+$open-400:  'OpenSansRegular', $sans;
+$open-600:  'OpenSansSemiBold', $sans;
+
 $gutter:            10px;
 $body-width:        984px;
 $font-small:        12px;
