@@ -15,9 +15,10 @@ $light:lighten($header-bg, 7%);
 	width:$body-width;
 
 	a, a:link, a:visited {
-		font-family:$open-600;
-		color:#fff;
-		&:hover {color:lighten($header-bg, 50%)!important;}
+		font-family:$open-400;
+		color:$white;
+		text-decoration: none;
+		&:hover {color:$dark-green;}
 		&:active {
 			color:$dark-gray!important; 
 			text-shadow: none!important;
@@ -39,10 +40,6 @@ $light:lighten($header-bg, 7%);
 
 	
 	&:after{@include clear;}
-	a {
-		text-decoration: none;
-		&:active {color:$gray!important;}
-	}
 	.app_by {
 		float:left;
 		margin:$centered;
@@ -50,7 +47,7 @@ $light:lighten($header-bg, 7%);
 	.app_settings {
 		float:right;
 		margin:0;
-		a {color:$light-gray;}
+		a {color:$med-gray;}
 		li {padding-left:20px; font-size: 12px;}
 	}
 }

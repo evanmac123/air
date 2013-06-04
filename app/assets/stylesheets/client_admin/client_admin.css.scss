@@ -1,7 +1,7 @@
 body.client_admin_main {
     background:image-url('marketing/bg.gif');
     color:$text-color;
-    font-family:'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family:$sans;
     font-size:14px;
     line-height:1em;
     h1.headline {color:$gray;}
@@ -13,9 +13,8 @@ body.client_admin_main {
 .form_title {
     border-bottom:$border-dark;
     color:darken($gray, 20%);
-    font-family:$sans;
+    font-family:$open-600;
     font-size:1.25em;
-    font-weight:600;
     margin:0;
     padding:.5em 1em;
     width:100%;
@@ -30,7 +29,7 @@ body.client_admin_main {
 body.client_admins #admin-overview,
 body.client_admin-segmentations #admin-analytics,
 body.client_admin-users #admin-users {
-    a, a:link, a:visited {color:$dark-green; font-weight:500;}
+    a, a:link, a:visited {color:$dark-green; font-family:$open-600;}
 }
 
 /* ////// General sections ////// */
@@ -79,8 +78,7 @@ body.client_admin-users #admin-users {
         a, a:link, a:visited {
             color:#7a7a7a;
             font-family:$sans;
-            font-size:1.4em;
-            font-weight:300;
+            font-size:1.25em;
             text-decoration: none;
         }
         a:hover {color:$dark-green;}
@@ -108,7 +106,6 @@ body.client_admin-users #admin-users {
 h1.page-title {
     color:$dark-green;
     font-size:2.7em;
-    font-weight:300;
     padding-bottom:.65em;
     &:before{
         background:image-url('client_admin/sprites.png') no-repeat transparent;

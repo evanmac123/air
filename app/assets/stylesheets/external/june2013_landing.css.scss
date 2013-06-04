@@ -1,5 +1,5 @@
 body {
-  font-family:$font;
+  font-family:$sans;
   font-size:1em;
   min-width:100%;
   position: static;
@@ -30,6 +30,7 @@ header {
 }
 #welcome, footer .row {
   h1 {
+    font-family:$font;
     font-size:2.45em;
     margin-bottom:.5em;
   }
@@ -43,7 +44,7 @@ header {
   margin-bottom:1em;
   padding:2em 0 4em 0;
   text-align: center;
-  h1 {color:$dark-green; font-family:$font;}
+  h1 {color:$dark-green;}
   #free_trial_button {
     @include pop-button($orange);
     font-size:1.2em;
@@ -100,7 +101,7 @@ footer {
   
   #sign_up {
     text-align: center;
-    h1 {color:$white; font-family:$font;}
+    h1 {color:$white;}
     h2 {color:$light-gray; margin-top:.75em;}
     form#signup_form {
       ul {

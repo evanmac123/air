@@ -16,11 +16,10 @@ body.client_admins #title-overview:before {background-position:-1px -15px;}
             background:url('client_admin/circle-bg.png') center center no-repeat;
             color:$orange;
             display:block;
-            font-family:$sans;
             font-size:2.5em;
-            font-weight:700;
+            font-family:$open-600;
             height:160px;
-            line-height: 5em;
+            line-height: 4.5em;
             margin:0 auto;
             overflow-wrap:break-word;
             vertical-align: middle;
@@ -30,7 +29,7 @@ body.client_admins #title-overview:before {background-position:-1px -15px;}
         .labels {
             color:lighten($text-color, 50%);
             font-size:1.25em;
-            font-weight:bold;
+            font-family:$open-600;
             padding:1em 0;
         }
     }

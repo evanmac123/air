@@ -40,7 +40,7 @@ body.client_admin-users {
                 label {
                     display:block; 
                     font-size:1em;
-                    font-weight:500;
+                    font-family:$open-400;
                     padding-bottom:.5em; 
                     width:100%; 
                     word-wrap:break-word;
@@ -171,7 +171,7 @@ body.client_admin-users-show .headline span {font-style:italic;}
         }
     #search-labels th {
         border-bottom:$border-dark;
-        font-weight:500;
+        font-family:$open-400;
         padding:.5em;
     }
     .found-user {
@@ -200,10 +200,10 @@ body.client_admin-users-edit, body.client_admin-users-update {
         float:left;
         vertical-align:top;
         width:33%;
-        &#claimcode span {display:block; font-weight:bold;}
+        &#claimcode span {display:block; font-family:$open-600;}
     }
     .join-status {
-        display:block; font-size:1.25em; font-weight:bold;
+        display:block; font-size:1.125em; font-family:$open-600;
         &:before {
             background:image-url('client_admin/sprites.png') no-repeat transparent;
             content:"";
