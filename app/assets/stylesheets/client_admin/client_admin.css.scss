@@ -73,7 +73,8 @@ body.client_admin-users #admin-users {
             &#admin-analytics:before {background-position:-42px 1px;}
             &#admin-message:before {background-position:-64px 1px;}
             &#admin-users:before {background-position:-84px 1px;}
-            &#admin-post:before {background-position:-104px 1px;}
+            &#admin-tiles:before {background-position:-160px 1px;}
+            &#admin-help:before {background-position:-142px 1px;}
         }
         a, a:link, a:visited {
             color:#7a7a7a;
@@ -120,3 +121,4 @@ h1.page-title {
 body.client_admins h1#title:before {background-position:-1px -15px;}
 body.client_admin-segmentations h1#title:before {background-position:-33px -15px;}
 body.client_admin-users h1#title:before {background-position:-65px -15px;}
+body.client_admin-tiles h1#title:before {background-position:-130px -15px;}

@@ -4,36 +4,49 @@
 
 <%= form_for @tile_builder_form, url: client_admin_tiles_path do |f| %>
   
-  <div class="composer_content composer_section">
-    <div class="image_uploader">
-      <h2>Pick and upload an image</h2>
+  <div class="builder_content tile_builder_section">
+    <label>Pick an image</label>
+    <div id="image_uploader">
       <%= f.file_field "image" %>
     </div>
-
-    <%= f.label :headline %>
-    <%= f.text_field :headline, {maxlength: 45} %>
-
-    <%= f.label :supporting_content %>
-    <%= f.text_field :supporting_content, {maxlength: 300} %>
-  </div>
-
-  <div class="composer_quiz composer_section">
-    <%= f.label :question %>
-    <%= f.text_field :question %>
-
-    <%= f.label "answers[]", "Answer" %>
-    <div id="answers">
-      <% f.object.answers.each_with_index do |answer, i| %>
-        <%= text_field_tag "tile_builder_form[answers][]", answer.value, class: 'answer-field', maxlength: 25 %>
-      <% end %>
+    <div id="tile_headline" class="content_sections">
+      <%= f.label :headline %>
+      <%= f.text_field :headline, {maxlength: 45, placeholder:'Give this tile a headline'} %>
     </div>
-    <%= link_to "Add another answer", "#", id: "add-answer-link" %>
+    <div id="tile_supporting_content" class="content_sections">
+      <%= f.label :supporting_content %>
+      <%= f.text_area :supporting_content, {maxlength: 300, placeholder:'Tell your users more about this topic.'} %>
+    </div>
   </div>
 
-  <%= f.label :points %>
-  <%= f.text_field :points %>
+  <div class="builder_quiz tile_builder_section">
+    <div id="quiz_question" class="content_sections">
+      <%= f.label :question %>
+      <%= f.text_field :question, {placeholder: 'Ask your players a question'} %>
+    </div>
 
-  <%= f.submit "Publish tile" %>
+    <div id="quiz_answers" class="content_sections">
+      <%= f.label "answers[]", "Answer" %>
+      <div id="answers">
+        <% f.object.answers.each_with_index do |answer, i| %>
+          <%= text_field_tag "tile_builder_form[answers][]", answer.value, class: 'answer-field', maxlength: 25 %>
+        <% end %>
+      </div>
+      <%= link_to "Add another answer", "#", id: "add-answer-link" %>
+    </div>
+  </div>
+
+  <div id="tile_options" class="tile_builder_section">
+    <div id="set_points" class="content_sections">
+      <p>How many points will this tile give?</p>
+      <%= f.text_field :points, {maxlength: 2, placeholder: '##'} %>
+      <%= f.label :points %>
+    </div>
+  </div>
+
+  <div class="button_wrap" id="publish">
+    <%= f.submit "Publish tile" %>
+  </div>
 <% end %>
 
 <% content_for :javascript do %>
@@ -44,10 +57,11 @@
 
       $('#add-answer-link').click(function(e) {
         e.preventDefault();
-        var newField = prototypeAnswerField.clone();
-        newField.attr('value', '');
-        $('#answers').append(newField);
-        addCharacterCounterFor('.answer-field:last-of-type');
+        var originField = prototypeAnswerField.clone();
+        originField.val('');
+
+        $('#answers').append(originField);
+        addCharacterCounterFor(originField);
       });
     });
 

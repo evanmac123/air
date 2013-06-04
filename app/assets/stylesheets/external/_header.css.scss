@@ -19,6 +19,7 @@ header {
     text-align: right;
     li {display:inline-block; margin-left:1.5em; vertical-align: middle;}
     a, a:link, a:visited {
+      font-family:$sans;
       color:$blue;
       &:hover{color:$orange;}
     }

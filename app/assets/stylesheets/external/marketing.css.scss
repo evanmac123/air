@@ -3,35 +3,6 @@ $font: $sans;
   max-width:1280px;
   margin:$centered;
 }
-@mixin pop-button($bg) {
-  background:#{$bg};
-  border:{
-    style:solid;
-    color:darken($bg, 8%);
-    top:{width:0;}
-    bottom:{width:4px;}
-    left:{width:0;}
-    right:{width:0;}
-  }
-  display:inline-block;
-  color:$white;
-  cursor:pointer;
-  font-family:$open-600;
-  padding:.35em .75em;
-  &:hover{color:$white;}
-  @if $bg == $blue {
-    &:hover{
-      background:$orange; 
-      border-color:darken($orange, 8%);
-    }
-  }
-  @else {
-    &:hover{
-      background:darken($bg, 4%);
-      border-color:darken($bg, 10%);
-    }
-  }
-}
 
 body{
   background:$white;

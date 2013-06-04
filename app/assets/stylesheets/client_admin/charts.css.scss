@@ -20,8 +20,13 @@
 
         &#chart-dates span, &#chart-labeling span {color:$gray; font-size:.75em; text-transform: uppercase;}
         &#show-button {float:right; margin-right:0;}
-        &#chart-labeling {margin-right:1em;}
-        &#chart-spinner {vertical-align:top;}
+        &#chart-labeling {margin-right:.25em;}
+        &#chart-spinner {
+            vertical-align:middle;
+            margin-right:0;
+            width:20px;
+            img{width:100%;height:auto;padding-left:0;}
+        }
 
         img {margin: 0em;}
     }

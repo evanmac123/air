@@ -62,7 +62,24 @@ $border-light:      1px #fff solid;
     content:"";
     display:block;
 }
+@mixin ease($time) {
+    -webkit-transition: all #{$time} ease-in-out;
+    -moz-transition: all #{$time} ease-in-out;
+    -ms-transition: all #{$time} ease-in-out;
+    -o-transition: all #{$time} ease-in-out;
+    transition: all #{$time} ease-in-out;
+}
 
+@mixin link($color) {
+    @include ease(.15s);
+    color:$color;
+    font-family:$open-600;
+    text-decoration: none!important;
+    &:hover {color:darken($color, 10%);}
+    &:active {color:darken($color, 5%);}
+}
+
+/* ============= Fun with arrows! ============= */
 @mixin arrow-top($color) {
     border-right: 8px solid transparent;
     border-left: 8px solid transparent;
@@ -85,6 +102,8 @@ $border-light:      1px #fff solid;
     content:"";
     display:inline-block;
 }
+
+/* ============= Mixins for Buttonz ============= */
 @mixin hide-text {
     color:transparent;
     font-size:1em;
@@ -122,23 +141,38 @@ $border-light:      1px #fff solid;
         border-color:$bg;
     }
 }
-@mixin ease($time) {
-    -webkit-transition: all #{$time} ease-in-out;
-    -moz-transition: all #{$time} ease-in-out;
-    -ms-transition: all #{$time} ease-in-out;
-    -o-transition: all #{$time} ease-in-out;
-    transition: all #{$time} ease-in-out;
+@mixin pop-button($bg) {
+  background:#{$bg};
+  border:{
+    style:solid;
+    color:darken($bg, 8%);
+    top:{width:0;}
+    bottom:{width:4px;}
+    left:{width:0;}
+    right:{width:0;}
+  }
+  display:inline-block;
+  color:$white;
+  cursor:pointer;
+  font-family:$open-600;
+  padding:.35em .75em;
+  &:hover{color:$white;}
+  @if $bg == $blue {
+    &:hover{
+      background:$orange; 
+      border-color:darken($orange, 8%);
+    }
+  }
+  @else {
+    &:hover{
+      background:darken($bg, 4%);
+      border-color:darken($bg, 10%);
+    }
+  }
 }
 
-@mixin link($color) {
-    @include ease(.15s);
-    color:$color;
-    font-family:$open-600;
-    text-decoration: none!important;
-    &:hover {color:darken($color, 10%);}
-    &:active {color:darken($color, 5%);}
-}
 
+/* ============= General stuff that all pages use ============= */
 * {-moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;}
 a, a:link, a:visited {@include link($dark-green);}
 h1, h2, h3 {font-family:$sans; margin:0; padding:0;}
@@ -182,7 +216,7 @@ select {
     text-align:center;
 }
 
-// COLOR BARS
+/* ============= Color bars ============= */
 body {
     border-top:7px $dark-green solid;
     margin:0;
