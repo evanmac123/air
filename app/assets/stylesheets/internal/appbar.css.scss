@@ -8,13 +8,14 @@ $light:lighten($header-bg, 7%);
 .app_bar {
 	background-color:$dark-gray;
 	color:$gray;
-	font-size:$font-small;
-	font-weight: 500;
+	font-size:.85em;
+	font-family:$open-400;
 	margin:$centered;
-	padding:.5em 0 0 0;
+	padding:.7em 0 .5em 0;
 	width:$body-width;
 
 	a, a:link, a:visited {
+		font-family:$open-600;
 		color:#fff;
 		&:hover {color:lighten($header-bg, 50%)!important;}
 		&:active {
@@ -32,14 +33,13 @@ $light:lighten($header-bg, 7%);
 			position:relative;
 			margin-right:-20px;
 			width:18px;
-			height:20px;
+			height:18px;
 		}
 	}
 
 	
 	&:after{@include clear;}
 	a {
-		font-size:$font-small;
 		text-decoration: none;
 		&:active {color:$gray!important;}
 	}

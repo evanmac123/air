@@ -24,16 +24,15 @@
     font-weight: 600;
     font-style: normal;
 }
-
 $default:   'Helvetica Neue', Helvetica, Arial, sans-serif;
 $open-300:  'OpenSansLight';
 $sans: $open-300, $default;
 $open-400:  'OpenSansRegular', $sans;
 $open-600:  'OpenSansSemiBold', $sans;
 
+
 $gutter:            10px;
 $body-width:        984px;
-$font-small:        12px;
 $centered:          0 auto;
 
 $header-bg:         #588b3d;
@@ -182,4 +181,22 @@ select {
     color:$light-gray;
     font-size:.75em;
     text-align:center;
+}
+
+// COLOR BARS
+body {
+    border-top:7px $dark-green solid;
+    margin:0;
+    position: static;
+    height:100%; 
+    width:100%;
+}
+.colorbar {
+  display: inline-block;
+  height:7px;
+  position: absolute;
+  top:0;
+  width:16.5%;
+  &#blue {background:$blue; right:16.5%;}
+  &#orange {background:$orange; right:0;}
 }

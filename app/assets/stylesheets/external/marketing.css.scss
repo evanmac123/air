@@ -35,13 +35,8 @@ $font: $sans;
 
 body{
   background:$white;
-  border-top:7px $dark-green solid;
   font-family: $font;
   font-size:100%;
-  margin:0;
-  position: static;
-  height:100%; 
-  width:100%;
     min-width:925px;
   h1, h2, h3 {font-family: $font;}
   h1 {color:#4d4d4d; font-size:2.25em; font-family:$open-600;}
@@ -80,15 +75,6 @@ table {
       vertical-align: middle;
     }
   }
-}
-.colorbar {
-  display: inline-block;
-  height:7px;
-  position: absolute;
-  top:0;
-  width:16.5%;
-  &#blue {background:$blue; right:16.5%;}
-  &#orange {background:$orange; right:0;}
 }
 .wrapper {
   color:$text-color;

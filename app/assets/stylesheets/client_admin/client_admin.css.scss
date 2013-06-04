@@ -2,7 +2,8 @@ body.client_admin_main {
     background:image-url('marketing/bg.gif');
     color:$text-color;
     font-family:'Helvetica Neue', Helvetica, Arial, sans-serif;
-    font-size:13px;
+    font-size:14px;
+    line-height:1em;
     h1.headline {color:$gray;}
 }
 .button_wrap {
@@ -23,7 +24,6 @@ body.client_admin_main {
 
 /* ////// CURRENT PAGE ANCHORS ////// */
 // In black bar
-.app_bar p {margin-bottom:0;}
 .nav-client-admin {color:$light-green!important;}
 
 // In left nav

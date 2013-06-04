@@ -2,6 +2,8 @@ body {
   font-family:$font;
   font-size:1em;
   min-width:100%;
+  position: static;
+    
   a {font-family:$open-600;}
   p { line-height: 1.4em}
   span.em {font-family:$open-600;}

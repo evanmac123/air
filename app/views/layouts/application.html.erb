@@ -13,6 +13,9 @@
   <%= render 'shared/mixpanel' unless @is_admin_page %>
 </head>
 <body class="<%= body_class %>">
+  <i id="blue" class="colorbar"></i>
+  <i id="orange" class="colorbar"></i>
+  
   <div class="flash-preload">
     <%= image_tag 'v3/flash/flash-bc-failure.png' %>
     <%= image_tag 'v3/flash/flash-bc-success.png' %>
