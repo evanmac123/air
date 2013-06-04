@@ -1,0 +1,4 @@
+- if @active_tiles.empty?
+  %div.no_tiles_message There are no active tiles
+- else
+  = render partial: 'tiles_table', locals: {tiles: @active_tiles, type: :active}

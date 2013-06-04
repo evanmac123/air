@@ -1,0 +1,46 @@
+#digest-status-messages {
+  #last-email {
+    font-style: italic;
+    color: #808080
+  }
+  #feedback {
+    padding-left: 2em;
+    color: blue;
+    display: none;
+    font-style: italic;
+    float: right;
+  }
+}
+
+.no_tiles_message {
+  font-size: 1.5em;
+}
+
+#show-user-spinner {
+  display: none;
+  padding-left: 1em;
+}
+
+form.button_to {
+  display: inline-block;
+}
+
+#digest hr {
+  margin: 2em 0em;
+}
+
+td.tile_thumbnail {
+  text-align: center;
+
+  img {
+    width:  222px;
+    height: 222px;
+  }
+  .headline {
+    font-weight: bold;
+    font-size: 1.5em;
+  }
+  .shelf_life {
+    font-style: italic;
+  }
+}

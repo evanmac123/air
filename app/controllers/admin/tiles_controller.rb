@@ -20,7 +20,7 @@ class Admin::TilesController < AdminBaseController
   def create
     @tile = @demo.tiles.build(params[:tile])
     @tile.position = Tile.next_position(@demo)
-    @tile.status = 'active'
+    @tile.status = Tile::ACTIVE
 
     if @tile.valid?
       @tile.save!

@@ -21,7 +21,9 @@ $(document).ready(function() {
     var params = { send_on: sendOnVal, _method: 'put' };
     params = add_csrf_protection(params);
 
-    $.post($sendOn.attr('data-action'), params, function(data) { $('#digest-feedback').html(data).fadeIn('slow'); });
+    $.post($sendOn.attr('data-action'), params, function(data) {
+      $('#digest-status-messages #feedback').html(data).fadeIn('slow');
+    });
   };
 
   // -------------------------------------------------------

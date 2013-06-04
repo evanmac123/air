@@ -1,0 +1,4 @@
+- if @archive_tiles.empty?
+  %div.no_tiles_message There are no archived tiles
+- else
+  = render partial: 'tiles_table', locals: {tiles: @archive_tiles, type: :archive}
