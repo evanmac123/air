@@ -15,6 +15,10 @@ feature 'Client admin and the digest email for tiles', js: true do
 
   # -------------------------------------------------
 
+  def tile(tile)
+    find(:tile, tile)  # Uses our custom selector (defined above)
+  end
+
   def have_archive_link_for(tile)
     have_link 'Archive this tile', href: client_admin_tile_path(tile, update_status: Tile::ARCHIVE)
   end
@@ -129,7 +133,7 @@ feature 'Client admin and the digest email for tiles', js: true do
       active_tab.should  have_num_tiles(3)
       archive_tab.should have_num_tiles(0)
 
-      active_tab.tile(kill).click_link('Archive this tile')
+      active_tab.find(:tile, kill).click_link('Archive this tile')
 
       page.should contain "The #{kill.headline} tile has been archived"
 
@@ -140,7 +144,7 @@ feature 'Client admin and the digest email for tiles', js: true do
       archive_tab.should have_num_tiles(1)
 
       # Let's try it one more time to make sure...
-      active_tab.tile(knife).click_link('Archive this tile')
+      active_tab.find(:tile, knife).click_link('Archive this tile')
 
       page.should contain "The #{knife.headline} tile has been archived"
 

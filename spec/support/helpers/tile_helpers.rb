@@ -93,9 +93,6 @@ module TileHelpers
     visit tile_manager_page
   end
 
-  def tile(tile)
-    find(:tile, tile)  # Uses our custom selector (defined above)
-  end
   # -------------------------------------------------
 
   def contain(text)
