@@ -2,4 +2,18 @@ body.client_admin-tiles-new {
   form {
     border:1px red solid;
   }
+  .composer_section {
+    padding:2em;
+  }
+  .composer_content {
+    background:$white;
+    .image_uploader {
+      border:2px lighten($light-gray, 5%) dashed;
+      padding:5em 0;
+      text-align: center;
+    }
+  }
+  .composer_quiz {
+    background:$light-gray;
+  }
 }
