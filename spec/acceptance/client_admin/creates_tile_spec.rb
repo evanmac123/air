@@ -10,7 +10,8 @@ feature 'Creates tile' do
   end
 
   def expect_character_counter_for(selector, max_characters)
-    pending
+    counter = page.find("#{selector} + .character-counter")
+    counter.text.should == "#{max_characters} characters left"
   end
 
   before do
@@ -70,12 +71,13 @@ feature 'Creates tile' do
   end
 
   scenario "should see character (not byte) counters on each text field", js: true do
-    expect_character_counter_for '#tile_builder_form_headline', 75
+    expect_character_counter_for '#tile_builder_form_headline', 45
     expect_character_counter_for '#tile_builder_form_supporting_content', 300
-    expect_character_counter_for '#tile_builder_form_question', 150
-    expect_character_counter_for '.answer-field:nth-of-type(1)', 25
-    pending 'multiple answers'
+    expect_character_counter_for '.answer-field', 25
+
+    2.times {click_link "Add another answer"}
+    page.all('#answers .character-counter').should have(3).counters
   end
 
-  scenario "should enforce character limit"
+  scenario "sees a helpful error message if they try to use an existing rule or a special command for a rule value"
 end
