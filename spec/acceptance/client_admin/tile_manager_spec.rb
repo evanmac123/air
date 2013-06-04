@@ -78,6 +78,9 @@ feature 'Client admin and the digest email for tiles', js: true do
     let!(:tiles) { [kill, knife, kannibalize] }
 
     scenario "The tile content is correct for Active tiles" do
+
+      # todo need to test that future start-dates show up
+
       visit tile_manager_page
       active_tab.should have_num_tiles(3)
 
