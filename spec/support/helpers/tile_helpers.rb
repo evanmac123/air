@@ -1,8 +1,20 @@
 module TileHelpers
 
+  # Custom selectors
+
+  # This selector is for tiles contained in a table in the tile manager
+  #
+  # Usage: find(:tile, tile)
+  #
+  Capybara.add_selector(:tile) do
+    xpath { |tile| ".//td[@data-tile_id='#{tile.id}']" }
+  end
+
+  # -------------------------------------------------
+
   # Allows you to use Timecop with normal string dates instead of Ruby's convoluted Time class
   #
-  # Sample usage:
+  # Usage:
   #
   # on_day '7/4/2013' do
   #   visit manage_tiles_page
@@ -27,14 +39,13 @@ module TileHelpers
 
   # -------------------------------------------------
 
+  # Allows you to create tiles with normal string dates instead of Ruby's convoluted Time class
+
+  # Key: What you use in your code ; Value: Actual Tile attribute
   DAY_TO_TIMES = { on_day:    :created_at,
                    start_day: :start_time,
                    end_day:   :end_time }
-
-  # Allows you to create tiles with normal string dates instead of Ruby's convoluted Time class
-  # Hash Key: What you use in your code ; Hash Value: Actual Tile attribute
-  #
-  # Sample usage:
+  # Usage:
   #
   # create_tile on_day: '7/5/2013', headline: "My Tile Headline", start_day: '7/4/2013', end_day: '7/6/2013'
 
@@ -82,6 +93,9 @@ module TileHelpers
     visit tile_manager_page
   end
 
+  def tile(tile)
+    find(:tile, tile)  # Uses our custom selector (defined above)
+  end
   # -------------------------------------------------
 
   def contain(text)
