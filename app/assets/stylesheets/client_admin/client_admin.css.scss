@@ -28,7 +28,8 @@ body.client_admin_main {
 // In left nav
 body.client_admins #admin-overview,
 body.client_admin-segmentations #admin-analytics,
-body.client_admin-users #admin-users {
+body.client_admin-users #admin-users,
+body.client_admin-tiles #admin-tiles {
     a, a:link, a:visited {color:$dark-green; font-family:$open-600;}
 }
 

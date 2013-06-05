@@ -1,12 +1,12 @@
 #flash_failure, #flash_notice, #flash_success {
-  background:$white;
   border:0;
   border-radius:0;
-  color:$text-color;
+  color:$white;
+  font-family:$open-400;
   margin-bottom:2em;
   padding:0 .125em 0 0;
   position:relative;
-  p {font-size:1.15em; font-weight:500;}
+  p {font-size:1.15em; line-height:1.25em;}
   table {border:0; margin:0;}
   td {border:0; padding:0;}
   tr.f-bottom, tr.f-top {td {height:1.25em;}}
@@ -30,14 +30,17 @@
   }
 }
 #flash_success {
+  background:$dark-green;
   td.f-left {border-left:5px $dark-green solid;}
   &:after{@include arrow-left($dark-green);}
 }
 #flash_failure {
+  background:$red;
   td.f-left {border-left:5px $red solid;}
   &:after{@include arrow-left($red);}
 }
 #flash_notice {
+  background:$blue;
   td.f-left {border-left:5px $blue solid;}
   &:after{@include arrow-left($blue);}
 }
