@@ -154,5 +154,21 @@ feature 'Client admin and the digest email for tiles', js: true do
       active_tab.should  have_num_tiles(1)
       archive_tab.should have_num_tiles(2)
     end
+
+    scenario "Tiles that should be archived, are, whenever the page is displayed" do
+      tiles.each { |tile| tile.update_attributes end_time: Date.tomorrow }
+      visit tile_manager_page
+
+      active_tab.should have_num_tiles(3)
+      archive_tab.should have_num_tiles(0)
+
+      tiles.each { |tile| tile.update_attributes end_time: Date.yesterday }
+      refresh_tile_manager_page
+
+      active_tab.should have_num_tiles(0)
+      archive_tab.should have_num_tiles(3)
+
+      tiles.each { |tile| tile.reload.status.should == Tile::ARCHIVE }
+    end
   end
 end

@@ -54,6 +54,10 @@ class Demo < ActiveRecord::Base
   end
   include ActsWithCurrentDemoChecked
   
+  def archive_tiles_if_expired
+    tiles.archive_if_expired
+  end
+
   def active_tiles
     tiles.active
   end

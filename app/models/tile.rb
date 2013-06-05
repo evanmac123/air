@@ -134,7 +134,7 @@ class Tile < ActiveRecord::Base
   end
 
   def self.satisfiable_to_user(user)
-    tiles_due_in_demo = after_start_time_and_before_end_time.where(demo_id: user.demo.id)
+    tiles_due_in_demo = after_start_time_and_before_end_time.where(demo_id: user.demo.id, status: ACTIVE)
     ids_completed = user.tile_completions.map(&:tile_id)
     satisfiable_tiles = tiles_due_in_demo.reject {|t| ids_completed.include? t.id}
     # Reject the ones whose prereqs have not been met
@@ -182,6 +182,14 @@ class Tile < ActiveRecord::Base
 
   def self.digest(demo)
     active.where("created_at > ?", demo.tile_digest_email_sent_at)
+  end
+
+  def self.archive_if_expired
+    expired.each { |tile| tile.update_attributes status: ARCHIVE }
+  end
+
+  def self.expired
+    active.where("end_time IS NOT NULL AND end_time < ?", Time.now)
   end
 
   def self.after_start_time_and_before_end_time

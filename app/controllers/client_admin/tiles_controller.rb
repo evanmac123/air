@@ -5,6 +5,8 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     @tile_digest_email_sent_at = @demo.tile_digest_email_sent_at  # Demo...
     @tile_digest_email_send_on = @demo.tile_digest_email_send_on  # ...attributes
 
+    @demo.archive_tiles_if_expired
+
     @active_tiles  = @demo.active_tiles
     @archive_tiles = @demo.archive_tiles
     @digest_tiles  = @demo.digest_tiles

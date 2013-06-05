@@ -51,6 +51,30 @@ describe Tile do
     end
   end
 
+  describe 'expired tiles' do
+    let(:demo) { FactoryGirl.create :demo }
+
+    let!(:not_relevant_tiles) do  # Don't need a specific variable for these; just create once instead of for each test
+      FactoryGirl.create(:tile, demo: demo, status: Tile::DRAFT,   end_time: Date.yesterday)  # Draft
+      FactoryGirl.create(:tile, demo: demo, status: Tile::ARCHIVE, end_time: Date.yesterday)  # Archive
+
+      FactoryGirl.create(:tile, demo: demo, status: Tile::ACTIVE,  end_time: Date.tomorrow)   # End time in future
+      FactoryGirl.create(:tile, demo: demo, status: Tile::ACTIVE)                             # No end time => 'forever'
+    end
+
+    let!(:expired){ FactoryGirl.create_list(:tile, 3, demo: demo, status: Tile::ACTIVE, end_time: Date.yesterday) }
+
+    it "#expired returns a list of tiles that have expired, i.e. whose 'end_time' is < 'current_time'" do
+      Tile.expired.pluck(:id).sort.should == expired.collect(&:id).sort
+    end
+
+    it "#archive_if_expired archives tiles that have expired" do
+      expired.each { |tile| tile.status.should == Tile::ACTIVE }
+      Tile.archive_if_expired
+      expired.each { |tile| tile.reload.status.should == Tile::ARCHIVE }
+    end
+  end
+
   describe "#due?" do
     it "should tell me whether a tile is within the window of opportunity" do
       Demo.find_each { |f| f.destroy }
@@ -147,7 +171,12 @@ describe Tile do
       # two tiles that don't need to be done right now
       @shovel_snow = FactoryGirl.create(:tile, demo: @fun, start_time: 5.months.from_now)
       @spring_cleaning = FactoryGirl.create(:tile, demo: @fun, end_time: 4.months.ago)
-      Tile.count.should == 6
+
+      # And finally, a couple of tiles that have been archived
+      @archived_wash = FactoryGirl.create(:tile, demo: @fun, headline: 'Archived Wash the Dishes', status: Tile::ARCHIVE)
+      @archived_dry = FactoryGirl.create(:tile, demo: @not_fun, headline: 'Archived Dry the Dishes', status: Tile::ARCHIVE)
+
+      Tile.count.should == 8
     end
 
     it "should only display current tiles that have not been completed yet" do
@@ -157,9 +186,15 @@ describe Tile do
       tiles.should include(@color_after_washing)
       # Note that water plants will show up as its last time to display, since it's been completed
       tiles.should include(@water_plants)
-
     end
-    
+
+    it "should not display current tiles that have been archived" do
+      tiles = Tile.displayable_to_user(@leah)
+      tiles.length.should == 3
+      tiles.should_not include(@archived_wash)
+      tiles.should_not include(@archived_dry)
+    end
+
     it "should only display tiles whose prerequisites have been completed" do
       # Set up a prerequisite
       Prerequisite.create!(tile: @color_after_washing, prerequisite_tile: @wash)
