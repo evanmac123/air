@@ -23,13 +23,15 @@ body.client_admin_main {
 
 /* ////// CURRENT PAGE ANCHORS ////// */
 // In black bar
-.nav-client-admin {color:$light-green!important;}
+.nav-client-admin {color:$dark-green!important; font-family:$open-600!important;}
 
 // In left nav
 body.client_admins #admin-overview,
 body.client_admin-segmentations #admin-analytics,
 body.client_admin-users #admin-users,
-body.client_admin-tiles #admin-tiles {
+body.client_admin-tiles-index #admin-tiles-manager,
+body.client_admin-tiles-new #admin-tiles-builder,
+body.client_admin-tiles-create #admin-tiles-builder {
     a, a:link, a:visited {color:$dark-green; font-family:$open-600;}
 }
 
@@ -74,7 +76,23 @@ body.client_admin-tiles #admin-tiles {
             &#admin-analytics:before {background-position:-42px 1px;}
             &#admin-message:before {background-position:-64px 1px;}
             &#admin-users:before {background-position:-84px 1px;}
-            &#admin-tiles:before {background-position:-160px 1px;}
+            &#admin-tiles {
+                border-top:1px $light-gray solid;
+                border-bottom:1px $light-gray solid;
+                padding:1em 0 .5em 0;
+                margin-bottom:1em;
+                h2 {
+                    display:inline-block;
+                    font-family:$open-600;
+                    font-size:1.3em;
+                    line-height:2em;
+                }
+                ul {
+                    margin:.5em 0 0 2em;
+                    li {padding-bottom:.75em;}
+                }
+                &:before {background-position:-160px 1px;}
+            }
             &#admin-help:before {background-position:-142px 1px;}
         }
         a, a:link, a:visited {

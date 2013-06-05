@@ -29,7 +29,7 @@
       <%= f.label "answers[]", "Answer" %>
       <div id="answers">
         <% f.object.answers.each_with_index do |answer, i| %>
-          <%= text_field_tag "tile_builder_form[answers][]", answer.value, class: 'answer-field', maxlength: 25 %>
+          <%= text_field_tag "tile_builder_form[answers][]", answer.value, class: 'answer-field', maxlength: 25, placeholder: 'Give an answer' %>
         <% end %>
       </div>
       <%= link_to "Add another answer", "#", id: "add-answer-link" %>
