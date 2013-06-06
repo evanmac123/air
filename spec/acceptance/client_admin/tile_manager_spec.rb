@@ -20,7 +20,7 @@ feature 'Client admin and the digest email for tiles', js: true do
   end
 
   def have_archive_link_for(tile)
-    have_link 'Archive this tile', href: client_admin_tile_path(tile, update_status: Tile::ARCHIVE)
+    have_link 'Archive', href: client_admin_tile_path(tile, update_status: Tile::ARCHIVE)
   end
 
   def check_headline_and_shelf_life_for(tile, contains = true)
@@ -99,7 +99,7 @@ feature 'Client admin and the digest email for tiles', js: true do
 
       within digest_tab do
         # One check at this level is good enough
-        page.should_not contain 'Archive this tile'
+        page.should_not contain 'Archive'
 
         tiles.each do |tile|
           within tile(tile) do
@@ -127,13 +127,13 @@ feature 'Client admin and the digest email for tiles', js: true do
       end
     end
 
-    scenario "The 'Archive this tile' links work" do
+    scenario "The 'Archive this tile' links work", js: :webkit do
       visit tile_manager_page
 
       active_tab.should  have_num_tiles(3)
       archive_tab.should have_num_tiles(0)
 
-      active_tab.find(:tile, kill).click_link('Archive this tile')
+      active_tab.find(:tile, kill).click_link('Archive')
 
       page.should contain "The #{kill.headline} tile has been archived"
 
@@ -144,7 +144,7 @@ feature 'Client admin and the digest email for tiles', js: true do
       archive_tab.should have_num_tiles(1)
 
       # Let's try it one more time to make sure...
-      active_tab.find(:tile, knife).click_link('Archive this tile')
+      active_tab.find(:tile, knife).click_link('Archive')
 
       page.should contain "The #{knife.headline} tile has been archived"
 
