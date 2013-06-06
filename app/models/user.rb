@@ -31,7 +31,7 @@ class User < ActiveRecord::Base
   has_many   :unsubscribes, :dependent => :destroy
   has_many   :peer_invitations_as_invitee, :class_name => "PeerInvitation", :foreign_key => :invitee_id
   has_many   :peer_invitations_as_inviter, :class_name => "PeerInvitation", :foreign_key => :inviter_id
-  has_one   :tutorial, :dependent => :destroy
+  has_one    :tutorial, :dependent => :destroy
 
   validate :normalized_phone_number_unique, :normalized_new_phone_number_unique
   validate :new_phone_number_has_valid_number_of_digits

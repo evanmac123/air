@@ -17,14 +17,7 @@ class TileBuilderForm
     build_rule
     build_answers
 
-    if valid?
-      Tile.transaction do
-        main_objects.each {|object| object.save(:context => :client_admin)}
-        associate_answers_with_rule
-        make_primary_answer
-        create_trigger
-      end
-    end
+    save_objects if valid?
   end
 
   def tile
@@ -53,7 +46,6 @@ class TileBuilderForm
 
   def error_messages
     clean_error_messages
-    errors_from_main_objects = main_objects.map{|object| object.errors.messages.values}.flatten
     (errors_from_main_objects + inherent_errors).join(", ") + "."
   end
 
@@ -64,26 +56,48 @@ class TileBuilderForm
 
   protected
 
-  def clean_error_messages
-    if @tile.errors[:image]
-      @tile.errors.delete(:thumbnail)
+  def save_objects
+    Tile.transaction do
+      save_main_objects
+      associate_answers_with_rule
+      make_primary_answer
+      create_trigger
     end
+  end
 
-    if @answers.first.value.blank?
-      @answers.first.errors.delete(:value)
-      @answers.first.errors[:value] = "must have at least one answer"
-    end
+  def save_main_objects
+    main_objects.each {|object| object.save(:context => :client_admin)}
+  end
+
+  def clean_error_messages
+    remove_thumbnail_error
+    change_blank_answer_error if first_answer_blank
+  end
+
+  def remove_thumbnail_error
+    @tile.errors.delete(:thumbnail)
+  end
+
+  def first_answer_blank
+    @answers.first.value.blank?
+  end
+
+  def change_blank_answer_error
+    @answers.first.errors.delete(:value)
+    @answers.first.errors[:value] = "must have at least one answer"
   end
 
   def build_tile
     @tile = @demo.tiles.build
 
     if @parameters.present?
-      @tile.image = @parameters[:image]
-      @tile.thumbnail = @parameters[:image]
-      @tile.headline = @parameters[:headline]
-      @tile.supporting_content = @parameters[:supporting_content]
-      @tile.question = @parameters[:question]
+      @tile.attributes = {
+        image:              @parameters[:image],
+        thumbnail:          @parameters[:image],
+        headline:           @parameters[:headline],
+        supporting_content: @parameters[:supporting_content],
+        question:           @parameters[:question]
+      }
     end
 
     @tile.position = Tile.next_position(@demo)
@@ -130,6 +144,10 @@ class TileBuilderForm
     [tile, rule, answers].flatten
   end
 
+  def errors_from_main_objects
+    main_objects.map{|object| object.errors.messages.values}.flatten
+  end
+
   def inherent_errors
     result = []
 
@@ -166,9 +184,8 @@ class TileBuilderForm
   end
 
   def normalize_answers
-    if @parameters && @parameters[:answers]
-      @parameters[:answers] = @parameters[:answers].map(&:strip).select(&:present?).map(&:downcase)
-    end
+    return unless @parameters && @parameters[:answers]
+    @parameters[:answers] = @parameters[:answers].map{|answer| answer.strip.downcase}.select(&:present?)
   end
 
   delegate :headline, :supporting_content, :question, :to => :tile
