@@ -88,13 +88,6 @@ FactoryGirl.define do
     association :primary_tag, :factory => :tag
   end
   
-  factory :coded_rule do
-    value   "zxcvb"
-    points  2
-    reply   "Very good. +2 points."
-    association :demo
-  end
-
   factory :rule_value do
     sequence(:value)  {|n| "ate banana #{n}" }
     association(:rule)

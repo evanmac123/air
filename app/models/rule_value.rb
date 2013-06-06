@@ -7,7 +7,7 @@ class RuleValue < ActiveRecord::Base
 
   validate :value_is_not_single_letter
   validate :at_most_one_primary_rule_value_per_rule
-  validate :value_unique_within_demo
+  validate :validate_value_unique_within_demo
 
   before_save :normalize_value
 
@@ -52,16 +52,9 @@ class RuleValue < ActiveRecord::Base
     end
   end
 
-  def value_unique_within_demo
-    other = self.class.joins('INNER JOIN rules ON rules.id = rule_values.rule_id').where(:value => self.value)
-
-    other = if self.rule.try(:demo)
-              other.where(["rules.demo_id = ?", self.rule.demo.id])
-            else
-              other.where('rules.demo_id IS NULL')
-            end
-
-    if other.first && other.first != self
+  def validate_value_unique_within_demo
+    other = self.class.existing_value_within_demo(self.rule.try(:demo), value)
+    if other && other != self
       self.errors.add(:value, "must be unique within its demo")
     end
   end
@@ -69,6 +62,18 @@ class RuleValue < ActiveRecord::Base
   def value_is_not_single_letter
     return unless self.value =~ /^[[:alpha:]]$/
     self.errors.add(:value, "Can't have a single-letter value, those are reserved for other purposes.")
+  end
+
+  def self.existing_value_within_demo(demo, value)
+    others = self.joins('INNER JOIN rules ON rules.id = rule_values.rule_id').where(:value => value)
+
+    others = if demo
+               others.where("rules.demo_id = ?", demo)
+             else
+               others.where('rules.demo_id IS NULL')
+             end
+
+    others.first
   end
 
   def self.suggestion_for(attempted_value, user)

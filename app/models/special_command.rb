@@ -22,6 +22,10 @@ module SpecialCommand
     @@reserved_words
   end
 
+  def self.is_reserved_word?(word)
+    @@reserved_words.include?(word)
+  end
+
   protected
 
   @@registered_handlers ||= ActiveSupport::OrderedHash.new
