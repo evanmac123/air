@@ -23,6 +23,8 @@
   img {width:100%; max-width:auto;}
   &:after{@include clear;}
 }
+
+// White copy area
 .tile_texts_container {
   background:$white;
   line-height: 1.125em;
@@ -44,6 +46,8 @@
     margin-bottom:.8em;
     padding-bottom:2em;
   }
+
+  // Gray quiz area
   .tile_quiz {
     background:lighten($light-gray, 5%);
     padding:2em 0 2.5em 0;

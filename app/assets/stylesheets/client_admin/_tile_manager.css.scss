@@ -1,3 +1,131 @@
+.ui-widget {
+  font-family:$sans;
+  font-size:1em;
+}
+#tile-manager-tabs {
+  background:transparent;
+  border:0;
+  border-radius:0;
+  padding:0;
+  * {border-radius:0;}
+
+  // Manager tabs nav
+  .ui-tabs-nav {
+    border:0;
+    background:transparent;
+    padding-left:0;
+    li {
+      border:0;
+      border-top:3px $white solid;
+      font-size:1em;
+      padding:.15em 1.5em;
+
+      // Default tabs state
+      &.ui-state-default {
+        background:lighten($light-gray, 5%);
+        border-color:lighten($light-gray, 5%);
+        a {color:$gray;}
+        &:hover {
+          border-color:$blue;
+          a{color:$text-color;}
+        }
+      }
+
+      // Active tab state
+      &.ui-tabs-selected {
+        background:$white;
+        border-color:$blue;
+        a {color:$text-color;}
+      }
+    }
+  }
+
+  // Tab panels
+  .ui-tabs-panel {
+    background:$white;
+    padding:2em 1em;
+    table {margin-bottom:0;}
+    table td {
+      border-bottom:0;
+      padding:0 0 2em 0;
+      vertical-align: top;
+    }
+    table td + td {padding:0 0 2em 1em;}
+  }
+
+  // Tile thumbnails
+  .tile_thumb_holder {
+    margin:$centered;
+    position: relative;
+    width:100%;
+    max-width:234px;
+    img {width:100%;}
+
+
+    .tile_thumb_texts {
+      background:lighten($light-gray, 5%);
+      padding:1em;
+      .headline {
+        font-family:$open-400;
+        font-size:1.45em;
+        line-height:1.25em;
+        margin-bottom:1em;
+      }
+    }
+
+    .archive_tile_link {
+      background:$dark-gray;
+      display:none;
+      position:absolute;
+      top: .5em;
+      right: .5em;
+      padding:.25em .5em;
+      &:hover {background:$dark-green;}
+      a {color:$white;}
+    }
+    &:hover {
+      .archive_tile_link {display: inline-block;}
+    }
+  }
+}
+
+// Digest email panel
+#digest_management {
+  border-bottom:1px $light-gray solid;
+  font-family:$open-400;
+  margin-bottom:2em;
+  padding-bottom:2em;
+  form {display:inline-block;}
+  #show-user-spinner {
+    display: none;
+    vertical-align: middle;
+  }
+  #digest-status-messages {
+    color:$gray;
+    font-size:.85em;
+    margin-top:1.125em;
+    span {display:block;}
+    span#feedback {
+      color:$orange;
+      // float: right;
+      font-family:$open-600;
+      // margin-bottom:1em;
+    }
+  }
+}
+.no_tiles_message {
+  font-family:$open-400;
+  font-size:1.3em;
+  line-height:1.35em;
+  padding:1em 15%;
+}
+
+
+
+
+
+
+/* ======================================================
 #digest-status-messages {
   #last-email {
     font-style: italic;
@@ -12,22 +140,11 @@
   }
 }
 
-.no_tiles_message {
-  font-size: 1.5em;
-}
+.no_tiles_message {font-size: 1.5em;}
 
-#show-user-spinner {
-  display: none;
-  padding-left: 1em;
-}
+form.button_to {display: inline-block;}
 
-form.button_to {
-  display: inline-block;
-}
-
-#digest hr {
-  margin: 2em 0em;
-}
+#digest hr {margin: 2em 0em;}
 
 td.tile_thumbnail {
   text-align: center;
@@ -43,4 +160,4 @@ td.tile_thumbnail {
   .shelf_life {
     font-style: italic;
   }
-}
+} */

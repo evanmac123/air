@@ -1,5 +1,5 @@
 %table
   %tbody
     -# Note: To change the number of tiles per row, simply change the "(n)" to whatever your little ol' heart desires
-    - tiles.each_slice(2) do |columns|
+    - tiles.each_slice(3) do |columns|
       = render partial: 'tile_row', locals: {columns: columns, type: type}

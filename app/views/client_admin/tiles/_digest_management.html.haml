@@ -3,7 +3,8 @@
                               data: {action: client_admin_tiles_digest_notification_path }
 = send_on_time
 or you can
-= button_to "Send now", client_admin_tiles_digest_notification_path, remote: true
+%div.button_wrap
+  = button_to "Send now", client_admin_tiles_digest_notification_path, remote: true
 = image_tag 'spinner.gif', id: 'show-user-spinner'
 
 %div#digest-status-messages

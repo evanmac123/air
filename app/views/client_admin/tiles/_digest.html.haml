@@ -4,5 +4,5 @@
   -# Have these 2 guys nested under '#digest_management' so can "fade out" the digest tiles. (If don't, tiles immediately disappear)
   %div#digest_management
     = render partial: 'digest_management'
-    %hr
+
   = render partial: 'tiles_table', locals: {tiles: @digest_tiles, type: :digest}
