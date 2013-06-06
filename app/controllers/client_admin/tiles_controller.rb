@@ -2,8 +2,8 @@ class ClientAdmin::TilesController < ClientAdminBaseController
   before_filter :get_demo
 
   def index
-    @tile_digest_email_sent_at = @demo.tile_digest_email_sent_at  # Demo...
-    @tile_digest_email_send_on = @demo.tile_digest_email_send_on  # ...attributes
+    @tile_digest_email_sent_at = @demo.tile_digest_email_sent_at  # Demo attributes
+    @tile_digest_email_send_on = @demo.tile_digest_email_send_on  # (i.e. not the usual finder methods)
 
     @demo.archive_tiles_if_expired
 
@@ -36,7 +36,6 @@ class ClientAdmin::TilesController < ClientAdminBaseController
   def update
     tile = get_tile
 
-    # Check because figure there will be other entirely-different situations where we are updating a tile...
     if params[:update_status]
       if tile.update_attributes status: params[:update_status]
         flash[:success] = "The #{tile.headline} tile has been archived"
