@@ -1,8 +1,11 @@
 %tr
   - columns.size.times do |col|
     - tile = columns[col]
+
+    - tile_url = tile.thumbnail.url  # Paperclip returns the full url in staging and production modes
+    - tile_url = tile_url.prepend('http://0.0.0.0:3000') if (Rails.env.development? or Rails.env.test?)
+
     %td.tile_thumbnail
-      -# Note the call to 'url' on the element in the 'attachments' hash. (Just pointing out 'cause easy to miss)
-      %div.image= image_tag attachments["tile_#{tile.id}"].url, alt: tile.headline
+      %div.image= image_tag tile_url, alt: tile.headline
       %div.headline= tile.headline
       %div.shelf_life= shelf_life(tile)

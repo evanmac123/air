@@ -15,14 +15,6 @@ class ClientAdmin::TilesDigestNotificationsController < ClientAdminBaseControlle
 
   private
 
-  def attachment_url_1(file)
-    "#{request.protocol}#{request.host_with_port}#{file.url}"
-  end
-
-  def attachment_url_2(file)
-    URI.join(request.url, file.url)
-  end
-
   def get_demo
     @demo = current_user.demo
   end

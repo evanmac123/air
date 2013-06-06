@@ -1,7 +1,7 @@
 %table
   %tbody
     -# Note: To change the number of tiles per row, simply change the "(n)" to whatever your little ol' heart desires
-    - @digest_tiles.each_slice(3) do |columns|
+    - @demo.digest_tiles.each_slice(3) do |columns|
       = render partial: 'tile_row', locals: {columns: columns}
 
 = render 'shared/unsubscribe_footer'
