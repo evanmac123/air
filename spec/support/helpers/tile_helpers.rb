@@ -12,6 +12,13 @@ module TileHelpers
 
   # -------------------------------------------------
 
+  DATE_REG_EXPR = /(\d{1,2})\/(\d{1,2})\/(\d{4})/  # e.g. 7/4/2013 -or- 07/04/2013
+
+  def day_to_time(day)
+    day.match DATE_REG_EXPR
+    Time.new $3, $1, $2
+  end
+
   # Allows you to use Timecop with normal string dates instead of Ruby's convoluted Time class
   #
   # Usage:
@@ -21,9 +28,7 @@ module TileHelpers
   #   select_tab 'Digest'
   #    :   :   :   :   :
   # end
-
-  DATE_REG_EXPR = /(\d{1,2})\/(\d{1,2})\/(\d{4})/  # e.g. 7/4/2013 -or- 07/04/2013
-
+  #
   def on_day(day)
     travel_to_day day
     yield
@@ -32,9 +37,7 @@ module TileHelpers
   end
 
   def travel_to_day(day)
-    day.match DATE_REG_EXPR
-    time = Time.new $3, $1, $2
-    Timecop.travel(time)
+    Timecop.travel(day_to_time(day))
   end
 
   # -------------------------------------------------
@@ -48,14 +51,11 @@ module TileHelpers
   # Usage:
   #
   # create_tile on_day: '7/5/2013', headline: "My Tile Headline", start_day: '7/4/2013', end_day: '7/6/2013'
-
+  #
   def create_tile(options = {})
     DAY_TO_TIMES.each_pair do |day, time|
       day = options.delete day
-      if day
-        day.match DATE_REG_EXPR
-        options[time] = Time.new $3, $1, $2
-      end
+      options[time] = day_to_time(day) if day
     end
 
     FactoryGirl.create :tile, options.merge(demo: demo)

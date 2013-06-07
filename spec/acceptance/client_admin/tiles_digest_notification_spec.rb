@@ -28,13 +28,10 @@ feature 'Client admin and the digest email for tiles', js: true do
   end
 
   def set_last_sent_on(day)
-    day.match DATE_REG_EXPR
-    time = Time.new $3, $1, $2
-
-    demo.update_attributes tile_digest_email_sent_at: time
+    demo.update_attributes tile_digest_email_sent_at: day_to_time(day)
   end
 
-  # -------------------------------------------------
+# -------------------------------------------------
 
   context 'No tiles exist for digest email' do
 
