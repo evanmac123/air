@@ -117,7 +117,7 @@ feature 'Client admin and the digest email for tiles', js: true do
 
       within archive_tab do
         # One check at this level is good enough
-        page.should_not contain 'Archive this tile'
+        page.should_not contain 'Archive'
 
         tiles.each do |tile|
           within tile(tile) do
