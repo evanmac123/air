@@ -15,6 +15,7 @@ body.client_admin-users {
         .info-cols {
             display:inline-block;
             float:left;
+            padding-right:.5em;
             width:50%;
         }
         .info-cols li {
@@ -26,7 +27,7 @@ body.client_admin-users {
             select#user_location_id {display:inline-block; max-width:61.5%;}
         }
         label {display:inline-block; width:7em;}
-        input[type="text"] {color:$dark-green; width:19em;}
+        input[type="text"] {color:$dark-green; width:65%;}
         #user-characteristics ul {
             &:after{@include clear;}
             li {
@@ -54,7 +55,7 @@ body.client_admin-users {
             img {display:none;}
         }
         #confirm-add-user {
-          padding-right: 2.1em;
+          padding-top: 1em;
 
             &:after{@include clear;}
             li {display: inline-block; vertical-align: middle; float: right;}
@@ -66,12 +67,9 @@ body.client_admin-users {
             }
             li#toggle-more-options {
                 a {@include link($blue);}
-                // border:1px red solid;
-                // margin-right: 0.9em;
                 margin-top:.45em;
             }
             li#add-user-button {
-              // margin-right: 28px;
               margin-left: 0.9em;
               input {height:28px;}
             }
@@ -113,7 +111,6 @@ body.client_admin-users {
         border:$border-dark;
         padding:1em;
         #loaded-user-data {
-            // padding-bottom:1em;
             h1.headline {display:none;}
         }
     }
@@ -171,7 +168,8 @@ body.client_admin-users-show .headline span {font-style:italic;}
         }
     #search-labels th {
         border-bottom:$border-dark;
-        font-family:$open-400;
+        font-family:$open-600;
+        font-size:.85em;
         padding:.5em;
     }
     .found-user {
@@ -203,7 +201,7 @@ body.client_admin-users-edit, body.client_admin-users-update {
         &#claimcode span {display:block; font-family:$open-600;}
     }
     .join-status {
-        display:block; font-size:1.125em; font-family:$open-600;
+        display:block; font-size:1.125em; font-family:$open-600; line-height:1em;
         &:before {
             background:image-url('client_admin/sprites.png') no-repeat transparent;
             content:"";
@@ -228,9 +226,11 @@ body.client_admin-users-edit, body.client_admin-users-update {
             }
         }
     }
-    .send-invite {
+    #user-join-status a, #user-join-status a:link {
         @include link($blue);
-        margin-left:1.85em;
+        display: inline-block;
+        font-size:.85em;
+        margin:.75em 0 0 0;
     }
 }
 

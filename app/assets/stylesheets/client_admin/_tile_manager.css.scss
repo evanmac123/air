@@ -59,6 +59,11 @@
     position: relative;
     width:100%;
     max-width:234px;
+    .image {
+      background:lighten($light-gray, 5%);
+      height:12em;
+      overflow:hidden;
+    }
     img {width:100%;}
 
 
@@ -107,9 +112,7 @@
     span {display:block;}
     span#feedback {
       color:$orange;
-      // float: right;
       font-family:$open-600;
-      // margin-bottom:1em;
     }
   }
 }
@@ -119,45 +122,3 @@
   line-height:1.35em;
   padding:1em 15%;
 }
-
-
-
-
-
-
-/* ======================================================
-#digest-status-messages {
-  #last-email {
-    font-style: italic;
-    color: #808080
-  }
-  #feedback {
-    padding-left: 2em;
-    color: blue;
-    display: none;
-    font-style: italic;
-    float: right;
-  }
-}
-
-.no_tiles_message {font-size: 1.5em;}
-
-form.button_to {display: inline-block;}
-
-#digest hr {margin: 2em 0em;}
-
-td.tile_thumbnail {
-  text-align: center;
-
-  img {
-    width:  222px;
-    height: 222px;
-  }
-  .headline {
-    font-weight: bold;
-    font-size: 1.5em;
-  }
-  .shelf_life {
-    font-style: italic;
-  }
-} */
