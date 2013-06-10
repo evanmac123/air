@@ -10,3 +10,6 @@
           = content_tag(:div, link_to('Archive',
                                        client_admin_tile_path(tile, update_status: Tile::ARCHIVE), method: :put),
                                        class: 'archive_tile_link') if type == :active
+          = content_tag(:div, link_to('Activate',
+                                       client_admin_tile_path(tile, update_status: Tile::ACTIVE), method: :put),
+                                       class: 'archive_tile_link') if type == :archive

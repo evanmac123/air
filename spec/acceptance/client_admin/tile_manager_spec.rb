@@ -1,7 +1,7 @@
 require 'acceptance/acceptance_helper'
 
 # After this initial creation, note that 'admin' is used instead of 'client-admin'
-feature 'Client admin and the digest email for tiles', js: true do
+feature 'Client admin and the digest email for tiles' do
 
   let(:admin) { FactoryGirl.create :client_admin }
   let(:demo)  { admin.demo  }
@@ -21,6 +21,10 @@ feature 'Client admin and the digest email for tiles', js: true do
 
   def have_archive_link_for(tile)
     have_link 'Archive', href: client_admin_tile_path(tile, update_status: Tile::ARCHIVE)
+  end
+
+  def have_activate_link_for(tile)
+    have_link 'Activate', href: client_admin_tile_path(tile, update_status: Tile::ACTIVE)
   end
 
   def check_headline_and_shelf_life_for(tile, contains = true)
@@ -100,6 +104,7 @@ feature 'Client admin and the digest email for tiles', js: true do
       within digest_tab do
         # One check at this level is good enough
         page.should_not contain 'Archive'
+        page.should_not contain 'Activate'
 
         tiles.each do |tile|
           within tile(tile) do
@@ -116,44 +121,13 @@ feature 'Client admin and the digest email for tiles', js: true do
       archive_tab.should have_num_tiles(3)
 
       within archive_tab do
-        # One check at this level is good enough
-        page.should_not contain 'Archive'
-
         tiles.each do |tile|
           within tile(tile) do
             check_headline_and_shelf_life_for(tile)
+            page.should have_activate_link_for(tile)
           end
         end
       end
-    end
-
-    scenario "The 'Archive this tile' links work", js: :webkit do
-      visit tile_manager_page
-
-      sleep 0.5
-      active_tab.should  have_num_tiles(3)
-      archive_tab.should have_num_tiles(0)
-
-      active_tab.find(:tile, kill).click_link('Archive')
-
-      page.should contain "The #{kill.headline} tile has been archived"
-
-      within(active_tab)  { check_headline_and_shelf_life_for(kill, false) }
-      within(archive_tab) { check_headline_and_shelf_life_for(kill) }
-
-      active_tab.should  have_num_tiles(2)
-      archive_tab.should have_num_tiles(1)
-
-      # Let's try it one more time to make sure...
-      active_tab.find(:tile, knife).click_link('Archive')
-
-      page.should contain "The #{knife.headline} tile has been archived"
-
-      within(active_tab)  { check_headline_and_shelf_life_for(knife, false) }
-      within(archive_tab) { check_headline_and_shelf_life_for(knife) }
-
-      active_tab.should  have_num_tiles(1)
-      archive_tab.should have_num_tiles(2)
     end
 
     scenario "Tiles that should be archived, are, whenever the page is displayed" do
@@ -170,6 +144,63 @@ feature 'Client admin and the digest email for tiles', js: true do
       archive_tab.should have_num_tiles(3)
 
       tiles.each { |tile| tile.reload.status.should == Tile::ARCHIVE }
+    end
+
+    context 'Archiving and activating tiles' do
+      scenario "The 'Archive this tile' links work" do
+        visit tile_manager_page
+
+        active_tab.should  have_num_tiles(3)
+        archive_tab.should have_num_tiles(0)
+
+        active_tab.find(:tile, kill).click_link('Archive')
+        page.should contain "The #{kill.headline} tile has been archived"
+
+        within(active_tab)  { check_headline_and_shelf_life_for(kill, false) }
+        within(archive_tab) { check_headline_and_shelf_life_for(kill) }
+
+        active_tab.should  have_num_tiles(2)
+        archive_tab.should have_num_tiles(1)
+
+        # Let's try it one more time to make sure...
+        active_tab.find(:tile, knife).click_link('Archive')
+
+        page.should contain "The #{knife.headline} tile has been archived"
+
+        within(active_tab)  { check_headline_and_shelf_life_for(knife, false) }
+        within(archive_tab) { check_headline_and_shelf_life_for(knife) }
+
+        active_tab.should  have_num_tiles(1)
+        archive_tab.should have_num_tiles(2)
+      end
+
+      scenario "The 'Activate this tile' links work" do
+        tiles.each { |tile| tile.update_attributes status: Tile::ARCHIVE }
+        visit tile_manager_page
+
+        active_tab.should  have_num_tiles(0)
+        archive_tab.should have_num_tiles(3)
+
+        archive_tab.find(:tile, kill).click_link('Activate')
+        page.should contain "The #{kill.headline} tile has been activated"
+
+        within(archive_tab) { check_headline_and_shelf_life_for(kill, false) }
+        within(active_tab)  { check_headline_and_shelf_life_for(kill) }
+
+        active_tab.should  have_num_tiles(1)
+        archive_tab.should have_num_tiles(2)
+
+        # Let's try it one more time to make sure...
+        archive_tab.find(:tile, knife).click_link('Activate')
+
+        page.should contain "The #{knife.headline} tile has been activated"
+
+        within(archive_tab) { check_headline_and_shelf_life_for(knife, false) }
+        within(active_tab)  { check_headline_and_shelf_life_for(knife) }
+
+        active_tab.should  have_num_tiles(2)
+        archive_tab.should have_num_tiles(1)
+      end
     end
   end
 end

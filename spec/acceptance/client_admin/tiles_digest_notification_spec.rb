@@ -1,6 +1,6 @@
 require 'acceptance/acceptance_helper'
 
-feature 'Client admin and the digest email for tiles', js: true do
+feature 'Client admin and the digest email for tiles' do
 
   let(:admin) { FactoryGirl.create :client_admin }
   let(:demo)  { admin.demo  }
@@ -80,7 +80,7 @@ feature 'Client admin and the digest email for tiles', js: true do
       digest_tab.should contain 'A digest email containing 2 tiles is set to go out'
     end
 
-    scenario 'The appropriate form components are on the page and properly initialized' do
+    scenario 'The appropriate form components are on the page and properly initialized', js: true do
       create_tile
       visit tile_manager_page
       select_tab 'Digest'
@@ -95,7 +95,7 @@ feature 'Client admin and the digest email for tiles', js: true do
       digest_tab.should have_send_on_selector('Tuesday')
     end
 
-    scenario "The 'send_on' dropdown control updates the day and time, and displays a confirmation message"  do
+    scenario "The 'send_on' dropdown control updates the day and time, and displays a confirmation message", js: true do
       create_tile
       visit tile_manager_page
       select_tab 'Digest'
@@ -132,7 +132,7 @@ feature 'Client admin and the digest email for tiles', js: true do
       digest_tab.should contain 'Last digest email was sent on Thursday, July 04, 2013'
     end
 
-    scenario "The 'Send now' button causes all digest tiles to become invisible and a no-digest-tiles message to be displayed"  do
+    scenario "The 'Send now' button causes all digest tiles to become invisible and a no-digest-tiles message to be displayed", js: true do
       set_last_sent_on '7/4/2013'
       2.times { |i| create_tile on_day: '7/5/2013', headline: "Headline #{i + 1}"}
 

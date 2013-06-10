@@ -37,10 +37,11 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     tile = get_tile
 
     if params[:update_status]
+      success, failure = flash_status_messages
       if tile.update_attributes status: params[:update_status]
-        flash[:success] = "The #{tile.headline} tile has been archived"
+        flash[:success] = "The #{tile.headline} tile has been #{success}"
       else
-        flash[:failure] = "There was a problem archiving this tile. Please try again."
+        flash[:failure] = "There was a problem #{failure} this tile. Please try again."
       end
       redirect_to action: :index
     end
@@ -59,5 +60,16 @@ class ClientAdmin::TilesController < ClientAdminBaseController
 
   def get_tile
     current_user.demo.tiles.find params[:id]  
+  end
+
+  def flash_status_messages
+    if params[:update_status] == Tile::ARCHIVE
+      success = 'archived'
+      failure = 'archiving'
+    else
+      success = 'activated'
+      failure = 'activating'
+    end
+    [success, failure]
   end
 end
