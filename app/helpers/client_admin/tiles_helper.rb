@@ -14,7 +14,7 @@ module ClientAdmin::TilesHelper
 
   def no_digest_email_message
     message = "No digest email is scheduled to be sent because no new tiles have been added"
-    message << " since the last one was sent on #{digest_email_sent_on}" unless @tile_digest_email_sent_at.nil?
+    message << " since the last one was sent on #{digest_email_sent_on}." unless @tile_digest_email_sent_at.nil?
     message
   end
 

@@ -130,6 +130,7 @@ feature 'Client admin and the digest email for tiles', js: true do
     scenario "The 'Archive this tile' links work", js: :webkit do
       visit tile_manager_page
 
+      sleep 0.5
       active_tab.should  have_num_tiles(3)
       archive_tab.should have_num_tiles(0)
 

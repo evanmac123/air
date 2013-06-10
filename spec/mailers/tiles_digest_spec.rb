@@ -8,7 +8,7 @@ describe 'Tiles digest email' do
   before(:each) do
     create_tile demo: demo
     TilesDigestMailer.notify(demo).deliver
-    p "******* #{ActionMailer::Base.deliveries.first.html_part.body.inspect}"
+    #p "******* #{ActionMailer::Base.deliveries.first.html_part.body.inspect}"
   end
 
   # todo use email_spec helpers
