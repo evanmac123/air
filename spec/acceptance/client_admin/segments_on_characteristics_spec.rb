@@ -18,7 +18,7 @@ feature 'Client admin segments on characteristics' do
     visit client_admin_segmentation_path
   end
 
-  scenario 'can segment on dummy characteristic', js: :poltergeist do
+  scenario 'can segment on dummy characteristic', js: true do
     select "Points", :from => "segment_column[0]"
     select "is less than", :from => "segment_operator[0]"
     fill_in "segment_value[0]", :with => "28"
