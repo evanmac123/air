@@ -14,14 +14,7 @@ feature 'Creates tile' do
     counter.text.should == "#{max_characters} characters left"
   end
 
-  before do
-    visit new_client_admin_tile_path(as: client_admin)
-  end
-
-  scenario 'by uploading an image and supplying some information', js: true do
-    demo.tiles.should be_empty
-    demo.rules.should be_empty
-
+  def fill_in_valid_form_entries
     attach_file "tile_builder_form[image]", tile_fixture_path('cov1.jpg')
     fill_in "Headline",           with: "Ten pounds of cheese"
     fill_in "Supporting content", with: "Ten pounds of cheese. Yes? Or no?"
@@ -33,7 +26,17 @@ feature 'Creates tile' do
     fill_in_answer_field 2, "you"
 
     fill_in "Points", with: "23"
+  end
 
+  before do
+    visit new_client_admin_tile_path(as: client_admin)
+  end
+
+  scenario 'by uploading an image and supplying some information', js: true do
+    demo.tiles.should be_empty
+    demo.rules.should be_empty
+
+    fill_in_valid_form_entries
     click_button "Publish tile"
 
     expect_content "OK, you've created a new tile."
@@ -60,6 +63,23 @@ feature 'Creates tile' do
     new_rule.rule_triggers.should have(1).trigger
     new_trigger = new_rule.rule_triggers.first
     new_trigger.tile.should == new_tile
+  end
+
+  scenario "previews tile after creating it", js: true do
+    fill_in_valid_form_entries
+    click_button "Publish tile"
+
+    click_link "Click here to preview it."
+
+    new_tile = Tile.last
+    should_be_on client_admin_tile_path(new_tile)
+
+    page.find("img[src='#{new_tile.image}']").should be_present
+    %w(headline supporting_content question).each do |string|
+      expect_content new_tile.send(string)
+    end
+
+    expect_content "23 pts"
   end
 
   scenario "with incomplete data should give a gentle rebuff", js: true do

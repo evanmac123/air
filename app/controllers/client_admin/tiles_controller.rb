@@ -18,7 +18,9 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     @tile_builder_form = TileBuilderForm.new(@demo, parameters: params[:tile_builder_form])
 
     if @tile_builder_form.create_objects
-      flash[:success] = "OK, you've created a new tile."
+      preview_url = client_admin_tile_path(@tile_builder_form.tile)
+      flash[:success] = "OK, you've created a new tile. <a href=\"#{preview_url}\">Click here to preview it.</a>"
+      flash[:success_allow_raw] = true
       redirect_to new_client_admin_tile_path
     else
       # TODO: validation and ActiveRecord errors are done in a surprisingly
@@ -29,7 +31,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
   end
 
   def update
-    tile = Tile.find params[:id]
+    tile = get_tile
 
     # Check because figure there will be other entirely-different situations where we are updating a tile...
     if params[:update_status]
@@ -42,9 +44,18 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     end
   end
 
+  def show
+    @tile = get_tile
+    @client_created_tiles = {@tile => @tile.appears_client_created}
+  end
+
   private
 
   def get_demo
     @demo = current_user.demo
+  end
+
+  def get_tile
+    current_user.demo.tiles.find params[:id]  
   end
 end
