@@ -122,3 +122,9 @@
   line-height:1.35em;
   padding:1em 15%;
 }
+
+.tile_thumbnail {
+  a, a:hover {
+    color: $dark-gray;
+  }
+}

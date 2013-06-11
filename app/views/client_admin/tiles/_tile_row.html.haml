@@ -2,14 +2,16 @@
   - columns.size.times do |col|
     - tile = columns[col]
     %td.tile_thumbnail{class: type, data: {tile_id: tile.id}}
-      %div.tile_thumb_holder
-        %div.image= image_tag tile.thumbnail
-        %div.tile_thumb_texts
-          %div.headline= tile.headline
-          %div.shelf_life= shelf_life(tile)
-          = content_tag(:div, link_to('Archive',
-                                       client_admin_tile_path(tile, update_status: Tile::ARCHIVE), method: :put),
-                                       class: 'archive_tile_link') if type == :active
-          = content_tag(:div, link_to('Activate',
-                                       client_admin_tile_path(tile, update_status: Tile::ACTIVE), method: :put),
-                                       class: 'archive_tile_link') if type == :archive
+      %a{href: client_admin_tile_path(tile)}
+        %div.tile_thumb_holder
+          %div.image
+            = image_tag tile.thumbnail
+          %div.tile_thumb_texts
+            %div.headline= tile.headline
+            %div.shelf_life= shelf_life(tile)
+            = content_tag(:div, link_to('Archive',
+                                         client_admin_tile_path(tile, update_status: Tile::ARCHIVE), method: :put),
+                                         class: 'archive_tile_link') if type == :active
+            = content_tag(:div, link_to('Activate',
+                                         client_admin_tile_path(tile, update_status: Tile::ACTIVE), method: :put),
+                                         class: 'archive_tile_link') if type == :archive

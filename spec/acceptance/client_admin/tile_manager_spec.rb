@@ -42,6 +42,10 @@ feature 'Client admin and the digest email for tiles' do
     end
   end
 
+  def expect_link_to_preview(tile)
+    page.find("a[href='#{client_admin_tile_path(tile)}'] img[src='#{tile.thumbnail}']").should be_present
+  end
+
   # -------------------------------------------------
 
   context 'No tiles exist for any of the types' do
@@ -75,6 +79,8 @@ feature 'Client admin and the digest email for tiles' do
   context 'Tiles exist for each of the types' do
     # NOTES 1: The default 'status' for tiles is 'active'
     #       2: I have no idea why Phil hates kittens so much. Someone should keep an eye on him...
+    #
+    #       (I don't hate kittens. I love them, especially in soy sauce. --Phil)
     let(:kill)        { create_tile headline: 'Phil Kills Kittens',  start_day: '12/25/2013', end_day: '12/30/2013' }
     let(:knife)       { create_tile headline: 'Phil Knifes Kittens', start_day: '12/25/2013' }
     let(:kannibalize) { create_tile headline: 'Phil Kannibalizes Kittens' }
@@ -91,6 +97,8 @@ feature 'Client admin and the digest email for tiles' do
             check_headline_and_shelf_life_for(tile)
             page.should have_archive_link_for(tile)
           end
+
+          expect_link_to_preview(tile)
         end
       end
     end
@@ -153,7 +161,7 @@ feature 'Client admin and the digest email for tiles' do
         active_tab.should  have_num_tiles(3)
         archive_tab.should have_num_tiles(0)
 
-        active_tab.find(:tile, kill).click_link('Archive')
+        active_tab.find(:tile, kill).find('.tile_thumb_holder').click_link('Archive')
         page.should contain "The #{kill.headline} tile has been archived"
 
         within(active_tab)  { check_headline_and_shelf_life_for(kill, false) }
@@ -163,7 +171,7 @@ feature 'Client admin and the digest email for tiles' do
         archive_tab.should have_num_tiles(1)
 
         # Let's try it one more time to make sure...
-        active_tab.find(:tile, knife).click_link('Archive')
+        active_tab.find(:tile, knife).find('.tile_thumb_holder').click_link('Archive')
 
         page.should contain "The #{knife.headline} tile has been archived"
 
@@ -181,7 +189,7 @@ feature 'Client admin and the digest email for tiles' do
         active_tab.should  have_num_tiles(0)
         archive_tab.should have_num_tiles(3)
 
-        archive_tab.find(:tile, kill).click_link('Activate')
+        archive_tab.find(:tile, kill).find('.tile_thumb_holder').click_link('Activate')
         page.should contain "The #{kill.headline} tile has been activated"
 
         within(archive_tab) { check_headline_and_shelf_life_for(kill, false) }
@@ -191,7 +199,7 @@ feature 'Client admin and the digest email for tiles' do
         archive_tab.should have_num_tiles(2)
 
         # Let's try it one more time to make sure...
-        archive_tab.find(:tile, knife).click_link('Activate')
+        archive_tab.find(:tile, knife).find('.tile_thumb_holder').click_link('Activate')
 
         page.should contain "The #{knife.headline} tile has been activated"
 
