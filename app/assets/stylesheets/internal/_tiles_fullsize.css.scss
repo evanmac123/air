@@ -20,7 +20,7 @@
 .tile_full_image {
   background:$light-gray;
   text-align: center;
-  img {width:100%; max-width:auto;}
+  img {width:100%; max-width:auto; height:auto;}
   &:after{@include clear;}
 }
 
