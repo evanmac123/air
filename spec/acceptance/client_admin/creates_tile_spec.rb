@@ -69,7 +69,7 @@ feature 'Creates tile' do
     fill_in_valid_form_entries
     click_button "Publish tile"
 
-    click_link "See it live"
+    click_link "See it"
 
     new_tile = Tile.last
     should_be_on client_admin_tile_path(new_tile)
