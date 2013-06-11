@@ -2,7 +2,7 @@ class ClientAdmin::TilesDigestNotificationsController < ClientAdminBaseControlle
   before_filter :get_demo
 
   def create
-    TilesDigestMailer.notify(@demo).deliver
+    #TilesDigestMailer.notify(@demo).deliver
 
     @demo.update_attributes tile_digest_email_sent_at: Time.now
     @tile_digest_email_sent_at = @demo.tile_digest_email_sent_at

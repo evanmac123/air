@@ -6,7 +6,7 @@ class TilesDigestMailer < ActionMailer::Base
   def notify(demo)
     @demo = demo
 
-    mail  to:      'all demo.users',
+    mail  to:      'joe@blow.com',
           from:    'donotreply@hengage.com',
           subject: 'Newly-added H.Engage Tiles'
   end
