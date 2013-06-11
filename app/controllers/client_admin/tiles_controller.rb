@@ -19,7 +19,8 @@ class ClientAdmin::TilesController < ClientAdminBaseController
 
     if @tile_builder_form.create_objects
       preview_url = client_admin_tile_path(@tile_builder_form.tile)
-      flash[:success] = "OK, you've created a new tile. <a href=\"#{preview_url}\">Click here to preview it.</a>"
+      manager_url = client_admin_tiles_path
+      flash[:success] = "OK, you've created a new tile. <a href=\"#{preview_url}\">See it live</a> or return to <a href=\"#{manager_url}\">the manager</a>"
       flash[:success_allow_raw] = true
       redirect_to new_client_admin_tile_path
     else
