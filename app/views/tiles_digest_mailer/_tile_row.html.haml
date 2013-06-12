@@ -3,7 +3,7 @@
     - tile = columns[col]
 
     - tile_url = tile.thumbnail.url  # Paperclip returns the full url in staging and production modes
-    - tile_url = tile_url.prepend('http://0.0.0.0:3000') if (Rails.env.development? or Rails.env.test?)
+    - tile_url = tile_url.prepend('http://localhost:3000') if (Rails.env.development? or Rails.env.test?)
 
     %td.tile_thumbnail
       %div.image= image_tag tile_url, alt: tile.headline

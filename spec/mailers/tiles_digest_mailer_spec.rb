@@ -1,39 +1,51 @@
 require "spec_helper"
+
 include TileHelpers
+include EmailHelper
 
-describe 'Tiles digest email_spec' do
-  let(:demo) { FactoryGirl.create :demo, tile_digest_email_sent_at: Date.yesterday }
+describe 'Basic parts' do
+  subject { TilesDigestMailer.notify(FactoryGirl.create :demo) }
 
-  before(:each) do
-    create_tile demo: demo
-    @email = TilesDigestMailer.notify(demo)
-  end
+  it { should be_delivered_to 'joe@blow.com' }
+  it { should be_delivered_from 'donotreply@hengage.com' }
 
-  it 'should work' do
-    @email.should be_delivered_to('joe@blow.com')
-    @email.should be_delivered_from('donotreply@hengage.com')
-    @email.should have_subject('Newly-added H.Engage Tiles')
-    @email.should have_body_text('Check out our')
-    @email.should have_body_text('new tiles')
-  end
+  it { should have_subject 'Newly-added H.Engage Tiles' }
+
+  it { should have_body_text 'Check out our' }
+  it { should have_body_text acts_url(protocol: email_link_protocol, host: email_link_host) }
+  it { should have_body_text 'new tiles' }
+
+  it { should have_body_text 'Copyright &copy; 2013 H.Engage. All Rights Reserved' }
+  it { should have_body_text 'Our mailing address is: 222 Newbury St., Floor 3, Boston, MA 02116' }
 end
 
-  describe 'Tiles digest email' do
-  let(:demo) { FactoryGirl.create :demo, tile_digest_email_sent_at: Date.yesterday }
+describe 'Tiles' do
+  let(:demo) { FactoryGirl.create :demo, tile_digest_email_sent_at: Date.yesterday }  # Needed for 'create_tile' helper
 
-  # todo Doesn't work if no text version of the email (html_part is nil)
-  before(:each) do
-    create_tile demo: demo
+  it 'the number and content are correct' do
+    create_tile headline: 'Phil Kills Kittens',  start_day: '12/25/2013', end_day: '12/30/2013'
+    create_tile headline: 'Phil Knifes Kittens', start_day: '12/25/2013'
+    create_tile headline: 'Phil Kannibalizes Kittens'
+
+    create_tile headline: "Old Tile",     created_at: 2.days.ago
+    create_tile headline: "Archive Tile", status: Tile::ARCHIVE
+
     TilesDigestMailer.notify(demo).deliver
-    #p "******* #{ActionMailer::Base.deliveries.first.html_part.body.inspect}"
-  end
+    open_email('joe@blow.com')
+    email = current_email
 
-  # todo use email_spec helpers
-  it 'has the right content in the right places' do
-    TilesDigestMailer.should have_sent_email.from('donotreply@hengage.com')
-                                            .to('joe@blow.com')
-                                            .with_subject('Newly-added H.Engage Tiles')
-                                            #.with_body('Check out')
-                                            #.with_part('text/html', /Our mailing address is:/)
+    email.should have_num_tiles(3)
+
+    email.should contain 'Phil Kills Kittens'
+    email.should contain 'December 25, 2013 - December 30, 2013'
+
+    email.should contain 'Phil Knifes Kittens'
+    email.should contain 'December 25, 2013 - Forever'
+
+    email.should contain 'Phil Kannibalizes Kittens'
+    email.should contain 'Forever'
+
+    email.should_not contain 'Old Tile'
+    email.should_not contain 'Archive Tile'
   end
 end

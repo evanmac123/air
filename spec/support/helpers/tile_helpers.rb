@@ -52,6 +52,9 @@ module TileHelpers
   #
   # create_tile on_day: '7/5/2013', headline: "My Tile Headline", start_day: '7/4/2013', end_day: '7/6/2013'
   #
+  # Note that 'demo' must be defined in a 'let(:demo) {~~~~}' statement in the specs that call this.
+  # (Don't know if that's a stupid requirement or not, but since all tiles require a 'demo', this just makes it easier.I think.)
+  #
   def create_tile(options = {})
     DAY_TO_TIMES.each_pair do |day, time|
       day = options.delete day

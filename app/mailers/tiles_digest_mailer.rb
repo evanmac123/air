@@ -1,5 +1,9 @@
 class TilesDigestMailer < ActionMailer::Base
-  helper 'client_admin/tiles'
+
+  # todo What about the instance variables accessed by the unsubscribe footer?
+
+  helper :email                   # loads 'app/helpers/email_helper.rb' & includes 'EmailHelper' into the View
+  helper 'client_admin/tiles'     # ditto for 'tiles_helper.rb'
 
   has_delay_mail  # Some kind of monkey-patch workaround
 
