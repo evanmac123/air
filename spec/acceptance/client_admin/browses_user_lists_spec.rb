@@ -27,6 +27,7 @@ feature 'Browses user lists' do
     expect_content "Showing results for everyone"
   end
 
+  # NOTE: This test takes about 2 1/2 minutes to run
   it "should paginate big result sets" do
     page_size = ClientAdmin::UsersController::PAGE_SIZE
 
