@@ -4,8 +4,7 @@
     %td.tile_thumbnail{class: type, data: {tile_id: tile.id}}
       %a{href: client_admin_tile_path(tile)}
         %div.tile_thumb_holder
-          %div.image
-            = image_tag tile.thumbnail
+          %div.image= image_tag tile.thumbnail
           %div.tile_thumb_texts
             %div.headline= tile.headline
             %div.shelf_life= shelf_life(tile)
