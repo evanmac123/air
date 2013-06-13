@@ -57,14 +57,21 @@
   .tile_thumb_holder {
     margin:$centered;
     position: relative;
-    width:100%;
-    max-width:234px;
+    width:234px;
     .image {
-      background:lighten($light-gray, 5%);
-      height:12em;
+      background:$text-color;
+      height:13em;
       overflow:hidden;
+      position:relative;
+      width:100%;
     }
-    img {width:100%;}
+    img {
+      position: absolute;
+      top:0;
+      bottom:0;
+      margin:auto;
+      width:100%;
+    }
 
 
     .tile_thumb_texts {
@@ -84,12 +91,13 @@
       position:absolute;
       top: .5em;
       right: .5em;
+      margin:0;
       padding:.25em .5em;
       &:hover {background:$dark-green;}
       a {color:$white;}
     }
     &:hover {
-      .archive_tile_link {display: inline-block;}
+      .archive_tile_link {display: block;}
     }
   }
 }

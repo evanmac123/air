@@ -1,8 +1,82 @@
-%h2 Check out our #{link_to 'new tiles', acts_url(protocol: email_link_protocol, host: email_link_host)}!
-%table
-  %tbody
-    -# Note: To change the number of tiles per row, simply change the "(n)" to whatever your little ol' heart desires
-    - @demo.digest_tiles.each_slice(3) do |columns|
-      = render partial: 'tile_row', locals: {columns: columns}
+:css 
+  table * {
+    box-sizing: border-box;
+    color:#909090;
+    font-family: Helvetica, Arial, sans-serif;
+  }
+  #mail_header {
+    padding:1.75em 1em;
+    border-bottom:1px #dfdfdf solid;
+  }
+  h2 {
+    font-weight:lighter;
+    font-weight:300;
+  }
+  h2 a {
+    color:#4FAA60;
+    font-weight:bold;
+    font-weight:500;
+    text-decoration:none;
+  }
+  h2 a:hover {color:#ff7d00;}
+  #tiles td {
+    vertical-align:top;
+    width:33%;
+  }
+  #tiles .image {
+    background:#292929;
+    height:10em;
+    position:relative;
+    overflow:hidden;
+    vertical-align:middle;
+  }
+  #tiles .image img {
+    position:absolute;
+    top:0;
+    bottom:0;
+    margin:auto;
+    width:100%;
+    vertical-align:middle;
+  }
+  #tiles .headline {
+    background: #292929;
+    color:#fff;
+    height:70px;
+    padding:1em .5em;
+  }
+  #mail_footer {margin:2em 0; text-align:center;}
+  #mail_footer a {
+    background:#4da968;
+    border-bottom:5px #3e8052 solid;
+    color:#fff;
+    display:inline-block;
+    font-size:1.25em;
+    font-weight:bold;
+    font-weight:600;
+    padding:.65em 2em;
+    text-decoration:none;
+  }
+
+%center
+  %table{:cellpadding => "0", :cellspacing => "0", :width => "600px"}
+    %tr
+      %td
+        %table{:id => "mail_header", :cellpadding => "0", :cellspacing => "0", :width => "100%"}
+          %tr
+            %td
+              %a{:id => "hengage_logo", :href => "https://www.hengage.com", :target => "_blank"}
+                %img{:src => "https://hengage-assets.s3.amazonaws.com/assets/v4/logo-580aed6750f34956244a346b8f34fa73.png", :width => "150px"}
+        %center
+          %h2 Check out your #{link_to 'new tiles', acts_url(protocol: email_link_protocol, host: email_link_host)}!
+        %table{:id => "tiles", :cellpadding => "0", :cellspacing => "5px", :width => "100%"}
+          %tbody
+            -# Note: To change the number of tiles per row, simply change the "(n)" to whatever your little ol' heart desires
+            - @demo.digest_tiles.each_slice(3) do |columns|
+              = render partial: 'tile_row', locals: {columns: columns}
+        %table{:id => "mail_footer", :cellpadding => "0", :cellspacing => "0", :width => "100%"}
+          %tr
+            %td
+              %p Interact, earn points, and see how your colleagues are doing!
+              #{link_to 'View your tiles', acts_url(protocol: email_link_protocol, host: email_link_host)}
 
 = render 'shared/unsubscribe_footer'
