@@ -53,13 +53,18 @@ class Tile < ActiveRecord::Base
   # Can you say: WTF!!!!! (I sure can!)
 
   has_attached_file :image,
-    {:styles => {:viewer => ["666", :png]},
+    {
+    # For those of you who don't read ImageMagick geometry arguments like a 
+    # native, "666>" means "Leave images under 666 pixels wide alone. Scale
+    # down images over 666 pixels wide to 666 wide, maintaining the original
+    # aspect ratio."
+    :styles => {:viewer => ["666>", :png]},
     :default_style => :viewer,
     :default_url => "/assets/avatars/thumb/missing.png",
     :bucket => S3_TILE_BUCKET}.merge(TILE_IMAGE_OPTIONS)
 
   has_attached_file :thumbnail,
-    {:styles => {:carousel => ["238x238", :png], :hover => ["258x258", :png]},
+    {:styles => {:carousel => ["238x238>", :png], :hover => ["258x258>", :png]},
     :default_style => :carousel,
     :default_url => "/assets/avatars/thumb/missing.png",
     :bucket => S3_TILE_THUMBNAIL_BUCKET}.merge(TILE_THUMBNAIL_OPTIONS)
