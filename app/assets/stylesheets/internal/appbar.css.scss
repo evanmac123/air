@@ -16,7 +16,7 @@ $light:lighten($header-bg, 7%);
 
 	a, a:link, a:visited {
 		font-family:$open-400;
-		color:$white;
+		color:$med-gray;
 		text-decoration: none;
 		&:hover {color:$dark-green;}
 		&:active {
@@ -47,7 +47,6 @@ $light:lighten($header-bg, 7%);
 	.app_settings {
 		float:right;
 		margin:0;
-		a {color:$med-gray;}
 		li {padding-left:20px; font-size: 12px;}
 	}
 }

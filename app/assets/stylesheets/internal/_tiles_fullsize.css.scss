@@ -18,15 +18,22 @@
 }
 
 .tile_full_image {
-  background:$light-gray;
+  background:$text-color;
   text-align: center;
-  img {max-width:auto; height:auto;}
+  position: relative;
+  img {
+    width:auto; 
+    max-width:100%;
+    height:auto;
+  }
   &:after{@include clear;}
 }
 
 // White copy area
 .tile_texts_container {
   background:$white;
+  border-left:2px $light-gray solid;
+  border-right:2px $light-gray solid;
   line-height: 1.125em;
   padding-top:1em;
   .tile_headline, .tile_supporting_content {
@@ -49,7 +56,7 @@
 
   // Gray quiz area
   .tile_quiz {
-    background:lighten($light-gray, 5%);
+    background:$light-gray;
     padding:2em 0 2.5em 0;
     position: relative;
     .tile_points {

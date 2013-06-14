@@ -8,7 +8,7 @@ body.client_admin-tiles-new, body.client_admin-tiles-create {
       &:hover, &:focus {border-style:solid;}
     }
     label {
-      color:$gray;
+      color:lighten($text-color, 17%);
       font-family:$open-600;
       margin-bottom:.5em;
     }
@@ -17,6 +17,7 @@ body.client_admin-tiles-new, body.client_admin-tiles-create {
       margin:0 auto 2em auto;
       width:90%;
       span.character-counter {
+        color:$gray;
         float:right; 
         font-size:.85em;
         padding-top:.5em;
@@ -36,6 +37,17 @@ body.client_admin-tiles-new, body.client_admin-tiles-create {
       padding:4em 0;
       text-align: center;
       &:hover {border-style:solid;}
+      #tile_builder_form_image {
+        background:$blue;
+        border:0;
+        color:$white;
+        padding:1em 2em;
+        &:hover {background:darken($blue, 5%);}
+      }
+      p {
+        color:$gray;
+        margin:1em 0;
+      }
     }
 
     // Copy for the tile
@@ -48,13 +60,14 @@ body.client_admin-tiles-new, body.client_admin-tiles-create {
     #tile_builder_form_supporting_content {
       color:$text-color;
       font-family:$sans;
-      font-size:1.3em;
+      font-size:1.5em;
     }
   }
 
   // Quiz section of the tile
   .builder_quiz {
     background:$light-gray;
+    margin-bottom:2em;
 
     input[type="text"] {
       background:lighten($light-gray, 5%);
@@ -62,7 +75,7 @@ body.client_admin-tiles-new, body.client_admin-tiles-create {
       font-size:1.3em;
       &#tile_builder_form_question {
         color:$text-color;
-        font-family:$open-400;
+        font-family:$sans;
       }
       &.answer-field {
         color:$orange;
@@ -80,8 +93,14 @@ body.client_admin-tiles-new, body.client_admin-tiles-create {
   /* Tile options */
   // Points
   #set_points {
+    border-top:1px darken($light-gray, 5%) solid;
+    padding-top:2em;
     p, input, label {display: inline-block;}
     input, label {color:$orange;}
+    p {
+      color:lighten($text-color, 17%);
+      font-family:$open-600;
+    }
     input {
       font-family:$open-600;
       font-size:1.3em;

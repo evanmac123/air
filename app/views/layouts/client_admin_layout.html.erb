@@ -22,31 +22,32 @@
     <div class="col-container">
     <div id="far-left"></div> <!-- extends light bg -->
     <div id="col-main">
-        <nav id="left-nav" class="equal">
-            <ul id="admin-nav">
-                <li id="admin-overview" class="admin-nav-section"><a href="/client_admin">Overview</a></li>
-                <li id="admin-analytics" class="admin-nav-section"><a href="/client_admin/segmentation">Model</a></li>
-                <li id="admin-users" class="admin-nav-section"><a href="/client_admin/users">Users</a></li>
-                <li id="admin-tiles" class="admin-nav-section">
-                  <h2>Tiles</h2>
-                  <ul>
-                    <li id="admin-tiles-manager"><%= link_to 'Manager', client_admin_tiles_path %></li>
-                    <li id="admin-tiles-builder"><a href="/client_admin/tiles/new">Create new</a></li>
-                  </ul>
-                </li>
-                <% if current_user.authorized_to? :site_admin %>
-                  <%# Will open this up to client admins too, once we have an interesting amount of content in the help pages %>
-                  <li id="admin-help" class="admin-nav-section"><span></span><%= link_to "Help pages", DeskSSO.new(current_user).url, target: "_blank" %></li>
-                <% end %>
+      <nav id="left-nav" class="equal">
+        <ul id="admin-nav">
+          <li id="admin-apphome" class="admin-nav-section"><a href="/">Employee view</a></li>
+          <li id="admin-overview" class="admin-nav-section"><a href="/client_admin">Admin home</a></li>
+          <li id="admin-analytics" class="admin-nav-section"><a href="/client_admin/segmentation">Model</a></li>
+          <li id="admin-users" class="admin-nav-section"><a href="/client_admin/users">Users</a></li>
+          <li id="admin-tiles" class="admin-nav-section">
+            <h2>Tiles</h2>
+            <ul>
+              <li id="admin-tiles-manager"><%= link_to 'Manager', client_admin_tiles_path %></li>
+              <li id="admin-tiles-builder"><a href="/client_admin/tiles/new">Create new</a></li>
             </ul>
-            <div class="clear"></div>
-        </nav>
+          </li>
+          <% if current_user.authorized_to? :site_admin %>
+            <%# Will open this up to client admins too, once we have an interesting amount of content in the help pages %>
+            <li id="admin-help" class="admin-nav-section"><span></span><%= link_to "Help pages", DeskSSO.new(current_user).url, target: "_blank" %></li>
+          <% end %>
+        </ul>
+        <div class="clear"></div>
+      </nav>
 
-        <div id="right-content" class="equal">
-            <div class="wrap">
-              <%= yield %>
-            </div>
+      <div id="right-content" class="equal">
+        <div class="wrap">
+          <%= yield %>
         </div>
+      </div>
     </div>
     <div id="far-right"></div>
 </div>

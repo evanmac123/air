@@ -5,8 +5,9 @@
 <%= form_for @tile_builder_form, url: client_admin_tiles_path do |f| %>
   
   <div class="builder_content tile_builder_section">
-    <label>Pick an image</label>
     <div id="image_uploader">
+      <label>Pick an image</label>
+      <p>This is where your image will appear in your live tile.</p>
       <%= f.file_field "image" %>
     </div>
     <div id="tile_headline" class="content_sections">
@@ -21,22 +22,20 @@
 
   <div class="builder_quiz tile_builder_section">
     <div id="quiz_question" class="content_sections">
-      <%= f.label :question %>
-      <%= f.text_field :question, {placeholder: 'Ask your players a question'} %>
+      <%= f.label :question, "Ask your players a question" %>
+      <%= f.text_field :question %>
     </div>
 
     <div id="quiz_answers" class="content_sections">
-      <%= f.label "answers[]", "Answer" %>
+      <%= f.label "answers[]", "Give the answers" %>
       <div id="answers">
         <% f.object.answers.each_with_index do |answer, i| %>
-          <%= text_field_tag "tile_builder_form[answers][]", answer.value, class: 'answer-field', maxlength: 25, placeholder: 'Give an answer' %>
+          <%= text_field_tag "tile_builder_form[answers][]", answer.value, class: 'answer-field', maxlength: 25 %>
         <% end %>
       </div>
       <%= link_to "Add another answer", "#", id: "add-answer-link" %>
     </div>
-  </div>
 
-  <div id="tile_options" class="tile_builder_section">
     <div id="set_points" class="content_sections">
       <p>How many points will this tile give?</p>
       <%= f.text_field :points, {maxlength: 2} %>

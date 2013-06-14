@@ -61,6 +61,8 @@ body.client_admin-tiles-create #admin-tiles-builder {
     &#left-nav {
         border-right:$border-dark;
         width:170px;
+
+        // Main Client Admin left nav
         .admin-nav-section {
             padding-bottom:1.25em;
             &:before {
@@ -72,7 +74,19 @@ body.client_admin-tiles-create #admin-tiles-builder {
                 width:16px;
             }
             ul.inner {color:lighten($text-color, 70%); margin-left:26px;}
-            &#admin-overview:before {background-position:-22px 1px;}
+
+            // Link to go back to App home
+            &#admin-apphome {
+                border-bottom:1px $light-gray solid;
+                margin-bottom:1em;
+                padding-top:.5em;
+                a {
+                    // font-size:1em;
+                }
+                &:before {background-position:-22px 1px;}
+            }
+
+            &#admin-overview:before {background-position:-124px 1px;}
             &#admin-analytics:before {background-position:-42px 1px;}
             &#admin-message:before {background-position:-64px 1px;}
             &#admin-users:before {background-position:-84px 1px;}
@@ -84,14 +98,15 @@ body.client_admin-tiles-create #admin-tiles-builder {
                 h2 {
                     display:inline-block;
                     font-family:$open-600;
-                    font-size:1.3em;
+                    font-size:.85em;
                     line-height:2em;
+                    text-transform: uppercase;
                 }
                 ul {
                     margin:.5em 0 0 2em;
                     li {padding-bottom:.75em;}
                 }
-                &:before {background-position:-160px 1px;}
+                &:before {background-position:-160px 3px;}
             }
             &#admin-help:before {background-position:-142px 1px;}
         }
