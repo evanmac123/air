@@ -27,21 +27,6 @@ feature 'Client admin and the digest email for tiles' do
     have_link 'Activate', href: client_admin_tile_path(tile, update_status: Tile::ACTIVE)
   end
 
-  def check_headline_and_shelf_life_for(tile, contains = true)
-    shelf_life = case tile
-                   when kill        then 'December 25, 2013 - December 30, 2013'
-                   when knife       then 'December 25, 2013 - Forever'
-                   when kannibalize then 'Forever'
-                 end
-    if contains
-      page.should contain tile.headline
-      page.should contain shelf_life
-    else
-      page.should_not contain tile.headline
-      page.should_not contain shelf_life
-    end
-  end
-
   def expect_link_to_preview(tile)
     page.find("a[href='#{client_admin_tile_path(tile)}'] img[src='#{tile.thumbnail}']").should be_present
   end
@@ -94,7 +79,7 @@ feature 'Client admin and the digest email for tiles' do
       within active_tab do
         tiles.each do |tile|
           within tile(tile) do
-            check_headline_and_shelf_life_for(tile)
+            page.should contain tile.headline
             page.should have_archive_link_for(tile)
           end
 
@@ -116,7 +101,7 @@ feature 'Client admin and the digest email for tiles' do
 
         tiles.each do |tile|
           within tile(tile) do
-            check_headline_and_shelf_life_for(tile)
+            page.should contain tile.headline
           end
         end
       end
@@ -131,7 +116,7 @@ feature 'Client admin and the digest email for tiles' do
       within archive_tab do
         tiles.each do |tile|
           within tile(tile) do
-            check_headline_and_shelf_life_for(tile)
+            page.should contain tile.headline
             page.should have_activate_link_for(tile)
           end
         end
@@ -164,8 +149,8 @@ feature 'Client admin and the digest email for tiles' do
         active_tab.find(:tile, kill).find('.tile_thumb_holder').click_link('Archive')
         page.should contain "The #{kill.headline} tile has been archived"
 
-        within(active_tab)  { check_headline_and_shelf_life_for(kill, false) }
-        within(archive_tab) { check_headline_and_shelf_life_for(kill) }
+        within(active_tab)  { page.should_not contain kill.headline }
+        within(archive_tab) { page.should     contain kill.headline }
 
         active_tab.should  have_num_tiles(2)
         archive_tab.should have_num_tiles(1)
@@ -175,8 +160,8 @@ feature 'Client admin and the digest email for tiles' do
 
         page.should contain "The #{knife.headline} tile has been archived"
 
-        within(active_tab)  { check_headline_and_shelf_life_for(knife, false) }
-        within(archive_tab) { check_headline_and_shelf_life_for(knife) }
+        within(active_tab)  { page.should_not contain knife.headline }
+        within(archive_tab) { page.should     contain knife.headline }
 
         active_tab.should  have_num_tiles(1)
         archive_tab.should have_num_tiles(2)
@@ -192,8 +177,8 @@ feature 'Client admin and the digest email for tiles' do
         archive_tab.find(:tile, kill).find('.tile_thumb_holder').click_link('Activate')
         page.should contain "The #{kill.headline} tile has been activated"
 
-        within(archive_tab) { check_headline_and_shelf_life_for(kill, false) }
-        within(active_tab)  { check_headline_and_shelf_life_for(kill) }
+        within(archive_tab) { page.should_not contain kill.headline }
+        within(active_tab)  { page.should     contain kill.headline }
 
         active_tab.should  have_num_tiles(1)
         archive_tab.should have_num_tiles(2)
@@ -203,8 +188,8 @@ feature 'Client admin and the digest email for tiles' do
 
         page.should contain "The #{knife.headline} tile has been activated"
 
-        within(archive_tab) { check_headline_and_shelf_life_for(knife, false) }
-        within(active_tab)  { check_headline_and_shelf_life_for(knife) }
+        within(archive_tab) { page.should_not contain knife.headline }
+        within(active_tab)  { page.should     contain knife.headline }
 
         active_tab.should  have_num_tiles(2)
         archive_tab.should have_num_tiles(1)
