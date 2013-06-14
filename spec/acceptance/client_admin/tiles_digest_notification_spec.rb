@@ -1,5 +1,7 @@
 require 'acceptance/acceptance_helper'
 
+include EmailHelper
+
 feature 'Client admin and the digest email for tiles' do
 
   let(:admin) { FactoryGirl.create :client_admin }
@@ -104,11 +106,13 @@ feature 'Client admin and the digest email for tiles' do
       digest_tab.should_not contain 'at noon,'
 
       change_send_on 'Tuesday'
+
       digest_tab.should have_send_on_selector('Tuesday')
       digest_tab.should contain 'Send-on day updated to Tuesday'
       digest_tab.should contain 'at noon,'
 
       change_send_on 'Friday'
+
       digest_tab.should have_send_on_selector('Friday')
       digest_tab.should contain 'Send-on day updated to Friday'
       digest_tab.should contain 'at noon,'
@@ -119,6 +123,7 @@ feature 'Client admin and the digest email for tiles' do
       digest_tab.should contain 'at noon,'
 
       change_send_on 'Never'
+      digest_tab.should contain 'Send-on day updated to Never'
       digest_tab.should_not contain 'at noon,'
     end
 
@@ -132,35 +137,67 @@ feature 'Client admin and the digest email for tiles' do
       digest_tab.should contain 'Last digest email was sent on Thursday, July 04, 2013'
     end
 
-    scenario "The 'Send now' button causes all digest tiles to become invisible and a no-digest-tiles message to be displayed", js: true do
-      set_last_sent_on '7/4/2013'
-      2.times { |i| create_tile on_day: '7/5/2013', headline: "Headline #{i + 1}"}
+    context "Clicking the 'Send now' button" do
+      before(:each) do
+        set_last_sent_on '7/4/2013'
+        2.times { |i| create_tile on_day: '7/5/2013', headline: "Headline #{i + 1}"}
+      end
 
-      on_day '7/6/2013' do
-        visit tile_manager_page
-        select_tab 'Digest'
+      scenario "A flash confirmation message is displayed and a no-tiles message appears in the Digest tab" do
+        on_day '7/6/2013' do
+          visit tile_manager_page
+          select_tab 'Digest'
 
-        digest_tab.should     contain 'A digest email containing 2 tiles is set to go out'
-        digest_tab.should_not contain 'No digest email is scheduled to be sent'
-        digest_tab.should_not contain 'since the last one was sent on Saturday, July 06, 2013'
+          digest_tab.should     contain 'A digest email containing 2 tiles is set to go out'
+          digest_tab.should_not contain 'No digest email is scheduled to be sent'
+          digest_tab.should_not contain 'since the last one was sent on Saturday, July 06, 2013'
 
-        digest_tab.should contain 'Headline 1'
-        digest_tab.should contain 'Headline 2'
-        digest_tab.should contain 'Forever'
+          digest_tab.should contain 'Headline 1'
+          digest_tab.should contain 'Headline 2'
 
-        digest_tab.should have_num_tiles(2, visible: true)
+          digest_tab.should have_num_tiles(2)
 
-        click_button 'Send now'
+          click_button 'Send now'
 
-        digest_tab.should_not contain 'A digest email containing 2 tiles is set to go out'
-        digest_tab.should     contain 'No digest email is scheduled to be sent'
-        digest_tab.should     contain 'since the last one was sent on Saturday, July 06, 2013'
+          page.should contain "Tiles digest email was sent"
 
-        digest_tab.should_not contain 'Headline 1'
-        digest_tab.should_not contain 'Headline 2'
-        digest_tab.should_not contain 'Forever'
+          select_tab 'Digest'
+          digest_tab.should_not contain 'A digest email containing 2 tiles is set to go out'
+          digest_tab.should     contain 'No digest email is scheduled to be sent'
+          digest_tab.should     contain 'since the last one was sent on Saturday, July 06, 2013'
 
-        digest_tab.should have_num_tiles(2, visible: false)
+          digest_tab.should_not contain 'Headline 1'
+          digest_tab.should_not contain 'Headline 2'
+
+          digest_tab.should have_num_tiles(0)
+        end
+      end
+
+      scenario 'the email is sent and contains the correct content' do
+        on_day '7/6/2013' do
+          visit tile_manager_page
+          select_tab 'Digest'
+          click_button 'Send now'
+
+          crank_dj_clear
+
+          open_email('vlad@hengage.com')
+          email = current_email
+
+          email.should have_num_tiles(2)
+          email.should have_num_tile_image_links(2)
+
+          email.should be_delivered_to 'vlad@hengage.com'
+          email.should be_delivered_from 'donotreply@hengage.com'
+
+          email.should have_subject 'Newly-added H.Engage Tiles'
+
+          email.should have_company_logo_image_link
+          email.should have_tiles_digest_body_text
+          email.should have_view_your_tiles_link
+
+          email.should have_hengage_footer
+        end
       end
     end
   end

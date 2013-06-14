@@ -22,12 +22,4 @@ module ClientAdmin::TilesHelper
   def send_on_time
     content_tag :span, (@tile_digest_email_send_on.nil? or @tile_digest_email_send_on == 'Never') ? nil : 'at noon, ', id: 'digest-send-on-time'
   end
-
-  def shelf_life(tile)
-    case
-      when tile.start_time.nil? && tile.end_time.nil? then "Forever"
-      when tile.start_time      && tile.end_time.nil? then "#{tile.start_time.to_s(:tile_digest_email_shelf_life)} - Forever"
-      when tile.start_time      && tile.end_time      then "#{tile.start_time.to_s(:tile_digest_email_shelf_life)} - #{tile.end_time.to_s(:tile_digest_email_shelf_life)}"
-    end
-  end
 end

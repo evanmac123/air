@@ -109,4 +109,27 @@ module TileHelpers
   def have_num_tiles(number, options = {})
     have_tile_image options.merge(count: number)
   end
+
+  # -------------------------------------------------
+
+  def have_tiles_digest_body_text
+    have_body_text 'Check out your'
+    have_body_text acts_url(protocol: email_link_protocol, host: email_link_host)
+    have_body_text 'new tiles'
+
+    have_body_text 'Interact, earn points, and see how your colleagues are doing!'
+    have_body_text 'View your tiles'
+  end
+
+  def have_company_logo_image_link
+    have_selector "a[id $= _logo][target = _blank] img[src ^= http]"
+  end
+
+  def have_view_your_tiles_link
+    have_link "View your tiles", href: acts_url(protocol: email_link_protocol, host: email_link_host)
+  end
+
+  def have_num_tile_image_links(num)
+    have_selector "div.image a[href='#{acts_url(protocol: email_link_protocol, host: email_link_host)}'] img", count: num
+  end
 end
