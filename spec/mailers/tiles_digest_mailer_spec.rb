@@ -17,32 +17,35 @@ describe 'Digest email' do
   context 'Basic parts' do
     subject { TilesDigestMailer.notify(demo.digest_tiles.pluck(:id)) }
 
-    it { should be_delivered_to 'joe@blow.com' }
+    it { should be_delivered_to 'vlad@hengage.com' }
     it { should be_delivered_from 'donotreply@hengage.com' }
 
     it { should have_subject 'Newly-added H.Engage Tiles' }
 
-    it { should have_body_text 'Check out our' }
-    it { should have_body_text acts_url(protocol: email_link_protocol, host: email_link_host) }
-    it { should have_body_text 'new tiles' }
+    it { should have_tiles_digest_body_text }
 
     it { should have_hengage_footer }
   end
 
-  context 'Tiles' do
-    it 'the number and content are correct' do
-      # Need to 'deliver' the email so can open and inspect contents with non-email-spec ops
+  # Different from above because 'email_spec' gem helpers are limited in what they can match in the email
+  context 'Tiles and other content' do
+    subject do
+      # Need to 'deliver' the email so can open and inspect contents with non 'email_spec' gem methods
       TilesDigestMailer.notify(demo.digest_tiles.pluck(:id)).deliver
-      open_email('joe@blow.com')
-      email = current_email
-
-      email.should have_num_tiles(3)
-
-      email.should contain 'Phil Kills Kittens'
-      email.should contain 'Phil Knifes Kittens'
-      email.should contain 'Phil Kannibalizes Kittens'
-
-      email.should_not contain 'Archive Tile'
+      open_email('vlad@hengage.com')
+      current_email
     end
+
+      it { should have_num_tiles(3) }
+      it { should have_num_tile_image_links(3) }
+
+      it { should contain 'Phil Kills Kittens' }
+      it { should contain 'Phil Knifes Kittens' }
+      it { should contain 'Phil Kannibalizes Kittens' }
+
+      it { should_not contain 'Archive Tile' }
+
+      it { should have_company_logo_image_link }
+      it { should have_view_your_tiles_link }
   end
 end

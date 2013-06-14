@@ -6,5 +6,5 @@
     - tile_url = tile_url.prepend('http://localhost:3000') if (Rails.env.development? or Rails.env.test?)
 
     %td.tile_thumbnail
-      %div.image= image_tag tile_url, alt: tile.headline
+      %div.image= link_to(image_tag(tile_url, alt: tile.headline), acts_url(protocol: email_link_protocol, host: email_link_host))
       %div.headline= tile.headline

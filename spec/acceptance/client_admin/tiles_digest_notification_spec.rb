@@ -181,19 +181,20 @@ feature 'Client admin and the digest email for tiles' do
 
           crank_dj_clear
 
-          open_email('joe@blow.com')
+          open_email('vlad@hengage.com')
           email = current_email
 
           email.should have_num_tiles(2)
+          email.should have_num_tile_image_links(2)
 
-          email.should be_delivered_to 'joe@blow.com'
+          email.should be_delivered_to 'vlad@hengage.com'
           email.should be_delivered_from 'donotreply@hengage.com'
 
           email.should have_subject 'Newly-added H.Engage Tiles'
 
-          email.should have_body_text 'Check out our'
-          email.should have_body_text acts_url(protocol: email_link_protocol, host: email_link_host)
-          email.should have_body_text 'new tiles'
+          email.should have_company_logo_image_link
+          email.should have_tiles_digest_body_text
+          email.should have_view_your_tiles_link
 
           email.should have_hengage_footer
         end

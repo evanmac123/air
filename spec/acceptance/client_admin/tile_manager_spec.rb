@@ -146,7 +146,7 @@ feature 'Client admin and the digest email for tiles' do
         active_tab.should  have_num_tiles(3)
         archive_tab.should have_num_tiles(0)
 
-        active_tab.find(:tile, kill).find('.tile_thumb_holder').click_link('Archive')
+        active_tab.find(:tile, kill).click_link('Archive')
         page.should contain "The #{kill.headline} tile has been archived"
 
         within(active_tab)  { page.should_not contain kill.headline }
@@ -156,7 +156,7 @@ feature 'Client admin and the digest email for tiles' do
         archive_tab.should have_num_tiles(1)
 
         # Let's try it one more time to make sure...
-        active_tab.find(:tile, knife).find('.tile_thumb_holder').click_link('Archive')
+        active_tab.find(:tile, knife).click_link('Archive')
 
         page.should contain "The #{knife.headline} tile has been archived"
 
@@ -174,7 +174,7 @@ feature 'Client admin and the digest email for tiles' do
         active_tab.should  have_num_tiles(0)
         archive_tab.should have_num_tiles(3)
 
-        archive_tab.find(:tile, kill).find('.tile_thumb_holder').click_link('Activate')
+        archive_tab.find(:tile, kill).click_link('Activate')
         page.should contain "The #{kill.headline} tile has been activated"
 
         within(archive_tab) { page.should_not contain kill.headline }
@@ -184,7 +184,7 @@ feature 'Client admin and the digest email for tiles' do
         archive_tab.should have_num_tiles(2)
 
         # Let's try it one more time to make sure...
-        archive_tab.find(:tile, knife).find('.tile_thumb_holder').click_link('Activate')
+        archive_tab.find(:tile, knife).click_link('Activate')
 
         page.should contain "The #{knife.headline} tile has been activated"
 
