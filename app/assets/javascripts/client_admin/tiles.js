@@ -15,10 +15,15 @@ $(document).ready(function() {
     var $sendOn = $(this);
     var sendOnVal = $sendOn.val();
 
+    var sendOnTime = sendOnVal == 'Never' ? null : 'at noon, ';
+    $('#digest-send-on-time').html(sendOnTime);
+
     var params = { send_on: sendOnVal, _method: 'put' };
     params = add_csrf_protection(params);
 
-    $.post($sendOn.attr('data-action'), params);
+    $.post($sendOn.attr('data-action'), params, function(data) {
+      $('#digest-status-messages #feedback').html(data).fadeIn('slow');
+    });
   };
 
   // -------------------------------------------------------

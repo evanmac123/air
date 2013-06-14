@@ -98,29 +98,27 @@ feature 'Client admin and the digest email for tiles' do
     scenario "The 'send_on' dropdown control updates the day and time, and displays a confirmation message", js: true do
       create_tile
       visit tile_manager_page
-
       select_tab 'Digest'
+
       digest_tab.should have_send_on_selector('Never')
       digest_tab.should_not contain 'at noon,'
 
       change_send_on 'Tuesday'
-      page.should contain 'Digest email weekly-send-on day was updated to Tuesday'
-
-      select_tab 'Digest'
       digest_tab.should have_send_on_selector('Tuesday')
+      digest_tab.should contain 'Send-on day updated to Tuesday'
       digest_tab.should contain 'at noon,'
 
       change_send_on 'Friday'
-      page.should contain 'Digest email weekly-send-on day was updated to Friday'
-
-      select_tab 'Digest'
       digest_tab.should have_send_on_selector('Friday')
+      digest_tab.should contain 'Send-on day updated to Friday'
+      digest_tab.should contain 'at noon,'
+
+      refresh_tile_manager_page
+      select_tab 'Digest'
+
       digest_tab.should contain 'at noon,'
 
       change_send_on 'Never'
-      page.should contain 'Digest email weekly-send-on day was updated to Never'
-
-      select_tab 'Digest'
       digest_tab.should_not contain 'at noon,'
     end
 

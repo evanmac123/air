@@ -1,11 +1,11 @@
 = num_tiles_in_digest_email_message
 = select_tag :digest_send_on, options_for_select(Demo::TILE_DIGEST_EMAIL_SEND_ON, @tile_digest_email_send_on),
                               data: {action: client_admin_tiles_digest_notification_path }
+= image_tag 'spinner.gif', id: 'show-user-spinner'
 = send_on_time
 or you can
 %div.button_wrap
-  = button_to "Send now", client_admin_tiles_digest_notification_path, remote: true
-= image_tag 'spinner.gif', id: 'show-user-spinner'
+  = button_to "Send now", client_admin_tiles_digest_notification_path
 
 %div#digest-status-messages
   %span#feedback
