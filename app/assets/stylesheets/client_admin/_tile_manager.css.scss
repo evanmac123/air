@@ -53,11 +53,34 @@
     table td + td {padding:0 0 2em 1em;}
   }
 
-  // Tile thumbnails
-  .tile_thumb_holder {
+  // Tile thumbnail entire wrapper
+  .tile_thumbnail {
     margin:$centered;
-    position: relative;
     width:234px;
+    position: relative;
+    &:hover {
+      .archive_tile_link {display: block;}
+    }
+    .archive_tile_link {
+      background:$red;
+      border-bottom:2px $white solid;
+      border-left:2px $white solid;
+      display:none;
+      position:absolute;
+      top: 0;
+      right: 0;
+      margin:0;
+      padding:.5em .85em;
+      &:hover {
+        background:darken($red, 7%);
+      }
+      a {
+        display:inline-block;
+        color:$white;
+      }
+    }
+  }
+  .tile_thumb_holder {
     .image {
       background:$text-color;
       height:13em;
@@ -69,10 +92,11 @@
       position: absolute;
       top:0;
       bottom:0;
+      right:0;
+      left: 0;
       margin:auto;
-      width:100%;
+      max-width:100%;
     }
-
 
     .tile_thumb_texts {
       background:lighten($light-gray, 5%);
@@ -83,21 +107,6 @@
         line-height:1.25em;
         margin-bottom:1em;
       }
-    }
-
-    .archive_tile_link {
-      background:$dark-gray;
-      display:none;
-      position:absolute;
-      top: .5em;
-      right: .5em;
-      margin:0;
-      padding:.25em .5em;
-      &:hover {background:$dark-green;}
-      a {color:$white;}
-    }
-    &:hover {
-      .archive_tile_link {display: block;}
     }
   }
 }
