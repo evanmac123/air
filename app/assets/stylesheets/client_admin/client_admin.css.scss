@@ -27,7 +27,7 @@ body.client_admin_main {
 
 // In left nav
 body.client_admins #admin-overview,
-body.client_admin-segmentations #admin-analytics,
+body.client_admin-segmentations #admin-model,
 body.client_admin-users #admin-users,
 body.client_admin-tiles-index #admin-tiles-manager,
 body.client_admin-tiles-new #admin-tiles-builder,
@@ -83,11 +83,11 @@ body.client_admin-tiles-create #admin-tiles-builder {
                 a {
                     // font-size:1em;
                 }
-                &:before {background-position:-22px 1px;}
+                &:before {background-position:-124px 1px;}
             }
 
-            &#admin-overview:before {background-position:-124px 1px;}
-            &#admin-analytics:before {background-position:-42px 1px;}
+            &#admin-overview:before {background-position:-42px 1px;}
+            &#admin-model:before {background-position:-22px 1px;}
             &#admin-message:before {background-position:-64px 1px;}
             &#admin-users:before {background-position:-84px 1px;}
             &#admin-tiles {
@@ -152,7 +152,7 @@ h1.page-title {
         width:32px;
     }
 }
-body.client_admins h1#title:before {background-position:-1px -15px;}
-body.client_admin-segmentations h1#title:before {background-position:-33px -15px;}
+body.client_admins h1#title:before {background-position:-34px -15px;}
+body.client_admin-segmentations h1#title:before {background-position:0px -15px;}
 body.client_admin-users h1#title:before {background-position:-65px -15px;}
 body.client_admin-tiles h1#title:before {background-position:-130px -15px;}
