@@ -1,5 +1,7 @@
 require 'acceptance/acceptance_helper'
 
+include EmailHelper
+
 feature 'Client admin and the digest email for tiles' do
 
   let(:admin) { FactoryGirl.create :client_admin }
@@ -136,42 +138,65 @@ feature 'Client admin and the digest email for tiles' do
     end
 
     context "Clicking the 'Send now' button" do
-      context 'Changes the Tile-Manager page' do
-        scenario "A flash confirmation message is displayed and a no-tiles message appears in the Digest tab" do
-          set_last_sent_on '7/4/2013'
-          2.times { |i| create_tile on_day: '7/5/2013', headline: "Headline #{i + 1}"}
+      before(:each) do
+        set_last_sent_on '7/4/2013'
+        2.times { |i| create_tile on_day: '7/5/2013', headline: "Headline #{i + 1}"}
+      end
 
-          on_day '7/6/2013' do
-            visit tile_manager_page
-            select_tab 'Digest'
+      scenario "A flash confirmation message is displayed and a no-tiles message appears in the Digest tab" do
+        on_day '7/6/2013' do
+          visit tile_manager_page
+          select_tab 'Digest'
 
-            digest_tab.should     contain 'A digest email containing 2 tiles is set to go out'
-            digest_tab.should_not contain 'No digest email is scheduled to be sent'
-            digest_tab.should_not contain 'since the last one was sent on Saturday, July 06, 2013'
+          digest_tab.should     contain 'A digest email containing 2 tiles is set to go out'
+          digest_tab.should_not contain 'No digest email is scheduled to be sent'
+          digest_tab.should_not contain 'since the last one was sent on Saturday, July 06, 2013'
 
-            digest_tab.should contain 'Headline 1'
-            digest_tab.should contain 'Headline 2'
+          digest_tab.should contain 'Headline 1'
+          digest_tab.should contain 'Headline 2'
 
-            digest_tab.should have_num_tiles(2)
+          digest_tab.should have_num_tiles(2)
 
-            click_button 'Send now'
+          click_button 'Send now'
 
-            page.should contain "Tiles digest email was sent"
+          page.should contain "Tiles digest email was sent"
 
-            select_tab 'Digest'
-            digest_tab.should_not contain 'A digest email containing 2 tiles is set to go out'
-            digest_tab.should     contain 'No digest email is scheduled to be sent'
-            digest_tab.should     contain 'since the last one was sent on Saturday, July 06, 2013'
+          select_tab 'Digest'
+          digest_tab.should_not contain 'A digest email containing 2 tiles is set to go out'
+          digest_tab.should     contain 'No digest email is scheduled to be sent'
+          digest_tab.should     contain 'since the last one was sent on Saturday, July 06, 2013'
 
-            digest_tab.should_not contain 'Headline 1'
-            digest_tab.should_not contain 'Headline 2'
+          digest_tab.should_not contain 'Headline 1'
+          digest_tab.should_not contain 'Headline 2'
 
-            digest_tab.should have_num_tiles(0)
-          end
+          digest_tab.should have_num_tiles(0)
         end
       end
 
-      context 'Sends the emails' do
+      scenario 'the email is sent and contains the correct content' do
+        on_day '7/6/2013' do
+          visit tile_manager_page
+          select_tab 'Digest'
+          click_button 'Send now'
+
+          crank_dj_clear
+
+          open_email('joe@blow.com')
+          email = current_email
+
+          email.should have_num_tiles(2)
+
+          email.should be_delivered_to 'joe@blow.com'
+          email.should be_delivered_from 'donotreply@hengage.com'
+
+          email.should have_subject 'Newly-added H.Engage Tiles'
+
+          email.should have_body_text 'Check out our'
+          email.should have_body_text acts_url(protocol: email_link_protocol, host: email_link_host)
+          email.should have_body_text 'new tiles'
+
+          email.should have_hengage_footer
+        end
       end
     end
   end

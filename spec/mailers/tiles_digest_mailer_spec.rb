@@ -26,8 +26,7 @@ describe 'Digest email' do
     it { should have_body_text acts_url(protocol: email_link_protocol, host: email_link_host) }
     it { should have_body_text 'new tiles' }
 
-    it { should have_body_text 'Copyright &copy; 2013 H.Engage. All Rights Reserved' }
-    it { should have_body_text 'Our mailing address is: 222 Newbury St., Floor 3, Boston, MA 02116' }
+    it { should have_hengage_footer }
   end
 
   context 'Tiles' do
