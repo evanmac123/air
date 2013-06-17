@@ -1,0 +1,44 @@
+<div class="builder_quiz tile_builder_section">
+  <div id="quiz_question" class="content_sections">
+    <%= form.label :question, "Ask your players a question" %>
+    <%= form.text_field :question %>
+  </div>
+
+  <div id="quiz_answers" class="content_sections">
+    <%= form.label "answers[]", "Give the answers" %>
+    <div id="answers">
+      <% form.object.answers.each_with_index do |answer, i| %>
+        <%= text_field_tag "tile_builder_form[answers][]", answer, class: 'answer-field', maxlength: 25 %>
+      <% end %>
+    </div>
+    <%= link_to "Add another answer", "#", id: "add-answer-link" %>
+  </div>
+
+  <div id="set_points" class="content_sections">
+    <p>How many points will this tile give?</p>
+    <%= form.text_field :points, {maxlength: 2} %>
+    <%= form.label :points %>
+  </div>
+
+  <% content_for :javascript do %>
+    <%= javascript_include_tag 'admin/byte_counter' %>
+    <%= javascript_tag do %>
+      $(function() {
+        var prototypeAnswerField = $('.answer-field').first();
+
+        $('#add-answer-link').click(function(e) {
+          e.preventDefault();
+          var originField = prototypeAnswerField.clone();
+          originField.val('');
+
+          $('#answers').append(originField);
+          addCharacterCounterFor(originField);
+        });
+      });
+
+      addCharacterCounterFor('#tile_builder_form_headline');
+      addCharacterCounterFor('#tile_builder_form_supporting_content');
+      addCharacterCounterFor('.answer-field');
+    <% end %>
+  <% end %>
+</div>

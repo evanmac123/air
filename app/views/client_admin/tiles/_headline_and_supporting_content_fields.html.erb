@@ -1,0 +1,8 @@
+<div id="tile_headline" class="content_sections">
+  <%= form.label :headline %>
+  <%= form.text_field :headline, {maxlength: 45, placeholder:'Give this tile a headline'} %>
+</div>
+<div id="tile_supporting_content" class="content_sections">
+  <%= form.label :supporting_content %>
+  <%= form.text_area :supporting_content, {maxlength: 300, placeholder:'Tell your users more about this topic.'} %>
+</div>

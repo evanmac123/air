@@ -1,0 +1,16 @@
+<h1 class="page-title" id="title">Edit tile</h1>
+
+<%= render "shared/flashes" %>
+
+<%= form_for @tile_builder_form, url: client_admin_tile_image_path(@tile_builder_form.tile), method: :put do |f| %>
+  Current image: <%= image_tag @tile_builder_form.thumbnail %>
+  <%= f.file_field "image" %>
+  <%= f.submit "Upload new image" %>
+<% end %>
+
+<%= form_for @tile_builder_form, url: client_admin_tile_path(@tile_builder_form.tile), method: :put do |f| %>
+  <%= render 'headline_and_supporting_content_fields', form: f %>
+  <%= render 'question_and_answer_section', form: f %>
+
+  <%= f.submit "Update tile" %>
+<% end %>

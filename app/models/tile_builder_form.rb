@@ -5,7 +5,7 @@ class TileBuilderForm
   def initialize(demo, options = {})
     @demo = demo
     @parameters = options[:parameters]
-    normalize_answers
+    @tile = options[:tile]
   end
 
   def persisted?
@@ -15,33 +15,36 @@ class TileBuilderForm
   def create_objects
     build_tile
     build_rule
-    build_answers
+    build_rule_values
 
     save_objects if valid?
   end
 
-  def tile
-    unless @tile
-      @tile = @demo.tiles.new
-    end
+  def update_objects
+    update_tile
+    update_rule
+    update_rule_values
 
-    @tile
+    if valid?
+      save_objects
+      remove_extraneous_rule_values
+    end
+  end
+
+  def tile
+    @tile ||= @demo.tiles.new
   end
 
   def rule
-    unless @rule
-      @rule = @demo.rules.new
-    end
+    @rule ||= tile.persisted? ? tile.first_rule : @demo.rules.new
+  end
 
-    @rule
+  def rule_values
+    @rule_values ||= tile.persisted? ? tile.first_rule.rule_values : [RuleValue.new]
   end
 
   def answers
-    unless @answers
-      @answers = [RuleValue.new]
-    end
-
-    @answers
+    @answers ||= normalized_answers
   end
 
   def error_messages
@@ -59,8 +62,7 @@ class TileBuilderForm
   def save_objects
     Tile.transaction do
       save_main_objects
-      associate_answers_with_rule
-      make_primary_answer
+      associate_rule_values_with_rule
       create_trigger
     end
   end
@@ -71,42 +73,79 @@ class TileBuilderForm
 
   def clean_error_messages
     remove_thumbnail_error
-    change_blank_answer_error if first_answer_blank
+    change_blank_answer_error if no_rule_values_given
   end
 
   def remove_thumbnail_error
     @tile.errors.delete(:thumbnail)
   end
 
-  def first_answer_blank
-    @answers.first.value.blank?
+  def no_rule_values_given
+    # Due to the normalization we do on answers, if there are any non-blank
+    # answers at all, there must be a non-blank answer in the first slot.
+    @rule_values.first.value.blank?
   end
 
   def change_blank_answer_error
-    @answers.first.errors.delete(:value)
-    @answers.first.errors[:value] = "must have at least one answer"
+    @rule_values.first.errors.delete(:value)
+    @rule_values.first.errors[:value] = "must have at least one answer"
   end
 
   def build_tile
     @tile = @demo.tiles.build
+    set_tile_image
+    set_tile_attributes
+    @tile.position = Tile.next_position(@demo)
+    @tile.status = Tile::ACTIVE
+  end
 
+  def update_tile
+    set_tile_attributes
+  end
+
+  def update_rule
+    set_rule_attributes
+  end
+
+  def update_rule_values
+    @rule_values = []
+    answers.each do |answer|
+      existing_value = rule.rule_values.find_by_value(answer)
+      if existing_value
+        @rule_values << existing_value
+      else
+        @rule_values << rule.rule_values.build(value: answer)
+      end
+    end
+  end
+
+  def remove_extraneous_rule_values
+    extraneous_rule_values = rule.rule_values.reject{|answer| answers.include? answer.value}
+    extraneous_rule_values.each(&:destroy)
+  end
+
+  def set_tile_image
+    if @parameters.present?
+      @tile.image = @tile.thumbnail = @parameters[:image]
+    end
+  end
+
+  def set_tile_attributes
     if @parameters.present?
       @tile.attributes = {
-        image:              @parameters[:image],
-        thumbnail:          @parameters[:image],
         headline:           @parameters[:headline],
         supporting_content: @parameters[:supporting_content],
         question:           @parameters[:question]
       }
     end
-
-    @tile.position = Tile.next_position(@demo)
-    @tile.status = Tile::ACTIVE
   end
 
   def build_rule
     @rule = @demo.rules.build(alltime_limit: 1)
+    set_rule_attributes
+  end
 
+  def set_rule_attributes
     if @parameters.present?
       rule.points = @parameters[:points]
 
@@ -116,32 +155,28 @@ class TileBuilderForm
     end
   end
 
-  def build_answers
-    @answers = []
+  def build_rule_values
+    @rule_values = []
 
     if @parameters.present?
-      @parameters[:answers].each do |answer|
-        @answers << RuleValue.new(value: answer)
+      answers.each do |answer|
+        @rule_values << RuleValue.new(value: answer)
       end
     end
 
-    @answers = nil unless @answers.first.present?
+    @rule_values = nil unless @rule_values.first.present?
   end
 
   def create_trigger
     Trigger::RuleTrigger.create(rule: rule, tile: tile)
   end
 
-  def associate_answers_with_rule
-    answers.each {|answer| answer.update_attributes(rule_id: rule.id)}
-  end
-
-  def make_primary_answer
-    answers.first.update_attributes(is_primary: true)
+  def associate_rule_values_with_rule
+    rule_values.each {|answer| answer.update_attributes(rule_id: rule.id)}
   end
 
   def main_objects
-    [tile, rule, answers].flatten
+    [tile, rule, rule_values].flatten
   end
 
   def errors_from_main_objects
@@ -151,7 +186,7 @@ class TileBuilderForm
   def inherent_errors
     result = []
 
-    answers.map(&:value).select(&:present?).each do |value|
+    rule_values.map(&:value).select(&:present?).each do |value|
       if conflicting_value(value)
         result << "\"#{value}\" is already taken"
       end
@@ -183,11 +218,20 @@ class TileBuilderForm
     SpecialCommand.is_reserved_word?(value)
   end
 
-  def normalize_answers
-    return unless @parameters && @parameters[:answers]
-    @parameters[:answers] = @parameters[:answers].map{|answer| answer.strip.downcase}.select(&:present?)
+  def normalized_answers
+    [normalized_answers_from_params, normalized_answers_from_tile, ['']].detect {|answer_source| answer_source.present?}
   end
 
-  delegate :headline, :supporting_content, :question, :to => :tile
+  def normalized_answers_from_params
+    return unless @parameters && @parameters[:answers]
+    @parameters[:answers].map{|answer| answer.strip.downcase}.select(&:present?).uniq
+  end
+
+  def normalized_answers_from_tile
+    return unless @tile && @tile.persisted?
+    @tile.first_rule.rule_values.pluck(:value)
+  end
+
+  delegate :headline, :supporting_content, :question, :thumbnail, :to => :tile
   delegate :points, :to => :rule
 end

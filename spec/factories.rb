@@ -215,8 +215,12 @@ FactoryGirl.define do
     trait :client_created do
       supporting_content "This is some extra text by the tile"
       question "Who loves ya, baby?"
+      require_images true
+      image {File.open(Rails.root.join "spec/support/fixtures/tiles/cov1.jpg")}
+      thumbnail {File.open(Rails.root.join "spec/support/fixtures/tiles/cov1_thumbnail.jpg")}
       after(:create) do |tile|
-        rule_trigger = FactoryGirl.create(:rule_trigger, tile: tile)
+        rule_value   = FactoryGirl.create(:rule_value)
+        rule_trigger = FactoryGirl.create(:rule_trigger, tile: tile, rule: rule_value.rule)
       end
     end
   end

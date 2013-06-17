@@ -34,22 +34,23 @@ class ClientAdmin::TilesController < ClientAdminBaseController
   end
 
   def update
-    tile = get_tile
+    @tile = get_tile
 
     if params[:update_status]
-      success, failure = flash_status_messages
-      if tile.update_attributes status: params[:update_status]
-        flash[:success] = "The #{tile.headline} tile has been #{success}"
-      else
-        flash[:failure] = "There was a problem #{failure} this tile. Please try again."
-      end
+      update_status
       redirect_to action: :index
+    else
+      update_fields
     end
   end
 
   def show
     @tile = get_tile
     @client_created_tiles = {@tile => @tile.appears_client_created}
+  end
+
+  def edit
+    @tile_builder_form = TileBuilderForm.new(@demo, tile: Tile.find(params[:id]))
   end
 
   private
@@ -71,5 +72,26 @@ class ClientAdmin::TilesController < ClientAdminBaseController
       failure = 'activating'
     end
     [success, failure]
+  end
+
+  def update_status
+    success, failure = flash_status_messages
+    if @tile.update_attributes status: params[:update_status]
+      flash[:success] = "The #{@tile.headline} tile has been #{success}"
+    else
+      flash[:failure] = "There was a problem #{failure} this tile. Please try again."
+    end
+  end
+
+  def update_fields
+    @tile_builder_form = TileBuilderForm.new(@demo, parameters: params[:tile_builder_form], tile: @tile)
+
+    if @tile_builder_form.update_objects
+      flash[:success] = "OK, you've updated this tile." 
+      redirect_to :back
+    else
+      flash[:failure] = "Sorry, we couldn't update this tile: " + @tile_builder_form.error_messages
+      render :edit
+    end
   end
 end

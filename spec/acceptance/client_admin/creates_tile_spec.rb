@@ -4,11 +4,6 @@ feature 'Creates tile' do
   let (:client_admin) { FactoryGirl.create(:client_admin)}
   let (:demo)         { client_admin.demo }
 
-  def fill_in_answer_field(index, text)
-    fields = page.all("input[name='tile_builder_form[answers][]']")
-    fields[index].set(text)
-  end
-
   def expect_character_counter_for(selector, max_characters)
     counter = page.find("#{selector} + .character-counter")
     counter.text.should == "#{max_characters} characters left"
@@ -58,7 +53,6 @@ feature 'Creates tile' do
 
     new_rule.rule_values.should have(2).rule_values
     new_rule.rule_values.pluck(:value).sort.should == %w(me you)
-    new_rule.rule_values.find_by_value('me').is_primary.should be_true
 
     new_rule.rule_triggers.should have(1).trigger
     new_trigger = new_rule.rule_triggers.first
@@ -101,10 +95,10 @@ feature 'Creates tile' do
 
   scenario "sees a helpful error message if they try to use an existing rule or a special command for a rule value" do
     wellness_rule = FactoryGirl.create(:rule, demo_id: nil)
-    FactoryGirl.create(:primary_value, value: "worked out", rule: wellness_rule)
+    FactoryGirl.create(:rule_value, value: "worked out", rule: wellness_rule)
 
     demo_specific_rule = FactoryGirl.create(:rule, demo_id: demo.id)
-    FactoryGirl.create(:primary_value, value: "In my demo", rule: demo_specific_rule)
+    FactoryGirl.create(:rule_value, value: "In my demo", rule: demo_specific_rule)
 
     fill_in_answer_field(0, 'in my demo')
     click_button "Publish tile"

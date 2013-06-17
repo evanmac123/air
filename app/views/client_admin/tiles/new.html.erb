@@ -10,62 +10,12 @@
       <p>This is where your image will appear in your live tile.</p>
       <%= f.file_field "image" %>
     </div>
-    <div id="tile_headline" class="content_sections">
-      <%= f.label :headline %>
-      <%= f.text_field :headline, {maxlength: 45, placeholder:'Give this tile a headline'} %>
-    </div>
-    <div id="tile_supporting_content" class="content_sections">
-      <%= f.label :supporting_content %>
-      <%= f.text_area :supporting_content, {maxlength: 300, placeholder:'Tell your users more about this topic.'} %>
-    </div>
+    <%= render 'headline_and_supporting_content_fields', form: f %>
   </div>
 
-  <div class="builder_quiz tile_builder_section">
-    <div id="quiz_question" class="content_sections">
-      <%= f.label :question, "Ask your players a question" %>
-      <%= f.text_field :question %>
-    </div>
-
-    <div id="quiz_answers" class="content_sections">
-      <%= f.label "answers[]", "Give the answers" %>
-      <div id="answers">
-        <% f.object.answers.each_with_index do |answer, i| %>
-          <%= text_field_tag "tile_builder_form[answers][]", answer.value, class: 'answer-field', maxlength: 25 %>
-        <% end %>
-      </div>
-      <%= link_to "Add another answer", "#", id: "add-answer-link" %>
-    </div>
-
-    <div id="set_points" class="content_sections">
-      <p>How many points will this tile give?</p>
-      <%= f.text_field :points, {maxlength: 2} %>
-      <%= f.label :points %>
-    </div>
-  </div>
+  <%= render 'question_and_answer_section', form: f %>
 
   <div class="button_wrap" id="publish">
     <%= f.submit "Publish tile" %>
   </div>
-<% end %>
-
-<% content_for :javascript do %>
-  <%= javascript_include_tag 'admin/byte_counter' %>
-  <%= javascript_tag do %>
-    $(function() {
-      var prototypeAnswerField = $('.answer-field').first();
-
-      $('#add-answer-link').click(function(e) {
-        e.preventDefault();
-        var originField = prototypeAnswerField.clone();
-        originField.val('');
-
-        $('#answers').append(originField);
-        addCharacterCounterFor(originField);
-      });
-    });
-
-    addCharacterCounterFor('#tile_builder_form_headline');
-    addCharacterCounterFor('#tile_builder_form_supporting_content');
-    addCharacterCounterFor('.answer-field');
-  <% end %>
 <% end %>

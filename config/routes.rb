@@ -76,7 +76,10 @@ Health::Application.routes.draw do
 
     resources :locations, :only => :create
 
-    resources :tiles
+    resources :tiles do
+      resource :image, :only => :update
+    end
+
     resource :tiles_digest_notification, only: [:create, :update]
   end
 
