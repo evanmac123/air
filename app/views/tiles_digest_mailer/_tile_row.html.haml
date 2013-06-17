@@ -1,4 +1,4 @@
-%tr{:width => "100%"}
+%tr
   - columns.size.times do |col|
     - tile = Tile.find(columns[col])
 
@@ -9,3 +9,9 @@
       %div.thumbnail_holder{:style => "margin:0 auto; width:190px; font-size:1.25em; color:gray; text-align:center; "}
         %div.image{:style => "background:#292929; height:10em; max-height:10em; position:relative; overflow:hidden; vertical-align:middle;"}= link_to(image_tag(tile_url, alt: tile.headline), acts_url(protocol: email_link_protocol, host: email_link_host), {style: 'position:absolute; top:0; bottom:0; right:0; left:0; margin:auto; max-width:100%; vertical-align:middle; display:block;'})
         %div.headline{:style => "background:#292929; color:#fff; text-align:left; min-height:70px; padding:.75em .5em;"}= tile.headline
+    - link_hash = { protocol: email_link_protocol, host: email_link_host }
+    - link = @user.claimed? ? acts_url(link_hash): invitation_url(@user.invitation_code, link_hash)
+
+    %td.tile_thumbnail
+      %div.image= link_to(image_tag(tile_url, alt: tile.headline), link)
+      %div.headline= tile.headline
