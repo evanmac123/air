@@ -17,23 +17,17 @@ module EmailHelper
   end
 
   def email_link_host
-    if Rails.env.production? 
-      "www.hengage.com"
-    elsif Rails.env.staging?
-      "www.hengagestaging.com"
-    elsif Rails.env.development?
+    if Rails.env.development?
       "localhost:3000"
-    else
+    elsif Rails.env.test?
       "example.com"
+    else
+      ENV["EMAIL_HOST"]
     end
   end
 
   def email_link_protocol
-    if Rails.env.production? || Rails.env.staging?
-      'https'
-    else
-      'http'
-    end
+    ENV["EMAIL_PROTOCOL"] or 'http'
   end
 
   def link_styled_like_button(link_text, url)
