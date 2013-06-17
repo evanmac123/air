@@ -100,10 +100,11 @@ body.client_admin-tiles-create #admin-tiles-builder {
                     font-family:$open-600;
                     font-size:.85em;
                     line-height:2em;
+                    margin-left:-.35em;
                     text-transform: uppercase;
                 }
                 ul {
-                    margin:.5em 0 0 2em;
+                    margin:.5em 0 0 1.75em;
                     li {padding-bottom:.75em;}
                 }
                 &:before {background-position:-160px 3px;}
