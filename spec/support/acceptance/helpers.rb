@@ -280,4 +280,8 @@ module SteakHelperMethods
   def wait_until(timeout = Capybara.default_wait_time)
     Capybara.send(:timeout, timeout, page.driver) { yield }
   end
+
+  def click_play_button
+    page.find('#play_button').click
+  end
 end

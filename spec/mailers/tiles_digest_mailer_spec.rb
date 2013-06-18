@@ -17,7 +17,7 @@ describe 'Digest email' do
   context 'Basic parts' do
     subject { TilesDigestMailer.notify(demo.digest_tiles.pluck(:id)) }
 
-    it { should be_delivered_to 'vlad@hengage.com' }
+    it { should be_delivered_to TilesDigestMailer::TEST_EMAIL }
     it { should be_delivered_from 'donotreply@hengage.com' }
 
     it { should have_subject 'Newly-added H.Engage Tiles' }
@@ -32,7 +32,7 @@ describe 'Digest email' do
     subject do
       # Need to 'deliver' the email so can open and inspect contents with non 'email_spec' gem methods
       TilesDigestMailer.notify(demo.digest_tiles.pluck(:id)).deliver
-      open_email('vlad@hengage.com')
+      open_email(TilesDigestMailer::TEST_EMAIL)
       current_email
     end
 

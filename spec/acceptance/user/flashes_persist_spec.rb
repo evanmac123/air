@@ -19,7 +19,7 @@ feature "flash messages only display a single time" do
     response = "I don't understand"
     visit acts_path
     fill_in 'command_central', with: command
-    click_button "Go"
+    click_play_button
     # here is the flash
     page.should have_content(response)
     # Now revisite the page, and the flash should still be there
@@ -27,7 +27,7 @@ feature "flash messages only display a single time" do
     page.should_not have_content(response)
 
     fill_in 'command_central', with: command
-    click_button "Go"
+    click_play_button
 
     page.should have_content(response)
 

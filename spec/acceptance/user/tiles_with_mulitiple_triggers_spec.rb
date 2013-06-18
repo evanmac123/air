@@ -56,7 +56,7 @@ feature 'User interacts with single- and multiple-trigger tiles' do
     click_carousel_tile(and_tile)
 
     fill_in 'command_central', with: 'Ate bowl #1 of beans'
-    click_button "Go"
+    click_play_button
     page.should have_content('You have eaten 1 out of 3 bowls of beans')
 
     visit activity_path
@@ -76,7 +76,7 @@ feature 'User interacts with single- and multiple-trigger tiles' do
     current_slideshow_tile.should be_tile(and_tile)
 
     fill_in 'command_central', with: 'Walked one mile'
-    click_button "Go"
+    click_play_button
     page.should have_content('You have satisfied the walking requirement')
   end
 end
