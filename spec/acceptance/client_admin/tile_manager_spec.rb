@@ -1,6 +1,5 @@
 require 'acceptance/acceptance_helper'
 
-# After this initial creation, note that 'admin' is used instead of 'client-admin'
 feature 'Client admin and the digest email for tiles' do
 
   let(:admin) { FactoryGirl.create :client_admin }
