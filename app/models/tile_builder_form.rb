@@ -63,6 +63,7 @@ class TileBuilderForm
     Tile.transaction do
       save_main_objects
       associate_rule_values_with_rule
+      set_first_rule_value_as_primary
       create_trigger
     end
   end
@@ -173,6 +174,10 @@ class TileBuilderForm
 
   def associate_rule_values_with_rule
     rule_values.each {|answer| answer.update_attributes(rule_id: rule.id)}
+  end
+
+  def set_first_rule_value_as_primary
+    rule_values.first.update_attributes(is_primary: true)
   end
 
   def main_objects

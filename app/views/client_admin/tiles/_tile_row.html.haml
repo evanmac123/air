@@ -3,7 +3,7 @@
     - tile = columns[col]
     %td{class: type, data: {tile_id: tile.id}}
       %div.tile_thumbnail
-        %a{href: client_admin_tile_path(tile), class: 'tile_thumb_link'}
+        %a{href: edit_client_admin_tile_path(tile), class: 'tile_thumb_link'}
           %div.tile_thumb_holder
             %div.image= image_tag tile.thumbnail
             %div.tile_thumb_texts

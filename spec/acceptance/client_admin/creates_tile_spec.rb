@@ -53,6 +53,7 @@ feature 'Creates tile' do
 
     new_rule.rule_values.should have(2).rule_values
     new_rule.rule_values.pluck(:value).sort.should == %w(me you)
+    new_rule.primary_value.value.should == 'me'
 
     new_rule.rule_triggers.should have(1).trigger
     new_trigger = new_rule.rule_triggers.first

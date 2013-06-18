@@ -68,9 +68,11 @@ feature 'Client admin edits tile' do
     rule = @tile.first_rule
     rule.reply.should include("Ten pounds of cheese")
     rule.description.should include("Ten pounds of cheese")
+    rule.points.should == 23
+
     rule.should have(4).rule_values
     rule.rule_values.map(&:value).sort.should == ['bob', 'me', 'value 1', 'you']
-    rule.points.should == 23
+    rule.primary_value.value.should == "value 1"
 
     should_be_on edit_client_admin_tile_path(@tile)
     expect_content "OK, you've updated this tile."

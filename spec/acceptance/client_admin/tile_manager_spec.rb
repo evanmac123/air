@@ -27,8 +27,8 @@ feature 'Client admin and the digest email for tiles' do
     have_link 'Activate', href: client_admin_tile_path(tile, update_status: Tile::ACTIVE)
   end
 
-  def expect_link_to_preview(tile)
-    page.find("a[href='#{client_admin_tile_path(tile)}'] img[src='#{tile.thumbnail}']").should be_present
+  def expect_link_to_edit(tile)
+    page.find("a[href='#{edit_client_admin_tile_path(tile)}'] img[src='#{tile.thumbnail}']").should be_present
   end
 
   # -------------------------------------------------
@@ -83,7 +83,7 @@ feature 'Client admin and the digest email for tiles' do
             page.should have_archive_link_for(tile)
           end
 
-          expect_link_to_preview(tile)
+          expect_link_to_edit(tile)
         end
       end
     end
