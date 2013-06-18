@@ -16,6 +16,8 @@ module EmailHelper
     edit_account_settings_url(host: email_link_host, protocol: email_link_protocol)
   end
 
+  # Had to define environment variables on Heroku so that SendGrid sends emails to the right place in staging and production
+  # In staging this will be: 'www.hengagestaging.com' while in production it's: 'www.hengage.com'
   def email_link_host
     if Rails.env.development?
       "localhost:3000"
@@ -26,6 +28,8 @@ module EmailHelper
     end
   end
 
+  # Had to define environment variables on Heroku so that SendGrid sends emails to the right place in staging and production
+  # This will be 'https' in staging and production
   def email_link_protocol
     ENV["EMAIL_PROTOCOL"] or 'http'
   end
