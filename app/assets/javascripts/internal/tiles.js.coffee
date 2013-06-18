@@ -1,14 +1,14 @@
- 
-# This is how you call the stuff that loads when the page is finished loading
-$ ->
-  loadDivs()
-  initSlideShow()
-  updatePositionFunc(false, start_tile, null)
-
 
 ############# find a way to only include this once ###########
 delay = (ms, func) -> setTimeout func, ms
 ####################################################
+ 
+# This is how you call the stuff that loads when the page is finished loading
+delay 1000, ->
+  loadDivs()
+  initSlideShow()
+  updatePositionFunc(false, start_tile, null)
+
 
 # This is me setting all variables in the local scope so I can use them later
 first_ping_after_load = 1
