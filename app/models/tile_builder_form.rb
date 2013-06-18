@@ -191,8 +191,10 @@ class TileBuilderForm
   def inherent_errors
     result = []
 
-    rule_values.map(&:value).select(&:present?).each do |value|
-      if conflicting_value(value)
+    rule_values.select{|rule_value| rule_value.value.present?}.each do |rule_value|
+      value = rule_value.value
+
+      if conflicting_value(rule_value)
         result << "\"#{value}\" is already taken"
       end
 
@@ -210,17 +212,17 @@ class TileBuilderForm
     conflicts_with_special_command(value)
   end
 
-  def conflicts_with_demo_specific_rule(value)
-    RuleValue.existing_value_within_demo(@demo, value).present?
+  def conflicts_with_demo_specific_rule(rule_value)
+    rule_value.conflicting_value_within_demo_exists?(rule)
   end
 
-  def conflicts_with_standard_playbook_rule(value)
+  def conflicts_with_standard_playbook_rule(rule_value)
     return nil unless @demo.use_standard_playbook
-    RuleValue.existing_value_within_demo(nil, value).present?
+    RuleValue.existing_value_within_demo(nil, rule_value.value).present?
   end
 
-  def conflicts_with_special_command(value)
-    SpecialCommand.is_reserved_word?(value)
+  def conflicts_with_special_command(rule_value)
+    SpecialCommand.is_reserved_word?(rule_value.value)
   end
 
   def normalized_answers

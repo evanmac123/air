@@ -17,6 +17,14 @@ class RuleValue < ActiveRecord::Base
     self.value = self.value.strip.downcase.gsub(/\s+/, ' ')
   end
 
+  def conflicting_value_within_demo_exists?(rule=nil)
+    rule ||= self.rule
+    return false unless rule
+
+    other = self.class.existing_value_within_demo(rule.demo, self.value)
+    other && other != self
+  end
+
   def self.partially_matching_value(value)
     normalized_value = value.gsub(/[^[:alnum:][:space:]]/, '').strip
     query_string = Rule.connection.quote_string(normalized_value.gsub(/\s+/, '|'))
@@ -53,8 +61,7 @@ class RuleValue < ActiveRecord::Base
   end
 
   def validate_value_unique_within_demo
-    other = self.class.existing_value_within_demo(self.rule.try(:demo), value)
-    if other && other != self
+    if conflicting_value_within_demo_exists?
       self.errors.add(:value, "must be unique within its demo")
     end
   end
