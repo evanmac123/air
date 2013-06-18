@@ -1,11 +1,11 @@
 class PagesController < HighVoltage::PagesController
-  FAQ_PAGES = [:faq, :faq_body, :faq_toc]
+  SIGNED_IN_OK_PAGES = [:faq, :faq_body, :faq_toc, :public_help, :static_digest]
 
-  skip_before_filter :authorize, :except => FAQ_PAGES
-  before_filter :authenticate_without_game_begun_check, :only => FAQ_PAGES
+  skip_before_filter :authorize, :except => SIGNED_IN_OK_PAGES
+  before_filter :authenticate_without_game_begun_check, :only => SIGNED_IN_OK_PAGES
 
   before_filter :force_html_format
-  before_filter :signed_out_only, :except => FAQ_PAGES << :public_help
+  before_filter :signed_out_only, :except => SIGNED_IN_OK_PAGES
   before_filter :set_login_url
   before_filter :display_social_links_if_marketing_or_waiting_room
 
@@ -47,6 +47,7 @@ class PagesController < HighVoltage::PagesController
   end
 
   def signed_out_only
+    return if params[:id].present? && SIGNED_IN_OK_PAGES.include?(params[:id].to_sym)
     redirect_to home_path if signed_in?
   end
 
