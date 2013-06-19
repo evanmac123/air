@@ -1,4 +1,6 @@
-body.client_admin-tiles-new, body.client_admin-tiles-create {
+body.client_admin-tiles-new, 
+body.client_admin-tiles-create,
+body.client_admin-tiles-edit {
   form {
     input[type="text"],textarea {
       border:2px lighten($light-gray, 8%) dashed;
@@ -108,5 +110,41 @@ body.client_admin-tiles-new, body.client_admin-tiles-create {
       text-align:center; 
       width:3.5em;
     }
+  }
+}
+
+// Specific styles for Edit page
+body.client_admin-tiles-edit {
+  .tile_builder_section {padding:2em;}
+  .builder_content #image_uploader {
+    background:$text-color;
+    border:0;
+    margin-bottom:1em;
+    padding:0;
+    img {margin:2em 0;}
+    .upload_new_image {
+      // background:lighten($light-gray, 8%);
+      // background:$light-gray;
+      background:$white;
+      border:2px lighten($light-gray, 8%) dashed;
+      border-top:0;
+      padding:2em 0;
+      #tile_builder_form_image {
+        background:lighten($light-gray, 8%);
+        color:$text-color;
+        padding:.6em 2em;
+        &:hover {
+          background:lighten($light-gray, 10%);
+        }
+      }
+      .button_wrap {
+        @include square-button-wrap($blue);
+        margin-left:1em;
+        input {@include square-button($blue);}
+      }
+    }
+  }
+  #tile_headline, #tile_supporting_content {
+    padding:0 1.75em;
   }
 }

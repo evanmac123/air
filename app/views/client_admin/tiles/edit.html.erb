@@ -2,15 +2,28 @@
 
 <%= render "shared/flashes" %>
 
-<%= form_for @tile_builder_form, url: client_admin_tile_image_path(@tile_builder_form.tile), method: :put do |f| %>
-  Current image: <%= image_tag @tile_builder_form.thumbnail %>
-  <%= f.file_field "image" %>
-  <%= f.submit "Upload new image" %>
-<% end %>
+<div class="builder_content tile_builder_section">
+  <div id="image_uploader">
+    <%= form_for @tile_builder_form, url: client_admin_tile_image_path(@tile_builder_form.tile), method: :put do |f| %>
+      <%= image_tag @tile_builder_form.thumbnail %>
+      <div class="upload_new_image">
+        <%= f.file_field "image" %>
+        <div class="button_wrap">
+          <%= f.submit "Upload new image" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
 
 <%= form_for @tile_builder_form, url: client_admin_tile_path(@tile_builder_form.tile), method: :put do |f| %>
-  <%= render 'headline_and_supporting_content_fields', form: f %>
-  <%= render 'question_and_answer_section', form: f %>
+  <div class="builder_content">
+    <%= render 'headline_and_supporting_content_fields', form: f %>
+    <%= render 'question_and_answer_section', form: f %>
+  </div>
 
-  <%= f.submit "Update tile" %>
+  <div class="button_wrap" id="update_tile">
+    <%= f.submit "Update tile" %>
+  </div>
+
 <% end %>
