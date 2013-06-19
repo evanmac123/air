@@ -7,17 +7,16 @@
   -if @user.present?
     .unsubscribe{:style => "font-size: 0.75em; width: 500px; color: gray;"}
       You received this email because your company uses H.Engage. 
-      
-      -if @user.claimed?
-        You can also update your preferences to receive text messages instead.
-        = link_to "Click here to update your contact preferences.", email_account_settings_link
-      -elsif @invitation_url
-        After you
-        = link_to "sign up,", @invitation_url 
-        you can also update your preferences to receive text messages instead.
 
       %br
-      Click here to 
-      = link_to "unsubscribe", email_unsubscribe_link(@user)
+      -if @user.claimed?
+        = link_to "Update your contact preferences.", email_account_settings_link
+      -elsif @invitation_url
+        After you
+        = link_to "sign up", @invitation_url
+        ,you can update your contact preferences.
+
+      %br
+      = link_to "Unsubscribe", email_unsubscribe_link(@user)
       from email communications.
 
