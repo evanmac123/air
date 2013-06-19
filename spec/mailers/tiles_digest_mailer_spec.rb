@@ -46,16 +46,18 @@ describe 'Digest email' do
     it { should have_link 'View your tiles' }
   end
 
-  describe  'Links' do  # There should be 5 links in all: 3 tile links and 2 text links
+  describe  'Links' do
+    # There should be 5 links in all: 3 tile links and 2 text links
     context 'claimed user' do
       subject { TilesDigestMailer.notify_one(claimed_user.id, tile_ids) }
       it { should have_selector     "a[href *= 'acts']", count: 5 }
       it { should_not have_selector "a[href *= 'invitations']" }
     end
 
+    # There should be 6 links in all: 5 same as above + 1 for a 'sign up' link in the footer
     context 'unclaimed user' do
       subject { TilesDigestMailer.notify_one(unclaimed_user.id, tile_ids) }
-      it { should have_selector     "a[href *= 'invitations']", count: 5 }
+      it { should have_selector     "a[href *= 'invitations']", count: 6 }
       it { should_not have_selector "a[href *= 'acts']" }
     end
   end
@@ -81,19 +83,20 @@ describe 'Digest email' do
       it { should have_body_text 'Our mailing address is: 222 Newbury St., Floor 3, Boston, MA 02116' }
       it { should have_body_text 'You received this email because your company uses H.Engage' }
 
-      it { should have_body_text 'Click here to' }
-      it { should have_link      'unsubscribe' }
+      it { should have_link      'Unsubscribe' }
       it { should have_body_text 'from email communications' }
     end
 
     context 'claimed user' do
       subject { TilesDigestMailer.notify_one(claimed_user.id, tile_ids) }
-      it { should have_link('Click here to update your contact preferences') }
+      it { should     have_link('Update your contact preferences') }
+      it { should_not have_link('sign up') }
     end
 
     context 'unclaimed user' do
       subject { TilesDigestMailer.notify_one(unclaimed_user.id, tile_ids) }
-      it { should_not have_link('Click here to update your contact preferences') }
+      it { should_not have_link('Update your contact preferences') }
+      it { should     have_link('sign up') }
     end
   end
 end
