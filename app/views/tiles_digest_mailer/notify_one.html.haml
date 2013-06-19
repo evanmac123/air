@@ -1,8 +1,5 @@
--# So we get the right addresses, e.g. https://www.hengagestaging.com/ -or- https://www.hengage.com/
-- link_hash = { protocol: email_link_protocol, host: email_link_host }
-
--# Unclaimed user needs to go through claiming process before viewing tiles
-- site_link = @user.claimed? ? acts_url(link_hash): invitation_url(@user.invitation_code, link_hash)
+-# We send 'claimed' users to the main activities page; "unclaimed" users have to accept their invitation first
+- site_link = email_site_link(@user)
 
 %center
   %table{:cellpadding => "0", :cellspacing => "0", :width => "600px", :style => "box-sizing:border-box; color:#909090; font-family:Helvetica, Arial, sans-serif;"}
@@ -18,8 +15,8 @@
         %table{:id => "tiles", :cellpadding => "0", :cellspacing => "5px", :width => "100%"}
           %tbody
             -# Note: To change the number of tiles per row, simply change the "(n)" to whatever your little ol' heart desires
-            - @tile_ids.each_slice(3) do |columns|
-              = render partial: 'tile_row', locals: {columns: columns, site_link: site_link}
+            - @tiles.each_slice(3) do |tiles|
+              = render partial: 'tile_row', locals: {tiles: tiles, site_link: site_link}
         %table{:id => "mail_footer", :cellpadding => "0", :cellspacing => "0", :width => "100%", :style => "margin:2em 0; text-align:center;"}
           %tr
             %td

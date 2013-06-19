@@ -4,7 +4,7 @@ include EmailHelper
 
 feature 'Client admin and the digest email for tiles' do
 
-  let(:admin) { FactoryGirl.create :client_admin }
+  let(:admin) { FactoryGirl.create :client_admin, email: 'admin@hengage.com' }
   let(:demo)  { admin.demo  }
 
   # -------------------------------------------------
@@ -97,7 +97,7 @@ feature 'Client admin and the digest email for tiles' do
       digest_tab.should have_send_on_selector('Tuesday')
     end
 
-    scenario "The 'send_on' dropdown control updates the day and time, and displays a confirmation message", js: true do
+    scenario "The 'send-on' dropdown control updates the day and time, and displays a confirmation message", js: true do
       create_tile
       visit tile_manager_page
       select_tab 'Digest'
@@ -143,7 +143,9 @@ feature 'Client admin and the digest email for tiles' do
         2.times { |i| create_tile on_day: '7/5/2013', headline: "Headline #{i + 1}"}
       end
 
-      scenario "A flash confirmation message is displayed and a no-tiles message appears in the Digest tab" do
+      scenario "A flash confirmation message is displayed,
+                the last-digest-email-sent-on date is updated,
+                and a no-tiles message appears in the Digest tab" do
         on_day '7/6/2013' do
           visit tile_manager_page
           select_tab 'Digest'
@@ -173,7 +175,15 @@ feature 'Client admin and the digest email for tiles' do
         end
       end
 
-      scenario 'the email is sent and contains the correct content' do
+      scenario 'emails are sent to the appropriate people' do
+        FactoryGirl.create :user, demo: demo, name: 'John Campbell', email: 'john@campbell.com'
+        FactoryGirl.create :user, demo: demo, name: 'Irma Thoman',   email: 'irma@thomas.com'
+
+        FactoryGirl.create :claimed_user, demo: demo, name: 'W.C. Clark', email: 'wc@clark.com'
+        FactoryGirl.create :claimed_user, demo: demo, name: 'Taj Mahal',  email: 'taj@mahal.com'
+
+        FactoryGirl.create :user, demo: FactoryGirl.create(:demo)  # Make sure this user doesn't get an email
+
         on_day '7/6/2013' do
           visit tile_manager_page
           select_tab 'Digest'
@@ -181,22 +191,11 @@ feature 'Client admin and the digest email for tiles' do
 
           crank_dj_clear
 
-          open_email(TilesDigestMailer::TEST_EMAIL)
-          email = current_email
+          all_emails.should have(5).emails  # The above 4 for this demo, and the 'admin' created at top of tests
 
-          email.should have_num_tiles(2)
-          email.should have_num_tile_image_links(2)
-
-          email.should be_delivered_to TilesDigestMailer::TEST_EMAIL
-          email.should be_delivered_from 'donotreply@hengage.com'
-
-          email.should have_subject 'Newly-added H.Engage Tiles'
-
-          email.should have_company_logo_image_link
-          email.should have_tiles_digest_body_text
-          email.should have_view_your_tiles_link
-
-          email.should have_hengage_footer
+          %w(admin@hengage.com john@campbell.com irma@thomas.com wc@clark.com taj@mahal.com).each do |address|
+            find_email(address).should_not be_nil
+          end
         end
       end
     end

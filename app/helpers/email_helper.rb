@@ -53,9 +53,4 @@ module EmailHelper
       </table>
     }.html_safe
   end
-
-  def have_hengage_footer
-    have_body_text 'Copyright &copy; 2013 H.Engage. All Rights Reserved'
-    have_body_text 'Our mailing address is: 222 Newbury St., Floor 3, Boston, MA 02116'
-  end
 end

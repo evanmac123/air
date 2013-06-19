@@ -2,11 +2,15 @@ class ClientAdmin::TilesDigestNotificationsController < ClientAdminBaseControlle
   before_filter :get_demo
 
   def create
+    user_ids = @demo.users.pluck(:id)
     tile_ids = @demo.digest_tiles.pluck(:id)
-    TilesDigestMailer.delay.notify(tile_ids)
 
+    TilesDigestMailer.delay.notify_all(user_ids, tile_ids)
+
+    # todo only do this if from 'Send Now' button; don't do from DelayedJob
+    # todo but the job that is run needs to update the 'sent_at' time => spec for this
+    # todo also need to ensure (and spec) that no email is sent if no tiles
     @demo.update_attributes tile_digest_email_sent_at: Time.now
-
     flash[:success] = "Tiles digest email was sent"
     redirect_to client_admin_tiles_path
   end

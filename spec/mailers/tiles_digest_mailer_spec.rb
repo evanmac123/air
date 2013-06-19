@@ -3,49 +3,97 @@ require "spec_helper"
 include TileHelpers
 include EmailHelper
 
-describe 'Digest email' do
-  let!(:demo) { FactoryGirl.create :demo, tile_digest_email_sent_at: Date.yesterday }
+# This spec tests for content (not delivery, which is in /acceptance/client_admin/tiles_digest_notification_spec.rb), so
+# it calls 'TilesDigestMailer.notify_one' directly, without delivering the email.
+# That method returns a 'mail' object, whose content is then tested.
 
-  before(:each) do
+describe 'Digest email' do
+  let(:demo) { FactoryGirl.create :demo, tile_digest_email_sent_at: Date.yesterday }
+
+  let(:claimed_user)   { FactoryGirl.create :claimed_user, demo: demo, name: 'John Campbell', email: 'john@campbell.com' }
+  let(:unclaimed_user) { FactoryGirl.create :user,         demo: demo, name: 'Irma Thomas',   email: 'irma@thomas.com'   }
+
+  let(:tile_ids) do
     create_tile headline: 'Phil Kills Kittens'
     create_tile headline: 'Phil Knifes Kittens'
     create_tile headline: 'Phil Kannibalizes Kittens'
 
-    create_tile headline: "Archive Tile", status: Tile::ARCHIVE
+    create_tile headline: "Archive Tile", status: Tile::ARCHIVE  # This guy shouldn't show up in the email
+
+    demo.digest_tiles.pluck(:id)
   end
 
-  context 'Basic parts' do
-    subject { TilesDigestMailer.notify(demo.digest_tiles.pluck(:id)) }
+  describe 'Delivery' do
+    subject { TilesDigestMailer.notify_one(claimed_user.id, tile_ids) }
 
-    it { should be_delivered_to TilesDigestMailer::TEST_EMAIL }
+    it { should be_delivered_to   'John Campbell <john@campbell.com>' }
     it { should be_delivered_from 'donotreply@hengage.com' }
-
-    it { should have_subject 'Newly-added H.Engage Tiles' }
-
-    it { should have_tiles_digest_body_text }
-
-    it { should have_hengage_footer }
+    it { should have_subject      'New Tiles' }
   end
 
-  # Different from above because 'email_spec' gem helpers are limited in what they can match in the email
-  context 'Tiles and other content' do
-    subject do
-      # Need to 'deliver' the email so can open and inspect contents with non 'email_spec' gem methods
-      TilesDigestMailer.notify(demo.digest_tiles.pluck(:id)).deliver
-      open_email(TilesDigestMailer::TEST_EMAIL)
-      current_email
+  describe  'Logo' do
+    subject { TilesDigestMailer.notify_one(claimed_user.id, tile_ids) }
+    it { should have_selector "a[id $= _logo][target = _blank] img[src ^= http]" }
+  end
+
+  describe  'Text' do
+    subject { TilesDigestMailer.notify_one(claimed_user.id, tile_ids) }
+
+    it { should have_body_text 'Check out your' }
+    it { should have_link 'new tiles' }
+
+    it { should have_body_text 'Interact, earn points, and see how your colleagues are doing!' }
+    it { should have_link 'View your tiles' }
+  end
+
+  describe  'Links' do  # There should be 5 links in all: 3 tile links and 2 text links
+    context 'claimed user' do
+      subject { TilesDigestMailer.notify_one(claimed_user.id, tile_ids) }
+      it { should have_selector     "a[href *= 'acts']", count: 5 }
+      it { should_not have_selector "a[href *= 'invitations']" }
     end
 
-      it { should have_num_tiles(3) }
-      it { should have_num_tile_image_links(3) }
+    context 'unclaimed user' do
+      subject { TilesDigestMailer.notify_one(unclaimed_user.id, tile_ids) }
+      it { should have_selector     "a[href *= 'invitations']", count: 5 }
+      it { should_not have_selector "a[href *= 'acts']" }
+    end
+  end
 
-      it { should contain 'Phil Kills Kittens' }
-      it { should contain 'Phil Knifes Kittens' }
-      it { should contain 'Phil Kannibalizes Kittens' }
+  describe  'Tiles' do
+    subject { TilesDigestMailer.notify_one(claimed_user.id, tile_ids) }
 
-      it { should_not contain 'Archive Tile' }
+    it { should have_num_tiles(3) }
+    it { should have_num_tile_image_links(3) }
 
-      it { should have_company_logo_image_link }
-      it { should have_view_your_tiles_link }
+    it { should have_body_text 'Phil Kills Kittens' }
+    it { should have_body_text 'Phil Knifes Kittens' }
+    it { should have_body_text 'Phil Kannibalizes Kittens' }
+
+    it { should_not have_body_text 'Archive Tile' }
+  end
+
+  describe  'Footer' do
+    context 'all users' do
+      subject { TilesDigestMailer.notify_one(claimed_user.id, tile_ids) }
+
+      it { should have_body_text 'Copyright &copy; 2013 H.Engage. All Rights Reserved' }
+      it { should have_body_text 'Our mailing address is: 222 Newbury St., Floor 3, Boston, MA 02116' }
+      it { should have_body_text 'You received this email because your company uses H.Engage' }
+
+      it { should have_body_text 'Click here to' }
+      it { should have_link      'unsubscribe' }
+      it { should have_body_text 'from email communications' }
+    end
+
+    context 'claimed user' do
+      subject { TilesDigestMailer.notify_one(claimed_user.id, tile_ids) }
+      it { should have_link('Click here to update your contact preferences') }
+    end
+
+    context 'unclaimed user' do
+      subject { TilesDigestMailer.notify_one(unclaimed_user.id, tile_ids) }
+      it { should_not have_link('Click here to update your contact preferences') }
+    end
   end
 end
