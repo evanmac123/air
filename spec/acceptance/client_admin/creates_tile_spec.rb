@@ -21,6 +21,8 @@ feature 'Creates tile' do
     fill_in_answer_field 2, "you"
 
     fill_in "Points", with: "23"
+
+    fill_in "External link", with: "http://www.google.com/foobar"
   end
 
   before do
@@ -43,6 +45,7 @@ feature 'Creates tile' do
     new_tile.headline.should == "Ten pounds of cheese"
     new_tile.supporting_content.should == "Ten pounds of cheese. Yes? Or no?"
     new_tile.question.should == "Who rules?"
+    new_tile.link_address.should == "http://www.google.com/foobar"
 
     demo.rules.reload.should have(1).rule
     new_rule = Rule.last

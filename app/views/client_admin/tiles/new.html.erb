@@ -3,7 +3,6 @@
 <%= render "shared/flashes" %>
 
 <%= form_for @tile_builder_form, url: client_admin_tiles_path do |f| %>
-  
   <div class="builder_content tile_builder_section">
     <div id="image_uploader">
       <label>Pick an image</label>
@@ -14,6 +13,8 @@
   </div>
 
   <%= render 'question_and_answer_section', form: f %>
+
+  <%= render 'external_link_section', form: f %>
 
   <div class="button_wrap" id="publish">
     <%= f.submit "Publish tile" %>

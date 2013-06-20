@@ -58,12 +58,15 @@ feature 'Client admin edits tile' do
 
     fill_in "Points", with: "23"
 
+    fill_in "External link", with: "http://example.co.uk"
+
     click_button "Update tile"
 
     @tile.reload
     @tile.headline.should == "Ten pounds of cheese"
     @tile.supporting_content.should == "Ten pounds of cheese. Yes? Or no?"
     @tile.question.should == "Who rules?"
+    @tile.link_address.should == "http://example.co.uk"
 
     rule = @tile.first_rule
     rule.reply.should include("Ten pounds of cheese")

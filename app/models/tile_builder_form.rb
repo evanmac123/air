@@ -145,7 +145,8 @@ class TileBuilderForm
       @tile.attributes = {
         headline:           @parameters[:headline],
         supporting_content: @parameters[:supporting_content],
-        question:           @parameters[:question]
+        question:           @parameters[:question],
+        link_address:       @parameters[:link_address]
       }
     end
   end
@@ -253,6 +254,6 @@ class TileBuilderForm
     @tile.first_rule.rule_values.pluck(:value)
   end
 
-  delegate :headline, :supporting_content, :question, :thumbnail, :to => :tile
+  delegate :headline, :supporting_content, :question, :thumbnail, :link_address, :to => :tile
   delegate :points, :to => :rule
 end
