@@ -27,3 +27,15 @@
   </div>
 
 <% end %>
+
+<% content_for :javascript do %>
+  <%= javascript_tag do %>
+    $('#image_uploader form').submit(function(event) {
+      var imagePath = $('#tile_builder_form_image').val();
+      if(imagePath.length == 0) {
+        event.preventDefault();
+        alert("Please choose an image to upload if you'd like to change the image.");
+      }
+    });
+  <% end %>
+<% end %>
