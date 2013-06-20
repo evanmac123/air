@@ -47,6 +47,10 @@ class TileBuilderForm
     @answers ||= normalized_answers
   end
 
+  def entered_answers
+    @entered_answers ||= normalized_entered_answers
+  end
+
   def error_messages
     clean_error_messages
     (errors_from_main_objects + inherent_errors).join(", ") + "."
@@ -74,11 +78,16 @@ class TileBuilderForm
 
   def clean_error_messages
     remove_thumbnail_error
+    remove_rule_value_error_on_rule
     change_blank_answer_error if no_rule_values_given
   end
 
   def remove_thumbnail_error
-    @tile.errors.delete(:thumbnail)
+    tile.errors.delete(:thumbnail)
+  end
+
+  def remove_rule_value_error_on_rule
+    rule.errors.delete(:rule_values)
   end
 
   def no_rule_values_given
@@ -110,7 +119,7 @@ class TileBuilderForm
 
   def update_rule_values
     @rule_values = []
-    answers.each do |answer|
+    entered_answers.each do |answer|
       existing_value = rule.rule_values.find_by_value(answer)
       if existing_value
         @rule_values << existing_value
@@ -228,6 +237,10 @@ class TileBuilderForm
 
   def normalized_answers
     [normalized_answers_from_params, normalized_answers_from_tile, ['']].detect {|answer_source| answer_source.present?}
+  end
+
+  def normalized_entered_answers
+    [normalized_answers_from_params, ['']].detect {|answer_source| answer_source.present?}
   end
 
   def normalized_answers_from_params

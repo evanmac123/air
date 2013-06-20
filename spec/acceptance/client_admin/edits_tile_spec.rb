@@ -101,4 +101,12 @@ feature 'Client admin edits tile' do
     rule_values.pluck(:value).sort.should == ["value 0", "value 1", "value 2"]
     expect_content "Sorry, we couldn't update this tile: headline can't be blank"
   end
+
+  scenario "won't let the user blank out the last answer", js: true do
+    0.upto(2).each {|n| fill_in_answer_field n, ""}
+    click_button "Update tile"
+
+    expect_content "Sorry, we couldn't update this tile: must have at least one answer"
+    @tile.first_rule.reload.should have(3).rule_values # unchanged
+  end
 end
