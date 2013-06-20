@@ -53,7 +53,9 @@ module TileHelpers
   # create_tile on_day: '7/5/2013', headline: "My Tile Headline", start_day: '7/4/2013', end_day: '7/6/2013'
   #
   # Note that 'demo' must be defined in a 'let(:demo) {~~~~}' statement in the specs that call this.
-  # (Don't know if that's a stupid requirement or not, but since all tiles require a 'demo', this just makes it easier.I think.)
+  # (Don't know if that's a stupid requirement or not, but since all tiles require a 'demo', this just makes it easier. I think.)
+  #
+  # Yeah, it came back to bite me. So that's why I only merge it if it isn't supplied in the 'options' hash
   #
   def create_tile(options = {})
     DAY_TO_TIMES.each_pair do |day, time|
@@ -61,7 +63,9 @@ module TileHelpers
       options[time] = day_to_time(day) if day
     end
 
-    FactoryGirl.create :tile, options.merge(demo: demo)
+    options.merge!(demo: demo) unless options.has_key?(:demo)
+
+    FactoryGirl.create :tile, options
   end
 
   # -------------------------------------------------

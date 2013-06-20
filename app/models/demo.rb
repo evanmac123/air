@@ -74,6 +74,13 @@ class Demo < ActiveRecord::Base
     tiles.digest(self)
   end
 
+  # todo Need to unit-test this.
+  def self.send_digest_email
+    demos = where tile_digest_email_send_on: Date::DAYNAMES[Date.today.wday]
+    demos.reject! { |demo| demo.digest_tiles.empty? }
+    demos
+  end
+
   def example_tooltip_or_default
     default = "went for a walk"
     example_tooltip.blank? ? default : example_tooltip

@@ -210,7 +210,7 @@ FactoryGirl.define do
     require_images false
     association :demo
     sequence(:position){ |n| n }
-    status 'active'
+    status Tile::ACTIVE
 
     trait :client_created do
       supporting_content "This is some extra text by the tile"

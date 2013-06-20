@@ -160,9 +160,11 @@ feature 'Client admin and the digest email for tiles' do
           digest_tab.should have_num_tiles(2)
 
           click_button 'Send now'
+          crank_dj_clear
 
           page.should contain "Tiles digest email was sent"
 
+          visit tile_manager_page
           select_tab 'Digest'
           digest_tab.should_not contain 'A digest email containing 2 tiles is set to go out'
           digest_tab.should     contain 'No digest email is scheduled to be sent'
@@ -187,8 +189,8 @@ feature 'Client admin and the digest email for tiles' do
         on_day '7/6/2013' do
           visit tile_manager_page
           select_tab 'Digest'
-          click_button 'Send now'
 
+          click_button 'Send now'
           crank_dj_clear
 
           all_emails.should have(5).emails  # The above 4 for this demo, and the 'admin' created at top of tests

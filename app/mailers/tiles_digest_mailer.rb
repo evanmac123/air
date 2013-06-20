@@ -8,8 +8,19 @@ class TilesDigestMailer < ActionMailer::Base
   include EmailHelper  # Well, the 'helper' above method might include it into the view, but it don't include it in here
 
 
-  def notify_all(user_ids, tile_ids)
+  def notify_all_from_delayed_job()
+    Demo.send_digest_email.each { |demo| TilesDigestMailer.delay.notify_all(demo.id) }
+  end
+
+  def notify_all(demo_id)
+    demo = Demo.find demo_id
+
+    user_ids = demo.users.pluck(:id)
+    tile_ids = demo.digest_tiles.pluck(:id)
+
     user_ids.each { |user_id| TilesDigestMailer.delay.notify_one(user_id, tile_ids) }
+
+    demo.update_attributes tile_digest_email_sent_at: Time.now
   end
 
   def notify_one(user_id, tile_ids)
