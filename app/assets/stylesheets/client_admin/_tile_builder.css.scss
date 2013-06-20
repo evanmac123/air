@@ -1,6 +1,7 @@
 body.client_admin-tiles-new, 
 body.client_admin-tiles-create,
-body.client_admin-tiles-edit {
+body.client_admin-tiles-edit,
+body.client_admin-tiles-update {
   form {
     input[type="text"],textarea {
       border:2px lighten($light-gray, 8%) dashed;
@@ -114,7 +115,8 @@ body.client_admin-tiles-edit {
 }
 
 // Specific styles for Edit page
-body.client_admin-tiles-edit {
+body.client_admin-tiles-edit, 
+body.client_admin-tiles-update {
   .tile_builder_section {padding:2em;}
   .builder_content #image_uploader {
     background:$text-color;
