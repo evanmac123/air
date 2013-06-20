@@ -252,9 +252,17 @@ module SteakHelperMethods
   end
 
   def current_slideshow_tile
-    sleep 0.5  # Seems to help...
     # Use the z-index to determine which tile is visible
-    current_tile = all('#slideshow .tile_holder').sort_by { |img| img[:style].slice(/(z-index: )(\d)/, 2) }.last
+    tiles = nil
+    wait_until do
+      while 1
+        tiles = all('#slideshow .tile_holder')
+        continue unless tiles.present?
+        break if tiles.all? {|tile| tile[:style].present?}
+      end
+    end
+
+    current_tile = tiles.sort_by { |img| img[:style].slice(/(z-index: )(\d)/, 2) }.last
     current_tile[:id]  # 'current_tile' is a Capybara::Node::Element => return its 'id' attribute
   end
 

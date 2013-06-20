@@ -25,6 +25,13 @@ feature 'User views tile' do
     page.find("a[href='#{@first_tile_link}'] #tile-thumbnail-#{@make_toast.id}").click
 
     should_be_on tiles_path
+
+    wait_until do
+      while 1
+        break if page.body.include?("Tile: 1 of 2")
+      end
+    end
+
     expect_content "Tile: 1 of 2"
     expect_content "My Profile"
 
