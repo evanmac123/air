@@ -113,6 +113,10 @@ class Tile < ActiveRecord::Base
     supporting_content.present? && question.present?
   end
 
+  def archived?
+    self.status == ARCHIVE
+  end
+
   def self.due_ids
     self.after_start_time_and_before_end_time.map(&:id)
   end

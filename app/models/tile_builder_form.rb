@@ -106,7 +106,7 @@ class TileBuilderForm
     set_tile_image
     set_tile_attributes
     @tile.position = Tile.next_position(@demo)
-    @tile.status = Tile::ACTIVE
+    @tile.status = Tile::ARCHIVE
   end
 
   def update_tile

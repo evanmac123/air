@@ -46,6 +46,7 @@ feature 'Creates tile' do
     new_tile.supporting_content.should == "Ten pounds of cheese. Yes? Or no?"
     new_tile.question.should == "Who rules?"
     new_tile.link_address.should == "http://www.google.com/foobar"
+    new_tile.should be_archived
 
     demo.rules.reload.should have(1).rule
     new_rule = Rule.last
