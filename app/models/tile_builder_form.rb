@@ -64,7 +64,7 @@ class TileBuilderForm
       save_main_objects
       associate_rule_values_with_rule
       set_first_rule_value_as_primary
-      create_trigger
+      create_trigger_if_needed
     end
   end
 
@@ -168,7 +168,8 @@ class TileBuilderForm
     @rule_values = nil unless @rule_values.first.present?
   end
 
-  def create_trigger
+  def create_trigger_if_needed
+    return if Trigger::RuleTrigger.where(rule_id: rule.id, tile_id: tile.id).exists?
     Trigger::RuleTrigger.create(rule: rule, tile: tile)
   end
 
