@@ -24,7 +24,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
       manager_url = client_admin_tiles_path
       flash[:success] = "OK, you've created a new tile. <a href=\"#{preview_url}\">See it</a> or return to <a href=\"#{manager_url}\">the manager</a>"
       flash[:success_allow_raw] = true
-      redirect_to new_client_admin_tile_path
+      redirect_to client_admin_tile_path(@tile_builder_form.tile)
     else
       # TODO: validation and ActiveRecord errors are done in a surprisingly
       # bullshit manner in Rails. Surely we can improve on this.
@@ -88,7 +88,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
 
     if @tile_builder_form.update_objects
       flash[:success] = "OK, you've updated this tile." 
-      redirect_to :back
+      redirect_to client_admin_tile_path(@tile_builder_form.tile)
     else
       flash[:failure] = "Sorry, we couldn't update this tile: " + @tile_builder_form.error_messages
       render :edit

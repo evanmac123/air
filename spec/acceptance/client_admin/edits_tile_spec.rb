@@ -77,7 +77,7 @@ feature 'Client admin edits tile' do
     rule.rule_values.map(&:value).sort.should == ['bob', 'me', 'value 1', 'you']
     rule.primary_value.value.should == "value 1"
 
-    should_be_on edit_client_admin_tile_path(@tile)
+    should_be_on client_admin_tile_path(@tile)
     expect_content "OK, you've updated this tile."
   end
 
