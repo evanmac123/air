@@ -106,7 +106,6 @@ class TileBuilderForm
     set_tile_image
     set_tile_attributes
     @tile.position = Tile.next_position(@demo)
-    @tile.status = Tile::ARCHIVE
   end
 
   def update_tile
@@ -149,6 +148,8 @@ class TileBuilderForm
         link_address:       @parameters[:link_address]
       }
     end
+
+    @tile.status = Tile::ARCHIVE
   end
 
   def build_rule

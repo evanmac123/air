@@ -20,10 +20,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     @tile_builder_form = TileBuilderForm.new(@demo, parameters: params[:tile_builder_form])
 
     if @tile_builder_form.create_objects
-      preview_url = client_admin_tile_path(@tile_builder_form.tile)
-      manager_url = client_admin_tiles_path
-      flash[:success] = "OK, you've created a new tile. <a href=\"#{preview_url}\">See it</a> or return to <a href=\"#{manager_url}\">the manager</a>"
-      flash[:success_allow_raw] = true
+      set_after_save_flash(@tile_builder_form.tile)
       redirect_to client_admin_tile_path(@tile_builder_form.tile)
     else
       # TODO: validation and ActiveRecord errors are done in a surprisingly
@@ -87,11 +84,19 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     @tile_builder_form = TileBuilderForm.new(@demo, parameters: params[:tile_builder_form], tile: @tile)
 
     if @tile_builder_form.update_objects
-      flash[:success] = "OK, you've updated this tile." 
+      set_after_save_flash(@tile_builder_form.tile)
       redirect_to client_admin_tile_path(@tile_builder_form.tile)
     else
       flash[:failure] = "Sorry, we couldn't update this tile: " + @tile_builder_form.error_messages
       render :edit
     end
+  end
+
+  def set_after_save_flash(new_tile)
+    activate_url = client_admin_tile_path(new_tile, update_status: Tile::ACTIVE)
+    edit_url = edit_client_admin_tile_path(new_tile)
+    
+    flash[:success] = render_to_string("preview_after_save_flash", layout: false, locals: {edit_url: edit_url, activate_url: activate_url})
+    flash[:success_allow_raw] = true
   end
 end

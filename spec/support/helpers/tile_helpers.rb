@@ -141,4 +141,20 @@ module TileHelpers
   def fill_in_external_link_field(text)
     page.find("#tile_builder_form_link_address").set(text)
   end
+
+  def after_tile_save_message
+    "This is how the tile will look to your users. If you like it, click here to make it active, and they'll be able to see it. If it needs work, click here to edit it."
+  end
+
+  def click_here_link
+    page.all("a", text: 'click here')
+  end
+
+  def click_activate_link
+    click_here_link[0].click
+  end
+
+  def click_edit_link
+    click_here_link[1].click
+  end
 end

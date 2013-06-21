@@ -113,6 +113,10 @@ class Tile < ActiveRecord::Base
     supporting_content.present? && question.present?
   end
 
+  def active?
+    self.status == ACTIVE
+  end
+
   def archived?
     self.status == ARCHIVE
   end

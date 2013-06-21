@@ -78,7 +78,22 @@ feature 'Client admin edits tile' do
     rule.primary_value.value.should == "value 1"
 
     should_be_on client_admin_tile_path(@tile)
-    expect_content "OK, you've updated this tile."
+    expect_content after_tile_save_message
+  end
+
+  scenario "activates tile after editing", js: true do
+    click_button "Update tile"
+    click_edit_link
+    should_be_on edit_client_admin_tile_path(@tile)
+  end
+
+  scenario "edits tile again after editing", js: true do
+    click_button "Update tile"
+    @tile.reload.should be_archived
+
+    click_activate_link
+    should_be_on client_admin_tiles_path
+    @tile.reload.should be_active
   end
 
   scenario 'with bad information', js: true do

@@ -25,6 +25,11 @@ feature 'Creates tile' do
     fill_in_external_link_field  "http://www.google.com/foobar"
   end
 
+  def create_good_tile
+    fill_in_valid_form_entries
+    click_button "Publish tile"
+  end
+
   before do
     visit new_client_admin_tile_path(as: client_admin)
   end
@@ -33,10 +38,7 @@ feature 'Creates tile' do
     demo.tiles.should be_empty
     demo.rules.should be_empty
 
-    fill_in_valid_form_entries
-    click_button "Publish tile"
-
-    expect_content "OK, you've created a new tile."
+    create_good_tile
 
     demo.tiles.reload.should have(1).tile
     new_tile = Tile.last
@@ -62,23 +64,27 @@ feature 'Creates tile' do
     new_rule.rule_triggers.should have(1).trigger
     new_trigger = new_rule.rule_triggers.first
     new_trigger.tile.should == new_tile
-  end
 
-  scenario "previews tile after creating it", js: true do
-    fill_in_valid_form_entries
-    click_button "Publish tile"
-
-    click_link "See it"
-
-    new_tile = Tile.last
-    should_be_on client_admin_tile_path(new_tile)
-
+    expect_content after_tile_save_message
     page.find("img[src='#{new_tile.image}']").should be_present
     %w(headline supporting_content question).each do |string|
       expect_content new_tile.send(string)
     end
 
     expect_content "23 pts"
+end
+
+  scenario "activates tile after creating it", js: true do
+    create_good_tile
+    click_activate_link
+    should_be_on client_admin_tiles_path
+    Tile.last.should be_active
+  end
+
+  scenario "edits tile after creating it", js: true do
+    create_good_tile
+    click_edit_link
+    should_be_on edit_client_admin_tile_path(Tile.last)
   end
 
   scenario "with incomplete data should give a gentle rebuff", js: true do
