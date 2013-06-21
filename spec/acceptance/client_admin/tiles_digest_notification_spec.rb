@@ -184,7 +184,8 @@ feature 'Client admin and the digest email for tiles' do
         FactoryGirl.create :claimed_user, demo: demo, name: 'W.C. Clark', email: 'wc@clark.com'
         FactoryGirl.create :claimed_user, demo: demo, name: 'Taj Mahal',  email: 'taj@mahal.com'
 
-        FactoryGirl.create :user, demo: FactoryGirl.create(:demo)  # Make sure this user doesn't get an email
+        FactoryGirl.create :user,         demo: FactoryGirl.create(:demo)  # Make sure these users from other
+        FactoryGirl.create :claimed_user, demo: FactoryGirl.create(:demo)  # demos don't get an email
 
         on_day '7/6/2013' do
           visit tile_manager_page
