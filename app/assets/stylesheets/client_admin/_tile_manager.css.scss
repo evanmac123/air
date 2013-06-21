@@ -144,7 +144,14 @@
     color:$gray;
     font-size:.85em;
     margin-top:1.125em;
-    a {@include link($blue);}
+    a {
+      background:$blue;
+      border-radius:2px;
+      color:$white;
+      margin-right:.5em;
+      padding:.25em .5em;
+      &:hover {background:darken($blue, 7%);}
+    }
     span {display:inline-block;}
     span#feedback {
       color:$orange;
