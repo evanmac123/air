@@ -6,6 +6,7 @@ body.client_admin-tiles-update {
     input[type="text"],textarea {
       border:2px lighten($light-gray, 8%) dashed;
       display: block;
+      font-size:1.3em;
       padding:.5em;
       width:100%;
       &:hover, &:focus {border-style:solid;}
@@ -27,6 +28,16 @@ body.client_admin-tiles-update {
       }
       &:after{@include clear;}
       &:last-of-type{margin-bottom:0;}
+    }
+
+    /* Tile options */
+    .more_tile_options {
+      // External link
+      #external_link {
+        margin:0 auto 1em auto; 
+        width:90%;
+        input {border-color:$light-gray;}
+      }
     }
   }
   
@@ -70,12 +81,11 @@ body.client_admin-tiles-update {
   // Quiz section of the tile
   .builder_quiz {
     background:$light-gray;
-    margin-bottom:2em;
+    margin-bottom:1em;
 
     input[type="text"] {
       background:lighten($light-gray, 5%);
       border-color:lighten($light-gray, 10%);
-      font-size:1.3em;
       &#tile_builder_form_question {
         color:$text-color;
         font-family:$sans;
@@ -93,7 +103,6 @@ body.client_admin-tiles-update {
     #add-answer-link {@include link($blue);}
   }
 
-  /* Tile options */
   // Points
   #set_points {
     border-top:1px darken($light-gray, 5%) solid;
@@ -125,8 +134,6 @@ body.client_admin-tiles-update {
     padding:0;
     img {margin:2em 0;}
     .upload_new_image {
-      // background:lighten($light-gray, 8%);
-      // background:$light-gray;
       background:$white;
       border:2px lighten($light-gray, 8%) dashed;
       border-top:0;
