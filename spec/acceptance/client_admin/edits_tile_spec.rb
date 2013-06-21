@@ -58,7 +58,7 @@ feature 'Client admin edits tile' do
 
     fill_in "Points", with: "23"
 
-    fill_in "External link", with: "http://example.co.uk"
+    fill_in_external_link_field "http://example.co.uk"
 
     click_button "Update tile"
 

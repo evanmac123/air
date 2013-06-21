@@ -22,7 +22,7 @@ feature 'Creates tile' do
 
     fill_in "Points", with: "23"
 
-    fill_in "External link", with: "http://www.google.com/foobar"
+    fill_in_external_link_field  "http://www.google.com/foobar"
   end
 
   before do

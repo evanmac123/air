@@ -137,4 +137,8 @@ module TileHelpers
     fields = page.all("input[name='tile_builder_form[answers][]']")
     fields[index].set(text)
   end
+
+  def fill_in_external_link_field(text)
+    page.find("#tile_builder_form_link_address").set(text)
+  end
 end
