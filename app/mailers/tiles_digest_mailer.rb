@@ -9,7 +9,6 @@ class TilesDigestMailer < ActionMailer::Base
 
   def notify_all_from_delayed_job()
     noon = Date.today.midnight.advance(hours: 12)
-    #noon = Time.now + 3.minutes
     Demo.send_digest_email.each { |demo| TilesDigestMailer.delay(run_at: noon).notify_all(demo.id) }
   end
 
