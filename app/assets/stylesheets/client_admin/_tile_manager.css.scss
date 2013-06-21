@@ -107,11 +107,13 @@
     }
 
     .tile_thumb_texts {
-      background:lighten($light-gray, 5%);
+      background:$text-color;
+      height:100px;
       padding:1em;
       .headline {
+        color:$white;
         font-family:$open-400;
-        font-size:1.45em;
+        font-size:1.25em;
         line-height:1.25em;
         margin-bottom:1em;
       }
