@@ -95,8 +95,9 @@ class ClientAdmin::TilesController < ClientAdminBaseController
   def set_after_save_flash(new_tile)
     activate_url = client_admin_tile_path(new_tile, update_status: Tile::ACTIVE)
     edit_url = edit_client_admin_tile_path(new_tile)
+    already_active = new_tile.active?
     
-    flash[:success] = render_to_string("preview_after_save_flash", layout: false, locals: {edit_url: edit_url, activate_url: activate_url})
+    flash[:success] = render_to_string("preview_after_save_flash", layout: false, locals: {edit_url: edit_url, activate_url: activate_url, already_active: already_active})
     flash[:success_allow_raw] = true
   end
 end

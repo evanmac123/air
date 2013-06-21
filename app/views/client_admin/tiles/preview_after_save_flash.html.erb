@@ -1,1 +1,1 @@
-This is how the tile will look to your users. If you like it, <%= link_to "click here", activate_url, method: :put %> to make it active, and they'll be able to see it. If it needs work, <%= link_to "click here", edit_url %> to edit it.
+This is how the tile will look to your users. <%- unless already_active %>If you like it, <%= link_to "click here", activate_url, method: :put %> to make it active, and they'll be able to see it. <% end %>If it needs work, <%= link_to "click here", edit_url %> to edit it.

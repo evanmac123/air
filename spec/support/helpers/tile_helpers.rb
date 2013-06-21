@@ -142,8 +142,12 @@ module TileHelpers
     page.find("#tile_builder_form_link_address").set(text)
   end
 
-  def after_tile_save_message
-    "This is how the tile will look to your users. If you like it, click here to make it active, and they'll be able to see it. If it needs work, click here to edit it."
+  def after_tile_save_message(options={})
+    if options[:hide_activate_link]
+      "This is how the tile will look to your users. If it needs work, click here to edit it."
+    else
+      "This is how the tile will look to your users. If you like it, click here to make it active, and they'll be able to see it. If it needs work, click here to edit it."
+    end
   end
 
   def click_here_link
