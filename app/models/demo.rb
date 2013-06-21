@@ -1,6 +1,7 @@
 class Demo < ActiveRecord::Base
   JOIN_TYPES = %w(pre-populated self-inviting public).freeze
 
+  # Date::DAYNAMES returns:  ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
   TILE_DIGEST_EMAIL_SEND_ON = %w(Never) + Date::DAYNAMES
 
   serialize :internal_domains, Array
@@ -74,7 +75,6 @@ class Demo < ActiveRecord::Base
     tiles.digest(self)
   end
 
-  # todo Need to unit-test this.
   def self.send_digest_email
     demos = where tile_digest_email_send_on: Date::DAYNAMES[Date.today.wday]
     demos.reject! { |demo| demo.digest_tiles.empty? }
