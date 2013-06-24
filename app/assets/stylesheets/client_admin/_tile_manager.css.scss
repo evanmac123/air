@@ -59,14 +59,13 @@
     width:234px;
     position: relative;
     
-    // Default archive button
-    .archive_tile_link {
+    // Default buttons
+    .archive_tile_link, .preview_tile_link, .edit_tile_link {
       background:$red;
       border-bottom:2px $white solid;
       border-left:2px $white solid;
       display:none;
       position:absolute;
-      top: 0;
       right: 0;
       margin:0;
       padding:.5em .85em;
@@ -79,6 +78,22 @@
       }
     }
     &:hover .archive_tile_link {display: block;}
+    &:hover .edit_tile_link {display: block;}
+    &:hover .preview_tile_link {display: block;}
+
+    .archive_tile_link {
+      top: 0;
+    }
+
+    .preview_tile_link {
+      top: 40px;
+      border-top: 2px $white solid;
+    }
+
+    .edit_tile_link {
+      top: 82px;
+      border-top: 2px $white solid;
+    }
   }
 
   // Activate button
