@@ -58,46 +58,47 @@
     margin:$centered;
     width:234px;
     position: relative;
-    
-    // Default buttons
-    .archive_tile_link, .preview_tile_link, .edit_tile_link {
-      background:$red;
-      border-bottom:2px $white solid;
-      border-left:2px $white solid;
-      display:none;
-      position:absolute;
-      right: 0;
+    &:hover {.tile_buttons{display:block;}}
+  }
+
+  // Default buttons
+  .tile_buttons {
+    display:none;
+    background:$blue;
+    border-bottom:3px $white solid;
+    position:absolute;
+    top:0;
+    right:0;
+    width:100%;
+    li {
+      display:inline-block;
+      float:right;
       margin:0;
-      padding:.5em .85em;
-      &:hover {
-        background:darken($red, 7%);
-      }
-      a {
+      text-align: center;
+
+      // All buttons
+      div {
+        background:$blue;
         display:inline-block;
-        color:$white;
+        &:hover{background:darken($blue, 7%);}
+        a {
+          display:inline-block;
+          color:$white;
+          padding:.5em .85em;
+        }
+
+        // Archive button
+        &.archive_tile_link {
+          background:$red;
+          &:hover {background:darken($red, 7%);
+          }
+        }
       }
-    }
-    &:hover .archive_tile_link {display: block;}
-    &:hover .edit_tile_link {display: block;}
-    &:hover .preview_tile_link {display: block;}
-
-    .archive_tile_link {
-      top: 0;
-    }
-
-    .preview_tile_link {
-      top: 40px;
-      border-top: 2px $white solid;
-    }
-
-    .edit_tile_link {
-      top: 82px;
-      border-top: 2px $white solid;
     }
   }
 
   // Activate button
-  td.archive .tile_thumbnail .archive_tile_link {
+  .archive .tile_thumbnail .tile_buttons li div.archive_tile_link {
     background:$dark-green;
     &:hover {background:darken($dark-green, 7%);}
   }
