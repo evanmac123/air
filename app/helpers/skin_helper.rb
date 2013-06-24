@@ -1,6 +1,10 @@
 module SkinHelper
   def skinned(key, default)
-    skin = current_user.try(:demo).try(:skin)
+    skinned_for_demo(current_user.demo_id, key, default)
+  end
+
+  def skinned_for_demo(demo_id, key, default)
+    skin = Demo.find(demo_id).skin
     if skin && skin[key].present?
       skin[key]
     else
