@@ -47,8 +47,10 @@ body.client_admin-tiles-create #admin-tiles-builder {
     @include full-width;
 }
 #col-main {
+    border:2px red solid;
     width:$body-width;
     table-layout: fixed;
+    @include clear;
 }
 .equal {
     padding:3em 0;
@@ -76,9 +78,6 @@ body.client_admin-tiles-create #admin-tiles-builder {
                 border-bottom:1px $light-gray solid;
                 margin-bottom:1em;
                 padding-top:.5em;
-                a {
-                    // font-size:1em;
-                }
                 &:before {background-position:-124px 1px;}
             }
 
