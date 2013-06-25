@@ -61,10 +61,6 @@
     &:hover {.tile_buttons{display:block;}}
   }
 
-  // Hide buttons that aren't used in certain tabs
-  .archive .tile_buttons .archive_button {display:none;}
-  .active .tile_buttons .activate_button {display:none;}
-  
   // Default buttons
   .tile_buttons {
     display:none;
@@ -101,6 +97,14 @@
         }
       }
     }
+  }
+
+  // Hide buttons that aren't used in certain tabs
+  #archive .tile_buttons .archive_button {display:none;}
+  #active .tile_buttons .activate_button {display:none;}
+  #digest .tile_buttons {
+    li {width:50%;}
+    .archive_button, .activate_button {display:none;}
   }
 
   // Activate button
