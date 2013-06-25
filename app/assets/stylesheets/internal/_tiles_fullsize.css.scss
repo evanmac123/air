@@ -9,7 +9,7 @@
 
 // Actual tile, holds everything together
 .tile_holder {
-  background:$white;
+  background:transparent;
   font-family:$sans;
   display: block;
   margin:0 auto;
@@ -18,7 +18,7 @@
 }
 
 .tile_full_image {
-  background:$text-color;
+  background:transparent;
   text-align: center;
   position: relative;
   img {
@@ -32,9 +32,11 @@
 // White copy area
 .tile_texts_container {
   background:$white;
+  border-top:2px $light-gray solid;
   border-left:2px $light-gray solid;
   border-right:2px $light-gray solid;
   line-height: 1.125em;
+  margin-top: 2em;
   padding-top:1em;
   .tile_headline, .tile_supporting_content {
     margin: 0 auto;
