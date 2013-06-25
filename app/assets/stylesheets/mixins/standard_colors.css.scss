@@ -33,6 +33,10 @@ $open-600:  'OpenSansSemiBold', $sans;
 
 $gutter:            10px;
 $body-width:        984px;
+@mixin full-width {
+    padding:0 $gutter;
+    width:$body-width;
+}
 $centered:          0 auto;
 
 $header-bg:         #588b3d;

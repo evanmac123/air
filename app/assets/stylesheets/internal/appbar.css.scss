@@ -6,13 +6,13 @@ $light:lighten($header-bg, 7%);
 /* ---------- masthead ---------- */
 .header {background-color:$dark-gray;}
 .app_bar {
+	@include full-width;
 	background-color:$dark-gray;
 	color:$gray;
 	font-size:.85em;
 	font-family:$open-400;
 	margin:$centered;
 	padding:.7em 0 .5em 0;
-	width:$body-width;
 
 	a, a:link, a:visited {
 		font-family:$open-400;

@@ -43,24 +43,20 @@ body.client_admin-tiles-create #admin-tiles-builder {
     COLUMN STRUCTURE 
     ///////////////////////// */
 .col-container {
-    display:table;
-    table-layout: fixed;
-    width:100%;
+    margin:$centered;
+    @include full-width;
 }
-    #far-left, #col-main, #far-right {display:table-cell;}
-    #far-left, #left-nav {background:image-url('client_admin/light-bg.png');}
 #col-main {
-    width:984px;
+    width:$body-width;
     table-layout: fixed;
 }
 .equal {
-    display:table-cell;
     padding:3em 0;
 
     /* ////// Navigation Col ////// */
     &#left-nav {
-        border-right:$border-dark;
-        width:170px;
+        float:left;
+        width:17%;
 
         // Main Client Admin left nav
         .admin-nav-section {
@@ -122,10 +118,11 @@ body.client_admin-tiles-create #admin-tiles-builder {
     /* ////// Content Col ////// */
     &#right-content {
         background:image-url('marketing/bg.gif');
-        border-left:$border-light;
+        border-left:$border-dark;
+        float:right;
+        min-height:475px;
         padding-left:$gutter+50px;
-        width:83.3%;
-        z-index:0;
+        width:83%;
     }
 }
 
