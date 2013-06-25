@@ -15,10 +15,6 @@
     background-image: url('#{tile.thumbnail}');
   }
 
-  .tile-wrapper:hover ##{thumbnail_id} {
-    background-image: url('#{tile.thumbnail(:hover)}');
-  }
-
 -#Preload hover image to prevent blinking
 %img{src: tile.thumbnail(:hover), style: "display: none; visibility: hidden;"}
 -#Preload base image image to prevent blinking in IE8

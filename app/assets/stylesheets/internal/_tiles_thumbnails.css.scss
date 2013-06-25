@@ -19,31 +19,32 @@
 
     a, a:link, a:visited {
       display:inline-block;
-      width:80%;
+      // width:80%;
+      width:238px;
       &:after {@include clear;}
       .tile-wrapper{
         @include ease(.025s);
+        border-bottom:5px transparent solid;
         display: inline-block;
         position: relative;
         width:100%;
         &:hover {
-          .tile_thumbnail, .headline {width:100%;}
-          .tile_thumbnail {height:14.5em;}
+          border-color:$orange;
+          
         }
         
         .tile_thumbnail, .headline {
           margin:0 auto;
-          width:95%;
+          width:100%;
         }
         .tile_thumbnail{
           background-color:$text-color;
-          background-position:center center;
+          background-position:top center;
           background-repeat:no-repeat;
           display: block;
           height:14em;
           position: relative;
-          &:hover {
-          }
+          
         }
 
         .headline{

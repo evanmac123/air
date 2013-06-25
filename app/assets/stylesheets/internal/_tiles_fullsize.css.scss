@@ -18,8 +18,9 @@
 }
 
 .tile_full_image {
-  background:transparent;
+  background:$text-color;
   text-align: center;
+  padding:.5em 0;
   position: relative;
   img {
     width:auto; 
@@ -32,11 +33,9 @@
 // White copy area
 .tile_texts_container {
   background:$white;
-  border-top:2px $light-gray solid;
   border-left:2px $light-gray solid;
   border-right:2px $light-gray solid;
   line-height: 1.125em;
-  margin-top: 2em;
   padding-top:1em;
   .tile_headline, .tile_supporting_content {
     margin: 0 auto;
