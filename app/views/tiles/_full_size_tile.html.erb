@@ -1,4 +1,7 @@
-<div class="tile_holder" id="<%= tile.id %>">
+<% is_client_created = @client_created_tiles[tile] %>
+<% creator_class = is_client_created ? 'client_created' : 'admin_created' %>
+
+<div class="tile_holder <%= creator_class %>" id="<%= tile.id %>">
   <div class="tile_full_image">
     <% image_html = image_tag tile.image.url, :class => :tile_image, :size => tile.image.image_size, :alt => tile.headline %>
     <% if tile.link_address.present? %>
@@ -7,7 +10,7 @@
     <%= image_html %>
   </div>
 
-  <% if @client_created_tiles[tile] %>
+  <% if is_client_created %>
     <div class="tile_texts_container">
       <div class="tile_headline"><%= tile.headline %></div>
       <div class="tile_supporting_content"><%= tile.supporting_content %></div>
