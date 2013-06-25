@@ -13,6 +13,21 @@ describe Demo do
   it { should have_one(:skin) }
 end
 
+describe Demo, "on create" do
+  it "should set the tile_digest_email_send_on if not set" do
+    demo = FactoryGirl.build(:demo)
+    demo.tile_digest_email_sent_at.should be_nil
+
+    begin
+      Timecop.freeze
+      demo.save!
+      Time.now.utc.to_s == demo.reload.tile_digest_email_sent_at.utc.to_s
+    ensure
+      Timecop.return
+    end
+  end
+end
+
 describe Demo, "when both begins_at and ends_at are set" do
   it "should validate that ends_at is later than begins_at" do
     FactoryGirl.build(:demo, :begins_at => Time.now + 2.hours, :ends_at => Time.now).should_not be_valid

@@ -77,8 +77,6 @@ FactoryGirl.define do
     trait :with_phone_number do
       sequence(:phone_number) {|i| "+" + (16172222222 + 1).to_s}
     end
-
-    tile_digest_email_sent_at { Time.now }
   end
   
   factory :rule do
