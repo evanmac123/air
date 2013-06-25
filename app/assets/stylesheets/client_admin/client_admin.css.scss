@@ -44,13 +44,7 @@ body.client_admin-tiles-create #admin-tiles-builder {
     ///////////////////////// */
 .col-container {
     margin:$centered;
-    @include full-width;
-}
-#col-main {
-    border:2px red solid;
     width:$body-width;
-    table-layout: fixed;
-    @include clear;
 }
 .equal {
     padding:3em 0;

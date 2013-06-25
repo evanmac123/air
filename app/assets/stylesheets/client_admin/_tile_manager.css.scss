@@ -61,6 +61,10 @@
     &:hover {.tile_buttons{display:block;}}
   }
 
+  // Hide buttons that aren't used in certain tabs
+  .archive .tile_buttons .archive_button {display:none;}
+  .active .tile_buttons .activate_button {display:none;}
+  
   // Default buttons
   .tile_buttons {
     display:none;
@@ -75,11 +79,13 @@
       float:right;
       margin:0;
       text-align: center;
+      width:33%;
 
       // All buttons
       div {
         background:$blue;
         display:inline-block;
+        width:100%;
         &:hover{background:darken($blue, 7%);}
         a {
           display:inline-block;

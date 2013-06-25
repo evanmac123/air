@@ -9,7 +9,7 @@
             %div.tile_thumb_texts
               %div.headline= tile.headline
         %ul.tile_buttons
-          %li= content_tag(:div, link_to('Archive', client_admin_tile_path(tile, update_status: Tile::ARCHIVE), method: :put), class: 'archive_tile_link') if type == :active
-          %li= content_tag(:div, link_to('Activate', client_admin_tile_path(tile, update_status: Tile::ACTIVE), method: :put), class: 'archive_tile_link') if type == :archive
+          %li.archive_button= content_tag(:div, link_to('Archive', client_admin_tile_path(tile, update_status: Tile::ARCHIVE), method: :put), class: 'archive_tile_link') if type == :active
+          %li.activate_button= content_tag(:div, link_to('Activate', client_admin_tile_path(tile, update_status: Tile::ACTIVE), method: :put), class: 'archive_tile_link') if type == :archive
           %li= content_tag(:div, link_to('Edit', edit_client_admin_tile_path(tile)), class: 'edit_tile_link')
           %li= content_tag(:div, link_to('Preview', client_admin_tile_path(tile)), class: 'preview_tile_link')
