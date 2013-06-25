@@ -2,7 +2,12 @@ class ClientAdmin::TilesDigestNotificationsController < ClientAdminBaseControlle
   before_filter :get_demo
 
   def create
-    TilesDigestMailer.delay.notify_all(@demo.id)
+    # Grab all of the tiles now because we're gonna be resetting the 'tile_digest_email_sent_at' real soon...
+    tile_ids = @demo.digest_tiles.pluck(:id)
+
+    TilesDigestMailer.delay.notify_all(@demo.id, tile_ids)
+
+    @demo.update_attributes tile_digest_email_sent_at: Time.now
 
     flash[:success] = "Tiles digest email was sent"
     redirect_to client_admin_tiles_path

@@ -164,7 +164,6 @@ feature 'Client admin and the digest email for tiles' do
 
           page.should contain "Tiles digest email was sent"
 
-          visit tile_manager_page
           select_tab 'Digest'
           digest_tab.should_not contain 'A digest email containing 2 tiles is set to go out'
           digest_tab.should     contain 'No digest email is scheduled to be sent'

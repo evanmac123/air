@@ -1,22 +1,25 @@
 class TilesDigestMailer < ActionMailer::Base
 
   helper :email                # loads 'app/helpers/email_helper.rb' & includes 'EmailHelper' into the View
-  helper 'client_admin/tiles'  # ditto for 'tiles_helper.rb'
+  helper 'client_admin/tiles'  # ditto for 'app/helpers/client_admin/tiles_helper.rb'
 
   has_delay_mail       # Some kind of monkey-patch workaround (not even sure need)
 
   include EmailHelper  # Well, the 'helper' above method might include it into the view, but it don't include it in here
 
-  def notify_all_from_delayed_job()
+  def notify_all_from_delayed_job
     noon = Date.today.midnight.advance(hours: 12)
     Demo.send_digest_email.each { |demo| TilesDigestMailer.delay(run_at: noon).notify_all(demo.id) }
   end
 
-  def notify_all(demo_id)
+  def notify_all(demo_id, tile_ids = [])
     demo = Demo.find demo_id
 
     user_ids = demo.users.pluck(:id)
-    tile_ids = demo.digest_tiles.pluck(:id)
+
+    # Called from controller/view "Send Now"   => 'tile_ids' will be supplied
+    # Called from weekly cron-job method above => need to find 'tile_ids' ourselves
+    tile_ids = demo.digest_tiles.pluck(:id) if tile_ids.empty?
 
     user_ids.each { |user_id| TilesDigestMailer.delay.notify_one(user_id, tile_ids) }
 
