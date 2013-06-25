@@ -4,7 +4,7 @@
   color:$white;
   font-family:$open-400;
   margin-bottom:2em;
-  padding:0 .125em 0 0;
+  padding:0;
   position:relative;
   .f-middle a {
     color:$white;
@@ -18,7 +18,8 @@
   p {font-size:1.15em; line-height:1.25em;}
   table {border:0; margin:0;}
   td {border:0; padding:0;}
-  tr.f-bottom, tr.f-top {td {height:1.25em;}}
+  td.f-center {padding:0 2em 0 0; line-height:1.5em;}
+  tr.f-bottom, tr.f-top {td {height:1em;}}
   td.f-left {width:1em;}
   #close-flash {float:right; position:absolute; right:.5em; top:.5em;}
   #close-flash span {
