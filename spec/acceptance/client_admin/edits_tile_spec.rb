@@ -140,4 +140,18 @@ feature 'Client admin edits tile' do
     expect_content "Sorry, we couldn't update this tile: must have at least one answer"
     @tile.first_rule.reload.should have(3).rule_values # unchanged
   end
+
+  scenario "when editing answer for a rule with just one answer, leaves the new answer set to primary" do
+    tile = FactoryGirl.create(:tile, :client_created, demo: @client_admin.demo)
+    tile.first_rule.rule_values.length.should == 1
+
+    visit edit_client_admin_tile_path(tile, as: @client_admin)
+    fill_in_answer_field 0, "woop woop"
+    click_button "Update tile"
+
+    tile.first_rule.reload.should have(1).rule_value
+    rule_value = tile.first_rule.rule_values.first
+    rule_value.value.should == 'woop woop'
+    rule_value.is_primary.should be_true
+  end
 end

@@ -219,7 +219,7 @@ FactoryGirl.define do
       image {File.open(Rails.root.join "spec/support/fixtures/tiles/cov1.jpg")}
       thumbnail {File.open(Rails.root.join "spec/support/fixtures/tiles/cov1_thumbnail.jpg")}
       after(:create) do |tile|
-        rule_value   = FactoryGirl.create(:rule_value)
+        rule_value   = FactoryGirl.create(:rule_value, is_primary: true)
         rule_trigger = FactoryGirl.create(:rule_trigger, tile: tile, rule: rule_value.rule)
       end
     end

@@ -66,6 +66,7 @@ class TileBuilderForm
   def save_objects
     Tile.transaction do
       save_main_objects
+      remove_extraneous_rule_values
       associate_rule_values_with_rule
       set_first_rule_value_as_primary
       create_trigger_if_needed
