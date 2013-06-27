@@ -2,8 +2,19 @@ require 'spec_helper'
 
 describe UserCreatorFromCsv do
   let(:demo)                    {FactoryGirl.create(:demo)}
-  let(:basic_schema)            {%w(name email)} # that's enough to get a user going
-  let(:basic_attributes)        {["Jim Smith", "bigjim@example.com"]}
+
+  let(:basic_schema)                {%w(name email)} # that's enough to get a user going
+  let(:schema_with_characteristics) do
+    schema = basic_schema.dup
+    [discrete_characteristic, number_characteristic, date_characteristic, time_characteristic, boolean_characteristic].each do |characteristic|
+      schema << "characteristic_#{characteristic.id}"
+    end
+    schema
+  end
+
+  let(:basic_attributes)                {["Jim Smith", "bigjim@example.com"]}
+  let(:attributes_with_characteristics) {basic_attributes + ["bar", "1945", "2013-02-07", "2013-02-07 18:12:51 -0500", "false"]}
+
   let(:discrete_characteristic) {FactoryGirl.create(:characteristic, demo: demo, datatype: Characteristic::DiscreteType, allowed_values: %w(foo bar baz))}
   let(:number_characteristic)   {FactoryGirl.create(:characteristic, demo: demo, datatype: Characteristic::NumberType)}
   let(:date_characteristic)     {FactoryGirl.create(:characteristic, demo: demo, datatype: Characteristic::DateType)}
@@ -34,22 +45,45 @@ describe UserCreatorFromCsv do
       user.email.should == basic_attributes.last
     end
 
+    it "should not overwrite characteristics for an existing user, when those characteristics are not in the schema" do
+      # lose the boolean characteristic      
+      schema_with_most_characteristics = schema_with_characteristics.dup
+      schema_with_most_characteristics.pop 
+      attributes_with_most_characteristics = attributes_with_characteristics.dup
+      attributes_with_most_characteristics.pop
+
+      creator = UserCreatorFromCsv.new(demo.id, schema_with_most_characteristics, :email)
+
+      user = FactoryGirl.create(
+        :user, 
+        demo:  demo, 
+        email: 'bigjim@example.com',
+        characteristics: {
+          number_characteristic.id  =>  999,
+          boolean_characteristic.id => false
+        }
+      )
+
+      creator.create_user(CSV.generate_line(attributes_with_most_characteristics))
+
+      demo.users.reload.count.should == 1
+      user.reload
+
+      user.characteristics[number_characteristic.id].should == 1945
+      user.characteristics[boolean_characteristic.id].should == false # be_false returns true even when it's nil, wtf?
+    end
+
     it "should be able to set characteristics too" do
-      schema = basic_schema.dup
-      [discrete_characteristic, number_characteristic, date_characteristic, time_characteristic, boolean_characteristic].each do |characteristic|
-        schema << "characteristic_#{characteristic.id}"
-      end
-      creator = UserCreatorFromCsv.new(demo.id, schema, :email)
+      creator = UserCreatorFromCsv.new(demo.id, schema_with_characteristics, :email)
 
       demo.users.count.should be_zero
 
-      attributes = basic_attributes + ["bar", "1945", "2013-02-07", "2013-02-07 18:12:51 -0500", "false"]
-      creator.create_user(CSV.generate_line(attributes))
+      creator.create_user(CSV.generate_line(attributes_with_characteristics))
 
       demo.users.reload.count.should == 1
       user = demo.users.first
-      user.name.should == attributes[0]
-      user.email.should == attributes[1]
+      user.name.should == attributes_with_characteristics[0]
+      user.email.should == attributes_with_characteristics[1]
 
       user.characteristics[discrete_characteristic.id].should == "bar"
       user.characteristics[number_characteristic.id].should == 1945

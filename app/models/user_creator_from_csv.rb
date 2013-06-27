@@ -25,6 +25,8 @@ class UserCreatorFromCsv
     user = User.where(demo_id: @demo_id).where(@unique_id_field => user_data[@unique_id_field_index_in_schema]).first
 
     if user
+      existing_characteristics = (user.characteristics || {})
+      new_user_attributes[:characteristics].reverse_merge!(existing_characteristics)
       user.attributes = new_user_attributes
       user.save
     else
