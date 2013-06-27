@@ -10,28 +10,16 @@ class UserCreatorFromCsv
 
   def create_user(csv_line)
     user_data = CSV.parse_line(csv_line)
-    new_user_attributes = {characteristics: {}}
+    new_user_attributes = {demo_id: @demo_id, characteristics: {}}
 
     @schema.zip(user_data) do |column_name, value|
-      if is_characteristic?(column_name)
-        add_characteristic! column_name, value, new_user_attributes
-      else
-        add_regular_field! column_name, value, new_user_attributes
-      end
+      add_column! column_name, value, new_user_attributes
     end
-
-    new_user_attributes[:demo_id] = @demo_id
 
     user = User.where(demo_id: @demo_id).where(@unique_id_field => user_data[@unique_id_field_index_in_schema]).first
 
     if user
-      existing_characteristics = (user.characteristics || {})
-      new_user_attributes[:characteristics].reverse_merge!(existing_characteristics)
-      if new_user_attributes['email'].present? && new_user_attributes['email'] == user.overflow_email
-        new_user_attributes.delete('email')
-      end
-
-      user.attributes = new_user_attributes
+      user.attributes = clean_attributes_for_existing_user(user, new_user_attributes)
       user.save
     else
       user = User.create(new_user_attributes)
@@ -42,8 +30,12 @@ class UserCreatorFromCsv
 
   protected
 
-  def is_characteristic?(name)
-    name =~ /^characteristic_\d+$/
+  def add_column!(column_name, value, new_user_attributes)
+    if is_characteristic?(column_name)
+      add_characteristic! column_name, value, new_user_attributes
+    else
+      add_regular_field! column_name, value, new_user_attributes
+    end
   end
 
   def add_characteristic!(column_name, value, new_user_attributes)
@@ -54,6 +46,10 @@ class UserCreatorFromCsv
 
   def add_regular_field!(column_name, value, new_user_attributes)
     new_user_attributes[attribute_to_set(column_name)] = normalize_value(column_name, value)
+  end
+
+  def is_characteristic?(name)
+    name =~ /^characteristic_\d+$/
   end
 
   def attribute_to_set(column_name)
@@ -89,5 +85,17 @@ class UserCreatorFromCsv
     location = Location.where(demo_id: @demo_id, name: location_name).first
     location ||= Location.create(demo_id: @demo_id, name: location_name)    
     location.id
+  end
+
+  def clean_attributes_for_existing_user(user, new_user_attributes)
+    result = new_user_attributes.dup
+    existing_characteristics = (user.characteristics || {})
+
+    result[:characteristics].reverse_merge!(existing_characteristics)
+    if result['email'].present? && result['email'] == user.overflow_email
+      result.delete('email')
+    end
+
+    result
   end
 end
