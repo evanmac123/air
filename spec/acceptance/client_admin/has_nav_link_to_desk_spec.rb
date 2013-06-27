@@ -13,16 +13,9 @@ feature 'Has nav link to desk' do
   # only.
 
   scenario 'with the correct URL' do
-    #visit(client_admin_path(as: a_client_admin))
-    visit(client_admin_path(as: an_admin))
+    visit(client_admin_path(as: a_client_admin))
     
     desk_link = page.find(desk_link_selector)
     desk_link.text.should == desk_link_text
-  end
-
-  scenario "but only for a site admin (for the moment)" do
-    visit(client_admin_path(as: a_client_admin))
-    page.all(desk_link_selector).should be_empty
-    expect_no_content(desk_link_text)
   end
 end

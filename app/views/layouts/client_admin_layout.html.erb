@@ -33,10 +33,7 @@
               <li id="admin-tiles-builder"><a href="/client_admin/tiles/new">Create new</a></li>
             </ul>
           </li>
-          <% if current_user.authorized_to? :site_admin %>
-            <%# Will open this up to client admins too, once we have an interesting amount of content in the help pages %>
-            <li id="admin-help" class="admin-nav-section"><span></span><%= link_to "Help pages", DeskSSO.new(current_user).url, target: "_blank" %></li>
-          <% end %>
+          <li id="admin-help" class="admin-nav-section"><span></span><%= link_to "Help pages", DeskSSO.new(current_user).url, target: "_blank" %></li>
         </ul>
         <div class="clear"></div>
       </nav>
