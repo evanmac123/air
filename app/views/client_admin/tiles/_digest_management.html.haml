@@ -5,7 +5,7 @@
 = send_on_time
 or you can
 %div.button_wrap
-  = button_to "Send now", client_admin_tiles_digest_notification_path
+  = button_to "Send now", client_admin_tiles_digest_notification_path, confirm: 'Send the digest email?'
 
 %div#digest-status-messages
   %span#feedback
