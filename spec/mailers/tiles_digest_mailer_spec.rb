@@ -24,20 +24,37 @@ describe 'Digest email' do
   end
 
   describe 'Delivery' do
-    subject { TilesDigestMailer.notify_one(claimed_user.id, tile_ids) }
+    subject { TilesDigestMailer.notify_one(demo.id, claimed_user.id, tile_ids) }
 
     it { should be_delivered_to   'John Campbell <john@campbell.com>' }
     it { should be_delivered_from 'donotreply@hengage.com' }
     it { should have_subject      'New Tiles' }
   end
 
-  describe  'Logo' do
-    subject { TilesDigestMailer.notify_one(claimed_user.id, tile_ids) }
-    it { should have_selector "a[id $= _logo][target = _blank] img[src ^= http]" }
+  describe 'Logo' do
+    it 'should display the H.Engage logo and alt-text if an alternative one is not provided' do
+      email = TilesDigestMailer.notify_one(demo.id, claimed_user.id, tile_ids)
+
+      email.should have_selector "img[src = '/assets/logo.png'][alt = 'H.Engage']"
+    end
+
+    it "should display another company's logo if they have provided one, along with default alt-text if they have not provided any" do
+      FactoryGirl.create :skin, demo: demo, logo_url: 'http://cannibalism.com/phil.png'
+      email = TilesDigestMailer.notify_one(demo.id, claimed_user.id, tile_ids)
+
+      email.should have_selector "img[src = 'http://cannibalism.com/phil.png'][alt = 'Phil']"
+    end
+
+    it "should display another company's logo if they have provided one, along with alt-text if they have provided that" do
+      FactoryGirl.create :skin, demo: demo, logo_url: 'http://cannibalism.com/phil.png', alt_logo_text: 'Phil is a closet cannibal'
+      email = TilesDigestMailer.notify_one(demo.id, claimed_user.id, tile_ids)
+
+      email.should have_selector "img[src = 'http://cannibalism.com/phil.png'][alt = 'Phil is a closet cannibal']"
+    end
   end
 
-  describe  'Text' do
-    subject { TilesDigestMailer.notify_one(claimed_user.id, tile_ids) }
+  describe 'Text' do
+    subject { TilesDigestMailer.notify_one(demo.id, claimed_user.id, tile_ids) }
 
     it { should have_body_text 'Check out your' }
     it { should have_link 'new tiles' }
@@ -46,24 +63,24 @@ describe 'Digest email' do
     it { should have_link 'View your tiles' }
   end
 
-  describe  'Links' do
+  describe 'Links' do
     # There should be 5 links in all: 3 tile links and 2 text links
     context 'claimed user' do
-      subject { TilesDigestMailer.notify_one(claimed_user.id, tile_ids) }
+      subject { TilesDigestMailer.notify_one(demo.id, claimed_user.id, tile_ids) }
       it { should have_selector     "a[href *= 'acts']", count: 5 }
       it { should_not have_selector "a[href *= 'invitations']" }
     end
 
     # There should be 6 links in all: 5 same as above + 1 for a 'sign up' link in the footer
     context 'unclaimed user' do
-      subject { TilesDigestMailer.notify_one(unclaimed_user.id, tile_ids) }
+      subject { TilesDigestMailer.notify_one(demo.id, unclaimed_user.id, tile_ids) }
       it { should have_selector     "a[href *= 'invitations']", count: 6 }
       it { should_not have_selector "a[href *= 'acts']" }
     end
   end
 
-  describe  'Tiles' do
-    subject { TilesDigestMailer.notify_one(claimed_user.id, tile_ids) }
+  describe 'Tiles' do
+    subject { TilesDigestMailer.notify_one(demo.id, claimed_user.id, tile_ids) }
 
     it { should have_num_tiles(3) }
     it { should have_num_tile_image_links(3) }
@@ -75,9 +92,9 @@ describe 'Digest email' do
     it { should_not have_body_text 'Archive Tile' }
   end
 
-  describe  'Footer' do
+  describe 'Footer' do
     context 'all users' do
-      subject { TilesDigestMailer.notify_one(claimed_user.id, tile_ids) }
+      subject { TilesDigestMailer.notify_one(demo.id, claimed_user.id, tile_ids) }
 
       it { should have_body_text 'Copyright &copy; 2013 H.Engage. All Rights Reserved' }
       it { should have_body_text 'Our mailing address is: 222 Newbury St., Floor 3, Boston, MA 02116' }
@@ -88,13 +105,13 @@ describe 'Digest email' do
     end
 
     context 'claimed user' do
-      subject { TilesDigestMailer.notify_one(claimed_user.id, tile_ids) }
+      subject { TilesDigestMailer.notify_one(demo.id, claimed_user.id, tile_ids) }
       it { should     have_link('Update your contact preferences') }
       it { should_not have_link('sign up') }
     end
 
     context 'unclaimed user' do
-      subject { TilesDigestMailer.notify_one(unclaimed_user.id, tile_ids) }
+      subject { TilesDigestMailer.notify_one(demo.id, unclaimed_user.id, tile_ids) }
       it { should_not have_link('Update your contact preferences') }
       it { should     have_link('sign up') }
     end

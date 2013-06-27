@@ -1,10 +1,11 @@
 module SkinHelper
+  # Broken up into 2 parts because 'skinned_for_demo' is used in emails which have no "current_user"
   def skinned(key, default)
-    skinned_for_demo(current_user.demo_id, key, default)
+    skinned_for_demo(current_user.demo, key, default)
   end
 
-  def skinned_for_demo(demo_id, key, default)
-    skin = Demo.find(demo_id).skin
+  def skinned_for_demo(demo, key, default)
+    skin = demo.skin
     if skin && skin[key].present?
       skin[key]
     else

@@ -1,6 +1,6 @@
 class TilesDigestMailer < ActionMailer::Base
 
-  helper :email                # loads 'app/helpers/email_helper.rb' & includes 'EmailHelper' into the View
+  helper :email, :skin         # loads 'app/helpers/email_helper.rb' & includes 'EmailHelper' into the View. (Ditto for 'skin')
   helper 'client_admin/tiles'  # ditto for 'app/helpers/client_admin/tiles_helper.rb'
 
   has_delay_mail       # Some kind of monkey-patch workaround (not even sure need)
@@ -21,12 +21,13 @@ class TilesDigestMailer < ActionMailer::Base
     # Called from weekly cron-job method above => need to find 'tile_ids' ourselves
     tile_ids = demo.digest_tiles.pluck(:id) if tile_ids.empty?
 
-    user_ids.each { |user_id| TilesDigestMailer.delay.notify_one(user_id, tile_ids) }
+    user_ids.each { |user_id| TilesDigestMailer.delay.notify_one(demo_id, user_id, tile_ids) }
 
     demo.update_attributes tile_digest_email_sent_at: Time.now
   end
 
-  def notify_one(user_id, tile_ids)
+  def notify_one(demo_id, user_id, tile_ids)
+    @demo  = Demo.find demo_id
     @user  = User.find user_id
     @tiles = Tile.find tile_ids
 

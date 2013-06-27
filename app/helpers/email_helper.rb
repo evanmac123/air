@@ -16,6 +16,28 @@ module EmailHelper
     edit_account_settings_url(host: email_link_host, protocol: email_link_protocol)
   end
 
+  # If the customer wants their own logo the full url will be in the 'skins' table and we will use that.
+  # If not, we use our logo, which is served out of the 'assets/images' directory.
+  #
+  # In staging and production modes the full image-url (to Amazon S3) will be generated for us. (I hope.)
+  #
+  # In development and test modes this does not happen => will just see the 'alt text' instead. This is because you just
+  # get 'assets/logo.png' and since this is in a static email there is no server which can correctly grab assets/images.
+  #
+  def email_logo(demo)
+    # 'skinned_for_demo' checks for a skin being defined => can tell from its output whether or not a skin exists for this demo
+    hengage_logo = 'logo.png'
+    logo = skinned_for_demo(demo, 'logo_url', hengage_logo)
+    alt_text = (logo == hengage_logo) ? 'H.Engage' : demo.skin.alt_logo_text
+
+    # Skin may not have defined 'alt_logo_text' => don't include 'alt' attribute if not defined so at least get something displayed
+    # From Rails doc: If no alt text is given, the file name part of the source is used (capitalized and without the extension)
+    image_options = { width: "150px", style: "display:block;" }
+    image_options.merge!(alt: alt_text) unless alt_text.blank?
+
+    image_tag logo, image_options
+  end
+
   # Had to define environment variables on Heroku so that SendGrid sends emails to the right place in staging and production
   # In staging this will be: 'www.hengagestaging.com' while in production it's: 'www.hengage.com'
   def email_link_host
