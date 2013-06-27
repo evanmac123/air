@@ -15,6 +15,7 @@ describe UserCreatorFromCsv do
   let(:basic_attributes)                {["Jim Smith", "bigjim@example.com"]}
   let(:attributes_with_characteristics) {basic_attributes + ["bar", "1945", "2013-02-07", "2013-02-07 18:12:51 -0500", "false"]}
 
+  let(:basic_creator) {UserCreatorFromCsv.new(demo.id, basic_schema, :email)}
   let(:discrete_characteristic) {FactoryGirl.create(:characteristic, demo: demo, datatype: Characteristic::DiscreteType, allowed_values: %w(foo bar baz))}
   let(:number_characteristic)   {FactoryGirl.create(:characteristic, demo: demo, datatype: Characteristic::NumberType)}
   let(:date_characteristic)     {FactoryGirl.create(:characteristic, demo: demo, datatype: Characteristic::DateType)}
@@ -23,10 +24,8 @@ describe UserCreatorFromCsv do
  
   describe "#create_user" do
     it "should build and attempt to save a user" do
-      creator = UserCreatorFromCsv.new(demo.id, basic_schema, :email)
-
       demo.users.count.should be_zero
-      creator.create_user(CSV.generate_line(basic_attributes))
+      basic_creator.create_user(CSV.generate_line(basic_attributes))
 
       demo.users.reload.count.should == 1
       user = demo.users.first
@@ -34,43 +33,61 @@ describe UserCreatorFromCsv do
       user.email.should == basic_attributes.last
     end
 
-    it "should update existing users should there be any" do
-      demo.users.create!(name: "Jim Robinson", email: "bigjim@example.com")
-      creator = UserCreatorFromCsv.new(demo.id, basic_schema, :email) # email is the "unique ID" when loading
-      creator.create_user(CSV.generate_line(basic_attributes))
+    context "for an existing user" do
+      it "should update them" do
+        demo.users.create!(name: "Jim Robinson", email: "bigjim@example.com")
+        basic_creator.create_user(CSV.generate_line(basic_attributes))
 
-      demo.users.reload.count.should == 1 # as opposed to 2
-      user = demo.users.first
-      user.name.should == basic_attributes.first
-      user.email.should == basic_attributes.last
-    end
+        demo.users.reload.count.should == 1 # as opposed to 2
+        user = demo.users.first
+        user.name.should == basic_attributes.first
+        user.email.should == basic_attributes.last
+      end
 
-    it "should not overwrite characteristics for an existing user, when those characteristics are not in the schema" do
-      # lose the boolean characteristic      
-      schema_with_most_characteristics = schema_with_characteristics.dup
-      schema_with_most_characteristics.pop 
-      attributes_with_most_characteristics = attributes_with_characteristics.dup
-      attributes_with_most_characteristics.pop
+      it "should not overwrite their characteristics, when those characteristics are not in the schema" do
+        # lose the boolean characteristic      
+        schema_with_most_characteristics = schema_with_characteristics.dup
+        schema_with_most_characteristics.pop 
+        attributes_with_most_characteristics = attributes_with_characteristics.dup
+        attributes_with_most_characteristics.pop
 
-      creator = UserCreatorFromCsv.new(demo.id, schema_with_most_characteristics, :email)
+        creator = UserCreatorFromCsv.new(demo.id, schema_with_most_characteristics, :email)
 
-      user = FactoryGirl.create(
-        :user, 
-        demo:  demo, 
-        email: 'bigjim@example.com',
-        characteristics: {
-          number_characteristic.id  =>  999,
-          boolean_characteristic.id => false
-        }
-      )
+        user = FactoryGirl.create(
+          :user, 
+          demo:  demo, 
+          email: 'bigjim@example.com',
+          characteristics: {
+            number_characteristic.id  =>  999,
+            boolean_characteristic.id => false
+          }
+        )
 
-      creator.create_user(CSV.generate_line(attributes_with_most_characteristics))
+        creator.create_user(CSV.generate_line(attributes_with_most_characteristics))
 
-      demo.users.reload.count.should == 1
-      user.reload
+        demo.users.reload.count.should == 1
+        user.reload
 
-      user.characteristics[number_characteristic.id].should == 1945
-      user.characteristics[boolean_characteristic.id].should == false # be_false returns true even when it's nil, wtf?
+        user.characteristics[number_characteristic.id].should == 1945
+        user.characteristics[boolean_characteristic.id].should == false # be_false returns true even when it's nil, wtf?
+      end
+
+      it "should not try to set an email from the census, if the email in the census is in the user's overflow email, but should set the rest of the attributes" do
+        user = FactoryGirl.create(:user, demo: demo, employee_id: "12345", email: "jimmy@gmail.com", overflow_email: "bigjim@example.com")
+
+        schema = basic_schema + ['employee_id']
+        attributes = basic_attributes + ['12345']
+        creator = UserCreatorFromCsv.new(demo.id, schema, :employee_id)
+
+        creator.create_user(CSV.generate_line(attributes))
+
+        demo.users.reload.count.should == 1 # as opposed to 2
+
+        user.reload
+        user.email.should == "jimmy@gmail.com"
+        user.overflow_email.should == "bigjim@example.com"
+        user.name.should == "Jim Smith"
+      end
     end
 
     it "should be able to set characteristics too" do

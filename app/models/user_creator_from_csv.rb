@@ -27,6 +27,10 @@ class UserCreatorFromCsv
     if user
       existing_characteristics = (user.characteristics || {})
       new_user_attributes[:characteristics].reverse_merge!(existing_characteristics)
+      if new_user_attributes['email'].present? && new_user_attributes['email'] == user.overflow_email
+        new_user_attributes.delete('email')
+      end
+
       user.attributes = new_user_attributes
       user.save
     else
