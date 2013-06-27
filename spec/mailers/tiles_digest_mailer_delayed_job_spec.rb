@@ -1,7 +1,7 @@
 require "spec_helper"
 
-describe 'whatever' do
-  it 'should work' do
+describe 'Automatic weekly sending of tiles-digest email' do
+  it 'qualifying demos should schedule a dj call to send out all emails' do
     demos = FactoryGirl.create_list :demo, 3
     Demo.stubs(:send_digest_email).returns(demos)
 
