@@ -35,7 +35,7 @@ describe 'Digest email' do
     it 'should display the H.Engage logo and alt-text if an alternative one is not provided' do
       email = TilesDigestMailer.notify_one(demo.id, claimed_user.id, tile_ids)
 
-      email.should have_selector "img[src = '/assets/logo.png'][alt = 'H.Engage']"
+      email.should have_selector "img[src $= '/assets/logo.png'][alt = 'H.Engage']"
     end
 
     it "should display another company's logo if they have provided one, along with default alt-text if they have not provided any" do
