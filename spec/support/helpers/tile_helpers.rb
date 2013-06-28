@@ -129,14 +129,14 @@ module TileHelpers
 
   def after_tile_save_message(options={})
     if options[:hide_activate_link]
-      "This is how the tile will look to your users. If it needs work, click here to edit it."
+      "This is your finished tile. Click here to edit it."
     else
-      "This is how the tile will look to your users. If you like it, click here to make it active, and they'll be able to see it. If it needs work, click here to edit it."
+      "This is your finished tile. Click here to activate it and make it available to employees (otherwise it'll stay in the archive). Click here to edit it."
     end
   end
 
   def click_here_link
-    page.all("a", text: 'click here')
+    page.all("a", text: 'Click here')
   end
 
   def click_activate_link

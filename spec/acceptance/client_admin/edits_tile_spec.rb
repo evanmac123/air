@@ -84,8 +84,8 @@ feature 'Client admin edits tile' do
   scenario "tile has same status after editing that it did before", js: true do
     @tile.should be_active
     click_button "Update tile"
-    expect_content "This is how the tile will look to your users"
-    expect_no_content "click here to make it active"
+    expect_content "This is your finished tile."
+    expect_no_content "Click here to activate it"
     @tile.reload.should be_active
 
     @tile.update_attributes(status: Tile::ARCHIVE)
@@ -105,7 +105,7 @@ feature 'Client admin edits tile' do
 
   scenario "edits tile again after editing", js: true do
     click_button "Update tile"
-    click_link "click here"
+    click_link "Click here"
     should_be_on edit_client_admin_tile_path(@tile)
   end
 
