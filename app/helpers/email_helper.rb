@@ -19,23 +19,30 @@ module EmailHelper
   # If the customer wants their own logo the full url will be in the 'skins' table and we will use that.
   # If not, we use our logo, which is served out of the 'assets/images' directory.
   #
-  # In staging and production modes the full image-url (to Amazon S3) will be generated for us. (I hope.)
+  # For H.Engage, 'image_tag' spits out '/assets/logo.png' in Dev and Test modes, and something like
+  # 'assets/logo-580aed6750f34956244a346b8f34fa73.png' in Staging and Production.
   #
-  # In development and test modes this does not happen => will just see the 'alt text' instead. This is because you just
-  # get 'assets/logo.png' and since this is in a static email there is no server which can correctly grab assets/images.
+  # This means we won't see the logo in Dev and Test mode (because the path is wrong) - but we don't need to.
   #
   def email_logo(demo)
+    hengage_logo         = 'logo.png'
+    image_options        = { width: "150px", style: "display:block;" }
+    hengage_asset_server = "https://hengage-assets.s3.amazonaws.com"
+
     # 'skinned_for_demo' checks for a skin being defined => can tell from its output whether or not a skin exists for this demo
-    hengage_logo = 'logo.png'
     logo = skinned_for_demo(demo, 'logo_url', hengage_logo)
-    alt_text = (logo == hengage_logo) ? 'H.Engage' : demo.skin.alt_logo_text
 
-    # Skin may not have defined 'alt_logo_text' => don't include 'alt' attribute if not defined so at least get something displayed
-    # From Rails doc: If no alt text is given, the file name part of the source is used (capitalized and without the extension)
-    image_options = { width: "150px", style: "display:block;" }
-    image_options.merge!(alt: alt_text) unless alt_text.blank?
+    if logo == hengage_logo
+      image_options.merge!(alt: 'H.Engage')
+    else
+      # They are not forced to supply alt_text; if they don't, Rails will use the filename (without extension) as the alt-text
+      image_options.merge!(alt: demo.skin.alt_logo_text) unless demo.skin.alt_logo_text.blank?
+    end
 
-    image_tag logo, image_options
+    url = image_tag logo, image_options
+    url.insert(url.index('/assets'), hengage_asset_server) if logo == hengage_logo
+
+    url
   end
 
   # Had to define environment variables on Heroku so that SendGrid sends emails to the right place in staging and production
