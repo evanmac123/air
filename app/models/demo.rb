@@ -36,7 +36,6 @@ class Demo < ActiveRecord::Base
 
   validate :ticket_fields_all_set, :if => :uses_tickets
 
-  before_create :set_tile_digest_email_sent_at
   before_save :normalize_phone_number_if_changed
   after_save :schedule_resegment_on_internal_domains
 
@@ -373,9 +372,5 @@ class Demo < ActiveRecord::Base
 
   def resegment_everyone
     self.user_ids.each {|user_id| User.find(user_id).send(:schedule_segmentation_update, true)}
-  end
-
-  def set_tile_digest_email_sent_at
-    self.tile_digest_email_sent_at ||= Time.now
   end
 end

@@ -9,6 +9,18 @@ describe Tile do
   it { should ensure_inclusion_of(:status).in_array(Tile::STATUS) }
 
   describe 'finders based on status' do
+    # The test below was written first and exercises all tile-status combinations pretty thoroughly.
+    # We then decided to not initially set a demo's 'tile_digest_email_sent_at' => all 'active' tiles should
+    # go out in the inaugural digest email. And that, my friend, is what this sucker tests.
+    it "#digest should return all active tiles if a digest email has yet to be sent" do
+      demo = FactoryGirl.create :demo
+
+      active  = FactoryGirl.create_list :tile, 4, demo: demo
+      archive = FactoryGirl.create_list :tile, 2, demo: demo, status: Tile::ARCHIVE
+
+      demo.digest_tiles.pluck(:id).sort.should == active.collect(&:id).sort
+    end
+
     it 'should return the correct tiles for each status type in the specified demo' do
       last_digest_sent_at = 3.days.ago.at_midnight
       demo = FactoryGirl.create :demo, tile_digest_email_sent_at: last_digest_sent_at

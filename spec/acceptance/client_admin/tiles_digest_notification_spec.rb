@@ -5,7 +5,7 @@ include EmailHelper
 feature 'Client admin and the digest email for tiles' do
 
   let(:admin) { FactoryGirl.create :client_admin, email: 'admin@hengage.com' }
-  let(:demo)  { admin.demo  }
+  let(:demo)  { admin.demo }
 
   # -------------------------------------------------
 
@@ -46,6 +46,8 @@ feature 'Client admin and the digest email for tiles' do
       last_email_sent_text = 'since the last one was sent on Thursday, July 04, 2013'
 
       digest_tab.should contain 'No digest email is scheduled to be sent because no new tiles have been added'
+
+      # We have yet to consummate the sending of our virgin digest email
       digest_tab.should_not contain last_email_sent_text
 
       set_last_sent_on '7/4/2013'
@@ -128,12 +130,16 @@ feature 'Client admin and the digest email for tiles' do
     end
 
     scenario 'The last-digest-email-sent-on date is correct' do
-      set_last_sent_on '7/4/2013'
       create_tile on_day: '7/5/2013'
 
       visit tile_manager_page
       select_tab 'Digest'
+      digest_tab.should_not contain 'Last digest email was sent'
 
+      set_last_sent_on '7/4/2013'
+
+      visit tile_manager_page
+      select_tab 'Digest'
       digest_tab.should contain 'Last digest email was sent on Thursday, July 04, 2013'
     end
 
@@ -149,6 +155,7 @@ feature 'Client admin and the digest email for tiles' do
         on_day '7/6/2013' do
           visit tile_manager_page
           select_tab 'Digest'
+          change_send_on 'Never'  # Just to make sure that 'Send Now' does just that even if set to 'Never'
 
           digest_tab.should     contain 'A digest email containing 2 tiles is set to go out'
           digest_tab.should_not contain 'No digest email is scheduled to be sent'

@@ -194,7 +194,7 @@ class Tile < ActiveRecord::Base
   end
 
   def self.digest(demo)
-    active.where("created_at > ?", demo.tile_digest_email_sent_at)
+    demo.tile_digest_email_sent_at.nil? ? active : active.where("created_at > ?", demo.tile_digest_email_sent_at)
   end
 
   def self.archive_if_expired

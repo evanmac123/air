@@ -9,7 +9,7 @@ module ClientAdmin::TilesHelper
   end
 
   def digest_email_sent_on_message
-    "Last digest email was sent on #{@tile_digest_email_sent_at.to_s(:tile_digest_email_sent_at)}"
+    @tile_digest_email_sent_at.nil? ? nil : "Last digest email was sent on #{@tile_digest_email_sent_at.to_s(:tile_digest_email_sent_at)}"
   end
 
   def no_digest_email_message
