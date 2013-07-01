@@ -26,10 +26,7 @@
     <%= render 'external_link_section', form: f %>
   </div>
 
-  <div class="button_wrap" id="update_tile">
-    <%= f.submit "Update tile" %>
-  </div>
-
+  <%= render 'submit_button', submit_button_text: "Update tile", form: f %>
 <% end %>
 
 <% content_for :javascript do %>

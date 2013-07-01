@@ -18,7 +18,5 @@
     <%= render 'external_link_section', form: f %>
   </div>
 
-  <div class="button_wrap" id="publish">
-    <%= f.submit "Publish tile" %>
-  </div>
+  <%= render 'submit_button', submit_button_text: "Publish tile", form: f %>
 <% end %>
