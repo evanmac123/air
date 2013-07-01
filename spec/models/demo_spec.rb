@@ -13,21 +13,6 @@ describe Demo do
   it { should have_one(:skin) }
 end
 
-describe Demo, "on create" do
-  it "should set the tile_digest_email_send_on if not set" do
-    demo = FactoryGirl.build(:demo)
-    demo.tile_digest_email_sent_at.should be_nil
-
-    begin
-      Timecop.freeze
-      demo.save!
-      Time.now.utc.to_s == demo.reload.tile_digest_email_sent_at.utc.to_s
-    ensure
-      Timecop.return
-    end
-  end
-end
-
 describe Demo, "when both begins_at and ends_at are set" do
   it "should validate that ends_at is later than begins_at" do
     FactoryGirl.build(:demo, :begins_at => Time.now + 2.hours, :ends_at => Time.now).should_not be_valid
@@ -213,33 +198,27 @@ end
 describe Demo, '#send_digest_email' do
   it 'returns only those demos which should send out a digest email on the current day' do
 
-    Timecop.travel 1.week.ago  # All demos will have their 'tile_digest_email_sent_at' date well in the past
+    monday_demo_1_with_tiles = FactoryGirl.create :demo, tile_digest_email_send_on: 'Monday', tile_digest_email_sent_at: 1.week.ago
+    monday_demo_2_with_tiles = FactoryGirl.create :demo, tile_digest_email_send_on: 'Monday', tile_digest_email_sent_at: 1.week.ago
+    monday_demo_3_with_tiles = FactoryGirl.create :demo, tile_digest_email_send_on: 'Monday', tile_digest_email_sent_at: 1.week.ago
+
+    monday_demo_with_no_tiles_to_send = FactoryGirl.create :demo, tile_digest_email_send_on: 'Monday', tile_digest_email_sent_at: 1.week.ago
 
     # -------------------------------------
 
-    monday_demo_1_with_tiles = FactoryGirl.create :demo, tile_digest_email_send_on: 'Monday'
-    monday_demo_2_with_tiles = FactoryGirl.create :demo, tile_digest_email_send_on: 'Monday'
-    monday_demo_3_with_tiles = FactoryGirl.create :demo, tile_digest_email_send_on: 'Monday'
-
-    monday_demo_with_no_tiles_to_send = FactoryGirl.create :demo, tile_digest_email_send_on: 'Monday'
-
-    # -------------------------------------
-
-    tuesday_demo_with_no_tiles_at_all  = FactoryGirl.create :demo, tile_digest_email_send_on: 'Tuesday'
+    tuesday_demo_with_no_tiles_at_all  = FactoryGirl.create :demo, tile_digest_email_send_on: 'Tuesday', tile_digest_email_sent_at: 1.week.ago
     # Not even any demos for Wednesday
-    thursday_demo_with_no_tiles_at_all = FactoryGirl.create :demo, tile_digest_email_send_on: 'Thursday'
+    thursday_demo_with_no_tiles_at_all = FactoryGirl.create :demo, tile_digest_email_send_on: 'Thursday', tile_digest_email_sent_at: 1.week.ago
 
     # -------------------------------------
 
-    friday_demo_1_with_tiles = FactoryGirl.create :demo, tile_digest_email_send_on: 'Friday'
-    friday_demo_2_with_tiles = FactoryGirl.create :demo, tile_digest_email_send_on: 'Friday'
-    friday_demo_3_with_tiles = FactoryGirl.create :demo, tile_digest_email_send_on: 'Friday'
+    friday_demo_1_with_tiles = FactoryGirl.create :demo, tile_digest_email_send_on: 'Friday', tile_digest_email_sent_at: 1.week.ago
+    friday_demo_2_with_tiles = FactoryGirl.create :demo, tile_digest_email_send_on: 'Friday', tile_digest_email_sent_at: 1.week.ago
+    friday_demo_3_with_tiles = FactoryGirl.create :demo, tile_digest_email_send_on: 'Friday', tile_digest_email_sent_at: 1.week.ago
 
-    friday_demo_with_no_tiles_to_send = FactoryGirl.create :demo, tile_digest_email_send_on: 'Friday'
+    friday_demo_with_no_tiles_to_send = FactoryGirl.create :demo, tile_digest_email_send_on: 'Friday', tile_digest_email_sent_at: 1.week.ago
 
     # -------------------------------------
-
-    Timecop.return  # Get back to today so can add and then process tiles...
 
     Timecop.travel Date.today.beginning_of_week(:sunday)  # All newly-created tiles will qualify for the digest email
 
