@@ -27,7 +27,11 @@ feature 'Creates tile' do
 
   def create_good_tile
     fill_in_valid_form_entries
-    click_button "Publish tile"
+    click_create_button
+  end
+
+  def click_create_button
+    click_button "Create tile"
   end
 
   before do
@@ -88,7 +92,7 @@ end
   end
 
   scenario "with incomplete data should give a gentle rebuff", js: true do
-    click_button "Publish tile"
+    click_create_button
     2.times { click_link "Add another answer" }
 
     demo.tiles.reload.should be_empty
@@ -112,25 +116,25 @@ end
     FactoryGirl.create(:rule_value, value: "In my demo", rule: demo_specific_rule)
 
     fill_in_answer_field(0, 'in my demo')
-    click_button "Publish tile"
+    click_create_button
     expect_content '"in my demo" is already taken'
 
     fill_in_answer_field(0, 'worked out')
-    click_button "Publish tile"
+    click_create_button
     expect_content '"worked out" is already taken'
 
     # Duplicates of standard playbook rules are OK though if we're not using the standard playbook
     demo.update_attributes(use_standard_playbook: false)
     fill_in_answer_field(0, 'Worked out')
-    click_button "Publish tile"
+    click_create_button
     expect_no_content '"worked out" is already taken'
 
     fill_in_answer_field(0, 'Follow') # a special command
-    click_button "Publish tile"
+    click_create_button
     expect_content '"follow" is already taken'
 
     fill_in_answer_field(0, 'Q')
-    click_button "Publish tile"
+    click_create_button
     expect_content 'answer "q" must have more than one letter'
   end
 end
