@@ -1,4 +1,10 @@
 //= require_tree ./client_admin
+
+// highcharts.js and exporting.js are both from Highcharts, and the load order matters
+//= require ../../../vendor/assets/javascripts/admin/highcharts
+//= require ../../../vendor/assets/javascripts/admin/exporting
+
+
 $(document).ready(function() {
   var more = "More options";
   var less = "Less options";
