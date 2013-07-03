@@ -1,5 +1,5 @@
 <div class="charting section">
-  <%= form_tag chart_path, id: "activity-chart", remote: true  do %>
+  <%= form_tag client_admin_path, id: "activity-chart", method: :get, remote: true  do %>
       <div id="chart-header">
         <h1 class="headline">Activity Snapshot:</h1>
       </div>

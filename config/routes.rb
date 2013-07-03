@@ -41,8 +41,6 @@ Health::Application.routes.draw do
   post 'resend_phone_verification' => 'users/phone_verification#create', :as => 'resend_phone_verification'
   delete 'cancel_phone_verification' => 'users/phone_verification#destroy', :as => 'cancel_phone_verification'
 
-  match 'chart' => 'client_admins#chart', :via => :post
-
   post "ping" => "users/pings#create"
   # Override some Clearance routes
   resources :passwords,
