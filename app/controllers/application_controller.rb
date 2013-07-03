@@ -78,7 +78,7 @@ class ApplicationController < ActionController::Base
   end
 
   def authorization_denied_because_website_locked_for_game
-    current_user && current_user.demo.website_locked
+    current_user && !(current_user.is_site_admin) && current_user.demo.website_locked
   end
 
   def force_html_format
