@@ -69,6 +69,7 @@
   <% end %>
 
   <%= form.input :use_standard_playbook, :label => "Use standard playbook rules" %>
+  <%= form.input :website_locked, :label => "Lock out website-users will use SMS only" %>
 
   <%= form.actions do %>
     <% button_text = demo.new_record? ? 'Create Game' : 'Update Game' %>

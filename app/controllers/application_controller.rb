@@ -60,10 +60,25 @@ class ApplicationController < ActionController::Base
   alias authenticate_without_game_begun_check authorize
   def authorize
     authenticate_without_game_begun_check
-    if current_user && !(current_user.is_site_admin) && (controller_name != "settings") && current_user.demo.begins_at && current_user.demo.begins_at > Time.now
+
+    if authorization_denied_because_game_not_begun
       @game_pending = true
       render "shared/game_not_yet_begun"
+      return
     end
+
+    if authorization_denied_because_website_locked_for_game
+      render "shared/website_locked"
+      return
+    end
+  end
+
+  def authorization_denied_because_game_not_begun
+    current_user && !(current_user.is_site_admin) && (controller_name != "settings") && current_user.demo.begins_at && current_user.demo.begins_at > Time.now
+  end
+
+  def authorization_denied_because_website_locked_for_game
+    current_user && current_user.demo.website_locked
   end
 
   def force_html_format

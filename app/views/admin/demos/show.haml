@@ -126,7 +126,10 @@
       Game will use standard playbook rules as well as custom rules.
     - else 
       Game will not use standard playbook rules, only custom rules.
-   
+
+  %p
+    - if @demo.website_locked
+      Website is locked out, users can use SMS only
 
 
   %p

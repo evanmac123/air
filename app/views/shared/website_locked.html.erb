@@ -1,0 +1,7 @@
+<div id="no-login-yet">
+  <h2>ACCESS DENIED. THE FBI HAS BEEN NOTIFIED.</h2>
+  <p>This instance is currently locked out of the website</p>
+</div>
+<% content_for(:javascript) do %>
+  <%= mp_track_page 'website locked' %>
+<% end %>

@@ -35,6 +35,7 @@ Feature: Admin sets up demo
     And I check "Let users invite friends before game is open"
     And I fill in "Phone number" with "6175551212"
     And I fill in "Email" with "threem@playhengage.com"
+    And I check "Lock out website-users will use SMS only"
     And I press "Create Game"
     Then I should be on the admin "3M" demo page
     And I should see "Welcome message: 3M will rule you all!"
@@ -63,6 +64,7 @@ Feature: Admin sets up demo
     And I should see "Users can invite friends before game is open"
     And I should see "Phone number for this game is (617) 555-1212"
     And I should see "Email for this game is threem@playhengage.com"
+    And I should see "Website is locked out, users can use SMS only"
 
   Scenario: Correct defaults
     Given I am on the admin page
@@ -94,6 +96,7 @@ Feature: Admin sets up demo
     And I should see "Users cannot invite friends before game is open"
     And I should see "NO PHONE NUMBER SET FOR THIS GAME, MAKE SURE THAT IS WHAT YOU REALLY WANT"
     And I should see "NO EMAIL SET FOR THIS GAME, MAKE SURE THAT IS WHAT YOU REALLY WANT"
+    And I should not see "Website is locked out"
 
   Scenario: Appropriate restrictions on text that gets SMSed
     Given I am on the admin page
