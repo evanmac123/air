@@ -92,6 +92,10 @@ class UserCreatorFromCsv
     existing_characteristics = (user.characteristics || {})
 
     result[:characteristics].reverse_merge!(existing_characteristics)
+    result[:characteristics].keys.each do |key|
+      result[:characteristics][key] = result[:characteristics][key].to_s
+    end
+
     if result['email'].present? && result['email'] == user.overflow_email
       result.delete('email')
     end
