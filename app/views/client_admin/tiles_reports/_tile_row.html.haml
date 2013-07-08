@@ -1,0 +1,15 @@
+%tr
+  - columns.size.times do |col|
+    - tile = columns[col]
+    %td{class: type, data: {tile_id: tile.id}}
+      %div.tile_thumbnail
+        %a{href: edit_client_admin_tile_path(tile), class: 'tile_thumb_link'}
+          %div.tile_thumb_holder
+            %div.image= image_tag tile.thumbnail
+            %div.tile_thumb_texts
+              %div.headline= tile.headline
+        %ul.tile_buttons
+          %li.archive_button= content_tag(:div, link_to('Archive', client_admin_tile_path(tile, update_status: Tile::ARCHIVE), method: :put), class: 'archive_tile_link') if type == :active
+          %li.activate_button= content_tag(:div, link_to('Activate', client_admin_tile_path(tile, update_status: Tile::ACTIVE), method: :put), class: 'archive_tile_link') if type == :archive
+          %li= content_tag(:div, link_to('Edit', edit_client_admin_tile_path(tile)), class: 'edit_tile_link')
+          %li= content_tag(:div, link_to('Preview', client_admin_tile_path(tile)), class: 'preview_tile_link')

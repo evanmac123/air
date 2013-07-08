@@ -28,7 +28,7 @@ $(document).ready(function() {
 
   // -------------------------------------------------------
 
-  $('#tile-manager-tabs').tabs();
+  $('#tile-manager-tabs, #tile-reports-tabs').tabs();
 
   $('#digest_send_on').change(sendOnDayChange);
 });
