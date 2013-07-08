@@ -1,0 +1,14 @@
+%h1#title.page-title Tile reports
+
+= render "shared/flashes"
+
+%div#tile-reports-tabs
+
+  %ul
+    %li
+      %a{href: "#active"} Active
+    %li#archived_tab
+      %a{href: "#archive"} Archived
+
+  %div#active=  render partial: 'active'
+  %div#archive= render partial: 'archive'

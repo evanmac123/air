@@ -31,7 +31,8 @@ body.client_admin-segmentations #admin-model,
 body.client_admin-users #admin-users,
 body.client_admin-tiles-index #admin-tiles-manager,
 body.client_admin-tiles-new #admin-tiles-builder,
-body.client_admin-tiles-create #admin-tiles-builder {
+body.client_admin-tiles-create #admin-tiles-builder,
+body.client_admin-tiles_reports-index #admin-tiles-report {
     a, a:link, a:visited {color:$dark-green; font-family:$open-600;}
 }
 
