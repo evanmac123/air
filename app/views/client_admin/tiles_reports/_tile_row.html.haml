@@ -1,9 +1,0 @@
-%tr
-  - columns.size.times do |col|
-    - tile = columns[col]
-    %td{class: type, data: {tile_id: tile.id}}
-      %div.tile_thumbnail
-        %div.tile_thumb_holder
-          %div.image= image_tag tile.thumbnail
-          %div.tile_thumb_texts
-            %div.headline= tile.headline

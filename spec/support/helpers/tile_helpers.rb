@@ -11,6 +11,7 @@ module TileHelpers
   end
 
   # -------------------------------------------------
+
   # This guy returns an HTML table as an array of arrays of cell text where each
   # array represents a row and the content of that array represents the columns.
   #
