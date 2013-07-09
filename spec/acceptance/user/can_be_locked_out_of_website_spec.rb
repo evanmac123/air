@@ -29,4 +29,14 @@ feature 'Can be locked out of website' do
     signin_as user, "foobar"
     expect_no_content lockout_copy
   end
+
+  scenario "and doesn't get the welcome or followup email on claiming account" do
+    demo.update_attributes(phone_number: "+19085551212")
+    new_user = FactoryGirl.create(:user, demo: demo, claim_code: 'somedude')
+
+    mo_sms "+14155551212", "somedude", demo.phone_number
+    crank_dj_clear
+
+    ActionMailer::Base.deliveries.should be_empty
+  end
 end

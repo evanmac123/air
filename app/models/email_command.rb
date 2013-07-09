@@ -9,9 +9,10 @@ class EmailCommand < ActiveRecord::Base
     UNKNOWN_EMAIL  = 'unknown_email'
     USER_VERIFIED  = 'user_verified'
     INVITATION = 'invitation_sent'
+    SILENT_SUCCESS = 'silent_success'
   end
 
-  STATUSES = [ Status::SUCCESS, Status::FAILED, Status::UNKNOWN_EMAIL, Status::USER_VERIFIED, Status::INVITATION ]
+  STATUSES = [ Status::SUCCESS, Status::FAILED, Status::UNKNOWN_EMAIL, Status::USER_VERIFIED, Status::INVITATION, Status::SILENT_SUCCESS ]
   validates :status, :inclusion => { :in => STATUSES, :message => "%{value} is not a valid status value" }
 
 

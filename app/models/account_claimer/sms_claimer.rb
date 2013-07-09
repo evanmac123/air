@@ -15,7 +15,7 @@ module AccountClaimer
     end
 
     def after_joining_hook
-      Mailer.delay.set_password(@user.id) if @user.email.present?
+      send_welcome_email_if_wanted
       @user.update_column(:notification_method, 'sms')
     end
 
@@ -25,6 +25,11 @@ module AccountClaimer
 
     def channel_name
       :sms
+    end
+
+    def send_welcome_email_if_wanted
+      return nil if @user.email.blank? || @user.demo.website_locked
+      Mailer.delay.set_password(@user.id)
     end
   end
 end
