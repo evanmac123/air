@@ -1,27 +1,75 @@
 header {
-  background:$white;
-  width:100%;
-  .container {
-    @include centered-section;
-    padding:0 10px;
-    &:after{@include clear;}
+  .contain-to-grid, .top-bar, 
+  .top-bar-section {background:$white;}
+  nav.top-bar, .title-area {height:4em;}
+  nav.top-bar {
+    &.expanded .title-area {background:$white;}
+    .title-area { // Logo and Toggle
+      padding:.35em 0;
+      .name { // Logo
+        width:10em;
+        h1 a, img {width:100%;}
+      }
+      .toggle-topbar {  // Toggle 
+        top:.65em;
+        a {color:$blue;}
+      }
     }
-  #logo {
-    float:left;
-    padding:1.5em 0;
-    width:182px;
-    img {width:100%;}
+    .top-bar-section {  // Dropdown menu
+      ul, li > a {
+        background:$dark-gray;
+      }
+      .has-form {
+        padding:0 .5em .5em .5em;
+        a {
+          &.sign_in_button {
+            @include pop-button($blue);
+            padding:.75em;
+            &:hover {
+              background-color:darken($blue, 7%);
+              border-color:darken($blue, 15%);
+            }
+          }
+          &.request_a_demo {@include pop-button($orange); padding:.75em;}
+          border:none;
+          border-bottom:5px transparent solid;
+          font-size:1em;
+        }
+      }
+    }
   }
-  nav {
-    float:right;
-    font-size:1.125em;
-    padding:1.5em 0;
-    text-align: right;
-    li {display:inline-block; margin-left:1.5em; vertical-align: middle;}
-    a, a:link, a:visited {
-      font-family:$sans;
-      color:$blue;
-      &:hover{color:$orange;}
-    }
+}
+
+@media only screen and (min-width: 58em) {
+  header {
+    .contain-to-grid {padding:1em 0;}
+    nav.top-bar {
+      height:auto;
+      .button {
+        height:auto;
+        top:.125em;
+      }
+      .title-area .name {width:14.5em;} // Logo size
+      .top-bar-section ul.right { // Nav bar
+        margin:.5em 15px 0 0;
+        li > a {  // Regular links
+          background:$white;
+          color:$med-gray;
+          font-family:$sans;
+          font-size:1.125em;
+          &:hover {color:$text-color;}
+        }
+        .has-form { // Buttons area
+          background:$white;
+          padding:0 0 0 1em;
+          a {
+            color:$white;
+            font-family:$open-600;
+            font-size:1em;
+            padding:.25em .75em;
+          }
+        }
+      }
+    } 
   }
 }

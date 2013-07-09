@@ -1,4 +1,6 @@
 <!doctype html>
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
 <html lang="en">
   <head>
     <meta charset="utf-8" />
@@ -23,6 +25,7 @@
     <!--[if lt IE 9]>
       <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
       <style type="text/css">.gradient{filter: none;}</style>
+      <%= stylesheet_link_tag 'vendor/ie8-grid12-foundation-4.css' %>
     <![endif]-->
     <%= javascript_include_tag asset_path('ga.js') if ENV['USE_GA'] %>
     <%= render 'shared/mixpanel' %>
@@ -36,5 +39,13 @@
     <%= render "pages/footer" %>
     </div>
     <%= javascript_include_tag asset_path('ga-marketing.js') if ENV['USE_GA'] %>
+
+  <script>
+    document.write('<script src=' +
+    ('__proto__' in {} ? 'assets/vendor/zepto' : 'js/vendor/jquery') +
+    '.js><\/script>')
+
+    $(document).foundation();
+  </script>
   </body>
 </html>

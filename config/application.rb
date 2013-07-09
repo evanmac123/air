@@ -32,7 +32,8 @@ module Health
       app-external.css
       app-internal.css
       app-landing.css
-      vendor/ie8-grid-foundation-4.css
+      vendor/ie8-grid16-foundation-4.css
+      vendor/ie8-grid14-foundation-4.css
       external/june2013_landing_ie8.css
       app-admin.js
       app-internal.js
@@ -47,14 +48,8 @@ module Health
       external/start_game_button_needs_information_filled_in.js
       external/track_form_fields.js
       external/prefilled_input.js
+      vendor/foundation.min.js
       vendor/zepto.js
-      vendor/foundation/foundation.forms.js
-      vendor/foundation/foundation.interchange.js
-      vendor/foundation/foundation.js
-      vendor/foundation/foundation.magellan.js
-      vendor/foundation/foundation.placeholder.js
-      vendor/foundation/foundation.reveal.js
-      vendor/foundation/foundation.topbar.js
       flick/jquery-ui-1.8.10.custom.css
       jquery.lightbox_me.js
       ga.js

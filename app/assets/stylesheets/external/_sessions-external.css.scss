@@ -3,19 +3,16 @@ body.external {
   background:image-url('marketing/bg.gif');
   min-width:910px;
   header {
-    background:transparent;
-    margin:0 auto;
-    width:85%;
-    nav {display: none;}
+    margin-bottom:4em;
   }
   footer div {width:85%;}
   .wrapper {@include centered-section;}
-  section {
-    background:$white;
-    margin:0 auto 3em auto;
-    padding:1em;
-    width:85%;
-  }
+  // section {
+  //   background:$white;
+  //   margin:0 auto 3em auto;
+  //   padding:1em;
+  //   width:85%;
+  // }
   #status {
     margin:$centered;
     width:50%;
