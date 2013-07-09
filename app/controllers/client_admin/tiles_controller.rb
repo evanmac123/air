@@ -15,11 +15,11 @@ class ClientAdmin::TilesController < ClientAdminBaseController
   end
 
   def new
-    @tile_builder_form = TileBuilderForm::Keyword.new(@demo)
+    @tile_builder_form = TileBuilderForm::MultipleChoice.new(@demo)
   end
 
   def create
-    @tile_builder_form = TileBuilderForm::Keyword.new(@demo, parameters: params[:tile_builder_form])
+    @tile_builder_form = TileBuilderForm::MultipleChoice.new(@demo, parameters: params[:tile_builder_form])
 
     if @tile_builder_form.create_objects
       set_after_save_flash(@tile_builder_form.tile)
@@ -47,7 +47,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
   end
 
   def edit
-    @tile_builder_form = TileBuilderForm::Keyword.new(@demo, tile: Tile.find(params[:id]))
+    @tile_builder_form = TileBuilderForm::MultipleChoice.new(@demo, tile: Tile.find(params[:id]))
   end
 
   private
@@ -82,7 +82,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
   end
 
   def update_fields
-    @tile_builder_form = TileBuilderForm::Keyword.new(@demo, parameters: params[:tile_builder_form], tile: @tile)
+    @tile_builder_form = TileBuilderForm::MultipleChoice.new(@demo, parameters: params[:tile_builder_form], tile: @tile)
 
     if @tile_builder_form.update_objects
       set_after_save_flash(@tile_builder_form.tile)
