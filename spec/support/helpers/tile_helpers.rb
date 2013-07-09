@@ -11,6 +11,18 @@ module TileHelpers
   end
 
   # -------------------------------------------------
+  # This guy returns an HTML table as an array of arrays of cell text where each
+  # array represents a row and the content of that array represents the columns.
+  #
+  # Note: For tiles there are only 3 elements per row, but the "..." in each "row" => the more general case
+  #
+  # e.g. [ [Tile 1, Tile 2, Tile 3, ...], [Tile 4, Tile 5, Tile 6, ...], [Tile 7, Tile 8, Tile 9, ...], ... ]
+  #
+  def table_content(table_selector)
+    find(table_selector).all('tr').collect { |row| row.all('th, td').collect { |cell| cell.text } }
+  end
+
+  # -------------------------------------------------
 
   DATE_REG_EXPR = /(\d{1,2})\/(\d{1,2})\/(\d{4})/  # e.g. 7/4/2013 -or- 07/04/2013
 
@@ -71,7 +83,7 @@ module TileHelpers
   # -------------------------------------------------
 
   def tab(label)
-    find("#tile-manager-tabs ##{label.downcase}")
+    find("#tile-manager-tabs, #tile-reports-tabs").find("##{label.downcase}")
   end
 
   def active_tab
