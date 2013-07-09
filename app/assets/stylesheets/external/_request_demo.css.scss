@@ -1,0 +1,16 @@
+input.unfilled-field {border-color:$red;}
+.close_request_demo {font-size:.75em;position:absolute; top:.5em; right:.5em;}
+.all_fields_error {color:$red!important;}
+.lightbox-content {
+  @include lightbox;
+  form {margin-top:1em;
+    input[type="text"],textarea {
+      display: block;
+      margin-bottom:.5em;
+      width:100%;
+    }
+    textarea {height:6em;}
+  }
+  p {padding:.5em 0;}
+}
+.text-placeholder {color: #AAA !important}

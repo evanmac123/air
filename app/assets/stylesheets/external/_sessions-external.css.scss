@@ -1,6 +1,7 @@
 // Styles for Login/Signup external page
 body.external {
   background:image-url('marketing/bg.gif');
+  min-width:910px;
   header {
     background:transparent;
     margin:0 auto;
@@ -41,7 +42,7 @@ body.external {
         padding:.5em .85em;
         width:100%;
       }
-      label {font-size:.85em;}
+      label {display:inline-block; font-size:.85em;}
       .wrap {display: block; padding-bottom:1em;}
     }
   }

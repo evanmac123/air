@@ -1,23 +1,19 @@
-/* For Marketing page and External pages */
-
+/* For all */
+@import "./vendor/normalize.css.scss";
+@import "./vendor/foundation.min.css.scss";
 @import "./mixins/standard_colors.css.scss";
 @import "./mixins/placeholder_color.css.scss";
 @import "./mixins/lightbox.css.scss";
 @import "./internal/intercom.css.scss";
 @import "./internal/flash.css.scss";
 
+/* External marketing pages */
 @import "./external/marketing.css.scss";
 @import "./external/_header.css.scss";
-@import "./external/_sliders.css.scss";
-@import "./external/_homepage.css.scss";
-
-/* Game setup pages */
-@import "./external/_demo.css.scss";
+@import "./external/_request_demo.css.scss";
 
 /* External signup-login process pages */
 @import "./external/_sessions-external.css.scss";
 @import "./external/join.css.scss";
-@import "./external/_rwd.css.scss";
 
-//@import "./internal/autocompletion.css.scss";
-//@import "./external/unsubscribe.css.scss";
+

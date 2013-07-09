@@ -1,91 +1,13 @@
-<%= render "pages/slider" %>
-<section id="any_objective">
-  <div class="wrap">
-    <div>
-      <h1>One platform, any objective</h1>
-      <p>Drive engagement in any benefit, program, communication or process.</p>
-      <a href="#!" class="request_a_demo">Set up a time to discuss your priority</a>
-    </div>
-    <table id="objectives_table">
-      <tr>
-        <td>Health care reform</td>
-        <td>Lifestyle wellness</td>
-        <td>HRA &amp; biometrics participation</td>
-        <td>Open enrollment</td>
-      </tr>
-      <tr>
-        <td>Retirement readiness</td>
-        <td>Financial wellness</td>
-        <td>Benefits appreciation</td>
-        <td>Employee engagement</td>
-      </tr>
-      <tr>
-        <td>Survey &amp; feedback</td>
-        <td>Training, learning &amp; development</td>
-        <td>Shift changes</td>
-        <td>General announcements</td>
-      </tr>
-      <tr>
-        <td>Emergency messages</td>
-        <td>Corporate communications</td>
-        <td>Safety</td>
-        <td>Onboarding</td>
-      </tr>
-    </table>
-  </div>
-</section>
 
 <%= render "pages/our_clients" %>
 
-<section id="platform_features">
-  <div id="pros_list">
-    <table id="features_table">
-      <tr>
-        <th><p id="f_simple">Simple to use</p></th>
-        <th><p id="f_esafe">Enterprise-safe</p></th>
-        <th><p id="f_noit">No IT needed</p></th>
-        <th><p id="f_analytics">Analytics</p></th>
-      </tr>
-      <tr>
-        <td>We help employers and consultants to become mobile communicators and game experts.</td>
-        <td>Social media is 100% controlled &amp; game mechanics are enterprise tested.</td>
-        <td>H.Engage is cloud-hosted and easy to set-up. We take care of all the technology.</td>
-        <td>Track engagement in any communication or behavior and ROI.</td>
-      </tr>
-    </table>
-    <ul id="try_platform_buttons">
-      <li id="try_gamesetup"><a href="#!" class="get_started pop-button">Get started</a><p>Try it free for 14 days</p></li>
-      <li id="try_demo"><a href="#!" class="request_a_demo pop-button">Request a demo</a></li>
-    </ul>
-  </div>
-  <div id="get_started_form">
-    <%= render 'sign_up_form' %>
-  </div>
-</section>
 
-<!--<section id="platform_details">
-  < %# render "pages/stats_slider" %>
-</section>-->
+
+<a href="#!" class="request_a_demo pop-button">Request a demo</a>
 
 <%= render "shared/request_demo" %>
-<%= javascript_include_tag 'external/sliders.js' %>
+
+
 <%= javascript_include_tag 'external/track_form_fields.js' %>
 <%= javascript_include_tag 'jquery.lightbox_me' %>
-<%= javascript_include_tag 'external/track_form_fields.js' %>
-<%= javascript_include_tag 'jquery.lightbox_me' %>
-
-<script>
-$(".get_started").click(function(){
-  $("#get_started_form").slideToggle();
-  $(this).toggleClass('on-button');
-
-  if($(this).hasClass('on-button')) {
-    mpq.track('open demo request form from get started button', {});
-  } else {
-    mpq.track('close demo request form from get started button', {});
-  }
-});
-
-</script>
-
 <%= mp_track_page 'marketing' %>

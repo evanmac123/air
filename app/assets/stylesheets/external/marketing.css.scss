@@ -3,12 +3,15 @@ $font: $sans;
   max-width:1280px;
   margin:$centered;
 }
-
+html, body {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+}
 body{
   background:$white;
   font-family: $font;
   font-size:100%;
-    min-width:925px;
   h1, h2, h3 {font-family: $font;}
   h1 {color:#4d4d4d; font-size:2.25em; font-family:$open-600;}
   h2 {color:$gray; font-size:1.65em;}

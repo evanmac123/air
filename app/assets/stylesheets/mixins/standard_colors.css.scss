@@ -200,12 +200,17 @@ h2.subhead {
 input[type="text"], input[type="password"],
 textarea, select {border:$border-dark;}
 input[type="text"], input[type="password"],textarea {
+    box-shadow:none;
     color:$gray;
     padding:.5em;
+    transition:none;
     &:hover{border-color:$dark-green;}
     &:focus {
-        color:$dark-green;
+        background:$white;
         border:1px $dark-green solid;
+        box-shadow:none;
+        color:$dark-green;
+        transition:none;
     }
 }
 
