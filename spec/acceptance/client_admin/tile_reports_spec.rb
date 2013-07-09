@@ -23,6 +23,11 @@ feature 'client admin can see tile reports' do
       visit client_admin_tiles_reports_path
       tile_table = table_content '#active table'
 
+      # todo maybe simplify this: just put numbers for headline => [ %w(9 8 7), %w(6 5 4), ...].should == tile_table
+      # todo probably not; will probably switch this check to "col.should have_text(~~~)" because other stuff will be there
+
+      # todo okay, everything's changed ; ALSO: need to spec "no active/archive tiles" message ***
+
       tile_table.each do |row|
         row.each do |col|
           col.should == "Tile #{tile_num}"
