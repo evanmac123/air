@@ -188,15 +188,15 @@ class Tile < ActiveRecord::Base
   end
 
   def self.active
-    where("status = ?", ACTIVE)
+    where("status = ?", ACTIVE).order('created_at DESC')
   end
 
   def self.archive
-    where("status = ?", ARCHIVE)
+    where("status = ?", ARCHIVE).order('created_at DESC')
   end
 
   def self.draft
-    where("status = ?", DRAFT)
+    where("status = ?", DRAFT).order('created_at DESC')
   end
 
   def self.digest(demo)
