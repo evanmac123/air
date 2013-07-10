@@ -12,12 +12,14 @@ module TileHelpers
 
   # -------------------------------------------------
 
-  # This guy returns an HTML table as an array of arrays of cell text where each
-  # array represents a row and the content of that array represents the columns.
+  # This guy returns an HTML table as an array of arrays where each internal array corresponds
+  # to a row and the content of that array is the text in each of the columns.
   #
-  # Note: For tiles there are only 3 elements per row, but the "..." in each "row" => the more general case
-  #
-  # e.g. [ [Tile 1, Tile 2, Tile 3, ...], [Tile 4, Tile 5, Tile 6, ...], [Tile 7, Tile 8, Tile 9, ...], ... ]
+  # e.g. [ [Tile 1, Headline 1, 333 users, 33%, ...],
+  #        [Tile 2, Headline 2, 666 users, 66%, ...],
+  #        [Tile 3, Headline 3, 999 users, 99%, ...],
+  #        ...
+  #      ]
   #
   def table_content(table_selector)
     find(table_selector).all('tr').collect { |row| row.all('th, td').collect { |cell| cell.text } }

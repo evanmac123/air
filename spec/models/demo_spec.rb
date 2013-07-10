@@ -307,3 +307,43 @@ describe Demo, '#send_digest_email' do
     Timecop.return
   end
 end
+
+describe Demo, '#num_tile_completions' do
+  it 'returns the number of users who have completed each of the tiles for this demo' do
+
+    # Create some tile-completions (and thus users and tiles) that have nothing to do with this demo
+    3.times { FactoryGirl.create :tile_completion }
+
+    demo  = FactoryGirl.create :demo
+    users = FactoryGirl.create_list :user, 9, demo: demo
+
+    # Create some tiles that belong to this demo but that no users have completed
+    tile_0   = FactoryGirl.create :tile, demo: demo
+    tile_00  = FactoryGirl.create :tile, demo: demo
+    tile_000 = FactoryGirl.create :tile, demo: demo
+
+    # The status doesn't matter, but mix 'em up anyway just to show that it doesn't
+    tile_1 = FactoryGirl.create :tile, demo: demo, status: Tile::ACTIVE
+    tile_3 = FactoryGirl.create :tile, demo: demo, status: Tile::ARCHIVE
+    tile_5 = FactoryGirl.create :tile, demo: demo, status: Tile::ACTIVE
+    tile_7 = FactoryGirl.create :tile, demo: demo, status: Tile::ARCHIVE
+    tile_9 = FactoryGirl.create :tile, demo: demo, status: Tile::ACTIVE
+
+
+    1.times { |i| FactoryGirl.create :tile_completion, tile: tile_1,  user: users[i] }
+    3.times { |i| FactoryGirl.create :tile_completion, tile: tile_3,  user: users[i] }
+    5.times { |i| FactoryGirl.create :tile_completion, tile: tile_5,  user: users[i] }
+    7.times { |i| FactoryGirl.create :tile_completion, tile: tile_7,  user: users[i] }
+    9.times { |i| FactoryGirl.create :tile_completion, tile: tile_9,  user: users[i] }
+
+    num_tile_completions = demo.num_tile_completions
+
+    num_tile_completions[tile_1.id].should == 1
+    num_tile_completions[tile_3.id].should == 3
+    num_tile_completions[tile_5.id].should == 5
+    num_tile_completions[tile_7.id].should == 7
+    num_tile_completions[tile_9.id].should == 9
+
+    [tile_0, tile_00, tile_000].each { |tile| num_tile_completions[tile.id].should be_nil }
+  end
+end
