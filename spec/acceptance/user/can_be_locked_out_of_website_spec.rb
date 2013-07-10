@@ -30,6 +30,18 @@ feature 'Can be locked out of website' do
     expect_no_content lockout_copy
   end
 
+  scenario "but can still change their settings" do
+    has_password(user, "foobar")
+    signin_as user, "foobar"
+
+    visit edit_account_settings_path
+    choose "Both"
+    page.find("#save-notification-settings").click
+
+    should_be_on edit_account_settings_path
+    page.find('*[@name="user[notification_method]"][@checked]')['value'].should == 'both'
+  end
+
   scenario "and doesn't get the welcome or followup email on claiming account" do
     demo.update_attributes(phone_number: "+19085551212")
     new_user = FactoryGirl.create(:user, demo: demo, claim_code: 'somedude')
