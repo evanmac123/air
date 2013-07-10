@@ -5,7 +5,7 @@ feature 'Can be locked out of website' do
   let(:user) { FactoryGirl.create(:user, :claimed, :with_phone_number, demo: demo) }
 
   def lockout_copy
-    "We're sorry, your organization is not using the H.Engage website. We'll let you know if your organization begins using the website again."
+    "We're sorry, your organization is not using the H.Engage website. We'll let you know if your organization begins using the website again. To update your account settings, click here."
   end
 
   scenario 'on an instance by instance basis' do
