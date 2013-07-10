@@ -21,6 +21,8 @@ class Demo < ActiveRecord::Base
   has_many :peer_invitations
   has_many :push_messages
 
+  has_many :tile_completions, through: :tiles
+
   has_one :skin
   has_one :claim_state_machine
   has_one :custom_invitation_email
