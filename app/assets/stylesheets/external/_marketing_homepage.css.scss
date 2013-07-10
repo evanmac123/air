@@ -1,0 +1,77 @@
+body {
+	a.request_a_demo, a:link.request_a_demo, a:visited.request_a_demo {
+		@include pop-button($orange);
+		font-size:1.375em;
+		padding:.5em 1em;
+	}
+}
+
+.hero {
+	background:$blue;
+	.main-row {
+		background-color:$blue;
+		padding:2em 0;
+	}
+	h1, h2 {font-weight:normal;}
+	h1 {
+		color:$white;
+		font-family:$sans;
+		font-size:2.125em;
+	}
+	h2 {
+		color:$light-gray;
+		font-size:1.125em;
+		padding:1.5em 0;
+	}
+	.copy, .imagery {text-align: center;}
+	.copy {margin-bottom:1.5em;}
+	.imagery {
+		background:image-url('marketing/hub.png') center center no-repeat;
+		background-size:contain;
+		padding:10% 0;
+		img {max-width:50%;}
+	}
+}
+
+@media only screen and (min-width: 768px) {
+	.hero {
+		.main-row {
+			background:image-url('marketing/hub.png') no-repeat;
+			background-position: 135% 45%;
+			background-size:75%;
+			padding:4em 0;
+		}
+		.copy {margin-bottom:0; text-align:left;}
+		.imagery {
+			background:none;
+			padding:5% 0 0 0;
+		}
+	}
+}
+
+@media only screen and (min-width: 58em) {
+	.hero {
+		background:image-url('marketing/hub.png') no-repeat $blue;
+		background-position:right center;
+		background-size:60%;
+		.main-row {background:none;}
+		h1 {font-size:2.5em;}
+		h2 {font-size:1.375em;}
+	}
+}
+
+@media only screen and (min-width: 70em) {
+	.hero {
+		background:$blue;
+		.main-row {
+			background:image-url('marketing/hub.png') no-repeat $blue;
+			background-position:right center;
+			background-size:auto;
+			padding:6em 0;
+		}
+		.imagery {
+			padding-left:7.5em;
+			text-align:left;
+		}
+	}
+}

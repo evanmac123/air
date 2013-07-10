@@ -18,17 +18,14 @@ header {
     .top-bar-section {  // Dropdown menu
       ul, li > a {
         background:$dark-gray;
+        font-weight:normal;
       }
       .has-form {
         padding:0 .5em .5em .5em;
         a {
           &.sign_in_button {
-            @include pop-button($blue);
+            @include pop-button($dark-green);
             padding:.75em;
-            &:hover {
-              background-color:darken($blue, 7%);
-              border-color:darken($blue, 15%);
-            }
           }
           &.request_a_demo {@include pop-button($orange); padding:.75em;}
           border:none;
@@ -51,7 +48,11 @@ header {
       }
       .title-area .name {width:14.5em;} // Logo size
       .top-bar-section ul.right { // Nav bar
+        background:$white;
         margin:.5em 15px 0 0;
+        li.divider {  // Dividers
+          border:0;
+        }
         li > a {  // Regular links
           background:$white;
           color:$med-gray;
