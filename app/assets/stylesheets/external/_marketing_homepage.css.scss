@@ -64,9 +64,9 @@ body {
 	.hero {
 		background:$blue;
 		.main-row {
-			background:image-url('marketing/hub.png') no-repeat $blue;
+			background:image-url('marketing/hub@2x.png') no-repeat $blue;
 			background-position:right center;
-			background-size:auto;
+			background-size:745px 530px;
 			padding:6em 0;
 		}
 		.imagery {
