@@ -84,11 +84,11 @@ class ApplicationController < ActionController::Base
   end
 
   def game_not_yet_begun?
-    current_user.demo.game_not_yet_begun?
+    current_user && current_user.demo.game_not_yet_begun?
   end
 
   def game_locked?
-    current_user.demo.website_locked?
+    current_user && current_user.demo.website_locked?
   end
 
   def force_html_format
