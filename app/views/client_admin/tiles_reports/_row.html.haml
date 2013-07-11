@@ -1,6 +1,6 @@
 %tr
-  %td.thumbnail=       image_tag row.thumbnail
-  %td.headline=        row.headline
-  %td.num_completed=   row.num_completed
-  %td.percent_claimed= number_to_percentage row.percent_claimed, precision: 1
-  %td.percent_all=     number_to_percentage row.percent_all,     precision: 1
+  %td= image_tag row.thumbnail
+  %td= row.headline
+  %td= row.num_completed
+  %td= number_to_percentage row.percent_claimed, precision: 1
+  %td= number_to_percentage row.percent_all,     precision: 1

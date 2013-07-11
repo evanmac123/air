@@ -83,8 +83,8 @@ class Demo < ActiveRecord::Base
     demos
   end
 
-  # Returns the number of users who have completed each of the tiles for this demo in the form of
-  # a hash keyed by tile_id, e.g. {12 => 565, 13 => 222, 17 => 666, 21 => 2} (Apparently #21 sucked )
+  # Returns the number of users who have completed each of the tiles for this demo in a hash
+  # keyed by tile_id, e.g. {12 => 565, 13 => 222, 17 => 666, 21 => 2} (Apparently #21 sucked )
   def num_tile_completions
     tile_completions.group(:tile_id).count
   end
