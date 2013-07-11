@@ -45,3 +45,6 @@ flog_report
 redis_connection_stack_trace
 *.incantation
 *incantation
+.vagrant
+Vagrantfile
+vagrant_provisioning

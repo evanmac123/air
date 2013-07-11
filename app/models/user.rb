@@ -170,6 +170,9 @@ class User < ActiveRecord::Base
   end
 
   def sms_slug_does_not_match_commands
+    # HRFF: check this only if the slug actually changed
+    # Also, eager load the rule values
+
     if self.demo && self.demo.rule_values.present?
       demo_rules = self.demo.rule_values
       demo_rule_values = demo_rules.collect do |v|

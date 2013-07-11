@@ -5,7 +5,7 @@ feature 'Can be locked out of website' do
   let(:user) { FactoryGirl.create(:user, :claimed, :with_phone_number, demo: demo) }
 
   def lockout_copy
-    "We're sorry, your organization is not using the H.Engage website. We'll let you know if your organization begins using the website again."
+    "We're sorry, your organization is not using the H.Engage website. We'll let you know if your organization begins using the website again. To update your account settings, click here."
   end
 
   scenario 'on an instance by instance basis' do
@@ -28,6 +28,18 @@ feature 'Can be locked out of website' do
 
     signin_as user, "foobar"
     expect_no_content lockout_copy
+  end
+
+  scenario "but can still change their settings" do
+    has_password(user, "foobar")
+    signin_as user, "foobar"
+
+    visit edit_account_settings_path
+    choose "Both"
+    page.find("#save-notification-settings").click
+
+    should_be_on edit_account_settings_path
+    page.find('*[@name="user[notification_method]"][@checked]')['value'].should == 'both'
   end
 
   scenario "and doesn't get the welcome or followup email on claiming account" do
