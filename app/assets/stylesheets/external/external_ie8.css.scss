@@ -55,10 +55,8 @@ nav.top-bar {
 		padding:6em 0;
 	}
 	.copy {
-    border:1px blue solid;
     margin-bottom:0; text-align:left;}
 	.imagery {
-    border:1px red solid;
 		background:none;
 		padding:5% 0 0 6.5em;
 		text-align:left;
@@ -75,12 +73,10 @@ nav.top-bar {
     src='/assets/marketing/site.png',
     sizingMethod='scale')";
     background-position:1em bottom;
-    border:1px red solid;
-    // height:300px;
-    padding:0 0 60% 0;
+    padding:0 0 55% 0;
+    width:55%;
   }
   .copy {
-    border:1px blue solid;
-    padding-top:6%;
+    padding-top:10%;
   }
 }
