@@ -2,7 +2,7 @@
   %h1 Log In
   = form_tag session_path do  
     %label.input_label Email address
-    = text_field_tag "session[email]", (params[:session] and params[:session][:email]), :placeholder => "Email address"
+    = text_field_tag "session[email]", (params[:session] and params[:session][:email])
     %label.input_label Password
     = password_field_tag "session[password]", nil
     .wrap
