@@ -13,17 +13,30 @@ body{
   font-family: $font;
   font-size:100%;
   * {box-shadow:none!important;}
-  h1, h2, h3 {font-family: $font;}
+  h1, h2, h3 {font-family: $font; font-weight:normal;}
   h1 {color:#4d4d4d; font-size:2.25em; font-family:$open-600;}
-  h2 {color:$gray; font-size:1.65em;}
+  h2 {color:$text-color; font-size:1.875em;}
   h3 {font-family:$open-600;}
   input, textarea {@include ease(.15s); font-family:$font; font-size:1em;}
+  p {font-size:1em; line-height:1.25em; padding-bottom:1em;}
+  p.caption {
+    font-size:.875em;
+    span {font-family:$open-600;}
+  }
 }
 a, a:link, a:visited {
   @include link($blue);
   &:hover{color:$orange;}
   &.pop-button {@include pop-button($blue);}
 }
+
+// Request buttons are all orange
+a.request_a_demo, a:link.request_a_demo, a:visited.request_a_demo {
+  @include pop-button($orange);
+  font-size:1.375em;
+  padding:.5em 1em;
+}
+
 input[type="submit"] {
   @include pop-button($blue);
   font-family: $open-600;
@@ -52,10 +65,16 @@ table {
   }
 }
 .wrapper {
-  color:$text-color;
+  color:lighten($text-color, 30%);
   width:100%;
 }
 section.contained {@include centered-section;}
+
+section.feature_sections {
+  position:relative;
+  h2 {margin:.65em 0;}
+}
+
 footer {
   background:image-url('marketing/bg.gif');
   color:$gray;
@@ -97,5 +116,13 @@ section#clients {
       width:100%;
     }
     &#highmark, &#yahoo {a {padding-top:1em;}}
+  }
+}
+
+@media only screen and (min-width: 58em) {
+  section.feature_sections {
+    h2 {font-size:2.5em;}
+    p {font-size:1.25em;}
+    p.caption {font-size:.875em;}
   }
 }

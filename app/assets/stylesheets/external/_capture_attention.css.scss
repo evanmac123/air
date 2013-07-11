@@ -1,0 +1,38 @@
+#capture_attention {
+	&:after {@include clear;}
+	.caption {
+		padding-top:1em;
+		span {color:$text-color; display:block;}
+	}
+	.copy {margin-bottom:2em;}
+	.imagery {
+		background:image-url('marketing/site.png') no-repeat center bottom $white;
+		background-size:contain;
+		padding:0 0 100% 0;
+	}
+	.site_zooms {
+		max-width:35%;
+		position: absolute;
+	}
+	#site_pts {right:1%; top:5%;}
+	#site_scoreboard {right:35%; top:40%;}
+}
+
+@media only screen and (min-width: 768px) { 
+	#capture_attention {
+		.imagery {
+			background-position: 1em bottom;
+			padding:0 0 50% 0;
+			position:relative;
+			text-align: center;
+		}		
+		#site_pts {right:5%; top:3%;}
+		#site_scoreboard {right:42%; top:35.5%;}
+	}
+}
+
+@media only screen and (min-width: 58em) {
+	#capture_attention {
+		.copy {padding-top:6%;}
+	}
+}

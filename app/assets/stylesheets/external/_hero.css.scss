@@ -1,13 +1,6 @@
-body {
-	a.request_a_demo, a:link.request_a_demo, a:visited.request_a_demo {
-		@include pop-button($orange);
-		font-size:1.375em;
-		padding:.5em 1em;
-	}
-}
-
 .hero {
 	background:$blue;
+	margin-bottom:2em;
 	.main-row {
 		background-color:$blue;
 		padding:2em 0;
@@ -35,6 +28,7 @@ body {
 
 @media only screen and (min-width: 768px) {
 	.hero {
+		margin-bottom:3em;
 		.main-row {
 			background:image-url('marketing/hub.png') no-repeat;
 			background-position: 135% 45%;

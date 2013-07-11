@@ -1,5 +1,11 @@
 @import "mixins/standard_colors.css.scss";
 
+section.feature_sections {
+  h2 {font-size:2.5em;}
+  p {font-size:1.25em;}
+  p.caption {font-size:.875em;}
+}
+
 // Header nav
 header {
 	.contain-to-grid {padding:1em 0;}
@@ -42,14 +48,39 @@ nav.top-bar {
 // Hero
 .hero {
 	background:$blue;
+  h1 {font-size:2.5em;}
+  h2 {font-size:1.375em;}
 	.main-row {
 		background:image-url('marketing/hub.png') no-repeat right center $blue;
 		padding:6em 0;
 	}
-	.copy {margin-bottom:0; text-align:left;}
+	.copy {
+    border:1px blue solid;
+    margin-bottom:0; text-align:left;}
 	.imagery {
+    border:1px red solid;
 		background:none;
 		padding:5% 0 0 6.5em;
 		text-align:left;
 	}
+}
+
+// Capture attention
+#capture_attention {
+  .imagery {
+    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(
+    src='/assets/marketing/site.png',
+    sizingMethod='scale');
+    -ms-filter: "progid:DXImageTransform.Microsoft.AlphaImageLoader(
+    src='/assets/marketing/site.png',
+    sizingMethod='scale')";
+    background-position:1em bottom;
+    border:1px red solid;
+    // height:300px;
+    padding:0 0 60% 0;
+  }
+  .copy {
+    border:1px blue solid;
+    padding-top:6%;
+  }
 }
