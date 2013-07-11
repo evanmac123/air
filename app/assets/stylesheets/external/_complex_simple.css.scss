@@ -1,0 +1,7 @@
+#complex_simple {
+	background:$gray;
+	border-top:5px darken($gray, 10%) solid;
+	color:lighten($gray, 45%);
+	padding:2em 0 0 0;
+	h2 {color:$white;}
+}

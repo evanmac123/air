@@ -18,10 +18,10 @@ body{
   h2 {color:$text-color; font-size:1.875em;}
   h3 {font-family:$open-600;}
   input, textarea {@include ease(.15s); font-family:$font; font-size:1em;}
-  p {font-size:1em; line-height:1.25em; padding-bottom:1em;}
-  p.caption {
-    font-size:.875em;
+  p {
+    font-size:1em; line-height:1.25em; padding-bottom:1em;
     span {font-family:$open-600;}
+    &.caption {font-size:.875em;}
   }
 }
 a, a:link, a:visited {
