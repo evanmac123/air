@@ -41,7 +41,9 @@ body.external {
         padding:.5em .85em;
         width:100%;
       }
-      label {font-size:.85em;}
+      label {font-size:.85em;
+        &.input_label {font-family:$open-600;}
+      }
       .wrap {display: block; padding-bottom:1em;}
     }
   }

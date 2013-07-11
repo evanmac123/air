@@ -1,9 +1,9 @@
 #session-wrapper
   %h1 Log In
   = form_tag session_path do  
+    %label.input_label Email address
     = text_field_tag "session[email]", (params[:session] and params[:session][:email]), :placeholder => "Email address"
-    #password_placeholder_holder
-      #password_placeholder Password
+    %label.input_label Password
     = password_field_tag "session[password]", nil
     .wrap
       = label_tag "session[remember_me]", "Remember me (Don't check this on a shared computer)", :class => :inline
