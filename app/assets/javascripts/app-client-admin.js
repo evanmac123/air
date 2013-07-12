@@ -4,6 +4,9 @@
 //= require ../../../vendor/assets/javascripts/client_admin/highcharts
 //= require ../../../vendor/assets/javascripts/client_admin/exporting
 
+//= require ../../../vendor/assets/javascripts/internal/jquery.tools.min
+
+
 
 $(document).ready(function() {
   var more = "More options";
