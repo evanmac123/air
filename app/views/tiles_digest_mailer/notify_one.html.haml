@@ -21,10 +21,20 @@
               -# Note: To change the number of tiles per row, simply change the "(n)" to whatever your little ol' heart desires
               - @tiles.each_slice(2) do |tiles|
                 = render partial: 'tile_row', locals: {tiles: tiles, site_link: site_link}
-          %table{:id => "mail_footer", :cellpadding => "0", :cellspacing => "0", :width => "100%", :style => "margin:2em 0; text-align:center;"}
+          %table{:id => "mail_footer", :cellpadding => "0", :cellspacing => "20", :width => "100%", :style => "font-family: helvetica, arial, sans-serif; margin:0; text-align:center;"}
             %tr
               %td
                 %p Interact, earn points, and see how your colleagues are doing!
-                #{link_to 'View your tiles', site_link, {style:'background:#4da968; border-bottom:5px #3e8052 solid; color:#fff; display:block; width:8em; font-size:1.25em; font-weight:bold; font-weight:600; margin:0 auto; padding:.65em 2em; text-decoration:none;'}}
+            %tr
+              %td
+                %center
+                  %table{:style => "background: #4da968; border-bottom:5px #3e8052 solid; text-align:center;", :cellspacing => "3", :width => "250"}
+                    %tr
+                      %td{:width => "3", :height => "45"}
+                        &nbsp;
+                      %td{:valign => "middle", :height => "45"}
+                        #{link_to 'View your tiles', site_link, {style:'display: block; padding: 10px 40px; text-decoration: none; color: #fff;  font-size: 20px; font-weight:bold; font-weight: 500;'}}
+                      %td{:width => "3", :height => "45"}
+                        &nbsp;
 
   = render 'shared/unsubscribe_footer'
