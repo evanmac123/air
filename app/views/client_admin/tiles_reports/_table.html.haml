@@ -1,9 +1,9 @@
 %table
   %thead
     %tr
-      %th Image
-      %th Headline
+      %th.tiles_images Image
+      %th.tiles_headlines Headline
       %th.tiles_completions Completions
-      %th.tiles_percent_claimed Percent claimed
-      %th.tiles_percent_all Percent all
+      %th.tiles_percent_claimed % claimed
+      %th.tiles_percent_all % all
   %tbody= render partial: 'row', collection: tiles
