@@ -4,4 +4,40 @@
 	color:lighten($gray, 45%);
 	padding:2em 0 0 0;
 	h2 {color:$white;}
+
+	.imagery {
+		background:image-url('marketing/tile-green.png') no-repeat center bottom transparent;
+		height:10em;
+
+		// border:1px red solid;
+		// text-align: center;
+		img {
+			// position: absolute;
+		}
+	}
+	.imagery .tips {
+		display: none;
+	// 	display: inline-block;
+	// 	position: absolute;
+	// 	span {
+	// 		background-color:$dark-green;
+	// 		padding:.5em 1em;
+	// 	}
+	// 	&:before {
+	// 		@include arrow-top($dark-green);
+	// 		height:8px;
+	// 		width:8px;
+	// 	}
+	}
+}
+
+@media only screen and (min-width: 768px) { 
+#complex_simple {
+	border:0;
+	padding:0;
+	.imagery {
+		text-align:right;
+		img {border:5px $white solid;}
+	}
+}
 }
