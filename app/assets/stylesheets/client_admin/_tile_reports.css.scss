@@ -2,9 +2,33 @@ body.client_admin-tiles_reports {
 	
 }
 
-#tile-reports-tabs table {
-	border:1px red solid;
+#tile-reports-tabs .ui-tabs-panel table {
+	// border:1px red solid;
 	thead {
 		font-family:$open-600;
+		font-size:.875em;
 	}
+	tr:nth-of-type(even) {
+		background:$light-gray;
+	}
+	td {
+		// border:1px blue solid;
+		vertical-align: middle;
+		&.report_image {
+			background:$text-color;
+			text-align: center;
+			overflow: hidden;
+			padding:0;
+			position: relative;
+			height:9em;
+			width:9em;
+			img {
+				max-width:100%;
+				position: absolute;
+				left:0; right:0; bottom:0; top:0;
+				margin:auto;
+			}
+		}
+	}
+	td + td {padding:0 0 0 1em;}
 }
