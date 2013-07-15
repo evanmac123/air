@@ -42,7 +42,7 @@ class TilesDigestMailer < ActionMailer::Base
     @invitation_url = @user.claimed? ? nil : invitation_url(@user.invitation_code, protocol: email_link_protocol, host: email_link_host)
 
     mail  to:      @user.email_with_name,
-          from:    'donotreply@hengage.com',
+          from:    @demo.reply_email_address,
           subject: 'New Tiles'
   end
 end
