@@ -4,9 +4,27 @@ feature 'Creates tile' do
   let (:client_admin) { FactoryGirl.create(:client_admin)}
   let (:demo)         { client_admin.demo }
 
+  def counter_selector(associated_selector)
+    "#{associated_selector} + .character-counter"  
+  end
+
+  def counter_text(max_characters)
+    "#{max_characters} characters left"  
+  end
+
+  def expect_counter_text(counter, max_characters)
+    counter.text.should == counter_text(max_characters)
+  end
+
   def expect_character_counter_for(selector, max_characters)
-    counter = page.find("#{selector} + .character-counter")
-    counter.text.should == "#{max_characters} characters left"
+    counter = page.find(counter_selector(selector))
+    expect_counter_text(counter, max_characters)
+  end
+
+  def expect_character_counter_for_each(selector, max_characters)
+    page.all(counter_selector(selector)) do |counter|
+      expect_counter_text(counter, max_characters)
+    end
   end
 
   def fill_in_valid_form_entries
@@ -116,12 +134,12 @@ feature 'Creates tile' do
   end
 
   scenario "should see character (not byte) counters on each text field", js: true do
-    expect_character_counter_for '#tile_builder_form_headline', 45
-    expect_character_counter_for '#tile_builder_form_supporting_content', 300
-    expect_character_counter_for '.answer-field', 25
+    expect_character_counter_for      '#tile_builder_form_headline', 45
+    expect_character_counter_for      '#tile_builder_form_supporting_content', 300
+    expect_character_counter_for_each '.answer-field', 25
 
     2.times {click_link "Add another answer"}
-    page.all('#answers .character-counter').should have(3).counters
+    page.all('#answers .character-counter').should have(4).counters
   end
 
   scenario "sees a helpful error message if they try to use an existing rule or a special command for a rule value" do
@@ -152,5 +170,9 @@ feature 'Creates tile' do
     fill_in_answer_field(0, 'Q')
     click_create_button
     expect_content 'answer "q" must have more than one letter'
+  end
+
+  scenario "should start with two answer fields, rather than one" do
+    page.all(answer_field_selector).should have(2).fields
   end
 end

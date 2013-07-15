@@ -142,9 +142,13 @@ module TileHelpers
   def have_num_tile_image_links(num)
     have_selector 'td a img', count: num
   end
-  
+ 
+  def answer_field_selector
+    "input[name='tile_builder_form[answers][]']"  
+  end
+
   def fill_in_answer_field(index, text)
-    fields = page.all("input[name='tile_builder_form[answers][]']")
+    fields = page.all(answer_field_selector)
     fields[index].set(text)
   end
 

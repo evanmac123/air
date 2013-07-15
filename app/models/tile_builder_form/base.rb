@@ -103,7 +103,7 @@ module TileBuilderForm
     end
 
     def change_blank_answer_error
-      @rule_values.first.errors.delete(:value)
+      @rule_values.each{|rule_value| rule_value.errors.delete(:value)}
       @rule_values.first.errors[:value] = "must have at least one answer"
     end
 
@@ -243,11 +243,11 @@ module TileBuilderForm
     end
 
     def normalized_answers
-      [normalized_answers_from_params, normalized_answers_from_tile, ['']].detect {|answer_source| answer_source.present?}
+      [normalized_answers_from_params, normalized_answers_from_tile, blank_answers].detect {|answer_source| answer_source.present?}
     end
 
     def normalized_entered_answers
-      [normalized_answers_from_params, ['']].detect {|answer_source| answer_source.present?}
+      [normalized_answers_from_params, blank_answers].detect {|answer_source| answer_source.present?}
     end
 
     def normalized_answers_from_params
@@ -258,6 +258,14 @@ module TileBuilderForm
     def normalized_answers_from_tile
       return unless @tile && @tile.persisted?
       @tile.first_rule.rule_values.pluck(:value)
+    end
+
+    def blank_answers
+      [''] * default_answer_count
+    end
+
+    def default_answer_count
+      1
     end
 
     delegate :headline, :supporting_content, :question, :thumbnail, :link_address, :to => :tile
