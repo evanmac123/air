@@ -64,10 +64,16 @@ class Tile < ActiveRecord::Base
     :bucket => S3_TILE_BUCKET}.merge(TILE_IMAGE_OPTIONS)
 
   has_attached_file :thumbnail,
-    {:styles => {:carousel => ["238x238>", :png], :hover => ["258x258>", :png]},
-    :default_style => :carousel,
-    :default_url => "/assets/avatars/thumb/missing.png",
-    :bucket => S3_TILE_THUMBNAIL_BUCKET}.merge(TILE_THUMBNAIL_OPTIONS)
+    {
+    :styles => 
+      { :carousel     => ["238x238>", :png], 
+        :hover        => ["258x258>", :png],
+        :email_digest => ["190", :png]
+      },
+    :convert_options => {:email_digest => '-gravity "North" -background "#292929" -extent "190x160"'},
+    :default_style   => :carousel,
+    :default_url     => "/assets/avatars/thumb/missing.png",
+    :bucket          => S3_TILE_THUMBNAIL_BUCKET}.merge(TILE_THUMBNAIL_OPTIONS)
 
   def name
     # this is only here so formtastic's input in app/views/admin/tiles/_form.haml
