@@ -174,4 +174,8 @@ feature 'Creates tile' do
       expect_content 'answer "q" must have more than one letter'
     end
   end
+
+  scenario "should start with two answer fields, rather than one" do
+    page.all(answer_field_selector).should have(2).fields
+  end
 end
