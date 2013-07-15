@@ -1,34 +1,54 @@
-body.client_admin-tiles_reports {
-	
-}
-
 #tile-reports-tabs .ui-tabs-panel table {
-	// border:1px red solid;
 	thead {
 		font-family:$open-600;
 		font-size:.875em;
+		.tiles_headlines {padding-left:1em;}
+		.tiles_completions, .tiles_percent_claimed, 
+		.tiles_percent_all {text-align: center;}
+	}
+	tr {
+		border-bottom:1px $light-gray solid;
 	}
 	tr:nth-of-type(even) {
-		background:$light-gray;
+		background:lighten($light-gray, 10%);
 	}
+	td + td {padding:0;}
 	td {
-		// border:1px blue solid;
 		vertical-align: middle;
+		&.report_headline, &.num_completed {font-size:1.125em;}
+		&.report_headline {padding:0 0 0 1em;}
 		&.report_image {
 			background:$text-color;
 			text-align: center;
 			overflow: hidden;
 			padding:0;
 			position: relative;
-			height:9em;
-			width:9em;
+			height:7em;
+			width:7em;
+			vertical-align: top;
+			div { // firefox table fix
+				position: relative;
+				height:100%;
+				width:100%;
+			}
 			img {
 				max-width:100%;
 				position: absolute;
-				left:0; right:0; bottom:0; top:0;
+				left:0; right:0; 
+				bottom:0; top:0;
 				margin:auto;
 			}
 		}
+		&.num_completed {
+			font-family:$open-600;
+		}
+		&.percent_claimed, &.percent_all, 
+		&.num_completed {text-align: center;}
+		&.percent_claimed, &.percent_all {
+			font-size:1.65em;
+			font-family:$open-600;
+		}
+		&.percent_claimed {color:$blue;}
+		&.percent_all {color:$orange;}
 	}
-	td + td {padding:0 0 0 1em;}
 }
