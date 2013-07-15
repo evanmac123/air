@@ -147,4 +147,5 @@ h1.page-title {
 body.client_admins h1#title:before {background-position:-34px -15px;}
 body.client_admin-segmentations h1#title:before {background-position:0px -15px;}
 body.client_admin-users h1#title:before {background-position:-65px -15px;}
-body.client_admin-tiles h1#title:before {background-position:-130px -15px;}
+body.client_admin-tiles h1#title:before,
+body.client_admin-tiles_reports h1#title:before {background-position:-130px -15px;}
