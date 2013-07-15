@@ -27,7 +27,7 @@ describe 'Digest email' do
     subject { TilesDigestMailer.notify_one(demo.id, claimed_user.id, tile_ids) }
 
     it { should be_delivered_to   'John Campbell <john@campbell.com>' }
-    it { should be_delivered_from 'donotreply@hengage.com' }
+    it { should be_delivered_from demo.reply_email_address }
     it { should have_subject      'New Tiles' }
   end
 

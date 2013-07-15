@@ -4,8 +4,8 @@ include EmailHelper
 
 feature 'Client admin and the digest email for tiles' do
 
-  let(:admin) { FactoryGirl.create :client_admin, email: 'admin@hengage.com' }
-  let(:demo)  { admin.demo }
+  let(:demo)  { FactoryGirl.create :demo, email: 'foobar@playhengage.com' }
+  let(:admin) { FactoryGirl.create :client_admin, email: 'admin@hengage.com', demo: demo }
 
   # -------------------------------------------------
 
@@ -203,7 +203,11 @@ feature 'Client admin and the digest email for tiles' do
           all_emails.should have(5).emails  # The above 4 for this demo, and the 'admin' created at top of tests
 
           %w(admin@hengage.com john@campbell.com irma@thomas.com wc@clark.com taj@mahal.com).each do |address|
-            find_email(address).should_not be_nil
+            digest_email = find_email(address)
+            digest_email.should_not be_nil
+
+            digest_email.from.should have(1).address
+            digest_email.from.first.should == demo.email
           end
         end
       end
