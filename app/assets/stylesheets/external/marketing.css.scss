@@ -13,7 +13,7 @@ body{
   font-family: $font;
   font-size:100%;
   * {box-shadow:none!important;}
-  h1, h2, h3 {font-family: $font; font-weight:normal;}
+  h1, h2, h3 {font-family: $font; font-weight:normal; line-height: 1.125em;}
   h1 {color:#4d4d4d; font-size:2.25em; font-family:$open-600;}
   h2 {color:$text-color; font-size:1.875em;}
   h3 {font-family:$open-600;}

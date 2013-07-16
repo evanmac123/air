@@ -92,6 +92,14 @@ $border-light:      1px #fff solid;
     display:inline-block;
 }
 
+@mixin arrow-bottom($color) {
+    border-right: 8px solid transparent;
+    border-left: 8px solid transparent;
+    border-top: 8px solid #{$color};
+    content:"";
+    display:inline-block;
+}
+
 @mixin arrow-left($color) {
     border-bottom: 8px solid transparent;
     border-right: 8px solid #{$color};

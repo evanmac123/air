@@ -1,43 +1,88 @@
 #complex_simple {
-	background:$gray;
+	background: $gray;
 	border-top:5px darken($gray, 10%) solid;
 	color:lighten($gray, 45%);
-	padding:2em 0 0 0;
 	h2 {color:$white;}
-
+	.row {
+		padding:2em 0 0 0;
+	}
+	.copy {
+		padding-bottom: 2em;
+	}
 	.imagery {
-		background:image-url('marketing/tile-green.png') no-repeat center bottom transparent;
-		height:10em;
-
-		// border:1px red solid;
-		// text-align: center;
-		img {
-			// position: absolute;
-		}
+		text-align: center;
+		background:$gray;
 	}
 	.imagery .tips {
-		display: none;
-	// 	display: inline-block;
-	// 	position: absolute;
-	// 	span {
-	// 		background-color:$dark-green;
-	// 		padding:.5em 1em;
-	// 	}
-	// 	&:before {
-	// 		@include arrow-top($dark-green);
-	// 		height:8px;
-	// 		width:8px;
-	// 	}
+		display: inline-block;
+		position: absolute;
+		right:1%;
+		span {
+			background-color:$dark-green;
+			border-bottom:3px darken($dark-green, 5%) solid;
+			border-radius:3px;
+			padding:1em;
+		}
+		&:before {
+			@include arrow-left($dark-green);
+			position: relative;
+			top:4px;
+		}
+		&#custom_image {top:15%;}
+		&#organized_messages {top:50%;}
+		&#answer_for_points {top:87%;}
 	}
 }
 
 @media only screen and (min-width: 768px) { 
 #complex_simple {
-	border:0;
-	padding:0;
+	.row {
+		padding:2em 0;
+		position: relative;
+	}
+	.copy {
+		padding-bottom:0;
+		padding-top:7%;
+	}
 	.imagery {
-		text-align:right;
-		img {border:5px $white solid;}
+		background-color:transparent;
+		margin:0;
+		padding:0;
+		text-align: left;
+		img {
+			border:5px $white solid;
+			max-width:85%;
+		}
+	}
+}
+}
+
+@media only screen and (min-width: 64em) {
+#complex_simple {
+	// border:0;
+	.row {padding:7em 0 8.5em 0;}
+	.copy {
+		padding-top:0;
+		padding-bottom:0;
+	}
+	.imagery {
+		position: absolute;
+		text-align: right;
+		top:-7%;
+		right:0;
+		.tips {
+			right:auto;
+			&:before {display:none;}
+			&:after {
+				@include arrow-right($dark-green);
+				position: relative;
+				top:3px;
+			}
+			&#custom_image {left:5.5%;}
+			&#organized_messages {left:0;}
+			&#answer_for_points {left:3%; top:84.5%;}
+		}
+		img {max-width:auto}
 	}
 }
 }
