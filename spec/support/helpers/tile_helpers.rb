@@ -130,7 +130,7 @@ module TileHelpers
   end
 
   def have_num_tile_image_links(num)
-    have_selector 'div.image a img', count: num
+    have_selector 'td a img', count: num
   end
   
   def fill_in_answer_field(index, text)
