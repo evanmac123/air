@@ -42,19 +42,17 @@ feature 'client admin views tiles reports' do
 
     let(:expected_tile_table) do
       # No need to test for images as that is done in other tests; this is for reporting numbers
-      # The numbers outside the arrays are the actual values of the last column
-      # (In case we decide to change the displayed precision)
-      [ ["Image", "Headline", "Completions", "Percent claimed", "Percent all"],
-        [  "",     "Tile 9",      "90",           "90.0%",          "60.0%"  ],  # 60
-        [  "",     "Tile 8",      "80",           "80.0%",          "53.3%"  ],  # 53.333
-        [  "",     "Tile 7",      "70",           "70.0%",          "46.7%"  ],  # 46.666
-        [  "",     "Tile 6",      "60",           "60.0%",          "40.0%"  ],  # 40
-        [  "",     "Tile 5",      "50",           "50.0%",          "33.3%"  ],  # 33.333
-        [  "",     "Tile 4",      "40",           "40.0%",          "26.7%"  ],  # 26.666
-        [  "",     "Tile 3",      "30",           "30.0%",          "20.0%"  ],  # 20
-        [  "",     "Tile 2",      "20",           "20.0%",          "13.3%"  ],  # 13.333
-        [  "",     "Tile 1",      "10",           "10.0%",          "6.7%"   ],  # 6.666
-        [  "",     "Tile 0",      "0",            "0.0%",           "0.0%"   ]   # 0
+      [ ["Image", "Headline", "Completions", "% of participants"],
+        [  "",     "Tile 9",      "90",           "90.0%"       ],
+        [  "",     "Tile 8",      "80",           "80.0%"       ],
+        [  "",     "Tile 7",      "70",           "70.0%"       ],
+        [  "",     "Tile 6",      "60",           "60.0%"       ],
+        [  "",     "Tile 5",      "50",           "50.0%"       ],
+        [  "",     "Tile 4",      "40",           "40.0%"       ],
+        [  "",     "Tile 3",      "30",           "30.0%"       ],
+        [  "",     "Tile 2",      "20",           "20.0%"       ],
+        [  "",     "Tile 1",      "10",           "10.0%"       ],
+        [  "",     "Tile 0",      "0",            "0.0%"        ]
       ]
     end
 
