@@ -20,7 +20,7 @@ body{
   input, textarea {@include ease(.15s); font-family:$font; font-size:1em;}
   p {
     font-size:1em; line-height:1.25em; padding-bottom:1em;
-    span {font-family:$open-600;}
+    span {font-family:$open-600; font-weight:600;}
     &.caption {font-size:.875em;}
   }
 }
@@ -73,6 +73,7 @@ section.contained {@include centered-section;}
 section.feature_sections {
   position:relative;
   h2 {margin:.65em 0;}
+  .copy {margin-bottom:1em;}
 }
 
 footer {

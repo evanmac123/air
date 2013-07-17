@@ -83,6 +83,14 @@ nav.top-bar {
 
 // Complex made simple
 #complex_simple {
-  .row {padding:2em 0;}
+  .row {padding:4em 0;}
   .copy {padding-top:10%}
+}
+
+// Beautifully easy
+#beautifully_easy {
+  background:image-url('marketing/tiles-bg.png') center top no-repeat;
+  padding:8em 0;
+  .copy {padding-top:9%;}
+  .imagery img {max-width:85%}
 }

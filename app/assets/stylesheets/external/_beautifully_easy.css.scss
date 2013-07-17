@@ -1,0 +1,11 @@
+#beautifully_easy {padding:2em 0;}
+
+@media only screen and (min-width: 768px) { 
+	#beautifully_easy {
+		background:image-url('marketing/tiles-bg@2x.png') center top no-repeat;
+		background-size:contain;
+		padding:8em 0;
+		.copy {padding-top:8%;}
+		.imagery img {max-width:85%}
+	}
+}

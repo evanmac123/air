@@ -3,12 +3,7 @@
 	border-top:5px darken($gray, 10%) solid;
 	color:lighten($gray, 45%);
 	h2 {color:$white;}
-	.row {
-		padding:2em 0 0 0;
-	}
-	.copy {
-		padding-bottom: 2em;
-	}
+	.row {padding:2em 0 0 0;}
 	.imagery {
 		text-align: center;
 		background:$gray;
@@ -21,16 +16,21 @@
 			background-color:$dark-green;
 			border-bottom:3px darken($dark-green, 5%) solid;
 			border-radius:3px;
+			display: inline-block;
 			padding:1em;
+			text-align: center;
+			width:auto;
+			white-space: nowrap;
 		}
 		&:before {
 			@include arrow-left($dark-green);
-			position: relative;
-			top:4px;
+			position: absolute;
+			top:1em;
+			left:-8px;
 		}
 		&#custom_image {top:15%;}
 		&#organized_messages {top:50%;}
-		&#answer_for_points {top:87%;}
+		&#answer_for_points {top:85%;}
 	}
 }
 
@@ -41,7 +41,6 @@
 		position: relative;
 	}
 	.copy {
-		padding-bottom:0;
 		padding-top:7%;
 	}
 	.imagery {
@@ -68,7 +67,7 @@
 	.imagery {
 		position: absolute;
 		text-align: right;
-		top:-7%;
+		top:-5%;
 		right:0;
 		.tips {
 			right:auto;
