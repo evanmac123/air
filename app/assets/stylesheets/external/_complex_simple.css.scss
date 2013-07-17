@@ -3,7 +3,7 @@
 	border-top:5px darken($gray, 10%) solid;
 	color:lighten($gray, 45%);
 	h2 {color:$white;}
-	.row {padding:2em 0 0 0;}
+	// .row {padding:2em 0 0 0;}
 	.imagery {
 		text-align: center;
 		background:$gray;
@@ -36,6 +36,7 @@
 
 @media only screen and (min-width: 768px) { 
 #complex_simple {
+	padding-top:0;
 	.row {
 		padding:2em 0;
 		position: relative;

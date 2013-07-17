@@ -1,0 +1,12 @@
+#save_time {
+	background:image-url('marketing/bg.gif');
+	.imagery {text-align: center;}
+}
+
+@media only screen and (min-width: 768px) {
+	#save_time {
+		padding:4em 0;
+		.copy {padding-top:5%;}
+		.imagery {text-align: right;}
+	}
+}

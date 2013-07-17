@@ -1,6 +1,5 @@
 .hero {
 	background:$blue;
-	margin-bottom:2em;
 	.main-row {
 		background-color:$blue;
 		padding:2em 0;
@@ -29,7 +28,7 @@
 
 @media only screen and (min-width: 768px) {
 	.hero {
-		margin-bottom:4.5em;
+		margin-bottom:3em;
 		.main-row {
 			background:image-url('marketing/hub.png') no-repeat;
 			background-position: 135% 45%;

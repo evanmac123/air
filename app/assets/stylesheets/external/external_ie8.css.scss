@@ -83,6 +83,7 @@ nav.top-bar {
 
 // Complex made simple
 #complex_simple {
+  padding-top:0;
   .row {padding:4em 0;}
   .copy {padding-top:10%}
 }
@@ -93,4 +94,11 @@ nav.top-bar {
   padding:8em 0;
   .copy {padding-top:9%;}
   .imagery img {max-width:85%}
+}
+
+// Save time tracking
+#save_time {
+  padding:4em 0;
+  .copy {padding-top:5%;}
+  .imagery {text-align: right;}
 }
