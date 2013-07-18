@@ -10,18 +10,24 @@
     <%= image_html %>
   </div>
 
+  <% render "#{tile.to_partial_path}_text_content" %>
+
   <% if is_client_created %>
     <div class="tile_texts_container">
       <div class="tile_headline"><%= tile.headline %></div>
       <div class="tile_supporting_content"><%= tile.supporting_content %></div>
       <div class="tile_quiz">
-        <% if tile.first_rule && tile.first_rule.points %>
-          <div class="tile_points">
-            <span class="num_of_points"><%= tile.first_rule.points %></span>
-            <span class="points_label"><%= tile.first_rule.points > 1 ? "pts" : "pt" %></span>
-            </div>
-        <% end %>
+        <div class="tile_points">
+          <span class="num_of_points"><%= tile.points %></span>
+          <span class="points_label"><%= tile.points > 1 ? "pts" : "pt" %></span>
+        </div>
         <div class="tile_question"><%= tile.question %></div>
+
+        <% if tile.multiple_choice_answers.present? %>
+          <% tile.multiple_choice_answers.each do |answer| %>
+            <div class="tile_multiple_choice_answer"><%= answer %></div>
+          <% end %>
+        <% end %>
       </div>
     </div>
   <% end %>

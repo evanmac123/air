@@ -1,0 +1,2 @@
+class OldSchoolTile < Tile
+end

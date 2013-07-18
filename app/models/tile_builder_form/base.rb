@@ -37,7 +37,7 @@ module TileBuilderForm
     end
 
     def tile
-      @tile ||= @demo.tiles.new
+      @tile ||= tile_class.new(demo: @demo)
     end
 
     def rule
@@ -68,13 +68,18 @@ module TileBuilderForm
 
     protected
 
+    def tile_class
+      OldSchoolTile
+    end
+
     def save_objects
-      Tile.transaction do
+      tile_class.transaction do
         save_main_objects
         remove_extraneous_rule_values
         associate_rule_values_with_rule
         set_first_rule_value_as_primary
         create_trigger_if_needed
+        true
       end
     end
 
@@ -108,11 +113,11 @@ module TileBuilderForm
     end
 
     def build_tile
-      @tile = @demo.tiles.build
+      @tile = tile_class.new(demo: @demo)
       set_tile_image
       set_tile_attributes
-      @tile.position = Tile.next_position(@demo)
-      @tile.status = Tile::ARCHIVE
+      @tile.position = tile_class.next_position(@demo)
+      @tile.status = tile_class::ARCHIVE
     end
 
     def update_tile
@@ -251,8 +256,13 @@ module TileBuilderForm
     end
 
     def normalized_answers_from_params
+      return unless answers_from_params
+      answers_from_params.map{|answer| answer.strip.downcase}.select(&:present?).uniq
+    end
+
+    def answers_from_params
       return unless @parameters && @parameters[:answers]
-      @parameters[:answers].map{|answer| answer.strip.downcase}.select(&:present?).uniq
+      @parameters[:answers]    
     end
 
     def normalized_answers_from_tile

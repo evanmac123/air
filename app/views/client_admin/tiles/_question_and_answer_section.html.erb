@@ -8,7 +8,8 @@
     <%= form.label "answers[]", "Give the answers" %>
     <div id="answers">
       <% form.object.answers.each_with_index do |answer, i| %>
-        <%= text_field_tag "tile_builder_form[answers][]", answer, class: 'answer-field', maxlength: 25 %>
+        <%= radio_button_tag "tile_builder_form[correct_answer_index]", i, false, class: 'correct-answer-button answer-part' %>
+        <%= text_field_tag "tile_builder_form[answers][]", answer, class: 'answer-field answer-part', maxlength: 25 %>
       <% end %>
     </div>
     <%= link_to "Add another answer", "#", id: "add-answer-link" %>
@@ -24,15 +25,29 @@
     <%= javascript_include_tag 'admin/byte_counter' %>
     <%= javascript_tag do %>
       $(function() {
-        var prototypeAnswerField = $('.answer-field').first();
+        var prototypeIndexButton  = $('.correct-answer-button').first();
+        var prototypeAnswerText   = $('.answer-field').first();
+        var prototypeAnswerFields = prototypeIndexButton.add(prototypeAnswerText);
 
         $('#add-answer-link').click(function(e) {
           e.preventDefault();
-          var originField = prototypeAnswerField.clone();
-          originField.val('');
 
-          $('#answers').append(originField);
-          addCharacterCounterFor(originField);
+          var prototypeIsSelected = prototypeIndexButton.is(':checked');
+
+          var copies = prototypeAnswerFields.clone();
+          var correctAnswerIndexButton = copies.eq(0);
+          var correctAnswerField       = copies.eq(1);
+
+          existingIndexButtonCount = $('.correct-answer-button').length;
+          correctAnswerIndexButton.attr('value', existingIndexButtonCount).attr('id', 'correct_answer_index_' + existingIndexButtonCount);
+          correctAnswerField.val('');
+          
+          $('#answers').append(copies);
+          if(prototypeIsSelected) {
+            prototypeIndexButton.click();
+          }
+
+          addCharacterCounterFor(correctAnswerField);
         });
       });
 
