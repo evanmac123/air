@@ -1,12 +1,10 @@
 #complex_simple {
-	background: $gray;
-	border-top:5px darken($gray, 10%) solid;
+	background: darken($gray, 10%);
 	color:lighten($gray, 45%);
 	h2 {color:$white;}
-	// .row {padding:2em 0 0 0;}
 	.imagery {
 		text-align: center;
-		background:$gray;
+		background: darken($gray, 10%);
 	}
 	.imagery .tips {
 		display: inline-block;
