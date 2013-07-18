@@ -1,0 +1,43 @@
+#any_objective {
+	background:$blue;
+	border-top:2px $light-gray solid;
+	padding-bottom:1em;
+	.copy {
+		background:$white;
+		border:3px $light-gray solid;
+	}
+
+	.obj_left, .obj_right {
+		padding:0 3.5%;
+		width:50%;
+	}
+	.obj_left {float:left;}
+	.obj_right {float: right;}
+	.objective_examples ul {
+		@extend p.caption;
+		color:$light-gray;
+		li {
+			border-top:1px darken($blue, 5%) solid;
+			padding:.5em 0;
+		}
+		&:first-of-type li:first-of-type {border-top:0;}
+	}
+}
+
+@media only screen and (min-width: $foundation) {
+#any_objective {
+	.main-row {
+		position: absolute;	
+	}
+
+	.obj_left, .obj_right {
+		border:1px red solid;
+		float:none;
+		padding:0;
+		width:100%;
+	}
+	.objective_examples {
+
+	}
+}	
+}

@@ -3,7 +3,7 @@
 	.imagery {text-align: center;}
 }
 
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: $foundation) {
 	#save_time {
 		padding:4em 0;
 		.copy {padding-top:5%;}

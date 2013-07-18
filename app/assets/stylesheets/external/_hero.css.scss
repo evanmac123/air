@@ -26,7 +26,7 @@
 	}
 }
 
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: $foundation) {
 	.hero {
 		margin-bottom:3em;
 		.main-row {
@@ -43,7 +43,7 @@
 	}
 }
 
-@media only screen and (min-width: 58em) {
+@media only screen and (min-width: $mid-desktop) {
 	.hero {
 		background:image-url('marketing/hub.png') no-repeat $blue;
 		background-position:right center;
@@ -54,7 +54,7 @@
 	}
 }
 
-@media only screen and (min-width: 70em) {
+@media only screen and (min-width: $large-desktop) {
 	.hero {
 		background:$blue;
 		.main-row {

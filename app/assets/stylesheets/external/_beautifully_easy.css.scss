@@ -1,4 +1,4 @@
-@media only screen and (min-width: 768px) { 
+@media only screen and (min-width: $foundation) { 
 	#beautifully_easy {
 		background:image-url('marketing/tiles-bg@2x.png') center top no-repeat;
 		background-size:contain;

@@ -17,7 +17,7 @@
 	#site_scoreboard {right:35%; top:40%;}
 }
 
-@media only screen and (min-width: 768px) { 
+@media only screen and (min-width: $foundation) { 
 	#capture_attention {
 		.imagery {
 			background-position: 1em bottom;
@@ -30,10 +30,10 @@
 	}
 }
 
-@media only screen and (min-width: 58em) {
+@media only screen and (min-width: $mid-desktop) {
 	#capture_attention .copy {padding-top:6%;}
 }
 
-@media only screen and (min-width: 70em) {
+@media only screen and (min-width: $large-desktop) {
 	#capture_attention .copy {padding-top:7.5%;}
 }

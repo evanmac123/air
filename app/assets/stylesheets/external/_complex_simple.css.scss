@@ -34,7 +34,7 @@
 	}
 }
 
-@media only screen and (min-width: 768px) { 
+@media only screen and (min-width: $foundation) { 
 #complex_simple {
 	padding-top:0;
 	.row {

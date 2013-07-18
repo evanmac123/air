@@ -250,3 +250,8 @@ body {
   &#blue {background:$blue; right:16.5%;}
   &#orange {background:$orange; right:0;}
 }
+
+/* ============= Breakpoints ============= */
+$foundation: 768px;
+$mid-desktop: 58em;
+$large-desktop: 70em;
