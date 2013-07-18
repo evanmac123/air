@@ -7,37 +7,90 @@
 		border:3px $light-gray solid;
 	}
 
-	.obj_left, .obj_right {
+	.mobile_left, .mobile_right {
 		padding:0 3.5%;
 		width:50%;
 	}
-	.obj_left {float:left;}
-	.obj_right {float: right;}
+	.mobile_left {float:left;}
+	.mobile_right {float: right;}
 	.objective_examples ul {
 		@extend p.caption;
 		color:$light-gray;
-		li {
-			border-top:1px darken($blue, 5%) solid;
-			padding:.5em 0;
-		}
-		&:first-of-type li:first-of-type {border-top:0;}
+		li {padding:.5em 0;}
+		li + li {border-top:1px darken($blue, 5%) solid;}
 	}
 }
 
 @media only screen and (min-width: $foundation) {
-#any_objective {
-	.main-row {
-		position: absolute;	
-	}
-
-	.obj_left, .obj_right {
-		border:1px red solid;
-		float:none;
+	#any_objective {
 		padding:0;
-		width:100%;
+		.main-row {position: relative;}
+		.main-row .copy {
+			height:12.25em;
+			padding:2% 4% 0 4%;
+			position: absolute;	
+			text-align: center;
+			left:0;
+			right:0;
+			top:6.15em;
+		}
+		.objective_examples {
+			.large-12 {padding:0;}
+			.mobile_left, .mobile_right {
+				float:none;
+				padding:0;
+				width:100%;
+				&:after{@include clear;}
+			}
+			ul li {
+				font-family:$open-600;
+				border:1px darken($blue, 5%) solid;
+				text-align: center;
+				padding:2em 0;
+				height:7em;
+				line-height: 2.75em;
+				width:16.666%;
+				&:hover {background:darken($blue, 5%);}
+				span {
+					display: inline-block;
+					line-height: 1.25em;
+					padding:0 1em;
+					vertical-align: middle;
+				}
+			}
+		}
+		#objectives_top, #objectives_bottom {
+			&:after{@include clear;}
+			li {
+				display: inline-block;
+				float: left;
+			}
+			li + li {border-left:0;}
+		}
+		#objectives_left, #objectives_right {
+			li {border-top:0;}
+			li + li {border-bottom:0;}
+		}
+		#objectives_right {
+			position: absolute;
+			right: 0;
+			top:7em;
+			width:16.67%;
+			li {width:100%;}
+		}
+	}	
+}
+@media only screen and (min-width: $mid-desktop) {
+	#any_objective {
+		.main-row .copy {
+			height:17.5em;
+			padding:2% 12% 0 12%;
+			top:8.75em;
+		}
+		.objective_examples ul li {
+			height:10em;
+			line-height: 6em;
+		}
+		#objectives_right {top:10em;}
 	}
-	.objective_examples {
-
-	}
-}	
 }

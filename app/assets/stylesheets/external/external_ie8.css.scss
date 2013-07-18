@@ -102,3 +102,62 @@ nav.top-bar {
   .copy {padding-top:5%;}
   .imagery {text-align: right;}
 }
+
+// Any objective
+#any_objective {
+  padding:0;
+  .main-row {position: relative;}
+  .main-row .copy {
+    height:17.35em;
+    padding:1.75% 10% 0 10%;
+    position: absolute; 
+    text-align: center;
+    top:8.75em;
+    left:0;
+    right:0;
+  }
+  .objective_examples {
+    .large-12 {padding:0;}
+    .mobile_left, .mobile_right {
+      float:none;
+      padding:0;
+      width:100%;
+      &:after{@include clear;}
+    }
+    ul li {
+      font-family:$open-600;
+      border:1px darken($blue, 5%) solid;
+      text-align: center;
+      padding:2em 0;
+      height:10em;
+      line-height: 6em;
+      width:16.666%;
+      &:hover {background:darken($blue, 5%);}
+      span {
+        display: inline-block;
+        line-height: 1.25em;
+        padding:0 1em;
+        vertical-align: middle;
+      }
+    }
+  }
+  #objectives_top, #objectives_bottom {
+    &:after{@include clear;}
+    li {
+      display: inline-block;
+      float: left;
+    }
+    li + li {border-left:0;}
+  }
+  #objectives_left, #objectives_right {
+    li {border-top:0;}
+    li + li {border-bottom:0;}
+  }
+  #objectives_right {
+    position: absolute;
+    right: 0;
+    top:10em;
+    width:16.67%;
+    li {width:100%;}
+  }
+} 
