@@ -5,11 +5,13 @@
   </div>
 
   <div id="quiz_answers" class="content_sections">
-    <%= form.label "answers[]", "Give the answers" %>
+    <%= form.label "answers[]", "Give the answers and mark the correct one" %>
     <div id="answers">
       <% form.object.answers.each_with_index do |answer, i| %>
-        <%= radio_button_tag "tile_builder_form[correct_answer_index]", i, false, class: 'correct-answer-button answer-part' %>
-        <%= text_field_tag "tile_builder_form[answers][]", answer, class: 'answer-field answer-part', maxlength: 25 %>
+        <ul class="answer_option">
+          <li class="option_radio"><%= radio_button_tag "tile_builder_form[correct_answer_index]", i, false, class: 'correct-answer-button answer-part' %></li>
+          <li class="option_input"><%= text_field_tag "tile_builder_form[answers][]", answer, class: 'answer-field answer-part', maxlength: 25 %></li>
+        </ul>
       <% end %>
     </div>
     <%= link_to "Add another answer", "#", id: "add-answer-link" %>
@@ -24,36 +26,39 @@
   <% content_for :javascript do %>
     <%= javascript_include_tag 'admin/byte_counter' %>
     <%= javascript_tag do %>
+
+      function turnRadioGreen() {
+        $('.option_radio').click(function() {
+          var radioButton = $(this).find('input:radio');
+
+          $('.option_radio').removeClass('option_selected');  
+          radioButton.attr('checked','true');
+          $(this).addClass('option_selected');  
+        });
+      };
+
       $(function() {
-        var prototypeIndexButton  = $('.correct-answer-button').first();
-        var prototypeAnswerText   = $('.answer-field').first();
-        var prototypeAnswerFields = prototypeIndexButton.add(prototypeAnswerText);
+        var initialAnswerField = $('.answer_option').eq(0);
 
         $('#add-answer-link').click(function(e) {
           e.preventDefault();
+          var newField = initialAnswerField.clone()
+                            .find('.character-counter').remove().end()
+                            .find('.option_radio').removeClass('option_selected').end()
+                            .find('.answer-field').val('').end()
+                            .find('input:radio').removeAttr('checked').end();
+          var newFieldAnswer = newField.find('.answer-field');
 
-          var prototypeIsSelected = prototypeIndexButton.is(':checked');
-
-          var copies = prototypeAnswerFields.clone();
-          var correctAnswerIndexButton = copies.eq(0);
-          var correctAnswerField       = copies.eq(1);
-
-          existingIndexButtonCount = $('.correct-answer-button').length;
-          correctAnswerIndexButton.attr('value', existingIndexButtonCount).attr('id', 'correct_answer_index_' + existingIndexButtonCount);
-          correctAnswerField.val('');
-          
-          $('#answers').append(copies);
-          if(prototypeIsSelected) {
-            prototypeIndexButton.click();
-          }
-
-          addCharacterCounterFor(correctAnswerField);
+          newField.appendTo('#answers');
+          addCharacterCounterFor(newFieldAnswer);
+          turnRadioGreen();
         });
       });
 
       addCharacterCounterFor('#tile_builder_form_headline');
       addCharacterCounterFor('#tile_builder_form_supporting_content');
       addCharacterCounterFor('.answer-field');
+      turnRadioGreen();
     <% end %>
   <% end %>
 </div>
