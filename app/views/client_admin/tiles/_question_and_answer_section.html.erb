@@ -42,11 +42,13 @@
 
         $('#add-answer-link').click(function(e) {
           e.preventDefault();
+          var existingRadioCount = $('.option_radio').length;
+
           var newField = initialAnswerField.clone()
                             .find('.character-counter').remove().end()
                             .find('.option_radio').removeClass('option_selected').end()
                             .find('.answer-field').val('').end()
-                            .find('input:radio').removeAttr('checked').end();
+                            .find('input:radio').removeAttr('checked').attr('value', existingRadioCount).end();
           var newFieldAnswer = newField.find('.answer-field');
 
           newField.appendTo('#answers');
