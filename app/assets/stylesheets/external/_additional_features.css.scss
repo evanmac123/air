@@ -1,11 +1,25 @@
 #additional_features {
+	padding-bottom:1.5em;
 	.imagery {text-align: center;}
 	.copy {margin-top:1em;}
 }
 
+#other_benefits {
+	background:$light-gray;
+	border-bottom:5px darken($light-gray, 10%) solid;
+	padding:3em 0 2em 0;
+	li {
+		@extend p.caption;
+		color:$text-color;
+		padding:1em;
+		vertical-align: top;
+		p span {display: block;}
+	}
+}
+
 @media only screen and (min-width: $foundation) {
 	#additional_features {
-		padding:6em 0;
+		padding:6em 0 4em 0;
 		.imagery {
 			height:12em;
 			margin-bottom:2.25em;
