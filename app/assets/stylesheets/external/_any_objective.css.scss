@@ -1,5 +1,5 @@
 #any_objective {
-	background:$blue;
+	background:$dark-green;
 	border-top:2px $light-gray solid;
 	padding-bottom:1em;
 	.copy {
@@ -15,9 +15,9 @@
 	.mobile_right {float: right;}
 	.objective_examples ul {
 		@extend p.caption;
-		color:$light-gray;
+		color:lighten($dark-green, 40%);
 		li {padding:.5em 0;}
-		li + li {border-top:1px darken($blue, 5%) solid;}
+		li + li {border-top:1px darken($dark-green, 5%) solid;}
 	}
 }
 
@@ -44,13 +44,13 @@
 			}
 			ul li {
 				font-family:$open-600;
-				border:1px darken($blue, 5%) solid;
+				border:1px darken($dark-green, 5%) solid;
 				text-align: center;
 				padding:2em 0;
 				height:7em;
 				line-height: 2.75em;
 				width:16.666%;
-				&:hover {background:darken($blue, 5%);}
+				&:hover {background:darken($dark-green, 5%);}
 				span {
 					display: inline-block;
 					line-height: 1.25em;

@@ -6,6 +6,9 @@ section.feature_sections {
   p.caption {font-size:.875em;}
 }
 
+// External session pages
+#session-wrapper {width:65%; max-width:40em;}
+
 // Header nav
 header {
 	.contain-to-grid {padding:1em 0;}
@@ -48,6 +51,8 @@ nav.top-bar {
 // Hero
 .hero {
 	background:$blue;
+  margin-bottom:3em;
+  &:after {left: 50%;}
   h1 {font-size:2.5em;}
   h2 {font-size:1.375em;}
 	.main-row {
@@ -86,6 +91,7 @@ nav.top-bar {
   padding-top:0;
   .row {padding:4em 0;}
   .copy {padding-top:10%}
+  .imagery img {border:5px $white solid;}
 }
 
 // Beautifully easy
@@ -126,13 +132,13 @@ nav.top-bar {
     }
     ul li {
       font-family:$open-600;
-      border:1px darken($blue, 5%) solid;
+      border:1px darken($dark-green, 5%) solid;
       text-align: center;
       padding:2em 0;
       height:10em;
       line-height: 6em;
       width:16.666%;
-      &:hover {background:darken($blue, 5%);}
+      &:hover {background:darken($dark-green, 5%);}
       span {
         display: inline-block;
         line-height: 1.25em;
@@ -164,7 +170,7 @@ nav.top-bar {
 
 // Additional features
 #additional_features {
-  padding:6em 0;
+  padding:4em 0 2.5em 0;
   .imagery {
     height:12em;
     margin-bottom:2.25em;
@@ -174,4 +180,11 @@ nav.top-bar {
     }
   }
 #easy_reporting .imagery img {max-width:86.5%}
+}
+#other_benefits:after {left: 49%;}
+
+// Pricing
+#pricing {
+  margin:1.25em 0;
+  h1 {margin:.75em 0 1.5em 0;}
 }

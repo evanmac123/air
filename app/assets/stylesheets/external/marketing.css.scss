@@ -1,4 +1,4 @@
-#remove_me {color:red; font-family: $open-600;}
+#remove_me {color:red!important; font-family: $open-600;}
 
 $font: $sans;
 @mixin centered-section {
@@ -8,7 +8,7 @@ $font: $sans;
 html, body {
   margin: 0;
   width: 100%;
-  height: 100%;
+  height:100%;
 }
 body{
   background:$white;
@@ -66,10 +66,6 @@ table {
     }
   }
 }
-.wrapper {
-  color:lighten($text-color, 30%);
-  width:100%;
-}
 section.contained {@include centered-section;}
 
 section.feature_sections {
@@ -80,46 +76,45 @@ section.feature_sections {
 }
 
 footer {
-  background:image-url('marketing/bg.gif');
+  background:lighten($text-color, 5%);
   color:$gray;
   font-size:.75em;
   padding:2em 10px;
-  div {@include centered-section; &:after{@include clear;}}
-  p {float:left;}
-  ul {float:right;}
-  p, ul, ul li {display: inline-block;}
-  ul li a, ul li a:link, ul li a:visited {
-    @include hide-text;
-    background:image-url('marketing/sprites.png') no-repeat $light-gray -119px -35px;
-    display: inline-block;
-    height:22px;
-    width:22px;
-    &#facebook {background-position:-139px -36px;}
-    &#linkedin {background-position:-159px -36px;}
-    &:hover{background-color:$dark-green;}
+  &:after{@include clear;}
+  
+  .contact_us {
+    border:1px red solid;
+    float: left;
+  }
+  
+  .our_socmedia {
+    float:right;
+    li {
+      display: inline-block; 
+      line-height: 1em;
+      margin-left:.35em;
+      vertical-align: middle;
+    }
+    li a, li a:link,li a:visited {
+      @include hide-text;
+      background:image-url('marketing/sprites.png') no-repeat lighten($text-color, 13%) -119px -35px;
+      display: inline-block;
+      height:22px;
+      width:22px;
+      &#facebook {background-position:-139px -36px;}
+      &#linkedin {background-position:-159px -36px;}
+      &:hover{background-color:$dark-green;}
+    }
   }
 }
 
-section#clients {
-  border-bottom:$border-dark;
-  margin-bottom:1.5em;
+#clients {
+  margin:2em auto 4em auto;
   text-align: center;
-  ul {padding:1.5em 0;}
+  p {color:$gray; font-size:1em;}
+  ul {padding:.5em 0;}
   ul li {
-    display: inline-block;
-    margin:0 .65em;
-    overflow: hidden;
-    position: relative;
     vertical-align: middle;
-    width:24%;
-    a {
-      display: inline-block;
-      height:70px;
-      position: relative;
-      vertical-align: middle;
-      width:100%;
-    }
-    &#highmark, &#yahoo {a {padding-top:1em;}}
   }
 }
 

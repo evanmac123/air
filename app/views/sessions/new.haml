@@ -1,4 +1,4 @@
-#session-wrapper
+#session-wrapper.row
   %h1 Log In
   = form_tag session_path do  
     %label.input_label Email address
@@ -10,6 +10,5 @@
       = check_box_tag "session[remember_me]", 1, true
     = submit_tag "Let's play!" 
     = link_to "Forgot password?", new_password_path 
-  .cf
 
 = mp_track_page "sign in"

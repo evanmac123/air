@@ -1,12 +1,16 @@
 #complex_simple {
-	background: darken($gray, 10%);
-	color:lighten($gray, 45%);
-	h2 {color:$white;}
+	border-top:5px darken($light-gray, 3%) solid;
+	background:lighten($light-gray, 7%);
+	h2 {color:$text-color;}
 	.imagery {
 		text-align: center;
-		background: darken($gray, 10%);
+		img {
+			border:5px $white solid;
+			border-bottom:0;
+		}
 	}
 	.imagery .tips {
+		color:$white;
 		display: inline-block;
 		position: absolute;
 		right:1%;
@@ -48,7 +52,7 @@
 		padding:0;
 		text-align: left;
 		img {
-			border:5px $white solid;
+			border-bottom-width:5px;
 			max-width:85%;
 		}
 	}

@@ -1,18 +1,13 @@
 // Styles for Login/Signup external page
 body.external {
   background:image-url('marketing/bg.gif');
-  min-width:910px;
-  header {
-    margin-bottom:4em;
+
+  footer, .footer {
+    background: transparent;
+    text-align: center;
+    p {float:none;}
   }
-  footer div {width:85%;}
-  .wrapper {@include centered-section;}
-  // section {
-  //   background:$white;
-  //   margin:0 auto 3em auto;
-  //   padding:1em;
-  //   width:85%;
-  // }
+
   #status {
     margin:$centered;
     width:50%;
@@ -21,30 +16,37 @@ body.external {
   }
   #flash {padding-left:3em; width:85%;}
   #flash a#close-flash span {margin:23px 0 0 15px;}
-  #session-wrapper {
-    background:$white;
-    margin:1em auto;
-    padding:1em;
-    width:50%;
-    h1 {text-align: center;}
-    p {padding:0 0 1em 0;}
-    form {
-      width:87%;
-      margin:1.5em auto 1em auto;
-      a {font-size:.85em;}
-      input[type="text"], input[type="password"] {
-        display: block;
-        font-size:1.125em;
-        margin:0 0 .5em 0;
-        padding:.5em .85em;
-        width:100%;
-      }
-      label {font-size:.85em;
-        &.input_label {font-family:$open-600;}
-      }
-      .wrap {display: block; padding-bottom:1em;}
+}
+
+#session-wrapper {
+  background:$white;
+  margin:6em auto;
+  padding:1em;
+  width:95%;
+  h1 {text-align: center;}
+  p {padding:0 0 1em 0;}
+  form {
+    width:87%;
+    margin:1.5em auto 1em auto;
+    a {font-size:.85em;}
+    input[type="text"], input[type="password"] {
+      display: block;
+      font-size:1.125em;
+      margin:0 0 .5em 0;
+      padding:.5em .85em;
+      width:100%;
+    }
+    label {font-size:.85em;
+      &.input_label {font-family:$open-600;}
+    }
+    .wrap {
+      display: block; padding-bottom:1em;
+      label {display: inline-block;}
     }
   }
+}
+@media only screen and (min-width: $foundation) {
+  #session-wrapper {width:65%; max-width:40em;}
 }
 
 #password_placeholder_holder {

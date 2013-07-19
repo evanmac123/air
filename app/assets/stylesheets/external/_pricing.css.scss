@@ -1,0 +1,46 @@
+#pricing {
+	h1 {
+		margin-bottom:1em;
+		text-align: center;
+	}
+	.price_chart {
+		margin-bottom: 2em;
+		text-align: center;
+		li .request_a_demo {width:100%;}
+		.trial {
+			background: $text-color;
+			color:$orange;
+			font-family:$open-600;
+			p {
+				@extend p.caption;
+				padding:.75em 0;
+			}
+		}
+		.price_amount {
+			background:darken($gray, 15%);
+			color:$white;
+			font-family:$sans;
+			padding:3em 0;
+			h1 {
+				color:$white;
+				font-family:$sans;
+				margin-bottom:.25em;
+				span {font-family:$open-600}
+			}
+		}
+	}
+
+	.buy_benefits {
+		list-style-type: disc;
+		padding-left:3em;
+		li {
+			padding:.25em 0;
+		}
+	}
+}
+
+@media only screen and (min-width: $foundation) {
+	#pricing {
+		h1 {margin:.75em 0 1.5em 0;}
+	}
+}

@@ -29,16 +29,18 @@
     <%= render 'shared/mixpanel' %>
   </head>
   <body class="<%= body_class %> external">
-    <i id="blue" class="colorbar"></i>
-    <i id="orange" class="colorbar"></i>
-
+    
     <div class="wrapper">
+      <i id="blue" class="colorbar"></i>
+      <i id="orange" class="colorbar"></i>
       <%= render "pages/header" %>
       <%= render "shared/flashes" %>
       <div id="status"><%= yield :status %></div>
       <%= yield %>
       <%= render "pages/footer" %>
     </div>
+
+    
     <%= javascript_include_tag asset_path('ga-marketing.js') if ENV['USE_GA'] %>
     <%= yield :javascript %>  
     <script>
