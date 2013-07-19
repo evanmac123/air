@@ -91,9 +91,8 @@ class Tile < ActiveRecord::Base
     headline
   end
 
-  def satisfy_for_user!(user, channel=nil)
+  def satisfy_for_user!(user)
     completion = TileCompletion.create!(:tile_id => id, :user_id => user.id)
-    #OutgoingMessage.send_side_message(user, completion.satisfaction_message, :channel => channel)
     Act.create!(:user_id =>user.id, :inherent_points => bonus_points, :text => "")
   end
 
@@ -134,6 +133,10 @@ class Tile < ActiveRecord::Base
 
   def archived?
     self.status == ARCHIVE
+  end
+
+  def text_of_completion_act
+    "Answered a question on the \"#{headline}\" tile."
   end
 
   def self.due_ids

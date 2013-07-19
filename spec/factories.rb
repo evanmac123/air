@@ -209,18 +209,28 @@ FactoryGirl.define do
     association :demo
     sequence(:position){ |n| n }
     status Tile::ACTIVE
+  end
 
-    trait :client_created do
-      supporting_content "This is some extra text by the tile"
-      question "Who loves ya, baby?"
-      require_images true
-      image {File.open(Rails.root.join "spec/support/fixtures/tiles/cov1.jpg")}
-      thumbnail {File.open(Rails.root.join "spec/support/fixtures/tiles/cov1_thumbnail.jpg")}
-      after(:create) do |tile|
-        rule_value   = FactoryGirl.create(:rule_value, is_primary: true)
-        rule_trigger = FactoryGirl.create(:rule_trigger, tile: tile, rule: rule_value.rule)
-      end
+  factory :client_created_tile, parent: :tile do
+    supporting_content "This is some extra text by the tile"
+    question "Who loves ya, baby?"
+    require_images true
+    image {File.open(Rails.root.join "spec/support/fixtures/tiles/cov1.jpg")}
+    thumbnail {File.open(Rails.root.join "spec/support/fixtures/tiles/cov1_thumbnail.jpg")}
+  end
+
+  factory :keyword_tile, parent: :client_created_tile, class: KeywordTile do
+    after(:create) do |tile|
+      rule_value   = FactoryGirl.create(:rule_value, is_primary: true)
+      rule_trigger = FactoryGirl.create(:rule_trigger, tile: tile, rule: rule_value.rule)
     end
+  end
+
+  factory :multple_choice_tile, parent: :client_created_tile, class: MultipleChoiceTile do
+    question "Which of the following comes out of a bird?"
+    points 99
+    multiple_choice_answers ["Ham", "Eggs", "A V8 Buick"] 
+    correct_answer_index 1  
   end
 
   factory :tile_completion do

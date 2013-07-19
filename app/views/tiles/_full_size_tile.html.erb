@@ -10,8 +10,6 @@
     <%= image_html %>
   </div>
 
-  <% render "#{tile.to_partial_path}_text_content" %>
-
   <% if is_client_created %>
     <div class="tile_texts_container">
       <div class="tile_headline"><%= tile.headline %></div>
@@ -24,8 +22,37 @@
         <div class="tile_question"><%= tile.question %></div>
 
         <% if tile.multiple_choice_answers.present? %>
-          <% tile.multiple_choice_answers.each do |answer| %>
-            <div class="tile_multiple_choice_answer"><%= answer %></div>
+          <% tile.multiple_choice_answers.each_with_index do |answer, i| %>
+            <%= content_tag "div", class: "tile_multiple_choice_answer", id: "multiple_choice_answer_#{i}" do %>
+              <% if i == tile.correct_answer_index %>
+                <%= link_to answer, tile_completions_path(tile_id: tile.id), method: :post %>
+              <% else %>
+                <%= link_to answer, '#' %>
+              <% end %>
+              <div class="wrong_answer_target" style="display: none"></div>
+            <% end %>
+          <% end %>
+
+          <% content_for :javascript do %>
+            <%= javascript_tag do %>
+              var attachWrongAnswer = function(answerLink, target) {
+                  answerLink.click(function(event) {
+                  event.preventDefault();
+                  target.html("Sorry, that's not it. Try again!");
+                  target.show();
+                })
+              }
+            <% end %>
+
+            <% wrong_answer_indices = (0..tile.multiple_choice_answers.length - 1).to_a - [tile.correct_answer_index] %>
+            <% wrong_answer_indices.each do |wrong_answer_index| %>
+              <%= javascript_tag do %>
+                var answerDiv = $('#multiple_choice_answer_' + <%= wrong_answer_index %>);
+                var answerLink = answerDiv.find('a');
+                var target = answerDiv.find('.wrong_answer_target');
+                attachWrongAnswer(answerLink, target);
+              <% end %>
+            <% end %>
           <% end %>
         <% end %>
       </div>

@@ -711,14 +711,14 @@ class User < ActiveRecord::Base
     )
   end
 
-  def satisfy_tiles_by_survey(survey_or_survey_id, channel)
+  def satisfy_tiles_by_survey(survey_or_survey_id)
     satisfiable_tiles = Tile.satisfiable_by_survey_to_user(survey_or_survey_id, self)
     satisfiable_tiles.each do |tile|
-      tile.satisfy_for_user!(self, channel) 
+      tile.satisfy_for_user!(self) 
     end
   end
 
-  def satisfy_tiles_by_rule(rule_or_rule_id, channel, referring_user_id = nil)
+  def satisfy_tiles_by_rule(rule_or_rule_id, referring_user_id = nil)
     return unless rule_or_rule_id
 
     satisfiable_tiles = Tile.satisfiable_by_rule_to_user(rule_or_rule_id, self)
@@ -726,7 +726,7 @@ class User < ActiveRecord::Base
     satisfiable_tiles.each do |tile|
       required = tile.rule_triggers.map(&:referrer_required).include? true
       if referring_user_id or not required
-        tile.satisfy_for_user!(self, channel) if tile.all_rule_triggers_satisfied_to_user(self)
+        tile.satisfy_for_user!(self) if tile.all_rule_triggers_satisfied_to_user(self)
       end
     end
   end

@@ -173,7 +173,7 @@ module TileBuilderForm
 
         headline = @parameters[:headline]
         rule.reply = "+#{@parameters[:points]} points! Great job! You completed the \"#{headline}\" tile."
-        rule.description = "Answered a question on the \"#{headline}\" tile."
+        rule.description = @tile.text_of_completion_act
       end
     end
 

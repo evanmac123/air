@@ -370,7 +370,7 @@ describe Tile do
 
       janice = FactoryGirl.create(:user, demo: @fun, name: 'Janice')
       TileCompletion.count.should == 0
-      janice.satisfy_tiles_by_rule(@take_mud_bath, 'web')
+      janice.satisfy_tiles_by_rule(@take_mud_bath)
       TileCompletion.count.should == 1
       TileCompletion.first.tile.should == @mud_bath
       TileCompletion.first.user.should == janice

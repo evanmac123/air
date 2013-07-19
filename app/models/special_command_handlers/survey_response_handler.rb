@@ -10,7 +10,7 @@ class SpecialCommandHandlers::SurveyResponseHandler < SpecialCommandHandlers::Ba
     question = survey.latest_question_for(@user)
 
     if question
-      question.respond(@user, survey, choice, @parsing_options[:channel])
+      question.respond(@user, survey, choice)
     else
       return nil if survey.demo.has_rule_value_matching?(choice) # Give Act.parse a crack at it
       parsing_success_message(survey.all_answers_already_message)

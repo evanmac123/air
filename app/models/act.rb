@@ -217,7 +217,7 @@ class Act < ActiveRecord::Base
   end
 
   def trigger_tiles
-    self.user.satisfy_tiles_by_rule(self.rule_id, self.creation_channel, self.referring_user_id.present?)
+    self.user.satisfy_tiles_by_rule(self.rule_id, self.referring_user_id.present?)
   end
 
   def self.record_bad_message(phone_number, body, reply = '')

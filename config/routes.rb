@@ -7,6 +7,7 @@ Health::Application.routes.draw do
   match "next"       => "pages#show", :id => "june2013_landing"
 
   resources :tiles, :only => [:index, :show]
+  resources :tile_completions, :only => [:create]
 
   resource :session, :controller => 'sessions'
 
