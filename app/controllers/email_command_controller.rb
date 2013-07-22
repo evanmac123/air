@@ -9,7 +9,12 @@ class EmailCommandController< ApplicationController
     set_success_response!
 
     email_command = EmailCommand.create_from_incoming_email(params)      
-    if email_command.all_blank?
+
+    if email_command.looks_like_autoresponder?
+      email_command.update_attributes(status: EmailCommand::Status::SILENT_SUCCESS)
+      set_silent_success_response!
+      return
+    elsif email_command.all_blank?
       email_command.response = blank_body_response
       email_command.status = EmailCommand::Status::SUCCESS
     elsif email_command.claim_account
@@ -33,6 +38,12 @@ class EmailCommandController< ApplicationController
     self.response_body = 'success'
     self.content_type  = "text/plain"
     self.status = 200
+  end
+
+  def set_silent_success_response!
+    self.response_body = ''
+    self.content_type  = "text/plain"
+    self.status = 201
   end
 
   def blank_body_response
