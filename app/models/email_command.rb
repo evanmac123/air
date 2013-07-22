@@ -16,14 +16,19 @@ class EmailCommand < ActiveRecord::Base
   validates :status, :inclusion => { :in => STATUSES, :message => "%{value} is not a valid status value" }
 
   AUTORESPONSE_PHRASES = [
-    "out of office",
-    "out of the office",
-    "out-of-office",
-    "autoresponse",
-    "automatic response",
+    "auto reply",
+    "auto-reply",
     "auto response",
     "auto-response",
-    "on vacation"
+    "automatic reply",
+    "automatic-reply",
+    "automatic response",
+    "automatic-response",
+    "autoresponse",
+    "on vacation",
+    "out of office",
+    "out-of-office",
+    "out of the office"
   ]
 
   def send_response_to_non_user
