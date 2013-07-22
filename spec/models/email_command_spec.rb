@@ -117,6 +117,44 @@ describe EmailCommand, "#find user by email" do
   end
 end
 
+describe EmailCommand, "#looks_like_autoresponder?" do
+  it "should detect certain phrases in the subject" do
+    triggering_phrases = [
+      "Out of office",
+      "out of office",
+      "Out-of-office",
+      "Out of the office",
+      "out of the office",
+      "Autoresponse",
+      "Auto-response",
+      "Automatic response",
+      "automatic response",
+      "auto-response",
+      "Auto response",
+      "On vacation",
+      "on vacation"
+    ]
+
+    non_triggering_phrases = [
+      "Four score and seven years ago",
+      "In the office",
+      "Totally back in the office"
+    ]
+
+    triggering_phrases.each do |triggering_phrase|
+      params = test_email_params.merge('subject' => triggering_phrase)
+      email_command = EmailCommand.create_from_incoming_email(params)
+      email_command.looks_like_autoresponder?.should be_true
+    end
+
+    non_triggering_phrases.each do |non_triggering_phrase|
+      params = test_email_params.merge(:subject => non_triggering_phrase)
+      email_command = EmailCommand.create_from_incoming_email(params)
+      email_command.looks_like_autoresponder?.should be_false
+    end
+  end
+end
+
 def test_email_params
  {  "to"=>"email_commands@hengage.net",
     "from"=>"kbedell@gmail.com",

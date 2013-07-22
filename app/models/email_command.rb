@@ -15,6 +15,16 @@ class EmailCommand < ActiveRecord::Base
   STATUSES = [ Status::SUCCESS, Status::FAILED, Status::UNKNOWN_EMAIL, Status::USER_VERIFIED, Status::INVITATION, Status::SILENT_SUCCESS ]
   validates :status, :inclusion => { :in => STATUSES, :message => "%{value} is not a valid status value" }
 
+  AUTORESPONSE_PHRASES = [
+    "out of office",
+    "out of the office",
+    "out-of-office",
+    "autoresponse",
+    "automatic response",
+    "auto response",
+    "auto-response",
+    "on vacation"
+  ]
 
   def send_response_to_non_user
     self.response = non_user_response(self.email_from) 
@@ -36,6 +46,10 @@ class EmailCommand < ActiveRecord::Base
 
   def all_blank?
     self.clean_body.blank? && self.clean_subject.blank?
+  end
+
+  def looks_like_autoresponder?
+    AUTORESPONSE_PHRASES.any? {|autoresponse_phrase| normalized_clean_subject.include? autoresponse_phrase}
   end
 
   def request_invitation_by_emailing_their_userid(options={})
@@ -132,5 +146,9 @@ class EmailCommand < ActiveRecord::Base
 
   def non_user_response(email)
     "The email '#{email}' is not registered for this game."
+  end
+
+  def normalized_clean_subject
+    clean_subject.downcase.gsub(/\s+/, ' ')
   end
 end
