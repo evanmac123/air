@@ -1,26 +1,33 @@
 <footer>
 <% if @display_social_links %>
-  <div class="contact_us">
-    <h3>Contact us</h3>
-    <ul>
-      <li class="reach_us"><a href="mailto:info@hengage.com">info@hengage.com</a></li>
-      <li class="reach_us"><p>877-598-6669</p></li>
-      <li class="address">
-        <p>H.Engage</p>
-        <p>222 Newbury Street, 3rd Floor</p>
-        <p>Boston, MA 02116</p>
-      </li>
-    </ul>
+  <div class="row main-row">
+    <div class="featured_posts large-9 push-3 columns">
+      <h3>Featured posts</h3>
+    </div>
+
+    <div class="contact_us large-3 pull-9 columns">
+      <h3>Contact us</h3>
+      <ul>
+        <li class="reach_us"><a href="mailto:info@hengage.com">info@hengage.com</a></li>
+        <li class="reach_us"><p>877-598-6669</p></li>
+        <li class="address">
+          <p>H.Engage</p>
+          <p>222 Newbury Street, 3rd Floor</p>
+          <p>Boston, MA 02116</p>
+        </li>
+      </ul>
+      <ul class="our_socmedia">
+        <li><a href="http://www.linkedin.com/company/1556587" target="_new" id="linkedin">LinkedIn</a></li>
+        <li><a href="https://twitter.com/hengage" target="_new" id="twitter">Twitter</a></li>
+        <li><a href="https://www.facebook.com/pages/H-Engage/196416790375924" target="_new" id="facebook">Facebook</a></li>
+      </ul>
+    </div>
   </div>
 <% end %>
+  <div class="row copyright">
+    <p>Copyright &copy; 2013 H.Engage, Inc.</p>
+  </div>
 
-<% if @display_social_links %>
-  <ul class="our_socmedia">
-    <li><a href="http://www.linkedin.com/company/1556587" target="_new" id="linkedin">LinkedIn</a></li>
-    <li><a href="https://twitter.com/hengage" target="_new" id="twitter">Twitter</a></li>
-    <li><a href="https://www.facebook.com/pages/H-Engage/196416790375924" target="_new" id="facebook">Facebook</a></li>
-  </ul>
-<% end %>
 </footer>
 <script>
   $("[placeholder]").placeholder();

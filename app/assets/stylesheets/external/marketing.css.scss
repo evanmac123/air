@@ -12,13 +12,14 @@ html, body {
 }
 body{
   background:$white;
+  color:lighten($text-color, 27%);
   font-family: $font;
   font-size:100%;
   * {box-shadow:none!important;}
   h1, h2, h3 {font-family: $font; font-weight:normal; line-height: 1.125em;}
-  h1 {color:#4d4d4d; font-size:2.25em; font-family:$open-600;}
+  h1 {color:$text-color; font-size:2.25em; font-family:$open-600;}
   h2 {color:$text-color; font-size:1.875em;}
-  h3 {font-family:$open-600;}
+  h3 {font-family:$open-600; font-size:1.25em;}
   input, textarea {@include ease(.15s); font-family:$font; font-size:1em;}
   p {
     font-size:1em; line-height:1.25em; padding-bottom:1em;
@@ -75,36 +76,63 @@ section.feature_sections {
   .copy {margin-bottom:1em;}
 }
 
+// FOOTER
 footer {
   background:lighten($text-color, 5%);
   color:$gray;
-  font-size:.75em;
-  padding:2em 10px;
+  padding-top:2em;
+  padding-bottom:2em;
   &:after{@include clear;}
-  
-  .contact_us {
-    border:1px red solid;
-    float: left;
+
+  h3 {
+    border-bottom:2px $gray solid;
+    color:$gray;
+    padding-bottom:.5em;
+    margin-bottom:1em;
   }
-  
-  .our_socmedia {
-    float:right;
-    li {
-      display: inline-block; 
-      line-height: 1em;
-      margin-left:.35em;
-      vertical-align: middle;
+
+  .copyright {font-size:.75em; padding-top:1.25em; text-align: center;}
+
+  .main-row {
+    border-bottom:1px lighten($text-color, 3%) solid;
+    padding-bottom:2em;
+    margin:auto;
+  }
+
+  // Contact us
+  .contact_us {
+    a, a:link, a:visited, .reach_us {font-family:$sans; color:$white;}
+    .address p {
+      color:lighten($text-color, 35%);
+      font-size:.875em;
+      margin:0;
+      padding: 0;
     }
-    li a, li a:link,li a:visited {
-      @include hide-text;
-      background:image-url('marketing/sprites.png') no-repeat lighten($text-color, 13%) -119px -35px;
-      display: inline-block;
-      height:22px;
-      width:22px;
-      &#facebook {background-position:-139px -36px;}
-      &#linkedin {background-position:-159px -36px;}
-      &:hover{background-color:$dark-green;}
+    .our_socmedia {
+      margin-top:1em;
+      li {
+        display: inline-block; 
+        float: left;
+        line-height: 1em;
+        vertical-align: middle;
+      }
+      li + li {margin-left:.35em;}
+      li a, li a:link,li a:visited {
+        @include hide-text;
+        background:image-url('marketing/sprites.png') no-repeat lighten($text-color, 13%) -119px -35px;
+        display: inline-block;
+        height:22px;
+        width:22px;
+        &#facebook {background-position:-139px -36px;}
+        &#linkedin {background-position:-159px -36px;}
+        &:hover{background-color:$dark-green;}
+      }
     }
+  }
+
+  // Featured posts
+  .featured_posts {
+    margin-bottom:2em;
   }
 }
 
@@ -118,7 +146,7 @@ footer {
   }
 }
 
-@media only screen and (min-width: 58em) {
+@media only screen and (min-width: $mid-desktop) {
   section.feature_sections {
     h2 {font-size:2.5em;}
     p {font-size:1.25em;}

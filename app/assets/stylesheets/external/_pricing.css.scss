@@ -31,16 +31,20 @@
 	}
 
 	.buy_benefits {
-		list-style-type: disc;
-		padding-left:3em;
+		padding-left:1.5em;
 		li {
-			padding:.25em 0;
+			background:image-url('marketing/checkmark.png') no-repeat left .75em;
+			padding:.5em 0 0 1.85em;
 		}
 	}
 }
 
-@media only screen and (min-width: $foundation) {
+@media only screen and (min-width: $foundation), (-webkit-min-device-pixel-ratio: 2) {
 	#pricing {
 		h1 {margin:.75em 0 1.5em 0;}
+		.buy_benefits li {
+			background-image:image-url('marketing/checkmark@2x.png');
+			background-size:14px 14px;
+		}
 	}
 }

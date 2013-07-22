@@ -181,7 +181,10 @@ nav.top-bar {
   }
 #easy_reporting .imagery img {max-width:86.5%}
 }
-#other_benefits:after {left: 49%;}
+#other_benefits{
+  padding:4em 0 2em 0;
+  &:after {left: 49%; margin-top:2em;}
+}
 
 // Pricing
 #pricing {

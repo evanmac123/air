@@ -1,7 +1,7 @@
 #complex_simple {
 	border-top:5px darken($light-gray, 3%) solid;
 	background:lighten($light-gray, 7%);
-	h2 {color:$text-color;}
+	.copy {color:lighten($text-color, 18%);}
 	.imagery {
 		text-align: center;
 		img {

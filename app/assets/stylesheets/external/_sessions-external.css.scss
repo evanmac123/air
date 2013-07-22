@@ -2,6 +2,12 @@
 body.external {
   background:image-url('marketing/bg.gif');
 
+  header{
+    margin-bottom:4em;
+    .contain-to-grid, .top-bar {background: transparent;}
+    .top-bar-section, .toggle-topbar {display: none;}
+  }
+
   footer, .footer {
     background: transparent;
     text-align: center;
@@ -10,7 +16,8 @@ body.external {
 
   #status {
     margin:$centered;
-    width:50%;
+    width:90%;
+    max-width:32em;
     font-size:1.25em; 
     p{padding:0 0 1em 0;}
   }
@@ -20,7 +27,7 @@ body.external {
 
 #session-wrapper {
   background:$white;
-  margin:6em auto;
+  margin:0 auto 6em auto;
   padding:1em;
   width:95%;
   h1 {text-align: center;}
@@ -59,6 +66,10 @@ body.external {
 
 
 // Styles for Invitations show/acceptance page
+body.invitations .welcome-message {
+  margin-bottom:1em;
+  .explanation {color:$dark-green; margin-top:.75em;}
+}
 body.invitations-show form {
   .form-ul-section {margin-bottom:1em;position: relative;}
   #broughtby {
