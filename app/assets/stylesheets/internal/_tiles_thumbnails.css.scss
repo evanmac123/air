@@ -39,7 +39,7 @@
         }
         .tile_thumbnail{
           background-color:$text-color;
-          background-position:top center;
+          background-position:center center;
           background-repeat:no-repeat;
           display: block;
           height:14em;
@@ -68,7 +68,7 @@
   // =========== Buttons ===========
   .jcarousel-prev-horizontal, .jcarousel-next-horizontal {
     background:image-url('v5/sprites.png') no-repeat transparent;
-    top:45%;
+    top:40%;
   }
   .jcarousel-prev-horizontal{
     background-position: 0px -106px;
