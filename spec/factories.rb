@@ -223,10 +223,11 @@ FactoryGirl.define do
     after(:create) do |tile|
       rule_value   = FactoryGirl.create(:rule_value, is_primary: true)
       rule_trigger = FactoryGirl.create(:rule_trigger, tile: tile, rule: rule_value.rule)
+      tile.first_rule.update_attributes(demo_id: tile.demo_id)
     end
   end
 
-  factory :multple_choice_tile, parent: :client_created_tile, class: MultipleChoiceTile do
+  factory :multiple_choice_tile, parent: :client_created_tile, class: MultipleChoiceTile do
     question "Which of the following comes out of a bird?"
     points 99
     multiple_choice_answers ["Ham", "Eggs", "A V8 Buick"] 

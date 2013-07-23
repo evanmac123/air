@@ -62,13 +62,13 @@ class RuleValue < ActiveRecord::Base
 
   def validate_value_unique_within_demo
     if conflicting_value_within_demo_exists?
-      self.errors.add(:value, "must be unique within its demo")
+      self.errors.add(:value, "\"#{value}\" is already taken")
     end
   end
 
   def value_is_not_single_letter
     return unless self.value =~ /^[[:alpha:]]$/
-    self.errors.add(:value, "Can't have a single-letter value, those are reserved for other purposes.")
+    self.errors.add(:value, "answer \"#{value}\" must have more than one letter")
   end
 
   def self.existing_value_within_demo(demo, value)

@@ -60,7 +60,7 @@ feature 'User views tiles' do
 
   context 'of the multiple-choice variety' do
     before do
-      @tile = FactoryGirl.create(:multple_choice_tile, points: 10)
+      @tile = FactoryGirl.create(:multiple_choice_tile, points: 10)
       @user = FactoryGirl.create(:user, demo: @tile.demo)
       visit tiles_path(as: @user)
     end

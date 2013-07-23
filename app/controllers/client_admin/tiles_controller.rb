@@ -47,7 +47,8 @@ class ClientAdmin::TilesController < ClientAdminBaseController
   end
 
   def edit
-    @tile_builder_form = TileBuilderForm::MultipleChoice.new(@demo, tile: Tile.find(params[:id]))
+    tile = get_tile
+    @tile_builder_form = tile.to_form_builder
   end
 
   private
@@ -82,7 +83,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
   end
 
   def update_fields
-    @tile_builder_form = TileBuilderForm::MultipleChoice.new(@demo, parameters: params[:tile_builder_form], tile: @tile)
+    @tile_builder_form = @tile.form_builder_class.new(@demo, parameters: params[:tile_builder_form], tile: @tile)
 
     if @tile_builder_form.update_objects
       set_after_save_flash(@tile_builder_form.tile)

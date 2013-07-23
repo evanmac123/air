@@ -28,6 +28,7 @@ module TileBuilderForm
     end
 
     def remove_extraneous_rule_values
+      true
     end
 
     def associate_rule_values_with_rule
@@ -42,7 +43,18 @@ module TileBuilderForm
     def remove_rule_value_error_on_rule
     end
 
+    def update_rule
+    end
+
+    def update_rule_values
+    end
+
+    def inherent_errors
+      []
+    end
+
     def normalized_answers_from_tile
+      tile && tile.multiple_choice_answers
     end
 
     def no_rule_values_given

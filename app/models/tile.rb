@@ -139,6 +139,10 @@ class Tile < ActiveRecord::Base
     "Answered a question on the \"#{headline}\" tile."
   end
 
+  def to_form_builder
+    form_builder_class.new(demo, tile: self)
+  end
+
   def self.due_ids
     self.after_start_time_and_before_end_time.map(&:id)
   end
