@@ -61,7 +61,11 @@ shared_examples_for "editing a tile" do
     click_button "Update tile"
 
     expect_content "Sorry, we couldn't update this tile: must have at least one answer"
-    @tile.first_rule.reload.should have(3).rule_values # unchanged
+
+    # This is a stupid hack but fuck it, I don't feel like repeating myself here.
+    if @tile.kind_of?(KeywordTile)
+      @tile.first_rule.reload.should have(3).rule_values # unchanged
+    end
   end
 end
 
