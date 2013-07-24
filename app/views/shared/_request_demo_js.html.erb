@@ -5,7 +5,8 @@
       encloser = $(this).parents('section');
     }
 
-    $("#request_demo").lightbox_me();
+    // $('#request_demo').foundation('reveal', 'open');
+    $('#request_demo').lightbox_me();
     mpq.track('alternate demo request form opened', {opened_from: encloser.attr('id')});
   });
 

@@ -33,9 +33,11 @@
     <i id="blue" class="colorbar"></i>
     <i id="orange" class="colorbar"></i>
     <%= render "pages/header" %>
-    <%= render "shared/flashes" %>
-    <div id="status"><%= yield :status %></div>
-    <%= yield %>
+    <div class="wrapper">
+      <%= render "shared/flashes" %>
+      <div id="status"><%= yield :status %></div>
+      <%= yield %>
+    </div>
     <%= render "pages/footer" %>
 
     

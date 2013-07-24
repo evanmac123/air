@@ -36,7 +36,9 @@
     <i id="blue" class="colorbar"></i>
     <i id="orange" class="colorbar"></i>
     <%= render "pages/header" %>
-    <%= yield %> 
+    <div class="wrapper">
+      <%= yield %> 
+    </div>
     <%= render "pages/footer" %>
     
     <%= javascript_include_tag asset_path('ga-marketing.js') if ENV['USE_GA'] %>

@@ -1,5 +1,7 @@
 @import "mixins/standard_colors.css.scss";
 
+.wrapper {margin-top:6.5em;}
+
 section.feature_sections {
   h2 {font-size:2.5em;}
   p {font-size:1.25em;}
@@ -7,6 +9,14 @@ section.feature_sections {
 }
 
 // External session pages
+body.external {
+  .wrapper {margin-top:4em;}
+  header {
+    position:static;
+    width:100%;
+    z-index:0;
+  }
+}
 #session-wrapper {width:65%; max-width:40em;}
 
 // Header nav
@@ -24,15 +34,23 @@ nav.top-bar {
   .top-bar-section ul.right { // Nav bar
   	background:$white;
     margin:.5em 15px 0 0;
+    li {padding:0 1em;}
     li.divider {  // Dividers
       border:0;
+      padding:0;
     }
     li > a {  // Regular links
       background:$white;
       color:$med-gray;
       font-family:$sans;
       font-size:1.125em;
-      &:hover {color:$text-color;}
+      padding-left:0;
+      padding-right:0;
+      &:hover{color:$orange;}
+      &.current_section {
+        border-bottom:2px $orange solid;
+        color:$text-color
+      }
     }
     .has-form { // Buttons area
       background:$white!important;

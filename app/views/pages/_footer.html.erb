@@ -21,6 +21,7 @@
         <li><a href="https://twitter.com/hengage" target="_new" id="twitter">Twitter</a></li>
         <li><a href="https://www.facebook.com/pages/H-Engage/196416790375924" target="_new" id="facebook">Facebook</a></li>
       </ul>
+      <a class="up_top" href="#!">Back to top</a>
     </div>
   </div>
 <% end %>
@@ -34,5 +35,10 @@
   $("#linkedin, #twitter, #facebook").click(function() {
     var socialLinkId = $(this).attr('id');
     mpq.track('clicked social link', {link_to: socialLinkId});
+  });
+  $('.up_top').click(function(event){
+    event.preventDefault();
+    HEngage.scrollToElement('body');
+    mpq.track("Back to Top clicked");
   });
 </script>

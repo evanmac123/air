@@ -1,4 +1,7 @@
 header {
+  position:fixed;
+  width:100%;
+  z-index:97;
   .contain-to-grid, .top-bar, 
   .top-bar-section {background:$white;}
   nav.top-bar, .title-area {height:4em;}
@@ -13,12 +16,17 @@ header {
       .toggle-topbar {  // Toggle 
         top:.65em;
         a {color:$blue;}
+        a span {box-shadow:none;}
       }
     }
     .top-bar-section {  // Dropdown menu
       ul, li > a {
         background:$dark-gray;
         font-weight:normal;
+      }
+      li.divider { // Dividers
+        border-top:0;
+        border-bottom:1px darken($text-color, 3%) dashed;
       }
       .has-form {
         padding:0 .5em .5em .5em;
@@ -37,7 +45,7 @@ header {
   }
 }
 
-@media only screen and (min-width: 58em) {
+@media only screen and (min-width: $mid-desktop) {
   header {
     .contain-to-grid {padding:1em 0;}
     nav.top-bar {
@@ -50,15 +58,23 @@ header {
       .top-bar-section ul.right { // Nav bar
         background:$white;
         margin:.5em 15px 0 0;
+        li {padding:0 1em;}
         li.divider {  // Dividers
           border:0;
+          padding:0;
         }
         li > a {  // Regular links
           background:$white;
           color:$med-gray;
           font-family:$sans;
           font-size:1.125em;
-          &:hover {color:$text-color;}
+          padding:0;
+          &:hover {color:$orange;}
+          &.current_section {
+            @include ease(0);
+            border-bottom:2px $orange solid;
+            color:$text-color;
+          }
         }
         .has-form { // Buttons area
           background:$white;
