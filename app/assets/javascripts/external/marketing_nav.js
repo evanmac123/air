@@ -24,7 +24,7 @@ $(viewWindow).scroll(function() {
 window.HEngage = {
   scrollToElement: function(selector) {
     var topOffset = $(selector).offset().top;
-    $('html, body').animate({scrollTop: topOffset-=60}, 850);
+    $('html, body').animate({scrollTop: topOffset-=55}, 850);
   }
 };
 

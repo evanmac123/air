@@ -10,6 +10,7 @@
 	.mobile_left, .mobile_right {
 		padding:0 3.5%;
 		width:50%;
+		ul + ul {li {border-top:1px darken($dark-green, 5%) solid;}}
 	}
 	.mobile_left {float:left;}
 	.mobile_right {float: right;}
