@@ -21,6 +21,12 @@ Given /^I signed up with "(.*)\/(.*)"$/ do |email, password|
           :password_confirmation => password)
 end
 
+Given /^I am a claimed user who signed up with "(.*)\/(.*)"$/ do |email, password|
+  FactoryGirl.create(:claimed_user, :email                 => email,
+                                    :password              => password,
+                                    :password_confirmation => password)
+end
+
 Given /^I am signed up as "([^"]+)"$/ do |email_password|
   step %{I signed up with "#{email_password}"}
 end

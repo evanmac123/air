@@ -18,12 +18,12 @@ class PasswordsController < Clearance::PasswordsController
   end
 
   def edit
-    ::User.find_by_slug_and_confirmation_token(params[:user_id], params[:token])
+    @user = ::User.find_by_slug_and_confirmation_token(params[:user_id], params[:token])
     render :template => 'passwords/edit'
   end
 
   def update
-    ::User.find_by_slug_and_confirmation_token(params[:user_id], params[:token])
+    @user = ::User.find_by_slug_and_confirmation_token(params[:user_id], params[:token])
 
     password = params[:user][:password]
     password_confirmation = params[:user][:password_confirmation]
