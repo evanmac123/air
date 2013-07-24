@@ -4,19 +4,27 @@ class PasswordsController < Clearance::PasswordsController
 
   before_filter :force_html_format
   before_filter :downcase_email
+
   layout 'external'
 
+  def create
+    @user = User.find_by_email params[:password][:email]
 
+    # Non-existent user or a legitimate "Forgot Password" => Let Clearance handle it
+    super and return if (@user.nil? or @user.claimed?)
+
+    flash.now[:failure] = "You cannot reset a password on an unclaimed account. Please contact support@hengage.com for help."
+    render :template => 'passwords/new'
+  end
 
   def edit
-    @user = ::User.find_by_slug_and_confirmation_token(
-                   params[:user_id], params[:token])
+    ::User.find_by_slug_and_confirmation_token(params[:user_id], params[:token])
     render :template => 'passwords/edit'
   end
 
   def update
-    @user = ::User.find_by_slug_and_confirmation_token(
-                   params[:user_id], params[:token])
+    ::User.find_by_slug_and_confirmation_token(params[:user_id], params[:token])
+
     password = params[:user][:password]
     password_confirmation = params[:user][:password_confirmation]
     unless password == password_confirmation
