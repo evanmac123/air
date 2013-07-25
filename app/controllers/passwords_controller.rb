@@ -13,7 +13,7 @@ class PasswordsController < Clearance::PasswordsController
     # Non-existent user or a legitimate "Forgot Password" => Let Clearance handle it
     super and return if (@user.nil? or @user.claimed?)
 
-    flash.now[:failure] = "You cannot reset a password on an unclaimed account. Please contact support@hengage.com for help."
+    flash.now[:failure] = "We're sorry, you need to join H.Engage before you can reset your password. Please contact support@hengage.com for assistance."
     render :template => 'passwords/new'
   end
 
