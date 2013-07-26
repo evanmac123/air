@@ -26,7 +26,7 @@ feature "User interacts with the 'Forgot password?' functionality" do
 
     fill_in 'password_email', with: 'buddy@guy.com'
     click_button 'Reset password'
-    page.should have_text 'You cannot reset a password on an unclaimed account'
+    page.should have_text "We're sorry, you need to join H.Engage before you can reset your password."
   end
 
 end
