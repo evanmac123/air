@@ -13,7 +13,7 @@
 		color:$white;
 		display: inline-block;
 		position: absolute;
-		right:1%;
+		right:2%;
 		span {
 			background-color:$dark-green;
 			border-bottom:3px darken($dark-green, 5%) solid;
@@ -25,14 +25,14 @@
 			white-space: nowrap;
 		}
 		&:before {
-			@include arrow-left($dark-green);
+			@include arrow-top($dark-green);
 			position: absolute;
-			top:1em;
-			left:-8px;
+			top:-8px;
+			left:2em;
 		}
-		&#custom_image {top:15%;}
-		&#organized_messages {top:50%;}
-		&#answer_for_points {top:85%;}
+		&#custom_image {top:37%;}
+		&#organized_messages {top:65%;}
+		&#answer_for_points {top:95%;}
 	}
 }
 

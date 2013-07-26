@@ -42,12 +42,5 @@
     <%= render "pages/footer" %>
     
     <%= javascript_include_tag asset_path('ga-marketing.js') if ENV['USE_GA'] %>
-    <script>
-      document.write('<script src=' +
-      ('__proto__' in {} ? 'assets/vendor/zepto' : 'js/vendor/jquery') +
-      '.js><\/script>')
-
-      $(document).foundation();
-    </script>
   </body>
 </html>

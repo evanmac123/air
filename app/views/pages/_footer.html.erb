@@ -1,8 +1,10 @@
 <footer>
 <% if @display_social_links %>
   <div class="row main-row">
-    <div class="featured_posts large-9 push-3 columns">
-      <h3>Featured posts</h3>
+    <div class="blog_posts large-9 push-3 columns">
+      <h3>Latest posts</h3>
+      <ul class="latest_3 row">
+      </ul>
     </div>
 
     <div class="contact_us large-3 pull-9 columns">
@@ -36,9 +38,13 @@
     var socialLinkId = $(this).attr('id');
     mpq.track('clicked social link', {link_to: socialLinkId});
   });
+
+  // Scroll to top
   $('.up_top').click(function(event){
     event.preventDefault();
     HEngage.scrollToElement('body');
     mpq.track("Back to Top clicked");
   });
+
+  $(document).foundation();
 </script>

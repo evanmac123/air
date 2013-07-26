@@ -23,6 +23,8 @@
     <!--[if lt IE 9]>
       <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
       <style type="text/css">input[type="password"]{font-family:Arial!important;} .gradient {filter: none;}</style>
+      <%= stylesheet_link_tag 'vendor/ie8-grid12-foundation-4.css' %>
+      <%= stylesheet_link_tag 'external/external_ie8' %>
     <![endif]-->
     <%= javascript_include_tag asset_path('ga.js') if ENV['USE_GA'] %>
 
@@ -43,12 +45,5 @@
     
     <%= javascript_include_tag asset_path('ga-marketing.js') if ENV['USE_GA'] %>
     <%= yield :javascript %>  
-    <script>
-      document.write('<script src=' +
-      ('__proto__' in {} ? 'assets/vendor/zepto' : 'js/vendor/jquery') +
-      '.js><\/script>')
-
-      $(document).foundation();
-    </script>
   </body>
 </html>

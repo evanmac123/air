@@ -1,5 +1,5 @@
-@import 'tiles_thumbnails';
 @import 'tiles_fullsize';
+@import 'tiles_thumbnails';
 
 .tiles.tiles-index{
   .container:after{@include clear;}

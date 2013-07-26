@@ -1,4 +1,4 @@
-@import "mixins/standard_colors.css.scss";
+@import "../mixins/standard_colors.css.scss";
 
 .wrapper {margin-top:6.5em;}
 
@@ -20,11 +20,9 @@ body.external {
 #session-wrapper {width:65%; max-width:40em;}
 
 // Header nav
-header {
-	.contain-to-grid {padding:1em 0;}
-}
+header .contain-to-grid {padding:1em 0;}
 nav.top-bar {
-	background:$white!important;
+	background:transparent!important;
 	height:auto;
   .button {
     height:auto;
@@ -66,6 +64,9 @@ nav.top-bar {
   }
 }
 
+// Footer
+footer .blog_posts {margin-bottom:0;}
+
 // Hero
 .hero {
 	background:$blue;
@@ -87,14 +88,10 @@ nav.top-bar {
 }
 
 // Capture attention
-#capture_attention {
-  .imagery {
-    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(
-    src='/assets/marketing/site.png',
-    sizingMethod='scale');
-    -ms-filter: "progid:DXImageTransform.Microsoft.AlphaImageLoader(
-    src='/assets/marketing/site.png',
-    sizingMethod='scale')";
+.feature_sections#capture_attention {
+  .row.main-row .imagery {
+    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/assets/marketing/site.png', sizingMethod='scale');
+    -ms-filter: "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/assets/marketing/site.png', sizingMethod='scale')";
     background-position:1em bottom;
     padding:0 0 55% 0;
     width:55%;
@@ -110,6 +107,7 @@ nav.top-bar {
   .row {padding:4em 0;}
   .copy {padding-top:10%}
   .imagery img {border:5px $white solid;}
+  .imagery .tips {right:2%;}
 }
 
 // Beautifully easy
@@ -156,7 +154,6 @@ nav.top-bar {
       height:10em;
       line-height: 6em;
       width:16.666%;
-      &:hover {background:darken($dark-green, 5%);}
       span {
         display: inline-block;
         line-height: 1.25em;

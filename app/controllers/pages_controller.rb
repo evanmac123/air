@@ -9,6 +9,7 @@ class PagesController < HighVoltage::PagesController
   before_filter :set_login_url
   before_filter :display_social_links_if_marketing_or_waiting_room
 
+  skip_before_filter :force_ssl, :except => SIGNED_IN_OK_PAGES
 
   layout :layout_for_page
 
@@ -25,7 +26,6 @@ class PagesController < HighVoltage::PagesController
   protected
 
   def layout_for_page
-    page_name = params[:id] || params[:action]
     case page_name
     when 'privacy', 'terms'
       'external'
@@ -61,5 +61,9 @@ class PagesController < HighVoltage::PagesController
 
   def display_social_links_if_marketing_or_waiting_room
     display_social_links if %w(waitingroom marketing).include?(params[:id])
+  end
+
+  def page_name
+    page_name = params[:id] || params[:action]
   end
 end

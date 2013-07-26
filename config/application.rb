@@ -35,6 +35,7 @@ module Health
       vendor/ie8-grid16-foundation-4.css
       vendor/ie8-grid12-foundation-4.css
       external/june2013_landing_ie8.css
+      external/external_ie8.css
       app-admin.js
       app-internal.js
       app-external.js
@@ -42,10 +43,12 @@ module Health
       app-client-admin.js
       client_admin/add_new_location.js
       errors.css
+      external/blog_rss.js
       external/join.js
       external/track_form_fields.js
       external/marketing_nav.js
       external/prefilled_input.js
+      jquery.lightbox_me.js
       flick/jquery-ui-1.8.10.custom.css
       ga.js
       ga-marketing.js

@@ -34,5 +34,8 @@
 
 <%= javascript_include_tag 'external/marketing_nav.js' %>
 <%= javascript_tag do %>
+  $('#what_we_do').click(function() { mpq.track("Clicked Our Product link", {}); });
+  $('#work_together').click(function() { mpq.track("Clicked Pricing link", {}); });
   $('#blog').click(function() { mpq.track("Clicked blog link", {}); });
+  $('.top-bar-section .sign_in_button').click(function() { mpq.track("Clicked Sign-in link", {}); });
 <% end %>
