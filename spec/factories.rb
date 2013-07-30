@@ -211,6 +211,10 @@ FactoryGirl.define do
     status Tile::ACTIVE
   end
 
+  # Simple alias of :tile to :old_school_tile
+  factory :old_school_tile, parent: :tile do
+  end
+
   factory :client_created_tile, parent: :tile do
     supporting_content "This is some extra text by the tile"
     question "Who loves ya, baby?"

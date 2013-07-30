@@ -299,15 +299,10 @@ describe Tile do
   end
 
   describe "#appears_client_created" do
-    it "is true if the tile has supporting content and a question" do
-      tile = FactoryGirl.create(:tile, :client_created)
-      tile.appears_client_created.should be_true
-
-      tile.update_attributes(supporting_content: nil)
-      tile.appears_client_created.should be_false
-
-      tile.update_attributes(supporting_content: "support", question: nil)
-      tile.appears_client_created.should be_false
+    it "is true for KeywordTiles and MultipleChoiceTiles, but not OldSchoolTiles" do
+      FactoryGirl.create(:keyword_tile).appears_client_created.should == true
+      FactoryGirl.create(:multiple_choice_tile).appears_client_created.should == true
+      FactoryGirl.create(:old_school_tile).appears_client_created.should == false
     end
   end
 

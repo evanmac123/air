@@ -145,7 +145,7 @@ feature 'Admin adds and edits rules' do
         click_button "Create Rule"
 
         should_be_on admin_demo_rules_path(@demo)
-        expect_content 'Problem with primary value: Value must be unique within its demo'
+        expect_content "Problem with primary value: Value \\\"ate banana\\\" is already taken"
 
         visit new_admin_demo_rule_path(@demo, as: an_admin)
         fill_in "Primary value", :with => 'konsumed kat'
@@ -156,7 +156,7 @@ feature 'Admin adds and edits rules' do
         click_button "Create Rule"
 
         should_be_on admin_demo_rules_path(@demo)
-        expect_content 'Problem with secondary value ate kitten: Value must be unique within its demo'
+        expect_content 'Problem with secondary value ate kitten: Value \\"ate kitten\\" is already taken'
       end
  
       scenario "cancel link from rule edit page goes to the right place" do

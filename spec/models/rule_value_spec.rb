@@ -26,7 +26,7 @@ describe RuleValue do
     invalid_chars.each do |invalid_char|
       rule_value = FactoryGirl.build(:rule_value, :value => invalid_char)
       rule_value.should_not be_valid
-      rule_value.errors[:value].should include("Can't have a single-letter value, those are reserved for other purposes.")
+      rule_value.errors[:value].should include("answer \"#{invalid_char}\" must have more than one letter")
     end
   end
 
