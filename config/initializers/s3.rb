@@ -19,6 +19,7 @@ when 'production', 'staging'
     :s3_credentials => S3_CREDENTIALS, 
     :hash_secret => "Kid Sister Diary Secure",
     :url            => ":s3_domain_url"}
+
   TILE_IMAGE_OPTIONS[:path] = "/tiles/:id/:hash__:filename"
   TILE_THUMBNAIL_OPTIONS[:path] = "/tile_thumbnails/:id/:hash__:filename"
 when 'test', 'development'
@@ -26,5 +27,6 @@ when 'test', 'development'
 else
   raise 'Environment Not Found'
 end
+
 TILE_IMAGE_OPTIONS.merge!(TILE_OPTIONS)
 TILE_THUMBNAIL_OPTIONS.merge!(TILE_OPTIONS)
