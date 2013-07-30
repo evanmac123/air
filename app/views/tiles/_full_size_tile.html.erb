@@ -23,11 +23,11 @@
 
         <% if tile.multiple_choice_answers.present? %>
           <% tile.multiple_choice_answers.each_with_index do |answer, i| %>
-            <%= content_tag "div", class: "tile_multiple_choice_answer", id: "multiple_choice_answer_#{i}" do %>
+            <%= content_tag "div", class: "tile_multiple_choice_answer" do %>
               <% if i == tile.correct_answer_index %>
                 <%= link_to answer, tile_completions_path(tile_id: tile.id), method: :post %>
               <% else %>
-                <%= link_to answer, '#' %>
+                <%= link_to answer, '#', class: "wrong_multiple_choice_answer" %>
               <% end %>
               <div class="wrong_answer_target" style="display: none"></div>
             <% end %>
@@ -36,22 +36,18 @@
           <% content_for :javascript do %>
             <%= javascript_tag do %>
               var attachWrongAnswer = function(answerLink, target) {
-                  answerLink.click(function(event) {
+                answerLink.click(function(event) {
                   event.preventDefault();
                   target.html("Sorry, that's not it. Try again!");
                   target.show();
                 })
               }
-            <% end %>
 
-            <% wrong_answer_indices = (0..tile.multiple_choice_answers.length - 1).to_a - [tile.correct_answer_index] %>
-            <% wrong_answer_indices.each do |wrong_answer_index| %>
-              <%= javascript_tag do %>
-                var answerDiv = $('#multiple_choice_answer_' + <%= wrong_answer_index %>);
-                var answerLink = answerDiv.find('a');
-                var target = answerDiv.find('.wrong_answer_target');
-                attachWrongAnswer(answerLink, target);
-              <% end %>
+              _.each($('.wrong_multiple_choice_answer'), function(wrongAnswerLink) {
+                wrongAnswerLink = $(wrongAnswerLink);
+                var target = wrongAnswerLink.siblings('.wrong_answer_target');
+                attachWrongAnswer(wrongAnswerLink, target);
+              });
             <% end %>
           <% end %>
         <% end %>
