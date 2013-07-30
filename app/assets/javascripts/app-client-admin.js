@@ -6,6 +6,7 @@
 
 //= require ../../../vendor/assets/javascripts/internal/jquery.tools.min
 
+//= require ./internal_and_external/underscore-min
 
 
 $(document).ready(function() {

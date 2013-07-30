@@ -59,7 +59,7 @@
 
       addCharacterCounterFor('#tile_builder_form_headline');
       addCharacterCounterFor('#tile_builder_form_supporting_content');
-      addCharacterCounterFor('.answer-field');
+      _.each($('.answer-field'), addCharacterCounterFor);
       turnRadioGreen();
     <% end %>
   <% end %>
