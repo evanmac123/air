@@ -19,44 +19,12 @@ module TileBuilderForm
       end
     end
 
-    def build_rule
-    end
-
-    def build_rule_values
-    end
-
-    def main_objects
-      [tile]
-    end
-
-    def remove_extraneous_rule_values
-      true
-    end
-
-    def associate_rule_values_with_rule
-    end
-
-    def set_first_rule_value_as_primary
-    end
-
-    def create_trigger_if_needed
-    end
-
-    def remove_rule_value_error_on_rule
-    end
-
-    def update_rule
-    end
-
-    def update_rule_values
-    end
-
     def normalized_answers_from_tile
       tile && tile.multiple_choice_answers
     end
 
-    def no_rule_values_given
-      false
+    def main_objects
+      [tile]
     end
 
     def correct_answer_index_corrected_for_blanks

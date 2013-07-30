@@ -20,22 +20,23 @@ module TileBuilderForm
       false
     end
 
-    def create_objects
+    def build_objects
       build_tile
-      build_rule
-      build_rule_values
+    end
 
+    def create_objects
+      build_objects
       save_objects if valid?
     end
 
     def update_objects
       update_tile
-      update_rule
-      update_rule_values
+      before_validate_on_update_hook
 
       if valid?
         save_objects
-        remove_extraneous_rule_values
+        after_save_on_update_hook
+        true
       end
     end
 
@@ -73,16 +74,22 @@ module TileBuilderForm
     def save_objects
       tile_class.transaction do
         save_main_objects
-        remove_extraneous_rule_values
-        associate_rule_values_with_rule
-        set_first_rule_value_as_primary
-        create_trigger_if_needed
+        after_save_main_objects_hook
         true
       end
     end
 
     def save_main_objects
       main_objects.each {|object| object.save(:context => :client_admin)}
+    end
+
+    def after_save_main_objects_hook
+    end
+
+    def before_validate_on_update_hook
+    end
+
+    def after_save_on_update_hook
     end
 
     def clean_error_messages
@@ -99,22 +106,6 @@ module TileBuilderForm
 
     def update_tile
       set_tile_attributes
-    end
-
-    def update_rule
-      set_rule_attributes
-    end
-
-    def update_rule_values
-      @rule_values = []
-      entered_answers.each do |answer|
-        existing_value = rule.rule_values.find_by_value(answer)
-        if existing_value
-          @rule_values << existing_value
-        else
-          @rule_values << rule.rule_values.build(value: answer)
-        end
-      end
     end
 
     def remove_extraneous_rule_values
@@ -137,46 +128,6 @@ module TileBuilderForm
           link_address:       @parameters[:link_address]
         }
       end
-    end
-
-    def build_rule
-      @rule = @demo.rules.build(alltime_limit: 1)
-      set_rule_attributes
-    end
-
-    def set_rule_attributes
-      if @parameters.present?
-        rule.points = @parameters[:points]
-
-        headline = @parameters[:headline]
-        rule.reply = "+#{@parameters[:points]} points! Great job! You completed the \"#{headline}\" tile."
-        rule.description = @tile.text_of_completion_act
-      end
-    end
-
-    def build_rule_values
-      @rule_values = []
-
-      if @parameters.present?
-        answers.each do |answer|
-          @rule_values << RuleValue.new(value: answer)
-        end
-      end
-
-      @rule_values = nil unless @rule_values.first.present?
-    end
-
-    def create_trigger_if_needed
-      return if Trigger::RuleTrigger.where(rule_id: rule.id, tile_id: tile.id).exists?
-      Trigger::RuleTrigger.create(rule: rule, tile: tile)
-    end
-
-    def associate_rule_values_with_rule
-      rule_values.each {|answer| answer.update_attributes(rule_id: rule.id)}
-    end
-
-    def set_first_rule_value_as_primary
-      rule_values.first.update_attributes(is_primary: true)
     end
 
     def main_objects
