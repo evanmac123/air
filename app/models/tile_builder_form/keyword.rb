@@ -2,10 +2,6 @@ module TileBuilderForm
   class Keyword < TileBuilderForm::Base
     validate :no_rule_value_conflicts
 
-    def remove_thumbnail_error
-      tile.errors.delete(:thumbnail)
-    end
-
     def remove_rule_value_error_on_rule
       rule.errors.delete(:rule_values)
     end
@@ -23,7 +19,6 @@ module TileBuilderForm
 
     def clean_error_messages
       super
-      remove_thumbnail_error
       remove_rule_value_error_on_rule
       change_blank_answer_error if no_rule_values_given
     end

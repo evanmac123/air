@@ -1,6 +1,6 @@
 module TileBuilderForm
   class MultipleChoice < TileBuilderForm::Base
-    validate :at_least_one_answer_present
+    validate :present_answer_marked_as_correct
 
     def default_answer_count
       2
@@ -14,7 +14,7 @@ module TileBuilderForm
       super
       if @parameters.present?
         @tile.correct_answer_index = correct_answer_index_corrected_for_blanks
-        @tile.multiple_choice_answers = answers
+        @tile.multiple_choice_answers = normalized_answers_from_params
         @tile.points = @parameters[:points].to_i
       end
     end
@@ -60,15 +60,19 @@ module TileBuilderForm
     end
 
     def correct_answer_index_corrected_for_blanks
-      correct_answer_index = @parameters[:correct_answer_index].to_i
+      correct_answer_index = correct_answer_index_from_params
       blanks_preceding_correct_answer = answers_from_params[0, correct_answer_index].count(&:blank?)
       correct_answer_index - blanks_preceding_correct_answer
     end
 
-    def at_least_one_answer_present
-      unless answers_from_params.any?(&:present?)
-        errors.add :base, 'must have at least one answer'
+    def present_answer_marked_as_correct
+      unless @parameters[:answers] && @parameters[:answers][correct_answer_index_from_params].present?
+        errors.add :base, 'must select a correct answer'
       end
+    end
+
+    def correct_answer_index_from_params
+      @parameters[:correct_answer_index].to_i    
     end
 
     delegate :points, :to => :tile

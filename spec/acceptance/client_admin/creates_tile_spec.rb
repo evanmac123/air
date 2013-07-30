@@ -27,10 +27,6 @@ feature 'Creates tile' do
     end
   end
 
-  def select_correct_answer(index)
-    page.find(".correct-answer-button[value=\"#{index}\"]").click
-  end
-
   def fill_in_valid_form_entries
     attach_file "tile_builder_form[image]", tile_fixture_path('cov1.jpg')
     fill_in "Headline",           with: "Ten pounds of cheese"
@@ -123,10 +119,17 @@ feature 'Creates tile' do
   scenario "with incomplete data should give a gentle rebuff", js: true do
     click_create_button
     2.times { click_link "Add another answer" }
+    click_button "Create tile"
 
     demo.tiles.reload.should be_empty
-    pending
-    expect_content "Sorry, we couldn't save this tile: headline can't be blank, supporting content can't be blank, question can't be blank, image is missing, points can't be blank, must have at least one answer."
+    expect_content "Sorry, we couldn't save this tile: headline can't be blank, supporting content can't be blank, question can't be blank, image is missing, points can't be blank, must have at least one answer, must select a correct answer."
+
+    2.times { click_link "Add another answer" }
+    select_correct_answer 1
+    click_button "Create tile"
+
+    demo.tiles.reload.should be_empty
+    expect_content "Sorry, we couldn't save this tile: headline can't be blank, supporting content can't be blank, question can't be blank, image is missing, points can't be blank, must have at least one answer, must select a correct answer."
   end
 
   scenario "should see character (not byte) counters on each text field", js: true do

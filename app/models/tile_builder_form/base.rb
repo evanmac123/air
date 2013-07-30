@@ -86,6 +86,7 @@ module TileBuilderForm
     end
 
     def clean_error_messages
+      remove_thumbnail_error
     end
 
     def build_tile
@@ -225,6 +226,10 @@ module TileBuilderForm
       invalid_objects.each do |invalid_object|
         invalid_object.errors.values.each {|error| errors.add :base, error}
       end
+    end
+
+    def remove_thumbnail_error
+      tile.errors.delete(:thumbnail)
     end
 
     delegate :headline, :supporting_content, :question, :thumbnail, :link_address, :to => :tile

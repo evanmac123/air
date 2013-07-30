@@ -156,6 +156,10 @@ module TileHelpers
     page.find("#tile_builder_form_link_address").set(text)
   end
 
+  def select_correct_answer(index)
+    page.find(".correct-answer-button[value=\"#{index}\"]").click
+  end
+
   def after_tile_save_message(options={})
     if options[:hide_activate_link]
       "This is your finished tile. Click here to edit it."
