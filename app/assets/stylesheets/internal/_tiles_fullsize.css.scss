@@ -66,6 +66,8 @@
     background:$light-gray;
     padding:2em 0 2.5em 0;
     position: relative;
+
+    // Points counter
     .tile_points {
       color:$orange;
       display: inline-block;
@@ -92,12 +94,40 @@
         }
       }
     }
+
+    // Question
     .tile_question {
       font-family:$open-600;
       font-size:1.25em;
       line-height:1.35em;
       margin: 0 0 0 23%;
       width:70%;
+    }
+
+    // Multiple choice answers
+    .multiple_choice_group {margin-top:3em;}
+    .tile_multiple_choice_answer {
+      margin:1em auto;
+      width:60%;
+      a, a:link, a:visited {
+        @include pop-button($blue);
+        color:$white;
+        display: block;
+        font-size:1.25em;
+        padding:1em 2em;
+        &.clicked_wrong {
+          background:darken($light-gray, 10%);
+          border-color:$light-gray;
+          color:$red;
+          text-decoration: line-through!important;
+        }
+      }
+    }
+    .wrong_answer_target {
+      color:$gray;
+      font-family: $open-600;
+      padding:.5em;
+      text-align: center;
     }
   }
 }

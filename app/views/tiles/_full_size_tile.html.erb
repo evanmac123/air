@@ -22,34 +22,37 @@
         <div class="tile_question"><%= tile.question %></div>
 
         <% if tile.multiple_choice_answers.present? %>
-          <% tile.multiple_choice_answers.each_with_index do |answer, i| %>
-            <%= content_tag "div", class: "tile_multiple_choice_answer" do %>
-              <% if i == tile.correct_answer_index %>
-                <%= link_to answer, tile_completions_path(tile_id: tile.id), method: :post %>
-              <% else %>
-                <%= link_to answer, '#', class: "wrong_multiple_choice_answer" %>
+          <div class="multiple_choice_group">
+            <% tile.multiple_choice_answers.each_with_index do |answer, i| %>
+              <%= content_tag "div", class: "tile_multiple_choice_answer" do %>
+                <% if i == tile.correct_answer_index %>
+                  <%= link_to answer, tile_completions_path(tile_id: tile.id), method: :post %>
+                <% else %>
+                  <%= link_to answer, '#', class: "wrong_multiple_choice_answer" %>
+                <% end %>
+                <div class="wrong_answer_target" style="display: none"></div>
               <% end %>
-              <div class="wrong_answer_target" style="display: none"></div>
             <% end %>
-          <% end %>
 
-          <% content_for :javascript do %>
-            <%= javascript_tag do %>
-              var attachWrongAnswer = function(answerLink, target) {
-                answerLink.click(function(event) {
-                  event.preventDefault();
-                  target.html("Sorry, that's not it. Try again!");
-                  target.show();
-                })
-              }
+            <% content_for :javascript do %>
+              <%= javascript_tag do %>
+                var attachWrongAnswer = function(answerLink, target) {
+                  answerLink.click(function(event) {
+                    event.preventDefault();
+                    target.html("Sorry, that's not it. Try again!");
+                    target.slideDown(250);
+                    $(this).addClass("clicked_wrong");
+                  })
+                }
 
-              _.each($('.wrong_multiple_choice_answer'), function(wrongAnswerLink) {
-                wrongAnswerLink = $(wrongAnswerLink);
-                var target = wrongAnswerLink.siblings('.wrong_answer_target');
-                attachWrongAnswer(wrongAnswerLink, target);
-              });
+                _.each($('.wrong_multiple_choice_answer'), function(wrongAnswerLink) {
+                  wrongAnswerLink = $(wrongAnswerLink);
+                  var target = wrongAnswerLink.siblings('.wrong_answer_target');
+                  attachWrongAnswer(wrongAnswerLink, target);
+                });
+              <% end %>
             <% end %>
-          <% end %>
+          </div>
         <% end %>
       </div>
     </div>
