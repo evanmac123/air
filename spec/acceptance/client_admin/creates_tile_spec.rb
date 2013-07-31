@@ -116,6 +116,16 @@ feature 'Creates tile' do
     should_be_on edit_client_admin_tile_path(Tile.last)
   end
 
+  scenario "shouldn't have active answer links in the preview", js: true do
+    create_good_tile
+
+    click_link "me"
+    expect_no_content "Sorry, that's not it"
+
+    newest_tile = Tile.order("created_at DESC").first
+    page.all("a[href='#{tile_completions_path(tile_id: newest_tile.id)}']").should be_empty
+  end
+
   scenario "with incomplete data should give a gentle rebuff", js: true do
     click_create_button
     2.times { click_link "Add another answer" }

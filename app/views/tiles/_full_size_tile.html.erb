@@ -1,5 +1,6 @@
 <% is_client_created = @client_created_tiles[tile] %>
 <% creator_class = is_client_created ? 'client_created' : 'admin_created' %>
+<% answer_links_disabled ||= false %>
 
 <div class="tile_holder <%= creator_class %>" id="<%= tile.id %>">
   <div class="tile_full_image">
@@ -25,11 +26,17 @@
           <div class="multiple_choice_group">
             <% tile.multiple_choice_answers.each_with_index do |answer, i| %>
               <%= content_tag "div", class: "tile_multiple_choice_answer" do %>
-                <% if i == tile.correct_answer_index %>
-                  <%= link_to answer, tile_completions_path(tile_id: tile.id), method: :post %>
+
+                <% if answer_links_disabled %>
+                  <%= link_to answer, '#', class: "nerfed_answer" %>
                 <% else %>
-                  <%= link_to answer, '#', class: "wrong_multiple_choice_answer" %>
+                  <% if i == tile.correct_answer_index %>
+                    <%= link_to answer, tile_completions_path(tile_id: tile.id), method: :post %>
+                  <% else %>
+                    <%= link_to answer, '#', class: "wrong_multiple_choice_answer" %>
+                  <% end %>
                 <% end %>
+
                 <div class="wrong_answer_target" style="display: none"></div>
               <% end %>
             <% end %>
@@ -44,6 +51,8 @@
                     $(this).addClass("clicked_wrong");
                   })
                 }
+
+                $('.nerfed_answer').click(function(event) {event.preventDefault()});
 
                 _.each($('.wrong_multiple_choice_answer'), function(wrongAnswerLink) {
                   wrongAnswerLink = $(wrongAnswerLink);
