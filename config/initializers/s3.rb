@@ -17,6 +17,7 @@ when 'production', 'staging'
     :storage => :s3,
     :s3_protocol => 'https', 
     :s3_credentials => S3_CREDENTIALS, 
+    :hash_data => "tiles/:attachment/:id/:style/:updated_at",
     :hash_secret => "Kid Sister Diary Secure",
     :url            => ":s3_domain_url"}
 
