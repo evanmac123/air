@@ -35,8 +35,8 @@ feature 'Creates tile' do
     fill_in "Ask your players a question", with: "Who rules?"
 
     2.times {click_link "Add another answer"}
-    fill_in_answer_field 0, "me"
-    fill_in_answer_field 2, "you"
+    fill_in_answer_field 0, "Me"
+    fill_in_answer_field 2, "You"
     select_correct_answer 2
 
     fill_in "Points", with: "23"
@@ -72,7 +72,7 @@ feature 'Creates tile' do
     new_tile.question.should == "Who rules?"
     new_tile.link_address.should == "http://www.google.com/foobar"
     new_tile.correct_answer_index.should == 1
-    new_tile.multiple_choice_answers.should == %w(me you)
+    new_tile.multiple_choice_answers.should == %w(Me You)
     new_tile.points.should == 23
     new_tile.should be_archived
 
@@ -119,7 +119,7 @@ feature 'Creates tile' do
   scenario "shouldn't have active answer links in the preview", js: true do
     create_good_tile
 
-    click_link "me"
+    click_link "Me"
     expect_no_content "Sorry, that's not it"
 
     newest_tile = Tile.order("created_at DESC").first

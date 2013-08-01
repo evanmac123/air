@@ -148,7 +148,7 @@ module TileBuilderForm
 
     def normalized_answers_from_params
       return unless answers_from_params
-      answers_from_params.map{|answer| answer.strip.downcase}.select(&:present?).uniq
+      answers_from_params.map{|answer| answer.strip}.select(&:present?).uniq
     end
 
     def answers_from_params

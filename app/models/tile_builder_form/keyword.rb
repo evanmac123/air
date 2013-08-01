@@ -85,6 +85,12 @@ module TileBuilderForm
       rule_values.first.update_attributes(is_primary: true)
     end
 
+    def normalized_answers_from_params
+      undowncased = super
+      return unless undowncased
+      undowncased.map(&:downcase)
+    end
+
     def no_rule_values_given
       # Due to the normalization we do on answers, if there are any non-blank
       # answers at all, there must be a non-blank answer in the first slot.

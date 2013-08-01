@@ -206,7 +206,7 @@ feature "Client admin edits tile" do
       @tile.question.should == "Who rules?"
       @tile.link_address.should == "http://example.co.uk"
 
-      @tile.multiple_choice_answers.should == ["eggs", "you", "me", "bob"]
+      @tile.multiple_choice_answers.should == ["Eggs", "you", "me", "bob"]
       @tile.correct_answer_index.should == 1
       should_be_on client_admin_tile_path(@tile)
       expect_content after_tile_save_message(hide_activate_link: true)

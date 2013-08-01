@@ -28,7 +28,10 @@ feature 'Browses user lists' do
   end
 
   # NOTE: This test takes about 2 1/2 minutes to run
+  # Or even longer, especially if you're in a hurry.
   it "should paginate big result sets" do
+    puts "STARTING A SLOW TEST, GET COMFORTABLE"
+    puts "STARTING AT #{Time.now.to_s}"
     page_size = ClientAdmin::UsersController::PAGE_SIZE
 
     client_admin.update_attributes(name: "Zzzzzzzzz") # hack to make sure admin appears at the end of the list
@@ -73,6 +76,7 @@ feature 'Browses user lists' do
     first_page_users.each {|user| expect_browse_row(user)}
     second_page_users.each {|user| expect_no_browse_row(user)}
     expect_no_browse_row(client_admin)
+    puts "DONE AT #{Time.now.to_s}"
   end
 
   it "allows admin to invite user from the browse results page, assuming they have an email address" do
