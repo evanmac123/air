@@ -195,6 +195,10 @@ feature "Client admin edits tile" do
 
     it_should_behave_like "editing a tile"
 
+    scenario "remembers the correct answer index" do
+      page.find("input[type='radio'][value='#{@tile.correct_answer_index}']").should be_checked
+    end
+
     scenario "changing the regular fields", js: true do
       fill_in_fields
       select_correct_answer 2

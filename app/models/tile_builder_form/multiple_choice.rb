@@ -29,17 +29,19 @@ module TileBuilderForm
 
     def correct_answer_index_corrected_for_blanks
       correct_answer_index = correct_answer_index_from_params
+      return nil unless correct_answer_index
       blanks_preceding_correct_answer = answers_from_params[0, correct_answer_index].count(&:blank?)
       correct_answer_index - blanks_preceding_correct_answer
     end
 
     def present_answer_marked_as_correct
-      unless @parameters[:answers] && @parameters[:answers][correct_answer_index_from_params].present?
+      unless @parameters[:answers] && correct_answer_index_from_params.present? && @parameters[:answers][correct_answer_index_from_params].present?
         errors.add :base, 'must select a correct answer'
       end
     end
 
     def correct_answer_index_from_params
+      return nil unless @parameters[:correct_answer_index].present?
       @parameters[:correct_answer_index].to_i    
     end
 
