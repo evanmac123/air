@@ -100,8 +100,8 @@ module TileBuilderForm
       @tile = tile_class.new(demo: @demo)
       set_tile_image
       set_tile_attributes
-      @tile.position = tile_class.next_position(@demo)
-      @tile.status = tile_class::ARCHIVE
+      @tile.position = Tile.next_position(@demo)
+      @tile.status = Tile::ARCHIVE
     end
 
     def update_tile
