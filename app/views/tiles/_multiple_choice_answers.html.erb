@@ -1,3 +1,6 @@
+<% trigger_link_id = "right_multiple_choice_answer_#{tile.id}" %>
+<% target_link_id  = "multiple_choice_target_link_#{tile.id}" %>
+
 <% if tile.multiple_choice_answers.present? %>
   <div class="multiple_choice_group">
     <% tile.multiple_choice_answers.each_with_index do |answer, i| %>
@@ -7,7 +10,7 @@
           <%= link_to answer, '#', class: "nerfed_answer" %>
         <% else %>
           <% if i == tile.correct_answer_index %>
-            <%= link_to answer, tile_completions_path(tile_id: tile.id), method: :post %>
+            <%= link_to answer, '#', id: trigger_link_id %>
           <% else %>
             <%= link_to answer, '#', class: "wrong_multiple_choice_answer" %>
           <% end %>
@@ -16,6 +19,7 @@
         <div class="wrong_answer_target" style="display: none"></div>
       <% end %>
     <% end %>
+    <%= link_to '', tile_completions_path(tile_id: tile.id), method: :post, style: "display: none", id: target_link_id %>
 
     <% content_for :javascript do %>
       <%= javascript_tag do %>
@@ -27,6 +31,11 @@
             $(this).addClass("clicked_wrong");
           })
         }
+
+        $('#<%= trigger_link_id %>').click(function(event) {
+          event.preventDefault();
+          $('#<%= target_link_id %>').click();
+        });
 
         $('.nerfed_answer').click(function(event) {event.preventDefault()});
 

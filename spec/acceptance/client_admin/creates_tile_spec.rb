@@ -122,8 +122,8 @@ feature 'Creates tile' do
     click_link "Me"
     expect_no_content "Sorry, that's not it"
 
-    newest_tile = Tile.order("created_at DESC").first
-    page.all("a[href='#{tile_completions_path(tile_id: newest_tile.id)}']").should be_empty
+    click_link "You"
+    expect_no_content "That's right!"
   end
 
   scenario "with incomplete data should give a gentle rebuff", js: true do
