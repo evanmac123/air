@@ -36,9 +36,7 @@ feature 'User views tiles' do
   end
 
   def expect_no_wrong_answer_reaction(index)
-    within answer(index) do
-      expect_no_content "Sorry, that's not it. Try again!"
-    end
+    expect_no_content "Sorry, that's not it. Try again!"
   end
 
   def expect_right_answer_reaction

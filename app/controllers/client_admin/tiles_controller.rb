@@ -43,7 +43,6 @@ class ClientAdmin::TilesController < ClientAdminBaseController
 
   def show
     @tile = get_tile
-    @client_created_tiles = {@tile => @tile.appears_client_created}
   end
 
   def edit

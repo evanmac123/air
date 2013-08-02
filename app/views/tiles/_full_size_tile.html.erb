@@ -1,5 +1,4 @@
-<% is_client_created = @client_created_tiles[tile] %>
-<% creator_class = is_client_created ? 'client_created' : 'admin_created' %>
+<% creator_class = tile.appears_client_created ? 'client_created' : 'admin_created' %>
 <% answer_links_disabled ||= false %>
 
 <div class="tile_holder <%= creator_class %>" id="<%= tile.id %>">
@@ -11,7 +10,7 @@
     <%= image_html %>
   </div>
 
-  <% if is_client_created %>
+  <% if tile.appears_client_created %>
     <div class="tile_texts_container">
       <div class="tile_headline"><%= tile.headline %></div>
       <div class="tile_supporting_content"><%= tile.supporting_content %></div>
@@ -22,47 +21,7 @@
         </div>
         <div class="tile_question"><%= tile.question %></div>
 
-        <% if tile.multiple_choice_answers.present? %>
-          <div class="multiple_choice_group">
-            <% tile.multiple_choice_answers.each_with_index do |answer, i| %>
-              <%= content_tag "div", class: "tile_multiple_choice_answer" do %>
-
-                <% if answer_links_disabled %>
-                  <%= link_to answer, '#', class: "nerfed_answer" %>
-                <% else %>
-                  <% if i == tile.correct_answer_index %>
-                    <%= link_to answer, tile_completions_path(tile_id: tile.id), method: :post %>
-                  <% else %>
-                    <%= link_to answer, '#', class: "wrong_multiple_choice_answer" %>
-                  <% end %>
-                <% end %>
-
-                <div class="wrong_answer_target" style="display: none"></div>
-              <% end %>
-            <% end %>
-
-            <% content_for :javascript do %>
-              <%= javascript_tag do %>
-                var attachWrongAnswer = function(answerLink, target) {
-                  answerLink.click(function(event) {
-                    event.preventDefault();
-                    target.html("Sorry, that's not it. Try again!");
-                    target.slideDown(250);
-                    $(this).addClass("clicked_wrong");
-                  })
-                }
-
-                $('.nerfed_answer').click(function(event) {event.preventDefault()});
-
-                _.each($('.wrong_multiple_choice_answer'), function(wrongAnswerLink) {
-                  wrongAnswerLink = $(wrongAnswerLink);
-                  var target = wrongAnswerLink.siblings('.wrong_answer_target');
-                  attachWrongAnswer(wrongAnswerLink, target);
-                });
-              <% end %>
-            <% end %>
-          </div>
-        <% end %>
+        <%= render 'tiles/multiple_choice_answers', tile: tile, answer_links_disabled: answer_links_disabled %>
       </div>
     </div>
   <% end %>
