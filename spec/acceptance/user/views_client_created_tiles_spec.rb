@@ -40,7 +40,7 @@ feature 'User views tiles' do
   end
 
   def expect_right_answer_reaction
-    expect_content "That's right! Points 10/20, Tix 0" 
+    expect_content "That's right! Points 10/20, Tix 1" 
   end
 
   context 'of the keyword variety' do
@@ -58,7 +58,7 @@ feature 'User views tiles' do
 
   context 'of the multiple-choice variety' do
     before do
-      @tile = FactoryGirl.create(:multiple_choice_tile, points: 10)
+      @tile = FactoryGirl.create(:multiple_choice_tile, points: 30)
       @user = FactoryGirl.create(:user, demo: @tile.demo)
       visit tiles_path(as: @user)
     end
@@ -66,7 +66,7 @@ feature 'User views tiles' do
     scenario 'and all the stuff around them, including the answer options' do
       expect_supporting_content "This is some extra text by the tile"
       expect_question "Which of the following comes out of a bird?"
-      expect_points 10
+      expect_points 30
       expect_answer 0, "Ham"
       expect_answer 1, "Eggs"
       expect_answer 2, "A V8 Buick"
@@ -85,7 +85,13 @@ feature 'User views tiles' do
 
       visit activity_path
       expect_content "Answered a question on the \"#{@tile.headline}\" tile"
-      expect_content "10 pts"
+      expect_content "30 pts"
+    end
+
+    scenario "but gets no ticket emails", js: true do
+      click_answer 1
+      crank_dj_clear
+      ActionMailer::Base.deliveries.should be_empty
     end
   end
 end
