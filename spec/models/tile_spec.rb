@@ -473,4 +473,36 @@ describe Tile do
       Tile.satisfiable_to_user(@leah.reload).should be_empty
     end
   end
+
+  describe "after save" do
+    context "if a URL is specified that starts with http or https" do
+      it "should leave it alone" do
+        http_tile = FactoryGirl.create(:tile, link_address: "http://www.google.com")
+        https_tile = FactoryGirl.create(:tile, link_address: "https://www.nsa.gov")
+
+        http_tile.reload.link_address.should == 'http://www.google.com'
+        https_tile.reload.link_address.should == 'https://www.nsa.gov'
+      end
+    end
+
+    context "if a URL is specified with no protocol" do
+      it "should prepend HTTP" do
+        tile = FactoryGirl.create(:tile, link_address: 'google.com')
+        tile.reload.link_address.should == 'http://google.com'
+
+        tile.update_attributes(link_address: 'nsa.gov')
+        tile.reload.link_address.should == 'http://nsa.gov'
+      end
+    end
+
+    context "if no URL is specified" do
+      it "should leave it blank" do
+        nil_tile = FactoryGirl.create(:tile, link_address: nil)
+        blank_tile = FactoryGirl.create(:tile, link_address: '')
+
+        nil_tile.reload.link_address.should be_nil
+        blank_tile.reload.link_address.should == ''
+      end
+    end
+  end
 end

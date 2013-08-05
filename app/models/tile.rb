@@ -26,6 +26,7 @@ class Tile < ActiveRecord::Base
 
   attr_accessor :display_completion_on_this_request
 
+  before_save :ensure_protocol_on_link_address
 
   has_alphabetical_column :headline
 
@@ -285,6 +286,14 @@ class Tile < ActiveRecord::Base
   end
 
   protected
+
+  def ensure_protocol_on_link_address
+    return unless link_address_changed?
+    return if link_address =~ %r{^(http://|https://)}i
+    return if link_address.blank?
+
+    self[:link_address] = "http://#{link_address}"
+  end
 
   def self.satisfiable_by_trigger_table(trigger_table_name)
     joins("INNER JOIN #{trigger_table_name} ON #{trigger_table_name}.tile_id = tiles.id")
