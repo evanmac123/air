@@ -3,11 +3,6 @@ Feature: Password reset
   A user
   Should be able to reset it
 
-  Scenario: User is not signed up
-    Given no user exists with an email of "email@person.com"
-    When I request password reset link to be sent to "email@person.com"
-    Then I should see "Unknown email"
-
   Scenario: User is signed up and requests password reset
     Given I am a claimed user who signed up with "email@person.com/password"
     When I request password reset link to be sent to "email@person.com"

@@ -72,4 +72,9 @@ class PasswordsController < Clearance::PasswordsController
   def flash_success_after_create
     # No "Signed in" message
   end
+
+  def flash_failure_after_create
+    flash.now[:failure] = "We're sorry, we can't find your email address in our records. Please contact <a href=\"mailto:support@hengage.com\">support@hengage.com</a> for assistance."
+    flash.now[:failure_allow_raw] = true
+  end
 end
