@@ -15,7 +15,7 @@ class Highchart
   There is a bug description on this at: https://github.com/michelson/lazy_high_charts/pull/77
   The doc implies that subsequent releases incorporated a bug fix, but that doesn't seem to be the case.
 
-  Regardless, if you want to do it that way you need to do is this for the second statement:
+  Regardless, if you want to do it that way you need to do this for the second statement:
     hc.options[:xAxis][:title] = {}
     hc.options[:xAxis][:title][:text] = 'x title'
 
@@ -55,9 +55,7 @@ class Highchart
       %S: Two digits seconds, 00 through 59
 
   Saving and printing the chart is accomplished by including 'exporting.js' along with 'highcharts.js'
-  (in /vendor/assets/javascripts/admin) and adding both to /app/assets/javascripts/app-admin.js
-
-  There are unfinished items/bugs for charts - see Sprint.ly for details. (The corresponding features have been disabled.)
+  (in /vendor/assets/javascripts/client_admin) and adding both to /app/assets/javascripts/app-client-admin.js
 =end
 
   # Converts a (form-input) "month/day/year" string into a "day/month/year" (datetime-expected) string,
@@ -220,7 +218,7 @@ class Highchart
     end
 
     def time_key(time)
-      time.to_time.hour
+      time.to_time.localtime.hour
     end
 
     def point_interval
