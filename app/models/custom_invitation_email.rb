@@ -102,6 +102,7 @@ How it works:
 * Win prizes. For every 20 points you earn, you'll get a ticket into the raffle for the prize. You can track the points and tickets you earn in the progress bar at the top of H.Engage's homepage.  
 
 
+Questions? Send us a message at support@hengage.com.
     },
 
     custom_html_text: %{
@@ -153,6 +154,12 @@ How it works:
         <li style="padding-bottom: 0.7em;"><strong>Win prizes. </strong>For every 20 points you earn, you'll get a ticket into the raffle for the prize. You can track the points and tickets you earn in the progress bar at the top of H.Engage's homepage.</li> 
       </ul> 
     </td>
+  </tr>
+  <tr>
+    <td height="10">&nbsp;</td>
+  </tr>
+  <tr style="font-family: 'helvetica neue',helvetica, sans-serif;">
+    <td style="text-align:center;">Questions? Send us a message at <a href="mailto:support@hengage.com">support@hengage.com</a></td>
   </tr>
 </table>
 </center>
