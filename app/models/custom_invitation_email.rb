@@ -161,6 +161,9 @@ Questions? Send us a message at support@hengage.com.
   <tr style="font-family: 'helvetica neue',helvetica, sans-serif;">
     <td style="text-align:center;">Questions? Send us a message at <a href="mailto:support@hengage.com">support@hengage.com</a></td>
   </tr>
+  <tr>
+    <td height="50">&nbsp;</td>
+  </tr>
 </table>
 </center>
 
