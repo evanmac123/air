@@ -39,7 +39,7 @@ feature 'Client admin and the digest email for tiles' do
 
     before(:each) do
       visit tile_manager_page
-      select_tab 'Digest'
+      select_tab 'Digest email'
     end
 
     scenario 'Tab text is correct when there are no new tiles for the digest email' do
@@ -73,13 +73,13 @@ feature 'Client admin and the digest email for tiles' do
     scenario "The number of tiles is correct, as is the plurality of the word 'tile'" do
       create_tile
       visit tile_manager_page
-      select_tab 'Digest'
+      select_tab 'Digest email'
 
       digest_tab.should contain 'A digest email containing 1 tile is set to go out'
 
       create_tile
       refresh_tile_manager_page
-      select_tab 'Digest'
+      select_tab 'Digest email'
 
       digest_tab.should contain 'A digest email containing 2 tiles is set to go out'
     end
@@ -87,14 +87,14 @@ feature 'Client admin and the digest email for tiles' do
     scenario 'The appropriate form components are on the page and properly initialized', js: true do
       create_tile
       visit tile_manager_page
-      select_tab 'Digest'
+      select_tab 'Digest email'
 
       digest_tab.should have_send_on_selector('Never')
       digest_tab.should have_button 'Send now'
 
       set_send_on 'Tuesday'
       refresh_tile_manager_page
-      select_tab 'Digest'
+      select_tab 'Digest email'
 
       digest_tab.should have_send_on_selector('Tuesday')
     end
@@ -102,7 +102,7 @@ feature 'Client admin and the digest email for tiles' do
     scenario "The 'send-on' dropdown control updates the day and time, and displays a confirmation message", js: true do
       create_tile
       visit tile_manager_page
-      select_tab 'Digest'
+      select_tab 'Digest email'
 
       digest_tab.should have_send_on_selector('Never')
       digest_tab.should_not contain 'at noon,'
@@ -120,7 +120,7 @@ feature 'Client admin and the digest email for tiles' do
       digest_tab.should contain 'at noon,'
 
       refresh_tile_manager_page
-      select_tab 'Digest'
+      select_tab 'Digest email'
 
       digest_tab.should contain 'at noon,'
 
@@ -133,13 +133,13 @@ feature 'Client admin and the digest email for tiles' do
       create_tile on_day: '7/5/2013'
 
       visit tile_manager_page
-      select_tab 'Digest'
+      select_tab 'Digest email'
       digest_tab.should_not contain 'Last digest email was sent'
 
       set_last_sent_on '7/4/2013'
 
       visit tile_manager_page
-      select_tab 'Digest'
+      select_tab 'Digest email'
       digest_tab.should contain 'Last digest email was sent on Thursday, July 04, 2013'
     end
 
@@ -154,7 +154,7 @@ feature 'Client admin and the digest email for tiles' do
                 and a no-tiles message appears in the Digest tab" do
         on_day '7/6/2013' do
           visit tile_manager_page
-          select_tab 'Digest'
+          select_tab 'Digest email'
           change_send_on 'Never'  # Just to make sure that 'Send Now' does just that even if set to 'Never'
 
           digest_tab.should     contain 'A digest email containing 2 tiles is set to go out'
@@ -171,7 +171,7 @@ feature 'Client admin and the digest email for tiles' do
 
           page.should contain "Tiles digest email was sent"
 
-          select_tab 'Digest'
+          select_tab 'Digest email'
           digest_tab.should_not contain 'A digest email containing 2 tiles is set to go out'
           digest_tab.should     contain 'No digest email is scheduled to be sent'
           digest_tab.should     contain 'since the last one was sent on Saturday, July 06, 2013'
@@ -195,7 +195,7 @@ feature 'Client admin and the digest email for tiles' do
 
         on_day '7/6/2013' do
           visit tile_manager_page
-          select_tab 'Digest'
+          select_tab 'Digest email'
 
           click_button 'Send now'
           crank_dj_clear

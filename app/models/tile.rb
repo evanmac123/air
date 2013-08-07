@@ -188,11 +188,17 @@ class Tile < ActiveRecord::Base
   end
 
   def self.active
-    where("status = ?", ACTIVE).order('created_at DESC')
+    #order_time = activated_at ? 'activated_at' : 'created_at'
+    #where("status = ?", ACTIVE).order("#{order_time} DESC")
+
+    where("status = ?", ACTIVE).order("CASE WHEN activated_at IS NULL THEN created_at ELSE activated_at END DESC")
   end
 
   def self.archive
-    where("status = ?", ARCHIVE).order('created_at DESC')
+    #order_time = archived_at ? 'archived_at' : 'created_at'
+    #where("status = ?", ARCHIVE).order("#{order_time} DESC")
+
+    where("status = ?", ARCHIVE).order("CASE WHEN archived_at IS NULL THEN created_at ELSE archived_at END DESC")
   end
 
   def self.draft
@@ -200,7 +206,7 @@ class Tile < ActiveRecord::Base
   end
 
   def self.digest(demo)
-    demo.tile_digest_email_sent_at.nil? ? active : active.where("created_at > ?", demo.tile_digest_email_sent_at)
+    demo.tile_digest_email_sent_at.nil? ? active : active.where("activated_at > ?", demo.tile_digest_email_sent_at)
   end
 
   def self.archive_if_expired

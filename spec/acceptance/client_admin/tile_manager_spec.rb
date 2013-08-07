@@ -143,14 +143,19 @@ feature 'Client admin and the digest email for tiles' do
     end
 
     context 'Archiving and activating tiles' do
-      scenario "The 'Archive this tile' links work" do
+      scenario "The 'Archive this tile' links work, including setting the 'archived_at' time" do
         visit tile_manager_page
 
         active_tab.should  have_num_tiles(3)
         archive_tab.should have_num_tiles(0)
 
+        kill.archived_at.should be_nil
+
         active_tab.find(:tile, kill).click_link('Archive')
         page.should contain "The #{kill.headline} tile has been archived"
+
+        kill.reload.archived_at.sec.should be_within(1).of(Time.now.sec)
+        kill.activated_at.should be_nil
 
         within(active_tab)  { page.should_not contain kill.headline }
         within(archive_tab) { page.should     contain kill.headline }
@@ -159,9 +164,13 @@ feature 'Client admin and the digest email for tiles' do
         archive_tab.should have_num_tiles(1)
 
         # Let's try it one more time to make sure...
-        active_tab.find(:tile, knife).click_link('Archive')
+        knife.archived_at.should be_nil
 
+        active_tab.find(:tile, knife).click_link('Archive')
         page.should contain "The #{knife.headline} tile has been archived"
+
+        knife.reload.archived_at.sec.should be_within(1).of(Time.now.sec)
+        knife.activated_at.should be_nil
 
         within(active_tab)  { page.should_not contain knife.headline }
         within(archive_tab) { page.should     contain knife.headline }
@@ -170,15 +179,20 @@ feature 'Client admin and the digest email for tiles' do
         archive_tab.should have_num_tiles(2)
       end
 
-      scenario "The 'Activate this tile' links work" do
+      scenario "The 'Activate this tile' links work, including setting the 'activated_at' time" do
         tiles.each { |tile| tile.update_attributes status: Tile::ARCHIVE }
         visit tile_manager_page
 
         active_tab.should  have_num_tiles(0)
         archive_tab.should have_num_tiles(3)
 
+        kill.activated_at.should be_nil
+
         archive_tab.find(:tile, kill).click_link('Activate')
         page.should contain "The #{kill.headline} tile has been activated"
+
+        kill.reload.activated_at.sec.should be_within(1).of(Time.now.sec)
+        kill.archived_at.should be_nil
 
         within(archive_tab) { page.should_not contain kill.headline }
         within(active_tab)  { page.should     contain kill.headline }
@@ -187,9 +201,13 @@ feature 'Client admin and the digest email for tiles' do
         archive_tab.should have_num_tiles(2)
 
         # Let's try it one more time to make sure...
-        archive_tab.find(:tile, knife).click_link('Activate')
+        knife.activated_at.should be_nil
 
+        archive_tab.find(:tile, knife).click_link('Activate')
         page.should contain "The #{knife.headline} tile has been activated"
+
+        knife.reload.activated_at.sec.should be_within(1).of(Time.now.sec)
+        knife.archived_at.should be_nil
 
         within(archive_tab) { page.should_not contain knife.headline }
         within(active_tab)  { page.should     contain knife.headline }
