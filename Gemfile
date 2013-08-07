@@ -101,4 +101,5 @@ end
 
 group :development do 
   gem 'letter_opener'
+  gem 'quiet_assets'
 end

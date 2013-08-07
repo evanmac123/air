@@ -79,8 +79,6 @@ GEM
       uuid
     childprocess (0.3.7)
       ffi (~> 1.0, >= 1.0.6)
-    childprocess (0.3.9)
-      ffi (~> 1.0, >= 1.0.11)
     chronic (0.8.0)
     clearance (0.16.3)
       diesel (~> 0.1.5)
@@ -242,6 +240,8 @@ GEM
       faye-websocket (~> 0.4, >= 0.4.4)
       http_parser.rb (~> 0.5.3)
     polyglot (0.3.3)
+    quiet_assets (1.0.2)
+      railties (>= 3.1, < 5.0)
     rack (1.4.5)
     rack-cache (1.2)
       rack (>= 0.4)
@@ -399,6 +399,7 @@ DEPENDENCIES
   paperclip-meta
   pg
   poltergeist
+  quiet_assets
   rack
   rails (>= 3.2.13)
   rails-dev-tweaks
