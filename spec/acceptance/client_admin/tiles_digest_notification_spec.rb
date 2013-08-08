@@ -213,4 +213,26 @@ feature 'Client admin and the digest email for tiles' do
       end
     end
   end
+
+  it 'Tiles appear in reverse-chronological order by activation-date and then creation-date' do
+    # Chronologically-speaking, creating tiles "up" from 0 to 10 and then checking "down" from 10 to 0
+    10.times do |i|
+      tile = FactoryGirl.create :tile, demo: demo, headline: "Tile #{i}", status: Tile::ACTIVE, created_at: Time.now + i.days
+      # We now sort by activated_at, and if that time isn't present we fall back on created_at
+      # Make it so that all odd tiles should be listed before all even ones, and that odd/even each should be sorted in descending order.
+      tile.update_attributes(activated_at: tile.created_at - 2.weeks) if i.even?
+    end
+
+    expected_tile_table =
+      [ ["Tile 9 Edit Preview", "Tile 7 Edit Preview", "Tile 5 Edit Preview"],
+        ["Tile 3 Edit Preview", "Tile 1 Edit Preview", "Tile 8 Edit Preview"],
+        ["Tile 6 Edit Preview", "Tile 4 Edit Preview", "Tile 2 Edit Preview"],
+        ["Tile 0 Edit Preview"]
+      ]
+
+    visit tile_manager_page
+    select_tab 'Digest email'
+
+    table_content('#digest table').should == expected_tile_table
+  end
 end
