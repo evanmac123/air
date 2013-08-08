@@ -225,33 +225,37 @@ describe Demo, '#send_digest_email' do
     # -------------------------------------
 
     # Tiles that should go out (created after the 'last-sent-date' and not 'archived')
-    monday_demo_1_tile_1 = FactoryGirl.create :tile, demo: monday_demo_1_with_tiles, headline: 'monday_demo_1_tile_1'
+    monday_demo_1_tile_1 = FactoryGirl.create :tile, demo: monday_demo_1_with_tiles, headline: 'monday_demo_1_tile_1', status: Tile::ACTIVE, activated_at: Time.now
 
-    monday_demo_2_tile_1 = FactoryGirl.create :tile, demo: monday_demo_2_with_tiles, headline: 'monday_demo_2_tile_1'
-    monday_demo_2_tile_2 = FactoryGirl.create :tile, demo: monday_demo_2_with_tiles, headline: 'monday_demo_2_tile_2'
+    monday_demo_2_tile_1 = FactoryGirl.create :tile, demo: monday_demo_2_with_tiles, headline: 'monday_demo_2_tile_1', status: Tile::ACTIVE, activated_at: Time.now
+    monday_demo_2_tile_2 = FactoryGirl.create :tile, demo: monday_demo_2_with_tiles, headline: 'monday_demo_2_tile_2', status: Tile::ACTIVE, activated_at: Time.now
 
-    monday_demo_3_tile_1 = FactoryGirl.create :tile, demo: monday_demo_3_with_tiles, headline: 'monday_demo_3_tile_1'
-    monday_demo_3_tile_2 = FactoryGirl.create :tile, demo: monday_demo_3_with_tiles, headline: 'monday_demo_3_tile_2'
-    monday_demo_3_tile_3 = FactoryGirl.create :tile, demo: monday_demo_3_with_tiles, headline: 'monday_demo_3_tile_3'
+    monday_demo_3_tile_1 = FactoryGirl.create :tile, demo: monday_demo_3_with_tiles, headline: 'monday_demo_3_tile_1', status: Tile::ACTIVE, activated_at: Time.now
+    monday_demo_3_tile_2 = FactoryGirl.create :tile, demo: monday_demo_3_with_tiles, headline: 'monday_demo_3_tile_2', status: Tile::ACTIVE, activated_at: Time.now
+    monday_demo_3_tile_3 = FactoryGirl.create :tile, demo: monday_demo_3_with_tiles, headline: 'monday_demo_3_tile_3', status: Tile::ACTIVE, activated_at: Time.now
 
     # -------------------------------------
 
-    friday_demo_1_tile_1 = FactoryGirl.create :tile, demo: friday_demo_1_with_tiles, headline: 'friday_demo_1_tile_1'
+    friday_demo_1_tile_1 = FactoryGirl.create :tile, demo: friday_demo_1_with_tiles, headline: 'friday_demo_1_tile_1', status: Tile::ACTIVE, activated_at: Time.now
 
-    friday_demo_2_tile_1 = FactoryGirl.create :tile, demo: friday_demo_2_with_tiles, headline: 'friday_demo_2_tile_1'
-    friday_demo_2_tile_2 = FactoryGirl.create :tile, demo: friday_demo_2_with_tiles, headline: 'friday_demo_2_tile_2'
+    friday_demo_2_tile_1 = FactoryGirl.create :tile, demo: friday_demo_2_with_tiles, headline: 'friday_demo_2_tile_1', status: Tile::ACTIVE, activated_at: Time.now
+    friday_demo_2_tile_2 = FactoryGirl.create :tile, demo: friday_demo_2_with_tiles, headline: 'friday_demo_2_tile_2', status: Tile::ACTIVE, activated_at: Time.now
 
-    friday_demo_3_tile_1 = FactoryGirl.create :tile, demo: friday_demo_3_with_tiles, headline: 'friday_demo_3_tile_1'
-    friday_demo_3_tile_2 = FactoryGirl.create :tile, demo: friday_demo_3_with_tiles, headline: 'friday_demo_3_tile_2'
-    friday_demo_3_tile_3 = FactoryGirl.create :tile, demo: friday_demo_3_with_tiles, headline: 'friday_demo_3_tile_3'
+    friday_demo_3_tile_1 = FactoryGirl.create :tile, demo: friday_demo_3_with_tiles, headline: 'friday_demo_3_tile_1', status: Tile::ACTIVE, activated_at: Time.now
+    friday_demo_3_tile_2 = FactoryGirl.create :tile, demo: friday_demo_3_with_tiles, headline: 'friday_demo_3_tile_2', status: Tile::ACTIVE, activated_at: Time.now
+    friday_demo_3_tile_3 = FactoryGirl.create :tile, demo: friday_demo_3_with_tiles, headline: 'friday_demo_3_tile_3', status: Tile::ACTIVE, activated_at: Time.now
 
     # -------------------------------------
 
     # Tiles that should not go out
 
+    # Tiles that were created after the 'last-sent-at' date but have not been activated
+    monday_no_tile_0 = FactoryGirl.create :tile, demo: monday_demo_with_no_tiles_to_send, headline: 'monday_no_tile_0', status: Tile::DRAFT
+    friday_no_tile_0 = FactoryGirl.create :tile, demo: friday_demo_with_no_tiles_to_send, headline: 'friday_no_tile_0', status: Tile::DRAFT
+
     # Tiles that were created before the 'last-sent-at' date ( => supposedly went out in that batch)
-    monday_no_tile_1 = FactoryGirl.create :tile, demo: monday_demo_with_no_tiles_to_send, headline: 'monday_no_tile_1', created_at: 2.weeks.ago
-    monday_no_tile_2 = FactoryGirl.create :tile, demo: monday_demo_with_no_tiles_to_send, headline: 'monday_no_tile_2', created_at: 2.weeks.ago
+    monday_no_tile_1 = FactoryGirl.create :tile, demo: monday_demo_with_no_tiles_to_send, headline: 'monday_no_tile_1', status: Tile::ACTIVE, activated_at: 2.weeks.ago
+    monday_no_tile_2 = FactoryGirl.create :tile, demo: monday_demo_with_no_tiles_to_send, headline: 'monday_no_tile_2', status: Tile::ACTIVE, activated_at: 2.weeks.ago
 
     # Tiles that have been 'archived'
     friday_no_tile_1 = FactoryGirl.create :tile, demo: friday_demo_with_no_tiles_to_send, headline: 'friday_no_tile_1', status: Tile::ARCHIVE

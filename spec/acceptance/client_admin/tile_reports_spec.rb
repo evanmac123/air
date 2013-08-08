@@ -26,7 +26,7 @@ feature 'client admin views tiles reports' do
     end
   end
 
-  describe 'Tile reports contain the correct information, and tiles appear in reverse-chronological order by creation-date' do
+  describe 'Tile reports contain the correct information, and appear in reverse-chronological order by activation/archived-date and then creation-date' do
     # Chronologically-speaking, creating tiles "up" from 0 to 'nun_tiles' and then checking "down" from 'num_tiles' to 0
     let(:num_tiles) { 10 }
 
@@ -36,6 +36,14 @@ feature 'client admin views tiles reports' do
     let!(:tiles) do
       num_tiles.times do |i|
         tile = FactoryGirl.create :tile, demo: demo, headline: "Tile #{i}", created_at: Time.now + i.days
+
+        # We now sort by activated_at/archived_at, and if those times aren't present we fall back on created_at
+        # Make it so that all odd tiles should be listed before all even ones, and that odd/even each should be sorted in descending order.
+        if i.even?
+          awhile_ago = tile.created_at - 2.weeks
+          tile.update_attributes(activated_at: awhile_ago, archived_at: awhile_ago)
+        end
+
         (i * 10).times { |j| FactoryGirl.create :tile_completion, tile: tile, user: claimed_users[j] }
       end
     end
@@ -44,14 +52,14 @@ feature 'client admin views tiles reports' do
       # No need to test for images as that is done in other tests; this is for reporting numbers
       [ ["Image", "Headline", "Completions", "% of participants"],
         [  "",     "Tile 9",      "90",           "90.0%"       ],
-        [  "",     "Tile 8",      "80",           "80.0%"       ],
         [  "",     "Tile 7",      "70",           "70.0%"       ],
-        [  "",     "Tile 6",      "60",           "60.0%"       ],
         [  "",     "Tile 5",      "50",           "50.0%"       ],
-        [  "",     "Tile 4",      "40",           "40.0%"       ],
         [  "",     "Tile 3",      "30",           "30.0%"       ],
-        [  "",     "Tile 2",      "20",           "20.0%"       ],
         [  "",     "Tile 1",      "10",           "10.0%"       ],
+        [  "",     "Tile 8",      "80",           "80.0%"       ],
+        [  "",     "Tile 6",      "60",           "60.0%"       ],
+        [  "",     "Tile 4",      "40",           "40.0%"       ],
+        [  "",     "Tile 2",      "20",           "20.0%"       ],
         [  "",     "Tile 0",      "0",            "0.0%"        ]
       ]
     end

@@ -188,16 +188,10 @@ class Tile < ActiveRecord::Base
   end
 
   def self.active
-    #order_time = activated_at ? 'activated_at' : 'created_at'
-    #where("status = ?", ACTIVE).order("#{order_time} DESC")
-
     where("status = ?", ACTIVE).order("CASE WHEN activated_at IS NULL THEN created_at ELSE activated_at END DESC")
   end
 
   def self.archive
-    #order_time = archived_at ? 'archived_at' : 'created_at'
-    #where("status = ?", ARCHIVE).order("#{order_time} DESC")
-
     where("status = ?", ARCHIVE).order("CASE WHEN archived_at IS NULL THEN created_at ELSE archived_at END DESC")
   end
 

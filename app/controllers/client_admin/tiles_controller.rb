@@ -23,8 +23,6 @@ class ClientAdmin::TilesController < ClientAdminBaseController
       set_after_save_flash(@tile_builder_form.tile)
       redirect_to client_admin_tile_path(@tile_builder_form.tile)
     else
-      # TODO: validation and ActiveRecord errors are done in a surprisingly
-      # bullshit manner in Rails. Surely we can improve on this.
       flash[:failure] = "Sorry, we couldn't save this tile: " + @tile_builder_form.error_messages
       render "new"
     end

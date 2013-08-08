@@ -57,7 +57,7 @@ feature 'Client admin and the digest email for tiles' do
     # Note: The no-tiles digest message is more involved than that of the other tiles.
     #       More comprehensive tests for the various flavors of this message exist in the 'tile_digest_notification_spec'
     scenario 'Correct message is displayed when there are no Digest tiles' do
-      select_tab 'Digest'
+      select_tab 'Digest email'
 
       digest_tab.should contain 'No digest email is scheduled to be sent'
       digest_tab.should have_num_tiles(0)
@@ -69,13 +69,15 @@ feature 'Client admin and the digest email for tiles' do
     #       2: I have no idea why Phil hates kittens so much. Someone should keep an eye on him...
     #
     #       (I don't hate kittens. I love them, especially in soy sauce. --Phil)
-    let(:kill)        { create_tile headline: 'Phil Kills Kittens',  start_day: '12/25/2013', end_day: '12/30/2013' }
-    let(:knife)       { create_tile headline: 'Phil Knifes Kittens', start_day: '12/25/2013' }
+    let(:kill)        { create_tile headline: 'Phil Kills Kittens'  }
+    let(:knife)       { create_tile headline: 'Phil Knifes Kittens' }
     let(:kannibalize) { create_tile headline: 'Phil Kannibalizes Kittens' }
 
     let!(:tiles) { [kill, knife, kannibalize] }
 
     scenario "The tile content is correct for Active tiles" do
+      tiles.each { |tile| tile.update_attributes status: Tile::ACTIVE }
+
       visit tile_manager_page
       active_tab.should have_num_tiles(3)
 
@@ -93,6 +95,10 @@ feature 'Client admin and the digest email for tiles' do
 
     scenario "The tile content is correct for Digest tiles" do
       demo.update_attributes tile_digest_email_sent_at: Date.yesterday
+
+      # Note that unlike the 'Active' and 'Archive' tile tests, you need to specify the 'activated_at'
+      # time because that's how tiles do (or do not) make it into the 'Digest' tab
+      tiles.each { |tile| tile.update_attributes status: Tile::ACTIVE, activated_at: Time.now }
 
       visit tile_manager_page
       digest_tab.should have_num_tiles(3)
@@ -126,24 +132,9 @@ feature 'Client admin and the digest email for tiles' do
       end
     end
 
-    scenario "Tiles that should be archived, are, whenever the page is displayed" do
-      tiles.each { |tile| tile.update_attributes end_time: Date.tomorrow }
-      visit tile_manager_page
-
-      active_tab.should have_num_tiles(3)
-      archive_tab.should have_num_tiles(0)
-
-      tiles.each { |tile| tile.update_attributes end_time: Date.yesterday }
-      refresh_tile_manager_page
-
-      active_tab.should have_num_tiles(0)
-      archive_tab.should have_num_tiles(3)
-
-      tiles.each { |tile| tile.reload.status.should == Tile::ARCHIVE }
-    end
-
     context 'Archiving and activating tiles' do
       scenario "The 'Archive this tile' links work, including setting the 'archived_at' time" do
+        tiles.each { |tile| tile.update_attributes status: Tile::ACTIVE }
         visit tile_manager_page
 
         active_tab.should  have_num_tiles(3)
@@ -155,7 +146,6 @@ feature 'Client admin and the digest email for tiles' do
         page.should contain "The #{kill.headline} tile has been archived"
 
         kill.reload.archived_at.sec.should be_within(1).of(Time.now.sec)
-        kill.activated_at.should be_nil
 
         within(active_tab)  { page.should_not contain kill.headline }
         within(archive_tab) { page.should     contain kill.headline }
@@ -170,7 +160,6 @@ feature 'Client admin and the digest email for tiles' do
         page.should contain "The #{knife.headline} tile has been archived"
 
         knife.reload.archived_at.sec.should be_within(1).of(Time.now.sec)
-        knife.activated_at.should be_nil
 
         within(active_tab)  { page.should_not contain knife.headline }
         within(archive_tab) { page.should     contain knife.headline }
@@ -192,7 +181,6 @@ feature 'Client admin and the digest email for tiles' do
         page.should contain "The #{kill.headline} tile has been activated"
 
         kill.reload.activated_at.sec.should be_within(1).of(Time.now.sec)
-        kill.archived_at.should be_nil
 
         within(archive_tab) { page.should_not contain kill.headline }
         within(active_tab)  { page.should     contain kill.headline }
@@ -207,7 +195,6 @@ feature 'Client admin and the digest email for tiles' do
         page.should contain "The #{knife.headline} tile has been activated"
 
         knife.reload.activated_at.sec.should be_within(1).of(Time.now.sec)
-        knife.archived_at.should be_nil
 
         within(archive_tab) { page.should_not contain knife.headline }
         within(active_tab)  { page.should     contain knife.headline }
@@ -217,4 +204,53 @@ feature 'Client admin and the digest email for tiles' do
       end
     end
   end
+
+  describe 'Tiles appear in reverse-chronological order by activation/archived-date and then creation-date' do
+    # Chronologically-speaking, creating tiles "up" from 0 to 10 and then checking "down" from 10 to 0
+    let!(:tiles) do
+      10.times do |i|
+        tile = FactoryGirl.create :tile, demo: demo, headline: "Tile #{i}", created_at: Time.now + i.days
+        # We now sort by activated_at/archived_at, and if those times aren't present we fall back on created_at
+        # Make it so that all odd tiles should be listed before all even ones, and that odd/even each should be sorted in descending order.
+        if i.even?
+          awhile_ago = tile.created_at - 2.weeks
+          tile.update_attributes(activated_at: awhile_ago, archived_at: awhile_ago)
+        end
+      end
+    end
+
+    let(:expected_tile_table) do
+      [ "Tile 9",
+        "Tile 7",
+        "Tile 5",
+        "Tile 3",
+        "Tile 1",
+        "Tile 8",
+        "Tile 6",
+        "Tile 4",
+        "Tile 2",
+        "Tile 0"
+      ]
+    end
+
+    it "for Active tiles" do
+      demo.tiles.update_all status: Tile::ACTIVE
+      expected_tile_table.each_with_index { |row, i| expected_tile_table[i] = ["#{row} Archive Edit Preview"] }
+
+      visit tile_manager_page
+      select_tab 'Active'
+
+      table_content('#active table').should == expected_tile_table
+    end
+
+    it "for Archived tiles" do
+      demo.tiles.update_all status: Tile::ARCHIVE
+
+      visit tile_manager_page
+      select_tab 'Archived'
+
+      table_content('#archive table').should == expected_tile_table
+    end
+  end
+
 end

@@ -140,13 +140,13 @@ feature 'Client admin and the digest email for tiles' do
 
       visit tile_manager_page
       select_tab 'Digest email'
-      digest_tab.should contain 'Last digest email was sent on Thursday, July 04, 2013'
+      digest_tab.should contain 'since the last one was sent on Thursday, July 04, 2013'
     end
 
     context "Clicking the 'Send now' button" do
       before(:each) do
         set_last_sent_on '7/4/2013'
-        2.times { |i| create_tile on_day: '7/5/2013', headline: "Headline #{i + 1}"}
+        2.times { |i| create_tile on_day: '7/5/2013', activated_on: '7/5/2013', status: Tile::ACTIVE, headline: "Headline #{i + 1}"}
       end
 
       scenario "A flash confirmation message is displayed,

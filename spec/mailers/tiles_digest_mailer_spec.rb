@@ -14,9 +14,9 @@ describe 'Digest email' do
   let(:unclaimed_user) { FactoryGirl.create :user,         demo: demo, name: 'Irma Thomas',   email: 'irma@thomas.com'   }
 
   let(:tile_ids) do
-    create_tile headline: 'Phil Kills Kittens'
-    create_tile headline: 'Phil Knifes Kittens'
-    create_tile headline: 'Phil Kannibalizes Kittens'
+    create_tile headline: 'Phil Kills Kittens',        status: Tile::ACTIVE, activated_at: Time.now
+    create_tile headline: 'Phil Knifes Kittens',       status: Tile::ACTIVE, activated_at: Time.now
+    create_tile headline: 'Phil Kannibalizes Kittens', status: Tile::ACTIVE, activated_at: Time.now
 
     create_tile headline: "Archive Tile", status: Tile::ARCHIVE  # This guy shouldn't show up in the email
 

@@ -40,7 +40,7 @@ describe 'Automatic weekly sending of tiles-digest email' do
       demos[2].update_attributes tile_digest_email_send_on: 'Never'
 
       # Only this digest email (i.e. for this demo, for this user, with this tile) should only get added to the dj queue.
-      # That's the first call to this method. The second is when it actually gets processed by the dj worker.
+      # That's the first call to this method. The second is when it actually gets processed by the dj worker => '.twice'
       TilesDigestMailer.expects(:notify_one).twice.with(demos[0].id, user_demo_0.id, [send_it.id])
 
       Timecop.travel Time.now + 12.hours

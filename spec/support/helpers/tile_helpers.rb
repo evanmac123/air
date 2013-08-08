@@ -15,12 +15,20 @@ module TileHelpers
   # This guy returns an HTML table as an array of arrays where each internal array corresponds
   # to a row and the content of that array is the text in each of the columns.
   #
-  # e.g. [ [Tile 1, Headline 1, 333 users, 33%, ...],
-  #        [Tile 2, Headline 2, 666 users, 66%, ...],
-  #        [Tile 3, Headline 3, 999 users, 99%, ...],
-  #        ...
-  #      ]
+  # For example, the Tiles > Reports would look something like this:
+  # [ [Tile 1, Headline 1, 333 users, 33%, ...],
+  #   [Tile 2, Headline 2, 666 users, 66%, ...],
+  #   [Tile 3, Headline 3, 999 users, 99%, ...],
+  #   ...
+  # ]
   #
+  # While the Tiles > Manager would look like this:
+  # [ ["Tile 9 Archive Edit Preview", "Tile 7 Archive Edit Preview", "Tile 5 Archive Edit Preview"],
+  #   ["Tile 3 Archive Edit Preview", "Tile 1 Archive Edit Preview", "Tile 8 Archive Edit Preview"],
+  #   ["Tile 6 Archive Edit Preview", "Tile 4 Archive Edit Preview", "Tile 2 Archive Edit Preview"],
+  #   ["Tile 0 Archive Edit Preview"]
+  # ]
+
   def table_content(table_selector)
     find(table_selector).all('tr').collect { |row| row.all('th, td').collect { |cell| cell.text } }
   end
@@ -60,9 +68,11 @@ module TileHelpers
   # Allows you to create tiles with normal string dates instead of Ruby's convoluted Time class
 
   # Key: What you use in your code ; Value: Actual Tile attribute
-  DAY_TO_TIMES = { on_day:    :created_at,
-                   start_day: :start_time,
-                   end_day:   :end_time }
+  DAY_TO_TIMES = { on_day:       :created_at,
+                   activated_on: :activated_at,
+                   archived_on:  :archived_at,
+                   start_day:    :start_time,
+                   end_day:      :end_time }
   # Usage:
   #
   # create_tile on_day: '7/5/2013', headline: "My Tile Headline", start_day: '7/4/2013', end_day: '7/6/2013'
