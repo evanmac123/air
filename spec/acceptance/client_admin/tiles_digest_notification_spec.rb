@@ -215,13 +215,23 @@ feature 'Client admin and the digest email for tiles' do
   end
 
   it 'Tiles appear in reverse-chronological order by activation-date and then creation-date' do
+    tile_digest_email_sent_at = 2.months.ago
+    demo.update_attributes tile_digest_email_sent_at: tile_digest_email_sent_at
+
     # Chronologically-speaking, creating tiles "up" from 0 to 10 and then checking "down" from 10 to 0
+    # For tiles to appear in the 'Digest email' tab their 'activated_at' time has to be set and correct
     10.times do |i|
-      tile = FactoryGirl.create :tile, demo: demo, headline: "Tile #{i}", status: Tile::ACTIVE, created_at: Time.now + i.days
-      # We now sort by activated_at, and if that time isn't present we fall back on created_at
+      tile = FactoryGirl.create :tile, demo: demo, headline: "Tile #{i}", status: Tile::ACTIVE, activated_at: Time.now + i.days
       # Make it so that all odd tiles should be listed before all even ones, and that odd/even each should be sorted in descending order.
-      tile.update_attributes(activated_at: tile.created_at - 2.weeks) if i.even?
+      tile.update_attributes(activated_at: tile.activated_at - 2.weeks) if i.even?
     end
+
+    # Make some tiles that should not appear in the 'Digest email' tab...
+
+    # The 'created_at' time for these tiles qualified them under the old criteria (by 'created_at'), but not now
+    FactoryGirl.create_list :tile, 2, demo: demo, headline: 'I hate Dates and Times', status: Tile::ACTIVE
+    # The 'activated_at' times for these tiles are before the 'tile_digest_email_sent_at' => they would have gone out in that batch
+    FactoryGirl.create_list :tile, 2, demo: demo, headline: 'I hate DateTimes and TimeZones', status: Tile::ACTIVE, activated_at: tile_digest_email_sent_at - 1.day
 
     expected_tile_table =
       [ ["Tile 9 Edit Preview", "Tile 7 Edit Preview", "Tile 5 Edit Preview"],
