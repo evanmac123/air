@@ -13,7 +13,8 @@
           <%= select_tag :chart_plot_content, options_for_select(['Total activity', 'Unique users', 'Both'], selected: params[:chart_plot_content]) %>
         </li>
         <li id="chart-intervals">
-          <%= select_tag :chart_interval, options_for_select(%w(Weekly Daily), selected: params[:chart_interval]) %>
+          <% options = current_user.is_site_admin ? %w(Weekly Daily Hourly) : %w(Weekly Daily) %>
+          <%= select_tag :chart_interval, options_for_select(options, selected: params[:chart_interval]) %>
         </li>
         <li id="chart-labeling">
           <span>Label</span>

@@ -18,8 +18,8 @@ describe 'A group of tests...' do
       start_date = '12/25/2012'
       end_date   = '12/25/2012'
 
-      start_boundary = Highchart.convert_date(start_date).beginning_of_day
-      end_boundary   = Highchart.convert_date(end_date).end_of_day
+      start_boundary = Highchart.convert_date(start_date).beginning_of_day.to_time.localtime
+      end_boundary   = Highchart.convert_date(end_date).end_of_day.to_time.localtime
 
       # Create some acts that lie outside the input range
       (1..2).each do |i|
@@ -241,19 +241,31 @@ describe 'Yet another group of tests...' do
 
   Y = Struct.new(:acts, :users)  # Simplifies creating hash of expected values
 
-  # Interestingly enough, the Daily and Weekly tests that use dates in July pass.
-  # (i.e. Daylight Savings Time which results in an ActiveRecord offset of 4 hours in database records)
+  # Okay, here's the deal: Hourly mode => all acts have to be within a 1-day, 24-hour period because that's how the query
+  # fetches them. Not only that, but for this (and other) tests, we create acts around the "end points" of the day as
+  # opposed to the "meat" of the day because that's where the more-complicated test cases arise. (Creating all acts
+  # around 2 or 3 in the afternoon, while easier, wouldn't convince me that this code is thoroughly tested.)
   #
-  # However, if you use a July date in this Hourly test it returns results that are off by 1 hour
-  # because we adjust for the EST/UTC time difference by adding 5 hours to our act objects.
+  # 'Hourly' is also a royal pain in the ass because Rails stores all times in UTC which is 4 or 5 hours ahead of EST,
+  # depending on whether or not it is Daylight Savings time.
   #
-  # Bottom Line: Use a date that is not in Daylight Savings Time for the Hourly tests (March 11 thru November 4 for 2012)
+  # We found a bug in Hourly where the times were off by 4 or 5 hours; the fix was to re-adjust the times back to EST.
+  # What's that got to do with this test? Well, this test was set up to process acts that lived at the edges of a
+  # 24-hour window. But when you adjust for the 5-hour difference... well, now those acts no longer live within that window.
+  #
+  # To make the 5-hour adjustment in the simplest, most understandable manner I did the following:
+  # 1) Added 5 hours to the lower-level hours (1am, 2am, 3am) => they will still live within the 24-hour window.
+  # 2) Unfortunately, doing the same thing to the higher-lever hours (9pm, 10pm, 11pm) would knock those guys out
+  #    of the 24-hour window, so 5 hours gets subtracted from them down below in the 'y-values' hash.
+  #
+  # And if Phil ever assigns me *anything time-related in Rails* again.. well, he's bigger than me so I probably won't do anything.
+
   describe 'Hourly#data_points' do
     it 'should return the right number of acts and users' do
       day = Highchart.convert_date('11/11/2012')
-      hour_1  = day + 1.hour
-      hour_2  = day + 2.hours
-      hour_3  = day + 3.hours
+      hour_1  = day + 1.hours + 5.hours
+      hour_2  = day + 2.hours + 5.hours
+      hour_3  = day + 3.hours + 5.hours
       hour_21 = day + 21.hours
       hour_22 = day + 22.hours
       hour_23 = day + 23.hours
@@ -298,11 +310,13 @@ describe 'Yet another group of tests...' do
 
       # Keys are x-values we are expecting y-values for. Define these expected (act, user) y-values.
       # For all other x-values both the 'act' and 'user' y-value should be 0.
+      # For the reason why 5 is subtracted for some of the keys, see comments at beginning of this test.
+      #
       y_values = Hash[1  => Y.new(11, 4),
                       2  => Y.new(4, 4),
-                      21 => Y.new(6, 2),
-                      22 => Y.new(3, 1),
-                      23 => Y.new(1, 1)]
+                      (21 - 5) => Y.new(6, 2),
+                      (22 - 5) => Y.new(3, 1),
+                      (23 - 5) => Y.new(1, 1)]
       y_values.default = Y.new(0, 0)
 
       0.upto(23) do |hour|

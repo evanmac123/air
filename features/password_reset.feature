@@ -3,25 +3,20 @@ Feature: Password reset
   A user
   Should be able to reset it
 
-  Scenario: User is not signed up
-    Given no user exists with an email of "email@person.com"
-    When I request password reset link to be sent to "email@person.com"
-    Then I should see "Unknown email"
-
   Scenario: User is signed up and requests password reset
-    Given I signed up with "email@person.com/password"
+    Given I am a claimed user who signed up with "email@person.com/password"
     When I request password reset link to be sent to "email@person.com"
     Then I should see "You will receive an email"
     And a password reset message should be sent to "email@person.com"
 
   Scenario: Asking for a password reset is case insensitive
-    Given I signed up with "email@person.com/password"
+    Given I am a claimed user who signed up with "email@person.com/password"
     When I request password reset link to be sent to "EmAIl@peRSOn.cOm"
     Then I should see "You will receive an email"
     And a password reset message should be sent to "email@person.com"
 
   Scenario: User is signed up updated his password and types wrong confirmation
-    Given I signed up with "email@person.com/password"
+    Given I am a claimed user who signed up with "email@person.com/password"
     And I go to the password reset request page
     And I fill in the reset email field with "email@person.com"
     And I press "Reset password"
@@ -32,7 +27,7 @@ Feature: Password reset
     And I should be signed out
 
   Scenario: Password and confirmation are blanked out on bad confirmation
-    Given I signed up with "email@person.com/password"
+    Given I am a claimed user who signed up with "email@person.com/password"
     And I go to the password reset request page
     And I fill in the reset email field with "email@person.com"
     And I press "Reset password"
@@ -42,7 +37,7 @@ Feature: Password reset
     And the password confirmation field should be blank
 
   Scenario: User is signed up and updates his password
-    Given I signed up with "email@person.com/password"
+    Given I am a claimed user who signed up with "email@person.com/password"
     And I go to the password reset request page
     And I fill in the reset email field with "email@person.com"
     And I press "Reset password"
@@ -55,7 +50,7 @@ Feature: Password reset
     Then I should be signed in
 
   Scenario: User tries to update with an under-length password
-    Given I signed up with "email@person.com/password"
+    Given I am a claimed user who signed up with "email@person.com/password"
     And I go to the password reset request page
     And I fill in the reset email field with "email@person.com"
     And I press "Reset password"
@@ -68,7 +63,7 @@ Feature: Password reset
     Then I should be signed in
 
   Scenario: User tries using the same password reset token twice
-    Given I signed up with "email@person.com/password"
+    Given I am a claimed user who signed up with "email@person.com/password"
     And I go to the password reset request page
     And I fill in the reset email field with "email@person.com"
     And I press "Reset password"

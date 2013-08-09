@@ -53,7 +53,7 @@
     tr.f-top td.f-left {background:url('v3/flash/flash-tl-failure.png') no-repeat left center;}
     tr.f-top td.f-right {background:url('v3/flash/flash-tr-failure.png') no-repeat right center;}
 }
-#flash_success {
+#flash_success, #flash_notice {
     a#close-flash span {color:darken(#b2d876, 10%);}
     tr.f-bottom td.f-center {background:url('v3/flash/flash-bc-success.png') repeat-x left center;}
     tr.f-bottom td.f-left{background:url('v3/flash/flash-bl-success.png') no-repeat left center;} 

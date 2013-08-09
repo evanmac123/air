@@ -89,8 +89,12 @@ Capybara::Screenshot.autosave_on_failure = false
 # http://stackoverflow.com/questions/11757118/capybara-webkit-invalid-response-error-how-to-debug
 # You'll know when this kicks into gear because of (a) the output -and- (b) this message at the end
 # of the new tab-full-o-info: "You're seeing this error because you use Rack::ShowExceptions."
-require 'rack/utils'
-Capybara.app = Rack::ShowExceptions.new(Health::Application)
+
+#
+# Larry--leave this out, it screws up other tests. --Phil
+#require 'rack/utils'
+#Capybara.app = Rack::ShowExceptions.new(Health::Application)
+
 
 # Hack to allow us to use regular controller tests to test SmsController
 # (which is an ActionController::Metal).
