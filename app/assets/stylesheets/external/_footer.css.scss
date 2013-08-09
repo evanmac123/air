@@ -74,8 +74,8 @@ footer {
       list-style-type: none;
       margin-bottom:1.5em;
       .post_title {
+        line-height: 1.25em;
         a, a:link {@include link($dark-green);}
-
       }
       .post_description {
         @extend p.caption;
