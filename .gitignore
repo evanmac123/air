@@ -48,3 +48,5 @@ redis_connection_stack_trace
 .vagrant
 Vagrantfile
 vagrant_provisioning
+libpeerconnection.log
+*.patch
