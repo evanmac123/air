@@ -32,16 +32,18 @@ describe Tile do
       digest  = []
 
       (1..3).each do |i|
-        # Note that all of these tiles qualify for "digest" tiles because they are created after the last digest email
-        # was sent => We can test that only "active" tiles go out in the digest email
-        draft   << FactoryGirl.create(:tile, demo: demo, status: Tile::DRAFT,   created_at: last_digest_sent_at + i.minutes).id
-        archive << FactoryGirl.create(:tile, demo: demo, status: Tile::ARCHIVE, created_at: last_digest_sent_at + i.minutes).id
+        # Note that all of these tiles kinda qualify for "digest" tiles because they are activated after the
+        # last digest email was sent => We can test that only "active" tiles go out in the digest email.
+        # And you could create, activate, and then archive a tile after the last digest email got sent but before the next
+        # digest email goes out => Need to ensure that 'activated_at' alone does not get tile included in the digest email.
+        draft   << FactoryGirl.create(:tile, demo: demo, status: Tile::DRAFT,   activated_at: last_digest_sent_at + i.minutes).id
+        archive << FactoryGirl.create(:tile, demo: demo, status: Tile::ARCHIVE, activated_at: last_digest_sent_at + i.minutes).id
 
         # These 'active' tiles were created *before* the last digest email => should not also be considered "digest" tiles
-        active << FactoryGirl.create(:tile, demo: demo, status: Tile::ACTIVE, created_at: last_digest_sent_at - i.minutes).id
+        active << FactoryGirl.create(:tile, demo: demo, status: Tile::ACTIVE, activated_at: last_digest_sent_at - i.minutes).id
 
         # These 'active' tiles were created *after* the last digest email => should also be considered "digest" tiles
-        tile = FactoryGirl.create(:tile, demo: demo, status: Tile::ACTIVE, created_at: last_digest_sent_at + i.minutes).id
+        tile = FactoryGirl.create(:tile, demo: demo, status: Tile::ACTIVE, activated_at: last_digest_sent_at + i.minutes).id
         active << tile
         digest << tile
       end
@@ -49,11 +51,11 @@ describe Tile do
       # Create some tiles of each type that belong to a different demo
       bad_demo = FactoryGirl.create :demo, tile_digest_email_sent_at: last_digest_sent_at
       (1..2).each do |i|
-        FactoryGirl.create(:tile, demo: bad_demo, status: Tile::DRAFT,   created_at: last_digest_sent_at + i.minutes).id
-        FactoryGirl.create(:tile, demo: bad_demo, status: Tile::ARCHIVE, created_at: last_digest_sent_at + i.minutes).id
+        FactoryGirl.create(:tile, demo: bad_demo, status: Tile::DRAFT,   activated_at: last_digest_sent_at + i.minutes).id
+        FactoryGirl.create(:tile, demo: bad_demo, status: Tile::ARCHIVE, activated_at: last_digest_sent_at + i.minutes).id
 
-        FactoryGirl.create(:tile, demo: bad_demo, status: Tile::ACTIVE, created_at: last_digest_sent_at - i.minutes).id
-        FactoryGirl.create(:tile, demo: bad_demo, status: Tile::ACTIVE, created_at: last_digest_sent_at + i.minutes).id
+        FactoryGirl.create(:tile, demo: bad_demo, status: Tile::ACTIVE, activated_at: last_digest_sent_at - i.minutes).id
+        FactoryGirl.create(:tile, demo: bad_demo, status: Tile::ACTIVE, activated_at: last_digest_sent_at + i.minutes).id
       end
 
       demo.draft_tiles.pluck(:id).sort.should   == draft.sort
