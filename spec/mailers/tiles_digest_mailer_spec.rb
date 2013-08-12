@@ -90,6 +90,10 @@ describe 'Digest email' do
     it { should have_body_text 'Phil Kannibalizes Kittens' }
 
     it { should_not have_body_text 'Archive Tile' }
+
+    it { should have_selector 'td img[alt="Phil Knifes Kittens"]'}
+    it { should have_selector 'td img[alt="Phil Kills Kittens"]'}
+    it { should have_selector 'td img[alt="Phil Kannibalizes Kittens"]'}
   end
 
   describe 'Footer' do
@@ -115,5 +119,33 @@ describe 'Digest email' do
       it { should_not have_link('Update your contact preferences') }
       it { should     have_link('sign up') }
     end
+  end
+end
+
+# Analyzing the email's HTML proved to be a real pain in the you-know-what, so decided that since tests exist
+# for tile-order by activation-date, that if we can show that the right methods get called on 'Tile' then
+# we can rest assured that the tiles in the email are in the right order.
+#
+# Need to construct these tests outside the context of the main 'describe' block above because stubbing
+# out these methods wreaks havoc with the objects created in the 'let' methods contained within that block.
+#
+# Also, don't need to test with real data => can just stub out anything that gets called in the process.
+# This includes the contents of the digest email itself, which gets rendered as part of the 'view' process.
+# Specifically, since we're using plain ol' integers instead of real tiles => give integers (Fixnum) Tile behavior.
+#
+describe 'Digest email tile order' do
+  it 'tiles should be sorted by activation date' do
+    Demo.stubs(:find).returns(FactoryGirl.create :demo)
+    User.stubs(:find).returns(FactoryGirl.create :claimed_user)
+
+    Fixnum.any_instance.stubs(:headline)
+    Fixnum.any_instance.stubs(:thumbnail).returns('xxx')
+
+    tile_ids = [1, 2, 3]
+
+    Tile.expects(:where).with(id: tile_ids).returns(tile_ids)
+    tile_ids.expects(:order).with('activated_at DESC').returns(tile_ids)
+
+    TilesDigestMailer.notify_one(1, 2, tile_ids)
   end
 end

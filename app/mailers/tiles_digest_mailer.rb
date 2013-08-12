@@ -36,7 +36,8 @@ class TilesDigestMailer < ActionMailer::Base
   def notify_one(demo_id, user_id, tile_ids)
     @demo  = Demo.find demo_id
     @user  = User.find user_id
-    @tiles = Tile.find tile_ids
+    # Can't just use 'Tile.find tile_ids' because results not in same order as ids in array
+    @tiles = Tile.where(id: tile_ids).order('activated_at DESC')
 
     # For the footer...
     @invitation_url = @user.claimed? ? nil : invitation_url(@user.invitation_code, protocol: email_link_protocol, host: email_link_host)
