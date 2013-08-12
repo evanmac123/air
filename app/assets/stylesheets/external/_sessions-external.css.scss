@@ -120,65 +120,72 @@ body.invitations-show form {
     input, label, #terms_label {display:inline-block;}
   }
   .signup-submit:after {@include clear;}
+}
 
+// Autocomplete suggestions 
+  #indented_to_match_inputs {
+    #autocomplete_status {
+      @extend p.caption;
+      font-family:$open-600;
+    }
+  }
   .single_suggestion{
     width:380px;
     background-color: #eff0ef;
     border: 1px solid #d3d3d3;
     box-shadow:none;
-    -moz-box-shadow: none;
-    -webkit-box-shadow: none;
+      -moz-box-shadow: none;
+      -webkit-box-shadow: none;
     z-index:9999;
     padding: 10px;
-    margin-bottom: 1em;
+    margin: 1em 0;
     position: relative;
-
-    .image {
-      float: left;
+    &:after{@include clear;}
+    &:hover {
+      border-color:$blue;
+      cursor: pointer;
     }
-
     div.image {
-      width:auto;
+      float: left;
+      width:25%;
       z-index:9999;
-      padding-right: 10px;
+      padding: 0 .75em 0 0;
       img {
-        // @include rounded;
         border:none;
         margin:0;
         z-index:99999;
       }
     }
-
     div.info {
+      float:left;
+      width:74%;
+      div.bit {
+        line-height:1em;
+        padding-bottom:.5em;
+        text-overflow:ellipsis;
+        word-wrap:break-word;
+      }
       div.bit:first-child {
-        color:#39B549;
+        color:$dark-green;
         font-size: 1.15em;
         font-family:$open-600;
       }
-
-      padding-bottom: 0.5em;
     }
-
-    .suggested_user_id: {
-      display: none;
-    }
-
     a.remove_referrer {
+      background:#d3d3d3;
+      color: $white;
+      font-family:$open-600;
+      font-size:.65em!important;
+      display: inline-block;
+      padding:.25em;
       position: absolute;
       left: auto;
       right: 4px;
-      top: 1px;
-      color: $dark-green;
+      top: 0;
+      &:hover {background:darken(#d3d3d3, 7%);}
     }
 
-    .already_playing {
-      display: none;
-    }
-
-    img {
-      width: 75px;
-    }
+    .suggested_user_id: {display: none;}
+    .already_playing {display: none;}
+    img {width: 75px;}
   }
-
-
-}
