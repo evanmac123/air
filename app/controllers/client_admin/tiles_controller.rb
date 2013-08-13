@@ -78,6 +78,8 @@ class ClientAdmin::TilesController < ClientAdminBaseController
       else {}
     end
 
+# todo define attribute setter that updates times along with status
+
     if @tile.update_attributes( {status: params[:update_status]}.merge(update_timestamp) )
       flash[:success] = "The #{@tile.headline} tile has been #{success}"
     else
