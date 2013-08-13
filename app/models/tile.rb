@@ -189,7 +189,7 @@ class Tile < ActiveRecord::Base
   def self.satisfiable_to_user_with_sample(user)
     satisfiable_tiles = satisfiable_to_user(user)
     if user.tutorial_active?
-      satisfiable_tiles.prepend(SampleTile.new)
+      satisfiable_tiles.prepend(user.sample_tile)
     else
       satisfiable_tiles
     end
@@ -198,7 +198,7 @@ class Tile < ActiveRecord::Base
   def self.displayable_to_user_with_sample(user)
     displayable_tiles = displayable_to_user(user)
     if user.tutorial_active?
-      displayable_tiles.prepend(SampleTile.new)
+      displayable_tiles.prepend(user.sample_tile)
     else
       displayable_tiles
     end

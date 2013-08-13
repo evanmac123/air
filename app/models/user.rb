@@ -787,6 +787,21 @@ class User < ActiveRecord::Base
     tut.save
   end
 
+  def current_tutorial_step
+    step_class = case demo.tutorial_type
+    when 'keyword'
+      TutorialStep
+    when 'multiple_choice'
+      TutorialStepWithMultipleChoice
+    end
+      
+    step_class.new(tutorial.current_step)
+  end
+
+  def sample_tile
+    MultipleChoiceSampleTile.new
+  end
+
   def profile_page_friends_list
     self.accepted_friends_same_demo.sort_by {|ff| ff.name.downcase}
   end
@@ -932,6 +947,11 @@ class User < ActiveRecord::Base
 
   def to_ticket_progress_calculator
     User::TicketProgressCalculator.new(self)
+  end
+
+  def just_did_tutorial_sample_tile(context)
+    return false unless context.to_s == demo.tutorial_type
+    return (tutorial.current_step == 2)
   end
 
   def self.find_by_either_email(email)

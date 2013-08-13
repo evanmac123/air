@@ -231,6 +231,12 @@
     - else 
       Game will have default tooltip example
 
+  %p
+    - if @demo.tutorial_type == "multiple_choice"
+      Talking chicken will use multiple-choice sample tile
+    - else 
+      Talking chicken will use old-school sample tile
+
   %p 
     = "Game will#{' not' unless @demo.uses_tickets} use tickets"
     -if @demo.uses_tickets

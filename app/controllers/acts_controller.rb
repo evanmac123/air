@@ -43,7 +43,7 @@ class ActsController < ApplicationController
     redirect_to :back
 
     if current_user.tutorial_active?
-      session[:typed_something_in_playbox] = true if current_user.tutorial.current_step == 2
+      set_talking_chicken_sample_tile_done(:keyword)
     else
       current_user.ping('used activity entry box')   
     end

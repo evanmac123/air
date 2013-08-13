@@ -151,7 +151,8 @@ class ApplicationController < ActionController::Base
     return nil unless current_user.reload.tutorial_active?
     example_command = current_user.demo.example_tutorial_or_default
     advance_tutorial
-    @tutorial_step = TutorialStep.new(current_user.tutorial.current_step)
+    @tutorial_step = current_user.current_tutorial_step
+    #TutorialStep.new(current_user.tutorial.current_step)
   end
 
   # TODO: This clearly doesn't belong here. It's not readily apparent where we
@@ -168,7 +169,7 @@ class ApplicationController < ActionController::Base
     when 2  # Read for Points
       Tutorial.seed_example_user(current_user.demo)
       if path_info == tiles_path
-        tutorial.bump_step if session.delete(:typed_something_in_playbox)
+        tutorial.bump_step if session.delete(:talking_chicken_sample_tile_done)
       elsif path_info == activity_path
         tutorial.back_up_a_step
       end
@@ -193,7 +194,11 @@ class ApplicationController < ActionController::Base
     end
       
   end
-  
+ 
+  def set_talking_chicken_sample_tile_done(context)
+    session[:talking_chicken_sample_tile_done] = true if current_user.just_did_tutorial_sample_tile(context)
+  end
+
   def tutorial_check
     current_user.create_tutorial_if_none_yet if current_user
   end  

@@ -33,6 +33,8 @@
     </div>
     <%= form.input :example_tutorial, :label => "Custom example for slide 1 of tutorial" %>
     <%= form.input :example_tooltip, :label => "Custom example for playbox tooltip" %>
+    <%= label_tag :use_multiple_choice_tiles, "Talking chicken should use multiple-choice sample tile" %>
+    <%= check_box_tag :use_multiple_choice_tiles, '1', demo.tutorial_type == 'multiple_choice' %>
 
     <%= form.input :ticket_threshold, :label => "Points for ticket award"  %>
     <%# For now, uses_tickets is hard-coded to true. %>

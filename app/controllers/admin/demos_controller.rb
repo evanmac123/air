@@ -1,6 +1,7 @@
 class Admin::DemosController < AdminBaseController
   before_filter :find_demo_by_id, :only => [:show, :edit, :update, :destroy]
   before_filter :normalize_internal_domains, :only => [:create, :update]
+  before_filter :choose_tutorial_type, :only => [:create, :update]
 
   def new
     @demo = Demo.new
@@ -62,5 +63,13 @@ class Admin::DemosController < AdminBaseController
                                        else
                                          []
                                        end
+  end
+
+  def choose_tutorial_type
+    params[:demo][:tutorial_type] = if params.delete(:use_multiple_choice_tiles)
+                                      'multiple_choice'
+                                    else
+                                      'keyword'
+                                    end
   end
 end

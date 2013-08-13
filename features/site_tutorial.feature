@@ -1,8 +1,8 @@
 Feature: Talking Chicken 
   Background: 
     Given the following demo exists:
-      | name           |
-      | Hell on Wheels | 
+      | name           | tutorial_type |
+      | Hell on Wheels | keyword       |
     And the following rule exists:
       | points | demo                 |
       | 50     | name: Hell on Wheels |
