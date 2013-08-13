@@ -49,7 +49,21 @@ class ApplicationController < ActionController::Base
       return false
     end
   end
-  
+ 
+  def force_no_ssl
+    return unless request.ssl?
+
+    redirection_parameters = {
+      :protocol   => 'http', 
+      :host       => request.host, 
+      :action     => action_name, 
+      :controller => controller_name
+    }.reverse_merge(params)
+
+    redirect_to redirection_parameters
+    return false
+  end
+
   def wrong_phone_validation_code_error
     "Sorry, the code you entered was invalid. Please try typing it again."
   end

@@ -10,6 +10,7 @@ class PagesController < HighVoltage::PagesController
   before_filter :display_social_links_if_marketing_or_waiting_room
 
   skip_before_filter :force_ssl, :except => SIGNED_IN_OK_PAGES
+  before_filter :force_no_ssl_on_marketing
 
   layout :layout_for_page
 
@@ -65,5 +66,10 @@ class PagesController < HighVoltage::PagesController
 
   def page_name
     page_name = params[:id] || params[:action]
+  end
+
+  def force_no_ssl_on_marketing
+    return unless page_name == 'marketing'
+    force_no_ssl
   end
 end
