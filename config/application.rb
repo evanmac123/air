@@ -44,6 +44,7 @@ module Health
       client_admin/add_new_location.js
       errors.css
       external/blog_rss.js
+      external/textscroll.js
       external/join.js
       external/track_form_fields.js
       external/marketing_nav.js

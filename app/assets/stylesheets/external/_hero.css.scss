@@ -1,92 +1,79 @@
 .hero {
 	background:$blue;
-	// Down arrow
-	&:after {
-		border-right: 25px solid transparent;
-    border-left: 25px solid transparent;
-    border-top: 25px solid $blue;
-    content:"";
-    display:inline-block;
-    position: absolute;
-    left: 45%;
-    margin-top:0;
-	}
-
-	.main-row {
-		background-color:$blue;
-		padding:2em 0;
-	}
+	.main-row {padding:3em 0;}
 	h1, h2 {font-weight:normal;}
 	h1 {
 		color:$white;
-		font-family:$open-600;
-		font-size:2.125em;
-		text-shadow: 0px 2px 0px darken($blue, 13%);
+		font-family:$open-400;
+		font-size:1.85em;
+		line-height:1.3em;
+		text-shadow: 0px 2px 1px darken($blue, 5%);
+		.kerning {padding-left:.1em;}
 	}
 	h2 {
 		color:lighten($light-gray, 7%);
-		font-size:1.125em;
+		font-size:1em;
 		line-height:1.35em;
 		padding:1.5em 0;
 	}
-	.copy, .imagery {text-align: center;}
-	.copy {margin-bottom:1.5em;}
-	.imagery {
-		background:image-url('marketing/hub.png') center center no-repeat;
-		background-size:contain;
-		padding:10% 0;
-		img {max-width:50%;}
+	.copy {
+		margin-bottom:1.5em;
+		.rotate {display: block;}	
+		.rotating_word {
+			border-bottom:2px $orange solid;
+			padding:0 .15em;
+		}
+	}
+
+	// Down arrow
+	.down_arrow {
+		background:transparent;
+		display: inline-block;
+		float:left;
+		width:50%;
+		height:25px;
+		position: relative;
+		top:-25px;
+		border-top: 0px solid $white;	
+  	border-bottom: 25px solid $white;	
+		&#da_left {border-right: 25px solid transparent;}
+		&#da_right {border-left: 25px solid transparent;}
 	}
 }
-
+@media only screen and (min-width: 530px) {
+	.hero .copy .rotate {display: inline-block;}
+}
 @media only screen and (min-width: $foundation) {
 	.hero {
-		margin-bottom:3em;
-		&:after {left: 47%;}
-		.main-row {
-			background:image-url('marketing/hub.png') no-repeat;
-			background-position: 135% 45%;
-			background-size:75%;
-			padding:4em 0;
-		}
-		.copy {margin-bottom:0; text-align:left;}
-		.imagery {
-			background:none;
-			padding:5% 0 0 0;
+		background:image-url('marketing/hero_bg.png') top right no-repeat $blue;
+		background-size:100%;
+		margin-bottom:1.5em;
+		h1 {font-size:2em;}
+		h2 {font-size:1.125em;}
+		.main-row {padding:4em 0 6em 0;}
+		.copy {
+			margin-bottom:0;
+			h1 {height:auto;}
 		}
 	}
 }
 
 @media only screen and (min-width: $mid-desktop) {
 	.hero {
-		background:image-url('marketing/hub.png') no-repeat $blue;
-		background-position:right center;
-		background-size:60%;
-		&:after {left: 48%;}
-		.main-row {
-			background:none;
-			padding:6em 0 5em 0;
-		}
-		h1 {font-size:2.75em;}
+		background-size:auto;
+		.main-row {padding:8em 0 8.5em 0;}
+		h1 {font-size:2.5em;}
 		h2 {font-size:1.375em;}
 	}
 }
 
 @media only screen and (min-width: $large-desktop) {
 	.hero {
-		background:$blue;
-		&:after {left: 49%;}
-		h1 {line-height:1.3em;}
+		background:$white;
+		h1 {font-size:2.65em;}
 		h2 {padding:1.75em 0 2em 0;}
 		.main-row {
-			background:image-url('marketing/hub@2x.png') no-repeat $blue;
-			background-position:right center;
-			background-size:834px 594px;
-			padding:6em 0;
-		}
-		.imagery {
-			padding:6.5% 0 0 5em;
-			text-align:left;
+			background:image-url('marketing/hero_bg.png') top right no-repeat $blue;
 		}
 	}
 }

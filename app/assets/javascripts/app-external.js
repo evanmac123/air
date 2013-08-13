@@ -4,3 +4,4 @@
 //= require ./external/prefilled_input.js
 //= require ./external/blog_rss.js
 //= require ./internal_and_external/autocomplete.js
+//= require ./external/textscroll.js

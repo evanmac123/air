@@ -69,23 +69,19 @@ footer .blog_posts {margin-bottom:0;}
 
 // Hero
 .hero {
-	background:$blue;
-  margin-bottom:3em;
-  &:after {left: 50%;}
-  h1 {font-size:2.5em;}
-  h2 {font-size:1.375em;}
-	.main-row {
-		background:image-url('marketing/hub.png') no-repeat right center $blue;
-		padding:6em 0;
-	}
-	.copy {
-    margin-bottom:0; text-align:left;}
-	.imagery {
-		background:none;
-		padding:5% 0 0 6.5em;
-		text-align:left;
-	}
-}
+    background:$white;
+    h1 {font-size:2.75em;}
+    h2 {
+      font-family:$open-400;
+      padding:1.75em 0 2em 0;
+    }
+    .main-row {
+      background:image-url('marketing/hero_bg.png') top right no-repeat $blue;
+      background-size:100%;
+      padding:8em 0 8.5em 0;
+    }
+    .copy .rotate {display: inline-block;}
+  }
 
 // Capture attention
 .feature_sections#capture_attention {
