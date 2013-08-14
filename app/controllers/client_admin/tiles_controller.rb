@@ -72,15 +72,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
   def update_status
     success, failure = flash_status_messages
 
-    update_timestamp = case params[:update_status]
-      when Tile::ACTIVE  then {activated_at: Time.now}
-      when Tile::ARCHIVE then {archived_at:  Time.now}
-      else {}
-    end
-
-# todo define attribute setter that updates times along with status
-
-    if @tile.update_attributes( {status: params[:update_status]}.merge(update_timestamp) )
+    if @tile.update_attributes status: params[:update_status]
       flash[:success] = "The #{@tile.headline} tile has been #{success}"
     else
       flash[:failure] = "There was a problem #{failure} this tile. Please try again."

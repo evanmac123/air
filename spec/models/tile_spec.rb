@@ -65,6 +65,58 @@ describe Tile do
     end
   end
 
+  it "setting or updating tile status updates the corresponding timestamps" do
+
+    # Test setting status during tile creation
+
+    time_1 = Time.zone.now
+    Timecop.freeze(time_1)
+
+    tile_1 = FactoryGirl.create :tile, status: Tile::ACTIVE
+    tile_1.activated_at.to_s.should == time_1.to_s
+    tile_1.archived_at.should be_nil
+
+    tile_2 = FactoryGirl.create :tile, status: Tile::ARCHIVE
+    tile_2.archived_at.to_s.should == time_1.to_s
+    tile_2.activated_at.should be_nil
+
+    tile_3 = FactoryGirl.create :tile, status: Tile::DRAFT
+    tile_3.activated_at.should be_nil
+    tile_3.archived_at.should be_nil
+
+    #------------------------------------------------
+
+    # Test setting status via 'update_attributes'
+
+    time_2 = time_1 + 1.minute
+    Timecop.freeze(time_2)
+
+    tile_1.update_attributes status: Tile::ARCHIVE
+    tile_1.activated_at.to_s.should == time_1.to_s
+    tile_1.archived_at.to_s.should == time_2.to_s
+
+    tile_2.update_attributes status: Tile::ACTIVE
+    tile_2.activated_at.to_s.should == time_2.to_s
+    tile_2.archived_at.to_s.should == time_1.to_s
+
+    #------------------------------------------------
+
+    # Test setting status via assignment
+
+    time_3 = time_2 + 1.minute
+    Timecop.freeze(time_3)
+
+    tile_1.status = Tile::ACTIVE
+    tile_1.activated_at.to_s.should == time_3.to_s
+    tile_1.archived_at.to_s.should == time_2.to_s
+
+    tile_2.status = Tile::ARCHIVE
+    tile_2.activated_at.to_s.should == time_2.to_s
+    tile_2.archived_at.to_s.should == time_3.to_s
+
+    Timecop.return
+  end
+
   describe 'expired tiles' do
     let(:demo) { FactoryGirl.create :demo }
 

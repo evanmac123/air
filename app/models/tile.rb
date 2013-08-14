@@ -75,6 +75,15 @@ class Tile < ActiveRecord::Base
     :default_url     => "/assets/avatars/thumb/missing.png",
     :bucket          => S3_TILE_THUMBNAIL_BUCKET}.merge(TILE_THUMBNAIL_OPTIONS)
 
+  # Ensure that whenever any piece of code sets/updates the 'status' that the appropriate times are updated as well
+  def status=(status)
+    case status
+      when ACTIVE  then self.activated_at = Time.now
+      when ARCHIVE then self.archived_at  = Time.now
+    end
+    write_attribute(:status, status)
+  end
+
   def name
     # this is only here so formtastic's input in app/views/admin/tiles/_form.haml
     # f.input :prerequisite_tiles, :collection => @existing_tiles 
