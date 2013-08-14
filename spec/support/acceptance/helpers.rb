@@ -274,7 +274,7 @@ module SteakHelperMethods
   end
 
   def expect_marketing_page_blurb
-    expect_content "Employee communications made easy and engaging."
+    expect_content "Drive engagement using a mix of behavioral economics and game mechanics."
   end
 
   def expect_disabled(element)
