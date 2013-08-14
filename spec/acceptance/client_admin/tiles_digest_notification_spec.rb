@@ -129,9 +129,7 @@ feature 'Client admin and the digest email for tiles' do
       digest_tab.should_not contain 'at noon,'
     end
 
-    scenario 'The last-digest-email-sent-on date is correct' do
-      create_tile on_day: '7/5/2013'
-
+    scenario 'The last-digest-email-sent-on date is correct', js: true do
       visit tile_manager_page
       select_tab 'Digest email'
       digest_tab.should_not contain 'Last digest email was sent'
@@ -227,11 +225,8 @@ feature 'Client admin and the digest email for tiles' do
     end
 
     # Make some tiles that should not appear in the 'Digest email' tab...
-
-    # The 'created_at' time for these tiles qualified them under the old criteria (by 'created_at'), but not now
-    FactoryGirl.create_list :tile, 2, demo: demo, headline: 'I hate Dates and Times', status: Tile::ACTIVE
     # The 'activated_at' times for these tiles are before the 'tile_digest_email_sent_at' => they would have gone out in that batch
-    FactoryGirl.create_list :tile, 2, demo: demo, headline: 'I hate DateTimes and TimeZones', status: Tile::ACTIVE, activated_at: tile_digest_email_sent_at - 1.day
+    FactoryGirl.create_list :tile, 2, demo: demo, headline: 'I hate Dates and Times', status: Tile::ACTIVE, activated_at: tile_digest_email_sent_at - 1.day
 
     expected_tile_table =
       [ ["Tile 9 Edit Preview", "Tile 7 Edit Preview", "Tile 5 Edit Preview"],

@@ -84,6 +84,17 @@ describe Tile do
     tile_3.activated_at.should be_nil
     tile_3.archived_at.should be_nil
 
+    # Don't forget to verify that we can override the time-stamp assignments with FactoryGirl.
+    # Note: As per the sample output below (from a failing test) the time from the dbase contains
+    # too much information for this test => just grab the first part of the date
+    # expected: "2013-08-15" ; got: "2013-08-15 00:00:00 -0400"
+
+    tile_4 = FactoryGirl.create :tile, status: Tile::ACTIVE, activated_at: Date.tomorrow
+    (tile_4.activated_at.to_s.split)[0].should == Date.tomorrow.to_s
+
+    tile_5 = FactoryGirl.create :tile, status: Tile::ARCHIVE, archived_at: Date.yesterday
+    (tile_5.archived_at.to_s.split)[0].should == Date.yesterday.to_s
+
     #------------------------------------------------
 
     # Test setting status via 'update_attributes'

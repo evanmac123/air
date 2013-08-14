@@ -175,8 +175,6 @@ feature 'Client admin and the digest email for tiles' do
         active_tab.should  have_num_tiles(0)
         archive_tab.should have_num_tiles(3)
 
-        kill.activated_at.should be_nil
-
         archive_tab.find(:tile, kill).click_link('Activate')
         page.should contain "The #{kill.headline} tile has been activated"
 
@@ -189,7 +187,6 @@ feature 'Client admin and the digest email for tiles' do
         archive_tab.should have_num_tiles(2)
 
         # Let's try it one more time to make sure...
-        knife.activated_at.should be_nil
 
         archive_tab.find(:tile, knife).click_link('Activate')
         page.should contain "The #{knife.headline} tile has been activated"

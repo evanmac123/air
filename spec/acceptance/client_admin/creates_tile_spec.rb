@@ -34,6 +34,10 @@ feature 'Creates tile' do
     click_button "Create tile"
   end
 
+  def create_existing_tiles(status)
+    FactoryGirl.create_list :tile, 2 , demo: demo, status: status
+  end
+
   before do
     visit new_client_admin_tile_path(as: client_admin)
   end
@@ -78,11 +82,28 @@ feature 'Creates tile' do
     expect_content "23 pts"
 end
 
-  scenario "activates tile after creating it", js: true do
+  scenario "activates tile after creating it, and the tile appears at the front of the active tile list", js: true do
+    create_existing_tiles(Tile::ACTIVE)
+
     create_good_tile
     click_activate_link
     should_be_on client_admin_tiles_path
     Tile.last.should be_active
+
+    page.should have_selector "table tbody tr td[class='active'][data-tile_id='#{Tile.last.id}']"
+    page.should have_selector "td[class='active']", count: 3
+  end
+
+  scenario "archives tile after creating it, and the tile appears at the front of the archive tile list", js: true do
+    create_existing_tiles(Tile::ARCHIVE)
+
+    create_good_tile
+    Tile.last.should be_archived
+
+    visit tile_manager_page
+
+    page.should have_selector "table tbody tr td[class='archive'][data-tile_id='#{Tile.last.id}']"
+    page.should have_selector "td[class='archive']", count: 3
   end
 
   scenario "edits tile after creating it", js: true do
