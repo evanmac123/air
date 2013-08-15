@@ -45,6 +45,10 @@ module TileBuilderForm
       @parameters[:correct_answer_index].to_i    
     end
 
+    def answer_prompt
+      "Give the answers and mark the correct one"    
+    end
+
     delegate :points, :to => :tile
   end
 end

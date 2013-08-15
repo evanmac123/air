@@ -65,6 +65,10 @@ module TileBuilderForm
       errors.values.join(", ") + "."
     end
 
+    def answer_prompt
+      "Give the answers"
+    end
+
     protected
 
     def tile_class

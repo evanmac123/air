@@ -5,7 +5,7 @@
   </div>
 
   <div id="quiz_answers" class="content_sections">
-    <%= form.label "answers[]", "Give the answers and mark the correct one" %>
+    <%= form.label "answers[]", form.object.answer_prompt %>
     <div id="answers">
       <% form.object.answers.each_with_index do |answer, i| %>
         <ul class="answer_option">
