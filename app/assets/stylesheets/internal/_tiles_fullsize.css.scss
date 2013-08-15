@@ -123,6 +123,12 @@
         }
       }
     }
+
+    .nerfed_answer:hover {
+      background: $blue !important;
+      border-color: darken($blue, 10%) !important;
+    }
+
     .wrong_answer_target {
       color:$gray;
       font-family: $open-600;
