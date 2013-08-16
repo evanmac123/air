@@ -133,7 +133,7 @@ feature 'Client admin and the digest email for tiles' do
     end
 
     context 'Archiving and activating tiles' do
-      scenario "The 'Archive this tile' links work, including setting the 'archived_at' time" do
+      scenario "The 'Archive this tile' links work, including setting the 'archived_at' time and positioning most-recently-archived tiles first" do
         tiles.each { |tile| tile.update_attributes status: Tile::ACTIVE }
         visit tile_manager_page
 
@@ -153,7 +153,7 @@ feature 'Client admin and the digest email for tiles' do
         active_tab.should  have_num_tiles(2)
         archive_tab.should have_num_tiles(1)
 
-        # Let's try it one more time to make sure...
+        # Do it one more time to make sure that the most-recently archived tile appears first in the list
         knife.archived_at.should be_nil
 
         active_tab.find(:tile, knife).click_link('Archive')
@@ -166,9 +166,11 @@ feature 'Client admin and the digest email for tiles' do
 
         active_tab.should  have_num_tiles(1)
         archive_tab.should have_num_tiles(2)
+
+        archive_tab.should have_first_tile(knife, Tile::ARCHIVE)
       end
 
-      scenario "The 'Activate this tile' links work, including setting the 'activated_at' time" do
+      scenario "The 'Activate this tile' links work, including setting the 'activated_at' time and positioning most-recently-activated tiles first" do
         tiles.each { |tile| tile.update_attributes status: Tile::ARCHIVE }
         visit tile_manager_page
 
@@ -186,8 +188,7 @@ feature 'Client admin and the digest email for tiles' do
         active_tab.should  have_num_tiles(1)
         archive_tab.should have_num_tiles(2)
 
-        # Let's try it one more time to make sure...
-
+        # Do it one more time to make sure that the most-recently activated tile appears first in the list
         archive_tab.find(:tile, knife).click_link('Activate')
         page.should contain "The #{knife.headline} tile has been activated"
 
@@ -198,6 +199,8 @@ feature 'Client admin and the digest email for tiles' do
 
         active_tab.should  have_num_tiles(2)
         archive_tab.should have_num_tiles(1)
+
+        active_tab.should have_first_tile(knife, Tile::ACTIVE)
       end
     end
   end

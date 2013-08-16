@@ -19,8 +19,9 @@ class Admin::TilesController < AdminBaseController
 
   def create
     @tile = @demo.tiles.build(params[:tile])
+
     @tile.position = Tile.next_position(@demo)
-    @tile.status = Tile::ACTIVE
+    @tile.status = params[:tile][:start_time].blank? ? Tile::ACTIVE : Tile::ARCHIVE
 
     if @tile.valid?
       @tile.save!

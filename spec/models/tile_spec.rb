@@ -128,27 +128,29 @@ describe Tile do
     Timecop.return
   end
 
-  describe 'expired tiles' do
+  describe "activating and archiving tiles with 'start_time's and 'end_time's" do
     let(:demo) { FactoryGirl.create :demo }
 
-    let!(:not_relevant_tiles) do  # Don't need a specific variable for these; just create once instead of for each test
-      FactoryGirl.create(:tile, demo: demo, status: Tile::DRAFT,   end_time: Date.yesterday)  # Draft
-      FactoryGirl.create(:tile, demo: demo, status: Tile::ARCHIVE, end_time: Date.yesterday)  # Archive
+    it "#activate_if_showtime activates tiles that are good to go" do
+      good_to_go = FactoryGirl.create_list(:tile, 3, demo: demo, status: Tile::ARCHIVE, start_time: Time.now - 1.second)
 
-      FactoryGirl.create(:tile, demo: demo, status: Tile::ACTIVE,  end_time: Date.tomorrow)   # End time in future
-      FactoryGirl.create(:tile, demo: demo, status: Tile::ACTIVE)                             # No end time => 'forever'
+      demo.tiles.activate_if_showtime
+
+      good_to_go.each do |tile|
+        tile.reload.status.should == Tile::ACTIVE
+        tile.start_time.should be_nil
+      end
     end
 
-    let!(:expired){ FactoryGirl.create_list(:tile, 3, demo: demo, status: Tile::ACTIVE, end_time: Date.yesterday) }
+    it "#archive_if_curtain_call archives tiles that have expired" do
+      expired = FactoryGirl.create_list(:tile, 3, demo: demo, status: Tile::ACTIVE, end_time: Time.now - 1.second)
 
-    it "#expired returns a list of tiles that have expired, i.e. whose 'end_time' is < 'current_time'" do
-      Tile.expired.pluck(:id).sort.should == expired.collect(&:id).sort
-    end
+      demo.tiles.archive_if_curtain_call
 
-    it "#archive_if_expired archives tiles that have expired" do
-      expired.each { |tile| tile.status.should == Tile::ACTIVE }
-      Tile.archive_if_expired
-      expired.each { |tile| tile.reload.status.should == Tile::ARCHIVE }
+      expired.each do |tile|
+        tile.reload.status.should == Tile::ARCHIVE
+        tile.end_time.should be_nil
+      end
     end
   end
 

@@ -171,4 +171,12 @@ module TileHelpers
   def click_edit_link
     click_here_link[1].click
   end
+
+  def create_existing_tiles(demo, status, num)
+    FactoryGirl.create_list :tile, num, demo: demo, status: status
+  end
+
+  def have_first_tile(tile, status)
+    have_selector "table tbody tr td[class='#{status}'][data-tile_id='#{tile.id}']"
+  end
 end

@@ -5,7 +5,9 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     @tile_digest_email_sent_at = @demo.tile_digest_email_sent_at  # Demo attributes
     @tile_digest_email_send_on = @demo.tile_digest_email_send_on  # (i.e. not the usual finder methods)
 
-    @demo.archive_tiles_if_expired
+    # Update 'status' for tiles with 'start_time' and 'end_time' attributes (before you fetch the different tile groups)
+    @demo.activate_tiles_if_showtime
+    @demo.archive_tiles_if_curtain_call
 
     @active_tiles  = @demo.active_tiles
     @archive_tiles = @demo.archive_tiles
