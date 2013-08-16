@@ -158,7 +158,9 @@ describe Tile do
     it "should tell me whether a tile is within the window of opportunity" do
       Demo.find_each { |f| f.destroy }
       demo = FactoryGirl.create :demo
-      a = FactoryGirl.create :tile, :demo => demo
+      a = FactoryGirl.create(:tile, :demo => demo)
+      # Effectively reload a under the right class (OldSchoolTile vs. Tile)
+      a = Tile.find(a)
       past = 1.hour.ago
       future = 1.hour.from_now
       ################ NO TIMES SET  #######################
@@ -261,10 +263,10 @@ describe Tile do
     it "should only display current tiles that have not been completed yet" do
       tiles = Tile.displayable_to_user(@leah)
       tiles.length.should == 3
-      tiles.should include(@wash)
-      tiles.should include(@color_after_washing)
+      tiles.map(&:id).should include(@wash.id)
+      tiles.map(&:id).should include(@color_after_washing.id)
       # Note that water plants will show up as its last time to display, since it's been completed
-      tiles.should include(@water_plants)
+      tiles.map(&:id).should include(@water_plants.id)
     end
 
     it "should not display current tiles that have been archived" do
@@ -279,9 +281,9 @@ describe Tile do
       Prerequisite.create!(tile: @color_after_washing, prerequisite_tile: @wash)
       tiles = Tile.displayable_to_user(@leah)
       tiles.length.should == 2
-      tiles.should include (@wash)
-      tiles.should include (@water_plants)
-      tiles.should_not include(@color_after_washing)
+      tiles.map(&:id).should include (@wash.id)
+      tiles.map(&:id).should include (@water_plants.id)
+      tiles.map(&:id).should_not include(@color_after_washing.id)
     end
   end
 
@@ -319,7 +321,7 @@ describe Tile do
     it "looks good to the average user" do
       tiles = Tile.satisfiable_to_user(@leah)
       tiles.count.should == 1
-      tiles.first.should == @mud_bath
+      tiles.first.id.should == @mud_bath.id
     end
   end
 
@@ -341,33 +343,32 @@ describe Tile do
     it "is satisfiable by some rule" do 
       tiles = Tile.satisfiable_by_trigger_table('trigger_rule_triggers')
       tiles.count.should == 2
-      tiles.should include(@mud_bath)
-      tiles.should include(@sponge_bath)
+      tiles.map(&:id).should include(@mud_bath.id)
+      tiles.map(&:id).should include(@sponge_bath.id)
     end
 
     it "is satisfiable by a particular rule" do 
       tiles_1 = Tile.satisfiable_by_rule(@take_sponge_bath) 
-      tiles_1.should == [@sponge_bath]
+      tiles_1.map(&:id).should == [@sponge_bath.id]
       tiles_2 = Tile.satisfiable_by_rule(@take_mud_bath) 
-      tiles_2.should == [@mud_bath]
+      tiles_2.map(&:id).should == [@mud_bath.id]
     end
 
     it "is satisfiable to a particular user by a particular rule" do
       leah = FactoryGirl.create(:user, demo: @fun, name: 'Leah')
       tiles_before = Tile.satisfiable_by_rule_to_user(@take_mud_bath, leah)
-      tiles_before.should == [@mud_bath]
+      tiles_before.map(&:id).should == [@mud_bath.id]
       completion = FactoryGirl.create(:tile_completion, tile: @mud_bath, user: leah)
       tiles_after = Tile.satisfiable_by_rule_to_user(@take_mud_bath, leah.reload)
       tiles_after.should be_empty
     end
 
     it "satisfies a tile for a user" do
-
       janice = FactoryGirl.create(:user, demo: @fun, name: 'Janice')
       TileCompletion.count.should == 0
       janice.satisfy_tiles_by_rule(@take_mud_bath)
       TileCompletion.count.should == 1
-      TileCompletion.first.tile.should == @mud_bath
+      TileCompletion.first.tile.id.should == @mud_bath.id
       TileCompletion.first.user.should == janice
     end
   end
@@ -395,7 +396,7 @@ describe Tile do
     
     it "should order by position" do
       tiles = Tile.displayable_to_user(@leah)
-      tiles.should == [@one, @two, @three, @four]
+      tiles.map(&:id).should == [@one.id, @two.id, @three.id, @four.id]
       expected = [@two, @four, @three, @one]
       params = Hash.new
       params[:tile] = expected.map do |tile|
@@ -403,7 +404,7 @@ describe Tile do
       end
       Tile.set_position_within_demo(@fun, params[:tile])
       tiles = Tile.displayable_to_user(@leah)
-      tiles.should == expected
+      tiles.map(&:id).should == expected.map(&:id)
 
     end
   end
@@ -431,7 +432,7 @@ describe Tile do
       crank_dj_clear
       TileCompletion.count.should == 1
       TileCompletion.first.user.should == @lucy
-      TileCompletion.first.tile.should == @stretch
+      TileCompletion.first.tile_id.should == @stretch.id
     end
 
     it "does no completions if blank string sent" do 
@@ -454,14 +455,14 @@ describe Tile do
     end
 
     it "should satisfy the rule only after both rules are satisfied" do
-      Tile.satisfiable_to_user(@leah).should == [@tile]
+      Tile.satisfiable_to_user(@leah).map(&:id).should == [@tile.id]
       @tile.all_rule_triggers_satisfied_to_user(@leah).should be_false
       Act.count.should == 0
       # Create one of the required acts to satisfy the rule
       FactoryGirl.create(:act, user: @leah, rule: @rule_1) 
       @tile.all_rule_triggers_satisfied_to_user(@leah).should be_false
       Act.count.should == 1
-      Tile.satisfiable_to_user(@leah.reload).should == [@tile]
+      Tile.satisfiable_to_user(@leah.reload).map(&:id).should == [@tile.id]
       # Create the second act, so now it should actually be satisfied
       FactoryGirl.create(:act, user: @leah, rule: @rule_2) 
       @tile.all_rule_triggers_satisfied_to_user(@leah).should be_true
@@ -469,7 +470,7 @@ describe Tile do
       TileCompletion.count.should == 1
       completion = TileCompletion.first
       completion.user.should == @leah
-      completion.tile.should == @tile
+      completion.tile_id.should == @tile.id
       Tile.satisfiable_to_user(@leah.reload).should be_empty
     end
   end

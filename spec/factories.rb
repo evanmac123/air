@@ -209,6 +209,7 @@ FactoryGirl.define do
     association :demo
     sequence(:position){ |n| n }
     status Tile::ACTIVE
+    type 'OldSchoolTile'
   end
 
   # Simple alias of :tile to :old_school_tile
@@ -224,6 +225,7 @@ FactoryGirl.define do
   end
 
   factory :keyword_tile, parent: :client_created_tile, class: KeywordTile do
+    type 'KeywordTile'
     after(:create) do |tile|
       rule_value   = FactoryGirl.create(:rule_value, is_primary: true)
       rule_trigger = FactoryGirl.create(:rule_trigger, tile: tile, rule: rule_value.rule)
@@ -232,6 +234,7 @@ FactoryGirl.define do
   end
 
   factory :multiple_choice_tile, parent: :client_created_tile, class: MultipleChoiceTile do
+    type 'MultipleChoiceTile'
     question "Which of the following comes out of a bird?"
     points 99
     multiple_choice_answers ["Ham", "Eggs", "A V8 Buick"] 

@@ -4,7 +4,7 @@
 
 - form_submit_path = tile.new_record? ? admin_demo_tiles_path(tile.demo) : admin_demo_tile_path(tile.demo, tile) 
 
-= semantic_form_for tile, :url => form_submit_path, :html => {:multipart => true} do |f| 
+= semantic_form_for tile, as: :tile, :url => form_submit_path, :html => {:multipart => true} do |f| 
   = f.input :headline
   = f.input :bonus_points 
   = f.input :prerequisite_tiles, :collection => @existing_tiles 
@@ -68,8 +68,4 @@
   = f.label 'link_address', "Address to link to (optional)"
   = f.text_field 'link_address'
 
-  = f.submit 
-  
-
- 
-
+  = f.submit (tile.new_record? ? "Create Tile" : "Update Tile")
