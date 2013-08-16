@@ -12,6 +12,7 @@ feature 'Does talking chicken with multiple choice tile' do
 
     expect_no_content "enter the key word here for points"
     expect_content "click the right answer for points"
+    expect_content "What is two plus two?"
 
     click_link "4"
 

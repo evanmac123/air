@@ -30,6 +30,7 @@ Feature: Talking Chicken
     Then I should see "Click It!"
     When I click the sample tile
     Then I should see "Read for Points!"
+    But I should not see "What is two plus two?"
     And I wait a second
     When I fill in "command_central" with "some command you've never heard of"
     And I press "play_button"

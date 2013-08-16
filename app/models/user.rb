@@ -799,7 +799,12 @@ class User < ActiveRecord::Base
   end
 
   def sample_tile
-    MultipleChoiceSampleTile.new
+    case demo.tutorial_type
+    when 'keyword'
+      SampleTile.new
+    when 'multiple_choice'
+      MultipleChoiceSampleTile.new
+    end
   end
 
   def profile_page_friends_list
