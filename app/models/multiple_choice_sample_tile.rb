@@ -1,23 +1,39 @@
 class MultipleChoiceSampleTile < MultipleChoiceTile
   include SampleTileBehavior
 
+  def image_filename
+    "sample_tile_multiple_choice_image.png"  
+  end
+
+  def thumbnail_filename
+    "sample_tile_multiple_choice_thumbnail.png"  
+  end
+
+  def thumbnail_hover_filename
+    "sample_tile_multiple_choice_hover_thumbnail.png"  
+  end
+
+  def headline
+    "This is a tile."
+  end
+
   def supporting_content 
-    "Supporting Content" 
+    "Earn points by reading the content and answering the question below." 
   end
 
   def question 
-    "What is two plus two?" 
+    "To answer the question, simply click on the correct answer." 
   end
 
   def points
-    0
+    5
   end
 
   def multiple_choice_answers
-    %w(2 3 4 5)
+    ["I learned how tiles work."]
   end
 
   def correct_answer_index
-    2
+    0
   end
 end

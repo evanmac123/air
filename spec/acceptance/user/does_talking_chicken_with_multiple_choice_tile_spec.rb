@@ -11,10 +11,10 @@ feature 'Does talking chicken with multiple choice tile' do
     page.find('#tile-thumbnail-0').click # Tile 0 is the sample tile
 
     expect_no_content "enter the key word here for points"
-    expect_content "click the right answer for points"
-    expect_content "What is two plus two?"
+    expect_content "Earn points by reading the content and answering the question below." 
+    expect_content "To answer the question, simply click on the correct answer." 
 
-    click_link "4"
+    click_link "I learned how tiles work."
 
     # In principle, I am against doing this to make tests work.
     # In practice, fuck it, I've spent way too long on this already.
