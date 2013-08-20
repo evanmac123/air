@@ -13,11 +13,7 @@
       <section class="top-bar-section">
         <!-- Right Nav Section -->
         <ul class="right">
-          <li><a class="up_top" href="#!">Home</a></li>
-          <li class="divider"></li>
-          <li><a id="what_we_do" href="#!">How it works</a></li>
-          <li class="divider"></li>
-          <li><a id="work_together" href="#!">Pricing</a></li>
+          <li><a id="work_together" href="/pages/pricing">Pricing</a></li>
           <li class="divider"></li>
           <li><a href="http://blog.hengage.com" id="blog">Blog</a></li>
           <li class="has-form">
@@ -34,7 +30,6 @@
 
 <%= javascript_include_tag 'external/marketing_nav.js' %>
 <%= javascript_tag do %>
-  $('#what_we_do').click(function() { mpq.track("Clicked Our Product link", {}); });
   $('#work_together').click(function() { mpq.track("Clicked Pricing link", {}); });
   $('#blog').click(function() { mpq.track("Clicked blog link", {}); });
   $('.top-bar-section .sign_in_button').click(function() { mpq.track("Clicked Sign-in link", {}); });

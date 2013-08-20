@@ -1,19 +1,14 @@
 .hero {
 	background:$blue;
 	.main-row {padding:3em 0;}
-	h1, h2 {font-weight:normal;}
 	h1 {
 		color:$white;
-		font-family:$open-400;
-		font-size:1.85em;
-		line-height:1.3em;
 		text-shadow: 0px 2px 1px darken($blue, 5%);
 		.kerning {padding-left:.1em;}
 	}
 	h2 {
 		color:lighten($light-gray, 7%);
 		font-size:1em;
-		line-height:1.35em;
 		padding:1.5em 0;
 	}
 	.copy {
@@ -48,8 +43,6 @@
 		background:image-url('marketing/hero_bg.png') top right no-repeat $blue;
 		background-size:100%;
 		margin-bottom:1.5em;
-		h1 {font-size:2em;}
-		h2 {font-size:1.125em;}
 		.main-row {padding:4em 0 6em 0;}
 		.copy {
 			margin-bottom:0;
@@ -61,16 +54,13 @@
 @media only screen and (min-width: $mid-desktop) {
 	.hero {
 		background-size:auto;
-		.main-row {padding:8em 0 8.5em 0;}
-		h1 {font-size:2.5em;}
-		h2 {font-size:1.375em;}
+		.main-row {padding:6.5em 0 8.5em 0;}
 	}
 }
 
 @media only screen and (min-width: $large-desktop) {
 	.hero {
 		background:$white;
-		h1 {font-size:2.65em;}
 		h2 {padding:1.75em 0 2em 0;}
 		.main-row {
 			background:image-url('marketing/hero_bg.png') top right no-repeat $blue;

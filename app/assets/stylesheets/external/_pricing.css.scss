@@ -1,35 +1,9 @@
-#pricing {
+// ============= Front marketing page pricing section ============= 
+#lets_work_together {
 	h1 {
 		margin-bottom:1em;
 		text-align: center;
 	}
-	.price_chart {
-		margin-bottom: 2em;
-		text-align: center;
-		li .request_a_demo {width:100%;}
-		.trial {
-			background: $text-color;
-			color:$orange;
-			font-family:$open-600;
-			p {
-				@extend p.caption;
-				padding:.75em 0;
-			}
-		}
-		.price_amount {
-			background:darken($gray, 15%);
-			color:$white;
-			font-family:$sans;
-			padding:3em 0;
-			h1 {
-				color:$white;
-				font-family:$sans;
-				margin-bottom:.25em;
-				span {font-family:$open-600}
-			}
-		}
-	}
-
 	.buy_benefits {
 		padding-left:1.5em;
 		li {
@@ -37,14 +11,272 @@
 			padding:.5em 0 0 1.85em;
 		}
 	}
+	.pop-button {
+		@include pop-button($dark-green);
+		display: block;
+		font-size:1.375em;
+		margin:1em 0;
+		padding:.75em 0;
+		text-align: center;
+	}
 }
 
-@media only screen and (min-width: $foundation), (-webkit-min-device-pixel-ratio: 2) {
-	#pricing {
+// ============= Pricing page ============= 
+#simple_fair_pricing, #additional_services {
+	background:image-url('marketing/bg.gif');
+}
+#simple_fair_pricing {
+	.main-row {padding-top:3em;}
+	h2 {padding:1em 0;}
+	.price_chart {
+		padding:2em 0 0 0;
+		// Chart tabs
+		.chart_tabs {
+			padding-left:$foundation-gutter;
+			li {
+				background:$light-gray;
+				border-top:4px $light-gray solid;
+				display:inline-block;
+				cursor:pointer;
+				font-family:$open-600;
+				padding:.65em 1em .75em 1em;
+				&.active {
+					background: $white;
+					border-color:$blue;
+					color:$text-color;
+				}
+			}
+		}
+		#monthly_prices {display: none;}
+
+		// Chart containing div
+		.chart_area {
+			padding:1em $foundation-gutter;
+			background:$white;
+			&:after{@include clear;}
+		}
+		// Chart labels
+		.chart_headers {
+			border-bottom:$border-dark;
+			margin-bottom:.5em;
+			padding-bottom:.5em;
+			&:after{@include clear;}
+			li {
+				display: inline-block;
+				float:left;
+				font-size:.75em;
+				line-height:1.25em;
+				&#label_max_employees, &#label_monthly_cost {width:37.5%}
+				&#label_yearly_cost {width:25%;}
+				span {
+					display: block;
+					font-family:$open-600;
+				}
+			}
+		}
+
+		// Chart data
+		.num_of_employees, .monthly_cost, .yearly_cost {
+			float: left;
+			li {
+				height:34px;
+				line-height:1em;
+				padding:6px;
+				vertical-align: middle;
+				&:nth-of-type(2n) {background:lighten($light-gray, 7%);}
+			}
+		}
+		.num_of_employees, .monthly_cost {width:37.5%;}
+		.num_of_employees li {
+			color:$text-color;
+			font-family:$open-400;
+		}
+		.monthly_cost li {
+			color:$dark-green;
+			font-family:$open-600;
+			font-size:1.125em;
+		}
+		.yearly_cost {
+			width:25%;
+			li {
+				font-size:.875em;
+				padding-top:8px;
+			}
+		}
+		#annual_prices .caption {
+			clear: both;
+			color:$med-gray;
+			font-family:$open-400;
+			font-size:.75em;
+			padding:.5em 0 0 0;
+			text-align: center;
+		}
+		
+		// Text below price chart
+		.notes_about_pricing {
+			text-align: center;
+			.call_out {
+				background:$dark-green;
+				color:$white;
+				font-family:$open-400;
+				margin-bottom:.75em;
+				padding:.5em;
+				a.request_a_demo {
+					display:inline;
+					background:transparent;
+					font-size:1em;
+					border-bottom:1px lighten($dark-green, 20%) solid;
+					padding:0;
+					font-family:$open-600;
+				}
+			}
+		}
+	}
+}
+#additional_services {
+	.services_include {
+		p.caption {
+			color:$med-gray;
+			font-family:$open-400;
+			text-transform: uppercase;
+		}
+		ul {
+			display: inline-block;
+			float: left;
+			width:100%;
+			li {
+				margin-bottom:.5em;
+				padding:.135em 0;
+				&:after{@include clear;}
+			}
+			p, span {
+				font-family:$open-400;
+			}
+			p {
+				display: inline;
+				color:$blue;
+				font-size:1.125em;
+				padding:0;
+				vertical-align:top;
+			}
+			span {
+				background:$blue;
+				color:$white;
+				font-size:.888888889em;
+				margin-right: .5em;
+				padding:.15em .5em;
+				text-align: center;
+			}
+		}
+	}
+}
+#pricing_faq {
+	border-top:1px $light-gray dashed;
+	p span {color:$text-color;}
+	.pricing_question {margin-bottom:1em;}
+}
+
+@media only screen and (min-width: $foundation) {
+	#lets_work_together {
 		h1 {margin:.75em 0 1.5em 0;}
 		.buy_benefits li {
 			background-image:image-url('marketing/checkmark@2x.png');
 			background-size:14px 14px;
 		}
 	}
+
+	#simple_fair_pricing {
+		padding:1em 0;
+		.copy .request_a_demo {margin-top:1em;}
+		// Price chart!
+		.price_chart {
+			padding-top:.5em;
+			padding-right:$foundation-gutter;
+			.chart_tabs {
+				padding-left:16.7%;
+				li:hover {border-color:$blue;}
+			}
+			.chart_area {
+				background:transparent;
+				padding:0;
+			}
+			.chart_headers {
+				border:0;
+				float: left;
+				margin-bottom:0;
+				padding-bottom:0;
+				li {
+					display: block;
+					float:none;
+					padding:1.5em 1em 1.5em 0;
+					text-align: right;
+					&#label_max_employees, &#label_monthly_cost, 
+					&#label_yearly_cost {width:100%;}
+				}
+				li + li {
+					border-top:$border-dark;
+				}
+			}
+			.numbers_area {
+				background: $white;
+				float: left;
+				padding:1em 0;
+				&:after {@include clear;}
+			}
+			.num_of_employees, .monthly_cost, .yearly_cost {
+				display: block;
+				width:100%;
+				&:after{@include clear;}
+				li {
+					display: inline-block;
+					float: left;
+					height:auto;
+					line-height: 1em;
+					text-align: center;
+					width:16.666666667%;
+					&:nth-of-type(2n) {background:transparent;}
+				}
+				li + li {border-left:$border-dark;}
+			}
+			.num_of_employees li {padding:1em 0;}
+			.monthly_cost li {padding:1.35em 0;}
+			.yearly_cost li {padding:2em 0 1em 0;}
+			.notes_about_pricing {padding-left:16.66667%;}
+			#annual_prices {
+				padding-bottom:1em;
+				position: relative;
+				&:after{@include clear;}
+				.caption {
+					position:absolute;
+					bottom:-.5em;
+					width:100%;
+				}
+			}
+		}
+	}
+
+	#additional_services {
+		padding:0 0 4em 0;
+		.services_include {
+			padding-top:3.75em;
+			ul {
+				li {
+					float: left;
+					margin-bottom:1em;
+					width:50%;
+				}
+				p {
+					display: inline-block;
+					max-width:84%;
+				}
+			}
+		}
+	}
+
+	#pricing_faq {padding:4em 0;}
+}
+
+@media only screen and (min-width: $mid-desktop) {
+	#simple_fair_pricing {padding:2em 0;}
+	#pricing_faq {padding:5em 0;}
 }

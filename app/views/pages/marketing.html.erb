@@ -1,4 +1,4 @@
-<section class="hero">
+<section id="front_hero" class="first_section hero">
 	<div class="row main-row">
 		<div class="large-9 large-centered columns copy">
 			<h1>How do you drive engagement in your company<span class="kerning">’</span>s <span class="rotate"><span class="rotating_word">objective</span>?</span></h1>
@@ -162,7 +162,7 @@
 	</div>
 </section>
 
-<section class="feature_sections" id="other_benefits">
+<section class="inner_sections" id="other_benefits">
 	<div class="row main-row">
 		<h3>Plus other benefits!</h3>
 		<ul class="large-4 columns copy">
@@ -198,30 +198,25 @@
 	</div>
 </section>
 
-<section class="feature_sections" id="pricing">
+<section class="feature_sections" id="lets_work_together">
 	<div class="row main-row">
 		<div class="large-10 large-centered columns">
 			<h1>Let's work together</h1>
 			<div class="row large-12">
-				<ul class="large-6 columns price_chart">
-					<li class="trial"><p>30-day free trial included</p></li>
-					<li class="price_amount">
-						<h1><span>$2.50</span>/employee</h1>
-						<p class="caption"><span>each month</span></p>
-					</li>
-					<li>
-						<a href="#!" class="request_a_demo pop-button">Schedule a demo</a>
-					</li>
-				</ul>
 				<ul class="large-6 columns buy_benefits">
 					<li>Improve participation and compliance</li>
 					<li>Save time writing complex content</li>
 					<li>Save money on design</li>
 					<li>Reduce waste by driving use of existing resources</li>
+				</ul>
+				<ul class="large-6 columns buy_benefits">
 					<li>Roll out new programs cheaper and faster—one platform drives engagement in any program or process</li>
 					<li>Reduce time tracking and following-up</li>
 					<li>Reduce questions from employees that didn’t read or understand the message</li>
 				</ul>
+			</div>
+			<div class="large-5 large-centered columns">
+				<a href="/pages/pricing" class="pop-button">See our pricing</a>
 			</div>
 		</div>
 	</div>
@@ -229,9 +224,6 @@
 	<%= render "pages/our_clients" %>
 </section>
 
-<%= render "shared/request_demo" %>
-<%= javascript_include_tag 'external/track_form_fields.js' %>
-<%= javascript_include_tag 'jquery.lightbox_me' %>
 <%= mp_track_page 'marketing' %>
  
 

@@ -32,7 +32,7 @@ header {
         padding:0 .5em .5em .5em;
         a {
           &.sign_in_button {
-            @include pop-button($dark-green);
+            @include pop-button($blue);
             padding:.75em;
           }
           &.request_a_demo {@include pop-button($orange); padding:.75em;}
@@ -70,11 +70,6 @@ header {
           font-size:1.125em;
           padding:0;
           &:hover {color:$orange;}
-          &.current_section {
-            @include ease(0);
-            border-bottom:2px $orange solid;
-            color:$text-color;
-          }
         }
         .has-form { // Buttons area
           background:$white;

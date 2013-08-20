@@ -32,6 +32,7 @@ $open-600:  'OpenSansSemiBold', $sans;
 
 
 $gutter:            10px;
+$foundation-gutter: 0.9375em;
 $body-width:        984px;
 @mixin full-width {
     padding:0 $gutter;

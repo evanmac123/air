@@ -67,13 +67,27 @@ table {
   }
 }
 section.contained {@include centered-section;}
-
-section.feature_sections {
+section.first_section {
+  h1, h2 {font-weight:normal;}
+  h1 {
+    font-family:$open-400;
+    font-size:1.85em;
+    line-height:1.3em;
+  }
+  h2 {
+    font-size:1.35em;
+    line-height:1.35em;
+  }
+}
+section.feature_sections, section.inner_sections {
   padding-top:2em;
   position:relative;
-  h2 {margin:.65em 0;}
+  h2 {padding:.65em 0;}
+}
+section.feature_sections {
   .copy {margin-bottom:1em;}
 }
+section.inner_sections {padding-bottom:2em;}
 
 #clients {
   margin:2em auto 4em auto;
@@ -85,11 +99,33 @@ section.feature_sections {
   }
 }
 
+@media only screen and (min-width: $foundation) {
+  section.first_section {
+    h1 {font-size:2em;}
+    h2 {font-size:1.125em;}
+  }
+}
+
 @media only screen and (min-width: $mid-desktop) {
-  .wrapper {margin-top:6.5em;}
+  body .wrapper {margin-top:6em;}
+  section.first_section {
+    h1 {font-size:2.5em;}
+    h2 {font-size:1.5em;}
+  }
+  section.feature_sections, section.inner_sections {
+    p.caption {font-size:.875em;}
+  }
   section.feature_sections {
     h2 {font-size:2.5em;}
     p {font-size:1.25em;}
-    p.caption {font-size:.875em;}
+  }
+  section.inner_sections {
+    h2 {font-size:2.25em;}
+  }
+}
+
+@media only screen and (min-width: $large-desktop) {
+  section.first_section {
+    h1 {font-size:2.65em;}
   }
 }
