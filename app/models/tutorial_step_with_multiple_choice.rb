@@ -9,7 +9,7 @@ class TutorialStepWithMultipleChoice < TutorialStep
 
       @_step_definitions[2][:instruct] = "Read the tile below, then click the right answer for points."
       @_step_definitions[2].delete(:arrow_dir)
-      @_step_definitions[2][:highlighted] = '.tile_holder'
+      @_step_definitions[2][:highlighted] = '#0'
       @_step_definitions[2][:position] = "top"
       @_step_definitions[2][:x] = -486
       @_step_definitions[2][:y] = -20
