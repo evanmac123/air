@@ -38,7 +38,7 @@ class Invitation::AcceptancesController < ApplicationController
     end
     
     unless @user.accepted_invitation_at
-      @user.join_game(params[:user][:phone_number], :send) 
+      @user.join_game(params[:user][:phone_number], :silent) 
       @user.credit_game_referrer(User.find(@user.game_referrer_id)) unless @user.game_referrer_id.nil?
     end
 

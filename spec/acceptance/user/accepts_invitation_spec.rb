@@ -146,21 +146,17 @@ feature "User Accepts Invitation" do
     expect_content "You've already accepted your invitation to the game. Please log in if you'd like to use the site."
   end
 
-  scenario "gets proper copy in welcome email, and it does not include reply-related information above the message " do
+  scenario "and gets no email after accepting invitation" do
     visit invitation_url(@user.invitation_code)
     fill_in_acceptance_page_fields
     click_button "Log in"
 
     crank_dj_clear
 
-    ActionMailer::Base.deliveries.last.to_s.should_not include("@{reply here}")
-    ActionMailer::Base.deliveries.last.to_s.should_not include("Please put replies ABOVE this line")
-    ActionMailer::Base.deliveries.last.to_s.should_not include("we look for your command in the first line of the body of your email")
-
-    ActionMailer::Base.deliveries.last.to_s.should include("If you'd like to play by e-mail instead of texting or going to the website, you can always send your commands to play@playhengage.com.")
+    ActionMailer::Base.deliveries.should be_empty
   end
 
-  scenario "User gets logged in only when accepting invitation, not when at acceptance form. And the email does not include reply-related information above the message" do
+  scenario "User gets logged in only when accepting invitation, not when at acceptance form" do
     visit invitation_page(@user)
     visit activity_page
     should_be_on(signin_page)
@@ -169,14 +165,6 @@ feature "User Accepts Invitation" do
     fill_in_required_invitation_fields
     click_button 'Log in'
     should_be_on(activity_page)
-
-    crank_dj_clear
-
-    ActionMailer::Base.deliveries.last.to_s.should_not include("@{reply here}")
-    ActionMailer::Base.deliveries.last.to_s.should_not include("Please put replies ABOVE this line")
-    ActionMailer::Base.deliveries.last.to_s.should_not include("we look for your command in the first line of the body of your email")
-
-    ActionMailer::Base.deliveries.last.to_s.should include("If you'd like to play by e-mail instead of texting or going to the website, you can always send your commands to play@playhengage.com.")
   end
 
   context "when there is no client name specified for the demo" do
