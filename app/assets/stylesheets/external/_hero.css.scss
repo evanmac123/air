@@ -35,35 +35,3 @@
 		&#da_right {border-left: 25px solid transparent;}
 	}
 }
-@media only screen and (min-width: 530px) {
-	.hero .copy .rotate {display: inline-block;}
-}
-@media only screen and (min-width: $foundation) {
-	.hero {
-		background:image-url('marketing/hero_bg.png') top right no-repeat $blue;
-		background-size:100%;
-		margin-bottom:1.5em;
-		.main-row {padding:4em 0 6em 0;}
-		.copy {
-			margin-bottom:0;
-			h1 {height:auto;}
-		}
-	}
-}
-
-@media only screen and (min-width: $mid-desktop) {
-	.hero {
-		background-size:auto;
-		.main-row {padding:6.5em 0 8.5em 0;}
-	}
-}
-
-@media only screen and (min-width: $large-desktop) {
-	.hero {
-		background:$white;
-		h2 {padding:1.75em 0 2em 0;}
-		.main-row {
-			background:image-url('marketing/hero_bg.png') top right no-repeat $blue;
-		}
-	}
-}

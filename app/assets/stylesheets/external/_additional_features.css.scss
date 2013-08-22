@@ -22,25 +22,3 @@
 		p span {display: block; color:$white;}
 	}
 }
-
-@media only screen and (min-width: $foundation) {
-	#additional_features {
-		padding:4em 0 3em 0;
-		.imagery {
-			height:12em;
-			margin-bottom:2.25em;
-			img {
-				max-height:100%;
-				max-width:auto;
-			}
-		}
-	}
-	#other_benefits{
-		padding:4em 0 2em 0;
-		li {padding:1em;}
-	}
-}
-
-@media only screen and (min-width: $large-desktop) {
-	#easy_reporting .imagery img {max-width:86.5%}
-}

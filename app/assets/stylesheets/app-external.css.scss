@@ -7,7 +7,7 @@
 @import "./internal/intercom.css.scss";
 @import "./internal/flash.css.scss";
 
-/* Front marketing page */
+/* Base mobile styles */
 @import "./external/marketing.css.scss";
 @import "./external/_header.css.scss";
 @import "./external/_hero.css.scss";
@@ -17,14 +17,56 @@
 @import "./external/_save_time.css.scss";
 @import "./external/_any_objective.css.scss";
 @import "./external/_additional_features.css.scss";
+@import "./external/_pricing.css.scss";
 @import "./external/_request_demo.css.scss";
 @import "./external/_footer.css.scss";
-
-/* Pricing page */
-@import "./external/_pricing.css.scss";
 
 /* External signup-login process pages */
 @import "./external/_sessions-external.css.scss";
 @import "./external/join.css.scss";
+
+/* RWD */
+@media only screen and (min-width: 530px) {
+	.hero .copy .rotate {display: inline-block;}
+}
+@media only screen and (min-width: $foundation) {
+	@import "./external/screen_medium.css.scss";
+}
+@media only screen and (min-width: $mid-desktop) {
+	@import "./external/screen_desktop.css.scss";
+}
+@media only screen and (min-width: 64em) {
+	#complex_simple {
+		.row {padding:7em 0 8.5em 0;}
+		.copy {
+			padding-top:0;
+			padding-bottom:0;
+		}
+		.imagery {
+			position: absolute;
+			text-align: right;
+			top:-5%;
+			right:0;
+			.tips {
+				right:auto;
+				&:before {display:none;}
+				&:after {
+					@include arrow-right($dark-green);
+					position: relative;
+					top:3px;
+				}
+				&#custom_image {left:5.5%;}
+				&#organized_messages {left:0;}
+				&#answer_for_points {left:.5%; top:84.5%;}
+			}
+			img {max-width:auto}
+		}
+	}
+}
+@media only screen and (min-width: $large-desktop) {
+	@import "./external/screen_large.css.scss";
+}
+
+
 
 

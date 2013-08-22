@@ -98,34 +98,3 @@ section.inner_sections {padding-bottom:2em;}
     vertical-align: middle;
   }
 }
-
-@media only screen and (min-width: $foundation) {
-  section.first_section {
-    h1 {font-size:2em;}
-    h2 {font-size:1.125em;}
-  }
-}
-
-@media only screen and (min-width: $mid-desktop) {
-  body .wrapper {margin-top:6em;}
-  section.first_section {
-    h1 {font-size:2.5em;}
-    h2 {font-size:1.5em;}
-  }
-  section.feature_sections, section.inner_sections {
-    p.caption {font-size:.875em;}
-  }
-  section.feature_sections {
-    h2 {font-size:2.5em;}
-    p {font-size:1.25em;}
-  }
-  section.inner_sections {
-    h2 {font-size:2.25em;}
-  }
-}
-
-@media only screen and (min-width: $large-desktop) {
-  section.first_section {
-    h1 {font-size:2.65em;}
-  }
-}
