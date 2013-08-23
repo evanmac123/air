@@ -132,11 +132,13 @@
       margin:auto;
       max-width:100%;
     }
-
-    .tile_thumb_texts {
+    .activation_dates, .tile_thumb_texts {
       background:$text-color;
+    }
+    .tile_thumb_texts {
       height:100px;
       padding:1em;
+      position: relative;
       .headline {
         color:$white;
         font-family:$open-400;
@@ -144,6 +146,13 @@
         line-height:1.25em;
         margin-bottom:1em;
       }
+    }
+    .activation_dates {
+      color:$gray;
+      font-family:$open-400;
+      font-size:.875em;
+      height:40px;
+      padding:.5em 1em;
     }
   }
 }
