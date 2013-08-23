@@ -19,10 +19,6 @@ module AccountClaimer
       @user.update_column(:notification_method, 'sms')
     end
 
-    def existing_user_claimed_message
-      "That ID \"#{@claimed_user_with_this_claim_code.claim_code}\" is already taken. If you're trying to register your account, please text in your own ID first by itself."
-    end
-
     def channel_name
       :sms
     end
