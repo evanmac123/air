@@ -56,7 +56,7 @@ feature 'Sees helpful dates in tile manager' do
       @tile = FactoryGirl.create(:tile, demo: demo, status: Tile::ACTIVE, activated_at: 7.days.ago, archived_at: 19.days.ago)
 
       visit client_admin_tiles_path(as: client_admin)
-      click_link "Active"
+      page.find("a[href='#active']").click
     end
 
     it "should show the length of time that it's been active", js: true do

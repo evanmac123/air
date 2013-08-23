@@ -221,15 +221,15 @@ feature 'Client admin and the digest email for tiles' do
 
     it "for Active tiles" do
       expected_tile_table =
-        [ ["Tile 9 Archive Edit Preview", "Tile 7 Archive Edit Preview", "Tile 5 Archive Edit Preview"],
-          ["Tile 3 Archive Edit Preview", "Tile 1 Archive Edit Preview", "Tile 8 Archive Edit Preview"],
-          ["Tile 6 Archive Edit Preview", "Tile 4 Archive Edit Preview", "Tile 2 Archive Edit Preview"],
-          ["Tile 0 Archive Edit Preview"]
+        [ ["Tile 9", "Tile 7", "Tile 5"],
+          ["Tile 3", "Tile 1", "Tile 8"],
+          ["Tile 6", "Tile 4", "Tile 2"],
+          ["Tile 0"]
         ]
       demo.tiles.update_all status: Tile::ACTIVE
 
       visit tile_manager_page
-      select_tab 'Active'
+      page.find("a[href='#active']").click
 
       table_content_without_activation_dates('#active table').should == expected_tile_table
     end
@@ -237,10 +237,10 @@ feature 'Client admin and the digest email for tiles' do
     it "for Archived tiles" do
       archive_time = Time.now
       expected_tile_table =
-        [ ["Tile 9 Activate Edit Preview", "Tile 7 Activate Edit Preview", "Tile 5 Activate Edit Preview"],
-          ["Tile 3 Activate Edit Preview", "Tile 1 Activate Edit Preview", "Tile 8 Activate Edit Preview"],
-          ["Tile 6 Activate Edit Preview", "Tile 4 Activate Edit Preview", "Tile 2 Activate Edit Preview"],
-          ["Tile 0 Activate Edit Preview"]
+        [ ["Tile 9", "Tile 7", "Tile 5"],
+          ["Tile 3", "Tile 1", "Tile 8"],
+          ["Tile 6", "Tile 4", "Tile 2"],
+          ["Tile 0"]
         ]
       demo.tiles.update_all status: Tile::ARCHIVE
       demo.tiles.where(archived_at: nil).each{|tile| tile.update_attributes(archived_at: tile.created_at)}

@@ -34,7 +34,7 @@ module TileHelpers
   end
 
   def table_content_without_activation_dates(table_selector)
-    table_content(table_selector).map{|row_content| row_content.map {|cell_content| cell_content.gsub(/ Active .*$/, '')}}
+    table_content(table_selector).map{|row_content| row_content.map {|cell_content| cell_content.gsub(/ Active (.*)?.$/, '')}}
   end
 
   # -------------------------------------------------

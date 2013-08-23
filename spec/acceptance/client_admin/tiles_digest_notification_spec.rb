@@ -229,10 +229,10 @@ feature 'Client admin and the digest email for tiles' do
     FactoryGirl.create_list :tile, 2, demo: demo, headline: 'I hate Dates and Times', status: Tile::ACTIVE, activated_at: tile_digest_email_sent_at - 1.day
 
     expected_tile_table =
-      [ ["Tile 9 Edit Preview", "Tile 7 Edit Preview", "Tile 5 Edit Preview"],
-        ["Tile 3 Edit Preview", "Tile 1 Edit Preview", "Tile 8 Edit Preview"],
-        ["Tile 6 Edit Preview", "Tile 4 Edit Preview", "Tile 2 Edit Preview"],
-        ["Tile 0 Edit Preview"]
+      [ ["Tile 9", "Tile 7", "Tile 5"],
+        ["Tile 3", "Tile 1", "Tile 8"],
+        ["Tile 6", "Tile 4", "Tile 2"],
+        ["Tile 0"]
       ]
 
     visit tile_manager_page
