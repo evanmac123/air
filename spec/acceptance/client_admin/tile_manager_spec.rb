@@ -231,10 +231,11 @@ feature 'Client admin and the digest email for tiles' do
       visit tile_manager_page
       select_tab 'Active'
 
-      table_content('#active table').should == expected_tile_table
+      table_content_without_activation_dates('#active table').should == expected_tile_table
     end
 
     it "for Archived tiles" do
+      archive_time = Time.now
       expected_tile_table =
         [ ["Tile 9 Activate Edit Preview", "Tile 7 Activate Edit Preview", "Tile 5 Activate Edit Preview"],
           ["Tile 3 Activate Edit Preview", "Tile 1 Activate Edit Preview", "Tile 8 Activate Edit Preview"],
@@ -242,11 +243,12 @@ feature 'Client admin and the digest email for tiles' do
           ["Tile 0 Activate Edit Preview"]
         ]
       demo.tiles.update_all status: Tile::ARCHIVE
+      demo.tiles.where(archived_at: nil).each{|tile| tile.update_attributes(archived_at: tile.created_at)}
 
       visit tile_manager_page
       select_tab 'Archived'
 
-      table_content('#archive table').should == expected_tile_table
+      table_content_without_activation_dates('#archive table').should == expected_tile_table
     end
   end
 

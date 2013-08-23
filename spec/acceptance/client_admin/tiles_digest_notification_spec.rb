@@ -238,6 +238,6 @@ feature 'Client admin and the digest email for tiles' do
     visit tile_manager_page
     select_tab 'Digest email'
 
-    table_content('#digest table').should == expected_tile_table
+    table_content_without_activation_dates('#digest table').should == expected_tile_table
   end
 end

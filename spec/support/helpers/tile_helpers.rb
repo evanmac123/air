@@ -33,6 +33,10 @@ module TileHelpers
     find(table_selector).all('tr').collect { |row| row.all('th, td').collect { |cell| cell.text } }
   end
 
+  def table_content_without_activation_dates(table_selector)
+    table_content(table_selector).map{|row_content| row_content.map {|cell_content| cell_content.gsub(/ Active .*$/, '')}}
+  end
+
   # -------------------------------------------------
 
   DATE_REG_EXPR = /(\d{1,2})\/(\d{1,2})\/(\d{4})/  # e.g. 7/4/2013 -or- 07/04/2013
