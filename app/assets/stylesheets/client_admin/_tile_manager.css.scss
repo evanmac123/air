@@ -107,6 +107,10 @@
     li {width:50%;}
     .archive_button, .activate_button {display:none;}
   }
+  // Also hide activation dates indigest so as not to confuse admins
+  #digest .activation_dates {
+    display: none;
+  }
 
   // Activate button
   .archive .tile_thumbnail .tile_buttons li div.archive_tile_link {
