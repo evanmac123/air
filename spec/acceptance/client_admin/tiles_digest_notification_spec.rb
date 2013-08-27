@@ -41,6 +41,14 @@ feature 'Client admin and the digest email for tiles' do
     demo.update_attributes tile_digest_email_sent_at: day_to_time(day)
   end
 
+  def expect_digest_to(recipient)
+    digest_email = find_email(recipient)
+    digest_email.should_not be_nil
+
+    digest_email.from.should have(1).address
+    digest_email.from.first.should == demo.email
+  end
+
 # -------------------------------------------------
 
   context 'No tiles exist for digest email' do
@@ -152,8 +160,6 @@ feature 'Client admin and the digest email for tiles' do
       change_send_to 'all users'
       digest_tab.should contain 'All users will get digest emails'
       demo.reload.unclaimed_users_also_get_digest.should be_true
-
-      pending "and this flag should actually be honored when we send digests"
     end
 
     scenario 'The last-digest-email-sent-on date is correct', js: true do
@@ -208,31 +214,46 @@ feature 'Client admin and the digest email for tiles' do
         end
       end
 
-      scenario 'emails are sent to the appropriate people' do
-        FactoryGirl.create :user, demo: demo, name: 'John Campbell', email: 'john@campbell.com'
-        FactoryGirl.create :user, demo: demo, name: 'Irma Thoman',   email: 'irma@thomas.com'
+      context 'emails are sent to the appropriate people' do
+        before do
+          FactoryGirl.create :user, demo: demo, name: 'John Campbell', email: 'john@campbell.com'
+          FactoryGirl.create :user, demo: demo, name: 'Irma Thoman',   email: 'irma@thomas.com'
 
-        FactoryGirl.create :claimed_user, demo: demo, name: 'W.C. Clark', email: 'wc@clark.com'
-        FactoryGirl.create :claimed_user, demo: demo, name: 'Taj Mahal',  email: 'taj@mahal.com'
+          FactoryGirl.create :claimed_user, demo: demo, name: 'W.C. Clark', email: 'wc@clark.com'
+          FactoryGirl.create :claimed_user, demo: demo, name: 'Taj Mahal',  email: 'taj@mahal.com'
 
-        FactoryGirl.create :user,         demo: FactoryGirl.create(:demo)  # Make sure these users from other
-        FactoryGirl.create :claimed_user, demo: FactoryGirl.create(:demo)  # demos don't get an email
+          FactoryGirl.create :user,         demo: FactoryGirl.create(:demo)  # Make sure these users from other
+          FactoryGirl.create :claimed_user, demo: FactoryGirl.create(:demo)  # demos don't get an email
 
-        on_day '7/6/2013' do
           visit tile_manager_page
           select_tab 'Digest email'
+        end
 
-          click_button 'Send now'
-          crank_dj_clear
+        scenario 'in a demo where everybody, claimed and unclaimed, should get digests' do
+          on_day '7/6/2013' do
+            click_button 'Send now'
+            crank_dj_clear
 
-          all_emails.should have(5).emails  # The above 4 for this demo, and the 'admin' created at top of tests
+            all_emails.should have(5).emails  # The above 4 for this demo, and the 'admin' created at top of tests
 
-          %w(admin@hengage.com john@campbell.com irma@thomas.com wc@clark.com taj@mahal.com).each do |address|
-            digest_email = find_email(address)
-            digest_email.should_not be_nil
+            %w(admin@hengage.com john@campbell.com irma@thomas.com wc@clark.com taj@mahal.com).each do |address|
+              expect_digest_to(address)
+            end
+          end
+        end
 
-            digest_email.from.should have(1).address
-            digest_email.from.first.should == demo.email
+        scenario 'in a demo where only claimed usrs should get digests' do
+          demo.update_attributes(unclaimed_users_also_get_digest: false)
+
+          on_day '7/6/2013' do
+            click_button 'Send now'
+            crank_dj_clear
+
+            all_emails.should have(3).emails  # 2 claimed guys, and the 'admin' created at top of tests
+
+            %w(admin@hengage.com wc@clark.com taj@mahal.com).each do |address|
+              expect_digest_to(address)
+            end
           end
         end
       end

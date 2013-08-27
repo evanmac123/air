@@ -81,6 +81,14 @@ class Demo < ActiveRecord::Base
     tiles.digest(self)
   end
 
+  def users_for_digest
+    if unclaimed_users_also_get_digest
+      users
+    else
+      users.claimed
+    end
+  end
+
   def self.send_digest_email
     demos = where tile_digest_email_send_on: Date::DAYNAMES[Date.today.wday]
     demos.reject! { |demo| demo.digest_tiles.empty? }

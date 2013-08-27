@@ -15,7 +15,7 @@ class TilesDigestMailer < ActionMailer::Base
   def notify_all(demo_id, tile_ids = [])
     demo = Demo.find demo_id
 
-    user_ids = demo.users.pluck(:id)
+    user_ids = demo.users_for_digest.pluck(:id)
 
     # Called from controller/view "Send Now" => 'tile_ids' will be supplied.
     # Called from weekly cron-job method above => need to find 'tile_ids' ourselves...
