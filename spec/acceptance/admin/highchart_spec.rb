@@ -130,6 +130,7 @@ feature 'Highchart Plot' do
       set_plot_interval 'Daily'
       end_date_value.should  == initial_end_date
 
+=begin
       set_plot_interval 'Hourly'
       end_date_value.should == start_date
 
@@ -138,7 +139,7 @@ feature 'Highchart Plot' do
 
       set_end_date(start_date)
       start_date_value.should == start_date
-
+=end
       set_plot_interval 'Weekly'
       set_end_date(end_date)
       start_date_value.should == start_date
@@ -615,7 +616,7 @@ Su	Mo	Tu	We	Th	Fr	Sa
       %w(2 4).each { |y| page.should     have_content y }
       #%w(1 3).each { |y| page.should_not have_content y }
     end
-
+=begin
     scenario 'Hourly - everything including labelling every other point' do
       end_date = start_date  # This is how the app behaves in real life in hourly mode
 
@@ -760,5 +761,6 @@ Su	Mo	Tu	We	Th	Fr	Sa
       %w(2 4).each { |y| page.should     have_content y }
       #%w(1 3).each { |y| page.should_not have_content y }
     end
+=end
   end
 end
