@@ -39,16 +39,16 @@ feature 'User navigates to different tiles' do
     current_slideshow_tile.should be_tile(tile_2)
 
     show_previous_tile
-    current_slideshow_tile.should be_tile(tile_1)
+    current_slideshow_tile.should be_tile(tile_3)
 
     show_previous_tile
-    current_slideshow_tile.should be_tile(tile_3)
+    current_slideshow_tile.should be_tile(tile_1)
 
     show_previous_tile
     current_slideshow_tile.should be_tile(tile_2)
 
     show_next_tile
-    current_slideshow_tile.should be_tile(tile_3)
+    current_slideshow_tile.should be_tile(tile_1)
 
     visit activity_path
     click_carousel_tile(tile_1)

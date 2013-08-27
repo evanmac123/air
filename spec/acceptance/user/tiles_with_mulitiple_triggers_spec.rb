@@ -64,16 +64,16 @@ feature 'User interacts with single- and multiple-trigger tiles' do
     current_slideshow_tile.should be_tile(or_tile)
 
     show_previous_tile
-    current_slideshow_tile.should be_tile(single_tile)
+    current_slideshow_tile.should be_tile(and_tile)
 
     show_previous_tile
-    current_slideshow_tile.should be_tile(and_tile)
+    current_slideshow_tile.should be_tile(single_tile)
 
     show_previous_tile
     current_slideshow_tile.should be_tile(or_tile)
 
     show_next_tile
-    current_slideshow_tile.should be_tile(and_tile)
+    current_slideshow_tile.should be_tile(single_tile)
 
     fill_in 'command_central', with: 'Walked one mile'
     click_play_button
