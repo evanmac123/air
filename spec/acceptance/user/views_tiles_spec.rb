@@ -1,5 +1,18 @@
 require 'acceptance/acceptance_helper'
 
+# descriptive raise
+# normale: raise 1 == TypeError: exception class/object expected
+# now: raise 1 == RuntimeError: 1
+class Object
+  def raise_with_helpfulness(*args)
+    raise_without_helpfulness(*args)
+  rescue TypeError => e
+    raise_without_helpfulness args.first.inspect if ['exception class/object expected', 'exception object expected'].include?(e.to_s)
+    raise_without_helpfulness e
+  end
+  alias_method_chain :raise, :helpfulness
+end
+
 feature 'User views tile' do
   before(:each) do
     User.any_instance.stubs(:create_tutorial_if_none_yet)
@@ -20,7 +33,7 @@ feature 'User views tile' do
     @first_tile_link = "/tiles/#{@make_toast.id}"
   end
 
-  scenario 'views tile image', js: true do
+  scenario 'views tile image', js: :webkit do
     # Click on the first tile, and it should take you to the tiles  path
     page.find("a[href='#{@first_tile_link}'] #tile-thumbnail-#{@make_toast.id}").click
 
