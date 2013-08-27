@@ -21,8 +21,16 @@ feature 'Client admin and the digest email for tiles' do
     have_select 'digest_send_on', options
   end
 
+  def have_send_to_selector(selected)
+    have_select 'digest_send_to', {selected: selected}
+  end
+
   def change_send_on(day)
     select day, from: 'digest_send_on'
+  end
+
+  def change_send_to(send_to)
+    select send_to, from: 'digest_send_to'
   end
 
   def set_send_on(day)
@@ -127,6 +135,25 @@ feature 'Client admin and the digest email for tiles' do
       change_send_on 'Never'
       digest_tab.should contain 'Send-on day updated to Never'
       digest_tab.should_not contain 'at noon,'
+    end
+
+    scenario 'The admin can choose whether to send to everyone or just claimed users', js: true do
+      create_tile
+      visit tile_manager_page
+      select_tab 'Digest email'
+
+      digest_tab.should have_send_to_selector('all users')
+      demo.unclaimed_users_also_get_digest.should be_true
+
+      change_send_to 'only joined users'
+      digest_tab.should contain 'Only joined users will get digest emails'
+      demo.reload.unclaimed_users_also_get_digest.should be_false
+
+      change_send_to 'all users'
+      digest_tab.should contain 'All users will get digest emails'
+      demo.reload.unclaimed_users_also_get_digest.should be_true
+
+      pending "and this flag should actually be honored when we send digests"
     end
 
     scenario 'The last-digest-email-sent-on date is correct', js: true do

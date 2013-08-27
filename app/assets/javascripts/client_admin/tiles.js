@@ -1,14 +1,16 @@
 $(document).ready(function() {
 
-  $(document).ajaxStart(function() { $('#show-user-spinner').show(); })
-             .ajaxStop(function()  { $('#show-user-spinner').hide(); });
-
   var add_csrf_protection = function(params) {
     var csrf_param = $('meta[name=csrf-param]').attr('content'),
         csrf_token = $('meta[name=csrf-token]').attr('content');
 
     params[csrf_param] = csrf_token;
     return params;
+  };
+
+  var showFeedback = function(feedback) {
+    $('.update-digest-spinner').hide();
+    $('#digest-status-messages #feedback').html(feedback).fadeIn('slow');
   };
 
   var sendOnDayChange = function() {
@@ -21,9 +23,19 @@ $(document).ready(function() {
     var params = { send_on: sendOnVal, _method: 'put' };
     params = add_csrf_protection(params);
 
-    $.post($sendOn.attr('data-action'), params, function(data) {
-      $('#digest-status-messages #feedback').html(data).fadeIn('slow');
-    });
+    $('#update-send-on-spinner').show();
+    $.post($sendOn.attr('data-action'), params, showFeedback);
+  };
+
+  var sendToChange = function() {
+    var sendTo = $(this).val();
+    var path = $(this).attr('data-action');
+
+    var params = {_method: 'put', send_to: sendTo};
+    params = add_csrf_protection(params);
+
+    $('#update-send-to-spinner').show();
+    $.post(path, params, showFeedback);
   };
 
   // -------------------------------------------------------
@@ -31,4 +43,5 @@ $(document).ready(function() {
   $('#tile-manager-tabs, #tile-reports-tabs').tabs();
 
   $('#digest_send_on').change(sendOnDayChange);
+  $('#digest_send_to').change(sendToChange);
 });

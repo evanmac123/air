@@ -1,11 +1,16 @@
 = num_tiles_in_digest_email_message
 = select_tag :digest_send_on, options_for_select(Demo::TILE_DIGEST_EMAIL_SEND_ON, @tile_digest_email_send_on),
                               data: {action: client_admin_tiles_digest_notification_path }
-= image_tag 'spinner.gif', id: 'show-user-spinner'
+= image_tag 'spinner.gif', id: 'update-send-on-spinner', class: 'update-digest-spinner'
 = send_on_time
 or you can
 %div.button_wrap
   = button_to "Send now", client_admin_tiles_digest_notification_path, confirm: 'Are you sure you want to send the digest email?'
+
+The digest will go to
+= select_tag :digest_send_to, options_for_select([['all users', true], ['only joined users', false]]),
+                              data: {action: client_admin_tiles_digest_notification_path }
+= image_tag 'spinner.gif', id: 'update-send-to-spinner', class: 'update-digest-spinner'
 
 %div#digest-status-messages
   %span#feedback
