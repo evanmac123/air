@@ -158,7 +158,7 @@ class Tile < ActiveRecord::Base
       tile.display_completion_on_this_request = true
       tile
     end
-    (satisfiable_tiles + recently_completed_tiles).sort_by(&:position)
+    (satisfiable_tiles + recently_completed_tiles).sort_by(&:activated_at).reverse
   end
 
   def self.satisfiable_by_rule_to_user(rule_or_rule_id, user)
@@ -183,7 +183,7 @@ class Tile < ActiveRecord::Base
       end
       hide
     end
-    satisfiable_tiles.sort_by(&:position)
+    satisfiable_tiles.sort_by(&:activated_at).reverse
   end
 
   def self.satisfiable_to_user_with_sample(user)
