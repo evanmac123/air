@@ -1,25 +1,10 @@
 require 'acceptance/acceptance_helper'
 
-# descriptive raise
-# normale: raise 1 == TypeError: exception class/object expected
-# now: raise 1 == RuntimeError: 1
-class Object
-  def raise_with_helpfulness(*args)
-    raise_without_helpfulness(*args)
-  rescue TypeError => e
-    raise_without_helpfulness args.first.inspect if ['exception class/object expected', 'exception object expected'].include?(e.to_s)
-    raise_without_helpfulness e
-  end
-  alias_method_chain :raise, :helpfulness
-end
-
 feature 'User views tile' do
   before(:each) do
-    User.any_instance.stubs(:create_tutorial_if_none_yet)
-
-    Demo.find_each {|f| f.destroy }
     @demo = FactoryGirl.create(:demo)
     @kendra = FactoryGirl.create(:user, demo_id: @demo.id, password: 'milking')
+
     ['make toast', 'discover fire'].each do |tile_headline|
       FactoryGirl.create(:tile, headline: tile_headline, demo: @demo)
     end
@@ -29,14 +14,11 @@ feature 'User views tile' do
 
     bypass_modal_overlays(@kendra)
     signin_as(@kendra, 'milking')
-
-    @first_tile_link = "/tiles/#{@make_toast.id}"
   end
 
-  scenario 'views tile image', js: :webkit do
+  scenario 'views tile image', js: true do
     # Click on the first tile, and it should take you to the tiles  path
-    page.find("a[href='#{@first_tile_link}'] #tile-thumbnail-#{@make_toast.id}").click
-
+    page.find("#tile-thumbnail-#{@discover_fire.id}").click
     should_be_on tiles_path
 
     wait_until do
@@ -48,14 +30,14 @@ feature 'User views tile' do
     expect_content "Tile: 1 of 2"
     expect_content "My Profile"
 
-    page.find(".tile_holder##{@make_toast.id}").should be_visible
-    page.find(".tile_holder##{@discover_fire.id}").should_not be_visible
+    page.find(".tile_holder##{@discover_fire.id}").should be_visible
+    page.find(".tile_holder##{@make_toast.id}").should_not be_visible
 
     page.find("#next").click
 
-    find(".tile_holder##{@discover_fire.id}").should be_visible
     sleep 1
-    find(".tile_holder##{@make_toast.id}").should_not be_visible
+    find(".tile_holder##{@make_toast.id}").should be_visible
+    find(".tile_holder##{@discover_fire.id}").should_not be_visible
 
     expect_content "Tile: 2 of 2"
   end
