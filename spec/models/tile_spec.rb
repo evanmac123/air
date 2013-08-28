@@ -373,42 +373,6 @@ describe Tile do
     end
   end
 
-  describe "set position within demo" do
-    before(:each) do
-      @fun = FactoryGirl.create(:demo, name: 'Fun')
-      @something_else = FactoryGirl.create(:demo, name: 'Something Else')
-      5.times do
-        FactoryGirl.create(:tile, demo: @something_else)
-      end
-      @leah = FactoryGirl.create(:user, demo: @fun, name: 'Leah')
-      # Tiles
-      @one = FactoryGirl.create(:tile, demo: @fun)
-      @two = FactoryGirl.create(:tile, demo: @fun)
-      @three = FactoryGirl.create(:tile, demo: @fun)
-      @four = FactoryGirl.create(:tile, demo: @fun)
-      # Mark one tile as completed--it will still show up as displayable because it has not been
-      # displayed 'one_final_time'
-      @completion = FactoryGirl.create(:tile_completion, user: @leah, tile: @two)
-      2.times do
-        FactoryGirl.create(:tile, demo: @something_else)
-      end
-    end
-    
-    it "should order by position" do
-      tiles = Tile.displayable_to_user(@leah)
-      tiles.map(&:id).should == [@one.id, @two.id, @three.id, @four.id]
-      expected = [@two, @four, @three, @one]
-      params = Hash.new
-      params[:tile] = expected.map do |tile|
-        tile.id.to_s
-      end
-      Tile.set_position_within_demo(@fun, params[:tile])
-      tiles = Tile.displayable_to_user(@leah)
-      tiles.map(&:id).should == expected.map(&:id)
-
-    end
-  end
-
   describe "Bulk Complete" do
     before(:each) do
       Demo.find_each { |f| f.destroy }
