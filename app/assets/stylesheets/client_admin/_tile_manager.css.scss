@@ -185,12 +185,8 @@
     font-size:.85em;
     margin-top:1.125em;
     a {
-      background:$blue;
-      border-radius:2px;
-      color:$white;
+      @include link($blue);
       margin-right:.5em;
-      padding:.25em .5em;
-      &:hover {background:darken($blue, 7%);}
     }
     span {display:inline-block;}
     span#feedback {
