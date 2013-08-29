@@ -162,6 +162,22 @@ feature 'Client admin and the digest email for tiles' do
       demo.reload.unclaimed_users_also_get_digest.should be_true
     end
 
+    scenario "The selector for wheter unclaimed users get digests should agree with the demo's state", js: true do
+      create_tile
+      visit tile_manager_page
+      select_tab 'Digest email'
+
+      digest_tab.should have_send_to_selector('all users')
+
+      change_send_to 'only joined users'
+      visit tile_manager_page
+      digest_tab.should have_send_to_selector('only joined users')
+
+      change_send_to 'all users'
+      visit tile_manager_page
+      digest_tab.should have_send_to_selector('all users')
+    end
+
     scenario 'The last-digest-email-sent-on date is correct', js: true do
       visit tile_manager_page
       select_tab 'Digest email'

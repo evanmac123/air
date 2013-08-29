@@ -10,7 +10,7 @@
 
 %div.send_to
   The digest will go to
-  = select_tag :digest_send_to, options_for_select([['all users', true], ['only joined users', false]]),
+  = select_tag :digest_send_to, options_for_select([['all users', true], ['only joined users', false]], @demo.unclaimed_users_also_get_digest),
                                 data: {action: client_admin_tiles_digest_notification_path }
   = image_tag 'spinner.gif', id: 'update-send-to-spinner', class: 'update-digest-spinner'
 
