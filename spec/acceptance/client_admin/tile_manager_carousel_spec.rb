@@ -13,6 +13,23 @@ feature 'The order of the tiles in the Tile Manager and the Tile Carousel are in
 
   #------------------------------------------------------------------------------------
 
+  def check_manager(manager_tiles)
+    table_content_without_activation_dates('#active table').should == manager_tiles
+  end
+
+  # Doesn't matter what tile you click on; just want to get from the Carousel to the Viewer => called with different active tiles
+  def check_carousel_and_viewer(manager_tiles, carousel_tile)
+    user_tiles = manager_tiles.flatten
+
+    visit activity_path
+    carousel_content.should == user_tiles
+
+    click_carousel_tile(carousel_tile)
+    viewer_content.should == user_tiles
+  end
+
+  #------------------------------------------------------------------------------------
+
   scenario 'Bounce back and forth between the Manager and the Carousel' do
     admin = FactoryGirl.create :client_admin
     demo = admin.demo
@@ -23,99 +40,58 @@ feature 'The order of the tiles in the Tile Manager and the Tile Carousel are in
     bypass_modal_overlays(admin)
     signin_as(admin, admin.password)
 
-    expected_admin_tiles =  [ ["Tile 4", "Tile 3", "Tile 2"], ["Tile 1", "Tile 0"] ]
-    expected_user_tiles = expected_admin_tiles.flatten
-
     # -----------------------------------------------------------------------------
 
     visit tile_manager_page
-    table_content_without_activation_dates('#active table').should == expected_admin_tiles
+    manager_tiles =  [ ["Tile 4", "Tile 3", "Tile 2"], ["Tile 1", "Tile 0"] ]
 
-    visit activity_path
-    carousel_content.should == expected_user_tiles
-
-    click_carousel_tile(Tile.first)  # Doesn't matter what tile you click on; just want to get from the Carousel to the Viewer
-    viewer_content.should == expected_user_tiles
+    check_manager(manager_tiles)
+    check_carousel_and_viewer(manager_tiles, Tile.first)
 
     # -----------------------------------------------------------------------------
     # Change the tile order in the Manager => should see the corresponding change in the Carousel and Viewer
     visit tile_manager_page
     active_tab.find(:tile, tiles[3]).click_link('Archive')
+    manager_tiles =  [ ["Tile 4", "Tile 2", "Tile 1"], ["Tile 0"] ]
 
-    expected_admin_tiles =  [ ["Tile 4", "Tile 2", "Tile 1"], ["Tile 0"] ]
-    expected_user_tiles = expected_admin_tiles.flatten
-
-    table_content_without_activation_dates('#active table').should == expected_admin_tiles
-
-    visit activity_path
-    carousel_content.should == expected_user_tiles
-
-    click_carousel_tile(Tile.last)
-    viewer_content.should == expected_user_tiles
+    check_manager(manager_tiles)
+    check_carousel_and_viewer(manager_tiles, Tile.last)
 
     # -----------------------------------------------------------------------------
     # Re-activate the archived tile => should move to the head of the list
     visit tile_manager_page
     archive_tab.find(:tile, tiles[3]).click_link('Activate')
+    manager_tiles =  [ ["Tile 3", "Tile 4", "Tile 2"], ["Tile 1", "Tile 0"] ]
 
-    expected_admin_tiles =  [ ["Tile 3", "Tile 4", "Tile 2"], ["Tile 1", "Tile 0"] ]
-    expected_user_tiles = expected_admin_tiles.flatten
-
-    table_content_without_activation_dates('#active table').should == expected_admin_tiles
-
-    visit activity_path
-    carousel_content.should == expected_user_tiles
-
-    click_carousel_tile(Tile.last)
-    viewer_content.should == expected_user_tiles
+    check_manager(manager_tiles)
+    check_carousel_and_viewer(manager_tiles, Tile.last)
 
     # -----------------------------------------------------------------------------
     # Change the tile order in the Manager => should see the corresponding change in the Carousel and Viewer
     visit tile_manager_page
     active_tab.find(:tile, tiles[4]).click_link('Archive')
     active_tab.find(:tile, tiles[1]).click_link('Archive')
+    manager_tiles =  [ ["Tile 3", "Tile 2", "Tile 0"] ]
 
-    expected_admin_tiles =  [ ["Tile 3", "Tile 2", "Tile 0"] ]
-    expected_user_tiles = expected_admin_tiles.flatten
-
-    table_content_without_activation_dates('#active table').should == expected_admin_tiles
-
-    visit activity_path
-    carousel_content.should == expected_user_tiles
-
-    click_carousel_tile(Tile.active.first)
-    viewer_content.should == expected_user_tiles
+    check_manager(manager_tiles)
+    check_carousel_and_viewer(manager_tiles, Tile.active.first)
 
     #-------------------------------------------------------------------------------
     # Re-activate the archived tile => should move to the head of the list
     visit tile_manager_page
     archive_tab.find(:tile, tiles[1]).click_link('Activate')
+    manager_tiles =  [ ["Tile 1", "Tile 3", "Tile 2"], ["Tile 0"] ]
 
-    expected_admin_tiles =  [ ["Tile 1", "Tile 3", "Tile 2"], ["Tile 0"] ]
-    expected_user_tiles = expected_admin_tiles.flatten
-
-    table_content_without_activation_dates('#active table').should == expected_admin_tiles
-
-    visit activity_path
-    carousel_content.should == expected_user_tiles
-
-    click_carousel_tile(Tile.active.last)
-    viewer_content.should == expected_user_tiles
+    check_manager(manager_tiles)
+    check_carousel_and_viewer(manager_tiles, Tile.active.last)
 
     #-------------------------------------------------------------------------------
     # Re-activate the archived tile => should move to the head of the list
     visit tile_manager_page
     archive_tab.find(:tile, tiles[4]).click_link('Activate')
+    manager_tiles =  [ ["Tile 4", "Tile 1", "Tile 3"], ["Tile 2", "Tile 0"] ]
 
-    expected_admin_tiles =  [ ["Tile 4", "Tile 1", "Tile 3"], ["Tile 2", "Tile 0"] ]
-    expected_user_tiles = expected_admin_tiles.flatten
-
-    table_content_without_activation_dates('#active table').should == expected_admin_tiles
-
-    visit activity_path
-    carousel_content.should == expected_user_tiles
-
-    click_carousel_tile(Tile.last)
-    viewer_content.should == expected_user_tiles
+    check_manager(manager_tiles)
+    check_carousel_and_viewer(manager_tiles, Tile.active.last)
   end
 end
