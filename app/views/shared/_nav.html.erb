@@ -1,16 +1,19 @@
 <div class="app_bar">
-  <div class="app_by"><p>Brought to you by <a href="http://www.hengage.com" title="H.Engage">H.Engage</a></p></div>
-  <ul class="app_settings">
-    <li id="nav-contact"><span></span><%= link_to "Contact Us", "#", :class => 'nav-contact-us' %></li>
-    <% if current_user.authorized_to?(:client_admin) %>
-      <li><%= link_to "Admin", client_admin_path, :class => 'nav-admin nav-client-admin', id: 'nav-admin-link' %></li>
-    <% end %>
-    <% if current_user.authorized_to?(:site_admin) %>
-      <li><%= link_to "Site admin", admin_path, :class => 'nav-admin', id: 'nav-site-admin-link' %></li>
-    <% end %>
-    <li><%= link_to "Help", faq_path, :class => 'nav-help' %></li>
-    <li><%= link_to "Settings", edit_account_settings_path, :class => 'nav-settings' %></li>
-    <li><%= link_to "Sign Out", sign_out_path, :method => :delete , :class => 'nav-signout' %></li>
-  </ul>
+  <div class="row">
+    <ul class="app_settings large-8 push-4 columns">
+      <li id="nav-contact"><%= link_to "Contact Us", "#", :class => 'nav-contact-us' %></li>
+      <% if current_user.authorized_to?(:client_admin) %>
+        <li><%= link_to "Admin", client_admin_path, :class => 'nav-admin nav-client-admin', id: 'nav-admin-link' %></li>
+      <% end %>
+      <% if current_user.authorized_to?(:site_admin) %>
+        <li><%= link_to "Site admin", admin_path, :class => 'nav-admin', id: 'nav-site-admin-link' %></li>
+      <% end %>
+      <li><%= link_to "Help", faq_path, :class => 'nav-help' %></li>
+      <li><%= link_to "Settings", edit_account_settings_path, :class => 'nav-settings' %></li>
+      <li><%= link_to "Sign Out", sign_out_path, :method => :delete , :class => 'nav-signout' %></li>
+    </ul>
+    <div class="app_by large-4 pull-8 columns">
+      <p>Brought to you by <a href="http://www.hengage.com" title="H.Engage">H.Engage</a></p>
+    </div>
+  </div>
 </div>
-

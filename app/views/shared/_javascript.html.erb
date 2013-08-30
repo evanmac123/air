@@ -4,3 +4,34 @@
     $.ajaxSetup({ async: false });
   <% end %>
 <% end %>
+
+<!-- Off-canvas nav using jRespond -->
+<script>
+var jPM = $.jPanelMenu({
+  menu: 'header nav',
+  trigger: '#off-canvas-toggle a'
+});
+
+
+var jRes = jRespond([
+  {
+    label: 'small',
+    enter: 0,
+    exit: 768
+  },{
+    label: 'large',
+    enter: 768,
+    exit: 10000
+  }
+]);
+
+jRes.addFunc({
+  breakpoint: 'small',
+  enter: function() {
+    jPM.on();
+  },
+  exit: function() {
+    jPM.off();
+  }
+});
+</script>

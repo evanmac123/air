@@ -126,7 +126,8 @@ body.invitations-show form {
     }
   }
   .single_suggestion{
-    width:380px;
+    width:100%;
+    max-width:380px;
     background-color: #eff0ef;
     border: 1px solid #d3d3d3;
     box-shadow:none;

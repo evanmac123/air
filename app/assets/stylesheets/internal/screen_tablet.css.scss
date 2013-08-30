@@ -1,0 +1,24 @@
+.mast_bottom {
+  #bar_progress, #user_stats {
+    border-top:none;
+    border-bottom:$border-dark;
+    display:inline-block;
+    float:left;
+    line-height:1em;
+    height:75px;
+  }
+  #bar_progress {width:55%;}
+  #user_stats {
+    width:45%;
+    &:after{@include clear;}
+    #bar_tix, #bar_xp {float:left;}
+    #bar_tix {width:35%;}
+    #bar_xp {width:65%;}
+  }
+  #bar_command {
+    border-top:$border-light;
+    padding-top:1em;
+    input[type="text"] {width:80%}
+    .button_wrap {width:20%}
+  }
+}

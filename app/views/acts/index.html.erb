@@ -1,4 +1,7 @@
 <%= render 'shared/tiles_carousel' %>
+<% @displayable_tiles.each do |displayable_tile| %>
+  <%#= render 'shared/displayable_tile', displayable_tile: displayable_tile %>
+<% end %>
 
 <div id="feed_wrapper" class="left-col">
   <div class="feeds module">

@@ -2,6 +2,8 @@
 *= require fancybox
 *= require_self
 */
+@import "./vendor/normalize.css.scss";
+@import "./vendor/foundation.min.css.scss";
 @import "./vendor/facebox.css.scss";
 @import "./vendor/flutie.css.scss";
 @import "./vendor/jcarousel_skin.css.scss";
@@ -12,12 +14,10 @@
 
 /* CUSTOM STYLESHEETS LAST */
 @import "./internal/site_tutorial.css.scss";
-@import "./internal/appbar.css.scss";
 @import "./internal/mast.css.scss";
 @import "./internal/flash.css.scss";
 @import "./internal/autocompletion.css.scss";
 @import "./internal/misc.css.scss";
-//@import "./internal/mobile.css.scss";
 @import "./internal/screen.css.scss";
 @import "./internal/dashboard.css.scss";
 @import "./internal/scoreboard.css.scss";
@@ -32,3 +32,16 @@
 
 @import "./internal/tiles.css.scss";
 @import "./internal/tile_links.css.scss";
+
+/* RWD */
+$lessthanFoundation: $foundation - 1;
+@media only screen and (min-width: 500px) and (max-width: $lessthanFoundation) {
+  @import "./internal/screen_tablet.css.scss";
+}
+@media only screen and (min-width: $foundation) {
+  @import "./internal/appbar.css.scss";
+	@import "./internal/screen_desktop.css.scss";
+}
+@media only screen and (min-width: $mid-desktop) {
+  @import "./internal/screen_large.css.scss";
+}

@@ -1,210 +1,230 @@
-.masthead{
-    background:#f1f1f1;
-    border-top:$border-light;
-    border-bottom:4px $white solid;
-    a {@include ease(.15s);}
+// Off canvas nav
+header nav {display: none;}
+#jPanelMenu-menu {
+  background-color:$dark-gray;
+  a {
+    color:$white;
+    font-family:$open-600;
+    display: block;
+  }
+  #navigation {
+    background:$text-color;
+    a {
+      border-bottom:1px lighten($text-color, 5%) solid;
+      padding: 1em 2em;
+    }
+  }
+  .app_bar {
+    margin-top:1em;
+  }
+  .app_bar a {
+    color:lighten($text-color, 45%);
+    font-size:.875em;
+    padding:.875em 1.55em;
+  }
+  .app_by {
+    color:lighten($text-color, 25%);
+    font-size:.875em;
+    padding: 2em 0 0 2.25em;
+    a {
+      display: inline-block;
+      color:$white;
+      font-size:1em;
+      padding:0;
+    }
+  }
 }
-.mast_top, .mast_bottom {margin:$centered;  width:$body-width;}
 
-/* -- game nav -- */
+// =========== Complete mast ===========
+header {
+  background:lighten($light-gray, 5%);
+  border-bottom:4px $white solid;
+}
+.bar_section {background:lighten($light-gray, 5%);}
+
+
+// Logo and welcome bar
 .mast_top {
-    border-bottom: $border-dark;
-    font-size:1.25em;
-    padding:20px 0;
-    position: relative;
-    &:after{
-        clear: both;
-        content:"";
-        display: block;
+  padding-top:1em;
+  padding-bottom:1em;
+  #logo-container, #welcome-text, #off-canvas-toggle {
+    display: inline-block;
+  }
+  #logo-container {
+    width:50%;
+    a {display:inline-block;}
+    img {
+      width:100%;
+      max-width:11em;
     }
-    #logo-container, #welcome-text, #navigation {
-        display: inline-block;
-        vertical-align: middle;
+  }
+  #welcome-text {display: none;}
+  #off-canvas-toggle {
+    text-align: right;
+    width:25%;
+    a {
+      display: inline-block;
+      background: $blue;
+      color:$white;
+      padding:.75em 1em;
     }
-    #logo-container {
-        max-width:152px;
-        img {max-width:152px;}
-    }
-    #navigation {
-        position: absolute;
-        top:35%;
-        right: 0;
-        li {
-            display: inline-block;
-            margin-left:2em;
-            &:first-of-type {margin-left:0;}
-            a {
-                color:$text-color;
-                font-family: $sans;
-                &:before{
-                    background:image-url('v5/sprites.png') -1px -1px transparent no-repeat;
-                    content:"";
-                    display:inline-block;
-                    height:16px;
-                    margin-right:.35em;
-                    width:18px;
-                }
-                &:hover {color:$dark-green;}
-                &.nav-home:hover:before {background-position:-1px -22px;}
-                &.nav-tiles {
-                    &:before {background-position:-28px -1px;}
-                    &:hover {&:before {background-position:-28px -22px;}}
-                }
-                &.nav-activity {
-                    &:before {background-position:-55px -1px;}
-                    &:hover {&:before {background-position:-55px -22px;}}
-                }
-                &.nav-directory {
-                    &:before {background-position:-83px 0px;}
-                    &:hover {&:before {background-position:-83px -21px;}}
-                }
-            }
-        }
-    }
-    #welcome-text {
-        margin-left:1em;
-        position:relative;
-        p {
-            background:$white;
-            color:lighten($gray, 10%);
-            display: inline-block;
-            float:left;
-            padding:.45em;
-            a {
-                color:$gray; font-family:$open-600;
-                &:hover {color:$dark-green;}
-            }
-        }
-        &:before {
-            @include arrow-left($white);
-            float:left;
-            margin-top:8px;
-        }
-    }
+  }
 }
 
-/* -- nav active states -- */
-body.acts .nav-home, 
-body.tiles .nav-tiles, 
-body.users-show .my-profile.nav-activity, 
-body.users-index .nav-directory {font-family:$open-600!important;}
-body.acts .nav-home:before {background-position:-1px -22px!important;}
-body.tiles .nav-tiles:before {background-position:-28px -22px!important;}
-body.users-show .my-profile.nav-activity:before {background-position:-55px -22px!important;}
-body.users-index .nav-directory:before {background-position:-83px -21px!important;}
+// =========== Me and progress bar ===========
+#bar_progress {
+  border-bottom:$border-dark;
+  padding-top:1em;
+  padding-bottom:1em;
+  &:after{@include clear;}
+  .profile_picture, .complete_progress_bar {
+    display: inline-block;
+    vertical-align: middle;
+  }
 
-/* -- game stats -- */
-.mast_bottom {
-    border-top:$border-light;
-    &:after {@include clear;}
-    .bar_section {
-        display:inline-block;
-        float:left;
-        font-size:.85em;
-        padding:20px 0;
-        p {display: inline-block;}
+  .profile_picture {
+    padding:0;
+    img {
+      border:$border-light;
+      height:auto; max-height:40px;
     }
-    #bar_command {
-        border-right:$border-dark;
-        padding:21px 0;
-        width:336px;
-        input, .button_wrap {float:left;}
-        input[type="text"] {
-            border:$border-dark;
-            color:$orange;
-            font-family:$open-600;
-            height:39px;
-            margin:0;
-            outline:0;
-            padding:.93em;
-            text-transform: uppercase;
-            width:20em;
-            &:hover, &:focus {border:1px $orange solid;}
-        }
-        .button_wrap {
-            @include square-button-wrap($gray);
-        }
-        input[type="submit"] {
-            @include square-button($gray);
-            border-bottom:1px $gray solid;
-            cursor:pointer;
-            font-size:1em;
-            font-family:$open-600;
-            height:37px;
-            margin:0;
-            padding:0 .87em;
-            text-transform: uppercase;
-        }
+  }
+  
+  // Complete progress bar
+  .complete_progress_bar {position: relative;}
+
+  .bar {
+    // background:image-url('v5/bar.png') no-repeat bottom left #3f3f3f;
+    background:lighten($text-color, 10%);
+    border:1px $orange solid;
+    box-shadow: inset 0px 0px 3px 1px $text-color;
+    line-height:1em;
+    position: relative;
+    height:40px;
+    width:82%;
+    &:after {
+      background:image-url('v5/sprites.png') $orange no-repeat 5px -38px;
+      content:"";
+      display:inline-block;
+      line-height:1em;
+      position: relative;
+      top:-1px;
+      left:100%;
+      height:40px;
+      width:40px;
     }
-    #bar_progress {
-        border-left:$border-light;
-        padding-left:2em;
-        position: relative;
-        .bar {
-            background:image-url('v5/bar.png') no-repeat bottom left #3f3f3f;
-            display:inline-block;
-            height:40px;
-            position:relative;
-            width:287px;
-        }
-        .progress {
-            background:image-url('v5/bar.png') no-repeat top left transparent;
-            height:100%;
-            position:absolute;
-        }
-        p {
-            color:$white;
-            font-family:$open-600;
-            margin:0;
-            padding:0;
-            position:absolute;
-            right:1em;
-            top:30%;
-        }
+  }
+  .progress, .progress_shine {position:absolute;}
+  .progress {
+    // background:image-url('v5/bar.png') no-repeat top left transparent;
+    background: #ffd90c; /* Old browsers */
+    background: -moz-linear-gradient(left,  #ffd90c 0%, #ff8500 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, right top, color-stop(0%,#ffd90c), color-stop(100%,#ff8500)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(left,  #ffd90c 0%,#ff8500 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(left,  #ffd90c 0%,#ff8500 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(left,  #ffd90c 0%,#ff8500 100%); /* IE10+ */
+    background: linear-gradient(to right,  #ffd90c 0%,#ff8500 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffd90c', endColorstr='#ff8500',GradientType=1 ); /* IE6-9 */
+    height:100%;
+  }
+  .progress_shine {
+    /* IE9 SVG, needs conditional override of 'filter' to 'none' */
+    background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2ZmZmZmZiIgc3RvcC1vcGFjaXR5PSIwIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNmZmZmZmYiIHN0b3Atb3BhY2l0eT0iMC4yNSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+    background: -moz-linear-gradient(top,  rgba(255,255,255,0) 0%, rgba(255,255,255,0.25) 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,0)), color-stop(100%,rgba(255,255,255,0.25))); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  rgba(255,255,255,0) 0%,rgba(255,255,255,0.25) 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  rgba(255,255,255,0) 0%,rgba(255,255,255,0.25) 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  rgba(255,255,255,0) 0%,rgba(255,255,255,0.25) 100%); /* IE10+ */
+    background: linear-gradient(to bottom,  rgba(255,255,255,0) 0%,rgba(255,255,255,0.25) 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#40ffffff',GradientType=0 ); /* IE6-8 */
+    height:50%;
+  }
+  p.progress_bar_points {
+    color:$white;
+    font-family:$open-600;
+    font-size:.875em;
+    margin:0;
+    padding:0;
+    position: absolute;
+    top:.85em;
+    right:25%;
+  }
+}
+
+// =========== Numbers ===========
+// Tickets 
+.mast_bottom #user_stats {
+  border-top:$border-light;
+  padding:1em;
+  #bar_tix, #bar_xp {
+    display: inline-block;
+    .label {
+      color:$gray;
+      font-size:.875em;
     }
-    #bar_tix, #bar_me {.label{color:$med-gray;}}
-    #bar_tix {
-        &:before {
-            background:image-url('v5/sprites.png') $orange no-repeat 5px -38px;
-            content:"";
-            display:inline-block;
-            float:left;
-            height:40px;
-            width:40px;
-        }
-        ul {
-            display: inline-block;
-            margin-left:1em;
-            width:72px;
-        }
-        #tix_count {
-            color:$orange;
-            font-size:1.85em;
-            font-family:$open-600;
-            line-height:1.15em;
-        }
-        .label:before {
-            background:image-url('v5/sprites.png') no-repeat transparent -40px -47px;
-            content:"";
-            display:inline-block;
-            height:10px;
-            margin-right:.35em;
-            width:11px;
-        }
+  }
+  #bar_tix {
+    width:25%;
+    .label:before {
+      background:image-url('v5/sprites.png') no-repeat transparent -40px -47px;
+      content:"";
+      display:inline-block;
+      height:10px;
+      margin-right:.35em;
+      width:11px;
     }
-    #bar_me {
-        float:right;
-        padding:18px 0;
-        width:192px;
-        img, ul {display: inline-block; vertical-align: middle;}
-        img {border:1px $white solid; width:48px}
-        ul {margin-left:1em;}
-        #xp_count {
-            color:$blue;
-            font-size:1.85em;
-            font-family:$open-600;
-            // font-weight:300;
-            line-height:1.15em;
-        }
-    }
+  }
+  #bar_xp {
+    width:73%;
+  }
+
+  #tix_count, #xp_count {
+    font-size:1.85em;
+    font-family:$open-600;
+    line-height:1.15em;
+  }
+  #tix_count {color:$orange;}
+  #xp_count {
+    color:$blue;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+  }
+}
+
+
+// Keyword bar
+.mast_bottom #bar_command {
+  padding-bottom:1em;
+  font-size:.875em;
+  &:after{@include clear;}
+  input, .button_wrap {float:left;}
+  input[type="text"] {
+    border:$border-dark;
+    color:$orange;
+    font-family:$open-600;
+    height:39px;
+    margin:0;
+    outline:0;
+    padding:.93em;
+    text-transform: uppercase;
+    width:70%;
+    &:hover, &:focus {border:1px $orange solid;}
+  }
+  .button_wrap {
+    @include square-button-wrap($gray);
+    width:30%;
+  }
+  #play_button {
+    @include square-button($gray);
+    border-bottom:1px $gray solid;
+    cursor:pointer;
+    font-size:1em;
+    font-family:$open-600;
+    height:37px;
+    margin:0;
+    text-align: center;
+    text-transform: uppercase;
+    width:100%;
+  }
 }

@@ -1,0 +1,92 @@
+header nav {display: block;}
+header {
+  nav .row {position: relative;}
+
+  /* -- main nav -- */
+  #navigation {
+    position: absolute;
+    top:4em;
+    right:1.15em;
+    li {
+      display: inline-block;
+      margin-left:2em;
+      &:first-of-type {margin-left:0;}
+      a {
+        color:$text-color;
+        font-family:$open-300;
+        font-size:1.25em;
+        &:before{
+          background:image-url('v5/sprites.png') -1px -1px transparent no-repeat;
+          content:"";
+          display:inline-block;
+          height:16px;
+          margin-right:.35em;
+          width:18px;
+        }
+        &:hover {color:$dark-green;}
+        &.nav-home:hover:before {background-position:-1px -22px;}
+        &.nav-tiles {
+          &:before {background-position:-28px -1px;}
+          &:hover {&:before {background-position:-28px -22px;}}
+        }
+        &.nav-activity {
+          &:before {background-position:-55px -1px;}
+          &:hover {&:before {background-position:-55px -22px;}}
+        }
+        &.nav-directory {
+          &:before {background-position:-83px 0px;}
+          &:hover {&:before {background-position:-83px -21px;}}
+        }
+      }
+    }
+  }
+}
+
+/* -- nav active states -- */
+body.acts .nav-home, 
+body.tiles .nav-tiles, 
+body.users-show .my-profile.nav-activity, 
+body.users-index .nav-directory {font-family:$open-600!important;}
+body.acts .nav-home:before {background-position:-1px -22px!important;}
+body.tiles .nav-tiles:before {background-position:-28px -22px!important;}
+body.users-show .my-profile.nav-activity:before {background-position:-55px -22px!important;}
+body.users-index .nav-directory:before {background-position:-83px -21px!important;}
+
+/* -- logo and welcome message -- */
+.mast_top {
+  border-bottom:$border-dark;
+  padding-top:1.35em;
+  padding-bottom:1.35em;
+  &:after{@include clear;}
+  #logo-container, #welcome-text {
+    float:none;
+    line-height: 1em;
+    vertical-align: middle;
+  }
+  #logo-container {
+    max-width:13em;
+    padding-right:0;
+  }
+  #off-canvas-toggle {display: none;}
+}
+
+.mast_bottom {
+  border-top:$border-light;
+  #bar_progress {
+    border-bottom:none;
+    padding-top:1.5em;
+    padding-bottom:1.5em;
+  }
+  #user_stats {
+    border-top:none;
+    border-right:$border-dark;
+    padding:1.5em 1em 1.5em 0;
+    #tix_count, #xp_count {font-size:1.65em;}
+    #bar_tix {width:35%;}
+    #bar_xp {width:62%;}
+  }
+  #bar_command {
+    border-left:$border-light;
+    padding:1.85em 1em;
+  }
+}

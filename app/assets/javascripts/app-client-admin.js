@@ -1,4 +1,5 @@
 //= require_tree ./client_admin
+//= require_tree ../../../vendor/assets/javascripts/external/
 
 // highcharts.js and exporting.js are both from Highcharts, and the load order matters
 //= require ../../../vendor/assets/javascripts/client_admin/highcharts

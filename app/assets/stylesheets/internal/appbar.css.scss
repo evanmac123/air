@@ -1,19 +1,12 @@
-
-/* ---------- math ---------- */
-$dark:darken($header-bg, 14%); 
-$light:lighten($header-bg, 7%);
-
 /* ---------- masthead ---------- */
-.header {background-color:$dark-gray;}
 .app_bar {
-	@include full-width;
 	background-color:$dark-gray;
 	color:$gray;
-	font-size:.85em;
 	font-family:$open-400;
-	margin:$centered;
-	padding:.7em 0 .5em 0;
-
+	padding-top:.35em;
+	padding-bottom:.35em;
+	&:after{@include clear;}
+	
 	a, a:link, a:visited {
 		font-family:$open-400;
 		color:$med-gray;
@@ -27,30 +20,20 @@ $light:lighten($header-bg, 7%);
 	li {
 		display:inline;
 		position:relative;
-		&#nav-contact span {
+		.nav-contact-us:before {
 			background:url('client_admin/sprites.png') top left no-repeat transparent;
 			display:inline-block;
-			float:left;
+			content:"";
+			margin-right:.35em;
 			position:relative;
-			margin-right:-20px;
+			vertical-align: middle;
 			width:18px;
 			height:18px;
 		}
 	}
-
-	
-	&:after{@include clear;}
-	.app_by {
-		float:left;
-		margin:$centered;
-	}
+	.app_by, .app_settings {font-size:.875em;}
 	.app_settings {
-		float:right;
-		margin:0;
+		text-align: right;
 		li {padding-left:20px; font-size: 12px;}
 	}
-}
-
-.your_photo{
-  display: inline;
 }

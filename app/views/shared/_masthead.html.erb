@@ -1,15 +1,11 @@
-<div class="mast_top">
-  <div id="logo-container"><a href="<%= activity_path %>"><%= image_tag skinned('logo_url', "logo.png") %></a></div>
-  <div id="welcome-text">
+<div class="mast_top row">
+  <div id="logo-container" class="columns">
+    <a href="<%= activity_path %>"><%= image_tag skinned('logo_url', "logo.png") %></a>
+  </div>
+  <div id="welcome-text" class="columns">
     <p>Hi <%= link_to current_user.first_name, current_user %>!</p>
   </div>
-  <ul id="navigation">
-      <li><%= link_to "Home", activity_path, :class => 'nav-home' %></li>
-      <li><%= link_to "Tiles", tiles_path, :class => 'nav-tiles' %></li>
-      <% nav_activity_class = @viewing_self ? "my-profile nav-activity" : "nav-activity" %>
-      <li><%= link_to "My Profile", current_user, :class => nav_activity_class %></li>
-      <li><%= link_to "Directory", users_path, :class => 'nav-directory' %></li><!-- HOOKUP -->
-  </ul>
+  <div id="off-canvas-toggle" class="columns">
+    <a href="#side-nav">=</a>
+  </div>
 </div>
-
-
