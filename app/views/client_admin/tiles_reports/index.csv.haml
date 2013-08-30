@@ -1,0 +1,3 @@
+Headline,Status,Type
+- @tiles.each do |tile|
+  = CSV.generate_line([tile.headline, tile.status, tile.type])
