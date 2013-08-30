@@ -108,12 +108,13 @@
     .multiple_choice_group {margin-top:3em;}
     .tile_multiple_choice_answer {
       margin:1em auto;
-      width:60%;
+      width:70%;
       a, a:link, a:visited {
         @include pop-button($blue);
         color:$white;
         display: block;
         font-size:1.25em;
+        line-height:1.25em;
         padding:1em 2em;
         &.clicked_wrong {
           background:darken($light-gray, 10%);
