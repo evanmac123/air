@@ -1,3 +1,3 @@
-Headline,Status,Type
+Headline,Status,Completions,% of participants
 - @tiles.each do |tile|
-  = CSV.generate_line([tile.headline, tile.status, tile.type])
+  = CSV.generate_line([tile.headline, footer_timestamp(tile), tile.num_completed, tile.percent_claimed])

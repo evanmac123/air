@@ -1,5 +1,4 @@
 module ClientAdmin::TilesHelper
-
   def digest_email_sent_on
     @tile_digest_email_sent_at.to_s(:tile_digest_email_sent_at)
   end
@@ -26,5 +25,16 @@ module ClientAdmin::TilesHelper
   def email_site_link(user)
     email_link_hash = { protocol: email_link_protocol, host: email_link_host }
     user.claimed? ? acts_url(email_link_hash): invitation_url(user.invitation_code, email_link_hash)
+  end
+
+  def footer_timestamp(tile)
+    if tile.activated_at.nil?
+      "Never activated"
+    elsif tile.status == Tile::ARCHIVE
+      "Active " + (distance_of_time_in_words tile.activated_at, tile.archived_at) +
+      ". Deactivated " + tile.archived_at.strftime('%-m/%-d/%Y').html_safe
+    else
+      "Active " + (distance_of_time_in_words tile.activated_at, Time.now) + "; since " + tile.activated_at.strftime('%-m/%-d/%Y')
+    end
   end
 end
