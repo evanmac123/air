@@ -2,7 +2,7 @@ require 'csv'
 
 class ClientAdmin::TilesReportsController < ClientAdminBaseController
 
-  ReportRow = Struct.new :thumbnail, :headline, :num_completed, :percent_claimed, :percent_all
+  ReportRow = Struct.new :thumbnail, :headline, :num_completed, :percent_claimed
 
   def index
     demo = current_user.demo
@@ -24,8 +24,7 @@ class ClientAdmin::TilesReportsController < ClientAdminBaseController
           @active_tiles << ReportRow.new(tile.thumbnail,
                                          tile.headline,
                                          num_tile_completions[tile.id],
-                                         completed_percent / num_claimed_users,
-                                         completed_percent / num_all_users)
+                                         completed_percent / num_claimed_users)
         end
 
         demo.archive_tiles.each do |tile|
@@ -33,8 +32,7 @@ class ClientAdmin::TilesReportsController < ClientAdminBaseController
           @archive_tiles << ReportRow.new(tile.thumbnail,
                                           tile.headline,
                                           num_tile_completions[tile.id],
-                                          completed_percent / num_claimed_users,
-                                          completed_percent / num_all_users)
+                                          completed_percent / num_claimed_users)
         end
       end
 

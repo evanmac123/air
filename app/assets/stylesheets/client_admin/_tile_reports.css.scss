@@ -5,8 +5,8 @@
 		font-size:.875em;
 		th {padding:.65em 0;}
 		.tiles_headlines {padding-left:1em;}
-		.tiles_completions, .tiles_percent_claimed, 
-		.tiles_percent_all {text-align: center;}
+		.tiles_completions,
+        .tiles_percent_claimed {text-align: center;}
 	}
 	tbody tr:nth-of-type(even) {
 		background:lighten($light-gray, 11%);
@@ -50,13 +50,12 @@
 			font-size:1.25em;
 			font-family:$open-600;
 		}
-		&.percent_claimed, &.percent_all, 
+		&.percent_claimed,
 		&.num_completed {text-align: center;}
-		&.percent_claimed, &.percent_all {
+		&.percent_claimed {
 			font-size:1.65em;
 			font-family:$open-600;
 		}
 		&.percent_claimed {color:$orange;}
-		// &.percent_all {color:$orange;}
 	}
 }
