@@ -59,3 +59,8 @@
 		&.percent_claimed {color:$orange;}
 	}
 }
+
+#tile-reports-tabs .tile-reports-csv-link {
+  float: right;
+  margin-bottom: 1em;
+}
