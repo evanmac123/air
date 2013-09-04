@@ -17,7 +17,7 @@ Capybara.javascript_driver = :poltergeist
 #end
 
 Capybara.default_selector = :css
-Capybara.default_wait_time = 10
+Capybara.default_wait_time = 15
 
 require 'capybara-screenshot/cucumber'
 Capybara::Screenshot.autosave_on_failure = false
