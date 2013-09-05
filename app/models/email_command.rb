@@ -98,7 +98,7 @@ class EmailCommand < ActiveRecord::Base
   def self.create_from_incoming_email(params)
     email_command = EmailCommand.new
     email_command.email_to = params['to']
-    email_command.email_from = EmailCommand.clean_email_address(params['from'].gsub(/\s+/, ""))
+    email_command.email_from = EmailCommand.clean_email_address(params['from'])
     email_command.email_subject = params['subject']
     email_command.email_plain = params['plain']
     email_command.clean_subject = EmailCommand.clean_subject_line(email_command.email_subject)
@@ -116,7 +116,12 @@ class EmailCommand < ActiveRecord::Base
   
   def self.clean_email_address(email)
     stripped_version = email.match(/<(.*?)>/)
-    (stripped_version.nil? ? email : stripped_version[1]).downcase
+    address_only = (stripped_version.nil? ? email : stripped_version[1])
+    strip_prvs address_only.gsub(/\s+/, "").downcase
+  end
+
+  def self.strip_prvs(email)
+    email.gsub(/^prvs=[[:xdigit:]]+=/, "")
   end
 
   def self.clean_subject_line(text)

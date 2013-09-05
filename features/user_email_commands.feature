@@ -147,3 +147,10 @@ This is not an offer to trade or roll logs. Void where prohibited. Some assembly
     When "john@foo.com" opens the email
     Then I should see "Good for you" in the email body
     But I should not see "Thanks for requesting an invite to play InviteCo." in the email body
+
+  Scenario: PRVS-mangled emails are de-mangled
+    When "prvs=fedcba9876=dan@bigco.com" sends email with subject "me tarzan, you jane" and body "ate banana"
+    Then "dan@bigco.com" should receive 1 email
+    When "dan@bigco.com" opens the email
+    Then I should see "Bananas are good for you. Points 2/20, Tix 0." in the email body
+
