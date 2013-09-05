@@ -19,8 +19,9 @@ class ActsController < ApplicationController
       # and does the redirect. But since we aren't doing the 'authorize' in the context of a 'before_filter' we need
       # to check if Clearance rejected the params ourselves, and, if so, 'return' so its 'redirect' can take place.
       # Note that this will probably never happen, but we have to take into account - and handle - invalid login attempts.
-      #authorize
-      authenticate_without_game_begun_check
+      authorize
+p "*********** RESPONSE: #{response_body}"
+      #authenticate_without_game_begun_check
       return if session[:return_to].present?
     end
 
