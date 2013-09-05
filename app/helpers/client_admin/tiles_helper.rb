@@ -24,6 +24,8 @@ module ClientAdmin::TilesHelper
 
   def email_site_link(user)
     email_link_hash = { protocol: email_link_protocol, host: email_link_host }
+    email_link_hash.merge!(user_id: user.id, tile_token: EmailLink.generate_token(user)) if user.claimed?
+
     user.claimed? ? acts_url(email_link_hash): invitation_url(user.invitation_code, email_link_hash)
   end
 
