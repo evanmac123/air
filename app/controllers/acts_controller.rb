@@ -4,25 +4,38 @@ class ActsController < ApplicationController
   skip_before_filter :authorize, only: :index
 
   def index
-    # So we can sign users in when they click on a tile in their digest email
-    if params[:tile_token].present?       and
-      (user = User.find params[:user_id]) and   # Note that this is an assignment, not an equality test
-      EmailLink.validate_token(user, params[:tile_token])
-        sign_in(user)
-        # Figure it's better to do this so don't have the long tile link that got us here in the browser's address bar
-        # e.g. http://localhost:3000/acts?tile_token=3b38f195261a7300a7b617ba654bfe5540f9923c&user_id=666
-        # (Better if user does a "Refresh Page" as well)
-        flash[:success] = "Welcome back, #{user.name}"
-        redirect_to activity_url and return
+    # Initial 'if' statement exists so we can sign users in when they click on a tile in their digest email.
+    # There are a lot of comments for such a small group of statements, so pay attention...
+    #
+    # Regarding the 'true' clause:
+    #   Figure it's better to 'redirect' so don't have the long tile link that got us here in the browser's address bar
+    #   e.g. http://localhost:3000/acts?tile_token=3b38f195261a7300a7b617ba654bfe5540f9923c&user_id=666
+    #   ('http://localhost:3000/acts' is also better - and correct - if the user does a "Refresh Page")
+    #
+    #   Note that the second 'and' is an assignment (to 'user'), not an equality test
+    #
+    # Regarding the 'else' clause:
+    #   If 'authorize' fails Clearance does a 'redirect_to' the sign-in page. When run in a 'before_filter' this halts
+    #   execution and performs the redirect. But since we aren't doing the 'authorize' in the context of a
+    #   'before_filter' we need to check if Clearance rejected the log-in params ourselves, and, if so, do a 'return'
+    #   so that its 'redirect' can take place.
+    #
+    #   But wait... it gets even better! We aliased Clearance's 'authorize' to 'authenticate_without_game_begun_check authorize'
+    #   in 'application_controller.rb' and in some cases we do a premature 'render' => we need to test for that for
+    #   the same reason.
+    #
+    #   Essentially, we need to avoid a 'double-render error' => see if either Clearance or our code has done a 'render'
+    #   or 'redirect_to', and if so, get the &^%$# outta here!
+    #
+    if params[:tile_token].present?         and
+       (user = User.find params[:user_id])  and
+       EmailLink.validate_token(user, params[:tile_token])
+      sign_in(user)
+      flash[:success] = "Welcome back, #{user.name}"
+      redirect_to activity_url and return
     else
-      # If this fails Clearance does a 'redirect_to' the sign-in page. When run in a 'before_filter' this halts execution
-      # and does the redirect. But since we aren't doing the 'authorize' in the context of a 'before_filter' we need
-      # to check if Clearance rejected the params ourselves, and, if so, 'return' so its 'redirect' can take place.
-      # Note that this will probably never happen, but we have to take into account - and handle - invalid login attempts.
       authorize
-p "*********** RESPONSE: #{response_body}"
-      #authenticate_without_game_begun_check
-      return if session[:return_to].present?
+      return if response_body.present?
     end
 
     invoke_tutorial
