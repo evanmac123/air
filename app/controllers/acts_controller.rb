@@ -21,11 +21,10 @@ class ActsController < ApplicationController
     #   so that its 'redirect' can take place.
     #
     #   But wait... it gets even better! We aliased Clearance's 'authorize' to 'authenticate_without_game_begun_check authorize'
-    #   in 'application_controller.rb' and in some cases we do a premature 'render' => we need to test for that for
-    #   the same reason.
+    #   in 'application_controller.rb' and in some cases we do a premature 'render' => need to test for that for the same reason.
     #
-    #   Essentially, we need to avoid a 'double-render error' => see if either Clearance or our code has done a 'render'
-    #   or 'redirect_to', and if so, get the &^%$# outta here!
+    #   Bottom Line: We need to avoid a 'double-render error' => See if either Clearance or our code has done a
+    #   'render' or 'redirect_to', and if so, get the &^%$# outta here!
     #
     if params[:tile_token].present?         and
        (user = User.find params[:user_id])  and
