@@ -32,12 +32,16 @@
           })
         }
 
-        $('#<%= trigger_link_id %>').click(function(event) {
+        var nerf = function(event) {event.preventDefault()};
+
+        $('.nerfed_answer').click(nerf);
+
+        $('#<%= trigger_link_id %>').one("click", function(event) {
           event.preventDefault();
           $('#<%= target_link_id %>').click();
+          $(event.target).click(nerf);
         });
 
-        $('.nerfed_answer').click(function(event) {event.preventDefault()});
 
         _.each($('.wrong_multiple_choice_answer'), function(wrongAnswerLink) {
           wrongAnswerLink = $(wrongAnswerLink);
