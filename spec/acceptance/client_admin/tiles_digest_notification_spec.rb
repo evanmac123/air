@@ -162,7 +162,7 @@ feature 'Client admin and the digest email for tiles' do
       demo.reload.unclaimed_users_also_get_digest.should be_true
     end
 
-    scenario "The selector for wheter unclaimed users get digests should agree with the demo's state", js: true do
+    scenario "The selector for whether unclaimed users get digests should agree with the demo's state", js: true do
       create_tile
       visit tile_manager_page
       select_tab 'Digest email'
@@ -258,7 +258,7 @@ feature 'Client admin and the digest email for tiles' do
           end
         end
 
-        scenario 'in a demo where only claimed usrs should get digests' do
+        scenario 'in a demo where only claimed users should get digests' do
           demo.update_attributes(unclaimed_users_also_get_digest: false)
 
           on_day '7/6/2013' do
