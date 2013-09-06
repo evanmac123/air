@@ -1,3 +1,5 @@
+-# Need to call 'strip' on the lines because was getting "\n\n" instead of just "\n"
+-# Actually, I wasn't getting the extra newlines in LibreOffice Calc, but Kate was in Excel. Beats me...
 Headline,Status,Completions,% of participants
 - @tiles.each do |tile|
-  = CSV.generate_line([tile.headline, footer_timestamp(tile), tile.num_completed, number_to_percentage(tile.percent_claimed, precision: 1)])
+  = CSV.generate_line([tile.headline, footer_timestamp(tile), tile.num_completed, number_to_percentage(tile.percent_claimed, precision: 1)]).strip

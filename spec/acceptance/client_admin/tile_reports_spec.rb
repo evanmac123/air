@@ -100,7 +100,7 @@ Tile 4,Active 10 days; since 6/24/2013,40,40.0%
 Tile 2,Active 12 days; since 6/22/2013,20,20.0%
 Tile 0,Active 14 days; since 6/20/2013,0,0.0%
 CSV
-          page.body.gsub(/\n\n/, "\n").should == expected_csv  # Page body has pairs of newlines while here-doc has only one
+          page.body.should == expected_csv
         end
       end
     end
@@ -136,7 +136,7 @@ Tile 4,Active less than a minute. Deactivated 6/24/2013,40,40.0%
 Tile 2,Active less than a minute. Deactivated 6/22/2013,20,20.0%
 Tile 0,Active less than a minute. Deactivated 6/20/2013,0,0.0%
 CSV
-          page.body.gsub(/\n\n/, "\n").should == expected_csv  # Page body has pairs of newlines while here-doc has only one
+          page.body.should == expected_csv
         end
       end
     end
