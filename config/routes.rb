@@ -82,6 +82,8 @@ Health::Application.routes.draw do
     resource :tiles_digest_notification, only: [:create, :update]
 
     resources :tiles_reports, only: :index
+
+    resources :payments
   end
 
   resources :pages, :only => :show
