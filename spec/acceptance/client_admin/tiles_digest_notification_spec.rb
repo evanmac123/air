@@ -245,7 +245,9 @@ feature 'Client admin and the digest email for tiles' do
           select_tab 'Digest email'
         end
 
-        scenario 'in a demo where everybody, claimed and unclaimed, should get digests' do
+        scenario "In a demo where everybody, claimed and unclaimed, should get digests.
+                  The tile links should sign in claimed users to the Activities page,
+                  while whisking unclaimed users to the Invitations page" do
           on_day '7/6/2013' do
             click_button 'Send now'
             crank_dj_clear
@@ -254,6 +256,24 @@ feature 'Client admin and the digest email for tiles' do
 
             %w(admin@hengage.com john@campbell.com irma@thomas.com wc@clark.com taj@mahal.com).each do |address|
               expect_digest_to(address)
+
+              open_email(address)
+
+              name = User.find_by_email(address).first_name
+              if %w(admin@hengage.com wc@clark.com taj@mahal.com).include?(address)  # Claimed User?
+                email_link = /tile_token/
+                page_text_1 = "Welcome back, #{name}"
+                page_text_2 = "Invite your friends"
+              else
+                email_link = /invitations/
+                page_text_1 = "Welcome, #{name}"
+                page_text_2 = "Just set a password, and you're ready to go"
+              end
+
+              click_email_link_matching email_link
+
+              page.should have_content page_text_1
+              page.should have_content page_text_2
             end
           end
         end

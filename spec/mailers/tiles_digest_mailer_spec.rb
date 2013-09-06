@@ -64,10 +64,11 @@ describe 'Digest email' do
   end
 
   describe 'Links' do
-    # There should be 5 links in all: 3 tile links and 2 text links
+    # There should be 5 links in all: 3 tile links and 2 text links. All links should contain a security token
+    # that is used to sign the user in when they click on any of the links in the tile-digest email.
     context 'claimed user' do
       subject { TilesDigestMailer.notify_one(demo.id, claimed_user.id, tile_ids) }
-      it { should have_selector     "a[href *= 'acts']", count: 5 }
+      it { should have_selector     "a[href *= 'acts?tile_token=#{EmailLink.generate_token(claimed_user)}&user_id=#{claimed_user.id}']", count: 5 }
       it { should_not have_selector "a[href *= 'invitations']" }
     end
 

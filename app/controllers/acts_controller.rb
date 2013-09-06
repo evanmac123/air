@@ -30,7 +30,7 @@ class ActsController < ApplicationController
        (user = User.find params[:user_id])  and
        EmailLink.validate_token(user, params[:tile_token])
       sign_in(user)
-      flash[:success] = "Welcome back, #{user.name}"
+      flash[:success] = "Welcome back, #{user.first_name}"
       redirect_to activity_url and return
     else
       authorize
