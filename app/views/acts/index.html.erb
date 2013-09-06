@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <%#= render 'shared/tiles_carousel' %>
 <div class="all_tile_thumbnails row">
   <% @displayable_tiles.each do |displayable_tile| %>
@@ -8,6 +9,11 @@
   <span style="visibility:hidden; width:32%; display:inline-block;">&nbps;</span>
   <%= render 'shared/tiles_wall_client_admin_tools' %>
 </div>
+=======
+<%= javascript_include_tag 'jquery.lightbox_me' %>
+
+<%= render 'shared/tiles_carousel' %>
+>>>>>>> talking chicken JS nerfed, tests left broken for the moment
 
 
 <div class="row">
@@ -71,13 +77,21 @@
     <%= button_to "Get More Help", faq_path, :method => :get, :style => "float: left;" %>
   </div>
 </div>
-<% if @tutorial_step.try(:show_introduction) %>
-  <div id='tutorial_introduction'>
-    <div id='tutorial_introduction_inner'>
-      <h2>Welcome&nbsp;to&nbsp;<%= @current_user.demo.name %></h2>
-      <p>Before you get started, we'd like to take you on a quick tour of the site.</p>
-      <div class='link'><%= link_to "Quick Tour", tutorial_path, :method => :put, :class => 'show_tutorial' %></div>
-      <%= link_to "No thanks", '#', :id => 'no_thanks_tutorial' %>
-    </div>
+
+<% if current_user.on_first_login %>
+  <div id='get_started_lightbox'>
+    This is some helpful instructions about how to get started with H.Engage.
+    <a href="#" id="close_get_started_lightbox">Close</a>
   </div>
+
+  <% content_for :javascript do %>
+    <%= javascript_tag do %>
+      $('#close_get_started_lightbox').click(function(event) {
+        event.preventDefault();
+        $('#get_started_lightbox').trigger('close');
+      });
+
+      $('#get_started_lightbox').lightbox_me();
+    <% end %>
+  <% end %>
 <% end %>

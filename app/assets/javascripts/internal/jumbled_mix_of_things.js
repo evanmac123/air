@@ -25,7 +25,7 @@ $(function() {
   };
 
 
-  launchTutorialIntroduction();
+  //launchTutorialIntroduction();
   
   $('#show_tutorial').click(function(){
     showTutorial();
@@ -107,20 +107,22 @@ function autoFocusColor(field, text){
   });
 }
 
-function launchTutorialIntroduction(){
-  if (document.getElementById('tutorial_introduction')){
-    mixpanelPagePingForTalkingChicken();
-    var div = $('#tutorial_introduction');
-    var intro_content = div.html();
-    var options = {hideOnOverlayClick : false,
-                    showCloseButton	 : false,
-                    speedIn : 1200, // Time it takes to fade in the intro slide
-                		speedOut : 200 // Time to fade out the intro slide if they decline
-                  };
-    $.fancybox(intro_content, options);
-    div.hide();
-  }
-}
+/*function launchTutorialIntroduction(){*/
+//[>  if (document.getElementById('tutorial_introduction')){<]
+    ////mixpanelPagePingForTalkingChicken();
+    ////var div = $('#tutorial_introduction');
+    ////var intro_content = div.html();
+    ////var options = {hideOnOverlayClick : false,
+                    ////showCloseButton	 : false,
+                    ////speedIn : 1200, // Time it takes to fade in the intro slide
+                    ////speedOut : 200 // Time to fade out the intro slide if they decline
+                  ////};
+    ////$.fancybox(intro_content, options);
+    ////div.hide();
+  //[>}<]
+
+  //$('#get_started_lightbox').lightbox_me();
+/*}*/
 
 function mixpanelPagePingForTalkingChicken(){
   $.post('/ping', {page_name: 'talking chicken'});

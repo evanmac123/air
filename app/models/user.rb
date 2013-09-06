@@ -963,6 +963,10 @@ class User < ActiveRecord::Base
     return (tutorial.current_step == 2)
   end
 
+  def on_first_login
+    session_count == 1
+  end
+
   def self.find_by_either_email(email)
     email = email.strip.downcase
     where("email = ? OR overflow_email = ?", email, email).first

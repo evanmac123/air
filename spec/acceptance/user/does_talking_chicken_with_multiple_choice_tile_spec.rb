@@ -1,13 +1,12 @@
 require 'acceptance/acceptance_helper'
 
-feature 'Does talking chicken with multiple choice tile' do
+feature 'Does multiple choice tile sample tile' do
   before do
     @demo = FactoryGirl.create(:demo, tutorial_type: 'multiple_choice')
     @user = FactoryGirl.create(:user, demo: @demo)
 
     visit activity_path(as: @user)
     click_link 'Enter Site'
-    page.find('#fancybox-content .show_tutorial').click
     page.find('#tile-thumbnail-0').click # Tile 0 is the sample tile
   end
 
