@@ -15,7 +15,6 @@ body {
 	.content {
 		margin:$centered;
 		padding:0;
-		width:$body-width;
 		&:after{@include clear;}
 		.seemore {text-align: center;}
 

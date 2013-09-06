@@ -116,7 +116,6 @@ header {
   }
   .progress, .progress_shine {position:absolute;}
   .progress {
-    // background:image-url('v5/bar.png') no-repeat top left transparent;
     background: #ffd90c; /* Old browsers */
     background: -moz-linear-gradient(left,  #ffd90c 0%, #ff8500 100%); /* FF3.6+ */
     background: -webkit-gradient(linear, left top, right top, color-stop(0%,#ffd90c), color-stop(100%,#ff8500)); /* Chrome,Safari4+ */

@@ -22,3 +22,16 @@
     .button_wrap {width:20%}
   }
 }
+
+/* -- Tile wall -- */
+.tile_thumbnail {
+  margin-bottom:1em;
+  width:32%;
+  .tile-wrapper{
+    .tile_thumbnail {height:12em;}
+    .headline {
+      height:7.5em;
+      .text {font-size:1em;}
+    }
+  }
+}

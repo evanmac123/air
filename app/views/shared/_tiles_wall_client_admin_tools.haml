@@ -1,0 +1,6 @@
+#tile_links
+  %a.show_more_tiles Show more tiles
+  - if current_user.authorized_to?(:client_admin)
+    #client_admin_tile_links
+      = link_to "Add a new tile", new_client_admin_tile_path
+      = link_to "Manage tiles", client_admin_tiles_path

@@ -1,5 +1,14 @@
 @import "mixins/standard_colors.css.scss";
 @import "appbar.css.scss";
 @import "screen_desktop.css.scss";
+@import "screen_large.css.scss";
 
 body {border-top:none;}
+.all_tile_thumbnails {
+  padding:2em 1em;
+  text-align: left;
+}
+.tile_thumbnail {
+  max-width:245px;
+  width:100%;
+}

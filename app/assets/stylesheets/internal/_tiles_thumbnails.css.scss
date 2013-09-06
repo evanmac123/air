@@ -1,100 +1,84 @@
-#carousel_wrapper{
-  margin-top:2em;
-  .jcarousel-container{
-    width: 100%;
-    padding: 0 3em;
+.all_tile_thumbnails {
+  background: transparent;
+  margin:2em auto 1em auto;
+  padding:0 1em;
+  text-align: center;
+}
+.tile_thumbnail {
+  display: inline-block;
+  text-align:center;
+  min-width: 143px;
+  width:100%;
+  max-width:238px;
+  vertical-align: top;
+  li {
+    list-style-type: none;
+    position: relative;
+    width:100%;
   }
-  .jcarousel-clip {
-    width: 100%;
-    height: 100%;
+  a, a:link, a:visited {
+    display:inline-block;
+    width:100%;
+    &:after {@include clear;}
   }
-  .jcarousel-item{
+  .tile-wrapper{
+    @include ease(.025s);
+    border-bottom:5px transparent solid;
     display: inline-block;
-    margin-right: 0px;
-    height: 288px;
-    text-align:center;
-    width: 299px;
+    position: relative;
+    width:100%;
+    &:hover {border-color:$orange;}
     
+    .tile_thumbnail, .headline {
+      margin:0 auto;
+      width:100%;
+    }
+    .tile_thumbnail{
+      background-color:$text-color;
+      background-position:center center;
+      background-repeat:no-repeat;
+      display: block;
+      height:9em;
+      position: relative;
+    }
 
-    a, a:link, a:visited {
-      display:inline-block;
-      // width:80%;
-      width:238px;
-      &:after {@include clear;}
-      .tile-wrapper{
-        @include ease(.025s);
-        border-bottom:5px transparent solid;
-        display: inline-block;
-        position: relative;
-        width:100%;
-        &:hover {border-color:$orange;}
-        
-        .tile_thumbnail, .headline {
-          margin:0 auto;
-          width:100%;
-        }
-        .tile_thumbnail{
-          background-color:$text-color;
-          background-position:center center;
-          background-repeat:no-repeat;
-          display: block;
-          height:14em;
-          position: relative;
-          
-        }
-
-        .headline{
-          background:$text-color;
-          height:6em;
-          position: relative;
-          padding: .75em .75em;
-          text-align: left;
-          &:after{@include clear;}
-          .text{
-            color: $white;
-            font-size: 1.125em;
-            line-height: 1.3em;
-            font-family:$open-400;
-          }
-        }
+    .headline{
+      background:$text-color;
+      min-height:6.5em;
+      position: relative;
+      padding: .75em .75em;
+      text-align: left;
+      &:after{@include clear;}
+      .text{
+        color: $white;
+        font-family:$open-400;
       }
     }
   }
-
-  // =========== Buttons ===========
-  .jcarousel-prev-horizontal, .jcarousel-next-horizontal {
-    background:image-url('v5/sprites.png') no-repeat transparent;
-    top:40%;
+}
+#tile_links {
+  text-align: center;
+  padding:0;
+  a {margin:0;}
+  .show_more_tiles {
+    @include pop-button($blue);
+    display: block;
+    padding:.75em 0 .6em 0;
+    &:before, &:after {
+      @include arrow-bottom(lighten($blue, 10%));
+      margin:0 1em;
+    }
+    &:hover {
+      background:darken($blue, 4%);
+      border-color:darken($blue, 10%);
+    }
   }
-  .jcarousel-prev-horizontal{
-    background-position: 0px -106px;
-    left: 0;
-    &:hover, &:focus {background-position:-34px -106px;}
-  }
-    .jcarousel-prev-disabled-horizontal,
-    .jcarousel-prev-disabled-horizontal:hover,
-    .jcarousel-prev-disabled-horizontal:focus,
-    .jcarousel-prev-disabled-horizontal:active {
-        background-position: -68px -106px;}
-  .jcarousel-next-horizontal{
-    background-position: 0px -140px;
-    right: 0;
-    &:hover, &:focus {background-position:-34px -140px;}
-  }
-    .jcarousel-next-disabled-horizontal,
-    .jcarousel-next-disabled-horizontal:hover,
-    .jcarousel-next-disabled-horizontal:focus,
-    .jcarousel-next-disabled-horizontal:active {
-      background-position: -68px -140px;}
-
-  .jcarousel-item-placeholder{
-    // The placeholder width is being set to near zero
-    // We don't want placeholders to actually show, since they 
-    // show up after tiles are completed and we click on a thumbnail.
-    // We want their size to be non-zero so the jcarousel library
-    // doesn't throw a "Error: jCarousel: No width/height set for items. This will cause an infinite loop. Aborting..." error
-    // So we set it to NEAR zero
-    background: none;
-    width: 1px;
+  #client_admin_tile_links {
+    a {
+      @include link($blue);
+      display: inline-block;
+      font-size:1em;
+      margin:1em;
+    }
   }
 }
