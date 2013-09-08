@@ -1,8 +1,5 @@
 class ClientAdmin::PaymentsController < ClientAdminBaseController
-  def index
-  end
-
-  def create
-    render inline: 'ok'
+  def new
+    @outstanding_balances = current_user.demo.balances.outstanding.order("created_at ASC")
   end
 end

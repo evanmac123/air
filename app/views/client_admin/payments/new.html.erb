@@ -1,0 +1,19 @@
+<%= render partial: 'shared/flashes' %>
+
+<% if @outstanding_balances.empty? %>
+  You've got no outstanding balances. How nice!
+<% end %>
+
+<% @outstanding_balances.each do |outstanding_balance| %>
+  <%= outstanding_balance.pretty_amount %>, billed <%= outstanding_balance.billing_date.strftime("%x") %>
+  <%= form_tag client_admin_balance_path(outstanding_balance), method: :put do %>
+    <script
+      src="https://checkout.stripe.com/v2/checkout.js" class="stripe-button"
+      data-key="<%= STRIPE_PUBLIC_KEY %>"
+      data-amount="<%= outstanding_balance.amount %>"
+      data-name="H.Engage"
+      data-description="Payment to H.Engage"
+    >
+    </script>
+  <% end %>
+<% end %>

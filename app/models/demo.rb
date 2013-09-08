@@ -20,6 +20,7 @@ class Demo < ActiveRecord::Base
   has_many :characteristics, :dependent => :destroy
   has_many :peer_invitations
   has_many :push_messages
+  has_many :balances
 
   has_many :tile_completions, through: :tiles
 

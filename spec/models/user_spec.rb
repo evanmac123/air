@@ -995,3 +995,15 @@ describe User, "add_tickets" do
     @user.reload.tickets.should == 2
   end
 end
+
+describe User, "has_balances?" do
+  it "should return true for a user in a demo with balances" do
+    user = FactoryGirl.create(:user)
+    FactoryGirl.create(:balance, demo: user.demo)
+    user.should have_balances
+  end
+
+  it "should return false for a user without balances" do
+    FactoryGirl.create(:user).should_not have_balances
+  end
+end

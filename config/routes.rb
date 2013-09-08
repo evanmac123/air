@@ -84,6 +84,7 @@ Health::Application.routes.draw do
     resources :tiles_reports, only: :index
 
     resources :payments
+    resources :balances
   end
 
   resources :pages, :only => :show

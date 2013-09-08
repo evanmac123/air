@@ -459,6 +459,10 @@ class User < ActiveRecord::Base
     self.demo.internal_domains.include? domain
   end
 
+  def has_balances?
+    demo.balances.outstanding.first.present?
+  end
+
   def self.claim_account(from, to, claim_code, options={})
     channel = options[:channel] || :sms
 
