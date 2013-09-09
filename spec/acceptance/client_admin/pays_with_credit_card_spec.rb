@@ -31,7 +31,8 @@ feature 'Pays with credit card' do
     cents = sprintf("%02u", balance.amount % 100)
     date = balance.created_at.strftime("%x")
 
-    expect_content ("$#{dollars}.#{cents}, billed #{date}")
+    expect_content ("Outstanding balance: $#{dollars}.#{cents}")
+    expect_content ("Billed: #{date}")
   end
 
   def expect_no_payments_link
