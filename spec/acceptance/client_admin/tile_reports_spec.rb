@@ -37,7 +37,7 @@ feature 'client admin views tiles reports' do
       on_day '7/4/2013' do
         num_tiles.times do |i|
           awhile_from_now = Time.now + i.days
-          tile = FactoryGirl.create :tile, demo: demo, headline: "Tile #{i}", created_at: awhile_from_now,
+          tile = FactoryGirl.create :tile, demo: demo, headline: "Tile , #{i}", created_at: awhile_from_now,
                                     activated_at: awhile_from_now, archived_at: awhile_from_now
           # Make it so that all odd tiles should be listed before all even ones, and that odd/even each should be sorted in descending order.
           if i.even?
@@ -52,17 +52,18 @@ feature 'client admin views tiles reports' do
 
     let(:expected_tile_table) do
       # No need to test for images as that is done in other tests; this is for reporting numbers
+      # CSV processing initially barfed on commas in headlines. Easiest way to test the fix is to stick a comma in all headlines.
       [ ["Image", "Headline", "Completions", "% of participants"],
-        [  "",     "Tile 9",      "90",           "90.0%"       ],
-        [  "",     "Tile 7",      "70",           "70.0%"       ],
-        [  "",     "Tile 5",      "50",           "50.0%"       ],
-        [  "",     "Tile 3",      "30",           "30.0%"       ],
-        [  "",     "Tile 1",      "10",           "10.0%"       ],
-        [  "",     "Tile 8",      "80",           "80.0%"       ],
-        [  "",     "Tile 6",      "60",           "60.0%"       ],
-        [  "",     "Tile 4",      "40",           "40.0%"       ],
-        [  "",     "Tile 2",      "20",           "20.0%"       ],
-        [  "",     "Tile 0",      "0",            "0.0%"        ]
+        [  "",     "Tile , 9",      "90",           "90.0%"       ],
+        [  "",     "Tile , 7",      "70",           "70.0%"       ],
+        [  "",     "Tile , 5",      "50",           "50.0%"       ],
+        [  "",     "Tile , 3",      "30",           "30.0%"       ],
+        [  "",     "Tile , 1",      "10",           "10.0%"       ],
+        [  "",     "Tile , 8",      "80",           "80.0%"       ],
+        [  "",     "Tile , 6",      "60",           "60.0%"       ],
+        [  "",     "Tile , 4",      "40",           "40.0%"       ],
+        [  "",     "Tile , 2",      "20",           "20.0%"       ],
+        [  "",     "Tile , 0",      "0",            "0.0%"        ]
       ]
     end
 
@@ -89,16 +90,16 @@ feature 'client admin views tiles reports' do
 
           expected_csv = <<CSV
 Headline,Status,Completions,% of participants
-Tile 9,Active 9 days; since 7/13/2013,90,90.0%
-Tile 7,Active 7 days; since 7/11/2013,70,70.0%
-Tile 5,Active 5 days; since 7/9/2013,50,50.0%
-Tile 3,Active 3 days; since 7/7/2013,30,30.0%
-Tile 1,Active 1 day; since 7/5/2013,10,10.0%
-Tile 8,Active 6 days; since 6/28/2013,80,80.0%
-Tile 6,Active 8 days; since 6/26/2013,60,60.0%
-Tile 4,Active 10 days; since 6/24/2013,40,40.0%
-Tile 2,Active 12 days; since 6/22/2013,20,20.0%
-Tile 0,Active 14 days; since 6/20/2013,0,0.0%
+\"Tile , 9\",Active 9 days; since 7/13/2013,90,90.0%
+\"Tile , 7\",Active 7 days; since 7/11/2013,70,70.0%
+\"Tile , 5\",Active 5 days; since 7/9/2013,50,50.0%
+\"Tile , 3\",Active 3 days; since 7/7/2013,30,30.0%
+\"Tile , 1\",Active 1 day; since 7/5/2013,10,10.0%
+\"Tile , 8\",Active 6 days; since 6/28/2013,80,80.0%
+\"Tile , 6\",Active 8 days; since 6/26/2013,60,60.0%
+\"Tile , 4\",Active 10 days; since 6/24/2013,40,40.0%
+\"Tile , 2\",Active 12 days; since 6/22/2013,20,20.0%
+\"Tile , 0\",Active 14 days; since 6/20/2013,0,0.0%
 CSV
           page.body.should == expected_csv
         end
@@ -125,16 +126,16 @@ CSV
 
           expected_csv = <<CSV
 Headline,Status,Completions,% of participants
-Tile 9,Active less than a minute. Deactivated 7/13/2013,90,90.0%
-Tile 7,Active less than a minute. Deactivated 7/11/2013,70,70.0%
-Tile 5,Active less than a minute. Deactivated 7/9/2013,50,50.0%
-Tile 3,Active less than a minute. Deactivated 7/7/2013,30,30.0%
-Tile 1,Active less than a minute. Deactivated 7/5/2013,10,10.0%
-Tile 8,Active less than a minute. Deactivated 6/28/2013,80,80.0%
-Tile 6,Active less than a minute. Deactivated 6/26/2013,60,60.0%
-Tile 4,Active less than a minute. Deactivated 6/24/2013,40,40.0%
-Tile 2,Active less than a minute. Deactivated 6/22/2013,20,20.0%
-Tile 0,Active less than a minute. Deactivated 6/20/2013,0,0.0%
+\"Tile , 9\",Active less than a minute. Deactivated 7/13/2013,90,90.0%
+\"Tile , 7\",Active less than a minute. Deactivated 7/11/2013,70,70.0%
+\"Tile , 5\",Active less than a minute. Deactivated 7/9/2013,50,50.0%
+\"Tile , 3\",Active less than a minute. Deactivated 7/7/2013,30,30.0%
+\"Tile , 1\",Active less than a minute. Deactivated 7/5/2013,10,10.0%
+\"Tile , 8\",Active less than a minute. Deactivated 6/28/2013,80,80.0%
+\"Tile , 6\",Active less than a minute. Deactivated 6/26/2013,60,60.0%
+\"Tile , 4\",Active less than a minute. Deactivated 6/24/2013,40,40.0%
+\"Tile , 2\",Active less than a minute. Deactivated 6/22/2013,20,20.0%
+\"Tile , 0\",Active less than a minute. Deactivated 6/20/2013,0,0.0%
 CSV
           page.body.should == expected_csv
         end
