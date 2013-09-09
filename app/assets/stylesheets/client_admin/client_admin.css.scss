@@ -32,7 +32,8 @@ body.client_admin-users #admin-users,
 body.client_admin-tiles-index #admin-tiles-manager,
 body.client_admin-tiles-new #admin-tiles-builder,
 body.client_admin-tiles-create #admin-tiles-builder,
-body.client_admin-tiles_reports-index #admin-tiles-report {
+body.client_admin-tiles_reports-index #admin-tiles-report,
+body.client_admin-payments #admin-payments {
     a, a:link, a:visited {color:$dark-green; font-family:$open-600;}
 }
 
@@ -99,6 +100,7 @@ body.client_admin-tiles_reports-index #admin-tiles-report {
                 }
                 &:before {background-position:-160px 3px;}
             }
+            &#admin-payments:before {background-position:-178px 1px;}
             &#admin-help:before {background-position:-142px 1px;}
         }
         a, a:link, a:visited {
@@ -149,3 +151,4 @@ body.client_admin-segmentations h1#title:before {background-position:0px -15px;}
 body.client_admin-users h1#title:before {background-position:-65px -15px;}
 body.client_admin-tiles h1#title:before,
 body.client_admin-tiles_reports h1#title:before {background-position:-130px -15px;}
+body.client_admin-payments h1#title:before {background-position:-167px -15px;}
