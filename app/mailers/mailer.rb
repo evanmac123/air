@@ -20,6 +20,9 @@ class Mailer < ActionMailer::Base
 
     @plain_text = email_template.plain_text(user, referrer, @invitation_url)
     @html_text = email_template.html_text(user, referrer, @invitation_url).html_safe
+
+    @forward_email_warning = 'This invitation was created specifically for you. Please do not forward it to others.'
+
     @user = user
 
     mail(:to      => user.email_with_name,

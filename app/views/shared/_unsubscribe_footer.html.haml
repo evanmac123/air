@@ -3,6 +3,12 @@
     %tr
       %td{:height => "30", :style => "line-height:0; font-size:0;"}
         &nbsp;
+    - if @forward_email_warning.present?
+      %tr
+        %td{:style => "font-size:12px; color: gray;"}= @forward_email_warning
+      %tr
+        %td{:height => "20", :style => "line-height:0; font-size:0;"}
+          &nbsp;
     %tr
       %td{:style => "font-size:12px; color: gray;"}
         Copyright &copy; 2013 H.Engage. All Rights Reserved.
