@@ -24,6 +24,11 @@ describe GenericMailer do
         to(@user.email).
         with_part('text/plain', /Our mailing address is:/).
         with_part('text/html', /Our mailing address is:/)
+
+      # The latter should only show up in the Invitation email.
+      # Re-doing check for 'Our mailing address...' so have confidence that the following test works
+      should have_sent_email.with_body /Our mailing address is/
+      should_not have_sent_email.with_body /Please do not forward it to others/
     end
 
     it "should be able to interpolate invitation URLs" do
