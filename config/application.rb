@@ -37,6 +37,7 @@ module Health
       external/june2013_landing_ie8.css
       external/external_ie8.css
       external/standalone_ie8.css
+      internal/internal_ie8.css
       app-admin.js
       app-internal.js
       app-external.js
