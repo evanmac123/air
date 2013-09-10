@@ -42,13 +42,7 @@ class ActsController < ApplicationController
     @current_link_text = "Home"
     @current_user = current_user
     
-    if @current_user.session_count < 3 && session[:invite_friends_modal_shown].nil?
-      @invite_in_modal = true
-      session[:invite_friends_modal_shown] = true
-      @current_user.ping_page 'invite friends modal'
-    else
-      @current_user.ping_page('activity feed') unless @current_user.tutorial_active?
-    end
+    @current_user.ping_page('activity feed') unless @current_user.tutorial_active?
 
     
     @demo                  = current_user.demo

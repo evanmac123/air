@@ -20,8 +20,7 @@ Feature: Talking Chicken
   And I wait a second
     Then I should see "Directory"
     Then "Brand New" should have an open tutorial with current step "0"
-    Given I close the facebox modal
-    And I wait a second
+    When I wait a second
     And I should see "Quick Tour"
     # There are 2 ".show_tutorial" links (they have text "Quick Tour") and Capy2 requires uniqueness, so specify container
     When I click within "#fancybox-content .show_tutorial"
@@ -60,8 +59,7 @@ Feature: Talking Chicken
       And I wait a second
       Then "Brand New" should have an open tutorial with current step "0"
       Then I should see "Directory"
-      Given I close the facebox modal
-      And I wait a second
+      When I wait a second
       And I should see "Quick Tour"
       And I wait a second
       And I click within "#fancybox-content #no_thanks_tutorial"
@@ -80,8 +78,7 @@ Feature: Talking Chicken
     @javascript 
     Scenario: Leah leaves tutorial
       Then I should see "Directory"
-      Given I close the facebox modal
-      And I wait a second
+      When I wait a second
       And I should see "Quick Tour"
       When I click within "#fancybox-content .show_tutorial"
       And I should see "Directory"
@@ -99,8 +96,7 @@ Feature: Talking Chicken
     @javascript 
     Scenario: Leah leaves tutorial, then starts it again from FAQ
       Then I should see "Directory"
-      Given I close the facebox modal
-      And I wait a second
+      When I wait a second
       And I should see "Quick Tour"
       When I click within "#fancybox-content .show_tutorial"
       And I should see "Directory"

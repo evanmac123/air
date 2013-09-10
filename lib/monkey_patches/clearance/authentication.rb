@@ -14,10 +14,7 @@ module Clearance::Authentication
           # YouveBeenSignedOutMessage later
           session[:session_open] = true
         end
-        
-        # I think this bit is here to make sure the invite friends modal only shows twice??
-        session.delete(:invite_friends_modal_shown)
-        
+
         # This is where we increment the session count so we can trigger things like the 
         # invite friends modal and the tutorial
         current_user.session_count += 1
