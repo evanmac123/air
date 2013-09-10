@@ -64,6 +64,9 @@ describe 'Digest email' do
   end
 
   describe 'Links' do
+    let(:client_admin) { FactoryGirl.create :client_admin, demo: demo }
+    let(:site_admin)   { FactoryGirl.create :site_admin,   demo: demo }
+
     # There should be 5 links in all: 3 tile links and 2 text links. All links should contain a security token
     # that is used to sign the user in when they click on any of the links in the tile-digest email.
     context 'claimed user' do
@@ -77,6 +80,19 @@ describe 'Digest email' do
       subject { TilesDigestMailer.notify_one(demo.id, unclaimed_user.id, tile_ids) }
       it { should have_selector     "a[href *= 'invitations']", count: 6 }
       it { should_not have_selector "a[href *= 'acts']" }
+    end
+
+    # client-admins should not have automatic sign-in links in their tiles
+    context 'client-admins' do
+      subject { TilesDigestMailer.notify_one(demo.id, client_admin.id, tile_ids) }
+      it { should     have_selector "a[href *= 'acts']", count: 5 }
+      it { should_not have_selector "a[href *= 'acts?tile_token']" }
+    end
+
+    # site-admins should have automatic sign-in links in their tiles
+    context 'site-admins' do
+      subject { TilesDigestMailer.notify_one(demo.id, site_admin.id, tile_ids) }
+      it { should have_selector "a[href *= 'acts?tile_token=#{EmailLink.generate_token(site_admin)}&user_id=#{site_admin.id}']", count: 5 }
     end
   end
 

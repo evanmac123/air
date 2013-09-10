@@ -5,7 +5,7 @@ include EmailHelper
 feature 'Client admin and the digest email for tiles' do
 
   let(:demo)  { FactoryGirl.create :demo, email: 'foobar@playhengage.com' }
-  let(:admin) { FactoryGirl.create :client_admin, email: 'admin@hengage.com', demo: demo }
+  let(:admin) { FactoryGirl.create :client_admin, email: 'client-admin@hengage.com', demo: demo }
 
   # -------------------------------------------------
 
@@ -115,7 +115,7 @@ feature 'Client admin and the digest email for tiles' do
       digest_tab.should have_send_on_selector('Tuesday')
     end
 
-    scenario "The 'send-on' dropdown control updates the day and time, and displays a confirmation message", js: true do
+    scenario "The 'send-on' drop-down control updates the day and time, and displays a confirmation message", js: true do
       create_tile
       visit tile_manager_page
       select_tab 'Digest email'
@@ -238,6 +238,8 @@ feature 'Client admin and the digest email for tiles' do
           FactoryGirl.create :claimed_user, demo: demo, name: 'W.C. Clark', email: 'wc@clark.com'
           FactoryGirl.create :claimed_user, demo: demo, name: 'Taj Mahal',  email: 'taj@mahal.com'
 
+          FactoryGirl.create :site_admin, demo: demo, name: 'Eric Claption',  email: 'site-admin@hengage.com'
+
           FactoryGirl.create :user,         demo: FactoryGirl.create(:demo)  # Make sure these users from other
           FactoryGirl.create :claimed_user, demo: FactoryGirl.create(:demo)  # demos don't get an email
 
@@ -246,24 +248,31 @@ feature 'Client admin and the digest email for tiles' do
         end
 
         scenario "In a demo where everybody, claimed and unclaimed, should get digests.
-                  The tile links should sign in claimed users to the Activities page,
-                  while whisking unclaimed users to the Invitations page" do
+                  The tile links should sign in claimed *non-client-admin* users to the
+                  Activities page, while whisking others to where they belong" do
           on_day '7/6/2013' do
             click_button 'Send now'
             crank_dj_clear
 
-            all_emails.should have(5).emails  # The above 4 for this demo, and the 'admin' created at top of tests
+            all_emails.should have(6).emails  # The above 5 for this demo, and the 'client-admin' created at top of tests
 
-            %w(admin@hengage.com john@campbell.com irma@thomas.com wc@clark.com taj@mahal.com).each do |address|
+            %w(client-admin@hengage.com site-admin@hengage.com john@campbell.com irma@thomas.com wc@clark.com taj@mahal.com).each do |address|
               expect_digest_to(address)
 
               open_email(address)
 
               name = User.find_by_email(address).first_name
-              if %w(admin@hengage.com wc@clark.com taj@mahal.com).include?(address)  # Claimed User?
+              if %w(site-admin@hengage.com wc@clark.com taj@mahal.com).include?(address)  # Claimed, non-client-admin user?
                 email_link = /tile_token/
                 page_text_1 = "Welcome back, #{name}"
                 page_text_2 = "Invite your friends"
+              elsif address == 'client-admin@hengage.com' # client-admin?
+                # client-admin was signed in at top of tests => needs to sign out in order to get sent to the Log-In page
+                click_link "Sign Out"
+
+                email_link = /acts/
+                page_text_1 = "Log In"
+                page_text_2 = "Remember me"
               else
                 email_link = /invitations/
                 page_text_1 = "Welcome, #{name}"
@@ -285,9 +294,9 @@ feature 'Client admin and the digest email for tiles' do
             click_button 'Send now'
             crank_dj_clear
 
-            all_emails.should have(3).emails  # 2 claimed guys, and the 'admin' created at top of tests
+            all_emails.should have(4).emails  # 2 claimed users, the 'site-admin', and the 'client-admin' (created at top of tests)
 
-            %w(admin@hengage.com wc@clark.com taj@mahal.com).each do |address|
+            %w(client-admin@hengage.com wc@clark.com taj@mahal.com).each do |address|
               expect_digest_to(address)
             end
           end
