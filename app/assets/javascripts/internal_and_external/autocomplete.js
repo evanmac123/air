@@ -185,8 +185,6 @@ function resizeFaceboxToFitSuggestions(){
   var show_div_height = show_div.height();
   var extra = 10;
   var new_height = show_div_height + extra;
-  var facebox_version = $("#facebox .content");
-  facebox_version.css("height", new_height);
   var page_version = $(".invite-module");
   page_version.css("height", new_height);
 }
