@@ -67,7 +67,7 @@ feature 'Sees helpful dates in tile manager' do
 
     it "should show when it was activated" do
       within "#{tile_cell(@tile)}.active" do
-        expect_content "Since #{7.days.ago.strftime('%-m/%-d/%Y')}"
+        expect_content "since #{7.days.ago.strftime('%-m/%-d/%Y')}"
       end
     end
   end
@@ -79,7 +79,7 @@ feature 'Sees helpful dates in tile manager' do
       click_link "Digest email"
 
       expect_no_content "Active 2 days"
-      expect_no_content "Since"
+      expect_no_content "since"
     end
   end
 end
