@@ -1,21 +1,26 @@
-.player-avatar, .player-info, .follow_buttons {
-    display: inline-block;
-    vertical-align: top;
-}
-.player-info {
-    margin-left:1em;
-    .headline {
-        color:$text-color;
-        padding:.5em 0;
-    }
-}
 #about-player {
     padding-top:2em;
     position:relative;
-    .follow_buttons {
-        position:absolute;
-        right:0;
-        top:3em;
+    .player-avatar, .player-info {
+        display: inline-block;
+        vertical-align: top;
+    }
+    .player-avatar {width:23%;}
+    .player-info {
+        padding-left:1em;
+        width:75%;
+        .headline {
+            border-top:0;
+            color:$text-color;
+            padding:0 0 .5em 0;
+            width:100%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    }
+    .pending_notice{
+        color: #aaa;
+        padding: .5em 0;
     }
 }
 

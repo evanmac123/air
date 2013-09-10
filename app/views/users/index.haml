@@ -1,44 +1,44 @@
-#main.left-col
-  #directory_wrapper
-    .directory.module
-      %h1.headline Other Players
-      - if @search_string
-        #notify_of_search
-          %h2.subhead
-            Showing search results for
-            %i
-              = @search_string
+.row
+  #secondary.large-4.push-8.columns
+    #search_box_wrapper
+      #search-box.module
+        %h1.headline Search
+        -#.search_nudge Don't see the person you're looking for? Try searching
+        #search
+          = form_tag users_path, :method => :get do
+            = label_tag "search_string", "search bar", :class => :hidden
+            = text_field_tag "search_string"
+            .button_wrap
+              = submit_tag "Find!", :id => "find_button", :class => "button_norm"
+  #main.large-8.pull-4.columns
+    #directory_wrapper
+      .directory.module
+        %h1.headline Other Players
+        - if @search_string
+          #notify_of_search
+            %h2.subhead
+              Showing search results for
+              %i
+                = @search_string
 
-        %ul#other-users
-          - @other_users.each do |u|
-            %li.user.relative
-              .user-avatar
-                =link_to user_path(u) do
-                  = avatar_96(u) 
-              .user-info
-                .user-name_email
-                  %p= link_to u.name, user_path(u), :class => 'name-of-user'
-                = render 'follow_buttons', :user => u
+          %ul#other-users
+            - @other_users.each do |u|
+              %li.user.relative
+                .user-avatar
+                  =link_to user_path(u) do
+                    = avatar_96(u) 
+                .user-info
+                  .user-name_email
+                    %p= link_to u.name, user_path(u), :class => 'name-of-user'
+                  = render 'follow_buttons', :user => u
 
-      - else
-        %p Use the search box at right to search for someone
-      - if @users_cropped
-        .focus_on_search_bar{:style => "display: inline;"}
-          = "(First #{@users_cropped} results returned. Didn't find who you're looking for? Try" 
-          = link_to @search_link_text, '#'
-          )    
-      / .seemore
-      /   = image_tag "v3/arrow-down.png"
-      /   = link_to "See more", '#', :id => 'see-more'
-#secondary.right-col
-  #search_box_wrapper
-    #search-box.module
-      %h1.headline Search
-      -#.search_nudge Don't see the person you're looking for? Try searching
-      #search
-        = form_tag users_path, :method => :get do
-          = label_tag "search_string", "search bar", :class => :hidden
-          = text_field_tag "search_string"
-          .button_wrap
-            = submit_tag "Find!", :id => "find_button", :class => "button_norm"
-
+        - else
+          %p Use the search box at right to search for someone
+        - if @users_cropped
+          .focus_on_search_bar{:style => "display: inline;"}
+            = "(First #{@users_cropped} results returned. Didn't find who you're looking for? Try" 
+            = link_to @search_link_text, '#'
+            )    
+        / .seemore
+        /   = image_tag "v3/arrow-down.png"
+        /   = link_to "See more", '#', :id => 'see-more'

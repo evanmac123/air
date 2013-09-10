@@ -33,12 +33,15 @@
 @import "./internal/tiles.css.scss";
 
 /* RWD */
-$lessthanFoundation: $foundation - 1;
 @media only screen and (min-width: 319px) {
   @import "./internal/screen_iphone.css.scss";
 }
-@media only screen and (min-width: 500px) and (max-width: $lessthanFoundation) {
+@media only screen and (min-width: 500px) {
   @import "./internal/screen_tablet.css.scss";
+}
+$lessthanFoundation: $foundation - 1;
+@media only screen and (min-width: 500px) and (max-width: $lessthanFoundation) {
+  @import "./internal/mast_tablet.css.scss";
 }
 @media only screen and (min-width: $foundation) {
   @import "./internal/appbar.css.scss";

@@ -1,42 +1,43 @@
-.left-col
-  #about-player.module
-    .player-avatar
-      = avatar_96(@user)
+.row 
+  .large-8.columns
+    #about-player.module
+      .player-avatar
+        = avatar_96(@user)
+        
+      %ul.player-info
+        %li
+          %h1.headline= @user.name
+        %li 
+          = render 'follow_buttons', :user => @user
+
+    #recent-activity.module
+      %h1.headline Recent Activity
+      - unless @display_user_stats
+        = render 'follow_link'
+      - else
+        %ul#user-acts
+          %li.act-shim
+          = render :partial => 'shared/act', :collection => @acts, :as => :act
+      = render 'shared/see_more'
+  = content_for :javascript do
+    :javascript
+      var actOffset = #{@acts.length};
+
+      $('#see-more').bind('click', function(e) {
+        $('#see-more-spinner').show();
+        $.get('#{ user_acts_path(:user_id => @user.id, :format => :js)}', {offset: actOffset});
+        e.preventDefault();
+      });
       
-    %ul.player-info
-      %li
-        %h1.headline= @user.name
+  .large-4.columns
+    = render 'accepted_friends'
+    - if @display_pending_friendships  
+      #followed-by.module
+        %h1.headline#friend_requests_title Your Friend Requests
+        %ul#friend_requests
+          - @pending_friends.each do |friend|
+            %li.user
+              %p.user-name= link_to friend.name, user_path(friend)
 
-    = render 'follow_buttons', :user => @user
-
-  #recent-activity.module
-    %h1.headline Recent Activity
-    - unless @display_user_stats
-      = render 'follow_link'
-    - else
-      %ul#user-acts
-        %li.act-shim
-        = render :partial => 'shared/act', :collection => @acts, :as => :act
-    = render 'shared/see_more'
-= content_for :javascript do
-  :javascript
-    var actOffset = #{@acts.length};
-
-    $('#see-more').bind('click', function(e) {
-      $('#see-more-spinner').show();
-      $.get('#{ user_acts_path(:user_id => @user.id, :format => :js)}', {offset: actOffset});
-      e.preventDefault();
-    });
-    
-.right-col
-  = render 'accepted_friends'
-  - if @display_pending_friendships  
-    #followed-by.module
-      %h1.headline#friend_requests_title Your Friend Requests
-      %ul#friend_requests
-        - @pending_friends.each do |friend|
-          %li.user
-            %p.user-name= link_to friend.name, user_path(friend)
-
-      .cf
+        .cf
 

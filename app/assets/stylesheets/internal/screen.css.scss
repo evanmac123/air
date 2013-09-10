@@ -27,12 +27,6 @@ body {
 		    }
 		}
 	}
-	.left-col, .right-col {
-		display:inline-block;
-		vertical-align: top;
-	}
-	.left-col {width:63%;}
-	.right-col {float:right; width:34%;}
 	.module {
 		border-top:$border-dark;
     	margin-top:2em;

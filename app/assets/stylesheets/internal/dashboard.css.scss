@@ -3,7 +3,15 @@ h1.headline {border-top:1px $white solid}
     margin-bottom:2em;
     &:after {@include clear;}
     .avatar43, .act-details {display:inline-block;}
-    .avatar43 img {border:$border-light; height:74px; width:74px;}
+    .avatar43 {
+        width:13%;
+        max-height:74px;
+        max-width:74px;
+    }
+    .avatar43 img {
+        border:$border-light; 
+        width:100%;
+    }
     .act-details {
         background:$white;
         float:right;

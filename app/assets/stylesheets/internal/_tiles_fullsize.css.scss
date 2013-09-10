@@ -1,10 +1,6 @@
-// .container {
-//   border:1px blue solid;
-// }
 .tiles.tiles-index {
   // Full size tiles holder
   #slideshow {
-    // border:1px red solid;
     position:relative;
     width:85%!important;
     &:after{@include clear;}

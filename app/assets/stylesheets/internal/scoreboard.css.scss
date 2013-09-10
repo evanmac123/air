@@ -3,6 +3,7 @@ $height_scoreboard_bar: 14px;
 
 #scoreboard-module .wrap {background:$white;}
 
+// Actual progress bar
 .tight_bar{
   height: $height_scoreboard_bar;
   width: $width_scoreboard_bar;
@@ -57,6 +58,7 @@ $height_scoreboard_bar: 14px;
 }
 table.scoreboard{
   margin-bottom: 0;
+  table-layout: fixed;
   td{border: none; padding:0;}
   tr{
     // Put background on td instead of tr so it works in IE
@@ -64,12 +66,20 @@ table.scoreboard{
   }
   #scoreboard_spacer{height: 11px;}
   .user-name{
-    width: 181px;
+    width:47%;
     padding:1em 0.5em;
     height: 33px;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
-  .user-tickets {padding:0 .5em; width:50px;}
-  .user-progress{padding-left: .65em;}
+  .user-tickets {
+    padding:0 .5em; 
+    width:18%;
+  }
+  .user-progress{
+    padding-left: .65em;
+    width:35%;
+  }
 
   
 }
@@ -97,9 +107,7 @@ table.scoreboard{
 }
 
 
-#this_is_me *{
-  color: orange;
-}
+#this_is_me *{color: $orange;}
 
 #scoreboard_headers{
   background:$med-gray;
@@ -114,10 +122,12 @@ table.scoreboard{
     color: $white;
   }
   #username_header, #userlevel_header, #userprogress_header {padding-left:.5em;}
-  #username_header{width: 181px;}
+  #username_header{width:47%;}
   #userlevel_header{
     border-left: 1px solid darken($med-gray, 10%);
     border-right: 1px solid darken($med-gray, 10%);
     padding-right:.5em;
+    width:18%;
   }
+  #userprogress_header {width:35%;}
 }

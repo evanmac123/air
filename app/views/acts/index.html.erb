@@ -9,57 +9,67 @@
 </div>
 
 
+<div class="row">
+  <div id="feed_wrapper" class="large-8 columns">
+    <div class="feeds module">
 
-<div id="feed_wrapper" class="left-col">
-  <div class="feeds module">
+      <h1 class="headline" id="feeds_title">Activity</h1>
 
-    <h1 class="headline" id="feeds_title">Activity</h1>
+  	    <% content_for :javascript do %>
+  	      <%= javascript_tag do %>
+  	        $('#show-more-tiles').click(function(){
+  	          if ($('.overflow-tiles').css('display') == 'none'){
+                $('#show-more-tiles').text('Show less');
+                setTimeout("$('.grey-show-more-arrows').attr('src', '<%= asset_path 'v3/arrow-up.png' %>')", 300);
+  	          }else{
+                $('#show-more-tiles').text('Show more');	
+                setTimeout("$('.grey-show-more-arrows').attr('src', '<%= asset_path 'v3/arrow-down.png' %>')", 300);            
+  	          }
+              $('.overflow-tiles').fadeToggle('slow');
+            })
+  	      <% end %>
+  	    <% end %>
 
-	    <% content_for :javascript do %>
-	      <%= javascript_tag do %>
-	        $('#show-more-tiles').click(function(){
-	          if ($('.overflow-tiles').css('display') == 'none'){
-              $('#show-more-tiles').text('Show less');
-              setTimeout("$('.grey-show-more-arrows').attr('src', '<%= asset_path 'v3/arrow-up.png' %>')", 300);
-	          }else{
-              $('#show-more-tiles').text('Show more');	
-              setTimeout("$('.grey-show-more-arrows').attr('src', '<%= asset_path 'v3/arrow-down.png' %>')", 300);            
-	          }
-            $('.overflow-tiles').fadeToggle('slow');
-          })
-	      <% end %>
-	    <% end %>
+        <ul id="user-acts">
+  	      <%= render :partial => "shared/act", :collection => @acts, :as => :act %>
+        </ul>
 
-      <ul id="user-acts">
-	      <%= render :partial => "shared/act", :collection => @acts, :as => :act %>
-      </ul>
+        <%= render 'shared/see_more' %>
 
-      <%= render 'shared/see_more' %>
+        <%= image_tag 'spinner.gif', :id => 'see-more-spinner', :style => 'display:none' %>
 
-      <%= image_tag 'spinner.gif', :id => 'see-more-spinner', :style => 'display:none' %>
+  	    <%= render 'shared/bind_see_more', 
+  	      :offset_var_name     => 'actOffset', 
+  	      :current_offset      => @acts.length,
+  	      :button_selector     => '#see-more',
+  	      :spinner_selector    => '#see-more-spinner',
+  	      :original_path       => acts_path(:format => :js, :show_only => @show_only, :mode => 'see-more'),
+  	      :path_var_name       => 'actsPath',
+  	      :mixpanel_event_name => 'saw more acts'
+  	    %>
 
-	    <%= render 'shared/bind_see_more', 
-	      :offset_var_name     => 'actOffset', 
-	      :current_offset      => @acts.length,
-	      :button_selector     => '#see-more',
-	      :spinner_selector    => '#see-more-spinner',
-	      :original_path       => acts_path(:format => :js, :show_only => @show_only, :mode => 'see-more'),
-	      :path_var_name       => 'actsPath',
-	      :mixpanel_event_name => 'saw more acts'
-	    %>
+  	</div>
+  </div>
 
-	</div>
+  <div class="large-4 columns">
+    <div class="module" id="scoreboard-module">
+      <%= render 'scoreboard', :user => @current_user %>
+    </div>
+    <div class="module" id="invite-module">
+      <%= render :partial => "invite_your_friends" %>  
+    </div>
+  </div>
+
 </div>
 
-<div class="right-col">
-  <div class="module" id="scoreboard-module">
-    <%= render 'scoreboard', :user => @current_user %>
-  </div>
-  <div class="module" id="invite-module">
-    <%= render :partial => "invite_your_friends" %>  
+<div id='faq_mini'>
+  <div id='faq_mini_inner'>
+    <%= render 'pages/faq_mini' %>
+    <br />
+    <div class="Standard">Thanks for reading! Enter "<span class='green bold'>game on</span>" in the play box to earn 3 pts!</div>
+    <%= button_to "Get More Help", faq_path, :method => :get, :style => "float: left;" %>
   </div>
 </div>
-
 <% if @tutorial_step.try(:show_introduction) %>
   <div id='tutorial_introduction'>
     <div id='tutorial_introduction_inner'>

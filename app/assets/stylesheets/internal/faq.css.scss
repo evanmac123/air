@@ -1,16 +1,17 @@
 /* --------------------------- faq --------------------------- */
 body.pages-faq .content {
     // FAQ body content
-    .left-col h1.headline {padding-bottom:0;}
+    .large-8 h1.headline {padding-bottom:0;}
     h1.Section- {
         background:$white;
+        font-family:$open-400;
         font-size:1.75em;
         margin:1em 0;
         padding:.5em;
     }
     h2.Subsection- {
         border-top:$border-dark;
-        font-weight:500;
+        font-family:$open-600;
         font-size:1.15em;
         margin-top:.5em;
         padding:1em 0;
@@ -18,10 +19,11 @@ body.pages-faq .content {
     h3.Subsubsection- {
         color:$blue;
         font-size:1em;
+        font-family:$open-600;
         padding-bottom:1em;
     }
-    .left-col .Standard, ul, ol {padding-bottom:1em;}
-    .left-col ul, ol {list-style-type:disc; margin-left:1.25em;}
+    .large-8.Standard, ul, ol {padding-bottom:1em;}
+    .large-8 ul, ol {list-style-type:disc; margin-left:1.25em;}
 
     // FAQ menu
     .need_help {

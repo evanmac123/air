@@ -1,18 +1,19 @@
-body.settings .left-col .module_inner {background:$white; margin-bottom:1em; padding:1em;}
-body.settings .right-col .module_inner {margin-bottom:1em;}
+body.settings .large-8 .module_inner {background:$white; margin-bottom:1em; padding:1em;}
+body.settings .large-4 .module_inner {margin-bottom:1em;}
 
 // Left side
 #about_user {
-    .avatar_image, .avatar_inputs {
-        display:inline-block;
-        vertical-align: middle;
-    }
     .avatar_inputs {
-        margin: 0 0 0 1em;
-        form {display:inline-block;}
-        .set-avatar .button_wrap {@include square-button-wrap($dark-green);}
-        .set-avatar input[type="submit"] {@include square-button($dark-green);}
-        .clear-avatar .button_wrap {@include square-button-wrap($light-gray);}
+        // form {display:inline-block;}
+        .set-avatar {
+            margin:1em 0;
+            .button_wrap {@include square-button-wrap($dark-green);}
+            input[type="submit"] {@include square-button($dark-green);}
+        }
+        .clear-avatar .button_wrap {
+            @include square-button-wrap($light-gray);
+            font-size:.85em;
+        }
         .clear-avatar input[type="submit"] {@include square-button($light-gray);}
     }
 
@@ -28,16 +29,11 @@ body.settings .right-col .module_inner {margin-bottom:1em;}
             #username_change, #gender_change {
                 padding:1em;
                 vertical-align: top;
-                width:50%;
             }
             #username_change {
-                border-right:1px lighten($light-gray, 7%) solid;
-                float:left;
                 input[type="text"] {margin-top:1em; width:93%;}
             }
             #gender_change {
-                float:right;
-                padding-left:1em;
                 li {display:inline-block; margin-right:1em;}
                 li label {display:inline-block;}
             }
@@ -52,12 +48,10 @@ label[for="user_new_phone_validation"] {padding-bottom:1em;}
 #password_change {
     form {background:$white; padding-bottom:1em;}
     ul {
-        display: inline-block;
-        float:left;
         margin-bottom:0;
-        width:50%;
         input[type="password"] {width:97%;}
     }
+    ul + ul {padding-top:0;}
     .button_wrap {clear:both; margin-left:1em;}
 }
 
@@ -67,3 +61,5 @@ label[for="user_new_phone_validation"] {padding-bottom:1em;}
 #notification_settings li {display:inline-block; margin-right:1em;}
 #notification_settings li label {display:inline-block;}
 #settings_new_number_verification {margin-bottom: 2em;}
+
+#user_phone_number {width:100%;}
