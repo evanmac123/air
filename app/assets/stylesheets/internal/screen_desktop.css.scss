@@ -13,7 +13,7 @@ header {
       &:first-of-type {margin-left:0;}
       a {
         color:$text-color;
-        font-family:$open-300;
+        font-family:$sans;
         font-size:1.25em;
         &:before{
           background:image-url('v5/sprites.png') -1px -1px transparent no-repeat;

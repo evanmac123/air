@@ -1,15 +1,24 @@
 #search {
-    height:37px;
+    height:40px;
     &:after{@include clear;}
     #search_string, .button_wrap {float:left;}
+    #search_string, #find_button {
+        font-size:1em;
+        line-height: 1em;
+        padding:.5em;
+    }
     #search_string {
+        font-family:$open-400;
+        height:40px;
         margin:0; 
-        padding:1.3em;
+        padding:.85em;
         width:80%;
     }
+    .button_wrap {width:20%;}
     #find_button {
         border-bottom:1px $dark-green solid;
-        padding:.5em .5em;
+        height:38px;
+        width:100%;
     }
 }
 
