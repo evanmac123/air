@@ -14,12 +14,17 @@
 
 #chart-options {
     margin-bottom: 2em;
+    position: relative;
     li {
         display:inline-block;
         margin-right:0.5em;
-
+        &#chart-dates * {display: inline-block;}
         &#chart-dates span, &#chart-labeling span {color:$gray; font-size:.75em; text-transform: uppercase;}
-        &#show-button {float:right; margin-right:0;}
+        &#show-button {
+            position: absolute;
+            right:0;
+            top:30%;
+        }
         &#chart-labeling {margin-right:.25em;}
         &#chart-spinner {
             vertical-align:middle;
