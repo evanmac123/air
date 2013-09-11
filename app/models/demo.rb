@@ -34,6 +34,8 @@ class Demo < ActiveRecord::Base
 
   validates_inclusion_of :tile_digest_email_send_on, :in => TILE_DIGEST_EMAIL_SEND_ON, :allow_nil => true
 
+  validates_inclusion_of :tile_digest_email_follow_up, in: (0..10), allow_nil: true
+
   validates_uniqueness_of :name
   validates_presence_of :name
 

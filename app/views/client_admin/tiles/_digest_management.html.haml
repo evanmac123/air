@@ -14,6 +14,16 @@
                                 data: {action: client_admin_tiles_digest_notification_path }
   = image_tag 'spinner.gif', id: 'update-send-to-spinner', class: 'update-digest-spinner'
 
+%dif.follow_up
+  A follow-up digest email will be sent
+  - options = (0..10).map { |day| [day == 0 ? 'Never' : day, day] }
+  = select_tag :digest_follow_up, options_for_select(options, @demo.tile_digest_email_follow_up.to_s),
+                                  data: {action: client_admin_tiles_digest_notification_path }
+  = image_tag 'spinner.gif', id: 'update-follow-up-spinner', class: 'update-digest-spinner'
+  days after the original
+  %br
+  to all users who have not interacted with any of the tiles
+
 %div#digest-status-messages
   %span#feedback
   %a{:href => "/pages/static_digest", :target => "_blank"} See an example

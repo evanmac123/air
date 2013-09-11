@@ -38,10 +38,22 @@ $(document).ready(function() {
     $.post(path, params, showFeedback);
   };
 
+  var followUpChange = function() {
+    var followUp = $(this).val();
+    var path = $(this).attr('data-action');
+
+    var params = {_method: 'put', follow_up: followUp};
+    params = add_csrf_protection(params);
+
+    $('#update-follow-up-spinner').show();
+    $.post(path, params, showFeedback);
+  };
+
   // -------------------------------------------------------
 
   $('#tile-manager-tabs, #tile-reports-tabs').tabs();
 
   $('#digest_send_on').change(sendOnDayChange);
   $('#digest_send_to').change(sendToChange);
+  $('#digest_follow_up').change(followUpChange);
 });

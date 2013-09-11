@@ -14,10 +14,10 @@ class ClientAdmin::TilesDigestNotificationsController < ClientAdminBaseControlle
   end
 
   def update
-    if params[:send_on]
-      update_send_on
-    else
-      update_send_to
+    case
+      when params[:send_on]   then update_send_on
+      when params[:send_to]   then update_send_to
+      when params[:follow_up] then update_follow_up
     end
   end
 
@@ -41,6 +41,14 @@ class ClientAdmin::TilesDigestNotificationsController < ClientAdminBaseControlle
       "Only joined users will get digest emails"
     end
 
+    render text: feedback
+  end
+
+  def update_follow_up
+    @demo.update_attributes tile_digest_email_follow_up: params[:follow_up].to_i
+
+    feedback = params[:follow_up] == '0' ? 'Follow-up digest email will not be sent' :
+                                           "Follow-up digest email will be sent #{params[:follow_up]} #{params[:follow_up] == '1' ? 'day' : 'days'} after the original"
     render text: feedback
   end
 end
