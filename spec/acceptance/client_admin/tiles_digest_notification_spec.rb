@@ -25,6 +25,10 @@ feature 'Client admin and the digest email for tiles' do
     have_select 'digest_send_to', {selected: selected}
   end
 
+  def have_follow_up_selector(selected)
+    have_select 'digest_follow_up', {selected: selected}
+  end
+
   def change_send_on(day)
     select day, from: 'digest_send_on'
   end
@@ -33,12 +37,20 @@ feature 'Client admin and the digest email for tiles' do
     select send_to, from: 'digest_send_to'
   end
 
+  def change_follow_up(num_days)
+    select num_days, from: 'digest_follow_up'
+  end
+
   def set_send_on(day)
     demo.update_attributes tile_digest_email_send_on: day
   end
 
   def set_last_sent_on(day)
     demo.update_attributes tile_digest_email_sent_at: day_to_time(day)
+  end
+
+  def set_follow_up(num_days)
+    demo.update_attributes tile_digest_email_follow_up: num_days
   end
 
   def expect_digest_to(recipient)
@@ -106,13 +118,16 @@ feature 'Client admin and the digest email for tiles' do
       select_tab 'Digest email'
 
       digest_tab.should have_send_on_selector('Never')
-      digest_tab.should have_button 'Send now'
+      digest_tab.should have_follow_up_selector('Never')
 
       set_send_on 'Tuesday'
+      set_follow_up '2'
+
       refresh_tile_manager_page
       select_tab 'Digest email'
 
       digest_tab.should have_send_on_selector('Tuesday')
+      digest_tab.should have_follow_up_selector('2')
     end
 
     scenario "The 'send-on' drop-down control updates the day and time, and displays a confirmation message", js: true do
@@ -176,6 +191,24 @@ feature 'Client admin and the digest email for tiles' do
       change_send_to 'all users'
       visit tile_manager_page
       digest_tab.should have_send_to_selector('all users')
+    end
+
+    scenario "The 'follow-up' drop-down control updates the num-days and displays a confirmation message", js: true do
+      create_tile
+      visit tile_manager_page
+      select_tab 'Digest email'
+
+      digest_tab.should have_follow_up_selector('Never')
+
+      change_follow_up '1'
+
+      digest_tab.should have_follow_up_selector('1')
+      digest_tab.should contain 'Follow-up digest email will be sent 1 day after the original'
+
+      change_follow_up '10'
+
+      digest_tab.should have_follow_up_selector('10')
+      digest_tab.should contain 'Follow-up digest email will be sent 10 days after the original'
     end
 
     scenario 'The last-digest-email-sent-on date is correct', js: true do

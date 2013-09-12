@@ -12,3 +12,7 @@
           %tr
             %td{:style => "font-family: helvetica, arial, sans-serif; background:#292929; color:#fff; text-align:left; padding:10px; word-wrap:break-word;", :height => "90", :width => "190", :valign => "top"}
               = tile.headline
+          - if display_supporting_content
+            %tr
+              %td
+                = tile.supporting_content

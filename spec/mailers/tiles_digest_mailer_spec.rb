@@ -14,9 +14,9 @@ describe 'Digest email' do
   let(:unclaimed_user) { FactoryGirl.create :user,         demo: demo, name: 'Irma Thomas',   email: 'irma@thomas.com'   }
 
   let(:tile_ids) do
-    create_tile headline: 'Phil Kills Kittens',        status: Tile::ACTIVE, activated_at: Time.now
-    create_tile headline: 'Phil Knifes Kittens',       status: Tile::ACTIVE, activated_at: Time.now
-    create_tile headline: 'Phil Kannibalizes Kittens', status: Tile::ACTIVE, activated_at: Time.now
+    create_tile headline: 'Phil Kills Kittens',        status: Tile::ACTIVE, activated_at: Time.now, supporting_content: '6 kittens were killed'
+    create_tile headline: 'Phil Knifes Kittens',       status: Tile::ACTIVE, activated_at: Time.now, supporting_content: '66 kittens were knifed'
+    create_tile headline: 'Phil Kannibalizes Kittens', status: Tile::ACTIVE, activated_at: Time.now, supporting_content: '666 kittens were kannibalized'
 
     create_tile headline: "Archive Tile", status: Tile::ARCHIVE  # This guy shouldn't show up in the email
 
@@ -111,6 +111,24 @@ describe 'Digest email' do
     it { should have_selector 'td img[alt="Phil Knifes Kittens"]'}
     it { should have_selector 'td img[alt="Phil Kills Kittens"]'}
     it { should have_selector 'td img[alt="Phil Kannibalizes Kittens"]'}
+  end
+
+  describe 'Supporting Content' do
+    context "original digest email should not display the tile's supporting content" do
+      subject { TilesDigestMailer.notify_one(demo.id, claimed_user.id, tile_ids) }
+
+      it { should_not have_body_text '6 kittens were killed' }
+      it { should_not have_body_text '66 kittens were knifed' }
+      it { should_not have_body_text '666 kittens were kannibalized' }
+    end
+
+    context "follow-up digest email should display the tile's supporting content" do
+      subject { TilesDigestMailer.notify_one(demo.id, claimed_user.id, tile_ids, true) }
+
+      it { should have_body_text '6 kittens were killed' }
+      it { should have_body_text '66 kittens were knifed' }
+      it { should have_body_text '666 kittens were kannibalized' }
+    end
   end
 
   describe 'Footer' do

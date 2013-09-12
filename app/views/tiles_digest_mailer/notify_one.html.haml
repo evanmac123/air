@@ -20,7 +20,7 @@
             %tbody
               -# Note: To change the number of tiles per row, simply change the "(n)" to whatever your little ol' heart desires
               - @tiles.each_slice(3) do |tiles|
-                = render partial: 'tile_row', locals: {tiles: tiles, site_link: site_link}
+                = render partial: 'tile_row', locals: {tiles: tiles, site_link: site_link, display_supporting_content: @display_supporting_content}
           %table{:id => "mail_footer", :cellpadding => "0", :cellspacing => "15", :width => "100%", :style => "margin:0; text-align:center;"}
             %tr
               %td

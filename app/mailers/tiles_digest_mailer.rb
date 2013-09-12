@@ -33,11 +33,14 @@ class TilesDigestMailer < ActionMailer::Base
     demo.update_attributes tile_digest_email_sent_at: Time.now
   end
 
-  def notify_one(demo_id, user_id, tile_ids)
+  def notify_one(demo_id, user_id, tile_ids, display_supporting_content = false)
     @demo  = Demo.find demo_id
     @user  = User.find user_id
     # Can't just use 'Tile.find tile_ids' because results not in same order as ids in array
     @tiles = Tile.where(id: tile_ids).order('activated_at DESC')
+
+    # For the follow-up digest email
+    @display_supporting_content = display_supporting_content
 
     # For the footer...
     @invitation_url = @user.claimed? ? nil : invitation_url(@user.invitation_code, protocol: email_link_protocol, host: email_link_host)
