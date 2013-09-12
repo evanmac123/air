@@ -38,6 +38,7 @@ module Health
       external/external_ie8.css
       external/standalone_ie8.css
       internal/internal_ie8.css
+      client_admin/client_admin_ie8.css
       app-admin.js
       app-internal.js
       app-external.js
