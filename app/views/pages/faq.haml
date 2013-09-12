@@ -14,18 +14,18 @@
   
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-.row
-  #faq_toc.module.large-4.push-8.columns
-    .need_help
-      %h1.headline Need more help?
-      %div.button_wrap
-        = button_to 'Take Quick Tour', tutorial_path, :class => :quick_tour_link
-      %div.button_wrap#contact_button
-        = button_to 'Contact Us', '#', :class => :contact_us_link, :method => :get, :onclick =>"return false"
-    .faq_menu
-      = render 'faq_toc'
-  #faq_body.module.large-8.pull-4.columns
-    %h1.headline Frequently Asked Questions
-    = render 'faq_body'
-  = content_for :javascript do
-    = mp_track_page 'faq'
+#faq_body.module.left-col
+  %h1.headline Frequently Asked Questions
+  = render 'faq_body'
+= content_for :javascript do
+  = mp_track_page 'faq'
+
+#faq_toc.module.right-col
+  .need_help
+    %h1.headline Need more help?
+    %div.button_wrap
+      = button_to 'Take Quick Tour', tutorial_path, :class => :quick_tour_link
+    %div.button_wrap#contact_button
+      = button_to 'Contact Us', '#', :class => :contact_us_link, :method => :get, :onclick =>"return false"
+  .faq_menu
+    = render 'faq_toc'

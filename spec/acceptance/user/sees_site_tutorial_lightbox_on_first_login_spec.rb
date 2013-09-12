@@ -25,11 +25,14 @@ feature "The site tutorial" do
       within(site_tutorial_lightbox_selector) { expect_content site_tutorial_content }
     end
 
-    scenario "makes lightbox go away by clicking a link", js: true do
+    scenario "makes lightbox go away by clicking a link, and doesn't see it again on going away and returning to activity page", js: true do
       within(site_tutorial_lightbox_selector) do
         click_link "Close"
         expect_no_site_tutorial_lightbox
       end
+
+      visit activity_path
+      expect_no_site_tutorial_lightbox
     end
   end
 
@@ -43,7 +46,5 @@ feature "The site tutorial" do
       expect_no_site_tutorial_lightbox
       expect_no_content site_tutorial_content
     end
-
-    scenario 'can summon site tutorial lightbox from the help page'
   end
 end
