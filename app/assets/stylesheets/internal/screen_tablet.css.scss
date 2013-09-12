@@ -16,6 +16,30 @@
   .player-avatar {width:auto;}
 }
 
+/* -- Directory search results -- */
+#other-users .user {
+  .user-avatar {
+    max-width:75px;
+  }
+  .user-info {
+    float:none;
+    margin-left:2em;
+    width:77%;
+  }
+}
+// affects Directory and Profile pages
+.follow_buttons {
+  &:after{@include clear;}
+  .pending_notice, .follow-button, .stop-following-btn {
+    display: inline-block;
+    vertical-align: baseline;
+  }
+  .pending_notice {
+    // margin:.7em 0 0 1em;
+    margin-left:1em;
+  }
+}
+
 /* -- Settings -- */
 #about_user {
   .avatar_image, .avatar_inputs {
