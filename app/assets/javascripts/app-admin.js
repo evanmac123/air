@@ -9,4 +9,6 @@
 
 //= require_tree ../../../vendor/assets/javascripts/admin/.
 //= require_tree ./admin/.
+//= require ../../../vendor/assets/javascripts/internal/jquery.jpanelmenu.min
+//= require ../../../vendor/assets/javascripts/internal/jRespond.min
 
