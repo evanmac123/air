@@ -107,11 +107,6 @@ class Demo < ActiveRecord::Base
     example_tooltip.blank? ? default : example_tooltip
   end
   
-  def example_tutorial_or_default
-    default = "ate a banana"
-    example_tutorial.blank? ? default : example_tutorial
-  end
-
   def welcome_message(user=nil)
     custom_message(
       :custom_welcome_message,

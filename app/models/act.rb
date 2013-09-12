@@ -33,7 +33,7 @@ class Act < ActiveRecord::Base
     check_timed_bonuses
 
     trigger_tiles
-    schedule_mixpanel_ping unless user.tutorial_active?
+    schedule_mixpanel_ping
   end
 
   scope :recent, lambda {|max| order('created_at DESC').limit(max)}
@@ -124,7 +124,7 @@ class Act < ActiveRecord::Base
     else
       reply = find_and_record_rule_suggestion(value, user)
       record_bad_message(phone_number, body, reply)
-      user.schedule_rule_suggestion_mixpanel_ping unless user.tutorial_active?
+      user.schedule_rule_suggestion_mixpanel_ping
       return parsing_error_message(reply)
     end
   end

@@ -1,3 +1,6 @@
+// If you think this file is bad, you should have seen it before I worked on 
+// it. --Phil, 9/11/2013.
+
 $(function() {
   
   $("#command_central").click(function(){
@@ -24,13 +27,6 @@ $(function() {
     })
   };
 
-
-  //launchTutorialIntroduction();
-  
-  $('#show_tutorial').click(function(){
-    showTutorial();
-  });
-  
   $('#add-new-user').live('click', function() {
     $('#new_user').parent('.hidden-form').show();
     $('#user_name').focus();
@@ -105,39 +101,4 @@ function autoFocusColor(field, text){
       field.addClass(color_class);          
     }
   });
-}
-
-/*function launchTutorialIntroduction(){*/
-//[>  if (document.getElementById('tutorial_introduction')){<]
-    ////mixpanelPagePingForTalkingChicken();
-    ////var div = $('#tutorial_introduction');
-    ////var intro_content = div.html();
-    ////var options = {hideOnOverlayClick : false,
-                    ////showCloseButton	 : false,
-                    ////speedIn : 1200, // Time it takes to fade in the intro slide
-                    ////speedOut : 200 // Time to fade out the intro slide if they decline
-                  ////};
-    ////$.fancybox(intro_content, options);
-    ////div.hide();
-  //[>}<]
-
-  //$('#get_started_lightbox').lightbox_me();
-/*}*/
-
-function mixpanelPagePingForTalkingChicken(){
-  $.post('/ping', {page_name: 'talking chicken'});
-}
-
-function mixpanelPagePingForActivityFeed(){
-  $.post('/ping', {page_name: 'activity feed'});
-}
-
-function hideTutorialIntroduction(){
-  $('#fancybox-wrap').hide();
-  $('#fancybox-overlay').hide();
-}
-
-function showTutorialIntroduction(){
-  $('#fancybox-wrap').fadeIn(2777);
-  $('#fancybox-overlay').fadeIn(5000);
 }

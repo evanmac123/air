@@ -22,11 +22,7 @@ class UsersController < Clearance::UsersController
       end
     end
 
-    if invoke_tutorial
-      # tutorial ping already sent, so we won't send a 'viewed page' ping
-    else
-      current_user.ping_page('user directory', :game => current_user.demo.name)
-    end
+    current_user.ping_page('user directory', :game => current_user.demo.name)
   end
 
   def show
@@ -52,9 +48,7 @@ class UsersController < Clearance::UsersController
       @display_pending_friendships = true if @viewing_self || current_user.is_site_admin       
     end
     
-    if invoke_tutorial
-      # tutorial ping already sent, so we don't send 'viewed page' pings
-    elsif @viewing_self
+    if @viewing_self
       current_user.ping_page 'own profile'
     elsif @viewing_other
       current_user.ping_page("profile for someone else", {:viewed_person => @user.name, :viewed_person_id => @user.id})

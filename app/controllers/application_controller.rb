@@ -147,54 +147,6 @@ class ApplicationController < ActionController::Base
     self.current_user = nil
   end
 
-  def invoke_tutorial
-    return nil unless current_user.reload.tutorial_active?
-    example_command = current_user.demo.example_tutorial_or_default
-    advance_tutorial
-    @tutorial_step = current_user.current_tutorial_step
-    #TutorialStep.new(current_user.tutorial.current_step)
-  end
-
-  # TODO: This clearly doesn't belong here. It's not readily apparent where we
-  # could put it, though.
-
-  def advance_tutorial
-    tutorial = current_user.tutorial
-    path_info = @_env['PATH_INFO']
-    case tutorial.current_step
-    when 0 # Introductory Slide
-      # They click the "next slide" button to advance
-    when 1 # Click It!
-      tutorial.bump_step if path_info == tiles_path
-    when 2  # Read for Points
-      Tutorial.seed_example_user(current_user.demo)
-      if path_info == tiles_path
-        tutorial.bump_step if session.delete(:talking_chicken_sample_tile_done)
-      elsif path_info == activity_path
-        tutorial.back_up_a_step
-      end
-    when 3  # See Activity
-      # They click the "next slide" button to advance
-    when 4  # Click Connect
-      tutorial.bump_step if path_info == "/users"
-    when 5  # Search for Someone
-      if @other_users.present?
-        tutorial.bump_step
-        Tutorial.unfriend_kermit_from(current_user)
-      end
-    when 6  # Follow Someone from the Search Results
-      tutorial.back_up_a_step unless @other_users.present?
-      tutorial.bump_step if tutorial.friend_followed_since_tutorial_start
-    when 7
-      tutorial.bump_step if path_info == user_path(current_user)
-    when 8
-      tutorial.ended_at = Time
-    else
-      # Do nothing
-    end
-      
-  end
- 
   def set_talking_chicken_sample_tile_done(context)
     session[:talking_chicken_sample_tile_done] = true if current_user.just_did_tutorial_sample_tile(context)
   end

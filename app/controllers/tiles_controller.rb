@@ -4,8 +4,6 @@ class TilesController < ApplicationController
   before_filter :get_position_description, :only => :index
 
   def index
-    invoke_tutorial
-
     @start_tile = if start_tile_id.to_s == '0'
                     current_user.sample_tile
                   else
@@ -13,7 +11,6 @@ class TilesController < ApplicationController
                   end
 
     @all_tiles_done = satisfiable_tiles.empty?
-
     session.delete(:start_tile)
   end
 

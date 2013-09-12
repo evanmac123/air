@@ -3,10 +3,9 @@ require 'acceptance/acceptance_helper'
 feature 'Does multiple choice tile sample tile' do
   before do
     @demo = FactoryGirl.create(:demo, tutorial_type: 'multiple_choice')
-    @user = FactoryGirl.create(:user, demo: @demo)
+    @user = FactoryGirl.create(:user, :sample_tile_not_yet_done, demo: @demo)
 
     visit activity_path(as: @user)
-    click_link 'Enter Site'
     page.find('#tile-thumbnail-0').click # Tile 0 is the sample tile
   end
 
@@ -22,9 +21,6 @@ feature 'Does multiple choice tile sample tile' do
   scenario "only allows user to get points for the tile once", js: :webkit do
     click_link "I learned how tiles work."
     expect_content "That's right! Points 5"
-
-    click_link "I learned how tiles work."
-    expect_no_content "That's right! Points 10"
-    expect_content "That's right! Points 5"
+    expect_content "You've completed all available tiles"
   end
 end

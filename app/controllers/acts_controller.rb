@@ -37,12 +37,10 @@ class ActsController < ApplicationController
       return if response_body.present?
     end
 
-    invoke_tutorial
-
     @current_link_text = "Home"
     @current_user = current_user
     
-    @current_user.ping_page('activity feed') unless @current_user.tutorial_active?
+    @current_user.ping_page('activity feed')
 
     
     @demo                  = current_user.demo
@@ -71,11 +69,7 @@ class ActsController < ApplicationController
 
     redirect_to :back
 
-    if current_user.tutorial_active?
-      set_talking_chicken_sample_tile_done(:keyword)
-    else
-      current_user.ping('used activity entry box')   
-    end
+    current_user.ping('used activity entry box')   
   end
 
   add_method_tracer :index

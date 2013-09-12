@@ -688,7 +688,7 @@ class User < ActiveRecord::Base
       reciprocal_friendship = other.friendships.create(:friend_id => self.id, :state => 'pending')
       reciprocal_friendship.update_attribute(:request_index, friendship.request_index)
     end
-    ping('fanned', mixpanel_properties) unless tutorial_active?
+    ping('fanned', mixpanel_properties)
 
     friendship
   end
@@ -766,15 +766,6 @@ class User < ActiveRecord::Base
     new_flashes
   end
 
-  def tutorial_active?
-    tutorial = self.tutorial
-    if tutorial
-      return false if tutorial.ended_at
-      return true
-    end
-    return false
-  end
-  
   def create_tutorial_if_none_yet
     if self.tutorial.nil?
       tut = Tutorial.create(:user_id => self.id)

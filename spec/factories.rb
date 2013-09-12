@@ -19,6 +19,7 @@ FactoryGirl.define do
   
   factory :user,  :parent => :unnamed_user do 
     name "James Earl Jones"
+    sample_tile_completed true
 
     trait :claimed do
       accepted_invitation_at Time.now
@@ -34,6 +35,10 @@ FactoryGirl.define do
 
     trait :with_location do
       association :location
+    end
+
+    trait :sample_tile_not_yet_done do
+      sample_tile_completed false
     end
   end
 
