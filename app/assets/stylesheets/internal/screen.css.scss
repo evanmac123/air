@@ -32,5 +32,17 @@ body {
     	margin-top:2em;
 	}
 }
+
+// Flash message shadows
+#flash_failure {
+  box-shadow: inset 0px 3px 6px 0px darken($red, 15%);
+}
+#flash_notice {
+  box-shadow: inset 0px 3px 6px 0px darken($gray, 15%);
+}
+#flash_success {
+  box-shadow: inset 0px 3px 6px 0px darken($dark-green, 15%);
+}
+
 .jPanelMenu-panel {background:image-url('v5/bg.jpg')!important;}
 #footer {margin:2em 0;}

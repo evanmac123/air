@@ -1,67 +1,51 @@
 #flash {
-  text-align:left;
-  margin:0 auto;
-  width:$body-width;
-  position: relative;
-  z-index: 11;
-  a#close-flash span {
-    display:inline-block;
-    cursor:pointer;
-    font-family:$open-600;
-    margin:7px 0 0 15px;
-    position:absolute;
+  margin-bottom:2em;
+  .row {
+    padding:1.5em 1em;
+    position: relative;
   }
-  p {
-    display:block;
-    margin:5px 0;
-    &:first-child {font-weight:bold;}
+  .flash-content {
+    padding-left:0;
+    padding-right:2em;
+    line-height: 1.5em;
+    a {border-bottom:1px $white dashed;}
   }
-  table {border-spacing:0; margin:0;}
-  td {
-    border:0;
-    margin:0;
-    padding:0;
+  .flash-close {
+    position: absolute;
+    top:.5em;
+    right:1em;
+    a {
+      display: inline-block;
+      font-family: $open-600;
+      padding:.1em .3em;
+    }
   }
-  tr.f-bottom td {height:11px;}
-  tr.f-top td {height:31px;}
-  td.f-left {box-sizing:border-box; width:40px;}
-    td.f-right {box-sizing:border-box; width:30px;}
 }
+
 #flash_failure, #flash_notice, #flash_success {
-    background:none;
-    border:0;
-    color:#353535;
-    font-weight:medium;
-    max-width:520px;
-    min-width:400px;
-    padding:0;
-    position:relative;
-    text-align:left;
-    margin:0;
-    top:-.65em;
-    left:0;
+  border:0;
+  border-radius: 0;
+  color:$white;
+  font-family: $open-400;
+  margin:0;
+  padding:0;
+  a {
+    color:$white;
+    font-family: $open-600;
+  }
 }
 #flash_failure {
-    a#close-flash span {color:darken(#e4d881, 10%);}
-    tr.f-bottom td.f-center {background:url('v3/flash/flash-bc-failure.png') repeat-x left center;}
-    tr.f-bottom td.f-left{background:url('v3/flash/flash-bl-failure.png') no-repeat left center;} 
-    tr.f-bottom td.f-right{background:url('v3/flash/flash-br-failure.png') no-repeat right center;} 
-    tr.f-middle td {background:url('v3/flash/flash-fail.png') #fdf097 repeat-x center top;}
-    tr.f-middle td.f-left {border-left:1px #e4d881 solid;}
-    tr.f-middle td.f-right {border-right:1px #e4d881 solid;}
-    tr.f-top td.f-center {background:url('v3/flash/flash-tc-failure.png') repeat-x left center;}
-    tr.f-top td.f-left {background:url('v3/flash/flash-tl-failure.png') no-repeat left center;}
-    tr.f-top td.f-right {background:url('v3/flash/flash-tr-failure.png') no-repeat right center;}
+  background: $red;
+  .flash-content a {border-color:lighten($red, 30%);}
+  .flash-close a {background: darken($red, 15%)}
 }
-#flash_success, #flash_notice {
-    a#close-flash span {color:darken(#b2d876, 10%);}
-    tr.f-bottom td.f-center {background:url('v3/flash/flash-bc-success.png') repeat-x left center;}
-    tr.f-bottom td.f-left{background:url('v3/flash/flash-bl-success.png') no-repeat left center;} 
-    tr.f-bottom td.f-right{background:url('v3/flash/flash-br-success.png') no-repeat right center;} 
-    tr.f-middle td {background:url('v3/flash/flash-success.png') #d1f795 repeat-x center top;}
-    tr.f-middle td.f-left {border-left:1px #b2d876 solid;}
-    tr.f-middle td.f-right {border-right:1px #b2d876 solid;}
-    tr.f-top td.f-center {background:url('v3/flash/flash-tc-success.png') repeat-x left center;}
-    tr.f-top td.f-left {background:url('v3/flash/flash-tl-success.png') no-repeat left center;}
-    tr.f-top td.f-right {background:url('v3/flash/flash-tr-success.png') no-repeat right center;}
+#flash_notice {
+  background: $gray;
+  .flash-content a {border-color:lighten($gray, 30%);}
+  .flash-close a {background: darken($gray, 15%)}
+}
+#flash_success {
+  background: $dark-green;
+  .flash-content a {border-color:lighten($dark-green, 30%);}
+  .flash-close a {background: darken($dark-green, 15%)}
 }

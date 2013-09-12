@@ -65,6 +65,7 @@ header {
     a {
       display: inline-block;
       background: $blue;
+      border-bottom:3px darken($blue, 7%) solid;
       color:$white;
       padding:.75em 1em;
     }
