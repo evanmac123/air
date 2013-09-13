@@ -1,0 +1,94 @@
+<!--[if lt IE 9]>
+  <div id="ie_bg">
+    <%= image_tag "marketing/ipad_view@2x.png", "alt" => "Employee communication platform" %>
+  </div>
+<![endif]-->
+
+<header class="row">
+  <div class="columns large-5" id="logo">
+    <%= image_tag "v4/logo.png", alt: "H.Engage" %>
+  </div>
+</header>
+
+<section id="welcome">
+  <div class="row">
+    <div class="imagery">
+      <%= image_tag "marketing/ipad_view.png", "alt" => "Employee communication platform" %>
+    </div>
+    <div class="large-5 columns" id="intro_text">
+      <h2>
+        Create beautiful employee communications in five minutes that will actually be read.
+      </h2>
+      <p>
+        Engage employees. Save time following up.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section id="signup">
+  <div class="row">
+    <div class="large-5">
+      <form id="signup_form" class="large-12">
+        <label for="contact_email">Start free, no credit card needed</label>
+        <input type="email" id="contact_email" name="email" placeholder="enter your email" />
+        <input type="submit" value="Get your free account" />
+      </form>
+      <div id="signup_responses" class="large-12">
+        <div id="submitting_signup_form" class="response_message" style="display: none">Please wait...</div>
+        <div id="signup_error" class="response_message" style="display: none">Please enter an accurate email</div>
+        <div id="signup_thanks" class="response_message" style="display: none">Thanks! We're currently backlogged about a day. We'll email you as soon as your account is ready.</div>
+      </div>
+      <p class="caption">
+        Already a user?
+        <a href="/sign_in" class="sign_in">Sign in</a>
+      </p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="row">
+    <ul id="initial_landing_footer">
+      <li><a href="/pages/marketing" class="learn_more">Learn more</a></li>
+      <li><a href="/pages/pricing" class="pricing">Pricing</a></li>
+      <li><a href="http://blog.hengage.com" class="blog">Blog</a></li>
+      <li><a href="/sign_in" class="sign_in">Sign in</a></li>
+    </ul>
+    <p class="copyright">Copyright &copy; 2013 H.Engage, Inc.</p>
+  </div>
+</footer>
+
+<script>
+$("[placeholder]").placeholder();
+
+$('#initial_landing_footer .learn_more').click(function() { mpq.track("Initial landing, Learn More click", {}); });
+$('#initial_landing_footer .pricing').click(function() { mpq.track("Initial landing, Pricing click", {}); });
+$('#initial_landing_footer .blog').click(function() { mpq.track("Initial landing, Blog click", {}); });
+$('.sign_in').click(function() { mpq.track("Initial landing, Sign In click", {}); });
+$('#contact_email').click(function() { mpq.track("Initial landing, Contact Email field highlighted", {}); });
+
+$('#signup_form').submit(function(e) {
+  e.preventDefault();
+  $('#signup_error, #signup_thanks').hide();
+
+  var trimmedEmail = $.trim($('#contact_email').val());
+
+  if(trimmedEmail == '') {
+    $('#signup_error').slideDown();
+  } else {
+    $('#submitting_signup_form').show();
+    $.post( 
+      '<%= email_info_requests_path %>', 
+      {contact_email: trimmedEmail, contact_comment: "From Sept 2013 landing", silent: true}, 
+      function() {
+        $("#contact_email").prop('disabled', true);
+        $('#signup_thanks').slideDown();
+        $('#submitting_signup_form').hide();
+        mpq.track("Initial landing, Sign Up form submitted", {});
+      }
+    )
+  }
+});
+</script>
+<%= mp_track_page 'initial landing' %>

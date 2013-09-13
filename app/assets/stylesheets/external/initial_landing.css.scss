@@ -1,0 +1,93 @@
+body {
+  font-family:$sans;
+  font-size:1em;
+  min-width:100%;
+  position: static;
+}
+
+header {
+  background: $white;
+  padding:1em 0;
+  #logo img {
+    width:100%;
+    max-width:65%;
+  }
+}
+
+#welcome {
+  #intro_text {
+    padding:1em;
+    h2 {
+      color:lighten($text-color, 10%);
+      font-family:$open-600;
+      font-size:1.125em;
+      line-height:1.5em;
+    }
+    p {
+      margin-top:.5em;
+    }
+  }
+}
+
+#signup {
+  padding:.5em 1em 2em 1em;
+  position: relative;
+  form {
+    margin:0 0 .5em;
+    label {
+      color:$gray;
+      font-family:$open-600;
+      margin-bottom:.5em;
+    }
+    input[type="email"] {
+      background: lighten($light-gray, 10%);
+      border:1px $light-gray solid;
+      box-shadow:none;
+      font-size:1em;
+      margin-bottom:0;
+      &:hover, &:focus {
+        background: $white;
+        border-color:$dark-green;
+      }
+      &:disabled {
+        border-color:darken($light-gray, 10%);
+        background:$light-gray;
+        color:lighten($med-gray, 7%);
+      }
+    }
+    input[type="submit"] {
+      @include pop-button($dark-green);
+      display: inline-block;
+      font-size:.875em;
+      margin-top:.5em;
+      width:100%;
+    }
+  }
+  .caption {
+    font-size:.875em;
+    a {@include link($blue);}
+  }
+
+  // signup responses
+  #signup_responses {
+    font-family:$open-600;
+    line-height: 1.35em;
+    padding-bottom:.75em;
+    #signup_error {
+      color:$red;
+    }
+    #signup_thanks {
+      color:$dark-green;
+    }
+  }
+}
+
+footer {
+  background: $white;
+  border-top:$border-dark;
+  padding:1em;
+  padding-top:2em;
+  ul a, ul a:link, ul a, ul a:visited {@include link($gray);}
+  ul, .copyright {font-size:.875em;}
+  .copyright {font-size:.875em; margin-top:1em;}
+}

@@ -1,0 +1,42 @@
+ header {
+    #logo {width:40%;}
+    #logo img {max-width:100%;}
+  }
+  #welcome {
+    #intro_text h2 {font-size:1.25em;}
+    .imagery {
+      img {display: none;}
+      background: image-url('marketing/ipad_view@2x.png') $white center center no-repeat;
+      background-size:100%;
+      padding:25% 0;
+    }
+  }
+  #signup form {
+    &:after{@include clear;}
+    input[type="email"], input[type="submit"] {
+      display: inline-block;
+      float: left;
+    }
+    input[type="email"] {
+      width:62%;
+    }
+    input[type="submit"] {
+      font-size:1em;
+      margin:0;
+      width:38%;
+    }
+  }
+  footer {
+    &:after{@include clear;}
+    ul li {
+      display: inline-block;
+      padding:0 .5em 0 0;
+    }
+    ul li + li {
+      border-left:$border-dark;
+      padding:0 .5em;
+    }
+    ul, .copyright {display: inline-block;}
+    ul {float: left;}
+    .copyright {float: right;  margin-top:.2em;}
+  }

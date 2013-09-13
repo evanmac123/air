@@ -237,6 +237,8 @@ select {
 /* ============= Color bars ============= */
 body {
     border-top:7px $dark-green solid;
+    font-family:$sans;
+    font-size:100%;
     margin:0;
     position: static;
     height:100%; 
