@@ -1,7 +1,7 @@
 require 'acceptance/acceptance_helper'
 
 feature "User sees correct values in master bar" do
- def master_bar_progress_selector
+  def master_bar_progress_selector
     ".progress"
   end
 
