@@ -240,11 +240,15 @@ describe Tile do
   describe ".displayable_to_user" do 
     before(:each) do
       Demo.find_each {|f| f.destroy}
+
       @fun = FactoryGirl.create(:demo, name: 'Fun')
       @not_fun = FactoryGirl.create(:demo, name: 'Not so Fun')
+
       @leah = FactoryGirl.create(:user, name: 'Leah', demo: @fun)
+
       @water_plants = FactoryGirl.create(:tile, demo: @fun, headline: 'Water plants')
       @already_watered = FactoryGirl.create(:tile_completion, tile: @water_plants, user: @leah)
+
       @wash = FactoryGirl.create(:tile, demo: @fun, headline: 'Wash the Dishes')
       @dry = FactoryGirl.create(:tile, demo: @not_fun, headline: 'Dry the Dishes')
       @color_after_washing = FactoryGirl.create(:tile, demo: @fun, headline: 'Choose a beautiful color for your wall')
@@ -260,30 +264,18 @@ describe Tile do
       Tile.count.should == 8
     end
 
-    it "should only display current tiles that have not been completed yet" do
+    it "should only display active, current tiles that have not been completed yet" do
       tiles = Tile.displayable_to_user(@leah)
-      tiles.length.should == 3
+      tiles.length.should == 2
       tiles.map(&:id).should include(@wash.id)
       tiles.map(&:id).should include(@color_after_washing.id)
-      # Note that water plants will show up as its last time to display, since it's been completed
-      tiles.map(&:id).should include(@water_plants.id)
-    end
-
-    it "should not display current tiles that have been archived" do
-      tiles = Tile.displayable_to_user(@leah)
-      tiles.length.should == 3
-      tiles.should_not include(@archived_wash)
-      tiles.should_not include(@archived_dry)
     end
 
     it "should only display tiles whose prerequisites have been completed" do
       # Set up a prerequisite
       Prerequisite.create!(tile: @color_after_washing, prerequisite_tile: @wash)
       tiles = Tile.displayable_to_user(@leah)
-      tiles.length.should == 2
-      tiles.map(&:id).should include (@wash.id)
-      tiles.map(&:id).should include (@water_plants.id)
-      tiles.map(&:id).should_not include(@color_after_washing.id)
+      tiles.map(&:id).should == [@wash.id]
     end
   end
 

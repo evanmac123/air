@@ -37,11 +37,8 @@ feature 'Admin manually completes tile for user' do
     visit activity_path(as: user)
     expect_content "Tile 2"
     expect_content "Tile 3"
-    expect_content "Tile 1" # needs to fade away...
+    expect_no_content "Tile 1"
     expect_no_content "Tile 4"
-
-    visit activity_path(as: user)
-    expect_no_content "Tile 1" # needs to fade away...
   end
 
 end

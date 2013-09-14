@@ -149,16 +149,7 @@ class Tile < ActiveRecord::Base
   end
 
   def self.displayable_to_user(user)
-    satisfiable_tiles = satisfiable_to_user(user)
-    recently_completed_ids = user.tile_completions.waiting_to_display_one_final_time.map(&:tile_id)
-    recently_completed_tiles = Tile.where(id: recently_completed_ids)
-    
-    # Set the 'display_completion_on_this_request' flag if it was /just/ completed
-    recently_completed_tiles = recently_completed_tiles.map do |tile|
-      tile.display_completion_on_this_request = true
-      tile
-    end
-    (satisfiable_tiles + recently_completed_tiles).sort_by(&:activated_at).reverse
+    satisfiable_to_user(user).sort_by(&:activated_at).reverse
   end
 
   def self.satisfiable_by_rule_to_user(rule_or_rule_id, user)

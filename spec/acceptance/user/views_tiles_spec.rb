@@ -19,6 +19,7 @@ feature 'User views tile' do
   end
 
   scenario 'views tile image', js: true do
+    # Click on the first tile, and it should take you to the tiles  path
     page.find("#tile-thumbnail-#{@discover_fire.id}").click
     should_be_on tiles_path
 
