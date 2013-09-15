@@ -110,4 +110,9 @@ feature 'User views tiles' do
       expect_right_answer_reaction
     end
   end
+
+  context 'loaded in batches, with a "See More" link' do
+    it "should show the first N in the first batch"
+    it "should load the next N on clicking See More"
+  end
 end

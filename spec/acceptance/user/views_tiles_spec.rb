@@ -3,7 +3,7 @@ require 'acceptance/acceptance_helper'
 feature 'User views tile' do
   before(:each) do
     @demo = FactoryGirl.create(:demo)
-    @kendra = FactoryGirl.create(:user, demo_id: @demo.id, password: 'milking')
+    @kendra = FactoryGirl.create(:user, demo_id: @demo.id, password: 'milking', session_count: 5)
 
     ['make toast', 'discover fire'].each do |tile_headline|
       FactoryGirl.create(:tile, headline: tile_headline, demo: @demo)
@@ -20,7 +20,7 @@ feature 'User views tile' do
 
   scenario 'views tile image', js: true do
     # Click on the first tile, and it should take you to the tiles  path
-    page.find("#tile-thumbnail-#{@discover_fire.id}").click
+    click_link 'discover fire'
     should_be_on tiles_path
 
     expect_current_tile_id(@discover_fire)
