@@ -127,8 +127,6 @@ feature 'User views tiles' do
       13.times {|n| FactoryGirl.create(:tile, status: 'active', headline: "Tile Number #{n}", demo: @demo)}
       
       visit activity_path(as: user)
-      # We should have killed this chicken months ago
-      page.all('#no_thanks_tutorial').to_a.select{|x| x.visible?}.first.click
     end
 
     it "should show the first N in the first batch" do
@@ -136,6 +134,10 @@ feature 'User views tiles' do
     end
 
     it "should load the next N on clicking See More", js: true do
+      # We should have killed this chicken months ago
+      sleep 10
+      page.all('#no_thanks_tutorial').to_a.select{|x| x.visible?}.first.click
+
       show_more_tiles_link.click
       expect_thumbnail_count(12)
 
