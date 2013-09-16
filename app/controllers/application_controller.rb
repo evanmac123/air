@@ -1,6 +1,8 @@
 class ApplicationController < ActionController::Base
   FLASHES_ALLOWING_RAW = %w(notice)
 
+  TILE_BATCH_SIZE_INCREMENT = 6
+
   before_filter :sniff_browser_version
   before_filter :force_ssl 
   before_filter :authorize
@@ -66,6 +68,11 @@ class ApplicationController < ActionController::Base
 
   def wrong_phone_validation_code_error
     "Sorry, the code you entered was invalid. Please try typing it again."
+  end
+
+  def tile_batch_size
+    base_batch_size = (params[:base_batch_size] || 0).to_i
+    base_batch_size + TILE_BATCH_SIZE_INCREMENT - (base_batch_size % TILE_BATCH_SIZE_INCREMENT)
   end
 
   private

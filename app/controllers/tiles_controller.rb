@@ -14,6 +14,12 @@ class TilesController < ApplicationController
 
     @all_tiles_done = satisfiable_tiles.empty?
     session.delete(:start_tile)
+
+    if params[:partial_only]
+      render_tile_wall
+    else
+      invoke_tutorial
+    end
   end
 
   def show
@@ -71,5 +77,9 @@ class TilesController < ApplicationController
     end
 
     @_satisfiable_tiles
+  end
+
+  def render_tile_wall
+    render partial: "shared/tile_wall", locals: {tiles: Tile.displayable_to_user_with_sample(current_user, tile_batch_size)}
   end
 end

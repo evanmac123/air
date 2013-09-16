@@ -186,12 +186,16 @@ class Tile < ActiveRecord::Base
     end
   end
 
-  def self.displayable_to_user_with_sample(user)
+  def self.displayable_to_user_with_sample(user, maximum_tiles = nil)
     displayable_tiles = displayable_to_user(user)
     if user.sample_tile_completed
-      displayable_tiles
+      displayable_tiles = displayable_tiles.prepend(user.sample_tile)
+    end
+
+    if maximum_tiles
+      displayable_tiles[0, maximum_tiles]
     else
-      displayable_tiles.prepend(user.sample_tile)
+      displayable_tiles
     end
   end
 

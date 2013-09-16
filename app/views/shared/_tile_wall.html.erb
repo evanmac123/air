@@ -1,0 +1,8 @@
+<div class="all_tile_thumbnails row">
+  <% tiles.each do |tile| %>
+    <div class="tile_thumbnail">
+      <%= render 'shared/displayable_tile', displayable_tile: tile %>
+    </div>
+  <% end %>
+  <%= render 'shared/tiles_wall_client_admin_tools' %>
+</div>

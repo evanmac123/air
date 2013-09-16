@@ -43,6 +43,14 @@ feature 'User views tiles' do
     expect_content "That's right! Points 10/20, Tix 1" 
   end
 
+  def show_more_tiles_link
+    page.find('a.show_more_tiles')
+  end
+
+  def expect_thumbnail_count(expected_count)
+    page.all('.tile-wrapper').should have(expected_count).tiles
+  end
+
   context 'of the keyword variety' do
     scenario 'and all the extra cool stuff around them' do
       tile = FactoryGirl.create(:keyword_tile, supporting_content: "Vote Quimby", question: "Who should you vote for?")
@@ -112,7 +120,36 @@ feature 'User views tiles' do
   end
 
   context 'loaded in batches, with a "See More" link' do
-    it "should show the first N in the first batch"
-    it "should load the next N on clicking See More"
+    before do
+      @demo = FactoryGirl.create(:demo)
+      user = FactoryGirl.create(:user, demo: @demo, sample_tile_completed: true)
+
+      13.times {|n| FactoryGirl.create(:tile, status: 'active', headline: "Tile Number #{n}", demo: @demo)}
+      
+      visit activity_path(as: user)
+      # We should have killed this chicken months ago
+      page.all('#no_thanks_tutorial').to_a.select{|x| x.visible?}.first.click
+    end
+
+    it "should show the first N in the first batch" do
+      expect_thumbnail_count(6)
+    end
+
+    it "should load the next N on clicking See More", js: true do
+      show_more_tiles_link.click
+      expect_thumbnail_count(12)
+
+      show_more_tiles_link.click
+      expect_thumbnail_count(13)
+
+      # Hey look, here comes everybody!
+      6.times {|n| FactoryGirl.create(:tile, status: 'active', headline: "Second Batch Tile #{n}", demo: @demo)}
+
+      show_more_tiles_link.click
+      expect_thumbnail_count(18)
+
+      show_more_tiles_link.click
+      expect_thumbnail_count(19)
+    end
   end
 end
