@@ -50,7 +50,7 @@ feature 'Client admin and the digest email for tiles' do
   end
 
   def set_follow_up(num_days)
-    demo.update_attributes tile_digest_email_follow_up: num_days
+    demo.update_attributes follow_up_digest_email_days: num_days
   end
 
   def expect_digest_to(recipient)

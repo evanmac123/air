@@ -17,7 +17,7 @@
 %div.follow_up
   A follow-up digest email will be sent
   - options = (0..10).map { |day| [day == 0 ? 'Never' : day, day] }
-  = select_tag :digest_follow_up, options_for_select(options, @demo.tile_digest_email_follow_up.to_s),
+  = select_tag :digest_follow_up, options_for_select(options, @demo.follow_up_digest_email_days.to_s),
                                   data: {action: client_admin_tiles_digest_notification_path }
   = image_tag 'spinner.gif', id: 'update-follow-up-spinner', class: 'update-digest-spinner'
   days after the original

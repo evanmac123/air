@@ -39,4 +39,13 @@ module ClientAdmin::TilesHelper
       "Active " + (distance_of_time_in_words tile.activated_at, Time.now) + "; since " + tile.activated_at.strftime('%-m/%-d/%Y')
     end
   end
+
+  # We display a different heading if the schmuck... er, customer, didn't interact with any of the tiles in the first digest email
+  def digest_email_heading_begin
+    @follow_up_email ? 'Did you forget to check out your' : 'Check out your'
+  end
+
+  def digest_email_heading_end
+    @follow_up_email ? '?' : '!'
+  end
 end

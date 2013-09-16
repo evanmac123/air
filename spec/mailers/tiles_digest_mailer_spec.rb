@@ -54,13 +54,27 @@ describe 'Digest email' do
   end
 
   describe 'Text' do
-    subject { TilesDigestMailer.notify_one(demo.id, claimed_user.id, tile_ids) }
+    # Note that the bottom text is the same for both original and follow-up
 
-    it { should have_body_text 'Check out your' }
-    it { should have_link 'new tiles' }
+    context "original digest email should display its title" do
+      subject { TilesDigestMailer.notify_one(demo.id, claimed_user.id, tile_ids) }
 
-    it { should have_body_text 'Interact, earn points, and see how your colleagues are doing!' }
-    it { should have_link 'View your tiles' }
+      it { should have_body_text 'Check out your' }
+      it { should have_link 'new tiles' }
+
+      it { should have_body_text 'Interact, earn points, and see how your colleagues are doing!' }
+      it { should have_link 'View your tiles' }
+    end
+
+    context "follow-up digest email should display its title" do
+      subject { TilesDigestMailer.notify_one(demo.id, claimed_user.id, tile_ids, true) }
+
+      it { should have_body_text 'Did you forget to check out your' }
+      it { should have_link 'new tiles' }
+
+      it { should have_body_text 'Interact, earn points, and see how your colleagues are doing!' }
+      it { should have_link 'View your tiles' }
+    end
   end
 
   describe 'Links' do

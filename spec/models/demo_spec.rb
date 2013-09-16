@@ -12,7 +12,7 @@ describe Demo do
   it { should have_many(:characteristics) }
   it { should have_one(:skin) }
 
-  it {should ensure_inclusion_of(:tile_digest_email_follow_up).in_range(0..10) }
+  it {should ensure_inclusion_of(:follow_up_digest_email_days).in_range(0..10) }
 end
 
 describe Demo, "when both begins_at and ends_at are set" do

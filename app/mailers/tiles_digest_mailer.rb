@@ -7,9 +7,16 @@ class TilesDigestMailer < ActionMailer::Base
 
   include EmailHelper  # Well, the 'helper' above method might include it into the view, but it don't include it in here
 
+  def noon
+    Date.today.midnight.advance(hours: 12)
+  end
+
   def notify_all_from_delayed_job
-    noon = Date.today.midnight.advance(hours: 12)
     Demo.send_digest_email.each { |demo| TilesDigestMailer.delay(run_at: noon).notify_all(demo.id) }
+  end
+
+  def notify_all_follow_up_from_delayed_job
+    FollowUpDigestEmail.send_follow_up_digest_email.each { |followup| TilesDigestMailer.delay(run_at: noon).notify_all_follow_up(followup.id) }
   end
 
   def notify_all(demo_id, tile_ids = [])
@@ -17,7 +24,7 @@ class TilesDigestMailer < ActionMailer::Base
 
     user_ids = demo.users_for_digest.pluck(:id)
 
-    # Called from controller/view "Send Now" => 'tile_ids' will be supplied.
+    # Called from controller/view "Send Now" button => 'tile_ids' will be supplied.
     # Called from weekly cron-job method above => need to find 'tile_ids' ourselves...
     # ... unless the user has changed the 'send_on_day' for this demo, e.g. if the email was scheduled to
     # go out on Monday and it is Monday (or else we wouldn't be executing this method) and he says
@@ -31,16 +38,32 @@ class TilesDigestMailer < ActionMailer::Base
     user_ids.each { |user_id| TilesDigestMailer.delay.notify_one(demo_id, user_id, tile_ids) }
 
     demo.update_attributes tile_digest_email_sent_at: Time.now
+
+    unless demo.follow_up_digest_email_days.nil? or demo.follow_up_digest_email_days == 0
+      FollowUpDigestEmail.create demo_id:  demo_id,
+                                 tile_ids: tile_ids,
+                                 send_on:  Date.today + demo.follow_up_digest_email_days.days,
+                                 unclaimed_users_also_get_digest: demo.unclaimed_users_also_get_digest
+    end
   end
 
-  def notify_one(demo_id, user_id, tile_ids, display_supporting_content = false)
+  def notify_all_follow_up(followup_id)
+    followup = FollowUpDigestEmail.find followup_id
+
+    user_ids = followup.demo.users_for_digest(followup.unclaimed_users_also_get_digest).pluck(:id)
+    user_ids.each { |user_id| TilesDigestMailer.delay.notify_one(followup.demo.id, user_id, followup.tile_ids, true) }
+
+    followup.destroy
+  end
+
+  def notify_one(demo_id, user_id, tile_ids, follow_up_email = false)
     @demo  = Demo.find demo_id
     @user  = User.find user_id
     # Can't just use 'Tile.find tile_ids' because results not in same order as ids in array
     @tiles = Tile.where(id: tile_ids).order('activated_at DESC')
 
     # For the follow-up digest email
-    @display_supporting_content = display_supporting_content
+    @follow_up_email = follow_up_email
 
     # For the footer...
     @invitation_url = @user.claimed? ? nil : invitation_url(@user.invitation_code, protocol: email_link_protocol, host: email_link_host)

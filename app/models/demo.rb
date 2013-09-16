@@ -34,7 +34,7 @@ class Demo < ActiveRecord::Base
 
   validates_inclusion_of :tile_digest_email_send_on, :in => TILE_DIGEST_EMAIL_SEND_ON, :allow_nil => true
 
-  validates_inclusion_of :tile_digest_email_follow_up, in: (0..10), allow_nil: true
+  validates_inclusion_of :follow_up_digest_email_days, in: (0..10), allow_nil: true
 
   validates_uniqueness_of :name
   validates_presence_of :name
@@ -84,8 +84,17 @@ class Demo < ActiveRecord::Base
     tiles.digest(self)
   end
 
-  def users_for_digest
-    if unclaimed_users_also_get_digest
+  # Originally just sent one digest email. Then decided to send a follow-up digest email to slacker users.
+  #
+  # So if we don't pass in a param => revert to the original implementation which queries the state of this
+  # flag at the moment the call is made (i.e. when the original digest email is actually being delivered.)
+  #
+  # But... the follow-up email needs to (a) save the state of the 'unclaimed_users_also_get_digest' flag
+  # at the time the original email is sent so it can (b) use that same state when the follow-up email is sent.
+  # When that's the case a param (i.e. the original state) will be supplied to this method - and we will use that.
+  def users_for_digest(for_follow_up = nil)
+    condition = for_follow_up.nil? ? unclaimed_users_also_get_digest : for_follow_up
+    if condition
       users
     else
       users.claimed

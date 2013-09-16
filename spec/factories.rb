@@ -327,4 +327,8 @@ FactoryGirl.define do
 
   factory :payment do |payment|
   end
+
+  factory :follow_up_digest_email do
+    association :demo
+  end
 end

@@ -45,7 +45,7 @@ class ClientAdmin::TilesDigestNotificationsController < ClientAdminBaseControlle
   end
 
   def update_follow_up
-    @demo.update_attributes tile_digest_email_follow_up: params[:follow_up].to_i
+    @demo.update_attributes follow_up_digest_email_days: params[:follow_up].to_i
 
     feedback = params[:follow_up] == '0' ? 'Follow-up digest email will not be sent' :
                                            "Follow-up digest email will be sent #{params[:follow_up]} #{params[:follow_up] == '1' ? 'day' : 'days'} after the original"
