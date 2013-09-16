@@ -50,8 +50,11 @@ class TilesDigestMailer < ActionMailer::Base
   def notify_all_follow_up(followup_id)
     followup = FollowUpDigestEmail.find followup_id
 
+    tile_ids = followup.tile_ids
     user_ids = followup.demo.users_for_digest(followup.unclaimed_users_also_get_digest).pluck(:id)
-    user_ids.each { |user_id| TilesDigestMailer.delay.notify_one(followup.demo.id, user_id, followup.tile_ids, true) }
+
+    user_ids.reject! { |user_id| TileCompletion.user_completed_any_tiles?(user_id, tile_ids)}
+    user_ids.each    { |user_id| TilesDigestMailer.delay.notify_one(followup.demo.id, user_id, tile_ids, true) }
 
     followup.destroy
   end
