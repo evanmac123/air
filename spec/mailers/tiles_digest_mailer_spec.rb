@@ -3,8 +3,8 @@ require "spec_helper"
 include TileHelpers
 include EmailHelper
 
-# This spec tests for content (not delivery, which is in /acceptance/client_admin/tiles_digest_notification_spec.rb), so
-# it calls 'TilesDigestMailer.notify_one' directly, without delivering the email.
+# This spec tests for content (not delivery, which is in /acceptance/client_admin/tiles_digest_notification_spec.rb),
+# so it calls 'TilesDigestMailer.notify_one' directly, without delivering the email.
 # That method returns a 'mail' object, whose content is then tested.
 
 describe 'Digest email' do
@@ -176,7 +176,7 @@ end
 # we can rest assured that the tiles in the email are in the right order.
 #
 # Need to construct these tests outside the context of the main 'describe' block above because stubbing
-# out these methods wreaks havoc with the objects created in the 'let' methods contained within that block.
+# the methods that we need to wreaks havoc with the objects created in the 'let' methods contained within that block.
 #
 # Also, don't need to test with real data => can just stub out anything that gets called in the process.
 # This includes the contents of the digest email itself, which gets rendered as part of the 'view' process.

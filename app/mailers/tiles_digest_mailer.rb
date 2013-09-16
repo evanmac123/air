@@ -39,7 +39,7 @@ class TilesDigestMailer < ActionMailer::Base
 
     demo.update_attributes tile_digest_email_sent_at: Time.now
 
-    unless demo.follow_up_digest_email_days.nil? or demo.follow_up_digest_email_days == 0
+    unless demo.follow_up_digest_email_days.blank? or demo.follow_up_digest_email_days == 0
       FollowUpDigestEmail.create demo_id:  demo_id,
                                  tile_ids: tile_ids,
                                  send_on:  Date.today + demo.follow_up_digest_email_days.days,

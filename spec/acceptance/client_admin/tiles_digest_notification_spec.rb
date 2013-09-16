@@ -193,7 +193,7 @@ feature 'Client admin and the digest email for tiles' do
       digest_tab.should have_send_to_selector('all users')
     end
 
-    scenario "The 'follow-up' drop-down control updates the num-days and displays a confirmation message", js: true do
+    scenario "The 'follow-up' drop-down control updates the number-of-days and displays a confirmation message", js: true do
       create_tile
       visit tile_manager_page
       select_tab 'Digest email'
@@ -280,7 +280,7 @@ feature 'Client admin and the digest email for tiles' do
           select_tab 'Digest email'
         end
 
-        scenario "In a demo where everybody, claimed and unclaimed, should get digests.
+        scenario "Demo where everybody, claimed and unclaimed, should get digests.
                   The tile links should sign in claimed *non-client-admin* users to the
                   Activities page, while whisking others to where they belong" do
           on_day '7/6/2013' do
@@ -320,7 +320,7 @@ feature 'Client admin and the digest email for tiles' do
           end
         end
 
-        scenario 'in a demo where only claimed users should get digests' do
+        scenario 'Demo where only claimed users should get digests' do
           demo.update_attributes(unclaimed_users_also_get_digest: false)
 
           on_day '7/6/2013' do
