@@ -10,6 +10,7 @@
 //= require ../../../vendor/assets/javascripts/internal/jRespond.min
 
 //= require ./internal_and_external/underscore-min
+//= require ./internal/tiles
 
 
 $(document).ready(function() {

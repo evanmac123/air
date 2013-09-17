@@ -191,4 +191,8 @@ module TileHelpers
   def have_first_tile(tile, status)
     have_selector "table tbody tr td[class='#{status}'][data-tile_id='#{tile.id}']"
   end
+
+  def expect_current_tile_id(tile)
+     page.find('.tile_holder')["data-current-tile-id"].should == tile.id.to_s
+  end
 end

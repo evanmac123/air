@@ -11,35 +11,43 @@ feature 'User views tile' do
 
     @make_toast = Tile.find_by_headline('make toast')
     @discover_fire = Tile.find_by_headline('discover fire')
+    @make_toast.update_attributes(activated_at: Time.now - 60.minutes)
+    @discover_fire.update_attributes(activated_at: Time.now)
 
     bypass_modal_overlays(@kendra)
     signin_as(@kendra, 'milking')
   end
 
   scenario 'views tile image', js: true do
-    # Click on the first tile, and it should take you to the tiles  path
     page.find("#tile-thumbnail-#{@discover_fire.id}").click
     should_be_on tiles_path
 
-    wait_until do
-      while 1
-        break if page.body.include?("Tile: 1 of 2")
-      end
-    end
+    expect_current_tile_id(@discover_fire)
+    page.find("#next").click
+    expect_current_tile_id(@make_toast)
+  end
 
-    expect_content "Tile: 1 of 2"
-    expect_content "My Profile"
-
-    page.find(".tile_holder##{@discover_fire.id}").should be_visible
-    page.find(".tile_holder##{@make_toast.id}").should_not be_visible
+  scenario 'sees counter', js: true do
+    visit tiles_path
+    expect_content "Tile 1 of 2"
 
     page.find("#next").click
+    expect_content "Tile 2 of 2"
 
-    sleep 1
-    find(".tile_holder##{@make_toast.id}").should be_visible
-    find(".tile_holder##{@discover_fire.id}").should_not be_visible
+    page.find("#next").click
+    expect_content "Tile 1 of 2"
 
-    expect_content "Tile: 2 of 2"
+    page.find("#prev").click
+    expect_content "Tile 2 of 2"
+
+    page.find("#prev").click
+    expect_content "Tile 1 of 2"
+  end
+
+  scenario "it should have the right position when you click to a non-first tile", js: true do
+    page.find("#tile-thumbnail-#{@make_toast.id}").click
+    expect_no_content "Tile 1 of 2"
+    expect_content    "Tile 2 of 2"
   end
 
   context "when a tile has no attached link address" do
@@ -48,8 +56,8 @@ feature 'User views tile' do
     end
 
     scenario "it should not be wrapped in a link" do
-      visit tiles_path
-      toast_image = page.find("img[@alt='make toast']")
+      visit tile_path(@make_toast)
+      toast_image = page.find("img[alt='make toast']")
       parent = page.find(:xpath, toast_image.path + "/..")
 
       parent.tag_name.should_not == "a"
@@ -64,8 +72,8 @@ feature 'User views tile' do
     end
 
     scenario "it should be wrapped in a link to that address" do
-      visit tiles_path
-      toast_image = page.find("img[@alt='make toast']")
+      visit tile_path(@make_toast)
+      toast_image = page.find("img[alt='make toast']")
       parent = page.find(:xpath, toast_image.path + "/..")
 
       parent.tag_name.should == "a"

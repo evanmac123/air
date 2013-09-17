@@ -1,4 +1,3 @@
-<% trigger_link_id = "right_multiple_choice_answer_#{tile.id}" %>
 <% target_link_id  = "multiple_choice_target_link_#{tile.id}" %>
 
 <% if tile.multiple_choice_answers.present? %>
@@ -10,7 +9,7 @@
           <%= link_to answer, '#', class: "nerfed_answer" %>
         <% else %>
           <% if i == tile.correct_answer_index %>
-            <%= link_to answer, '#', id: trigger_link_id %>
+            <%= link_to answer, '#', class: "right_multiple_choice_answer" %>
           <% else %>
             <%= link_to answer, '#', class: "wrong_multiple_choice_answer" %>
           <% end %>
@@ -19,35 +18,11 @@
         <div class="wrong_answer_target" style="display: none"></div>
       <% end %>
     <% end %>
-    <%= link_to '', tile_completions_path(tile_id: tile.id), method: :post, style: "display: none", id: target_link_id %>
+    <%= link_to '', tile_completions_path(tile_id: tile.id), method: :post, style: "display: none", id: 'right_answer_target' %>
 
     <% content_for :javascript do %>
       <%= javascript_tag do %>
-        var attachWrongAnswer = function(answerLink, target) {
-          answerLink.click(function(event) {
-            event.preventDefault();
-            target.html("Sorry, that's not it. Try again!");
-            target.slideDown(250);
-            $(this).addClass("clicked_wrong");
-          })
-        }
-
-        var nerf = function(event) {event.preventDefault()};
-
-        $('.nerfed_answer').click(nerf);
-
-        $('#<%= trigger_link_id %>').one("click", function(event) {
-          event.preventDefault();
-          $('#<%= target_link_id %>').click();
-          $(event.target).click(nerf);
-        });
-
-
-        _.each($('.wrong_multiple_choice_answer'), function(wrongAnswerLink) {
-          wrongAnswerLink = $(wrongAnswerLink);
-          var target = wrongAnswerLink.siblings('.wrong_answer_target');
-          attachWrongAnswer(wrongAnswerLink, target);
-        });
+        setUpAnswers();
       <% end %>
     <% end %>
   </div>

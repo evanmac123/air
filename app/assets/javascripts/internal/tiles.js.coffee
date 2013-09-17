@@ -1,72 +1,65 @@
-
-############# find a way to only include this once ###########
-delay = (ms, func) -> setTimeout func, ms
-####################################################
- 
-# This is how you call the stuff that loads when the page is finished loading
-delay 1000, ->
-  loadDivs()
-  initSlideShow()
-  updatePositionFunc(false, start_tile, null)
-
-
-# This is me setting all variables in the local scope so I can use them later
-first_ping_after_load = 1
-slideshow = positionElement = imageCount = start_tile = tile_image = 0
-
-# This is a function definition
-loadDivs = () ->
-  slideshow = $('#slideshow')
-  positionElement = $('#position')
-  imageCount = $('#slideshow .tile_holder').length
-  start_tile_id = $('#start_tile').text()
-  start_tile = $('#' + start_tile_id).index()
-  tile_image = $('.tile_image')
-
-initSlideShow = () ->
-  if slideshow.length
-    if tile_image.length == 1
-      tile_image.show()
-      resizeSlideshow()
-    else
-      slideshow.cycle
-        startingSlide: start_tile,
-        timeout: 0,
-        onPrevNextEvent: updatePositionFunc,
-        after: callbacksAfterTileTransition,
-        next: 'a#next',
-        prev: 'a#prev'
-
-updatePositionFunc = (isNext, slideIndex, slideElement) ->
-  newContent = "Tile: " + (slideIndex + 1) + " of " + imageCount
-  positionElement.html(newContent)
-
-callbacksAfterTileTransition = (currSlideElement, nextSlideElement, options, forwardFlag) -> 
-  resizeSlideshow()
-  sendViewedTilePing(currSlideElement.id)
-  setCurrentTile()
-
-setCurrentTile = () ->
-  $('input#current_tile').val($('#slideshow img:visible').attr('id'))
+first_ping_after_load = true
 
 sendViewedTilePing = (tile_id) ->
   via = 0
   if (first_ping_after_load)
     via = 'thumbnail'
-    first_ping_after_load = 0
+    first_ping_after_load = false
   else
     via = 'next_button'
   properties = {via: via, tile_id: tile_id}
   data = {event: "viewed tile", properties: properties}
   $.post('/ping', data)
 
-resizeSlideshow = () -> 
-  array_of_images = $('#slideshow img')
-  tile_texts = $('.tile_texts_container')
-  offset = 45
-  max_height = 0
-  $.map array_of_images, (image) ->
-    max_height = tile_texts.height if (image.height > max_height)
-  slideshow.height(max_height + offset)
+loadNextTileWithOffset = (offset) ->
+  (event) ->
+    event.preventDefault()
+    $('#spinner_large').show()
 
+    url = '/tiles/' + $('#slideshow .tile_holder').data('current-tile-id')
+    $.get(
+      url,
+      {partial_only: true, offset: offset},
+      (data) ->
+        $('#slideshow').html(data)
+        $('#spinner_large').hide()
+        setUpAnswers()
+        $('#position').html($('.tile_holder').data('position'))
+    )
 
+attachWrongAnswer = (answerLink, target) ->
+  answerLink.click((event) ->
+    event.preventDefault()
+    target.html("Sorry, that's not it. Try again!")
+    target.slideDown(250)
+    $(this).addClass("clicked_wrong")
+  )
+
+nerfNerfedAnswers = ->
+  $('.nerfed_answer').click((event) -> event.preventDefault())
+
+attachRightAnswers = ->
+  $('.right_multiple_choice_answer').one("click", (event) -> 
+    event.preventDefault()
+    $('#right_answer_target').click()
+    $(event.target).click((event) -> event.preventDefault())
+  )
+
+attachWrongAnswers = ->
+  _.each($('.wrong_multiple_choice_answer'), (wrongAnswerLink) ->
+    wrongAnswerLink = $(wrongAnswerLink)
+    target = wrongAnswerLink.siblings('.wrong_answer_target')
+    attachWrongAnswer(wrongAnswerLink, target)
+  )
+
+setUpAnswers = ->
+  nerfNerfedAnswers()
+  attachRightAnswers()
+  attachWrongAnswers()
+
+window.loadNextTileWithOffset = loadNextTileWithOffset
+window.setUpAnswers = setUpAnswers
+
+$ ->
+  $('#next').click(loadNextTileWithOffset(1))
+  $('#prev').click(loadNextTileWithOffset(-1))

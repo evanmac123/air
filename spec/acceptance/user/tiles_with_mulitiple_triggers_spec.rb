@@ -61,19 +61,19 @@ feature 'User interacts with single- and multiple-trigger tiles' do
 
     visit activity_path
     click_carousel_tile(or_tile)
-    current_slideshow_tile.should be_tile(or_tile)
+    expect_current_tile_id(or_tile)
 
     show_previous_tile
-    current_slideshow_tile.should be_tile(and_tile)
+    expect_current_tile_id(and_tile)
 
     show_previous_tile
-    current_slideshow_tile.should be_tile(single_tile)
+    expect_current_tile_id(single_tile)
 
     show_previous_tile
-    current_slideshow_tile.should be_tile(or_tile)
+    expect_current_tile_id(or_tile)
 
     show_next_tile
-    current_slideshow_tile.should be_tile(single_tile)
+    expect_current_tile_id(single_tile)
 
     fill_in 'command_central', with: 'Walked one mile'
     click_play_button

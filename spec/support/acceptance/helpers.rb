@@ -251,21 +251,6 @@ module SteakHelperMethods
     page.find("#next").click
   end
 
-  def current_slideshow_tile
-    # Use the z-index to determine which tile is visible
-    tiles = nil
-    wait_until do
-      while 1
-        tiles = all('#slideshow .tile_holder')
-        continue unless tiles.present?
-        break if tiles.all? {|tile| tile[:style].present?}
-      end
-    end
-
-    current_tile = tiles.sort_by { |img| img[:style].slice(/(z-index: )(\d)/, 2) }.last
-    current_tile[:id]  # 'current_tile' is a Capybara::Node::Element => return its 'id' attribute
-  end
-
   # First is Capybara capability. Second is auxiliary gem; info can be found at:
   # https://github.com/mattheworiordan/capybara-screenshot
   def show_me_the_page

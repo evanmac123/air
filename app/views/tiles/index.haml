@@ -1,19 +1,18 @@
 .container.row
-  - if @satisfiable_tiles.empty?
+  - if @all_tiles_done
     #tiles_done_message
       %p You've completed all available tiles!
       = link_to "Return to homepage", activity_path
   - else
-    #start_tile.hidden= @start_tile
     .tile_viewer_header
       = link_to activity_path do
         =# image_tag 'tile_viewer/logo.png', :id => "logo", :alt=> "h.engage"
       %p#position
+        = @current_tile_position_description
     .viewer
       = link_to "#", :id => :prev do
         %span Previous
       #slideshow
-        - @satisfiable_tiles.each do |tile|
-          = render 'full_size_tile', :tile => tile
+        = render 'full_size_tile', :tile => @start_tile
       = link_to "#", :id => :next do
         %span Next

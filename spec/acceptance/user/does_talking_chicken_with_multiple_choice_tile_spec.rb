@@ -9,7 +9,6 @@ feature 'Does talking chicken with multiple choice tile' do
     click_link 'Enter Site'
     page.find('#fancybox-content .show_tutorial').click
     page.find('#tile-thumbnail-0').click # Tile 0 is the sample tile
-
   end
 
   scenario 'works as it should', js: :webkit do

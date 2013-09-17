@@ -36,22 +36,22 @@ feature 'User navigates to different tiles' do
   scenario "clicking tiles in the carousel and next- and previous-tile arrows display the correct tiles", js: true do
     visit activity_path
     click_carousel_tile(tile_2)
-    current_slideshow_tile.should be_tile(tile_2)
+    expect_current_tile_id(tile_2)
 
     show_previous_tile
-    current_slideshow_tile.should be_tile(tile_3)
+    expect_current_tile_id(tile_3)
 
     show_previous_tile
-    current_slideshow_tile.should be_tile(tile_1)
+    expect_current_tile_id(tile_1)
 
     show_previous_tile
-    current_slideshow_tile.should be_tile(tile_2)
+    expect_current_tile_id(tile_2)
 
     show_next_tile
-    current_slideshow_tile.should be_tile(tile_1)
+    expect_current_tile_id(tile_1)
 
     visit activity_path
     click_carousel_tile(tile_1)
-    current_slideshow_tile.should be_tile(tile_1)
+    expect_current_tile_id(tile_1)
   end
 end

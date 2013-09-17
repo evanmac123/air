@@ -93,5 +93,21 @@ feature 'User views tiles' do
       crank_dj_clear
       ActionMailer::Base.deliveries.should be_empty
     end
+
+    scenario "when it's not the first tile navigated to", js: true do
+      other_tile = FactoryGirl.create(:tile, demo: @tile.demo, headline: "The tile upon which we will start")
+      visit tile_path(other_tile, as: @user)
+      page.find('#next').click
+
+      click_answer 0
+      expect_wrong_answer_reaction 0
+
+      click_answer 2
+      expect_wrong_answer_reaction 2
+
+      click_answer 1
+      expect_no_wrong_answer_reaction 1
+      expect_right_answer_reaction
+    end
   end
 end
