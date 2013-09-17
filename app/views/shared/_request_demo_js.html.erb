@@ -85,7 +85,7 @@
       contact_role:    contact_role.val(),
       contact_comment: contact_comment.val()
     };
-    $.post('email_info_requests', data, function(message){
+    $.post('/email_info_requests', data, function(message){
       doAfterInfoRequest();
     });
 
