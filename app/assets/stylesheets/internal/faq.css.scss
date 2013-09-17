@@ -27,14 +27,9 @@ body.pages-faq .content {
 
     // FAQ menu
     .need_help {
-
         margin-bottom:2em;
-        .quick_tour_link {
-            @include square-button($dark-green);
-        }
         #contact_button {
             border:1px darken($gray, 5%) solid;
-            margin-left:1em;
         }
         .contact_us_link {
             @include square-button($gray);
