@@ -47,7 +47,7 @@ class ActsController < ApplicationController
     @acts                  = find_requested_acts(@demo)
     @displayable_tiles = Tile.displayable_to_user_with_sample(current_user)
 
-    @display_get_started_lightbox = current_user.on_first_login && !(session[:get_started_lightbox_shown]) 
+    @display_get_started_lightbox = current_user.on_first_login && !(session[:get_started_lightbox_shown])
     session[:get_started_lightbox_shown] = true
 
     TileCompletion.mark_displayed_one_final_time(@current_user)

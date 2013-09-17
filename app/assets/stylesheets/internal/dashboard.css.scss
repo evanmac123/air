@@ -62,3 +62,28 @@ h1.headline {border-top:1px $white solid}
           }
     }
 }
+
+#get_started_lightbox {
+    background:$white;
+    line-height:1.35em;
+    padding:2.5em 1.75em;
+    position: relative;
+    top:15%!important;
+    h2 {
+        color:$blue;
+        font-family:$open-600;
+        line-height: 1.25em;
+        margin-bottom:.65em;
+    }
+    &:after {
+        @include arrow-bottom($white);
+        border-width:1em;
+        position:absolute;
+        bottom:-1em;
+        left:1em;
+    }
+    #close_get_started_lightbox {
+        @include close-button;
+        font-size:.75em;
+    }
+}

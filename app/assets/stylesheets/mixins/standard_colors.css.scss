@@ -183,7 +183,18 @@ $border-light:      1px #fff solid;
     }
   }
 }
-
+@mixin close-button {
+  background:$light-gray;
+  border-radius:3px;
+  color:$white;
+  padding:.25em .5em;
+  position:absolute; 
+  top:.5em; right:.5em;
+  &:hover {
+    background: $orange;
+    color:$white;
+  }
+}
 
 /* ============= General stuff that all pages use ============= */
 * {-moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;}

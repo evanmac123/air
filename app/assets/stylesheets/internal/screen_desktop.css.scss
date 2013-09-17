@@ -1,3 +1,9 @@
+/* -- Welcome modal -- */
+#get_started_lightbox {
+  left:38%!important;
+  margin-left:-245px!important;
+}
+
 header nav {display: block;}
 header {
   nav .row {position: relative;}
@@ -124,5 +130,3 @@ body.users-index .nav-directory:before {background-position:-83px -21px!importan
   }
   a#prev, a#next {top:5.5em;}
 }
-
-/* -- Settings -- */

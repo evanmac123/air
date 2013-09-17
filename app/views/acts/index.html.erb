@@ -9,6 +9,8 @@
   <%= render 'shared/tiles_wall_client_admin_tools' %>
 </div>
 
+<%= javascript_include_tag 'jquery.lightbox_me' %>
+
 <div class="row">
   <div id="feed_wrapper" class="large-8 columns">
     <div class="feeds module">
@@ -73,8 +75,9 @@
 
 <% if @display_get_started_lightbox %>
   <div id='get_started_lightbox'>
-    This is some helpful instructions about how to get started with H.Engage.
     <a href="#" id="close_get_started_lightbox">Close</a>
+    <h2>Welcome to H.Engage!</h2>
+    <p>Read and answer the questions on tiles for points. To get started, click on the sample tile below.</p>
   </div>
 
   <% content_for :javascript do %>

@@ -1,16 +1,7 @@
 input.unfilled-field {border-color:$red;}
 .close_request_demo:link, .close_request_demo:visited {
-  background:$light-gray;
-  border-radius:3px;
-  color:$white;
+  @include close-button;
   font-size:.75em;
-  padding:.5em;
-  position:absolute; 
-  top:.5em; right:.5em;
-  &:hover {
-    background: $orange;
-    color:$white;
-  }
 }
 .all_fields_error {color:$red!important;}
 #request_demo {
