@@ -198,3 +198,37 @@ describe 'Digest email tile order' do
     TilesDigestMailer.notify_one(1, 2, tile_ids)
   end
 end
+
+describe 'Follow-up digest email' do
+  it 'should be delivered to the appropriate people' do
+    demo = FactoryGirl.create :demo
+
+    john   = FactoryGirl.create :claimed_user, demo: demo, name: 'John',   email: 'john@beatles.com'
+    paul   = FactoryGirl.create :user,         demo: demo, name: 'Paul',   email: 'paul@beatles.com'
+    george = FactoryGirl.create :claimed_user, demo: demo, name: 'George', email: 'george@beatles.com'
+    ringo  = FactoryGirl.create :user,         demo: demo, name: 'Ringo',  email: 'ringo@beatles.com'
+
+    tiles    = FactoryGirl.create_list :tile, 3, demo: demo
+    tile_ids = tiles.collect(&:id)
+
+    follow_up = FactoryGirl.create :follow_up_digest_email, demo: demo, tile_ids: tile_ids, unclaimed_users_also_get_digest: true, send_on: Date.today
+
+    FactoryGirl.create :tile_completion, user: john,  tile: tiles[0]
+    FactoryGirl.create :tile_completion, user: john,  tile: tiles[1]
+    FactoryGirl.create :tile_completion, user: ringo, tile: tiles[2]
+
+    # Make sure that only paul and george receive follow-up emails
+    object = mock('delay')
+    TilesDigestMailer.stubs(:delay).returns(object)
+
+    object.expects(:notify_one).at_most(2)
+    object.expects(:notify_one).with(demo.id, paul.id,   tile_ids, true)
+    object.expects(:notify_one).with(demo.id, george.id, tile_ids, true)
+
+    # Make sure we delete 'FollowUpDigestEmail' objects after we process them
+    FollowUpDigestEmail.expects(:find).returns(follow_up)
+    follow_up.expects(:destroy)
+
+    TilesDigestMailer.notify_all_follow_up follow_up.id
+  end
+end

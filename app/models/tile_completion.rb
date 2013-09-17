@@ -31,6 +31,6 @@ class TileCompletion < ActiveRecord::Base
   end
 
   def self.user_completed_any_tiles?(user_id, tile_ids)
-    where(user_id: user_id).where(tile_id: tile_ids).count > 0
+    where(user_id: user_id, tile_id: tile_ids).count > 0
   end
 end
