@@ -93,10 +93,10 @@ body.users-index .nav-directory:before {background-position:-83px -21px!importan
 
 /* -- Tile wall -- */
 .all_tile_thumbnails {
-  text-align: center;
+  text-align: justify;
 }
 .tile_thumbnail {
-  padding:0 1%;
+  padding:0;
   .tile-wrapper{
     .tile_thumbnail {height:12em;}
     .headline {
