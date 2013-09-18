@@ -15,5 +15,7 @@
   <span class="invite-link">
     <%= render :partial => 'admin/invitations/new',
                :locals  => { :user => user } %>
-  </span>
+   </span>
+
+   (invitation URL is <%= invitation_url(user.invitation_code) %>)
 </li>
