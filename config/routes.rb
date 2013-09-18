@@ -52,7 +52,7 @@ Health::Application.routes.draw do
   match "sign_up"  => "users#new"
   match "sign_out" => "sessions#destroy"
 
-  root :to => 'pages#show', :id => 'initial_landing'
+  root :to => 'pages#show', :id => 'marketing'
   get "faq" => "pages#faq", :as => "faq"
   get "faq_body" => "pages#faq_body", :as => "faq_toc"
   get "faq_toc" => "pages#faq_toc", :as => "faq_body"

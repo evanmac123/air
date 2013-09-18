@@ -2,41 +2,20 @@
 @import "initial_landing_tablet.css.scss";
 @import "initial_landing_desktop.css.scss";
 
-body {
-  background:none;
-  .large-5 {width:45%!important;}
-}
-
-#ie_bg {
-  position: fixed; 
-  top: -50%; 
-  left: -50%; 
-  width: 200%; 
-  height: 200%;
-}
-
-#ie_bg img {
-  position: absolute; 
-  top: 0; 
-  left: 0; 
-  right: 0; 
-  bottom: 0; 
-  margin: auto; 
-  min-width: 50%;
-  min-height: 50%;
-  z-index:-1;
-}
-
 header {
-  padding-top:5%;
-  #logo {
-    padding-top:1em;
-    img {width:60%;}
+  padding:2em 0;
+  #logo img {width:40%; height:auto;}
+  #opener .copy {
+    .headlines {margin-top:0;}
   }
 }
-
-#welcome {
-  h2 {letter-spacing:.02em;}
+#deliver .row {padding-top:34em;}
+#outcomes {
+  .large-5 {margin-left:5%;}
+  h2 {
+    
+    -ms-filter: "progid:DXImageTransform.Microsoft.Glow(Strength=1, Color='black')";
+  }
 }
 
 footer {padding:1em;}

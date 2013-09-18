@@ -11,3 +11,7 @@
 @media only screen and (min-width: $foundation) {
   @import "./external/initial_landing_desktop.css.scss"; 
 }
+
+@media only screen and (min-width: $large-desktop) {
+  #deliver .row {padding-top:33em;}
+}

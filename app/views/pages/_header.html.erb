@@ -14,11 +14,12 @@
         <!-- Right Nav Section -->
         <ul class="right">
           <li><a class="go_home" href="/pages/marketing">Home</a></li>
+          <li><a id="more_info" href="/pages/marketing_more">More information</a></li>
           <li><a id="work_together" href="/pages/pricing">Pricing</a></li>
           <li class="divider"></li>
           <li><a href="http://blog.hengage.com" id="blog">Blog</a></li>
           <li class="has-form">
-            <a href="#!" class="request_a_demo button">Free trial</a>
+            <a href="#!" class="request_a_demo button">Schedule demo</a>
           </li>
           <li class="has-form">
             <a class="button sign_in_button" href="/sign_in">Sign-in</a>
@@ -32,6 +33,7 @@
 <%= javascript_include_tag 'external/marketing_nav.js' %>
 <%= javascript_tag do %>
   $('.go_home').click(function() { mpq.track("Clicked to go Home", {}); });
+  $('#more_info').click(function() { mpq.track("More Information link", {}); });
   $('#work_together').click(function() { mpq.track("Clicked Pricing link", {}); });
   $('#blog').click(function() { mpq.track("Clicked blog link", {}); });
   $('.top-bar-section .sign_in_button').click(function() { mpq.track("Clicked Sign-in link", {}); });

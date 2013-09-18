@@ -1,90 +1,238 @@
+html, body {height:100%;}
 body {
   font-family:$sans;
   font-size:1em;
   min-width:100%;
   position: static;
+  h1, h2 {line-height: 1.25em;}
+  h1 {
+    font-family:$open-600;
+    font-size:2em;
+  }
+  h2 {
+    font-family:$sans;
+    font-size:1.5em;
+  }
 }
 
 header {
-  background: $white;
-  padding:1em 0;
+  background:image-url('marketing/bg_tilewall.jpg') center center;
+  background-size:200%;
+  #logo {padding:1em 1em;}
   #logo img {
     width:100%;
-    max-width:65%;
+    max-width:35%;
   }
-}
-
-#welcome {
-  #intro_text {
-    padding:1em;
+  #opener .copy {
+    text-align: center;
+    padding-bottom:1.5em;
+    .headlines {
+      margin-bottom:1.5em;
+      padding:1.75em 0 1.25em 0;
+    }
+    h1, h2 {text-shadow: 0px 0px 3px darken($blue, 25%);}
+    h1 {color:$white;}
     h2 {
-      color:lighten($text-color, 10%);
-      font-family:$open-600;
-      font-size:1.125em;
-      line-height:1.5em;
+      color:lighten($light-gray, 5%);
+      margin:.75em 0 0 0;
     }
-    p {
-      margin-top:.5em;
+  }
+  #opener_form {
+    .caption {
+      color:$med-gray;
+      font-size:.875em;
     }
   }
 }
-
-#signup {
-  padding:.5em 1em 2em 1em;
-  position: relative;
-  form {
-    margin:0 0 .5em;
-    label {
-      color:$gray;
-      font-family:$open-600;
-      margin-bottom:.5em;
-    }
-    input[type="email"] {
-      background: lighten($light-gray, 10%);
-      border:1px $light-gray solid;
-      box-shadow:none;
-      font-size:1em;
-      margin-bottom:0;
-      &:hover, &:focus {
-        background: $white;
-        border-color:$dark-green;
-      }
-      &:disabled {
-        border-color:darken($light-gray, 10%);
-        background:$light-gray;
-        color:lighten($med-gray, 7%);
-      }
-    }
-    input[type="submit"] {
-      @include pop-button($dark-green);
-      display: inline-block;
-      font-size:.875em;
-      margin-top:.5em;
-      width:100%;
-    }
-  }
-  .caption {
-    font-size:.875em;
-    a {@include link($blue);}
-  }
-
-  // signup responses
-  #signup_responses {
+form {
+  margin:0;
+  label {
+    color:$med-gray;
     font-family:$open-600;
-    line-height: 1.35em;
-    padding-bottom:.75em;
-    #signup_error {
-      color:$red;
+    margin-bottom:.5em;
+  }
+  input[type="email"] {
+    background: lighten($light-gray, 10%);
+    border:1px $light-gray solid;
+    box-shadow:none;
+    font-size:1em;
+    margin-bottom:0;
+    &:hover, &:focus {
+      background: $white;
+      border-color:$dark-green;
     }
-    #signup_thanks {
-      color:$dark-green;
+    &:disabled {
+      border-color:darken($light-gray, 10%);
+      background:$light-gray;
+      color:lighten($med-gray, 7%);
     }
+  }
+  input[type="submit"] {
+    @include pop-button($dark-green);
+    display: inline-block;
+    margin-top:.5em;
+    width:100%;
+  }
+}
+// signup responses
+#signup_responses {
+  font-family:$open-600;
+  font-size:.875em;
+  line-height: 1.35em;
+  padding:.75em 0;
+  #signup_error {
+    color:$red;
+  }
+  #signup_thanks {
+    color:$orange;
+  }
+}
+
+#quickly_create {
+  padding:3em 0;
+  position: relative;
+  h2 {
+    margin-bottom:1em;
+    text-align: center;
+  }
+  .tile {
+    border:2px $light-gray solid;
+    font-size:.875em;
+    margin:1em auto;
+    width:83%;
+    .content {
+      padding:1em;
+      .tile_headline {
+        color:$blue;
+        font-family:$open-400;
+        font-size:1.25em;
+        margin-bottom:.75em;
+      }
+    }
+    .quiz {
+      background:$light-gray;
+      padding-bottom:1em;
+      position: relative;
+      p {
+        font-family: $open-600;
+        padding:.5em 1em 0 5.5em;
+      }
+      ul.multiple_choice {
+        margin:1em auto 0;
+        text-align: center;
+        width:75%;
+        li {
+          background: $blue;
+          border-bottom:2px darken($blue, 10%) solid;
+          color:$white;
+          font-family:$open-600;
+          padding:.5em;
+        }
+        li + li {margin-top:.5em;}
+      }
+      ul.points {
+        position:absolute;
+        top:0;
+        left:1em;
+        li {
+          display: inline-block;
+          color:$orange;
+          &.pts_number {
+            background: $orange;
+            color:$white;
+            font-family:$open-600;
+            font-size:1.25em;
+            padding:0 .5em;
+          }
+        }
+      } // End of points
+    } // End of quiz
+  } // End of tile
+  .tile_section_callouts {
+    li {
+      background:$dark-green;
+      border-bottom:3px darken($dark-green, 7%) solid;
+      border-radius:1em;
+      color:$white;
+      font-family: $open-600;
+      position: absolute;
+      margin-left:-1.125em;
+      padding:.25em .8em;
+      z-index:1;
+      &#callout_1 {
+        top:13%;
+        left:13%;
+      }
+      &#callout_2 {
+        top:33%;
+        right:7%;
+      }
+      &#callout_3 {
+        top:65%;
+        left:13%;
+      }
+    }
+  }
+  .tile_explanations {
+    margin-top:2em;
+    li {
+      margin-bottom:1em;
+      span {
+        font-family:$open-600;
+      }
+      &:before {
+        background:$dark-green;
+        border-bottom:3px darken($dark-green, 7%) solid;
+        border-radius:2em;
+        color:$white;
+        display:inline-block;
+        float: left;
+        font-family: $open-600;
+        font-size:.75em;
+        margin-right:.5em;
+        padding:.25em .8em;
+        vertical-align: baseline;
+      }
+      &#tile_exp_image:before {content:"1";}
+      &#tile_exp_content:before {content:"2";}
+      &#tile_exp_quiz:before {content:"3";}
+    }
+  }
+}
+#deliver {
+  text-align: center;
+  .imagery {
+    margin-bottom:1em;
+    img {width:90%;}
+  }
+  .copy p {margin-top:1em;}
+}
+
+#outcomes {
+  background:$light-gray;
+  margin-top:5em;
+  .row {
+    background:image-url('marketing/engaged_user_small.jpg') right center no-repeat;
+    // background-size: 100%;
+    padding:5em 0;
+    text-align: center;
+    h2 {
+      color:$white;
+      font-family: $open-600;
+      text-shadow: 0px 0px 15px #000;
+    }
+  }
+  #to_the_top {
+    @include pop-button($dark-green);
+    font-size:1.125em;
+    margin-top:1em;
+    padding:.75em 1.25em;
   }
 }
 
 footer {
   background: $white;
-  border-top:$border-dark;
+  border-top:3px $light-gray solid;
   padding:1em;
   padding-top:2em;
   ul a, ul a:link, ul a, ul a:visited {@include link($gray);}

@@ -1,51 +1,60 @@
-body {
-  background:image-url('marketing/ipad_view@2x.png') center center fixed $white;
-  background-size: cover;
-  .large-5 {
-    background: image-url('marketing/bg_white.png');
-  }
-}
 header {
-  background: transparent;
-  padding:8% 0 0 0;
-  .large-5 {padding:1em;}
-  #logo {
-    width:41.66667%;
-    img {width:65%;}
-  }
-}
-#welcome {
-  .imagery {display: none;}
-  #intro_text {position: relative;}
-}
-#signup {
-  padding:0;
-  .row {position: relative;}
-  .large-5 {padding:1em}
-  form {
-    padding:0;
-    input[type="email"], input[type="submit"] {
-      display: block;
-      float: none;
-      width:auto;
+  padding:2em 0 3em 0;
+  #logo img {max-width:40%;}
+  #opener .copy {
+    .headlines {
+      padding:4em 0;
+      margin:3em 0 4em 0;
     }
-    input[type="email"] {
-      margin-bottom:.5em;
-      width:100%;
-    }
-    input[type="submit"] {
-      @include ease(.35s);
-      padding:.5em 2em;
+    #opener_form {
+      input[type="email"], input[type="submit"] {font-size:1.25em;}
+      input[type="email"] {width:60%}
+      input[type="submit"] {width:40%}
     }
   }
-  .caption {
-    display: inline-block;
+}
+
+#quickly_create {
+  .tile {
+    font-size:1em;
+    .content {
+      padding:2em 4em;
+      .tile_headline {font-size:1.875em; line-height:1.25em;}
+    }
+    .quiz {
+      padding:2em;
+      p {
+        margin-top:-1em;
+        position: relative;
+      }
+      ul.points {
+        left:2em;
+        li.pts_number {
+          font-size:1.5em;
+          padding:.5em;
+        }
+      } 
+    }
+  }
+  .tile_explanations li {
+    width:25%;
+    &#tile_exp_content {top:63%;}
+    &#tile_exp_quiz {top:84%;}
   }
 }
-footer {
-  position: absolute;
-  bottom:0;
-  padding:1.5em 1em;
-  width:100%;
-  .row {padding:0 1em;}
+
+#deliver {
+  .row {
+    background-size:80%;
+    padding-top:48%;
+  }
 }
+
+#outcomes {
+  .row {
+    background-size:auto;
+    padding:13em 0;
+    text-align: left;
+  }
+}
+
