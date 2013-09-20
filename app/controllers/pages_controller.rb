@@ -34,9 +34,9 @@ class PagesController < HighVoltage::PagesController
       'application'
     when 'faq_body', 'faq_toc'
       false
-    when 'marketing'
+    when 'welcome'
       'standalone'
-    when 'marketing_more'
+    when 'more_info'
       @body_id = "homepage"
       Shotgun.ping_page(page_name)
       'external_marketing'

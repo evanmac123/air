@@ -92,9 +92,9 @@
 <footer>
   <div class="row">
     <ul id="bulletin_landing_footer">
-      <li><a href="/pages/marketing_more" class="learn_more">More information</a></li>
-      <li><a href="/pages/pricing" class="pricing">Pricing</a></li>
-      <li><a href="http://blog.hengage.com" class="blog">Blog</a></li>
+      <li><a href="/pages/more_info" id="learn_more">More information</a></li>
+      <li><a href="/pages/pricing" id="pricing">Pricing</a></li>
+      <li><a href="http://blog.hengage.com" id="blog">Blog</a></li>
       <li><a href="/sign_in" class="sign_in">Sign in</a></li>
     </ul>
     <p class="copyright">Copyright &copy; 2013 H.Engage, Inc.</p>
@@ -102,13 +102,11 @@
 </footer>
 
 <script>
-$("[placeholder]").placeholder();
+mpq.track_links("#learn_more","Bulleting landing, Learn More click");
+mpq.track_links("#pricing","Bulleting landing, Pricing click");
+mpq.track_links("#blog","Bulleting landing, Blog click");
+mpq.track_links(".sign_in","Bulleting landing, Sign In click");
 
-$('#bulletin_landing_footer .learn_more').click(function() { mpq.track("Bulletin landing, Learn More click", {}); });
-$('#bulletin_landing_footer .pricing').click(function() { mpq.track("Bulletin landing, Pricing click", {}); });
-$('#bulletin_landing_footer .blog').click(function() { mpq.track("Bulletin landing, Blog click", {}); });
-$('#to_the_top').click(function() { mpq.track("Bulletin landing, Footer signup button click", {}); });
-$('.sign_in').click(function() { mpq.track("Bulletin landing, Sign In click", {}); });
 $('#contact_email').click(function() { mpq.track("Bulletin landing, Contact Email field highlighted", {}); });
 
 $('#signup_form').submit(function(e) {
@@ -123,12 +121,12 @@ $('#signup_form').submit(function(e) {
     $('#submitting_signup_form').show();
     $.post( 
       '<%= email_info_requests_path %>', 
-      {contact_email: trimmedEmail, contact_comment: "From Sept 2013 landing", silent: true}, 
+      {contact_email: trimmedEmail, contact_comment: "From BulletinBoard 2013 landing", silent: true}, 
       function() {
         $("#contact_email").prop('disabled', true);
         $('#signup_thanks').slideDown();
         $('#submitting_signup_form').hide();
-        mpq.track("Initial landing, Sign Up form submitted", {});
+        mpq.track("Bulletin landing, Sign Up form submitted", {});
       }
     )
   }
@@ -137,8 +135,11 @@ $('#signup_form').submit(function(e) {
 $("#to_the_top").click(function() {
   $("html, body").animate({ scrollTop: 200 }, "slow");
   $("#contact_email").focus();
+  mpq.track("Bulletin landing, Footer signup button click", {});
   return false;
 });
+
+$("[placeholder]").placeholder();
 </script>
 
 <%= mp_track_page 'Bulletin landing' %>
