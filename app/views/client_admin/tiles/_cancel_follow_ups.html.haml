@@ -1,0 +1,5 @@
+- unless @follow_up_emails.empty?
+  %h4 Scheduled Follow-Up Digest Emails
+  %div#cancel_follow_up
+    - @follow_up_emails.each do |follow_up|
+      = follow_up.send_on

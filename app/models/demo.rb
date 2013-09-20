@@ -24,6 +24,8 @@ class Demo < ActiveRecord::Base
 
   has_many :tile_completions, through: :tiles
 
+  has_many :follow_up_digest_emails
+
   has_one :skin
   has_one :claim_state_machine
   has_one :custom_invitation_email

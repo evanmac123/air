@@ -1,8 +1,8 @@
 - if @digest_tiles.empty?
   %div.no_tiles_message= no_digest_email_message
+  = render 'cancel_follow_ups'
 - else
-  -# Have these 2 guys nested under '#digest_management' so can "fade out" the digest tiles. (If don't, tiles immediately disappear)
-  %div#digest_management
-    = render partial: 'digest_management'
-
+  %div#digest_management= render partial: 'digest_management'
+  = render 'cancel_follow_ups'
   = render partial: 'tiles_table', locals: {tiles: @digest_tiles, type: :digest}
+
