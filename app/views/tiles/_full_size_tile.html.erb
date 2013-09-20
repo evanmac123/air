@@ -1,8 +1,6 @@
 <% creator_class = tile.appears_client_created ? 'client_created' : 'admin_created' %>
 <% answer_links_disabled ||= false %>
 
-<%= image_tag 'spinner_large.gif', style: 'display: none', id: 'spinner_large' %>
-
 <div class="tile_holder <%= creator_class %>" data-current-tile-id="<%= tile.id %>" data-position="<%= @current_tile_position_description %>">
   <div class="tile_full_image">
     <% image_html = image_tag tile.image.url, :class => :tile_image, :size => tile.image.image_size, :alt => tile.headline %>
@@ -29,4 +27,8 @@
       </div>
     </div>
   <% end %>
+
+  <div id="spinner_large">
+    <%= image_tag 'spinner_large.gif' %>
+  </div>
 </div>

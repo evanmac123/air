@@ -1,5 +1,6 @@
 .tiles.tiles-index {
   // Full size tiles holder
+  // Probably delete this?
   #slideshow {
     position:relative;
     width:85%!important;
@@ -13,6 +14,7 @@
   font-family:$sans;
   display: block;
   margin:0 auto;
+  position: relative;
   text-align: left;
   width:100%!important;
   &.client_created .tile_full_image {
@@ -22,6 +24,27 @@
   &.admin_created .tile_full_image {
     background:$white;
     padding:.5em 0;
+  }
+
+  // Spinner
+  #spinner_large {
+    display: none;
+    background:$light-gray;
+    opacity: .75;
+    filter: alpha(opacity=70);
+    position: absolute;
+    top:0;
+    text-align: center;
+    width:100%;
+    height: 100%;
+    img {
+      margin:auto;
+      top:0;
+      bottom:0;
+      left:0;
+      right:0;
+      position: absolute;
+    }
   }
 }
 
