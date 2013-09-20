@@ -46,7 +46,7 @@ feature 'User views tile' do
   end
 
   scenario "it should have the right position when you click to a non-first tile", js: true do
-    page.find("#tile-thumbnail-#{@make_toast.id}").click
+    click_link "make toast"
     expect_no_content "Tile 1 of 2"
     expect_content    "Tile 2 of 2"
   end
