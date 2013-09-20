@@ -13,7 +13,6 @@ Feature: Evil Kim defects from the Fuji game and joins the Highmark game, and th
     When I sign in via the login page with "Evil Kim/lucky2"
     Then "Evil Kim" should be in the "Bolshevik" game
     When I go to the admin page
-    Then I should see "Directory"
     And "user_demo_name" should have "Bolshevik" selected
     When I select "Shardaron" from "user_demo_name"
     Then I should see "Just a moment"

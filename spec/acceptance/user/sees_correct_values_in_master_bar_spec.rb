@@ -2,11 +2,11 @@ require 'acceptance/acceptance_helper'
 
 feature "User sees correct values in master bar" do
  def master_bar_progress_selector
-    "#{master_bar_selector} .progress"
+    ".progress"
   end
 
   def master_bar_selector
-    '#bar_progress .bar'
+    '.progress_bar_points'
   end
 
   def self.user_information

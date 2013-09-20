@@ -6,6 +6,8 @@
 //= require ../../../vendor/assets/javascripts/client_admin/exporting
 
 //= require ../../../vendor/assets/javascripts/internal/jquery.tools.min
+//= require ../../../vendor/assets/javascripts/internal/jquery.jpanelmenu.min
+//= require ../../../vendor/assets/javascripts/internal/jRespond.min
 
 //= require ./internal_and_external/underscore-min
 

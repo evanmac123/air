@@ -4,7 +4,7 @@ feature 'The order of the tiles in the Tile Manager and the Tile Carousel are in
   # Both of these helpers grab all of the tiles, in order, whether visible or not
 
   def carousel_content
-    find('#carousel_wrapper').all('.headline .text').collect { |tile| tile.text }
+    page.all('.headline .text').collect { |tile| tile.text }
   end
 
   def viewer_content

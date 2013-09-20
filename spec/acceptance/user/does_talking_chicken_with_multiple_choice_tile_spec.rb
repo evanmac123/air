@@ -18,11 +18,7 @@ feature 'Does talking chicken with multiple choice tile' do
     expect_content "To answer the question, simply click on the correct answer." 
 
     click_link "I learned how tiles work."
-
-    # In principle, I am against doing this to make tests work.
-    # In practice, fuck it, I've spent way too long on this already.
-    sleep 5
-    expect_content "3. Dialogue Box"
+    expect_content "That's right! Points 5"
   end
 
   scenario "only allows user to get points for the tile once", js: :webkit do

@@ -38,7 +38,6 @@ connectFadeCompletedTiles = () ->
   recent.fadeOut 600, ->
     # They are already hidden, but we now remove them as well so that 
     # we get an accurate count later
-    carousel.remove($(this).attr('jcarouselindex'))
     $(this).remove()
     hideArrows() if noThumbnails()
 
