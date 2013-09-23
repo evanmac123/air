@@ -23,6 +23,6 @@
 %li{class: classes}
   = link_to tile_path(tile) do
     .tile-wrapper
-      .tile_thumbnail{id: thumbnail_id}
+      .tile_thumbnail_image{id: thumbnail_id}
       .headline
         %div{data: {'for-test' => tile.headline.downcase.sub(' ', '-')}, class: 'text'}= tile.headline

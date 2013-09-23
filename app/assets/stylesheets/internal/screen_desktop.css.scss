@@ -103,16 +103,19 @@ body.users-index .nav-directory:before {background-position:-83px -21px!importan
 }
 .tile_thumbnail {
   padding:0;
-  .tile-wrapper{
-    .tile_thumbnail {height:12em;}
-    .headline {
-      height:7.5em;
-      .text {
-        font-size:1.125em;
-        line-height: 1.3em;
-      }
+.tile-wrapper{
+  .tile_thumbnail_image {
+    background-size: auto;
+    height:12em;
+  }
+  .headline {
+    height:7.5em;
+    .text {
+      font-size:1.125em;
+      line-height: 1.3em;
     }
   }
+}
 }
 
 /* -- Large tile viewer -- */

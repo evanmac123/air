@@ -29,14 +29,15 @@
     width:100%;
     &:hover {border-color:$orange;}
     
-    .tile_thumbnail, .headline {
+    .tile_thumbnail_image, .headline {
       margin:0 auto;
       width:100%;
     }
-    .tile_thumbnail{
+    .tile_thumbnail_image{
       background-color:$text-color;
       background-position:center center;
       background-repeat:no-repeat;
+      background-size:100%;
       display: block;
       height:9em;
       position: relative;
