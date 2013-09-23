@@ -9,20 +9,6 @@
 
   	    <% content_for :javascript do %>
           <%= javascript_tag do %>
-            <%# HRFF: Must ask Connie what the deal is with this %>
-
-/*  	        $('#show-more-tiles').click(function(){
-  	          if ($('.overflow-tiles').css('display') == 'none'){
-                $('#show-more-tiles').text('Show less');
-                setTimeout("$('.grey-show-more-arrows').attr('src', '<%= asset_path 'v3/arrow-up.png' %>')", 300);
-  	          }else{
-                $('#show-more-tiles').text('Show more');	
-                setTimeout("$('.grey-show-more-arrows').attr('src', '<%= asset_path 'v3/arrow-down.png' %>')", 300);            
-  	          }
-              $('.overflow-tiles').fadeToggle('slow');
-            })*/
-
-
             $('.show_more_tiles').live('click', function(event) {
               event.preventDefault();
 
