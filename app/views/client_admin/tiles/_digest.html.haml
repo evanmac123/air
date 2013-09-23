@@ -3,6 +3,5 @@
   = render 'cancel_follow_ups'
 - else
   %div#digest_management= render partial: 'digest_management'
-  = render 'cancel_follow_ups'
   = render partial: 'tiles_table', locals: {tiles: @digest_tiles, type: :digest}
 
