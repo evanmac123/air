@@ -7,9 +7,12 @@
 body {border-top:none; font-size:14px; font-family:$open-400;}
 .all_tile_thumbnails {
   padding:2em 1em;
+  #justifier {max-width:305px;}
+  #push_left {width:50%}
 }
 .tile_thumbnail {
   max-width:238px;
+  margin:.5em 3.25%;
   width:100%;
 }
 
