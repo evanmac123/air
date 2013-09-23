@@ -44,14 +44,15 @@
 
     .headline{
       background:$text-color;
-      min-height:6.5em;
+      min-height:7.25em;
       position: relative;
-      padding: .75em .75em;
+      padding: .5em;
       text-align: left;
       &:after{@include clear;}
       .text{
         color: $white;
         font-family:$open-400;
+        font-size:1em;
       }
     }
   }
