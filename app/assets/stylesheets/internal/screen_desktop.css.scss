@@ -109,9 +109,20 @@ body.users-index .nav-directory:before {background-position:-83px -21px!importan
   }
 }
 
-/* -- Large tile -- */
-.tiles.tiles-index #slideshow {
-  
+/* -- Large tile viewer -- */
+.tiles.tiles-index {
+  .content .row {max-width:70em;}
+  .tile_viewer_header {margin:0; padding:0;}
+  .tile_holder {font-size:1em;}
+  p#position {
+    margin:0 auto 1em auto;
+    position: relative;
+  }
+  .viewer {
+    position:relative;
+    width:52.1em;
+  }
+  a#prev, a#next {top:5.5em;}
 }
 
 /* -- Settings -- */

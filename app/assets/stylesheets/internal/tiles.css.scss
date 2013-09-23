@@ -2,34 +2,50 @@
 @import 'tiles_thumbnails';
 
 .tiles.tiles-index{
+  .content .row {
+    margin-top:1em;
+    position: relative;
+  }
   .container:after{@include clear;}
 
+  // Full size tile counter
   .tile_viewer_header {
-    height:2em;
+    margin-bottom:1em;
+    padding:1em 0;
     position:relative;
     text-align: center;
     width: 100%;    
   }
-
-  // Full size tile counter
   p#position {
     background:$white;
     color:$med-gray;
     display: inline-block;
     font-family:$sans;
-    margin:1em auto;
     padding:.75em 1em;
-    position: absolute;
-    left:59.65em;
-    top:3em;
+    width:auto;
+    white-space: nowrap;
   }
 
+  // Tile itself
+  #slideshow {width:100%;}
   .viewer {
     margin:auto;
-    position:relative;
     text-align: center;
-    width:82%;
+    width:95%;
     &:after{@include clear;}
+  }
+  .tile_holder {
+    font-size:.875em;
+    .tile_points {
+      left:1em;
+      .num_of_points {padding:.75em 0;}
+    }
+    .tile_question {
+      margin:3em 0 0 0;
+      padding:0 1em;
+      width:100%;
+    }
+    .tile_quiz .tile_multiple_choice_answer {width:90%;}
   }
 
   // Buttons
@@ -37,12 +53,12 @@
   a#prev, a#next {
     background:$dark-green;
     border:1px darken($dark-green, 5%) solid;
-    height:60px;
+    height:50px;
     margin:0;
     padding:0;
     position: absolute;
-    top:6em;
-    width:60px;
+    top:.5em;
+    width:50px;
     span {
       background:image-url('v5/sprites.png') transparent no-repeat;
       border:{
@@ -64,10 +80,10 @@
     }
     &:hover{background:darken($dark-green, 5%);}
   }
-  a#prev {left:0;}
-  a#next {right:0;}
-  a#prev span {background-position: -1px -173px;}
-  a#next span {background-position: -63px -173px;}
+  a#prev {left:1em;}
+  a#next {right:1em;}
+  a#prev span {background-position: -6px -178px;}
+  a#next span {background-position: -67px -178px;}
 
   #tiles_done_message{
     padding-top:4em;

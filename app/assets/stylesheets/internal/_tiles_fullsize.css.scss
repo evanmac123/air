@@ -1,17 +1,9 @@
-.tiles.tiles-index {
-  // Full size tiles holder
-  // Probably delete this?
-  #slideshow {
-    position:relative;
-    width:85%!important;
-    &:after{@include clear;}
-  }
-}
-
 // Actual tile, holds everything together
 .tile_holder {
   background:transparent;
+  border:2px $light-gray solid;
   font-family:$sans;
+  font-size:1em;
   display: block;
   margin:0 auto;
   position: relative;
@@ -62,8 +54,6 @@
 // White copy area
 .tile_texts_container {
   background:$white;
-  border-left:2px $light-gray solid;
-  border-right:2px $light-gray solid;
   line-height: 1.125em;
   padding-top:1em;
   .tile_headline, .tile_supporting_content {
@@ -129,7 +119,7 @@
     }
 
     // Multiple choice answers
-    .multiple_choice_group {margin-top:3em;}
+    .multiple_choice_group {margin-top:2em;}
     .tile_multiple_choice_answer {
       margin:1em auto;
       width:70%;

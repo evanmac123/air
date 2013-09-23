@@ -4,11 +4,16 @@
 @import "screen_desktop.css.scss";
 @import "screen_large.css.scss";
 
-body {border-top:none;}
+body {border-top:none; font-size:14px; font-family:$open-400;}
 .all_tile_thumbnails {
   padding:2em 1em;
 }
 .tile_thumbnail {
   max-width:238px;
   width:100%;
+}
+
+.tiles.tiles-index p#position {
+  margin-left:0;
+  left:81%;
 }

@@ -12,7 +12,6 @@
     background:$white;
     color:$gray;
     display: inline-block;
-    font-size:1.15em;
     padding:.35em 1em;
     max-width:100%;
     overflow: hidden;
@@ -24,6 +23,7 @@
 
 .mast_bottom #bar_progress .complete_progress_bar {padding:0;}
 
+/* -- Tile wall -- */
 .tile_thumbnail {
   padding:0;
   margin:.5em 3.25%;
@@ -31,4 +31,17 @@
 #tile_links {
   margin:0 auto;
   width:94%;
+}
+
+/* -- Large tile viewer -- */
+.tiles.tiles-index {
+  .content .row {margin-top:2em;}
+  p#position {
+    margin-left:300px;
+    position: absolute;
+    top:1em;
+  }
+  .tile_holder {
+    .tile_quiz .tile_multiple_choice_answer {width:75%;}
+  }
 }
