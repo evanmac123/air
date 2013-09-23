@@ -1,3 +1,11 @@
+@mixin feedback-message {
+  color:$orange;
+  display: block;
+  font-size:1.25em;
+  font-family:$open-600;
+  margin-bottom:1em;
+}
+
 .ui-widget {
   font-family:$sans;
   font-size:1em;
@@ -190,15 +198,12 @@
       margin-right:.5em;
     }
     span {display:inline-block;}
-    span#feedback {
-      color:$orange;
-      display: block;
-      font-size:1.25em;
-      font-family:$open-600;
-      margin-bottom:1em;
-    }
+    span#feedback { @include feedback-message; }
   }
 }
+
+#feedback { @include feedback-message; }
+
 .no_tiles_message {
   font-family:$open-400;
   font-size:1.3em;

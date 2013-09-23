@@ -61,6 +61,12 @@ feature 'Client admin and the digest email for tiles' do
     digest_email.from.first.should == demo.email
   end
 
+  def create_follow_up_emails
+    @follow_up_1 = FactoryGirl.create :follow_up_digest_email, demo: demo, tile_ids: [1, 2], send_on: Date.new(2013, 7, 1)
+    @follow_up_2 = FactoryGirl.create :follow_up_digest_email, demo: demo, tile_ids: [1, 2], send_on: Date.new(2013, 7, 2)
+    @follow_up_3 = FactoryGirl.create :follow_up_digest_email, demo: demo, tile_ids: [1, 2], send_on: Date.new(2013, 7, 3)
+  end
+
 # -------------------------------------------------
 
   context 'No tiles exist for digest email' do
@@ -94,6 +100,31 @@ feature 'Client admin and the digest email for tiles' do
       refresh_tile_manager_page
 
       digest_tab.should_not contain 'Last digest email was sent on'
+    end
+
+    scenario 'No follow-up emails are scheduled to be sent' do
+      digest_tab.should_not contain 'A follow-up digest email is scheduled to go out'
+    end
+
+    scenario 'Follow-up emails are scheduled to be sent', js: :webkit do  # Didn't work with poltergeist... wtf!
+      create_follow_up_emails
+      refresh_tile_manager_page
+
+      digest_tab.should contain 'A follow-up digest email is scheduled to go out'
+      digest_tab.should contain 'Monday, July 01, 2013'
+      digest_tab.should contain 'Tuesday, July 02, 2013'
+      digest_tab.should contain 'Wednesday, July 03, 2013'
+
+      first(:link, "Cancel").click
+      # Notice we have the 'Cancel' link-text here, because the just-date string appears in the cancellation message
+      digest_tab.should_not contain 'Monday, July 01, 2013 Cancel'
+      digest_tab.should contain 'Follow-up email for Monday, July 01, 2013 cancelled'
+
+      # Ensure that the follow-up email record was actually deleted
+      refresh_tile_manager_page
+      digest_tab.should_not contain 'Monday, July 01, 2013'
+      digest_tab.should contain 'Tuesday, July 02, 2013'
+      digest_tab.should contain 'Wednesday, July 03, 2013'
     end
   end
 
@@ -209,6 +240,38 @@ feature 'Client admin and the digest email for tiles' do
 
       digest_tab.should have_follow_up_selector('10')
       digest_tab.should contain 'Follow-up digest email will be sent 10 days after the original'
+    end
+
+    scenario 'No follow-up emails are scheduled to be sent' do
+      visit tile_manager_page
+      select_tab 'Digest email'
+
+      digest_tab.should_not contain 'A follow-up digest email is scheduled to go out'
+    end
+
+    scenario 'Follow-up emails are scheduled to be sent', js: :webkit do  # Didn't work with poltergeist... wtf!
+      # If you first 'create_follow_up_emails' and then 'visit tile_manager_page'... well, you can't because the follow-up creation bombs
+      visit tile_manager_page
+      select_tab 'Digest email'
+
+      create_follow_up_emails
+      refresh_tile_manager_page
+
+      digest_tab.should contain 'A follow-up digest email is scheduled to go out'
+      digest_tab.should contain 'Monday, July 01, 2013'
+      digest_tab.should contain 'Tuesday, July 02, 2013'
+      digest_tab.should contain 'Wednesday, July 03, 2013'
+
+      first(:link, "Cancel").click
+      # Notice we have the 'Cancel' link-text here, because the just-date string appears in the cancellation message
+      digest_tab.should_not contain 'Monday, July 01, 2013 Cancel'
+      digest_tab.should contain 'Follow-up email for Monday, July 01, 2013 cancelled'
+
+      # Ensure that the follow-up email record was actually deleted
+      refresh_tile_manager_page
+      digest_tab.should_not contain 'Monday, July 01, 2013'
+      digest_tab.should contain 'Tuesday, July 02, 2013'
+      digest_tab.should contain 'Wednesday, July 03, 2013'
     end
 
     scenario 'The last-digest-email-sent-on date is correct', js: true do

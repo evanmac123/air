@@ -1,2 +1,2 @@
 $("#follow_up_email_<%= @follow_up_email.id %>").remove();
-$('#digest-status-messages #feedback').html("Follow-up email for <%= @follow_up_email.send_on.to_time.to_s((:tile_digest_email_sent_at)) %> cancelled");
+$('#feedback').html("Follow-up email for <%= @follow_up_email.send_on.to_time.to_s((:tile_digest_email_sent_at)) %> cancelled");
