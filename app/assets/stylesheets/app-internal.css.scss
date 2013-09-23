@@ -33,6 +33,9 @@
 @import "./internal/tiles.css.scss";
 
 /* RWD */
+@media (max-width: $mid-desktop) {
+  .bubbly {display: none!important;}
+}
 @media only screen and (min-width: 319px) {
   @import "./internal/screen_iphone.css.scss";
 }

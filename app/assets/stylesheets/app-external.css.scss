@@ -26,6 +26,9 @@
 @import "./external/join.css.scss";
 
 /* RWD */
+@media (max-width: $mid-desktop) {
+	.helper {display: none!important;}
+}
 @media only screen and (min-width: 530px) {
 	.hero .copy .rotate {display: inline-block;}
 }

@@ -82,3 +82,26 @@ header {
 // ================== Pricing page ================== 
 #simple_fair_pricing {padding:2em 0;}
 #pricing_faq {padding:5em 0;}
+
+
+/* ================== Invitation acceptance ==================  */
+.helper {
+  display: none;
+  background:$blue;
+  color:$white;
+  font-family:$open-400;
+  font-size:.75em;
+  line-height:1.25em;
+  padding:.65em;
+  position:absolute;
+  right:-275px;
+  top:2em;
+  width:250px;
+  &#number {top:8.5em;}
+  &:before {
+    @include arrow-left($blue);
+    position:absolute;
+    left:-8px;
+    top:.75em;
+  }
+}

@@ -89,23 +89,6 @@ body.invitations-show form {
       }
     }
   }
-  .helper {
-    display: none;
-    background:$blue;
-    color:$white;
-    font-size:.875em;
-    padding:.65em;
-    position:absolute;
-    right:-275px;
-    top:1.65em;
-    width:250px;
-    &:before {
-      @include arrow-left($blue);
-      position:absolute;
-      left:-8px;
-      top:.75em;
-    }
-  }
   #notification_prefs {
     border:1px lighten($light-gray, 5%) dashed;
     padding:1em;

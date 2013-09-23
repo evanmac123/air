@@ -1,92 +1,48 @@
 @import "../mixins/standard_colors.css.scss";
-
-.wrapper {margin-top:6em;}
-
-section.first_section {
-    h1 {font-size:2.5em;}
-    h2 {font-size:1.5em;}
-  }
-  section.feature_sections, section.inner_sections {
-    p.caption {font-size:.875em;}
-  }
-  section.feature_sections {
-    h2 {font-size:2.5em;}
-    p {font-size:1.25em;}
-  }
-  section.inner_sections {
-    h2 {font-size:2.25em;}
-  }
-
-// External session pages
-body.external {
-  .wrapper {margin-top:4em;}
-  header {
-    position:static;
-    width:100%;
-    z-index:0;
-  }
-}
-#session-wrapper {width:65%; max-width:40em;}
+@import "screen_medium.css.scss";
+@import "screen_desktop.css.scss";
+@import "screen_large.css.scss";
 
 // Header nav
-header .contain-to-grid {padding:1em 0;}
+// header .contain-to-grid {padding:1em 0;}
 nav.top-bar {
 	background:transparent!important;
-	height:auto;
-  .button {
-    height:auto;
-    top:.125em;
-  }
-  .title-area .name {width:14.5em!important;} // Logo size
   .top-bar-section ul.right { // Nav bar
   	background:$white;
     margin:.5em 15px 0 0;
-    li {padding:0 1em;}
-    li.divider {  // Dividers
-      border:0;
-      padding:0;
-    }
     li > a {  // Regular links
       background:$white;
-      color:$med-gray;
-      font-family:$sans;
       font-size:1.125em;
-      padding-left:0;
-      padding-right:0;
-      &:hover{color:$orange;}
+      padding-top:.65em!important;
     }
     .has-form { // Buttons area
       background:$white!important;
-      padding:0 0 0 1em;
       a {
         color:$white;
         font-family:$open-600;
         font-size:1.125em!important;
         line-height:1em!important;
-        padding:.5em 1em!important;
+        padding:.5em 1em 1.5em 1em!important;
       }
     }
   }
 }
 
-// Footer
-footer .blog_posts {margin-bottom:0;}
-
 // Hero
 .hero {
-    background:$white;
-    h1 {font-size:2.75em;}
-    h2 {
-      font-family:$open-400;
-      padding:1.75em 0 2em 0;
-    }
-    .main-row {
-      background:image-url('marketing/hero_bg.png') top right no-repeat $blue;
-      background-size:100%;
-      padding:7.25em 0 7em 0;
-    }
-    .copy .rotate {display: inline-block;}
+  background:$white;
+  h1 {font-size:2.75em;}
+  h2 {
+    font-family:$open-400;
+    padding:1.75em 0 2em 0;
   }
+  .main-row {
+    background:image-url('marketing/hero_bg.png') top right no-repeat $blue;
+    background-size:100%;
+    padding:7em 0;
+  }
+  .copy .rotate {display: inline-block;}
+}
 
 // Capture attention
 .feature_sections#capture_attention {
@@ -97,206 +53,21 @@ footer .blog_posts {margin-bottom:0;}
     padding:0 0 55% 0;
     width:55%;
   }
-  .copy {
-    padding-top:10%;
-  }
-}
-
-// Complex made simple
-#complex_simple {
-  padding-top:0;
-  .row {padding:4em 0;}
-  .copy {padding-top:10%}
-  .imagery img {border:5px $white solid;}
-  .imagery .tips {right:2%;}
 }
 
 // Beautifully easy
 #beautifully_easy {
   background:image-url('marketing/tiles-bg.png') center top no-repeat;
-  padding:8em 0;
-  .copy {padding-top:9%;}
-  .imagery img {max-width:85%}
-}
-
-// Save time tracking
-#save_time {
-  padding:4em 0;
-  .copy {padding-top:5%;}
-  .imagery {text-align: right;}
-}
-
-// Any objective
-#any_objective {
-  padding:0;
-  .main-row {position: relative;}
-  .main-row .copy {
-    height:17.35em;
-    padding:1.75% 10% 0 10%;
-    position: absolute; 
-    text-align: center;
-    top:8.75em;
-    left:0;
-    right:0;
-  }
-  .objective_examples {
-    .large-12 {padding:0;}
-    .mobile_left, .mobile_right {
-      float:none;
-      padding:0;
-      width:100%;
-      &:after{@include clear;}
-    }
-    ul li {
-      font-family:$open-600;
-      border:1px darken($dark-green, 5%) solid;
-      text-align: center;
-      padding:2em 0;
-      height:10em;
-      line-height: 6em;
-      width:16.666%;
-      span {
-        display: inline-block;
-        line-height: 1.25em;
-        padding:0 1em;
-        vertical-align: middle;
-      }
-    }
-  }
-  #objectives_top, #objectives_bottom {
-    &:after{@include clear;}
-    li {
-      display: inline-block;
-      float: left;
-    }
-    li + li {border-left:0;}
-  }
-  #objectives_left, #objectives_right {
-    li {border-top:0;}
-    li + li {border-bottom:0;}
-  }
-  #objectives_right {
-    position: absolute;
-    right: 0;
-    top:10em;
-    width:16.67%;
-    li {width:100%;}
-  }
-} 
-
-// Additional features
-#additional_features {
-  padding:4em 0 2.5em 0;
-  .imagery {
-    height:12em;
-    margin-bottom:2.25em;
-    img {
-      max-height:100%;
-      max-width:auto;
-    }
-  }
-#easy_reporting .imagery img {max-width:86.5%}
-}
-#other_benefits{padding:4em 0 2em 0;}
-
-// Let's work together
-#lets_work_together {
-  margin:1.25em 0;
-  h1 {margin:.75em 0 1.5em 0;}
 }
 
 // Pricing
 #lets_work_together {
-  h1 {margin:.75em 0 1.5em 0;}
   .buy_benefits li {
     background-image:image-url('marketing/checkmark.png');
     background-size:14px 14px;
   }
 }
 
-#simple_fair_pricing {
-  padding:2em 0 1em 0;
-  .copy .request_a_demo {margin-top:1em;}
-  // Price chart!
-  .price_chart {
-    padding-top:.5em;
-    padding-right:$foundation-gutter;
-    .chart_tabs {
-      padding-left:16.7%;
-      li:hover {border-color:$blue;}
-    }
-    .chart_area {
-      background:transparent;
-      padding:0;
-    }
-    .chart_headers {
-      border:0;
-      float: left;
-      margin-bottom:0;
-      padding-bottom:0;
-      li {
-        display: block;
-        float:none;
-        padding:1.5em 1em 1.5em 0;
-        text-align: right;
-        &#label_max_employees, &#label_monthly_cost, 
-        &#label_yearly_cost {width:100%;}
-      }
-      li + li {
-        border-top:$border-dark;
-      }
-    }
-    .numbers_area {
-      background: $white;
-      float: left;
-      padding:1em 0;
-      &:after {@include clear;}
-    }
-    .num_of_employees, .monthly_cost, .yearly_cost {
-      display: block;
-      width:100%;
-      &:after{@include clear;}
-      li {
-        display: inline-block;
-        float: left;
-        height:auto;
-        line-height: 1em;
-        text-align: center;
-        width:16.666666667%;
-        &:nth-of-type(2n) {background:transparent;}
-      }
-      li + li {border-left:$border-dark;}
-    }
-    .num_of_employees li {padding:1em 0;}
-    .monthly_cost li {padding:1.35em 0;}
-    .yearly_cost li {padding:2em 0 1em 0;}
-    .notes_about_pricing {padding-left:16.66667%;}
-    #annual_prices {
-      padding-bottom:1em;
-      position: relative;
-      &:after{@include clear;}
-      .caption {
-        position:absolute;
-        bottom:-.5em;
-        width:100%;
-      }
-    }
-  }
-}
-
-#additional_services {
-  padding:0 0 4em 0;
-  &:after{@include clear;}
-  .services_include {
-    float:right;
-    padding-top:3.75em;
-    ul li {
-      float: left;
-      margin-bottom:1em;
-      width:50%;
-    }
-  }
-}
 #pricing_faq {
   padding:5em 0;
   &:after{@include clear;}

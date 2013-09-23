@@ -84,7 +84,7 @@
     %div#all-inputs
    
       %div.form-ul-section
-        %div.helper#password Make sure it’s at least 6 characters. (You know the deal, don’t pick something obvious like your birthday, your last name, your employee ID, etc.)
+        %div.helper#password Make sure it’s at least 6 characters. (Don’t pick something obvious like birthday, last name, employee ID, etc.)
         = f.fancy_password_field :password, :label_text => "Choose a password", :value => @user.password
       %div.form-ul-section
         %div.helper#passwordConf And confirm that password – just in case.
@@ -92,8 +92,7 @@
           
    
       %div.form-ul-section
-        %div.helper#number 
-          This is optional, but you'll have a better experience if you add it. Your usual data and text costs apply.
+        %div.helper#number This is optional, but you'll have a better experience if you add it. Your usual data and text costs apply.
         = f.hidden_field :email, :value => @user.email
         - if @user.invitation_requested_via_sms?
           = f.hidden_field :phone_number, :value => @user.phone_number
