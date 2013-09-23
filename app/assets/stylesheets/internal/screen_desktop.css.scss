@@ -99,7 +99,8 @@ body.users-index .nav-directory:before {background-position:-83px -21px!importan
 
 /* -- Tile wall -- */
 .all_tile_thumbnails {
-  text-align: justify;
+  text-align:justify;
+  #push_left {width:50%}
 }
 .tile_thumbnail {
   padding:0;
