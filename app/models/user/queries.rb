@@ -20,7 +20,7 @@ module User::Queries
   end
 
   def name_like(text)
-    where("LOWER(name) like ?", "%" + text + "%")  
+    where("name ILIKE ?", "%" + text + "%")  
   end
 
   def wants_email
