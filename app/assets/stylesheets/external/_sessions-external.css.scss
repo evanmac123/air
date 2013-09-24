@@ -1,7 +1,7 @@
 // Styles for Login/Signup external page
 body.external {
   background:image-url('marketing/bg.gif');
-
+  .wrapper {margin-top:1em;}
   header{
     position:static;
     width:100%;
@@ -23,8 +23,6 @@ body.external {
     font-size:1.25em; 
     p{padding:0 0 1em 0;}
   }
-  #flash {padding-left:3em; width:85%;}
-  #flash a#close-flash span {margin:23px 0 0 15px;}
 }
 
 #session-wrapper {
