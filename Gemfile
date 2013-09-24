@@ -36,6 +36,7 @@ gem 'json', ">= 1.7.7"
 gem 'carrierwave_direct'
 gem 'redis'
 gem 'stripe', :git => 'https://github.com/stripe/stripe-ruby'
+gem 'rack-timeout'
 
 # Gems used only for assets and not required
 # in production environments by default.

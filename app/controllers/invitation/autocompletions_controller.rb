@@ -17,7 +17,7 @@ class Invitation::AutocompletionsController < ApplicationController
         emails = User.get_claimed_users_where_like(text, demo, "email")
       rescue
         # This line will get called if my login cookie has expired
-	render 'shared/ajax_refresh_page' and return
+        render 'shared/ajax_refresh_page' and return
       end
     end
 
