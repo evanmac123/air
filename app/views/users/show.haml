@@ -6,8 +6,6 @@
     %ul.player-info
       %li
         %h1.headline= @user.name
-      %li
-        = link_to @user.email, "mailto:#{@user.email}"
 
     = render 'follow_buttons', :user => @user
 

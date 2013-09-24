@@ -30,19 +30,6 @@ describe Invitation::AutocompletionsController do
     end
   end
 
-  describe "find the user with email biker.com that's in our game'" do
-    it "should return 'sterling'" do
-      @params = {:email => "angel@biker.com", :entered_text => "bik"}
-      get :index, @params
-      assigns[:matched_users].length.should == 4
-      assigns[:matched_users].should include @user5
-      assigns[:matched_users].should include @user6
-      assigns[:matched_users].should include @user7
-      assigns[:matched_users].should include @user8
-    end
-  end
-
-
   describe "find the user with slug 'sixpack' that's in our game'" do
     it "should return 'sterling'" do
       @params = {:email => "angel@biker.com", :entered_text => "six"}

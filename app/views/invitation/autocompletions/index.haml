@@ -1,10 +1,8 @@
 - @matched_users.each do |user|
-  - text = "#{user.name}, #{user.email}, #{user.slug}"
   .single_suggestion
     .image= default_avatar_tag(user)
     .info
       .bit= user.name
-      .bit= user.email
       .bit= user.slug
     .suggested_user_id{style: "display:none"}= user.id
     = link_to "X", '#', :class => "remove_referrer"

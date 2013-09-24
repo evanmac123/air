@@ -72,7 +72,6 @@ Feature: User gives credit to game referer via autocomplete field
   Scenario: Field is populated with what the user clicks on
     When I fill in "Did anyone refer you?" with "barnaby"
     Then I should see "Barnaby Bueller"
-    And I should see "1@hopper.com"
     And I should see "smoke"
     When I select the suggestion containing "Barnaby Bueller"
     Then I should see "Barnaby Bueller"

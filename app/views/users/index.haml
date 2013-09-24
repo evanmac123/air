@@ -18,7 +18,6 @@
               .user-info
                 .user-name_email
                   %p= link_to u.name, user_path(u), :class => 'name-of-user'
-                  %p.user-email= u.email
                 = render 'follow_buttons', :user => u
 
       - else

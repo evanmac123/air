@@ -81,6 +81,6 @@ Feature: User invites friends
     Given "Yo Yo Ma" has the password "yummies"
     Given I sign in via the login page as "Yo Yo Ma/yummies"    
     Then I should see "Invite your friends"
-    When I fill in "Which coworkers do you wish to invite?" with "loaded"
+    When I fill in "Which coworkers do you wish to invite?" with "brain"
     Then I should see "Charlie Brainfield"
     And I should not see "Yo Yo Ma" within the suggested users
