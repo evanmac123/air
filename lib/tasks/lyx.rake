@@ -27,19 +27,3 @@ task :lyx do
   
   puts "F.A.Q. generated"
 end
-
-task :lyx_mini do
-  command = 'python lib/elyxer/elyxer.py --nofooter --notoclabels --raw '
-  raw_file = ' app/views/pages/raw_faq/faq_mini.lyx '
-  html_body = 'app/views/pages/_faq_mini.html'
-  body_created = system(command + raw_file + ' ' + html_body)
-  raise "Unable to create lyx_mini .html from .lyx file" unless body_created
-  
-  # These next three lines can be used to open the generated file, make some substitutions, and save it again
-
-  body = IO.read(html_body)  # You could replace the label 'subsection' here, but we decided to go with elyxer's --notoclabels flag 
-  body = body.gsub('support@hengage.com', "<a href='#' class='contact_us_link'>support@hengage.com</a>")  #remove the link prepend so links work in-place
-  File.open(html_body, 'w') {|f| f.write(body) }
-  
-  puts "Mini F.A.Q. generated"
-end
