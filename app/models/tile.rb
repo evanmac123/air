@@ -188,7 +188,7 @@ class Tile < ActiveRecord::Base
 
   def self.displayable_to_user_with_sample(user, maximum_tiles = nil)
     displayable_tiles = displayable_to_user(user)
-    if user.sample_tile_completed
+    unless user.sample_tile_completed
       displayable_tiles = displayable_tiles.prepend(user.sample_tile)
     end
 

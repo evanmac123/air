@@ -17,8 +17,6 @@ class TilesController < ApplicationController
 
     if params[:partial_only]
       render_tile_wall
-    else
-      invoke_tutorial
     end
   end
 
