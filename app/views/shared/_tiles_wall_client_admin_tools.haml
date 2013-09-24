@@ -1,7 +1,7 @@
 #tile_links
   %a.show_more_tiles{data: {"tile-path" => tiles_path}} 
     Show more tiles
-    = image_tag "spinner.gif", :style => 'display: none', :id => 'show_more_tiles_spinner'
+    = image_tag "spinner2.gif", :style => 'display: none', :id => 'show_more_tiles_spinner'
   - if current_user.authorized_to?(:client_admin)
     #client_admin_tile_links
       = link_to "Add a new tile", new_client_admin_tile_path
