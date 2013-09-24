@@ -6,8 +6,10 @@ class TilesController < ApplicationController
   def index
     @start_tile = if start_tile_id.to_s == '0'
                     current_user.sample_tile
+                  elsif start_tile_id.present?
+                    Tile.find(start_tile_id)
                   else
-                    Tile.find(start_tile_id)    
+                    nil
                   end
 
     @all_tiles_done = satisfiable_tiles.empty?
@@ -55,6 +57,7 @@ class TilesController < ApplicationController
   end
 
   def next_tile_index
+    return 0 if satisfiable_tiles.empty?
     (current_tile_index + params[:offset].to_i) % (satisfiable_tiles.length)
   end
 
