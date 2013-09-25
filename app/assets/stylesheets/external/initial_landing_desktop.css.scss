@@ -10,7 +10,73 @@ header {
       input[type="email"], input[type="submit"] {font-size:1.25em;}
       input[type="email"] {width:60%}
       input[type="submit"] {width:40%}
+      .caption:after {bottom:-5em;}
     }
   }
 }
 
+.product_values {
+  padding:3em 0;
+  .a_value {padding:2em 1.5em 2.5em 1.5em;}
+  .a_value + .a_value {
+    border-left:1px $light-gray solid;
+    margin-top:0;
+  }
+}
+
+.any_device {
+  .copy {
+    float:left;
+    padding:12% 1.5em 0;
+    width:33.33333%;
+  }
+  .imagery {
+    padding:20% 0;
+    img#device_tablet, img#device_phone {bottom:-3em;}
+  }
+}
+
+
+#client_logos ul, .in_the_press ul#press_logos {
+  li img {max-width:100%;}
+}
+
+.clients {
+  padding:4em 0 2.5em;
+  h3 {padding-bottom:2em;}
+  .featured {padding-right:6%;}
+  .featured + .featured {padding-top:0;}
+  .satisfied_client {
+    .client_photo {max-width:4.5em;}
+    li + li span {display: block;}
+  }
+  #client_logos {
+    margin-top:3em;
+    ul li {
+      padding:0em 5%;
+      vertical-align: middle;
+      width:24%;
+      &:first-of-type {padding-left:1em;}
+    }
+  }
+}
+.in_the_press {
+  padding:0 0 2em;
+  .row {
+    padding-top:2.5em;
+    &:after {@include clear;}
+  }
+  h3, ul#press_logos {
+    display: inline-block;
+    vertical-align: middle;
+  }
+  h3 {width:19%;}
+  ul#press_logos {
+    margin:0;
+    width:80%;
+  }
+  ul#press_logos li {
+    padding:0 3%;
+    width:19%;
+  }
+}

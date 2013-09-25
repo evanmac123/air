@@ -2,14 +2,12 @@ body {
   h1 {font-size:2.5em}
   h2 {font-size:2em;}
 }
-.wrapper {padding-bottom:4em;}
+.wrapper {padding-bottom:4.5em;}
 header {
   background-size:auto;
   #logo img {max-width:25%;}
   #opener .copy {
-    .headlines {
-      padding:4em 2em;
-    }
+    .headlines {padding:4em 2em;}
     #opener_form {
       input[type="email"], input[type="submit"] {
         display: inline-block;
@@ -24,11 +22,36 @@ header {
         width:35%;
       }
       #signup_responses {@include clear;}
+      .caption:after {
+        @include arrow-bottom($white);
+        border-width:.75em;
+        margin-left:-.375em;
+        opacity: .75;
+        position:absolute;
+        bottom:-3em;
+        left:50%;
+      }
     }
   }
 }
 
+.product_values, .clients, .in_the_press {
+  padding-left:16%;
+  padding-right:16%;
+}
+.any_device {
+  .copy {
+    float:none;
+    margin:0 auto;
+    width:68%;
+  }
+  .imagery {padding:35% 0;}
+}
+.in_the_press {
+  #to_the_top {margin:3em auto 1em;}
+}
 footer {
+  border:0;
   position: fixed;
   bottom:0;
   padding:1.5em 1em;

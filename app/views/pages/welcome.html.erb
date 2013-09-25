@@ -8,7 +8,7 @@
     <div class="columns large-8 large-centered copy">
       <div class="headlines">
         <h1>The bulletin board reinvented.</h1>
-        <h2>Easily create and post engaging communications for your organization.</h2>
+        <h2>Easily create and post interactive communications for your organization.</h2>
       </div>
       <div id="opener_form" class="large-10 large-centered column">
         <%= render "shared/marketing_email_signup" %>
@@ -22,9 +22,82 @@
 </header>
 
 
+<section class="product_values">
+  <div class="row">
+    <div class="large-4 columns a_value" id="create_content">
+      <h3>Create content fast</h3>
+      <p>H.Engage's content creation tool makes it easy to use best practices from consumer tools like Pinterest.</p>
+    </div>
+    <div class="large-4 columns a_value" id="engage_readers">
+      <h3>Engage readers</h3>
+      <p>Use an optimized communication format that we've tested. Ask questions and award points make it feel fun.</p>
+    </div>
+    <div class="large-4 columns a_value" id="save_time">
+      <h3>Save time following up</h3>
+      <p>Automated follow-ups will deliver the content to people's emails that don't engage.</p>
+    </div>
+  </div>
+</section>
 
+<section class="any_device">
+  <div class="row">
+    <div class="large-4 columns copy a_value" id="deliver_anywhere">
+      <h3>Deliver on any device</h3>
+      <p>Donec id elit non mi porta gravida at eget metus. Aenean lacinia bibendum nulla sed consectetur.</p>
+    </div>
+    <div class="large-8 columns imagery">
+      <%= image_tag "marketing/device_desktop.png", alt: "Desktops", id: "device_desktop" %>
+      <%= image_tag "marketing/device_tablet.png", alt: "Tablets", id: "device_tablet" %>
+      <%= image_tag "marketing/device_phone.png", alt: "Smartphones", id: "device_phone" %>
+    </div>
+  </div>
+</section>
 
+<section class="clients">
+  <div class="row" id="testimonials">
+    <h3>Our happy clients</h3>
+    <div class="large-6 columns featured" id="asha">
+      <p class="a_testimonial">"Over 60% of our employees who participated actually said that their awareness and their appreciation of our benefit plans had increased."</p>
+      <div class="satisfied_client">
+        <%= image_tag "marketing/clients/bernie.png", class: "client_photo", alt: "Bernie Knobbe, Yahoo!" %>
+        <ul>
+          <li>Bernie Knobbe</li>
+          <li>Senior Director of Global Benefits, <span>Yahoo!</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="large-6 columns featured" id="fujifilm">
+      <p class="a_testimonial">The wellness campaign run through Highmark Blue Cross Blue Shield owed much of its success to being spread virally through peer to peer influence. 82% of players were signed up by a fellow employee.</p>
+      <div class="satisfied_client">
+        <%= image_tag "marketing/clients/highmark.png", alt: "Highmark", class: "client_logo" %>
+      </div>
+    </div>
+  </div>
+  <div class="row" id="client_logos">
+    <ul class="large-12">
+      <li><%= image_tag "marketing/clients/gray/asha.png", alt: "ASHA" %></li>
+      <li><%= image_tag "marketing/clients/gray/fujifilm.png", alt: "Fujifilm" %></li>
+      <li><%= image_tag "marketing/clients/gray/michelin.png", alt: "Michelin" %></li>
+      <li><%= image_tag "marketing/clients/gray/yahoo.png", alt: "Yahoo" %></li>
+    </ul>
+  </div>
+</section>
 
+<section class="in_the_press">
+  <div class="row">
+    <div class="large-12 columns">
+      <h3>Our thought leadership</h3>
+      <ul class="large-12" id="press_logos">
+        <li><%= image_tag "marketing/press/forbes.png", alt: "Forbes Magazine" %></li>
+        <li><%= image_tag "marketing/press/ebn.png", alt: "Employee Benefit News" %></li>
+        <li><%= image_tag "marketing/press/bi.png", alt: "Business Insurance" %></li>
+        <li><%= image_tag "marketing/press/bnd.png", alt: "Business News Daily" %></li>
+        <li><%= image_tag "marketing/press/shrm.png", alt: "Society for Human Resources Management Online" %></li>
+      </ul>
+      <a href="#!" id="to_the_top">Interested? Sign up!</a>
+    </div>
+  </div>
+</section>
 
 <footer>
   <div class="row">

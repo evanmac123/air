@@ -4,7 +4,7 @@ body {
   font-size:1em;
   min-width:100%;
   position: static;
-  h1, h2 {line-height: 1.25em;}
+  h1, h2, h3 {line-height: 1.25em;}
   h1 {
     font-family:$open-600;
     font-size:2em;
@@ -13,6 +13,22 @@ body {
     font-family:$sans;
     font-size:1.5em;
   }
+  h3 {
+    font-family:$open-400;
+    font-size:1.25em;
+    &:before {
+      background:image-url('marketing/sprites_bulletinboard.png') no-repeat center top transparent;
+      background-size:80%;
+      content:"";
+      display: inline-block;
+      float:left;
+      margin-right:.35em;
+      height:30px;
+      width:30px;
+      vertical-align: text-bottom;
+    }
+  }
+  p {line-height:1.35em;}
 }
 
 header {
@@ -25,7 +41,7 @@ header {
   }
   #opener .copy {
     text-align: center;
-    padding-bottom:1.5em;
+    padding-bottom:3em;
     .headlines {
       margin-bottom:1.5em;
       padding:1.75em 0 1.25em 0;
@@ -88,10 +104,125 @@ form {
   }
 }
 
+.product_values {
+  padding:2em 0;
+  .a_value + .a_value {margin-top:2em}
+}
+
+.a_value {
+  h3 {margin-bottom:.75em;}
+  &#engage_readers h3:before {background-position:center -69px;}
+  &#save_time h3:before {background-position:center -34px;}
+  &#deliver_anywhere h3:before {background-position: center -104px;}
+}
+
+
+.any_device {
+  background:lighten($light-gray, 5%);
+  .copy {
+    padding-top:2em;
+    h3 {margin-bottom:.75em;}
+  }
+  .imagery {
+    padding:38% 0;
+    position: relative;
+    img {
+      display: inline-block;
+      position: absolute;
+      &#device_desktop {
+        bottom:0;
+        right:2%;
+        width:85%;
+      }
+      &#device_tablet {
+        bottom:-1.5em;
+        width:55%;
+      }
+      &#device_phone {
+        bottom:-2px;
+        right:0;
+        width:25%;
+      }
+    }
+  }
+}
+
+.clients, .in_the_press {background: $light-gray;}
+#client_logos ul, .in_the_press ul#press_logos {
+  li {
+    display: inline-block;
+    padding:1em 1.5em;
+    width:45%;
+    img {max-width:8em; height:auto;}
+  }
+}
+.clients {
+  padding:3em 0 2em;
+  h3 {
+    padding:0 1rem 1.5em;
+    &:before {background-position: center -137px;}
+  }
+
+  // Testimonials
+  .featured + .featured {padding-top:2em;}
+  .a_testimonial {
+    background:$white;
+    padding:1em;
+    position: relative;
+    &:after {
+      @include arrow-bottom($white);
+      border-width:.75em;
+      position: absolute;
+      left:.75em;
+      bottom:-.75em;
+    }
+  }
+  .satisfied_client {
+    margin-top:1.5em;
+    &:after {@include clear;}
+    .client_logo {width:65%; max-width:13em;}
+    .client_photo, ul {
+      display: inline-block; 
+      float: left;
+    }
+    .client_photo {
+      border:$border-light;
+      width:20%;
+    }
+    ul {
+      font-size:.875em;
+      padding-left:1em;
+      width:80%;
+      li, li span {font-family:$open-600;}
+      li + li {color:lighten($text-color, 20%); font-family:$sans;}
+    }
+  }
+
+  // Client logos
+  #client_logos {margin-top:2em;}
+}
+
+.in_the_press {
+  .row {
+    border-top:1px $white dashed;
+    padding:2em 0;
+    text-align: center;
+  }
+  h3, ul {text-align: left;}
+  h3:before {background-position: center -168px;}
+  ul#press_logos {margin-top:1em;}
+  #to_the_top {
+    @include pop-button($dark-green);
+    font-family:$open-400;
+    margin:2em auto 0;
+    padding:.75em 1.35em;
+    font-size:1.25em;
+  }
+}
 
 footer {
   background: $white;
-  border-top:3px $light-gray solid;
+  border-top:2px $light-gray solid;
   padding:1em;
   padding-top:2em;
   ul a, ul a:link, ul a, ul a:visited {@include link($gray);}

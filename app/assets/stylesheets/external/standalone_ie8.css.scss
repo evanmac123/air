@@ -2,6 +2,13 @@
 @import "initial_landing_tablet.css.scss";
 @import "initial_landing_desktop.css.scss";
 
+body {
+  h3:before {
+    background:image-url('marketing/sprites_bulletinboard_small.png') no-repeat center top transparent;
+    height:32px;
+  }
+}
+
 header {
   padding:2em 0;
   #logo img {width:40%; height:auto;}
@@ -9,5 +16,15 @@ header {
     .headlines {margin-top:0;}
   }
 }
+
+.a_value {
+  &#engage_readers h3:before {background-position:center -73px;}
+  &#deliver_anywhere h3:before {background-position: center -109px;}
+}
+.clients h3:before {background-position: center -144px;}
+.clients .satisfied_client .client_photo {height:4.5em;}
+.clients .satisfied_client .client_logo {height:2.75em;}
+
+.in_the_press h3:before {background-position: center -175px;}
 
 footer {padding:1em;}
