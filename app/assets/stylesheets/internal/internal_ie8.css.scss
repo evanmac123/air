@@ -5,6 +5,13 @@
 @import "screen_large.css.scss";
 
 body {border-top:none; font-size:14px; font-family:$open-400;}
+
+/* -- Welcome modal -- */
+#get_started_lightbox {
+  margin-left:-465px!important;
+  top:6.5em!important;
+}
+
 .all_tile_thumbnails {
   padding:2em 1em;
   #justifier {max-width:305px;}
