@@ -28,63 +28,6 @@ header {
   }
 }
 
-#quickly_create {
-  padding-bottom:0;
-  &:after{@include clear;}
-  .tile {
-    margin:0 auto;
-    width:58%;
-  }
-  .tile_section_callouts {display: none;}
-  .tile_explanations {
-    margin:0;
-    width:45%;
-    li {
-      background:$dark-green;
-      color:$white;
-      padding:.5em .75em;
-      position: absolute;
-      width:30%;
-      &:before {
-        background: none!important;
-        border-radius:0!important;
-        content:""!important;
-        padding:0!important;
-        position: absolute;
-      }
-      &#tile_exp_image {
-        top:24%;
-        &:before {@include arrow-right($dark-green); right:-1.12em;}
-      }
-      &#tile_exp_content {
-        top:58%;
-        right:1em;
-        &:before {@include arrow-left($dark-green); left:-8px;}
-      }
-      &#tile_exp_quiz {
-        top:80%;
-        &:before {@include arrow-right($dark-green); right:-1.12em;}
-      }
-    }
-  }
-}
-#deliver {
-  height:100%;
-  .row {
-    background:image-url('marketing/site_screenshot_downer2.png') center top no-repeat;
-    background-size:80%;
-    padding:50% 0 0 0;
-  }
-  .imagery {display:none;}
-}
-#outcomes {
-  .row {
-    background-image:image-url('marketing/engaged_user.jpg');
-    background-size: auto;
-    padding:30% 0;
-  }
-}
-
 footer {
   position: fixed;
   bottom:0;
