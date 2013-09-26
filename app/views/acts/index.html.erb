@@ -58,15 +58,6 @@
 
 </div>
 
-<div id='faq_mini'>
-  <div id='faq_mini_inner'>
-    <%= render 'pages/faq_mini' %>
-    <br />
-    <div class="Standard">Thanks for reading! Enter "<span class='green bold'>game on</span>" in the play box to earn 3 pts!</div>
-    <%= button_to "Get More Help", faq_path, :method => :get, :style => "float: left;" %>
-  </div>
-</div>
-
 <% if @display_get_started_lightbox %>
   <div id='get_started_lightbox'>
     <a href="#" id="close_get_started_lightbox">Close</a>
