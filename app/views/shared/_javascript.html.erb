@@ -28,6 +28,7 @@ var jRes = jRespond([
 jRes.addFunc({
   breakpoint: 'small',
   enter: function() {
+    window.intercomDisabled = true;
     jPM.on();
   },
   exit: function() {

@@ -34,8 +34,6 @@
 		Copyright © 2013 H.Engage, Inc.
   </div>
 
-  <%= render 'shared/intercom' %>
-  
   <% if @tutorial_step.try(:highlighted) %>
     <%= render 'shared/site_tutorial' %>
     <div class="overlaying" ></div>
@@ -56,6 +54,8 @@
     <%= render 'shared/tooltips' %>
   <% end %>
   <%= render :partial => 'shared/javascript' %><!-- This is where 'yield :javascript' takes place -->
+  <%= render 'shared/intercom' %><!--must come after shared/javascript-->
+  
   <div id='gradient-triangle'></div>
   <div id='preload_tooltip_images' style='visibility: hidden;'>
     <%= image_tag 'tooltip/top_flat.png' %>
