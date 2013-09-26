@@ -22,9 +22,8 @@
   <%= csrf_meta_tag %>
   <%= render 'shared/mixpanel' unless @is_admin_page %>
 </head>
-<body class="<%= body_class %>">
+<body class="<%= body_class %>" style="-webkit-overflow-scrolling: touch; overflow:visible; "><%# only works with inline style? WTF. but leave it: this fixes scroll problems in ios7 and doesn't seem to work if included via stylesheet. %>
   
-  <%#= render 'shared/unsupported_browser' if @old_browser %>
   <%= render 'shared/header', :show_play_box => true %>
   <%= render 'shared/flashes' %>
   <div class="content">

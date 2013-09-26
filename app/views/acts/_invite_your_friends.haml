@@ -40,7 +40,10 @@
 
 
   
-      #autocomplete_status 
+      #autocomplete_status{:style => "width: 99%"}
+      -# leave this inline. yes, I know it's bad and wrong. but do it.
+      -# it helps fix the scroll problems in ios7 and doesn't seem to work
+      -# if included via an actual stylesheet
 
       #potential_bonus_points{:style => "display: none;"} 0
 

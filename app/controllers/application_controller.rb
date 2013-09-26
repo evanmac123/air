@@ -3,7 +3,6 @@ class ApplicationController < ActionController::Base
 
   TILE_BATCH_SIZE_INCREMENT = 6
 
-  before_filter :sniff_browser_version
   before_filter :force_ssl 
   before_filter :authorize
   before_filter :tutorial_check
@@ -170,17 +169,6 @@ class ApplicationController < ActionController::Base
     if current_user && current_user.accepted_invitation_at
       when_joined = current_user.accepted_invitation_at
       @tooltip_delay = (when_joined > days_of_newbie.days.ago) ? short_delay : long_delay
-    end
-  end
-
-  def sniff_browser_version
-    browser = request.env['HTTP_USER_AGENT']
-    return unless browser
-    result = /MSIE (\d)\.\d/.match browser
-    if result
-      version = result[1].to_i
-      @old_browser = true if (version < 8)
-      @easter_egg = true if params[:easter_egg].present?
     end
   end
 
