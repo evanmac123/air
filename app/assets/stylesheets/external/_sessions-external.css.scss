@@ -94,9 +94,29 @@ body.invitations-show form {
   }
   #check-terms {
     margin:.5em 0;
-    input, label, #terms_label {display:inline-block;}
+    #terms_label {
+      font-size:.875em;
+      a, a:link {font-size:1em;}
+    }
+    input, label, #terms_label, .field_with_errors {
+      display:inline-block;
+      vertical-align: top;
+    }
+    input {margin-top:.3em;}
+    #terms_label {width:90%;}
   }
   .signup-submit:after {@include clear;}
+}
+
+// Form errors
+body.invitations-show #session-wrapper {
+  .form-msg {
+    color:$red;
+    font-family:$open-600;
+    font-size:.875em;
+    p.msg {padding:0 0 .5em 0;}
+  }
+  .field_with_errors input {border-color:$red;}
 }
 
 // Autocomplete suggestions 

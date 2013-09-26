@@ -91,12 +91,13 @@ header {
   color:$white;
   font-family:$open-400;
   font-size:.75em;
-  line-height:1.25em;
+  line-height:1.35em;
   padding:.65em;
   position:absolute;
-  right:-275px;
   top:2em;
-  width:250px;
+  width:185px;
+  margin-left:-92.5px;
+  left:123%;
   &#number {top:8.5em;}
   &:before {
     @include arrow-left($blue);
