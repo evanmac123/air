@@ -69,7 +69,7 @@ class Admin::UsersController < AdminBaseController
     if @user.save
       @user.move_to_new_demo(new_demo_id) if new_demo_id
       flash[:success] = "User updated."
-      redirect_to admin_demo_path(@demo)
+      redirect_to admin_demo_path(@demo, intercom_user_id: @user.id)
     else
       edit
       flash[:failure] = "Couldn't update user: #{@user.errors.full_messages.join(', ')}"

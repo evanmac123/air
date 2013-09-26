@@ -23,6 +23,10 @@ class Admin::DemosController < AdminBaseController
     @claimed_user_count = @demo.users.claimed.count
     @user_with_game_referrer_count = @demo.users.with_game_referrer.count
     @locations = @demo.locations.alphabetical
+
+    if params[:intercom_user_id]
+      @intercom_user = User.find(params[:intercom_user_id]) # hack to send client admins to Intercom
+    end
   end
 
   def edit
