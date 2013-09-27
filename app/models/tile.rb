@@ -68,7 +68,6 @@ class Tile < ActiveRecord::Base
     {
     :styles => 
       { :carousel     => ["238x238>", :png], 
-        :hover        => ["258x258>", :png],
         :email_digest => ["190", :png]
       },
     :convert_options => {:email_digest => '-gravity "North" -background "#292929" -extent "190x160"'},

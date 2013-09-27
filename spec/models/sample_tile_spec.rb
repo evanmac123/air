@@ -9,7 +9,5 @@ describe SampleTile do
     @tile.image.image_size.should == "620x620"
 
     @tile.thumbnail.should == "https://hengage-assets-staging.s3.amazonaws.com/assets/tutorial/sample_tile_thumbnail.png"
-
-    @tile.thumbnail(:hover).should == "https://hengage-assets-staging.s3.amazonaws.com/assets/tutorial/sample_tile_hover_thumbnail.png"
   end
 end
