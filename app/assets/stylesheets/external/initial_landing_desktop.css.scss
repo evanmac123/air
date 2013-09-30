@@ -16,18 +16,19 @@ header {
 }
 
 .product_values {
-  padding:3em 0;
-  .a_value {padding:2em 1.5em 2.5em 1.5em;}
-  .a_value + .a_value {
+  padding:3em 0 3.5em 0;
+  .a_value {padding:2em 1.5em;}
+  .a_value + .a_value {margin-top:0;}
+  #engage_readers {
     border-left:1px $light-gray solid;
-    margin-top:0;
+    border-right:1px $light-gray solid;
   }
 }
 
 .any_device {
   .copy {
     float:left;
-    padding:12% 1.5em 0;
+    padding:8% 1.5em 0;
     width:33.33333%;
   }
   .imagery {

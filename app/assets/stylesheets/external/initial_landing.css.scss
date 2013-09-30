@@ -100,7 +100,10 @@ form {
     color:$red;
   }
   #signup_thanks {
-    color:$orange;
+    // background:$white;
+    background:image-url('marketing/bg_white.png');
+    color:$blue;
+    padding:1em;
   }
 }
 
