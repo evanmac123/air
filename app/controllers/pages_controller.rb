@@ -71,7 +71,7 @@ class PagesController < HighVoltage::PagesController
   end
 
   def force_no_ssl_on_marketing
-    return unless page_name == 'marketing' || page_name == 'initial_landing'
+    return unless page_name == 'welcome' || page_name == 'more_info' || page_name == 'pricing'
     force_no_ssl
   end
 end
