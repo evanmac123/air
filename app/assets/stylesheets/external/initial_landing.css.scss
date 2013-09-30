@@ -100,9 +100,8 @@ form {
     color:$red;
   }
   #signup_thanks {
-    // background:$white;
     background:image-url('marketing/bg_white.png');
-    color:$blue;
+    color:$text-color;
     padding:1em;
   }
 }
@@ -150,8 +149,8 @@ form {
   }
 }
 
-.clients, .in_the_press {background: $light-gray;}
-#client_logos ul, .in_the_press ul#press_logos {
+.in_the_press {background: $light-gray;}
+.in_the_press ul#press_logos {
   li {
     display: inline-block;
     padding:1em 1.5em;
@@ -159,68 +158,21 @@ form {
     img {max-width:8em; height:auto;}
   }
 }
-.clients {
-  padding:3em 0 2em;
-  h3 {
-    padding:0 1rem 1.5em;
-    &:before {background-position: center -137px;}
-  }
-
-  // Testimonials
-  .featured + .featured {padding-top:2em;}
-  .a_testimonial {
-    background:$white;
-    padding:1em;
-    position: relative;
-    &:after {
-      @include arrow-bottom($white);
-      border-width:.75em;
-      position: absolute;
-      left:.75em;
-      bottom:-.75em;
-    }
-  }
-  .satisfied_client {
-    margin-top:1.5em;
-    &:after {@include clear;}
-    .client_logo {width:65%; max-width:13em;}
-    .client_photo, ul {
-      display: inline-block; 
-      float: left;
-    }
-    .client_photo {
-      border:$border-light;
-      width:20%;
-    }
-    ul {
-      font-size:.875em;
-      padding-left:1em;
-      width:80%;
-      li, li span {font-family:$open-600;}
-      li + li {color:lighten($text-color, 20%); font-family:$sans;}
-    }
-  }
-
-  // Client logos
-  #client_logos {margin-top:2em;}
-}
-
 .in_the_press {
   .row {
-    border-top:1px $white dashed;
     padding:2em 0;
     text-align: center;
+  }
+  #to_the_top {
+    @include pop-button($dark-green);
+    font-family:$open-400;
+    margin:1em auto 3em;
+    padding:.75em 1.35em;
+    font-size:1.25em;
   }
   h3, ul {text-align: left;}
   h3:before {background-position: center -168px;}
   ul#press_logos {margin-top:1em;}
-  #to_the_top {
-    @include pop-button($dark-green);
-    font-family:$open-400;
-    margin:2em auto 0;
-    padding:.75em 1.35em;
-    font-size:1.25em;
-  }
 }
 
 footer {

@@ -38,35 +38,18 @@ header {
 }
 
 
-#client_logos ul, .in_the_press ul#press_logos {
+.in_the_press ul#press_logos {
   li img {max-width:100%;}
 }
 
-.clients {
-  padding:4em 0 2.5em;
-  h3 {padding-bottom:2em;}
-  .featured {padding-right:6%;}
-  .featured + .featured {padding-top:0;}
-  .satisfied_client {
-    .client_photo {max-width:4.5em;}
-    li + li span {display: block;}
-  }
-  #client_logos {
-    margin-top:3em;
-    ul li {
-      padding:0em 5%;
-      vertical-align: middle;
-      width:24%;
-      &:first-of-type {padding-left:1em;}
-    }
-  }
-}
+
 .in_the_press {
   padding:0 0 2em;
   .row {
     padding-top:2.5em;
     &:after {@include clear;}
   }
+  #to_the_top {margin:3em auto}
   h3, ul#press_logos {
     display: inline-block;
     vertical-align: middle;

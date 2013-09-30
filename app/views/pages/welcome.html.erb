@@ -43,7 +43,7 @@
   <div class="row">
     <div class="large-4 columns copy a_value" id="deliver_anywhere">
       <h3>Deliver on any device</h3>
-      <p>Create a communication and deliver it to any device. H.Engage helps reach all employees, whether they're sitting at a computer or not.</p>
+      <p>71% of employees admit to using their smartphones at work. H.Engage helps reach employees on all their screens, whether they're sitting at a computer or not.</p>
     </div>
     <div class="large-8 columns imagery">
       <%= image_tag "marketing/device_desktop.png", alt: "Desktops", id: "device_desktop" %>
@@ -53,48 +53,18 @@
   </div>
 </section>
 
-<section class="clients">
-  <div class="row" id="testimonials">
-    <h3>Our happy clients</h3>
-    <div class="large-6 columns featured" id="asha">
-      <p class="a_testimonial">"Over 60% of our employees who participated actually said that their awareness and their appreciation of our benefit plans had increased."</p>
-      <div class="satisfied_client">
-        <%= image_tag "marketing/clients/bernie.png", class: "client_photo", alt: "Bernie Knobbe, Yahoo!" %>
-        <ul>
-          <li>Bernie Knobbe</li>
-          <li>Senior Director of Global Benefits, <span>Yahoo!</span></li>
-        </ul>
-      </div>
-    </div>
-    <div class="large-6 columns featured" id="fujifilm">
-      <p class="a_testimonial">The wellness campaign run through Highmark Blue Cross Blue Shield owed much of its success to being spread virally through peer to peer influence. 82% of players were signed up by a fellow employee.</p>
-      <div class="satisfied_client">
-        <%= image_tag "marketing/clients/highmark.png", alt: "Highmark", class: "client_logo" %>
-      </div>
-    </div>
-  </div>
-  <div class="row" id="client_logos">
-    <ul class="large-12">
-      <li><%= image_tag "marketing/clients/gray/asha.png", alt: "ASHA" %></li>
-      <li><%= image_tag "marketing/clients/gray/fujifilm.png", alt: "Fujifilm" %></li>
-      <li><%= image_tag "marketing/clients/gray/michelin.png", alt: "Michelin" %></li>
-      <li><%= image_tag "marketing/clients/gray/yahoo.png", alt: "Yahoo" %></li>
-    </ul>
-  </div>
-</section>
-
 <section class="in_the_press">
   <div class="row">
+    <a href="#!" id="to_the_top">Interested? Sign up!</a>
     <div class="large-12 columns">
       <h3>Our thought leadership</h3>
       <ul class="large-12" id="press_logos">
-        <li><%= image_tag "marketing/press/forbes.png", alt: "Forbes Magazine" %></li>
-        <li><%= image_tag "marketing/press/ebn.png", alt: "Employee Benefit News" %></li>
-        <li><%= image_tag "marketing/press/bi.png", alt: "Business Insurance" %></li>
-        <li><%= image_tag "marketing/press/bnd.png", alt: "Business News Daily" %></li>
-        <li><%= image_tag "marketing/press/shrm.png", alt: "Society for Human Resources Management Online" %></li>
+        <li><a href="http://www.forbes.com/sites/karstenstrauss/2013/09/17/do-millennials-think-differently-about-money-and-career/" target="_new"><%= image_tag "marketing/press/forbes.png", alt: "Forbes Magazine" %></a></li>
+        <li><a href="http://ebn.benefitnews.com/news/faster-cheaper-way-to-wellness-programs-that-work-2735879-1.html" target="_new"><%= image_tag "marketing/press/ebn.png", alt: "Employee Benefit News" %></a></li>
+        <li><a href="http://www.businessinsurance.com/article/20130616/NEWS03/306169982?tags=%7C257%7C307%7C342" target="_new"><%= image_tag "marketing/press/bi.png", alt: "Business Insurance" %></a></li>
+        <li><a href="http://www.businessnewsdaily.com/4421-entrepreneurs-tech-leave-home.html" target="_new"><%= image_tag "marketing/press/bnd.png", alt: "Business News Daily" %></a></li>
+        <li><a href="http://www.shrm.org/hrdisciplines/benefits/Articles/Pages/Open-Enrollment-Communication.aspx" target="_new"><%= image_tag "marketing/press/shrm.png", alt: "Society for Human Resources Management Online" %></a></li>
       </ul>
-      <a href="#!" id="to_the_top">Interested? Sign up!</a>
     </div>
   </div>
 </section>
@@ -134,8 +104,8 @@ $('#signup_form').submit(function(e) {
       {contact_email: trimmedEmail, contact_comment: "From BulletinBoard 2013 landing", silent: true}, 
       function() {
         $("#signup_form").hide();
-        $('#signup_thanks').fadeIn();
         $('#submitting_signup_form').hide();
+        $('#signup_thanks').fadeIn();
         mpq.track("Bulletin landing, Sign Up form submitted", {});
       }
     )
