@@ -3,7 +3,7 @@ require 'acceptance/acceptance_helper'
 
 shared_examples_for "editing a tile" do
   scenario 'should see the tile thumbnail before editing' do
-    page.find("img[src='#{@tile.thumbnail}']").should be_present
+    page.find("img[src='#{@tile.reload.thumbnail}']").should be_present
   end
 
   scenario 'changing the image' do
@@ -110,6 +110,7 @@ feature "Client admin edits tile" do
       demo_specific_rule = FactoryGirl.create(:rule, demo: @tile.demo)
       FactoryGirl.create(:rule_value, value: "in my demo", rule: demo_specific_rule)
 
+      crank_dj_clear
       visit edit_client_admin_tile_path(@tile, as: @client_admin)
     end
 
@@ -187,6 +188,7 @@ feature "Client admin edits tile" do
   context "multiple choice tile" do
     before do
       @tile = FactoryGirl.create :multiple_choice_tile
+      crank_dj_clear
 
       @client_admin = FactoryGirl.create(:client_admin, demo: @tile.demo)
 

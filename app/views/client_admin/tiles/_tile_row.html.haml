@@ -14,3 +14,8 @@
           %li.activate_button= content_tag(:div, link_to('Activate', client_admin_tile_path(tile, update_status: Tile::ACTIVE), method: :put), class: 'archive_tile_link') if type == :archive
           %li= content_tag(:div, link_to('Edit', edit_client_admin_tile_path(tile)), class: 'edit_tile_link')
           %li= content_tag(:div, link_to('Preview', client_admin_tile_path(tile)), class: 'preview_tile_link')
+
+    - if tile.thumbnail_processing
+      - content_for :javascript do
+        :javascript
+          queueTileForThumbnailPolling(#{tile.id})

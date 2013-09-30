@@ -6,3 +6,12 @@
 </ul>
 
 <%= render "tiles/full_size_tile", tile: @tile, answer_links_disabled: true %>
+
+<% if @tile.image_processing %>
+  <% content_for :javascript do %>
+    <%= javascript_tag do %>
+      <% timeout_in_msec = ClientAdmin::ImagesController::IMAGE_POLL_DELAY * 1000 %>
+      startTileImagePolling({'id': <%= @tile.id %>, 'type': 'image'}, <%= timeout_in_msec %>);
+    <% end %>
+  <% end %>
+<% end %>

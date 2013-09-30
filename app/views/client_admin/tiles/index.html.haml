@@ -15,3 +15,8 @@
   %div#active=  render partial: 'active'
   %div#digest=  render partial: 'digest'
   %div#archive= render partial: 'archive'
+
+- timeout_in_msecs = ThumbnailsController::THUMBNAIL_POLL_DELAY * 1000
+- content_for :javascript do
+  :javascript
+    startTileThumbnailPollingFromQueue(#{timeout_in_msecs})

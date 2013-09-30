@@ -4,6 +4,11 @@ class Tile < ActiveRecord::Base
   DRAFT   = 'draft'.freeze
   STATUS  = [ACTIVE, ARCHIVE, DRAFT].freeze
 
+  IMAGE_PROCESSING_IMAGE_URL = "http://gajitz.com/wp-content/uploads/2010/01/023.gif"
+  THUMBNAIL_PROCESSING_IMAGE_URL = "http://gajitz.com/wp-content/uploads/2010/01/023.gif"
+
+  TILE_IMAGE_PROCESSING_PRIORITY = -10
+
   belongs_to :demo
 
   has_many :prerequisites
@@ -23,6 +28,8 @@ class Tile < ActiveRecord::Base
 
   validates_with AttachmentPresenceValidator, :attributes => [:image], :if => :require_images, :message => "image is missing"
   validates_with AttachmentPresenceValidator, :attributes => [:thumbnail], :if => :require_images
+
+  validates_with AttachmentSizeValidator, :less_than => (2.5).megabytes, :attributes => [:image], :if => :require_images
 
   attr_accessor :display_completion_on_this_request
 
@@ -74,6 +81,20 @@ class Tile < ActiveRecord::Base
     :default_style   => :carousel,
     :default_url     => "/assets/avatars/thumb/missing.png",
     :bucket          => S3_TILE_THUMBNAIL_BUCKET}.merge(TILE_THUMBNAIL_OPTIONS)
+
+  process_in_background :image, :processing_image_url => IMAGE_PROCESSING_IMAGE_URL, :priority => TILE_IMAGE_PROCESSING_PRIORITY
+  process_in_background :thumbnail, :processing_image_url => THUMBNAIL_PROCESSING_IMAGE_URL, :priority => TILE_IMAGE_PROCESSING_PRIORITY
+
+  # This is a hack to make processing graphic tests work right. Usually
+  # enqueue_delayed_processing would run in an after_commit hook, but our
+  # tests all run within one transaction, and trying to fuck with
+  # use_transactional_fixtures and DatabaseCleaner to get JUST THESE tests
+  # to run outside of a transaction made me wanna throw my computer out of
+  # the window. So fuck that. Fuck fuck fuck.
+
+  if Rails.env.test?
+    after_save :enqueue_delayed_processing
+  end
 
   # Custom Attribute Setter: ensure that setting/updating the 'status' updates the corresponding time-stamp
   def status=(status)
@@ -141,6 +162,16 @@ class Tile < ActiveRecord::Base
 
   def to_form_builder
     form_builder_class.new(demo, tile: self)
+  end
+
+  def image_really_still_processing
+    image_url = image.url
+    image_processing || image_url.nil? || image_url == Tile::IMAGE_PROCESSING_IMAGE_URL
+  end
+
+  def thumbnail_really_still_processing
+    thumbnail_url = thumbnail.url
+    thumbnail_processing || thumbnail_url.nil? || thumbnail_url == Tile::THUMBNAIL_PROCESSING_IMAGE_URL
   end
 
   def self.due_ids

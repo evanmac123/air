@@ -76,7 +76,7 @@ Health::Application.routes.draw do
     resources :locations, :only => :create
 
     resources :tiles do
-      resource :image, :only => :update
+      resource :image, :only => [:update, :show]
     end
 
     resource :tiles_digest_notification, only: [:create, :update]
@@ -106,6 +106,7 @@ Health::Application.routes.draw do
 
   resources :games
 
+  resources :thumbnails, :only => [:index]
   namespace :admin do
     get 'exception' => 'exceptions#show'
     get 'sleep_forever' => 'sleep_forever#show'
