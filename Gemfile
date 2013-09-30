@@ -37,7 +37,7 @@ gem 'carrierwave_direct'
 gem 'redis'
 gem 'stripe', :git => 'https://github.com/stripe/stripe-ruby'
 gem 'rack-timeout'
-gem 'delayed_paperclip'
+gem 'delayed_paperclip', :git => "https://github.com/phildarnowsky/delayed_paperclip"
 
 # Gems used only for assets and not required
 # in production environments by default.
