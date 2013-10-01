@@ -4,9 +4,11 @@ class Tile < ActiveRecord::Base
   DRAFT   = 'draft'.freeze
   STATUS  = [ACTIVE, ARCHIVE, DRAFT].freeze
 
-  IMAGE_PROCESSING_IMAGE_URL = "http://gajitz.com/wp-content/uploads/2010/01/023.gif"
-  THUMBNAIL_PROCESSING_IMAGE_URL = "http://gajitz.com/wp-content/uploads/2010/01/023.gif"
+  #IMAGE_PROCESSING_IMAGE_URL = "http://gajitz.com/wp-content/uploads/2010/01/023.gif"
+  #THUMBNAIL_PROCESSING_IMAGE_URL = "http://gajitz.com/wp-content/uploads/2010/01/023.gif"
 
+  IMAGE_PROCESSING_IMAGE_URL = ActionController::Base.helpers.asset_path('images/resizing_gears_fullsize.gif')
+  THUMBNAIL_PROCESSING_IMAGE_URL = ActionController::Base.helpers.asset_path('images/resizing_gears_fullsize.gif')
   TILE_IMAGE_PROCESSING_PRIORITY = -10
 
   belongs_to :demo
