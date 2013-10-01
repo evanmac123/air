@@ -5,7 +5,7 @@
 <div class="builder_content tile_builder_section">
   <div id="image_uploader">
     <%= form_for @tile_builder_form, url: client_admin_tile_image_path(@tile_builder_form.tile), method: :put do |f| %>
-      <%= image_tag @tile_builder_form.thumbnail %>
+      <%= image_tag @tile_builder_form.thumbnail, class: "tile_image" %>
       <div class="upload_new_image">
         <%= f.file_field "image" %>
         <div class="button_wrap">
@@ -28,6 +28,8 @@
 
   <%= render 'submit_button', submit_button_text: "Update tile", form: f %>
 <% end %>
+
+<%= render 'client_admin/tiles/poll_for_image_if_needed', tile: @tile_builder_form.tile %>
 
 <% content_for :javascript do %>
   <%= javascript_tag do %>

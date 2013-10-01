@@ -28,6 +28,26 @@ feature 'Sees processing graphics while tiles are being processed' do
     page.find('.tile_image')['src'].should include('cov1.png')
   end
 
+  it 'shows the processing graphic on the edit page, until the real one is ready', js: true do
+    create_tile
+    crank_dj_clear
+
+    tile = Tile.last
+    visit edit_client_admin_tile_path(tile)
+
+    page.find('.tile_image')['src'].should include('cov1.png')
+
+    attach_file "tile_builder_form[image]", tile_fixture_path('cov2.jpg')
+    click_button "Upload new image"
+
+    page.find('.tile_image')['src'].should == Tile::IMAGE_PROCESSING_IMAGE_URL
+
+    crank_dj_clear
+    sleep(ClientAdmin::ImagesController::IMAGE_POLL_DELAY + 1)
+
+    page.find('.tile_image')['src'].should include('cov2.png')
+  end
+
   it 'shows the processing thumbnail, until the real one is ready', js: true do
     admin = FactoryGirl.create(:client_admin)
     2.times {create_tile(admin)}
