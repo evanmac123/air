@@ -57,6 +57,7 @@ module Health
       ga.js
       ga-marketing.js
       admin/byte_counter.js
+      resizing_gears_fullsize.gif
     )
 
     ################################################################
