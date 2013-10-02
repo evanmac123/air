@@ -28,34 +28,6 @@ shared_examples_for "editing a tile" do
     expect_content "Please select an image if you'd like to upload a new one."
   end
 
-  scenario "tile has same status after editing that it did before", js: true do
-    @tile.should be_active
-    click_button "Update tile"
-    expect_content "This is your finished tile."
-    expect_no_content "Click here to activate it"
-    @tile.reload.should be_active
-
-    @tile.update_attributes(status: Tile::ARCHIVE)
-    visit edit_client_admin_tile_path(@tile)
-    click_button "Update tile"
-    @tile.reload.should be_archived
-  end
-
-  scenario "activates tile after editing", js: true do
-    @tile.update_attributes(status: Tile::ARCHIVE)
-    click_button "Update tile"
-
-    click_activate_link
-    should_be_on client_admin_tiles_path
-    @tile.reload.should be_active
-  end
-
-  scenario "edits tile again after editing", js: true do
-    click_button "Update tile"
-    click_link "Click here"
-    should_be_on edit_client_admin_tile_path(@tile)
-  end
-
   scenario "won't let the user blank out the last answer", js: true do
     0.upto(2).each {|n| fill_in_answer_field n, ""}
     click_button "Update tile"

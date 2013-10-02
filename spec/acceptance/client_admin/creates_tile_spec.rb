@@ -86,18 +86,6 @@ feature 'Creates tile' do
     new_tile.multiple_choice_answers.each {|answer| expect_content answer}
   end
 
-  scenario "activates tile after creating it, and the tile appears at the front of the active tile list", js: true do
-    create_existing_tiles(demo, Tile::ACTIVE, 2)
-
-    create_good_tile
-    click_activate_link
-    should_be_on client_admin_tiles_path
-    Tile.last.should be_active
-
-    active_tab.should have_num_tiles(3)
-    active_tab.should have_first_tile(Tile.last, Tile::ACTIVE)
-  end
-
   scenario "does not activate tile after creating it, thus the tile appears at the front of the archive tile list", js: true do
     create_existing_tiles(demo, Tile::ARCHIVE, 2)
 
@@ -108,12 +96,6 @@ feature 'Creates tile' do
 
     archive_tab.should have_num_tiles(3)
     archive_tab.should have_first_tile(Tile.last, Tile::ARCHIVE)
-  end
-
-  scenario "edits tile after creating it", js: true do
-    create_good_tile
-    click_edit_link
-    should_be_on edit_client_admin_tile_path(Tile.last)
   end
 
   scenario "shouldn't have active answer links in the preview", js: true do
