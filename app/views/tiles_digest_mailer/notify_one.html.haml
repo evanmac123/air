@@ -22,8 +22,10 @@
           %table{:id => "tiles", :cellpadding => "0", :cellspacing => "5px", :width => "100%"}
             %tbody
               -# Note: To change the number of tiles per row, simply change the "(n)" to whatever your little ol' heart desires
-              - @tiles.each_slice(3) do |tiles|
-                = render partial: 'tile_row', locals: {tiles: tiles, site_link: site_link, follow_up_email: @follow_up_email}
+              - slice   = @follow_up_email ? 1 : 3
+              - partial = @follow_up_email ? 'tile_followup' : 'tile_row'
+              - @tiles.each_slice(slice) do |tiles|
+                = render partial: partial, locals: {tiles: tiles, site_link: site_link}
           %table{:id => "mail_footer", :cellpadding => "0", :cellspacing => "15", :width => "100%", :style => "margin:0; text-align:center;"}
             %tr
               %td
