@@ -14,4 +14,9 @@
 
 @media only screen and (min-width: $large-desktop) {
 .any_device .copy {padding-top:15%;} 
+#signup_form {
+  margin:auto;
+  width:90%;
+  &:after{@include clear;}
+}
 }

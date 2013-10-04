@@ -1,9 +1,9 @@
 header {
-  padding:2em 0 3em 0;
+  padding:1em 0 3em 0;
   #logo img {max-width:40%;}
   #opener .copy {
     .headlines {
-      padding:4em 0;
+      padding:1.5em 0;
       margin:3em 0 4em 0;
     }
     #opener_form {
@@ -17,8 +17,12 @@ header {
 
 .product_values {
   padding:3em 0 3.5em 0;
+  .value_prop {
+    margin-bottom:2em;
+    text-align: center;
+  }
   .a_value {padding:2em 1.5em;}
-  .a_value + .a_value {margin-top:0;}
+  .a_value {margin-top:0;}
   #engage_readers {
     border-left:1px $light-gray solid;
     border-right:1px $light-gray solid;

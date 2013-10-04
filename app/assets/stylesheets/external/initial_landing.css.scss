@@ -55,7 +55,7 @@ header {
   }
   #opener_form {
     .caption {
-      color:$med-gray;
+      color:$light-gray;
       font-size:.875em;
     }
   }
@@ -63,9 +63,9 @@ header {
 form {
   margin:0;
   label {
-    color:$med-gray;
+    color:$white;
     font-family:$open-600;
-    margin-bottom:.5em;
+    margin-bottom:1.25em;
   }
   input[type="email"] {
     background: lighten($light-gray, 10%);
@@ -108,7 +108,10 @@ form {
 
 .product_values {
   padding:2em 0;
-  .a_value + .a_value {margin-top:2em}
+  .value_prop h2 {
+    font-size:1.35em;
+  }
+  .a_value {margin-top:2em}
 }
 
 .a_value {

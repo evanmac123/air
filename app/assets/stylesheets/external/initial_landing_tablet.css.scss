@@ -22,15 +22,6 @@ header {
         width:35%;
       }
       #signup_responses {@include clear;}
-      .caption:after {
-        @include arrow-bottom($white);
-        border-width:.75em;
-        margin-left:-.375em;
-        opacity: .75;
-        position:absolute;
-        bottom:-3em;
-        left:50%;
-      }
     }
   }
 }
@@ -48,7 +39,7 @@ header {
   .imagery {padding:35% 0;}
 }
 footer {
-  border:0;
+  // border:0;
   position: fixed;
   bottom:0;
   padding:1.5em 1em;
