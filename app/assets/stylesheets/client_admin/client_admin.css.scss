@@ -5,6 +5,7 @@ body.client_admin_main {
     font-size:14px;
     line-height:1em;
     h1.headline {color:$gray;}
+    input, select, textarea {display:inline-block; margin-bottom:0;}
 }
 .button_wrap {
     @include square-button-wrap($dark-green);

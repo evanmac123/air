@@ -1,5 +1,5 @@
 class PagesController < HighVoltage::PagesController
-  SIGNED_IN_OK_PAGES = [:faq, :faq_body, :faq_toc, :public_help, :static_digest]
+  SIGNED_IN_OK_PAGES = [:faq, :faq_body, :faq_toc, :public_help, :static_digest, :static_followup]
 
   skip_before_filter :authorize, :except => SIGNED_IN_OK_PAGES
   before_filter :authenticate_without_game_begun_check, :only => SIGNED_IN_OK_PAGES

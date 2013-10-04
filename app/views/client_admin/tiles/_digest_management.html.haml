@@ -1,34 +1,37 @@
-%div.send_on
-  = num_tiles_in_digest_email_message
-  = select_tag :digest_send_on, options_for_select(Demo::TILE_DIGEST_EMAIL_SEND_ON, @tile_digest_email_send_on),
-                                data: {action: client_admin_tiles_digest_notification_path }
-  = image_tag 'spinner.gif', id: 'update-send-on-spinner', class: 'update-digest-spinner'
-  = send_on_time
-  or you can
-  %div.button_wrap
-    = button_to "Send now", client_admin_tiles_digest_notification_path, confirm: 'Are you sure you want to send the digest email?'
-
-%div.send_to
-  The digest will go to
-  = select_tag :digest_send_to, options_for_select([['all users', true], ['only joined users', false]], @demo.unclaimed_users_also_get_digest),
-                                data: {action: client_admin_tiles_digest_notification_path }
-  = image_tag 'spinner.gif', id: 'update-send-to-spinner', class: 'update-digest-spinner'
-
-%div.follow_up
-  A follow-up digest email will be sent
-  - options = (0..10).map { |day| [day == 0 ? 'Never' : day, day] }
-  = select_tag :digest_follow_up, options_for_select(options, @demo.follow_up_digest_email_days.to_s),
-                                  data: {action: client_admin_tiles_digest_notification_path }
-  = image_tag 'spinner.gif', id: 'update-follow-up-spinner', class: 'update-digest-spinner'
-  days after the original
-  %br
-  to all users who have not interacted with any of the tiles
-
-= render 'cancel_follow_ups'
-
 %div#digest-status-messages
   %span#feedback
-  %a{:href => "/pages/static_digest", :target => "_blank"} See an example
-  %span#last-email= digest_email_sent_on_message
 
-  
+%div.notification_controls#digest_controls
+  %p A digest email helps notify your employees about new tiles. The email will contain the below tiles.
+  / %div.send_on
+  /   = num_tiles_in_digest_email_message
+  /   = select_tag :digest_send_on, options_for_select(Demo::TILE_DIGEST_EMAIL_SEND_ON, @tile_digest_email_send_on),
+  /                                 data: {action: client_admin_tiles_digest_notification_path }
+  /   = image_tag 'spinner.gif', id: 'update-send-on-spinner', class: 'update-digest-spinner'
+  /   = send_on_time
+
+  %div.send_to
+    %p The digest will go to
+    = select_tag :digest_send_to, options_for_select([['all users', true], ['only joined users', false]], @demo.unclaimed_users_also_get_digest),
+                                  data: {action: client_admin_tiles_digest_notification_path }
+    = image_tag 'spinner.gif', id: 'update-send-to-spinner', class: 'update-digest-spinner'
+
+  %div.button_wrap
+    = button_to "Send digest now", client_admin_tiles_digest_notification_path, confirm: 'Are you sure you want to send the digest email?'
+  %a{:href => "/pages/static_digest", :target => "_blank", :id => "digest_example"} See an example
+
+  %p#last-email= digest_email_sent_on_message
+
+%div.notification_controls#followup_controls
+  %div.follow_up
+    A follow-up email will be sent
+    - options = (0..10).map { |day| [day == 0 ? 'Never' : day, day] }
+    = select_tag :digest_follow_up, options_for_select(options, @demo.follow_up_digest_email_days.to_s),
+                                    data: {action: client_admin_tiles_digest_notification_path }
+    = image_tag 'spinner.gif', id: 'update-follow-up-spinner', class: 'update-digest-spinner'
+    days after the digest to all users who have not interacted with any of the tiles.
+
+  %a{:href => "/pages/static_followup", :target => "_blank", :id => "followup_example"} See an example
+
+  = render 'cancel_follow_ups'
+

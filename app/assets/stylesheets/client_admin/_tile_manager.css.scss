@@ -1,11 +1,3 @@
-@mixin feedback-message {
-  color:$orange;
-  display: block;
-  font-size:1.25em;
-  font-family:$open-600;
-  margin-bottom:1em;
-}
-
 .ui-widget {
   font-family:$sans;
   font-size:1em;
@@ -175,34 +167,67 @@
   border-bottom:1px $light-gray solid;
   font-family:$open-400;
   margin-bottom:2em;
-  padding-bottom:2em;
+  &:after {@include clear;}
+
+  #digest-status-messages {
+    #feedback {
+      color:$orange;
+      font-weight:$open-600;
+      display: block;
+      padding-bottom:1em;
+    }
+  }
+
+  .notification_controls {
+    display: inline-block;
+    float:left;
+    width:50%;
+    #digest_example, #followup_example {@include link($gray);}
+  }
+  #digest_controls {
+    border-right:$border-dark;
+    padding:0 1em 2em 0;
+    .send_to {
+      margin:1em 0;
+      * {vertical-align: middle;}  
+      select {margin-bottom:0;}
+      p {display: inline-block;}
+    }
+    #last-email {
+      color:$gray;
+      margin-top:1em;
+    }
+    #digest_example { margin-left:.5em;}
+  }
+  #followup_controls {
+    padding-left:1em;
+    .follow_up {line-height:1.25em;}
+    #scheduled_followups {
+      color:$gray;
+      margin-top:1em;
+    }
+    #followup_example {
+      display: inline-block;
+      margin-top:1em;
+    }
+  }
+  #digest_example, #followup_example, #last-email, #scheduled_followups {font-size:.857142857em;}
+
+
   form {display:inline-block;}
   .button_wrap {
-    @include square-button-wrap($med-gray);
+    @include square-button-wrap($blue);
     input[type="submit"] {
-      @include square-button($med-gray);
+      @include square-button($blue);
       font-size:1em;
-      padding:.25em .5em;
+      padding:.35em .5em;
     }
   }
   .update-digest-spinner {
     display: none;
     vertical-align: middle;
   }
-  #digest-status-messages {
-    color:$gray;
-    font-size:.85em;
-    margin-top:1.125em;
-    a {
-      @include link($blue);
-      margin-right:.5em;
-    }
-    span {display:inline-block;}
-    span#feedback { @include feedback-message; }
-  }
 }
-
-#feedback { @include feedback-message; }
 
 .no_tiles_message {
   font-family:$open-400;

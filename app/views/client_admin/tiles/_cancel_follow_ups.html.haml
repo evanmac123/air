@@ -1,8 +1,8 @@
 - unless @follow_up_emails.empty?
-  %br
-  A follow-up digest email is scheduled to go out on:
-  %div#cancel_follow_up
-    - @follow_up_emails.each do |follow_up|
-      %div{id: "follow_up_email_#{follow_up.id}"}
-        = follow_up.send_on.to_time.to_s(:tile_digest_email_sent_at)
-        = link_to 'Cancel', client_admin_tiles_follow_up_email_path(follow_up), method: :delete, remote: true, confirm: 'Are you sure?'
+  %div#scheduled_followups
+    A follow-up digest email is scheduled to go out on:
+    %div#cancel_follow_up
+      - @follow_up_emails.each do |follow_up|
+        %div{id: "follow_up_email_#{follow_up.id}"}
+          = follow_up.send_on.to_time.to_s(:tile_digest_email_sent_at)
+          = link_to 'Cancel', client_admin_tiles_follow_up_email_path(follow_up), method: :delete, remote: true, confirm: 'Are you sure?'
