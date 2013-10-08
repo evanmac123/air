@@ -376,8 +376,9 @@ Create bucket for logo image, e.g. heinekin_logo
 Clck 'Upload' and add a file. Then, button at bottom:
 Set details > set permissions > make everything public
 Upload image file to bucket
-Right-click > properties > URL > open link in new tab
-Create a Skin object for the demo and set its logo_url
+Need to click on the uploaded image filename (to get it listed by itself, then right-click > Properties > Link
+
+Now create a Skin object for the demo and set its logo_url to the 'Link':
 Skin.create! demo_id: 185, logo_url: 'https://s3.amazonaws.com/bedford_board_logo/fujifilm.psd'
 
 TO CREATE A CHARACTERISTIC FOR TAGGING USERS
