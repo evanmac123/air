@@ -378,6 +378,7 @@ Set details > set permissions > make everything public
 Upload image file to bucket
 Right-click > properties > URL > open link in new tab
 Create a Skin object for the demo and set its logo_url
+Skin.create! demo_id: 185, logo_url: 'https://s3.amazonaws.com/bedford_board_logo/fujifilm.psd'
 
 TO CREATE A CHARACTERISTIC FOR TAGGING USERS
 Site Admin > Select Game > Characteristics for this demo >
