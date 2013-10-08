@@ -371,11 +371,13 @@ http://aws.amazon.com/
 My Account > AWS Management Console > S3
 
 UPLOAD A LOGO FOR A DEMO TO S3
+Get the logo from the Ks (Could be a .psd file)
 Create bucket for logo image, e.g. heinekin_logo
+Clck 'Upload' and add a file. Then, button at bottom:
 Set details > set permissions > make everything public
 Upload image file to bucket
 Right-click > properties > URL > open link in new tab
-Create a Skin object for the demo and set its logo_url:
+Create a Skin object for the demo and set its logo_url
 
 TO CREATE A CHARACTERISTIC FOR TAGGING USERS
 Site Admin > Select Game > Characteristics for this demo >
