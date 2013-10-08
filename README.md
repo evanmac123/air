@@ -461,8 +461,8 @@ irb(main):037:0> cim = CustomInvitationEmail.new(demo_id: 134)
 => #<CustomInvitationEmail id: nil, custom_html_text: nil, custom_plain_text: nil, custom_subject: nil, custom_subject_with_referrer: nil, demo_id: 134, created_at: nil, updated_at: nil>
 irb(main):038:0> cim.custom_subject = "Play NPS Wellness and make the most of your HR benefits and programs"
 => "Play NPS Wellness and make the most of your HR benefits and programs"
-irb(main):039:0> cim.custom_subject_with_referrer = "[referrer_name] invited you to join NPS Wellness!"
-=> "[referrer_name] invited you to join NPS Wellness!"
+irb(main):039:0> cim.custom_subject_with_referrer = "[referrer] invited you to join NPS Wellness!"
+=> "[referrer] invited you to join NPS Wellness!"
 irb(main):040:0> cim.save
 => true
 irb(main):041:0> emails.each {|email| user = User.find_by_email(email); user.peer_invitations_as_invitee.each(&:destroy); user.invite; user.invite(User.find_by_name('Larry Hannay'))}
