@@ -371,15 +371,15 @@ http://aws.amazon.com/
 My Account > AWS Management Console > S3
 
 UPLOAD A LOGO FOR A DEMO TO S3
-Get the logo from the Ks (Could be a .psd file)
+Get the logo from the K's. If it's a .psd file => have them convert it to a .png or .jpg
 Create bucket for logo image, e.g. heinekin_logo
-Clck 'Upload' and add a file. Then, button at bottom:
+Clck 'Upload' and add a file. 
+Then, button at bottom:
 Set details > set permissions > make everything public
 Upload image file to bucket
-Need to click on the uploaded image filename (to get it listed by itself, then right-click > Properties > Link
-
+Need to click on the uploaded image filename (to get it listed by itself) then right-click > Properties > Link
 Now create a Skin object for the demo and set its logo_url to the 'Link':
-Skin.create! demo_id: 185, logo_url: 'https://s3.amazonaws.com/bedford_board_logo/fujifilm.psd'
+Skin.create! demo_id: 185, logo_url: 'https://s3.amazonaws.com/bedford_board_logo/fujifilm.png'
 
 TO CREATE A CHARACTERISTIC FOR TAGGING USERS
 Site Admin > Select Game > Characteristics for this demo >
@@ -450,137 +450,22 @@ Set the demo's custom_reply_email_name
 
 SET CUSTOM EMAIL FOR A DEMO
 * See data in custom_invitation_emails table for examples.
-
-irb(main):034:0> emails = %w(phil@hengage.com)
-=> ["phil@hengage.com"]
-irb(main):035:0> emails.each {|email| user = User.find_by_email(email); user.peer_invitations_as_invitee.each(&:destroy); user.invite; user.invite(User.find_by_name('Larry Hannay'))}
-=> ["phil@hengage.com"]
-irb(main):036:0> CustomInvitationEmail
-=> CustomInvitationEmail(id: integer, custom_html_text: text, custom_plain_text: text, custom_subject: text, custom_subject_with_referrer: text, demo_id: integer, created_at: datetime, updated_at: datetime)
-irb(main):037:0> cim = CustomInvitationEmail.new(demo_id: 134)
-=> #<CustomInvitationEmail id: nil, custom_html_text: nil, custom_plain_text: nil, custom_subject: nil, custom_subject_with_referrer: nil, demo_id: 134, created_at: nil, updated_at: nil>
-irb(main):038:0> cim.custom_subject = "Play NPS Wellness and make the most of your HR benefits and programs"
-=> "Play NPS Wellness and make the most of your HR benefits and programs"
-irb(main):039:0> cim.custom_subject_with_referrer = "[referrer] invited you to join NPS Wellness!"
-=> "[referrer] invited you to join NPS Wellness!"
+* The email text is the final result of setting up an email. Does not reflect an actual user session because the original one had errors (went over it quickly) and during my first real one all hell broke loose. So... whatever.
+irb(main):037:0> cim = CustomInvitationEmail.new(demo_id: 185)
+=> #<CustomInvitationEmail id: nil, custom_html_text: nil, custom_plain_text: nil, custom_subject: nil, custom_subject_with_referrer: nil, demo_id: 185, created_at: nil, updated_at: nil>
+irb(main):038:0> cim.custom_subject = "Check out the Bedford Board!"
+=> "Check out the Bedford Board!"
+irb(main):039:0> cim.custom_subject_with_referrer = "[referrer] invited you to check out the Bedford Board!"
+=> "[referrer] invited you to check out the Bedford Board!"
 irb(main):040:0> cim.save
 => true
-irb(main):041:0> emails.each {|email| user = User.find_by_email(email); user.peer_invitations_as_invitee.each(&:destroy); user.invite; user.invite(User.find_by_name('Larry Hannay'))}
-=> ["phil@hengage.com"]
-irb(main):042:0> cim.custom_subject_with_referrer = "[referrer] invited you to join NPS Wellness!"
-=> "[referrer] invited you to join NPS Wellness!"
-irb(main):043:0> cim.save
-=> true
-irb(main):044:0> emails.each {|email| user = User.find_by_email(email); user.peer_invitations_as_invitee.each(&:destroy); user.invite; user.invite(User.find_by_name('Larry Hannay'))}
-=> ["phil@hengage.com"]
-irb(main):045:0> CustomInvitationEmail.count
-=> 10
-irb(main):046:0> cim.custom_plain_text = %{[no_referrer_block]Welcome to NPS Wellness![/no_referrer_block][referrer_block][referrer] joined NPS Wellness and thinks you should too![/referrer_block]
-irb(main):047:0"
-irb(main):048:0" An easy and fun way to learn about Wellness programs, benefits and events for NPS Wellness.
-irb(main):049:0"
-irb(main):050:0" What does NPS Wellness do?
-irb(main):051:0"
-irb(main):052:0" - Makes workplace communications feel fun and interesting.
-irb(main):053:0" - Provides short and timely content that's relevant for you.
-irb(main):054:0" - Reduces the volume of dense emails so you don't miss important information.
-irb(main):055:0"
-irb(main):056:0" How it works:
-irb(main):057:0"
-irb(main):058:0" - Start. Copy and paste the following link into your browser: [invitation_url].
-irb(main):059:0" - Answer questions for points. Each Wednesday you'll receive an email notifying you of new content.
-irb(main):060:0" - Win prizes. For every 20 points you earn, you'll get a ticket into the raffle for a prize. You can track the points and tickets you earn in the progress bar at the top of the NPS Wellness homepage.
-irb(main):061:0"
-irb(main):062:0" Questions? Send us an email to support@hengage.com.
-irb(main):063:0"
-irb(main):064:0"
-irb(main):065:0" }
-=> "[no_referrer_block]Welcome to NPS Wellness![/no_referrer_block][referrer_block][referrer] joined NPS Wellness and thinks you should too![/referrer_block]\n\nAn easy and fun way to learn about Wellness programs, benefits and events for NPS Wellness.\n\nWhat does NPS Wellness do?\n\n- Makes workplace communications feel fun and interesting.\n- Provides short and timely content that's relevant for you.\n- Reduces the volume of dense emails so you don't miss important information.\n\nHow it works:\n\n- Start. Copy and paste the following link into your browser: [invitation_url].\n- Answer questions for points. Each Wednesday you'll receive an email notifying you of new content.\n- Win prizes. For every 20 points you earn, you'll get a ticket into the raffle for a prize. You can track the points and tickets you earn in the progress bar at the top of the NPS Wellness homepage.\n\nQuestions? Send us an email to support@hengage.com.\n\n\n"
-irb(main):066:0> cim.custom_html_text = %{<center>
-irb(main):067:0" <table width="550" border="0" cellspacing="0" cellpadding="0">
-irb(main):068:0" <tbody>
-irb(main):069:0" <tr>
-irb(main):070:0" <td><center>
-irb(main):071:0" <table border="0" cellspacing="0" cellpadding="0">
-irb(main):072:0" <tbody>
-irb(main):073:0" <tr style="font-family: 'helvetica neue', helvetica, sans-serif; font-size: 7px; line-height: .9em;">
-irb(main):074:0" <td style="font-family: arial, sans-serif; margin: 0px; background-color: #4da968; font-size: 5px;" width="138">&nbsp;</td>
-irb(main):075:0" <td style="font-family: arial, sans-serif; margin: 0px; background-color: #50698c; font-size: 5px;" width="138">&nbsp;</td>
-irb(main):076:0" <td style="font-family: arial, sans-serif; margin: 0px; background-color: #ff7d00; font-size: 5px;" width="274">&nbsp;</td>
-irb(main):077:0" </tr>
-irb(main):078:0" </tbody>
-irb(main):079:0" </table>
-irb(main):080:0" </center></td>
-irb(main):081:0" </tr>
-irb(main):082:0" <tr>
-irb(main):083:0" <td height="10">&nbsp;</td>
-irb(main):084:0" </tr>
-irb(main):085:0" <tr style="font-family: 'helvetica neue', helvetica, sans-serif;">
-irb(main):086:0" <td style="text-align: left;">
-irb(main):087:0" <h1 style="color: #292929; font-weight: 300;">[no_referrer_block]Welcome to NPS Wellness![/no_referrer_block][referrer_block][referrer] joined NPS Wellness and thinks you should too![/referrer_block]</h1>
-irb(main):088:0" <h2 style="color: #a8a8a8; font-weight: 500;">An easy and fun way to learn about Wellness programs, benefits and events for NPS Wellness.</h2>
-irb(main):089:0" </td>
-irb(main):090:0" </tr>
-irb(main):091:0" <tr>
-irb(main):092:0" <td height="10">&nbsp;</td>
-irb(main):093:0" </tr>
-irb(main):094:0" <tr>
-irb(main):095:0" <td><center>
-irb(main):096:0" <table border="0" cellspacing="0" cellpadding="0">
-irb(main):097:0" <tbody>
-irb(main):098:0" <tr style="background: #4DA968;">
-irb(main):099:0" <td style="line-height: .65em;" colspan="3" height="0">&nbsp;</td>
-irb(main):100:0" </tr>
-irb(main):101:0" <tr style="background: #4DA968;">
-irb(main):102:0" <td width="30">&nbsp;</td>
-irb(main):103:0" <td><a style="color: #ffffff; display: block; font-family: 'helvetica neue', helvetica, sans-serif; font-size: 20px; font-weight: bold; text-decoration: none; padding: .5em 2em;" href="[invitation_url]" target="_blank">Get started</a></td>
-irb(main):104:0" <td width="30">&nbsp;</td>
-irb(main):105:0" </tr>
-irb(main):106:0" <tr style="background: #4DA968;">
-irb(main):107:0" <td style="border-bottom: 5px #428E50 solid; line-height: .65em;" colspan="3" height="0">&nbsp;</td>
-irb(main):108:0" </tr>
-irb(main):109:0" </tbody>
-irb(main):110:0" </table>
-irb(main):111:0" </center></td>
-irb(main):112:0" </tr>
-irb(main):113:0" <tr>
-irb(main):114:0" <td height="50">&nbsp;</td>
-irb(main):115:0" </tr>
-irb(main):116:0" <tr style="font-family: 'helvetica neue', helvetica, sans-serif;">
-irb(main):117:0" <td style="text-align: left;">
-irb(main):118:0" <h2 style="color: #50698c; font-weight: 500;">What does NPS Wellness do?</h2>
-irb(main):119:0" <ul style="list-style-type: disc;">
-irb(main):120:0" <li style="padding-bottom: 0.7em;">Makes workplace communications feel fun and interesting.</li>
-irb(main):121:0" <li style="padding-bottom: 0.7em;">Provides short and timely content that's relevant for you.</li>
-irb(main):122:0" <li style="padding-bottom: 0.7em;">Reduces the volume of dense emails so you don't miss important information.</li>
-irb(main):123:0" </ul>
-irb(main):124:0" </td>
-irb(main):125:0" </tr>
-irb(main):126:0" <tr>
-irb(main):127:0" <td height="10">&nbsp;</td>
-irb(main):128:0" </tr>
-irb(main):129:0" <tr style="font-family: 'helvetica neue', helvetica, sans-serif;">
-irb(main):130:0" <td style="text-align: left;">
-irb(main):131:0" <h2 style="color: #50698c; font-weight: 500;">How it works:</h2>
-irb(main):132:0" <ul style="list-style-type: disc;">
-irb(main):133:0" <li style="padding-bottom: 0.7em;"><strong>Start.</strong> Click the green "Get started" button.</li>
-irb(main):134:0" <li style="padding-bottom: 0.7em;"><strong>Answer questions for points. </strong>Each Wednesday you'll receive an email notifying you of new content.</li>
-irb(main):135:0" <li style="padding-bottom: 0.7em;"><strong>Win prizes. </strong>For every 20 points you earn, you'll get a ticket into the raffle for a prize. You can track the points and tickets you earn in the progress bar at the top of the NPS Wellness homepage.</li>
-irb(main):136:0" </ul>
-irb(main):137:0" <p style="text-align: center;">Questions? Send us an&nbsp;<a href="mailto:support@hengage.com">Email</a>.&nbsp;</p>
-irb(main):138:0" <p style="text-align: center;">&nbsp;</p>
-irb(main):139:0" </td>
-irb(main):140:0" </tr>
-irb(main):141:0" </tbody>
-irb(main):142:0" </table>
-irb(main):143:0" </center>}
-=> "<center>\n<table width=\"550\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\">\n<tbody>\n<tr>\n<td><center>\n<table border=\"0\" cellspacing=\"0\" cellpadding=\"0\">\n<tbody>\n<tr style=\"font-family: 'helvetica neue', helvetica, sans-serif; font-size: 7px; line-height: .9em;\">\n<td style=\"font-family: arial, sans-serif; margin: 0px; background-color: #4da968; font-size: 5px;\" width=\"138\">&nbsp;</td>\n<td style=\"font-family: arial, sans-serif; margin: 0px; background-color: #50698c; font-size: 5px;\" width=\"138\">&nbsp;</td>\n<td style=\"font-family: arial, sans-serif; margin: 0px; background-color: #ff7d00; font-size: 5px;\" width=\"274\">&nbsp;</td>\n</tr>\n</tbody>\n</table>\n</center></td>\n</tr>\n<tr>\n<td height=\"10\">&nbsp;</td>\n</tr>\n<tr style=\"font-family: 'helvetica neue', helvetica, sans-serif;\">\n<td style=\"text-align: left;\">\n<h1 style=\"color: #292929; font-weight: 300;\">[no_referrer_block]Welcome to NPS Wellness![/no_referrer_block][referrer_block][referrer] joined NPS Wellness and thinks you should too![/referrer_block]</h1>\n<h2 style=\"color: #a8a8a8; font-weight: 500;\">An easy and fun way to learn about Wellness programs, benefits and events for NPS Wellness.</h2>\n</td>\n</tr>\n<tr>\n<td height=\"10\">&nbsp;</td>\n</tr>\n<tr>\n<td><center>\n<table border=\"0\" cellspacing=\"0\" cellpadding=\"0\">\n<tbody>\n<tr style=\"background: #4DA968;\">\n<td style=\"line-height: .65em;\" colspan=\"3\" height=\"0\">&nbsp;</td>\n</tr>\n<tr style=\"background: #4DA968;\">\n<td width=\"30\">&nbsp;</td>\n<td><a style=\"color: #ffffff; display: block; font-family: 'helvetica neue', helvetica, sans-serif; font-size: 20px; font-weight: bold; text-decoration: none; padding: .5em 2em;\" href=\"[invitation_url]\" target=\"_blank\">Get started</a></td>\n<td width=\"30\">&nbsp;</td>\n</tr>\n<tr style=\"background: #4DA968;\">\n<td style=\"border-bottom: 5px #428E50 solid; line-height: .65em;\" colspan=\"3\" height=\"0\">&nbsp;</td>\n</tr>\n</tbody>\n</table>\n</center></td>\n</tr>\n<tr>\n<td height=\"50\">&nbsp;</td>\n</tr>\n<tr style=\"font-family: 'helvetica neue', helvetica, sans-serif;\">\n<td style=\"text-align: left;\">\n<h2 style=\"color: #50698c; font-weight: 500;\">What does NPS Wellness do?</h2>\n<ul style=\"list-style-type: disc;\">\n<li style=\"padding-bottom: 0.7em;\">Makes workplace communications feel fun and interesting.</li>\n<li style=\"padding-bottom: 0.7em;\">Provides short and timely content that's relevant for you.</li>\n<li style=\"padding-bottom: 0.7em;\">Reduces the volume of dense emails so you don't miss important information.</li>\n</ul>\n</td>\n</tr>\n<tr>\n<td height=\"10\">&nbsp;</td>\n</tr>\n<tr style=\"font-family: 'helvetica neue', helvetica, sans-serif;\">\n<td style=\"text-align: left;\">\n<h2 style=\"color: #50698c; font-weight: 500;\">How it works:</h2>\n<ul style=\"list-style-type: disc;\">\n<li style=\"padding-bottom: 0.7em;\"><strong>Start.</strong> Click the green \"Get started\" button.</li>\n<li style=\"padding-bottom: 0.7em;\"><strong>Answer questions for points. </strong>Each Wednesday you'll receive an email notifying you of new content.</li>\n<li style=\"padding-bottom: 0.7em;\"><strong>Win prizes. </strong>For every 20 points you earn, you'll get a ticket into the raffle for a prize. You can track the points and tickets you earn in the progress bar at the top of the NPS Wellness homepage.</li>\n</ul>\n<p style=\"text-align: center;\">Questions? Send us an&nbsp;<a href=\"mailto:support@hengage.com\">Email</a>.&nbsp;</p>\n<p style=\"text-align: center;\">&nbsp;</p>\n</td>\n</tr>\n</tbody>\n</table>\n</center>"
+irb(main):046:0> cim.custom_plain_text = %(
+[no_referrer_block]You're invited to check out the Bedford Board - an easy and fun way to learn about what's going on in Bedford and at Fujifilm.[/no_referrer_block][referrer_block][referrer] invited you to check out the Bedford Board - an easy and fun way to learn about what's going on in Bedford and at Fujifilm.[/referrer_block]\n\nOn the Bedford Board, you'll find the normal HealthFocus tiles, as well as new tiles about events and updates that are just for Bedford employees.\n\nThese tiles will be posted throughout the year, and you'll receive an email when new ones are available.\n\nHow it works:\n\n* Go to [invitation_url] to get started. Have a smartphone? Now you can access the website on your phone too!\n* Just like in rounds of HealthFocus, answer questions for points. You'll receive an email notifying you when new tiles are posted. Make sure to watch your email since tiles won't be hung up around the office anymore.\n* Win prizes. For every 20 points you earn, you'll get a ticket into the raffle for a prize. Watch for tiles announcing new prize drawings throughout the year.\n\nQuestions? Send an email to support@hengage.com\n\n
+irb(main):066:0> )
+irb(main):066:0> cim.custom_html_text = %(
+<div style=\"color: #222222; font-family: arial, sans-serif; font-size: 13px;\">\n<div>[no_referrer_block]You're invited to check out the Bedford Board - an easy and fun way to learn about what's going on in Bedford and at Fujifilm.[/no_referrer_block][referrer_block][referrer] invited you to check out the Bedford Board - an easy and fun way to learn about what's going on in Bedford and at Fujifilm.[/referrer_block]&nbsp;</div>\n<div>&nbsp;</div>\n<div>On the Bedford Board, you'll find the normal HealthFocus tiles, as well as new tiles about events and updates that are just for Bedford employees. These tiles will be posted throughout the year, and you'll receive an email when new ones are available.</div>\n<div>&nbsp;</div>\n<div>Click&nbsp;<a href=\"[invitation_url]\">here</a> to get started.</div>\n<div>&nbsp;</div>\n<div><strong>How it works:</strong></div>\n<div>\n<ul>\n<li>Click the link to get started. Have a smartphone? Now you can access the website on your phone too!</li>\n<li>Just like in rounds of HealthFocus, answer questions for points. You'll receive an email notifying you when new tiles are posted. Make sure to watch your email since tiles won't be hung up around the office anymore.</li>\n<li>Win prizes. For every 20 points you earn, you'll get a ticket into the raffle for a prize. Watch for tiles announcing new prize drawings throughout the year.&nbsp;</li>\n</ul>\n</div>\n<div>Questions? Send us an email at&nbsp;<a style=\"color: #1155cc;\" href=\"mailto:support@hengage.com\" target=\"_blank\">support@hengage.com</a>.</div>\n</div><br /><br />
+irb(main):143:0" )
 irb(main):144:0> cim.save
-=> true
-irb(main):145:0> emails = %w(phil@hengage.com kate@hengage.com)
-=> ["phil@hengage.com", "kate@hengage.com"]
-irb(main):146:0> emails.each {|email| user = User.find_by_email(email); user.peer_invitations_as_invitee.each(&:destroy); user.invite; user.invite(User.find_by_name('Larry Hannay'))}
-=> ["phil@hengage.com", "kate@hengage.com"]
 
 THE DREADED BULK LOADER
 Some notes on the actual session below...
