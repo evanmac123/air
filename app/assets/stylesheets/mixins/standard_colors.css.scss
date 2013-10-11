@@ -24,11 +24,29 @@
     font-weight: 600;
     font-style: normal;
 }
+@font-face {
+    font-family: 'OpenSansBold';
+    src: url('OpenSans-Bold-webfont.eot');
+    src: url('OpenSans-Bold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('OpenSans-Bold-webfont.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'OpenSansExtraBold';
+    src: url('OpenSans-ExtraBold-webfont.eot');
+    src: url('OpenSans-ExtraBold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('OpenSans-ExtraBold-webfont.ttf') format('truetype');
+    font-weight: bolder;
+    font-style: normal;
+}
 $default:   'Helvetica Neue', Helvetica, sans-serif;
 $open-300:  'OpenSansLight';
 $sans: $open-300, $default;
 $open-400:  'OpenSansRegular', $sans;
 $open-600:  'OpenSansSemiBold', $sans;
+$open-800: 'OpenSansBold', $open-600;
+$open-900: 'OpenSansExtraBold', $open-800;
 
 
 $gutter:            10px;
@@ -48,6 +66,8 @@ $dark-gray:         #2e2e2c;
 $med-gray:          #a8a8a8;
 $gray:              #818385;
 $light-gray:        #dfdfdf;
+
+$tools-gray:        #363636;
 
 $outline-gray:      #c0c0c0;
 $white:             #fff;
