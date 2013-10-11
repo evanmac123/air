@@ -2,8 +2,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
   before_filter :get_demo
 
   def index
-    @tile_digest_email_sent_at = @demo.tile_digest_email_sent_at  # Demo attributes
-    @tile_digest_email_send_on = @demo.tile_digest_email_send_on  # (i.e. not the usual finder methods)
+    @tile_digest_email_sent_at = @demo.tile_digest_email_sent_at
 
     # Update 'status' for tiles with 'start_time' and 'end_time' attributes (before you fetch the different tile groups)
     @demo.activate_tiles_if_showtime

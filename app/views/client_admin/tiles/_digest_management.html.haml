@@ -3,12 +3,6 @@
 
 %div.notification_controls#digest_controls
   %p A digest email helps notify your employees about new tiles. The email will contain the below tiles.
-  / %div.send_on
-  /   = num_tiles_in_digest_email_message
-  /   = select_tag :digest_send_on, options_for_select(Demo::TILE_DIGEST_EMAIL_SEND_ON, @tile_digest_email_send_on),
-  /                                 data: {action: client_admin_tiles_digest_notification_path }
-  /   = image_tag 'spinner.gif', id: 'update-send-on-spinner', class: 'update-digest-spinner'
-  /   = send_on_time
 
   %div.send_to
     %p The digest will go to

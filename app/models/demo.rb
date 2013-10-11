@@ -1,9 +1,6 @@
 class Demo < ActiveRecord::Base
   JOIN_TYPES = %w(pre-populated self-inviting public).freeze
 
-  # Date::DAYNAMES returns:  ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
-  TILE_DIGEST_EMAIL_SEND_ON = %w(Never) + Date::DAYNAMES
-
   serialize :internal_domains, Array
 
   has_many :users, :dependent => :destroy
@@ -33,8 +30,6 @@ class Demo < ActiveRecord::Base
   validate :end_after_beginning
   
   validates_inclusion_of :join_type, :in => JOIN_TYPES
-
-  validates_inclusion_of :tile_digest_email_send_on, :in => TILE_DIGEST_EMAIL_SEND_ON, :allow_nil => true
 
   validates_inclusion_of :follow_up_digest_email_days, in: (0..10), allow_nil: true
 
@@ -101,12 +96,6 @@ class Demo < ActiveRecord::Base
     else
       users.claimed
     end
-  end
-
-  def self.send_digest_email
-    demos = where tile_digest_email_send_on: Date::DAYNAMES[Date.today.wday]
-    demos.reject! { |demo| demo.digest_tiles.empty? }
-    demos
   end
 
   # Returns the number of users who have completed each of the tiles for this demo in a hash

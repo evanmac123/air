@@ -11,30 +11,14 @@ class TilesDigestMailer < ActionMailer::Base
     Date.today.midnight.advance(hours: 12)
   end
 
-  def notify_all_from_delayed_job
-    Demo.send_digest_email.each { |demo| TilesDigestMailer.delay(run_at: noon).notify_all(demo.id) }
-  end
-
   def notify_all_follow_up_from_delayed_job
     FollowUpDigestEmail.send_follow_up_digest_email.each { |followup| TilesDigestMailer.delay(run_at: noon).notify_all_follow_up(followup.id) }
   end
 
-  def notify_all(demo_id, tile_ids = [])
+  def notify_all(demo_id, tile_ids)
     demo = Demo.find demo_id
 
     user_ids = demo.users_for_digest.pluck(:id)
-
-    # Called from controller/view "Send Now" button => 'tile_ids' will be supplied.
-    # Called from weekly cron-job method above => need to find 'tile_ids' ourselves...
-    # ... unless the user has changed the 'send_on_day' for this demo, e.g. if the email was scheduled to
-    # go out on Monday and it is Monday (or else we wouldn't be executing this method) and he says
-    # "Oh shit, I don't want this sucker to go out!" he can simply set the 'send_on_day' to 'Never' and go
-    # back to his 5-martini lunch.
-    if tile_ids.empty?
-      return if demo.tile_digest_email_send_on != Date::DAYNAMES[Date.today.wday]
-      tile_ids = demo.digest_tiles.pluck(:id)
-    end
-
     user_ids.each { |user_id| TilesDigestMailer.delay.notify_one(demo_id, user_id, tile_ids) }
 
     demo.update_attributes tile_digest_email_sent_at: Time.now

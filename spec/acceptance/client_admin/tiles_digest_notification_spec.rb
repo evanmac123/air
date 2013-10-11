@@ -16,11 +16,6 @@ feature 'Client admin and the digest email for tiles' do
 
   # -------------------------------------------------
 
-  def have_send_on_selector(select = nil)
-    options = select.nil? ? {} : {selected: select}
-    have_select 'digest_send_on', options
-  end
-
   def have_send_to_selector(selected)
     have_select 'digest_send_to', {selected: selected}
   end
@@ -39,10 +34,6 @@ feature 'Client admin and the digest email for tiles' do
 
   def change_follow_up(num_days)
     select num_days, from: 'digest_follow_up'
-  end
-
-  def set_send_on(day)
-    demo.update_attributes tile_digest_email_send_on: day
   end
 
   def set_last_sent_on(day)
@@ -91,15 +82,14 @@ feature 'Client admin and the digest email for tiles' do
     end
 
     scenario 'Form components and text are not on the page when there are no new tiles for the digest email' do
-      digest_tab.should_not have_send_on_selector
       digest_tab.should_not have_button 'Send now'
 
-      digest_tab.should_not contain 'A digest email containing'
+      digest_tab.should_not contain 'The email will contain the below tiles'
 
       set_last_sent_on '7/4/2013'
       refresh_tile_manager_page
 
-      digest_tab.should_not contain 'Last digest email was sent on'
+      digest_tab.should_not contain 'The email will contain the below tiles'
     end
 
     scenario 'No follow-up emails are scheduled to be sent' do
@@ -134,13 +124,13 @@ feature 'Client admin and the digest email for tiles' do
       visit tile_manager_page
       select_tab 'Digest email'
 
-      digest_tab.should contain 'A digest email containing 1 tile is set to go out'
+      digest_tab.should contain 'The email will contain the below tiles'
 
       create_tile
       refresh_tile_manager_page
       select_tab 'Digest email'
 
-      digest_tab.should contain 'A digest email containing 2 tiles is set to go out'
+      digest_tab.should contain 'The email will contain the below tiles'
     end
 
     scenario 'The appropriate form components are on the page and properly initialized', js: true do
@@ -148,47 +138,13 @@ feature 'Client admin and the digest email for tiles' do
       visit tile_manager_page
       select_tab 'Digest email'
 
-      digest_tab.should have_send_on_selector('Never')
       digest_tab.should have_follow_up_selector('Never')
-
-      set_send_on 'Tuesday'
       set_follow_up '2'
 
       refresh_tile_manager_page
       select_tab 'Digest email'
 
-      digest_tab.should have_send_on_selector('Tuesday')
       digest_tab.should have_follow_up_selector('2')
-    end
-
-    scenario "The 'send-on' drop-down control updates the day and time, and displays a confirmation message", js: true do
-      create_tile
-      visit tile_manager_page
-      select_tab 'Digest email'
-
-      digest_tab.should have_send_on_selector('Never')
-      digest_tab.should_not contain 'at noon,'
-
-      change_send_on 'Tuesday'
-
-      digest_tab.should have_send_on_selector('Tuesday')
-      digest_tab.should contain 'Send-on day updated to Tuesday'
-      digest_tab.should contain 'at noon,'
-
-      change_send_on 'Friday'
-
-      digest_tab.should have_send_on_selector('Friday')
-      digest_tab.should contain 'Send-on day updated to Friday'
-      digest_tab.should contain 'at noon,'
-
-      refresh_tile_manager_page
-      select_tab 'Digest email'
-
-      digest_tab.should contain 'at noon,'
-
-      change_send_on 'Never'
-      digest_tab.should contain 'Send-on day updated to Never'
-      digest_tab.should_not contain 'at noon,'
     end
 
     scenario 'The admin can choose whether to send to everyone or just claimed users', js: true do
@@ -298,9 +254,7 @@ feature 'Client admin and the digest email for tiles' do
         on_day '7/6/2013' do
           visit tile_manager_page
           select_tab 'Digest email'
-          change_send_on 'Never'  # Just to make sure that 'Send Now' does just that even if set to 'Never'
-
-          digest_tab.should     contain 'A digest email containing 2 tiles is set to go out'
+          digest_tab.should     contain 'The email will contain the below tiles'
           digest_tab.should_not contain 'No digest email is scheduled to be sent'
           digest_tab.should_not contain 'since the last one was sent on Saturday, July 06, 2013'
 
@@ -309,13 +263,13 @@ feature 'Client admin and the digest email for tiles' do
 
           digest_tab.should have_num_tiles(2)
 
-          click_button 'Send now'
+          click_button 'Send digest now'
           crank_dj_clear
 
           page.should contain "Tiles digest email was sent"
 
           select_tab 'Digest email'
-          digest_tab.should_not contain 'A digest email containing 2 tiles is set to go out'
+          digest_tab.should_not contain 'The email will contain the below tiles'
           digest_tab.should     contain 'No digest email is scheduled to be sent'
           digest_tab.should     contain 'since the last one was sent on Saturday, July 06, 2013'
 
@@ -347,7 +301,7 @@ feature 'Client admin and the digest email for tiles' do
                   The tile links should sign in claimed *non-client-admin* users to the
                   Activities page, while whisking others to where they belong" do
           on_day '7/6/2013' do
-            click_button 'Send now'
+            click_button 'Send digest now'
             crank_dj_clear
 
             all_emails.should have(6).emails  # The above 5 for this demo, and the 'client-admin' created at top of tests
@@ -387,7 +341,7 @@ feature 'Client admin and the digest email for tiles' do
           demo.update_attributes(unclaimed_users_also_get_digest: false)
 
           on_day '7/6/2013' do
-            click_button 'Send now'
+            click_button 'Send digest now'
             crank_dj_clear
 
             all_emails.should have(4).emails  # 2 claimed users, the 'site-admin', and the 'client-admin' (created at top of tests)

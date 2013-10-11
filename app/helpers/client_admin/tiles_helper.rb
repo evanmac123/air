@@ -17,11 +17,6 @@ module ClientAdmin::TilesHelper
     message
   end
 
-  # Decided not to give this initial value of 'Never' => Also need to check if 'nil'
-  def send_on_time
-    content_tag :span, (@tile_digest_email_send_on.nil? or @tile_digest_email_send_on == 'Never') ? nil : 'at noon, ', id: 'digest-send-on-time'
-  end
-
   def email_site_link(user)
     email_link_hash = { protocol: email_link_protocol, host: email_link_host }
     email_link_hash.merge!(user_id: user.id, tile_token: EmailLink.generate_token(user)) if user.claimed? and ! user.is_client_admin

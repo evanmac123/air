@@ -15,7 +15,6 @@ class ClientAdmin::TilesDigestNotificationsController < ClientAdminBaseControlle
 
   def update
     case
-      when params[:send_on]   then update_send_on
       when params[:send_to]   then update_send_to
       when params[:follow_up] then update_follow_up
     end
@@ -25,11 +24,6 @@ class ClientAdmin::TilesDigestNotificationsController < ClientAdminBaseControlle
 
   def get_demo
     @demo = current_user.demo
-  end
-
-  def update_send_on
-    @demo.update_attributes tile_digest_email_send_on: params[:send_on]
-    render text: "Send-on day updated to #{@demo.tile_digest_email_send_on}"
   end
 
   def update_send_to
