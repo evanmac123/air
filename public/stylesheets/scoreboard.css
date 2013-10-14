@@ -7,13 +7,16 @@
     height: 14px; }
   .tight_bar .grey_bubble {
     width: 72px;
-    background: url("/images/scoreboard/grey_bubble.png"); }
+    background: url("/images/scoreboard/grey_bubble.png"); 
+  }
   .tight_bar .left_cap {
     width: 7px;
-    background: url("/images/scoreboard/left_cap.png"); }
+    background: url("/images/scoreboard/left_cap.png"); 
+  }
   .tight_bar .right_cap {
     width: 7px;
-    background: url("/images/scoreboard/right_cap.png"); }
+    background: url("/images/scoreboard/right_cap.png"); 
+  }
   .tight_bar .orange_ball {
     width: 14px;
     background: url("/images/scoreboard/orange_ball.png");
@@ -28,9 +31,11 @@
     left: 0;
     z-index: 10; }
     .tight_bar .curved_shield.white {
-      background: url("/images/scoreboard/white_mask.png"); }
+      background: url("/images/scoreboard/white_mask.png"); 
+    }
     .tight_bar .curved_shield.white {
-      background: url("/images/scoreboard/offwhite_mask.png"); }
+      background: url("/images/scoreboard/offwhite_mask.png"); 
+    }
   .tight_bar .long_bubble_holder {
     position: absolute;
     left: 0;

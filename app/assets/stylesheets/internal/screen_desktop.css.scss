@@ -1,48 +1,224 @@
-/* -- Welcome modal -- */
-#get_started_lightbox {
-  top:6em!important;
+body {
+  font-size:16px;
+  .module {font-size:.875em;}
+  .content .seemore a {display: inline-block;}
+}
+.row {max-width:$large-desktop;}
+
+/* -- Top bar / header -- */
+header {
+  $header-total-height:47px;
+  .row {
+    position: relative;
+    #logo, #user_info .user_info_sections, #me_toggle {
+      padding-top:.35em;
+      padding-bottom:.35em;
+    }
+  }
+
+  // Logo
+  #logo a {
+    min-height:$top-bar-height;
+    margin:0;
+    position: relative;
+    width:100%;
+    max-width:10em;
+    img {
+      margin: auto;
+      max-height: 100%;
+      position: absolute;  
+      bottom: 0; left: 0; top: 0; right: 0;
+    }
+    &:hover {
+      img{
+        opacity:.15;
+      }
+      &:after {
+        background:image-url('v5/bg_dark.png');
+        border-radius:3px;
+        color:$white;
+        content: "Home";
+        display: block;
+        font-size:1em;
+        padding:.5em 1em;
+        position: absolute;
+        text-align: center;
+        text-transform: capitalize;
+        margin:-1em auto 0;
+        top:50%;
+        bottom:50%;
+        left:0;
+        right:0;
+        width:5em;
+        height:2em;
+      }
+    }
+  }
+
+  // Navigation menus
+  #small-toggle.off-canvas-toggle {display: none;}
+  #navigation {
+    display: inline-block;
+    font-size:.875em;
+    position: static;
+    #desktop-toggle.off-canvas-toggle {
+      display: inline-block;
+      a {margin:0;}
+    }
+  }
+
+  #manage_board, #user_info #me_toggle {
+    border: {
+      style:solid;
+      color:darken($header-color, 9%);
+      top: {width:0;}
+      bottom: {width:0;}
+      left: {width:1px;}
+      right: {width:1px;}
+    }
+    box-shadow: inset 0px 1px 1px 1px #fff;
+    cursor: pointer;
+    display: inline-block;
+    &:hover {
+      background:image-url('v5/bg_light.png');
+      &:after{color:$gray;}
+    }
+    &:active {background: $white;}
+  }
+
+  // Admin tools menu
+  #manage_board {
+    color:$text-color;
+    max-height:$header-total-height;
+    padding:1.125em 1em;
+    position: relative;
+  }
+
+  // User info
+  #user_info {
+    margin:0; 
+    padding-left:0;
+    text-align: right;
+    #to_next_credit {width:33%; max-width:11em;}
+  }
+  #user_info #me_toggle {
+    padding-left:.5em;
+    position: relative;
+    text-align: left;
+    width:4.5em;
+    &:after {
+      display: inline-block;
+      color:$med-gray;
+      content:"\25BE";
+      font-size:1.25em;
+      position: absolute;
+      right:.35em;
+      top:50%;
+      margin-top:-.55em;
+    }
+    &.toggled {
+      background:$dark-gray;
+      box-shadow:none;
+      &:after{color:$gray;}
+    }
+    img {max-width:$top-bar-height;}
+    .shadow_overlay {
+      display: none;
+      background:image-url('v5/bg_dark.png');
+      position: absolute;
+      width:35px;
+      height:35px;
+      top:.35em;
+      left:.5em;
+    }
+  }
+  // User options menu
+  .user_options ul {
+    $toggled-menu-bg: $dark-gray;
+    display: none;
+    background:$toggled-menu-bg;
+    border:1px $toggled-menu-bg solid;
+    position: absolute;
+    right:17px;
+    top:3.35em;
+    z-index:1;
+    .nav-home, .nav-help {display: none;}
+    a {
+      color:$light-gray;
+      display: block;
+      font-family:$open-400;
+      padding:.65em 2.5em;
+      width:12em;
+      &:hover {
+        background: lighten($toggled-menu-bg, 5%);
+        color:$white;
+      }
+      &:active {background: lighten($toggled-menu-bg, 13%);}
+    }
+    li + li {a{border-top:1px lighten($toggled-menu-bg, 5%) solid;}}
+  }
 }
 
+/* -- Welcome modal -- */
+#get_started_lightbox {top:6em!important;}
+
 header nav {display: block;}
-header {
-  nav .row {position: relative;}
-}
+header nav .row {position: relative;}
 
 /* -- Tile wall -- */
 .all_tile_thumbnails {
+  max-width:62em; // temporary until new tile wall
   text-align:justify;
   #justifier {max-width:238px;}
   #push_left {width:50%}
 }
 .tile_thumbnail {
   padding:0;
-.tile-wrapper{
-  .tile_thumbnail_image {
-    background-size: auto;
-    height:12em;
-  }
-  .headline {
-    height:7.5em;
-    .text {
-      font-size:1.125em;
-      line-height: 1.3em;
+  .tile-wrapper{
+    .tile_thumbnail_image {
+      background-size: auto;
+      height:12em;
+    }
+    .headline {
+      height:7.5em;
+      .text {
+        font-size:1.125em;
+        line-height: 1.3em;
+      }
     }
   }
 }
+
+/* -- Activity page -- */
+.act {
+  .avatar43 {width:15%}
+  .act-details {width:85%}
+}
+.seemore, #see-more-spinner {
+  display: inline-block;
+  vertical-align: middle;
 }
 
 /* -- Large tile viewer -- */
 .tiles.tiles-index {
   .content .row {max-width:70em;}
-  .tile_viewer_header {margin:0; padding:0;}
-  .tile_holder {font-size:1em;}
-  p#position {
-    margin:0 auto 1em auto;
-    position: relative;
+  .tile_viewer_header {
+    max-width:600px;
+    margin:0 auto; 
+    padding:0;
+    text-align: right;
   }
+  .tile_holder {font-size:1em;}
   .viewer {
     position:relative;
-    width:52.1em;
+    max-width:46em;
+    width:100%;
   }
   a#prev, a#next {top:5.5em;}
+}
+
+/* -- Settings -- */
+#about_user {
+  .avatar_image {width:15%;}
+  .avatar_inputs {width:85%;}
 }

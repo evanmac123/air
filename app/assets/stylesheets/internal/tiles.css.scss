@@ -1,9 +1,15 @@
 @import 'tiles_fullsize';
 @import 'tiles_thumbnails';
 
+#tile_wall {
+  background:darken($light-gray, 7%);
+  padding:.5em 0;
+}
+
 .tiles.tiles-index{
+  background:darken($light-gray, 7%);
+  .content {padding-top:1em;}
   .content .row {
-    margin-top:1em;
     position: relative;
   }
   .container:after{@include clear;}
@@ -17,10 +23,8 @@
     width: 100%;    
   }
   p#position {
-    background:$white;
     color:$med-gray;
     display: inline-block;
-    font-family:$sans;
     padding:.75em 1em;
     width:auto;
     white-space: nowrap;
@@ -51,24 +55,15 @@
   // Buttons
   a#prev, a#next, #slideshow {display:inline-block;}
   a#prev, a#next {
-    background:$dark-green;
-    border:1px darken($dark-green, 5%) solid;
+    background:$blue;
     height:50px;
     margin:0;
     padding:0;
     position: absolute;
-    top:.5em;
+    top:0;
     width:50px;
     span {
       background:image-url('v5/sprites.png') transparent no-repeat;
-      border:{
-        style:solid;
-        color:lighten($dark-green, 5%);
-        top:{width:1px;}
-        bottom:{width:0;}
-        left:{width:1px;}
-        right:{width:1px;}
-    }
       display:inline-block;
       float:left;
       height:100%;
@@ -78,12 +73,13 @@
       text-decoration:none;
       text-indent:-10px;
     }
-    &:hover{background:darken($dark-green, 5%);}
+    &:hover{background:darken($blue, 5%);}
+    &:active{background:lighten($blue, 5%);}
   }
   a#prev {left:1em;}
   a#next {right:1em;}
-  a#prev span {background-position: -6px -178px;}
-  a#next span {background-position: -67px -178px;}
+  a#prev span {background-position: -4px -176px;}
+  a#next span {background-position: -67px -176px;}
 
   #tiles_done_message{
     padding-top:4em;

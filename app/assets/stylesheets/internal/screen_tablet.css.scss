@@ -1,3 +1,10 @@
+.row {max-width:40em;}
+
+/* -- Top bar / header -- */
+header {
+  #user_info #total_tiles {padding-right:4%;}
+}
+
 /* -- Welcome modal -- */
 #get_started_lightbox {
   left:1em!important;
@@ -18,6 +25,10 @@
     }
   }
 }
+#tile_links .show_more_tiles {
+  display: inline-block;
+  width:auto;
+}
 
 /* -- Large tile viewer -- */
 .tiles.tiles-index {
@@ -36,47 +47,21 @@
   }
 }
 
-/* -- Profile -- */
-#about-player {
-  .player-avatar {width:auto;}
-}
-
 /* -- Directory search results -- */
-#other-users .user {
-  .user-avatar {
-    max-width:75px;
-  }
-  .user-info {
-    float:none;
-    margin-left:2em;
-    width:77%;
-  }
-}
 // affects Directory and Profile pages
 .follow_buttons {
   &:after{@include clear;}
   .pending_notice, .follow-button, .stop-following-btn {
     display: inline-block;
-    vertical-align: baseline;
+    margin-bottom:0;
+    vertical-align: middle;
   }
-  .pending_notice {
-    margin-left:1em;
-  }
+  .follow-button {margin-right:1em;}
 }
 
 /* -- Settings -- */
 #about_user {
-  .avatar_image, .avatar_inputs {
-    display: inline-block;
-    vertical-align: middle;
-  }
-  .avatar_image {
-    width:96px;
-  }
-  .avatar_inputs {
-    margin: 0 0 0 1em;
-    width:70%;
-  }
+  #settings_changes {margin:1em 0;}
   #username_dob_gender .settings_user {
     #username_change, #gender_change {width:50%;}
     #username_change {

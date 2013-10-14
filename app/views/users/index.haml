@@ -7,15 +7,14 @@
           = form_tag users_path, :method => :get do
             = label_tag "search_string", "search bar", :class => :hidden
             = text_field_tag "search_string"
-            .button_wrap
-              = submit_tag "Find!", :id => "find_button", :class => "button_norm"
+            = submit_tag "Find!", :id => "find_button", :class => "button_norm"
   #main.large-8.pull-4.columns
     #directory_wrapper
       .directory.module
         %h1.headline Results
         - if @search_string
           #notify_of_search
-            %h2.subhead
+            %p.subhead
               Showing search results for
               %i
                 = @search_string

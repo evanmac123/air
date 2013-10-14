@@ -1,43 +1,42 @@
-body.settings .large-8 .module_inner {background:$white; margin-bottom:1em; padding:1em;}
+body.settings .large-8 .module_inner {margin-bottom:1em; padding:1em 0;}
 body.settings .large-4 .module_inner {margin-bottom:1em;}
-
+body.settings {
+    input[type="submit"] {@include app-button($blue);}
+}
 // Left side
 #about_user {
+    &:after{@include clear;}
+    .settings_avatar:after {@include clear;}
+    .avatar_image, .avatar_inputs {
+        display: inline-block;
+        float: left;
+    }
+    .avatar_image {width:20%;}
     .avatar_inputs {
-        // form {display:inline-block;}
-        .set-avatar {
-            margin:1em 0;
-            .button_wrap {@include square-button-wrap($dark-green);}
-            input[type="submit"] {@include square-button($dark-green);}
-        }
-        .clear-avatar .button_wrap {
-            @include square-button-wrap($light-gray);
-            font-size:.85em;
-        }
-        .clear-avatar input[type="submit"] {@include square-button($light-gray);}
+        padding:0 0 0 1em;
+        width:80%;
+        .set-avatar {margin:0 0 1em 0;}
+        input[type="submit"].clear {@include app-button($light-gray);}
     }
 
     #username_dob_gender {
         .settings_user {
             padding:0 0 1em 0;
-            
-            #settings_changes:after{
-                @include clear;
-                border-bottom:1px lighten($light-gray, 7%) solid;
-            }
+            #settings_changes:after{@include clear;}
 
             #username_change, #gender_change {
-                padding:1em;
+                padding:1em 0;
                 vertical-align: top;
             }
             #username_change {
-                input[type="text"] {margin-top:1em; width:93%;}
+                label {color:$med-gray;}
+                input[type="text"] {margin-bottom:.5em; width:93%;}
             }
             #gender_change {
+                margin-bottom:.5em;
                 li {display:inline-block; margin-right:1em;}
                 li label {display:inline-block;}
             }
-            .button_wrap {margin:1em 0 0 1em;}
         }
     }
 }
@@ -52,7 +51,6 @@ label[for="user_new_phone_validation"] {padding-bottom:1em;}
         input[type="password"] {width:97%;}
     }
     ul + ul {padding-top:0;}
-    .button_wrap {clear:both; margin-left:1em;}
 }
 
 // Right side

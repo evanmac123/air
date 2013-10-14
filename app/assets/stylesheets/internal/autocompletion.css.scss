@@ -27,48 +27,44 @@ $medium_radius: 12px;
 
 #suggestions{
   display: none;
-  //width: $bin_width + 2 * $pound_suggestions_padding + 2 * $single_suggestion_border_width;
   width:100%;
   padding:0;
   margin: 1em 0 0 0;
   z-index: 1;
-  //background: grey;
   .remove_referrer{display: none;}
-  .single_suggestion:hover{background: lighten($light-gray, 5%);}
 }
 
 a.remove_referrer{
-    color:$dark-green;
+  color:$dark-green;
   position: absolute;
   left: auto;
   right: 4px;
   top: 1px;
-  
     &:hover {
         color:lighten($dark-green, 15%)!important;
     }
 }
 
 .single_suggestion{
-  background-color: $white;
+  border: 1px $light-gray solid;
   color:$dark-gray;
   margin-bottom:1em;
   padding: 10px;
   width: 100%;
-  border: 1px $white solid;
   position: relative;
+  &:hover{border-color:$blue;}
   img {
-        border:1px $light-gray inset;
-        width:75px;
+    border:1px $light-gray inset;
+    width:75px;
+  }
+  div.info {
+    div.bit:first-child {
+      color:$blue;
+      font-size:1.15em;
+      font-weight:700;
+      padding:.5em 0;
     }
-    div.info {
-        div.bit:first-child {
-            color:$dark-green;
-            font-size:1.15em;
-            font-weight:700;
-            padding:.5em 0;
-        }
-    }
+  }
 }
 .single_suggestion + .single_suggestion{
   margin-top: 2px; 
@@ -114,9 +110,7 @@ body #facebox .content {
   font-weight: bold;
 }
 #autocomplete_status{
-  color: $dark-green;
-  font-size: 1em;
-  font-weight: 700;
+  color: $med-gray;
   width: 343px;
   padding-top: 4px;
   padding-bottom: 0px;
@@ -211,7 +205,7 @@ div.helper {
   .form-label{padding:1em 0;}
   .form-label label {
     font-weight:500;
-    font-size:1.15em;
+    font-size:1em;
   }
 }
 

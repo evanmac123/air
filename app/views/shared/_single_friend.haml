@@ -1,8 +1,7 @@
 - this_is_me = current_user == single_friend ? 'this_is_me' : ''
-- max_progress = 72
+- max_progress = 100
 - progress_pixels = (single_friend.to_ticket_progress_calculator.point_fraction * max_progress).round
 - progress_pixels = max_progress if progress_pixels > max_progress
-- middle_width = progress_pixels - 14
 - max_name_length = 22
 - row_class = single_friend_counter.even? ? '' : 'scoreboard_stripe'
 
@@ -13,13 +12,6 @@
   %td.user-progress
     .tight_bar
       .grey_bubble
-      .orange_bubble{:style => ""}
-        - if progress_pixels <= 14
-          .orange_ball{:style => "left: -#{14 - progress_pixels}px;"}
-        -else
-          .long_bubble_holder
-            .left_cap
-            .middle{:style => "width: #{middle_width}px;"}
-            .right_cap
-      .curved_shield{:class => "white"}
+      .orange_bubble{:style => "width: #{progress_pixels}%;"}
+      .shine{:style => "width: #{progress_pixels}%;"}
       

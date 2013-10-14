@@ -125,16 +125,12 @@ describe User do
     user3.reload.sms_slug.should == "otherdude"
   end
 
-#<<<<<<< HEAD
-
   it "should allow multiple users, each with the same (blank) sms slugs" do
     FactoryGirl.create(:user, :sms_slug => '')
     user = FactoryGirl.build(:user, :sms_slug => '')
     user.should be_valid
   end
 
-#=======
-#>>>>>>> client_admin_user_management_copy
   describe "on destroy" do
     it "should destroy any Friendships where this user is the friend on destroy" do
       user1 = FactoryGirl.create(:user)
@@ -152,8 +148,6 @@ describe User do
     User.delete_all
   end
 
-#<<<<<<< HEAD
-#=======
   it "should not require a slug if there is no name" do
     # That way, there's only the one error if the name is blank
     a = FactoryGirl.build(:user, :name => "")
@@ -162,7 +156,6 @@ describe User do
     a.errors[:sms_slug].should be_empty
   end
 
-#>>>>>>> client_admin_user_management_copy
   it "should create a slug upon validation if there is a name" do
     a = FactoryGirl.build(:user, :name => "present")
     a.should be_valid   # Slugs generated before_validation

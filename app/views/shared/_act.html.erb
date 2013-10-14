@@ -4,6 +4,11 @@
       <a href='<%= user_path act.user %>'>
         <%= default_avatar_tag act.user, :class => 'avatar_image' %>
       </a>
+      <% if act.points && act.points > 0 %>
+        <div class="points">
+          <span class="point-value small_cap"><%= pluralize act.points, 'pt' %></span>
+        </div>
+      <% end %>
     </div>
     <div class="act-details">
       <%= render :partial => 'shared/act_details', :locals => {:act => act} %>

@@ -1,10 +1,12 @@
-<div class="all_tile_thumbnails row">
-  <% tiles.each do |tile| %>
-    <div class="tile_thumbnail">
-      <%= render 'shared/displayable_tile', displayable_tile: tile %>
-    </div>
-  <% end %>
-  <span id="justifier" style="visibility:hidden; width:35%; display:inline-block;">&nbps;</span>
-  <span id="push_left" style="visibility:hidden; display:inline-block;">&nbps;</span>
-  <%= render 'shared/tiles_wall_client_admin_tools' %>
+<div id="tile_wall">
+  <div class="all_tile_thumbnails row">
+    <% tiles.each do |tile| %>
+      <div class="tile_thumbnail">
+        <%= render 'shared/displayable_tile', displayable_tile: tile %>
+      </div>
+    <% end %>
+    <span id="justifier" style="visibility:hidden; width:35%; display:inline-block;">&nbps;</span>
+    <span id="push_left" style="visibility:hidden; display:inline-block;">&nbps;</span>
+    <%= render 'shared/tiles_wall_client_admin_tools' %>
+  </div>
 </div>

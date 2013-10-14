@@ -7,7 +7,7 @@
     .tile_viewer_header
       = link_to activity_path do
         =# image_tag 'tile_viewer/logo.png', :id => "logo", :alt=> "h.engage"
-      %p#position
+      %p#position.small_cap
         = @current_tile_position_description
     .viewer
       = link_to "#", :id => :prev do

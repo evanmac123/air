@@ -4,6 +4,10 @@ body.client_admin_main {
     font-family:$sans;
     font-size:14px;
     line-height:1em;
+    .jPanelMenu-panel {
+        background:image-url('marketing/bg.gif')!important;
+        position:static!important;
+    }
     h1.headline {color:$gray;}
     input, select, textarea {display:inline-block; margin-bottom:0;}
 }

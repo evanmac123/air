@@ -13,6 +13,7 @@
   vertical-align: top;
   li {
     list-style-type: none;
+    padding-bottom:.5em;
     position: relative;
     width:100%;
   }
@@ -23,7 +24,7 @@
   }
   .tile-wrapper{
     @include ease(.025s);
-    border-bottom:5px transparent solid;
+    border-bottom:3px $light-gray solid;
     display: inline-block;
     position: relative;
     width:100%;
@@ -34,7 +35,7 @@
       width:100%;
     }
     .tile_thumbnail_image{
-      background-color:$text-color;
+      background-color:$dark-gray;
       background-position:center center;
       background-repeat:no-repeat;
       background-size:100%;
@@ -44,44 +45,41 @@
     }
 
     .headline{
-      background:$text-color;
+      background:$white;
       min-height:7.25em;
       position: relative;
       padding: .5em;
       text-align: left;
       &:after{@include clear;}
       .text{
-        color: $white;
+        color: $blue;
         font-family:$open-400;
         font-size:1em;
       }
     }
-  }
+  } 
 }
 #tile_links {
   text-align: center;
   padding:0;
   a {margin:0;}
   .show_more_tiles {
-    @include pop-button($blue);
+    @include app-button($blue);
     display: block;
-    padding:.75em 0 .6em 0;
+    padding:.75em .5em 0.6em;
     &:before, &:after {
       @include arrow-bottom(lighten($blue, 10%));
       margin:0 1em;
-    }
-    &:hover {
-      background:darken($blue, 4%);
-      border-color:darken($blue, 10%);
+      vertical-align: middle;
     }
     #show_more_tiles_spinner {display: inline-block; vertical-align: top;}
   }
   #client_admin_tile_links {
     a {
-      @include link($blue);
+      @include light-button($white, $blue);
       display: inline-block;
-      font-size:1em;
-      margin:1em;
+      font-size:.875em;
+      margin:1em .25em;
     }
   }
 }

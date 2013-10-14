@@ -1,53 +1,46 @@
 #search {
     height:40px;
     &:after{@include clear;}
-    #search_string, .button_wrap {float:left;}
     #search_string, #find_button {
         font-size:1em;
         line-height: 1em;
         padding:.5em;
     }
     #search_string {
+        float:left;
         font-family:$open-400;
         height:40px;
         margin:0; 
         padding:.85em;
         width:80%;
     }
-    .button_wrap {width:20%;}
     #find_button {
-        border-bottom:1px $dark-green solid;
-        height:38px;
-        width:100%;
+        @include app-button($blue);
+        border-radius:0;
+        height:40px;
+        width:20%;
     }
 }
 
 #notify_of_search {margin-bottom:2em;}
 
 #other-users .user {
+    border-left: 1px $light-gray solid;
     margin-bottom:2em;
     &:after {@include clear;}
     .user-avatar, .user-info, .user-name_email, .follow_buttons {
         display:inline-block;
         vertical-align: top;
     }
-    .user-avatar {width:20%;}
+    .user-avatar {
+        float:left;
+        width:20%;
+    }
     .user-info {
-        background:$white;
         float: right;
-        padding:.75em;
-        width:73%;
+        padding:0 0 0 1em;
+        width:80%;
         position: relative;
-        &:before {
-            border-bottom: 8px solid transparent;
-            border-right: 8px solid $white;
-            border-top: 8px solid transparent;
-            content:"";
-            display:inline-block;
-            top:1.15em;
-            left:-8px;
-            position: absolute;
-        }
         &:after{@include clear;}
     }
     .user-name_email {
@@ -57,7 +50,7 @@
             text-overflow: ellipsis;
             width:100%;
         }
-        .name-of-user {font-size:1.285714286em;}
+        .name-of-user {font-size:1.5em;}
     }
     .follow_buttons {
         margin-top:.5em;
@@ -69,12 +62,12 @@
 .follow_buttons {
     .pending_notice {
         color:$med-gray;
-        font-size:.857142857em;
     }
     .follow-btn, .stop-following-btn {
-        @include pop-button($blue);
+        @include app-button($light-gray);
         @include ease(.15s);
         cursor: pointer;
+        font-size:.85em;
         margin-bottom:.5em;
     }
 }

@@ -1,13 +1,8 @@
-<% if act.points && act.points > 0 %>
-  <div class="points">
-    <span class="point-value"><%= pluralize act.points, 'pt' %></span>
-  </div>
-<% end %>
-<div class="user" style="display: inline">
-  <%= link_to(act.user.name, act.user, :class => 'name-of-user') %>
+<div class="user">
+  <%= link_to(act.user.name, act.user, :class => 'name-of-user') %> 
+  <%= (act.text) %>
 </div>
-<div class="description"><%= (act.text) %></div>
-<span class="when">
+<span class="when small_cap">
   <%= time_ago_in_words(act.created_at) %> ago
 </span>
 <% flag_link_id = "flag_#{act.id}" %>

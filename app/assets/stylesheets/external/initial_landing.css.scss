@@ -4,6 +4,7 @@ body {
   font-size:1em;
   min-width:100%;
   position: static;
+  a, a:link, a:visited {@include link($dark-green);}
   h1, h2, h3 {line-height: 1.25em;}
   h1 {
     font-family:$open-600;

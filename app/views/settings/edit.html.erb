@@ -7,15 +7,14 @@
           <div class="avatar_inputs">
             <%= form_for current_user, :url => account_avatar_path, :html => {:multipart => true, :class => 'set-avatar'} do |form| %>
               <%= form.file_field :avatar, :id => "avatar_path" %> 
-              <div class="button_wrap"><%= form.submit "Upload & save" %></div>
-            <% end %>
-            <% if current_user.avatar_file_name %>
-              <%= form_for current_user, :url => account_avatar_path, :html => {:multipart => true, :method => :delete, :class => 'clear-avatar'} do |form| %>
-                <div class="button_wrap"><%= form.submit "Clear" %></div>
+              <%= form.submit "Upload & save" %>
+              <% if current_user.avatar_file_name %>
+                <%= form_for current_user, :url => account_avatar_path, :html => {:multipart => true, :method => :delete, :class => 'clear-avatar'} do |form| %>
+                  <%= form.submit "Clear", :class => 'clear' %>
+                <% end %>
               <% end %>
             <% end %>
           </div>
-          <div class="cf"></div>
       </div>
     </div>
 
@@ -30,9 +29,7 @@
           <li><h2 class="subhead"><%= label_tag 'user_password_confirmation', "Confirm new password" %></h2></li>
           <li><%= form.password_field :password_confirmation %></li>
         </ul>
-        <div class="button_wrap">
-          <%= submit_tag 'Save new password', :class => 'button_norm', :id => 'save-password-settings' %>
-        </div>
+        <%= submit_tag 'Save', :class => 'button_norm', :id => 'save-password-settings' %>
       <% end %>
     </div>  
   </div>
@@ -48,9 +45,7 @@
               ["Connections I've accepted", 'connected']
             ] %>
           </div>
-          <div class="button_wrap">
-            <%= submit_tag 'Update privacy', :class => 'button_norm', :id => 'save-privacy-level' %>
-          </div>
+          <%= submit_tag 'Update privacy', :class => 'button_norm', :id => 'save-privacy-level' %>
         <% end %>
     </div>
 
@@ -61,7 +56,7 @@
           <%= form_for current_user, :url => phone_path, :method => :put do |form| %>
             <p><%= label_tag "user_new_phone_validation", "To verify the number #{current_user.new_phone_number.as_pretty_phone}, please enter the validation code we sent to that number:" %></p>
             <%= form.text_field :new_phone_validation, :value => '' %>
-            <div class="button_wrap"><%= submit_tag 'Verify new number', :class => 'button_norm' %></div>
+            <%= submit_tag 'Verify new number', :class => 'button_norm' %>
           <% end %>
         </div>
       <% end %>
@@ -78,7 +73,7 @@
               <% end %>
             </ul>
         </div>
-        <div class="button_wrap"><%= submit_tag 'Update', :class => 'button_norm', :id => 'save-notification-settings' %></div>
+        <%= submit_tag 'Update', :class => 'button_norm', :id => 'save-notification-settings' %>
       <% end %>
   	</div>
   </div>

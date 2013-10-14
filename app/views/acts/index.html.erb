@@ -2,7 +2,7 @@
 <%= render 'shared/tile_wall', tiles: @displayable_tiles %>
 
 <div class="row">
-  <div id="feed_wrapper" class="large-8 columns">
+  <div id="feed_wrapper" class="large-4 columns">
     <div class="feeds module">
 
       <h1 class="headline" id="feeds_title">Activity</h1>
@@ -32,7 +32,7 @@
 
         <%= render 'shared/see_more' %>
 
-        <%= image_tag 'spinner.gif', :id => 'see-more-spinner', :style => 'display:none;' %>
+        <%= image_tag 'spinner_gears.gif', :id => 'see-more-spinner', :style => 'display:none;' %>
 
   	    <%= render 'shared/bind_see_more', 
   	      :offset_var_name     => 'actOffset', 
@@ -51,6 +51,9 @@
     <div class="module" id="scoreboard-module">
       <%= render 'scoreboard', :user => @current_user %>
     </div>
+  </div>
+
+  <div class="large-4 columns">
     <div class="module" id="invite-module">
       <%= render :partial => "invite_your_friends" %>  
     </div>

@@ -13,11 +13,11 @@
 
 /* CUSTOM STYLESHEETS LAST */
 // @import "./internal/site_tutorial.css.scss";
-@import "./internal/mast.css.scss";
 @import "./internal/flash.css.scss";
+@import "./internal/screen.css.scss";
+@import "./internal/mast.css.scss";
 @import "./internal/autocompletion.css.scss";
 @import "./internal/misc.css.scss";
-@import "./internal/screen.css.scss";
 @import "./internal/dashboard.css.scss";
 @import "./internal/scoreboard.css.scss";
 @import "./internal/profile.css.scss";
@@ -25,25 +25,16 @@
 @import "./internal/settings.css.scss";
 
 @import "./internal/faq.css.scss";
-
-@import "./internal/tooltips.css.scss";
 @import "./internal/unsupported.css.scss";
 
 @import "./internal/tiles.css.scss";
 
 /* RWD */
-@media (max-width: $mid-desktop) {
-  .bubbly {display: none!important;}
-}
 @media only screen and (min-width: 319px) {
   @import "./internal/screen_iphone.css.scss";
 }
 @media only screen and (min-width: 500px) {
   @import "./internal/screen_tablet.css.scss";
-}
-$lessthanFoundation: $foundation - 1;
-@media only screen and (min-width: 500px) and (max-width: $lessthanFoundation) {
-  @import "./internal/mast_tablet.css.scss";
 }
 @media only screen and (min-width: $foundation) {
   @import "./internal/appbar.css.scss";

@@ -1,47 +1,41 @@
 <header>
   <div class="row" id="top_bar">
 
-    <div class="large-3 columns" id="logo">
+    <div class="large-2 columns" id="logo">
       <a href="<%= activity_path %>"><%= image_tag skinned('logo_url', "logo.png") %></a>
     </div>
 
-    <nav id="navigation" class="columns"> <!-- offcanvas menu -->
+    <nav id="navigation" class="columns large-3"> <!-- offcanvas menu -->
       <div class="admin_options">
         <% if current_user.authorized_to?(:client_admin) %>
-          <%= link_to "Manage board", client_admin_path, :class => 'nav-admin nav-client-admin', id: 'manage_board' %>
+          <%= link_to "Board tools", client_admin_path, :class => 'nav-admin nav-client-admin', id: 'manage_board' %>
         <% end %>
-      <!--   <ul>
-          <li><a href="#">Add new tile</a></li>
-          <li><a href="#">Archived</a></li>
-          <li><a href="#">Notifications</a></li>
-          <li><a href="#">Stats and reports</a></li>
-          <li><a href="#">Rewards</a></li>
-          <li><a href="#">Billing</a></li>
-        </ul> -->
       </div>
       <div class="user_options">
         <ul>
-          <li><a href="#">My profile</a></li>
+          <li><%= link_to "Home", activity_path, :class => 'nav-home' %></li>
+          <li><%= link_to "My Profile", current_user, :id => 'my_profile', :class => 'nav-activity-class' %></li>
+          <li><%= link_to "Find users", users_path, :class => 'nav-directory' %></li>
           <li><%= link_to "Settings", edit_account_settings_path, :class => 'nav-settings' %></li>
           <li><%= link_to "Help", faq_path, :class => 'nav-help' %></li>
           <% if current_user.authorized_to?(:site_admin) %>
             <li><%= link_to "Site admin", admin_path, :class => 'nav-admin', id: 'nav-site-admin-link' %></li>
           <% end %>
           <li><%= link_to "Sign Out", sign_out_path, :method => :delete , :class => 'nav-signout' %></li>
-          <li id="switch_board">
+          <!-- <li id="switch_board">
             <p class="small_cap">Switch board</p>
             <select>
               <option>H.Engage</option>
               <option>Connie's Board</option>
             </select>
-          </li>
+          </li> -->
         </ul>
       </div>
     </nav> <!-- end of off canvas -->
 
-    <div class="large-5 columns" id="user_info">
+    <div class="large-7 columns" id="user_info">
       <ul id="to_next_credit" class="user_info_sections">
-        <li><p class="small_cap">To next credit</p></li>
+        <li><p class="small_cap">Points to next ticket</p></li>
         <li id="progress_bar">
           <div id="completed_progress" style="<%= master_bar_width %>"></div>
           <div id="bar_shine" style="<%= master_bar_width %>"></div>
@@ -49,22 +43,24 @@
         </li>
       </ul>
       <ul id="credits" class="user_info_sections">
-        <li><p class="small_cap">Credits</p></li>
+        <li><p class="small_cap">Tickets</p></li>
         <li><p class="user_numbers"><%= current_user.tickets %></p></li>
       </ul>
       <ul id="total_tiles" class="user_info_sections">
-        <li><p class="small_cap">My tiles</p></li>
+        <li><p class="small_cap">Experience</p></li>
         <li><p class="user_numbers">
-          99
-          <!-- < %= number_with_delimiter current_user.points %> -->
+          <%= number_with_delimiter current_user.points %>
         </p></li>
       </ul>
 
-      <a id="me_toggle" href="#"><%= default_avatar_tag current_user, :id => :your_avatar, :class => "avatar48" %></a>
+      <div id="me_toggle">
+        <div class="shadow_overlay"></div>
+        <%= default_avatar_tag current_user, :id => :top_avatar, :class => "avatar48" %>
+      </div>
     </div>
       
   </div> <!-- end of topbar -->
 
-  <div id="off-canvas-toggle"><a href="#side-nav" class="small_cap">MENU</a></div>
+  <div id="small-toggle" class="off-canvas-toggle"><a href="#side-nav" class="small_cap">MENU</a></div>
 
 </header>

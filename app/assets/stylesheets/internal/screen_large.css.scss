@@ -1,43 +1,17 @@
+/* -- Top bar / header -- */
+header {
+    #user_info #total_tiles {padding-right:5%;}
+  }
+
 /* -- Welcome modal -- */
 #get_started_lightbox {
   margin-left:-476px!important;
   left:50%!important;
 }
 
-.mast_top #welcome-text {
-  display: inline-block;
-  margin-left:.5em;
-  width:25%;
-  &:before {
-    @include arrow-left($white);
-    position: absolute;
-    left:6px;
-    top:.7em;
-  }
-  p {
-    background:$white;
-    color:$gray;
-    display: inline-block;
-    padding:.35em 1em;
-    max-width:100%;
-    overflow: hidden;
-    text-overflow:ellipsis;
-    white-space: nowrap;
-    a {@include link($gray);}
-  }
-}
-
-.mast_bottom #bar_progress .complete_progress_bar {padding:0;}
 
 /* -- Large tile viewer -- */
 .tiles.tiles-index {
-  .content .row {margin-top:2em;}
-  p#position {
-    margin-left:300px;
-    position: absolute;
-    top:1em;
-    left:50%;
-  }
   .tile_holder {
     .tile_quiz .tile_multiple_choice_answer {width:75%;}
   }

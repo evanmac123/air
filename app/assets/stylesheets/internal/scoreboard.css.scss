@@ -1,5 +1,5 @@
-$width_scoreboard_bar: 72px;
-$height_scoreboard_bar: 14px;
+$width_scoreboard_bar: 100%;
+$height_scoreboard_bar: 1.25em;
 
 #scoreboard-module .wrap {background:$white;}
 
@@ -9,52 +9,19 @@ $height_scoreboard_bar: 14px;
   width: $width_scoreboard_bar;
   position: relative;
   overflow: hidden;
-  .grey_bubble, .left_cap, .right_cap, .middle, .orange_ball, .curved_shield{
+  .grey_bubble, .orange_bubble, .shine {
     height: $height_scoreboard_bar;
+    position: absolute;
+    top:0;
   } 
-
   .grey_bubble{
     width: $width_scoreboard_bar;
-    background: url('scoreboard/grey_bubble.png');
+    background:#cdcccc;
   }
-  .left_cap{
-    width: $height_scoreboard_bar / 2;
-    background: url('scoreboard/left_cap.png');
+  .orange_bubble {
+    @include completed_progress;
   }
-  .right_cap{
-    width: $height_scoreboard_bar / 2;
-    background: url('scoreboard/right_cap.png');
-  }
-  .orange_ball{
-    width: $height_scoreboard_bar;
-    background: url('scoreboard/orange_ball.png');
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 5;
-  }
-  .curved_shield{
-    width: $height_scoreboard_bar / 2;
-    position: absolute; 
-    top: 0;
-    left: 0;
-    z-index: 10;
-    &.white{background: url('scoreboard/white_mask.png');}
-    &.white{background: url('scoreboard/offwhite_mask.png');}
-    
-    
-  }
-  .long_bubble_holder{
-    position: absolute;
-    left:0;
-    top: 0;
-  }
-  .left_cap, .right_cap, .middle{
-    float: left;
-  }
-  .middle{
-    background: url('scoreboard/orange_sliver.png')
-  }
+  .shine {@include bar_shine;}
 }
 table.scoreboard{
   margin-bottom: 0;
@@ -62,12 +29,15 @@ table.scoreboard{
   td{border: none; padding:0;}
   tr{
     // Put background on td instead of tr so it works in IE
-    &.scoreboard_stripe td{background:lighten($light-gray, 5%);}
+    &.scoreboard_stripe td{
+      border-top:1px lighten($light-gray, 5%) solid;
+      border-bottom:1px lighten($light-gray, 5%) solid;
+    }
   }
   #scoreboard_spacer{height: 11px;}
   .user-name{
-    width:40%;
-    padding:1em 0.5em;
+    width:47%;
+    padding:1em 0.5em 1em 0;
     height: 33px;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -77,7 +47,8 @@ table.scoreboard{
     width:27%;
   }
   .user-progress{
-    width:33%;
+    padding-left: .5em;
+    width:35%;
   }
 
   
@@ -94,22 +65,19 @@ table.scoreboard{
   display: inline-block;
   width: 17px;
   height: 14px;
-  background: url("scoreboard/sort_arrow_huge.png") no-repeat;
-}
-#username_header, #userlevel_header{
-  float:left;
-  cursor: pointer;
-  &.active{cursor: auto;}
-  &.active, &:hover{
-    background:darken($med-gray, 10%);
+  &:after {
+    @include arrow-bottom($light-gray);
+    border-width:4px;
+    vertical-align: middle;
+    margin-left:1em;
   }
 }
 
 
-#this_is_me *{color: $orange;}
+#this_is_me * {color:$orange;}
 
 #scoreboard_headers{
-  background:$med-gray;
+  border-bottom:1px $light-gray solid;
   &:after{@include clear;}
   
   #username_header, #userlevel_header, #userprogress_header{
@@ -118,13 +86,19 @@ table.scoreboard{
     font-weight: 700;
     padding-top: 3px;
     padding-bottom: 4px;
-    color: $white;
+    color: $light-gray;
   }
-  #username_header, #userlevel_header, #userprogress_header {padding-left:.5em;}
-  #username_header{width:40%;}
+  #userlevel_header, #userprogress_header {padding-left:.5em;}
+  #username_header, #userlevel_header{
+  float:left;
+  cursor: pointer;
+  &.active{cursor: auto;}
+  &.active, &:hover{
+    color:$med-gray;
+  }
+}
+  #username_header{width:47%;}
   #userlevel_header{
-    border-left: 1px solid darken($med-gray, 10%);
-    border-right: 1px solid darken($med-gray, 10%);
     padding-right:.5em;
     width:27%;
   }

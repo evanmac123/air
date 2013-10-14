@@ -1,51 +1,39 @@
-h1.headline {border-top:1px $white solid}
 .act {
     margin-bottom:2em;
     &:after {@include clear;}
-    .avatar43, .act-details {display:inline-block;}
+    .avatar43, .act-details {display:inline-block; float:left;}
     .avatar43 {
-        width:13%;
-        max-height:74px;
-        max-width:74px;
-    }
-    .avatar43 img {
-        border:$border-light; 
-        width:100%;
-    }
-    .act-details {
-        background:$white;
-        float:right;
-        position:relative;
-        padding:1em;
-        width:83%;
-        &:before {
-            @include arrow-left($white);
-            position:absolute;
-            top:1em;
-            left:-8px;
-        }
-        .points {
-            background:$orange;
-            border:1px darken($orange, 5%) solid;
-            color:$white;
-            display: inline-block;
-            float: right;
-            font-weight:700;
-            .point-value {
-                border: {
-                    top:1px lighten($orange, 7%) solid;
-                    left:1px lighten($orange, 7%) solid;
-                    right:1px lighten($orange, 7%) solid;
-                    bottom:0;
-                }
-                display: inline-block;
-                margin:0;
-                padding:.1em .25em;
+        width:18%;
+        max-width:55px;
+        a {
+            display: block;
+            img {
+                display: block;
+                width:100%;
+                height:auto;
             }
         }
-        .user {font-size:1.15em;}
-        .description {padding:.75em 0;}
-        .when, .flag {color:$med-gray; font-size:.85em; vertical-align: bottom;}
+        .points {
+            border:1px $orange solid;
+            color:$orange;
+            display: block;
+            font-family:$open-600;
+            font-size:1em, 1rem;
+            font-weight:bold, 600;
+            padding: 0;
+            text-align: center;
+            text-transform: uppercase;
+        }
+    }
+    .act-details {
+        padding-left:1em;
+        position:relative;
+        width:82%;
+        .user {display: block;}
+        .when, .flag {
+            color:$light-gray;
+            vertical-align: middle;
+        }
         .flag {
             display:inline-block;
             margin-left:.5em;
@@ -55,12 +43,15 @@ h1.headline {border-top:1px $white solid}
                 display:inline-block;
                 height:14px;
                 width:14px;
-                &:hover{
-                    background-position:-119px -54px;
-                }
+                &:hover{background-position:-119px -54px;}
             }
           }
     }
+}
+#see-more-spinner {
+  display: block;  
+  margin:0 auto;
+  opacity:.5em;
 }
 
 // First login welcome

@@ -1,3 +1,17 @@
+// Variables and mixins for Internal pages (until we can remove all old)
+$small_cap_size: .625rem; // 10px
+$under_small_cap: .25rem; // space under small cap text
+$bar-height: 1.3rem; // controls height of elements in Top Bar
+$top-bar-height: #{($bar-height + $small_cap_size + $under_small_cap)};
+$text-color:        #4c4c4c;
+.small_cap {
+  font-family:$open-800;
+  font-size:$small_cap_size;
+  line-height: 1em;
+  text-transform: uppercase;
+}
+#flash {margin-bottom:0;} //resolved with clientadmin removal
+
 .hidden{display:none;}
 .flash-preload {
 	height:0;
@@ -6,17 +20,31 @@
 }
 
 body {
-	background:image-url('v5/bg.jpg') center center $white;
+	background:$white;
 	border-top:none;
 	color:$text-color;
 	font-family:$default;
 	font-size:14px;
 	line-height: 1em;
+	h1.headline {
+		font-size:1.15em;
+	  font-family:$open-600;
+	  color:$headlines;
+	  margin:0 0 .75em 0;
+	  padding:.5em 0;
+	  position: relative;
+	  text-transform: uppercase;
+	}
+	h2.subhead {font-size:1em;}
 	.content {
-		margin:$centered;
+		margin:0 auto;
 		padding:0;
 		&:after{@include clear;}
-		.seemore {text-align: center;}
+		.seemore a {
+			@include light-button($med-gray, $blue);
+			display: block;
+			padding:.5em 1.5em;
+		}
 
 		// GREEN BUTTONS
 	    .button_wrap {
@@ -27,10 +55,7 @@ body {
 		    }
 		}
 	}
-	.module {
-		border-top:$border-dark;
-    	margin-top:2em;
-	}
+	.module {margin-top:2em;}
 }
 
 // Flash message shadows
@@ -44,5 +69,9 @@ body {
   box-shadow: inset 0px 3px 6px 0px darken($dark-green, 15%);
 }
 
-.jPanelMenu-panel {background:image-url('v5/bg.jpg')!important;}
-#footer {margin:2em 0;}
+footer {
+	// border:1px red solid;
+	// bottom:0;
+	padding-top:8em;
+	margin:2em 0;
+}

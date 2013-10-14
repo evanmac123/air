@@ -1,25 +1,25 @@
 #about-player {
-    padding-top:2em;
     position:relative;
+    &:after{@include clear;}
     .player-avatar, .player-info {
         display: inline-block;
-        vertical-align: top;
+        float: left;
     }
     .player-avatar {width:23%;}
     .player-info {
-        padding-left:1em;
-        width:75%;
-        .headline {
-            border-top:0;
-            color:$text-color;
-            padding:0 0 .5em 0;
-            width:100%;
+        padding:0 0 0 1em;
+        width:77%;
+        h1 {
+            font-family:$open-400;
             overflow: hidden;
-            text-overflow: ellipsis;
+            text-overflow:ellipsis;
+            width:100%;
         }
     }
-    .follow_buttons {margin-top:1em;}
+    .follow_buttons {margin-top:.75em;}
 }
+
+#recent-activity .act .avatar43 a {display: none;}
 
 // Friend's list scoreboard
 #friends_list table, #scoreboard_list table {background:$white;}

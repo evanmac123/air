@@ -7,17 +7,49 @@
 
 <!-- Off-canvas nav using jRespond -->
 <script>
+
+// ====== TOP BAR DESKTOP MENU CONTROLS ======
+var toggler = $('#me_toggle');
+var desktop_user_menu = $('.user_options ul');
+
+function hideMenu() {
+  toggler.find('.shadow_overlay').hide();
+  toggler.removeClass('toggled');
+  desktop_user_menu.slideUp('fast');
+}
+function showMenu() {
+  toggler.find('.shadow_overlay').show();
+  toggler.addClass('toggled');
+  desktop_user_menu.slideDown('fast');
+}
+
+function userOptionToggle() {
+  $('html').click(function() {
+    if(desktop_user_menu.is(':visible')) {
+      hideMenu();
+    } else {}
+  });
+  toggler.click(function() {
+    if(desktop_user_menu.is(':visible')) {
+      hideMenu();
+    } else {
+      showMenu();
+      return false;
+    }
+  });
+}
+
+
+// ========= jRespond and jPanelMenu ==========
 var jPM = $.jPanelMenu({
   menu: 'header nav',
-  trigger: '#off-canvas-toggle a'
+  trigger: '.off-canvas-toggle a'
 });
-
-
 var jRes = jRespond([
   {
     label: 'small',
     enter: 0,
-    exit: 768
+    exit: 767
   },{
     label: 'large',
     enter: 768,
@@ -25,14 +57,28 @@ var jRes = jRespond([
   }
 ]);
 
-jRes.addFunc({
-  breakpoint: 'small',
-  enter: function() {
-    window.intercomDisabled = true;
-    jPM.on();
-  },
-  exit: function() {
-    jPM.off();
+jRes.addFunc([
+  {
+    breakpoint: 'small',
+    enter: function() {
+      window.intercomDisabled = true;
+      jPM.on();
+      desktop_user_menu.show();
+    },
+    exit: function() {
+      jPM.off();
+      hideMenu();
+    }
+  },{
+    breakpoint: 'large',
+    enter: function() {
+      toggler.on();
+      userOptionToggle();
+    },
+    exit: function() {
+      toggler.off();
+      desktop_user_menu.show();
+    }
   }
-});
+]);
 </script>
