@@ -98,5 +98,8 @@ module Health
     config.generators do |g|
       g.orm :active_record
     end
+
+    # Allows us to detect the type of client device on the server, i.e. before sending the page down
+    config.middleware.use Mobvious::Manager
   end
 end

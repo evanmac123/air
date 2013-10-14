@@ -104,4 +104,16 @@ module ApplicationHelper
   def raw_allowed_in_flash?(flash_key)
     ApplicationController::FLASHES_ALLOWING_RAW.include?(flash_key.to_s) || flash[(flash_key.to_s + "_allow_raw").to_sym]
   end
+
+  def is_mobile?
+    request.env['mobvious.device_type'] == :mobile
+  end
+
+  def is_tablet?
+    request.env['mobvious.device_type'] == :tablet
+  end
+
+  def is_desktop?
+    request.env['mobvious.device_type'] == :desktop
+  end
 end
