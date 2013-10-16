@@ -167,52 +167,30 @@
   border-bottom:1px $light-gray solid;
   font-family:$open-400;
   margin-bottom:2em;
+  padding-bottom:1em;
   &:after {@include clear;}
 
-  #digest-status-messages {
-    #feedback {
-      color:$orange;
-      font-weight:$open-600;
-      display: block;
-      padding-bottom:1em;
-    }
+  a, p#last-email {font-size:.875em;}
+  a {@include link($blue);}
+  p#last-email {
+    color:$med-gray;
+    display: inline-block;
+    padding-left:.5em;
   }
 
   .notification_controls {
-    display: inline-block;
-    float:left;
-    width:50%;
-    #digest_example, #followup_example {@include link($gray);}
-  }
-  #digest_controls {
-    border-right:$border-dark;
-    padding:0 1em 2em 0;
-    .send_to {
-      margin:1em 0;
-      * {vertical-align: middle;}  
-      select {margin-bottom:0;}
-      p {display: inline-block;}
+    &#followup_controls {margin:1.5em 0;}
+    p.helper {
+      background:lighten($light-gray, 9%);
+      margin-bottom:1em;
+      padding: 1em;
     }
-    #last-email {
-      color:$gray;
-      margin-top:1em;
-    }
-    #digest_example { margin-left:.5em;}
-  }
-  #followup_controls {
-    padding-left:1em;
-    .follow_up {line-height:1.25em;}
-    #scheduled_followups {
-      color:$gray;
-      margin-top:1em;
-    }
-    #followup_example {
+    .send_to, .follow_up label {font-family:$open-600;}
+    .follow_up * {
       display: inline-block;
-      margin-top:1em;
+      &:disabled {color:$med-gray;}
     }
   }
-  #digest_example, #followup_example, #last-email, #scheduled_followups {font-size:.857142857em;}
-
 
   form {display:inline-block;}
   .button_wrap {
@@ -227,6 +205,35 @@
     display: none;
     vertical-align: middle;
   }
+}
+#scheduled_followups {
+  border-top:1px $light-gray solid;
+  font-family:$open-400;
+  margin-top:2em;
+  padding-top:1em;
+  #cancel_follow_up div {
+    margin-left:1em;
+    padding:1em 0 .25em 0;
+    a {
+      border:1px $light-gray solid;
+      color:$med-gray;
+      display: inline-block;
+      font-size:.714285714em;
+      margin-left:.5em;
+      padding: .25em .5em;
+      &:hover {color:$blue;}
+    }
+    &:before {
+      background:$light-gray;
+      content: "";
+      display:inline-block;
+      margin:-.25em .5em 0 0;
+      height:.25em;
+      width:.25em;
+      vertical-align: middle;
+    }
+  }
+  #cancel_follow_up div + div {padding:.25em 0;}
 }
 
 .no_tiles_message {
