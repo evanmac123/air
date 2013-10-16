@@ -43,4 +43,8 @@ module ClientAdmin::TilesHelper
   def digest_email_heading_end
     @follow_up_email ? '?' : '!'
   end
+
+  def default_follow_up_day
+    FollowUpDigestEmail::DEFAULT_FOLLOW_UP[Date::DAYNAMES[Date.today.wday]]
+  end
 end

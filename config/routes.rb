@@ -79,7 +79,7 @@ Health::Application.routes.draw do
       resource :image, :only => [:update, :show]
     end
 
-    resource :tiles_digest_notification, only: [:create, :update]
+    resource :tiles_digest_notification, only: :create
 
     resources :tiles_follow_up_email, only: :destroy
 
