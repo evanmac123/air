@@ -1,29 +1,25 @@
-%div#digest-status-messages
-  %span#feedback
-
 %div.notification_controls#digest_controls
-  %p A digest email notifies your employees of new content. The email will contain the tiles below.
-
+  %p.helper 
+    A digest email notifies your employees of new content. The email will contain the tiles below.
+    %br
+    %a{:href => "/pages/static_digest", :target => "_blank", :id => "digest_example"} See an example
   %div.send_to
-    %p Send the digest to
+    Send the digest to
     = select_tag :digest_send_to, options_for_select([['all users', true], ['only joined users', false]], @demo.unclaimed_users_also_get_digest)
 
 %div.notification_controls#followup_controls
-  %div.follow_up
-    A follow-up email can be sent to all employees who have not interacted with any tiles.
-    %br
-    It will contain all supporting content to ensure your employees receive all of the information you want them to.
+  %p.helper 
+    A follow-up email can be sent to all employees who have not interacted with any tiles. It will contain all supporting content to ensure your employees receive all of the information you want them to.
     %br
     %a{:href => "/pages/static_followup", :target => "_blank", :id => "followup_example"} See an example
-    %br
+    
+  %div.follow_up
     = check_box_tag :send_follow_up
     = label_tag :send_follow_up, 'Send a follow-up email on'
     = select_tag :follow_up_day, options_for_select(Date::DAYNAMES, selected: default_follow_up_day), disabled: true
-  = render 'cancel_follow_ups'
-
+  
 %div.button_wrap
   = button_to "Send digest now", client_admin_tiles_digest_notification_path, confirm: 'Are you sure you want to send the digest email?'
-%a{:href => "/pages/static_digest", :target => "_blank", :id => "digest_example"} See an example
-
 %p#last-email= digest_email_sent_on_message
 
+= render 'cancel_follow_ups'
