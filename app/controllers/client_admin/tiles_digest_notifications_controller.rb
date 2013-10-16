@@ -2,11 +2,12 @@ class ClientAdmin::TilesDigestNotificationsController < ClientAdminBaseControlle
   def create
     @demo = current_user.demo
 
-# todo not just parms[:follow_up] - need to see if checkbox checked
-    # todo remove 'follow_up_digest_email_days' from dbase and pass in as param to 'notify_all' (0 if unchecked)
-    TilesDigestMailer.delay.notify_all @demo.id, @demo.digest_tiles.pluck(:id), params[:follow_up]
+    follow_up_days = FollowUpDigestEmail.follow_up_days(params[:follow_up_day])
+    unclaimed_users_also_get_digest = params[:digest_send_to]
 
-    @demo.update_attributes tile_digest_email_sent_at: Time.now, unclaimed_users_also_get_digest: params[:send_to]
+    TilesDigestMailer.delay.notify_all @demo, unclaimed_users_also_get_digest, follow_up_days
+
+    @demo.update_attributes tile_digest_email_sent_at: Time.now, unclaimed_users_also_get_digest: unclaimed_users_also_get_digest
 
     flash[:success] = "Tiles digest email was sent"
     redirect_to client_admin_tiles_path

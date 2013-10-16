@@ -15,20 +15,19 @@ class TilesDigestMailer < ActionMailer::Base
     FollowUpDigestEmail.send_follow_up_digest_email.each { |followup| TilesDigestMailer.delay(run_at: noon).notify_all_follow_up(followup.id) }
   end
 
-  def notify_all(demo_id, tile_ids)
-    demo = Demo.find demo_id
-
+  def notify_all(demo, unclaimed_users_also_get_digest, follow_up_days)
+    tile_ids = demo.digest_tiles.pluck(:id)
     user_ids = demo.users_for_digest.pluck(:id)
-    user_ids.each { |user_id| TilesDigestMailer.delay.notify_one(demo_id, user_id, tile_ids) }
 
-    demo.update_attributes tile_digest_email_sent_at: Time.now
+    # Do this before creating what could be thousands of delayed-jobs because had a problem with this "follow-up job"
+    # not being listed in the "Digest email" tab when this method was done; had to refresh the page in order to see it.
+    # Not sure if this will help, but giving it a shot...
+    FollowUpDigestEmail.create(demo_id:  demo.id,
+                               tile_ids: tile_ids,
+                               send_on:  Date.today + follow_up_days.days,
+                               unclaimed_users_also_get_digest: unclaimed_users_also_get_digest) if follow_up_days > 0
 
-    unless demo.follow_up_digest_email_days.blank? or demo.follow_up_digest_email_days == 0
-      FollowUpDigestEmail.create demo_id:  demo_id,
-                                 tile_ids: tile_ids,
-                                 send_on:  Date.today + demo.follow_up_digest_email_days.days,
-                                 unclaimed_users_also_get_digest: demo.unclaimed_users_also_get_digest
-    end
+    user_ids.each { |user_id| TilesDigestMailer.delay.notify_one(demo.id, user_id, tile_ids) }
   end
 
   def notify_all_follow_up(followup_id)

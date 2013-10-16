@@ -31,8 +31,6 @@ class Demo < ActiveRecord::Base
   
   validates_inclusion_of :join_type, :in => JOIN_TYPES
 
-  validates_inclusion_of :follow_up_digest_email_days, in: (0..10), allow_nil: true
-
   validates_uniqueness_of :name
   validates_presence_of :name
 
