@@ -1,5 +1,3 @@
-= form_tag client_admin_tiles_digest_notification_path
-
 %div.notification_controls#digest_controls
   %p.helper 
     A digest email notifies your employees of new content. The email will contain the tiles below.
@@ -21,8 +19,7 @@
     = select_tag :follow_up_day, options_for_select(Date::DAYNAMES, selected: default_follow_up_day), disabled: true
   
 %div.button_wrap
-  = submit_tag "Send digest now", confirm: 'Are you sure you want to send the digest email?'
-
+  = button_to "Send digest now", client_admin_tiles_digest_notification_path, confirm: 'Are you sure you want to send the digest email?'
 %p#last-email= digest_email_sent_on_message
 
 = render 'cancel_follow_ups'
