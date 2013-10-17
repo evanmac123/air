@@ -79,21 +79,9 @@ class Demo < ActiveRecord::Base
     tiles.digest(self)
   end
 
-  # Originally just sent one digest email. Then decided to send a follow-up digest email to slacker users.
-  #
-  # So if we don't pass in a param => revert to the original implementation which queries the state of this
-  # flag at the moment the call is made (i.e. when the original digest email is actually being delivered.)
-  #
-  # But... the follow-up email needs to (a) save the state of the 'unclaimed_users_also_get_digest' flag
-  # at the time the original email is sent so it can (b) use that same state when the follow-up email is sent.
-  # When that's the case a param (i.e. the original state) will be supplied to this method - and we will use that.
-  def users_for_digest(for_follow_up = nil)
-    condition = for_follow_up.nil? ? unclaimed_users_also_get_digest : for_follow_up
-    if condition
-      users
-    else
-      users.claimed
-    end
+  # Note that 'unclaimed_users_also_get_digest' is a param passed to this method, not the demo's attribute of the same name
+  def users_for_digest(unclaimed_users_also_get_digest)
+    unclaimed_users_also_get_digest ? users : users.claimed
   end
 
   # Returns the number of users who have completed each of the tiles for this demo in a hash

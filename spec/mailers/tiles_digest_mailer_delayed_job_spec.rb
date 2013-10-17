@@ -13,42 +13,44 @@ describe 'Follow-up email scheduled by delayed job' do
 
   #----------------------------------------------------------------------------------
 
-  it 'follow-up records get created when appropriate' do
-    # Follow-up doesn't go out if nil (default value for new demo) or 0 (which is == 'never')
-    nil_follow_up  = FactoryGirl.create :demo
-    zero_follow_up = FactoryGirl.create :demo, follow_up_digest_email_days: 0
+  it 'follow-up records get created with the correct content when appropriate' do
+    demo_1 = FactoryGirl.create :demo
+    FactoryGirl.create :user, demo: demo_1
+    FactoryGirl.create_list :tile, 2, demo: demo_1
 
-    claimed_users = FactoryGirl.create :demo, follow_up_digest_email_days: 1,  unclaimed_users_also_get_digest: false
-    all_users     = FactoryGirl.create :demo, follow_up_digest_email_days: 10, unclaimed_users_also_get_digest: true
+    demo_2 = FactoryGirl.create :demo
+    FactoryGirl.create :user, demo: demo_2
+    FactoryGirl.create_list :tile, 2, demo: demo_2
 
-    user = FactoryGirl.create :claimed_user
+    #-----------------------------------------------------
+    # 0 follow-up days signals that no follow-up email should be scheduled
 
-    [nil_follow_up, zero_follow_up, claimed_users, all_users].each_with_index do |demo, i|
-      user.update_attributes demo: demo
+    TilesDigestMailer.notify_all(demo_1, true, 0)
+    FollowUpDigestEmail.count.should == 0
 
-      TilesDigestMailer.notify_all(demo.id, (1..(i + 1)).to_a)  # Make it so tile_ids are different for each digest email
+    TilesDigestMailer.notify_all(demo_2, false, 0)
+    FollowUpDigestEmail.count.should == 0
 
-      case i
-        when 0 then FollowUpDigestEmail.count.should == 0  # Tile ids would be [1] (if sent out, but not)
-        when 1 then FollowUpDigestEmail.count.should == 0  # Tile ids would be [1, 2] (if sent out, but not)
-        when 2
-          FollowUpDigestEmail.count.should == 1
+    #-----------------------------------------------------
+    # Test positive follow-up days for both cases of claimed vs. all users getting follow-ups
 
-          followup = FollowUpDigestEmail.first
-          followup.demo_id.should == demo.id
-          followup.tile_ids.should == [1, 2, 3]
-          followup.send_on.should == Date.today + 1.day
-          followup.unclaimed_users_also_get_digest.should be_false
-        when 3
-          FollowUpDigestEmail.count.should == 2
+    TilesDigestMailer.notify_all(demo_1, true, 1)
+    FollowUpDigestEmail.count.should == 1
 
-          followup = FollowUpDigestEmail.last
-          followup.demo_id.should == demo.id
-          followup.tile_ids.should == [1, 2, 3, 4]
-          followup.send_on.should == Date.today + 10.days
-          followup.unclaimed_users_also_get_digest.should be_true
-      end
-    end
+    followup = FollowUpDigestEmail.first
+    followup.demo_id.should == demo_1.id
+    followup.tile_ids.sort.should == demo_1.tiles.pluck(:id).sort
+    followup.send_on.should == Date.today + 1.day
+    followup.unclaimed_users_also_get_digest.should be_true
+
+    TilesDigestMailer.notify_all(demo_2, false, 4)
+    FollowUpDigestEmail.count.should == 2
+
+    followup = FollowUpDigestEmail.last
+    followup.demo_id.should == demo_2.id
+    followup.tile_ids.sort.should == demo_2.tiles.pluck(:id).sort
+    followup.send_on.should == Date.today + 4.days
+    followup.unclaimed_users_also_get_digest.should be_false
   end
 
   # 'TilesDigestMailer#notify_all_follow_up_from_delayed_job' is the method that the cron-job runs once a day.

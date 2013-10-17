@@ -17,11 +17,8 @@ class TilesDigestMailer < ActionMailer::Base
 
   def notify_all(demo, unclaimed_users_also_get_digest, follow_up_days)
     tile_ids = demo.digest_tiles.pluck(:id)
-    user_ids = demo.users_for_digest.pluck(:id)
+    user_ids = demo.users_for_digest(unclaimed_users_also_get_digest).pluck(:id)
 
-    # Do this before creating what could be thousands of delayed-jobs because had a problem with this "follow-up job"
-    # not being listed in the "Digest email" tab when this method was done; had to refresh the page in order to see it.
-    # Not sure if this will help, but giving it a shot...
     FollowUpDigestEmail.create(demo_id:  demo.id,
                                tile_ids: tile_ids,
                                send_on:  Date.today + follow_up_days.days,
@@ -45,13 +42,10 @@ class TilesDigestMailer < ActionMailer::Base
   def notify_one(demo_id, user_id, tile_ids, follow_up_email = false)
     @demo  = Demo.find demo_id
     @user  = User.find user_id
-    # Can't just use 'Tile.find tile_ids' because results not in same order as ids in array
-    @tiles = Tile.where(id: tile_ids).order('activated_at DESC')
 
-    # For the follow-up digest email
+    @tiles = Tile.where(id: tile_ids).order('activated_at DESC')
     @follow_up_email = follow_up_email
 
-    # For the footer...
     @invitation_url = @user.claimed? ? nil : invitation_url(@user.invitation_code, protocol: email_link_protocol, host: email_link_host)
 
     mail  to:      @user.email_with_name,

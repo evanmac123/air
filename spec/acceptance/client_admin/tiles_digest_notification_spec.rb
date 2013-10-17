@@ -21,27 +21,19 @@ feature 'Client admin and the digest email for tiles' do
   end
 
   def have_follow_up_selector(selected)
-    have_select 'digest_follow_up', {selected: selected}
-  end
-
-  def change_send_on(day)
-    select day, from: 'digest_send_on'
+    have_select 'digest_follow_up_day', {selected: selected}
   end
 
   def change_send_to(send_to)
     select send_to, from: 'digest_send_to'
   end
 
-  def change_follow_up(num_days)
-    select num_days, from: 'digest_follow_up'
+  def change_follow_up_day(num_days)
+    select num_days, from: 'digest_follow_up_day'
   end
 
   def set_last_sent_on(day)
     demo.update_attributes tile_digest_email_sent_at: day_to_time(day)
-  end
-
-  def set_follow_up(num_days)
-    demo.update_attributes follow_up_digest_email_days: num_days
   end
 
   def expect_digest_to(recipient)
@@ -67,7 +59,7 @@ feature 'Client admin and the digest email for tiles' do
       select_tab 'Digest email'
     end
 
-    scenario 'Tab text is correct when there are no new tiles for the digest email' do
+    scenario 'Text is correct when there are no new tiles for the digest email' do
       last_email_sent_text = 'since the last one was sent on Thursday, July 04, 2013'
 
       digest_tab.should contain 'No digest email is scheduled to be sent because no new tiles have been added'
@@ -78,13 +70,14 @@ feature 'Client admin and the digest email for tiles' do
       set_last_sent_on '7/4/2013'
       refresh_tile_manager_page
 
-      digest_tab.should contain last_email_sent_text
+      digest_tab.should contain last_email_sent_text  # Make sure we checked for the absence of the correct text
     end
 
     scenario 'Form components and text are not on the page when there are no new tiles for the digest email' do
-      digest_tab.should_not have_button 'Send now'
+      digest_tab.should_not have_button 'Send digest now'
 
-      digest_tab.should_not contain 'The email will contain the below tiles'
+      tiles_present_text = 'The email will contain the below tiles'
+      digest_tab.should_not contain tiles_present_text
 
       set_last_sent_on '7/4/2013'
       refresh_tile_manager_page
@@ -139,7 +132,8 @@ feature 'Client admin and the digest email for tiles' do
       select_tab 'Digest email'
 
       digest_tab.should have_follow_up_selector('Never')
-      set_follow_up '2'
+      #set_follow_up '2'  NO LONGER A CONTROL
+      # HERE IS WHERE YOU WANT TO TEST THE ENABLE/DISABLE OF CHECKBOX
 
       refresh_tile_manager_page
       select_tab 'Digest email'
@@ -187,12 +181,12 @@ feature 'Client admin and the digest email for tiles' do
 
       digest_tab.should have_follow_up_selector('Never')
 
-      change_follow_up '1'
+      change_follow_up_day '1'
 
       digest_tab.should have_follow_up_selector('1')
       digest_tab.should contain 'Follow-up digest email will be sent 1 day after the original'
 
-      change_follow_up '10'
+      change_follow_up_day '10'
 
       digest_tab.should have_follow_up_selector('10')
       digest_tab.should contain 'Follow-up digest email will be sent 10 days after the original'
@@ -242,7 +236,7 @@ feature 'Client admin and the digest email for tiles' do
       digest_tab.should contain 'since the last one was sent on Thursday, July 04, 2013'
     end
 
-    context "Clicking the 'Send now' button" do
+    context "Clicking the 'Send digest now' button" do
       before(:each) do
         set_last_sent_on '7/4/2013'
         2.times { |i| create_tile on_day: '7/5/2013', activated_on: '7/5/2013', status: Tile::ACTIVE, headline: "Headline #{i + 1}"}

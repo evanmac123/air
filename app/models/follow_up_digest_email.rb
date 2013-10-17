@@ -16,13 +16,13 @@ class FollowUpDigestEmail < ActiveRecord::Base
   end
 
   def self.follow_up_days(follow_up_day)
-    # The 'day name' select-box control was disabled ('send followup' checkbox was not checked)
-    # or they scheduled the follow-up to go out on the current day (which doesn't make sense)
-    return 0 if (follow_up_day.nil? or follow_up_day == Date::DAYNAMES[Date.today.wday])
+    return 0 if follow_up_day.nil?
 
-    day_to_send = Date::DAYNAMES.index(follow_up_day)
+    # 'DAYNAMES' is a Ruby array of ['Sunday', 'Monday', ..., 'Saturday']
+    # 'wday' is a Ruby method which returns an integer day-of-the-week: Sunday = 0, Monday = 1, ..., Saturday = 6
     today = Date.today.wday
+    day_to_send = Date::DAYNAMES.index(follow_up_day)
 
-    day_to_send > today ? day_to_send - today : 7 - (today - day_to_send)
+    day_to_send >= today ? day_to_send - today : 7 - (today - day_to_send)
   end
 end
