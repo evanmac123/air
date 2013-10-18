@@ -2,8 +2,8 @@ require 'spec_helper'
 
 describe FollowUpDigestEmail do
   describe '#follow_up_days' do
-    it "returns 0 when the specified day is nil" do
-      FollowUpDigestEmail.follow_up_days(nil).should == 0
+    it "returns 0 when the specified day is 'Never'" do
+      FollowUpDigestEmail.follow_up_days('Never').should == 0
     end
 
     it "returns the number of days the specified day occurs after the current day" do

@@ -16,7 +16,7 @@ class FollowUpDigestEmail < ActiveRecord::Base
   end
 
   def self.follow_up_days(follow_up_day)
-    return 0 if follow_up_day.nil?
+    return 0 if follow_up_day == 'Never'
 
     # 'DAYNAMES' is a Ruby array of ['Sunday', 'Monday', ..., 'Saturday']
     # 'wday' is a Ruby method which returns an integer day-of-the-week: Sunday = 0, Monday = 1, ..., Saturday = 6
