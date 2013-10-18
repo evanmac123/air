@@ -1,18 +1,20 @@
-%div.helper 
-  %p A <span>digest email</span> notifies your employees of new content.
-  %p A <span>follow-up email</span> can be sent to all employees who have not interacted with any tiles. It will contain all supporting content to ensure your employees receive all of the information you want them to.
-
+%h3 Notify users of new tiles
 %div.notification_controls
   %div.send_to
-    Who do you want to send the digest to?
+    %p 
+      Who do you like to notify?
+      %a{:href => "/pages/static_digest", :target => "_blank", :id => "digest_example"} Sample
     = select_tag :digest_send_to, options_for_select([['all users', true], ['only joined users', false]], @demo.unclaimed_users_also_get_digest)
-    %a{:href => "/pages/static_digest", :target => "_blank", :id => "digest_example"} See an example
 
   %div.follow_up
+    %p 
+      Send reminder email to users that don't engage?
+      %a{:href => "/pages/static_followup", :target => "_blank", :id => "followup_example"} Sample
+      %span Automatically increases participation rates and makes sure your content is seen.
     = check_box_tag :send_follow_up
-    = label_tag :send_follow_up, 'Send a follow-up email on'
+    = label_tag :send_follow_up, 'Yes'
+    On:
     = select_tag :follow_up_day, options_for_select(Date::DAYNAMES, selected: default_follow_up_day), disabled: true
-    %a{:href => "/pages/static_followup", :target => "_blank", :id => "followup_example"} See an example
   
   %div.button_wrap
     = button_to "Send digest now", client_admin_tiles_digest_notification_path, confirm: 'Are you sure you want to send the digest email?'

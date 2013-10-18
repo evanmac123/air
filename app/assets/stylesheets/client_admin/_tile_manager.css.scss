@@ -15,6 +15,7 @@
   .ui-tabs-nav {
     border:0;
     background:transparent;
+    height:3.15em;
     padding-left:0;
     li {
       border:0;
@@ -163,39 +164,52 @@
 }
 
 // Digest email panel
+#digest, #digest_management {
+  h3 {font-family: $open-600; padding-bottom:1.25em;}
+} 
 #digest_management {
-  border-bottom:1px $light-gray solid;
   font-family:$open-400;
-  margin-bottom:1em;
-  padding-bottom:1em;
+  margin-bottom:2em;
   &:after {@include clear;}
 
-  a, p#last-email {font-size:.875em;}
-  a {@include link($med-gray);}
   p#last-email {
     color:$med-gray;
-    display: inline-block;
-    padding-left:.5em;
+    font-size:.875em;
+    margin-top:.35em;
   }
 
-  .helper {
-    background:lighten($light-gray, 9%);
-    margin-bottom:1em;
-    padding: 1em;
-    span {font-family: $open-600;}
-    p + p {margin-top:1em;}
+  .notification_controls, #scheduled_followups {
+    display: inline-block;
+    float:left;
+    vertical-align: top;
   }
   .notification_controls {
-    padding:0 1em;
-    .button_wrap {margin-left:1.4em;}
-    .send_to {padding-left:1.4em;}
-    .follow_up {
-      margin:1em 0;
-      input, label, select, a {
-        display: inline-block;
-        &:disabled {color:$med-gray;}
-      }
+    padding:0 1em 0 0;
+    margin-bottom:1em;
+    width:60%;
+    .send_to, .follow_up {
+      margin-bottom:1.75em;
+      p {margin-bottom:.75em;}
+      select, label {font-size:1.142857143em;}
     }
+    .follow_up {
+      p span {
+        color:$med-gray;
+        display:block;
+        font-size:.857142857em;
+        line-height: 1.25em;
+        max-width:27em;
+        padding-bottom:.5em;
+      }
+      label {margin-right:2em;}
+      select:disabled {color:$light-gray;}
+    }
+    input[type="checkbox"], label, select {display: inline-block;}
+  }
+  #scheduled_followups {
+    border-left:1px $light-gray solid;
+    padding-left:1em;
+    width:40%;
   }
 
   form {display:inline-block;}
@@ -212,29 +226,14 @@
     vertical-align: middle;
   }
 }
-#digest h3 {
-  font-family: $open-600;
-  font-size:1em;
-  padding:1em 1em 2em 1em;
-}
+
 #scheduled_followups {
-  border-top:1px $light-gray solid;
-  font-family: $open-600;
-  margin-top:2em;
-  padding:1em 1em 0 1em;
+  font-family:$open-600;
+  font-size:.875em;
   #cancel_follow_up div {
     font-family:$open-400;
-    margin-left:1em;
+    font-size:1.166666667em;
     padding:1em 0 .25em 0;
-    a {
-      border:1px $light-gray solid;
-      color:$med-gray;
-      display: inline-block;
-      font-size:.714285714em;
-      margin-left:.5em;
-      padding: .25em .5em;
-      &:hover {color:$blue;}
-    }
     &:before {
       background:$light-gray;
       content: "";
@@ -248,11 +247,26 @@
   #cancel_follow_up div + div {padding:.25em 0;}
 }
 
+#cancel_follow_up div, #digest_management .send_to, #digest_management .follow_up {
+  a {
+    border:1px $light-gray solid;
+    color:$med-gray;
+    display: inline-block;
+    font-size:.785714286em;
+    margin-left:.5em;
+    padding: .25em .5em;
+    &:hover {color:$blue;}
+  }
+}
+
+
 .no_tiles_message {
+  border-bottom:1px $light-gray solid;
   font-family:$open-400;
   font-size:1.3em;
   line-height:1.35em;
-  padding:1em 15% 1em .65em;
+  margin-bottom:2em;
+  padding:1em 15% 2em;
 }
 
 .tile_thumbnail {
