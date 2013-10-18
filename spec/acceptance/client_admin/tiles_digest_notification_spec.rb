@@ -80,7 +80,7 @@ feature 'Client admin and the digest email for tiles' do
       digest_tab.should_not contain 'Scheduled follow-ups'
     end
 
-    scenario 'Text is correct when follow-up emails are scheduled to be sent', js: :webkit do  # (Didn't work with poltergeist)
+    scenario 'Text is correct when follow-up emails are scheduled to be sent, and emails can be cancelled', js: :webkit do  # (Didn't work with poltergeist)
       create_follow_up_emails
       refresh_tile_manager_page
 
@@ -90,11 +90,8 @@ feature 'Client admin and the digest email for tiles' do
       digest_tab.should contain 'Wednesday, July 03, 2013'
 
       first(:link, "Cancel").click
-      digest_tab.should contain 'Follow-up email for Monday, July 01, 2013 cancelled'
 
-      # Ensure that the follow-up email record was actually deleted
-      refresh_tile_manager_page
-      digest_tab.should_not contain 'Monday, July 01, 2013'
+      digest_tab.should contain 'Follow-up email for Monday, July 01, 2013 cancelled'
       digest_tab.should contain 'Tuesday, July 02, 2013'
       digest_tab.should contain 'Wednesday, July 03, 2013'
     end
@@ -111,114 +108,74 @@ feature 'Client admin and the digest email for tiles' do
     end
 
     scenario 'Form components are on the page and properly initialized' do
-      create_tile
-      demo.update_attributes unclaimed
-      visit tile_manager_page
-      select_tab 'Digest email'
+      on_day('10/14/2013') do  # Monday
+        create_tile
+        demo.update_attributes unclaimed_users_also_get_digest: true
 
-      digest_tab.should have_follow_up_selector('Never')
-      #set_follow_up '2'  NO LONGER A CONTROL
-      # HERE IS WHERE YOU WANT TO TEST THE ENABLE/DISABLE OF CHECKBOX
+        visit tile_manager_page
+        select_tab 'Digest email'
 
-      refresh_tile_manager_page
-      select_tab 'Digest email'
+        digest_tab.should have_send_to_selector('all users')
+        digest_tab.should have_follow_up_selector('Thursday')
+      end
 
-      digest_tab.should have_follow_up_selector('2')
+      on_day('10/18/2013') do  # Friday
+        create_tile
+        demo.update_attributes unclaimed_users_also_get_digest: false
+
+        visit tile_manager_page
+        select_tab 'Digest email'
+
+        digest_tab.should have_send_to_selector('only joined users')
+        digest_tab.should have_follow_up_selector('Tuesday')
+      end
     end
 
-    scenario 'The admin can choose whether to send to everyone or just claimed users', js: true do
-      create_tile
-      visit tile_manager_page
-      select_tab 'Digest email'
-
-      digest_tab.should have_send_to_selector('all users')
-      demo.unclaimed_users_also_get_digest.should be_true
-
-      change_send_to 'only joined users'
-      digest_tab.should contain 'Only joined users will get digest emails'
-      demo.reload.unclaimed_users_also_get_digest.should be_false
-
-      change_send_to 'all users'
-      digest_tab.should contain 'All users will get digest emails'
-      demo.reload.unclaimed_users_also_get_digest.should be_true
-    end
-
-    scenario "The selector for whether unclaimed users get digests should agree with the demo's state", js: true do
+    scenario 'Text is correct when no follow-up emails are scheduled to be sent' do
       create_tile
       visit tile_manager_page
       select_tab 'Digest email'
 
-      digest_tab.should have_send_to_selector('all users')
-
-      change_send_to 'only joined users'
-      visit tile_manager_page
-      digest_tab.should have_send_to_selector('only joined users')
-
-      change_send_to 'all users'
-      visit tile_manager_page
-      digest_tab.should have_send_to_selector('all users')
+      digest_tab.should_not contain 'Scheduled follow-ups'
     end
 
-    scenario "The 'follow-up' drop-down control updates the number-of-days and displays a confirmation message", js: true do
+    scenario 'Text is correct when follow-up emails are scheduled to be sent, and emails can be cancelled', js: :webkit do
+      # If you 'create_follow_up_emails' and then 'visit tile_manager_page' the follow-up email creation bombs.
+      # We've had this stupid fucking problem before. Luckily Phil figured out it is some kind of timing problem.
+      # We've also had the stupid fucking problem of stuff like this not working in poltergeist => have to use webkit
+      # (Man, testing is great... but sometimes it can be such a royal fucking pain in the ass)
       create_tile
-      visit tile_manager_page
-      select_tab 'Digest email'
 
-      digest_tab.should have_follow_up_selector('Never')
-
-      change_follow_up_day '1'
-
-      digest_tab.should have_follow_up_selector('1')
-      digest_tab.should contain 'Follow-up digest email will be sent 1 day after the original'
-
-      change_follow_up_day '10'
-
-      digest_tab.should have_follow_up_selector('10')
-      digest_tab.should contain 'Follow-up digest email will be sent 10 days after the original'
-    end
-
-    scenario 'No follow-up emails are scheduled to be sent' do
-      visit tile_manager_page
-      select_tab 'Digest email'
-
-      digest_tab.should_not contain 'A follow-up digest email is scheduled to go out'
-    end
-
-    scenario 'Follow-up emails are scheduled to be sent', js: :webkit do  # Didn't work with poltergeist... wtf!
-      # If you first 'create_follow_up_emails' and then 'visit tile_manager_page'... well, you can't because the follow-up creation bombs
       visit tile_manager_page
       select_tab 'Digest email'
 
       create_follow_up_emails
       refresh_tile_manager_page
 
-      digest_tab.should contain 'A follow-up digest email is scheduled to go out'
+      digest_tab.should contain 'Scheduled follow-ups'
       digest_tab.should contain 'Monday, July 01, 2013'
       digest_tab.should contain 'Tuesday, July 02, 2013'
       digest_tab.should contain 'Wednesday, July 03, 2013'
 
       first(:link, "Cancel").click
-      # Notice we have the 'Cancel' link-text here, because the just-date string appears in the cancellation message
-      digest_tab.should_not contain 'Monday, July 01, 2013 Cancel'
-      digest_tab.should contain 'Follow-up email for Monday, July 01, 2013 cancelled'
 
-      # Ensure that the follow-up email record was actually deleted
-      refresh_tile_manager_page
-      digest_tab.should_not contain 'Monday, July 01, 2013'
+      digest_tab.should contain 'Follow-up email for Monday, July 01, 2013 cancelled'
       digest_tab.should contain 'Tuesday, July 02, 2013'
       digest_tab.should contain 'Wednesday, July 03, 2013'
     end
 
-    scenario 'The last-digest-email-sent-on date is correct', js: true do
+    scenario 'The last-digest-email-sent-on date is correct' do
+      create_tile
       visit tile_manager_page
       select_tab 'Digest email'
+
       digest_tab.should_not contain 'Last digest email was sent'
 
       set_last_sent_on '7/4/2013'
-
       visit tile_manager_page
       select_tab 'Digest email'
-      digest_tab.should contain 'since the last one was sent on Thursday, July 04, 2013'
+
+      digest_tab.should contain 'Last digest email was sent on Thursday, July 04, 2013'
     end
 
     context "Clicking the 'Send digest now' button" do
@@ -233,9 +190,8 @@ feature 'Client admin and the digest email for tiles' do
         on_day '7/6/2013' do
           visit tile_manager_page
           select_tab 'Digest email'
-          digest_tab.should     contain 'The email will contain the below tiles'
+          digest_tab.should contain 'Tiles to be sent'
           digest_tab.should_not contain 'No digest email is scheduled to be sent'
-          digest_tab.should_not contain 'since the last one was sent on Saturday, July 06, 2013'
 
           digest_tab.should contain 'Headline 1'
           digest_tab.should contain 'Headline 2'
@@ -248,9 +204,9 @@ feature 'Client admin and the digest email for tiles' do
           page.should contain "Tiles digest email was sent"
 
           select_tab 'Digest email'
-          digest_tab.should_not contain 'The email will contain the below tiles'
-          digest_tab.should     contain 'No digest email is scheduled to be sent'
-          digest_tab.should     contain 'since the last one was sent on Saturday, July 06, 2013'
+          digest_tab.should_not contain 'Tiles to be sent'
+          digest_tab.should contain 'No digest email is scheduled to be sent'
+          digest_tab.should contain 'since the last one was sent on Saturday, July 06, 2013'
 
           digest_tab.should_not contain 'Headline 1'
           digest_tab.should_not contain 'Headline 2'
@@ -276,8 +232,8 @@ feature 'Client admin and the digest email for tiles' do
           select_tab 'Digest email'
         end
 
-        scenario "Demo where everybody, claimed and unclaimed, should get digests.
-                  The tile links should sign in claimed *non-client-admin* users to the
+        scenario "Demo where claimed and unclaimed should get digests.
+                  The tile links should sign in claimed, *non-client-admin* users to the
                   Activities page, while whisking others to where they belong" do
           on_day '7/6/2013' do
             click_button 'Send digest now'
