@@ -178,15 +178,20 @@
     margin-top:.35em;
   }
 
-  .notification_controls, #scheduled_followups {
+
+  form, #schedule_followups {
     display: inline-block;
-    float:left;
     vertical-align: top;
   }
-  .notification_controls {
+  form {
+    float:left;
     padding:0 1em 0 0;
-    margin-bottom:1em;
     width:60%;
+  }
+
+  .notification_controls {
+    margin-bottom:1em;
+    width:100%;
     .send_to, .follow_up {
       margin-bottom:1.75em;
       p {margin-bottom:.75em;}
@@ -208,11 +213,10 @@
   }
   #scheduled_followups {
     border-left:1px $light-gray solid;
+    float:right;
     padding-left:1em;
     width:40%;
   }
-
-  form {display:inline-block;}
   .button_wrap {
     @include square-button-wrap($blue);
     input[type="submit"] {
