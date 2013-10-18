@@ -1,7 +1,6 @@
 - if @digest_tiles.empty?
   %div.no_tiles_message= no_digest_email_message
   = render 'cancel_follow_ups'
-  %div#feedback
 - else
   %div#digest_management= render partial: 'digest_management'
   %h3 Tiles to be sent
