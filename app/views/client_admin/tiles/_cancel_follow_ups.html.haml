@@ -1,6 +1,6 @@
 - unless @follow_up_emails.empty?
   %div#scheduled_followups
-    A follow-up digest email is scheduled to go out on:
+    Scheduled follow-ups
     %div#cancel_follow_up
       - @follow_up_emails.each do |follow_up|
         %div{id: "follow_up_email_#{follow_up.id}"}

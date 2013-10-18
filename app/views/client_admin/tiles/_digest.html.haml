@@ -4,6 +4,6 @@
   %div#feedback
 - else
   %div#digest_management= render partial: 'digest_management'
-  %h3 Emails include the following:
+  %h3 Tiles to be sent
   = render partial: 'tiles_table', locals: {tiles: @digest_tiles, type: :digest}
 
