@@ -21,7 +21,7 @@ feature 'Client admin and the digest email for tiles' do
   end
 
   def have_follow_up_selector(selected)
-    have_select 'digest_follow_up_day', {selected: selected}
+    have_select 'follow_up_day', {selected: selected}
   end
 
   def change_send_to(send_to)
@@ -29,7 +29,7 @@ feature 'Client admin and the digest email for tiles' do
   end
 
   def change_follow_up_day(num_days)
-    select num_days, from: 'digest_follow_up_day'
+    select num_days, from: 'follow_up_day'
   end
 
   def set_last_sent_on(day)
@@ -53,54 +53,43 @@ feature 'Client admin and the digest email for tiles' do
 # -------------------------------------------------
 
   context 'No tiles exist for digest email' do
-
     before(:each) do
       visit tile_manager_page
       select_tab 'Digest email'
     end
 
-    scenario 'Text is correct when there are no new tiles for the digest email' do
-      last_email_sent_text = 'since the last one was sent on Thursday, July 04, 2013'
-
+    scenario 'Text is correct' do
       digest_tab.should contain 'No digest email is scheduled to be sent because no new tiles have been added'
-
-      # We have yet to consummate the sending of our virgin digest email
-      digest_tab.should_not contain last_email_sent_text
+      digest_tab.should_not contain 'since the last one was sent on Thursday, July 04, 2013'
 
       set_last_sent_on '7/4/2013'
       refresh_tile_manager_page
 
-      digest_tab.should contain last_email_sent_text  # Make sure we checked for the absence of the correct text
+      digest_tab.should contain 'since the last one was sent on Thursday, July 04, 2013'
     end
 
-    scenario 'Form components and text are not on the page when there are no new tiles for the digest email' do
+    scenario 'Text and form components are not on the page' do
+      digest_tab.should_not contain 'Notify users of new tiles'
+
       digest_tab.should_not have_button 'Send digest now'
-
-      tiles_present_text = 'The email will contain the below tiles'
-      digest_tab.should_not contain tiles_present_text
-
-      set_last_sent_on '7/4/2013'
-      refresh_tile_manager_page
-
-      digest_tab.should_not contain 'The email will contain the below tiles'
+      digest_tab.should_not have_select 'digest_send_to'
+      digest_tab.should_not have_select 'follow_up_day'
     end
 
-    scenario 'No follow-up emails are scheduled to be sent' do
-      digest_tab.should_not contain 'A follow-up digest email is scheduled to go out'
+    scenario 'Text is correct when no follow-up emails are scheduled to be sent' do
+      digest_tab.should_not contain 'Scheduled follow-ups'
     end
 
-    scenario 'Follow-up emails are scheduled to be sent', js: :webkit do  # Didn't work with poltergeist... wtf!
+    scenario 'Text is correct when follow-up emails are scheduled to be sent', js: :webkit do  # (Didn't work with poltergeist)
       create_follow_up_emails
       refresh_tile_manager_page
 
-      digest_tab.should contain 'A follow-up digest email is scheduled to go out'
+      digest_tab.should contain 'Scheduled follow-ups'
       digest_tab.should contain 'Monday, July 01, 2013'
       digest_tab.should contain 'Tuesday, July 02, 2013'
       digest_tab.should contain 'Wednesday, July 03, 2013'
 
       first(:link, "Cancel").click
-      # Notice we have the 'Cancel' link-text here, because the just-date string appears in the cancellation message
-      digest_tab.should_not contain 'Monday, July 01, 2013 Cancel'
       digest_tab.should contain 'Follow-up email for Monday, July 01, 2013 cancelled'
 
       # Ensure that the follow-up email record was actually deleted
@@ -112,22 +101,18 @@ feature 'Client admin and the digest email for tiles' do
   end
 
   context 'Tiles exist for digest email' do
-    scenario "The number of tiles is correct, as is the plurality of the word 'tile'" do
+    scenario "Text is correct" do
       create_tile
       visit tile_manager_page
       select_tab 'Digest email'
 
-      digest_tab.should contain 'The email will contain the below tiles'
-
-      create_tile
-      refresh_tile_manager_page
-      select_tab 'Digest email'
-
-      digest_tab.should contain 'The email will contain the below tiles'
+      digest_tab.should contain 'Notify users of new tiles'
+      digest_tab.should contain 'Tiles to be sent'
     end
 
-    scenario 'The appropriate form components are on the page and properly initialized', js: true do
+    scenario 'Form components are on the page and properly initialized' do
       create_tile
+      demo.update_attributes unclaimed
       visit tile_manager_page
       select_tab 'Digest email'
 
