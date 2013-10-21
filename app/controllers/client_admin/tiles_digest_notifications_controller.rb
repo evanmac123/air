@@ -3,7 +3,8 @@ class ClientAdmin::TilesDigestNotificationsController < ClientAdminBaseControlle
     @demo = current_user.demo
 
     follow_up_days = FollowUpDigestEmail.follow_up_days(params[:follow_up_day])
-    unclaimed_users_also_get_digest = params[:digest_send_to]
+    # Need to do this because the param is the string "true" or "false"... and the string "false" is true
+    unclaimed_users_also_get_digest = (params[:digest_send_to] == 'true' ? true : false)
 
     TilesDigestMailer.notify_all @demo, unclaimed_users_also_get_digest, follow_up_days
 

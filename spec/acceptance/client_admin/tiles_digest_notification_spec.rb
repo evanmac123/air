@@ -218,7 +218,7 @@ feature 'Client admin and the digest email for tiles' do
       context 'emails are sent to the appropriate people' do
         before do
           FactoryGirl.create :user, demo: demo, name: 'John Campbell', email: 'john@campbell.com'
-          FactoryGirl.create :user, demo: demo, name: 'Irma Thoman',   email: 'irma@thomas.com'
+          FactoryGirl.create :user, demo: demo, name: 'Irma Thomas',   email: 'irma@thomas.com'
 
           FactoryGirl.create :claimed_user, demo: demo, name: 'W.C. Clark', email: 'wc@clark.com'
           FactoryGirl.create :claimed_user, demo: demo, name: 'Taj Mahal',  email: 'taj@mahal.com'
@@ -236,6 +236,7 @@ feature 'Client admin and the digest email for tiles' do
                   The tile links should sign in claimed, *non-client-admin* users to the
                   Activities page, while whisking others to where they belong" do
           on_day '7/6/2013' do
+            change_send_to('all users')
             click_button 'Send digest now'
             crank_dj_clear
 
@@ -273,9 +274,8 @@ feature 'Client admin and the digest email for tiles' do
         end
 
         scenario 'Demo where only claimed users should get digests' do
-          demo.update_attributes(unclaimed_users_also_get_digest: false)
-
           on_day '7/6/2013' do
+            change_send_to('only joined users')
             click_button 'Send digest now'
             crank_dj_clear
 

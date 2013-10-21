@@ -217,6 +217,7 @@
     padding-left:1em;
     width:40%;
   }
+
   .button_wrap {
     @include square-button-wrap($blue);
     input[type="submit"] {
@@ -234,6 +235,9 @@
 #scheduled_followups {
   font-family:$open-600;
   font-size:.875em;
+
+  #feedback {color: $orange; }
+
   #cancel_follow_up div {
     font-family:$open-400;
     font-size:1.166666667em;
