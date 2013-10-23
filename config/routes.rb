@@ -96,7 +96,7 @@ Health::Application.routes.draw do
     resource :avatar, :only => [:update, :destroy]
     resource :sms_slug, :only => [:update]
     resource :name, :only => [:update]
-    resource :settings, :only => [:edit, :update]
+    resource :settings, :only => [:edit]
     resource :location, :only => [:update]
   end
 
