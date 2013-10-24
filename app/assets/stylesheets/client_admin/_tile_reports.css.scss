@@ -54,10 +54,9 @@
 		&.percent_claimed,
 		&.num_completed {text-align: center;}
 		&.percent_claimed {
-			font-size:1.65em;
+			font-size:1.15em;
 			font-family:$open-600;
 		}
-		&.percent_claimed {color:$orange;}
 	}
 }
 

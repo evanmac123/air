@@ -1,14 +1,14 @@
 #following_wrapper
   #following.module
     - if @current_user == @user 
-      %h1.headline Your Friends
+      %h1.headline Your Connections
     - else
-      %h1.headline= "#{@user.first_name}'s Friends"
+      %h1.headline= "#{@user.first_name}'s connections"
     - unless @display_user_stats
       = render 'follow_link'
     - else      
       - unless @has_friends
-        %p.indent_same_as_table No friends yet
+        %p.indent_same_as_table No connections yet
       - else
         = render 'users/scoreboard_headers'
 

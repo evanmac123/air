@@ -22,16 +22,16 @@
 .invite{:id => 'invite_friends'}
   #search_for_friends_to_invite
     #invite_friends_top
-      %h1.headline#invite_your_friends_title Invite your friends
+      %h1.headline#invite_your_friends_title Invite
       
-      %p#why_invite It's more fun when people you know are playing too. Plus, get a 5-point referral bonus for each friend that joins the game!
+      %p#why_invite Earn 5 points for each connection who joins.
       #points_per_referral= current_user.demo.game_referrer_bonus
 
     #invite_friends_middle
   
 
       %ul.form-section
-        %li.form-label= label_tag :autocomplete,  "Which coworkers do you wish to invite?"
+        %li.form-label= label_tag :autocomplete,  "Who do you want to invite?"
         %li.form-input
           = text_field_tag :autocomplete, nil, :autocomplete => "off"
           .relative

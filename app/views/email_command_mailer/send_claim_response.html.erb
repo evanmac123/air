@@ -1,12 +1,6 @@
 <%= render 'email_command_mailer/replies_above_this_line' %>
 <p><%= @message %></p>
 
-<p>To sign into the web site and learn how to play <a href="<%= edit_user_password_url(@user, :token => @user.confirmation_token) %>">click here</a>.</p>
-
-<p>On a mobile phone with no web access? No problem.
-First thing to know is that "commands" are key words you can send to H.Engage to earn points.
-You can start playing right away by sending "commands" directly to this email address.
-Save it in your address book to make sure you have it handy.</p>
-
+<p>Welcome! Next, <a href="<%= edit_user_password_url(@user, :token => @user.confirmation_token) %>">set your password here</a>.</p>
 
 <%= render :partial => 'footer' %>

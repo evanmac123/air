@@ -77,32 +77,17 @@ class CustomInvitationEmail < ActiveRecord::Base
   end
 
   DEFAULTS = {
-    custom_subject: "Play [game_name] and make the most of your HR programs and benefits",
+    custom_subject: "Your invitation to join the [game_name]",
 
-    custom_subject_with_referrer: "[referrer] invited you to play [game_name] and make the most of your HR programs and benefits",
+    custom_subject_with_referrer: "[referrer] invited you to join the [game_name]",
 
-    custom_plain_text: %{Welcome to H.Engage! 
+    custom_plain_text: %{Your invitation to join the [game_name]!
 
-An easy and fun way to learn about programs, benefits and other happenings at your company.
+The [game_name] by H.Engage makes workplace communications engaging and reduces the volume of dense emails so you don't miss important information.
 
 Get started at [invitation_url]
- 
- 
-What does H.Engage do?
 
-* Makes workplace communications feel fun and interesting.
-* Provides short and timely content that's relevent for you.
-* Reduces the volume of dense emails so you don't miss important information.
- 
-
-How it works:
-
-* Start. Go to [invitation_url] to get started.
-* Answer questions for points. Each week, we'll post new content on H.Engage. When there's new content, you'll receive a notification email.
-* Win prizes. For every 20 points you earn, you'll get a ticket into the raffle for the prize. You can track the points and tickets you earn in the progress bar at the top of H.Engage's homepage.  
-
-
-Questions? Send us a message at support@hengage.com.
+Questions? Email support@hengage.com.
     },
 
     custom_html_text: %{
@@ -110,9 +95,10 @@ Questions? Send us a message at support@hengage.com.
 <table width="550" cellspacing="0" cellpadding="0" border="0">
   <tr><td height="10">&nbsp;</td></tr>
   <tr style="font-family: 'helvetica neue', helvetica, sans-serif;">
-    <td style="text-align:left;">
-      <h1 style="color:#292929; font-weight:lighter; font-weight: 300;">Welcome to H.Engage!</h1>
-      <h2 style="color: #a8a8a8; font-weight:bold; font-weight: 500;">An easy and fun way to learn about programs, benefits and other happenings at your company.</h2> </td>
+    <td style="text-align:center;">
+      <h1 style="color:#292929; font-weight:lighter; font-weight: 300;">Join the [game_name]</h1>
+      <h2 style="color: #a8a8a8; font-weight:bold; font-weight: 500;">
+It makes workplace communications engaging and reduces the volume of dense emails so you don't miss important information.</h2> </td>
     </td>
   </tr>
   <tr><td height="10">&nbsp;</td></tr>
@@ -124,7 +110,7 @@ Questions? Send us a message at support@hengage.com.
         </tr>
         <tr style="background:#4DA968;">
           <td width="30">&nbsp;</td>
-          <td><a style="color: #ffffff; display: block; font-family: 'helvetica neue', helvetica, sans-serif; font-size: 20px; font-weight:bold; text-decoration: none; padding:.5em 2em;" href="[invitation_url]" target="_blank">Get started</a></td>
+          <td><a style="color: #ffffff; display: block; font-family: 'helvetica neue', helvetica, sans-serif; font-size: 20px; font-weight:bold; text-decoration: none; padding:.5em 2em;" href="[invitation_url]" target="_blank">Start</a></td>
           <td width="30">&nbsp;</td>
         </tr>
         <tr style="background:#4DA968;">
@@ -134,32 +120,11 @@ Questions? Send us a message at support@hengage.com.
     </center></td>
   </tr>
   <tr><td height="50">&nbsp;</td></tr>
-  <tr style="font-family: 'helvetica neue', helvetica, sans-serif;">
-    <td style="text-align:left;">
-      <h2 style="color: #50698c; font-weight:bold; font-weight:500;">What does H.Engage do?</h2>
-      <ul style="list-style-type:disc;"> 
-        <li style="padding-bottom: 0.7em;">Makes workplace communications feel fun and interesting.</li> 
-        <li style="padding-bottom: 0.7em;">Provides short and timely content that's relevent for you. </li> 
-        <li style="padding-bottom: 0.7em;">Reduces the volume of dense emails so you don't miss important information.</li> 
-      </ul> 
-    </td>
-  </tr>
-  <tr><td height="10">&nbsp;</td></tr>
-  <tr style="font-family: 'helvetica neue', helvetica, sans-serif;">
-    <td style="text-align:left;">
-      <h2 style="color: #50698c; font-weight:bold; font-weight:500;">How it works:</h2> 
-      <ul style="list-style-type:disc;"> 
-        <li style="padding-bottom: 0.7em;"><strong>Start.</strong> Click the green "Get started" button.</li> 
-        <li style="padding-bottom: 0.7em;"><strong>Answer questions for points. </strong>Each week, we'll post new content on H.Engage. When there's new content, you'll receive a notification email. </li> 
-        <li style="padding-bottom: 0.7em;"><strong>Win prizes. </strong>For every 20 points you earn, you'll get a ticket into the raffle for the prize. You can track the points and tickets you earn in the progress bar at the top of H.Engage's homepage.</li> 
-      </ul> 
-    </td>
-  </tr>
   <tr>
     <td height="10">&nbsp;</td>
   </tr>
   <tr style="font-family: 'helvetica neue',helvetica, sans-serif;">
-    <td style="text-align:center;">Questions? Send us a message at <a href="mailto:support@hengage.com">support@hengage.com</a></td>
+    <td style="text-align:center;">Questions? <a href="mailto:support@hengage.com">support@hengage.com</a></td>
   </tr>
   <tr>
     <td height="50">&nbsp;</td>

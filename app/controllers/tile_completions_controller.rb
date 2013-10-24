@@ -37,7 +37,7 @@ class TileCompletionsController < ApplicationController
   end
 
   def reply(act)
-    ["That's right!", act.post_act_summary].join  
+    ["Tile complete:", act.post_act_summary].join
   end
 
   def points(tile)

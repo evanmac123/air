@@ -33,7 +33,7 @@
     = render 'accepted_friends'
     - if @display_pending_friendships  
       #followed-by.module
-        %h1.headline#friend_requests_title Your Friend Requests
+        %h1.headline#friend_requests_title Connection Requests
         %ul#friend_requests
           - @pending_friends.each do |friend|
             %li.user

@@ -7,7 +7,7 @@
   <% if show_delete_link %>
     <%= link_to "Delete user",
       client_admin_user_path(user),
-       confirm: "Deleting users is irrevocable. There is no undo. All the history we have on this user (activities, friendships, everything) will be gone forever if you push this button.", method: :delete ,
+       confirm: "Deleting users is irrevocable. There is no undo. All the history we have on this user (activities, connections, everything) will be gone forever if you push this button.", method: :delete ,
        id: "delete-user" 
     %>
   <% end %>

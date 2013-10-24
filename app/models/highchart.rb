@@ -91,7 +91,7 @@ class Highchart
     LazyHighCharts::HighChart.new do |hc|
       hc.exporting(buttons: {printButton: {enabled: false}})  # Remove 'Print' button ; keep 'Save As Image/PDF'
 
-      hc.title(text: "Engagement Levels", style: {color: '#666666'})
+      hc.title(text: "Activity Levels", style: {color: '#666666'})
       hc.subtitle(text: chart.subtitle, style: {color: '#a8a8a8'})
 
       hc.legend(layout: 'horizontal')
@@ -206,7 +206,7 @@ class Highchart
 
   class Hourly < Chart
     def subtitle
-      "#{@start_date.to_s(:chart_subtitle_one_day)} : By Hour"
+      "#{@start_date.to_s(:chart_subtitle_one_day)} - By Hour"
     end
 
     def x_axis_label
@@ -241,7 +241,7 @@ class Highchart
 
   class Daily < Chart
     def subtitle
-      "#{@start_date.to_s(:chart_subtitle_range)} through #{@end_date.to_s(:chart_subtitle_range)} : By Day"
+      "#{@start_date.to_s(:chart_subtitle_range)} through #{@end_date.to_s(:chart_subtitle_range)} - By Day"
     end
 
     def x_axis_label
@@ -271,7 +271,7 @@ class Highchart
 
   class Weekly < Chart
     def subtitle
-      "#{@start_date.to_s(:chart_subtitle_range)} through #{@end_date.to_s(:chart_subtitle_range)} : By Week"
+      "#{@start_date.to_s(:chart_subtitle_range)} through #{@end_date.to_s(:chart_subtitle_range)} - By Week"
     end
 
     def x_axis_label

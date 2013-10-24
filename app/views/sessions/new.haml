@@ -8,7 +8,7 @@
     .wrap
       = label_tag "session[remember_me]", "Remember me (Don't check this on a shared computer)", :class => :inline
       = check_box_tag "session[remember_me]", 1, true
-    = submit_tag "Let's play!" 
+    = submit_tag "Log In"
     = link_to "Forgot password?", new_password_path 
 
 = mp_track_page "sign in"

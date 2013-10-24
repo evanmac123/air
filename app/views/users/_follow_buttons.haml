@@ -2,19 +2,19 @@
 - when "self"
   - notice = "This is you!"
 - when "none"
-  - button_content = "Add to Friends"
+  - button_content = "Add to Connection"
   - add_friend = true
 - when "b_initiated"
-  - button_content = "Approve Friendship"
-  - notice = "#{user.first_name} wants to be friends"
+  - button_content = "Approve Connection"
+  - notice = "#{user.first_name} wants to connect"
   - approve_friend = true
 - when "a_initiated"
   - button_content = "Cancel Request"
-  - notice = "Friendship requested"
+  - notice = "Connection requested"
   - drop_friend = true
 - when "friends"
-  - button_content = "Remove from Friends"
-  - notice = "Already friends"
+  - button_content = "Remove from Connections"
+  - notice = "Already connected"
   - drop_friend = true
 - else
   - do_not_display = true

@@ -1,9 +1,8 @@
 <div class="row">
   <div class="large-8 columns">
     <div class="module personal_settings" id="about_user">
-    	<h1 class="headline">User Information</h1>
+    	<h1 class="headline">Change Picture</h1>
       <div class="module_inner settings_avatar">
-          <h2 class="subhead">Change your picture</h2>
           <%= avatar_96 current_user %>
           <div class="avatar_inputs">
             <%= form_for current_user, :url => account_avatar_path, :html => {:multipart => true, :class => 'set-avatar'} do |form| %>
@@ -40,23 +39,23 @@
 
   <div class="large-4 columns">
     <div class="module other_settings" id="privacy_settings">
-      <h1 class="headline">Privacy Preferences</h1>
+      <h1 class="headline">Privacy</h1>
         <%= form_for current_user, :url => account_settings_path do |form| %>
           <div class="module_inner">
             <h2 class="subhead"><%= label_tag "user_privacy_level", "Let these people see my actions:" %></h2>
             <%= form.select :privacy_level, [
               ['Everybody', 'everybody'],
-              ["Colleagues I've accepted", 'connected']
+              ["Connections I've accepted", 'connected']
             ] %>
           </div>
           <div class="button_wrap">
-            <%= submit_tag 'Save', :class => 'button_norm', :id => 'save-privacy-level' %>
+            <%= submit_tag 'Update privacy', :class => 'button_norm', :id => 'save-privacy-level' %>
           </div>
         <% end %>
     </div>
 
     <div class="module other_settings" id="notification_settings">
-      <h1 class="headline">Notification Preferences</h1>
+      <h1 class="headline">Notifications</h1>
       <% if current_user.new_phone_number_needs_verification? %>
         <div class="module_inner" id="settings_new_number_verification">
           <%= form_for current_user, :url => phone_path, :method => :put do |form| %>
@@ -74,12 +73,12 @@
         <div class="module_inner settings_notification">
           <h2 class="subhead">Notify me via...</h2>
             <ul>
-              <% [["SMS/text message", :sms], ["Email", :email], ["Both", :both] ].each do |label_text, method_name| %>
+              <% [["Text message", :sms], ["Email", :email], ["Both", :both] ].each do |label_text, method_name| %>
                 <li><%= form.radio_button :notification_method, method_name, :class => 'notification_pref', :id => method_name %><%= label_tag method_name, label_text, :class => 'check_label' %></li>
               <% end %>
             </ul>
         </div>
-        <div class="button_wrap"><%= submit_tag 'Save', :class => 'button_norm', :id => 'save-notification-settings' %></div>
+        <div class="button_wrap"><%= submit_tag 'Update', :class => 'button_norm', :id => 'save-notification-settings' %></div>
       <% end %>
   	</div>
   </div>
