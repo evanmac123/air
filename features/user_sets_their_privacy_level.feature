@@ -86,13 +86,13 @@ Feature: User sets their privacy level
     Then I should see "Bob ate kitten"
 
     Scenarios:
-      | level                   |
-      | Everybody               |
-      | Friends I've accepted   |
+      | level                     |
+      | Everybody                 |
+      | Connections I've accepted |
 
   Scenario: User can set their privacy level in the settings page
     When I go to the settings page
-    Then "Let these people see my actions:" should have "Friends I've accepted" selected
+    Then "Let these people see my actions:" should have "Connections I've accepted" selected
 
     When I select "Everybody" from "Let these people see my actions:"
     And I press the button to save privacy settings
@@ -117,7 +117,7 @@ Feature: User sets their privacy level
     When I sign in via the login page as "TrueFan/foobar"
     Then I should see "WTMI ate puppy less than a minute ago"
 
-    When "WTMI/foobar" changes their privacy level to "Friends I've accepted"
+    When "WTMI/foobar" changes their privacy level to "Connections I've accepted"
     And I sign in via the login page as "Bob/foobar"
     Then I should not see "WTMI ate puppy less than a minute ago"
     When I sign in via the login page as "TrueFan/foobar"

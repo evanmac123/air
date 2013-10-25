@@ -54,6 +54,6 @@ Feature: Directory of other users
     Given I fill in "search bar" with "Sven"
     And I press "Find!"
     And I press the button next to "Sven"
-    Then I should see "OK, you'll be friends with Sven, pending their acceptance."
+    Then I should see "OK, you'll be connected with Sven, pending their acceptance."
     When I press the button next to "Sven"
-    Then I should see "Friendship request canceled"
+    Then I should see "Connection request canceled"

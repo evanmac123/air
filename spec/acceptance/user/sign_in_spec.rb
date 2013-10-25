@@ -9,7 +9,7 @@ feature 'Sign in' do
   def try_login_with(email_or_username, password)
     visit sign_in_path
     fill_in_password_fields(email_or_username, password)
-    click_button "Let's play!"
+    click_button "Log In"
   end
 
   let(:user) do

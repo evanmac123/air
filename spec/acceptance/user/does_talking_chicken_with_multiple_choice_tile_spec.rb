@@ -15,12 +15,12 @@ feature 'Does multiple choice tile sample tile' do
     expect_content "To answer the question, simply click on the correct answer." 
 
     click_link "I learned how tiles work."
-    expect_content "That's right! Points 5"
+    expect_content "Tile complete: Points 5"
   end
 
   scenario "only allows user to get points for the tile once", js: :webkit do
     click_link "I learned how tiles work."
-    expect_content "That's right! Points 5"
+    expect_content "Tile complete: Points 5"
     expect_content "You've completed all available tiles"
   end
 end

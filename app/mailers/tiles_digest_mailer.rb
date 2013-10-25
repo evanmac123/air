@@ -24,7 +24,7 @@ class TilesDigestMailer < ActionMailer::Base
                                send_on:  Date.today + follow_up_days.days,
                                unclaimed_users_also_get_digest: unclaimed_users_also_get_digest) if follow_up_days > 0
 
-    user_ids.each { |user_id| TilesDigestMailer.delay.notify_one(demo.id, user_id, tile_ids) }
+    user_ids.each { |user_id| TilesDigestMailer.delay.notify_one(demo.id, user_id, tile_ids, 'New Tiles') }
   end
 
   def notify_all_follow_up(followup_id)
@@ -34,12 +34,12 @@ class TilesDigestMailer < ActionMailer::Base
     user_ids = followup.demo.users_for_digest(followup.unclaimed_users_also_get_digest).pluck(:id)
 
     user_ids.reject! { |user_id| TileCompletion.user_completed_any_tiles?(user_id, tile_ids)}
-    user_ids.each    { |user_id| TilesDigestMailer.delay.notify_one(followup.demo.id, user_id, tile_ids, true) }
+    user_ids.each    { |user_id| TilesDigestMailer.delay.notify_one(followup.demo.id, user_id, tile_ids, "Don't Miss Your New Tiles", true) }
 
     followup.destroy
   end
 
-  def notify_one(demo_id, user_id, tile_ids, follow_up_email = false)
+  def notify_one(demo_id, user_id, tile_ids, subject, follow_up_email = false)
     @demo  = Demo.find demo_id
     @user  = User.find user_id
 
@@ -50,6 +50,6 @@ class TilesDigestMailer < ActionMailer::Base
 
     mail  to:      @user.email_with_name,
           from:    @demo.reply_email_address,
-          subject: 'New Tiles'
+          subject: subject
   end
 end

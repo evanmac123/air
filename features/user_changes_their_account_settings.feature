@@ -12,31 +12,6 @@ Feature: User can edit their account settings
     And I sign in via the login page with "Phil/foobar"
     And I go to the settings page for "Phil"
 
-  Scenario: User changes SMS slug
-    When I fill in "Change your username." with "awesomed00d"
-    And I press the button to save the user's settings
-    And "+14155551212" sends SMS "myid"
-    Then "+14155551212" should have received an SMS "Your username is awesomed00d."
-
-  Scenario: User chooses an SMS slug that's already taken
-    Given the following user exists:
-      | name | phone number | 
-      | Vlad | +14156171212 | 
-    And "Vlad" has the SMS slug "awesomed00d"
-    When I fill in "Change your username." with "awesomed00d"
-    And I press the button to save the user's settings
-    And "+14155551212" sends SMS "myid"
-    Then I should see "Sorry, that username is already taken."
-    And "+14155551212" should not have received an SMS including "awesomed00d"
-
-  Scenario: User enters their demographic information
-    When I fill in all of my demographic information
-    And I press the button to save the user's settings
-
-    Then I should be on the settings page
-    And I should see "OK, your settings were updated."
-    And "Male" should be chosen
-  
   Scenario: User sees their mobile number on their settings
     When I go to the settings page
     Then "Mobile number" should have value "(415) 555-1212"

@@ -30,7 +30,7 @@ class FriendshipsController < ApplicationController
     @user = User.find_by_slug(params[:user_id])
     friendship = Friendship.where(:user_id => @user.id, :friend_id => current_user.id).first
     if friendship && friendship.accept
-      add_success "You are now friends with #{@user.name}"
+      add_success "You are now connected to #{@user.name}"
     end
     redirect_to :back
   end
@@ -46,11 +46,11 @@ class FriendshipsController < ApplicationController
         if friendship && friendship.state == Friendship::State::ACCEPTED
           flash[:success] = @friend.follow_removed_message
         else
-          flash[:success] = "Friendship request canceled"
+          flash[:success] = "Connection request canceled"
         end
       end
     else
-      add_success "You were not friends with #{@friend.name}. No action taken"
+      add_success "You were not connected to #{@friend.name}. No action taken"
     end
     
     respond_to do |format|
@@ -70,7 +70,7 @@ class FriendshipsController < ApplicationController
     if EmailLink.validate_token(friendship, params[:token])
       add_success(friendship.accept)
     else
-      add_failure('Invalid authenticity token. Friendship operation cancelled.')
+      add_failure('Invalid authenticity token. Connection operation cancelled.')
     end
 
     redirect_to activity_url
@@ -81,7 +81,7 @@ class FriendshipsController < ApplicationController
   def game_not_closed_yet
     return unless current_user.demo.ends_at && Time.now > current_user.demo.ends_at
 
-    flash[:failure] = "Thanks for playing! The game is now over."
+    flash[:failure] = "Thanks for participating. Your administrator has disabled this board."
     redirect_to :back
   end
 end

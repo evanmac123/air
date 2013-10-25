@@ -46,12 +46,11 @@ feature 'Invites user' do
 
       new_user = @demo.users.order("created_at DESC").first
       new_user.invited.should be_false
-    
-      click_link "click here to invite them"
+      click_link "Next, send invite to Bob Jones"
 
       new_user.reload.invited.should be_true
       expect_content "and you've sent them an invitation email"
-      expect_no_content "click here to invite them"
+      expect_no_content "Next, send invite to Bob Jones"
     end
 
     it "shouldn't be an option, if they have no email" do

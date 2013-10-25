@@ -18,8 +18,8 @@ Feature: User invites friends, and invitation email says what it should
   Scenario: One click invite of friend on pre-populated demo--friend receives invite and joins game
     Given "Concord" has the password "raspberry"
     Given I sign in via the login page as "Concord/raspberry"    
-    Then I should see "Invite your friends"
-    When I fill in "Which coworkers do you wish to invite?" with "jin"
+    Then I should see "Invite"
+    When I fill in "Who do you want to invite?" with "jin"
     Then I should see "Jinx"
     When I press the invite button for "Jinx"
     Then I should see "Invitation sent"

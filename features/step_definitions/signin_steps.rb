@@ -18,7 +18,7 @@ When /^I sign in via the login page (as|with) "(.*?)"( and choose to be remember
     step %{I check the remember-me checkbox}
   end
 
-  click_button "Let's play!"
+  click_button "Log In"
 end
 
 When /^I sign in( as an admin)? via the login page( as an admin)?$/ do |is_admin_1, is_admin_2|

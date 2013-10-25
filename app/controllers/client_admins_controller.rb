@@ -12,7 +12,7 @@ class ClientAdminsController < ClientAdminBaseController
         params[:chart_start_date]   = (Time.now - 30.days).to_s(:chart_start_end_day)
         params[:chart_end_date]     = Time.now.to_s(:chart_start_end_day)
         params[:chart_plot_content] = 'Both'
-        params[:chart_interval]     = 'Daily'
+        params[:chart_interval]     = 'Weekly'
         params[:chart_label_points] = '0'
 
         Mixpanel::Tracker.new(MIXPANEL_TOKEN, {}).delay.track("viewed page", {page_name: 'client admin dashboard'}.merge(current_user.data_for_mixpanel))

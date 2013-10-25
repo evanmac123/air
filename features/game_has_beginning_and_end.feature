@@ -37,7 +37,7 @@ Feature: Game has a beginning and an end
     And DJ cranks 5 times
     Then "+16175551212" should not have received any SMSes
     And time is unfrozen
-    And I should see "Thanks for playing! The game is now over."
+    And I should see "Thanks for participating. Your administrator has disabled this board."
 
   Scenario: Following before the game begins via SMS does nothing
     Given time is frozen at "2010-04-01 11:59:59 UTC"
@@ -51,4 +51,4 @@ Feature: Game has a beginning and an end
     When "+14152613077" sends SMS "follow vgyster"
     And I go to the activity page
     Then I should not see "Phil is now friends with Vlad"
-    And "+14152613077" should have received an SMS including "The game is now over"
+    And "+14152613077" should have received an SMS including "Your administrator has disabled this board"

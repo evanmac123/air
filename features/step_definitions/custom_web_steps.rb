@@ -81,7 +81,7 @@ When /^I press the button to save notification settings$/ do
 end
 
 When /^I press the sign-in button$/ do
-  step %{I press "Let's play!"}
+  step %{I press "Log In"}
 end
 
 Then /^the feet select should have "([^"]*)" selected$/ do |value|

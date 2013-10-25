@@ -3,7 +3,7 @@ require 'acceptance/acceptance_helper'
 feature 'there is a link to add new tile from activity page' do
 
   def add_tile_link
-    page.all("a[href='#{new_client_admin_tile_path}']", text: "Add a new tile").first
+    page.all("a[href='#{new_client_admin_tile_path}']", text: "Add tile").first
   end
 
   def manage_tile_link

@@ -129,7 +129,7 @@ class Demo < ActiveRecord::Base
   def game_over_response
     custom_message(
       :act_too_late_message,
-      "Thanks for playing! The game is now over. If you'd like more information e-mailed to you, please text INFO."
+      "Thanks for participating. Your administrator has disabled this board. If you'd like more information e-mailed to you, please text INFO."
     )
   end
 

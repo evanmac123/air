@@ -700,7 +700,7 @@ class User < ActiveRecord::Base
   def follow_requested_message
     I18n.t(
       "activerecord.models.user.base_follow_message",
-      :default => "OK, you'll be friends with %{followed_user_name}, pending %{her_his} acceptance.",
+      :default => "OK, you'll be connected with %{followed_user_name}, pending %{her_his} acceptance.",
       :followed_user_name => self.name,
       :her_his => self.her_his
     )
@@ -710,7 +710,7 @@ class User < ActiveRecord::Base
   def follow_removed_message
     I18n.t(
       "activerecord.models.user.base_follow_message",
-      :default => "OK, you're no longer friends with %{followed_user_name}.",
+      :default => "OK, you're no longer connected to %{followed_user_name}.",
       :followed_user_name => self.name
     )
   end

@@ -107,7 +107,7 @@ feature "User Accepts Invitation" do
 
     fill_in "session[email]", :with => @user.email
     fill_in "session[password]", :with => 'foofoo'
-    click_button "Let's play!"
+    click_button "Log In"
 
     should_be_on activity_path(:format => 'html')
   end
