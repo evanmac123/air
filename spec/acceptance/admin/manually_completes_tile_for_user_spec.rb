@@ -9,14 +9,7 @@ feature 'Admin manually completes tile for user' do
     Prerequisite.create!(prerequisite_tile: Tile.find_by_headline("Tile 1"), tile: Tile.find_by_headline("Tile 2"))
     Prerequisite.create!(prerequisite_tile: Tile.find_by_headline("Tile 3"), tile: Tile.find_by_headline("Tile 4"))
 
-    # Tutorial is getting in the way of some of the things we want to do on
-    # the page, so we use the trick where we let the tail wag the dog: we
-    # create the tutorial first rather than the user.
-    tutorial = FactoryGirl.create(:tutorial, ended_at: Time.now)
-    user = tutorial.user
-    user.update_attributes(accepted_invitation_at: Time.now, phone_number: "+14155551212", name: "Johann McGillicuddy")
-    user.demo = demo
-    user.save!
+    user = FactoryGirl.create(:user, demo: demo, accepted_invitation_at: Time.now, phone_number: "+14155551212", name: "Johann McGillicuddy")
     has_password user, "foobar"
     crank_dj_clear
 

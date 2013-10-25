@@ -15,7 +15,6 @@ module SteakHelperMethods
   # Need these guys to get rid of overlays for the talking-chicken tutorial and inviting people
   # to join the game. If don't get rid of them => can't click on any links because they are "covered".
   def bypass_modal_overlays(user)
-    User.any_instance.stubs(:create_tutorial_if_none_yet) # Uses 'fancybox' css selectors
     user.update_attribute :session_count, 10              # Uses 'facebox'  css selectors
   end
 

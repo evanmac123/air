@@ -8,15 +8,6 @@ FactoryGirl.define do
     sequence(:email) {|n| "darth_#{n}@sunni.ru" }
   end
   
-  
-  factory :tutorial do
-    association :user
-  end
-  
-  factory :inactive_tutorial, :parent => :tutorial do
-    ended_at  2.days.ago 
-  end
-  
   factory :user,  :parent => :unnamed_user do 
     name "James Earl Jones"
     sample_tile_completed true
@@ -48,7 +39,6 @@ FactoryGirl.define do
   
   factory :claimed_user, :parent => :brand_new_user do 
     session_count 5
-    association :tutorial, :factory => :inactive_tutorial
   end
   
   factory :user_with_phone, :parent => :claimed_user do 

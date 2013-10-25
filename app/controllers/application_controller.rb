@@ -5,7 +5,6 @@ class ApplicationController < ActionController::Base
 
   before_filter :force_ssl 
   before_filter :authorize
-  before_filter :tutorial_check
   before_filter :set_delay_on_tooltips
   before_filter :initialize_flashes
   after_filter :merge_flashes
@@ -152,14 +151,6 @@ class ApplicationController < ActionController::Base
     cookies.delete(:remember_token)
     self.current_user = nil
   end
-
-  def set_talking_chicken_sample_tile_done(context)
-    session[:talking_chicken_sample_tile_done] = true if current_user.just_did_tutorial_sample_tile(context)
-  end
-
-  def tutorial_check
-    current_user.create_tutorial_if_none_yet if current_user
-  end  
 
   def set_delay_on_tooltips
     days_of_newbie = 2

@@ -122,23 +122,6 @@ describe Demo, "#print_pending_friendships" do
   end
 end
 
-describe Demo, "#tutorial_success" do
-  before do
-   @demo = FactoryGirl.create :demo
-   @user1 = FactoryGirl.create :user, :demo_id => @demo.id
-   @user2 = FactoryGirl.create :user, :demo_id => @demo.id
-   @user3 = FactoryGirl.create :user, :demo_id => @demo.id
-   tutorial1 = Tutorial.create(:user_id => @user1.id)
-   tutorial2 = Tutorial.create(:user_id => @user2.id) 
-  end
-  
-  it "finds out if we met our goals" do
-    @demo.tutorial_success
-    demo2 = FactoryGirl.create :demo
-    demo2.tutorial_success
-  end
-end
-
 describe Demo, "ticket fields" do
   context "when uses_tickets is set" do
     before(:each) do

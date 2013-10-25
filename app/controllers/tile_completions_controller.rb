@@ -4,7 +4,6 @@ class TileCompletionsController < ApplicationController
     act = create_act(tile)
     create_tile_completion(tile)
     flash[:success] = reply(act)
-    check_sample_tile_done
     redirect_to :back
   end
 
@@ -29,11 +28,6 @@ class TileCompletionsController < ApplicationController
 
   def create_act(tile)
     Act.create(user: current_user, demo_id: current_user.demo_id, inherent_points: points(tile), text: tile.text_of_completion_act, creation_channel: 'web')  
-  end
-
-  def check_sample_tile_done
-    return unless completed_tile_is_sample_tile
-    set_talking_chicken_sample_tile_done(:multiple_choice)
   end
 
   def reply(act)

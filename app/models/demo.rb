@@ -237,25 +237,6 @@ class Demo < ActiveRecord::Base
     end
   end
   
-  def tutorial_success
-    tutorials_in_this_game = Tutorial.all.collect do |tut|
-      tut if tut.user.demo == self
-    end
-    tutorials_in_this_game.reject! { |tut| tut.nil? }
-    num_tutorials = tutorials_in_this_game.count
-    num_users_with_at_least_one_friend  = 0
-    num_users_who_completed_one_web_act = 0
-    tutorials_in_this_game.each do |tut|
-      user = tut.user
-      if user.accepted_friends_not_counting_fairy_tale_characters.count > 0
-        num_users_with_at_least_one_friend += 1
-      end
-      if user.acts.where(:creation_channel => "web").count > 0 
-        num_users_who_completed_one_web_act += 1
-      end
-    end
-  end
-
   def self.number_not_found_response(receiving_number)
     demo = self.where(:phone_number => receiving_number).first
     demo ? demo.number_not_found_response : default_number_not_found_response

@@ -31,7 +31,6 @@ class User < ActiveRecord::Base
   has_many   :unsubscribes, :dependent => :destroy
   has_many   :peer_invitations_as_invitee, :class_name => "PeerInvitation", :foreign_key => :invitee_id
   has_many   :peer_invitations_as_inviter, :class_name => "PeerInvitation", :foreign_key => :inviter_id
-  has_one    :tutorial, :dependent => :destroy
 
   validate :normalized_phone_number_unique, :normalized_new_phone_number_unique
   validate :new_phone_number_has_valid_number_of_digits
@@ -770,33 +769,6 @@ class User < ActiveRecord::Base
     new_flashes
   end
 
-  def create_tutorial_if_none_yet
-    if self.tutorial.nil?
-      tut = Tutorial.create(:user_id => self.id)
-    else
-      tut = self.tutorial
-    end
-  end
-
-  def create_active_tutorial_at_slide_one
-    tut = create_tutorial_if_none_yet
-    tut.current_step = 1
-    tut.created_at = Time.now
-    tut.ended_at = nil
-    tut.save
-  end
-
-  def current_tutorial_step
-    step_class = case demo.tutorial_type
-    when 'keyword'
-      TutorialStep
-    when 'multiple_choice'
-      TutorialStepWithMultipleChoice
-    end
-      
-    step_class.new(tutorial.current_step)
-  end
-
   def sample_tile
     case demo.tutorial_type
     when 'keyword'
@@ -952,11 +924,6 @@ class User < ActiveRecord::Base
 
   def to_ticket_progress_calculator
     User::TicketProgressCalculator.new(self)
-  end
-
-  def just_did_tutorial_sample_tile(context)
-    return false unless context.to_s == demo.tutorial_type
-    return (tutorial.current_step == 2)
   end
 
   def on_first_login

@@ -770,14 +770,6 @@ describe User, "#sms_slug_does_not_match_commands" do
   end
 end
 
-describe User, "#create_tutorial_if_none_yet" do
-  it "should create a new tutorial" do
-    user = FactoryGirl.create(:user, :name => "Brand New")
-    user.create_tutorial_if_none_yet
-    user.reload.tutorial.should_not be_nil
-  end
-end
-
 describe User, "#befriend" do
   before(:each) do
     @demo = FactoryGirl.create(:demo, :name => "It's just a game")

@@ -33,22 +33,6 @@
 		Copyright © 2013 H.Engage, Inc.
   </div>
 
-  <% if @tutorial_step.try(:highlighted) %>
-    <%= render 'shared/site_tutorial' %>
-    <div class="overlaying" ></div>
-    <% if @tutorial_step.flash_margin_left %><!-- Make the error flash visible alongside the talking chicken -->
-      <%= content_for :javascript do %>
-        <%= javascript_tag do %>
-          $(function() {
-            $("#flash_failure").css('margin-left', '<%= @tutorial_step.flash_margin_left %>');
-            $("#flash_failure").css('z-index', '20');
-            $("#flash_failure").css('position', 'relative');
-            $("#slideshow").css('z-index', '20');
-          });
-        <% end %>
-      <% end %>
-    <% end%>
-  <% end %>
   <%= render :partial => 'shared/javascript' %><!-- This is where 'yield :javascript' takes place -->
   <%= render 'shared/intercom' %><!--must come after shared/javascript-->
   
