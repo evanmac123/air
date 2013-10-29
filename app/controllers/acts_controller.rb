@@ -46,16 +46,13 @@ class ActsController < ApplicationController
     @demo                  = current_user.demo
     @acts                  = find_requested_acts(@demo)
 
-    @display_get_started_lightbox = current_user.on_first_login && !(current_user.get_started_lightbox_displayed)
+    @display_get_started_lightbox = current_user.on_first_login && !(current_user.get_started_lightbox_displayed) && current_user.demo.tiles.active.present?
     if @display_get_started_lightbox
       current_user.get_started_lightbox_displayed = true
       current_user.save
     end
 
-    # HRFF: Reach down into displayable_to_user_with_sample and its calls, and
-    # have the whole mess pass back an ActiveRelation so I can throw a limit
-    # on, rather than get all in an array but then throw stuff away. Wasteful.
-    @displayable_tiles = Tile.displayable_to_user_with_sample(current_user, tile_batch_size)
+    @displayable_tiles = Tile.displayable_to_user(current_user, tile_batch_size)
     TileCompletion.mark_displayed_one_final_time(@current_user)
     respond_to do |format|
       format.html

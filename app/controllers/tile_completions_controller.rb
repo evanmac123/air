@@ -10,20 +10,11 @@ class TileCompletionsController < ApplicationController
   protected
 
   def find_tile
-    if completed_tile_is_sample_tile
-      current_user.sample_tile
-    else
-      Tile.find(params[:tile_id])
-    end
+    Tile.find(params[:tile_id])
   end
 
   def create_tile_completion(tile)
-    if completed_tile_is_sample_tile
-      current_user.sample_tile_completed = true
-      current_user.save!
-    else
-      TileCompletion.create!(:tile_id => tile.id, :user_id => current_user.id)
-    end
+    TileCompletion.create!(:tile_id => tile.id, :user_id => current_user.id)
   end
 
   def create_act(tile)
@@ -35,14 +26,6 @@ class TileCompletionsController < ApplicationController
   end
 
   def points(tile)
-    if completed_tile_is_sample_tile && current_user.sample_tile_completed
-      0
-    else
-      tile.points
-    end
-  end
-
-  def completed_tile_is_sample_tile
-    params[:tile_id].to_s == '0'
+    tile.points
   end
 end

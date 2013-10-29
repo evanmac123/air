@@ -769,15 +769,6 @@ class User < ActiveRecord::Base
     new_flashes
   end
 
-  def sample_tile
-    case demo.tutorial_type
-    when 'keyword'
-      SampleTile.new
-    when 'multiple_choice'
-      MultipleChoiceSampleTile.new
-    end
-  end
-
   def profile_page_friends_list
     self.accepted_friends_same_demo.sort_by {|ff| ff.name.downcase}
   end
@@ -804,7 +795,6 @@ class User < ActiveRecord::Base
       end
     end
   end
-
 
   def self.send_invitation_if_claimed_sms_user_texts_us_an_email_address(from_phone, text, options={})
     return nil unless from_phone =~ /^(\+1\d{10})$/

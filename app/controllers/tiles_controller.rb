@@ -71,13 +71,13 @@ class TilesController < ApplicationController
 
   def satisfiable_tiles
     unless @_satisfiable_tiles
-      @_satisfiable_tiles = Tile.satisfiable_to_user_with_sample(current_user)
+      @_satisfiable_tiles = Tile.satisfiable_to_user(current_user)
     end
 
     @_satisfiable_tiles
   end
 
   def render_tile_wall
-    render partial: "shared/tile_wall", locals: {tiles: Tile.displayable_to_user_with_sample(current_user, tile_batch_size)}
+    render partial: "shared/tile_wall", locals: {tiles: Tile.displayable_to_user(current_user, tile_batch_size)}
   end
 end

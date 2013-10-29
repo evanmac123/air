@@ -180,8 +180,13 @@ class Tile < ActiveRecord::Base
     self.after_start_time_and_before_end_time.map(&:id)
   end
 
-  def self.displayable_to_user(user)
-    satisfiable_to_user(user).sort_by(&:activated_at).reverse
+  def self.displayable_to_user(user, maximum_tiles = nil)
+    result = satisfiable_to_user(user).sort_by(&:activated_at).reverse
+    if maximum_tiles
+      result = result[0, maximum_tiles]
+    end
+
+    result
   end
 
   def self.satisfiable_by_rule_to_user(rule_or_rule_id, user)
@@ -207,28 +212,6 @@ class Tile < ActiveRecord::Base
       hide
     end
     satisfiable_tiles.sort_by(&:activated_at).reverse
-  end
-
-  def self.satisfiable_to_user_with_sample(user)
-    satisfiable_tiles = satisfiable_to_user(user)
-    if user.sample_tile_completed
-      satisfiable_tiles
-    else
-      satisfiable_tiles.prepend(user.sample_tile)
-    end
-  end
-
-  def self.displayable_to_user_with_sample(user, maximum_tiles = nil)
-    displayable_tiles = displayable_to_user(user)
-    unless user.sample_tile_completed
-      displayable_tiles = displayable_tiles.prepend(user.sample_tile)
-    end
-
-    if maximum_tiles
-      displayable_tiles[0, maximum_tiles]
-    else
-      displayable_tiles
-    end
   end
 
   def self.active
