@@ -8,7 +8,7 @@
     }
     #search_string {
         float:left;
-        font-family:$open-400;
+        @include font-light;
         height:40px;
         margin:0; 
         padding:.85em;

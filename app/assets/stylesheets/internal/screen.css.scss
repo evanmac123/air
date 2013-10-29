@@ -5,7 +5,7 @@ $bar-height: 1.3rem; // controls height of elements in Top Bar
 $top-bar-height: #{($bar-height + $small_cap_size + $under_small_cap)};
 $text-color:        #4c4c4c;
 .small_cap {
-  font-family:$open-800;
+	@include font-bold;
   font-size:$small_cap_size;
   line-height: 1em;
   text-transform: uppercase;
@@ -23,19 +23,26 @@ body {
 	background:$white;
 	border-top:none;
 	color:$text-color;
-	font-family:$default;
+	@include font-regular;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+
 	font-size:14px;
 	line-height: 1em;
+	a, a:link, a:visited {@include font-bold;}
 	h1.headline {
+		@include font-bold;
 		font-size:1.15em;
-	  font-family:$open-600;
 	  color:$headlines;
 	  margin:0 0 .75em 0;
 	  padding:.5em 0;
 	  position: relative;
 	  text-transform: uppercase;
 	}
-	h2.subhead {font-size:1em;}
+	h2.subhead {
+		@include font-semibold;
+		font-size:1em;
+	}
 	.content {
 		margin:0 auto;
 		padding:0;

@@ -12,8 +12,8 @@ header #small-toggle.off-canvas-toggle a {
   background:$dark-gray;
   padding-top:1rem;
   a {
+    @include font-semibold;
     color:$white;
-    font-family:$open-400;
     display: block;
     padding:1em;
     &:active {
@@ -26,7 +26,7 @@ header #small-toggle.off-canvas-toggle a {
     #manage_board { // ====== Manage Board toggle
       background:lighten($dark-gray, 7%);
       display: block;
-      font-family: $open-600;
+      @include font-bold;
       margin-bottom:1em;
       padding:1em;
       &:active {background:lighten($dark-gray, 15%);}
@@ -101,7 +101,7 @@ header {
     text-align:center;
     &:after{@include clear;}
     p.user_numbers {
-      font-family:$open-600;
+      @include font-bold;
       font-size:$bar-height;
       line-height: 1em;
     }

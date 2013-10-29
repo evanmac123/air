@@ -88,6 +88,7 @@ header {
 
   // Admin tools menu
   #manage_board {
+    @include font-bold;
     color:$text-color;
     max-height:$header-total-height;
     padding:1.125em 1em;
@@ -146,7 +147,7 @@ header {
     a {
       color:$light-gray;
       display: block;
-      font-family:$open-400;
+      @include font-semibold;
       padding:.65em 2.5em;
       width:12em;
       &:hover {

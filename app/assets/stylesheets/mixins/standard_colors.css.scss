@@ -40,14 +40,40 @@
     font-weight: bolder;
     font-style: normal;
 }
-$default:   'Helvetica Neue', Helvetica, sans-serif;
+$default:   'Helvetica Neue', Helvetica, Arial, sans-serif;
 $open-300:  'OpenSansLight';
-$sans: $open-300, $default;
+$sans:      $open-300, $default;
 $open-400:  'OpenSansRegular', $sans;
 $open-600:  'OpenSansSemiBold', $sans;
 $open-800: 'OpenSansBold', $open-600;
 $open-900: 'OpenSansExtraBold', $open-800;
 
+
+@mixin font-thin {
+  font-family: $default;
+  font-weight:lighter;
+  font-weight: 100;
+}
+@mixin font-light {
+  font-family: $default;
+  font-weight:lighter;
+  font-weight: 300;
+}
+@mixin font-regular {
+  font-family: $default;
+  font-weight:normal;
+  font-weight: 400;
+}
+@mixin font-semibold {
+  font-family: $default;
+  font-weight:bold;
+  font-weight: 500;
+}
+@mixin font-bold {
+  font-family: $default;
+  font-weight:bolder;
+  font-weight: 700;
+}
 
 $gutter:            10px; 
 $foundation-gutter: 0.9375em;
@@ -218,9 +244,8 @@ $border-light:      1px #fff solid;
   
   color:$white;
   display: inline-block;
-  font-family:$open-600;
+  @include font-bold;
   font-size:1em, 1rem;
-  font-weight:bold, 600;
   padding:.35em .75em;
   text-align: center;
   &:hover {@include ease(0); background:darken($color, 5%);}
@@ -232,9 +257,8 @@ $border-light:      1px #fff solid;
   border-radius:3px;
   color:$outlineColor;
   display: inline-block;
-  font-family:$open-600;
+  @include font-bold;
   font-size:1em, 1rem;
-  font-weight:bold, 600;
   padding:.35em .75em;
   text-align: center;
   text-transform: uppercase;

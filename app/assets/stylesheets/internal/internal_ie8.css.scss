@@ -1,4 +1,5 @@
 @import "mixins/standard_colors.css.scss";
+$sans: "Arial";
 @import "screen.css.scss";
 $small_cap_size: .625em;
 $under_small_cap: .25em; // space under small cap text
@@ -9,8 +10,15 @@ $top-bar-height: #{($bar-height + $small_cap_size + $under_small_cap)};
 @import "screen_large.css.scss";
 
 
-body {border-top:none; font-size:16px; font-family:$open-400;}
-.small_cap {font-size:11px;}
+body {
+  border-top:none; font-size:16px; font-family:$default;
+  h1.headline {@include font-bold;}
+  a, a:link, a:visited {@include font-bold;}
+}
+.small_cap {
+  @include font-bold;
+  font-size:11px;
+}
 
 #jPanelMenu-menu {overflow:hidden!important;}
 
@@ -19,7 +27,7 @@ header {
   .small_cap {margin-bottom:.25em;}
   #logo a:hover {img {visibility: hidden;}}
   #manage_board, #user_info #me_toggle {&:after {font-family:'Lucida Sans Unicode', 'Arial Unicode MS', Arial;}}
-  #user_info p.user_numbers {font-family:$open-800; font-size:1.3125em;}
+  #user_info p.user_numbers {font-size:1.3125em;}
   #to_next_credit #progress_bar {
     height:1.3125em;
     span {
