@@ -67,7 +67,7 @@ h1.headline {border-top:1px $white solid}
 #get_started_lightbox {
     background:$white;
     line-height:1.35em;
-    padding:2.5em 1.75em;
+    padding: 1.75em 2em 3.75em;
     position: absolute!important;
     top:4%!important;
     h2 {
@@ -86,5 +86,8 @@ h1.headline {border-top:1px $white solid}
     #close_get_started_lightbox {
         @include close-button;
         font-size:.75em;
+        top: auto;
+        right: auto;
+        bottom: 1.5em;
     }
 }
