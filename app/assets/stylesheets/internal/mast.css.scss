@@ -23,19 +23,17 @@ header #small-toggle.off-canvas-toggle a {
   #desktop-toggle.off-canvas-toggle {display: none;}
   ul li + li {border-top:1px lighten($dark-gray, 7%) solid;}
   .admin_options {
+    background:lighten($dark-gray, 4%);
+    margin-top:1em;
     #manage_board { // ====== Manage Board toggle
-      background:lighten($dark-gray, 7%);
+      background:lighten($dark-gray, 10%);
       display: block;
       @include font-bold;
-      margin-bottom:1em;
       padding:1em;
       &:active {background:lighten($dark-gray, 15%);}
     }
-    .small_cap {padding:1em 1em .5em;}
-  }
-  #switch_board {
-    .small_cap {margin-bottom:.75em;}
-    padding:1em;
+    .small_cap {padding:1em;}
+    #admin_toggle {display: none;}
   }
 }
 
@@ -60,7 +58,6 @@ header {
     color:$med-gray;
     margin-bottom: $under_small_cap;
   }
-  #switch_board .small_cap {color:lighten($offcanvas-gray, 10%);}
 
   #logo {  // ====== Logo
     a {

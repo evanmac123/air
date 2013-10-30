@@ -67,7 +67,7 @@ header {
     }
   }
 
-  #manage_board, #user_info #me_toggle {
+  #user_info #me_toggle, #manage_board, #admin_toggle {
     border: {
       style:solid;
       color:darken($header-color, 9%);
@@ -84,24 +84,10 @@ header {
       &:after{color:$gray;}
     }
     &:active {background: $white;}
-  }
+  } 
 
-  // Admin tools menu
-  #manage_board {
-    @include font-bold;
-    color:$text-color;
-    max-height:$header-total-height;
-    padding:1.125em 1em;
-    position: relative;
-  }
-
-  // User info
-  #user_info {
-    margin:0; 
-    padding-left:0;
-    text-align: right;
-    #to_next_credit {width:33%; max-width:11em;}
-  }
+  // Toggles 
+  
   #user_info #me_toggle {
     padding-left:.5em;
     position: relative;
@@ -118,8 +104,6 @@ header {
       margin-top:-.55em;
     }
     &.toggled {
-      background:$dark-gray;
-      box-shadow:none;
       &:after{color:$gray;}
     }
     img {max-width:$top-bar-height;}
@@ -133,17 +117,30 @@ header {
       left:.5em;
     }
   }
-  // User options menu
-  .user_options ul {
+  #user_info #me_toggle, #admin_toggle {
+    &.toggled {
+      background:$dark-gray;
+      box-shadow:none;
+    }
+  } 
+
+  // User info
+  #user_info {
+    margin:0; 
+    padding-left:0;
+    text-align: right;
+    #to_next_credit {width:33%; max-width:11em;}
+  }
+
+  // Toggled menu
+  .user_options ul, .admin_options .client_admin_pages {
     $toggled-menu-bg: $dark-gray;
-    display: none;
     background:$toggled-menu-bg;
     border:1px $toggled-menu-bg solid;
+    display: none;
     position: absolute;
-    right:17px;
     top:3.35em;
     z-index:1;
-    .nav-home, .nav-help {display: none;}
     a {
       color:$light-gray;
       display: block;
@@ -158,6 +155,37 @@ header {
     }
     li + li {a{border-top:1px lighten($toggled-menu-bg, 5%) solid;}}
   }
+  .user_options ul {
+    right:17px;
+    .nav-home, .nav-help {display: none;}
+  }
+
+  // Admin tools menu
+  .admin_options {
+    &:after{@include clear;}
+    p.small_cap {display: none;}
+    #manage_board, #admin_toggle {
+      @include font-bold;
+      float: left;
+      max-height:$header-total-height;
+      position: relative;
+    }
+    #manage_board {
+      color:$text-color;
+      padding:1.125em 1em;
+    }
+    #admin_toggle {
+      @include ease(0);
+      color:$med-gray;
+      font-size:1.5em;
+      padding:.75em;
+      border-left:0;
+    }
+    .client_admin_pages {
+      margin-left:-.6em;
+    }
+  }
+
 }
 
 /* -- Welcome modal -- */
