@@ -37,9 +37,9 @@ Feature: User sees only friends in current demo
     And I should not see "Vlad" in the friends list
     And I should not see "Phil" in the friends list
     Then I should see 1 person being followed
-    And I should see "Dan is now friends with Chad"
-    And I should not see "Dan is now friends with Vlad"
-    And I should not see "Dan is now friends with Phil"
+    And I should see "Dan is now connected with Chad"
+    And I should not see "Dan is now connected  with Vlad"
+    And I should not see "Dan is now connected  with Phil"
   
   Scenario: User sees correct follower and following count after moving demos
     When an admin moves "Dan" to the demo "H Engage"
@@ -49,6 +49,6 @@ Feature: User sees only friends in current demo
     And I should see "Vlad" in the friends list
     And I should see "Phil" in the friends list
     Then I should see 2 people being followed
-    And I should not see "Dan is now friends with Chad"
-    And I should see "Dan is now friends with Vlad"
-    And I should see "Dan is now friends with Phil"
+    And I should not see "Dan is now connected  with Chad"
+    And I should see "Dan is now connected with Vlad"
+    And I should see "Dan is now connected  with Phil"

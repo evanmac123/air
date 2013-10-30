@@ -12,7 +12,7 @@ feature 'Adds user' do
       url.gsub!("www.example.com", "127.0.0.1:#{page.server.port}")
     end
 
-    expect_content "Success! Next, send invite to #{name}."
+    expect_content "Success! Next, send invite to #{name}"
   end
 
   def expect_add_failed_message(error)
@@ -74,6 +74,7 @@ feature 'Adds user' do
     new_user.claim_code.should be_present
     new_user.date_of_birth.should == Date.parse("1977-04-17")
     new_user.gender.should == "other"
+show_me_the_page
     expect_add_message "Jehosaphat Emshwiller", new_user.claim_code, invitation_url(new_user.invitation_code, protocol: 'https')
   end
 
