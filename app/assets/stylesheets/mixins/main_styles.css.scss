@@ -1,0 +1,225 @@
+// If large chunks are commented out, it's because
+// they're updated dups of standard_colors styles.
+// Once all client admin & user interfaces are together,
+// we can delete standard_colors.css.scss
+
+// ------------------------ * Breakpoints & measurements * ------------------------
+$foundation: 768px;
+$mid-desktop: 58em;
+$large-desktop: 71.25em;
+$foundation-gutter: 0.9375em;
+
+// ------------------------ * Misc dependents * ------------------------
+@mixin clear {
+  clear:both;
+  content:"";
+  display:block;
+}
+@mixin ease($time) {
+  -webkit-transition: all #{$time} ease-in-out;
+  -moz-transition: all #{$time} ease-in-out;
+  -ms-transition: all #{$time} ease-in-out;
+  -o-transition: all #{$time} ease-in-out;
+  transition: all #{$time} ease-in-out;
+}
+
+// ------------------------ * Typography * ------------------------
+$default:   'Helvetica Neue', Helvetica, Arial, sans-serif;
+$small_cap_size: .625rem; // 10px
+
+@mixin font-thin {
+  font-family: $default;
+  font-weight:lighter;
+  font-weight: 100;
+}
+@mixin font-light {
+  font-family: $default;
+  font-weight:lighter;
+  font-weight: 300;
+}
+@mixin font-regular {
+  font-family: $default;
+  font-weight:normal;
+  font-weight: 400;
+}
+@mixin font-semibold {
+  font-family: $default;
+  font-weight:bold;
+  font-weight: 500;
+}
+@mixin font-bold {
+  font-family: $default;
+  font-weight:bolder;
+  font-weight: 700;
+}
+@mixin caption {
+  @include font-bold;
+  font-size:$small_cap_size;
+  line-height: 1em;
+  text-transform: uppercase;
+}
+
+body {
+  @include font-regular;
+  font-size:100%;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+h1 {
+  @include font-light;
+  font-size:2em;
+  font-size:2rem;
+  line-height: 1em;
+}
+h2 {
+  @include font-bold;
+  font-size:1em;
+  font-size:1rem;
+  text-transform: uppercase;
+}
+h3 {
+  @include font-semibold;
+  font-size:1em;
+}
+h5 {@include caption;}
+p {margin:0;padding:0;}
+
+// ------------------------ * Colors * ------------------------
+// Various grays
+$dark-gray:         #2e2e2c;
+$med-gray:          #a8a8a8;
+$gray:              #818385;
+$light-gray:        #dfdfdf;
+
+// Our palette
+$blue:              #50698C;
+$dark-green:        #4FAA60;
+$orange:            #ff7d00;
+$red:               #BC4C40;
+$white:             #fff;
+
+// App elements
+$header-color:      #F7F7F7;
+$offcanvas-gray:    $dark-gray;
+$text-color:        #222;
+
+// ------------------------ * Dividers * ------------------------
+$border-dark:       1px $light-gray solid;
+$border-light:      1px #fff solid;
+
+// ------------------------ * Links & buttons * ------------------------
+@mixin link($color) {
+  @include ease(.15s);
+  @include font-bold;
+  color:$color;
+  text-decoration: none!important;
+  &:hover {color:darken($color, 10%);}
+  &:active {color:lighten($color, 10%);}
+}
+a, a:link, a:visited {@include link($blue);}
+
+@mixin app-button($color) {
+  background:$color;
+  background: -moz-linear-gradient(top,  $color 40%, darken($color, 5%) 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(40%,$color), color-stop(100%,darken($color, 5%)));
+  background: -webkit-linear-gradient(top,  $color 40%,darken($color, 5%) 100%);
+  background: -o-linear-gradient(top,  $color 40%,darken($color, 5%) 100%);
+  background: -ms-linear-gradient(top,  $color 40%,darken($color, 5%) 100%);
+  background: linear-gradient(to bottom,  $color 40%,darken($color, 5%) 100%);
+
+  border:1px darken($color, 5%) solid;
+  border-radius:3px;
+  
+  color:$white;
+  display: inline-block;
+  @include font-bold;
+  font-size:1em, 1rem;
+  padding:.35em .75em;
+  text-align: center;
+  &:hover {@include ease(0); background:darken($color, 5%);}
+  &:active {background:lighten($color, 5%);}
+}
+@mixin light-button($outlineColor, $hoverColor) {
+  background:transparent;
+  border:1px $outlineColor solid;
+  border-radius:3px;
+  color:$outlineColor;
+  display: inline-block;
+  @include font-bold;
+  font-size:.875em;
+  font-size:.875rem;
+
+  padding:.35em .75em;
+  text-align: center;
+  text-transform: uppercase;
+  &:hover {
+    border-color:$hoverColor;
+    color:$hoverColor;
+  }
+  &:active {
+    @include ease(0);
+    background:$hoverColor;
+    color:$white;
+  }
+}
+
+// ------------------------ * Arrows * ------------------------
+// @mixin arrow-up($color, $size) {
+//   border-right: #{$size} solid transparent;
+//   border-left: #{$size} solid transparent;
+//   border-bottom: #{$size} solid #{$color};
+//   content:"";
+//   display:inline-block;
+//   position: absolute;
+// }
+// @mixin arrow-down($color, $size) {
+//   border-right: #{$size} solid transparent;
+//   border-left: #{$size} solid transparent;
+//   border-top: #{$size} solid #{$color};
+//   content:"";
+//   display:inline-block;
+//   position: absolute;
+// }
+// @mixin arrow-left($color, $size) {
+//   border-bottom: #{$size} solid transparent;
+//   border-right: #{$size} solid #{$color};
+//   border-top: #{$size} solid transparent;
+//   content:"";
+//   display:inline-block;
+//   position: absolute;
+// }
+// @mixin arrow-right($color, $size) {
+//   border-bottom: #{$size} solid transparent;
+//   border-left: #{$size} solid #{$color};
+//   border-top: #{$size} solid transparent;
+//   content:"";
+//   display:inline-block;
+//   position: absolute;
+// } 
+
+* {-moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;}
+body {
+  margin:0;
+  position: static;
+  height:100%; 
+  width:100%;
+}
+img {border:0; margin:0; padding:0;}
+ol, ul {list-style-position:outside; list-style-type:none; margin:0; padding:0;}
+input[type="text"], input[type="password"],
+textarea, select {border:$border-dark;}
+input[type="text"], input[type="password"],textarea {
+  box-shadow:none;
+  color:$gray;
+  padding:.5em;
+  transition:none;
+  &:hover{border-color:$blue;}
+  &:focus {
+      background:$white;
+      border:1px $blue solid;
+      box-shadow:none;
+      color:$text-color;
+      transition:none;
+  }
+}
+input:focus, select, textarea {outline: 0;}

@@ -2,6 +2,8 @@ html, body {height:100%;}
 body {
   font-family:$sans;
   font-size:1em;
+    -webkit-font-smoothing: subpixel-antialiased;
+    
   min-width:100%;
   position: static;
   a, a:link, a:visited {@include link($dark-green);}
@@ -13,6 +15,7 @@ body {
   h2 {
     font-family:$sans;
     font-size:1.5em;
+    text-transform: none;
   }
   h3 {
     font-family:$open-400;

@@ -1,3 +1,5 @@
+@import 'main_styles.css.scss';
+
 @font-face {
     font-family: 'OpenSansLight';
     src: url('OpenSans-Light-webfont.eot');
@@ -40,7 +42,7 @@
     font-weight: bolder;
     font-style: normal;
 }
-$default:   'Helvetica Neue', Helvetica, Arial, sans-serif;
+
 $open-300:  'OpenSansLight';
 $sans:      $open-300, $default;
 $open-400:  'OpenSansRegular', $sans;
@@ -49,34 +51,7 @@ $open-800: 'OpenSansBold', $open-600;
 $open-900: 'OpenSansExtraBold', $open-800;
 
 
-@mixin font-thin {
-  font-family: $default;
-  font-weight:lighter;
-  font-weight: 100;
-}
-@mixin font-light {
-  font-family: $default;
-  font-weight:lighter;
-  font-weight: 300;
-}
-@mixin font-regular {
-  font-family: $default;
-  font-weight:normal;
-  font-weight: 400;
-}
-@mixin font-semibold {
-  font-family: $default;
-  font-weight:bold;
-  font-weight: 500;
-}
-@mixin font-bold {
-  font-family: $default;
-  font-weight:bolder;
-  font-weight: 700;
-}
-
 $gutter:            10px; 
-$foundation-gutter: 0.9375em;
 $body-width:        984px;  // PRE-OCT 2013
 @mixin full-width { // PRE-OCT 2013
     padding:0 $gutter;
@@ -87,39 +62,10 @@ $centered:          0 auto;
 $header-bg:         #588b3d; // PRE-OCT 2013
 $flash-f:           #50c1cb;
 $flash-s:           #58d858;
-
-$dark-gray:         #2e2e2c;
-$med-gray:          #a8a8a8;
-$gray:              #818385;
-$light-gray:        #dfdfdf;
-
 $outline-gray:      #c0c0c0;
-$white:             #fff;
 $light-green:       #89c440; // PRE-OCT 2013
-$dark-green:        #4FAA60;
-$orange:            #ff7d00;
-$text-color:        #222;
 $headlines:         #202020;
-$blue:              #50698C;
-$red:               #BC4C40;
 
-$header-color:      #F7F7F7;
-$offcanvas-gray:    #747474;
-$border-dark:       1px $light-gray solid;
-$border-light:      1px #fff solid;
-
-@mixin clear {
-    clear:both;
-    content:"";
-    display:block;
-}
-@mixin ease($time) {
-    -webkit-transition: all #{$time} ease-in-out;
-    -moz-transition: all #{$time} ease-in-out;
-    -ms-transition: all #{$time} ease-in-out;
-    -o-transition: all #{$time} ease-in-out;
-    transition: all #{$time} ease-in-out;
-}
 
 @mixin link($color) {
     @include ease(.15s);
@@ -230,48 +176,6 @@ $border-light:      1px #fff solid;
   }
 }
 
-@mixin app-button($color) {
-  background:$color;
-  background: -moz-linear-gradient(top,  $color 40%, darken($color, 5%) 100%);
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(40%,$color), color-stop(100%,darken($color, 5%)));
-  background: -webkit-linear-gradient(top,  $color 40%,darken($color, 5%) 100%);
-  background: -o-linear-gradient(top,  $color 40%,darken($color, 5%) 100%);
-  background: -ms-linear-gradient(top,  $color 40%,darken($color, 5%) 100%);
-  background: linear-gradient(to bottom,  $color 40%,darken($color, 5%) 100%);
-
-  border:1px darken($color, 5%) solid;
-  border-radius:3px;
-  
-  color:$white;
-  display: inline-block;
-  @include font-bold;
-  font-size:1em, 1rem;
-  padding:.35em .75em;
-  text-align: center;
-  &:hover {@include ease(0); background:darken($color, 5%);}
-  &:active {background:lighten($color, 5%);}
-}
-@mixin light-button($outlineColor, $hoverColor) {
-  background:transparent;
-  border:1px $outlineColor solid;
-  border-radius:3px;
-  color:$outlineColor;
-  display: inline-block;
-  @include font-bold;
-  font-size:1em, 1rem;
-  padding:.35em .75em;
-  text-align: center;
-  text-transform: uppercase;
-  &:hover {
-    border-color:$hoverColor;
-    color:$hoverColor;
-  }
-  &:active {
-    @include ease(0);
-    background:$hoverColor;
-    color:$white;
-  }
-}
 @mixin close-button {
   background:$light-gray;
   border-radius:3px;
@@ -286,14 +190,9 @@ $border-light:      1px #fff solid;
 }
 
 /* ============= General stuff that all pages use ============= */
-* {-moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;}
 a, a:link, a:visited {@include link($blue);}
 h1, h2, h3 {font-family:$sans; margin:0; padding:0;}
-img {border:0; margin:0; padding:0;}
-input:focus, select, textarea {outline: 0;}
 
-p {margin:0;padding:0;}
-ol, ul {list-style-position:outside; list-style-type:none; margin:0; padding:0;}
 h1.headline {
   font-size:1.8em;
   font-family:$sans;
@@ -304,23 +203,6 @@ h2.subhead {
   font-family:$open-400;
   font-size:1.15em;
   padding-bottom:.75em;
-}
-
-input[type="text"], input[type="password"],
-textarea, select {border:$border-dark;}
-input[type="text"], input[type="password"],textarea {
-  box-shadow:none;
-  color:$gray;
-  padding:.5em;
-  transition:none;
-  &:hover{border-color:$blue;}
-  &:focus {
-      background:$white;
-      border:1px $blue solid;
-      box-shadow:none;
-      color:$text-color;
-      transition:none;
-  }
 }
 
 select { 
@@ -334,41 +216,11 @@ select {
   text-align:center;
 }
 
-/* ============= Progress bar ============= */
-@mixin completed_progress {
-  background: #ffd90c; /* Old browsers */
-  background: -moz-linear-gradient(left,  #ffd90c 0%, #ff8500 100%); /* FF3.6+ */
-  background: -webkit-gradient(linear, left top, right top, color-stop(0%,#ffd90c), color-stop(100%,#ff8500)); /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(left,  #ffd90c 0%,#ff8500 100%); /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(left,  #ffd90c 0%,#ff8500 100%); /* Opera 11.10+ */
-  background: -ms-linear-gradient(left,  #ffd90c 0%,#ff8500 100%); /* IE10+ */
-  background: linear-gradient(to right,  #ffd90c 0%,#ff8500 100%); /* W3C */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffd90c', endColorstr='#ff8500',GradientType=1 ); /* IE6-9 */
-  border:1px $orange solid;
-  height:100%;
-}
-@mixin bar_shine {
-  /* IE9 SVG, needs conditional override of 'filter' to 'none' */
-  background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2ZmZmZmZiIgc3RvcC1vcGFjaXR5PSIwIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNmZmZmZmYiIHN0b3Atb3BhY2l0eT0iMC4yNSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
-  background: -moz-linear-gradient(top,  rgba(255,255,255,0) 0%, rgba(255,255,255,0.25) 100%); /* FF3.6+ */
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,0)), color-stop(100%,rgba(255,255,255,0.25))); /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(top,  rgba(255,255,255,0) 0%,rgba(255,255,255,0.25) 100%); /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(top,  rgba(255,255,255,0) 0%,rgba(255,255,255,0.25) 100%); /* Opera 11.10+ */
-  background: -ms-linear-gradient(top,  rgba(255,255,255,0) 0%,rgba(255,255,255,0.25) 100%); /* IE10+ */
-  background: linear-gradient(to bottom,  rgba(255,255,255,0) 0%,rgba(255,255,255,0.25) 100%); /* W3C */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#40ffffff',GradientType=0 ); /* IE6-8 */
-  height:50%; 
-}
 
 /* ============= Color bars ============= */
 body {
-    border-top:7px $dark-green solid;
-    font-family:$sans;
-    font-size:100%;
-    margin:0;
-    position: static;
-    height:100%; 
-    width:100%;
+  border-top:7px $dark-green solid;
+  font-family:$sans;
 }
 .colorbar {
   display: inline-block;
@@ -379,8 +231,3 @@ body {
   &#blue {background:$blue; right:16.5%;}
   &#orange {background:$orange; right:0;}
 }
-
-/* ============= Breakpoints ============= */
-$foundation: 768px;
-$mid-desktop: 58em;
-$large-desktop: 71.25em;

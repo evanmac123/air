@@ -1,0 +1,56 @@
+@import "./vendor/normalize.css.scss";
+@import "./vendor/foundation.min.css.scss";
+@import "./mixins/main_styles.css.scss";
+
+section:after{@include clear;}
+.row section {margin:2em auto;}
+.example {
+  border:1px $light-gray dashed; 
+  padding:1em;
+  img {max-width:15em;}
+}
+
+.dark-bg {background:$dark-gray; border-color:$dark-gray;}
+
+h5 {color:$med-gray}
+
+.logos .example {padding:2em 1em; text-align: center;}
+
+.big_button#blue {@include app-button($blue);}
+.big_button#green {@include app-button($dark-green);}
+.big_button#orange {@include app-button($orange);}
+.big_button#red {@include app-button($red);}
+.big_button#gray {@include app-button($light-gray);}
+
+.buttons {
+  .full-buttons {margin-bottom:2em;}
+  .dark-bg {
+    .light_button#blue {@include light-button($light-gray, $blue);}
+    .light_button#green {@include light-button($light-gray, $dark-green);}
+    .light_button#orange {@include light-button($light-gray, $orange);}
+    .light_button#red {@include light-button($light-gray, $red);}
+  }
+  .light-bg {
+    .light_button#blue {@include light-button($gray, $blue);}
+    .light_button#green {@include light-button($gray, $dark-green);}
+    .light_button#orange {@include light-button($gray, $orange);}
+    .light_button#red {@include light-button($gray, $red);}
+  }
+}
+
+.colors .large-3 {
+  color:$white;
+  @include font-bold;
+  font-size:.875em;
+  padding:1.5em .5em;
+  text-align: center;
+  text-transform: uppercase;
+  &#blue {background:$blue}
+  &#green {background:$dark-green}
+  &#orange {background:$orange}
+  &#red {background:$red}
+  &#dark-gray {background:$dark-gray}
+  &#med-gray {background:$med-gray}
+  &#gray {background:$gray}
+  &#light-gray {background:$light-gray}
+}

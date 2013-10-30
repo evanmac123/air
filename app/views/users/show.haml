@@ -13,7 +13,7 @@
     = render 'accepted_friends'
     - if @display_pending_friendships  
       #followed-by.module
-        %h1.headline#friend_requests_title Your Friend Requests
+        %h2#friend_requests_title Your Friend Requests
         %ul#friend_requests
           - @pending_friends.each do |friend|
             %li.user
@@ -21,7 +21,7 @@
 
   .large-8.columns
     #recent-activity.module
-      %h1.headline Recent Activity
+      %h2 Recent Activity
       - unless @display_user_stats
         = render 'follow_link'
       - else
