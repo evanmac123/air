@@ -32,19 +32,6 @@ feature 'Game has beginning and end' do
   end
 
   context 'user changes settings' do
-    it 'should allow user to change gender when game is not open' do
-      as_both_users do
-        visit edit_account_settings_path
-        expect_none_selected "user[gender]"
-        # Can't use " choose 'Male' " because ambiguous (due to presence of "female")
-        # and Capy2 doesn't like that
-        find("#male").set(true)
-        click_username_dob_gender_submit_button
-        expect_content "OK, your settings were updated"
-        expect_checked "Male"
-      end
-    end
-
     it 'should allow user to change privacy settings when game is not open' do
       as_both_users do
         visit edit_account_settings_path
@@ -92,9 +79,9 @@ feature 'Game has beginning and end' do
       as_both_users do
         visit edit_account_settings_path
         expect_checked "email"
-        choose "SMS"
+        choose "Text message"
         page.find(:css, '#save-notification-settings').click
-        expect_checked 'SMS'
+        expect_checked 'Text message'
       end
     end
 
@@ -109,12 +96,11 @@ feature 'Game has beginning and end' do
       FactoryGirl.create(:rule_value, value: 'did thing', is_primary: true, rule: @rule)
     end
 
-    scenario "should send back a reasonable error message" do
+    scenario "should send back a reasonable error message", js: true do
       mo_sms(@past_user.phone_number, 'did thing')
       mo_sms(@future_user.phone_number, 'did thing')
       crank_dj_clear
-
-      expect_mt_sms(@past_user.phone_number, "Thanks for playing! The game is now over. If you'd like more information e-mailed to you, please text INFO.")
+      expect_mt_sms(@past_user.phone_number, "Thanks for participating. Your administrator has disabled this board. If you'd like more information e-mailed to you, please text INFO.")
       expect_mt_sms(@future_user.phone_number, "The game will begin #{@future_demo.begins_at.pretty}. Please try again after that time.")
     end
 

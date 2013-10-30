@@ -41,7 +41,7 @@ feature "User tries to friend someone" do
     # click_button 'add_friend'
 
     page.find('div.follow-btn').click
-    page.should have_content "OK, you'll be friends with Sue Friend, pending their acceptance"
+    page.should have_content "OK, you'll be connected with Sue Friend, pending their acceptance"
   end
 
   scenario "A correct friend-request email is sent", js: true  do
@@ -53,22 +53,22 @@ feature "User tries to friend someone" do
     current_email.should have_subject("#{user.name} wants to be your friend on H.Engage")
 
     current_email.should have_body_text /Hi #{first_name(friend)}/
-    current_email.should have_body_text /#{user.name} has asked to be your friend on H.Engage./
+    current_email.should have_body_text /#{user.name} has asked to be your connection on H.Engage./
   end
 
   scenario "when the friend accepts the request, the user should get a notification email \
             see updated friend status, and actually be in a friendship", js: true  do
 
-    page.should_not have_content "is now friends with #{first_name(friend)}"
+    page.should_not have_content "is now connected with #{first_name(friend)}"
 
     visit profile_page(user)
-    page.should have_content "No friends yet"
+    page.should have_content "No connections yet"
 
     deliver_and_open_email_for(friend)
     accept_the_friendship
 
     visit profile_page(user)
-    page.should have_content "is now friends with #{first_name(friend)}"
+    page.should have_content "is now connected with #{first_name(friend)}"
 
     user.should be_friends_with friend
     friend.should be_friends_with user
@@ -79,7 +79,7 @@ feature "User tries to friend someone" do
     current_email.should be_delivered_from(user.reply_email_address)
 
     current_email.should have_subject("Message from H.Engage")
-    current_email.should have_body_text /#{friend.name} has approved your friendship request./
+    current_email.should have_body_text /#{friend.name} has approved your connection request./
   end
 
   scenario "A logged-in friend should see the appropriate flash notification upon accepting the friendship", js: true  do
@@ -89,7 +89,7 @@ feature "User tries to friend someone" do
     deliver_and_open_email_for(friend)
     accept_the_friendship
 
-    page.should have_content "OK, you are now friends with #{user.name}."
+    page.should have_content "OK, you are now connected with #{user.name}."
   end
 
   scenario "A logged-in friend should see the appropriate flash notification message upon accepting the friendship twice", js: true  do
@@ -100,7 +100,7 @@ feature "User tries to friend someone" do
     accept_the_friendship
     accept_the_friendship
 
-    page.should have_content "You are already friends with #{user.name}."
+    page.should have_content "You are already connected with #{user.name}."
   end
 
   scenario "A not-logged-in friend should see a a flash notification upon \
@@ -114,7 +114,7 @@ feature "User tries to friend someone" do
     page.should have_content "Log In"
     signin_as(friend, friend.password)
 
-    page.should have_content "OK, you are now friends with #{user.name}."
+    page.should have_content "OK, you are now connected with #{user.name}."
   end
 
   scenario "A logged-in friend should see a flash error message and not become friends \
@@ -129,7 +129,7 @@ feature "User tries to friend someone" do
     link = links_in_email(current_email).find { |link| link =~ /accept/ }.chop
     visit request_uri(link)
 
-    page.should have_content "Invalid authenticity token. Friendship operation cancelled."
+    page.should have_content "Invalid authenticity token. Connection operation cancelled."
 
     user.should_not be_friends_with friend
     friend.should_not be_friends_with user
@@ -148,7 +148,7 @@ feature "User tries to friend someone" do
     page.should have_content "Your session has expired"
     signin_as(friend, friend.password)
 
-    page.should have_content "Invalid authenticity token. Friendship operation cancelled."
+    page.should have_content "Invalid authenticity token. Connection operation cancelled."
 
     user.should_not be_friends_with friend
     friend.should_not be_friends_with user

@@ -251,7 +251,7 @@ feature 'Client admin and the digest email for tiles' do
               if %w(site-admin@hengage.com wc@clark.com taj@mahal.com).include?(address)  # Claimed, non-client-admin user?
                 email_link = /tile_token/
                 page_text_1 = "Welcome back, #{name}"
-                page_text_2 = "Invite your friends"
+                page_text_2 = "Invite"
               elsif address == 'client-admin@hengage.com' # client-admin?
                 # client-admin was signed in at top of tests => needs to sign out in order to get sent to the Log-In page
                 click_link "Sign Out"

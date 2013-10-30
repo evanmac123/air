@@ -49,7 +49,7 @@ feature 'Invites user' do
       click_link "Next, send invite to Bob Jones"
 
       new_user.reload.invited.should be_true
-      expect_content "and you've sent them an invitation email"
+      expect_content "Success!"
       expect_no_content "Next, send invite to Bob Jones"
     end
 

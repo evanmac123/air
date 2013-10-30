@@ -61,8 +61,6 @@ describe 'Digest email' do
 
       it { should have_body_text 'Check out your' }
       it { should have_link 'new tiles' }
-
-      it { should have_body_text 'Interact, earn points, and see how your colleagues are doing!' }
       it { should have_link 'View your tiles' }
     end
 
@@ -71,8 +69,6 @@ describe 'Digest email' do
 
       it { should have_body_text 'Did you forget to check out your' }
       it { should have_link 'new tiles' }
-
-      it { should have_body_text 'Interact, earn points, and see how your colleagues are doing!' }
       it { should have_link 'View your tiles' }
     end
   end
@@ -222,8 +218,8 @@ describe 'Follow-up digest email' do
     TilesDigestMailer.stubs(:delay).returns(object)
 
     object.expects(:notify_one).at_most(2)
-    object.expects(:notify_one).with(demo.id, paul.id,   tile_ids, true)
-    object.expects(:notify_one).with(demo.id, george.id, tile_ids, true)
+    object.expects(:notify_one).with(demo.id, paul.id,   tile_ids, "Don't Miss Your New Tiles", true)
+    object.expects(:notify_one).with(demo.id, george.id, tile_ids, "Don't Miss Your New Tiles", true)
 
     # Make sure we delete 'FollowUpDigestEmail' objects after we process them
     FollowUpDigestEmail.expects(:find).returns(follow_up)

@@ -40,7 +40,7 @@ feature 'User views tiles' do
   end
 
   def expect_right_answer_reaction
-    expect_content "That's right! Points 10/20, Tix 1" 
+    expect_content "Points 10/20, Tix 1"
   end
 
   def show_more_tiles_link

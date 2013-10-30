@@ -162,7 +162,7 @@ class ClientAdmin::UsersController < ClientAdminBaseController
 
   def put_add_success_in_flash
     if @user.invitable?
-      flash[:success] = %{Success! <a href="#{client_admin_user_invitation_path(@user)}" class="invite-user">Next, send invite to #{@user.name}</a>. <span id="inviting-message" style="display: none">Inviting...</span></span>}
+      flash[:success] = %{Success! <a href="#{client_admin_user_invitation_path(@user)}" class="invite-user">Next, send invite to #{@user.name}</a> <span id="inviting-message" style="display: none">Inviting...</span></span>}
       flash[:success_allow_raw] = true
     else
       flash[:success] = "OK, we've added #{@user.name}. They can join the game with the claim code #{@user.claim_code.upcase}."

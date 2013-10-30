@@ -94,7 +94,7 @@ feature 'Highchart Plot' do
       end_date_value.should == initial_end_date
 
       content_should_be  'Both'
-      interval_should_be 'Daily'
+      interval_should_be 'Weekly'
       label_should_be    'None'
 
       # Interact with the controls
@@ -102,7 +102,7 @@ feature 'Highchart Plot' do
       set_end_date(end_date)
 
       set_plot_content 'Unique users'
-      set_plot_interval 'Weekly'
+      set_plot_interval 'Daily'
       set_label_points 'Every other'
 
       click_button 'Show'
@@ -112,7 +112,7 @@ feature 'Highchart Plot' do
       end_date_value.should == end_date
 
       content_should_be 'Unique users'
-      interval_should_be 'Weekly'
+      interval_should_be 'Daily'
       label_should_be 'Every other'
 
       # And finally, make sure page contains the highchart-button to save chart to an image file
@@ -309,11 +309,11 @@ feature 'Highchart Plot' do
 
       click_button 'Show'
 
-      #title.should have_content "Engagement Levels"
+      #title.should have_content "Activity Levels"
       #subtitle.should have_content "#{date_in_subtitle(start_date)} through #{date_in_subtitle(end_date)} : By Day"
 
-      page.should have_content "Engagement Levels"
-      page.should have_content "#{date_in_subtitle(start_date)} through #{date_in_subtitle(end_date)} : By Day"
+      page.should have_content "Activity Levels"
+      page.should have_content "#{date_in_subtitle(start_date)} through #{date_in_subtitle(end_date)} - By Day"
 
       #legend.should have_content 'Acts'
       #legend.should have_content 'Users'
@@ -542,10 +542,10 @@ Su	Mo	Tu	We	Th	Fr	Sa
 
       click_button 'Show'
 
-      #title.should have_content "Engagement Levels"
+      #title.should have_content "Activity Levels"
       #subtitle.should have_content "#{weekly_date_in_subtitle(start_date)} through #{date_in_subtitle(end_date)} : By Week"
-      page.should have_content "Engagement Levels"
-      page.should have_content "#{weekly_date_in_subtitle(start_date)} through #{date_in_subtitle(end_date)} : By Week"
+      page.should have_content "Activity Levels"
+      page.should have_content "#{weekly_date_in_subtitle(start_date)} through #{date_in_subtitle(end_date)} - By Week"
 
       #legend.should have_content 'Acts'
       #legend.should have_content 'Users'

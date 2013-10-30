@@ -29,7 +29,7 @@
       $('#inviting-message').show();
       $.post(postURL, function() { 
         $('#inviting-message').hide();
-        $('#user_invitation').replaceWith(", and you've sent them an invitation email.");
+        $('a.invite-user').remove();
       });
     });
   <% end %>

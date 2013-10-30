@@ -50,15 +50,15 @@ class Friendship < ActiveRecord::Base
   end
 
   def record_follow_act
-    self.user.acts.create(:text => "is now friends with #{self.friend.name}")
-    self.friend.acts.create(:text => "is now friends with #{self.user.name}")
+    self.user.acts.create(:text => "is now connected with #{self.friend.name}")
+    self.friend.acts.create(:text => "is now connected with #{self.user.name}")
   end
 
   def accept
     reciprocal_friendship = self.reciprocal
 
     # Head off the case where they hit the 'Accept' email-button twice
-    return "You are already friends with #{user.name}." if self.state == State::ACCEPTED
+    return "You are already connected with #{user.name}." if self.state == State::ACCEPTED
 
     # Make sure we're consistent about which of the pair call 'accept', or the wrong peeps will get emails
     return nil unless self.state == State::INITIATED && (reciprocal_friendship.state == State::PENDING)
@@ -69,13 +69,13 @@ class Friendship < ActiveRecord::Base
     end
     notify_follower_of_acceptance
     record_follow_act
-    "OK, you are now friends with #{user.name}."
+    "OK, you are now connected with #{user.name}."
   end
 
   def ignore
     destroy
     self.reciprocal.destroy if self.reciprocal
-    "OK, we'll ignore the request from #{user.name} to be your friend."
+    "OK, we'll ignore the request from #{user.name} to be your connection."
   end
   
   def reciprocal
@@ -119,7 +119,7 @@ class Friendship < ActiveRecord::Base
   end
 
   def follow_notification_text
-    "#{user.name} has asked to be your friend. Text\n#{accept_command} to accept,\n#{ignore_command} to quietly ignore"
+    "#{user.name} has asked to be your connection. Text\n#{accept_command} to accept,\n#{ignore_command} to quietly ignore"
   end
 
   def accept_command
