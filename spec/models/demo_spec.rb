@@ -115,7 +115,7 @@ describe Demo, "#print_pending_friendships" do
     user1.befriend user3
     user1.befriend user4
     user4.accept_friendship_from user1
-    expected = "#{demo.name} has 3 initiated friendships, 1 of which have been accepted (33.333333333333336%)"
+    expected = "#{demo.name} has 3 initiated connections, 1 of which have been accepted (33.333333333333336%)"
     demo.print_pending_friendships.should == expected
 
 
