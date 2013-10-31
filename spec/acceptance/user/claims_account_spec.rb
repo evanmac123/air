@@ -7,7 +7,7 @@ feature 'User claims account' do
   module SMSMethods
     def expect_welcome_message(user = nil)
       expected_user = user || @expected_user
-      expect_mt_sms "+14152613077", "You've joined the #{expected_user.demo.name} game! Your username is #{expected_user.sms_slug} (text MYID if you forget). To play, text to this #."
+      expect_mt_sms "+14152613077", "You've joined the #{expected_user.demo.name} game! Your username is #{expected_user.sms_slug} (text MYID if you forget). Text to this #."
     end
 
     def send_message(message_text, to_number = nil)

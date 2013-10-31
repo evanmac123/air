@@ -36,7 +36,7 @@ module SampleTileBehavior
   end
 
   def headline
-    "Learn to Play"
+    "Learn how to use H.Engage"
   end
 
   def save

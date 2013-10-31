@@ -43,12 +43,12 @@ Feature: Game has a beginning and an end
     Given time is frozen at "2010-04-01 11:59:59 UTC"
     When "+14152613077" sends SMS "follow vgyster"
     And I go to the activity page
-    Then I should not see "Phil is now friends with Vlad"
+    Then I should not see "Phil is now connected with Vlad"
     And "+14152613077" should have received an SMS including "Please try again after that time."
 
   Scenario: Following after the game ends via SMS does nothing
     Given time is frozen at "2010-05-01 12:00:01 UTC"
     When "+14152613077" sends SMS "follow vgyster"
     And I go to the activity page
-    Then I should not see "Phil is now friends with Vlad"
+    Then I should not see "Phil is now connected with Vlad"
     And "+14152613077" should have received an SMS including "Your administrator has disabled this board"

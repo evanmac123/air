@@ -42,7 +42,7 @@ module SMS
 
   def self.channel_specific_translations
     {
-      "reply here" => (@to_user ? "Your username is #{ @to_user.sms_slug } (text MYID if you forget). To play, text to this #." : "To play, text to this #." )    
+      "reply here" => (@to_user ? "Your username is #{ @to_user.sms_slug } (text MYID if you forget). Text to this #." : "Text to this #." )
     }
   end
 

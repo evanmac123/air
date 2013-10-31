@@ -12,9 +12,9 @@ class SpecialCommandHandlers::FollowHandler < SpecialCommandHandlers::Base
     return parsing_error_message("Sorry, you can't add yourself as a friend.") if @user.id == user_to_follow.id
 
     Friendship.transaction do
-      return parsing_success_message("You've already asked to be friends with #{user_to_follow.name}.") if @user.initiated_friends.where('friendships.friend_id' => user_to_follow.id).present?
+      return parsing_success_message("You've already asked to be connected with #{user_to_follow.name}.") if @user.initiated_friends.where('friendships.friend_id' => user_to_follow.id).present?
 
-      return parsing_success_message("You're already friends with #{user_to_follow.name}.") if @user.accepted_friends.where('friendships.friend_id' => user_to_follow.id).present?
+      return parsing_success_message("You're already connected with #{user_to_follow.name}.") if @user.accepted_friends.where('friendships.friend_id' => user_to_follow.id).present?
 
       return nil unless @user.befriend(user_to_follow, :channel => channel)
     end

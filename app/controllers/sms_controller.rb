@@ -43,7 +43,7 @@ class SmsController < ActionController::Metal
       :say => "text", 
       :Say => "Text",
       :help_command_explanation => "HELP - help desk, instructions\n",
-      "reply here" => (@user && "Your username is #{@user.sms_slug} (text MYID if you forget). To play, text to this #.")
+      "reply here" => (@user && "Your username is #{@user.sms_slug} (text MYID if you forget). Text to this #.")
     }
   end
 end

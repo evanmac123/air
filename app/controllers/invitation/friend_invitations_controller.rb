@@ -48,7 +48,7 @@ class Invitation::FriendInvitationsController < ApplicationController
       end
       which_time += 1
     end
-    success_string += " to play H.Engage. "
+    success_string += " to H.Engage. "
     unless current_user.demo.game_referrer_bonus.nil?
       success_string += "That's #{current_user.demo.game_referrer_bonus * name_array.length} potential bonus points!"
     end
@@ -58,7 +58,7 @@ class Invitation::FriendInvitationsController < ApplicationController
   protected
 
   def no_at_sign_error_message
-    %{Please enter only the part of the email address before the "@" - and remember that only colleagues in your organization can play.}  
+    %{Please enter only the part of the email address before the "@" - and remember that only colleagues in your organization can participate.}
   end
 
   def record_mixpanel_ping(successful_invitations, attempted_invitations)

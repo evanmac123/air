@@ -235,7 +235,7 @@ class User < ActiveRecord::Base
     when 'everybody'
       reason = " allows everyone to see their activity"
     when 'connected'
-      reason = " only allows friends to see their activity"
+      reason = " only allows connections to see their activity"
     when 'nobody'
       reason = " does not allow anyone to see their activity"
     end

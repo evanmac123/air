@@ -11,6 +11,9 @@ body.client_admin-tiles-update {
       width:100%;
       &:hover, &:focus {border-style:solid;}
     }
+    input[type="submit"]:disabled {
+      background: lighten($dark-green, 20%);
+    }
     label {
       color:lighten($text-color, 17%);
       font-family:$open-600;
