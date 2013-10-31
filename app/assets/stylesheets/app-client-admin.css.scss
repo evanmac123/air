@@ -1,16 +1,18 @@
 @import "./vendor/normalize.css.scss";
 @import "./vendor/foundation.min.css.scss";
 @import "./vendor/flutie.css.scss";
-@import "./mixins/standard_colors.css.scss";
+@import "./mixins/main_styles.css.scss"; 
 
 /* CUSTOM STYLESHEETS */
-@import "./internal/appbar.css.scss";
-
+@import "./internal/mast.css.scss";
+@import "./internal/mast_desktop.css.scss";
 @import "./client_admin/client_admin.css.scss";
-@import "./internal/flash.css.scss";
-@import "./client_admin/segmentations.css.scss";
-@import "./client_admin/overview.css.scss";
-@import "./client_admin/charts.css.scss";
-@import "./client_admin/user_manager.css.scss";
 @import "./client_admin/tiles.css.scss";
-@import "./client_admin/payments.css.scss";
+
+
+@import "./internal/flash.css.scss";
+// @import "./client_admin/segmentations.css.scss";
+// @import "./client_admin/overview.css.scss";
+// @import "./client_admin/charts.css.scss";
+// @import "./client_admin/user_manager.css.scss";
+// @import "./client_admin/payments.css.scss";

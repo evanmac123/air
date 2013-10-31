@@ -1,22 +1,24 @@
-<h1 class="page-title" id="title">Tile builder</h1>
-
 <%= render "shared/flashes" %>
 
-<%= form_for @tile_builder_form, url: client_admin_tiles_path do |f| %>
-  <div class="builder_content tile_builder_section">
-    <div id="image_uploader">
-      <label>Pick an image</label>
-      <p>This is where your image will appear in your live tile.</p>
-      <%= f.file_field "image" %>
-    </div>
-    <%= render 'headline_and_supporting_content_fields', form: f %>
-  </div>
+<div class="row">
+  <div class="large-8 large-centered columns">
+    <%= form_for @tile_builder_form, url: client_admin_tiles_path do |f| %>
+      <div class="builder_content tile_builder_section">
+        <div id="image_uploader">
+          <label>Pick an image</label>
+          <p>This is where your image will appear in your live tile.</p>
+          <%= f.file_field "image" %>
+        </div>
+        <%= render 'headline_and_supporting_content_fields', form: f %>
+      </div>
 
-  <%= render 'question_and_answer_section', form: f %>
-  
-  <div class="more_tile_options tile_builder_section">
-    <%= render 'external_link_section', form: f %>
-  </div>
+      <%= render 'question_and_answer_section', form: f %>
+      
+      <div class="more_tile_options">
+        <%= render 'external_link_section', form: f %>
+      </div>
 
-  <%= render 'submit_button', submit_button_text: "Create tile", form: f %>
-<% end %>
+      <%= render 'submit_button', submit_button_text: "Create tile", form: f %>
+    <% end %>
+  </div>
+</div>

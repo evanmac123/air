@@ -1,0 +1,18 @@
+.tile_thumbnail {
+  padding:0;
+  li {padding-bottom:0;}
+  .tile-wrapper{
+    .tile_thumbnail_image {
+      background-size: auto;
+      height:12em;
+    }
+    .headline {
+      height:7.5em;
+      padding:.75em;
+      .text {
+        font-size:1.125em;
+        line-height: 1.3em;
+      }
+    }
+  }
+}

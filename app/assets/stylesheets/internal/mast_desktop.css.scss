@@ -1,0 +1,193 @@
+/* -- Top bar / header -- */
+header {
+  $header-total-height:47px;
+  .row {
+    position: relative;
+    #logo, #user_info .user_info_sections, #me_toggle {
+      padding-top:.35em;
+      padding-bottom:.35em;
+    }
+  }
+
+  // Logo
+  #logo a {
+    min-height:$top-bar-height;
+    margin:0;
+    position: relative;
+    width:100%;
+    max-width:10em;
+    img {
+      margin: auto;
+      max-height: 100%;
+      position: absolute;  
+      bottom: 0; left: 0; top: 0; right: 0;
+    }
+    &:hover {
+      img{
+        opacity:.15;
+      }
+      &:after {
+        background:image-url('v5/bg_dark.png');
+        border-radius:$border-radius;
+        color:$white;
+        content: "Home";
+        display: block;
+        font-size:1em;
+        padding:.5em 1em;
+        position: absolute;
+        text-align: center;
+        text-transform: capitalize;
+        margin:-1em auto 0;
+        top:50%;
+        bottom:50%;
+        left:0;
+        right:0;
+        width:5em;
+        height:2em;
+      }
+    }
+  }
+header nav {display: block;}
+header nav .row {position: relative;}
+
+  // Navigation menus
+  #small-toggle.off-canvas-toggle {display: none;}
+  #navigation {
+    display: inline-block;
+    font-size:.875em;
+    position: static;
+    #desktop-toggle.off-canvas-toggle {
+      display: inline-block;
+      a {margin:0;}
+    }
+  }
+
+  #user_info #me_toggle, #manage_board, #admin_toggle {
+    border: {
+      style:solid;
+      color:darken($header-color, 9%);
+      top: {width:0;}
+      bottom: {width:0;}
+      left: {width:1px;}
+      right: {width:1px;}
+    }
+    box-shadow: inset 0px 1px 1px 1px #fff;
+    cursor: pointer;
+    display: inline-block;
+    &:hover {
+      background:image-url('v5/bg_light.png');
+      &:after{color:$gray;}
+    }
+    &:active {background: $white;}
+  } 
+
+  // Toggles 
+  
+  #user_info #me_toggle {
+    padding-left:.5em;
+    position: relative;
+    text-align: left;
+    width:4.5em;
+    &:after {
+      display: inline-block;
+      color:$med-gray;
+      content:"\25BE";
+      font-size:1.25em;
+      position: absolute;
+      right:.35em;
+      top:50%;
+      margin-top:-.55em;
+    }
+    &.toggled {
+      &:after{color:$gray;}
+    }
+    img {max-width:$top-bar-height;}
+    .shadow_overlay {
+      width:35px;
+      height:35px;
+      top:.35em;
+      left:.5em;
+    }
+  }
+  #user_info #me_toggle, #admin_toggle {
+    &.toggled {
+      background:$dark-gray;
+      box-shadow:none;
+    }
+  } 
+
+  // User info
+  #user_info {
+    margin:0; 
+    padding-left:0;
+    text-align: right;
+    #to_next_credit {width:33%; max-width:11em;}
+    #total_tiles {padding-right:5%;}
+  }
+
+  // Toggled menu
+  .user_options ul, .admin_options .client_admin_pages {
+    $toggled-menu-bg: $dark-gray;
+    background:$toggled-menu-bg;
+    border:1px $toggled-menu-bg solid;
+    display: none;
+    position: absolute;
+    top:3.35em;
+    z-index:1;
+    a {
+      color:$light-gray;
+      display: block;
+      @include font-semibold;
+      padding:.65em 2.5em;
+      width:12em;
+      &:hover {
+        background: lighten($toggled-menu-bg, 5%);
+        color:$white;
+      }
+      &:active {background: lighten($toggled-menu-bg, 13%);}
+    }
+    li + li {a{border-top:1px lighten($toggled-menu-bg, 5%) solid;}}
+  }
+  .user_options ul {
+    right:17px;
+    .nav-home, .nav-help {display: none;}
+  }
+
+  // Admin tools menu
+  .admin_options {
+    &:after{@include clear;}
+    p.small_cap {display: none;}
+    #manage_board, #admin_toggle {
+      @include font-bold;
+      float: left;
+      max-height:$header-total-height;
+      position: relative;
+    }
+    #manage_board {
+      color:$text-color;
+      padding:1.125em 1em;
+    }
+    #admin_toggle {
+      @include ease(0);
+      color:$med-gray;
+      font-size:1.5em;
+      padding:.75em;
+      border-left:0;
+    }
+    .client_admin_pages {
+      margin-left:-.6em;
+      .create_new_tile {
+        @include font-bold;
+        color:$white;
+        position: relative;
+        &:before {
+          content:"+";
+          display: inline-block;
+          left:1.25em;
+          position: absolute;
+
+        }
+      }
+    }
+  }
+}

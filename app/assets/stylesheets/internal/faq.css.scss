@@ -4,14 +4,14 @@ body.pages-faq .content {
     .large-8 h1.headline {padding-bottom:0;}
     h1.Section- {
         background:$white;
-        font-family:$open-400;
+        @include font-regular;
         font-size:1.75em;
         margin:1em 0;
         padding:.5em;
     }
     h2.Subsection- {
         border-top:$border-dark;
-        font-family:$open-600;
+        @include font-bold;
         font-size:1.15em;
         margin-top:.5em;
         padding:1em 0;
@@ -19,7 +19,7 @@ body.pages-faq .content {
     h3.Subsubsection- {
         color:$blue;
         font-size:1em;
-        font-family:$open-600;
+        @include font-bold;
         padding-bottom:1em;
     }
     .large-8.Standard, ul, ol {padding-bottom:1em;}
@@ -32,7 +32,7 @@ body.pages-faq .content {
             border:1px darken($gray, 5%) solid;
         }
         .contact_us_link {
-            @include square-button($gray);
+            @include app-button($gray);
         }
     }
     .faq_menu {

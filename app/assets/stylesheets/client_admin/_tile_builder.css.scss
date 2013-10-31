@@ -2,11 +2,14 @@ body.client_admin-tiles-new,
 body.client_admin-tiles-create,
 body.client_admin-tiles-edit,
 body.client_admin-tiles-update {
+  background:darken($light-gray, 7%);
   form {
+    #publish input[type="submit"] {@include app-button($dark-green);}
     input[type="text"],textarea {
       border:2px lighten($light-gray, 8%) dashed;
       display: block;
       font-size:1.3em;
+      margin-bottom:0;
       padding:.5em;
       width:100%;
       &:hover, &:focus {border-style:solid;}
@@ -15,20 +18,22 @@ body.client_admin-tiles-update {
       background: lighten($dark-green, 20%);
     }
     label {
-      color:lighten($text-color, 17%);
-      font-family:$open-600;
+      color:$gray;
+      @include font-semibold;
       margin-bottom:.5em;
     }
-    .tile_builder_section {padding:2em;}
+    span.character-counter {
+      @include caption;
+      color:$med-gray;
+      float:right; 
+      padding-top:.5em;
+    }
+    .tile_builder_section {
+      padding:2em;
+    }
     .content_sections {
       margin:0 auto 2em auto;
       width:90%;
-      span.character-counter {
-        color:$gray;
-        float:right; 
-        font-size:.85em;
-        padding-top:.5em;
-      }
       &:after{@include clear;}
       &:last-of-type{margin-bottom:0;}
     }
@@ -37,8 +42,7 @@ body.client_admin-tiles-update {
     .more_tile_options {
       // External link
       #external_link {
-        margin:0 auto 1em auto; 
-        width:90%;
+        margin:2em auto; 
         input {border-color:$light-gray;}
       }
     }
@@ -71,14 +75,13 @@ body.client_admin-tiles-update {
     // Copy for the tile
     #tile_builder_form_headline {
       color:$blue;
-      font-family:$sans;
+      @include font-light;
       font-size:2.25em;
       height:3.75em;
       padding:.35em;
     }
     #tile_builder_form_supporting_content {
       color:$text-color;
-      font-family:$sans;
       font-size:1.5em;
     }
   }
@@ -88,17 +91,18 @@ body.client_admin-tiles-update {
     background:$light-gray;
     margin-bottom:1em;
 
-    input[type="text"] {
+    input[type="text"], #tile_builder_form_question {
       background:lighten($light-gray, 5%);
       border-color:lighten($light-gray, 10%);
-      &#tile_builder_form_question {
-        color:$text-color;
-        font-family:$sans;
-      }
       &.answer-field {
         color:$orange;
-        font-family:$open-600;
+        @include font-semibold;
       }
+      &:focus {background:$white;}
+    }
+    #tile_builder_form_question {
+      color:$text-color;
+      height:5em;
     }
     .answer_option {
       li {
@@ -138,15 +142,16 @@ body.client_admin-tiles-update {
     input, label {color:$orange;}
     p {
       color:lighten($text-color, 17%);
-      font-family:$open-600;
+      @include font-bold;
     }
     input {
-      font-family:$open-600;
+      @include font-bold;
       font-size:1.3em;
       margin-left:1em;
       text-align:center; 
       width:3.5em;
     }
+    label {@include font-bold;}
   }
 }
 
@@ -174,9 +179,8 @@ body.client_admin-tiles-update {
         }
       }
       .button_wrap {
-        @include square-button-wrap($blue);
         margin-left:1em;
-        input {@include square-button($blue);}
+        input {@include app-button($dark-green);}
       }
     }
   }

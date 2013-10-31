@@ -1,5 +1,5 @@
 @import 'main_styles.css.scss';
-
+$text-color:#222; 
 @font-face {
     font-family: 'OpenSansLight';
     src: url('OpenSans-Light-webfont.eot');
@@ -208,12 +208,6 @@ h2.subhead {
 select { 
   padding:.35em;
   &:focus {outline:1px $dark-green solid;}
-}
-#footer {
-  clear:both;
-  color:$light-gray;
-  font-size:.75em;
-  text-align:center;
 }
 
 

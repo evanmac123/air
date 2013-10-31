@@ -1,0 +1,115 @@
+// Digest email panel
+#digest, #digest_management {
+  h3 {
+    // font-family: $open-600; 
+    @include font-bold;
+    padding-bottom:1.25em;
+  }
+} 
+#digest_management {
+  @include font-light;
+  margin-bottom:2em;
+  &:after {@include clear;}
+
+  p#last-email {
+    color:$med-gray;
+    font-size:.875em;
+    margin-top:.35em;
+  }
+
+
+  form, #schedule_followups {
+    display: inline-block;
+    vertical-align: top;
+  }
+  form {
+    float:left;
+    padding:0 1em 0 0;
+    width:60%;
+  }
+
+  .notification_controls {
+    margin-bottom:1em;
+    width:100%;
+    .send_to, .follow_up {
+      margin-bottom:1.75em;
+      p {margin-bottom:.75em;}
+      select, label {font-size:1.142857143em;}
+    }
+    .follow_up {
+      p span {
+        color:$med-gray;
+        display:block;
+        font-size:.857142857em;
+        line-height: 1.25em;
+        max-width:27em;
+        padding-bottom:.5em;
+      }
+      label {margin-right:2em;}
+      select:disabled {color:$light-gray;}
+    }
+    input[type="checkbox"], label, select {display: inline-block;}
+  }
+  #scheduled_followups {
+    border-left:1px $light-gray solid;
+    float:right;
+    padding-left:1em;
+    width:40%;
+  }
+
+  .button_wrap {
+    input[type="submit"] {
+      @include app-button($blue);
+      font-size:1em;
+      padding:.35em .5em;
+    }
+  }
+  .update-digest-spinner {
+    display: none;
+    vertical-align: middle;
+  }
+}
+
+#scheduled_followups {
+  @include font-bold;
+  font-size:.875em;
+
+  #feedback {color: $orange; }
+
+  #cancel_follow_up div {
+    @include font-light;
+    font-size:1.166666667em;
+    padding:1em 0 .25em 0;
+    &:before {
+      background:$light-gray;
+      content: "";
+      display:inline-block;
+      margin:-.25em .5em 0 0;
+      height:.25em;
+      width:.25em;
+      vertical-align: middle;
+    }
+  }
+  #cancel_follow_up div + div {padding:.25em 0;}
+}
+
+#cancel_follow_up div, #digest_management .send_to, #digest_management .follow_up {
+  a {
+    border:1px $light-gray solid;
+    color:$med-gray;
+    display: inline-block;
+    font-size:.785714286em;
+    margin-left:.5em;
+    padding: .25em .5em;
+    &:hover {color:$blue;}
+  }
+}
+
+.no_tiles_message {
+  border-bottom:1px $light-gray solid;
+  @include font-light;
+  font-size:1.3em;
+  line-height:1.35em;
+  margin-bottom:2em;
+  padding:1em 15% 2em;
+}

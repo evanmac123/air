@@ -1,15 +1,10 @@
-.all_tile_thumbnails {
-  background: transparent;
-  margin:2em auto 1em auto;
-  padding:0 1em;
-  text-align: center;
-}
 .tile_thumbnail {
   display: inline-block;
   text-align:center;
   min-width: 143px;
   width:100%;
   max-width:238px;
+  position: relative;
   vertical-align: top;
   li {
     list-style-type: none;
@@ -24,11 +19,9 @@
   }
   .tile-wrapper{
     @include ease(.025s);
-    border-bottom:3px $light-gray solid;
     display: inline-block;
     position: relative;
     width:100%;
-    &:hover {border-color:$orange;}
     
     .tile_thumbnail_image, .headline {
       margin:0 auto;
@@ -42,6 +35,15 @@
       display: block;
       height:9em;
       position: relative;
+      overflow: hidden;
+      img {
+        position: absolute;
+        top:50%;
+        bottom:50%;
+        left:0;
+        right:0;
+        margin:auto;
+      }
     }
 
     .headline{
@@ -53,7 +55,7 @@
       &:after{@include clear;}
       .text{
         color: $blue;
-        font-family:$open-400;
+        @include font-semibold;
         font-size:1em;
       }
     }
@@ -68,8 +70,9 @@
     display: block;
     padding:.75em .5em 0.6em;
     &:before, &:after {
-      @include arrow-bottom(lighten($blue, 10%));
+      @include arrow-down(lighten($blue, 10%), 8px);
       margin:0 1em;
+      position: relative;
       vertical-align: middle;
     }
     #show_more_tiles_spinner {display: inline-block; vertical-align: top;}

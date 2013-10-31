@@ -9,10 +9,9 @@
 @import "./internal/intercom.css.scss";
 
 /* MIXIN DEFINITIONS NEXT (so we can use them later) */
-@import "./mixins/standard_colors.css.scss";
+@import "./mixins/main_styles.css.scss";
 
 /* CUSTOM STYLESHEETS LAST */
-// @import "./internal/site_tutorial.css.scss";
 @import "./internal/flash.css.scss";
 @import "./internal/screen.css.scss";
 @import "./internal/mast.css.scss";
@@ -37,7 +36,6 @@
   @import "./internal/screen_tablet.css.scss";
 }
 @media only screen and (min-width: $foundation) {
-  @import "./internal/appbar.css.scss";
 	@import "./internal/screen_desktop.css.scss";
 }
 @media only screen and (min-width: $mid-desktop) {

@@ -6,6 +6,18 @@
   padding:.5em 0;
   a, a:link, a:visited, .tile-wrapper .headline .text {@include font-semibold;}
 }
+.all_tile_thumbnails {
+  background: transparent;
+  margin:2em auto 1em auto;
+  padding:0 1em;
+  text-align: center;
+}
+.tile_thumbnail {
+  .tile-wrapper {
+    border-bottom:3px $light-gray solid;
+    &:hover {border-color:$orange;}
+  }
+}
 
 .tiles.tiles-index{
   background:darken($light-gray, 7%);

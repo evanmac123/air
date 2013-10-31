@@ -9,7 +9,7 @@ body.verifications #check_phone {
   #enter_code:after{@include clear;}
   #user_new_phone_validation, .button_wrap {display: inline-block;vertical-align: top;}
   #user_new_phone_validation {margin:0; width:81%;}
-  input[type="submit"] {@include square-button($dark-green); padding:.57em 1em;}
+  input[type="submit"] {@include app-button($dark-green); padding:.57em 1em;}
   form {margin-bottom:1em;}
   form#resend {float:left; a{color:$gray;&:hover{color:darken($gray,5%);}}}
   form#cancel {float:right;}
@@ -26,7 +26,7 @@ div.content {
     }
     h2 {
       color:$dark-gray;
-      font-family:$open-600;
+      @include font-bold;
       font-size:20px;
       padding-bottom:15px;
       text-transform:uppercase;

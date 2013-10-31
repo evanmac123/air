@@ -165,7 +165,7 @@ div#search_for_referrer {
 /*      ############# Stolen from another stylesheet ######################### */
 div.helper {
   &:before {
-    @include arrow-right($dark-gray);
+    @include arrow-right($dark-gray, 8px);
     position:absolute;
     right:-8px;
     top:1em;
