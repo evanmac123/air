@@ -49,9 +49,6 @@
       <% end %>
     <% end%>
   <% end %>
-  <% unless Rails.env.test? %>
-    <%= render 'shared/tooltips' %>
-  <% end %>
   <%= render :partial => 'shared/javascript' %><!-- This is where 'yield :javascript' takes place -->
   <%= render 'shared/intercom' %><!--must come after shared/javascript-->
   
