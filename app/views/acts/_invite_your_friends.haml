@@ -1,18 +1,5 @@
 - content_for(:javascript) do 
   :javascript
-
-    $("#autocomplete").live('focus', function () {
-      setTimeout("$('.helper.autocomplete').fadeIn()", 200);
-    });
-    
-    $("#autocomplete").live('click', function () {
-      setTimeout("$('.helper.autocomplete').fadeIn()", 500);
-    });
-    
-    $("#autocomplete").live('blur', function() {
-      $(".helper.autocomplete").fadeOut();
-    })
-
     $('#show_me_the_site').live('click', function(e){
       e.preventDefault();
       $.facebox.close();
@@ -32,14 +19,8 @@
 
       %ul.form-section
         %li.form-label= label_tag :autocomplete,  "Who do you want to invite?"
-        %li.form-input
-          = text_field_tag :autocomplete, nil, :autocomplete => "off"
-          .relative
-            .helper.autocomplete  
-              Type part of your coworker's name, and we'll look them up.          
+        %li.form-input= text_field_tag :autocomplete, nil, :autocomplete => "off", placeholder: 'Type name'
 
-
-  
       #autocomplete_status{:style => "width: 99%"}
       -# leave this inline. yes, I know it's bad and wrong. but do it.
       -# it helps fix the scroll problems in ios7 and doesn't seem to work
