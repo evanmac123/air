@@ -75,8 +75,8 @@ class Demo < ActiveRecord::Base
     tiles.draft
   end
 
-  def digest_tiles
-    tiles.digest(self)
+  def digest_tiles(cutoff_time = nil)
+    tiles.digest(self, cutoff_time)
   end
 
   # Note that 'unclaimed_users_also_get_digest' is a param passed to this method, not the demo's attribute of the same name

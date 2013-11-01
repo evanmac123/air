@@ -25,16 +25,16 @@ describe 'Follow-up email scheduled by delayed job' do
     #-----------------------------------------------------
     # 0 follow-up days signals that no follow-up email should be scheduled
 
-    TilesDigestMailer.notify_all(demo_1, true, 0)
+    TilesDigestMailer.notify_all(demo_1, true, 0, Time.now)
     FollowUpDigestEmail.count.should == 0
 
-    TilesDigestMailer.notify_all(demo_2, false, 0)
+    TilesDigestMailer.notify_all(demo_2, false, 0, Time.now)
     FollowUpDigestEmail.count.should == 0
 
     #-----------------------------------------------------
     # Test positive follow-up days for both cases of claimed vs. all users getting follow-ups
 
-    TilesDigestMailer.notify_all(demo_1, true, 1)
+    TilesDigestMailer.notify_all(demo_1, true, 1, Time.now)
     FollowUpDigestEmail.count.should == 1
 
     followup = FollowUpDigestEmail.first
@@ -43,7 +43,7 @@ describe 'Follow-up email scheduled by delayed job' do
     followup.send_on.should == Date.today + 1.day
     followup.unclaimed_users_also_get_digest.should be_true
 
-    TilesDigestMailer.notify_all(demo_2, false, 4)
+    TilesDigestMailer.notify_all(demo_2, false, 4, Time.now)
     FollowUpDigestEmail.count.should == 2
 
     followup = FollowUpDigestEmail.last
