@@ -20,26 +20,31 @@
 // ------------------------ * Typography * ------------------------
 @mixin font-thin {
   font-family: $default;
+  font-style:normal;
   font-weight:lighter;
   font-weight: 100;
 }
 @mixin font-light {
   font-family: $default;
+  font-style:normal;
   font-weight:lighter;
   font-weight: 300;
 }
 @mixin font-regular {
   font-family: $default;
+  font-style:normal;
   font-weight:normal;
   font-weight: 400;
 }
 @mixin font-semibold {
   font-family: $default;
+  font-style:normal;
   font-weight:bold;
   font-weight: 500;
 }
 @mixin font-bold {
   font-family: $default;
+  font-style:normal;
   font-weight:bolder;
   font-weight: 700;
 }
@@ -49,6 +54,14 @@
   line-height: 1em;
   text-transform: uppercase;
 }
+@mixin hide-text {
+  color:transparent;
+  font-size:1em;
+  font-size:0;
+  overflow:hidden;
+  text-indent:100%;
+  white-space:nowrap;
+}
 
 $default:   'Helvetica Neue', Helvetica, Arial, sans-serif;
 $small_cap_size: .625rem; // 10px
@@ -57,9 +70,9 @@ $small_cap_size: .625rem; // 10px
 body {
   @include font-regular;
   font-size:100%;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+  font-style:normal;
 }
+* {-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;}
 h1 {
   @include font-light;
   font-size:2em;
@@ -138,7 +151,9 @@ a, a:link, a:visited {@include link($blue);}
   color:$white;
   display: inline-block;
   @include font-bold;
-  font-size:1em, 1rem;
+  font-size:1em;
+  font-size:1rem;
+  line-height: 1em;
   padding:.35em .75em;
   text-align: center;
   &:hover {@include ease(0); background:darken($color, 5%);}
@@ -151,10 +166,10 @@ a, a:link, a:visited {@include link($blue);}
   color:$outlineColor;
   display: inline-block;
   @include font-bold;
-  font-size:.875em;
-  font-size:.875rem;
-
-  padding:.35em .75em;
+  font-size:.75em;
+  font-size:.75rem;
+  line-height: 1em;
+  padding:.6em .75em .5em;
   text-align: center;
   text-transform: uppercase;
   &:hover {
@@ -175,7 +190,6 @@ a, a:link, a:visited {@include link($blue);}
   border-bottom: #{$size} solid #{$color};
   content:"";
   display:inline-block;
-  position: absolute;
 }
 @mixin arrow-down($color, $size) {
   border-right: #{$size} solid transparent;
@@ -183,7 +197,6 @@ a, a:link, a:visited {@include link($blue);}
   border-top: #{$size} solid #{$color};
   content:"";
   display:inline-block;
-  position: absolute;
 }
 @mixin arrow-left($color, $size) {
   border-bottom: #{$size} solid transparent;
@@ -191,7 +204,6 @@ a, a:link, a:visited {@include link($blue);}
   border-top: #{$size} solid transparent;
   content:"";
   display:inline-block;
-  position: absolute;
 }
 @mixin arrow-right($color, $size) {
   border-bottom: #{$size} solid transparent;
@@ -199,7 +211,6 @@ a, a:link, a:visited {@include link($blue);}
   border-top: #{$size} solid transparent;
   content:"";
   display:inline-block;
-  position: absolute;
 } 
 
 // ------------------------ * Progress bar * ------------------------
@@ -243,12 +254,18 @@ body {
   .row {max-width:$large-desktop;}
 }
 img {border:0; margin:0; padding:0;}
+
 ol, ul {list-style-position:outside; list-style-type:none; margin:0; padding:0;}
+
 input[type="text"], input[type="password"],
 textarea, select {border:$border-dark;}
-input[type="text"], input[type="password"],textarea {
+
+input[type="text"], input[type="password"],textarea,
+input[type="file"], input[type="checkbox"], input[type="radio"], select {
+  @include font-regular;
   box-shadow:none;
-  color:$gray;
+  color:$text-color;
+  margin:0;
   padding:.5em;
   transition:none;
   &:hover{border-color:$blue;}

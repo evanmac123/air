@@ -1,3 +1,15 @@
 body.client_admin-tiles-show {
-  
+  .back_all_tiles, h5 {
+    display: inline-block;
+  }
+  .back_all_tiles {
+    @include light-button($white, $blue);
+    font-size:.875em;
+    margin-bottom:1em;
+  }
+  h5 {
+    color:$med-gray;
+    float:right;
+    padding:.75em 1em;
+  }
 }

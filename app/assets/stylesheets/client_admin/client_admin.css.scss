@@ -1,7 +1,15 @@
 body {
-  font-size:16px;
   min-width:$mid-desktop;
 }
+header .admin_options #manage_board:before {background:$dark-green;}
+
+// until Tile Wall admin toggle works, 
+// using :hover to make link NOT look like a toggle
+header .admin_options #manage_board:hover:before {background:$dark-green;}
+
 .content {
-    padding:2em 0;
+  padding:2em 0;
+  h1 {margin-bottom:1em;}
 }
+
+.form_title {margin-bottom:1em;}

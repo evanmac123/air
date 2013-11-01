@@ -109,14 +109,6 @@ $headlines:         #202020;
 }
 
 /* ============= Mixins for Buttonz ============= */
-@mixin hide-text {
-    color:transparent;
-    font-size:1em;
-    font-size:0;
-    overflow:hidden;
-    text-indent:100%;
-    white-space:nowrap;
-}
 @mixin square-button-wrap($bg) {
     background:#{$bg};
     display:inline-block;
@@ -215,6 +207,10 @@ select {
 body {
   border-top:7px $dark-green solid;
   font-family:$sans;
+  * {
+    font-smooth: auto;
+    -webkit-font-smoothing : auto;
+  }
 }
 .colorbar {
   display: inline-block;

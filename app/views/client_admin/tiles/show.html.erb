@@ -1,10 +1,14 @@
-<h1 class="page-title" id="title">Finished tile</h1>
-
 <%= render "shared/flashes" %>
 
-<ul class="tile_preview_options">
-</ul>
+<div class="row">
+  <div class="large-8 large-centered columns">
+    <%= link_to 'Back to Manage Tiles', client_admin_tiles_path, :class => "back_all_tiles" %>
+    <h5>Tile preview</h5>
+    <ul class="tile_preview_options">
+    </ul>
 
-<%= render "tiles/full_size_tile", tile: @tile, answer_links_disabled: true %>
+    <%= render "tiles/full_size_tile", tile: @tile, answer_links_disabled: true %>
 
-<%= render 'client_admin/tiles/poll_for_image_if_needed', tile: @tile %>
+    <%= render 'client_admin/tiles/poll_for_image_if_needed', tile: @tile %>
+  </div>
+</div>

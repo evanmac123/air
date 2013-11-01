@@ -1,41 +1,49 @@
 <%= render "shared/flashes" %>
 
-<a href="/client_admin/users" id="back-to-index">Back to Manage users home</a>
-<h1 class="page-title" id="title">Manage users</h1>
+<div class="row">
+  <div class="large-12 columns">
+    <a href="/client_admin/users" id="back-to-index">Back to Manage users home</a>
+    <h1>Manage users</h1>
+  </div>
+</div>
 
-<h1 class="headline">Showing results for <span><%= @result_description %></span>:</h1>
+<div class="row">
+  <div class="large-12 columns">
+    <p>Showing results for <span><%= @result_description %></span>:</p>
 
-<table id="search-results-table">
-  <tr id="search-labels">
-    <th class="results-name">Name</td>
-    <th class="results-email">Email</td>
-    <th class="results-location">Location</td>
-    <th class="results-joined">Joined?</td>
-    <th class="results-send-invite">Invite</td>
-  </tr>
-  <% @users.each do |user| %>
-    <tr class="found-user">
-      <td class="results-name"><%= link_to user.name, edit_client_admin_user_path(user), class: 'edit-user' %></td>
-      <td class="results-email"><%= user.email %></td>
-      <td class="results-location"><%= user.location.try(:name) %></td>
-      <td class="results-joined">
-        <% if user.claimed? %>
-          <span class="joined">Yes</span>
-        <% else %>
-          <span class="not-joined">No</span>
-        <% end %>
-      </td>
-      <td class="results-send-invite">
-        <% if user.invitable? %>
-          <%= link_to "Send", client_admin_user_invitation_path(user), method: :post, class: 'send-invite' %>
-        <% end %>
-      </td>
-    </tr>
-  <% end %>
-</table>
-<% if @show_previous_link %>
-  <%= link_to "Previous page", @previous_page_url, id: "previous-page-link" %>
-<% end %>
-<% if @show_next_link %>
-  <%= link_to "Next page", @next_page_url, id: "next-page-link" %>
-<% end %>
+    <table id="search-results-table">
+      <tr id="search-labels">
+        <th class="results-name">Name</th>
+        <th class="results-email">Email</th>
+        <th class="results-location">Location</th>
+        <th class="results-joined">Joined?</th>
+        <th class="results-send-invite">Invite</th>
+      </tr>
+      <% @users.each do |user| %>
+        <tr class="found-user">
+          <td class="results-name"><%= link_to user.name, edit_client_admin_user_path(user), class: 'edit-user' %></td>
+          <td class="results-email"><%= user.email %></td>
+          <td class="results-location"><%= user.location.try(:name) %></td>
+          <td class="results-joined">
+            <% if user.claimed? %>
+              <span class="joined">Yes</span>
+            <% else %>
+              <span class="not-joined">No</span>
+            <% end %>
+          </td>
+          <td class="results-send-invite">
+            <% if user.invitable? %>
+              <%= link_to "Send", client_admin_user_invitation_path(user), method: :post, class: 'send-invite' %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </table>
+    <% if @show_previous_link %>
+      <%= link_to "Previous page", @previous_page_url, id: "previous-page-link" %>
+    <% end %>
+    <% if @show_next_link %>
+      <%= link_to "Next page", @next_page_url, id: "next-page-link" %>
+    <% end %>
+  </div>
+</div>

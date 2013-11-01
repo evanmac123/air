@@ -1,6 +1,13 @@
 <%= render "shared/flashes" %>
 
-<a href="/client_admin/users" id="back-to-index">Back to Manage users home</a>
-<h1 class="page-title" id="title">Manage users</h1>
-
-<%= render "edit_form", user: @user, visible_characteristics: @visible_characteristics %>
+<div class="row">
+  <div class="large-12 columns">
+    <a href="/client_admin/users" id="back-to-index">Back to Manage users home</a>
+    <h1>Manage users</h1>
+  </div>
+</div>
+<div class="row">
+  <div class="large-12">
+    <%= render "edit_form", user: @user, visible_characteristics: @visible_characteristics %>
+  </div>
+</div>

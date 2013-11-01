@@ -1,11 +1,12 @@
-@import 'tile_manage_controls';
+@import 'tiles_tools_subnav';
 @import './internal/tiles_thumbnails';
 @import './internal/tiles_thumbnails_desktop';
+@import 'tiles_thumbnails_controls';
 @import 'tile_builder';
 // @import 'tiles_share_controls';
 // @import 'tile_reports';
 @import './internal/tiles_fullsize';
-// @import 'tile_preview';
+@import 'tile_preview';
 
 
 body.client_admin-tiles-index {
@@ -13,10 +14,7 @@ body.client_admin-tiles-index {
   .content {padding:0;}
   .manage_tiles {
     padding:2em 0 0;
-    h1 {
-      color:$white;
-      margin-bottom:1em;
-    }
+    h1 {color:$white;}
     td {
       border:0; 
       padding:0 0 2em 0;
@@ -26,43 +24,11 @@ body.client_admin-tiles-index {
   }
   #archived_tiles {
     background:$blue;
+    .create_new_tile {
+      float:right;
+      @include app-button($dark-green);
+    }
     h1 {display: inline-block;}
   }
   #active_tiles {background:darken($light-gray, 7%);}
-}
-
-
-// Nav between tile-related pages
-#tile_manager_nav {padding-bottom:2em;}
-#tile_manager_nav ul {
-  background:image-url('v5/bg_dark.png');
-  border-radius:$border-radius;
-  display: inline-block;
-  overflow: hidden;
-  &:after{@include clear;}
-  li, li a {display: inline-block;}
-  li {
-    float:left;
-    a {
-      border-right:1px $blue solid;
-      color:$blue;
-      min-width:10em;
-      padding:.4em 2em;
-      text-align: center;
-      &:hover {
-        @include ease(0);
-        background:$dark-gray;
-        color:$white;
-      }
-    }
-    &#managing_tiles a {color:$white;}
-    &.create_new_tile {
-      float:right;
-      a {
-        @include app-button($dark-green);
-        border-top-left-radius: 0;
-        border-bottom-left-radius: 0;
-      }
-    }
-  }
 }

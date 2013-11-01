@@ -3,23 +3,21 @@ body.client_admin-payments {
     font-size:1em;
   }
   .outstanding_balance, .billed_date {
-    span {font-family:$open-600;}
+    span {@include font-bold;}
   }
   .outstanding_balance {
-    padding:1em 0;
     span {font-size:1.428571429em;}
   }
   button.stripe-button-el {
-    @include pop-button($blue);
-    border-radius:0;
-    box-shadow:none;
+    @include app-button($dark-green);
+    box-shadow: none;
     margin:1em 0 3em 0;
+    padding:0;
     span {
       background: transparent;
-      border:0;
       box-shadow:none;
       color:$white;
-      font-family:$open-600;
+      @include font-bold;
       font-size:14px;
       text-shadow:none;
       &:active {

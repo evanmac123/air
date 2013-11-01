@@ -1,0 +1,41 @@
+// Nav between tile-related pages
+#tile_manager_nav {padding-bottom:2em;}
+#tile_manager_nav ul {
+  background:image-url('v5/bg_dark.png');
+  border-radius:$border-radius;
+  display: inline-block;
+  overflow: hidden;
+  &:after{@include clear;}
+  li, li a {display: inline-block;}
+  li {
+    float:left;
+    a {
+      border-right:1px $blue solid;
+      color:$blue;
+      min-width:10em;
+      padding:.65em 2em .75em;
+      position: relative;
+      text-align: center;
+      &:hover {
+        @include ease(0);
+        background:$dark-gray;
+        color:$white!important;
+      }
+      &:active {background:darken($blue, 15%);}
+    }
+  }
+}
+
+// Current page states
+body.client_admin-tiles-index #tile_manager_nav ul li#managing_tiles a,
+body.client_admins-show #tile_manager_nav ul li#board_activity a {
+  background:$dark-gray;
+  color:$white;
+  &:after {
+    @include arrow-up($blue, .75em);
+    margin-left:-.65em;
+    position: absolute;
+    left:50%;
+    bottom:-3px;
+  }
+} 

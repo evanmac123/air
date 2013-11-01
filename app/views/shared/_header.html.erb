@@ -22,10 +22,9 @@
       <div class="admin_options">
         <% if current_user.authorized_to?(:client_admin) %>
           <p class="small_cap">Board tools</p>
-          <%= link_to 'Manage tiles', client_admin_tiles_path, id: 'manage_board' %>
-          <a id="admin_toggle">&#9662;</a>
-          <ul class="client_admin_pages">
-            <li><a href="/client_admin/tiles/new" class="create_new_tile">Add new tile</a></li>
+          <%= link_to 'Manage', client_admin_tiles_path, id: 'manage_board' %>
+          <a id="admin_toggle" class="admin_menu">&#9662;</a>
+          <ul class="client_admin_pages admin_menu">
             <li><a href="/client_admin/segmentation">Model</a></li>
             <li><a href="/client_admin/users">Users</a></li>
             <li><%= link_to "Payments", new_client_admin_payment_path %></li>

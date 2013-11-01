@@ -34,19 +34,28 @@
       a {@include light-button($white, $light-gray);}
       &.archive_button a {@include app-button($blue);}
       &.activate_button a {@include app-button($dark-green);}
+      &.archive_button a, &.activate_button a {
+        font-size:.875rem;
+      }
     }
   }
 
   // Also hide activation dates indigest so as not to confuse admins
-  #digest .activation_dates {display: none;}
+  #digest .activation_dates {
+    display: none;
+  }
 
   // Tile stats
   .tile_stats {
     @include caption;
-    background: image-url('v5/bg_light.png');
-    color:$text-color;
+    // background: image-url('v5/bg_light.png');
+    background:#E6E6E6;
+    color:$dark-gray;
+    font-size:.75em;
+    line-height:1.35em;
     margin-top:1px;
     padding:1em;
     text-align: left;
+    text-transform: none;
   }
 }

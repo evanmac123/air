@@ -9,10 +9,10 @@
 <script>
 
 // ====== TOP BAR DESKTOP MENU CONTROLS (plz abstract me) ======
-var user_toggler = $('#me_toggle');
-var admin_toggler = $('#admin_toggle');
-var desktop_user_menu = $('.user_options ul');
-var desktop_admin_menu = $('.client_admin_pages');
+var user_toggler = $('#me_toggle'), 
+    admin_toggler = $('#admin_toggle'),
+    desktop_user_menu = $('.user_options ul'),
+    desktop_admin_menu = $('.client_admin_pages');
 
 function hideUserMenu() {
   user_toggler.find('.shadow_overlay').hide();
@@ -35,36 +35,28 @@ function showAdminMenu() {
 }
 
 function optionsToggle() {
-  $('html').click(function() {
-    if(desktop_user_menu.is(':visible') || desktop_admin_menu.is(':visible')) {
-      hideUserMenu();
-      hideAdminMenu();
-    } else {}
-  });
-  user_toggler.click(function() {
-    if(desktop_admin_menu.is(':visible')) {
-      hideAdminMenu();
-    } 
-    if(desktop_user_menu.is(':visible')) {
-      hideUserMenu();
-    } else {
-      showUserMenu();
-      return false;
-    }
-  });
-  admin_toggler.click(function() {
-    if(desktop_user_menu.is(':visible')) {
-      hideUserMenu();
-    }
-    if(desktop_admin_menu.is(':visible')) {
-      hideAdminMenu();
-    } else {
+  admin_toggler.mouseenter(function() {
+    if(admin_toggler.is(':hover') || desktop_admin_menu.is(':hidden')) {
       showAdminMenu();
-      return false;
     }
+  }).mouseleave(function(){
+    if(desktop_admin_menu.is(':visible')) {
+      return false;
+    } else {
+      hideAdminMenu();
+    }
+  });
+
+
+  $('.user_options ul, .client_admin_pages').mouseleave(function() {
+    hideUserMenu();
+    hideAdminMenu();
+  });
+  $('.user_options ul, .client_admin_pages').find('a').click(function() {
+    hideUserMenu();
+    hideAdminMenu();
   });
 }
-
 
 
 // ========= jRespond and jPanelMenu ==========

@@ -1,19 +1,29 @@
-<h1 class="page-title" id="title">Manage users</h1>
-
 <%= render "shared/flashes" %>
 
-<div id="add-single-user" class="section">
-  <h1 class="headline">Add user</h1>
-  <%= render 'add_form', user: @user, visible_characteristics: @visible_characteristics %>
+<div class="row">
+  <div class="large-12 columns">
+    <h1 class="page-title" id="title">Manage users</h1>
+  </div>
 </div>
 
-<div id="find-users" class="section">
-  <h1 class="headline">Find user</h1>
-  <div id="name-search">
-    <%= text_field_tag 'name-substring', nil, placeholder: "First or last name" %>
-    <div id="name-autocomplete-target"></div>
+<div class="row">
+  <div class="large-8 columns">
+    <div id="add-single-user" class="section">
+      <h2 class="form_title">Add user</h2>
+      <%= render 'add_form', user: @user, visible_characteristics: @visible_characteristics %>
+    </div>
   </div>
-  <%= link_to "Show everyone", client_admin_users_path(show_everyone: true), id: "show-everyone" %>
+  <div class="large-4 columns">
+    <div id="find-users" class="section">
+      <h2 class="form_title">Find user</h2>
+      <div id="name-search">
+        <%= text_field_tag 'name-substring', nil, placeholder: "Enter first or last name" %>
+        <div id="name-autocomplete-target"></div>
+      </div>
+      <span>or</span>
+      <%= link_to "Show everyone", client_admin_users_path(show_everyone: true), id: "show-everyone" %>
+    </div>
+  </div>
 </div>
 
 <% content_for :javascript do %>

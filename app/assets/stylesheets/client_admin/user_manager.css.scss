@@ -2,122 +2,123 @@
 
 // ================== For all Manage Users pages ==================
 body.client_admin-users {
-    .page-title {border-bottom:$border-light;}
-    .headline {border-top:$border-dark;}
-}
-body.client_admin-users {
-    form.user-profile {
-        .field_with_errors {
-          display: inline-block;
-        }
+  form.user-profile {
+    .field_with_errors {
+      input {border:1px $red solid;}
+    }
 
-        &:after{@include clear;}
-        .info-cols {
-            display:inline-block;
-            float:left;
-            padding-right:.5em;
-            width:50%;
+    &:after{@include clear;}
+    .info-cols {
+      display:inline-block;
+      float:left;
+      padding-right:.5em;
+      width:50%;
+    }
+    .info-cols li {
+      padding-bottom:.75em;
+      #birthday-selects {
+        display:inline-block;
+        margin:0;
+      }
+      select#user_location_id {display:inline-block; max-width:61.5%;}
+    }
+    label {
+      @include caption;
+      color:$gray;
+      display:block; 
+      margin-bottom:.5em;
+    }
+    input[type="text"] {
+      width:90%;
+    }
+    select {width:auto;}
+    #user-characteristics ul {
+      &:after{@include clear;}
+      li {
+        display:inline-block;
+        float:left;
+        margin:0 1.25em 0 0;
+        min-height:100px;
+        padding:1em 0 1em 0;
+        width:31%;
+        input, select {max-width:90%;}
+        label {
+          display:block; 
+          // font-size:1em;
+          padding-bottom:.5em; 
+          width:100%; 
+          word-wrap:break-word;
         }
-        .info-cols li {
-            padding-bottom:.75em;
-            #birthday-selects {
-                display:inline-block;
-                margin:0;
-            }
-            select#user_location_id {display:inline-block; max-width:61.5%;}
-        }
-        label {display:inline-block; width:7em;}
-        input[type="text"] {color:$dark-green; width:65%;}
-        select {width:auto;}
-        #user-characteristics ul {
-            &:after{@include clear;}
-            li {
-                display:inline-block;
-                float:left;
-                margin:0 1.25em 0 0;
-                min-height:100px;
-                padding:1em 0 1em 0;
-                width:31%;
-                input, select {max-width:90%;}
-                label {
-                    display:block; 
-                    font-size:1em;
-                    font-family:$open-400;
-                    padding-bottom:.5em; 
-                    width:100%; 
-                    word-wrap:break-word;
-                }
-            }
-        }
-        #adding_location {
-            display:inline-block;
-            position: relative;
-            top:4px;
-            img {display:none;}
-        }
-        #confirm-add-user {
-          padding-top: 1em;
+      }
+    }
+    #adding_location {
+      display:inline-block;
+      position: relative;
+      top:4px;
+      img {display:none;}
+    }
 
-            &:after{@include clear;}
-            li {display: inline-block; vertical-align: middle; float: right;}
-            #delete-user {
-                @include link($gray); 
-                display:inline-block; 
-                float:right;
-                margin-top:.5em;
-            }
-            li#toggle-more-options {
-                a {@include link($blue);}
-                margin-top:.45em;
-            }
-            li#add-user-button {
-              margin-left: 0.9em;
-              input {height:28px;}
-            }
-        }
-        .required_label {
-            color:$red;
-            font-size:.85em;
-        }
-        p.required_label {margin-bottom:1em;}
+    // Add new user buttons
+    #confirm-add-user {
+      padding-top: 1em;
+      * {vertical-align: top;}
+      &:after{@include clear;}
+
+      li {display: inline-block; vertical-align: middle;}
+      #delete-user {
+        @include app-button($red);
+        display:inline-block; 
+      }
+      li#toggle-more-options a {
+        @include app-button($gray);
+        margin-right: 0.5em;
+      }
+      li#add-user-button input[type='submit'] {
+        @include app-button($dark-green);
+      }
     }
-    a.clear-form, a#back-to-index {
-        @include link($med-gray);
-        font-weight:normal;
-        margin-left:.75em;
+    .required_label {
+      color:$red;
+      font-size:.85em;
     }
-    a#back-to-index {
-        float:right;
-        margin-top:1.5em;
-    }
-    .section {border-top:$border-light;}
+    p.required_label {margin-bottom:1em;}
+  }
+  a.clear-form, a#back-to-index {
+    @include light-button($med-gray, $blue);
+    margin-left:.75em;
+  }
+  a#back-to-index {float:right;}
 }
 
 #find-users {
-    display:inline-block;
-    margin-top:2em;
-    vertical-align: top;
-    h2.subhead {padding-bottom:.5em;}
-    #name-search, #show-everyone {display: inline-block;}
-    #name-search {margin-right:1em;}
-    #show-everyone {@include link($blue);}
+  display:inline-block;
+  vertical-align: top;
+  h2.subhead {padding-bottom:.5em;}
+  #name-search {margin-bottom:1em;}
+  span {
+    @include caption;
+    margin-right:1em;
+  }
+  #show-everyone {
+    @include light-button($med-gray, $blue);
+    display: inline-block;
+  }
 }
 
 #add-single-user {
-    border-top:0;
-    &:before {@include clear;}
-    
-    form.user-profile#single-form {
-        background:$white;
-        border:$border-dark;
-        padding:1em;
-        #loaded-user-data {
-            h1.headline {display:none;}
-        }
+  &:before {@include clear;}
+  
+  form.user-profile#single-form {
+    background:$white;
+    border:$border-dark;
+    padding:1em;
+    #loaded-user-data {
+      h1.headline {display:none;}
     }
-    #user-data-entry {margin-bottom:1em;&:after{@include clear;}}
-    .extra-user-info {display:none;}
-    #user-characteristics {margin-bottom:1em;}
+  }
+  #user-data-entry {margin-bottom:1em;&:after{@include clear;}}
+  .extra-user-info {display:none;}
+  #user-characteristics {margin-bottom:1em;}
 }
 
 #new_location_lightbox {
@@ -128,111 +129,112 @@ body.client_admin-users {
 // ================== Search results ==================
 body.client_admin-users-show .headline span {font-style:italic;}
 #search-results-table {
-    border:$border-dark;
-    table-layout: fixed;
-    width:100%;
-    td {border:0; vertical-align: top; word-wrap:break-word;}
-        .results-name {width:230px;}
-        .results-email {width:230px;}
-        .results-joined, .results-send-invite{
-            text-align:center;
-            width:50px;
-        }
-        .results-joined .joined, .results-joined .not-joined, .results-send-invite a {
-            @include hide-text;
-            background:image-url('client_admin/sprites.png') no-repeat transparent;
-            display:inline-block;
-            vertical-align: middle;
-        }
-        .results-joined .joined {
-            background-position: -58px -55px;
-            height:17px;
-            width:18px;
-        }
-        .results-joined .not-joined {
-            background-position: -77px -56px;
-            height:16px;
-            width:13px;
-        }
-        .results-send-invite a {
-            @include ease(0);
-            height:19px;
-            width:22px;
-            &.send-invite {
-                background-position: -30px -94px;
-                &:hover{background-position: -55px -94px;}
-            }
-            &.resend-invite {
-                background-position: -30px -75px;
-                &:hover{background-position:-56px -75px;}
-            }
-        }
-    #search-labels th {
-        border-bottom:$border-dark;
-        font-family:$open-600;
-        font-size:.85em;
-        padding:.5em;
+  margin-top:1em;
+  table-layout: fixed;
+  width:100%;
+  td {border:0; vertical-align: top; word-wrap:break-word;}
+    .results-name, .results-email {width:33%;}
+    .results-joined, .results-send-invite{
+      text-align:center;
+      width:6%;
     }
-    .found-user {
-        background:$white;
-        border-bottom:$border-dark;
-        &:nth-of-type(odd) {background:lighten($light-gray, 10%);}
-        a.edit-user {@include link($blue);}
-        td {padding:1em .5em;}
+    .results-joined .joined, .results-joined .not-joined, .results-send-invite a {
+      @include hide-text;
+      background:image-url('client_admin/sprites.png') no-repeat transparent;
+      display:inline-block;
+      vertical-align: middle;
     }
+    .results-joined .joined {
+      background-position: -58px -55px;
+      height:17px;
+      width:18px;
+    }
+    .results-joined .not-joined {
+      background-position: -77px -56px;
+      height:16px;
+      width:13px;
+    }
+    .results-send-invite a {
+      @include ease(0);
+      height:19px;
+      width:22px;
+      &.send-invite {
+        background-position: -30px -94px;
+        &:hover{background-position: -55px -94px;}
+      }
+      &.resend-invite {
+        background-position: -30px -75px;
+        &:hover{background-position:-56px -75px;}
+      }
+    }
+  #search-labels th {
+    border-bottom:$border-dark;
+    @include caption;
+    color:$med-gray;
+    padding:.5em;
+  }
+  .found-user {
+    background:$white;
+    border-bottom:$border-dark;
+    td {padding:1em .5em;}
+  }
 }
 
 
 // ================== User profile ==================
 body.client_admin-users-edit, body.client_admin-users-update {
-    .section {margin-bottom:2em;}
-    #toggle-more-options {display:none!important;}
-    form#single-form {border-top:$border-dark; padding-top:2em;}
-    form#single-form #loaded-user-data {border-top:0;}
+  .section {margin-bottom:2em;}
+  #toggle-more-options {display:none!important;}
 }
 
 #loaded-user-data:after{@include clear;}
+
 #about-this-account {
-    ul:after{@include clear;}
-    li {
-        display:inline-block;
-        float:left;
-        vertical-align:top;
-        width:33%;
-        &#claimcode span {display:block; font-family:$open-600;}
+  ul:after{@include clear;}
+  h2 {margin-bottom:1em;}
+  li {
+    margin-bottom:2em;
+    vertical-align:top;
+    &#claimcode span {
+      display:block; 
+      @include font-bold;
     }
-    .join-status {
-        display:block; font-size:1.125em; font-family:$open-600; line-height:1em;
-        &:before {
-            background:image-url('client_admin/sprites.png') no-repeat transparent;
-            content:"";
-            display: inline-block;
-            margin-right:.65em;
-            vertical-align: top;
-        }
-        &.joined {
-            color:$dark-green;
-            &:before {
-                background-position: -58px -55px;
-                height:17px;
-                width:18px;
-            }
-        }
-        &.not-joined {
-            color:darken($gray, 30%);
-            &:before {
-                background-position: -77px -56px;
-                height:16px;
-                width:13px;
-            }
-        }
+  }
+  .join-status {
+    display:block; 
+    font-size:1.125em; 
+    @include font-bold; 
+    line-height:1em;
+    &:before {
+      background:image-url('client_admin/sprites.png') no-repeat transparent;
+      content:"";
+      display: inline-block;
+      margin-right:.65em;
+      vertical-align: top;
     }
-    #user-join-status a, #user-join-status a:link {
-        @include link($blue);
-        display: inline-block;
-        font-size:.85em;
-        margin:.75em 0 0 0;
+    &.joined {
+      color:$dark-green;
+      &:before {
+        background-position: -58px -55px;
+        height:17px;
+        width:18px;
+      }
     }
+    &.not-joined {
+      color:darken($gray, 30%);
+      &:before {
+        background-position: -77px -56px;
+        height:16px;
+        width:13px;
+      }
+    }
+  }
+  #user-join-status a, #user-join-status a:link {
+    @include app-button($blue);
+    display: inline-block;
+    font-size:.85em;
+    margin:.75em 0 0 0;
+  }
 }
 
 #name-autocomplete-target {

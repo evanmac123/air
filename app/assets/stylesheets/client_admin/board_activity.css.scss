@@ -1,0 +1,35 @@
+@import 'charts';
+
+body.client_admins-show {
+  background: $blue;
+  h1 {color:$white;}
+}
+.stats {
+  &:after{
+    clear: both;
+    content:"";
+    display: block;
+  }
+}
+.stat-group {
+  margin-bottom:2em;
+  .numbers h2 {
+    background:lighten($blue, 15%);
+    color:$white;
+    display:block;
+    font-size:2.5em;
+    margin:0 auto;
+    padding:.5em;
+    overflow-wrap:break-word;
+    text-align: center;
+    vertical-align: middle;
+    word-wrap:break-word;
+  }
+  .labels {
+    @include font-bold;
+    font-size:.85em;
+    color:lighten($text-color, 50%);
+    padding:0 0 .25em 0;
+  }
+  .labels + .labels {padding:.25em 0;}
+}
