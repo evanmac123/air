@@ -11,9 +11,12 @@
 
 body.client_admin-tiles-index {
   // Tile management sections
-  .content {padding:0;}
+  .content {
+    background:$blue;
+    // padding:0;
+  }
   .manage_tiles {
-    padding:2em 0 0;
+    // padding:2em 0 0;
     h1 {color:$white;}
     td {
       border:0; 

@@ -1,11 +1,10 @@
 #flash {
-  margin-bottom:2em;
   .row {
-    padding:1.5em 1em;
+    padding:1em;
     position: relative;
   }
   .flash-content {
-    padding-left:0;
+    // padding-left:0;
     padding-right:2em;
     line-height: 1.5em;
     a {border-bottom:1px $white dashed;}

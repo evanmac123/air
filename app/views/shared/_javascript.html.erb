@@ -35,26 +35,33 @@ function showAdminMenu() {
 }
 
 function optionsToggle() {
-  admin_toggler.mouseenter(function() {
-    if(admin_toggler.is(':hover') || desktop_admin_menu.is(':hidden')) {
-      showAdminMenu();
-    }
-  }).mouseleave(function(){
-    if(desktop_admin_menu.is(':visible')) {
-      return false;
-    } else {
+  $('html').click(function() {
+    if(desktop_user_menu.is(':visible') || desktop_admin_menu.is(':visible')) {
+      hideUserMenu();
       hideAdminMenu();
+    } else {}
+  });
+  user_toggler.click(function() {
+    if(desktop_admin_menu.is(':visible')) {
+      hideAdminMenu();
+    } 
+    if(desktop_user_menu.is(':visible')) {
+      hideUserMenu();
+    } else {
+      showUserMenu();
+      return false;
     }
   });
-
-
-  $('.user_options ul, .client_admin_pages').mouseleave(function() {
-    hideUserMenu();
-    hideAdminMenu();
-  });
-  $('.user_options ul, .client_admin_pages').find('a').click(function() {
-    hideUserMenu();
-    hideAdminMenu();
+  admin_toggler.click(function() {
+    if(desktop_user_menu.is(':visible')) {
+      hideUserMenu();
+    }
+    if(desktop_admin_menu.is(':visible')) {
+      hideAdminMenu();
+    } else {
+      showAdminMenu();
+      return false;
+    }
   });
 }
 
