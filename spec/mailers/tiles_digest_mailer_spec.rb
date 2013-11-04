@@ -20,7 +20,7 @@ describe 'Digest email' do
 
     create_tile headline: "Archive Tile", status: Tile::ARCHIVE  # This guy shouldn't show up in the email
 
-    demo.digest_tiles.pluck(:id)
+    demo.digest_tiles(nil).pluck(:id)
   end
 
   describe 'Delivery' do

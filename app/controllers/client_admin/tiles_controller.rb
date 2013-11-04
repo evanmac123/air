@@ -10,7 +10,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
 
     @active_tiles  = @demo.active_tiles
     @archive_tiles = @demo.archive_tiles
-    @digest_tiles  = @demo.digest_tiles
+    @digest_tiles  = @demo.digest_tiles(@tile_digest_email_sent_at)
 
     @follow_up_emails = @demo.follow_up_digest_emails
   end

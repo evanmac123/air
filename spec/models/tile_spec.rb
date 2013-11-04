@@ -18,7 +18,7 @@ describe Tile do
       active  = FactoryGirl.create_list :tile, 4, demo: demo
       archive = FactoryGirl.create_list :tile, 2, demo: demo, status: Tile::ARCHIVE
 
-      demo.digest_tiles.pluck(:id).sort.should == active.collect(&:id).sort
+      demo.digest_tiles(nil).pluck(:id).sort.should == active.collect(&:id).sort
     end
 
     it 'should return the correct tiles for each status type in the specified demo' do
@@ -61,7 +61,7 @@ describe Tile do
       demo.draft_tiles.pluck(:id).sort.should   == draft.sort
       demo.archive_tiles.pluck(:id).sort.should == archive.sort
       demo.active_tiles.pluck(:id).sort.should  == active.sort
-      demo.digest_tiles.pluck(:id).sort.should  == digest.sort
+      demo.digest_tiles(demo.tile_digest_email_sent_at).pluck(:id).sort.should  == digest.sort
     end
   end
 

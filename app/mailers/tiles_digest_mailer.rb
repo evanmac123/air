@@ -19,7 +19,7 @@ class TilesDigestMailer < ActionMailer::Base
     tile_ids = demo.digest_tiles(cutoff_time).pluck(:id)
     user_ids = demo.users_for_digest(unclaimed_users_also_get_digest).pluck(:id)
 
-    FollowUpDigestEmail.create(demo_id:  demo.id,
+    FollowUpDigestEmail.create!(demo_id:  demo.id,
                                tile_ids: tile_ids,
                                send_on:  Date.today + follow_up_days.days,
                                unclaimed_users_also_get_digest: unclaimed_users_also_get_digest) if follow_up_days > 0

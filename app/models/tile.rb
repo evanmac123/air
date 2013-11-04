@@ -243,9 +243,8 @@ class Tile < ActiveRecord::Base
     where("status = ?", DRAFT).order('created_at DESC')
   end
 
-  def self.digest(demo, cutoff_time=nil)
-    cutoff_time ||= demo.tile_digest_email_sent_at
-    demo.tile_digest_email_sent_at.nil? ? active : active.where("activated_at > ?", cutoff_time)
+  def self.digest(demo, cutoff_time)
+    cutoff_time.nil? ? active : active.where("activated_at > ?", cutoff_time)
   end
 
   # ------------------------------------------------------------------------------------------------------------------

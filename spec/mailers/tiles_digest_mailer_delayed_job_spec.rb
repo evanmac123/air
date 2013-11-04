@@ -25,16 +25,16 @@ describe 'Follow-up email scheduled by delayed job' do
     #-----------------------------------------------------
     # 0 follow-up days signals that no follow-up email should be scheduled
 
-    TilesDigestMailer.notify_all(demo_1, true, 0, Time.now)
+    TilesDigestMailer.notify_all(demo_1, true, 0, demo_1.tile_digest_email_sent_at)
     FollowUpDigestEmail.count.should == 0
 
-    TilesDigestMailer.notify_all(demo_2, false, 0, Time.now)
+    TilesDigestMailer.notify_all(demo_2, false, 0, demo_2.tile_digest_email_sent_at)
     FollowUpDigestEmail.count.should == 0
 
     #-----------------------------------------------------
     # Test positive follow-up days for both cases of claimed vs. all users getting follow-ups
 
-    TilesDigestMailer.notify_all(demo_1, true, 1, Time.now)
+    TilesDigestMailer.notify_all(demo_1, true, 1, demo_1.tile_digest_email_sent_at)
     FollowUpDigestEmail.count.should == 1
 
     followup = FollowUpDigestEmail.first
@@ -43,7 +43,7 @@ describe 'Follow-up email scheduled by delayed job' do
     followup.send_on.should == Date.today + 1.day
     followup.unclaimed_users_also_get_digest.should be_true
 
-    TilesDigestMailer.notify_all(demo_2, false, 4, Time.now)
+    TilesDigestMailer.notify_all(demo_2, false, 4, demo_2.tile_digest_email_sent_at)
     FollowUpDigestEmail.count.should == 2
 
     followup = FollowUpDigestEmail.last
@@ -98,5 +98,26 @@ describe 'Follow-up email scheduled by delayed job' do
     end
 
     Timecop.return
+  end
+
+  it "should send the appropriate tiles the first time a digest is sent per demo too" do
+    demo = FactoryGirl.create(:demo)
+    demo.tile_digest_email_sent_at.should be_nil
+
+    FactoryGirl.create :tile, headline: "Tile the first", status: Tile::ACTIVE, demo: demo
+    FactoryGirl.create :tile, headline: "Tile the second", status: Tile::ACTIVE, demo: demo
+
+    demo.active_tiles.should have(2).tiles
+
+    FactoryGirl.create_list :user, 3, :claimed, demo: demo
+
+    TilesDigestMailer.notify_all(demo, false, 4, demo.tile_digest_email_sent_at)
+    crank_dj_clear
+
+    ActionMailer::Base.deliveries.should have(3).emails
+    ActionMailer::Base.deliveries.each do |mail|
+      mail.to_s.should contain("Tile the first")
+      mail.to_s.should contain("Tile the second")
+    end
   end
 end

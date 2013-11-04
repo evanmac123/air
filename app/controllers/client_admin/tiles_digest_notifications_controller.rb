@@ -6,7 +6,8 @@ class ClientAdmin::TilesDigestNotificationsController < ClientAdminBaseControlle
     # Need to do this because the param is the string "true" or "false"... and the string "false" is true
     unclaimed_users_also_get_digest = (params[:digest_send_to] == 'true' ? true : false)
 
-    TilesDigestMailer.delay.notify_all @demo, unclaimed_users_also_get_digest, follow_up_days, @demo.tile_digest_email_sent_at
+    cutoff_time = @demo.tile_digest_email_sent_at
+    TilesDigestMailer.delay.notify_all @demo, unclaimed_users_also_get_digest, follow_up_days, cutoff_time
 
     @demo.update_attributes tile_digest_email_sent_at: Time.now, unclaimed_users_also_get_digest: unclaimed_users_also_get_digest
 

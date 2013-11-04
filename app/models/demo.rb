@@ -75,7 +75,7 @@ class Demo < ActiveRecord::Base
     tiles.draft
   end
 
-  def digest_tiles(cutoff_time = nil)
+  def digest_tiles(cutoff_time)
     tiles.digest(self, cutoff_time)
   end
 
