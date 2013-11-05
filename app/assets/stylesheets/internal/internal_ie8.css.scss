@@ -1,4 +1,4 @@
-@import "mixins/standard_colors.css.scss";
+@import "mixins/main_styles.css.scss";
 $sans: "Arial";
 @import "screen.css.scss";
 $small_cap_size: .625em;
@@ -27,6 +27,15 @@ header {
   .small_cap {margin-bottom:.25em;}
   #logo a:hover {img {visibility: hidden;}}
   #manage_board, #user_info #me_toggle {&:after {font-family:'Lucida Sans Unicode', 'Arial Unicode MS', Arial;}}
+
+  .admin_options #admin_toggle {
+    font-family:'Lucida Sans Unicode', 'Arial Unicode MS', Arial!important;
+    padding:.8em 1em;
+  }
+  .admin_options .client_admin_pages {
+    margin:2px 0 0 -.3em;
+  }
+
   #user_info p.user_numbers {font-size:1.3125em;}
   #to_next_credit #progress_bar {
     height:1.3125em;

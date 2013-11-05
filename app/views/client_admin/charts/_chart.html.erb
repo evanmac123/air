@@ -1,7 +1,7 @@
 <div class="charting section">
   <%= form_tag client_admin_path, id: "activity-chart", method: :get, remote: true  do %>
       <div id="chart-header">
-        <h1 class="headline">Activity snapshot</h1>
+        <h1>Activity snapshot</h1>
       </div>
       <ul id="chart-options">
         <li id="chart-dates">
@@ -24,9 +24,7 @@
           <%= image_tag 'spinner_gears_blue.gif', :style => "display: none;", :id => 'show-user-spinner', :size => '25x25' %>
         </li>
         <li id="show-button">
-          <div class="button_wrap" id="show-chart">
-            <%= submit_tag "Update chart", id: "show-chart-link" %>
-          </div>
+          <%= submit_tag "Update chart", id: "show-chart-link" %>
         </li>
       </ul>
   <% end %>

@@ -113,6 +113,7 @@ body.client_admin-tiles-update {
           background:darken($light-gray, 5%);
           border:2px transparent solid;
           margin-top:1px;
+          height:47px;
           padding:.7em 0;
           text-align: center;
           width:7%;
@@ -132,7 +133,7 @@ body.client_admin-tiles-update {
       }
       &:after{@include clear;}
     }
-    #add-answer-link {@include link($blue);}
+    #add-answer-link {@include app-button($gray);}
   }
 
   // Points

@@ -48,7 +48,7 @@ table.scoreboard{
   }
   .user-progress{
     padding-left: .5em;
-    width:35%;
+    width:26%;
   }
 
   
@@ -68,7 +68,7 @@ table.scoreboard{
   &:after {
     @include arrow-down($light-gray, 4px);
     vertical-align: middle;
-    margin-left:1em;
+    margin-left:.5em;
   }
 }
 
@@ -87,7 +87,6 @@ table.scoreboard{
     padding-bottom: 4px;
     color: $light-gray;
   }
-  #userlevel_header, #userprogress_header {padding-left:.5em;}
   #username_header, #userlevel_header{
   float:left;
   cursor: pointer;
@@ -98,8 +97,7 @@ table.scoreboard{
 }
   #username_header{width:47%;}
   #userlevel_header{
-    padding-right:.5em;
     width:27%;
   }
-  #userprogress_header {width:33%;}
+  #userprogress_header {padding-left:.5em; width:26%;}
 }

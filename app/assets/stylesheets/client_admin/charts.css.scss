@@ -4,25 +4,11 @@
 #my-chart { height: 400px; }
 
 .charting {
-  padding-top:.25em;
   form {border:0; margin:0; padding:0;}
 }
 #chart-header .subsection-head {display:inline-block;}
 
 #chart-options {
-  // background:$light-gray;
-  // border: {
-  //   style:solid;
-  //   color:lighten($blue, 10%);
-  //   top:{width:1px;}
-  //   bottom:{width:0;}
-  //   left:{width:1px;}
-  //   right:{width:1px;}
-  // }
-  // border-top-right-radius: $border-radius;
-  // border-top-left-radius: $border-radius;
-
-  // padding:.5em;
   margin-bottom:1em;
   position: relative;
   li {
@@ -32,15 +18,21 @@
     &#chart-dates span, &#chart-labeling span {
       @include caption;
       color:$light-gray; 
-      // font-size:.75em; 
       text-transform: uppercase;
     }
     &#show-button {
-        position: absolute;
-        right:0;
-        top:30%;
+      position: absolute;
+      right:0;
+      top:41%;
+      #show-chart-link {
+        @include app-button($dark-green);
+        margin:0;
+      }
     }
-    &#chart-labeling {margin-right:.25em;}
+    &#chart-labeling {
+      margin-right:.25em;
+      width:7em;
+    }
     &#chart-spinner {
         vertical-align:middle;
         margin-right:0;
@@ -49,26 +41,21 @@
 
     img {margin: 0em;}
   }
+  input, select {
+    font-size:.875em;
+  }
   input {
     color:$gray;
     &.datepicker {
       background:#fff;
       border:$border-dark;
-      font-size:.875em;
-      width: 110px;
+      width: 7em;
     }
   }
   select {
     border:$border-dark;
     color:$dark-gray;
-    font-size:1em;
     outline:0;
     padding:5px 4px;
-  }
-  .button_wrap#show-chart {
-    #show-chart-link {
-      @include app-button($dark-green);
-      margin:0;
-    }
   }
 }

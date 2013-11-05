@@ -16,28 +16,8 @@ body.settings {
         padding:0 0 0 1em;
         width:80%;
         .set-avatar {margin:0 0 1em 0;}
+        input[type="file"] {margin-bottom:1em; width:80%;}
         input[type="submit"].clear {@include app-button($light-gray);}
-    }
-
-    #username_dob_gender {
-        .settings_user {
-            padding:0 0 1em 0;
-            #settings_changes:after{@include clear;}
-
-            #username_change, #gender_change {
-                padding:1em 0;
-                vertical-align: top;
-            }
-            #username_change {
-                label {color:$med-gray;}
-                input[type="text"] {margin-bottom:.5em; width:93%;}
-            }
-            #gender_change {
-                margin-bottom:.5em;
-                li {display:inline-block; margin-right:1em;}
-                li label {display:inline-block;}
-            }
-        }
     }
 }
 
@@ -57,7 +37,7 @@ label[for="user_new_phone_validation"] {padding-bottom:1em;}
 #privacy_settings select {font-size:1.15em;}
 
 #notification_settings li {display:inline-block; margin-right:1em;}
-#notification_settings li label {display:inline-block;}
+#notification_settings li label {display:inline-block; margin-left:.25em;}
 #settings_new_number_verification {margin-bottom: 2em;}
 
 #user_phone_number {width:100%;}

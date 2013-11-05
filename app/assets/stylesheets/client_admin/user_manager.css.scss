@@ -44,7 +44,6 @@ body.client_admin-users {
         input, select {max-width:90%;}
         label {
           display:block; 
-          // font-size:1em;
           padding-bottom:.5em; 
           width:100%; 
           word-wrap:break-word;
@@ -64,10 +63,15 @@ body.client_admin-users {
       * {vertical-align: top;}
       &:after{@include clear;}
 
-      li {display: inline-block; vertical-align: middle;}
+      li {
+        border:1px transparent solid;
+        display: inline-block;
+        vertical-align: middle;
+      }
       #delete-user {
         @include app-button($red);
-        display:inline-block; 
+        display:inline-block;
+        vertical-align: middle; 
       }
       li#toggle-more-options a {
         @include app-button($gray);

@@ -4,9 +4,11 @@
 / %ul#tile_manager_nav
 
 
+.row
+  .large-12.columns= render partial: 'tiles_tools_subnav'
+
 %section.manage_tiles#archived_tiles
   .row
-    .large-12.columns= render partial: 'tiles_tools_subnav'
     .large-12.columns
       %h1 Inactive tiles
       <a class="create_new_tile" href="/client_admin/tiles/new">+ Add new tile</a>

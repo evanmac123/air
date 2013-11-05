@@ -11,12 +11,8 @@
 
 body.client_admin-tiles-index {
   // Tile management sections
-  .content {
-    background:$blue;
-    // padding:0;
-  }
+  .content {background:$blue;}
   .manage_tiles {
-    // padding:2em 0 0;
     h1 {color:$white;}
     td {
       border:0; 
@@ -31,7 +27,10 @@ body.client_admin-tiles-index {
       float:right;
       @include app-button($dark-green);
     }
-    h1 {display: inline-block;}
+    h1 {display: inline-block; width:80%;}
   }
-  #active_tiles {background:darken($light-gray, 7%);}
+  #active_tiles {
+    background:darken($light-gray, 7%);
+    padding:2em 0 0 0;
+  }
 }

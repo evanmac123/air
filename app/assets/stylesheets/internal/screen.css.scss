@@ -31,7 +31,6 @@ body {
 	}
 	.content {
 		margin:0 auto;
-		padding:0;
 		&:after{@include clear;}
 		.seemore a {
 			@include light-button($med-gray, $blue);
@@ -40,7 +39,7 @@ body {
 			padding:.5em 1.5em;
 		}
 	}
-	.module {font-size:.875em; margin-top:2em;}
+	.module {font-size:.875em; margin-bottom:2em;}
 }
 
 // Flash message shadows

@@ -4,6 +4,7 @@
 #tile_wall {
   background:darken($light-gray, 7%);
   padding:.5em 0;
+  margin:-2em 0 2em 0;
   a, a:link, a:visited, .tile-wrapper .headline .text {@include font-semibold;}
 }
 .all_tile_thumbnails {

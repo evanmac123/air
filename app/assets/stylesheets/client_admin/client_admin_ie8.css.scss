@@ -1,11 +1,6 @@
-#flash {
-  .row {
-    min-width:0;
-    width:100%;
-    max-width:100%;
-  }
-}
+@import "internal/internal_ie8.css.scss";
 
-#digest_management {
-  height:24.5em;
+header {
+  .admin_options #manage_board:before {background:$dark-green;}
+  .admin_options #manage_board:hover:before {background:$dark-green;}
 }

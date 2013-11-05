@@ -1,5 +1,5 @@
 body {
-  min-width:$mid-desktop;
+  min-width:$large-desktop;
 }
 header .admin_options #manage_board:before {background:$dark-green;}
 
@@ -8,7 +8,6 @@ header .admin_options #manage_board:before {background:$dark-green;}
 header .admin_options #manage_board:hover:before {background:$dark-green;}
 
 .content {
-  padding:2em 0;
   position: relative;
   h1 {margin-bottom:1em;}
 }

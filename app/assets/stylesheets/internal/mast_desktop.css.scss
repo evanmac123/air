@@ -110,6 +110,7 @@ header {
     }
   }
   #user_info #me_toggle, #admin_toggle {
+    @include ease(0);
     &.toggled {
       background:$dark-gray;
       box-shadow:none;
@@ -119,6 +120,8 @@ header {
   // User info
   #user_info {
     margin:0; 
+    // max-height:$header-total-height;
+    overflow: hidden;
     padding-left:0;
     text-align: right;
     #to_next_credit {width:33%; max-width:11em;}
@@ -160,6 +163,7 @@ header {
     #manage_board, #admin_toggle {
       @include font-bold;
       float: left;
+      height:100%;
       max-height:$header-total-height;
       position: relative;
     }

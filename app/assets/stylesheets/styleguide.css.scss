@@ -20,7 +20,7 @@ h5 {color:$med-gray}
 .big_button#green {@include app-button($dark-green);}
 .big_button#orange {@include app-button($orange);}
 .big_button#red {@include app-button($red);}
-.big_button#gray {@include app-button($light-gray);}
+.big_button#gray {@include app-button($gray);}
 
 .buttons {
   .full-buttons {margin-bottom:2em;}
