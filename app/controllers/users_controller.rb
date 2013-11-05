@@ -40,7 +40,7 @@ class UsersController < Clearance::UsersController
     @viewing_other = signed_in? && current_user != @user
 
     @current_link_text = "My Profile" if @viewing_self
-    @has_friends = (@user.accepted_friends.count > 0)
+    @has_friends = (@user.accepted_friends_same_demo.count > 0)
     @pending_friends = @user.pending_friends
     
     @display_user_stats = current_user.can_see_activity_of(@user)
