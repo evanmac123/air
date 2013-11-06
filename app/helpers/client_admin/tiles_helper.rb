@@ -28,8 +28,13 @@ module ClientAdmin::TilesHelper
     if tile.activated_at.nil?
       "Never activated"
     elsif tile.status == Tile::ARCHIVE
-      "Active " + (distance_of_time_in_words tile.activated_at, tile.archived_at) +
-      ". Deactivated " + tile.archived_at.strftime('%-m/%-d/%Y').html_safe
+      [
+        "<span class='tile-active-time'>Active: ", 
+        (distance_of_time_in_words tile.activated_at, tile.archived_at),
+        "</span></br> <span class='tile-deactivated-time'>Deactivated: ", 
+        tile.archived_at.strftime('%-m/%-d/%Y'),
+        "</span>"
+      ].join.html_safe
     else
       "Active " + (distance_of_time_in_words tile.activated_at, Time.now) + "; since " + tile.activated_at.strftime('%-m/%-d/%Y')
     end
