@@ -54,7 +54,7 @@
 				right:auto;
 				&:before {display:none;}
 				&:after {
-					@include arrow-right($dark-green);
+					@include arrow-right($dark-green, 8px);
 					position: relative;
 					top:3px;
 				}

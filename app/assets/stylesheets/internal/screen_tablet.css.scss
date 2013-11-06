@@ -28,18 +28,6 @@
 /* -- Large tile viewer -- */
 .tiles.tiles-index {
   .content .row, .tile_holder {max-width:600px;}
-  .tile_holder {
-    .tile_points {
-      left:7%;
-      .num_of_points {padding:1em 0 .75em 0;}
-    }
-    .tile_question {
-      margin: 0 0 0 23%;
-      padding:0 0 .75em 1em;
-      width:70%;
-    }
-    .tile_quiz .tile_multiple_choice_answer {width:86%;}
-  }
 }
 
 /* -- Directory search results -- */
@@ -53,6 +41,14 @@
   }
   .follow-button {margin-right:1em;}
 }
+#other-users .user {
+  .user-avatar {
+    max-width:7em;
+    padding-right:1em;
+  }
+  .user-info {padding:0;}
+}
+
 
 /* -- Settings -- */
 #about_user {

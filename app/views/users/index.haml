@@ -1,24 +1,22 @@
 .row
-  #secondary.large-4.push-8.columns
+  #secondary.large-4.columns
     #search_box_wrapper
       #search-box.module
-        %h2 Search
+        %h3 Search
         -#.search_nudge Don't see the person you're looking for? Try searching
         #search
+          %h5 Enter first or last name
           = form_tag users_path, :method => :get do
             = label_tag "search_string", "search bar", :class => :hidden
-            = text_field_tag "search_string"
+            = text_field_tag "search_string", nil, :placeholder => "Type name"
             = submit_tag "Find!", :id => "find_button", :class => "button_norm"
-  #main.large-8.pull-4.columns
+  #main.large-7.columns
     #directory_wrapper
       .directory.module
-        %h2 Results
         - if @search_string
-          #notify_of_search
-            %p.subhead
-              Showing search results for
-              %i
-                = @search_string
+          %h3 
+            Showing search results for
+            = @search_string
 
           %ul#other-users
             - @other_users.each do |u|
@@ -32,7 +30,7 @@
                   = render 'follow_buttons', :user => u
 
         - else
-          %p Enter at least 3 letters of the person's name, then click "Find!"
+          
         - if @users_cropped
           .focus_on_search_bar{:style => "display: inline;"}
             = "(First #{@users_cropped} results returned. Didn't find who you're looking for? Try" 

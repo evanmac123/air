@@ -25,8 +25,6 @@
           <%= link_to 'Manage', client_admin_tiles_path, id: 'manage_board' %>
           <a id="admin_toggle">&#9662;</a>
           <ul class="client_admin_pages">
-            <li><a href="/client_admin/segmentation">Model</a></li>
-            <li><a href="/client_admin/users">Users</a></li>
             <li><%= link_to "Payments", new_client_admin_payment_path %></li>
             <li><%= link_to "Admin help", DeskSSO.new(current_user).url, target: "_blank" %></li>
           </ul>
@@ -39,7 +37,7 @@
         <li><p class="small_cap">Points to next ticket</p></li>
         <li id="progress_bar">
           <div id="completed_progress" style="<%= master_bar_width %>"></div>
-          <div id="bar_shine" style="<%= master_bar_width %>"></div>
+          <div class="bar_shine" style="<%= master_bar_width %>"></div>
           <span class="small_cap"><%= master_bar_point_content %></span>
         </li>
       </ul>

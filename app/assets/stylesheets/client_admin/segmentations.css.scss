@@ -1,20 +1,15 @@
-body.client_admin-segmentations form {
-	border-bottom:$border-light;
+.segmentation_tool {padding-top:3em;}
+.segmentation_tool form {
 	fieldset {
-		background:transparent;
-		border:$border-dark;
+		@include form-group;
 		margin:0;
-		padding:1em;
 	}
 	#segmentation_buttons {
 		padding-left:1.35em;
 		* {vertical-align: middle;}
-		span {
-			@include caption;
-			margin:0 1em;
-		}
 		a#add_more_characteristics {
-			@include app-button($gray);
+			@include app-button($med-gray);
+			margin-right: 0.5em;
 		}
 		input[type="submit"] { 
 			@include app-button($dark-green);
@@ -22,7 +17,6 @@ body.client_admin-segmentations form {
 		}
 	}
 	#segmentation_parameters {
-		background:#fff;
 		padding:.5em 0 1em 0;
 		.segmentation-triple-wrapper {margin-bottom:.5em;}
 		a.remove_this_characteristic, .characteristics {
@@ -53,7 +47,7 @@ body.client_admin-segmentations form {
 			select.segment-operator {width:170px;}
 			.segment-col1 select {width:225px;}
 			.segment-col3 {
-				select, input[type="text"] {width:200px;}
+				select, input[type="text"] {width:175px;}
 				input[type="checkbox"] {margin-right:.5em;}
 			}
 		}
@@ -66,6 +60,7 @@ body.client_admin-segmentations form {
 	.segmentation-results-col {
 		display:inline-block;
 		float:left;
+		padding-right:1em;
 		vertical-align: top;
 		&#segmentation-explanation {
 			width:63%;
@@ -82,14 +77,17 @@ body.client_admin-segmentations form {
 			}
 		}
 		&#segmentation-numbers {
+			@include form-group;
+			@include light-to-color-gradient(lighten($blue, 53%), 2%);
 			text-align: center;
 			width:37%;
-			h1 {
+			h3 {
 				color:$blue;
 				@include font-bold;
 				display:block;
-				line-height:2em;
+				line-height:1.5em;
 				font-size:3.5em;
+				margin-bottom:0;
 			}
 		}
 	}

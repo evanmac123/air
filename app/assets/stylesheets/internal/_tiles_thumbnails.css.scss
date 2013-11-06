@@ -19,7 +19,10 @@
   }
   .tile-wrapper{
     @include ease(.025s);
+    box-shadow:0 1px 1px 1px lighten($med-gray, 5%);
+    border-radius:$border-radius;
     display: inline-block;
+    overflow: hidden;
     position: relative;
     width:100%;
     
@@ -55,34 +58,9 @@
       &:after{@include clear;}
       .text{
         color: $dark-gray;
-        @include font-light;
+        @include font-regular;
         font-size:1em;
       }
     }
   } 
-}
-#tile_links {
-  text-align: center;
-  padding:0;
-  a {margin:0;}
-  .show_more_tiles {
-    @include app-button($blue);
-    display: block;
-    padding:.75em .5em 0.6em;
-    &:before, &:after {
-      @include arrow-down(lighten($blue, 10%), 8px);
-      margin:0 1em;
-      position: relative;
-      vertical-align: middle;
-    }
-    #show_more_tiles_spinner {display: inline-block; vertical-align: top;}
-  }
-  #client_admin_tile_links {
-    a {
-      @include light-button($white, $blue);
-      display: inline-block;
-      font-size:.875em;
-      margin:1em .25em;
-    }
-  }
 }

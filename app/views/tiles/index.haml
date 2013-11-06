@@ -11,8 +11,8 @@
         = @current_tile_position_description
     .viewer
       = link_to "#", :id => :prev do
-        %span Previous
+        Previous
       #slideshow
         = render 'full_size_tile', :tile => @start_tile
       = link_to "#", :id => :next do
-        %span Next
+        Next

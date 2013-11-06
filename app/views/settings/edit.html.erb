@@ -1,7 +1,7 @@
 <div class="row">
   <div class="large-8 columns">
     <div class="module personal_settings" id="about_user">
-    	<h2>Change Picture</h2>
+    	<h3>Change Picture</h3>
       <div class="module_inner settings_avatar">
           <%= avatar_96 current_user %>
           <div class="avatar_inputs">
@@ -19,14 +19,14 @@
     </div>
 
     <div class="module personal_settings" id="password_change">
-      <h2>Change Password</h2>
+      <h3>Change Password</h3>
       <%= form_for current_user, :url => logged_in_user_password_path do |form| %>
         <ul id="new_pass" class="module_inner">
-          <li><h3><%= label_tag 'user_password', "New password" %></h3></li>
+          <li><%= label_tag 'user_password', "New password" %></li>
           <li><%= form.password_field :password %></li>
         </ul>
         <ul id="confirm_pass" class="module_inner">
-          <li><h3><%= label_tag 'user_password_confirmation', "Confirm new password" %></h3></li>
+          <li><%= label_tag 'user_password_confirmation', "Confirm new password" %></li>
           <li><%= form.password_field :password_confirmation %></li>
         </ul>
         <%= submit_tag 'Save', :class => 'button_norm', :id => 'save-password-settings' %>
@@ -36,10 +36,10 @@
 
   <div class="large-4 columns">
     <div class="module other_settings" id="privacy_settings">
-      <h2>Privacy</h2>
+      <h3>Privacy</h3>
         <%= form_for current_user, :url => account_settings_path do |form| %>
           <div class="module_inner">
-            <h3><%= label_tag "user_privacy_level", "Let these people see my actions:" %></h3>
+            <%= label_tag "user_privacy_level", "Let these people see my actions:" %>
             <%= form.select :privacy_level, [
               ['Everybody', 'everybody'],
               ["Connections I've accepted", 'connected']
@@ -50,7 +50,7 @@
     </div>
 
     <div class="module other_settings" id="notification_settings">
-      <h2>Notification</h2>
+      <h3>Notification</h3>
       <% if current_user.new_phone_number_needs_verification? %>
         <div class="module_inner" id="settings_new_number_verification">
           <%= form_for current_user, :url => phone_path, :method => :put do |form| %>
@@ -62,11 +62,11 @@
       <% end %>
       <%= form_for current_user, :url => account_path do |form| %>
         <div class="module_inner settings_number">
-          <h3><%= label_tag 'user_phone_number', "Mobile number" %></h3>
+          <%= label_tag 'user_phone_number', "Mobile number" %>
           <%= form.text_field :phone_number, :value => current_user.phone_number.try(:as_pretty_phone) %>
         </div>
         <div class="module_inner settings_notification">
-          <h3>Notify me via...</h3>
+          Notify me via...
             <ul>
               <% [["Text message", :sms], ["Email", :email], ["Both", :both] ].each do |label_text, method_name| %>
                 <li><%= form.radio_button :notification_method, method_name, :class => 'notification_pref', :id => method_name %><%= label_tag method_name, label_text, :class => 'check_label' %></li>

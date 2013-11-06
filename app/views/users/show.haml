@@ -6,22 +6,22 @@
         
       %ul.player-info
         %li
-          %h1= @user.name
+          %h2= @user.name
         %li 
           = render 'follow_buttons', :user => @user
 
     = render 'accepted_friends'
     - if @display_pending_friendships  
       #followed-by.module
-        %h2 Connection Requests
+        %h3 Connection Requests
         %ul#friend_requests
           - @pending_friends.each do |friend|
             %li.user
               %p.user-name= link_to friend.name, user_path(friend)
 
-  .large-8.columns
+  .large-7.columns
     #recent-activity.module
-      %h2 Recent Activity
+      %h3 Recent Activity
       - unless @display_user_stats
         = render 'follow_link'
       - else

@@ -1,35 +1,31 @@
 @import 'charts';
 
-body.client_admins-show {
-  background: $blue;
-  h1 {color:$white;}
-}
 .stats {
-  &:after{
-    clear: both;
-    content:"";
-    display: block;
-  }
+  &:after{@include clear;}
 }
 .stat-group {
+  @include form-group;
+  @include light-to-color-gradient(lighten($blue, 53%), 2%);
   margin-bottom:2em;
-  .numbers h2 {
-    background:lighten($blue, 15%);
-    color:$white;
+  text-align: center;
+  .labels {
+    color:$text-color;
+    @extend h4;
+    margin-bottom:0;
+  }
+  .numbers h3 {
+    color:$blue;
     display:block;
     font-size:2.5em;
     margin:0 auto;
     padding:.5em;
     overflow-wrap:break-word;
-    text-align: center;
     vertical-align: middle;
     word-wrap:break-word;
   }
-  .labels {
-    @include font-bold;
-    font-size:.85em;
-    color:lighten($text-color, 50%);
-    padding:0 0 .25em 0;
-  }
   .labels + .labels {padding:.25em 0;}
+}
+
+.charting {
+  @include form-group;
 }

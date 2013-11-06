@@ -31,7 +31,7 @@
       margin-left:.5em;
       text-align: center;
       width:auto;
-      a {@include light-button($white, $light-gray);}
+      a {@include light-button($light-gray);}
       &.archive_button a {@include app-button($blue);}
       &.activate_button a {@include app-button($dark-green);}
     }

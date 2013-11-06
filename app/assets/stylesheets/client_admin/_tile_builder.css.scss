@@ -3,9 +3,10 @@ body.client_admin-tiles-create,
 body.client_admin-tiles-edit,
 body.client_admin-tiles-show,
 body.client_admin-tiles-update {
-  background:darken($light-gray, 7%);
   form {
+    #publish * {vertical-align: top;}
     #publish input[type="submit"] {@include app-button($dark-green);}
+    #publish .cancel_tile_builder {@include light-button($red); float:right;}
     input[type="text"],textarea {
       border:2px lighten($light-gray, 8%) dashed;
       display: block;
@@ -75,9 +76,10 @@ body.client_admin-tiles-update {
 
     // Copy for the tile
     #tile_builder_form_headline {
-      color:$blue;
+      color:$dark-gray;
       @include font-light;
       font-size:2.25em;
+      line-height:1.15em;
       height:3.75em;
       padding:.35em;
     }
@@ -90,7 +92,6 @@ body.client_admin-tiles-update {
   // Quiz section of the tile
   .builder_quiz {
     background:$light-gray;
-    margin-bottom:1em;
 
     input[type="text"], #tile_builder_form_question {
       background:lighten($light-gray, 5%);
@@ -133,7 +134,7 @@ body.client_admin-tiles-update {
       }
       &:after{@include clear;}
     }
-    #add-answer-link {@include app-button($gray);}
+    #add-answer-link {@include app-button($med-gray);}
   }
 
   // Points
@@ -161,17 +162,28 @@ body.client_admin-tiles-update {
 body.client_admin-tiles-edit, 
 body.client_admin-tiles-update {
   .tile_builder_section {padding:2em;}
+  .edit_tiles_content, .edit_tile_image {overflow: hidden;}
+  .edit_tiles_content {
+    box-shadow:0px 2px 1px 1px lighten($med-gray, 5%);
+    border-bottom-right-radius: $border-radius;
+    border-bottom-left-radius: $border-radius;
+    margin-top:-1px;
+  }
+  .edit_tile_image {
+    box-shadow:0 0 1px 1px lighten($med-gray, 5%);
+    border-top-right-radius: $border-radius;
+    border-top-left-radius: $border-radius;
+  }
   .builder_content #image_uploader {
     background:$text-color;
     border:0;
-    margin-bottom:1em;
+    margin-bottom:0;
     padding:0;
     img {margin:2em 0;}
     .upload_new_image {
       background:$white;
-      border:2px lighten($light-gray, 8%) dashed;
       border-top:0;
-      padding:2em 0;
+      padding:1em 0 2em 0;
       #tile_builder_form_image {
         background:lighten($light-gray, 8%);
         color:$text-color;
@@ -181,7 +193,7 @@ body.client_admin-tiles-update {
         }
       }
       .button_wrap {
-        margin-left:1em;
+        margin-top:1em;
         input {@include app-button($dark-green);}
       }
     }

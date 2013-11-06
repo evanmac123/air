@@ -2,10 +2,26 @@
 @import 'tiles_thumbnails';
 
 #tile_wall {
-  background:darken($light-gray, 7%);
-  padding:.5em 0;
+  background: $tile-wall-bg;
+  padding:.5em 0 1em;
   margin:-2em 0 2em 0;
   a, a:link, a:visited, .tile-wrapper .headline .text {@include font-semibold;}
+  #tile_links {
+    text-align: center;
+    padding:0;
+    a {margin:0;}
+    .show_more_tiles {
+      @include app-button($dark-green);
+      padding:.75em .5em 0.6em;
+      &:before, &:after {
+        @include arrow-down(lighten($dark-green, 10%), 8px);
+        margin:0 1em;
+        position: relative;
+        vertical-align: middle;
+      }
+      #show_more_tiles_spinner {display: inline-block; vertical-align: top;}
+    }
+  }
 }
 .all_tile_thumbnails {
   background: transparent;
@@ -21,7 +37,6 @@
 }
 
 .tiles.tiles-index{
-  background:darken($light-gray, 7%);
   .content {padding-top:1em;}
   .content .row {
     position: relative;
@@ -31,13 +46,12 @@
   // Full size tile counter
   .tile_viewer_header {
     margin-bottom:1em;
-    padding:1em 0;
     position:relative;
     text-align: center;
     width: 100%;    
   }
   p#position {
-    color:$med-gray;
+    color:$text-color;
     display: inline-block;
     padding:.75em 1em;
     width:auto;
@@ -54,46 +68,19 @@
   }
   .tile_holder {
     font-size:.9em;
-    .tile_points {
-      left:1em;
-      .num_of_points {padding:.75em 0;}
-    }
-    .tile_question {
-      margin:3em 0 0 0;
-      padding:0 1em;
-      width:100%;
-    }
-    .tile_quiz .tile_multiple_choice_answer {width:90%;}
   }
 
   // Buttons
   a#prev, a#next, #slideshow {display:inline-block;}
   a#prev, a#next {
-    background:$blue;
-    height:50px;
-    margin:0;
-    padding:0;
+    @include light-button($blue);
+    font-size:.75em;
     position: absolute;
-    top:0;
-    width:50px;
-    span {
-      background:image-url('v5/sprites.png') transparent no-repeat;
-      display:inline-block;
-      float:left;
-      height:100%;
-      width:100%;
-
-      font-size:0;
-      text-decoration:none;
-      text-indent:-10px;
-    }
-    &:hover{background:darken($blue, 5%);}
-    &:active{background:lighten($blue, 5%);}
+    min-width:5.5em;
+    top:2px;
   }
   a#prev {left:1em;}
   a#next {right:1em;}
-  a#prev span {background-position: -4px -176px;}
-  a#next span {background-position: -67px -176px;}
 
   #tiles_done_message{
     padding-top:4em;

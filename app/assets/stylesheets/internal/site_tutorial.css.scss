@@ -19,13 +19,13 @@
   &.top-center:before{left:50%;}
   &.top-right:before{right:1em;} 
   &.left:before{
-    @include arrow-left($dark-gray);
+    @include arrow-left($dark-gray, 8px);
     position:absolute;
     left:-8px;
     top:1.35em;
   }
   &.right:before{
-    @include arrow-right($dark-gray);
+    @include arrow-right($dark-gray, 8px);
     position:absolute;
     right:-8px;
     top:1em;

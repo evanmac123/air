@@ -1,33 +1,29 @@
 <div class="charting section">
   <%= form_tag client_admin_path, id: "activity-chart", method: :get, remote: true  do %>
-      <div id="chart-header">
-        <h1>Activity snapshot</h1>
-      </div>
-      <ul id="chart-options">
-        <li id="chart-dates">
-          <%= text_field_tag :chart_start_date, params[:chart_start_date], class: "datepicker" %>
-          <span>to</span>
-          <%= text_field_tag :chart_end_date, params[:chart_end_date], class: "datepicker" %>
-        </li>
-        <li id="display-options">
-          <%= select_tag :chart_plot_content, options_for_select(['Total activity', 'Unique users', 'Both'], selected: params[:chart_plot_content]) %>
-        </li>
-        <li id="chart-intervals">
-          <% options = current_user.is_site_admin ? %w(Weekly Daily Hourly) : %w(Weekly Daily) %>
-          <%= select_tag :chart_interval, options_for_select(options, selected: params[:chart_interval]) %>
-        </li>
-        <li id="chart-labeling">
-          <span>Label</span>
-          <%= select_tag :chart_label_points, options_for_select([ ['None', 0], ['All points', 1], ['Every other', 2] ], selected: params[:chart_label_points]) %>
-        </li>
-        <li id="chart-spinner">
-          <%= image_tag 'spinner_gears_blue.gif', :style => "display: none;", :id => 'show-user-spinner', :size => '25x25' %>
-        </li>
-        <li id="show-button">
-          <%= submit_tag "Update chart", id: "show-chart-link" %>
-        </li>
-      </ul>
+    <ul id="chart-options">
+      <li id="chart-dates">
+        <%= text_field_tag :chart_start_date, params[:chart_start_date], class: "datepicker" %>
+        <span>to</span>
+        <%= text_field_tag :chart_end_date, params[:chart_end_date], class: "datepicker" %>
+      </li>
+      <li id="display-options">
+        <%= select_tag :chart_plot_content, options_for_select(['Total activity', 'Unique users', 'Both'], selected: params[:chart_plot_content]) %>
+      </li>
+      <li id="chart-intervals">
+        <% options = current_user.is_site_admin ? %w(Weekly Daily Hourly) : %w(Weekly Daily) %>
+        <%= select_tag :chart_interval, options_for_select(options, selected: params[:chart_interval]) %>
+      </li>
+      <li id="chart-labeling">
+        <span>Show label</span>
+        <%= select_tag :chart_label_points, options_for_select([ ['None', 0], ['All points', 1], ['Every other', 2] ], selected: params[:chart_label_points]) %>
+      </li>
+      <li id="chart-spinner">
+        <%= image_tag 'spinner_gears_bg.gif', :style => "display: none;", :id => 'show-user-spinner', :size => '25x25' %>
+      </li>
+      <li id="show-button">
+        <%= submit_tag "Update chart", id: "show-chart-link" %>
+      </li>
+    </ul>
   <% end %>
+  <div id='my-chart'></div>
 </div>
-
-<div id='my-chart'></div>

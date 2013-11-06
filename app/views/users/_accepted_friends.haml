@@ -1,9 +1,11 @@
 #following_wrapper
   #following.module
     - if @current_user == @user 
-      %h2 Your Connections
+      %h3 Your Connections
+      =link_to "Add", users_path, :class => "find_users small_button"
     - else
-      %h2= "#{@user.first_name}'s connections"
+      %h3= "#{@user.first_name}'s connections"
+      =link_to "Add", users_path, :class => "find_users small_button"
     - unless @display_user_stats
       = render 'follow_link'
     - else      

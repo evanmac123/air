@@ -26,12 +26,12 @@ module ClientAdmin::TilesHelper
 
   def footer_timestamp(tile)
     if tile.activated_at.nil?
-      "Never activated"
+      ["<span>Never activated</span>"].join.html_safe
     elsif tile.status == Tile::ARCHIVE
       [
         "<span class='tile-active-time'>Active: ", 
         (distance_of_time_in_words tile.activated_at, tile.archived_at),
-        "</span></br>",
+        "</span>",
         "<span class='tile-deactivated-time'>Deactivated: ", 
         tile.archived_at.strftime('%-m/%-d/%Y'),
         "</span>"
@@ -39,11 +39,11 @@ module ClientAdmin::TilesHelper
     else
       [
         "<span class='tile-active-time'>",
-        "Active ", 
+        "Active: ", 
         (distance_of_time_in_words tile.activated_at, Time.now),
-        "</span><br>",
+        "</span>",
         "<span class='tile-activated-since'>", 
-        "Since ",
+        "Since: ",
         tile.activated_at.strftime('%-m/%-d/%Y'),
         "</span>"
       ].join.html_safe

@@ -69,12 +69,12 @@ body.client_admin-users {
         vertical-align: middle;
       }
       #delete-user {
-        @include app-button($red);
+        @include light-button($red);
         display:inline-block;
         vertical-align: middle; 
       }
       li#toggle-more-options a {
-        @include app-button($gray);
+        @include app-button($med-gray);
         margin-right: 0.5em;
       }
       li#add-user-button input[type='submit'] {
@@ -87,35 +87,37 @@ body.client_admin-users {
     }
     p.required_label {margin-bottom:1em;}
   }
-  a.clear-form, a#back-to-index {
-    @include light-button($med-gray, $blue);
+  a.clear-form{
     margin-left:.75em;
   }
-  a#back-to-index {float:right;}
 }
 
 #find-users {
-  display:inline-block;
   vertical-align: top;
+  .find-tools {@include form-group;}
   h2.subhead {padding-bottom:.5em;}
-  #name-search {margin-bottom:1em;}
+  input[type="text"]{width:100%;}
   span {
     @include caption;
-    margin-right:1em;
+    display: block;
+    margin:1.5em 0;
   }
   #show-everyone {
-    @include light-button($med-gray, $blue);
-    display: inline-block;
+    @include app-button($med-gray);
   }
+}
+
+body.client_admin-users .breadcrumbs {
+  position:relative;
+  top:-1.75em;
 }
 
 #add-single-user {
   &:before {@include clear;}
   
   form.user-profile#single-form {
-    background:$white;
-    border:$border-dark;
-    padding:1em;
+    @include form-group;
+    padding-left:2.25em;
     #loaded-user-data {
       h1.headline {display:none;}
     }
@@ -199,44 +201,16 @@ body.client_admin-users-edit, body.client_admin-users-update {
   li {
     margin-bottom:2em;
     vertical-align:top;
-    &#claimcode span {
-      display:block; 
-      @include font-bold;
-    }
   }
   .join-status {
     display:block; 
     font-size:1.125em; 
     @include font-bold; 
     line-height:1em;
-    &:before {
-      background:image-url('client_admin/sprites.png') no-repeat transparent;
-      content:"";
-      display: inline-block;
-      margin-right:.65em;
-      vertical-align: top;
-    }
-    &.joined {
-      color:$dark-green;
-      &:before {
-        background-position: -58px -55px;
-        height:17px;
-        width:18px;
-      }
-    }
-    &.not-joined {
-      color:darken($gray, 30%);
-      &:before {
-        background-position: -77px -56px;
-        height:16px;
-        width:13px;
-      }
-    }
   }
   #user-join-status a, #user-join-status a:link {
-    @include app-button($blue);
+    @include light-button($dark-green);
     display: inline-block;
-    font-size:.85em;
     margin:.75em 0 0 0;
   }
 }

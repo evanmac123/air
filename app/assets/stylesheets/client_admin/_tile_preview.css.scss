@@ -3,7 +3,7 @@ body.client_admin-tiles-show {
     display: inline-block;
   }
   .back_all_tiles {
-    @include light-button($white, $blue);
+    @include light-button($white);
     font-size:.875em;
     margin-bottom:1em;
   }

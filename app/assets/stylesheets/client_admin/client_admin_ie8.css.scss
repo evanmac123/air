@@ -4,3 +4,9 @@ header {
   .admin_options #manage_board:before {background:$dark-green;}
   .admin_options #manage_board:hover:before {background:$dark-green;}
 }
+
+#chart-options li#show-button {top:13px;}
+
+.edit_tiles_content, 
+.edit_tile_image {border:1px $med-gray solid;}
+.edit_tiles_content {border-top:0;}

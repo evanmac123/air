@@ -10,14 +10,14 @@
 %section.manage_tiles#archived_tiles
   .row
     .large-12.columns
-      %h1 Inactive tiles
+      %h2 Inactive
       <a class="create_new_tile" href="/client_admin/tiles/new">+ Add new tile</a>
       %div#archive= render partial: 'archive'
 
 %section.manage_tiles#active_tiles
   .row
     .large-12.columns
-      %h1 Currently live
+      %h2 Active
       %div#active=  render partial: 'active'
 
 - timeout_in_msecs = ThumbnailsController::THUMBNAIL_POLL_DELAY * 1000

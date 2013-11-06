@@ -1,6 +1,7 @@
 #search {
-    height:40px;
+    @include form-group;
     &:after{@include clear;}
+    h5 {display: none;}
     #search_string, #find_button {
         font-size:1em;
         line-height: 1em;
@@ -8,14 +9,13 @@
     }
     #search_string {
         float:left;
-        @include font-light;
         height:40px;
         margin:0; 
         padding:.85em;
         width:80%;
     }
     #find_button {
-        @include app-button($blue);
+        @include app-button($dark-green);
         border-radius:0;
         height:40px;
         width:20%;
@@ -25,7 +25,7 @@
 #notify_of_search {margin-bottom:2em;}
 
 #other-users .user {
-    border-left: 1px $light-gray solid;
+    @include form-group;
     margin-bottom:2em;
     &:after {@include clear;}
     .user-avatar, .user-info, .user-name_email, .follow_buttons {
@@ -37,7 +37,7 @@
         width:20%;
     }
     .user-info {
-        float: right;
+        float: left;
         padding:0 0 0 1em;
         width:80%;
         position: relative;
@@ -63,8 +63,9 @@
     .pending_notice {
         color:$med-gray;
     }
+    .follow-btn {@include app-button($dark-green);}
+    .stop-following-btn {@include app-button($red);}
     .follow-btn, .stop-following-btn {
-        @include app-button($light-gray);
         @include ease(.15s);
         cursor: pointer;
         font-size:.85em;

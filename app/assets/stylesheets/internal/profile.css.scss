@@ -1,4 +1,5 @@
 #about-player {
+    @include form-group;
     position:relative;
     &:after{@include clear;}
     .player-avatar, .player-info {
@@ -19,9 +20,9 @@
     .follow_buttons {margin-top:.75em;}
 }
 
-#recent-activity .act .avatar43 a {display: none;}
+#following {margin-bottom:4em;}
+#following h3 {display: inline-block;}
 
-// Friend's list scoreboard
-#friends_list table, #scoreboard_list table {background:$white;}
+#recent-activity .act .avatar43 a {display: none;}
 
 .indent_same_as_table {color:$gray;}

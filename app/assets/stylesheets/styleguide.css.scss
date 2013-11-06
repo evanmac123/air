@@ -16,26 +16,24 @@ h5 {color:$med-gray}
 
 .logos .example {padding:2em 1em; text-align: center;}
 
+
+.small_button {font-size:12px!important;}
+.medium_button {font-size:16px!important;}
+.large_button {font-size:20px!important;}
+
 .big_button#blue {@include app-button($blue);}
 .big_button#green {@include app-button($dark-green);}
 .big_button#orange {@include app-button($orange);}
 .big_button#red {@include app-button($red);}
-.big_button#gray {@include app-button($gray);}
+.big_button#gray {@include app-button($med-gray);}
 
 .buttons {
   .full-buttons {margin-bottom:2em;}
-  .dark-bg {
-    .light_button#blue {@include light-button($light-gray, $blue);}
-    .light_button#green {@include light-button($light-gray, $dark-green);}
-    .light_button#orange {@include light-button($light-gray, $orange);}
-    .light_button#red {@include light-button($light-gray, $red);}
-  }
-  .light-bg {
-    .light_button#blue {@include light-button($gray, $blue);}
-    .light_button#green {@include light-button($gray, $dark-green);}
-    .light_button#orange {@include light-button($gray, $orange);}
-    .light_button#red {@include light-button($gray, $red);}
-  }
+  .light_button#blue {@include light-button($blue);}
+  .light_button#gray {@include light-button($med-gray);}
+  .light_button#green {@include light-button($dark-green);}
+  .light_button#orange {@include light-button($orange);}
+  .light_button#red {@include light-button($red);}
 }
 
 .colors .large-3 {

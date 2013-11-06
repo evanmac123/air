@@ -39,32 +39,47 @@
   </section>
 
   <section class="buttons">
-    <h5>If you need buttons that writes to the site/database, or is of importance</h5>
+    <h5>Primary buttons, with importance in order</h5>
     <h5>@include app-button($color)</h5>
     <div class="large-12 columns large-centered full-buttons">
       <div class="example row">
-        <a class="big_button" id="blue">Click me</a>
         <a class="big_button" id="green">Click me</a>
+        <a class="big_button" id="gray">Click me</a>
+        <a class="big_button" id="blue">Click me</a>
         <a class="big_button" id="orange">Click me</a>
         <a class="big_button" id="red">Click me</a>
-        <a class="big_button" id="gray">Click me</a>
+      </div>
+      <div class="example row">
+        <a class="big_button small_button" id="green">Click me</a>
+        <a class="big_button medium_button" id="green">Click me</a>
+        <a class="big_button large_button" id="green">Click me</a>
+        <h5>10px/.625em, 16px/1em, 20px/1.25em</h5>
       </div>
     </div>
 
-    <h5>If you need buttons for navigation, or are much more subtle. Use them contextually.</h5>
-    <h5>@include light-button($outline_color, $hover_color)</h5>
+    <h5>Secondary buttons, with importance in order</h5>
+    <h5>@include light-button($color)</h5>
     <div class="large-12 columns large-centered light-buttons">
       <div class="dark-bg example row">
-        <a class="light_button" id="blue">Click me</a>
         <a class="light_button" id="green">Click me</a>
+        <a class="light_button" id="gray">Click me</a>
+        <a class="light_button" id="blue">Click me</a>
+        
         <a class="light_button" id="orange">Click me</a>
         <a class="light_button" id="red">Click me</a>
       </div>
       <div class="light-bg example row">
-        <a class="light_button" id="blue">Click me</a>
         <a class="light_button" id="green">Click me</a>
+        <a class="light_button" id="gray">Click me</a>
+        <a class="light_button" id="blue">Click me</a>
         <a class="light_button" id="orange">Click me</a>
         <a class="light_button" id="red">Click me</a>
+      </div>
+      <div class="light-bg example row">
+        <a class="light_button small_button" id="green">Click me</a>
+        <a class="light_button medium_button" id="green">Click me</a>
+        <a class="light_button large_button" id="green">Click me</a>
+        <h5>10px/.625em, 16px/1em, 20px/1.25em</h5>
       </div>
     </div>
   </section>

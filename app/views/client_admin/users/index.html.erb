@@ -1,26 +1,36 @@
 <div class="row">
   <div class="large-12 columns">
-    <h1 class="page-title" id="title">Manage users</h1>
+    <%= render partial: 'client_admin/tiles/tiles_tools_subnav' %>
   </div>
 </div>
 
 <div class="row">
   <div class="large-8 columns">
     <div id="add-single-user" class="section">
-      <h2 class="form_title">Add user</h2>
+      <h3>Add</h3>
       <%= render 'add_form', user: @user, visible_characteristics: @visible_characteristics %>
     </div>
   </div>
   <div class="large-4 columns">
     <div id="find-users" class="section">
-      <h2 class="form_title">Find user</h2>
-      <div id="name-search">
-        <%= text_field_tag 'name-substring', nil, placeholder: "Enter first or last name" %>
-        <div id="name-autocomplete-target"></div>
+      <h3>Find</h3>
+      <div class="find-tools">
+        <div id="name-search">
+          <%= text_field_tag 'name-substring', nil, placeholder: "Enter first or last name" %>
+          <div id="name-autocomplete-target"></div>
+        </div>
+        <span>or</span>
+        <%= link_to "Show everyone", client_admin_users_path(show_everyone: true), id: "show-everyone" %>
       </div>
-      <span>or</span>
-      <%= link_to "Show everyone", client_admin_users_path(show_everyone: true), id: "show-everyone" %>
     </div>
+  </div>
+</div>
+
+<div class="row segmentation_tool">
+  <div class="large-8 columns">
+    <h3>Segment</h3>
+    <%= render 'shared/segmentation_form', dummy_characteristics: @dummy_characteristics, generic_characteristics: @generic_characteristics, demo_specific_characteristics: @demo_specific_characteristics, segmentation_url: client_admin_segmentation_path %>
+    <%= render 'shared/segmentation_results', segmentation_results: @segmentation_results %>
   </div>
 </div>
 

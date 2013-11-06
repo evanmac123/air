@@ -1,16 +1,13 @@
-<div id="about-this-account" class="section">
-  <ul>
-    <li id="user-join-status">
-      <% if user.claimed? %>
-        <span class="join-status joined">User has joined!</span>
-      <% else %>
-        <span class="join-status not-joined">Not joined yet</span>
-      <% end %>
-      <% if user.invitable? %>
-        <%= link_to "Send an invite", client_admin_user_invitation_path(user), method: :post %>
-      <% end %>
-      
-    </li>
-    <li id="claimcode">Claim code: <span><%= user.claim_code %></span></li>
-  </ul>
-</div>
+<ul>
+  <li id="user-join-status">
+    <% if user.claimed? %>
+      <span class="join-status joined">Joined: Yes</span>
+    <% else %>
+      <span class="join-status not-joined">Joined: No</span>
+    <% end %>
+    <% if user.invitable? %>
+      <%= link_to "Send invite", client_admin_user_invitation_path(user), method: :post %>
+    <% end %>
+    
+  </li>
+</ul>

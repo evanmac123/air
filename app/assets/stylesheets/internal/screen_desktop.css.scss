@@ -9,6 +9,9 @@ body {
 #get_started_lightbox {top:6em!important;}
 
 /* -- Tile wall -- */
+#tile_wall {
+  a, a:link, a:visited, .tile-wrapper .headline .text {@include font-regular;}
+}
 .all_tile_thumbnails {
   max-width:62em!important; // temporary until new tile wall
   text-align:justify;
@@ -19,8 +22,8 @@ body {
 
 /* -- Activity page -- */
 .act {
-  .avatar43 {width:15%}
-  .act-details {width:85%}
+  .avatar43 {width:15%; margin-right:2.5%;}
+  .act-details {width:80%}
 }
 .seemore, #see-more-spinner {
   display: inline-block;
@@ -36,13 +39,67 @@ body {
     padding:0;
     text-align: right;
   }
-  .tile_holder {font-size:1em;}
+  .tile_holder {
+    font-size:1em;
+    margin:0 auto;
+  }
+
+  // Large Prev and Next buttons
   .viewer {
     position:relative;
     max-width:46em;
     width:100%;
+    a#prev, a#next {
+      color:darken($tile-wall-bg, 3%);
+      background:darken($tile-wall-bg, 3%);
+      border:1px darken($tile-wall-bg, 5%) solid;
+      height:100%;
+      top:0;
+      width:3em;
+      &:hover {
+        color:darken($tile-wall-bg, 7%);
+        background:darken($tile-wall-bg, 7%);
+        border-color:darken($tile-wall-bg, 7%);
+      }
+      &:active {
+        background:lighten($tile-wall-bg, 1%);
+        color:lighten($tile-wall-bg, 1%);
+      }
+      &:after {
+        margin-left:-1em;
+        position:absolute;
+        left:50%;
+        bottom:50%;
+      }
+    }
+    a#prev {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+      left:-.5em;
+      &:after {
+        @include arrow-left(lighten($tile-wall-bg, 3%), 2em);
+      }
+      &:hover {
+        &:after {
+          border-right-color:lighten($tile-wall-bg, 5%);
+        }
+      }
+    }
+    a#next {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+      right:-.5em;
+      &:after  {
+        @include arrow-right(lighten($tile-wall-bg, 3%), 2em);
+      }
+      &:hover {
+        &:after {
+          border-left-color:lighten($tile-wall-bg, 5%);
+        }
+      }
+    }
   }
-  a#prev, a#next {top:5.5em;}
+  
 }
 
 /* -- Settings -- */
@@ -50,3 +107,20 @@ body {
   .avatar_image {width:15%;}
   .avatar_inputs {width:85%;}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

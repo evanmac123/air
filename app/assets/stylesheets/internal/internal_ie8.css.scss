@@ -57,6 +57,30 @@ header {
   top:6.5em!important;
 }
 
+/* -- Full size tile -- */
+.tile_holder {border:1px $med-gray solid;}
+.tiles.tiles-index p#position {
+  margin-left:0;
+  left:81%;
+}
+.tiles.tiles-index .viewer {
+  a#prev, a#next {width:2em;}
+  a#prev {left:-2em;}
+  a#next {right:3em;}
+}
+.tiles.tiles-index .tile_quiz {
+  .tile_points_bar {border-top-color:darken($light-gray, 2%)}
+  .tile_points_bar .earnable_points {
+    top:0;
+    height:45px;
+  }
+}
+
+/* -- Tile wall -- */
+#tile_links .show_more_tiles {
+  display: inline-block;
+  width:12em;
+}
 .all_tile_thumbnails {
   padding:2em 1em;
   #justifier {max-width:305px;}
@@ -68,13 +92,9 @@ header {
   width:100%;
 }
 
-.tiles.tiles-index p#position {
-  margin-left:0;
-  left:81%;
-}
-
-/* -- Tile wall -- */
-#tile_links .show_more_tiles {
-  display: inline-block;
-  width:12em;
+/* -- Directory/seach -- */
+#search h5 {
+  color:$gray;
+  display: block;
+  padding-bottom:.5em;
 }

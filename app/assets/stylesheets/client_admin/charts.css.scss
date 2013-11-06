@@ -9,7 +9,7 @@
 #chart-header .subsection-head {display:inline-block;}
 
 #chart-options {
-  margin-bottom:1em;
+  margin-bottom:1.5em;
   position: relative;
   li {
     display:inline-block;
@@ -17,13 +17,13 @@
     &#chart-dates * {display: inline-block;}
     &#chart-dates span, &#chart-labeling span {
       @include caption;
-      color:$light-gray; 
       text-transform: uppercase;
     }
     &#show-button {
+      margin-right:0;
       position: absolute;
       right:0;
-      top:41%;
+      top:$small_cap_size;
       #show-chart-link {
         @include app-button($dark-green);
         margin:0;
@@ -32,6 +32,11 @@
     &#chart-labeling {
       margin-right:.25em;
       width:7em;
+      span, select {display: block;}
+      span {
+        color:$med-gray;
+        margin-bottom:.35em;
+      }
     }
     &#chart-spinner {
         vertical-align:middle;

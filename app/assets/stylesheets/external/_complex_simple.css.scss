@@ -25,7 +25,7 @@
 			white-space: nowrap;
 		}
 		&:before {
-			@include arrow-top($dark-green);
+			@include arrow-up($dark-green, 8px);
 			position: absolute;
 			top:-8px;
 			left:2em;

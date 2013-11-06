@@ -76,38 +76,6 @@ $headlines:         #202020;
     &:active {color:lighten($color, 10%);}
 }
 
-/* ============= Fun with arrows! ============= */
-@mixin arrow-top($color) {
-    border-right: 8px solid transparent;
-    border-left: 8px solid transparent;
-    border-bottom: 8px solid #{$color};
-    content:"";
-    display:inline-block;
-}
-
-@mixin arrow-bottom($color) {
-    border-right: 8px solid transparent;
-    border-left: 8px solid transparent;
-    border-top: 8px solid #{$color};
-    content:"";
-    display:inline-block;
-}
-
-@mixin arrow-left($color) {
-    border-bottom: 8px solid transparent;
-    border-right: 8px solid #{$color};
-    border-top: 8px solid transparent;
-    content:"";
-    display:inline-block;
-}
-@mixin arrow-right($color) {
-    border-bottom: 8px solid transparent;
-    border-left: 8px solid #{$color};
-    border-top: 8px solid transparent;
-    content:"";
-    display:inline-block;
-}
-
 /* ============= Mixins for Buttonz ============= */
 @mixin square-button-wrap($bg) {
     background:#{$bg};

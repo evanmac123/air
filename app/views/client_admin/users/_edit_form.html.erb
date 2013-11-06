@@ -1,11 +1,11 @@
 <%= form_for user, url: client_admin_user_path(user), html: {class: "user-profile", id: "single-form"} do |f| %>
   <div class="large-9 columns">
-    <%= render 'basic_form_fields', form: f, user: user, show_phone_number: true %>
+    <div id="user_details">
+      <%= render 'basic_form_fields', form: f, user: user, show_phone_number: true %>
+      <%= render 'form_buttons', submit_button_text: "Save edits", show_delete_link: true, user: user %>
+    </div>
   </div>
-  <div class="large-3 columns">
+  <div class="large-3 columns" id="about-this-account">
     <%= render 'edit_specific_form_fields', user: user %>
-  </div>
-  <div class="large-12 columns">
-    <%= render 'form_buttons', submit_button_text: "Save edits", show_delete_link: true, user: user %>
   </div>
 <% end %>
