@@ -32,27 +32,27 @@ Feature: User can credit another user who got them into the game
     And DJ works off
     And I go to the activity page
     # Then I should see "Dan 5 pts"
-    And I should see "Dan got credit for referring Phil to the game"
-    And I should see "Phil credited Dan for referring them to the game"
-    And "+14155551212" should have received SMS "Got it, Dan referred you to the game. Thanks for letting us know."
-    And "+18085551212" should have received an SMS including "Phil gave you credit for referring them to the game. Many thanks and 5 bonus points!"
+    And I should see "Dan got credit for recruiting Phil"
+    And I should see "Phil credited Dan for recruiting them"
+    And "+14155551212" should have received SMS "Got it, Dan recruited you. Thanks for letting us know."
+    And "+18085551212" should have received an SMS including "Phil gave you credit for recruiting them. Many thanks and 5 bonus points!"
 
   Scenario: User credits another in a game with a referred credit bonus
     When "+17145551212" sends SMS "freddie"
     And DJ works off
-    Then "+17145551212" should have received an SMS including "Got it, Fred referred you to the game. Thanks (and 6 points) for letting us know."
-    And "+14085551212" should have received an SMS including "Joe gave you credit for referring them to the game. Many thanks and 10 bonus points!"
+    Then "+17145551212" should have received an SMS including "Got it, Fred recruited you. Thanks (and 6 points) for letting us know."
+    And "+14085551212" should have received an SMS including "Joe gave you credit for recruiting them. Many thanks and 10 bonus points!"
     When I sign in via the login page with "Fred/freddie"
-    Then I should see "Fred got credit for referring Joe to the game"
-    And I should see "Joe credited Fred for referring them to the game"
+    Then I should see "Fred got credit for recruiting Joe"
+    And I should see "Joe credited Fred for recruiting them"
 
   Scenario: User can't credit someone twice
     When "+14155551212" sends SMS "dcroak"
     And "+14155551212" sends SMS "vgyster"
     And I go to the activity page
     # Then I should see "Vlad 0 pts"
-    And "+14155551212" should have received SMS "You've already told us that Dan referred you to the game."
-    And "+16175551212" should not have received an SMS including "Phil gave you credit for referring them to the game."
+    And "+14155551212" should have received SMS "You've already told us that Dan recruited you."
+    And "+16175551212" should not have received an SMS including "Phil gave you credit for recruiting them."
 
   Scenario: User tries to credit themself
     When "+14155551212" sends SMS "pdarnowsky"
@@ -64,7 +64,7 @@ Feature: User can credit another user who got them into the game
     When "+16175551212" sends SMS "dcroak"
     And I go to the activity page
     # Then I should see "Dan 0 pts"
-    And "+16175551212" should have received an SMS "Sorry, the time when you can credit someone for referring you to the game is over."
+    And "+16175551212" should have received an SMS "Sorry, the time when you can credit someone for recruiting you is over."
     And "+18085551212" should not have received an SMS including "Vlad gave you credit"
 
   Scenario: User credits someone who doesn't exist

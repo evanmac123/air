@@ -17,11 +17,11 @@ feature 'User joining game shows as act' do
 
   scenario 'in activity feed' do
     visit activity_path
-    expect_content "Fred Fredricksen joined the game"
+    expect_content "Fred Fredricksen joined"
   end
 
   scenario 'on profile page' do
     visit user_path(@fred)
-    expect_content "Fred Fredricksen joined the game"
+    expect_content "Fred Fredricksen joined"
   end
 end

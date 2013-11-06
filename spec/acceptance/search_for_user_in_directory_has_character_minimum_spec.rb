@@ -17,6 +17,6 @@ feature 'Search for user in directory has character minimum' do
     expect_no_content "John"
     expect_no_content "Janice"
     expect_no_content "Johann"
-    expect_content "Please enter at least 3 letters to search on if you'd like to search"
+    expect_content "Please enter at least 3 letters of the person's name, then click \"Find!\""
   end
 end

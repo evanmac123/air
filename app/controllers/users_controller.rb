@@ -11,8 +11,9 @@ class UsersController < Clearance::UsersController
       @search_string = @search_string.downcase.strip.gsub(/\s+/, ' ')
 
       if @search_string.length < MINIMUM_SEARCH_STRING_LENGTH
-        flash[:failure] = "Please enter at least #{MINIMUM_SEARCH_STRING_LENGTH} letters to search on if you'd like to search"
+        flash[:failure] = "Please enter at least #{MINIMUM_SEARCH_STRING_LENGTH} letters of the person's name, then click \"Find!\""
         @other_users = []
+
       else
         @other_users = User.claimed.demo_mates(current_user).alphabetical.name_like(@search_string)
         @users_cropped = USER_LIMIT if @other_users.length > USER_LIMIT

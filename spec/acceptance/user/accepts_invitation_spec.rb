@@ -33,7 +33,7 @@ feature "User Accepts Invitation" do
     click_button "Enter"
 
     should_be_on activity_path
-    expect_content "#{@user.name} joined the game"
+    expect_content "#{@user.name} joined"
     expect_content "Your phone number has been validated"
 
     ActionMailer::Base.deliveries.clear
@@ -80,7 +80,7 @@ feature "User Accepts Invitation" do
     click_button "Log in"
 
     should_be_on activity_path
-    expect_content "10 pts #{@user.name} joined the game"
+    expect_content "10 pts #{@user.name} joined"
   end
 
   scenario "user can and must set password when accepting invitation" do

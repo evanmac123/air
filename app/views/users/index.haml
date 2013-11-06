@@ -3,7 +3,6 @@
     #search_box_wrapper
       #search-box.module
         %h1.headline Search
-        -#.search_nudge Don't see the person you're looking for? Try searching
         #search
           = form_tag users_path, :method => :get do
             = label_tag "search_string", "search bar", :class => :hidden
@@ -33,7 +32,7 @@
                   = render 'follow_buttons', :user => u
 
         - else
-          %p Use the search box at right to search for someone
+          %p Enter at least 3 letters of the person's name, then click "Find!"
         - if @users_cropped
           .focus_on_search_bar{:style => "display: inline;"}
             = "(First #{@users_cropped} results returned. Didn't find who you're looking for? Try" 

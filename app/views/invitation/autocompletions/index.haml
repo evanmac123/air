@@ -9,7 +9,7 @@
     /   = f.submit "Invite", :class => "single_click_invite"
     .clear
     - if user.claimed?
-      .already_playing (already playing)
+      .already_playing (already participating)
       = hidden_field_tag 'referrer_id', user.id  # This is for referrals
     - else
       - submit_id = "invite_" + user.slug

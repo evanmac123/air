@@ -189,7 +189,7 @@ feature 'User claims account' do
         clear_messages
         send_message "referrer"
         @expected_user.reload.game_referrer.should == @expected_referrer
-        expect_reply "Got it, #{@expected_referrer.name} referred you to the game. Thanks for letting us know."
+        expect_reply "Got it, #{@expected_referrer.name} recruited you. Thanks for letting us know."
       end
 
       if(channel_name == 'SMS')

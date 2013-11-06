@@ -900,13 +900,14 @@ class User < ActiveRecord::Base
     end
   end
 
+  # Activity feed posts when someone joins are "joined the game", "credited [name] for referring them to the game" and "got credit for referring [name] to the game." Suggestions: "joined", "credited [name] for recruiting them" and "got credit for recruiting [name]"
   def credit_game_referrer(referring_user)
     demo = self.demo
 
-    referrer_act_text = I18n.t('special_command.credit_game_referrer.activity_feed_text', :default => "got credit for referring %{referred_name} to the game", :referred_name => self.name)
-    referrer_sms_text = I18n.t('special_command.credit_game_referrer.referrer_sms', :default => "%{referred_name} gave you credit for referring them to the game. Many thanks and %{points} bonus points!", :referred_name => self.name, :points => demo.game_referrer_bonus)
+    referrer_act_text = I18n.t('special_command.credit_game_referrer.activity_feed_text', :default => "got credit for recruiting %{referred_name}", :referred_name => self.name)
+    referrer_sms_text = I18n.t('special_command.credit_game_referrer.referrer_sms', :default => "%{referred_name} gave you credit for recruiting them. Many thanks and %{points} bonus points!", :referred_name => self.name, :points => demo.game_referrer_bonus)
 
-    referred_act_text = I18n.t('special_command.credit_game_referrer.referred_activity_feed_text', :default => "credited %{referrer_name} for referring them to the game", :referrer_name => referring_user.name)
+    referred_act_text = I18n.t('special_command.credit_game_referrer.referred_activity_feed_text', :default => "credited %{referrer_name} for recruiting them", :referrer_name => referring_user.name)
     referred_sms_points_phrase = case demo.referred_credit_bonus
                                  when nil
                                    ""
@@ -915,7 +916,7 @@ class User < ActiveRecord::Base
                                  else
                                    " (and #{demo.referred_credit_bonus} points)"
                                  end
-    referred_sms_text = I18n.t('special_command.credit_game_referrer.referred_sms', :default => "Got it, %{referrer_name} referred you to the game. Thanks%{points_phrase} for letting us know.", :referrer_name => referring_user.name, :points_phrase => referred_sms_points_phrase)
+    referred_sms_text = I18n.t('special_command.credit_game_referrer.referred_sms', :default => "Got it, %{referrer_name} recruited you. Thanks%{points_phrase} for letting us know.", :referrer_name => referring_user.name, :points_phrase => referred_sms_points_phrase)
 
     self.update_attribute(:game_referrer_id, referring_user.id)
 
@@ -1058,7 +1059,7 @@ class User < ActiveRecord::Base
   def self.add_joining_to_activity_stream(user)
     Act.create!(
       :user            => user,
-      :text            => 'joined the game',
+      :text            => 'joined!',
       :inherent_points => user.demo.seed_points
     )
   end
