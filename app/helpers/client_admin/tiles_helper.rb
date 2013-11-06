@@ -31,12 +31,22 @@ module ClientAdmin::TilesHelper
       [
         "<span class='tile-active-time'>Active: ", 
         (distance_of_time_in_words tile.activated_at, tile.archived_at),
-        "</span></br> <span class='tile-deactivated-time'>Deactivated: ", 
+        "</span></br>",
+        "<span class='tile-deactivated-time'>Deactivated: ", 
         tile.archived_at.strftime('%-m/%-d/%Y'),
         "</span>"
       ].join.html_safe
     else
-      "Active " + (distance_of_time_in_words tile.activated_at, Time.now) + "; since " + tile.activated_at.strftime('%-m/%-d/%Y')
+      [
+        "<span class='tile-active-time'>",
+        "Active ", 
+        (distance_of_time_in_words tile.activated_at, Time.now),
+        "</span><br>",
+        "<span class='tile-activated-since'>", 
+        "Since ",
+        tile.activated_at.strftime('%-m/%-d/%Y'),
+        "</span>"
+      ].join.html_safe
     end
   end
 
