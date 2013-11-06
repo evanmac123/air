@@ -54,8 +54,8 @@
       text-align: left;
       &:after{@include clear;}
       .text{
-        color: $blue;
-        @include font-semibold;
+        color: $dark-gray;
+        @include font-light;
         font-size:1em;
       }
     }
