@@ -1,0 +1,12 @@
+- unless user.has_friends
+  %p.indent_same_as_table No connections yet
+- else
+  = render 'shared/scoreboard_headers'
+
+  #friends_list
+    %table.scoreboard
+      = render :partial => 'shared/single_friend', :collection => user.profile_page_friends_list
+  #scoreboard_list{:style => "display: none;"}
+    %table.scoreboard
+      = render :partial => 'shared/single_friend', :collection => user.scoreboard_friends_list_by_tickets
+

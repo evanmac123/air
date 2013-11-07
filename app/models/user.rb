@@ -314,7 +314,11 @@ class User < ActiveRecord::Base
       return "unknown"
     end
   end
-    
+   
+  def has_friends
+    accepted_friends_same_demo.count > 0
+  end
+
   # See comment by Demo#acts_with_current_demo_checked for an explanation of
   # why we do this.
 
