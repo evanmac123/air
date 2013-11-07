@@ -296,7 +296,7 @@ If you're smart you'll go to [invitation_url] and play.
         visit_in_email("click here")
 
         should_be_on(invitation_path(@user.invitation_code))
-        page.find("input#user_game_referrer_id").value.should == @referrer.id.to_s
+        expect_game_referrer_id(@referrer.id)
       end
     end
   end

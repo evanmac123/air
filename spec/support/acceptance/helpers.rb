@@ -100,12 +100,6 @@ module SteakHelperMethods
     Suggestion.where(:user_id => user.id, :value => suggestion_text).first.should_not be_nil
   end
 
-  def fill_in_required_invitation_fields
-    fill_in "Choose a password", :with => "foobar"
-    fill_in "Confirm password", :with => "foobar"
-    check "user_terms_and_conditions"
-  end
-
   def expect_avatar_in_masthead(expected_filename)
     avatar = page.find(:css, 'img.avatar48')
     avatar_url = avatar['src'].gsub(/\?.*$/, '') # Chop off query params
@@ -275,5 +269,9 @@ module SteakHelperMethods
 
   def click_play_button
     page.find('#play_button').click
+  end
+
+  def expect_game_referrer_id(expected_id)
+    expected_id.to_s.should == page.find('#user_game_referrer_id').value
   end
 end

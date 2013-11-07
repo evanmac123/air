@@ -5,52 +5,6 @@
   - content_for(:javascript) do
 
     :javascript
-      $("input#user_phone_number").focus(function () {
-        $(".helper").hide();
-        $(".helper#number").fadeIn();
-      });
-      $("input#user_new_phone_number").focus(function () {
-        $(".helper").hide();
-        $(".helper#number").fadeIn();
-      });
-      $("input#user_name").focus(function () {
-        $(".helper").hide();
-        $(".helper#name").fadeIn();
-      });
-      $("input#user_sms_slug").focus(function () {
-        $(".helper").hide();
-        $(".helper#username").fadeIn();
-      });
-      $("input#autocomplete").focus(function () {
-        $(".helper").hide();
-        $(".helper.autocomplete").fadeIn();
-      });
-      $("input#user_password").focus(function () {
-        $(".helper").hide();
-        $(".helper#password").fadeIn();
-      });
-      $("input#user_password_confirmation").focus(function () {
-        $(".helper").hide();
-        $(".helper#passwordConf").fadeIn();
-      });
-      $("li.form-input").focusout(function () {
-        $(".helper").fadeOut();
-      });
-      
-      $("#search_for_referrer #autocomplete").focus(function(){
-        $("#autocomplete_status").show();
-      });
-
-      $("#search_for_referrer .single_suggestion").live('click', function(){
-        $("#autocomplete_status").hide();
-      });
-       
-      if (document.getElementById('user_phone_number')){
-        $("#user_phone_number").focus();
-      }else{
-        $("#user_name").focus();      
-      }
-
       var erroredFields = $('.field_with_errors input');
       if(erroredFields.length > 0) {
         erroredFields.first().focus();
@@ -75,86 +29,21 @@
 
 
   = form_for @user, :url => invitation_acceptance_path(:user_id => @user.id), :html => {:autocomplete => :off, :id => "signup-form"}, :builder => FancyFormBuilder do |f|
-    - if @user.demo.client_name.present?
-      %div#broughtby
-        %p#sponsoredBy 
-          Sponsored by: 
-          %span#clientName= @user.demo.client_name
-
     %div#all-inputs
    
       %div.form-ul-section
-        %div.helper#password Make sure it’s at least 6 characters. (Don’t pick something obvious like birthday, last name, employee ID, etc.)
         = f.fancy_password_field :password, :label_text => "Choose a password", :value => @user.password
-      %div.form-ul-section
-        %div.helper#passwordConf And confirm that password – just in case.
-        = f.fancy_password_field :password_confirmation, :label_text => "Confirm password", :value => @user.password_confirmation
-          
-   
-      %div.form-ul-section
-        %div.helper#number This is optional, but you'll have a better experience if you add it. Your usual data and text costs apply.
-        = f.hidden_field :email, :value => @user.email
-        - if @user.invitation_requested_via_sms?
-          = f.hidden_field :phone_number, :value => @user.phone_number
-          %ul.form-section
-            %li.form-label Your Phone Number
-            .form-input
-              = text_field_tag :display_phone_number, @user.phone_number.as_pretty_phone, :disabled => true, :style => disabled_style
-            .subtle_notice If you want to change or remove your mobile number later, you can do so by going to the Settings page.
-
-          %ul.form-section
-            %li.form-label Your Email Address
-            .form-input
-              = text_field_tag :display_email, @user.email, :disabled => true, :style => disabled_style
-
-        - elsif @user.invitation_requested_via_email? || @user.invitation_requested_via_web?
-
-          = f.hidden_field :email, :value => @user.email
-          %ul.form-section
-            %li.form-label Your Email Address
-            .form-input
-              = text_field_tag :display_email, @user.email, :disabled => true, :style => disabled_style
-
-          = f.fancy_text_field :new_phone_number, :label_text => "Enter your mobile number (optional)", :placeholder => '(xxx) xxx-xxxxx', :class => 'with-hint-text', :style => optional_style
-        - else
-          = f.fancy_text_field :new_phone_number, :label_text => "Enter your mobile number (optional)".html_safe, :placeholder => '(xxx) xxx-xxxxx', :class => 'with-hint-text', :style => optional_style
-          %ul.form-section#notification_prefs
-            %li.form-label Notify me via...
-            %li.form-input
-              - [["SMS/text message", :sms], ["Email", :email], ["Both", :both] ].each do |label_text, method_name| 
-                = f.radio_button :notification_method, method_name, :class => 'notification_pref', :id => method_name
-                = label_tag method_name, label_text, :class => 'check_label'
-            .clear
-
-      %div.form-ul-section#search_for_referrer
-        %ul.form-section
-          %li.form-label= label_tag :autocomplete,  "Did anyone refer you? (optional)"
-          / %li.form-label.secondary-form-label= label_tag :autocomplete, "(optional)"
-          %li.form-input
-            = f.hidden_field :game_referrer_id, :class => "form-input"
-            - if @user.game_referrer_id
-              - @matched_users = User.where(:id => @user.game_referrer_id)
-              = render  :template => "invitation/autocompletions/index"
-              = text_field_tag :autocomplete, '', :style => "display: none;"
-            - else
-              = text_field_tag :autocomplete, nil, :placeholder => 'Enter their name', :class => 'with-hint-text', :style => optional_style
-        #indented_to_match_inputs
-          #autocomplete_status
-          #suggestions
-
-      %ul.form-section#check-terms
-        = f.check_box(:terms_and_conditions)
-        = f.label :terms_and_conditions, :style => "display: none;"
-        #terms_label
-          I accept the 
-          = link_to "terms & conditions", terms_path(:id => 'terms')
-        - if @user.errors[:terms_and_conditions].present?
-          .form-msg= @user.errors[:terms_and_conditions].first
-
+  
       %ul.form-section.signup-submit
 
         .orange-btn= f.submit "Log in", :style => 'float: left;',  :id => 'join_the_game_link'
 
+    - if @user.game_referrer_id
+      = f.hidden_field :game_referrer_id
+
+  #t-and-c-notice
+    By submitting this form or using this site, you are agreeing to the 
+    = link_to('terms and conditions', terms_path, target: '_blank') + '.'
+
   = render 'shared/intercom'
   = javascript_include_tag 'external/join'
-

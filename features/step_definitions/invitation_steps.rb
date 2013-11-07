@@ -21,5 +21,4 @@ end
 
 When /^I fill in the required self-invitation fields$/ do
   step %{I fill in "Choose a password" with "foobar"}
-  step %{I fill in "Confirm password" with "foobar"}
 end

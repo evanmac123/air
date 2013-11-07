@@ -61,8 +61,6 @@ class User < ActiveRecord::Base
 
   validates_presence_of :demo_id
 
-  validates_acceptance_of :terms_and_conditions, :if => :trying_to_accept, :message => "You must accept the terms and conditions" 
-
   validates_length_of :password, :minimum => 6, :allow_blank => true, :message => 'must have at least 6 characters'
   validates :email, :with => :email_distinct_from_all_overflow_emails 
   validates :overflow_email, :with => :overflow_email_distinct_from_all_emails 
@@ -521,8 +519,8 @@ class User < ActiveRecord::Base
     end
   end
 
-  def join_game(number, reply_mode=:string)
-    mark_as_claimed(:phone_number => number)
+  def join_game(reply_mode=:string)
+    mark_as_claimed
     finish_claim(reply_mode)
   end
 

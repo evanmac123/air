@@ -60,13 +60,8 @@ Feature: User invites friends
     When "1@loaded.com" opens the email
     And I click the play now button in the email
     Then I should be on the invitation page for "1@loaded.com"
-    When I fill in "Enter your mobile number" with "2088834848"
-    And I fill in "Choose a password" with "password"
-    And I fill in "Confirm password" with "password"
-    And I check "Terms and conditions"
+    When I fill in "Choose a password" with "password"
     And I press "Log in"
-    And I wait a second
-    When I follow "Skip this step"
     Then I should see "Brought to you by"
     Then user with email "1@loaded.com" should show up as referred by "Shelly"
     And DJ works off
