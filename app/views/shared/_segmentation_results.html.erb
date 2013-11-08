@@ -17,6 +17,8 @@
     <div class="clear"></div>
     <p id="user-info-target"></p>
   <% else %>
-    <%= render partial: 'shared/flashes' %>
+    <% if request.xhr? %>
+      <%= render partial: 'shared/flashes' %>
+    <% end %>
   <% end %>
 </div>

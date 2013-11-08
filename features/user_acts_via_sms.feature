@@ -62,11 +62,6 @@ Feature: User acts
     Then "+15087407520" should have received SMS "Bananas are good for you. Points 2/20, Tix 0."
     And "+15087407520" should have received SMS "Bananas are good for you. Points 4/20, Tix 0."
 
-  Scenario: User enters bad act via the website
-    When I sign in via the login page as "Dan/foobar"
-    And I enter the act code "chainsaw massacred"
-    Then I should see the error "Sorry, I don't understand what "chainsaw massacred" means."
-
   Scenario: User acts, with a trailing period
     When "+15087407520" sends SMS "ate banana."
     And I sign in via the login page as "Dan/foobar"

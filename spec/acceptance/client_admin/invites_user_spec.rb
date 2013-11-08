@@ -11,7 +11,7 @@ feature 'Invites user' do
     context "when the user has an email address" do
       it "should work and have feedback" do
         visit edit_client_admin_user_path(@user, as: @client_admin)
-        click_link "Send an invite"
+        click_link "Send invite"
 
         should_be_on edit_client_admin_user_path(@user)
         @user.reload.should be_invited

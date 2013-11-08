@@ -24,8 +24,8 @@ feature 'Client admin segments on characteristics' do
     fill_in "segment_value[0]", :with => "28"
     click_button "Find segment"
 
-    expect_content "Segmenting on: Points is less than 28"
-    expect_content "3 Users in segment"
+    expect_content "Segmented by characteristics: Points is less than 28"
+    expect_content "Users in segment 3"
   end
 
   scenario 'can segment on game-agnostic characteristic', js: true do
@@ -34,8 +34,8 @@ feature 'Client admin segments on characteristics' do
     fill_in "segment_value[0]", :with => '100'
     click_button "Find segment"
 
-    expect_content "Segmenting on: IQ is greater than 100"
-    expect_content "1 Users in segment"
+    expect_content "Segmented by characteristics: IQ is greater than 100"
+    expect_content "Users in segment 1"
   end
 
   scenario 'segmenting on game-specific characteristic', js: true do
@@ -44,8 +44,8 @@ feature 'Client admin segments on characteristics' do
     select "blueberry", :from => "segment_value[0]"
     click_button "Find segment"
 
-    expect_content "Segmenting on: Favorite Pancake equals blueberry"
-    expect_content "2 Users in segment"
+    expect_content "Segmented by characteristics: Favorite Pancake equals blueberry"
+    expect_content "Users in segment 2"
   end
 
   scenario "doesn't see Show Users links", js: true do
@@ -54,7 +54,7 @@ feature 'Client admin segments on characteristics' do
     fill_in "segment_value[0]", :with => "28"
     click_button "Find segment"
 
-    expect_content "Segmenting on: Points is less than 28"
+    expect_content "Segmented by characteristics: Points is less than 28"
     expect_no_content "Show users"
   end
 end

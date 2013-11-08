@@ -109,7 +109,7 @@ feature 'Site-Admin creates tiles with start and end times, and they play nice w
     active_tab.should have_num_tiles(3)
     archive_tab.should have_num_tiles(2)
 
-    active_tab.find(:tile, Tile.last).click_link('Archive')
+    active_tab.find(:tile, Tile.last).click_link('Deactivate')
     page.should contain "The Killing Kittens tile has been archived"
 
     active_tab.should have_num_tiles(2)

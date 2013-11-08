@@ -10,7 +10,7 @@ feature 'User views tiles' do
   end
 
   def expect_points(points)
-    expect_content "#{points} pts"
+    expect_content "#{points} Points"
   end
 
   def answer(index)
@@ -92,8 +92,8 @@ feature 'User views tiles' do
       expect_right_answer_reaction
 
       visit activity_path
-      expect_content "Answered a question on the \"#{@tile.headline}\" tile"
-      expect_content "30 pts"
+      expect_content "completed the tile: \"#{@tile.headline}\""
+      expect_content "30 PTS"
     end
 
     scenario "but gets no ticket emails", js: true do

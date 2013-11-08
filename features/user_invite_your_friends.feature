@@ -36,13 +36,12 @@ Feature: User invites friends
     Given I sign in via the login page as "Shelly/foobar"    
     Then I should see "Invite"
     When I fill in "Who do you want to invite?" with "br"
-    Then I should see "3+ letters"
+    Then I should see "3+ LETTERS, PLEASE"
     When I fill in "Who do you want to invite?" with "jdidillvididkkemmffii"
-    Then I should not see "3+ letters, please"
-    And I should see "Hmmm...no match"
-    And I should see "Please try again"
+    Then I should not see "3+ LETTERS, PLEASE"
+    And I should see "PLEASE TRY AGAIN"
     When I fill in "Who do you want to invite?" with "bra"
-    Then I should see "Click on the person you want to invite:"
+    Then I should see "CLICK ON THE PERSON YOU WANT TO INVITE:"
     Then I should see "Charlie Brainfield"
     And I should not see "Yo Yo Ma"
     
@@ -54,7 +53,7 @@ Feature: User invites friends
     When I fill in "Who do you want to invite?" with "bra"
     Then I should see "Charlie Brainfield"
     When I press the invite button for "Charlie Brainfield"
-    Then I should see "Invitation sent"
+    Then I should see "INVITATION SENT"
     And DJ works off
     Then "1@loaded.com" should receive an email
     When "1@loaded.com" opens the email
@@ -62,13 +61,13 @@ Feature: User invites friends
     Then I should be on the invitation page for "1@loaded.com"
     When I fill in "Choose a password" with "password"
     And I press "Log in"
-    Then I should see "Brought to you by"
+    Then I should see "Charlie Brainfield credited Shelly for recruiting them"
     Then user with email "1@loaded.com" should show up as referred by "Shelly"
     And DJ works off
     And "+16662221111" should have received SMS "Charlie Brainfield gave you credit for recruiting them. Many thanks and 2000 bonus points!"
     And "pre@loaded.com" should receive an email with "Charlie Brainfield gave you credit for recruiting them. Many thanks and 2000 bonus points!" in the email body
     And I should see "Shelly got credit for recruiting Charlie Brainfield"
-    And I should see "2000 pts"
+    And I should see "2000 PTS"
    
 
   @javascript

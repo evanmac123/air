@@ -16,11 +16,6 @@ feature 'User must have authorization to see admin pages' do
       should_be_on admin_path
     end
 
-    it "has a nav link to client admin pages" do
-      click_link 'Admin'
-      should_be_on client_admin_path
-    end
-
     it "has a nav link to site admin pages" do
       click_link "Site admin"
       should_be_on admin_path
@@ -40,11 +35,6 @@ feature 'User must have authorization to see admin pages' do
     it "can't go to site admin pages" do
       visit admin_path
       should_be_on activity_path
-    end
-
-    it "has a nav link to client admin pages" do
-      click_link "Admin"
-      should_be_on client_admin_path
     end
 
     it "has no nav link to site admin pages" do

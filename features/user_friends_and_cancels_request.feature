@@ -24,6 +24,6 @@ Feature: User approves or ignores follower
     Then I should see "OK, you'll be connected with Clay, pending his acceptance"
     And "Clay" accepts "Alice" as a friend
     And I go to the user page for "Clay"
-    Then I should see "Already connected"
+    Then I should see "Remove from Connections"
     And I press the button next to "Clay"
     And I should see "OK, you're no longer connected to Clay"

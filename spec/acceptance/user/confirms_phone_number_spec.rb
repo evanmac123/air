@@ -15,7 +15,6 @@ feature "User Confirms Phone number" do
     @leah.new_phone_validation.should_not be_blank
     fill_in 'user_new_phone_validation', :with => @leah.new_phone_validation
     click_button 'Enter'
-    page.should have_content "Directory"
     current_path.should == activity_path
     @leah.reload.phone_number.should == @phone_number
     page.should have_content("Your phone number has been validated")

@@ -55,7 +55,6 @@ feature 'Client admin and the digest email for tiles' do
   context 'No tiles exist for digest email' do
     before(:each) do
       visit tile_manager_page
-      select_tab 'Digest email'
     end
 
     scenario 'Text is correct' do
@@ -101,7 +100,6 @@ feature 'Client admin and the digest email for tiles' do
     scenario "Text is correct" do
       create_tile
       visit tile_manager_page
-      select_tab 'Digest email'
 
       digest_tab.should contain 'Notify users of new tiles'
       digest_tab.should contain 'Tiles to be sent'
@@ -113,7 +111,6 @@ feature 'Client admin and the digest email for tiles' do
         demo.update_attributes unclaimed_users_also_get_digest: true
 
         visit tile_manager_page
-        select_tab 'Digest email'
 
         digest_tab.should have_send_to_selector('all users')
         digest_tab.should have_follow_up_selector('Thursday')
@@ -124,7 +121,6 @@ feature 'Client admin and the digest email for tiles' do
         demo.update_attributes unclaimed_users_also_get_digest: false
 
         visit tile_manager_page
-        select_tab 'Digest email'
 
         digest_tab.should have_send_to_selector('only joined users')
         digest_tab.should have_follow_up_selector('Tuesday')
@@ -134,12 +130,12 @@ feature 'Client admin and the digest email for tiles' do
     scenario 'Text is correct when no follow-up emails are scheduled to be sent' do
       create_tile
       visit tile_manager_page
-      select_tab 'Digest email'
 
       digest_tab.should_not contain 'Scheduled follow-ups'
     end
 
     scenario 'Text is correct when follow-up emails are scheduled to be sent, and emails can be cancelled', js: :webkit do
+      pending "MOVE TO SHARE PAGE"
       # If you 'create_follow_up_emails' and then 'visit tile_manager_page' the follow-up email creation bombs.
       # We've had this stupid fucking problem before. Luckily Phil figured out it is some kind of timing problem.
       # We've also had the stupid fucking problem of stuff like this not working in poltergeist => have to use webkit
@@ -147,7 +143,6 @@ feature 'Client admin and the digest email for tiles' do
       create_tile
 
       visit tile_manager_page
-      select_tab 'Digest email'
 
       create_follow_up_emails
       refresh_tile_manager_page
@@ -167,13 +162,11 @@ feature 'Client admin and the digest email for tiles' do
     scenario 'The last-digest-email-sent-on date is correct' do
       create_tile
       visit tile_manager_page
-      select_tab 'Digest email'
 
       digest_tab.should_not contain 'Last digest email was sent'
 
       set_last_sent_on '7/4/2013'
       visit tile_manager_page
-      select_tab 'Digest email'
 
       digest_tab.should contain 'Last digest email was sent on Thursday, July 04, 2013'
     end
@@ -189,7 +182,6 @@ feature 'Client admin and the digest email for tiles' do
                 and a no-tiles message appears in the Digest tab" do
         on_day '7/6/2013' do
           visit tile_manager_page
-          select_tab 'Digest email'
           digest_tab.should contain 'Tiles to be sent'
           digest_tab.should_not contain 'No digest email is scheduled to be sent'
 
@@ -203,7 +195,6 @@ feature 'Client admin and the digest email for tiles' do
 
           page.should contain "Tiles digest email was sent"
 
-          select_tab 'Digest email'
           digest_tab.should_not contain 'Tiles to be sent'
           digest_tab.should contain 'No digest email is scheduled to be sent'
           digest_tab.should contain 'since the last one was sent on Saturday, July 06, 2013'
@@ -229,12 +220,12 @@ feature 'Client admin and the digest email for tiles' do
           FactoryGirl.create :claimed_user, demo: FactoryGirl.create(:demo)  # demos don't get an email
 
           visit tile_manager_page
-          select_tab 'Digest email'
         end
 
         scenario "Demo where claimed and unclaimed should get digests.
                   The tile links should sign in claimed, *non-client-admin* users to the
                   Activities page, while whisking others to where they belong" do
+          pending "MOVE TO SHARE PAGE"
           on_day '7/6/2013' do
             change_send_to('all users')
             click_button 'Send digest now'
@@ -274,6 +265,7 @@ feature 'Client admin and the digest email for tiles' do
         end
 
         scenario 'Demo where only claimed users should get digests' do
+          pending "MOVE TO SHARE PAGE"
           on_day '7/6/2013' do
             change_send_to('only joined users')
             click_button 'Send digest now'
@@ -291,6 +283,7 @@ feature 'Client admin and the digest email for tiles' do
   end
 
   it 'Tiles appear in reverse-chronological order by activation-date and then creation-date' do
+    pending "MOVE TO SHARE PAGE"
     tile_digest_email_sent_at = 2.months.ago
     demo.update_attributes tile_digest_email_sent_at: tile_digest_email_sent_at
 
@@ -314,7 +307,6 @@ feature 'Client admin and the digest email for tiles' do
       ]
 
     visit tile_manager_page
-    select_tab 'Digest email'
 
     table_content_without_activation_dates('#digest table').should == expected_tile_table
   end

@@ -24,7 +24,7 @@ feature 'Admin sends targeted messages using segmentation' do
     select "does not equal", :from => "segment_operator[0]"
     select "foo", :from => "segment_value[0]"
 
-    click_link "Add another"
+    click_link "Add characteristic"
     select "Points", :from => "segment_column[1]"
     select "is greater than", :from => "segment_operator[1]"
     fill_in "segment_value[1]", :with => "10"
@@ -32,8 +32,8 @@ feature 'Admin sends targeted messages using segmentation' do
     click_button "Find segment"
 
     should_be_on(admin_demo_targeted_messages_path(@demo))
-    expect_content "6Users in segment"
-    expect_content "Segmenting on: Metasyntactic variable does not equal foo Points is greater than 10"
+    expect_content "Users in segment 6"
+    expect_content "Segmented by characteristics: Metasyntactic variable does not equal foo Points is greater than 10"
     @expected_users = [11, 13, 14, 16, 17, 19].map{|i| @users[i]}
   end
 
@@ -257,7 +257,7 @@ feature 'Admin sends targeted messages using segmentation' do
     select "foo", :from => "segment_value[0]"
     click_button "Find segment"
 
-    expect_content "3Users in segment"
+    expect_content "Users in segment 3"
 
     expect_value "html_text", expected_html_text
     expect_value "plain_text", expected_plain_text
@@ -298,7 +298,7 @@ feature 'Admin sends targeted messages using segmentation' do
     click_button "Find segment"
 
     should_be_on(admin_demo_targeted_messages_path(@demo))
-    expect_content "23Users in segment"
+    expect_content "Users in segment 23"
 
     fill_in "sms_text", :with => 'some nonsense'
     click_button "It's going to be OK"
@@ -430,8 +430,8 @@ feature 'Admin sends targeted messages using segmentation' do
 
       click_button "Find segment"  # Get list of (original) recipients
 
-      expect_content "Segmenting on: Points is greater than 3"
-      expect_content "8Users in segment"
+      expect_content "Segmented by characteristics: Points is greater than 3"
+      expect_content "Users in segment 8"
 
       fill_in "subject",   :with => 'email subject'
       fill_in "html_text", :with => 'email text'

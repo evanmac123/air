@@ -14,17 +14,17 @@ feature 'Client admin sees basic stats on dashboard' do
 
     it "should include the number of claimed users" do
       visit client_admin_path
-      expect_content "14 Participants"
+      expect_content "Participants 14"
     end
 
     it "should include the percentage of users with mobile phones" do
       visit client_admin_path
-      expect_content "36% Added mobile numbers"
+      expect_content "Added Mobile Numbers 36%"
     end
 
     it "should include the percentage of users who credited a game referrer" do
       visit client_admin_path
-      expect_content "50% Joined via peer"
+      expect_content "Recruited By Peer 50%"
     end
   end
 
@@ -36,7 +36,7 @@ feature 'Client admin sees basic stats on dashboard' do
     it "should display the number of claimed users in a prettier way" do
       signin_as_client_admin.demo
       visit client_admin_path
-      expect_content "123,456 Participants" # notice the comma
+      expect_content "Participants 123,456" # notice the comma
     end
   end
 end

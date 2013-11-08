@@ -55,7 +55,7 @@ Feature: User gets some props for finishing a goal
 
     When "+14155551212" sends SMS "win 3"
     And I go to the activity page
-    Then I should see "14 Experience pts"
+    Then I should see "Experience 14"
 
   Scenario: User gets an SMS for finishing a goal via SMS
     Given a clear email queue
@@ -69,15 +69,6 @@ Feature: User gets some props for finishing a goal
     And DJ cranks 10 times after a little while
     Then "bob@example.com" should receive an email with "You've won at winning everything!" in the email body
     But "+14155551212" should not have received an SMS including "won at winning everything"
-
-  Scenario: User sees credit in the flash if they finish a goal by web
-    When I sign in via the login page as "Bob/foobar"
-    Given a clear email queue
-    And I enter the act code "win 3"
-    And DJ cranks 15 times after a little while
-    Then I should see "You've won at winning everything!"
-    But "+14155551212" should not have received an SMS including "won at winning everything"
-    And "bob@example.com" should receive no email
 
   Scenario: User gets credit for finish goal just once
     When "+14155551212" sends SMS "win 3"

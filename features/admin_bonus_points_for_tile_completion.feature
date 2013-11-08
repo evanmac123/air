@@ -30,5 +30,5 @@ Feature: Admin sets bonus points for tiles
     When I go to the edit admin demo user page for company "NobodysBusiness" and user "Phil"
     Then I should see an input with value "Phil"
     When I press "Complete ride a tricycle for Phil"
-     And I go to the homepage
-    Then I should see "15 Experience pts"
+    And I go to the homepage
+    Then I should see "Experience 15"

@@ -181,7 +181,7 @@ module SteakHelperMethods
   end
 
   def expect_ticket_header(expected_ticket_count)
-    expect_content_case_insensitive "#{expected_ticket_count} Tickets"
+    expect_content_case_insensitive "tickets #{expected_ticket_count}"
   end
 
   def expect_link(text, url)
@@ -273,5 +273,9 @@ module SteakHelperMethods
 
   def expect_game_referrer_id(expected_id)
     expected_id.to_s.should == page.find('#user_game_referrer_id').value
+  end
+
+  def open_admin_nav
+    page.find("#admin_toggle").click()
   end
 end

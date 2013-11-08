@@ -24,7 +24,7 @@ Feature: Acts can be kept out of the user feed
     When I sign in via the login page with "Phil/foobar"
     And I go to the activity page
     Then I should see "Phil acted visibly"
-    And I should see "12 Experience pts"
+    And I should see "Experience 12"
     Then I should not see "7 pts"
     And I should not see "acted invisibly"
 

@@ -52,7 +52,6 @@ feature 'Sees processing graphics while tiles are being processed' do
     admin = FactoryGirl.create(:client_admin)
     2.times {create_tile(admin)}
     visit client_admin_tiles_path
-    click_link "Archived"
 
     archived_tiles = page.all("td.archive")
     archived_tiles.should have(2).tiles
@@ -68,7 +67,6 @@ feature 'Sees processing graphics while tiles are being processed' do
     admin = FactoryGirl.create(:client_admin)
     2.times {create_tile(admin)}
     visit client_admin_tiles_path
-    click_link "Archived"
 
     archived_tiles = page.all("td.archive")
     archived_tiles.should have(2).tiles

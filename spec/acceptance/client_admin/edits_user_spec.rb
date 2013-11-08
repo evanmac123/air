@@ -143,21 +143,15 @@ feature 'Edits user' do
     user.should_not be_claimed
     visit(edit_client_admin_user_path(user, as: client_admin))
 
-    expect_content "Not joined yet"
-    expect_no_content "User has joined!"
+    expect_content "Joined: No"
+    expect_no_content "Joined: Yes"
 
     user.update_attributes(accepted_invitation_at: Time.now)
     user.should be_claimed
     visit(edit_client_admin_user_path(user, as: client_admin))
 
-    expect_no_content "Not joined yet"
-    expect_content "User has joined!"
-  end
-
-  it "should show the user's claim code" do
-    user.update_attributes(claim_code: "fmcgillicuddy")
-    visit(edit_client_admin_user_path(user, as: client_admin))
-    expect_content "Claim code: #{user.claim_code}"
+    expect_no_content "Joined: No"
+    expect_content "Joined: Yes"
   end
 
   it "should allow the user to be deleted", js: true do

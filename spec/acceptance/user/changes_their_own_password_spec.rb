@@ -20,10 +20,14 @@ feature 'User changes their own password' do
     should_be_on session_path
   end
 
+  def click_save_password_button
+    click_button "Save"
+  end
+
   scenario 'correctly' do
     fill_in "New password", :with => "barbaz"
     fill_in "Confirm new password", :with => "barbaz"
-    click_button "Save new password"
+    click_save_password_button
 
     should_be_on edit_account_settings_path
     expect_content "Your password has been updated"
@@ -32,7 +36,7 @@ feature 'User changes their own password' do
 
   scenario 'leaving password blank' do
     fill_in "Confirm new password", :with => "barbaz"
-    click_button "Save new password"
+    click_save_password_button
 
     should_be_on edit_account_settings_path
     expect_content "If you'd like to change your password, please fill in both the password and password confirmation with the same value."
@@ -41,7 +45,7 @@ feature 'User changes their own password' do
 
   scenario 'leaving password confirmation blank' do
     fill_in "New password", :with => "barbaz"
-    click_button "Save new password"
+    click_save_password_button
 
     should_be_on edit_account_settings_path
     expect_content "If you'd like to change your password, please fill in both the password and password confirmation with the same value."
@@ -49,7 +53,7 @@ feature 'User changes their own password' do
   end
 
   scenario 'leaving both password and confirmation blank' do
-    click_button "Save new password"
+    click_save_password_button
 
     should_be_on edit_account_settings_path
     expect_content "If you'd like to change your password, please fill in both the password and password confirmation with the same value."
@@ -59,7 +63,7 @@ feature 'User changes their own password' do
   scenario 'with unmatched password and confirmation' do
     fill_in "New password", :with => "barbaz"
     fill_in "Confirm new password", :with => "quxx"
-    click_button "Save new password"
+    click_save_password_button
 
     should_be_on edit_account_settings_path
     expect_content "If you'd like to change your password, please fill in both the password and password confirmation with the same value."
@@ -69,7 +73,7 @@ feature 'User changes their own password' do
   scenario "with underlength password" do
     fill_in "New password", :with => "quux"
     fill_in "Confirm new password", :with => "quux"
-    click_button "Save new password"
+    click_save_password_button
 
     should_be_on edit_account_settings_path
     expect_content "Sorry, we couldn't set your password to that: it must have at least 6 characters."

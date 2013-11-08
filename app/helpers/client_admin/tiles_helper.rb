@@ -24,30 +24,8 @@ module ClientAdmin::TilesHelper
     user.claimed? ? acts_url(email_link_hash): invitation_url(user.invitation_code, email_link_hash)
   end
 
-  def footer_timestamp(tile)
-    if tile.activated_at.nil?
-      ["<span>Never activated</span>"].join.html_safe
-    elsif tile.status == Tile::ARCHIVE
-      [
-        "<span class='tile-active-time'>Active: ", 
-        (distance_of_time_in_words tile.activated_at, tile.archived_at),
-        "</span>",
-        "<span class='tile-deactivated-time'>Deactivated: ", 
-        tile.archived_at.strftime('%-m/%-d/%Y'),
-        "</span>"
-      ].join.html_safe
-    else
-      [
-        "<span class='tile-active-time'>",
-        "Active: ", 
-        (distance_of_time_in_words tile.activated_at, Time.now),
-        "</span>",
-        "<span class='tile-activated-since'>", 
-        "Since: ",
-        tile.activated_at.strftime('%-m/%-d/%Y'),
-        "</span>"
-      ].join.html_safe
-    end
+  def footer_timestamp(tile, options={})
+    TileFooterTimestamper.new(tile, options).footer_timestamp
   end
 
   # We display a different heading if the schmuck... er, customer, didn't interact with any of the tiles in the first digest email

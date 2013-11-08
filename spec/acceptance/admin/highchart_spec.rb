@@ -59,8 +59,7 @@ feature 'Highchart Plot' do
 
   background do
     bypass_modal_overlays(admin)
-    signin_as(admin, admin.password)
-    click_link "nav-admin-link"
+    visit client_admin_path(as: admin)
   end
 
   # -------------------------------------------------
@@ -105,7 +104,7 @@ feature 'Highchart Plot' do
       set_plot_interval 'Daily'
       set_label_points 'Every other'
 
-      click_button 'Show'
+      click_button 'Update chart'
 
       # Controls should reflect most-recent selections
       start_date_value.should == start_date
@@ -307,7 +306,7 @@ feature 'Highchart Plot' do
       set_plot_interval 'Daily'
       set_label_points  'All points'
 
-      click_button 'Show'
+      click_button 'Update chart'
 
       #title.should have_content "Activity Levels"
       #subtitle.should have_content "#{date_in_subtitle(start_date)} through #{date_in_subtitle(end_date)} : By Day"
@@ -336,13 +335,13 @@ feature 'Highchart Plot' do
       users_in_plot(true)
 
       set_plot_content 'Unique users'
-      click_button 'Show'
+      click_button 'Update chart'
 
       acts_in_plot(false)
       users_in_plot(true)
 
       set_plot_content 'Total activity'
-      click_button 'Show'
+      click_button 'Update chart'
 
       acts_in_plot(true)
       users_in_plot(false)
@@ -407,14 +406,14 @@ feature 'Highchart Plot' do
       set_plot_interval 'Daily'
       set_label_points 'All points'
 
-      click_button 'Show'
+      click_button 'Update chart'
 
       # Labels for 1..8
       #3.step(8, 1) { |y| act_labels.should have_content y.to_s }
       3.step(8, 1) { |y| page.should have_content y.to_s }
 
       set_label_points 'Every other'
-      click_button 'Show'
+      click_button 'Update chart'
 
       # Labels for 4, 6, 8 ; No labels for 3, 5, 7
       #4.step(8, 2) { |y| act_labels.should     have_content y.to_s }
@@ -423,14 +422,14 @@ feature 'Highchart Plot' do
       #3.step(8, 2) { |y| page.should_not have_content y.to_s }
 
       set_plot_content 'Unique users'
-      click_button 'Show'
+      click_button 'Update chart'
 
       # Labels for 1..4
       #1.step(4, 1) { |y| user_labels.should have_content y.to_s }
       1.step(4, 1) { |y| page.should have_content y.to_s }
 
       set_label_points 'Every other'
-      click_button 'Show'
+      click_button 'Update chart'
 
       # Labels for 2, 4 ; No labels for 1, 3
       #2.step(4, 2) { |y| user_labels.should     have_content y.to_s }
@@ -540,7 +539,7 @@ Su	Mo	Tu	We	Th	Fr	Sa
       set_plot_interval 'Weekly'
       set_label_points  'All points'
 
-      click_button 'Show'
+      click_button 'Update chart'
 
       #title.should have_content "Activity Levels"
       #subtitle.should have_content "#{weekly_date_in_subtitle(start_date)} through #{date_in_subtitle(end_date)} : By Week"
@@ -570,13 +569,13 @@ Su	Mo	Tu	We	Th	Fr	Sa
       users_in_plot(true)
 
       set_plot_content 'Unique users'
-      click_button 'Show'
+      click_button 'Update chart'
 
       acts_in_plot(false)
       users_in_plot(true)
 
       set_plot_content 'Total activity'
-      click_button 'Show'
+      click_button 'Update chart'
 
       acts_in_plot(true)
       users_in_plot(false)
@@ -584,14 +583,14 @@ Su	Mo	Tu	We	Th	Fr	Sa
       # Now check out labelling every other point...
 
       set_label_points 'All points'
-      click_button 'Show'
+      click_button 'Update chart'
 
       # Labels for all values
       #@valid_act_points.each { |y| act_labels.should have_content y }
       @valid_act_points.each { |y| page.should have_content y }
 
       set_label_points 'Every other'
-      click_button 'Show'
+      click_button 'Update chart'
 
       # Labels for 6, 9 ; No labels for 5, 8
       #%w(6 9).each { |y| act_labels.should     have_content y }
@@ -601,14 +600,14 @@ Su	Mo	Tu	We	Th	Fr	Sa
 
       set_plot_content 'Unique users'
       set_label_points 'All points'
-      click_button 'Show'
+      click_button 'Update chart'
 
       # Labels for all values
       #@valid_user_points.each { |y| user_labels.should have_content y }
       @valid_user_points.each { |y| page.should have_content y }
 
       set_label_points 'Every other'
-      click_button 'Show'
+      click_button 'Update chart'
 
       # Labels for 2, 4 ; No labels for 1, 3
       #%w(2 4).each { |y| user_labels.should     have_content y }
@@ -685,7 +684,7 @@ Su	Mo	Tu	We	Th	Fr	Sa
       set_plot_interval 'Hourly'
       set_label_points  'All points'
 
-      click_button 'Show'
+      click_button 'Update chart'
 
       #title.should have_content "Engagement Levels"
       #subtitle.should have_content "#{Highchart.convert_date(start_date).to_s(:chart_subtitle_one_day)} : By Hour"
@@ -715,13 +714,13 @@ Su	Mo	Tu	We	Th	Fr	Sa
       users_in_plot(true)
 
       set_plot_content 'Unique users'
-      click_button 'Show'
+      click_button 'Update chart'
 
       acts_in_plot(false)
       users_in_plot(true)
 
       set_plot_content 'Total activity'
-      click_button 'Show'
+      click_button 'Update chart'
 
       acts_in_plot(true)
       users_in_plot(false)
@@ -729,14 +728,14 @@ Su	Mo	Tu	We	Th	Fr	Sa
       # Now check out labelling every other point...
 
       set_label_points 'All points'
-      click_button 'Show'
+      click_button 'Update chart'
 
       # Labels for all values
       #@valid_act_points.each { |y| act_labels.should have_content y }
       @valid_act_points.each { |y| page.should have_content y }
 
       set_label_points 'Every other'
-      click_button 'Show'
+      click_button 'Update chart'
 
       # Labels for 5, 6, 7 ; No labels for 8, 9
       #%w(5 6 7).each { |y| act_labels.should     have_content y }
@@ -746,14 +745,14 @@ Su	Mo	Tu	We	Th	Fr	Sa
 
       set_plot_content 'Unique users'
       set_label_points 'All points'
-      click_button 'Show'
+      click_button 'Update chart'
 
       # Labels for all values
       #@valid_user_points.each { |y| user_labels.should have_content y }
       @valid_user_points.each { |y| page.should have_content y }
 
       set_label_points 'Every other'
-      click_button 'Show'
+      click_button 'Update chart'
 
       # Labels for 2, 4 ; No labels for 1, 3
       #%w(2 4).each { |y| user_labels.should     have_content y }

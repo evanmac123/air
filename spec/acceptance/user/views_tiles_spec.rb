@@ -30,25 +30,25 @@ feature 'User views tile' do
 
   scenario 'sees counter', js: true do
     visit tiles_path
-    expect_content "Tile 1 of 2"
+    expect_content "TILE 1 OF 2"
 
     page.find("#next").click
-    expect_content "Tile 2 of 2"
+    expect_content "TILE 2 OF 2"
 
     page.find("#next").click
-    expect_content "Tile 1 of 2"
+    expect_content "TILE 1 OF 2"
 
     page.find("#prev").click
-    expect_content "Tile 2 of 2"
+    expect_content "TILE 2 OF 2"
 
     page.find("#prev").click
-    expect_content "Tile 1 of 2"
+    expect_content "TILE 1 OF 2"
   end
 
   scenario "it should have the right position when you click to a non-first tile", js: true do
     click_link "make toast"
-    expect_no_content "Tile 1 of 2"
-    expect_content    "Tile 2 of 2"
+    expect_no_content "TILE 1 OF 2"
+    expect_content    "TILE 2 OF 2"
   end
 
   context "when a tile has no attached link address" do

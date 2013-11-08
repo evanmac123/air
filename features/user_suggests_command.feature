@@ -35,8 +35,3 @@ Feature: User suggests command
     When "+16175551212" sends SMS "suggest ate pasta"
     Then we should have recorded that "Vlad Gyster" suggested "ate pasta"
     And "+16175551212" should have received an SMS "Thanks! We'll take your suggestion into consideration."
-
-  Scenario: User suggests a command through the website
-    When I sign in via the login page with "Vlad Gyster/foobar"
-    And I enter the special command "suggest ate kitten"
-    Then I should see the success message "Thanks! We'll take your suggestion into consideration."

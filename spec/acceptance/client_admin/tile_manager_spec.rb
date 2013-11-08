@@ -19,7 +19,7 @@ feature 'Client admin and the digest email for tiles' do
   end
 
   def have_archive_link_for(tile)
-    have_link 'Archive', href: client_admin_tile_path(tile, update_status: Tile::ARCHIVE)
+    have_link 'Deactivate', href: client_admin_tile_path(tile, update_status: Tile::ARCHIVE)
   end
 
   def have_activate_link_for(tile)
@@ -31,7 +31,7 @@ feature 'Client admin and the digest email for tiles' do
   end
 
   def have_preview_link_for(tile)
-    have_link 'Preview', href: client_admin_tile_path(tile)
+    have_link tile.headline, href: client_admin_tile_path(tile)
   end
 
   # -------------------------------------------------
@@ -41,22 +41,19 @@ feature 'Client admin and the digest email for tiles' do
     before(:each) { visit tile_manager_page }
 
     scenario 'Correct message is displayed when there are no Active tiles' do
-      select_tab 'Active'
-
-      active_tab.should contain 'There are no active tiles'
-      active_tab.should have_num_tiles(0)
+      expect_content 'There are no active tiles'
+      page.should have_num_tiles(0)
     end
 
     scenario 'Correct message is displayed when there are no Archive tiles' do
-      select_tab 'Archive'
-
-      archive_tab.should contain 'There are no archived tiles'
-      archive_tab.should have_num_tiles(0)
+      expect_content 'There are no archived tiles'
+      page.should have_num_tiles(0)
     end
 
     # Note: The no-tiles digest message is more involved than that of the other tiles.
     #       More comprehensive tests for the various flavors of this message exist in the 'tile_digest_notification_spec'
     scenario 'Correct message is displayed when there are no Digest tiles' do
+      pending "TO BE MOVED TO SHARE PAGE"
       select_tab 'Digest email'
 
       digest_tab.should contain 'No digest email is scheduled to be sent'
@@ -120,14 +117,12 @@ feature 'Client admin and the digest email for tiles' do
       tiles.each { |tile| tile.update_attributes status: Tile::ARCHIVE }
 
       visit tile_manager_page
-      archive_tab.should have_num_tiles(3)
+      page.should have_num_tiles(3)
 
-      within archive_tab do
-        tiles.each do |tile|
-          within tile(tile) do
-            page.should contain tile.headline
-            page.should have_activate_link_for(tile)
-          end
+      tiles.each do |tile|
+        within tile(tile) do
+          page.should contain tile.headline
+          page.should have_activate_link_for(tile)
         end
       end
     end
@@ -142,7 +137,7 @@ feature 'Client admin and the digest email for tiles' do
 
         kill.archived_at.should be_nil
 
-        active_tab.find(:tile, kill).click_link('Archive')
+        active_tab.find(:tile, kill).click_link('Deactivate')
         page.should contain "The #{kill.headline} tile has been archived"
 
         kill.reload.archived_at.sec.should be_within(1).of(Time.now.sec)
@@ -156,7 +151,7 @@ feature 'Client admin and the digest email for tiles' do
         # Do it one more time to make sure that the most-recently archived tile appears first in the list
         knife.archived_at.should be_nil
 
-        active_tab.find(:tile, knife).click_link('Archive')
+        active_tab.find(:tile, knife).click_link('Deactivate')
         page.should contain "The #{knife.headline} tile has been archived"
 
         knife.reload.archived_at.sec.should be_within(1).of(Time.now.sec)
@@ -221,32 +216,28 @@ feature 'Client admin and the digest email for tiles' do
 
     it "for Active tiles" do
       expected_tile_table =
-        [ ["Tile 9", "Tile 7", "Tile 5"],
-          ["Tile 3", "Tile 1", "Tile 8"],
-          ["Tile 6", "Tile 4", "Tile 2"],
-          ["Tile 0"]
+        [ ["Tile 9", "Tile 7", "Tile 5", "Tile 3"],
+          ["Tile 1", "Tile 8", "Tile 6", "Tile 4"],
+          ["Tile 2", "Tile 0"]
         ]
       demo.tiles.update_all status: Tile::ACTIVE
 
       visit tile_manager_page
-      page.find("a[href='#active']").click
-
       table_content_without_activation_dates('#active table').should == expected_tile_table
     end
 
     it "for Archived tiles" do
       archive_time = Time.now
       expected_tile_table =
-        [ ["Tile 9", "Tile 7", "Tile 5"],
-          ["Tile 3", "Tile 1", "Tile 8"],
-          ["Tile 6", "Tile 4", "Tile 2"],
-          ["Tile 0"]
+        [ 
+          ["Tile 9", "Tile 7", "Tile 5", "Tile 3"], 
+          ["Tile 1", "Tile 8", "Tile 6", "Tile 4"], 
+          ["Tile 2", "Tile 0"]
         ]
       demo.tiles.update_all status: Tile::ARCHIVE
       demo.tiles.where(archived_at: nil).each{|tile| tile.update_attributes(archived_at: tile.created_at)}
 
       visit tile_manager_page
-      select_tab 'Archived'
 
       table_content_without_activation_dates('#archive table').should == expected_tile_table
     end

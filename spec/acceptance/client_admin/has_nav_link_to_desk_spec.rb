@@ -3,7 +3,7 @@ require 'acceptance/acceptance_helper'
 feature 'Has nav link to desk' do
   let(:fake_url)            { "https://www.example.com/hengage-desk" }
   let(:desk_link_selector)  { "a[href='#{fake_url}']" }
-  let(:desk_link_text)      { "Help pages" }
+  let(:desk_link_text)      { "Admin help" }
 
   before do
     DeskSSO.any_instance.stubs(:url).returns(fake_url)

@@ -36,15 +36,6 @@ Feature: User gets timed bonus
     And "phil@example.com" should receive an email with "You acted before the time limit expired!" in the email body
     But "+14155551212" should not have received any SMSes
 
-  Scenario: User gets bonus message in the flash for acting in the proper time
-    When I sign in via the login page with "Phil/foobar"
-    And I enter the act code "did thing"
-    Then I should see "You acted before the time limit expired!"
-    Given a clear email queue
-    And DJ cranks 10 times after a little while
-    Then "+14155551212" should not have received any SMSes
-    And "phil@example.com" should receive no email
-
   Scenario: User doesn't get bonus if it's expired
     Given time is frozen at "2011-05-01 00:00:00 -0000"
     When "+14155551212" sends SMS "did thing"

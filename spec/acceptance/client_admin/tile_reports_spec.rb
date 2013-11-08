@@ -8,21 +8,18 @@ feature 'client admin views tiles reports' do
 
   background do
     bypass_modal_overlays(admin)
-    signin_as(admin, admin.password)
+    visit client_admin_tiles_reports_path(as: admin)
   end
 
   # -------------------------------------------------
 
   describe 'A no-tile message is displayed when there are no tiles' do
-    before(:each) { visit client_admin_tiles_reports_path }
-
     it 'for Active tiles' do
-      within(active_tab) { page.should contain('There are no active tiles') }
+      within('#active') { page.should contain('There are no active tiles') }
     end
 
     it 'for Archived tiles' do
-      select_tab 'Archived'
-      within(archive_tab) { page.should contain('There are no archived tiles') }
+      within('#archive') { page.should contain('There are no archived tiles') }
     end
   end
 
@@ -83,6 +80,8 @@ feature 'client admin views tiles reports' do
 
       it 'csv file name and content are correct' do
         on_day '7/4/2013' do
+          visit client_admin_tiles_reports_path
+
           click_link 'Download CSV'
 
           page.response_headers['Content-Type'].should =~ %r{text/csv}
@@ -90,16 +89,16 @@ feature 'client admin views tiles reports' do
 
           expected_csv = <<CSV
 Headline,Status,Completions,% of participants
-\"Tile , 9\",Active 9 days; since 7/13/2013,90,90.0%
-\"Tile , 7\",Active 7 days; since 7/11/2013,70,70.0%
-\"Tile , 5\",Active 5 days; since 7/9/2013,50,50.0%
-\"Tile , 3\",Active 3 days; since 7/7/2013,30,30.0%
-\"Tile , 1\",Active 1 day; since 7/5/2013,10,10.0%
-\"Tile , 8\",Active 6 days; since 6/28/2013,80,80.0%
-\"Tile , 6\",Active 8 days; since 6/26/2013,60,60.0%
-\"Tile , 4\",Active 10 days; since 6/24/2013,40,40.0%
-\"Tile , 2\",Active 12 days; since 6/22/2013,20,20.0%
-\"Tile , 0\",Active 14 days; since 6/20/2013,0,0.0%
+\"Tile , 9\",Active: 9 days. Since: 7/13/2013,90,90.0%
+\"Tile , 7\",Active: 7 days. Since: 7/11/2013,70,70.0%
+\"Tile , 5\",Active: 5 days. Since: 7/9/2013,50,50.0%
+\"Tile , 3\",Active: 3 days. Since: 7/7/2013,30,30.0%
+\"Tile , 1\",Active: 1 day. Since: 7/5/2013,10,10.0%
+\"Tile , 8\",Active: 6 days. Since: 6/28/2013,80,80.0%
+\"Tile , 6\",Active: 8 days. Since: 6/26/2013,60,60.0%
+\"Tile , 4\",Active: 10 days. Since: 6/24/2013,40,40.0%
+\"Tile , 2\",Active: 12 days. Since: 6/22/2013,20,20.0%
+\"Tile , 0\",Active: 14 days. Since: 6/20/2013,0,0.0%
 CSV
           page.body.should == expected_csv
         end
@@ -110,7 +109,6 @@ CSV
       before(:each) do
         demo.tiles.update_all status: Tile::ARCHIVE
         visit client_admin_tiles_reports_path
-        select_tab 'Archived'
       end
 
       it 'website page content is correct' do
@@ -126,16 +124,16 @@ CSV
 
           expected_csv = <<CSV
 Headline,Status,Completions,% of participants
-\"Tile , 9\",Active less than a minute. Deactivated 7/13/2013,90,90.0%
-\"Tile , 7\",Active less than a minute. Deactivated 7/11/2013,70,70.0%
-\"Tile , 5\",Active less than a minute. Deactivated 7/9/2013,50,50.0%
-\"Tile , 3\",Active less than a minute. Deactivated 7/7/2013,30,30.0%
-\"Tile , 1\",Active less than a minute. Deactivated 7/5/2013,10,10.0%
-\"Tile , 8\",Active less than a minute. Deactivated 6/28/2013,80,80.0%
-\"Tile , 6\",Active less than a minute. Deactivated 6/26/2013,60,60.0%
-\"Tile , 4\",Active less than a minute. Deactivated 6/24/2013,40,40.0%
-\"Tile , 2\",Active less than a minute. Deactivated 6/22/2013,20,20.0%
-\"Tile , 0\",Active less than a minute. Deactivated 6/20/2013,0,0.0%
+\"Tile , 9\",Active: less than a minute. Deactivated: 7/13/2013,90,90.0%
+\"Tile , 7\",Active: less than a minute. Deactivated: 7/11/2013,70,70.0%
+\"Tile , 5\",Active: less than a minute. Deactivated: 7/9/2013,50,50.0%
+\"Tile , 3\",Active: less than a minute. Deactivated: 7/7/2013,30,30.0%
+\"Tile , 1\",Active: less than a minute. Deactivated: 7/5/2013,10,10.0%
+\"Tile , 8\",Active: less than a minute. Deactivated: 6/28/2013,80,80.0%
+\"Tile , 6\",Active: less than a minute. Deactivated: 6/26/2013,60,60.0%
+\"Tile , 4\",Active: less than a minute. Deactivated: 6/24/2013,40,40.0%
+\"Tile , 2\",Active: less than a minute. Deactivated: 6/22/2013,20,20.0%
+\"Tile , 0\",Active: less than a minute. Deactivated: 6/20/2013,0,0.0%
 CSV
           page.body.should == expected_csv
         end

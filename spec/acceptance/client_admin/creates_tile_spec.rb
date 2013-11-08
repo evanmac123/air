@@ -9,7 +9,7 @@ feature 'Creates tile' do
   end
 
   def counter_text(max_characters)
-    "#{max_characters} characters left"  
+    "#{max_characters} CHARACTERS LEFT"  
   end
 
   def expect_counter_text(counter, max_characters)
@@ -82,7 +82,7 @@ feature 'Creates tile' do
       expect_content new_tile.send(string)
     end
 
-    expect_content "23 pts"
+    expect_content "23 POINTS"
     new_tile.multiple_choice_answers.each {|answer| expect_content answer}
   end
 
@@ -135,39 +135,6 @@ feature 'Creates tile' do
 
   scenario "should start with two answer fields, rather than one" do
     page.all(answer_field_selector).should have(2).fields
-  end
-
-  context "a keyword tile" do
-    scenario "sees a helpful error message if they try to use an existing rule or a special command for a rule value" do
-      pending "it is possible to create keyword tiles again"
-      wellness_rule = FactoryGirl.create(:rule, demo_id: nil)
-      FactoryGirl.create(:rule_value, value: "worked out", rule: wellness_rule)
-
-      demo_specific_rule = FactoryGirl.create(:rule, demo_id: demo.id)
-      FactoryGirl.create(:rule_value, value: "In my demo", rule: demo_specific_rule)
-
-      fill_in_answer_field(0, 'in my demo')
-      click_create_button
-      expect_content '"in my demo" is already taken'
-
-      fill_in_answer_field(0, 'worked out')
-      click_create_button
-      expect_content '"worked out" is already taken'
-
-      # Duplicates of standard playbook rules are OK though if we're not using the standard playbook
-      demo.update_attributes(use_standard_playbook: false)
-      fill_in_answer_field(0, 'Worked out')
-      click_create_button
-      expect_no_content '"worked out" is already taken'
-
-      fill_in_answer_field(0, 'Follow') # a special command
-      click_create_button
-      expect_content '"follow" is already taken'
-
-      fill_in_answer_field(0, 'Q')
-      click_create_button
-      expect_content 'answer "q" must have more than one letter'
-    end
   end
 
   scenario "should start with two answer fields, rather than one" do
