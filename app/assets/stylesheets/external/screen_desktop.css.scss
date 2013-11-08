@@ -1,24 +1,26 @@
 // ================== General Marketing styles ================== 
-body .wrapper {margin-top:6em;}
+// body .wrapper {margin-top:6em;}
 body .row {max-width:70em;}
-section.first_section {
-  h1 {font-size:2.5em;}
-  h2 {font-size:1.5em;}
-}
-section.feature_sections, section.inner_sections {
-  p.caption {font-size:.875em;}
-}
-section.feature_sections {
-  h2 {font-size:2.5em;}
-  p {font-size:1.25em;}
-}
-section.inner_sections {
-  h2 {font-size:2.25em;}
-}
+// section.first_section {
+//   h1 {font-size:2.5em;}
+//   h2 {font-size:1.5em;}
+// }
+// section.feature_sections, section.inner_sections {
+//   p.caption {font-size:.875em;}
+// }
+// section.feature_sections {
+//   h2 {font-size:2.5em;}
+//   p {font-size:1.25em;}
+// }
+// section.inner_sections {
+//   h2 {font-size:2.25em;}
+// }
 
 // ================== Header ================== 
 header {
-  .contain-to-grid {padding:1em 0;}
+  .contain-to-grid {
+    border-bottom:1px lighten($light-gray, 10%) solid;
+    padding:.5em 0;}
   nav.top-bar {
     height:auto;
     .button {
@@ -37,20 +39,13 @@ header {
       li > a {  // Regular links
         background:$white;
         color:$med-gray;
-        font-family:$sans;
+        font-family:$default;
         font-size:1.125em;
         padding:0;
-        &:hover {color:$orange;}
       }
       .has-form { // Buttons area
         background:$white;
-        padding:0 0 0 1em;
-        a {
-          color:$white;
-          font-family:$open-600;
-          font-size:1em;
-          padding:.25em .75em;
-        }
+        padding:.35em 0 0 1em;
       }
     }
   } 
@@ -81,8 +76,160 @@ header {
 }
 
 // ================== Pricing page ================== 
-#simple_fair_pricing {padding:2em 0;}
-#pricing_faq {padding:5em 0;}
+@mixin help_bubble {
+  border:1px $light-gray solid;
+  color:$light-gray;
+  content: "?";
+  display: inline-block;
+  font-size:.625em;
+  font-size:.625rem;
+  line-height: 1em;
+  padding:0 .25em;
+}
+@mixin tooltip {
+  @include font-semibold;
+  background: $white;
+  border:1px $light-gray solid;
+  box-shadow: 0px 0 2px 2px $white;
+  color:$text-color;
+  display:inline-block;
+  font-size:.8125em;
+  font-size:.8125rem;
+  line-height: 1.35em;
+  padding:1em;
+  text-align: left;
+  width:20em;
+  white-space: normal;
+}
+#simple_fair_pricing .calculator {
+  padding:2em 1em 1em 1em;
+  .price_customizer {
+    h3 {
+      border-bottom:0;
+      border-right:1px $light-gray solid;
+      display: inline-block;
+      float: left;
+      padding:.71em 0;
+      width:25%;
+    }
+    .employees, .billing_plans {
+      width:37.5%;
+    }
+  }
+  p.callout {display: inline-block;}
+}
+.offerings {
+  width:100%;
+  float:left;
+  position: relative;
+  text-align: right;
+  .features_labels li, .plan_details li {
+    height:50.5px;
+  }
+  .feature_labels {
+    font-size:.8125em;
+    @include font-bold;
+    display: inline-block;
+    width:15%;
+    line-height: 1em;
+    position: absolute;
+    left:0.9375em;
+    top:195px;
+    white-space: nowrap;
+    li {
+      border-top:1px $light-gray solid;
+      color:$gray;
+      line-height: 1em;
+      padding:1.5em 0 0 1em;
+      position: relative;
+      text-align: left;
+      &:after {
+        @include help_bubble;
+        position: absolute;
+        right:0;
+      }
+      &:hover {
+        background:lighten($light-gray, 10%);
+        &:after {
+          @include tooltip;
+          position: absolute;
+          left:100%;
+          top:-1px;
+        }
+      }
+      &.tiles_per_month:hover:after {
+        content:"Number of tiles activated by Administrator for employees to interact with.";
+      }
+      &.cost_per_extra:hover:after {
+        content:'Cost of going over the allotment of tiles as a percent of the amount you pay each month. So, if you\'re paying $100 per month, an extra tile is $10.';
+      }
+      &.num_of_admins:hover:after {
+        content:"User that has access to system management functions like creating tiles.";
+      }
+      &.user_upload:hover:after {
+        content:"Maximize participation and security by uploading users in advance.";
+      }
+      &.prize_audiences:hover:after {
+        content:'Number of unique groups of people that you would like to award prizes to. For example: If you have 10 locations, and want to pool everyone together into one prize drawing, you have one Prize Audience. If you want to draw a separate prize for each location, you have 10 Prize Audiences. Number of winners and prizes drawn for each audience is unlimited.';
+      }
+      &.additional_features:after {display: none;}
+      &.additional_features:hover {background:$white;}
+    }
+  }
+  .an_offering {
+    display: inline-block;
+    vertical-align: top;
+    width:27%;
+    margin-right:1.25%;
+    text-align: center;
+    &.enterprise_plan {margin-right:0;}
+    li.plan_title {
+      h3 {
+        line-height:1em;
+      }
+    }
+    li.plan_description {min-height:4.65em;}
+    li.plan_details {
+      line-height: 1.25em;
+      padding-top:1em;
+      span.label {display: none;}
+    } 
+  }
+  .feature_labels li, .an_offering li.plan_details {min-height:50px;}
+  .details {text-align: center;}
+}
+.additional_features {
+  position: relative;
+  .advanced_reporting, .multiple_boards, .push_messaging {
+    padding:.125em 0;
+    &:after {
+      @include help_bubble;
+      border-color:darken($tile-wall-bg, 5%);
+      color:darken($tile-wall-bg, 5%);
+      position: absolute;
+      right:2em;
+    }
+    &:hover {
+      background:darken($tile-wall-bg, 5%);
+      border-radius:$border-radius;
+    }
+    &:hover:after {
+      @include tooltip;
+      position: absolute;
+      right:105%;
+    }
+  }
+  .advanced_reporting:hover:after {
+    content:"The Enterprise plan includes up to 5 hours of custom reporting a month.";
+    top:1em;
+  }
+  .multiple_boards:hover:after {
+    content:"More than one instance of H.Engage at the same company.";
+  }
+  .push_messaging:hover:after {
+    content:"Sending emails and text messages to specific segments of the User population. Enterprise pricing includes up to 4 push messages a month for up to 5 audiences. Custom quotes for more complicated use cases are available.";
+  }
+} 
 
 
 /* ================== Invitation acceptance ==================  */
@@ -90,7 +237,7 @@ header {
   display: none;
   background:$blue;
   color:$white;
-  font-family:$open-400;
+  @include font-regular;;
   font-size:.75em;
   line-height:1.35em;
   padding:.65em;

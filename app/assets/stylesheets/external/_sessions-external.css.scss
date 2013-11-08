@@ -1,6 +1,6 @@
 // Styles for Login/Signup external page
 body.external {
-  background:image-url('marketing/bg.gif');
+  background: $white;
   .wrapper {margin-top:1em;}
   header{
     position:static;
@@ -17,7 +17,7 @@ body.external {
   }
 
   #status {
-    margin:$centered;
+    margin:0 auto;
     width:90%;
     max-width:32em;
     font-size:1.25em; 
@@ -26,7 +26,8 @@ body.external {
 }
 
 #session-wrapper {
-  background:$white;
+  // background:$white;
+  @include form-group;
   margin:0 auto 6em auto;
   padding:1em;
   width:95%;
@@ -44,7 +45,7 @@ body.external {
       width:100%;
     }
     label {font-size:.85em;
-      &.input_label {font-family:$open-600;}
+      &.input_label {@include font-semibold;}
     }
     .wrap {
       display: block; padding-bottom:1em;
@@ -62,7 +63,7 @@ body.external {
 #password_placeholder_holder {
   color:lighten(#AAA, 5%);
   font-size:1.125em;
-  font-family:$open-400;
+  @include font-regular;;
   padding:.5em .85em;
   position:absolute;
 }
@@ -80,7 +81,7 @@ body.invitations-show form {
     &:after{@include clear;}
     #sponsoredBy {
       font-size:.875em;
-      font-family:$open-600;
+      @include font-semibold;
       color:$dark-green;
       margin-bottom:1em;
       &:before, &:after {
@@ -118,7 +119,7 @@ body.invitations-show form {
 body.invitations-show #session-wrapper {
   .form-msg {
     color:$red;
-    font-family:$open-600;
+    @include font-semibold;
     font-size:.875em;
     p.msg {padding:0 0 .5em 0;}
   }
@@ -129,7 +130,7 @@ body.invitations-show #session-wrapper {
   #indented_to_match_inputs {
     #autocomplete_status {
       @extend p.caption;
-      font-family:$open-600;
+      @include font-semibold;
     }
   }
   .single_suggestion{
@@ -172,13 +173,13 @@ body.invitations-show #session-wrapper {
       div.bit:first-child {
         color:$dark-green;
         font-size: 1.15em;
-        font-family:$open-600;
+        @include font-semibold;
       }
     }
     a.remove_referrer {
       background:#d3d3d3;
       color: $white;
-      font-family:$open-600;
+      @include font-semibold;
       font-size:.65em!important;
       display: inline-block;
       padding:.25em;

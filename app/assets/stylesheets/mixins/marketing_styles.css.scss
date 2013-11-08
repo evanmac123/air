@@ -1,0 +1,28 @@
+@import 'main_styles.css.scss';
+
+@mixin close-button {
+  background:$light-gray;
+  border-radius:3px;
+  color:$white;
+  padding:.25em .5em;
+  position:absolute; 
+  top:.5em; right:.5em;
+  &:hover {
+    background: $orange;
+    color:$white;
+  }
+}
+
+/* ============= Color bars ============= */
+body {
+  border-top:7px $dark-green solid;
+}
+.colorbar {
+  display: inline-block;
+  height:7px;
+  position: absolute;
+  top:0;
+  width:16.5%;
+  &#blue {background:$blue; right:16.5%;}
+  &#orange {background:$orange; right:0;}
+}

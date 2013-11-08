@@ -4,7 +4,7 @@ $ugrey: #282828;
   input[type='submit']{
     width: auto;
     background: #818385;
-    font-family:$open-400;
+    @include font-regular;;
     font-size: 18px;
     text-transform:uppercase;
     border: 1px solid darken(#818385, 10%);

@@ -1,7 +1,7 @@
-$font: $sans;
+$font: $default;
 @mixin centered-section {
   max-width:1280px;
-  margin:$centered;
+  margin:0 auto;
 }
 html, body {
   margin: 0;
@@ -10,47 +10,37 @@ html, body {
 }
 body{
   background:$white;
-  color:lighten($text-color, 27%);
-  font-family: $font;
-  font-size:100%;
-    -webkit-font-smoothing: subpixel-antialiased;
     
-  * {box-shadow:none;}
-  h1, h2, h3 {font-family: $font; font-weight:normal; line-height: 1.125em; text-transform: none;}
-  h1 {color:#4d4d4d; font-size:2.25em; font-family:$open-600;}
-  h2 {color:$text-color; font-size:1.875em;}
-  h3 {font-family:$open-600; font-size:1.25em;}
-  input, textarea {@include ease(.15s); font-family:$font; font-size:1em;}
+  input, textarea {@include ease(.15s);}
   p {
     font-size:1em; line-height:1.25em; padding-bottom:1em;
-    span {font-family:$open-600; font-weight:600;}
-    &.caption {font-size:.875em;}
+    span {@include font-bold;}
   }
-  .wrapper {margin-top:4em;}
+  .wrapper {margin-top:5em;}
 }
 a, a:link, a:visited {
   @include link($blue);
   &:hover{color:$orange;}
-  &.pop-button {@include pop-button($blue);}
+  &.pop-button {@include app-button($blue);}
 }
 
 // Request buttons are all orange
 a.request_a_demo, a:link.request_a_demo, a:visited.request_a_demo {
-  @include pop-button($orange);
+  @include app-button($orange);
   font-size:1.375em;
   padding:.5em 1em;
 }
 
 input[type="submit"] {
-  @include pop-button($blue);
-  font-family: $open-600;
+  @include app-button($blue);
+  @include font-semibold;
   font-size:1.125em;
 }
 table {
   display:inline-block;
   th {
     color:lighten($text-color, 20%);
-    font-family:$open-600;
+    @include font-semibold;
     text-align: left;
   }
   td {
@@ -69,18 +59,8 @@ table {
   }
 }
 section.contained {@include centered-section;}
-section.first_section {
-  h1, h2 {font-weight:normal;}
-  h1 {
-    font-family:$open-400;
-    font-size:1.85em;
-    line-height:1.3em;
-  }
-  h2 {
-    font-size:1.35em;
-    line-height:1.35em;
-  }
-}
+
+
 section.feature_sections, section.inner_sections {
   padding-top:2em;
   position:relative;

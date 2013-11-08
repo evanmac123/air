@@ -1,25 +1,14 @@
 html, body {height:100%;}
 body {
-  font-family:$sans;
+  font-family:$default;
   font-size:1em;
     -webkit-font-smoothing: subpixel-antialiased;
     
   min-width:100%;
   position: static;
   a, a:link, a:visited {@include link($dark-green);}
-  h1, h2, h3 {line-height: 1.25em;}
-  h1 {
-    font-family:$open-600;
-    font-size:2em;
-  }
-  h2 {
-    font-family:$sans;
-    font-size:1.5em;
-    text-transform: none;
-  }
+  h1 {@include font-bold;}
   h3 {
-    font-family:$open-400;
-    font-size:1.25em;
     &:before {
       background:image-url('marketing/sprites_bulletinboard.png') no-repeat center top transparent;
       background-size:80%;
@@ -68,7 +57,7 @@ form {
   margin:0;
   label {
     color:$white;
-    font-family:$open-600;
+    @include font-semibold;
     line-height:1.35em;
     margin-bottom:1.25em;
   }
@@ -89,7 +78,7 @@ form {
     }
   }
   input[type="submit"] {
-    @include pop-button($dark-green);
+    @include app-button($dark-green);
     display: inline-block;
     margin-top:.5em;
     width:100%;
@@ -97,7 +86,7 @@ form {
 }
 // signup responses
 #signup_responses {
-  font-family:$open-600;
+  @include font-semibold;
   font-size:.875em;
   line-height: 1.35em;
   padding:.75em 0;
@@ -172,8 +161,8 @@ form {
     text-align: center;
   }
   #to_the_top {
-    @include pop-button($dark-green);
-    font-family:$open-400;
+    @include app-button($dark-green);
+    @include font-regular;;
     margin:1em auto 3em;
     padding:.75em 1.35em;
     font-size:1.25em;

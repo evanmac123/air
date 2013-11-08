@@ -1,13 +1,13 @@
 // ================== General Marketing styles ================== 
-section.first_section {
-  h1 {font-size:2em;}
-  h2 {font-size:1.125em;}
-}
+// section.first_section {
+//   h1 {font-size:2em;}
+//   h2 {font-size:1.125em;}
+// }
 // ****** Footer ****** 
 footer .blog_posts {margin-bottom:0;}
 
 // ================== External pages styles ================== 
-body.external .wrapper {margin-top:2em;}
+// body.external .wrapper {margin-top:2em;}
 #session-wrapper {width:65%; max-width:40em;}
 
 // ================== Homepage ================== 
@@ -94,7 +94,7 @@ body.external .wrapper {margin-top:2em;}
 			&:after{@include clear;}
 		}
 		ul li {
-			font-family:$open-600;
+			@include font-semibold;
 			border:1px darken($dark-green, 5%) solid;
 			text-align: center;
 			padding:2em 0;
@@ -157,91 +157,35 @@ body.external .wrapper {margin-top:2em;}
 }
 
 // ================== Pricing page ================== 
-#simple_fair_pricing {
-	padding:1em 0;
-	.copy .request_a_demo {margin-top:1em;}
-	// Price chart!
-	.price_chart {
-		padding-top:.5em;
-		padding-right:$foundation-gutter;
-		.chart_tabs {
-			padding-left:16.7%;
-			li:hover {border-color:$blue;}
-		}
-		.chart_area {
-			background:transparent;
-			padding:0;
-		}
-		.chart_headers {
-			border:0;
-			float: left;
-			margin-bottom:0;
-			padding-bottom:0;
-			li {
-				display: block;
-				float:none;
-				padding:1.5em 1em 1.5em 0;
-				text-align: right;
-				&#label_max_employees, &#label_monthly_cost, 
-				&#label_yearly_cost {width:100%;}
-			}
-			li + li {
-				border-top:$border-dark;
-			}
-		}
-		.numbers_area {
-			background: $white;
-			float: left;
-			padding:1em 0;
-			&:after {@include clear;}
-		}
-		.num_of_employees, .monthly_cost, .yearly_cost {
-			display: block;
-			width:100%;
-			&:after{@include clear;}
-			li {
-				display: inline-block;
-				float: left;
-				height:auto;
-				line-height: 1em;
-				text-align: center;
-				width:16.666666667%;
-				&:nth-of-type(2n) {background:transparent;}
-			}
-			li + li {border-left:$border-dark;}
-		}
-		.num_of_employees li {padding:1em 0;}
-		.monthly_cost li {padding:1.35em 0;}
-		.yearly_cost li {padding:2em 0 1em 0;}
-		.notes_about_pricing {padding-left:16.66667%;}
-		#annual_prices {
-			padding-bottom:1em;
-			position: relative;
-			&:after{@include clear;}
-			.caption {
-				position:absolute;
-				bottom:-.5em;
-				width:100%;
-			}
-		}
-	}
+#simple_fair_pricing .calculator {
+	.price_customizer {
+		&:after {@include clear;}
+    .employees, .billing_plans {
+      display: inline-block;
+      float:left;
+      width:50%;
+    }
+    .billing_plans {
+    	border-top:0;
+    	border-left:1px $light-gray solid;
+    	padding:.7em;
+    }
+    .billing_plans ul {
+      display: inline-block;
+      position: relative;
+    }
+  }
 }
-#additional_services {
-	padding:0 0 4em 0;
-	.services_include {
-		padding-top:3.75em;
-		ul {
-			li {
-				float: left;
-				margin-bottom:1em;
-				width:50%;
-			}
-			p {
-				display: inline-block;
-				max-width:84%;
-			}
-		}
-	}
+.offerings {
+	float:none;
+	width:83.5%;
+	margin:2em auto 0;
 }
-#pricing_faq {padding:4em 0;}
-
+#pricing_definitions {
+  .large-8:after {@include clear;}
+  .large-8 > .large-6 {
+    padding-right:7%;
+    float:left;
+  }
+  .large-4 {margin-top:0;}
+}

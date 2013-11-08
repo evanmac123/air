@@ -2,13 +2,13 @@
 footer {
   background:lighten($text-color, 5%);
   color:$gray;
-  padding-top:2em;
+  padding-top:3em;
   padding-bottom:2em;
   &:after{@include clear;}
 
   h3 {
     border-bottom:2px lighten($text-color, 20%) solid;
-    color:lighten($text-color, 20%);
+    color:lighten($text-color, 23%);
     padding-bottom:.5em;
     margin-bottom:1em;
   }
@@ -24,7 +24,7 @@ footer {
   .contact_us {
     a, a:link, a:visited, .reach_us {
       color:$white;
-      font-family:$sans;
+      font-family:$default;
       font-size:1.125em;
     }
     .up_top:link, .up_top:visited {
@@ -32,7 +32,7 @@ footer {
       border-radius: 3px;
       color:lighten($text-color, 10%);
       display: inline-block;
-      font-family: $open-600;
+      @include font-bold;
       font-size:.75em;
       margin-top:2em;
       padding:.5em;
@@ -80,6 +80,7 @@ footer {
       .post_description {
         @extend p.caption;
         color:darken($light-gray, 5%);
+        font-size:.875em;
         line-height: 1.35em;
         margin-top:1em;
       }

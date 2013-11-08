@@ -1,4 +1,4 @@
-@import "../mixins/standard_colors.css.scss";
+@import "../mixins/marketing_styles.css.scss";
 @import "screen_medium.css.scss";
 @import "screen_desktop.css.scss";
 @import "screen_large.css.scss";
@@ -19,10 +19,9 @@ nav.top-bar {
       background:$white!important;
       a {
         color:$white;
-        font-family:$open-600;
+        @include font-semibold;
         font-size:1.125em!important;
         line-height:1em!important;
-        padding:.5em 1em 1.5em 1em!important;
       }
     }
   }
@@ -33,7 +32,7 @@ nav.top-bar {
   background:$white;
   h1 {font-size:2.75em;}
   h2 {
-    font-family:$open-400;
+    @include font-regular;;
     padding:1.75em 0 2em 0;
   }
   .main-row {
@@ -60,14 +59,25 @@ nav.top-bar {
   background:image-url('marketing/tiles-bg.png') center top no-repeat;
 }
 
-// Pricing
-#lets_work_together {
-  .buy_benefits li {
-    background-image:image-url('marketing/checkmark.png');
-    background-size:14px 14px;
+// ============= Pricing page ============= 
+#simple_fair_pricing .calculator {
+  input[type="number"].num_of_users {
+    padding:.5em;
   }
 }
-
+.offerings {
+  .feature_labels {
+    top:215px;
+  }
+  .feature_labels li, .an_offering li.plan_details {
+    padding-top:10px;
+    padding-bottom:0;
+    margin:0;
+  }
+}
+.an_offering .additional_features {
+  padding-bottom:1em!important;
+}
 #pricing_faq {
   padding:5em 0;
   &:after{@include clear;}

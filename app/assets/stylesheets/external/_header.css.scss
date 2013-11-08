@@ -31,14 +31,10 @@ header {
       .has-form {
         padding:0 .5em .5em .5em;
         a {
-          &.sign_in_button {
-            @include pop-button($blue);
-            padding:.75em;
-          }
-          &.request_a_demo {@include pop-button($orange); padding:.75em;}
-          border:none;
-          border-bottom:5px transparent solid;
-          font-size:1em;
+          box-shadow:none;
+          &.sign_in_button {@include app-button($blue);}
+          &.request_a_demo {@include app-button($orange);}
+          &.sign_in_button, &.request_a_demo {padding:.5em .75em;}
         }
       }
     }
