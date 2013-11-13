@@ -45,7 +45,7 @@ feature 'The order of the tiles in the Tile Manager and the Tile Carousel are in
     demo = admin.demo
 
     tiles = []
-    5.times { |i| tiles << FactoryGirl.create(:tile, demo: demo, headline: "Tile #{i}", created_at: Time.now + i.days) }
+    1.upto(4) { |i| tiles << FactoryGirl.create(:tile, demo: demo, headline: "Tile #{i}", created_at: Time.now + i.days) }
 
     bypass_modal_overlays(admin)
     signin_as(admin, admin.password)
@@ -53,7 +53,7 @@ feature 'The order of the tiles in the Tile Manager and the Tile Carousel are in
     # -----------------------------------------------------------------------------
 
     visit tile_manager_page
-    manager_tiles =  [ ["Tile 4", "Tile 3", "Tile 2", "Tile 1"], ["Tile 0"] ]
+    manager_tiles =  [ ["Tile 4", "Tile 3", "Tile 2", "Tile 1"] ]
 
     check_manager(manager_tiles)
     check_carousel_and_viewer(manager_tiles, Tile.first)
@@ -67,7 +67,7 @@ feature 'The order of the tiles in the Tile Manager and the Tile Carousel are in
     Tile.find_by_headline('Tile 3').update_attributes(status: 'archive')
     visit tile_manager_page
 
-    manager_tiles =  [ ["Tile 4", "Tile 2", "Tile 1", "Tile 0"] ]
+    manager_tiles =  [ ["Tile 4", "Tile 2", "Tile 1"] ]
     check_manager(manager_tiles)
     check_carousel_and_viewer(manager_tiles, Tile.first)
 
@@ -77,7 +77,7 @@ feature 'The order of the tiles in the Tile Manager and the Tile Carousel are in
     Tile.find_by_headline('Tile 3').update_attributes(status: 'active', activated_at: Time.now)
 
     visit tile_manager_page
-    manager_tiles =  [ ["Tile 3", "Tile 4", "Tile 2", "Tile 1"], ["Tile 0"] ]
+    manager_tiles =  [ ["Tile 3", "Tile 4", "Tile 2", "Tile 1"] ]
 
     check_manager(manager_tiles)
     check_carousel_and_viewer(manager_tiles, Tile.first)
@@ -87,16 +87,16 @@ feature 'The order of the tiles in the Tile Manager and the Tile Carousel are in
     Tile.find_by_headline('Tile 4').update_attributes(status: 'archive')
     Tile.find_by_headline('Tile 1').update_attributes(status: 'archive')
     visit tile_manager_page
-    manager_tiles =  [ ["Tile 3", "Tile 2", "Tile 0"] ]
+    manager_tiles =  [ ["Tile 3", "Tile 2"] ]
 
     check_manager(manager_tiles)
-    check_carousel_and_viewer(["Tile 3", "Tile 2", "Tile 0"], Tile.find_by_headline("Tile 3"))
+    check_carousel_and_viewer(["Tile 3", "Tile 2"], Tile.find_by_headline("Tile 3"))
 
     #-------------------------------------------------------------------------------
     # Re-activate the archived tile => should move to the head of the list
     Tile.find_by_headline('Tile 1').update_attributes(status: 'active', activated_at: Time.now)
     visit tile_manager_page
-    manager_tiles =  [ ["Tile 1", "Tile 3", "Tile 2", "Tile 0"] ]
+    manager_tiles =  [ ["Tile 1", "Tile 3", "Tile 2"] ]
 
     check_manager(manager_tiles)
     check_carousel_and_viewer(manager_tiles, Tile.active.last)
@@ -105,7 +105,7 @@ feature 'The order of the tiles in the Tile Manager and the Tile Carousel are in
     # Re-activate the archived tile => should move to the head of the list
     Tile.find_by_headline('Tile 4').update_attributes(status: 'active', activated_at: Time.now)
     visit tile_manager_page
-    manager_tiles =  [ ["Tile 4", "Tile 1", "Tile 3", "Tile 2"], ["Tile 0"] ]
+    manager_tiles =  [ ["Tile 4", "Tile 1", "Tile 3", "Tile 2"] ]
 
     check_manager(manager_tiles)
     check_carousel_and_viewer(manager_tiles, Tile.active.last)

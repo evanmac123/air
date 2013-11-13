@@ -1,8 +1,6 @@
 class ApplicationController < ActionController::Base
   FLASHES_ALLOWING_RAW = %w(notice)
 
-  TILE_BATCH_SIZE_INCREMENT = 6
-
   before_filter :force_ssl 
   before_filter :authorize
   before_filter :set_delay_on_tooltips
@@ -71,7 +69,18 @@ class ApplicationController < ActionController::Base
 
   def tile_batch_size
     base_batch_size = (params[:base_batch_size] || 0).to_i
-    base_batch_size + TILE_BATCH_SIZE_INCREMENT - (base_batch_size % TILE_BATCH_SIZE_INCREMENT)
+    base_batch_size + tile_batch_size_increment - (base_batch_size % tile_batch_size_increment)
+  end
+
+  def tile_batch_size_increment
+    case device_type
+    when :mobile
+      2
+    when :tablet
+      3
+    else
+      4
+    end
   end
 
   private

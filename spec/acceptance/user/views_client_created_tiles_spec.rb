@@ -119,35 +119,38 @@ feature 'User views tiles' do
     end
   end
 
-  context 'loaded in batches, with a "See More" link' do
-    before do
-      @demo = FactoryGirl.create(:demo)
-      user = FactoryGirl.create(:user, demo: @demo, sample_tile_completed: true)
+  {:mobile => 2, :tablet => 3, :desktop => 4}.each do |device_type, expected_tile_batch_size|
+    context "loaded in batches which on #{device_type} have #{expected_tile_batch_size} tiles apiece, with a \"See More\" link" do
+      before do
+        spoof_client_device(device_type)
+        @demo = FactoryGirl.create(:demo)
+        user = FactoryGirl.create(:user, demo: @demo, sample_tile_completed: true)
 
-      13.times {|n| FactoryGirl.create(:tile, status: 'active', headline: "Tile Number #{n}", demo: @demo)}
-      
-      visit activity_path(as: user)
-    end
+        (expected_tile_batch_size * 2 + 1).times {|n| FactoryGirl.create(:tile, status: 'active', headline: "Tile Number #{n}", demo: @demo)}
+        
+        visit activity_path(as: user)
+      end
 
-    it "should show the first N in the first batch" do
-      expect_thumbnail_count(6)
-    end
+      it "should show the first N in the first batch", js: true do
+        expect_thumbnail_count(expected_tile_batch_size)
+      end
 
-    it "should load the next N on clicking See More", js: true do
-      show_more_tiles_link.click
-      expect_thumbnail_count(12)
+      it "should load the next N on clicking See More", js: true do
+        show_more_tiles_link.click
+        expect_thumbnail_count(expected_tile_batch_size * 2)
 
-      show_more_tiles_link.click
-      expect_thumbnail_count(13)
+        show_more_tiles_link.click
+        expect_thumbnail_count(expected_tile_batch_size * 2 + 1)
 
-      # Hey look, here comes everybody!
-      6.times {|n| FactoryGirl.create(:tile, status: 'active', headline: "Second Batch Tile #{n}", demo: @demo)}
+        # Hey look, here comes everybody!
+        expected_tile_batch_size.times {|n| FactoryGirl.create(:tile, status: 'active', headline: "Second Batch Tile #{n}", demo: @demo)}
 
-      show_more_tiles_link.click
-      expect_thumbnail_count(18)
+        show_more_tiles_link.click
+        expect_thumbnail_count(expected_tile_batch_size * 3)
 
-      show_more_tiles_link.click
-      expect_thumbnail_count(19)
+        show_more_tiles_link.click
+        expect_thumbnail_count(expected_tile_batch_size * 3 + 1)
+      end
     end
   end
 end

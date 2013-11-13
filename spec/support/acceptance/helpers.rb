@@ -278,4 +278,27 @@ module SteakHelperMethods
   def open_admin_nav
     page.find("#admin_toggle").click()
   end
+
+  def spoof_client_device(device_type)
+    user_agent = case device_type.to_s
+                   when 'desktop'
+                     # pretend to be chrome on a Linux box
+                     "Mozilla/5.0 (X11; Linux i686) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.48 Safari/537.36"
+                   when 'tablet'
+                     # pretend to be an ipad
+                     "Mozilla/5.0 (iPad; U; CPU OS 3_2 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Version/4.0.4 Mobile/7B334b Safari/531.21.10"
+                   when 'mobile'
+                     # pretend to be an iphone
+                     "Mozilla/5.0 (iPhone; U; CPU iPhone OS 4_3_2 like Mac OS X; en-us) AppleWebKit/533.17.9 (KHTML, like Gecko) Version/5.0.2 Mobile/8H7 Safari/6533.18.5"
+                   else
+                     raise "Don't recognize spoof device type #{device_type}"
+                   end
+
+    if page.driver.respond_to?(:headers=)
+      # This is the Poltergeist way to do things
+      page.driver.headers = {'User-Agent' => user_agent}
+    else
+      raise "You must use Poltergeist as the driver if you want to use #spoof_client_device"
+    end
+  end
 end
