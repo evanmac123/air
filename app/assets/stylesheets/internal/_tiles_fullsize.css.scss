@@ -171,6 +171,14 @@ body.client_admin-tiles-update,
       border-color: darken($blue, 10%) !important;
     }
 
+    .clicked_right_answer {
+      background: $dark-green !important;
+
+      &:hover {
+        background: $dark-green !important;
+      }
+    }
+
     .wrong_answer_target {
       color:$gray;
       @include font-bold;

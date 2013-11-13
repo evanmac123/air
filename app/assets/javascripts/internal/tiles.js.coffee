@@ -38,9 +38,13 @@ attachWrongAnswer = (answerLink, target) ->
 nerfNerfedAnswers = ->
   $('.nerfed_answer').click((event) -> event.preventDefault())
 
+markCompletedRightAnswer = (nodes) ->
+  nodes.addClass 'clicked_right_answer'
+
 attachRightAnswers = ->
-  $('.right_multiple_choice_answer').one("click", (event) -> 
+  $('.right_multiple_choice_answer').one("click", (event) ->
     event.preventDefault()
+    markCompletedRightAnswer $(this)
     $('#right_answer_target').click()
     $(event.target).click((event) -> event.preventDefault())
   )
