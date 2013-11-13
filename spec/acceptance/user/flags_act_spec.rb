@@ -40,7 +40,7 @@ feature 'User flags act' do
   context "when the act is on a later page" do
     before do
       extra_acts = []
-      15.downto(1) do |i|
+      7.downto(1) do |i|
         extra_acts << FactoryGirl.create(:act, user: @cheating_user, text: "Hey kids!", created_at: Time.now - i.minutes)
       end
 

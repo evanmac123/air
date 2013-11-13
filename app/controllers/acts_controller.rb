@@ -3,6 +3,8 @@ class ActsController < ApplicationController
 
   skip_before_filter :authorize, only: :index
 
+  ACT_BATCH_SIZE = 5
+
   def index
     # Initial 'if' statement exists so we can sign users in when they click on a tile in their digest email.
     # There are a lot of comments for such a small group of statements, so pay attention...
@@ -85,7 +87,7 @@ class ActsController < ApplicationController
   protected
 
   def find_requested_acts(demo)
-    demo.acts.displayable_to_user(current_user).recent(10).includes(:rule)
+    demo.acts.displayable_to_user(current_user).recent(ACT_BATCH_SIZE).includes(:rule)
   end
 
   def render_act_update
