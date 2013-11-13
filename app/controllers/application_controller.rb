@@ -10,6 +10,7 @@ class ApplicationController < ActionController::Base
   after_filter :merge_flashes
 
   include Clearance::Authentication
+  include Mobvious::Rails::Controller
   protect_from_forgery
 
   protected

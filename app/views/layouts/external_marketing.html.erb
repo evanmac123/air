@@ -30,6 +30,7 @@
     <![endif]-->
     <%= javascript_include_tag asset_path('ga.js') if ENV['USE_GA'] %>
     <%= render 'shared/mixpanel' %>
+    <%= mobvious_javascript %>
   </head>
   <body class="<%= body_class %> marketing">
     

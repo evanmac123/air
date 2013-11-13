@@ -1,3 +1,4 @@
+//= require mobvious-rails
 //= require_tree ./client_admin
 //= require_tree ../../../vendor/assets/javascripts/external/
 
