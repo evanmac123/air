@@ -10,15 +10,12 @@ footer {
     border-bottom:2px lighten($text-color, 20%) solid;
     color:lighten($text-color, 23%);
     padding-bottom:.5em;
-    margin-bottom:1em;
+    margin:0 0.7em 1em;
   }
 
-  .copyright {font-size:.75em; padding-top:1.25em; text-align: center;}
+  .copyright {font-size:.75em; padding-top:2em; text-align: center;}
 
-  .main-row {
-    border-bottom:1px lighten($text-color, 3%) solid;
-    margin:auto;
-  }
+  .main-row {margin:auto;}
 
   // Contact us
   .contact_us {
@@ -34,7 +31,7 @@ footer {
       display: inline-block;
       @include font-bold;
       font-size:.75em;
-      margin-top:2em;
+      float: right;
       padding:.5em;
       &:hover{background:$dark-green; color:$white;}
     }
@@ -45,7 +42,7 @@ footer {
       padding: 0;
     }
     .our_socmedia {
-      margin-top:1em;
+      margin-top:2em;
       &:after{@include clear;}
       li {
         display: inline-block; 

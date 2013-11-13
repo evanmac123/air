@@ -1,10 +1,5 @@
 // ================== General Marketing styles ================== 
-// section.first_section {
-//   h1 {font-size:2em;}
-//   h2 {font-size:1.125em;}
-// }
-// ****** Footer ****** 
-footer .blog_posts {margin-bottom:0;}
+footer .contact_us .our_socmedia {margin-top:0;}
 
 // ================== External pages styles ================== 
 // body.external .wrapper {margin-top:2em;}
@@ -176,11 +171,11 @@ footer .blog_posts {margin-bottom:0;}
     }
   }
 }
-.offerings {
+#simple_fair_pricing .calculator, .offerings {
 	float:none;
 	width:83.5%;
-	margin:2em auto 0;
 }
+.offerings {margin:1em auto 0;}
 #pricing_definitions {
   .large-8:after {@include clear;}
   .large-8 > .large-6 {

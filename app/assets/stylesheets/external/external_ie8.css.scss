@@ -60,20 +60,19 @@ nav.top-bar {
 }
 
 // ============= Pricing page ============= 
-#simple_fair_pricing .calculator {
-  input[type="number"].num_of_users {
-    padding:.5em;
-  }
+#simple_fair_pricing .calculator .price_customizer {
+  h3 {padding:.83em 0 .83em 16px;}
+  input[type="number"].num_of_users {padding:.5em;}
 }
 .offerings {
-  .feature_labels {
-    top:215px;
-  }
+  a.check_price_button {margin:.4em 0;}
+  .feature_labels {top:215px;}
   .feature_labels li, .an_offering li.plan_details {
     padding-top:10px;
     padding-bottom:0;
     margin:0;
   }
+  .feature_labels li:after {font-size:1em!important;}
 }
 .an_offering .additional_features {
   padding-bottom:1em!important;
