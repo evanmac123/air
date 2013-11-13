@@ -14,11 +14,15 @@ header {
         float: left;
       }
       input[type="email"] {
+        border-top-left-radius: $border-radius;
+        border-bottom-left-radius: $border-radius;
         width:65%;
       }
       input[type="submit"] {
-        border-bottom-width:4px;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
         margin-top:0;
+        padding:.6em 0;
         width:35%;
       }
       #signup_responses {@include clear;}

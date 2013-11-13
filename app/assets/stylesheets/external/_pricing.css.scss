@@ -27,26 +27,31 @@
 	h1 {@include font-semibold; margin-bottom:1em;}
 	p.callout { // "Save 25% off"
 		@include font-bold;
-		background: $dark-green;
-		border-radius: $border-radius;
-		color:$white;
+		border:{
+			style:solid;
+			color:$light-gray;
+			top:{width:0;}
+			bottom:{width:1px;}
+			left:{width:1px;}
+			right:{width:1px;}
+		}
+		color:$dark-green;
 		font-size:.875em;
-		margin:3em auto 0;
-		padding: .35em .75em;
+		padding: .5em .75em;
 		width:auto;
 	}
 
 	.price_customizer {
-		border:1px $light-gray solid;
 		border-radius:$border-radius;
 		margin: 2em 0 0;
-		h3 {
-			color:$dark-gray;
+		overflow: hidden;
+		.price_customizer_header {
+			color:$white;
+			@include light-to-color-gradient($dark-green, 5%);
 			border-bottom:1px $light-gray solid;
 			margin:0;
 			padding:.35em;
 		}
-		.employees, .billing_plans {background:lighten($light-gray, 7%);}
 		input[type="number"].num_of_users {
 			@include font-bold;
 			color:$text-color;
@@ -62,17 +67,25 @@
 	    margin: 0;
 		}
 		.employees, .billing_plans {
+			background:lighten($light-gray, 7%);
+			border:{
+				style:solid;
+				color:$light-gray;
+				top:{width:0;}
+				bottom:{width:1px;}
+				left:{width:1px;}
+				right:{width:1px;}
+			}
 			padding:.5em;
-			span {font-size:.875em;}
+			span {
+				@include font-semibold;
+				font-size:.875em;
+			}
 			> * {vertical-align: middle;}
 		}
-		.billing_plans {border-top:1px $light-gray solid;}
 	}
 	.billing_plans ul {
 		display: inline-block;
-		border-radius:$border-radius;
-		margin-left:.25em;
-		overflow: hidden;
 		&:after {@include clear;}
 		li {
 			@include light-to-color-gradient($light-gray, 5%);
@@ -83,6 +96,14 @@
 			display: inline-block;
 			float: left;
 			padding:.125em .75em;
+			&.annual_plan {
+				border-top-left-radius: $border-radius;
+				border-bottom-left-radius: $border-radius;
+			}
+			&.monthly_plan {
+				border-top-right-radius: $border-radius;
+				border-bottom-right-radius: $border-radius;
+			}
 			&.selected {
 				@include light-to-color-gradient($gray, 5%);
 				border-color:darken($gray, 5%);
@@ -95,15 +116,17 @@
 		font-size:1.125rem;
 	}
 }
+
 .offerings, #calculator {.label {@include caption;}}
+
+// ============= Chart ============= 
 .offerings{
-	margin-top:2em;
+	margin-top:3em;
 	text-align: center;
 	.feature_labels {display: none;}
 	a.check_price_button {
-		@include app-button($dark-green);
-		margin:.2em 0;
-		padding:1em 1.75em;
+		@include light-button($med-gray);
+		margin:.85em 0;
 	}
 	.an_offering {
 		border-radius:$border-radius;
@@ -126,10 +149,10 @@
 			&.plan_description, &.plan_cost {
 				border-left:1px $light-gray solid;
 				border-right:1px $light-gray solid;
-				font-size:.875em;
 			}
 			&.plan_cost {
 				border-top:1px $light-gray solid;
+				font-size:.875em;
 				@include font-bold;
 				ul {margin-left:0;}
 				li {
@@ -163,15 +186,10 @@
 			}
 		}
 		.plan_details + .plan_details {border-top:0;}
-	}
-	.details {
-		margin-top:1em;
-		h2 {margin:1em auto;}
-		span {
-			@include caption;
-			color:$med-gray;
-			display: block;
-			margin-bottom:2em;
+		.additional_features {
+			.advanced_reporting, .multiple_boards, .push_messaging {
+			  display: block;
+		  }
 		}
 	}
 }
@@ -182,19 +200,56 @@
 		.label {color:lighten($orange, 30%)}
 	}
 }
-.additional_features {
-	.advanced_reporting, .multiple_boards, .push_messaging {
-	  display: block;
-  }
+
+.an_offering.basic_plan, .an_offering.business_plan {
+  li.plan_details.additional_features {display: none;}
+} 
+
+// ============= Next steps ============= 
+
+#simple_fair_pricing .details {
+	margin-top:0em;
+	text-align: center;
+	h2 {margin:1em auto 1.5em;}
+	span {
+		@include caption;
+		color:$med-gray;
+		display: block;
+		margin-bottom:8em;
+	}
 }
 
+#simple_fair_pricing .details .large-5 {
+	padding: {
+		left:6%;
+		right:6%;
+	}
+	text-align: left;
+	a {
+		@include app-button($dark-green);
+		font-size:1.375em;
+  	padding:.5em 1em;
+		width:100%;
+	}
+	a.request_a_demo {margin-top:1em;}
+	p {margin-top:1em;}
+}
+
+// ============= FAQs ============= 
 #pricing_faq {
 	color:lighten($text-color, 25%);
-	padding:5em 0;
-	h2 {
-		padding-bottom:2em;
+	padding:3.5em 0;
+	.large-12 h2 {
+		border-top:1px $light-gray solid;
+	  margin-bottom:2em;
+	  padding:2.75em 0 0;
 		text-align: center;
 	}
 	p span {color:$text-color;}
 	.pricing_question {margin-bottom:1em;}
+	.details {
+		color:$text-color;
+		margin-top:1em; 
+		text-align: center;
+	}
 }

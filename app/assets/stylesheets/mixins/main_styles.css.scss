@@ -185,6 +185,10 @@ a, a:link, a:visited {@include link($blue);}
   }
   &:active {background:lighten($color, 5%);}
 }
+@mixin fat-app-button($color) {
+  @include app-button($color);
+  padding:1em 1.75em;
+}
 @mixin light-button($outlineColor) {
   background:transparent;
   border:1px $outlineColor solid;

@@ -72,13 +72,13 @@ footer .contact_us .our_socmedia {margin-top:0;}
 	padding:0;
 	.main-row {position: relative;}
 	.main-row .copy {
-		height:12.25em;
+		height:14em;
 		padding:2% 4% 0 4%;
 		position: absolute;	
 		text-align: center;
 		left:0;
 		right:0;
-		top:6.15em;
+		top:7em;
 	}
 	.objective_examples {
 		.large-12 {padding:0;}
@@ -154,15 +154,19 @@ footer .contact_us .our_socmedia {margin-top:0;}
 // ================== Pricing page ================== 
 #simple_fair_pricing .calculator {
 	.price_customizer {
-		&:after {@include clear;}
+		// margin:4em 0 2em;
+		p.callout {
+			@include clear;
+			border-top:1px $light-gray solid;
+		}
     .employees, .billing_plans {
+    	border-bottom:0;
       display: inline-block;
       float:left;
       width:50%;
     }
     .billing_plans {
-    	border-top:0;
-    	border-left:1px $light-gray solid;
+    	border-left:0;
     	padding:.7em;
     }
     .billing_plans ul {
@@ -175,7 +179,10 @@ footer .contact_us .our_socmedia {margin-top:0;}
 	float:none;
 	width:83.5%;
 }
-.offerings {margin:1em auto 0;}
+#simple_fair_pricing .offerings {margin:2em auto 0;}
+#simple_fair_pricing .details .large-5 {
+	a.request_a_demo {margin-top:0;}
+}
 #pricing_definitions {
   .large-8:after {@include clear;}
   .large-8 > .large-6 {
