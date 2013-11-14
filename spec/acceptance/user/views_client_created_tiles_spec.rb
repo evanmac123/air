@@ -48,7 +48,11 @@ feature 'User views tiles' do
   end
 
   def expect_thumbnail_count(expected_count)
-    page.all('.tile-wrapper').should have(expected_count).tiles
+    page.all('.tile-wrapper').should have(expected_count).thumbnails
+  end
+
+  def expect_placeholder_count(expected_count)
+    page.all('.placeholder_tile').should have(expected_count).placeholders
   end
 
   context 'of the keyword variety' do
@@ -138,18 +142,22 @@ feature 'User views tiles' do
       it "should load the next N on clicking See More", js: true do
         show_more_tiles_link.click
         expect_thumbnail_count(expected_tile_batch_size * 2)
+        expect_placeholder_count(0)
 
         show_more_tiles_link.click
         expect_thumbnail_count(expected_tile_batch_size * 2 + 1)
+        expect_placeholder_count(expected_tile_batch_size - 1)
 
         # Hey look, here comes everybody!
         expected_tile_batch_size.times {|n| FactoryGirl.create(:tile, status: 'active', headline: "Second Batch Tile #{n}", demo: @demo)}
 
         show_more_tiles_link.click
         expect_thumbnail_count(expected_tile_batch_size * 3)
+        expect_placeholder_count(0)
 
         show_more_tiles_link.click
         expect_thumbnail_count(expected_tile_batch_size * 3 + 1)
+        expect_placeholder_count(expected_tile_batch_size - 1)
       end
     end
   end

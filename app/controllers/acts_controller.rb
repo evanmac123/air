@@ -1,5 +1,6 @@
 class ActsController < ApplicationController
   include Reply
+  include TileBatchHelper
 
   skip_before_filter :authorize, only: :index
 

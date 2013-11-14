@@ -1,4 +1,5 @@
 class TilesController < ApplicationController
+  include TileBatchHelper
 
   before_filter :get_displayable, :only => :index
   before_filter :get_position_description, :only => :index

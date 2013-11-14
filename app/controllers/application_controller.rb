@@ -72,17 +72,6 @@ class ApplicationController < ActionController::Base
     base_batch_size + tile_batch_size_increment - (base_batch_size % tile_batch_size_increment)
   end
 
-  def tile_batch_size_increment
-    case device_type
-    when :mobile
-      2
-    when :tablet
-      3
-    else
-      4
-    end
-  end
-
   private
 
   # See page 133 of Metaprogramming Ruby for details on how to use an "around alias"
