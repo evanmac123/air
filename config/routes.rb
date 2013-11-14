@@ -80,8 +80,6 @@ Health::Application.routes.draw do
 
     resources :tiles_follow_up_email, only: :destroy
 
-    resources :tiles_reports, only: :index
-
     resources :payments
     resources :balances
   end

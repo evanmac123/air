@@ -1,4 +1,9 @@
 .tile_stats
   .activation_dates= footer_timestamp(tile)
-  .completions= "COMPLETION FIGURE GOES HERE"
-  .completion_percentage= "COMPLETION PERCENTAGE GOES HERE"
+  .completions 
+    Completed by
+    = pluralize(tile.completion_count, 'user')
+  .completion_percentage
+    Completed by
+    = number_to_percentage tile.claimed_completion_percentage, precision: 1
+    of joined users

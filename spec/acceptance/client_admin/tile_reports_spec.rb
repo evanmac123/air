@@ -4,25 +4,6 @@ feature 'client admin views tiles reports' do
   let(:admin) { FactoryGirl.create :client_admin }
   let(:demo)  { admin.demo  }
 
-  # -------------------------------------------------
-
-  background do
-    bypass_modal_overlays(admin)
-    visit client_admin_tiles_reports_path(as: admin)
-  end
-
-  # -------------------------------------------------
-
-  describe 'A no-tile message is displayed when there are no tiles' do
-    it 'for Active tiles' do
-      within('#active') { page.should contain('There are no active tiles') }
-    end
-
-    it 'for Archived tiles' do
-      within('#archive') { page.should contain('There are no archived tiles') }
-    end
-  end
-
   describe 'Tile reports contain the correct information, and appear in reverse-chronological order by activation/archived-date' do
     # Chronologically-speaking, creating tiles "up" from 0 to 'nun_tiles' and then checking "down" from 'num_tiles' to 0
     let(:num_tiles) { 10 }
@@ -70,15 +51,12 @@ feature 'client admin views tiles reports' do
 
     context "Active tiles" do
       before(:each) do
-        demo.tiles.update_all status: Tile::ACTIVE
-        visit client_admin_tiles_reports_path
-      end
-
-      it 'website page content is correct' do
-        table_content('#active table').should == expected_tile_table
+        #demo.tiles.update_all status: Tile::ACTIVE
+        #visit client_admin_tiles_reports_path
       end
 
       it 'csv file name and content are correct' do
+        pending "REACTIVATE AFTER THERE IS A PLACE TO DOWNLOAD CSVs AGAIN"
         on_day '7/4/2013' do
           visit client_admin_tiles_reports_path
 
@@ -106,16 +84,8 @@ CSV
     end
 
     context "Archived tiles" do
-      before(:each) do
-        demo.tiles.update_all status: Tile::ARCHIVE
-        visit client_admin_tiles_reports_path
-      end
-
-      it 'website page content is correct' do
-        table_content('#archive table').should == expected_tile_table
-      end
-
       it 'csv file name and content are correct' do
+        pending "REACTIVATE AFTER THERE IS A PLACE TO DOWNLOAD CSVs AGAIN"
         on_day '7/4/2013' do
           click_link 'Download CSV'
 

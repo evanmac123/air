@@ -1,11 +1,32 @@
 require 'acceptance/acceptance_helper'
 
-feature 'Sees helpful dates in tile manager' do
+feature 'Sees helpful information in tile manager' do
   let (:demo)         { FactoryGirl.create :demo }
   let (:client_admin) { FactoryGirl.create :client_admin, demo: demo }
 
   def tile_cell(tile)
     "td[data-tile_id='#{tile.id}']"  
+  end
+
+  def expect_completed_users_count(tile, expected_count)
+    within tile_cell(tile) do
+      within ".completions" do
+        if expected_count == 1
+          user_phrase = "1 user"
+        else
+          user_phrase = "#{expected_count} users"
+        end
+        expect_content "Completed by #{user_phrase}"
+      end
+    end
+  end
+
+  def expect_completed_users_percentage(tile, expected_percentage)
+    within tile_cell(tile) do
+      within ".completion_percentage" do
+        expect_content "Completed by #{expected_percentage}% of joined users"
+      end
+    end
   end
 
   after do
@@ -78,6 +99,40 @@ feature 'Sees helpful dates in tile manager' do
 
       expect_no_content "Active: 2 days"
       expect_no_content "Since:"
+    end
+  end
+
+  context "with numerical information" do
+    before do
+      @tile_1 = FactoryGirl.create(:tile, demo: demo, status: Tile::ACTIVE,  archived_at: 5.days.ago, activated_at: 2.days.ago)
+      @tile_2 = FactoryGirl.create(:tile, demo: demo, status: Tile::ARCHIVE, archived_at: 5.days.ago, activated_at: 6.days.ago)
+      @tile_3 = FactoryGirl.create(:tile, demo: demo, status: Tile::ACTIVE,  archived_at: 5.days.ago, activated_at: 2.days.ago)
+      @tile_4 = FactoryGirl.create(:tile, demo: demo, status: Tile::ACTIVE,  archived_at: 5.days.ago, activated_at: 2.days.ago)
+
+      1.times {FactoryGirl.create(:tile_completion, tile: @tile_1)}
+      2.times {FactoryGirl.create(:tile_completion, tile: @tile_2)}
+      3.times {FactoryGirl.create(:tile_completion, tile: @tile_3)}
+
+      [@tile_1, @tile_2, @tile_3].each do |tile|
+        tile.tile_completions.map(&:user).each {|user| user.update_attributes(demo_id: demo.id)}
+        tile.tile_completions.first.user.update_attributes(accepted_invitation_at: Time.now)
+      end
+
+      visit client_admin_tiles_path(as: client_admin)
+    end
+
+    it "such as the number of users who have completed the tile" do
+      expect_completed_users_count(@tile_1, 1)
+      expect_completed_users_count(@tile_2, 2)
+      expect_completed_users_count(@tile_3, 3)
+      expect_completed_users_count(@tile_4, 0)
+    end
+
+    it "such as the percentage of claimed users who have completed the tile" do
+      expect_completed_users_percentage(@tile_1, "25.0")
+      expect_completed_users_percentage(@tile_2, "50.0")
+      expect_completed_users_percentage(@tile_3, "75.0")
+      expect_completed_users_percentage(@tile_4, "0.0")
     end
   end
 end
