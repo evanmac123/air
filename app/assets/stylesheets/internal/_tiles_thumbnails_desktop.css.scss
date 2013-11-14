@@ -1,9 +1,10 @@
 .tile_thumbnail {
+  display: inline-block;
   padding:0;
+  width:24%;
   li {padding-bottom:0;}
   .tile-wrapper{
     .tile_thumbnail_image {
-      background-size: auto;
       height:12em;
     }
     .headline {

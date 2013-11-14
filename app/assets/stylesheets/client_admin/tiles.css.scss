@@ -10,6 +10,8 @@
 
 
 body.client_admin-tiles-index {
+  .tile_thumbnail {width:100%;}
+  
   // Tile management sections
   .content {background:$blue;}
   .manage_tiles {

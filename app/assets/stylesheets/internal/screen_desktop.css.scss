@@ -13,7 +13,6 @@ body {
   a, a:link, a:visited, .tile-wrapper .headline .text {@include font-regular;}
 }
 .all_tile_thumbnails {
-  max-width:62em!important; // temporary until new tile wall
   text-align:justify;
   #justifier {max-width:238px;}
   #push_left {width:50%}
