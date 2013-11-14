@@ -87,7 +87,19 @@ class Demo < ActiveRecord::Base
   # Returns the number of users who have completed each of the tiles for this demo in a hash
   # keyed by tile_id, e.g. {12 => 565, 13 => 222, 17 => 666, 21 => 2} (Apparently #21 sucked )
   def num_tile_completions
-    tile_completions.group(:tile_id).count
+    unless @_num_tile_completions
+      @_num_tile_completions = tile_completions.group(:tile_id).count
+    end
+
+    @_num_tile_completions
+  end
+
+  def active_tile_report_rows
+    tile_report_rows(active_tiles)
+  end
+
+  def archive_tile_report_rows
+    tile_report_rows(archive_tiles)
   end
 
   def example_tooltip_or_default
@@ -357,5 +369,21 @@ class Demo < ActiveRecord::Base
 
   def resegment_everyone
     self.user_ids.each {|user_id| User.find(user_id).send(:schedule_segmentation_update, true)}
+  end
+
+  def tile_report_rows(tiles)
+    result = []
+    tiles.each do |tile|
+      completed_percent = num_tile_completions[tile.id] * 100.0
+      result << TileReportRow.new(tile.thumbnail,
+                                       tile.headline,
+                                       num_tile_completions[tile.id],
+                                       completed_percent / claimed_user_count,
+                                       tile.status,
+                                       tile.activated_at,
+                                       tile.archived_at)
+    end
+
+    result
   end
 end
