@@ -1,70 +1,63 @@
-$font: $default;
-@mixin centered-section {
-  max-width:1280px;
-  margin:0 auto;
+@mixin close-button {
+  background:$light-gray;
+  border-radius:3px;
+  color:$white;
+  padding:.25em .5em;
+  position:absolute; 
+  top:.5em; right:.5em;
+  &:hover {
+    background: $orange;
+    color:$white;
+  }
 }
-html, body {
-  margin: 0;
-  width: 100%;
-  height:100%;
-}
-body{
-  background:$white;
-    
+
+body {
+  border-top:7px $dark-green solid;
+  .wrapper {margin-top:5em;}
+
+  // Links
+  a, a:link, a:visited {
+    @include link($blue);
+    &:hover{color:$orange;}
+    &.pop-button {@include app-button($blue);}
+  }
+  // Request buttons are all orange
+  a.request_a_demo, a:link.request_a_demo, a:visited.request_a_demo {
+    @include app-button($orange);
+    font-size:1.375em;
+    padding:.5em 1em;
+  }
+
+  // Inputs
   input, textarea {@include ease(.15s);}
+  input[type="submit"] {
+    @include app-button($blue);
+    @include font-semibold;
+    font-size:1.125em;
+  }
+
   p {
-    font-size:1em; line-height:1.25em; padding-bottom:1em;
+    padding-bottom:1em;
     span {@include font-bold;}
   }
-  .wrapper {margin-top:5em;}
-}
-a, a:link, a:visited {
-  @include link($blue);
-  &:hover{color:$orange;}
-  &.pop-button {@include app-button($blue);}
 }
 
-// Request buttons are all orange
-a.request_a_demo, a:link.request_a_demo, a:visited.request_a_demo {
-  @include app-button($orange);
-  font-size:1.375em;
-  padding:.5em 1em;
+/* ============= Color bars ============= */
+.colorbar {
+  display: inline-block;
+  height:7px;
+  position: absolute;
+  top:0;
+  width:16.5%;
+  &#blue {background:$blue; right:16.5%;}
+  &#orange {background:$orange; right:0;}
 }
 
-input[type="submit"] {
-  @include app-button($blue);
-  @include font-semibold;
-  font-size:1.125em;
-}
-table {
-  display:inline-block;
-  th {
-    color:lighten($text-color, 20%);
-    @include font-semibold;
-    text-align: left;
-  }
-  td {
-    font-size:.85em;
-    vertical-align: top;
-    ul li {padding:.15em 0;}
-    ul li:before{
-      background:$dark-green;
-      content:"";
-      display:inline-block;
-      height:3px;
-      margin-right:.5em;
-      width:3px;
-      vertical-align: middle;
-    }
-  }
-}
-section.contained {@include centered-section;}
 
-
+/* ============= More Info page ============= */
 section.feature_sections, section.inner_sections {
   padding-top:2em;
   position:relative;
-  h2 {padding:.65em 0;}
 }
 section.feature_sections {
   .copy {margin-bottom:1em;}

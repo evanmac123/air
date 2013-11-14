@@ -40,7 +40,7 @@ class PagesController < HighVoltage::PagesController
       @body_id = "homepage"
       Shotgun.ping_page(page_name)
       'external_marketing'
-    when 'pricing'
+    when 'pricing', 'asha'
       'external_marketing'
     when 'waitingroom'
       'external'
@@ -63,7 +63,7 @@ class PagesController < HighVoltage::PagesController
   end
 
   def display_social_links_if_marketing_or_waiting_room
-    display_social_links if %w(waitingroom more_info pricing).include?(params[:id])
+    display_social_links if %w(waitingroom more_info pricing asha).include?(params[:id])
   end
 
   def page_name

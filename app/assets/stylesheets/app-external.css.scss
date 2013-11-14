@@ -1,15 +1,15 @@
 /* For all */
 @import "./vendor/normalize.css.scss";
 @import "./vendor/foundation.min.css.scss";
-@import "./mixins/marketing_styles.css.scss";
+@import "./mixins/main_styles.css.scss";
 @import "./mixins/placeholder_color.css.scss";
 @import "./mixins/lightbox.css.scss";
 @import "./internal/intercom.css.scss";
 @import "./internal/flash.css.scss";
 
 /* Base mobile styles */
-@import "./external/marketing.css.scss";
 @import "./external/_header.css.scss";
+@import "./external/marketing.css.scss";
 @import "./external/_hero.css.scss";
 @import "./external/_capture_attention.css.scss";
 @import "./external/_complex_simple.css.scss";

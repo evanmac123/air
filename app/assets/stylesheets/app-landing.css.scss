@@ -1,7 +1,8 @@
 @import "./vendor/normalize.css.scss";
 @import "./vendor/foundation.min.css.scss";
-@import "./mixins/marketing_styles.css.scss";
+@import "./mixins/main_styles.css.scss";
 @import "./mixins/placeholder_color.css.scss";
+@import "./external/marketing.css.scss";
 @import "./external/initial_landing.css.scss";
 
 @media only screen and (min-width: 530px) { 
