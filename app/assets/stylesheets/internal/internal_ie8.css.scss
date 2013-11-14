@@ -90,6 +90,9 @@ header {
   max-width:238px;
   width:100%;
 }
+.tile_thumbnail.placeholder_tile {
+  border:1px $white dashed;
+  height:20.75em;}
 
 /* -- Directory/seach -- */
 #search h5 {

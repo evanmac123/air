@@ -9,16 +9,10 @@
 }
 
 /* -- Tile wall -- */
+@import 'tiles_thumbnails_desktop';
 .tile_thumbnail {
   margin-bottom:1em;
   width:32%;
-  .tile-wrapper{
-    .tile_thumbnail_image {height:12em;}
-    .headline {
-      height:7.5em;
-      padding:.75em;
-    }
-  }
 }
 #tile_links .show_more_tiles {
   display: inline-block;
