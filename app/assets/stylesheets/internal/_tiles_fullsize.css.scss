@@ -20,7 +20,7 @@ body.client_admin-tiles-update,
   overflow:hidden;
   position: relative;
   text-align: left;
-  width:100%!important;
+  width:100%;
   &.client_created .tile_full_image {
     background:$text-color;
     padding:0;
@@ -111,6 +111,8 @@ body.client_admin-tiles-update,
           color:$light-gray;
           left:{width:1px;}
           right:{width:1px;}
+          top:{width:0}
+          bottom:{width:0}
         }
         box-shadow: inset 0px 1px 1px 1px lighten($orange, 10%);
         color:$white;

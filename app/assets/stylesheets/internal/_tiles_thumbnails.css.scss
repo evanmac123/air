@@ -58,7 +58,7 @@
       &:after{@include clear;}
       .text{
         color: $dark-gray;
-        @include font-regular;
+        @include font-semibold;
         font-size:1em;
       }
     }

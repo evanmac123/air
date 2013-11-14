@@ -1,0 +1,125 @@
+.case_study_title {
+  margin-top:6em;
+  text-align: center;
+  h1 {
+    border-top:1px $tile-wall-bg solid;
+    padding:.5em 0 1.5em;
+    margin:0;
+    position: relative;
+  }
+  h1:before {
+    @include caption;
+    background: $tile-wall-bg;
+    border-radius:$border-radius;
+    color:$white;
+    content:"Case study";
+    display: block;
+    margin:0 auto;
+    padding:.5em;
+    position: relative;
+    text-align: center;
+    top:-2.75em;
+    top:-1.75rem;
+    width:18em;
+  }
+}
+
+.about_case_study {background:$blue; padding:3em 0;}
+.about_case_study .testimonial {
+  .quote {
+    margin-bottom:3em;
+    .client_quote {color:$white; position: relative;}
+    .client_quote:before, .client_quote:after {
+      color:lighten($blue, 13%);
+      display: inline;
+      font-size:2.5em;
+      line-height:16px;
+      line-height: 1rem;
+      position: relative;
+      top:.3em;
+    }
+    .client_quote:before {
+      content:'\201C'; 
+      margin-right:.0625em;
+    }
+    .client_quote:after {content:'\201D'; margin-left:.0625em;}
+    .client_name {
+      @include font-regular;
+      color:lighten($blue, 25%);
+      margin:1.5em 0 0 0;
+      span {
+        @include font-bold;
+        color:$white;
+      }
+    }
+  }
+  .client_image img {
+    @include box-outer-shadow(darken($blue, 10%));
+    border-radius: $border-radius;
+  }
+}
+
+.about_client {
+  background:darken($blue, 10%);
+  padding:2em 0;
+  .logo {
+    margin-bottom:2em;
+    text-align: center;
+  }
+  .logo img {
+    background: $white;
+    border-radius:$border-radius;
+    padding:.5em;
+    width:80%;
+  }
+  .description, .board_uses {
+    color:lighten($blue, 30%);
+    h3 {
+      color:$blue;
+      margin-bottom:1em;
+    }
+  }
+  .board_uses ul li {
+    background:$blue;
+    border-radius: $border-radius;
+    color:$white;
+    clear:left;
+    float:left;
+    font-size:.875em;
+    @include font-bold;
+    margin-bottom:.5em;
+    padding:.125em .5em;
+  }
+}
+
+.case_study_content {
+  padding:1em 0 6em;
+  h2 {
+    margin-bottom:1em;
+    margin-top:1.75em;
+  }
+  p {line-height: 1.5em;}
+  
+  .study_samples {
+    border-bottom:1px $tile-wall-bg solid;
+    margin:3em auto 1em;
+    padding-top:2em;
+    padding-bottom:2em;
+    text-align: center;
+    .tile_thumbnail {
+      cursor: pointer;
+      margin-bottom:1em; 
+      width:25%;
+    }
+    .editorial_title {top:-4.25em;}
+  }
+}
+
+.hidden_large_tiles {
+  display: none;
+  .tile_holder {
+    margin:1em;
+    width:90%;
+    max-width:600px;
+  }
+}

@@ -7,6 +7,10 @@
 @import "./internal/intercom.css.scss";
 @import "./internal/flash.css.scss";
 
+@import './internal/tiles_thumbnails';
+@import './internal/tiles_fullsize';
+
+
 /* Base mobile styles */
 @import "./external/_header.css.scss";
 @import "./external/marketing.css.scss";
@@ -19,6 +23,9 @@
 @import "./external/_additional_features.css.scss";
 @import "./external/_pricing.css.scss";
 @import "./external/_request_demo.css.scss";
+
+@import "./external/_case_study.css.scss";
+
 @import "./external/_footer.css.scss";
 
 /* External signup-login process pages */
@@ -37,6 +44,7 @@
 }
 @media only screen and (min-width: $mid-desktop) {
 	@import "./external/screen_desktop.css.scss";
+	@import './internal/tiles_thumbnails_desktop';
 }
 @media only screen and (min-width: 64em) {
 	#complex_simple {

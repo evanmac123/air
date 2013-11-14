@@ -62,6 +62,26 @@ header {
   #objectives_right {top:10em;}
 }
 
+// ================== Case studies ================== 
+.case_study_title {
+  padding-top:2em;
+}
+.about_case_study .testimonial .quote {
+  margin-bottom:0;
+  .client_quote:before {
+    margin-right:.0625em;
+    margin-left:-0.4em;
+    left:0;
+  }
+}
+.case_study_content {
+  h2 {@include font-regular;}
+  p {font-size:1.25em;}
+  .study_samples .tile_thumbnail {width:21%}
+  .study_samples .tile_thumbnail + .tile_thumbnail {margin-left:3%;}
+}
+
+
 // ================== Pricing page ================== 
 @mixin help_bubble {
   border:1px $light-gray solid;
