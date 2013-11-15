@@ -49,7 +49,9 @@
     &:after {@include clear;}
   }
 
-  .tile_stats .activation_dates span {
+  .tile_stats .activation_dates span, 
+  .tile_stats .completions,
+  .tile_stats .completion_percentage {
     @include caption;
     background: image-url('v5/bg_light.png');
     color:$dark-gray;
@@ -63,9 +65,4 @@
     text-align: left;
     text-transform: none;
   }
-}
-
-// Divider for stats on manage tiles
-#archived_tiles .tile_stats .activation_dates span {
-  background:#E6E6E6;
 }
