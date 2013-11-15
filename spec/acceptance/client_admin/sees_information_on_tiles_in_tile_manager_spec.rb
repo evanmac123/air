@@ -16,7 +16,7 @@ feature 'Sees helpful information in tile manager' do
         else
           user_phrase = "#{expected_count} users"
         end
-        expect_content "Completed by #{user_phrase}"
+        expect_content "Completed: #{user_phrase}"
       end
     end
   end
@@ -24,7 +24,7 @@ feature 'Sees helpful information in tile manager' do
   def expect_completed_users_percentage(tile, expected_percentage)
     within tile_cell(tile) do
       within ".completion_percentage" do
-        expect_content "Completed by #{expected_percentage}% of joined users"
+        expect_content "Completed: #{expected_percentage}% of joined users"
       end
     end
   end
