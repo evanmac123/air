@@ -2,4 +2,4 @@
   %tbody
     -# Note: To change the number of tiles per row, simply change the "(n)" to whatever your little ol' heart desires
     - tiles.each_slice(4) do |columns|
-      = render partial: 'tile_row', locals: {columns: columns, type: type}
+      = render partial: 'shared/tiles/tile_row', locals: {columns: columns, type: type}

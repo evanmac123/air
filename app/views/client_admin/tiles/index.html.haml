@@ -12,7 +12,9 @@
     .large-12.columns
       %h2 Inactive
       <a class="create_new_tile" href="/client_admin/tiles/new">+ Add new tile</a>
-      %div#archive= render partial: 'archive'
+      %div#archive= render partial: 'shared/tiles/archive'
+
+  = link_to "See All Inactive Tiles", client_admin_inactive_tiles_path
 
 %section.manage_tiles#active_tiles
   .row

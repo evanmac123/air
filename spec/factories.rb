@@ -205,6 +205,10 @@ FactoryGirl.define do
     sequence(:position){ |n| n }
     status Tile::ACTIVE
     type 'OldSchoolTile'
+
+    trait :archived do
+      status Tile::ARCHIVE
+    end
   end
 
   # Simple alias of :tile to :old_school_tile
