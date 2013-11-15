@@ -44,7 +44,7 @@ class TileFooterTimestamper
                       Time.now
                     end
     spanned_text(
-      "Active: " + distance_of_time_in_words(tile.activated_at, time_baseline) + '. ', 
+      "Active: " + distance_of_time_in_words(tile.activated_at, time_baseline), 
       'tile-active-time')
   end
 
