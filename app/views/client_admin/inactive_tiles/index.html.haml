@@ -1,1 +1,10 @@
-= render partial: "shared/tiles/archive"
+.row
+  .large-12.columns= render partial: 'client_admin/tiles/tiles_tools_subnav'
+
+%section.manage_tiles#archived_tiles
+  .row
+    .large-12.columns
+      %h2 All Inactive
+      = link_to "Minimize section", client_admin_tiles_path, :class => :all_inactive
+      <a class="create_new_tile" href="/client_admin/tiles/new">+ Add new tile</a>
+      = render partial: "shared/tiles/archive"

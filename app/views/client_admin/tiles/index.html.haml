@@ -11,10 +11,11 @@
   .row
     .large-12.columns
       %h2 Inactive
+      = link_to "Expand to show all", client_admin_inactive_tiles_path, :class => :all_inactive
       <a class="create_new_tile" href="/client_admin/tiles/new">+ Add new tile</a>
       %div#archive= render partial: 'shared/tiles/archive'
 
-  = link_to "See All Inactive Tiles", client_admin_inactive_tiles_path
+  
 
 %section.manage_tiles#active_tiles
   .row
