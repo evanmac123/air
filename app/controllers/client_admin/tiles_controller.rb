@@ -9,7 +9,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     @demo.archive_tiles_if_curtain_call
 
     @active_tiles  = @demo.active_tiles
-    @archive_tiles = @demo.archive_tiles
+    @archive_tiles = @demo.archive_tiles.limit(4)
     @digest_tiles  = @demo.digest_tiles(@tile_digest_email_sent_at)
 
     @follow_up_emails = @demo.follow_up_digest_emails

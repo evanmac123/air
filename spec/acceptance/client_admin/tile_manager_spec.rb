@@ -226,13 +226,11 @@ feature 'Client admin and the digest email for tiles' do
       table_content_without_activation_dates('#active table').should == expected_tile_table
     end
 
-    it "for Archived tiles" do
+    it "for Archived tiles, showing only a limited selection of them" do
       archive_time = Time.now
       expected_tile_table =
         [ 
-          ["Tile 9", "Tile 7", "Tile 5", "Tile 3"], 
-          ["Tile 1", "Tile 8", "Tile 6", "Tile 4"], 
-          ["Tile 2", "Tile 0"]
+          ["Tile 9", "Tile 7", "Tile 5", "Tile 3"]
         ]
       demo.tiles.update_all status: Tile::ARCHIVE
       demo.tiles.where(archived_at: nil).each{|tile| tile.update_attributes(archived_at: tile.created_at)}
