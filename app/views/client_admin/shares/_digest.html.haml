@@ -4,5 +4,5 @@
 - else
   %div#digest_management= render partial: 'digest_management'
   %h3 Tiles to be sent
-  = render partial: 'tiles_table', locals: {tiles: @digest_tiles, type: :digest}
+  = render partial: 'shared/tiles/tiles_table', locals: {tiles: @digest_tiles, type: :digest}
 

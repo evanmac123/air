@@ -11,7 +11,6 @@ feature 'Client admin and the digest email for tiles' do
 
   background do
     bypass_modal_overlays(admin)
-    signin_as(admin, admin.password)
   end
 
   # -------------------------------------------------
@@ -54,55 +53,55 @@ feature 'Client admin and the digest email for tiles' do
 
   context 'No tiles exist for digest email' do
     before(:each) do
-      visit tile_manager_page
+      visit client_admin_share_path(as: admin)
     end
 
     scenario 'Text is correct' do
-      digest_tab.should contain 'No digest email is scheduled to be sent because no new tiles have been added'
-      digest_tab.should_not contain 'since the last one was sent on Thursday, July 04, 2013'
+      page.should contain 'No digest email is scheduled to be sent because no new tiles have been added'
+      page.should_not contain 'since the last one was sent on Thursday, July 04, 2013'
 
       set_last_sent_on '7/4/2013'
-      refresh_tile_manager_page
+      visit client_admin_share_path(as: admin)
 
-      digest_tab.should contain 'since the last one was sent on Thursday, July 04, 2013'
+      page.should contain 'since the last one was sent on Thursday, July 04, 2013'
     end
 
     scenario 'Text and form components are not on the page' do
-      digest_tab.should_not contain 'Notify users of new tiles'
+      page.should_not contain 'Notify users of new tiles'
 
-      digest_tab.should_not have_button 'Send digest now'
-      digest_tab.should_not have_select 'digest_send_to'
-      digest_tab.should_not have_select 'follow_up_day'
+      page.should_not have_button 'Send digest now'
+      page.should_not have_select 'digest_send_to'
+      page.should_not have_select 'follow_up_day'
     end
 
     scenario 'Text is correct when no follow-up emails are scheduled to be sent' do
-      digest_tab.should_not contain 'Scheduled follow-ups'
+      expect_no_content 'Scheduled follow-ups'
     end
 
     scenario 'Text is correct when follow-up emails are scheduled to be sent, and emails can be cancelled', js: :webkit do  # (Didn't work with poltergeist)
       create_follow_up_emails
-      refresh_tile_manager_page
+      visit client_admin_share_path(as: admin)
 
-      digest_tab.should contain 'Scheduled follow-ups'
-      digest_tab.should contain 'Monday, July 01, 2013'
-      digest_tab.should contain 'Tuesday, July 02, 2013'
-      digest_tab.should contain 'Wednesday, July 03, 2013'
+      page.should contain 'Scheduled follow-ups'
+      page.should contain 'Monday, July 01, 2013'
+      page.should contain 'Tuesday, July 02, 2013'
+      page.should contain 'Wednesday, July 03, 2013'
 
       first(:link, "Cancel").click
 
-      digest_tab.should contain 'Follow-up email for Monday, July 01, 2013 cancelled'
-      digest_tab.should contain 'Tuesday, July 02, 2013'
-      digest_tab.should contain 'Wednesday, July 03, 2013'
+      page.should contain 'Follow-up email for Monday, July 01, 2013 cancelled'
+      page.should contain 'Tuesday, July 02, 2013'
+      page.should contain 'Wednesday, July 03, 2013'
     end
   end
 
   context 'Tiles exist for digest email' do
     scenario "Text is correct" do
       create_tile
-      visit tile_manager_page
+      visit client_admin_share_path(as: admin)
 
-      digest_tab.should contain 'Notify users of new tiles'
-      digest_tab.should contain 'Tiles to be sent'
+      page.should contain 'Notify users of new tiles'
+      page.should contain 'Tiles to be sent'
     end
 
     scenario 'Form components are on the page and properly initialized' do
@@ -110,65 +109,64 @@ feature 'Client admin and the digest email for tiles' do
         create_tile
         demo.update_attributes unclaimed_users_also_get_digest: true
 
-        visit tile_manager_page
+        visit client_admin_share_path(as: admin)
 
-        digest_tab.should have_send_to_selector('all users')
-        digest_tab.should have_follow_up_selector('Thursday')
+        page.should have_send_to_selector('all users')
+        page.should have_follow_up_selector('Thursday')
       end
 
       on_day('10/18/2013') do  # Friday
         create_tile
         demo.update_attributes unclaimed_users_also_get_digest: false
 
-        visit tile_manager_page
+        visit client_admin_share_path(as: admin)
 
-        digest_tab.should have_send_to_selector('only joined users')
-        digest_tab.should have_follow_up_selector('Tuesday')
+        page.should have_send_to_selector('only joined users')
+        page.should have_follow_up_selector('Tuesday')
       end
     end
 
     scenario 'Text is correct when no follow-up emails are scheduled to be sent' do
       create_tile
-      visit tile_manager_page
+      visit client_admin_share_path(as: admin)
 
-      digest_tab.should_not contain 'Scheduled follow-ups'
+      expect_no_content 'Scheduled follow-ups'
     end
 
     scenario 'Text is correct when follow-up emails are scheduled to be sent, and emails can be cancelled', js: :webkit do
-      pending "MOVE TO SHARE PAGE"
       # If you 'create_follow_up_emails' and then 'visit tile_manager_page' the follow-up email creation bombs.
       # We've had this stupid fucking problem before. Luckily Phil figured out it is some kind of timing problem.
       # We've also had the stupid fucking problem of stuff like this not working in poltergeist => have to use webkit
       # (Man, testing is great... but sometimes it can be such a royal fucking pain in the ass)
       create_tile
 
-      visit tile_manager_page
+      visit client_admin_share_path(as: admin)
 
       create_follow_up_emails
-      refresh_tile_manager_page
+      visit client_admin_share_path(as: admin)
 
-      digest_tab.should contain 'Scheduled follow-ups'
-      digest_tab.should contain 'Monday, July 01, 2013'
-      digest_tab.should contain 'Tuesday, July 02, 2013'
-      digest_tab.should contain 'Wednesday, July 03, 2013'
+      page.should contain 'Scheduled follow-ups'
+      page.should contain 'Monday, July 01, 2013'
+      page.should contain 'Tuesday, July 02, 2013'
+      page.should contain 'Wednesday, July 03, 2013'
 
       first(:link, "Cancel").click
 
-      digest_tab.should contain 'Follow-up email for Monday, July 01, 2013 cancelled'
-      digest_tab.should contain 'Tuesday, July 02, 2013'
-      digest_tab.should contain 'Wednesday, July 03, 2013'
+      page.should contain 'Follow-up email for Monday, July 01, 2013 cancelled'
+      page.should contain 'Tuesday, July 02, 2013'
+      page.should contain 'Wednesday, July 03, 2013'
     end
 
     scenario 'The last-digest-email-sent-on date is correct' do
       create_tile
-      visit tile_manager_page
+      visit client_admin_share_path(as: admin)
 
-      digest_tab.should_not contain 'Last digest email was sent'
+      expect_no_content 'Last digest email was sent'
 
       set_last_sent_on '7/4/2013'
-      visit tile_manager_page
+      visit client_admin_share_path(as: admin)
 
-      digest_tab.should contain 'Last digest email was sent on Thursday, July 04, 2013'
+      expect_content 'Last digest email was sent on Thursday, July 04, 2013'
     end
 
     context "Clicking the 'Send digest now' button" do
@@ -181,28 +179,28 @@ feature 'Client admin and the digest email for tiles' do
                 the last-digest-email-sent-on date is updated,
                 and a no-tiles message appears in the Digest tab" do
         on_day '7/6/2013' do
-          visit tile_manager_page
-          digest_tab.should contain 'Tiles to be sent'
-          digest_tab.should_not contain 'No digest email is scheduled to be sent'
+          visit client_admin_share_path(as: admin)
+          page.should contain 'Tiles to be sent'
+          page.should_not contain 'No digest email is scheduled to be sent'
 
-          digest_tab.should contain 'Headline 1'
-          digest_tab.should contain 'Headline 2'
+          page.should contain 'Headline 1'
+          page.should contain 'Headline 2'
 
-          digest_tab.should have_num_tiles(2)
+          page.should have_num_tiles(2)
 
           click_button 'Send digest now'
           crank_dj_clear
 
           page.should contain "Tiles digest email was sent"
 
-          digest_tab.should_not contain 'Tiles to be sent'
-          digest_tab.should contain 'No digest email is scheduled to be sent'
-          digest_tab.should contain 'since the last one was sent on Saturday, July 06, 2013'
+          page.should_not contain 'Tiles to be sent'
+          page.should contain 'No digest email is scheduled to be sent'
+          page.should contain 'since the last one was sent on Saturday, July 06, 2013'
 
-          digest_tab.should_not contain 'Headline 1'
-          digest_tab.should_not contain 'Headline 2'
+          page.should_not contain 'Headline 1'
+          page.should_not contain 'Headline 2'
 
-          digest_tab.should have_num_tiles(0)
+          page.should have_num_tiles(0)
         end
       end
 
@@ -219,13 +217,12 @@ feature 'Client admin and the digest email for tiles' do
           FactoryGirl.create :user,         demo: FactoryGirl.create(:demo)  # Make sure these users from other
           FactoryGirl.create :claimed_user, demo: FactoryGirl.create(:demo)  # demos don't get an email
 
-          visit tile_manager_page
+          visit client_admin_share_path(as: admin)
         end
 
         scenario "Demo where claimed and unclaimed should get digests.
                   The tile links should sign in claimed, *non-client-admin* users to the
                   Activities page, while whisking others to where they belong" do
-          pending "MOVE TO SHARE PAGE"
           on_day '7/6/2013' do
             change_send_to('all users')
             click_button 'Send digest now'
@@ -265,7 +262,6 @@ feature 'Client admin and the digest email for tiles' do
         end
 
         scenario 'Demo where only claimed users should get digests' do
-          pending "MOVE TO SHARE PAGE"
           on_day '7/6/2013' do
             change_send_to('only joined users')
             click_button 'Send digest now'
@@ -283,7 +279,6 @@ feature 'Client admin and the digest email for tiles' do
   end
 
   it 'Tiles appear in reverse-chronological order by activation-date and then creation-date' do
-    pending "MOVE TO SHARE PAGE"
     tile_digest_email_sent_at = 2.months.ago
     demo.update_attributes tile_digest_email_sent_at: tile_digest_email_sent_at
 
@@ -300,13 +295,12 @@ feature 'Client admin and the digest email for tiles' do
     FactoryGirl.create_list :tile, 2, demo: demo, headline: 'I hate Dates and Times', status: Tile::ACTIVE, activated_at: tile_digest_email_sent_at - 1.day
 
     expected_tile_table =
-      [ ["Tile 9", "Tile 7", "Tile 5"],
-        ["Tile 3", "Tile 1", "Tile 8"],
-        ["Tile 6", "Tile 4", "Tile 2"],
-        ["Tile 0"]
+      [ ["Tile 9", "Tile 7", "Tile 5", "Tile 3"],
+        ["Tile 1", "Tile 8", "Tile 6", "Tile 4"],
+        ["Tile 2", "Tile 0"]
       ]
 
-    visit tile_manager_page
+    visit client_admin_share_path(as: admin)
 
     table_content_without_activation_dates('#digest table').should == expected_tile_table
   end

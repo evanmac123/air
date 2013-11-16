@@ -84,6 +84,8 @@ Health::Application.routes.draw do
     resources :balances
 
     resources :inactive_tiles, only: :index
+
+    resource :share, only: :show
   end
 
   resources :pages, :only => :show

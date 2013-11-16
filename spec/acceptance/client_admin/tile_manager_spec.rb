@@ -53,11 +53,10 @@ feature 'Client admin and the digest email for tiles' do
     # Note: The no-tiles digest message is more involved than that of the other tiles.
     #       More comprehensive tests for the various flavors of this message exist in the 'tile_digest_notification_spec'
     scenario 'Correct message is displayed when there are no Digest tiles' do
-      pending "TO BE MOVED TO SHARE PAGE"
-      select_tab 'Digest email'
+      visit client_admin_share_path(as: admin)
 
-      digest_tab.should contain 'No digest email is scheduled to be sent'
-      digest_tab.should have_num_tiles(0)
+      expect_content 'No digest email is scheduled to be sent'
+      page.should have_num_tiles(0)
     end
   end
 
@@ -97,18 +96,13 @@ feature 'Client admin and the digest email for tiles' do
       # time because that's how tiles do (or do not) make it into the 'Digest' tab
       tiles.each { |tile| tile.update_attributes status: Tile::ACTIVE, activated_at: Time.now }
 
-      visit tile_manager_page
-      digest_tab.should have_num_tiles(3)
+      visit client_admin_share_path
+      page.should have_num_tiles(3)
 
-      within digest_tab do
-        # One check at this level is good enough
-        page.should_not contain 'Archive'
-        page.should_not contain 'Activate'
-
-        tiles.each do |tile|
-          within tile(tile) do
-            page.should contain tile.headline
-          end
+      # One check at this level is good enough
+      tiles.each do |tile|
+        within tile(tile) do
+          page.should contain tile.headline
         end
       end
     end

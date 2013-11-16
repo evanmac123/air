@@ -34,8 +34,9 @@ feature 'Site-Admin creates tiles with start and end times, and they play nice w
     active_tab.should have_first_tile(Tile.last, Tile::ACTIVE)
 
     # Tile just landed in the 'Active' tab => Check that it is also in the 'Digest' one
-    digest_tab.should have_num_tiles(3)
-    digest_tab.should have_first_tile(Tile.last, 'digest')
+    visit client_admin_share_path
+    page.should have_num_tiles(3)
+    page.should have_first_tile(Tile.last, 'digest')
   end
 
   scenario "A tile has 'archive' status if a start time is present, and it appears in the right spot in the Archive tab" do
@@ -49,7 +50,8 @@ feature 'Site-Admin creates tiles with start and end times, and they play nice w
     archive_tab.should have_num_tiles(3)
     archive_tab.should have_first_tile(Tile.last, Tile::ARCHIVE)
 
-    digest_tab.should have_num_tiles(0)
+    visit client_admin_share_path
+    page.should have_num_tiles(0)
   end
 
   scenario "A tile with a 'start_time' and 'end_time' gets activated and archived at the right times" do
@@ -65,7 +67,8 @@ feature 'Site-Admin creates tiles with start and end times, and they play nice w
     archive_tab.should have_num_tiles(3)
     archive_tab.should have_first_tile(Tile.last, Tile::ARCHIVE)
 
-    digest_tab.should have_num_tiles(2)
+    visit client_admin_share_path
+    page.should have_num_tiles(2)
 
     # Believe it or not, 1 day later the site has logged you out => Need to do the following (instead of 'visit tile_manager_page')
     Timecop.travel((Date.today + 1.day + 1.minute).to_time)
@@ -76,8 +79,9 @@ feature 'Site-Admin creates tiles with start and end times, and they play nice w
     active_tab.should have_first_tile(Tile.last, Tile::ACTIVE)
 
     # Tile just landed in the 'Active' tab => Check that it is also in the 'Digest' one
-    digest_tab.should have_num_tiles(3)
-    digest_tab.should have_first_tile(Tile.last, 'digest')
+    visit client_admin_share_path
+    page.should have_num_tiles(3)
+    page.should have_first_tile(Tile.last, 'digest')
 
     Timecop.travel((Date.today + 2.days + 1.minute).to_time)
     visit client_admin_tiles_path(as: site_admin)
@@ -86,7 +90,8 @@ feature 'Site-Admin creates tiles with start and end times, and they play nice w
     active_tab.should have_num_tiles(2)
     archive_tab.should have_first_tile(Tile.last, Tile::ARCHIVE)
 
-    digest_tab.should have_num_tiles(2)
+    visit client_admin_share_path
+    page.should have_num_tiles(2)
 
     Timecop.return
   end

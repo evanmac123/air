@@ -2,17 +2,12 @@ class ClientAdmin::TilesController < ClientAdminBaseController
   before_filter :get_demo
 
   def index
-    @tile_digest_email_sent_at = @demo.tile_digest_email_sent_at
-
     # Update 'status' for tiles with 'start_time' and 'end_time' attributes (before you fetch the different tile groups)
     @demo.activate_tiles_if_showtime
     @demo.archive_tiles_if_curtain_call
 
     @active_tiles  = @demo.active_tiles
     @archive_tiles = @demo.archive_tiles.limit(4)
-    @digest_tiles  = @demo.digest_tiles(@tile_digest_email_sent_at)
-
-    @follow_up_emails = @demo.follow_up_digest_emails
   end
 
   def new

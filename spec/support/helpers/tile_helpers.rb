@@ -34,7 +34,7 @@ module TileHelpers
   end
 
   def table_content_without_activation_dates(table_selector)
-    table_content(table_selector).map{|row_content| row_content.map {|cell_content| cell_content.gsub(/ (Activate|Deactivate|Active)(.*)?.$/, '')}}
+    table_content(table_selector).map{|row_content| row_content.map {|cell_content| cell_content.gsub(/ (Activate|Deactivate|Active|Edit)(.*)?.$/, '')}}
   end
 
   # -------------------------------------------------
@@ -105,10 +105,6 @@ module TileHelpers
 
   def active_tab
     find("section#active_tiles")
-  end
-
-  def digest_tab
-    pending "DIGEST CONTENT TO BE MOVED TO SHARE PAGE"
   end
 
   def archive_tab

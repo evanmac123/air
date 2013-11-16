@@ -12,6 +12,6 @@ class ClientAdmin::TilesDigestNotificationsController < ClientAdminBaseControlle
     @demo.update_attributes tile_digest_email_sent_at: Time.now, unclaimed_users_also_get_digest: unclaimed_users_also_get_digest
 
     flash[:success] = "Tiles digest email was sent"
-    redirect_to client_admin_tiles_path
+    redirect_to :back
   end
 end
