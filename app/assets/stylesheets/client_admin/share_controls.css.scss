@@ -1,5 +1,4 @@
 // Digest email and followup controls
-.share_tools {margin-bottom:4em;}
 .share_tools .notification_controls {@include form-group;}
 #digest_management {
   &:after {@include clear;}
@@ -78,15 +77,16 @@
 
 .tiles_to_be_shared {
   // sharing styles with Active tiles manager (in client_admin/tiles)
+  margin-top:4em;
   padding:3em 0;
   .digest {width:25%;}
 }
 
 .no_tiles_message {
-  border-bottom:1px $light-gray solid;
+  // border-bottom:1px $light-gray solid;
   @include font-light;
   font-size:1.3em;
   line-height:1.35em;
-  margin-bottom:2em;
-  padding:1em 15% 2em;
+  margin-top:2em;
+  padding-right: 2em;
 }
