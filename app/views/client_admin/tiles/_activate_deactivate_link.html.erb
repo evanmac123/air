@@ -1,0 +1,5 @@
+<% if tile.active? %>
+  <%= link_to 'Deactivate this tile', client_admin_tile_path(tile, update_status: Tile::ARCHIVE), :method => :put, :class => "tile_control" %>
+<% else %>
+  <%= link_to 'Activate this tile', client_admin_tile_path(tile, update_status: Tile::ACTIVE), :method => :put, :class => "tile_control" %>
+<% end %>

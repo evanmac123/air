@@ -1,8 +1,8 @@
 body.client_admin-tiles-show {
-  .back_all_tiles, h5 {
+  .tile_control, h5 {
     display: inline-block;
   }
-  .back_all_tiles {
+  .tile_control {
     @include light-button($blue);
     font-size:.875em;
     margin-bottom:1em;
