@@ -15,8 +15,5 @@
       On:
       = select_tag :follow_up_day, options_for_select(%w(Never) + Date::DAYNAMES, selected: default_follow_up_day)
 
-    %div.button_wrap
-      = submit_tag "Send digest now", confirm: 'Are you sure you want to send the digest email?'
+    = submit_tag "Send digest now", confirm: 'Are you sure you want to send the digest email?'
     %p#last-email= digest_email_sent_on_message
-
-= render 'cancel_follow_ups'

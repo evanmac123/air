@@ -2,7 +2,6 @@
   %div.no_tiles_message= no_digest_email_message
   = render 'cancel_follow_ups'
 - else
-  %div#digest_management= render partial: 'digest_management'
-  %h3 Tiles to be sent
-  = render partial: 'shared/tiles/tiles_table', locals: {tiles: @digest_tiles, type: :digest}
+  %div#digest_management.large-8.columns= render partial: 'digest_management'
+  %div.cancel_follow_ups.large-4.columns= render 'cancel_follow_ups'
 

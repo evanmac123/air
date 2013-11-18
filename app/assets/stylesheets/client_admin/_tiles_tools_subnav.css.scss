@@ -1,7 +1,6 @@
 // Nav between tile-related pages
 #tile_manager_nav {padding-bottom:2em;}
 #tile_manager_nav ul {
-  // background:image-url('v5/bg_dark.png');
   background:darken($blue, 10%);
   border-radius:$border-radius;
   display: inline-block;
@@ -39,6 +38,7 @@ body.client_admin-inactive_tiles-index #tile_manager_nav ul a {border-color:$blu
 body.client_admin-tiles-index #tile_manager_nav ul li#managing_tiles a,
 body.client_admin-inactive_tiles-index #tile_manager_nav ul li#managing_tiles a,
 body.client_admins-show #tile_manager_nav ul li#board_activity a,
+body.client_admin-shares #tile_manager_nav ul li#share_tiles a,
 body.client_admin-users-index #tile_manager_nav ul li#users a,
 body.client_admin-users-edit #tile_manager_nav ul li#users a {
   background:$dark-green;

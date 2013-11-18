@@ -1,35 +1,10 @@
-// Digest email panel
-#digest, #digest_management {
-  h3 {
-    // font-family: $open-600; 
-    @include font-bold;
-    padding-bottom:1.25em;
-  }
-} 
+// Digest email and followup controls
+.share_tools {margin-bottom:4em;}
+.share_tools .notification_controls {@include form-group;}
 #digest_management {
-  @include font-light;
-  margin-bottom:2em;
   &:after {@include clear;}
 
-  p#last-email {
-    color:$med-gray;
-    font-size:.875em;
-    margin-top:.35em;
-  }
-
-
-  form, #schedule_followups {
-    display: inline-block;
-    vertical-align: top;
-  }
-  form {
-    float:left;
-    padding:0 1em 0 0;
-    width:60%;
-  }
-
   .notification_controls {
-    margin-bottom:1em;
     width:100%;
     .send_to, .follow_up {
       margin-bottom:1.75em;
@@ -37,8 +12,10 @@
       select, label {font-size:1.142857143em;}
     }
     .follow_up {
+      p {@include font-semibold;}
       p span {
-        color:$med-gray;
+        @include font-regular;
+        color:$gray;
         display:block;
         font-size:.857142857em;
         line-height: 1.25em;
@@ -57,52 +34,52 @@
     width:40%;
   }
 
-  .button_wrap {
-    input[type="submit"] {
-      @include app-button($blue);
-      font-size:1em;
-      padding:.35em .5em;
-    }
+  input[type="submit"] {
+    @include app-button($dark-green);
+    font-size:1em;
+    padding:.35em .5em;
   }
   .update-digest-spinner {
     display: none;
     vertical-align: middle;
   }
+
+  p#last-email {
+    @include caption;
+    color:$gray;
+    display: inline-block;
+    margin-left:1em;
+  }
 }
 
 #scheduled_followups {
-  @include font-bold;
-  font-size:.875em;
-
-  #feedback {color: $orange; }
-
+  #cancel_follow_up {@include form-group;}
   #cancel_follow_up div {
-    @include font-light;
-    font-size:1.166666667em;
-    padding:1em 0 .25em 0;
+    margin-bottom:.5em;
     &:before {
       background:$light-gray;
       content: "";
       display:inline-block;
-      margin:-.25em .5em 0 0;
+      margin:-.25em .25em 0 0;
       height:.25em;
       width:.25em;
       vertical-align: middle;
     }
   }
-  #cancel_follow_up div + div {padding:.25em 0;}
 }
 
 #cancel_follow_up div, #digest_management .send_to, #digest_management .follow_up {
   a {
-    border:1px $light-gray solid;
-    color:$med-gray;
-    display: inline-block;
-    font-size:.785714286em;
-    margin-left:.5em;
-    padding: .25em .5em;
-    &:hover {color:$blue;}
+    @include light-button($med-gray);
+    @include caption;
+    margin-left:1em;
   }
+}
+
+.tiles_to_be_shared {
+  // sharing styles with Active tiles manager (in client_admin/tiles)
+  padding:3em 0;
+  .digest {width:25%;}
 }
 
 .no_tiles_message {
