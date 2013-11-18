@@ -1,70 +1,18 @@
-header {
-  padding:1em 0 3em 0;
-  #logo img {max-width:40%;}
-  #opener .copy {
-    .headlines {
-      padding:1.5em 0;
-      margin:3em 0 4em 0;
-    }
-    #opener_form {
-      input[type="email"], input[type="submit"] {font-size:1.25em;}
-      input[type="email"] {width:60%}
-      input[type="submit"] {width:40%}
-      .caption:after {bottom:-5em;}
-    }
-  }
+.get_your_board {
+  h1 {margin:.5em auto;}
+  h4 {margin:1em auto 2em;}
 }
 
-.product_values {
-  padding:3em 0 3.5em 0;
-  .value_prop {
-    margin-bottom:2em;
-    text-align: center;
-  }
-  .a_value {padding:2em 1.5em;}
-  .a_value {margin-top:0;}
-  #engage_readers {
-    border-left:1px $light-gray solid;
-    border-right:1px $light-gray solid;
-  }
-}
-
-.any_device {
-  .copy {
-    float:left;
-    padding:8% 1.5em 0;
-    width:33.33333%;
-  }
-  .imagery {
-    padding:20% 0;
-    img#device_tablet, img#device_phone {bottom:-3em;}
-  }
-}
-
-
-.in_the_press ul#press_logos {
-  li img {max-width:100%;}
-}
-
-
-.in_the_press {
-  padding:0 0 2em;
-  .row {
-    padding-top:2.5em;
-    &:after {@include clear;}
-  }
-  #to_the_top {margin:3em auto}
-  h3, ul#press_logos {
+.product_features {
+  &:after {@include clear;}
+  .video_container, .consumer_tools {
     display: inline-block;
-    vertical-align: middle;
+    float: left;
   }
-  h3 {width:19%;}
-  ul#press_logos {
-    margin:0;
-    width:80%;
-  }
-  ul#press_logos li {
-    padding:0 6%;
-    width:24%;
+  .video_container {width:40%;}
+  .consumer_tools {
+    padding-left:2em;
+    width:60%;
+    h3 {margin-top:0;}
   }
 }

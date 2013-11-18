@@ -23,9 +23,7 @@ body {
   }
   // Request buttons are all orange
   a.request_a_demo, a:link.request_a_demo, a:visited.request_a_demo {
-    @include app-button($orange);
-    font-size:1.375em;
-    padding:.5em 1em;
+    @include fat-app-button($orange);
   }
 
   // Inputs

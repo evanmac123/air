@@ -1,33 +1,16 @@
-@import "../mixins/main_styles.css.scss";
-@import "../external/marketing.css.scss";
+@import "../internal/internal_ie8.css.scss";
 @import "initial_landing_tablet.css.scss";
 @import "initial_landing_desktop.css.scss";
+@import "mast_desktop_public.css.scss";
+@import "../internal/mast_desktop.css.scss";
 
-body {
-  h3:before {
-    background:image-url('marketing/sprites_bulletinboard_small.png') no-repeat center top transparent;
-    height:32px;
-  }
+body .content {padding:0;}
+header .sign_in_button {padding:.65em 2em;}
+nav .create_board {
+  padding-top:.45em!important;
+  input[type="submit"] {padding:.65em 1em;}
 }
+nav .nav_items .how_it_works {margin-right: 2em;}
 
-.wrapper {padding-bottom:3.5em;}
-
-header {
-  padding:2em 0;
-  #logo img {width:40%; height:auto;}
-  #opener .copy {
-    .headlines {margin-top:0;}
-  }
-}
-
-.a_value {
-  &#engage_readers h3:before {background-position:center -73px;}
-  &#deliver_anywhere h3:before {background-position: center -109px;}
-}
-.clients h3:before {background-position: center -144px;}
-.clients .satisfied_client .client_photo {height:4.5em;}
-.clients .satisfied_client .client_logo {height:2.75em;}
-
-.in_the_press h3:before {background-position: center -175px;}
-
-footer {padding:1em;}
+.get_your_board form:after {margin:2em auto; text-align: center;}
+.product_features .consumer_tools ul li:before {background: image-url('marketing/sprites_consumerTools_ie8.png') no-repeat center center transparent;}

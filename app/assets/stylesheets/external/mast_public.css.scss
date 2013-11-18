@@ -1,0 +1,39 @@
+.nav_items, .create_board {
+  padding-left:0;
+  padding-right: 0;
+}
+
+#jPanelMenu-menu  {
+  .small_cap, .how_it_works p {padding:1em;}
+  
+  .how_it_works {
+    margin:1em auto;
+    p {@include caption;}
+  }
+  .how_it_works p, .create_board .small_cap {background:lighten($dark-gray, 4%);}
+
+  .create_board {
+    input[type="text"] {
+      @include font-semibold;
+      background:lighten($dark-gray, 13%);
+      border-color:lighten($dark-gray, 4%);
+      color:$white;
+      font-size:1em;
+      height:3em;
+      margin-bottom:.5em;
+      padding:.5em 1em;
+      width:100%;
+    }
+    input[type="submit"] {
+      @include app-button($dark-green);
+    }
+  }
+
+  .sign_in_button {
+    @include app-button($blue);
+  }
+  .sign_in_button, .create_board input[type="submit"] {
+    padding:.5em;
+    width:100%;
+  }
+}

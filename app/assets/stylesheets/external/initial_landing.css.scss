@@ -1,184 +1,96 @@
-html, body {height:100%;}
-body {
-  font-family:$default;
-  font-size:1em;
-    -webkit-font-smoothing: subpixel-antialiased;
-    
-  min-width:100%;
-  position: static;
-  a, a:link, a:visited {@include link($dark-green);}
-  h1 {@include font-bold;}
-  h3 {
-    &:before {
-      background:image-url('marketing/sprites_bulletinboard.png') no-repeat center top transparent;
-      background-size:80%;
-      content:"";
-      display: inline-block;
-      float:left;
-      margin-right:.35em;
-      height:30px;
-      width:30px;
-      vertical-align: text-bottom;
-    }
-  }
-  p {line-height:1.35em;}
-  .wrapper {margin-top:0;}
+.jPanelMenu-panel, body {
+  background:image-url('marketing/temporary_wall.png') repeat-y $tile-wall-bg center top!important;
+  .content {padding:0;}
 }
 
-header {
-  background:image-url('marketing/bg_tilewall.jpg') center center;
-  background-size:200%;
-  #logo {padding:1em 1em;}
-  #logo img {
-    width:100%;
-    max-width:35%;
-  }
-  #opener .copy {
-    text-align: center;
-    padding-bottom:3em;
-    .headlines {
-      margin-bottom:1.5em;
-      padding:1.75em 0 1.25em 0;
-    }
-    h1, h2 {text-shadow: 0px 0px 3px darken($blue, 25%);}
-    h1 {color:$white;}
-    h2 {
-      color:lighten($light-gray, 5%);
-      margin:.75em 0 0 0;
-    }
-  }
-  #opener_form {
-    .caption {
-      color:$light-gray;
-      font-size:.875em;
-    }
+.landing_lightbox {
+  background:image-url('v5/bg_dark.png');
+  padding:2em 0;
+  .landing_welcome_box {
+    background: $white;
+    padding:2em 1em;
+    margin:0 auto;
+    &:after {@include clear;}
   }
 }
-form {
-  margin:0;
-  label {
-    color:$white;
-    @include font-semibold;
-    line-height:1.35em;
-    margin-bottom:1.25em;
-  }
-  input[type="email"] {
-    background: lighten($light-gray, 10%);
-    border:1px $light-gray solid;
-    box-shadow:none;
-    font-size:1em;
-    margin-bottom:0;
-    &:hover, &:focus {
-      background: $white;
-      border-color:$dark-green;
-    }
-    &:disabled {
-      border-color:darken($light-gray, 10%);
-      background:$light-gray;
-      color:lighten($med-gray, 7%);
-    }
+
+.get_your_board, .product_features {
+  margin-bottom:4em;
+}
+
+.get_your_board {
+  text-align: center;
+  h4 {color:$gray; margin:1em auto 2em;}
+  input, .browse_a_board {display: block;}
+  input[type="text"] {
+    border-radius:$border-radius;
+    font-size:1.25em;
+    width:100%;
   }
   input[type="submit"] {
-    @include app-button($dark-green);
-    display: inline-block;
+    @include fat-app-button($dark-green);
     margin-top:.5em;
+    padding-left:0;
+    padding-right:0;
+  }
+  .browse_a_board {
+    @include app-button($med-gray);
+  }
+  input[type="submit"], .browse_a_board {
     width:100%;
   }
-}
-// signup responses
-#signup_responses {
-  @include font-semibold;
-  font-size:.875em;
-  line-height: 1.35em;
-  padding:.75em 0;
-  #signup_error {
-    color:$red;
-  }
-  #signup_thanks {
-    background:image-url('marketing/bg_white.png');
-    color:$text-color;
-    padding:1em;
-  }
-}
 
-.product_values {
-  padding:2em 0;
-  .value_prop h2 {
-    font-size:1.35em;
-  }
-  .a_value {margin-top:2em}
-}
-
-.a_value {
-  h3 {margin-bottom:.75em;}
-  &#engage_readers h3:before {background-position:center -69px;}
-  &#save_time h3:before {background-position:center -34px;}
-  &#deliver_anywhere h3:before {background-position: center -104px;}
-}
-
-
-.any_device {
-  background:lighten($light-gray, 5%);
-  .copy {
-    padding-top:2em;
-    h3 {margin-bottom:.75em;}
-  }
-  .imagery {
-    padding:38% 0;
-    position: relative;
-    img {
-      display: inline-block;
-      position: absolute;
-      &#device_desktop {
-        bottom:0;
-        right:2%;
-        width:85%;
-      }
-      &#device_tablet {
-        bottom:-1.5em;
-        width:55%;
-      }
-      &#device_phone {
-        bottom:-2px;
-        right:0;
-        width:25%;
-      }
+  form {
+    margin-bottom:0;
+    &:after {
+      @include caption;
+      color:$gray;
+      content:"or";
+      display: block;
+      padding:1rem 0;
     }
   }
 }
 
-.in_the_press {background: $light-gray;}
-.in_the_press ul#press_logos {
-  li {
-    display: inline-block;
-    padding:1em 1.5em;
-    width:45%;
-    img {max-width:8em; height:auto;}
+.product_features {
+  .consumer_tools {
+    h3 {margin:1em 0;}
+    ul li:before {
+      background: image-url('marketing/sprites_consumerTools.png') no-repeat center center transparent;
+      background-size:100%;
+      border-radius:1em;
+      content:"";
+      display: inline-block;
+      margin-right:.5em;
+      width:1.25em;
+      height:1em;
+    }
+    ul li.soc_media:before {background-position: center top;}
+    ul li.gaming:before {background-position: center 72%;}
+    ul li.mobile:before {background-position: center 27%;}
+    ul li.analytics:before {background-position: center center;}
+    ul li.design:before {background-position: center 97%;}
   }
-}
-.in_the_press {
-  .row {
-    padding:2em 0;
-    text-align: center;
-  }
-  #to_the_top {
-    @include app-button($dark-green);
-    @include font-regular;;
-    margin:1em auto 3em;
-    padding:.75em 1.35em;
-    font-size:1.25em;
-  }
-  h3, ul {text-align: left;}
-  h3:before {background-position: center -168px;}
-  ul#press_logos {margin-top:1em;}
 }
 
-footer {
-  background: $white;
-  border-top:2px $light-gray solid;
-  padding:1em;
-  padding-top:2em;
-  ul a, ul a:link, ul a, ul a:visited {@include link($gray);}
-  ul, .copyright {font-size:.875em;}
-  .copyright {font-size:.875em; margin-top:1em;}
+.clients {
+  &:after {@include clear;}
+  h2 {text-align: center;}
+  .a_client {
+    display: inline-block;
+    float:left;
+    height:5em;
+    margin-bottom:1em;
+    padding:1em;
+    width:50%;
+    img {
+      vertical-align: top;
+      width:auto;
+    }
+  }
 }
+
+
+
+
+

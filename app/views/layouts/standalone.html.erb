@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <title>H.Engage</title>
 
@@ -34,14 +34,15 @@
 
     <%= render 'shared/mixpanel' %>
   </head>
-  <body class="<%= body_class %> landing">
-    <i id="blue" class="colorbar"></i>
-    <i id="orange" class="colorbar"></i>
+  <body class="<%= body_class %> landing" style="-webkit-overflow-scrolling: touch; overflow:visible;">
+    <%= render 'shared/header_public' %>
 
-    <div class="wrapper">
+    <div class="content">
       <%= yield %>
     </div>
     <%= javascript_include_tag asset_path('ga-marketing.js') if ENV['USE_GA'] %>
     <%= yield :javascript %>  
+    
+    <%= render :partial => 'shared/offcanvas_menu' %>
   </body>
 </html>

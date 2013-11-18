@@ -2,7 +2,6 @@
 header nav {display: block;}
 header nav .row {position: relative;}
 header {
-  $header-total-height:47px;
   .row {
     position: relative;
     #user_info .user_info_sections, #me_toggle {
@@ -62,7 +61,7 @@ header {
     }
   }
 
-  #user_info #me_toggle, #manage_board, #admin_toggle {
+  #user_info #me_toggle, #manage_board, #admin_toggle, .how_it_works {
     border: {
       style:solid;
       color:darken($header-color, 9%);
@@ -109,7 +108,7 @@ header {
       left:.5em;
     }
   }
-  #user_info #me_toggle, #admin_toggle {
+  #user_info #me_toggle, #admin_toggle, .how_it_works {
     @include ease(0);
     &.toggled {
       background:$dark-gray;
@@ -128,7 +127,7 @@ header {
   }
 
   // Toggled menu
-  .user_options ul, .admin_options .client_admin_pages {
+  .user_options ul, .admin_options .client_admin_pages, .how_it_works ul {
     $toggled-menu-bg: $dark-gray;
     background:$toggled-menu-bg;
     border:1px $toggled-menu-bg solid;

@@ -1,0 +1,68 @@
+header {
+  .sign_in_button {@include app-button($blue);}
+  .create_board input[type="submit"] {@include app-button($dark-green);}
+  .sign_in_button, .create_board input[type="submit"] {padding:.5em 1em;}
+}
+
+nav {
+  .create_board, .nav_items {height:$header-total-height;}
+}
+
+nav .create_board {
+  padding-right:0.9375em;
+  padding-top:.5em;
+  text-align: center;
+  .small_cap {display: none;}
+  input {
+    float: left;
+  }
+  input[type="text"] {
+    @include font-semibold;
+    border-top-left-radius: $border-radius;
+    border-bottom-left-radius: $border-radius;
+    font-size:1em;
+    height:2.45em;
+    width:60%;
+    &:hover, &:focus {border-color:$dark-green;}
+  }
+  input[type="submit"] {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    width:40%;
+  }
+}
+
+nav .nav_items {
+  .sign_in_button {
+    float:right;
+    margin-top:.35em;
+  }
+  .sign_in_button, .how_it_works {float:right;}
+  .how_it_works {
+    height:$header-total-height;
+    margin-right:1em;
+    position: relative;
+    p {
+      @include font-bold;
+      padding:1em .5em;
+    }
+    &:hover {
+      background:image-url('v5/bg_light.png');
+      &:after{color:$gray;}
+    }
+    &.toggled {color:$gray;}
+    &.toggled:hover {background:$dark-gray;}
+  }
+  .how_it_works ul {
+    right:0;
+    a {width:13em;}
+  }
+}
+
+@media only screen and (min-width: $large-desktop) {
+nav .nav_items .how_it_works {
+  margin-right: 2em;
+  p {padding:1em 2em;}
+}
+header .sign_in_button {padding:.5em 2em;}
+}

@@ -226,9 +226,7 @@
 	}
 	text-align: left;
 	a {
-		@include app-button($dark-green);
-		font-size:1.375em;
-  	padding:.5em 1em;
+		@include fat-app-button($dark-green);
 		width:100%;
 	}
 	a.request_a_demo {margin-top:1em;}

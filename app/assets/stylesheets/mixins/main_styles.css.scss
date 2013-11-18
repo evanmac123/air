@@ -134,6 +134,7 @@ $under_small_cap: .25rem; // space under small cap text
 $bar-height: 1.3rem; // controls height of elements in Top Bar
 $border-radius: 3px; // border-radius for things that use it
 $top-bar-height: #{($bar-height + $small_cap_size + $under_small_cap)};
+$header-total-height:47px;
 
 // ------------------------ * Dividers & containers * ------------------------
 $border-dark:       1px $light-gray solid;
@@ -205,12 +206,14 @@ a, a:link, a:visited {@include link($blue);}
     -o-transition: none;
     transition: none;
     background:darken($color, 5%);
+    color:$white;
   }
   &:active {background:lighten($color, 5%);}
 }
 @mixin fat-app-button($color) {
   @include app-button($color);
-  padding:1em 1.75em;
+  font-size:1.375em;
+  padding:.5em 1em;
 }
 @mixin light-button($outlineColor) {
   background:transparent;
@@ -349,6 +352,7 @@ input[type="number"], select {
   border:$border-dark;
   box-shadow:none;
   color:$text-color;
+  font-size: 1em;
   margin:0;
   padding:.5em;
   transition:none;

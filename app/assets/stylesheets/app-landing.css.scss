@@ -1,8 +1,9 @@
 @import "./vendor/normalize.css.scss";
 @import "./vendor/foundation.min.css.scss";
 @import "./mixins/main_styles.css.scss";
+@import "./internal/mast.css.scss";
 @import "./mixins/placeholder_color.css.scss";
-@import "./external/marketing.css.scss";
+@import "./external/mast_public.css.scss";
 @import "./external/initial_landing.css.scss";
 
 @media only screen and (min-width: 530px) { 
@@ -11,13 +12,10 @@
 
 @media only screen and (min-width: $foundation) {
   @import "./external/initial_landing_desktop.css.scss"; 
+  @import "./internal/mast_desktop.css.scss";
+  @import "./external/mast_desktop_public.css.scss";
 }
 
 @media only screen and (min-width: $large-desktop) {
-.any_device .copy {padding-top:15%;} 
-#signup_form {
-  margin:auto;
-  width:90%;
-  &:after{@include clear;}
-}
+
 }

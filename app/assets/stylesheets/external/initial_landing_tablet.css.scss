@@ -1,64 +1,35 @@
-body {
-  h1 {font-size:2.5em}
-  h2 {font-size:2em;}
+.landing_lightbox .landing_welcome_box {
+  padding:2em;
 }
-.wrapper {padding-bottom:4.5em;}
-header {
-  background-size:auto;
-  #logo img {max-width:25%;}
-  #opener .copy {
-    .headlines {padding:4em 2em;}
-    #opener_form {
-      input[type="email"], input[type="submit"] {
-        display: inline-block;
-        float: left;
-      }
-      input[type="email"] {
-        border-top-left-radius: $border-radius;
-        border-bottom-left-radius: $border-radius;
-        width:65%;
-      }
-      input[type="submit"] {
-        border-top-left-radius: 0;
-        border-bottom-left-radius: 0;
-        margin-top:0;
-        padding:.6em 0;
-        width:35%;
-      }
-      #signup_responses {@include clear;}
+
+.get_your_board {
+  .browse_a_board {
+    display: inline-block;
+    width:auto;
+  }
+}
+
+.product_features {
+  .consumer_tools {
+    ul:after{@include clear;}
+    ul li {
+      float:left;
+      padding-right:.5em;
+      width:50%;
     }
   }
 }
 
-.product_values, .in_the_press {
-  padding-left:16%;
-  padding-right:16%;
-}
-.any_device {
-  .copy {
-    float:none;
-    margin:0 auto;
-    width:68%;
+.clients {
+  .a_client {
+    width:25%;
+    position: relative;
+    img {
+    position: absolute;
+    top:50%;
+    bottom:50%;
+    margin:auto;
+    width:80%;
+    }
   }
-  .imagery {padding:35% 0;}
-}
-footer {
-  // border:0;
-  position: fixed;
-  bottom:0;
-  padding:1.5em 1em;
-  width:100%;
-  .row {padding:0 1em;}
-  &:after{@include clear;}
-  ul li {
-    display: inline-block;
-    padding:0 .5em 0 0;
-  }
-  ul li + li {
-    border-left:$border-dark;
-    padding:0 .5em;
-  }
-  ul, .copyright {display: inline-block;}
-  ul {float: left;}
-  .copyright {float: right;  margin-top:.2em;}
 }
