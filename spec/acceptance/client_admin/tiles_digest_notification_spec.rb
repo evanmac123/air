@@ -50,9 +50,12 @@ feature 'Client admin and the digest email for tiles' do
   end
 
   def expect_tiles_to_send_header
+    expect_content "Active tiles to be sent"
   end
 
-
+  def expect_digest_sent_content
+    expect_content "Your tiles have been sent! Now you can monitor the Activity page to see how users interact."
+  end
 # -------------------------------------------------
 
   context 'No tiles exist for digest email' do
@@ -177,6 +180,14 @@ feature 'Client admin and the digest email for tiles' do
       before(:each) do
         set_last_sent_on '7/4/2013'
         2.times { |i| create_tile on_day: '7/5/2013', activated_on: '7/5/2013', status: Tile::ACTIVE, headline: "Headline #{i + 1}"}
+      end
+
+      scenario "yet a third message appears, somewhere on the page, that the digest has been sent" do
+        visit client_admin_share_path(as: admin)
+        click_button "Send digest now"
+        expect_digest_sent_content
+        click_link "the Activity page"
+        should_be_on client_admin_path
       end
 
       scenario "A flash confirmation message is displayed,
