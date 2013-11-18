@@ -1,9 +1,10 @@
-.tile_stats
-  .activation_dates= footer_timestamp(tile)
-  .completions 
-    Completed:
-    = pluralize(tile.completion_count, 'user')
-  .completion_percentage
-    Completed:
-    = number_to_percentage tile.claimed_completion_percentage, precision: 1
-    of joined users
+- unless @suppress_tile_stats
+  .tile_stats
+    .activation_dates= footer_timestamp(tile)
+    .completions 
+      Completed:
+      = pluralize(tile.completion_count, 'user')
+    .completion_percentage
+      Completed:
+      = number_to_percentage tile.claimed_completion_percentage, precision: 1
+      of joined users

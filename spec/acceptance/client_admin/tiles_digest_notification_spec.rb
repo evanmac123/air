@@ -49,6 +49,10 @@ feature 'Client admin and the digest email for tiles' do
     @follow_up_3 = FactoryGirl.create :follow_up_digest_email, demo: demo, tile_ids: [1, 2], send_on: Date.new(2013, 7, 3)
   end
 
+  def expect_tiles_to_send_header
+  end
+
+
 # -------------------------------------------------
 
   context 'No tiles exist for digest email' do
@@ -101,7 +105,7 @@ feature 'Client admin and the digest email for tiles' do
       visit client_admin_share_path(as: admin)
 
       page.should contain 'Notify users of new tiles'
-      page.should contain 'Tiles to be sent'
+      expect_tiles_to_send_header
     end
 
     scenario 'Form components are on the page and properly initialized' do
@@ -180,7 +184,7 @@ feature 'Client admin and the digest email for tiles' do
                 and a no-tiles message appears in the Digest tab" do
         on_day '7/6/2013' do
           visit client_admin_share_path(as: admin)
-          page.should contain 'Tiles to be sent'
+          expect_tiles_to_send_header
           page.should_not contain 'No digest email is scheduled to be sent'
 
           page.should contain 'Headline 1'
@@ -302,6 +306,6 @@ feature 'Client admin and the digest email for tiles' do
 
     visit client_admin_share_path(as: admin)
 
-    table_content_without_activation_dates('#digest table').should == expected_tile_table
+    table_content_without_activation_dates('table').should == expected_tile_table
   end
 end
