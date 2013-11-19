@@ -49,6 +49,7 @@ feature 'Client admin and the digest email for tiles' do
       expect_content 'There are no archived tiles'
       page.should have_num_tiles(0)
     end
+  end
 
   context 'Tiles exist for each of the types' do
     # NOTES 1: The default 'status' for tiles is 'active'
