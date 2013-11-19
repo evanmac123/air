@@ -3,7 +3,7 @@
 .share_tools .no_tiles_messages {@include form-group;}
 .share_tools .no_tiles_messages {
   height:17.5em;
-  padding:5em;
+  padding:5em 6em;
   h4 {margin-bottom:1em;}
 }
 .share_tools #feedback {
@@ -68,15 +68,6 @@
   #cancel_follow_up div {
     margin-bottom:.5em;
     * {vertical-align: bottom;}
-    &:before {
-      background:$light-gray;
-      content: "";
-      display:inline-block;
-      margin:-.25em .25em 0 0;
-      height:.25em;
-      width:.25em;
-      vertical-align: middle;
-    }
   }
 }
 #cancel_follow_up div a {@include light-button($red);}
