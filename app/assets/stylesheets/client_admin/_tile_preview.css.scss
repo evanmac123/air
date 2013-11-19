@@ -3,9 +3,12 @@ body.client_admin-tiles-show {
     display: inline-block;
   }
   .tile_control {
-    @include light-button($blue);
     font-size:.875em;
     margin-bottom:1em;
+    &.back_to_all {@include app-button($blue);}
+    &.tile_turn_on {@include app-button($dark-green);}
+    &.tile_turn_off {@include app-button($red);}
+    &.edit_this_tile {@include light-button($gray);}
   }
   h5 {
     color:$med-gray;

@@ -19,7 +19,11 @@
         position: relative;
         vertical-align: middle;
       }
-      #show_more_tiles_spinner {display: inline-block; vertical-align: top;}
+      #show_more_tiles_spinner {
+        display: inline-block; 
+        vertical-align: top; 
+        height:1em;
+      }
     }
   }
 }

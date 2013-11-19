@@ -33,7 +33,7 @@
       text-align: center;
       width:auto;
       a {@include light-button($white);}
-      &.archive_button a {@include app-button($blue);}
+      &.archive_button a {@include app-button($red);}
       &.activate_button a {@include app-button($dark-green);}
     }
   }
