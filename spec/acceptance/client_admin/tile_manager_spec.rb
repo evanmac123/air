@@ -50,16 +50,6 @@ feature 'Client admin and the digest email for tiles' do
       page.should have_num_tiles(0)
     end
 
-    # Note: The no-tiles digest message is more involved than that of the other tiles.
-    #       More comprehensive tests for the various flavors of this message exist in the 'tile_digest_notification_spec'
-    scenario 'Correct message is displayed when there are no Digest tiles' do
-      visit client_admin_share_path(as: admin)
-
-      expect_content 'No digest email is scheduled to be sent'
-      page.should have_num_tiles(0)
-    end
-  end
-
   context 'Tiles exist for each of the types' do
     # NOTES 1: The default 'status' for tiles is 'active'
     #       2: I have no idea why Phil hates kittens so much. Someone should keep an eye on him...

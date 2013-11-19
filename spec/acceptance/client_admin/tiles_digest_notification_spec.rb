@@ -64,13 +64,13 @@ feature 'Client admin and the digest email for tiles' do
     end
 
     scenario 'Text is correct' do
-      page.should contain 'No digest email is scheduled to be sent because no new tiles have been added'
-      page.should_not contain 'since the last one was sent on Thursday, July 04, 2013'
+      page.should contain 'Tiles that you activate will appear here so you can share them with users in a digest email.'
+      page.should_not contain 'No new tiles have been added'
 
       set_last_sent_on '7/4/2013'
       visit client_admin_share_path(as: admin)
 
-      page.should contain 'since the last one was sent on Thursday, July 04, 2013'
+      page.should contain 'No new tiles have been added since the last digest email you sent on Thursday, July 04, 2013'
     end
 
     scenario 'Text and form components are not on the page' do
@@ -196,7 +196,7 @@ feature 'Client admin and the digest email for tiles' do
         on_day '7/6/2013' do
           visit client_admin_share_path(as: admin)
           expect_tiles_to_send_header
-          page.should_not contain 'No digest email is scheduled to be sent'
+          page.should_not contain 'No new tiles have been added'
 
           page.should contain 'Headline 1'
           page.should contain 'Headline 2'
@@ -209,8 +209,8 @@ feature 'Client admin and the digest email for tiles' do
           page.should contain "Tiles digest email was sent"
 
           page.should_not contain 'Tiles to be sent'
-          page.should contain 'No digest email is scheduled to be sent'
-          page.should contain 'since the last one was sent on Saturday, July 06, 2013'
+          page.should contain 'No new tiles have been added'
+          page.should contain 'since the last digest email you sent on Saturday, July 06, 2013'
 
           page.should_not contain 'Headline 1'
           page.should_not contain 'Headline 2'
