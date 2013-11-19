@@ -1,5 +1,17 @@
 // Digest email and followup controls
-.share_tools .notification_controls {@include form-group;}
+.share_tools .notification_controls,
+.share_tools .no_tiles_messages {@include form-group;}
+.share_tools .no_tiles_messages {
+  height:17.5em;
+  padding:5em;
+  h4 {margin-bottom:1em;}
+}
+.share_tools #feedback {
+  color:$light-gray;
+  font-size:.875em;
+  padding:16px;
+  padding:1rem;
+}
 #digest_management {
   &:after {@include clear;}
 
@@ -7,11 +19,10 @@
     width:100%;
     .send_to, .follow_up {
       margin-bottom:1.75em;
-      p {margin-bottom:.75em;}
+      p {@include font-semibold; margin-bottom:.75em;}
       select, label {font-size:1.142857143em;}
     }
     .follow_up {
-      p {@include font-semibold;}
       p span {
         @include font-regular;
         color:$gray;
@@ -52,9 +63,11 @@
 }
 
 #scheduled_followups {
+  h3 {margin:.6em auto 1.7em;}
   #cancel_follow_up {@include form-group;}
   #cancel_follow_up div {
     margin-bottom:.5em;
+    * {vertical-align: bottom;}
     &:before {
       background:$light-gray;
       content: "";
@@ -66,13 +79,12 @@
     }
   }
 }
-
+#cancel_follow_up div a {@include light-button($red);}
+#digest_management .send_to, #digest_management .follow_up {
+  a {@include light-button($med-gray);}
+}
 #cancel_follow_up div, #digest_management .send_to, #digest_management .follow_up {
-  a {
-    @include light-button($med-gray);
-    @include caption;
-    margin-left:1em;
-  }
+  a {@include caption; margin-left:1em;}
 }
 
 .tiles_to_be_shared {
@@ -80,13 +92,4 @@
   margin-top:4em;
   padding:3em 0;
   .digest {width:25%;}
-}
-
-.no_tiles_message {
-  // border-bottom:1px $light-gray solid;
-  @include font-light;
-  font-size:1.3em;
-  line-height:1.35em;
-  margin-top:2em;
-  padding-right: 2em;
 }

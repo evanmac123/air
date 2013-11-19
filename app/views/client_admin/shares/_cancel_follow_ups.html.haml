@@ -1,6 +1,6 @@
 - unless @follow_up_emails.empty?
   %div#scheduled_followups
-    %h3 Scheduled follow-ups
+    %h3 Scheduled Follow-Up Emails
     %div#cancel_follow_up
       - @follow_up_emails.each do |follow_up|
         %div{id: "follow_up_email_#{follow_up.id}"}
