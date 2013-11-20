@@ -21,4 +21,11 @@ feature 'Sees all inactive tiles on a separate page' do
     click_see_all_inactive_tiles_link
     should_be_on client_admin_inactive_tiles_path
   end
+
+   it "has a placeholder that you can click on to create a new tile" do
+     visit client_admin_inactive_tiles_path(as: client_admin)
+     click_new_tile_placeholder
+     should_be_on new_client_admin_tile_path
+   end
+
 end

@@ -184,6 +184,10 @@ class Tile < ActiveRecord::Base
     100.0 * completion_count / demo.users.claimed.count
   end
 
+  def is_placeholder?
+    false
+  end
+
   def self.due_ids
     self.after_start_time_and_before_end_time.map(&:id)
   end

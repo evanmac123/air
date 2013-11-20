@@ -175,4 +175,12 @@ module TileHelpers
   def expect_current_tile_id(tile)
      page.find('.tile_holder')["data-current-tile-id"].should == tile.id.to_s
   end
+
+  def new_tile_placeholder_text
+    "I AM A BANANA"
+  end
+
+  def click_new_tile_placeholder
+    click_link new_tile_placeholder_text
+  end
 end

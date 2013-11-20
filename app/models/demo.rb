@@ -71,6 +71,10 @@ class Demo < ActiveRecord::Base
     tiles.archive
   end
 
+  def archive_tiles_with_creation_placeholder
+    [TileCreationPlaceholder.new] + archive_tiles
+  end
+
   def draft_tiles
     tiles.draft
   end

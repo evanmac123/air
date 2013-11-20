@@ -215,7 +215,7 @@ feature 'Client admin and the digest email for tiles' do
       archive_time = Time.now
       expected_tile_table =
         [ 
-          ["Tile 9", "Tile 7", "Tile 5", "Tile 3"]
+          [new_tile_placeholder_text, "Tile 9", "Tile 7", "Tile 5"]
         ]
       demo.tiles.update_all status: Tile::ARCHIVE
       demo.tiles.where(archived_at: nil).each{|tile| tile.update_attributes(archived_at: tile.created_at)}
@@ -226,4 +226,9 @@ feature 'Client admin and the digest email for tiles' do
     end
   end
 
+  it "has a placeholder that you can click on to create a new tile" do
+    visit tile_manager_page
+    click_new_tile_placeholder
+    should_be_on new_client_admin_tile_path
+  end
 end

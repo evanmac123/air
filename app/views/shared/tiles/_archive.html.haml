@@ -1,4 +1,4 @@
-- if @archive_tiles.empty?
+- if @archive_tiles.empty? || @archive_tiles.last.is_placeholder?
   %div.no_tiles_message There are no archived tiles.
-- else
-  = render partial: 'shared/tiles/tiles_table', locals: {tiles: @archive_tiles, type: :archive}
+
+= render partial: 'shared/tiles/tiles_table', locals: {tiles: @archive_tiles, type: :archive}
