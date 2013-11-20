@@ -50,11 +50,11 @@ feature 'Client admin and the digest email for tiles' do
   end
 
   def expect_tiles_to_send_header
-    expect_content "Active tiles to be sent"
+    expect_content "Tiles to be sent"
   end
 
   def expect_digest_sent_content
-    expect_content "Your tiles have been sent! Now you can monitor the Activity page to see how users interact."
+    expect_content "Your tiles have been sent! You can monitor the Activity page to see how users interact."
   end
 # -------------------------------------------------
 
@@ -82,14 +82,14 @@ feature 'Client admin and the digest email for tiles' do
     end
 
     scenario 'Text is correct when no follow-up emails are scheduled to be sent' do
-      expect_no_content 'Scheduled follow-ups'
+      expect_no_content 'Scheduled Follow-Up'
     end
 
     scenario 'Text is correct when follow-up emails are scheduled to be sent, and emails can be cancelled', js: :webkit do  # (Didn't work with poltergeist)
       create_follow_up_emails
       visit client_admin_share_path(as: admin)
 
-      page.should contain 'Scheduled follow-ups'
+      page.should contain 'Scheduled Follow-Up'
       page.should contain 'Monday, July 01, 2013'
       page.should contain 'Tuesday, July 02, 2013'
       page.should contain 'Wednesday, July 03, 2013'
@@ -107,7 +107,7 @@ feature 'Client admin and the digest email for tiles' do
       create_tile
       visit client_admin_share_path(as: admin)
 
-      page.should contain 'Notify users of new tiles'
+      page.should contain 'Send Email with New Tiles'
       expect_tiles_to_send_header
     end
 
@@ -137,7 +137,7 @@ feature 'Client admin and the digest email for tiles' do
       create_tile
       visit client_admin_share_path(as: admin)
 
-      expect_no_content 'Scheduled follow-ups'
+      expect_no_content 'Scheduled Follow-Up'
     end
 
     scenario 'Text is correct when follow-up emails are scheduled to be sent, and emails can be cancelled', js: :webkit do
@@ -152,7 +152,7 @@ feature 'Client admin and the digest email for tiles' do
       create_follow_up_emails
       visit client_admin_share_path(as: admin)
 
-      page.should contain 'Scheduled follow-ups'
+      page.should contain 'Scheduled Follow-Up'
       page.should contain 'Monday, July 01, 2013'
       page.should contain 'Tuesday, July 02, 2013'
       page.should contain 'Wednesday, July 03, 2013'
