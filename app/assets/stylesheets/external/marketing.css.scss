@@ -13,7 +13,7 @@
 
 body {
   border-top:7px $dark-green solid;
-  .wrapper {margin-top:5em;}
+  .wrapper {margin-top:4em;}
 
   // Links
   a, a:link, a:visited {
@@ -38,6 +38,44 @@ body {
     padding-bottom:1em;
     span {@include font-bold;}
   }
+  img {border-radius:$border-radius;}
+}
+
+// More Info page
+.feature_sections {
+  padding:3em 0;
+  h2 {margin-bottom:1em;}
+  h2 span {color:$med-gray;}
+  .visual_container {
+    margin-top:1em;
+    position: relative;
+    text-align: center;
+  }
+  &.no_image_feature {
+    background:$blue;
+    color:$light-gray;
+    h2 {color:$white;}
+    h2 span {color:lighten($blue, 25%);}
+    .text_container + .text_container {margin-top:3em;}
+  }
+}
+#target_influence, #monitor_board {
+  .visual_container img {@include box-outer-shadow(lighten($light-gray, 5%));}
+}
+
+// Next Steps (on More Info and Pricing)
+.next_steps .large-5 {
+  padding: {
+    left:6%;
+    right:6%;
+  }
+  text-align: left;
+  a, a.request_a_demo {
+    @include fat-app-button($dark-green);
+    width:100%;
+  }
+  a.request_a_demo {margin-top:1em;}
+  p {margin-top:1em;}
 }
 
 /* ============= Color bars ============= */
@@ -51,23 +89,3 @@ body {
   &#orange {background:$orange; right:0;}
 }
 
-
-/* ============= More Info page ============= */
-section.feature_sections, section.inner_sections {
-  padding-top:2em;
-  position:relative;
-}
-section.feature_sections {
-  .copy {margin-bottom:1em;}
-}
-section.inner_sections {padding-bottom:2em;}
-
-#clients {
-  margin:2em auto 4em auto;
-  text-align: center;
-  p {color:$gray; font-size:1em;}
-  ul {padding:.5em 0;}
-  ul li {
-    vertical-align: middle;
-  }
-}

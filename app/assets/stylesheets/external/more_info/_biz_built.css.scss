@@ -1,0 +1,22 @@
+#built_for_biz {
+  .text_container {
+    text-align: center;
+    margin-bottom:2em;
+  }
+  .case_studies {
+    &:after {@include clear;}
+  }
+  .clients {
+    padding-top:1em;
+    padding-bottom:2em;
+    .quote {
+      @include form-group;
+      .name {padding-bottom:0;}
+    }
+    .logo {
+      max-width:10em;
+      margin:1em auto 0;
+    }
+  }
+  .next_steps {margin-top:3em;}
+}

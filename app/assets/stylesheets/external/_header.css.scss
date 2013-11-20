@@ -4,6 +4,7 @@ header {
   z-index:97;
   .contain-to-grid, .top-bar, 
   .top-bar-section {background:$white;}
+  .contain-to-grid {border-bottom:1px lighten($light-gray, 10%) solid;}
   nav.top-bar, .title-area {height:4em;}
   nav.top-bar {
     &.expanded .title-area {background:$white;}

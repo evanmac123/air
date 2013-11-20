@@ -1,126 +1,46 @@
-<section id="front_hero" class="first_section hero">
-	<div class="row main-row">
-		<div class="large-9 large-centered columns copy">
-			<h1>How do you drive engagement in your company<span class="kerning">’</span>s <span class="rotate"><span class="rotating_word">objective</span>?</span></h1>
-			<div class="row">
-				<div class="large-9 columns">
-					<h3>H.Engage’s platform makes it easy for you to capture employee attention, save time communicating complex topics, and drive measurable action.</h3>
-					<a href="#!" class="request_a_demo pop-button">Schedule a demo</a>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="down_arrow" id="da_left"></div>
-	<div class="down_arrow" id="da_right"></div>
-</section>
-
-<section id="capture_attention" class="feature_sections">
-	<div class="row main-row">
-		<div class="large-5 push-7 columns copy">
-			<h2>Capture attention</h2>
-			<p>Use the technologies people love to drive engagement in communications, programs and processes at work.</p>
-
-			<!-- Sub points -->
-			<div class="row">
-				<div class="small-6 columns">
-					<p class="caption"><span>Points</span>
-						Provide employees with positive feedback
-					</p>
-					<p class="caption"><span>Tiles</span>
-						Make complex subjects easy to understand
-					</p>
-				</div>
-				<div class="small-6 columns">
-					<p class="caption"><span>Peer influence</span>
-						Create an environment of engagement
-					</p>
-					<p class="caption"><span>Rewards</span>
-						Drive excitement
-					</p>
-				</div>
-			</div>
-		</div>
-
-		<div class="imagery large-7 pull-5 columns">
-			<div class="site_zooms" id="site_pts">
-				<%= image_tag "marketing/site-pts.png", "alt" => "Earn points towards rewards" %>
-			</div>
-			<div class="site_zooms" id="site_scoreboard">
-				<%= image_tag "marketing/site-scoreboard.png", "alt" => "Scoreboard to check on your colleagues" %>
+<section class="feature_sections" id="hero">
+	<div class="row">
+		<div class="large-12 columns">
+			<h1>The bulletin board, reinvented.</h1>
+			<h3>Your space for creating and sharing things for people to read and do.</h3>
+			<div class="visual_container">
+				<%= image_tag "marketing/more_info/tile_wall.png", "alt" => "H.Engage Board" %>
+				<p>Each communication, action, or link is turned into a special content format called a Tile.</p>
 			</div>
 		</div>
 	</div>
 </section>
 
-<section class="feature_sections" id="complex_simple">
-	<div class="row main-row">
-		<div class="large-5 columns copy">
-			<h2>Complex made simple</h2>
-			<p>Easily turn complex content into <span>Tiles</span>&mdash;a communication format optimized for today’s attention span. Each tile presents a short bit  of content alongside a question that adds interactivity and proves comprehension.</p>
+<section class="feature_sections" id="tiles_detail">
+	<div class="row">
+		<div class="large-5 columns text_container">
+			<h2>Tiles get attention</h2>
+			<p>Where dense emails and posters go unread, Tiles capture attention using the perfect mix of consumer tools people love. </p>
+			<ul>
+				<li class="callout list_1"><p><span>Visual communication</span> Imagery grabs attention like today’s fastest growing consumer tools Pinterest and Instagram.</p></li>
+				<li class="callout list_2"><p><span>Short content</span> Easy to read, like a text or Twitter message. Split content across Tiles for complex topics.</p></li>
+				<li class="callout list_3"><p><span>Interactive</span> Users earn points for answering questions and taking actions. It’s a moment of delight that keeps people coming back.</p></li>
+				<li class="list_4"><p><span>Links</span> Help aggregate content in a scanable format that points people to more information like videos or other resources.</p></li>
+				<li class="list_5"><p><span>Ephemeral</span> Tiles are on the Board for a short time, creating urgency other mediums lack.</p></li>
+				<li class="list_6"><p><span>Modern Design</span> Built to optimize user experience. When a user completes a Tile, it disappears and the next Tile automatically loads.</p></li>
+			</ul>
 		</div>
-		<div class="large-7 columns imagery">
-			<%= image_tag "marketing/tile-green.png", "alt" => "Sample tile" %>
-			<p class="caption tips" id="custom_image"><span>Custom images</span></p>
-			<p class="caption tips" id="organized_messages"><span>Organized messages</span></p>
-			<p class="caption tips" id="answer_for_points"><span>Related interactions</span></p>
-		</div>
-	</div>
-</section>
-
-<section class="feature_sections" id="beautifully_easy">
-	<div class="row main-row">
-		<div class="large-5 push-7 columns copy">
-			<h2>Beautifully easy</h2>
-			<p>Tiles are easy to create and make your communications look professionally designed. New tiles are automatically organized into an elegant email that differentiates your message from the norm.</p>
-		</div>
-		<div class="large-7 pull-5 columns imagery">
-			<%= image_tag "marketing/digest-email.png", "alt" => "Tiles are automatically organized into an elegant email" %>
+		<div class="large-7 columns visual_container">
+			<%= image_tag "marketing/more_info/tile.png", "alt" => "H.Engage tile", "class" => "tile" %>
+			<span class="list_1">1</span>
+			<span class="list_2">2</span>
+			<span class="list_3">3</span>
 		</div>
 	</div>
 </section>
 
-<section class="feature_sections" id="save_time">
-	<div class="row main-row">
-		<div class="large-5 columns copy">
-			<h2>Save time tracking</h2>
-			<p>No more chasing people down. H.Engage automatically keeps track of information such as who has read a message, taken an action or is coming to an event.</p>
-		</div>
-		<div class="large-7 columns imagery">
-			<%= image_tag "marketing/activity-feed.png", "alt" => "See what employees have done in the activity feed" %>
-		</div>
-	</div>
-</section>
-
-<section class="feature_sections" id="additional_features">
-	<div class="row main-row">
-		<div class="large-6 columns" id="reward_engagement">
-			<div class="large-10 large-centered columns imagery">
-				<%= image_tag "marketing/bar.png", "alt" => "Drive engagement with game mechanics" %>
-			</div>
-			<div class="large-10 large-centered columns copy">
-				<h2>Reward engagement</h2>
-				<p>Drive engagement using a mix of behavioral economics and game mechanics. The result? Higher engagement and lower incentive costs.</p>
-			</div>
-		</div>
-
-		<div class="large-6 columns" id="easy_reporting">
-			<div class="large-10 large-centered columns imagery">
-				<%= image_tag "marketing/chart.png", "alt" => "Real-time reporting" %>
-			</div>
-			<div class="large-10 large-centered columns copy">
-				<h2>Easy reporting</h2>
-				<p>Real-time reporting makes gauging engagement and leadership updates easy.</p>
-			</div>
-		</div>
-	</div>
-</section>
 
 <section class="feature_sections" id="any_objective">
 	<div class="row">
 		<div class="main-row">
 			<div class="large-8 columns large-centered copy">
-				<h2>Any objective</h2>
-				<p>H.Engage can help drive engagement in almost any program or process—saving you time and money. Maximize investments by linking tiles to existing tools and resources.</p>
+				<h2>One platform, any objective</h2>
+				<p>You can create Tiles about any subject and combine Tiles to create any program. Save money on specialized vendors. Maximize investments by aggregating and linking to existing tools and resources.</p>
 			</div>
 		</div>
 	</div>
@@ -162,63 +82,157 @@
 	</div>
 </section>
 
-<section class="inner_sections" id="other_benefits">
-	<div class="row main-row">
-		<h3>Plus other benefits!</h3>
-		<ul class="large-4 columns copy">
-			<li class="large-10 large-centered columns"><p>
-				<span>Employee support</span>
-				If your employees have a question, we’ll answer it.
-			</p></li>
-			<li class="large-10 large-centered columns"><p>
-				<span>Enterprise safe</span>
-				We’ve worked with companies big and small.
-			</p></li>
-		</ul>
-		<ul class="large-4 columns copy">
-			<li class="large-10 large-centered columns"><p>
-				<span>Customer support</span>
-				Not sure how to get started? We’re here to help.
-			</p></li>
-			<li class="large-10 large-centered columns"><p>
-				<span>No IT needed</span>
-				Easy to set-up and no maintenance, we take care of everything.
-			</p></li>
-		</ul>
-		<ul class="large-4 columns copy">
-			<li class="large-10 large-centered columns"><p>
-				<span>Best practices</span>
-				Starting a program? We have templates and information on best practices.
-			</p></li>
-			<li class="large-10 large-centered columns"><p>
-				<span>Security</span>
-				We ensure the highest industry standards around data security.
-			</p></li>
-		</ul>
+<section class="feature_sections" id="fast_tiles">
+	<div class="row">
+		<div class="large-5 push-7 columns text_container">
+			<h2>Beautiful Tiles fast</h2>
+			<p>Create a communication that looks professionally designed in minutes. Multiple administrators can contribute. Save time and money on posters, newsletters and dense emails that people don't read.</p>
+		</div>
+		<div class="large-7 pull-5 columns visual_container">
+			<%= image_tag "marketing/more_info/tile_builder.png", "alt" => "Tile Builder", "class" => "tile_builder" %>
+			<%= image_tag "marketing/more_info/arrow_down_gray.png", "class" => "arrow" %>
+		</div>
 	</div>
 </section>
 
-<section class="feature_sections" id="lets_work_together">
-	<div class="row main-row">
-		<div class="large-10 large-centered columns">
-			<h1>Let's work together</h1>
-			<div class="row large-12">
-				<ul class="large-6 columns buy_benefits">
-					<li>Improve participation and compliance</li>
-					<li>Save time writing complex content</li>
-					<li>Save money on design</li>
-					<li>Reduce waste by driving use of existing resources</li>
-				</ul>
-				<ul class="large-6 columns buy_benefits">
-					<li>Roll out new programs cheaper and faster—one platform drives engagement in any program or process</li>
-					<li>Reduce time tracking and following-up</li>
-					<li>Reduce questions from employees that didn’t read or understand the message</li>
-				</ul>
-			</div>
+<section class="feature_sections no_image_feature">
+	<div class="row">
+		<div class="large-6 columns text_container" id="free_content">
+			<h2>Free content <span>(coming soon)</span></h2>
+			<p>You can also get free Tiles about common topics. We’re developing a comprehensive library of best practice communications, programs and processes. Become part of our growing community.</p>
+		</div>
+		<div class="large-6 columns text_container" id="on_your_schedule">
+			<h2>Communicate on your schedule</h2>
+			<p>It’s up to you how often you communicate. You can create, activate and share Tiles weekly to maximize engagement, or run campaigns at certain times of the year. Many administrators will create 4 to 8 Tiles during the week, and send them on the following Monday.</p>
 		</div>
 	</div>
+</section>
 
-	<%= render "pages/our_clients" %>
+<section class="feature_sections" id="engagement">
+	<div class="row">
+		<div class="large-5 push-7 columns text_container">
+			<h2>Trigger engagement</h2>
+			<p>New Tiles are automatically organized into an email based on marketing best practices. In fact, digest emails like ours have a 148% higher click-through rate than non-digest emails (LaunchBit).</p>
+			<p>The Board is totally private, only people you've added or shared your Board with using a unique link can join. When a users click in the email or unique link, they’ll be logged into the site and can start interacting with Tiles. The very first time users log-in, they’re asked to set a password.</p>
+		</div>
+		<div class="large-7 pull-5 columns visual_container">
+			<%= image_tag "marketing/more_info/digest-email.png", "alt" => "Digest email" %>
+		</div>
+	</div>
+</section>
+
+<section class="feature_sections no_image_feature" id="reach_people">
+	<div class="row">
+		<div class="large-5 columns text_container">
+			<h2>Reach people on any device</h2>
+			<p>H.Engage is automatically optimized for any device. That means users can access your Board on the go, even if they’re not at a computer all day.</p>
+		</div>
+		<div class="large-7 columns visual_container">
+			<h4>That's important because:</h4>
+			<ul>
+				<li><span>61%</span> of cell phone owners in the U.S. have a smartphone (Pew Research Center)</li>
+				<li><span>71%</span> of smartphone owners admit to using them at work (Google Insights)</li>
+				<li><span>44%</span> of emails are opened on mobile (Litmus)</li>
+			</ul>
+		</div>
+	</div>
+</section>
+
+<section class="feature_sections" id="target_influence">
+	<div class="row">
+		<div class="large-5 push-7 columns text_container">
+			<h2>Targeted social influence</h2>
+			<p>As a user interacts with Tiles an activity feed entry is created. Users can connect to one another to see their connection’s activities and create a scoreboard. Our data shows these mechanics increase user engagement by over 30%. Historically, up to 45% of participants join H.Engage because a peer recruited them.</p>
+			<p>Note that the Board doesn’t work like a typical social media site. There is no free text entry, which eliminates any administrative overhead for you.</p>
+		</div>
+		<div class="large-7 pull-5 columns visual_container">
+			<%= image_tag "marketing/more_info/activity-feed.png", "alt" => "Activity feed", "class" => "activity_feed" %>
+			<%= image_tag "marketing/more_info/connections.png", "alt" => "Connections", "class" => "connections" %>
+		</div>
+	</div>
+</section>
+
+<section class="feature_sections" id="save_time">
+	<div class="row">
+		<div class="large-5 columns text_container">
+			<h2>Save time following up</h2>
+			<p>You can schedule an email to automatically follow-up with users that don’t interact with Tiles after the first Digest Email is sent. Unlike the digest email, this follow-up email has the full content of the Tiles so even users that didn’t log in see important information.</p>
+		</div>
+		<div class="large-7 columns visual_container">
+			<%= image_tag "marketing/more_info/followup-email.png", "alt" => "Follow-up email" %>
+		</div>
+	</div>
+</section>
+
+<section class="feature_sections" id="monitor_board">
+	<div class="row">
+		<div class="large-5 push-7 columns text_container">
+			<h2>Know who engaged, who didn’t</h2>
+			<p>Monitor engagement levels in real time. You’ll learn what’s effective and spend less time chasing after people.</p>
+		</div>
+		<div class="large-7 pull-5 columns visual_container">
+			<%= image_tag "marketing/more_info/monitoring.png", "alt" => "Monitor engagement levels" %>
+		</div>
+	</div>
+</section>
+
+<section class="feature_sections no_image_feature">
+	<div class="row">
+		<div class="large-6 columns text_container" id="communication_archive">
+			<h2>Build your communication archive</h2>
+			<p>Your Board will automatically save your Tiles, so even after you deactivate them, you will always have access to them in the future.</p>
+		</div>
+		<div class="large-6 columns text_container" id="deployment">
+			<h2>Turn-key deployment</h2>
+			<ul>
+				<li><span>No IT needed:</span> Easy to set-up and no maintenance.</li>
+				<li><span>Support included:</span> If your users have a question, we’ll answer it.</li>
+				<li><span>Customer support:</span> Not sure how to get started? We’re here to help.</li>
+			</ul>
+		</div>
+	</div>
+</section>
+
+<section class="feature_sections" id="built_for_biz">
+	<div class="row">
+		<div class="large-8 large-centered columns text_container">
+			<h1>Built for business</h1>
+			<h3>H.Engage has undergone three years of development working collaboratively with employers of all sizes. Read some of their stories.</h3>
+		</div>
+		<div class="large-12 case_studies">
+			<ul class="large-6 columns clients asha">
+				<li class="quote">
+					<p>"I want to get people the information they need to do their jobs, make good decisions, and feel good about being a member of the ASHA staff. H.Engage makes this kind of sharing easy for me and engaging and fun for everyone."</p>
+					<p class="name"><a href="/pages/asha">Janet McNichol</a>, Director of HR</p>
+				</li>
+				<li class="logo"><a href="/pages/asha"><%= image_tag "marketing/clients/asha.png", "alt" => "ASHA" %></a></li>
+			</ul>
+			<ul class="large-6 columns clients heineken">
+				<li class="quote">
+					<p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nec purus in ante pretium blandit."</p>
+					<p class="name"><a href="#!">Special Name</a>, Director of Whatever</p>
+				</li>
+				<li class="logo"><a href="#!"><%= image_tag "marketing/clients/heineken_logo.png", "alt" => "Heineken" %></a></li>
+			</ul>
+		</div>
+		<div class="large-12 case_studies">
+			<ul class="large-6 columns clients asha">
+				<li class="quote">
+					<p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nec purus in ante pretium blandit. Aliquam erat volutpat. Nulla libero lectus."</p>
+					<p class="name"><a href="#!">Special Name</a>, Director of Whatever</p>
+				</li>
+				<li class="logo"><a href="#!"><%= image_tag "marketing/clients/fuji.png", "alt" => "Fujifilm" %></a></li>
+			</ul>
+			<ul class="large-6 columns clients heineken">
+				<li class="quote">
+					<p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nec purus in ante pretium blandit."</p>
+					<p class="name"><a href="#!">Special Name</a>, Director of Whatever</p>
+				</li>
+				<li class="logo"><a href="#!"><%= image_tag "marketing/clients/miltoncat.png", "alt" => "Milton Cat" %></a></li>
+			</ul>
+		</div>
+	</div>
+	<%= render "pages/next_steps" %>
 </section>
 
 <%= mp_track_page 'More Info, marketing' %>

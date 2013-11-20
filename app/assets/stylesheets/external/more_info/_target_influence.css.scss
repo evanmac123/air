@@ -1,0 +1,11 @@
+#target_influence .visual_container {
+  text-align: left;
+  img {max-width:23em;}
+  .activity_feed {width:75%;}
+  .connections {
+    width:70%;
+    position: absolute;
+    right:1em;
+    bottom:-1.5em;
+  }
+}

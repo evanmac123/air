@@ -1,0 +1,23 @@
+#hero {
+  $hero_bg: $blue;
+
+  background:$hero_bg;
+  border-bottom:1px darken($hero_bg, 7%) solid;
+  padding-bottom:0;
+  text-align: center;
+  h1 {color:$white;}
+  h3 {
+    color:$tile-wall-bg;
+    margin:1em auto 2em;
+  }
+  .visual_container {
+    img {
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+      @include box-outer-shadow(darken($hero_bg, 7%));
+      position: relative;
+      top:-1px;
+    }
+    p {display:none;}
+  }
+}

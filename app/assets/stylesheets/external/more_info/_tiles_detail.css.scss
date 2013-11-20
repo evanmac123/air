@@ -1,0 +1,55 @@
+@mixin number_callout {
+  @include font-bold;
+  background: $dark-green;
+  border-radius:$border-radius;
+  color:$white;
+  line-height: 1em;
+  padding:.25em .5em;
+  text-align: center;
+}
+
+#tiles_detail {
+  .text_container ul {margin-top:1em;}
+  .text_container li {
+    &:before {
+      content:"";
+      display: inline-block;
+    }
+    &:after {@include clear;}
+    p {
+      display: inline-block;
+      float: right;
+      padding-bottom:0;
+      vertical-align: top;
+      width:89%;
+    }
+    span {
+      @include font-bold;
+      color:$dark-gray;
+      &:after {
+        @include font-light;
+        color:$med-gray;
+        content:"\2013";
+        margin-left:.35em;
+      }
+    }
+  }
+  .text_container li.callout:before {
+    @include number_callout;
+      display:inline;
+  }
+  .text_container li + li {margin-top:.75em;}
+  .text_container li.list_1:before {content:"1";}
+  .text_container li.list_2:before {content:"2";}
+  .text_container li.list_3:before {content:"3";}
+
+  .visual_container span {
+    @include number_callout;
+    background:darken($dark-green, 5%);
+    display: block;
+    position: absolute;
+    &.list_1 {top:1em; right:83%;}
+    &.list_2 {top:42%; left:83%;}
+    &.list_3 {top:76%; left:83%;}
+  }
+}

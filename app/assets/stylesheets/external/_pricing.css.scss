@@ -219,20 +219,6 @@
 	}
 }
 
-#simple_fair_pricing .details .large-5 {
-	padding: {
-		left:6%;
-		right:6%;
-	}
-	text-align: left;
-	a {
-		@include fat-app-button($dark-green);
-		width:100%;
-	}
-	a.request_a_demo {margin-top:1em;}
-	p {margin-top:1em;}
-}
-
 // ============= FAQs ============= 
 #pricing_faq {
 	color:lighten($text-color, 25%);

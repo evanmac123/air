@@ -1,7 +1,8 @@
-.jPanelMenu-panel, body {
+.jPanelMenu-panel, body .content {
   background:image-url('marketing/temporary_wall.png') repeat-y $tile-wall-bg center top!important;
-  .content {padding:0;}
 }
+
+body .content {padding:0;}
 
 .landing_lightbox {
   background:image-url('v5/bg_dark.png');

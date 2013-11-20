@@ -1,6 +1,7 @@
 @import "../mixins/main_styles.css.scss";
 @import "../external/marketing.css.scss";
 @import "screen_medium.css.scss";
+@import "more_info/general_moreinfo.css.scss";
 @import "screen_desktop.css.scss";
 @import '../internal/tiles_thumbnails_desktop';
 @import "screen_large.css.scss";
@@ -31,37 +32,23 @@ nav.top-bar {
   }
 }
 
-// Hero
-.hero {
-  background:$white;
-  h1 {font-size:2.75em;}
-  h2 {
-    @include font-regular;;
-    padding:1.75em 0 2em 0;
-  }
-  .main-row {
-    background:image-url('marketing/hero_bg.png') top right no-repeat $blue;
-    background-size:100%;
-    padding:7em 0;
-  }
-  .copy .rotate {display: inline-block;}
+#hero .visual_container {
+  img {max-width:800px;}
+  p:after {width:10em;}
+}
+#fast_tiles .row {background-image:image-url('marketing/more_info/tile_ie8.png')}
+#target_influence, #monitor_board {
+  .visual_container img {border:1px $light-gray solid;}
+}
+#target_influence .visual_container {
+  .activity_feed {width:22em;}
+  .connections {width:22em;}
+}
+.next_steps {
+  .push-1 {margin-left:8.33333%;}
+  .pull-1 {margin-right:8.33333%;}
 }
 
-// Capture attention
-.feature_sections#capture_attention {
-  .row.main-row .imagery {
-    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/assets/marketing/site.png', sizingMethod='scale');
-    -ms-filter: "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/assets/marketing/site.png', sizingMethod='scale')";
-    background-position:1em bottom;
-    padding:0 0 55% 0;
-    width:55%;
-  }
-}
-
-// Beautifully easy
-#beautifully_easy {
-  background:image-url('marketing/tiles-bg.png') center top no-repeat;
-}
 
 // ============= Case study ============= 
 .case_study_content .study_samples {margin:4em auto 2em}
@@ -97,8 +84,6 @@ nav.top-bar {
     margin-left:8.3333334%;
   }
 }
-
-
 #pricing_faq {
   padding:3em 0;
   &:after{@include clear;}

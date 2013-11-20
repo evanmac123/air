@@ -1,10 +1,12 @@
 #any_objective {
 	background:$dark-green;
-	border-top:2px $light-gray solid;
 	padding-bottom:3em;
 	.copy {
 		background:$white;
 		border:3px $light-gray solid;
+		margin-bottom:1em;
+		padding-top:1em;
+		padding-bottom:1em;
 	}
 
 	.mobile_left, .mobile_right {

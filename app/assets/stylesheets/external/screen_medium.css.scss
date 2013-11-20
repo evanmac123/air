@@ -1,155 +1,13 @@
 // ================== General Marketing styles ================== 
 footer .contact_us .our_socmedia {margin-top:0;}
+.next_steps .large-5 {
+  a.request_a_demo {margin-top:0;}
+}
+
 
 // ================== External pages styles ================== 
-// body.external .wrapper {margin-top:2em;}
 #session-wrapper {width:65%; max-width:40em;}
 
-// ================== Homepage ================== 
-// ****** Hero ******
-.hero {
-	background:image-url('marketing/hero_bg.png') top right no-repeat $blue;
-	background-size:100%;
-	margin-bottom:1.5em;
-	.main-row {padding:4em 0 6em 0;}
-	.copy {
-		margin-bottom:0;
-		h1 {height:auto;}
-	}
-}
-
-// ****** Capture Attention ******
-#capture_attention {
-	.imagery {
-		background-position: 1em bottom;
-		padding:0 0 50% 0;
-		position:relative;
-		text-align: center;
-	}		
-	#site_pts {right:5%; top:3%;}
-	#site_scoreboard {right:42%; top:35.5%;}
-}
-
-// ****** Complex Made Simple ******
-#complex_simple {
-	padding-top:0;
-	.row {
-		padding:2em 0;
-		position: relative;
-	}
-	.copy {
-		padding-top:7%;
-	}
-	.imagery {
-		background-color:transparent;
-		margin:0;
-		padding:0;
-		text-align: left;
-		img {
-			border-bottom-width:5px;
-			max-width:85%;
-		}
-	}
-}
-
-// ****** Beautifully Easy ******
-#beautifully_easy {
-	background:image-url('marketing/tiles-bg@2x.png') center top no-repeat;
-	background-size:contain;
-	padding:8em 0;
-	.copy {padding-top:8%;}
-	.imagery img {max-width:85%}
-}
-
-// ****** Save Time Tracking ******
-#save_time {
-	padding:6em 0;
-	.copy {padding-top:5%;}
-}
-
-// ****** Any Objectives ******
-#any_objective {
-	padding:0;
-	.main-row {position: relative;}
-	.main-row .copy {
-		height:14em;
-		padding:2% 4% 0 4%;
-		position: absolute;	
-		text-align: center;
-		left:0;
-		right:0;
-		top:7em;
-	}
-	.objective_examples {
-		.large-12 {padding:0;}
-		.mobile_left, .mobile_right {
-			float:none;
-			padding:0;
-			width:100%;
-			&:after{@include clear;}
-		}
-		ul li {
-			@include font-semibold;
-			border:1px darken($dark-green, 5%) solid;
-			text-align: center;
-			padding:2em 0;
-			height:7em;
-			line-height: 2.75em;
-			width:16.666%;
-			span {
-				display: inline-block;
-				line-height: 1.25em;
-				padding:0 1em;
-				vertical-align: middle;
-			}
-		}
-	}
-	#objectives_top, #objectives_bottom {
-		&:after{@include clear;}
-		li {
-			display: inline-block;
-			float: left;
-		}
-		li + li {border-left:0;}
-	}
-	#objectives_left, #objectives_right {
-		li {border-top:0;}
-		li + li {border-bottom:0;}
-	}
-	#objectives_right {
-		position: absolute;
-		right: 0;
-		top:7em;
-		width:16.67%;
-		li {width:100%;}
-	}
-}
-
-// ****** Additional Features ******	
-#additional_features {
-	padding:4em 0 3em 0;
-	.imagery {
-		height:12em;
-		margin-bottom:2.25em;
-		img {
-			max-height:100%;
-			max-width:auto;
-		}
-	}
-}
-#other_benefits{
-	padding:4em 0 2em 0;
-	li {padding:1em;}
-}
-
-// ****** Let's Work Together ******
-#lets_work_together {
-	h1 {margin:.75em 0 1.5em 0;}
-	.buy_benefits li {
-		background-image:image-url('marketing/checkmark@2x.png');
-		background-size:14px 14px;
-	}
-}
 
 // ================== Case studies ================== 
 .about_client .logo {margin:3.5em 0 0 0;}
@@ -184,9 +42,7 @@ footer .contact_us .our_socmedia {margin-top:0;}
 	width:83.5%;
 }
 #simple_fair_pricing .offerings {margin:2em auto 0;}
-#simple_fair_pricing .details .large-5 {
-	a.request_a_demo {margin-top:0;}
-}
+
 #pricing_definitions {
   .large-8:after {@include clear;}
   .large-8 > .large-6 {

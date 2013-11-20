@@ -3,16 +3,14 @@ body .row {max-width:70em;}
 
 // ================== Header ================== 
 header {
-  .contain-to-grid {
-    border-bottom:1px lighten($light-gray, 10%) solid;
-    padding:.5em 0;}
+  .contain-to-grid {padding:.5em 0;}
   nav.top-bar {
     height:auto;
     .button {
       height:auto;
       top:.125em;
     }
-    .title-area .name {width:14.5em;} // Logo size
+    .title-area .name {width:12em;} // Logo size
     .top-bar-section ul.right { // Nav bar
       background:$white;
       margin:.5em 15px 0 0;
@@ -37,22 +35,12 @@ header {
 }
 
 // ================== Homepage ================== 
-// ****** Hero ******
-.hero {
-  background-size:auto;
-  h1 {font-size:2.5em;}
-  h3 {padding:1.5em 0;}
-  .main-row {padding:6.5em 0 8.5em 0;}
-}
-
-// ****** Capture Attention ******
-#capture_attention .copy {padding-top:1%;}
 
 // ****** Any Objectives ******
 #any_objective {
   .main-row .copy {
     height:20em;
-    padding:5% 12% 0 12%;
+    padding:7% 12% 0 12%;
     top:10em;
   }
   .objective_examples ul li {
@@ -61,6 +49,22 @@ header {
   }
   #objectives_right {top:10em;}
 }
+
+// ****** Build tiles fast ******
+#fast_tiles .row {
+  background:image-url('marketing/more_info/tile.png') no-repeat 87% bottom;
+  background-size:246px 300px;
+  .text_container {padding-top:4%;}
+  .arrow {
+    display:block;
+    position: absolute;
+    bottom:7%;
+    left:90%;
+  }
+}
+
+// ****** Trigger engagement ******
+#engagement .text_container {padding-top:7%;}
 
 // ================== Case studies ================== 
 .case_study_title {

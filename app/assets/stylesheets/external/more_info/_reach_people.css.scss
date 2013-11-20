@@ -1,0 +1,15 @@
+#reach_people {
+  background: $blue;
+}
+#reach_people .visual_container, #deployment {
+  text-align: left;
+  h4 {color:lighten($blue, 25%);}
+  ul {
+    list-style-type: circle;
+    margin-left:1em;
+  }
+  li span {
+    @include font-bold;
+    color:$white;
+  }
+}
