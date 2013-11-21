@@ -177,10 +177,10 @@ module TileHelpers
   end
 
   def new_tile_placeholder_text
-    "I AM A BANANA"
+    "Add new tile"
   end
 
   def click_new_tile_placeholder
-    click_link new_tile_placeholder_text
+    page.find('.creation-placeholder a', text: new_tile_placeholder_text).click
   end
 end
