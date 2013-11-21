@@ -177,7 +177,7 @@ module TileHelpers
   end
 
   def new_tile_placeholder_text
-    "Add new tile"
+    "Add New Tile"
   end
 
   def click_new_tile_placeholder

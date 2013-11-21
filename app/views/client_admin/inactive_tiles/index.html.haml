@@ -6,5 +6,4 @@
     .large-12.columns
       %h2 All Inactive
       = link_to "Minimize section", client_admin_tiles_path, :class => :all_inactive
-      <a class="create_new_tile" href="/client_admin/tiles/new">+ Add new tile</a>
       = render partial: "shared/tiles/archive"
