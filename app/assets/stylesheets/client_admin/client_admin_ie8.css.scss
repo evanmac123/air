@@ -12,3 +12,7 @@ header {
 .edit_tiles_content {border-top:0;}
 
 #scheduled_followups h3 {margin-bottom:.95em;}
+
+.creation-placeholder a {
+  @include link(lighten($blue, 20%));
+}

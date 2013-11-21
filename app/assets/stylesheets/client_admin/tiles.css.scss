@@ -69,3 +69,24 @@ body.client_admin-inactive_tiles #active_tiles,
   background: $tile-wall-bg;
   h2 {color:$text-color;}
 }
+
+// Create new tile placeholder link
+.creation-placeholder a {
+  border-color:lighten($blue, 10%);
+  display: block;
+  @include link(lighten($blue, 20%));
+  padding-top:62%;
+  position: relative;
+  text-align: center;
+  &:hover {border-color:lighten($blue, 7%);}
+  &:after {
+    content:"+";
+    display: block;
+    font-size:5em;
+    position: absolute;
+      top:35%;
+      left:41%;
+      // margin-left:-.5em;
+      // margin:0 auto;
+  }
+}
