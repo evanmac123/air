@@ -252,7 +252,7 @@ module SteakHelperMethods
   end
 
   def expect_marketing_page_blurb
-    expect_content "The bulletin board reinvented"
+    expect_content "Get Your Message Heard"
   end
 
   def expect_disabled(element)
