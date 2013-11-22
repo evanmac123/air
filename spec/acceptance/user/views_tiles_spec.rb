@@ -1,85 +1,105 @@
 require 'acceptance/acceptance_helper'
 
 feature 'User views tile' do
-  before(:each) do
-    @demo = FactoryGirl.create(:demo)
-    @kendra = FactoryGirl.create(:user, demo_id: @demo.id, password: 'milking', session_count: 5)
-
-    ['make toast', 'discover fire'].each do |tile_headline|
-      FactoryGirl.create(:tile, headline: tile_headline, demo: @demo)
-    end
-
-    @make_toast = Tile.find_by_headline('make toast')
-    @discover_fire = Tile.find_by_headline('discover fire')
-    @make_toast.update_attributes(activated_at: Time.now - 60.minutes)
-    @discover_fire.update_attributes(activated_at: Time.now)
-
-    bypass_modal_overlays(@kendra)
-    signin_as(@kendra, 'milking')
+  def no_tiles_message
+    "You've completed all available tiles! Check back later for more."
   end
 
-  scenario 'views tile image', js: true do
-    # Click on the first tile, and it should take you to the tiles  path
-    click_link 'discover fire'
-    should_be_on tiles_path
-
-    expect_current_tile_id(@discover_fire)
-    page.find("#next").click
-    expect_current_tile_id(@make_toast)
-  end
-
-  scenario 'sees counter', js: true do
-    visit tiles_path
-    expect_content "TILE 1 OF 2"
-
-    page.find("#next").click
-    expect_content "TILE 2 OF 2"
-
-    page.find("#next").click
-    expect_content "TILE 1 OF 2"
-
-    page.find("#prev").click
-    expect_content "TILE 2 OF 2"
-
-    page.find("#prev").click
-    expect_content "TILE 1 OF 2"
-  end
-
-  scenario "it should have the right position when you click to a non-first tile", js: true do
-    click_link "make toast"
-    expect_no_content "TILE 1 OF 2"
-    expect_content    "TILE 2 OF 2"
-  end
-
-  context "when a tile has no attached link address" do
+  context "when there are tiles to be seen" do
     before(:each) do
-      @make_toast.link_address.should be_blank
+      @demo = FactoryGirl.create(:demo)
+      @kendra = FactoryGirl.create(:user, demo_id: @demo.id, password: 'milking', session_count: 5)
+
+      ['make toast', 'discover fire'].each do |tile_headline|
+        FactoryGirl.create(:tile, headline: tile_headline, demo: @demo)
+      end
+
+      @make_toast = Tile.find_by_headline('make toast')
+      @discover_fire = Tile.find_by_headline('discover fire')
+      @make_toast.update_attributes(activated_at: Time.now - 60.minutes)
+      @discover_fire.update_attributes(activated_at: Time.now)
+
+      bypass_modal_overlays(@kendra)
+      signin_as(@kendra, 'milking')
     end
 
-    scenario "it should not be wrapped in a link" do
-      visit tile_path(@make_toast)
-      toast_image = page.find("img[alt='make toast']")
-      parent = page.find(:xpath, toast_image.path + "/..")
-
-      parent.tag_name.should_not == "a"
-      parent.click
+    scenario 'views tile image', js: true do
+      # Click on the first tile, and it should take you to the tiles  path
+      click_link 'discover fire'
       should_be_on tiles_path
+
+      expect_current_tile_id(@discover_fire)
+      page.find("#next").click
+      expect_current_tile_id(@make_toast)
+    end
+
+    scenario 'sees counter', js: true do
+      visit tiles_path
+      expect_content "TILE 1 OF 2"
+
+      page.find("#next").click
+      expect_content "TILE 2 OF 2"
+
+      page.find("#next").click
+      expect_content "TILE 1 OF 2"
+
+      page.find("#prev").click
+      expect_content "TILE 2 OF 2"
+
+      page.find("#prev").click
+      expect_content "TILE 1 OF 2"
+    end
+
+    scenario "it should have the right position when you click to a non-first tile", js: true do
+      click_link "make toast"
+      expect_no_content "TILE 1 OF 2"
+      expect_content    "TILE 2 OF 2"
+    end
+
+    context "when a tile has no attached link address" do
+      before(:each) do
+        @make_toast.link_address.should be_blank
+      end
+
+      scenario "it should not be wrapped in a link" do
+        visit tile_path(@make_toast)
+        toast_image = page.find("img[alt='make toast']")
+        parent = page.find(:xpath, toast_image.path + "/..")
+
+        parent.tag_name.should_not == "a"
+        parent.click
+        should_be_on tiles_path
+      end
+    end
+
+    context "when a tile has an attached link address" do
+      before(:each) do
+        @make_toast.update_attributes(link_address: edit_account_settings_url) # easier to test with some internal path
+      end
+
+      scenario "it should be wrapped in a link to that address" do
+        visit tile_path(@make_toast)
+        toast_image = page.find("img[alt='make toast']")
+        parent = page.find(:xpath, toast_image.path + "/..")
+
+        parent.tag_name.should == "a"
+        parent.click
+        should_be_on edit_account_settings_path
+      end
+    end
+
+    it "should not show the no-content message" do
+      expect_no_content no_tiles_message
     end
   end
 
-  context "when a tile has an attached link address" do
-    before(:each) do
-      @make_toast.update_attributes(link_address: edit_account_settings_url) # easier to test with some internal path
-    end
+  context "when there are no tiles to be seen" do
+    it "should have a helpful message" do
+      user = FactoryGirl.create(:user, :claimed)
+      user.demo.tiles.should be_empty
 
-    scenario "it should be wrapped in a link to that address" do
-      visit tile_path(@make_toast)
-      toast_image = page.find("img[alt='make toast']")
-      parent = page.find(:xpath, toast_image.path + "/..")
-
-      parent.tag_name.should == "a"
-      parent.click
-      should_be_on edit_account_settings_path
+      visit activity_path(as: user)
+      expect_content no_tiles_message
     end
   end
 end
