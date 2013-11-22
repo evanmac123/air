@@ -20,14 +20,20 @@
 
 .clients {
   .a_client {
-    width:25%;
+    border:1px $light-gray solid;
+    border-radius:$border-radius;
+    width:23%;
+    margin:0 1%;
     position: relative;
+    text-align: center;
     img {
-    position: absolute;
-    top:50%;
-    bottom:50%;
-    margin:auto;
-    width:80%;
+      position: absolute;
+      left:0;
+      right:0;
+      top:50%;
+      bottom:50%;
+      margin:auto;
+      width:80%;
     }
   }
 }

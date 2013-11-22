@@ -9,9 +9,19 @@ body .content {padding:0;}
   padding:2em 0;
   .landing_welcome_box {
     background: $white;
+    border-radius:$border-radius;
     padding:2em 1em;
     margin:0 auto;
     &:after {@include clear;}
+  }
+  .editorial_divider.clients_header {
+    margin-bottom:1em;
+    p.editorial_title {
+      @include font-semibold;
+      color:$dark-gray;
+      font-size:1em;
+      text-transform: none;
+    }
   }
 }
 
@@ -19,13 +29,22 @@ body .content {padding:0;}
   margin-bottom:4em;
 }
 
+.get_your_board, .start_form {text-align: center;}
 .get_your_board {
-  text-align: center;
-  h4 {color:$gray; margin:1em auto 2em;}
-  input, .browse_a_board {display: block;}
+  h4 {
+    color:$gray; 
+    margin:1em auto 2em;
+    span {color:$red;}
+  }
+}
+.start_form {
+  margin-bottom:6em;
   input[type="text"] {
     border-radius:$border-radius;
     font-size:1.25em;
+    height:3em;
+    padding-top:1em;
+    padding-bottom:1em;
     width:100%;
   }
   input[type="submit"] {
@@ -35,12 +54,10 @@ body .content {padding:0;}
     padding-right:0;
   }
   .browse_a_board {
-    @include app-button($med-gray);
+    @include light-button($dark-green);
+    display:inline-block;
   }
-  input[type="submit"], .browse_a_board {
-    width:100%;
-  }
-
+  input[type="submit"] {width:100%;}
   form {
     margin-bottom:0;
     &:after {
@@ -76,7 +93,10 @@ body .content {padding:0;}
 
 .clients {
   &:after {@include clear;}
-  h2 {text-align: center;}
+  h2 {
+    margin-bottom:.75em;
+    text-align: center;
+  }
   .a_client {
     display: inline-block;
     float:left;
@@ -91,7 +111,9 @@ body .content {padding:0;}
   }
 }
 
-
-
-
+.more_info {
+  padding:1.5em 0 1em;
+  text-align: center;
+  a {@include light-button($blue);}
+}
 

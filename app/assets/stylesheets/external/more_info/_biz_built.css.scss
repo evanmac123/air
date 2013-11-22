@@ -8,15 +8,28 @@
   }
   .clients {
     padding-top:1em;
-    padding-bottom:2em;
+    padding-bottom:4em;
     .quote {
       @include form-group;
-      .name {padding-bottom:0;}
+      &:after{@include clear;}
+      .name {
+        float: left;
+        padding-bottom:0;
+      }
+      .read_case_study {
+        @include light-button($dark-green);
+        @include caption;
+        float: right;
+      }
     }
     .logo {
       max-width:10em;
       margin:1em auto 0;
     }
   }
-  .next_steps {margin-top:3em;}
+  .next_steps {
+    padding-top:3em;
+  }
 }
+
+

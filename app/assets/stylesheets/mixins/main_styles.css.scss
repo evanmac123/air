@@ -145,16 +145,17 @@ $border-light:      1px #fff solid;
 
 @mixin form-group {
   background: $form-bg;
-  @include box-down-shadow(lighten($light-gray, 5%));
+  @include box-down-shadow(darken($light-gray, 5%));
   border:1px lighten($form-bg, 2%) solid;
   border-radius:$border-radius;
   padding:1em;
   &:after{@include clear;}
 }
 
-.editorial_divider {
+.editorial_divider { // Default case
   border-top:1px $tile-wall-bg solid;
   position: relative;
+  text-align: center;
   .editorial_title {
     @include caption;
     background:$tile-wall-bg;
@@ -164,8 +165,14 @@ $border-light:      1px #fff solid;
     margin:0 auto;
     padding:.5em 1em;
     position: relative;
+    top: -1em;
   }
 }
+@mixin editorial_divider($color) {
+  border-color:$color;
+  .editorial_title {background:$color;}
+}
+
 
 // ------------------------ * Links & buttons * ------------------------
 @mixin link($color) {
@@ -219,7 +226,7 @@ a, a:link, a:visited {@include link($blue);}
   background:transparent;
   border:1px $outlineColor solid;
   border-radius:$border-radius;
-  color:$outlineColor;
+  color:$outlineColor!important;
   display: inline-block;
   @include font-semibold;
   font-size:1em;
@@ -230,7 +237,7 @@ a, a:link, a:visited {@include link($blue);}
   text-transform: capitalize;
   &:hover {
     border-color:darken($outlineColor, 11%);
-    color:darken($outlineColor, 11%);
+    color:darken($outlineColor, 11%)!important;
   }
   &:active {
     @include ease(0);
