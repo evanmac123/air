@@ -75,6 +75,14 @@ class Demo < ActiveRecord::Base
     [TileCreationPlaceholder.new] + archive_tiles
   end
 
+  def archive_tiles_with_placeholders
+    add_odd_row_placeholders! archive_tiles_with_creation_placeholder
+  end
+
+  def active_tiles_with_placeholders
+    add_odd_row_placeholders! active_tiles
+  end
+
   def draft_tiles
     tiles.draft
   end
@@ -389,5 +397,13 @@ class Demo < ActiveRecord::Base
     end
 
     result
+  end
+
+  def add_odd_row_placeholders!(tiles)
+    odd_row_length = tiles.length % 4
+    placeholders_to_add = odd_row_length == 0 ? 0 : 4 - odd_row_length
+
+    placeholders_to_add.times { tiles << TileOddRowPlaceholder.new }
+    tiles
   end
 end

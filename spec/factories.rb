@@ -195,6 +195,7 @@ FactoryGirl.define do
     value "goshdarnit"
     association :demo
   end
+
   factory :incoming_sms do
   end
 
@@ -208,6 +209,10 @@ FactoryGirl.define do
 
     trait :archived do
       status Tile::ARCHIVE
+    end
+
+    trait :active do
+      status Tile::ACTIVE
     end
   end
 

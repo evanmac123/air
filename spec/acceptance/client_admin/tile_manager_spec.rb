@@ -34,6 +34,22 @@ feature 'Client admin and the digest email for tiles' do
     have_link tile.headline, href: client_admin_tile_path(tile)
   end
 
+  def expect_tile_placeholders(section_id, expected_count)
+    page.all("##{section_id} table tr:last td.odd-row-placeholder").count.should == expected_count
+  end
+
+  def expect_inactive_tile_placeholders(expected_count)
+    expect_tile_placeholders("archive", expected_count)
+  end
+
+  def expect_active_tile_placeholders(expected_count)
+    expect_tile_placeholders("active", expected_count)
+  end
+
+  def expect_all_inactive_tile_placeholders(expected_count)
+    expect_tile_placeholders("archived_tiles", expected_count)
+  end
+
   # -------------------------------------------------
 
   context 'No tiles exist for any of the types' do
@@ -230,5 +246,76 @@ feature 'Client admin and the digest email for tiles' do
     visit tile_manager_page
     click_new_tile_placeholder
     should_be_on new_client_admin_tile_path
+  end
+
+  it "pads odd rows, in both the inactive and active sections, with blank placeholder cells, so the table comes out right" do
+    visit tile_manager_page
+
+    # No tiles, except the "Add Tile" placeholder in the inactive section, sooooooo...
+    expect_inactive_tile_placeholders(3)
+
+    FactoryGirl.create(:tile, :archived, demo_id: admin.demo_id)
+    visit tile_manager_page
+    expect_inactive_tile_placeholders(2)
+
+    FactoryGirl.create(:tile, :archived, demo_id: admin.demo_id)
+    visit tile_manager_page
+    expect_inactive_tile_placeholders(1)
+
+    FactoryGirl.create(:tile, :archived, demo_id: admin.demo_id)
+    visit tile_manager_page
+    expect_inactive_tile_placeholders(0)
+
+    FactoryGirl.create(:tile, :archived, demo_id: admin.demo_id)
+    visit tile_manager_page
+    # There's now the creation placeholder, plus four other archived tiles.
+    # If we DID show all of them, there's be an odd row with 1 tile, and we'd
+    # expect 3 placeholders. But we only show the first 4 archive tiles
+    # (really the first 3 + creation placeholder) and that row's full up now,
+    # so...
+    expect_inactive_tile_placeholders(0)
+
+    # And now let's do the active ones
+    expect_active_tile_placeholders(0)
+
+    FactoryGirl.create(:tile, :active, demo_id: admin.demo_id)
+    visit tile_manager_page
+    expect_active_tile_placeholders(3)
+
+    FactoryGirl.create(:tile, :active, demo_id: admin.demo_id)
+    visit tile_manager_page
+    expect_active_tile_placeholders(2)
+
+    FactoryGirl.create(:tile, :active, demo_id: admin.demo_id)
+    visit tile_manager_page
+    expect_active_tile_placeholders(1)
+
+    FactoryGirl.create(:tile, :active, demo_id: admin.demo_id)
+    visit tile_manager_page
+    expect_active_tile_placeholders(0)
+
+    FactoryGirl.create(:tile, :active, demo_id: admin.demo_id)
+    visit tile_manager_page
+    expect_active_tile_placeholders(3)
+
+    # And now let's look at the full megillah of inactive tiles
+    visit client_admin_inactive_tiles_path
+    expect_all_inactive_tile_placeholders(3)
+
+    Tile.archive.last.destroy
+    visit client_admin_inactive_tiles_path
+    expect_all_inactive_tile_placeholders(0)
+
+    Tile.archive.last.destroy
+    visit client_admin_inactive_tiles_path
+    expect_all_inactive_tile_placeholders(1)
+
+    Tile.archive.last.destroy
+    visit client_admin_inactive_tiles_path
+    expect_all_inactive_tile_placeholders(2)
+
+    Tile.archive.last.destroy
+    visit client_admin_inactive_tiles_path
+    expect_all_inactive_tile_placeholders(3)
   end
 end
