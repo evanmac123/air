@@ -30,14 +30,7 @@ body.client_admin-tiles-index, body.client_admin-inactive_tiles {
       td:nth-of-type(3) {padding-left: .5em;}
       td:nth-of-type(4) {text-align: right;}
     }
-    .no_tiles_message {
-      background: image-url('v5/bg_light.png');
-      display: block;
-      margin:0 auto 3em;
-      padding:.5em 1em;
-      text-align: center;
-      width:35%;
-    }
+    .no_tiles_message {margin:0 auto 3em;}
   }
   #archived_tiles {
     background:$blue;
