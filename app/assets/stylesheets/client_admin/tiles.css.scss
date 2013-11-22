@@ -35,6 +35,7 @@ body.client_admin-tiles-index, body.client_admin-inactive_tiles {
   #archived_tiles {
     background:$blue;
     h2, .all_inactive {display: inline-block;}
+    .tile_thumbnail.placeholder_tile {border-color:lighten($blue, 13%);}
     .create_new_tile {
       @include app-button($dark-green);
       float: right;
