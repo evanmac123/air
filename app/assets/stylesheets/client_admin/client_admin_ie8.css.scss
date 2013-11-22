@@ -16,5 +16,5 @@ header {
 .creation-placeholder a {
   color:$white;
   &:hover {color:$white;}
-  &:after {padding:20px 14px 20px 14px;}
+  &:before {height:65px;}
 }

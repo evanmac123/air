@@ -6,7 +6,18 @@ body {
 .row {max-width:$large-desktop;}
 
 /* -- Welcome modal -- */
-#get_started_lightbox {top:6em!important;}
+#get_started_lightbox {
+  // margin-left:-224px !important;
+  margin-left:-284px !important;
+  left:50%!important;
+  top:5.45em!important;
+  &:after {
+    @include arrow-left($white, 1em);
+    left:-2em;
+    top:1.5em;
+    bottom:auto;
+  }
+}
 
 /* -- Tile wall -- */
 #tile_wall {

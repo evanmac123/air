@@ -7,7 +7,7 @@ body.client_admin-tiles-show {
     margin-bottom:1em;
     &.back_to_all {@include app-button($blue);}
     &.tile_turn_on {@include app-button($dark-green);}
-    &.tile_turn_off {@include app-button($red);}
+    &.tile_turn_off {@include app-button($med-gray);}
     &.edit_this_tile {@include light-button($gray);}
   }
   h5 {

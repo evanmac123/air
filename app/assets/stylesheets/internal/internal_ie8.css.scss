@@ -53,8 +53,7 @@ header {
 
 /* -- Welcome modal -- */
 #get_started_lightbox {
-  margin-left:-465px!important;
-  top:6.5em!important;
+  // margin-left:-465px!important;
 }
 
 /* -- Full size tile -- */
@@ -99,3 +98,4 @@ header {
   display: block;
   padding-bottom:.5em;
 }
+#search #search_string {padding:.85em;}

@@ -10,9 +10,11 @@
     #search_string {
         float:left;
         height:40px;
+        line-height: 1em;
         margin:0; 
-        padding:.85em;
+        padding:auto .85em;
         width:80%;
+        vertical-align: middle;
     }
     #find_button {
         @include app-button($dark-green);

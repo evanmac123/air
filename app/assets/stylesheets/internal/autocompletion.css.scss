@@ -53,9 +53,11 @@ a.remove_referrer{
   width: 100%;
   position: relative;
   &:hover{border-color:$blue;}
+  &:after {@include clear;}
+  .image {width:75px;}
   img {
     border:1px $light-gray inset;
-    width:75px;
+    width:100%;
   }
   div.info {
     div.bit:first-child {
@@ -209,7 +211,6 @@ div.helper {
   }
 }
 
-.clear{clear: both;}
 
 
 #hide_me_while_selecting #submit_invite_friend{
@@ -254,7 +255,7 @@ div.helper {
   position: absolute;
   right: 7px;
   bottom: 8px;
-  color: $light-gray;
+  color: $med-gray;
   font-size: .75em;
 }
 #why_invite{
