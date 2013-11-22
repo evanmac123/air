@@ -96,7 +96,7 @@ feature 'Client admin and the digest email for tiles' do
 
       first(:link, "Cancel").click
 
-      page.should contain 'Follow-up email for Monday, July 01, 2013 cancelled'
+      page.should contain 'FOLLOW-UP EMAIL FOR MONDAY, JULY 01, 2013 CANCELED'
       page.should contain 'Tuesday, July 02, 2013'
       page.should contain 'Wednesday, July 03, 2013'
     end
@@ -159,7 +159,7 @@ feature 'Client admin and the digest email for tiles' do
 
       first(:link, "Cancel").click
 
-      page.should contain 'Follow-up email for Monday, July 01, 2013 cancelled'
+      page.should contain 'FOLLOW-UP EMAIL FOR MONDAY, JULY 01, 2013 CANCELED'
       page.should contain 'Tuesday, July 02, 2013'
       page.should contain 'Wednesday, July 03, 2013'
     end
