@@ -159,7 +159,7 @@ class Tile < ActiveRecord::Base
   end
 
   def text_of_completion_act
-    "completed the tile: \"#{headline}\"."
+    "completed the tile: \"#{headline}\""
   end
 
   def to_form_builder
