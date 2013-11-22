@@ -6,7 +6,7 @@ feature 'Sees feedback if they search for users and come up empty' do
   end
 
   def expect_empty_result_message(search_string)
-    expect_content "Sorry, I couldn't find any users with a name like \"#{search_string.downcase}\""
+    expect_content "Sorry, I couldn't find any users with the name \"#{search_string.downcase}\""
   end
 
   it "should have a cheerful message" do
