@@ -4,7 +4,7 @@ module TileBatchHelper
     when :mobile
       2
     when :tablet
-      3
+      4
     else
       4
     end

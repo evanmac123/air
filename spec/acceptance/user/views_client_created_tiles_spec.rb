@@ -123,7 +123,7 @@ feature 'User views tiles' do
     end
   end
 
-  {:mobile => 2, :tablet => 3, :desktop => 4}.each do |device_type, expected_tile_batch_size|
+  {:mobile => 2, :tablet => 4, :desktop => 4}.each do |device_type, expected_tile_batch_size|
     expected_first_batch_size = expected_tile_batch_size * 2
 
     context "loaded in batches which on #{device_type} have #{expected_tile_batch_size} tiles apiece, with a \"See More\" link" do
