@@ -5,6 +5,7 @@
       =link_to "Add", users_path, :class => "find_users small_button"
     - else
       %h3= "#{@user.first_name}'s connections"
+
     - unless @display_user_stats
       = render 'follow_link'
     - else      

@@ -5,5 +5,4 @@
     = hidden_field_tag :friend_link, :follow_to_see_activity
     %p.indent_same_as_table
       = "To see #{@user.name.split.first}'s information,"
-      = link_to "Connection", '#nowhere', :onclick => "$('form.follow_to_see').submit()"
-      = @user.her_him
+      = (link_to ("connect with " + @user.her_him), '#', :onclick => "$('form.follow_to_see').submit()") + "."
