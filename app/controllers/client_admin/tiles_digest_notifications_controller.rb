@@ -7,12 +7,28 @@ class ClientAdmin::TilesDigestNotificationsController < ClientAdminBaseControlle
     unclaimed_users_also_get_digest = (params[:digest_send_to] == 'true' ? true : false)
 
     cutoff_time = @demo.tile_digest_email_sent_at
-    TilesDigestMailer.delay.notify_all @demo, unclaimed_users_also_get_digest, follow_up_days, cutoff_time
+    schedule_digest_and_followup! @demo, unclaimed_users_also_get_digest, follow_up_days, cutoff_time
 
     @demo.update_attributes tile_digest_email_sent_at: Time.now, unclaimed_users_also_get_digest: unclaimed_users_also_get_digest
 
     flash[:success] = "Tiles digest email was sent"
     flash[:digest_sent_flag] = true
+
     redirect_to :back
+  end
+
+  protected
+
+  def schedule_digest_and_followup!(demo, unclaimed_users_also_get_digest, follow_up_days, cutoff_time)
+    tile_ids = demo.digest_tiles(cutoff_time).pluck(:id)
+
+    TilesDigestMailer.delay.notify_all demo, unclaimed_users_also_get_digest, tile_ids
+
+    if follow_up_days > 0
+      FollowUpDigestEmail.create!(demo_id:  demo.id,
+                                 tile_ids: tile_ids,
+                                 send_on:  Date.today + follow_up_days.days,
+                                 unclaimed_users_also_get_digest: unclaimed_users_also_get_digest) 
+    end
   end
 end

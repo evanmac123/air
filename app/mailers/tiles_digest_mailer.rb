@@ -15,14 +15,8 @@ class TilesDigestMailer < ActionMailer::Base
     FollowUpDigestEmail.send_follow_up_digest_email.each { |followup| TilesDigestMailer.delay(run_at: noon).notify_all_follow_up(followup.id) }
   end
 
-  def notify_all(demo, unclaimed_users_also_get_digest, follow_up_days, cutoff_time)
-    tile_ids = demo.digest_tiles(cutoff_time).pluck(:id)
+  def notify_all(demo, unclaimed_users_also_get_digest, tile_ids)
     user_ids = demo.users_for_digest(unclaimed_users_also_get_digest).pluck(:id)
-
-    FollowUpDigestEmail.create!(demo_id:  demo.id,
-                               tile_ids: tile_ids,
-                               send_on:  Date.today + follow_up_days.days,
-                               unclaimed_users_also_get_digest: unclaimed_users_also_get_digest) if follow_up_days > 0
 
     user_ids.each { |user_id| TilesDigestMailer.delay.notify_one(demo.id, user_id, tile_ids, 'New Tiles') }
   end

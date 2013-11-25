@@ -56,6 +56,15 @@ feature 'Client admin and the digest email for tiles' do
   def expect_digest_sent_content
     expect_content "Your tiles have been sent! You can monitor the Activity page to see how users interact."
   end
+
+  def follow_up_header_copy
+    'Scheduled Follow-Up'  
+  end
+
+  def expect_follow_up_header
+    expect_content follow_up_header_copy
+  end
+
 # -------------------------------------------------
 
   context 'No tiles exist for digest email' do
@@ -82,14 +91,14 @@ feature 'Client admin and the digest email for tiles' do
     end
 
     scenario 'Text is correct when no follow-up emails are scheduled to be sent' do
-      expect_no_content 'Scheduled Follow-Up'
+      expect_no_content follow_up_header_copy
     end
 
     scenario 'Text is correct when follow-up emails are scheduled to be sent, and emails can be cancelled', js: :webkit do  # (Didn't work with poltergeist)
       create_follow_up_emails
       visit client_admin_share_path(as: admin)
 
-      page.should contain 'Scheduled Follow-Up'
+      expect_follow_up_header
       page.should contain 'Monday, July 01, 2013'
       page.should contain 'Tuesday, July 02, 2013'
       page.should contain 'Wednesday, July 03, 2013'
@@ -137,7 +146,7 @@ feature 'Client admin and the digest email for tiles' do
       create_tile
       visit client_admin_share_path(as: admin)
 
-      expect_no_content 'Scheduled Follow-Up'
+      expect_no_content follow_up_header_copy
     end
 
     scenario 'Text is correct when follow-up emails are scheduled to be sent, and emails can be cancelled', js: :webkit do
@@ -152,7 +161,7 @@ feature 'Client admin and the digest email for tiles' do
       create_follow_up_emails
       visit client_admin_share_path(as: admin)
 
-      page.should contain 'Scheduled Follow-Up'
+      expect_follow_up_header
       page.should contain 'Monday, July 01, 2013'
       page.should contain 'Tuesday, July 02, 2013'
       page.should contain 'Wednesday, July 03, 2013'
@@ -216,6 +225,16 @@ feature 'Client admin and the digest email for tiles' do
           page.should_not contain 'Headline 2'
 
           page.should have_num_tiles(0)
+        end
+      end
+
+      scenario 'and follow-up can be cancelled immediately' do
+        on_day '7/6/2013' do
+          visit client_admin_share_path(as: admin)
+          change_follow_up_day 'Thursday'
+          click_button "Send digest now"
+          expect_follow_up_header
+          expect_content "Thursday, July 11, 2013"
         end
       end
 

@@ -13,46 +13,6 @@ describe 'Follow-up email scheduled by delayed job' do
 
   #----------------------------------------------------------------------------------
 
-  it 'follow-up records get created with the correct content when appropriate' do
-    demo_1 = FactoryGirl.create :demo
-    FactoryGirl.create :user, demo: demo_1
-    FactoryGirl.create_list :tile, 2, demo: demo_1
-
-    demo_2 = FactoryGirl.create :demo
-    FactoryGirl.create :user, demo: demo_2
-    FactoryGirl.create_list :tile, 2, demo: demo_2
-
-    #-----------------------------------------------------
-    # 0 follow-up days signals that no follow-up email should be scheduled
-
-    TilesDigestMailer.notify_all(demo_1, true, 0, demo_1.tile_digest_email_sent_at)
-    FollowUpDigestEmail.count.should == 0
-
-    TilesDigestMailer.notify_all(demo_2, false, 0, demo_2.tile_digest_email_sent_at)
-    FollowUpDigestEmail.count.should == 0
-
-    #-----------------------------------------------------
-    # Test positive follow-up days for both cases of claimed vs. all users getting follow-ups
-
-    TilesDigestMailer.notify_all(demo_1, true, 1, demo_1.tile_digest_email_sent_at)
-    FollowUpDigestEmail.count.should == 1
-
-    followup = FollowUpDigestEmail.first
-    followup.demo_id.should == demo_1.id
-    followup.tile_ids.sort.should == demo_1.tiles.pluck(:id).sort
-    followup.send_on.should == Date.today + 1.day
-    followup.unclaimed_users_also_get_digest.should be_true
-
-    TilesDigestMailer.notify_all(demo_2, false, 4, demo_2.tile_digest_email_sent_at)
-    FollowUpDigestEmail.count.should == 2
-
-    followup = FollowUpDigestEmail.last
-    followup.demo_id.should == demo_2.id
-    followup.tile_ids.sort.should == demo_2.tiles.pluck(:id).sort
-    followup.send_on.should == Date.today + 4.days
-    followup.unclaimed_users_also_get_digest.should be_false
-  end
-
   # 'TilesDigestMailer#notify_all_follow_up_from_delayed_job' is the method that the cron-job runs once a day.
   # This spec also tests that 'FollowUpDigestEmail#send_follow_up_digest_email' returns the correct follow-up's for a given day.
   #
@@ -111,7 +71,7 @@ describe 'Follow-up email scheduled by delayed job' do
 
     FactoryGirl.create_list :user, 3, :claimed, demo: demo
 
-    TilesDigestMailer.notify_all(demo, false, 4, demo.tile_digest_email_sent_at)
+    TilesDigestMailer.notify_all(demo, false, [demo.tiles.pluck(:id)])
     crank_dj_clear
 
     ActionMailer::Base.deliveries.should have(3).emails
