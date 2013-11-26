@@ -5,7 +5,7 @@ header {
   $header-total-height:47px;
   .row {
     position: relative;
-    #logo, #user_info .user_info_sections, #me_toggle {
+    #user_info .user_info_sections, #me_toggle {
       padding-top:.35em;
       padding-bottom:.35em;
     }
@@ -13,13 +13,13 @@ header {
 
   // Logo
   #logo a {
-    min-height:$top-bar-height;
+    height: 2.875rem;
     margin:0;
     position: relative;
     width:100%;
     max-width:10em;
     img {
-      margin: auto;
+      margin: auto auto auto 0;
       max-height: 100%;
       position: absolute;  
       bottom: 0; left: 0; top: 0; right: 0;
@@ -39,7 +39,7 @@ header {
         position: absolute;
         text-align: center;
         text-transform: capitalize;
-        margin:-1em auto 0;
+        margin:-1em auto 0 1em;
         top:50%;
         bottom:50%;
         left:0;

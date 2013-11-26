@@ -25,6 +25,7 @@ body {
 header {
   border-bottom:1px darken($header-color, 5%) solid;
   .small_cap {margin-bottom:.25em;}
+  #logo a {height: 2.875em;}
   #logo a:hover {img {visibility: hidden;}}
   #manage_board, #user_info #me_toggle {&:after {font-family:'Lucida Sans Unicode', 'Arial Unicode MS', Arial;}}
 
