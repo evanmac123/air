@@ -1,7 +1,7 @@
 require 'csv'
 
 class ClientAdmin::TilesReportsController < ClientAdminBaseController
-  def index
+  def show
     demo = current_user.demo
     num_claimed_users = demo.claimed_user_count
 
@@ -13,8 +13,6 @@ class ClientAdmin::TilesReportsController < ClientAdminBaseController
     @archive_tiles = demo.archive_tile_report_rows
 
     respond_to do |format|
-      format.html
-
       format.csv do
         @tiles = params[:report] == Tile::ACTIVE ? @active_tiles : @archive_tiles
         set_csv_filename

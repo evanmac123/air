@@ -6,6 +6,7 @@
     .large-12.columns
       %h2 Inactive
       = link_to "Expand to show all", client_admin_inactive_tiles_path, :class => :all_inactive
+      = link_to "Download CSV", client_admin_tiles_report_path(report: Tile::ARCHIVE, format: "csv")
 
       %div#archive= render partial: 'shared/tiles/archive'
 
@@ -15,6 +16,7 @@
   .row
     .large-12.columns
       %h2 Active
+      = link_to "Download CSV", client_admin_tiles_report_path(report: Tile::ACTIVE, format: "csv")
       %div#active=  render partial: 'active'
 
 - timeout_in_msecs = ThumbnailsController::THUMBNAIL_POLL_DELAY * 1000
