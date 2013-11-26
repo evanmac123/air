@@ -44,7 +44,7 @@ body.client_admin-tiles-index, body.client_admin-inactive_tiles {
       color:$white;
     }
     .all_inactive {
-      @include light-button($light-gray);
+      @include light-button($dark-green);
       // font-size:.875em;
       @include caption;
         position: relative;
@@ -92,4 +92,27 @@ body.client_admin-inactive_tiles #active_tiles,
     padding-top:32px;
   }
   &:hover:before {background:darken($dark-green, 7%);}
+}
+
+// Links to download CSV tile reports
+a.download_csv {
+  @include light-button($med-gray);
+  @include caption;
+  color: $med-gray !important;
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  vertical-align: text-bottom;
+  // Copied the following over from main_styles since IE won't respect the 
+  // color we set above unless we !important it, and we still want our hover 
+  // effects to work.
+  &:hover {  
+    border-color:darken($med-gray, 11%);
+    color:darken($med-gray, 11%) !important;
+  }
+  &:active {
+    @include ease(0);
+    background:$med-gray;
+    color:$white;
+  }
 }

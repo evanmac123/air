@@ -5,7 +5,7 @@ feature 'Sees all inactive tiles on a separate page' do
   let(:demo)         { client_admin.demo }
 
   def click_see_all_inactive_tiles_link
-    click_link "Expand to show all"
+    click_link "Show all"
   end
 
   it "should show all inactive tiles in the demo" do

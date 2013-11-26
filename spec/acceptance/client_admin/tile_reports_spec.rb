@@ -5,7 +5,7 @@ feature 'client admin views tiles reports' do
   let(:demo)  { admin.demo  }
 
   def download_links
-    page.all("a", text: "Download CSV")
+    page.all("a", text: "Download stats")
   end
 
   def click_download_active_link
