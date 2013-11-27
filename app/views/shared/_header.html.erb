@@ -12,7 +12,6 @@
           <li><%= link_to "My Profile", current_user, :id => 'my_profile', :class => 'nav-activity-class' %></li>
           <li><%= link_to "Find users", users_path, :class => 'nav-directory' %></li>
           <li><%= link_to "Settings", edit_account_settings_path, :class => 'nav-settings' %></li>
-          <li><%= link_to "FAQ", faq_path, :class => 'nav-help' %></li>
           <% if current_user.authorized_to?(:site_admin) %>
             <li><%= link_to "Site admin", admin_path, :class => 'nav-admin', id: 'nav-site-admin-link' %></li>
           <% end %>

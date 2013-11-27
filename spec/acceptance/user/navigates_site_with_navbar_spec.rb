@@ -13,8 +13,7 @@ feature 'User navigates site with navbar' do
     'Sign Out'   => "sign_in_path",
     'Home'       => 'activity_path',
     'My Profile' => 'user_path(@joe)',
-    'Find users' => 'users_path',
-    'FAQ'        => 'faq_path'
+    'Find users' => 'users_path'
   }.each do |link_text, page_path_code|
     it "should have a working link to #{link_text}" do
       click_link link_text
