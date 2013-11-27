@@ -81,13 +81,16 @@ class CustomInvitationEmail < ActiveRecord::Base
 
     custom_subject_with_referrer: "[referrer] invited you to join the [game_name]",
 
-    custom_plain_text: %{Your invitation to join the [game_name]!
+    custom_plain_text: %{
+Your invitation to the [game_name].
 
-The [game_name] by H.Engage makes workplace communications engaging and reduces the volume of dense emails so you don't miss important information.
+Our social space to feature what you should know and do. Read, take actions, and earn points.
 
 Get started at [invitation_url]
 
 Questions? Email support@hengage.com.
+
+
     },
 
     custom_html_text: %{
@@ -96,25 +99,30 @@ Questions? Email support@hengage.com.
   <tr><td height="10">&nbsp;</td></tr>
   <tr style="font-family: 'helvetica neue', helvetica, sans-serif;">
     <td style="text-align:center;">
-      <h1 style="color:#292929; font-weight:lighter; font-weight: 300;">Join the [game_name]</h1>
+      <h1 style="color:#292929; font-weight:lighter; font-weight: 300;">Your invitation to the [game_name]</h1>
       <h2 style="color: #a8a8a8; font-weight:bold; font-weight: 500;">
-It makes workplace communications engaging and reduces the volume of dense emails so you don't miss important information.</h2> </td>
+Our social space to feature what you should know and do. Read, take actions, and earn points.</h2> </td>
     </td>
   </tr>
   <tr><td height="10">&nbsp;</td></tr>
   <tr>
     <td><center>
-      <table cellspacing="0" cellpadding="0" border="0">
-        <tr style="background:#4DA968;">
-          <td colspan="3" height="0" style="line-height:.65em">&nbsp;</td>
+      <table style="background: #4da968; border-bottom:3px #3e8052 solid; text-align:center;" cellspacing="3" width="250">
+        <tr>
+          <td colspan="3" height="0" style="line-height:0; font-size:0;">
+            &nbsp;
+          </td>
         </tr>
-        <tr style="background:#4DA968;">
-          <td width="30">&nbsp;</td>
-          <td><a style="color: #ffffff; display: block; font-family: 'helvetica neue', helvetica, sans-serif; font-size: 20px; font-weight:bold; text-decoration: none; padding:.5em 2em;" href="[invitation_url]" target="_blank">Start</a></td>
-          <td width="30">&nbsp;</td>
-        </tr>
-        <tr style="background:#4DA968;">
-          <td colspan="3" height="0" style="border-bottom:5px #428E50 solid; line-height:.65em;">&nbsp;</td>
+        <tr>
+          <td width="3" height="45">
+            &nbsp;
+          </td>
+          <td valign="middle" height="45">
+            <a href="[invitation_url]" style='display: block; padding: 10px 40px; text-decoration: none; color: #fff; font-family: helvetica, arial, sans-serif; font-size: 20px; font-weight:bold; font-weight:500;'>Start</a>
+          </td>
+          <td width="3" height="45">
+            &nbsp;
+          </td>
         </tr>
       </table>
     </center></td>
