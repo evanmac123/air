@@ -60,13 +60,13 @@ body .content {padding:0;}
   input[type="submit"] {width:100%;}
   form {
     margin-bottom:0;
-    &:after {
-      @include caption;
-      color:$gray;
-      content:"or";
-      display: block;
-      padding:1rem 0;
-    }
+    // &:after {
+      // @include caption;
+      // color:$gray;
+      // content:"or";
+      // display: block;
+      // padding:1rem 0;
+    // }
   }
 }
 
