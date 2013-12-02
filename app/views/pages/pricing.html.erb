@@ -8,7 +8,7 @@
 				<h4 class="price_customizer_header">Look up your price</h4>
 				<div class="employees">
 					<span>Number of employees:</span>
-					<input type="number" placeholder="#" value="100" class="num_of_users" />
+					<input type="number" placeholder="#" class="num_of_users" name="num_of_users"/>
 				</div>
 				<div class="billing_plans">
 					<span>Billing:</span>
@@ -70,10 +70,11 @@
 				<li class="plan_title"><h3>Business</h3></li>
 				<li class="plan_description">Perfect mix of capabilities for most companies.</li>
 				<li class="plan_cost">
-					<ul>
-						<li class="month_cost">$200<span>/mo.</span></li>
-						<li class="year_cost">$2,400<span> for a year</span></li>
-					</ul>
+					<a href="#!" class="check_price_button">Set your price</a>
+					<!--<ul>-->
+						<!--<li class="month_cost">$200<span>/mo.</span></li>-->
+						<!--<li class="year_cost">$2,400<span> for a year</span></li>-->
+					<!--</ul>-->
 				</li>
 				<li class="tiles_per_month plan_details">
 					<span class="label">Tiles per month</span>
@@ -101,10 +102,11 @@
 				<li class="plan_title"><h3>Enterprise</h3></li>
 				<li class="plan_description">Advanced platform for complex environments.</li>
 				<li class="plan_cost">
-					<ul>
-						<li class="month_cost">$500<span>/mo.</span></li>
-						<li class="year_cost">$6,000<span> for a year</span></li>
-					</ul>
+					<a href="#!" class="check_price_button">Set your price</a>
+					<!--<ul>-->
+						<!--<li class="month_cost">$500<span>/mo.</span></li>-->
+						<!--<li class="year_cost">$6,000<span> for a year</span></li>-->
+					<!--</ul>-->
 				</li>
 				<li class="tiles_per_month plan_details">
 					<span class="label">Tiles per month</span>
@@ -216,5 +218,12 @@
 			<a href="#!" class="request_a_demo pop-button">Contact us</a>
 		</div>
 </section>
+
+<%= javascript_include_tag "external/pricing_calculator" %>
+<%= javascript_tag do %>
+  bindUpdatePlanCosts('.num_of_users', 'keyup')
+  bindBillingCycleSelection('.annual_plan')
+  bindBillingCycleSelection('.monthly_plan')
+<% end %>
 
 <%= mp_track_page 'Pricing, marketing' %>
