@@ -8,6 +8,7 @@ class PagesController < HighVoltage::PagesController
   before_filter :signed_out_only, :except => SIGNED_IN_OK_PAGES
   before_filter :set_login_url
   before_filter :display_social_links_if_marketing_or_waiting_room
+  before_filter :set_page_name
 
   skip_before_filter :force_ssl, :except => SIGNED_IN_OK_PAGES
   before_filter :force_no_ssl_on_marketing
@@ -73,5 +74,9 @@ class PagesController < HighVoltage::PagesController
   def force_no_ssl_on_marketing
     return unless page_name == 'welcome' || page_name == 'more_info' || page_name == 'pricing'
     force_no_ssl
+  end
+
+  def set_page_name
+    @page_name = page_name
   end
 end

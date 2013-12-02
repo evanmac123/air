@@ -1,5 +1,6 @@
 <script>
-  $('.request_a_demo').click(function(){
+  $('[data-request-demo-source]').click(function(event){
+    event.preventDefault();
     var encloser = $(this).parents('.slide');
     if(encloser.size() == 0) {
       encloser = $(this).parents('section');

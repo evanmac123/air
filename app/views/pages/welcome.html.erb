@@ -26,7 +26,7 @@
       <div class="start_form large-12">
         <form>
           <input type="text" placeholder="Name your board" />
-          <input type="submit" value="Create your free board" />
+          <input type="submit" value="Create your free board" data-request-demo-source="landing_page fake_modal"/>
         </form>
       </div>
 
@@ -75,5 +75,8 @@ $('#signup_form').submit(function(e) {
 
 $("[placeholder]").placeholder();
 </script>
+
+<%= javascript_include_tag 'jquery.lightbox_me' %>
+<%= render "shared/request_demo" %>
 
 <%= mp_track_page 'Public board landing' %>

@@ -1,16 +1,3 @@
-@mixin close-button {
-  background:$light-gray;
-  border-radius:3px;
-  color:$white;
-  padding:.25em .5em;
-  position:absolute; 
-  top:.5em; right:.5em;
-  &:hover {
-    background: $orange;
-    color:$white;
-  }
-}
-
 body {
   border-top:7px $dark-green solid;
   .wrapper {margin-top:4em;}
