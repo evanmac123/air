@@ -69,5 +69,13 @@ bindBillingCycleSelection = (selector) ->
 bindUpdatePlanCosts = (selector, eventType) ->
   $(selector).bind(eventType, updatePlanCosts)
 
+bindSetPriceButton = () ->
+  $('.check_price_button').click((event) ->
+    event.preventDefault()
+    $('.num_of_users').focus()
+    $('body').scrollTop(0)
+  )
+
 window.bindUpdatePlanCosts = bindUpdatePlanCosts
 window.bindBillingCycleSelection = bindBillingCycleSelection
+window.bindSetPriceButton = bindSetPriceButton

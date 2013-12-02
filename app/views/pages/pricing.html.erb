@@ -221,9 +221,10 @@
 
 <%= javascript_include_tag "external/pricing_calculator" %>
 <%= javascript_tag do %>
-  bindUpdatePlanCosts('.num_of_users', 'keyup')
-  bindBillingCycleSelection('.annual_plan')
-  bindBillingCycleSelection('.monthly_plan')
+  bindUpdatePlanCosts('.num_of_users', 'keyup');
+  bindBillingCycleSelection('.annual_plan');
+  bindBillingCycleSelection('.monthly_plan');
+  bindSetPriceButton();
 <% end %>
 
 <%= mp_track_page 'Pricing, marketing' %>
