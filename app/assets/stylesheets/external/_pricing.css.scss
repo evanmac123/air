@@ -52,7 +52,7 @@
 			margin:0;
 			padding:.35em;
 		}
-		input[type="number"].num_of_users {
+		input.num_of_users {
 			@include font-bold;
 			color:$text-color;
 			display: inline-block;
@@ -111,7 +111,7 @@
 			}
 		}
 	}
-	input[type="number"].num_of_users, .billing_plans ul li {
+	input.num_of_users, .billing_plans ul li {
 		font-size:1.125em;
 		font-size:1.125rem;
 	}

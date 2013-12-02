@@ -119,6 +119,13 @@ feature 'Calculates prices' do
     end
   end
 
+  it "should ignore commas in numbers", js: true do
+    fill_in_employee_number "1,000"
+    expect_prices price_table[1000][:with_discount]
+    fill_in_employee_number "2,000"
+    expect_prices price_table[2000][:with_discount]
+  end
+
   it "should leave the buttons as-is if an employee count isn't filled in, and the user switches billing cycle", js: true do
     set_your_price_buttons.should have(3).buttons
     click_monthly_pricing

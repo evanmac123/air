@@ -24,7 +24,10 @@ costTable = [
   {"employeeCount":"100000","withoutDiscount":[{"monthly":"$13,333","annual":"$160,000"},{"monthly":"$26,667","annual":"$320,000"},{"monthly":"$46,667","annual":"$560,000"}],"withDiscount":[{"monthly":"$10,000","annual":"$120,000"},{"monthly":"$20,000","annual":"$240,000"},{"monthly":"$35,000","annual":"$420,000"}]}
 ]
 
-employeeCount = () -> parseInt($('.num_of_users').val())
+employeeCount = () ->
+  rawValue = $('.num_of_users').val()
+  normalizedValue = rawValue.replace(',', '')
+  parseInt(normalizedValue)
 
 findCostRow = () ->
   _employeeCount = employeeCount()
