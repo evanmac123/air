@@ -2,7 +2,7 @@ isPositiveNumber = (n) ->
   typeof(n) == 'number' && !(isNaN n) && n > 0
 
 costTable = [
-  {"employeeCount":"10","withoutDiscount":[{"monthly":"$-","annual":"$-"},{"monthly":"$-","annual":"$-"},{"monthly":"$-","annual":"$-"}],"withDiscount":[{"monthly":"$-","annual":"$-"},{"monthly":"$-","annual":"$-"},{"monthly":"$-","annual":"$-"}]},
+  {"employeeCount":"10","withoutDiscount":[{"monthly":"$0","annual":"$0"},{"monthly":"$0","annual":"$0"},{"monthly":"$0","annual":"$0"}],"withDiscount":[{"monthly":"$0","annual":"$0"},{"monthly":"$0","annual":"$0"},{"monthly":"$0","annual":"$0"}]},
   {"employeeCount":"50","withoutDiscount":[{"monthly":"$67","annual":"$800"},{"monthly":"$133","annual":"$1,600"},{"monthly":"$333","annual":"$4,000"}],"withDiscount":[{"monthly":"$50","annual":"$600"},{"monthly":"$100","annual":"$1,200"},{"monthly":"$250","annual":"$3,000"}]},
   {"employeeCount":"100","withoutDiscount":[{"monthly":"$133","annual":"$1,600"},{"monthly":"$267","annual":"$3,200"},{"monthly":"$667","annual":"$8,000"}],"withDiscount":[{"monthly":"$100","annual":"$1,200"},{"monthly":"$200","annual":"$2,400"},{"monthly":"$500","annual":"$6,000"}]},
   {"employeeCount":"200","withoutDiscount":[{"monthly":"$183","annual":"$2,200"},{"monthly":"$367","annual":"$4,400"},{"monthly":"$917","annual":"$11,000"}],"withDiscount":[{"monthly":"$138","annual":"$1,650"},{"monthly":"$275","annual":"$3,300"},{"monthly":"$688","annual":"$8,250"}]},
