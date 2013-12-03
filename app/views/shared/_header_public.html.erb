@@ -18,11 +18,11 @@
         </div>
       </div>
 
-      <div class="create_board large-8 pull-4 columns">
+      <form class="create_board large-8 pull-4 columns" data-request-demo-email-only="top_bar <%= @page_name %>">
         <p class="small_cap">Get started</p>
-        <input type="text" placeholder="Name your board" />
-        <input type="submit" value="Create free board" data-request-demo-source="top_bar create_new_board"/>
-      </div>
+        <input type="text" placeholder="Enter your email" name="contact_email" />
+        <input type="submit" value="Create free board"/>
+      </form>
 
       
 

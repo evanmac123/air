@@ -1,4 +1,28 @@
 <script>
+  $('[data-request-demo-email-only]').submit(function(event) {
+    event.preventDefault();
+    var nameField = $(this).find('[name=contact_email]');
+    var email = nameField.val().replace(/\s+/g, '');
+
+    if(email == '') {
+      nameField.attr('placeholder', 'Please enter a valid email')
+    } else {
+      var form = $(this);
+      var data = {
+        contact_email:   email,
+        contact_name:    '',
+        contact_company: '',
+        contact_role:    '',
+        contact_comment: '',
+        silent:          true
+      }
+      form.html('<div class="submitting_email_only_request">Submitting...</div>');
+      $.post('/email_info_requests', data, function(){
+        form.html('<div class="email_only_request_submitted">Thanks! We\'re backlogged about a day. We\'ll email you when your Board is ready.</div>');
+      });
+    }
+  });
+
   $('[data-request-demo-source]').click(function(event){
     event.preventDefault();
     var encloser = $(this).parents('.slide');
@@ -11,6 +35,8 @@
     mpq.track('alternate demo request form opened', {opened_from: encloser.attr('id')});
   });
 
+  submitEmailOnlyRequest = function(form, email) {
+  }
 
   var contact_name = $('#contact_name');
   var contact_email = $('#contact_email');

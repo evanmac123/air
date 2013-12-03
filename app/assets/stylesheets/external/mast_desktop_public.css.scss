@@ -8,7 +8,11 @@ nav {
   .create_board, .nav_items {height:$header-total-height;}
 }
 
-nav .create_board {
+.submitting_email_only_request, .email_only_request_submitted {
+  color: $dark-green;
+}
+
+nav .create_board, nav .submitting_email_only_request, nav .email_only_request_submitted {
   padding-right:0.9375em;
   padding-top:.5em;
   text-align: center;
