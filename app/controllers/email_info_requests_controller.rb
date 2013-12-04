@@ -11,7 +11,8 @@ class EmailInfoRequestsController < ApplicationController
       comment: params[:contact_comment],
       role:    params[:contact_role],
       size:    params[:contact_size],
-      company: params[:contact_company]
+      company: params[:contact_company],
+      source:  params[:source]
     }
 
     request = EmailInfoRequest.create!(hash)

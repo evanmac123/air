@@ -14,6 +14,7 @@
         contact_company: '',
         contact_role:    '',
         contact_comment: '',
+        source:          form.data('request-demo-email-only'),
         silent:          true
       }
       form.html('<div class="submitting_email_only_request">Submitting...</div>');
@@ -23,20 +24,17 @@
     }
   });
 
-  $('[data-request-demo-source]').click(function(event){
+  $('[data-request-demo-full]').click(function(event){
     event.preventDefault();
     var encloser = $(this).parents('.slide');
     if(encloser.size() == 0) {
       encloser = $(this).parents('section');
     }
 
-    // $('#request_demo').foundation('reveal', 'open');
+    $('#request_demo form').data('request-demo-source', $(this).data('request-demo-source'));
     $('#request_demo').lightbox_me();
     mpq.track('alternate demo request form opened', {opened_from: encloser.attr('id')});
   });
-
-  submitEmailOnlyRequest = function(form, email) {
-  }
 
   var contact_name = $('#contact_name');
   var contact_email = $('#contact_email');
@@ -110,7 +108,8 @@
       contact_email:   contact_email.val(),
       contact_company: contact_company.val(),
       contact_role:    contact_role.val(),
-      contact_comment: contact_comment.val()
+      contact_comment: contact_comment.val(),
+      source:          $(form).data('request-demo-source')
     };
     $.post('/email_info_requests', data, function(message){
       doAfterInfoRequest();
