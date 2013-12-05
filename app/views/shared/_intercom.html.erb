@@ -1,4 +1,4 @@
-<% unless current_user.is_guest? %>
+<% unless current_user.try(:is_guest?) %>
   <% if Rails.env.production? || Rails.env.staging? || ENV['INTERCOM'] %>
     <% http_host = controller.env['HTTP_HOST'] %>
     <% _intercom_user = @intercom_user || current_user || @user %>
