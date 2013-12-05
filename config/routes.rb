@@ -1,10 +1,12 @@
 Health::Application.routes.draw do
-  match "sms"        => "sms#create", :via => :post
-  match "email"      => "email_command#create", :via => :post
-  match "activity"   => "acts#index"
-  match "scoreboard" => "scores#index"
-  match "join"       => "invitations#new"
-  match "next"       => "pages#show", :id => "june2013_landing"
+  match "sms"           => "sms#create", :via => :post
+  match "email"         => "email_command#create", :via => :post
+  match "activity"      => "acts#index"
+  match "scoreboard"    => "scores#index"
+  match "join"          => "invitations#new"
+  match "next"          => "pages#show", :id => "june2013_landing"
+
+  match "b/:public_slug" => "public_boards#show", :as => "public_board", :via => :get
 
   resources :tiles, :only => [:index, :show]
   resources :tile_completions, :only => [:create]

@@ -9,7 +9,7 @@
       <div class="user_options">
         <ul>
           <li><%= link_to "Home", activity_path, :class => 'nav-home' %></li>
-          <li><%= link_to "My Profile", current_user, :id => 'my_profile', :class => 'nav-activity-class' %></li>
+          <li><%= link_to "My Profile", user_path(current_user), :id => 'my_profile', :class => 'nav-activity-class' %></li>
           <li><%= link_to "Find users", users_path, :class => 'nav-directory' %></li>
           <li><%= link_to "Settings", edit_account_settings_path, :class => 'nav-settings' %></li>
           <% if current_user.authorized_to?(:site_admin) %>

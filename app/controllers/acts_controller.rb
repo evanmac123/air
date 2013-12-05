@@ -3,42 +3,15 @@ class ActsController < ApplicationController
   include TileBatchHelper
 
   skip_before_filter :authorize, only: :index
+  before_filter :allow_guest_user, only: :index
 
   ACT_BATCH_SIZE = 5
 
   def index
-    # Initial 'if' statement exists so we can sign users in when they click on a tile in their digest email.
-    # There are a lot of comments for such a small group of statements, so pay attention...
-    #
-    # Regarding the 'true' clause:
-    #   Figure it's better to 'redirect' so don't have the long tile link that got us here in the browser's address bar
-    #   e.g. http://localhost:3000/acts?tile_token=3b38f195261a7300a7b617ba654bfe5540f9923c&user_id=666
-    #   ('http://localhost:3000/acts' is also better - and correct - if the user does a "Refresh Page")
-    #
-    #   Note that the second 'and' is an assignment (to 'user'), not an equality test
-    #
-    # Regarding the 'else' clause:
-    #   If 'authorize' fails Clearance does a 'redirect_to' the sign-in page. When run in a 'before_filter' this halts
-    #   execution and performs the redirect. But since we aren't doing the 'authorize' in the context of a
-    #   'before_filter' we need to check if Clearance rejected the log-in params ourselves, and, if so, do a 'return'
-    #   so that its 'redirect' can take place.
-    #
-    #   But wait... it gets even better! We aliased Clearance's 'authorize' to 'authenticate_without_game_begun_check authorize'
-    #   in 'application_controller.rb' and in some cases we do a premature 'render' => need to test for that for the same reason.
-    #
-    #   Bottom Line: We need to avoid a 'double-render error' => See if either Clearance or our code has done a
-    #   'render' or 'redirect_to', and if so, get the &^%$# outta here!
-    #
-    if params[:tile_token].present?         and
-       (user = User.find params[:user_id])  and
-       EmailLink.validate_token(user, params[:tile_token])
-      sign_in(user)
-      flash[:success] = "Welcome back, #{user.first_name}"
-      redirect_to activity_url and return
-    else
-      authorize
-      return if response_body.present?
-    end
+    return if authorized_by_tile_token # such as if we got here by a digest email
+
+    authorize
+    return if response_body.present? # such as if our authorization failed & we're bound for the signin page
 
     @current_link_text = "Home"
     @current_user = current_user
@@ -126,6 +99,14 @@ class ActsController < ApplicationController
   def remain_on_current_tile_if_rules_left_on_it
     tile = Tile.find params['current_tile']
     session[:start_tile] = params['current_tile'] if tile.has_rules_left_for_user(current_user)
+  end
+
+  def authorized_by_tile_token
+    if params[:tile_token].present? && (user = User.find params[:user_id]) && EmailLink.validate_token(user, params[:tile_token])
+      sign_in(user)
+      flash[:success] = "Welcome back, #{user.first_name}"
+      redirect_to activity_url
+    end
   end
 end
 

@@ -85,9 +85,9 @@ class ApplicationController < ActionController::Base
 
   private
 
-  # See page 133 of Metaprogramming Ruby for details on how to use an "around alias"
   alias authenticate_without_game_begun_check authorize
   def authorize
+    return if logged_in_as_guest?
     authenticate_without_game_begun_check
 
     return if current_user_is_site_admin || going_to_settings
@@ -103,6 +103,21 @@ class ApplicationController < ActionController::Base
       return
     end
   end
+
+  def current_user_with_guest_user
+    return current_user_without_guest_user unless guest_user_allowed?
+
+    if (user = current_user_without_guest_user)
+      return user
+    end
+
+    if logged_in_as_guest?
+      GuestUser.new(guest_demo_id)
+    else
+      nil
+    end
+  end
+  alias_method_chain :current_user, :guest_user
 
   def current_user_is_site_admin
     current_user && current_user.is_site_admin
@@ -208,5 +223,23 @@ class ApplicationController < ActionController::Base
         return false
       end
     end
+  end
+
+  def allow_guest_user
+    @guest_user_allowed = true
+  end
+
+  def guest_user_allowed?
+    @guest_user_allowed
+  end
+
+  def logged_in_as_guest?
+    return false unless guest_user_allowed?
+
+    session[:guest_user].present? && guest_user_allowed? && current_user_without_guest_user.nil?
+  end
+
+  def guest_demo_id
+    session[:guest_user][:demo_id]
   end
 end

@@ -72,6 +72,10 @@ FactoryGirl.define do
     trait :with_phone_number do
       sequence(:phone_number) {|i| "+" + (16172222222 + 1).to_s}
     end
+
+    trait :with_public_slug do |demo|
+      sequence(:public_slug) {|i| "public_#{i}"}
+    end
   end
   
   factory :rule do

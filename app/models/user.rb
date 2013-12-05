@@ -11,6 +11,8 @@ class User < ActiveRecord::Base
 
   FIELDS_TRIGGERING_SEGMENTATION_UPDATE = %w(characteristics points location_id date_of_birth gender demo_id accepted_invitation_at last_acted_at phone_number email)
 
+  MISSING_AVATAR_PATH = "/assets/avatars/thumb/missing.png"
+
   include Clearance::User
   include User::Segmentation
   include ActionView::Helpers::TextHelper
@@ -73,7 +75,7 @@ class User < ActiveRecord::Base
     :s3_protocol => 'https',
     :path => "/avatars/:id/:style/:filename",
     :bucket => S3_AVATAR_BUCKET,
-    :default_url => "/assets/avatars/thumb/missing.png"
+    :default_url => MISSING_AVATAR_PATH
 
   serialize :flashes_for_next_request
   serialize :characteristics
@@ -920,6 +922,10 @@ class User < ActiveRecord::Base
   def self.find_by_either_email(email)
     email = email.strip.downcase
     where("email = ? OR overflow_email = ?", email, email).first
+  end
+
+  def is_guest?
+    false
   end
 
   protected

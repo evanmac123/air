@@ -19,6 +19,8 @@ module Clearance::Authentication
         # invite friends modal and the tutorial
         current_user.session_count += 1
         current_user.save
+
+        session.delete(:guest_user)
       end
     end
 

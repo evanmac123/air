@@ -80,6 +80,11 @@ class Act < ActiveRecord::Base
       return where("1 = 1")
     end
 
+    if viewing_user.is_guest?
+      # And guests get no love.
+      return where("1 = 0")
+    end
+
     friends = viewing_user.accepted_friends.where("users.privacy_level != 'nobody'")
     viewable_user_ids = friends.map(&:id) + [viewing_user.id]
 
