@@ -11,8 +11,8 @@
         = @current_tile_position_description
     .viewer
       = link_to "#", :id => :prev do
-        Previous
+        = "Previous" if device_type == :mobile
       #slideshow
         = render 'full_size_tile', :tile => @start_tile
       = link_to "#", :id => :next do
-        Next
+        = "Next" if device_type == :mobile
