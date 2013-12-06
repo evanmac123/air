@@ -252,7 +252,7 @@ module SteakHelperMethods
   end
 
   def expect_marketing_page_blurb
-    expect_content "Get Your Message Heard"
+    expect_content "A site for managers to create and share content"
   end
 
   def expect_disabled(element)
