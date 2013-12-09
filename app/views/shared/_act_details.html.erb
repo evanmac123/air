@@ -1,5 +1,9 @@
 <div class="user">
-  <%= link_to(act.user.name, act.user, :class => 'name-of-user') %> 
+  <% if act.user.is_guest? %>
+    <%= act.user.name %>
+  <% else %>
+    <%= link_to(act.user.name, act.user, :class => 'name-of-user') %> 
+  <% end %>
   <%= (act.text) %>
 </div>
 <span class="when small_cap">

@@ -1,15 +1,21 @@
 <% if (act.user.demo_id == current_user.demo_id) %>
   <li id="<%= dom_id(act) %>" class="act">
     <div class="avatar43">
-      <a href='<%= user_path act.user %>'>
+      <% if act.user.is_guest? %>
         <%= default_avatar_tag act.user, :class => 'avatar_image' %>
-      </a>
+      <% else %>
+        <a href='<%= user_path act.user %>'>
+          <%= default_avatar_tag act.user, :class => 'avatar_image' %>
+        </a>
+      <% end %>
+
       <% if act.points && act.points > 0 %>
         <div class="points">
           <span class="point-value small_cap"><%= pluralize act.points, 'pt' %></span>
         </div>
       <% end %>
     </div>
+
     <div class="act-details">
       <%= render :partial => 'shared/act_details', :locals => {:act => act} %>
     </div>

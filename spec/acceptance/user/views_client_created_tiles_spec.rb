@@ -1,60 +1,6 @@
 require 'acceptance/acceptance_helper'
 
 feature 'User views tiles' do
-  def expect_supporting_content(expected_content)
-    expect_content expected_content
-  end
-
-  def expect_question(question)
-    expect_content question
-  end
-
-  def expect_points(points)
-    expect_content "#{points} Points"
-  end
-
-  def answer(index)
-    page.all('.tile_multiple_choice_answer')[index]  
-  end
-
-  def expect_answer(index, text)
-    within answer(index) do
-      expect_content text
-    end
-  end
-
-  def click_answer(index)
-    within answer(index) do
-      page.find('a').click
-    end
-  end
-
-  def expect_wrong_answer_reaction(index)
-    within answer(index) do
-      expect_content "Sorry, that's not it. Try again!"
-    end
-  end
-
-  def expect_no_wrong_answer_reaction(index)
-    expect_no_content "Sorry, that's not it. Try again!"
-  end
-
-  def expect_right_answer_reaction
-    expect_content "Points 10/20, Tix 1"
-  end
-
-  def show_more_tiles_link
-    page.find('a.show_more_tiles')
-  end
-
-  def expect_thumbnail_count(expected_count)
-    page.all('.tile-wrapper').should have(expected_count).thumbnails
-  end
-
-  def expect_placeholder_count(expected_count)
-    page.all('.placeholder_tile').should have(expected_count).placeholders
-  end
-
   context 'of the keyword variety' do
     scenario 'and all the extra cool stuff around them' do
       tile = FactoryGirl.create(:keyword_tile, supporting_content: "Vote Quimby", question: "Who should you vote for?")

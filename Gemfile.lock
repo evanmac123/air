@@ -284,6 +284,7 @@ GEM
     rails-dev-tweaks (0.6.1)
       actionpack (~> 3.1)
       railties (~> 3.1)
+    rails3_before_render (0.2.0)
     railties (3.2.16)
       actionpack (= 3.2.16)
       activesupport (= 3.2.16)
@@ -430,6 +431,7 @@ DEPENDENCIES
   rack-timeout
   rails (= 3.2.16)
   rails-dev-tweaks
+  rails3_before_render
   redis
   rspec-rails
   sass-rails

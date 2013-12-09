@@ -1,8 +1,8 @@
 class TileCompletion < ActiveRecord::Base
-  belongs_to :user
+  belongs_to :user, polymorphic: true
   belongs_to :tile
 
-  validates_uniqueness_of :tile_id, :scope => :user_id
+  validates_uniqueness_of :tile_id, :scope => [:user_id, :user_type]
 
   def self.for_tile(tile)
     where(:tile_id => tile.id)

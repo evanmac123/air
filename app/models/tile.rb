@@ -115,8 +115,8 @@ class Tile < ActiveRecord::Base
   end
 
   def satisfy_for_user!(user)
-    completion = TileCompletion.create!(:tile_id => id, :user_id => user.id)
-    Act.create!(:user_id =>user.id, :inherent_points => bonus_points, :text => "")
+    completion = TileCompletion.create!(:tile_id => id, :user => user)
+    Act.create!(:user => user, :inherent_points => bonus_points, :text => "")
   end
 
   def due?

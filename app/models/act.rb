@@ -2,7 +2,7 @@ class Act < ActiveRecord::Base
   include DemoScope
   extend ParsingMessage
 
-  belongs_to :user
+  belongs_to :user, polymorphic: true
   belongs_to :referring_user, :class_name => "User"
   belongs_to :rule
   belongs_to :rule_value
@@ -39,6 +39,15 @@ class Act < ActiveRecord::Base
 
   attr_accessor :incoming_sms_sid, :suggestion_code
 
+  def user_with_guest_allowed
+    if user_id == 0
+      GuestUser.new({demo_id: demo_id})
+    else
+      user_without_guest_allowed
+    end
+  end
+  alias_method_chain :user, :guest_allowed
+
   def points
     self.inherent_points || self.rule.try(:points)
   end
@@ -73,16 +82,14 @@ class Act < ActiveRecord::Base
   end
 
   def self.allowed_to_view_by_privacy_settings(viewing_user)
-    #act_relation = joins("LEFT JOIN friendships AS permission_friendships ON permission_friendships.friend_id = acts.user_id").where("acts.user_id = ? OR acts.privacy_level = 'everybody' OR (acts.privacy_level = 'connected' AND permission_friendships.user_id = ? AND permission_friendships.state = 'accepted')", viewing_user.id, viewing_user.id)
-
     if viewing_user.is_site_admin
       # Site admins get to see anything they please.
       return where("1 = 1")
     end
 
     if viewing_user.is_guest?
-      # And guests get no love.
-      return where("1 = 0")
+      # And guests get to see their own only.
+      return where(user_id: viewing_user.id, user_type: 'GuestUser')
     end
 
     friends = viewing_user.accepted_friends.where("users.privacy_level != 'nobody'")
@@ -162,7 +169,7 @@ class Act < ActiveRecord::Base
   end
 
   def self.for_profile(viewing_user, _offset=0)
-    in_user_demo.displayable_to_user(viewing_user).recent(10).offset(_offset)
+    in_demo(viewing_user.demo).displayable_to_user(viewing_user).recent(10).offset(_offset)
   end
 
   protected

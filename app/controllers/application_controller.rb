@@ -3,8 +3,10 @@ class ApplicationController < ActionController::Base
 
   before_filter :force_ssl 
   before_filter :authorize
-  before_filter :set_delay_on_tooltips
   before_filter :initialize_flashes
+
+  before_render :persist_guest_user
+
   after_filter :merge_flashes
 
   include Clearance::Authentication
@@ -112,7 +114,8 @@ class ApplicationController < ActionController::Base
     end
 
     if logged_in_as_guest?
-      GuestUser.new(guest_demo_id)
+      @_guest_user ||= find_or_create_guest_user
+      @_guest_user
     else
       nil
     end
@@ -177,17 +180,6 @@ class ApplicationController < ActionController::Base
     self.current_user = nil
   end
 
-  def set_delay_on_tooltips
-    days_of_newbie = 2
-    short_delay = 200
-    long_delay = 1000
-    @tooltip_delay = short_delay
-    if current_user && current_user.accepted_invitation_at
-      when_joined = current_user.accepted_invitation_at
-      @tooltip_delay = (when_joined > days_of_newbie.days.ago) ? short_delay : long_delay
-    end
-  end
-
   def load_characteristics(demo)
     @dummy_characteristics, @generic_characteristics, @demo_specific_characteristics = Characteristic.visible_from_demo(demo)
   end
@@ -216,6 +208,12 @@ class ApplicationController < ActionController::Base
     @display_social_links = true
   end
 
+  def persist_guest_user
+    if current_user.try(:is_guest?)
+      session[:guest_user] = current_user.to_guest_user_hash
+    end
+  end
+
   def self.must_be_authorized_to(page_class, options={})
     before_filter(options) do
       unless current_user.authorized_to?(page_class)
@@ -234,12 +232,14 @@ class ApplicationController < ActionController::Base
   end
 
   def logged_in_as_guest?
-    return false unless guest_user_allowed?
-
-    session[:guest_user].present? && guest_user_allowed? && current_user_without_guest_user.nil?
+    guest_user_allowed? && session[:guest_user].present? && current_user_without_guest_user.nil?
   end
 
-  def guest_demo_id
-    session[:guest_user][:demo_id]
+  def find_or_create_guest_user
+    if session[:guest_user][:id].present?
+      GuestUser.find(session[:guest_user][:id])
+    else
+      GuestUser.create!(session[:guest_user])
+    end
   end
 end

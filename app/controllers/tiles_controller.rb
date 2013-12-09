@@ -1,6 +1,7 @@
 class TilesController < ApplicationController
   include TileBatchHelper
 
+  prepend_before_filter :allow_guest_user, :only => [:index, :show]
   before_filter :get_displayable, :only => :index
   before_filter :get_position_description, :only => :index
 

@@ -39,6 +39,7 @@ gem 'stripe', :git => 'https://github.com/stripe/stripe-ruby'
 gem 'rack-timeout'
 gem 'delayed_paperclip', :git => "https://github.com/phildarnowsky/delayed_paperclip"
 gem 'mobvious-rails'
+gem 'rails3_before_render'
 
 # Gems used only for assets and not required
 # in production environments by default.

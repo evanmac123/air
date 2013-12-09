@@ -1,4 +1,6 @@
 module OutgoingMessage
+  include ActionView::Helpers::TextHelper
+
   DEFAULT_SIDE_MESSAGE_DELAY = ENV['SIDE_MESSAGE_DELAY'] || 5
 
   # See Friendship::FollowNotification for reason as to why doing it this way.
@@ -43,7 +45,7 @@ module OutgoingMessage
   def self.default_channels(to)
     case to
     when User
-       to.notification_channels
+      to.notification_channels
     when String
       to.is_email_address? ? [:email] : [:sms]
     end

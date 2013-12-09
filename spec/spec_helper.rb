@@ -81,6 +81,9 @@ Capybara.javascript_driver = :poltergeist
 #Capybara.register_driver :poltergeist do |app|
 #  Capybara::Poltergeist::Driver.new(app, debug: true)
 #end
+Capybara.register_driver :poltergeist do |app|
+ Capybara::Poltergeist::Driver.new(app, timeout: 600)
+end
 
 require 'capybara-screenshot/rspec'
 Capybara::Screenshot.autosave_on_failure = false

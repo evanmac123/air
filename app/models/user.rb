@@ -16,19 +16,20 @@ class User < ActiveRecord::Base
   include Clearance::User
   include User::Segmentation
   include ActionView::Helpers::TextHelper
+
   extend User::Queries
 
   belongs_to :demo
   belongs_to :location
   belongs_to :game_referrer, :class_name => "User"
   belongs_to :spouse, :class_name => "User"
-  has_many   :acts, :dependent => :destroy
+  has_many   :acts, :dependent => :destroy, :as => :user
   has_many   :friendships, :dependent => :destroy
   has_many   :friends, :through => :friendships
   has_many   :survey_answers
   has_many   :goal_completions
   has_many   :completed_goals, :through => :goal_completions, :source => :goal
-  has_many   :tile_completions, :dependent => :destroy
+  has_many   :tile_completions, :dependent => :destroy, :as => :user
   has_many   :unsubscribes, :dependent => :destroy
   has_many   :peer_invitations_as_invitee, :class_name => "PeerInvitation", :foreign_key => :invitee_id
   has_many   :peer_invitations_as_inviter, :class_name => "PeerInvitation", :foreign_key => :inviter_id
@@ -530,11 +531,12 @@ class User < ActiveRecord::Base
   end
 
   def update_points(point_increment, channel=nil)
-    old_points = self.points
-    increment!(:points, point_increment)
+    original_tickets = self.tickets
+    PointIncrementer.new(self, point_increment).update_points
 
-    new_points = self.points
-    add_ticket(old_points, new_points, channel)
+    if self.tickets > original_tickets
+      OutgoingMessage.send_side_message(self, "Congratulations - You've earned #{pluralize self.tickets, 'ticket'}!", channel: channel)
+    end
   end
 
   def password_optional?
@@ -606,26 +608,8 @@ class User < ActiveRecord::Base
     potential_claim_code
   end
 
-  def point_summary
-    if self.demo.ticket_threshold > 0
-      "points #{self.to_ticket_progress_calculator.pretty_point_fraction}"
-    else
-      "points #{self.points}"
-    end
-  end
-
-  def ticket_summary
-    "Tix #{self.tickets}"
-  end
-
   def point_and_ticket_summary(prefix = [])
-    return "" unless self.demo.use_post_act_summaries
-
-    result_parts = prefix.clone
-    result_parts << self.point_summary
-    result_parts << self.ticket_summary
-
-    ' ' + result_parts.map(&:capitalize).compact.join(', ') + '.'
+    User::PointAndTicketSummarizer.new(self).point_and_ticket_summary(prefix)
   end
 
   def claim_code_prefix
@@ -993,22 +977,6 @@ class User < ActiveRecord::Base
   def update_associated_act_privacy_levels
     # See Act for an explanation of why we denormalize privacy_level onto it.
     Act.update_all({:privacy_level => self.privacy_level}, {:user_id => self.id}) if self.changed.include?('privacy_level')
-  end
-
-  def add_ticket(old_points, new_points, channel)
-    return unless self.demo.uses_tickets
-
-    old_point_tranche = ticket_tranche(old_points)
-    new_point_tranche = ticket_tranche(new_points)
-
-    if new_point_tranche > old_point_tranche
-      self.increment!(:tickets)
-      OutgoingMessage.send_side_message(self, "Congratulations - You've earned #{pluralize tickets, 'ticket'}!", channel: channel)
-    end
-  end
-
-  def ticket_tranche(point_value)
-    (point_value - ticket_threshold_base) / self.demo.ticket_threshold
   end
 
   def self.claimable_by_first_name_and_claim_code(claim_string)
