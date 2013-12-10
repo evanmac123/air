@@ -1,7 +1,16 @@
 class GuestUser < ActiveRecord::Base
+  # Q: Why is GuestUser not a subclass of User?
+  # A: User is an overly fat model, and an old one, and I decided that some 
+  # redundancy between GuestUser's and User's APIs was an OK cost to pay for
+  # not dragging in a ton of old gnarly code from User.
+  #
+  # Plus, common behavior between this and User is good leverage to refactor
+  # stuff out of User, which User could use.
+  
   belongs_to :demo
-  has_many :tile_completions, :as => :user, :dependent => :destroy
-  has_many :acts, :as => :user, :dependent => :destroy
+  has_many   :tile_completions, :as => :user, :dependent => :destroy
+  has_many   :acts, :as => :user, :dependent => :destroy
+  has_one    :converted_user, :class_name => "User", :foreign_key => :original_guest_user_id, :inverse_of => :original_guest_user
 
   def is_site_admin
     false
@@ -80,5 +89,24 @@ class GuestUser < ActiveRecord::Base
     {
       :id => id
     }
+  end
+
+  def convert_to_full_user!(name, email, password)
+    converted_user = User.new(demo_id: demo_id, name: name, email: email)
+    converted_user.converting_from_guest = true
+    converted_user.password = converted_user.password_confirmation = password
+    converted_user.original_guest_user = self
+
+    if converted_user.save
+      tile_completions.each {|tile_completion| tile_completion.user = converted_user; tile_completion.save!}
+      acts.each {|act| act.user = converted_user; act.save!}
+      converted_user
+    else
+      converted_user.errors.messages.each do |field, error_messages|
+        self.errors.set(field, error_messages)
+      end
+
+      nil
+    end
   end
 end

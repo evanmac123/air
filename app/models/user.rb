@@ -33,6 +33,7 @@ class User < ActiveRecord::Base
   has_many   :unsubscribes, :dependent => :destroy
   has_many   :peer_invitations_as_invitee, :class_name => "PeerInvitation", :foreign_key => :invitee_id
   has_many   :peer_invitations_as_inviter, :class_name => "PeerInvitation", :foreign_key => :inviter_id
+  has_one    :original_guest_user, :class_name => "GuestUser", :foreign_key => :converted_user_id, :inverse_of => :converted_user
 
   validate :normalized_phone_number_unique, :normalized_new_phone_number_unique
   validate :new_phone_number_has_valid_number_of_digits
@@ -65,7 +66,10 @@ class User < ActiveRecord::Base
 
   validates_length_of :password, :minimum => 6, :allow_blank => true, :message => 'must have at least 6 characters'
   validates :email, :with => :email_distinct_from_all_overflow_emails 
-  validates :overflow_email, :with => :overflow_email_distinct_from_all_emails 
+  validates :overflow_email, :with => :overflow_email_distinct_from_all_emails
+
+  validates_presence_of :password, :if => :converting_from_guest, :message => "Please enter a password at least 6 characters long"
+  validates_presence_of :email, :if => :converting_from_guest, :message => "Please enter an email address"
 
   has_attached_file :avatar,
     :styles => {:thumb => ["96x96#", :png]},
@@ -122,7 +126,7 @@ class User < ActiveRecord::Base
     destroy_segmentation_info
   end
 
-  attr_accessor :trying_to_accept, :password_confirmation
+  attr_accessor :trying_to_accept, :password_confirmation, :converting_from_guest
 
   # Changed from attr_protected to attr_accessible to address vulnerability CVE-2013-0276
   

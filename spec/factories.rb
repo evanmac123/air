@@ -56,6 +56,10 @@ FactoryGirl.define do
     is_client_admin true
   end
 
+  factory :guest_user do
+    association :demo
+  end
+
   factory :demo do
     sequence(:name) {|n| "Coolio_#{n}" }
 
