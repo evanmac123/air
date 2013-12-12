@@ -1,6 +1,6 @@
 - if @current_user.is_guest?
-  #guest_conversion_form{style: 'display: none'}
-    = form_tag guest_user_conversions_path do
+  #guest_conversion_form_wrapper{style: 'display: none'}
+    = form_tag guest_user_conversions_path, id: 'guest_conversion_form', remote: true do
       = text_field_tag "user[name]"
       = text_field_tag "user[email]"
       = password_field_tag "user[password]"
@@ -8,5 +8,6 @@
 
   - if @show_conversion_form
     = javascript_tag do
-      console.log
-      $('#guest_conversion_form').lightbox_me();
+      $('#guest_conversion_form_wrapper').lightbox_me();
+
+  = javascript_include_tag 'internal/guest_user_conversion'

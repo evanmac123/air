@@ -10,9 +10,15 @@ class GuestUserConversionsController < ApplicationController
       )
 
       sign_in full_user
-      redirect_to :back
+      render_success_json
     else
       render inline: ''
     end
+  end
+
+  protected
+
+  def render_success_json
+    render json: {status: 'success'}
   end
 end

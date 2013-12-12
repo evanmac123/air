@@ -98,7 +98,7 @@ feature 'Guest user is prompted to convert to real user' do
       User.first.demo_id.should == @board.id
     end
 
-    it "should do happy fancy ajax nice-nice"
+    it "should not show the sample tile"
   end
 
   shared_examples "conversion unhappy path" do
