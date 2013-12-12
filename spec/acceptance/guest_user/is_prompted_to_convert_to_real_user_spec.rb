@@ -7,8 +7,12 @@ feature 'Guest user is prompted to convert to real user' do
     "form[action='#{guest_user_conversions_path}']"
   end
 
-  def expect_conversion_form
+  def wait_for_conversion_form
     page.find(conversion_form_selector, visible: true)
+  end
+
+  def expect_conversion_form
+    wait_for_conversion_form
 
     within(conversion_form_selector) do
       page.find("input[type=text][name='user[name]']").should be_present
@@ -54,6 +58,22 @@ feature 'Guest user is prompted to convert to real user' do
     end
   end
 
+  def expect_name_error
+    expect_content "Please enter a first and last name"
+  end
+
+  def expect_invalid_email_error
+    expect_content "Please enter a valid email address"
+  end
+
+  def expect_duplicate_email_error
+    expect_content "It looks like that email is already taken. You can click here to sign in, or contact support@hengage.com for help."
+  end
+
+  def expect_password_error
+    expect_content "Please enter a password at least 6 characters long"
+  end
+
   shared_examples "conversion happy path" do
     # All this @setup and local_setup bullshit is because RSpec doesn't do the
     # right thing (i.e. what I expected) when you have before blocks split 
@@ -62,7 +82,7 @@ feature 'Guest user is prompted to convert to real user' do
     # By the time you read this, there may well be a better way to do it.
 
     def local_setup
-      sleep 1
+      wait_for_conversion_form
       fill_in_conversion_name "Jimmy Jones"
       fill_in_conversion_email "jim@jones.com"
       fill_in_conversion_password "jimbim"
@@ -98,17 +118,131 @@ feature 'Guest user is prompted to convert to real user' do
       User.first.demo_id.should == @board.id
     end
 
-    it "should not show the sample tile"
+    it "should not show the sample tile", js: true do
+      @setup.call
+      local_setup
+      expect_no_site_tutorial_lightbox
+    end
+  end
+
+  shared_examples "no user creation" do
+    it "should not create a user", js: true do
+      User.count.should be_zero
+    end
   end
 
   shared_examples "conversion unhappy path" do
-    it "should show errors if name is left out"
-    it "should show errors if email is left out"
-    it "should show errors if password is left out"
-    it "should show errors if email is already taken"
+    before do
+      @setup.call
+      wait_for_conversion_form
+    end
+
+    context "when the name is missing" do
+      before do
+        fill_in_conversion_email "jimmy@example.com"
+        fill_in_conversion_password "jimbim"
+        submit_conversion_form
+      end
+
+      it "should show errors", js: true do
+        expect_name_error
+      end
+
+      it_should_behave_like "no user creation"
+    end
+
+    context "when the email is missing" do
+      before do
+        fill_in_conversion_name "Jim Jones"
+        fill_in_conversion_password "jimbim"
+        submit_conversion_form
+      end
+
+      it "should show errors", js: true do
+        expect_invalid_email_error
+      end
+
+      it_should_behave_like "no user creation"
+    end
+
+    context "when the email given is in the wrong format" do
+      before do
+        fill_in_conversion_name "Jim Jones"
+        fill_in_conversion_email "asdasdasdasdasdasdasdasdasdasd"
+        fill_in_conversion_password "jimbim"
+        submit_conversion_form
+      end
+
+      it "should show errors", js: true do
+        expect_invalid_email_error
+      end
+
+      it_should_behave_like "no user creation"
+    end
+
+    context "when the password is missing" do
+      before do
+        fill_in_conversion_name "Jim Jones"
+        fill_in_conversion_email "jim@example.com"
+        submit_conversion_form
+      end
+
+      it "should show errors", js: true do
+        expect_password_error
+      end
+
+      it_should_behave_like "no user creation"
+    end
+
+    context "when the password is too short" do
+      before do
+        fill_in_conversion_name "Jim Jones"
+        fill_in_conversion_email "jim@example.com"
+        fill_in_conversion_password "abcde"
+        submit_conversion_form
+      end
+
+      it "should show errors", js: true do
+        expect_password_error
+      end
+
+      it_should_behave_like "no user creation"
+    end
+
+    context "when the email is already taken" do
+      before do
+        FactoryGirl.create(:user, email: 'jimmy@example.com')
+        wait_for_conversion_form
+        fill_in_conversion_name "Jimmy"
+        fill_in_conversion_email 'jimmy@example.com'
+        fill_in_conversion_password 'jimjim'
+        submit_conversion_form
+      end
+
+      it "should show errors", js: true do
+        expect_duplicate_email_error
+      end
+
+      it "should have a link to signin page", js: true do
+        page.all("a[href='/sign_in']", text: 'click here').should_not be_empty
+      end
+
+      it "should have a mailto link for support", js: true do
+        page.all("a[href='mailto:support@hengage.com']", text: "support@hengage.com").should_not be_empty
+      end
+
+      it "should not create another user", js: true do
+        User.count.should == 1 # the one we created above, remember?
+      end
+    end
   end
 
   context "when there are no tiles" do
+    before do
+      @board = board
+      @setup = lambda{ visit public_board_path(public_slug: board.public_slug) }
+    end
+
     it "should offer right away", js: true do
       visit public_board_path(public_slug: board.public_slug)
       expect_conversion_form
@@ -117,17 +251,21 @@ feature 'Guest user is prompted to convert to real user' do
       expect_no_conversion_form
     end
 
-    it_should_behave_like "conversion happy path" do
-      before do
-        @board = board
-        @setup = lambda{ visit public_board_path(public_slug: board.public_slug) }
-      end
-    end
-
+    it_should_behave_like "conversion happy path"
     it_should_behave_like "conversion unhappy path"
   end
 
   context "when there is one tile" do
+    before do
+      @board = board
+      @setup = lambda do
+        create_tiles(board, 1) 
+        visit public_board_path(public_slug: board.public_slug)
+        click_link Tile.first.headline  
+        click_right_answer
+      end
+    end
+
     it "should offer after completing that tile", js: true do
       create_tiles(board, 1)
       visit public_board_path(public_slug: board.public_slug)
@@ -144,22 +282,24 @@ feature 'Guest user is prompted to convert to real user' do
       expect_no_conversion_form
     end
 
-    it_should_behave_like "conversion happy path" do
-      before do
-        @board = board
-        @setup = lambda do
-          create_tiles(board, 1) 
-          visit public_board_path(public_slug: board.public_slug)
-          click_link Tile.first.headline  
+    it_should_behave_like "conversion happy path"    
+    it_should_behave_like "conversion unhappy path"
+  end
+
+  context "when there are two tiles" do
+    before do
+      @board = board
+      @setup = lambda do
+        create_tiles(board, 2) 
+        visit public_board_path(public_slug: board.public_slug)
+        Tile.all.each do |tile|
+          visit activity_path
+          click_link tile.headline  
           click_right_answer
         end
       end
     end
 
-    it_should_behave_like "conversion unhappy path"
-  end
-
-  context "when there are two tiles" do
     it "should offer after completing both tiles", js: true do
       create_tiles(board, 2) 
       visit public_board_path(public_slug: board.public_slug)
@@ -176,21 +316,7 @@ feature 'Guest user is prompted to convert to real user' do
       expect_conversion_form
     end
 
-    it_should_behave_like "conversion happy path" do
-      before do
-        @board = board
-        @setup = lambda do
-          create_tiles(board, 2) 
-          visit public_board_path(public_slug: board.public_slug)
-          Tile.all.each do |tile|
-            visit activity_path
-            click_link tile.headline  
-            click_right_answer
-          end
-        end
-      end
-    end
-
+    it_should_behave_like "conversion happy path"
     it_should_behave_like "conversion unhappy path"
   end
 

@@ -64,12 +64,13 @@ class User < ActiveRecord::Base
 
   validates_presence_of :demo_id
 
-  validates_length_of :password, :minimum => 6, :allow_blank => true, :message => 'must have at least 6 characters'
+  validates_length_of :password, :minimum => 6, :allow_blank => true, :message => 'must have at least 6 characters', :unless => :converting_from_guest
   validates :email, :with => :email_distinct_from_all_overflow_emails 
   validates :overflow_email, :with => :overflow_email_distinct_from_all_emails
 
   validates_presence_of :password, :if => :converting_from_guest, :message => "Please enter a password at least 6 characters long"
-  validates_presence_of :email, :if => :converting_from_guest, :message => "Please enter an email address"
+  validates_length_of :password, :minimum => 6, :if => :converting_from_guest, :message => "Please enter a password at least 6 characters long"
+  validates_presence_of :email, :if => :converting_from_guest, :message => "Please enter a valid email address"
 
   has_attached_file :avatar,
     :styles => {:thumb => ["96x96#", :png]},
@@ -130,7 +131,7 @@ class User < ActiveRecord::Base
 
   # Changed from attr_protected to attr_accessible to address vulnerability CVE-2013-0276
   
-  attr_accessible :name, :email, :invited, :demo_id, :created_at, :updated_at, :invitation_code, :phone_number, :points, :encrypted_password, :salt, :remember_token, :slug, :claim_code, :confirmation_token, :won_at, :sms_slug, :last_suggested_items, :avatar_file_name, :avatar_content_type, :avatar_file_size, :avatar_updated_at, :ranking_query_offset, :accepted_invitation_at, :game_referrer_id, :notification_method, :location_id, :new_phone_number, :new_phone_validation, :date_of_birth, :gender, :session_count, :privacy_level, :last_muted_at, :last_told_about_mute, :mt_texts_today, :suppress_mute_notice, :follow_up_message_sent_at, :flashes_for_next_request, :characteristics, :overflow_email, :tickets, :zip_code, :is_employee, :ssn_hash, :employee_id, :spouse_id, :last_acted_at, :ticket_threshold_base, :terms_and_conditions
+  attr_accessible :name, :email, :invited, :demo_id, :created_at, :updated_at, :invitation_code, :phone_number, :points, :encrypted_password, :salt, :remember_token, :slug, :claim_code, :confirmation_token, :won_at, :sms_slug, :last_suggested_items, :avatar_file_name, :avatar_content_type, :avatar_file_size, :avatar_updated_at, :ranking_query_offset, :accepted_invitation_at, :game_referrer_id, :notification_method, :location_id, :new_phone_number, :new_phone_validation, :date_of_birth, :gender, :session_count, :privacy_level, :last_muted_at, :last_told_about_mute, :mt_texts_today, :suppress_mute_notice, :follow_up_message_sent_at, :flashes_for_next_request, :characteristics, :overflow_email, :tickets, :zip_code, :is_employee, :ssn_hash, :employee_id, :spouse_id, :last_acted_at, :ticket_threshold_base, :terms_and_conditions, :get_started_lightbox_displayed
   #attr_protected :is_site_admin, :is_client_admin, :invitation_method
 
   has_alphabetical_column :name

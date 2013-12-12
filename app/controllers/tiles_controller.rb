@@ -88,6 +88,8 @@ class TilesController < ApplicationController
   end
 
   def decide_whether_to_show_conversion_form
+    #return (@show_conversion_form = true)
+
     active_tile_count = @current_user.demo.tiles.active.count
 
     if active_tile_count == 1

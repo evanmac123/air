@@ -6,8 +6,13 @@
       = password_field_tag "user[password]"
       = submit_tag
 
+    #name_error
+    #email_error
+    #password_error
+
   - if @show_conversion_form
     = javascript_tag do
       $('#guest_conversion_form_wrapper').lightbox_me();
 
+    
   = javascript_include_tag 'internal/guest_user_conversion'

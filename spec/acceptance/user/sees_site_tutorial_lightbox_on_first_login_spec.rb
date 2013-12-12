@@ -3,18 +3,6 @@ require 'acceptance/acceptance_helper'
 feature "The site tutorial" do
   let (:user) { FactoryGirl.create :user }
 
-  def site_tutorial_lightbox_selector
-    "#get_started_lightbox"
-  end
-
-  def site_tutorial_content
-    "Welcome to H.Engage! Read and answer the questions on tiles for points. To get started, click on the first tile below."
-  end
-
-  def expect_no_site_tutorial_lightbox
-    page.all(site_tutorial_lightbox_selector).should be_empty
-  end
-
   context 'on first login' do
     before do
       user.update_attributes(session_count: 1)
