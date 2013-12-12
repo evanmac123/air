@@ -30,6 +30,9 @@ class ActsController < ApplicationController
 
     @displayable_tiles = Tile.displayable_to_user(current_user, tile_batch_size)
     TileCompletion.mark_displayed_one_final_time(@current_user)
+
+    show_conversion_form_provided_that { @demo.tiles.active.empty? }
+
     respond_to do |format|
       format.html
 

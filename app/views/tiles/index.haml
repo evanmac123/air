@@ -1,3 +1,5 @@
+= javascript_include_tag 'jquery.lightbox_me'
+
 .container.row
   - if @all_tiles_done
     #tiles_done_message
@@ -16,3 +18,5 @@
         = render 'full_size_tile', :tile => @start_tile
       = link_to "#", :id => :next do
         = "Next" if device_type == :mobile
+
+= render "shared/guest_conversion_lightbox"

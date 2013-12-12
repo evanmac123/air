@@ -92,11 +92,11 @@ class GuestUser < ActiveRecord::Base
   end
 
   def convert_to_full_user!(name, email, password)
-    converted_user = User.new(demo_id: demo_id, name: name, email: email)
-    converted_user.converting_from_guest = true
+    converted_user = User.new(demo_id: demo_id, name: name, email: email, points: points, tickets: tickets)
     converted_user.password = converted_user.password_confirmation = password
     converted_user.original_guest_user = self
 
+    converted_user.converting_from_guest = true
     if converted_user.save
       tile_completions.each {|tile_completion| tile_completion.user = converted_user; tile_completion.save!}
       acts.each {|act| act.user = converted_user; act.save!}

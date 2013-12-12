@@ -1,0 +1,12 @@
+- if @current_user.is_guest?
+  #guest_conversion_form{style: 'display: none'}
+    = form_tag guest_user_conversions_path do
+      = text_field_tag "user[name]"
+      = text_field_tag "user[email]"
+      = password_field_tag "user[password]"
+      = submit_tag
+
+  - if @show_conversion_form
+    = javascript_tag do
+      console.log
+      $('#guest_conversion_form').lightbox_me();

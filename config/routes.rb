@@ -112,6 +112,9 @@ Health::Application.routes.draw do
   resources :games
 
   resources :thumbnails, :only => [:index]
+
+  resources :guest_user_conversions, :only => [:create]
+
   namespace :admin do
     get 'exception' => 'exceptions#show'
     get 'sleep_forever' => 'sleep_forever#show'

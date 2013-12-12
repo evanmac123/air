@@ -26,6 +26,13 @@ describe GuestUser do
       converted_user.act_ids.sort.should == act_ids.sort
     end
 
+    it "copies over points and tickets" do
+      user.update_attributes(points: 234, tickets: 456)
+      converted_user = convert
+      converted_user.points.should == 234
+      converted_user.tickets.should == 456
+    end
+
     it "sets the name appropriately" do
       convert.name.should == "Jimmy Smits"
     end

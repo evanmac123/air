@@ -85,6 +85,14 @@ class ApplicationController < ActionController::Base
     base_batch_size = params[:base_batch_size].to_i
   end
 
+  def show_conversion_form_provided_that(allow_reshow = false)
+    return if session[:conversion_form_shown_already] && !(allow_reshow)
+    return unless current_user && current_user.is_guest?
+
+    @show_conversion_form = yield
+    session[:conversion_form_shown_already] = @show_conversion_form
+  end
+
   private
 
   alias authenticate_without_game_begun_check authorize

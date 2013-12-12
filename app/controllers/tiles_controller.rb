@@ -6,6 +6,8 @@ class TilesController < ApplicationController
   before_filter :get_position_description, :only => :index
 
   def index
+    @current_user = current_user
+
     @start_tile = if start_tile_id.to_s == '0'
                     current_user.sample_tile
                   elsif start_tile_id.present?
@@ -16,6 +18,8 @@ class TilesController < ApplicationController
 
     @all_tiles_done = satisfiable_tiles.empty?
     session.delete(:start_tile)
+
+    decide_whether_to_show_conversion_form
 
     if params[:partial_only]
       render_tile_wall
@@ -81,5 +85,17 @@ class TilesController < ApplicationController
 
   def render_tile_wall
     render partial: "shared/tile_wall", locals: {tiles: Tile.displayable_to_user(current_user, tile_batch_size)}
+  end
+
+  def decide_whether_to_show_conversion_form
+    active_tile_count = @current_user.demo.tiles.active.count
+
+    if active_tile_count == 1
+      show_conversion_form_provided_that { satisfiable_tiles.empty? }
+    else
+      allow_reshow = @current_user.tile_completions.count == active_tile_count
+
+      show_conversion_form_provided_that(allow_reshow) { @current_user.tile_completions.count == 2 || @current_user.tile_completions.count == active_tile_count }
+    end
   end
 end
