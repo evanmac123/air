@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   before_filter :force_ssl 
   before_filter :authorize
   before_filter :initialize_flashes
+  before_filter :set_show_conversion_form_before_this_request
 
   before_render :persist_guest_user
 
@@ -83,6 +84,10 @@ class ApplicationController < ActionController::Base
 
   def base_batch_size
     base_batch_size = params[:base_batch_size].to_i
+  end
+
+  def set_show_conversion_form_before_this_request
+    session[:conversion_form_shown_before_this_request] = session[:conversion_form_shown_already]
   end
 
   def show_conversion_form_provided_that(allow_reshow = false)

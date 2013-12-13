@@ -11,10 +11,26 @@ displayErrors = (errors) ->
   $('#guest_conversion_form_wrapper #email_error').html(convertEmailErrors(errors.email))
   $('#guest_conversion_form_wrapper #password_error').html(errors.password)
 
+showSaveProgress = () ->
+  $('#save_progress').show()
+
+conversionFormClosedCallback = (event) ->
+  showSaveProgress()
+
 conversionResponseCallback = (event, data) ->
   if data.status == 'success'
     window.location.href = "/activity"
   else
     displayErrors data.errors
 
+saveProgressClickCallback = (event) ->
+  event.preventDefault()
+  lightboxConversionForm()
+
+lightboxConversionForm = () ->
+  $('#guest_conversion_form_wrapper').lightbox_me({onClose: conversionFormClosedCallback})
+
 $('#guest_conversion_form').on('ajax:success', conversionResponseCallback)
+$('#save_progress_button').on('click', saveProgressClickCallback)
+
+window.lightboxConversionForm = lightboxConversionForm

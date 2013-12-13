@@ -26,6 +26,22 @@ feature 'Guest user is prompted to convert to real user' do
     page.all(conversion_form_selector).select(&:visible?).should be_empty
   end
 
+  def save_progress_button_selector
+    "a#save_progress_button"
+  end
+
+  def expect_save_progress_button
+    page.find(save_progress_button_selector, visible: true)
+  end
+
+  def expect_no_save_progress_button
+    page.all(save_progress_button_selector, visible: true).should be_empty
+  end
+
+  def click_save_progress_button
+    page.find(save_progress_button_selector, visible: true).click
+  end
+
   def create_tiles(board, count)
     count.times {|i| FactoryGirl.create(:multiple_choice_tile, :active, headline: "Tile #{i}", demo: board)}
   end
@@ -58,6 +74,11 @@ feature 'Guest user is prompted to convert to real user' do
     end
   end
 
+  def close_conversion_form
+    evaluate_script("$('#guest_conversion_form_wrapper').trigger('close')")
+    page.find('#guest_conversion_form_wrapper', visible: false)
+  end
+
   def expect_name_error
     expect_content "Please enter a first and last name"
   end
@@ -72,6 +93,34 @@ feature 'Guest user is prompted to convert to real user' do
 
   def expect_password_error
     expect_content "Please enter a password at least 6 characters long"
+  end
+
+  context "explicitly opening the form" do
+    before do
+      visit public_board_path(public_slug: board.public_slug)
+      wait_for_conversion_form
+    end
+
+    it "should not show the button to do so before you close the conversion form", js: true do
+      expect_no_save_progress_button
+    end
+
+    it "should show the button to open after you open the conversion form", js: true do
+      close_conversion_form
+      expect_save_progress_button
+
+      visit activity_path
+      expect_save_progress_button
+
+      visit tiles_path
+      expect_save_progress_button
+    end
+
+    it "should work when you click it", js: true do
+      close_conversion_form
+      click_save_progress_button
+      expect_conversion_form
+    end
   end
 
   shared_examples "conversion happy path" do
@@ -363,9 +412,5 @@ feature 'Guest user is prompted to convert to real user' do
       click_right_answer
       expect_conversion_form
     end
-  end
-
-  context "on declining the offer to convert" do
-    it "should make a button appear that you can use to open the form again"
   end
 end

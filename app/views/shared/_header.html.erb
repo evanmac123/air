@@ -33,6 +33,11 @@
       </div>
     </nav> <!-- end of off canvas -->
 
+    <% show_progress_wrapper_style = show_save_progress_button ? '' : 'display: none' %>
+    <div class="large-7 columns" id="save_progress" style="<%= show_progress_wrapper_style %>">
+      <a href="#" id="save_progress_button">Save Progress</a>
+    </div>
+
     <div class="large-7 columns" id="user_info">
       <ul id="to_next_credit" class="user_info_sections">
         <li><p class="small_cap">Points to next ticket</p></li>

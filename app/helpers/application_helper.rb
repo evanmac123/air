@@ -118,4 +118,8 @@ module ApplicationHelper
   def is_desktop?
     request.env['mobvious.device_type'] == :desktop
   end
+
+  def show_save_progress_button
+    session[:conversion_form_shown_before_this_request] && current_user.try(:is_guest?)
+  end
 end

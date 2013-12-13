@@ -61,7 +61,7 @@ module Health
       admin/byte_counter.js
       resizing_gears_fullsize.gif
       external/pricing_calculator.js
-      internatl/guest_user_conversion.js
+      internal/guest_user_conversion.js
     )
 
     ################################################################
