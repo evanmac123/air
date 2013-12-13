@@ -9,18 +9,25 @@
   .clients {
     padding-top:1em;
     padding-bottom:4em;
+    .titlebutton {
+      position: relative;
+      }
     .quote {
       @include form-group;
       &:after{@include clear;}
       .name {
-        float: left;
+        width:22em;
+        word-wrap: break-word;
         padding-bottom:0;
-      }
+        }
       .read_case_study {
         @include light-button($dark-green);
         @include caption;
-        float: right;
+        position: absolute;
+        right: 0;
+        bottom: 0;
       }
+
     }
     .logo {
       max-width:10em;
@@ -36,4 +43,3 @@
   color: $gray;
   text-align: center;
 }
-
