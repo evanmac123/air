@@ -105,4 +105,9 @@ header {
     #total_tiles {color:$text-color; padding-right:0;}
   }
 
+  #save_progress {
+    margin-top: 0.5em;
+    float: left;
+  }
+  #save_progress_button {@include app-button($dark-green);}
 }

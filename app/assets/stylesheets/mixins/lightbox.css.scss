@@ -4,3 +4,27 @@
   padding:1em;
   width:500px;
 }
+
+@mixin lightbox-form {
+  @include lightbox;
+  border:0;
+  position: relative;
+  width:90%;
+  max-width:30em;
+  h2 {
+    color:#909090;
+    font-size:1.65em;
+    padding:.5em 0;
+  }
+  form {
+    margin-top:1em;
+    input[type="text"],input[type="password"],textarea {
+      display: block;
+      font-size:1em;
+      margin-bottom:.5em;
+      width:100%;
+    }
+    textarea {height:6em;}
+  }
+  p {padding:.5em 0;}
+}

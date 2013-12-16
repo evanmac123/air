@@ -1,9 +1,9 @@
 - if @current_user.is_guest?
-  #guest_conversion_form_wrapper{style: 'display: none'}
+  #guest_conversion_form_wrapper
     = form_tag guest_user_conversions_path, id: 'guest_conversion_form', remote: true do
-      = text_field_tag "user[name]"
-      = text_field_tag "user[email]"
-      = password_field_tag "user[password]"
+      = text_field_tag "user[name]", "", placeholder: "Name"
+      = text_field_tag "user[email]", "", placeholder: "Email"
+      = password_field_tag "user[password]", "", placeholder: "Password"
       = submit_tag
 
     #name_error

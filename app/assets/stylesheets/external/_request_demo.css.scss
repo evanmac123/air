@@ -1,3 +1,5 @@
+@import "./mixins/lightbox.css.scss";
+
 input.unfilled-field {border-color:$red;}
 .close_request_demo:link, .close_request_demo:visited {
   background:$light-gray;
@@ -14,28 +16,6 @@ input.unfilled-field {border-color:$red;}
 }
 .all_fields_error {color:$red!important;}
 #request_demo {
-  background:$white;
-  border:0;
-  display: none;
-  padding:1em;
-  position: relative;
-  width:90%;
-  max-width:30em;
-  h2 {
-    color:#909090;
-    font-size:1.65em;
-    padding:.5em 0;
-  }
-  form {
-    margin-top:1em;
-    input[type="text"],textarea {
-      display: block;
-      font-size:1em;
-      margin-bottom:.5em;
-      width:100%;
-    }
-    textarea {height:6em;}
-  }
-  p {padding:.5em 0;}
+  @include lightbox-form;
 }
 .text-placeholder {color: #AAA !important}

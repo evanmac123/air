@@ -1,0 +1,5 @@
+@import "../mixins/lightbox.css.scss";
+
+#guest_conversion_form_wrapper {
+  @include lightbox-form;
+}
