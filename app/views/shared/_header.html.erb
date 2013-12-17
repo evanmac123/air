@@ -33,9 +33,10 @@
       </div>
     </nav> <!-- end of off canvas -->
 
-    <% show_progress_wrapper_style = show_save_progress_button ? '' : 'display: none' %>
-    <div id="save_progress" class="large-2 columns" style="<%= show_progress_wrapper_style %>">
+    <% guest_user_header_button_style = show_save_progress_button ? '' : 'display: none' %>
+    <div id="save_progress" class="large-3 columns" style="<%= guest_user_header_button_style %>">
       <a href="#" id="save_progress_button">Save Progress</a>
+      <%= link_to "Sign In", new_session_path, id: 'sign_in_button' %>
     </div>
 
     <div class="large-7 columns" id="user_info">

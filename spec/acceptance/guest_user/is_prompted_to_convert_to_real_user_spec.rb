@@ -30,6 +30,10 @@ feature 'Guest user is prompted to convert to real user' do
     "a#save_progress_button"
   end
 
+  def sign_in_button_selector
+    "a#sign_in_button"
+  end
+
   def expect_save_progress_button
     page.find(save_progress_button_selector, visible: true)
   end
@@ -40,6 +44,18 @@ feature 'Guest user is prompted to convert to real user' do
 
   def click_save_progress_button
     page.find(save_progress_button_selector, visible: true).click
+  end
+
+  def expect_sign_in_button
+    page.find(sign_in_button_selector, visible: true)
+  end
+
+  def expect_no_sign_in_button
+    page.all(sign_in_button_selector, visible: true).should be_empty
+  end
+
+  def click_sign_in_button
+    page.find(sign_in_button_selector, visible: true).click
   end
 
   def create_tiles(board, count)
@@ -103,31 +119,41 @@ feature 'Guest user is prompted to convert to real user' do
     expect_no_content password_error_copy
   end
 
-  context "explicitly opening the form" do
+  context "buttons to open the form again or sign in" do
     before do
       visit public_board_path(public_slug: board.public_slug)
       wait_for_conversion_form
     end
 
-    it "should not show the button to do so before you close the conversion form", js: true do
+    it "should not show them before you close the conversion form", js: true do
       expect_no_save_progress_button
+      expect_no_sign_in_button
     end
 
-    it "should show the button to open after you open the conversion form", js: true do
+    it "should show them after you open the conversion form", js: true do
       close_conversion_form
       expect_save_progress_button
+      expect_sign_in_button
 
       visit activity_path
       expect_save_progress_button
+      expect_sign_in_button
 
       visit tiles_path
       expect_save_progress_button
+      expect_sign_in_button
     end
 
-    it "should work when you click it", js: true do
+    it "opens the conversion form when you click the button for that", js: true do
       close_conversion_form
       click_save_progress_button
       expect_conversion_form
+    end
+
+    it "should send you to the signin page when you click the button for that", js: true do
+      close_conversion_form
+      click_sign_in_button
+      should_be_on new_session_path
     end
   end
 
