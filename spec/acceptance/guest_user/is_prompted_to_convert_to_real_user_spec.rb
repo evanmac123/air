@@ -91,8 +91,12 @@ feature 'Guest user is prompted to convert to real user' do
     expect_content "It looks like that email is already taken. You can click here to sign in, or contact support@hengage.com for help."
   end
 
+  def password_error_copy
+    "Please enter a password at least 6 characters long"  
+  end
+
   def expect_password_error
-    expect_content "Please enter a password at least 6 characters long"
+    expect_content password_error_copy
   end
 
   context "explicitly opening the form" do
@@ -238,6 +242,11 @@ feature 'Guest user is prompted to convert to real user' do
 
       it "should show errors", js: true do
         expect_password_error
+      end
+
+      it "should show the password error juuuuust one time", js: true do
+        matchdata = page.body.match(password_error_copy)
+        matchdata.post_match.should_not include(password_error_copy)
       end
 
       it_should_behave_like "no user creation"

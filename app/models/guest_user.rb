@@ -103,7 +103,7 @@ class GuestUser < ActiveRecord::Base
       converted_user
     else
       converted_user.errors.messages.each do |field, error_messages|
-        self.errors.set(field, error_messages)
+        self.errors.set(field, error_messages.uniq) # the #uniq gets rid of duplicate password errors
       end
 
       nil
