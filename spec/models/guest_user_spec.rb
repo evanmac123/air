@@ -56,6 +56,14 @@ describe GuestUser do
       converted_user.original_guest_user.should == user
       user.converted_user.should == converted_user
     end
+
+    it "claims to converted user" do
+      convert.should be_claimed
+    end
+
+    it "sets characteristics to an empty hash" do
+      convert.characteristics.should == {}
+    end
   end
 
   describe "the unhappy path" do

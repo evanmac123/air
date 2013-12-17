@@ -92,7 +92,7 @@ class GuestUser < ActiveRecord::Base
   end
 
   def convert_to_full_user!(name, email, password)
-    converted_user = User.new(demo_id: demo_id, name: name, email: email, points: points, tickets: tickets, get_started_lightbox_displayed: true)
+    converted_user = User.new(demo_id: demo_id, name: name, email: email, points: points, tickets: tickets, get_started_lightbox_displayed: true, accepted_invitation_at: Time.now, characteristics: {})
     converted_user.password = converted_user.password_confirmation = password
     converted_user.original_guest_user = self
 
