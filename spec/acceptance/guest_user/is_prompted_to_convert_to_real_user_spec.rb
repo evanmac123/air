@@ -99,6 +99,10 @@ feature 'Guest user is prompted to convert to real user' do
     expect_content password_error_copy
   end
 
+  def expect_no_password_error
+    expect_no_content password_error_copy
+  end
+
   context "explicitly opening the form" do
     before do
       visit public_board_path(public_slug: board.public_slug)
@@ -292,6 +296,21 @@ feature 'Guest user is prompted to convert to real user' do
       it "should not create another user", js: true do
         User.count.should == 1 # the one we created above, remember?
       end
+    end
+
+    it "should clear errors between submissions", js: true do
+      fill_in_conversion_name "Jim Jones"
+      fill_in_conversion_email "jim@example.com"
+      submit_conversion_form
+
+      expect_password_error
+
+      fill_in_conversion_name ""
+      fill_in_conversion_password "foobarbaz"
+      submit_conversion_form
+
+      expect_no_password_error
+      expect_name_error
     end
   end
 

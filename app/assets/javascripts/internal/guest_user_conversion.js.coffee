@@ -1,3 +1,5 @@
+spinner = $('#guest_conversion_form_wrapper .spinner')
+
 convertEmailErrors = (emailErrors) ->
   _.map(emailErrors, (error) ->
     switch error
@@ -14,10 +16,23 @@ displayErrors = (errors) ->
 showSaveProgress = () ->
   $('#save_progress').show()
 
+showSpinner = () -> spinner.show()
+hideSpinner = () -> spinner.hide()
+
+clearConversionErrors = () ->
+  $('#name_error').html('')
+  $('#email_error').html('')
+  $('#password_error').html('')
+
 conversionFormClosedCallback = (event) ->
   showSaveProgress()
 
+conversionStartCallback = (event) ->
+  showSpinner()
+  clearConversionErrors()
+
 conversionResponseCallback = (event, data) ->
+  hideSpinner()
   if data.status == 'success'
     window.location.href = "/activity"
   else
@@ -30,7 +45,7 @@ saveProgressClickCallback = (event) ->
 lightboxConversionForm = () ->
   $('#guest_conversion_form_wrapper').lightbox_me({onClose: conversionFormClosedCallback})
 
-$('#guest_conversion_form').on('ajax:success', conversionResponseCallback)
+$('#guest_conversion_form').on('submit', conversionStartCallback).on('ajax:success', conversionResponseCallback)
 $('#save_progress_button').on('click', saveProgressClickCallback)
 
 window.lightboxConversionForm = lightboxConversionForm
