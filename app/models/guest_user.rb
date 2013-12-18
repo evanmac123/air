@@ -95,11 +95,13 @@ class GuestUser < ActiveRecord::Base
     converted_user = User.new(demo_id: demo_id, name: name, email: email, points: points, tickets: tickets, get_started_lightbox_displayed: true, accepted_invitation_at: Time.now, characteristics: {})
     converted_user.password = converted_user.password_confirmation = password
     converted_user.original_guest_user = self
+    converted_user.cancel_account_token = cancel_account_token(converted_user)
 
     converted_user.converting_from_guest = true
     if converted_user.save
       tile_completions.each {|tile_completion| tile_completion.user = converted_user; tile_completion.save!}
       acts.each {|act| act.user = converted_user; act.save!}
+      converted_user.send_conversion_email
       converted_user
     else
       converted_user.errors.messages.each do |field, error_messages|
@@ -108,5 +110,9 @@ class GuestUser < ActiveRecord::Base
 
       nil
     end
+  end
+
+  def cancel_account_token(user)
+    Digest::SHA1.hexdigest("--#{Time.now.to_f}--#{user.email}--#{user.name}--#{user.id}--cancel_account")
   end
 end

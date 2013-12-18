@@ -1,0 +1,11 @@
+%p
+  You've asked to cancel an account that belongs to
+  %span#user_name= @user.name
+  %span#user_email= "(" + @user.email + ")"
+  \. Please be aware that cancelling this account is permanent, but you can also create a new account again in the future if you like.
+
+%p
+  If you want to cancel this account, please click the button below:
+  -# Why am I using form_tag? Because, doubtless for the best of reasons, link_to doesn't work here.
+  = form_tag cancel_account_url(id: @user.cancel_account_token), method: :delete do
+    = submit_tag "Yes, I want to cancel this account."

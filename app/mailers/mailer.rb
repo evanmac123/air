@@ -110,4 +110,12 @@ class Mailer < ActionMailer::Base
          :template_path => 'email_command_mailer',
          :template_name => "send_response"
   end
+
+  def guest_user_converted_to_real_user(user)
+    @cancel_account_url = cancel_account_url(id: user.cancel_account_token)
+
+    mail :to      => user.email_with_name,
+         :from    => user.reply_email_address,
+         :subject => "Welcome to H.Engage!"
+  end
 end

@@ -115,6 +115,9 @@ Health::Application.routes.draw do
 
   resources :guest_user_conversions, :only => [:create]
 
+  # See CancelAccountController for why this isn't rolled into AccountController
+  resources :cancel_account, :only => [:show, :destroy]
+
   namespace :admin do
     get 'exception' => 'exceptions#show'
     get 'sleep_forever' => 'sleep_forever#show'

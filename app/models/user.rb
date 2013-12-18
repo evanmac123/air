@@ -803,6 +803,10 @@ class User < ActiveRecord::Base
     return user.invitation_sent_text
   end
 
+  def send_conversion_email
+    Mailer.delay_mail(:guest_user_converted_to_real_user, self)
+  end
+
   def self.reset_all_mt_texts_today_counts!
     User.update_all :mt_texts_today => 0
   end

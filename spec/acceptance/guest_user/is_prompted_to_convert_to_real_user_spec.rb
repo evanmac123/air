@@ -206,6 +206,24 @@ feature 'Guest user is prompted to convert to real user' do
       local_setup
       expect_no_site_tutorial_lightbox
     end
+
+    it "should send a confirmation email with a link that can destroy the newly-created user", js: true do
+      @setup.call
+      local_setup
+      crank_dj_clear
+
+      user = User.last
+      open_email(user.email)
+
+      visit_in_email "click here to cancel this account"
+      User.all.count.should_not be_zero
+      expect_content user.name
+      expect_content user.email
+
+      click_button "Yes, I want to cancel this account."
+      User.all.count.should be_zero
+      expect_content "OK, you've cancelled that account."
+    end
   end
 
   shared_examples "no user creation" do
