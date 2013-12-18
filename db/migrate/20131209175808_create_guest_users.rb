@@ -1,5 +1,5 @@
 class CreateGuestUsers < ActiveRecord::Migration
-  def change
+  def up
     create_table :guest_users do |t|
       t.integer :points, default: 0
       t.integer :tickets, default: 0
@@ -10,10 +10,11 @@ class CreateGuestUsers < ActiveRecord::Migration
 
     add_index :guest_users, :demo_id
 
-    # Make these associations polymorphic
-    add_column :tile_completions, :user_type, :string
-    add_column :acts, :user_type, :string
-    execute "UPDATE tile_completions SET user_type='User'"
-    execute "UPDATE acts SET user_type='User'"
+    execute "UPDATE tile_completions SET user_type='User' WHERE user_type IS NULL"
+    execute "UPDATE acts SET user_type='User' WHERE user_type IS NULL"
+  end
+
+  def down
+    drop_table :guest_users
   end
 end
