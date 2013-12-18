@@ -32,6 +32,9 @@
 @import "./external/_sessions-external.css.scss";
 @import "./external/join.css.scss";
 
+/* External cancel-account page */
+@import "./external/_cancel_account.css.scss";
+
 /* RWD */
 @media only screen and (min-width: $foundation) {
 	@import "./external/screen_medium.css.scss";
