@@ -1,5 +1,6 @@
 - if @current_user.is_guest?
   #guest_conversion_form_wrapper
+    = link_to "Close", "#", class: "close-lightbox-button" 
     = form_tag guest_user_conversions_path, id: 'guest_conversion_form', remote: true do
       = text_field_tag "user[name]", "", placeholder: "Name"
       = text_field_tag "user[email]", "", placeholder: "Email"

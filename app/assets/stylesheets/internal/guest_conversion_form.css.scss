@@ -2,4 +2,7 @@
 
 #guest_conversion_form_wrapper {
   @include lightbox-form;
+  form {
+    margin-top: 2em;
+  }
 }

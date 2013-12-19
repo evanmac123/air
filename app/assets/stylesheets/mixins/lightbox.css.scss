@@ -28,3 +28,17 @@
   }
   p {padding:.5em 0;}
 }
+
+.close-lightbox-button:link, .close-lightbox-button:visited {
+  background:$light-gray;
+  border-radius:3px;
+  color:$white;
+  padding:.25em .5em;
+  position:absolute; 
+  top:.5em; right:.5em;
+  &:hover {
+    background: $orange;
+    color:$white;
+  }
+  font-size:.75em;
+}

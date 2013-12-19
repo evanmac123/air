@@ -91,6 +91,7 @@ class ApplicationController < ActionController::Base
   end
 
   def show_conversion_form_provided_that(allow_reshow = false)
+    #return(@show_conversion_form = true)
     return if session[:conversion_form_shown_already] && !(allow_reshow)
     return unless current_user && current_user.is_guest?
 

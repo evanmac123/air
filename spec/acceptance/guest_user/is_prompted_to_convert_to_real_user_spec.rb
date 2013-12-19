@@ -95,6 +95,10 @@ feature 'Guest user is prompted to convert to real user' do
     page.find('#guest_conversion_form_wrapper', visible: false)
   end
 
+  def click_close_conversion_button
+    click_link "Close"
+  end
+
   def expect_name_error
     expect_content "Please enter a first and last name"
   end
@@ -154,6 +158,18 @@ feature 'Guest user is prompted to convert to real user' do
       close_conversion_form
       click_sign_in_button
       should_be_on new_session_path
+    end
+  end
+
+  context "close button in conversion form" do
+    before do
+      visit public_board_path(public_slug: board.public_slug)
+      wait_for_conversion_form
+    end
+
+    it "should do what you would think", js: true do
+      click_close_conversion_button
+      expect_no_conversion_form
     end
   end
 
