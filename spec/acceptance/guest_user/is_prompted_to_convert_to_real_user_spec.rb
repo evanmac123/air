@@ -124,7 +124,7 @@ feature 'Guest user is prompted to convert to real user' do
   end
 
   def expect_welcome_flash(email)
-    expect_content "Account created! A confirmation email will go to #{email}"
+    expect_content "Account created! A confirmation email will be sent to #{email}."
   end
 
   context "buttons to open the form again or sign in" do

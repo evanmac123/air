@@ -15,7 +15,7 @@ class GuestUserConversionsController < ApplicationController
 
     if full_user
       sign_in full_user
-      flash[:success] = "Account created! A confirmation email will go to #{full_user.email}"
+      flash[:success] = "Account created! A confirmation email will be sent to #{full_user.email}."
       render_success_json
     else
       render_failure_json
