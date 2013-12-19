@@ -5,7 +5,7 @@
     link_to_tile = '#'
   else
     classes = ''
-    link_to_tile = tiles_path
+    link_to_tile = params[:public_slug] ? public_tiles_path(params[:public_slug]) : tiles_path
   end
 
 -thumbnail_id = "tile-thumbnail-#{tile.id }"
@@ -19,7 +19,8 @@
 %img{src: tile.thumbnail, style: "display: none; visibility: hidden;"}
 
 %li{class: classes}
-  = link_to tile_path(tile) do
+  - url = params[:public_slug] ? public_tile_path(params[:public_slug], tile) : tile_path(tile)
+  = link_to url do
     .tile-wrapper
       .tile_thumbnail_image{id: thumbnail_id}
       .headline

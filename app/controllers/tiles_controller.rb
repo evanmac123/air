@@ -33,7 +33,11 @@ class TilesController < ApplicationController
       render_new_tile
     else
       session[:start_tile] = params[:id]
-      redirect_to tiles_path
+      if params[:public_slug]
+        redirect_to public_tiles_path(params[:public_slug])
+      else
+        redirect_to tiles_path
+      end
     end
   end
 

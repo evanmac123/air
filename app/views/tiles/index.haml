@@ -4,7 +4,7 @@
   - if @all_tiles_done
     #tiles_done_message
       %p You've completed all available tiles!
-      = link_to "Return to homepage", activity_path
+      = link_to "Return to homepage", (params[:public_slug] ? public_activity_path(params[:public_slug]) : activity_path)
   - else
     .tile_viewer_header
       = link_to activity_path do

@@ -7,6 +7,9 @@ Health::Application.routes.draw do
   match "next"          => "pages#show", :id => "june2013_landing"
 
   match "b/:public_slug" => "public_boards#show", :as => "public_board", :via => :get
+  match "b/:public_slug/activity" => "acts#index", :as => "public_activity", :via => :get
+  match "b/:public_slug/tiles" => "tiles#index", :as => "public_tiles", :via => :get
+  match "b/:public_slug/tile/:id" => "tiles#show", :as => "public_tile", :via => :get
 
   resources :tiles, :only => [:index, :show]
   resources :tile_completions, :only => [:create]

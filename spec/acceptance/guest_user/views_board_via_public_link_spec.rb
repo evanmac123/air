@@ -6,7 +6,7 @@ feature 'Views board via public link' do
     tile = FactoryGirl.create(:tile, demo: board)
 
     visit public_board_path(public_slug: board.public_slug)
-    should_be_on activity_path
+    should_be_on public_activity_path(public_slug: board.public_slug)
     expect_content tile.headline
   end
 

@@ -16,7 +16,7 @@ feature 'Completes tiles' do
   end
 
   scenario 'and can, in the first place, go to the tile page' do
-    should_be_on tiles_path
+    should_be_on public_tiles_path(board.public_slug)
   end
 
   scenario 'and sees the happy flash', js: true do
