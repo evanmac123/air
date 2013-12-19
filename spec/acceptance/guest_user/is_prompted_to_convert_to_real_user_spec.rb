@@ -221,12 +221,10 @@ feature 'Guest user is prompted to convert to real user' do
       User.first.demo_id.should == @board.id
     end
 
-    it "should show the sample tile lightbox", js: true do
-      unless @no_tutorial_lightbox_expected
-        @setup.call
-        local_setup
-        within(site_tutorial_lightbox_selector, visible: true) { expect_content site_tutorial_content }
-      end
+    it "should not show the sample tile lightbox", js: true do
+      @setup.call
+      local_setup
+      expect_no_content site_tutorial_content
     end
 
     it "should say something nice in the flash", js: true do
@@ -411,6 +409,7 @@ feature 'Guest user is prompted to convert to real user' do
       @setup = lambda do
         create_tiles(board, 1) 
         visit public_board_path(public_slug: board.public_slug)
+        close_tutorial_lightbox
         click_link Tile.first.headline  
         click_right_answer
       end
@@ -421,6 +420,7 @@ feature 'Guest user is prompted to convert to real user' do
       visit public_board_path(public_slug: board.public_slug)
       expect_no_conversion_form
 
+      close_tutorial_lightbox
       click_link Tile.first.headline
       expect_no_conversion_form
       click_right_answer
@@ -442,6 +442,7 @@ feature 'Guest user is prompted to convert to real user' do
       @setup = lambda do
         create_tiles(board, 2) 
         visit public_board_path(public_slug: board.public_slug)
+        close_tutorial_lightbox
         Tile.all.each do |tile|
           visit activity_path
           click_link tile.headline  
@@ -455,7 +456,8 @@ feature 'Guest user is prompted to convert to real user' do
       visit public_board_path(public_slug: board.public_slug)
 
       all_tiles = Tile.all
-      
+
+      close_tutorial_lightbox
       click_link all_tiles.first.headline
       click_right_answer
       expect_no_conversion_form
@@ -479,7 +481,8 @@ feature 'Guest user is prompted to convert to real user' do
       visit public_board_path(public_slug: board.public_slug)
 
       all_tiles = Tile.all
-      
+    
+      close_tutorial_lightbox
       click_link all_tiles.first.headline
       click_right_answer
       expect_no_conversion_form

@@ -11,6 +11,7 @@ feature 'Completes tiles' do
 
   before do
     visit public_board_path(public_slug: board.public_slug)
+    close_tutorial_lightbox
     click_link tile_1.headline
   end
 

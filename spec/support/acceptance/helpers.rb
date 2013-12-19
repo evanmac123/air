@@ -7,9 +7,8 @@ module SteakHelperMethods
     first(:link, locator).click
   end
 
-  # Capy2 doesn't like the fact that the visible "No Thanks" to the Quick Tour is duplicated from a non-visible template
-  def dismiss_tutorial
-    find('div#tutorial_introduction a#no_thanks_tutorial').click
+  def close_tutorial_lightbox
+    find('#get_started_lightbox #close_get_started_lightbox').click
   end
 
   # Need these guys to get rid of overlays for the talking-chicken tutorial and inviting people
