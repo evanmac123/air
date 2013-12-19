@@ -51,3 +51,4 @@ vagrant_provisioning
 libpeerconnection.log
 *.patch
 turbulence/*
+repeatedly_spec.rb

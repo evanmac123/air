@@ -22,6 +22,7 @@ class ActsController < ApplicationController
     @demo                  = current_user.demo
     @acts                  = find_requested_acts(@demo)
 
+    #debugger unless current_user.is_guest?
     @display_get_started_lightbox = current_user.on_first_login && !(current_user.get_started_lightbox_displayed) && current_user.demo.tiles.active.present?
     if @display_get_started_lightbox
       current_user.get_started_lightbox_displayed = true

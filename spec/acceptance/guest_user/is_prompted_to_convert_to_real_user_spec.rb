@@ -123,6 +123,10 @@ feature 'Guest user is prompted to convert to real user' do
     expect_no_content password_error_copy
   end
 
+  def expect_welcome_flash(email)
+    expect_content "Account created! A confirmation email will go to #{email}"
+  end
+
   context "buttons to open the form again or sign in" do
     before do
       visit public_board_path(public_slug: board.public_slug)
@@ -217,10 +221,18 @@ feature 'Guest user is prompted to convert to real user' do
       User.first.demo_id.should == @board.id
     end
 
-    it "should not show the sample tile", js: true do
+    it "should show the sample tile lightbox", js: true do
+      unless @no_tutorial_lightbox_expected
+        @setup.call
+        local_setup
+        within(site_tutorial_lightbox_selector, visible: true) { expect_content site_tutorial_content }
+      end
+    end
+
+    it "should say something nice in the flash", js: true do
       @setup.call
       local_setup
-      expect_no_site_tutorial_lightbox
+      expect_welcome_flash('jim@jones.com')
     end
 
     it "should send a confirmation email with a link that can destroy the newly-created user", js: true do
@@ -378,6 +390,7 @@ feature 'Guest user is prompted to convert to real user' do
     before do
       @board = board
       @setup = lambda{ visit public_board_path(public_slug: board.public_slug) }
+      @no_tutorial_lightbox_expected = true
     end
 
     it "should offer right away", js: true do
