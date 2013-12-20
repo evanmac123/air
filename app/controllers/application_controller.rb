@@ -251,7 +251,15 @@ class ApplicationController < ActionController::Base
 
   def find_or_create_guest_user
     if session[:guest_user][:id].present?
-      GuestUser.find(session[:guest_user][:id])
+      guest_user = GuestUser.find(session[:guest_user][:id])
+      if params[:public_slug]
+        board = Demo.find_by_public_slug(params[:public_slug])
+        unless guest_user.demo_id == board.id
+          guest_user.demo = board
+          guest_user.save!
+        end
+      end
+      guest_user
     else
       GuestUser.create!(session[:guest_user])
     end
