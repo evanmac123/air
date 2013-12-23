@@ -5,6 +5,7 @@ class GuestUserResetsController < ApplicationController
     if current_user.is_guest?
       current_user.points = 0
       current_user.tickets = 0
+      current_user.get_started_lightbox_displayed = false
       current_user.save!
 
       current_user.acts.each(&:destroy)
