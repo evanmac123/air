@@ -43,6 +43,7 @@ feature 'Starts over' do
     it "should reset guest user's progress when they click it", js: true do
       click_start_over_button
 
+      should_be_on activity_path
       guest_user = GuestUser.last
       guest_user.tile_completions.should be_empty
       guest_user.acts.should be_empty

@@ -12,6 +12,6 @@ class GuestUserResetsController < ApplicationController
       session[:display_start_over_button] = false
     end
 
-    redirect_to :back
+    redirect_to activity_path
   end
 end
