@@ -103,7 +103,17 @@ class ApplicationController < ActionController::Base
 
   alias authenticate_without_game_begun_check authorize
   def authorize
-    return if logged_in_as_guest?
+    if logged_in_as_guest?
+      if guest_user_allowed?
+        return
+      else
+        flash[:failure] = 'That function is restricted to signed-in users. If you already have an account with H.Engage, <a href="/session/new">click here to sign in</a>.'
+        flash[:failure_allow_raw] = true
+        redirect_to activity_path
+        return
+      end
+    end
+
     authenticate_without_game_begun_check
 
     return if current_user_is_site_admin || going_to_settings
@@ -246,7 +256,7 @@ class ApplicationController < ActionController::Base
   end
 
   def logged_in_as_guest?
-    guest_user_allowed? && session[:guest_user].present? && current_user_without_guest_user.nil?
+    session[:guest_user].present? && current_user_without_guest_user.nil?
   end
 
   def find_or_create_guest_user
