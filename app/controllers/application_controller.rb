@@ -117,6 +117,11 @@ class ApplicationController < ActionController::Base
       end
     end
 
+    if current_user.nil? && guest_user_allowed? && params[:public_slug]
+      login_as_guest(params[:public_slug])
+      return
+    end
+
     authenticate_without_game_begun_check
 
     return if current_user_is_site_admin || going_to_settings
@@ -135,6 +140,11 @@ class ApplicationController < ActionController::Base
 
   def claimed_guest_user
     GuestUser.find(session[:guest_user][:id])
+  end
+
+  def login_as_guest(public_slug)
+    demo = Demo.where(public_slug: public_slug).first
+    session[:guest_user] = {demo_id: demo.id}
   end
 
   def current_user_with_guest_user

@@ -58,7 +58,6 @@ feature 'Starts over' do
       visit public_board_path(board.public_slug)
       expect_no_start_over_button
 
-      close_tutorial_lightbox
       click_link tile.headline
       expect_no_start_over_button
     end
