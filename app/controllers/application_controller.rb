@@ -144,7 +144,12 @@ class ApplicationController < ActionController::Base
 
   def login_as_guest(public_slug)
     demo = Demo.where(public_slug: public_slug).first
-    session[:guest_user] = {demo_id: demo.id}
+    if demo
+      session[:guest_user] = {demo_id: demo.id}
+    else
+      not_found
+      return
+    end
   end
 
   def current_user_with_guest_user
@@ -290,5 +295,9 @@ class ApplicationController < ActionController::Base
     else
       GuestUser.create!(session[:guest_user])
     end
+  end
+
+  def not_found
+    render :file => "#{Rails.root}/public/404.html", :status => :not_found, :layout => false
   end
 end

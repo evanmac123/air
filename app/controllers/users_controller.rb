@@ -30,7 +30,7 @@ class UsersController < Clearance::UsersController
     @user = current_user.demo.users.find_by_slug(params[:id])
     @current_user = current_user
     unless @user
-      render :file => "#{Rails.root}/public/404.html", :status => :not_found, :layout => false
+      not_found
       return
     end
 
