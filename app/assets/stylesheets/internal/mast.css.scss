@@ -111,4 +111,5 @@ header {
   }
   #save_progress_button {@include app-button($dark-green);}
   #sign_in_button {@include app-button($med-gray);}
+  #guest_user_start_over_button {@include app-button($red);}
 }

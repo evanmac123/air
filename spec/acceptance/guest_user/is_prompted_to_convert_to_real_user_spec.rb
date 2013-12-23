@@ -90,11 +90,6 @@ feature 'Guest user is prompted to convert to real user' do
     end
   end
 
-  def close_conversion_form
-    evaluate_script("$('#guest_conversion_form_wrapper').trigger('close')")
-    page.find('#guest_conversion_form_wrapper', visible: false)
-  end
-
   def click_close_conversion_button
     click_link "Close"
   end

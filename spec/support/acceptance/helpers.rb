@@ -312,4 +312,11 @@ module SteakHelperMethods
   def expect_no_site_tutorial_lightbox
     page.all(site_tutorial_lightbox_selector).should be_empty
   end
+  
+  def close_conversion_form
+    evaluate_script("$('#guest_conversion_form_wrapper').trigger('close')")
+    page.find('#guest_conversion_form_wrapper', visible: false)
+  end
+
+
 end

@@ -114,6 +114,7 @@ Health::Application.routes.draw do
   resources :thumbnails, :only => [:index]
 
   resources :guest_user_conversions, :only => [:create]
+  resource :guest_user_reset, :only => [:update]
 
   # See CancelAccountController for why this isn't rolled into AccountController
   resources :cancel_account, :only => [:show, :destroy]

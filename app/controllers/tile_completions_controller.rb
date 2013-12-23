@@ -6,6 +6,7 @@ class TileCompletionsController < ApplicationController
     act = create_act(tile)
     create_tile_completion(tile)
 
+    session[:display_start_over_button] = true if current_user.is_guest?
     flash[:success] = reply(act)
     redirect_to :back
   end
