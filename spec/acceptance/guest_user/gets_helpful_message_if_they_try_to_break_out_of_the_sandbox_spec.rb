@@ -26,7 +26,7 @@ feature 'guest user who tries to play outside of the sandbox' do
       context "going to #{path_to_test}" do
         it "should get redirected to the activity path with a helpful message" do
           visit path_to_test
-          should_be_on activity_path
+          should_be_on public_activity_path(board.public_slug)
           expect_sandbox_reprimand
 
           click_link "click here to sign in"

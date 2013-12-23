@@ -1,14 +1,15 @@
 <header>
   <div class="row" id="top_bar">
 
+    <% _activity_path = current_user.is_guest? ? public_activity_path(current_user.demo.public_slug) : activity_path %>
     <div class="large-2 columns" id="logo">
-      <a href="<%= activity_path %>"><%= image_tag skinned('logo_url', "logo.png") %></a>
+      <a href="<%= _activity_path %>"><%= image_tag skinned('logo_url', "logo.png") %></a>
     </div>
 
     <nav id="navigation" class="columns large-3"> <!-- offcanvas menu -->
       <div class="user_options">
         <ul>
-          <li><%= link_to "Home", activity_path, :class => 'nav-home' %></li>
+          <li><%= link_to "Home", _activity_path, :class => 'nav-home' %></li>
           <li><%= link_to "My Profile", user_path(current_user), :id => 'my_profile', :class => 'nav-activity-class' %></li>
           <li><%= link_to "Find users", users_path, :class => 'nav-directory' %></li>
           <li><%= link_to "Settings", edit_account_settings_path, :class => 'nav-settings' %></li>

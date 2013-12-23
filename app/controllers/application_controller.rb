@@ -112,7 +112,7 @@ class ApplicationController < ActionController::Base
       else
         flash[:failure] = 'That function is restricted to signed-in users. If you already have an account with H.Engage, <a href="/session/new">click here to sign in</a>.'
         flash[:failure_allow_raw] = true
-        redirect_to activity_path
+        redirect_to public_activity_path(claimed_guest_user.demo.public_slug)
         return
       end
     end
@@ -131,6 +131,10 @@ class ApplicationController < ActionController::Base
       render "shared/website_locked"
       return
     end
+  end
+
+  def claimed_guest_user
+    GuestUser.find(session[:guest_user][:id])
   end
 
   def current_user_with_guest_user
