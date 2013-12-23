@@ -8,9 +8,9 @@
       = submit_tag
       = image_tag "spinner.gif", class: "spinner", style: "display: none"
 
-    #name_error
-    #email_error
-    #password_error
+    #name_error.conversion_error
+    #email_error.conversion_error
+    #password_error.conversion_error
 
   - if @show_conversion_form
     = javascript_tag do
