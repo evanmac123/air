@@ -141,8 +141,6 @@ Health::Application.routes.draw do
         resource :activities, :only => [:create]
       end
 
-      resources :bad_words
-
       resources :tiles do
         collection { post :sort }
         resource :bulk_satisfaction, :only => [:create]
@@ -174,8 +172,6 @@ Health::Application.routes.draw do
     end
 
     delete "reset_tiles" => "tile_completions#destroy", :as => :reset_tiles
-
-    resources :bad_words
 
     resources :characteristics
   end

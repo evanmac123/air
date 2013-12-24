@@ -191,11 +191,6 @@ FactoryGirl.define do
     association :demo
   end
 
-  factory :bad_word do
-    value "goshdarnit"
-    association :demo
-  end
-
   factory :incoming_sms do
   end
 

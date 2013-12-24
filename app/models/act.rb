@@ -130,13 +130,6 @@ class Act < ActiveRecord::Base
   end
 
   def self.find_and_record_rule_suggestion(attempted_value, user)
-    if user.demo.detect_bad_words(attempted_value)
-      return I18n.t(
-        'activerecord.models.act.parse.bad_words_detected',
-        :default => "Sorry, we don't give points for that."
-      )
-    end
-
     reply, last_suggested_item_ids = RuleValue.suggestion_for(attempted_value, user)
     
     user.last_suggested_items = last_suggested_item_ids if last_suggested_item_ids
