@@ -94,8 +94,16 @@ feature 'Guest user is prompted to convert to real user' do
     click_link "Close"
   end
 
+  def name_error_copy
+    "Please enter a first and last name"  
+  end
+
   def expect_name_error
-    expect_content "Please enter a first and last name"
+    expect_content name_error_copy
+  end
+
+  def expect_no_name_error
+    expect_no_content name_error_copy
   end
 
   def expect_invalid_email_error
@@ -340,14 +348,17 @@ feature 'Guest user is prompted to convert to real user' do
       before do
         FactoryGirl.create(:user, email: 'jimmy@example.com')
         wait_for_conversion_form
-        fill_in_conversion_name "Jimmy"
         fill_in_conversion_email 'jimmy@example.com'
-        fill_in_conversion_password 'jimjim'
         submit_conversion_form
       end
 
-      it "should show errors", js: true do
+      it "should show the email error", js: true do
         expect_duplicate_email_error
+      end
+
+      it "should now show the other errors", js: true do
+        expect_no_name_error
+        expect_no_password_error
       end
 
       it "should have a link to signin page", js: true do
