@@ -16,7 +16,7 @@ ensurePeriod = (error) ->
   else error + '.'
 
 displayErrors = (errors) ->
-  if !('has already been taken' in errors.email)
+  if !(errors.email && 'has already been taken' in errors.email)
     $('#guest_conversion_form_wrapper #name_error').html(ensurePeriods(errors.name))
     $('#guest_conversion_form_wrapper #password_error').html(ensurePeriods(errors.password))
 
