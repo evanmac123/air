@@ -1,6 +1,10 @@
 require 'acceptance/acceptance_helper'
 
 feature 'User views tiles' do
+  def all_tiles_done_message
+    "You've completed all available tiles!"
+  end
+
   context 'of the keyword variety' do
     scenario 'and all the extra cool stuff around them' do
       tile = FactoryGirl.create(:keyword_tile, supporting_content: "Vote Quimby", question: "Who should you vote for?")
@@ -45,6 +49,12 @@ feature 'User views tiles' do
       expect_content "completed the tile: \"#{@tile.headline}\""
       expect_content "30 PTS"
     end
+
+    scenario 'and sees a helpful message afterwards', js: true do
+      click_answer 1
+      expect_content all_tiles_done_message
+    end
+
 
     scenario "but gets no ticket emails", js: true do
       click_answer 1

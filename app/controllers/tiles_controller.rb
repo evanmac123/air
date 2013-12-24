@@ -16,7 +16,8 @@ class TilesController < ApplicationController
                     nil
                   end
 
-    @all_tiles_done = satisfiable_tiles.empty?
+    decide_if_tiles_can_be_done(satisfiable_tiles)
+
     session.delete(:start_tile)
 
     decide_whether_to_show_conversion_form
@@ -79,14 +80,6 @@ class TilesController < ApplicationController
     @current_tile_position_description = "Tile #{next_tile_index + 1} of #{satisfiable_tiles.length}"
   end
 
-  def satisfiable_tiles
-    unless @_satisfiable_tiles
-      @_satisfiable_tiles = Tile.satisfiable_to_user(current_user)
-    end
-
-    @_satisfiable_tiles
-  end
-
   def render_tile_wall
     render partial: "shared/tile_wall", locals: {tiles: Tile.displayable_to_user(current_user, tile_batch_size)}
   end
@@ -104,4 +97,13 @@ class TilesController < ApplicationController
       show_conversion_form_provided_that(allow_reshow) { @current_user.tile_completions.count == 2 || @current_user.tile_completions.count == active_tile_count }
     end
   end
+
+  def satisfiable_tiles
+    unless @_satisfiable_tiles
+      @_satisfiable_tiles = Tile.satisfiable_to_user(current_user)
+    end
+
+    @_satisfiable_tiles
+  end
+
 end

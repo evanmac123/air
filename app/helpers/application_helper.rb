@@ -122,4 +122,12 @@ module ApplicationHelper
   def show_save_progress_button
     session[:conversion_form_shown_before_this_request] && current_user.try(:is_guest?)
   end
+
+  def done_all_tiles_message
+    if @no_tiles_to_do
+      "There aren't any tiles available at this time. Check back later for more."
+    else
+      "You've completed all available tiles! Check back later for more."
+    end
+  end
 end

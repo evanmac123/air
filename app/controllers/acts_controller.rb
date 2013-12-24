@@ -33,6 +33,7 @@ class ActsController < ApplicationController
     TileCompletion.mark_displayed_one_final_time(@current_user)
 
     show_conversion_form_provided_that { @demo.tiles.active.empty? }
+    decide_if_tiles_can_be_done(@displayable_tiles)
 
     respond_to do |format|
       format.html

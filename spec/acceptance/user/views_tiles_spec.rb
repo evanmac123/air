@@ -2,7 +2,7 @@ require 'acceptance/acceptance_helper'
 
 feature 'User views tile' do
   def no_tiles_message
-    "You've completed all available tiles! Check back later for more."
+    "There aren't any tiles available at this time. Check back later for more."
   end
 
   context "when there are tiles to be seen" do

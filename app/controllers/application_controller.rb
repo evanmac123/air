@@ -300,4 +300,9 @@ class ApplicationController < ActionController::Base
   def not_found
     render :file => "#{Rails.root}/public/404.html", :status => :not_found, :layout => false
   end
+
+  def decide_if_tiles_can_be_done(satisfiable_tiles)
+    @all_tiles_done = satisfiable_tiles.empty?
+    @no_tiles_to_do = current_user.demo.tiles.active.empty?
+  end
 end
