@@ -1,49 +1,50 @@
-<% unless current_user.try(:is_guest?) %>
-  <% if Rails.env.production? || Rails.env.staging? || ENV['INTERCOM'] %>
-    <% http_host = controller.env['HTTP_HOST'] %>
-    <% _intercom_user = @intercom_user || current_user || @user %>
-    <% intercom_user_id_with_env = _intercom_user.id.to_s + "-" + Rails.env %>
-    <script id="IntercomSettingsScriptTag">
-      var intercomSettings = {
-        app_id: 'iukuloq8',
-        email: "<%= _intercom_user.email.html_safe %>", // User's e-mail address
-        created_at: <%= _intercom_user.accepted_invitation_at.to_i %>, // User's sign-up date, Unix timestamp
-        name: "<%= _intercom_user.name %>",
-        user_id: "<%= intercom_user_id_with_env %>", // Sending user_id so if email changes they can still track it
-        user_hash: "<%= Digest::SHA1.hexdigest('9rlx8hyy' + intercom_user_id_with_env) %>",
-        custom_data:{
-          demo: "<%= _intercom_user.demo.name.html_safe %>",
-          location: "<%= _intercom_user.location.try(:name) %>",
-          notification_method: "<%= _intercom_user.notification_method %>",
-          last_acted_at: "<%= _intercom_user.last_acted_at.to_i %>",
-          date_of_birth: "<%= _intercom_user.date_of_birth %>",
-          profile: "<%= 'https://' + http_host + '/users/' + _intercom_user.slug %>",
-          points: "<%= _intercom_user.points %>"
-        },
-        widget: {
-          activator: '#IntercomDefaultWidget',
-          label: 'Support',
-          use_counter: true
-        }
-      };
-    </script>
-    <script>
-      if(!window.intercomDisabled) {
-        (function() {
-          function async_load() {
-            var s = document.createElement('script');
-            s.type = 'text/javascript'; s.async = true;
-            s.src = 'https://api.intercom.io/api/js/library.js';
-            var x = document.getElementsByTagName('script')[0];
-            x.parentNode.insertBefore(s, x);
-          }
-          if (window.attachEvent) {
-            window.attachEvent('onload', async_load);
-          } else {
-            window.addEventListener('load', async_load, false);
-          }
-        })();
-      }
-    </script>
+<% if Rails.env.production? || Rails.env.staging? || ENV['INTERCOM'] %>
+  <% http_host = controller.env['HTTP_HOST'] %>
+  <% _intercom_user = @intercom_user || current_user || @user %>
+  <% intercom_user_id_with_env = _intercom_user.id.to_s + "-" + Rails.env %>
+  <% if _intercom_user.is_guest? %>
+    <% intercom_user_id_with_env = "GUEST-" + intercom_user_id_with_env %>
   <% end %>
+  <script id="IntercomSettingsScriptTag">
+    var intercomSettings = {
+      app_id: 'iukuloq8',
+      email: "<%= _intercom_user.email.html_safe %>", // User's e-mail address
+      created_at: <%= _intercom_user.accepted_invitation_at.to_i %>, // User's sign-up date, Unix timestamp
+      name: "<%= _intercom_user.name %>",
+      user_id: "<%= intercom_user_id_with_env %>", // Sending user_id so if email changes they can still track it
+      user_hash: "<%= Digest::SHA1.hexdigest('9rlx8hyy' + intercom_user_id_with_env) %>",
+      custom_data:{
+        demo: "<%= _intercom_user.demo.name.html_safe %>",
+        location: "<%= _intercom_user.location.try(:name) %>",
+        notification_method: "<%= _intercom_user.notification_method %>",
+        last_acted_at: "<%= _intercom_user.last_acted_at.try(:to_i) %>",
+        date_of_birth: "<%= _intercom_user.date_of_birth %>",
+        profile: "<%= 'https://' + http_host + '/users/' + _intercom_user.slug %>",
+        points: "<%= _intercom_user.points %>"
+      },
+      widget: {
+        activator: '#IntercomDefaultWidget',
+        label: 'Support',
+        use_counter: true
+      }
+    };
+  </script>
+  <script>
+    if(!window.intercomDisabled) {
+      (function() {
+        function async_load() {
+          var s = document.createElement('script');
+          s.type = 'text/javascript'; s.async = true;
+          s.src = 'https://api.intercom.io/api/js/library.js';
+          var x = document.getElementsByTagName('script')[0];
+          x.parentNode.insertBefore(s, x);
+        }
+        if (window.attachEvent) {
+          window.attachEvent('onload', async_load);
+        } else {
+          window.addEventListener('load', async_load, false);
+        }
+      })();
+    }
+  </script>
 <% end %>

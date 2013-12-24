@@ -68,6 +68,7 @@ class GuestUser < ActiveRecord::Base
   end
 
   def update_last_acted_at
+    update_attributes(last_acted_at: Time.now)
   end
 
   def update_points(bump, *args)
@@ -96,6 +97,7 @@ class GuestUser < ActiveRecord::Base
     converted_user.password = converted_user.password_confirmation = password
     converted_user.original_guest_user = self
     converted_user.cancel_account_token = cancel_account_token(converted_user)
+    converted_user.last_acted_at = last_acted_at
 
     converted_user.converting_from_guest = true
     if converted_user.save
@@ -114,5 +116,23 @@ class GuestUser < ActiveRecord::Base
 
   def cancel_account_token(user)
     Digest::SHA1.hexdigest("--#{Time.now.to_f}--#{user.email}--#{user.name}--#{user.id}--cancel_account")
+  end
+
+  def accepted_invitation_at
+    created_at
+  end
+
+  def location
+  end
+
+  def date_of_birth
+  end
+
+  def notification_method
+    "n/a"
+  end
+
+  def slug
+    "guestuser"
   end
 end

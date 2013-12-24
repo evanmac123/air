@@ -64,6 +64,12 @@ describe GuestUser do
     it "sets characteristics to an empty hash" do
       convert.characteristics.should == {}
     end
+
+    it "sets last_acted_at" do
+      baseline = Time.now
+      user.update_attributes(last_acted_at: baseline)
+      convert.last_acted_at.should == baseline
+    end
   end
 
   describe "the unhappy path" do
@@ -105,6 +111,32 @@ describe GuestUser do
       user.convert_to_full_user!("jimmy", "jimmy@example.com", "")
       user.errors.keys.should include(:password)
       user.errors.keys.should_not include(:password_confirmation) # just shut up already
+    end
+  end
+
+  describe "#accepted_invitation_at" do
+    it "should return the creation timestamp" do
+      user.accepted_invitation_at.should == user.created_at
+    end
+  end
+
+  [:location, :date_of_birth].each do |nil_field|
+    describe "##{nil_field.to_s}" do
+      it "should return nil" do
+        user.send(nil_field).should be_nil
+      end
+    end
+  end
+
+  describe "notification method" do
+    it "should return \"n/a\"" do
+      user.notification_method.should == "n/a"
+    end
+  end
+
+  describe "slug" do
+    it "should return \"guestuser\"" do
+      user.slug.should == "guestuser"
     end
   end
 end
