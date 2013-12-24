@@ -244,12 +244,12 @@ feature 'Guest user is prompted to convert to real user' do
       user = User.last
       open_email(user.email)
 
-      visit_in_email "click here to cancel this account"
+      visit_in_email "click here to cancel."
       User.all.count.should_not be_zero
       expect_content user.name
       expect_content user.email
 
-      click_button "Yes, I want to cancel this account."
+      click_button "Permanently cancel my account"
       User.all.count.should be_zero
       expect_content "OK, you've cancelled that account."
     end

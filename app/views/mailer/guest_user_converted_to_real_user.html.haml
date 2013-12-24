@@ -8,13 +8,14 @@
     %table{:cellpadding => "0", :cellspacing => "0", :width => "600", :style => "box-sizing:border-box; color:#909090; font-family:Helvetica, Arial, sans-serif;"}
       %tr
         %td
-          %p Welcome to H.Engage!
+          %p 
+            Welcome to the 
+            = @board_name
+            on H.Engage.
 
           %p 
-            Someone, quite possibly you, has created an account with H.Engage. If that's not you, just
-            = link_to "click here to cancel this account", @cancel_account_url, method: :delete
-
-          %p Otherwise, have fun!
+            If you didn't create this account, just
+            = link_to "click here to cancel.", @cancel_account_url, method: :delete
 
       %tr
         %td{:height => "20", :style => "line-height:0; font-size:0;"}

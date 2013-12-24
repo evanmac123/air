@@ -113,6 +113,7 @@ class Mailer < ActionMailer::Base
 
   def guest_user_converted_to_real_user(user)
     @cancel_account_url = cancel_account_url(id: user.cancel_account_token)
+    @board_name = user.demo.name
 
     mail :to      => user.email_with_name,
          :from    => user.reply_email_address,
