@@ -3,24 +3,6 @@ require 'acceptance/acceptance_helper'
 feature 'Guest user is prompted to convert to real user' do
   let (:board) {FactoryGirl.create(:demo, public_slug: "sluggg")}
 
-  def conversion_form_selector
-    "form[action='#{guest_user_conversions_path}']"
-  end
-
-  def wait_for_conversion_form
-    page.find(conversion_form_selector, visible: true)
-  end
-
-  def expect_conversion_form
-    wait_for_conversion_form
-
-    within(conversion_form_selector) do
-      page.find("input[type=text][name='user[name]']").should be_present
-      page.find("input[type=text][name='user[email]']").should be_present
-      page.find("input[type=password][name='user[password]']").should be_present
-    end
-  end
-
   def expect_no_conversion_form
     sleep 1 # wait for lightbox animation to finish
     page.all(conversion_form_selector).select(&:visible?).should be_empty

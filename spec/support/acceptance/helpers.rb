@@ -318,5 +318,21 @@ module SteakHelperMethods
     page.find('#guest_conversion_form_wrapper', visible: false)
   end
 
+  def conversion_form_selector
+    "form[action='#{guest_user_conversions_path}']"
+  end
 
+  def wait_for_conversion_form
+    page.find(conversion_form_selector, visible: true)
+  end
+
+  def expect_conversion_form
+    wait_for_conversion_form
+
+    within(conversion_form_selector) do
+      page.find("input[type=text][name='user[name]']").should be_present
+      page.find("input[type=text][name='user[email]']").should be_present
+      page.find("input[type=password][name='user[password]']").should be_present
+    end
+  end
 end

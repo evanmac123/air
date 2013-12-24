@@ -110,7 +110,7 @@ class ApplicationController < ActionController::Base
       if guest_user_allowed?
         return
       else
-        flash[:failure] = 'That function is restricted to signed-in users. If you already have an account with H.Engage, <a href="/session/new">click here to sign in</a>.'
+        flash[:failure] = '<a href="#" class="open_save_progress_form">Save your progress</a> to access this part of the site.'
         flash[:failure_allow_raw] = true
         redirect_to public_activity_path(claimed_guest_user.demo.public_slug)
         return

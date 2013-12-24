@@ -8,7 +8,7 @@ feature 'guest user who tries to play outside of the sandbox' do
   end
 
   def expect_sandbox_reprimand
-    expect_content "That function is restricted to signed-in users. If you already have an account with H.Engage, click here to sign in."
+    expect_content "Save your progress to access this part of the site."
   end
 
   paths_to_test = [
@@ -28,10 +28,13 @@ feature 'guest user who tries to play outside of the sandbox' do
           visit path_to_test
           should_be_on public_activity_path(board.public_slug)
           expect_sandbox_reprimand
-
-          click_link "click here to sign in"
-          should_be_on new_session_path
         end
+      end
+
+      it "should have a live save-progress link", js: true do
+        visit path_to_test
+        click_link "Save your progress"
+        expect_conversion_form
       end
     end
   end
