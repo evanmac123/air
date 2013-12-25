@@ -66,19 +66,6 @@ Feature: User sees tiles they can currently do
     And I go to the activity page
     Then I should see the "Eat buttery toast" tile
 
-  Scenario: Newly created tile shows up for users who are eligible for it
-    When I sign in via the login page as an admin
-    And I go to the admin "FooCo" demo page
-    And I follow "Tiles for this demo"
-    And I follow "Add tile"
-    And I fill in "Headline" with "Do new stuff"
-    And I attach an image to the tile
-    And I attach a thumbnail to the tile
-    And I press "Create Tile"
-    And DJ works off
-    And I sign in via the login page with "Joe/foobar"
-    Then I should see the "Do new stuff" tile
-
   Scenario: Newly created user sees tiles they can do
     Given the following user exists:
       | name | email           | demo                |

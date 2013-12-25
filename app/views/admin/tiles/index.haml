@@ -12,14 +12,12 @@
       = hidden_field_tag :demo_id, @demo.id
       = button_tag "Reset my tiles for #{@demo.name}"
     #square_label= "Use this to reset your tiles and any tile actions after testing so you can see what users see. Some of your acts will be destroyed in the process."
-  #drag
-    %h3 Drag to rearrange
     
   - if @tiles.empty? 
     %p No tiles for this demo.
   - else 
     %table{:id => :tiles_index, :class => :admin_wide}
-      %tbody{:class => :sortable_body, 'data-update-url' => sort_admin_demo_tiles_url}
+      %tbody{:class => :sortable_body}
         %tr
           %th Active
           %th Headline 
@@ -39,7 +37,6 @@
         - count = 0
         - @tiles.each do |tile| 
           - zebra_stripes = cycle('', 'stripe')
-          - zebra_stripes += ' draggable '
           - active_class = tile.due? ? ' active' : ' inactive'
           - zebra_stripes += active_class
 
@@ -50,7 +47,7 @@
                     
             %td{:class => "brown"}= count += 1 if tile.due?
             %td
-              = link_to tile.headline, edit_admin_demo_tile_path(@demo, tile) 
+              = tile.headline
               = render 'tile_details', :tile => tile
                    
             %td= tile.start_time ? tile.start_time.pretty_succinct : ''
@@ -71,9 +68,3 @@
                 %ul
                   - prerequisite_names.each do |prerequisite_name| 
                     %li= prerequisite_name         
-          
-
-
-
-  %p= link_to "Add tile", new_admin_demo_tile_path(@demo) 
-  .long_page
