@@ -1,8 +1,15 @@
-- if $rollout.active?(:public_board, current_user.demo)
-  %h1 PUBLIC SLUG TOOLS GO HERE
-
 .row
   .large-12.columns= render partial: 'client_admin/tiles/tiles_tools_subnav'
 
 %section.share_tools
+  - if $rollout.active?(:public_board, current_user.demo)
+    .row#public_board
+      .large-8.columns
+        %h2 Public Board Controls
+        .public_board_controls
+          - if @board_is_public
+          - else
+            %p This board is not currently public.
+            = link_to "Make Public", "#", id: "make_public"
+
   =  render partial: 'digest'

@@ -322,6 +322,10 @@ class Demo < ActiveRecord::Base
     true
   end
 
+  def is_public?
+    public_slug.present?
+  end
+
   protected
 
   def unless_within(cutoff_time, last_done_time)
