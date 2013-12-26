@@ -30,7 +30,6 @@ class Act < ActiveRecord::Base
     user.update_points(points, self.creation_channel) if points
 
     check_goal_completion
-    check_timed_bonuses
 
     trigger_tiles
     schedule_mixpanel_ping
@@ -189,23 +188,6 @@ class Act < ActiveRecord::Base
     if self.completes_goal?
       OutgoingMessage.send_side_message(user, self.goal.completion_sms_text, :channel => self.creation_channel)
       GoalCompletion.create!(:user => user, :goal => self.goal)
-    end
-  end
-
-  def check_timed_bonuses
-    fulfillable_bonuses = TimedBonus.fulfillable_by(self.user)
-    # Important to mark all of these fulfilled before we go creating more Acts
-    # to avoid race conditions and other nasty situations
-    fulfillable_bonuses.each {|fulfillable_bonus| fulfillable_bonus.update_attribute(:fulfilled, true)}
-
-    fulfillable_bonuses.each do |fulfillable_bonus|
-      Act.create!(
-        :text            => '',  # doesn't appear in feed
-        :user            => self.user,
-        :inherent_points => fulfillable_bonus.points
-      )
-
-      OutgoingMessage.send_side_message(user, fulfillable_bonus.sms_response, :channel => self.creation_channel)
     end
   end
 

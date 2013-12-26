@@ -184,13 +184,6 @@ FactoryGirl.define do
     status EmailCommand::Status::UNKNOWN_EMAIL
   end
 
-  factory :timed_bonus do
-    expires_at {Time.now + 24.hours}
-    points 10
-    association :user
-    association :demo
-  end
-
   factory :incoming_sms do
   end
 
