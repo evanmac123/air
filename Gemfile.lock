@@ -299,6 +299,8 @@ GEM
     redis (3.0.2)
     rest-client (1.6.7)
       mime-types (>= 1.16)
+    rollout (2.0.0)
+      redis
     rspec-core (2.12.0)
     rspec-expectations (2.12.0)
       diff-lcs (~> 1.1.3)
@@ -433,6 +435,7 @@ DEPENDENCIES
   rails-dev-tweaks
   rails3_before_render
   redis
+  rollout
   rspec-rails
   sass-rails
   sham_rack

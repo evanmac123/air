@@ -52,3 +52,4 @@ libpeerconnection.log
 *.patch
 turbulence/*
 repeatedly_spec.rb
+repeatedly_test.rb

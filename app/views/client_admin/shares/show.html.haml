@@ -1,3 +1,6 @@
+- if $rollout.active?(:public_board, current_user.demo)
+  %h1 PUBLIC SLUG TOOLS GO HERE
+
 .row
   .large-12.columns= render partial: 'client_admin/tiles/tiles_tools_subnav'
 
