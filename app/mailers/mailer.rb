@@ -31,19 +31,6 @@ class Mailer < ActionMailer::Base
   end
 
 
-  def easy_in(user)
-
-    @user = user
-    @user.manually_set_confirmation_token
-    @check_it_out_url = invitation_url(@user.invitation_code, :easy_in => true) 
-    @set_password_url = edit_user_password_url(@user, :token => @user.confirmation_token, :protocol => (Rails.env.development? ? 'http' : 'https'))
-    subject = "Wondering what your colleagues are up to in #{@user.demo.name}? Here's an easy way to take a peek"
-    mail :to      => user.email_with_name,
-         :subject => subject,
-         :from    => @user.demo.reply_email_address
-  end
-
-
   def activity_report(csv_data, demo_name, report_time, address)
     # Convert spaces to '_'s and remove any garbage characters
     normalized_name = demo_name.gsub(/\s+/, '_').gsub(/[^A-Za-z0-9_]/, '')

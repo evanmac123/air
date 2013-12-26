@@ -9,13 +9,6 @@ feature "Leah unsubscribes" do
     @reason = "I'm just having way too much fun on YouTube"
   end
 
-  it "should have a link at the bottom of the email that points to the unsubscribe page" do
-    email = Mailer.easy_in(@leah)
-    [email.html_part.body, email.text_part.body].each do |body|
-      body.should include @unsubscribe_url
-    end
-  end
-
   it "should create an unsubscribe" do
     Unsubscribe.count.should == 0
     visit @unsubscribe_url
