@@ -91,6 +91,7 @@
 #public_board {
   margin-bottom: 2em;
   a#make_public { @include app-button($dark-green) }
+  a#make_private { @include app-button($red) }
   p { margin-bottom: 0.75em; }
 }
 

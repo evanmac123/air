@@ -3,6 +3,9 @@
     %p 
       This board is currently public. Users can try the board and join it by going to:
       %span.public_board_url= public_board_url(current_user.demo.public_slug)
+    = link_to "Make Private", client_admin_public_board_path(current_user.demo.id), id: "make_private", remote: true, method: 'delete'
+    = image_tag "spinner.gif", id: "spinner", style: "display: none"
+
   - else
     %p This board is not currently public.
     = link_to "Make Public", client_admin_public_boards_path, id: "make_public", remote: true, method: 'post'

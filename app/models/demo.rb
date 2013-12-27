@@ -331,6 +331,10 @@ class Demo < ActiveRecord::Base
     update_attributes(public_slug: slug_prefix)
   end
 
+  def clear_public_slug!
+    update_attributes(public_slug: nil)
+  end
+
   protected
 
   def unless_within(cutoff_time, last_done_time)

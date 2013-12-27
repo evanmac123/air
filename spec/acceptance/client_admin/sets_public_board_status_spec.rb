@@ -11,6 +11,10 @@ feature "Client admin sets board's public status themself" do
     click_link "Make Public"
   end
 
+  def click_make_board_private
+    click_link "Make Private"
+  end
+
   def expect_public_message
     expect_content "This board is currently public. Users can try the board and join it by going to:"
   end
@@ -55,7 +59,11 @@ feature "Client admin sets board's public status themself" do
       expect_displayed_share_url('heyfriend')
     end
 
-    it "should allow the client admin to switch it off"
+    it "should allow the client admin to switch it off", js: true do
+      click_make_board_private
+      expect_not_public_message
+    end
+
     it "should allow the client admin to change it"
     it "should have a handy copy-to-clipboard doohickey"
   end
