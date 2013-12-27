@@ -326,6 +326,11 @@ class Demo < ActiveRecord::Base
     public_slug.present?
   end
 
+  def create_public_slug!
+    slug_prefix = name.downcase.gsub(/[^a-z0-9 ]/, '').gsub(/ +/, '-')
+    update_attributes(public_slug: slug_prefix)
+  end
+
   protected
 
   def unless_within(cutoff_time, last_done_time)

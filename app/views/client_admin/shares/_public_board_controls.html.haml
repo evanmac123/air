@@ -1,0 +1,9 @@
+.public_board_controls
+  - if @board_is_public
+    %p 
+      This board is currently public. Users can try the board and join it by going to:
+      %span.public_board_url= public_board_url(current_user.demo.public_slug)
+  - else
+    %p This board is not currently public.
+    = link_to "Make Public", client_admin_public_boards_path, id: "make_public", remote: true, method: 'post'
+    = image_tag "spinner.gif", id: "spinner", style: "display: none"

@@ -216,3 +216,13 @@ describe Demo, '#num_tile_completions' do
     [tile_0, tile_00, tile_000].each { |tile| num_tile_completions[tile.id].should be_nil }
   end
 end
+
+describe Demo, '#create_public_slug!' do
+  it "should generate a slug based on the name" do
+    d = Demo.create(name: "J.P. Patrick & His 999 Associates, Inc")
+    d.create_public_slug!
+    d.reload.public_slug.should == "jp-patrick-his-999-associates-inc"
+  end
+
+  it "should handle duplication nicely"
+end

@@ -93,6 +93,8 @@ Health::Application.routes.draw do
     resource :share, only: :show
 
     resource :tiles_report, only: :show
+
+    resources :public_boards, only: :create
   end
 
   resources :pages, :only => :show
