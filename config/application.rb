@@ -62,6 +62,7 @@ module Health
       resizing_gears_fullsize.gif
       external/pricing_calculator.js
       internal/guest_user_conversion.js
+      client_admin/public_board_controls.js
     )
 
     ################################################################
