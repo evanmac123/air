@@ -225,4 +225,10 @@ describe Demo, '#create_public_slug!' do
   end
 
   it "should handle duplication nicely"
+
+  it "should lop off the word \"board\" if it appears at the end of the slug" do
+    d = Demo.create(name: "The Extremely Serious Corporation Board")
+    d.create_public_slug!
+    d.reload.public_slug.should == "the-extremely-serious-corporation"
+  end
 end

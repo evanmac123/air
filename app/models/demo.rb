@@ -327,7 +327,7 @@ class Demo < ActiveRecord::Base
   end
 
   def create_public_slug!
-    slug_prefix = name.downcase.gsub(/[^a-z0-9 ]/, '').gsub(/ +/, '-')
+    slug_prefix = name.downcase.gsub(/[^a-z0-9 ]/, '').gsub(/ +/, '-').gsub(/-board$/, '')
     update_attributes(public_slug: slug_prefix)
   end
 
