@@ -1,7 +1,7 @@
 .public_board_controls
   - if @board_is_public
     %p 
-      This board is currently public. Users can try the board and join it by going to:
+      This board is currently public. Send the link below to people you'd like to join. 
       %span.public_board_url= public_board_url(current_user.demo.public_slug)
     = link_to "Make Private", client_admin_public_board_path(current_user.demo.id), id: "make_private", remote: true, method: 'delete'
     = image_tag "spinner.gif", id: "spinner", style: "display: none"

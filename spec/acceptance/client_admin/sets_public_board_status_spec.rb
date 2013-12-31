@@ -16,7 +16,7 @@ feature "Client admin sets board's public status themself" do
   end
 
   def expect_public_message
-    expect_content "This board is currently public. Users can try the board and join it by going to:"
+    expect_content "This board is currently public. Send the link below to people you'd like to join."
   end
 
   def expect_not_public_message
