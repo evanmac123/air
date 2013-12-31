@@ -147,9 +147,13 @@ class ApplicationController < ActionController::Base
     if demo
       session[:guest_user] = {demo_id: demo.id}
     else
-      not_found
+      public_board_not_found
       return
     end
+  end
+
+  def public_board_not_found
+    render 'shared/public_board_not_found', layout: 'external_marketing'
   end
 
   def current_user_with_guest_user
