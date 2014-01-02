@@ -232,3 +232,10 @@ describe Demo, '#create_public_slug!' do
     d.reload.public_slug.should == "the-extremely-serious-corporation"
   end
 end
+
+describe Demo, 'on create' do
+  it 'should set the public slug' do
+    d = FactoryGirl.create(:demo)
+    d.public_slug.should be_present
+  end
+end

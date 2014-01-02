@@ -3,13 +3,13 @@ class ClientAdmin::PublicBoardsController < ClientAdminBaseController
   before_filter :find_demo
 
   def create
-    @demo.create_public_slug!
+    @demo.update_attributes(is_public: true)
     @board_is_public = true
     render partial: "client_admin/shares/public_board_controls"
   end
 
   def destroy
-    @demo.clear_public_slug!
+    @demo.update_attributes(is_public: false)
     @board_is_public = false
     render partial: "client_admin/shares/public_board_controls"
   end

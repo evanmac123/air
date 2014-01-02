@@ -1,7 +1,7 @@
 require 'acceptance/acceptance_helper'
 
 feature 'Guest user is prompted to convert to real user' do
-  let (:board) {FactoryGirl.create(:demo, public_slug: "sluggg")}
+  let (:board) {FactoryGirl.create(:demo, public_slug: "sluggg", is_public: true)}
 
   def expect_no_conversion_form
     sleep 1 # wait for lightbox animation to finish

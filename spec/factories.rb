@@ -79,6 +79,7 @@ FactoryGirl.define do
 
     trait :with_public_slug do |demo|
       sequence(:public_slug) {|i| "public_#{i}"}
+      is_public true
     end
   end
   

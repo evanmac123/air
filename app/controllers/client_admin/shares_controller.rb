@@ -5,6 +5,6 @@ class ClientAdmin::SharesController < ClientAdminBaseController
     @digest_tiles  = @demo.digest_tiles(@tile_digest_email_sent_at)
     @follow_up_emails = @demo.follow_up_digest_emails.order("send_on ASC")
     @suppress_tile_stats = true
-    @board_is_public = @demo.is_public?
+    @board_is_public = @demo.is_public
   end
 end

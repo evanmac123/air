@@ -143,7 +143,7 @@ class ApplicationController < ActionController::Base
   end
 
   def login_as_guest(public_slug)
-    demo = Demo.where(public_slug: public_slug).first
+    demo = Demo.public_board(public_slug)
     if demo
       session[:guest_user] = {demo_id: demo.id}
     else

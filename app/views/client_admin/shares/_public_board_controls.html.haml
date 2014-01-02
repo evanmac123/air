@@ -2,11 +2,13 @@
   - if @board_is_public
     %p 
       This board is currently public. Send the link below to people you'd like to join. 
-      %span.public_board_url= public_board_url(current_user.demo.public_slug)
+      = render :partial => 'client_admin/shares/public_url_display'
     = link_to "Make Private", client_admin_public_board_path(current_user.demo.id), id: "make_private", remote: true, method: 'delete'
     = image_tag "spinner.gif", id: "spinner", style: "display: none"
 
   - else
-    %p This board is not currently public.
+    %p 
+      This board is not currently public.
+      = render :partial => 'client_admin/shares/public_url_display'
     = link_to "Make Public", client_admin_public_boards_path, id: "make_public", remote: true, method: 'post'
     = image_tag "spinner.gif", id: "spinner", style: "display: none"

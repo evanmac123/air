@@ -18,11 +18,6 @@ feature 'Views board via public link' do
       end
     end
   end
-
-  scenario "but omitting to go through the public link first, gets redirected to signin--i.e. the existence of a public link doesn't mean you can just waltz in without it" do
-    visit activity_path
-    should_be_on sign_in_path
-  end
 end
 
 %w(
@@ -37,3 +32,19 @@ end
     end
   end
 end
+
+feature "going to a board that's not public" do
+  it "should give a helpful error" do
+    board = FactoryGirl.create(:demo, is_public: false)
+
+    visit public_board_path(board.public_slug)
+    expect_bad_public_board_message
+
+    visit public_activity_path(board.public_slug)
+    expect_bad_public_board_message
+
+    visit public_tiles_path(board.public_slug)
+    expect_bad_public_board_message
+  end
+end
+

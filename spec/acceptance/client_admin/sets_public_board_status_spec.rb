@@ -5,6 +5,7 @@ feature "Client admin sets board's public status themself" do
   
   before do
     $rollout.activate_user(:public_board, client_admin.demo)
+    client_admin.demo.update_attributes(public_slug: 'heyfriend')
   end
 
   def click_make_board_public
@@ -32,9 +33,9 @@ feature "Client admin sets board's public status themself" do
     page.body.should match(share_url_regex(slug))
   end
 
-  context "when no slug is set" do
+  context "when the board is private" do
     before do
-      client_admin.demo.public_slug.should be_nil
+      client_admin.demo.is_public.should be_false
       visit client_admin_share_path(as: client_admin)
     end
 
@@ -42,16 +43,20 @@ feature "Client admin sets board's public status themself" do
       expect_not_public_message
     end
 
-    it "should allow the client admin to set it", js: true do
+    it "should allow the client admin to set it public", js: true do
       click_make_board_public
       expect_public_message
       expect_displayed_share_url(client_admin.demo.reload.public_slug)
     end
+
+    it "should show the public slug regardless" do
+      expect_displayed_share_url('heyfriend')
+    end
   end
 
-  context "when a slug is already set" do
+  context "when the board is already public" do
     before do
-      client_admin.demo.update_attributes(public_slug: 'heyfriend')
+      client_admin.demo.update_attributes(is_public: true)
       visit client_admin_share_path(as: client_admin)
     end
 
@@ -64,7 +69,6 @@ feature "Client admin sets board's public status themself" do
       expect_not_public_message
     end
 
-    it "should allow the client admin to change it"
     it "should have a handy copy-to-clipboard doohickey"
   end
 end
