@@ -328,9 +328,27 @@ class Demo < ActiveRecord::Base
     update_attributes(public_slug: slug_prefix)
   end
 
-  def self.public_board(public_slug)
-    self.where(public_slug: public_slug, is_public: true).first
+  def self.public
+    where(is_public: true)
   end
+
+  def self.public_board_by_public_slug(public_slug)
+    self.where(public_slug: public_slug).public.first
+  end
+
+  def self.public_board_by_id(id)
+    self.where(id: id).public.first
+  end
+
+#  def self.public_board_by_params(params)
+    #if params[:public_slug]
+      #public_board_by_public_slug(params[:public_slug])
+    #elsif params[:demo_id]
+      #public_board_by_id(params[:demo_id])
+    #else
+      #nil
+    #end
+  #end
 
   protected
 

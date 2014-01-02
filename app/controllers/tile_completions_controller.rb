@@ -14,7 +14,11 @@ class TileCompletionsController < ApplicationController
   protected
 
   def find_tile
-    Tile.find(params[:tile_id])
+    unless @_tile
+      @_tile = Tile.find(params[:tile_id])
+    end
+
+    @_tile
   end
 
   def create_tile_completion(tile)
@@ -31,5 +35,9 @@ class TileCompletionsController < ApplicationController
 
   def points(tile)
     tile.points
+  end
+
+  def find_current_board
+    find_tile.demo
   end
 end

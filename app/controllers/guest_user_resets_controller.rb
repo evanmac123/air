@@ -15,4 +15,10 @@ class GuestUserResetsController < ApplicationController
 
     redirect_to public_activity_path(current_user.demo.public_slug)
   end
+
+  protected
+
+  def find_current_board
+    current_user.demo
+  end
 end

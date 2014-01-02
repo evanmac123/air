@@ -108,6 +108,11 @@ class ApplicationController < ActionController::Base
   def authorize
     if logged_in_as_guest?
       if guest_user_allowed?
+        board = find_current_board # must be implemented in subclass
+        unless board && board.is_public
+          public_board_not_found
+        end
+
         return
       else
         flash[:failure] = '<a href="#" class="open_save_progress_form">Save your progress</a> to access this part of the site.'
@@ -143,7 +148,7 @@ class ApplicationController < ActionController::Base
   end
 
   def login_as_guest(public_slug)
-    demo = Demo.public_board(public_slug)
+    demo = Demo.public_board_by_public_slug(public_slug)
     if demo
       session[:guest_user] = {demo_id: demo.id}
     else
@@ -273,12 +278,17 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  # Note that subclasses of ApplicationController must implement their own
+  # board_is_public? method if they want to use allow_guest_user, since 
+  # there's no single way that we decide which board is pertinent in which
+  # action.
+
   def allow_guest_user
-    @guest_user_allowed = true
+    @guest_user_allowed_in_action = true
   end
 
   def guest_user_allowed?
-    @guest_user_allowed
+    @guest_user_allowed_in_action
   end
 
   def logged_in_as_guest?

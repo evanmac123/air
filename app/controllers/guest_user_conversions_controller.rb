@@ -31,4 +31,8 @@ class GuestUserConversionsController < ApplicationController
   def render_failure_json
     render json: {status: 'failure', errors: current_user.errors.messages}
   end
+
+  def find_current_board
+    current_user.demo
+  end
 end

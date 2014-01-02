@@ -106,4 +106,7 @@ class TilesController < ApplicationController
     @_satisfiable_tiles
   end
 
+  def find_current_board
+    current_user.demo
+  end
 end

@@ -113,5 +113,13 @@ class ActsController < ApplicationController
       redirect_to activity_url
     end
   end
+
+  def find_current_board
+    if params[:public_slug]
+      Demo.public_board_by_public_slug(params[:public_slug])
+    elsif current_user
+      current_user.demo
+    end
+  end
 end
 
