@@ -11,6 +11,7 @@ class GuestUserResetsController < ApplicationController
       current_user.acts.each(&:destroy)
       current_user.tile_completions.each(&:destroy)
       session[:display_start_over_button] = false
+      session[:conversion_form_shown_already] = false
     end
 
     redirect_to public_activity_path(current_user.demo.public_slug)

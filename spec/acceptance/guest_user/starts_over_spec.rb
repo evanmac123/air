@@ -62,4 +62,79 @@ feature 'Starts over' do
       expect_no_start_over_button
     end
   end
+
+  context "conversion form pops as normal after starting over" do
+    context "in a one-tile board" do
+      it "should pop after doing the tile", js: true do
+        visit public_board_path(board.public_slug)
+        close_tutorial_lightbox
+        
+        click_link tile.headline
+        answer(tile.correct_answer_index).click
+        close_conversion_form
+        
+        click_start_over_button
+        close_tutorial_lightbox
+        click_link tile.headline
+        answer(tile.correct_answer_index).click
+        expect_conversion_form
+      end
+    end
+
+    context "in a two-tile board" do
+      before do
+        @tiles = [tile, FactoryGirl.create(:multiple_choice_tile, :active, headline: "Tile 2", demo_id: board.id)]      
+      end
+
+      it "should pop after doing both tiles", js: true do
+        visit public_board_path(board.public_slug)
+        close_tutorial_lightbox
+
+        click_link tile.headline
+        @tiles.each do |tile|
+          answer(tile.correct_answer_index).click
+        end
+        close_conversion_form
+
+        click_start_over_button
+        close_tutorial_lightbox
+
+        click_link tile.headline
+        @tiles.each do |tile|
+          answer(tile.correct_answer_index).click
+        end
+        expect_conversion_form
+      end
+    end
+
+    context "in a many-tile board" do
+      before do
+        @tiles = [
+          tile, 
+          FactoryGirl.create(:multiple_choice_tile, :active, headline: "Tile 2", demo_id: board.id),
+          FactoryGirl.create(:multiple_choice_tile, :active, headline: "Tile 3", demo_id: board.id)
+        ]
+      end
+
+      it "should pop after doing two tiles", js: true do
+        visit public_board_path(board.public_slug)
+        close_tutorial_lightbox
+
+        click_link tile.headline
+        @tiles[0,2].each do |tile|
+          answer(tile.correct_answer_index).click
+        end
+        close_conversion_form
+
+        click_start_over_button
+        close_tutorial_lightbox
+
+        click_link tile.headline
+        @tiles[0,2].each do |tile|
+          answer(tile.correct_answer_index).click
+        end
+        expect_conversion_form
+      end
+    end
+  end
 end
