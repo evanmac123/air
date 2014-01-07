@@ -1,14 +1,10 @@
-.public_board_controls
-  - if @board_is_public
-    %p 
-      This board is currently public. Send the link below to people you'd like to join. 
-      = render :partial => 'client_admin/shares/public_url_display'
-    = link_to "Make Private", client_admin_public_board_path(current_user.demo.id), id: "make_private", remote: true, method: 'delete'
-    = image_tag "spinner.gif", id: "spinner", style: "display: none"
+- on_toggle_class, off_toggle_class = @board_is_public ? ['engaged', 'disengaged'] : ['disengaged', 'engaged']
 
-  - else
-    %p 
-      This board is not currently public.
-      = render :partial => 'client_admin/shares/public_url_display'
-    = link_to "Make Public", client_admin_public_boards_path, id: "make_public", remote: true, method: 'post'
-    = image_tag "spinner.gif", id: "spinner", style: "display: none"
+.public_board_controls
+  = render :partial => 'client_admin/shares/public_url_display'
+  = link_to "On", client_admin_public_boards_path, method: 'post', remote: true, id: 'on_toggle', class: on_toggle_class
+  = link_to "Off", client_admin_public_board_path(current_user.demo.id), remote: true, method: 'delete', id: 'off_toggle', class: off_toggle_class
+  = image_tag "spinner.gif", id: "spinner", style: "display: none"
+  %p#public_board_instructions If on, anyone with this link can access this board and sign-up to be a user.
+
+

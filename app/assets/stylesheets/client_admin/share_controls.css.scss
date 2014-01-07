@@ -1,4 +1,15 @@
 // Digest email and followup controls
+
+@mixin share-instructions {
+  @include font-regular;
+  color:$gray;
+  display:block;
+  font-size:.857142857em;
+  line-height: 1.25em;
+  max-width:27em;
+  padding-bottom:.5em;
+}
+
 .share_tools .notification_controls,
 .share_tools .no_tiles_messages,
 .share_tools .public_board_controls {@include form-group;}
@@ -27,13 +38,7 @@
     }
     .follow_up {
       p span {
-        @include font-regular;
-        color:$gray;
-        display:block;
-        font-size:.857142857em;
-        line-height: 1.25em;
-        max-width:27em;
-        padding-bottom:.5em;
+        @include share-instructions;
       }
       label {margin-right:2em;}
       select:disabled {color:$light-gray;}
@@ -95,8 +100,36 @@
   p { margin-bottom: 0.75em; }
 }
 
-.public_board_url {
-  margin: 0.6em 0;
-  font-weight: bold;
-  display: block;
+$public_slug_height: 2.0em;
+
+#public_board_field {
+  display: inline;
+  width: 60%;
+  height: $public_slug_height;
+}
+
+#on_toggle {
+  height: $public_slug_height;
+  &.engaged {
+    @include app-button($dark-green);
+  }
+  &.disengaged {
+    @include app-button($gray);
+  }
+}
+
+#off_toggle {
+  height: $public_slug_height;
+  &.engaged {
+    @include app-button($red);
+  }
+  &.disengaged {
+    @include app-button($gray);
+  }
+}
+
+#public_board_instructions {
+  @include share-instructions;
+  max-width: none;
+  padding-top: 0.5em;
 }

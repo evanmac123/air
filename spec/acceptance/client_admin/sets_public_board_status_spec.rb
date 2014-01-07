@@ -8,20 +8,12 @@ feature "Client admin sets board's public status themself" do
     client_admin.demo.update_attributes(public_slug: 'heyfriend')
   end
 
-  def click_make_board_public
-    click_link "Make Public"
+  def click_on_link
+    page.find('#on_toggle').click
   end
 
-  def click_make_board_private
-    click_link "Make Private"
-  end
-
-  def expect_public_message
-    expect_content "This board is currently public. Send the link below to people you'd like to join."
-  end
-
-  def expect_not_public_message
-    expect_content "This board is not currently public."
+  def click_off_link
+    page.find('#off_toggle').click
   end
 
   def share_url_regex(slug)
@@ -33,6 +25,16 @@ feature "Client admin sets board's public status themself" do
     page.body.should match(share_url_regex(slug))
   end
 
+  def expect_on_engaged
+    page.all('#on_toggle.engaged').should be_present
+    page.all('#off_toggle.engaged').should be_empty
+  end
+
+  def expect_off_engaged
+    page.all('#on_toggle.engaged').should be_empty
+    page.all('#off_toggle.engaged').should be_present
+  end
+
   context "when the board is private" do
     before do
       client_admin.demo.is_public.should be_false
@@ -40,13 +42,12 @@ feature "Client admin sets board's public status themself" do
     end
 
     it "should tell the user the board's not public" do
-      expect_not_public_message
+      expect_off_engaged
     end
 
     it "should allow the client admin to set it public", js: true do
-      click_make_board_public
-      expect_public_message
-      expect_displayed_share_url(client_admin.demo.reload.public_slug)
+      click_on_link
+      expect_on_engaged
     end
 
     it "should show the public slug regardless" do
@@ -64,11 +65,13 @@ feature "Client admin sets board's public status themself" do
       expect_displayed_share_url('heyfriend')
     end
 
-    it "should allow the client admin to switch it off", js: true do
-      click_make_board_private
-      expect_not_public_message
+    it "should look switched on" do
+      expect_on_engaged
     end
 
-    it "should have a handy copy-to-clipboard doohickey"
+    it "should allow the client admin to switch it off", js: true do
+      click_off_link
+      expect_off_engaged
+    end
   end
 end
