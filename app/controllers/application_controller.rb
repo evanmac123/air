@@ -122,9 +122,13 @@ class ApplicationController < ActionController::Base
       end
     end
 
-    if current_user.nil? && guest_user_allowed? && params[:public_slug]
-      login_as_guest(params[:public_slug])
-      return
+    if guest_user_allowed? && params[:public_slug] 
+      if current_user.nil?
+        login_as_guest(params[:public_slug])
+        return
+      else
+        redirect_to activity_path
+      end
     end
 
     authenticate_without_game_begun_check
