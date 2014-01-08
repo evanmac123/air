@@ -72,6 +72,9 @@
         line-height: 1.25em;
         margin-bottom:.65em;
     }
+    p {
+        padding-top: 0.8em;
+    }
     &:after {
         @include arrow-down($white, 8px);
         border-width:1em;

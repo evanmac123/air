@@ -67,9 +67,9 @@
   <div id='get_started_lightbox'>
     <a href="#" id="close_get_started_lightbox">Close</a>
     <h3>Welcome to H.Engage!</h3>
-    <p>Read and answer the questions on tiles for points. To get started, click on the first tile below.</p>
+    <p>Read and answer the questions on tiles for points. <br/>To get started, click on the first tile.</p>
     <% if @current_user.is_guest? %>
-      <p>If you already have an account with H.Engage, you can <%= link_to "click here to sign in", new_session_path %>.</p>
+      <p>Already a user? <%= link_to "Sign in", new_session_path %>.</p>
     <% end %>
   </div>
 
