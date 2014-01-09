@@ -41,7 +41,7 @@ class PagesController < HighVoltage::PagesController
       @body_id = "homepage"
       Shotgun.ping_page(page_name)
       'external_marketing'
-    when 'pricing', 'customertiles', 'asha', 'heineken', 'miltoncat', 'fujifilm', 'customer_tiles'
+    when 'pricing', 'asha', 'heineken', 'miltoncat', 'fujifilm', 'customer_tiles'
       'external_marketing'
     when 'waitingroom'
       'external'

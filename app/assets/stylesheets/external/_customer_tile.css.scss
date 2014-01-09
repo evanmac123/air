@@ -1,54 +1,56 @@
-#customer_tile h1 {
-	text-align: center;
-	font-weight:semi-bold; 
-	padding-top:1em;
+#customer_tile {
+	h1 {
+		text-align: center;
+		font-weight:semi-bold; 
+		padding-top:1em;
 	}
 
-#customer_tile h3 {
-	width: 70%;
-	margin-left: 15%;
-	margin-right: 15%;
-	text-align: center;
-	padding-bottom:2em;
-}	
+	h3 {
+		width: 70%;
+		margin-left: 15%;
+		margin-right: 15%;
+		text-align: center;
+		padding-bottom:2em;
+	}	
 
-#customer_tile h4 {
-  width: 70%;
-  margin-left: 15%;
-  margin-right: 15%;
-  text-align: center;
-  padding-bottom:2em;
-  line-height: 2.5em;
-} 
+	h4 {
+  		width: 70%;
+  		margin-left: 15%;
+  		margin-right: 15%;
+  		text-align: center;
+  		padding-bottom:2em;
+  		line-height: 2.5em;
+	} 
 
-#customer_tile .editorial_title {
-	border: #4FAA60solid 1px;
-	background-color: #4FAA60;
-	display: inline-block;
-	border-radius: 3px;
+	.editorial_title {
+		border: #4FAA60 solid 1px;
+		background-color: #4FAA60;
+		display: inline-block;
+		border-radius: 3px;
 	}
 
-#customer_tile .tile_thumbnail {
-	padding-bottom: 2em;
-	display: center;
-}
-
-#customer_tile .tile_section_introduction {
-	width: 70%;
-	margin-left: 15%;
-	margin-right: 15%;
-	text-align: center;
-	padding-top: 2.5em;
-	padding-bottom:2em;
-}
+	.tile_thumbnail {
+	  padding-bottom: 2em;
+	  display: center;
+    }
+ 
+	.tile_section_introduction {
+		width: 70%;
+		margin-left: 15%;
+		margin-right: 15%;
+		text-align: center;
+		padding-top: 2.5em;
+		padding-bottom:2em;
+	}
     
-#customer_tile .tile_thumbnail {
-  cursor: pointer;
-  margin-bottom:1em; 
-  width:25%;
-  display: inline-block;
-  position: relative;
-  width:100%;
-}
+	.tile_thumbnail {
+  		cursor: pointer;
+  		margin-bottom:1em; 
+  		width:25%;
+  		display: inline-block;
+  		position: relative;
+  		width:100%;
+	}
+}	
 
 
