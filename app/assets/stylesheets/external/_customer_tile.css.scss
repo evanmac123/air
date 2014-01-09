@@ -12,6 +12,15 @@
 	padding-bottom:2em;
 }	
 
+#customer_tile h4 {
+  width: 70%;
+  margin-left: 15%;
+  margin-right: 15%;
+  text-align: center;
+  padding-bottom:2em;
+  line-height: 2.5em;
+} 
+
 #customer_tile .editorial_title {
 	border: #4FAA60solid 1px;
 	background-color: #4FAA60;
@@ -33,11 +42,13 @@
 	padding-bottom:2em;
 }
     
-  #customer_tile .tile_thumbnail {
-      cursor: pointer;
-      margin-bottom:1em; 
-      width:25%;
-      display: inline-block;
-    	position: relative;
-    	width:100%;
-	}
+#customer_tile .tile_thumbnail {
+  cursor: pointer;
+  margin-bottom:1em; 
+  width:25%;
+  display: inline-block;
+  position: relative;
+  width:100%;
+}
+
+
