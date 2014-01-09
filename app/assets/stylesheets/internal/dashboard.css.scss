@@ -73,8 +73,13 @@
         margin-bottom:.65em;
     }
     p {
-        padding-top: 0.8em;
+      padding-top: 0.8em;
     }
+
+    p:first-of-type {
+      padding-top: 0;
+    }
+
     &:after {
         @include arrow-down($white, 8px);
         border-width:1em;
