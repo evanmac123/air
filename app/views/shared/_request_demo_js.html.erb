@@ -33,7 +33,6 @@
 
     $('#request_demo form').data('request-demo-source', $(this).data('request-demo-source'));
     $('#request_demo').lightbox_me();
-    mpq.track('alternate demo request form opened', {opened_from: encloser.attr('id')});
   });
 
   var contact_name = $('#contact_name');
@@ -128,10 +127,8 @@
     validateInfoRequestForm();
     if (contact_errors) {
       showErrorMessage();
-      mpq.track('alternate demo request form error', {blank_fields: blankFields});
     } else {
       submitInfoRequest(contact_form);
-      mpq.track('alternate demo request form submit', {});
     }
   });
 

@@ -51,7 +51,6 @@ module Health
       external/blog_rss.js
       external/textscroll.js
       external/join.js
-      external/track_form_fields.js
       external/marketing_nav.js
       external/prefilled_input.js
       jquery.lightbox_me.js

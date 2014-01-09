@@ -48,7 +48,6 @@ class ActsController < ApplicationController
     parsing_message, parsing_message_type = Command.parse(current_user, params[:act][:code], :return_message_type => true, :channel => :web)
     reply = construct_reply(parsing_message)
     add_flash!(parsing_message_type, reply)
-    flash[:mp_track_activity_box] = ['used activity entry box']
 
     # Remain on current tile instead of going back to first one if current tile has more rules for them to complete
     unless no_current_tile || on_talking_chicken_example_tile
@@ -56,8 +55,6 @@ class ActsController < ApplicationController
     end
 
     redirect_to :back
-
-    current_user.ping('used activity entry box')   
   end
 
   add_method_tracer :index

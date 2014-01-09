@@ -454,13 +454,6 @@ class User < ActiveRecord::Base
     }
   end
 
-  def schedule_rule_suggestion_mixpanel_ping
-    suggestion_ids = self.last_suggested_items.present? ? self.last_suggested_items.split('|') : []
-    suggestion_hash = Hash[*([:suggestion_a, :suggestion_b, :suggestion_c].zip(suggestion_ids).flatten)]
-
-    Mixpanel::Tracker.new(MIXPANEL_TOKEN, {}).delay.track("got rule suggestion", data_for_mixpanel.merge(suggestion_hash))
-  end
-
   def email_has_internal_domain?
     return false unless (self.email.present?) && (self.email =~ /@(.*)$/)
     domain = $1.downcase

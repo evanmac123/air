@@ -135,7 +135,6 @@ class Act < ActiveRecord::Base
     else
       reply = find_and_record_rule_suggestion(value, user)
       record_bad_message(phone_number, body, reply)
-      user.schedule_rule_suggestion_mixpanel_ping
       return parsing_error_message(reply)
     end
   end

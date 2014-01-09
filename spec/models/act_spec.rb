@@ -1,9 +1,5 @@
 require 'spec_helper'
 
-def expect_act_ping(act, properties={})
-  FakeMixpanelTracker.events_matching("acted", {:distinct_id => act.user.id}.merge(properties)).should be_present
-end
-
 describe Act do
   it { should belong_to(:user) }
   it { should belong_to(:referring_user) }
@@ -11,131 +7,6 @@ describe Act do
   it { should belong_to(:rule_value) }
   it { should belong_to(:demo) }
   it { should have_one(:goal).through(:rule) }
-end
-
-describe Act, "on create" do
-  it "should record a Mixpanel ping" do
-    act = FactoryGirl.create :act
-    Delayed::Worker.new.work_off(20)
-
-    expect_act_ping(act)
-  end
-
-  it "should record the primary value of the related rule" do
-    rule_value = FactoryGirl.create :rule_value, :value => "hey hey", :is_primary => true
-    act = FactoryGirl.create :act, :rule => rule_value.rule
-    Delayed::Worker.new.work_off(20)
-
-    expect_act_ping(act, :rule_value => rule_value.value)
-  end
-
-  it "should record the tags of the related rule" do
-    rule = FactoryGirl.create :rule
-    rule.tags = [FactoryGirl.create(:tag, :name => "woo"), FactoryGirl.create(:tag, :name => "all right"), FactoryGirl.create(:tag, :name => "how about that")]
-
-    act = FactoryGirl.create :act, :rule => rule
-
-    Delayed::Worker.new.work_off(20)
-
-    expect_act_ping(act, :primary_tag => rule.primary_tag.name, :secondary_tags => ["all right", "how about that", "woo"])
-  end
-
-  it "should record what game the user is in" do
-    act = FactoryGirl.create :act
-
-    Delayed::Worker.new.work_off(20)
-
-    expect_act_ping(act, :game => act.user.demo.name)
-  end
-
-  it "should record the number of followers the user has" do
-    user = FactoryGirl.create :user
-
-    5.times {FactoryGirl.create :friendship, :friend => user, :state => 'accepted'}
-    10.times {FactoryGirl.create :friendship, :friend => user, :state => 'pending'}
-
-    act = FactoryGirl.create :act, :user => user
-
-    Delayed::Worker.new.work_off(20)
-
-    expect_act_ping(act, :followers_count => 5)
-  end
-
-  it "should record the number of users the user is following" do
-    user = FactoryGirl.create :user
-
-    3.times {FactoryGirl.create :friendship, :user => user, :state => 'accepted'}
-    10.times {FactoryGirl.create :friendship, :user => user, :state => 'pending'}
-
-    act = FactoryGirl.create :act, :user => user
-
-    Delayed::Worker.new.work_off(20)
-
-    expect_act_ping(act, :following_count => 3)
-  end
-
-  it "should record the user's score" do
-    user = FactoryGirl.create :user
-    act = FactoryGirl.create :act, :user => user, :inherent_points => 47
-
-    Delayed::Worker.new.work_off(20)
-
-    expect_act_ping(act, :score => 47)
-  end
- 
-  it "should record the user's account creation date" do
-    user = FactoryGirl.create :user
-
-    user.update_attributes(:created_at => Chronic.parse("March 17, 2009, 6:23 AM"))
-    act = FactoryGirl.create :act, :user => user, :inherent_points => 47
-
-    Delayed::Worker.new.work_off(20)
-
-    expect_act_ping(act, :account_creation_date => Date.parse("2009-03-17"))
-  end
-
-  it "should record the tagged user" do
-    other_user = FactoryGirl.create :user
-
-    act = FactoryGirl.create :act, :referring_user => other_user
-
-    Delayed::Worker.new.work_off(20)
-
-    expect_act_ping(act, :tagged_user_id => other_user.id)
-  end
-
-  it "should record the channel" do
-    act = FactoryGirl.create :act, :creation_channel => :magic
-
-    Delayed::Worker.new.work_off(20)
-
-    expect_act_ping(act, :channel => :magic)
-  end
-
-  it "should record if it was created by suggestion" do
-    user = FactoryGirl.create :user
-    rule_value_1 = FactoryGirl.create :rule_value, :is_primary => true
-    rule_value_2 = FactoryGirl.create :rule_value, :is_primary => true
-    rule_value_3 = FactoryGirl.create :rule_value, :is_primary => true
-
-    user.update_attributes(:last_suggested_items => [rule_value_1.id, rule_value_2.id, rule_value_3.id].join('|'))
-    SpecialCommand.parse(user, 'b', {})
-
-    act = Act.last
-    act.rule.primary_value.should == rule_value_2
-   
-    Delayed::Worker.new.work_off(10)
-    expect_act_ping(act, :suggestion_code => 'b')
-  end
-
-  it "should record the date the associated user accepted their invitation" do
-    user = FactoryGirl.create :user
-    user.update_attributes(:accepted_invitation_at => Chronic.parse("March 23, 2009, 6:23 AM"))
-
-    act = FactoryGirl.create :act, :user => user
-    Delayed::Worker.new.work_off(10)
-    expect_act_ping(act, :joined_game_date => Date.parse('2009-03-23'))
-  end
 end
 
 describe Act, "#points" do
@@ -203,21 +74,6 @@ describe Act, ".parse" do
         it "should decline to recognize that" do
           Act.parse(user, good_sms).should include("Sorry, I don't understand what")
         end
-      end
-    end
-
-    context "and types a bad value that we can't relate to at all" do
-      before do
-        RuleValue.stubs(:suggestion_for).returns(["fake reply", "19|9|999"])
-      end
-
-      it "should record pertinent data in Mixpanel" do
-        Act.parse(user, "did something mighty peculiar")
-        user.reload.last_suggested_items.should == "19|9|999"
-
-        Delayed::Worker.new.work_off(10)
-        expected_mixpanel_properties = user.data_for_mixpanel.merge(:suggestion_a => '19', :suggestion_b => '9', :suggestion_c => '999')
-        FakeMixpanelTracker.events_matching("got rule suggestion", expected_mixpanel_properties).should be_present
       end
     end
   end
