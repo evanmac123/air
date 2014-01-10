@@ -39,10 +39,8 @@ header #small-toggle.off-canvas-toggle a {
 
 // ====== Header
 header {
-  background:$header-color;
   @include header_bar;
 
-  -webkit-box-shadow: 0 4px 4px -4px darken($header-color, 35%);
   box-shadow: 0 4px 4px -4px darken($header-color, 35%);
   position: relative;
   .small_cap {
