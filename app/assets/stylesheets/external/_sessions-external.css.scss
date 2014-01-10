@@ -73,6 +73,7 @@ body.external {
 body.invitations .welcome-message {
   margin-bottom:1em;
   .explanation {color:$dark-green; margin-top:.75em;}
+  text-align: center;
 }
 body.invitations-show form {
   .form-ul-section {margin-bottom:1em;position: relative;}

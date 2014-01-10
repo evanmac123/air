@@ -1,16 +1,16 @@
-%div#session-wrapper
-  - disabled_style = "color: grey; background: #ddd;"
-  - optional_style = "background: white;"
+- disabled_style = "color: grey; background: #ddd;"
+- optional_style = "background: white;"
 
-  - content_for(:javascript) do
+- content_for(:javascript) do
 
-    :javascript
-      var erroredFields = $('.field_with_errors input');
-      if(erroredFields.length > 0) {
-        erroredFields.first().focus();
-      }
+  :javascript
+    var erroredFields = $('.field_with_errors input');
+    if(erroredFields.length > 0) {
+      erroredFields.first().focus();
+    }
 
-  - content_for :status do
+.row
+  .columns.large-12
     - if flash[:failure].present?
       = flash[:failure]
     - else
@@ -25,25 +25,25 @@
           %h2= welcome_text
           %p.explanation.hidden
             %span Just set a password, and you're ready to go
+    
+
+    .external-form-wrapper
+      = form_for @user, :url => invitation_acceptance_path(:user_id => @user.id), :html => {:autocomplete => :off, :id => "signup-form"}, :builder => FancyFormBuilder do |f|
+        %div#all-inputs
+       
+          %div.form-ul-section
+            = f.fancy_password_field :password, :label_text => "Choose a password", :value => @user.password
       
+          %ul.form-section.signup-submit
 
+            .orange-btn= f.submit "Log in", :style => 'float: left;',  :id => 'join_the_game_link'
 
-  = form_for @user, :url => invitation_acceptance_path(:user_id => @user.id), :html => {:autocomplete => :off, :id => "signup-form"}, :builder => FancyFormBuilder do |f|
-    %div#all-inputs
-   
-      %div.form-ul-section
-        = f.fancy_password_field :password, :label_text => "Choose a password", :value => @user.password
-  
-      %ul.form-section.signup-submit
+        - if @user.game_referrer_id
+          = f.hidden_field :game_referrer_id
 
-        .orange-btn= f.submit "Log in", :style => 'float: left;',  :id => 'join_the_game_link'
+      #t-and-c-notice
+        By submitting this form or using this site, you are agreeing to the 
+        = link_to('terms and conditions', terms_path, target: '_blank') + '.'
 
-    - if @user.game_referrer_id
-      = f.hidden_field :game_referrer_id
-
-  #t-and-c-notice
-    By submitting this form or using this site, you are agreeing to the 
-    = link_to('terms and conditions', terms_path, target: '_blank') + '.'
-
-  = render 'shared/intercom'
-  = javascript_include_tag 'external/join'
+= render 'shared/intercom'
+= javascript_include_tag 'external/join'
