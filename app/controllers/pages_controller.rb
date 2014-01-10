@@ -39,7 +39,6 @@ class PagesController < HighVoltage::PagesController
       'standalone'
     when 'more_info', 
       @body_id = "homepage"
-      Shotgun.ping_page(page_name)
       'external_marketing'
     when 'pricing', 'asha', 'heineken', 'miltoncat', 'fujifilm', 'customer_tiles'
       'external_marketing'

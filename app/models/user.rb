@@ -111,6 +111,7 @@ class User < ActiveRecord::Base
 
   after_save do
     sync_spouses
+    ping_if_made_into_creator
   end
 
   after_create do
@@ -823,7 +824,7 @@ class User < ActiveRecord::Base
 
   def ping(event, properties={})
     data = data_for_mixpanel.merge(properties) 
-    Shotgun.ping(event, data)
+    TrackEvent.ping(event, data)
   end
 
   def ping_page(page, additional_properties={})
@@ -979,6 +980,11 @@ class User < ActiveRecord::Base
   def update_associated_act_privacy_levels
     # See Act for an explanation of why we denormalize privacy_level onto it.
     Act.update_all({:privacy_level => self.privacy_level}, {:user_id => self.id}) if self.changed.include?('privacy_level')
+  end
+
+  def ping_if_made_into_creator
+    return unless changed.include?('is_client_admin')
+    TrackEvent.ping('creator - new', {}, self)
   end
 
   def self.claimable_by_first_name_and_claim_code(claim_string)

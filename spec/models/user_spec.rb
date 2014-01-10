@@ -499,6 +499,45 @@ describe User, "on save" do
     end
   end
 
+  context "when the user is a client admin" do
+    context "and they weren't before" do
+      it "should ping" do
+        user = FactoryGirl.create(:user)
+        user.is_client_admin.should be_false
+
+        crank_dj_clear
+        FakeMixpanelTracker.should_not have_event_matching('creator - new')
+
+        user.is_client_admin = true
+        user.save!
+
+        crank_dj_clear
+        FakeMixpanelTracker.should have_event_matching('creator - new')
+      end
+    end
+
+    context "and they were just created" do
+      it "should ping" do
+        user = FactoryGirl.create(:client_admin)
+        crank_dj_clear
+        FakeMixpanelTracker.should have_event_matching('creator - new')
+      end
+    end
+
+    context "and they were before" do
+      it "shouldn't ping" do
+        user = FactoryGirl.create(:client_admin)
+        user.is_client_admin.should be_true
+
+        crank_dj_clear
+        FakeMixpanelTracker.clear_tracked_events
+
+        user.save!
+        FakeMixpanelTracker.should_not have_event_matching('creator - new')
+      end
+    end
+  end
+
   it "should parse characteristics according to the datatypes" do
     user = FactoryGirl.build :user
 
