@@ -174,8 +174,8 @@ class Act < ActiveRecord::Base
   protected
 
   def schedule_mixpanel_ping
-    unless user.name == Tutorial.example_search_name 
-      Mixpanel::Tracker.new(MIXPANEL_TOKEN, {}).delay.track("acted", data_for_mixpanel)
+    unless user.name == Tutorial.example_search_name
+      TrackEvent.ping('acted', data_for_mixpanel, self.user)
     end
   end
 
@@ -192,7 +192,7 @@ class Act < ActiveRecord::Base
       :tagged_user_id        => self.referring_user_id,
       :channel               => self.creation_channel,
       :suggestion_code       => self.suggestion_code
-    }.merge(self.user.data_for_mixpanel)
+    }
   end
 
   def check_goal_completion

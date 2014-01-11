@@ -526,7 +526,7 @@ class User < ActiveRecord::Base
   end
 
   def record_claim_in_mixpanel(channel)
-    Mixpanel::Tracker.new(MIXPANEL_TOKEN, {}).delay.track("claimed account", {:channel => channel}.merge(self.data_for_mixpanel))
+    TrackEvent.ping('claimed account', {:channel => channel}, self)
   end
 
   def update_points(point_increment, channel=nil)
@@ -831,11 +831,6 @@ class User < ActiveRecord::Base
     event = 'viewed page'
     properties = {page_name: page}.merge(additional_properties)
     ping(event, properties)
-  end
-
-  def pinged_on_page?(page)
-    return false unless Rails.env.test?
-    FakeMixpanelTracker.has_event_matching?("viewed page", self.data_for_mixpanel.merge(page_name: page))
   end
 
   def load_personal_email(in_email)

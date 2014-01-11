@@ -66,6 +66,7 @@ class Invitation::FriendInvitationsController < ApplicationController
       :successful_invitations => successful_invitations,
       :attempted_invitations  => attempted_invitations
     }.merge(current_user.data_for_mixpanel) 
-    Mixpanel::Tracker.new(MIXPANEL_TOKEN, {}).delay.track('invited friends', mixpanel_details)
+
+    TrackEvent.ping('invited friends', mixpanel_details, current_user)
   end
 end

@@ -15,7 +15,7 @@ class ClientAdminsController < ClientAdminBaseController
         params[:chart_interval]     = 'Weekly'
         params[:chart_label_points] = '0'
 
-        Mixpanel::Tracker.new(MIXPANEL_TOKEN, {}).delay.track("viewed page", {page_name: 'client admin dashboard'}.merge(current_user.data_for_mixpanel))
+        TrackEvent.ping_page('client admin dashboard', current_user)
 
         render template: 'client_admin/show'
       end
