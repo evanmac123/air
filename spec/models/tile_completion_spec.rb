@@ -4,6 +4,17 @@ describe TileCompletion do
   it { should belong_to(:user) }
   it { should belong_to(:tile) }
 
+  context "on create" do
+    it "should ping" do
+      FakeMixpanelTracker.should be_empty
+
+      FactoryGirl.create(:tile_completion)
+      crank_dj_clear
+
+      FakeMixpanelTracker.should have_event_matching('tile - completed')
+    end
+  end
+
   it "should mark all as displayed one final time" do
     @fun = FactoryGirl.create(:demo)
     @leah = FactoryGirl.create(:user, name: 'Leah', demo: @fun)

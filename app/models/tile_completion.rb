@@ -4,6 +4,8 @@ class TileCompletion < ActiveRecord::Base
 
   validates_uniqueness_of :tile_id, :scope => [:user_id, :user_type]
 
+  after_create :schedule_mixpanel_ping
+
   def self.for_tile(tile)
     where(:tile_id => tile.id)
   end
@@ -32,5 +34,11 @@ class TileCompletion < ActiveRecord::Base
 
   def self.user_completed_any_tiles?(user_id, tile_ids)
     where(user_id: user_id, tile_id: tile_ids).count > 0
+  end
+
+  protected
+
+  def schedule_mixpanel_ping
+    TrackEvent.ping('tile - completed', {}, user)
   end
 end
