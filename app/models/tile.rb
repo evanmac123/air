@@ -4,9 +4,6 @@ class Tile < ActiveRecord::Base
   DRAFT   = 'draft'.freeze
   STATUS  = [ACTIVE, ARCHIVE, DRAFT].freeze
 
-  #IMAGE_PROCESSING_IMAGE_URL = "http://gajitz.com/wp-content/uploads/2010/01/023.gif"
-  #THUMBNAIL_PROCESSING_IMAGE_URL = "http://gajitz.com/wp-content/uploads/2010/01/023.gif"
-
   IMAGE_PROCESSING_IMAGE_URL = ActionController::Base.helpers.asset_path('resizing_gears_fullsize.gif')
   THUMBNAIL_PROCESSING_IMAGE_URL = ActionController::Base.helpers.asset_path('resizing_gears_fullsize.gif')
   TILE_IMAGE_PROCESSING_PRIORITY = -10
@@ -36,6 +33,7 @@ class Tile < ActiveRecord::Base
   attr_accessor :display_completion_on_this_request
 
   before_save :ensure_protocol_on_link_address
+  after_create :schedule_mixpanel_ping
 
   has_alphabetical_column :headline
 
@@ -315,6 +313,10 @@ class Tile < ActiveRecord::Base
     return if link_address.blank?
 
     self[:link_address] = "http://#{link_address}"
+  end
+
+  def schedule_mixpanel_ping
+    TrackEvent.ping('tile - new')
   end
 
   def self.satisfiable_by_trigger_table(trigger_table_name)
