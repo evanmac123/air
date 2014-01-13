@@ -67,7 +67,7 @@ $('#signup_form').submit(function(e) {
         $("#signup_form").hide();
         $('#submitting_signup_form').hide();
         $('#signup_thanks').fadeIn();
-        mpq.track("Public board landing, Sign Up form submitted", {});
+        mixpanel.track("Public board landing, Sign Up form submitted", {});
       }
     )
   }

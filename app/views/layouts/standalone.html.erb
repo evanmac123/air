@@ -31,8 +31,6 @@
       <%= stylesheet_link_tag 'external/standalone_ie8' %>
     <![endif]-->
     <%= javascript_include_tag asset_path('ga.js') if ENV['USE_GA'] %>
-
-    <%= render 'shared/mixpanel' %>
   </head>
   <body class="<%= body_class %> landing" style="-webkit-overflow-scrolling: touch; overflow:visible;">
     <%= render 'shared/header_public' %>

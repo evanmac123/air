@@ -8,7 +8,7 @@
 
     $('<%= button_selector %>').bind('click', function(e) {
       <% if mixpanel_event_name.present? %>
-        mpq.track('<%= mixpanel_event_name %>', {offset: <%= offset_var_name %>});
+        mixpanel.track('<%= mixpanel_event_name %>', {offset: <%= offset_var_name %>});
       <% end %>
 
       $('<%= spinner_selector %>').show();
