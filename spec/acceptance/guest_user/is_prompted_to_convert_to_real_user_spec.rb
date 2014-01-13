@@ -235,6 +235,17 @@ feature 'Guest user is prompted to convert to real user' do
       User.all.count.should be_zero
       expect_content "OK, you've cancelled that account."
     end
+
+    it "pings mixpanel", js: true do
+      FakeMixpanelTracker.clear_tracked_events
+
+      @setup.call
+      local_setup
+
+      crank_dj_clear
+
+      FakeMixpanelTracker.should have_event_matching('user - new', source: 'public link')
+    end
   end
 
   shared_examples "no user creation" do
