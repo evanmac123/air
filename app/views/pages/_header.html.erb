@@ -29,8 +29,3 @@
 </header>
 
 <%= javascript_include_tag 'external/marketing_nav.js' %>
-<%= javascript_tag do %>
-  $('.go_home').click(function() { mpq.track("Clicked to go Home", {}); });
-  $('#blog').click(function() { mpq.track("Clicked blog link", {}); });
-  $('.top-bar-section .sign_in_button').click(function() { mpq.track("Clicked Sign-in link", {}); });
-<% end %>

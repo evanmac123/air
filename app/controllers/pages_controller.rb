@@ -7,7 +7,7 @@ class PagesController < HighVoltage::PagesController
   before_filter :force_html_format
   before_filter :signed_out_only, :except => SIGNED_IN_OK_PAGES
   before_filter :set_login_url
-  before_filter :display_social_links_if_marketing_or_waiting_room
+  before_filter :display_social_links_if_marketing_page
   before_filter :set_page_name
 
   skip_before_filter :force_ssl, :except => SIGNED_IN_OK_PAGES
@@ -42,8 +42,6 @@ class PagesController < HighVoltage::PagesController
       'external_marketing'
     when 'pricing', 'asha', 'heineken', 'miltoncat', 'fujifilm', 'customer_tiles'
       'external_marketing'
-    when 'waitingroom'
-      'external'
     else
       'pages'
     end
@@ -62,8 +60,8 @@ class PagesController < HighVoltage::PagesController
                  end
   end
 
-  def display_social_links_if_marketing_or_waiting_room
-    display_social_links if %w(waitingroom more_info pricing asha miltoncat heineken fujifilm customer_tiles).include?(params[:id])
+  def display_social_links_if_marketing_page
+    display_social_links if %w(more_info pricing asha miltoncat heineken fujifilm customer_tiles).include?(params[:id])
   end
 
   def page_name

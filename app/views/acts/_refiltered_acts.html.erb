@@ -1,10 +1,6 @@
 <%= javascript_tag do %>
   actOffset = <%= acts.length %>;
   actsPath = '<%= raw acts_path(:format => :js, :show_only => @show_only, :mode => 'see-more') %>';
-
-  $('#activity-feed-tabs li').removeClass('active');
-  $('#activity-feed-tabs li:contains(<%= active_tab %>)').addClass('active');
-  mpq.track('clicked "<%= active_tab %>" activity feed tab');
 <% end %>
 
 <%= render :partial => "shared/act", :collection => acts, :as => :act %>

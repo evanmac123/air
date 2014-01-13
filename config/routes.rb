@@ -4,7 +4,6 @@ Health::Application.routes.draw do
   match "activity"      => "acts#index"
   match "scoreboard"    => "scores#index"
   match "join"          => "invitations#new"
-  match "next"          => "pages#show", :id => "june2013_landing"
 
   match "b/:public_slug" => "public_boards#show", :as => "public_board", :via => :get
   match "b/:public_slug/activity" => "acts#index", :as => "public_activity", :via => :get
@@ -113,8 +112,6 @@ Health::Application.routes.draw do
   resource :demographics, :only => [:update]
 
   resource :logged_in_user_password, :only => [:update]
-
-  resources :games
 
   resources :thumbnails, :only => [:index]
 

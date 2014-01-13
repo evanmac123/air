@@ -36,7 +36,6 @@ module Health
       styleguide.css
       vendor/ie8-grid16-foundation-4.css
       vendor/ie8-grid12-foundation-4.css
-      external/june2013_landing_ie8.css
       external/external_ie8.css
       external/standalone_ie8.css
       internal/internal_ie8.css
