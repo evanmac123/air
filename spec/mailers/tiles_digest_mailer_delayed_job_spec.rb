@@ -22,6 +22,8 @@ describe 'Follow-up email scheduled by delayed job' do
     day_after      = FactoryGirl.create_list :follow_up_digest_email, 3, send_on: Date.today + 2.days
     day_after_that = FactoryGirl.create_list :follow_up_digest_email, 4, send_on: Date.today + 3.days
 
+    crank_dj_clear
+
     # Shouldn't grab any followup's from yesterday or the following days
     TilesDigestMailer.notify_all_follow_up_from_delayed_job
     Delayed::Job.count.should == 0
