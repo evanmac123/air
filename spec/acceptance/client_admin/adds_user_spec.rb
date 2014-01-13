@@ -102,4 +102,13 @@ feature 'Adds user' do
     john_smiths.length.should == 2
     john_smiths[0].claim_code.should_not == john_smiths[1].claim_code
   end
+
+  it "should send a mixpanel ping", js: true do
+    fill_in_user_information
+    click_button "Add user"
+    FakeMixpanelTracker.clear_tracked_events
+    crank_dj_clear
+
+    FakeMixpanelTracker.should have_event_matching('user - new', source: 'creator')
+ end
 end
