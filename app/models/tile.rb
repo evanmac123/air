@@ -316,7 +316,7 @@ class Tile < ActiveRecord::Base
   end
 
   def schedule_mixpanel_ping
-    TrackEvent.ping('tile - new')
+    TrackEvent.ping('Tile - new')
   end
 
   def self.satisfiable_by_trigger_table(trigger_table_name)

@@ -39,6 +39,6 @@ class TileCompletion < ActiveRecord::Base
   protected
 
   def schedule_mixpanel_ping
-    TrackEvent.ping('tile - completed', {}, user)
+    TrackEvent.ping('Tile - completed', {}, user)
   end
 end

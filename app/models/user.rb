@@ -979,7 +979,7 @@ class User < ActiveRecord::Base
 
   def ping_if_made_into_creator
     return unless changed.include?('is_client_admin')
-    TrackEvent.ping('creator - new', {}, self)
+    TrackEvent.ping('Creator - new', {}, self)
   end
 
   def self.claimable_by_first_name_and_claim_code(claim_string)
