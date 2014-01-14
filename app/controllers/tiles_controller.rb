@@ -24,6 +24,8 @@ class TilesController < ApplicationController
 
     if params[:partial_only]
       render_tile_wall
+    else
+      schedule_viewed_tile_ping
     end
   end
 
@@ -32,6 +34,7 @@ class TilesController < ApplicationController
       get_displayable
       get_position_description
       render_new_tile
+      schedule_viewed_tile_ping
     else
       session[:start_tile] = params[:id]
       if params[:public_slug]
@@ -108,5 +111,9 @@ class TilesController < ApplicationController
 
   def find_current_board
     current_user.demo
+  end
+
+  def schedule_viewed_tile_ping
+    TrackEvent.ping('Tile - viewed', {}, current_user)
   end
 end

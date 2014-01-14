@@ -5,6 +5,14 @@ feature 'User views tile' do
     "There aren't any tiles available at this time. Check back later for more."
   end
 
+  def click_next_button
+    page.find('#next').click
+  end
+
+  def click_prev_button
+    page.find('#prev').click
+  end
+
   context "when there are tiles to be seen" do
     before(:each) do
       @demo = FactoryGirl.create(:demo)
@@ -29,7 +37,7 @@ feature 'User views tile' do
       should_be_on tiles_path
 
       expect_current_tile_id(@discover_fire)
-      page.find("#next").click
+      click_next_button
       expect_current_tile_id(@make_toast)
     end
 
@@ -90,6 +98,30 @@ feature 'User views tile' do
 
     it "should not show the no-content message" do
       expect_no_content no_tiles_message
+    end
+
+    it "should ping", js: true do
+      FakeMixpanelTracker.clear_tracked_events
+      visit tiles_path
+
+      crank_dj_clear
+      FakeMixpanelTracker.events_matching('Tile - viewed').should have(1).ping
+
+      click_next_button
+      crank_dj_clear
+      FakeMixpanelTracker.events_matching('Tile - viewed').should have(2).pings
+
+      click_next_button
+      crank_dj_clear
+      FakeMixpanelTracker.events_matching('Tile - viewed').should have(3).pings
+
+      click_prev_button
+      crank_dj_clear
+      FakeMixpanelTracker.events_matching('Tile - viewed').should have(4).pings
+
+      click_prev_button
+      crank_dj_clear
+      FakeMixpanelTracker.events_matching('Tile - viewed').should have(5).pings
     end
   end
 
