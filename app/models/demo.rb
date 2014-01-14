@@ -433,6 +433,6 @@ class Demo < ActiveRecord::Base
   end
 
   def send_creation_ping
-    TrackEvent.ping('Board - new', {demo_id: self.id})
+    TrackEvent.ping('Board - New', {demo_id: self.id})
   end
 end

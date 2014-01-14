@@ -243,6 +243,6 @@ describe Demo, 'on create' do
     d = FactoryGirl.create(:demo)
     crank_dj_clear
 
-    FakeMixpanelTracker.should have_event_matching 'Board - new'
+    FakeMixpanelTracker.should have_event_matching 'Board - New'
   end
 end

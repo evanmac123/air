@@ -105,23 +105,23 @@ feature 'User views tile' do
       visit tiles_path
 
       crank_dj_clear
-      FakeMixpanelTracker.events_matching('Tile - viewed').should have(1).ping
+      FakeMixpanelTracker.events_matching('Tile - Viewed').should have(1).ping
 
       click_next_button
       crank_dj_clear
-      FakeMixpanelTracker.events_matching('Tile - viewed').should have(2).pings
+      FakeMixpanelTracker.events_matching('Tile - Viewed').should have(2).pings
 
       click_next_button
       crank_dj_clear
-      FakeMixpanelTracker.events_matching('Tile - viewed').should have(3).pings
+      FakeMixpanelTracker.events_matching('Tile - Viewed').should have(3).pings
 
       click_prev_button
       crank_dj_clear
-      FakeMixpanelTracker.events_matching('Tile - viewed').should have(4).pings
+      FakeMixpanelTracker.events_matching('Tile - Viewed').should have(4).pings
 
       click_prev_button
       crank_dj_clear
-      FakeMixpanelTracker.events_matching('Tile - viewed').should have(5).pings
+      FakeMixpanelTracker.events_matching('Tile - Viewed').should have(5).pings
     end
   end
 

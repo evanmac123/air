@@ -469,7 +469,7 @@ describe Tile do
       FactoryGirl.create(:multiple_choice_tile)
 
       crank_dj_clear
-      FakeMixpanelTracker.should have_event_matching('Tile - new')
+      FakeMixpanelTracker.should have_event_matching('Tile - New')
     end
   end
 end

@@ -244,7 +244,7 @@ feature 'Guest user is prompted to convert to real user' do
 
       crank_dj_clear
 
-      FakeMixpanelTracker.should have_event_matching('User - new', source: 'public link')
+      FakeMixpanelTracker.should have_event_matching('User - New', source: 'public link')
     end
   end
 

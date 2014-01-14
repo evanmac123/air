@@ -109,6 +109,6 @@ feature 'Adds user' do
     FakeMixpanelTracker.clear_tracked_events
     crank_dj_clear
 
-    FakeMixpanelTracker.should have_event_matching('User - new', source: 'creator')
+    FakeMixpanelTracker.should have_event_matching('User - New', source: 'creator')
  end
 end

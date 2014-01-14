@@ -16,7 +16,7 @@ class GuestUserConversionsController < ApplicationController
     if full_user
       sign_in full_user
       flash[:success] = "Account created! A confirmation email will be sent to #{full_user.email}."
-      TrackEvent.ping('User - new', source: 'public link')
+      TrackEvent.ping('User - New', source: 'public link')
       render_success_json
     else
       render_failure_json

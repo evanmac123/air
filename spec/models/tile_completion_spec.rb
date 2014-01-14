@@ -11,7 +11,7 @@ describe TileCompletion do
       FactoryGirl.create(:tile_completion)
       crank_dj_clear
 
-      FakeMixpanelTracker.should have_event_matching('Tile - completed')
+      FakeMixpanelTracker.should have_event_matching('Tile - Completed')
     end
   end
 

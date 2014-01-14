@@ -506,13 +506,13 @@ describe User, "on save" do
         user.is_client_admin.should be_false
 
         crank_dj_clear
-        FakeMixpanelTracker.should_not have_event_matching('Creator - new')
+        FakeMixpanelTracker.should_not have_event_matching('Creator - New')
 
         user.is_client_admin = true
         user.save!
 
         crank_dj_clear
-        FakeMixpanelTracker.should have_event_matching('Creator - new')
+        FakeMixpanelTracker.should have_event_matching('Creator - New')
       end
     end
 
@@ -520,7 +520,7 @@ describe User, "on save" do
       it "should ping" do
         user = FactoryGirl.create(:client_admin)
         crank_dj_clear
-        FakeMixpanelTracker.should have_event_matching('Creator - new')
+        FakeMixpanelTracker.should have_event_matching('Creator - New')
       end
     end
 
@@ -533,7 +533,7 @@ describe User, "on save" do
         FakeMixpanelTracker.clear_tracked_events
 
         user.save!
-        FakeMixpanelTracker.should_not have_event_matching('Creator - new')
+        FakeMixpanelTracker.should_not have_event_matching('Creator - New')
       end
     end
   end

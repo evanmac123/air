@@ -114,6 +114,6 @@ class TilesController < ApplicationController
   end
 
   def schedule_viewed_tile_ping
-    TrackEvent.ping('Tile - viewed', {}, current_user)
+    TrackEvent.ping('Tile - Viewed', {}, current_user)
   end
 end
