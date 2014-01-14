@@ -32,7 +32,7 @@ feature 'Creates tile' do
     fill_in "Headline",           with: "Ten pounds of cheese"
     fill_in "Supporting content", with: "Ten pounds of cheese. Yes? Or no?"
 
-    fill_in "Ask your players a question", with: "Who rules?"
+    fill_in "Ask a question", with: "Who rules?"
 
     2.times {click_link "Add another answer"}
     fill_in_answer_field 0, "Me"

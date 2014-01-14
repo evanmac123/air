@@ -157,7 +157,7 @@ module TileHelpers
   end
 
   def after_tile_save_message(options={})
-    "Tile created! We're resizing the graphics, which usually takes less than a minute. You can edit this tile, see this tile in the archive, or create a new tile"
+    "Tile created! We're resizing the graphics, which usually takes less than a minute."
   end
 
   def click_edit_link

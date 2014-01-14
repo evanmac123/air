@@ -46,7 +46,7 @@ feature "Client admin edits tile" do
     fill_in "Headline",           with: "Ten pounds of cheese"
     fill_in "Supporting content", with: "Ten pounds of cheese. Yes? Or no?"
 
-    fill_in "Ask your players a question", with: "Who rules?"
+    fill_in "Ask a question", with: "Who rules?"
 
     2.times {click_link "Add another answer"}
 
@@ -194,7 +194,7 @@ feature "Client admin edits tile" do
       fill_in "Headline",           with: ""
       fill_in "Supporting content", with: ""
 
-      fill_in "Ask your players a question", with: ""
+      fill_in "Ask a question", with: ""
 
       2.times {click_link "Add another answer"}
       0.upto(3) { |i| fill_in_answer_field i, "" }

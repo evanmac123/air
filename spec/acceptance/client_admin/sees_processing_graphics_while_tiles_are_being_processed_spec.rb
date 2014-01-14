@@ -7,7 +7,7 @@ feature 'Sees processing graphics while tiles are being processed' do
     fill_in "Headline",           with: "Ten pounds of cheese"
     fill_in "Supporting content", with: "Ten pounds of cheese. Yes? Or no?"
 
-    fill_in "Ask your players a question", with: "Who rules?"
+    fill_in "Ask a question", with: "Who rules?"
 
     fill_in_answer_field 0, "Me"
     fill_in_answer_field 1, "You"
