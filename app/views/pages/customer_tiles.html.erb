@@ -637,4 +637,8 @@ $('.tile_thumbnail.fujifilm_takestwo').click(function(e) {
 $('.tile_thumbnail.fujifilm_new').click(function(e) {
   $('.hidden_large_tiles.fujifilm_new').lightbox_me();
 });
+
+$('.tile_thumbnail').click(function() {mixpanel.track('Customer Tiles Page - Clicked Thumbnail');});
 </script>
+
+<%= mp_track_page 'customer tiles' %>
