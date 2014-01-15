@@ -5,7 +5,7 @@ class PagesController < HighVoltage::PagesController
   before_filter :authenticate_without_game_begun_check, :only => SIGNED_IN_OK_PAGES
 
   before_filter :force_html_format
-  before_filter :signed_out_only, :except => SIGNED_IN_OK_PAGES
+  before_filter :signed_out_only_on_root
   before_filter :set_login_url
   before_filter :display_social_links_if_marketing_page
   before_filter :set_page_name
@@ -47,8 +47,8 @@ class PagesController < HighVoltage::PagesController
     end
   end
 
-  def signed_out_only
-    return if params[:id].present? && SIGNED_IN_OK_PAGES.include?(params[:id].to_sym)
+  def signed_out_only_on_root
+    return unless params[:id] == 'welcome'
     redirect_to home_path if signed_in?
   end
 
