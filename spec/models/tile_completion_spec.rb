@@ -8,10 +8,10 @@ describe TileCompletion do
     it "should ping" do
       FakeMixpanelTracker.should be_empty
 
-      FactoryGirl.create(:tile_completion)
+      tile_completion = FactoryGirl.create(:tile_completion)
       crank_dj_clear
 
-      FakeMixpanelTracker.should have_event_matching('Tile - Completed')
+      FakeMixpanelTracker.should have_event_matching('Tile - Completed', {tile_id: tile_completion.tile.id})
     end
   end
 

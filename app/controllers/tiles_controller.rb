@@ -25,7 +25,7 @@ class TilesController < ApplicationController
     if params[:partial_only]
       render_tile_wall
     else
-      schedule_viewed_tile_ping
+      schedule_viewed_tile_ping(@start_tile)
     end
   end
 
@@ -34,7 +34,7 @@ class TilesController < ApplicationController
       get_displayable
       get_position_description
       render_new_tile
-      schedule_viewed_tile_ping
+      schedule_viewed_tile_ping(next_tile)
     else
       session[:start_tile] = params[:id]
       if params[:public_slug]
@@ -60,8 +60,6 @@ class TilesController < ApplicationController
   end
 
   def render_new_tile
-    next_tile = satisfiable_tiles[next_tile_index]
-
     render "tiles/_full_size_tile", locals: {tile: next_tile}, layout: false
   end
 
@@ -72,6 +70,15 @@ class TilesController < ApplicationController
   def current_tile_index
     result = satisfiable_tiles.find_index{|tile| tile.id.to_s == current_tile_id.to_s}
     result || 0
+  end
+
+  def next_tile
+    unless @_next_tile.present?
+      next_tile = satisfiable_tiles[next_tile_index]
+      @_next_tile = next_tile
+    end
+
+    @_next_tile
   end
 
   def next_tile_index
@@ -113,7 +120,8 @@ class TilesController < ApplicationController
     current_user.demo
   end
 
-  def schedule_viewed_tile_ping
-    TrackEvent.ping('Tile - Viewed', {}, current_user)
+  def schedule_viewed_tile_ping(tile)
+    return unless tile.present?
+    TrackEvent.ping('Tile - Viewed', {tile_id: tile.id}, current_user)
   end
 end
