@@ -95,7 +95,14 @@ body.client_admin-tiles-update,
 
     // Points bar
     .tile_points_bar {
-      @include header_bar;
+      background: #f7f7f7;
+      background: -moz-linear-gradient(top,  #f7f7f7 0%, #f7f7f7 45%, #eaeaea 100%);
+      background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f7f7f7), color-stop(45%,#f7f7f7), color-stop(100%,#eaeaea));
+      background: -webkit-linear-gradient(top,  #f7f7f7 0%,#f7f7f7 45%,#eaeaea 100%);
+      background: -o-linear-gradient(top,  #f7f7f7 0%,#f7f7f7 45%,#eaeaea 100%);
+      background: -ms-linear-gradient(top,  #f7f7f7 0%,#f7f7f7 45%,#eaeaea 100%);
+      background: linear-gradient(to bottom,  #f7f7f7 0%,#f7f7f7 45%,#eaeaea 100%);
+
       border-top:1px $white solid;
       border-bottom:1px darken($light-gray, 2%) solid;
       box-shadow:  0px 0 1px 1px lighten($light-gray, 3%);
