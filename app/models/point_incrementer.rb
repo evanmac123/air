@@ -21,7 +21,7 @@ class PointIncrementer
     new_point_tranche = ticket_tranche(new_points)
 
     if new_point_tranche > old_point_tranche
-      @user.increment!(:tickets)
+      @user.increment!(:tickets, new_point_tranche - old_point_tranche)
     end
   end
 

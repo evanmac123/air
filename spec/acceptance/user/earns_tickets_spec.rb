@@ -42,4 +42,20 @@ feature 'User earns tickets' do
     visit acts_path(as: @user)
     expect_ticket_header 2
   end
+
+  it "should award multiple tickets if the user gets a lot of points" do
+    rule4 = FactoryGirl.create(:rule, demo: @demo, points: 20)
+    FactoryGirl.create(:primary_value, value: 'rule4', rule: rule4)
+
+    rule5 = FactoryGirl.create(:rule, demo: @demo, points: 30)
+    FactoryGirl.create(:primary_value, value: 'rule5', rule: rule5)
+
+    mo_sms(@user.phone_number, 'rule4')
+    visit acts_path(as: @user)
+    expect_ticket_header 2
+
+    mo_sms(@user.phone_number, 'rule5')
+    visit acts_path(as: @user)
+    expect_ticket_header 5
+  end
 end
