@@ -48,7 +48,7 @@ class ClaimStateMachine < ActiveRecord::Base
         finder_method:                    :by_date_of_birth_string, 
         next_state_on_ambiguity_id:       3, 
         ambiguity_message:                "Sorry, we're having a little trouble, it looks like we'll have to get a human involved. Please contact support@air.bo for help joining the game. Thank you!",
-        unrecognized_information_message: "Sorry, we're having a little trouble, it looks like we'll have to get a human involved. Please contact support@air.bo.com for help joining the game. Thank you!",
+        unrecognized_information_message: "Sorry, we're having a little trouble, it looks like we'll have to get a human involved. Please contact support@air.bo for help joining the game. Thank you!",
         valid_format:                     /^\d{4}$/, 
         invalid_format_message:           "Sorry, I didn't quite get that. Please send your month & date of birth as MMDD (example: September 10 = 0910).", 
         already_claimed_message:          "It looks like that account is already claimed. Please try a different date of birth, or contact support@air.bo for help."

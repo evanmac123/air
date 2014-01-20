@@ -330,7 +330,7 @@ feature 'User claims account' do
               end
 
               it "should send back a helpful error message" do
-                expect_reply "It looks like that account is already claimed. Please try a different ZIP code, or contact support@hengage.com for help."
+                expect_reply "It looks like that account is already claimed. Please try a different ZIP code, or contact support@air.bo for help."
               end
 
               it "should let the user try again" do
@@ -346,7 +346,7 @@ feature 'User claims account' do
                 expect_contact_unset @expected_user
               end
             else
-              it_should_behave_like "email overflow or reclaim", %w(bob 02139), "94110", "It looks like that account is already claimed. Please try a different ZIP code, or contact support@hengage.com for help."
+              it_should_behave_like "email overflow or reclaim", %w(bob 02139), "94110", "It looks like that account is already claimed. Please try a different ZIP code, or contact support@air.bo for help."
             end
           end
 
@@ -377,7 +377,7 @@ feature 'User claims account' do
             end
 
             it "should reply with a sensible error message" do
-              expect_reply "Sorry, I don't recognize that ZIP code. Please try a different one, or contact support@hengage.com for help."
+              expect_reply "Sorry, I don't recognize that ZIP code. Please try a different one, or contact support@air.bo for help."
             end
 
             it "should allow them to try another one" do
@@ -442,7 +442,7 @@ feature 'User claims account' do
               end
 
               it "should send back a helpful error message" do
-                expect_reply "It looks like that account is already claimed. Please try a different date of birth, or contact support@hengage.com for help."
+                expect_reply "It looks like that account is already claimed. Please try a different date of birth, or contact support@air.bo for help."
               end
 
               it "should let the user try again" do
@@ -458,7 +458,7 @@ feature 'User claims account' do
                 expect_contact_unset @expected_user
               end
             else
-              it_should_behave_like "email overflow or reclaim", %w(bob 02139 0910), "0911", "It looks like that account is already claimed. Please try a different date of birth, or contact support@hengage.com for help."
+              it_should_behave_like "email overflow or reclaim", %w(bob 02139 0910), "0911", "It looks like that account is already claimed. Please try a different date of birth, or contact support@air.bo for help."
             end
           end
 
@@ -471,7 +471,7 @@ feature 'User claims account' do
             end
 
             it "should reply with a sensible error message" do
-              expect_reply "Sorry, we're having a little trouble, it looks like we'll have to get a human involved. Please contact support@hengage.com for help joining the game. Thank you!"
+              expect_reply "Sorry, we're having a little trouble, it looks like we'll have to get a human involved. Please contact support@air.bo for help joining the game. Thank you!"
             end
 
             it "should allow the user to try again" do
@@ -544,7 +544,7 @@ feature 'User claims account' do
             clear_messages
             send_message "0911"
             @expected_user.reload.should_not be_claimed
-            expect_reply "Sorry, we're having a little trouble, it looks like we'll have to get a human involved. Please contact support@hengage.com for help joining the game. Thank you!"
+            expect_reply "Sorry, we're having a little trouble, it looks like we'll have to get a human involved. Please contact support@air.bo for help joining the game. Thank you!"
           end
 
           it "should allow them to try another one" do
@@ -613,13 +613,13 @@ feature 'User claims account' do
 
           clear_messages
           send_message 'beethoven'
-          expect_reply "It looks like that account is already claimed. Please try again, or contact support@hengage.com for help."
+          expect_reply "It looks like that account is already claimed. Please try again, or contact support@air.bo for help."
 
           clear_messages
           send_message 'duplicate'
           @ambiguous_user_1.reload.should_not be_claimed
           @ambiguous_user_2.reload.should_not be_claimed
-          expect_reply "Sorry, we're having a little trouble, it looks like we'll have to get a human involved. Please contact support@hengage.com for help joining the game. Thank you!"
+          expect_reply "Sorry, we're having a little trouble, it looks like we'll have to get a human involved. Please contact support@air.bo for help joining the game. Thank you!"
 
           clear_messages
           [@expected_user, @evil_twin, @other_user].each{|u| u.should_not be_claimed}

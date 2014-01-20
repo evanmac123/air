@@ -13,7 +13,7 @@ describe GenericMailer do
         with_subject("Here is the subject").
         with_part('text/plain', /This is some text\s*/).
         with_part('text/html', %r!<p>This is some HTML</p>!).
-        from("play@playhengage.com")
+        from("play@ourairbo.com")
     end
 
     it "should have an unsubscribe footer" do

@@ -32,7 +32,7 @@ feature 'User requests support' do
 
     crank_dj_clear
 
-    open_email('support@hengage.com')
+    open_email('support@air.bo')
     current_email.to_s.should include("Support requested by #{@user.name} of #{@demo.name} (#{@user.email}, #{@user.phone_number}")
     current_email.to_s.gsub(/\s+/m, " ").should include("test 3 test 2 test 1")
   end

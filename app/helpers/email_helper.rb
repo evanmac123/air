@@ -33,7 +33,7 @@ module EmailHelper
     logo = skinned_for_demo(demo, 'logo_url', hengage_logo)
 
     if logo == hengage_logo
-      image_options.merge!(alt: 'H.Engage')
+      image_options.merge!(alt: 'Airbo')
     else
       # They are not forced to supply alt_text; if they don't, Rails will use the filename (without extension) as the alt-text
       image_options.merge!(alt: demo.skin.alt_logo_text) unless demo.skin.alt_logo_text.blank?

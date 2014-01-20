@@ -306,7 +306,7 @@ module SteakHelperMethods
   end
 
   def site_tutorial_content
-    "Welcome to H.Engage! Read and answer the questions on tiles for points. To get started, click on the first tile."
+    "Welcome to Airbo! Read and answer the questions on tiles for points. To get started, click on the first tile."
   end
 
   def expect_no_site_tutorial_lightbox

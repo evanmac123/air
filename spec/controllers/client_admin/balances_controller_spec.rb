@@ -58,7 +58,7 @@ describe ClientAdmin::BalancesController do
     end
 
     it "should put an error in the flash" do
-      flash[:failure].should == "Sorry, something went wrong with the payment. Your card has not been charged. Please try again in a little bit, or contact support@hengage.com for help."
+      flash[:failure].should == "Sorry, something went wrong with the payment. Your card has not been charged. Please try again in a little bit, or contact support@air.bo for help."
     end
 
     it "should redirect to the new payment page" do

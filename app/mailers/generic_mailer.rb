@@ -12,7 +12,7 @@ class GenericMailer < ActionMailer::Base
     @html_text = interpolate_invitation_url(_invitation_url, html_text).html_safe
     @plain_text = interpolate_invitation_url(_invitation_url, plain_text).html_safe
 
-    from_string = @user.demo.email.present? ? @user.demo.reply_email_address : "Airbo <play@air.bo>"
+    from_string = @user.demo.email.present? ? @user.demo.reply_email_address : "Airbo <play@ourairbo.com>"
 
     while(@plain_text !~ /\n\n$/)
       @plain_text += "\n"

@@ -52,7 +52,7 @@ describe User do
     user4.should be_valid
     user5.should_not be_valid
 
-    user3.errors[:phone_number].should == ["Sorry, but that phone number has already been taken. Need help? Contact support@hengage.com"]
+    user3.errors[:phone_number].should == ["Sorry, but that phone number has already been taken. Need help? Contact support@air.bo"]
   end
 
   it 'should validate 5-digit zipcode' do

@@ -11,7 +11,7 @@ describe Mailer do
 
     it 'should construct an email with the correct parts' do
       report.deliver
-      Mailer.should have_sent_email.from('play@playhengage.com')
+      Mailer.should have_sent_email.from('play@ourairbo.com')
                                    .to('buddy@guy.com')
                                    .with_subject('Activity dump for Weird Demo-Name #3! as of May 01, 2011 at 01:00 PM Eastern')
                                    .with_part('text/csv', 'fake csv data')

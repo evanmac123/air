@@ -4,7 +4,7 @@ class Mailer < ActionMailer::Base
   include EmailPreviewsHelper # Only includes the module for this controller (not for the views)
   helper :email  # loads app/helpers/email_helper.rb & includes EmailHelper into the VIEW
 
-  default :from => "Airbo <play@air.bo>"
+  default :from => "Airbo <play@ourairbo.com>"
   
   def invitation(user, referrer = nil, options = {})
     demo = user.demo

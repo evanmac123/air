@@ -35,7 +35,7 @@ describe 'Digest email' do
     it 'should display the H.Engage logo and alt-text if an alternative one is not provided' do
       email = TilesDigestMailer.notify_one(demo.id, claimed_user.id, tile_ids, "New Tiles")
 
-      email.should have_selector "img[src $= '/assets/logo.png'][alt = 'H.Engage']"
+      email.should have_selector "img[src $= '/assets/logo.png'][alt = 'Airbo']"
     end
 
     it "should display another company's logo if they have provided one, along with default alt-text if they have not provided any" do
@@ -147,7 +147,7 @@ describe 'Digest email' do
 
       it { should have_body_text 'Copyright &copy; 2013 H.Engage. All Rights Reserved' }
       it { should have_body_text 'Our mailing address is: 222 Newbury St., Floor 3, Boston, MA 02116' }
-      it { should have_body_text 'You received this email because your company uses H.Engage' }
+      it { should have_body_text 'You received this email because your company uses Airbo' }
 
       it { should have_link      'Unsubscribe' }
       it { should have_body_text 'from email communications' }

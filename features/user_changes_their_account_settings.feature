@@ -112,7 +112,7 @@ Feature: User can edit their account settings
     And I fill in "Mobile number" with "808-555-1212"
     And I press the button to save notification settings
     Then I should be on the settings page
-    And I should see "Sorry, but that phone number has already been taken. Need help? Contact support@hengage.com"
+    And I should see "Sorry, but that phone number has already been taken. Need help? Contact support@air.bo"
     And there should be a mail link to support in the flash
     And "Mobile number" should have value "(415) 555-1212"
 
