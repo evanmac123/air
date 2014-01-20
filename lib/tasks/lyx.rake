@@ -18,7 +18,7 @@ task :lyx do
   ######################   SUBSTITUTIONS   ####################
   body = IO.read(html_body)  # You could replace the label 'subsection' here, but we decided to go with elyxer's --notoclabels flag 
   # Make support email be an actual hyperlink
-  body = body.gsub('support@hengage.com', "<a href='#' class='contact_us_link'>support@hengage.com</a>")
+  body = body.gsub('support@air.bo', "<a href='#' class='contact_us_link'>support@air.bo</a>")
   # Insert Game Phone Number and Game Email
   body = body.gsub('&lt;GAME_PHONE&gt;', '<%= @current_user.demo.phone_number.try(:as_pretty_phone) %>')
   body = body.gsub('&lt;GAME_EMAIL&gt;', "<a href='mailto:<%= @current_user.demo.email %>'><%= @current_user.demo.email %></a>")

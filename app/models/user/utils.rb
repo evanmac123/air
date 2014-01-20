@@ -6,7 +6,7 @@ class User
       list = ['vlad', 'phil', 'kim', 'jack', 'connie', 'josh', 'kate', 'larry']
       count = 0
       list.each do |name|
-        in_email = name + '@hengage.com'
+        in_email = name + '@air.bo'
         unless User.find_by_email(in_email)
           User.create(name: name, 
                       demo_id: demo.id, 
@@ -14,7 +14,7 @@ class User
                       slug: name,
                       sms_slug: name,
                       accepted_invitation_at: Time.now, 
-                      password: 'hengage-password')
+                      password: 'airbo-password')
           count += 1
         end
       end

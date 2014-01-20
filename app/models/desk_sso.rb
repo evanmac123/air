@@ -50,7 +50,7 @@ class DeskSSO
   end
 
   def subdomain
-    "hengage"
+    "airbo"
   end
 
   def api_key

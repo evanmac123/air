@@ -4,7 +4,7 @@ class Mailer < ActionMailer::Base
   include EmailPreviewsHelper # Only includes the module for this controller (not for the views)
   helper :email  # loads app/helpers/email_helper.rb & includes EmailHelper into the VIEW
 
-  default :from => "H.Engage <play@playhengage.com>"
+  default :from => "Airbo <play@air.bo>"
   
   def invitation(user, referrer = nil, options = {})
     demo = user.demo
@@ -49,8 +49,8 @@ class Mailer < ActionMailer::Base
     @game_name = game_name
     @sms_bodies = sms_bodies
 
-    mail :to      => "support@hengage.com",
-         :from    => "support@hengage.com",
+    mail :to      => "support@air.bo",
+         :from    => "support@air.bo",
          :subject => "Help request from core app for #{@user_name} of #{@game_name} (#{@user_email}, #{@user_phone})"
 
     headers['Reply-To'] = @user_email
@@ -64,7 +64,7 @@ class Mailer < ActionMailer::Base
 
     mail :to      => friend_address,
          :from    => reply_address,
-         :subject => "#{user_name} wants to be your friend on H.Engage"
+         :subject => "#{user_name} wants to be your friend on Airbo"
   end
 
   def follow_notification_acceptance(user_name, user_address, reply_address, friend_name)
@@ -73,7 +73,7 @@ class Mailer < ActionMailer::Base
 
     mail :to      => user_address,
          :from    => reply_address,
-         :subject => "Message from H.Engage"
+         :subject => "Message from Airbo"
   end
 
   def set_password(user_id)
@@ -106,7 +106,7 @@ class Mailer < ActionMailer::Base
 
     mail :to      => to_email,
          :from    => from_email,
-         :subject => "Message from H.Engage",
+         :subject => "Message from Airbo",
          :template_path => 'email_command_mailer',
          :template_name => "send_response"
   end
@@ -117,6 +117,6 @@ class Mailer < ActionMailer::Base
 
     mail :to      => user.email_with_name,
          :from    => user.reply_email_address,
-         :subject => "Welcome to H.Engage!"
+         :subject => "Welcome to Airbo!"
   end
 end

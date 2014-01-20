@@ -1,5 +1,5 @@
 class Admin::BulkSatisfactionsController < AdminBaseController
-  REPORT_RECIPIENT = "admins@hengage.com"
+  REPORT_RECIPIENT = "admins@airbo.com"
 
   def create
     if schedule_bulk_completes

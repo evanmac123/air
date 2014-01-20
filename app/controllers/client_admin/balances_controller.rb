@@ -15,7 +15,7 @@ class ClientAdmin::BalancesController < ClientAdminBaseController
 
       flash[:success] = "Thank you! We've received your payment and your credit card will be charged #{balance.pretty_amount}."
     rescue Stripe::CardError => e
-      flash[:failure] = "Sorry, something went wrong with the payment. Your card has not been charged. Please try again in a little bit, or contact support@hengage.com for help."
+      flash[:failure] = "Sorry, something went wrong with the payment. Your card has not been charged. Please try again in a little bit, or contact support@air.bo for help."
     end
 
     redirect_to new_client_admin_payment_path

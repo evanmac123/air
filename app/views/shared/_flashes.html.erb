@@ -12,7 +12,7 @@
               <% bracketless.length == 1 ? bracketless.first : bracketless %>
             <% else %>
               <% bracketless = bracketless.map{|value_part| "<p>" + h(value_part) + "</p>"}.join %>
-              <% bracketless.gsub! "support@hengage.com", link_to("support@hengage.com", "mailto:support@hengage.com") %>
+              <% bracketless.gsub! "support@air.bo", link_to("support@air.bo", "mailto:support@air.bo") %>
               <% bracketless %>
             <% end %>
             <%= raw result %>

@@ -13,7 +13,7 @@ class PasswordsController < Clearance::PasswordsController
     # Non-existent user or a legitimate "Forgot Password" => Let Clearance handle it
     super and return if (@user.nil? or @user.claimed?)
 
-    flash.now[:failure] = "We're sorry, you need to join H.Engage before you can reset your password. Please contact support@hengage.com for assistance."
+    flash.now[:failure] = "We're sorry, you need to join Airbo before you can reset your password. Please contact support@air.bo for assistance."
     render :template => 'passwords/new'
   end
 
@@ -74,7 +74,7 @@ class PasswordsController < Clearance::PasswordsController
   end
 
   def flash_failure_after_create
-    flash.now[:failure] = "We're sorry, we can't find your email address in our records. Please contact <a href=\"mailto:support@hengage.com\">support@hengage.com</a> for assistance."
+    flash.now[:failure] = "We're sorry, we can't find your email address in our records. Please contact <a href=\"mailto:support@air.bo\">support@air.bo</a> for assistance."
     flash.now[:failure_allow_raw] = true
   end
 end

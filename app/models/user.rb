@@ -786,7 +786,7 @@ class User < ActiveRecord::Base
     
     user = User.where(phone_number: from_phone).first
 
-    return "No user found with phone number #{from_phone}. Please try again, or contact support@hengage.com for help" unless user
+    return "No user found with phone number #{from_phone}. Please try again, or contact support@air.bo for help" unless user
     return "Please text us your claim code first" unless user.claimed?
 
 
@@ -947,7 +947,7 @@ class User < ActiveRecord::Base
                          ["phone_number = ? AND id != ?", normalized_number, self.id]
                        end
     if self.class.where(where_conditions).limit(1).present?
-      self.errors.add(input, "Sorry, but that phone number has already been taken. Need help? Contact support@hengage.com")
+      self.errors.add(input, "Sorry, but that phone number has already been taken. Need help? Contact support@air.bo")
     end
   end
 
