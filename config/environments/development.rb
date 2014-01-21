@@ -50,14 +50,14 @@ Health::Application.configure do
   # See https://github.com/ryanb/letter_opener for details.
   config.action_mailer.delivery_method = :letter_opener
 
-   ActionMailer::Base.smtp_settings = {
-     :user_name => SendGrid::DEV_USERNAME,
-     :password => SendGrid::DEV_PASSWORD,
-     :domain => "hengage.com",
-     :address => "smtp.sendgrid.net",
-     :port => 587,
-     :authentication => :plain,
-     :enable_starttls_auto => true
+  ActionMailer::Base.smtp_settings = {
+    :user_name => SendGrid::DEV_USERNAME,
+    :password => SendGrid::DEV_PASSWORD,
+    :domain => "air.bo",
+    :address => "smtp.sendgrid.net",
+    :port => 587,
+    :authentication => :plain,
+    :enable_starttls_auto => true
    }
 end
 

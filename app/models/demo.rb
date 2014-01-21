@@ -190,7 +190,7 @@ class Demo < ActiveRecord::Base
     email_name, email_address = if self.email
                     [self.reply_email_name, self.email]
                   else
-                    ['H.Engage', 'play@playhengage.com']
+                    ['Airbo', 'play@ourairbo.com']
                   end
 
     if include_name

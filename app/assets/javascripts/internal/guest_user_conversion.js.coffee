@@ -4,7 +4,7 @@ convertEmailErrors = (emailErrors) ->
   _.map(emailErrors, (error) ->
     switch error
       when 'is invalid' then 'Please enter a valid email address.'
-      when 'has already been taken' then 'It looks like that email is already taken. You can <a href="/sign_in">click here</a> to sign in, or contact <a href="mailto:support@hengage.com">support@hengage.com</a> for help.'
+      when 'has already been taken' then 'It looks like that email is already taken. You can <a href="/sign_in">click here</a> to sign in, or contact <a href="mailto:support@air.bo">support@air.bo</a> for help.'
       else error
   )
 

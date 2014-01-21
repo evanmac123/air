@@ -13,7 +13,7 @@ feature "User texts 'stop' to set notification preferences" do
   scenario "Juan texts 'stop' and receives a confirmation"  do
     mo_sms(@juan_phone, 'sToP ')
     crank_dj_clear 
-    expected = "Ok, you won't receive any more texts from us. To change your contact preferences, log into HEngage.com and click Settings, or email support@hengage.com."
+    expected = "Ok, you won't receive any more texts from us. To change your contact preferences, log into www.air.bo and click Settings, or email support@air.bo."
 
     expect_mt_sms(@juan_phone, expected)
     @juan.reload.notification_method.should == 'email'

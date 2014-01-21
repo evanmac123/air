@@ -88,7 +88,7 @@ Our social space to feature what you should know and do. Read, take actions, and
 
 Get started at [invitation_url]
 
-Questions? Email support@hengage.com.
+Questions? Email support@air.bo.
 
 
     },
@@ -132,7 +132,7 @@ Our social space to feature what you should know and do. Read, take actions, and
     <td height="10">&nbsp;</td>
   </tr>
   <tr style="font-family: 'helvetica neue',helvetica, sans-serif;">
-    <td style="text-align:center;">Questions? <a href="mailto:support@hengage.com">support@hengage.com</a></td>
+    <td style="text-align:center;">Questions? <a href="mailto:support@air.bo">support@air.bo</a></td>
   </tr>
   <tr>
     <td height="50">&nbsp;</td>

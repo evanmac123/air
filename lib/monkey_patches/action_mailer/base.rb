@@ -1,5 +1,5 @@
 class ActionMailer::Base
-  DEFAULT_PLAY_ADDRESS = Rails.env.production? ? "play@playhengage.com" : "play-#{Rails.env}@playhengage.com"
+  DEFAULT_PLAY_ADDRESS = Rails.env.production? ? "play@ourairbo.com" : "play-#{Rails.env}@ourairbo.com"
 
   include Reply
   

@@ -75,7 +75,7 @@ Health::Application.configure do
     :authentication => :plain,
     :user_name      => ENV['SENDGRID_USERNAME'],
     :password       => ENV['SENDGRID_PASSWORD'],
-    :domain         => 'hengage.com'
+    :domain         => 'air.bo'
   }
   ActionMailer::Base.delivery_method = :smtp
 end
