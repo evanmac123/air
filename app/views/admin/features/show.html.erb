@@ -1,0 +1,8 @@
+<%= form_tag admin_demo_features_path, method: :put do %>
+  <% if $rollout.active?(:public_board, @demo) %>
+    <%= submit_tag 'Deactivate public board' %>
+  <% else %>
+    <%= hidden_field_tag 'status', '1' %>
+    <%= submit_tag 'Activate public board' %>
+  <% end %>
+<% end %>
