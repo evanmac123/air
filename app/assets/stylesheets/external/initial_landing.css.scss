@@ -1,11 +1,12 @@
 .jPanelMenu-panel, body .content {
-  background:image-url('marketing/temporary_wall.png') repeat-y $tile-wall-bg center top!important;
+  background-color: $blue !important;
+  // background:image-url('marketing/temporary_wall.png') repeat-y $tile-wall-bg center top!important;
 }
 
 body .content {padding:0;}
 
 .landing_lightbox {
-  background:image-url('v5/bg_dark.png');
+ // background:image-url('v5/bg_dark.png');
   padding:2em 0;
   .landing_welcome_box {
     background: $white;
