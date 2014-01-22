@@ -1,17 +1,11 @@
-#unsubscribe
-  %h2 Are you sure you want to unsubscribe?
+.row
+  .external-form-wrapper
+    %h2 Are you sure you want to unsubscribe?
 
-
-  %p 
-    You may miss important updates about your benefits and other important programs from your employer.
-    
-    /-if @user.claimed?
-    /  Maybe you would rather
-    /  =(link_to "change your contact preferences", edit_account_settings_path) + "?"
-    /  If not, please click "unsubscribe" to confirm.
-
-  = form_for :unsubscribe, url: unsubscribe_path do |f|
-    = f.hidden_field :user_id, value: @user.id.to_s
-    = f.hidden_field :token, value: @token
-    = f.submit "Unsubscribe"
+    = form_for :unsubscribe, url: unsubscribe_path do |f|
+      %p 
+        You may miss important updates about your benefits and other important programs from your employer.
+      = f.hidden_field :user_id, value: @user.id.to_s
+      = f.hidden_field :token, value: @token
+      = f.submit "Unsubscribe"
 
