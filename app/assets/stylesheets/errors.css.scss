@@ -1,41 +1,41 @@
 body {
-    background:image-url('marketing/bg-dark.jpg');
-    color:#636363;
+    background:#49ade9;
+    color:black;
     font-family:Helvetica, Arial, sans-serif;
     font-size:18px;
     margin:0;
+
 }
 .cf {clear:both;}
-h1 {color:#74c04c; font-family:'Ubuntu', Helvetica, Arial, sans-serif; font-weight:400; margin:0; padding:0;}
+h1 {color: white; font-family:'Ubuntu', Helvetica, Arial, sans-serif; font-weight:400; margin:40; padding:0; align: center;}
 
-.main-contain {background:image-url('marketing/bg.png'); height:410px;}
-.header, .dialog, .footer {margin:0 auto; width:960px;}
+.main-contain {background:#49ade9; height:410px; text-align: center;}
+.header, .dialog {margin:0 auto; width:960px;}
 .header {
     color:#B9B9B9;
     font-size:14px;
     font-family:'Ubuntu', Helvetica, Arial, sans-serif;
-    padding:40px 0;
+    padding:20px 0 60px 0;
     text-align:left;
 }
-.header img {border:0;}
+.header img {
+    width: auto;
+    height: 4em;}
 .dialog {margin-bottom:40px;}
-.dialog p {width:460px;}
-.dialog .error-text {float:left;}
-.dialog .tree {
-    display:block;
-    float:right;
-    position:position;
-    margin-top:-110px;
+
+
+.footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    padding-bottom: 10px;
+    text-color: white;
 }
 
-
-/*.footer {
-    border-top:1px #171717 solid;
-    margin-top:90px;
-}*/
 p.copyright {
-    color:#898989;
-    font-size:10px;
+    color:black;
+    font-size:12px;
     margin:0;
     padding:30px 0 0 0;
 }
