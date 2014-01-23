@@ -145,7 +145,7 @@ describe 'Digest email' do
     context 'all users' do
       subject { TilesDigestMailer.notify_one(demo.id, claimed_user.id, tile_ids, "New Tiles") }
 
-      it { should have_body_text 'Copyright &copy; 2013 H.Engage. All Rights Reserved' }
+      it { should have_body_text 'Copyright &copy; 2014 H.Engage, Inc. All Rights Reserved' }
       it { should have_body_text 'Our mailing address is: 222 Newbury St., Floor 3, Boston, MA 02116' }
       it { should have_body_text 'You received this email because your company uses Airbo' }
 

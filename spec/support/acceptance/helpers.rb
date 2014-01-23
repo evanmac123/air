@@ -251,7 +251,7 @@ module SteakHelperMethods
   end
 
   def expect_marketing_page_blurb
-    expect_content "Your bulletin board, made fun and social"
+    expect_content "Your bulletin board, reinvented."
   end
 
   def expect_disabled(element)
