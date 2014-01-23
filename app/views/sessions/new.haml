@@ -1,14 +1,15 @@
-.external-form-wrapper.row
-  %h1 Log In
-  = form_tag session_path do  
-    %label.input_label Email address
-    = text_field_tag "session[email]", (params[:session] and params[:session][:email])
-    %label.input_label Password
-    = password_field_tag "session[password]", nil
-    .wrap
-      = label_tag "session[remember_me]", "Remember me (Don't check this on a shared computer)", :class => :inline
-      = check_box_tag "session[remember_me]", 1, true
-    = submit_tag "Log In"
-    = link_to "Forgot password?", new_password_path 
+.row
+  .external-form-wrapper.small-12.large-6.large-centered.columns
+    %h1 Log In
+    = form_tag session_path do  
+      %label.input_label Email address
+      = text_field_tag "session[email]", (params[:session] and params[:session][:email])
+      %label.input_label Password
+      = password_field_tag "session[password]", nil
+      .wrap
+        = label_tag "session[remember_me]", "Remember me (Don't check this on a shared computer)", :class => :inline
+        = check_box_tag "session[remember_me]", 1, true
+      = submit_tag "Log In"
+      = link_to "Forgot password?", new_password_path 
 
 = mp_track_page "sign in"
