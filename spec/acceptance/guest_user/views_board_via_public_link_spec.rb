@@ -6,9 +6,9 @@ end
 
 feature 'Views board via public link' do
   {
-    '/b/aboard'          => '/b/aboard/activity',
-    '/b/aboard/activity' => '/b/aboard/activity',
-    '/b/aboard/tiles'    => '/b/aboard/tiles'
+    '/ard/aboard'          => '/ard/aboard/activity',
+    '/ard/aboard/activity' => '/ard/aboard/activity',
+    '/ard/aboard/tiles'    => '/ard/aboard/tiles'
   }.each do |entry_path, expected_destination|
     context "to #{entry_path}" do
       scenario "ends up on #{expected_destination}" do
@@ -21,9 +21,9 @@ feature 'Views board via public link' do
 end
 
 %w(
-  /b/derp
-  /b/derp/activity
-  /b/derp/tiles
+  /ard/derp
+  /ard/derp/activity
+  /ard/derp/tiles
 ).each do |bad_path|
   feature "going to a nonexistent public link such as #{bad_path}" do
     it 'should give a helpful error' do

@@ -5,10 +5,10 @@ Health::Application.routes.draw do
   match "scoreboard"    => "scores#index"
   match "join"          => "invitations#new"
 
-  match "b/:public_slug" => "public_boards#show", :as => "public_board", :via => :get
-  match "b/:public_slug/activity" => "acts#index", :as => "public_activity", :via => :get
-  match "b/:public_slug/tiles" => "tiles#index", :as => "public_tiles", :via => :get
-  match "b/:public_slug/tile/:id" => "tiles#show", :as => "public_tile", :via => :get
+  match "ard/:public_slug" => "public_boards#show", :as => "public_board", :via => :get
+  match "ard/:public_slug/activity" => "acts#index", :as => "public_activity", :via => :get
+  match "ard/:public_slug/tiles" => "tiles#index", :as => "public_tiles", :via => :get
+  match "ard/:public_slug/tile/:id" => "tiles#show", :as => "public_tile", :via => :get
 
   resources :tiles, :only => [:index, :show]
   resources :tile_completions, :only => [:create]
