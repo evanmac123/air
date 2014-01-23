@@ -5,6 +5,11 @@
 
 body .content {padding:0;}
 
+#landing_page_image {
+  margin-bottom: 2em;
+  border: solid $light-gray 2px;
+}
+
 .landing_lightbox {
  // background:image-url('v5/bg_dark.png');
   padding:2em 0;
