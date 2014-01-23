@@ -41,6 +41,29 @@ describe GenericMailer do
         with_part('text/plain', /#{@user.invitation_code}/)
     end
 
+    it "should be able to interpolate tile-digest style URLs" do
+      claimed_user = FactoryGirl.create :user, :claimed
+      unclaimed_user = FactoryGirl.create :user
+
+      [claimed_user, unclaimed_user].each do |user|
+        GenericMailer.send_message(user.id, "Das Subjekt", "This is some text, go to [tile_digest_url]", "<p>This is some HTML, go to [tile_digest_url]").deliver
+      end
+
+      should have_sent_email.
+        to(claimed_user.email).
+        with_part('text/html', /acts/).
+        with_part('text/html', /user_id=#{claimed_user.id}/).
+        with_part('text/html', /tile_token=#{EmailLink.generate_token(claimed_user)}/).
+        with_part('text/plain', /acts/).
+        with_part('text/plain', /user_id=#{claimed_user.id}/).
+        with_part('text/plain', /tile_token=#{EmailLink.generate_token(claimed_user)}/)
+ 
+      should have_sent_email.
+        to(unclaimed_user.email).
+        with_part('text/html', %r!invitations/#{unclaimed_user.invitation_code}!).
+        with_part('text/plain', %r!invitations/#{unclaimed_user.invitation_code}!)
+    end
+
     context "when called with a user in a demo that has a custom reply address" do
       it "should send from that address" do
         @demo = FactoryGirl.create :demo, :email => "someco@playhengage.com"

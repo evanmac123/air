@@ -1,5 +1,6 @@
 class GenericMailer < ActionMailer::Base
   include EmailInterpolations::InvitationUrl
+  include EmailInterpolations::TileDigestUrl
 
   helper :email
   has_delay_mail
@@ -11,6 +12,8 @@ class GenericMailer < ActionMailer::Base
 
     @html_text = interpolate_invitation_url(_invitation_url, html_text).html_safe
     @plain_text = interpolate_invitation_url(_invitation_url, plain_text).html_safe
+    @html_text = interpolate_tile_digest_url(@user, @html_text)
+    @plain_text = interpolate_tile_digest_url(@user, @plain_text)
 
     from_string = @user.demo.email.present? ? @user.demo.reply_email_address : "Airbo <play@ourairbo.com>"
 
