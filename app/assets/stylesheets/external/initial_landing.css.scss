@@ -129,3 +129,52 @@ body .content {padding:0;}
   a {@include light-button($blue);}
 }
 
+#airbo_announcement {
+  .row {
+    padding:1em;
+    position: relative;
+  }
+  .flash-content {
+    padding-right:2em;
+    line-height: 1.5em;
+    a {border-bottom:1px $white dashed;}
+  }
+  .flash-close {
+    position: absolute;
+    top:.5em;
+    right:1em;
+    a {
+      display: inline-block;
+      @include font-bold;
+      padding:.1em .3em;
+    }
+  }
+}
+
+#flash_failure, #flash_notice, #flash_success {
+  border:0;
+  border-radius: 0;
+  color:$white;
+  @include font-regular;
+  margin:0;
+  padding:0;
+  a {
+    color:$white;
+    @include font-bold;
+  }
+}
+#flash_failure {
+  background: $red;
+  .flash-content a {border-color:lighten($red, 30%);}
+  .flash-close a {background: darken($red, 15%)}
+}
+#flash_notice {
+  background: $gray;
+  .flash-content a {border-color:lighten($gray, 30%);}
+  .flash-close a {background: darken($gray, 15%)}
+}
+#flash_success {
+  background: $dark-green;
+  .flash-content a {border-color:lighten($dark-green, 30%);}
+  .flash-close a {background: darken($dark-green, 15%)}
+}
