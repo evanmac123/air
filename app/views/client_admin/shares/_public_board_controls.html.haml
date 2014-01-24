@@ -2,9 +2,9 @@
 
 .public_board_controls
   = render :partial => 'client_admin/shares/public_url_display'
-  = link_to "On", client_admin_public_boards_path, method: 'post', remote: true, id: 'on_toggle', class: on_toggle_class
-  = link_to "Off", client_admin_public_board_path(current_user.demo.id), remote: true, method: 'delete', id: 'off_toggle', class: off_toggle_class
+  = link_to "Public", client_admin_public_boards_path, method: 'post', remote: true, id: 'on_toggle', class: on_toggle_class
+  = link_to "Private", client_admin_public_board_path(current_user.demo.id), remote: true, method: 'delete', id: 'off_toggle', class: off_toggle_class
   = image_tag "spinner.gif", id: "spinner", style: "display: none"
-  %p#public_board_instructions If on, anyone with this link can access this board and sign-up to be a user.
+  %p#public_board_instructions If public, anyone with this link can access this board and sign-up to be a user.
 
 

@@ -13,6 +13,10 @@
 .share_tools .notification_controls,
 .share_tools .no_tiles_messages,
 .share_tools .public_board_controls {@include form-group;}
+.share_tools .public_board_controls {
+  padding: 1em 1em 0em 1em;
+}
+
 .share_tools .no_tiles_messages {
   height:17.5em;
   padding:5em 6em;
@@ -121,7 +125,7 @@ $public_slug_height: 2.0em;
 #off_toggle {
   height: $public_slug_height;
   &.engaged {
-    @include app-button($red);
+    @include app-button($dark-green);
   }
   &.disengaged {
     @include app-button($gray);
@@ -131,5 +135,5 @@ $public_slug_height: 2.0em;
 #public_board_instructions {
   @include share-instructions;
   max-width: none;
-  padding-top: 0.5em;
+  padding-top: 0.75em;
 }
