@@ -36,6 +36,9 @@
 /* External cancel-account page */
 @import "./external/_cancel_account.css.scss";
 
+/* External unsubscribe page */
+@import "./external/_unsubscribe.css.scss";
+
 /* RWD */
 @media only screen and (min-width: $foundation) {
 	@import "./external/screen_medium.css.scss";

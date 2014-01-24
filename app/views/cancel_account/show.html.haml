@@ -1,10 +1,11 @@
-.external-form-wrapper.row#cancel-account-form-wrapper
-  %p
-    You've asked to cancel an account that belongs to
-    %span#user_name= @user.name
-    %span#user_email= "(" + @user.email + ")."
-    Please be aware that cancelling an account is permanent, and you'll lose any progress.
+.row
+  .external-form-wrapper.small-12.large-6.large-centered.columns#cancel-account-form-wrapper
+    %p
+      You've asked to cancel an account that belongs to
+      %span#user_name= @user.name
+      %span#user_email= "(" + @user.email + ")."
+      Please be aware that cancelling an account is permanent, and you'll lose any progress.
 
-    -# Why am I using form_tag? Because, doubtless for the best of reasons, link_to doesn't work here.
-    = form_tag cancel_account_url(id: @user.cancel_account_token), method: :delete do
-      = submit_tag "Permanently cancel my account"
+      -# Why am I using form_tag? Because, doubtless for the best of reasons, link_to doesn't work here.
+      = form_tag cancel_account_url(id: @user.cancel_account_token), method: :delete do
+        = submit_tag "Permanently cancel my account"

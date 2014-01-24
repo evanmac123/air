@@ -1,22 +1,24 @@
 <%= render :partial => 'shared/flashes' -%>
 
-<div class="row external-form-wrapper">
-  <h1>Choose a Password</h1>
-  <ul class='form-section'><li class='form-label'></li></ul>
+<div class="row">
+  <div class="external-form-wrapper small-12 large-6 large-centered columns">
+    <h1>Choose a Password</h1>
+    <ul class='form-section'><li class='form-label'></li></ul>
 
-  <%= form_for(
-    @user,
-    :url     => user_password_path(@user, :token => @user.confirmation_token),
-    :html    => { :method => :put },
-    :builder => FancyFormBuilder
-  ) do |form| %>
-    <p>Your email: <%= @user.email %></p>
-    <%= form.fancy_password_field :password, :label_text => "Password", :value => '' %>
-    <%= form.fancy_password_field :password_confirmation, :label_text => "Confirm password", :value => '' %>
-    <div class="submit_field">
-      <%= form.submit "Save this password" %>
-    </div>
-  <% end %>
+    <%= form_for(
+      @user,
+      :url     => user_password_path(@user, :token => @user.confirmation_token),
+      :html    => { :method => :put },
+      :builder => FancyFormBuilder
+    ) do |form| %>
+      <p>Your email: <%= @user.email %></p>
+      <%= form.fancy_password_field :password, :label_text => "Password", :value => '' %>
+      <%= form.fancy_password_field :password_confirmation, :label_text => "Confirm password", :value => '' %>
+      <div class="submit_field">
+        <%= form.submit "Save this password" %>
+      </div>
+    <% end %>
+  </div>
 </div>
 
 <%= mp_track_page 'password reset' %>

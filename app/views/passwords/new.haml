@@ -1,5 +1,5 @@
-.row.external-form-wrapper
-  .large-6.large-centered.columns
+.row
+  .external-form-wrapper.small-12.large-6.large-centered.columns
     %h1 Reset Password
     
     = form_tag passwords_path do
@@ -7,11 +7,11 @@
       = text_field_tag "password[email]", "", placeholder: "Email address"
       = submit_tag "Reset password" 
 
-= mp_track_page 'password reset request' 
+  = mp_track_page 'password reset request' 
 
 
-= content_for :javascript do
-  :javascript
-    $(function() {
-      autoFocusColor("#password_email", "email"); 
-    });
+  = content_for :javascript do
+    :javascript
+      $(function() {
+        autoFocusColor("#password_email", "email"); 
+      });

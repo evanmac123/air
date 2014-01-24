@@ -25,25 +25,25 @@
           %h2= welcome_text
           %p.explanation.hidden
             %span Just set a password, and you're ready to go
+  
+.row
+  .external-form-wrapper.small-12.large-6.large-centered.columns
+    = form_for @user, :url => invitation_acceptance_path(:user_id => @user.id), :html => {:autocomplete => :off, :id => "signup-form"}, :builder => FancyFormBuilder do |f|
+      %div#all-inputs
+     
+        %div.form-ul-section
+          = f.fancy_password_field :password, :label_text => "Choose a password", :value => @user.password
     
+        %ul.form-section.signup-submit
 
-    .external-form-wrapper
-      = form_for @user, :url => invitation_acceptance_path(:user_id => @user.id), :html => {:autocomplete => :off, :id => "signup-form"}, :builder => FancyFormBuilder do |f|
-        %div#all-inputs
-       
-          %div.form-ul-section
-            = f.fancy_password_field :password, :label_text => "Choose a password", :value => @user.password
-      
-          %ul.form-section.signup-submit
+          .orange-btn= f.submit "Log in", :style => 'float: left;',  :id => 'join_the_game_link'
 
-            .orange-btn= f.submit "Log in", :style => 'float: left;',  :id => 'join_the_game_link'
+      - if @user.game_referrer_id
+        = f.hidden_field :game_referrer_id
 
-        - if @user.game_referrer_id
-          = f.hidden_field :game_referrer_id
-
-      #t-and-c-notice
-        By submitting this form or using this site, you are agreeing to the 
-        = link_to('terms and conditions', terms_path, target: '_blank') + '.'
+    #t-and-c-notice
+      By submitting this form or using this site, you are agreeing to the 
+      = link_to('terms and conditions', terms_path, target: '_blank') + '.'
 
 = render 'shared/intercom'
 = javascript_include_tag 'external/join'
