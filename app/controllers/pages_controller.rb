@@ -40,7 +40,7 @@ class PagesController < HighVoltage::PagesController
     when 'more_info', 
       @body_id = "homepage"
       'external_marketing'
-    when 'pricing', 'asha', 'heineken', 'miltoncat', 'fujifilm', 'customer_tiles'
+    when 'pricing', 'asha', 'heineken', 'miltoncat', 'fujifilm', 'explore', 'customer_tiles'
       'external_marketing'
     else
       'pages'
