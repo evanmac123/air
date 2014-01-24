@@ -7,6 +7,9 @@ mixpanel.init("<%= MIXPANEL_TOKEN %>");</script><!-- end Mixpanel -->
     mixpanel.name_tag("<%= current_user.name %>");
   <% end %>
 <% end %>
+<%= javascript_tag do %>
+  mixpanel.register({'device_type': '<%= device_type %>'});
+<% end %>
 <% flash.select{|k,v| k.to_s =~ /^mp_track/}.each do |k, v| %>
   <% event, properties = v %>
   <%= mp_track event, properties %>
