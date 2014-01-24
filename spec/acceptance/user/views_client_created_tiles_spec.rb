@@ -55,6 +55,14 @@ feature 'User views tiles' do
       expect_content all_tiles_done_message
     end
 
+    scenario 'and a ping is sent to Mixpanel', js: true do
+      click_answer 1
+
+      FakeMixpanelTracker.clear_tracked_events
+      crank_dj_clear
+
+      FakeMixpanelTracker.should have_event_matching('Tile - Completed', {tile_id: @tile.id})
+    end
 
     scenario "but gets no ticket emails", js: true do
       click_answer 1

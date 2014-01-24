@@ -23,6 +23,7 @@ class TileCompletionsController < ApplicationController
 
   def create_tile_completion(tile)
     TileCompletion.create!(:tile_id => tile.id, :user => current_user)
+    ping('Tile - Completed', {tile_id: tile.id}, current_user)
   end
 
   def create_act(tile)

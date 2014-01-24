@@ -1,5 +1,13 @@
-class TrackEvent
+module TrackEvent
   TRACKING_JOB_PRIORITY = 500
+
+  def ping(*args)
+    TrackEvent.ping *args
+  end
+
+  def ping_page(*args)
+    TrackEvent.ping_page *args
+  end
 
   def self.ping(event, data_hash = {}, user = nil)
     data_to_send = user.present? ? data_hash.merge(user.data_for_mixpanel) : data_hash
@@ -10,6 +18,6 @@ class TrackEvent
   def self.ping_page(page, user = nil)
     event = 'viewed page'
     properties = {page_name: page}
-    ping(event, properties, user)
+    self.ping(event, properties, user)
   end
 end

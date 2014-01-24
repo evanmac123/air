@@ -12,6 +12,8 @@ class ApplicationController < ActionController::Base
 
   include Clearance::Authentication
   include Mobvious::Rails::Controller
+  include TrackEvent
+
   protect_from_forgery
 
   protected
@@ -101,6 +103,19 @@ class ApplicationController < ActionController::Base
     @show_conversion_form = yield
     session[:conversion_form_shown_already] = @show_conversion_form
   end
+
+  def ping_with_device_type(event, data_hash = {}, user = nil)
+    _data_hash = data_hash.merge(device_type: device_type)
+    ping_without_device_type(event, _data_hash, user)
+  end
+
+  def ping_page(page, user = nil)
+    event = 'viewed page'
+    properties = {page_name: page, device_type: device_type}
+    self.ping(event, properties, user)
+  end
+
+  alias_method_chain :ping, :device_type
 
   private
 

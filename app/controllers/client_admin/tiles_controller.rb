@@ -101,6 +101,6 @@ class ClientAdmin::TilesController < ClientAdminBaseController
   end
 
   def schedule_tile_creation_ping
-    TrackEvent.ping('Tile - New', {}, current_user)
+    ping('Tile - New', {}, current_user)
   end
 end

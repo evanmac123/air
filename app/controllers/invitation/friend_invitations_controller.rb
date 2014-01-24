@@ -67,6 +67,6 @@ class Invitation::FriendInvitationsController < ApplicationController
       :attempted_invitations  => attempted_invitations
     }.merge(current_user.data_for_mixpanel) 
 
-    TrackEvent.ping('invited friends', mixpanel_details, current_user)
+    ping('invited friends', mixpanel_details, current_user)
   end
 end

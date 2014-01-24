@@ -5,7 +5,7 @@ class SessionsController < Clearance::SessionsController
 
   def new
     super
-    TrackEvent.ping_page('login')
+    ping_page('login')
   end
 
   def create

@@ -35,7 +35,7 @@ class ClientAdmin::UsersController < ClientAdminBaseController
     if save_if_date_good(@user) # sigh
       @user.generate_unique_claim_code!
       put_add_success_in_flash
-      TrackEvent.ping('User - New', source: 'creator')
+      ping('User - New', source: 'creator')
       redirect_to client_admin_users_path
     else
       # This is a stupid hack. The more time goes on, the more I think Rails

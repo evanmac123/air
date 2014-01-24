@@ -122,6 +122,6 @@ class TilesController < ApplicationController
 
   def schedule_viewed_tile_ping(tile)
     return unless tile.present?
-    TrackEvent.ping('Tile - Viewed', {tile_id: tile.id}, current_user)
+    ping('Tile - Viewed', {tile_id: tile.id}, current_user)
   end
 end
