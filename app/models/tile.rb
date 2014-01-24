@@ -33,7 +33,6 @@ class Tile < ActiveRecord::Base
   attr_accessor :display_completion_on_this_request
 
   before_save :ensure_protocol_on_link_address
-  after_create :schedule_mixpanel_ping
 
   has_alphabetical_column :headline
 
@@ -313,10 +312,6 @@ class Tile < ActiveRecord::Base
     return if link_address.blank?
 
     self[:link_address] = "http://#{link_address}"
-  end
-
-  def schedule_mixpanel_ping
-    TrackEvent.ping('Tile - New')
   end
 
   def self.satisfiable_by_trigger_table(trigger_table_name)

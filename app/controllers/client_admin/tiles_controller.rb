@@ -19,6 +19,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
 
     if @tile_builder_form.create_objects
       set_after_save_flash(@tile_builder_form.tile)
+      schedule_tile_creation_ping
       redirect_to client_admin_tile_path(@tile_builder_form.tile)
     else
       flash[:failure] = "Sorry, we couldn't save this tile: " + @tile_builder_form.error_messages
@@ -97,5 +98,9 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     
     flash[:success] = render_to_string("preview_after_save_flash", layout: false, locals: {edit_url: edit_url, activate_url: activate_url, already_active: already_active})
     flash[:success_allow_raw] = true
+  end
+
+  def schedule_tile_creation_ping
+    TrackEvent.ping('Tile - New', {}, current_user)
   end
 end

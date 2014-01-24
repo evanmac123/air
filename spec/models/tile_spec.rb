@@ -462,14 +462,4 @@ describe Tile do
       end
     end
   end
-
-  describe "after create" do
-    it "should ping" do
-      FakeMixpanelTracker.tracked_events.should be_empty
-      FactoryGirl.create(:multiple_choice_tile)
-
-      crank_dj_clear
-      FakeMixpanelTracker.should have_event_matching('Tile - New')
-    end
-  end
 end

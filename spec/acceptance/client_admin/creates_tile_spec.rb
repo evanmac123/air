@@ -86,6 +86,14 @@ feature 'Creates tile' do
     new_tile.multiple_choice_answers.each {|answer| expect_content answer}
   end
 
+  scenario 'and Mixpanel gets a ping', js: true do
+    create_good_tile
+    FakeMixpanelTracker.clear_tracked_events
+    crank_dj_clear
+
+    FakeMixpanelTracker.should have_event_matching('Tile - New', client_admin.data_for_mixpanel)
+  end
+
   scenario "does not activate tile after creating it, thus the tile appears at the front of the archive tile list", js: true do
     create_existing_tiles(demo, Tile::ARCHIVE, 2)
 
