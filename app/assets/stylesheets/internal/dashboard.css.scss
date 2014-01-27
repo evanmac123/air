@@ -88,7 +88,7 @@
         left:2em;
     }
     #close_get_started_lightbox {
-        @include light-button($gray);
+        @include light-button($dark-green);
         font-size:.75em;
         position: absolute;
         right:2em;

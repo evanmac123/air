@@ -65,9 +65,10 @@
 
 <% if @display_get_started_lightbox %>
   <div id='get_started_lightbox'>
-    <a href="#" id="close_get_started_lightbox">Close</a>
+    <a href="#" id="close_get_started_lightbox">Get started!</a>
     <h3>Welcome to Airbo!</h3>
-    <p>Read and answer the questions on tiles for points. <br/>To get started, click on the first tile.</p>
+    <p>You've arrived on the <%= current_user.demo.name%> board.</p>
+    <p>Airbo is a space to capture and share bits of knowledge. Get started by clicking on a tile. </br>Answer questions to measure your progress.</p>   
     <% if @current_user.is_guest? %>
       <p>Already a user? <%= link_to "Sign in", new_session_path %>.</p>
     <% end %>
