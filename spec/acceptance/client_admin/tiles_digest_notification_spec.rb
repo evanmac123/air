@@ -109,6 +109,19 @@ feature 'Client admin and the digest email for tiles' do
       page.should contain 'Tuesday, July 02, 2013'
       page.should contain 'Wednesday, July 03, 2013'
     end
+
+    context "when a followup is cancelled" do
+      it "sends a ping", js: true do
+        create_follow_up_emails
+        visit client_admin_share_path(as: admin)
+
+        page.all('.follow_up_email_details a').first.click
+        FakeMixpanelTracker.clear_tracked_events
+        crank_dj_clear
+
+        FakeMixpanelTracker.should have_event_matching('Followup - Cancelled')
+      end
+    end
   end
 
   context 'Tiles exist for digest email' do
@@ -307,6 +320,63 @@ feature 'Client admin and the digest email for tiles' do
               expect_digest_to(address)
             end
           end
+        end
+      end
+
+      context "a ping gets sent" do
+        it "having the proper label" do
+          create_tile
+          visit client_admin_share_path(as: admin)
+          click_button "Send digest now"
+          
+          FakeMixpanelTracker.clear_tracked_events
+          crank_dj_clear
+
+          FakeMixpanelTracker.should have_event_matching('Digest - Sent')
+        end
+
+        it "recording if the digest is for everyone or just claimed users" do
+          create_tile
+          visit client_admin_share_path(as: admin)
+          select 'all users', from: 'digest_send_to'
+          click_button "Send digest now"
+
+          FakeMixpanelTracker.clear_tracked_events
+          crank_dj_clear
+
+          FakeMixpanelTracker.should have_event_matching('Digest - Sent', {digest_send_to: 'all users'})
+
+          create_tile
+          visit client_admin_share_path(as: admin)
+          select 'only joined users', from: 'digest_send_to'
+          click_button "Send digest now"
+
+          FakeMixpanelTracker.clear_tracked_events
+          crank_dj_clear
+
+          FakeMixpanelTracker.should have_event_matching('Digest - Sent', {digest_send_to: 'only joined users'})
+        end
+
+        it "recording if a followup was also scheduled" do
+          create_tile
+          visit client_admin_share_path(as: admin)
+          select "Never", from: 'follow_up_day'
+          click_button "Send digest now"
+
+          FakeMixpanelTracker.clear_tracked_events
+          crank_dj_clear
+
+          FakeMixpanelTracker.should have_event_matching('Digest - Sent', {followup_scheduled: false})
+
+          create_tile
+          visit client_admin_share_path(as: admin)
+          select "Saturday", from: 'follow_up_day'
+          click_button "Send digest now"
+
+          FakeMixpanelTracker.clear_tracked_events
+          crank_dj_clear
+
+          FakeMixpanelTracker.should have_event_matching('Digest - Sent', {followup_scheduled: true})
         end
       end
     end
