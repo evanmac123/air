@@ -68,12 +68,12 @@ feature 'Guest user is prompted to convert to real user' do
 
   def submit_conversion_form
     within(conversion_form_selector) do
-      page.find("input[type=submit]").click
+      click_link 'Create account'
     end
   end
 
   def click_close_conversion_button
-    click_link "Close"
+    click_link "Don't Save"
   end
 
   def name_error_copy
@@ -89,7 +89,7 @@ feature 'Guest user is prompted to convert to real user' do
   end
 
   def expect_invalid_email_error
-    expect_content "Please enter a valid email address"
+    expect_content "Whoops. Enter a valid email address"
   end
 
   def expect_duplicate_email_error

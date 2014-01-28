@@ -20,7 +20,7 @@ feature "The site tutorial" do
 
       scenario "makes lightbox go away by clicking a link, and doesn't see it again on going away and returning to activity page", js: true do
         within(site_tutorial_lightbox_selector) do
-          click_link "Close"
+          click_link "Get started!"
           expect_no_site_tutorial_lightbox
         end
 
