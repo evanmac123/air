@@ -1,6 +1,6 @@
 S3_CREDENTIALS = {
-  :access_key_id     => 'AKIAJVBKNOIHHPUOUHYA',
-  :secret_access_key => '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'
+  :access_key_id     => (ENV['AWS_ACCESS_KEY_ID'] || 'AKIAJK2TBRVMQVRXAVSQ'),
+  :secret_access_key => (ENV['AWS_SECRET_ACCESS_KEY'] || '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')
 }
 
 S3_AVATAR_BUCKET = ENV['AVATAR_BUCKET'] || 'hengage-avatars-development'
