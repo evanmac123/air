@@ -58,6 +58,11 @@ closeConversionLightbox = (event) ->
   event.preventDefault()
   $('#guest_conversion_form_wrapper').trigger('close')
 
+submitConversionFormCallback = (event) -> 
+  event.preventDefault()
+  $('#guest_conversion_form').submit()
+
+$('a#submit_conversion_form').on('click', submitConversionFormCallback)
 $('#guest_conversion_form').on('submit', conversionStartCallback).on('ajax:success', conversionResponseCallback)
 $('.open_save_progress_form').on('click', saveProgressClickCallback)
 $('#guest_conversion_form_wrapper .close-lightbox-button').on('click', closeConversionLightbox)

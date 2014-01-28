@@ -10,4 +10,8 @@
     margin-top: 0.6em;
     color: $red;
   }
+
+  #submit_conversion_form {
+    @include light-button($sky-blue);
+  }
 }

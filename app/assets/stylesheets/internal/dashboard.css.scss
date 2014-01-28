@@ -67,7 +67,6 @@
     position: absolute!important;
     top:0!important;
     h2 {
-        color:$blue;
         @include font-bold;
         line-height: 1.25em;
         margin-bottom:.65em;
@@ -91,7 +90,6 @@
         @include light-button($dark-green);
         font-size:.75em;
         position: absolute;
-        right:2em;
         bottom: 1.5em;
     }
 }

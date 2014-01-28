@@ -30,9 +30,9 @@
 }
 
 .close-lightbox-button:link, .close-lightbox-button:visited {
-  background:$light-gray;
+  background:transparent;
   border-radius:3px;
-  color:$white;
+  color:$light-gray;
   padding:.25em .5em;
   position:absolute; 
   top:.5em; right:.5em;
@@ -42,3 +42,13 @@
   }
   font-size:.75em;
 }
+
+#t-and-c-notice {
+  width: 87%;
+  margin:1.5em 0 0 0;
+  font-size: 0.75em;
+
+}
+
+
+

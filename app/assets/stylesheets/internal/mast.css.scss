@@ -104,10 +104,10 @@ header {
   }
 
   #save_progress {
-    margin-top: 0.5em;
+    margin-top: 1em;
     float: left;
   }
-  #save_progress_button {@include app-button($dark-green);}
-  #sign_in_button {@include app-button($med-gray);}
-  #guest_user_start_over_button {@include app-button($red);}
+  #save_progress_button {@include light-button-small($sky-blue); font-size: .8em;}
+  #sign_in_button {@include light-button($med-gray); font-size: .8em;}
+  #guest_user_start_over_button {@include light-button($med-gray); font-size: .8em;}
 }
