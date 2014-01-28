@@ -118,9 +118,9 @@ feature 'Guest user is prompted to convert to real user' do
       wait_for_conversion_form
     end
 
-    it "should not show them before you close the conversion form", js: true do
-      expect_no_save_progress_button
-      expect_no_sign_in_button
+    it "should show them before you close the conversion form", js: true do
+      expect_save_progress_button
+      expect_sign_in_button
     end
 
     it "should show them after you open the conversion form", js: true do

@@ -120,7 +120,7 @@ module ApplicationHelper
   end
 
   def show_save_progress_button
-    session[:conversion_form_shown_before_this_request] && current_user.try(:is_guest?)
+    current_user.try(:is_guest?)
   end
 
   def done_all_tiles_message
