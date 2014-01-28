@@ -9,7 +9,7 @@
   li, li a {display: inline-block;}
   li {
     float:left;
-    width:25%;
+    width:20%;
     a {
       color:$light-gray;
       min-width:10em;
@@ -40,7 +40,8 @@ body.client_admin-inactive_tiles-index #tile_manager_nav ul li#managing_tiles a,
 body.client_admins-show #tile_manager_nav ul li#board_activity a,
 body.client_admin-shares #tile_manager_nav ul li#share_tiles a,
 body.client_admin-users-index #tile_manager_nav ul li#users a,
-body.client_admin-users-edit #tile_manager_nav ul li#users a {
+body.client_admin-users-edit #tile_manager_nav ul li#users a,
+body.client_admin-explores #tile_manager_nav ul li#explore a {
   background:$dark-green;
   color:$white;
 } 

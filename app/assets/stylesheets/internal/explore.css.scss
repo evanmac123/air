@@ -1,0 +1,82 @@
+@import "mixins/main_styles";
+@import "external/_case_study";
+
+
+		h1 {
+		text-align: center;
+		font-weight:semi-bold; 
+		padding-bottom:.5em;
+		}
+
+
+		.editorial_title {
+		border: light-gray solid 1px;
+		background-color: #4FAA60;
+		display: inline-block;
+		border-radius: 3px;
+		}
+    
+	.tile_thumbnail {
+  		cursor: pointer;
+  		margin-bottom:2em; 
+  		margin-top:2em;
+  		width:25%;
+  		display: inline-block;
+  		position: relative;
+  		width:100%;
+		}
+
+	.clicked_right_answer {
+      	margin:1em auto;
+      	width:100%;
+
+     a, a:link, a:visited {
+        @include app-button($dark-green);
+        @include font-semibold;
+        color:$white;
+        display: block;
+        font-size:1.25em;
+        line-height:1em;
+        padding:.5em 1em;
+        &.clicked_wrong {
+          background:darken($light-gray, 10%);
+          border-color:$light-gray;
+          color:$red;
+          text-decoration: line-through!important;
+        }
+      }
+	}
+
+		.tile_topics {
+			margin-bottom:1em;
+			text-align:center;
+			padding-bottom: 1.5em;}
+
+
+		.details {
+			color:light-gray solid;
+			margin-top:1em; 
+			text-align:center;
+			padding-bottom: .2em}
+
+	.tile_creator {
+		padding-top:.5em;
+		text-align: left;
+		font-weight:bold;
+		font-size:12px;
+		padding-left:1em;
+	}
+
+	.tile_thumbnail {
+		border: none !important;
+	}
+
+	.tile_topicsIE {
+		padding-bottom: px;
+	}
+	 
+
+
+
+	
+

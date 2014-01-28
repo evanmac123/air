@@ -61,6 +61,7 @@ module Health
       external/pricing_calculator.js
       internal/guest_user_conversion.js
       client_admin/public_board_controls.js
+      internal/explore.css.scss
     )
 
     ################################################################

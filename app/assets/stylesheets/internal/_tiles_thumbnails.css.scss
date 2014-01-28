@@ -31,7 +31,8 @@
   }
   .tile-wrapper{
     @include ease(.025s);
-    box-shadow:0 1px 1px 1px lighten($med-gray, 5%);
+    border: $light-gray solid 1px;
+    box-shadow: 0 1px 1px 1px $med-gray, 5%;
     border-radius:$border-radius;
     display: inline-block;
     overflow: hidden;
@@ -46,6 +47,7 @@
       background-color:$dark-gray;
       background-position:center center;
       background-repeat:no-repeat;
+      border: none;
       background-size:100%;
       display: block;
       height:9em;
