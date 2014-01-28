@@ -7,11 +7,13 @@
   }
 
   .conversion_error {
-    margin-top: 0.6em;
+    margin-top: 1em;
+    margin-bottom: 0.2em;
     color: $red;
   }
 
   #submit_conversion_form {
     @include light-button($sky-blue);
+    margin-top: .5em;
   }
 }

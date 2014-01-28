@@ -4,14 +4,14 @@
     %p Create an account so you don't lose your progress.
     = link_to "Don't Save", "#", class: "close-lightbox-button" 
     = form_tag guest_user_conversions_path, id: 'guest_conversion_form', remote: true do
-      = text_field_tag "user[name]", "", placeholder: "First and Last Name"
       #name_error.conversion_error
+      = text_field_tag "user[name]", "", placeholder: "First and Last Name"
 
-      = text_field_tag "user[email]", "", placeholder: "Email"
       #email_error.conversion_error
+      = text_field_tag "user[email]", "", placeholder: "Email"
 
-      = password_field_tag "user[password]", "", placeholder: "Password (six characters or more)"
       #password_error.conversion_error
+      = password_field_tag "user[password]", "", placeholder: "Password (six characters or more)"
 
       = link_to "Create account", '#', id: 'submit_conversion_form'
       = image_tag "spinner.gif", class: "spinner", style: "display: none"
