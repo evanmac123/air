@@ -52,7 +52,7 @@ body.client_admin-tiles-index, body.client_admin-inactive_tiles {
       margin-left:1em;
       vertical-align: text-bottom;
     }
-    .tile_thumbnail .tile-wrapper {box-shadow:0 1px 1px 1px darken($blue, 15%);}
+    .tile_thumbnail .tile-wrapper {border: none;}
   }
   #active_tiles {padding:2em 0 0 0;}
 }
