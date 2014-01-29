@@ -67,7 +67,7 @@
   <div id='get_started_lightbox'>
     <a href="#" id="close_get_started_lightbox">Get started!</a>
     <h3>Welcome to Airbo!</h3>
-    <p>You've arrived at the <%= current_user.demo.name%> board.</p>
+    <p>You've arrived at the <%= current_user.demo.name%>.</p>
     <p>Airbo is a space to gather and share interactive bits of knowledge. Get started by clicking on a tile. </br>Answer questions to measure your progress.</p>   
     <% if @current_user.is_guest? %>
       <p>Already a user? <%= link_to "Sign in", new_session_path %>.</p>
