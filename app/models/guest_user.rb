@@ -20,7 +20,8 @@ class GuestUser < ActiveRecord::Base
     true
   end
 
-  def ping_page(*args)
+  def ping_page(page, additional_properties = {})
+    TrackEvent.ping_page(page, additional_properties, self)
   end
 
   def accepted_friends
@@ -79,7 +80,10 @@ class GuestUser < ActiveRecord::Base
   end
 
   def data_for_mixpanel
-    {}
+    {
+      distinct_id: "guest_user_#{self.id}",
+      is_guest:    true
+    }
   end
 
   def point_and_ticket_summary(prefix = [])

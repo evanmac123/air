@@ -15,9 +15,9 @@ module TrackEvent
     Mixpanel::Tracker.new(MIXPANEL_TOKEN, {}).delay(priority: TRACKING_JOB_PRIORITY).track(event, data_to_send)
   end
 
-  def self.ping_page(page, user = nil)
+  def self.ping_page(page, data_hash = {}, user = nil)
     event = 'viewed page'
     properties = {page_name: page}
-    self.ping(event, properties, user)
+    self.ping(event, properties.merge(data_hash), user)
   end
 end
