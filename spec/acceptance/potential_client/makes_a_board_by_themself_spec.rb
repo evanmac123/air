@@ -51,6 +51,7 @@ feature 'Makes a board by themself' do
 
       new_creator.name.should == NEW_CREATOR_NAME
       new_creator.email.should == NEW_CREATOR_EMAIL
+      new_creator.should be_claimed
 
       visit sign_in_path
       fill_in "session[email]", with: NEW_CREATOR_EMAIL

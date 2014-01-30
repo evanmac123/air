@@ -33,6 +33,7 @@ class BoardsController < ApplicationController
       @user.password = @user.password_confirmation = params[:user][:password]
       @user.is_client_admin = true
       @user.cancel_account_token = @user.generate_cancel_account_token(@user)
+      @user.accepted_invitation_at = Time.now
       
       user_saved_successfully = @user.save
 
