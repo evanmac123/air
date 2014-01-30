@@ -153,5 +153,18 @@ feature 'Makes a board by themself' do
       page.find('#user_email').value.should == NEW_CREATOR_EMAIL
       page.find('#user_password').value.should == NEW_CREATOR_PASSWORD
     end
+
+    it "should not leave a board hanging around if the board is valid but the user isn't" do
+      fill_in_valid_form_entries
+      fill_in "user[name]", with: ''
+
+      Demo.count.should be_zero
+      User.count.should be_zero
+
+      submit_create_form
+
+      Demo.count.should be_zero
+      User.count.should be_zero
+    end
   end
 end

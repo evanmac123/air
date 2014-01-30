@@ -8,6 +8,12 @@ class BoardsController < ApplicationController
   end
 
   def create
+    # If you value your sanity, you won't read much further.
+    # A form object might have been a good idea here, but I'm in a hurry
+    # and I'm not sure this feature has a future.
+    #
+    # Sue me.
+    
     board_saved_successfully = nil
     user_saved_successfully = nil
 
@@ -29,6 +35,10 @@ class BoardsController < ApplicationController
       @user.cancel_account_token = @user.generate_cancel_account_token(@user)
       
       user_saved_successfully = @user.save
+
+      unless board_saved_successfully && user_saved_successfully
+        raise ActiveRecord::Rollback
+      end
     end
 
     if board_saved_successfully && user_saved_successfully
@@ -50,9 +60,6 @@ class BoardsController < ApplicationController
   end
 
   def set_errors
-    # If you value your sanity, you won't read much further.
-    # A form object might have been a good idea here, but I'm in a hurry
-    # and I'm not sure this feature has a future.
     errors = []
 
     @board.errors.each do |field, raw_error|
