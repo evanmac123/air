@@ -17,8 +17,15 @@ class BoardsController < ApplicationController
     board_saved_successfully = nil
     user_saved_successfully = nil
 
+    original_board_name = params[:board][:name]
     Demo.transaction do
-      @board = Demo.new(name: params[:board][:name])
+      _board_name = original_board_name
+      unless _board_name.blank? || _board_name.downcase.split.last == 'board'
+        _board_name += " Board"
+      end
+
+      @board = Demo.new(name: _board_name)
+
       set_board_defaults
       board_saved_successfully = @board.save
       # We do this separately so that we know the board has a unique public slug
@@ -48,6 +55,7 @@ class BoardsController < ApplicationController
       redirect_to client_admin_tiles_path
     else
       set_errors
+      @board.name = original_board_name
       render 'new'
     end
   end

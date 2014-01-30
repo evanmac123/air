@@ -34,7 +34,7 @@ feature 'Makes a board by themself' do
       # do that this test would be five times as long and ten times as 
       # brittle. Also I don't hire purists.
 
-      @new_board.name.should == NEW_BOARD_NAME
+      @new_board.name.should == NEW_BOARD_NAME + " Board"
       @new_board.game_referrer_bonus.should == 5
       @new_board.referred_credit_bonus.should == 2
       @new_board.credit_game_referrer_threshold.should == 100000
@@ -69,14 +69,14 @@ feature 'Makes a board by themself' do
       crank_dj_clear
       open_email NEW_CREATOR_EMAIL
 
-      current_email.to_s.should include(NEW_BOARD_NAME)
+      current_email.to_s.should include(NEW_BOARD_NAME + " Board")
       current_email.to_s.should include(@new_board.users.first.cancel_account_token)
     end
   end
 
   context 'when there are problems with the input' do
     it "should show an error for a non-unique board name" do
-      FactoryGirl.create(:demo, name: NEW_BOARD_NAME)
+      FactoryGirl.create(:demo, name: NEW_BOARD_NAME + " Board")
       Demo.count.should == 1
       fill_in_valid_form_entries
       submit_create_form
@@ -141,7 +141,7 @@ feature 'Makes a board by themself' do
     end
 
     it "should retain values for both user and board on failure" do
-      FactoryGirl.create(:demo, name: NEW_BOARD_NAME)
+      FactoryGirl.create(:demo, name: NEW_BOARD_NAME + " Board")
       FactoryGirl.create(:user, name: NEW_CREATOR_NAME)
       
       fill_in_valid_form_entries
@@ -166,6 +166,19 @@ feature 'Makes a board by themself' do
 
       Demo.count.should be_zero
       User.count.should be_zero
+    end
+  end
+
+  context "when the user puts \"Board\" on the end" do
+    it "should not add another" do
+      visit new_board_path
+      fill_in_valid_form_entries
+
+      fill_in "board[name]", with: "Pants Free Board"
+      submit_create_form
+
+      new_board = Demo.last
+      new_board.name.should == "Pants Free Board"
     end
   end
 end
