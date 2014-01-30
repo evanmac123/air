@@ -1,0 +1,23 @@
+<div class="row">
+  <div class="external-form-wrapper small-12 large-6 large-centered columns">
+    <h1>Create Your Board</h1>
+
+    <%= form_tag boards_path do %>
+      <label class="input_label">Your name</label>
+      <%= text_field_tag "user[name]", @user.name %>
+
+      <label class="input_label">Your email</label>
+      <%= text_field_tag "user[email]", @user.email %>
+
+      <label class="input_label">Choose a password (at least 6 characters long)</label>
+      <%= password_field_tag "user[password]", @user.password %>
+
+      <label class="input_label">Name for your new board</label>
+      <%= text_field_tag "board[name]", @board.name %>
+
+      <%= submit_tag "Create Board" %>
+
+      <p id="t-and-c-notice">By submitting this form or using this site, you are agreeing to the <%= link_to 'terms and conditions', terms_path, target: '_blank' %>.</p>
+    <% end %>
+  </div>
+</div>

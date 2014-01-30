@@ -67,6 +67,9 @@ Health::Application.routes.draw do
   resource :home,  :only => :show
   resource :admin, :only => :show
   resource :client_admin, :only => :show
+
+  resources :boards, only: [:new, :create]
+
   namespace :client_admin do
     resource :segmentation
 

@@ -220,11 +220,18 @@ end
 describe Demo, '#create_public_slug!' do
   it "should generate a slug based on the name" do
     d = Demo.create(name: "J.P. Patrick & His 999 Associates, Inc")
-    d.create_public_slug!
     d.reload.public_slug.should == "jp-patrick-his-999-associates-inc"
   end
 
-  it "should handle duplication nicely"
+  it "should handle duplication nicely" do
+    name = 'Attack of the killer tomatoes'
+    board_1 = Demo.create(name: name)
+    board_2 = Demo.create(name: name + ' board') # an exact duplicate name isn't possible
+
+    board_1.public_slug.should be_present
+    board_2.public_slug.should be_present
+    board_1.public_slug.should_not == board_2.public_slug
+  end
 
   it "should lop off the word \"board\" if it appears at the end of the slug" do
     d = Demo.create(name: "The Extremely Serious Corporation Board")

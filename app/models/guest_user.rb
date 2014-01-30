@@ -12,6 +12,8 @@ class GuestUser < ActiveRecord::Base
   has_many   :acts, :as => :user, :dependent => :destroy
   has_one    :converted_user, :class_name => "User", :foreign_key => :original_guest_user_id, :inverse_of => :original_guest_user
 
+  include CancelAccountToken
+
   def is_site_admin
     false
   end
@@ -100,7 +102,7 @@ class GuestUser < ActiveRecord::Base
     converted_user = User.new(demo_id: demo_id, name: name, email: email, points: points, tickets: tickets, get_started_lightbox_displayed: true, accepted_invitation_at: Time.now, characteristics: {})
     converted_user.password = converted_user.password_confirmation = password
     converted_user.original_guest_user = self
-    converted_user.cancel_account_token = cancel_account_token(converted_user)
+    converted_user.cancel_account_token = generate_cancel_account_token(converted_user)
     converted_user.last_acted_at = last_acted_at
 
     converted_user.converting_from_guest = true
@@ -116,10 +118,6 @@ class GuestUser < ActiveRecord::Base
 
       nil
     end
-  end
-
-  def cancel_account_token(user)
-    Digest::SHA1.hexdigest("--#{Time.now.to_f}--#{user.email}--#{user.name}--#{user.id}--cancel_account")
   end
 
   def accepted_invitation_at

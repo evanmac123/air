@@ -16,6 +16,7 @@ class User < ActiveRecord::Base
   include Clearance::User
   include User::Segmentation
   include ActionView::Helpers::TextHelper
+  include CancelAccountToken
 
   extend User::Queries
 
@@ -71,6 +72,9 @@ class User < ActiveRecord::Base
   validates_presence_of :password, :if => :converting_from_guest, :message => "Please enter a password at least 6 characters long"
   validates_length_of :password, :minimum => 6, :if => :converting_from_guest, :message => "Please enter a password at least 6 characters long"
   validates_presence_of :email, :if => :converting_from_guest, :message => "Please enter a valid email address"
+
+  validates_presence_of :email, :if => :creating_board, :message => "can't be blank"
+  validates_presence_of :password, :if => :creating_board, :message => "please enter a password at least 6 characters long"
 
   has_attached_file :avatar,
     :styles => {:thumb => ["96x96#", :png]},
@@ -128,7 +132,7 @@ class User < ActiveRecord::Base
     destroy_segmentation_info
   end
 
-  attr_accessor :trying_to_accept, :password_confirmation, :converting_from_guest
+  attr_accessor :trying_to_accept, :password_confirmation, :converting_from_guest, :creating_board
 
   # Changed from attr_protected to attr_accessible to address vulnerability CVE-2013-0276
   

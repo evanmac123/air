@@ -326,7 +326,17 @@ class Demo < ActiveRecord::Base
 
   def create_public_slug!
     slug_prefix = name.downcase.gsub(/[^a-z0-9 ]/, '').gsub(/ +/, '-').gsub(/-board$/, '')
-    update_attributes(public_slug: slug_prefix)
+    candidate_slug = slug_prefix
+    offset = 2 # in case of a collision on the slug "foobar", we'll try "foobar-2" first
+
+    Demo.transaction do
+      while (demo = Demo.find_by_public_slug(candidate_slug)).present?
+        break if demo.id == self.id
+        candidate_slug = slug_prefix + "-" + offset.to_s
+        offset += 1
+      end
+      update_attributes(public_slug: candidate_slug)
+    end
   end
 
   def self.public
