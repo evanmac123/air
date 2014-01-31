@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
   FLASHES_ALLOWING_RAW = %w(notice)
+  ACTIVITY_SESSION_THRESHOLD = 900 # in seconds
 
   before_filter :force_ssl 
   before_filter :authorize
@@ -138,6 +139,7 @@ class ApplicationController < ActionController::Base
     end
 
     if guest_user_allowed? && params[:public_slug] 
+      refresh_activity_session(current_user)
       if current_user.nil?
         login_as_guest(params[:public_slug])
         return
@@ -146,7 +148,9 @@ class ApplicationController < ActionController::Base
       end
     end
 
+    debugger if $FRUITBAT
     authenticate_without_game_begun_check
+    refresh_activity_session(current_user)
 
     return if current_user_is_site_admin || going_to_settings
 
@@ -159,6 +163,19 @@ class ApplicationController < ActionController::Base
     if game_locked?
       render "shared/website_locked"
       return
+    end
+  end
+
+  def refresh_activity_session(user)
+    debugger if $FRUITBAT
+    return if user.nil?
+
+    baseline = user.last_session_activity_at.to_i || 0
+    difference = Time.now.to_i - baseline
+    user.update_attributes(last_session_activity_at: Time.now)
+
+    if difference >= ACTIVITY_SESSION_THRESHOLD
+      ping('Activity Session - New', {}, user)
     end
   end
 
