@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   FLASHES_ALLOWING_RAW = %w(notice)
-  ACTIVITY_SESSION_THRESHOLD = 900 # in seconds
+  ACTIVITY_SESSION_THRESHOLD = ENV['ACTIVITY_SESSION_THRESHOLD'].try(:to_i) || 900 # in seconds
 
   before_filter :force_ssl 
   before_filter :authorize
@@ -148,7 +148,6 @@ class ApplicationController < ActionController::Base
       end
     end
 
-    debugger if $FRUITBAT
     authenticate_without_game_begun_check
     refresh_activity_session(current_user)
 
@@ -167,12 +166,13 @@ class ApplicationController < ActionController::Base
   end
 
   def refresh_activity_session(user)
-    debugger if $FRUITBAT
     return if user.nil?
 
     baseline = user.last_session_activity_at.to_i || 0
     difference = Time.now.to_i - baseline
-    user.update_attributes(last_session_activity_at: Time.now)
+
+    user.last_session_activity_at = Time.now
+    user.save!
 
     if difference >= ACTIVITY_SESSION_THRESHOLD
       ping('Activity Session - New', {}, user)
