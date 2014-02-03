@@ -246,6 +246,25 @@ feature 'Guest user is prompted to convert to real user' do
 
       FakeMixpanelTracker.should have_event_matching('User - New', source: 'public link')
     end
+    
+    context "when the email is used but unclaimed" do
+      before do
+        @setup.call
+        wait_for_conversion_form
+        
+        FactoryGirl.create(:user, email: 'jimmy@example.com')
+        wait_for_conversion_form
+        fill_in_conversion_name "Jimmy Jones"
+        fill_in_conversion_email 'jimmy@example.com'
+        fill_in_conversion_password "jimbim"
+        submit_conversion_form
+      end
+
+      it "should mark the user account as claimed", js: true do
+        User.count.should == 1 # the one we created above, remember?
+        User.first.claimed?.should == true
+      end
+    end
   end
 
   shared_examples "no user creation" do
@@ -337,9 +356,9 @@ feature 'Guest user is prompted to convert to real user' do
       it_should_behave_like "no user creation"
     end
 
-    context "when the email is already taken" do
+    context "when the email is already taken and claimed" do
       before do
-        FactoryGirl.create(:user, email: 'jimmy@example.com')
+        FactoryGirl.create(:user, :claimed, email: 'jimmy@example.com')
         wait_for_conversion_form
         fill_in_conversion_email 'jimmy@example.com'
         submit_conversion_form
@@ -366,7 +385,7 @@ feature 'Guest user is prompted to convert to real user' do
         User.count.should == 1 # the one we created above, remember?
       end
     end
-
+    
     it "should clear errors between submissions", js: true do
       fill_in_conversion_name "Jim Jones"
       fill_in_conversion_email "jim@example.com"
