@@ -115,7 +115,6 @@ class User < ActiveRecord::Base
 
   after_save do
     sync_spouses
-    ping_if_made_into_creator
   end
 
   after_create do
@@ -980,11 +979,6 @@ class User < ActiveRecord::Base
   def update_associated_act_privacy_levels
     # See Act for an explanation of why we denormalize privacy_level onto it.
     Act.update_all({:privacy_level => self.privacy_level}, {:user_id => self.id}) if self.changed.include?('privacy_level')
-  end
-
-  def ping_if_made_into_creator
-    return unless changed.include?('is_client_admin')
-    TrackEvent.ping('Creator - New', {}, self)
   end
 
   def highest_ranking_user_type

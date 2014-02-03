@@ -66,8 +66,11 @@ class Admin::UsersController < AdminBaseController
       @user.phone_number = PhoneNumber.normalize @user.phone_number
     end
 
+    # calling #save wipes this out so we have to remember it now
+    client_admin_changed = @user.changed.include?('is_client_admin') 
     if @user.save
       @user.move_to_new_demo(new_demo_id) if new_demo_id
+      ping_if_made_client_admin(@user, client_admin_changed)
       flash[:success] = "User updated."
       redirect_to admin_demo_path(@demo, intercom_user_id: @user.id)
     else
@@ -87,5 +90,11 @@ class Admin::UsersController < AdminBaseController
 
   def find_user
     @user = @demo.users.find_by_slug(params[:id])
+  end
+
+  def ping_if_made_client_admin(user, was_changed)
+    if user.is_client_admin && was_changed
+      ping('Creator - New', {source: 'site admin'}, current_user)
+    end
   end
 end
