@@ -11,6 +11,7 @@ class Admin::DemosController < AdminBaseController
     Demo.transaction do
       @demo = Demo.new(params[:demo])
       @demo.save!
+      schedule_creation_ping
     end
 
     flash[:success] = "Demo created."
@@ -75,5 +76,9 @@ class Admin::DemosController < AdminBaseController
                                     else
                                       'keyword'
                                     end
+  end
+
+  def schedule_creation_ping
+    ping 'Board - New', {source: 'site admin'}, current_user
   end
 end

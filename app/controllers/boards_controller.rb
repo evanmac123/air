@@ -52,6 +52,7 @@ class BoardsController < ApplicationController
     if board_saved_successfully && user_saved_successfully
       @user.send_conversion_email
       sign_in(@user)
+      schedule_creation_ping(@user)
       redirect_to client_admin_tiles_path
     else
       set_errors
@@ -90,5 +91,9 @@ class BoardsController < ApplicationController
     end
 
     flash.now[:failure] = "Sorry, we weren't able to create your board: " + errors.join(', ') + '.'
+  end
+
+  def schedule_creation_ping(user)
+    ping 'Board - New', {source: 'marketing page'}, user
   end
 end

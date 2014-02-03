@@ -245,11 +245,4 @@ describe Demo, 'on create' do
     d = FactoryGirl.create(:demo)
     d.public_slug.should be_present
   end
-
-  it "should send a ping" do
-    d = FactoryGirl.create(:demo)
-    crank_dj_clear
-
-    FakeMixpanelTracker.should have_event_matching 'Board - New'
-  end
 end

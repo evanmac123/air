@@ -38,7 +38,6 @@ class Demo < ActiveRecord::Base
   before_save :normalize_phone_number_if_changed
   after_save :schedule_resegment_on_internal_domains
   after_create :create_public_slug!
-  after_create :send_creation_ping
 
   has_alphabetical_column :name
 
@@ -440,9 +439,5 @@ class Demo < ActiveRecord::Base
 
     placeholders_to_add.times { tiles << TileOddRowPlaceholder.new }
     tiles
-  end
-
-  def send_creation_ping
-    TrackEvent.ping('Board - New', {demo_id: self.id})
   end
 end

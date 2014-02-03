@@ -72,6 +72,12 @@ feature 'Makes a board by themself' do
       current_email.to_s.should include(NEW_BOARD_NAME + " Board")
       current_email.to_s.should include(@new_board.users.first.cancel_account_token)
     end
+ 
+    it "should send an appropriate ping" do
+      FakeMixpanelTracker.clear_tracked_events
+      crank_dj_clear
+      FakeMixpanelTracker.should have_event_matching("Board - New", source: 'marketing page')
+    end
   end
 
   context 'when there are problems with the input' do
