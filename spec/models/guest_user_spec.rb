@@ -101,8 +101,8 @@ describe GuestUser do
       user.errors.keys.should include(:email)
     end
 
-    it "requires the email be unique" do
-      FactoryGirl.create(:user, email: "jimmy@example.com")
+    it "requires the email be unique if the email belongs to a claimed user" do
+      FactoryGirl.create(:user, :claimed, email: "jimmy@example.com")
       convert
       user.errors.keys.should include(:email)
     end
