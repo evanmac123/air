@@ -456,7 +456,7 @@ class User < ActiveRecord::Base
       :account_creation_date => self.created_at.to_date,
       :joined_game_date      => self.accepted_invitation_at.try(:to_date),
       :location              => self.location.try(:name),
-      :is_guest              => false
+      :user_type             => self.highest_ranking_user_type
     }
   end
 
@@ -985,6 +985,12 @@ class User < ActiveRecord::Base
   def ping_if_made_into_creator
     return unless changed.include?('is_client_admin')
     TrackEvent.ping('Creator - New', {}, self)
+  end
+
+  def highest_ranking_user_type
+    return "site admin" if self.is_site_admin
+    return "client admin" if self.is_client_admin
+    "ordinary user"
   end
 
   def self.claimable_by_first_name_and_claim_code(claim_string)

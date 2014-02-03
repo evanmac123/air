@@ -84,7 +84,7 @@ class GuestUser < ActiveRecord::Base
   def data_for_mixpanel
     {
       distinct_id: "guest_user_#{self.id}",
-      is_guest:    true
+      user_type:   "guest"
     }
   end
 
