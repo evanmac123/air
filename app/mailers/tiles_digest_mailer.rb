@@ -15,10 +15,10 @@ class TilesDigestMailer < ActionMailer::Base
     FollowUpDigestEmail.send_follow_up_digest_email.each { |followup| TilesDigestMailer.delay(run_at: noon).notify_all_follow_up(followup.id) }
   end
 
-  def notify_all(demo, unclaimed_users_also_get_digest, tile_ids)
+  def notify_all(demo, unclaimed_users_also_get_digest, tile_ids, custom_message)
     user_ids = demo.users_for_digest(unclaimed_users_also_get_digest).pluck(:id)
 
-    user_ids.each { |user_id| TilesDigestMailer.delay.notify_one(demo.id, user_id, tile_ids, 'New Tiles') }
+    user_ids.each { |user_id| TilesDigestMailer.delay.notify_one(demo.id, user_id, tile_ids, 'New Tiles', false, custom_message) }
   end
 
   def notify_all_follow_up(followup_id)
@@ -28,17 +28,18 @@ class TilesDigestMailer < ActionMailer::Base
     user_ids = followup.demo.users_for_digest(followup.unclaimed_users_also_get_digest).pluck(:id)
 
     user_ids.reject! { |user_id| TileCompletion.user_completed_any_tiles?(user_id, tile_ids)}
-    user_ids.each    { |user_id| TilesDigestMailer.delay.notify_one(followup.demo.id, user_id, tile_ids, "Don't Miss Your New Tiles", true) }
+    user_ids.each    { |user_id| TilesDigestMailer.delay.notify_one(followup.demo.id, user_id, tile_ids, "Don't Miss Your New Tiles", true, nil) }
 
     followup.destroy
   end
 
-  def notify_one(demo_id, user_id, tile_ids, subject, follow_up_email = false)
+  def notify_one(demo_id, user_id, tile_ids, subject, follow_up_email, custom_message)
     @demo  = Demo.find demo_id
     @user  = User.find user_id
 
     @tiles = Tile.where(id: tile_ids).order('activated_at DESC')
     @follow_up_email = follow_up_email
+    @custom_message = custom_message
 
     @invitation_url = @user.claimed? ? nil : invitation_url(@user.invitation_code, protocol: email_link_protocol, host: email_link_host)
 

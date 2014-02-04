@@ -24,12 +24,6 @@ body.client_admin-tiles-update {
       @include font-semibold;
       margin-bottom:.5em;
     }
-    span.character-counter {
-      @include caption;
-      color:$med-gray;
-      float:right; 
-      padding-top:.5em;
-    }
     .tile_builder_section {
       padding:2em;
     }

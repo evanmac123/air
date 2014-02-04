@@ -48,6 +48,12 @@
       select:disabled {color:$light-gray;}
     }
     input[type="checkbox"], label, select {display: inline-block;}
+
+    .character-counter {
+      float: none;
+      display: block;
+      margin-bottom: 1em;
+    }
   }
   #scheduled_followups {
     border-left:1px $light-gray solid;
@@ -64,6 +70,10 @@
   .update-digest-spinner {
     display: none;
     vertical-align: middle;
+  }
+
+  textarea {
+    height: 9em;
   }
 
   p#last-email {

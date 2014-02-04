@@ -133,7 +133,7 @@ feature 'Client admin and the digest email for tiles' do
       expect_tiles_to_send_header
     end
 
-    scenario 'Form components are on the page and properly initialized' do
+    scenario 'Form components are on the page and properly initialized', js: true do
       on_day('10/14/2013') do  # Monday
         create_tile
         demo.update_attributes unclaimed_users_also_get_digest: true
@@ -142,6 +142,7 @@ feature 'Client admin and the digest email for tiles' do
 
         page.should have_send_to_selector('all users')
         page.should have_follow_up_selector('Thursday')
+        expect_character_counter_for '#digest_custom_message', 300
       end
 
       on_day('10/18/2013') do  # Friday
@@ -152,6 +153,7 @@ feature 'Client admin and the digest email for tiles' do
 
         page.should have_send_to_selector('only joined users')
         page.should have_follow_up_selector('Tuesday')
+        expect_character_counter_for '#digest_custom_message', 300
       end
     end
 
@@ -252,6 +254,8 @@ feature 'Client admin and the digest email for tiles' do
       end
 
       context 'emails are sent to the appropriate people' do
+        let (:all_addresses) {%w(client-admin@hengage.com site-admin@hengage.com john@campbell.com irma@thomas.com wc@clark.com taj@mahal.com)}
+
         before do
           FactoryGirl.create :user, demo: demo, name: 'John Campbell', email: 'john@campbell.com'
           FactoryGirl.create :user, demo: demo, name: 'Irma Thomas',   email: 'irma@thomas.com'
@@ -277,7 +281,7 @@ feature 'Client admin and the digest email for tiles' do
 
             all_emails.should have(6).emails  # The above 5 for this demo, and the 'client-admin' created at top of tests
 
-            %w(client-admin@hengage.com site-admin@hengage.com john@campbell.com irma@thomas.com wc@clark.com taj@mahal.com).each do |address|
+            all_addresses.each do |address|
               expect_digest_to(address)
 
               open_email(address)
@@ -318,6 +322,22 @@ feature 'Client admin and the digest email for tiles' do
 
             %w(client-admin@hengage.com wc@clark.com taj@mahal.com).each do |address|
               expect_digest_to(address)
+            end
+          end
+        end
+
+        context "and the optional admin-supplied custom message is filled in" do
+          it "should put that in the emails" do
+            buzzwordery = "Proactive synergies and cross-functional co-opetition."
+            change_send_to('all users')
+            fill_in "digest[custom_message]", with: buzzwordery
+            click_button 'Send digest now'
+
+            crank_dj_clear
+
+            all_addresses.each do |address|
+              open_email(address)
+              current_email.body.should include(buzzwordery)
             end
           end
         end

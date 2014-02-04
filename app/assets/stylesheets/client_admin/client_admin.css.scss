@@ -13,3 +13,10 @@ header .admin_options #manage_board:hover:before {background:$dark-green;}
 }
 
 .form_title {margin-bottom:1em;}
+
+span.character-counter {
+  @include caption;
+  color:$med-gray;
+  float:right; 
+  padding-top:.5em;
+}

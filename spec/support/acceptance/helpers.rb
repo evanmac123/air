@@ -335,4 +335,27 @@ module SteakHelperMethods
       page.find("input[type=password][name='user[password]']").should be_present
     end
   end
+
+  def expect_counter_text(counter, max_characters)
+    counter.text.should == counter_text(max_characters)
+  end
+
+  def expect_character_counter_for(selector, max_characters)
+    counter = page.find(counter_selector(selector))
+    expect_counter_text(counter, max_characters)
+  end
+
+  def counter_text(max_characters)
+    "#{max_characters} CHARACTERS LEFT"  
+  end
+
+  def expect_character_counter_for_each(selector, max_characters)
+    page.all(counter_selector(selector)) do |counter|
+      expect_counter_text(counter, max_characters)
+    end
+  end
+
+  def counter_selector(associated_selector)
+    "#{associated_selector} + .character-counter"  
+  end
 end

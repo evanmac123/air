@@ -4,29 +4,6 @@ feature 'Creates tile' do
   let (:client_admin) { FactoryGirl.create(:client_admin)}
   let (:demo)         { client_admin.demo }
 
-  def counter_selector(associated_selector)
-    "#{associated_selector} + .character-counter"  
-  end
-
-  def counter_text(max_characters)
-    "#{max_characters} CHARACTERS LEFT"  
-  end
-
-  def expect_counter_text(counter, max_characters)
-    counter.text.should == counter_text(max_characters)
-  end
-
-  def expect_character_counter_for(selector, max_characters)
-    counter = page.find(counter_selector(selector))
-    expect_counter_text(counter, max_characters)
-  end
-
-  def expect_character_counter_for_each(selector, max_characters)
-    page.all(counter_selector(selector)) do |counter|
-      expect_counter_text(counter, max_characters)
-    end
-  end
-
   def fill_in_valid_form_entries
     attach_file "tile_builder_form[image]", tile_fixture_path('cov1.jpg')
     fill_in "Headline",           with: "Ten pounds of cheese"

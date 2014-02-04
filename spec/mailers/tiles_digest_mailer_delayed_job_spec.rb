@@ -73,7 +73,7 @@ describe 'Follow-up email scheduled by delayed job' do
 
     FactoryGirl.create_list :user, 3, :claimed, demo: demo
 
-    TilesDigestMailer.notify_all(demo, false, [demo.tiles.pluck(:id)])
+    TilesDigestMailer.notify_all(demo, false, [demo.tiles.pluck(:id)], nil)
     crank_dj_clear
 
     ActionMailer::Base.deliveries.should have(3).emails

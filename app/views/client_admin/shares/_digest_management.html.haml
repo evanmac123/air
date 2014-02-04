@@ -15,5 +15,14 @@
       On:
       = select_tag :follow_up_day, options_for_select(%w(Never) + Date::DAYNAMES, selected: default_follow_up_day)
 
+    %p 
+      Add Optional Message
+      = text_area_tag "digest[custom_message]", '', size: "50x6", maxlength: 300
+      = javascript_include_tag 'admin/byte_counter'
+      :javascript
+        addCharacterCounterFor('#digest_custom_message');
+
+
+
     = submit_tag "Send digest now", confirm: 'Are you sure you want to send the digest email?'
     %p#last-email= digest_email_sent_on_message
