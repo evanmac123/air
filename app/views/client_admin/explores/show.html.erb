@@ -16,12 +16,14 @@
       <p><span><a href ="#Enrollment">Open Enrollment</a></span></p>
       <p><span><a href ="#Financial">Financial Education</a></span></p>
       <p><span><a href ="#Wellness">Wellness</a></span></p>
+      <p><span class="new_marker">New!</span><span><a href ="#Travel"> Travel</a></span></p>
     </div>
 
     <div class="columns large-2 pull-4">
       <p><span><a href ="#Healthcare">Health Care Reform</a></span></p>
       <p><span><a href ="#Safety">Safety</a></span></p>
       <p><span><a href ="#Miscellaneous">Miscellaneous</a></span></p>
+      <p><span class="new_marker">New!</span><a href ="#Food"> Food</a></span></p>
     </div>
   </div>
 <![endif]-->
@@ -34,6 +36,8 @@
       <div class="topic"><a href ="#Safety">Safety</a></div>
       <div class="topic"><a href ="#Wellness">Wellness</a></div>
       <div class="topic"><a href ="#Miscellaneous">Miscellaneous</a></div>
+      <div class="topic"><span class="new_marker">New!</span><a href ="#Travel"> Travel</a></div>
+      <div class="topic"><span class="new_marker">New!</span><a href ="#Food"> Food</a></div>
   </div>
   <![endif]-->
 <!-- ============= small Open Enrollment sample tiles ============= -->
@@ -42,134 +46,88 @@
       <p class="editorial_title"><a name="Enrollment">Open Enrollment</a></p>
     </div>
 
-      <div class="tile_thumbnail heineken_secret"><div class="tile-wrapper">
-        <div class="tile_thumbnail_image">
-          <%= image_tag "case_studies/heineken_tile_dontkeepthissecret.png", "alt" => "Don't Keep This Secret" %>
-        </div>
-        <div class="headline">
-          <span class="text">Don't Keep This Secret</span>
-        </div></div>
-      <p class="tile_creator">Jessica Laughlin, Manager, Benefits & Payroll, Heineken, created by G2 Communications<br>October 15, 2013</br></p>
-    </div>
+    <%=render"tile_thumbnail", thumbnail_class:  "heineken_secret",
+        thumbnail_image: "case_studies/heineken_tile_dontkeepthissecret.png", 
+        tile_headline: "Don't Keep This Secret", 
+        tile_creator: "Jessica Laughlin, Manager, Benefits & Payroll, Heineken, created by G2 Communications",
+        tile_creation_date: "October 15, 2013"%>
 
-      <div class="tile_thumbnail heineken_know"><div class="tile-wrapper">
-        <div class="tile_thumbnail_image">
-          <%= image_tag "case_studies/heineken_tile_beintheknow.png", "alt" => "Be In The Know" %>
-        </div>
-        <div class="headline">
-          <span class="text">Be In The Know</span>
-        </div></div>
-        <p class="tile_creator">Jessica Laughlin, Manager, Benefits & Payroll, Heineken, created by G2 Communications<br>October 15, 2013</br></p>
-    </div>
+    <%=render"tile_thumbnail", thumbnail_class:  "heineken_know",
+        thumbnail_image: "case_studies/heineken_tile_beintheknow.png", 
+        tile_headline: "Be In The Know", 
+        tile_creator: "Jessica Laughlin, Manager, Benefits & Payroll, Heineken, created by G2 Communications",
+        tile_creation_date: "October 15, 2013"%>    
+    
+    <%=render"tile_thumbnail", thumbnail_class:  "heineken_success",
+        thumbnail_image: "case_studies/heineken_tile_setyourselfup.png", 
+        tile_headline: "Set Yourself Up For Success", 
+        tile_creator: "Jessica Laughlin, Manager, Benefits & Payroll, Heineken, created by G2 Communications",
+        tile_creation_date: "October 6, 2013"%>
 
-      <div class="tile_thumbnail heineken_success"><div class="tile-wrapper">
-        <div class="tile_thumbnail_image">
-          <%= image_tag "case_studies/heineken_tile_setyourselfup.png", "alt" => "Set Yourself Up For Success" %>
-        </div>
-        <div class="headline">
-          <span class="text">Set Yourself Up for Success</span>
-        </div></div>
-      <p class="tile_creator">Jessica Laughlin, Manager, Benefits & Payroll, Heineken, created by G2 Communications<br>October 6, 2013</br></p>
-    </div>
+    <%=render"tile_thumbnail", thumbnail_class:  "asha_enroll",
+        thumbnail_image: "case_studies/asha_tile_enroll.png", 
+        tile_headline: "Open Enrollment Drop-In Sessions", 
+        tile_creator: "Janet McNichol, Director HR, ASHA",
+        tile_creation_date: "October 29, 2013"%>
 
-       <div class="tile_thumbnail asha_enroll"><div class="tile-wrapper">
-        <div class="tile_thumbnail_image">
-          <%= image_tag "case_studies/asha_tile_enroll.png", "alt" => "Open Enrollment Drop-In Sessions" %>
-        </div>
-        <div class="headline">
-          <span class="text">Open Enrollment Drop-In Sessions</span>
-        </div></div>
-      <p class="tile_creator">Janet McNichol, Director HR, ASHA<br>October 29, 2013<br></p>
-    </div>
+     <%=render"tile_thumbnail", thumbnail_class:  "fujifilm_takestwo",
+        thumbnail_image: "case_studies/fujifilm_tiles_takestwo.png", 
+        tile_headline: "It takes two", 
+        tile_creator: "Carolyn Gordon, Director of Benefits, Fujifilm, Created by Towers Watson",
+        tile_creation_date: "November 6, 2013"%>
 
-       <div class="tile_thumbnail fujifilm_takestwo"><div class="tile-wrapper">
-        <div class="tile_thumbnail_image">
-          <%= image_tag "case_studies/fujifilm_tiles_takestwo.png", "alt" => "It takes two" %>
-        </div>
-        <div class="headline">
-          <span class="text">It takes two</span>
-        </div></div>
-      <p class="tile_creator">Carolyn Gordon, Director of Benefits, Fujifilm, Created by Towers Watson<br>November 6, 2013</br></p>
-    </div>
+    <%=render"tile_thumbnail", thumbnail_class:  "fujifilm_new",
+        thumbnail_image: "case_studies/fujifilm_tile_new.png", 
+        tile_headline: "There's something different about enrollment this year...", 
+        tile_creator: "Carolyn Gordon, Director of Benefits, Fujifilm, Created by Towers Watson",
+        tile_creation_date: "November 6, 2013"%>
 
-     <div class="tile_thumbnail fujifilm_new"><div class="tile-wrapper">
-        <div class="tile_thumbnail_image">
-          <%= image_tag "case_studies/fujifilm_tile_new.png", "alt" => "There's something different about enrollment this year..." %>
-        </div>
-        <div class="headline">
-          <span class="text">There's something different about enrollment this year...</span>
-        </div></div>
-      <p class="tile_creator">Carolyn Gordon, Director of Benefits, Fujifilm, Created by Towers Watson<br>November 6, 2013</br></p>
-    </div>
+    <%=render"tile_thumbnail", thumbnail_class:  "explore piggy_bank",
+        thumbnail_image: "Explore_tile_page/piggy_bank_two.png", 
+        tile_headline: "How full is your retirement piggy bank?", 
+        tile_creator: "Airbo",
+        tile_creation_date: "October 1, 2013"%> 
 
-      <div class="tile_thumbnail explore piggy_bank"><div class="tile-wrapper">
-        <div class="tile_thumbnail_image">
-          <%= image_tag "Explore_tile_page/piggy_bank_two.png", "alt" => "How full is your piggy bank" %>
-        </div>
-        <div class="headline">
-          <span class="text">How full is your retirement piggy bank?</span>
-        </div></div>
-        <p class="tile_creator">Airbo<br>October 1, 2013</p>
+    <%=render"tile_thumbnail", thumbnail_class:  "explore miss_out",
+        thumbnail_image: "Explore_tile_page/open_enrollment.png", 
+        tile_headline: "Don't miss out...", 
+        tile_creator: "Airbo",
+        tile_creation_date: "October 21, 2013"%> 
+
       </div>
-
-      <div class="tile_thumbnail explore miss_out"><div class="tile-wrapper">
-        <div class="tile_thumbnail_image">
-          <%= image_tag "Explore_tile_page/open_enrollment.png", "alt" => "Open Enrollment Drop-In Sessions" %>
-        </div>
-        <div class="headline">
-          <span class="text">Don't miss out!</span>
-        </div>
-      </div>
-      <p class="tile_creator">Airbo<br>October 21, 2013</p>
-    </div></div>
-
  <!-- ============= small safety sample tiles ============= -->
+
 
   <div class="row study_samples editorial_divider">
     <div class="large-12 columns">
       <p class="editorial_title"><a name="Safety">Safety</a></p>
     </div>
 
-      <div class="tile_thumbnail miltoncat_incident"><div class="tile-wrapper">
-        <div class="tile_thumbnail_image">
-          <%= image_tag "case_studies/miltoncat_tile_reviewingincidents.png", "alt" => "Last Chance to Sign Up for this Session of Fitness Classes" %>
-        </div>
-        <div class="headline">
-          <span class="text">Determine Root Causes to Prevent Re-Occurrences</span>
-        </div></div>
-      <p class="tile_creator">David Convery, Employee Safety & Health Manager, Milton CAT<br>October 21, 2013</br></p>
-    </div>
+     <%=render"tile_thumbnail", thumbnail_class:  "miltoncat_incident",
+        thumbnail_image: "case_studies/miltoncat_tile_reviewingincidents.png", 
+        tile_headline: "Determine Root Causes to Prevent Re-Occurrences", 
+        tile_creator: "David Convery, Employee Safety & Health Manager, Milton CAT",
+        tile_creation_date: "October 21, 2013"%>
 
-      <div class="tile_thumbnail miltoncat_fire"><div class="tile-wrapper">
-        <div class="tile_thumbnail_image">
-          <%= image_tag "case_studies/miltoncat_tile_fireextinguisher.png", "alt" => "Speech-Language Pathology Cluster, Team Highlight" %>
-        </div>
-        <div class="headline">
-          <span class="text">Who Can Use Fire Extinguishers at Milton CAT?</span>
-        </div></div>
-      <p class="tile_creator">David Convery, Employee Safety & Health Manager, Milton CAT<br>October 7, 2013</br></p>
-    </div>
+    <%=render"tile_thumbnail", thumbnail_class:  "miltoncat_fire",
+        thumbnail_image: "case_studies/miltoncat_tile_fireextinguisher.png", 
+        tile_headline: "Who Can Use Fire Extinguishers at Milton CAT?", 
+        tile_creator: "David Convery, Employee Safety & Health Manager, Milton CAT",
+        tile_creation_date: "October 7, 2013"%>
 
-      <div class="tile_thumbnail miltoncat_safetybriefs"><div class="tile-wrapper">
-        <div class="tile_thumbnail_image">
-          <%= image_tag "case_studies/miltoncat_tile_safetybrief.png", "alt" => "Open Enrollment Drop-In Sessions" %>
-        </div>
-        <div class="headline">
-          <span class="text">The Importance of Safety Briefs</span>
-        </div></div>
-      <p class="tile_creator">David Convery, Employee Safety & Health Manager, Milton CAT<br>September 26, 2013</br></p>
-    </div>
+    <%=render"tile_thumbnail", thumbnail_class:  "miltoncat_safetybriefs",
+        thumbnail_image: "case_studies/miltoncat_tile_safetybrief.png", 
+        tile_headline: "The Importance of Safety Briefs", 
+        tile_creator: "David Convery, Employee Safety & Health Manager, Milton CAT",
+        tile_creation_date: "September 26, 2013"%>
 
-     <div class="tile_thumbnail explore safety_binders"><div class="tile-wrapper">
-        <div class="tile_thumbnail_image">
-          <%= image_tag "Explore_tile_page/safety_binders.jpg", "alt" => "Open Enrollment Drop-In Sessions" %>
-        </div>
-        <div class="headline">
-          <span class="text">Safety Binders</span>
-        </div>
-      </div>
-      <p class="tile_creator">Airbo<br>September 3, 2013</br></p>
-    </div></div>
+    <%=render"tile_thumbnail", thumbnail_class:  "explore safety_binders",
+        thumbnail_image: "Explore_tile_page/safety_binders.jpg", 
+        tile_headline: "Safety Binders", 
+        tile_creator: "Airbo",
+        tile_creation_date: "September 3, 2013"%>
+
+   </div>
  <!-- ============= small Wellness sample tiles ============= -->
 
   <div class="row study_samples editorial_divider">
@@ -177,84 +135,54 @@
       <p class="editorial_title"><a name="Wellness">Wellness</a></p>
     </div>
 
-      <div class="tile_thumbnail asha_fitness"><div class="tile-wrapper">
-        <div class="tile_thumbnail_image">
-          <%= image_tag "case_studies/asha_tile_fitness.png", "alt" => "Last Chance to Sign Up for this Session of Fitness Classes" %>
-        </div>
-        <div class="headline">
-          <span class="text">Last Chance to Sign Up for this Session of Fitness Classes</span>
-        </div></div>
-      <p class="tile_creator">Janet McNichol, Director of HR, ASHA<br>October 29, 2013</br></p>
-    </div>
+     <%=render"tile_thumbnail", thumbnail_class:  "asha_fitness",
+        thumbnail_image: "case_studies/asha_tile_fitness.png", 
+        tile_headline: "Last Chance to Sign Up for this Session of Fitness Classes", 
+        tile_creator: "Janet McNichol, Director of HR, ASHA",
+        tile_creation_date: "October 29, 2013"%>  
 
-     <div class="tile_thumbnail npswellness_yoga"><div class="tile-wrapper">
-        <div class="tile_thumbnail_image">
-          <%= image_tag "customer_tiles/nps_tile_yoga.png", "alt" => "Two new yoga classes for you!" %>
-        </div>
-        <div class="headline">
-          <span class="text">Two new yoga classes for you!</span>
-        </div></div>
-      <p class="tile_creator">Marianne Davis, Director of HR, Natick Public Schools<br>November 13, 2013</br></p>
-    </div>  
+     <%=render"tile_thumbnail", thumbnail_class:  "npswellness_yoga",
+        thumbnail_image: "customer_tiles/nps_tile_yoga.png", 
+        tile_headline: "Two new yoga classes for you!", 
+        tile_creator: "Marianne Davis, Director of HR, Natick Public Schools",
+        tile_creation_date: "November 13, 2013"%>   
 
-       <div class="tile_thumbnail npswellness_salute"><div class="tile-wrapper">
-        <div class="tile_thumbnail_image">
-          <%= image_tag "customer_tiles/nps_tile_salute.png", "alt" => "9 Scientifically-Backed Ways To Stop Worrying" %>
-        </div>
-        <div class="headline">
-          <span class="text">It's National Impaired Driving Prevention Month.</span>
-        </div></div>
-      <p class="tile_creator">Marianne Davis, Director of HR, Natick Public Schools<br>December 11, 2013</br></p>
-    </div>
+     <%=render"tile_thumbnail", thumbnail_class:  "npswellness_salute",
+        thumbnail_image: "customer_tiles/nps_tile_salute.png", 
+        tile_headline: "It's National Impaired Driving Prevention Month", 
+        tile_creator: "Marianne Davis, Director of HR, Natick Public Schools",
+        tile_creation_date: "December 11, 2013"%>    
 
-    <div class="tile_thumbnail exlore stressed_work"><div class="tile-wrapper">
-        <div class="tile_thumbnail_image">
-          <%= image_tag "Explore_tile_page/walk_break.jpg", "alt" => "Feeling stressed at work?" %>
-        </div>
-        <div class="headline">
-          <span class="text">Feeling stressed at work?</span>
-        </div></div>
-        <p class="tile_creator">Airbo<br>September 12, 2013</br></p>
-      </div>
+    <%=render"tile_thumbnail", thumbnail_class:  "explore stressed_work",
+        thumbnail_image: "Explore_tile_page/walk_break.jpg", 
+        tile_headline: "Feeling stressed at work?", 
+        tile_creator: "Airbo",
+        tile_creation_date: "September 12, 2013"%>   
 
-      <div class="tile_thumbnail explore sleep_deal"><div class="tile-wrapper">
-        <div class="tile_thumbnail_image">
-          <%= image_tag "Explore_tile_page/sleep.png", "alt" => "What's the big deal about sleep?" %>
-        </div>
-        <div class="headline">
-          <span class="text">What's the big deal about sleep?</span>
-        </div></div>
-      <p class="tile_creator">Airbo<br>September 19, 2013</br></p>
-    </div> 
+    <%=render"tile_thumbnail", thumbnail_class:  "explore sleep_deal",
+        thumbnail_image: "Explore_tile_page/sleep.png", 
+        tile_headline: "What's the big deal about sleep?", 
+        tile_creator: "Airbo",
+        tile_creation_date: "September 19, 2013"%> 
 
-      <div class="tile_thumbnail explore big_serving"><div class="tile-wrapper">
-        <div class="tile_thumbnail_image">
-          <%= image_tag "Explore_tile_page/fruits_veggies.png", "alt" => "How big is a serving?" %>
-        </div>
-        <div class="headline">
-          <span class="text">How big is a serving?</span>
-        </div></div><p class="tile_creator">Airbo<br>October 31, 2013</br></p>
-      </div>
+    <%=render"tile_thumbnail", thumbnail_class:  "explore big_serving",
+        thumbnail_image: "Explore_tile_page/fruits_veggies.png", 
+        tile_headline: "How big is a serving?", 
+        tile_creator: "Airbo",
+        tile_creation_date: "October 31, 2013"%> 
 
-      <div class="tile_thumbnail explore steps_healthier"><div class="tile-wrapper">
-        <div class="tile_thumbnail_image">
-          <%= image_tag "Explore_tile_page/climbing_stairs.png", "alt" => "Steps to a healthier you!" %>
-        </div>
-        <div class="headline">
-          <span class="text">Steps to a healthier you!</span>
-        </div></div>
-      <p class="tile_creator">Airbo<br>October 11, 2013</br></p>
-      </div>  
+    <%=render"tile_thumbnail", thumbnail_class:  "explore steps_healthier",
+        thumbnail_image: "Explore_tile_page/climbing_stairs.png", 
+        tile_headline: "Steps to a healthier you!", 
+        tile_creator: "Airbo",
+        tile_creation_date: "October 31, 2013"%>  
 
-      <div class="tile_thumbnail exlore small_changes"><div class="tile-wrapper">
-        <div class="tile_thumbnail_image">
-          <%= image_tag "Explore_tile_page/small_changes.jpg", "alt" => "Small changes can mean big results" %>
-        </div>
-        <div class="headline">
-          <span class="text">Small changes can mean big results</span>
-        </div></div>
-        <p class="tile_creator">Airbo<br>October 9, 2013<br></p>
-      </div></div>
+      <%=render"tile_thumbnail", thumbnail_class:  "explore small_changes",
+        thumbnail_image: "Explore_tile_page/small_changes.jpg", 
+        tile_headline: "Small changes can mean big results", 
+        tile_creator: "Airbo",
+        tile_creation_date: "October 9, 2013"%>                      
+  </div>
 
       <!-- ============= small HCR sample tiles ============= -->
 
@@ -263,45 +191,31 @@
       <p class="editorial_title"><a name="Healthcare">Health Care Reform</a></p>
     </div>
 
-      <div class="tile_thumbnail exlore shop_marketplace"><div class="tile-wrapper">
-        <div class="tile_thumbnail_image">
-          <%= image_tag "Explore_tile_page/Healthcare_coverage.jpg", "alt" => "Who can shop on the Marketplace?" %>
-        </div>
-        <div class="headline">
-          <span class="text">Who can shop on the Marketplace?</span>
-        </div></div>
-      <p class="tile_creator">Airbo<br>October 16, 2013</br></p>
-    </div>
+     <%=render"tile_thumbnail", thumbnail_class:  "explore shop_marketplace",
+        thumbnail_image: "Explore_tile_page/Healthcare_coverage.jpg", 
+        tile_headline: "Who can shop on the Marketplace?", 
+        tile_creator: "Airbo",
+        tile_creation_date: "October 16, 2013"%>
 
-      <div class="tile_thumbnail everyone_coverage"><div class="tile-wrapper">
-        <div class="tile_thumbnail_image">
-          <%= image_tag "Explore_tile_page/woman_pondering.jpg", "alt" => "HEveryone must have Health Care Coverage" %>
-        </div>
-        <div class="headline">
-          <span class="text">Everyone must have Health Care Coverage</span>
-        </div></div>
-      <p class="tile_creator">Airbo<br>September 20, 2013</br></p>
-    </div>
+      <%=render"tile_thumbnail", thumbnail_class:  "everyone_coverage",
+        thumbnail_image: "Explore_tile_page/woman_pondering.jpg", 
+        tile_headline: "Everyone must have Health Care Coverage", 
+        tile_creator: "Airbo",
+        tile_creation_date: "September 20, 2013"%>
 
-      <div class="tile_thumbnail explore_stethoscope"><div class="tile-wrapper">
-        <div class="tile_thumbnail_image">
-          <%= image_tag "Explore_tile_page/stethoscope.jpg", "alt" => "No coverage, you'll pay a penalty" %>
-        </div>
-        <div class="headline">
-          <span class="text">No coverage, you'll pay a penalty</span>
-        </div></div>
-      <p class="tile_creator">Airbo<br>September 20, 2013</br></p>
-    </div>
+      <%=render"tile_thumbnail", thumbnail_class:  "explore_stethoscope",
+        thumbnail_image: "Explore_tile_page/stethoscope.jpg", 
+        tile_headline: "No coverage? You'll pay a penalty", 
+        tile_creator: "Airbo",
+        tile_creation_date: "September 20, 2013"%>  
 
-      <div class="tile_thumbnail explore no_limits"><div class="tile-wrapper">
-        <div class="tile_thumbnail_image">
-          <%= image_tag "Explore_tile_page/woman_calculator.jpg", "alt" => "No more annual or lifetime limits" %>
-        </div>
-        <div class="headline">
-          <span class="text">No more annual or lifetime limits</span>
-        </div></div>
-      <p class="tile_creator">Airbo<br>September 10, 2013</br></p>
-    </div></div> 
+      <%=render"tile_thumbnail", thumbnail_class:  "explore no_limits",
+        thumbnail_image: "Explore_tile_page/woman_calculator.jpg", 
+        tile_headline: "No more annual or lifetime limits", 
+        tile_creator: "Airbo",
+        tile_creation_date: "September 10, 2013"%>    
+
+    </div> 
 
       <!-- ============= small financial education sample tiles ============= -->
 
@@ -310,46 +224,31 @@
       <p class="editorial_title"><a name="Financial">Financial Education</a></p>
     </div>
 
-      <div class="tile_thumbnail explore started_saving"><div class="tile-wrapper">
-        <div class="tile_thumbnail_image">
-          <%= image_tag "Explore_tile_page/piggy_bank.jpg", "alt" => "You started saving, now what?" %>
-        </div>
-        <div class="headline">
-          <span class="text">You've started saving, now what?</span>
-        </div></div>
-      <p class="tile_creator">Airbo<br>October 11, 2013</br></p>
-     </div> 
+      <%=render"tile_thumbnail", thumbnail_class:  "explore started_saving",
+        thumbnail_image: "Explore_tile_page/piggy_bank.jpg", 
+        tile_headline: "You've started saving, now what?", 
+        tile_creator: "Airbo",
+        tile_creation_date: "October 21, 2013"%>
 
-      <div class="tile_thumbnail explore roth_401k"><div class="tile-wrapper">
-        <div class="tile_thumbnail_image">
-          <%= image_tag "Explore_tile_page/roth_401k.jpg", "alt" => "What's a Roth 401(k)" %>
-        </div>
-        <div class="headline">
-          <span class="text">What's a Roth 401(k)?</span>
-        </div></div>
-      <p class="tile_creator">Airbo<br>November 2, 2013</br></p>
-    </div>
+      <%=render"tile_thumbnail", thumbnail_class:  "explore roth_401k",
+        thumbnail_image: "Explore_tile_page/roth_401k.jpg", 
+        tile_headline: "What's a Roth 401(k)", 
+        tile_creator: "Airbo",
+        tile_creation_date: "November 2, 2013"%> 
 
-      <div class="tile_thumbnail explore get_facts"><div class="tile-wrapper">
-        <div class="tile_thumbnail_image">
-          <%= image_tag "Explore_tile_page/money.jpg", "alt" => "Get the facts" %>
-        </div>
-        <div class="headline">
-          <span class="text">Get the facts</span>
-        </div></div>
-      <p class="tile_creator">Airbo<br>November 21, 2013</br></p>
-    </div>
+      <%=render"tile_thumbnail", thumbnail_class:  "explore get_facts",
+        thumbnail_image: "Explore_tile_page/money.jpg", 
+        tile_headline: "Get the facts", 
+        tile_creator: "Airbo",
+        tile_creation_date: "November 21, 2013"%>  
 
-     <div class="tile_thumbnail explore earlier_better"><div class="tile-wrapper">
-        <div class="tile_thumbnail_image">
-          <%= image_tag "Explore_tile_page/golden_arrow.png", "alt" => "The earlier you start saving, the better." %>
-        </div>
-        <div class="headline">
-          <span class="text">The earlier you start saving, the better.</span>
-        </div></div>
-        <p class="tile_creator">Airbo<br>October 25, 2013</br></p>
-      </div>
-    </div>
+      <%=render"tile_thumbnail", thumbnail_class:  "explore earlier_better",
+        thumbnail_image: "Explore_tile_page/golden_arrow.png", 
+        tile_headline: "The earlier you start saving, the better.", 
+        tile_creator: "Airbo",
+        tile_creation_date: "October 25, 2013"%>      
+ 
+ </div>
 
  <!-- ============= small misc sample tiles ============= -->
 
@@ -357,1019 +256,611 @@
     <div class="large-12 columns">
       <p class="editorial_title"><a name="Miscellaneous">Miscellaneous</a></p>
     </div>
-      <div class="tile_thumbnail explore performance_goals"><div class="tile-wrapper">
-        <div class="tile_thumbnail_image">
-          <%= image_tag "Explore_tile_page/performance_goals.jpg", "alt" => "Enter your performance goals by February 14th!" %>
-        </div>
-        <div class="headline">
-          <span class="text">Enter your performance goals by February 14th!</span>
-        </div></div>
-        <p class="tile_creator">Airbo<br>November 18, 2013</br></p>
-      </div>
 
-      <div class="tile_thumbnail explore go_green"><div class="tile-wrapper">
-        <div class="tile_thumbnail_image">
-          <%= image_tag "Explore_tile_page/go_green.png", "alt" => "Help make the office more eco-friendly" %>
-        </div>
-        <div class="headline">
-          <span class="text">Help make the office more eco-friendly</span>
-        </div></div>
-        <p class="tile_creator">Airbo<br>October 1, 2013</br></p>
-      </div>
+    <%=render"tile_thumbnail", thumbnail_class:  "explore performance_goals",
+        thumbnail_image: "Explore_tile_page/performance_goals.jpg", 
+        tile_headline: "Enter your performance goals by February 14th!", 
+        tile_creator: "Airbo",
+        tile_creation_date: "November 18, 2013"%> 
 
-      <div class="tile_thumbnail explore leadership_brunch"><div class="tile-wrapper">
-        <div class="tile_thumbnail_image">
-          <%= image_tag "Explore_tile_page/Leadership_brunch.jpg", "alt" => "Attend the leadership brunch" %>
-        </div>
-        <div class="headline">
-          <span class="text">Attend the leadership brunch</span>
-        </div></div>
-        <p class="tile_creator">Airbo<br>August 12, 2013</br></p>
-      </div>
-      
-     <div class="tile_thumbnail explore guiding_principles"><div class="tile-wrapper">
-        <div class="tile_thumbnail_image">
-          <%= image_tag "Explore_tile_page/guiding_principles.png", "alt" => "Did you know..." %>
-        </div>
-        <div class="headline">
-          <span class="text">Did you know...</span>
-        </div></div>
-      <p class="tile_creator">Airbo<br>September 3, 2013</br></p>
-    </div></div>  
+    <%=render"tile_thumbnail", thumbnail_class:  "explore go_green",
+        thumbnail_image: "Explore_tile_page/go_green.png", 
+        tile_headline: "Help make the office more eco-friendly!", 
+        tile_creator: "Airbo",
+        tile_creation_date: "October 4, 2013"%> 
+
+    <%=render"tile_thumbnail", thumbnail_class:  "explore leadership_brunch",
+        thumbnail_image: "Explore_tile_page/Leadership_brunch.jpg", 
+        tile_headline: "Attend the leadership brunch", 
+        tile_creator: "Airbo",
+        tile_creation_date: "October 4, 2013"%>       
+
+  <%=render"tile_thumbnail", thumbnail_class:  "explore guiding_principles",
+        thumbnail_image: "Explore_tile_page/guiding_principles.png", 
+        tile_headline: "Did you know...", 
+        tile_creator: "Airbo",
+        tile_creation_date: "September 3, 2013"%>          
+
+  </div>  
+
+ <!-- ============= small travel sample tiles ============= -->
+
+  <div class="row study_samples editorial_divider">
+    <div class="large-12 columns">
+      <p class="editorial_title"><a name="Travel">Travel</a></p>
+    </div>
+
+    <%=render"tile_thumbnail", thumbnail_class:  "explore travel_thrill",
+        thumbnail_image: "Explore_tile_page/travel_one.png", 
+        tile_headline: "What a thrill!", 
+        tile_creator: "Kandy Cantwell, Managing Partner, Montridge Financial Group",
+        tile_creation_date: "January 24, 2014"%> 
+
+    <%=render"tile_thumbnail", thumbnail_class:  "explore travel_malecon",
+        thumbnail_image: "Explore_tile_page/travel_two.png", 
+        tile_headline: "El Malecon", 
+        tile_creator: "Kandy Cantwell, Managing Partner, Montridge Financial Group",
+        tile_creation_date: "January 22, 2014"%> 
+
+    <%=render"tile_thumbnail", thumbnail_class:  "explore travel_banderas",
+        thumbnail_image: "Explore_tile_page/travel_three.png", 
+        tile_headline: "Bay of Banderas", 
+        tile_creator: "Kandy Cantwell, Managing Partner, Montridge Financial Group",
+        tile_creation_date: "January 15, 2014"%>       
+
+  <%=render"tile_thumbnail", thumbnail_class:  "explore travel_cuale",
+        thumbnail_image: "Explore_tile_page/travel_four.png", 
+        tile_headline: "South of the Cuale River...", 
+        tile_creator: "Kandy Kantwell, Managing Partner, Montridge Financial Group",
+        tile_creation_date: "January 17, 2014"%>          
+
+  </div> 
+
+   <!-- ============= small food sample tiles ============= -->
+
+  <div class="row study_samples editorial_divider">
+    <div class="large-12 columns">
+      <p class="editorial_title"><a name="Food">Food</a></p>
+    </div>
+
+    <%=render"tile_thumbnail", thumbnail_class:  "explore food_granola",
+        thumbnail_image: "Explore_tile_page/food_granola.png", 
+        tile_headline: "A nutty granola proven to please everyone", 
+        tile_creator: "Airbo",
+        tile_creation_date: "January 30, 2014"%> 
+
+    <%=render"tile_thumbnail", thumbnail_class:  "explore food_sweetpotato",
+        thumbnail_image: "Explore_tile_page/food_sweetpotato.png", 
+        tile_headline: "Are you a sweet potato junkie?", 
+        tile_creator: "Airbo",
+        tile_creation_date: "January 30, 2014"%> 
+
+    <%=render"tile_thumbnail", thumbnail_class:  "explore food_cookies",
+        thumbnail_image: "Explore_tile_page/food_cookies.png", 
+        tile_headline: "Chocolate chip cookies - need I say more?", 
+        tile_creator: "Airbo",
+        tile_creation_date: "January 30, 2014"%>       
+
+  <%=render"tile_thumbnail", thumbnail_class:  "explore food_grapefruit",
+        thumbnail_image: "Explore_tile_page/food_grapefruit.png", 
+        tile_headline: "Grapefruits hard to eat? Look no further.", 
+        tile_creator: "Airbo",
+        tile_creation_date: "January 30, 2014"%>          
+
+  </div> 
 
   <!-- ============= full Open Enrollment sample tiles ============= -->
 
-<section class="hidden_large_tiles heineken_secret">
-  <div class="tile_holder client_created">
-    <div class="tile_full_image">
-      <%= image_tag "case_studies/heineken_tile_dontkeepthissecret.png", "alt" => "Don't keep this secret" %>
-    </div>
-    <div class="tile_texts_container">
-      <div class="tile_headline">Don't Keep This Secret</div>
-      <div class="tile_supporting_content">It pays to share. Answer questions, learn about benefit choices, invite colleagues and meet “Alex” throughout the open enrollment period to earn raffle tickets toward $1,000 off your 2014 health care premiums. Check your progress at the top of the screen.</div>
-      <div class="tile_quiz">
-        <div class="tile_points_bar">
-          <div class="earnable_points">
-            <span class="num_of_points">10</span><span class="points_label">Points</span>
-          </div>
-        </div>
-        <div class="tile_question">
-          Where can I find how many raffle tickets I've earned?
-        </div>
-        <div class="multiple_choice_group">
-          <div class="tile_multiple_choice_answer"><a href="#!">It's A Secret</a></div>
-          <div class="clicked_right_answer"><a href="#!">At The Top Of This Page</a></div>
-          <div class="tile_multiple_choice_answer"><a href="#!">In My Email</a></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+  <%=render"fullsize_tile", thumbnail_class:  "heineken_secret",
+        thumbnail_image: "case_studies/heineken_tile_dontkeepthissecret.png", 
+        tile_headline: "Don't Keep This Secret", 
+        tile_supporting_content: "It pays to share. Answer questions, learn about benefit choices, invite colleagues and meet “Alex” throughout the open enrollment period to earn raffle tickets toward $1,000 off your 2014 health care premiums. Check your progress at the top of the screen.",
+        tile_points: "5",
+        points_label: "Points",
+        tile_question: "Where can I find how many raffle tickets I've earned?",
+        tile_answers: [ "It's A Secret", "At The Top Of This Page", "In My Email"],
+        correct_answer_index: 1
+        %> 
 
-<section class="hidden_large_tiles heineken_know">
-  <div class="tile_holder client_created">
-    <div class="tile_full_image">
-      <%= image_tag "case_studies/heineken_tile_beintheknow.png", "alt" => "Be In The Know" %>
-    </div>
-    <div class="tile_texts_container">
-      <div class="tile_headline">Be In The Know</div>
-      <div class="tile_supporting_content">Doctor's appointment from my laptop. Getting paid to enroll in benefits. New employee perks at work, including discounts at retail stores. A virtual benefits counselor. Read all about this and more in the 2014 Benefit Enrollment Guide. Just click on the picture and you’ll be in the know.</div>
-      <div class="tile_quiz">
-        <div class="tile_points_bar">
-          <div class="earnable_points">
-            <span class="num_of_points">5</span><span class="points_label">Points</span>
-          </div>
-        </div>
-        <div class="tile_question">
-          The 2014 Benefit Enrollment Guide includes information on:
-        </div>
-        <div class="multiple_choice_group">
-          <div class="tile_multiple_choice_answer"><a href="#!">The New choice Fund Plan</a></div>
-          <div class="tile_multiple_choice_answer"><a href="#!">The New Teledoc Program</a></div>
-          <div class="tile_multiple_choice_answer"><a href="#!">The New Perks@Work Discount Program</a></div>
-          <div class="clicked_right_answer"><a href="#!">All Of The Above</a></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+    <%=render"fullsize_tile", thumbnail_class:  "heineken_know",
+        thumbnail_image: "case_studies/heineken_tile_beintheknow.png", 
+        tile_headline: "Be In The Know", 
+        tile_supporting_content: "Doctor's appointment from my laptop. Getting paid to enroll in benefits. New employee perks at work, including discounts at retail stores. A virtual benefits counselor. Read all about this and more in the 2014 Benefit Enrollment Guide. Just click on the picture and you’ll be in the know.",
+        tile_points: "5",
+        points_label: "Points",
+        tile_question: "The 2014 Benefit Enrollment Guide includes information on:",
+        tile_answers: [ "The New Choice Fund Plan", "The New Teledoc Program", "The New Perks@work Discount program", "All Of The Above"],
+        correct_answer_index: 3
+        %> 
 
-<section class="hidden_large_tiles heineken_success">
-  <div class="tile_holder client_created">
-    <div class="tile_full_image">
-      <%= image_tag "case_studies/heineken_tile_setyourselfup.png", "alt" => "Set Yourself Up For Success" %>
-    </div>
-    <div class="tile_texts_container">
-      <div class="tile_headline">Set Yourself Up for Success</div>
-      <div class="tile_supporting_content">Click on the image to visit Heineken's Star Academy to review all of the Benefits Webinars and slides to assist in making a decision for your 2014 Benefits. We have general info sessions, as well as targeted sessions including Serious Health Conditions and Having a Baby. Check out the Star Academy!</div>
-      <div class="tile_quiz">
-        <div class="tile_points_bar">
-          <div class="earnable_points">
-            <span class="num_of_points">5</span><span class="points_label">Points</span>
-          </div>
-        </div>
-        <div class="tile_question">
-         Where can I view benefits webinars to learn more about my options?
-        </div>
-        <div class="multiple_choice_group">
-          <div class="clicked_right_answer"><a href="#!">Star Academy</a></div>
-          <div class="tile_multiple_choice_answer"><a href="#!">Star Track</a></div>
-          <div class="tile_multiple_choice_answer"><a href="#!">Star Trek Website</a></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+   <%=render"fullsize_tile", thumbnail_class:  "heineken_success",
+        thumbnail_image: "case_studies/heineken_tile_setyourselfup.png", 
+        tile_headline: "Set Yourself Up for Success", 
+        tile_supporting_content: "Click on the image to visit Heineken's Star Academy to review all of the Benefits Webinars and slides to assist in making a decision for your 2014 Benefits. We have general info sessions, as well as targeted sessions including Serious Health Conditions and Having a Baby. Check out the Star Academy!",
+        tile_points: "5",
+        points_label: "Points",
+        tile_question: "Where can I view benefits webinars to learn more about my options?",
+        tile_answers: [ "Star Academy", "Star Track", "Star Trek Website"],
+        correct_answer_index: 0
+        %> 
 
-<section class="hidden_large_tiles asha_enroll">
-  <div class="tile_holder client_created">
-    <div class="tile_full_image">
-      <%= image_tag "case_studies/asha_tile_enroll.png", "alt" => "Open Enrollment Drop-In Sessions" %>
-    </div>
-    <div class="tile_texts_container">
-      <div class="tile_headline">Open Enrollment Drop-In Sessions</div>
-      <div class="tile_supporting_content">The HR team will be available during this open enrollment period to answer your questions and help you make your 2014 elections via the EBIX Benefits System. Open Enrollment Drop-In Sessions are open to all and will be held in the 4th floor IS Training Room if you'd like a little extra help.</div>
-      <div class="tile_quiz">
-        <div class="tile_points_bar">
-          <div class="earnable_points">
-            <span class="num_of_points">25</span><span class="points_label">Points</span>
-          </div>
-        </div>
-        <div class="tile_question">
-          What is the last day you can submit open enrollment changes and elections?
-        </div>
-        <div class="multiple_choice_group">
-          <div class="tile_multiple_choice_answer"><a href="#!">December 31</a></div>
-          <div class="clicked_right_answer"><a href="#!">November 30</a></div>
-          <div class="tile_multiple_choice_answer"><a href="#!">July 4</a></div>
-        </div>
-      </div>
-    </div> 
-  </div>
-</section>
+  <%=render"fullsize_tile", thumbnail_class:  "asha_enroll",
+        thumbnail_image: "case_studies/asha_tile_enroll.png", 
+        tile_headline: "Open Enrollment Drop-In Sessions", 
+        tile_supporting_content: "The HR team will be available during this open enrollment period to answer your questions and help you make your 2014 elections via the EBIX Benefits System. Open Enrollment Drop-In Sessions are open to all and will be held in the 4th floor IS Training Room if you'd like a little extra help.",
+        tile_points: "5",
+        points_label: "Points",
+        tile_question: "What is the last day you can submit open enrollment changes and elections?",
+        tile_answers: [ "December 31", "November 30", "July 4"],
+        correct_answer_index: 1
+        %>       
 
-<section class="hidden_large_tiles fujifilm_takestwo">
-  <div class="tile_holder client_created">
-    <div class="tile_full_image">
-      <%= image_tag "case_studies/fujifilm_tiles_takestwo.png", "alt" => "It takes two" %>
-    </div>
-    <div class="tile_texts_container">
-      <div class="tile_headline">It takes two</div>
-      <div class="tile_supporting_content">This year, you must complete BOTH the Health Assessment & the Health Screening to get a $360 premium credit. You'll find out important numbers from your screening that can help keep you healthy. And, your assessment report will be even more helpful when you enter your screening numbers.</div>
-      <div class="tile_quiz">
-        <div class="tile_points_bar">
-          <div class="earnable_points">
-            <span class="num_of_points">5</span><span class="points_label">Points</span>
-          </div>
-        </div>
-        <div class="tile_question">
-          What do you have to do by Nov 15 to get $360?
-        </div>
-        <div class="multiple_choice_group">
-          <div class="tile_multiple_choice_answer"><a href="#!">The Health Screening (Biometrics)</a></div>
-          <div class="tile_multiple_choice_answer"><a href="#!">The Health Assessment</a></div>
-          <div class="clicked_right_answer"><a href="#!">Both The Biometrics And The Health Assessment</a></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+  <%=render"fullsize_tile", thumbnail_class:  "fujifilm_takestwo",
+        thumbnail_image: "case_studies/fujifilm_tiles_takestwo.png", 
+        tile_headline: "It takes two", 
+        tile_supporting_content: "This year, you must complete BOTH the Health Assessment & the Health Screening to get a $360 premium credit. You'll find out important numbers from your screening that can help keep you healthy. And, your assessment report will be even more helpful when you enter your screening numbers.",
+        tile_points: "5",
+        points_label: "Points",
+        tile_question: "What do you have to do by Nov 15 to get $360?",
+        tile_answers: [ "The Health Screening (Biometrics)", "The Health Assessment", "Both The Biometrics And The Health Assessment"],
+        correct_answer_index: 2
+        %>   
 
-<section class="hidden_large_tiles fujifilm_new">
-  <div class="tile_holder client_created">
-    <div class="tile_full_image">
-      <%= image_tag "case_studies/fujifilm_tile_new.png", "alt" => "There's something different about enrollment this year..." %>
-    </div>
-    <div class="tile_texts_container">
-      <div class="tile_headline">There's something different about enrollment this year...</div>
-      <div class="tile_supporting_content">You MUST enroll to have medical, dental and vision coverage for 2014. If you don't enroll by Nov 15, you won't have coverage, except for life insurance.You will also not receive a credit for waiving coverage. Under Health Care Reform law, you must have health insurance starting January 1, 2014.</div>
-      <div class="tile_quiz">
-        <div class="tile_points_bar">
-          <div class="earnable_points">
-            <span class="num_of_points">5</span><span class="points_label">Points</span>
-          </div>
-        </div>
-        <div class="tile_question">
-          What happens if you don't enroll by November 15?
-        </div>
-        <div class="multiple_choice_group">
-          <div class="clicked_right_answer"><a href="#!">You Wont Have Coverage, Except For Life Insurance</a></div>
-          <div class="tile_multiple_choice_answer"><a href="#!">You Will Have The Same Coverage You Do Now</a></div>
-          <div class="tile_multiple_choice_answer"><a href="#!">You Will Have Medical, Dental And Vision Coverage</a></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+  <%=render"fullsize_tile", thumbnail_class:  "fujifilm_new",
+        thumbnail_image: "case_studies/fujifilm_tile_new.png", 
+        tile_headline: "There's something different about enrollment this year...", 
+        tile_supporting_content: "You MUST enroll to have medical, dental and vision coverage for 2014. If you don't enroll by Nov 15, you won't have coverage, except for life insurance.You will also not receive a credit for waiving coverage. Under Health Care Reform law, you must have health insurance starting January 1, 2014.",
+        tile_points: "5",
+        points_label: "Points",
+        tile_question: "What happens if you don't enroll by November 15?",
+        tile_answers: [ "You Wont Have Coverage, Except For Life Insurance", "You Will Have The Same Coverage You Do Now", "You Will Have Medical, Dental And Vision Coverage"],
+        correct_answer_index: 0
+        %>  
 
-<section class="hidden_large_tiles explore piggy_bank">
-  <div class="tile_holder client_created">
-    <div class="tile_full_image">
-      <%= image_tag "Explore_tile_page/piggy_bank_two.png", "alt" => "How full is your retirement piggy bank?" %>
-    </div>
-    <div class="tile_texts_container">
-      <div class="tile_headline">How full is your retirement piggy bank?</div>
-      <div class="tile_supporting_content">Did you know... the company offers a 60% 401(k) match? That means that for every dollar you contribute, the company adds $0.60. That's a lot of extra savings!.</div>
-      <div class="tile_quiz">
-        <div class="tile_points_bar">
-          <div class="earnable_points">
-            <span class="num_of_points">5</span><span class="points_label">Points</span>
-          </div>
-        </div>
-        <div class="tile_question">
-          If you put $100 into your 401(k) this year, how much will the company add?
-        </div>
-        <div class="multiple_choice_group">
-          <div class="tile_multiple_choice_answer"><a href="#!">$6.00</a></div>
-          <div class="clicked_right_answer"><a href="#!">$60.00</a></div>
-          <div class="tile_multiple_choice_answer"><a href="#!">$100.00</a></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+  <%=render"fullsize_tile", thumbnail_class:  "piggy_bank",
+        thumbnail_image: "Explore_tile_page/piggy_bank_two.png", 
+        tile_headline: "How full is your retirement piggy bank?", 
+        tile_supporting_content: "Did you know... the company offers a 60% 401(k) match? That means that for every dollar you contribute, the company adds $0.60. That's a lot of extra savings!",
+        tile_points: "5",
+        points_label: "Points",
+        tile_question: "If you put $100 into your 401(k) this year, how much will the company add?",
+        tile_answers: [ "$6.00", "$60.00", "$100.00"],
+        correct_answer_index: 1
+        %> 
 
-<section class="hidden_large_tiles explore miss_out">
-  <div class="tile_holder client_created">
-    <div class="tile_full_image">
-      <%= image_tag "Explore_tile_page/open_enrollment.png", "alt" => "Don't miss out!" %>
-    </div>
-    <div class="tile_texts_container">
-      <div class="tile_headline">Don't miss out!</div>
-      <div class="tile_supporting_content">Open Enrollment for 2014 benefits is October 17 - November 20, 2013. You MUST enroll for coverage.</div>
-      <div class="tile_quiz">
-        <div class="tile_points_bar">
-          <div class="earnable_points">
-            <span class="num_of_points">5</span><span class="points_label">Points</span>
-          </div>
-        </div>
-        <div class="tile_question">
-          When is the last day of enrollment?
-        </div>
-        <div class="multiple_choice_group">
-          <div class="tile_multiple_choice_answer"><a href="#!">October 17</a></div>
-          <div class="tile_multiple_choice_answer"><a href="#!">November 17</a></div>
-          <div class="clicked_right_answer"><a href="#!">November 20</a></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+  <%=render"fullsize_tile", thumbnail_class:  "explore miss_out",
+        thumbnail_image: "Explore_tile_page/open_enrollment.png", 
+        tile_headline: "Don't miss out!", 
+        tile_supporting_content: "Open Enrollment for 2014 benefits is October 17 - November 20, 2013. You MUST enroll for coverage.",
+        tile_points: "5",
+        points_label: "Points",
+        tile_question: "When is the last day of enrollment?",
+        tile_answers: [ "October 17", "November 17", "November 20"],
+        correct_answer_index: 2
+        %> 
 
   <!-- ============= full safety sample tiles ============= -->
 
-<section class="hidden_large_tiles miltoncat_incident">
-  <div class="tile_holder client_created">
-    <div class="tile_full_image">
-      <%= image_tag "case_studies/miltoncat_tile_reviewingincidents.png", "alt" => "Why Reviewing Incidents is Important" %>
-    </div>
-    <div class="tile_texts_container">
-      <div class="tile_headline">Determine Root Causes to Prevent Re-Occurrences</div>
-      <div class="tile_supporting_content">Root causes can be identified by asking “why?”. For every incident or event there is a root cause. Find & address the root cause rather than trying to only fix the result. This week’s Safety Brief is September’s accidents, injuries, and near misses for you to review with your co-workers and post.</div>
-      <div class="tile_quiz">
-        <div class="tile_points_bar">
-          <div class="earnable_points">
-            <span class="num_of_points">2</span><span class="points_label">Points</span>
-          </div>
-        </div>
-        <div class="tile_question">
-          How do you prevent an incident from re-occurring?
-        </div>
-        <div class="multiple_choice_group">
-          <div class="tile_multiple_choice_answer"><a href="#!">Fix The Outcome Of The Prior Incident</a></div>
-          <div class="tile_multiple_choice_answer"><a href="#!">Stop Performing Those Job Functions/Actions</a></div>
-          <div class="clicked_right_answer"><a href="#!">Find & Address The Root Cause</a></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
 
-<section class="hidden_large_tiles miltoncat_fire">
-  <div class="tile_holder client_created">
-    <div class="tile_full_image">
-      <%= image_tag "case_studies/miltoncat_tile_fireextinguisher.png", "alt" => "Who Can Use a Fire Extinguishers at Milton CAT?" %>
-    </div>
-    <div class="tile_texts_container">
-      <div class="tile_headline">Who Can Use Fire Extinguishers at Milton CAT?</div>
-      <div class="tile_supporting_content">Only trained personnel are allowed to use fire extinguishers. Call 9-911 for help before attempting to extinguish a serious fire. The fire may take hold much faster than you're capable of dealing with.</div>
-      <div class="tile_quiz">
-        <div class="tile_points_bar">
-          <div class="earnable_points">
-            <span class="num_of_points">2</span><span class="points_label">Points</span>
-          </div>
-        </div>
-        <div class="tile_question">
-          Who can use a fire extinguisher at Milton CAT?
-        </div>
-        <div class="multiple_choice_group">
-          <div class="tile_multiple_choice_answer"><a href="#!">Anyone</a></div>
-          <div class="clicked_right_answer"><a href="#!">Only Trained Personnel</a></div>
-          <div class="tile_multiple_choice_answer"><a href="#!">Supervisors And Managers</a></div>
-          <div class="tile_multiple_choice_answer"><a href="#!">All Of The Above</a></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+  <%=render"fullsize_tile", thumbnail_class:  "miltoncat_incident",
+        thumbnail_image: "case_studies/miltoncat_tile_reviewingincidents.png", 
+        tile_headline: "Determine Root Causes to Prevent Re-Occurrences", 
+        tile_supporting_content: "Root causes can be identified by asking “why?”. For every incident or event there is a root cause. Find & address the root cause rather than trying to only fix the result. This week’s Safety Brief is September’s accidents, injuries, and near misses for you to review with your co-workers and post.",
+        tile_points: "2",
+        points_label: "Points",
+        tile_question: "How do you prevent an incident from re-occurring?",
+        tile_answers: [ "Fix The Outcome Of The Prior Incident", "Stop Performing Those Job Functions/Actions", "Find & Address The Root Cause"],
+        correct_answer_index: 2
+        %>   
 
-<section class="hidden_large_tiles miltoncat_safetybriefs">
-  <div class="tile_holder client_created">
-    <div class="tile_full_image">
-      <%= image_tag "case_studies/miltoncat_tile_safetybrief.png", "alt" => "The Importance of Safety Briefs" %>
-    </div>
-    <div class="tile_texts_container">
-      <div class="tile_headline">The Importance of Safety Briefs</div>
-      <div class="tile_supporting_content">Safety Briefings provide our workers a way to participate in the safety process. Workers prefer to receive important information verbally from their Supervisor. By having direct interaction about safety with the same individual in charge of productivity conveys the importance of the safety message.</div>
-      <div class="tile_quiz">
-        <div class="tile_points_bar">
-          <div class="earnable_points">
-            <span class="num_of_points">2</span><span class="points_label">Points</span>
-          </div>
-        </div>
-        <div class="tile_question">
-          Why is it important to conduct safety briefings?
-        </div>
-        <div class="multiple_choice_group">
-          <div class="tile_multiple_choice_answer"><a href="#!">It Conveys The Importance Of Safety Messages</a></div>
-          <div class="tile_multiple_choice_answer"><a href="#!">Workers Prefer Direct Interaction With Supervisors</a></div>
-          <div class="tile_multiple_choice_answer"><a href="#!">It Gives Workers A Way To Participate In Safety</a></div>
-           <div class="clicked_right_answer"><a href="#!">All Of The Above</a></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+  <%=render"fullsize_tile", thumbnail_class:  "miltoncat_fire",
+        thumbnail_image: "case_studies/miltoncat_tile_fireextinguisher.png", 
+        tile_headline: "Who Can Use Fire Extinguishers at Milton CAT?", 
+        tile_supporting_content: "Only trained personnel are allowed to use fire extinguishers. Call 9-911 for help before attempting to extinguish a serious fire. The fire may take hold much faster than you're capable of dealing with.",
+        tile_points: "2",
+        points_label: "Points",
+        tile_question: "Who can use a fire extinguisher at Milton CAT?",
+        tile_answers: [ "Anyone", "Only Trained Personnel", "Supervisors And Managers", "All Of The Above"],
+        correct_answer_index: 1
+        %> 
 
-<section class="hidden_large_tiles explore safety_binders">
-  <div class="tile_holder client_created">
-    <div class="tile_full_image">
-      <%= image_tag "Explore_tile_page/safety_binders.jpg", "alt" => "The Importance of Safety Briefs" %>
-    </div>
-    <div class="tile_texts_container">
-      <div class="tile_headline">Safety Binders</div>
-      <div class="tile_supporting_content">Safety polices and procedures are kept in the yellow safety binders located in the front office and outside of each department head's office.</div>
-      <div class="tile_quiz">
-        <div class="tile_points_bar">
-          <div class="earnable_points">
-            <span class="num_of_points">2</span><span class="points_label">Points</span>
-          </div>
-        </div>
-        <div class="tile_question">
-          What is in safety binders?
-        </div>
-        <div class="multiple_choice_group">
-          <div class="tile_multiple_choice_answer"><a href="#!">Personal protective equipment</a></div>
-          <div class="clicked_right_answer"><a href="#!">Safety policies</a></div>
-          <div class="tile_multiple_choice_answer"><a href="#!">Gloves</a>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+  <%=render"fullsize_tile", thumbnail_class:  "miltoncat_safetybriefs",
+        thumbnail_image: "case_studies/miltoncat_tile_safetybrief.png", 
+        tile_headline: "The Importance of Safety Briefs", 
+        tile_supporting_content: "Safety Briefings provide our workers a way to participate in the safety process. Workers prefer to receive important information verbally from their Supervisor. By having direct interaction about safety with the same individual in charge of productivity conveys the importance of the safety message.",
+        tile_points: "2",
+        points_label: "Points",
+        tile_question: "Why is it important to conduct safety briefings?",
+        tile_answers: [ "It Conveys The Importance Of Safety Messages", "Workers Prefer Direct Interaction With Supervisors", "It Gives Workers A Way To Participate In Safety", "All Of The Above"],
+        correct_answer_index: 3
+        %> 
+
+  <%=render"fullsize_tile", thumbnail_class:  "explore safety_binders",
+        thumbnail_image: "Explore_tile_page/safety_binders.jpg", 
+        tile_headline: "Safety Binders", 
+        tile_supporting_content: "Safety polices and procedures are kept in the yellow safety binders located in the front office and outside of each department head's office.",
+        tile_points: "5",
+        points_label: "Points",
+        tile_question: "What is in safety binders?",
+        tile_answers: [ "Personal Protective Equipment", "Safety Policies", "Gloves"],
+        correct_answer_index: 1
+        %> 
+
 
 <!-- ============= full Wellness sample tiles ============= -->
 
-<section class="hidden_large_tiles asha_fitness">
-  <div class="tile_holder client_created">
-    <div class="tile_full_image">
-      <%= image_tag "case_studies/asha_tile_fitness.png", "alt" => "Last Chance to Sign Up for this Session of Fitness Classes" %>
-    </div>
-    <div class="tile_texts_container">
-      <div class="tile_headline">Last Chance to Sign Up for this Session of Fitness Classes</div>
-      <div class="tile_supporting_content">A new 12-week fitness class schedule starts October 28th and runs through January 17th. We have two new classes this session -- dance ballet barre and core values. Join us and ward off holiday stress and get a jump on your new years weight loss goals.</div>
-      <div class="tile_quiz">
-        <div class="tile_points_bar">
-          <div class="earnable_points">
-            <span class="num_of_points">10</span><span class="points_label">Points</span>
-          </div>
-        </div>
-        <div class="tile_question">
-          When does this session end?
-        </div>
-        <div class="multiple_choice_group">
-          <div class="tile_multiple_choice_answer"><a href="#!">October 28</a></div>
-          <div class="tile_multiple_choice_answer"><a href="#!">December 1</a></div>
-          <div class="clicked_right_answer"><a href="#!">January 17</a></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+  <%=render"fullsize_tile", thumbnail_class:  "asha_fitness",
+        thumbnail_image: "case_studies/asha_tile_fitness.png", 
+        tile_headline: "Last Chance to Sign Up for this Session of Fitness Classes", 
+        tile_supporting_content: "A new 12-week fitness class schedule starts October 28th and runs through January 17th. We have two new classes this session -- dance ballet barre and core values. Join us and ward off holiday stress and get a jump on your new years weight loss goals.",
+        tile_points: "10",
+        points_label: "Points",
+        tile_question: "When does this session end?",
+        tile_answers: [ "October 28", "December 1", "January 17"],
+        correct_answer_index: 2
+        %> 
 
-<section class="hidden_large_tiles npswellness_yoga">
-  <div class="tile_holder client_created">
-    <div class="tile_full_image">
-      <%= image_tag "customer_tiles/nps_tile_yoga.png", "alt" => "Two new yoga classes for you!" %>
-    </div>
-    <div class="tile_texts_container">
-      <div class="tile_headline">Two new yoga classes for you!</div>
-      <div class="tile_supporting_content">Tuesdays at 3:30 in the Music Room and Thursdays at 3:30 in the Cafeteria. Why practice yoga? Click on the photo to find out 38 ways yoga helps keep you fit!</div>
-      <div class="tile_quiz">
-        <div class="tile_points_bar">
-          <div class="earnable_points">
-            <span class="num_of_points">2</span><span class="points_label">Points</span>
-          </div>
-        </div>
-        <div class="tile_question">
-         Points for reading this tile. 
-        </div>
-        <div class="multiple_choice_group">
-          <div class="clicked_right_answer"><a href="#!">I Read This Tile</a></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+  <%=render"fullsize_tile", thumbnail_class:  "npswellness_yoga",
+        thumbnail_image: "customer_tiles/nps_tile_yoga.png", 
+        tile_headline: "Two new yoga classes for you!", 
+        tile_supporting_content: "Tuesdays at 3:30 in the Music Room and Thursdays at 3:30 in the Cafeteria. Why practice yoga? Click on the photo to find out 38 ways yoga helps keep you fit!",
+        tile_points: "5",
+        points_label: "Points",
+        tile_question: "Points for reading this tile.",
+        tile_answers: [ "I read this tile."],
+        correct_answer_index: 0
+        %> 
 
-<section class="hidden_large_tiles npswellness_salute">
-  <div class="tile_holder client_created">
-    <div class="tile_full_image">
-      <%= image_tag "customer_tiles/nps_tile_salute.png", "alt" => "Identify The Signs Public Education Campaign Takes Off" %>
-    </div>
-    <div class="tile_texts_container">
-      <div class="tile_headline">It's National Impaired Driving Prevention Month. Click graphic for info.</div>
-      <div class="tile_supporting_content">Designate a sober driver before celebrations begin. Plan safe parties, including non-alcoholic drink options. Don't serve alcohol the last hour of the gathering. Never serve alcohol to those under the age of 21. If you’ve been drinking, call a cab or a sober friend or relative. PLEASE STAY SAFE.</div>
-      <div class="tile_quiz">
-        <div class="tile_points_bar">
-          <div class="earnable_points">
-            <span class="num_of_points">3</span><span class="points_label">Points</span>
-          </div>
-        </div>
-        <div class="tile_question">
-          If you're only driving a short distance home, it's OK to have a few drinks.
-        </div>
-        <div class="multiple_choice_group">
-          <div class="tile_multiple_choice_answer"><a href="#!">True</a></div>
-          <div class="clicked_right_answer"><a href="#!">False</a></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+  <%=render"fullsize_tile", thumbnail_class:  "npswellness_salute",
+        thumbnail_image: "customer_tiles/nps_tile_salute.png", 
+        tile_headline: "It's National Impaired Driving Prevention Month. Click graphic for info.", 
+        tile_supporting_content: "Designate a sober driver before celebrations begin. Plan safe parties, including non-alcoholic drink options. Don't serve alcohol the last hour of the gathering. Never serve alcohol to those under the age of 21. If you’ve been drinking, call a cab or a sober friend or relative. PLEASE STAY SAFE.",
+        tile_points: "5",
+        points_label: "Points",
+        tile_question: "If you're only driving a short distance home, it's OK to have a few drinks.",
+        tile_answers: [ "True", "False"],
+        correct_answer_index: 1
+        %> 
 
-<section class="hidden_large_tiles explore stressed_work">
-  <div class="tile_holder client_created">
-    <div class="tile_full_image">
-      <%= image_tag "Explore_tile_page/walk_break.jpg", "alt" => "Feeling stressed at work?" %>
-    </div>
-    <div class="tile_texts_container">
-      <div class="tile_headline">Feeling stressed at work?</div>
-      <div class="tile_supporting_content">A short 5 minute walk can help! Studies show getting up from your desk and take a break can help improve your focus dramatically.</div>
-      <div class="tile_quiz">
-        <div class="tile_points_bar">
-          <div class="earnable_points">
-            <span class="num_of_points">5</span><span class="points_label">Points</span>
-          </div>
-        </div>
-        <div class="tile_question">
-          Earn points for reading!
-        </div>
-        <div class="multiple_choice_group">
-          <div class="clicked_right_answer"><a href="#!">I read this tile.</a></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+  <%=render"fullsize_tile", thumbnail_class:  "explore stressed_work",
+        thumbnail_image: "Explore_tile_page/walk_break.jpg", 
+        tile_headline: "Feeling stressed at work?", 
+        tile_supporting_content: "A short 5 minute walk can help! Studies show getting up from your desk and take a break can help improve your focus dramatically.",
+        tile_points: "5",
+        points_label: "Points",
+        tile_question: "Earn points for reading!",
+        tile_answers: [ "I read this tile."],
+        correct_answer_index: 0
+        %> 
 
-<section class="hidden_large_tiles explore sleep_deal">
-  <div class="tile_holder client_created">
-    <div class="tile_full_image">
-      <%= image_tag "Explore_tile_page/sleep.png", "alt" => "What's the big deal about sleep? " %>
-    </div>
-    <div class="tile_texts_container">
-      <div class="tile_headline">What's the big deal about sleep? </div>
-      <div class="tile_supporting_content">Did you know... you're 3X more likely to catch a cold if you get less than 7 hours of sleep a night?</div>
-      <div class="tile_quiz">
-        <div class="tile_points_bar">
-          <div class="earnable_points">
-            <span class="num_of_points">5</span><span class="points_label">Points</span>
-          </div>
-        </div>
-        <div class="tile_question">
-         How much sleep should you get a night?
-        </div>
-        <div class="multiple_choice_group">
-          <div class="tile_multiple_choice_answer"><a href="#!">6 hours</a></div>
-          <div class="tile_multiple_choice_answer"><a href="#!">6.5 hours</a></div>
-          <div class="clicked_right_answer"><a href="#!">7 hours</a></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+  <%=render"fullsize_tile", thumbnail_class:  "explore sleep_deal",
+        thumbnail_image: "Explore_tile_page/sleep.png", 
+        tile_headline: "What's the big deal about sleep?", 
+        tile_supporting_content: "Did you know... you're 3X more likely to catch a cold if you get less than 7 hours of sleep a night?",
+        tile_points: "5",
+        points_label: "Points",
+        tile_question: "How much sleep should you get a night?",
+        tile_answers: [ "6 Hours", "6.5 Hours", "7 Hours"],
+        correct_answer_index: 2
+        %> 
 
-<section class="hidden_large_tiles explore big_serving">
-  <div class="tile_holder client_created">
-    <div class="tile_full_image">
-      <%= image_tag "Explore_tile_page/fruits_veggies.png", "alt" => "How big is a serving?" %>
-    </div>
-    <div class="tile_texts_container">
-      <div class="tile_headline">How big is a serving?</div>
-      <div class="tile_supporting_content">5 servings of fruits and veggies a day is less food then you think! One serving can be 1/2 cup fresh, frozen or canned fruits or veggies or 1 cup raw leafy greens.</div>
-      <div class="tile_quiz">
-        <div class="tile_points_bar">
-          <div class="earnable_points">
-            <span class="num_of_points">5</span><span class="points_label">Points</span>
-          </div>
-        </div>
-        <div class="tile_question">
-         How much is one serving of fresh, frozen or canned fruits or veggies?
-        </div>
-        <div class="multiple_choice_group">
-          <div class="tile_multiple_choice_answer"><a href="#!">1 cup</a></div>
-          <div class="clicked_right_answer"><a href="#!">1/2 cup</a></div>
-          <div class="tile_multiple_choice_answer"><a href="#!">3/4 cup</a></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+  <%=render"fullsize_tile", thumbnail_class:  "explore big_serving",
+        thumbnail_image: "Explore_tile_page/fruits_veggies.png", 
+        tile_headline: "How big is a serving?", 
+        tile_supporting_content: "5 servings of fruits and veggies a day is less food then you think! One serving can be 1/2 cup fresh, frozen or canned fruits or veggies or 1 cup raw leafy greens.",
+        tile_points: "5",
+        points_label: "Points",
+        tile_question: "How much is one serving of fresh, frozen or canned fruits or veggies?",
+        tile_answers: [ "1 Cup", "1/2 Cup", "3/4 Cup"],
+        correct_answer_index: 1
+        %>         
 
-<section class="hidden_large_tiles explore steps_healthier">
-  <div class="tile_holder client_created">
-    <div class="tile_full_image">
-      <%= image_tag "Explore_tile_page/climbing_stairs.png", "alt" => "Last Chance to Sign Up for this Session of Fitness Classes" %>
-    </div>
-    <div class="tile_texts_container">
-      <div class="tile_headline">Steps to a healthier you</div>
-      <div class="tile_supporting_content">Did you know the just 5 minutes of climbing the stairs can burn over 25 calories? Commit to taking the stairs instead of the elevator for a healthier you!</div>
-      <div class="tile_quiz">
-        <div class="tile_points_bar">
-          <div class="earnable_points">
-            <span class="num_of_points">5</span><span class="points_label">Points</span>
-          </div>
-        </div>
-        <div class="tile_question">
-         Points for reading!
-        </div>
-        <div class="multiple_choice_group">
-          <div class="clicked_right_answer"><a href="#!">I read this tile.</a></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+  <%=render"fullsize_tile", thumbnail_class:  "explore steps_healthier",
+        thumbnail_image: "Explore_tile_page/climbing_stairs.png", 
+        tile_headline: "Steps to a healthier you", 
+        tile_supporting_content: "Did you know the just 5 minutes of climbing the stairs can burn over 25 calories? Commit to taking the stairs instead of the elevator for a healthier you!",
+        tile_points: "5",
+        points_label: "Points",
+        tile_question: "Points for reading!",
+        tile_answers: [ "I read this tile"],
+        correct_answer_index: 0
+        %> 
 
-<section class="hidden_large_tiles explore small_changes">
-  <div class="tile_holder client_created">
-    <div class="tile_full_image">
-      <%= image_tag "Explore_tile_page/small_changes.jpg", "alt" => "Small changes can mean big results!" %>
-    </div>
-    <div class="tile_texts_container">
-      <div class="tile_headline">Small changes can mean big results!</div>
-      <div class="tile_supporting_content">Want to improve your health but not sure where to start? Try focusing on fruits and veggies. Squeeze in one extra fruit or veggie every day this week. Experts agree that eating more fruits and vegetables is the best way to prevent cancer, heart disease, and diabetes.</div>
-      <div class="tile_quiz">
-        <div class="tile_points_bar">
-          <div class="earnable_points">
-            <span class="num_of_points">5</span><span class="points_label">Points</span>
-          </div>
-        </div>
-        <div class="tile_question">
-         Points for reading!
-        </div>
-        <div class="multiple_choice_group">
-          <div class="clicked_right_answer"><a href="#!">I read this tile.</a></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-
+  <%=render"fullsize_tile", thumbnail_class:  "explore small_changes",
+        thumbnail_image: "Explore_tile_page/small_changes.jpg", 
+        tile_headline: "Small changes can mean big results!", 
+        tile_supporting_content: "Want to improve your health but not sure where to start? Try focusing on fruits and veggies. Squeeze in one extra fruit or veggie every day this week. Experts agree that eating more fruits and vegetables is the best way to prevent cancer, heart disease, and diabetes.",
+        tile_points: "5",
+        points_label: "Points",
+        tile_question: "Points for reading!",
+        tile_answers: [ "I read this tile"],
+        correct_answer_index: 0
+        %> 
 
 <!-- ============= full HCR sample tiles ============= -->
 
-<section class="hidden_large_tiles explore shop_marketplace">
-  <div class="tile_holder client_created">
-    <div class="tile_full_image">
-      <%= image_tag "Explore_tile_page/Healthcare_coverage.jpg", "alt" => "Who can shop on the Marketplace?" %>
-    </div>
-    <div class="tile_texts_container">
-      <div class="tile_headline">Who can shop on the Marketplace?</div>
-      <div class="tile_supporting_content">Almost anyone can purchase insurance on the Marketplace (even if you have other coverage options). To enroll, you must live in the U.S., be a U/S. citizen/national, and not be incarcerated.</div>
-      <div class="tile_quiz">
-        <div class="tile_points_bar">
-          <div class="earnable_points">
-            <span class="num_of_points">5</span><span class="points_label">Points</span>
-          </div>
-        </div>
-        <div class="tile_question">
-          Can you purchase insurance on the Marketplace if you have other coverage options?
-        </div>
-        <div class="multiple_choice_group">
-          <div class="clicked_right_answer"><a href="#!">Yes</a></div>
-          <div class="tile_multiple_choice_answer"><a href="#!">No</a></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+ <%=render"fullsize_tile", thumbnail_class:  "explore shop_marketplace",
+        thumbnail_image: "Explore_tile_page/Healthcare_coverage.jpg", 
+        tile_headline: "Who can shop on the Marketplace?", 
+        tile_supporting_content: "Almost anyone can purchase insurance on the Marketplace (even if you have other coverage options). To enroll, you must live in the U.S., be a U/S. citizen/national, and not be incarcerated.",
+        tile_points: "5",
+        points_label: "Points",
+        tile_question: "Can you purchase insurance on the Marketplace if you have other coverage options?",
+        tile_answers: [ "Yes", "No"],
+        correct_answer_index: 0
+        %> 
 
-<section class="hidden_large_tiles explore everyone_coverage">
-  <div class="tile_holder client_created">
-    <div class="tile_full_image">
-      <%= image_tag "Explore_tile_page/woman_pondering.jpg", "alt" => "Everyone must have health care coverage" %>
-    </div>
-    <div class="tile_texts_container">
-      <div class="tile_headline">Everyone must have health care coverage</div>
-      <div class="tile_supporting_content">You must be enrolled in a health plan that meets "basic minimum standards." This can include a plan through your employer, the government or an individual plan..</div>
-      <div class="tile_quiz">
-        <div class="tile_points_bar">
-          <div class="earnable_points">
-            <span class="num_of_points">5</span><span class="points_label">Points</span>
-          </div>
-        </div>
-        <div class="tile_question">
-         You must be enrolled in a health plan that meets  __________.?
-        </div>
-        <div class="multiple_choice_group">
-          <div class="tile_multiple_choice_answer"><a href="#!">Basic maximum standards</a></div>
-          <div class="clicked_right_answer"><a href="#!">Basic minimum standards</a></div>
-      </div>
-    </div>
-  </div>
-</div>
-</section>
+ <%=render"fullsize_tile", thumbnail_class:  "explore everyone_coverage",
+        thumbnail_image: "Explore_tile_page/woman_pondering.jpg", 
+        tile_headline: "Everyone must have health care coverage", 
+        tile_supporting_content: "You must be enrolled in a health plan that meets 'basic minimum standards'. This can include a plan through your employer, the government or an individual plan.",
+        tile_points: "5",
+        points_label: "Points",
+        tile_question: "You must be enrolled in a health plan that meets  __________.?",
+        tile_answers: [ "Basic Maximum Standards", "Basic Minimum Standards"],
+        correct_answer_index: 1
+        %>
 
-<section class="hidden_large_tiles explore_stethoscope">
-  <div class="tile_holder client_created">
-    <div class="tile_full_image">
-      <%= image_tag "Explore_tile_page/stethoscope.jpg", "alt" => "No coverage? You'll pay a penalty." %>
-    </div>
-    <div class="tile_texts_container">
-      <div class="tile_headline">No coverage? You'll pay a penalty.</div>
-      <div class="tile_supporting_content">If you don't have health insurance, you will pay a monthly penalty. For 2014, the base penalty is: $95.00 per adult per month (or 1% of income, whichever is greater) and $47.50 per child per month (up to $285 per family).</div>
-      <div class="tile_quiz">
-        <div class="tile_points_bar">
-          <div class="earnable_points">
-            <span class="num_of_points">5</span><span class="points_label">Points</span>
-          </div>
-        </div>
-        <div class="tile_question">
-        How much is the monthly penalty per adult per month? 
-        </div>
-        <div class="multiple_choice_group">
-          <div class="tile_multiple_choice_answer"><a href="#!">$85</a></div>
-          <div class="clicked_right_answer"><a href="#!">$95</a></div>
-          <div class="tile_multiple_choice_answer"><a href="#!">$105</a></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+ <%=render"fullsize_tile", thumbnail_class:  "explore_stethoscope",
+        thumbnail_image: "Explore_tile_page/stethoscope.jpg", 
+        tile_headline: "No coverage? You'll pay a penalty.", 
+        tile_supporting_content: "If you don't have health insurance, you will pay a monthly penalty. For 2014, the base penalty is: $95.00 per adult per month (or 1% of income, whichever is greater) and $47.50 per child per month (up to $285 per family).",
+        tile_points: "5",
+        points_label: "Points",
+        tile_question: "How much is the monthly penalty per adult per month?",
+        tile_answers: [ "$85", "$95", "$105"],
+        correct_answer_index: 1
+        %>
 
-<section class="hidden_large_tiles explore no_limits">
-  <div class="tile_holder client_created">
-    <div class="tile_full_image">
-      <%= image_tag "Explore_tile_page/woman_calculator.jpg", "alt" => "No more annual or lifetime limits" %>
-    </div>
-    <div class="tile_texts_container">
-      <div class="tile_headline">No more annual or lifetime limits</div>
-      <div class="tile_supporting_content">Insurance plans will no longer be able to limit how much they spend on your covered benefits each year, or over your lifetime.</div>
-      <div class="tile_quiz">
-        <div class="tile_points_bar">
-          <div class="earnable_points">
-            <span class="num_of_points">5</span><span class="points_label">Points</span>
-          </div>
-        </div>
-        <div class="tile_question">
-         Can insurance plans limit how much they spend on your benefits? 
-        </div>
-        <div class="multiple_choice_group">
-          <div class="tile_multiple_choice_answer"><a href="#!">Yes</a></div>
-          <div class="clicked_right_answer"><a href="#!">No</a></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+ <%=render"fullsize_tile", thumbnail_class:  "explore no_limits",
+        thumbnail_image: "Explore_tile_page/woman_calculator.jpg", 
+        tile_headline: "No more annual or lifetime limits", 
+        tile_supporting_content: "Insurance plans will no longer be able to limit how much they spend on your covered benefits each year, or over your lifetime.",
+        tile_points: "5",
+        points_label: "Points",
+        tile_question: "Can insurance plans limit how much they spend on your benefits?",
+        tile_answers: [ "Yes", "No"],
+        correct_answer_index: 1
+        %>
 
 
 <!-- ============= full financial education sample tiles ============= -->
 
-<section class="hidden_large_tiles explore started_saving">
-  <div class="tile_holder client_created">
-    <div class="tile_full_image">
-      <%= image_tag "Explore_tile_page/piggy_bank.jpg", "alt" => "You've started saving, now what?" %>
-    </div>
-    <div class="tile_texts_container">
-      <div class="tile_headline">You've started saving, now what?</div>
-      <div class="tile_supporting_content">Make sure to explore all the retirement vehicles available to you, like: Target-date funds, mutual and exchange-traded funds, stocks, bonds, certificates of deposit and treasuries.</div>
-      <div class="tile_quiz">
-        <div class="tile_points_bar">
-          <div class="earnable_points">
-            <span class="num_of_points">5</span><span class="points_label">Points</span>
-          </div>
-        </div>
-        <div class="tile_question">
-         Points for reading!
-        </div>
-        <div class="multiple_choice_group">
-          <div class="clicked_right_answer"><a href="#!">I read this tile.</a></div>
-      </div>
-    </div>
-  </div>
-</div>
-</section>
+ <%=render"fullsize_tile", thumbnail_class:  "explore started_saving",
+        thumbnail_image: "Explore_tile_page/piggy_bank.jpg", 
+        tile_headline: "You've started saving, now what?", 
+        tile_supporting_content: "Make sure to explore all the retirement vehicles available to you, like: Target-date funds, mutual and exchange-traded funds, stocks, bonds, certificates of deposit and treasuries.",
+        tile_points: "5",
+        points_label: "Points",
+        tile_question: "Points for reading!",
+        tile_answers: [ "I read this tile.",],
+        correct_answer_index: 0
+        %>
 
-<section class="hidden_large_tiles explore roth_401k">
-  <div class="tile_holder client_created">
-    <div class="tile_full_image">
-      <%= image_tag "Explore_tile_page/roth_401k.jpg", "alt" => "No coverage? You'll pay a penalty." %>
-    </div>
-    <div class="tile_texts_container">
-      <div class="tile_headline">What's a Roth 401(k)?</div>
-      <div class="tile_supporting_content">With a Traditional 401(k) you make pre-tax contributions, but you'll pay taxes when you take the money out. With a Roth 401(k) you make after-tax contributions now, but you won't have to pay any taxes when you take the money out.</div>
-      <div class="tile_quiz">
-        <div class="tile_points_bar">
-          <div class="earnable_points">
-            <span class="num_of_points">5</span><span class="points_label">Points</span>
-          </div>
-        </div>
-        <div class="tile_question">
-        What kind of contributions do you make with a Roth 401(k)? 
-        </div>
-        <div class="multiple_choice_group">
-          <div class="tile_multiple_choice_answer"><a href="#!">Pre-tax</a></div>
-          <div class="clicked_right_answer"><a href="#!">After-tax</a></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+ <%=render"fullsize_tile", thumbnail_class:  "explore roth_401k",
+        thumbnail_image: "Explore_tile_page/roth_401k.jpg", 
+        tile_headline: "What's a Roth 401(k)?", 
+        tile_supporting_content: "With a Traditional 401(k) you make pre-tax contributions, but you'll pay taxes when you take the money out. With a Roth 401(k) you make after-tax contributions now, but you won't have to pay any taxes when you take the money out.",
+        tile_points: "5",
+        points_label: "Points",
+        tile_question: " What kind of contributions do you make with a Roth 401(k)? ",
+        tile_answers: [ "Pre-tax", "After-tax"],
+        correct_answer_index: 1
+        %>
 
-<section class="hidden_large_tiles explore get_facts">
-  <div class="tile_holder client_created">
-    <div class="tile_full_image">
-      <%= image_tag "Explore_tile_page/money.jpg", "alt" => "Get the facts" %>
-    </div>
-    <div class="tile_texts_container">
-      <div class="tile_headline">Get the facts</div>
-      <div class="tile_supporting_content">Fewer than half of Americans have calculated how much money they need to save for retirement. Take some time this week to estimate how much you'll need, so you can start working towards your goals.</div>
-      <div class="tile_quiz">
-        <div class="tile_points_bar">
-          <div class="earnable_points">
-            <span class="num_of_points">5</span><span class="points_label">Points</span>
-          </div>
-        </div>
-        <div class="tile_question">
-         I'll take time this week to estimate how much I'll need to save for retirement.
-        </div>
-        <div class="multiple_choice_group">
-          <div class="clicked_right_answer"><a href="#!">Made the commitment</a></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
 
-<section class="hidden_large_tiles explore earlier_better">
-  <div class="tile_holder client_created">
-    <div class="tile_full_image">
-      <%= image_tag "Explore_tile_page/golden_arrow.png", "alt" => "The earlier you start saving, the better!" %>
-    </div>
-    <div class="tile_texts_container">
-      <div class="tile_headline">The earlier you start saving, the better!</div>
-      <div class="tile_supporting_content">The earlier you start, the more time your money has to grow. Each year's gains can generate their own gains the next year. Hint: try starting small and increasing the amount you save each month!</div>
-      <div class="tile_quiz">
-        <div class="tile_points_bar">
-          <div class="earnable_points">
-            <span class="num_of_points">5</span><span class="points_label">Points</span>
-          </div>
-        </div>
-        <div class="tile_question">
-         Fill in the blank: The earlier you start saving, the more time your ______ has to grow.
-        </div>
-        <div class="multiple_choice_group">
-          <div class="clicked_right_answer"><a href="#!">Money</a></div>
-          <div class="tile_multiple_choice_answer"><a href="#!">HSA</a></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+ <%=render"fullsize_tile", thumbnail_class:  "explore get_facts",
+        thumbnail_image: "Explore_tile_page/money.jpg", 
+        tile_headline: "Get the facts", 
+        tile_supporting_content: "Fewer than half of Americans have calculated how much money they need to save for retirement. Take some time this week to estimate how much you'll need, so you can start working towards your goals.",
+        tile_points: "5",
+        points_label: "Points",
+        tile_question: "I'll take time this week to estimate how much I'll need to save for retirement.",
+        tile_answers: [ "Made a commitment"],
+        correct_answer_index: 0
+        %>
+
+
+ <%=render"fullsize_tile", thumbnail_class:  "explore earlier_better",
+        thumbnail_image: "Explore_tile_page/golden_arrow.png", 
+        tile_headline: "The earlier you start saving, the better!", 
+        tile_supporting_content: "The earlier you start, the more time your money has to grow. Each year's gains can generate their own gains the next year. Hint: try starting small and increasing the amount you save each month!",
+        tile_points: "5",
+        points_label: "Points",
+        tile_question: "Fill in the blank: The earlier you start saving, the more time your ______ has to grow.",
+        tile_answers: [ "Money", "HSA"],
+        correct_answer_index: 1
+        %>
+
 
 <!-- ============= full misc sample tiles ============= -->
 
-<section class="hidden_large_tiles explore performance_goals">
-  <div class="tile_holder client_created">
-    <div class="tile_full_image">
-      <%= image_tag "Explore_tile_page/performance_goals.jpg", "alt" => "Enter your performance goals by February 14th!" %>
-    </div>
-    <div class="tile_texts_container">
-      <div class="tile_headline">Enter your performance goals by February 14th!</div>
-      <div class="tile_supporting_content">All employees must input their 2014 performance goals into the Learning and Development Center by January 14th. Once input, your manager will schedule a meeting to review and plan for 2014.</div>
-      <div class="tile_quiz">
-        <div class="tile_points_bar">
-          <div class="earnable_points">
-            <span class="num_of_points">5</span><span class="points_label">Points</span>
-          </div>
-        </div>
-        <div class="tile_question">
-          When is the last day to input goals?
-        </div>
-        <div class="multiple_choice_group">
-          <div class="tile_multiple_choice_answer"><a href="#!">February 1, 2014</a></div>
-          <div class="clicked_right_answer"><a href="#!">February 14, 2014</a></div>
-          <div class="tile_multiple_choice_answer"><a href="#!">February 21, 2014</a></div
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+ <%=render"fullsize_tile", thumbnail_class:  "explore performance_goals",
+        thumbnail_image: "Explore_tile_page/performance_goals.jpg", 
+        tile_headline: "Enter your performance goals by February 14th!", 
+        tile_supporting_content: "All employees must input their 2014 performance goals into the Learning and Development Center by February 14th. Once input, your manager will schedule a meeting to review and plan for 2014.",
+        tile_points: "5",
+        points_label: "Points",
+        tile_question: "When is the last day to input goals?",
+        tile_answers: [ "February 1", "February 14", "February 21"],
+        correct_answer_index: 1
+        %>
 
-<section class="hidden_large_tiles explore go_green">
-  <div class="tile_holder client_created">
-    <div class="tile_full_image">
-      <%= image_tag "Explore_tile_page/go_green.png", "alt" => "Help us make the office more eco-friendly!" %>
-    </div>
-    <div class="tile_texts_container">
-      <div class="tile_headline">Help us make the office more eco-friendly!</div>
-      <div class="tile_supporting_content">Join the Green Team to help the office go green! You'll play an integral role in leading our new corporate eco-friendly initiative. The Green Team meets the first Wednesday of every month at 4 PM in the Executive Board Room.</div>
-      <div class="tile_quiz">
-        <div class="tile_points_bar">
-          <div class="earnable_points">
-            <span class="num_of_points">5</span><span class="points_label">Points</span>
-          </div>
-        </div>
-        <div class="tile_question">
-          Where does the Green Team meet?
-        </div>
-        <div class="multiple_choice_group">
-          <div class="tile_multiple_choice_answer"><a href="#!">East Conference Room</a></div>
-          <div class="tile_multiple_choice_answer"><a href="#!">Cafeteria</a></div>
-          <div class="clicked_right_answer"><a href="#!">Executive Board Room</a></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+ <%=render"fullsize_tile", thumbnail_class:  "go_green",
+        thumbnail_image: "Explore_tile_page/go_green.png", 
+        tile_headline: "Help us make the office more eco-friendly!", 
+        tile_supporting_content: "Join the Green Team to help the office go green! You'll play an integral role in leading our new corporate eco-friendly initiative. The Green Team meets the first Wednesday of every month at 4 PM in the Executive Board Room.",
+        tile_points: "5",
+        points_label: "Points",
+        tile_question: "Where does the Green Team meet?",
+        tile_answers: [ "East Conference Room", "Cafeteria", "Executive Board Room"],
+        correct_answer_index: 2
+        %>        
 
-<section class="hidden_large_tiles explore leadership_brunch">
-  <div class="tile_holder client_created">
-    <div class="tile_full_image">
-      <%= image_tag "Explore_tile_page/Leadership_brunch.jpg", "alt" => "Attend the leadership brunch" %>
-    </div>
-    <div class="tile_texts_container">
-      <div class="tile_headline">Attend the leadership brunch</div>
-      <div class="tile_supporting_content">Haven't met the new CEO? Have ideas for ways that we could improve the company? Join our leadership team every Friday from 8 AM - 9 AM in the cafeteria - we'd love to hear your thoughts!</div>
-      <div class="tile_quiz">
-        <div class="tile_points_bar">
-          <div class="earnable_points">
-            <span class="num_of_points">5</span><span class="points_label">Points</span>
-          </div>
-        </div>
-        <div class="tile_question">
-          Points for reading!
-        </div>
-        <div class="multiple_choice_group">
-          <div class="clicked_right_answer"><a href="#!">I read this tile. </a></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+ <%=render"fullsize_tile", thumbnail_class:  "explore leadership_brunch",
+        thumbnail_image: "Explore_tile_page/Leadership_brunch.jpg", 
+        tile_headline: "Help us make the office more eco-friendly!", 
+        tile_supporting_content: "Haven't met the new CEO? Have ideas for ways that we could improve the company? Join our leadership team every Friday from 8 AM - 9 AM in the cafeteria - we'd love to hear your thoughts!",
+        tile_points: "5",
+        points_label: "Points",
+        tile_question: "Points for reading!",
+        tile_answers: [ "I read this tile."],
+        correct_answer_index: 0
+        %>  
 
-<section class="hidden_large_tiles explore guiding_principles">
-  <div class="tile_holder client_created">
-    <div class="tile_full_image">
-      <%= image_tag "Explore_tile_page/guiding_principles.png", "alt" => "Did you know..." %>
-    </div>
-    <div class="tile_texts_container">
-      <div class="tile_headline">Did you know...</div>
-      <div class="tile_supporting_content">Our guiding principles are: innovation, diversity, social responsibility and collaboration.</div>
-      <div class="tile_quiz">
-        <div class="tile_points_bar">
-          <div class="earnable_points">
-            <span class="num_of_points">5</span><span class="points_label">Points</span>
-          </div>
-        </div>
-        <div class="tile_question">
-          While important, which of the following is not one of our guiding principles? 
-        </div>
-        <div class="multiple_choice_group">
-          <div class="tile_multiple_choice_answer"><a href="#!">Diversity</a></div>
-          <div class="clicked_right_answer"><a href="#!">Accountability</a></div>
-          <div class="tile_multiple_choice_answer"><a href="#!">Collaboration</a></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+ <%=render"fullsize_tile", thumbnail_class:  "explore guiding_principles",
+        thumbnail_image: "Explore_tile_page/guiding_principles.png", 
+        tile_headline: "Did you know...", 
+        tile_supporting_content: "Our guiding principles are: innovation, diversity, social responsibility and collaboration.",
+        tile_points: "5",
+        points_label: "Points",
+        tile_question: "While important, which of the following is not one of our guiding principles? ",
+        tile_answers: [ "Diversity", "Accountability", "Collaboration"],
+        correct_answer_index: 1
+        %> 
+
+
+<!-- ============= full travel sample tiles ============= -->
+
+<%=render"fullsize_tile", thumbnail_class:  "explore travel_thrill",
+        thumbnail_image: "Explore_tile_page/travel_one.png", 
+        tile_headline: "What a thrill!", 
+        tile_supporting_content: "Located in a protected tropical forest just outside of Puerto Vallarta, you can zip through a stunning treetop canopy on a series of thrilling zip lines - include Mexico's longest and fastest. You may reach speeds of 100/km!",
+        tile_points: "5",
+        points_label: "Points",
+        tile_question: "How long is Mexico's longest zip line?",
+        tile_answers: [ "Over 1,200 M", "Over 2,500 M", "Over 800 M"],
+        correct_answer_index: 0
+        %> 
+
+<%=render"fullsize_tile", thumbnail_class:  "explore travel_malecon",
+        thumbnail_image: "Explore_tile_page/travel_two.png", 
+        tile_headline: "El Malecon", 
+        tile_supporting_content: "El Malecon is the famous mile-long boardwalk that follows the beach & main street in Puerto Vallarta.  It originates at the Hotel Rosita - the first hotel built in Puerto Vallarta in the 1940's.",
+        tile_points: "5",
+        points_label: "Points",
+        tile_question: "Where does El Malecon end?",
+        tile_answers: [ "The Romantic Zone", "Los Arcos", "The Marina"],
+        correct_answer_index: 1
+        %> 
+
+<%=render"fullsize_tile", thumbnail_class:  "explore travel_banderas",
+        thumbnail_image: "Explore_tile_page/travel_three.png", 
+        tile_headline: "Bay of Banderas", 
+        tile_supporting_content: "Puerto Vallarta is situated on the shore of one of the world's largest and most beautiful bays, Bahia de Banderas.  The large dolphin and whale population has kept the shark population in the bay down to nearly zero over the past several decades.",
+        tile_points: "5",
+        points_label: "Points",
+        tile_question: "What does the name translate into?",
+        tile_answers: [ "Bay of Flags", "Bay of Beauty", "Bay of Theives"],
+        correct_answer_index: 0
+        %>         
+
+<%=render"fullsize_tile", thumbnail_class:  "explore travel_cuale",
+        thumbnail_image: "Explore_tile_page/travel_four.png", 
+        tile_headline: "South of the Cuale River", 
+        tile_supporting_content: "This area is also known as Viejo Vallarta, or Old Vallarta.  There are more shops, cafes, bars and restaurants per square foot than anywhere else in town. This is the real, traditional Mexican part of Puerto Vallarta.",
+        tile_points: "5",
+        points_label: "Points",
+        tile_question: "What's the common name for this part of town?",
+        tile_answers: [ "Marina Vallarta", "Romantic Zone", "Hotel Zone"],
+        correct_answer_index: 0
+        %>  
+
+<!-- ============= full food sample tiles ============= -->
+
+ <%=render"fullsize_tile", thumbnail_class:  "explore food_granola",
+        thumbnail_image: "Explore_tile_page/food_granola.png", 
+        tile_headline: "A nutty granola proven to please everyone", 
+        tile_supporting_content: "Click on the above image for the nuttiest granola you've ever had - plus most people can enjoy it. Dietary restrictions and intolerances be gone! It'll make you want breakfast for dinner tonight. (Source: http://food52.com/blog/9629-nutty-nutty-granola)",
+        tile_points: "5",
+        points_label: "Points",
+        tile_question: "Who created this recipe?",
+        tile_answers: [ "Fiveandspice", "Emily Vikre", "Both of the above"],
+        correct_answer_index: 2
+        %> 
+
+ <%=render"fullsize_tile", thumbnail_class:  "explore food_sweetpotato",
+        thumbnail_image: "Explore_tile_page/food_sweetpotato.png", 
+        tile_headline: "Are you a sweet potato junkie?", 
+        tile_supporting_content: "Sweet potatoes are an all time favorite! Packed with vitamins like C, D, B6 and iron and magnesium - they are healthy AND readily available, inexpensive and delicious. Click on the above image to check out this super simple recipe that'll take you 15 minutes and will have people begging for seconds. (Source: http://food52.com/recipes/26101-sweet-potatoes-roasted-in-coconut-oil)",
+        tile_points: "5",
+        points_label: "Points",
+        tile_question: "Who is the author of this recipe?",
+        tile_answers: [ "Food52", "Gena Hamshaw", "Martha Stewart"],
+        correct_answer_index: 1
+        %> 
+
+ <%=render"fullsize_tile", thumbnail_class:  "explore food_cookies",
+        thumbnail_image: "Explore_tile_page/food_cookies.png", 
+        tile_headline: "Chocolate Chip Cookies - Need I Say More?", 
+        tile_supporting_content: "A warm chocolate chip cookie, and a glass of cold milk - bring you right back to your childhood? Click on the image above to try a much heartier take on the classic chocolate chip cookie and you'll be reminiscing about old memories. (Source: http://food52.com/recipes/25558-chocolate-chip-cookies)",
+        tile_points: "5",
+        points_label: "Points",
+        tile_question: "What temperature do you have to cook the cookies at?",
+        tile_answers: [ "325 degrees", "350 degrees", "375 degrees"],
+        correct_answer_index: 0
+        %> 
+
+ <%=render"fullsize_tile", thumbnail_class:  "explore food_grapefruit",
+        thumbnail_image: "Explore_tile_page/food_grapefruit.png", 
+        tile_headline: "Grapefruits hard to eat? Look no further.", 
+        tile_supporting_content: "Hard to segment a grapefruit? Food52 shares a new way to unearth perfect segments from your favorite citrus fruit. Click on the above image to learn how! (Source: http://food52.com/blog/9580-a-new-way-to-segment-grapefruit)",
+        tile_points: "5",
+        points_label: "Points",
+        tile_question: "What inspired this helpful post on Food52?",
+        tile_answers: [ "The author was frusturated", "Food52 Hotline"],
+        correct_answer_index: 1
+        %> 
+
+
 
 
 
 <script>
-$('.tile_thumbnail.heineken_secret').click(function(e) {
-  $('.hidden_large_tiles.heineken_secret').lightbox_me();
-});
-$('.tile_thumbnail.heineken_know').click(function(e) {
-  $('.hidden_large_tiles.heineken_know').lightbox_me();
-});
-$('.tile_thumbnail.heineken_success').click(function(e) {
-  $('.hidden_large_tiles.heineken_success').lightbox_me();
-});
-$('.tile_thumbnail.miltoncat_incident').click(function(e) {
-  $('.hidden_large_tiles.miltoncat_incident').lightbox_me();
-});
-$('.tile_thumbnail.miltoncat_fire').click(function(e) {
-  $('.hidden_large_tiles.miltoncat_fire').lightbox_me();
-});
-$('.tile_thumbnail.piggy_bank').click(function(e) {
-  $('.hidden_large_tiles.piggy_bank').lightbox_me();
-});
-$('.tile_thumbnail.miss_out').click(function(e) {
-  $('.hidden_large_tiles.miss_out').lightbox_me();
-});
-$('.tile_thumbnail.safety_binders').click(function(e) {
-  $('.hidden_large_tiles.safety_binders').lightbox_me();
-});
-$('.tile_thumbnail.gym_reimbursement').click(function(e) {
-  $('.hidden_large_tiles.gym_reimbursement').lightbox_me();
-});
-$('.tile_thumbnail.miltoncat_safetybriefs').click(function(e) {
-  $('.hidden_large_tiles.miltoncat_safetybriefs').lightbox_me();
-}); 
-$('.tile_thumbnail.stressed_work').click(function(e) {
-  $('.hidden_large_tiles.stressed_work').lightbox_me();
-}); 
-$('.tile_thumbnail.sleep_deal').click(function(e) {
-  $('.hidden_large_tiles.sleep_deal').lightbox_me();
-}); 
-$('.tile_thumbnail.big_serving').click(function(e) {
-  $('.hidden_large_tiles.big_serving').lightbox_me();
-}); 
-$('.tile_thumbnail.steps_healthier').click(function(e) {
-  $('.hidden_large_tiles.steps_healthier').lightbox_me();
-}); 
-$('.tile_thumbnail.small_changes').click(function(e) {
-  $('.hidden_large_tiles.small_changes').lightbox_me();
-});
-$('.tile_thumbnail.everyone_coverage').click(function(e) {
-  $('.hidden_large_tiles.everyone_coverage').lightbox_me();
-}); 
-$('.tile_thumbnail.shop_marketplace').click(function(e) {
-  $('.hidden_large_tiles.shop_marketplace').lightbox_me();
-}); 
-$('.tile_thumbnail.explore_stethoscope').click(function(e) {
-  $('.hidden_large_tiles.explore_stethoscope').lightbox_me();
-}); 
-$('.tile_thumbnail.no_limits').click(function(e) {
-  $('.hidden_large_tiles.no_limits').lightbox_me();
-});
-$('.tile_thumbnail.asha_fitness').click(function(e) {
-  $('.hidden_large_tiles.asha_fitness').lightbox_me();
-});
-$('.tile_thumbnail.asha_team').click(function(e) {
-  $('.hidden_large_tiles.asha_team').lightbox_me();
-});
-$('.tile_thumbnail.asha_enroll').click(function(e) {
-  $('.hidden_large_tiles.asha_enroll').lightbox_me();
-});
-$('.tile_thumbnail.npswellness_salute').click(function(e) {
-  $('.hidden_large_tiles.npswellness_salute').lightbox_me();
-});
-$('.tile_thumbnail.npswellness_money').click(function(e) {
-  $('.hidden_large_tiles.npswellness_money').lightbox_me();
-});
-$('.tile_thumbnail.npswellness_yoga').click(function(e) {
-  $('.hidden_large_tiles.npswellness_yoga').lightbox_me();
-});
-$('.tile_thumbnail.fujifilm_presentation').click(function(e) {
-  $('.hidden_large_tiles.fujifilm_presentation').lightbox_me();
-});
-$('.tile_thumbnail.fujifilm_takestwo').click(function(e) {
-  $('.hidden_large_tiles.fujifilm_takestwo').lightbox_me();
-});
-$('.tile_thumbnail.fujifilm_new').click(function(e) {
-  $('.hidden_large_tiles.fujifilm_new').lightbox_me();
-});
-$('.tile_thumbnail.started_saving').click(function(e) {
-  $('.hidden_large_tiles.started_saving').lightbox_me();
-});
-$('.tile_thumbnail.roth_401k').click(function(e) {
-  $('.hidden_large_tiles.roth_401k').lightbox_me();
-});
-$('.tile_thumbnail.get_facts').click(function(e) {
-  $('.hidden_large_tiles.get_facts').lightbox_me();
-});
-$('.tile_thumbnail.earlier_better').click(function(e) {
-  $('.hidden_large_tiles.earlier_better').lightbox_me();
-});
-$('.tile_thumbnail.performance_goals').click(function(e) {
-  $('.hidden_large_tiles.performance_goals').lightbox_me();
-});
-$('.tile_thumbnail.go_green').click(function(e) {
-  $('.hidden_large_tiles.go_green').lightbox_me();
-});
-$('.tile_thumbnail.leadership_brunch').click(function(e) {
-  $('.hidden_large_tiles.leadership_brunch').lightbox_me();
-});
-$('.tile_thumbnail.guiding_principles').click(function(e) {
-  $('.hidden_large_tiles.guiding_principles').lightbox_me();
-});
+<%=render"tile_lightbox_javascript", thumbnail_class:  "heineken_secret"%>
+<%=render"tile_lightbox_javascript", thumbnail_class:  "heineken_know"%>
+<%=render"tile_lightbox_javascript", thumbnail_class:  "heineken_success"%>
+<%=render"tile_lightbox_javascript", thumbnail_class:  "miltoncat_incident"%>
+<%=render"tile_lightbox_javascript", thumbnail_class:  "miltoncat_fire"%>
+<%=render"tile_lightbox_javascript", thumbnail_class:  "miltoncat_safetybriefs"%>
+<%=render"tile_lightbox_javascript", thumbnail_class:  "miss_out"%>
+<%=render"tile_lightbox_javascript", thumbnail_class:  "safety_binders"%>
+<%=render"tile_lightbox_javascript", thumbnail_class:  "gym_reimbursement"%>
+<%=render"tile_lightbox_javascript", thumbnail_class:  "piggy_bank"%>
+<%=render"tile_lightbox_javascript", thumbnail_class:  "stressed_work"%>
+<%=render"tile_lightbox_javascript", thumbnail_class:  "sleep_deal"%>
+<%=render"tile_lightbox_javascript", thumbnail_class:  "big_serving"%>
+<%=render"tile_lightbox_javascript", thumbnail_class:  "steps_healthier"%>
+<%=render"tile_lightbox_javascript", thumbnail_class:  "small_changes"%>
+<%=render"tile_lightbox_javascript", thumbnail_class:  "everyone_coverage"%>
+<%=render"tile_lightbox_javascript", thumbnail_class:  "shop_marketplace"%>
+<%=render"tile_lightbox_javascript", thumbnail_class:  "explore_stethoscope"%>
+<%=render"tile_lightbox_javascript", thumbnail_class:  "no_limits"%>
+<%=render"tile_lightbox_javascript", thumbnail_class:  "asha_fitness"%>
+<%=render"tile_lightbox_javascript", thumbnail_class:  "asha_team"%>
+<%=render"tile_lightbox_javascript", thumbnail_class:  "asha_enroll"%>
+<%=render"tile_lightbox_javascript", thumbnail_class:  "npswellness_salute"%>
+<%=render"tile_lightbox_javascript", thumbnail_class:  "npswellness_money"%>
+<%=render"tile_lightbox_javascript", thumbnail_class:  "npswellness_yoga"%>
+<%=render"tile_lightbox_javascript", thumbnail_class:  "fujifilm_presentation"%>
+<%=render"tile_lightbox_javascript", thumbnail_class:  "fujifilm_takestwo"%>
+<%=render"tile_lightbox_javascript", thumbnail_class:  "fujifilm_new"%>
+<%=render"tile_lightbox_javascript", thumbnail_class:  "started_saving"%>
+<%=render"tile_lightbox_javascript", thumbnail_class:  "roth_401k"%>
+<%=render"tile_lightbox_javascript", thumbnail_class:  "get_facts"%>
+<%=render"tile_lightbox_javascript", thumbnail_class:  "earlier_better"%>
+<%=render"tile_lightbox_javascript", thumbnail_class:  "performance_goals"%>
+<%=render"tile_lightbox_javascript", thumbnail_class:  "go_green"%>
+<%=render"tile_lightbox_javascript", thumbnail_class:  "leadership_brunch"%>
+<%=render"tile_lightbox_javascript", thumbnail_class:  "guiding_principles"%>
+<%=render"tile_lightbox_javascript", thumbnail_class:  "travel_thrill"%>
+<%=render"tile_lightbox_javascript", thumbnail_class:  "travel_malecon"%>
+<%=render"tile_lightbox_javascript", thumbnail_class:  "travel_banderas"%>
+<%=render"tile_lightbox_javascript", thumbnail_class:  "travel_cuale"%>
+<%=render"tile_lightbox_javascript", thumbnail_class:  "food_granola"%>
+<%=render"tile_lightbox_javascript", thumbnail_class:  "food_sweetpotato"%>
+<%=render"tile_lightbox_javascript", thumbnail_class:  "food_cookies"%>
+<%=render"tile_lightbox_javascript", thumbnail_class:  "food_grapefruit"%>
 
 $('.tile_thumbnail').click(function() {mixpanel.track('Explore Page - Clicked Thumbnail');});
 </script>

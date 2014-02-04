@@ -1,0 +1,32 @@
+<section class="hidden_large_tiles <%=thumbnail_class%>">
+  <div class="tile_holder client_created">
+    <div class="tile_full_image">
+      <%= image_tag thumbnail_image, "alt" => tile_headline%>
+    </div>
+    <div class="tile_texts_container">
+      <div class="tile_headline"><%=tile_headline%></div>
+      <div class="tile_supporting_content"><%=tile_supporting_content%></div>
+      <div class="tile_quiz">
+        <div class="tile_points_bar">
+          <div class="earnable_points">
+            <span class="num_of_points"><%=tile_points%></span><span class="points_label"><%=points_label%></span>
+          </div>
+        </div>
+        <div class="tile_question">
+          <%=tile_question%>
+        </div>
+        <% tile_answers ||= [] %>
+        <% correct_answer_index ||= 0 %>
+        <div class="multiple_choice_group">
+          <% tile_answers.each_with_index do |tile_answer, index| %>
+            <% if index == correct_answer_index %>
+              <div class="clicked_right_answer"><a href="#!"><%=tile_answer %></a></div>
+            <% else %>
+              <div class="tile_multiple_choice_answer"><a href="#!"><%=tile_answer%></a></div>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
