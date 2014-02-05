@@ -73,7 +73,10 @@
   }
 
   textarea {
-    height: 9em;
+    height: 5em;
+    width: 100%;
+    resize: none;
+    max-width: 100%;
   }
 
   p#last-email {

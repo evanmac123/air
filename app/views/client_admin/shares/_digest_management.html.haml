@@ -17,7 +17,7 @@
 
     %p 
       Add Optional Message
-      = text_area_tag "digest[custom_message]", '', size: "50x6", maxlength: 300
+      = text_area_tag "digest[custom_message]", '', size: "50x6", maxlength: 160
       = javascript_include_tag 'admin/byte_counter'
       :javascript
         addCharacterCounterFor('#digest_custom_message');
