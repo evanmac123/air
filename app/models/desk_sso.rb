@@ -7,7 +7,7 @@ class DeskSSO
     _multipass = multipass
     _signature = signature(_multipass)
 
-    "https://hengage.desk.com/customer/authentication/multipass/callback?multipass=#{CGI.escape(_multipass)}&signature=#{CGI.escape(_signature)}"
+    "https://#{subdomain}.desk.com/customer/authentication/multipass/callback?multipass=#{CGI.escape(_multipass)}&signature=#{CGI.escape(_signature)}"
   end
 
   def multipass
@@ -50,7 +50,7 @@ class DeskSSO
   end
 
   def subdomain
-    "hengage"
+    "airbo"
   end
 
   def api_key
