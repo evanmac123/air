@@ -21,6 +21,7 @@ When /^I attach the avatar "(.*?)"$/ do |filename|
 end
 
 When /^I press the avatar submit button$/ do
+  pending "REWRITE THIS TO NOT ACTUALLY USE S3"
   page.find(:css, ".set-avatar input[@type=submit]").click
 end
 
