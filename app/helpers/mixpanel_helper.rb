@@ -1,7 +1,9 @@
 module MixpanelHelper
   def mp_track(event, properties={})
+    properties ||= {} # in some cases nil gets passed in semi-explicitly
+    _properties = properties.merge(device_type: device_type)
     javascript_tag do
-      raw "mixpanel.track('#{event}', #{properties.to_json})"
+      raw "mixpanel.track('#{event}', #{_properties.to_json})"
     end
   end
 

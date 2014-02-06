@@ -11,7 +11,7 @@ describe DeskSSO, "#url" do
       desksso.stubs(:signature).returns("SIGNATURE")
 
       url = URI.parse(desksso.url)
-      url.host.should == "hengage.desk.com"
+      url.host.should == "airbo.desk.com"
       url.path.should == "/customer/authentication/multipass/callback"
       url.query.should == "multipass=MULTIPASS&signature=SIGNATURE"
     end
