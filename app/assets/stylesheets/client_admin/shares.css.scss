@@ -1,0 +1,51 @@
+@import "mixins/lightbox.css.scss";
+
+#create_tile_modal {
+  @include lightbox-form;
+  .rbox {
+          width:400px;
+          border:1px solid #CCC;
+          padding:20px;
+          line-height:30px;	
+  }
+}
+
+#invite_users_modal {
+  background-color:white;
+  padding:20px;
+  width:640px;
+  .info-cols li{
+          float:left;
+          margin-right:30px;
+          margin-bottom:20px;
+  }
+  .move-right {
+          text-align:right;
+          margin-right:35px;
+          margin-bottom:20px;	
+  }
+  .blue {
+          color:#50698c !important;	
+  }
+  .blue:hover {
+          text-decoration:underline !important;	
+  }
+}
+/*#invite_users_modal {
+  @include lightbox-form;
+  form {
+    margin-top: 1em;
+  }
+
+  .conversion_error {
+    margin-top: 1em;
+    margin-bottom: 0.2em;
+    color: $red;
+  }
+
+  #submit_conversion_form {
+    @include light-button($sky-blue);
+    margin-top: .5em;
+  }
+}*/
+

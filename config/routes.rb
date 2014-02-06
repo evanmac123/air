@@ -78,7 +78,8 @@ Health::Application.routes.draw do
     resources :users do
       resource :invitation, :only => :create
     end
-
+    resources :users_invites, only: :create
+    
     resources :locations, :only => :create
 
     resources :tiles do

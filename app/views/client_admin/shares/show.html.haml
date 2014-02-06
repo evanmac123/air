@@ -1,3 +1,8 @@
+%ul
+  %li
+    = link_to 'Show Create Tile', '#', id: 'show_create_tile_modal'        
+  %li
+    = link_to 'Show Invite User', '#', id: 'show_invite_users_modal'        
 .row
   .large-12.columns= render partial: 'client_admin/tiles/tiles_tools_subnav'
 - if @demo.non_activated?
@@ -6,5 +11,8 @@
   %section.share_tools
     = render 'public_board'
     = render 'digest'
+
+  = show_conditionally_create_tile_modal(@demo)
+  = show_conditionally_invite_users_modal(@demo)
 
   = javascript_include_tag "client_admin/public_board_controls"
