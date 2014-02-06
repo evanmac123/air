@@ -46,6 +46,7 @@ feature 'Game has beginning and end' do
       as_both_users do
         visit edit_account_settings_path
         attach_file "user[avatar]", Rails.root.join('features', 'support', 'fixtures', 'avatars', 'maggie.jpg')
+        pending "FIX THIS SO IT DOESN'T NEED TO ACTUALLY ACCESS S3 SINCE THAT IS A VERY BAD THING"
         click_button "Upload"
         expect_avatar_in_masthead 'maggie.png'
 

@@ -7,7 +7,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     @demo.archive_tiles_if_curtain_call
 
     @active_tiles  = @demo.active_tiles_with_placeholders
-    @archive_tiles = (@demo.archive_tiles_with_placeholders)[0,4]
+    @archive_tiles = (@demo.archive_tiles_with_placeholders)[0,8]
   end
 
   def new

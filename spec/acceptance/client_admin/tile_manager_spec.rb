@@ -231,7 +231,8 @@ feature 'Client admin and the digest email for tiles' do
       archive_time = Time.now
       expected_tile_table =
         [ 
-          [new_tile_placeholder_text, "Tile 9", "Tile 7", "Tile 5"]
+          [new_tile_placeholder_text, "Tile 9", "Tile 7", "Tile 5"],
+          ["Tile 3", "Tile 1", "Tile 8", "Tile 6"]
         ]
       demo.tiles.update_all status: Tile::ARCHIVE
       demo.tiles.where(archived_at: nil).each{|tile| tile.update_attributes(archived_at: tile.created_at)}
@@ -268,11 +269,16 @@ feature 'Client admin and the digest email for tiles' do
 
     FactoryGirl.create(:tile, :archived, demo_id: admin.demo_id)
     visit tile_manager_page
-    # There's now the creation placeholder, plus four other archived tiles.
+    expect_inactive_tile_placeholders(3)
+
+    4.times { FactoryGirl.create(:tile, :archived, demo_id: admin.demo_id) }
+
+    # There's now the creation placeholder, plus eight other archived tiles.
     # If we DID show all of them, there's be an odd row with 1 tile, and we'd
-    # expect 3 placeholders. But we only show the first 4 archive tiles
-    # (really the first 3 + creation placeholder) and that row's full up now,
-    # so...
+    # expect 3 placeholders. But we only show the first 8 archive tiles
+    # (really the first 7 + creation placeholder) and those two rows are full 
+    # now, so...
+    visit tile_manager_page
     expect_inactive_tile_placeholders(0)
 
     # And now let's do the active ones
