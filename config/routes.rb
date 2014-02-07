@@ -79,6 +79,7 @@ Health::Application.routes.draw do
       resource :invitation, :only => :create
     end
     resources :users_invites, only: :create
+    post 'users_invites/dismissed', 'users_invites#dismissed'
     
     resources :locations, :only => :create
 

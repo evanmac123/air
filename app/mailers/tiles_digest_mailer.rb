@@ -33,7 +33,9 @@ class TilesDigestMailer < ActionMailer::Base
     followup.destroy
   end
 
-  def notify_one(demo_id, user_id, tile_ids, subject, follow_up_email, custom_message)
+  # custom_from can have send value 'Hisham via Airbo <@demo.reply_email_address>'
+  def notify_one(demo_id, user_id, tile_ids, subject, follow_up_email, 
+      custom_message, custom_from)
     @demo  = Demo.find demo_id
     @user  = User.find user_id
 
@@ -42,9 +44,8 @@ class TilesDigestMailer < ActionMailer::Base
     @custom_message = custom_message
 
     @invitation_url = @user.claimed? ? nil : invitation_url(@user.invitation_code, protocol: email_link_protocol, host: email_link_host)
-
     mail  to:      @user.email_with_name,
-          from:    @demo.reply_email_address,
+          from:    custom_from || @demo.reply_email_address,
           subject: subject
   end
 end

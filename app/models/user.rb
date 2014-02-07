@@ -488,8 +488,13 @@ class User < ActiveRecord::Base
   def invite(referrer = nil, options ={})
     return if referrer && self.peer_invitations_as_invitee.length >= PeerInvitation::CUTOFF
 
-    Mailer.delay_mail(:invitation, self, referrer, options)
-
+    if options[:custom_message].nil?
+      Mailer.delay_mail(:invitation, self, referrer, options)
+    else
+      TilesDigestMailer.delay.notify_one(demo_id, id, 
+        demo.digest_tiles.pluck(:id), 'New Tiles', false, 
+        options[:custom_message], options[:custom_from])
+    end
     if referrer
       PeerInvitation.create!(inviter: referrer, invitee: self, demo: referrer.demo)
     end
@@ -717,7 +722,11 @@ class User < ActiveRecord::Base
   def email_with_name
     "#{name} <#{email}>"
   end
-
+  
+  def email_with_name_via_airbo
+    "#{name} via Airbo <#{email}>"    
+  end
+  
   def mute_for_now
     self.update_attributes(:last_muted_at => Time.now)
   end

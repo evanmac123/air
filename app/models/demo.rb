@@ -101,7 +101,7 @@ class Demo < ActiveRecord::Base
     tiles.draft
   end
 
-  def digest_tiles(cutoff_time)
+  def digest_tiles(cutoff_time=self.tile_digest_email_sent_at)
     tiles.digest(self, cutoff_time)
   end
 

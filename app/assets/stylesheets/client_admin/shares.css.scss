@@ -1,19 +1,59 @@
 @import "mixins/lightbox.css.scss";
 
-#create_tile_modal {
+#create_tile_modal {  
   @include lightbox-form;
+  max-width: 40em;
   .rbox {
           width:400px;
           border:1px solid #CCC;
           padding:20px;
-          line-height:30px;	
+          line-height:30px;
+          margin: auto;
+  }
+  #create_tile_button {
+    height: $public_slug_height;
+    &.engaged {
+      @include app-button($dark-green);
+    }
+    &.disengaged {
+      @include app-button($gray);
+    }    
+  }
+  #dismiss_create_tile_modal {
+    height: $public_slug_height;
+    &.engaged {
+      @include app-button($dark-green);
+    }
+    &.disengaged {
+      @include app-button($gray);
+    }    
   }
 }
 
 #invite_users_modal {
   background-color:white;
+  display: none;
   padding:20px;
   width:640px;
+  
+  #submit_invite_users {
+    height: $public_slug_height;
+    &.engaged {
+      @include app-button($dark-green);
+    }
+    &.disengaged {
+      @include app-button($gray);
+    }    
+  }
+  #dismiss_invite_users {
+    height: $public_slug_height;
+    &.engaged {
+      @include app-button($dark-green);
+    }
+    &.disengaged {
+      @include app-button($gray);
+    }    
+  }
   .info-cols li{
           float:left;
           margin-right:30px;
