@@ -4,6 +4,7 @@ body.client_admin-tiles-edit,
 body.client_admin-tiles-show,
 body.client_admin-tiles-update {
   form {
+    #publish { margin-top: 2em; }
     #publish * {vertical-align: top;}
     #publish input[type="submit"] {@include app-button($dark-green);}
     #publish .cancel_tile_builder {@include light-button($red); float:right;}
@@ -34,13 +35,10 @@ body.client_admin-tiles-update {
       &:last-of-type{margin-bottom:0;}
     }
 
-    /* Tile options */
-    .more_tile_options {
-      // External link
-      #external_link {
-        margin:2em auto; 
-        input {border-color:$light-gray;}
-      }
+    // External link
+    #tile_external_link {
+      margin:2em auto; 
+      input {border-color:$light-gray;}
     }
   }
   
@@ -192,7 +190,7 @@ body.client_admin-tiles-update {
       }
     }
   }
-  #tile_headline, #tile_supporting_content {
+  #tile_headline, #tile_supporting_content, #tile_external_link {
     padding:0 1.75em;
   }
 }

@@ -80,22 +80,6 @@ feature 'User views tile' do
       end
     end
 
-    context "when a tile has an attached link address" do
-      before(:each) do
-        @make_toast.update_attributes(link_address: edit_account_settings_url) # easier to test with some internal path
-      end
-
-      scenario "it should be wrapped in a link to that address" do
-        visit tile_path(@make_toast)
-        toast_image = page.find("img[alt='make toast']")
-        parent = page.find(:xpath, toast_image.path + "/..")
-
-        parent.tag_name.should == "a"
-        parent.click
-        should_be_on edit_account_settings_path
-      end
-    end
-
     it "should not show the no-content message" do
       expect_no_content no_tiles_message
     end

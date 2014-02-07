@@ -3,18 +3,18 @@
 
 <div class="tile_holder <%= creator_class %>" data-current-tile-id="<%= tile.id %>" data-position="<%= @current_tile_position_description %>">
   <div class="tile_full_image">
-    <% image_html = image_tag tile.image.url, :class => :tile_image, :size => tile.image.image_size, :alt => tile.headline %>
-    <% if tile.link_address.present? %>
-      <% image_html = link_to(image_html, tile.link_address, target: '_blank', class: 'tile_link') %>
-    <% end %>
-    <%= image_html %>
+    <%= image_tag tile.image.url, :class => :tile_image, :size => tile.image.image_size, :alt => tile.headline %>
   </div>
 
   <% if tile.appears_client_created %>
     <div class="tile_texts_container">
       <div class="tile_headline"><%= tile.headline %></div>
       <div class="tile_supporting_content"><%= tile.supporting_content %></div>
-
+      <% if tile.link_address.present? %>
+        <div class="tile_external_link">
+          Visit: <%= link_to truncate(tile.link_address, length: 50), tile.link_address, target: '_blank' %>
+        </div>
+      <% end %>
 
       <div class="tile_quiz">
         <% if tile.points %>

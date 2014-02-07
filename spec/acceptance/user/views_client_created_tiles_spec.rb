@@ -85,6 +85,25 @@ feature 'User views tiles' do
       expect_no_wrong_answer_reaction 1
       expect_right_answer_reaction
     end
+
+    context "when there is a short external link" do
+      it "should show the whole URL as a link" do
+        short_url = "http://www.example.com"
+        @tile.update_attributes(link_address: short_url)
+        visit tiles_path(as: @user)
+        page.all("a[href='#{short_url}'][target=_blank]", text: short_url).should have(1).visible_link
+      end
+    end
+
+    context "when there is a long external link" do
+      it "should show the URL, truncated, as a link" do
+        long_url           = "http://www.example.com/abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz"
+        truncated_long_url = "http://www.example.com/abcdefghijklmnopqrstuvwx..."
+        @tile.update_attributes(link_address: long_url)
+        visit tiles_path(as: @user)
+        page.all("a[href='#{long_url}'][target=_blank]", text: truncated_long_url).should have(1).visible_link
+      end
+    end
   end
 
   {:mobile => 2, :tablet => 4, :desktop => 4}.each do |device_type, expected_tile_batch_size|
