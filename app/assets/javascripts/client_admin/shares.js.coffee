@@ -39,8 +39,10 @@ $(document).ready ->
       name_input = $(user_invite).find('input.name')
       email_input = $(user_invite).find('input.email')
       if email_input.val()
+        console.log("email doesn't match: "+email_input.val());
         unless email_input.val().match(/^((?!\.)[a-z0-9._%+-]+(?!\.)\w)@[a-z0-9-\.]+\.[a-z.]{2,5}(?!\.)\w$/i)
           $(email_input).addClass('error')
+          console.log("email doesn't match: "+email_input.val());
           all_ok = false
         else
           $(email_input).removeClass('error')
@@ -55,6 +57,7 @@ $(document).ready ->
         #no email
         if name_input.val()
           $(email_input).addClass('error')
+          console.log("name doesn't match: "+email_input.val());
           all_ok = false
         else
           $(email_input).removeClass('error')
@@ -62,6 +65,7 @@ $(document).ready ->
           
     #No need for personal message to be validated
     unless has_one_entry
+      console.log("No entry found");
       $("#invite_users_modal_errors").addClass('error')
       $("#invite_users_modal_errors").html("Please specify at least one invite")
     else
@@ -71,7 +75,10 @@ $(document).ready ->
   #submit form
   $('#submit_invite_users').on('click', (event) ->
     event.preventDefault()
+    console.log('submit invite users called')
     if validateInvitedUsers()
+      console.log('validation successful')
+      console.log('validation submit invite users called')
       $('#invite_users_form').submit()
   )
   

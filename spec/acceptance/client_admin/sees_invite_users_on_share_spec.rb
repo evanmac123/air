@@ -37,8 +37,9 @@ feature "Invite Users Modal" do
       visit client_admin_share_path(as: client_admin)
       expect_hidden_invite_users_modal
     end
-    context "inviting users", js: true do
+    context "inviting users", js: :webkit do
       before do
+        $rollout.activate_user(:public_board, client_admin2.demo)
         FactoryGirl.create(:tile, status: Tile::ACTIVE, demo: client_admin2.demo)
         visit client_admin_share_path(as: client_admin2)
         #page.find('a#show_invite_users_modal').click      
@@ -51,7 +52,7 @@ feature "Invite Users Modal" do
 #          page.all('input', text: public_board_url(client_admin2.demo.public_slug)).should_not be_empty
 #        end
 #      end
-      scenario "Add another link adds two more fields", js: true do
+      scenario "Add another link adds two more fields" do
         within(invite_users_modal_selector) do
           page.should have_css('input', count: 11)
           click_link "Add another"
@@ -67,8 +68,8 @@ feature "Invite Users Modal" do
 
       scenario "Form with invalid email is not submitted" do
         within(invite_users_modal_selector) do        
-          page.all('input#users_invite_users__name').first.set('Hisham Malik')
-          page.all('input#users_invite_users__email').first.set('hishamexample.com')
+          find_field('user_0_name').set 'Hisham Malik'
+          find_field('user_0_email').set 'hishamexample.com'
 
           click_link "Add and Send Invite"
           page.should have_css('input.error')
@@ -77,8 +78,9 @@ feature "Invite Users Modal" do
 
       scenario "on successful submit, closes the invite_users_modal" do 
         within(invite_users_modal_selector) do        
-          page.all('input#users_invite_users__name').first.set('Hisham Malik')
-          page.all('input#users_invite_users__email').first.set('hisham@example.com')
+          page.find_field('user_0_name').set('Hisham Malik')
+          page.find_field('user_0_name').value.should contain('Hisham Malik')
+          find_field('user_0_email').set 'hisham@example.com'
 
           click_link "Add and Send Invite"
           page.should_not have_css('input.error')
@@ -86,14 +88,14 @@ feature "Invite Users Modal" do
           expect_hidden_invite_users_modal
         end
       end
-      context "on sucessful_submit", js: true do
+      context "on sucessful_submit", js: :webkit do
         before do
-#          visit client_admin_share_path(as: client_admin2)
-#          click_link "invite users"      
+          visit client_admin_share_path(as: client_admin2)
+          click_link "invite users"      
           
           within(invite_users_modal_selector) do        
-            page.all('input#users_invite_users__name').first.set('Hisham Malik')
-            page.all('input#users_invite_users__email').first.set('hisham@example.com')
+            find_field('user_0_name').set 'Hisham Malik'            
+            find_field('user_0_email').set 'hisham@example.com'
             page.find('textarea').set('Custom User Invite Message')
             click_link "Add and Send Invite"
           end        
@@ -107,13 +109,13 @@ feature "Invite Users Modal" do
       end
     end
   end
-  context "when there is no active tile" do
+  context "when there is no active tile", js: true  do
     before do
       client_admin_no_tile = FactoryGirl.create :client_admin
       FactoryGirl.create(:tile, status: Tile::ARCHIVE, demo: client_admin_no_tile.demo)
       visit client_admin_share_path(as: client_admin_no_tile)
     end
-    scenario "user invites page should not show when there is no active tile" do
+    scenario "user invites page should not show when there is no active tile"  do
       page.all(invite_users_modal_selector, visible: true).should be_empty
     end        
   end

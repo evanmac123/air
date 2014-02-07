@@ -1,12 +1,12 @@
 #invite_users
-  - form.object.users.each do |user|
-    = form.fields_for 'users[]', user do |user_fields|
+  - form.object.users.each_with_index do |user, index|
+    = form.fields_for "users[]", user do |user_fields|
       %section.invite-user
         %ul.info-cols
           %li
             = user_fields.label :name, 'Name'
-            = user_fields.text_field :name, placeholder: "First and last (required)", class:'name'
+            = user_fields.text_field :name, placeholder: "First and last (required)", class:'name', id:"user_#{index}_name"
         %ul.info-cols
           %li
             = user_fields.label 'email'
-            = user_fields.text_field :email, placeholder: "name@example.com (required)", class: 'email'    
+            = user_fields.text_field :email, placeholder: "name@example.com (required)", class: 'email', id:"user_#{index}_email"    
