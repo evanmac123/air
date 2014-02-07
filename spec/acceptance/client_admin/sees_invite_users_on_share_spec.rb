@@ -103,8 +103,8 @@ feature "Invite Users Modal" do
         scenario "sends email invite to user via Airbo" do
           crank_dj_clear
           open_email('hisham@example.com')
-          current_email.from.should contain('via Airbo')
-          current_email have_body_text(/Custom\sUser\sInvite\sMessage/)
+          current_email['from'].should contain('via Airbo')
+          current_email.should have_body_text(/Custom\sUser\sInvite\sMessage/)
         end
       end
     end
