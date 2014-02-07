@@ -1,0 +1,20 @@
+#invite_users_modal{:auto_show => auto_show }
+  %h3 Now its time to share!
+  %p 
+    You can use this link: 
+    = link_to public_board_url(current_user.demo.public_slug), public_board_url(current_user.demo.public_slug)
+  %p Or add and invite users:
+  #invite_users_modal_errors
+  = form_for [:client_admin, UsersInvite.build(demo)], remote: true, html: {class: 'user-profile', id: 'invite_users_form'} do |form|
+    = render 'invite_user_fields', form: form
+    %ul
+      %li.move-right
+        = link_to 'Add another', '#', id: 'add_another_user_invite'        
+    #user_invite_message
+      %ul.info-cols
+        %li
+          = form.text_area :message, maxlength: 300, cols: 67
+    %ul#form_buttons
+      %li.move-right 
+        = link_to 'Add and Send Invite', '#', id: 'submit_invite_users', class: 'engaged has-tip', data: :tooltip
+        = link_to 'Dismiss', '#', id: 'dismiss_invite_users', class: 'disengaged has-tip', data: :tooltip
