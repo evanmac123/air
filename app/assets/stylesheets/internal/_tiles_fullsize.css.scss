@@ -198,6 +198,9 @@ body.client_admin-tiles-update,
     margin-bottom: 2em;
     font-size: 1.25em;
 
-    .fa-external-link {color: $blue;}
+    .fa-external-link {
+      color: $med-gray;
+      font-size: 75%;
+    }
   }
 }
