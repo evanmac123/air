@@ -156,6 +156,8 @@ GEM
       net-ssh (>= 2.1.3)
       nokogiri (~> 1.5.0)
       ruby-hmac
+    font-awesome-rails (4.0.3.1)
+      railties (>= 3.2, < 5.0)
     formatador (0.2.4)
     formtastic (2.2.1)
       actionpack (>= 3.0)
@@ -390,6 +392,7 @@ DEPENDENCIES
   factory_girl_rails
   fakeweb
   flutie
+  font-awesome-rails
   formtastic
   getopt
   haml-rails

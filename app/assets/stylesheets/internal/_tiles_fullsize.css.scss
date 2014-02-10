@@ -83,7 +83,7 @@ body.client_admin-tiles-update,
     color:$text-color;
     font-size:1.25em;
     line-height:1.3em;
-    margin-bottom:.8em;
+    margin-bottom:1em;
     margin-top:.75em;
   }
 
@@ -196,5 +196,8 @@ body.client_admin-tiles-update,
 
   .tile_external_link {
     margin-bottom: 2em;
+    font-size: 1.25em;
+
+    .fa-external-link {color: $blue;}
   }
 }

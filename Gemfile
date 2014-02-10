@@ -37,6 +37,7 @@ gem 'delayed_paperclip', :git => "https://github.com/phildarnowsky/delayed_paper
 gem 'mobvious-rails'
 gem 'rails3_before_render'
 gem 'rollout'
+gem 'font-awesome-rails'
 
 # Gems used only for assets and not required
 # in production environments by default.
