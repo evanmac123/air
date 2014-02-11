@@ -1,11 +1,3 @@
-<%#*-#%table%>
-<%#*-#  %thead%>
-<%#*-#    %tr%>
-<%#*-#      %th Name%>
-<%#*-#      %th Email%>
-<%#*-#      %th Date%>
-<%#*-#      %th Joined:%> 
-<%#*-#  %tbody= render partial: 'tile_completion', collection: tile_completions%>
 <%= grid(@tile_completions_grid, html: {id: "search-results-table"}, header_tr_html:  {id: "search-labels"}) do |g|  
   g.row_attributes do |tile_completion|
     {class: 'found-user'}
