@@ -1,0 +1,29 @@
+<%#*-#%table%>
+<%#*-#  %thead%>
+<%#*-#    %tr%>
+<%#*-#      %th Name%>
+<%#*-#      %th Email%>
+<%#*-#      %th Date%>
+<%#*-#      %th Joined:%> 
+<%#*-#  %tbody= render partial: 'tile_completion', collection: tile_completions%>
+<%= grid(@tile_completions_grid, html: {id: "search-results-table"}, header_tr_html:  {id: "search-labels"}) do |g|  
+  g.row_attributes do |tile_completion|
+    {class: 'found-user'}
+  end  
+  g.column html: {class: "results-name"}, name: 'Name', model: 'User', attribute: 'name', filter: false do |tile_completion|
+    link_to tile_completion.user.name, edit_client_admin_user_path(tile_completion.user), class: 'edit-user'
+  end
+  g.column html: {class: "results-email"}, name: 'Email' do |tile_completion|      
+    tile_completion.user.email
+  end
+  g.column name: 'Date', attribute: 'created_at', filter: false  do |tile_completion|
+    tile_completion.created_at
+  end
+  g.column html: {class: "results-joined", style: "text-align: left"}, name: 'Joined?' do |tile_completion|    
+    if tile_completion.has_user_joined?
+      '<span class="joined">Yes</span>'.html_safe
+    else
+      '<span class="not-joined">No</span>'.html_safe
+    end
+  end
+end -%>
