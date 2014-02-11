@@ -31,6 +31,13 @@ FactoryGirl.define do
     trait :sample_tile_not_yet_done do
       sample_tile_completed false
     end    
+    
+    trait :with_tile_completed do
+      after(:create) do |user, evaluator|
+        tile = create(:tile, status: Tile::ACTIVE, demo: user.demo)
+        create(:tile_completion, tile: tile, user: user)
+      end
+    end
   end
 
   factory :brand_new_user, :parent => :user do 
