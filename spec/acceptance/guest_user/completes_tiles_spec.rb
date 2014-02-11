@@ -19,11 +19,6 @@ feature 'Completes tiles' do
     should_be_on public_tiles_path(board.public_slug)
   end
 
-  scenario 'and sees the happy flash', js: true do
-    click_right_answer
-    expect_right_answer_reaction
-  end
-
   scenario 'and sees the completion in the activity feed', js: true do
     click_right_answer
     visit activity_path

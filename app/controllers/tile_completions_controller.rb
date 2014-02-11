@@ -3,11 +3,12 @@ class TileCompletionsController < ApplicationController
 
   def create
     tile = find_tile
+    remember_points_and_tickets
     act = create_act(tile)
     create_tile_completion(tile)
 
     session[:display_start_over_button] = true if current_user.is_guest?
-    flash[:success] = reply(act)
+    #flash[:success] = reply(act)
     redirect_to :back
   end
 
@@ -40,5 +41,10 @@ class TileCompletionsController < ApplicationController
 
   def find_current_board
     find_tile.demo
+  end
+
+  def remember_points_and_tickets
+    flash[:previous_points] = current_user.points || 0
+    flash[:previous_tickets] = current_user.tickets || 0
   end
 end

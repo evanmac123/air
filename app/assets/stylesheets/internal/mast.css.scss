@@ -76,9 +76,7 @@ header {
     }
     #completed_progress {
       @include completed_progress;
-    }
-    .bar_shine {
-      height:50%; 
+      &.counting {background: $dark-green;}
     }
   } // Progress bar 
 
@@ -88,9 +86,23 @@ header {
     &:after{@include clear;}
     p.user_numbers {
       @include font-bold;
+      color: $sky-blue;
       font-size:$bar-height;
       line-height: 1em;
     }
+
+    #user_points.counting {
+      color: $dark-green;
+      font-weight: 700;
+    }
+
+    #user_tickets {
+      &.counting {
+        color: $dark-green;
+        font-weight: 700;
+      }
+    }
+
     #me_toggle, .user_info_sections {display: inline-block;}
     #me_toggle {display:none;}
     .user_info_sections {

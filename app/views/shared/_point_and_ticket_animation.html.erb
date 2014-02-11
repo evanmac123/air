@@ -1,0 +1,29 @@
+<%= content_for :javascript do %>
+  <% if flash[:previous_points].present? && flash[:previous_tickets].present? && current_user.present? %>
+    <%= javascript_tag do %>
+      $(function() {
+        var animateCounters = function() {
+          var ticketCounter = new countUp('user_tickets', <%= flash[:previous_tickets] %>, <%= current_user.tickets %>, 0, 1.0);
+          var pointCounter = new countUp('user_points', <%= flash[:previous_points] %>, <%= current_user.points %>, 0, 1.0);
+
+          ticketCounter.useEasing = pointCounter.useEasing = false;
+
+          var userPoints = $('#user_points');
+          var userTickets = $('#user_tickets');
+
+          userPoints.addClass('counting');
+          userTickets.addClass('counting');
+          ticketCounter.start(function() {userTickets.removeClass('counting');});
+          pointCounter.start(function() {userPoints.removeClass('counting');});
+        }
+
+        var afterProgressBarCallback = function() {
+          $('#completed_progress').removeClass('counting');
+          animateCounters();
+        };
+
+        $('#completed_progress').addClass('counting').animate({width: '<%= master_bar_ending_percentage %>'}, 750, 'linear', afterProgressBarCallback);
+      });
+    <% end %>
+  <% end %>
+<% end %>

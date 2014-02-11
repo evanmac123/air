@@ -537,7 +537,7 @@ class User < ActiveRecord::Base
     original_tickets = self.tickets
     PointIncrementer.new(self, point_increment).update_points
 
-    if self.tickets > original_tickets
+    if channel.to_s != "web" && self.tickets > original_tickets
       OutgoingMessage.send_side_message(self, "Congratulations - You've earned #{pluralize self.tickets, 'ticket'}!", channel: channel)
     end
   end

@@ -43,7 +43,6 @@ feature 'User views tiles' do
 
       click_answer 1
       expect_no_wrong_answer_reaction 1
-      expect_right_answer_reaction
 
       visit activity_path
       expect_content "completed the tile: \"#{@tile.headline}\""
@@ -83,7 +82,9 @@ feature 'User views tiles' do
 
       click_answer 1
       expect_no_wrong_answer_reaction 1
-      expect_right_answer_reaction
+      visit activity_path
+      expect_content "completed the tile: \"#{@tile.headline}\""
+      expect_content "30 PTS"
     end
 
     context "when there is a short external link" do

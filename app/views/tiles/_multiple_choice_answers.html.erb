@@ -24,6 +24,16 @@
       <%= javascript_tag do %>
         setUpAnswers();
       <% end %>
+      <% if tile.points.present? %>
+        <%= javascript_tag do %>
+          $(document).on('click', '.right_multiple_choice_answer', function(event) {
+            event.preventDefault();
+            $('.earnable_points').css('background', '#4FAA60').css('box-shadow', 'none');
+            var pointCount = new countUp('tile_point_value', <%= tile.points %>, 0, 0, 0.75);
+            pointCount.start();
+          });
+        <% end %>
+      <% end %>
     <% end %>
   </div>
 <% end %>

@@ -31,8 +31,33 @@ module ApplicationHelper
     end
   end
 
-  def master_bar_width
-    "width: #{current_user.to_ticket_progress_calculator.percent_towards_next_threshold}%"
+  def starting_points
+    flash[:previous_points].try(:to_i) || current_user.points
+  end
+
+  def starting_tickets
+    flash[:previous_tickets].try(:to_i) || current_user.tickets
+  end
+
+  def master_bar_starting_width
+    if flash[:previous_points].present?
+      ticket_threshold = current_user.demo.ticket_threshold
+      ticket_threshold_base = current_user.ticket_threshold_base || 0
+      previous_points = flash[:previous_points].to_i - ticket_threshold_base
+      previous_overage = previous_points % ticket_threshold
+      previous_percentage = 100.0 * previous_overage.to_f / ticket_threshold.to_f
+      "width:#{previous_percentage}%"
+    else
+      master_bar_ending_width
+    end
+  end
+
+  def master_bar_ending_width
+    "width:#{master_bar_ending_percentage}"
+  end
+
+  def master_bar_ending_percentage
+    current_user.to_ticket_progress_calculator.percent_towards_next_threshold.to_s + "%"
   end
 
   def master_bar_point_content
