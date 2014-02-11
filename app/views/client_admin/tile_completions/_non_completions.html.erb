@@ -1,0 +1,11 @@
+<%= grid(@non_completions_grid, html: {id: "search-results-table"}, header_tr_html:  {id: "search-labels"}) do |g|
+  g.row_attributes do |tile_completion|
+    {class: 'found-user'}
+  end
+  g.column html: {class: "results-name"}, name: 'Name', model: 'User', attribute: 'name', filter: false do |tile_completion|
+    link_to tile_completion.name, edit_client_admin_user_path(tile_completion), class: 'edit-user'
+  end
+  g.column html: {class: "results-email"}, name: 'Email' do |tile_completion|      
+    tile_completion.email
+  end
+end -%>

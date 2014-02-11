@@ -33,4 +33,8 @@ class TileCompletion < ActiveRecord::Base
   def self.user_completed_any_tiles?(user_id, tile_ids)
     where(user_id: user_id, tile_id: tile_ids).count > 0
   end
+  
+  def has_user_joined?
+    user_type == User.name && user.claimed?
+  end
 end

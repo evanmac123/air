@@ -39,7 +39,7 @@ class GuestUser < ActiveRecord::Base
   end
  
   def name
-    "Guest User"
+    "Guest User [#{id}]"
   end
 
   def email

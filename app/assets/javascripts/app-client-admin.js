@@ -13,6 +13,7 @@
 //= require ./internal_and_external/underscore-min
 //= require ./internal/tiles
 
+//= require wice_grid
 
 $(document).ready(function() {
   var more = "More options";
