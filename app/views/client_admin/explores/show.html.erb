@@ -10,20 +10,35 @@
 
   <h1>Explore</h1>
 
+ <div class="tile_topics row">
+  <div class="columns large-2 push-4">  
+    <a href="/client_admin/explore_new" class="medium_button_gray">Newly Added</a></div>
+  <div class="columns large-2 pull-4">  
+    <a href="/client_admin/explore" class="medium_button_green">By Category</a></div>
+</div>
+
+
+<div class="row study_samples editorial_divider">
+    <div class="large-12 columns">
+      <p class="editorial_title"><a name="Catergories">Categories</a></p>
+    </div></div>
+
+
 <!--[if gt IE 8]><!-->  
   <div class="tile_topics row">
     <div class="columns large-2 push-4">
       <p><span><a href ="#Enrollment">Open Enrollment</a></span></p>
       <p><span><a href ="#Financial">Financial Education</a></span></p>
-      <p><span><a href ="#Wellness">Wellness</a></span></p>
-      <p><span class="new_marker">New!</span><span><a href ="#Travel"> Travel</a></span></p>
+      <p><span class="new_marker">New!</span><a href ="#Wellness"> Wellness</a></span></p>
+      <p><span><a href ="#Travel">Travel</a></span></p>
+      <p><span class="new_marker">New!</span><span><a href ="#MentalHealth"> Mental Health</a></span></p>
     </div>
 
     <div class="columns large-2 pull-4">
       <p><span><a href ="#Healthcare">Health Care Reform</a></span></p>
       <p><span><a href ="#Safety">Safety</a></span></p>
       <p><span><a href ="#Miscellaneous">Miscellaneous</a></span></p>
-      <p><span class="new_marker">New!</span><a href ="#Food"> Food</a></span></p>
+      <p><span><a href ="#Food">Food</a></span></p>
     </div>
   </div>
 <![endif]-->
@@ -34,10 +49,10 @@
       <div class="topic"><a href ="#Healthcare">Health Care Reform</a></div>
       <div class="topic"><a href ="#Financial">Financial Education</a></div>
       <div class="topic"><a href ="#Safety">Safety</a></div>
-      <div class="topic"><a href ="#Wellness">Wellness</a></div>
+      <div class="topic"><span class="new_marker">New!</span><a href ="#Wellness">Wellness</a></div>
       <div class="topic"><a href ="#Miscellaneous">Miscellaneous</a></div>
-      <div class="topic"><span class="new_marker">New!</span><a href ="#Travel"> Travel</a></div>
-      <div class="topic"><span class="new_marker">New!</span><a href ="#Food"> Food</a></div>
+      <div class="topic"><a href ="#Travel">Travel</a></div>
+      <div class="topic"><a href ="#Food">Food</a></div>
   </div>
   <![endif]-->
 <!-- ============= small Open Enrollment sample tiles ============= -->
@@ -177,11 +192,35 @@
         tile_creator: "Airbo",
         tile_creation_date: "October 31, 2013"%>  
 
-      <%=render"tile_thumbnail", thumbnail_class:  "explore small_changes",
+    <%=render"tile_thumbnail", thumbnail_class:  "explore small_changes",
         thumbnail_image: "Explore_tile_page/small_changes.jpg", 
         tile_headline: "Small changes can mean big results", 
         tile_creator: "Airbo",
-        tile_creation_date: "October 9, 2013"%>                      
+        tile_creation_date: "October 9, 2013"%>  
+
+    <%=render"tile_thumbnail", thumbnail_class:  "explore antioxidants",
+        thumbnail_image: "Explore_tile_page/antioxidents.png", 
+        tile_headline: "You know antioxidants are good for you, but do you know why?", 
+        tile_creator: "Marianne Davis, Director of HR, Natick Public Schools",
+        tile_creation_date: "January 15, 2014"%>  
+
+    <%=render"tile_thumbnail", thumbnail_class:  "explore cholesterol",
+        thumbnail_image: "Explore_tile_page/cholesterol.png", 
+        tile_headline: "What is cholesterol and why is HDL good & LDL bad?", 
+        tile_creator: "Marianne Davis, Director of HR, Natick Public Schools",
+        tile_creation_date: "January 22, 2014"%>        
+
+    <%=render"tile_thumbnail", thumbnail_class:  "explore drink_water",
+        thumbnail_image: "Explore_tile_page/drink_water.png ", 
+        tile_headline: "Your body loses about 10 cups of water every day. Replace it!", 
+        tile_creator: "Marianne Davis, Director of HR, Natick Public Schools",
+        tile_creation_date: "January 29, 2014"%>    
+
+    <%=render"tile_thumbnail", thumbnail_class:  "explore recycle_yourself",
+        thumbnail_image: "Explore_tile_page/recycle_yourself.png", 
+        tile_headline: "February 14 is National Donor Day", 
+        tile_creator: "Marianne Davis, Director of HR, Natick Public Schools",
+        tile_creation_date: "February 11, 2014"%>                     
   </div>
 
       <!-- ============= small HCR sample tiles ============= -->
@@ -348,6 +387,39 @@
         tile_creation_date: "January 30, 2014"%>          
 
   </div> 
+
+     <!-- ============= small Mental Health sample tiles ============= -->
+
+  <div class="row study_samples editorial_divider">
+    <div class="large-12 columns">
+      <p class="editorial_title"><a name="MentalHealth">Mental Health</a></p>
+    </div>
+
+    <%=render"tile_thumbnail", thumbnail_class:  "explore happy_smile",
+        thumbnail_image: "Explore_tile_page/happy_smile.png", 
+        tile_headline: "You can train your brain to be happy", 
+        tile_creator: "Airbo",
+        tile_creation_date: "February 11, 2014"%> 
+
+    <%=render"tile_thumbnail", thumbnail_class:  "explore notebook",
+        thumbnail_image: "Explore_tile_page/notebook.png", 
+        tile_headline: "Write it down", 
+        tile_creator: "Airbo",
+        tile_creation_date: "Febuary 11, 2014"%> 
+
+    <%=render"tile_thumbnail", thumbnail_class:  "explore relationships",
+        thumbnail_image: "Explore_tile_page/relationships.png", 
+        tile_headline: "Spend time with your friends and family", 
+        tile_creator: "Airbo",
+        tile_creation_date: "February 11, 2014"%>       
+
+  <%=render"tile_thumbnail", thumbnail_class:  "explore open_book",
+        thumbnail_image: "Explore_tile_page/open_book.png", 
+        tile_headline: "Select positive takeaways", 
+        tile_creator: "Airbo",
+        tile_creation_date: "February 11, 2014"%>          
+
+  </div>
 
   <!-- ============= full Open Enrollment sample tiles ============= -->
 
@@ -566,7 +638,7 @@
         correct_answer_index: 0
         %> 
 
-  <%=render"fullsize_tile", thumbnail_class:  "explore small_changes",
+    <%=render"fullsize_tile", thumbnail_class:  "explore small_changes",
         thumbnail_image: "Explore_tile_page/small_changes.jpg", 
         tile_headline: "Small changes can mean big results!", 
         tile_supporting_content: "Want to improve your health but not sure where to start? Try focusing on fruits and veggies. Squeeze in one extra fruit or veggie every day this week. Experts agree that eating more fruits and vegetables is the best way to prevent cancer, heart disease, and diabetes.",
@@ -574,6 +646,50 @@
         points_label: "Points",
         tile_question: "Points for reading!",
         tile_answers: [ "I read this tile"],
+        correct_answer_index: 0
+        %> 
+
+  <%=render"fullsize_tile", thumbnail_class:  "explore antioxidants",
+        thumbnail_image: "Explore_tile_page/antioxidents.png", 
+        tile_headline: "You know antioxidants are good for you, but do you know why?", 
+        tile_supporting_content: "They minimize damage to your cells from free radicals. It's important to understand how, by eating foods high in antioxidants, you can minimize the harmful impact of free radicals and improve your body's resistance to cancer, heart disease, Alzheimer's and Parkinson's disease. Visit: http://bit.ly/1aRzEsF",
+        tile_points: "6",
+        points_label: "Points",
+        tile_question: "When the body metabolizes oxygen, a small number of cells are damaged and become free radicals which then:",
+        tile_answers: [ "Injure Healthy cells", "Damage DNA", "Create an environment for disease", "All of the above"],
+        correct_answer_index: 3
+        %> 
+
+  <%=render"fullsize_tile", thumbnail_class:  "explore cholesterol",
+        thumbnail_image: "Explore_tile_page/cholesterol.png", 
+        tile_headline: "What is cholesterol and why is HDL good & LDL bad?", 
+        tile_supporting_content: "Low-density lipoproteins (LDL) result in a buildup of cholesterol in your arteries & can enter blood vessel walls & accumulate under lining of your vessels, restricting blood flow. High-density lipoproteins (HDL) carry cholesterol back to your liver where it is processed & removed. Vist: http://bit.ly/1en2bB8",
+        tile_points: "3",
+        points_label: "Points",
+        tile_question: "Based on the article, what are lipoproteins made of?",
+        tile_answers: [ "Fat", "Protein", "Both"],
+        correct_answer_index: 2
+        %> 
+
+  <%=render"fullsize_tile", thumbnail_class:  "explore drink_water",
+        thumbnail_image: "Explore_tile_page/drink_water.png", 
+        tile_headline: "Your body loses about 10 cups of water every day. Replace it!", 
+        tile_supporting_content: "You know the rule: 8-10 glasses a day. Moisture in food accounts for about 20% of the average person's total daily water intake. Did you know: An apple is 84% water, bananas are 74% water, broccoli is 91% water, ground beef is 56% water, American cheese is 39% water and even a plain bagel is 33% water.",
+        tile_points: "6",
+        points_label: "Points",
+        tile_question: "Water helps your body: ",
+        tile_answers: [ "Remove waste", "Transport Nutrients", "Cushion Joints", "All of the Above"],
+        correct_answer_index: 3
+        %>         
+
+  <%=render"fullsize_tile", thumbnail_class:  "explore recycle_yourself",
+        thumbnail_image: "Explore_tile_page/recycle_yourself.png", 
+        tile_headline: "February 14 is National Donor Day", 
+        tile_supporting_content: "Each day, an average of 79 people receive organ transplants. However, an average of 18 people die each day waiting for transplants that can't take place because of the shortage of donated organs. By becoming a donor, you may save up to 8 lives. For details, visit: http://www.organdonor.gov/about/index.html",
+        tile_points: "4",
+        points_label: "Points",
+        tile_question: "How many people die each day because there isn't an organ available to save them?",
+        tile_answers: [ "18", "4", "25"],
         correct_answer_index: 0
         %> 
 
@@ -812,6 +928,51 @@
         correct_answer_index: 1
         %> 
 
+<!-- ============= full Mental Health sample tiles ============= -->
+
+ <%=render"fullsize_tile", thumbnail_class:  "explore happy_smile",
+        thumbnail_image: "Explore_tile_page/happy_smile.png", 
+        tile_headline: "You can train your brain to be happy", 
+        tile_supporting_content: "Training your mind to look for errors and problems (as happens in careers like accounting and law) can lead you toward a pervasive pessimism that carries over into your personal life. Is there a way to get your mind out of these negative loops? Yes - read the following tiles to learn how.",
+        tile_points: "5",
+        points_label: "Points",
+        tile_question: "Can you train your brain to be happy?",
+        tile_answers: [ "Yes", "No"],
+        correct_answer_index: 0
+        %> 
+
+ <%=render"fullsize_tile", thumbnail_class:  "explore notebook",
+        thumbnail_image: "Explore_tile_page/notebook.png", 
+        tile_headline: "Write it down", 
+        tile_supporting_content: "You must teach your brain to seek out the good things in life. Research shows merely listing three things you are thankful for each day can make a big difference. This technique has been proven again and again and again. For more information, visit: http://m.theweek.com/article.php?id=256206",
+        tile_points: "5",
+        points_label: "Points",
+        tile_question: "Every night this week, set aside ten minutes before you go to sleep. Write down three things that went well today and why they went well. Next to each positive event, answer the question 'Why did this happen?'",
+        tile_answers: [ "I made the commitment"],
+        correct_answer_index: 0
+        %> 
+
+ <%=render"fullsize_tile", thumbnail_class:  "explore relationships",
+        thumbnail_image: "Explore_tile_page/relationships.png", 
+        tile_headline: "Spend time with your friends and family", 
+        tile_supporting_content: "Harvard happiness expert Daniel Gilbert identified spending times with our friends & family as one of the biggest sources of happiness in our lives. Relationships are worth more than you think (they can be the equivalent of making an extra $131,232 a year.) For more information, visit: http://bit.ly/1m3VkGP",
+        tile_points: "5",
+        points_label: "Points",
+        tile_question: "Fill in the blank: Relationships can be the equivalent of making $____________ more per year in terms of life satisfaction",
+        tile_answers: [ "$50,000", "$132,232", "$152,232"],
+        correct_answer_index: 1
+        %> 
+
+ <%=render"fullsize_tile", thumbnail_class:  "explore open_book",
+        thumbnail_image: "Explore_tile_page/open_book.png", 
+        tile_headline: "Select positive takeaways", 
+        tile_supporting_content: "Your memory is a powerful thing. Lyubomirsky found that even for a negative event, if you select some positive takeaways, you will be happier. For more details, visit: http://bit.ly/1fWIhj8",
+        tile_points: "5",
+        points_label: "Points",
+        tile_question: "Who found that if you choose positive takeaways from a past event, you'd be happier?",
+        tile_answers: [ "Barker", "Lyubomirsky", "Wilson"],
+        correct_answer_index: 1
+        %> 
 
 
 
@@ -861,6 +1022,14 @@
 <%=render"tile_lightbox_javascript", thumbnail_class:  "food_sweetpotato"%>
 <%=render"tile_lightbox_javascript", thumbnail_class:  "food_cookies"%>
 <%=render"tile_lightbox_javascript", thumbnail_class:  "food_grapefruit"%>
+<%=render"tile_lightbox_javascript", thumbnail_class:  "happy_smile"%>
+<%=render"tile_lightbox_javascript", thumbnail_class:  "notebook"%>
+<%=render"tile_lightbox_javascript", thumbnail_class:  "relationships"%>
+<%=render"tile_lightbox_javascript", thumbnail_class:  "open_book"%>
+<%=render"tile_lightbox_javascript", thumbnail_class:  "antioxidants"%>
+<%=render"tile_lightbox_javascript", thumbnail_class:  "cholesterol"%>
+<%=render"tile_lightbox_javascript", thumbnail_class:  "drink_water"%>
+<%=render"tile_lightbox_javascript", thumbnail_class:  "recycle_yourself"%>
 
 $('.tile_thumbnail').click(function() {mixpanel.track('Explore Page - Clicked Thumbnail');});
 </script>

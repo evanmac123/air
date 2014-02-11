@@ -98,6 +98,7 @@ Health::Application.routes.draw do
 
     resources :public_boards, only: [:create, :destroy]
     resource :explore
+    resource :explore_new
   end
 
   resources :pages, :only => :show
