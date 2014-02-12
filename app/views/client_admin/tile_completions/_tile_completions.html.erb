@@ -11,7 +11,7 @@
   g.column name: 'Date', attribute: 'created_at', filter: false  do |tile_completion|
     tile_completion.created_at
   end
-  g.column html: {class: "results-joined", style: "text-align: left"}, name: 'Joined?' do |tile_completion|    
+  g.column html: {class: "results-joined"}, name: 'Joined?' do |tile_completion|    
     if tile_completion.has_user_joined?
       '<span class="joined">Yes</span>'.html_safe
     else
