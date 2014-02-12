@@ -10,13 +10,21 @@
 
   <h1>Explore</h1>
 
+<!--[if gt IE 8]><!-->  
  <div class="tile_topics row">
-  <div class="columns large-2 push-4">  
-    <a href="/client_admin/explore_new" class="medium_button_green">Newly Added</a></div>
-  <div class="columns large-2 pull-4">  
+  <div class="columns large-2 push-4">
     <a href="/client_admin/explore" class="medium_button_gray">By Category</a></div>
+  <div class="columns large-2 pull-4">  
+    <a href="/client_admin/explore_new" class="medium_button_green">Newly Added</a></div>
 </div>
+<![endif]-->
 
+  <!--[if IE 8]>
+  <div class="tile_topics tile_topicsIE">
+      <div class="medium_button_gray"><a href ="/client_admin/explore">By Category</a></div>
+      <div class="medium_button_green"><a href ="/client_admin/explore_new">Newly Added</a></div>
+  </div>
+  <![endif]-->
 
 
  <!-- ============= Small New Wellness  tiles ============= -->
@@ -71,7 +79,7 @@
 
   <%=render"client_admin/explores/tile_thumbnail", thumbnail_class:  "explore open_book",
         thumbnail_image: "Explore_tile_page/open_book.png", 
-        tile_headline: "Select positive takeaways ", 
+        tile_headline: "Positive takeaways ", 
         tile_creator: "Airbo",
         tile_creation_date: "February 11, 2014"%>          
 
@@ -161,12 +169,12 @@
 
  <%=render"client_admin/explores/fullsize_tile", thumbnail_class:  "explore open_book",
         thumbnail_image: "Explore_tile_page/open_book.png", 
-        tile_headline: "Select positive takeaways", 
-        tile_supporting_content: "Your memory is a powerful thing. Lyubomirsky found that even for a negative event, if you select some positive takeaways, you will be happier. For more details, visit: http://bit.ly/1fWIhj8",
+        tile_headline: "Positive takeaways", 
+        tile_supporting_content: "Your memory is a powerful thing. Lyubomirsky found that even for a negative event, if you choose some positive takeaways, you will be happier. For more details, visit: http://bit.ly/1fWIhj8",
         tile_points: "5",
         points_label: "Points",
         tile_question: "Who found that if you choose positive takeaways from a past event, you'd be happier?",
-        tile_answers: [ "Barker", "Lyubomirsky", "Wilson"],
+        tile_answers: [ "Barker", "Lyubomirsky", "Wilson"], 
         correct_answer_index: 1
         %> 
 
