@@ -62,7 +62,15 @@ module Health
       internal/guest_user_conversion.js
       client_admin/public_board_controls.js
       internal/explore.css
-      Explore_tile_page/*
+      Explore_tile_page/antioxidents.png
+      Explore_tile_page/drink_water.png
+      Explore_tile_page/happy_smile.png
+      Explore_tile_page/cholesterol.png
+      Explore_tile_page/relationships.png
+      Explore_tile_page/recycle_yourself.png
+      Explore_tile_page/notebook.png
+      Explore_tile_page/open_book.png
+      
     )
 
     ################################################################
