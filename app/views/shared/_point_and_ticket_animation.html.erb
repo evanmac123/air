@@ -17,12 +17,35 @@
           pointCounter.start(function() {userPoints.removeClass('counting');});
         }
 
+        var progressBar = $('#completed_progress');
+
+        var fillBarToFinalPercentage = function() {
+          progressBar.animate({width: '<%= master_bar_ending_percentage %>'}, 750, 'linear', afterProgressBarCallback);        
+        };
+
+        var fillBarEntirely = function() {
+          var emptyBar = function() {
+            progressBar.css('width', '0%');
+            fillBarToFinalPercentage();
+          }
+
+          progressBar.animate({width: '100%'}, 750, 'linear', emptyBar);
+        };
+
         var afterProgressBarCallback = function() {
-          $('#completed_progress').removeClass('counting');
+          progressBar.removeClass('counting');
           animateCounters();
         };
 
-        $('#completed_progress').addClass('counting').animate({width: '<%= master_bar_ending_percentage %>'}, 750, 'linear', afterProgressBarCallback);
+        var fillBarAndRestart = <%= flash[:previous_tickets].to_i < current_user.tickets %>;
+
+        progressBar.addClass('counting');
+
+        if(fillBarAndRestart) {
+          fillBarEntirely();
+        } else {
+          fillBarToFinalPercentage(); 
+        }
       });
     <% end %>
   <% end %>

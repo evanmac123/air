@@ -313,7 +313,7 @@ a, a:link, a:visited {@include link($blue);}
 
 // ------------------------ * Gradient bar * ------------------------
 @mixin completed_progress {
-  background: $sky-blue;
+  background: $orange;
   height:100%;
 }
 

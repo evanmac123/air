@@ -86,17 +86,21 @@ header {
     &:after{@include clear;}
     p.user_numbers {
       @include font-bold;
-      color: $sky-blue;
       font-size:$bar-height;
       line-height: 1em;
     }
 
-    #user_points.counting {
-      color: $dark-green;
-      font-weight: 700;
+    #user_points {
+      color: $text-color;
+      &.counting {
+        color: $dark-green;
+        font-weight: 700;
+      }
     }
 
     #user_tickets {
+      color: $orange;
+
       &.counting {
         color: $dark-green;
         font-weight: 700;
