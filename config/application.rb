@@ -62,6 +62,7 @@ module Health
       internal/guest_user_conversion.js
       client_admin/public_board_controls.js
       internal/explore.css
+      Explore_tile_page/*
     )
 
     ################################################################
