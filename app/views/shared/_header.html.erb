@@ -45,6 +45,12 @@
 
 <!-- start of new admin navigation that needs to be gated off later -->
     <div class="large-6 columns" id="user_info">
+      <ul id="total_tiles" class="user_info_sections">
+        <li><p class="small_cap">Experience</p></li>
+        <li><p class="user_numbers">
+          <span id="user_points"><%= number_with_delimiter starting_points %></span>
+        </p></li>
+      </ul>
       <ul id="to_next_credit" class="user_info_sections">
         <li><p class="small_cap">Points to next ticket</p></li>
         <li id="progress_bar">
@@ -55,12 +61,6 @@
       <ul id="credits" class="user_info_sections">
         <li><p class="small_cap">Tickets</p></li>
         <li><p class="user_numbers" id="user_tickets"><%= starting_tickets %></p></li>
-      </ul>
-      <ul id="total_tiles" class="user_info_sections">
-        <li><p class="small_cap">Experience</p></li>
-        <li><p class="user_numbers">
-          <span id="user_points"><%= number_with_delimiter starting_points %></span>
-        </p></li>
       </ul>
 
       <%= render "shared/point_and_ticket_animation" %>
