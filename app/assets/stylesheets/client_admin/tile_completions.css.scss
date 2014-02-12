@@ -12,6 +12,18 @@ $tile_completion_button_height: 2.0em;
     @include app-button($blue);
   }
 }
+.tile_stats {
+  .completions {
+    a, a:link, a:visited {
+      display: inline;
+    }
+  }
+}
+#grid {
+  td.results-joined {
+    text-align: left;
+  }
+}
 .not-completed {
   height: $tile_completion_button_height;
   &.engaged {
