@@ -24,7 +24,8 @@ class ClientAdmin::TileCompletionsController < ClientAdminBaseController
         )
       else
         tile_completions = TileCompletion.where(tile_id: @tile.id)
-        @tile_completions_grid = initialize_grid(tile_completions, name: 'tc_grid')
+        @tile_completions_grid = initialize_grid(tile_completions, 
+          name: 'tc_grid', order: 'id', order_direction: 'desc')
       end
     end
   end

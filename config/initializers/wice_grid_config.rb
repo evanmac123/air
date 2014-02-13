@@ -95,11 +95,11 @@ if defined?(Wice::Defaults)
 
   # Format of the datetime displayed.
   # If you change the format, make sure to check if +DATETIME_PARSER+ can still parse this string.
-  Wice::Defaults::DATETIME_FORMAT = "%Y-%m-%d %H:%M"
+  Wice::Defaults::DATETIME_FORMAT = "%m/%d/%Y %H:%M"
 
   # Format of the date displayed.
   # If you change the format, make sure to check if +DATE_PARSER+ can still parse this string.
-  Wice::Defaults::DATE_FORMAT     =  "%Y-%m-%d"
+  Wice::Defaults::DATE_FORMAT     =  "%-m/%-d/%Y"
 
   # Format of the date displayed in jQuery's Datepicker
   # If you change the format, make sure to check if +DATE_PARSER+ can still parse this string.
