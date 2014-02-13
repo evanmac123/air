@@ -21,6 +21,7 @@ class UserCreatorFromCsv
     if user
       user.attributes = clean_attributes_for_existing_user(user, new_user_attributes)
       user.save
+      user.schedule_segmentation_update(true)
     else
       user = User.create(new_user_attributes)
     end
@@ -64,7 +65,7 @@ class UserCreatorFromCsv
   def normalize_value(column_name, value)
     case column_name
     when 'date_of_birth'
-      Chronic.parse(value).to_date
+      Chronic.parse(value).try(:to_date)
     when 'gender'
       case value.downcase.first
       when 'm'
