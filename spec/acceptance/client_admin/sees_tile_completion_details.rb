@@ -42,7 +42,7 @@ feature "sees tile completion details" do
   end
   context "tile reports page with data", js:true do
     before do
-      2.times do
+      100.times do
         u = FactoryGirl.create(:user, demo: client_admin.demo)
         FactoryGirl.create(:tile_completion, user: u, tile: tile)
       end
@@ -71,12 +71,13 @@ feature "sees tile completion details" do
     end
     scenario "sees pagination at bottom" do
       # bottom has pagination 
-      page.should have_selector('div', 'pagination') 
+      page.should have_selector('div .pagination') 
     end
     scenario "on click name, list should show name descending" do
       click_link 'Name'
       page.find('tbody tr:first td:first').should have_content('000')
-      page.find('tbody tr:last td:first').should have_content('ZZZ')
+      click_link 'Name'
+      page.find('tbody tr:first td:first').should have_content('ZZZ')
     end
     scenario "should be sortable by date" do
       sleep 1
