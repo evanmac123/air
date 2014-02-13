@@ -1,4 +1,5 @@
 <%= grid(@non_completions_grid, html: {id: "search-results-table"}, header_tr_html:  {id: "search-labels"}) do |g|
+  g.blank_slate "<div class='grid_no_record'>Everyone has completed this tile!</div>".html_safe 
   g.row_attributes do |user|
     {class: 'found-user'}
   end

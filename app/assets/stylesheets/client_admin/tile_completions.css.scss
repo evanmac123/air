@@ -19,10 +19,13 @@ $tile_completion_button_height: 2.0em;
     }
   }
 }
-#grid {
-  td.results-joined {
-    text-align: left;
+#completions_grid {
+  #tc_grid, #nc_grid {
+    td.results-joined {
+      text-align: left;
+    }
   }
+  .grid_no_record {margin:3em auto 0;}  
 }
 .not-completed {
   height: $tile_completion_button_height;
