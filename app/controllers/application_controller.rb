@@ -129,6 +129,7 @@ class ApplicationController < ActionController::Base
           public_board_not_found
         end
 
+        refresh_activity_session(current_user)
         return
       else
         flash[:failure] = '<a href="#" class="open_save_progress_form">Save your progress</a> to access this part of the site.'
@@ -139,9 +140,9 @@ class ApplicationController < ActionController::Base
     end
 
     if guest_user_allowed? && params[:public_slug] 
-      refresh_activity_session(current_user)
       if current_user.nil?
         login_as_guest(params[:public_slug])
+        refresh_activity_session(current_user)
         return
       else
         redirect_to activity_path
