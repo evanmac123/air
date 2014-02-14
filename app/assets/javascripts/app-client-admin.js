@@ -32,3 +32,5 @@ $(document).ready(function() {
     event.preventDefault();
   });
 });
+//= require foundation
+$(document).foundation();
