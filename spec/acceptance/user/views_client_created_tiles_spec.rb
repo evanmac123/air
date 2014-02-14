@@ -99,7 +99,7 @@ feature 'User views tiles' do
     context "when there is a long external link" do
       it "should show the URL, truncated, as a link" do
         long_url           = "http://www.example.com/abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz"
-        truncated_long_url = "http://www.example.com/abcdefghijklmnopqrs..."
+        truncated_long_url = "http://www.example.com/abcd..."
         @tile.update_attributes(link_address: long_url)
         visit tiles_path(as: @user)
         page.all("a[href='#{long_url}'][target=_blank]", text: truncated_long_url).should have(1).visible_link
