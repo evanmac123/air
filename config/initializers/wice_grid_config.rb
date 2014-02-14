@@ -95,7 +95,7 @@ if defined?(Wice::Defaults)
 
   # Format of the datetime displayed.
   # If you change the format, make sure to check if +DATETIME_PARSER+ can still parse this string.
-  Wice::Defaults::DATETIME_FORMAT = "%-m/%-d/%Y %l:%M%p"
+  Wice::Defaults::DATETIME_FORMAT = "%-m/%-d/%Y at %l:%M%p"
 
   # Format of the date displayed.
   # If you change the format, make sure to check if +DATE_PARSER+ can still parse this string.
