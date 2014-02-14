@@ -398,6 +398,34 @@ feature 'Client admin and the digest email for tiles' do
 
           FakeMixpanelTracker.should have_event_matching('Digest - Sent', {followup_scheduled: true})
         end
+
+        it "recording if an optional message was also added", js: true do
+          create_tile
+          visit client_admin_share_path(as: admin)
+          click_button "Send digest now"
+
+          FakeMixpanelTracker.clear_tracked_events
+          crank_dj_clear
+          FakeMixpanelTracker.should have_event_matching('Digest - Sent', {optional_message_added: false})
+
+          create_tile
+          visit client_admin_share_path(as: admin)
+          fill_in "digest[custom_message]", with: ''
+          click_button "Send digest now"
+
+          FakeMixpanelTracker.clear_tracked_events
+          crank_dj_clear
+          FakeMixpanelTracker.should have_event_matching('Digest - Sent', {optional_message_added: false})
+
+          create_tile
+          visit client_admin_share_path(as: admin)
+          fill_in "digest[custom_message]", with: 'hey'
+          click_button "Send digest now"
+
+          FakeMixpanelTracker.clear_tracked_events
+          crank_dj_clear
+          FakeMixpanelTracker.should have_event_matching('Digest - Sent', {optional_message_added: true})
+        end
       end
     end
   end

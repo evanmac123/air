@@ -16,17 +16,18 @@ class ClientAdmin::TilesDigestNotificationsController < ClientAdminBaseControlle
     flash[:success] = "Tiles digest email was sent"
     flash[:digest_sent_flag] = true
 
-    schedule_digest_sent_ping(unclaimed_users_also_get_digest, follow_up_days)
+    schedule_digest_sent_ping(unclaimed_users_also_get_digest, follow_up_days, custom_message)
     redirect_to :back
   end
 
   protected
 
-  def schedule_digest_sent_ping(unclaimed_users_also_get_digest, follow_up_days)
+  def schedule_digest_sent_ping(unclaimed_users_also_get_digest, follow_up_days, custom_message)
     receiver_description = unclaimed_users_also_get_digest ? 'all users' : 'only joined users'
     followup_scheduled = follow_up_days > 0
+    optional_message_added = custom_message.present?
 
-    ping 'Digest - Sent', {digest_send_to: receiver_description, followup_scheduled: followup_scheduled}, current_user
+    ping 'Digest - Sent', {digest_send_to: receiver_description, followup_scheduled: followup_scheduled, optional_message_added: optional_message_added}, current_user
   end
 
   def schedule_digest_and_followup!(demo, unclaimed_users_also_get_digest, follow_up_days, cutoff_time, custom_message)
