@@ -4,7 +4,7 @@ if defined?(Wice::Defaults)
   Wice::Defaults::PER_PAGE = 50
 
   # Default order direction
-  Wice::Defaults::ORDER_DIRECTION = 'asc'
+  Wice::Defaults::ORDER_DIRECTION = 'desc'
 
   # Default name for a grid. A grid name is the basis for a lot of
   # names including parameter names, DOM IDs, etc
