@@ -36,7 +36,8 @@ class ClientAdmin::TileCompletionsController < ClientAdminBaseController
         table_name} on #{TileCompletion.table_name}.user_id = #{User.
         table_name}.id AND #{TileCompletion.table_name}.user_type = '#{User.
         name}' AND #{TileCompletion.table_name}.tile_id = #{@tile.id}").
-        where("#{TileCompletion.table_name}.id is null"), name: 'nc_grid')
+        where("#{TileCompletion.table_name}.id is null"), 
+      name: 'nc_grid', order: 'name', order_direction: 'asc')
     render :non_completions
   end
 end
