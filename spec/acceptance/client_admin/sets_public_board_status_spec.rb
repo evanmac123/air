@@ -4,7 +4,6 @@ feature "Client admin sets board's public status themself" do
   let (:client_admin) { FactoryGirl.create(:client_admin) }
   
   before do
-    $rollout.activate_user(:public_board, client_admin.demo)
     client_admin.demo.update_attributes(public_slug: 'heyfriend')
   end
 
