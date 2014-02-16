@@ -7,15 +7,16 @@ class TilesController < ApplicationController
 
   def index
     @current_user = current_user
-
+    
     @start_tile = if start_tile_id.to_s == '0'
                     current_user.sample_tile
                   elsif start_tile_id.present?
                     Tile.find(start_tile_id)
                   else
                     nil
-                  end
-
+                  end                      
+    
+    @current_tile_ids = satisfiable_tiles.map(&:id)
     decide_if_tiles_can_be_done(satisfiable_tiles)
 
     session.delete(:start_tile)
@@ -34,7 +35,7 @@ class TilesController < ApplicationController
       get_displayable
       get_position_description
       render_new_tile
-      schedule_viewed_tile_ping(next_tile)
+      schedule_viewed_tile_ping(current_tile)
     else
       session[:start_tile] = params[:id]
       if params[:public_slug]
@@ -60,38 +61,54 @@ class TilesController < ApplicationController
   end
 
   def render_new_tile
-    render "tiles/_full_size_tile", locals: {tile: next_tile}, layout: false
+    #add new tiles to the end of the previous tiles
+    render "tiles/_full_size_tile", locals: {tile: current_tile, current_tile_ids: current_tile_ids}, layout: false
+  end
+  
+  def current_tile_ids
+    @current_tile_ids ||= begin
+      not_completed_tile_ids = satisfiable_tiles.map(&:id)
+      new_tile_ids = not_completed_tile_ids - previous_tile_ids
+      current_tile_ids = previous_tile_ids + new_tile_ids      
+      current_tile_ids
+    end
+  end
+  
+  def previous_tile_ids
+    @_previous_tile_ids ||= (params[:previous_tile_ids] && params[:previous_tile_ids].split(',').collect{|el| el.to_i}) || []
   end
 
-  def current_tile_id
+  def reference_tile_id
     params[:id] || start_tile_id
+  end
+  
+  def current_tile_id    
+    current_tile_ids[current_tile_index]
+  end
+  
+  def current_tile
+    @_current_tile ||= Tile.find(current_tile_id)
+  end
+
+  def previous_tile_index
+    (previous_tile_ids.find_index{|element| element.to_i == reference_tile_id.to_i})||0
   end
 
   def current_tile_index
-    result = satisfiable_tiles.find_index{|tile| tile.id.to_s == current_tile_id.to_s}
-    result || 0
-  end
-
-  def next_tile
-    unless @_next_tile.present?
-      next_tile = satisfiable_tiles[next_tile_index]
-      @_next_tile = next_tile
-    end
-
-    @_next_tile
-  end
-
-  def next_tile_index
     return 0 if satisfiable_tiles.empty?
-    (current_tile_index + params[:offset].to_i) % (satisfiable_tiles.length)
+    (previous_tile_index + params[:offset].to_i) % 
+    (current_tile_ids.length > 0 ? current_tile_ids.length : 1)    
   end
+  
 
   def get_position_description
-    @current_tile_position_description = "Tile #{next_tile_index + 1} of #{satisfiable_tiles.length}"
+    #TODO change this to use params[:tile_ids] and incorporate any new tile added 
+    @current_tile_position_description = "Tile #{current_tile_index+1} of #{current_tile_ids.length}"
   end
 
   def render_tile_wall
-    render partial: "shared/tile_wall", locals: {tiles: Tile.displayable_to_user(current_user, tile_batch_size)}
+    render partial: "shared/tile_wall", 
+      locals: Tile.displayable_categorized_to_user(current_user, tile_batch_size)      
   end
 
   def decide_whether_to_show_conversion_form
@@ -108,12 +125,19 @@ class TilesController < ApplicationController
     end
   end
 
+  def show_completed_tiles    
+    @show_completed_tiles ||=  params[:completed_only] || 
+      (session[:start_tile] && 
+        current_user.tile_completions.where(tile_id: session[:start_tile]).exists?)
+  end
   def satisfiable_tiles
-    unless @_satisfiable_tiles
-      @_satisfiable_tiles = Tile.satisfiable_to_user(current_user)
+    @_satisfiable_tiles ||= begin
+      unless show_completed_tiles
+        @_satisfiable_tiles = Tile.satisfiable_to_user(current_user)
+      else
+        current_user.completed_tiles
+      end
     end
-
-    @_satisfiable_tiles
   end
 
   def find_current_board

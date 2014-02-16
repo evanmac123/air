@@ -12,20 +12,20 @@ sendViewedTilePing = (tile_id) ->
   $.post('/ping', data)
 
 loadNextTileWithOffset = (offset) ->
-  (event) ->
-    event.preventDefault()
-    $('#spinner_large').show()
+  $('#spinner_large').show()
 
-    url = '/tiles/' + $('#slideshow .tile_holder').data('current-tile-id')
-    $.get(
-      url,
-      {partial_only: true, offset: offset},
-      (data) ->
-        $('#slideshow').html(data)
-        $('#spinner_large').hide()
-        setUpAnswers()
-        $('#position').html($('.tile_holder').data('position'))
-    )
+  url = '/tiles/' + $('#slideshow .tile_holder').data('current-tile-id')
+  $.get(
+    url,
+    {partial_only: true, offset: offset, 
+    completed_only: $('#slideshow .tile_holder').data('completed-only'),
+    previous_tile_ids: $('#slideshow .tile_holder').data('current-tile-ids')},
+    (data) ->
+      $('#slideshow').html(data)
+      $('#spinner_large').hide()
+      setUpAnswers()
+      $('#position').html($('.tile_holder').data('position'))
+  )
 
 attachWrongAnswer = (answerLink, target) ->
   answerLink.click((event) ->
@@ -65,5 +65,11 @@ window.loadNextTileWithOffset = loadNextTileWithOffset
 window.setUpAnswers = setUpAnswers
 
 $ ->
-  $('#next').click(loadNextTileWithOffset(1))
-  $('#prev').click(loadNextTileWithOffset(-1))
+  $('#next').click((event) ->
+    event.preventDefault()
+    loadNextTileWithOffset(1)
+  )
+  $('#prev').click((event) ->
+    event.preventDefault()
+    loadNextTileWithOffset(-1)
+  )

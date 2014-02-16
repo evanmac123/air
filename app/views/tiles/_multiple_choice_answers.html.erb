@@ -9,7 +9,11 @@
           <%= link_to answer, '#', class: "nerfed_answer" %>
         <% else %>
           <% if i == tile.correct_answer_index %>
-            <%= link_to answer, '#', class: "right_multiple_choice_answer" %>
+            <% unless tile.tile_completions.where(user_id: current_user).empty? %>
+              <%= content_tag :div , answer, class: 'clicked_right_answer' %>
+            <% else %>
+              <%= link_to answer, '#', class: "right_multiple_choice_answer" %>
+            <% end %>
           <% else %>
             <%= link_to answer, '#', class: "wrong_multiple_choice_answer" %>
           <% end %>
@@ -18,21 +22,11 @@
         <div class="wrong_answer_target" style="display: none"></div>
       <% end %>
     <% end %>
-    <%= link_to '', tile_completions_path(tile_id: tile.id), method: :post, style: "display: none", id: 'right_answer_target' %>
+    <%= link_to '', tile_completions_path(tile_id: tile.id), method: :post, remote: true, style: "display: none", id: 'right_answer_target' %>
 
     <% content_for :javascript do %>
       <%= javascript_tag do %>
         setUpAnswers();
-      <% end %>
-      <% if tile.points.present? %>
-        <%= javascript_tag do %>
-          $(document).on('click', '.right_multiple_choice_answer', function(event) {
-            event.preventDefault();
-            $('.earnable_points').css('background', '#4FAA60').css('box-shadow', 'none');
-            var pointCount = new countUp('tile_point_value', <%= tile.points %>, 0, 0, 0.75);
-            pointCount.start();
-          });
-        <% end %>
       <% end %>
     <% end %>
   </div>

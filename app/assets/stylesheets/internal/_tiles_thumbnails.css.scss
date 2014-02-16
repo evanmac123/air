@@ -17,7 +17,30 @@
   width:100%;
   max-width:238px;
   position: relative;
-  vertical-align: top;
+  vertical-align: top;  
+  .completed:before {
+    z-index: 100;
+    content: "\f058"; 
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    text-decoration: inherit;
+  /*--adjust as necessary--*/
+    display: block;
+    position: absolute;
+    color: #479956;
+    font-size: 36px;
+    padding-right: 0.5em;
+    position: absolute;
+    top: 0px;
+    right: -22px;      
+  }
+  .completed {
+    li {
+      filter: alpha(opacity=40);
+      opacity: 0.4;
+    }
+  }
   li {
     list-style-type: none;
     padding-bottom:.5em;

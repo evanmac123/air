@@ -30,6 +30,7 @@ class User < ActiveRecord::Base
   has_many   :goal_completions
   has_many   :completed_goals, :through => :goal_completions, :source => :goal
   has_many   :tile_completions, :dependent => :destroy, :as => :user
+  has_many  :completed_tiles, source: :tile, through: :tile_completions
   has_many   :unsubscribes, :dependent => :destroy
   has_many   :peer_invitations_as_invitee, :class_name => "PeerInvitation", :foreign_key => :invitee_id
   has_many   :peer_invitations_as_inviter, :class_name => "PeerInvitation", :foreign_key => :inviter_id

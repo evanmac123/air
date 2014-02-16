@@ -43,6 +43,7 @@ feature 'User views tiles' do
 
       click_answer 1
       expect_no_wrong_answer_reaction 1
+      expect_right_answer_reaction
 
       visit activity_path
       expect_content "completed the tile: \"#{@tile.headline}\""
@@ -82,9 +83,7 @@ feature 'User views tiles' do
 
       click_answer 1
       expect_no_wrong_answer_reaction 1
-      visit activity_path
-      expect_content "completed the tile: \"#{@tile.headline}\""
-      expect_content "30 PTS"
+      expect_right_answer_reaction
     end
 
     context "when they complete a tile that's already been completed in another tab" do

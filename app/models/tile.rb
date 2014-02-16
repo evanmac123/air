@@ -15,6 +15,7 @@ class Tile < ActiveRecord::Base
   has_many :prerequisite_tiles, :class_name => "Tile", :through => :prerequisites
   has_many :rule_triggers, :class_name => "Trigger::RuleTrigger"
   has_many :tile_completions, :dependent => :destroy
+  has_many  :completed_tiles, source: :tile, through: :tile_completions
   has_many :triggering_rules, :class_name => "Rule", :through => :rule_triggers
 
   validates_uniqueness_of :position, :scope => :demo_id
@@ -197,6 +198,23 @@ class Tile < ActiveRecord::Base
 
     result
   end
+  
+  def self.displayable_categorized_to_user(user, maximum_tiles = nil)
+    result = satisfiable_categorized_to_user(user)
+    if maximum_tiles
+      if result[:not_completed_tiles].length > maximum_tiles
+        result[:not_completed_tiles] = result[:not_completed_tiles][0, maximum_tiles]
+        result[:completed_tiles] = nil
+      elsif (result[:not_completed_tiles].length + result[:completed_tiles].length) > maximum_tiles
+        result[:completed_tiles] = result[:completed_tiles][0, maximum_tiles]        
+      else
+        #do nothing        
+      end
+      result
+    end
+
+    result
+  end
 
   def self.satisfiable_by_rule_to_user(rule_or_rule_id, user)
     satisfiable_by_rule(rule_or_rule_id).satisfiable_to_user(user)
@@ -219,6 +237,25 @@ class Tile < ActiveRecord::Base
     satisfiable_tiles.sort_by(&:activated_at).reverse
   end
 
+  def self.satisfiable_categorized_to_user(user)
+    tiles_due_in_demo = after_start_time_and_before_end_time.where(demo_id: user.demo.id, status: ACTIVE)
+    completed_tiles = user.completed_tiles.order('created_at desc')
+    ids_completed = completed_tiles.map(&:id)
+    not_completed_tiles = tiles_due_in_demo.reject {|t| ids_completed.include? t.id}
+    # Reject the ones whose prereqs have not been met
+    not_completed_tiles.reject! do |t|
+      hide = false
+      t.prerequisites.each do |p|
+        unless ids_completed.include? p.prerequisite_tile_id
+          hide = true
+        end
+      end
+      hide
+    end
+    
+    {completed_tiles: completed_tiles, not_completed_tiles: not_completed_tiles.sort_by(&:activated_at).reverse}
+  end
+  
   def self.active
     where("status = ?", ACTIVE).order("CASE WHEN activated_at IS NULL THEN created_at ELSE activated_at END DESC")
   end

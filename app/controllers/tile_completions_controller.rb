@@ -5,7 +5,6 @@ class TileCompletionsController < ApplicationController
     tile = find_tile
 
     remember_points_and_tickets
-
     if create_tile_completion(tile)
       create_act(tile)
       persist_points_and_tickets
@@ -15,7 +14,12 @@ class TileCompletionsController < ApplicationController
       flash[:failure] = "It looks like you've already done this tile, possibly in a different browser window or tab."
     end
 
-    redirect_to :back
+    session[:display_start_over_button] = true if current_user.is_guest?
+    #flash[:success] = reply(act)
+    respond_to do |format|
+      format.html {redirect_to :back}
+      format.js {decide_if_tiles_can_be_done(Tile.satisfiable_to_user(current_user))}
+    end
   end
 
   protected

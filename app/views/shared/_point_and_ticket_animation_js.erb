@@ -1,0 +1,48 @@
+var animateCounter = function(domID, previous, current, callback) {
+  var counter = new countUp(domID, previous, current, 0, 1.0);
+  counter.useEasing = false;
+
+  var element = $('#' + domID);
+  element.addClass('counting');
+  counter.start(function() {
+    element.removeClass('counting');
+    if(typeof(callback) === 'function') {
+      callback();
+    }
+  });
+};
+
+var progressBar = $('#completed_progress');
+
+var fillBarToFinalPercentage = function(callback) {
+  progressBar.addClass('counting');
+  progressBar.animate({width: '<%= master_bar_ending_percentage %>'}, 750, 'linear', function() {
+    progressBar.removeClass('counting');
+    if(typeof(callback) === 'function') {
+      callback();
+    }
+  });
+};
+
+var fillBarEntirely = function(callback) {
+  var emptyBarCallback = function() {
+    progressBar.css('width', '0%');
+    fillBarToFinalPercentage(function() {
+      animateCounter('user_tickets', <%= flash[:previous_tickets] %>, <%= current_user.tickets %>)
+    });
+  }
+
+  progressBar.addClass('counting');
+  progressBar.animate({width: '100%'}, 750, 'linear', emptyBarCallback);
+};
+
+var ticketsIncreased = <%= flash[:previous_tickets].to_i < current_user.tickets %>;
+
+var barFiller;
+if(ticketsIncreased) {
+  barFiller = fillBarEntirely;
+} else {
+  barFiller = fillBarToFinalPercentage; 
+}
+
+animateCounter('user_points', <%= flash[:previous_points] %>, <%= current_user.points %>, barFiller);

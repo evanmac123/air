@@ -13,7 +13,7 @@
       = link_to "#", :id => :prev do
         = "Previous" if device_type == :mobile
       #slideshow
-        = render 'full_size_tile', :tile => @start_tile
+        = render 'full_size_tile', :tile => @start_tile, :current_tiles => @current_tiles
       = link_to "#", :id => :next do
         = "Next" if device_type == :mobile
 

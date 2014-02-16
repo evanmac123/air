@@ -1,12 +1,36 @@
-<% if tiles.present? %>
+<% 
+if not_completed_tiles.present? && completed_tiles.present?
+  tiles_length = not_completed_tiles.length + completed_tiles.length
+elsif completed_tiles.present?
+  tiles_length = completed_tiles.length
+elsif not_completed_tiles.present?
+  tiles_length = not_completed_tiles.length
+else
+  tiles_length = 0
+end
+%>
+<% if tiles_length > 0 %>
   <div id="tile_wall">
     <div class="all_tile_thumbnails row">
-      <% tiles.each do |tile| %>
-        <div class="tile_thumbnail">
-          <%= render 'shared/displayable_tile', displayable_tile: tile %>
-        </div>
-      <% end %>
-      <% odd_row_length = tiles.length % tile_batch_size_increment %>
+      <% if not_completed_tiles.present? %>
+        <% not_completed_tiles.each do |tile| %>
+          <div class="tile_thumbnail">
+            <div class='not-completed'>
+              <%= render 'shared/displayable_tile', displayable_tile: tile %>
+            </div>
+          </div>
+        <% end %>
+      <% end %>       
+      <% if completed_tiles.present? %>
+        <% completed_tiles.each do |tile| %>
+          <div class="tile_thumbnail">
+            <div class='completed'>
+              <%= render 'shared/displayable_tile', displayable_tile: tile %>
+           </div>
+          </div>
+        <% end %>
+      <% end %>       
+      <% odd_row_length = tiles_length % tile_batch_size_increment %>
       <% if odd_row_length != 0 %>
         <% (tile_batch_size_increment - odd_row_length).times do %>
           <div class='placeholder_tile tile_thumbnail'></div>

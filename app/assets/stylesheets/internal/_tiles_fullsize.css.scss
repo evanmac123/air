@@ -21,6 +21,27 @@ body.client_admin-tiles-update,
   position: relative;
   text-align: left;
   width:100%;
+  &.completed:before {
+    z-index: 100;
+    content: "\f058"; 
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    text-decoration: inherit;
+  /*--adjust as necessary--*/
+    display: block;
+    position: absolute;
+    color: #479956;
+    font-size: 36px;
+    padding-right: 0.5em;
+    position: absolute;
+    top: 10px;
+    right: -16px;      
+  }
+  &.completed {
+    filter: alpha(opacity=70);
+    opacity: 0.7;
+  }
   &.client_created .tile_full_image {
     background:$text-color;
     padding:0;
@@ -180,10 +201,13 @@ body.client_admin-tiles-update,
 
     .clicked_right_answer {
       background: $dark-green !important;
-
-      &:hover {
-        background: $dark-green !important;
-      }
+      @include font-semibold;
+      color:$white;
+      display: block;
+      font-size:1.25em;
+      line-height:1em;
+      padding:.5em 1em;
+      text-align: center;
     }
 
     .wrong_answer_target {

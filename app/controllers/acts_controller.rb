@@ -29,11 +29,11 @@ class ActsController < ApplicationController
       current_user.save
     end
 
-    @displayable_tiles = Tile.displayable_to_user(current_user, tile_batch_size)
+    @displayable_categorized_tiles = Tile.displayable_categorized_to_user(current_user, tile_batch_size)
     TileCompletion.mark_displayed_one_final_time(@current_user)
 
     show_conversion_form_provided_that { @demo.tiles.active.empty? }
-    decide_if_tiles_can_be_done(@displayable_tiles)
+    decide_if_tiles_can_be_done(@displayable_categorized_tiles[:not_completed_tiles])
 
     respond_to do |format|
       format.html
