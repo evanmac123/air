@@ -239,7 +239,7 @@ class Tile < ActiveRecord::Base
 
   def self.satisfiable_categorized_to_user(user)
     tiles_due_in_demo = after_start_time_and_before_end_time.where(demo_id: user.demo.id, status: ACTIVE)
-    completed_tiles = user.completed_tiles.order('created_at desc')
+    completed_tiles = user.completed_tiles.order('id desc')
     ids_completed = completed_tiles.map(&:id)
     not_completed_tiles = tiles_due_in_demo.reject {|t| ids_completed.include? t.id}
     # Reject the ones whose prereqs have not been met

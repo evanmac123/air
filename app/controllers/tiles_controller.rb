@@ -96,11 +96,11 @@ class TilesController < ApplicationController
 
   def current_tile_index
     return 0 if satisfiable_tiles.empty?
-    (previous_tile_index + params[:offset].to_i) % 
-    (current_tile_ids.length > 0 ? current_tile_ids.length : 1)    
+    return (previous_tile_index + params[:offset].to_i) % 
+    (current_tile_ids.length > 0 ? current_tile_ids.length : 1) unless previous_tile_ids.empty?
+    return (current_tile_ids.find_index{|element| element.to_i == reference_tile_id.to_i}) || 0
   end
   
-
   def get_position_description
     #TODO change this to use params[:tile_ids] and incorporate any new tile added 
     @current_tile_position_description = "Tile #{current_tile_index+1} of #{current_tile_ids.length}"
@@ -126,16 +126,17 @@ class TilesController < ApplicationController
   end
 
   def show_completed_tiles    
-    @show_completed_tiles ||=  params[:completed_only] || 
+    @show_completed_tiles ||=  (params[:completed_only] == 'true') || 
       (session[:start_tile] && 
-        current_user.tile_completions.where(tile_id: session[:start_tile]).exists?)
+        current_user.tile_completions.where(tile_id: session[:start_tile]).exists?) || false
   end
+  
   def satisfiable_tiles
     @_satisfiable_tiles ||= begin
       unless show_completed_tiles
-        @_satisfiable_tiles = Tile.satisfiable_to_user(current_user)
+        Tile.satisfiable_to_user(current_user)
       else
-        current_user.completed_tiles
+        current_user.completed_tiles.order('id desc')
       end
     end
   end

@@ -1,11 +1,11 @@
 <% creator_class = tile.appears_client_created ? 'client_created' : 'admin_created' %>
-<% completed_class = @show_completed_tiles ? 'completed' : 'not_completed' %>
+<% completed_class = @show_completed_tiles == true ? 'completed' : 'not_completed' %>
 <% answer_links_disabled ||= false %>
 
 <div class="tile_holder <%= "#{creator_class} #{completed_class}" %>" data-current-tile-id="<%= tile.id 
   %>" data-completed-only=<%= @show_completed_tiles 
   %> data-position="<%= @current_tile_position_description 
-  %>" data-current-tile-ids="<%= @current_tile_ids.join(',') %>">
+  %>" data-current-tile-ids="<%= @current_tile_ids && @current_tile_ids.join(',') %>">
   <div class="tile_full_image">
     <%= image_tag tile.image.url, :class => :tile_image, :size => tile.image.image_size, :alt => tile.headline %>
   </div>
