@@ -68,7 +68,7 @@ feature 'Guest user is prompted to convert to real user' do
 
   def submit_conversion_form
     within(conversion_form_selector) do
-      click_link 'Create account'
+      click_button 'Create account'
     end
   end
 

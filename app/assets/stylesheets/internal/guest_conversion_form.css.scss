@@ -16,4 +16,9 @@
     @include light-button($sky-blue);
     margin-top: .5em;
   }
+
+  .spinner {
+    position: relative;
+    top: 0.25em;
+  }
 }
