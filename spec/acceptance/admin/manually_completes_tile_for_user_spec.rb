@@ -4,7 +4,7 @@ feature 'Admin manually completes tile for user' do
 
   scenario 'should work', :js => true do
     demo = FactoryGirl.create(:demo)
-    1.upto(4) {|i| FactoryGirl.create(:tile, headline: "Tile #{i}", headline: "Tile #{i}", demo: demo)}
+    1.upto(4) {|i| FactoryGirl.create(:tile, headline: "Tile #{i}", demo: demo)}
 
     Prerequisite.create!(prerequisite_tile: Tile.find_by_headline("Tile 1"), tile: Tile.find_by_headline("Tile 2"))
     Prerequisite.create!(prerequisite_tile: Tile.find_by_headline("Tile 3"), tile: Tile.find_by_headline("Tile 4"))
@@ -30,7 +30,8 @@ feature 'Admin manually completes tile for user' do
     visit activity_path(as: user)
     expect_content "Tile 2"
     expect_content "Tile 3"
-    expect_no_content "Tile 1"
+    #completed tiles should show
+    expect_content "Tile 1"
     expect_no_content "Tile 4"
   end
 

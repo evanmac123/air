@@ -102,7 +102,6 @@ class TilesController < ApplicationController
   end
   
   def get_position_description
-    #TODO change this to use params[:tile_ids] and incorporate any new tile added 
     @current_tile_position_description = "Tile #{current_tile_index+1} of #{current_tile_ids.length}"
   end
 
@@ -136,7 +135,7 @@ class TilesController < ApplicationController
       unless show_completed_tiles
         Tile.satisfiable_to_user(current_user)
       else
-        current_user.completed_tiles.order('id desc')
+        current_user.tile_completions.order('id desc').includes(:tile).map(&:tile)
       end
     end
   end
