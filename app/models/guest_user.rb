@@ -84,8 +84,12 @@ class GuestUser < ActiveRecord::Base
   def data_for_mixpanel
     {
       distinct_id: "guest_user_#{self.id}",
-      user_type:   "guest"
+      user_type:   self.highest_ranking_user_type
     }
+  end
+
+  def highest_ranking_user_type
+    "guest"
   end
 
   def point_and_ticket_summary(prefix = [])

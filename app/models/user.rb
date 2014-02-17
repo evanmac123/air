@@ -914,6 +914,12 @@ class User < ActiveRecord::Base
     false
   end
 
+  def highest_ranking_user_type
+    return "site admin" if self.is_site_admin
+    return "client admin" if self.is_client_admin
+    "ordinary user"
+  end
+
   protected
 
   def downcase_email
@@ -979,12 +985,6 @@ class User < ActiveRecord::Base
   def update_associated_act_privacy_levels
     # See Act for an explanation of why we denormalize privacy_level onto it.
     Act.update_all({:privacy_level => self.privacy_level}, {:user_id => self.id}) if self.changed.include?('privacy_level')
-  end
-
-  def highest_ranking_user_type
-    return "site admin" if self.is_site_admin
-    return "client admin" if self.is_client_admin
-    "ordinary user"
   end
 
   def self.claimable_by_first_name_and_claim_code(claim_string)
