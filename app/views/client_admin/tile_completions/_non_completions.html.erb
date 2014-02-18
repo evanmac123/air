@@ -1,0 +1,19 @@
+<%= grid(@non_completions_grid, html: {id: "search-results-table"}, header_tr_html:  {id: "search-labels"}) do |g|
+  g.blank_slate "<div class='grid_no_record'>Everyone has completed this tile!</div>".html_safe 
+  g.row_attributes do |user|
+    {class: 'found-user'}
+  end
+  g.column html: {class: "results-name"}, name: 'Name', attribute: 'name', filter: false do |user|
+    link_to user.name, edit_client_admin_user_path(user), class: 'edit-user'
+  end
+  g.column html: {class: "results-email"}, name: 'Email' do |user|      
+    user.email
+  end
+  g.column html: {class: "results-joined"}, name: 'Joined?' do |user|    
+    if user.claimed?
+      '<span class="joined">Yes</span>'.html_safe
+    else
+      '<span class="not-joined">No</span>'.html_safe
+    end
+  end
+end -%>

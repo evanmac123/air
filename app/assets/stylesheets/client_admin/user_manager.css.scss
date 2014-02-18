@@ -107,7 +107,8 @@ body.client_admin-users {
   }
 }
 
-body.client_admin-users .breadcrumbs {
+body.client_admin-users .breadcrumbs,
+body.client_admin-tile_completions .breadcrumbs {
   position:relative;
   top:-1.75em;
 }
