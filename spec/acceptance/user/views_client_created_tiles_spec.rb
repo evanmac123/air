@@ -87,6 +87,17 @@ feature 'User views tiles' do
       expect_content "30 PTS"
     end
 
+    context "when they complete a tile that's already been completed in another tab" do
+      it "should give them a more sensible error", js: true do
+        # Simulate tile being completed in another tab
+        TileCompletion.create(user: @user, tile: @tile)
+        click_answer 1
+
+        expect_no_content "Validation failed: Tile has already been taken"
+        expect_content "It looks like you've already done this tile, possibly in a different browser window or tab."
+      end
+    end
+
     context "when there is a short external link" do
       it "should show the whole URL as a link" do
         short_url = "http://www.example.com"
