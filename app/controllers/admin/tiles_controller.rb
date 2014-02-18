@@ -14,7 +14,7 @@ class Admin::TilesController < AdminBaseController
 
   def new
     @tile = @demo.tiles.new
-    load_surveys_tiles_and_values
+    load_tiles_and_values
   end
 
   def create
@@ -31,18 +31,16 @@ class Admin::TilesController < AdminBaseController
       redirect_to :action => :index
     else
       add_failure "There was a problem saving the record"
-      load_surveys_tiles_and_values
+      load_tiles_and_values
       render :new
     end
   end
 
   def edit
     @existing_tiles = find_existing_tiles(@demo) - [@tile] # no circular dependencies kthx
-    @surveys = @demo.surveys
     @primary_values = RuleValue.visible_from_demo(@demo).primary.alphabetical
     @selected_rule_ids = @tile.rule_triggers.map(&:rule_id)
     @require_referrer = @tile.rule_triggers.first.try(:referrer_required)
-    @selected_survey_id = @tile.survey_trigger.try(:survey_id)
   end
 
   def update
@@ -80,8 +78,7 @@ class Admin::TilesController < AdminBaseController
     @demo.tiles.alphabetical
   end
   
-  def load_surveys_tiles_and_values
-    @surveys = @demo.surveys
+  def load_tiles_and_values
     @existing_tiles = find_existing_tiles(@demo)
     @primary_values = RuleValue.visible_from_demo(@demo).primary.alphabetical
   end
@@ -91,7 +88,6 @@ class Admin::TilesController < AdminBaseController
     return unless params[:completion].present?
 
     set_up_rule_triggers(params[:completion][:rule_ids], params[:completion][:referrer_required])
-    set_up_survey_trigger(params[:completion][:survey_id])
   end
 
   def set_up_rule_triggers(rule_ids, referrer_required)
@@ -99,17 +95,6 @@ class Admin::TilesController < AdminBaseController
     referrer_required = referrer_required || false
 
     @tile.rule_triggers = _rule_ids.map{|rule_id| Trigger::RuleTrigger.new(:rule_id => rule_id, :referrer_required => referrer_required) }
-  end
-
-  def set_up_survey_trigger(survey_id)
-    _survey_id = survey_id.present? ? survey_id : nil
-
-    return if @tile.survey_trigger.try(:survey_id) == _survey_id
-    @tile.survey_trigger.destroy if @tile.survey_trigger
-
-    if _survey_id
-      @tile.survey_trigger = Trigger::SurveyTrigger.create!(:survey_id => _survey_id)
-    end
   end
 
   def parse_times

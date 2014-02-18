@@ -10,12 +10,6 @@
           - tile.rule_triggers.each do |rule_trigger| 
             %li.brown= rule_trigger.rule.primary_value_text
     .other
-      - if tile.survey_trigger.present? 
-        %p 
-          Survey: 
-          = tile.survey_trigger.survey.name 
-
-
       - if tile.only_manually_triggerable? 
         %p Manual only.
     .bonus

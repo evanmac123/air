@@ -75,28 +75,6 @@ describe EmailCommandController do
         Suggestion.first.value.should eql "ate kitten"
         email_command.response.should eql "Thanks! We'll take your suggestion into consideration."
       end
-
-      it "should process 'lastquestion' correctly" do
-        params = @test_params.merge({:plain => "lastquestion"})
-        post 'create', params
-        EmailCommand.count.should eql 1
-        email_command = EmailCommand.first
-        email_command.email_from.should eql @user.email
-        email_command.email_subject.should eql params['subject']
-        email_command.status.should eql EmailCommand::Status::SUCCESS
-        email_command.response.should eql "You're not currently taking a survey"
-      end
-
-      it "should process 'survey' correctly" do
-        params = @test_params.merge({:plain => "survey"})
-        post 'create', params
-        EmailCommand.count.should eql 1
-        email_command = EmailCommand.first
-        email_command.email_from.should eql @user.email
-        email_command.email_subject.should eql params['subject']
-        email_command.status.should eql EmailCommand::Status::SUCCESS
-        email_command.response.should eql "Sorry, there is not currently a survey open."
-      end
     end
   end
 end

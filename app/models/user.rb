@@ -27,7 +27,6 @@ class User < ActiveRecord::Base
   has_many   :acts, :dependent => :destroy, :as => :user
   has_many   :friendships, :dependent => :destroy
   has_many   :friends, :through => :friendships
-  has_many   :survey_answers
   has_many   :goal_completions
   has_many   :completed_goals, :through => :goal_completions, :source => :goal
   has_many   :tile_completions, :dependent => :destroy, :as => :user
@@ -662,12 +661,6 @@ class User < ActiveRecord::Base
     result
   end
 
-  def open_survey
-    # Note: this could be refactored to user Survey.open
-    # But It wasn't working for me. Maybe you're smarter than I?
-    self.demo.surveys.where('? BETWEEN open_at AND close_at', Time.now).first
-  end
-
   def befriend(other, mixpanel_properties={})
     return nil unless self.demo.game_open?
     friendship = nil
@@ -702,13 +695,6 @@ class User < ActiveRecord::Base
       :default => "OK, you're no longer connected to %{followed_user_name}.",
       :followed_user_name => self.name
     )
-  end
-
-  def satisfy_tiles_by_survey(survey_or_survey_id)
-    satisfiable_tiles = Tile.satisfiable_by_survey_to_user(survey_or_survey_id, self)
-    satisfiable_tiles.each do |tile|
-      tile.satisfy_for_user!(self) 
-    end
   end
 
   def satisfy_tiles_by_rule(rule_or_rule_id, referring_user_id = nil)

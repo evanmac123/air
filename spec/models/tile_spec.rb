@@ -5,7 +5,6 @@ describe Tile do
   it { should have_many(:prerequisites) }
   it { should have_many(:prerequisite_tiles) }
   it { should have_many(:rule_triggers) }
-  it { should have_one(:survey_trigger) }
   it { should ensure_inclusion_of(:status).in_array(Tile::STATUS) }
 
   describe 'finders based on status' do

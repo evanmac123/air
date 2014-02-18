@@ -150,36 +150,6 @@ FactoryGirl.define do
     state 'accepted'
   end
 
-
-  factory :survey do
-    sequence(:name) {|n| "Survey ##{n}"}
-    open_at {Time.now}
-    close_at {Time.now + 1.day}
-    association :demo
-  end
-
-  factory :survey_question do
-    sequence(:text) {|n| "Question ##{n} text"}
-    sequence(:index) {|n| n}
-    association :survey
-  end
-
-  factory :survey_prompt do
-    sequence(:text) {|n| "Prompt ##{n} text "}
-    send_time {Time.now}
-    association :survey
-  end
-
-  factory :survey_answer do
-    association :user
-    association :survey_question
-  end
-
-  factory :survey_valid_answer do
-    sequence(:value) {|n| n.to_s}
-    association(:survey_question)
-  end
-
   factory :skin do
     association :demo
   end
@@ -254,11 +224,6 @@ FactoryGirl.define do
 
   factory :rule_trigger, :class => Trigger::RuleTrigger do
     association :rule
-    association :tile
-  end
-
-  factory :survey_trigger, :class => Trigger::SurveyTrigger do
-    association :survey
     association :tile
   end
 

@@ -13,7 +13,6 @@ class Tile < ActiveRecord::Base
   has_many :prerequisites
   has_many :prerequisite_tiles, :class_name => "Tile", :through => :prerequisites
   has_many :rule_triggers, :class_name => "Trigger::RuleTrigger"
-  has_one :survey_trigger, :class_name => "Trigger::SurveyTrigger"
   has_many :tile_completions, :dependent => :destroy
   has_many :triggering_rules, :class_name => "Rule", :through => :rule_triggers
 
@@ -124,7 +123,7 @@ class Tile < ActiveRecord::Base
   end
 
   def only_manually_triggerable?
-    self.rule_triggers.empty? && self.survey_trigger.blank?
+    self.rule_triggers.empty?
   end
 
   def all_rule_triggers_satisfied_to_user(user)
@@ -202,10 +201,6 @@ class Tile < ActiveRecord::Base
     satisfiable_by_rule(rule_or_rule_id).satisfiable_to_user(user)
   end
 
-  def self.satisfiable_by_survey_to_user(survey_or_survey_id, user)
-    satisfiable_by_survey(survey_or_survey_id).satisfiable_to_user(user)
-  end
-
   def self.satisfiable_to_user(user)
     tiles_due_in_demo = after_start_time_and_before_end_time.where(demo_id: user.demo.id, status: ACTIVE)
     ids_completed = user.tile_completions.map(&:tile_id)
@@ -280,10 +275,6 @@ class Tile < ActiveRecord::Base
 
   def self.satisfiable_by_rule(rule_or_rule_id)
     satisfiable_by_object(rule_or_rule_id, Rule, "trigger_rule_triggers", "rule_id")
-  end
-
-  def self.satisfiable_by_survey(survey_or_survey_id)
-    satisfiable_by_object(survey_or_survey_id, Survey, "trigger_survey_triggers", "survey_id")
   end
 
   def self.next_position(demo)
