@@ -3,8 +3,7 @@
     .activation_dates= footer_timestamp(tile)
     .completions 
       Completed:
-      = link_to("#{pluralize(tile.completion_count, 'user')}", 
-            client_admin_tile_tile_completions_path(tile))
+      = pluralize(tile.completion_count, 'user')
     .completion_percentage
       Completed:
       = number_to_percentage tile.claimed_completion_percentage, precision: 1

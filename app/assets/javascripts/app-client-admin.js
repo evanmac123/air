@@ -6,13 +6,13 @@
 //= require ../../../vendor/assets/javascripts/client_admin/highcharts
 //= require ../../../vendor/assets/javascripts/client_admin/exporting
 
+//= require ../../../vendor/assets/javascripts/internal/jquery.tools.min
 //= require ../../../vendor/assets/javascripts/internal/jquery.jpanelmenu.min
 //= require ../../../vendor/assets/javascripts/internal/jRespond.min
 
 //= require ./internal_and_external/underscore-min
 //= require ./internal/tiles
 
-//= require wice_grid
 
 $(document).ready(function() {
   var more = "More options";
@@ -31,5 +31,3 @@ $(document).ready(function() {
     event.preventDefault();
   });
 });
-//= require foundation
-$(document).foundation();

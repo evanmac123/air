@@ -27,7 +27,7 @@ gem "mongoid"
 gem "bson_ext"
 gem 'jquery-rails'
 gem 'nokogiri'
-gem 'lazy_high_charts', '~>1.4.0'
+gem 'lazy_high_charts'
 gem 'json', ">= 1.7.7"
 gem 'carrierwave_direct'
 gem 'redis'
@@ -38,7 +38,6 @@ gem 'mobvious-rails'
 gem 'rails3_before_render'
 gem 'rollout'
 gem 'font-awesome-rails'
-gem 'wice_grid'
 
 # Gems used only for assets and not required
 # in production environments by default.

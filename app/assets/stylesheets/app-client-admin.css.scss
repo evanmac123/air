@@ -1,13 +1,9 @@
 @import "./vendor/normalize.css.scss";
 @import "./vendor/foundation.min.css.scss";
-@import "./vendor/foundation/_variables.scss";
-@import "./vendor/foundation/_global.scss";
-@import "./vendor/foundation/_pagination.scss";
-@import "./vendor/foundation/_tooltips.scss";
 @import "./vendor/flutie.css.scss";
 
 @import "font-awesome";
-@import "wice_grid";
+
 /* UNIVERSAL STYLESHEETS */
 @import "./mixins/main_styles.css.scss"; 
 @import "./internal/flash.css.scss";
@@ -17,7 +13,6 @@
 /* CLIENT ADMIN */
 @import "./client_admin/client_admin.css.scss";
 @import "./client_admin/tiles.css.scss";
-@import "./client_admin/tile_completions";
 @import "./client_admin/board_activity.css.scss";
 @import './client_admin/share_controls.css.scss';
 @import "./client_admin/segmentations.css.scss";
