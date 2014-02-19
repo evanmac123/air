@@ -198,6 +198,11 @@ FactoryGirl.define do
     trait :draft do
       status Tile::DRAFT
     end
+
+    trait :public do
+      is_public true
+      status Tile::ACTIVE
+    end
   end
 
   # Simple alias of :tile to :old_school_tile

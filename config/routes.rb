@@ -6,6 +6,10 @@ Health::Application.routes.draw do
   match "scoreboard"    => "scores#index"
   match "join"          => "invitations#new"
 
+  # moved these to top level but don't want to break old links  
+  match "client_admin/explore"     => "explores#show"
+  match "client_admin/explore_new" => "explores#show"
+
   match "ard/:public_slug" => "public_boards#show", :as => "public_board", :via => :get
   match "ard/:public_slug/activity" => "acts#index", :as => "public_activity", :via => :get
   match "ard/:public_slug/tiles" => "tiles#index", :as => "public_tiles", :via => :get
@@ -72,6 +76,8 @@ Health::Application.routes.draw do
   resources :boards, only: [:new, :create]
 
   resource :current_board, only: [:update]
+
+  resource :explore, only: [:show]
 
   namespace :client_admin do
     resource :segmentation
@@ -140,8 +146,6 @@ Health::Application.routes.draw do
     resource :tiles_report, only: :show
 
     resources :public_boards, only: [:create, :destroy]
-    resource :explore
-    resource :explore_new
   end
 
   resources :pages, :only => :show

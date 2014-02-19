@@ -48,8 +48,6 @@ class Tile < ActiveRecord::Base
 
   validates_with AttachmentSizeValidator, :less_than => (2.5).megabytes, :attributes => [:image], :if => :require_images
 
-  attr_accessor :display_completion_on_this_request
-
   before_save :ensure_protocol_on_link_address
 
   has_alphabetical_column :headline
@@ -312,6 +310,10 @@ class Tile < ActiveRecord::Base
 
   def self.digest(demo, cutoff_time)
     cutoff_time.nil? ? active : active.where("activated_at > ?", cutoff_time)
+  end
+
+  def self.viewable_in_public
+    where(is_public: true, status: Tile::ACTIVE)
   end
 
   # ------------------------------------------------------------------------------------------------------------------

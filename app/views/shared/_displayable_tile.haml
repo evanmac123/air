@@ -1,27 +1,17 @@
-:ruby
-  tile = displayable_tile
-  if tile.display_completion_on_this_request
-    classes = 'recently_completed' 
-    link_to_tile = '#'
-  else
-    classes = ''
-    link_to_tile = params[:public_slug] ? public_tiles_path(params[:public_slug]) : tiles_path
-  end
-
--thumbnail_id = "tile-thumbnail-#{tile.id }"
+-thumbnail_id = "tile-thumbnail-#{displayable_tile.id }"
 
 :css
   ##{thumbnail_id} {
-    background-image: url('#{tile.thumbnail}');
+    background-image: url('#{displayable_tile.thumbnail}');
   }
 
 -#Preload base image image to prevent blinking in IE8
-%img{src: tile.thumbnail, style: "display: none; visibility: hidden;"}
+%img{src: displayable_tile.thumbnail, style: "display: none; visibility: hidden;"}
 
-%li{class: classes}
-  - url = params[:public_slug] ? public_tile_path(params[:public_slug], tile) : tile_path(tile)
+%li
+  - url = params[:public_slug] ? public_tile_path(params[:public_slug], displayable_tile) : tile_path(displayable_tile)
   = link_to url do
     .tile-wrapper
       .tile_thumbnail_image{id: thumbnail_id}
       .headline
-        %div{data: {'for-test' => tile.headline.downcase.sub(' ', '-')}, class: 'text'}= tile.headline
+        %div{data: {'for-test' => displayable_tile.headline.downcase.sub(' ', '-')}, class: 'text'}= displayable_tile.headline
