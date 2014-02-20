@@ -135,7 +135,7 @@ class TilesController < ApplicationController
       unless show_completed_tiles
         Tile.satisfiable_to_user(current_user)
       else
-        current_user.tile_completions.order('id desc').includes(:tile).map(&:tile)
+        current_user.tile_completions.order("#{TileCompletion.table_name}.id desc").includes(:tile).where("#{Tile.table_name}.demo_id" => current_user.demo_id).map(&:tile)
       end
     end
   end
