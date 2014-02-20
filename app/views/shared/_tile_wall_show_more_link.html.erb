@@ -1,0 +1,25 @@
+<div id="tile_links">
+  <a class="show_more_tiles" data-tile-path="<%= path_for_more_tiles %>" href="#">
+    More
+    <%= image_tag "spinner_gears_bg.gif", :style => 'display: none', :id => 'show_more_tiles_spinner' %>
+  </a>
+</div>
+
+<% content_for :javascript do %>
+  <%= javascript_tag do %>
+    $('.show_more_tiles').live('click', function(event) {
+      event.preventDefault();
+
+      $('#show_more_tiles_spinner').show();
+
+      baseBatchSize = $('.tile-wrapper').length;
+      $.get(
+        $(this).data('tile-path'),
+        {base_batch_size: baseBatchSize, partial_only: 'true'},
+        function(data) {
+          $('#tile_wall').replaceWith(data);
+        }
+      );
+    });
+  <% end %>
+<% end %>

@@ -124,7 +124,7 @@ class TilesController < ApplicationController
 
   def render_tile_wall
     render partial: "shared/tile_wall", 
-      locals: Tile.displayable_categorized_to_user(current_user, tile_batch_size)      
+      locals: (Tile.displayable_categorized_to_user(current_user, tile_batch_size)).merge(path_for_more_tiles: tiles_path)
   end
 
   def decide_whether_to_show_conversion_form

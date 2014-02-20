@@ -1,6 +1,5 @@
 <%= render 'shared/mixpanel' %>
-<%= stylesheet_link_tag 'internal/explore' %>
 <%= stylesheet_link_tag "app-internal" %>
 
-<%= render 'shared/tile_wall', tiles: @tiles %>
+<%= render 'shared/tile_wall', tiles: @tiles, path_for_more_tiles: explore_path %>
 <%= mp_track_page 'explore' %>
