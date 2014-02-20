@@ -77,7 +77,9 @@ Health::Application.routes.draw do
 
   resource :current_board, only: [:update]
 
-  resource :explore, only: [:show]
+  resource :explore, only: [:show] do
+    resources :tile_previews, only: [:show]
+  end
 
   namespace :client_admin do
     resource :segmentation

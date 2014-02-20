@@ -155,4 +155,17 @@ module ApplicationHelper
       "You've completed all available tiles! Check back later for more."
     end
   end
+
+  def tile_thumbnail_target(tile)
+    # It would have been much neater to deal with this via inheritance.
+    # Too bad you can't inherit views, and doing it with helpers didn't seem
+    # to, as it were, help.
+    #
+    # So instead we get this hack:
+    if params[:controller] == 'explores'
+      explore_tile_preview_path(tile)
+    else
+      params[:public_slug] ? public_tile_path(params[:public_slug], tile) : tile_path(tile)
+    end
+  end
 end

@@ -9,8 +9,7 @@
 %img{src: displayable_tile.thumbnail, style: "display: none; visibility: hidden;"}
 
 %li
-  - url = params[:public_slug] ? public_tile_path(params[:public_slug], displayable_tile) : tile_path(displayable_tile)
-  = link_to url do
+  = link_to tile_thumbnail_target(displayable_tile) do
     .tile-wrapper
       .tile_thumbnail_image{id: thumbnail_id}
       .headline

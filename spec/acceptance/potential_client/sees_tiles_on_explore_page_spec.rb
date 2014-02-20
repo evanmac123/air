@@ -16,6 +16,8 @@ feature 'Sees tiles on explore page' do
     visit explore_path
     expect_thumbnail_count 8
 
+    # These "sleep"s are a terrible hack, but I haven't gotten any of the
+    # saner ways to get Poltergeist to wait for the AJAX request to work yet.
     show_more_tiles_link.click
     sleep 5
     expect_thumbnail_count 12
