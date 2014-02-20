@@ -202,11 +202,13 @@ class Tile < ActiveRecord::Base
   def self.displayable_categorized_to_user(user, maximum_tiles = nil)
     result = satisfiable_categorized_to_user(user)
     if maximum_tiles
-      if result[:not_completed_tiles].length > maximum_tiles
+      length_not_completed = result[:not_completed_tiles].length
+      length_completed = result[:completed_tiles].length
+      if length_not_completed > maximum_tiles
         result[:not_completed_tiles] = result[:not_completed_tiles][0, maximum_tiles]
         result[:completed_tiles] = nil
-      elsif (result[:not_completed_tiles].length + result[:completed_tiles].length) > maximum_tiles
-        result[:completed_tiles] = result[:completed_tiles][0, maximum_tiles]        
+      elsif (length_not_completed + length_completed) > maximum_tiles
+        result[:completed_tiles] = result[:completed_tiles][0, maximum_tiles - length_not_completed]        
       else
         #do nothing        
       end
