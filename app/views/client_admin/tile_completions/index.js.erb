@@ -1,0 +1,7 @@
+$(".completed").removeClass('disengaged')
+$(".not-completed").removeClass('engaged')
+
+$(".completed").addClass('engaged')
+$(".not-completed").addClass('disengaged')
+
+$("#completions_grid").html("<%= escape_javascript( render(:partial => "tile_completions") ) %>")

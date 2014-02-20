@@ -30,7 +30,7 @@ FactoryGirl.define do
 
     trait :sample_tile_not_yet_done do
       sample_tile_completed false
-    end
+    end    
   end
 
   factory :brand_new_user, :parent => :user do 
