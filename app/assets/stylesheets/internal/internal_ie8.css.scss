@@ -66,12 +66,14 @@ header {
   margin-left:0;
   left:81%;
 }
-.tiles.tiles-index .viewer {
+.tiles.tiles-index .viewer,
+.tile_previews.tile_previews-show .viewer {
   a#prev, a#next {width:2em;}
   a#prev {left:-2em;}
   a#next {right:3em;}
 }
-.tiles.tiles-index .tile_quiz {
+.tiles.tiles-index .tile_quiz,
+.tile_previews.tile_previews-show .tile_quiz {
   .tile_points_bar {border-top-color:darken($light-gray, 2%)}
   .tile_points_bar .earnable_points {
     top:0;

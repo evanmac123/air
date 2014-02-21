@@ -4,7 +4,8 @@ body.client_admin-tiles-create,
 body.client_admin-tiles-edit,
 body.client_admin-tiles-show,
 body.client_admin-tiles-update,
-.tiles.tiles-index {
+body.tiles.tiles-index,
+body.tile_previews.tile_previews-show {
   background:$tile-wall-bg;
   .shadow_overlay {
     display: block;

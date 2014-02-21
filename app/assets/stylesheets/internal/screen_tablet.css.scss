@@ -21,7 +21,8 @@
 }
 
 /* -- Large tile viewer -- */
-.tiles.tiles-index {
+.tiles.tiles-index,
+.tile_previews.tile_previews-show {
   .content .row, .tile_holder {max-width:600px;}
 }
 

@@ -111,6 +111,14 @@ class ApplicationController < ActionController::Base
     puts [params[:controller], params[:action]].join('#')
   end
 
+  def choose_layout_depending_on_logged_in_or_not
+    if current_user
+      "application"
+    else
+      "external"
+    end
+  end
+
   private
 
   alias authenticate_without_game_begun_check authorize

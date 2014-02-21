@@ -64,7 +64,8 @@ body {
 }
 
 /* -- Large tile viewer -- */
-.tiles.tiles-index {
+.tiles.tiles-index,
+.tile_previews.tile_previews-show {
   .content .row {max-width:70em;}
   .tile_viewer_header {
     max-width:600px;

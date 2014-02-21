@@ -1,0 +1,10 @@
+<%= stylesheet_link_tag "app-internal" %>
+<%= javascript_include_tag "internal/tiles" %>
+
+<div class="container row">
+  <div class="viewer">
+    <div id="slideshow">
+      <%= render "tiles/full_size_tile", tile: @tile, remove_right_answer_target: true %>
+    </div>
+  </div>
+</div>

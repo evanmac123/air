@@ -1,4 +1,5 @@
 <% target_link_id  = "multiple_choice_target_link_#{tile.id}" %>
+<% remove_right_answer_target ||= false %>
 
 <% if tile.multiple_choice_answers.present? %>
   <div class="multiple_choice_group">
@@ -24,7 +25,6 @@
         <div class="wrong_answer_target" style="display: none"></div>
       <% end %>
     <% end %>
-    
     <% content_for :javascript do %>
       <%= javascript_tag do %>
         setUpAnswers();

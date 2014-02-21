@@ -1,6 +1,7 @@
 <% creator_class = tile.appears_client_created ? 'client_created' : 'admin_created' %>
 <% answer_links_disabled ||= false %>
 <% overlay_displayed ||= false %>
+<% remove_right_answer_target ||= false %>
 
 <div class="tile_holder <%= creator_class %>" data-current-tile-id="<%= tile.id 
   %>" data-completed-only="<%= @show_completed_tiles 
@@ -41,9 +42,7 @@
 
 
           <div class="tile_question"><%= tile.question %></div>
-
-          <%= render 'tiles/multiple_choice_answers', tile: tile, answer_links_disabled: answer_links_disabled %>
-        </div>
+          <%= render 'tiles/multiple_choice_answers', tile: tile, answer_links_disabled: answer_links_disabled, remove_right_answer_target: remove_right_answer_target %>
       </div>
     <% end %>
 
