@@ -27,6 +27,12 @@ loadNextTileWithOffset = (offset) ->
       $('#position').html($('.tile_holder').data('position'))
       if $('#slideshow .tile_holder').data('show-conversion-form') == true
         lightboxConversionForm();
+        
+      if $('#slideshow .tile_holder').data('show-start-over') == true
+        $('#guest_user_start_over_button').show()
+      else
+        $('#guest_user_start_over_button').hide()
+        
   )
 
 attachWrongAnswer = (answerLink, target) ->

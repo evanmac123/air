@@ -32,6 +32,7 @@ class TilesController < ApplicationController
 
   def show
     if params[:partial_only]
+      decide_whether_to_show_conversion_form
       get_displayable
       get_position_description
       render_new_tile
@@ -112,15 +113,16 @@ class TilesController < ApplicationController
 
   def decide_whether_to_show_conversion_form
     #return (@show_conversion_form = true)
-
+    @current_user ||= current_user
     active_tile_count = @current_user.demo.tiles.active.count
 
     if active_tile_count == 1
       show_conversion_form_provided_that { satisfiable_tiles.empty? }
     else
-      allow_reshow = @current_user.tile_completions.count == active_tile_count
+      tile_completion_count = @current_user.tile_completions.joins(:tile).where("#{Tile.table_name}.demo_id" => @current_user.demo_id).count
+      allow_reshow = tile_completion_count == active_tile_count
 
-      show_conversion_form_provided_that(allow_reshow) { @current_user.tile_completions.count == 2 || @current_user.tile_completions.count == active_tile_count }
+      show_conversion_form_provided_that(allow_reshow) { tile_completion_count == 2 || tile_completion_count == active_tile_count }
     end
   end
 

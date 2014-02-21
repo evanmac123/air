@@ -19,21 +19,16 @@ feature 'Completes tiles' do
     should_be_on public_tiles_path(board.public_slug)
   end
 
-  scenario 'and sees the happy flash', js: true do
-    click_right_answer
-    expect_right_answer_reaction
-  end
-
   scenario 'and sees the completion in the activity feed', js: true do
     click_right_answer
     visit activity_path
     expect_content "completed the tile: \"#{tile_1.headline}\""
   end
 
-  scenario 'and doesn\'t see the tile in question anymore', js: true do
+  scenario 'and doesn\'t see the tile in question anymore as completed', js: true do
     click_right_answer
     visit activity_path
-    page.all("#tile-thumbnail-#{tile_1.id}").should be_empty
+    page.all(".not-completed #tile-thumbnail-#{tile_1.id}").should be_empty
   end
 
   scenario 'and the score should update', js: true do
