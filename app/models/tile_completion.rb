@@ -4,6 +4,13 @@ class TileCompletion < ActiveRecord::Base
 
   validates_uniqueness_of :tile_id, :scope => [:user_id, :user_type]
 
+  after_create :creator_has_tile_completed
+
+  def creator_has_tile_completed
+    creator = self.tile.creator
+    creator.mark_own_tile_completed unless creator.has_own_tile_completed
+  end
+
   def self.for_tile(tile)
     where(:tile_id => tile.id)
   end

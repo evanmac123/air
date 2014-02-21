@@ -9,6 +9,7 @@ class Tile < ActiveRecord::Base
   TILE_IMAGE_PROCESSING_PRIORITY = -10
 
   belongs_to :demo
+  belongs_to :creator, :class_name => 'User'
 
   has_many :prerequisites
   has_many :prerequisite_tiles, :class_name => "Tile", :through => :prerequisites
@@ -60,7 +61,7 @@ class Tile < ActiveRecord::Base
 
   has_attached_file :image,
     {
-    # For those of you who don't read ImageMagick geometry arguments like a 
+    # For those of you who don't read ImageMagick geometry arguments like a
     # native, "666>" means "Leave images under 666 pixels wide alone. Scale
     # down images over 666 pixels wide to 666 wide, maintaining the original
     # aspect ratio."
@@ -71,8 +72,8 @@ class Tile < ActiveRecord::Base
 
   has_attached_file :thumbnail,
     {
-    :styles => 
-      { :carousel     => ["238x238>", :png], 
+    :styles =>
+      { :carousel     => ["238x238>", :png],
         :email_digest => ["190", :png]
       },
     :convert_options => {:email_digest => '-gravity "North" -background "#292929" -extent "190x160"'},
@@ -105,7 +106,7 @@ class Tile < ActiveRecord::Base
 
   def name
     # this is only here so formtastic's input in app/views/admin/tiles/_form.haml
-    # f.input :prerequisite_tiles, :collection => @existing_tiles 
+    # f.input :prerequisite_tiles, :collection => @existing_tiles
     # still has a name attribute to reference
     headline
   end

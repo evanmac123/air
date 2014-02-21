@@ -116,6 +116,10 @@ module NavigationHelpers
 
     when /the interstitial phone (verification|validation) page/
       phone_verification_path
+
+    when /the manage tiles page/
+      client_admin_tiles_path
+
     else
 
       begin

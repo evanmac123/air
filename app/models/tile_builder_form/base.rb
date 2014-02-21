@@ -14,6 +14,7 @@ module TileBuilderForm
       @demo = demo
       @parameters = options[:parameters]
       @tile = options[:tile]
+      @creator = options[:creator]
     end
 
     def persisted?
@@ -104,6 +105,7 @@ module TileBuilderForm
       @tile = tile_class.new(demo: @demo)
       set_tile_image
       set_tile_attributes
+      set_tile_creator
       @tile.position = Tile.next_position(@demo)
       @tile.status = Tile::ARCHIVE
     end
@@ -134,6 +136,10 @@ module TileBuilderForm
       end
     end
 
+    def set_tile_creator
+      @tile.creator ||= @creator
+    end
+
     def main_objects
       [tile, rule, rule_values].flatten
     end
@@ -157,7 +163,7 @@ module TileBuilderForm
 
     def answers_from_params
       return unless @parameters && @parameters[:answers]
-      @parameters[:answers]    
+      @parameters[:answers]
     end
 
     def normalized_answers_from_tile
@@ -190,4 +196,4 @@ module TileBuilderForm
     delegate :headline, :supporting_content, :question, :thumbnail, :link_address, :to => :tile
     delegate :points, :to => :rule
   end
-end    
+end

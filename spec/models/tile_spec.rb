@@ -2,6 +2,7 @@ require 'spec_helper'
 
 describe Tile do
   it { should belong_to(:demo) }
+  it { should belong_to(:creator) }
   it { should have_many(:prerequisites) }
   it { should have_many(:prerequisite_tiles) }
   it { should have_many(:rule_triggers) }
@@ -168,7 +169,7 @@ describe Tile do
       a.should be_due
       a.save!
       Tile.after_start_time_and_before_end_time.should == [a]
-      
+
       ################ HAS START TIME ONLY #################
       a.start_time = past
       a.end_time = nil
@@ -208,7 +209,7 @@ describe Tile do
       a.save!
       Tile.after_start_time_and_before_end_time.should == []
 
-      a.start_time = future 
+      a.start_time = future
       a.end_time = future
       a.should_not be_due
       a.save!
@@ -235,8 +236,8 @@ describe Tile do
       Tile.due_ids.count.should == 1
     end
   end
-  
-  describe ".displayable_to_user" do 
+
+  describe ".displayable_to_user" do
     before(:each) do
       Demo.find_each {|f| f.destroy}
 
@@ -331,17 +332,17 @@ describe Tile do
       FactoryGirl.create(:rule_trigger, rule: @take_sponge_bath, tile: @sponge_bath)
     end
 
-    it "is satisfiable by some rule" do 
+    it "is satisfiable by some rule" do
       tiles = Tile.satisfiable_by_trigger_table('trigger_rule_triggers')
       tiles.count.should == 2
       tiles.map(&:id).should include(@mud_bath.id)
       tiles.map(&:id).should include(@sponge_bath.id)
     end
 
-    it "is satisfiable by a particular rule" do 
-      tiles_1 = Tile.satisfiable_by_rule(@take_sponge_bath) 
+    it "is satisfiable by a particular rule" do
+      tiles_1 = Tile.satisfiable_by_rule(@take_sponge_bath)
       tiles_1.map(&:id).should == [@sponge_bath.id]
-      tiles_2 = Tile.satisfiable_by_rule(@take_mud_bath) 
+      tiles_2 = Tile.satisfiable_by_rule(@take_mud_bath)
       tiles_2.map(&:id).should == [@mud_bath.id]
     end
 
@@ -390,7 +391,7 @@ describe Tile do
       TileCompletion.first.tile_id.should == @stretch.id
     end
 
-    it "does no completions if blank string sent" do 
+    it "does no completions if blank string sent" do
       emails = []
       Tile.bulk_complete(@fun.id, @stretch.id, emails)
       TileCompletion.count.should == 0
@@ -414,12 +415,12 @@ describe Tile do
       @tile.all_rule_triggers_satisfied_to_user(@leah).should be_false
       Act.count.should == 0
       # Create one of the required acts to satisfy the rule
-      FactoryGirl.create(:act, user: @leah, rule: @rule_1) 
+      FactoryGirl.create(:act, user: @leah, rule: @rule_1)
       @tile.all_rule_triggers_satisfied_to_user(@leah).should be_false
       Act.count.should == 1
       Tile.satisfiable_to_user(@leah.reload).map(&:id).should == [@tile.id]
       # Create the second act, so now it should actually be satisfied
-      FactoryGirl.create(:act, user: @leah, rule: @rule_2) 
+      FactoryGirl.create(:act, user: @leah, rule: @rule_2)
       @tile.all_rule_triggers_satisfied_to_user(@leah).should be_true
       Act.count.should == 3 # two acts and one tile completion
       TileCompletion.count.should == 1

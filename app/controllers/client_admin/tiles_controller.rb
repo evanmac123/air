@@ -15,8 +15,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
   end
 
   def create
-    @tile_builder_form = TileBuilderForm::MultipleChoice.new(@demo, parameters: params[:tile_builder_form])
-
+    @tile_builder_form = TileBuilderForm::MultipleChoice.new(@demo, parameters: params[:tile_builder_form], creator: current_user)
     if @tile_builder_form.create_objects
       set_after_save_flash(@tile_builder_form.tile)
       schedule_tile_creation_ping
@@ -53,7 +52,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
   end
 
   def get_tile
-    current_user.demo.tiles.find params[:id]  
+    current_user.demo.tiles.find params[:id]
   end
 
   def flash_status_messages
@@ -95,7 +94,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     activate_url = client_admin_tile_path(new_tile, update_status: Tile::ACTIVE)
     edit_url = edit_client_admin_tile_path(new_tile)
     already_active = new_tile.active?
-    
+
     flash[:success] = render_to_string("preview_after_save_flash", layout: false, locals: {edit_url: edit_url, activate_url: activate_url, already_active: already_active})
     flash[:success_allow_raw] = true
   end

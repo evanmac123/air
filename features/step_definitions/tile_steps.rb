@@ -37,6 +37,13 @@ Given /^the tile "([^"]*)" has prerequisite "([^"]*)"$/ do |tile_headline, prere
   tile.prerequisite_tiles << prerequisite
 end
 
+Given /^the tile "([^"]*)" has creator "([^"]*)"$/ do |tile_headline, creator_name|
+  tile = Tile.where(:headline => tile_headline).first
+  creator = User.where(:name => creator_name).first
+  tile.creator = creator
+  tile.save
+end
+
 When /^I set the tile start time to "([^"]*)"$/ do |time_string|
   set_time_inputs("tile_start_time", time_string)
 end

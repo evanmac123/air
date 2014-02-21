@@ -68,5 +68,16 @@ describe TileCompletion do
     u_3_t_2.destroy  # u_1 and u_2 and u_3 have not completed any tiles
     user_ids.each { |user_id| TileCompletion.user_completed_any_tiles?(user_id, tile_ids).should be_false }
   end
+
+  it "should change new creator's flag has_own_tile_completed to true" do
+    @user = FactoryGirl.create :user, :is_client_admin => true
+    @user.has_own_tile_completed.should be_false
+
+    @tile = FactoryGirl.create :tile, creator: @user
+    @user.has_own_tile_completed.should be_false
+
+    tc = FactoryGirl.create :tile_completion, :tile => @tile
+    @user.has_own_tile_completed.should be_true
+  end
 end
 

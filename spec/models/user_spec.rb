@@ -11,6 +11,7 @@ describe User do
   it { should have_many(:friendships) }
   it { should have_many(:friends).through(:friendships) }
   it { should have_many(:tile_completions) }
+  it { should have_many(:tiles) }
   # Note that our validates_uniqueness_of :email is called in the Clearance gem
   it { should validate_uniqueness_of(:email) }
   it { should validate_presence_of(:name).with_message("Please enter a first and last name") }
@@ -449,6 +450,12 @@ describe User, "on create" do
 
     @user.segmentation_data.should be_present
   end
+
+  it "should has_own_tile_completed equal to false" do
+    @user = FactoryGirl.create :user
+
+    @user.has_own_tile_completed.should be_false
+  end
 end
 
 describe User, "on save" do
@@ -743,7 +750,7 @@ describe User do
     it "should allow anyone to view the activity of a user whose privacy status is 'everybody'" do
       follower = FactoryGirl.create :user
       artist = FactoryGirl.create(:user, :privacy_level => "everybody")
-      follower.can_see_activity_of(artist).should == true      
+      follower.can_see_activity_of(artist).should == true
     end
   end
 end
@@ -768,7 +775,7 @@ describe User, "#befriend" do
     @left_user = FactoryGirl.create(:claimed_user, :name => "Lefty Loosey", :demo_id => @demo.id)
     @right_user = FactoryGirl.create(:claimed_user, :name => "Righty Tighty", :demo_id => @demo.id)
   end
-  
+
   it "should create two friendships, one initiated and one pending" do
     # Befriend
     @left_user.befriend(@right_user)
@@ -782,7 +789,7 @@ describe User, "#befriend" do
     second_friendship = second_friendship_array.first
     second_friendship.state.should == "pending"
   end
-  
+
   it "accepting friendship should make both frienships show up accepted" do
     # Befriend
     @left_user.befriend(@right_user)
@@ -793,17 +800,17 @@ describe User, "#befriend" do
     initiated_friendship.reload.state.should == "accepted"
     pending_friendship.reload.state.should == "accepted"
   end
-  
+
   it "each shows up as each other friend using the .friends construct" do
     # Befriend
     @left_user.befriend(@right_user)
-    
+
     @left_user.initiated_friends.length.should == 1
     @right_user.initiated_friends.should be_empty
     @right_user.pending_friends.length.should == 1
     @left_user.pending_friends.should be_empty
   end
-  
+
   it "each shows up as each other friend using the .friends construct" do
     # Befriend
     @left_user.befriend(@right_user)
@@ -830,7 +837,7 @@ describe User do
     second_email = '456@hi.com'
     third_email = 'something_crafty@sexy.com'
     FactoryGirl.create(:user, email: first_email, overflow_email: second_email)
-    @user2 = FactoryGirl.build(:user, name: 'henry') 
+    @user2 = FactoryGirl.build(:user, name: 'henry')
     @user2.should be_valid
     @user2.email = first_email
     @user2.should_not be_valid
@@ -906,15 +913,15 @@ describe User, "finds by either email" do
   before(:each) do
     @leah_email = 'leah@princess.net'
     @leah_personal = 'leah@personal.net'
-    @leah = FactoryGirl.create(:user, email: @leah_personal, overflow_email: @leah_email) 
+    @leah = FactoryGirl.create(:user, email: @leah_personal, overflow_email: @leah_email)
     @rice_email = 'rice@princess.net'
     @rice_personal = 'rice@personal.net'
-    @rice = FactoryGirl.create(:user, email: @rice_personal, overflow_email: @rice_email) 
+    @rice = FactoryGirl.create(:user, email: @rice_personal, overflow_email: @rice_email)
     @jay_email = 'jay@princess.net'
     @jay_personal = 'jay@personal.net'
-    @jay = FactoryGirl.create(:user, email: @jay_personal, overflow_email: @jay_email) 
+    @jay = FactoryGirl.create(:user, email: @jay_personal, overflow_email: @jay_email)
   end
-  
+
   it "should find by either email" do
     User.find_by_either_email("    " + @leah_email + " ").should == @leah
     User.find_by_either_email(@leah_personal.upcase).should == @leah
@@ -926,7 +933,7 @@ describe User, "finds by either email" do
 end
 
 describe User, "#reset_tiles" do
-  before(:each) do 
+  before(:each) do
     @fun = FactoryGirl.create(:demo, name: 'Fun')
     @leah = FactoryGirl.create(:site_admin, name: 'Leah', demo: @fun)
     @rule = FactoryGirl.create(:rule, demo: @fun)
@@ -937,7 +944,7 @@ describe User, "#reset_tiles" do
     TileCompletion.count.should == 1
     @completion = TileCompletion.first
     Act.count.should == 2 # @act plus the game piece completion act
-   
+
     # One more act for Leah that should stay around after resetting
     FactoryGirl.create(:act, user: @leah, demo: @fun)
 
