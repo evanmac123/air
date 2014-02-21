@@ -25,6 +25,8 @@ loadNextTileWithOffset = (offset) ->
       $('#spinner_large').hide()
       setUpAnswers()
       $('#position').html($('.tile_holder').data('position'))
+      if $('#slideshow .tile_holder').data('show-conversion-form') == true
+        lightboxConversionForm();
   )
 
 attachWrongAnswer = (answerLink, target) ->
