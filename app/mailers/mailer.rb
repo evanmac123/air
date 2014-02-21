@@ -5,7 +5,7 @@ class Mailer < ActionMailer::Base
   helper :email  # loads app/helpers/email_helper.rb & includes EmailHelper into the VIEW
 
   default :from => "Airbo <play@ourairbo.com>"
-  
+
   def invitation(user, referrer = nil, options = {})
     demo = user.demo
     email_template = demo.invitation_email
@@ -13,7 +13,7 @@ class Mailer < ActionMailer::Base
 
     @invitation_url = if options[:password_only]
                        user.manually_set_confirmation_token
-                       edit_user_password_url(user, :token => user.confirmation_token) 
+                       edit_user_password_url(user, :token => user.confirmation_token)
                      else
                        invitation_url(user.invitation_code, referrer_hash)
                      end
@@ -27,7 +27,7 @@ class Mailer < ActionMailer::Base
 
     mail(:to      => user.email_with_name,
          :subject => email_template.subject(user, referrer, @invitation_url),
-         :from    => demo.reply_email_address)  
+         :from    => demo.reply_email_address)
   end
 
 
@@ -118,5 +118,13 @@ class Mailer < ActionMailer::Base
     mail :to      => user.email_with_name,
          :from    => user.reply_email_address,
          :subject => "Welcome to Airbo!"
+  end
+
+  def congratulate_creator_with_first_completed_tile(user)
+    @user = user
+
+    mail :to      => user.email_with_name,
+         :from    => user.reply_email_address,
+         :subject => "Your first user joined #{user.demo.name}"
   end
 end

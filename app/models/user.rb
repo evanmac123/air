@@ -33,6 +33,7 @@ class User < ActiveRecord::Base
   has_many   :unsubscribes, :dependent => :destroy
   has_many   :peer_invitations_as_invitee, :class_name => "PeerInvitation", :foreign_key => :invitee_id
   has_many   :peer_invitations_as_inviter, :class_name => "PeerInvitation", :foreign_key => :inviter_id
+  has_many   :tiles, :foreign_key => :creator_id
   has_one    :original_guest_user, :class_name => "GuestUser", :foreign_key => :converted_user_id, :inverse_of => :converted_user
 
   validate :normalized_phone_number_unique, :normalized_new_phone_number_unique
@@ -49,7 +50,7 @@ class User < ActiveRecord::Base
   validates_presence_of :name, :message => "Please enter a first and last name"
   validates_presence_of :sms_slug, :if => :name_present?, :message => "Please choose a username"
   validates_presence_of :slug, :if => :name_present?
-  
+
   validates_presence_of :privacy_level
   validates_inclusion_of :privacy_level, :in => PRIVACY_LEVELS
 
@@ -65,7 +66,7 @@ class User < ActiveRecord::Base
   validates_presence_of :demo_id
 
   validates_length_of :password, :minimum => 6, :allow_blank => true, :message => 'must have at least 6 characters', :unless => :converting_from_guest
-  validates :email, :with => :email_distinct_from_all_overflow_emails 
+  validates :email, :with => :email_distinct_from_all_overflow_emails
   validates :overflow_email, :with => :overflow_email_distinct_from_all_emails
 
   validates_presence_of :password, :if => :converting_from_guest, :message => "Please enter a password at least 6 characters long"
@@ -133,7 +134,7 @@ class User < ActiveRecord::Base
   attr_accessor :trying_to_accept, :password_confirmation, :converting_from_guest, :creating_board
 
   # Changed from attr_protected to attr_accessible to address vulnerability CVE-2013-0276
-  
+
   attr_accessible :name, :email, :invited, :demo_id, :created_at, :updated_at, :invitation_code, :phone_number, :points, :encrypted_password, :salt, :remember_token, :slug, :claim_code, :confirmation_token, :won_at, :sms_slug, :last_suggested_items, :avatar_file_name, :avatar_content_type, :avatar_file_size, :avatar_updated_at, :ranking_query_offset, :accepted_invitation_at, :game_referrer_id, :notification_method, :location_id, :new_phone_number, :new_phone_validation, :date_of_birth, :gender, :session_count, :privacy_level, :last_muted_at, :last_told_about_mute, :mt_texts_today, :suppress_mute_notice, :follow_up_message_sent_at, :flashes_for_next_request, :characteristics, :overflow_email, :tickets, :zip_code, :is_employee, :ssn_hash, :employee_id, :spouse_id, :last_acted_at, :ticket_threshold_base, :terms_and_conditions, :get_started_lightbox_displayed
   #attr_protected :is_site_admin, :is_client_admin, :invitation_method
 
@@ -153,7 +154,7 @@ class User < ActiveRecord::Base
     return email if overflow_email.empty?
     overflow_email
   end
-  
+
   def email_distinct_from_all_overflow_emails
     return if email.blank? && overflow_email.blank?
     if email.blank? && overflow_email.present?
@@ -166,7 +167,7 @@ class User < ActiveRecord::Base
   end
 
   def overflow_email_distinct_from_all_emails
-    return if overflow_email.blank? 
+    return if overflow_email.blank?
     # HRFF: no need to check this unless emails changed
     if User.where(email: overflow_email).reject{|ff| ff == self}.present?
       self.errors.add(:overflow_email, 'someone else has your secondary email as their primary email')
@@ -188,7 +189,7 @@ class User < ActiveRecord::Base
     else
       demo_rule_values = []
     end
-    
+
     all_commands = SpecialCommand.reserved_words + demo_rule_values
     if all_commands.include? self.sms_slug
       self.errors.add("sms_slug", "Sorry, but that username is reserved")
@@ -202,7 +203,7 @@ class User < ActiveRecord::Base
       self.errors.add(:date_of_birth, "must be in the past")
     end
   end
-  
+
   def her_him
     case self.gender
     when "female"
@@ -213,7 +214,7 @@ class User < ActiveRecord::Base
       return "them"
     end
   end
-  
+
   def her_his
     case self.gender
     when "female"
@@ -224,19 +225,19 @@ class User < ActiveRecord::Base
       return "their"
     end
   end
-  
+
   def can_see_activity_of(user)
     return true if self == user
     return true if self.is_site_admin
     case user.privacy_level
     when 'everybody'
-      return true 
+      return true
     when 'connected'
       return true if self.friends_with? user
     end
     return false
   end
-  
+
   def reason_for_privacy
     case self.privacy_level
     when 'everybody'
@@ -248,7 +249,7 @@ class User < ActiveRecord::Base
     end
     return reason
   end
-  
+
   module UpdatePasswordWithBlankForbidden
     def update_password(password)
       # See comment in user_spec for #update_password.
@@ -262,7 +263,7 @@ class User < ActiveRecord::Base
   end
 
   include UpdatePasswordWithBlankForbidden
-  
+
   def followers
     # You'd think you could do this with an association, and if you can figure
     # out how to get that to work, please, be my guest.
@@ -277,7 +278,7 @@ class User < ActiveRecord::Base
   def pending_friends
     friends.where('friendships.state' => 'pending')
   end
-  
+
   def initiated_friends
     friends.where('friendships.state' => 'initiated')
   end
@@ -285,7 +286,7 @@ class User < ActiveRecord::Base
   def accepted_friends
     friends.where('friendships.state' => 'accepted')
   end
-  
+
   def accepted_friends_same_demo
     accepted_friends.where(:demo_id => self.demo_id)
   end
@@ -293,22 +294,22 @@ class User < ActiveRecord::Base
   def accepted_friends_not_counting_fairy_tale_characters
     accepted_friends.where('users.name != ?', Tutorial.example_search_name)
   end
-  
+
   def friendship_pending_with(other)
     pending_friends.include?(other)
   end
-  
+
   def friends_with?(other)
     self.relationship_with(other) == "friends"
   end
-  
+
   def relationship_with(other)
     return "self" if self == other
     from_me   = Friendship.where(:user_id => self.id, :friend_id => other.id).first
     from_me_state = from_me ? from_me.state : nil
     from_them = Friendship.where(:friend_id => self.id, :user_id => other.id).first
     from_them_state = from_them ? from_them.state : nil
-    
+
     if from_me.nil? && (from_them.nil?)
       return "none"
     elsif from_me_state == "initiated"
@@ -321,7 +322,7 @@ class User < ActiveRecord::Base
       return "unknown"
     end
   end
-   
+
   def has_friends
     accepted_friends_same_demo.count > 0
   end
@@ -335,10 +336,10 @@ class User < ActiveRecord::Base
   #     def #{base_method_name}_with_in_current_demo
   #       #{base_method_name}_without_in_current_demo.where(:demo_id => self.demo_id)
   #     end
-  # 
+  #
   #     #alias_method_chain :#{base_method_name}, :in_current_demo
   #   END_DEF
-  # 
+  #
   # end
 
   def to_param
@@ -419,7 +420,7 @@ class User < ActiveRecord::Base
     increment!(:mt_texts_today)
     if self.mt_texts_today == self.mute_notice_threshold && !(self.suppress_mute_notice)
       OutgoingMessage.send_message(
-        self, 
+        self,
         "If you want to temporarily stop getting texts from us, you can text back MUTE to stop them for 24 hours. To stop getting this reminder, text OK.",
         nil,
         channel: "sms"
@@ -653,7 +654,7 @@ class User < ActiveRecord::Base
       if rule.user_hit_daily_limit?(self)
         return ["Sorry, you've reached the limit for the number of times you can earn points for that kind of action today. Enter it tomorrow!", :over_daily_limit]
       end
-     
+
       result = [Act.record_act(self, rule, rule_value, options), :success]
     end
 
@@ -674,7 +675,7 @@ class User < ActiveRecord::Base
 
     friendship
   end
-  
+
   def accept_friendship_from(other)
     Friendship.where(:user_id => other.id, :friend_id => self.id).first.accept
   end
@@ -687,7 +688,7 @@ class User < ActiveRecord::Base
       :her_his => self.her_his
     )
   end
-  
+
 
   def follow_removed_message
     I18n.t(
@@ -713,7 +714,7 @@ class User < ActiveRecord::Base
   def email_with_name
     "#{name} <#{email}>"
   end
-  
+
   def mute_for_now
     self.update_attributes(:last_muted_at => Time.now)
   end
@@ -744,11 +745,11 @@ class User < ActiveRecord::Base
   def profile_page_friends_list
     self.accepted_friends_same_demo.sort_by {|ff| ff.name.downcase}
   end
-  
+
   def scoreboard_friends_list_by_tickets
     (self.accepted_friends_same_demo + [self]).sort_by(&:tickets).reverse
   end
-  
+
   def scoreboard_friends_list_by_name
     (self.accepted_friends_same_demo + [self]).sort_by {|ff| ff.name.downcase}
   end
@@ -770,10 +771,10 @@ class User < ActiveRecord::Base
 
   def self.send_invitation_if_claimed_sms_user_texts_us_an_email_address(from_phone, text, options={})
     return nil unless from_phone =~ /^(\+1\d{10})$/
-    
+
     _text = text.downcase.strip.gsub(" ", "")
     return nil unless _text.is_email_address?
-    
+
     user = User.where(phone_number: from_phone).first
 
     return "No user found with phone number #{from_phone}. Please try again, or contact support@air.bo for help" unless user
@@ -807,13 +808,13 @@ class User < ActiveRecord::Base
       {:referrer_id => nil}
     end
   end
- 
+
   def manually_set_confirmation_token
     update_attributes(confirmation_token: SecureRandom.hex(16))
   end
 
   def ping(event, properties={})
-    data = data_for_mixpanel.merge(properties) 
+    data = data_for_mixpanel.merge(properties)
     TrackEvent.ping(event, data)
   end
 
@@ -828,7 +829,7 @@ class User < ActiveRecord::Base
     return true if email == in_email # do nothing but return true if they try to reload their primary email
     update_attributes(overflow_email: email, email: in_email)
   end
- 
+
   def bad_friendship_index_error_message(request_index)
     if request_index && Friendship.pending(self).present?
       "Looks like you already responded to that request, or didn't have a request with that number"
@@ -906,6 +907,11 @@ class User < ActiveRecord::Base
     "ordinary user"
   end
 
+  def mark_own_tile_completed
+    update_attribute(:has_own_tile_completed, true)
+    Mailer.congratulate_creator_with_first_completed_tile(self).deliver
+  end
+
   protected
 
   def downcase_email
@@ -979,7 +985,7 @@ class User < ActiveRecord::Base
     return nil unless (first_name && claim_code)
     User.where(["name ILIKE ? AND claim_code = ?", first_name.like_escape + '%', claim_code]).first
   end
-  
+
   private
 
   def self.add_joining_to_activity_stream(user)

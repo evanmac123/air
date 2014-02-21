@@ -29,7 +29,7 @@ module EmailHelpers
     last_email_address || "dan@bigco.com"
   end
 end
-  
+
 
 World(EmailHelpers)
 
@@ -195,6 +195,11 @@ end
 
 When /^I click the play now button in the email$/ do
   regex = /invitations/
+  click_email_link_matching(regex)
+end
+
+When /^I click the check activity button in the email$/ do
+  regex = /tiles/
   click_email_link_matching(regex)
 end
 

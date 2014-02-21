@@ -1,14 +1,14 @@
 FactoryGirl.define do
-  
-  factory :unnamed_user, :class => User do 
+
+  factory :unnamed_user, :class => User do
     association(:demo)
     # Need to find a way to set the location of a user without creating an entirely new demo
     # association(:location)
-    password  "password" 
+    password  "password"
     sequence(:email) {|n| "darth_#{n}@sunni.ru" }
   end
-  
-  factory :user,  :parent => :unnamed_user do 
+
+  factory :user,  :parent => :unnamed_user do
     name "James Earl Jones"
     sample_tile_completed true
 
@@ -33,24 +33,24 @@ FactoryGirl.define do
     end    
   end
 
-  factory :brand_new_user, :parent => :user do 
+  factory :brand_new_user, :parent => :user do
     accepted_invitation_at { Time.now }
-  end  
-  
-  factory :claimed_user, :parent => :brand_new_user do 
+  end
+
+  factory :claimed_user, :parent => :brand_new_user do
     session_count 5
   end
-  
-  factory :user_with_phone, :parent => :claimed_user do 
+
+  factory :user_with_phone, :parent => :claimed_user do
     sequence(:phone_number) {|n| "+1#{4442220000 + n}" }
     notification_method "both"
   end
-  
+
   factory :site_admin, :parent => :claimed_user do
     name          "Sylvester McAdmin"
     is_site_admin true
   end
-  
+
   factory :client_admin, :parent => :claimed_user do
     name            "Bo Diddley"
     is_client_admin true
@@ -82,14 +82,14 @@ FactoryGirl.define do
       is_public true
     end
   end
-  
+
   factory :rule do
     points  2
     reply  "Yum. +2 points. Bananas help you fight cancer."
     association :demo
     association :primary_tag, :factory => :tag
   end
-  
+
   factory :rule_value do
     sequence(:value)  {|n| "ate banana #{n}" }
     association(:rule)
@@ -173,6 +173,7 @@ FactoryGirl.define do
     sequence(:position){ |n| n }
     status Tile::ACTIVE
     type 'OldSchoolTile'
+    association :creator, :factory => :user
 
     trait :archived do
       status Tile::ARCHIVE
@@ -208,8 +209,8 @@ FactoryGirl.define do
     type 'MultipleChoiceTile'
     question "Which of the following comes out of a bird?"
     points 99
-    multiple_choice_answers ["Ham", "Eggs", "A V8 Buick"] 
-    correct_answer_index 1  
+    multiple_choice_answers ["Ham", "Eggs", "A V8 Buick"]
+    correct_answer_index 1
   end
 
   factory :tile_completion do
@@ -227,7 +228,7 @@ FactoryGirl.define do
     association :tile
   end
 
-  factory :characteristic do 
+  factory :characteristic do
     sequence(:name) {|n| "Char_#{n}"}
     sequence(:description) {|n| "Desc_#{n}"}
     datatype Characteristic::DiscreteType
