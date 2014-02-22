@@ -53,5 +53,5 @@
 </div>
 
 <% if tile.is_copyable %>
-  <%= button_to "Copy to my board", explore_copy_tile_path(tile_id: tile.id) %>
+  <%= button_to "Copy to my board", explore_copy_tile_path(tile_id: tile.id), id: "copy_tile_button" %>
 <% end %>
