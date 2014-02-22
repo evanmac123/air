@@ -70,7 +70,7 @@ module Health
       Explore_tile_page/recycle_yourself.png
       Explore_tile_page/notebook.png
       Explore_tile_page/open_book.png
-      
+      internal/tiles.js
     )
 
     ################################################################
