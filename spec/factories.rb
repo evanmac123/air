@@ -203,6 +203,12 @@ FactoryGirl.define do
       is_public true
       status Tile::ACTIVE
     end
+
+    trait :copyable do
+      is_public true
+      is_copyable true
+      status Tile::ACTIVE
+    end
   end
 
   # Simple alias of :tile to :old_school_tile

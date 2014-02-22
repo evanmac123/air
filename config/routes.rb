@@ -79,6 +79,7 @@ Health::Application.routes.draw do
 
   resource :explore, only: [:show] do
     resources :tile_previews, only: [:show]
+    resource :copy_tile, only: [:create]
   end
 
   namespace :client_admin do

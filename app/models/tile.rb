@@ -97,6 +97,7 @@ class Tile < ActiveRecord::Base
     :default_url     => "/assets/avatars/thumb/missing.png",
     :bucket          => S3_TILE_THUMBNAIL_BUCKET}.merge(TILE_THUMBNAIL_OPTIONS)
 
+  before_post_process :no_post_process_on_copy
   process_in_background :image, :processing_image_url => IMAGE_PROCESSING_IMAGE_URL, :priority => TILE_IMAGE_PROCESSING_PRIORITY
   process_in_background :thumbnail, :processing_image_url => THUMBNAIL_PROCESSING_IMAGE_URL, :priority => TILE_IMAGE_PROCESSING_PRIORITY
 
@@ -108,7 +109,11 @@ class Tile < ActiveRecord::Base
   # the window. So fuck that. Fuck fuck fuck.
 
   if Rails.env.test?
-    after_save :enqueue_delayed_processing
+    after_save do
+      unless $TESTING_COPYING
+        enqueue_delayed_processing
+      end
+    end
   end
 
   scope :activated, -> {where(status: ACTIVE)}
@@ -238,6 +243,18 @@ class Tile < ActiveRecord::Base
     false
   end
 
+  def copy_to_new_demo(new_demo)
+    @making_copy = true # prevents processing that we don't need
+    copy = Tile.new
+    %w(correct_answer_index headline link_address multiple_choice_answers points question supporting_content type image_meta thumbnail_meta image thumbnail).each do |field_to_copy|
+      copy.send("#{field_to_copy}=", self.send(field_to_copy))
+    end
+
+    copy.status = Tile::ARCHIVE
+    copy.demo = new_demo
+    copy.save!
+  end
+
   def self.due_ids
     self.after_start_time_and_before_end_time.map(&:id)
   end
@@ -316,6 +333,11 @@ class Tile < ActiveRecord::Base
     where(is_public: true, status: Tile::ACTIVE)
   end
 
+  def self.copyable
+    viewable_in_public.where(is_copyable: true)
+  end
+
+
   # ------------------------------------------------------------------------------------------------------------------
   # These methods are for synchronizing a tile's start_time/end_time with its ACTIVE/ARCHIVE status.
   # (Tile has a custom attribute writer that updates the activated_at/archived_at along with the ACTIVE/ARCHIVE status)
@@ -385,6 +407,10 @@ class Tile < ActiveRecord::Base
     return if link_address.blank?
 
     self[:link_address] = "http://#{link_address}"
+  end
+
+  def no_post_process_on_copy
+    !(@making_copy)
   end
 
   def self.satisfiable_by_trigger_table(trigger_table_name)
