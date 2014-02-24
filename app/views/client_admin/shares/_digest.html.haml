@@ -1,23 +1,64 @@
-- if @digest_tiles.empty?
-  .row
-    .large-12#digest
-      %div.large-8.columns
-        %h2 Send Email with New Tiles
-        %div.no_tiles_messages
-          - if flash[:digest_sent_flag]
-            %h4
-              Your tiles have been sent! You can monitor 
-              = link_to "the Activity page", client_admin_path
-              to see how users interact.
-          %p= no_digest_email_message
-      %div.cancel_follow_ups.large-4.columns= render 'cancel_follow_ups'
-- else
-  .row
-    .large-12#digest
-      %div#digest_management.large-8.columns= render partial: 'digest_management'
-      %div.cancel_follow_ups.large-4.columns= render 'cancel_follow_ups'
-  %section.tiles_to_be_shared
-    .row
-      .large-12.columns
-        %h3 Tiles to be sent
-        = render partial: 'shared/tiles/tiles_table', locals: {tiles: @digest_tiles, type: :digest}
+.row
+  .large-12
+    - if @digest_tiles.empty?
+      - if @demo.tiles.empty?
+        #digest
+          %h1 Share your tiles with your audience
+          %div.columns.large-1= image_tag("/assets/marketing/send_tile_small.png", size:"50x50", id:"invite_image")
+          %div#progress.share_progress.large-10.round.columns
+            %span.meter{style:"width:25%"}
+          %p.send_button.large-1.columns= link_to 'SEND', '#', disabled: true
+        %div#message_div.large-12.columns
+          %p#tile_message You need to create a tile before you can share
+          Need inspiration? Got to
+          = link_to 'Explore', client_admin_explore_path
+          %p#create_tile_link= link_to 'Create Tile', new_client_admin_tile_path, id: 'create_tile_button', class: 'button light_button engaged has-tip', data: :tooltip, title: 'Create Tile'
+          %div.cancel_follow_ups.large-4.columns= render 'cancel_follow_ups'
+      - else
+        #digest
+          %h1 Share your tiles with your audience
+          %div.columns.large-1= image_tag("/assets/marketing/send_tile_small.png", size:"50x50", id:"invite_image")
+          %div#progress.share_progress.large-10.round.columns
+            %span.meter{style:"width:50%"}
+          %p.send_button.large-1.columns= link_to 'SEND', '#', disabled: true
+          %div#message_div.large-12.columns
+            %p#tile_message You need to activate tiles before you can share
+            Put your mouse over an inactive tile and click Activate.
+            #share_archive
+              = render partial: 'shared/tiles/tiles_table', locals: {tiles: @archive_tiles, type: :archive}
+            %p= link_to 'Back to Tiles', client_admin_tiles_path, class: 'button light_button engaged has-tip'
+
+    - else        
+      #digest
+        %div.invite_user_div
+          %h1 Share your tiles with your audience
+          %div.columns.large-1= image_tag("/assets/marketing/send_tile_small.png", size:"50x50", id:"invite_image")
+          %div#progress.share_progress.large-10.round.columns
+            %span.meter{style:"width:75%"}
+          %p.send_button.large-1.columns#send_button= link_to 'SEND', '#'
+          %div#message_div.large-12.columns
+            %p#tile_message Add people you would like to share your board with
+          .large-12.columns= show_conditionally_invite_users_modal(@demo)      
+    #digest
+      %div#success_section
+        %h1 Congratulations! You've sent your first tiles.
+        %div.columns.large-1= image_tag("/assets/marketing/send_tile_small.png", size:"50x50", id:"invite_image")
+        %div#progress.share_progress.large-10.round.columns
+          %span.meter{style:"width:100%"}
+        %p.send_button.large-1.columns= link_to 'SEND', '#', disabled: true
+        %div#invite_images.large-12
+          = image_tag("/assets/marketing/send_tile_small-checkmark.png", size:"300x300")
+        %h1{style:"text-align:center"} You can also share your board using a link
+      %div.share_url{style:"display:none"}        
+        %div#message_div.large-12.columns
+          %p#tile_message Anyone that follows the link will be able to see and join your board
+          = text_field_tag 'public_slug', public_board_url(current_user.demo.public_slug), id: 'public_board_field'
+          %p share your link
+          %p#share_link
+            = mail_to '', fa_icon('envelope 2x'), subject: 'Shared via Airbo', body: "Checkout this link: #{public_board_url(current_user.demo.public_slug)}", class: 'share email'
+            = link_to fa_icon('linkedin-square 2x'), "https://www.linkedin.com/shareArticle?mini=true&url=#{public_board_url(current_user.demo.public_slug)}&title=#{@demo.name}&summary=&source=", class: 'share linkedin'
+            = link_to fa_icon('facebook-square 2x'), "https://www.facebook.com/sharer/sharer.php?u=#{public_board_url(current_user.demo.public_slug)}", class: 'share facebook'
+            = link_to fa_icon('twitter 2x'), "https://twitter.com/home?status=#{public_board_url(current_user.demo.public_slug)}", class: 'share twitter'
+          %p#tile_message Keep an eye on the activity page and the tiles page
+          #share_archive= render partial: 'shared/tiles/tiles_table', locals: {tiles: @digest_tiles, type: :digest}
+          %p= link_to 'Back to Tiles', client_admin_tiles_path, class: 'button light_button engaged has-tip'

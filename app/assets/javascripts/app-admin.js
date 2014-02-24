@@ -11,4 +11,5 @@
 //= require_tree ./admin/.
 //= require ../../../vendor/assets/javascripts/internal/jquery.jpanelmenu.min
 //= require ../../../vendor/assets/javascripts/internal/jRespond.min
-
+//= require jquery.validate
+//= require jquery.validate.additional-methods

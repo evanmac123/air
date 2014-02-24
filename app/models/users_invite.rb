@@ -26,7 +26,7 @@ class UsersInvite
     false
   end
     
-  def self.build(demo_id, num_users = 5)
+  def self.build(demo_id, num_users = 8)
     user_array = Array.new(num_users)
     user_array.each_index do |index|  
       user_array[index] = User.new(demo_id: demo_id)

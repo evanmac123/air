@@ -4,10 +4,8 @@
   = render partial: 'shared/lock_screen'
 -else
   %section.share_tools
+    //TODO check if render 'public_board' should be removed
     = render 'public_board'
     = render 'digest'
-
-  = show_conditionally_create_tile_modal(@demo)
-  = show_conditionally_invite_users_modal(@demo)
 
   = javascript_include_tag "client_admin/public_board_controls"

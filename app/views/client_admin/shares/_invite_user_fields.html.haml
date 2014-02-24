@@ -4,9 +4,5 @@
       %section.invite-user
         %ul.info-cols
           %li
-            = user_fields.label :name, 'Name'
-            = user_fields.text_field :name, placeholder: "First and last (required)", class:'name', id:"user_#{index}_name"
-        %ul.info-cols
-          %li
-            = user_fields.label 'email'
-            = user_fields.text_field :email, placeholder: "name@example.com (required)", class: 'email', id:"user_#{index}_email"    
+            = user_fields.text_field :name, placeholder: "Name", class:'name', id:"user_#{index}_name", size:"38"
+            = user_fields.text_field :email, placeholder: "Email", class: 'email', id:"user_#{index}_email", size:"38"

@@ -1,5 +1,122 @@
 @import "mixins/lightbox.css.scss";
 
+#share_link a{
+    padding-top: 20px;
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-bottom: 100px;
+}
+
+#public_board_field{
+    margin-bottom: 50px;
+}
+
+#users_invite_message{
+    height: 70px;
+}
+
+#form_buttons{
+    padding-top: 30px;
+}
+
+#message_buttons{
+    display:none;
+    padding-top: 30px;
+}
+
+#add_another_user_invite{
+    color: #62AD51;    
+}
+
+.archive{
+    padding: 25px 10px 10px 0;
+}
+
+.light_button{
+    @include light-button($dark-green);
+}
+
+#invite_images{
+    text-align: center;
+    position: relative;
+    margin: auto;
+    padding-top: 100px;
+    padding-bottom: 100px;
+}
+
+#user_invite_message{
+    display:none;
+    background-color: #ECECEC;
+    padding: 10px;
+} 
+
+#success_section{
+    display:none;
+}
+
+#share_archive {
+    background-color: #ECECEC;
+    margin-left: 60px;
+    margin-right: 60px;
+    padding: 25px 10px 10px 0;
+}
+
+#tile_message{
+    margin-top: 10px;
+    margin-bottom: 30px;
+    font-size: 20px;
+    color: #62AD51;
+}
+
+.send_button {
+    margin-top: 25px;
+}
+
+#create_tile_link {
+    margin-top: 30px;
+}
+
+#message_div{
+    text-align: center;
+    position: relative;
+    margin: auto;
+    line-height: 40px;
+}
+
+#progress{
+    float:left;
+    margin-top: 17px;
+}
+
+#send_tile_image{
+    position: relative;
+    top: 0px;
+    left: 0px;
+}
+
+#check_makr_image{
+    position: absolute;
+    top: 30px;
+    left: 70px;
+}
+
+.speech{
+  display: none;
+  position: relative;
+  width: 200px;
+  height: 100px;
+  text-align: center;
+  line-height: 100px;
+  background-color: #fff;
+  border: 8px solid #666;
+  -webkit-border-radius: 30px;
+  -moz-border-radius: 30px;
+  border-radius: 30px;
+  -webkit-box-shadow: 2px 2px 4px #888;
+  -moz-box-shadow: 2px 2px 4px #888;
+  box-shadow: 2px 2px 4px #888;
+}
+
 #create_tile_modal {  
   @include lightbox-form;
   max-width: 40em;
@@ -31,15 +148,16 @@
 }
 
 #invite_users_modal {
-  background-color:white;
-  display: none;
-  padding:20px;
-  width:640px;
   
-  #submit_invite_users {
+  padding:20px;
+  .share-user-profile{
+    text-align: center;
+  }
+  
+  #submit_invite_users, #next_button {
     height: $public_slug_height;
     &.engaged {
-      @include app-button($dark-green);
+      @include light-button($dark-green);
     }
     &.disengaged {
       @include app-button($gray);
@@ -48,16 +166,18 @@
   #dismiss_invite_users {
     height: $public_slug_height;
     &.engaged {
-      @include app-button($dark-green);
+      @include light-button($dark-green);
     }
     &.disengaged {
       @include app-button($gray);
     }    
   }
   .info-cols li{
-          float:left;
-          margin-right:30px;
-          margin-bottom:20px;
+        background-color: #ECECEC;
+        padding: 10px;
+        float:left;
+        margin:20px;
+        margin-bottom:0;
   }
   .move-right {
           text-align:right;
@@ -70,22 +190,46 @@
   .blue:hover {
           text-decoration:underline !important;	
   }
+  .error_cross {
+    &:before {
+      background: $white;
+      border-radius: 2em;
+      z-index: 100;
+      content: "\f058"; 
+      font-family: FontAwesome;
+      font-style: normal;
+      font-weight: normal;
+      text-align: center;
+      text-decoration: inherit;
+    /*--adjust as necessary--*/
+      display: block;
+/*      position: absolute;*/
+      color: $dark-green;
+      font-size: 36px;
+      line-height: 1.1em;
+      padding-top: 1px;
+/*      top: -5px;
+      right: -5px;      */
+      width: 1.15em;
+    }        
+  }
+  input.invalid {
+    background-image: url('client_admin/invalid.png');
+    background-position: right top;
+    background-repeat: no-repeat;
+    -moz-box-shadow: none;
+  }
+  input.valid {
+    background-image: url('client_admin/valid.png');
+    background-position: right top;
+    background-repeat: no-repeat;
+  }  
 }
-/*#invite_users_modal {
-  @include lightbox-form;
-  form {
-    margin-top: 1em;
+.share_progress {
+  @include progress-container;
+  @include radius(6px);
+  & > span {
+    @include progress-meter($dark-green);
+    @include radius(5px);
   }
-
-  .conversion_error {
-    margin-top: 1em;
-    margin-bottom: 0.2em;
-    color: $red;
-  }
-
-  #submit_conversion_form {
-    @include light-button($sky-blue);
-    margin-top: .5em;
-  }
-}*/
-
+}
