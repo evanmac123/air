@@ -1,0 +1,25 @@
+<%= javascript_include_tag 'jquery.lightbox_me' %>
+<% copy_url = explore_copy_tile_path(tile_id: tile.id) %>
+<%= button_to "Copy to my board", copy_url, id: "copy_tile_button" %>
+
+<div id="tile_copied_lightbox" style="display: none;">
+  You've added this tile to the inactive section of your board. Next, you can edit this tile, go back to "Explore" or go to manage your board.
+</div>
+
+<% content_for :javascript do %>
+  <%= javascript_tag do %>
+    $('#copy_tile_button').click(function(event) {
+      event.preventDefault();
+      $.post(
+        '<%= copy_url %>',
+        {},
+        function(data) {
+          if(data.success) {
+            $('#tile_copied_lightbox').lightbox_me();
+          }
+        },
+        'json'
+      );
+    });
+  <% end %>
+<% end %>

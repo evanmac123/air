@@ -2,6 +2,7 @@
 <% answer_links_disabled ||= false %>
 <% overlay_displayed ||= false %>
 <% remove_right_answer_target ||= false %>
+<% show_copy_button ||= false %>
 
 <div class="tile_holder <%= creator_class %>" data-current-tile-id="<%= tile.id 
   %>" data-completed-only="<%= @show_completed_tiles 
@@ -52,6 +53,4 @@
   </div>
 </div>
 
-<% if tile.is_copyable %>
-  <%= button_to "Copy to my board", explore_copy_tile_path(tile_id: tile.id), remote: true, id: "copy_tile_button" %>
-<% end %>
+<%= render 'tiles/copy_button', tile: tile if show_copy_button%>

@@ -4,7 +4,7 @@
 <div class="container row">
   <div class="viewer">
     <div id="slideshow">
-      <%= render "tiles/full_size_tile", tile: @tile, remove_right_answer_target: true %>
+      <%= render "tiles/full_size_tile", tile: @tile, remove_right_answer_target: true, show_copy_button: @tile.is_copyable %>
     </div>
   </div>
 </div>

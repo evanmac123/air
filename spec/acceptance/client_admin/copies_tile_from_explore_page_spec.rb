@@ -19,7 +19,7 @@ feature "Client admin copies tile from the explore-preview page" do
     $TESTING_COPYING = false
   end
 
-  scenario "by clicking the proper link" do
+  scenario "by clicking the proper link", js: true do
     click_copy
     Tile.count.should == 2
     
@@ -54,6 +54,7 @@ feature "Client admin copies tile from the explore-preview page" do
   it "should show a helpful message in a modal after copying", js: true do
     click_copy
 
+    page.find('#tile_copied_lightbox', visible: true)
     expect_content %(You've added this tile to the inactive section of your board. Next, you can edit this tile, go back to "Explore" or go to manage your board.)
   end
 

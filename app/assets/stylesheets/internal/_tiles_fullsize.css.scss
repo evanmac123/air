@@ -1,3 +1,5 @@
+@import "mixins/lightbox";
+
 // Page where the fullsize tile sits
 body.client_admin-tiles-new, 
 body.client_admin-tiles-create,
@@ -275,4 +277,8 @@ body.tile_previews.tile_previews-show {
   @include app-button($dark-green);
   margin-top: 1em;
   float: right;
+}
+
+#tile_copied_lightbox {
+  @include lightbox-form;
 }
