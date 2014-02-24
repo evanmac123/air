@@ -251,6 +251,7 @@ class Tile < ActiveRecord::Base
     copy.status = Tile::ARCHIVE
     copy.demo = new_demo
     copy.save!
+    copy
   end
 
   def self.due_ids
