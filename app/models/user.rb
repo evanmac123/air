@@ -909,7 +909,7 @@ class User < ActiveRecord::Base
 
   def mark_own_tile_completed
     update_attribute(:has_own_tile_completed, true)
-    Mailer.congratulate_creator_with_first_completed_tile(self).deliver
+    Mailer.delay.congratulate_creator_with_first_completed_tile(self)
   end
 
   protected
