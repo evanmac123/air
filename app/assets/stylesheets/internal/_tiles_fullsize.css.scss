@@ -275,8 +275,14 @@ body.tile_previews.tile_previews-show {
 
 #copy_tile_button {
   @include app-button($dark-green);
-  margin-top: 1em;
   float: right;
+}
+
+#tile_spinner {
+  float: right;
+  position: relative;
+  right: 1em;
+  top: 0.5em;
 }
 
 #tile_copied_lightbox {

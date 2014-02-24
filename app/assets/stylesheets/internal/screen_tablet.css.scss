@@ -23,7 +23,7 @@
 /* -- Large tile viewer -- */
 .tiles.tiles-index,
 .tile_previews.tile_previews-show {
-  .content .row, .tile_holder {max-width:600px;}
+  .content .row, .tile_holder, #copy_button_wrapper {max-width:600px;}
 }
 
 /* -- Directory search results -- */

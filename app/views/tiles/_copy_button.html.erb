@@ -1,6 +1,9 @@
 <%= javascript_include_tag 'jquery.lightbox_me' %>
 <% copy_url = explore_copy_tile_path(tile_id: tile.id) %>
-<%= button_to "Copy to my board", copy_url, id: "copy_tile_button" %>
+<div id="copy_button_wrapper">
+  <%= submit_tag "Copy to my board", id: "copy_tile_button" %>
+  <%= image_tag "spinner.gif", style: "display: none;", id: 'tile_spinner' %>
+</div>
 
 <div id="tile_copied_lightbox" style="display: none;">
   You've added this tile to the inactive section of your board. Next, you can edit this tile, go back to "Explore" or go to manage your board.
@@ -10,10 +13,13 @@
   <%= javascript_tag do %>
     $('#copy_tile_button').click(function(event) {
       event.preventDefault();
+      $('#tile_spinner').show();
+
       $.post(
         '<%= copy_url %>',
         {},
         function(data) {
+          $('#tile_spinner').hide();
           if(data.success) {
             $('#tile_copied_lightbox').lightbox_me();
           }
