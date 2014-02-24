@@ -32,8 +32,6 @@ class Tile < ActiveRecord::Base
   has_many  :completed_tiles, source: :tile, through: :tile_completions
   has_many :triggering_rules, :class_name => "Rule", :through => :rule_triggers
 
-  #validates_uniqueness_of :position, :scope => :demo_id
-
   validates_presence_of :headline, :allow_blank => false, :message => "headline can't be blank"
   validates_presence_of :supporting_content, :allow_blank => false, :message => "supporting content can't be blank", :on => :client_admin
   validates_presence_of :question, :allow_blank => false, :message => "question can't be blank", :on => :client_admin
@@ -379,24 +377,6 @@ class Tile < ActiveRecord::Base
 
   def self.satisfiable_by_rule(rule_or_rule_id)
     satisfiable_by_object(rule_or_rule_id, Rule, "trigger_rule_triggers", "rule_id")
-  end
-
-  def self.next_position(demo)
-    if table_exists?
-      where(demo_id: demo.id).maximum(:position).to_i + 1
-    else
-      1
-    end
-  end
-
-  def self.set_position_within_demo(demo, id_order)
-    count = 1 # Using 1-based counting since the admins see this number
-    id_order.each do |tile_id|
-      where(id: tile_id).each do |tile|
-        tile.update_column(:position, count)
-      end
-      count += 1
-    end
   end
 
   protected

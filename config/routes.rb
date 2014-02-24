@@ -207,7 +207,6 @@ Health::Application.routes.draw do
       end
 
       resources :tiles do
-        collection { post :sort }
         resource :bulk_satisfaction, :only => [:create]
       end
 
