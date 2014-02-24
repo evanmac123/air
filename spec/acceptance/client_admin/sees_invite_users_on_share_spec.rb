@@ -47,6 +47,17 @@ feature "Invite Users Modal" do
         page.should have_css('input.error', visible: true)
       end
     end
+    scenario "'Contact us' link opens help chat bubble" do
+      #this functionality is not implemented yet. need to verify it
+    end
+    scenario "form with invalid email is not submitted" do
+      within(invite_users_modal_selector) do        
+        find_field('user_0_name').set 'Hisham Malik'
+        find_field('user_0_email').set 'hishamexample.com'
+        page.find('#submit_invite_users').click
+        page.should have_css('input.error', visible: true)
+      end
+    end    
     context "inviting users", js: :webkit do
       before do
         $rollout.activate_user(:public_board, client_admin2.demo)
@@ -111,6 +122,12 @@ feature "Invite Users Modal" do
             sleep 1
             page.find(".active").should have_css('.tile_thumbnail', visible: true, count: 1)
           end
+        end
+        scenario "after clicking send, page shows success message along with share url page" do
+          page.should have_content("Congratulations! You've sent your first tiles.")
+          page.should have_css('#success_section', visible: true)
+          page.should have_content("You can also share your board using a link")
+          page.should have_css('.share_url', visible: true)
         end
       end
     end
