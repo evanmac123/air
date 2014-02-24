@@ -6,14 +6,14 @@ feature 'Sees tiles on explore page' do
     FactoryGirl.create(:tile, headline: "I do not appear in public")
     FactoryGirl.create(:tile, is_public: true, status: Tile::ARCHIVE, headline: "Nor do I appear in public")
 
-    visit explore_path
+    visit explore_path(as: a_client_admin)
     expect_thumbnail_count 2
     page.should_not have_content "I do not appear in public"
   end
 
   it "should have a working \"Show More\" button", js: true do
     FactoryGirl.create_list(:tile, 15, :public)
-    visit explore_path
+    visit explore_path(as: a_client_admin)
     expect_thumbnail_count 8
 
     # These "sleep"s are a terrible hack, but I haven't gotten any of the

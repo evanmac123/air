@@ -51,7 +51,7 @@ feature "Client admin copies tile from the explore-preview page" do
     # We should make it to here without an error
   end
 
-  it "should show a helpful message after copying", js: true do
+  it "should show a helpful message in a modal after copying", js: true do
     click_copy
 
     expect_content %(You've added this tile to the inactive section of your board. Next, you can edit this tile, go back to "Explore" or go to manage your board.)
@@ -62,9 +62,4 @@ feature "Client admin copies tile from the explore-preview page" do
   it "should link to board-manage"
 
   it "should not show the link for a non-copyable tile"
-
-  it "should not show the copy link to logged-in peons"
-  it "should show the copy link to logged-in guest users"
-  it "should show the copy link if not logged in at all"
-
 end

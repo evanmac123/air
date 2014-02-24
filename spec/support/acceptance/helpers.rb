@@ -55,6 +55,8 @@ module SteakHelperMethods
   # visit foo_path(as: an_admin)
   # visit foo_path(as: a_client_admin)
   # visit foo_path(as: a_regular_user)
+  #
+  # reads much better than the alternative using just FactoryGirl
 
   def an_admin
     FactoryGirl.create :user, is_site_admin: true  
@@ -70,6 +72,10 @@ module SteakHelperMethods
 
   def a_regular_user
     FactoryGirl.create :user
+  end
+
+  def a_guest_user
+    FactoryGirl.create :guest_user
   end
 
   def has_password(user, password)

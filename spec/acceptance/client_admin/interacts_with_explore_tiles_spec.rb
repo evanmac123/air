@@ -7,7 +7,7 @@ feature "Interacts with tiles in explore page" do
 
   it "by clicking on one and viewing it", js: true do
     FactoryGirl.create(:multiple_choice_tile, :public)
-    visit explore_path
+    visit explore_path(as: a_client_admin)
     click_first_thumbnail
 
     should_be_on explore_tile_preview_path(Tile.first)
@@ -20,5 +20,14 @@ feature "Interacts with tiles in explore page" do
     expect_answer 2, "A V8 Buick"
   end
 
-  it "by clicking right or wrong answers and getting special effects"
+  it "rejects off-the-street-yahoos, guest users, and peons" do
+    visit explore_path
+    should_be_on sign_in_path
+
+    visit explore_path(as: a_guest_user)
+    should_be_on sign_in_path
+
+    visit explore_path(as: a_regular_user)
+    should_be_on activity_path
+  end
 end
