@@ -43,11 +43,6 @@ body.client_admin-tiles-update,
       right: 0px;      
       width: 1.15em;
     }
-
-    div {
-      filter: alpha(opacity=70);
-      opacity: 0.70;
-    }
   }
   &.client_created .tile_full_image {
     background:$text-color;

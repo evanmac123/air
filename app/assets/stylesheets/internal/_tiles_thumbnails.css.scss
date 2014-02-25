@@ -20,31 +20,15 @@
   vertical-align: top;  
 
   .completed {
-    &:before {
-      background: $white;
-      border-radius: 2em;
-      z-index: 100;
-      content: "\f058"; 
-      font-family: FontAwesome;
-      font-style: normal;
-      font-weight: normal;
-      text-align: center;
-      text-decoration: inherit;
-    /*--adjust as necessary--*/
-      display: block;
-      position: absolute;
-      color: $dark-green;
-      font-size: 36px;
-      line-height: 1.1em;
-      padding-top: 1px;
-      top: -5px;
-      right: -5px;      
-      width: 1.15em;
-    }
-
     li {
+      @include ease(.5s);
       filter: alpha(opacity=25);
       opacity: 0.25;
+
+      &:hover {
+        filter: alpha(opacity=75);
+        opacity: .75;
+      }
     }
   }
   li {

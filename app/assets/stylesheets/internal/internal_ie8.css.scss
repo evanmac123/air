@@ -94,13 +94,8 @@ header {
 .tile_thumbnail.placeholder_tile, .creation-placeholder a {height:20.75em;}
 .tile_thumbnail.placeholder_tile {border:1px $white dashed;}
 .tile_thumbnail .completed .tile-wrapper * {
-  filter: alpha(opacity=25);
-  opacity: 0.25;
-}
-.tile_thumbnail .completed:before {
-  background: transparent;
-  top: 5px;
-  right: 5px;
+  filter: alpha(opacity=50);
+  opacity: 0.5;
 }
 
 /* -- Directory/seach -- */
