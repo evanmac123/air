@@ -276,6 +276,12 @@ body.tile_previews.tile_previews-show {
 #copy_tile_button {
   @include app-button($dark-green);
   float: right;
+
+  &.disabled {
+    background: $gray;
+    border-color: $gray;
+    cursor: default;
+  }
 }
 
 #tile_spinner {

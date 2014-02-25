@@ -11,8 +11,9 @@
 
 <% content_for :javascript do %>
   <%= javascript_tag do %>
-    $('#copy_tile_button').click(function(event) {
+    $('#copy_tile_button').one('click', function(event) {
       event.preventDefault();
+      $(event.target).addClass('disabled');
       $('#tile_spinner').show();
 
       $.post(
