@@ -125,6 +125,6 @@ class Mailer < ActionMailer::Base
 
     mail :to      => user.email_with_name,
          :from    => user.reply_email_address,
-         :subject => "Your first user joined #{user.demo.name}"
+         :subject => "Congratulations! Someone interacted with a tile"
   end
 end
