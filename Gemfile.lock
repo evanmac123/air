@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/phildarnowsky/delayed_paperclip
-  revision: cdd1675f9109c81d3750689d87a3fc70f518f8f2
+  revision: b5663a85f279edee3173f062c2903d410d016333
   specs:
     delayed_paperclip (2.6.1)
       paperclip (>= 3.3.0)
