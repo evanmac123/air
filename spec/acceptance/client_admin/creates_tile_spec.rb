@@ -42,7 +42,7 @@ feature 'Creates tile' do
     expect_content "18 POINTS"
     new_tile.multiple_choice_answers.each {|answer| expect_content answer}
 
-    pending "NEW TILE SHOULD KNOW WHO CREATED IT YO"
+    new_tile.creator.should == client_admin
   end
 
   scenario 'and Mixpanel gets a ping', js: true do

@@ -81,7 +81,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
         image_container: params[:image_container])
     if @tile_builder_form.create_objects
       delete_old_image_container(:success)
-
+      record_creator(@tile_builder_form.tile)
       set_after_save_flash(@tile_builder_form.tile)
       schedule_tile_creation_ping
       redirect_to client_admin_tile_path(@tile_builder_form.tile)
@@ -247,6 +247,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     ping('Tile - New', {}, current_user)
   end
 
+<<<<<<< HEAD
   def set_image_and_container
     @container_id = set_container_id
     @image_url = set_image_url
@@ -286,5 +287,10 @@ class ClientAdmin::TilesController < ClientAdminBaseController
 
       ImageContainer.find(params["old_image_container"]).destroy
     end
+  end
+
+  def record_creator(tile)
+    tile.creator = current_user
+    tile.save!
   end
 end
