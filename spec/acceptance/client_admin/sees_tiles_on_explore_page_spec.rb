@@ -26,4 +26,17 @@ feature 'Sees tiles on explore page' do
     sleep 5
     expect_thumbnail_count 15
   end
+
+  it "should see information about creators for tiles that have them" do
+    other_board = FactoryGirl.create(:demo, name: "The Board You've All Been Waiting For")
+    creator = FactoryGirl.create(:client_admin, name: "John Q. Public", demo: other_board)
+    tile = FactoryGirl.create(:tile, is_public: true, creator: creator)
+    creation_date = Date.parse("2013-05-01")
+    tile.update_attributes(created_at: creation_date.midnight)
+
+    visit explore_path(as: a_client_admin)
+
+    expect_content "John Q. Public, The Board You've All Been Waiting For"
+    expect_content "May 1, 2013"
+  end
 end

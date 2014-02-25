@@ -41,6 +41,8 @@ feature 'Creates tile' do
 
     expect_content "18 POINTS"
     new_tile.multiple_choice_answers.each {|answer| expect_content answer}
+
+    pending "NEW TILE SHOULD KNOW WHO CREATED IT YO"
   end
 
   scenario 'and Mixpanel gets a ping', js: true do

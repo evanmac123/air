@@ -1,3 +1,5 @@
+<% display_creator_info ||= false %>
+
 <% 
 if not_completed_tiles.present? && completed_tiles.present?
   tiles_length = not_completed_tiles.length + completed_tiles.length
@@ -9,6 +11,7 @@ else
   tiles_length = 0
 end
 %>
+
 <% if tiles_length > 0 %>
   <div id="tile_wall">
     <div class="all_tile_thumbnails row">
@@ -16,7 +19,7 @@ end
         <% not_completed_tiles.each do |tile| %>
           <div class="tile_thumbnail">
             <div class='not-completed'>
-              <%= render 'shared/displayable_tile', displayable_tile: tile %>
+              <%= render 'shared/displayable_tile', displayable_tile: tile, display_creator_info: display_creator_info%>
             </div>
           </div>
         <% end %>
@@ -25,7 +28,7 @@ end
         <% completed_tiles.each do |tile| %>
           <div class="tile_thumbnail">
             <div class='completed'>
-              <%= render 'shared/displayable_tile', displayable_tile: tile %>
+              <%= render 'shared/displayable_tile', displayable_tile: tile, display_creator_info: display_creator_info %>
            </div>
           </div>
         <% end %>

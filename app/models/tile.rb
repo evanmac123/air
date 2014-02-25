@@ -25,7 +25,7 @@ class Tile < ActiveRecord::Base
   TILE_IMAGE_PROCESSING_PRIORITY = -10
 
   belongs_to :demo
-  belongs_to :creator, :class_name => 'User'
+  belongs_to :creator, class_name: 'User'
 
   has_many :rule_triggers, :class_name => "Trigger::RuleTrigger"
   has_many :tile_completions, :dependent => :destroy
@@ -252,6 +252,16 @@ class Tile < ActiveRecord::Base
     copy.demo = new_demo
     copy.save!
     copy
+  end
+
+  def human_creator_identification
+    return "" unless creator.present?
+    "#{creator.name}, #{creator.demo.name}"
+  end
+
+  def human_creation_date
+    return "" unless creator.present?
+    created_at.strftime("%B %-e, %Y")
   end
 
   def self.due_ids

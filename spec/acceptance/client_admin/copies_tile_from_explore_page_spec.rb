@@ -6,13 +6,14 @@ feature "Client admin copies tile from the explore-preview page" do
   end
 
   let (:admin) {a_client_admin}
-  let (:original_tile) { FactoryGirl.create(:multiple_choice_tile, :copyable) }
 
   before do
-    $TESTING_COPYING = true
+    @original_tile = FactoryGirl.create(:multiple_choice_tile, :copyable)
 
-    visit explore_tile_preview_path(original_tile, as: admin)
     crank_dj_clear # to resize the images
+    @original_tile.reload
+
+    visit explore_tile_preview_path(@original_tile, as: admin)
   end
 
   after do
@@ -26,11 +27,12 @@ feature "Client admin copies tile from the explore-preview page" do
   scenario "by clicking the proper link", js: true do
     click_copy
     Tile.count.should == 2
-    
+   
+    crank_dj_clear
     copied_tile = Tile.order("created_at DESC").first
 
     %w(correct_answer_index headline image_content_type image_file_size image_meta link_address multiple_choice_answers points question supporting_content thumbnail_content_type thumbnail_file_size thumbnail_meta type).each do |expected_same_field|
-      copied_tile[expected_same_field].should == original_tile[expected_same_field]
+      copied_tile[expected_same_field].should == @original_tile[expected_same_field]
     end
 
     copied_tile.status.should == Tile::ARCHIVE
@@ -42,8 +44,8 @@ feature "Client admin copies tile from the explore-preview page" do
     copied_tile.thumbnail_processing.should be_false
     copied_tile.image_updated_at.should be_present
     copied_tile.thumbnail_updated_at.should be_present
-    copied_tile.image_file_name.should == original_tile.image_file_name
-    copied_tile.thumbnail_file_name.should == original_tile.thumbnail_file_name
+    copied_tile.image_file_name.should == @original_tile.image_file_name
+    copied_tile.thumbnail_file_name.should == @original_tile.thumbnail_file_name
   end
 
   it "should show a helpful message in a modal after copying", js: true do
