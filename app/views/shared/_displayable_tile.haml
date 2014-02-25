@@ -16,6 +16,7 @@
         %div{data: {'for-test' => displayable_tile.headline.downcase.sub(' ', '-')}, class: 'text'}= displayable_tile.headline
 
 - if display_creator_info
-  %p 
+  %p.tile_creator
     = displayable_tile.human_creator_identification
+    %br
     = displayable_tile.human_creation_date
