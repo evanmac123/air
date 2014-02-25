@@ -25,7 +25,11 @@ gem "mixpanel_client"
 gem "newrelic_rpm"
 gem "mongoid"
 gem "bson_ext"
+
 gem 'jquery-rails'
+gem 'jquery-validation-rails'
+gem "historyjs-rails"
+
 gem 'nokogiri'
 gem 'lazy_high_charts', '~>1.4.0'
 gem 'json', ">= 1.7.7"

@@ -14,6 +14,7 @@
 
 //= require wice_grid
 //= require ../../../vendor/assets/javascripts/external/foundation.min
+//= require history_jquery
 
 $(document).ready(function() {
   var more = "More options";

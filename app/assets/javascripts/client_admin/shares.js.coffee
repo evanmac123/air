@@ -73,14 +73,14 @@ $(document).ready ->
     if validateInvitedUsers()
       console.log('validation successful')
       console.log('validation submit invite users called')
-      history.pushState {}, "", "#2"
+      History.pushState {state: 2}, "State 2", "?state=2"
       loadPage2()
     false
   )
         
   $("#invite_users_modal").on("ajax:success", (e, data, status, xhr) ->
     $('#invite_users_modal #spinner_large').hide()
-    history.pushState {}, "", "#3"
+    History.pushState {state: 3}, "State 3", "?state=3"
     loadPage3()
   ).bind "ajax:error", (e, xhr, status, error) ->
     $('#invite_users_modal #spinner_large').hide()
@@ -101,7 +101,7 @@ $(document).ready ->
     else
       unless has_one_entry
         #take user to share 
-        history.pushState {}, "", "#4"
+        History.pushState {state: 4}, "State 4", "?state=4"
         loadPage4()
     false
     )
@@ -111,7 +111,7 @@ $(document).ready ->
       $('#invite_users_modal #spinner_large').show()
       $('#invite_users_form').submit()
     else
-      history.pushState {}, "", "#4"
+      History.pushState {state: 4}, "State 4", "?state=4"
       loadPage4()
     false
     )
@@ -159,6 +159,7 @@ $(document).ready ->
     
     $('#digest').show()
     $(".share_url").show()
+    true
    
   loadPage3 = () ->
     hideAll()
@@ -167,6 +168,7 @@ $(document).ready ->
     $('.share_url').show()
     $('#success_section').show()
     $('#invite_users_form').submit()
+    true
   
   loadPage2 = () ->
     hideAll()
@@ -177,6 +179,7 @@ $(document).ready ->
     $('#share_tiles_header').html('Add a personal message and send!')
     $('#user_invite_message').show()
     $('#message_buttons').show()
+    true
   
   loadPage1 = () ->
     hideAll()
@@ -189,19 +192,21 @@ $(document).ready ->
     $('#form_buttons').show()
     $('#form_links').show()
     $('#add_people_header').show()
-  
+    true
     
-  $(window).on("popstate", (e) ->
+#  $(window).on("popstate", (e) ->
+  History.Adapter.bind(window,'statechange', () ->
     unless ignore_pop_calls
-      if /share\#4/.test(location.href)
-        loadPage4()
-      else
-        if /share\#3/.test(location.href)
+      state = History.getState();
+      switch state.data.state
+        when 1
+          loadPage1()
+        when 2
+          loadPage2()
+        when 3
           loadPage3()
+        when 4
+          loadPage4()
         else
-          if /share\#2/.test(location.href)
-            loadPage2()
-          else
-            if /share/.test(location.href)
-              loadPage1()
+          loadPage1()
   )

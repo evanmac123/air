@@ -184,6 +184,8 @@ GEM
     hash-deep-merge (0.1.1)
     high_voltage (1.2.1)
     hike (1.2.3)
+    historyjs-rails (1.0.1)
+      railties (>= 3.0)
     http_parser.rb (0.5.3)
     httparty (0.9.0)
       multi_json (~> 1.0)
@@ -196,6 +198,9 @@ GEM
     jquery-ui-rails (2.0.2)
       jquery-rails
       railties (>= 3.1.0)
+    jquery-validation-rails (1.11.1.1)
+      railties (>= 3.2, < 5.0)
+      thor (~> 0.14)
     json (1.8.1)
     jwt (0.1.5)
       multi_json (>= 1.0)
@@ -413,8 +418,10 @@ DEPENDENCIES
   getopt
   haml-rails
   high_voltage
+  historyjs-rails
   jquery-rails
   jquery-ui-rails
+  jquery-validation-rails
   json (>= 1.7.7)
   kaminari
   lazy_high_charts (~> 1.4.0)
