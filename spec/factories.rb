@@ -173,7 +173,10 @@ FactoryGirl.define do
     sequence(:position){ |n| n }
     status Tile::ACTIVE
     type 'OldSchoolTile'
-    association :creator, :factory => :user
+
+    trait :with_creator do
+      association :creator, :factory => :user
+    end
 
     trait :archived do
       status Tile::ARCHIVE
