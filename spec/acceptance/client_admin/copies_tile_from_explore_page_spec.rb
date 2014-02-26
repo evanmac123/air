@@ -55,36 +55,6 @@ feature "Client admin copies tile from the explore-preview page" do
     expect_content %(You've added this tile to the inactive section of your board. Next, you can edit this tile, go back to "Explore" or go to manage your board.)
   end
 
-  it "should link the edit-this-tile link in the modal after copying", js: true do
-    click_copy
-    page.find('#tile_copied_lightbox', visible: true)
-
-    within('#tile_copied_lightbox') do
-      click_link "edit this tile"
-      should_be_on edit_client_admin_tile_path(newest_tile)
-    end
-  end
-
-  it "should link the explore link in the modal after copying", js: true do
-    click_copy
-    page.find('#tile_copied_lightbox', visible: true)
-
-    within('#tile_copied_lightbox') do
-      click_link "go back to \"Explore\""
-      should_be_on client_admin_explore_path
-    end
-  end
-
-  it "should link to board-manage in the modal after copying", js: true do
-    click_copy
-    page.find('#tile_copied_lightbox', visible: true)
-
-    within('#tile_copied_lightbox') do
-      click_link "manage your board"
-      should_be_on client_admin_tiles_path
-    end
-  end
-
   it "should not show the link for a non-copyable tile" do
     tile = FactoryGirl.create(:multiple_choice_tile, :public)
     visit explore_tile_preview_path(tile, as: admin)

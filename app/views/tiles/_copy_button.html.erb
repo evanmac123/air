@@ -6,7 +6,8 @@
 </div>
 
 <div id="tile_copied_lightbox" class="reveal-modal">
-  You've added this tile to the inactive section of your board. Next, you can <%= link_to "edit this tile", "#", id: "edit_copied_tile_link" %>, <%= link_to 'go back to "Explore"', client_admin_explore_path %> or go to <%= link_to "manage your board", client_admin_tiles_path %>.
+  <%= link_to 'Close', '#', class: "close-lightbox-button", id: "close_tile_copied_lightbox" %>
+  <p>You've added this tile to the inactive section of your board. Next, you can <%= link_to "edit this tile", "#", id: "edit_copied_tile_link" %>, <%= link_to 'go back to "Explore"', client_admin_explore_path %> or go to <%= link_to "manage your board", client_admin_tiles_path %>.</p>
 </div>
 
 <% content_for :javascript do %>
@@ -33,6 +34,11 @@
         },
         'json'
       );
+    });
+
+    $('#close_tile_copied_lightbox').click(function(event) {
+      event.preventDefault();
+      $('#tile_copied_lightbox').foundation('reveal', 'close');
     });
   <% end %>
 <% end %>

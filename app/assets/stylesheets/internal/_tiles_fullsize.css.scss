@@ -298,3 +298,11 @@ body.tile_previews.tile_previews-show {
   padding-left:1em;
   padding-top: .3em;
 }
+
+#tile_copied_lightbox p {
+  margin-top: 1em;
+}
+
+#close_tile_copied_lightbox {
+  @include app-button($dark-green);
+}
