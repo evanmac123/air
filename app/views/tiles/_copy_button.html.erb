@@ -11,9 +11,13 @@
 
 <% content_for :javascript do %>
   <%= javascript_tag do %>
-    $('#copy_tile_button').one('click', function(event) {
+    $('#copy_tile_button').bind('click', function(event) {
+      var copyButton = $(event.target);
+
       event.preventDefault();
-      $(event.target).addClass('disabled');
+      if(copyButton.hasClass('disabled')) { return; }
+
+      copyButton.addClass('disabled');
       $('#tile_spinner').show();
 
       $.post(
@@ -24,6 +28,7 @@
           if(data.success) {
             $('#edit_copied_tile_link').attr('href', data.editTilePath);
             $('#tile_copied_lightbox').lightbox_me();
+            copyButton.removeClass('disabled');
           }
         },
         'json'
