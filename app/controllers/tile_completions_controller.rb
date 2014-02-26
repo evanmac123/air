@@ -7,12 +7,12 @@ class TileCompletionsController < ApplicationController
     remember_points_and_tickets
     if create_tile_completion(tile)
       create_act(tile)
-      persist_points_and_tickets
       schedule_completion_ping(tile)
-      add_start_over_if_guest
     else
       flash[:failure] = "It looks like you've already done this tile, possibly in a different browser window or tab."
     end
+    persist_points_and_tickets
+    add_start_over_if_guest
 
     session[:display_start_over_button] = true if current_user.is_guest?
     #flash[:success] = reply(act)
