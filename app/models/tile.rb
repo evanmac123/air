@@ -26,6 +26,7 @@ class Tile < ActiveRecord::Base
 
   belongs_to :demo
   belongs_to :creator, class_name: 'User'
+  belongs_to :original_creator, class_name: 'User'
 
   has_many :rule_triggers, :class_name => "Trigger::RuleTrigger"
   has_many :tile_completions, :dependent => :destroy
@@ -249,9 +250,21 @@ class Tile < ActiveRecord::Base
     end
 
     copy.status = Tile::ARCHIVE
+    copy.original_creator = self.creator
+    copy.original_created_at = self.created_at
     copy.demo = new_demo
     copy.save!
     copy
+  end
+
+  def human_original_creator_identification
+    return "" unless original_creator.present?
+    "#{original_creator.name}, #{original_creator.demo.name}"
+  end
+
+  def human_original_creation_date
+    return "" unless original_created_at.present?
+    original_created_at.strftime("%B %-e, %Y")
   end
 
   def human_creator_identification

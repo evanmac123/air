@@ -294,3 +294,11 @@ body.tile_previews.tile_previews-show {
 #tile_copied_lightbox {
   @include lightbox-form;
 }
+
+.original_tile_creator {
+  text-align: left;
+  font-weight:bold;
+  font-size:12px;
+  padding-left:1em;
+  padding-top: .3em;
+}
