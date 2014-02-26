@@ -23,10 +23,12 @@ Feature: Client Admin has his first tile completed and gets congratulation lette
     And I should see the "Butter toast" tile
     When "Misha" satisfies tile "Make toast"
     And I sign in via the login page with "Joe/foobar"
+    And 15 minutes pass
     Then "joe@example.com" should receive 1 email
     When "joe@example.com" opens the email
     And I click the check activity button in the email
     Then I should be on the manage tiles page
     When "Misha" satisfies tile "Make PBJ"
+    And 15 minutes pass
     Then "joe@example.com" should receive 0 email
 
