@@ -291,10 +291,6 @@ body.tile_previews.tile_previews-show {
   top: 0.5em;
 }
 
-#tile_copied_lightbox {
-  @include lightbox-form;
-}
-
 .original_tile_creator {
   text-align: left;
   font-weight:bold;
