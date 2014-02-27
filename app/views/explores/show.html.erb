@@ -1,5 +1,5 @@
 <%= render 'shared/mixpanel' %>
 <%= stylesheet_link_tag "app-internal" %>
 
-<%= render 'shared/tile_wall', tiles: @tiles, path_for_more_tiles: explore_path, display_creator_info: true %>
+<%= render 'shared/tile_wall', not_completed_tiles: @tiles, path_for_more_tiles: explore_path, display_creator_info: true %>
 <%= mp_track_page 'explore' %>
