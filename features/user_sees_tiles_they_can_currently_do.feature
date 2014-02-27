@@ -47,12 +47,6 @@ Feature: User sees tiles they can currently do
     And I should not see the "Think past PBJ" tile
 
   @javascript
-  Scenario: User doesn't see tile they've already done
-    When "Joe" satisfies tile "Make toast"
-    And I go to the activity page
-    Then I should not see the "Make toast" tile
-
-  @javascript
   Scenario: User, after completing a tile, sees tiles they can now do
     When "Joe" satisfies tile "Make toast"
     And I go to the activity page
