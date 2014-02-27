@@ -1,0 +1,4 @@
+<% if $rollout.active?(:public_tile, current_user) %>
+  <%= form.check_box :is_public %>
+  <%= form.check_box :is_copyable %>
+<% end %>

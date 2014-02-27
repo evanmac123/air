@@ -139,7 +139,9 @@ module TileBuilderForm
           link_address:       @parameters[:link_address],
           question_type:      @parameters[:question_type],
           question_subtype:   @parameters[:question_subtype],
-          image_credit:       @parameters[:image_credit].strip
+          image_credit:       @parameters[:image_credit].strip,
+          is_public:          @parameters[:is_public],
+          is_copyable:        @parameters[:is_copyable]
         }
       end
     end
@@ -210,7 +212,7 @@ module TileBuilderForm
       tile.errors.delete(:thumbnail)
     end
 
-    delegate :headline, :supporting_content, :question, :question_type, :question_subtype, :thumbnail, :image, :image_credit, :link_address, :to => :tile
+    delegate :headline, :supporting_content, :question, :question_type, :question_subtype, :thumbnail, :image, :image_credit, :link_address, :is_public, :is_copyable, :to => :tile
     delegate :points, :to => :rule
   end
 end

@@ -9,6 +9,7 @@ feature 'Creates tile' do
   end
 
   before do
+    $rollout.activate_user(:public_tile, client_admin)
     visit new_client_admin_tile_path(as: client_admin)
     choose_question_type_and_subtype Tile::QUIZ, Tile::MULTIPLE_CHOICE
   end
@@ -17,7 +18,7 @@ feature 'Creates tile' do
     demo.tiles.should be_empty
     demo.rules.should be_empty
 
-    create_good_tile
+    create_good_tile(true)
 
     demo.tiles.reload.should have(1).tile
     new_tile = MultipleChoiceTile.last
@@ -43,6 +44,9 @@ feature 'Creates tile' do
     new_tile.multiple_choice_answers.each {|answer| expect_content answer}
 
     new_tile.creator.should == client_admin
+
+    new_tile.is_public.should be_true
+    new_tile.is_copyable.should be_true
   end
 
   scenario 'and Mixpanel gets a ping', js: true do
@@ -208,6 +212,15 @@ feature 'Creates tile' do
     end
   end
 
+  context "when the public and copyable checkboxes are not checked" do
+    it "should not set those", js: true do
+      create_good_tile(1, false)
+      new_tile = MultipleChoiceTile.last
+      new_tile.is_public.should be_false
+      new_tile.is_copyable.should be_false
+    end
+  end
+  
   context "acting with question and answers" do
     scenario "choose type Action, subtype any", js: true do
       choose_question_type_and_subtype Tile::ACTION, Tile::DO_SOMETHING

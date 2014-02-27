@@ -79,9 +79,37 @@ shared_examples_for "editing a tile" do
       @tile.first_rule.reload.should have(3).rule_values # unchanged
     end
   end
+
+  scenario "changing from public and copyable to non-public and non-copyable" do
+    @tile.update_attributes(is_public: true, is_copyable: true)
+    visit edit_client_admin_tile_path(@tile, as: @client_admin)
+
+    click_make_noncopyable
+    click_make_nonpublic
+    click_button "Update tile"
+
+    @tile.reload.is_public.should be_false
+    @tile.is_copyable.should be_false
+  end
+
+  scenario "changing from non-public and non-copyable to public and copyable" do
+    @tile.is_public.should be_false
+    @tile.is_copyable.should be_false
+
+    click_make_public
+    click_make_copyable
+    click_button "Update tile"
+
+    @tile.reload.is_public.should be_true
+    @tile.is_copyable.should be_true
+  end
 end
 
 feature "Client admin edits tile" do
+  before do
+    $rollout.activate(:public_tile)
+  end
+
   def fill_in_fields
     fill_in_image_credit "by Me"
     fill_in "Headline",           with: "Ten pounds of cheese"

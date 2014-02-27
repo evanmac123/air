@@ -165,6 +165,22 @@ module TileHelpers
     page.find(".tile_question").click if page.all(".tile_question").count > 0
     page.find("#tile_builder_form_question").set(text)
   end
+  
+  def click_make_public
+    check("tile_builder_form[is_public]")
+  end
+
+  def click_make_copyable
+    check("tile_builder_form[is_copyable]")
+  end
+
+  def click_make_nonpublic
+    uncheck("tile_builder_form[is_public]")
+  end
+
+  def click_make_noncopyable
+    uncheck("tile_builder_form[is_copyable]")
+  end
 
   def select_correct_answer(index)
     page.find(".tile_question").click #just to close possible edit answer
@@ -196,7 +212,7 @@ module TileHelpers
     page.evaluate_script(script)
   end
 
-  def fill_in_valid_form_entries(options = {})
+  def fill_in_valid_form_entries(options = {}, with_public_and_copyable = false)
     click_answer = options[:click_answer] || 1
     question_type = options[:question_type] || Tile::QUIZ
     question_subtype = options[:question_subtype] || Tile::MULTIPLE_CHOICE
@@ -221,6 +237,11 @@ module TileHelpers
     fill_in_points "18"
 
     fill_in_external_link_field  "http://www.google.com/foobar"
+
+    if with_public_and_copyable
+      click_make_public
+      click_make_copyable
+    end
   end
 
   def click_create_button
@@ -232,8 +253,8 @@ module TileHelpers
     page.find("##{question_type}-#{question_subtype}").click()
   end
 
-  def create_good_tile
-    fill_in_valid_form_entries
+  def create_good_tile(with_public_and_copyable = false)
+    fill_in_valid_form_entries({}, with_public_and_copyable)
     click_create_button
   end
 
