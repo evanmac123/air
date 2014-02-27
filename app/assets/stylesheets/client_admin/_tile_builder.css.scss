@@ -7,6 +7,7 @@ body.client_admin-tiles-update {
     #publish { margin-top: 2em; }
     #publish * {vertical-align: top;}
     #publish input[type="submit"] {@include app-button($dark-green);}
+    #publish input[type="submit"]:disabled {@include app-button($med-gray);}
     #publish .cancel_tile_builder {@include light-button($red); float:right;}
     input[type="text"],textarea {
       border:2px lighten($light-gray, 8%) dashed;
