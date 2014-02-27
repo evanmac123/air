@@ -46,7 +46,6 @@ feature 'Creates tile' do
     new_tile.creator.should == client_admin
 
     new_tile.is_public.should be_true
-    new_tile.is_copyable.should be_true
   end
 
   scenario 'and Mixpanel gets a ping', js: true do

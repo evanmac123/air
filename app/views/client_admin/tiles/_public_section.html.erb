@@ -1,4 +1,22 @@
 <% if $rollout.active?(:public_tile, current_user) %>
-  <%= form.check_box :is_public %>
-  <%= form.check_box :is_copyable %>
+  <div class="tile_builder_section builder_public">
+    <div class="content_sections">
+      <%= form.label :is_public, "Is this tile public?" %>
+      <%= form.check_box :is_public %>
+      <br/>
+      <% copyable_style = form.object.is_public ? '' : 'display: none' %>
+      <div id="is_copyable_controls" style="<%= copyable_style %>">
+        <%= form.label :is_copyable, "Can other creators copy this tile?" %>
+        <%= form.check_box :is_copyable %>
+      </div>
+    </div>
+  </div>
+
+  <%= content_for :javascript do %>
+    <%= javascript_tag do %>
+      $('#tile_builder_form_is_public').click(function() {
+        $('#is_copyable_controls').slideToggle();
+      });
+    <% end %>
+  <% end %>
 <% end %>

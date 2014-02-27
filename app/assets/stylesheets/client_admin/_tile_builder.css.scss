@@ -335,6 +335,15 @@ body.client_admin-tiles-update {
     }
   }
 
+  // Public/copyable controls
+  .builder_public {
+    border-top:1px darken($light-gray, 5%) solid;
+    background:$light-gray;
+    label {
+      display: inline;
+    }
+  }
+
   // Points
   .slider{
     display: none;

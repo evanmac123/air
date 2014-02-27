@@ -240,6 +240,7 @@ module TileHelpers
 
     if with_public_and_copyable
       click_make_public
+      page.find('#tile_builder_form_is_copyable', visible: true)
       click_make_copyable
     end
   end
