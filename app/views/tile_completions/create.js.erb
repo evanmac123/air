@@ -5,9 +5,7 @@ $('#user_points').html("<%= number_with_delimiter starting_points %>");
 $('#progress_bar .small_cap').html("<%=master_bar_point_content%>");
 $('#user_tickets').html("<%= starting_tickets %>");
 
-<%= render 'shared/point_and_ticket_animation_js'%>
+<%= render 'shared/point_and_ticket_animation_js', load_next_tile: !@all_tiles_done %>
 <% if @all_tiles_done%>
 window.location.reload(true) 
-<% else%>
-loadNextTileWithOffset(1);
 <%end%>

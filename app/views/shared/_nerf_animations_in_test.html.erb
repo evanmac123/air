@@ -1,0 +1,5 @@
+<% if Rails.env.test? %>
+  <%= javascript_tag do %>
+    if (window.jQuery) { jQuery.fx.off = true; }
+  <% end %>
+<% end %>

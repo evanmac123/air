@@ -323,10 +323,11 @@ module SteakHelperMethods
   end
 
   def wait_for_conversion_form
-    page.find(conversion_form_selector, visible: true)
+    page.should have_selector(conversion_form_selector, visible: true)
   end
 
   def expect_conversion_form
+    Capybara.default_wait_time = 30
     wait_for_conversion_form
 
     within(conversion_form_selector) do

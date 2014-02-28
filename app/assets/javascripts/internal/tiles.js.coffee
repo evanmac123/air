@@ -12,27 +12,26 @@ sendViewedTilePing = (tile_id) ->
   $.post('/ping', data)
 
 loadNextTileWithOffset = (offset) ->
-  $('#spinner_large').show()
+  $('#spinner_large').fadeIn('slow')
 
   url = '/tiles/' + $('#slideshow .tile_holder').data('current-tile-id')
   $.get(
     url,
-    {partial_only: true, offset: offset, 
+    {partial_only: true, offset: offset,
     completed_only: $('#slideshow .tile_holder').data('completed-only'),
     previous_tile_ids: $('#slideshow .tile_holder').data('current-tile-ids')},
     (data) ->
       $('#slideshow').html(data)
-      $('#spinner_large').hide()
+      $('#spinner_large').fadeOut('slow')
       setUpAnswers()
       $('#position').html($('.tile_holder').data('position'))
       if $('#slideshow .tile_holder').data('show-conversion-form') == true
         lightboxConversionForm();
-        
+
       if $('#slideshow .tile_holder').data('show-start-over') == true
         $('#guest_user_start_over_button').show()
       else
         $('#guest_user_start_over_button').hide()
-        
   )
 
 attachWrongAnswer = (answerLink, target) ->
@@ -49,12 +48,23 @@ nerfNerfedAnswers = ->
 markCompletedRightAnswer = (nodes) ->
   nodes.addClass 'clicked_right_answer'
 
+tilePointsSpecialEffects = (event) ->
+  markCompletedRightAnswer $('.right_multiple_choice_answer')
+  $('.earnable_points').css('background', '#4FAA60').css('box-shadow', 'none')
+  originalPoints = parseInt $('#tile_point_value').text()
+  pointCounter = new countUp('tile_point_value', originalPoints, 0, 0, 1.0)
+  pointCounter.start(() ->
+    $('#spinner_large').fadeIn('slow', () ->
+      window.scrollTo(0,0)
+      $('#right_answer_target').click()
+      $(event.target).click((event) -> event.preventDefault())
+    )
+  )
+
 attachRightAnswers = ->
   $('.right_multiple_choice_answer').one("click", (event) ->
     event.preventDefault()
-    markCompletedRightAnswer $(this)
-    $('#right_answer_target').click()
-    $(event.target).click((event) -> event.preventDefault())
+    tilePointsSpecialEffects(event)
   )
 
 attachWrongAnswers = ->

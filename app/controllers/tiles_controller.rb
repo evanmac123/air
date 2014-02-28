@@ -63,7 +63,7 @@ class TilesController < ApplicationController
 
   def render_new_tile
     #add new tiles to the end of the previous tiles
-    render "tiles/_full_size_tile", locals: {tile: current_tile, current_tile_ids: current_tile_ids}, layout: false
+    render "tiles/_full_size_tile", locals: {tile: current_tile, current_tile_ids: current_tile_ids, overlay_displayed: true}, layout: false
   end
   
   def current_tile_ids

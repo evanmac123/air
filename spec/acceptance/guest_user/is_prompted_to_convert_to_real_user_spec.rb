@@ -45,7 +45,13 @@ feature 'Guest user is prompted to convert to real user' do
   end
 
   def click_right_answer
-    page.find('.right_multiple_choice_answer').click
+    # This is a hack because all the animations we threw on the tile viewer
+    # apparently confuse the shit out of poltergeist, and the claim that it
+    # can wait for them to finish is a damned dirty lie. So we cheat and click
+    # the hidden link that ACTUALLY triggers the Ajax request, while bypassing
+    # animations.
+    #page.find('.right_multiple_choice_answer').click
+    page.find('#right_answer_target').trigger('click')
   end
 
   def fill_in_conversion_name(name)

@@ -21,18 +21,21 @@ feature 'Completes tiles' do
 
   scenario 'and sees the completion in the activity feed', js: true do
     click_right_answer
+    sleep 5 # fuck you, people who can get a JS test to work without "sleep"
     visit activity_path
     expect_content "completed the tile: \"#{tile_1.headline}\""
   end
 
   scenario 'and doesn\'t see the tile in question anymore as completed', js: true do
     click_right_answer
+    sleep 5
     visit activity_path
     page.all(".not-completed #tile-thumbnail-#{tile_1.id}").should be_empty
   end
 
   scenario 'and the score should update', js: true do
     click_right_answer
+    sleep 5
     visit activity_path
     expect_content "POINTS TO NEXT TICKET 10/20 POINTS"
   end

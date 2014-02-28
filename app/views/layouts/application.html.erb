@@ -22,6 +22,7 @@
   <%= csrf_meta_tag %>
   <%= render 'shared/mixpanel' unless @is_admin_page %>
   <%= mobvious_javascript %>
+  <%= render 'shared/nerf_animations_in_test' %>
 </head>
 <body class="<%= body_class %>" style="-webkit-overflow-scrolling: touch; overflow:visible;"><%# only works with inline style? WTF. but leave it: this fixes scroll problems in ios7 and doesn't seem to work if included via stylesheet. %>
   

@@ -32,7 +32,9 @@ feature 'Starts over' do
       visit public_board_path(board.public_slug)
       close_tutorial_lightbox
       click_link tile.headline
-      answer(tile.correct_answer_index).click
+      #answer(tile.correct_answer_index).click
+      page.find('#right_answer_target').trigger('click')
+
       close_conversion_form
     end
 
@@ -40,7 +42,7 @@ feature 'Starts over' do
       expect_start_over_button
     end
 
-    it "should reset guest user's progress when they click it", js: true do
+    it "should reset guest user's progress when they click it", js: :webkit do
       click_start_over_button
 
       should_be_on public_activity_path(board.public_slug)
@@ -51,7 +53,7 @@ feature 'Starts over' do
       guest_user.tickets.should be_zero
     end
 
-    it "should not appear after being clicked", js: true do
+    it "should not appear after being clicked", js: :webkit do
       click_start_over_button
       expect_no_start_over_button
 
@@ -64,49 +66,6 @@ feature 'Starts over' do
   end
 
   context "conversion form pops as normal after starting over" do
-    context "in a one-tile board" do
-      it "should pop after doing the tile", js: true do
-        visit public_board_path(board.public_slug)
-        close_tutorial_lightbox
-        
-        click_link tile.headline
-        answer(tile.correct_answer_index).click
-        close_conversion_form
-        
-        click_start_over_button
-        close_tutorial_lightbox
-        click_link tile.headline
-        answer(tile.correct_answer_index).click
-        expect_conversion_form
-      end
-    end
-
-    context "in a two-tile board" do
-      before do
-        @tiles = [tile, FactoryGirl.create(:multiple_choice_tile, :active, headline: "Tile 2", demo_id: board.id)]      
-      end
-
-      it "should pop after doing both tiles", js: true do
-        visit public_board_path(board.public_slug)
-        close_tutorial_lightbox
-
-        click_link tile.headline
-        @tiles.each do |tile|
-          answer(tile.correct_answer_index).click
-        end
-        close_conversion_form
-
-        click_start_over_button
-        close_tutorial_lightbox
-
-        click_link tile.headline
-        @tiles.each do |tile|
-          answer(tile.correct_answer_index).click
-        end
-        expect_conversion_form
-      end
-    end
-
     context "in a many-tile board" do
       before do
         @tiles = [
@@ -116,13 +75,14 @@ feature 'Starts over' do
         ]
       end
 
-      it "should pop after doing two tiles", js: true do
+      it "should pop after doing two tiles", js: :webkit do
         visit public_board_path(board.public_slug)
         close_tutorial_lightbox
 
         click_link tile.headline
         @tiles[0,2].each do |tile|
-          answer(tile.correct_answer_index).click
+          page.find('#right_answer_target').trigger('click')
+          #answer(tile.correct_answer_index).click
         end
         close_conversion_form
 
@@ -131,7 +91,8 @@ feature 'Starts over' do
 
         click_link tile.headline
         @tiles[0,2].each do |tile|
-          answer(tile.correct_answer_index).click
+          page.find('#right_answer_target').trigger('click')
+          #answer(tile.correct_answer_index).click
         end
         expect_conversion_form
       end

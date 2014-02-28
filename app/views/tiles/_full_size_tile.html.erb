@@ -1,5 +1,6 @@
 <% creator_class = tile.appears_client_created ? 'client_created' : 'admin_created' %>
 <% answer_links_disabled ||= false %>
+<% overlay_displayed ||= false %>
 
 <div class="tile_holder <%= creator_class %>" data-current-tile-id="<%= tile.id 
   %>" data-completed-only="<%= @show_completed_tiles 
@@ -40,8 +41,8 @@
       </div>
     <% end %>
 
-    <div id="spinner_large">
-      <%= image_tag 'spinner_large.gif' %>
+    <% overlay_style = overlay_displayed ? "display:block" : "" %>
+    <div id="spinner_large" style="<%= overlay_style %>">
     </div>
   </div>
 </div>
