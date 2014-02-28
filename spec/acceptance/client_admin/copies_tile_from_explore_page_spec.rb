@@ -55,6 +55,16 @@ feature "Client admin copies tile from the explore-preview page" do
     expect_content %(You've added this tile to the inactive section of your board. Next, you can edit this tile, go back to "Explore" or go to manage your board.)
   end
 
+  it "should ping", js: true do
+    crank_dj_clear
+    FakeMixpanelTracker.clear_tracked_events
+
+    click_copy
+    crank_dj_clear
+
+    FakeMixpanelTracker.should have_event_matching('Tile - Copied', {tile_id: @original_tile.id})
+  end
+
   it "should not show the link for a non-copyable tile" do
     tile = FactoryGirl.create(:multiple_choice_tile, :public)
     visit explore_tile_preview_path(tile, as: admin)
