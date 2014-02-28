@@ -1,38 +1,40 @@
 $tile_completion_button_height: 2.0em;
-.pagination_status {
-  float: right;
-  display: none;
-}
-.completed {
-  height: $tile_completion_button_height;
-  &.engaged {
-    @include app-button($dark-green);
+.client_admin-tile_completions {
+  .pagination_status {
+    float: right;
+    display: none;
   }
-  &.disengaged {
-    @include app-button($blue);
-  }
-}
-.tile_stats {
-  .completions {
-    a, a:link, a:visited {
-      display: inline;
+  .completed {
+    height: $tile_completion_button_height;
+    &.engaged {
+      @include app-button($dark-green);
+    }
+    &.disengaged {
+      @include app-button($blue);
     }
   }
-}
-#completions_grid {
-  #tc_grid, #nc_grid {
-    td.results-joined {
-      text-align: left;
+  .tile_stats {
+    .completions {
+      a, a:link, a:visited {
+        display: inline;
+      }
     }
   }
-  .grid_no_record {margin:3em auto 0;}  
-}
-.not-completed {
-  height: $tile_completion_button_height;
-  &.engaged {
-    @include app-button($dark-green);
+  #completions_grid {
+    #tc_grid, #nc_grid {
+      td.results-joined {
+        text-align: left;
+      }
+    }
+    .grid_no_record {margin:3em auto 0;}  
   }
-  &.disengaged {
-    @include app-button($blue);
+  .not-completed {
+    height: $tile_completion_button_height;
+    &.engaged {
+      @include app-button($dark-green);
+    }
+    &.disengaged {
+      @include app-button($blue);
+    }
   }
 }
