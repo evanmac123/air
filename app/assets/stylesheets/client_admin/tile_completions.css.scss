@@ -13,13 +13,7 @@ $tile_completion_button_height: 2.0em;
       @include app-button($blue);
     }
   }
-  .tile_stats {
-    .completions {
-      a, a:link, a:visited {
-        display: inline;
-      }
-    }
-  }
+  
   #completions_grid {
     #tc_grid, #nc_grid {
       td.results-joined {

@@ -48,6 +48,11 @@
     margin-top:1px;
     &:after {@include clear;}
   }
+  .tile_stats .completions {
+    a, a:link, a:visited {
+      display: inline;
+    }
+  }
 
   .tile_stats .activation_dates span, 
   .tile_stats .completions,
