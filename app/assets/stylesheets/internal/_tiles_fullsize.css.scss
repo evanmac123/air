@@ -201,17 +201,6 @@ body.client_admin-tiles-update,
       border-color: darken($blue, 10%) !important;
     }
 
-    .clicked_right_answer {
-      background: $dark-green !important;
-      @include font-semibold;
-      color:$white;
-      display: block;
-      font-size:1.25em;
-      line-height:1em;
-      padding:.5em 1em;
-      text-align: center;
-    }
-
     .wrong_answer_target {
       color:$gray;
       @include font-bold;
@@ -230,3 +219,15 @@ body.client_admin-tiles-update,
     }
   }
 }
+
+body.tiles-index .clicked_right_answer {
+  background: $dark-green !important;
+  @include font-semibold;
+  color:$white;
+  display: block;
+  font-size:1.25em;
+  line-height:1em;
+  padding:.5em 1em;
+  text-align: center;
+}
+
