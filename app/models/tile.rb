@@ -156,6 +156,22 @@ class Tile < ActiveRecord::Base
     self.status == ARCHIVE
   end
 
+  def is_survey?
+    correct_answer_index == -1
+  end
+
+  def survey_chart
+    chart = []
+    count = TileCompletion.where(tile_id: self).count
+    self.multiple_choice_answers.each_with_index do |answer, i|
+      chart[i] = {}
+      chart[i]["answer"] = answer 
+      chart[i]["number"] = TileCompletion.where(tile_id: self, answer_index: i).count
+      chart[i]["percent"] = chart[i]["number"] * 100 / count
+    end
+    chart
+  end
+
   def text_of_completion_act
     "completed the tile: \"#{headline}\""
   end

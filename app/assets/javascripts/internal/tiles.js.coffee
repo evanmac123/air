@@ -56,15 +56,19 @@ tilePointsSpecialEffects = (event) ->
   pointCounter.start(() ->
     $('#spinner_large').fadeIn('slow', () ->
       window.scrollTo(0,0)
-      $('#right_answer_target').click()
       $(event.target).click((event) -> event.preventDefault())
     )
   )
+
+disableAllAnswers = ->
+  $(".right_multiple_choice_answer:not(.clicked_right_answer)").removeClass("right_multiple_choice_answer").addClass("nerfed_answer").removeAttr("href").removeAttr("data-method").unbind()
+  $(".wrong_multiple_choice_answer").removeClass("wrong_multiple_choice_answer").addClass("nerfed_answer").removeAttr("href").removeAttr("data-method").unbind()
 
 attachRightAnswers = ->
   $('.right_multiple_choice_answer').one("click", (event) ->
     event.preventDefault()
     tilePointsSpecialEffects(event)
+    disableAllAnswers()
   )
 
 attachWrongAnswers = ->

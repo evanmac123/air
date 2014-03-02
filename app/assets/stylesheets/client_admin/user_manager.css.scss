@@ -132,7 +132,22 @@ body.client_admin-tile_completions .breadcrumbs {
   @include lightbox;
   label {margin-bottom:.75em;}
 }
-
+// ================== Survey chart   ==================
+table.survey-chart-table {
+  td {
+    padding:1em .5em; 
+    word-wrap: break-word;
+    word-break: break-all;
+  }
+    .answer {width:40%;}
+  th{
+    border-bottom: 1px #dfdfdf solid;
+    text-transform: uppercase;
+    color:#a8a8a8;
+    padding: .5em;
+    font-size: 0.625rem;
+  }
+}
 // ================== Search results ==================
 body.client_admin-users-show .headline span {font-style:italic;}
 #search-results-table {

@@ -3,9 +3,11 @@ class TileCompletionsController < ApplicationController
 
   def create
     tile = find_tile
+    answer_index = params[:answer_index]
 
     remember_points_and_tickets
-    if create_tile_completion(tile)
+    
+    if create_tile_completion(tile, answer_index)
       create_act(tile)
       schedule_completion_ping(tile)
     else
@@ -32,8 +34,8 @@ class TileCompletionsController < ApplicationController
     @_tile
   end
 
-  def create_tile_completion(tile)
-    completion = TileCompletion.new(:tile_id => tile.id, :user => current_user)
+  def create_tile_completion(tile, answer_index)
+    completion = TileCompletion.new(:tile_id => tile.id, :user => current_user, :answer_index => answer_index)
     completion.save
   end
 

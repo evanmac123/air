@@ -1,6 +1,5 @@
 module TileBuilderForm
   class MultipleChoice < TileBuilderForm::Base
-    validate :present_answer_marked_as_correct
 
     def default_answer_count
       2
@@ -29,7 +28,7 @@ module TileBuilderForm
 
     def correct_answer_index_corrected_for_blanks
       correct_answer_index = correct_answer_index_from_params
-      return nil unless correct_answer_index
+      return -1 unless correct_answer_index
       blanks_preceding_correct_answer = answers_from_params[0, correct_answer_index].count(&:blank?)
       correct_answer_index - blanks_preceding_correct_answer
     end
@@ -46,7 +45,7 @@ module TileBuilderForm
     end
 
     def answer_prompt
-      "Give the answers and mark the correct one"    
+      "Give the answers"# and mark the correct one"    
     end
 
     delegate :points, :to => :tile

@@ -3,6 +3,7 @@ class ClientAdmin::TileCompletionsController < ClientAdminBaseController
   ORDER_BY_USER_NAME  = 'users.name'.freeze
   def index    
     @tile = Tile.find(params[:tile_id])
+    @survey_chart = @tile.survey_chart if @tile.is_survey?
     params[:grid] = {page: params[:page]}
     if params[:nc_grid]
       return non_completions

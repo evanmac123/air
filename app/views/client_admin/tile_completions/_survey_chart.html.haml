@@ -1,0 +1,18 @@
+%table.survey-chart-table
+  %thead
+    %tr
+      %th.answer
+        Answer
+      %th
+        Number
+      %th
+        Percent
+  %tbody
+    - @survey_chart.each do |row|
+      %tr
+        %td
+          = row["answer"]
+        %td
+          = row["number"]
+        %td
+          = row["percent"]
