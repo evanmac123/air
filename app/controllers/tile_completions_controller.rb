@@ -6,7 +6,7 @@ class TileCompletionsController < ApplicationController
     answer_index = params[:answer_index]
 
     remember_points_and_tickets
-    
+
     if create_tile_completion(tile, answer_index)
       create_act(tile)
       schedule_completion_ping(tile)

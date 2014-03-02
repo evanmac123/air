@@ -37,6 +37,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
   end
 
   def show
+    #sfd
     @tile = get_tile
   end
 

@@ -4,23 +4,29 @@
   <div class="multiple_choice_group">
     <% tile.multiple_choice_answers.each_with_index do |answer, i| %>
       <%= content_tag "div", class: "tile_multiple_choice_answer" do %>
-
         <% if answer_links_disabled %>
-          <%= link_to answer, '#', class: "nerfed_answer" %>
-        <% elsif tile.tile_completions.where(user_id: current_user).empty? == false %>
-          <% if tile.tile_completions.where(user_id: current_user).first.answer_index == i %>
-            <%= content_tag :div , answer, class: 'clicked_right_answer' %>
-          <% else %>
-            <%= link_to answer, '#', class: "nerfed_answer" %>
-          <% end %>
-        <% else %>
-          <% if i == tile.correct_answer_index || tile.is_survey? %>
-            <%= link_to answer, tile_completions_path(tile_id: tile.id, answer_index: i), method: :post, class: "right_multiple_choice_answer" %>
-          <% else %>
-            <%= link_to answer, '#', class: "wrong_multiple_choice_answer" %>
+              <%= link_to answer, '#', class: "nerfed_answer" %>
+            <% elsif tile.tile_completions.where(user_id: current_user).empty? == false %>
+              <% if tile.tile_completions.where(user_id: current_user).first.answer_index == i %>
+                <%= content_tag :div , answer, class: 'clicked_right_answer' %>
+              <% else %>
+                <%= link_to answer, '#', class: "nerfed_answer" %>
+              <% end %>
+            <% else %>
+              <% if i == tile.correct_answer_index || tile.is_survey? %>
+                <%= link_to answer, tile_completions_path(tile_id: tile.id, answer_index: i), method: :post, class: "right_multiple_choice_answer" %>
+              <% else %>
+                <%= link_to answer, '#', class: "wrong_multiple_choice_answer" %>
+              <% end %>
+            <% end %>
+            <div class="wrong_answer_target" style="display: none"></div>
           <% end %>
         <% end %>
 
+        <div class="wrong_answer_target" style="display: none"></div>
+      <% end %>
+    <% end %>
+    
     <% content_for :javascript do %>
       <%= javascript_tag do %>
         setUpAnswers();
