@@ -201,7 +201,7 @@ feature "Client admin edits tile" do
       fill_in "Points", with: "0"
       
       click_button "Update tile"
-      expect_content "Sorry, we couldn't update this tile: headline can't be blank, supporting content can't be blank, question can't be blank, points can't be blank, must have at least one answer, must select a correct answer."
+      expect_content "Sorry, we couldn't update this tile: headline can't be blank, supporting content can't be blank, question can't be blank, points can't be blank, must have at least one answer."
     end
   end
 end

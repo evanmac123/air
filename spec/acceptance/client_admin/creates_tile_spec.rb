@@ -99,14 +99,14 @@ feature 'Creates tile' do
     click_button "Create tile"
 
     demo.tiles.reload.should be_empty
-    expect_content "Sorry, we couldn't save this tile: headline can't be blank, supporting content can't be blank, question can't be blank, image is missing, points can't be blank, must have at least one answer, must select a correct answer."
+    expect_content "Sorry, we couldn't save this tile: headline can't be blank, supporting content can't be blank, question can't be blank, image is missing, points can't be blank, must have at least one answer."
 
     2.times { click_link "Add another answer" }
     select_correct_answer 1
     click_button "Create tile"
 
     demo.tiles.reload.should be_empty
-    expect_content "Sorry, we couldn't save this tile: headline can't be blank, supporting content can't be blank, question can't be blank, image is missing, points can't be blank, must have at least one answer, must select a correct answer."
+    expect_content "Sorry, we couldn't save this tile: headline can't be blank, supporting content can't be blank, question can't be blank, image is missing, points can't be blank, must have at least one answer."
   end
 
   scenario "should see character (not byte) counters on each text field", js: true do
