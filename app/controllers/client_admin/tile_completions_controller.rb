@@ -11,7 +11,7 @@ class ClientAdmin::TileCompletionsController < ClientAdminBaseController
       if params[:tc_grid] && params[:tc_grid][:order] == ORDER_BY_USER_NAME
         #params[:tc_grid][:order] = nil#eat up order param as we're doing it custom
         
-        tile_completions = TileCompletion.joins("LEFT JOIN #{User.table_name} on #{TileCompletion.table_name}.user_id = #{User.
+        tile_completions = TileCompletion.includes(:tile).joins("LEFT JOIN #{User.table_name} on #{TileCompletion.table_name}.user_id = #{User.
         table_name}.id AND user_type = '#{User.name}'").
         joins("LEFT JOIN #{GuestUser.table_name} on user_id = #{GuestUser.
         table_name}.id AND user_type = '#{GuestUser.name}'").

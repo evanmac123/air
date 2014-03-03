@@ -167,7 +167,7 @@ class Tile < ActiveRecord::Base
       chart[i] = {}
       chart[i]["answer"] = answer 
       chart[i]["number"] = TileCompletion.where(tile_id: self, answer_index: i).count
-      chart[i]["percent"] = chart[i]["number"] * 100 / count
+      chart[i]["percent"] = (chart[i]["number"].to_f * 100 / count).round(2).to_s + "%"
     end
     chart
   end

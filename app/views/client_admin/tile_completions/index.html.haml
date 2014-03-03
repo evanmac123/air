@@ -10,7 +10,7 @@
     %h3
       Tile headline:
       =@tile.name
-    = render partial: 'survey_chart'
+    = render partial: 'survey_chart' if @tile.is_survey?
     .tile_completions_controls
       Completed:
       = link_to "Yes", client_admin_tile_tile_completions_path(@tile),{class:'completed engaged', id: 'show_completed', remote: true}#, id: 'on_toggle'#, class: on_toggle_class
