@@ -23,6 +23,7 @@ feature "Share Tile" do
         expect_content create_tile_modal_content
         page.should have_link('Explore', client_admin_explore_path)
         page.should have_link('Create Tile', new_client_admin_tile_path)
+        page.should have_content("You need to create a tile before you can share")
       end
       scenario "clicking 'create tile' takes user to new tiles page" do
         click_link("Create Tile")
@@ -36,8 +37,29 @@ feature "Share Tile" do
       end
       scenario "sees instructions to activate tile before sharing", js: true do
         page.should have_content "You need to activate tiles before you can share"
-        page.should have_link('Back to Tiles', client_admin_tiles_path)
       end
-    end        
-  end  
+    end
+    context "admin activates a tile", js: true do
+      before do
+        FactoryGirl.create(:tile, status: Tile::ARCHIVE, demo: client_admin.demo)
+        visit client_admin_share_path(as: client_admin)
+      end
+      scenario "clicks 'activate tile'", js: true do
+        page.execute_script("$('.activate_button').click();")
+        page.should have_css("#success_activated_tiles")
+      end
+    end
+    context "admin creates multiple tiles but doesnt activate them", js: true do
+      before do
+        3.times {FactoryGirl.create(:tile, status: Tile::ARCHIVE, demo: client_admin.demo)}
+        visit client_admin_share_path(as: client_admin)
+      end
+      scenario "activates all of them", js: true do
+        page.find("#activate_all_tiles").click
+        page.should have_content("You successfully activated your tiles. Next, share them with people.")
+        page.find("#reveal_next_button").click
+        page.all('#invite_users_modal', visible: true).should_not be_empty
+      end
+    end
+  end
 end

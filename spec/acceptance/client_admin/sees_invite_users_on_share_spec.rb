@@ -123,6 +123,11 @@ feature "Invite Users Modal" do
             page.find(".active").should have_css('.tile_thumbnail', visible: true, count: 1)
           end
         end
+#        scenario "sends email invite to user via Airbo" do
+#          crank_dj_clear
+#          open_email('hisham@example.com')
+#          current_email['from'].should contain('via Airbo')
+#        end
         scenario "after clicking send, page shows success message along with share url page" do
           page.should have_content("Congratulations! You've sent your first tiles.")
           page.should have_css('#success_section', visible: true)

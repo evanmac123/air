@@ -1,0 +1,10 @@
+#no_tiles_digest
+  %h1 You need to create a tile before you can share
+  .columns.large-1= image_tag("/assets/marketing/send_tile_small.png", size:"50x50", id:"invite_image")
+  #progress.share_progress.large-10.round.columns
+    %span.meter{style:"width:25%"}
+  %p.send_button.large-1.columns SEND
+#message_div.large-12.columns
+  %p#create_tile_link= link_to 'Create Tile', new_client_admin_tile_path, id: 'create_tile_button', class: 'light_button engaged has-tip', data: :tooltip, title: 'Create Tile'
+  Need inspiration? Go to
+  = link_to 'Explore', client_admin_explore_path

@@ -111,10 +111,12 @@ class ClientAdmin::TilesController < ClientAdminBaseController
       flash[:tile_activated_flag] = is_new && @tile.active?
       flash[:success] = "The #{@tile.headline} tile has been #{success}"
     else
-      flash[:failure] = "There was a problem #{failure} this tile. Please try again."
+      format.html do 
+        flash[:failure] = "There was a problem #{failure} this tile. Please try again."
+        redirect_to :back
+      end
+      format.js{render nothing: true, status: :unprocessible_entity}
     end
-
-    redirect_to :back
   end
   
   def update_fields
