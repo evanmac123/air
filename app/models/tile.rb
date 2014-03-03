@@ -96,6 +96,8 @@ class Tile < ActiveRecord::Base
     after_save :enqueue_delayed_processing
   end
 
+  scope :activated, -> {where(status: ACTIVE)}
+  scope :archived, -> {where(status: ARCHIVE)}
   # Custom Attribute Setter: ensure that setting/updating the 'status' updates the corresponding time-stamp
   def status=(status)
     case status

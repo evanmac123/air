@@ -4,48 +4,4 @@
   %head
     %title Check out your new tiles!
 %body
-  -# We send 'claimed' users to the main activities page; "unclaimed" users have to accept their invitation first
-  - site_link = email_site_link(@user)
-
-  %center
-    %table{:cellpadding => "0", :cellspacing => "0", :width => "600", :style => "box-sizing:border-box; color:#909090; font-family:Helvetica, Arial, sans-serif;"}
-      %tr
-        %td
-          %table{:id => "mail_header", :cellpadding => "0", :cellspacing => "0", :width => "100%", :style => "padding:1.75em 1em; border-bottom:1px #dfdfdf solid;"}
-            %tr{:style => "text-align:left;"}
-              %td= email_logo(@demo)
-          %center{:style => "margin-bottom: 20px;"}
-            %h2{:style => "font-weight:light; font-weight:300; font-size:24px;margin: 20px 0;"}
-              #{digest_email_heading_begin}
-              #{link_to 'new tiles', site_link, {style: 'color:#4faa60; font-weight:bold; font-weight:500; font-size:24px; text-decoration:none;'}}
-              #{digest_email_heading_end}
-            - if @custom_message.present?
-              %p{:style => "font-family: helvetica, arial, sans-serif; text-align:center; word-wrap:break-word; color: rgb(128,128,128); display: block; font-size: 16px; line-height: 24px;", :width => "370", :height => '76px', :valign => "top"}= @custom_message
-          %table{:id => "tiles", :cellpadding => "0", :cellspacing => "5px", :width => "100%"}
-            %tbody
-              -# Note: To change the number of tiles per row, simply change the "(n)" to whatever your little ol' heart desires
-              - slice   = @follow_up_email ? 1 : 3
-              - partial = @follow_up_email ? 'tile_followup' : 'tile_row'
-              - @tiles.each_slice(slice) do |tiles|
-                = render partial: partial, locals: {tiles: tiles, site_link: site_link}
-          %table{:id => "mail_footer", :cellpadding => "0", :cellspacing => "15", :width => "100%", :style => "margin:0; text-align:center;"}
-            %tr
-              %td
-                %center
-                  %table{:style => "background: #4da968; border-bottom:3px #3e8052 solid; text-align:center;", :cellspacing => "3", :width => "250"}
-                    %tr
-                      %td{:colspan => "3", :height => "0", :style => "line-height:0; font-size:0;"}
-                        &nbsp;
-                    %tr
-                      %td{:width => "3", :height => "45"}
-                        &nbsp;
-                      %td{:valign => "middle", :height => "45"}
-                        #{link_to 'View your tiles', site_link, {style:'display: block; padding: 10px 40px; text-decoration: none; color: #fff; font-family: helvetica, arial, sans-serif; font-size: 20px; font-weight:bold; font-weight:500;'}}
-                      %td{:width => "3", :height => "45"}
-                        &nbsp;
-      %tr
-        %td{:height => "20", :style => "line-height:0; font-size:0;"}
-          &nbsp;
-      %tr
-        %td
-          = render 'shared/unsubscribe_footer'
+  = render partial: 'shared/notify_one'

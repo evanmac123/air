@@ -65,7 +65,7 @@ Health::Application.routes.draw do
 
   get "terms" => "pages#terms", :as => "terms"
   get "privacy" => "pages#privacy", :as => "privacy"
-
+  
   resource :home,  :only => :show
   resource :admin, :only => :show
   resource :client_admin, :only => :show
@@ -79,7 +79,8 @@ Health::Application.routes.draw do
       resource :invitation, :only => :create
     end
     resources :users_invites, only: :create
-    post 'users_invites/dismissed', 'users_invites#dismissed'
+    get 'preview_invite_email', to: 'users_invites#preview_invite_email'
+    get 'validate_email', to: 'users#validate_email'
     
     resources :locations, :only => :create
 
@@ -90,6 +91,7 @@ Health::Application.routes.draw do
         get 'active_tile_guide_displayed'
       end
     end
+    
     get 'tiles/:tile_id/non_completions' => "tile_completions#non_completions"
         
     resource :tiles_digest_notification, only: :create

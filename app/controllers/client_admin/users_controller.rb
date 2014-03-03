@@ -80,6 +80,15 @@ class ClientAdmin::UsersController < ClientAdminBaseController
     @user.destroy
     redirect_to client_admin_users_path
   end
+    
+  def validate_email
+    email = params[:email]
+    if User.where(email: email).exists?
+      render text: "Sorry, you can't add this user because they already have an account. A user can only belong to one board."
+    else
+      render nothing: true
+    end
+  end
 
   protected
 
@@ -190,5 +199,5 @@ class ClientAdmin::UsersController < ClientAdminBaseController
     unless all_date_of_birth_parts_valid?(user)
       user.errors.add(:base, "Please enter a full date of birth")
     end
-  end
+  end  
 end
