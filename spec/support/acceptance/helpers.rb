@@ -132,7 +132,7 @@ module SteakHelperMethods
   end
 
   def expect_content(expected_content)
-    page_text.should include(expected_content)
+    page.should have_content(expected_content)
   end
 
   def expect_content_case_insensitive(expected_content)
@@ -140,7 +140,7 @@ module SteakHelperMethods
   end
 
   def expect_no_content(unexpected_content)
-    page_text.should_not include(unexpected_content)
+    page.should have_no_content(unexpected_content)
   end
 
   def find_select_element(select_identifier)
