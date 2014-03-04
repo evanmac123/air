@@ -462,4 +462,17 @@ describe Tile do
       end
     end
   end
+
+  describe "#survey_chart" do
+    it "should return array with right statistic" do
+      tile = FactoryGirl.create(:survey_tile, \
+        question: "Do you belive in life after life", \
+        multiple_choice_answers: ["Yes", "No"])
+      tc1 = FactoryGirl.create(:tile_completion, tile: tile, answer_index: 0 )
+      tc2 = FactoryGirl.create(:tile_completion, tile: tile, answer_index: 1 )
+      tc3 = FactoryGirl.create(:tile_completion, tile: tile, answer_index: 1 )
+      tile.survey_chart.should == [{"answer"=>"Yes", "number"=>1, "percent"=>"33.33%"}, 
+                                    {"answer"=>"No", "number"=>2, "percent"=>"66.67%"}]
+    end
+  end
 end

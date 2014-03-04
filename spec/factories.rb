@@ -216,9 +216,17 @@ FactoryGirl.define do
     correct_answer_index 1
   end
 
+  factory :survey_tile, parent: :multiple_choice_tile do
+    correct_answer_index -1
+  end
+
   factory :tile_completion do
     association :user
     association :tile
+
+    trait :with_answer_index do
+      answer_index 0
+    end
   end
 
   factory :location do
