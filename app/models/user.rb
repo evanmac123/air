@@ -30,11 +30,12 @@ class User < ActiveRecord::Base
   has_many   :goal_completions
   has_many   :completed_goals, :through => :goal_completions, :source => :goal
   has_many   :tile_completions, :dependent => :destroy, :as => :user
-  has_many  :completed_tiles, source: :tile, through: :tile_completions
+  has_many   :completed_tiles, source: :tile, through: :tile_completions
   has_many   :unsubscribes, :dependent => :destroy
   has_many   :peer_invitations_as_invitee, :class_name => "PeerInvitation", :foreign_key => :invitee_id
   has_many   :peer_invitations_as_inviter, :class_name => "PeerInvitation", :foreign_key => :inviter_id
   has_many   :tiles, :foreign_key => :creator_id
+  has_many   :creator_tile_completions, source: :tile_completions, through: :tiles
   has_one    :original_guest_user, :class_name => "GuestUser", :foreign_key => :converted_user_id, :inverse_of => :converted_user
 
   validate :normalized_phone_number_unique, :normalized_new_phone_number_unique

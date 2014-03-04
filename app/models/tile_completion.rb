@@ -8,7 +8,11 @@ class TileCompletion < ActiveRecord::Base
 
   def creator_has_tile_completed
     creator = self.tile.creator
-    if creator.nil? == false && creator.has_own_tile_completed == false && creator != self.user
+    if creator.nil? == false && 
+       creator.has_own_tile_completed == false && 
+       creator != self.user &&
+       creator.creator_tile_completions.empty?
+       
       creator.mark_own_tile_completed
     end
   end
