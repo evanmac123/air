@@ -45,7 +45,7 @@ module TileBuilderForm
     end
 
     def answer_prompt
-      "Give the answers"# and mark the correct one"    
+      "Give the answers and mark the correct one. If survey, do not mark any"   
     end
 
     delegate :points, :to => :tile

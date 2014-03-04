@@ -1,3 +1,5 @@
+%h2
+  Summary
 %table.survey-chart-table
   %thead
     %tr
@@ -11,7 +13,7 @@
     - @survey_chart.each do |row|
       %tr
         %td
-          = row["answer"]
+          = dispay_short_and_full_answer(row["answer"])
         %td
           = row["number"]
         %td

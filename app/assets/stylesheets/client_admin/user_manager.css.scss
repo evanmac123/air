@@ -134,14 +134,34 @@ body.client_admin-tile_completions .breadcrumbs {
 }
 // ================== Survey chart   ==================
 table.survey-chart-table {
+  width:40%;
+  /*Make borders only inside the table*/
+  border-collapse: collapse;
+  td, th {
+    border: 1px solid #dfdfdf;
+  }
+  tr:first-child th {
+    border-top: 0;
+  }
+  tr:last-child td {
+    border-bottom: 0;
+  }
+  tr td:first-child,
+  tr th:first-child {
+    border-left: 0;
+  }
+  tr td:last-child,
+  tr th:last-child {
+    border-right: 0;
+  }
+  /*end*/
   td {
-    padding:1em .5em; 
+    padding: .3em .5em;
     word-wrap: break-word;
     word-break: break-all;
   }
-    .answer {width:40%;}
+  .answer {width:40%;}
   th{
-    border-bottom: 1px #dfdfdf solid;
     text-transform: uppercase;
     color:#a8a8a8;
     padding: .5em;
