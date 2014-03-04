@@ -49,7 +49,6 @@ markCompletedRightAnswer = (nodes) ->
   nodes.addClass 'clicked_right_answer'
 
 tilePointsSpecialEffects = (event) ->
-  markCompletedRightAnswer $('.right_multiple_choice_answer')
   $('.earnable_points').css('background', '#4FAA60').css('box-shadow', 'none')
   originalPoints = parseInt $('#tile_point_value').text()
   pointCounter = new countUp('tile_point_value', originalPoints, 0, 0, 1.0)
@@ -67,6 +66,7 @@ disableAllAnswers = ->
 attachRightAnswers = ->
   $('.right_multiple_choice_answer').one("click", (event) ->
     event.preventDefault()
+    markCompletedRightAnswer $(this)
     tilePointsSpecialEffects(event)
     disableAllAnswers()
   )
