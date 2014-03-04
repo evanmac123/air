@@ -67,7 +67,7 @@ module TileBuilderForm
     end
 
     def answer_prompt
-      "Give the answers and mark the correct one. If survey, do not mark any"
+      "Give the answers and mark the correct one. If survey, do not mark any."
     end
 
     protected
