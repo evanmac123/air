@@ -32,7 +32,7 @@ class Tile < ActiveRecord::Base
   has_many :tile_completions, :dependent => :destroy
   has_many :completed_tiles, source: :tile, through: :tile_completions
   has_many :triggering_rules, :class_name => "Rule", :through => :rule_triggers
-  has_many :tile_taggings
+  has_many :tile_taggings, dependent: :destroy
   has_many :tile_tags, through: :tile_taggings
 
   validates_presence_of :headline, :allow_blank => false, :message => "headline can't be blank"

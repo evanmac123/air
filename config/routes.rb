@@ -149,6 +149,8 @@ Health::Application.routes.draw do
     resource :tiles_report, only: :show
 
     resources :public_boards, only: [:create, :destroy]
+
+    resources :tags
   end
 
   resources :pages, :only => :show

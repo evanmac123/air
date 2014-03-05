@@ -213,7 +213,7 @@ feature 'Creates tile' do
 
   context "when the public and copyable checkboxes are not checked" do
     it "should not set those", js: true do
-      create_good_tile(1, false)
+      create_good_tile(false)
       new_tile = MultipleChoiceTile.last
       new_tile.is_public.should be_false
       new_tile.is_copyable.should be_false

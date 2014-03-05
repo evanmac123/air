@@ -4,6 +4,10 @@ class ClientAdminBaseController < ApplicationController
 
   protected
 
+  def load_tags
+    @tags = TileTag.alphabetical
+  end
+
   def load_locations
     @locations = current_user.demo.locations.alphabetical
   end

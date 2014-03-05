@@ -188,6 +188,34 @@ module TileHelpers
     page.find(".correct-answer-button[value=\"#{index}\"]").click
   end
 
+  def fill_in_valid_tile_form_entries(click_answer = 1, with_public_and_copyable = false)
+    attach_file "tile_builder_form[image]", tile_fixture_path('cov1.jpg')
+    fill_in "Headline",           with: "Ten pounds of cheese"
+    fill_in "Supporting content", with: "Ten pounds of cheese. Yes? Or no?"
+
+    fill_in "Ask a question", with: "Who rules?"
+
+    2.times {click_link "Add another answer"}
+    fill_in_answer_field 0, "Me"
+    fill_in_answer_field 2, "You"
+
+    click_answer.times { select_correct_answer 2 }
+
+    fill_in "Points", with: "23"
+
+    fill_in_external_link_field  "http://www.google.com/foobar"
+
+    if with_public_and_copyable
+      click_make_public
+      page.find('#tile_builder_form_is_copyable', visible: true)
+      click_make_copyable
+    end
+  end
+  
+  def click_create_tile_button
+    click_button "Save tile"
+  end
+
   def after_tile_save_message(options={})
     "Tile #{options[:action] || 'create'}d! We're resizing the graphics, which usually takes less than a minute."
   end

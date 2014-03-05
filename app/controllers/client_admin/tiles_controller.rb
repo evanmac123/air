@@ -3,6 +3,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
   include ClientAdmin::TilesHelper
   
   before_filter :get_demo
+  before_filter :load_tags, only: [:new, :edit, :create, :update]
 
   def index
     # Update 'status' for tiles with 'start_time' and 'end_time' attributes (before you fetch the different tile groups)

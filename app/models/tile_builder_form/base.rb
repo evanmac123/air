@@ -143,6 +143,10 @@ module TileBuilderForm
           is_public:          @parameters[:is_public],
           is_copyable:        @parameters[:is_copyable]
         }
+
+        if @parameters[:tag_id].present?
+          @tile.tile_tags = [TileTag.find(@parameters[:tag_id])]
+        end
       end
     end
 

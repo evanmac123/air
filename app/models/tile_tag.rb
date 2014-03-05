@@ -1,5 +1,5 @@
 class TileTag < ActiveRecord::Base
-  has_many :tile_taggings
+  has_many :tile_taggings, dependent: :destroy
   has_many :tiles, through: :tile_taggings
 
   has_alphabetical_column :title

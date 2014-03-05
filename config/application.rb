@@ -45,7 +45,7 @@ module Health
       app-external.js
       app-landing.js
       app-client-admin.js
-      client_admin/add_new_location.js
+      client_admin/add_new_item_via_select.js
       errors.css
       external/blog_rss.js
       external/textscroll.js

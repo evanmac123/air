@@ -19,4 +19,26 @@
       });
     <% end %>
   <% end %>
+
+  <%= javascript_include_tag "jquery.lightbox_me" %>
+  <%= javascript_include_tag "client_admin/add_new_item_via_select" %>
+  
+  <% content_for :lightbox do %>
+    <div id="new_tag_lightbox">
+      <form>
+        <%= label_tag "tag_name", "New tag" %> 
+        <%= text_field_tag "tag_name" %>
+        <%= submit_tag "Save new tag", class: "lightbox_form_submit_button" %>
+      </form>
+    </div>
+  <% end %>
+
+  <%= label_tag "tile_tag_select", "Tag with:" %>
+  <%= render 'tag_select', tags: @tags %>
+
+  <% content_for :javascript do %>
+    <%= javascript_tag do %>
+      bindShowNewItemLightbox('#tile_tag_select', 'Add new...', '#new_tag_lightbox', '<%= client_admin_tags_path %>', '');
+    <% end %>
+  <% end %>
 <% end %>
