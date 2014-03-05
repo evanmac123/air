@@ -138,12 +138,13 @@ table.survey-chart-table {
   text-align:left;
   td {
     white-space: nowrap;
-    padding: .3em .5em;
+    padding: .4em .5em;
     background-color: white;
   }
   .answer { width:50%; }
-  .number, .percent {
+  td.number, td.percent {
     min-width: 6em;
+    text-align: right;
   }
   th{
     background: transparent;
