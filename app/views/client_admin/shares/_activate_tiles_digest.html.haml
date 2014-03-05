@@ -21,7 +21,7 @@
           -# Note: To change the number of tiles per row, simply change the "(n)" to whatever your little ol' heart desires
           - @archive_tiles.each_slice(3) do |columns|
             -if @archive_tiles.count == 1
-              = image_tag("/assets/marketing/arrow-green.png", class: 'arrow_image_left', size: "75x75")
+              = image_tag("/assets/marketing/green_down_left.png", class: 'arrow_image_left', size: "75x75")
             = render partial: 'shared/tiles/tile_row', locals: {columns: columns, type: :archive, do_ajax: true}
     -if @archive_tiles.count != 1
       .right
@@ -30,15 +30,15 @@
         #next_bottom_disabled
           .light_button.disengaged Next
 
-  #success_activated_tiles.reveal-modal.tiny
+  #success_activated_tiles.reveal-modal.small
     -if @archive_tiles.count==1
-      %p.lead
+      %p
         You successfully activated
         = "#{@archive_tiles.first.name}."
-      %p.lead Next, share it with people.
+      %p Next, share it with people.
     -else
-      %h2
-        You successfully activated your tiles.
-      %p.lead Next, share them with people.
+      %p
+        You successfully activated your tiles. Next, share them with people.
     = link_to 'Next', '#', id: 'reveal_next_button', class: 'light_button close-reveal-modal'
     %a.close-reveal-modal ×
+
