@@ -1,11 +1,11 @@
 .row
   .large-12
-    - if @digest_tiles.empty? || @demo.tile_completions.empty? || @demo.users.size < 2
-      - if @demo.tiles.empty?
+    - if @active_tiles.empty? || @demo.tile_completions.empty? || @demo.users.size < 2
+      - if @active_tiles.empty? && @archive_tiles.empty?
         = render partial: 'no_tiles_digest'
-      - elsif @digest_tiles.empty?
+      - elsif @active_tiles.empty?
         = render partial: 'activate_tiles_digest' if @archive_tiles.count > 0
-      = render partial: 'share_tiles_digest', locals: {show_share_tiles: (@digest_tiles.count > 0), demo: @demo}
+      = render partial: 'share_tiles_digest', locals: {show_share_tiles: (@active_tiles.count > 0), demo: @demo}
       = render partial: 'success_share_digest'
       = render partial: 'success_share_url'
     - else
@@ -17,6 +17,6 @@
         .row
           .large-12.columns
             %h3 Tiles to be sent
-            = render partial: 'shared/tiles/tiles_table', tiles: @digest_tiles, type: :digest
+            = render partial: 'shared/tiles/tiles_table', locals: {tiles: @digest_tiles, type: :digest}
 
 

@@ -154,8 +154,12 @@ $(document).ready ->
     for key,value of errors      
       $('#share_tiles_digest').find("#invite_users_errors").html("#{key} - #{value}")
       
-  $('#invite_users_page_1').find('.history_back').click((event) ->
+  $('#invite_users_page_1').find('.history_back.page_1').on('click', (event) ->
     loadPage0()
+    History.back()
+  )
+  $('#invite_users_page_2').find('.history_back.page_2').on('click', (event) ->
+    loadPage1()
     History.back()
   )
   $('#invite_users_page_2').find('#invite_users_send_button').on('click', (event) ->    

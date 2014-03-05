@@ -5,7 +5,8 @@ class ClientAdmin::SharesController < ClientAdminBaseController
     @tile_digest_email_sent_at = @demo.tile_digest_email_sent_at
     tile_ids = @demo.digest_tiles(@tile_digest_email_sent_at).pluck(:id)
     @tiles = Tile.where(id: tile_ids).order('activated_at DESC')
-    @archive_tiles = (@demo.archive_tiles)
+    @active_tiles = @demo.active_tiles
+    @archive_tiles = @demo.archive_tiles
     @digest_tiles = @demo.digest_tiles(@tile_digest_email_sent_at)
     @follow_up_emails = @demo.follow_up_digest_emails.order("send_on ASC")
     @suppress_tile_stats = false
