@@ -51,7 +51,7 @@ feature 'Guest user is prompted to convert to real user' do
     # the hidden link that ACTUALLY triggers the Ajax request, while bypassing
     # animations.
     #page.find('.right_multiple_choice_answer').click
-    page.find('#right_answer_target').trigger('click')
+    page.find('.right_multiple_choice_answer').click
   end
 
   def fill_in_conversion_name(name)

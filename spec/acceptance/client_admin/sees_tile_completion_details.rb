@@ -3,6 +3,7 @@ require 'acceptance/acceptance_helper'
 feature "sees tile completion details" do  
   let (:client_admin) { FactoryGirl.create :client_admin}
   let (:tile) {FactoryGirl.create(:tile, status: Tile::ACTIVE, demo: client_admin.demo)}
+  let (:survey_tile) {FactoryGirl.create(:survey_tile, status: Tile::ACTIVE, demo: client_admin.demo)}
   let (:user) {FactoryGirl.create :user, demo: client_admin.demo}
   let (:guest_user) {FactoryGirl.create :guest_user, demo: client_admin.demo}
   let(:user_first) {FactoryGirl.create(:user, demo: client_admin.demo, name: '000')}
@@ -57,7 +58,7 @@ feature "sees tile completion details" do
     end
     scenario "top of the page has the headline from the tile I clicked" do
       #top of the page has the headline from the tile I clicked
-      page.find('h3').should have_content tile.headline
+      page.all('h3')[0].should have_content tile.headline
     end
       # I see There are two options: 'Completed: Yes' or 'No' (second button class style, selected state blue, not selected grey)
       
@@ -95,6 +96,60 @@ feature "sees tile completion details" do
         page.should have_content "NAME"
         page.should have_content "EMAIL"
         page.should have_content "JOINED"
+      end
+    end
+    context "doesn't see summary table for not survey tile" do 
+      before do
+        FactoryGirl.create(:tile_completion, user: client_admin, tile: tile)
+        visit client_admin_tile_tile_completions_path(tile, as: client_admin)
+      end
+      scenario "I don't see Summary header" do
+        page.should_not have_content "Summary"
+      end
+    end
+    context "sees summary table for survey tile" do 
+      before do
+        FactoryGirl.create(:tile_completion, user: client_admin, tile: survey_tile, answer_index: 0)
+        visit client_admin_tile_tile_completions_path(survey_tile, as: client_admin)
+      end
+      scenario "I see summary header Summary" do
+        page.should have_content "Summary"
+      end
+      scenario "I see the column name Answer, Number, Percent" do
+        page.should have_content "ANSWER"
+        page.should have_content "NUMBER"
+        page.should have_content "PERCENT"
+      end
+      scenario "I see answers in Summary table" do
+        survey_tile.multiple_choice_answers.each do |answer| 
+          page.find(".survey-chart-table").should have_content answer
+        end
+      end
+    end
+    context "sees data in summary table for survey tile" do
+      before do
+        for i in 1..100 do
+          u = FactoryGirl.create(:user, demo: client_admin.demo)
+          answer_index =  if i <= 30
+                            0
+                          elsif i <= 80
+                            1
+                          else
+                            2
+                          end
+          FactoryGirl.create(:tile_completion, user: u, tile: survey_tile, answer_index: answer_index)
+        end
+        visit client_admin_tile_tile_completions_path(survey_tile, as: client_admin)
+      end 
+      scenario "I see number of people" do
+        page.all(".survey-chart-table tr td.number")[0].should have_content "30"
+        page.all(".survey-chart-table tr td.number")[1].should have_content "50"
+        page.all(".survey-chart-table tr td.number")[2].should have_content "20"
+      end
+      scenario "I see percent of people" do
+        page.all(".survey-chart-table tr td.percent")[0].should have_content "30.0%"
+        page.all(".survey-chart-table tr td.percent")[1].should have_content "50.0%"
+        page.all(".survey-chart-table tr td.percent")[2].should have_content "20.0%"
       end
     end
   end

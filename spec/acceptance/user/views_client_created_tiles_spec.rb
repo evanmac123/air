@@ -41,7 +41,7 @@ feature 'User views tiles' do
       click_answer 2
       expect_wrong_answer_reaction 2
 
-      page.find('#right_answer_target').trigger('click')
+      page.find('.right_multiple_choice_answer').click
       #click_answer 1
 
       visit activity_path
@@ -50,12 +50,12 @@ feature 'User views tiles' do
     end
 
     scenario 'and sees a helpful message afterwards', js: :webkit do
-      page.find('#right_answer_target').trigger('click')
+      page.find('.right_multiple_choice_answer').click
       expect_content all_tiles_done_message
     end
 
     scenario 'and a ping is sent to Mixpanel', js: :webkit do
-      page.find('#right_answer_target').trigger('click')
+      page.find('.right_multiple_choice_answer').click
 
       FakeMixpanelTracker.clear_tracked_events
       crank_dj_clear
