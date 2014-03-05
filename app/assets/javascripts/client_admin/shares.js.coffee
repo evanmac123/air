@@ -6,6 +6,18 @@ $(document).ready ->
     $('#invite_users_page_1').find('#invite_user_fields').append(add_fields)
     add_fields.find('input:first').focus()
   )
+  
+  $('#share_tiles_email_preview').on('load', (event) ->
+    if document.getElementById
+      newheight = document.getElementById('share_tiles_email_preview').contentWindow.document.body.scrollHeight
+      newwidth = document.getElementById('share_tiles_email_preview').contentWindow.document.body.scrollWidth
+
+      document.getElementById('share_tiles_email_preview').height = (newheight) + "px"
+      document.getElementById('share_tiles_email_preview').width = (newwidth) + "px"
+      $('#share_tiles_email_preview_blocker').height(newheight + "px")
+      $('#share_tiles_email_preview_blocker').width(newwidth + "px")
+    return
+  )
     
   #validate invited users
   has_one_entry = false
@@ -52,7 +64,7 @@ $(document).ready ->
     event.preventDefault()
     #$(this).attr("href")
     if validateInvitedUsers()
-      History.pushState {state: 2}, "State 2", "?state=2"
+      History.pushState {state: 2}, "Airbo", "?state=2"
       loadPage2()
     else
       loadPage1()
@@ -61,7 +73,7 @@ $(document).ready ->
   $('#invite_users_page_1').find('#skip_invite_users').on('click', (event) ->
     event.preventDefault()
     #$(this).attr("href")
-    History.pushState {state: 4}, "State 4", "?state=4"
+    History.pushState {state: 4}, "Airbo", "?state=4"
     loadPage4()
     false
   )
@@ -93,7 +105,7 @@ $(document).ready ->
     #DONE activate next buttons
     $(this).closest('.tile_buttons').find('.archive_button').show()
     $(this).hide()
-    if $('.tile_buttons>.activate_button').size() > 0      
+    if $('.tile_buttons>.activate_button:visible').size() > 0      
       $('#activate_tiles_digest').find('#next_bottom_disabled').hide()
       $('#activate_tiles_digest').find('#next_top_disabled').hide()
       
@@ -108,18 +120,18 @@ $(document).ready ->
 
   $('#activate_tiles_digest').find("#activate_tiles_next_top").on("click", (e, data, status, xhr) ->
     $('#invite_users_page_1').find('.history_back.page_1').show()
-    History.pushState {state: 1}, "State 1", "?state=invite"
+    History.pushState {state: 1}, "Airbo", "?state=invite"
     loadPage1()
     )
   $('#activate_tiles_digest').find("#activate_tiles_next_bottom").on("click", (e, data, status, xhr) ->
     $('#invite_users_page_1').find('.history_back.page_1').show()
-    History.pushState {state: 1}, "State 1", "?state=invite"
+    History.pushState {state: 1}, "Airbo", "?state=invite"
     loadPage1()
     )
     
   $('#activate_tiles_digest').find("#success_activated_tiles").on('close',  (e, data, status, xhr) ->
     $('#invite_users_page_1').find('.history_back.page_1').show()
-    History.pushState {state: 1}, "State 1", "?state=invite"
+    History.pushState {state: 1}, "Airbo", "?state=invite"
     loadPage1()
     )
   
@@ -134,7 +146,7 @@ $(document).ready ->
   $('#share_tiles_digest').find("#invite_users_modal").on("ajax:success", (e, data, status, xhr) ->
     
     #ignore_page_1_2 = true #don't allow user to see page 1 and 2 anymore
-    History.pushState {state: 3}, "State 3", "?state=success"
+    History.pushState {state: 3}, "Airbo", "?state=success"
     loadPage3()
   ).bind "ajax:error", (e, xhr, status, error) ->    
     $('#share_tiles_digest').find("#invite_users_errors").addClass('error')
@@ -152,6 +164,17 @@ $(document).ready ->
     false
     )
   
+  old_message_size = 0
+  $('#invite_users_page_2').find('#users_invite_message').on('keyup', (event) ->
+    if $(this).val().length < old_message_size
+      $('#invite_users_page_2').find('#share_tiles_email_preview').contents().find('#custom_message').html($(this).val())
+      
+    old_message_size = $(this).val().length
+    
+  ).on('keypress', (event) ->
+    $('#invite_users_page_2').find('#share_tiles_email_preview').contents().find('#custom_message').html($(this).val())
+  )  
+    
   $('#share_tiles_digest').find("#invite_users_form").validate
     rules:
       name:

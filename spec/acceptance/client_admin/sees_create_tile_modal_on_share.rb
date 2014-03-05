@@ -49,7 +49,7 @@ feature "Share Tile" do
         page.should have_css("#success_activated_tiles")
       end
     end
-    context "admin creates multiple tiles but doesnt activate them", js: true do
+    context "admin creates multiple tiles", js: true do
       before do
         3.times {FactoryGirl.create(:tile, status: Tile::ARCHIVE, demo: client_admin.demo)}
         visit client_admin_share_path(as: client_admin)

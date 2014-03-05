@@ -492,7 +492,7 @@ class User < ActiveRecord::Base
       Mailer.delay_mail(:invitation, self, referrer, options)
     else
       TilesDigestMailer.delay.notify_one(demo_id, id, 
-        demo.digest_tiles.pluck(:id), 'New Tiles', false, 
+        demo.digest_tiles.pluck(:id), "Join my #{demo.name} board", false, 
         options[:custom_message], options[:custom_from])
     end
     if referrer

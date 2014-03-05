@@ -35,6 +35,10 @@ feature "Invite Users Modal" do
     scenario "'Contact us' link opens help chat bubble" do
       #this functionality is not implemented yet. need to verify it
     end
+    scenario "clicking skip will display share url page" do
+      page.find("#skip_invite_users").click
+      page.all('#success_share_url', visible: true).should_not be_empty
+    end    
     scenario "form with invalid email is not submitted" do
       within(invite_users_modal_selector) do        
         find_field('user_0_name').set 'Hisham Malik'
@@ -49,13 +53,13 @@ feature "Invite Users Modal" do
         FactoryGirl.create(:tile, status: Tile::ACTIVE, demo: client_admin2.demo)
         visit client_admin_share_path(as: client_admin2)        
       end
-      scenario "should give error", js: true do
-        page.find_field('user_0_name').set(user.name)
-        page.find_field('user_0_email').set(user.email)
+      scenario "should give error on adding existing users", js: true do
+        page.find_field('user_0_name').set "#{user.name}"
+        page.find_field('user_0_email').set "#{user.email}"
         page.find('#submit_invite_users').click
         page.should have_css('input.error', visible: true)
       end
-      scenario "on successful submit, closes the invite_users_modal" do 
+      scenario "on successful submit, hides the invite_users_modal" do 
         within(invite_users_modal_selector) do        
           page.find_field('user_0_name').set('Hisham Malik')
           page.find_field('user_0_name').value.should contain('Hisham Malik')
@@ -73,16 +77,17 @@ feature "Invite Users Modal" do
           page.find('#submit_invite_users').click
           page.find("#invite_users_send_button").click
         end
-#        scenario "sends email invite to user via Airbo" do
-#          crank_dj_clear
-#          open_email('hisham@example.com')
-#          current_email['from'].should contain('via Airbo')
-#        end
+        scenario "sends email invite to user via Airbo" do
+          crank_dj_clear
+          open_email('hisham@example.com')
+          current_email['from'].should contain('via Airbo')
+        end
         scenario "after clicking send, page shows success message along with share url page" do
           page.should have_content("Congratulations! You've sent your first tiles.")
           page.should have_css('#success_section', visible: true)
           page.should have_content("You can also share your board using a link")
           page.should have_css('.share_url', visible: true)
+          page.should have_css('#share_archive_custom', count: 1, visible: true)
         end
       end
     end

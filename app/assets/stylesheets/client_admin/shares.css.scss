@@ -8,6 +8,23 @@
       }
   }
 
+  #no_tiles_digest, #activate_tiles_digest, #success_share_digest, #success_share_url{
+    h1{
+        text-align: center;
+    }
+  }
+  #share_tiles_digest{
+    .invite_users_header_page_1, .invite_users_header_page_2{ 
+        h1{
+            text-align: center;
+        }
+     }
+  }
+
+  .history_back{
+      @include light-button($blue);
+  }
+
   #share_active_tile{
       position: absolute;
       margin-left: 75px;
@@ -53,6 +70,7 @@
   }
 
   #message_buttons_custom{
+      text-align: center;
       padding-top: 30px;
   }
 

@@ -1,12 +1,10 @@
 #invite_users_page_2{style:'display:none'}
   #user_invite_message_custom
-    = form.text_area :message, maxlength: 160, cols: 94
+    = form.text_area :message, maxlength: 160, cols: 94, class: "large-12"
     :javascript
       addCharacterCounterFor('#users_invite_message')
   .clearfix
-  = render 'shared/email_client_wrapper'
+  = render 'shared/email_client_wrapper', demo: demo
   #message_buttons_custom.large-12.columns
-    .right
-      = link_to 'Send', '#', id: 'invite_users_send_button', class: 'light_button engaged has-tip', data: :tooltip
-    .left
-      = link_to "Back", "#", class: 'engaged has-tip history_back page_2', data: :tooltip
+    = link_to "Back", "#", class: 'engaged has-tip history_back page_2', data: :tooltip
+    = link_to 'Send', '#', id: 'invite_users_send_button', class: 'light_button engaged has-tip', data: :tooltip
