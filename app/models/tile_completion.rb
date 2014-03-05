@@ -11,8 +11,8 @@ class TileCompletion < ActiveRecord::Base
     if creator.nil? == false && 
        creator.has_own_tile_completed == false && 
        creator != self.user &&
-       creator.creator_tile_completions.empty?
-       
+       creator.creator_tile_completions.length == 1 # is the TileCompletion we just created the only one?
+      
       creator.mark_own_tile_completed
     end
   end
