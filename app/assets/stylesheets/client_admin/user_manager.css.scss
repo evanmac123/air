@@ -135,18 +135,18 @@ body.client_admin-tile_completions .breadcrumbs {
 // ================== Survey chart   ==================
 table.survey-chart-table {
   width:40%;
-  background-color: white;
   text-align:left;
   td {
+    white-space: nowrap;
     padding: .3em .5em;
-    /*word-wrap: break-word;
-    word-break: break-all;*/
+    background-color: white;
   }
-  .answer {width:50%;}
+  .answer { width:50%; }
   .number, .percent {
-    width:25%;
+    min-width: 6em;
   }
   th{
+    background: transparent;
     border-bottom: 1px solid #dfdfdf;
     text-transform: uppercase;
     color:#a8a8a8;
