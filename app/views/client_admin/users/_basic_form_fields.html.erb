@@ -35,7 +35,7 @@
     <form>
       <%= label_tag "location_name", "New location name" %> 
       <%= text_field_tag "location_name" %>
-      <div class="button_wrap"><%= submit_tag "Save new location" %></div>
+      <%= submit_tag "Save new location", id: "new_location_button" %>
     </form>
   </div>
 <% end %>
