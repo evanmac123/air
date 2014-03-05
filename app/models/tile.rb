@@ -30,8 +30,10 @@ class Tile < ActiveRecord::Base
 
   has_many :rule_triggers, :class_name => "Trigger::RuleTrigger"
   has_many :tile_completions, :dependent => :destroy
-  has_many  :completed_tiles, source: :tile, through: :tile_completions
+  has_many :completed_tiles, source: :tile, through: :tile_completions
   has_many :triggering_rules, :class_name => "Rule", :through => :rule_triggers
+  has_many :tile_taggings
+  has_many :tile_tags, through: :tile_taggings
 
   validates_presence_of :headline, :allow_blank => false, :message => "headline can't be blank"
   validates_presence_of :supporting_content, :allow_blank => false, :message => "supporting content can't be blank", :on => :client_admin
@@ -359,6 +361,14 @@ class Tile < ActiveRecord::Base
     viewable_in_public.where(is_copyable: true)
   end
 
+  def self.tagged_with(tag_id)
+    unless tag_id.present?
+      where("true")
+    else
+      tagged_tile_ids = TileTagging.where(tile_tag_id: tag_id).pluck(:tile_id)
+      where(id: tagged_tile_ids)
+    end
+  end
 
   # ------------------------------------------------------------------------------------------------------------------
   # These methods are for synchronizing a tile's start_time/end_time with its ACTIVE/ARCHIVE status.

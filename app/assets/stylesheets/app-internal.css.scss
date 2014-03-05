@@ -32,6 +32,8 @@
 
 @import "./internal/guest_conversion_form.css.scss";
 
+@import "./internal/tags.css.scss";
+
 /* RWD */
 @media only screen and (min-width: 319px) {
   @import "./internal/screen_iphone.css.scss";

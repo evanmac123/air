@@ -1,5 +1,6 @@
 <% display_creator_info ||= false %>
 <% completed_tiles ||= nil %>
+<% tags ||= [] %>
 
 <% 
 if not_completed_tiles.present? && completed_tiles.present?
@@ -15,6 +16,8 @@ end
 
 <% if tiles_length > 0 %>
   <div id="tile_wall">
+    <%= render 'shared/tile_tags', tags: tags %>
+
     <div class="all_tile_thumbnails row">
       <% if not_completed_tiles.present? %>
         <% not_completed_tiles.each do |tile| %>

@@ -1,0 +1,15 @@
+.tile_tags {
+  padding: 0 1em;
+}
+
+.tag_link {
+  margin-right: 0.25em;
+
+  &.enabled {
+    @include app-button($dark-green);
+  }
+
+  &.disabled {
+    @include app-button($med-gray);
+  }
+}

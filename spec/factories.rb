@@ -175,6 +175,7 @@ FactoryGirl.define do
 
   factory :tile do
     headline {"Tile #{SecureRandom.uuid}, y'all"}
+
     require_images false
     association :demo
     sequence(:position){ |n| n }
@@ -336,5 +337,9 @@ FactoryGirl.define do
 
   factory :follow_up_digest_email do
     association :demo
+  end
+
+  factory :tile_tag do
+    sequence(:title) {|n| "Tile Tag #{n}"}
   end
 end

@@ -1,0 +1,10 @@
+<div class="tile_tags row">
+  <% if tags.present? %>
+    <% tags.each do |tag| %>
+      <% is_current_tag = tag.id.to_s == params[:tag_id].to_s %>
+      <% tag_path = is_current_tag ? explore_path : explore_path(tag_id: tag.id) %>
+      <% status_style = is_current_tag ? 'enabled' : 'disabled' %>
+      <%= link_to tag.title, tag_path, class: ['tag_link', status_style] %>
+    <% end %>
+  <% end %>
+</div>

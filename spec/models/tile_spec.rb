@@ -4,6 +4,7 @@ describe Tile do
   it { should belong_to(:demo) }
   it { should belong_to(:creator) }
   it { should have_many(:rule_triggers) }
+  it { should have_many(:tile_tags) }
   it { should ensure_inclusion_of(:status).in_array(Tile::STATUS) }
 
   describe 'finders based on status' do
