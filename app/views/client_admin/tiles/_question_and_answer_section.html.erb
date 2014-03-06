@@ -11,7 +11,7 @@
         <ul class="answer_option">
           <% if form.object.tile.kind_of?(MultipleChoiceTile) %>
             <% is_correct_answer = (i == form.object.tile.correct_answer_index) %>
-            <li class="option_radio"><%= radio_button_tag "tile_builder_form[correct_answer_index]", i, is_correct_answer, class: 'correct-answer-button answer-part' %></li>
+            <li class="<%= "option_radio" + (is_correct_answer ? " option_selected" : "") %>"><%= radio_button_tag "tile_builder_form[correct_answer_index]", i, is_correct_answer, class: 'correct-answer-button answer-part' %></li>
           <% end %>
           <li class="option_input"><%= text_field_tag "tile_builder_form[answers][]", answer, class: 'answer-field answer-part', maxlength: 50 %></li>
         </ul>
