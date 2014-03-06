@@ -4,7 +4,7 @@ feature 'Creates tile' do
   let (:client_admin) { FactoryGirl.create(:client_admin)}
   let (:demo)         { client_admin.demo }
 
-  def fill_in_valid_form_entries
+  def fill_in_valid_form_entries(click_answer = 1)
     attach_file "tile_builder_form[image]", tile_fixture_path('cov1.jpg')
     fill_in "Headline",           with: "Ten pounds of cheese"
     fill_in "Supporting content", with: "Ten pounds of cheese. Yes? Or no?"
@@ -14,7 +14,8 @@ feature 'Creates tile' do
     2.times {click_link "Add another answer"}
     fill_in_answer_field 0, "Me"
     fill_in_answer_field 2, "You"
-    select_correct_answer 2
+
+    click_answer.times { select_correct_answer 2 }
 
     fill_in "Points", with: "23"
 
@@ -124,5 +125,36 @@ feature 'Creates tile' do
 
   scenario "should start with two answer fields, rather than one" do
     page.all(answer_field_selector).should have(2).fields
+  end
+
+  scenario "with a survey", js: true do
+    demo.tiles.should be_empty
+    demo.rules.should be_empty
+
+    fill_in_valid_form_entries(6)
+    click_create_button
+
+    demo.tiles.reload.should have(1).tile
+    new_tile = MultipleChoiceTile.last
+    new_tile.image_file_name.should == 'cov1.jpg'
+    new_tile.thumbnail_file_name.should == 'cov1.jpg'
+    new_tile.headline.should == "Ten pounds of cheese"
+    new_tile.supporting_content.should == "Ten pounds of cheese. Yes? Or no?"
+    new_tile.question.should == "Who rules?"
+    new_tile.link_address.should == "http://www.google.com/foobar"
+    new_tile.correct_answer_index.should == -1
+    new_tile.is_survey?.should == true
+    new_tile.multiple_choice_answers.should == %w(Me You)
+    new_tile.points.should == 23
+    new_tile.should be_archived
+
+    expect_content after_tile_save_message
+    page.find("img[src='#{new_tile.image}']").should be_present
+    %w(headline supporting_content question).each do |string|
+      expect_content new_tile.send(string)
+    end
+
+    expect_content "23 POINTS"
+    new_tile.multiple_choice_answers.each {|answer| expect_content answer}
   end
 end

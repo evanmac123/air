@@ -31,6 +31,7 @@
     <%= javascript_tag do %>
 
       function turnRadioGreen() {
+        $('.option_radio').unbind();
         $('.option_radio').click(function() {
           var radioButton = $(this).find('input:radio');
           if($(this).hasClass('option_selected')){
