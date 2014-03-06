@@ -1,9 +1,0 @@
-#create_tile_modal
-  .row.collapse
-    %h2 Share Using Link
-    = render 'public_board_controls', show_extra_instructions: false
-  .rbox
-    %p You need to activate at least one tile before you can share your board.
-    %br
-    = link_to 'Create Tile', new_client_admin_tile_path, id: 'create_tile_button', class: 'engaged has-tip', data: :tooltip, title: 'Create Tile'
-    = link_to 'Dismiss', '#', id: 'dismiss_create_tile_modal', class: 'disengaged has-tip', data: :tooltip, title: 'Create Tile'

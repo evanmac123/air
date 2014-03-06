@@ -15,7 +15,6 @@
         #next_top_disabled
           .light_button.disengaged Next
     #share_archive
-      //= render partial: 'shared/tiles/tiles_table', locals: {tiles: @archive_tiles, type: :archive}
       %table
         %tbody
           -# Note: To change the number of tiles per row, simply change the "(n)" to whatever your little ol' heart desires
@@ -39,6 +38,6 @@
     -else
       %p
         You successfully activated your tiles. Next, share them with people.
-    = link_to 'Next', '#', id: 'reveal_next_button', class: 'light_button close-reveal-modal'
-    %a.close-reveal-modal ×
+    = link_to 'Next', '#', id: 'reveal_next_button', class: 'light_button close-reveal-modal small'
+    %a.close-reveal-modal &times;
 
