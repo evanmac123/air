@@ -47,6 +47,10 @@ feature "Invite Users Modal" do
         page.should have_css('input.error', visible: true)
       end
     end    
+    scenario "form with no values shows error message" do
+      page.find('#submit_invite_users').click
+      page.should have_content("Please specify at least one invite")
+    end    
     context "inviting users", js: :webkit do
       before do
         $rollout.activate_user(:public_board, client_admin2.demo)
@@ -66,6 +70,7 @@ feature "Invite Users Modal" do
           find_field('user_0_email').set 'hisham@example.com'
           page.find('#submit_invite_users').click
           page.should_not have_css('input.error')
+          page.find('#user_0_email')['class'].include?("valid") .should be_true
           expect_hidden_invite_users_modal
         end
       end
@@ -75,19 +80,41 @@ feature "Invite Users Modal" do
           find_field('user_0_name').set 'Hisham Malik'
           find_field('user_0_email').set 'hisham@example.com'
           page.find('#submit_invite_users').click
-          page.find("#invite_users_send_button").click
+        end
+        scenario "on valid username and email, page displays custom message page" do
+          page.should have_css("#user_invite_message_custom", visible: true)
+        end
+        scenario "custom message page shows email preview" do
+          page.should have_css(".iframe", visible: true)
+          within(".iframe") do
+            page.should have_css("#share_tiles_email_preview_blocker", visible: true)
+          end
+        end
+        scenario "email preview shows updated custom message", js: true do
+          page.find('#users_invite_message').set "this is a custom message "          
+          within("#share_tiles_email_preview") do
+            #TODO needs to find #custom_message in iframe and match the custom message
+#            page.should have_content("this is a custom message")
+          end
         end
         scenario "sends email invite to user via Airbo" do
+          page.find("#invite_users_send_button").click
           crank_dj_clear
           open_email('hisham@example.com')
           current_email['from'].should contain('via Airbo')
         end
         scenario "after clicking send, page shows success message along with share url page" do
+          before do
+            3.times {FactoryGirl.create(:tile, status: Tile::ACTIVE, demo: client_admin.demo)}
+          end
+          page.find("#invite_users_send_button").click
           page.should have_content("Congratulations! You've sent your first tiles.")
           page.should have_css('#success_section', visible: true)
           page.should have_content("You can also share your board using a link")
           page.should have_css('.share_url', visible: true)
-          page.should have_css('#share_archive_custom', count: 1, visible: true)
+          within("#share_active_tile") do
+            page.find(".active").should have_css('.tile_thumbnail', visible: true, count: 1)
+          end
         end
       end
     end

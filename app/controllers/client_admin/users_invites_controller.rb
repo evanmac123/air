@@ -21,10 +21,12 @@ class ClientAdmin::UsersInvitesController < ClientAdminBaseController
     @user  = User.new(name: 'Invited User')
     @tiles = @demo.digest_tiles.order('activated_at DESC')
     @follow_up_email = false
+    @onboarding_email = true
     @custom_message = 'Check out my new board!'
     @title = "Join my #{@demo.name} board"
     @invitation_url = @user.claimed? ? nil : invitation_url(@user.invitation_code, protocol: email_link_protocol, host: email_link_host)    
+      
 
-    render partial: 'shared/notify_one'
+    render partial: 'shared/notify_one', locals: {email_heading: "Join my #{@demo.name} board"}
   end
 end

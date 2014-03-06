@@ -4,7 +4,7 @@
       = form.fields_for "users[]", user do |user_fields|
         %section.invite-user
           %ul.info-cols
-            %li
+            %li{id:"invite_user_li_#{index}"}
               = user_fields.text_field :name, placeholder: "Name", class:'name', id:"user_#{index}_name", size:"51"
               = user_fields.text_field :email, placeholder: "Email", class: 'email', id:"user_#{index}_email", size:"51"
   .clearfix
@@ -20,6 +20,6 @@
   #form_buttons.large-12.columns
     .right
       = link_to 'Skip', '#', id: 'skip_invite_users', data: :tooltip
-      = link_to 'Next', '#', id: 'submit_invite_users', class: 'engaged has-tip', data: :tooltip    
+      = link_to 'Next', '#', id: 'submit_invite_users', class: 'engaged'
     .left
-      = link_to "Back", "#", class: 'engaged has-tip history_back page_1', data: :tooltip, style: "#{show_back_button ? '':'display:none'}"
+      = link_to "Back", "#", class: 'engaged history_back page_1', style: "#{show_back_button ? '':'display:none'}"

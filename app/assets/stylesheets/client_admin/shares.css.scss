@@ -1,130 +1,150 @@
 @import "mixins/lightbox.css.scss";
 
 .client_admin-shares-show {
-  
+
+  .info-cols{
+    .error{
+      width: 488px;
+      -webkit-border-radius: 0;
+    }
+    .alert-box {
+      position: absolute;
+      margin-top: -72px;
+      font-weight: normal;
+    }
+  }
+
   #next_top_disabled, #next_bottom_disabled{
-      .light_button{
-          @include light-button($gray);
-      }
+    .light_button{
+      @include light-button($gray);
+    }
   }
 
   #no_tiles_digest, #activate_tiles_digest, #success_share_digest, #success_share_url{
     h1{
-        text-align: center;
+      text-align: center;
     }
   }
   #share_tiles_digest{
     .invite_users_header_page_1, .invite_users_header_page_2{ 
-        h1{
-            text-align: center;
-        }
-     }
+      h1{
+        text-align: center;
+      }
+    }
   }
 
-  .history_back{
-      @include light-button($blue);
+  .history_back {
+    @include light-button($blue);
   }
 
-  #share_active_tile{
-      position: absolute;
-      margin-left: 75px;
-      margin-top: -445px;
-      z-index: 9;
-      color: #4FAA60;
+  .checked_activated_tile {
+    position: absolute;
+    //margin-left: 194px;
+    margin-left: 75px;
+    z-index: 20;
+    color: #4FAA60;
   }
 
   .arrow_image_left{
-      position: absolute;
-      margin-left: 110px;
-      margin-top: -25px;
-      z-index: 9;
+    position: absolute;
+    margin-left: 110px;
+    margin-top: -25px;
+    z-index: 9;
   }
 
   .arrow_image_right{
-      position: absolute;
-      margin-left: -189px;
-      margin-top: 363px;
-      z-index: 9;
+    position: absolute;
+    margin-left: -189px;
+    margin-top: -125px;
+    z-index: 9;
   }
 
   #reveal_next_button{
-      position: relative;
-      float: right;
-      margin-right: -28px;
-      margin-top: 0px;
+    font-size: 16px;
+    position: relative;
+    float: right;
+    margin-right: -28px;
+    margin-top: 0px;
   }
 
   #share_link a{
-      padding-top: 20px;
-      padding-left: 40px;
-      padding-right: 40px;
-      padding-bottom: 100px;
+    padding-top: 20px;
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-bottom: 100px;
   }
 
   #users_invite_message{
-      height: 70px;
+    height: 70px;
   }
 
   #form_buttons{
-      padding-top: 30px;
+    padding-top: 30px;
   }
 
   #message_buttons_custom{
-      text-align: center;
-      padding-top: 30px;
+    text-align: center;
+    padding-top: 30px;
   }
 
   #add_another_user_invite{
-      color: #62AD51;    
+    color: #62AD51;    
   }
 
   #invite_images{
-      text-align: center;
-      position: relative;
-      margin: auto;
-      padding-top: 100px;
-      padding-bottom: 100px;
+    text-align: center;
+    position: relative;
+    margin: auto;
+    padding-top: 100px;
+    padding-bottom: 100px;
   }
 
   #user_invite_message_custom{
 
-      background-color: #ECECEC;
-      padding: 10px 10px 20px 10px;
-      margin-bottom: 50px;
+    background-color: #ECECEC;
+    padding: 10px 10px 20px 10px;
+    margin-bottom: 50px;
   } 
 
-  #share_archive {
-      background-color: #ECECEC;
-      margin-top: 15px;
-      margin-left: 60px;
-      margin-right: 60px;
-      margin-right: 60px;
-      padding: 15px 0 0 10px;
+  #share_active_tile{
+    margin: auto;
+    width: 24%;
+    background-color: #ECECEC;
+    padding-left: 10px;
+  }
+
+  #share_archive{
+    background-color: #ECECEC;
+    margin-top: 15px;
+    margin-left: 60px;
+    margin-right: 60px;
+    margin-right: 60px;
+    padding: 15px 0 0 10px;
   }
 
   #tile_message{
-      margin-top: 30px;
-      margin-bottom: 30px;
-      font-size: 20px;
-      color: #62AD51;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    font-size: 20px;
+    color: #62AD51;
   }
 
   .send_button {
-      margin-top: 20px;
-      font-weight: bold;
-      color: #4E6687;
+    margin-top: 20px;
+    font-weight: bold;
+    color: #4E6687;
   }
 
   #create_tile_link {
-      margin-top: 30px;
-      margin-bottom: 30px;
+    margin-top: 30px;
+    margin-bottom: 30px;
   }
 
   #message_div{
-      text-align: center;
-      position: relative;
-      margin: auto;
-      line-height: 40px;
+    text-align: center;
+    position: relative;
+    margin: auto;
+    line-height: 40px;
   }
 
   #invite_users_modal {
@@ -153,22 +173,22 @@
       }    
     }
     .info-cols li{
-          background-color: #ECECEC;
-          padding: 10px;
-          float:left;
-          margin:20px;
-          margin-bottom:0;
+      background-color: #ECECEC;
+      padding: 10px;
+      float:left;
+      margin:20px;
+      margin-bottom:0;
     }
     .move-right {
-            text-align:right;
-            margin-right:35px;
-            margin-bottom:20px;	
+      text-align:right;
+      margin-right:35px;
+      margin-bottom:20px;	
     }
     .blue {
-            color:#50698c !important;	
+      color:#50698c !important;	
     }
     .blue:hover {
-            text-decoration:underline !important;	
+      text-decoration:underline !important;	
     }
     .error_cross {
       &:before {
@@ -181,15 +201,15 @@
         font-weight: normal;
         text-align: center;
         text-decoration: inherit;
-      /*--adjust as necessary--*/
+        /*--adjust as necessary--*/
         display: block;
-  /*      position: absolute;*/
+        /*      position: absolute;*/
         color: $dark-green;
         font-size: 36px;
         line-height: 1.1em;
         padding-top: 1px;
-  /*      top: -5px;
-        right: -5px;      */
+        /*      top: -5px;
+              right: -5px;      */
         width: 1.15em;
       }        
     }
@@ -213,8 +233,8 @@
   }
 
   #progress{
-      float:left;
-      margin-top: 17px;
+    float:left;
+    margin-top: 17px;
     &.share_progress {
       @include progress-container;
       @include radius(6px);
@@ -228,16 +248,16 @@
 
 
 #public_board_field{
-    margin-bottom: 50px;
+  margin-bottom: 50px;
 }
 
 
 .archive{
-    padding: 4px 10px 15px 10px;
+  padding: 4px 10px 15px 10px;
 }
 
 .light_button{
-    @include light-button($dark-green);
+  @include light-button($dark-green);
 }
 
 

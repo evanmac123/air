@@ -107,7 +107,9 @@
   // sharing styles with Active tiles manager (in client_admin/tiles)
   margin-top:4em;
   padding:3em 0;
-  .digest {width:25%;}
+  .columns {
+    padding-left: 2em;
+  }
 }
 
 #public_board {
