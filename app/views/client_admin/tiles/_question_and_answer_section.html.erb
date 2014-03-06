@@ -33,10 +33,14 @@
       function turnRadioGreen() {
         $('.option_radio').click(function() {
           var radioButton = $(this).find('input:radio');
-
-          $('.option_radio').removeClass('option_selected');  
-          radioButton.attr('checked','true');
-          $(this).addClass('option_selected');  
+          if($(this).hasClass('option_selected')){
+            $('.option_radio').removeClass('option_selected');  
+            radioButton.prop('checked', false);
+          }else {
+            $('.option_radio').removeClass('option_selected');  
+            radioButton.attr('checked','true');
+            $(this).addClass('option_selected');
+          }  
         });
       };
 
