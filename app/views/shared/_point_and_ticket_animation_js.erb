@@ -1,5 +1,3 @@
-<% load_next_tile ||= false %>
-
 var animateCounter = function(domID, previous, current, duration, callback) {
   var counter = new countUp(domID, previous, current, 0, duration);
   counter.useEasing = false;
@@ -16,28 +14,29 @@ var animateCounter = function(domID, previous, current, duration, callback) {
 
 var progressBar = $('#completed_progress');
 
-var fillBarToFinalPercentage = function(callback) {
+var fillBarToFinalPercentage = function(finalPercentage, allTilesDone, callback) {
   progressBar.addClass('counting');
-  progressBar.animate({width: '<%= master_bar_ending_percentage %>'}, 750, 'linear', function() {
+  progressBar.animate({width: finalPercentage}, 750, 'linear', function() {
     progressBar.removeClass('counting');
     if(typeof(callback) === 'function') {
       callback();
     } 
-    loadFollowingTile()
+
+    if(!allTilesDone) {
+      loadFollowingTile()
+    }
   });
 };
 
 var loadFollowingTile = function() {
-  if(<%= load_next_tile %>) {
-    loadNextTileWithOffset(1);
-  }
+  loadNextTileWithOffset(1);
 }
 
-var fillBarEntirely = function(callback) {
+var fillBarEntirely = function(previousTickets, currentTickets, finalPercentage, allTilesDone) {
   var emptyBarCallback = function() {
     progressBar.css('width', '0%');
-    fillBarToFinalPercentage(function() {
-      animateCounter('user_tickets', <%= flash[:previous_tickets] %>, <%= current_user.tickets %>, 0.1)
+    fillBarToFinalPercentage(finalPercentage, allTilesDone, function() {
+      animateCounter('user_tickets', previousTickets, currentTickets, 0.1)
     });
   }
 
@@ -45,14 +44,11 @@ var fillBarEntirely = function(callback) {
   progressBar.animate({width: '100%'}, 750, 'linear', emptyBarCallback);
 };
 
-var ticketsIncreased = <%= flash[:previous_tickets].to_i < current_user.tickets %>;
-
-var barFiller;
-if(ticketsIncreased) {
-  barFiller = fillBarEntirely;
-} else {
-  barFiller = fillBarToFinalPercentage; 
+var fillBar = function(previousTickets, currentTickets, finalPercentage, allTilesDone) {
+  var ticketsIncreased = (previousTickets < currentTickets);
+  if(ticketsIncreased) {
+    fillBarEntirely(previousTickets, currentTickets, finalPercentage, allTilesDone);
+  } else {
+    fillBarToFinalPercentage(finalPercentage, allTilesDone); 
+  }
 }
-
-animateCounter('user_points', <%= flash[:previous_points] %>, <%= current_user.points %>, 0.5);
-barFiller();

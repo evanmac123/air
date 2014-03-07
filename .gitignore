@@ -53,3 +53,4 @@ libpeerconnection.log
 turbulence/*
 repeatedly_spec.rb
 repeatedly_test.rb
+first_bad_commit

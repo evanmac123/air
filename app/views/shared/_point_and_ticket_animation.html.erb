@@ -1,9 +1,0 @@
-<%= content_for :javascript do %>
-  <% if flash[:previous_points].present? && flash[:previous_tickets].present? && current_user.present? %>
-    <%= javascript_tag do %>
-      $(function() {
-        <%= render "shared/point_and_ticket_animation_js"%>
-      });
-    <% end %>
-  <% end %>
-<% end %>
