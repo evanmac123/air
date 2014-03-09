@@ -74,11 +74,19 @@ class Demo < ActiveRecord::Base
   end
 
   def archive_tiles_with_placeholders
-    add_odd_row_placeholders! archive_tiles_with_creation_placeholder
+    add_odd_row_placeholders! archive_tiles
   end
 
   def active_tiles_with_placeholders
     add_odd_row_placeholders! active_tiles
+  end
+
+  def draft_tiles_with_placeholders
+    add_odd_row_placeholders! draft_tiles_with_creation_placeholder
+  end
+
+  def draft_tiles_with_creation_placeholder
+    [TileCreationPlaceholder.new] + draft_tiles
   end
 
   def draft_tiles

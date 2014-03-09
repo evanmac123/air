@@ -7,12 +7,14 @@
 @import 'tile_preview';
 
 
-body.client_admin-tiles-index, body.client_admin-inactive_tiles, 
+body.client_admin-tiles-index, body.client_admin-inactive_tiles,
+body.client_admin-tiles-index, body.client_admin-draft_tiles, 
 body.client_admin-shares {
   .tile_thumbnail {width:100%;}
 }
 
-body.client_admin-tiles-index, body.client_admin-inactive_tiles {
+body.client_admin-tiles-index, body.client_admin-inactive_tiles,
+body.client_admin-draft_tiles {
   
   // Tile management sections
   .content {background:$blue;}
@@ -32,7 +34,7 @@ body.client_admin-tiles-index, body.client_admin-inactive_tiles {
     }
     .no_tiles_message {margin:0 auto 3em;}
   }
-  #archived_tiles {
+  #archived_tiles, #draft_tiles {
     background:$blue;
     h2, .all_inactive {display: inline-block;}
     .tile_thumbnail.placeholder_tile {border-color:lighten($blue, 13%);}
@@ -43,7 +45,8 @@ body.client_admin-tiles-index, body.client_admin-inactive_tiles {
     h2 {
       color:$white;
     }
-    .all_inactive {
+    .all_inactive, .all_draft
+     {
       @include light-button($dark-green);
       // font-size:.875em;
       @include caption;
@@ -59,6 +62,7 @@ body.client_admin-tiles-index, body.client_admin-inactive_tiles {
 
 body.client_admin-tiles-index #active_tiles, 
 body.client_admin-inactive_tiles #active_tiles,
+body.client_admin-draft_tiles #active_tiles,
 .tiles_to_be_shared {
   background: $tile-wall-bg;
   h2 {color:$text-color;}

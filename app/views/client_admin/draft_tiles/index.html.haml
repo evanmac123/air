@@ -1,0 +1,9 @@
+.row
+  .large-12.columns= render partial: 'client_admin/tiles/tiles_tools_subnav'
+
+%section.manage_tiles#draft_tiles
+  .row
+    .large-12.columns
+      %h2 All Draft
+      = link_to "Minimize section", client_admin_tiles_path, :class => :all_draft
+      = render partial: "shared/tiles/draft"

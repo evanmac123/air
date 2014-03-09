@@ -32,12 +32,14 @@
 }
 // Div lines for Manage Tiles page
 body.client_admin-tiles-index #tile_manager_nav ul li a,
-body.client_admin-inactive_tiles-index #tile_manager_nav ul a {border-color:$blue;}
+body.client_admin-inactive_tiles-index #tile_manager_nav ul a,
+body.client_admin-draft_tiles #tile_manager_nav ul a {border-color:$blue;}
 
 // Current page states
 body.client_admin-tiles-index #tile_manager_nav ul li#managing_tiles a,
 body.client_admin-tile_completions-index #tile_manager_nav ul li#managing_tiles a,
 body.client_admin-inactive_tiles-index #tile_manager_nav ul li#managing_tiles a,
+body.client_admin-draft_tiles-index #tile_manager_nav ul li#managing_tiles a,
 body.client_admins-show #tile_manager_nav ul li#board_activity a,
 body.client_admin-shares #tile_manager_nav ul li#share_tiles a,
 body.client_admin-users-index #tile_manager_nav ul li#users a,

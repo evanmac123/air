@@ -7,7 +7,12 @@ class TileFooterTimestamper
   end
 
   def footer_timestamp
-    if tile.activated_at.nil?
+    if tile.status == Tile::DRAFT
+      spanned_text(
+        "Created: " + tile.created_at.strftime('%-m/%-d/%Y'),
+          "tile-created-at")
+    elsif
+      tile.activated_at.nil?
       spanned_text("Never activated")
     elsif tile.status == Tile::ARCHIVE
       [

@@ -1,0 +1,2 @@
+module ClientAdmin::DraftTilesHelper
+end

@@ -1,6 +1,22 @@
 .row
   .large-12.columns= render partial: 'tiles_tools_subnav'
 
+%section.manage_tiles#draft_tiles
+  .row
+    .large-12.columns
+      %h2 Draft
+      = link_to "Show all", client_admin_draft_tiles_path, :class => :all_draft
+
+      %div#draft= render partial: 'shared/tiles/draft'
+
+
+%section.manage_tiles#active_tiles
+  .row
+    .large-12.columns
+      %h2 Active
+      = link_to "Download stats", client_admin_tiles_report_path(report: Tile::ACTIVE, format: "csv"), class: "download_csv small_button"
+      %div#active=  render partial: 'active'
+
 %section.manage_tiles#archived_tiles
   .row
     .large-12.columns
@@ -9,15 +25,6 @@
       = link_to "Download stats", client_admin_tiles_report_path(report: Tile::ARCHIVE, format: "csv"), class: 'download_csv small_button'
 
       %div#archive= render partial: 'shared/tiles/archive'
-
-  
-
-%section.manage_tiles#active_tiles
-  .row
-    .large-12.columns
-      %h2 Active
-      = link_to "Download stats", client_admin_tiles_report_path(report: Tile::ACTIVE, format: "csv"), class: "download_csv small_button"
-      %div#active=  render partial: 'active'
 
 - timeout_in_msecs = ThumbnailsController::THUMBNAIL_POLL_DELAY * 1000
 - content_for :javascript do

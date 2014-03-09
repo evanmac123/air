@@ -1,11 +1,12 @@
 - unless @suppress_tile_stats
   .tile_stats
     .activation_dates= footer_timestamp(tile)
-    .completions 
-      Completed:
-      = link_to("#{pluralize(tile.completion_count, 'user')}", 
-            client_admin_tile_tile_completions_path(tile))
-    .completion_percentage
-      Completed:
-      = number_to_percentage tile.claimed_completion_percentage, precision: 1
-      of joined users
+    - unless tile.status == Tile::DRAFT
+      .completions 
+        Completed:
+        = link_to("#{pluralize(tile.completion_count, 'user')}", 
+              client_admin_tile_tile_completions_path(tile))
+      .completion_percentage
+        Completed:
+        = number_to_percentage tile.claimed_completion_percentage, precision: 1
+        of joined users

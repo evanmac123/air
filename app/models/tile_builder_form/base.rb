@@ -107,7 +107,7 @@ module TileBuilderForm
       set_tile_attributes
       set_tile_creator
       @tile.position = Tile.next_position(@demo)
-      @tile.status = Tile::ARCHIVE
+      @tile.status = Tile::DRAFT
     end
 
     def update_tile

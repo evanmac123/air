@@ -1,0 +1,4 @@
+- if @draft_tiles.empty?
+  %div.no_tiles_message There are no draft tiles.
+- else
+  = render partial: 'shared/tiles/tiles_table', locals: {tiles: @draft_tiles, type: :draft}
