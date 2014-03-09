@@ -156,6 +156,10 @@ class Tile < ActiveRecord::Base
     self.status == ARCHIVE
   end
 
+  def draft?
+    self.status == DRAFT
+  end
+
   def is_survey?
     correct_answer_index == -1
   end

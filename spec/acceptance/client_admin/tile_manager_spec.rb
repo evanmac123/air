@@ -19,11 +19,15 @@ feature 'Client admin and the digest email for tiles' do
   end
 
   def have_archive_link_for(tile)
-    have_link 'Deactivate', href: client_admin_tile_path(tile, update_status: Tile::ARCHIVE)
+    have_link 'Archive', href: client_admin_tile_path(tile, update_status: Tile::ARCHIVE)
   end
 
   def have_activate_link_for(tile)
-    have_link 'Activate', href: client_admin_tile_path(tile, update_status: Tile::ACTIVE)
+    have_link 'Post', href: client_admin_tile_path(tile, update_status: Tile::ACTIVE)
+  end
+
+  def have_reactivate_link_for(tile)
+    have_link 'Post again', href: client_admin_tile_path(tile, update_status: Tile::ACTIVE)
   end
 
   def have_edit_link_for(tile)
@@ -46,8 +50,16 @@ feature 'Client admin and the digest email for tiles' do
     expect_tile_placeholders("active", expected_count)
   end
 
+  def expect_draft_tile_placeholders(expected_count)
+    expect_tile_placeholders("draft", expected_count)
+  end 
+
   def expect_all_inactive_tile_placeholders(expected_count)
     expect_tile_placeholders("archived_tiles", expected_count)
+  end
+
+  def expect_all_draft_tile_placeholders(expected_count)
+    expect_tile_placeholders("draft_tiles", expected_count)
   end
 
   # -------------------------------------------------
@@ -138,7 +150,7 @@ feature 'Client admin and the digest email for tiles' do
 
         kill.archived_at.should be_nil
 
-        active_tab.find(:tile, kill).click_link('Deactivate')
+        active_tab.find(:tile, kill).click_link('Archive')
         page.should contain "The #{kill.headline} tile has been archived"
 
         kill.reload.archived_at.sec.should be_within(1).of(Time.now.sec)
@@ -152,7 +164,7 @@ feature 'Client admin and the digest email for tiles' do
         # Do it one more time to make sure that the most-recently archived tile appears first in the list
         knife.archived_at.should be_nil
 
-        active_tab.find(:tile, knife).click_link('Deactivate')
+        active_tab.find(:tile, knife).click_link('Archive')
         page.should contain "The #{knife.headline} tile has been archived"
 
         knife.reload.archived_at.sec.should be_within(1).of(Time.now.sec)
@@ -173,8 +185,8 @@ feature 'Client admin and the digest email for tiles' do
         active_tab.should  have_num_tiles(0)
         archive_tab.should have_num_tiles(3)
 
-        archive_tab.find(:tile, kill).click_link('Activate')
-        page.should contain "The #{kill.headline} tile has been activated"
+        archive_tab.find(:tile, kill).click_link('Post again')
+        page.should contain "The #{kill.headline} tile has been published"
 
         kill.reload.activated_at.sec.should be_within(1).of(Time.now.sec)
 
@@ -185,8 +197,8 @@ feature 'Client admin and the digest email for tiles' do
         archive_tab.should have_num_tiles(2)
 
         # Do it one more time to make sure that the most-recently activated tile appears first in the list
-        archive_tab.find(:tile, knife).click_link('Activate')
-        page.should contain "The #{knife.headline} tile has been activated"
+        archive_tab.find(:tile, knife).click_link('Post again')
+        page.should contain "The #{knife.headline} tile has been published"
 
         knife.reload.activated_at.sec.should be_within(1).of(Time.now.sec)
 
@@ -231,8 +243,8 @@ feature 'Client admin and the digest email for tiles' do
       archive_time = Time.now
       expected_tile_table =
         [ 
-          [new_tile_placeholder_text, "Tile 9", "Tile 7", "Tile 5"],
-          ["Tile 3", "Tile 1", "Tile 8", "Tile 6"]
+          ["Tile 9", "Tile 7", "Tile 5", "Tile 3"], 
+          ["Tile 1", "Tile 8", "Tile 6", "Tile 4"]
         ]
       demo.tiles.update_all status: Tile::ARCHIVE
       demo.tiles.where(archived_at: nil).each{|tile| tile.update_attributes(archived_at: tile.created_at)}
@@ -252,34 +264,34 @@ feature 'Client admin and the digest email for tiles' do
   it "pads odd rows, in both the inactive and active sections, with blank placeholder cells, so the table comes out right" do
     visit tile_manager_page
 
-    # No tiles, except the "Add Tile" placeholder in the inactive section, sooooooo...
-    expect_inactive_tile_placeholders(3)
+    # No tiles, except the "Add Tile" placeholder in the draft section, sooooooo...
+    expect_draft_tile_placeholders(3)
 
-    FactoryGirl.create(:tile, :archived, demo_id: admin.demo_id)
+    FactoryGirl.create(:tile, :draft, demo_id: admin.demo_id)
     visit tile_manager_page
-    expect_inactive_tile_placeholders(2)
+    expect_draft_tile_placeholders(2)
 
-    FactoryGirl.create(:tile, :archived, demo_id: admin.demo_id)
+    FactoryGirl.create(:tile, :draft, demo_id: admin.demo_id)
     visit tile_manager_page
-    expect_inactive_tile_placeholders(1)
+    expect_draft_tile_placeholders(1)
 
-    FactoryGirl.create(:tile, :archived, demo_id: admin.demo_id)
+    FactoryGirl.create(:tile, :draft, demo_id: admin.demo_id)
     visit tile_manager_page
-    expect_inactive_tile_placeholders(0)
+    expect_draft_tile_placeholders(0)
 
-    FactoryGirl.create(:tile, :archived, demo_id: admin.demo_id)
+    FactoryGirl.create(:tile, :draft, demo_id: admin.demo_id)
     visit tile_manager_page
-    expect_inactive_tile_placeholders(3)
+    expect_draft_tile_placeholders(3)
 
-    4.times { FactoryGirl.create(:tile, :archived, demo_id: admin.demo_id) }
+    4.times { FactoryGirl.create(:tile, :draft, demo_id: admin.demo_id) }
 
-    # There's now the creation placeholder, plus eight other archived tiles.
+    # There's now the creation placeholder, plus eight other draft tiles.
     # If we DID show all of them, there's be an odd row with 1 tile, and we'd
-    # expect 3 placeholders. But we only show the first 8 archive tiles
+    # expect 3 placeholders. But we only show the first 8 draft tiles
     # (really the first 7 + creation placeholder) and those two rows are full 
     # now, so...
     visit tile_manager_page
-    expect_inactive_tile_placeholders(0)
+    expect_draft_tile_placeholders(0)
 
     # And now let's do the active ones
     expect_active_tile_placeholders(0)
@@ -304,7 +316,60 @@ feature 'Client admin and the digest email for tiles' do
     visit tile_manager_page
     expect_active_tile_placeholders(3)
 
-    # And now let's look at the full megillah of inactive tiles
+    #And now let's look at archived sction(It's similiar to active)
+    expect_inactive_tile_placeholders(0)
+
+    FactoryGirl.create(:tile, :archived, demo_id: admin.demo_id)
+    visit tile_manager_page
+    expect_inactive_tile_placeholders(3)
+
+    FactoryGirl.create(:tile, :archived, demo_id: admin.demo_id)
+    visit tile_manager_page
+    expect_inactive_tile_placeholders(2)
+
+    FactoryGirl.create(:tile, :archived, demo_id: admin.demo_id)
+    visit tile_manager_page
+    expect_inactive_tile_placeholders(1)
+
+    FactoryGirl.create(:tile, :archived, demo_id: admin.demo_id)
+    visit tile_manager_page
+    expect_inactive_tile_placeholders(0)
+
+    FactoryGirl.create(:tile, :archived, demo_id: admin.demo_id)
+    visit tile_manager_page
+    expect_inactive_tile_placeholders(3)
+
+    4.times { FactoryGirl.create(:tile, :archived, demo_id: admin.demo_id) }
+
+    # There's now the creation placeholder, plus eight other archived tiles.
+    # If we DID show all of them, there's be an odd row with 1 tile, and we'd
+    # expect 3 placeholders. But we only show the first 8 archive tiles
+    # and those two rows are full 
+    # now, so...
+    visit tile_manager_page
+    expect_inactive_tile_placeholders(0)
+
+    # And now let's look at the full megillah of draft tiles
+    visit client_admin_draft_tiles_path
+    expect_all_draft_tile_placeholders(3)
+
+    Tile.draft.last.destroy
+    visit client_admin_draft_tiles_path
+    expect_all_draft_tile_placeholders(0)
+
+    Tile.draft.last.destroy
+    visit client_admin_draft_tiles_path
+    expect_all_draft_tile_placeholders(1)
+
+    Tile.draft.last.destroy
+    visit client_admin_draft_tiles_path
+    expect_all_draft_tile_placeholders(2)
+
+    Tile.draft.last.destroy
+    visit client_admin_draft_tiles_path
+    expect_all_draft_tile_placeholders(3)
+
+    # And now let's look at the full megillah of archived tiles
     visit client_admin_inactive_tiles_path
     expect_all_inactive_tile_placeholders(3)
 

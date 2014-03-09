@@ -62,8 +62,8 @@ class ClientAdmin::TilesController < ClientAdminBaseController
       success = 'archived'
       failure = 'archiving'
     else
-      success = 'activated'
-      failure = 'activating'
+      success = 'published'
+      failure = 'publishing'
     end
     [success, failure]
   end

@@ -185,6 +185,10 @@ FactoryGirl.define do
     trait :active do
       status Tile::ACTIVE
     end
+
+    trait :draft do
+      status Tile::DRAFT
+    end
   end
 
   # Simple alias of :tile to :old_school_tile

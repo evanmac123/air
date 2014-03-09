@@ -9,11 +9,11 @@ feature 'client admin views tiles reports' do
   end
 
   def click_download_active_link
-    download_links.last.click
+    download_links.first.click
   end
 
   def click_download_archive_link
-    download_links.first.click
+    download_links.last.click
   end
 
   describe 'Tile reports contain the correct information, and appear in reverse-chronological order by activation/archived-date' do

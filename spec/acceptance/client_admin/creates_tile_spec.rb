@@ -28,7 +28,7 @@ feature 'Creates tile' do
   end
 
   def click_create_button
-    click_button "Create tile"
+    click_button "Save tile"
   end
 
   before do
@@ -52,7 +52,7 @@ feature 'Creates tile' do
     new_tile.correct_answer_index.should == 1
     new_tile.multiple_choice_answers.should == %w(Me You)
     new_tile.points.should == 23
-    new_tile.should be_archived
+    new_tile.should be_draft
 
     expect_content after_tile_save_message
     page.find("img[src='#{new_tile.image}']").should be_present
@@ -72,16 +72,16 @@ feature 'Creates tile' do
     FakeMixpanelTracker.should have_event_matching('Tile - New', client_admin.data_for_mixpanel)
   end
 
-  scenario "does not activate tile after creating it, thus the tile appears at the front of the archive tile list", js: true do
-    create_existing_tiles(demo, Tile::ARCHIVE, 2)
+  scenario "does not activate tile after creating it, thus the tile appears at the front of the draft tile list", js: true do
+    create_existing_tiles(demo, Tile::DRAFT, 2)
 
     create_good_tile
-    Tile.last.should be_archived
+    Tile.last.should be_draft
 
     visit tile_manager_page
 
-    archive_tab.should have_num_tiles(3)
-    archive_tab.should have_first_tile(Tile.last, Tile::ARCHIVE)
+    draft_tab.should have_num_tiles(3)
+   draft_tab.should have_first_tile(Tile.last, Tile::DRAFT)
   end
 
   scenario "shouldn't have active answer links in the preview", js: true do
@@ -97,14 +97,14 @@ feature 'Creates tile' do
   scenario "with incomplete data should give a gentle rebuff", js: true do
     click_create_button
     2.times { click_link "Add another answer" }
-    click_button "Create tile"
+    click_button "Save tile"
 
     demo.tiles.reload.should be_empty
     expect_content "Sorry, we couldn't save this tile: headline can't be blank, supporting content can't be blank, question can't be blank, image is missing, points can't be blank, must have at least one answer."
 
     2.times { click_link "Add another answer" }
     select_correct_answer 1
-    click_button "Create tile"
+    click_button "Save tile"
 
     demo.tiles.reload.should be_empty
     expect_content "Sorry, we couldn't save this tile: headline can't be blank, supporting content can't be blank, question can't be blank, image is missing, points can't be blank, must have at least one answer."
@@ -146,7 +146,7 @@ feature 'Creates tile' do
     new_tile.is_survey?.should == true
     new_tile.multiple_choice_answers.should == %w(Me You)
     new_tile.points.should == 23
-    new_tile.should be_archived
+    new_tile.should be_draft
 
     expect_content after_tile_save_message
     page.find("img[src='#{new_tile.image}']").should be_present

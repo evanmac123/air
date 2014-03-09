@@ -2,11 +2,11 @@ require 'acceptance/acceptance_helper'
 
 feature 'Activates or edits tile from preview page' do
   def activate_link_text
-    "Activate this tile"  
+    "Publish this tile"  
   end
 
   def deactivate_link_text
-    "Deactivate this tile"  
+    "Archive this tile"  
   end
 
   def edit_link_text
@@ -54,7 +54,7 @@ feature 'Activates or edits tile from preview page' do
   end
 
   def expect_activated_content(tile)
-    expect_content "The #{tile.headline} tile has been activated"
+    expect_content "The #{tile.headline} tile has been published"
   end
 
   def expect_deactivated_content(tile)

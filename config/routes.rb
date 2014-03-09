@@ -93,6 +93,7 @@ Health::Application.routes.draw do
     resources :balances
 
     resources :inactive_tiles, only: :index
+    resources :draft_tiles, only: :index
 
     resource :share, only: :show
 

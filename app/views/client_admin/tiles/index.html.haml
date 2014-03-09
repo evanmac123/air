@@ -13,14 +13,14 @@
 %section.manage_tiles#active_tiles
   .row
     .large-12.columns
-      %h2 Active
+      %h2 Posted
       = link_to "Download stats", client_admin_tiles_report_path(report: Tile::ACTIVE, format: "csv"), class: "download_csv small_button"
       %div#active=  render partial: 'active'
 
 %section.manage_tiles#archived_tiles
   .row
     .large-12.columns
-      %h2 Inactive
+      %h2 Archive
       = link_to "Show all", client_admin_inactive_tiles_path, :class => :all_inactive
       = link_to "Download stats", client_admin_tiles_report_path(report: Tile::ARCHIVE, format: "csv"), class: 'download_csv small_button'
 

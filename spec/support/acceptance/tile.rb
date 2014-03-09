@@ -34,7 +34,7 @@ module TileHelpers
   end
 
   def table_content_without_activation_dates(table_selector)
-    table_content(table_selector).map{|row_content| row_content.select(&:present?).map {|cell_content| cell_content.gsub(/ (Activate|Deactivate|Active|Edit)(.*)?$/, '')}}
+    table_content(table_selector).map{|row_content| row_content.select(&:present?).map {|cell_content| cell_content.gsub(/ (Post|Post again|Archive|Active|Edit)(.*)?$/, '')}}
   end
 
   # -------------------------------------------------
@@ -109,6 +109,10 @@ module TileHelpers
 
   def archive_tab
     find("section#archived_tiles")
+  end
+
+  def draft_tab
+    find("section#draft_tiles")
   end
 
   # -------------------------------------------------
