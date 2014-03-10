@@ -37,6 +37,6 @@ feature 'Completes tiles' do
     click_right_answer
     sleep 5
     visit activity_path
-    expect_content "POINTS TO NEXT TICKET 10/20 POINTS"
+    expect_content "TO NEXT TICKET 10/20 POINTS"
   end
 end
