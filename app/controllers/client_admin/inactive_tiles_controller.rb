@@ -1,5 +1,6 @@
 class ClientAdmin::InactiveTilesController < ClientAdminBaseController
   def index
-    @archive_tiles = current_user.demo.archive_tiles_with_placeholders
+    @raw_tiles = current_user.demo.archive_tiles.page(params[:page]).per(12)
+    @archive_tiles = current_user.demo.add_placeholders @raw_tiles
   end
 end

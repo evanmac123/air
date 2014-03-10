@@ -77,6 +77,10 @@ class Demo < ActiveRecord::Base
     add_odd_row_placeholders! archive_tiles
   end
 
+  def archive_tiles_with_placeholders_and_pagination(page)
+    add_odd_row_placeholders! archive_tiles.page(page).per(12)
+  end
+
   def active_tiles_with_placeholders
     add_odd_row_placeholders! active_tiles
   end
@@ -87,6 +91,10 @@ class Demo < ActiveRecord::Base
 
   def draft_tiles_with_creation_placeholder
     [TileCreationPlaceholder.new] + draft_tiles
+  end
+
+  def add_placeholders tiles
+    add_odd_row_placeholders! tiles
   end
 
   def draft_tiles

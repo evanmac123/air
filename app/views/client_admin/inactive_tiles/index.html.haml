@@ -7,3 +7,5 @@
       %h2 All Inactive
       = link_to "Minimize section", client_admin_tiles_path, :class => :all_inactive
       = render partial: "shared/tiles/archive"
+      = paginate @raw_tiles
+      

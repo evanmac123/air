@@ -39,6 +39,7 @@ gem 'rails3_before_render'
 gem 'rollout'
 gem 'font-awesome-rails'
 gem 'wice_grid'
+gem 'kaminari'
 
 # Gems used only for assets and not required
 # in production environments by default.

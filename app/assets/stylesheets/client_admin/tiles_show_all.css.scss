@@ -1,0 +1,9 @@
+.pagination {
+  margin-bottom: 50px;
+  a, span {
+    color: $white;
+  }
+  a:hover {
+    color: $light-gray;
+  }
+}
