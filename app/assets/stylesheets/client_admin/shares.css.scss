@@ -2,18 +2,6 @@
 
 .client_admin-shares-show {
 
-  .info-cols{
-    .error{
-      width: 488px;
-      -webkit-border-radius: 0;
-    }
-    .alert-box {
-      position: absolute;
-      margin-top: -72px;
-      font-weight: normal;
-    }
-  }
-
   #next_top_disabled, #next_bottom_disabled{
     .light_button{
       @include light-button($gray);
@@ -39,10 +27,11 @@
 
   .checked_activated_tile {
     position: absolute;
-    //margin-left: 194px;
-    margin-left: 75px;
+    margin-left: 194px;
+    //margin-left: 75px;
     z-index: 20;
     color: #4FAA60;
+    display: block;
   }
 
   .arrow_image_left{
@@ -146,12 +135,15 @@
     margin: auto;
     line-height: 40px;
   }
-
+  
   #invite_users_modal {
-
     padding:20px;
     .share-user-profile{
       text-align: center;
+    }
+    
+    #skip_invite_users{
+        margin-right: 15px;
     }
 
     #submit_invite_users, #next_button {
@@ -160,7 +152,7 @@
         @include light-button($dark-green);
       }
       &.disengaged {
-        @include app-button($gray);
+        @include light-button($gray);
       }    
     }
     #dismiss_invite_users {
@@ -172,13 +164,27 @@
         @include app-button($gray);
       }    
     }
-    .info-cols li{
-      background-color: #ECECEC;
-      padding: 10px;
-      float:left;
-      margin:20px;
-      margin-bottom:0;
+    .info-cols {
+      li {
+        background-color: #ECECEC;
+        padding: 10px;
+        float: left;
+        margin: 60px 20px 20px 20px;
+      }
+      .error_message {
+        position: absolute;
+        margin-top: -74px;
+        height: 40px;
+        width: 406px;
+        font-weight: normal;        
+        -webkit-border-radius: 0;
+        color: #D12F19;
+      }
+      .error {
+        width: 406px;
+      }
     }
+    
     .move-right {
       text-align:right;
       margin-right:35px;
@@ -214,7 +220,6 @@
       }        
     }
     input.invalid {
-      background-image: url('client_admin/invalid.png');
       background-position: right top;
       background-repeat: no-repeat;
       -moz-box-shadow: none;
@@ -248,7 +253,7 @@
 
 
 #public_board_field{
-  margin-bottom: 50px;
+//  margin-bottom: 50px;
 }
 
 

@@ -7,8 +7,8 @@
       %p#tile_message share your link
       %p#share_link
         = mail_to '', fa_icon('envelope 2x'), subject: 'Shared via Airbo', body: "Check out my board at: #{public_board_url(current_user.demo.public_slug)}", class: 'share email'
-        = show_linkein_share(current_user.demo)
-        = show_facebook_share(current_user.demo)
+        //= show_linkein_share(current_user.demo)
+        //= show_facebook_share(current_user.demo)
         = show_twitter_share(current_user.demo)
       %p#tile_message
         Keep an eye on the activity page and the tile page. You will receive an email the first time someones completes a tile.      

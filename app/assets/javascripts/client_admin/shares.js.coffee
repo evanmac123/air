@@ -4,7 +4,7 @@ $(document).ready ->
     add_fields.find('input').val('')
     add_fields.find('input').removeClass('error').removeClass('invalid').removeClass('valid')
     $('#invite_users_page_1').find('#invite_user_fields').append(add_fields)
-    removeInviteUsersErrorMessage(add_fields)
+    removeInviteUsersErrorMessage(add_fields, 'main')
     false
   )
   
@@ -19,13 +19,13 @@ $(document).ready ->
       $('#share_tiles_email_preview_blocker').width(newwidth + "px")
     return
   )
-  removeInviteUsersErrorMessage = (container) ->
-    container.find('.alert-box').remove()
-  
-  showInviteUsersErrorMessage = (error_message, container) ->
-    div_error = '<div data-alert class="alert-box error" style="display:none;">' + error_message + '<a href="#" class="close">&times;</a></div>'
-    container.prepend(div_error)
-    container.find('.alert-box').show('fast')
+  removeInviteUsersErrorMessage = (container, type) ->
+    container.find('.error_message>.' + type).html('')
+      
+  showInviteUsersErrorMessage = (error_message, container, type) ->
+    #div_error = '<div class="'+ type + '">' + error_message + '</div>'
+    container.find('.error_message>.' + type).html(error_message)#prepend(div_error)
+    $('#submit_invite_users').addClass('disengaged').removeClass('engaged')
     
   #validate invited users
   has_one_entry = false
@@ -61,9 +61,9 @@ $(document).ready ->
           
     #No need for personal message to be validated
     unless has_one_entry
-      showInviteUsersErrorMessage("Please specify at least one invite", $("#invite_users_modal"))
+      showInviteUsersErrorMessage("Please specify at least one invite", $("#invite_users_modal"), 'main')
     else
-      removeInviteUsersErrorMessage($('#share_tiles_digest>').find("#invite_users_modal"))
+      removeInviteUsersErrorMessage($('#share_tiles_digest>').find("#invite_users_modal"), 'main')
     has_one_entry && all_ok
   #submit form
   $('#submit_invite_users').on('click', (event) ->
@@ -143,7 +143,7 @@ $(document).ready ->
       $('#activate_tiles_digest').find('#share_archive>table>tbody>tr>td>div.tile_thumbnail'
       ).prepend("<i class='fa fa-check-circle fa-3x checked_activated_tile'></i>")
     $('#activate_tiles_digest').find('.archive_button').show()
-    $('#activate_tiles_digest').find('.activated_button').hide()
+    $('#activate_tiles_digest').find('.activate_button').hide()
     
     $(this).closest('td>div.tile_thumbnail>i.checked_activated_tile').remove()
     $(this).closest('td>div.tile_thumbnail').prepend("<i class='fa fa-check-circle fa-3x checked_activated_tile'></i>")
@@ -177,7 +177,7 @@ $(document).ready ->
   ).bind "ajax:error", (e, xhr, status, error) ->    
     errors = $.parseJSON(xhr.responseText).errors
     for key,value of errors      
-      showInviteUsersErrorMessage("#{key} - #{value}", $('#share_tiles_digest>').find("#invite_users_modal"))
+      showInviteUsersErrorMessage("#{key} - #{value}", $('#share_tiles_digest>').find("#invite_users_modal"), 'main')
       
   $('#invite_users_page_1').find('.history_back.page_1').on('click', (event) ->
     loadPage0()
@@ -203,16 +203,48 @@ $(document).ready ->
   ).on('keypress', (event) ->
     $('#invite_users_page_2').find('#share_tiles_email_preview').contents().find('#custom_message').html($(this).val())
   )  
-    
+
+############JQuery Validation#################
+  $.validator.addMethod("first_last_name", 
+    (value, element) ->      
+      return this.optional(element) || /\w+\s+\w+/.test(value)
+    , 'Please enter first name and last name'
+  )
+  $.validator.addMethod("remote_validate_email", 
+    (value, element) ->
+      if this.optional(element) || element.value == ''
+        return true
+      else
+        allOk = false
+        $.ajax(
+          url: '/client_admin/validate_email', 
+          data:
+            email: element.value
+          success: (error_message) ->
+            if error_message.match(/\S+/)
+              #got error message
+              showInviteUsersErrorMessage(error_message, $(element).closest('li'), 'email')
+              allOk = false
+            else
+              allOk = true
+            
+          async: false
+        )
+        if allOk
+          $('#submit_invite_users').removeClass('disengaged').addClass('engaged')
+        return allOk
+    , ''
+  )
+  
   $('#share_tiles_digest').find("#invite_users_form").validate
     rules:
       'users_invite[users][][name]':
         minlength: 2
-        required: true
+        first_last_name: true
 
       'users_invite[users][][email]':
-        required: true
         email: true
+        remote_validate_email: true
     onkeyup: false
     highlight: (element, errorClass, validClass) ->
       if element.value.length > 0       
@@ -223,38 +255,25 @@ $(document).ready ->
       return
     unhighlight: (element, errorClass, validClass) ->
       #now check if email is already present if checking email
-      if $(element).hasClass('email') && element.value.length > 2
-        #add spinner where checkmark appears        
-        $(element).removeAttr('style').removeClass('invalid').removeClass('valid').removeClass('error').addClass('waiting')
-        $.ajax(
-          url: '/client_admin/validate_email', 
-          data:
-            email: element.value
-          success: (error_message) ->
-            if error_message.match(/\S+/)
-              #got error message
-              removeInviteUsersErrorMessage($(element).closest('li'))
-              showInviteUsersErrorMessage(error_message, $(element).closest('li'))
-              $(element).parent().get(0)['id']
-              $(element).removeAttr('style').addClass('error').removeClass('valid')#.addClass('invalid')
-            else
-              removeInviteUsersErrorMessage($(element).closest('li'))
-              $(element).removeAttr('style').removeClass('invalid').removeClass('error').addClass('valid')
-          complete: () ->
-            #hide spinner created            
-            $(element).removeClass('waiting')
-
-          #async: false
-        )
-      #only add valid class if there is some data inserted
-      else if element.value.length > 0
-        $(element).removeAttr('style').removeClass('invalid').removeClass('error').addClass('valid')
+      if $(element).hasClass('email')
+        type = 'email'
       else
-        $(element).removeAttr('style').removeClass('invalid').removeClass('error')
-        
+        type = 'name'
+      removeInviteUsersErrorMessage($(element).closest('li'), type)
+      $(element).removeAttr('style').removeClass('invalid').removeClass('valid').removeClass('error')
+      if element.value.length > 0
+        #only add valid class if there is some data inserted
+        $(element).addClass('valid')
+          
       return
     
     errorPlacement: (error, errorElement) ->
+      if $(errorElement).hasClass('email')
+        type = 'email'
+      else
+        type = 'name'
+      if error.text() != ''
+        showInviteUsersErrorMessage(error.text(), $(errorElement).closest('li'), type)
       return
 
   hideAll = () ->

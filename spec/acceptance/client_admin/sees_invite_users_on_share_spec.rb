@@ -46,11 +46,7 @@ feature "Invite Users Modal" do
         page.find('#submit_invite_users').click
         page.should have_css('input.error', visible: true)
       end
-    end    
-    scenario "form with no values shows error message" do
-      page.find('#submit_invite_users').click
-      page.should have_content("Please specify at least one invite")
-    end    
+    end
     context "inviting users", js: :webkit do
       before do
         $rollout.activate_user(:public_board, client_admin2.demo)
@@ -70,7 +66,6 @@ feature "Invite Users Modal" do
           find_field('user_0_email').set 'hisham@example.com'
           page.find('#submit_invite_users').click
           page.should_not have_css('input.error')
-          page.find('#user_0_email')['class'].include?("valid") .should be_true
           expect_hidden_invite_users_modal
         end
       end
