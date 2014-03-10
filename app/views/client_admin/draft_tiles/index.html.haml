@@ -7,3 +7,5 @@
       %h2 All Draft
       = link_to "Minimize section", client_admin_tiles_path, :class => :all_draft
       = render partial: "shared/tiles/draft"
+      = paginate @raw_tiles
+      
