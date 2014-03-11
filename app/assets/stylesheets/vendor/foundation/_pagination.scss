@@ -11,12 +11,12 @@ $pagination-margin: em-calc(-5) !default;
 $pagination-li-float: $default-float;
 $pagination-li-height: em-calc(24) !default;
 $pagination-li-font-color: #222 !default;
-$pagination-li-font-size: em-calc(14) !default;
+$pagination-li-font-size: em-calc(16) !default;
 $pagination-li-margin: em-calc(5) !default;
 
 // We use these for the pagination anchor links
 $pagination-link-pad: em-calc(1 7 1) !default;
-$pagination-link-font-color: #999 !default;
+$pagination-link-font-color: #fff !default;
 $pagination-link-active-bg: darken(#fff, 10%) !default;
 
 // We use these for disabled anchor links
@@ -25,11 +25,11 @@ $pagination-link-unavailable-font-color: #999 !default;
 $pagination-link-unavailable-bg-active: transparent !default;
 
 // We use these for currently selected anchor links
-$pagination-link-current-background: $primary-color !default;
+$pagination-link-current-background: #4FAA60 !default;
 $pagination-link-current-font-color: #fff !default;
 $pagination-link-current-font-weight: bold !default;
 $pagination-link-current-cursor: default !default;
-$pagination-link-current-active-bg: $primary-color !default;
+$pagination-link-current-active-bg: #4FAA60 !default;
 
 //
 // Pagination Mixin
@@ -52,7 +52,7 @@ $pagination-link-current-active-bg: $primary-color !default;
 
 // Style the current list item. Do not assume that the current item has
 // an anchor <a> element.
-@mixin pagination-current-item($has-anchor: true) {
+@mixin pagination-current-item($has-anchor: false) {
   @if $has-anchor {
     a {
       background: $pagination-link-current-background;

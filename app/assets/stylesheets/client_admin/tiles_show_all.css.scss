@@ -1,9 +1,16 @@
-.pagination {
+#draft_tiles, #archived_tiles{
+  .pagination {
+    margin-bottom: 50px;
+  }
+}
+/*
+ul.pagination {
   margin-bottom: 50px;
-  a, span {
+  a, li{
     color: $white;
   }
   a:hover {
-    color: $light-gray;
+    background: $light-gray;
   }
 }
+*/
