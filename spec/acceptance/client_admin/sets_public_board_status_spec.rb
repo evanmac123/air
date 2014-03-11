@@ -34,19 +34,19 @@ feature "Client admin sets board's public status themself" do
     page.all('#off_toggle.engaged').should be_present
   end
 
-  context "when the board is private" do
+  context "when the board is public" do
     before do
-      client_admin.demo.is_public.should be_false
+      client_admin.demo.is_public.should be_true
       visit client_admin_share_path(as: client_admin)
     end
 
-    it "should tell the user the board's not public" do
-      expect_off_engaged
+    it "should tell the user the board's not private" do
+      expect_on_engaged
     end
 
-    it "should allow the client admin to set it public", js: true do
-      click_on_link
-      expect_on_engaged
+    it "should allow the client admin to set it private", js: true do
+      click_off_link
+      expect_off_engaged
     end
 
     it "should show the public slug regardless" do
@@ -54,9 +54,9 @@ feature "Client admin sets board's public status themself" do
     end
   end
 
-  context "when the board is already public" do
+  context "when the board is already private" do
     before do
-      client_admin.demo.update_attributes(is_public: true)
+      client_admin.demo.update_attributes(is_public: false)
       visit client_admin_share_path(as: client_admin)
     end
 
@@ -65,7 +65,7 @@ feature "Client admin sets board's public status themself" do
     end
 
     it "should look switched on" do
-      expect_on_engaged
+      expect_off_engaged
     end
 
     it "should allow the client admin to switch it off", js: true do

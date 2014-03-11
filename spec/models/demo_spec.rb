@@ -243,4 +243,9 @@ describe Demo, 'on create' do
     d = FactoryGirl.create(:demo)
     d.public_slug.should be_present
   end
+  
+  it 'should be public' do
+    d = FactoryGirl.create(:demo)
+    d.is_public?.should be_true    
+  end
 end
