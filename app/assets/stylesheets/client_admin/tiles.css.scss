@@ -46,18 +46,25 @@ body.client_admin-draft_tiles {
       color:$white;
     }
     .all_inactive, .all_draft
-     {
-      @include light-button($dark-green);
+    {
+      @include light-button($white);
       // font-size:.875em;
       @include caption;
-        position: relative;
-        top:-2px;
-      margin-left:1em;
-      vertical-align: text-bottom;
+      margin: 0 auto;
+      margin-top: -3em;
+      margin-bottom: 3em;
+      display: block;
+      text-align: center;
+      width: 7em;
+      //position: relative;
+      //top:-2px;
+      //margin-left:1em;
+      //vertical-align: text-bottom;
     }
     .tile_thumbnail .tile-wrapper {border: none;}
   }
   #active_tiles {padding:2em 0 0 0;}
+  #archived_tiles {padding:2em 0 0 0;}
 }
 
 body.client_admin-tiles-index #active_tiles, 
