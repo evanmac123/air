@@ -51,7 +51,7 @@ class BoardsController < ApplicationController
 
     if board_saved_successfully && user_saved_successfully
       @user.send_conversion_email
-      sign_in(@user)
+      sign_in(@user, 1)
       schedule_creation_pings(@user)
       redirect_to client_admin_tiles_path
     else

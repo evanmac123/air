@@ -6,6 +6,10 @@ feature 'Makes a board by themself' do
   NEW_CREATOR_PASSWORD = "ojtotallydidit"
   NEW_BOARD_NAME = "Law Offices Of J. Cochran"
 
+  def expiration_message
+    "Your session has expired. Please log back in to continue."
+  end
+  
   def fill_in_valid_form_entries
     fill_in 'user[name]', with: NEW_CREATOR_NAME
     fill_in 'user[email]', with: NEW_CREATOR_EMAIL
@@ -20,7 +24,28 @@ feature 'Makes a board by themself' do
   before do
     visit new_board_path
   end
+  
+  context 'remembers user on login' do
+    before do
+      fill_in_valid_form_entries
+      submit_create_form
+      @new_board = Demo.order("created_at DESC").first
+    end
+    it "signs in and remembers the user" do
+      should_be_on client_admin_tiles_path
+      Timecop.travel(1.month)
+      visit client_admin_tiles_path
+      should_be_on client_admin_tiles_path
+      page.should_not have_content(expiration_message)
 
+      Timecop.travel(10.months)
+      visit client_admin_tiles_path
+      should_be_on client_admin_tiles_path
+      page.should_not have_content(expiration_message)
+      Timecop.return
+    end
+  end
+  
   context 'the happy path' do
     before do
       fill_in_valid_form_entries
@@ -64,6 +89,7 @@ feature 'Makes a board by themself' do
     it 'should leave them on the client admin tile path' do
       should_be_on client_admin_tiles_path
     end
+    
 
     it 'should send a confirmation email to the new creator' do
       crank_dj_clear
@@ -84,6 +110,7 @@ feature 'Makes a board by themself' do
       crank_dj_clear
       FakeMixpanelTracker.should have_event_matching("Creator - New", source: 'marketing page')
     end
+        
   end
 
   context 'when there are problems with the input' do
