@@ -1,5 +1,7 @@
 class TilesController < ApplicationController
   include TileBatchHelper
+  include ActionView::Helpers::NumberHelper
+  include ApplicationHelper
 
   prepend_before_filter :allow_guest_user, :only => [:index, :show]
   before_filter :get_displayable, :only => :index
@@ -62,8 +64,16 @@ class TilesController < ApplicationController
   end
 
   def render_new_tile
-    #add new tiles to the end of the previous tiles
-    render "tiles/_full_size_tile", locals: {tile: current_tile, current_tile_ids: current_tile_ids, overlay_displayed: true}, layout: false
+    render json: {
+      delimited_starting_points: number_with_delimiter(starting_points),
+      ending_points: current_user.points,
+      ending_tickets: current_user.tickets,
+      flash_content: render_to_string('shared/_flashes', layout: false),
+      master_bar_point_content: master_bar_point_content,
+      master_bar_ending_percentage: master_bar_ending_percentage,
+      tile_content: render_to_string("tiles/_full_size_tile", locals: {tile: current_tile, current_tile_ids: current_tile_ids, overlay_displayed: true}, layout: false),
+      all_tiles_done: @all_tiles_done
+    }
   end
   
   def current_tile_ids

@@ -17,11 +17,12 @@ class TileCompletionsController < ApplicationController
     add_start_over_if_guest
 
     session[:display_start_over_button] = true if current_user.is_guest?
-    #flash[:success] = reply(act)
-    respond_to do |format|
-      format.html {redirect_to :back}
-      format.js {decide_if_tiles_can_be_done(Tile.satisfiable_to_user(current_user))}
-    end
+    decide_if_tiles_can_be_done(Tile.satisfiable_to_user(current_user))    
+
+    render json: {
+      starting_points: @starting_points,
+      starting_tickets: @starting_tickets
+    }
   end
 
   protected
@@ -56,8 +57,8 @@ class TileCompletionsController < ApplicationController
   end
 
   def remember_points_and_tickets
-    @previous_points = current_user.points || 0
-    @previous_tickets = current_user.tickets || 0
+    @starting_points = current_user.points || 0
+    @starting_tickets = current_user.tickets || 0
   end
 
   def persist_points_and_tickets
