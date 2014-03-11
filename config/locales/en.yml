@@ -4,8 +4,8 @@ en:
       subject: "Play the game"
   views:
     pagination:
-      first: "First page"
-      last: "Last page"
-      previous: "Previous"
-      next: "Next"
+      first: "&laquo;"
+      last: "&raquo;"
+      previous: "&lsaquo;"
+      next: "&rsaquo;"
       truncate: "..."
