@@ -48,7 +48,6 @@ body.client_admin-draft_tiles {
     .all_inactive, .all_draft
     {
       @include light-button($white);
-      // font-size:.875em;
       @include caption;
       margin: 0 auto;
       margin-top: -3em;
@@ -56,10 +55,15 @@ body.client_admin-draft_tiles {
       display: block;
       text-align: center;
       width: 7em;
-      //position: relative;
-      //top:-2px;
-      //margin-left:1em;
-      //vertical-align: text-bottom;
+    }
+    .minimize {
+      @include light-button($dark-green);
+      // font-size:.875em;
+      @include caption;
+        position: relative;
+        top:-2px;
+      margin-left:1em;
+      vertical-align: text-bottom;
     }
     .tile_thumbnail .tile-wrapper {border: none;}
   }
