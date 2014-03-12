@@ -81,7 +81,7 @@ feature 'Starts over' do
 
         click_link tile.headline
         @tiles[0,2].each do |tile|
-          page.find('.right_multiple_choice_answer').click
+          page.find('.right_multiple_choice_answer:not(.clicked_right_answer)').click
           #answer(tile.correct_answer_index).click
         end
         close_conversion_form
@@ -91,7 +91,7 @@ feature 'Starts over' do
 
         click_link tile.headline
         @tiles[0,2].each do |tile|
-          page.find('.right_multiple_choice_answer').click
+          page.find('.right_multiple_choice_answer:not(.clicked_right_answer)').click
           #answer(tile.correct_answer_index).click
         end
         expect_conversion_form

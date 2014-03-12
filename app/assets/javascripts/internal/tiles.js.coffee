@@ -47,7 +47,14 @@ disableAllAnswers = ->
 
 postTileCompletion = (event) ->
   link = $(event.target)
-  $.post(link.attr('href'))
+  token = $('meta[name="csrf-token"]').attr('content')
+  $.ajax({
+    type: "POST",
+    url: link.attr('href'),
+    headers: {
+      'X-CSRF-Token': token
+    }
+  })
 
 rightAnswerClicked = (event) ->
   posting = postTileCompletion(event)

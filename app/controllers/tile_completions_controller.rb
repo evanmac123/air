@@ -16,7 +16,6 @@ class TileCompletionsController < ApplicationController
     persist_points_and_tickets
     add_start_over_if_guest
 
-    session[:display_start_over_button] = true if current_user.is_guest?
     decide_if_tiles_can_be_done(Tile.satisfiable_to_user(current_user))    
 
     render json: {
