@@ -73,6 +73,8 @@ feature 'Guest user is prompted to convert to real user' do
   end
 
   def submit_conversion_form
+    page.find(conversion_form_selector, visible: true)
+
     within(conversion_form_selector) do
       click_button 'Create account'
     end

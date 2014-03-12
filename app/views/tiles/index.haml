@@ -1,11 +1,9 @@
 = javascript_include_tag 'jquery.lightbox_me'
 
-.container.row
-  - if @all_tiles_done
-    #tiles_done_message
-      %p= done_all_tiles_message
-      = link_to "Return to homepage", (params[:public_slug] ? public_activity_path(params[:public_slug]) : activity_path)
-  - else
+- if @all_tiles_done
+  = render 'all_tiles_done'
+- else
+  .container.row
     .tile_viewer_header
       %p#position.small_cap
         = @current_tile_position_description

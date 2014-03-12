@@ -35,6 +35,7 @@ clearConversionErrors = () ->
   $('#password_error').html('')
 
 conversionFormClosedCallback = (event) ->
+  $('.js_lb_overlay').hide() # should happen automatically, doesn't
   showSaveProgress()
 
 conversionStartCallback = (event) ->

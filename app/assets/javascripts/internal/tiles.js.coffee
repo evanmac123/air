@@ -1,6 +1,12 @@
 grayoutTile = () -> $('#spinner_large').fadeIn('slow')
 ungrayoutTile = () -> $('#spinner_large').fadeOut('slow')
 
+showOrHideStartOverButton = (showFlag) ->
+  if showFlag
+    $('#guest_user_start_over_button').show()
+  else
+    $('#guest_user_start_over_button').hide()
+
 loadNextTileWithOffset = (offset, preloadAnimations, predisplayAnimations, tilePosting) ->
   preloadAnimations ?= $.Deferred().resolve() # dummy animation that's pre-resolved
   tilePosting ?= $.Deferred().resolve()
@@ -15,19 +21,21 @@ loadNextTileWithOffset = (offset, preloadAnimations, predisplayAnimations, tileP
     (data) ->
       $.when(preloadAnimations).then(tilePosting).then ->
         $.when(predisplayAnimations(data, tilePosting)).then ->
-          $('#slideshow').html(data.tile_content)
-          
-          setUpAnswers()
-          $('#position').html($('.tile_holder').data('position'))
-          if $('#slideshow .tile_holder').data('show-conversion-form') == true
+          if data.all_tiles_done == true
+            $('.content').html(data.tile_content)
+            showOrHideStartOverButton(data.show_start_over_button == true)
+
+          else
+            $('#slideshow').html(data.tile_content)
+            setUpAnswers()
+            $('#position').html($('.tile_holder').data('position'))
+            showOrHideStartOverButton($('#slideshow .tile_holder').data('show-start-over') == true)
+
+            ungrayoutTile()
+
+          if data.show_conversion_form == true
             lightboxConversionForm()
 
-          if $('#slideshow .tile_holder').data('show-start-over') == true
-            $('#guest_user_start_over_button').show()
-          else
-            $('#guest_user_start_over_button').hide()
-
-          ungrayoutTile()
   )
 
 attachWrongAnswer = (answerLink, target) ->

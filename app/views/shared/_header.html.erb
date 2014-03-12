@@ -65,16 +65,6 @@
         <li><p class="user_numbers" id="user_tickets"><%= starting_tickets %></p></li>
       </ul>
 
-      <%= content_for :javascript do %>
-        <% if flash[:previous_points].present? && flash[:previous_tickets].present? && current_user.present? %>
-          <%= javascript_tag do %>
-            $(function() {
-              <%#= render "shared/point_and_ticket_animation_js"%>
-            });
-          <% end %>
-        <% end %>
-      <% end %>      
-
       <div id="me_toggle">
         <div class="shadow_overlay"></div>
         <%= default_avatar_tag current_user, :id => :top_avatar, :class => "avatar48" %>

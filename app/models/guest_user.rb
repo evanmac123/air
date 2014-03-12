@@ -156,4 +156,8 @@ class GuestUser < ActiveRecord::Base
   def slug
     "guestuser"
   end
+
+  def can_start_over?
+    tile_completions.first.present?
+  end
 end

@@ -49,9 +49,9 @@ feature 'User views tiles' do
       expect_content "30 PTS"
     end
 
-    scenario 'and sees a helpful message afterwards', js: :webkit do
+    scenario 'and sees a helpful message afterwards', js: true do
       page.find('.right_multiple_choice_answer').click
-      expect_content all_tiles_done_message
+      page.should have_content(all_tiles_done_message)
     end
 
     scenario 'and a ping is sent to Mixpanel', js: :webkit do

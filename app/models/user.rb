@@ -914,6 +914,10 @@ class User < ActiveRecord::Base
     Mailer.delay(run_at: 15.minutes.from_now).congratulate_creator_with_first_completed_tile(self)
   end
 
+  def can_start_over?
+    false
+  end
+
   protected
 
   def downcase_email
