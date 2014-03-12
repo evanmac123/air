@@ -5,7 +5,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     # Update 'status' for tiles with 'start_time' and 'end_time' attributes (before you fetch the different tile groups)
     @demo.activate_tiles_if_showtime
     @demo.archive_tiles_if_curtain_call
-
+    @new_client_admin = @demo.tiles.empty?
     @active_tiles  = @demo.active_tiles_with_placeholders
     @archive_tiles = (@demo.archive_tiles_with_placeholders)[0,8]
     @draft_tiles = (@demo.draft_tiles_with_placeholders)[0,8]

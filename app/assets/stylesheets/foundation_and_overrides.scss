@@ -1,0 +1,9 @@
+$joyride-tip-bg: rgb(255,255,255) !default;
+$joyride-tip-font-color: #000 !default;
+
+@import "./vendor/foundation/_variables.scss";
+@import "./vendor/foundation/_global.scss";
+@import "./vendor/foundation/_pagination.scss";
+@import "./vendor/foundation/_tooltips.scss";
+@import "./vendor/foundation/_joyride.scss";
+@import "./vendor/foundation.min.css.scss";

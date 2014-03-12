@@ -1,9 +1,5 @@
 @import "./vendor/normalize.css.scss";
-@import "./vendor/foundation.min.css.scss";
-@import "./vendor/foundation/_variables.scss";
-@import "./vendor/foundation/_global.scss";
-@import "./vendor/foundation/_pagination.scss";
-@import "./vendor/foundation/_tooltips.scss";
+@import "./foundation_and_overrides.scss";
 @import "./vendor/flutie.css.scss";
 
 @import "font-awesome";
@@ -24,3 +20,5 @@
 @import "./client_admin/user_manager.css.scss";
 @import "./client_admin/payments.css.scss";
 @import "./client_admin/tiles_show_all.css.scss";
+
+

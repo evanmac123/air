@@ -212,6 +212,27 @@ feature 'Client admin and the digest email for tiles' do
       end
     end
   end
+  
+  context "New client admin visits client_admin/tiles page", js: true do    
+    context "when there is no tile in the demo" do
+      before do
+        visit tile_manager_page
+      end
+      scenario "popup appears" do
+        page.should have_css('.joyride-tip-guide', visible: true)
+        page.should have_content "Click the + button to create a new tile. Need ideas? Explore"
+      end
+    end
+    context "when there is atleast one archived tile in demo" do
+      before do
+        FactoryGirl.create :tile, demo_id: admin.demo_id
+        visit tile_manager_page
+      end
+      scenario "popup doesnt appear" do
+        page.should_not have_css('.joyride-tip-guide', visible: true)
+      end
+    end
+  end
 
   describe 'Tiles appear in reverse-chronological order by activation/archived-date and then creation-date' do
     # Chronologically-speaking, creating tiles "up" from 0 to 10 and then checking "down" from 10 to 0
@@ -230,9 +251,9 @@ feature 'Client admin and the digest email for tiles' do
     it "for Active tiles" do
       expected_tile_table =
         [ ["Tile 9", "Tile 7", "Tile 5", "Tile 3"],
-          ["Tile 1", "Tile 8", "Tile 6", "Tile 4"],
-          ["Tile 2", "Tile 0"]
-        ]
+        ["Tile 1", "Tile 8", "Tile 6", "Tile 4"],
+        ["Tile 2", "Tile 0"]
+      ]
       demo.tiles.update_all status: Tile::ACTIVE
 
       visit tile_manager_page
@@ -243,9 +264,9 @@ feature 'Client admin and the digest email for tiles' do
       archive_time = Time.now
       expected_tile_table =
         [ 
-          ["Tile 9", "Tile 7", "Tile 5", "Tile 3"], 
-          ["Tile 1", "Tile 8", "Tile 6", "Tile 4"]
-        ]
+        ["Tile 9", "Tile 7", "Tile 5", "Tile 3"], 
+        ["Tile 1", "Tile 8", "Tile 6", "Tile 4"]
+      ]
       demo.tiles.update_all status: Tile::ARCHIVE
       demo.tiles.where(archived_at: nil).each{|tile| tile.update_attributes(archived_at: tile.created_at)}
 

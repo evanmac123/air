@@ -8,7 +8,6 @@
       %div#draft= render partial: 'shared/tiles/draft'
       = link_to "Show all", client_admin_draft_tiles_path, :class => :all_draft
 
-
 %section.manage_tiles#active_tiles
   .row
     .large-12.columns
@@ -23,8 +22,17 @@
       = link_to "Download stats", client_admin_tiles_report_path(report: Tile::ARCHIVE, format: "csv"), class: 'download_csv small_button'
       %div#archive= render partial: 'shared/tiles/archive'
       = link_to "Show all", client_admin_inactive_tiles_path, :class => :all_inactive
-
 - timeout_in_msecs = ThumbnailsController::THUMBNAIL_POLL_DELAY * 1000
 - content_for :javascript do
   :javascript
     startTileThumbnailPollingFromQueue(#{timeout_in_msecs})
+- if @new_client_admin
+  %ol.joyride-list{"data-joyride" => true}
+    %li{:"data-id"=>"add_new_tile_link", :"data-options"=>"tipLocation:left;nextButton:false"}
+      %p.joyride-top-section
+        Click the
+        <b>+</b>
+        button to create a new tile.
+      %p.joyride-bottom-section
+        Need ideas?
+        = link_to 'Explore', client_admin_explore_path

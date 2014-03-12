@@ -13,6 +13,7 @@
 //= require ./internal/tiles
 
 //= require wice_grid
+//= require ../../../vendor/assets/javascripts/external/foundation.min
 
 $(document).ready(function() {
   var more = "More options";

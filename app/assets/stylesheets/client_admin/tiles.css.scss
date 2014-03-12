@@ -6,6 +6,18 @@
 @import './internal/tiles_fullsize';
 @import 'tile_preview';
 
+.joyride-top-section{
+    font-size: 18px !important;
+}
+
+.joyride-bottom-section{
+    font-size: 14px;
+}
+
+.joyride-tip-guide {
+    margin-top: 90px;
+    margin-left: -78px;
+}
 
 body.client_admin-tiles-index, body.client_admin-inactive_tiles,
 body.client_admin-tiles-index, body.client_admin-draft_tiles, 
