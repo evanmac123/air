@@ -4,7 +4,7 @@
   </div>
 </div>
 
-<% if @new_client_admin %>
+<% if @demo.non_activated? %>
   <%= render partial: 'shared/lock_screen' %>
 <% else %>
   <div class="row">

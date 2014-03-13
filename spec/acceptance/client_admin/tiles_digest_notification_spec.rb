@@ -69,25 +69,8 @@ feature 'Client admin and the digest email for tiles' do
 
   context 'No tiles exist for digest email' do
     before(:each) do
+      FactoryGirl.create :tile, demo: demo
       visit client_admin_share_path(as: admin)
-    end
-
-    scenario 'Text is correct' do
-      page.should contain 'Tiles that you activate will appear here so you can share them with users in a digest email.'
-      page.should_not contain 'No new tiles have been added'
-
-      set_last_sent_on '7/4/2013'
-      visit client_admin_share_path(as: admin)
-
-      page.should contain 'No new tiles have been added since the last digest email you sent on Thursday, July 04, 2013'
-    end
-
-    scenario 'Text and form components are not on the page' do
-      page.should_not contain 'Notify users of new tiles'
-
-      page.should_not have_button 'Send digest now'
-      page.should_not have_select 'digest_send_to'
-      page.should_not have_select 'follow_up_day'
     end
 
     scenario 'Text is correct when no follow-up emails are scheduled to be sent' do

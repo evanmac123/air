@@ -3,6 +3,7 @@ require 'acceptance/acceptance_helper'
 feature 'Adds location through user add form' do
   scenario "by choosing the magic value from the Location select", js: :webkit do
     client_admin = FactoryGirl.create(:client_admin)
+    FactoryGirl.create :tile, demo: client_admin.demo
     visit client_admin_users_path(as: client_admin)
 
     demo = client_admin.demo

@@ -18,6 +18,10 @@ feature 'Edits user' do
                        zip_code:      "02139"
                       )
   end
+  
+  before do
+    FactoryGirl.create :tile, demo: demo
+  end
 
   def expect_name(expected_name)
     page.find("input#user_name").value.should == expected_name

@@ -32,7 +32,9 @@ feature 'Highchart Plot' do
 
   let(:initial_start_date) { (Time.now - 30.days).to_s(:chart_start_end_day) }
   let(:initial_end_date)   { Time.now.to_s(:chart_start_end_day) }
-
+  before do
+    FactoryGirl.create :tile, demo: demo
+  end
   # -------------------------------------------------
 
   def set_start_date(date)

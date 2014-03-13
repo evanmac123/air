@@ -14,9 +14,8 @@ class ClientAdmin::UsersController < ClientAdminBaseController
 
   def index
     respond_to do |format|
-      format.html do
-        @demo = current_user.demo
-        @new_client_admin = @demo.tiles.empty?
+      @demo = current_user.demo
+      format.html do        
         if browse_request?
           render_browse_page
         else
@@ -31,6 +30,7 @@ class ClientAdmin::UsersController < ClientAdminBaseController
   end
 
   def create
+    @demo = current_user.demo
     user_params = params[:user].filter_by_key(*SETTABLE_USER_ATTRIBUTES)
     @user = current_user.demo.users.new(user_params)
 
@@ -53,9 +53,11 @@ class ClientAdmin::UsersController < ClientAdminBaseController
   end
 
   def edit
+    @demo = current_user.demo
   end
 
   def update
+    @demo = current_user.demo
     @user.attributes = params[:user].filter_by_key(*SETTABLE_USER_ATTRIBUTES)
     if @user.phone_number.present?
       @user.phone_number = PhoneNumber.normalize(@user.phone_number)

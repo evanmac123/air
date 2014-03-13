@@ -1,6 +1,7 @@
 class ClientAdmin::DraftTilesController < ClientAdminBaseController
   PER_PAGE = 12.freeze
   def index
+    @demo = current_user.demo
     @raw_tiles = get_page(params[:page])
     @draft_tiles = add_creation_and_other_placeholders(params[:page], @raw_tiles)
   end

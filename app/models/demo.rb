@@ -374,6 +374,14 @@ class Demo < ActiveRecord::Base
     #end
   #end
 
+  def brand_new?
+    self.tiles.empty?
+  end
+  
+  def non_activated?
+    self.tiles.active.empty? || !self.tiles.where(activated_at: nil).empty?
+  end
+  
   protected
 
   def unless_within(cutoff_time, last_done_time)
@@ -454,4 +462,5 @@ class Demo < ActiveRecord::Base
     placeholders_to_add.times { tiles << TileOddRowPlaceholder.new }
     tiles
   end
+   
 end

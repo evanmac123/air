@@ -8,6 +8,7 @@ feature 'Client admin sees basic stats on dashboard' do
       5.times {FactoryGirl.create :user, :claimed, :with_phone_number, demo: demo}
       7.times {FactoryGirl.create :user, :claimed, :with_game_referrer, demo: demo}
       10.times {FactoryGirl.create :user, demo: demo}
+      FactoryGirl.create :tile, demo: demo
 
       # That makes 24 total, 14 claimed
     end
@@ -30,11 +31,12 @@ feature 'Client admin sees basic stats on dashboard' do
 
   context "when there are 1000 or more claimed users" do
     before do
+      FactoryGirl.create :tile, demo: signin_as_client_admin.demo
       Demo.any_instance.stubs(:claimed_user_count).returns(123456)
     end
 
     it "should display the number of claimed users in a prettier way" do
-      signin_as_client_admin.demo
+#      signin_as_client_admin.demo
       visit client_admin_path
       expect_content "Participants 123,456" # notice the comma
     end

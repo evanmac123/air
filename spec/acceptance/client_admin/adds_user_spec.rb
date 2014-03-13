@@ -3,6 +3,9 @@ require 'acceptance/acceptance_helper'
 feature 'Adds user' do
   let (:client_admin) { FactoryGirl.create(:client_admin) }
   let (:demo)         { client_admin.demo }
+  before do
+    FactoryGirl.create :tile, demo: demo
+  end
 
   def expect_add_message(name, claim_code, url)
     # Hack to account for the fact that when we use Poltergeist, it generates

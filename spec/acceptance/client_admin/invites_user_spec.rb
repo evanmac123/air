@@ -35,7 +35,7 @@ feature 'Invites user' do
     before do
       client_admin = FactoryGirl.create(:client_admin)
       @demo = client_admin.demo
-
+      FactoryGirl.create :tile, demo: @demo
       visit client_admin_users_path(as: client_admin)
       fill_in "Name", with: "Bob Jones"
     end

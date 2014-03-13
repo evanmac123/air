@@ -2,6 +2,9 @@ require 'acceptance/acceptance_helper'
 
 feature 'Browses user lists' do
   let(:client_admin) { FactoryGirl.create(:client_admin) }
+  before do
+    FactoryGirl.create :tile, demo: client_admin.demo
+  end
 
   def expect_browse_row(user, sense=true)
     within '#search-results-table' do
