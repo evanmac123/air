@@ -259,6 +259,11 @@ feature 'Client admin and the digest email for tiles' do
         visit client_admin_users_path
         expect_page_to_be_locked
       end
+      scenario "lock icon on share link doesnt appear" do
+        within('#share_tiles') do
+          page.should_not have_css('.fa-lock', visible: true)
+        end
+      end
     end
   end
 
