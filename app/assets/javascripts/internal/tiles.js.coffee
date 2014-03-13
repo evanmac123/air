@@ -8,6 +8,8 @@ showOrHideStartOverButton = (showFlag) ->
     $('#guest_user_start_over_button').hide()
 
 loadNextTileWithOffset = (offset, preloadAnimations, predisplayAnimations, tilePosting) ->
+  afterPosting = typeof(tilePosting) != 'undefined'
+
   preloadAnimations ?= $.Deferred().resolve() # dummy animation that's pre-resolved
   tilePosting ?= $.Deferred().resolve()
   predisplayAnimations ?= ->
@@ -15,13 +17,13 @@ loadNextTileWithOffset = (offset, preloadAnimations, predisplayAnimations, tileP
   url = '/tiles/' + $('#slideshow .tile_holder').data('current-tile-id')
   $.get(
     url,
-    {partial_only: true, offset: offset,
+    {partial_only: true, offset: offset, after_posting: afterPosting,
     completed_only: $('#slideshow .tile_holder').data('completed-only'),
     previous_tile_ids: $('#slideshow .tile_holder').data('current-tile-ids')},
     (data) ->
       $.when(preloadAnimations).then(tilePosting).then ->
         $.when(predisplayAnimations(data, tilePosting)).then ->
-          if data.all_tiles_done == true
+          if data.all_tiles_done == true && afterPosting
             $('.content').html(data.tile_content)
             showOrHideStartOverButton(data.show_start_over_button == true)
 

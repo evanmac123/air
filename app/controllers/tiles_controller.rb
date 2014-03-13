@@ -64,6 +64,7 @@ class TilesController < ApplicationController
   end
 
   def render_new_tile
+    after_posting = params[:after_posting] == "true"
     all_tiles_done = Tile.satisfiable_to_user(current_user).empty?
     render json: {
       delimited_starting_points: number_with_delimiter(starting_points),
@@ -72,15 +73,15 @@ class TilesController < ApplicationController
       flash_content: render_to_string('shared/_flashes', layout: false),
       master_bar_point_content: master_bar_point_content,
       master_bar_ending_percentage: master_bar_ending_percentage,
-      tile_content: tile_content(all_tiles_done),
+      tile_content: tile_content(all_tiles_done, after_posting),
       all_tiles_done: all_tiles_done,
       show_conversion_form: @show_conversion_form,
       show_start_over_button: current_user.can_start_over?
     }
   end
  
-  def tile_content(all_tiles_done)
-    if all_tiles_done
+  def tile_content(all_tiles_done, after_posting)
+    if all_tiles_done && after_posting
       render_to_string("tiles/_all_tiles_done", layout: false)
     else
       render_to_string("tiles/_full_size_tile", locals: {tile: current_tile, current_tile_ids: current_tile_ids, overlay_displayed: true}, layout: false)

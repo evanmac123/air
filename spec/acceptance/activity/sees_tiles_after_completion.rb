@@ -94,4 +94,20 @@ feature "Sees tiles after completion" do
       end      
     end
   end
+
+  scenario "moving through completed tiles should let you see multiple done tiles, not just one", js: true do
+    board = FactoryGirl.create(:demo)
+    tiles = FactoryGirl.create_list(:multiple_choice_tile, 2, demo: board, status: Tile::ACTIVE)
+    user = FactoryGirl.create(:user, demo: board)
+    tiles.each {|tile| FactoryGirl.create(:tile_completion, user: user, tile: tile)}
+
+    visit activity_path(as: user)
+    page.all(".tile_thumbnail_image").first.click
+    
+    page.find("#next").click
+    page.should have_no_content("You've completed all available tiles!")
+    
+    page.find("#next").click
+    page.should have_no_content("You've completed all available tiles!")
+  end
 end
