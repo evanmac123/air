@@ -6,145 +6,147 @@
 @import './internal/tiles_fullsize';
 @import 'tile_preview';
 
+
+
 .joyride-tip-guide {
-  &.tile {
-    width: 360px;
-    margin-top: 82px;
-    margin-left: 82px;
-    color: $dark-gray;
-    .joyride-nub{
-      border: outset $joyride-tip-nub-size;
+    &.tile {
+        width: 360px;
+        margin-top: 82px;
+        margin-left: 82px;
+        color: $dark-gray;
+        .joyride-nub{
+            border: outset $joyride-tip-nub-size;
+        }
+        .top-section{
+            font-size: 18px !important;
+        }
+        .bottom-section{
+            font-size: 14px;
+        }
     }
-    .top-section{
-      font-size: 18px !important;
-    }
-    .bottom-section{
-      font-size: 14px;
-    }
-  }
 }
 
 body.client_admin-tiles-index, body.client_admin-inactive_tiles,
 body.client_admin-tiles-index, body.client_admin-draft_tiles, 
 body.client_admin-shares {
-  .tile_thumbnail {width:100%;}
+    .tile_thumbnail {width:100%;}
 }
 
 body.client_admin-tiles-index, body.client_admin-inactive_tiles,
 body.client_admin-draft_tiles {
-  
-  // Tile management sections
-  .content {background:$blue;}
-  .manage_tiles {
-    td {
-      border:0; 
-      padding:0 0 2em 0;
-      text-align: center;
-      vertical-align: top;
-      width:25%;
+    
+    // Tile management sections
+    .content {background:$blue;}
+    .manage_tiles {
+        td {
+            border:0; 
+            padding:0 0 2em 0;
+            text-align: center;
+            vertical-align: top;
+            width:25%;
+        }
+        tr {
+            td:first-of-type {text-align: left;}
+            td:nth-of-type(2) {padding-right: .5em;}
+            td:nth-of-type(3) {padding-left: .5em;}
+            td:nth-of-type(4) {text-align: right;}
+        }
+        .no_tiles_message {margin:0 auto 3em;}
     }
-    tr {
-      td:first-of-type {text-align: left;}
-      td:nth-of-type(2) {padding-right: .5em;}
-      td:nth-of-type(3) {padding-left: .5em;}
-      td:nth-of-type(4) {text-align: right;}
+    #archived_tiles, #draft_tiles {
+        background:$blue;
+        h2, .all_inactive {display: inline-block;}
+        .tile_thumbnail.placeholder_tile {border-color:lighten($blue, 13%);}
+        .create_new_tile {
+            @include app-button($dark-green);
+            float: right;
+        }
+        h2 {
+            color:$white;
+        }
+        .all_inactive, .all_draft
+        {
+            @include light-button($white);
+            @include caption;
+            margin: 0 auto;
+            margin-top: -3em;
+            margin-bottom: 3em;
+            display: block;
+            text-align: center;
+            width: 7em;
+        }
+        .minimize {
+            @include light-button($dark-green);
+            // font-size:.875em;
+            @include caption;
+            position: relative;
+            top:-2px;
+            margin-left:1em;
+            vertical-align: text-bottom;
+        }
+        .tile_thumbnail .tile-wrapper {border: none;}
     }
-    .no_tiles_message {margin:0 auto 3em;}
-  }
-  #archived_tiles, #draft_tiles {
-    background:$blue;
-    h2, .all_inactive {display: inline-block;}
-    .tile_thumbnail.placeholder_tile {border-color:lighten($blue, 13%);}
-    .create_new_tile {
-      @include app-button($dark-green);
-      float: right;
-    }
-    h2 {
-      color:$white;
-    }
-    .all_inactive, .all_draft
-    {
-      @include light-button($white);
-      @include caption;
-      margin: 0 auto;
-      margin-top: -3em;
-      margin-bottom: 3em;
-      display: block;
-      text-align: center;
-      width: 7em;
-    }
-    .minimize {
-      @include light-button($dark-green);
-      // font-size:.875em;
-      @include caption;
-        position: relative;
-        top:-2px;
-      margin-left:1em;
-      vertical-align: text-bottom;
-    }
-    .tile_thumbnail .tile-wrapper {border: none;}
-  }
-  #active_tiles {padding:2em 0 0 0;}
-  #archived_tiles {padding:2em 0 0 0;}
+    #active_tiles {padding:2em 0 0 0;}
+    #archived_tiles {padding:2em 0 0 0;}
 }
 
 body.client_admin-tiles-index #active_tiles, 
 body.client_admin-inactive_tiles #active_tiles,
 body.client_admin-draft_tiles #active_tiles,
 .tiles_to_be_shared {
-  background: $tile-wall-bg;
-  h2 {color:$text-color;}
+    background: $tile-wall-bg;
+    h2 {color:$text-color;}
 }
 
 // Create new tile placeholder link
 .creation-placeholder a {
-  border-color:lighten($blue, 13%);
-  display: block;
-  color:$white;
-  line-height:1em;
-  padding-top:12em;
-  position: relative;
-  text-align: center;
-  &:hover {border-color:lighten($blue, 10%); color:$white;}
-  &:before {
-    background:$dark-green;
-    border-radius:$border-radius;
-    content:"+";
+    border-color:lighten($blue, 13%);
     display: block;
-    font-size:5em;
-    line-height:0;
-    margin-left:-40px;
-    position: absolute;
-      top:30%;
-      left:50%;
+    color:$white;
+    line-height:1em;
+    padding-top:12em;
+    position: relative;
     text-align: center;
-    height:80px;
-    width:80px;
-    overflow: hidden;
-    padding-top:32px;
-  }
-  &:hover:before {background:darken($dark-green, 7%);}
+    &:hover {border-color:lighten($blue, 10%); color:$white;}
+    &:before {
+        background:$dark-green;
+        border-radius:$border-radius;
+        content:"+";
+        display: block;
+        font-size:5em;
+        line-height:0;
+        margin-left:-40px;
+        position: absolute;
+        top:30%;
+        left:50%;
+        text-align: center;
+        height:80px;
+        width:80px;
+        overflow: hidden;
+        padding-top:32px;
+    }
+    &:hover:before {background:darken($dark-green, 7%);}
 }
 
 // Links to download CSV tile reports
 a.download_csv {
-  @include light-button($med-gray);
-  @include caption;
-  color: $med-gray !important;
-  position: absolute;
-  top: 10px;
-  right: 15px;
-  vertical-align: text-bottom;
-  // Copied the following over from main_styles since IE won't respect the 
-  // color we set above unless we !important it, and we still want our hover 
-  // effects to work.
-  &:hover {  
-    border-color:darken($med-gray, 11%);
-    color:darken($med-gray, 11%) !important;
-  }
-  &:active {
-    @include ease(0);
-    background:$med-gray;
-    color:$white;
-  }
+    @include light-button($med-gray);
+    @include caption;
+    color: $med-gray !important;
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    vertical-align: text-bottom;
+    // Copied the following over from main_styles since IE won't respect the 
+    // color we set above unless we !important it, and we still want our hover 
+    // effects to work.
+    &:hover {  
+        border-color:darken($med-gray, 11%);
+        color:darken($med-gray, 11%) !important;
+    }
+    &:active {
+        @include ease(0);
+        background:$med-gray;
+        color:$white;
+    }
 }

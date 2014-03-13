@@ -61,6 +61,18 @@ feature 'Client admin and the digest email for tiles' do
   def expect_all_draft_tile_placeholders(expected_count)
     expect_tile_placeholders("draft_tiles", expected_count)
   end
+  
+  def expect_page_to_be_locked
+    page.should have_css('.fa-lock', visible: true)
+    page.should have_content("Please create and post at least one tile to unlock this page.")
+    page.should have_link 'Go to Tiles Page', client_admin_tiles_path
+  end
+  
+  def expect_link_to_have_lock_icon(container)
+    within(container) do
+      page.should have_css('.fa-lock', visible: true)
+    end
+  end
 
   # -------------------------------------------------
 
@@ -213,7 +225,7 @@ feature 'Client admin and the digest email for tiles' do
     end
   end
   
-  context "New client admin visits client_admin/tiles page", js: true do    
+  context "New client admin visits client_admin/tiles page", js: true do
     context "when there is no tile in the demo" do
       before do
         visit tile_manager_page
@@ -221,6 +233,31 @@ feature 'Client admin and the digest email for tiles' do
       scenario "popup appears" do
         page.should have_css('.joyride-tip-guide', visible: true)
         page.should have_content "Click the + button to create a new tile. Need ideas? Explore"
+      end
+      scenario "share link on navbar shows lock icon" do
+        expect_link_to_have_lock_icon('#share_tiles')
+      end
+      scenario "activity link on navbar shows lock icon" do
+        expect_link_to_have_lock_icon('#board_activity')
+      end
+      scenario "activity link on navbar shows lock icon" do
+        expect_link_to_have_lock_icon('#users')
+      end
+      scenario "hovering mouse on share link shows message" do
+        page.find('#share_tiles').trigger(:mouseover)
+        page.should have_content("Create and post at least one tile to unlock")
+      end
+      scenario "visiting share page shows lock screen with message" do
+        visit client_admin_share_path
+        expect_page_to_be_locked
+      end
+      scenario "visiting activity page shows lock screen with message" do
+        visit client_admin_path
+        expect_page_to_be_locked
+      end
+      scenario "visiting users page shows lock screen with message" do
+        visit client_admin_users_path
+        expect_page_to_be_locked
       end
     end
     context "when there is atleast one archived tile in demo" do
@@ -230,6 +267,11 @@ feature 'Client admin and the digest email for tiles' do
       end
       scenario "popup doesnt appear" do
         page.should_not have_css('.joyride-tip-guide', visible: true)
+      end
+      scenario "lock icon on share link doesnt appear" do
+        within('#share_tiles') do
+          page.should_not have_css('.fa-lock', visible: true)
+        end
       end
     end
   end

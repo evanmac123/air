@@ -1,34 +1,37 @@
 // Nav between tile-related pages
 #tile_manager_nav {padding-bottom:2em;}
 #tile_manager_nav ul {
-  background:darken($blue, 10%);
-  border-radius:$border-radius;
-  display: inline-block;
-  overflow: hidden;
-  &:after{@include clear;}
-  li, li a {display: inline-block;}
-  li {
-    float:left;
-    width:20%;
-    a {
-      color:$light-gray;
-      min-width:10em;
-      width:100%;
-      padding:.65em 2em ;
-      position: relative;
-      text-align: center;
-      &:hover {
-        @include ease(0);
-        // background:$dark-gray;
-        background:darken($blue, 15%);
-        color:$white!important;
-      }
-      &:active {background:lighten($blue, 5%);}
+    background:darken($blue, 10%);
+    border-radius:$border-radius;
+    display: inline-block;
+    overflow: hidden;
+    &:after{@include clear;}
+    li, li a {display: inline-block;}
+    li {
+        float:left;
+        width:20%;
+        a {
+            color:$light-gray;
+            min-width:10em;
+            width:100%;
+            padding:.65em 2em ;
+            position: relative;
+            text-align: center;
+            &:hover {
+                @include ease(0);
+                // background:$dark-gray;
+                background:darken($blue, 15%);
+                color:$white!important;
+            }
+            &:active {background:lighten($blue, 5%);}
+        }
+        i{
+            margin-right: 10px;
+        }
     }
-  }
-  li + li a {
-    border-left:1px $body-bg solid;
-  }
+    li + li a {
+        border-left:1px $body-bg solid;
+    }
 }
 // Div lines for Manage Tiles page
 body.client_admin-tiles-index #tile_manager_nav ul li a,
@@ -44,8 +47,48 @@ body.client_admins-show #tile_manager_nav ul li#board_activity a,
 body.client_admin-shares #tile_manager_nav ul li#share_tiles a,
 body.client_admin-users-index #tile_manager_nav ul li#users a,
 body.client_admin-users-edit #tile_manager_nav ul li#users a,
+body.client_admins-show #tile_manager_nav ul li#board_activity,
+body.client_admin-shares #tile_manager_nav ul li#share_tiles,
+body.client_admin-users-index #tile_manager_nav ul li#users,
+body.client_admin-users-edit #tile_manager_nav ul li#users,
 body.client_admin-explores #tile_manager_nav ul li#explore a,
 body.client_admin-explore_news #tile_manager_nav ul li#explore a {
-  background:$dark-green;
-  color:$white;
+    background:$dark-green;
+    color:$white;
 } 
+
+body.client_admin-tiles
+{
+    .tooltip{
+        margin-left: -44px;
+        .nub{
+            margin-left: 148px;
+        }
+    }
+    
+    .share_tiles, .board_activity, .users{
+        border-left:1px $blue solid;
+        color: #dfdfdf;
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+}
+
+body.client_admin-shares,
+body.client_admins,
+body.client_admin-users,
+body.client_admin-explores {
+    .tooltip{
+        margin-left: -44px;
+        .nub{
+            margin-left: 148px;
+        }
+    }
+    
+    .share_tiles, .board_activity, .users{
+        border-left:1px $white solid;
+        color: #dfdfdf;
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+}

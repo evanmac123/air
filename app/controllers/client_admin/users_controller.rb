@@ -15,6 +15,8 @@ class ClientAdmin::UsersController < ClientAdminBaseController
   def index
     respond_to do |format|
       format.html do
+        @demo = current_user.demo
+        @new_client_admin = @demo.tiles.empty?
         if browse_request?
           render_browse_page
         else
@@ -129,12 +131,12 @@ class ClientAdmin::UsersController < ClientAdminBaseController
     label = ERB::Util.h(%{No match for "#{name}". Click to add this user.})
 
     [{
-      label: label,
-      value: {
-        found: false,
-        name: name
-      }
-    }].to_json
+        label: label,
+        value: {
+          found: false,
+          name: name
+        }
+      }].to_json
   end
 
   def link_to_edit_user(user)
