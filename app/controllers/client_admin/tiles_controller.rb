@@ -19,11 +19,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     if @tile_builder_form.create_objects
       set_after_save_flash(@tile_builder_form.tile)
       schedule_tile_creation_ping
-      if @demo.non_activated?
-        redirect_to client_admin_tile_path(@tile_builder_form.tile, popover: true)
-      else
-        redirect_to client_admin_tile_path(@tile_builder_form.tile)
-      end
+      redirect_to client_admin_tile_path(@tile_builder_form.tile)
     else
       flash[:failure] = "Sorry, we couldn't save this tile: " + @tile_builder_form.error_messages
       render "new"
