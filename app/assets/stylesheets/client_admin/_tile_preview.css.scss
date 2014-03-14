@@ -17,46 +17,59 @@ body.client_admin-tiles-show {
     }
     .tile_preview_menu{
         background: white;
-        height: 61px;
+        border-radius: $border-radius;
         margin-bottom: 20px;
+        overflow: hidden;
+
+        a {
+            color: $gray;
+            display: block;
+
+            &:hover {color: darken($gray, 10%);}
+        }
+
+        li {
+            float: left;
+            width: 20%;
+
+            p + p {
+                margin-top: .25em;
+            }
+        }
     }
-    .tile_preview_menu li{
-        float: left;
-        padding: 8.5px 0;
-        border-left: 1px solid #D9DFE9;
-        width: 20%;
-    }
-    .draft_header{
-        background: $blue;
+    .preview_menu_header {
         width: 150px;
         font-size: 27px;
         color: white;
-        padding: 12.5px 0 11px 15px !important;
+        padding: .5em 1em;
+
+        &.draft {
+            background: $blue;
+        }
+
+        &.posted {
+            background: $dark-green;
+        }
     }
-    .posted_header{
-        background: $dark-green;
-        width: 150px;
-        font-size: 27px;
-        color: white;
-        padding: 12.5px 0 11px 15px !important;
-    }
-    .edit_header, .back_header, .new_tile_header{
+    .edit_header, .back_header, .new_tile_header {
+        border-left: 1px $tile-wall-bg solid;
         color: $gray;
-        text-align: center;
         .header_text{font-weight: bold;}
-        font-size: 14px;
+    }
+    #archive_header, #post_header {
+        .header_text{font-weight: bold;}
     }
     #post_header{
         color: $dark-green;
-        text-align: center;
-        .header_text{font-weight: bold;}
-        font-size: 14px;
     }
     #archive_header{
         color: $blue;
-        text-align: center;
-        .header_text{font-weight: bold;}
+    }
+    .edit_header, .back_header, .new_tile_header,
+    #archive_header, #post_header {
         font-size: 14px;
+        padding: .55em;
+        text-align: center;
     }
     .joyride-next-tip{
         font-size: 14px !important;

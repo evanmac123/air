@@ -63,12 +63,21 @@ feature 'Activates or edits tile from preview page' do
 
   def expect_first_time_create_popover
     expect_content 'Click Post to publish your tile.'
-    expect_content 'Got it'
+    expect_content 'Got It'
   end
   
   def expect_no_first_time_create_popover
     expect_no_content 'Click Post to publish your tile.'
-    expect_no_content 'Got it'
+    expect_no_content 'Got It'
+  end
+  def expect_first_time_post_popover
+    expect_content "Congratulations! Your tile is posted."
+    expect_content 'Next click Back to Tiles to see your board.'
+  end
+  
+  def expect_no_first_time_post_popover
+    expect_no_content "Congratulations! You've posted your first tile."
+    expect_no_content 'Next click Back to Tiles to see your board.'
   end
   
   context "an active tile" do
@@ -144,20 +153,23 @@ feature 'Activates or edits tile from preview page' do
       expect_no_first_time_create_popover
     end
 
-    scenario "does not see the popover appear after first time tile has been created in demo", js:true do
-      create_existing_tiles(@client_admin.demo, Tile::DRAFT, 2)
+    scenario "does not see the popover appear after first time create", js:true do
+      create_existing_tiles(@client_admin.demo, Tile::ACTIVE, 2)
       create_good_tile
       expect_no_first_time_create_popover
     end
 
     context 'after first tile create' do
-      scenario "sees the popover appear the first time tile is posted", js:true do
-        expect_first_time_post_popover
+      scenario "sees the popover appear the first time tile is posted", js: :webkit do
         
-      end
-      scenario "does not see the popover appear after first time tile has been created in demo", js:true do
-        create_existing_tiles(@client_admin.demo, Tile::DRAFT, 2)
         create_good_tile
+        click_link 'Post'
+        expect_first_time_post_popover        
+      end
+      scenario "does not see the popover appear after first time post", js: :webkit do
+        create_existing_tiles(@client_admin.demo, Tile::ACTIVE, 2)
+        create_good_tile
+        click_link 'Post'
         expect_no_first_time_post_popover
       end
     end

@@ -19,11 +19,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     if @tile_builder_form.create_objects
       set_after_save_flash(@tile_builder_form.tile)
       schedule_tile_creation_ping
-      if @demo.non_activated?
-        redirect_to client_admin_tile_path(@tile_builder_form.tile, popover: true)
-      else
-        redirect_to client_admin_tile_path(@tile_builder_form.tile)
-      end
+      redirect_to client_admin_tile_path(@tile_builder_form.tile)
     else
       flash[:failure] = "Sorry, we couldn't save this tile: " + @tile_builder_form.error_messages
       render "new"
@@ -41,8 +37,12 @@ class ClientAdmin::TilesController < ClientAdminBaseController
   end
 
   def show
-    @show_popover = params[:popover]
     @tile = get_tile
+    @show_popover = 
+      #show success popover
+      (@tile.just_activated? && @tile.demo.tiles.active.count == 1) ||
+      #show post guide popover
+      (@tile.draft? && @tile.demo.non_activated?)
   end
 
   def edit

@@ -1,12 +1,12 @@
 <% if tile.active? %>
-  <%= link_to client_admin_tile_path(@tile, update_status: Tile::ARCHIVE), :method => :put do %>
+  <%= link_to client_admin_tile_path(@tile, update_status: Tile::ARCHIVE), method: :put, id: :archive do %>
     <li class="post_header" id="archive_header">
       <p class="fa fa-archive fa-2x"></p>
       <p class="header_text">Archive</p>
     </li>
   <% end %>
 <% else %>
-  <%= link_to client_admin_tile_path(@tile, update_status: Tile::ACTIVE), :method => :put do %>
+  <%= link_to client_admin_tile_path(@tile, update_status: Tile::ACTIVE), method: :put, id: :post do %>
     <li class="post_header" id="post_header">
       <p class="fa fa-check fa-2x"></p>
       <p class="header_text">Post</p>
