@@ -82,7 +82,8 @@ var predisplayAnimations = function(tileData, tilePosting) {
     $('#progress_bar .small_cap').html(tileData.master_bar_point_content);
     $('#user_tickets').html(tileData.starting_tickets);
 
-    animateCounter('user_points', startingData.starting_points, tileData.ending_points, 0.5);
-    return fillBar(startingData.starting_tickets, tileData.ending_tickets, tileData.master_bar_ending_percentage, tileData.all_tiles_done);
+    return $.when(animateCounter('user_points', startingData.starting_points, tileData.ending_points, 0.5)).then(function() {
+      return fillBar(startingData.starting_tickets, tileData.ending_tickets, tileData.master_bar_ending_percentage, tileData.all_tiles_done);
+    });
   })
 }
