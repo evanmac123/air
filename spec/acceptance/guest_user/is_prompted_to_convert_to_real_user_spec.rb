@@ -529,16 +529,22 @@ feature 'Guest user is prompted to convert to real user' do
 
       all_tiles = Tile.all
 
-      0.upto(2) do |i|
+      [0, 1].each do |i|
         visit activity_path
         click_link all_tiles[i].headline
         click_right_answer
       end
 
+      click_close_conversion_button
       expect_no_conversion_form
 
       visit activity_path
-      click_link all_tiles.last.headline
+      click_link all_tiles[2].headline
+      click_right_answer
+      expect_no_conversion_form
+
+      visit activity_path
+      click_link all_tiles[3].headline
       click_right_answer
       expect_conversion_form
     end
