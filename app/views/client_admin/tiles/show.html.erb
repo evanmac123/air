@@ -1,13 +1,46 @@
 <div class="row">
-  <div class="large-8 large-centered columns tile_holder_width">
-    <%= link_to 'Manage Tiles', client_admin_tiles_path, :class => "tile_control back_to_all" %>
-    <%= render 'activate_deactivate_link', tile: @tile %>
-    <%= link_to 'Edit this tile', edit_client_admin_tile_path(@tile), :class => "tile_control edit_this_tile" %>
-    <h5>Tile preview</h5>
-    
+  <div class="large-8 large-centered columns">
+    <ul class="tile_preview_menu">
+      <% unless @tile.active? %>
+        <li class="draft_header">        
+          Draft
+        </li>
+      <% else %>
+        <li class="posted_header">        
+          Posted
+        </li>
+      <% end %>
+      <%= render 'activate_deactivate_link', tile: @tile %>      
+      <%= link_to edit_client_admin_tile_path(@tile) do %>
+        <li class="edit_header">
+          <p class="fa fa-pencil fa-2x"></p>
+          <p class="header_text">Edit</p>
+        </li>
+      <% end %>
+      <%= link_to client_admin_tiles_path do %>
+        <li class="back_header" id="back_header">
+          <p class="fa fa-chevron-left fa-2x"></p>
+          <p class="header_text">Back to Tiles</p>
+        </li>
+      <% end %>
+      <%= link_to new_client_admin_tile_path do %>
+        <li class="new_tile_header">
+          <p class="fa fa-plus fa-2x"></p>
+          <p class="header_text">New Tile</p>
+        </li>
+      <% end %>
+    </ul>
 
+    
     <%= render "tiles/full_size_tile", tile: @tile, answer_links_disabled: true %>
 
     <%= render 'client_admin/tiles/poll_for_image_if_needed', tile: @tile %>
   </div>
 </div>
+<% if @show_popover %>
+  <% if @tile.demo.non_activated? %>
+    <%= render partial: 'tile_post_guide_popover'%>
+  <% elsif @tile.active?%>
+    <%= render partial: 'tile_post_success_popover'%>
+  <% end %>
+<% end %>

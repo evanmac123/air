@@ -2,15 +2,15 @@ require 'acceptance/acceptance_helper'
 
 feature 'Activates or edits tile from preview page' do
   def activate_link_text
-    "Publish this tile"  
+    "Post"  
   end
 
   def deactivate_link_text
-    "Archive this tile"  
+    "Archive"  
   end
 
   def edit_link_text
-    "Edit this tile"
+    "Edit"
   end
 
   def links_with_text(text)
@@ -61,6 +61,16 @@ feature 'Activates or edits tile from preview page' do
     expect_content "The #{tile.headline} tile has been archived"
   end
 
+  def expect_first_time_create_popover
+    expect_content 'Click Post to publish your tile.'
+    expect_content 'Got it'
+  end
+  
+  def expect_no_first_time_create_popover
+    expect_no_content 'Click Post to publish your tile.'
+    expect_no_content 'Got it'
+  end
+  
   context "an active tile" do
     before do
       @tile = FactoryGirl.create(:multiple_choice_tile, status: Tile::ACTIVE)
@@ -75,6 +85,7 @@ feature 'Activates or edits tile from preview page' do
       should_be_on client_admin_tile_path(@tile)
       expect_deactivated_content(@tile)
       expect_activate_link
+      
       expect_no_deactivate_link
 
       @tile.reload.status.should == Tile::ARCHIVE
@@ -116,6 +127,39 @@ feature 'Activates or edits tile from preview page' do
 
     it "should not show a deactivate link" do
       expect_no_deactivate_link
+    end
+  end
+  
+  context "first time client admin" do
+    before do
+      @client_admin = FactoryGirl.create(:client_admin)
+      visit new_client_admin_tile_path(as: @client_admin)
+    end
+    
+    scenario "sees the popover appear the first time tile is created in demo which disappears on click", js:true do
+      create_good_tile
+      
+      expect_first_time_create_popover
+      click_link 'Got it'
+      expect_no_first_time_create_popover
+    end
+
+    scenario "does not see the popover appear after first time tile has been created in demo", js:true do
+      create_existing_tiles(@client_admin.demo, Tile::DRAFT, 2)
+      create_good_tile
+      expect_no_first_time_create_popover
+    end
+
+    context 'after first tile create' do
+      scenario "sees the popover appear the first time tile is posted", js:true do
+        expect_first_time_post_popover
+        
+      end
+      scenario "does not see the popover appear after first time tile has been created in demo", js:true do
+        create_existing_tiles(@client_admin.demo, Tile::DRAFT, 2)
+        create_good_tile
+        expect_no_first_time_post_popover
+      end
     end
   end
 end

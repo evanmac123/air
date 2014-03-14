@@ -4,33 +4,6 @@ feature 'Creates tile' do
   let (:client_admin) { FactoryGirl.create(:client_admin)}
   let (:demo)         { client_admin.demo }
 
-  def fill_in_valid_form_entries(click_answer = 1)
-    attach_file "tile_builder_form[image]", tile_fixture_path('cov1.jpg')
-    fill_in "Headline",           with: "Ten pounds of cheese"
-    fill_in "Supporting content", with: "Ten pounds of cheese. Yes? Or no?"
-
-    fill_in "Ask a question", with: "Who rules?"
-
-    2.times {click_link "Add another answer"}
-    fill_in_answer_field 0, "Me"
-    fill_in_answer_field 2, "You"
-
-    click_answer.times { select_correct_answer 2 }
-
-    fill_in "Points", with: "23"
-
-    fill_in_external_link_field  "http://www.google.com/foobar"
-  end
-
-  def create_good_tile
-    fill_in_valid_form_entries
-    click_create_button
-  end
-
-  def click_create_button
-    click_button "Save tile"
-  end
-
   before do
     visit new_client_admin_tile_path(as: client_admin)
   end

@@ -1,5 +1,15 @@
 <% if tile.active? %>
-  <%= link_to 'Archive this tile', client_admin_tile_path(tile, update_status: Tile::ARCHIVE), :method => :put, :class => "tile_control tile_turn_off" %>
+  <%= link_to client_admin_tile_path(@tile, update_status: Tile::ARCHIVE), :method => :put do %>
+    <li class="post_header" id="archive_header">
+      <p class="fa fa-archive fa-2x"></p>
+      <p class="header_text">Archive</p>
+    </li>
+  <% end %>
 <% else %>
-  <%= link_to 'Publish this tile', client_admin_tile_path(tile, update_status: Tile::ACTIVE), :method => :put, :class => "tile_control tile_turn_on" %>
+  <%= link_to client_admin_tile_path(@tile, update_status: Tile::ACTIVE), :method => :put do %>
+    <li class="post_header" id="post_header">
+      <p class="fa fa-check fa-2x"></p>
+      <p class="header_text">Post</p>
+    </li>
+  <% end %>
 <% end %>

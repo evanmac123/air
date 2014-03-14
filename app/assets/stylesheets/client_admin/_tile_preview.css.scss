@@ -1,22 +1,105 @@
 body.client_admin-tiles-show {
-  .tile_control, h5 {
-    display: inline-block;
-  }
-  .tile_control {
-    font-size:.875em;
-    margin-bottom:1em;
-    &.back_to_all {@include app-button($blue);}
-    &.tile_turn_on {@include app-button($dark-green);}
-    &.tile_turn_off {@include app-button($med-gray);}
-    &.edit_this_tile {@include light-button($gray);}
-  }
-  h5 {
-    color:$med-gray;
-    float:right;
-    padding:.75em 1em;
-  }
-  .tile_holder_width {
-    max-width: 600px;
-    padding: 0;
-  }
+    .tile_control, h5 {
+        display: inline-block;
+    }
+    .tile_control {
+        font-size:.875em;
+        margin-bottom:1em;
+        &.back_to_all {@include app-button($blue);}
+        &.tile_turn_on {@include app-button($dark-green);}
+        &.tile_turn_off {@include app-button($med-gray);}
+        &.edit_this_tile {@include light-button($gray);}
+    }
+    h5 {
+        color:$med-gray;
+        float:right;
+        padding:.75em 1em;
+    }
+    .tile_preview_menu{
+        background: white;
+        height: 61px;
+        margin-bottom: 20px;
+    }
+    .tile_preview_menu li{
+        float: left;
+        padding: 8.5px 0;
+        border-left: 1px solid #D9DFE9;
+        width: 20%;
+    }
+    .draft_header{
+        background: $blue;
+        width: 150px;
+        font-size: 27px;
+        color: white;
+        padding: 12.5px 0 11px 15px !important;
+    }
+    .posted_header{
+        background: $dark-green;
+        width: 150px;
+        font-size: 27px;
+        color: white;
+        padding: 12.5px 0 11px 15px !important;
+    }
+    .edit_header, .back_header, .new_tile_header{
+        color: $gray;
+        text-align: center;
+        .header_text{font-weight: bold;}
+        font-size: 14px;
+    }
+    #post_header{
+        color: $dark-green;
+        text-align: center;
+        .header_text{font-weight: bold;}
+        font-size: 14px;
+    }
+    #archive_header{
+        color: $blue;
+        text-align: center;
+        .header_text{font-weight: bold;}
+        font-size: 14px;
+    }
+    .joyride-next-tip{
+        font-size: 14px !important;
+        @include light-button($gray)
+    }
+}
+
+.joyride-tip-guide {
+    &.tile-show-post {
+        width: 300px;
+        margin-left: -67px;
+        color: $dark-gray;
+        .joyride-nub{
+            margin-left: 105px;
+        }
+        .top-section{
+            font-size: 18px !important;
+            span{
+                color: $dark-green;
+            }
+        }
+        .bottom-section{
+            font-size: 14px;
+            span{
+                color: $gray;
+            }
+        }
+    }
+    &.tile-show-archive {
+        width: 330px;
+        margin-left: -86px;
+        color: $dark-gray;
+        .joyride-nub{
+            margin-left: 123px;
+        }
+        .top-section{
+            font-size: 18px !important;
+        }
+        .bottom-section{
+            font-size: 14px;
+            span{
+                color: $gray;
+            }
+        }
+    }
 }
