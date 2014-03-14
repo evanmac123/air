@@ -15,13 +15,13 @@ loadNextTileWithOffset = (offset, preloadAnimations, predisplayAnimations, tileP
   predisplayAnimations ?= -> $.Deferred().resolve()
 
   url = '/tiles/' + $('#slideshow .tile_holder').data('current-tile-id')
-  $.get(
-    url,
-    {partial_only: true, offset: offset, after_posting: afterPosting,
-    completed_only: $('#slideshow .tile_holder').data('completed-only'),
-    previous_tile_ids: $('#slideshow .tile_holder').data('current-tile-ids')},
-    (data) ->
-      $.when(preloadAnimations).then(tilePosting).then ->
+  $.when(preloadAnimations).then(tilePosting).then ->
+    $.get(
+      url,
+      {partial_only: true, offset: offset, after_posting: afterPosting,
+      completed_only: $('#slideshow .tile_holder').data('completed-only'),
+      previous_tile_ids: $('#slideshow .tile_holder').data('current-tile-ids')},
+      (data) ->
         $.when(predisplayAnimations(data, tilePosting)).then ->
           if data.all_tiles_done == true && afterPosting
             $('.content').html(data.tile_content)
@@ -37,8 +37,7 @@ loadNextTileWithOffset = (offset, preloadAnimations, predisplayAnimations, tileP
 
           if data.show_conversion_form == true
             lightboxConversionForm()
-
-  )
+    )
 
 attachWrongAnswer = (answerLink, target) ->
   answerLink.click((event) ->
