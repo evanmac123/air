@@ -75,12 +75,14 @@ var markCompletedRightAnswer = function(event) {
 }
 
 var predisplayAnimations = function(tileData, tilePosting) {
-  var startingData = $.parseJSON(tilePosting.responseText);
-  $('#js-flashes').html(tileData.flash_content);
-  $('#user_points').html(tileData.delimited_starting_points);
-  $('#progress_bar .small_cap').html(tileData.master_bar_point_content);
-  $('#user_tickets').html(tileData.starting_tickets);
+  $.when(tilePosting).then(function() {
+    var startingData = $.parseJSON(tilePosting.responseText);
+    $('#js-flashes').html(tileData.flash_content);
+    $('#user_points').html(tileData.delimited_starting_points);
+    $('#progress_bar .small_cap').html(tileData.master_bar_point_content);
+    $('#user_tickets').html(tileData.starting_tickets);
 
-  animateCounter('user_points', startingData.starting_points, tileData.ending_points, 0.5);
-  return fillBar(startingData.starting_tickets, tileData.ending_tickets, tileData.master_bar_ending_percentage, tileData.all_tiles_done);
+    animateCounter('user_points', startingData.starting_points, tileData.ending_points, 0.5);
+    return fillBar(startingData.starting_tickets, tileData.ending_tickets, tileData.master_bar_ending_percentage, tileData.all_tiles_done);
+  })
 }

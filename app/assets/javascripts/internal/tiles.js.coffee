@@ -12,7 +12,7 @@ loadNextTileWithOffset = (offset, preloadAnimations, predisplayAnimations, tileP
 
   preloadAnimations ?= $.Deferred().resolve() # dummy animation that's pre-resolved
   tilePosting ?= $.Deferred().resolve()
-  predisplayAnimations ?= ->
+  predisplayAnimations ?= -> $.Deferred().resolve()
 
   url = '/tiles/' + $('#slideshow .tile_holder').data('current-tile-id')
   $.get(
