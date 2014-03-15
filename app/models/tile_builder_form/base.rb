@@ -193,7 +193,7 @@ module TileBuilderForm
       tile.errors.delete(:thumbnail)
     end
 
-    delegate :headline, :supporting_content, :question, :thumbnail, :link_address, :to => :tile
+    delegate :headline, :supporting_content, :question, :thumbnail, :image, :link_address, :to => :tile
     delegate :points, :to => :rule
   end
 end

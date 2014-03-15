@@ -1,0 +1,33 @@
+<div class="builder_content">
+  <div id="image_uploader">
+    <div class="image_preview">
+      <% if params[:action] == "new" %>
+        <img id="upload_preview" />
+        <div class="image_placeholder">
+          <label>Pick an image</label>
+          <p>This is where your image will appear in your live tile.</p>
+        </div>
+      <% else %>
+        <%= image_tag @tile_builder_form.image.url, class: "tile_image", id: "upload_preview" %>
+      <% end %>
+    </div>
+    <div class="upload_new_image">
+      <%= form.file_field "image" %>
+    </div>
+  </div>
+</div>
+<% content_for :javascript do %>
+  <%= javascript_tag do %>
+
+    $("#tile_builder_form_image").change(function PreviewImage() {
+        var oFReader = new FileReader();
+        oFReader.readAsDataURL(document.getElementById("tile_builder_form_image").files[0]);
+
+        oFReader.onload = function (oFREvent) {
+            document.getElementById("upload_preview").src = oFREvent.target.result;
+        };
+        $(".image_placeholder").css("display", "none");
+    });
+
+  <% end %>
+<% end %>
