@@ -52,3 +52,19 @@ h5 {color:$med-gray}
   &#gray {background:$gray}
   &#light-gray {background:$light-gray}
 }
+
+.progress_bar {
+  background-color: $light-gray;
+  border-radius: 2em;
+  padding: .5em;
+  width: 100%;
+
+  .filled_bar {
+    @include ease(1s);
+    background: $white;
+    border-radius: 2em;
+    height: 1em;
+    width: 50%;
+    max-width: 100%;
+  }
+}
