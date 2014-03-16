@@ -1,11 +1,11 @@
 <div class="builder_content">
   <div id="image_uploader">
     <div class="image_preview">
-      <% if params[:action] == "new" || params[:action] == "create" %>
+      <% unless @tile_builder_form.image.present? %>
         <img id="upload_preview" />
         <div class="image_placeholder">
+          <i class="fa fa-picture-o fa-4x"></i>
           <label>Pick an image</label>
-          <p>This is where your image will appear in your live tile.</p>
         </div>
       <% else %>
         <%= image_tag @tile_builder_form.image.url, class: "tile_image", id: "upload_preview" %>
