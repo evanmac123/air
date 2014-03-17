@@ -38,11 +38,15 @@ class ClientAdmin::TilesController < ClientAdminBaseController
 
   def show
     @tile = get_tile
-    @show_popover = 
-      #show success popover
-      (@tile.just_activated? && @tile.demo.tiles.active.count == 1) ||
-      #show post guide popover
-      (@tile.draft? && @tile.demo.non_activated?)
+    if @tile.draft?
+      @show_tile_post_guide = !current_user.displayed_tile_post_guide? && @tile.demo.non_activated?
+      current_user.displayed_tile_post_guide = true
+      current_user.save!
+    elsif @tile.just_activated?
+      @show_tile_success_guide = !current_user.displayed_tile_success_guide? && @tile.demo.tiles.active.count == 1
+      current_user.displayed_tile_success_guide = true
+      current_user.save!
+    end    
   end
 
   def edit

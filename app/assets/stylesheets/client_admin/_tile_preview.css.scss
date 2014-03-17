@@ -51,7 +51,7 @@ body.client_admin-tiles-show {
             background: $dark-green;
         }
     }
-    .edit_header, .back_header, .new_tile_header {
+    #archive_header, .edit_header, .back_header, .new_tile_header {
         border-left: 1px $tile-wall-bg solid;
         color: $gray;
         .header_text{font-weight: bold;}
@@ -61,9 +61,6 @@ body.client_admin-tiles-show {
     }
     #post_header{
         color: $dark-green;
-    }
-    #archive_header{
-        color: $blue;
     }
     .edit_header, .back_header, .new_tile_header,
     #archive_header, #post_header {

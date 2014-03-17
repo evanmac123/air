@@ -225,7 +225,7 @@ feature 'Client admin and the digest email for tiles' do
     end
   end
   
-  context "New client admin visits client_admin/tiles page", js: true do
+  context "New client admin visits client_admin/tiles page", js: :webkit do
     context "when there is no tile in the demo" do
       before do
         visit tile_manager_page
@@ -258,20 +258,6 @@ feature 'Client admin and the digest email for tiles' do
       scenario "visiting users page shows lock screen with message" do
         visit client_admin_users_path
         expect_page_to_be_locked
-      end
-    end
-    context "when there is atleast one archived tile in demo" do
-      before do
-        FactoryGirl.create :tile, demo_id: admin.demo_id
-        visit tile_manager_page
-      end
-      scenario "popup doesnt appear" do
-        page.should_not have_css('.joyride-tip-guide', visible: true)
-      end
-      scenario "lock icon on share link doesnt appear" do
-        within('#share_tiles') do
-          page.should_not have_css('.fa-lock', visible: true)
-        end
       end
     end
   end

@@ -7,10 +7,8 @@
     <%= render 'client_admin/tiles/poll_for_image_if_needed', tile: @tile %>
   </div>
 </div>
-<% if @show_popover %>
-  <% if @tile.demo.non_activated? %>
-    <%= render partial: 'tile_post_guide_popover'%>
-  <% elsif @tile.active?%>
-    <%= render partial: 'tile_post_success_popover'%>
-  <% end %>
+<% if @show_tile_post_guide %>
+  <%= render partial: 'tile_post_guide_popover'%>
+<% elsif @show_tile_success_guide %>
+  <%= render partial: 'tile_post_success_popover'%>
 <% end %>
