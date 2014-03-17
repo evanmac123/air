@@ -1,5 +1,5 @@
 class ImageContainer < ActiveRecord::Base
-  has_attached_file :image, :bucket => S3_TILE_BUCKET}
+  has_attached_file :image, :bucket => S3_TILE_BUCKET
 
   def self.tile_image image
     destroy_old_images
