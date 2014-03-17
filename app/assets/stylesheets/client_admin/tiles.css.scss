@@ -24,6 +24,43 @@
             font-size: 14px;
         }
     }
+    &.tile-index-post {
+        width: 399px;
+        height: 100px;
+        margin-left: 216px;
+        color: $dark-gray;
+        .joyride-nub{
+            margin-left: 161px;
+            border: outset $joyride-tip-nub-size;
+        }
+        .top-section{
+            font-size: 18px !important;
+            span{
+                color: $dark-green;
+            }
+        }
+        .joyride-next-tip{
+            @include light-button($gray);
+            font-size: 14px;
+        }
+    }    
+    &.tile-index-main-menu {
+        width: 394px;
+        height: 100px;
+        margin-top: 5px;
+        margin-left: 0.9375em;
+        color: $dark-gray;
+        .top-section{
+            font-size: 18px !important;
+            span{
+                color: $dark-green;
+            }
+        }
+        .joyride-next-tip{
+            @include light-button($gray);
+            font-size: 14px;
+        }
+    }
 }
 
 

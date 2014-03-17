@@ -10,6 +10,25 @@ $(document).ready(function() {
       }
     });
     
+  $('#tile-joyride-index-post').foundation('joyride', 'start', {
+      tipLocation: 'top',
+      template : { // HTML segments for tip layout
+        link    : '',
+        tip     : '<div class="joyride-tip-guide tile-index-post"><span class="joyride-nub"></span></div>'
+      }
+    });
+        
+  $('#tile-joyride-index-main-menu').foundation('joyride', 'start', {
+      cookieMonster: true,
+      cookieName: 'JoyRide',
+      cookieDomain: false,
+      tipLocation: 'bottom',
+      template : { // HTML segments for tip layout
+        link    : '',
+        tip     : '<div class="joyride-tip-guide tile-index-main-menu"><span class="joyride-nub"></span></div>'
+      }
+    });
+        
   $('#tile-joyride-show-post').foundation('joyride', 'start', {
       template : { // HTML segments for tip layout
         link    : '',
