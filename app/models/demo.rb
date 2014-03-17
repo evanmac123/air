@@ -379,7 +379,7 @@ class Demo < ActiveRecord::Base
   end
   
   def non_activated?
-    self.tiles.active.empty? || !self.tiles.where(activated_at: nil).empty?
+    self.tiles.active.empty? && self.tiles.where('activated_at IS NOT NULL').count < 1
   end
   
   protected
