@@ -70,7 +70,7 @@ feature 'Client admin and the digest email for tiles' do
   context 'No tiles exist for digest email' do
     before(:each) do
       FactoryGirl.create :tile, demo: demo
-      visit client_admin_share_path(as: admin)
+      visit client_admin_share_path(as: admin)      
     end
 
     scenario 'Text is correct when no follow-up emails are scheduled to be sent' do
