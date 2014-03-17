@@ -154,9 +154,16 @@ body.client_admin-tiles-update {
 }
 body.client_admin-tiles-new, 
 body.client_admin-tiles-create{
+  .clear_image {@include app-button($red);}
+  #tile_builder_form_image {display:none;}
   .image_preview {
     border:2px lighten($light-gray, 8%) dashed;
     margin:2em;
+    &:hover, &:focus {
+      border-style:solid;
+      cursor: pointer;
+      i { color: $blue; }
+    }
     i { color: black; }
     .image_placeholder {
       label { margin-top: 1em;}

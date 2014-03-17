@@ -1,20 +1,23 @@
 <div class="builder_content">
   <div id="image_uploader">
-    <div class="image_preview">
+    <div class="image_preview <%= 'pick_image' if params[:action] == 'create' || params[:action] == 'new' %>">
       <% if @tile_builder_form.image.present? == false && @container == nil %>
         <img id="upload_preview" />
-        <div class="image_placeholder">
-          <i class="fa fa-picture-o fa-4x"></i>
-          <label>Pick an image</label>
-        </div>
       <% elsif @container %>
         <%= hidden_field_tag "image_container", @container.id, id: "image_container" %>
         <%= image_tag @container.image.url, class: "tile_image", id: "upload_preview" %>
       <% else %>
         <%= image_tag @tile_builder_form.image.url, class: "tile_image", id: "upload_preview" %>
       <% end %>
+      <% display = ((@container || @tile_builder_form.image.present?) ? "none" : "block")%>
+      <div class="image_placeholder" style="display:<%= display %>">
+        <i class="fa fa-picture-o fa-4x"></i>
+        <label>Pick an image</label>
+      </div>
     </div>
+    
     <div class="upload_new_image">
+      <%= link_to "Clear image", "", class: "clear_image" %>
       <%= form.file_field "image" %>
     </div>
   </div>
@@ -22,15 +25,25 @@
 <% content_for :javascript do %>
   <%= javascript_tag do %>
     $("#tile_builder_form_image").change(function PreviewImage() {
-        var oFReader = new FileReader();
-        oFReader.readAsDataURL(document.getElementById("tile_builder_form_image").files[0]);
+      var oFReader = new FileReader();
+      oFReader.readAsDataURL(document.getElementById("tile_builder_form_image").files[0]);
 
-        oFReader.onload = function (oFREvent) {
-            document.getElementById("upload_preview").src = oFREvent.target.result;
-        };
-        $(".image_placeholder").css("display", "none");
-        $("#image_container").remove();
+      oFReader.onload = function (oFREvent) {
+          document.getElementById("upload_preview").src = oFREvent.target.result;
+      };
+      $(".image_placeholder").css("display", "none");
+      $("#image_container").remove();
     });
-
+    $(".pick_image").click(function chooseImage() {
+      $("#tile_builder_form_image").click();
+    });
+    $(".clear_image").click(function clearImage(event) {
+      event.preventDefault();
+      $("#image_container").remove();
+      var control = $("#tile_builder_form_image");
+      control.replaceWith( control = control.clone( true ) );
+      $(".image_placeholder").css("display", "block");
+      $("#upload_preview").removeAttr("alt").attr("src", "");
+    });
   <% end %>
 <% end %>
