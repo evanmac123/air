@@ -15,6 +15,7 @@ module TileBuilderForm
       @parameters = options[:parameters]
       @tile = options[:tile]
       @creator = options[:creator]
+      @image_container = options[:image_container]
     end
 
     def persisted?
@@ -120,8 +121,10 @@ module TileBuilderForm
     end
 
     def set_tile_image
-      if @parameters.present?
+      if @parameters[:image].present?
         @tile.image = @tile.thumbnail = @parameters[:image]
+      elsif @image_container
+        @tile.image = @tile.thumbnail = ImageContainer.find(@image_container).image
       end
     end
 

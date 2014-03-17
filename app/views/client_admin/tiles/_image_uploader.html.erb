@@ -1,12 +1,15 @@
 <div class="builder_content">
   <div id="image_uploader">
     <div class="image_preview">
-      <% unless @tile_builder_form.image.present? %>
+      <% if @tile_builder_form.image.present? == false && @container == nil %>
         <img id="upload_preview" />
         <div class="image_placeholder">
           <i class="fa fa-picture-o fa-4x"></i>
           <label>Pick an image</label>
         </div>
+      <% elsif @container %>
+        <%= hidden_field_tag "image_container", @container.id, id: "image_container" %>
+        <%= image_tag @container.image.url, class: "tile_image", id: "upload_preview" %>
       <% else %>
         <%= image_tag @tile_builder_form.image.url, class: "tile_image", id: "upload_preview" %>
       <% end %>
@@ -18,7 +21,6 @@
 </div>
 <% content_for :javascript do %>
   <%= javascript_tag do %>
-
     $("#tile_builder_form_image").change(function PreviewImage() {
         var oFReader = new FileReader();
         oFReader.readAsDataURL(document.getElementById("tile_builder_form_image").files[0]);
@@ -27,6 +29,7 @@
             document.getElementById("upload_preview").src = oFREvent.target.result;
         };
         $(".image_placeholder").css("display", "none");
+        $("#image_container").remove();
     });
 
   <% end %>

@@ -17,12 +17,16 @@ class ClientAdmin::TilesController < ClientAdminBaseController
   end
 
   def create
-    @tile_builder_form = TileBuilderForm::MultipleChoice.new(@demo, parameters: params[:tile_builder_form], creator: current_user)
+    @tile_builder_form = TileBuilderForm::MultipleChoice.new(@demo, \
+                            parameters: params[:tile_builder_form], \
+                            creator: current_user, \
+                            image_container: params[:image_container])
     if @tile_builder_form.create_objects
       set_after_save_flash(@tile_builder_form.tile)
       schedule_tile_creation_ping
       redirect_to client_admin_tile_path(@tile_builder_form.tile)
     else
+      make_image_container
       flash[:failure] = "Sorry, we couldn't save this tile: " + @tile_builder_form.error_messages
       render "new"
     end
@@ -120,5 +124,13 @@ class ClientAdmin::TilesController < ClientAdminBaseController
 
   def schedule_tile_creation_ping
     ping('Tile - New', {}, current_user)
+  end
+
+  def make_image_container
+    @container = if params["image_container"]
+      ImageContainer.find(params["image_container"]) 
+    else
+      ImageContainer.tile_image(params[:tile_builder_form][:image]) 
+    end
   end
 end
