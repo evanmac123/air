@@ -37,16 +37,17 @@
         .bottom-section
           Need ideas?
           = link_to 'Explore.', client_admin_explore_path
-- elsif @demo.non_activated?
+- elsif @demo.non_activated? && !current_user.displayed_active_tile_guide
   #tile-joyride-index-post
     %ol.joyride-list.tile-index-post{"data-joyride" => true}
       %li{:"data-id"=>"add_new_tile_link", :"data-text"=>"Got It", :"data-options"=>"tipLocation:top;"}
         %p.top-section
           To publish, mouse over the tile and click
           %span Post
--elsif @demo.tiles.count == 1 && @demo.tiles.first.just_activated?
+-elsif @demo.tiles.count == 1 && @tile_just_activated
   #tile-joyride-index-main-menu
     %ol.joyride-list.tile-index-main-menu{"data-joyride" => true}
       %li{:"data-id"=>"logo", :"data-text"=>"Got It", :"data-options"=>"tipLocation:bottom;"}
         %p.top-section
           To try your board as a user click on the logo.
+

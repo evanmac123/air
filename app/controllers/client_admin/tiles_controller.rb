@@ -8,6 +8,8 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     @active_tiles  = @demo.active_tiles_with_placeholders
     @archive_tiles = (@demo.archive_tiles_with_placeholders)[0,8]
     @draft_tiles = (@demo.draft_tiles_with_placeholders)[0,8]
+    
+    @tile_just_activated = flash[:tile_activated] || false
   end
 
   def new
@@ -53,6 +55,12 @@ class ClientAdmin::TilesController < ClientAdminBaseController
   def edit
     tile = get_tile
     @tile_builder_form = tile.to_form_builder
+  end
+  
+  def active_tile_guide_displayed
+    current_user.displayed_active_tile_guide=true
+    current_user.save!
+    render nothing: true
   end
 
   private

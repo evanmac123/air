@@ -262,14 +262,8 @@ feature 'Client admin and the digest email for tiles' do
     end
     context "when there is atleast on draft tile in demo" do
       before do
-        FactoryGirl.create :tile, demo_id: admin.demo_id, status: Tile::DRAFT
+        FactoryGirl.create :tile, demo: admin.demo, status: Tile::DRAFT
         visit tile_manager_page
-      end
-      scenario "popup appears in first draft tile" do
-        page.should have_css('.joyride-tip-guide', visible: true)
-        within(".joyride-tip-guide") do
-          page.should have_content("To publish, mouse over the tile and click Post")
-        end
       end
       scenario "share link on navbar shows lock icon" do
         expect_link_to_have_lock_icon('#share_tiles')
@@ -280,10 +274,24 @@ feature 'Client admin and the digest email for tiles' do
       scenario "activity link on navbar shows lock icon" do
         expect_link_to_have_lock_icon('#users')
       end
+      scenario "popup appears in first draft tile", js: :webkit do
+        page.should have_css('.joyride-tip-guide', visible: true)
+        within(".joyride-tip-guide") do
+          page.should have_content("To publish, mouse over the tile and click Post")
+        end
+      end
+      scenario "user clicks Got It, popover disappears and user nevers sees it again", js: :webkit do
+        click_link 'Got It'
+        page.should_not have_css('.joyride-tip-guide', visible: true)
+
+        visit tile_manager_page
+        page.should_not have_css('.joyride-tip-guide', visible: true)
+        
+      end
     end
     context "when there is atleast one activated tile in demo" do
       before do
-        FactoryGirl.create :tile, demo_id: admin.demo_id
+        FactoryGirl.create :tile, demo: admin.demo
         visit tile_manager_page
       end
       scenario "popup appears under Airbo logo" do
@@ -354,23 +362,23 @@ feature 'Client admin and the digest email for tiles' do
     # No tiles, except the "Add Tile" placeholder in the draft section, sooooooo...
     expect_draft_tile_placeholders(3)
 
-    FactoryGirl.create(:tile, :draft, demo_id: admin.demo_id)
+    FactoryGirl.create(:tile, :draft, demo: admin.demo)
     visit tile_manager_page
     expect_draft_tile_placeholders(2)
 
-    FactoryGirl.create(:tile, :draft, demo_id: admin.demo_id)
+    FactoryGirl.create(:tile, :draft, demo: admin.demo)
     visit tile_manager_page
     expect_draft_tile_placeholders(1)
 
-    FactoryGirl.create(:tile, :draft, demo_id: admin.demo_id)
+    FactoryGirl.create(:tile, :draft, demo: admin.demo)
     visit tile_manager_page
     expect_draft_tile_placeholders(0)
 
-    FactoryGirl.create(:tile, :draft, demo_id: admin.demo_id)
+    FactoryGirl.create(:tile, :draft, demo: admin.demo)
     visit tile_manager_page
     expect_draft_tile_placeholders(3)
 
-    4.times { FactoryGirl.create(:tile, :draft, demo_id: admin.demo_id) }
+    4.times { FactoryGirl.create(:tile, :draft, demo: admin.demo) }
 
     # There's now the creation placeholder, plus eight other draft tiles.
     # If we DID show all of them, there's be an odd row with 1 tile, and we'd
@@ -383,50 +391,50 @@ feature 'Client admin and the digest email for tiles' do
     # And now let's do the active ones
     expect_active_tile_placeholders(0)
 
-    FactoryGirl.create(:tile, :active, demo_id: admin.demo_id)
+    FactoryGirl.create(:tile, :active, demo: admin.demo)
     visit tile_manager_page
     expect_active_tile_placeholders(3)
 
-    FactoryGirl.create(:tile, :active, demo_id: admin.demo_id)
+    FactoryGirl.create(:tile, :active, demo: admin.demo)
     visit tile_manager_page
     expect_active_tile_placeholders(2)
 
-    FactoryGirl.create(:tile, :active, demo_id: admin.demo_id)
+    FactoryGirl.create(:tile, :active, demo: admin.demo)
     visit tile_manager_page
     expect_active_tile_placeholders(1)
 
-    FactoryGirl.create(:tile, :active, demo_id: admin.demo_id)
+    FactoryGirl.create(:tile, :active, demo: admin.demo)
     visit tile_manager_page
     expect_active_tile_placeholders(0)
 
-    FactoryGirl.create(:tile, :active, demo_id: admin.demo_id)
+    FactoryGirl.create(:tile, :active, demo: admin.demo)
     visit tile_manager_page
     expect_active_tile_placeholders(3)
 
     #And now let's look at archived sction(It's similiar to active)
     expect_inactive_tile_placeholders(0)
 
-    FactoryGirl.create(:tile, :archived, demo_id: admin.demo_id)
+    FactoryGirl.create(:tile, :archived, demo: admin.demo)
     visit tile_manager_page
     expect_inactive_tile_placeholders(3)
 
-    FactoryGirl.create(:tile, :archived, demo_id: admin.demo_id)
+    FactoryGirl.create(:tile, :archived, demo: admin.demo)
     visit tile_manager_page
     expect_inactive_tile_placeholders(2)
 
-    FactoryGirl.create(:tile, :archived, demo_id: admin.demo_id)
+    FactoryGirl.create(:tile, :archived, demo: admin.demo)
     visit tile_manager_page
     expect_inactive_tile_placeholders(1)
 
-    FactoryGirl.create(:tile, :archived, demo_id: admin.demo_id)
+    FactoryGirl.create(:tile, :archived, demo: admin.demo)
     visit tile_manager_page
     expect_inactive_tile_placeholders(0)
 
-    FactoryGirl.create(:tile, :archived, demo_id: admin.demo_id)
+    FactoryGirl.create(:tile, :archived, demo: admin.demo)
     visit tile_manager_page
     expect_inactive_tile_placeholders(3)
 
-    4.times { FactoryGirl.create(:tile, :archived, demo_id: admin.demo_id) }
+    4.times { FactoryGirl.create(:tile, :archived, demo: admin.demo) }
 
     # There's now the creation placeholder, plus eight other archived tiles.
     # If we DID show all of them, there's be an odd row with 1 tile, and we'd
