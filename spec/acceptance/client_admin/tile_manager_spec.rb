@@ -260,7 +260,7 @@ feature 'Client admin and the digest email for tiles' do
         expect_page_to_be_locked
       end
     end
-    context "when there is atleast on draft tile in demo" do
+    context "when there is atleast on draft tile in demo", js: :webkit do
       before do
         FactoryGirl.create :tile, demo: admin.demo, status: Tile::DRAFT
         visit tile_manager_page
@@ -269,6 +269,7 @@ feature 'Client admin and the digest email for tiles' do
         expect_link_to_have_lock_icon('#share_tiles')
       end
       scenario "activity link on navbar shows lock icon" do
+        show_me_the_page
         expect_link_to_have_lock_icon('#board_activity')
       end
       scenario "activity link on navbar shows lock icon" do

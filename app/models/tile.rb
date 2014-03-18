@@ -18,7 +18,7 @@ class Tile < ActiveRecord::Base
   has_many  :completed_tiles, source: :tile, through: :tile_completions
   has_many :triggering_rules, :class_name => "Rule", :through => :rule_triggers
 
-  validates_uniqueness_of :position, :scope => :demo_id
+  #validates_uniqueness_of :position, :scope => :demo_id
 
   validates_presence_of :headline, :allow_blank => false, :message => "headline can't be blank"
   validates_presence_of :supporting_content, :allow_blank => false, :message => "supporting content can't be blank", :on => :client_admin
