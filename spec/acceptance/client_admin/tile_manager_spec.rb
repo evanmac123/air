@@ -259,12 +259,45 @@ feature 'Client admin and the digest email for tiles' do
         visit client_admin_users_path
         expect_page_to_be_locked
       end
+    end
+    context "when there is atleast on draft tile in demo" do
+      before do
+        FactoryGirl.create :tile, demo_id: admin.demo_id, status: Tile::DRAFT
+        visit tile_manager_page
+      end
+      scenario "popup appears in first draft tile" do
+        page.should have_css('.joyride-tip-guide', visible: true)
+        within(".joyride-tip-guide") do
+          page.should have_content("To publish, mouse over the tile and click Post")
+        end
+      end
+      scenario "share link on navbar shows lock icon" do
+        expect_link_to_have_lock_icon('#share_tiles')
+      end
+      scenario "activity link on navbar shows lock icon" do
+        expect_link_to_have_lock_icon('#board_activity')
+      end
+      scenario "activity link on navbar shows lock icon" do
+        expect_link_to_have_lock_icon('#users')
+      end
+    end
+    context "when there is atleast one activated tile in demo" do
+      before do
+        FactoryGirl.create :tile, demo_id: admin.demo_id
+        visit tile_manager_page
+      end
+      scenario "popup appears under Airbo logo" do
+        page.should have_css('.joyride-tip-guide', visible: true)
+        within(".joyride-tip-guide") do
+          page.should have_content("To try your board as a user click on the logo.")
+        end
+      end
       scenario "lock icon on share link doesnt appear" do
         within('#share_tiles') do
           page.should_not have_css('.fa-lock', visible: true)
         end
       end
-    end
+    end    
   end
 
   describe 'Tiles appear in reverse-chronological order by activation/archived-date and then creation-date' do

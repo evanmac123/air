@@ -25,7 +25,7 @@
         }
     }
     &.tile-index-post {
-        width: 399px;
+        width: 410px;
         height: 100px;
         margin-left: 216px;
         color: $dark-gray;
@@ -45,7 +45,7 @@
         }
     }    
     &.tile-index-main-menu {
-        width: 394px;
+        width: 410px;
         height: 100px;
         margin-top: 5px;
         margin-left: 0.9375em;
@@ -58,25 +58,6 @@
         }
         .joyride-next-tip{
             @include light-button($gray);
-            font-size: 14px;
-        }
-    }
-}
-
-
-.joyride-tip-guide {
-    &.tile {
-        width: 360px;
-        margin-top: 82px;
-        margin-left: 82px;
-        color: $dark-gray;
-        .joyride-nub{
-            border: outset $joyride-tip-nub-size;
-        }
-        .top-section{
-            font-size: 18px !important;
-        }
-        .bottom-section{
             font-size: 14px;
         }
     }
