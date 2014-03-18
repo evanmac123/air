@@ -22,11 +22,11 @@
 <% content_for :javascript do %>
   <%= javascript_tag do %>
     $( document ).ready(function() {
-      <% if @container_id.to_i <= 0 %>
+      if($(".tile_image").attr("src") == "/assets/avatars/thumb/missing.png") {
         showPlaceholder();
-      <% else %>
+      }else{
         showShadows();
-      <% end %>
+      }
     });
 
     function showPlaceholder() {
