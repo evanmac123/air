@@ -22,7 +22,7 @@
 <% content_for :javascript do %>
   <%= javascript_tag do %>
     $( document ).ready(function() {
-      <% if @tile_builder_form.image.present? == false && (@container == "no_image" || @container == nil) %>
+      <% if @container_id.to_i <= 0 %>
         showPlaceholder();
       <% else %>
         showShadows();

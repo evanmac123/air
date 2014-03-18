@@ -137,16 +137,13 @@ class ClientAdmin::TilesController < ClientAdminBaseController
                       ImageContainer.find(params["image_container"]).id
                     elsif params["image_container"] == "no_image"
                       "no_image"
-                    elsif params[:tile_builder_form].present? == false
-                      nil
-                    else
+                    elsif params[:tile_builder_form].present? && params[:tile_builder_form][:image].present?
                       ImageContainer.tile_image(params[:tile_builder_form][:image]).id
+                    else
+                      nil
                     end
 
-    @image_url   =  if @tile_builder_form.image.present? == false && \
-                      (@container_id == "no_image" || @container_id == nil)
-                      "/assets/avatars/thumb/missing.png"
-                    elsif @container_id
+    @image_url   =  if @container_id.to_i > 0
                       ImageContainer.find(@container_id).image.url
                     else
                       @tile_builder_form.image.url

@@ -126,7 +126,7 @@ module TileBuilderForm
         @tile.image = @tile.thumbnail = @parameters[:image]
       elsif @image_container == "no_image"
         @tile.image = @tile.thumbnail = nil
-      elsif @image_container
+      elsif @image_container.to_i > 0
         @tile.image = @tile.thumbnail = ImageContainer.find(@image_container).image
       end
     end
