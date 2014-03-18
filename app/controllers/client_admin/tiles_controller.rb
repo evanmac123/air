@@ -38,11 +38,12 @@ class ClientAdmin::TilesController < ClientAdminBaseController
 
   def show
     @tile = get_tile
+    @tile_just_activated = flash[:tile_activated] || false
     if @tile.draft?
       @show_tile_post_guide = !current_user.displayed_tile_post_guide? && @tile.demo.non_activated?
       current_user.displayed_tile_post_guide = true
       current_user.save!
-    elsif @tile.just_activated?
+    elsif @tile_just_activated
       @show_tile_success_guide = !current_user.displayed_tile_success_guide? && @tile.demo.tiles.active.count == 1
       current_user.displayed_tile_success_guide = true
       current_user.save!
@@ -79,6 +80,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     success, failure = flash_status_messages
 
     if @tile.update_attributes status: params[:update_status]
+      flash[:tile_activated] = @tile.active?
       flash[:success] = "The #{@tile.headline} tile has been #{success}"
     else
       flash[:failure] = "There was a problem #{failure} this tile. Please try again."
