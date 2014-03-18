@@ -1,26 +1,19 @@
 <div class="builder_content">
   <div id="image_uploader">
     <div class="image_preview">
-      <% if @tile_builder_form.image.present? == false && @container == nil %>
-        <img id="upload_preview" />
-      <% elsif @container %>
-        <%= hidden_field_tag "image_container", @container.id, id: "image_container" %>
-        <%= image_tag @container.image.url, class: "tile_image", id: "upload_preview" %>
-      <% else %>
-        <%= image_tag @tile_builder_form.image.url, class: "tile_image", id: "upload_preview" %>
-      <% end %>
+        <%= hidden_field_tag "image_container", @container_id, id: "image_container" %>
+        <%= image_tag @image_url, class: "tile_image", id: "upload_preview" %>
       <div class="image_placeholder">
         <i class="fa fa-picture-o fa-4x"></i>
         <label>Pick an image</label>
       </div>
       <div class="shadows">
         <div class="shadow_overlay"></div>
-        <div class="clear_image has-tip" data-tooltip title='Remove the image.'>
-          <i class="fa fa-times fa-2x"></i>
+        <div class="clear_image has-tip tip-top" data-tooltip title="Remove the image.">
+            <i class="fa fa-times fa-2x"></i>
         </div>
       </div>
     </div>
-    
     <div class="upload_new_image">
       <%= form.file_field "image" %>
     </div>
@@ -29,7 +22,7 @@
 <% content_for :javascript do %>
   <%= javascript_tag do %>
     $( document ).ready(function() {
-      <% if @tile_builder_form.image.present? == false && @container == nil %>
+      <% if @tile_builder_form.image.present? == false && (@container == "no_image" || @container == nil) %>
         showPlaceholder();
       <% else %>
         showShadows();
@@ -55,7 +48,7 @@
       oFReader.onload = function (oFREvent) {
           document.getElementById("upload_preview").src = oFREvent.target.result;
       };
-      $("#image_container").remove();
+      $("#image_container").val("");
       showShadows();
     });
 
@@ -65,7 +58,7 @@
 
     $(".clear_image").click(function clearImage(event) {
       event.preventDefault();
-      $("#image_container").remove();
+      $("#image_container").val("no_image");
       var control = $("#tile_builder_form_image");
       control.replaceWith( control = control.clone( true ) );
       showPlaceholder();

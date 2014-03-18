@@ -3,7 +3,7 @@ class ImageContainer < ActiveRecord::Base
 
   def self.tile_image image
     destroy_old_images
-    if image 
+    if image
       ic = self.new
       ic.image = image
       ic.save

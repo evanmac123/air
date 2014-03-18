@@ -124,6 +124,8 @@ module TileBuilderForm
     def set_tile_image
       if @parameters[:image].present?
         @tile.image = @tile.thumbnail = @parameters[:image]
+      elsif @image_container == "no_image"
+        @tile.image = @tile.thumbnail = nil
       elsif @image_container
         @tile.image = @tile.thumbnail = ImageContainer.find(@image_container).image
       end

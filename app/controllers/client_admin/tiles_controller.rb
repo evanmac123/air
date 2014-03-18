@@ -14,6 +14,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
 
   def new
     @tile_builder_form = TileBuilderForm::MultipleChoice.new(@demo)
+    set_image_and_container
   end
 
   def create
@@ -26,7 +27,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
       schedule_tile_creation_ping
       redirect_to client_admin_tile_path(@tile_builder_form.tile)
     else
-      make_image_container
+      set_image_and_container
       flash[:failure] = "Sorry, we couldn't save this tile: " + @tile_builder_form.error_messages
       render "new"
     end
@@ -59,6 +60,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
   def edit
     tile = get_tile
     @tile_builder_form = tile.to_form_builder
+    set_image_and_container
   end
   
   def active_tile_guide_displayed
@@ -111,7 +113,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
       set_after_save_flash(@tile_builder_form.tile)
       redirect_to client_admin_tile_path(@tile_builder_form.tile)
     else
-      make_image_container
+      set_image_and_container
       flash[:failure] = "Sorry, we couldn't update this tile: " + @tile_builder_form.error_messages
       render :edit
     end
@@ -130,11 +132,24 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     ping('Tile - New', {}, current_user)
   end
 
-  def make_image_container
-    @container = if params["image_container"]
-      ImageContainer.find(params["image_container"]) 
-    else
-      ImageContainer.tile_image(params[:tile_builder_form][:image]) 
-    end
+  def set_image_and_container
+    @container_id = if params["image_container"].present? && params["image_container"] != "no_image"
+                      ImageContainer.find(params["image_container"]).id
+                    elsif params["image_container"] == "no_image"
+                      "no_image"
+                    elsif params[:tile_builder_form].present? == false
+                      nil
+                    else
+                      ImageContainer.tile_image(params[:tile_builder_form][:image]).id
+                    end
+
+    @image_url   =  if @tile_builder_form.image.present? == false && \
+                      (@container_id == "no_image" || @container_id == nil)
+                      "/assets/avatars/thumb/missing.png"
+                    elsif @container_id
+                      ImageContainer.find(@container_id).image.url
+                    else
+                      @tile_builder_form.image.url
+                    end
   end
 end

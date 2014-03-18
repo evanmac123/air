@@ -8,18 +8,18 @@ shared_examples_for "editing a tile" do
 
   scenario 'changing the image', js: true do
     attach_tile "tile_builder_form[image]", tile_fixture_path('cov1.jpg')
-    click_button "Upload new image"
+    click_button "Update tile"
 
     Tile.count.should == 1
     @tile.reload.image_file_name.should == 'cov1.jpg'
 
-    should_be_on edit_client_admin_tile_path(@tile)
+    should_be_on client_admin_tile_path(@tile)
     expect_content "OK, you've uploaded a new image."
   end
 
   scenario "trying to change the image without selecting one" do
     original_image_file_name = @tile.image_file_name
-    click_button "Upload new image"
+    click_button "Update tile"
 
     Tile.count.should == 1
     @tile.reload.image_file_name.should == original_image_file_name
