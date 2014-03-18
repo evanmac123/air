@@ -1,5 +1,28 @@
 @import 'mast_desktop';
 
+.joyride-tip-guide {
+    &.activity-index {
+        width: 400px;
+        height: 100px;
+        margin-top: 15px;
+        margin-left: -132px;
+        color: $dark-gray;
+        .joyride-nub{
+            margin-left: 153px;
+        }
+        .top-section{
+            font-size: 18px !important;
+            span{
+                color: $gray;
+            }
+        }
+        .joyride-next-tip{
+            @include light-button($gray);
+            font-size: 14px;
+        }
+    }
+}
+
 body {
   .content .seemore a {display: inline-block;}
 }

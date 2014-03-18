@@ -6,6 +6,22 @@ feature "Sees tiles after completion" do
     let(:demo) {FactoryGirl.create :demo}
     let(:tile) {FactoryGirl.create(:tile, status: Tile::ACTIVE, demo: demo)}
     let(:user) {FactoryGirl.create :user, demo: demo}
+    let(:client_admin) {FactoryGirl.create :client_admin, demo: demo}
+    context 'sees pop-over under manage link', js: true do
+      before do
+        visit activity_path(as: client_admin)
+      end
+      scenario 'show how to return to tile manager only once' do
+        page.should have_css('.joyride-tip-guide', visible: true)
+        page.should have_content('To return to the tile manager click Manage.')
+        visit activity_path(as: client_admin)
+        page.should_not have_css('.joyride-tip-guide', visible: true)        
+      end
+      scenario 'clicking Got It button hides the popover' do
+        click_link 'Got It'
+        page.should_not have_css('.joyride-tip-guide', visible: true)
+      end
+    end
     context "sees completed tiles" do
       before do      
         FactoryGirl.create(:tile, status: Tile::ACTIVE, demo: demo)

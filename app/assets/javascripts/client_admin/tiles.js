@@ -22,9 +22,6 @@ $(document).ready(function() {
     });
         
   $('#tile-joyride-index-main-menu').foundation('joyride', 'start', {
-      cookieMonster: true,
-      cookieName: 'JoyRide',
-      cookieDomain: false,
       tipLocation: 'bottom',
       template : { // HTML segments for tip layout
         link    : '',

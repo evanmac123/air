@@ -917,7 +917,7 @@ class User < ActiveRecord::Base
   def can_start_over?
     false
   end
-
+  
   protected
 
   def downcase_email

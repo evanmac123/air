@@ -7,3 +7,5 @@
 //= require_self
 //= require_tree ./internal/.
 //= require_tree ./internal_and_external/.
+
+$(document).foundation();

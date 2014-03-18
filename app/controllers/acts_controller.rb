@@ -29,6 +29,12 @@ class ActsController < ApplicationController
       current_user.save
     end
 
+    @display_activity_page_admin_guide = current_user.is_a?(User) && !current_user.displayed_activity_page_admin_guide?
+    if @display_activity_page_admin_guide
+      current_user.displayed_activity_page_admin_guide = true
+      current_user.save!
+    end
+    
     @displayable_categorized_tiles = Tile.displayable_categorized_to_user(current_user, tile_batch_size)
     TileCompletion.mark_displayed_one_final_time(@current_user)
 
@@ -56,7 +62,7 @@ class ActsController < ApplicationController
 
     redirect_to :back
   end
-
+  
   add_method_tracer :index
   add_method_tracer :create
 
