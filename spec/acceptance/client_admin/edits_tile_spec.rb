@@ -6,7 +6,7 @@ shared_examples_for "editing a tile" do
     page.find("img[src='#{@tile.reload.image}']").should be_present
   end
 
-  scenario 'changing the image' do
+  scenario 'changing the image', js: true do
     attach_tile "tile_builder_form[image]", tile_fixture_path('cov1.jpg')
     click_button "Upload new image"
 

@@ -64,7 +64,6 @@ body.client_admin-tiles-update {
         position: relative;
         &:hover, &:focus {
           border-style:solid;
-          cursor: pointer;
           i { color: $blue; }
           .shadow_overlay {
             display: block;
@@ -107,8 +106,9 @@ body.client_admin-tiles-update {
         i { color: $gray; }
         .image_placeholder {
           label { margin-top: 1em;}
-          margin-top: 5em;
-          margin-bottom: 5em;
+          padding-top: 5em;
+          padding-bottom: 5em;
+          cursor: pointer;
         }
       }
     }
@@ -193,57 +193,5 @@ body.client_admin-tiles-update {
       width:3.5em;
     }
     label {@include font-bold;}
-  }
-}
-// Specific styles for Edit page
-body.client_admin-tiles-edit,
-body.client_admin-tiles-update {
-  .tile_builder_section {padding:2em;}
-  .edit_tiles_content, .edit_tile_image {overflow: hidden;}
-  .edit_tiles_content {
-    box-shadow:0px 2px 1px 1px lighten($med-gray, 5%);
-    border-bottom-right-radius: $border-radius;
-    border-bottom-left-radius: $border-radius;
-    margin-top:-1px;
-  }
-  .edit_tile_image {
-    box-shadow:0 0 1px 1px lighten($med-gray, 5%);
-    border-top-right-radius: $border-radius;
-    border-top-left-radius: $border-radius;
-  }
-  .button_wrap {
-        margin-top:1em;
-        margin-bottom: 2em;
-        text-align: center;
-        input {@include app-button($dark-green);}
-  }
-  .builder_content #image_uploader {
-    background:$text-color;
-    border:0;
-    margin-bottom:0;
-    padding:0;
-    .image_preview {
-      padding:2em;
-    }
-    img {
-      //padding:2em;
-      //width: 100%;
-    }
-    .upload_new_image {
-      background:$white;
-      border-top:0;
-      padding-top:1em;
-      #tile_builder_form_image {
-        background:lighten($light-gray, 8%);
-        color:$text-color;
-        padding:.6em 2em;
-        &:hover {
-          background:lighten($light-gray, 10%);
-        }
-      }
-    }
-  }
-  #tile_headline, #tile_supporting_content, #tile_external_link {
-    padding:0 1.75em;
   }
 }

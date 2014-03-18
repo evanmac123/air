@@ -1,35 +1,15 @@
 <div class="row">
   <div class="large-8 large-centered columns">
-    <div class="builder_content edit_tile_image">
-      <%= form_for @tile_builder_form, url: client_admin_tile_image_path(@tile_builder_form.tile), method: :put do |f| %>
-        <%= render 'image_uploader', form: f %>
-        <div class="button_wrap">
-          <%= f.submit "Upload new image" %>
-        </div>
-      <% end %>
-    </div>
-
     <%= form_for @tile_builder_form, url: client_admin_tile_path(@tile_builder_form.tile), method: :put do |f| %>
-      <div class="builder_content edit_tiles_content">
-        <%= render 'headline_and_supporting_content_fields', form: f %>
+      <div class="tile_holder">
+        <%= render 'image_uploader', form: f %>
+        <div class="builder_content tile_builder_section">
+          <%= render 'headline_and_supporting_content_fields', form: f %>
+        </div>
         <%= render 'question_and_answer_section', form: f %>
       </div>
-
       <%= render 'submit_button', submit_button_text: "Update tile", form: f %>
     <% end %>
-
     <%= render 'client_admin/tiles/poll_for_image_if_needed', tile: @tile_builder_form.tile %>
-
-    <% content_for :javascript do %>
-      <%= javascript_tag do %>
-        $('.edit_tile_image form').submit(function(event) {
-          var imagePath = $('#tile_builder_form_image').val();
-          if(imagePath.length == 0) {
-            event.preventDefault();
-            alert("If you'd like to change the image, please choose a new file.");
-          }
-        });
-      <% end %>
-    <% end %>
   </div>
 </div>

@@ -102,12 +102,16 @@ class ClientAdmin::TilesController < ClientAdminBaseController
   end
 
   def update_fields
-    @tile_builder_form = @tile.form_builder_class.new(@demo, parameters: params[:tile_builder_form], tile: @tile)
+    @tile_builder_form = @tile.form_builder_class.new(@demo, \
+                      parameters: params[:tile_builder_form], \
+                      tile: @tile, \
+                      image_container: params[:image_container])
 
     if @tile_builder_form.update_objects
       set_after_save_flash(@tile_builder_form.tile)
       redirect_to client_admin_tile_path(@tile_builder_form.tile)
     else
+      make_image_container
       flash[:failure] = "Sorry, we couldn't update this tile: " + @tile_builder_form.error_messages
       render :edit
     end

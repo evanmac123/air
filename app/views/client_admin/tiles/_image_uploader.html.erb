@@ -1,6 +1,6 @@
 <div class="builder_content">
   <div id="image_uploader">
-    <div class="image_preview <%= 'pick_image' if params[:action] == 'create' || params[:action] == 'new' %>">
+    <div class="image_preview">
       <% if @tile_builder_form.image.present? == false && @container == nil %>
         <img id="upload_preview" />
       <% elsif @container %>
@@ -9,14 +9,13 @@
       <% else %>
         <%= image_tag @tile_builder_form.image.url, class: "tile_image", id: "upload_preview" %>
       <% end %>
-      <% placeholder, shadows = ((@container || @tile_builder_form.image.present?) ? ["none", "block"] : ["block", "none"]) %>
-      <div class="image_placeholder" style="display:<%= placeholder %>">
+      <div class="image_placeholder">
         <i class="fa fa-picture-o fa-4x"></i>
         <label>Pick an image</label>
       </div>
-      <div class="shadows" style="display:<%= shadows %>">
+      <div class="shadows">
         <div class="shadow_overlay"></div>
-        <div class="clear_image">
+        <div class="clear_image has-tip" data-tooltip title='Remove the image.'>
           <i class="fa fa-times fa-2x"></i>
         </div>
       </div>
@@ -29,6 +28,25 @@
 </div>
 <% content_for :javascript do %>
   <%= javascript_tag do %>
+    $( document ).ready(function() {
+      <% if @tile_builder_form.image.present? == false && @container == nil %>
+        showPlaceholder();
+      <% else %>
+        showShadows();
+      <% end %>
+    });
+
+    function showPlaceholder() {
+      $("#upload_preview").css("display", "none");
+      $(".image_placeholder").css("display", "block");
+      $(".shadows").css("display", "none");
+    };
+
+    function showShadows() {
+      $("#upload_preview").css("display", "block");
+      $(".image_placeholder").css("display", "none");
+      $(".shadows").css("display", "block");
+    };
 
     $("#tile_builder_form_image").change(function PreviewImage() {
       var oFReader = new FileReader();
@@ -37,11 +55,8 @@
       oFReader.onload = function (oFREvent) {
           document.getElementById("upload_preview").src = oFREvent.target.result;
       };
-      $(".image_placeholder").css("display", "none");
       $("#image_container").remove();
-      $(".pick_image").unbind();
-      $(".pick_image").css("cursor", "default");
-      $(".shadows").css("display", "block");
+      showShadows();
     });
 
     $(".image_placeholder").click(function chooseImage() {
@@ -53,8 +68,7 @@
       $("#image_container").remove();
       var control = $("#tile_builder_form_image");
       control.replaceWith( control = control.clone( true ) );
-      $(".image_placeholder").css("display", "block");
-      $("#upload_preview").removeAttr("alt").attr("src", "");
+      showPlaceholder();
     });
 
   <% end %>

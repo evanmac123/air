@@ -112,6 +112,7 @@ module TileBuilderForm
     end
 
     def update_tile
+      set_tile_image
       set_tile_attributes
     end
 
