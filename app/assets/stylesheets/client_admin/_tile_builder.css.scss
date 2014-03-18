@@ -50,25 +50,68 @@ body.client_admin-tiles-update {
 
     // Image uploader
     #image_uploader {
-      //border:2px lighten($light-gray, 8%) dashed;
-      //margin-bottom:3em;
-      //padding:4em 0;
       text-align: center;
       &:hover {border-style:solid;}
-      #tile_builder_form_image {
-        background:$blue;
-        border:0;
-        color:$white;
-        padding:1em 2em;
-        width:auto;
-        &:hover {background:darken($blue, 5%);}
-      }
+      
       p {
         color:$gray;
         margin:1em 0;
       }
-    }
+      #tile_builder_form_image {display:none;}
+      .image_preview {
+        border:2px lighten($light-gray, 8%) dashed;
+        margin:2em;
+        position: relative;
+        &:hover, &:focus {
+          border-style:solid;
+          cursor: pointer;
+          i { color: $blue; }
+          .shadow_overlay {
+            display: block;
+            width: 100%;
+            height: 75px;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            background: black;
+            z-index: 10;
 
+            background: -moz-linear-gradient(top,  rgba(0,0,0,0) 0%, rgba(0,0,0,0) 1%, rgba(0,0,0,0.5) 100%); /* FF3.6+ */
+            background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(0,0,0,0)), color-stop(1%,rgba(0,0,0,0)), color-stop(100%,rgba(0,0,0,0.5))); /* Chrome,Safari4+ */
+            background: -webkit-linear-gradient(top,  rgba(0,0,0,0) 0%,rgba(0,0,0,0) 1%,rgba(0,0,0,0.5) 100%); /* Chrome10+,Safari5.1+ */
+            background: -o-linear-gradient(top,  rgba(0,0,0,0) 0%,rgba(0,0,0,0) 1%,rgba(0,0,0,0.5) 100%); /* Opera 11.10+ */
+            background: -ms-linear-gradient(top,  rgba(0,0,0,0) 0%,rgba(0,0,0,0) 1%,rgba(0,0,0,0.5) 100%); /* IE10+ */
+            background: linear-gradient(to bottom,  rgba(0,0,0,0) 0%,rgba(0,0,0,0) 1%,rgba(0,0,0,0.5) 100%); /* W3C */
+            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#80000000',GradientType=0 ); /* IE6-9 */
+          }
+          .clear_image {
+            display: block;
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            //width: 100%;
+            //height: 100%;
+            i {
+              color: $light-gray;
+              &:hover, &:focus {
+                cursor: pointer;
+                color: $white;
+              }
+            }
+            z-index:15;
+          }
+        }
+        .clear_image {
+          display: none;
+        }
+        i { color: $gray; }
+        .image_placeholder {
+          label { margin-top: 1em;}
+          margin-top: 5em;
+          margin-bottom: 5em;
+        }
+      }
+    }
     // Copy for the tile
     #tile_builder_form_headline {
       color:$dark-gray;
@@ -150,26 +193,6 @@ body.client_admin-tiles-update {
       width:3.5em;
     }
     label {@include font-bold;}
-  }
-}
-body.client_admin-tiles-new, 
-body.client_admin-tiles-create{
-  .clear_image {@include app-button($red);}
-  #tile_builder_form_image {display:none;}
-  .image_preview {
-    border:2px lighten($light-gray, 8%) dashed;
-    margin:2em;
-    &:hover, &:focus {
-      border-style:solid;
-      cursor: pointer;
-      i { color: $blue; }
-    }
-    i { color: black; }
-    .image_placeholder {
-      label { margin-top: 1em;}
-      margin-top: 5em;
-      margin-bottom: 5em;
-    }
   }
 }
 // Specific styles for Edit page

@@ -169,7 +169,7 @@ module TileHelpers
   end
 
   def fill_in_valid_form_entries(click_answer = 1)
-    attach_file "tile_builder_form[image]", tile_fixture_path('cov1.jpg')
+    attach_tile "tile_builder_form[image]", tile_fixture_path('cov1.jpg')
     fill_in "Headline",           with: "Ten pounds of cheese"
     fill_in "Supporting content", with: "Ten pounds of cheese. Yes? Or no?"
 
@@ -267,5 +267,10 @@ module TileHelpers
 
   def expect_placeholder_count(expected_count)
     page.all('.placeholder_tile').should have(expected_count).placeholders
+  end
+
+  def attach_tile locator, path
+    page.execute_script("$('#tile_builder_form_image').css('display','block')")
+    attach_file locator, path
   end
 end

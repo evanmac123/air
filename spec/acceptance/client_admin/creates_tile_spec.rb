@@ -4,6 +4,15 @@ feature 'Creates tile' do
   let (:client_admin) { FactoryGirl.create(:client_admin)}
   let (:demo)         { client_admin.demo }
 
+  def create_good_tile
+    fill_in_valid_form_entries
+    click_create_button
+  end
+
+  def click_create_button
+    click_button "Save tile"
+  end
+
   before do
     visit new_client_admin_tile_path(as: client_admin)
   end

@@ -2,12 +2,12 @@ require 'acceptance/acceptance_helper'
 
 
 shared_examples_for "editing a tile" do
-  scenario 'should see the tile thumbnail before editing' do
-    page.find("img[src='#{@tile.reload.thumbnail}']").should be_present
+  scenario 'should see the tile image before editing' do
+    page.find("img[src='#{@tile.reload.image}']").should be_present
   end
 
   scenario 'changing the image' do
-    attach_file "tile_builder_form[image]", tile_fixture_path('cov1.jpg')
+    attach_tile "tile_builder_form[image]", tile_fixture_path('cov1.jpg')
     click_button "Upload new image"
 
     Tile.count.should == 1

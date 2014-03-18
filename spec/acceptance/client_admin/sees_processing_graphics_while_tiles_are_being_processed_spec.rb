@@ -3,7 +3,7 @@ require 'acceptance/acceptance_helper'
 feature 'Sees processing graphics while tiles are being processed' do
   def create_tile(admin=a_client_admin)
     visit new_client_admin_tile_path(as: admin)
-    attach_file "tile_builder_form[image]", tile_fixture_path('cov1.jpg')
+    attach_tile "tile_builder_form[image]", tile_fixture_path('cov1.jpg')
     fill_in "Headline",           with: "Ten pounds of cheese"
     fill_in "Supporting content", with: "Ten pounds of cheese. Yes? Or no?"
 
@@ -37,7 +37,7 @@ feature 'Sees processing graphics while tiles are being processed' do
 
     page.find('.tile_image')['src'].should include('cov1.png')
 
-    attach_file "tile_builder_form[image]", tile_fixture_path('cov2.jpg')
+    attach_tile "tile_builder_form[image]", tile_fixture_path('cov2.jpg')
     click_button "Upload new image"
 
     page.find('.tile_image')['src'].should == Tile::IMAGE_PROCESSING_IMAGE_URL
