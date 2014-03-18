@@ -22,7 +22,7 @@
 <% content_for :javascript do %>
   <%= javascript_tag do %>
     $( document ).ready(function() {
-      if($(".tile_image").attr("src") == "/assets/avatars/thumb/missing.png") {
+      if($(".tile_image").attr("src").indexOf("/assets/avatars/thumb/missing.png1") >= 0) {
         showPlaceholder();
       }else{
         showShadows();
