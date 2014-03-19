@@ -30,15 +30,11 @@
     });
 
     function showPlaceholder() {
-      $("#upload_preview").css("display", "none");
-      $(".image_placeholder").css("display", "block");
-      $(".shadows").css("display", "none");
+      $(".image_preview").removeClass("show_shadows").addClass("show_placeholder");
     };
 
     function showShadows() {
-      $("#upload_preview").css("display", "block");
-      $(".image_placeholder").css("display", "none");
-      $(".shadows").css("display", "block");
+      $(".image_preview").removeClass("show_placeholder").addClass("show_shadows");
     };
 
     $("#tile_builder_form_image").change(function PreviewImage() {
@@ -63,6 +59,5 @@
       control.replaceWith( control = control.clone( true ) );
       showPlaceholder();
     });
-
   <% end %>
 <% end %>

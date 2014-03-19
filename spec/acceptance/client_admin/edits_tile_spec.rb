@@ -14,18 +14,20 @@ shared_examples_for "editing a tile" do
     @tile.reload.image_file_name.should == 'cov1.jpg'
 
     should_be_on client_admin_tile_path(@tile)
-    expect_content "OK, you've uploaded a new image."
+    expect_content after_tile_save_message(hide_activate_link: true, action: "update")
   end
 
-  scenario "trying to change the image without selecting one" do
-    original_image_file_name = @tile.image_file_name
+  scenario "clear the image and try to update tile", js: true do
+    #original_image_file_name = @tile.image_file_name
+    page.find(".clear_image").click
     click_button "Update tile"
 
-    Tile.count.should == 1
-    @tile.reload.image_file_name.should == original_image_file_name
+    #Tile.count.should == 1
+    #@tile.reload.image_file_name.should == original_image_file_name
 
     should_be_on edit_client_admin_tile_path(@tile)
-    expect_content "Please select an image if you'd like to upload a new one."
+    expect_content "You can't save a tile without an image. \
+    Add a new image or click cancel to restore the image you removed"
   end
 
   scenario "won't let the user blank out the last answer", js: true do
@@ -122,7 +124,7 @@ feature "Client admin edits tile" do
       rule.primary_value.value.should == "value 1"
 
       should_be_on client_admin_tile_path(@tile)
-      expect_content after_tile_save_message(hide_activate_link: true)
+      expect_content after_tile_save_message(hide_activate_link: true, action: "update")
     end
 
     scenario 'with bad information', js: true do
@@ -187,7 +189,7 @@ feature "Client admin edits tile" do
       @tile.multiple_choice_answers.should == ["Eggs", "you", "me", "bob"]
       @tile.correct_answer_index.should == 1
       should_be_on client_admin_tile_path(@tile)
-      expect_content after_tile_save_message(hide_activate_link: true)
+      expect_content after_tile_save_message(hide_activate_link: true, action: "update")
     end
 
     scenario "with bad information", js: true do

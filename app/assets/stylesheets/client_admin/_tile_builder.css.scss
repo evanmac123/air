@@ -62,8 +62,24 @@ body.client_admin-tiles-update {
         margin:1em 0;
       }
       #tile_builder_form_image {display:none;}
-      .image_preview {
+      .show_shadows {
+        background:$med-gray;
+        border-style:solid;
+        #upload_preview {display:block;}
+        .image_placeholder {display:none;}
+        .shadows {display:block;}
+      }
+      .show_placeholder {
         border:2px lighten($light-gray, 8%) dashed;
+        #upload_preview {display:none;}
+        .image_placeholder {display:block;}
+        .shadows {display:none;}
+        &:hover, &:focus {
+          border-style:solid;
+          i.fa-picture-o { color: $blue; }
+        }
+      }
+      .image_preview {
         margin:2em;
         position: relative;
         .shadow_overlay {
@@ -95,10 +111,6 @@ body.client_admin-tiles-update {
               color: $white;
             }
           }
-        }
-        &:hover, &:focus {
-          border-style:solid;
-          i.fa-picture-o { color: $blue; }
         }
         i { color: $gray; }
         .image_placeholder {
@@ -192,6 +204,6 @@ body.client_admin-tiles-update {
     label {@include font-bold;}
   }
   .tooltip > .nub {
-    display: none;
+    margin-left: 47px;
   }
 }

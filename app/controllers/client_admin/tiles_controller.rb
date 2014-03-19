@@ -27,8 +27,8 @@ class ClientAdmin::TilesController < ClientAdminBaseController
       schedule_tile_creation_ping
       redirect_to client_admin_tile_path(@tile_builder_form.tile)
     else
-      set_image_and_container
       flash[:failure] = "Sorry, we couldn't save this tile: " + @tile_builder_form.error_messages
+      set_image_and_container
       render "new"
     end
   end
@@ -113,8 +113,8 @@ class ClientAdmin::TilesController < ClientAdminBaseController
       set_after_save_flash(@tile_builder_form.tile)
       redirect_to client_admin_tile_path(@tile_builder_form.tile)
     else
-      set_image_and_container
       flash[:failure] = "Sorry, we couldn't update this tile: " + @tile_builder_form.error_messages
+      set_image_and_container
       render :edit
     end
   end
@@ -124,7 +124,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     edit_url = edit_client_admin_tile_path(new_tile)
     already_active = new_tile.active?
 
-    flash[:success] = render_to_string("preview_after_save_flash", layout: false, locals: {edit_url: edit_url, activate_url: activate_url, already_active: already_active})
+    flash[:success] = render_to_string("preview_after_save_flash", layout: false, locals: {action: params[:action], edit_url: edit_url, activate_url: activate_url, already_active: already_active})
     flash[:success_allow_raw] = true
   end
 
@@ -148,5 +148,10 @@ class ClientAdmin::TilesController < ClientAdminBaseController
                     else
                       @tile_builder_form.image.url
                     end
+    if params["image_container"] == "no_image" && params[:action] == "update"
+      flash[:failure] = render_to_string("save_tile_without_an_image", \
+        layout: false, locals: {tile: @tile_builder_form.tile})
+      flash[:failure_allow_raw] = true
+    end
   end
 end
