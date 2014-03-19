@@ -273,4 +273,14 @@ module TileHelpers
     page.execute_script("$('#tile_builder_form_image').css('display','block')")
     attach_file locator, path
   end
+
+  def show_tile_image
+    page.should have_selector('img.tile_image', visible: true)
+    page.should have_selector('.image_placeholder', visible: false)
+  end
+
+  def show_tile_image_placeholder
+    page.should have_selector('img.tile_image', visible: false)
+    page.should have_selector('.image_placeholder', visible: true)
+  end
 end

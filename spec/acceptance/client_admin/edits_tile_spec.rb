@@ -17,17 +17,53 @@ shared_examples_for "editing a tile" do
     expect_content after_tile_save_message(hide_activate_link: true, action: "update")
   end
 
-  scenario "clear the image and try to update tile", js: true do
-    #original_image_file_name = @tile.image_file_name
+  scenario "clear the image", js: true do
+    show_tile_image
+    page.find(".clear_image").click
+    show_tile_image_placeholder
+  end
+
+  scenario "clear the image and try to update tile, \
+            cancel and see old image again", js: true do
     page.find(".clear_image").click
     click_button "Update tile"
 
-    #Tile.count.should == 1
-    #@tile.reload.image_file_name.should == original_image_file_name
+    should_be_on client_admin_tile_path(@tile)
+    expect_content "You can't save a tile without an image. Add a new image or click cancel to restore the image you removed"
+    show_tile_image_placeholder
+    page.find(".flash-content a").click #cancel link in flash
+    should_be_on client_admin_tile_path(@tile)
+    page.find("img[src='#{@tile.reload.image}']").should be_present
+  end
 
-    should_be_on edit_client_admin_tile_path(@tile)
-    expect_content "You can't save a tile without an image. \
-    Add a new image or click cancel to restore the image you removed"
+  scenario "clear the image, upload new one and update tile", js: true do
+    original_image_file_name = @tile.image_file_name
+    page.find(".clear_image").click
+    attach_tile "tile_builder_form[image]", tile_fixture_path('cov2.jpg')
+    click_button "Update tile"
+
+    Tile.count.should == 1
+    @tile.reload.image_file_name.should_not == original_image_file_name
+    @tile.reload.image_file_name.should == 'cov2.jpg'
+    expect_content after_tile_save_message(action: "update")
+  end
+
+  scenario "clear image, upload new but make empty fields, click update tile\
+            see new image and error message, fill empty fields, \
+            save tile and get new image", js:true do
+    
+    fill_in "Headline", with: ""
+    page.find(".clear_image").click
+    attach_tile "tile_builder_form[image]", tile_fixture_path('cov2.jpg')
+    click_button "Update tile"
+
+    expect_content "Sorry, we couldn't update this tile"
+    fill_in "Headline", with: "head"
+    click_button "Update tile"
+
+    should_be_on client_admin_tile_path(@tile)
+    expect_content after_tile_save_message(action: "update")
+    @tile.reload.image_file_name.should == 'cov2.jpg'
   end
 
   scenario "won't let the user blank out the last answer", js: true do
