@@ -29,7 +29,7 @@ class ActsController < ApplicationController
       current_user.save
     end
 
-    @display_activity_page_admin_guide = current_user.is_a?(User) && !current_user.displayed_activity_page_admin_guide?
+    @display_activity_page_admin_guide = current_user.is_a?(User) && current_user.is_client_admin? && !current_user.displayed_activity_page_admin_guide?
     if @display_activity_page_admin_guide
       current_user.displayed_activity_page_admin_guide = true
       current_user.save!

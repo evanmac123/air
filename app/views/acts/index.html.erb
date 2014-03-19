@@ -63,7 +63,17 @@
 
 <%= render "shared/guest_conversion_lightbox" %>
 
-<% if @display_get_started_lightbox %>
+<% if @display_activity_page_admin_guide %>
+  <div id ='activity-joyride'>
+    <ol class='joyride-list activity-index' data-joyride>
+      <li data-id='manage_board' data-options='tipLocation:bottom' data-text='Got It'>
+          <p class='top-section'>
+          To return to the tile manager click <span>Manage</span>.
+        </p>
+      </li>
+    </ol>
+  </div>
+<% elsif @display_get_started_lightbox %>
   <div id='get_started_lightbox'>
     <a href="#" id="close_get_started_lightbox">Get started!</a>
     <h3>Welcome to Airbo!</h3>
@@ -85,15 +95,4 @@
     <% end %>
   <% end %>
 <% end %>      
-<% if @display_activity_page_admin_guide %>
-  <div id ='activity-joyride'>
-    <ol class='joyride-list activity-index' data-joyride>
-      <li data-id='manage_board' data-options='tipLocation:bottom' data-text='Got It'>
-          <p class='top-section'>
-          To return to the tile manager click <span>Manage</span>.
-        </p>
-      </li>
-    </ol>
-  </div>
-<% end %>
       
