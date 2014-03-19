@@ -9,9 +9,12 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     @archive_tiles = (@demo.archive_tiles_with_placeholders)[0,8]
     @draft_tiles = (@demo.draft_tiles_with_placeholders)[0,8]
     
+
     @tile_just_activated = flash[:tile_activated_flag] || false
     #empty out flash[:tile_activated] too
     @tile_just_activated = flash[:tile_activated] || @tile_just_activated
+
+    @tiles_to_be_sent = @demo.digest_tiles(@demo.tile_digest_email_sent_at).count
   end
 
   def new

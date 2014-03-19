@@ -160,6 +160,9 @@ class Tile < ActiveRecord::Base
     self.status == DRAFT
   end
 
+  def just_activated?
+    self.active? && self.activated_at > (Time.now - 5.seconds)    
+  end
   def is_survey?
     correct_answer_index == -1
   end

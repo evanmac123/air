@@ -12,7 +12,10 @@
         %i.fa.fa-lock
         Users
     -else
-      %li#share_tiles= link_to 'Share'.html_safe, client_admin_share_path
+      %li#share_tiles
+        = link_to client_admin_share_path do
+          Share
+          %span= @tiles_to_be_sent
       %li#board_activity= link_to 'Activity'.html_safe, client_admin_path
       %li#users= link_to 'Users'.html_safe, client_admin_users_path
     %li#explore= link_to 'Explore', client_admin_explore_path

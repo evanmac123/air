@@ -55,7 +55,37 @@ body.client_admin-explores #tile_manager_nav ul li#explore a,
 body.client_admin-explore_news #tile_manager_nav ul li#explore a {
     background:$dark-green;
     color:$white;
-} 
+}
+
+body.client_admin-tiles,
+body.client_admins,
+body.client_admin-users,
+body.client_admin-explores {
+    #share_tiles{
+        span{            
+            background-color: $dark-green;
+            padding: 0 5px 1px;
+            border-radius: 4px;
+            position: absolute;
+            margin-left: 10px;
+            font-size: 14px;
+        }
+    }
+}
+
+body.client_admin-shares{
+    #share_tiles{
+        span{
+            color: $dark-green;
+            background-color: $white;
+            padding: 0 5px 1px;
+            border-radius: 4px;
+            position: absolute;
+            margin-left: 10px;
+            font-size: 14px;
+        }
+    }
+}
 
 body.client_admin-tiles
 {
@@ -71,7 +101,7 @@ body.client_admin-tiles
         color: #dfdfdf;
         padding-top: 10px;
         padding-bottom: 10px;
-    }
+    }    
 }
 
 body.client_admin-shares,

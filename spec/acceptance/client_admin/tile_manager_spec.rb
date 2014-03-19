@@ -309,6 +309,14 @@ feature 'Client admin and the digest email for tiles' do
         FactoryGirl.create :tile, demo: admin.demo, status: Tile::ACTIVE
         visit tile_manager_page
       end
+
+      scenario "count appears near share link indicating the number tiles to be shared" do
+        within('#share_tiles') do
+          #in this scenario, one tile is created in 'before do' so the number
+          #of tiles to be shared should be one
+          page.should have_content("1")
+        end
+      end
       scenario "lock icon on share link doesnt appear" do
         within('#share_tiles') do
           page.should_not have_css('.fa-lock', visible: true)

@@ -1,8 +1,5 @@
 class ClientAdmin::TileCompletionsController < ClientAdminBaseController
   #Tiles completion report
-
-  before_filter :find_demo
-
   ORDER_BY_USER_NAME  = 'users.name'.freeze
   def index    
     @tile = Tile.find(params[:tile_id])
@@ -43,11 +40,5 @@ class ClientAdmin::TileCompletionsController < ClientAdminBaseController
         where("#{TileCompletion.table_name}.id is null"), 
       name: 'nc_grid', order: 'name', order_direction: 'asc')
     render :non_completions
-  end
-
-  protected
-
-  def find_demo
-    @demo = current_user.demo
   end
 end

@@ -15,6 +15,7 @@ class ClientAdmin::UsersController < ClientAdminBaseController
   def index
     respond_to do |format|
       @demo = current_user.demo
+      @tiles_to_be_sent = @demo.digest_tiles(@demo.tile_digest_email_sent_at).count
       format.html do        
         if browse_request?
           render_browse_page
