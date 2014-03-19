@@ -63,7 +63,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
       @show_tile_post_guide = !current_user.displayed_tile_post_guide? && @tile.demo.non_activated?
       current_user.displayed_tile_post_guide = true
       current_user.save!
-    elsif @tile_just_activated
+    elsif @tile.just_activated?
       @show_tile_success_guide = !current_user.displayed_tile_success_guide? && @tile.demo.tiles.active.count == 1
       current_user.displayed_tile_success_guide = true
       current_user.save!
@@ -76,7 +76,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     set_image_and_container
   end
   
-  def active_tile_guide_displayed
+  def display_active_tile_guide
     current_user.displayed_active_tile_guide=true
     current_user.save!
     render nothing: true
