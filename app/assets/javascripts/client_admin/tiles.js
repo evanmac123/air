@@ -12,9 +12,6 @@ $(document).ready(function() {
     
   $('#tile-joyride-index-post').foundation('joyride', 'start', {
       tipLocation: 'top',
-      postStepCallback     : function (){
-          $.ajax("/client_admin/tiles/active_tile_guide_displayed");
-      },
       template : { // HTML segments for tip layout
         link    : '',
         tip     : '<div class="joyride-tip-guide tile-index-post"><span class="joyride-nub"></span></div>'
