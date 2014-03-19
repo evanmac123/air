@@ -133,23 +133,34 @@ class ClientAdmin::TilesController < ClientAdminBaseController
   end
 
   def set_image_and_container
-    @container_id = if params["image_container"].present? && params["image_container"] != "no_image"
-                      ImageContainer.find(params["image_container"]).id
-                    elsif params["image_container"] == "no_image"
-                      "no_image"
-                    elsif params[:tile_builder_form].present? && params[:tile_builder_form][:image].present?
-                      ImageContainer.tile_image(params[:tile_builder_form][:image]).id
-                    else
-                      nil
-                    end
+    @container_id = set_container_id
+    @image_url = set_image_url 
+    set_flash_for_no_image
+  end
 
-    @image_url   =  if @container_id.to_i > 0
-                      ImageContainer.find(@container_id).image.url
-                    else
-                      @tile_builder_form.image.url
-                    end
+  def set_container_id
+    if params["image_container"].present? && params["image_container"] != "no_image"
+      ImageContainer.find(params["image_container"]).id
+    elsif params["image_container"] == "no_image"
+      "no_image"
+    elsif params[:tile_builder_form].present? && params[:tile_builder_form][:image].present?
+      ImageContainer.tile_image(params[:tile_builder_form][:image]).id
+    else
+      nil
+    end
+  end
+
+  def set_image_url
+    if @container_id.to_i > 0
+      ImageContainer.find(@container_id).image.url
+    else
+      @tile_builder_form.image.url
+    end
+  end
+
+  def set_flash_for_no_image
     if params["image_container"] == "no_image" && params[:action] == "update"
-      flash[:failure] = render_to_string("save_tile_without_an_image", layout: false)
+      flash[:failure] = render_to_string("save_tile_without_an_image", layout: false, locals: { tile: @tile_builder_form.tile })
       flash[:failure_allow_raw] = true
     end
   end
