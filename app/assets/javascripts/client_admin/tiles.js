@@ -12,6 +12,9 @@ $(document).ready(function() {
     
   $('#tile-joyride-index-post').foundation('joyride', 'start', {
       tipLocation: 'top',
+      postStepCallback     : function (){
+          $.ajax("/client_admin/tiles/active_tile_guide_displayed");
+      },
       template : { // HTML segments for tip layout
         link    : '',
         tip     : '<div class="joyride-tip-guide tile-index-post"><span class="joyride-nub"></span></div>'
@@ -20,9 +23,13 @@ $(document).ready(function() {
         
   $('#tile-joyride-index-main-menu').foundation('joyride', 'start', {
       tipLocation: 'bottom',
+      postStepCallback     : function (){
+          $('.joyride-tip-guide:last').removeClass("tile-index-share");
+          $('.joyride-tip-guide:last').addClass("tile-index-main-menu");
+      },
       template : { // HTML segments for tip layout
         link    : '',
-        tip     : '<div class="joyride-tip-guide tile-index-main-menu"><span class="joyride-nub"></span></div>'
+        tip     : '<div class="joyride-tip-guide tile-index-share"><span class="joyride-nub"></span></div>'
       }
     });
         

@@ -44,10 +44,43 @@
             font-size: 14px;
         }
     }    
+    &.tile-index-share {
+        width: 466px;
+        height: 160px;
+        margin-top: 5px;
+        margin-left: -120px;
+        color: $dark-gray;
+        .joyride-nub{
+            margin-left: 194px;
+        }
+        .top-section{
+            font-size: 18px !important;
+            color: $sky-blue;            
+        }
+        .logo{
+            margin-left: -16px;
+        }
+        .heading{
+            padding-top: 10px;
+            margin-left: -45px;
+        }
+        .bottom-section{
+            line-height: 20px;
+            padding: 15px 0;
+            font-size: 14px;
+            span{
+                font-weight: bold;
+            }
+        }
+        .joyride-next-tip{
+            @include light-button($gray);
+            font-size: 14px;
+        }
+    }
     &.tile-index-main-menu {
         width: 410px;
         height: 100px;
-        margin-top: 5px;
+        margin-top: 20px;
         margin-left: 0.9375em;
         color: $dark-gray;
         .top-section{

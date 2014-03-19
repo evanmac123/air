@@ -293,13 +293,18 @@ feature 'Client admin and the digest email for tiles' do
         visit tile_manager_page
         page.should have_no_css('.joyride-tip-guide', visible: true)        
       end
-      scenario "popup appears under Airbo logo after tile is activated" do
+      scenario "popup appears under share link and then under Airbo logo after tile is activated" do
         within(".joyride-tip-guide") do
           click_link 'Got It'
         end
         click_activate_link_for(@draft_tile)
         page.should have_css('.joyride-tip-guide', visible: true)
-        within(".joyride-tip-guide") do
+        within(".joyride-tip-guide", visible: true) do
+          page.should have_content("You've Unlocked Sharing!")
+          click_link 'Got It'
+        end
+        page.should have_css('.joyride-tip-guide', visible: true)
+        within(".joyride-tip-guide", visible: true) do
           page.should have_content("To try your board as a user click on the logo.")
         end
       end            
