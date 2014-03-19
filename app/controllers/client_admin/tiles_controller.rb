@@ -9,7 +9,9 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     @archive_tiles = (@demo.archive_tiles_with_placeholders)[0,8]
     @draft_tiles = (@demo.draft_tiles_with_placeholders)[0,8]
     
-    @tile_just_activated = flash[:tile_activated] || false
+    @tile_just_activated = flash[:tile_activated_flag] || false
+    #empty out flash[:tile_activated] too
+    @tile_just_activated = flash[:tile_activated] || @tile_just_activated
   end
 
   def new
@@ -50,6 +52,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
   def show
     @tile = get_tile
     @tile_just_activated = flash[:tile_activated] || false
+    flash[:tile_activated_flag] = @tile_just_activated
     if @tile.draft?
       @show_tile_post_guide = !current_user.displayed_tile_post_guide? && @tile.demo.non_activated?
       current_user.displayed_tile_post_guide = true
@@ -96,9 +99,10 @@ class ClientAdmin::TilesController < ClientAdminBaseController
 
   def update_status
     success, failure = flash_status_messages
-
+    is_new = @tile.activated_at.nil?
     if @tile.update_attributes status: params[:update_status]
-      flash[:tile_activated] = @tile.active?
+      flash[:tile_activated] = is_new && @tile.active?
+      flash[:tile_activated_flag] = is_new && @tile.active?
       flash[:success] = "The #{@tile.headline} tile has been #{success}"
     else
       flash[:failure] = "There was a problem #{failure} this tile. Please try again."
