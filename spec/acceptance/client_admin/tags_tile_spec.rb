@@ -101,6 +101,17 @@ feature 'Tags tile' do
   end
 
   it "allows tag to be removed"
-  it "normalizes tag names so they look consistent"
+
+  it "normalizes tag names so they look consistent", js: true do
+    visit new_client_admin_tile_path(as: @client_admin)
+    fill_in_valid_tile_form_entries
+
+    select_add_new
+    enter_new_title "   i   am     dumb        "
+    click_save_tag_button
+
+    TileTag.last.title.should == "I am dumb"
+  end
+
   it "does not let a duplicate tag be created"
 end
