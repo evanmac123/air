@@ -149,8 +149,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
                       @tile_builder_form.image.url
                     end
     if params["image_container"] == "no_image" && params[:action] == "update"
-      flash[:failure] = render_to_string("save_tile_without_an_image", \
-        layout: false, locals: {tile: @tile_builder_form.tile})
+      flash[:failure] = render_to_string("save_tile_without_an_image", layout: false)
       flash[:failure_allow_raw] = true
     end
   end
