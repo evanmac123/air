@@ -174,13 +174,9 @@ class ClientAdmin::TilesController < ClientAdminBaseController
   end
 
   def delete_old_image_container(tile_saved)
-    #we have saved tile and need to delete container if it is present
-    if tile_saved == :success && params["old_image_container"].to_i > 0
-      ImageContainer.find(params["old_image_container"]).destroy
-    #we get failure and look if we have and need old container to be rendered again 
-    elsif params["old_image_container"].present? && \
-          params["old_image_container"].to_i > 0 && \
-          params["image_container"].to_i <= 0
+    if params["old_image_container"].to_i > 0 && \
+      (tile_saved == :success || params["image_container"].to_i <= 0) 
+
       ImageContainer.find(params["old_image_container"]).destroy
     end
   end
