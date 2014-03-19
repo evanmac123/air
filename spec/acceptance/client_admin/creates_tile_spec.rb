@@ -139,4 +139,60 @@ feature 'Creates tile' do
     expect_content "23 POINTS"
     new_tile.multiple_choice_answers.each {|answer| expect_content answer}
   end
+
+  context "acting with image" do
+    before(:each) do
+      fill_in_valid_form_entries 
+    end
+
+    scenario "clear the image", js: true do
+      show_tile_image
+      page.find(".clear_image").click
+      show_tile_image_placeholder
+    end
+
+    scenario 'changing the image', js: true do
+      attach_tile "tile_builder_form[image]", tile_fixture_path('cov2.jpg')
+      click_create_button
+
+      Tile.count.should == 1
+      tile = Tile.first
+      tile.image_file_name.should == 'cov2.jpg'
+
+      should_be_on client_admin_tile_path(tile)
+      expect_content after_tile_save_message
+    end
+
+    scenario "clear the image, upload new one and create tile", js: true do
+      page.find(".clear_image").click
+      attach_tile "tile_builder_form[image]", tile_fixture_path('cov2.jpg')
+      click_create_button
+
+      Tile.count.should == 1
+      tile = Tile.first
+      tile.image_file_name.should == 'cov2.jpg'
+      expect_content after_tile_save_message
+    end
+
+    scenario "clear image, upload new but make empty fields, click update tile\
+              see new image and error message, fill empty fields, \
+              save tile and get new image", js:true do
+      
+      fill_in "Headline", with: ""
+      page.find(".clear_image").click
+      attach_tile "tile_builder_form[image]", tile_fixture_path('cov2.jpg')
+      click_create_button
+
+      expect_content "Sorry, we couldn't save this tile"
+      fill_in "Headline", with: "head"
+      click_create_button
+
+      Tile.count.should == 1
+      tile = Tile.first
+
+      should_be_on client_admin_tile_path(tile)
+      expect_content after_tile_save_message
+      tile.image_file_name.should == 'cov2.jpg'
+    end
+  end
 end

@@ -28,7 +28,7 @@ feature 'Sees processing graphics while tiles are being processed' do
     page.find('.tile_image')['src'].should include('cov1.png')
   end
 
-  it 'shows the processing graphic on the edit page, until the real one is ready', js: true do
+  it 'shows the processing after updating a tile, until the real one is ready', js: true do
     create_tile
     crank_dj_clear
 
@@ -38,7 +38,7 @@ feature 'Sees processing graphics while tiles are being processed' do
     page.find('.tile_image')['src'].should include('cov1.png')
 
     attach_tile "tile_builder_form[image]", tile_fixture_path('cov2.jpg')
-    click_button "Upload new image"
+    click_button "Update tile"
 
     page.find('.tile_image')['src'].should == Tile::IMAGE_PROCESSING_IMAGE_URL
 
