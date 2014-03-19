@@ -2,7 +2,6 @@ Health::Application.routes.draw do
   match "sms"           => "sms#create", :via => :post
   match "email"         => "email_command#create", :via => :post
   match "activity"      => "acts#index"
-  match "activity/admin_return_guide_displayed" => "acts#admin_return_guide_displayed"
   match "scoreboard"    => "scores#index"
   match "join"          => "invitations#new"
 
