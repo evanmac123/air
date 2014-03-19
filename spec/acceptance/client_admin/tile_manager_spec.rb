@@ -288,10 +288,10 @@ feature 'Client admin and the digest email for tiles' do
       end
       scenario "user clicks Got It, popover disappears and user nevers sees it again" do
         click_link 'Got It'
-        page.should_not have_css('.joyride-tip-guide', visible: true)
+        page.should have_no_css('.joyride-tip-guide', visible: true)
 
         visit tile_manager_page
-        page.should_not have_css('.joyride-tip-guide', visible: true)        
+        page.should have_no_css('.joyride-tip-guide', visible: true)        
       end
       scenario "popup appears under Airbo logo after tile is activated" do
         within(".joyride-tip-guide") do
