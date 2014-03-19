@@ -1,8 +1,9 @@
 <div class="builder_content">
   <div id="image_uploader">
     <div class="image_preview">
-        <%= hidden_field_tag "image_container", @container_id, id: "image_container" %>
-        <%= image_tag @image_url, class: "tile_image", id: "upload_preview" %>
+      <%= hidden_field_tag "image_container", @container_id, id: "image_container" %>
+      <%= hidden_field_tag "old_image_container", @container_id, id: "old_image_container" %>
+      <%= image_tag @image_url, class: "tile_image", id: "upload_preview" %>
       <div class="image_placeholder">
         <i class="fa fa-picture-o fa-4x"></i>
         <label>Pick an image</label>

@@ -23,10 +23,14 @@ class ClientAdmin::TilesController < ClientAdminBaseController
                             creator: current_user, \
                             image_container: params[:image_container])
     if @tile_builder_form.create_objects
+      delete_old_image_container(:success)
+
       set_after_save_flash(@tile_builder_form.tile)
       schedule_tile_creation_ping
       redirect_to client_admin_tile_path(@tile_builder_form.tile)
     else
+      delete_old_image_container(:failure)
+
       flash[:failure] = "Sorry, we couldn't save this tile: " + @tile_builder_form.error_messages
       set_image_and_container
       render "new"
@@ -110,9 +114,13 @@ class ClientAdmin::TilesController < ClientAdminBaseController
                       image_container: params[:image_container])
 
     if @tile_builder_form.update_objects
+      delete_old_image_container(:success)
+
       set_after_save_flash(@tile_builder_form.tile)
       redirect_to client_admin_tile_path(@tile_builder_form.tile)
     else
+      delete_old_image_container(:failure)
+
       flash[:failure] = "Sorry, we couldn't update this tile: " + @tile_builder_form.error_messages
       set_image_and_container
       render :edit
@@ -134,7 +142,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
 
   def set_image_and_container
     @container_id = set_container_id
-    @image_url = set_image_url 
+    @image_url = set_image_url
     set_flash_for_no_image
   end
 
@@ -162,6 +170,18 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     if params["image_container"] == "no_image" && params[:action] == "update"
       flash[:failure] = render_to_string("save_tile_without_an_image", layout: false, locals: { tile: @tile_builder_form.tile })
       flash[:failure_allow_raw] = true
+    end
+  end
+
+  def delete_old_image_container(tile_saved)
+    #we have saved tile and need to delete container if it is present
+    if tile_saved == :success && params["old_image_container"].to_i > 0
+      ImageContainer.find(params["old_image_container"]).destroy
+    #we get failure and look if we have and need old container to be rendered again 
+    elsif params["old_image_container"].present? && \
+          params["old_image_container"].to_i > 0 && \
+          params["image_container"].to_i <= 0
+      ImageContainer.find(params["old_image_container"]).destroy
     end
   end
 end
