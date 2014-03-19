@@ -22,6 +22,12 @@ feature 'Client admin and the digest email for tiles' do
     have_link 'Archive', href: client_admin_tile_path(tile, update_status: Tile::ARCHIVE)
   end
 
+  def click_activate_link_for(tile_to_activate)    
+    tile(tile_to_activate).trigger(:mouseover)
+    #hack for mouseover not working poltergeist
+    page.execute_script("$('.tile_buttons').show()")
+    click_link href: client_admin_tile_path(tile_to_activate, update_status: Tile::ACTIVE)
+  end
   def have_activate_link_for(tile)
     have_link 'Post', href: client_admin_tile_path(tile, update_status: Tile::ACTIVE)
   end
@@ -225,8 +231,8 @@ feature 'Client admin and the digest email for tiles' do
     end
   end
   
-  context "New client admin visits client_admin/tiles page", js: :webkit do
-    context "when there is no tile in the demo" do
+  context "New client admin visits client_admin/tiles page" do
+    context "For new client admin, when there is no tile in the demo", js: true do
       before do
         visit tile_manager_page
       end
@@ -260,46 +266,48 @@ feature 'Client admin and the digest email for tiles' do
         expect_page_to_be_locked
       end
     end
-    context "when there is atleast on draft tile in demo", js: :webkit do
+    context "when there is atleast one draft tile in demo", js: true do
       before do
-        FactoryGirl.create :tile, demo: admin.demo, status: Tile::DRAFT
+        @draft_tile = FactoryGirl.create :tile, demo: admin.demo, status: Tile::DRAFT
         visit tile_manager_page
       end
       scenario "share link on navbar shows lock icon" do
         expect_link_to_have_lock_icon('#share_tiles')
       end
       scenario "activity link on navbar shows lock icon" do
-        show_me_the_page
         expect_link_to_have_lock_icon('#board_activity')
       end
       scenario "activity link on navbar shows lock icon" do
         expect_link_to_have_lock_icon('#users')
       end
-      scenario "popup appears in first draft tile", js: :webkit do
+      scenario "popup appears in first draft tile" do
         page.should have_css('.joyride-tip-guide', visible: true)
         within(".joyride-tip-guide") do
           page.should have_content("To publish, mouse over the tile and click Post")
         end
       end
-      scenario "user clicks Got It, popover disappears and user nevers sees it again", js: :webkit do
+      scenario "user clicks Got It, popover disappears and user nevers sees it again" do
         click_link 'Got It'
         page.should_not have_css('.joyride-tip-guide', visible: true)
 
         visit tile_manager_page
-        page.should_not have_css('.joyride-tip-guide', visible: true)
-        
+        page.should_not have_css('.joyride-tip-guide', visible: true)        
       end
-    end
-    context "when there is atleast one activated tile in demo" do
-      before do
-        FactoryGirl.create :tile, demo: admin.demo
-        visit tile_manager_page
-      end
-      scenario "popup appears under Airbo logo" do
+      scenario "popup appears under Airbo logo after tile is activated" do
+        within(".joyride-tip-guide") do
+          click_link 'Got It'
+        end
+        click_activate_link_for(@draft_tile)
         page.should have_css('.joyride-tip-guide', visible: true)
         within(".joyride-tip-guide") do
           page.should have_content("To try your board as a user click on the logo.")
         end
+      end            
+    end
+    context "when there is atleast one activated tile in demo", js: true do
+      before do
+        FactoryGirl.create :tile, demo: admin.demo, status: Tile::ACTIVE
+        visit tile_manager_page
       end
       scenario "lock icon on share link doesnt appear" do
         within('#share_tiles') do
