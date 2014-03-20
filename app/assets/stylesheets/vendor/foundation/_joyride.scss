@@ -7,7 +7,7 @@ $include-html-joyride-classes: $include-html-classes !default;
 $joyride-tip-bg: rgb(0,0,0) !default;
 $joyride-tip-default-width: 300px !default;
 $joyride-tip-padding: emCalc(18px) emCalc(20px) emCalc(24px) !default;
-$joyride-tip-border: solid 1px #555 !default;
+$joyride-tip-border: solid 1px #f0f0f0 !default;
 $joyride-tip-radius: 4px !default;
 $joyride-tip-position-offset: 22px !default;
 
@@ -42,6 +42,8 @@ $joyride-screenfill: rgba(0,0,0,0.5) !default;
 
   /* Default styles for the container */
   .joyride-tip-guide {
+    border: $joyride-tip-border;
+    box-shadow: 0 4px 4px -4px rgba(0,0,0,0.35);
     display: none;
     position: absolute;
     background: $joyride-tip-bg;
