@@ -19,6 +19,12 @@
         position: relative;
         vertical-align: middle;
       }
+      &[disabled] {
+        @include app-button($med-gray);
+        &:before, &:after {
+          @include arrow-down(lighten($dark-gray, 10%), 8px);
+        }
+      }
       #show_more_tiles_spinner {
         display: inline-block; 
         vertical-align: top; 

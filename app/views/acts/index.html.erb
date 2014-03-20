@@ -12,16 +12,18 @@
             $('.show_more_tiles').live('click', function(event) {
               event.preventDefault();
 
-              $('#show_more_tiles_spinner').show();
+              if($(".show_more_tiles").attr("disabled") != "disabled"){
+                $('#show_more_tiles_spinner').show();
 
-              baseBatchSize = $('.tile-wrapper').length;
-              $.get(
-                $(this).data('tile-path'),
-                {base_batch_size: baseBatchSize, partial_only: 'true'},
-                function(data) {
-                  $('#tile_wall').replaceWith(data);
-                }
-              );
+                baseBatchSize = $('.tile-wrapper').length;
+                $.get(
+                  $(this).data('tile-path'),
+                  {base_batch_size: baseBatchSize, partial_only: 'true'},
+                  function(data) {
+                    $('#tile_wall').replaceWith(data);
+                  }
+                );
+              }
             });
   	      <% end %>
   	    <% end %>
