@@ -4,12 +4,6 @@ class TileTag < ActiveRecord::Base
 
   has_alphabetical_column :title
 
-  before_save :normalize_title
-
-  def normalize_title
-    self.title = self.title.strip.capitalize.gsub(/\s+/, ' ')
-  end
-
   def self.with_public_tiles
     # There might be better way to do this, via a combination of JOIN and
     # DISTINCT, but I can't seem to browbeat ActiveRelation into doing that

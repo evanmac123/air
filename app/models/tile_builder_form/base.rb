@@ -71,6 +71,10 @@ module TileBuilderForm
       "Give the answers and mark the correct one. If survey, do not mark any."
     end
 
+    def first_tag_id
+      tile.try(:first_tag).try(:id)
+    end
+
     protected
 
     def tile_class
@@ -146,6 +150,8 @@ module TileBuilderForm
 
         if @parameters[:tag_id].present?
           @tile.tile_tags = [TileTag.find(@parameters[:tag_id])]
+        else
+          @tile.tile_tags = []
         end
       end
     end

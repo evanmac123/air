@@ -86,7 +86,7 @@ feature 'Sees tiles on explore page' do
 
     context "when a tag is clicked" do
       before do
-        @tag_to_click = FactoryGirl.create(:tile_tag, title: "Click Me")
+        @tag_to_click = FactoryGirl.create(:tile_tag, title: "Click me")
         @other_tags = FactoryGirl.create_list(:tile_tag, 5)
 
         @tagged_tiles = FactoryGirl.create_list(:tile, 2, :public)
@@ -100,7 +100,7 @@ feature 'Sees tiles on explore page' do
 
       it "shows tiles only with the chosen tag when clicked" do
         visit explore_path(as: a_client_admin)
-        click_link "Click Me"
+        click_link "Click me"
         @tagged_tiles.each {|tagged_tile| expect_content tagged_tile.headline}
         @other_tagged_tiles.each {|other_tagged_tile| expect_no_content other_tagged_tile.headline}
         @untagged_tiles.each {|untagged_tile| expect_no_content untagged_tile.headline}
@@ -115,7 +115,7 @@ feature 'Sees tiles on explore page' do
         end
 
         visit explore_path(as: a_client_admin)
-        click_link "Click Me"
+        click_link "Click me"
         
         expect_thumbnail_count 8
         expect_only_headlines_in(@tagged_tiles)
@@ -131,8 +131,8 @@ feature 'Sees tiles on explore page' do
 
       it "allows de-selection by clicking the tag again" do
         visit explore_path(as: a_client_admin)
-        click_link "Click Me"
-        click_link "Click Me"
+        click_link "Click me"
+        click_link "Click me"
 
         expect_thumbnail_count 8
         expect_only_headlines_in(@tagged_tiles + @other_tagged_tiles + @untagged_tiles)
@@ -144,10 +144,10 @@ feature 'Sees tiles on explore page' do
           tag_link['class'].split.should include('disabled')
           tag_link['class'].split.should_not include('enabled')
         end
-        click_link "Click Me"
+        click_link "Click me"
 
-        expected_unselected_tags = page.all('.tag_link').select{|tag_link| tag_link.text != "Click Me"}
-        expected_selected_tag = page.all('.tag_link').select{|tag_link| tag_link.text == "Click Me"}.first
+        expected_unselected_tags = page.all('.tag_link').select{|tag_link| tag_link.text != "Click me"}
+        expected_selected_tag = page.all('.tag_link').select{|tag_link| tag_link.text == "Click me"}.first
 
         expected_unselected_tags.each do |expected_unselected_tag| 
           classes = expected_unselected_tag['class'].split
@@ -159,7 +159,7 @@ feature 'Sees tiles on explore page' do
         selected_classes.should include('enabled')
         selected_classes.should_not include('disabled')
 
-        click_link "Click Me"
+        click_link "Click me"
         page.all('.tag_link').each do |tag_link| 
           tag_link['class'].split.should include('disabled')
           tag_link['class'].split.should_not include('enabled')

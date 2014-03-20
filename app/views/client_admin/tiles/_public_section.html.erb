@@ -21,6 +21,7 @@
   <% end %>
 
   <%= javascript_include_tag "jquery.lightbox_me" %>
+  <%= javascript_include_tag "client_admin/tile_tag_callback" %>
   <%= javascript_include_tag "client_admin/add_new_item_via_select" %>
   
   <% content_for :lightbox do %>
@@ -34,11 +35,11 @@
   <% end %>
 
   <%= label_tag "tile_tag_select", "Tag with:" %>
-  <%= render 'tag_select', tags: @tags %>
+  <%= render 'tag_select', tags: @tags, selected_tag_id: form.object.first_tag_id %>
 
   <% content_for :javascript do %>
     <%= javascript_tag do %>
-      bindShowNewItemLightbox('#tile_tag_select', 'Add new...', '#new_tag_lightbox', '<%= client_admin_tags_path %>', '');
+      bindShowNewItemLightbox('#tile_tag_select', 'Add new...', '#new_tag_lightbox', '<%= client_admin_tags_path %>', '', tileTagCallback('#tile_tag_select'));
     <% end %>
   <% end %>
 <% end %>

@@ -279,6 +279,10 @@ class Tile < ActiveRecord::Base
     created_at.strftime("%B %-e, %Y")
   end
 
+  def first_tag
+    self.tile_tags.first
+  end
+
   def self.due_ids
     self.after_start_time_and_before_end_time.map(&:id)
   end

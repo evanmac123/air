@@ -71,6 +71,7 @@ module Health
       Explore_tile_page/notebook.png
       Explore_tile_page/open_book.png
       internal/tiles.js
+      client_admin/tile_tag_callback.js
     )
 
     ################################################################

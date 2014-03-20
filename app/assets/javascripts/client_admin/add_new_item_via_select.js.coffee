@@ -14,8 +14,9 @@ updateItemList = (listSelector, spinnerSelector) ->
     stopLoadingFeedback(spinnerSelector)
 
 
-createNewItem = (triggeringSelectSelector, lightboxSelector, creationURL, spinnerSelector) ->
+createNewItem = (triggeringSelectSelector, lightboxSelector, creationURL, spinnerSelector, callback) ->
   (event) ->
+    callback ?= updateItemList(triggeringSelectSelector, spinnerSelector)
     event.preventDefault()
 
     lightbox = $(lightboxSelector)
@@ -25,7 +26,7 @@ createNewItem = (triggeringSelectSelector, lightboxSelector, creationURL, spinne
     lightbox.trigger('close')
 
     startLoadingFeedback(triggeringSelectSelector, spinnerSelector)
-    $.post creationURL, params, updateItemList(triggeringSelectSelector, spinnerSelector), 'html'
+    $.post creationURL, params, callback, 'html'
 
 
 
@@ -45,6 +46,6 @@ showNewItemLightbox = (triggeringValue, lightboxSelector) ->
 
 
 
-window.bindShowNewItemLightbox = (triggeringSelectSelector, triggeringValue, lightboxSelector, creationURL, spinnerSelector) ->
-  $(lightboxSelector).find('form').on('submit', createNewItem(triggeringSelectSelector, lightboxSelector, creationURL, spinnerSelector))
+window.bindShowNewItemLightbox = (triggeringSelectSelector, triggeringValue, lightboxSelector, creationURL, spinnerSelector, callback) ->
+  $(lightboxSelector).find('form').on('submit', createNewItem(triggeringSelectSelector, lightboxSelector, creationURL, spinnerSelector, callback))
   $(triggeringSelectSelector).on('change', showNewItemLightbox(triggeringValue, lightboxSelector))

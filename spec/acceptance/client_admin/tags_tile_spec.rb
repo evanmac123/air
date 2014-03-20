@@ -58,6 +58,15 @@ feature 'Tags tile' do
     tag.tiles.should include(Tile.last)
   end
 
+  it "shows the current tag when going to an existing, tagged tile" do
+    tile = FactoryGirl.create(:multiple_choice_tile, demo: @client_admin.demo)
+    tag = FactoryGirl.create(:tile_tag, title: "Cheese")
+    tile.tile_tags << tag
+
+    visit edit_client_admin_tile_path(tile, as: @client_admin)
+    page.find("#tile_tag_select").value.should == tag.id.to_s
+  end
+
   it "editing an existing, untagged tile with an existing tag", js: true do
     tile = FactoryGirl.create(:multiple_choice_tile, demo: @client_admin.demo)
     tag = FactoryGirl.create(:tile_tag, title: "Cheese")
@@ -100,7 +109,16 @@ feature 'Tags tile' do
     tag.tiles.should include(tile)
   end
 
-  it "allows tag to be removed"
+  it "allows tag to be removed", js: true do
+    tile = FactoryGirl.create(:multiple_choice_tile, demo: @client_admin.demo)
+    tile.tile_tags = [FactoryGirl.create(:tile_tag)]
+
+    visit edit_client_admin_tile_path(tile, as: @client_admin)
+    select "", from: "Tag with:"
+    click_update_tile_button
+
+    tile.reload.tile_tags.should be_empty
+  end
 
   it "normalizes tag names so they look consistent", js: true do
     visit new_client_admin_tile_path(as: @client_admin)
@@ -113,5 +131,15 @@ feature 'Tags tile' do
     TileTag.last.title.should == "I am dumb"
   end
 
-  it "does not let a duplicate tag be created"
+  it "does not let a duplicate tag be created", js: true do
+    tag = FactoryGirl.create(:tile_tag, title: "Taken")
+    visit new_client_admin_tile_path(as: @client_admin)
+
+    select_add_new
+    enter_new_title "Taken"
+    click_save_tag_button
+
+    TileTag.all.should have(1).tag
+    page.find("#tile_tag_select").value.should == tag.id.to_s
+  end
 end
