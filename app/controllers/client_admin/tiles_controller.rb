@@ -248,7 +248,6 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     ping('Tile - New', {}, current_user)
   end
 
-<<<<<<< HEAD
   def set_image_and_container
     @container_id = set_container_id
     @image_url = set_image_url
