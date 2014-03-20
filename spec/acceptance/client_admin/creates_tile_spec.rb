@@ -157,7 +157,7 @@ feature 'Creates tile' do
 
   context "acting with image" do
     before(:each) do
-      fill_in_valid_form_entries 
+      fill_in_valid_tile_form_entries 
     end
 
     scenario "clear the image", js: true do

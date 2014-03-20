@@ -189,7 +189,7 @@ module TileHelpers
   end
 
   def fill_in_valid_tile_form_entries(click_answer = 1, with_public_and_copyable = false)
-    attach_file "tile_builder_form[image]", tile_fixture_path('cov1.jpg')
+    attach_tile "tile_builder_form[image]", tile_fixture_path('cov1.jpg')
     fill_in "Headline",           with: "Ten pounds of cheese"
     fill_in "Supporting content", with: "Ten pounds of cheese. Yes? Or no?"
 

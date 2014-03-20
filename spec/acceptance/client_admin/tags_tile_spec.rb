@@ -103,8 +103,6 @@ feature 'Tags tile' do
 
     click_update_tile_button
 
-    page.should have_content(after_tile_save_message)
-
     tag = TileTag.find_by_title("Cheezwhiz")
     tag.tiles.should include(tile)
   end
