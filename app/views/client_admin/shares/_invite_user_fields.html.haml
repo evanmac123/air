@@ -8,21 +8,22 @@
               .error_message
                 .name
                 .email
-              = user_fields.text_field :name, placeholder: "Name", class:'name', id:"user_#{index}_name", size:"51"
-              = user_fields.text_field :email, placeholder: "Email", class: 'email', id:"user_#{index}_email", size:"51"
+              = user_fields.text_field :name, placeholder: "Name", class:'name', id:"user_#{index}_name", size:"40"
+              = user_fields.text_field :email, placeholder: "Email", class: 'email', id:"user_#{index}_email", size:"40"
   .clearfix
-  #form_links.large-6.columns
-    %p
-      %br
-      %p= link_to '+ More People', '#', id: 'add_another_user_invite', :anchor => '#add_another_user_invite'
-      %br
-      To upload a list of people,
-      //= link_to 'contact us', '#'
-      = mail_to "support@air.bo", 'Contact us', subject: 'Support via Airbo'
-      %br
-  #form_buttons.large-12.columns
+  #form_links.large-5.columns
+    = link_to '#', id: 'add_another_user_invite' do
+      .fa.fa-user
+      Add More
+    %br
+    To upload a list of people,
+    //= link_to 'contact us', '#'
+    = mail_to "support@air.bo", 'Contact us', subject: 'Support via Airbo'
+    %br
+  #form_buttons.large-5.columns
     .right
-      = link_to 'Skip', '#', id: 'skip_invite_users', data: :tooltip
-      = link_to 'Next', '#', id: 'submit_invite_users', class: 'disengaged'
-    .left
-      = link_to "Back", "#", class: 'engaged history_back page_1', style: "#{show_back_button ? '':'display:none'}"
+      = link_to '#', id: 'submit_invite_users', class: 'disengaged' do
+        Preview Invitation
+        .fa.fa-angle-right
+      %br
+      = link_to 'Skip, only share using a link', '#', id: 'skip_invite_users', data: :tooltip

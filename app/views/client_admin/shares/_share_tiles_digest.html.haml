@@ -1,20 +1,10 @@
-#share_tiles_digest{style:"#{show_share_tiles ? '':'display:none'}"}
+#share_tiles_digest
   .invite_users_header_page_1
-    %h1 Who would you like to share your board with?
-    .columns.large-1= image_tag("/assets/marketing/send_tile_small.png", size:"50x50", id:"invite_image")
-    #progress.share_progress.large-10.round.columns
-      %span.meter{style:"width:50%"}
-    %p.send_button.large-1.columns SEND
+    %h1 Invite people to your board    
   .invite_users_header_page_2{style:'display:none'}
-    %h1 Add a personal message and send!
-    .columns.large-1= image_tag("/assets/marketing/send_tile_small.png", size:"50x50", id:"invite_image")
-    #progress.share_progress.large-10.round.columns
-      %span.meter{style:"width:75%"}
-    %p.send_button.large-1.columns SEND
+    %h1 Preview and send invitations
   #invite_users_modal.large-12.columns
     #invite_users_errors
     = form_for [:client_admin, UsersInvite.build(@demo)], remote: true, html: {class: 'user-profile', id: 'invite_users_form'} do |form|
-      = render 'invite_user_fields', form: form, show_back_button: !show_share_tiles
+      = render 'invite_user_fields', form: form
       = render 'invite_users_message', form: form, demo: demo
-    -##spinner_large{style:"display:none"}
-      -#=image_tag 'spinner_large.gif'

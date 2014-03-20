@@ -10,13 +10,13 @@ $(document).ready ->
   
   $('#share_tiles_email_preview').on('load', (event) ->
     if document.getElementById
-      newheight = document.getElementById('share_tiles_email_preview').contentWindow.document.body.scrollHeight
+      newheight = document.getElementById('share_tiles_email_preview').contentWindow.document.body.scrollHeight - 250
       newwidth = document.getElementById('share_tiles_email_preview').contentWindow.document.body.scrollWidth
 
       document.getElementById('share_tiles_email_preview').height = (newheight) + "px"
       document.getElementById('share_tiles_email_preview').width = (newwidth) + "px"
-      $('#share_tiles_email_preview_blocker').height(newheight + "px")
-      $('#share_tiles_email_preview_blocker').width(newwidth + "px")
+      $('#share_tiles_email_preview_blocker').height('100%')
+      $('#share_tiles_email_preview_blocker').width('90%')
     return
   )
   removeInviteUsersErrorMessage = (container, type) ->
@@ -292,16 +292,18 @@ $(document).ready ->
   loadPage4 = () ->
     hideAll()
     $('#success_share_url').show()
-    $.get '/client_admin/show_first_active_tile', (data) ->
+    $.get '/client_admin/share/show_first_active_tile', (data) ->
         $('#success_share_url').find('#share_active_tile').html(data)
+        $('#success_share_url').find('.arrow_image_right').show()
     true
    
   loadPage3 = () ->
     hideAll()
     $('#success_share_url').show()    
     $('#success_share_digest').show()
-    $.get '/client_admin/show_first_active_tile', (data) ->
+    $.get '/client_admin/share/show_first_active_tile', (data) ->
         $('#success_share_url').find('#share_active_tile').html(data)
+        $('#success_share_url').find('.arrow_image_right').show()
     true
   
   loadPage2 = () ->

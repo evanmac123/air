@@ -1,11 +1,7 @@
 .row
   .large-12
-    - if @active_tiles.empty? || @demo.tile_completions.empty? || @demo.users.size < 2
-      - if @active_tiles.empty? && @archive_tiles.empty?
-        = render partial: 'no_tiles_digest'
-      - elsif @active_tiles.empty?
-        = render partial: 'activate_tiles_digest' if @archive_tiles.count > 0
-      = render partial: 'share_tiles_digest', locals: {show_share_tiles: (@active_tiles.count > 0), demo: @demo}
+    - if @show_invite_users
+      = render partial: 'share_tiles_digest', locals: {demo: @demo}
       = render partial: 'success_share_digest'
       = render partial: 'success_share_url'
     - else

@@ -8,21 +8,40 @@
     }
   }
 
-  #no_tiles_digest, #activate_tiles_digest, #success_share_digest, #success_share_url{
-    h1{
-      text-align: center;
-    }
-  }
   #share_tiles_digest{
+      margin: 0 158px;
     .invite_users_header_page_1, .invite_users_header_page_2{ 
       h1{
-        text-align: center;
+        margin-left: 40px;
       }
     }
   }
+  
+  #success_section{
+      text-align: center !important;
+  }
+  #success_share_url{
+      text-align: center !important;
+  }
 
   .history_back {
-    @include light-button($blue);
+    padding: 8px 20px !important;
+    margin-left: 5px;
+    @include light-button($gray);
+    .fa-angle-left{
+        padding-right: 5px;
+        font-weight: bold;
+      }
+  }
+  
+  #invite_users_send_button{
+    @include app-button($dark-green);
+    padding: 8px 20px !important;
+    margin-right: 5px;
+    .fa-envelope{
+        padding-right: 5px;
+        font-weight: bold;
+    }
   }
 
   .checked_activated_tile {
@@ -66,18 +85,30 @@
   #users_invite_message{
     height: 70px;
   }
-
+  
+  #form_links{
+      margin-left: 5px;
+      margin-top: 30px;
+  }
+  
   #form_buttons{
-    padding-top: 30px;
+      margin-right: 5px;
+      margin-top: 30px;
+      text-align: right;
   }
 
   #message_buttons_custom{
-    text-align: center;
     padding-top: 30px;
   }
 
   #add_another_user_invite{
-    color: #62AD51;    
+    margin-bottom: 20px;
+    padding: 8px 20px !important;
+    @include light-button($gray);
+    color: #62AD51;
+    .fa-user{
+        padding-right: 5px;
+    }
   }
 
   #invite_images{
@@ -88,12 +119,16 @@
     padding-bottom: 100px;
   }
 
-  #user_invite_message_custom{
-
+  #user_invite_message_custom{    
     background-color: #ECECEC;
+    margin: 0 20px;
     padding: 10px 10px 20px 10px;
     margin-bottom: 50px;
-  } 
+  }
+  
+  .email-client{
+      margin: 0 20px;
+  }
 
   #share_active_tile{
     margin: auto;
@@ -142,18 +177,25 @@
       text-align: center;
     }
     
-    #skip_invite_users{
-        margin-right: 15px;
+    h3 {
+      margin-left: 20px;
     }
-
     #submit_invite_users, #next_button {
-      height: $public_slug_height;
+      margin-bottom: 20px;
+      padding: 8px 20px !important;
       &.engaged {
         @include light-button($dark-green);
       }
       &.disengaged {
         @include light-button($gray);
-      }    
+      }
+      .fa-angle-right{
+        padding-left: 5px;
+        font-weight: bold;
+      }
+    }
+    #skip_invite_users{
+        color: $gray;
     }
     #dismiss_invite_users {
       height: $public_slug_height;
@@ -179,9 +221,6 @@
         font-weight: normal;        
         -webkit-border-radius: 0;
         color: #D12F19;
-      }
-      .error {
-        width: 406px;
       }
     }
     
@@ -237,7 +276,7 @@
     }  
   }
 
-  #progress{
+/*  #progress{
     float:left;
     margin-top: 17px;
     &.share_progress {
@@ -248,7 +287,7 @@
         @include radius(5px);
       }
     }
-  }
+  }*/
 }
 
 

@@ -104,7 +104,11 @@ Health::Application.routes.draw do
     resources :inactive_tiles, only: :index
     resources :draft_tiles, only: :index
 
-    resource :share, only: :show
+    resource :share, only: :show do
+      member do
+        get 'show_first_active_tile'
+      end
+    end
 
     resource :tiles_report, only: :show
 

@@ -6,7 +6,7 @@ feature "Invite Users Modal" do
   end
   
   def invite_users_modal_content
-    'Who would you like to share your board with?'
+    'Invite people to your board'
   end
   
   def expect_hidden_invite_users_modal
@@ -14,7 +14,7 @@ feature "Invite Users Modal" do
   end
     
   let (:client_admin) { FactoryGirl.create :client_admin}
-  let (:client_admin2) { FactoryGirl.create :client_admin, show_invite_users_modal: false}
+  let (:client_admin2) { FactoryGirl.create :client_admin}
   let (:user) {FactoryGirl.create(:user)}
   context "when there's at least one active tile in the demo", js: true do
     before do
@@ -25,10 +25,10 @@ feature "Invite Users Modal" do
       expect_content invite_users_modal_content 
       page.all(invite_users_modal_selector, visible: true).should_not be_empty
     end
-    scenario "'More People' link adds two more fields" do
+    scenario "'Add More' link adds two more fields" do
       within(invite_users_modal_selector) do
         page.should have_css('input', count: 17)
-        click_link "+ More People"
+        page.find('#add_another_user_invite').click
         page.should have_css('input', count: 19)
       end
     end
@@ -106,8 +106,9 @@ feature "Invite Users Modal" do
           page.should have_content("Congratulations! You've sent your first tiles.")
           page.should have_css('#success_section', visible: true)
           page.should have_content("You can also share your board using a link")
-          page.should have_css('.share_url', visible: true)
+          page.should have_css('#success_share_url', visible: true)
           within("#share_active_tile") do
+            sleep 1
             page.find(".active").should have_css('.tile_thumbnail', visible: true, count: 1)
           end
         end

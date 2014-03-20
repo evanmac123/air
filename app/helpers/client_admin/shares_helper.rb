@@ -1,7 +1,7 @@
 module ClientAdmin::SharesHelper  
   def show_conditionally_invite_users(demo = current_user.demo)
     #TODO auto_show should be removed from user modal
-    render 'invite_users', demo: demo#, auto_show: current_user.show_invite_users_modal? && demo.active_tiles.count > 0
+    render 'invite_users', demo: demo
   end
   
   def show_linkein_share(demo)
