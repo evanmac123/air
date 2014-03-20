@@ -3,6 +3,7 @@ class Demo < ActiveRecord::Base
 
   serialize :internal_domains, Array
 
+  has_many :guest_users
   has_many :users, :dependent => :destroy
   has_many :acts
   has_many :rule_based_acts, :class_name => 'Act', :conditions =>  "rule_id IS NOT NULL"
@@ -382,6 +383,9 @@ class Demo < ActiveRecord::Base
     self.tiles.active.empty? && self.tiles.where('activated_at IS NOT NULL').count < 1
   end
   
+  def has_normal_users?
+    (self.users.non_admin.count > 0) || (self.guest_users.count > 0)
+  end
   protected
 
   def unless_within(cutoff_time, last_done_time)

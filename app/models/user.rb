@@ -143,7 +143,7 @@ class User < ActiveRecord::Base
 
   has_alphabetical_column :name
 
-  scope :non_admin_claimed, -> {where('is_site_admin <> ? AND is_client_admin <> ? AND accepted_invitation_at IS NOT NULL', true, true)}
+  scope :non_admin, -> {where('is_site_admin <> ? AND is_client_admin <> ?', true, true)}
   def email_optional?
     true if phone_number
   end

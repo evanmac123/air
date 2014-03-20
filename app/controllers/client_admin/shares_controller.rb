@@ -9,7 +9,7 @@ class ClientAdmin::SharesController < ClientAdminBaseController
     @board_is_public = @demo.is_public
 
     @tiles_to_be_sent = @demo.digest_tiles(@demo.tile_digest_email_sent_at).count
-    @show_invite_users = (@tiles_to_be_sent > 0) && (@demo.users.non_admin_claimed.count < 1)
+    @show_invite_users = (@tiles_to_be_sent > 0) && (!@demo.has_normal_users?)
 
     prepend_view_path 'client_admin/users'
   end
