@@ -44,7 +44,7 @@
         %p.top-section
           To publish, mouse over the tile and click
           %span Post
--elsif @demo.tiles.count == 1 && @tile_just_activated
+-elsif @demo.tiles.count == 1 && @demo.tiles.first.activated_at.nil? && @tile_just_activated
   #tile-joyride-index-main-menu
     %ol.joyride-list.tile-index-share{"data-joyride" => true}
       %li{:"data-id"=>"share_tiles", :"data-text"=>"Got It", :"data-options"=>"tipLocation:bottom;"}
