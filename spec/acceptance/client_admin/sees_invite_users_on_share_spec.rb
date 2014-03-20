@@ -143,6 +143,7 @@ feature "Invite Users Modal" do
           page.should have_content("You can also share your board using a link")
           page.should have_css('.share_url', visible: true)
           within("#share_active_tile") do
+            sleep 1
             page.find(".active").should have_css('.tile_thumbnail', visible: true, count: 1)
           end
         end
