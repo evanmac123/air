@@ -2,10 +2,11 @@ require 'acceptance/acceptance_helper'
 
 feature "Client admin sets board's public status themself" do
   let (:client_admin) { FactoryGirl.create(:client_admin) }
-  
+    
   before do
     client_admin.demo.update_attributes(public_slug: 'heyfriend')
     FactoryGirl.create :tile, demo: client_admin.demo
+    FactoryGirl.create :user, demo: client_admin.demo
   end
 
   def click_on_link

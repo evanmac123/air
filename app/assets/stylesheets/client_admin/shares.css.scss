@@ -22,6 +22,23 @@
   }
   #success_share_url{
       text-align: center !important;
+      h1{
+          color: $sky-blue;
+      }
+      .share_url_header_div{
+          margin: auto;
+          display: block;
+          width: 352px;
+          padding-bottom: 100px;
+      }
+      .share_url_logo{
+          float: left;
+          width: 50px;
+      }
+      .share_url_header{
+          float: left;
+          padding-left: 20px;
+      }
   }
 
   .history_back {
@@ -31,7 +48,7 @@
     .fa-angle-left{
         padding-right: 5px;
         font-weight: bold;
-      }
+    }
   }
   
   #invite_users_send_button{
@@ -75,11 +92,40 @@
     margin-top: 0px;
   }
 
+  .share_url_link{
+      float: left;
+      margin-left: 263px;
+      width: 493px;
+      padding-bottom: 100px;
+  }
+  
   #share_link a{
-    padding-top: 20px;
-    padding-left: 40px;
-    padding-right: 40px;
+    float: left;
+    padding-top: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
     padding-bottom: 100px;
+    color: $dark-gray;
+  }
+  
+  .history_back_share_url {
+    padding: 8px 20px !important;
+    margin-right: 15px;
+    @include light-button($gray);
+    .fa-angle-left{
+        padding-right: 5px;
+        font-weight: bold;
+    }
+  }
+  
+  #your_tiles{
+    padding: 8px 20px !important;
+    margin-left: 15px;
+    @include light-button($gray);
+    .fa-th{
+        padding-right: 5px;
+        font-weight: bold;
+    }
   }
 
   #users_invite_message{

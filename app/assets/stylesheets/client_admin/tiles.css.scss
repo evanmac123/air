@@ -94,6 +94,27 @@
             font-size: 14px;
         }
     }
+    &.tile-index-posted-tile {
+        width: 414px;
+        margin-top: -65px;
+        margin-left: -90px;
+        color: $dark-gray;
+        .joyride-nub{
+            margin-left: 150px;
+        }
+        .top-section{
+            font-size: 18px !important;
+            padding-bottom: 15px;
+        }
+        .bottom-section{
+            font-size: 14px;
+            padding-bottom: 15px;
+        }
+        .joyride-next-tip{
+            @include light-button($gray);
+            font-size: 14px;
+        }
+    }
 }
 
 body.client_admin-tiles-index, body.client_admin-inactive_tiles,

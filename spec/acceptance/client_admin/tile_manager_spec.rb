@@ -132,7 +132,7 @@ feature 'Client admin and the digest email for tiles' do
       # Note that unlike the 'Active' and 'Archive' tile tests, you need to specify the 'activated_at'
       # time because that's how tiles do (or do not) make it into the 'Digest' tab
       tiles.each { |tile| tile.update_attributes status: Tile::ACTIVE, activated_at: Time.now }
-
+      FactoryGirl.create :user, demo: admin.demo
       visit client_admin_share_path
       page.should have_num_tiles(3)
 
@@ -289,9 +289,6 @@ feature 'Client admin and the digest email for tiles' do
       scenario "user clicks Got It, popover disappears and user nevers sees it again" do
         click_link 'Got It'
         page.should have_no_css('.joyride-tip-guide', visible: true)
-
-        visit tile_manager_page
-        page.should have_no_css('.joyride-tip-guide', visible: true)        
       end
       scenario "popup appears under share link and then under Airbo logo after tile is activated" do
         within(".joyride-tip-guide") do
@@ -307,7 +304,7 @@ feature 'Client admin and the digest email for tiles' do
         within(".joyride-tip-guide", visible: true) do
           page.should have_content("To try your board as a user click on the logo.")
         end
-      end            
+      end
     end
     context "when there is atleast one activated tile in demo", js: true do
       before do

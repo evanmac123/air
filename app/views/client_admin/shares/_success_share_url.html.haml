@@ -1,19 +1,23 @@
 .clearfix
 #success_share_url{style:'display:none'}
-  %h1 You can also share your board using a link
+  %div.text-center.share_url_header_div
+    .share_url_logo= image_tag "/assets/airbo_logo_lightblue_square_smile.png", size: "50x50"
+    .share_url_header 
+      %h1 Share Your Board
   #message_div.large-12.columns
-    %p#tile_message Anyone that follows the link will be able to see and join your board
-    = text_field_tag 'public_slug', public_board_url(current_user.demo.public_slug), id: 'public_board_field'
-    %p#tile_message share your link
-    %p#share_link
+    %h3 Anyone that follows the link will be able to see and join your board
+    %div.share_url_link= text_field_tag 'public_slug', public_board_url(current_user.demo.public_slug), id: 'public_board_field'
+    %div#share_link
       = mail_to '', fa_icon('envelope 2x'), subject: 'Shared via Airbo', body: "Check out my board at: #{public_board_url(current_user.demo.public_slug)}", class: 'share email'
       //= show_linkein_share(current_user.demo)
       //= show_facebook_share(current_user.demo)
       = show_twitter_share(current_user.demo)
-    %p#tile_message
-      Keep an eye on the activity page and the tile page. You will receive an email the first time someones completes a tile.      
-    #share_active_tile
-    = image_tag("/assets/marketing/green_down.png", class: 'arrow_image_right', size: "75x75", style:'display:none')
-    %p= link_to 'Back to Tiles', client_admin_tiles_path, class: 'light_button engaged'
+    .clearfix
+    = link_to client_admin_tiles_path, class: 'history_back_share_url' do
+      .fa.fa-angle-left
+      Back to Tiles
+    = link_to client_admin_tiles_path, id: 'your_tiles' do
+      .fa.fa-th
+      Your Tiles
     .left
       -#= link_to "Back", "#", class: 'engaged history_back'

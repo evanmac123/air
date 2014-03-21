@@ -6,6 +6,9 @@ feature 'Client admin and the digest email for tiles' do
 
   let(:demo)  { FactoryGirl.create :demo, email: 'foobar@playhengage.com' }
   let(:admin) { FactoryGirl.create :client_admin, email: 'client-admin@hengage.com', demo: demo }
+  before do
+    FactoryGirl.create :user, demo: demo
+  end
 
   # -------------------------------------------------
 
@@ -262,7 +265,7 @@ feature 'Client admin and the digest email for tiles' do
             click_button 'Send digest now'
             crank_dj_clear
 
-            all_emails.should have(6).emails  # The above 5 for this demo, and the 'client-admin' created at top of tests
+            all_emails.should have(7).emails  # The above 5 for this demo, and the 'client-admin' and the 'user' created at top of tests
 
             all_addresses.each do |address|
               expect_digest_to(address)

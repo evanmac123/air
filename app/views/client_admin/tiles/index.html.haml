@@ -60,3 +60,12 @@
       %li{:"data-id"=>"logo", :"data-text"=>"Got It", :"data-options"=>"tipLocation:bottom;"}
         %p.top-section
           To try your board as a user click on the logo.
+
+-if @first_active_tile_id.present?
+  #tile-joyride-index-posted-tile
+    %ol.joyride-list.tile-index-share{"data-joyride" => true}
+      %li{:"data-id"=> "single-tile-#{@first_active_tile_id}", :"data-text"=>"Got It", :"data-options"=>"tipLocation:bottom;"}
+        %div.top-section
+          You’ve had your first user interact with a tile!
+        %div.bottom-section
+          To see more information about users that complete your tiles, click on the number.

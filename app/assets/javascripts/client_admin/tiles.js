@@ -29,6 +29,14 @@ $(document).ready(function() {
         tip     : '<div class="joyride-tip-guide tile-index-share"><span class="joyride-nub"></span></div>'
       }
     });
+    
+  $('#tile-joyride-index-posted-tile').foundation('joyride', 'start', {
+      tipLocation: 'bottom',
+      template : { // HTML segments for tip layout
+        link    : '',
+        tip     : '<div class="joyride-tip-guide tile-index-posted-tile"><span class="joyride-nub"></span></div>'
+      }
+    });
         
   $('#tile-joyride-show-post').foundation('joyride', 'start', {
       template : { // HTML segments for tip layout

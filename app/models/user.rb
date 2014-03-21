@@ -920,8 +920,10 @@ class User < ActiveRecord::Base
     "ordinary user"
   end
 
-  def mark_own_tile_completed
-    update_attribute(:has_own_tile_completed, true)
+  def mark_own_tile_completed(tile)    
+    self.has_own_tile_completed_displayed = true
+    self.has_own_tile_completed_id = tile.id
+    self.save!
     Mailer.delay(run_at: 15.minutes.from_now).congratulate_creator_with_first_completed_tile(self)
   end
 

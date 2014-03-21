@@ -11,7 +11,13 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     @active_tiles  = @demo.active_tiles_with_placeholders
     @archive_tiles = (@demo.archive_tiles_with_placeholders)[0,8]
     @draft_tiles = (@demo.draft_tiles_with_placeholders)[0,8]
-    
+
+    @first_active_tile_id = nil
+    if !current_user.has_own_tile_completed_displayed? && !current_user.has_own_tile_completed_id.nil?
+      @first_active_tile_id = current_user.has_own_tile_completed_id     
+      current_user.has_own_tile_completed_displayed = true
+      current_user.save!
+    end
 
     @tile_just_activated = flash[:tile_activated_flag] || false
     #empty out flash[:tile_activated] too
