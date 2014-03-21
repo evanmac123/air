@@ -306,9 +306,9 @@ feature 'Client admin and the digest email for tiles' do
         end
       end
     end
-    context "when there is atleast one activated tile in demo", js: :webkit do
+    context "when there is atleast one activated tile in demo", js: true do
       before do
-        @tile = FactoryGirl.create :tile, demo: admin.demo, status: Tile::ACTIVE
+        @tile = FactoryGirl.create :tile, demo: admin.demo, status: Tile::ACTIVE, creator: admin
         visit tile_manager_page
       end
 
@@ -325,8 +325,10 @@ feature 'Client admin and the digest email for tiles' do
         end
       end
       scenario "should receive notification for completed tile" do
-        @user = FactoryGirl.create :user, demo: admin.demo
-        FactoryGirl.create(:tile_completion, tile: @tile, user: @user)
+        user = FactoryGirl.create :user, demo: admin.demo
+        tile_completion = FactoryGirl.build(:tile_completion, tile: @tile, user: user)
+        tile_completion.save!
+        
         visit tile_manager_page
         page.should have_content("You've had your first user interact with a tile!")
 
