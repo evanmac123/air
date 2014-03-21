@@ -119,6 +119,8 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     else
       flash[:failure] = "There was a problem #{failure} this tile. Please try again."
     end
+
+    redirect_to :back
   end
   
   def update_fields

@@ -328,7 +328,7 @@ feature 'Client admin and the digest email for tiles' do
         @user = FactoryGirl.create :user, demo: admin.demo
         FactoryGirl.create(:tile_completion, tile: @tile, user: @user)
         visit tile_manager_page
-        page.should have_content("You’ve had your first user interact with a tile!")
+        page.should have_content("You've had your first user interact with a tile!")
 
         visit tile_manager_page
         page.should_not have_content("You've had your first user interact with a tile!")
