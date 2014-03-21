@@ -299,7 +299,7 @@ $(document).ready ->
    
   loadPage3 = () ->
     hideAll()
-    $('#success_share_url').show()    
+#    $('#success_share_url').show()    
     $('#success_share_digest').show()
     $.get '/client_admin/share/show_first_active_tile', (data) ->
         $('#success_share_url').find('#share_active_tile').html(data)

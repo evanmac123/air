@@ -16,14 +16,27 @@
       }
     }
   }
-  
-  #success_section{
-      text-align: center !important;
-  }
   #success_share_url{
       text-align: center !important;
       h1{
           color: $sky-blue;
+      }
+      .share_url_link{
+        float: left;
+        margin-left: 263px;
+        width: 493px;
+        padding-bottom: 100px;
+    }
+    #share_link a{
+    float: left;
+    padding-top: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 100px;
+    color: $dark-gray;
+  }
+      .success_url_h3{
+        padding-bottom: 100px;
       }
       .share_url_header_div{
           margin: auto;
@@ -39,6 +52,49 @@
           float: left;
           padding-left: 20px;
       }
+  }
+  
+   #success_share_digest{
+     #success_section{
+      text-align: center !important;
+      h1, h3{
+          color: $sky-blue;
+      }
+      .share_url_link{
+      float: left;
+      margin-left: 375px;
+      width: 300px;
+      padding-bottom: 20px;
+  }
+  #share_link a{
+    float: left;
+    padding-top: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 20px;
+    color: $dark-gray;
+  }
+      .success_url_h3{
+        padding-bottom: 100px;
+      }
+      .share_url_header_div{
+          margin: auto;
+          display: block;
+          width: 352px;
+          padding-bottom: 60px;
+      }
+      .share_url_logo{
+          float: left;
+          width: 50px;
+      }
+      .share_url_header{
+          float: left;
+          padding-left: 20px;
+      }
+            .above_back_to_tile{
+                padding-bottom: 100px;
+            }
+     }
   }
 
   .history_back {
@@ -90,14 +146,7 @@
     float: right;
     margin-right: -28px;
     margin-top: 0px;
-  }
-
-  .share_url_link{
-      float: left;
-      margin-left: 263px;
-      width: 493px;
-      padding-bottom: 100px;
-  }
+  }    
   
   #share_link a{
     float: left;
