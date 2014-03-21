@@ -79,6 +79,8 @@ describe TileCompletion do
 
     tc = FactoryGirl.create(:tile_completion, tile_id: tile.id, user: user)
     client.reload.has_own_tile_completed.should be_true
+    client.has_own_tile_completed_displayed.should be_false
+    client.has_own_tile_completed_id.should eq(tile.id)
   end
 end
 
