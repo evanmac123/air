@@ -118,10 +118,9 @@ feature "Invite Users Modal" do
             3.times {FactoryGirl.create(:tile, status: Tile::ACTIVE, demo: client_admin.demo)}
           end
           page.find("#invite_users_send_button").click
-          page.should have_content("Congratulations! You've sent your first tiles.")
+          page.should have_content("Invitation Sent!")
           page.should have_css('#success_section', visible: true)
-          page.should have_content("Share Your Board")
-          page.should have_css('#success_share_url', visible: true)
+          page.should have_content("You can also share your board using this link")
         end
         scenario "sends email invite to user via Airbo" do
           page.find("#invite_users_send_button").click
@@ -134,14 +133,10 @@ feature "Invite Users Modal" do
             3.times {FactoryGirl.create(:tile, status: Tile::ACTIVE, demo: client_admin.demo)}
           end
           page.find("#invite_users_send_button").click
-          page.should have_content("Congratulations! You've sent your first tiles.")
+          page.should have_content("Invitation Sent!")
           page.should have_css('#success_section', visible: true)
-          page.should have_content("You can also share your board using a link")
-          page.should have_css('.share_url', visible: true)
-          within("#share_active_tile") do
-            sleep 1
-            page.find(".active").should have_css('.tile_thumbnail', visible: true, count: 1)
-          end
+          page.should have_content("You can also share your board using this link")
+          page.should have_css('.share_url_link', visible: true)
         end
       end
     end

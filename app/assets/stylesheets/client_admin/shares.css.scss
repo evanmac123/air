@@ -9,7 +9,7 @@
   }
 
   #share_tiles_digest{
-      margin: 0 158px;
+    margin: 0 158px;
     .invite_users_header_page_1, .invite_users_header_page_2{ 
       h1{
         margin-left: 40px;
@@ -17,84 +17,93 @@
     }
   }
   #success_share_url{
+    text-align: center !important;
+    h1{
+      color: $sky-blue;
+    }
+    .share_url_link{
+      float: left;
+      margin-left: 263px;
+      width: 493px;
+      padding-bottom: 100px;
+    }
+    #share_link a{
+      float: left;
+      padding-top: 5px;
+      padding-left: 10px;
+      padding-right: 10px;
+      padding-bottom: 100px;
+      color: $dark-gray;
+    }
+    .success_url_h3{
+      padding-bottom: 100px;
+    }
+    .share_url_header_div{
+      margin: auto;
+      display: block;
+      width: 352px;
+      padding-bottom: 100px;
+    }
+    .share_url_logo{
+      float: left;
+      width: 50px;
+    }
+    .share_url_header{
+      float: left;
+      padding-left: 20px;
+    }
+    .history_back {
+      padding: 8px 20px !important;
+      margin-right: 15px;
+      @include light-button($gray);
+      .fa-angle-left{
+          padding-right: 5px;
+          font-weight: bold;
+      }
+    }
+  }
+
+  #success_share_digest{
+    #success_section{
       text-align: center !important;
-      h1{
-          color: $sky-blue;
+      h1, h3{
+        color: $sky-blue;
       }
       .share_url_link{
         float: left;
-        margin-left: 263px;
-        width: 493px;
+        margin-left: 375px;
+        width: 300px;
+        padding-bottom: 20px;
+      }
+      #share_link a{
+        float: left;
+        padding-top: 5px;
+        padding-left: 10px;
+        padding-right: 10px;
+        padding-bottom: 20px;
+        color: $dark-gray;
+      }
+      .success_url_h3{
         padding-bottom: 100px;
+      }
+      .share_url_header_div{
+        margin: auto;
+        display: block;
+        width: 352px;
+        padding-bottom: 60px;
+      }
+      .share_url_logo{
+        float: left;
+        width: 50px;
+      }
+      .share_url_header{
+        float: left;
+        padding-left: 20px;
+      }
+      .above_back_to_tile{
+        padding-bottom: 100px;
+      }
     }
-    #share_link a{
-    float: left;
-    padding-top: 5px;
-    padding-left: 10px;
-    padding-right: 10px;
-    padding-bottom: 100px;
-    color: $dark-gray;
-  }
-      .success_url_h3{
-        padding-bottom: 100px;
-      }
-      .share_url_header_div{
-          margin: auto;
-          display: block;
-          width: 352px;
-          padding-bottom: 100px;
-      }
-      .share_url_logo{
-          float: left;
-          width: 50px;
-      }
-      .share_url_header{
-          float: left;
-          padding-left: 20px;
-      }
-  }
-  
-   #success_share_digest{
-     #success_section{
-      text-align: center !important;
-      h1, h3{
-          color: $sky-blue;
-      }
-      .share_url_link{
-      float: left;
-      margin-left: 375px;
-      width: 300px;
-      padding-bottom: 20px;
-  }
-  #share_link a{
-    float: left;
-    padding-top: 5px;
-    padding-left: 10px;
-    padding-right: 10px;
-    padding-bottom: 20px;
-    color: $dark-gray;
-  }
-      .success_url_h3{
-        padding-bottom: 100px;
-      }
-      .share_url_header_div{
-          margin: auto;
-          display: block;
-          width: 352px;
-          padding-bottom: 60px;
-      }
-      .share_url_logo{
-          float: left;
-          width: 50px;
-      }
-      .share_url_header{
-          float: left;
-          padding-left: 20px;
-      }
-            .above_back_to_tile{
-                padding-bottom: 100px;
-            }
-     }
   }
 
   .history_back {
@@ -102,18 +111,18 @@
     margin-left: 5px;
     @include light-button($gray);
     .fa-angle-left{
-        padding-right: 5px;
-        font-weight: bold;
+      padding-right: 5px;
+      font-weight: bold;
     }
   }
-  
+
   #invite_users_send_button{
     @include app-button($dark-green);
     padding: 8px 20px !important;
     margin-right: 5px;
     .fa-envelope{
-        padding-right: 5px;
-        font-weight: bold;
+      padding-right: 5px;
+      font-weight: bold;
     }
   }
 
@@ -147,7 +156,7 @@
     margin-right: -28px;
     margin-top: 0px;
   }    
-  
+
   #share_link a{
     float: left;
     padding-top: 5px;
@@ -156,40 +165,30 @@
     padding-bottom: 100px;
     color: $dark-gray;
   }
-  
-  .history_back_share_url {
-    padding: 8px 20px !important;
-    margin-right: 15px;
-    @include light-button($gray);
-    .fa-angle-left{
-        padding-right: 5px;
-        font-weight: bold;
-    }
-  }
-  
+
   #your_tiles{
     padding: 8px 20px !important;
     margin-left: 15px;
     @include light-button($gray);
     .fa-th{
-        padding-right: 5px;
-        font-weight: bold;
+      padding-right: 5px;
+      font-weight: bold;
     }
   }
 
   #users_invite_message{
     height: 70px;
   }
-  
+
   #form_links{
-      margin-left: 5px;
-      margin-top: 30px;
+    margin-left: 5px;
+    margin-top: 30px;
   }
-  
+
   #form_buttons{
-      margin-right: 5px;
-      margin-top: 30px;
-      text-align: right;
+    margin-right: 5px;
+    margin-top: 30px;
+    text-align: right;
   }
 
   #message_buttons_custom{
@@ -202,7 +201,7 @@
     @include light-button($gray);
     color: #62AD51;
     .fa-user{
-        padding-right: 5px;
+      padding-right: 5px;
     }
   }
 
@@ -220,9 +219,9 @@
     padding: 10px 10px 20px 10px;
     margin-bottom: 50px;
   }
-  
+
   .email-client{
-      margin: 0 20px;
+    margin: 0 20px;
   }
 
   #share_active_tile{
@@ -265,13 +264,21 @@
     margin: auto;
     line-height: 40px;
   }
-  
+
   #invite_users_modal {
     padding:20px;
     .share-user-profile{
       text-align: center;
     }
-    
+    .error_message {
+      .main {
+        color: #D12F19;
+        margin-left: 30px;
+        margin-top: -25px;
+        position: absolute;
+      }
+    }
+
     h3 {
       margin-left: 20px;
     }
@@ -290,7 +297,7 @@
       }
     }
     #skip_invite_users{
-        color: $gray;
+      color: $gray;
     }
     #dismiss_invite_users {
       height: $public_slug_height;
@@ -306,7 +313,7 @@
         background-color: #ECECEC;
         padding: 10px;
         float: left;
-        margin: 70px 20px 20px 20px;
+        margin: 80px 20px 20px 20px;
       }
       .error_message {
         position: absolute;
@@ -318,7 +325,7 @@
         color: #D12F19;
       }
     }
-    
+
     .move-right {
       text-align:right;
       margin-right:35px;
@@ -371,23 +378,18 @@
     }  
   }
 
-/*  #progress{
-    float:left;
-    margin-top: 17px;
-    &.share_progress {
-      @include progress-container;
-      @include radius(6px);
-      & > span {
-        @include progress-meter($dark-green);
-        @include radius(5px);
+  /*  #progress{
+      float:left;
+      margin-top: 17px;
+      &.share_progress {
+        @include progress-container;
+        @include radius(6px);
+        & > span {
+          @include progress-meter($dark-green);
+          @include radius(5px);
+        }
       }
-    }
-  }*/
-}
-
-
-#public_board_field{
-//  margin-bottom: 50px;
+    }*/
 }
 
 

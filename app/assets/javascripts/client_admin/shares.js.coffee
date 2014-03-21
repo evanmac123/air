@@ -10,13 +10,15 @@ $(document).ready ->
   
   $('#share_tiles_email_preview').on('load', (event) ->
     if document.getElementById
-      newheight = document.getElementById('share_tiles_email_preview').contentWindow.document.body.scrollHeight - 250
-      newwidth = document.getElementById('share_tiles_email_preview').contentWindow.document.body.scrollWidth
+      newHeight = document.getElementById('share_tiles_email_preview').contentWindow.document.body.scrollHeight - 250
+      newWidth = document.getElementById('share_tiles_email_preview').contentWindow.document.body.scrollWidth
 
-      document.getElementById('share_tiles_email_preview').height = (newheight) + "px"
-      document.getElementById('share_tiles_email_preview').width = (newwidth) + "px"
+      document.getElementById('share_tiles_email_preview').height = (newHeight) + "px"
+      document.getElementById('share_tiles_email_preview').width = (newWidth) + "px"
       $('#share_tiles_email_preview_blocker').height('100%')
       $('#share_tiles_email_preview_blocker').width('90%')
+      custom_message = $('#invite_users_page_2').find('#users_invite_message')
+      $('#invite_users_page_2').find('#share_tiles_email_preview').contents().find('#custom_message').html($(custom_message).val())
     return
   )
   removeInviteUsersErrorMessage = (container, type) ->
@@ -29,7 +31,6 @@ $(document).ready ->
     
   #validate invited users
   has_one_entry = false
-  ignore_page_1_2 = false
   validateInvitedUsers = () ->
     all_ok = true
     user_invites = $('.invite-user')
@@ -61,9 +62,9 @@ $(document).ready ->
           
     #No need for personal message to be validated
     unless has_one_entry
-      showInviteUsersErrorMessage("Please specify at least one invite", $("#invite_users_modal"), 'main')
+      showInviteUsersErrorMessage("Please specify at least one invite", $('#share_tiles_digest').find("#invite_users_modal"), 'main')
     else
-      removeInviteUsersErrorMessage($('#share_tiles_digest>').find("#invite_users_modal"), 'main')
+      removeInviteUsersErrorMessage($('#share_tiles_digest').find("#invite_users_modal"), 'main')
     has_one_entry && all_ok
   #submit form
   $('#submit_invite_users').on('click', (event) ->
@@ -78,7 +79,6 @@ $(document).ready ->
   )
   $('#invite_users_page_1').find('#skip_invite_users').on('click', (event) ->
     event.preventDefault()
-    #$(this).attr("href")
     History.pushState {state: 4}, "Airbo", "?state=4"
     loadPage4()
     false
@@ -171,22 +171,24 @@ $(document).ready ->
     
   $('#share_tiles_digest').find("#invite_users_modal").on("ajax:success", (e, data, status, xhr) ->
     
-    #ignore_page_1_2 = true #don't allow user to see page 1 and 2 anymore
     History.pushState {state: 3}, "Airbo", "?state=success"
     loadPage3()
   ).bind "ajax:error", (e, xhr, status, error) ->    
     errors = $.parseJSON(xhr.responseText).errors
     for key,value of errors      
-      showInviteUsersErrorMessage("#{key} - #{value}", $('#share_tiles_digest>').find("#invite_users_modal"), 'main')
+      showInviteUsersErrorMessage("#{key} - #{value}", $('#share_tiles_digest').find("#invite_users_modal"), 'main')
       
-  $('#invite_users_page_1').find('.history_back.page_1').on('click', (event) ->
-    loadPage0()
-    History.back()
-  )
   $('#invite_users_page_2').find('.history_back.page_2').on('click', (event) ->
     loadPage1()
     History.back()
+    false
   )
+  $('#success_share_url').find('.history_back').on('click', (event) ->
+    loadPage1()
+    History.back()
+    false
+  )
+  
   $('#invite_users_page_2').find('#invite_users_send_button').on('click', (event) ->    
     if validateInvitedUsers()      
       $('#share_tiles_digest').find('#invite_users_form').submit()
@@ -204,6 +206,10 @@ $(document).ready ->
     $('#invite_users_page_2').find('#share_tiles_email_preview').contents().find('#custom_message').html($(this).val())
   )  
 
+  $('#invite_users_page_1').find('input').select((event) ->
+    $(this).removeAttr('style').removeClass('invalid').removeClass('valid').removeClass('error')    
+  )
+  
 ############JQuery Validation#################
   $.validator.addMethod("first_last_name", 
     (value, element) ->      
@@ -272,6 +278,7 @@ $(document).ready ->
         type = 'email'
       else
         type = 'name'
+      removeInviteUsersErrorMessage($('#share_tiles_digest').find("#invite_users_modal"), 'main')
       if error.text() != ''
         showInviteUsersErrorMessage(error.text(), $(errorElement).closest('li'), type)
       return
@@ -287,6 +294,7 @@ $(document).ready ->
 
     $('#invite_users_page_2').hide()
     $(".invite_users_header_page_2").hide()
+    $('#invite_users_modal').hide()
 
 
   loadPage4 = () ->
@@ -299,7 +307,6 @@ $(document).ready ->
    
   loadPage3 = () ->
     hideAll()
-#    $('#success_share_url').show()    
     $('#success_share_digest').show()
     $.get '/client_admin/share/show_first_active_tile', (data) ->
         $('#success_share_url').find('#share_active_tile').html(data)
@@ -311,6 +318,7 @@ $(document).ready ->
     $('#invite_users_page_2').find('#share_tiles_email_preview').attr('src', '/client_admin/preview_invite_email');
     $('#share_tiles_digest').show()    
     $('.invite_users_header_page_2').show()
+    $('#invite_users_modal').show()
     $('#invite_users_page_2').show()
     true
   
@@ -318,29 +326,20 @@ $(document).ready ->
     hideAll()
     $('#share_tiles_digest').show()
     $(".invite_users_header_page_1").show()
+    $('#invite_users_modal').show()
     $('#invite_users_page_1').show()
     true
-    
-  loadPage0 = () ->
-    #ignore_page_1_2 = false
-    hideAll()
-    $('#activate_tiles_digest').show()
-    true
-    
+        
 #  $(window).on("popstate", (e) ->
   History.Adapter.bind(window,'statechange', () ->
     state = History.getState();
     switch state.data.state
-      when 0
-        loadPage0()
       when 1
-        if ignore_page_1_2 then History.back() else loadPage1()
+        loadPage1()
       when 2
-        if ignore_page_1_2 then History.back() else loadPage2()
+        loadPage2()
       when 3
         loadPage3()
-      when 4
-        loadPage4()
       else
-        loadPage0()
+        loadPage1()
   )

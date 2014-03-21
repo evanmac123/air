@@ -4,7 +4,8 @@
   .invite_users_header_page_2{style:'display:none'}
     %h1 Preview and send invitations
   #invite_users_modal.large-12.columns
-    #invite_users_errors
+    #invite_users_errors.error_message
+      .main
     = form_for [:client_admin, UsersInvite.build(@demo)], remote: true, html: {class: 'user-profile', id: 'invite_users_form'} do |form|
       = render 'invite_user_fields', form: form
       = render 'invite_users_message', form: form, demo: demo

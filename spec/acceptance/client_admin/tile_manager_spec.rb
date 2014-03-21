@@ -306,7 +306,7 @@ feature 'Client admin and the digest email for tiles' do
         end
       end
     end
-    context "when there is atleast one activated tile in demo", js: true do
+    context "when there is atleast one activated tile in demo", js: :webkit do
       before do
         @tile = FactoryGirl.create :tile, demo: admin.demo, status: Tile::ACTIVE
         visit tile_manager_page

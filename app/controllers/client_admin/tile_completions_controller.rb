@@ -1,8 +1,9 @@
 class ClientAdmin::TileCompletionsController < ClientAdminBaseController
   #Tiles completion report
   ORDER_BY_USER_NAME  = 'users.name'.freeze
-  def index    
+  def index
     @tile = Tile.find(params[:tile_id])
+    @demo = @tile.demo
     @survey_chart = @tile.survey_chart if @tile.is_survey?
     params[:grid] = {page: params[:page]}
     if params[:nc_grid]
@@ -33,6 +34,7 @@ class ClientAdmin::TileCompletionsController < ClientAdminBaseController
   
   def non_completions
     @tile = Tile.find(params[:tile_id])
+    @demo = @tile.demo
     @non_completions_grid = initialize_grid(@tile.demo.users.joins("LEFT JOIN #{TileCompletion.
         table_name} on #{TileCompletion.table_name}.user_id = #{User.
         table_name}.id AND #{TileCompletion.table_name}.user_type = '#{User.
