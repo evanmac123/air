@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<!-- Note that this file is just checked in here for convenience: if you want 
+     to update it in production, you must also upload it to S3 (the 
+     heroku_error_page bucket) -->
+
+<html>
+<head>
+  <title>Airbo is down temporarily for maintenance</title>
+  <link rel="stylesheet" type="text/css" href="https://s3.amazonaws.com/airbo_error_styles/errors.css" />
+  <link href='http://fonts.googleapis.com/css?family=Ubuntu:400,500' rel='stylesheet' type='text/css'>
+</head>
+
+<body>
+  <div class="main-contain">
+    <a href="http://www.air.bo"><img src="https://s3.amazonaws.com/Airbo/airbo_logo_lightblue_square_o_face.png" alt="Back to air.bo" id="sunshower_logo"/></a>
+    <div class="dialog">
+      <div class="error-text">
+        <h1>Sun shower!</h1>
+        <p>Airbo is down for a few minutes for scheduled maintenance. We'll be right back.</p>
+      </div>
+    </div>
+  </div>
+  <div class="footer">
+    <p class="copyright">Copyright &copy; 2014 H.Engage, Inc.</p>
+  </div>
+</body>
+</html>
