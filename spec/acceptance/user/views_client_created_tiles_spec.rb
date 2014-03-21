@@ -108,11 +108,11 @@ feature 'User views tiles' do
       before do
         spoof_client_device(device_type)
         @demo = FactoryGirl.create(:demo)
-        user = FactoryGirl.create(:user, demo: @demo, sample_tile_completed: true)
+        @user = FactoryGirl.create(:user, demo: @demo, sample_tile_completed: true)
 
         (expected_tile_batch_size * 3 + 1).times {|n| FactoryGirl.create(:tile, status: 'active', headline: "Tile Number #{n}", demo: @demo)}
         
-        visit activity_path(as: user)
+        visit activity_path(as: @user)
       end
 
       it "should show the first #{expected_first_batch_size} in the first batch", js: true do
@@ -123,21 +123,34 @@ feature 'User views tiles' do
         show_more_tiles_link.click
         expect_thumbnail_count(expected_tile_batch_size * 3)
         expect_placeholder_count(0)
+        expect_show_more_tiles_link_disabled?(false)
 
         show_more_tiles_link.click
         expect_thumbnail_count(expected_tile_batch_size * 3 + 1)
         expect_placeholder_count(expected_tile_batch_size - 1)
+        expect_show_more_tiles_link_disabled?(true)
+
+
 
         # Hey look, here comes everybody!
         expected_tile_batch_size.times {|n| FactoryGirl.create(:tile, status: 'active', headline: "Second Batch Tile #{n}", demo: @demo)}
 
+        visit activity_path(as: @user)
+
+        show_more_tiles_link.click
+        expect_thumbnail_count(expected_tile_batch_size * 3)
+        expect_placeholder_count(0)
+        expect_show_more_tiles_link_disabled?(false)
+
         show_more_tiles_link.click
         expect_thumbnail_count(expected_tile_batch_size * 4)
         expect_placeholder_count(0)
+        expect_show_more_tiles_link_disabled?(false)
 
         show_more_tiles_link.click
         expect_thumbnail_count(expected_tile_batch_size * 4 + 1)
         expect_placeholder_count(expected_tile_batch_size - 1)
+        expect_show_more_tiles_link_disabled?(true)
       end
     end
   end

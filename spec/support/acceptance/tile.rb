@@ -261,6 +261,14 @@ module TileHelpers
     page.find('a.show_more_tiles')
   end
 
+  def expect_show_more_tiles_link_disabled?(disabled)
+    if disabled
+      page.should have_css("a.show_more_tiles[disabled]")
+    else
+      page.should_not have_css("a.show_more_tiles[disabled]")
+    end
+  end
+
   def expect_thumbnail_count(expected_count)
     page.all('.tile-wrapper').should have(expected_count).thumbnails
   end
