@@ -251,7 +251,7 @@ class Tile < ActiveRecord::Base
       copy.send("#{field_to_copy}=", self.send(field_to_copy))
     end
 
-    copy.status = Tile::ARCHIVE
+    copy.status = Tile::DRAFT
     copy.original_creator = self.creator
     copy.original_created_at = self.created_at
     copy.demo = new_demo

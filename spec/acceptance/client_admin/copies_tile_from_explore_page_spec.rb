@@ -36,7 +36,7 @@ feature "Client admin copies tile from the explore-preview page" do
       copied_tile[expected_same_field].should == @original_tile[expected_same_field]
     end
 
-    copied_tile.status.should == Tile::ARCHIVE
+    copied_tile.status.should == Tile::DRAFT
     copied_tile.demo_id.should == admin.demo_id
     copied_tile.is_copyable.should be_false
     copied_tile.is_public.should be_false
