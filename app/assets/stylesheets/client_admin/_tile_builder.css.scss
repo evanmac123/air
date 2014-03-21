@@ -1,3 +1,5 @@
+@import "mixins/lightbox";
+
 body.client_admin-tiles-new, 
 body.client_admin-tiles-create,
 body.client_admin-tiles-edit,
@@ -421,4 +423,12 @@ body.client_admin-tiles-update {
   .tile_quiz {
     padding: 0 !important;
   }
+}
+
+#new_tag_lightbox {
+  @include lightbox-form;
+}
+
+#tile_tag_select {
+  background: lighten($light-gray, 8%);
 }

@@ -9,6 +9,9 @@
         <%= form.label :is_copyable, "Can other creators copy this tile?" %>
         <%= form.check_box :is_copyable %>
       </div>
+
+      <%= label_tag "tile_tag_select", "Tag with:" %>
+      <%= render 'tag_select', tags: @tags, selected_tag_id: form.object.first_tag_id %>
     </div>
   </div>
 
@@ -33,9 +36,6 @@
       </form>
     </div>
   <% end %>
-
-  <%= label_tag "tile_tag_select", "Tag with:" %>
-  <%= render 'tag_select', tags: @tags, selected_tag_id: form.object.first_tag_id %>
 
   <% content_for :javascript do %>
     <%= javascript_tag do %>
