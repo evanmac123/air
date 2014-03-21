@@ -1,4 +1,8 @@
 body.client_admin-tiles-show {
+  .tile_holder {
+    width: 600px;
+  }
+
     .tile_control, h5 {
         display: inline-block;
     }
