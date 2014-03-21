@@ -64,7 +64,7 @@ feature 'Sees tiles on explore page' do
       expect_content "Bouillabase Cheese Fish Groats Spam"
     end
 
-    it "omits tags that have no public tiles on the explore page" do
+    it "omits tags that have no active public tiles on the explore page" do
       %w(Spam Fish Cheese Groats Bouillabase).each do |title|
         FactoryGirl.create(:tile_tag, title: title)
       end
@@ -75,13 +75,21 @@ feature 'Sees tiles on explore page' do
         tile.tile_tags << tag
       end
 
+      %w(Nein Non Nyet).each do |title|
+        tag = FactoryGirl.create(:tile_tag, title: title)
+        draft_tile = FactoryGirl.create(:tile, status: Tile::DRAFT, is_public: true)
+        archive_tile = FactoryGirl.create(:tile, status: Tile::ARCHIVE, is_public: true)
+        draft_tile.tile_tags << tag
+        archive_tile.tile_tags << tag
+      end
+
       tag = FactoryGirl.create(:tile_tag, title: "ThisYes")
       tile = FactoryGirl.create(:tile, :public)
       tile.tile_tags << tag
 
       visit explore_path(as: a_client_admin)
       %w(Spam Fish Cheese Groats Bouillabase).each {|title| expect_no_content title}
-      %w(Nope None Nil).each {|title| expect_no_content title}
+      %w(Nope None Nil Nein Non Nyet).each {|title| expect_no_content title}
     end
 
     context "when a tag is clicked" do
