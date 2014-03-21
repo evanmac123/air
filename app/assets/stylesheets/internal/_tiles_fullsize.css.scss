@@ -7,20 +7,7 @@ body.client_admin-tiles-update,
 .tiles.tiles-index {
   background:$tile-wall-bg;
 }
-
-// Actual tile, holds everything together
-.tile_holder {
-  background:transparent;
-  border-radius:$border-radius;
-  box-shadow:0 0 1px 1px lighten($med-gray, 5%);
-  @include font-regular;
-  font-size:1em;
-  display: block;
-  margin:0 auto;
-  overflow:hidden;
-  position: relative;
-  text-align: left;
-  width:100%;
+.tiles.tiles-index {
   .completed {
     &:before {
       background: $white;
@@ -44,6 +31,21 @@ body.client_admin-tiles-update,
       width: 1.15em;
     }
   }
+}
+// Actual tile, holds everything together
+.tile_holder {
+  background:transparent;
+  border-radius:$border-radius;
+  box-shadow:0 0 1px 1px lighten($med-gray, 5%);
+  @include font-regular;
+  font-size:1em;
+  display: block;
+  margin:0 auto;
+  overflow:hidden;
+  position: relative;
+  text-align: left;
+  width:100%;
+  
   &.client_created .tile_full_image {
     background:$text-color;
     padding:0;
