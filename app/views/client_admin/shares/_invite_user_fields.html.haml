@@ -5,11 +5,11 @@
         %section.invite-user
           %ul.info-cols
             %li{id:"invite_user_li_#{index}"}
+              = user_fields.text_field :name, placeholder: "Name", class:'name', id:"user_#{index}_name", size:"40"
+              = user_fields.text_field :email, placeholder: "Email", class: 'email', id:"user_#{index}_email", size:"40"
               .error_message
                 .name
                 .email
-              = user_fields.text_field :name, placeholder: "Name", class:'name', id:"user_#{index}_name", size:"40"
-              = user_fields.text_field :email, placeholder: "Email", class: 'email', id:"user_#{index}_email", size:"40"
   .clearfix
   #form_links.large-5.columns
     = link_to '#', id: 'add_another_user_invite' do

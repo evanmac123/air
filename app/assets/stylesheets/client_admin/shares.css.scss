@@ -310,19 +310,18 @@
     }
     .info-cols {
       li {
+        box-sizing: border-box;
         background-color: #ECECEC;
         padding: 10px;
         float: left;
-        margin: 80px 20px 20px 20px;
+        margin: 1em 1em 2em 1em;
       }
       .error_message {
         position: absolute;
-        margin-top: -97px;
-        height: 40px;
-        width: 347px;
-        font-weight: normal;        
-        -webkit-border-radius: 0;
-        color: #D12F19;
+        margin-top: 1em;
+        font-size: .75em;
+        font-weight: normal;
+        color: $red;
       }
     }
 
