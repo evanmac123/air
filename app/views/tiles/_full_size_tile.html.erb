@@ -3,6 +3,7 @@
 <% overlay_displayed ||= false %>
 <% remove_right_answer_target ||= false %>
 <% show_copy_button ||= false %>
+<% is_preview ||= false %>
 
 <div class="tile_holder <%= creator_class %>" data-current-tile-id="<%= tile.id 
   %>" data-completed-only="<%= @show_completed_tiles 
@@ -43,7 +44,7 @@
 
 
           <div class="tile_question"><%= tile.question %></div>
-          <%= render 'tiles/multiple_choice_answers', tile: tile, answer_links_disabled: answer_links_disabled, remove_right_answer_target: remove_right_answer_target %>
+          <%= render 'tiles/multiple_choice_answers', tile: tile, answer_links_disabled: answer_links_disabled, remove_right_answer_target: remove_right_answer_target, is_preview: is_preview %>
         </div>
       </div>
     <% end %>

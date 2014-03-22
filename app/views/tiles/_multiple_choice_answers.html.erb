@@ -1,5 +1,6 @@
 <% target_link_id  = "multiple_choice_target_link_#{tile.id}" %>
 <% remove_right_answer_target ||= false %>
+<% is_preview ||= false %>
 
 <% if tile.multiple_choice_answers.present? %>
   <div class="multiple_choice_group">
@@ -26,8 +27,14 @@
       <% end %>
     <% end %>
     <% content_for :javascript do %>
-      <%= javascript_tag do %>
-        setUpAnswers();
+      <% if is_preview %>
+        <%= javascript_tag do %>
+          setUpAnswersForPreview();
+        <% end %>
+      <% else %>
+        <%= javascript_tag do %>
+          setUpAnswers();
+        <% end %>
       <% end %>
     <% end %>
   </div>

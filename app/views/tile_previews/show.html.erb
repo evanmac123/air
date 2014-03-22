@@ -1,10 +1,11 @@
 <%= stylesheet_link_tag "app-internal" %>
-<%= javascript_include_tag "internal/tiles" %>
+<%= javascript_include_tag "internal/countUp.min" %>
+<%= javascript_include_tag "internal/point_and_ticket_animation" %>
 
 <div class="container row">
   <div class="viewer">
     <div id="slideshow">
-      <%= render "tiles/full_size_tile", tile: @tile, remove_right_answer_target: true, show_copy_button: @tile.is_copyable %>
+      <%= render "tiles/full_size_tile", tile: @tile, remove_right_answer_target: true, show_copy_button: @tile.is_copyable, is_preview: true %>
     </div>
   </div>
 </div>

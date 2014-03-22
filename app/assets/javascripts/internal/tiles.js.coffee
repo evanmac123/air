@@ -71,10 +71,22 @@ rightAnswerClicked = (event) ->
   preloadAnimationsDone = tileCompletedPreloadAnimations(event)
   loadNextTileWithOffset(1, preloadAnimationsDone, predisplayAnimations, posting)
 
+rightAnswerClickedForPreview = (event) ->
+  markCompletedRightAnswer(event)
+  highlightEarnablePoints()
+  pointCounter().start()
+
 attachRightAnswers = ->
   $('.right_multiple_choice_answer').one("click", (event) ->
     event.preventDefault()
     rightAnswerClicked(event)
+    disableAllAnswers()
+  )
+
+attachRightAnswersForPreview = ->
+  $('.right_multiple_choice_answer').one("click", (event) ->
+    event.preventDefault()
+    rightAnswerClickedForPreview(event)
     disableAllAnswers()
   )
 
@@ -90,8 +102,13 @@ setUpAnswers = ->
   attachRightAnswers()
   attachWrongAnswers()
 
+setUpAnswersForPreview = ->
+  attachRightAnswersForPreview()
+  attachWrongAnswers()
+
 window.loadNextTileWithOffset = loadNextTileWithOffset
 window.setUpAnswers = setUpAnswers
+window.setUpAnswersForPreview = setUpAnswersForPreview
 window.grayoutTile = grayoutTile
 window.ungrayoutTile = ungrayoutTile
 

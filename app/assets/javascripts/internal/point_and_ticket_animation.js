@@ -54,14 +54,21 @@ var fillBar = function(previousTickets, currentTickets, finalPercentage, allTile
 
 var scrollToTop = function() { $.Deferred(window.scrollTo(0,0)).promise(); }
 
-var tileCompletedPreloadAnimations = function() {
-  $('.earnable_points').css('background', '#4FAA60').css('box-shadow', 'none');
+var pointCounter = function() {
   var originalPoints = parseInt($('#tile_point_value').text());
-  var pointCounter = new countUp('tile_point_value', originalPoints, 0, 0, 1.0);
+  return(new countUp('tile_point_value', originalPoints, 0, 0, 1.0));
+}
+
+var highlightEarnablePoints = function() {
+  $('.earnable_points').css('background', '#4FAA60').css('box-shadow', 'none');
+}
+
+var tileCompletedPreloadAnimations = function() {
+  highlightEarnablePoints();
 
   var callbacksDoneDeferred = $.Deferred();
 
-  pointCounter.start(function() {
+  pointCounter().start(function() {
     $.when(grayoutTile()).
       then(scrollToTop).
       then(function(){callbacksDoneDeferred.resolve()})
