@@ -26,6 +26,7 @@ $(document).ready(function() {
       postStepCallback     : function (){
           $('.joyride-tip-guide:last').removeClass("tile-index-share");
           $('.joyride-tip-guide:last').addClass("tile-index-main-menu");
+          $.ajax("/client_admin/shares/clicked_got_it_on_first_completion")
       },
       template : { // HTML segments for tip layout
         link    : '',

@@ -11,10 +11,8 @@
       You can also share your board using this link:
     %div.share_url_link= text_field_tag 'public_slug', public_board_url(current_user.demo.public_slug), id: 'public_board_field'
     %div#share_link
-      = mail_to '', fa_icon('envelope 2x'), subject: 'Shared via Airbo', body: "Check out my board at: #{public_board_url(current_user.demo.public_slug)}", class: 'share email'
-      //= show_linkein_share(current_user.demo)
-      //= show_facebook_share(current_user.demo)
-      = show_twitter_share(current_user.demo)
+      #share_mail= mail_to '', fa_icon('envelope 2x'), subject: 'Shared via Airbo', body: "Check out my board at: #{public_board_url(current_user.demo.public_slug)}", class: 'share email'
+      #share_twitter= show_twitter_share(current_user.demo)
     .clearfix
     .above_back_to_tile Anyone that follows the link can see your board and sign up
     .clearfix

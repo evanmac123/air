@@ -50,6 +50,7 @@ $(document).ready ->
           if !name_empty && !email_empty
             #both not empty
             has_one_entry = true
+            $.ajax("/client_admin/shares/added_valid_user")
           else
             #unless both empty
             unless name_empty && email_empty
@@ -71,8 +72,8 @@ $(document).ready ->
   #submit form
   $('#submit_invite_users').on('click', (event) ->
     event.preventDefault()
-    #$(this).attr("href")
-    if validateInvitedUsers(true)
+    $.ajax("/client_admin/shares/clicked_preview_invitation")
+    if validateInvitedUsers(true)    
       History.pushState {state: 2}, "Airbo", "?state=2"
       loadPage2()
     else
@@ -80,9 +81,30 @@ $(document).ready ->
     false
   )
   $('#invite_users_page_1').find('#skip_invite_users').on('click', (event) ->
+    $.ajax("/client_admin/shares/clicked_skip")
     event.preventDefault()
     History.pushState {state: 4}, "Airbo", "?state=4"
     loadPage4()
+    false
+  )
+  $('#invite_users_page_1').find('#mail_to_link').on('click', (event) ->
+    $.ajax("/client_admin/shares/clicked_mail_to")
+    false
+  )
+  $('#share_mail').on('click', (event) ->
+    $.ajax("/client_admin/shares/clicked_success_mail")
+    false
+  )
+  $('#share_twitter').on('click', (event) ->
+    $.ajax("/client_admin/shares/clicked_success_twitter")
+    false
+  )
+  $('#share_mail').on('click', (event) ->
+    $.ajax("/client_admin/shares/clicked_share_mail")
+    false
+  )
+  $('#share_twitter').on('click', (event) ->
+    $.ajax("/client_admin/shares/clicked_share_twitter")
     false
   )
 
@@ -181,6 +203,7 @@ $(document).ready ->
       showInviteUsersErrorMessage("#{key} - #{value}", $('#share_tiles_digest').find("#invite_users_modal"), 'main')
       
   $('#invite_users_page_2').find('.history_back.page_2').on('click', (event) ->
+    $.ajax("/client_admin/shares/clicked_add_more_users")
     loadPage1()
     History.back()
     false
@@ -194,6 +217,7 @@ $(document).ready ->
   $('#invite_users_page_2').find('#invite_users_send_button').on('click', (event) ->    
     if validateInvitedUsers(true)      
       $('#share_tiles_digest').find('#invite_users_form').submit()
+      $.ajax("/client_admin/shares/clicked_send")
     false
     )
   
@@ -206,6 +230,7 @@ $(document).ready ->
     
   ).on('keypress', (event) ->
     $('#invite_users_page_2').find('#share_tiles_email_preview').contents().find('#custom_message').html($(this).val())
+    $.ajax("/client_admin/shares/changed_message")
   )  
 
   $('#invite_users_page_1').find('input').select((event) ->
@@ -231,6 +256,7 @@ $(document).ready ->
           success: (error_message) ->
             if error_message.match(/\S+/)
               #got error message
+              $.ajax("/client_admin/shares/got_error/#{error_message}")
               showInviteUsersErrorMessage(error_message, $(element).closest('li'), 'email')
               allOk = false
             else

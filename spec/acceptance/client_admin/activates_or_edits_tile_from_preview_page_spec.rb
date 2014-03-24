@@ -4,7 +4,7 @@ feature 'Activates or edits tile from preview page' do
   def activate_link_text
     "Post"  
   end
-  
+
   def reactivate_link_text
     "Repost"  
   end
@@ -39,7 +39,7 @@ feature 'Activates or edits tile from preview page' do
   def activate_links
     links_with_text(activate_link_text)
   end
-  
+
   def reactivate_links
     links_with_text(reactivate_link_text)
   end

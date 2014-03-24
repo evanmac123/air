@@ -8,10 +8,8 @@
     %h3 Anyone that follows the link will be able to see and join your board
     %div.share_url_link= text_field_tag 'public_slug', public_board_url(current_user.demo.public_slug), id: 'public_board_field'
     %div#share_link
-      = mail_to '', fa_icon('envelope 2x'), subject: 'Shared via Airbo', body: "Check out my board at: #{public_board_url(current_user.demo.public_slug)}", class: 'share email'
-      //= show_linkein_share(current_user.demo)
-      //= show_facebook_share(current_user.demo)
-      = show_twitter_share(current_user.demo)
+      #share_mail= mail_to '', fa_icon('envelope 2x'), subject: 'Shared via Airbo', body: "Check out my board at: #{public_board_url(current_user.demo.public_slug)}", class: 'share email'
+      #share_twitter= show_twitter_share(current_user.demo)
     .clearfix
     = link_to '#', class: 'history_back' do
       .fa.fa-angle-left

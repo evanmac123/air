@@ -17,6 +17,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
       @first_active_tile_id = current_user.has_own_tile_completed_id     
       current_user.has_own_tile_completed_displayed = true
       current_user.save!
+      TrackEvent.orientation_ping('Tiles Page', "Activated Pop Over")
     end
 
     @tile_just_activated = flash[:tile_activated_flag] || false
@@ -24,18 +25,23 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     @tile_just_activated = flash[:tile_activated] || @tile_just_activated
 
     @tiles_to_be_sent = @demo.digest_tiles(@demo.tile_digest_email_sent_at).count
+    
+    TrackEvent.orientation_ping_page('Orientation - Tiles')
+    TrackEvent.orientation_ping('Tile Preview Page', 'Clicked Back to Tiles button', current_user)
   end
 
   def new
     @tile_builder_form = TileBuilderForm::MultipleChoice.new(@demo)
+    TrackEvent.orientation_ping('Tile Page', 'Clicked Add New Tile', current_user)
+    TrackEvent.orientation_ping('Tile Preview Page', 'Clicked New Tile button', current_user)    
     set_image_and_container
   end
 
   def create
     @tile_builder_form = TileBuilderForm::MultipleChoice.new(@demo, \
-                            parameters: params[:tile_builder_form], \
-                            creator: current_user, \
-                            image_container: params[:image_container])
+        parameters: params[:tile_builder_form], \
+        creator: current_user, \
+        image_container: params[:image_container])
     if @tile_builder_form.create_objects
       delete_old_image_container(:success)
 
@@ -56,6 +62,8 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     
     if params[:update_status]
       update_status
+      TrackEvent.orientation_ping('Tile Preview Page', 'Clicked Post button', current_user)
+      TrackEvent.orientation_ping('Tile Preview Page', 'Clicked Archive button', current_user)      
     else
       update_fields
     end
@@ -73,18 +81,33 @@ class ClientAdmin::TilesController < ClientAdminBaseController
       @show_tile_success_guide = !current_user.displayed_tile_success_guide? && @tile.demo.tiles.active.count == 1
       current_user.displayed_tile_success_guide = true
       current_user.save!
-    end    
+    end
   end
 
   def edit
     tile = get_tile
-    @tile_builder_form = tile.to_form_builder
+    @tile_builder_form = tile.to_form_builder    
+    TrackEvent.orientation_ping('Tile Preview Page', 'Clicked Edit button', current_user)
     set_image_and_container
   end
   
   def active_tile_guide_displayed
     current_user.displayed_active_tile_guide=true
     current_user.save!
+    TrackEvent.orientation_ping('Tiles Page', 'Clicked Post to activate tile')
+
+    render nothing: true
+  end
+
+  def successful_active_tile_guide_displayed
+    TrackEvent.orientation_ping('Tiles Page', 'Clicked Got It button in orientation pop-over')
+
+    render nothing: true
+  end
+  
+  def main_menu_tile_guide_displayed
+    TrackEvent.orientation_ping('Tiles Page', 'Clicked Got It button in orientation pop-over')
+
     render nothing: true
   end
 
@@ -125,9 +148,9 @@ class ClientAdmin::TilesController < ClientAdminBaseController
   
   def update_fields
     @tile_builder_form = @tile.form_builder_class.new(@demo, \
-                      parameters: params[:tile_builder_form], \
-                      tile: @tile, \
-                      image_container: params[:image_container])
+        parameters: params[:tile_builder_form], \
+        tile: @tile, \
+        image_container: params[:image_container])
 
     if @tile_builder_form.update_objects
       delete_old_image_container(:success)
@@ -191,7 +214,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
 
   def delete_old_image_container(tile_saved)
     if params["old_image_container"].to_i > 0 && \
-      (tile_saved == :success || params["image_container"].to_i <= 0) 
+        (tile_saved == :success || params["image_container"].to_i <= 0) 
 
       ImageContainer.find(params["old_image_container"]).destroy
     end
