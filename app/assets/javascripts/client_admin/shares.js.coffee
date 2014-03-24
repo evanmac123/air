@@ -62,7 +62,7 @@ $(document).ready ->
           
     #No need for personal message to be validated
     unless has_one_entry
-      showInviteUsersErrorMessage("Please specify at least one invite", $('#share_tiles_digest').find("#invite_users_modal"), 'main')
+      showInviteUsersErrorMessage("Please specify at least one user", $('#share_tiles_digest').find("#invite_users_modal"), 'main')
     else
       removeInviteUsersErrorMessage($('#share_tiles_digest').find("#invite_users_modal"), 'main')
     has_one_entry && all_ok

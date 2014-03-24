@@ -71,8 +71,8 @@
       }
       .share_url_link{
         float: left;
-        margin-left: 375px;
-        width: 300px;
+        margin-left: 320px;
+        width: 493px;
         padding-bottom: 20px;
       }
       #share_link a{
@@ -117,7 +117,7 @@
 
   #invite_users_send_button{
     @include app-button($dark-green);
-    padding: 8px 20px !important;
+    padding: 8px 56px !important;
     margin-right: 5px;
     .fa-envelope{
       padding-right: 5px;
@@ -261,10 +261,12 @@
     }
     .error_message {
       .main {
-        color: #D12F19;
-        margin-left: 30px;
-        margin-top: -25px;
         position: absolute;
+        margin-top: -2em;
+        margin-left: 1.5em;
+        font-size: .75em;
+        font-weight: normal;
+        color: $red;
       }
     }
 

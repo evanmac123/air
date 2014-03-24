@@ -50,6 +50,9 @@ body.client_admin-tiles-show {
         &.draft {
             background: $blue;
         }
+        &.archived {
+            background: $blue;
+        }
 
         &.posted {
             background: $dark-green;

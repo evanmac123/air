@@ -1,12 +1,16 @@
-<ul class="tile_preview_menu">
-  <% unless @tile.active? %>
-    <li class="preview_menu_header draft">
-      Draft
-    </li>
-  <% else %>
+<ul class="tile_preview_menu">  
+  <% if @tile.active? %>
     <li class="preview_menu_header posted">        
       Posted
     </li>
+  <% elsif @tile.archived? %>
+    <li class="preview_menu_header archived">
+      Archived
+    </li>
+  <% else %>
+    <li class="preview_menu_header draft">
+      Draft
+    </li>    
   <% end %>
   <li class="back_header" id="back_header">
     <%= link_to client_admin_tiles_path do %>
