@@ -305,3 +305,14 @@ body.tile_previews.tile_previews-show {
 #close_tile_copied_lightbox {
   @include app-button($dark-green);
 }
+  
+#back_to_explore_button_wrapper {
+  max-width: 600px;
+  margin: 0 auto 1em auto;
+  padding-bottom: 2em;
+}
+
+#back_to_explore {
+  @include app-button($dark-green);
+  float: left;
+}
