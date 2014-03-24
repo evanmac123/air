@@ -40,6 +40,7 @@ gem 'rollout'
 gem 'font-awesome-rails'
 gem 'wice_grid'
 gem 'kaminari'
+gem 'browser'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -107,4 +108,6 @@ end
 group :development do 
   gem 'quiet_assets'
   gem 'letter_opener'
+  gem 'better_errors'
+  gem 'binding_of_caller'
 end

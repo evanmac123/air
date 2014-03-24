@@ -62,6 +62,24 @@ body.client_admin-tiles-update {
         margin:1em 0;
       }
       #tile_builder_form_image {display:none;}
+      // for IE
+      .image_text {
+        margin-top: 2em;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      #tile_builder_form_image {
+        margin-top: 2em;
+        margin-left: auto;
+        margin-right: auto;
+        background:$blue;
+        border:0;
+        color:$white;
+        padding:1em 2em;
+        width:auto;
+        &:hover {background:darken($blue, 5%);}
+      }
+      // end for IE
       .show_shadows {
         background:$text-color;
         border-style:solid;

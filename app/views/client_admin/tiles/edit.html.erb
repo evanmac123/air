@@ -2,7 +2,11 @@
   <div class="large-8 large-centered columns">
     <%= form_for @tile_builder_form, url: client_admin_tile_path(@tile_builder_form.tile), method: :put do |f| %>
       <div class="tile_holder">
-        <%= render 'image_uploader', form: f %>
+        <% if browser.ie6? || browser.ie7? || browser.ie8? || browser.ie9? %>
+          <%= render 'image_uploader_ie', form: f %>
+        <% else %>
+          <%= render 'image_uploader', form: f %>
+        <% end %>
         <div class="builder_content tile_builder_section">
           <%= render 'headline_and_supporting_content_fields', form: f %>
         </div>
