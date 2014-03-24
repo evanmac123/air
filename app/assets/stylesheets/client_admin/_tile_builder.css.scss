@@ -3,6 +3,10 @@ body.client_admin-tiles-create,
 body.client_admin-tiles-edit,
 body.client_admin-tiles-show,
 body.client_admin-tiles-update {
+  .builder-width {
+    width:600px;
+    padding: 0 !important;
+  }
   form {
     #publish { margin-top: 2em; }
     #publish * {vertical-align: top;}
@@ -27,7 +31,8 @@ body.client_admin-tiles-update {
       margin-bottom:.5em;
     }
     .tile_builder_section {
-      padding:2em;
+      padding-bottom:2em;
+      padding-top:2em;
     }
     .content_sections {
       margin:0 auto 2em auto;
@@ -125,7 +130,6 @@ body.client_admin-tiles-update {
         }
       }
       .image_preview {
-        margin:2em;
         position: relative;
         .shadow_overlay {
           display: block;
