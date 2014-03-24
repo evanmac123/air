@@ -98,7 +98,7 @@ body.client_admin-tiles-update {
         .shadows {display:block;}
       }
       .show_placeholder {
-        border:2px lighten($light-gray, 8%) dashed;
+        border-bottom:2px lighten($light-gray, 8%) dashed;
         #upload_preview {display:none;}
         .image_placeholder {display:block;}
         .shadows {display:none;}
