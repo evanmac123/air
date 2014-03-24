@@ -55,16 +55,13 @@ body.client_admin-tiles-show {
             background: $dark-green;
         }
     }
-    #archive_header, .edit_header, .back_header, .new_tile_header {
+    #archive_header, .edit_header, .back_header, .new_tile_header, #post_header {
         border-left: 1px $tile-wall-bg solid;
         color: $gray;
         .header_text{font-weight: bold;}
     }
     #archive_header, #post_header {
         .header_text{font-weight: bold;}
-    }
-    #post_header{
-        color: $dark-green;
     }
     .edit_header, .back_header, .new_tile_header,
     #archive_header, #post_header {

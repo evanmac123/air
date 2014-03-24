@@ -9,7 +9,13 @@
   <%= link_to client_admin_tile_path(@tile, update_status: Tile::ACTIVE), method: :put, id: :post do %>
     <li class="post_header" id="post_header">
       <p class="fa fa-check fa-2x"></p>
-      <p class="header_text">Post</p>
+      <p class="header_text">
+        <% if tile.activated_at.nil? %>
+          Post
+        <% else %>
+          Repost
+        <% end %>
+      </p>
     </li>
   <% end %>
 <% end %>

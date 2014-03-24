@@ -8,17 +8,17 @@
       Posted
     </li>
   <% end %>
+  <li class="back_header" id="back_header">
+    <%= link_to client_admin_tiles_path do %>
+      <p class="fa fa-chevron-left fa-2x"></p>
+      <p class="header_text">Back to Tiles</p>
+    <% end %>
+  </li>
   <%= render 'activate_deactivate_link', tile: @tile %>      
   <li class="edit_header">
     <%= link_to edit_client_admin_tile_path(@tile) do %>
       <p class="fa fa-pencil fa-2x"></p>
       <p class="header_text">Edit</p>
-    <% end %>
-  </li>
-  <li class="back_header" id="back_header">
-    <%= link_to client_admin_tiles_path do %>
-      <p class="fa fa-chevron-left fa-2x"></p>
-      <p class="header_text">Back to Tiles</p>
     <% end %>
   </li>
   <li class="new_tile_header">

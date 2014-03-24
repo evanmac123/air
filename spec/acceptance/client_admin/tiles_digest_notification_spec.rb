@@ -7,7 +7,9 @@ feature 'Client admin and the digest email for tiles' do
   let(:demo)  { FactoryGirl.create :demo, email: 'foobar@playhengage.com' }
   let(:admin) { FactoryGirl.create :client_admin, email: 'client-admin@hengage.com', demo: demo }
   before do
-    FactoryGirl.create :user, demo: demo
+    user = FactoryGirl.create :user, demo: demo
+    tile = create_tile on_day: '7/5/2013', activated_on: '7/5/2013', status: Tile::ACTIVE, demo: demo, headline: "Tile completed"
+    FactoryGirl.create(:tile_completion, tile: tile, user: user)      
   end
 
   # -------------------------------------------------
@@ -211,13 +213,12 @@ feature 'Client admin and the digest email for tiles' do
           page.should contain 'Headline 1'
           page.should contain 'Headline 2'
 
-          page.should have_num_tiles(2)
+          page.should have_num_tiles(3)
 
           click_button 'Send digest now'
           crank_dj_clear
 
           page.should contain "Tiles digest email was sent"
-
           page.should_not contain 'Tiles to be sent'
           page.should contain 'No new tiles have been added'
           page.should contain 'since the last digest email you sent on Saturday, July 06, 2013'

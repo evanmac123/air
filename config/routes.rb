@@ -10,7 +10,6 @@ Health::Application.routes.draw do
   match "ard/:public_slug/activity" => "acts#index", :as => "public_activity", :via => :get
   match "ard/:public_slug/tiles" => "tiles#index", :as => "public_tiles", :via => :get
   match "ard/:public_slug/tile/:id" => "tiles#show", :as => "public_tile", :via => :get
-  match 'client_admin/tiles/display_active_tile_guide' => 'client_admin/tiles#display_active_tile_guide'
 
   resources :tiles, :only => [:index, :show]
   resources :tile_completions, :only => [:create]

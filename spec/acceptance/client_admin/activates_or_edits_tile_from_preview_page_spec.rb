@@ -4,6 +4,10 @@ feature 'Activates or edits tile from preview page' do
   def activate_link_text
     "Post"  
   end
+  
+  def reactivate_link_text
+    "Repost"  
+  end
 
   def deactivate_link_text
     "Archive"  
@@ -20,6 +24,9 @@ feature 'Activates or edits tile from preview page' do
   def click_activate_link
     click_link activate_link_text
   end
+  def click_reactivate_link
+    click_link reactivate_link_text
+  end
 
   def click_deactivate_link
     click_link deactivate_link_text
@@ -32,6 +39,10 @@ feature 'Activates or edits tile from preview page' do
   def activate_links
     links_with_text(activate_link_text)
   end
+  
+  def reactivate_links
+    links_with_text(reactivate_link_text)
+  end
 
   def deactivate_links
     links_with_text(deactivate_link_text)
@@ -41,6 +52,10 @@ feature 'Activates or edits tile from preview page' do
     activate_links.should_not be_empty
   end
 
+  def expect_reactivate_link
+    reactivate_links.should_not be_empty
+  end
+  
   def expect_deactivate_link
     deactivate_links.should_not be_empty
   end
@@ -93,7 +108,7 @@ feature 'Activates or edits tile from preview page' do
 
       should_be_on client_admin_tile_path(@tile)
       expect_deactivated_content(@tile)
-      expect_activate_link
+      expect_reactivate_link
       
       expect_no_deactivate_link
 

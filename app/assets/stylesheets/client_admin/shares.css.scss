@@ -77,7 +77,6 @@
       }
       #share_link a{
         float: left;
-        padding-top: 5px;
         padding-left: 10px;
         padding-right: 10px;
         padding-bottom: 20px;
@@ -129,7 +128,6 @@
   .checked_activated_tile {
     position: absolute;
     margin-left: 194px;
-    //margin-left: 75px;
     z-index: 20;
     color: #4FAA60;
     display: block;
@@ -157,16 +155,7 @@
     margin-top: 0px;
   }    
 
-  #share_link a{
-    float: left;
-    padding-top: 5px;
-    padding-left: 10px;
-    padding-right: 10px;
-    padding-bottom: 100px;
-    color: $dark-gray;
-  }
-
-  #your_tiles{
+  .show_tiles{
     padding: 8px 20px !important;
     margin-left: 15px;
     @include light-button($gray);

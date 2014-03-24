@@ -13,11 +13,9 @@
       //= show_facebook_share(current_user.demo)
       = show_twitter_share(current_user.demo)
     .clearfix
-    = link_to client_admin_tiles_path, class: 'history_back share_url' do
+    = link_to '#', class: 'history_back' do
       .fa.fa-angle-left
       Add Users
-    = link_to client_admin_tiles_path, id: 'your_tiles' do
+    = link_to client_admin_tiles_path, class: 'show_tiles' do
       .fa.fa-th
       Your Tiles
-    .left
-      -#= link_to "Back", "#", class: 'engaged history_back'
