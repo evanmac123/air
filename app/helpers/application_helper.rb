@@ -156,16 +156,25 @@ module ApplicationHelper
     end
   end
 
-  def tile_thumbnail_target(tile)
+  def tile_thumbnail_target(tile, selected_tag_id = nil)
     # It would have been much neater to deal with this via inheritance.
     # Too bad you can't inherit views, and doing it with helpers didn't seem
     # to, as it were, help.
     #
     # So instead we get this hack:
     if params[:controller] == 'explores'
-      explore_tile_preview_path(tile)
+      explore_tile_preview_path(tile, tag_id: selected_tag_id)
     else
       params[:public_slug] ? public_tile_path(params[:public_slug], tile) : tile_path(tile)
+    end
+  end
+
+  def back_to_explore_link(selected_tag_id) 
+    if selected_tag_id.present?
+      tag = TileTag.find(selected_tag_id)
+      link_to "Back to #{tag.title}", explore_path(tag_id: selected_tag_id)
+    else
+      link_to "Back to Explore", explore_path
     end
   end
 end

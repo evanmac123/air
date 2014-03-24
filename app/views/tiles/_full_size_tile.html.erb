@@ -4,6 +4,11 @@
 <% remove_right_answer_target ||= false %>
 <% show_copy_button ||= false %>
 <% is_preview ||= false %>
+<% selected_tag_id ||= nil %>
+
+<% if is_preview %>
+  <%= back_to_explore_link(selected_tag_id) %>
+<% end %>
 
 <div class="tile_holder <%= creator_class %>" data-current-tile-id="<%= tile.id 
   %>" data-completed-only="<%= @show_completed_tiles 

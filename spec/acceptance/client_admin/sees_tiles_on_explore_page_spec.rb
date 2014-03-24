@@ -175,4 +175,31 @@ feature 'Sees tiles on explore page' do
       end
     end
   end
+
+  context "when clicking through a tile" do
+    it "should have a Back link that links to the general explore page", js: true do
+      tile = FactoryGirl.create(:tile, :public)
+      visit explore_path(as: a_client_admin)
+      page.first('.tile-wrapper').click
+
+      click_link "Back to Explore"
+      should_be_on explore_path
+    end
+
+    context "and there is a tag selected" do
+      it "should have a Back link that links to that tag", js: true do
+        tag = FactoryGirl.create(:tile_tag, title: "Hey Now")
+        tile = FactoryGirl.create(:tile, :public)
+        tile.tile_tags << tag
+
+        visit explore_path(as: a_client_admin)
+        click_link "Hey Now"
+        page.first('.tile-wrapper').click
+
+        click_link "Back to Hey Now"
+        should_be_on explore_path
+        page.first('.tag_link', text: 'Hey Now')['class'].split.should include('enabled')
+      end
+    end
+  end
 end

@@ -6,7 +6,7 @@ class ExploresController < ClientAdminBaseController
     @tags = TileTag.alphabetical.with_public_active_tiles
 
     if params[:partial_only]
-      render partial: "shared/tile_wall", locals: {not_completed_tiles: @tiles, path_for_more_tiles: explore_path(tag_id: params[:tag_id]), display_creator_info: true}
+      render partial: "shared/tile_wall", locals: {not_completed_tiles: @tiles, path_for_more_tiles: explore_path(tag_id: params[:tag_id]), display_creator_info: true, selected_tag_id: params[:tag_id]}
     end
   end
 end

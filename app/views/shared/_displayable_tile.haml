@@ -9,7 +9,7 @@
 %img{src: displayable_tile.thumbnail, style: "display: none; visibility: hidden;"}
 
 %li
-  = link_to tile_thumbnail_target(displayable_tile) do
+  = link_to tile_thumbnail_target(displayable_tile, selected_tag_id) do
     .tile-wrapper
       .tile_thumbnail_image{id: thumbnail_id}
       .headline
