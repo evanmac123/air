@@ -21,6 +21,7 @@ $(document).ready ->
       $('#invite_users_page_2').find('#share_tiles_email_preview').contents().find('#custom_message').html($(custom_message).val())
     return
   )
+  
   removeInviteUsersErrorMessage = (container, type) ->
     container.find('.error_message>.' + type).html('')
       
@@ -31,7 +32,7 @@ $(document).ready ->
     
   #validate invited users
   has_one_entry = false
-  validateInvitedUsers = () ->
+  validateInvitedUsers = (is_show_error) ->
     all_ok = true
     user_invites = $('.invite-user')
     has_one_entry = false
@@ -61,16 +62,17 @@ $(document).ready ->
                 all_ok = false
           
     #No need for personal message to be validated
-    unless has_one_entry
-      showInviteUsersErrorMessage("Please specify at least one user", $('#share_tiles_digest').find("#invite_users_modal"), 'main')
-    else
-      removeInviteUsersErrorMessage($('#share_tiles_digest').find("#invite_users_modal"), 'main')
+    if is_show_error
+      if !has_one_entry
+          showInviteUsersErrorMessage("Please specify at least one user", $('#share_tiles_digest').find("#invite_users_modal"), 'main')        
+      else
+          removeInviteUsersErrorMessage($('#share_tiles_digest').find("#invite_users_modal"), 'main')
     has_one_entry && all_ok
   #submit form
   $('#submit_invite_users').on('click', (event) ->
     event.preventDefault()
     #$(this).attr("href")
-    if validateInvitedUsers()
+    if validateInvitedUsers(true)
       History.pushState {state: 2}, "Airbo", "?state=2"
       loadPage2()
     else
@@ -190,7 +192,7 @@ $(document).ready ->
   )
   
   $('#invite_users_page_2').find('#invite_users_send_button').on('click', (event) ->    
-    if validateInvitedUsers()      
+    if validateInvitedUsers(true)      
       $('#share_tiles_digest').find('#invite_users_form').submit()
     false
     )
@@ -236,8 +238,6 @@ $(document).ready ->
             
           async: false
         )
-        if allOk
-          $('#submit_invite_users').removeClass('disengaged').addClass('engaged')
         return allOk
     , ''
   )
@@ -270,6 +270,8 @@ $(document).ready ->
       if element.value.length > 0
         #only add valid class if there is some data inserted
         $(element).addClass('valid')
+        if validateInvitedUsers(false)
+            $('#submit_invite_users').removeClass('disengaged').addClass('engaged')
           
       return
     
