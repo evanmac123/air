@@ -60,7 +60,7 @@ feature "Invite Users Modal" do
     end    
     scenario "form with no values shows error message" do
       page.find('#submit_invite_users').click
-      page.should have_content("Please specify at least one invite")
+      page.should have_content("Please specify at least one user")
     end    
     context "inviting users", js: :webkit do
       before do

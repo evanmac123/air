@@ -1,6 +1,6 @@
 module ClientAdmin::TilesHelper
   def digest_email_sent_on
-    @tile_digest_email_sent_at.to_s(:tile_digest_email_sent_at)
+    @demo.tile_digest_email_sent_at.to_s(:tile_digest_email_sent_at)
   end
 
   def num_tiles_in_digest_email_message
@@ -8,12 +8,12 @@ module ClientAdmin::TilesHelper
   end
 
   def digest_email_sent_on_message
-    @tile_digest_email_sent_at.nil? ? nil : "Last digest email was sent on #{@tile_digest_email_sent_at.to_s(:tile_digest_email_sent_at)}"
+    @demo.tile_digest_email_sent_at.nil? ? nil : "Last digest email was sent on #{@demo.tile_digest_email_sent_at.to_s(:tile_digest_email_sent_at)}"
   end
 
   def no_digest_email_message
     message = "Tiles that you activate will appear here so you can share them with users in a digest email."
-    message << " No new tiles have been added since the last digest email you sent on #{digest_email_sent_on}." unless @tile_digest_email_sent_at.nil?
+    message << " No new tiles have been added since the last digest email you sent on #{digest_email_sent_on}." unless @demo.tile_digest_email_sent_at.nil?
     message
   end
 

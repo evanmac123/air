@@ -132,9 +132,12 @@ feature 'Client admin and the digest email for tiles' do
       # Note that unlike the 'Active' and 'Archive' tile tests, you need to specify the 'activated_at'
       # time because that's how tiles do (or do not) make it into the 'Digest' tab
       tiles.each { |tile| tile.update_attributes status: Tile::ACTIVE, activated_at: Time.now }
-      FactoryGirl.create :user, demo: admin.demo
+      user = FactoryGirl.create :user, demo: admin.demo
+      tile = FactoryGirl.create :tile, demo: admin.demo, status: Tile::ACTIVE
+      tile_completion = FactoryGirl.create(:tile_completion, tile: tile, user: user)
+      
       visit client_admin_share_path
-      page.should have_num_tiles(3)
+      page.should have_num_tiles(4)
 
       # One check at this level is good enough
       tiles.each do |tile|

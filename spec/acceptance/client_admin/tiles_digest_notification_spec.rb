@@ -184,7 +184,7 @@ feature 'Client admin and the digest email for tiles' do
 
       set_last_sent_on '7/4/2013'
       visit client_admin_share_path(as: admin)
-
+      
       expect_content 'Last digest email was sent on Thursday, July 04, 2013'
     end
 

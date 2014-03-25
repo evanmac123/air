@@ -14,7 +14,7 @@ class ClientAdmin::SharesController < ClientAdminBaseController
       @show_invite_users = @tiles_to_be_sent > 0
     else
       @digest_tiles = @demo.digest_tiles(tile_digest_email_sent_at)
-      @tiles_to_be_sent = @demo.digest_tiles(@tile_digest_email_sent_at).count    
+      @tiles_to_be_sent = @demo.digest_tiles(tile_digest_email_sent_at).count    
       @show_invite_users = false
     end
     prepend_view_path 'client_admin/users'
