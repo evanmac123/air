@@ -101,6 +101,26 @@ body.client_admin-tiles-update {
           border-style:solid;
           i.fa-picture-o { color: $blue; }
         }
+        .upload_new_image {
+          opacity: 0;
+          position: absolute;
+          z-index: 100;
+          left: 0;
+          top: 0;
+          width: 100%;
+          height: 100%;
+          #tile_builder_form_image {
+            line-height: 0;
+            position: absolute;
+            z-index: 150;
+            left: 0;
+            top: 0;
+            cursor: pointer;
+            display: block;
+            width: 100%;
+            height: 100%;
+          }
+        }
       }
       .image_preview {
         margin:2em;

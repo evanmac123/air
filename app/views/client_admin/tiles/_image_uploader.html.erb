@@ -14,15 +14,16 @@
             <i class="fa fa-times fa-2x"></i>
         </div>
       </div>
-    </div>
-    <div class="upload_new_image">
-      <%= form.file_field "image" %>
+      <div class="upload_new_image">
+        <%= form.file_field "image" %>
+      </div>
     </div>
   </div>
 </div>
 <% content_for :javascript do %>
   <%= javascript_tag do %>
     $( document ).ready(function() {
+      //$("#tile_builder_form_image").css("display", "block");
       if($(".tile_image").attr("src").indexOf("/assets/avatars/thumb/missing.png") >= 0) {
         showPlaceholder();
       }else{
@@ -49,9 +50,9 @@
       showShadows();
     });
 
-    $(".image_placeholder").click(function chooseImage() {
-      $("#tile_builder_form_image").click();
-    });
+    //$(".image_placeholder").click(function chooseImage() {
+    //  $("#tile_builder_form_image").click();
+    //});
 
     $(".clear_image").click(function clearImage(event) {
       event.preventDefault();
@@ -59,6 +60,11 @@
       var control = $("#tile_builder_form_image");
       control.replaceWith( control = control.clone( true ) );
       showPlaceholder();
+    });
+
+    $("input[type='submit']").click(function showUploader() {
+      event.preventDefault();
+      $("form").submit();
     });
   <% end %>
 <% end %>
