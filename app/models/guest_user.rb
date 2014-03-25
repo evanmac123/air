@@ -126,6 +126,7 @@ class GuestUser < ActiveRecord::Base
 
     converted_user.converting_from_guest = true
     if converted_user.save
+      converted_user.add_board(demo_id, true)
       tile_completions.each {|tile_completion| tile_completion.user = converted_user; tile_completion.save!}
       acts.each {|act| act.user = converted_user; act.save!}
       converted_user.send_conversion_email

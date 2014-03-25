@@ -473,6 +473,11 @@ class User < ActiveRecord::Base
     demo.balances.outstanding.first.present?
   end
 
+  def add_board(demo_id, is_current = false)
+    return if self.board_memberships.where(demo_id: demo_id).present?
+    self.board_memberships.create(demo_id: demo_id, is_current: is_current)
+  end
+
   def self.claim_account(from, to, claim_code, options={})
     channel = options[:channel] || :sms
 
