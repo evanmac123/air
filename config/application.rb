@@ -72,6 +72,8 @@ module Health
       Explore_tile_page/open_book.png
       internal/tiles.js
       client_admin/tile_tag_callback.js
+      internal/countUp.min.js
+      internal/point_and_ticket_animation.js
     )
 
     ################################################################
