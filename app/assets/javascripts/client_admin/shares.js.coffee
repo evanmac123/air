@@ -29,13 +29,14 @@ $(document).ready ->
     #div_error = '<div class="'+ type + '">' + error_message + '</div>'
     container.find('.error_message>.' + type).html(error_message)#prepend(div_error)
     $('#submit_invite_users').addClass('disengaged').removeClass('engaged')
+    $.ajax("/client_admin/share/got_error?error_message=#{error_message}")
     
   #validate invited users
-  has_one_entry = false
+  num_valid_users = 0
   validateInvitedUsers = (is_show_error) ->
     all_ok = true
     user_invites = $('.invite-user')
-    has_one_entry = false
+    num_valid_users = 0
     for user_invite in user_invites
       name_input = $(user_invite).find('input.name')
       email_input = $(user_invite).find('input.email')
@@ -49,8 +50,7 @@ $(document).ready ->
           email_empty = !email_input.val().match(/\S+/)
           if !name_empty && !email_empty
             #both not empty
-            has_one_entry = true
-            $.ajax("/client_admin/shares/added_valid_user")
+            num_valid_users += 1
           else
             #unless both empty
             unless name_empty && email_empty
@@ -64,47 +64,57 @@ $(document).ready ->
           
     #No need for personal message to be validated
     if is_show_error
-      if !has_one_entry
+      if num_valid_users < 1
           showInviteUsersErrorMessage("Please specify at least one user", $('#share_tiles_digest').find("#invite_users_modal"), 'main')        
       else
           removeInviteUsersErrorMessage($('#share_tiles_digest').find("#invite_users_modal"), 'main')
-    has_one_entry && all_ok
+    (num_valid_users > 0) && all_ok
   #submit form
-  $('#submit_invite_users').on('click', (event) ->
+  $('#invite_users_page_1').find('#submit_invite_users').on('click', (event) ->
     event.preventDefault()
-    $.ajax("/client_admin/shares/clicked_preview_invitation")
-    if validateInvitedUsers(true)    
+    $.ajax("/client_admin/share/clicked_preview_invitation")    
+    if validateInvitedUsers(true)
       History.pushState {state: 2}, "Airbo", "?state=2"
       loadPage2()
     else
       loadPage1()
+    $.ajax('/client_admin/share/num_valid_users_added?num_valid_users='+num_valid_users)
     false
   )
   $('#invite_users_page_1').find('#skip_invite_users').on('click', (event) ->
-    $.ajax("/client_admin/shares/clicked_skip")
+    $.ajax("/client_admin/share/clicked_skip")
     event.preventDefault()
     History.pushState {state: 4}, "Airbo", "?state=4"
     loadPage4()
     false
   )
   $('#invite_users_page_1').find('#mail_to_link').on('click', (event) ->
-    $.ajax("/client_admin/shares/clicked_mail_to")
+    $.ajax("/client_admin/share/clicked_mail_to")
     false
   )
-  $('#share_mail').on('click', (event) ->
-    $.ajax("/client_admin/shares/clicked_success_mail")
+  $('#success_share_digest').find('#share_mail').on('click', (event) ->
+    $.ajax("/client_admin/share/clicked_success_mail")
     false
   )
-  $('#share_twitter').on('click', (event) ->
-    $.ajax("/client_admin/shares/clicked_success_twitter")
+  $('#success_share_digest').find('#share_twitter').on('click', (event) ->
+    $.ajax("/client_admin/share/clicked_success_twitter")
     false
   )
-  $('#share_mail').on('click', (event) ->
-    $.ajax("/client_admin/shares/clicked_share_mail")
+  $('#success_share_digest').find('#public_board_field').one('select', (event) ->
+    $.ajax("/client_admin/share/selected_public_board?path=success_share_digest")
     false
   )
-  $('#share_twitter').on('click', (event) ->
-    $.ajax("/client_admin/shares/clicked_share_twitter")
+  
+  $('#success_share_url').find('#share_mail').on('click', (event) ->
+    $.ajax("/client_admin/share/clicked_share_mail")
+    false
+  )
+  $('#success_share_url').find('#share_twitter').on('click', (event) ->
+    $.ajax("/client_admin/share/clicked_share_twitter")
+    false
+  )
+  $('#success_share_url').find('#public_board_field').one('select', (event) ->
+    $.ajax("/client_admin/share/selected_public_board?path=success_share_url")
     false
   )
 
@@ -203,12 +213,13 @@ $(document).ready ->
       showInviteUsersErrorMessage("#{key} - #{value}", $('#share_tiles_digest').find("#invite_users_modal"), 'main')
       
   $('#invite_users_page_2').find('.history_back.page_2').on('click', (event) ->
-    $.ajax("/client_admin/shares/clicked_add_more_users")
+    $.ajax("/client_admin/share/clicked_add_more_users")
     loadPage1()
     History.back()
     false
   )
   $('#success_share_url').find('.history_back').on('click', (event) ->
+    $.ajax("/client_admin/share/clicked_add_users")
     loadPage1()
     History.back()
     false
@@ -217,7 +228,7 @@ $(document).ready ->
   $('#invite_users_page_2').find('#invite_users_send_button').on('click', (event) ->    
     if validateInvitedUsers(true)      
       $('#share_tiles_digest').find('#invite_users_form').submit()
-      $.ajax("/client_admin/shares/clicked_send")
+      $.ajax("/client_admin/share/clicked_send")
     false
     )
   
@@ -230,7 +241,7 @@ $(document).ready ->
     
   ).on('keypress', (event) ->
     $('#invite_users_page_2').find('#share_tiles_email_preview').contents().find('#custom_message').html($(this).val())
-    $.ajax("/client_admin/shares/changed_message")
+    $.ajax("/client_admin/share/changed_message")
   )  
 
   $('#invite_users_page_1').find('input').select((event) ->
@@ -255,8 +266,6 @@ $(document).ready ->
             email: element.value
           success: (error_message) ->
             if error_message.match(/\S+/)
-              #got error message
-              $.ajax("/client_admin/shares/got_error/#{error_message}")
               showInviteUsersErrorMessage(error_message, $(element).closest('li'), 'email')
               allOk = false
             else
@@ -297,6 +306,7 @@ $(document).ready ->
         #only add valid class if there is some data inserted
         $(element).addClass('valid')
         if validateInvitedUsers(false)
+            $.ajax("/client_admin/share/added_valid_user")
             $('#submit_invite_users').removeClass('disengaged').addClass('engaged')
           
       return

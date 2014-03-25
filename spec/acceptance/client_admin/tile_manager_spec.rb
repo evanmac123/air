@@ -19,21 +19,25 @@ feature 'Client admin and the digest email for tiles' do
   end
 
   def have_archive_link_for(tile)
-    have_link 'Archive', href: client_admin_tile_path(tile, update_status: Tile::ARCHIVE)
+    have_link 'Archive', href: client_admin_tile_path(tile, 
+      update_status: Tile::ARCHIVE)
   end
 
   def click_activate_link_for(tile_to_activate)    
     tile(tile_to_activate).trigger(:mouseover)
     #hack for mouseover not working poltergeist
     page.execute_script("$('.tile_buttons').show()")
-    click_link href: client_admin_tile_path(tile_to_activate, update_status: Tile::ACTIVE)
+    click_link href: client_admin_tile_path(tile_to_activate, 
+      update_status: Tile::ACTIVE, path: :via_index)
   end
   def have_activate_link_for(tile)
-    have_link 'Post', href: client_admin_tile_path(tile, update_status: Tile::ACTIVE)
+    have_link 'Post', href: client_admin_tile_path(tile, 
+      update_status: Tile::ACTIVE, path: :via_index)
   end
 
   def have_reactivate_link_for(tile)
-    have_link 'Post again', href: client_admin_tile_path(tile, update_status: Tile::ACTIVE)
+    have_link 'Post again', href: client_admin_tile_path(tile, 
+      update_status: Tile::ACTIVE, path: :via_index)
   end
 
   def have_edit_link_for(tile)
@@ -156,7 +160,7 @@ feature 'Client admin and the digest email for tiles' do
       tiles.each do |tile|
         within tile(tile) do
           page.should contain tile.headline
-          page.should have_activate_link_for(tile)
+          page.should have_reactivate_link_for(tile)
         end
       end
     end

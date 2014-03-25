@@ -30,7 +30,7 @@ class ClientAdmin::TileCompletionsController < ClientAdminBaseController
           name: 'tc_grid', order: 'created_at', order_direction: 'desc')
       end
     end
-    TrackEvent.orientation_ping_page('Orientation - Tile More Info Page') 
+    TrackEvent.ping_page('Tile More Info Page', {}, current_user) 
   end
   
   def non_completions

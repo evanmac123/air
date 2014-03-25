@@ -19,9 +19,9 @@ class ClientAdmin::SharesController < ClientAdminBaseController
     end
     
     if @demo.non_activated?
-      TrackEvent.orientation_ping_page('Orientation - Page Locked')
+      TrackEvent.ping_page('Page Locked', {}, current_user)
     else
-      TrackEvent.orientation_ping_page('Orientation - Share') 
+      TrackEvent.ping_page('Share', {}, current_user)
     end
     prepend_view_path 'client_admin/users'
   end
@@ -34,67 +34,81 @@ class ClientAdmin::SharesController < ClientAdminBaseController
   end
   
   def added_valid_user
-    TrackEvent.orientation_ping('Share - Add First Users', 'Added Valid User')
+    TrackEvent.ping_action('Share - Add First Users', 'Added Valid User', current_user)
     render nothing: true
   end
   
+  def number_of_valid_users_added
+    TrackEvent.ping_action('Share - Add First Users', 'Number of valid users added', current_user, num_valid_users: params[:num_valid_users])
+    render nothing: true    
+  end
   def clicked_preview_invitation
-    TrackEvent.orientation_ping('Share - Add First Users', 'Clicked Preview Invitation button')
+    TrackEvent.ping_action('Share - Add First Users', 'Clicked Preview Invitation button', current_user)
     render nothing: true
   end
   
   def clicked_skip
-    TrackEvent.orientation_ping('Share - Add First Users', 'Clicked Skip link')
+    TrackEvent.ping_action('Share - Add First Users', 'Clicked Skip link', current_user)
     render nothing: true
   end
   
   def clicked_mail_to
-    TrackEvent.orientation_ping('Share - Add First Users', 'Clicked To upload a list, contact us')
+    TrackEvent.ping_action('Share - Add First Users', 'Clicked To upload a list, contact us', current_user)
     render nothing: true
   end
   
-  def got_error(error)
-    TrackEvent.orientation_ping('Share - Add First Users', "Got error: #{}")
+  def got_error
+    TrackEvent.ping_action('Share - Add First Users', 'Got Error', current_user, type: params[:error_message])
     render nothing: true
   end
   
   def changed_message
-    TrackEvent.orientation_ping('Share - Send Invitation', "Changed message")
+    TrackEvent.ping_action('Share - Send Invitation', "Changed message", current_user)
     render nothing: true
   end
   
   def clicked_add_more_users
-    TrackEvent.orientation_ping('Share - Send Invitation', "Clicked Add More Users")
+    TrackEvent.ping_action('Share - Send Invitation', "Clicked Add More Users", current_user)
     render nothing: true
   end
   
   def clicked_send
-    TrackEvent.orientation_ping('Share - Send Invitation', "Clicked Send")
+    TrackEvent.ping_action('Share - Send Invitation', "Clicked Send", current_user)
     render nothing: true
   end
   
   def clicked_success_mail
-    TrackEvent.orientation_ping('Share - Invitation Sent Confirmation', "Clicked Email Share Icon")
+    TrackEvent.ping_action('Share - Invitation Sent Confirmation', "Clicked Email Share Icon", current_user)
     render nothing: true
   end
   
   def clicked_success_twitter
-    TrackEvent.orientation_ping('Share - Invitation Sent Confirmation', "Clicked Twitter Share Icon")
+    TrackEvent.ping_action('Share - Invitation Sent Confirmation', "Clicked Twitter Share Icon", current_user)
     render nothing: true
   end
   
   def clicked_share_mail
-    TrackEvent.orientation_ping('Share - Using Link Only', "Clicked Email Share Icon")
+    TrackEvent.ping_action('Share - Using Link Only', "Clicked Email Share Icon", current_user)
     render nothing: true
   end
   
   def clicked_share_twitter
-    TrackEvent.orientation_ping('Share - Using Link Only', "Clicked Twitter Share Icon")
+    TrackEvent.ping_action('Share - Using Link Only', "Clicked Twitter Share Icon", current_user)
     render nothing: true
+  end    
+  
+  def clicked_add_users
+    TrackEvent.ping_action('Share - Using Link Only', "Clicked Add Users", current_user)
+    render nothing: true    
   end
   
-  def clicked_got_it_on_first_completion
-    TrackEvent.orientation_ping('Tiles Page', "Pop Over - clicked Got It")
-    render nothing: true
+  def selected_public_board
+    if (params[:path]||'').to_sym == :success_share_digest
+      TrackEvent.ping_action('Invitation Sent Confirmation', "Clicked Add Users", current_user)
+    else
+      TrackEvent.ping_action('Share - Using Link Only', "Selected share link", current_user)
+    end
+    render nothing: true    
   end
+
 end

@@ -11,7 +11,7 @@
         %div.shadow_overlay
     %ul.tile_buttons
       %li.archive_button= content_tag(:div, link_to('Archive', client_admin_tile_path(tile, update_status: Tile::ARCHIVE), method: :put), class: 'archive_tile_link') if type == :active
-      %li.activate_button= content_tag(:div, link_to('Post' + (type == :archive ? ' again' : ''), client_admin_tile_path(tile, update_status: Tile::ACTIVE), method: :put), class: 'archive_tile_link') if type == :archive || type == :draft
+      %li.activate_button= content_tag(:div, link_to('Post' + (type == :archive ? ' again' : ''), client_admin_tile_path(tile, update_status: Tile::ACTIVE, path: :via_index), method: :put), class: 'archive_tile_link') if type == :archive || type == :draft
       %li= content_tag(:div, link_to('Edit', edit_client_admin_tile_path(tile)), class: 'edit_tile_link')
     = render 'shared/tiles/tile_stats', tile: tile
 

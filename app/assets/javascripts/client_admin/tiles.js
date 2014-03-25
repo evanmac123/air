@@ -23,10 +23,16 @@ $(document).ready(function() {
         
   $('#tile-joyride-index-main-menu').foundation('joyride', 'start', {
       tipLocation: 'bottom',
-      postStepCallback     : function (){
-          $('.joyride-tip-guide:last').removeClass("tile-index-share");
-          $('.joyride-tip-guide:last').addClass("tile-index-main-menu");
-          $.ajax("/client_admin/shares/clicked_got_it_on_first_completion")
+      step : 1,
+      postStepCallback : function (){
+        $('.joyride-tip-guide:last').removeClass("tile-index-share");
+        $('.joyride-tip-guide:last').addClass("tile-index-main-menu");
+        if(this.step === 1) {
+          $.ajax("/client_admin/tiles/activated_try_your_board");
+        } else {
+          $.ajax("/client_admin/tiles/clicked_try_your_board_got_it");
+        }
+        this.step += 1;        
       },
       template : { // HTML segments for tip layout
         link    : '',
@@ -36,6 +42,9 @@ $(document).ready(function() {
     
   $('#tile-joyride-index-posted-tile').foundation('joyride', 'start', {
       tipLocation: 'bottom',
+      postStepCallback: function() {
+        $.ajax("/client_admin/tiles/clicked_first_completion_got_it")        
+      },
       template : { // HTML segments for tip layout
         link    : '',
         tip     : '<div class="joyride-tip-guide tile-index-posted-tile"><span class="joyride-nub"></span></div>'

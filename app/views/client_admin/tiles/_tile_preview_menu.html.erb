@@ -1,13 +1,16 @@
 <ul class="tile_preview_menu">  
   <% if @tile.active? %>
+    <% tag = :via_posted_preview %>
     <li class="preview_menu_header posted">        
       Posted
     </li>
   <% elsif @tile.archived? %>
+    <% tag = :via_archived_preview %>
     <li class="preview_menu_header archived">
       Archive
     </li>
   <% else %>
+    <% tag = :via_draft_preview %>
     <li class="preview_menu_header draft">
       Draft
     </li>    
@@ -20,7 +23,7 @@
   </li>
   <%= render 'activate_deactivate_link', tile: @tile %>      
   <li class="edit_header">
-    <%= link_to edit_client_admin_tile_path(@tile) do %>
+    <%= link_to edit_client_admin_tile_path(@tile, path: tag) do %>
       <p class="fa fa-pencil fa-2x"></p>
       <p class="header_text">Edit</p>
     <% end %>

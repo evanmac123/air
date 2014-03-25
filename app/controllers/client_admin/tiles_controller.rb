@@ -12,28 +12,61 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     @archive_tiles = (@demo.archive_tiles_with_placeholders)[0,8]
     @draft_tiles = (@demo.draft_tiles_with_placeholders)[0,8]
 
-    @first_active_tile_id = nil
-    if !current_user.has_own_tile_completed_displayed? && !current_user.has_own_tile_completed_id.nil?
-      @first_active_tile_id = current_user.has_own_tile_completed_id     
-      current_user.has_own_tile_completed_displayed = true
-      current_user.save!
-      TrackEvent.orientation_ping('Tiles Page', "Activated Pop Over")
-    end
+    @first_active_tile_id = process_own_tile_completed
 
-    @tile_just_activated = flash[:tile_activated_flag] || false
-    #empty out flash[:tile_activated] too
-    @tile_just_activated = flash[:tile_activated] || @tile_just_activated
-
+    @tile_just_activated = process_tile_just_activated
+    
     @tiles_to_be_sent = @demo.digest_tiles(@demo.tile_digest_email_sent_at).count
     
-    TrackEvent.orientation_ping_page('Orientation - Tiles')
-    TrackEvent.orientation_ping('Tile Preview Page', 'Clicked Back to Tiles button', current_user)
+    record_index_ping
   end
 
-  def new
+  def record_index_ping
+    if param_path == :via_draft_preview
+      TrackEvent.ping_action('Tile Preview Page', 'Clicked Back to Tiles button', current_user)
+    elsif param_path == :via_posted_preview
+      TrackEvent.ping_action('Tile Preview Page', 'Clicked Back to Tiles button', current_user)      
+    end
+
+    TrackEvent.ping_page('Tiles', {}, current_user)
+  end
+  private :record_index_ping
+  
+  def process_tile_just_activated
+    tile_just_activated = flash[:tile_activated_flag] || false
+    #empty out flash[:tile_activated] too
+    tile_just_activated = flash[:tile_activated] || tile_just_activated
+    if tile_just_activated & @demo.tiles.count == 1
+      TrackEvent.ping_action('Tiles Page', 'Unlocked sharing', current_user)
+    end
+    
+    tile_just_activated
+  end
+  private :process_tile_just_activated
+  
+  
+  def process_own_tile_completed
+    if !current_user.has_own_tile_completed_displayed? && !current_user.has_own_tile_completed_id.nil?
+      current_user.has_own_tile_completed_displayed = true
+      current_user.save!
+      TrackEvent.ping_action('Tiles Page', "Activated Pop Over", current_user)
+      
+      current_user.has_own_tile_completed_id     
+    else
+      nil
+    end    
+  end
+  private :process_own_tile_completed
+  
+  def new    
     @tile_builder_form = TileBuilderForm::MultipleChoice.new(@demo)
-    TrackEvent.orientation_ping('Tile Page', 'Clicked Add New Tile', current_user)
-    TrackEvent.orientation_ping('Tile Preview Page', 'Clicked New Tile button', current_user)    
+    if param_path == :via_index
+      TrackEvent.ping_action('Tile Page', 'Clicked Add New Tile', current_user)
+    elsif param_path == :via_draft_preview
+      TrackEvent.ping_action('Tile Preview Page - Draft', 'Clicked New Tile button', current_user)    
+    elsif param_path == :via_posted_preview
+      TrackEvent.ping_action('Tile Preview Page - Draft', 'Clicked New Tile button', current_user)    
+    end
     set_image_and_container
   end
 
@@ -62,10 +95,16 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     
     if params[:update_status]
       update_status
-      TrackEvent.orientation_ping('Tile Preview Page', 'Clicked Post button', current_user)
-      TrackEvent.orientation_ping('Tile Preview Page', 'Clicked Archive button', current_user)      
+      if param_path == :via_preview_post
+        TrackEvent.ping_action('Tile Preview Page', 'Clicked Post button', current_user)
+      elsif param_path == :via_preview_archive
+        TrackEvent.ping_action('Tile Preview Page - Posted', 'Clicked Archive button', current_user)
+      end
     else
       update_fields
+        if param_path == :via_index
+          TrackEvent.ping_action('Tiles Page', 'Clicked Post to activate tile', current_user)
+        end
     end
   end
 
@@ -86,33 +125,55 @@ class ClientAdmin::TilesController < ClientAdminBaseController
 
   def edit
     tile = get_tile
-    @tile_builder_form = tile.to_form_builder    
-    TrackEvent.orientation_ping('Tile Preview Page', 'Clicked Edit button', current_user)
+    @tile_builder_form = tile.to_form_builder 
+    if param_path == :via_draft_preview
+      TrackEvent.ping_action('Tile Preview Page - Draft', 'Clicked Edit button', current_user)
+    elsif param_path == :via_posted_preview
+      TrackEvent.ping_action('Tile Preview Page - Posted', 'Clicked Edit button', current_user)      
+    end
     set_image_and_container
   end
   
   def active_tile_guide_displayed
     current_user.displayed_active_tile_guide=true
     current_user.save!
-    TrackEvent.orientation_ping('Tiles Page', 'Clicked Post to activate tile')
+    TrackEvent.ping_action('Tiles Page', 'Clicked Got It button in orientation pop-over', current_user)
 
     render nothing: true
   end
 
   def successful_active_tile_guide_displayed
-    TrackEvent.orientation_ping('Tiles Page', 'Clicked Got It button in orientation pop-over')
+    TrackEvent.ping_action('Tiles Page', 'Clicked Got It button in orientation pop-over', current_user)
 
     render nothing: true
   end
   
   def main_menu_tile_guide_displayed
-    TrackEvent.orientation_ping('Tiles Page', 'Clicked Got It button in orientation pop-over')
-
+    TrackEvent.ping_action('Tiles Page', 'Clicked Got It button in orientation pop-over', current_user)
     render nothing: true
   end
 
+  def clicked_first_completion_got_it
+    TrackEvent.ping_action('Tiles Page', "Pop Over - clicked Got It", current_user)
+    render nothing: true    
+  end
+  
+  def activated_try_your_board
+    TrackEvent.ping_action('Tiles Page', "Activated Try your board as a user pop-over", current_user)
+    render nothing: true        
+  end
+  
+  def clicked_try_your_board_got_it
+    TrackEvent.ping_action('Tiles Page', "Clicked Got It button in orientation pop-over", current_user)
+    render nothing: true        
+  end
+  
   private
 
+  def param_path
+    @param_path ||= params[:path].nil? ? :undefined : params[:path].to_sym
+  end
+  
   def get_demo
     @demo = current_user.demo
   end
