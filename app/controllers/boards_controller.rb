@@ -50,6 +50,8 @@ class BoardsController < ApplicationController
     end
 
     if board_saved_successfully && user_saved_successfully
+      @user.add_board(@board.id, true)
+      @user.reload
       @user.send_conversion_email
       sign_in(@user, 1)
       schedule_creation_pings(@user)

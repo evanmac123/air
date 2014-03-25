@@ -21,6 +21,10 @@ class CreateBoardMemberships < ActiveRecord::Migration
   end
 
   def down
+    User.all.each do |user|
+      user.demo_id = user.demo.id
+      user.save!
+    end
     drop_table :board_memberships
   end
 end
