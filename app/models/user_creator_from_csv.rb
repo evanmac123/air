@@ -16,14 +16,17 @@ class UserCreatorFromCsv
       add_column! column_name, value, new_user_attributes
     end
 
-    user = User.where(demo_id: @demo_id).where(@unique_id_field => user_data[@unique_id_field_index_in_schema]).first
+    user = User.joins(:board_memberships).where("board_memberships.demo_id" => @demo_id).where(@unique_id_field => user_data[@unique_id_field_index_in_schema]).first
 
     if user
+      # Have to ditch the board_memberships join to make this record writeable
+      user = User.find(user.id)
       user.attributes = clean_attributes_for_existing_user(user, new_user_attributes)
       user.save
       user.schedule_segmentation_update(true)
     else
       user = User.create(new_user_attributes)
+      user.board_memberships.create(demo_id: @demo_id, is_current: true)
     end
 
     user
