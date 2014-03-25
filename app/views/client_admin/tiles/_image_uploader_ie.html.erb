@@ -1,21 +1,20 @@
 <div class="builder_content">
   <div id="image_uploader">
     <% unless (params[:action] == "new" || params[:action] == "create") %>
-      <div class="image_preview">
-        <%= image_tag @image_url, class: "tile_image", id: "upload_preview" %>
-      </div>
+      <div>
+        <div class="image_preview">
+          <%= image_tag @image_url, class: "tile_image", id: "upload_preview" %>
+        </div>
     <% else %>
-      <div class="image_text">
-        <label>Pick an image</label>
-        <p>This is where your image will appear in your live tile.</p>
-      </div>
+      <div class="pick_image tile_builder_section">
+        <div class="image_text">
+          <label>Pick an image</label>
+          <p>This is where your image will appear in your live tile.</p>
+        </div>
     <% end %>
-    <div class="upload_new_image">
-      <%= form.file_field "image", :style => 'display: block;' %>
+      <div class="upload_new_image">
+        <%= form.file_field "image", :style => 'display: block;' %>
+      </div>
     </div>
   </div>
 </div>
-<% content_for :javascript do %>
-  <%= javascript_tag do %>
-  <% end %>
-<% end %>
