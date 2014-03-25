@@ -2,12 +2,12 @@ class User::SegmentationData
   include Mongoid::Document
 
   field :ar_id
-  field :demo_id
+  field :demo_ids
   field :characteristics
   field :updated_at
 
   index({ar_id: 1}, {unique: true})
-  index({demo_id: 1})
+  index({demo_ids: 1})
   index({characteristics: 1})
   index({updated_at: 1})
 

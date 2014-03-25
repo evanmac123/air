@@ -20,7 +20,6 @@ class User < ActiveRecord::Base
 
   extend User::Queries
 
-  belongs_to :demo
   belongs_to :location
   belongs_to :game_referrer, :class_name => "User"
   belongs_to :spouse, :class_name => "User"
@@ -36,8 +35,11 @@ class User < ActiveRecord::Base
   has_many   :peer_invitations_as_inviter, :class_name => "PeerInvitation", :foreign_key => :inviter_id
   has_many   :tiles, :foreign_key => :creator_id
   has_many   :creator_tile_completions, source: :tile_completions, through: :tiles
+  has_many   :board_memberships, dependent: :destroy
+  has_many   :demos, through: :board_memberships
+  has_one    :current_board_membership, :class_name => "BoardMembership", :conditions => "is_current = true"
+  has_one    :demo, through: :current_board_membership
   has_one    :original_guest_user, :class_name => "GuestUser", :foreign_key => :converted_user_id, :inverse_of => :converted_user
-
   validate :normalized_phone_number_unique, :normalized_new_phone_number_unique
   validate :new_phone_number_has_valid_number_of_digits
   validate :sms_slug_does_not_match_commands
@@ -64,8 +66,6 @@ class User < ActiveRecord::Base
                       :if => :name_present?
 
   validates_format_of :zip_code, with: /^\d{5}$/, allow_blank: true
-
-  validates_presence_of :demo_id
 
   validates_length_of :password, :minimum => 6, :allow_blank => true, :message => 'must have at least 6 characters', :unless => :converting_from_guest
   validates :email, :with => :email_distinct_from_all_overflow_emails

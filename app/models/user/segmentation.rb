@@ -6,7 +6,7 @@ class User
     def values_for_segmentation
       {
         :ar_id                     => self.id,
-        :demo_id                   => self.demo_id,
+        :demo_ids                  => self.demo_ids,
         :updated_at                => self.updated_at.utc,
         :last_acted_at             => self.last_acted_at.try(:utc),
         :points                    => self.points,
@@ -38,7 +38,7 @@ class User
 
     def self.load_segmented_user_information(columns, operators, values, demo_id)
       query = User::SegmentationData
-      query = query.where(:demo_id => demo_id) if demo_id
+      query = query.where(:demo_ids => demo_id) if demo_id
 
       if values.present?
         columns.each do |index, characteristic_id|

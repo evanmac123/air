@@ -4,7 +4,8 @@ class Demo < ActiveRecord::Base
   serialize :internal_domains, Array
 
   has_many :guest_users
-  has_many :users, :dependent => :destroy
+  has_many :board_memberships, dependent: :destroy
+  has_many :users, through: :board_memberships
   has_many :acts
   has_many :rule_based_acts, :class_name => 'Act', :conditions =>  "rule_id IS NOT NULL"
   has_many :rules, :dependent => :destroy
