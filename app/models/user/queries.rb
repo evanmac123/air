@@ -48,7 +48,7 @@ module User::Queries
   end
 
   def get_users_where_like(text, demo, attribute, user_to_exempt = nil)
-    users = User.where("#{attribute} ILIKE ?", "%" + text + "%").where(:demo_id => demo.id )
+    users = demo.users.where("#{attribute} ILIKE ?", "%" + text + "%")
     users = users.where('users.id != ?', user_to_exempt.id) if user_to_exempt
     users
   end
