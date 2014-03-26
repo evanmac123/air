@@ -12,10 +12,10 @@ feature 'Admin resets tiles for user' do
     TileCompletion.count.should == 1
     Act.count.should == 2 # @act plus the game piece completion act
 
-    visit edit_admin_demo_user_path(user.demo_id, user, as: an_admin)
+    visit edit_admin_demo_user_path(user.demo.id, user, as: an_admin)
     click_button "Reset tiles for this user in #{user.demo.name}"
 
-    should_be_on edit_admin_demo_user_path(user.demo_id, user)
+    should_be_on edit_admin_demo_user_path(user.demo.id, user)
     expect_content "#{user.name}'s tiles for #{user.demo.name} have been reset. Associated acts have been destroyed"    
     TileCompletion.count.should == 0
     Act.count.should == 1
