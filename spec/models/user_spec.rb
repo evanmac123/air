@@ -759,13 +759,13 @@ end
 describe User, "#sms_slug_does_not_match_commands" do
   it "should invalidate user if sms_slug matches a command" do
     demo = FactoryGirl.create(:demo, :name => "my_demo")
-    rule = FactoryGirl.create(:rule, :demo_id => demo.id)
+    rule = FactoryGirl.create(:rule, :demo => demo)
     rule_value = FactoryGirl.create(:rule_value, :value => "hippa", :rule_id => rule.id)
-    user = FactoryGirl.build(:user, :demo_id => demo.id, :sms_slug => 'follow', :slug => 'follow')
+    user = FactoryGirl.build(:user, :demo => demo, :sms_slug => 'follow', :slug => 'follow')
     user.should_not be_valid
-    user = FactoryGirl.build(:user, :demo_id => demo.id, :sms_slug => 'hippa', :slug => 'hippa')
+    user = FactoryGirl.build(:user, :demo => demo, :sms_slug => 'hippa', :slug => 'hippa')
     user.should_not be_valid
-    user = FactoryGirl.build(:user, :demo_id => demo.id, :sms_slug => 'followmehome', :slug => 'followmehome')
+    user = FactoryGirl.build(:user, :demo => demo, :sms_slug => 'followmehome', :slug => 'followmehome')
     user.should be_valid
   end
 end
