@@ -36,6 +36,7 @@ class ClientAdmin::UsersController < ClientAdminBaseController
     @user = current_user.demo.users.new(user_params)
 
     if save_if_date_good(@user) # sigh
+      @user.add_board(@demo.id, true)
       @user.generate_unique_claim_code!
       put_add_success_in_flash
       ping('User - New', source: 'creator')
