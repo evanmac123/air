@@ -115,11 +115,13 @@ class Rule < ActiveRecord::Base
   end
   
   def conflicts_with_with_sms_slugs
+    return [] unless self.demo
+
     conflicts = []
-    self.rule_values.each do |rv|
-      u = User.where(:sms_slug => rv.value.downcase, :demo_id => rv.rule.demo_id).first
-      if u
-        conflict_message = "Warning: rule value #{rv.value} conflicts with username of #{u.name} #{u.email}"
+    self.rule_values.each do |rule_value|
+      user = self.demo.users.where(:sms_slug => rule_value.value.downcase).first
+      if user
+        conflict_message = "Warning: rule value #{rule_value.value} conflicts with username of #{user.name} #{user.email}"
         conflicts << conflict_message
       end
     end
