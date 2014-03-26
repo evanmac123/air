@@ -408,7 +408,7 @@ class Tile < ActiveRecord::Base
           next
         end
 
-        unless user.demo_id == @demo_id.to_i
+        unless user.demo_ids.include? @demo_id.to_i
           completion_states[:in_different_game] << email
           next
         end
