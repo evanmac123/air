@@ -3,8 +3,6 @@ require 'spec_helper'
 describe Tile do
   it { should belong_to(:demo) }
   it { should belong_to(:creator) }
-  it { should have_many(:prerequisites) }
-  it { should have_many(:prerequisite_tiles) }
   it { should have_many(:rule_triggers) }
   it { should ensure_inclusion_of(:status).in_array(Tile::STATUS) }
 
@@ -269,13 +267,6 @@ describe Tile do
       tiles.length.should == 2
       tiles.map(&:id).should include(@wash.id)
       tiles.map(&:id).should include(@color_after_washing.id)
-    end
-
-    it "should only display tiles whose prerequisites have been completed" do
-      # Set up a prerequisite
-      Prerequisite.create!(tile: @color_after_washing, prerequisite_tile: @wash)
-      tiles = Tile.displayable_to_user(@leah)
-      tiles.map(&:id).should == [@wash.id]
     end
   end
 

@@ -63,8 +63,3 @@
               -if tile.image.present?
                 = link_to tile.image_file_name, tile.image.url
             %td
-              - if tile.prerequisite_tiles.present? 
-                - prerequisite_names = tile.prerequisite_tiles.map(&:name).sort 
-                %ul
-                  - prerequisite_names.each do |prerequisite_name| 
-                    %li= prerequisite_name         

@@ -11,8 +11,6 @@ class Tile < ActiveRecord::Base
   belongs_to :demo
   belongs_to :creator, :class_name => 'User'
 
-  has_many :prerequisites
-  has_many :prerequisite_tiles, :class_name => "Tile", :through => :prerequisites
   has_many :rule_triggers, :class_name => "Trigger::RuleTrigger"
   has_many :tile_completions, :dependent => :destroy
   has_many  :completed_tiles, source: :tile, through: :tile_completions
@@ -255,16 +253,6 @@ class Tile < ActiveRecord::Base
     tiles_due_in_demo = after_start_time_and_before_end_time.where(demo_id: user.demo.id, status: ACTIVE)
     ids_completed = user.tile_completions.map(&:tile_id)
     satisfiable_tiles = tiles_due_in_demo.reject {|t| ids_completed.include? t.id}
-    # Reject the ones whose prereqs have not been met
-    satisfiable_tiles.reject! do |t|
-      hide = false
-      t.prerequisites.each do |p|
-        unless ids_completed.include? p.prerequisite_tile_id
-          hide = true
-        end
-      end
-      hide
-    end
     satisfiable_tiles.sort_by(&:activated_at).reverse
   end
 
@@ -273,16 +261,6 @@ class Tile < ActiveRecord::Base
     completed_tiles = user.tile_completions.order("#{TileCompletion.table_name}.id desc").includes(:tile).where("#{Tile.table_name}.demo_id" => user.demo_id).map(&:tile)
     ids_completed = completed_tiles.map(&:id)
     not_completed_tiles = tiles_due_in_demo.reject {|t| ids_completed.include? t.id}
-    # Reject the ones whose prereqs have not been met
-    not_completed_tiles.reject! do |t|
-      hide = false
-      t.prerequisites.each do |p|
-        unless ids_completed.include? p.prerequisite_tile_id
-          hide = true
-        end
-      end
-      hide
-    end
     
     {completed_tiles: completed_tiles, not_completed_tiles: not_completed_tiles.sort_by(&:activated_at).reverse}
   end

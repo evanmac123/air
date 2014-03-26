@@ -4,7 +4,7 @@ class Admin::TilesController < AdminBaseController
   before_filter :parse_times, :only => [:create, :update]
   
   def index
-    @tiles = @demo.tiles.includes(:prerequisites).includes(:rule_triggers).sort_by(&:position)
+    @tiles = @demo.tiles.includes(:rule_triggers).sort_by(&:position)
   end
 
   def sort
