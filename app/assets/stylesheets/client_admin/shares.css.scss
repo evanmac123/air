@@ -26,6 +26,11 @@
       margin-left: 263px;
       width: 493px;
       padding-bottom: 100px;
+      #public_board_field {
+        display: inline;
+        width: 100%;
+        height: $public_slug_height;
+      }
     }
     #share_link a{
       float: left;
@@ -74,6 +79,11 @@
         margin-left: 320px;
         width: 493px;
         padding-bottom: 20px;
+        #public_board_field {
+          display: inline;
+          width: 100%;
+          height: $public_slug_height;
+        }
       }
       #share_link a{
         float: left;

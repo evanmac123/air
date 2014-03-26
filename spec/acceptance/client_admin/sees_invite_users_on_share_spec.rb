@@ -24,7 +24,7 @@ feature "Invite Users Modal" do
     scenario "sends mixpanel ping" do
       FakeMixpanelTracker.clear_tracked_events
       crank_dj_clear
-      properties = {page_name: 'Share'}
+      properties = {page_name: 'Share Page'}
       FakeMixpanelTracker.should have_event_matching('viewed page', properties)
     end
     scenario 'sees invite users modal and accompanying username and email fields', js: true do

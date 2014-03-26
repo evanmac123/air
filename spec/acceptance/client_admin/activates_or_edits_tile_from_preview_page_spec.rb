@@ -208,30 +208,26 @@ feature 'Activates or edits tile from preview page' do
 
       visit client_admin_tile_path(@tile, as: @client_admin)
     end
-    it "should link to the edit page" do
-      click_edit_link
-      
+    scenario 'should post' do
+      click_link 'Post'
+      expect_mixpanel_action_ping('Tile Preview Page - Draft', 'Clicked Post button')
+    end
+    
+    scenario "should link to the edit page" do
+      click_edit_link      
       expect_mixpanel_action_ping('Tile Preview Page - Draft', 'Clicked Edit button')
     end
     
-    it "should ping on clicking back to tiles button" do
-      click_link "Back to Tiles"
-      
+    scenario "should ping on clicking back to tiles button" do
+      click_link "Back to Tiles"      
       expect_mixpanel_action_ping('Tile Preview Page - Draft', 'Clicked Back to Tiles button')
     end
     
-    it "should ping on clicking new tile button" do
-      click_link "New Tile"
-      
+    scenario "should ping on clicking new tile button" do
+      click_link "New Tile"      
       expect_mixpanel_action_ping('Tile Preview Page - Draft', 'Clicked New Tile button')
-    end
-    
-    it "should ping on clicking archive button" do
-      click_link "Post"
-      
-      expect_mixpanel_action_ping('Tile Preview Page - Archive', 'Clicked Post button')
-    end
 
+    end    
   end
   
   context "first time client admin" do
@@ -246,7 +242,7 @@ feature 'Activates or edits tile from preview page' do
       expect_first_time_create_popover
       click_link 'Got it'
 
-      expect_mixpanel_action_ping('Tile Preview Page', 'Clicked Got It button in orientation pop-over')
+      expect_mixpanel_action_ping('Tile Preview Page - Draft', 'Clicked Got It button in orientation pop-over')
       expect_no_first_time_create_popover
     end
 

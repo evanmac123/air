@@ -21,7 +21,7 @@ class ClientAdmin::SharesController < ClientAdminBaseController
     if @demo.non_activated?
       TrackEvent.ping_page('Page Locked', {}, current_user)
     else
-      TrackEvent.ping_page('Share', {}, current_user)
+      TrackEvent.ping_page('Share Page', {}, current_user)
     end
     prepend_view_path 'client_admin/users'
   end
@@ -102,9 +102,9 @@ class ClientAdmin::SharesController < ClientAdminBaseController
     render nothing: true    
   end
   
-  def selected_public_board
+  def selected_public_board    
     if (params[:path]||'').to_sym == :success_share_digest
-      TrackEvent.ping_action('Invitation Sent Confirmation', "Clicked Add Users", current_user)
+      TrackEvent.ping_action('Share - Invitation Sent Confirmation', "Selected share link", current_user)
     else
       TrackEvent.ping_action('Share - Using Link Only', "Selected share link", current_user)
     end

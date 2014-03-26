@@ -30,7 +30,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
       TrackEvent.ping_action('Tile Preview Page - Archive', 'Clicked Back to Tiles button', current_user)      
     end
 
-    TrackEvent.ping_page('Tiles', {}, current_user)
+    TrackEvent.ping_page('Tiles Page', {}, current_user)
   end
   private :record_index_ping
   
@@ -38,7 +38,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     tile_just_activated = flash[:tile_activated_flag] || false
     #empty out flash[:tile_activated] too
     tile_just_activated = flash[:tile_activated] || tile_just_activated
-    if tile_just_activated & @demo.tiles.count == 1
+    if tile_just_activated && @demo.tiles.count == 1
       TrackEvent.ping_action('Tiles Page', 'Unlocked sharing', current_user)
     end
     
@@ -99,11 +99,11 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     
     if params[:update_status]
       update_status
-      if param_path == :via_preview_post
-        TrackEvent.ping_action('Tile Preview Page - Archive', 'Clicked Post button', current_user)
-      elsif param_path == :via_preview_archive
+      if param_path == :via_preview_draft
+        TrackEvent.ping_action('Tile Preview Page - Draft', 'Clicked Post button', current_user)
+      elsif param_path == :via_preview_post
         TrackEvent.ping_action('Tile Preview Page - Posted', 'Clicked Archive button', current_user)
-      elsif param_path == :via_preview_repost
+      elsif param_path == :via_preview_archive
         TrackEvent.ping_action('Tile Preview Page - Archive', 'Clicked Re-post button', current_user)
       elsif param_path == :via_index
         TrackEvent.ping_action('Tiles Page', 'Clicked Post to activate tile', current_user)
@@ -144,13 +144,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
   def active_tile_guide_displayed
     current_user.displayed_active_tile_guide=true
     current_user.save!
-    TrackEvent.ping_action('Tiles Page', 'Clicked Got It button in orientation pop-over', current_user)
-
-    render nothing: true
-  end
-
-  def successful_active_tile_guide_displayed
-    TrackEvent.ping_action('Tiles Page', 'Clicked Got It button in orientation pop-over', current_user)
+    TrackEvent.ping_action('Tiles Page', 'Clicked Got It button in Publish orientation pop-over', current_user)
 
     render nothing: true
   end
@@ -166,6 +160,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
   end
   
   def activated_try_your_board
+    TrackEvent.ping_action('Tiles Page', 'Clicked Got It button in Share orientation pop-over', current_user)
     TrackEvent.ping_action('Tiles Page', "Activated Try your board as a user pop-over", current_user)
     render nothing: true        
   end
@@ -175,8 +170,8 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     render nothing: true        
   end
   
-  def clicked_got_it
-    TrackEvent.ping_action('Tile Preview Page', "Clicked Got It button in orientation pop-over", current_user)
+  def clicked_post_got_it
+    TrackEvent.ping_action('Tile Preview Page - Draft', "Clicked Got It button in orientation pop-over", current_user)
     render nothing: true        
   end
   

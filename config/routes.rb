@@ -89,7 +89,7 @@ Health::Application.routes.draw do
       collection do
         get 'active_tile_guide_displayed'
         get 'clicked_first_completion_got_it'
-        get 'clicked_got_it'
+        get 'clicked_post_got_it'
         get 'activated_try_your_board'
         get 'clicked_try_your_board_got_it'
       end

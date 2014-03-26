@@ -90,32 +90,25 @@ $(document).ready ->
   )
   $('#invite_users_page_1').find('#mail_to_link').on('click', (event) ->
     $.ajax("/client_admin/share/clicked_mail_to")
-    false
   )
   $('#success_share_digest').find('#share_mail').on('click', (event) ->
     $.ajax("/client_admin/share/clicked_success_mail")
-    false
   )
   $('#success_share_digest').find('#share_twitter').on('click', (event) ->
     $.ajax("/client_admin/share/clicked_success_twitter")
-    false
   )
   $('#success_share_digest').find('#public_board_field').one('select', (event) ->
     $.ajax("/client_admin/share/selected_public_board?path=success_share_digest")
-    false
   )
   
   $('#success_share_url').find('#share_mail').on('click', (event) ->
     $.ajax("/client_admin/share/clicked_share_mail")
-    false
   )
   $('#success_share_url').find('#share_twitter').on('click', (event) ->
     $.ajax("/client_admin/share/clicked_share_twitter")
-    false
   )
   $('#success_share_url').find('#public_board_field').one('select', (event) ->
     $.ajax("/client_admin/share/selected_public_board?path=success_share_url")
-    false
   )
 
   deactivatedTiles = () ->
