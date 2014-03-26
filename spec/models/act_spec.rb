@@ -58,7 +58,7 @@ describe Act, ".parse" do
       end
 
       it "creates an act" do
-        Act.exists?(:user_id => user.id, :text => good_sms, :rule_id => rule.id, :demo => user.demo).should be_true
+        Act.exists?(:user_id => user.id, :text => good_sms, :rule_id => rule.id, :demo_id => user.demo.id).should be_true
       end
 
       it "updates users points" do
