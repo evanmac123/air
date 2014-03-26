@@ -16,7 +16,7 @@ feature 'User views tile' do
   context "when there are tiles to be seen" do
     before(:each) do
       @demo = FactoryGirl.create(:demo)
-      @kendra = FactoryGirl.create(:user, demo_id: @demo.id, password: 'milking', session_count: 5)
+      @kendra = FactoryGirl.create(:user, demo: @demo, password: 'milking', session_count: 5)
 
       ['make toast', 'discover fire'].each do |tile_headline|
         FactoryGirl.create(:tile, headline: tile_headline, demo: @demo)
