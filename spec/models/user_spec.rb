@@ -5,7 +5,8 @@ describe User do
     FactoryGirl.create(:user)
   end
 
-  it { should belong_to(:demo) }
+  it { should have_one(:demo) }
+  it { should have_many (:demos) }
   it { should belong_to(:location) }
   it { should have_many(:acts) }
   it { should have_many(:friendships) }
@@ -772,8 +773,8 @@ end
 describe User, "#befriend" do
   before(:each) do
     @demo = FactoryGirl.create(:demo, :name => "It's just a game")
-    @left_user = FactoryGirl.create(:claimed_user, :name => "Lefty Loosey", :demo_id => @demo.id)
-    @right_user = FactoryGirl.create(:claimed_user, :name => "Righty Tighty", :demo_id => @demo.id)
+    @left_user = FactoryGirl.create(:claimed_user, :name => "Lefty Loosey", :demo => @demo)
+    @right_user = FactoryGirl.create(:claimed_user, :name => "Righty Tighty", :demo => @demo)
   end
 
   it "should create two friendships, one initiated and one pending" do
