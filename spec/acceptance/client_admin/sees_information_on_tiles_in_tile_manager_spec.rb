@@ -115,7 +115,7 @@ feature 'Sees helpful information in tile manager' do
       3.times {FactoryGirl.create(:tile_completion, tile: @tile_3)}
 
       [@tile_1, @tile_2, @tile_3].each do |tile|
-        tile.tile_completions.map(&:user).each {|user| user.update_attributes(demo_id: demo.id)}
+        tile.tile_completions.map(&:user).each {|user| user.add_board(demo.id)}
         tile.tile_completions.first.user.update_attributes(accepted_invitation_at: Time.now)
       end
 
