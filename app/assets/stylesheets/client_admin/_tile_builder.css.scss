@@ -110,6 +110,8 @@ body.client_admin-tiles-update {
           width: 100%;
           height: 100%;
           #tile_builder_form_image {
+            margin-top: 0;
+            font-size:10em;
             line-height: 0;
             position: absolute;
             z-index: 150;

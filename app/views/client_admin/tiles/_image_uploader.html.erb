@@ -50,21 +50,12 @@
       showShadows();
     });
 
-    //$(".image_placeholder").click(function chooseImage() {
-    //  $("#tile_builder_form_image").click();
-    //});
-
     $(".clear_image").click(function clearImage(event) {
       event.preventDefault();
       $("#image_container").val("no_image");
       var control = $("#tile_builder_form_image");
       control.replaceWith( control = control.clone( true ) );
       showPlaceholder();
-    });
-
-    $("input[type='submit']").click(function showUploader() {
-      event.preventDefault();
-      $("form").submit();
     });
   <% end %>
 <% end %>
