@@ -7,7 +7,7 @@ class Admin::Reports::InteractionsController < ApplicationController
   def show
     @demo = Demo.find(params[:demo_id])
     @rules = Rule.where(:demo_id => @demo.id).sort_by(&:description)
-    @users = User.claimed.where(:demo_id => @demo.id)
+    @users = @demo.users.claimed
     @tags = Tag.all
 
     rule_ids = @rules.map(&:id)
