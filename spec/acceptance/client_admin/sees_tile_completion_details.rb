@@ -23,7 +23,13 @@ feature "sees tile completion details" do
   context 'no one has completed the tile', js:true do
     before do
       visit client_admin_tile_tile_completions_path(tile, as: client_admin)
-    end    
+    end
+    scenario "send ping" do
+      FakeMixpanelTracker.clear_tracked_events
+      crank_dj_clear
+      properties = {page_name: 'Tile More Info Page'}
+      FakeMixpanelTracker.should have_event_matching('viewed page', properties)
+    end
     scenario "not completed report should show no record found" do
       click_link 'show_completed'
       page.should have_css('.grid_no_record')
@@ -60,9 +66,9 @@ feature "sees tile completion details" do
       #top of the page has the headline from the tile I clicked
       page.all('h3')[0].should have_content tile.headline
     end
-      # I see There are two options: 'Completed: Yes' or 'No' (second button class style, selected state blue, not selected grey)
+    # I see There are two options: 'Completed: Yes' or 'No' (second button class style, selected state blue, not selected grey)
       
-      # By default the "yes" option is selected.
+    # By default the "yes" option is selected.
     scenario "I see the column titles: Name, Email, Date, Joined" do
       # I see the column titles: Name, Email, Date, Joined (date = date completed, joined = yes or no)
       page.should have_content "NAME"
@@ -80,12 +86,12 @@ feature "sees tile completion details" do
       click_link 'Name'
       page.find('tbody tr:first td:first').should have_content('ZZZ')
     end
-#    scenario "should be sortable by date" do
-#      tile_completion_latest = FactoryGirl.create(:tile_completion, user: user_latest, tile: tile)
-#      click_link 'Date'
-#      debugger
-#      page.find('tbody tr:first .has_tip')['title'].should have_content(tile_completion_latest.strftime(Wice::Defaults::DATETIME_FORMAT))
-#    end
+    #    scenario "should be sortable by date" do
+    #      tile_completion_latest = FactoryGirl.create(:tile_completion, user: user_latest, tile: tile)
+    #      click_link 'Date'
+    #      debugger
+    #      page.find('tbody tr:first .has_tip')['title'].should have_content(tile_completion_latest.strftime(Wice::Defaults::DATETIME_FORMAT))
+    #    end
     context "clicking no should show users who have not completed the tiles", js: true do
       before do 
         FactoryGirl.create :user, demo: client_admin.demo
@@ -131,12 +137,12 @@ feature "sees tile completion details" do
         for i in 1..100 do
           u = FactoryGirl.create(:user, demo: client_admin.demo)
           answer_index =  if i <= 30
-                            0
-                          elsif i <= 80
-                            1
-                          else
-                            2
-                          end
+            0
+          elsif i <= 80
+            1
+          else
+            2
+          end
           FactoryGirl.create(:tile_completion, user: u, tile: survey_tile, answer_index: answer_index)
         end
         visit client_admin_tile_tile_completions_path(survey_tile, as: client_admin)

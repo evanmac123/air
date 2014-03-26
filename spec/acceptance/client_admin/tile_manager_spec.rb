@@ -83,12 +83,30 @@ feature 'Client admin and the digest email for tiles' do
       page.should have_css('.fa-lock', visible: true)
     end
   end
+  
+  def expect_mixpanel_action_ping(event, action)
+    FakeMixpanelTracker.clear_tracked_events
+    crank_dj_clear
+    properties = {action: action}
+    FakeMixpanelTracker.should have_event_matching(event, properties)    
+  end
+  
+  def expect_mixpanel_page_ping(event, page_name)
+    FakeMixpanelTracker.clear_tracked_events
+    crank_dj_clear
+    properties = {page_name: page_name}
+    FakeMixpanelTracker.should have_event_matching(event, properties)    
+  end
+  
+  def visit_tile_manager_page
+    visit tile_manager_page 
+  end
 
   # -------------------------------------------------
 
   context 'No tiles exist for any of the types' do
 
-    before(:each) { visit tile_manager_page }
+    before(:each) { visit_tile_manager_page }
 
     scenario 'Correct message is displayed when there are no Active tiles' do
       expect_content 'There are no active tiles'
@@ -115,7 +133,10 @@ feature 'Client admin and the digest email for tiles' do
     scenario "The tile content is correct for Active tiles" do
       tiles.each { |tile| tile.update_attributes status: Tile::ACTIVE }
 
-      visit tile_manager_page
+      visit_tile_manager_page
+      
+      expect_mixpanel_page_ping('viewed page', 'Tiles')
+      
       active_tab.should have_num_tiles(3)
 
       within active_tab do
@@ -154,7 +175,9 @@ feature 'Client admin and the digest email for tiles' do
     scenario "The tile content is correct for Archive tiles" do
       tiles.each { |tile| tile.update_attributes status: Tile::ARCHIVE }
 
-      visit tile_manager_page
+      visit_tile_manager_page
+      expect_mixpanel_page_ping('viewed page', 'Tiles')
+      
       page.should have_num_tiles(3)
 
       tiles.each do |tile|
@@ -168,7 +191,8 @@ feature 'Client admin and the digest email for tiles' do
     context 'Archiving and activating tiles' do
       scenario "The 'Archive this tile' links work, including setting the 'archived_at' time and positioning most-recently-archived tiles first" do
         tiles.each { |tile| tile.update_attributes status: Tile::ACTIVE }
-        visit tile_manager_page
+        visit_tile_manager_page
+        expect_mixpanel_page_ping('viewed page', 'Tiles')
 
         active_tab.should  have_num_tiles(3)
         archive_tab.should have_num_tiles(0)
@@ -205,7 +229,8 @@ feature 'Client admin and the digest email for tiles' do
 
       scenario "The 'Activate this tile' links work, including setting the 'activated_at' time and positioning most-recently-activated tiles first" do
         tiles.each { |tile| tile.update_attributes status: Tile::ARCHIVE }
-        visit tile_manager_page
+        visit_tile_manager_page
+        expect_mixpanel_page_ping('viewed page', 'Tiles')
 
         active_tab.should  have_num_tiles(0)
         archive_tab.should have_num_tiles(3)
@@ -241,7 +266,7 @@ feature 'Client admin and the digest email for tiles' do
   context "New client admin visits client_admin/tiles page" do
     context "For new client admin, when there is no tile in the demo", js: true do
       before do
-        visit tile_manager_page
+        visit_tile_manager_page
       end
       scenario "popup appears" do
         page.should have_css('.joyride-tip-guide', visible: true)
@@ -263,6 +288,8 @@ feature 'Client admin and the digest email for tiles' do
       scenario "visiting share page shows lock screen with message" do
         visit client_admin_share_path
         expect_page_to_be_locked
+        
+        expect_mixpanel_page_ping('viewed page', 'Page Locked')
       end
       scenario "visiting activity page shows lock screen with message" do
         visit client_admin_path
@@ -276,7 +303,7 @@ feature 'Client admin and the digest email for tiles' do
     context "when there is atleast one draft tile in demo", js: true do
       before do
         @draft_tile = FactoryGirl.create :tile, demo: admin.demo, status: Tile::DRAFT
-        visit tile_manager_page
+        visit_tile_manager_page
       end
       scenario "share link on navbar shows lock icon" do
         expect_link_to_have_lock_icon('#share_tiles')
@@ -296,34 +323,44 @@ feature 'Client admin and the digest email for tiles' do
       scenario "user clicks Got It, popover disappears and user nevers sees it again" do
         click_link 'Got It'
         page.should have_no_css('.joyride-tip-guide', visible: true)
+        expect_mixpanel_action_ping('Tiles Page', 'Clicked Got It button in orientation pop-over')
       end
-      scenario "popup appears under share link and then under Airbo logo after tile is activated" do
+      scenario "popup appears under share link, mixpanel ping registered and then under Airbo logo after tile is activated" do
         within(".joyride-tip-guide") do
           click_link 'Got It'
         end
         click_activate_link_for(@draft_tile)
+        
+        expect_mixpanel_action_ping('Tiles Page', 'Clicked Post to activate tile')
+                
         page.should have_css('.joyride-tip-guide', visible: true)
         within(".joyride-tip-guide", visible: true) do
           page.should have_content("You've Unlocked Sharing!")
+          
           click_link 'Got It'
-        end
-        page.should have_css('.joyride-tip-guide', visible: true)
-        within(".joyride-tip-guide", visible: true) do
+          
+          expect_mixpanel_action_ping('Tiles Page', 'Activated Try your board as a user pop-over')
+          
           page.should have_content("To try your board as a user click on the logo.")
+          
+          click_link 'Got It'
+          
+          expect_mixpanel_action_ping('Tiles Page', 'Clicked Got It button in Try As User orientation pop-over')
         end
       end
     end
     context "when there is atleast one activated tile in demo", js: true do
       before do
         @tile = FactoryGirl.create :tile, demo: admin.demo, status: Tile::ACTIVE, creator: admin
-        visit tile_manager_page
+        FactoryGirl.create :tile, demo: admin.demo, status: Tile::ACTIVE, creator: admin        
+        visit_tile_manager_page
       end
 
       scenario "count appears near share link indicating the number tiles to be shared" do
         within('#share_tiles') do
           #in this scenario, one tile is created in 'before do' so the number
           #of tiles to be shared should be one
-          page.should have_content("1")
+          page.should have_content("2")
         end
       end
       scenario "lock icon on share link doesnt appear" do
@@ -336,13 +373,20 @@ feature 'Client admin and the digest email for tiles' do
         tile_completion = FactoryGirl.build(:tile_completion, tile: @tile, user: user)
         tile_completion.save!
         
-        visit tile_manager_page
+        visit_tile_manager_page
+        expect_mixpanel_page_ping('viewed page', 'Tiles')
+        
         page.should have_content("You've had your first user interact with a tile!")
+        click_link 'Got It'
+        
+        expect_mixpanel_action_ping('Tiles Page', 'Pop Over - clicked Got It')
+        
+        visit_tile_manager_page
+        expect_mixpanel_page_ping('viewed page', 'Tiles')
 
-        visit tile_manager_page
         page.should_not have_content("You've had your first user interact with a tile!")
       end
-    end    
+    end
   end
 
   describe 'Tiles appear in reverse-chronological order by activation/archived-date and then creation-date' do
@@ -367,7 +411,9 @@ feature 'Client admin and the digest email for tiles' do
       ]
       demo.tiles.update_all status: Tile::ACTIVE
 
-      visit tile_manager_page
+      visit_tile_manager_page
+      expect_mixpanel_page_ping('viewed page', 'Tiles')
+      
       table_content_without_activation_dates('#active table').should == expected_tile_table
     end
 
@@ -381,38 +427,48 @@ feature 'Client admin and the digest email for tiles' do
       demo.tiles.update_all status: Tile::ARCHIVE
       demo.tiles.where(archived_at: nil).each{|tile| tile.update_attributes(archived_at: tile.created_at)}
 
-      visit tile_manager_page
+      visit_tile_manager_page
+      expect_mixpanel_page_ping('viewed page', 'Tiles')
 
       table_content_without_activation_dates('#archive table').should == expected_tile_table
     end
   end
 
   it "has a placeholder that you can click on to create a new tile" do
-    visit tile_manager_page
+    visit_tile_manager_page
+    expect_mixpanel_page_ping('viewed page', 'Tiles')
+    
     click_new_tile_placeholder
     should_be_on new_client_admin_tile_path
+    
+    expect_mixpanel_action_ping('Tiles Page', 'Clicked Add New Tile')
   end
 
   it "pads odd rows, in both the inactive and active sections, with blank placeholder cells, so the table comes out right" do
-    visit tile_manager_page
+    visit_tile_manager_page
+    expect_mixpanel_page_ping('viewed page', 'Tiles')
 
     # No tiles, except the "Add Tile" placeholder in the draft section, sooooooo...
     expect_draft_tile_placeholders(3)
 
     FactoryGirl.create(:tile, :draft, demo: admin.demo)
-    visit tile_manager_page
+    visit_tile_manager_page
+    expect_mixpanel_page_ping('viewed page', 'Tiles')
     expect_draft_tile_placeholders(2)
 
     FactoryGirl.create(:tile, :draft, demo: admin.demo)
-    visit tile_manager_page
+    visit_tile_manager_page
+    expect_mixpanel_page_ping('viewed page', 'Tiles')
     expect_draft_tile_placeholders(1)
 
     FactoryGirl.create(:tile, :draft, demo: admin.demo)
-    visit tile_manager_page
+    visit_tile_manager_page
+    expect_mixpanel_page_ping('viewed page', 'Tiles')
     expect_draft_tile_placeholders(0)
 
     FactoryGirl.create(:tile, :draft, demo: admin.demo)
-    visit tile_manager_page
+    visit_tile_manager_page
+    expect_mixpanel_page_ping('viewed page', 'Tiles')
     expect_draft_tile_placeholders(3)
 
     4.times { FactoryGirl.create(:tile, :draft, demo: admin.demo) }
@@ -422,53 +478,64 @@ feature 'Client admin and the digest email for tiles' do
     # expect 3 placeholders. But we only show the first 8 draft tiles
     # (really the first 7 + creation placeholder) and those two rows are full 
     # now, so...
-    visit tile_manager_page
+    visit_tile_manager_page
+    expect_mixpanel_page_ping('viewed page', 'Tiles')
     expect_draft_tile_placeholders(0)
 
     # And now let's do the active ones
     expect_active_tile_placeholders(0)
 
     FactoryGirl.create(:tile, :active, demo: admin.demo)
-    visit tile_manager_page
+    visit_tile_manager_page
+    expect_mixpanel_page_ping('viewed page', 'Tiles')
     expect_active_tile_placeholders(3)
 
     FactoryGirl.create(:tile, :active, demo: admin.demo)
-    visit tile_manager_page
+    visit_tile_manager_page
+    expect_mixpanel_page_ping('viewed page', 'Tiles')
     expect_active_tile_placeholders(2)
 
     FactoryGirl.create(:tile, :active, demo: admin.demo)
-    visit tile_manager_page
+    visit_tile_manager_page
+    expect_mixpanel_page_ping('viewed page', 'Tiles')
     expect_active_tile_placeholders(1)
 
     FactoryGirl.create(:tile, :active, demo: admin.demo)
-    visit tile_manager_page
+    visit_tile_manager_page
+    expect_mixpanel_page_ping('viewed page', 'Tiles')
     expect_active_tile_placeholders(0)
 
     FactoryGirl.create(:tile, :active, demo: admin.demo)
-    visit tile_manager_page
+    visit_tile_manager_page
+    expect_mixpanel_page_ping('viewed page', 'Tiles')
     expect_active_tile_placeholders(3)
 
     #And now let's look at archived sction(It's similiar to active)
     expect_inactive_tile_placeholders(0)
 
     FactoryGirl.create(:tile, :archived, demo: admin.demo)
-    visit tile_manager_page
+    visit_tile_manager_page
+    expect_mixpanel_page_ping('viewed page', 'Tiles')
     expect_inactive_tile_placeholders(3)
 
     FactoryGirl.create(:tile, :archived, demo: admin.demo)
-    visit tile_manager_page
+    visit_tile_manager_page
+    expect_mixpanel_page_ping('viewed page', 'Tiles')
     expect_inactive_tile_placeholders(2)
 
     FactoryGirl.create(:tile, :archived, demo: admin.demo)
-    visit tile_manager_page
+    visit_tile_manager_page
+    expect_mixpanel_page_ping('viewed page', 'Tiles')
     expect_inactive_tile_placeholders(1)
 
     FactoryGirl.create(:tile, :archived, demo: admin.demo)
-    visit tile_manager_page
+    visit_tile_manager_page
+    expect_mixpanel_page_ping('viewed page', 'Tiles')
     expect_inactive_tile_placeholders(0)
 
     FactoryGirl.create(:tile, :archived, demo: admin.demo)
-    visit tile_manager_page
+    visit_tile_manager_page
+    expect_mixpanel_page_ping('viewed page', 'Tiles')
     expect_inactive_tile_placeholders(3)
 
     4.times { FactoryGirl.create(:tile, :archived, demo: admin.demo) }
@@ -478,7 +545,8 @@ feature 'Client admin and the digest email for tiles' do
     # expect 3 placeholders. But we only show the first 8 archive tiles
     # and those two rows are full 
     # now, so...
-    visit tile_manager_page
+    visit_tile_manager_page
+    expect_mixpanel_page_ping('viewed page', 'Tiles')
     expect_inactive_tile_placeholders(0)
 
     # And now let's look at the full megillah of draft tiles

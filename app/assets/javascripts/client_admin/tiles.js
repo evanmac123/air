@@ -52,6 +52,9 @@ $(document).ready(function() {
     });
         
   $('#tile-joyride-show-post').foundation('joyride', 'start', {
+      postStepCallback: function() {
+        $.ajax("/client_admin/tiles/clicked_got_it")
+      },
       template : { // HTML segments for tip layout
         link    : '',
         tip     : '<div class="joyride-tip-guide tile-show-post"><span class="joyride-nub"></span></div>'

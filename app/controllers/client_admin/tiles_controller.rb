@@ -23,9 +23,11 @@ class ClientAdmin::TilesController < ClientAdminBaseController
 
   def record_index_ping
     if param_path == :via_draft_preview
-      TrackEvent.ping_action('Tile Preview Page', 'Clicked Back to Tiles button', current_user)
+      TrackEvent.ping_action('Tile Preview Page - Draft', 'Clicked Back to Tiles button', current_user)
     elsif param_path == :via_posted_preview
-      TrackEvent.ping_action('Tile Preview Page', 'Clicked Back to Tiles button', current_user)      
+      TrackEvent.ping_action('Tile Preview Page - Posted', 'Clicked Back to Tiles button', current_user)      
+    elsif param_path == :via_archived_preview
+      TrackEvent.ping_action('Tile Preview Page - Archive', 'Clicked Back to Tiles button', current_user)      
     end
 
     TrackEvent.ping_page('Tiles', {}, current_user)
@@ -61,11 +63,13 @@ class ClientAdmin::TilesController < ClientAdminBaseController
   def new    
     @tile_builder_form = TileBuilderForm::MultipleChoice.new(@demo)
     if param_path == :via_index
-      TrackEvent.ping_action('Tile Page', 'Clicked Add New Tile', current_user)
+      TrackEvent.ping_action('Tiles Page', 'Clicked Add New Tile', current_user)
     elsif param_path == :via_draft_preview
       TrackEvent.ping_action('Tile Preview Page - Draft', 'Clicked New Tile button', current_user)    
     elsif param_path == :via_posted_preview
-      TrackEvent.ping_action('Tile Preview Page - Draft', 'Clicked New Tile button', current_user)    
+      TrackEvent.ping_action('Tile Preview Page - Posted', 'Clicked New Tile button', current_user)    
+    elsif param_path == :via_archived_preview
+      TrackEvent.ping_action('Tile Preview Page - Archive', 'Clicked New Tile button', current_user)    
     end
     set_image_and_container
   end
@@ -96,15 +100,16 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     if params[:update_status]
       update_status
       if param_path == :via_preview_post
-        TrackEvent.ping_action('Tile Preview Page', 'Clicked Post button', current_user)
+        TrackEvent.ping_action('Tile Preview Page - Archive', 'Clicked Post button', current_user)
       elsif param_path == :via_preview_archive
         TrackEvent.ping_action('Tile Preview Page - Posted', 'Clicked Archive button', current_user)
+      elsif param_path == :via_preview_repost
+        TrackEvent.ping_action('Tile Preview Page - Archive', 'Clicked Re-post button', current_user)
+      elsif param_path == :via_index
+        TrackEvent.ping_action('Tiles Page', 'Clicked Post to activate tile', current_user)
       end
     else
-      update_fields
-        if param_path == :via_index
-          TrackEvent.ping_action('Tiles Page', 'Clicked Post to activate tile', current_user)
-        end
+      update_fields        
     end
   end
 
@@ -130,6 +135,8 @@ class ClientAdmin::TilesController < ClientAdminBaseController
       TrackEvent.ping_action('Tile Preview Page - Draft', 'Clicked Edit button', current_user)
     elsif param_path == :via_posted_preview
       TrackEvent.ping_action('Tile Preview Page - Posted', 'Clicked Edit button', current_user)      
+    elsif param_path == :via_archived_preview
+      TrackEvent.ping_action('Tile Preview Page - Archive', 'Clicked Edit button', current_user)      
     end
     set_image_and_container
   end
@@ -164,7 +171,12 @@ class ClientAdmin::TilesController < ClientAdminBaseController
   end
   
   def clicked_try_your_board_got_it
-    TrackEvent.ping_action('Tiles Page', "Clicked Got It button in orientation pop-over", current_user)
+    TrackEvent.ping_action('Tiles Page', "Clicked Got It button in Try As User orientation pop-over", current_user)
+    render nothing: true        
+  end
+  
+  def clicked_got_it
+    TrackEvent.ping_action('Tile Preview Page', "Clicked Got It button in orientation pop-over", current_user)
     render nothing: true        
   end
   

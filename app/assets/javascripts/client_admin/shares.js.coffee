@@ -78,7 +78,7 @@ $(document).ready ->
       loadPage2()
     else
       loadPage1()
-    $.ajax('/client_admin/share/num_valid_users_added?num_valid_users='+num_valid_users)
+    $.ajax('/client_admin/share/number_of_valid_users_added?num_valid_users='+num_valid_users)
     false
   )
   $('#invite_users_page_1').find('#skip_invite_users').on('click', (event) ->

@@ -89,6 +89,7 @@ Health::Application.routes.draw do
       collection do
         get 'active_tile_guide_displayed'
         get 'clicked_first_completion_got_it'
+        get 'clicked_got_it'
         get 'activated_try_your_board'
         get 'clicked_try_your_board_got_it'
       end
@@ -111,9 +112,8 @@ Health::Application.routes.draw do
         get 'show_first_active_tile'
         
         get 'added_valid_user'        
-        get 'num_valid_users_added'        
+        get 'number_of_valid_users_added'        
         
-        get 'num_valid_users_added'
         get 'clicked_preview_invitation'
         get 'clicked_skip'
         get 'clicked_mail_to'

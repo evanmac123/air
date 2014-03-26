@@ -16,7 +16,7 @@
     </li>    
   <% end %>
   <li class="back_header" id="back_header">
-    <%= link_to client_admin_tiles_path do %>
+    <%= link_to client_admin_tiles_path(path: tag) do %>
       <p class="fa fa-chevron-left fa-2x"></p>
       <p class="header_text">Back to Tiles</p>
     <% end %>
@@ -29,7 +29,7 @@
     <% end %>
   </li>
   <li class="new_tile_header">
-    <%= link_to new_client_admin_tile_path do %>
+    <%= link_to new_client_admin_tile_path(path: tag) do %>
       <p class="fa fa-plus fa-2x"></p>
       <p class="header_text">New Tile</p>
     <% end %>

@@ -21,6 +21,12 @@ feature "Invite Users Modal" do
       FactoryGirl.create(:tile, status: Tile::ACTIVE, demo: client_admin.demo)
       visit client_admin_share_path(as: client_admin)
     end
+    scenario "sends mixpanel ping" do
+      FakeMixpanelTracker.clear_tracked_events
+      crank_dj_clear
+      properties = {page_name: 'Share'}
+      FakeMixpanelTracker.should have_event_matching('viewed page', properties)
+    end
     scenario 'sees invite users modal and accompanying username and email fields', js: true do
       expect_content invite_users_modal_content 
       page.all(invite_users_modal_selector, visible: true).should_not be_empty
@@ -32,13 +38,40 @@ feature "Invite Users Modal" do
         page.should have_css('input', count: 19)
       end
     end
-    scenario "'Contact us' link opens help chat bubble" do
-      #this functionality is not implemented yet. need to verify it
-    end
     scenario "clicking skip will display share url page" do
       page.find("#skip_invite_users").click
       page.all('#success_share_url', visible: true).should_not be_empty
-    end    
+      
+      FakeMixpanelTracker.clear_tracked_events
+      crank_dj_clear
+      properties = {action: 'Clicked Skip link'}
+      FakeMixpanelTracker.should have_event_matching('Share - Add First Users', properties)          
+    end
+    scenario "pings on clicking elements after clicking skip button" do
+      page.find("#skip_invite_users").click
+      
+      within('#share_link', visible: true) do
+        page.find('.email').click            
+        FakeMixpanelTracker.clear_tracked_events
+        crank_dj_clear
+        properties = {action: 'Clicked Email Share Icon'}
+        FakeMixpanelTracker.should have_event_matching('Share - Using Link Only', properties)            
+      end
+      within('#share_link', visible: true) do
+        page.find('.twitter').click
+        FakeMixpanelTracker.clear_tracked_events
+        crank_dj_clear
+        properties = {action: 'Clicked Twitter Share Icon'}
+        FakeMixpanelTracker.should have_event_matching('Share - Using Link Only', properties)            
+      end
+      within('#message_div', visible: true) do
+        page.find('.history_back').click
+        FakeMixpanelTracker.clear_tracked_events
+        crank_dj_clear
+        properties = {action: 'Clicked Add Users'}
+        FakeMixpanelTracker.should have_event_matching('Share - Using Link Only', properties)                
+      end
+    end
     scenario "form with invalid email is not submitted" do
       within(invite_users_modal_selector) do        
         find_field('user_0_name').set 'Hisham Malik'
@@ -47,8 +80,12 @@ feature "Invite Users Modal" do
         page.should have_css('input.error', visible: true)
       end
     end
-    scenario "'Contact us' link opens help chat bubble" do
-      #this functionality is not implemented yet. need to verify it
+    scenario "ping on clicking contact us" do
+      click_link "Contact us"
+      FakeMixpanelTracker.clear_tracked_events
+      crank_dj_clear
+      properties = {action: 'Clicked To upload a list, contact us'}
+      FakeMixpanelTracker.should have_event_matching('Share - Add First Users', properties)
     end
     scenario "form with invalid email is not submitted" do
       within(invite_users_modal_selector) do        
@@ -91,6 +128,31 @@ feature "Invite Users Modal" do
           find_field('user_0_email').set 'hisham@example.com'
           page.find('#submit_invite_users').click
         end
+        scenario "pings on clicking add more users button", js: true do
+          click_link "Add More Users"
+          FakeMixpanelTracker.clear_tracked_events
+          crank_dj_clear
+          properties = {action: 'Clicked Add More Users'}
+          FakeMixpanelTracker.should have_event_matching('Share - Send Invitation', properties)          
+        end
+        scenario "pings on clicking preview invitation button", js: true do
+          FakeMixpanelTracker.clear_tracked_events
+          crank_dj_clear
+          properties = {action: 'Clicked Preview Invitation button'}
+          FakeMixpanelTracker.should have_event_matching('Share - Add First Users', properties)          
+        end        
+        scenario "pings on valid entries", js: true do
+          FakeMixpanelTracker.clear_tracked_events
+          crank_dj_clear
+          properties = {action: 'Added Valid User'}
+          FakeMixpanelTracker.should have_event_matching('Share - Add First Users', properties)          
+        end        
+        scenario "pings number of valid users", js: true do
+          FakeMixpanelTracker.clear_tracked_events
+          crank_dj_clear
+          properties = {action: 'Number of valid users added', num_valid_users: "1"}
+          FakeMixpanelTracker.should have_event_matching('Share - Add First Users', properties)          
+        end
         scenario "on valid username and email, page displays custom message page" do
           page.should have_css("#user_invite_message_custom", visible: true)
         end
@@ -104,7 +166,7 @@ feature "Invite Users Modal" do
           page.find('#users_invite_message').set "this is a custom message "          
           within("#share_tiles_email_preview") do
             #TODO needs to find #custom_message in iframe and match the custom message
-#            page.should have_content("this is a custom message")
+            #            page.should have_content("this is a custom message")
           end
         end
         scenario "sends email invite to user via Airbo" do
@@ -118,6 +180,12 @@ feature "Invite Users Modal" do
             3.times {FactoryGirl.create(:tile, status: Tile::ACTIVE, demo: client_admin.demo)}
           end
           page.find("#invite_users_send_button").click
+          
+          FakeMixpanelTracker.clear_tracked_events
+          crank_dj_clear
+          properties = {action: 'Clicked Send'}
+          FakeMixpanelTracker.should have_event_matching('Share - Send Invitation', properties)
+          
           page.should have_content("Invitation Sent!")
           page.should have_css('#success_section', visible: true)
           page.should have_content("You can also share your board using this link")
@@ -136,8 +204,28 @@ feature "Invite Users Modal" do
           page.should have_content("Invitation Sent!")
           page.should have_css('#success_section', visible: true)
           page.should have_content("You can also share your board using this link")
-          page.should have_css('.share_url_link', visible: true)
+          page.should have_css('.share_url_link', visible: true)          
         end
+        scenario "pings on clicking mail icon" do
+          page.find("#invite_users_send_button").click
+          within('#share_link', visible: true) do
+            page.find('.email').click            
+            FakeMixpanelTracker.clear_tracked_events
+            crank_dj_clear
+            properties = {action: 'Clicked Email Share Icon'}
+            FakeMixpanelTracker.should have_event_matching('Share - Invitation Sent Confirmation', properties)            
+          end
+        end        
+        scenario "pings on clicking twitter icon" do
+          page.find("#invite_users_send_button").click
+          within('#share_link', visible: true) do
+            page.find('.twitter').click
+            FakeMixpanelTracker.clear_tracked_events
+            crank_dj_clear
+            properties = {action: 'Clicked Twitter Share Icon'}
+            FakeMixpanelTracker.should have_event_matching('Share - Invitation Sent Confirmation', properties)            
+          end
+        end        
       end
     end
   end

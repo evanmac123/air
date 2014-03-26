@@ -95,6 +95,13 @@ feature 'Activates or edits tile from preview page' do
     expect_no_content 'Next click Back to Tiles to see your board.'
   end
   
+  def expect_mixpanel_action_ping(event, action)
+    FakeMixpanelTracker.clear_tracked_events
+    crank_dj_clear
+    properties = {action: action}
+    FakeMixpanelTracker.should have_event_matching(event, properties)    
+  end
+  
   context "an active tile" do
     before do
       @tile = FactoryGirl.create(:multiple_choice_tile, status: Tile::ACTIVE)
@@ -118,6 +125,26 @@ feature 'Activates or edits tile from preview page' do
     it "should link to the edit page" do
       click_edit_link
       should_be_on edit_client_admin_tile_path(@tile)
+      
+      expect_mixpanel_action_ping('Tile Preview Page - Posted', 'Clicked Edit button')
+    end
+    
+    it "should ping on clicking back to tiles button" do
+      click_link "Back to Tiles"
+      
+      expect_mixpanel_action_ping('Tile Preview Page - Posted', 'Clicked Back to Tiles button')
+    end
+    
+    it "should ping on clicking new tile button" do
+      click_link "New Tile"
+      
+      expect_mixpanel_action_ping('Tile Preview Page - Posted', 'Clicked New Tile button')
+    end
+    
+    it "should ping on clicking archive button" do
+      click_link "Archive"
+      
+      expect_mixpanel_action_ping('Tile Preview Page - Posted', 'Clicked Archive button')
     end
 
     it "should not show an activate link" do
@@ -127,14 +154,14 @@ feature 'Activates or edits tile from preview page' do
 
   context "an inactive tile" do
     before do
-      @tile = FactoryGirl.create(:multiple_choice_tile, status: Tile::ARCHIVE)
+      @tile = FactoryGirl.create(:multiple_choice_tile, status: Tile::ARCHIVE, activated_at: Time.now)
       @client_admin = FactoryGirl.create(:client_admin, demo_id: @tile.demo_id)
 
       visit client_admin_tile_path(@tile, as: @client_admin)
     end
 
     it "should allow the tile to be activated" do
-      click_activate_link
+      click_reactivate_link
 
       should_be_on client_admin_tile_path(@tile)
       expect_activated_content(@tile)
@@ -147,11 +174,64 @@ feature 'Activates or edits tile from preview page' do
     it "should link to the edit page" do
       click_edit_link
       should_be_on edit_client_admin_tile_path(@tile)
+      
+      expect_mixpanel_action_ping('Tile Preview Page - Archive', 'Clicked Edit button')
     end
-
+    
+    it "should ping on clicking back to tiles button" do
+      click_link "Back to Tiles"
+      
+      expect_mixpanel_action_ping('Tile Preview Page - Archive', 'Clicked Back to Tiles button')
+    end
+    
+    it "should ping on clicking new tile button" do
+      click_link "New Tile"
+      
+      expect_mixpanel_action_ping('Tile Preview Page - Archive', 'Clicked New Tile button')
+    end
+    
+    it "should ping on clicking archive button" do
+      click_link "Repost"
+      
+      expect_mixpanel_action_ping('Tile Preview Page - Archive', 'Clicked Re-post button')
+    end
+    
     it "should not show a deactivate link" do
       expect_no_deactivate_link
     end
+  end
+  
+  context "a draft tile" do
+    before do
+      @tile = FactoryGirl.create(:multiple_choice_tile, status: Tile::DRAFT)
+      @client_admin = FactoryGirl.create(:client_admin, demo_id: @tile.demo_id)
+
+      visit client_admin_tile_path(@tile, as: @client_admin)
+    end
+    it "should link to the edit page" do
+      click_edit_link
+      
+      expect_mixpanel_action_ping('Tile Preview Page - Draft', 'Clicked Edit button')
+    end
+    
+    it "should ping on clicking back to tiles button" do
+      click_link "Back to Tiles"
+      
+      expect_mixpanel_action_ping('Tile Preview Page - Draft', 'Clicked Back to Tiles button')
+    end
+    
+    it "should ping on clicking new tile button" do
+      click_link "New Tile"
+      
+      expect_mixpanel_action_ping('Tile Preview Page - Draft', 'Clicked New Tile button')
+    end
+    
+    it "should ping on clicking archive button" do
+      click_link "Post"
+      
+      expect_mixpanel_action_ping('Tile Preview Page - Archive', 'Clicked Post button')
+    end
+
   end
   
   context "first time client admin" do
@@ -165,6 +245,8 @@ feature 'Activates or edits tile from preview page' do
       
       expect_first_time_create_popover
       click_link 'Got it'
+
+      expect_mixpanel_action_ping('Tile Preview Page', 'Clicked Got It button in orientation pop-over')
       expect_no_first_time_create_popover
     end
 
