@@ -227,7 +227,6 @@ Health::Application.routes.draw do
 
     resources :users, :only => [] do
       resources :invitations, :only => [:create]
-      resources :tile_completions, :only => [:create]
     end
 
     delete "reset_tiles" => "tile_completions#destroy", :as => :reset_tiles

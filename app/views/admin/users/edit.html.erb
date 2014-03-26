@@ -13,13 +13,6 @@
 
 <fieldset>
   <legend>This User's Tiles</legend>
-  <% @satisfiable_tiles.each do |tile| %>
-    <%= form_for :tile, :url => admin_user_tile_completions_path(@user)  do %>
-      <%= hidden_field_tag :user_slug, @user.slug %>
-      <%= hidden_field_tag :tile_id, tile.id %>
-      <%= submit_tag "Complete #{tile.name} for #{@user.name}", :confirm => "Complete #{tile.name} for #{@user.name}?" %>
-    <% end %>
-  <% end %>
 
   <%= button_to "Reset tiles for this user in #{@user.demo.name}",  admin_reset_tiles_path(:demo_id => @user.demo_id, :user_id => @user.id), :method => :delete %>
 </fieldset>
