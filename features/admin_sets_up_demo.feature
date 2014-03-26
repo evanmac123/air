@@ -102,14 +102,3 @@ Feature: Admin sets up demo
     Given I am on the admin page
     When I follow "Create New Game"
     Then I should see a restricted text field "Custom welcome message"
-
-  Scenario: Admin adds user
-    Given a demo exists with a name of "3M"
-    And I am on the admin "3M" demo page
-    When I follow "Add new user"
-    And I fill in "Name" with "Bobby Jones"
-    And I fill in "Email" with "bobby@example.com"
-    And I press "Submit"
-    Then I should be on the admin "3M" demo page
-    When I click on the letter "B"
-    Then I should see "Bobby Jones"

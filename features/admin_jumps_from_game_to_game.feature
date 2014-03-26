@@ -9,6 +9,7 @@ Feature: Evil Kim defects from the Fuji game and joins the Highmark game, and th
     And the following site admin exists:
       | Name     | Demo            |
       | Evil Kim | name: Bolshevik |
+    And I've rewritten board switching
     And "Evil Kim" has the password "lucky2"
     When I sign in via the login page with "Evil Kim/lucky2"
     Then "Evil Kim" should be in the "Bolshevik" game
