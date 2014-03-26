@@ -12,7 +12,7 @@ class ClientAdmin::LocationsController < ClientAdminBaseController
   protected
 
   def create_new_location(name)
-    demo_id = current_user.demo_id
+    demo_id = current_user.demo.id
     location = Location.new(demo_id: demo_id, name: name)
     location.save ? location : nil
   end
