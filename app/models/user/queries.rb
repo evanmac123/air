@@ -82,7 +82,8 @@ module User::Queries
   end
 
   def demo_mates(current_user)
-    where(['demo_id = ? AND id != ?', current_user.demo_id, current_user.id])  
+    user_ids = BoardMembership.where(demo_id: current_user.demo_ids).pluck(:user_id)
+    where(id: user_ids).where('users.id != ?', current_user.id)
   end
 
   def push_message_recipients(respect_notification_method, user_ids)

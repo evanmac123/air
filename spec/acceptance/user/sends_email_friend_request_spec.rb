@@ -27,7 +27,7 @@ feature "User tries to friend someone" do
 
   let(:demo)    { FactoryGirl.create :demo }
   let(:user)    { FactoryGirl.create :user, :claimed, demo: demo, name: 'Joe User'   }
-  let!(:friend) { FactoryGirl.create :user, :claimed, demo: demo, name: 'Sue Friend' }
+  let!(:friend) { FactoryGirl.create(:user, :claimed, demo: demo, name: 'Sue Friend').reload }
 
   before(:each) do
     bypass_modal_overlays(user)
@@ -109,7 +109,7 @@ feature "User tries to friend someone" do
 
   scenario "A not-logged-in friend should see a a flash notification upon \
             accepting the friendship and logging in", js: true  do
-    pending "TEST HAS HEISENBUGS BUT I ASSURE YOU THIS SHIT WORKS FINE"
+    #pending "TEST HAS HEISENBUGS BUT I ASSURE YOU THIS SHIT WORKS FINE"
     sign_out
 
     deliver_and_open_email_for(friend)

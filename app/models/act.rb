@@ -22,7 +22,7 @@ class Act < ActiveRecord::Base
   end
 
   before_create do
-    self.demo_id ||= user.demo_id
+    self.demo_id ||= user.demo.id
   end
 
   after_create do

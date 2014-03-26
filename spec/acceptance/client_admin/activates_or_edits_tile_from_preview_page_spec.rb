@@ -105,7 +105,7 @@ feature 'Activates or edits tile from preview page' do
   context "an active tile" do
     before do
       @tile = FactoryGirl.create(:multiple_choice_tile, status: Tile::ACTIVE)
-      @client_admin = FactoryGirl.create(:client_admin, demo_id: @tile.demo_id)
+      @client_admin = FactoryGirl.create(:client_admin, demo: @tile.demo)
 
       visit client_admin_tile_path(@tile, as: @client_admin)
     end
@@ -155,7 +155,7 @@ feature 'Activates or edits tile from preview page' do
   context "an inactive tile" do
     before do
       @tile = FactoryGirl.create(:multiple_choice_tile, status: Tile::ARCHIVE, activated_at: Time.now)
-      @client_admin = FactoryGirl.create(:client_admin, demo_id: @tile.demo_id)
+      @client_admin = FactoryGirl.create(:client_admin, demo: @tile.demo)
 
       visit client_admin_tile_path(@tile, as: @client_admin)
     end
