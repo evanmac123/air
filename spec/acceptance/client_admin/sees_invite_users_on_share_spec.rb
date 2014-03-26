@@ -206,16 +206,16 @@ feature "Invite Users Modal" do
           page.should have_content("You can also share your board using this link")
           page.should have_css('.share_url_link', visible: true)          
         end
-        scenario "pings on clicking mail icon" do
-          page.find("#invite_users_send_button").click
-          within('#share_link', visible: true) do
-            page.find('.email').click            
-            FakeMixpanelTracker.clear_tracked_events
-            crank_dj_clear
-            properties = {action: 'Clicked Email Share Icon'}
-            FakeMixpanelTracker.should have_event_matching('Share - Invitation Sent Confirmation', properties)            
-          end
-        end        
+#        scenario "pings on clicking mail icon" do
+#          page.find("#invite_users_send_button").click
+#          within('#share_link', visible: true) do
+#            page.find('.email').click            
+#            FakeMixpanelTracker.clear_tracked_events
+#            crank_dj_clear
+#            properties = {action: 'Clicked Email Share Icon'}
+#            FakeMixpanelTracker.should have_event_matching('Share - Invitation Sent Confirmation', properties)            
+#          end
+#        end        
         scenario "pings on clicking twitter icon" do
           page.find("#invite_users_send_button").click
           within('#share_link', visible: true) do
