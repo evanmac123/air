@@ -67,9 +67,10 @@ class Admin::UsersController < AdminBaseController
   end
 
   def destroy
+    demo = @user.demo
     @user.destroy
     flash[:success] = "All records on #{@user.name} destroyed"
-    redirect_to admin_demo_path(@user.demo)
+    redirect_to admin_demo_path(demo)
   end
 
   protected
