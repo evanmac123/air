@@ -33,7 +33,7 @@ describe UserCreatorFeeder do
 
     it "should log errors to some queue somewhere" do
       existing_user = FactoryGirl.create(:user)
-      demo_id = existing_user.demo_id
+      demo_id = existing_user.demo.id
       email = existing_user.email
       email.should be_present
 
@@ -43,8 +43,8 @@ describe UserCreatorFeeder do
       ActiveModel::Errors.any_instance.stubs(:full_messages).returns(["Error message 1"], ["Error message 2"])
 
       Redis.new.lpush(feeder.redis_load_queue_key, [
-        CSV.generate_line(["John Smith,jsmith@example.com"]),
-        CSV.generate_line(["Joe Blow,#{existing_user.email}"])
+        CSV.generate_line(["John Smith","jsmith@example.com"]),
+        CSV.generate_line(["Joe Blow", existing_user.email])
       ])
 
       feeder = UserCreatorFeeder.new(object_name, demo_id, schema, unique_id_field)

@@ -3,6 +3,7 @@ require 'csv'
 class UserCreatorFromCsv
   def initialize(demo_id, schema, unique_id_field)
     @demo_id = demo_id
+    @demo = Demo.find(@demo_id)
     @schema = schema
     @unique_id_field = unique_id_field
     @unique_id_field_index_in_schema = @schema.find_index(@unique_id_field.to_s)
@@ -16,7 +17,7 @@ class UserCreatorFromCsv
       add_column! column_name, value, new_user_attributes
     end
 
-    user = User.joins(:board_memberships).where("board_memberships.demo_id" => @demo_id).where(@unique_id_field => user_data[@unique_id_field_index_in_schema]).first
+    user = @demo.users.where(@unique_id_field => user_data[@unique_id_field_index_in_schema]).first
 
     if user
       # Have to ditch the board_memberships join to make this record writeable
