@@ -70,10 +70,4 @@ feature 'Admin moves user to new demo' do
     expect_content 'Dan ate banana'
     expect_content 'Dan walked dog'
   end
-
-  scenario "User disappears from view in the new demo when moved back to the original demo" do
-    move_user @dan.reload, @thoughtbot
-    visit activity_path(as: @bob)
-    expect_no_content 'Dan'
-  end
 end
