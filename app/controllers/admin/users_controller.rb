@@ -30,20 +30,6 @@ class Admin::UsersController < AdminBaseController
     end
   end
 
-  def create
-    redirect_to :back
-
-    @user = @demo.users.build(params[:user])
-
-    unless @user.save
-      flash[:failure] = "Cannot create that user: #{@user.errors.full_messages}"
-      return
-    end
-    if params[:set_claim_code]
-      @user.generate_simple_claim_code!
-    end
-  end
-
   def edit
     @demos = Demo.alphabetical
     @satisfiable_tiles = Tile.satisfiable_to_user(@user)

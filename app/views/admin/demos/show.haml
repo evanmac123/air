@@ -248,15 +248,7 @@
 
 
   %h2 Users
-  #add-new-user= link_to "Add new user", '#'
-  = content_for :javascript do
-    :javascript
-      $('#add-new-user').click(function(){
-        $('#new-user-form').show();
-      });
-  #new-user-form= render :partial => 'admin/users/new', :locals => { :demo => @demo } 
-
-
+  
   = link_to "Bulk load users", new_admin_demo_bulk_load_path(@demo) 
 
   = render 'user_paginator', :demo => @demo 

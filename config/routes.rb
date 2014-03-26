@@ -184,7 +184,7 @@ Health::Application.routes.draw do
 
     resources :demos, :only => [:new, :create, :show, :destroy, :edit, :update] do
       # TODO: move :edit and :update onto resources :users below
-      resources :users do
+      resources :users, :only => [:index, :edit, :update, :destroy] do
         resource :characteristics, :only => :update, :controller => "user_characteristics"
       end
 
