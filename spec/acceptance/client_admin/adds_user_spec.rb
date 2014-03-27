@@ -94,6 +94,34 @@ feature 'Adds user' do
     newest_user(demo).demos.should have(1).demo
   end
 
+  it 'should make user with user role', js: true do
+    demo.users.count.should == 1 # just the admin
+
+    fill_in_user_information
+    page.find('select.user-role-select').select 'User'
+    click_button "Add user"
+
+    should_be_on client_admin_users_path
+
+    demo.users.reload.count.should == 2
+    new_user = demo.users.order("created_at DESC").first
+    new_user.is_client_admin.should == false    
+  end
+  
+  it 'should make user with user role', js: true do
+    demo.users.count.should == 1 # just the admin
+
+    fill_in_user_information
+    page.find('select.user-role-select').select 'Administrator'
+    click_button "Add user"
+
+    should_be_on client_admin_users_path
+
+    demo.users.reload.count.should == 2
+    new_user = demo.users.order("created_at DESC").first
+    new_user.is_client_admin.should == true    
+  end
+  
   it "should show meaningful errors when entered data is invalid" do
     click_button "Add user"
     should_be_on client_admin_users_path

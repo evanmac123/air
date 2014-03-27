@@ -32,6 +32,7 @@ $(document).ready(function() {
 
     event.preventDefault();
   });
+  
+  $('.client_admin-users').foundation();
 });
-//= require foundation
 $(document).foundation();

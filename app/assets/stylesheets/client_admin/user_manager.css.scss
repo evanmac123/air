@@ -231,6 +231,29 @@ body.client_admin-users-edit, body.client_admin-users-update {
     @include font-bold; 
     line-height:1em;
   }
+  .user-role {
+    display:block; 
+    font-size:1.125em; 
+    @include font-bold; 
+    line-height:1em;    
+  }
+  .user-role-select {
+    margin: .75em 0 0 0;
+    boarder-color: $light-gray;
+    li {
+      margin-bottom: 0em;
+    }
+    .selector:after {
+        content: "\f0d7"; 
+        font-family: FontAwesome;
+        font-style: normal;
+        font-weight: normal;
+        text-decoration: inherit;
+        border: none;
+        margin-top: 5px;
+        top: inherit;
+    }  
+  }
   #user-join-status a, #user-join-status a:link {
     @include light-button($dark-green);
     display: inline-block;

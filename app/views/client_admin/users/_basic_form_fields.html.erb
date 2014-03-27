@@ -8,10 +8,10 @@
   <ul class="info-cols extra-user-info">
     <li><%= form.label "zip_code" %><%= form.text_field "zip_code", placeholder: "#####" %></li>
     <li><label>Birthday</label><div id="birthday-selects">
-        <%= form.date_select :date_of_birth, order: [:month, :day, :year], start_year: 1920, end_year: Date.today.year - 18, prompt: true %>
+        <%= form.date_select :date_of_birth, {order: [:month, :day, :year], start_year: 1920, end_year: Date.today.year - 18, prompt: true}, {class: 'no-custom'} %>
       </div>
     </li>
-    <li><%= form.label :gender %><%= form.select :gender, User::GENDERS.select(&:present?), :include_blank => true %></li>
+    <li><%= form.label :gender %><%= form.select :gender, User::GENDERS.select(&:present?), {include_blank: true}, {class: 'no-custom'} %></li>
   </ul>
   <ul class="info-cols extra-user-info">
     <% if show_phone_number %>
@@ -21,6 +21,12 @@
     <li><%= form.label "location_id" %><%= render 'location_select', locations: @locations, selected_location_id: user.current_location_in_board(current_user.demo).try(:id) %>
       <div id="adding_location"><%= image_tag "spinner.gif", alt: "Working..." %></div>
     </li>
+    <% if show_role %>
+    <li>
+      <%= form.label "role_id", "Role" %>
+      <%= form.select(:role, options_for_select(User::ROLES, form.object.role), {}, {class: 'small user-role-select'})%>      
+    </li>
+    <% end %>
   </ul>
 </div>
 

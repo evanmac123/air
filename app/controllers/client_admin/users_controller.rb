@@ -7,7 +7,7 @@ class ClientAdmin::UsersController < ClientAdminBaseController
   before_filter :normalize_characteristic_ids_to_integers, only: [:create, :update]
 
   # Attributes that admins are allowed to set
-  SETTABLE_USER_ATTRIBUTES = [:name, :email, :employee_id, :zip_code, :characteristics, :location_id, :"date_of_birth(1i)", :"date_of_birth(2i)", :"date_of_birth(3i)", :gender, :phone_number]
+  SETTABLE_USER_ATTRIBUTES = [:name, :email, :employee_id, :zip_code, :characteristics, :location_id, :"date_of_birth(1i)", :"date_of_birth(2i)", :"date_of_birth(3i)", :gender, :phone_number, :role]
 
   # number of users displayable on one page when browsing
   PAGE_SIZE = 50

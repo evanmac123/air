@@ -53,6 +53,10 @@ feature 'Edits user' do
     page.find("input#user_zip_code").value.should == expected_zip_code
   end
 
+  def expect_role(expected_role)
+    page.find('select.user-role-select').value.should == expected_role
+  end
+  
   def expect_characteristic(characteristic_name, expected_value)
     characteristic = Characteristic.find_by_name(characteristic_name)
 
@@ -131,7 +135,33 @@ feature 'Edits user' do
 
     expect_content "OK, we've updated this user's information"
   end
-
+  
+  it 'should have user set with role user at creation' do
+    visit(edit_client_admin_user_path(user, as: client_admin))
+    expect_role('User')
+  end
+  
+  it 'should change user roles when selected' do
+    visit(edit_client_admin_user_path(user, as: client_admin))
+    page.find('select.user-role-select').select 'Administrator'
+    click_button "Save edits"
+    user.reload.is_client_admin.should == true
+    expect_role('Administrator')
+    
+    page.find('select.user-role-select').select 'Administrator'
+    click_button "Save edits"
+    user.reload.is_client_admin.should == true
+    expect_role('User')    
+  end
+  
+  it 'should set user with role User when selected' do
+    visit(edit_client_admin_user_path(user, as: client_admin))
+    page.find('select.user-role-select').select 'Administrator'
+    click_button "Save edits"
+    user.reload.is_client_admin.should == true
+    expect_role('Administrator')
+  end
+  
   it "should show errors on bad data" do
     visit(edit_client_admin_user_path(user, as: client_admin))
     expect_name "Francis X. McGillicuddy"
