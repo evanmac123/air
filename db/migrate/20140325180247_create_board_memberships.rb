@@ -12,8 +12,11 @@ class CreateBoardMemberships < ActiveRecord::Migration
     # but that's mainly because in a future version of the code said class
     # may disappear, and I don't see that happening with User anytime soon.
     BoardMembership.reset_column_information
-    User.all.each do |user|
-      BoardMembership.create!(demo_id: user.demo_id, user_id: user.id, is_current: true)
+    user_ids = User.pluck(:id)
+    user_ids.each_with_index do |user_id, index|
+      puts "MIGRATED #{index} USERS" if index % 1000 == 0
+      user = User.find(user_id)
+      BoardMembership.create!(demo_id: user[:demo_id], user_id: user.id, is_current: true)
     end
 
     add_index :board_memberships, :demo_id
@@ -21,8 +24,9 @@ class CreateBoardMemberships < ActiveRecord::Migration
   end
 
   def down
-    User.all.each do |user|
-      user.demo_id = user.demo.id
+    User.where(demo_id: nil).each_with_index do |user, index|
+      puts "REVERTED #{index} USERS" if index % 1000 == 0
+      user[:demo_id] = user.demo.id
       user.save!
     end
     drop_table :board_memberships
