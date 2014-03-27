@@ -144,6 +144,11 @@ class User < ActiveRecord::Base
   has_alphabetical_column :name
 
   scope :non_admin, -> {where('is_site_admin <> ? AND is_client_admin <> ?', true, true)}
+
+  def demo_id
+    self.demo.id
+  end
+
   def email_optional?
     true if phone_number
   end
@@ -291,10 +296,6 @@ class User < ActiveRecord::Base
     friends.where('friendships.state' => 'accepted')
   end
 
-  def accepted_friends_same_demo
-    accepted_friends.where(:demo_id => self.demo_id)
-  end
-
   def accepted_friends_not_counting_fairy_tale_characters
     accepted_friends.where('users.name != ?', Tutorial.example_search_name)
   end
@@ -328,7 +329,7 @@ class User < ActiveRecord::Base
   end
 
   def has_friends
-    accepted_friends_same_demo.count > 0
+    accepted_friends.count > 0
   end
 
   # See comment by Demo#acts_with_current_demo_checked for an explanation of
@@ -761,15 +762,15 @@ class User < ActiveRecord::Base
   end
 
   def profile_page_friends_list
-    self.accepted_friends_same_demo.sort_by {|ff| ff.name.downcase}
+    self.accepted_friends.sort_by {|ff| ff.name.downcase}
   end
 
   def scoreboard_friends_list_by_tickets
-    (self.accepted_friends_same_demo + [self]).sort_by(&:tickets).reverse
+    (self.accepted_friends + [self]).sort_by(&:tickets).reverse
   end
 
   def scoreboard_friends_list_by_name
-    (self.accepted_friends_same_demo + [self]).sort_by {|ff| ff.name.downcase}
+    (self.accepted_friends + [self]).sort_by {|ff| ff.name.downcase}
   end
 
   def reset_tiles(demo=nil)

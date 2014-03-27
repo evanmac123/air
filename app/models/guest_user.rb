@@ -106,7 +106,7 @@ class GuestUser < ActiveRecord::Base
   def convert_to_full_user!(name, email, password)
     converted_user = User.find_by_email(email)
     if converted_user && converted_user.unclaimed?
-      converted_user.demo_id = demo_id
+      #converted_user.demo_id = demo_id
       converted_user.name = name
       converted_user.email = email
       converted_user.points = points
@@ -115,7 +115,7 @@ class GuestUser < ActiveRecord::Base
       converted_user.accepted_invitation_at = Time.now
       converted_user.characteristics = {}
     else
-      converted_user = User.new(demo_id: demo_id, name: name, email: email, 
+      converted_user = User.new(name: name, email: email, 
         points: points, tickets: tickets, get_started_lightbox_displayed: true, 
         accepted_invitation_at: Time.now, characteristics: {})
     end

@@ -48,7 +48,7 @@ describe GuestUser do
     end
 
     it "puts the user in the same board as the guest" do
-      convert.demo_id.should == user.demo_id
+      convert.reload.demo_id.should == user.demo_id
     end
 
     it "remembers a connection between the converted user and the guest" do

@@ -11,7 +11,7 @@ class UserCreatorFromCsv
 
   def create_user(csv_line)
     user_data = CSV.parse_line(csv_line)
-    new_user_attributes = {demo_id: @demo_id, characteristics: {}}
+    new_user_attributes = {characteristics: {}}
 
     @schema.zip(user_data) do |column_name, value|
       add_column! column_name, value, new_user_attributes
@@ -27,7 +27,7 @@ class UserCreatorFromCsv
       user.schedule_segmentation_update(true)
     else
       user = User.create(new_user_attributes)
-      user.board_memberships.create(demo_id: @demo_id, is_current: true)
+      user.add_board(@demo_id, true)
     end
 
     user

@@ -5,7 +5,7 @@ class SpecialCommandHandlers::FollowHandler < SpecialCommandHandlers::Base
     sms_slug_to_follow = @args.first
     channel = @parsing_options[:channel]
 
-    user_to_follow = User.claimed.where(:sms_slug => sms_slug_to_follow, :demo_id => @user.demo_id).first
+    user_to_follow = @user.demo.users.claimed.where(:sms_slug => sms_slug_to_follow).first
 
     return parsing_error_message("Sorry, we couldn't find a user with the username #{sms_slug_to_follow}.") unless user_to_follow
 
