@@ -39,13 +39,12 @@ class UsersInvite
       users.each_with_index do |user_params, index|
         if user_params.is_a?(Hash) && user_params[:name].present? && user_params[:email].present?
           users[index] = User.new(user_params)
-          users[index].demo_id = demo_id
           users[index].invitation_method = :client_admin_invites #TODO verify that value is okay/email validation triggered through this
         end
       end
     end
   end
-  
+ 
   def validate_users
     if users.blank?
       errors.add_on_empty(:users)
@@ -65,6 +64,7 @@ class UsersInvite
         users.each do |user|
           if !user.is_a?(Hash)
             user.save!
+            user.add_board(demo_id, true)
             user.invite(from_user, custom_message: message, custom_from: from_user.email_with_name_via_airbo) #mail is sent regardless of transaction succeeded or not, but should never happen
           end
         end

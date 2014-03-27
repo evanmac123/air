@@ -477,6 +477,7 @@ class User < ActiveRecord::Base
   def add_board(demo_id, is_current = false)
     return if self.board_memberships.where(demo_id: demo_id).present?
     self.board_memberships.create(demo_id: demo_id, is_current: is_current)
+    reload
   end
 
   def self.claim_account(from, to, claim_code, options={})

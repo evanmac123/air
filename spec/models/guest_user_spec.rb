@@ -48,7 +48,7 @@ describe GuestUser do
     end
 
     it "puts the user in the same board as the guest" do
-      convert.reload.demo_id.should == user.demo_id
+      convert.demo_id.should == user.demo_id
     end
 
     it "remembers a connection between the converted user and the guest" do
@@ -68,7 +68,7 @@ describe GuestUser do
     it "sets last_acted_at" do
       baseline = Time.now
       user.update_attributes(last_acted_at: baseline)
-      convert.last_acted_at.should == baseline
+      convert.last_acted_at.to_i.should == baseline.to_i
     end
   end
 

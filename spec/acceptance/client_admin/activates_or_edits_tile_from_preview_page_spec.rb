@@ -204,7 +204,7 @@ feature 'Activates or edits tile from preview page' do
   context "a draft tile" do
     before do
       @tile = FactoryGirl.create(:multiple_choice_tile, status: Tile::DRAFT)
-      @client_admin = FactoryGirl.create(:client_admin, demo_id: @tile.demo_id)
+      @client_admin = FactoryGirl.create(:client_admin, demo: @tile.demo)
 
       visit client_admin_tile_path(@tile, as: @client_admin)
     end
