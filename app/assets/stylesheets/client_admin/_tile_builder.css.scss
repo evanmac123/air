@@ -184,7 +184,56 @@ body.client_admin-tiles-update {
       font-size:1.5em;
     }
   }
-
+  .tile_quiz {
+    .selected {
+      color: $dark-green !important;
+    }
+    .tile_types {
+      .tile_type {
+        width: 33.33%;
+        height:100%;
+        text-align: center;
+        border-left:1px $light-gray solid;
+        .button {
+          font-size: 1em;
+          color: $gray;
+          width: 100%;
+          background: transparent;
+          border: 0px;
+          margin-bottom: 3px;
+        } 
+        ul {
+          width: 33%;
+          margin:0;
+          margin-top: 6px;
+          text-align: left;
+          position: absolute;
+          left: -99999px;
+          li {
+            border: 1px $light-gray solid;
+            border-top: 0;
+            background: $white; 
+            color: $gray;
+            padding: 0.75em;
+            font-weight: bold;
+            cursor: pointer;
+            &:hover, &:focus {
+              color: $dark-gray;
+            }
+          }
+        }
+      }
+    }
+    .quiz_content {
+      min-height: 20em;
+      .placeholder {
+        text-align: center;
+        padding-top: 5em;
+        color: $gray;
+        font-weight: 700;
+      }
+    }
+  }
   // Quiz section of the tile
   .builder_quiz {
     background:$light-gray;
@@ -252,7 +301,12 @@ body.client_admin-tiles-update {
     }
     label {@include font-bold;}
   }
+  .tooltip {
+    margin-left: auto;
+    margin-right: auto;
+  }
   .tooltip > .nub {
-    margin-left: 47px;
+    margin-left: auto;
+    margin-right: auto;
   }
 }

@@ -42,8 +42,85 @@ module ClientAdmin::TilesHelper
   def default_follow_up_day
     FollowUpDigestEmail::DEFAULT_FOLLOW_UP[Date::DAYNAMES[Date.today.wday]]
   end
+<<<<<<< HEAD
     
   def activate
     current_user.demo.tiles.archived.update_all(status: Tile::ACTIVE)
+  end
+
+  def tile_types
+    {
+      "Action" => {
+        "Do something".parameterize("_") => {
+          name: "Do something",
+          question: "Points for taking action",
+          answers: ["I did it"] 
+        },
+        "Read Tile".parameterize("_") => {
+          name: "Read Tile",
+          question: "Points for reading tile",
+          answers: ["I read it"]
+        },
+        "Read Article".parameterize("_") => {
+          name: "Read Article",
+          question: "Points for reading article",
+          answers: ["I read it"]
+        },
+        "Share On Social Media".parameterize("_") => {
+          name: "Share On Social Media",
+          question: "Points for sharing on social media (e.g., Facebook, Twitter)",
+          answers: ["I shared"] 
+        },
+        "Visit Web Site".parameterize("_") => {
+          name: "Visit Web Site",
+          question: "Points for visiting web site",
+          answers: ["I visited"] 
+        },
+        "Watch Video".parameterize("_") => {
+          name: "Watch Video",
+          question: "Points for watching video",
+          answers: ["I watched"] 
+        },
+        "Custom...".parameterize("_") => {
+          name: "Custom...",
+          question: "Points for FILL IN",
+          answers: ["FILL IN ACTION"]
+        }
+      },
+
+      "Quiz" => {
+        "True / False".parameterize("_") => {
+          name: "True / False",
+          question: "Fill In Statement",
+          answers: ["True", "False"]
+        },
+        "Multiple Choice".parameterize("_") => {
+          name: "Multiple Choice",
+          question: "Ask a question",
+          answers: ["Add Answer Option", "Add Answer Option"]
+        }
+      },
+
+      "Survey" => {
+        "Multiple Choice".parameterize("_") => {
+          name: "Multiple Choice",
+          question: "Select one of the following options",
+          answers: ["Add Answer Option", "Add Answer Option"]
+        },
+        "RSVP to event".parameterize("_") => {
+          name: "RSVP to event",
+          question: "Will you be attending?",
+          answers: ["Yes", "No", "Maybe"]
+        }
+      }
+    }
+  end
+
+  def tile_type_tooltips
+    {
+      "Action" => "User confirms doing something",
+      "Quiz" => "Ask a question with one right answer",
+      "Survey" => "Ask a question, user can select one answer"
+    }
   end
 end
