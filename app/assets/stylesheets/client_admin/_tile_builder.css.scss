@@ -226,6 +226,17 @@ body.client_admin-tiles-update {
     }
     .quiz_content {
       min-height: 20em;
+      padding: 2.5em;
+      .tile_question {
+        margin: 0;
+        width: 100%;
+        padding: 0;
+        margin-bottom: 2em;
+      }
+      .multiple_choice_group {
+        margin: 0;
+        width: 100%;
+      }
       .placeholder {
         text-align: center;
         padding-top: 5em;
@@ -235,7 +246,7 @@ body.client_admin-tiles-update {
     }
   }
   // Quiz section of the tile
-  .builder_quiz {
+  .builder_quiz, .tile_quiz {
     background:$light-gray;
 
     input[type="text"], #tile_builder_form_question {
