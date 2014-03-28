@@ -115,3 +115,8 @@ function turnOnEditQuestion(question_show) {
   $(question_show).parent().find("#tile_builder_form_question").css("display", "block");
   $(question_show).css("display", "none");
 }
+
+function turnOnEditAnswer(answer_show) {
+  $(answer_show).parent().find(".answer_option").css("display", "block");
+  $(answer_show).css("display", "none");
+}
