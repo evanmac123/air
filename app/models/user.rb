@@ -474,9 +474,10 @@ class User < ActiveRecord::Base
     demo.balances.outstanding.first.present?
   end
 
-  def add_board(demo_id, is_current = false)
-    return if self.board_memberships.where(demo_id: demo_id).present?
-    self.board_memberships.create(demo_id: demo_id, is_current: is_current)
+  def add_board(board_or_board_id, is_current = false)
+    board_id = board_or_board_id.kind_of?(Demo) ? board_or_board_id.id : board_or_board_id
+    return if self.board_memberships.where(demo_id: board_id).present?
+    self.board_memberships.create(demo_id: board_id, is_current: is_current)
     reload
   end
 

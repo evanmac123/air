@@ -81,6 +81,13 @@ FactoryGirl.define do
       sequence(:public_slug) {|i| "public_#{i}"}
       is_public true
     end
+
+    # This trait unlocks share pages
+    trait :activated do |demo|
+      tiles do
+        [FactoryGirl.create(:multiple_choice_tile, status: Tile::ACTIVE, activated_at: Time.now)]
+      end
+    end
   end
 
   factory :rule do
