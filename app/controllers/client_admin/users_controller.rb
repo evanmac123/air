@@ -33,13 +33,27 @@ class ClientAdmin::UsersController < ClientAdminBaseController
   def create
     @demo = current_user.demo
     user_params = params[:user].filter_by_key(*SETTABLE_USER_ATTRIBUTES)
-    @user = current_user.demo.users.new(user_params)
+
+    email = user_params['email']
+    existing_user = if email.present?
+      User.find_by_email(email)
+    end
+    if existing_user.present? && existing_user.in_board?(@demo)
+      flash[:notice] = "It looks like #{existing_user.email} is already in your board."
+      redirect_to :back
+      return
+    end
+
+    @user = existing_user || current_user.demo.users.new(user_params)
 
     if save_if_date_good(@user) # sigh
-      @user.add_board(@demo.id, true)
-      @user.generate_unique_claim_code!
+      make_this_board_current = existing_user.nil?
+      @user.add_board(@demo.id, make_this_board_current)
+
+      @user.generate_unique_claim_code! unless @user.claim_code.present?
+
       put_add_success_in_flash
-      ping('User - New', source: 'creator')
+      send_creation_ping(existing_user)
       redirect_to client_admin_users_path
     else
       # This is a stupid hack. The more time goes on, the more I think Rails
@@ -83,12 +97,7 @@ class ClientAdmin::UsersController < ClientAdminBaseController
   end
     
   def validate_email
-    email = params[:email]
-    if User.where(email: email).exists?
-      render text: "Sorry, you can't add this user because they already have an account. A user can only belong to one board."
-    else
-      render nothing: true
-    end
+    render nothing: true
   end
 
   protected
@@ -201,4 +210,9 @@ class ClientAdmin::UsersController < ClientAdminBaseController
       user.errors.add(:base, "Please enter a full date of birth")
     end
   end  
+
+  def send_creation_ping(existing_user)
+    event = existing_user.present? ? "User - Existing Invited" : "User - New"
+    ping(event, source: 'creator')
+  end
 end

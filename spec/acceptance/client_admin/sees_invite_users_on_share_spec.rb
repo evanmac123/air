@@ -105,11 +105,16 @@ feature "Invite Users Modal" do
         FactoryGirl.create(:tile, status: Tile::ACTIVE, demo: client_admin2.demo)
         visit client_admin_share_path(as: client_admin2)        
       end
-      scenario "should give error on adding existing users", js: true do
+      scenario "should NOT give error on adding existing users", js: true do
         page.find_field('user_0_name').set "#{user.name}"
         page.find_field('user_0_email').set "#{user.email}"
         page.find('#submit_invite_users').click
-        page.should have_css('input.error', visible: true)
+        page.should have_no_css('input.error', visible: true)
+
+        page.find("#invite_users_send_button").click
+        user.reload.demos.should have(2).demos # we're in this demo now...
+        user.demos.should include(client_admin2.demo)
+        user.demo.should_not == client_admin2.demo # ...but it's not our current one
       end
       scenario "on successful submit, hides the invite_users_modal" do 
         within(invite_users_modal_selector) do        

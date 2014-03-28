@@ -480,6 +480,10 @@ class User < ActiveRecord::Base
     reload
   end
 
+  def in_board?(demo_id)
+    board_memberships.where(demo_id: demo_id).present?
+  end
+
   def self.claim_account(from, to, claim_code, options={})
     channel = options[:channel] || :sms
 

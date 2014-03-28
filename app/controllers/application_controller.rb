@@ -7,6 +7,10 @@ class ApplicationController < ActionController::Base
   before_filter :initialize_flashes
   before_filter :set_show_conversion_form_before_this_request
 
+  # This prints the controller and action to stdout on every action, which
+  # is sometimes handy for debugging
+  # before_filter :yell_name
+
   before_render :persist_guest_user
 
   after_filter :merge_flashes
@@ -117,6 +121,10 @@ class ApplicationController < ActionController::Base
   end
 
   alias_method_chain :ping, :device_type
+
+  def yell_name
+    puts [params[:controller], params[:action]].join('#')
+  end
 
   private
 

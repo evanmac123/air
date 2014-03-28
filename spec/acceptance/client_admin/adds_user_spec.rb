@@ -28,9 +28,11 @@ feature 'Adds user' do
     select year,  :from => "user[date_of_birth(1i)]"
   end
 
+  USER_EMAIL = "jemsh@example.com"
+
   def fill_in_user_information
     fill_in "Name",        :with => "Jehosaphat Emshwiller"
-    fill_in "Email",       :with => "jemsh@example.com"
+    fill_in "Email",       :with => USER_EMAIL
 
     click_link "More options"
     fill_in "Employee ID", :with => "012345"
@@ -54,6 +56,25 @@ feature 'Adds user' do
     %w(Atlanta Boston Cleveland Detroit).each {|name| demo.locations.create!(name: name)}
   end
 
+  def newest_user(demo)
+    demo.users.order("created_at DESC").first  
+  end
+
+  def expect_new_user(demo, with_details=true)
+    new_user = newest_user(demo)
+    new_user.email.should == "jemsh@example.com"
+    new_user.claim_code.should be_present
+    expect_add_message new_user.name, new_user.claim_code, invitation_url(new_user.invitation_code, protocol: 'https')
+
+    if with_details
+      new_user.name.should == "Jehosaphat Emshwiller"
+      new_user.employee_id.should == "012345"
+      new_user.zip_code.should == "02139"
+      new_user.date_of_birth.should == Date.parse("1977-04-17")
+      new_user.gender.should == "other"
+    end
+  end
+
   before do
     create_characteristics(demo)
     create_locations(demo)
@@ -69,15 +90,8 @@ feature 'Adds user' do
     should_be_on client_admin_users_path
 
     demo.users.reload.count.should == 2
-    new_user = demo.users.order("created_at DESC").first
-    new_user.name.should == "Jehosaphat Emshwiller"
-    new_user.email.should == "jemsh@example.com"
-    new_user.employee_id.should == "012345"
-    new_user.zip_code.should == "02139"
-    new_user.claim_code.should be_present
-    new_user.date_of_birth.should == Date.parse("1977-04-17")
-    new_user.gender.should == "other"
-    expect_add_message "Jehosaphat Emshwiller", new_user.claim_code, invitation_url(new_user.invitation_code, protocol: 'https')
+    expect_new_user(demo)
+    newest_user(demo).demos.should have(1).demo
   end
 
   it "should show meaningful errors when entered data is invalid" do
@@ -113,5 +127,38 @@ feature 'Adds user' do
     crank_dj_clear
 
     FakeMixpanelTracker.should have_event_matching('User - New', source: 'creator')
- end
+  end
+
+  context "if we try to add an existing user" do
+    it "should allow them, if not already in the board, to be invited", js: true do
+      FactoryGirl.create(:user, email: USER_EMAIL)
+      fill_in_user_information
+
+      click_button "Add user"
+
+      page.should have_no_content("Email has already been taken.")
+      expect_new_user(demo, false)
+      newest_user(demo).demos.should have(2).demos
+    end
+
+    it "shouldn't appear to allow you to re-invite an existing user", js: true do
+      FactoryGirl.create(:user, email: USER_EMAIL, demo: demo)
+      fill_in_user_information
+
+      click_button "Add user"
+      newest_user(demo).demos.should have(1).demo
+      page.should have_content("It looks like #{USER_EMAIL} is already in your board.")
+    end
+
+    it "should give a more appropriate mixpanel ping on inviting existing user", js: true do
+      FactoryGirl.create(:user, email: USER_EMAIL)
+      fill_in_user_information
+
+      click_button "Add user"
+      FakeMixpanelTracker.clear_tracked_events
+      crank_dj_clear
+      FakeMixpanelTracker.should_not have_event_matching('User - New', source: 'creator')
+      FakeMixpanelTracker.should have_event_matching('User - Existing Invited', source: 'creator')
+     end
+  end
 end
