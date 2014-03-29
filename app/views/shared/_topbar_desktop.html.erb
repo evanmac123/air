@@ -47,7 +47,7 @@ function showBoards() {
 
 function optionsToggle() {
   $('html').click(function() {
-    if(desktop_user_menu.is(':visible') || desktop_admin_menu.is(':visible')) {
+    if(desktop_user_menu.is(':visible') || desktop_admin_menu.is(':visible') || desktop_board_switch_menu.is(':visible')) {
       hideUserMenu();
       hideAdminMenu();
       hideBoards();

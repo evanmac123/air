@@ -946,7 +946,12 @@ class User < ActiveRecord::Base
   def can_start_over?
     false
   end
-  
+ 
+  def non_current_boards
+    current_demo_id = demo_id
+    demos.where(id: demo_ids - [current_demo_id])
+  end
+
   protected
 
   def downcase_email

@@ -135,7 +135,7 @@ header {
     position: absolute;
     top:3.35em;
     z-index:1;
-    a {
+    a, #no_other_boards {
       color:$light-gray;
       display: block;
       @include font-semibold;
@@ -149,6 +149,13 @@ header {
     }
     li + li {a{border-top:1px lighten($toggled-menu-bg, 5%) solid;}}
   }
+  
+  #board_switch .other_boards {
+    a, #no_other_boards {
+      width: 22em;
+    }
+  }
+
   .user_options ul {
     right:17px;
     .nav-home, .nav-help {display: none;}
