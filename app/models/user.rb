@@ -501,11 +501,13 @@ class User < ActiveRecord::Base
   def invite(referrer = nil, options ={})
     return if referrer && self.peer_invitations_as_invitee.length >= PeerInvitation::CUTOFF
 
+    _demo = options[:demo_id].present? ? Demo.find(options[:demo_id]) : self.demo
+
     if options[:custom_message].nil?
       Mailer.delay_mail(:invitation, self, referrer, options)
     else
-      TilesDigestMailer.delay.notify_one(demo_id, id, 
-        demo.digest_tiles.pluck(:id), "Join my #{demo.name} board", false, 
+      TilesDigestMailer.delay.notify_one(_demo.id, id, 
+        _demo.digest_tiles.pluck(:id), "Join my #{_demo.name} board", false, 
         options[:custom_message], options[:custom_from])
     end
     if referrer
