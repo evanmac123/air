@@ -97,7 +97,11 @@ class ClientAdmin::UsersController < ClientAdminBaseController
   end
     
   def validate_email
-    render nothing: true
+    if params[:email] == current_user.email
+      render text: "This is you!"
+    else
+      render nothing: true
+    end
   end
 
   protected

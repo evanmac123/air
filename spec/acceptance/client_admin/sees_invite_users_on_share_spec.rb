@@ -116,6 +116,12 @@ feature "Invite Users Modal" do
         user.demos.should include(client_admin2.demo)
         user.demo.should_not == client_admin2.demo # ...but it's not our current one
       end
+      scenario "form with your own email is invalid", js: true do
+        find_field('user_0_name').set 'Hisham Malik'
+        find_field('user_0_email').set client_admin2.email
+        page.find('#submit_invite_users').click
+        page.should have_css('input.error', visible: true)
+      end
       scenario "on successful submit, hides the invite_users_modal" do 
         within(invite_users_modal_selector) do        
           page.find_field('user_0_name').set('Hisham Malik')
