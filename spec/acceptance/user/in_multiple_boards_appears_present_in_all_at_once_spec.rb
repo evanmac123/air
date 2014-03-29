@@ -8,6 +8,11 @@ feature 'In multiple boards appears present in all at once' do
     @second_board = FactoryGirl.create(:demo, *args)
   end
 
+  def create_user
+    @user = FactoryGirl.create(:user, name: USER_NAME, demo: @first_board)
+    @user.add_board(@second_board)
+  end
+
   def create_two_admins
     @first_admin = FactoryGirl.create(:client_admin, demo: @first_board)
     @second_admin = FactoryGirl.create(:client_admin, demo: @second_board)
@@ -27,9 +32,7 @@ feature 'In multiple boards appears present in all at once' do
     before do
       create_two_boards(:activated)
       create_two_admins
-
-      @user = FactoryGirl.create(:user, name: USER_NAME, demo: @first_board)
-      @user.add_board(@second_board)
+      create_user
 
       @user.demos.should have(2).demos
       @user.demo.should == @first_board
@@ -85,9 +88,8 @@ feature 'In multiple boards appears present in all at once' do
       create_two_boards(:activated)
       create_two_admins
       Tile.all.each { |tile| FactoryGirl.create(:tile_completion, tile: tile) } # gets us past the "invite users" share screen
-      
-      @user = FactoryGirl.create(:user, demo: @first_board, name: USER_NAME)
-      @user.add_board(@second_board)
+
+      create_user
     end
 
     after do
@@ -163,6 +165,23 @@ feature 'In multiple boards appears present in all at once' do
 
       open_email(@user.email)
       current_email.body.should include(@tile.headline)
+    end
+  end
+
+  context "gettin' segmented" do
+    scenario "appears in both boards", js: true do
+      create_two_boards(:activated)
+      create_two_admins
+      create_user
+      crank_dj_clear
+
+      visit client_admin_users_path(as: @first_admin)
+      click_button "Find segment"
+      page.should have_content("Users in segment 2") # admin plus @user
+
+      visit client_admin_users_path(as: @second_admin)
+      click_button "Find segment"
+      page.should have_content("Users in segment 2")
     end
   end
 end
