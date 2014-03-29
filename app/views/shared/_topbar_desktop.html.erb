@@ -5,24 +5,34 @@ var user_toggler = $('#me_toggle'),
     desktop_user_menu = $('.user_options ul'),
     desktop_admin_menu = $('.client_admin_pages');
 
-function hideUserMenu() {
-  user_toggler.find('.shadow_overlay').hide();
-  user_toggler.removeClass('toggled');
-  desktop_user_menu.slideUp('fast');
+function hideMenu(toggler, menu, beforeHook) {
+  if(typeof(beforeHook) === "function") { beforeHook();}
+  toggler.removeClass('toggled');
+  menu.slideUp('fast');
 }
+
+function showMenu(toggler, menu, beforeHook) {
+  if(typeof(beforeHook) === "function") { beforeHook();}
+  toggler.addClass('toggled');
+  menu.slideDown('fast');
+}
+  
+function hideUserMenu() {
+  var beforeHook = function(){user_toggler.find('.shadow_overlay').hide()};
+  hideMenu(user_toggler, desktop_user_menu, beforeHook);
+}
+
 function hideAdminMenu() {
-  admin_toggler.removeClass('toggled');
-  desktop_admin_menu.slideUp('fast');
+  hideMenu(admin_toggler, desktop_admin_menu);
 }
 
 function showUserMenu() {
-  user_toggler.find('.shadow_overlay').show();
-  user_toggler.addClass('toggled');
-  desktop_user_menu.slideDown('fast');
+  var beforeHook = function(){user_toggler.find('.shadow_overlay').show()};
+  showMenu(user_toggler, desktop_user_menu);
 }
+
 function showAdminMenu() {
-  admin_toggler.addClass('toggled');
-  desktop_admin_menu.slideDown('fast');
+  showMenu(admin_toggler, desktop_admin_menu);
 }
 
 function optionsToggle() {
