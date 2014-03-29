@@ -2,8 +2,10 @@
 // ====== TOP BAR DESKTOP MENU CONTROLS (plz abstract me) ======
 var user_toggler = $('#me_toggle'), 
     admin_toggler = $('#admin_toggle'),
+    board_switch_toggler = $('#board_switch_toggler'),
     desktop_user_menu = $('.user_options ul'),
-    desktop_admin_menu = $('.client_admin_pages');
+    desktop_admin_menu = $('.client_admin_pages'),
+    desktop_board_switch_menu = $('.other_boards');
 
 function hideMenu(toggler, menu, beforeHook) {
   if(typeof(beforeHook) === "function") { beforeHook();}
@@ -26,6 +28,10 @@ function hideAdminMenu() {
   hideMenu(admin_toggler, desktop_admin_menu);
 }
 
+function hideBoards() {
+  hideMenu(board_switch_toggler, desktop_board_switch_menu);
+}
+
 function showUserMenu() {
   var beforeHook = function(){user_toggler.find('.shadow_overlay').show()};
   showMenu(user_toggler, desktop_user_menu);
@@ -35,17 +41,25 @@ function showAdminMenu() {
   showMenu(admin_toggler, desktop_admin_menu);
 }
 
+function showBoards() {
+  showMenu(board_switch_toggler, desktop_board_switch_menu);
+}
+
 function optionsToggle() {
   $('html').click(function() {
     if(desktop_user_menu.is(':visible') || desktop_admin_menu.is(':visible')) {
       hideUserMenu();
       hideAdminMenu();
+      hideBoards();
     } else {}
   });
   user_toggler.click(function() {
     if(desktop_admin_menu.is(':visible')) {
       hideAdminMenu();
     } 
+    if(desktop_board_switch_menu.is(':visible')) {
+      hideBoards();
+    }
     if(desktop_user_menu.is(':visible')) {
       hideUserMenu();
     } else {
@@ -57,6 +71,9 @@ function optionsToggle() {
     if(desktop_user_menu.is(':visible')) {
       hideUserMenu();
     }
+    if(desktop_board_switch_menu.is(':visible')) {
+      hideBoards();
+    }
     if(desktop_admin_menu.is(':visible')) {
       hideAdminMenu();
     } else {
@@ -64,5 +81,20 @@ function optionsToggle() {
       return false;
     }
   });
+  board_switch_toggler.click(function() {
+    if(desktop_user_menu.is(':visible')) {
+      hideUserMenu();
+    }
+    if(desktop_admin_menu.is(':visible')) {
+      hideAdminMenu();
+    }
+    if(desktop_board_switch_menu.is(':visible')) {
+      hideBoards();
+    } else {
+      showBoards();
+      return false;
+    }
+  });
+
 }
 </script>

@@ -4,7 +4,7 @@ header nav .row {position: relative;}
 header {
   .row {
     position: relative;
-    #user_info .user_info_sections, #me_toggle {
+    #user_info .user_info_sections, #me_toggle, #board_switch {
       padding-top:.35em;
       padding-bottom:.35em;
     }
@@ -127,7 +127,7 @@ header {
   }
 
   // Toggled menu
-  .user_options ul, .admin_options .client_admin_pages, .how_it_works ul {
+  .user_options ul, .admin_options .client_admin_pages, .how_it_works ul, #board_switch .other_boards {
     $toggled-menu-bg: $dark-gray;
     background:$toggled-menu-bg;
     border:1px $toggled-menu-bg solid;
@@ -154,13 +154,27 @@ header {
     .nav-home, .nav-help {display: none;}
   }
 
+  // Board switch menu
+  #board_switch {
+    height: 100%;
+    max-height:$header-total-height;
+    position: relative;
+    margin-right: 1em;
+    display: inline-block;
+
+    .board_name {
+      font-size: 0.8rem;
+      font-weight: 400;
+    }
+  }
+
   // Admin tools menu
   .admin_options {
     &:after{@include clear;}
     p.small_cap {display: none;}
+    display: inline-block;
     #manage_board, #admin_toggle {
       @include font-bold;
-      float: left;
       height:100%;
       max-height:$header-total-height;
       position: relative;
@@ -190,6 +204,5 @@ header {
       padding:.75em 1em;
       border-left:0;
     }
-    .client_admin_pages {margin-left:-.45em;}
   }
 }

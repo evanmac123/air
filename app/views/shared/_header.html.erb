@@ -6,7 +6,10 @@
       <a href="<%= _activity_path %>"><%= image_tag skinned('logo_url', "logo.png") %></a>
     </div>
 
-    <nav id="navigation" class="columns large-3"> <!-- offcanvas menu -->
+    <%# If we don't need the guest user controls, steal their space for the 
+    navigation, so we can use it for the current board. %>
+    <% navigation_width = current_user.is_guest? ? 3 : 6 %>
+    <nav id="navigation" class="columns large-<%= navigation_width %>"> <!-- offcanvas menu -->
       <div class="user_options">
         <ul>
           <li><%= link_to "Home", _activity_path, :class => 'nav-home' %></li>
@@ -19,6 +22,21 @@
           <li><%= link_to "Sign Out", sign_out_path, :method => :delete , :class => 'nav-signout' %></li>
         </ul>
       </div>
+      <% unless current_user.is_guest? %>
+        <div id="board_switch" data-tooltip class="has-tip" title="Switch between boards">
+          <a id="board_switch_toggler">
+            <p class="small_cap">Current board</p>
+            <p class="board_name">
+              <%= truncate(current_user.demo.name, limit: 20) %>
+              <span class="fa fa-caret-down"></span>
+            </p>
+          </a>
+          <ul class="other_boards">
+            <li><%= link_to "This board", "#" %></li>
+            <li><%= link_to "That board", "#" %></li>
+          </ul>
+        </div>
+      <% end %>
       <div class="admin_options">
         <% if current_user.authorized_to?(:client_admin) %>
           <p class="small_cap">Board tools</p>
@@ -34,19 +52,21 @@
       </div>
     </nav> <!-- end of off canvas -->
 
-    <% guest_user_header_button_style = show_save_progress_button ? '' : 'display: none' %>
-    <div id="save_progress" class="large-4 columns" style="<%= guest_user_header_button_style %>">
-      <a href="#" id="save_progress_button" class="open_save_progress_form">Save Progress</a>
-      <%= link_to "Sign In", new_session_path, id: 'sign_in_button' %>
-      <% if session[:display_start_over_button] %>
-        <%= link_to "Start Over", guest_user_reset_path, id: 'guest_user_start_over_button', confirm: "Are you sure?", method: :put %>      
-      <%else%>
-        <%= link_to "Start Over", guest_user_reset_path, id: 'guest_user_start_over_button', style: 'display:none', confirm: "Are you sure?", method: :put %>
-      <% end %>
-    </div>
+    <% if current_user.is_guest? %>
+      <% guest_user_header_button_style = show_save_progress_button ? '' : 'display: none' %>
+      <div id="save_progress" class="large-4 columns" style="<%= guest_user_header_button_style %>">
+        <a href="#" id="save_progress_button" class="open_save_progress_form">Save Progress</a>
+        <%= link_to "Sign In", new_session_path, id: 'sign_in_button' %>
+        <% if session[:display_start_over_button] %>
+          <%= link_to "Start Over", guest_user_reset_path, id: 'guest_user_start_over_button', confirm: "Are you sure?", method: :put %>      
+        <%else%>
+          <%= link_to "Start Over", guest_user_reset_path, id: 'guest_user_start_over_button', style: 'display:none', confirm: "Are you sure?", method: :put %>
+        <% end %>
+      </div>
+    <% end %>
 
 <!-- start of new admin navigation that needs to be gated off later -->
-    <div class="large-6 columns" id="user_info">
+    <div class="large-4 columns" id="user_info">
       <ul id="total_tiles" class="user_info_sections">
         <li><p class="small_cap">Experience</p></li>
         <li><p class="user_numbers">
