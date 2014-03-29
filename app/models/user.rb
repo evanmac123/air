@@ -479,6 +479,7 @@ class User < ActiveRecord::Base
     return if self.board_memberships.where(demo_id: board_id).present?
     self.board_memberships.create(demo_id: board_id, is_current: is_current)
     reload
+    schedule_segmentation_update(true)
   end
 
   def in_board?(demo_id)

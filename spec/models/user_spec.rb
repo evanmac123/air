@@ -570,7 +570,18 @@ describe User, "on save" do
     user.segmentation_data.characteristics.should == {characteristic.id => 'foo'}.stringify_keys
   end
 
-  it "should sync to mongo when a user is added to a board"
+  it "should sync to mongo when a user is added to a board" do
+    user = FactoryGirl.create(:user)
+    first_demo = user.demo
+    second_demo = FactoryGirl.create(:demo)
+
+    crank_dj_clear
+    user.segmentation_data.demo_ids.should == [first_demo.id]
+
+    user.add_board(second_demo)
+    crank_dj_clear
+    user.segmentation_data.demo_ids.sort.should == [first_demo.id, second_demo.id].sort
+  end
 
   it "should sync to mongo when a user acts" do
     user = FactoryGirl.create :user
