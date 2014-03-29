@@ -13,6 +13,16 @@ feature 'In multiple boards appears present in all at once' do
     @second_admin = FactoryGirl.create(:client_admin, demo: @second_board)
   end
 
+  def first_tile_headline(board)
+    board.tiles.first.headline
+  end
+
+  def expect_all_headlines_in_some_email(user, *boards)
+    emails_to_user = ActionMailer::Base.deliveries.select{|email| email.to.include?(user.email)}
+    headlines = boards.map{|board| first_tile_headline(board)}
+    headlines.all?{|headline| emails_to_user.any? {|email_to_user| email_to_user.body.to_s.include?(headline)} }.should be_true
+  end
+
   context "in client/site admin searches for users" do
     before do
       create_two_boards(:activated)
@@ -80,15 +90,50 @@ feature 'In multiple boards appears present in all at once' do
       @user.add_board(@second_board)
     end
 
+    after do
+      Timecop.return
+    end
+
     scenario "digests are received from both" do
       visit client_admin_share_path(as: @first_admin)
       click_button "Send digest now"
+      crank_dj_clear
+
+      open_email(@user.email)
+      current_email.body.should include(first_tile_headline(@first_board))
+
+      ActionMailer::Base.deliveries.clear
+
       visit client_admin_share_path(as: @second_admin)
       click_button "Send digest now"
-      pending "should work"
+      crank_dj_clear
+
+      open_email(@user.email)
+      current_email.body.should include(first_tile_headline(@second_board))
     end
 
-    scenario "followups are received from both"
+    scenario "followups are received from both" do
+      Timecop.freeze
+      Timecop.travel(Chronic.parse("March 23, 2014, 12:00 PM")) # a Sunday
+      visit client_admin_share_path(as: @first_admin)
+      select "Tuesday", from: "follow_up_day"
+      click_button "Send digest now"
+      crank_dj_clear
+
+      visit client_admin_share_path(as: @second_admin)
+      select "Tuesday", from: "follow_up_day"
+      click_button "Send digest now"
+      crank_dj_clear
+
+      Timecop.travel(Chronic.parse("March 25, 2014, 6:00 PM"))
+      # pretend to be the cron job that schedules, in the wee hours of every 
+      # morning, the followup emails to be sent that day.
+      TilesDigestMailer.notify_all_follow_up_from_delayed_job
+      ActionMailer::Base.deliveries.clear
+      crank_dj_clear
+
+      expect_all_headlines_in_some_email(@user, @first_board, @second_board)
+    end
 
     scenario "existing user is invited from a new board gets non-broken digest", js: true do
       # detects a regression that Kate found in testing
