@@ -174,7 +174,7 @@ FactoryGirl.define do
   end
 
   factory :tile do
-    headline "Riceburners Back in Style"
+    headline {"Tile #{SecureRandom.uuid}, y'all"}
     require_images false
     association :demo
     sequence(:position){ |n| n }

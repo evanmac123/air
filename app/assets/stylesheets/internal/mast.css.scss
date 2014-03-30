@@ -35,6 +35,22 @@ header #small-toggle.off-canvas-toggle a {
     .small_cap {padding:1em;}
     #admin_toggle {display: none;}
   }
+  #board_switch {
+    display: none; //overridden in desktop style
+  }
+  .board_switch_dropdown {
+    display: normal;
+    select {
+      width: 100%;
+    }
+
+    option {
+      width: 100%;
+    }
+  }
+  .mobile_board_link {
+    display: none;
+  }
 }
 
 // ====== Header

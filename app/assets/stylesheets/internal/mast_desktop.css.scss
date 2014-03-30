@@ -175,6 +175,11 @@ header {
     }
   }
 
+  .board_switch_dropdown, .mobile_board_link {
+    // Only visible on mobile
+    display: none;
+  }
+
   // Admin tools menu
   .admin_options {
     &:after{@include clear;}

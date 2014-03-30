@@ -13,6 +13,19 @@ feature 'Switches boards' do
     '.other_boards'  
   end
 
+  def expect_only_tile_headlines_in(board)
+    expected_tiles = board.tiles
+    unexpected_tiles = Tile.all - expected_tiles
+
+    expected_tiles.each do |expected_tile|
+      page.should have_content(expected_tile.headline)
+    end
+
+    unexpected_tiles.each do |unexpected_tile|
+      page.should_not have_content(unexpected_tile.headline)
+    end
+  end
+
   context "via the desktop menu" do
     context "when in multiple boards" do
       before do
@@ -40,7 +53,43 @@ feature 'Switches boards' do
         end
       end
 
-      it "allows switching between them"    
+      it "allows switching between them" do
+        [@first_board, @second_board, @third_board].each do |board|
+          FactoryGirl.create(:multiple_choice_tile, demo: board, status: Tile::ACTIVE)
+        end
+
+        visit activity_path(as: @user)
+        expect_only_tile_headlines_in(@first_board)
+
+        open_board_menu
+        click_link @second_board.name
+        expect_only_tile_headlines_in(@second_board)
+
+        open_board_menu
+        click_link @third_board.name
+        expect_only_tile_headlines_in(@third_board)
+
+        open_board_menu
+        click_link @first_board.name
+        expect_only_tile_headlines_in(@first_board)
+      end
+
+      it "always sends a regular user back to the activity page", js: true do
+        visit tiles_path(as: @user)
+        open_board_menu
+        click_link @second_board.name
+        should_be_on activity_path
+
+        visit edit_account_settings_path(as: @user)
+        open_board_menu
+        click_link @third_board.name
+        should_be_on activity_path
+
+        # Including if we're already on the activity page!
+        open_board_menu
+        click_link @first_board.name
+        should_be_on activity_path
+      end
     end
 
     context "when in a single board" do

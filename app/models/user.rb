@@ -652,13 +652,29 @@ class User < ActiveRecord::Base
     end
   end
 
-  def move_to_new_demo(new_demo_id)
-    old_demo = self.demo
-    new_demo = Demo.find(new_demo_id)
+  def member_of_demo?(demo)
+    demos.include?(demo)
+  end
 
-    self.demo = new_demo
-    self.points = self.acts.where(:demo_id => new_demo_id).map(&:points).compact.sum
-    self.save!
+  def move_to_new_demo(new_demo_or_id)
+    new_demo = new_demo_or_id.kind_of?(Demo) ? new_demo_or_id : Demo.find(new_demo_or_id)
+
+    Demo.transaction do
+      unless member_of_demo?(new_demo)
+        if is_site_admin
+          add_board(new_demo)
+        else
+          return false
+        end
+      end
+
+      board_memberships.current.each{|board_membership| board_membership.update_attributes(is_current: false)}
+      board_memberships.where(demo_id: new_demo.id).first.update_attributes(is_current:true)
+      self.points = self.acts.where(:demo_id => new_demo.id).map(&:points).compact.sum
+      self.save!
+    end
+
+    true
   end
 
   # Returns a list [reply, reply_type] where reply_type should be :success if

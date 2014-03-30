@@ -1,0 +1,2 @@
+module CurrentBoardsHelper
+end

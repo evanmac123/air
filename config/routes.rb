@@ -71,6 +71,8 @@ Health::Application.routes.draw do
 
   resources :boards, only: [:new, :create]
 
+  resource :current_board, only: [:update]
+
   namespace :client_admin do
     resource :segmentation
 

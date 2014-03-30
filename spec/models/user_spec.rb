@@ -642,17 +642,53 @@ describe User, "#move_to_new_demo" do
     @new_demo = FactoryGirl.create :demo
   end
 
-  describe "when the user has acts (plural) in the new demo with nil points" do
-    before(:each) do
-      2.times do
-        act = FactoryGirl.create :act, :user => @user, :demo_id => @new_demo.id, :created_at => Date.today
-        act.points.should be_nil
-      end
+  context "when the user belongs to the new demo" do
+    before do
+      @user.add_board @new_demo
     end
 
-    it "should not raise an exception" do
-      lambda{@user.move_to_new_demo(@new_demo.id)}.should_not raise_exception
-      @user.reload.points.should == 0
+    it "should set that as their current demo" do
+      @user.move_to_new_demo(@new_demo)
+      @user.reload.demo.should == @new_demo
+    end
+
+    it "should leave them with one current board" do
+      @user.move_to_new_demo(@new_demo)
+      @user.board_memberships.where(is_current: true).should have(1).board
+    end
+  end
+
+  context "when the user does not belong to that demo" do
+    before do
+      @user.demos.should_not include(@new_demo)
+    end
+
+    it "should leave them unmoved" do
+      @user.move_to_new_demo(@new_demo)
+      @user.reload.demo.should_not == @new_demo
+    end
+
+    it "should leave them with one current board" do
+      @user.move_to_new_demo(@new_demo)
+      @user.board_memberships.where(is_current: true).should have(1).board
+    end
+
+    context "but is a site admin" do
+      before do
+        @user.is_site_admin = true
+        @user.save!
+      end
+
+      it "adds 'em and moves them in" do
+        @user.move_to_new_demo(@new_demo)
+        @user.reload.demo.should == @new_demo
+        @user.demos.should have(2).demos
+      end
+
+      it "should leave them with one current board" do
+        @user.move_to_new_demo(@new_demo)
+        @user.board_memberships.where(is_current: true).should have(1).board
+      end
     end
   end
 end

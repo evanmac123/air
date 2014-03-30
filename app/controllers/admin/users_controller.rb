@@ -55,7 +55,10 @@ class Admin::UsersController < AdminBaseController
     # calling #save wipes this out so we have to remember it now
     client_admin_changed = @user.changed.include?('is_client_admin') 
     if @user.save
-      @user.move_to_new_demo(new_demo_id) if new_demo_id
+      if new_demo_id
+        @user.add_board(new_demo_id)
+        @user.move_to_new_demo(new_demo_id) if new_demo_id
+      end
       ping_if_made_client_admin(@user, client_admin_changed)
       flash[:success] = "User updated."
       redirect_to admin_demo_path(@demo, intercom_user_id: @user.id)
