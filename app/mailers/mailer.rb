@@ -7,8 +7,8 @@ class Mailer < ActionMailer::Base
   default :from => "Airbo <play@ourairbo.com>"
 
   def invitation(user, referrer = nil, options = {})
-    demo = user.demo
-    email_template = demo.invitation_email
+    _demo = options[:demo_id].present? ? Demo.find(options[:demo_id]) : user.demo
+    email_template = _demo.invitation_email
     referrer_hash = User.referrer_hash(referrer)
 
     @invitation_url = if options[:password_only]
@@ -27,7 +27,7 @@ class Mailer < ActionMailer::Base
 
     mail(:to      => user.email_with_name,
          :subject => email_template.subject(user, referrer, @invitation_url),
-         :from    => demo.reply_email_address)
+         :from    => _demo.reply_email_address)
   end
 
 

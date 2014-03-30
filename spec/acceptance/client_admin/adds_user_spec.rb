@@ -159,6 +159,21 @@ feature 'Adds user' do
       crank_dj_clear
       FakeMixpanelTracker.should_not have_event_matching('User - New', source: 'creator')
       FakeMixpanelTracker.should have_event_matching('User - Existing Invited', source: 'creator')
-     end
+    end
+
+    it "should have the correct board name in the invitation", js: true do
+      user = FactoryGirl.create(:user, email: USER_EMAIL)
+      user.demo.should_not == demo
+
+      fill_in_user_information
+
+      click_button "Add user"
+      click_link "Next, send invite to #{user.name}"
+      crank_dj_clear
+
+      open_email user.email
+      current_email.to_s.should_not include(user.demo.name)
+      current_email.to_s.should include(demo.name)
+    end
   end
 end
