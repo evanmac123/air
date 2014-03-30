@@ -21,11 +21,11 @@
           <% end %>
           <li><%= link_to "Sign Out", sign_out_path, :method => :delete , :class => 'nav-signout' %></li>
 
-          <% if @boards_to_switch_to.present? %>
+          <%# Mobile-only select version of the board switcher %>
+          <% if @boards_to_switch_to.present? && @boards_to_switch_to.length > 1 %>
             <li class="board_switch_dropdown">
               <select>
-                <option>Switch boards</option>
-                <%= options_from_collection_for_select @boards_to_switch_to, :id, :name %>
+                <%= options_from_collection_for_select @boards_to_switch_to, :id, :name, current_user.demo_id %>
               </select>
             </li>
             <%= content_for :javascript do %>
@@ -50,9 +50,12 @@
               <span class="fa fa-caret-down"></span>
             </p>
           </a>
+          <%# Desktop version of the board switcher %>
           <ul class="other_boards">
-            <% if @boards_to_switch_to.present? %>
+            <% if @boards_to_switch_to.present? && @boards_to_switch_to.length > 1 %>
               <% @boards_to_switch_to.each do |board| %>
+                <%# In this version, we don't display the current board. %>
+                <% next if board == current_user.demo %>
                 <li><%= link_to board.name, current_board_path(board_id: board.id), method: :put, id: "board-switch-link-#{board.id}" %></li>
               <% end %>
             <% else %>
