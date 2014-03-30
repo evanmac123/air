@@ -2,7 +2,10 @@ class CreateBoardMemberships < ActiveRecord::Migration
   def up
     create_table :board_memberships do |t|
       t.boolean :is_current, default: true
-      t.boolean :is_client_admin, :boolean, default: false
+      t.boolean :is_client_admin, default: false
+      t.integer :points, default: 0
+      t.integer :tickets, default: 0
+      t.integer :ticket_threshold_base, default: 0
 
       t.belongs_to :demo
       t.belongs_to :user

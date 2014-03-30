@@ -1,6 +1,6 @@
 module User::Queries
   def with_some_tickets
-    where("tickets > 0")
+    where("users.tickets > 0")
   end
 
   def in_canonical_ranking_order

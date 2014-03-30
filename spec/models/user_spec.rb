@@ -660,13 +660,22 @@ describe User, "#move_to_new_demo" do
     it "should keep the value of their board-specific fields consistent with the BoardMembership corresponding to the board they move into" do
       original_demo = @user.demo
       @user.is_client_admin = true
+      @user.points = 43
+      @user.ticket_threshold_base = 21
+      @user.tickets = 1
       @user.save
 
       @user.move_to_new_demo @new_demo
       @user.reload.is_client_admin.should be_false
+      @user.reload.points.should == 0
+      @user.reload.ticket_threshold_base.should == 0
+      @user.reload.tickets.should == 0
 
       @user.move_to_new_demo original_demo
       @user.reload.is_client_admin.should be_true
+      @user.reload.points.should == 43
+      @user.reload.ticket_threshold_base.should == 21
+      @user.reload.tickets.should == 1
     end
   end
 

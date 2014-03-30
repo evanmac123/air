@@ -679,10 +679,10 @@ class User < ActiveRecord::Base
       new_board_membership.update_attributes(is_current:true)
       load_updated_board_dependent_attributes(new_board_membership)
 
-      self.points = self.acts.where(:demo_id => new_demo.id).map(&:points).compact.sum
       self.save!
     end
 
+    board_memberships.reload
     true
   end
 
@@ -1045,7 +1045,7 @@ class User < ActiveRecord::Base
   end
 
   # See note in #move_to_new_demo for why these next two exist.
-  FIELDS_TO_COPY = %w(is_client_admin)
+  FIELDS_TO_COPY = %w(is_client_admin points tickets ticket_threshold_base)
   def save_current_board_dependent_attributes
    _current_board_membership = current_board_membership
     FIELDS_TO_COPY.each do |field|
