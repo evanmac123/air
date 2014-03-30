@@ -143,7 +143,7 @@ class User < ActiveRecord::Base
 
   has_alphabetical_column :name
 
-  scope :non_admin, -> {where('is_site_admin <> ? AND is_client_admin <> ?', true, true)}
+  scope :non_admin, -> {where('users.is_site_admin <> ? AND users.is_client_admin <> ?', true, true)}
 
   def demo_id
     self.demo.id
@@ -668,8 +668,17 @@ class User < ActiveRecord::Base
         end
       end
 
+      # We denormalize a little here, rather than delegate to the board
+      # memberships, in the interest of backwards compatibility. Some of
+      # the attributes we're messing with here are relevant to client
+      # admin authorization, so we want to keep using the proven code for
+      # that.
+      save_current_board_dependent_attributes
       board_memberships.current.each{|board_membership| board_membership.update_attributes(is_current: false)}
-      board_memberships.where(demo_id: new_demo.id).first.update_attributes(is_current:true)
+      new_board_membership = board_memberships.where(demo_id: new_demo.id).first
+      new_board_membership.update_attributes(is_current:true)
+      load_updated_board_dependent_attributes(new_board_membership)
+
       self.points = self.acts.where(:demo_id => new_demo.id).map(&:points).compact.sum
       self.save!
     end
@@ -1033,6 +1042,27 @@ class User < ActiveRecord::Base
   def update_associated_act_privacy_levels
     # See Act for an explanation of why we denormalize privacy_level onto it.
     Act.update_all({:privacy_level => self.privacy_level}, {:user_id => self.id}) if self.changed.include?('privacy_level')
+  end
+
+  # See note in #move_to_new_demo for why these next two exist.
+  FIELDS_TO_COPY = %w(is_client_admin)
+  def save_current_board_dependent_attributes
+   _current_board_membership = current_board_membership
+    FIELDS_TO_COPY.each do |field|
+      current_value = self.send(field)
+      _current_board_membership.send("#{field}=", current_value)
+    end
+
+    _current_board_membership.save!
+  end
+
+  def load_updated_board_dependent_attributes(new_board_membership)
+     FIELDS_TO_COPY.each do |field|
+      current_value = new_board_membership.send(field)
+      send("#{field}=", current_value)
+    end
+
+    save!
   end
 
   def self.claimable_by_first_name_and_claim_code(claim_string)

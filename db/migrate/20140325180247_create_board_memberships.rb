@@ -2,6 +2,7 @@ class CreateBoardMemberships < ActiveRecord::Migration
   def up
     create_table :board_memberships do |t|
       t.boolean :is_current, default: true
+      t.boolean :is_client_admin, :boolean, default: false
 
       t.belongs_to :demo
       t.belongs_to :user
@@ -16,7 +17,7 @@ class CreateBoardMemberships < ActiveRecord::Migration
     user_ids.each_with_index do |user_id, index|
       puts "MIGRATED #{index} USERS" if index % 1000 == 0
       user = User.find(user_id)
-      BoardMembership.create!(demo_id: user[:demo_id], user_id: user.id, is_current: true)
+      BoardMembership.create!(demo_id: user[:demo_id], user_id: user.id, is_current: true, is_client_admin: user[:is_client_admin])
     end
 
     add_index :board_memberships, :demo_id

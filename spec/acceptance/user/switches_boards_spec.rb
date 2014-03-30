@@ -1,18 +1,6 @@
 require 'acceptance/acceptance_helper'
 
 feature 'Switches boards' do
-  def expect_current_board_header(board)
-    page.should have_content("Current board #{board.name}")
-  end
-
-  def open_board_menu
-    page.find('#board_switch_toggler').click
-  end
-
-  def board_menu_selector
-    '.other_boards'  
-  end
-
   def expect_only_tile_headlines_in(board)
     expected_tiles = board.tiles
     unexpected_tiles = Tile.all - expected_tiles

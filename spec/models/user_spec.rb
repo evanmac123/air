@@ -656,6 +656,18 @@ describe User, "#move_to_new_demo" do
       @user.move_to_new_demo(@new_demo)
       @user.board_memberships.where(is_current: true).should have(1).board
     end
+
+    it "should keep the value of their board-specific fields consistent with the BoardMembership corresponding to the board they move into" do
+      original_demo = @user.demo
+      @user.is_client_admin = true
+      @user.save
+
+      @user.move_to_new_demo @new_demo
+      @user.reload.is_client_admin.should be_false
+
+      @user.move_to_new_demo original_demo
+      @user.reload.is_client_admin.should be_true
+    end
   end
 
   context "when the user does not belong to that demo" do

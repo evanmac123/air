@@ -8,3 +8,4 @@ RSpec.configuration.include SteakHelperMethods, :type => :acceptance
 include SteakHelperMethods
 include NavigationHelpers
 include TileHelpers
+include BoardSwitchingHelpers
