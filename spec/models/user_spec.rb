@@ -659,10 +659,12 @@ describe User, "#move_to_new_demo" do
 
     it "should keep the value of their board-specific fields consistent with the BoardMembership corresponding to the board they move into" do
       original_demo = @user.demo
+      original_location = FactoryGirl.create(:location, demo: original_demo)
       @user.is_client_admin = true
       @user.points = 43
       @user.ticket_threshold_base = 21
       @user.tickets = 1
+      @user.location = original_location
       @user.save
 
       @user.move_to_new_demo @new_demo
@@ -670,12 +672,14 @@ describe User, "#move_to_new_demo" do
       @user.reload.points.should == 0
       @user.reload.ticket_threshold_base.should == 0
       @user.reload.tickets.should == 0
+      @user.reload.location.should be_nil
 
       @user.move_to_new_demo original_demo
       @user.reload.is_client_admin.should be_true
       @user.reload.points.should == 43
       @user.reload.ticket_threshold_base.should == 21
       @user.reload.tickets.should == 1
+      @user.reload.location.should == original_location
     end
   end
 

@@ -6,6 +6,7 @@ class CreateBoardMemberships < ActiveRecord::Migration
       t.integer :points, default: 0
       t.integer :tickets, default: 0
       t.integer :ticket_threshold_base, default: 0
+      t.integer :location_id
 
       t.belongs_to :demo
       t.belongs_to :user

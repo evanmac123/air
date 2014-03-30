@@ -1045,10 +1045,10 @@ class User < ActiveRecord::Base
   end
 
   # See note in #move_to_new_demo for why these next two exist.
-  FIELDS_TO_COPY = %w(is_client_admin points tickets ticket_threshold_base)
+  FIELDS_ON_A_BOARD_BY_BOARD_BASIS = %w(is_client_admin points tickets ticket_threshold_base location_id)
   def save_current_board_dependent_attributes
    _current_board_membership = current_board_membership
-    FIELDS_TO_COPY.each do |field|
+    FIELDS_ON_A_BOARD_BY_BOARD_BASIS.each do |field|
       current_value = self.send(field)
       _current_board_membership.send("#{field}=", current_value)
     end
@@ -1057,7 +1057,7 @@ class User < ActiveRecord::Base
   end
 
   def load_updated_board_dependent_attributes(new_board_membership)
-     FIELDS_TO_COPY.each do |field|
+     FIELDS_ON_A_BOARD_BY_BOARD_BASIS.each do |field|
       current_value = new_board_membership.send(field)
       send("#{field}=", current_value)
     end
