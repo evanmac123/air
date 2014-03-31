@@ -74,12 +74,22 @@ class ClientAdmin::UsersController < ClientAdminBaseController
 
   def update
     @demo = current_user.demo
+
+    user_in_current_demo = (@user.demo == @demo)
+    unless user_in_current_demo
+      @new_location_id = params[:user].delete(:location_id)
+    end
+
     @user.attributes = params[:user].filter_by_key(*SETTABLE_USER_ATTRIBUTES)
     if @user.phone_number.present?
       @user.phone_number = PhoneNumber.normalize(@user.phone_number)
     end
 
     if save_if_date_good(@user)
+      unless user_in_current_demo
+        @user.board_memberships.find_by_demo_id(@demo.id).update_attributes(location_id: @new_location_id)
+      end
+
       flash[:success] = "OK, we've updated this user's information"
       redirect_to edit_client_admin_user_path(@user)
     else

@@ -241,7 +241,7 @@ FactoryGirl.define do
   end
 
   factory :location do
-    sequence(:name) {|n| "Plant #{n}"}
+    sequence(:name) {|n| "Awesomeville #{n}"}
     association :demo
   end
 

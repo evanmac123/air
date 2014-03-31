@@ -80,6 +80,20 @@ feature 'Edits user' do
     select year,  :from => "user_date_of_birth_1i"
   end
 
+  def names_in_select
+    page.all('#user_location_id option').map(&:text)
+  end
+
+  def expect_locations_in_select(locations)
+    expected_names = locations.map(&:name)
+    (expected_names - names_in_select).should be_empty
+  end
+
+  def expect_no_locations_in_select(locations)
+    unexpected_names = locations.map(&:name)
+    (names_in_select - unexpected_names).should == names_in_select
+  end
+
   it "should update of the same attributes as creation" do
     visit(edit_client_admin_user_path(user, as: client_admin))
     expect_name "Francis X. McGillicuddy"
@@ -173,5 +187,60 @@ feature 'Edits user' do
 
     user.reload.date_of_birth.should == Date.parse("1977-04-17")
     expect_content "Sorry, we weren't able to change that user's information. Please enter a full date of birth"
+  end
+
+  context "when changing a user's location" do
+    before do
+      @other_demo = FactoryGirl.create(:demo)
+
+      @current_demo_locations = FactoryGirl.create_list(:location, 3, demo: client_admin.demo)
+      @other_demo_locations =  FactoryGirl.create_list(:location, 3, demo: @other_demo)
+    end
+
+    context "of a user in the same board" do
+      before do
+        @user = FactoryGirl.create(:user, demo: client_admin.demo)
+        @user.add_board(@other_demo)
+        visit(edit_client_admin_user_path(@user, as: client_admin))
+      end
+
+      it "should show locations the board the user and admin are both in" do
+        expect_locations_in_select(client_admin.demo.locations)
+        expect_no_locations_in_select(@other_demo.locations)
+      end
+
+      it "should update the User proper" do
+        new_location = @current_demo_locations.first
+        select new_location.name, from: 'user_location_id'
+        click_button "Save edits"
+        @user.reload.location.should == new_location
+      end
+    end
+
+    context "of a user in a different board" do
+      before do
+        @user = FactoryGirl.create(:user, demo: @other_demo)
+        @user.add_board(client_admin.demo)
+        @user.demo.should_not == client_admin.demo
+        visit(edit_client_admin_user_path(@user, as: client_admin))
+      end
+
+      it "should show locations for board the client admin is in" do
+        expect_locations_in_select(client_admin.demo.locations)
+        expect_no_locations_in_select(@other_demo.locations)
+      end
+
+      it "should update the board membership rather than the user directly" do
+        original_location = @other_demo.locations.first
+        @user.location = original_location
+        @user.save!
+
+        new_location = @current_demo_locations.first
+        select new_location.name, from: 'user_location_id'
+        click_button "Save edits"
+        @user.reload.location.should == original_location
+        @user.board_memberships.reload.where(demo_id: client_admin.demo.id).first.location_id.should == new_location.id
+      end
+    end
   end
 end
