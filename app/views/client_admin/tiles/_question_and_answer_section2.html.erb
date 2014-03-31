@@ -35,7 +35,9 @@
           $('.option_radio').removeClass('option_selected');  
           radioButton.attr('checked','true');
           $(this).addClass('option_selected');
-        }  
+        } 
+        makeAnswerGreen(this); 
+        selectMessage();
       });
     };
 
@@ -70,9 +72,11 @@
 
       makeButtonsSelected(type, $(this).attr("id"));
       showQuestionAndAnswers(tile_types[type][subtype]);
+      showSelectAndAddAnswer();
 
       _.each($('.answer-field'), addCharacterCounterFor);
       turnRadioGreen();
+      selectMessage();
       rebindEvents();
     });
 

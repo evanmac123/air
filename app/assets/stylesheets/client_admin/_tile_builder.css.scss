@@ -291,6 +291,30 @@ body.client_admin-tiles-update {
       &:after{@include clear;}
     }
     #add-answer-link {@include app-button($med-gray);}
+    .clicked_right_answer{
+      border-color: $dark-green !important;
+    }
+    .after_answers {
+      padding-top: 1.5em;
+      padding-bottom: 1.5em;
+      position: absolute;
+      bottom: 0;
+      width: 92%;
+      overflow: hidden;
+      font-weight: bold;
+      .choose_answer{
+        &.no_answer{
+          color: $sky-blue;
+        }
+        &.have_answer{
+          color: $dark-green;
+        }
+      }
+      .add_answer {
+        color: $blue;
+        text-align: right;
+      }
+    }
   }
 
   // Points

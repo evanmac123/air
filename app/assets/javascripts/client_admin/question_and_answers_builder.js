@@ -30,7 +30,7 @@ function editAnswerContainer(display, text, index) {
     ['<li class="option_input">',
         '<input class="answer-field answer-part" id="tile_builder_form_answers_" maxlength="50" name="tile_builder_form[answers][]" type="text">',
       '</li>'].join(''));
-  if(type != "Action") {
+  if(type == "Quiz") {
     edit_answer_container.append(option_radio);
   };
   edit_answer_container.append(option_input);
@@ -81,6 +81,42 @@ function showQuestionAndAnswers(subtype) {
   addQuestion(quiz_content, subtype["question"]);
   addAnswers(quiz_content, subtype["answers"]);
 };
+
+function addAnswerSelectedMessage(container) {
+  answer_container = $('<div class="choose_answer columns small-8"></div>');
+  container.append(answer_container);
+}
+
+function showAddAnswer(container) {
+  add_container = $('<div class="add_answer columns small-4"></div>');
+  icon = $('<i class="fa fa-plus"></i>');
+  meassage = "  Add another answer";
+  add_container.text(meassage).prepend(icon);
+  container.append(add_container);
+}
+
+function showSelectAndAddAnswer() {
+  after_answers = $('<div class="after_answers row"></div>');
+  if(subtype == "multiple_choice" && type == "Quiz"){
+    addAnswerSelectedMessage(after_answers);
+    showAddAnswer(after_answers);
+  }
+  $(".quiz_content").append(after_answers);
+}
+
+function selectMessage() {
+  select_message = $(".choose_answer");
+  if($(".option_selected").length > 0) {
+    select_message.removeClass("no_answer").addClass("have_answer");
+    icon = $('<i class="fa fa-check"></i>');
+    meassage = "  Correct answer selected";
+  }else {
+    select_message.removeClass("have_answer").addClass("no_answer");
+    icon = $('<i class="fa fa-info-circle"></i>');
+    meassage = "  Click an answer option to mark the right answer";
+  }
+  select_message.text(meassage).prepend(icon);
+}
 
 function makeButtonsSelected(type, subtype) {
   $("#" + type).click();
@@ -142,4 +178,12 @@ function tryTurnOffEditAnswer(element) {
       turnOffEditAnswer(this);
     };
   });
+}
+
+function makeAnswerGreen(radio) {
+  answer_show = $(radio).closest(".tile_multiple_choice_answer").find("a");
+  if(!$(answer_show).is($(".clicked_right_answer"))){
+    $(".clicked_right_answer").removeClass("clicked_right_answer");
+  }
+  answer_show.toggleClass("clicked_right_answer");
 }

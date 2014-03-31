@@ -222,7 +222,7 @@ body.client_admin-tiles-update,
   }
 }
 
-body.tiles-index .clicked_right_answer {
+.clicked_right_answer {
   background: $dark-green !important;
   @include font-semibold;
   color:$white;
