@@ -41,11 +41,12 @@ header #small-toggle.off-canvas-toggle a {
   .board_switch_dropdown {
     display: normal;
     select {
-      width: 100%;
+      border-color: $light-gray;
     }
-
-    option {
+    select, option {
       width: 100%;
+      color: white;
+      background: inherit;
     }
   }
   .mobile_board_link {

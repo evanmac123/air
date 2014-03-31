@@ -42,10 +42,10 @@
         </ul>
       </div>
       <% unless current_user.is_guest? %>
-        <div id="board_switch" data-tooltip class="has-tip tip-left" title="Switch between boards">
+        <div id="board_switch">
           <a id="board_switch_toggler">
             <p class="small_cap">Current board</p>
-            <p class="board_name">
+            <p class="board_name has-tip tip-left" data-tooltip title="Switch between boards">
               <%= truncate(current_user.demo.name, limit: 20) %>
               <span class="fa fa-caret-down"></span>
             </p>

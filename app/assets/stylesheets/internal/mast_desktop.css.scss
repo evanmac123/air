@@ -163,15 +163,26 @@ header {
 
   // Board switch menu
   #board_switch {
-    height: 100%;
+    height: $header-total-height;
     max-height:$header-total-height;
     position: relative;
-    margin-right: 1em;
+    padding-left: 1em;
+    padding-right: 1em;
     display: inline-block;
+
+    border: {
+      style:solid;
+      color:darken($header-color, 9%);
+      top: {width:0;}
+      bottom: {width:0;}
+      left: {width:1px;}
+      right: {width:0;}
+    }
 
     .board_name {
       font-size: 0.8rem;
       font-weight: 400;
+      color: $text-color;
     }
   }
 
