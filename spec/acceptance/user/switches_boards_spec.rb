@@ -97,6 +97,43 @@ feature 'Switches boards' do
         switch_to_board @first_board
         should_be_on activity_path
       end
+
+      context "mixpanel ping" do
+        scenario "as a peon" do
+          @user.is_client_admin.should be_false
+          @user.is_site_admin.should be_false
+          visit activity_path(as: @user)
+
+          switch_to_board @second_board
+          crank_dj_clear
+
+          FakeMixpanelTracker.should have_event_matching('Switched Board', user: true, client_admin: false)
+        end
+
+        scenario "as a client admin" do
+          @user.is_client_admin = true
+          @user.save!
+
+          visit activity_path(as: @user)
+
+          switch_to_board @second_board
+          crank_dj_clear
+
+          FakeMixpanelTracker.should have_event_matching('Switched Board', user: false, client_admin: true)
+        end
+
+        scenario "as a site admin" do
+          @user.is_site_admin = true
+          @user.save!
+
+          visit activity_path(as: @user)
+
+          switch_to_board @second_board
+          crank_dj_clear
+
+          FakeMixpanelTracker.should have_event_matching('Switched Board', user: false, client_admin: true)
+        end
+      end
     end
 
     context "when in a single board" do
