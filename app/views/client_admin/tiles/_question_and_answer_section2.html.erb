@@ -85,6 +85,14 @@
         saveAnswerChanges(this);
       });
 
+      $('body').unbind();
+      $('body').click(function(event) {
+        if (!$(event.target).is(".tile_question") && !$(event.target).is("#tile_builder_form_question")) {
+          turnOffEditQuestion();
+        };
+        tryTurnOffEditAnswer(event.target);
+      });
+
       $(".tile_question").click(function() {
         turnOnEditQuestion(this);
       });

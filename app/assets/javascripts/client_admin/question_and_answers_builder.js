@@ -120,3 +120,21 @@ function turnOnEditAnswer(answer_show) {
   $(answer_show).parent().find(".answer_option").css("display", "block");
   $(answer_show).css("display", "none");
 }
+
+function turnOffEditQuestion() {
+  $(".tile_question").css("display", "block");
+  $("#tile_builder_form_question").css("display", "none");
+}
+
+function turnOffEditAnswer(answer_div) {
+  $(answer_div).find("a").css("display", "block");
+  $(answer_div).find(".answer_option").css("display", "none");
+}
+
+function tryTurnOffEditAnswer(element) {
+  $(".tile_multiple_choice_answer").each(function() {
+    if( !$(this).is( $(element).closest(".tile_multiple_choice_answer") ) ) {
+      turnOffEditAnswer(this);
+    };
+  });
+}
