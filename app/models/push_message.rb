@@ -21,22 +21,14 @@ class PushMessage < ActiveRecord::Base
                                                                   segment_query_operators,
                                                                   segment_query_values,
                                                                   demo_id)
-    #users = User.where(:id => user_ids)
 
     email_recipient_ids, sms_recipient_ids = User.push_message_recipients(respect_notification_method?, user_ids)
-
-    #if respect_notification_method?
-    #  email_recipient_ids = users.wants_email.pluck(:id)
-    #  sms_recipient_ids = users.wants_sms.with_phone_number.pluck(:id)
-    #else
-    #  email_recipient_ids = sms_recipient_ids = user_ids
-    #end
 
     # Mailing list may have changed since job was created => Update list of recipients
     update_attributes email_recipient_ids: email_recipient_ids, sms_recipient_ids: sms_recipient_ids
 
     if plain_text.present? || html_text.present?
-      GenericMailer::BulkSender.new(email_recipient_ids, subject, plain_text, html_text).delay.send_bulk_mails
+      GenericMailer::BulkSender.new(demo_id, email_recipient_ids, subject, plain_text, html_text).delay.send_bulk_mails
     end
 
     if sms_text.present?

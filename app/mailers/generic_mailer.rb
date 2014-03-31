@@ -5,15 +5,15 @@ class GenericMailer < ActionMailer::Base
   helper :email
   has_delay_mail
 
-  def send_message(user_id, subject, plain_text, html_text)
+  def send_message(demo_id, user_id, subject, plain_text, html_text)
     @user = User.find(user_id)
 
-    _invitation_url = invitation_url(@user.invitation_code)
+    _invitation_url = invitation_url(@user.invitation_code, demo_id: demo_id)
 
     @html_text = interpolate_invitation_url(_invitation_url, html_text).html_safe
     @plain_text = interpolate_invitation_url(_invitation_url, plain_text).html_safe
-    @html_text = interpolate_tile_digest_url(@user, @html_text)
-    @plain_text = interpolate_tile_digest_url(@user, @plain_text)
+    @html_text = interpolate_tile_digest_url(@user, demo_id, @html_text)
+    @plain_text = interpolate_tile_digest_url(@user, demo_id, @plain_text)
 
     from_string = @user.demo.email.present? ? @user.demo.reply_email_address : "Airbo <play@ourairbo.com>"
 
@@ -29,7 +29,8 @@ class GenericMailer < ActionMailer::Base
   end
 
   class BulkSender
-    def initialize(user_ids, subject, plain_text, html_text)
+    def initialize(demo_id, user_ids, subject, plain_text, html_text)
+      @demo_id = demo_id
       @user_ids = user_ids
       @subject = subject
       @plain_text = plain_text
@@ -38,7 +39,7 @@ class GenericMailer < ActionMailer::Base
 
     def send_bulk_mails
       @user_ids.each do |user_id|
-        GenericMailer.delay_mail(:send_message, user_id, @subject, @plain_text, @html_text)
+        GenericMailer.delay_mail(:send_message, @demo_id, user_id, @subject, @plain_text, @html_text)
       end
     end
   end

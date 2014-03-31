@@ -15,7 +15,7 @@ class Mailer < ActionMailer::Base
                        user.manually_set_confirmation_token
                        edit_user_password_url(user, :token => user.confirmation_token)
                      else
-                       invitation_url(user.invitation_code, referrer_hash)
+                       invitation_url(user.invitation_code, referrer_hash.merge(demo_id: _demo.id))
                      end
 
     @plain_text = email_template.plain_text(user, referrer, @invitation_url)

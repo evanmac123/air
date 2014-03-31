@@ -29,6 +29,9 @@ class Invitation::AcceptancesController < ApplicationController
 
     @user.save!
 
+    if params[:demo_id].present?
+      @user.move_to_new_demo(params[:demo_id])
+    end
     sign_in(@user)
     redirect_to activity_path
   end

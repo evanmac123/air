@@ -9,7 +9,7 @@ feature 'In multiple boards appears present in all at once' do
   end
 
   def create_user
-    @user = FactoryGirl.create(:user, name: USER_NAME, demo: @first_board)
+    @user = FactoryGirl.create(:user, :claimed, name: USER_NAME, demo: @first_board)
     @user.add_board(@second_board)
   end
 
@@ -103,6 +103,9 @@ feature 'In multiple boards appears present in all at once' do
 
       open_email(@user.email)
       current_email.body.should include(first_tile_headline(@first_board))
+      visit_in_email "new tiles"
+      should_be_on activity_path
+      expect_current_board_header @first_board
 
       ActionMailer::Base.deliveries.clear
 
@@ -112,6 +115,9 @@ feature 'In multiple boards appears present in all at once' do
 
       open_email(@user.email)
       current_email.body.should include(first_tile_headline(@second_board))
+      visit_in_email "new tiles"
+      should_be_on activity_path
+      expect_current_board_header @second_board
     end
 
     scenario "followups are received from both" do

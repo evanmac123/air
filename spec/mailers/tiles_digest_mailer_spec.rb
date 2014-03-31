@@ -81,7 +81,7 @@ describe 'Digest email' do
     # that is used to sign the user in when they click on any of the links in the tile-digest email.
     context 'claimed user' do
       subject { TilesDigestMailer.notify_one(demo.id, claimed_user.id, tile_ids, "New Tiles", false, nil) }
-      it { should have_selector     "a[href *= 'acts?tile_token=#{EmailLink.generate_token(claimed_user)}&user_id=#{claimed_user.id}']", count: 5 }
+      it { should have_selector     "a[href *= 'acts?demo_id=#{demo.id}&tile_token=#{EmailLink.generate_token(claimed_user)}&user_id=#{claimed_user.id}']", count: 5 }
       it { should_not have_selector "a[href *= 'invitations']" }
     end
 
@@ -102,7 +102,7 @@ describe 'Digest email' do
     # site-admins should have automatic sign-in links in their tiles
     context 'site-admins' do
       subject { TilesDigestMailer.notify_one(demo.id, site_admin.id, tile_ids, "New Tiles", false, nil) }
-      it { should have_selector "a[href *= 'acts?tile_token=#{EmailLink.generate_token(site_admin)}&user_id=#{site_admin.id}']", count: 5 }
+      it { should have_selector "a[href *= 'acts?demo_id=#{demo.id}&tile_token=#{EmailLink.generate_token(site_admin)}&user_id=#{site_admin.id}']", count: 5 }
     end
   end
 

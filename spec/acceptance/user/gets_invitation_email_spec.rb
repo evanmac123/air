@@ -287,7 +287,7 @@ If you're smart you'll go to [invitation_url] and play.
       end
 
       it "should interpolate invitation URLs with the referrer" do
-        expect_email_content invitation_url(@user.invitation_code, :referrer_id => @referrer.id)
+        expect_email_content invitation_url(@user.invitation_code, :referrer_id => @referrer.id, :demo_id => @demo.id)
       end
 
       it "should interpolate invitation links with the referrer" do

@@ -27,6 +27,22 @@ feature "User Accepts Invitation" do
     ActionMailer::Base.deliveries.should be_empty # no validation code to email
   end
 
+  scenario "across boards" do
+    original_board = @user.demo
+    @other_board = FactoryGirl.create(:demo)
+    @user.add_board(@other_board)
+    @user.demos.should have(2).demos
+    @user.demo.should == original_board
+    original_board.should_not == @other_board
+
+    visit invitation_url(@user.invitation_code, demo_id: @other_board.id)
+    fill_in_required_invitation_fields
+    click_button "Log in"
+
+    should_be_on activity_path
+    expect_current_board_header(@other_board)
+  end
+
   scenario "accepts invitation to a game with a custom welcome message" do
     @user.demo.update_attributes(custom_welcome_message: "You, %{unique_id}, are in the %{name} game.")
     visit invitation_url(@user.invitation_code)
