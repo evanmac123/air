@@ -40,26 +40,6 @@
       });
     };
 
-    $(function() {
-      var initialAnswerField = $('.answer_option').eq(0);
-
-      $('#add-answer-link').click(function(e) {
-        e.preventDefault();
-        var existingRadioCount = $('.option_radio').length;
-
-        var newField = initialAnswerField.clone()
-                          .find('.character-counter').remove().end()
-                          .find('.option_radio').removeClass('option_selected').end()
-                          .find('.answer-field').val('').end()
-                          .find('input:radio').removeAttr('checked').attr('value', existingRadioCount).end();
-        var newFieldAnswer = newField.find('.answer-field');
-
-        newField.appendTo('#answers');
-        addCharacterCounterFor(newFieldAnswer);
-        turnRadioGreen();
-      });
-    });
-
     addCharacterCounterFor('#tile_builder_form_headline');
     addCharacterCounterFor('#tile_builder_form_supporting_content');
     _.each($('.answer-field'), addCharacterCounterFor);
@@ -102,6 +82,12 @@
 
       $(".tile_multiple_choice_answer a").click(function() {
         turnOnEditAnswer(this);
+      });
+
+      var initialAnswerField = $('.answer_option').eq(0);
+
+      $('.add_answer').click(function(e) {
+        addNewAnswer();
       });
     };
   <% end %>

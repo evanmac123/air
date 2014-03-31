@@ -48,6 +48,19 @@ function editAnswerContainer(display, text, index, correct) {
   return edit_answer_container;
 };
 
+function addNewAnswer(){
+  type_name = findTileType();
+  subtype_name = findTileSubtype();
+
+  answer_text = "Add Answer Option";
+  subtype = tile_types[type_name][subtype_name];
+  i = subtype["answers"].length
+  tile_types[type_name][subtype_name]["answers"][i] = answer_text; 
+
+  $("li.selected").click();
+  $("li.selected").click();
+}
+
 function addAnswers(container, answers, correct_index) {
   type = findTileType();
   subtype = findTileSubtype();
@@ -115,8 +128,12 @@ function showAddAnswer(container) {
 
 function showSelectAndAddAnswer() {
   after_answers = $('<div class="after_answers row"></div>');
-  if(subtype == "multiple_choice" && type == "Quiz"){
+  if(type == "Quiz"){
     addAnswerSelectedMessage(after_answers);
+  }else{
+    after_answers.append('<div class="columns small-8"></div>');
+  }
+  if(subtype == "multiple_choice" && (type == "Quiz" || type == "Survey")){
     showAddAnswer(after_answers);
   }
   $(".quiz_content").append(after_answers);
