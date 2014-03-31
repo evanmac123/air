@@ -27,7 +27,7 @@ class UserCreatorFromCsv
       user.schedule_segmentation_update(true)
     else
       user = User.create(new_user_attributes)
-      user.add_board(@demo_id, true)
+      user.add_board(@demo_id, true) if user.persisted?
     end
 
     user
