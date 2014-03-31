@@ -80,8 +80,16 @@ feature 'Edits user' do
     select year,  :from => "user_date_of_birth_1i"
   end
 
+  def location_select_selector
+    '#user_location_id'  
+  end
+
+  def location_options_selector
+    "#{location_select_selector} option"
+  end
+
   def names_in_select
-    page.all('#user_location_id option').map(&:text)
+    page.all(location_options_selector).map(&:text)
   end
 
   def expect_locations_in_select(locations)
@@ -240,6 +248,22 @@ feature 'Edits user' do
         click_button "Save edits"
         @user.reload.location.should == original_location
         @user.board_memberships.reload.where(demo_id: client_admin.demo.id).first.location_id.should == new_location.id
+      end
+
+      it "should show the user's location in the current board, if any" do
+        other_board_location = @other_demo.locations.first
+        @user.location = other_board_location
+        @user.save!
+        
+        this_board_location = @current_demo_locations.first
+        this_board_membership = @user.board_memberships.find_by_demo_id(client_admin.demo)
+        this_board_membership.location_id = this_board_location.id
+        this_board_membership.save!
+
+        visit(edit_client_admin_user_path(@user, as: client_admin))
+        within(location_select_selector) do
+          page.find("option[selected]").text.should == this_board_location.name
+        end
       end
     end
   end

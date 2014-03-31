@@ -977,6 +977,10 @@ class User < ActiveRecord::Base
     demos.where(id: demo_ids - [current_demo_id])
   end
 
+  def current_location_in_board(board)
+    board_memberships.find_by_demo_id(board.id).try(:location)
+  end
+
   protected
 
   def downcase_email

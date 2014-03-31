@@ -24,7 +24,7 @@
         <tr class="found-user">
           <td class="results-name"><%= link_to user.name, edit_client_admin_user_path(user), class: 'edit-user' %></td>
           <td class="results-email"><%= user.email %></td>
-          <td class="results-location"><%= user.location.try(:name) %></td>
+          <td class="results-location"><%= user.current_location_in_board(current_user.demo).try(:name) %></td>
           <td class="results-joined">
             <% if user.claimed? %>
               <span class="joined">Yes</span>

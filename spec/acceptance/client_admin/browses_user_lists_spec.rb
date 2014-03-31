@@ -18,7 +18,12 @@ feature 'Browses user lists' do
   end
 
   it "should show everyone if asked" do
-    5.times { |i| FactoryGirl.create(:user, :with_location, name: "Dude #{i}", demo: client_admin.demo) }
+    5.times do |i| 
+      user = FactoryGirl.create(:user, :with_location, name: "Dude #{i}", demo: client_admin.demo)
+      user.location.update_attributes(demo_id: user.demo.id)
+      user.board_memberships.first.update_attributes(location_id: user.location_id)
+    end
+
     other_demo_guy = FactoryGirl.create(:user, :with_location, name: "Johnny Otherdemo")
     other_demo_guy.demo.should_not == client_admin.demo
 
@@ -30,7 +35,7 @@ feature 'Browses user lists' do
     expect_content "Showing results for everyone"
   end
 
-  # NOTE: This test takes about 2 1/2 minutes to run
+  # NOTE: This test takes about 2 1/2 minutes to run (on my old machine, at least, RIP)
   # Or even longer, especially if you're in a hurry.
   it "should paginate big result sets" do
     puts "STARTING A SLOW TEST, GET COMFORTABLE"
@@ -38,7 +43,12 @@ feature 'Browses user lists' do
     page_size = ClientAdmin::UsersController::PAGE_SIZE
 
     client_admin.update_attributes(name: "Zzzzzzzzz") # hack to make sure admin appears at the end of the list
-    (2 * page_size).times { |i| FactoryGirl.create(:user, :with_location, name: "Dude #{i}", demo: client_admin.demo) }
+    (2 * page_size).times do |i| 
+      user = FactoryGirl.create(:user, :with_location, name: "Dude #{i}", demo: client_admin.demo)    
+      user.location.update_attributes(demo_id: user.demo.id)
+      user.board_memberships.first.update_attributes(location_id: user.location_id)
+    end
+
     other_demo_guy = FactoryGirl.create(:user, :with_location, name: "Johnny Otherdemo")
     other_demo_guy.demo.should_not == client_admin.demo
 
