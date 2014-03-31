@@ -14,17 +14,21 @@ function findTileSubtype() {
   return getTileSubtype($("li.selected").attr("id"));
 };
 
-function showAnswerContainer(display, text) {
-  return buildContainer(display, text, '<a></a>');
+function showAnswerContainer(display, text, correct) {
+  container = buildContainer(display, text, '<a></a>');
+  if(correct){
+    container.addClass("clicked_right_answer");
+  }
+  return container;
 };
 
-function editAnswerContainer(display, text, index) {
+function editAnswerContainer(display, text, index, correct) {
   type = $(".selected.button").attr("id");
   edit_answer_container = $('<ul class="answer_option"></ul>');
   option_radio = $(
     ['<li class="option_radio">',
-        '<input class="correct-answer-button answer-part" id="tile_builder_form_correct_answer_index_"' + index,
-        ' name="tile_builder_form[correct_answer_index]" type="radio" value="0">',
+        '<input class="correct-answer-button answer-part" id="tile_builder_form_correct_answer_index_' + index,
+        '" name="tile_builder_form[correct_answer_index]" type="radio" value="' + index, '">',
       '</li>'].join(''));
   option_input = $(
     ['<li class="option_input">',
@@ -37,17 +41,31 @@ function editAnswerContainer(display, text, index) {
   text_input = edit_answer_container.find(".answer-field.answer-part");
   text_input.val(text);
   edit_answer_container.css("display", display);
+  if(correct){
+    edit_answer_container.find(".option_radio").addClass("option_selected");
+    edit_answer_container.find(".correct-answer-button.answer-part").attr("checked", true);
+  }
   return edit_answer_container;
 };
 
-function addAnswers(container, answers) {
+function addAnswers(container, answers, correct_index) {
+  type = findTileType();
+  subtype = findTileSubtype();
+
   answers_group = $('<div class="multiple_choice_group"></div>');
   container.append(answers_group);
   for(i in answers) {
+
+    if(correct_index == i){
+      correct = true;
+    }else{
+      correct = false;
+    }
+
     answer = $('<div class="tile_multiple_choice_answer"></div>');
     answers_group.append(answer); 
-    answer.append(showAnswerContainer("block", answers[i]));
-    answer.append(editAnswerContainer("none", answers[i], i));
+    answer.append(showAnswerContainer("block", answers[i], correct));
+    answer.append(editAnswerContainer("none", answers[i], i, correct));
   }
 };
 
@@ -79,7 +97,7 @@ function showQuestionAndAnswers(subtype) {
   $(".quiz_content").html("");
   quiz_content = $(".quiz_content");
   addQuestion(quiz_content, subtype["question"]);
-  addAnswers(quiz_content, subtype["answers"]);
+  addAnswers(quiz_content, subtype["answers"], subtype["correct"]);
 };
 
 function addAnswerSelectedMessage(container) {
@@ -187,3 +205,21 @@ function makeAnswerGreen(radio) {
   }
   answer_show.toggleClass("clicked_right_answer");
 }
+
+function markRightAnswer(element) {
+  makeAnswerGreen(element); 
+  selectMessage();
+  saveRightAnswer(element);
+}
+
+function saveRightAnswer(element) {
+  type = findTileType();
+  subtype = findTileSubtype();
+
+  if($(element).hasClass("option_selected")){
+    correct = $(element).find("input").val();
+  }else {
+    correct = -1;
+  }
+  tile_types[type][subtype]["correct"] = correct;
+} 
