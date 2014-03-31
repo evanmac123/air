@@ -78,6 +78,25 @@ feature 'Switches boards' do
         click_link @first_board.name
         should_be_on activity_path
       end
+
+      it "sends a client admin back whence they came", js: true do
+        BoardMembership.where(user_id: @user.id, demo_id: [@second_board.id, @third_board.id]).each do |membership| 
+          membership.is_client_admin = true
+          membership.save!
+        end
+
+        visit tiles_path(as: @user)
+        switch_to_board @second_board
+        should_be_on tiles_path
+
+        visit client_admin_users_path
+        should_be_on client_admin_users_path
+        switch_to_board @third_board
+        should_be_on client_admin_users_path
+
+        switch_to_board @first_board
+        should_be_on activity_path
+      end
     end
 
     context "when in a single board" do
