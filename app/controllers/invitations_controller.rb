@@ -56,6 +56,9 @@ class InvitationsController < ApplicationController
     if @user.accepted_invitation_at.present?
       if current_user
         flash[:failure] = "You've already accepted your invitation to the game."
+        if params[:demo_id]
+          current_user.move_to_new_demo(params[:demo_id])
+        end
         redirect_to activity_path
       else
         flash[:failure] = "You've already accepted your invitation to the game. Please log in if you'd like to use the site."
