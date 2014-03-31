@@ -265,7 +265,6 @@ body.client_admin-tiles-update {
     }
     .answer_option {
       li {
-        display:inline-block;
         float:left;
         &.option_radio {
           background:darken($light-gray, 5%);
@@ -282,7 +281,7 @@ body.client_admin-tiles-update {
           border-color:darken($dark-green, 5%);
         }
         &.option_input {
-          width:93%;
+          float:none; overflow:hidden;
         }
       }
       span.character-counter {

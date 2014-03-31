@@ -19,16 +19,21 @@ function showAnswerContainer(display, text) {
 };
 
 function editAnswerContainer(display, text, index) {
-  edit_answer_container = $(
-    [ '<ul class="answer_option">',
-        '<li class="option_radio">',
-          '<input class="correct-answer-button answer-part" id="tile_builder_form_correct_answer_index_"' + index,
-          ' name="tile_builder_form[correct_answer_index]" type="radio" value="0">',
-        '</li>', 
-        '<li class="option_input">',
-          '<input class="answer-field answer-part" id="tile_builder_form_answers_" maxlength="50" name="tile_builder_form[answers][]" type="text" value="sedfg">',
-        '</li>',
-      '</ul>'].join(''));
+  type = $(".selected.button").attr("id");
+  edit_answer_container = $('<ul class="answer_option"></ul>');
+  option_radio = $(
+    ['<li class="option_radio">',
+        '<input class="correct-answer-button answer-part" id="tile_builder_form_correct_answer_index_"' + index,
+        ' name="tile_builder_form[correct_answer_index]" type="radio" value="0">',
+      '</li>'].join(''));
+  option_input = $(
+    ['<li class="option_input">',
+        '<input class="answer-field answer-part" id="tile_builder_form_answers_" maxlength="50" name="tile_builder_form[answers][]" type="text">',
+      '</li>'].join(''));
+  if(type != "Action") {
+    edit_answer_container.append(option_radio);
+  };
+  edit_answer_container.append(option_input);
   text_input = edit_answer_container.find(".answer-field.answer-part");
   text_input.val(text);
   edit_answer_container.css("display", display);
