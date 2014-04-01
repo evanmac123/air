@@ -127,7 +127,7 @@ header {
   }
 
   // Toggled menu
-  .user_options ul, .admin_options .client_admin_pages, .how_it_works ul, #board_switch .other_boards {
+  .user_options ul, .admin_options .client_admin_pages, .how_it_works ul, .other_boards {
     $toggled-menu-bg: $dark-gray;
     background:$toggled-menu-bg;
     border:1px $toggled-menu-bg solid;
@@ -150,9 +150,10 @@ header {
     li + li {a{border-top:1px lighten($toggled-menu-bg, 5%) solid;}}
   }
   
-  #board_switch .other_boards {
+  .other_boards {
     a, #no_other_boards {
       width: 22em;
+      padding-left: 1.1em;
     }
   }
 

@@ -50,6 +50,7 @@
               <span class="fa fa-caret-down"></span>
             </p>
           </a>
+        </div>
           <%# Desktop version of the board switcher %>
           <ul class="other_boards">
             <% if @boards_to_switch_to.present? && @boards_to_switch_to.length > 1 %>
@@ -62,7 +63,6 @@
               <li><span id="no_other_boards">You haven't joined any other boards.</span></li>
             <% end %>
           </ul>
-        </div>
       <% end %>
       <div class="admin_options">
         <% if current_user.authorized_to?(:client_admin) %>
