@@ -67,7 +67,7 @@ header {
       color:darken($header-color, 9%);
       top: {width:0;}
       bottom: {width:0;}
-      left: {width:1px;}
+      left: {width:0;}
       right: {width:1px;}
     }
     box-shadow: inset 0px 1px 1px 1px #fff;
@@ -177,7 +177,7 @@ header {
       top: {width:0;}
       bottom: {width:0;}
       left: {width:1px;}
-      right: {width:0;}
+      right: {width:1px;}
     }
 
     .board_name {
