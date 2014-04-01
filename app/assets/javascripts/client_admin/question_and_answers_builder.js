@@ -32,7 +32,10 @@ function editAnswerContainer(display, text, index, correct) {
       '</li>'].join(''));
   option_input = $(
     ['<li class="option_input">',
-        '<input class="answer-field answer-part" id="tile_builder_form_answers_" maxlength="50" name="tile_builder_form[answers][]" type="text">',
+        '<div class="answer-div">',
+          '<input class="answer-field answer-part" data="' + index,
+          '" maxlength="50" name="tile_builder_form[answers][]" type="text">',
+        '</div>',
       '</li>'].join(''));
   if(type == "Quiz") {
     edit_answer_container.append(option_radio);
@@ -92,7 +95,7 @@ function buildContainer(display, text, html) {
 };
 
 function showQuestionContainer(display, text) {
-  return buildContainer(display, text, '<div class="tile_question has-tip" data-tooltip title="Click to edit"></div>');
+  return buildContainer(display, text, '<div class="tile_question"></div>');
 };
 
 function editQuestionContainer(display, text) {
@@ -148,7 +151,7 @@ function selectMessage() {
   }else {
     select_message.removeClass("have_answer").addClass("no_answer");
     icon = $('<i class="fa fa-info-circle"></i>');
-    meassage = "  Click an answer option to mark the right answer";
+    meassage = "  Click an answer option and mark the right answer";
   }
   select_message.text(meassage).prepend(icon);
 }
@@ -172,11 +175,11 @@ function saveQuestionChanges(question_filed) {
 };
 
 function getAnswerIndex(answer_input){
-  return $(answer_input).parent().parent().find(".correct-answer-button").val();
+  return $(answer_input).attr("data");
 }
 
 function updateShowAnswer(text, answer_input){
-  $(answer_input).parent().parent().parent().find("a").html(text);
+  $(answer_input).closest(".tile_multiple_choice_answer").find("a").html(text);
 }
 
 function saveAnswerChanges(answer_input) {

@@ -189,6 +189,7 @@ body.client_admin-tiles-update,
         font-size:1.25em;
         line-height:1em;
         padding:.5em 1em;
+        min-height: 2.1em;
         &.clicked_wrong {
           background:darken($light-gray, 10%);
           border-color:$light-gray;

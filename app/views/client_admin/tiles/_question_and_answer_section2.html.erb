@@ -4,7 +4,7 @@
       <ul class="button-group">
         <% tile_types.each do |type, subtypes| %>
           <li class="tile_type">
-            <a id="<%= type %>" href="#" data-dropdown="drop_<%= type %>" class="button has-tip"  data-tooltip title="<%= tile_type_tooltips[type] %>"><%= type %> <i class="fa fa-caret-down"></i></a>
+            <a id="<%= type %>" href="#" data-dropdown="drop_<%= type %>" class="button"><%= type %> <i class="fa fa-caret-down"></i></a>
 
             <ul id="drop_<%= type %>" class="f-dropdown">
               <% subtypes.each do |key, subtype| %>

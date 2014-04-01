@@ -115,12 +115,4 @@ module ClientAdmin::TilesHelper
       }
     }
   end
-
-  def tile_type_tooltips
-    {
-      "Action" => "User confirms doing something",
-      "Quiz" => "Ask a question with one right answer",
-      "Survey" => "Ask a question, user can select one answer"
-    }
-  end
 end
