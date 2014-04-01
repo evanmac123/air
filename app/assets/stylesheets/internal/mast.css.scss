@@ -35,7 +35,7 @@ header #small-toggle.off-canvas-toggle a {
     .small_cap {padding:1em;}
     #admin_toggle {display: none;}
   }
-  #board_switch {
+  #board_switch, .other_boards {
     display: none; //overridden in desktop style
   }
   .board_switch_dropdown {
