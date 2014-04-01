@@ -89,7 +89,7 @@ body.client_admin-shares{
 
 body.client_admin-tiles
 {
-    .tooltip{
+    #tile_manager_nav.tooltip{
         margin-left: -44px;
         .nub{
             margin-left: 148px;
@@ -107,8 +107,8 @@ body.client_admin-tiles
 body.client_admin-shares,
 body.client_admins,
 body.client_admin-users,
-body.client_admin-explores {
-    .tooltip{
+body.client_admin-explores {    
+    #tile_manager_nav.tooltip{
         margin-left: -44px;
         .nub{
             margin-left: 148px;

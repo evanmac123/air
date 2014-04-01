@@ -90,19 +90,6 @@ feature 'Sees helpful information in tile manager' do
     end
   end
 
-  context "in the digest tab" do
-    it "should not show any of these handy dates", js: true do
-      tile = FactoryGirl.create(:tile, demo: demo, status: Tile::ACTIVE, archived_at: 5.days.ago, activated_at: 2.days.ago, headline: "Prozac tacos")
-      user = FactoryGirl.create :user, demo: demo
-      FactoryGirl.create(:tile_completion, tile: tile, user: user)      
-      visit client_admin_share_path(as: client_admin)
-
-      expect_content "Prozac tacos"
-#      expect_no_content "Active: 2 days"
-#      expect_no_content "Since:"
-    end
-  end
-
   context "with numerical information" do
     before do
       @tile_1 = FactoryGirl.create(:tile, demo: demo, status: Tile::ACTIVE,  archived_at: 5.days.ago, activated_at: 2.days.ago)

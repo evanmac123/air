@@ -1,28 +1,32 @@
-%h2 Send Email with New Tiles
-= form_tag client_admin_tiles_digest_notification_path do
-  %div.notification_controls
-    %div.send_to
-      %p
-        Who would you like to notify?
-        %a{:href => "/pages/static_digest", :target => "_blank", :id => "digest_example"} Sample
-      = select_tag :digest_send_to, options_for_select([['all users', true], ['only joined users', false]], @demo.unclaimed_users_also_get_digest)
+.ready_to_send
+  .fa.fa-envelope 
+    %span You have tiles ready to be sent to your users.
+  %p#last-email= digest_email_sent_on_message
+.large-3
+  = form_tag client_admin_tiles_digest_notification_path, class: :custom do
+    .notification_controls
+      .send_to
+        %p
+          RECIPIENTS
+        .drop_down= select_tag :digest_send_to, options_for_select([['All Users', true], ['Activated Users', false]], @demo.unclaimed_users_also_get_digest)
 
-    %div.follow_up
-      %p
-        Send reminder email to users who don't engage?
-        %a{:href => "/pages/static_followup", :target => "_blank", :id => "followup_example"} Sample
-        %span Automatically increases participation rates and makes sure your content is seen.
-      On:
-      = select_tag :follow_up_day, options_for_select(%w(Never) + Date::DAYNAMES, selected: default_follow_up_day)
+      .follow_up
+        %p
+          FOLLOW-UP EMAIL
+        .drop_down= select_tag :follow_up_day, options_for_select(%w(Never) + Date::DAYNAMES, selected: default_follow_up_day)
 
-    %p 
-      Add Optional Message
-      = text_area_tag "digest[custom_message]", '', size: "50x6", maxlength: 160
-      = javascript_include_tag 'admin/byte_counter'
-      :javascript
-        addCharacterCounterFor('#digest_custom_message');
+      .intro_message
+        %p
+          INTRO MESSAGE
+        = text_area_tag "digest[custom_message]", '', size: "50x6", maxlength: 160
+        = javascript_include_tag 'admin/byte_counter'
+        :javascript
+          addCharacterCounterFor('#digest_custom_message');
 
-
-
-    = submit_tag "Send digest now", confirm: 'Are you sure you want to send the digest email?'
-    %p#last-email= digest_email_sent_on_message
+      .total_users
+        %span TOTAL USERS EMAIL WILL BE SENT TO
+        %p#all_users= @all_users
+        %p#activated_users= @activated_users
+        .clearfix
+      = submit_tag "Send", confirm: 'Are you sure you want to send the digest email?'
+.large-9.email_preview= render 'shared/email_client_wrapper', demo: current_user.demo

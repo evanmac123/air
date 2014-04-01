@@ -24,3 +24,39 @@ $(document).on('click', '#public_board_field', (event) ->
   event.preventDefault()
   $(event.target).focus().select()
 )
+
+$(document).ready ->
+  $('#digest_management').find('#share_tiles_email_preview').attr('src', '/client_admin/preview_invite_email?custom_message=%20')
+  $('#activated_users').hide()
+  $('#digest_send_to').on('change', (event) ->
+    if $('#digest_send_to option:selected').text() == "All Users"
+      $('#all_users').show()
+      $('#activated_users').hide()
+    else if $('#digest_send_to option:selected').text() == "Activated Users"
+      $('#all_users').hide()
+      $('#activated_users').show()
+  )
+
+  $(".switch").on "click", (event) ->    
+    if $("#private_button").attr("checked")
+      demo_id = $('.new_public_board').attr('id')
+      $.ajax({
+        url : ("/client_admin/public_boards/"+demo_id),
+        type : 'DELETE',       
+      })
+      $('.status_div').find('.private').html('<b>PRIVATE</b>')
+      $('.status_div').find('.public').html('<label>PUBLIC</label>')
+      $('.status_message_div').html("<div class='fa fa-lock fa-2x'></div> 
+                                     <div class='private-demo-message'>SHARE LINK IS LOCKED</div>")
+      document.getElementById("public_board_field").setAttribute("disabled","true")
+    else
+      $.post("/client_admin/public_boards")
+      $('.status_div').find('.private').html('<label>PRIVATE</label>')
+      $('.status_div').find('.public').html('<b>PUBLIC</b>')
+      $('.status_message_div').html("<div class='fa fa-unlock fa-2x'></div> 
+                                   <div class='public-demo-message'>SHARE LINK IS ACTIVE</div>")
+      document.getElementById("public_board_field").removeAttribute("disabled")
+
+    return
+    
+  return

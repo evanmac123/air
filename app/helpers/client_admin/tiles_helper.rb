@@ -8,7 +8,7 @@ module ClientAdmin::TilesHelper
   end
 
   def digest_email_sent_on_message
-    @demo.tile_digest_email_sent_at.nil? ? nil : "Last digest email was sent on #{@demo.tile_digest_email_sent_at.to_s(:tile_digest_email_sent_at)}"
+    @demo.tile_digest_email_sent_at.nil? ? nil : "Last tiles sent on #{@demo.tile_digest_email_sent_at.to_s(:tile_digest_email_sent_at)}"
   end
 
   def no_digest_email_message

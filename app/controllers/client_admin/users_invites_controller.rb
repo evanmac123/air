@@ -22,7 +22,7 @@ class ClientAdmin::UsersInvitesController < ClientAdminBaseController
     @tiles = @demo.digest_tiles.order('activated_at DESC')
     @follow_up_email = false
     @onboarding_email = true
-    @custom_message = 'Check out my new board!'
+    @custom_message = params[:custom_message]||'Check out my new board!'
     @title = "Join my #{@demo.name} board"
     @invitation_url = @user.claimed? ? nil : invitation_url(@user.invitation_code, protocol: email_link_protocol, host: email_link_host)    
       

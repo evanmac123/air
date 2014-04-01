@@ -11,11 +11,11 @@ feature "Client admin sets board's public status themself" do
   end
 
   def click_on_link
-    page.find('#on_toggle').click
+    page.find('.switch').click
   end
 
   def click_off_link
-    page.find('#off_toggle').click
+    page.find('.switch').click
   end
 
   def share_url_regex(slug)
@@ -28,13 +28,13 @@ feature "Client admin sets board's public status themself" do
   end
 
   def expect_on_engaged
-    page.all('#on_toggle.engaged').should be_present
-    page.all('#off_toggle.engaged').should be_empty
+    page.find('#private_button')['checked'].should_not be_present
+    page.find('#public_button')['checked'].should be_present
   end
 
   def expect_off_engaged
-    page.all('#on_toggle.engaged').should be_empty
-    page.all('#off_toggle.engaged').should be_present
+    page.find('#private_button')['checked'].should be_present
+    page.find('#public_button')['checked'].should_not be_present
   end
 
   context "when the board is public" do
@@ -55,6 +55,16 @@ feature "Client admin sets board's public status themself" do
     it "should show the public slug regardless" do
       expect_displayed_share_url('heyfriend')
     end
+    
+    it "should display tooltip on mouseover question mark icon", js: true do
+      page.find('.fa-question-circle').trigger(:mouseover)
+      page.should have_content("If Private, only people you add can see your board. If public, anyone with the share link can see and join it.")
+    end
+    
+    it "should have unlock icon with respective message" do
+      page.should have_css('.fa-unlock')
+      page.should have_content("SHARE LINK IS ACTIVE")
+    end
   end
 
   context "when the board is already private" do
@@ -73,7 +83,11 @@ feature "Client admin sets board's public status themself" do
 
     it "should allow the client admin to switch it off", js: true do
       click_off_link
-      expect_off_engaged
+      expect_on_engaged
+    end
+    it "should have lock icon with respective message" do
+      page.should have_css('.fa-lock')
+      page.should have_content("SHARE LINK IS LOCKED")
     end
   end
 end

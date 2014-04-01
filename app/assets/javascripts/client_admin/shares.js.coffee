@@ -1,4 +1,6 @@
 $(document).ready ->
+  $('#digest_management').foundation()
+  
   $('#invite_users_page_1').find('#add_another_user_invite').on('click', (event) ->
     add_fields = $('.invite-user:first').clone(true)
     add_fields.find('input').val('')
@@ -235,6 +237,12 @@ $(document).ready ->
   ).on('keypress', (event) ->
     $('#invite_users_page_2').find('#share_tiles_email_preview').contents().find('#custom_message').html($(this).val())
     $.ajax("/client_admin/share/changed_message")
+  )  
+
+  $('#digest_management').find('#digest_custom_message').on('keyup', (event) ->
+    $('#digest_management').find('#share_tiles_email_preview').contents().find('#custom_message').html($(this).val())
+  ).on('keypress', (event) ->
+    $('#digest_management').find('#share_tiles_email_preview').contents().find('#custom_message').html($(this).val())
   )  
 
   $('#invite_users_page_1').find('input').select((event) ->

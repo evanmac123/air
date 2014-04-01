@@ -83,6 +83,7 @@ feature 'Client admin and the digest email for tiles' do
     end
 
     scenario 'Text is correct when follow-up emails are scheduled to be sent, and emails can be cancelled', js: :webkit do  # (Didn't work with poltergeist)
+      page.driver.browser.accept_js_confirms
       create_follow_up_emails
       visit client_admin_share_path(as: admin)
 
@@ -90,20 +91,22 @@ feature 'Client admin and the digest email for tiles' do
       page.should contain 'Monday, July 01, 2013'
       page.should contain 'Tuesday, July 02, 2013'
       page.should contain 'Wednesday, July 03, 2013'
+      
+      page.all(".cancel_button a").first.click
 
-      first(:link, "Cancel").click
-
-      page.should contain 'FOLLOW-UP EMAIL FOR MONDAY, JULY 01, 2013 CANCELED'
+      
+      page.should_not contain 'Monday, July 01, 2013'
       page.should contain 'Tuesday, July 02, 2013'
       page.should contain 'Wednesday, July 03, 2013'
     end
 
     context "when a followup is cancelled" do
-      it "sends a ping", js: true do
+      it "sends a ping", js: :webkit do
+        page.driver.browser.accept_js_confirms
         create_follow_up_emails
         visit client_admin_share_path(as: admin)
 
-        page.all('.follow_up_email_details a').first.click
+        page.all('.cancel_button a').first.click
         FakeMixpanelTracker.clear_tracked_events
         crank_dj_clear
 
@@ -117,7 +120,7 @@ feature 'Client admin and the digest email for tiles' do
       create_tile
       visit client_admin_share_path(as: admin)
 
-      page.should contain 'Send Email with New Tiles'
+      page.should contain 'You have tiles ready to be sent to your users.'
       expect_tiles_to_send_header
     end
 
@@ -128,7 +131,7 @@ feature 'Client admin and the digest email for tiles' do
 
         visit client_admin_share_path(as: admin)
 
-        page.should have_send_to_selector('all users')
+        page.should have_send_to_selector('All Users')
         page.should have_follow_up_selector('Thursday')
         expect_character_counter_for '#digest_custom_message', 160
       end
@@ -139,7 +142,7 @@ feature 'Client admin and the digest email for tiles' do
 
         visit client_admin_share_path(as: admin)
 
-        page.should have_send_to_selector('only joined users')
+        page.should have_send_to_selector('Activated Users')
         page.should have_follow_up_selector('Tuesday')
         expect_character_counter_for '#digest_custom_message', 160
       end
@@ -157,6 +160,7 @@ feature 'Client admin and the digest email for tiles' do
       # We've had this stupid fucking problem before. Luckily Phil figured out it is some kind of timing problem.
       # We've also had the stupid fucking problem of stuff like this not working in poltergeist => have to use webkit
       # (Man, testing is great... but sometimes it can be such a royal fucking pain in the ass)
+      page.driver.browser.accept_js_confirms
       create_tile
 
       visit client_admin_share_path(as: admin)
@@ -169,9 +173,9 @@ feature 'Client admin and the digest email for tiles' do
       page.should contain 'Tuesday, July 02, 2013'
       page.should contain 'Wednesday, July 03, 2013'
 
-      first(:link, "Cancel").click
+      page.all('.cancel_button a').first.click
 
-      page.should contain 'FOLLOW-UP EMAIL FOR MONDAY, JULY 01, 2013 CANCELED'
+      page.should_not contain 'Monday, July 01, 2013'
       page.should contain 'Tuesday, July 02, 2013'
       page.should contain 'Wednesday, July 03, 2013'
     end
@@ -180,15 +184,15 @@ feature 'Client admin and the digest email for tiles' do
       create_tile
       visit client_admin_share_path(as: admin)
 
-      expect_no_content 'Last digest email was sent'
+      expect_no_content 'Last tiles sent on'
 
       set_last_sent_on '7/4/2013'
       visit client_admin_share_path(as: admin)
       
-      expect_content 'Last digest email was sent on Thursday, July 04, 2013'
+      expect_content 'Last tiles sent on Thursday, July 04, 2013'
     end
 
-    context "Clicking the 'Send digest now' button" do
+    context "Clicking the 'Send' button" do
       before(:each) do
         set_last_sent_on '7/4/2013'
         2.times { |i| create_tile on_day: '7/5/2013', activated_on: '7/5/2013', status: Tile::ACTIVE, headline: "Headline #{i + 1}"}
@@ -196,7 +200,7 @@ feature 'Client admin and the digest email for tiles' do
 
       scenario "yet a third message appears, somewhere on the page, that the digest has been sent" do
         visit client_admin_share_path(as: admin)
-        click_button "Send digest now"
+        click_button "Send"
         expect_digest_sent_content
         click_link "the Activity page"
         should_be_on client_admin_path
@@ -215,7 +219,7 @@ feature 'Client admin and the digest email for tiles' do
 
           page.should have_num_tiles(3)
 
-          click_button 'Send digest now'
+          click_button 'Send'
           crank_dj_clear
 
           page.should contain "Tiles digest email was sent"
@@ -234,7 +238,7 @@ feature 'Client admin and the digest email for tiles' do
         on_day '7/6/2013' do
           visit client_admin_share_path(as: admin)
           change_follow_up_day 'Thursday'
-          click_button "Send digest now"
+          click_button "Send"
           expect_follow_up_header
           expect_content "Thursday, July 11, 2013"
         end
@@ -262,8 +266,8 @@ feature 'Client admin and the digest email for tiles' do
                   The tile links should sign in claimed, *non-client-admin* users to the
                   Activities page, while whisking others to where they belong" do
           on_day '7/6/2013' do
-            change_send_to('all users')
-            click_button 'Send digest now'
+            change_send_to('All Users')
+            click_button 'Send'
             crank_dj_clear
 
             all_emails.should have(7).emails  # The above 5 for this demo, and the 'client-admin' and the 'user' created at top of tests
@@ -301,8 +305,8 @@ feature 'Client admin and the digest email for tiles' do
 
         scenario 'Demo where only claimed users should get digests' do
           on_day '7/6/2013' do
-            change_send_to('only joined users')
-            click_button 'Send digest now'
+            change_send_to('Activated Users')
+            click_button 'Send'
             crank_dj_clear
 
             all_emails.should have(4).emails  # 2 claimed users, the 'site-admin', and the 'client-admin' (created at top of tests)
@@ -316,9 +320,9 @@ feature 'Client admin and the digest email for tiles' do
         context "and the optional admin-supplied custom message is filled in" do
           it "should put that in the emails" do
             buzzwordery = "Proactive synergies and cross-functional co-opetition."
-            change_send_to('all users')
+            change_send_to('All Users')
             fill_in "digest[custom_message]", with: buzzwordery
-            click_button 'Send digest now'
+            click_button 'Send'
 
             crank_dj_clear
 
@@ -334,7 +338,7 @@ feature 'Client admin and the digest email for tiles' do
         it "having the proper label" do
           create_tile
           visit client_admin_share_path(as: admin)
-          click_button "Send digest now"
+          click_button "Send"
           
           FakeMixpanelTracker.clear_tracked_events
           crank_dj_clear
@@ -345,8 +349,8 @@ feature 'Client admin and the digest email for tiles' do
         it "recording if the digest is for everyone or just claimed users" do
           create_tile
           visit client_admin_share_path(as: admin)
-          select 'all users', from: 'digest_send_to'
-          click_button "Send digest now"
+          select 'All Users', from: 'digest_send_to'
+          click_button "Send"
 
           FakeMixpanelTracker.clear_tracked_events
           crank_dj_clear
@@ -355,8 +359,8 @@ feature 'Client admin and the digest email for tiles' do
 
           create_tile
           visit client_admin_share_path(as: admin)
-          select 'only joined users', from: 'digest_send_to'
-          click_button "Send digest now"
+          select 'Activated Users', from: 'digest_send_to'
+          click_button "Send"
 
           FakeMixpanelTracker.clear_tracked_events
           crank_dj_clear
@@ -368,7 +372,7 @@ feature 'Client admin and the digest email for tiles' do
           create_tile
           visit client_admin_share_path(as: admin)
           select "Never", from: 'follow_up_day'
-          click_button "Send digest now"
+          click_button "Send"
 
           FakeMixpanelTracker.clear_tracked_events
           crank_dj_clear
@@ -378,7 +382,7 @@ feature 'Client admin and the digest email for tiles' do
           create_tile
           visit client_admin_share_path(as: admin)
           select "Saturday", from: 'follow_up_day'
-          click_button "Send digest now"
+          click_button "Send"
 
           FakeMixpanelTracker.clear_tracked_events
           crank_dj_clear
@@ -389,7 +393,7 @@ feature 'Client admin and the digest email for tiles' do
         it "recording if an optional message was also added", js: true do
           create_tile
           visit client_admin_share_path(as: admin)
-          click_button "Send digest now"
+          click_button "Send"
 
           FakeMixpanelTracker.clear_tracked_events
           crank_dj_clear
@@ -398,7 +402,7 @@ feature 'Client admin and the digest email for tiles' do
           create_tile
           visit client_admin_share_path(as: admin)
           fill_in "digest[custom_message]", with: ''
-          click_button "Send digest now"
+          click_button "Send"
 
           FakeMixpanelTracker.clear_tracked_events
           crank_dj_clear
@@ -407,7 +411,7 @@ feature 'Client admin and the digest email for tiles' do
           create_tile
           visit client_admin_share_path(as: admin)
           fill_in "digest[custom_message]", with: 'hey'
-          click_button "Send digest now"
+          click_button "Send"
 
           FakeMixpanelTracker.clear_tracked_events
           crank_dj_clear

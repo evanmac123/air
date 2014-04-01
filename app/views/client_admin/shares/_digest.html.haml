@@ -9,7 +9,8 @@
   -if @digest_tiles.empty?
     .row
       .large-12#digest
-        %div.large-8.columns
+        %div.cancel_follow_ups.large-12.columns= render 'cancel_follow_ups'
+        %div.large-12.columns
           %h2 Send Email with New Tiles
           %div.no_tiles_messages
             - if flash[:digest_sent_flag]
@@ -18,14 +19,8 @@
                 = link_to "the Activity page", client_admin_path
                 to see how users interact.
             %p= no_digest_email_message
-        %div.cancel_follow_ups.large-4.columns= render 'cancel_follow_ups'
   - else
     .row
       .large-12#digest
-        %div#digest_management.large-8.columns= render partial: 'digest_management'
-        %div.cancel_follow_ups.large-4.columns= render 'cancel_follow_ups'
-    %section.tiles_to_be_shared
-      .row
-        .large-12.columns
-          %h3 Tiles to be sent
-          = render partial: 'shared/tiles/tiles_table', locals: {tiles: @digest_tiles, type: :digest}
+        %div.cancel_follow_ups.large-12.columns= render 'cancel_follow_ups'
+        %div#digest_management.large-12.columns= render partial: 'digest_management'

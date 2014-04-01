@@ -10,11 +10,91 @@
   padding-bottom:.5em;
 }
 
-.share_tools .notification_controls,
+/*.share_tools .notification_controls,*/
 .share_tools .no_tiles_messages,
 .share_tools .public_board_controls {@include form-group;}
 .share_tools .public_board_controls {
   padding: 1em 1em 0em 1em;
+}
+.share_tools .new_public_board{
+  border: 1px solid $med-gray;
+  padding: 10px;
+  div{
+      float: left;
+  }
+  .title_div{
+     width: 200px;
+     margin-top: 8px;
+    .public_board_title{
+        font-size: 18px;
+        float: left;
+        color: $med-gray;
+    }
+    .fa-question-circle{
+        float: left;
+        padding-left: 10px;
+        color: $med-gray;
+    }
+  }
+  .status_div{
+     margin-top: 8px;
+     width: 220px;
+    .public, .private{ 
+        float: left;
+        font-size: 11px;
+        text-transform: uppercase;
+    }
+    .switch{
+        font-size: 9px;
+        float: left;
+        width: 50px;
+        height: auto;
+        margin: 0 5px;
+        .for_private{
+            background-color: #E1F5D1;
+        }
+        .switch_button{
+            z-index: 2;
+        }
+    }
+  }
+  .status_message_div{
+    .public-demo-message, .private-demo-message{
+      line-height: 12px;
+      font-size: 9px;
+      float: left;
+      width: 56px;
+      margin: 4px 10px;
+      color: $med-gray;
+      text-transform: uppercase;
+    }
+    .fa-lock{
+      color: $med-gray;
+    }
+    .fa-unlock{
+      color: $med-gray;
+      font-size: 23px;
+      margin-top: 5px;
+    }
+  }
+  .share_link_div{
+      float: left;
+      width: 571px;
+      .share_link_icons{
+          float: right;
+          position: relative;
+          .fa{
+              margin-top: 3px;
+              font-size: 25px;
+              padding: 0 7px;
+              color: $med-gray;
+          }
+      }
+      #public_board_field{
+          position: absolute;
+          width: 571px;
+      }
+  }
 }
 
 .share_tools .no_tiles_messages {
@@ -33,13 +113,25 @@
   &:after {@include clear;}
 
   .notification_controls {
-    width:100%;
-    .send_to, .follow_up {
-      margin-bottom:1.75em;
-      p {@include font-semibold; margin-bottom:.75em;}
+    float: left;    
+    .send_to, .follow_up, .intro_message {
+      margin-bottom:3.75em;
+      p {
+        @include caption;
+        margin-bottom:.75em;
+        text-transform: uppercase;
+        color: $gray;
+      }
+      .drop_down{          
+        *{color: $med-gray;font-weight: normal;}
+      }
       select, label {font-size:1.142857143em;}
     }
+    .intro_message {
+        margin-bottom:9em;
+    }
     .follow_up {
+      .drop_down{text-transform: uppercase;}
       p span {
         @include share-instructions;
       }
@@ -49,14 +141,32 @@
     input[type="checkbox"], label, select {display: inline-block;}
 
     .character-counter {
-      float: none;
+      float: right;
       display: block;
       margin-bottom: 1em;
     }
+    .total_users {
+      border:1px $light-gray solid;
+      padding: 10px;
+      margin-bottom:1.75em;
+      color: $gray;
+      span{
+        @include caption;
+        float: left;
+        width: 104px;
+      }
+      p{
+        float: right;
+      }
+    }
+  }
+  .email_preview{
+      float: left;
+      padding-left: 30px;
   }
   #scheduled_followups {
     border-left:1px $light-gray solid;
-    float:right;
+    /*float:right;*/
     padding-left:1em;
     width:40%;
   }
@@ -65,6 +175,8 @@
     @include app-button($dark-green);
     font-size:1em;
     padding:.35em .5em;
+    height: 35px;
+    width: 100%;
   }
   .update-digest-spinner {
     display: none;
@@ -72,34 +184,68 @@
   }
 
   textarea {
-    height: 5em;
+    height: 9em;
     width: 100%;
     resize: none;
     max-width: 100%;
   }
 
-  p#last-email {
-    @include caption;
-    color:$gray;
-    display: inline-block;
-    margin-left:1em;
+  .ready_to_send {
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid $blue;
+    p#last-email {
+      @include caption;
+      color:$gray;
+      display: inline-block;
+      margin-left:1em;
+      float: right;
+      padding-top: 3px;
+    }
+    .fa {
+      color: $blue;
+      span {
+        padding-left: 12px;
+        font-size: 16px;
+        
+      }
+    }
   }
 }
 
 #scheduled_followups {
-  h3 {margin:.6em auto 1.7em;}
-  #cancel_follow_up {@include form-group;}
+  border: 1px solid $med-gray;
+  padding: 10px;
+  margin-bottom: 20px;
+  h3 {
+        /*margin:.6em auto 1.7em;*/
+        color: $med-gray;
+        font-size: 18px;
+    }
+  /*#cancel_follow_up {@include form-group;}*/
   #cancel_follow_up div {
-    margin-bottom:.5em;
-    * {vertical-align: bottom;}
+    /*margin-bottom:.5em;*/
+      display: inline;
+    * {
+        vertical-align: bottom;
+        .cancel_follow_up_link{
+            color: $light-gray;
+        }
+    }
   }
 }
-#cancel_follow_up div a {@include light-button($red);}
-#digest_management .send_to, #digest_management .follow_up {
-  a {@include light-button($med-gray);}
-}
-#cancel_follow_up div, #digest_management .send_to, #digest_management .follow_up {
-  a {@include caption; margin-left:1em;}
+#cancel_follow_up div a {
+        @include light-button($light-gray);
+        font-weight: bold;
+    }
+#cancel_follow_up div a:hover {
+    @include light-button($red);
+    font-weight: bold;
+    font-size: 10px;
+    }
+#cancel_follow_up div {
+  a {@include caption;}
+  margin-left:1em;
 }
 
 .tiles_to_be_shared {
