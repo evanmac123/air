@@ -187,6 +187,11 @@ header {
     }
   }
 
+  #board_switch, .other_boards, .other_boards a {
+    width: 14em;
+    max-width: 14em;
+  }
+
   .board_switch_dropdown, .mobile_board_link {
     // Only visible on mobile
     display: none;
