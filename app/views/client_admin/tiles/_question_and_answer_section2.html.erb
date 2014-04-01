@@ -1,5 +1,7 @@
 <div class="tile_texts_container">
   <div class="tile_quiz">
+    <%= form.hidden_field :question_type %>
+    <%= form.hidden_field :question_subtype %>
     <div class="tile_types">
       <ul class="button-group">
         <% tile_types.each do |type, subtypes| %>
@@ -18,11 +20,28 @@
     <div class="quiz_content">
       <p class="placeholder">Pick what users will earn points for.</p>
     </div>
+    <div id="set_points" class="content_sections">
+      <p>How many points is this tile worth (1 to 20)?</p>
+      <%= form.text_field :points, {maxlength: 2} %>
+      <%= form.label :points %>
+    </div>
   </div>
 </div>
 <% content_for :javascript do %>
   <%= javascript_tag do %>
     window.tile_types = <%= raw(tile_types.to_json) %>;
+
+    $(function() {
+      <% if @tile_builder_form.question_type && @tile_builder_form.question_subtype %>
+        window.tile_types = <%= raw(update_tile_types(tile_types, @tile_builder_form).to_json) %>;
+
+        type = "<%= raw @tile_builder_form.question_type %>"
+        subtype = "<%= raw @tile_builder_form.question_subtype %>"
+        $("#" + type + "-" + subtype).click().click();
+      <% else %>
+        window.tile_types = <%= raw(tile_types.to_json) %>;
+      <% end %>
+    });
 
     function turnRadioGreen() {
       $('.option_radio').unbind();
@@ -52,6 +71,7 @@
       makeButtonsSelected(type, $(this).attr("id"));
       showQuestionAndAnswers(tile_types[type][subtype]);
       showSelectAndAddAnswer();
+      saveTypeToForm();
 
       _.each($('.answer-field'), addCharacterCounterFor);
       turnRadioGreen();

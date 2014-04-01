@@ -226,6 +226,7 @@ body.client_admin-tiles-update {
       }
     }
     .quiz_content {
+      position: relative;
       min-height: 20em;
       padding: 2.5em;
       .tile_question {
@@ -331,7 +332,8 @@ body.client_admin-tiles-update {
   // Points
   #set_points {
     border-top:1px darken($light-gray, 5%) solid;
-    padding-top:2em;
+    padding-top:1em;
+    text-align: center;
     p, input, label {display: inline-block;}
     input, label {color:$orange;}
     p {

@@ -115,4 +115,14 @@ module ClientAdmin::TilesHelper
       }
     }
   end
+
+  def update_tile_types tile_types, tile_builder
+    type = tile_builder.tile.question_type
+    subtype = tile_builder.tile.question_subtype
+    question = tile_builder.tile.question
+    answers = tile_builder.tile.multiple_choice_answers
+    tile_types[type][subtype][:question] = question
+    tile_types[type][subtype][:answers] = answers
+    tile_types
+  end
 end

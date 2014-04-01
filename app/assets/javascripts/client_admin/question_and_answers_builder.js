@@ -243,3 +243,11 @@ function saveRightAnswer(element) {
   }
   tile_types[type][subtype]["correct"] = correct;
 } 
+
+function saveTypeToForm() {
+  type = findTileType();
+  subtype = findTileSubtype();
+
+  $("#tile_builder_form_question_type").val(type);
+  $("#tile_builder_form_question_subtype").val(subtype); 
+}
