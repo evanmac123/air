@@ -17,6 +17,10 @@ class SessionsController < Clearance::SessionsController
       render :template => 'sessions/new'
     else
       sign_in(@user, params[:session][:remember_me])
+      if params[:demo_id]
+        @user.move_to_new_demo(params[:demo_id])
+      end
+
       flash_success_after_create
       flash_login_announcement
       flash[:mp_track_logged_in] = "logged in"

@@ -62,7 +62,7 @@ class InvitationsController < ApplicationController
         redirect_to activity_path
       else
         flash[:failure] = "You've already accepted your invitation to the game. Please log in if you'd like to use the site."
-        redirect_to sign_in_path
+        redirect_to sign_in_path(demo_id: params[:demo_id])
       end
 
       return true

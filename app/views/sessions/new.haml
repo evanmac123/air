@@ -6,6 +6,8 @@
       = text_field_tag "session[email]", (params[:session] and params[:session][:email])
       %label.input_label Password
       = password_field_tag "session[password]", nil
+      - if params[:demo_id]
+        = hidden_field_tag :demo_id, params[:demo_id]
       .wrap
         = label_tag "session[remember_me]", "Remember me (Don't check this on a shared computer)", :class => :inline
         = check_box_tag "session[remember_me]", 1, true
