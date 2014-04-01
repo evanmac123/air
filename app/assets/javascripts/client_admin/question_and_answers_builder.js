@@ -190,13 +190,21 @@ function saveAnswerChanges(answer_input) {
   updateShowAnswer(tile_types[type][subtype]["answers"][answer_index], answer_input);
 };
 
+function highlightText(input) {
+  input.focus();
+  input.select();
+}
+
 function turnOnEditQuestion(question_show) {
-  $(question_show).parent().find("#tile_builder_form_question").css("display", "block");
+  question_edit = $(question_show).parent().find("#tile_builder_form_question");
+  question_edit.css("display", "block");
+  highlightText(question_edit);
   $(question_show).css("display", "none");
 }
 
 function turnOnEditAnswer(answer_show) {
   $(answer_show).parent().find(".answer_option").css("display", "block");
+  highlightText($(answer_show).parent().find(".answer-field"));
   $(answer_show).css("display", "none");
 }
 

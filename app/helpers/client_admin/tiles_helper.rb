@@ -121,8 +121,10 @@ module ClientAdmin::TilesHelper
     subtype = tile_builder.tile.question_subtype
     question = tile_builder.tile.question
     answers = tile_builder.tile.multiple_choice_answers
+    correct = tile_builder.tile.correct_answer_index
     tile_types[type][subtype][:question] = question
     tile_types[type][subtype][:answers] = answers
+    tile_types[type][subtype][:correct] = correct
     tile_types
   end
 end
