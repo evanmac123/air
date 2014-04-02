@@ -55,6 +55,27 @@ feature 'Admin sends targeted messages using segmentation' do
     end
   end
 
+  context "across boards" do
+    it "should have the right sender", js: true do
+      demo = FactoryGirl.create :demo, custom_reply_email_name: "Big Fun", email: "bigfun@ourairbo.com"
+      user = FactoryGirl.create :user, email: 'joe@example.com'
+      user.add_board(demo)
+      crank_dj_clear
+
+      visit admin_demo_targeted_messages_path(demo, as: an_admin)
+
+      click_button "Find segment"
+      fill_in "subject",    :with => "some bullshit"
+      fill_in "html_text",  :with => "some bullshit"
+      fill_in "plain_text", :with => "some bullshit"
+      click_button "It's going to be OK"
+      crank_dj_clear
+    
+      open_email 'joe@example.com'
+      current_email.to_s.should include("From: Big Fun <bigfun@ourairbo.com>")
+    end
+  end
+
   context "when an explicit plain text is given" do
     it "should use that", :js => true do
       set_up_models

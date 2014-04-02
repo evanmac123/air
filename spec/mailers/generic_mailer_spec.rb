@@ -2,13 +2,14 @@ require "spec_helper"
 
 describe GenericMailer do
   subject { GenericMailer }
+  let (:demo) {FactoryGirl.create :demo}
 
   # The 1's leading send_message are a dummy demo ID.
 
   describe "#send_message" do
     it "should send a message" do
       @user = FactoryGirl.create :user
-      GenericMailer.send_message(1, @user.id, "Here is the subject", "This is some text", "<p>This is some HTML</p>").deliver
+      GenericMailer.send_message(demo.id, @user.id, "Here is the subject", "This is some text", "<p>This is some HTML</p>").deliver
 
       should have_sent_email.
         to(@user.email).
@@ -20,7 +21,7 @@ describe GenericMailer do
 
     it "should have an unsubscribe footer" do
       @user = FactoryGirl.create :user
-      GenericMailer.send_message(1, @user.id, "Here is the subject", "This is some text", "<p>This is some HTML</p>").deliver
+      GenericMailer.send_message(demo.id, @user.id, "Here is the subject", "This is some text", "<p>This is some HTML</p>").deliver
 
       should have_sent_email.
         to(@user.email).
@@ -35,7 +36,7 @@ describe GenericMailer do
 
     it "should be able to interpolate invitation URLs" do
       @user = FactoryGirl.create :user
-      GenericMailer.send_message(1, @user.id, "Here is the subject", "This is some text, and you should go to [invitation_url]", "<p>This is some HTML. Go to [invitation_url]</p>").deliver
+      GenericMailer.send_message(demo.id, @user.id, "Here is the subject", "This is some text, and you should go to [invitation_url]", "<p>This is some HTML. Go to [invitation_url]</p>").deliver
 
       should have_sent_email.
         to(@user.email).
@@ -48,7 +49,7 @@ describe GenericMailer do
       unclaimed_user = FactoryGirl.create :user
 
       [claimed_user, unclaimed_user].each do |user|
-        GenericMailer.send_message(1, user.id, "Das Subjekt", "This is some text, go to [tile_digest_url]", "<p>This is some HTML, go to [tile_digest_url]").deliver
+        GenericMailer.send_message(demo.id, user.id, "Das Subjekt", "This is some text, go to [tile_digest_url]", "<p>This is some HTML, go to [tile_digest_url]").deliver
       end
 
       should have_sent_email.
@@ -89,11 +90,11 @@ describe GenericMailer do
 
       user_ids = []
       5.times {user_ids << (FactoryGirl.create :user).id}
-      GenericMailer::BulkSender.new(1, user_ids, "This is a subject", "This is plain text", "<p>This is HTML</p>").send_bulk_mails
+      GenericMailer::BulkSender.new(demo.id, user_ids, "This is a subject", "This is plain text", "<p>This is HTML</p>").send_bulk_mails
       
 
       user_ids.each do |user_id|
-        GenericMailer.should have_received(:delay_mail).with(:send_message, 1, user_id, "This is a subject", "This is plain text", "<p>This is HTML</p>")
+        GenericMailer.should have_received(:delay_mail).with(:send_message, demo.id, user_id, "This is a subject", "This is plain text", "<p>This is HTML</p>")
       end
 
       GenericMailer.should have_received(:delay_mail).times(5)

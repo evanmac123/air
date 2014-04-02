@@ -15,7 +15,8 @@ class GenericMailer < ActionMailer::Base
     @html_text = interpolate_tile_digest_url(@user, demo_id, @html_text)
     @plain_text = interpolate_tile_digest_url(@user, demo_id, @plain_text)
 
-    from_string = @user.demo.email.present? ? @user.demo.reply_email_address : "Airbo <play@ourairbo.com>"
+    demo = Demo.find(demo_id)
+    from_string = demo.email.present? ? demo.reply_email_address : "Airbo <play@ourairbo.com>"
 
     while(@plain_text !~ /\n\n$/)
       @plain_text += "\n"
