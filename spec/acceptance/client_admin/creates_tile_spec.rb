@@ -4,17 +4,13 @@ feature 'Creates tile' do
   let (:client_admin) { FactoryGirl.create(:client_admin)}
   let (:demo)         { client_admin.demo }
 
-  def create_good_tile
-    fill_in_valid_form_entries
-    click_create_button
-  end
-
   def click_create_button
     click_button "Save tile"
   end
 
   before do
     visit new_client_admin_tile_path(as: client_admin)
+    choose_question_type_and_subtype "Quiz", "multiple_choice"
   end
 
   scenario 'by uploading an image and supplying some information', js: true do
@@ -31,8 +27,8 @@ feature 'Creates tile' do
     new_tile.supporting_content.should == "Ten pounds of cheese. Yes? Or no?"
     new_tile.question.should == "Who rules?"
     new_tile.link_address.should == "http://www.google.com/foobar"
-    new_tile.correct_answer_index.should == 1
-    new_tile.multiple_choice_answers.should == %w(Me You)
+    new_tile.correct_answer_index.should == 2
+    new_tile.multiple_choice_answers.should == ["Me", "You", "He", "Add Answer Option"]
     new_tile.points.should == 23
     new_tile.should be_draft
 
@@ -78,18 +74,16 @@ feature 'Creates tile' do
 
   scenario "with incomplete data should give a gentle rebuff", js: true do
     click_create_button
-    2.times { click_link "Add another answer" }
-    click_button "Save tile"
 
     demo.tiles.reload.should be_empty
-    expect_content "Sorry, we couldn't save this tile: headline can't be blank, supporting content can't be blank, question can't be blank, image is missing, points can't be blank, must have at least one answer."
+    expect_content "Sorry, we couldn't save this tile: headline can't be blank, supporting content can't be blank, image is missing, points can't be blank."
 
-    2.times { click_link "Add another answer" }
+    2.times { click_add_answer }
     select_correct_answer 1
-    click_button "Save tile"
+    click_create_button
 
     demo.tiles.reload.should be_empty
-    expect_content "Sorry, we couldn't save this tile: headline can't be blank, supporting content can't be blank, question can't be blank, image is missing, points can't be blank, must have at least one answer."
+    expect_content "Sorry, we couldn't save this tile: headline can't be blank, supporting content can't be blank, image is missing, points can't be blank."
   end
 
   scenario "with overlong headline or supporting content should have a reasonable error" do
@@ -114,23 +108,20 @@ feature 'Creates tile' do
     expect_character_counter_for      '#tile_builder_form_supporting_content', 300
     expect_character_counter_for_each '.answer-field', 25
 
-    2.times {click_link "Add another answer"}
-    page.all('#answers .character-counter').should have(4).counters
+    2.times {click_add_answer}
+
+    page.all('.quiz_content .character-counter').should have(4).counter
   end
 
   scenario "should start with two answer fields, rather than one" do
-    page.all(answer_field_selector).should have(2).fields
-  end
-
-  scenario "should start with two answer fields, rather than one" do
-    page.all(answer_field_selector).should have(2).fields
+    page.all(answer_link_selector).count.should == 2
   end
 
   scenario "with a survey", js: true do
     demo.tiles.should be_empty
     demo.rules.should be_empty
 
-    fill_in_valid_form_entries(6)
+    fill_in_valid_form_entries(click_answer: 6, question_type: "Survey")
     click_create_button
 
     demo.tiles.reload.should have(1).tile
@@ -143,7 +134,7 @@ feature 'Creates tile' do
     new_tile.link_address.should == "http://www.google.com/foobar"
     new_tile.correct_answer_index.should == -1
     new_tile.is_survey?.should == true
-    new_tile.multiple_choice_answers.should == %w(Me You)
+    new_tile.multiple_choice_answers.should == ["Me", "You", "He", "Add Answer Option"]
     new_tile.points.should == 23
     new_tile.should be_draft
 

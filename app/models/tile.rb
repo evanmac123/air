@@ -167,7 +167,15 @@ class Tile < ActiveRecord::Base
     self.active? && self.activated_at > (Time.now - 5.seconds)    
   end
   def is_survey?
-    correct_answer_index == -1
+    question_type == "Survey" || (question_type.nil? && correct_answer_index == -1)
+  end
+
+  def is_quiz?
+    question_type == "Quiz" || (question_type.nil? && correct_answer_index > 0)
+  end
+
+  def is_action?
+    question_type == "Action"
   end
 
   def survey_chart

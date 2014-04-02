@@ -147,16 +147,28 @@ module TileHelpers
     "input[name='tile_builder_form[answers][]']"  
   end
 
+  def answer_link_selector
+    ".tile_multiple_choice_answer a"
+  end
+
   def fill_in_answer_field(index, text)
-    fields = page.all(answer_field_selector)
-    fields[index].set(text)
+    page.find(".tile_question").click #just to close possible edit answer
+    page.all(".tile_multiple_choice_answer a")[index].click
+    page.all(answer_field_selector)[index].set(text)
   end
 
   def fill_in_external_link_field(text)
     page.find("#tile_builder_form_link_address").set(text)
   end
 
+  def fill_in_question text
+    page.find(".tile_question").click if page.all(".tile_question").count > 0
+    page.find("#tile_builder_form_question").set(text)
+  end
+
   def select_correct_answer(index)
+    page.find(".tile_question").click #just to close possible edit answer
+    page.all(".tile_multiple_choice_answer a")[index].click
     page.find(".correct-answer-button[value=\"#{index}\"]").click
   end
 
@@ -168,16 +180,28 @@ module TileHelpers
     click_here_link[1].click
   end
 
-  def fill_in_valid_form_entries(click_answer = 1)
+  def click_add_answer
+    page.find(".add_answer").click
+  end
+
+  def fill_in_valid_form_entries(options = {})
+    click_answer = options[:click_answer] || 1
+    question_type = options[:question_type] || "Quiz"
+    question_subtype = options[:question_subtype] || "multiple_choice"
+
+    choose_question_type_and_subtype question_type, question_subtype
+
     attach_tile "tile_builder_form[image]", tile_fixture_path('cov1.jpg')
     fill_in "Headline",           with: "Ten pounds of cheese"
     fill_in "Supporting content", with: "Ten pounds of cheese. Yes? Or no?"
 
-    fill_in "Ask a question", with: "Who rules?"
+    fill_in_question "Who rules?"
 
-    2.times {click_link "Add another answer"}
+    2.times { click_add_answer }
+
     fill_in_answer_field 0, "Me"
-    fill_in_answer_field 2, "You"
+    fill_in_answer_field 1, "You"
+    fill_in_answer_field 2, "He"
 
     click_answer.times { select_correct_answer 2 }
 
@@ -188,6 +212,11 @@ module TileHelpers
 
   def click_create_button
     click_button "Save tile"
+  end
+
+  def choose_question_type_and_subtype question_type, question_subtype
+    page.find("##{question_type}").click()
+    page.find("##{question_type}-#{question_subtype}").click()
   end
 
   def create_good_tile

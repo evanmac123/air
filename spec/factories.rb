@@ -180,6 +180,8 @@ FactoryGirl.define do
     sequence(:position){ |n| n }
     status Tile::ACTIVE
     type 'OldSchoolTile'
+    question_type 'Quiz'
+    question_subtype 'multiple_choice'
 
     trait :with_creator do
       association :creator, :factory => :user
@@ -228,6 +230,14 @@ FactoryGirl.define do
   end
 
   factory :survey_tile, parent: :multiple_choice_tile do
+    question_type 'Survey'
+    question_subtype 'multiple_choice'
+    correct_answer_index -1
+  end
+
+  factory :action_tile, parent: :multiple_choice_tile do
+    question_type 'Action'
+    question_subtype 'do_something'
     correct_answer_index -1
   end
 
