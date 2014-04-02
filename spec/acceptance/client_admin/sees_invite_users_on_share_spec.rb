@@ -238,6 +238,25 @@ feature "Invite Users Modal" do
           end
         end        
       end
+
+      context "attempting to invite a user who's had as many peer invitations as they can take" do
+        before do
+          user = FactoryGirl.create(:user, email: 'hisham@example.com')
+          FactoryGirl.create_list(:peer_invitation, PeerInvitation::CUTOFF, invitee: user, demo: FactoryGirl.create(:demo))
+
+          visit client_admin_share_path(as: client_admin2)          
+          find_field('user_0_name').set 'Hisham Malik'
+          find_field('user_0_email').set 'hisham@example.com'
+          page.find('#submit_invite_users').click
+          page.find("#invite_users_send_button").click
+        end
+
+        it "should ignore the limit and send the mail anyway", js: true do
+          crank_dj_clear
+          open_email('hisham@example.com')
+          current_email.to_s.should include("Subject: Join my #{client_admin2.demo.name} board")
+        end
+      end
     end
   end
 end

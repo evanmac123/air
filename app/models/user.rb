@@ -500,7 +500,7 @@ class User < ActiveRecord::Base
   end
 
   def invite(referrer = nil, options ={})
-    return if referrer && self.peer_invitations_as_invitee.length >= PeerInvitation::CUTOFF
+    return if referrer && self.peer_invitations_as_invitee.length >= PeerInvitation::CUTOFF && !(options[:ignore_invitation_limit])
 
     _demo = options[:demo_id].present? ? Demo.find(options[:demo_id]) : self.demo
 
@@ -511,7 +511,7 @@ class User < ActiveRecord::Base
         _demo.digest_tiles.pluck(:id), "Join my #{_demo.name} board", false, 
         options[:custom_message], options[:custom_from])
     end
-    if referrer
+    if referrer && !(options[:ignore_invitation_limit])
       PeerInvitation.create!(inviter: referrer, invitee: self, demo: referrer.demo)
     end
 
