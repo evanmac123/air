@@ -20,7 +20,10 @@ class CreateBoardMemberships < ActiveRecord::Migration
     user_ids = User.pluck(:id)
     user = nil
     user_ids.each_with_index do |user_id, index|
-      puts "MIGRATED #{index} USERS" if index % 1000 == 0
+      if index % 1000 == 0
+        puts "MIGRATED #{index} USERS" 
+        GC.start
+      end
       user = User.find(user_id)
       BoardMembership.create!(demo_id: user[:demo_id], user_id: user.id, is_current: true, is_client_admin: user[:is_client_admin])
     end
