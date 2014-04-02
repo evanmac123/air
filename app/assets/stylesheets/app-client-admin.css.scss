@@ -1,5 +1,4 @@
 @import "./vendor/normalize.css.scss";
-@import "./foundation_and_overrides.scss";
 @import "./vendor/flutie.css.scss";
 
 @import "font-awesome";
@@ -10,6 +9,7 @@
 @import "./internal/mast.css.scss";
 @import "./internal/mast_desktop.css.scss";
 
+@import "./foundation_and_overrides.scss";
 /* CLIENT ADMIN */
 @import "./client_admin/client_admin.css.scss";
 @import "./client_admin/tiles.css.scss";

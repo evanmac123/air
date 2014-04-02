@@ -24,9 +24,10 @@ class ClientAdmin::UsersInvitesController < ClientAdminBaseController
     @onboarding_email = true
     @custom_message = params[:custom_message]||'Check out my new board!'
     @title = params[:title] || "Join my #{@demo.name}"
+    email_heading = params[:email_heading] || "Join my #{@demo.name}"
     @invitation_url = @user.claimed? ? nil : invitation_url(@user.invitation_code, protocol: email_link_protocol, host: email_link_host)    
       
 
-    render partial: 'shared/notify_one', locals: {email_heading: "Join my #{@demo.name}"}
+    render partial: 'shared/notify_one', locals: {email_heading: email_heading}
   end
 end

@@ -45,14 +45,11 @@
         text-transform: uppercase;
     }
     .switch{
-        @include switch-style($switch-paddle-bg, $light-blue, $switch-negative-color, false, true);
-        font-size: 9px;
-        float: left;
+        @include switch-size(16px, 9px, 2.3em);
         width: 50px;
-        height: auto;
         margin: 0 5px;
         .for_private{
-            background-color: lighten($blue, 56.5%);;
+            background-color: #E1F5D1;
         }
         .switch_button{
             z-index: 2;
