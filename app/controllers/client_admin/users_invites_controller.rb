@@ -2,7 +2,8 @@ class ClientAdmin::UsersInvitesController < ClientAdminBaseController
   include EmailHelper
   def create
     params[:users_invite][:demo_id] = current_user.demo_id
-    
+
+    Rails.logger.info("USERSINVITES#CREATE: " + params[:users_invite].inspect)
     users_invite = UsersInvite.new(params[:users_invite])
     respond_to do |format|
       users_invite.send_invites(current_user)
