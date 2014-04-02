@@ -32,7 +32,7 @@
     window.tile_types = <%= raw(tile_types.to_json) %>;
 
     $(function() {
-      <% if @tile_builder_form.question_type && @tile_builder_form.question_subtype %>
+      <% if params[:action] == "edit" || params[:action] == "update" %>
         window.tile_types = <%= raw(update_tile_types(tile_types, @tile_builder_form).to_json) %>;
 
         type = "<%= raw @tile_builder_form.question_type %>"

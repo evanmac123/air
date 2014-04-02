@@ -117,7 +117,8 @@ module ClientAdmin::TilesHelper
   end
 
   def update_tile_types tile_types, tile_builder
-    type = tile_builder.tile.question_type
+    old_tile_type(tile_builder.tile) unless tile_builder.tile.question_type
+    type = tile_builder.tile.question_type 
     subtype = tile_builder.tile.question_subtype
     question = tile_builder.tile.question
     answers = tile_builder.tile.multiple_choice_answers
@@ -126,5 +127,10 @@ module ClientAdmin::TilesHelper
     tile_types[type][subtype][:answers] = answers
     tile_types[type][subtype][:correct] = correct
     tile_types
+  end
+
+  def old_tile_type tile
+    tile.question_type =  tile.is_survey? ? "Survey" : "Quiz"
+    tile.question_subtype = "multiple_choice"
   end
 end

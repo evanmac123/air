@@ -192,8 +192,16 @@ module TileBuilderForm
 
       clean_error_messages
 
+
       invalid_objects.each do |invalid_object|
         invalid_object.errors.values.each {|error| errors.add :base, error}
+      end
+      check_quiz_on_correct_answer if errors.empty?
+    end
+
+    def check_quiz_on_correct_answer
+      if tile.question_type == "Quiz" && tile.correct_answer_index < 0
+        errors.add :base, "ololo choose answer"
       end
     end
 
