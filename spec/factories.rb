@@ -61,7 +61,7 @@ FactoryGirl.define do
   end
 
   factory :demo do
-    sequence(:name) {|n| "Coolio_#{n}" }
+    sequence(:name) {|n| "Coolio_#{n} Board" }
 
     trait :with_email do
       sequence(:email) {|n| "demo_#{n}@example.com"}

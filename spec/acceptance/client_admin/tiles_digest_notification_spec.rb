@@ -19,7 +19,7 @@ feature 'Client admin and the digest email for tiles' do
   end
 
   # -------------------------------------------------
-
+    
   def have_send_to_selector(selected)
     have_select 'digest_send_to', {selected: selected}
   end
@@ -55,9 +55,13 @@ feature 'Client admin and the digest email for tiles' do
   end
 
   def expect_tiles_to_send_header
-    expect_content "Tiles to be sent"
+    expect_content "Email Tiles"
   end
 
+  def expect_no_new_tiles_to_send_header
+    expect_content "Send Email with New Tiles"
+  end
+  
   def expect_digest_sent_content
     expect_content "Your tiles have been sent! You can monitor the Activity page to see how users interact."
   end
@@ -83,7 +87,7 @@ feature 'Client admin and the digest email for tiles' do
     end
 
     scenario 'Text is correct when follow-up emails are scheduled to be sent, and emails can be cancelled', js: :webkit do  # (Didn't work with poltergeist)
-      page.driver.browser.accept_js_confirms
+      page.driver.accept_js_confirms!
       create_follow_up_emails
       visit client_admin_share_path(as: admin)
 
@@ -102,7 +106,7 @@ feature 'Client admin and the digest email for tiles' do
 
     context "when a followup is cancelled" do
       it "sends a ping", js: :webkit do
-        page.driver.browser.accept_js_confirms
+        page.driver.accept_js_confirms!
         create_follow_up_emails
         visit client_admin_share_path(as: admin)
 
@@ -120,7 +124,6 @@ feature 'Client admin and the digest email for tiles' do
       create_tile
       visit client_admin_share_path(as: admin)
 
-      page.should contain 'You have tiles ready to be sent to your users.'
       expect_tiles_to_send_header
     end
 
@@ -160,12 +163,10 @@ feature 'Client admin and the digest email for tiles' do
       # We've had this stupid fucking problem before. Luckily Phil figured out it is some kind of timing problem.
       # We've also had the stupid fucking problem of stuff like this not working in poltergeist => have to use webkit
       # (Man, testing is great... but sometimes it can be such a royal fucking pain in the ass)
-      page.driver.browser.accept_js_confirms
+      page.driver.accept_js_confirms!
       create_tile
-
-      visit client_admin_share_path(as: admin)
-
       create_follow_up_emails
+
       visit client_admin_share_path(as: admin)
 
       expect_follow_up_header
@@ -214,11 +215,6 @@ feature 'Client admin and the digest email for tiles' do
           expect_tiles_to_send_header
           page.should_not contain 'No new tiles have been added'
 
-          page.should contain 'Headline 1'
-          page.should contain 'Headline 2'
-
-          page.should have_num_tiles(3)
-
           click_button 'Send'
           crank_dj_clear
 
@@ -226,11 +222,6 @@ feature 'Client admin and the digest email for tiles' do
           page.should_not contain 'Tiles to be sent'
           page.should contain 'No new tiles have been added'
           page.should contain 'since the last digest email you sent on Saturday, July 06, 2013'
-
-          page.should_not contain 'Headline 1'
-          page.should_not contain 'Headline 2'
-
-          page.should have_num_tiles(0)
         end
       end
 
@@ -265,11 +256,11 @@ feature 'Client admin and the digest email for tiles' do
         scenario "Demo where claimed and unclaimed should get digests.
                   The tile links should sign in claimed, *non-client-admin* users to the
                   Activities page, while whisking others to where they belong" do
+          #page.driver.accept_js_confirms!
           on_day '7/6/2013' do
             change_send_to('All Users')
             click_button 'Send'
             crank_dj_clear
-
             all_emails.should have(7).emails  # The above 5 for this demo, and the 'client-admin' and the 'user' created at top of tests
 
             all_addresses.each do |address|
@@ -419,32 +410,5 @@ feature 'Client admin and the digest email for tiles' do
         end
       end
     end
-  end
-
-  it 'Tiles appear in reverse-chronological order by activation-date and then creation-date' do
-    tile_digest_email_sent_at = 2.months.ago
-    demo.update_attributes tile_digest_email_sent_at: tile_digest_email_sent_at
-
-    # Chronologically-speaking, creating tiles "up" from 0 to 10 and then checking "down" from 10 to 0
-    # For tiles to appear in the 'Digest email' tab their 'activated_at' time has to be set and correct
-    10.times do |i|
-      tile = FactoryGirl.create :tile, demo: demo, headline: "Tile #{i}", status: Tile::ACTIVE, activated_at: Time.now + i.days
-      # Make it so that all odd tiles should be listed before all even ones, and that odd/even each should be sorted in descending order.
-      tile.update_attributes(activated_at: tile.activated_at - 2.weeks) if i.even?
-    end
-
-    # Make some tiles that should not appear in the 'Digest email' tab...
-    # The 'activated_at' times for these tiles are before the 'tile_digest_email_sent_at' => they would have gone out in that batch
-    FactoryGirl.create_list :tile, 2, demo: demo, headline: 'I hate Dates and Times', status: Tile::ACTIVE, activated_at: tile_digest_email_sent_at - 1.day
-
-    expected_tile_table =
-      [ ["Tile 9", "Tile 7", "Tile 5", "Tile 3"],
-        ["Tile 1", "Tile 8", "Tile 6", "Tile 4"],
-        ["Tile 2", "Tile 0"]
-      ]
-
-    visit client_admin_share_path(as: admin)
-
-    table_content_without_activation_dates('table').should == expected_tile_table
   end
 end

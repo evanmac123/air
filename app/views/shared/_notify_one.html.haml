@@ -16,7 +16,7 @@
               #{digest_email_heading_begin}
               #{link_to 'new tiles', site_link, {style:'color:#4faa60; font-weight:bold; font-weight:500; font-size:24px; text-decoration:none;'}}
               #{digest_email_heading_end}
-          - if @custom_message.size > 0
+          - if !@custom_message.nil? && @custom_message.size > 0
             %p{id:'custom_message', :style => "font-family: helvetica, arial, sans-serif; text-align:center; word-wrap:break-word; color: rgb(128,128,128); display: block; font-size: 16px; line-height: 24px;", :width => "370", :height => '76px', :valign => "top"}= @custom_message
         %table{:id => "tiles", :cellpadding => "0", :cellspacing => "5px", :width => "100%"}
           %tbody

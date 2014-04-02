@@ -45,13 +45,14 @@
         text-transform: uppercase;
     }
     .switch{
+        @include switch-style($switch-paddle-bg, $light-blue, $switch-negative-color, false, true);
         font-size: 9px;
         float: left;
         width: 50px;
         height: auto;
         margin: 0 5px;
         .for_private{
-            background-color: #E1F5D1;
+            background-color: lighten($blue, 56.5%);;
         }
         .switch_button{
             z-index: 2;
@@ -60,10 +61,11 @@
   }
   .status_message_div{
     .public-demo-message, .private-demo-message{
+      text-align: center;
       line-height: 12px;
       font-size: 9px;
       float: left;
-      width: 56px;
+      width: 58px;
       margin: 4px 10px;
       color: $med-gray;
       text-transform: uppercase;
@@ -79,7 +81,7 @@
   }
   .share_link_div{
       float: left;
-      width: 571px;
+      width: 568px;
       .share_link_icons{
           float: right;
           position: relative;
@@ -193,21 +195,20 @@
   .ready_to_send {
     margin-bottom: 20px;
     padding: 10px;
-    border: 1px solid $blue;
+    border-bottom: 1px solid $med-gray;
     p#last-email {
       @include caption;
       color:$gray;
       display: inline-block;
       margin-left:1em;
       float: right;
-      padding-top: 3px;
+      padding-top: 10px;
     }
     .fa {
-      color: $blue;
+      color: $dark-green;
       span {
         padding-left: 12px;
-        font-size: 16px;
-        
+        font-size: 18px;        
       }
     }
   }

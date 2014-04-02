@@ -5,7 +5,7 @@
     :javascript
       addCharacterCounterFor('#users_invite_message')
   .clearfix
-  .email_client_wrapper= render 'shared/email_client_wrapper', demo: demo
+  .email_client_wrapper= render 'shared/email_client_wrapper', demo: demo, subject: "Join my #{demo.name}"
   #message_buttons_custom.large-12.columns
     = link_to "#", class: 'engaged history_back page_2' do
       .fa.fa-angle-left
