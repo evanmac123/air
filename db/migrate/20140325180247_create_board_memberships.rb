@@ -18,6 +18,7 @@ class CreateBoardMemberships < ActiveRecord::Migration
     # may disappear, and I don't see that happening with User anytime soon.
     BoardMembership.reset_column_information
     user_ids = User.pluck(:id)
+    user = nil
     user_ids.each_with_index do |user_id, index|
       puts "MIGRATED #{index} USERS" if index % 1000 == 0
       user = User.find(user_id)
