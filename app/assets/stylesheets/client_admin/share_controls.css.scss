@@ -194,7 +194,7 @@
   .ready_to_send {
     margin-bottom: 20px;
     padding: 10px;
-    border-bottom: 1px solid $med-gray;
+    border-bottom: 1px solid $light-gray;
     p#last-email {
       @include caption;
       color:$gray;
