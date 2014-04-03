@@ -238,6 +238,7 @@ body.client_admin-tiles-update {
       }
       .multiple_choice_group {
         margin: 0;
+        margin-bottom: 2em;
         width: 100%;
       }
       .placeholder {
@@ -284,7 +285,7 @@ body.client_admin-tiles-update {
           height:47px;
           padding:.7em 0;
           text-align: center;
-          width:7%;
+          width:8%;
           &:hover {cursor: pointer;}
         }
         &.option_selected {
@@ -312,8 +313,9 @@ body.client_admin-tiles-update {
       bottom: 0;
       width: 92%;
       overflow: hidden;
-      font-weight: bold;
+      font-weight: 100;
       .choose_answer{
+        padding: 0;
         &.no_answer{
           color: $sky-blue;
         }
@@ -322,6 +324,7 @@ body.client_admin-tiles-update {
         }
       }
       .add_answer {
+        padding: 0;
         cursor: pointer;
         color: $blue;
         text-align: right;

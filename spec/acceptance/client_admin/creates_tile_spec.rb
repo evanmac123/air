@@ -203,4 +203,55 @@ feature 'Creates tile' do
       tile.image_file_name.should == 'cov2.jpg'
     end
   end
+
+  context "acting with question and answers" do
+    scenario "choose type Action, subtype any", js: true do
+      choose_question_type_and_subtype "Action", "do_something"
+      page.all(answer_link_selector).should have(1).link
+      page.all(".choose_answer").should be_empty
+      page.all(".add_answer").should be_empty
+    end
+
+    scenario "choose type Quiz, subtype true/false", js: true do
+      choose_question_type_and_subtype "Quiz", "true_false"
+      page.all(answer_link_selector).should have(2).links
+      page.find(".choose_answer").text.should == "Click an answer option and mark the right answer"
+      page.all(".add_answer").should be_empty
+    end
+
+    scenario "choose type Quiz, subtype multiple choice", js: true do
+      choose_question_type_and_subtype "Quiz", "multiple_choice"
+      page.all(answer_link_selector).should have(2).links
+      page.find(".choose_answer").text.should == "Click an answer option and mark the right answer"
+      page.find(".add_answer").text.should == "Add another answer"
+    end
+
+    scenario "choose type Survey, subtype multiple choice", js: true do
+      choose_question_type_and_subtype "Survey", "multiple_choice"
+      page.all(answer_link_selector).should have(2).links
+      page.all(".choose_answer").should be_empty
+      page.find(".add_answer").text.should == "Add another answer"
+    end
+
+    scenario "when i choose another type my answers and question on the old one are saved", js: true do
+      choose_question_type_and_subtype "Quiz", "multiple_choice"
+      fill_in_question "What music do you like?"
+      click_add_answer
+      fill_in_answer_field 0, "Pop"
+      fill_in_answer_field 1, "Rock"
+
+      click_add_answer
+      fill_in_answer_field 2, "Sock"
+      select_correct_answer 2
+
+      choose_question_type_and_subtype "Survey", "multiple_choice"
+
+      choose_question_type_and_subtype "Quiz", "multiple_choice"
+      page.find(".tile_question").text.should == "What music do you like?"
+      page.all(".tile_multiple_choice_answer a")[0].text.should == "Pop"
+      page.all(".tile_multiple_choice_answer a")[1].text.should == "Rock"
+      page.all(".tile_multiple_choice_answer a")[2].text.should == "Sock"
+      page.find(".clicked_right_answer").text.should == "Sock"
+    end
+  end
 end
