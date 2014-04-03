@@ -17,7 +17,7 @@
   padding: 1em 1em 0em 1em;
 }
 .share_tools .new_public_board{
-  border: 1px solid $med-gray;
+  border: 1px solid $light-gray;
   padding: 10px;
   div{
       float: left;
@@ -38,11 +38,18 @@
   }
   .status_div{
      margin-top: 8px;
-     width: 220px;
+     width: 200px;
     .public, .private{ 
         float: left;
         font-size: 11px;
         text-transform: uppercase;
+        font-weight: bold;
+        &.engaged {
+          color: #000000;
+        }
+        &.disengaged {
+          color: $light-gray;          
+        }
     }
     .switch{
         @include switch-size(16px, 9px, 2.3em);
@@ -67,13 +74,9 @@
       color: $med-gray;
       text-transform: uppercase;
     }
-    .fa-lock{
+    .fa {
       color: $med-gray;
-    }
-    .fa-unlock{
-      color: $med-gray;
-      font-size: 23px;
-      margin-top: 5px;
+      width: 35px;
     }
   }
   .share_link_div{
@@ -130,7 +133,6 @@
         margin-bottom:9em;
     }
     .follow_up {
-      .drop_down{text-transform: uppercase;}
       p span {
         @include share-instructions;
       }
