@@ -153,7 +153,7 @@ module TileHelpers
 
   def fill_in_answer_field(index, text)
     page.find(".tile_question").click #just to close possible edit answer
-    page.all(".tile_multiple_choice_answer a")[index].click
+    page.all(answer_link_selector)[index].click
     page.all(answer_field_selector)[index].set(text)
   end
 
@@ -203,7 +203,7 @@ module TileHelpers
     fill_in_answer_field 1, "You"
     fill_in_answer_field 2, "He"
 
-    click_answer.times { select_correct_answer 2 }
+    click_answer.times { select_correct_answer 2 } if question_type == "Quiz"
 
     fill_in "Points", with: "23"
 

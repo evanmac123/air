@@ -113,7 +113,7 @@ feature 'Creates tile' do
     page.all('.quiz_content .character-counter').should have(4).counter
   end
 
-  scenario "should start with two answer fields, rather than one" do
+  scenario "should start with two answer fields, rather than one", js: true do
     page.all(answer_link_selector).count.should == 2
   end
 

@@ -106,7 +106,7 @@ feature "Client admin edits tile" do
 
   context 'a keyword tile' do
     before do
-      @tile = FactoryGirl.create :keyword_tile
+      @tile = FactoryGirl.create :keyword_tile, multiple_choice_answers: ["1"]
       rule = @tile.first_rule
       rule.rule_values.first.update_attributes(value: "value 0")
       [1, 2].each{|n| FactoryGirl.create(:rule_value, rule: rule, value: "value #{n}")}
@@ -126,15 +126,18 @@ feature "Client admin edits tile" do
 
     it_should_behave_like "editing a tile"
 
-    scenario "when editing answer for a rule with just one answer, leaves the new answer set to primary" do
-      tile = FactoryGirl.create(:keyword_tile, demo: @client_admin.demo)
+    scenario "when editing answer for a rule with just one answer, leaves the new answer set to primary", js: true do
+      tile = FactoryGirl.create(:keyword_tile, demo: @client_admin.demo, \
+                                          multiple_choice_answers: ["1"], \
+                                          correct_answer_index: 0)
       tile.first_rule.rule_values.length.should == 1
-
       visit edit_client_admin_tile_path(tile, as: @client_admin)
+      click_add_answer
+      p tile
       fill_in_answer_field 0, "woop woop"
       click_button "Update tile"
-
-      tile.first_rule.reload.should have(1).rule_value
+      p tile
+      tile.first_rule.reload.should have(4).rule_value
       rule_value = tile.first_rule.rule_values.first
       rule_value.value.should == 'woop woop'
       rule_value.is_primary.should be_true
