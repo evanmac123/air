@@ -37,7 +37,14 @@ $(document).ready ->
       $('#activated_users').show()
   )
 
-  $(".switch").on "click", (event) ->    
+  $('.status_div').find('.private').on 'click', (event) ->
+    $('.status_div').find('.switch > #private_button').click()
+    
+  $('.status_div').find('.public').on 'click', (event) ->
+    $('.status_div').find('.switch > #public_button').click()
+    
+  
+  $('.status_div').find('.switch').on 'click', (event) ->
     if $("#private_button").attr("checked")
       demo_id = $('.new_public_board').attr('id')
       $.ajax({

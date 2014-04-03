@@ -1,5 +1,5 @@
 $(document).ready ->
-  $('#digest_management').foundation()
+  $('.client_admin-shares-show').foundation()
   
   $('#invite_users_page_1').find('#add_another_user_invite').on('click', (event) ->
     add_fields = $('.invite-user:first').clone(true)
