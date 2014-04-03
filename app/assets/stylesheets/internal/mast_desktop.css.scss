@@ -188,8 +188,8 @@ header {
   }
 
   #board_switch, .other_boards, .other_boards a, #no_other_boards {
-    width: 14em;
-    max-width: 14em;
+    width: 12em;
+    max-width: 12em;
   }
 
   .board_switch_dropdown, .mobile_board_link {
@@ -210,7 +210,7 @@ header {
     }
     #manage_board {
       color:$text-color;
-      padding:1.125em 1em;
+      padding:1.125em 0.4em;
       &:hover {&:before {
         background:darken($gray, 5%);
       }}
@@ -230,7 +230,7 @@ header {
       @include ease(0);
       color:$med-gray;
       font-size:1.5em;
-      padding:.75em 1em;
+      padding:.75em 0.4em;
       border-left:0;
     }
   }

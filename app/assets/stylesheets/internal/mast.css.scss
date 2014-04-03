@@ -124,7 +124,7 @@ header {
       }
     }
 
-    #me_toggle, .user_info_sections {display: inline-block;}
+    #me_toggle, .user_info_sections {display: inline-block; max-width: 20%;}
     #me_toggle {display:none;}
     .user_info_sections {
       text-align: left;

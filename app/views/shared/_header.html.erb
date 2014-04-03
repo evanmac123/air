@@ -8,7 +8,7 @@
 
     <%# If we don't need the guest user controls, steal their space for the 
     navigation, so we can use it for the current board. %>
-    <% navigation_width = current_user.is_guest? ? 3 : 6 %>
+    <% navigation_width = current_user.is_guest? ? 3 : 5 %>
     <nav id="navigation" class="columns large-<%= navigation_width %>"> <!-- offcanvas menu -->
       <div class="user_options">
         <ul>
@@ -93,7 +93,7 @@
     <% end %>
 
 <!-- start of new admin navigation that needs to be gated off later -->
-    <div class="large-4 columns" id="user_info">
+    <div class="large-5 columns" id="user_info">
       <ul id="total_tiles" class="user_info_sections">
         <li><p class="small_cap">Experience</p></li>
         <li><p class="user_numbers">
