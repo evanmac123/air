@@ -42,7 +42,6 @@ module ClientAdmin::TilesHelper
   def default_follow_up_day
     FollowUpDigestEmail::DEFAULT_FOLLOW_UP[Date::DAYNAMES[Date.today.wday]]
   end
-<<<<<<< HEAD
     
   def activate
     current_user.demo.tiles.archived.update_all(status: Tile::ACTIVE)
