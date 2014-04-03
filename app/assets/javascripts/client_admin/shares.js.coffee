@@ -19,7 +19,7 @@ $(document).ready ->
       document.getElementById('share_tiles_email_preview').height = (newHeight) + "px"
       document.getElementById('share_tiles_email_preview').width = (newWidth) + "px"
       $('#share_tiles_email_preview_blocker').height('100%')
-      $('#share_tiles_email_preview_blocker').width('90%')
+      $('#share_tiles_email_preview_blocker').width('70%')
       custom_message = $('#invite_users_page_2').find('#users_invite_message')
       $('#invite_users_page_2').find('#share_tiles_email_preview').contents().find('#custom_message').html($(custom_message).val())
     return
