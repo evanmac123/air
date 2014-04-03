@@ -58,6 +58,8 @@ shared_examples_for "editing a tile" do
     click_button "Update tile"
 
     expect_content "Sorry, we couldn't update this tile"
+    click_add_answer
+    fill_in_answer_field 0, "yes"
     fill_in "Headline", with: "head"
     click_button "Update tile"
 
@@ -67,7 +69,7 @@ shared_examples_for "editing a tile" do
   end
 
   scenario "won't let the user blank out the last answer", js: true do
-    0.upto(2).each {|n| fill_in_answer_field n, ""}
+    0.upto(page.all(answer_link_selector).count - 1).each {|n| fill_in_answer_field n, ""}
     click_button "Update tile"
 
     expect_content "Sorry, we couldn't update this tile: must have at least one answer"
@@ -84,12 +86,12 @@ feature "Client admin edits tile" do
     fill_in "Headline",           with: "Ten pounds of cheese"
     fill_in "Supporting content", with: "Ten pounds of cheese. Yes? Or no?"
 
-    fill_in "Ask a question", with: "Who rules?"
+    fill_in_question "Who rules?"
 
-    2.times {click_link "Add another answer"}
+    5.times {click_add_answer}
 
     # Blank out "value 0"...
-    fill_in_answer_field 0, ""
+    fill_in_answer_field 0, "it"
 
     # ...leave "value 1" alone, overwrite "value 2"...
     fill_in_answer_field 2, "you"
@@ -106,7 +108,7 @@ feature "Client admin edits tile" do
 
   context 'a keyword tile' do
     before do
-      @tile = FactoryGirl.create :keyword_tile, multiple_choice_answers: ["1"]
+      @tile = FactoryGirl.create :keyword_tile, question_type: "Survey"
       rule = @tile.first_rule
       rule.rule_values.first.update_attributes(value: "value 0")
       [1, 2].each{|n| FactoryGirl.create(:rule_value, rule: rule, value: "value #{n}")}
@@ -123,21 +125,23 @@ feature "Client admin edits tile" do
       crank_dj_clear
       visit edit_client_admin_tile_path(@tile, as: @client_admin)
     end
-
-    it_should_behave_like "editing a tile"
+    context  "with shared examples", js: true do
+      before do
+        fill_in_fields
+      end
+      it_should_behave_like "editing a tile"
+    end
 
     scenario "when editing answer for a rule with just one answer, leaves the new answer set to primary", js: true do
-      tile = FactoryGirl.create(:keyword_tile, demo: @client_admin.demo, \
-                                          multiple_choice_answers: ["1"], \
-                                          correct_answer_index: 0)
+      tile = FactoryGirl.create :keyword_tile, \
+                                demo: @client_admin.demo,
+                                question_type: "Survey"
       tile.first_rule.rule_values.length.should == 1
       visit edit_client_admin_tile_path(tile, as: @client_admin)
       click_add_answer
-      p tile
       fill_in_answer_field 0, "woop woop"
       click_button "Update tile"
-      p tile
-      tile.first_rule.reload.should have(4).rule_value
+      tile.first_rule.reload.should have(1).rule_value
       rule_value = tile.first_rule.rule_values.first
       rule_value.value.should == 'woop woop'
       rule_value.is_primary.should be_true
@@ -158,17 +162,16 @@ feature "Client admin edits tile" do
       rule.description.should include("Ten pounds of cheese")
       rule.points.should == 23
 
-      rule.should have(4).rule_values
-      rule.rule_values.map(&:value).sort.should == ['bob', 'me', 'value 1', 'you']
-      rule.primary_value.value.should == "value 1"
+      rule.should have(5).rule_values
+      rule.rule_values.map(&:value).sort.should == ['add answer option', 'bob', 'it', 'me', 'you']
+      rule.primary_value.value.should == "it"
 
       should_be_on client_admin_tile_path(@tile)
       expect_content after_tile_save_message(hide_activate_link: true, action: "update")
     end
 
     scenario 'with bad information', js: true do
-      7.times {click_link "Add another answer"}
-      fill_in_answer_field 0, ""
+      8.times {click_add_answer}
       fill_in_answer_field 2, "you"
       fill_in_answer_field 3, "m"
       fill_in_answer_field 4, "bob"
@@ -180,9 +183,6 @@ feature "Client admin edits tile" do
       fill_in "Supporting content", with: "I bet it would be cool if this tile would save"
 
       click_button "Update tile"
-
-      # We want the answers we entered, in the order we gave them in.
-      page.all('.answer-field').map(&:value).should == ["value 1", "you", "m", "bob", "worked out", "in my demo", "follow"]
 
       page.find("#tile_builder_form_headline").value.should be_blank
       page.find("#tile_builder_form_supporting_content").value.should == "I bet it would be cool if this tile would save"
@@ -204,14 +204,13 @@ feature "Client admin edits tile" do
       crank_dj_clear
 
       @client_admin = FactoryGirl.create(:client_admin, demo: @tile.demo)
-
       visit edit_client_admin_tile_path(@tile, as: @client_admin)
     end
 
     it_should_behave_like "editing a tile"
 
-    scenario "remembers the correct answer index" do
-      page.find("input[type='radio'][value='#{@tile.correct_answer_index}']").should be_checked
+    scenario "remembers the correct answer index", js: true do
+      page.find(".clicked_right_answer").should be_present
     end
 
     scenario "changing the regular fields", js: true do
@@ -225,8 +224,8 @@ feature "Client admin edits tile" do
       @tile.question.should == "Who rules?"
       @tile.link_address.should == "http://example.co.uk"
 
-      @tile.multiple_choice_answers.should == ["Eggs", "you", "me", "bob"]
-      @tile.correct_answer_index.should == 1
+      @tile.multiple_choice_answers.should == ["it", "Eggs", "you", "me", "bob", "Add Answer Option"]
+      @tile.correct_answer_index.should == 2
       should_be_on client_admin_tile_path(@tile)
       expect_content after_tile_save_message(hide_activate_link: true, action: "update")
     end
@@ -235,14 +234,12 @@ feature "Client admin edits tile" do
       fill_in "Headline",           with: ""
       fill_in "Supporting content", with: ""
 
-      fill_in "Ask a question", with: ""
+      fill_in_question ""
 
-      2.times {click_link "Add another answer"}
-      0.upto(3) { |i| fill_in_answer_field i, "" }
       fill_in "Points", with: "0"
       
       click_button "Update tile"
-      expect_content "Sorry, we couldn't update this tile: headline can't be blank, supporting content can't be blank, question can't be blank, points can't be blank, must have at least one answer."
+      expect_content "Sorry, we couldn't update this tile: headline can't be blank, supporting content can't be blank, question can't be blank, points can't be blank."
     end
   end
 end

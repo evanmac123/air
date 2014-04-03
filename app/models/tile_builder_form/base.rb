@@ -200,7 +200,8 @@ module TileBuilderForm
     end
 
     def check_quiz_on_correct_answer
-      if tile.question_type == "Quiz" && tile.correct_answer_index < 0
+      if tile.question_type == "Quiz" && \
+        (tile.correct_answer_index.nil? || tile.correct_answer_index < 0)
         errors.add :base, "For a quiz, you have to have to mark a correct answer. Click an answer in your tile to mark the correct answer"
       end
     end

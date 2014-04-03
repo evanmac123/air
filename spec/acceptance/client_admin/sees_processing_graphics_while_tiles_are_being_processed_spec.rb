@@ -1,25 +1,14 @@
 require 'acceptance/acceptance_helper'
 
 feature 'Sees processing graphics while tiles are being processed' do
-  def create_tile(admin=a_client_admin)
-    visit new_client_admin_tile_path(as: admin)
-    attach_tile "tile_builder_form[image]", tile_fixture_path('cov1.jpg')
-    fill_in "Headline",           with: "Ten pounds of cheese"
-    fill_in "Supporting content", with: "Ten pounds of cheese. Yes? Or no?"
 
-    fill_in "Ask a question", with: "Who rules?"
-
-    fill_in_answer_field 0, "Me"
-    fill_in_answer_field 1, "You"
-    select_correct_answer 0
-
-    fill_in "Points", with: "23"
-
-    click_button "Save tile"
+  before do
+    @admin = FactoryGirl.create(:client_admin)
   end
 
   it 'shows the processing graphic, until the real one is ready', js: true do
-    create_tile
+    visit new_client_admin_tile_path(as: @admin)
+    create_good_tile
     page.find('.tile_image')['src'].should == Tile::IMAGE_PROCESSING_IMAGE_URL
 
     crank_dj_clear
@@ -29,7 +18,8 @@ feature 'Sees processing graphics while tiles are being processed' do
   end
 
   it 'shows the processing after updating a tile, until the real one is ready', js: true do
-    create_tile
+    visit new_client_admin_tile_path(as: @admin)
+    create_good_tile
     crank_dj_clear
 
     tile = Tile.last
@@ -49,8 +39,10 @@ feature 'Sees processing graphics while tiles are being processed' do
   end
 
   it 'shows the processing thumbnail, until the real one is ready', js: true do
-    admin = FactoryGirl.create(:client_admin)
-    2.times {create_tile(admin)}
+    2.times do
+        visit new_client_admin_tile_path(as: @admin)
+        create_good_tile
+    end
     visit client_admin_tiles_path
 
     draft_tiles = page.all("td.draft")
@@ -64,8 +56,10 @@ feature 'Sees processing graphics while tiles are being processed' do
   end
 
   it 'should handle the case where some thumbnails finish processing before others properly', js: true do
-    admin = FactoryGirl.create(:client_admin)
-    2.times {create_tile(admin)}
+    2.times do
+        visit new_client_admin_tile_path(as: @admin)
+        create_good_tile
+    end
     visit client_admin_tiles_path
 
     draft_tiles = page.all("td.draft")

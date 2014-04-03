@@ -57,7 +57,12 @@ function addNewAnswer(){
 
   answer_text = "Add Answer Option";
   subtype = tile_types[type_name][subtype_name];
-  i = subtype["answers"].length
+  if(subtype["answers"]){
+    i = subtype["answers"].length
+  }else{
+    tile_types[type_name][subtype_name]["answers"] = [];
+    i = 0
+  }
   tile_types[type_name][subtype_name]["answers"][i] = answer_text; 
 
   $("li.selected").click();
