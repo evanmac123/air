@@ -4,7 +4,6 @@ class TilesController < ApplicationController
   include ApplicationHelper
 
   prepend_before_filter :allow_guest_user, :only => [:index, :show]
-  before_filter :get_displayable, :only => :index
   before_filter :get_position_description, :only => :index
 
   def index
@@ -35,7 +34,6 @@ class TilesController < ApplicationController
   def show
     if params[:partial_only]
       decide_whether_to_show_conversion_form
-      get_displayable
       get_position_description
       render_new_tile
       schedule_viewed_tile_ping(current_tile)
@@ -50,10 +48,6 @@ class TilesController < ApplicationController
   end
 
   protected
-
-  def get_displayable
-    TileCompletion.mark_displayed_one_final_time(current_user)
-  end
 
   def start_tile_id
     session[:start_tile] || first_id
