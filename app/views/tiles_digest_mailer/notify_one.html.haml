@@ -2,6 +2,7 @@
 !!!
 %html
   %head
-    %title= @title
+    %title=  @title || "#{digest_email_heading_begin} new tiles #{digest_email_heading_end}"
+
 %body
-  = render partial: 'shared/notify_one'
+  = render partial: 'shared/notify_one', locals: {email_heading: @email_heading}

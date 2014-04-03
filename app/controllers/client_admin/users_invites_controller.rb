@@ -23,8 +23,10 @@ class ClientAdmin::UsersInvitesController < ClientAdminBaseController
     @follow_up_email = false
     @onboarding_email = true
     @custom_message = params[:custom_message]||'Check out my new board!'
-    @title = params[:title] || "Join my #{@demo.name}"
-    email_heading = params[:email_heading] || "Join my #{@demo.name}"
+    if params[:is_invite_user] == 'true'
+      @title = "Join my #{@demo.name}"      
+      email_heading = "Join my #{@demo.name}"
+    end
     @invitation_url = @user.claimed? ? nil : invitation_url(@user.invitation_code, protocol: email_link_protocol, host: email_link_host)    
       
 

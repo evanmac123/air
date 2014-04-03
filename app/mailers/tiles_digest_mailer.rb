@@ -35,15 +35,20 @@ class TilesDigestMailer < ActionMailer::Base
 
   # custom_from can have send value 'Hisham via Airbo <@demo.reply_email_address>'
   def notify_one(demo_id, user_id, tile_ids, subject, follow_up_email, 
-      custom_message, custom_from=nil, title=nil)
+      custom_message, custom_from=nil, is_new_invite = nil)
     @demo  = Demo.find demo_id
     @user  = User.find user_id
 
     @tiles = Tile.where(id: tile_ids).order('activated_at DESC')
     @follow_up_email = follow_up_email
     @custom_message = custom_message
-    @title = title || "Check out your new tiles!"
-
+    if is_new_invite
+      @title = "Join my #{@demo.name}"      
+      @email_heading = "Join my #{@demo.name}"
+    else
+      @title = @email_heading = nil #use default logic
+    end
+    
     @invitation_url = @user.claimed? ? nil : invitation_url(@user.invitation_code, protocol: email_link_protocol, host: email_link_host)
     mail  to:      @user.email_with_name,
           from:    custom_from || @demo.reply_email_address,

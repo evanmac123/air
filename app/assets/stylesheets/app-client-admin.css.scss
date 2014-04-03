@@ -3,13 +3,13 @@
 
 @import "font-awesome";
 @import "wice_grid";
+@import "./foundation_and_overrides.scss";
 /* UNIVERSAL STYLESHEETS */
 @import "./mixins/main_styles.css.scss"; 
 @import "./internal/flash.css.scss";
 @import "./internal/mast.css.scss";
 @import "./internal/mast_desktop.css.scss";
 
-@import "./foundation_and_overrides.scss";
 /* CLIENT ADMIN */
 @import "./client_admin/client_admin.css.scss";
 @import "./client_admin/tiles.css.scss";

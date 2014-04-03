@@ -185,6 +185,7 @@ feature "Invite Users Modal" do
           crank_dj_clear
           open_email('hisham@example.com')
           current_email['from'].should contain('via Airbo')
+          current_email.should have_content "Join my #{client_admin2.demo.name}"
         end
         scenario "after clicking send, page shows success message along with share url page" do
           before do

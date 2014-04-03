@@ -536,12 +536,12 @@ class User < ActiveRecord::Base
 
     _demo = options[:demo_id].present? ? Demo.find(options[:demo_id]) : self.demo
 
-    if options[:custom_message].nil?
+    unless options[:is_new_invite]
       Mailer.delay_mail(:invitation, self, referrer, options)
     else
-      TilesDigestMailer.delay.notify_one(_demo_id, id, 
+      TilesDigestMailer.delay.notify_one(_demo.id, id, 
         _demo.digest_tiles.pluck(:id), "Join my #{_demo.name}", false, 
-        options[:custom_message], options[:custom_from])
+        options[:custom_message], options[:custom_from], options[:is_new_invite])
     end
     if referrer && !(options[:ignore_invitation_limit])
       PeerInvitation.create!(inviter: referrer, invitee: self, demo: referrer.demo)

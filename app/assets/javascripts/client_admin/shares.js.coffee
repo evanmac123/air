@@ -13,6 +13,7 @@ $(document).ready ->
   $('#share_tiles_email_preview').on('load', (event) ->
     if document.getElementById
       newHeight = document.getElementById('share_tiles_email_preview').contentWindow.document.body.scrollHeight - 250
+      newHeight = 520 if newHeight > 520
       newWidth = document.getElementById('share_tiles_email_preview').contentWindow.document.body.scrollWidth
 
       document.getElementById('share_tiles_email_preview').height = (newHeight) + "px"
@@ -354,7 +355,7 @@ $(document).ready ->
   
   loadPage2 = () ->
     hideAll()
-    $('#invite_users_page_2').find('#share_tiles_email_preview').attr('src', '/client_admin/preview_invite_email');
+    $('#invite_users_page_2').find('#share_tiles_email_preview').attr('src', '/client_admin/preview_invite_email?is_invite_user=true');
     $('#share_tiles_digest').show()    
     $('.invite_users_header_page_2').show()
     $('#invite_users_modal').show()

@@ -66,7 +66,7 @@ class UsersInvite
             is_new_user = user.new_record?
             user.save!
             user.add_board(demo_id, is_new_user)
-            user.invite(from_user, custom_message: message, custom_from: from_user.email_with_name_via_airbo, demo_id: demo_id, ignore_invitation_limit: true) #mail is sent regardless of transaction succeeded or not, but should never happen
+            user.invite(from_user, is_new_invite: true, custom_message: message, custom_from: from_user.email_with_name_via_airbo, demo_id: demo_id, ignore_invitation_limit: true) #mail is sent regardless of transaction succeeded or not, but should never happen
           end
         end
       end
