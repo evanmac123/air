@@ -195,12 +195,13 @@
     margin-bottom: 20px;
     padding: 10px 10px 10px 0px;
     border-bottom: 1px solid $light-gray;
-    p#last-email {
+    #last-email {
       @include caption;
       color:$gray;
       display: inline-block;
       margin-left:1em;
       float: right;
+      line-height: 0.5em;
       padding-top: 10px;
     }
     .fa {
@@ -214,20 +215,21 @@
 }
 
 #scheduled_followups {
-  border: 1px solid $med-gray;
+  border: 1px solid $light-gray;
   padding: 10px;
   margin-bottom: 20px;
   h3 {
         /*margin:.6em auto 1.7em;*/
         color: $med-gray;
+        font-weight: normal;
         font-size: 18px;
     }
   /*#cancel_follow_up {@include form-group;}*/
   #cancel_follow_up div {
     /*margin-bottom:.5em;*/
+      font-size: 14px;
       display: inline;
     * {
-        vertical-align: bottom;
         .cancel_follow_up_link{
             color: $light-gray;
         }

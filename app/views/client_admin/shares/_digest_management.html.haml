@@ -1,7 +1,7 @@
 .ready_to_send
   .fa.fa-envelope 
     %span Email Tiles
-  %p#last-email= digest_email_sent_on_message
+  #last-email= digest_email_sent_on_message
 .large-3
   = form_tag client_admin_tiles_digest_notification_path, class: :custom do
     .notification_controls

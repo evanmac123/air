@@ -169,9 +169,6 @@ feature "Invite Users Modal" do
         end
         scenario "custom message page shows email preview" do
           page.should have_css(".iframe", visible: true)
-          within(".iframe") do
-            page.should have_css("#share_tiles_email_preview_blocker", visible: true)
-          end
         end
         scenario "email preview shows updated custom message", js: true do
           page.find('#users_invite_message').set "this is a custom message "          
@@ -255,7 +252,7 @@ feature "Invite Users Modal" do
         it "should ignore the limit and send the mail anyway", js: true do
           crank_dj_clear
           open_email('hisham@example.com')
-          current_email.to_s.should include("Subject: Join my #{client_admin2.demo.name} board")
+          current_email.to_s.should include("Subject: Join my #{client_admin2.demo.name}")
         end
       end
     end
