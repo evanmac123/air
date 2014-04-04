@@ -1,4 +1,5 @@
 %tr
+  - link_options ||= {}
   - tiles.each do |tile|
     - tile_url = tile.thumbnail(:email_digest)  # Paperclip returns the full url in staging and production modes
     - tile_url = tile_url.prepend('http://localhost:3000') if (Rails.env.development? or Rails.env.test?)
@@ -8,7 +9,7 @@
         %table{:cellpadding => "0", :cellspacing => "0", :width => "190", :style => "border:1px #dfdfdf solid; font-size:16px; color:gray; text-align:center; table-layout:fixed;"}
           %tr
             %td{:style => "background:#4c4c4c; white-space:nowrap; vertical-align:middle;", :width => "190"}
-              %div{:style => "overflow:hidden; width:190px; height:160px;"}= link_to(image_tag(tile_url, alt: tile.headline, width: '190px', style: 'display:block; border-style:none;'), site_link)
+              %div{:style => "overflow:hidden; width:190px; height:160px;"}= link_to(image_tag(tile_url, alt: tile.headline, width: '190px', style: 'display:block; border-style:none;'), site_link, link_options)
           %tr
             %td{:style => "font-family: helvetica, arial, sans-serif; background:#D9DFE9; color:#4c4c4c; text-align:left; padding:10px; word-wrap:break-word;", :height => "90", :width => "190", :valign => "top"}
               = tile.headline

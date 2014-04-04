@@ -18,7 +18,7 @@ class ClientAdmin::UsersInvitesController < ClientAdminBaseController
   
   def preview_invite_email    
     @demo  = current_user.demo
-    @user  = User.new(name: 'Invited User')
+    @user  = current_user#User.new(name: 'Invited User')
     @tiles = @demo.digest_tiles.order('activated_at DESC')
     @follow_up_email = false
     @onboarding_email = true
@@ -30,6 +30,6 @@ class ClientAdmin::UsersInvitesController < ClientAdminBaseController
     @invitation_url = @user.claimed? ? nil : invitation_url(@user.invitation_code, protocol: email_link_protocol, host: email_link_host)    
       
 
-    render partial: 'shared/notify_one', locals: {email_heading: email_heading}
+    render partial: 'shared/notify_one', locals: {email_heading: email_heading, is_preview: true}
   end
 end

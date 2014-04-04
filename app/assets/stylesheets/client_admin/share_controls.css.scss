@@ -193,7 +193,7 @@
 
   .ready_to_send {
     margin-bottom: 20px;
-    padding: 10px;
+    padding: 10px 10px 10px 0px;
     border-bottom: 1px solid $light-gray;
     p#last-email {
       @include caption;
@@ -205,9 +205,9 @@
     }
     .fa {
       color: $dark-green;
+      font-size: 18px;        
       span {
         padding-left: 12px;
-        font-size: 18px;        
       }
     }
   }
@@ -245,7 +245,6 @@
     }
 #cancel_follow_up div {
   a {@include caption;}
-  margin-left:1em;
 }
 
 .tiles_to_be_shared {
