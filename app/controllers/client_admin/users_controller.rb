@@ -34,7 +34,7 @@ class ClientAdmin::UsersController < ClientAdminBaseController
     @demo = current_user.demo
     user_params = params[:user].filter_by_key(*SETTABLE_USER_ATTRIBUTES)
 
-    email = user_params['email']
+    email = user_params['email'].try(:downcase)
     existing_user = if email.present?
       User.find_by_email(email)
     end
@@ -107,7 +107,7 @@ class ClientAdmin::UsersController < ClientAdminBaseController
   end
     
   def validate_email
-    if params[:email] == current_user.email
+    if params[:email].downcase == current_user.email
       render text: "This is you!"
     else
       render nothing: true

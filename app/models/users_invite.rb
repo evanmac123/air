@@ -38,7 +38,7 @@ class UsersInvite
     if users.present?
       users.each_with_index do |user_params, index|
         if user_params.is_a?(Hash) && user_params[:name].present? && user_params[:email].present?
-          users[index] = User.find_by_email(user_params[:email]) || User.new(user_params)
+          users[index] = User.find_by_email(user_params[:email].downcase) || User.new(user_params)
           users[index].invitation_method = :client_admin_invites #TODO verify that value is okay/email validation triggered through this
         end
       end
