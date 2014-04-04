@@ -56,6 +56,7 @@ header {
     display: inline-block;
     font-size:.875em;
     position: static;
+    padding-right: 0;
     #desktop-toggle.off-canvas-toggle {
       display: inline-block;
       a {margin:0;}
@@ -211,7 +212,7 @@ header {
     }
     #manage_board {
       color:$text-color;
-      padding:1.125em 0.4em;
+      padding:1.125em 0.3em;
       &:hover {&:before {
         background:darken($gray, 5%);
       }}
@@ -231,7 +232,7 @@ header {
       @include ease(0);
       color:$med-gray;
       font-size:1.5em;
-      padding:.75em 0.4em;
+      padding:.75em 0.3em;
       border-left:0;
     }
   }
