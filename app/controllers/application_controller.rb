@@ -368,6 +368,10 @@ class ApplicationController < ActionController::Base
 
   def load_boards_for_switching_menu
     return unless current_user && !(current_user.is_guest?)
-    @boards_to_switch_to = current_user.demos.alphabetical
+    @boards_to_switch_to = if current_user.is_site_admin
+                             Demo.alphabetical
+                           else 
+                             current_user.demos.alphabetical
+                           end
   end
 end

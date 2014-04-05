@@ -181,7 +181,6 @@ Health::Application.routes.draw do
 
     resources :labels
     
-    put "user_transfers", :controller => "user_transfers", :action => :update, :as => "user_transfer"
     post "lost_user", :controller => "lost_users", :action => :create, :as => "lost_user"
 
     resources :demos, :only => [:new, :create, :show, :destroy, :edit, :update] do

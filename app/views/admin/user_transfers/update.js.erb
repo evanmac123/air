@@ -1,9 +1,0 @@
-var global_status_div_7364537283874 = $("#transfer_user_form_message");
-global_status_div_7364537283874.text("");
-global_status_div_7364537283874.addClass("bold");
-global_status_div_7364537283874.text("<%= @message %>");
-setTimeout(function(){
-  if (global_status_div_7364537283874.text() == "<%= @message %>"){
-    global_status_div_7364537283874.hide();
-  }
-}, 3500);
