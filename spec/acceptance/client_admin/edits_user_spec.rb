@@ -145,20 +145,20 @@ feature 'Edits user' do
     visit(edit_client_admin_user_path(user, as: client_admin))
     page.find('select.user-role-select').select 'Administrator'
     click_button "Save edits"
-    user.reload.is_client_admin.should == true
+    user.reload.role_in(client_admin.demo).should eq 'Administrator'
     expect_role('Administrator')
     
-    page.find('select.user-role-select').select 'Administrator'
+    page.find('select.user-role-select').select 'User'
     click_button "Save edits"
-    user.reload.is_client_admin.should == true
+    user.reload.role_in(client_admin.demo).should eq 'User'
     expect_role('User')    
   end
   
-  it 'should set user with role User when selected' do
+  it 'should set user with role Administrator when selected' do
     visit(edit_client_admin_user_path(user, as: client_admin))
     page.find('select.user-role-select').select 'Administrator'
     click_button "Save edits"
-    user.reload.is_client_admin.should == true
+    user.reload.role_in(client_admin.demo).should eq 'Administrator'
     expect_role('Administrator')
   end
   

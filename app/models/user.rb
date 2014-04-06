@@ -108,10 +108,16 @@ class User < ActiveRecord::Base
   end
   
   before_validation do
-    if self.role.present?
+    if @role.present? 
       self.is_client_admin = self.role == 'Administrator'
+      if self.current_board_membership
+        self.current_board_membership.is_client_admin = self.is_client_admin
+        self.current_board_membership.save
+      end
+      true
+    else
+      true      
     end
-    true
   end
   
   before_create do
@@ -160,15 +166,10 @@ class User < ActiveRecord::Base
   def email_optional?
     true if phone_number
   end
-
-  def role=(rl)
-    self.is_client_admin = 'Administrator' == rl
-    @role = rl
-  end
   
   def role
     @role ||= begin
-      if self.is_client_admin
+      if self.is_client_admin || (self.current_board_membership && self.current_board_membership.is_client_admin)
         'Administrator'
       else
         'User'
@@ -176,6 +177,14 @@ class User < ActiveRecord::Base
     end
   end
   
+  def role_in(demo)
+    board_membership = self.board_memberships.find_by_demo_id(demo.id)
+    if board_membership && board_membership.is_client_admin
+      'Administrator'
+    else
+      'User'      
+    end
+  end
   def update_last_acted_at
     reload if changed? # Let's scrap any dirty changes so we don't get unwanted side-effects
     self.last_acted_at = Time.now

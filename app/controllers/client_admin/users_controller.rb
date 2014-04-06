@@ -78,6 +78,7 @@ class ClientAdmin::UsersController < ClientAdminBaseController
     user_in_current_demo = (@user.demo == @demo)
     unless user_in_current_demo
       @new_location_id = params[:user].delete(:location_id)
+      @new_role = params[:user].delete(:role)
     end
 
     @user.attributes = params[:user].filter_by_key(*SETTABLE_USER_ATTRIBUTES)
@@ -87,7 +88,8 @@ class ClientAdmin::UsersController < ClientAdminBaseController
 
     if save_if_date_good(@user)
       unless user_in_current_demo
-        @user.board_memberships.find_by_demo_id(@demo.id).update_attributes(location_id: @new_location_id)
+        @user.board_memberships.find_by_demo_id(@demo.id).
+          update_attributes(location_id: @new_location_id, role: @new_role)
       end
 
       flash[:success] = "OK, we've updated this user's information"
