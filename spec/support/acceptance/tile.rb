@@ -186,8 +186,8 @@ module TileHelpers
 
   def fill_in_valid_form_entries(options = {})
     click_answer = options[:click_answer] || 1
-    question_type = options[:question_type] || "Quiz"
-    question_subtype = options[:question_subtype] || "multiple_choice"
+    question_type = options[:question_type] || Tile::QUIZ
+    question_subtype = options[:question_subtype] || Tile::MULTIPLE_CHOICE
 
     choose_question_type_and_subtype question_type, question_subtype
 
@@ -203,7 +203,7 @@ module TileHelpers
     fill_in_answer_field 1, "You"
     fill_in_answer_field 2, "He"
 
-    click_answer.times { select_correct_answer 2 } if question_type == "Quiz"
+    click_answer.times { select_correct_answer 2 } if question_type == Tile::QUIZ
 
     fill_in "Points", with: "23"
 

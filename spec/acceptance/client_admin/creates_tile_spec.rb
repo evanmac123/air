@@ -10,7 +10,7 @@ feature 'Creates tile' do
 
   before do
     visit new_client_admin_tile_path(as: client_admin)
-    choose_question_type_and_subtype "Quiz", "multiple_choice"
+    choose_question_type_and_subtype Tile::QUIZ, Tile::MULTIPLE_CHOICE
   end
 
   scenario 'by uploading an image and supplying some information', js: true do
@@ -121,7 +121,7 @@ feature 'Creates tile' do
     demo.tiles.should be_empty
     demo.rules.should be_empty
 
-    fill_in_valid_form_entries(click_answer: 6, question_type: "Survey")
+    fill_in_valid_form_entries(click_answer: 6, question_type: Tile::SURVEY)
     click_create_button
 
     demo.tiles.reload.should have(1).tile
@@ -206,35 +206,35 @@ feature 'Creates tile' do
 
   context "acting with question and answers" do
     scenario "choose type Action, subtype any", js: true do
-      choose_question_type_and_subtype "Action", "do_something"
+      choose_question_type_and_subtype Tile::ACTION, Tile::DO_SOMETHING
       page.all(answer_link_selector).should have(1).link
       page.all(".choose_answer").should be_empty
       page.all(".add_answer").should be_empty
     end
 
     scenario "choose type Quiz, subtype true/false", js: true do
-      choose_question_type_and_subtype "Quiz", "true_false"
+      choose_question_type_and_subtype Tile::QUIZ, Tile::TRUE_FALSE
       page.all(answer_link_selector).should have(2).links
       page.find(".choose_answer").text.should == "Click an answer option and mark the right answer"
       page.all(".add_answer").should be_empty
     end
 
     scenario "choose type Quiz, subtype multiple choice", js: true do
-      choose_question_type_and_subtype "Quiz", "multiple_choice"
+      choose_question_type_and_subtype Tile::QUIZ, Tile::MULTIPLE_CHOICE
       page.all(answer_link_selector).should have(2).links
       page.find(".choose_answer").text.should == "Click an answer option and mark the right answer"
       page.find(".add_answer").text.should == "Add another answer"
     end
 
     scenario "choose type Survey, subtype multiple choice", js: true do
-      choose_question_type_and_subtype "Survey", "multiple_choice"
+      choose_question_type_and_subtype Tile::SURVEY, Tile::MULTIPLE_CHOICE
       page.all(answer_link_selector).should have(2).links
       page.all(".choose_answer").should be_empty
       page.find(".add_answer").text.should == "Add another answer"
     end
 
     scenario "when i choose another type my answers and question on the old one are saved", js: true do
-      choose_question_type_and_subtype "Quiz", "multiple_choice"
+      choose_question_type_and_subtype Tile::QUIZ, Tile::MULTIPLE_CHOICE
       fill_in_question "What music do you like?"
       click_add_answer
       fill_in_answer_field 0, "Pop"
@@ -244,9 +244,9 @@ feature 'Creates tile' do
       fill_in_answer_field 2, "Sock"
       select_correct_answer 2
 
-      choose_question_type_and_subtype "Survey", "multiple_choice"
+      choose_question_type_and_subtype Tile::SURVEY, Tile::MULTIPLE_CHOICE
 
-      choose_question_type_and_subtype "Quiz", "multiple_choice"
+      choose_question_type_and_subtype Tile::QUIZ, Tile::MULTIPLE_CHOICE
       page.find(".tile_question").text.should == "What music do you like?"
       page.all(".tile_multiple_choice_answer a")[0].text.should == "Pop"
       page.all(".tile_multiple_choice_answer a")[1].text.should == "Rock"

@@ -49,64 +49,64 @@ module ClientAdmin::TilesHelper
 
   def tile_types
     {
-      "Action" => {
-        "Do something".parameterize("_") => {
+      Tile::ACTION => {
+        Tile::DO_SOMETHING => {
           name: "Do something",
           question: "Points for taking action",
           answers: ["I did it"] 
         },
-        "Read Tile".parameterize("_") => {
-          name: "Read Tile",
+        Tile::READ_TILE => {
+          name: "Read tile",
           question: "Points for reading tile",
           answers: ["I read it"]
         },
-        "Read Article".parameterize("_") => {
+        Tile::READ_ARTICLE => {
           name: "Read Article",
           question: "Points for reading article",
           answers: ["I read it"]
         },
-        "Share On Social Media".parameterize("_") => {
+        Tile::SHARE_ON_SOCIAL_MEDIA => {
           name: "Share On Social Media",
           question: "Points for sharing on social media (e.g., Facebook, Twitter)",
           answers: ["I shared"] 
         },
-        "Visit Web Site".parameterize("_") => {
+        Tile::VISIT_WEB_SITE => {
           name: "Visit Web Site",
           question: "Points for visiting web site",
           answers: ["I visited"] 
         },
-        "Watch Video".parameterize("_") => {
+        Tile::WATCH_VIDEO => {
           name: "Watch Video",
           question: "Points for watching video",
           answers: ["I watched"] 
         },
-        "Custom...".parameterize("_") => {
+        Tile::CUSTOM => {
           name: "Custom...",
           question: "Points for FILL IN",
           answers: ["FILL IN ACTION"]
         }
       },
 
-      "Quiz" => {
-        "True / False".parameterize("_") => {
+      Tile::QUIZ => {
+        Tile::TRUE_FALSE.parameterize("_") => {
           name: "True / False",
           question: "Fill In Statement",
           answers: ["True", "False"]
         },
-        "Multiple Choice".parameterize("_") => {
+        Tile::MULTIPLE_CHOICE.parameterize("_") => {
           name: "Multiple Choice",
           question: "Ask a question",
           answers: ["Add Answer Option", "Add Answer Option"]
         }
       },
 
-      "Survey" => {
-        "Multiple Choice".parameterize("_") => {
+      Tile::SURVEY => {
+        Tile::MULTIPLE_CHOICE.parameterize("_") => {
           name: "Multiple Choice",
           question: "Select one of the following options",
           answers: ["Add Answer Option", "Add Answer Option"]
         },
-        "RSVP to event".parameterize("_") => {
+        Tile::RSVP_TO_EVENT.parameterize("_") => {
           name: "RSVP to event",
           question: "Will you be attending?",
           answers: ["Yes", "No", "Maybe"]
@@ -129,7 +129,7 @@ module ClientAdmin::TilesHelper
   end
 
   def old_tile_type tile
-    tile.question_type =  tile.is_survey? ? "Survey" : "Quiz"
-    tile.question_subtype = "multiple_choice"
+    tile.question_type =  Tile.is_survey? ? Tile::SURVEY : Tile::QUIZ
+    tile.question_subtype = Tile::MULTIPLE_CHOICE
   end
 end

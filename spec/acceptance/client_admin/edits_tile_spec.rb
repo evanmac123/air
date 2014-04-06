@@ -108,7 +108,7 @@ feature "Client admin edits tile" do
 
   context 'a keyword tile' do
     before do
-      @tile = FactoryGirl.create :keyword_tile, question_type: "Survey"
+      @tile = FactoryGirl.create :keyword_tile, question_type: Tile::SURVEY
       rule = @tile.first_rule
       rule.rule_values.first.update_attributes(value: "value 0")
       [1, 2].each{|n| FactoryGirl.create(:rule_value, rule: rule, value: "value #{n}")}
@@ -135,7 +135,7 @@ feature "Client admin edits tile" do
     scenario "when editing answer for a rule with just one answer, leaves the new answer set to primary", js: true do
       tile = FactoryGirl.create :keyword_tile, \
                                 demo: @client_admin.demo,
-                                question_type: "Survey"
+                                question_type: Tile::SURVEY
       tile.first_rule.rule_values.length.should == 1
       visit edit_client_admin_tile_path(tile, as: @client_admin)
       click_add_answer

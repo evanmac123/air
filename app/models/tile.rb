@@ -3,6 +3,22 @@ class Tile < ActiveRecord::Base
   ARCHIVE = 'archive'.freeze
   DRAFT   = 'draft'.freeze
   STATUS  = [ACTIVE, ARCHIVE, DRAFT].freeze
+  #question types
+  ACTION = 'Action'.freeze
+  QUIZ   = 'Quiz'.freeze
+  SURVEY = 'Survey'.freeze
+  #question subtypes
+  DO_SOMETHING          = "Do something".parameterize("_").freeze
+  READ_TILE             = "Read Tile".parameterize("_").freeze
+  READ_ARTICLE          = "Read Article".parameterize("_").freeze
+  SHARE_ON_SOCIAL_MEDIA = "Share On Social Media".parameterize("_").freeze
+  VISIT_WEB_SITE        = "Visit Web Site".parameterize("_").freeze
+  WATCH_VIDEO           = "Watch Video".parameterize("_").freeze
+  CUSTOM                = "Custom...".parameterize("_").freeze
+  TRUE_FALSE            = "True / False".parameterize("_").freeze
+  MULTIPLE_CHOICE       = "Multiple Choice".parameterize("_").freeze
+  RSVP_TO_EVENT         = "RSVP to event".parameterize("_").freeze
+
 
   IMAGE_PROCESSING_IMAGE_URL = ActionController::Base.helpers.asset_path('resizing_gears_fullsize.gif')
   THUMBNAIL_PROCESSING_IMAGE_URL = ActionController::Base.helpers.asset_path('resizing_gears_fullsize.gif')
@@ -167,15 +183,15 @@ class Tile < ActiveRecord::Base
     self.active? && self.activated_at > (Time.now - 5.seconds)    
   end
   def is_survey?
-    question_type == "Survey" || (question_type.nil? && correct_answer_index == -1)
+    question_type == SURVEY || (question_type.nil? && correct_answer_index == -1)
   end
 
   def is_quiz?
-    question_type == "Quiz" || (question_type.nil? && correct_answer_index > 0)
+    question_type == QUIZ || (question_type.nil? && correct_answer_index > 0)
   end
 
   def is_action?
-    question_type == "Action"
+    question_type == ACTION
   end
 
   def survey_chart
