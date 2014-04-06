@@ -304,7 +304,9 @@ class Demo < ActiveRecord::Base
 
   def flush_all_user_tickets
     GuestUser.delay.update_all("tickets = 0, ticket_threshold_base = points", {demo_id: self.id})
-    users.each{|user| user.delay.update_attributes(tickets: 0, ticket_threshold_base: user.points)}
+    users.each do |user|
+      user.delay.flush_tickets_in_board(id)
+    end
   end
 
   def find_raffle_winner(eligible_user_ids, ticket_maximum)

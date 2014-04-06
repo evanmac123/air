@@ -1061,3 +1061,39 @@ describe User, "has_balances?" do
     FactoryGirl.create(:user).should_not have_balances
   end
 end
+
+describe User, "#flush_tickets_in_board" do
+  before do
+    @user = FactoryGirl.create(:user, points: 123, tickets: 79)
+  end
+
+  context "of the board the user is currently in" do
+    it "resets tickets and ticket_threshold base" do
+      @user.flush_tickets_in_board(@user.demo_id)
+
+      @user.reload.points.should == 123
+      @user.reload.ticket_threshold_base.should == 123
+      @user.reload.tickets.should == 0
+    end
+  end
+
+  context "on a different board than the user is currently in" do
+    it "resets tickets and ticket_threshold base on the board membership" do
+      other_board = FactoryGirl.create(:demo)
+      @user.add_board(other_board)
+      @user.demos.should include(other_board)
+      @user.demo.should_not == other_board
+      board_membership = @user.board_memberships.find_by_demo_id(other_board.id)
+      board_membership.update_attributes(points: 456, tickets: 44)
+
+      @user.flush_tickets_in_board(other_board.id)
+      @user.reload.points.should == 123
+      @user.reload.ticket_threshold_base.should == 0
+      @user.reload.tickets.should == 79
+
+      board_membership.reload.points.should == 456
+      board_membership.reload.ticket_threshold_base.should == 456
+      board_membership.tickets.should == 0
+    end
+  end
+end

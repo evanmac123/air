@@ -981,6 +981,17 @@ class User < ActiveRecord::Base
     board_memberships.find_by_demo_id(board.id).try(:location)
   end
 
+  def flush_tickets_in_board(board_id)
+    User.transaction do
+      if demo_id == board_id
+        update_attributes(tickets: 0, ticket_threshold_base: points)
+      else
+        board_membership = board_memberships.find_by_demo_id(board_id)
+        board_membership.update_attributes(tickets: 0, ticket_threshold_base: board_membership.points)
+      end
+    end
+  end
+
   protected
 
   def downcase_email
