@@ -127,7 +127,7 @@ function addAnswerSelectedMessage(container) {
 }
 
 function showAddAnswer(container) {
-  add_container = $('<div class="add_answer columns small-4"></div>');
+  add_container = $('<div class="add_answer columns"></div>');
   icon = $('<i class="fa fa-plus"></i>');
   meassage = "  Add another answer";
   add_container.text(meassage).prepend(icon);
@@ -139,7 +139,7 @@ function showSelectAndAddAnswer() {
   if(type == "Quiz"){
     addAnswerSelectedMessage(after_answers);
   }else{
-    after_answers.append('<div class="columns small-8"></div>');
+    after_answers.append('<div class="columns"></div>');
   }
   if(subtype == "multiple_choice" && (type == "Quiz" || type == "Survey")){
     showAddAnswer(after_answers);

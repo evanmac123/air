@@ -311,19 +311,23 @@ body.client_admin-tiles-update {
       padding-bottom: 1.5em;
       position: absolute;
       bottom: 0;
-      width: 92%;
+      font-size:0.9em;
+      width: 86.5%;
+      margin-left: 0em;
       overflow: hidden;
-      font-weight: 100;
+      font-weight: 700;
       .choose_answer{
         padding: 0;
+        width:70%;
         &.no_answer{
-          color: $sky-blue;
+          color: black;
         }
         &.have_answer{
           color: $dark-green;
         }
       }
       .add_answer {
+        width: 30%;
         padding: 0;
         cursor: pointer;
         color: $blue;

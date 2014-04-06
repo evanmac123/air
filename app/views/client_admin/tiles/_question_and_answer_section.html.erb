@@ -8,7 +8,7 @@
           <li class="tile_type">
             <a id="<%= type %>" href="#" data-dropdown="drop_<%= type %>" class="button type"><%= type %> <i class="fa fa-caret-down"></i></a>
 
-            <ul id="drop_<%= type %>" class="f-dropdown">
+            <ul id="drop_<%= type %>" class="f-dropdown" data-dropdown-content>
               <% subtypes.each do |key, subtype| %>
                 <li id="<%= type + '-' + key %>" class="subtype" ><%= subtype[:name] %></li>
               <% end %>
