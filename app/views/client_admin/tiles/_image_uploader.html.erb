@@ -13,6 +13,10 @@
         <div class="clear_image has-tip tip-top" data-tooltip title="Remove the image">
             <i class="fa fa-times fa-2x"></i>
         </div>
+        <div class="image_credit">
+          <div class="image_credit_view"></div>
+          <%= form.text_field :image_credit, {maxlength: 50, placeholder:'Add Image Credit'} %>
+        </div>
       </div>
       <div class="upload_new_image">
         <%= form.file_field "image" %>
@@ -23,12 +27,14 @@
 <% content_for :javascript do %>
   <%= javascript_tag do %>
     $( document ).ready(function() {
-      //$("#tile_builder_form_image").css("display", "block");
       if($(".tile_image").attr("src").indexOf("/assets/avatars/thumb/missing.png") >= 0) {
         showPlaceholder();
       }else{
         showShadows();
       }
+      saveImageCreditChanges();
+      showImageCreditView();
+      addCharacterCounterFor('#tile_builder_form_image_credit');
     });
 
     function showPlaceholder() {
@@ -57,5 +63,41 @@
       control.replaceWith( control = control.clone( true ) );
       showPlaceholder();
     });
+
+    $("#tile_builder_form_image_credit").bind('input propertychange', function(){ 
+      saveImageCreditChanges();     
+    });
+
+    $(".image_credit_view").click(function() {
+      showImageCreditInput();
+    });
+
+    $('body').click(function(event) {
+      if (!$(event.target).is(".image_credit_view") && !$(event.target).is("#tile_builder_form_image_credit")) {
+        showImageCreditView();
+      }
+    });
+
+    function saveImageCreditChanges() {
+      input = $("#tile_builder_form_image_credit");
+      if(input.val() != ""){
+        text = input.val();
+      }else{
+        text = "Add Image Credit"
+      }
+      $(".image_credit_view").html(text);
+    };
+
+    function showImageCreditView() {
+      $("#tile_builder_form_image_credit").css("display", "none");
+      $(".image_credit_view").css("display", "block");
+      $(".image_credit").find(".character-counter").css("display", "none");
+    };
+
+    function showImageCreditInput() {
+      $("#tile_builder_form_image_credit").css("display", "block");
+      $(".image_credit_view").css("display", "none");
+      $(".image_credit").find(".character-counter").css("display", "block");
+    };
   <% end %>
 <% end %>

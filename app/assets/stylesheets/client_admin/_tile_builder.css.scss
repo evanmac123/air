@@ -161,6 +161,29 @@ body.client_admin-tiles-update {
             }
           }
         }
+        .image_credit {
+          display:block;
+          position: absolute;
+          bottom: 10px;
+          right:10px;
+          font-size: 10px;
+          text-align: right;
+          input {
+            width: 29em;
+          }
+          .image_credit_view{
+            font-family: Helvetica Neue;
+            font-weight: 700;
+            color: $white;
+          }
+          .character-counter{
+            display:block;
+            position: absolute;
+            bottom: 1px;
+            right:2px;
+            font-size: 0.6rem;
+          }
+        }
         i { color: $gray; }
         .image_placeholder {
           label { margin-top: 1em;}

@@ -139,7 +139,8 @@ module TileBuilderForm
           question:           @parameters[:question],
           link_address:       @parameters[:link_address],
           question_type:      @parameters[:question_type],
-          question_subtype:   @parameters[:question_subtype]
+          question_subtype:   @parameters[:question_subtype],
+          image_credit:       @parameters[:image_credit]
         }
       end
     end
@@ -210,7 +211,7 @@ module TileBuilderForm
       tile.errors.delete(:thumbnail)
     end
 
-    delegate :headline, :supporting_content, :question, :question_type, :question_subtype, :thumbnail, :image, :link_address, :to => :tile
+    delegate :headline, :supporting_content, :question, :question_type, :question_subtype, :thumbnail, :image, :image_credit, :link_address, :to => :tile
     delegate :points, :to => :rule
   end
 end
