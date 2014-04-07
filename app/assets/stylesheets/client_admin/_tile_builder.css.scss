@@ -227,7 +227,6 @@ body.client_admin-tiles-update {
     }
     .quiz_content {
       position: relative;
-      min-height: 16em;
       padding: 2.5em;
       .tile_question {
         margin: 0;
@@ -238,12 +237,13 @@ body.client_admin-tiles-update {
       }
       .multiple_choice_group {
         margin: 0;
-        margin-bottom: 2em;
+        margin-bottom: 0em;
         width: 100%;
       }
       .placeholder {
         text-align: center;
-        padding-top: 5em;
+        padding-top: 3em;
+        padding-bottom: 2em;
         color: $gray;
         font-weight: 700;
       }
@@ -307,8 +307,7 @@ body.client_admin-tiles-update {
       border-color: $dark-green !important;
     }
     .after_answers {
-      padding-top: 1.5em;
-      padding-bottom: 1.5em;
+      padding-bottom: 1.1em;
       position: absolute;
       bottom: 0;
       font-size:0.9em;
@@ -320,7 +319,7 @@ body.client_admin-tiles-update {
         padding: 0;
         width:70%;
         &.no_answer{
-          color: black;
+          color: $text-color;
         }
         &.have_answer{
           color: $dark-green;
