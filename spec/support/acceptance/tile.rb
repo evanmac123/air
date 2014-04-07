@@ -184,6 +184,11 @@ module TileHelpers
     page.find(".add_answer").click
   end
 
+  def fill_in_image_credit text
+    page.find(".image_credit_view").click #open input
+    page.find("#tile_builder_form_image_credit").set(text)
+  end
+
   def fill_in_valid_form_entries(options = {})
     click_answer = options[:click_answer] || 1
     question_type = options[:question_type] || Tile::QUIZ
@@ -192,6 +197,7 @@ module TileHelpers
     choose_question_type_and_subtype question_type, question_subtype
 
     attach_tile "tile_builder_form[image]", tile_fixture_path('cov1.jpg')
+    fill_in_image_credit "by Society"
     fill_in "Headline",           with: "Ten pounds of cheese"
     fill_in "Supporting content", with: "Ten pounds of cheese. Yes? Or no?"
 
@@ -250,6 +256,10 @@ module TileHelpers
 
   def expect_question(question)
     expect_content question
+  end
+
+  def expect_image_credit image_credit
+    expect_content image_credit
   end
 
   def expect_points(points)

@@ -27,6 +27,7 @@ feature 'User views tiles' do
 
     scenario 'and all the stuff around them, including the answer options' do
       expect_supporting_content "This is some extra text by the tile"
+      expect_image_credit "by Human"
       expect_question "Which of the following comes out of a bird?"
       expect_points 30
       expect_answer 0, "Ham"

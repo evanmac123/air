@@ -210,6 +210,7 @@ FactoryGirl.define do
     require_images true
     image {File.open(Rails.root.join "spec/support/fixtures/tiles/cov1.jpg")}
     thumbnail {File.open(Rails.root.join "spec/support/fixtures/tiles/cov1_thumbnail.jpg")}
+    image_credit "by Human"
   end
 
   factory :keyword_tile, parent: :client_created_tile, class: KeywordTile do

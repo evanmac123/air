@@ -83,10 +83,12 @@ end
 
 feature "Client admin edits tile" do
   def fill_in_fields
+    fill_in_image_credit "by Me"
     fill_in "Headline",           with: "Ten pounds of cheese"
     fill_in "Supporting content", with: "Ten pounds of cheese. Yes? Or no?"
 
     fill_in_question "Who rules?"
+
 
     5.times {click_add_answer}
 
@@ -152,6 +154,7 @@ feature "Client admin edits tile" do
       click_button "Update tile"
 
       @tile.reload
+      @tile.image_credit.should == "by Me"
       @tile.headline.should == "Ten pounds of cheese"
       @tile.supporting_content.should == "Ten pounds of cheese. Yes? Or no?"
       @tile.question.should == "Who rules?"
@@ -219,6 +222,7 @@ feature "Client admin edits tile" do
       click_button "Update tile"
 
       @tile.reload
+      @tile.image_credit.should == "by Me"
       @tile.headline.should == "Ten pounds of cheese"
       @tile.supporting_content.should == "Ten pounds of cheese. Yes? Or no?"
       @tile.question.should == "Who rules?"

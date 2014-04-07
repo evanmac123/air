@@ -23,6 +23,7 @@ feature 'Creates tile' do
     new_tile = MultipleChoiceTile.last
     new_tile.image_file_name.should == 'cov1.jpg'
     new_tile.thumbnail_file_name.should == 'cov1.jpg'
+    new_tile.image_credit.should == "by Society"
     new_tile.headline.should == "Ten pounds of cheese"
     new_tile.supporting_content.should == "Ten pounds of cheese. Yes? Or no?"
     new_tile.question.should == "Who rules?"
@@ -128,6 +129,7 @@ feature 'Creates tile' do
     new_tile = MultipleChoiceTile.last
     new_tile.image_file_name.should == 'cov1.jpg'
     new_tile.thumbnail_file_name.should == 'cov1.jpg'
+    new_tile.image_credit.should == "by Society"
     new_tile.headline.should == "Ten pounds of cheese"
     new_tile.supporting_content.should == "Ten pounds of cheese. Yes? Or no?"
     new_tile.question.should == "Who rules?"
