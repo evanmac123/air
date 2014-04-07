@@ -129,7 +129,7 @@ module ClientAdmin::TilesHelper
   end
 
   def old_tile_type tile
-    tile.question_type =  Tile.is_survey? ? Tile::SURVEY : Tile::QUIZ
+    tile.question_type =  tile.is_survey? ? Tile::SURVEY : Tile::QUIZ
     tile.question_subtype = Tile::MULTIPLE_CHOICE
   end
 end
