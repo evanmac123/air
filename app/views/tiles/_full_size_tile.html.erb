@@ -11,6 +11,12 @@
   <div class="<%=tile_class(tile)%>">
     <div class="tile_full_image">
       <%= image_tag tile.image.url, :class => :tile_image, :size => tile.image.image_size, :alt => tile.headline %>
+      <div class="shadow_overlay"></div>
+      <div class="image_credit">
+        <div class="image_credit_view">
+          <%= tile.image_credit %>
+        </div>
+      </div>
     </div>
 
     <% if tile.appears_client_created %>
