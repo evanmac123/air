@@ -8,32 +8,43 @@ class BoardsController < ApplicationController
   end
 
   def create
+    params[:as_existing] ? create_as_existing : create_as_guest
+  end
+
+  protected
+
+  def create_as_existing
+    authorize
+    return if response.redirect? # auth failed
+
+    board_creator = BoardCreator.new(params[:board_name])
+    if board_creator.create
+      board = board_creator.board
+      current_user.add_board(board)
+      current_user.move_to_new_demo(board)
+      current_user.is_client_admin = true
+      current_user.save!
+      redirect_to client_admin_tiles_path
+    else
+      redirect_to :back
+    end
+  end
+
+  def create_as_guest
     # If you value your sanity, you won't read much further.
-    # A form object might have been a good idea here, but I'm in a hurry
-    # and I'm not sure this feature has a future.
     #
-    # Sue me.
+    # Though the situation here is better than it was since extracting the
+    # BoardCreator service object.
     
     board_saved_successfully = nil
     user_saved_successfully = nil
 
     original_board_name = params[:board][:name]
+
     Demo.transaction do
-      _board_name = original_board_name
-      unless _board_name.blank? || _board_name.downcase.split.last == 'board'
-        _board_name += " Board"
-      end
-
-      @board = Demo.new(name: _board_name)
-
-      set_board_defaults
-      board_saved_successfully = @board.save
-      # We do this separately so that we know the board has a unique public slug
-
-      if board_saved_successfully
-        email_local_part = @board.public_slug.gsub(/-/, '')
-        @board.update_attributes(email: email_local_part + "@ourairbo.com")
-      end
+      board_creator = BoardCreator.new(original_board_name)
+      board_saved_successfully = board_creator.create
+      @board = board_creator.board
 
       @user = @board.users.new(name: params[:user][:name], email: params[:user][:email])
       @user.creating_board = true

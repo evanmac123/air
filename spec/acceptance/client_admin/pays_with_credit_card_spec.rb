@@ -84,7 +84,9 @@ feature 'Pays with credit card' do
         expect_balance_description balance
       end
 
-      page.all('form').should have(3).payment_forms
+      within '.content' do
+        page.all('form').should have(3).payment_forms
+      end
     end
   end
 end

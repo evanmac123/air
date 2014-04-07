@@ -12,7 +12,7 @@ feature "Client admin copies or likes tile" do
       
   def click_copy
     first('.not_copied').find('.copy_tile_link').click
-    find('.reveal-modal').should have_content(post_copy_copy)
+    find('#tile_copied_lightbox').should have_content(post_copy_copy)
   end
 
   def click_close

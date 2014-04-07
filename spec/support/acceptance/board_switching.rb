@@ -8,9 +8,10 @@ module BoardSwitchingHelpers
   end
 
 
-  def expect_current_board_header(board)
-    _name = TextHelpifier.new.truncate(board.name, length: 15)
-    page.should have_content("Current board #{_name}")
+  def expect_current_board_header(board_or_board_name)
+    board_name = board_or_board_name.kind_of?(Demo) ? board_or_board_name.name : board_or_board_name
+    truncated_name = TextHelpifier.new.truncate(board_name, length: 15)
+    page.should have_content("Current board #{truncated_name}")
   end
 
   def open_board_menu

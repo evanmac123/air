@@ -50,18 +50,9 @@
             </p>
           </a>
         </div>
-          <%# Desktop version of the board switcher %>
-          <ul class="other_boards">
-            <% if @boards_to_switch_to.present? && @boards_to_switch_to.length > 1 %>
-              <% @boards_to_switch_to.each do |board| %>
-                <%# In this version, we don't display the current board. %>
-                <% next if board == current_user.demo %>
-                <li><%= link_to board.name, current_board_path(board_id: board.id), method: :put, id: "board-switch-link-#{board.id}" %></li>
-              <% end %>
-            <% else %>
-              <li><span id="no_other_boards">You haven't joined any other boards.</span></li>
-            <% end %>
-          </ul>
+
+        <%= render 'shared/desktop_board_switcher', boards_to_switch_to: @boards_to_switch_to %>
+
         <% if current_user.authorized_to?(:client_admin) %>
           <div class="explore_menu">
             <%= link_to explore_path, id: 'explore_board' do %>
