@@ -98,7 +98,7 @@ feature 'In multiple boards appears present in all at once' do
 
     scenario "digests are received from both" do
       visit client_admin_share_path(as: @first_admin)
-      click_button "Send digest now"
+      click_button "Send"
       crank_dj_clear
 
       open_email(@user.email)
@@ -110,7 +110,7 @@ feature 'In multiple boards appears present in all at once' do
       ActionMailer::Base.deliveries.clear
 
       visit client_admin_share_path(as: @second_admin)
-      click_button "Send digest now"
+      click_button "Send"
       crank_dj_clear
 
       open_email(@user.email)
@@ -125,12 +125,12 @@ feature 'In multiple boards appears present in all at once' do
       Timecop.travel(Chronic.parse("March 23, 2014, 12:00 PM")) # a Sunday
       visit client_admin_share_path(as: @first_admin)
       select "Tuesday", from: "follow_up_day"
-      click_button "Send digest now"
+      click_button "Send"
       crank_dj_clear
 
       visit client_admin_share_path(as: @second_admin)
       select "Tuesday", from: "follow_up_day"
-      click_button "Send digest now"
+      click_button "Send"
       crank_dj_clear
 
       Timecop.travel(Chronic.parse("March 25, 2014, 6:00 PM"))

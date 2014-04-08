@@ -59,7 +59,7 @@ describe 'Digest email' do
     context "original digest email should display its title" do
       subject { TilesDigestMailer.notify_one(demo.id, claimed_user.id, tile_ids, "New Tiles", false, nil) }
 
-      it { should have_body_text 'Check out your' }
+      it { should have_body_text 'Your' }
       it { should have_link 'new tiles' }
       it { should have_link 'View your tiles' }
     end
