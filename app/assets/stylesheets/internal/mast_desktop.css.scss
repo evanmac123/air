@@ -158,6 +158,10 @@ header {
       width: 22em;
       padding-left: 1.1em;
     }
+
+    #switcher_create_new_board {
+      color: $dark-green;
+    }
   }
 
   .user_options ul {
@@ -283,5 +287,26 @@ body.explores {
 
   input[type="submit"] {
     @include app-button($sky-blue);
+  }
+}
+
+#new_board_creation {
+  width: 40%;
+  left: 75%;
+
+  h1, h3, input {
+    width: 100%;
+    text-align: center;
+  }
+
+  input[type=text].valid {
+    background-position: right top;
+    background-repeat: no-repeat;
+    background-image: url("client_admin/valid.png");
+  }
+
+  input[type=submit] {
+    @include app-button($dark-green);
+    margin-top: 1em;
   }
 }

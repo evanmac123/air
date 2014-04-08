@@ -1,6 +1,8 @@
 validateNewBoardName = (value, element) ->
   nameValid = false
 
+  $(element).removeClass('valid')
+
   validationURL = ["/board_name_validations", value].join('/')
   $.ajax(
     validationURL,
@@ -8,6 +10,10 @@ validateNewBoardName = (value, element) ->
     dataType: 'json',
     success: (data) ->
       nameValid = data.nameValid
+      if nameValid
+        $(element).addClass('valid')
+      else
+        $(element).removeClass('valid')
   )
   nameValid
 
@@ -20,5 +26,7 @@ bindNewBoardValidations = () ->
     rules:
       'board_name':
         validateNewBoardName: true
+    onkeyup:
+      false
 
 window.bindNewBoardValidations = bindNewBoardValidations
