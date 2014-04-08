@@ -24,6 +24,8 @@ body.client_admin-tiles-update,
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#80000000',GradientType=0 ); /* IE6-9 */
   }
   .image_credit {
+    font-size:1em !important;
+    max-width: 550px;
     display:block;
     position: absolute;
     bottom: 10px;
@@ -34,6 +36,9 @@ body.client_admin-tiles-update,
       font-family: Helvetica Neue;
       font-weight: 700;
       color: $white;
+      a{
+        color: $white;
+      }
     }
   }
 }

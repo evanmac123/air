@@ -14,8 +14,10 @@
             <i class="fa fa-times fa-2x"></i>
         </div>
         <div class="image_credit">
-          <div class="image_credit_view"></div>
-          <%= form.text_field :image_credit, {maxlength: 50, placeholder:'Add Image Credit'} %>
+          <div class="image_credit_view" contenteditable="true">
+            <%= @tile_builder_form.tile.image_credit%>
+          </div>
+          <%= form.text_area :image_credit %>
         </div>
       </div>
       <div class="upload_new_image">
@@ -33,8 +35,6 @@
         showShadows();
       }
       saveImageCreditChanges();
-      addCharacterCounterFor('#tile_builder_form_image_credit');
-      showImageCreditView();
     });
 
     function showPlaceholder() {
@@ -62,45 +62,32 @@
       var control = $("#tile_builder_form_image");
       control.replaceWith( control = control.clone( true ) );
       showPlaceholder();
-      //clear image credit
-      $("#tile_builder_form_image_credit").val("");
-      saveImageCreditChanges();
     });
 
-    $("#tile_builder_form_image_credit").bind('input propertychange', function(){ 
+    $(".image_credit_view").keyup( function(){ 
       saveImageCreditChanges();     
     });
 
-    $(".image_credit_view").click(function() {
-      showImageCreditInput();
-    });
-
-    $('body').click(function(event) {
-      if (!$(event.target).is(".image_credit_view") && !$(event.target).is("#tile_builder_form_image_credit")) {
-        showImageCreditView();
+    $(".image_credit_view").keydown( function deleteImageCreditPlaceholder(){ 
+      if(div_input.hasClass("empty") ){
+        div_input = $(this);
+        div_input.removeClass("empty");
+        div_input.text(div_input.text().replace('Add Image Credit',''));
       }
     });
 
     function saveImageCreditChanges() {
-      input = $("#tile_builder_form_image_credit");
-      if(input.val() != ""){
-        text = input.val();
+      div_input = $(".image_credit_view");
+      //check if we have any text in textarea(delete spaces)
+      text_length = div_input.text().replace(/\s+/g, '').length
+
+      if(text_length > 0){
+        text = div_input.text();
       }else{
-        text = "Add Image Credit"
+        div_input.text("Add Image Credit").addClass("empty");
+        text = "";
       }
-      $(".image_credit_view").html(text);
-    };
-
-    function showImageCreditView() {
-      $("#tile_builder_form_image_credit").css("display", "none");
-      $(".image_credit_view").css("display", "block");
-      $(".image_credit").find(".character-counter").css("display", "none");
-    };
-
-    function showImageCreditInput() {
-      $("#tile_builder_form_image_credit").css("display", "block").focus().select();
-      $(".image_credit_view").css("display", "none");
-      $(".image_credit").find(".character-counter").css("display", "block");
+      $("#tile_builder_form_image_credit").val(text);
     };
   <% end %>
 <% end %>
