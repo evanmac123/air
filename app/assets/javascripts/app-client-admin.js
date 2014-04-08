@@ -21,6 +21,9 @@
 //= require wice_grid
 //= require ../../../vendor/assets/javascripts/external/foundation.min
 //= require history_jquery
+//= require jquery.validate
+//= require jquery.validate.additional-methods
+//= require internal/validate_new_board
 
 $(document).ready(function() {
   $('.client_admin-users').foundation();

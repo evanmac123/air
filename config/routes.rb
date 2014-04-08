@@ -87,6 +87,8 @@ Health::Application.routes.draw do
     end
   end
 
+  resources :board_name_validations, only: :show
+
   namespace :client_admin do
     resource :segmentation
 

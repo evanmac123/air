@@ -76,6 +76,7 @@ module Health
       client_admin/tile_tag_callback.js
       internal/countUp.min.js
       internal/point_and_ticket_animation.js
+      internal/validate_new_board.js
     )
 
     ################################################################

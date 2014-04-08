@@ -20,3 +20,9 @@
     <input type="submit" value="Create">
   <% end %>
 </div>
+
+<%= content_for :javascript do %>
+  <%= javascript_tag do %>
+    bindNewBoardValidations();
+  <% end %>
+<% end %>

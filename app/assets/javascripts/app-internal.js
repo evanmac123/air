@@ -7,5 +7,7 @@
 //= require_self
 //= require_tree ./internal
 //= require_tree ./internal_and_external/.
+//= require jquery.validate
+//= require jquery.validate.additional-methods
 
 $(document).foundation();

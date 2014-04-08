@@ -1,12 +1,8 @@
 class BoardCreator
-  def initialize(board_name)
-    @board_name = board_name
-    unless @board_name.blank? || @board_name.downcase.split.last == 'board'
-      @board_name += " Board"
-    end
+  include NormalizeBoardName
 
-    @board_name.strip!
-    @board_name.gsub!(/\s+/, ' ')
+  def initialize(board_name)
+    @board_name = normalize_board_name(board_name)
   end
 
   def create
