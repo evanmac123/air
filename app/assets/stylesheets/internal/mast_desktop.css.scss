@@ -294,7 +294,7 @@ body.explores {
   width: 40%;
   left: 75%;
 
-  h1, h3, input {
+  h1, h3, input, #cancel_board_creation {
     width: 100%;
     text-align: center;
   }
@@ -308,5 +308,11 @@ body.explores {
   input[type=submit] {
     @include app-button($dark-green);
     margin-top: 1em;
+  }
+
+  #cancel_board_creation {
+    display: block;
+    color: $med-gray;
+    margin-top: 0.8em;
   }
 }

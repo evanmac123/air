@@ -217,8 +217,6 @@ Health::Application.routes.draw do
     get 'exception' => 'exceptions#show'
     get 'sleep_forever' => 'sleep_forever#show'
 
-    resources :rules, :except => :show
-
     resources :rule_values, :only => [:destroy]
 
     resources :tags
@@ -232,8 +230,6 @@ Health::Application.routes.draw do
       resources :users, :only => [:index, :edit, :update, :destroy] do
         resource :characteristics, :only => :update, :controller => "user_characteristics"
       end
-
-      resources :rules, :only => [:index, :new, :create]
 
       resources :goals
 

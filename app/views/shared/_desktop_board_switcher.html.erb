@@ -20,6 +20,16 @@
     <%= text_field_tag "board_name", params[:board_name], placeholder: "Name your board" %>
     <input type="submit" value="Create">
   <% end %>
+  <%= link_to "Cancel", '#', id: 'cancel_board_creation' %>
+
+  <%= content_for :javascript do %>
+    <%= javascript_tag do %>
+      $('#cancel_board_creation').click(function(event) {
+        event.preventDefault();
+        $('#new_board_creation').foundation('reveal', 'close');
+      });
+    <% end %>
+  <% end %>
 </div>
 
 <%= content_for :javascript do %>
