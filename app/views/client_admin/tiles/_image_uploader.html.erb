@@ -34,7 +34,9 @@
       }else{
         showShadows();
       }
+      window.MAX_IMAGE_CREDIT_LENGTH = 50;
       saveImageCreditChanges();
+      truncateImageCreditView();
     });
 
     function showPlaceholder() {
@@ -65,29 +67,45 @@
     });
 
     $(".image_credit_view").keyup( function(){ 
-      saveImageCreditChanges();     
+      saveImageCreditChanges();
+      truncateImageCreditView();    
     });
 
-    $(".image_credit_view").keydown( function deleteImageCreditPlaceholder(){ 
-      if(div_input.hasClass("empty") ){
+    $(".image_credit_view").keydown( function deleteImageCreditPlaceholder(e){ 
+      div_input = $(this);
+      if( div_input.hasClass("empty") ){
         div_input = $(this);
         div_input.removeClass("empty");
         div_input.text(div_input.text().replace('Add Image Credit',''));
+      }else if( div_input.hasClass("truncate") && e.keyCode == 8 ){//backspace
+        div_input.removeClass("truncate");
+        div_input.text("");
       }
     });
 
     function saveImageCreditChanges() {
       div_input = $(".image_credit_view");
-      //check if we have any text in textarea(delete spaces)
+      //check if we have any text in div(delete spaces)
       text_length = div_input.text().replace(/\s+/g, '').length
 
-      if(text_length > 0){
+      if( div_input.hasClass("truncate") ){
+        text = $("#tile_builder_form_image_credit").text(); //do nothing
+      }else if(text_length > 0){
         text = div_input.text();
       }else{
         div_input.text("Add Image Credit").addClass("empty");
         text = "";
       }
-      $("#tile_builder_form_image_credit").val(text);
+      $("#tile_builder_form_image_credit").text(text);
+    };
+
+    function truncateImageCreditView(){
+      div_input = $(".image_credit_view");
+      text = div_input.text();
+      if( !div_input.hasClass("truncate") && text.length > MAX_IMAGE_CREDIT_LENGTH + 3){
+        div_input.text(div_input.text().substring(0,50) + "...");
+        div_input.addClass("truncate");
+      }
     };
   <% end %>
 <% end %>

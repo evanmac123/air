@@ -185,8 +185,10 @@ module TileHelpers
   end
 
   def fill_in_image_credit text
-    page.find(".image_credit_view").click #open input
-    page.find("#tile_builder_form_image_credit").set(text)
+    #it's not easy to write in div though capybara
+    #in few words about events: keydown deletes placeholder, 
+    #html input text, keyup copy text to real textarea
+    page.execute_script( "$('.image_credit_view').keydown().html('#{text}').keyup()" )
   end
 
   def fill_in_valid_form_entries(options = {})

@@ -13,7 +13,7 @@ body.client_admin-tiles-update,
     position: absolute;
     bottom: 0;
     left: 0;
-    background: black;
+    background: transparent;
 
     background: -moz-linear-gradient(top,  rgba(0,0,0,0) 0%, rgba(0,0,0,0) 1%, rgba(0,0,0,0.25) 100%); /* FF3.6+ */
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(0,0,0,0)), color-stop(1%,rgba(0,0,0,0)), color-stop(100%,rgba(0,0,0,0.25))); /* Chrome,Safari4+ */
@@ -34,9 +34,10 @@ body.client_admin-tiles-update,
     text-align: right;
     .image_credit_view{
       font-family: Helvetica Neue;
-      font-weight: 700;
+      font-weight: 400;
       color: $white;
       a{
+        font-weight: 400;
         color: $white;
       }
     }

@@ -69,9 +69,9 @@ body.client_admin-tiles-update {
       #tile_builder_form_image {display:none;}
       // for IE
       .pick_image {
-        margin-top: 2em;
-        margin-left: 4em;
-        margin-right: 4em;
+        margin: 2em;
+        padding-top: 3em;
+        padding-bottom: 0;
         border:2px lighten($light-gray, 8%) dashed;
       }
       .image_text {

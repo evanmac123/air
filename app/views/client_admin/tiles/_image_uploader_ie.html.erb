@@ -38,7 +38,11 @@
     function saveImageCreditChanges() {
       input = $("#tile_builder_form_image_credit");
       if(input.val() != ""){
-        text = input.val();
+        if(input.val().length > 50 ){
+          text = input.val().substring(0,50) + "...";
+        }else{
+          text = input.val();
+        }
       }else{
         text = "Add Image Credit"
       }
