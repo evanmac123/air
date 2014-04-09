@@ -200,17 +200,33 @@ header {
   }
 
   // Admin tools menu
-  .admin_options {
-    &:after{@include clear;}
-    p.small_cap {display: none;}
+  .explore_menu {
     display: inline-block;
-    #manage_board, #admin_toggle, #explore_board {
+    #explore_board {
       @include font-bold;
       height:100%;
       max-height:$header-total-height;
       position: relative;
     }
-    #manage_board, #explore_board {
+    #explore_board {
+      color:$text-color;
+      padding:1.125em 0.3em;
+      &:hover {&:before {
+        background:darken($gray, 5%);
+      }}
+    }    
+  }
+  .admin_options {
+    &:after{@include clear;}
+    p.small_cap {display: none;}
+    display: inline-block;
+    #manage_board, #admin_toggle {
+      @include font-bold;
+      height:100%;
+      max-height:$header-total-height;
+      position: relative;
+    }
+    #manage_board {
       color:$text-color;
       padding:1.125em 0.3em;
       &:hover {&:before {
@@ -237,3 +253,13 @@ header {
     }
   }
 }
+
+.explores {
+  .explore_menu {
+    #explore_board {
+      color: $sky-blue;
+    }
+  }
+}
+
+

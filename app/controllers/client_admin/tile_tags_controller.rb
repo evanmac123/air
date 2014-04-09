@@ -16,15 +16,15 @@ class ClientAdmin::TileTagsController < ClientAdminBaseController
   protected
 
   def normalized_title
-    params[:tag_name].strip.capitalize.gsub(/\s+/, ' ')
+    params[:term].strip.gsub(/\s+/, ' ').split.map(&:capitalize).join(' ')
   end
   
   def search_results_as_json
-    normalized_term = params[:term].downcase.strip.gsub(/\s+/, ' ')
-    tags = name_like(normalized_term).order(:title).limit(10)
+    normalized_tag = normalized_title
+    tags = name_like(normalized_tag).order(:title).limit(10)
 
     if tags.empty?
-      add_tag_json(normalized_term)
+      add_tag_json(normalized_tag)
     else
       tags.map{|tag| search_result(tag)}.to_json
     end
@@ -40,15 +40,14 @@ class ClientAdmin::TileTagsController < ClientAdminBaseController
     } 
   end
 
-  def add_tag_json(normalized_name)
-    name = normalized_name.split.map(&:capitalize).join(' ')
+  def add_tag_json(normalized_title)
     label = ERB::Util.h(%{Tag doesn't exist. Click to add.})
     [{
         label: label,
         value: {
           found: false,
-          name: name,
-          url:   add_client_admin_tile_tags_url(name)
+          name: normalized_title,
+          url:   add_client_admin_tile_tags_url(normalized_title)
         }
       }].to_json
   end

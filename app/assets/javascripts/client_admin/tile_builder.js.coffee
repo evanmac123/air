@@ -8,17 +8,20 @@ jumpTagSelected = (event, ui) ->
 
 addNewTag = (name) ->
   $.ajax(
-    url: "/client_admin/tile_tags/add?tag_name=#{name}",
-    success: (data)-> 
-      appendSelectedTags(data, name)
+    url: "/client_admin/tile_tags/add?term=#{name}",
+    success: (id)-> 
+      appendSelectedTags(id, name)
   )
   
 appendSelectedTags = (id, name) ->
-  $('.tile_tags').append("<li id='#{id}'>#{name}<a class='fa fa-times'></a> </li>")
-  if $('#tile_builder_form_tile_tag_ids').val() == ""
-    $('#tile_builder_form_tile_tag_ids').val(id)
-  else
-    $('#tile_builder_form_tile_tag_ids').val($('#tile_builder_form_tile_tag_ids').val() + ",#{id}")
+  $('#new_tile_builder_form').find('.tag_alert').hide()
+  if $('ul.tile_tags > li[id='+id+']').length < 1
+    $('ul.tile_tags').append("<li id='#{id}'>#{name}<a class='fa fa-times'></a> </li>")
+    if $('#tile_builder_form_tile_tag_ids').val() == ""
+      $('#tile_builder_form_tile_tag_ids').val(id)
+    else
+      $('#tile_builder_form_tile_tag_ids').val($('#tile_builder_form_tile_tag_ids').val() + ",#{id}")
+    
   
 window.bindTagNameSearchAutocomplete = (sourceSelector, targetSelector, searchURL) ->
   $(sourceSelector).autocomplete({
@@ -30,31 +33,30 @@ window.bindTagNameSearchAutocomplete = (sourceSelector, targetSelector, searchUR
 
 
 $(document).ready ->
-  if $('.share_explore').find('#share_off').attr('checked')
-    $('.allow_copying').hide()
-    $('.add_tag').hide()
+  if $('.share_options').find('#share_off').attr('checked')
+    $('.share_options').find('.allow_copying').hide()
+    $('.share_options').find('.add_tag').hide()
   else if $(this).find('#share_on').attr('checked')
-    $('.allow_copying').show()
-    $('.add_tag').show()
+    $('.share_options').find('.allow_copying').show()
+    $('.share_options').find('.add_tag').show()
   
   $('#tile_builder_form_tile_tag_ids').hide()
-  $('#tile_builder_form_tile_tag_ids').val("")
-  $('.share_explore').on('click', (event) ->
+  $('.share_options').on('click', (event) ->
     if $(this).find('#share_off').attr('checked')
-      $('.allow_copying').hide()
-      $('.add_tag').hide()
+      $('.share_options').find('.allow_copying').hide()
+      $('.share_options').find('.add_tag').hide()
     else if $(this).find('#share_on').attr('checked')
-      $('.allow_copying').show()
-      $('.add_tag').show()
+      $('.share_options').find('.allow_copying').show()
+      $('.share_options').find('.add_tag').show()
   )
   
   $(document).on('click','.add_tag .fa', (event) ->
     element = $(this).parent()
     tag_id = element.attr('id')
     
-    vals = $('#tile_builder_form_tile_tag_ids').val().split ','
+    vals = $('.share_options').find('#tile_builder_form_tile_tag_ids').val().split ','
     filtered_vals = vals.filter (selected_tag_id) -> selected_tag_id isnt tag_id
-    $('#tile_builder_form_tile_tag_ids').val(filtered_vals.join(','))
+    $('.share_options').find('#tile_builder_form_tile_tag_ids').val(filtered_vals.join(','))
     
     element.remove()
   )

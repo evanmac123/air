@@ -3,8 +3,8 @@
 header {
   .admin_options #manage_board:before {background:$dark-green;}
   .admin_options #manage_board:hover:before {background:$dark-green;}
-  .admin_options #explore_board:before {display: none;}
-  .admin_options #explore_board:hover:before {display: none;}
+  .explore_menu #explore_board:before {display: none;}
+  .explore_menu #explore_board:hover:before {display: none;}
 }
 
 #chart-options li#show-button {top:13px;}

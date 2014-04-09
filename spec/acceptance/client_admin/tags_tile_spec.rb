@@ -7,6 +7,7 @@ feature 'Tags tile' do
   end
 
   def select_tile_tag(tag_title)
+    fill_in 'add-tag', with: tag_title
     select tag_title, from: "Tag with:"
   end
 
@@ -35,6 +36,7 @@ feature 'Tags tile' do
     visit new_client_admin_tile_path(as: @client_admin)
     fill_in_valid_tile_form_entries
 
+    click_make_public
     select_tile_tag "Cheese"
     click_create_tile_button
 

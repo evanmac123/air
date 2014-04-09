@@ -1,8 +1,12 @@
 <%= javascript_include_tag 'jquery.lightbox_me' %>
 <% copy_url = explore_copy_tile_path(tile_id: tile.id) %>
 <div id="copy_button_wrapper">
-  <%= submit_tag "Copy to my board", id: "copy_tile_button" %>
-  <%= image_tag "spinner.gif", style: "display: none;", id: 'tile_spinner' %>
+  <%= link_to '#', id: 'copy_tile_button' do %>
+    <div class="copy-to-board">
+      <%= fa_icon 'files-o 2x'%>
+        <div class="copy-to-board-message">Copy to your board</div>      
+    </div>
+  <% end %>
 </div>
 
 <div id="tile_copied_lightbox" class="reveal-modal">
@@ -16,9 +20,6 @@
       var copyButton = $(event.target);
 
       event.preventDefault();
-      if(copyButton.hasClass('disabled')) { return; }
-
-      copyButton.addClass('disabled');
       $('#tile_spinner').show();
 
       $.post(

@@ -202,12 +202,14 @@ FactoryGirl.define do
     trait :public do
       is_public true
       status Tile::ACTIVE
+      association :tile_tag, factory: :tile_tag
     end
 
     trait :copyable do
       is_public true
       is_copyable true
       status Tile::ACTIVE
+      association :tile_tag, factory: :tile_tag
     end
   end
 

@@ -1,51 +1,6 @@
 <%= stylesheet_link_tag 'internal/explore' %>
-<%= javascript_include_tag 'client_admin/explore' %>
 <div class='row'>
-  <div class='large-12 columns tile_preview_navbar'>
-    <ul class='large-12'>
-      <li class ='left-section'>
-        <%= link_to :back do %>
-          <%=fa_icon 'chevron-left'%>
-        <% end %>            
-      </li>
-      <li class='middle-section organization'>
-        <%= fa_icon 'building-o' %>
-        <div class="organization-name"><%=@tile.demo.name%></div>            
-      </li>
-      <li class='middle-section creator'>
-        <%= fa_icon 'user'%>
-        <div class="creator-name">
-          <div class="name"><%= @tile.creator.name %></div>
-          <div class="created_at"><%= @tile.created_at.to_date %></div>
-        </div>            
-      </li>
-      <li class='middle-section tile-tags'>
-        <div class="all_tile_tags">
-          <% @tile.tile_tags.each do |tile_tag| %>
-            <div class="tile_tags"><%= tile_tag.title %></div>
-          <% end %>          
-        </div>            
-        <ul class="extra_tags_list"></ul>
-      </li>
-      <li class='right-section'>
-        <% if @tile.is_public %>
-          <%= link_to copy_to_my_board_explore_path(tile: @tile.id) do %>
-            <div class="copy-to-board">
-              <%= fa_icon 'files-o 2x'%>
-                <div class="copy-to-board-message">Copy to your board</div>      
-            </div>
-          <% end %>
-        <% else %>
-          <div data-tooltip class="has-tip" title="The permissions on this tile don't allow copying.">
-            <div class="view-only">
-              <%= fa_icon 'minus-circle 2x'%>
-                <div class="copy-to-board-message">View Only</div>      
-            </div>
-          </div>
-        <% end %>            
-      </li>
-    </ul>
-  </div>
+  <%=render partial: 'tile_preview_navbar', locals: {tile: @tile} %>
 </div>
 
 <div class="row">

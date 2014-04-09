@@ -1,6 +1,6 @@
 body {min-width:$large-desktop;}
 header .admin_options #manage_board:before {background:$dark-green;}
-header .admin_options #explore_board:before {display: none;}
+header .explore_menu #explore_board:before {display: none;}
 
 // until Tile Wall admin toggle works, 
 // using :hover to make link NOT look like a toggle

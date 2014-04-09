@@ -273,17 +273,6 @@ body.tile_previews.tile_previews-show {
   text-align: center;
 }
 
-#copy_tile_button {
-  @include app-button($dark-green);
-  float: right;
-
-  &.disabled {
-    background: $gray;
-    border-color: $gray;
-    cursor: default;
-  }
-}
-
 #tile_spinner {
   float: right;
   position: relative;

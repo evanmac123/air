@@ -2,6 +2,9 @@ require 'acceptance/acceptance_helper'
 
 
 shared_examples_for "editing a tile" do
+  def click_update_button
+    click_button "Update tile"
+  end
   scenario 'should see the tile image before editing' do
     page.find("img[src='#{@tile.reload.image}']").should be_present
   end
@@ -80,29 +83,66 @@ shared_examples_for "editing a tile" do
     end
   end
 
-  scenario "changing from public and copyable to non-public and non-copyable" do
-    @tile.update_attributes(is_public: true, is_copyable: true)
-    visit edit_client_admin_tile_path(@tile, as: @client_admin)
+  context "share to explore" do
+    scenario "by default, share button is off" do
+      page.find('#share_off')['checked'].should be_present
+    end
+    scenario "changing from public and copyable to non-public and non-copyable" do
+      @tile.update_attributes(is_public: true, is_copyable: true)
+      visit edit_client_admin_tile_path(@tile, as: @client_admin)
 
-    click_make_noncopyable
-    click_make_nonpublic
-    click_button "Update tile"
+      click_make_noncopyable
+      click_make_nonpublic
+      click_button "Update tile"
 
-    @tile.reload.is_public.should be_false
-    @tile.is_copyable.should be_false
-  end
+      @tile.reload.is_public.should be_false
+      @tile.is_copyable.should be_false
+    end
 
-  scenario "changing from non-public and non-copyable to public and copyable" do
-    @tile.is_public.should be_false
-    @tile.is_copyable.should be_false
+    scenario "changing from non-public and non-copyable to public and copyable", js: true do
+      @tile.is_public.should be_false
+      @tile.is_copyable.should be_false
 
-    click_make_public
-    click_make_copyable
-    click_button "Update tile"
+      click_make_public
+      click_make_copyable
+      add_new_tile_tag('public copyable')
+      click_button "Update tile"
 
-    @tile.reload.is_public.should be_true
-    @tile.is_copyable.should be_true
-  end
+      @tile.reload.is_public.should be_true
+      @tile.is_copyable.should be_true
+    end
+    scenario "clicking the share button should display allow copy button and add tag field", js: true do
+      page.should_not have_css('.allow_copying', visible: true)
+      page.should_not have_css('.add_tag', visible: true)
+
+      page.find('#share_on').click
+      
+      page.should have_css('.allow_copying', visible: true)
+      page.should have_css('.add_tag', visible: true)
+    end
+    scenario "tag is displayed after adding and is removable", js: true do
+      find('#share_on').click
+      add_new_tile_tag('removable tag')
+      find('.tile_tags > li').should have_content('Removable Tag')
+
+      find('.tile_tags > li > .fa-times').click
+      page.should_not have_content('Removable Tag')
+     
+      page.should_not have_css('.tile_tags > li')
+      click_update_button
+    end
+    
+    scenario 'tile with tags added is saved correctly', js: true do
+      click_make_public
+      add_new_tile_tag('first tag')
+      #second tag addition doesn't work correctly with poltergeist
+      #TODO check if it should be removed
+#      add_new_tile_tag('second tag')
+      click_update_button
+      @tile.tile_tags.reload.where(title: 'First Tag').should_not be_empty
+#      @tile.tile_tags.where(title: 'Second Tag').should_not be_empty
+    end    
+  end  
 end
 
 feature "Client admin edits tile" do
@@ -222,10 +262,6 @@ feature "Client admin edits tile" do
       rule_values.should have(3).rule_values
       rule_values.pluck(:value).sort.should == ["value 0", "value 1", "value 2"]
       expect_content "Sorry, we couldn't update this tile: headline can't be blank, answer \"m\" must have more than one letter, \"in my demo\" is already taken, \"worked out\" is already taken, \"follow\" is already taken"
-    end
-
-    scenario "should have no radio buttons" do
-      page.all("input[type=radio]").should be_empty
     end
   end
 

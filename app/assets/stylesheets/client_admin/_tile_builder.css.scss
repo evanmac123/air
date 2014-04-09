@@ -43,82 +43,92 @@ body.client_admin-tiles-update {
       &:last-of-type{margin-bottom:0;}
     }
     .share_to_explore{
-        float: left;
-        display: inline;
-        padding: 2em 0.5em;
-        .switch{
-            $height: 24px;
-            $font-size: 23px;           
-            @include switch-size($height);
-            $positive-color: $light-gray;
-            $negative-color: $dark-green;            
-            @include switch-style($switch-paddle-bg, $positive-color, $negative-color, false, true);
-            float: left;
-            width: 50px;
-        }
-        .share_to_explore_message{
-            color: $med-gray;
-            padding-left: 15px;
-            margin-top: 1px;
-            display: inline-block;
-            @include caption;
-        }        
+      float: left;
+      display: inline;
+      width: 34%;
+      padding: 2em 0.5em;
+      .share_to_explore_message{
+        color: $med-gray;
+        padding-left: 10px;
+        display: inline-block;
+        @include caption;
+      }        
+    }
+    .switch{
+      $height: 20px;
+      $font-size: 20px;           
+      @include switch-size($height);
+      $positive-color: $light-gray;
+      $negative-color: $dark-green;            
+      @include switch-style($switch-paddle-bg, $positive-color, $negative-color, false, true);
+      float: left;
+      width: 45px;
+      margin-top: 4px;
+      span.green-paddle {
+        -webkit-box-shadow: 2px 0 10px 0 rgba(0, 0, 0, 0.07), 1000px 0 0 1000px #dfdfdf, -2px 0 10px 0 rgba(0, 0, 0, 0.07), -1000px 0 0 1000px #4faa60;
+        box-shadow: 2px 0 10px 0 rgba(0, 0, 0, 0.07), 1000px 0 0 988px #dfdfdf, -2px 0 10px 0 rgba(0, 0, 0, 0.07), -1000px 0 0 1000px #4faa60;
+      }
     }
     .allow_copying{
-        display: none;
-        float: left;
-        padding: 2em 0.5em;
-        .switch{
-            $height: 24px;
-            $font-size: 23px;           
-            @include switch-size($height);
-            $positive-color: $light-gray;
-            $negative-color: $dark-green;            
-            @include switch-style($switch-paddle-bg, $positive-color, $negative-color, false, true);
-            float: left;
-            width: 50px;
-        }
-        .allow_copying_message{
-            color: $med-gray;
-            padding-left: 15px;
-            margin-top: 1px;
-            display: inline-block;
-            @include caption;
-        }
+      width: 27%;
+      display: none;
+      float: left;
+      padding: 2em 0.5em;
+      .allow_copying_message{
+        color: $med-gray;
+        padding-left: 10px;
+        display: inline-block;
+        @include caption;
+      }
+    }
+    #tag-autocomplete-target{
+      a {
+        color: $gray;
+        font-size: 14px;
+        font-weight: 500;
+      }
+      .ui-state-hover {
+        // override standard jQuery UI background with our standard colors
+        background-color: $light-gray;
+        border-color: $light-gray;
+        background-image: none;
+      }
     }
     .add_tag{
-        width: 211px;
+      width: 39%;
+      display: none;
+      margin-top: 28px;
+      float: left;
+      padding: 1px;
+
+      input{
+        border: 2px solid #f3f3f3;
+        width: 220px;
+        height: 30px;
+      }
+      .tag_alert{
         display: none;
-        margin-top: 23px;
-        float: left;
-        padding: 0 1em;
-        input{
-            border: 2px solid #f3f3f3 !important;
-            width: 179px;
-            height: 35px;
-        }
-        .tag_alert{
-            display: none;
-            color: $red;
-            margin: 7px 0px;
-        }
-        .tile_tags{
+        color: $red;
+        margin: 7px 0px;
+      }
+      .tile_tags{
+        color: $med-gray;
+        margin: 4px 0px;
+        width: 100%;
+        li{
+          margin-right: 5px;
+          margin-top: 5px;
+          display: inline-block;
+          border: 1px solid;
+          padding: 1px 5px;
+          border-radius: 5px;
+          font-size: 14px;
+          a {
             color: $med-gray;
-            margin: 7px 0px;
-            width: 277px;
-            li{
-                margin-right: 5px;
-                margin-top: 5px;
-                display: inline-block;
-                border: 1px solid;
-                padding: 3px 6px;
-                border-radius: 5px;
-                a{
-                    color: $med-gray;
-                    padding-left: 5px;
-                }
-            }
+            padding-left: 5px;
+          }
         }
+      }
     }
 
     // External link
@@ -129,17 +139,6 @@ body.client_admin-tiles-update {
   }
   .tile_holder {
     background: white;
-  }
-  #tag-autocomplete-target a{
-      color: $gray;
-  }
-  #tag-autocomplete-target{
-      .ui-state-hover {
-        // override standard jQuery UI background with our standard colors
-        background-color: $light-gray;
-        border-color: $light-gray;
-        background-image: none;
-      }
   }
   .builder_content {
     background:$white;
@@ -152,7 +151,7 @@ body.client_admin-tiles-update {
       }
       text-align: center;
       &:hover {border-style:solid;}
-      
+
       p {
         color:$gray;
         margin:1em 0;

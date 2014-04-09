@@ -62,6 +62,13 @@
               <li><span id="no_other_boards">You haven't joined any other boards.</span></li>
             <% end %>
           </ul>
+        <div class="explore_menu">
+          <%= link_to fa_icon('gear'), '#', id: 'explore_settings' %>
+          <%= link_to explore_path, id: 'explore_board' do %>
+            <span class="fa fa-rocket"></span>
+            <span>Explore</span>
+          <% end %>
+        </div>
         <div class="admin_options">
           <% if current_user.authorized_to?(:client_admin) %>
             <p class="small_cap">Board tools</p>

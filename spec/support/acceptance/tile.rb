@@ -188,6 +188,50 @@ module TileHelpers
     page.find(".correct-answer-button[value=\"#{index}\"]").click
   end
 
+  def add_tile_tag(tag)
+    fill_in 'add-tag', with: tag    
+    page.execute_script %Q{ $('##{field}').trigger('focus') }
+    page.execute_script %Q{ $('##{field}').trigger('keydown') }
+    
+    normalized_tag = tag.strip.capitalize.gsub(/\s+/, ' ')
+    
+    selector = %Q{ul.ui-autocomplete li.ui-menu-item a:contains("#{normalized_tag}")}
+    page.should have_selector("ul.ui-autocomplete li.ui-menu-item a:contains('#{normalized_tag}')")
+    page.execute_script %Q{ $('#{selector}').trigger('mouseenter').click() }
+    page.find('.tile_tags>li', text: tag).should have_content(normalized_tag(tag))
+  end
+
+  def normalized_tag(tag)
+    tag.strip.gsub(/\s+/, ' ').split.map(&:capitalize).join(' ')    
+  end
+  def add_new_tile_tag(tag, is_debug = false)
+    field = 'add-tag'
+    fill_in field, with: tag
+    a_text = "Click to add."
+    page.execute_script %Q{ $('##{field}').trigger('focus') }
+    page.execute_script %Q{ $('##{field}').trigger('keydown') }
+    selector = %Q{ul.ui-autocomplete li.ui-menu-item a:contains("#{a_text}")}
+    
+    find('ul.ui-autocomplete li.ui-menu-item a', text: a_text).should have_content(a_text)
+    page.execute_script %Q{ $('#{selector}').trigger('mouseenter').click() }
+    debugger if is_debug
+    find('.tile_tags>li', text: normalized_tag(tag)).should have_content(normalized_tag(tag))
+  end  
+  
+  def click_make_public
+    find('#share_on').click    
+  end
+  def click_make_nonpublic
+    find('#share_off').click    
+  end
+  
+  def click_make_noncopyable
+    find('#allow_copying_off').click
+  end
+  def click_make_copyable
+    find('#allow_copying_on').click
+  end
+  
   def fill_in_valid_tile_form_entries(click_answer = 1, with_public_and_copyable = false)
     attach_tile "tile_builder_form[image]", tile_fixture_path('cov1.jpg')
     fill_in "Headline",           with: "Ten pounds of cheese"
@@ -207,6 +251,7 @@ module TileHelpers
 
     if with_public_and_copyable
       click_make_public
+      add_new_tile_tag('start tag')
     end
   end
   

@@ -7,7 +7,7 @@ feature 'Creates tile' do
   def click_create_button
     click_button "Save tile"
   end
-
+    
   before do
     $rollout.activate_user(:public_tile, client_admin)
     visit new_client_admin_tile_path(as: client_admin)
@@ -15,31 +15,46 @@ feature 'Creates tile' do
   end
   
   context "share to explore" do
-    scenario "by default, share button in off" do
+    scenario "by default, share button is off" do
       page.find('#share_off')['checked'].should be_present
     end
     scenario "clicking the share button should display allow copy button and add tag field", js: true do
       page.should_not have_css('.allow_copying', visible: true)
       page.should_not have_css('.add_tag', visible: true)
 
-      page.find('#share_on').click
+      click_make_public
       
       page.should have_css('.allow_copying', visible: true)
       page.should have_css('.add_tag', visible: true)
     end
-    scenario "tag is displayed after adding", js: :webkit do
-      page.find('#share_on').click
-      fill_in 'add-tag', with: 'random tag'
-      page.should have_content("Tag doesn't exist. Click to add.")
-      page.find('.ui-autocomplete').click
-      page.should have_css('.tile_tags li')
-      within('.tile_tags li') do
-        page.should have_content("Random Tag")
-        #clicking cross button to remove tag
-        page.find('.fa-times').click
-      end
-      page.should_not have_css('.tile_tags li')
+    
+    scenario "tag is displayed after adding and is removable", js: true do
+      click_make_public
+      add_new_tile_tag('random tag')
+      find('.tile_tags > li').should have_content('Random Tag')
+
+      find('.tile_tags > li > .fa-times').click
+      page.should_not have_content('Random Tag')
+     
+      page.should_not have_css('.tile_tags > li')
+      click_create_button
+      page.should have_content('Add a tag to continue')
     end
+    
+    scenario 'tile with tags added is saved correctly', js: true do
+      fill_in_valid_tile_form_entries(6, true)
+      
+#      add_new_tile_tag('first tag added', true)
+#      add_new_tile_tag('second tag added')
+      click_create_button
+      page.status_code.should be(200)
+      demo.tiles.reload.should have(1).tile
+      new_tile = Tile.last
+      new_tile.tile_tags.reload.where(title: 'Start Tag').should_not be_empty
+#      new_tile.tile_tags.reload.where(title: 'First tag added').should_not be_empty
+#      new_tile.tile_tags.reload.where(title: 'Second tag added').should_not be_empty
+    end
+    
   end
 
   scenario 'by uploading an image and supplying some information', js: true do
@@ -47,7 +62,6 @@ feature 'Creates tile' do
     demo.rules.should be_empty
 
     create_good_tile(true)
-
     demo.tiles.reload.should have(1).tile
     new_tile = MultipleChoiceTile.last
     new_tile.image_file_name.should == 'cov1.jpg'
@@ -78,6 +92,7 @@ feature 'Creates tile' do
 
   scenario 'and Mixpanel gets a ping', js: true do
     create_good_tile
+    page.status_code.should be(200)
     FakeMixpanelTracker.clear_tracked_events
     crank_dj_clear
 

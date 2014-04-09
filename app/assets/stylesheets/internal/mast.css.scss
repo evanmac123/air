@@ -22,10 +22,20 @@ header #small-toggle.off-canvas-toggle a {
   }
   #desktop-toggle.off-canvas-toggle {display: none;}
   ul li + li {border-top:1px lighten($dark-gray, 7%) solid;}
+  .explore_menu {
+    display: inline-block;
+    #explore_board { // ====== Manage Board toggle
+      background:lighten($dark-gray, 10%);
+      display: block;
+      @include font-bold;
+      padding:1em;
+      &:active {background:lighten($dark-gray, 15%);}
+    }    
+  }
   .admin_options {
     background:lighten($dark-gray, 4%);
     margin-top:1em;
-    #manage_board, #explore_board { // ====== Manage Board toggle
+    #manage_board { // ====== Manage Board toggle
       background:lighten($dark-gray, 10%);
       display: block;
       @include font-bold;

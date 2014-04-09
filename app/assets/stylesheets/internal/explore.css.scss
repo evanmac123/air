@@ -35,12 +35,18 @@
 }
 
 .tile_with_tags, .client_admin_explore .tiles {
-  .explore_tiles{
-    border: 1px solid $med-gray;            
+  td {
+    width: 25%;
+    vertical-align: top;
+  }
+  .explore_tile {
+    border: 1px solid $light-gray;            
+    border-radius: 5px;
     padding: 6px 6px;
-    width: 267px;
     float: left;
     margin: 5px 13px 5px 0px;
+    height: 100%;
+    width: 100%;
     .organization {
       color: $sky-blue;
       font-size: 14px;
@@ -58,43 +64,77 @@
       padding: 5px;
       min-height: 90px;
       margin-top: -3px;
-      border: 1px solid $med-gray;
+      border: 1px solid $light-gray;
     }
     .all_tile_tags{
-      height: 60px;
-      /*overflow: hidden;*/
-    }
-    .tile_tags{
-      margin-top: 5px;
-      padding: 3px 6px;
-      border-radius: 5px;
-      display: inline-block;
-      font-size: 10px;
-      color: $med-gray;
-      border: 1px solid $med-gray;
-    }
-    .extra_tags{
-      color: $sky-blue;
-      border: 1px solid $sky-blue;
-    }
-  }
-  .extra_tags_list{
-    display: none;
-    position: absolute;
-    margin-top: 2px;
-    width: 253px;
-    border: 1px solid $med-gray;
-    border-radius: 5px;
-    li{
-      background: $white;
-      padding: 5px;
-      border-bottom: 1px solid $med-gray;
+      .tile_tag {
+        .extra_tags{          
+          font-size: 10px;
+          color: $sky-blue;
+        }
+        margin-top: 5px;
+        margin-left: 4px;
+        padding: 3px 6px;
+        border-radius: 5px;
+        display: inline-block;
+        a {
+          font-size: 10px;
+          color: $med-gray;
+        }
+        border: 1px solid $light-gray;
+      }
     }
   }
 }
 
-.client_admin_explore{
+.explores {
+  .explore_tile {
+    .extra_tags_list{
+      width: 21%;
+      z-index: 9;
+      background-color: $white;
+      display: none;
+      position: absolute;
+      margin-top: 5px;
+      border: 1px solid $light-gray;
+      border-radius: 5px;
+      .tile_tag { 
+        margin-top: 5px;
+        margin-left: 4px;
+        padding: 3px 6px;
+        display: inline-block;
+        a {
+          font-size: 10px;
+          color: $med-gray;
+        }
+      }
+    }
+  }
+  .tile_preview_navbar {
+    .extra_tags_list{
+      z-index: 9;
+      background-color: $white;
+      display: none;
+      position: absolute;
+      margin-top: 60px;
+      width: 28%;
+      border: 1px solid $light-gray;
+      border-radius: 5px;
+      .tile_tag { 
+        margin-top: 5px;
+        margin-left: 4px;
+        padding: 3px 6px;
+        display: inline-block;
+        a {
+          font-size: 10px;
+          color: $med-gray;
+        }
+      }
+    }    
+  }
+}
 
+.client_admin_explore{
   h1 {
     margin-left: -14px;
     margin-top: 80px;
@@ -103,7 +143,7 @@
 
   .tags{
     .tag_name{
-      border: 1px solid $med-gray;
+      border: 1px solid $light-gray;
       color: $med-gray;
       padding: 6px 6px;
       width: 267px;
@@ -118,66 +158,6 @@
       width: 267px;
       display: inline-block;
       margin: 5px 10px 5px 0px;
-    }
-  }
-
-  .tiles{
-    width: 1120px;
-    .explore_tiles{
-      border: 1px solid $med-gray;            
-      padding: 6px 6px;
-      width: 267px;
-      float: left;
-      margin: 5px 13px 5px 0px;
-      .headline{
-        color: $sky-blue;
-        font-size: 14px;
-      }
-      .creator{
-        color: $med-gray;
-        font-size: 12px;
-      }
-      .created_at{
-        color: $med-gray;
-        font-size: 10px;
-        margin-bottom: 10px;
-      }
-      .supporting_content{
-        padding: 5px;
-        min-height: 90px;
-        margin-top: -3px;
-        border: 1px solid $med-gray;
-      }
-      .all_tile_tags{
-        height: 60px;
-        /*overflow: hidden;*/
-      }
-      .tile_tags{
-        margin-top: 5px;
-        padding: 3px 6px;
-        border-radius: 5px;
-        display: inline-block;
-        font-size: 10px;
-        color: $med-gray;
-        border: 1px solid $med-gray;
-      }
-      .extra_tags{
-        color: $sky-blue;
-        border: 1px solid $sky-blue;
-      }
-    }
-    .extra_tags_list{
-      display: none;
-      position: absolute;
-      margin-top: 2px;
-      width: 253px;
-      border: 1px solid $med-gray;
-      border-radius: 5px;
-      li{
-        background: $white;
-        padding: 5px;
-        border-bottom: 1px solid $med-gray;
-      }
     }
   }
 }
@@ -195,11 +175,12 @@
         text-align: center;
         border-right: 1px solid $light-gray;
         width: 13%;
-        padding: 14px;
+        padding-top: 20px;
+        padding-bottom: 20px;
         font-size: 30px;
       }
       &.middle-section{
-        padding: 10px;
+        padding-top: 16px;
         &.organization{
           width: 22%;
           padding-left: 30px;
@@ -242,51 +223,36 @@
         }
         &.tile-tags{
           width: 30%;
-          padding-left: 30px;            
           float: left;
           .all_tile_tags{
-            width: 267px;
-          }
-          .tile_tags{                
-            margin-top: 5px;
-            padding: 3px 6px;
-            border-radius: 5px;
-            display: inline-block;
-            font-size: 10px;
-            color: $med-gray;
-            border: 1px solid $med-gray;
-          }
-        }
-        .extra_tags_list{
-          z-index: 9;
-          display: none;
-          position: absolute;
-          margin-top: 2px;
-          width: 253px;
-          border: 1px solid $med-gray;
-          border-radius: 5px;
-          li{
-            background: $white;
-            padding: 5px;
-            border-bottom: 1px solid $med-gray;
+            .tile_tag {                
+              margin-top: 5px;
+              margin-left: 3px;
+              padding: 3px 6px;
+              border-radius: 5px;
+              display: inline-block;
+              font-size: 10px;
+              color: $med-gray;
+              border: 1px solid $light-gray;
+            }
           }
         }
       }
       &.right-section{        
         border-left: 1px solid $light-gray;
         width: 13%;
+        text-align: center;
         float: right;
         padding-top: 14px;
+        padding-bottom: 14px;
+        .view-only{
+          color: $light-gray;
+        }          
         a {
           .copy-to-board{
-            text-align: center;
             color: #000;
             font-size: 14px;
           }
-          .view-only{
-            text-align: center;
-            color: $light-gray;
-          }          
         }
       }
     }

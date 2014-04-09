@@ -1,19 +1,35 @@
-<div class="tiles">
-  <% @tiles.each do |tile| %>
-    <%= link_to tile_preview_explore_path(tile: tile) do  %>
-      <div class="explore_tiles">
-        <div class="organization"><%= tile.demo.name %></div>
-        <div class="creator"><%= tile.creator.name %></div>
-        <div class="created_at"><%= tile.created_at.to_date %></div>
-        <div class="tile_image"><%= image_tag tile.image.url %></div>
-        <div class="supporting_content"><%= tile.supporting_content %></div>
-        <div class="all_tile_tags">
-          <% tile.tile_tags.each do |tile_tag| %>
-            <div class="tile_tags"><%= tile_tag.title %></div>
-          <% end %>          
-        </div>
-        <ul class="extra_tags_list"></ul>
-      </div>
-    <% end %>
-  <% end %>
-</div>
+<table class="tiles">
+  <tbody>
+    <% tiles.each_slice(4) do |tiles_slice|%>
+      <tr>
+        <%count = 0%>
+        <%tiles_slice.each do |tile|%>
+        <%count+=1%>
+        <td>        
+          <div class="explore_tile">
+            <div class="organization"><%= tile.demo.name %></div>
+            <div class="creator"><%= (tile.creator && tile.creator.name)||'' %></div>
+            <div class="created_at"><%= tile.human_creation_date %></div>
+            <%= link_to tile_preview_explore_path(tile: tile) do  %>            
+            <div class="tile_image"><%= image_tag tile.image.url %></div>
+            <div class="supporting_content"><%= tile.supporting_content %></div>
+            <% end %>        
+            <ul class="all_tile_tags"></ul>
+            <ul class="extra_tags_list">
+              <% tile.tile_tags.each do |tile_tag| %>
+                <li class="tile_tag">
+                  <%= link_to tile_tag.title, tile_tag_show_explore_path(tile_tag: tile_tag.id) %>
+                </li>
+              <% end %>                        
+            </ul>
+          </div>
+        </td>
+      <%end%>
+      <%while(count < 4) do %>
+        <%count+=1%>
+        <td></td>
+      <%end%>
+    </tr>
+    <%end%>
+  </tbody>
+</table>

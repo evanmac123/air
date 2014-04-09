@@ -64,45 +64,17 @@ module TileBuilderForm
 
     def tile_tag_ids
         @tile_tag_ids ||= (@parameters && @parameters[:tile_tag_ids] && @parameters[:tile_tag_ids]) || 
-          (tile && tile.tile_taggings.map(&:tag_id).join(',')) || ''
+          (@tile && @tile.tile_taggings.map(&:tile_tag_id).join(',')) || ''
     end
     
     def tile_tags
-      tag_ids = (@parameters && @parameters[:tile_tag_ids] && @parameters[:tile_tag_ids].split(',')) || 
-          (tile && tile.tile_taggings.map(&:tag_id)) || []
-      TileTag.where(id: tag_ids)
-    end
-    def tile_taggings(tile)
-      @associated_tile_taggings ||= begin
-        tile_tag_ids = (@parameters && @parameters[:tile_tag_ids] && @parameters[:tile_tag_ids].split(',')) || []
-        existing_tile_taggings = []
-        new_tile_tag_ids = tile_tag_ids
-        removed_tag_ids = []
-        
-        if tile.persisted?
-          existing_tile_taggings = tile.tile_taggings || []
-          existing_tile_tag_ids = existing_tile_taggings.map(&:tile_tag_id)
-          
-          new_tile_tag_ids = tile_tag_ids - existing_tile_tag_ids
-          removed_tag_ids = existing_tile_tag_ids - tile_tag_ids          
-        end
-        
-        associated_tile_taggings = existing_tile_taggings
-        new_tile_tag_ids.each do |tile_tag_id|
-          associated_tile_taggings << tile.tile_taggings.build(tile_tag_id: tile_tag_id)
-        end
-        
-        #TODO not a case when you are creating a new tile
-        removed_tile_taggings = []
-        removed_tag_ids.each do |tile_tag_id|
-          removed_tile_taggings << tile.tile_taggings.where(tile_tag_id: tile_tag_id).destroy
-        end
-        
-        associated_tile_taggings
+      @tile_tags ||= begin
+        tile_tag_ids = (@parameters && @parameters[:tile_tag_ids] && @parameters[:tile_tag_ids].split(',')) || 
+          (@tile && @tile.tile_taggings.map(&:tile_tag_id)) || []
+        TileTag.where(id: tile_tag_ids)
       end
-      
     end
-    
+        
     def error_messages
       clean_error_messages
       errors.values.join(", ") + "."
@@ -110,10 +82,6 @@ module TileBuilderForm
 
     def answer_prompt
       "Give the answers and mark the correct one. If survey, do not mark any."
-    end
-
-    def first_tag_id
-      tile.try(:first_tag).try(:id)
     end
 
     protected
@@ -132,11 +100,14 @@ module TileBuilderForm
 
     def save_main_objects      
       main_objects.each {|object| object.save(:context => :client_admin)}
-      Tile.transaction do
-        tile_taggings(tile).each {|tile_tagging| tile_tagging.save!}
-      end
+      save_tile_taggings
     end
 
+    def save_tile_taggings
+      Tile.transaction do
+        @tile.tile_taggings.each {|tile_tagging| tile_tagging.save!}
+      end      
+    end
     def after_save_main_objects_hook
     end
 
@@ -155,12 +126,14 @@ module TileBuilderForm
       set_tile_image
       set_tile_attributes
       set_tile_creator
+      set_tile_taggings
       @tile.status = Tile::DRAFT
     end
 
     def update_tile
       set_tile_image
       set_tile_attributes
+      set_tile_taggings
     end
 
     def remove_extraneous_rule_values
@@ -168,6 +141,28 @@ module TileBuilderForm
       extraneous_rule_values.each(&:destroy)
     end
 
+    def set_tile_taggings
+      if @parameters[:tile_tag_ids].present?
+        tile_tag_ids = @parameters[:tile_tag_ids].split(',')
+ 
+        new_tile_tag_ids = tile_tag_ids
+        
+        if @tile.persisted?
+          existing_tile_tag_ids = @tile.tile_taggings.map(&:tile_tag_id)
+          new_tile_tag_ids = tile_tag_ids - existing_tile_tag_ids                    
+        end
+        
+        #only keep the new and non-removed tile taggings
+        associated_tile_taggings = @tile.tile_taggings.where(tile_tag_id: tile_tag_ids)
+        new_tile_tag_ids.each do |tile_tag_id|
+          associated_tile_taggings << @tile.tile_taggings.build(tile_tag_id: tile_tag_id)
+        end
+        
+       @tile.tile_taggings = associated_tile_taggings
+      end
+      
+    end
+    
     def set_tile_image
       if @parameters[:image].present?
         @tile.image = @tile.thumbnail = @parameters[:image]
@@ -193,7 +188,6 @@ module TileBuilderForm
         }
 
       end
-      @tile.tile_taggings = tile_taggings(@tile)
     end
 
     def set_tile_creator
@@ -240,7 +234,7 @@ module TileBuilderForm
     end
 
     def main_objects_all_valid
-      tile_taggings(tile)
+      #tile_taggings
       invalid_objects = main_objects.reject{|object| object.valid?(:client_admin)}
 
       clean_error_messages
