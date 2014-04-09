@@ -14,7 +14,7 @@
       <div class="shadow_overlay"></div>
       <div class="image_credit">
         <div class="image_credit_view">
-          <%= link_to_if (!tile.image_credit.nil? && tile.image_credit.start_with?("http://", "https://")), truncate(tile.image_credit, length: 50), tile.image_credit, target: "_blank" %>
+          <%= link_to_if is_url?(tile.image_credit), truncate(tile.image_credit, length: 50), make_url(tile.image_credit), target: "_blank" %>
         </div>
       </div>
     </div>
