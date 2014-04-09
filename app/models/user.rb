@@ -1144,7 +1144,7 @@ class User < ActiveRecord::Base
   end
 
   # See note in #move_to_new_demo for why these next two exist.
-  FIELDS_ON_A_BOARD_BY_BOARD_BASIS = %w(is_client_admin points tickets ticket_threshold_base location_id)
+  FIELDS_ON_A_BOARD_BY_BOARD_BASIS = %w(is_client_admin points tickets ticket_threshold_base location_id displayed_tile_post_guide displayed_tile_success_guide)
   def save_current_board_dependent_attributes
    _current_board_membership = current_board_membership
     FIELDS_ON_A_BOARD_BY_BOARD_BASIS.each do |field|

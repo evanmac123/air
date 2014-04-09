@@ -25,23 +25,46 @@ feature 'Create new board' do
     page.should have_content "Make a new board" # slow your roll, Poltergeist  
   end
 
-  scenario "create option is suppressed on mobile devices"
-
-  scenario "via the create-board link in das switcher", js: true do
-    user = FactoryGirl.create(:user)
-    original_board = user.demo
-
+  def try_to_create_new_board(user = a_regular_user)
     visit activity_path(as: user)
     open_board_menu
     click_create_board_link
     wait_for_board_modal
-
     fill_in_new_board_name "Buttons"
     click_create_new_board_button
+  end
+
+  scenario "via the create-board link in das switcher", js: true do
+    try_to_create_new_board
 
     page.should have_content "CURRENT BOARD Buttons Board"
     should_be_on client_admin_tiles_path
     page.should have_content "Click the + button to create a new tile."
+  end
+
+  scenario "and goes through the whole onboarding flow", js: true do
+    user = FactoryGirl.create(:user)
+    # Pretend that the user has gone through the flow at some point in the past
+    user.displayed_tile_post_guide = true
+    user.displayed_tile_success_guide = true
+    user.save!
+
+    try_to_create_new_board(user)
+    page.should have_content "Click the + button to create a new tile."
+
+    click_link "Add New Tile"
+    fill_in_valid_form_entries
+    click_create_button
+    page.should have_content("Click Post to publish your tile")
+
+    click_link "Post"
+    page.should have_content("Congratulations! Your tile is posted.")
+
+    click_link "Back to Tiles"
+    page.should have_content("You've Unlocked Sharing!")
+
+    within('.tile-index-share', visible: true) {click_link "Got It"}
+    page.should have_content("To try your board as a user click on the logo.")
   end
 
   context "with a name that's already taken" do
@@ -58,9 +81,5 @@ feature 'Create new board' do
     it "should warn the user", js: true do
       page.should have_content "Sorry, that board name is already taken"
     end
-
-    it "should have a little X in the field"
-
-    it "should not allow submission"
   end
 end
