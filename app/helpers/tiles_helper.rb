@@ -19,6 +19,7 @@ module TilesHelper
   end
 
   def make_full_url str
+    str = "" if str.nil?
     (str.start_with?("http://", "https://") ? "" : "http://") + str
   end
 end
