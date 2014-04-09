@@ -87,9 +87,7 @@
     });
 
     $(".image_credit_view").bind("paste", function(){
-      // remove image credit
-      $(".image_credit_view").text("");
-      saveImageCreditChanges();
+      $(".image_credit_view").text("").addClass("remove").removeClass("truncate");
     });
 
     function saveImageCreditChanges() {
