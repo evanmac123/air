@@ -64,6 +64,9 @@
       var control = $("#tile_builder_form_image");
       control.replaceWith( control = control.clone( true ) );
       showPlaceholder();
+      // remove image credit
+      $(".image_credit_view").text("");
+      saveImageCreditChanges();
     });
 
     $(".image_credit_view").keyup( function(){ 
@@ -83,18 +86,24 @@
       }
     });
 
+    $(".image_credit_view").bind("paste", function(){
+      // remove image credit
+      $(".image_credit_view").text("");
+      saveImageCreditChanges();
+    });
+
     function saveImageCreditChanges() {
       div_input = $(".image_credit_view");
       //check if we have any text in div(delete spaces)
       text_length = div_input.text().replace(/\s+/g, '').length
 
-      if( div_input.hasClass("truncate") ){
+      if(text_length == 0){
+        div_input.text("Add Image Credit").addClass("empty").removeClass("truncate");
+        text = "";
+      }else if( div_input.hasClass("truncate") ){
         text = $("#tile_builder_form_image_credit").text(); //do nothing
       }else if(text_length > 0){
         text = div_input.text();
-      }else{
-        div_input.text("Add Image Credit").addClass("empty");
-        text = "";
       }
       $("#tile_builder_form_image_credit").text(text);
     };
