@@ -1,0 +1,22 @@
+<%= render 'shared/mixpanel' %>
+<%= stylesheet_link_tag 'internal/explore' %>
+
+<div class='row'>
+  <div class='large-12 columns client_admin_explore_tile_tag'>
+    <ul class='large-12'>
+      <li class='explore_section'>
+        <%= link_to client_admin_explore_path do %>
+          <%= fa_icon 'chevron-left 2x'%>
+          <h1 class='explore'> Explore </h1>
+        <% end %>
+      </li>
+      <li class='tile_tag'>
+        <h1><%= @tile_tag.title %></h1>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class='row tile_with_tags'>
+  <%= render partial: 'tile_with_tags', locals: {tiles: @tiles}%>
+</div>

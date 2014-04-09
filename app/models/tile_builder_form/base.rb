@@ -43,7 +43,7 @@ module TileBuilderForm
     end
 
     def tile
-      @tile ||= tile_class.new(demo: @demo)
+      @tile ||= tile_class.new(demo: @demo, is_copyable: true)
     end
 
     def rule
@@ -62,6 +62,47 @@ module TileBuilderForm
       @entered_answers ||= normalized_entered_answers
     end
 
+    def tile_tag_ids
+        @tile_tag_ids ||= (@parameters && @parameters[:tile_tag_ids] && @parameters[:tile_tag_ids]) || 
+          (tile && tile.tile_taggings.map(&:tag_id).join(',')) || ''
+    end
+    
+    def tile_tags
+      tag_ids = (@parameters && @parameters[:tile_tag_ids] && @parameters[:tile_tag_ids].split(',')) || 
+          (tile && tile.tile_taggings.map(&:tag_id)) || []
+      TileTag.where(id: tag_ids)
+    end
+    def tile_taggings(tile)
+      @associated_tile_taggings ||= begin
+        tile_tag_ids = (@parameters && @parameters[:tile_tag_ids] && @parameters[:tile_tag_ids].split(',')) || []
+        existing_tile_taggings = []
+        new_tile_tag_ids = tile_tag_ids
+        removed_tag_ids = []
+        
+        if tile.persisted?
+          existing_tile_taggings = tile.tile_taggings || []
+          existing_tile_tag_ids = existing_tile_taggings.map(&:tile_tag_id)
+          
+          new_tile_tag_ids = tile_tag_ids - existing_tile_tag_ids
+          removed_tag_ids = existing_tile_tag_ids - tile_tag_ids          
+        end
+        
+        associated_tile_taggings = existing_tile_taggings
+        new_tile_tag_ids.each do |tile_tag_id|
+          associated_tile_taggings << tile.tile_taggings.build(tile_tag_id: tile_tag_id)
+        end
+        
+        #TODO not a case when you are creating a new tile
+        removed_tile_taggings = []
+        removed_tag_ids.each do |tile_tag_id|
+          removed_tile_taggings << tile.tile_taggings.where(tile_tag_id: tile_tag_id).destroy
+        end
+        
+        associated_tile_taggings
+      end
+      
+    end
+    
     def error_messages
       clean_error_messages
       errors.values.join(", ") + "."
@@ -89,8 +130,11 @@ module TileBuilderForm
       end
     end
 
-    def save_main_objects
+    def save_main_objects      
       main_objects.each {|object| object.save(:context => :client_admin)}
+      Tile.transaction do
+        tile_taggings(tile).each {|tile_tagging| tile_tagging.save!}
+      end
     end
 
     def after_save_main_objects_hook
@@ -148,12 +192,8 @@ module TileBuilderForm
           is_copyable:        @parameters[:is_copyable]
         }
 
-        if @parameters[:tag_id].present?
-          @tile.tile_tags = [TileTag.find(@parameters[:tag_id])]
-        else
-          @tile.tile_tags = []
-        end
       end
+      @tile.tile_taggings = tile_taggings(@tile)
     end
 
     def set_tile_creator
@@ -200,6 +240,7 @@ module TileBuilderForm
     end
 
     def main_objects_all_valid
+      tile_taggings(tile)
       invalid_objects = main_objects.reject{|object| object.valid?(:client_admin)}
 
       clean_error_messages
@@ -222,7 +263,15 @@ module TileBuilderForm
       tile.errors.delete(:thumbnail)
     end
 
-    delegate :headline, :supporting_content, :question, :question_type, :question_subtype, :thumbnail, :image, :image_credit, :link_address, :is_public, :is_copyable, :to => :tile
+    delegate :headline, :supporting_content, :question, :question_type, :question_subtype, :thumbnail, :image, :image_credit, :link_address, :to => :tile
+    def is_copyable
+      tile.is_copyable?
+    end
+  
+    def is_public
+      tile.is_public?
+    end
+    
     delegate :points, :to => :rule
   end
 end

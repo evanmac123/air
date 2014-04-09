@@ -63,7 +63,7 @@ header {
     }
   }
 
-  #user_info #me_toggle, #manage_board, #admin_toggle, .how_it_works {
+  #user_info #me_toggle, #manage_board, #explore_board, #admin_toggle, .how_it_works {
     border: {
       style:solid;
       color:darken($header-color, 9%);
@@ -204,13 +204,13 @@ header {
     &:after{@include clear;}
     p.small_cap {display: none;}
     display: inline-block;
-    #manage_board, #admin_toggle {
+    #manage_board, #admin_toggle, #explore_board {
       @include font-bold;
       height:100%;
       max-height:$header-total-height;
       position: relative;
     }
-    #manage_board {
+    #manage_board, #explore_board {
       color:$text-color;
       padding:1.125em 0.3em;
       &:hover {&:before {

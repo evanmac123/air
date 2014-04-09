@@ -65,6 +65,11 @@
         <div class="admin_options">
           <% if current_user.authorized_to?(:client_admin) %>
             <p class="small_cap">Board tools</p>
+            <%= link_to fa_icon('gear'), '#', id: 'explore_board' %>
+            <%= link_to explore_path, id: 'explore_board' do %>
+              <span class="fa fa-rocket"></span>
+              <span>Explore</span>
+            <% end %>
             <%= link_to 'Manage', client_admin_tiles_path, id: 'manage_board' %>
             <a id="admin_toggle">&#9662;</a>
             <ul class="client_admin_pages">

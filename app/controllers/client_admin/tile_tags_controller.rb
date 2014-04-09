@@ -1,0 +1,59 @@
+class ClientAdmin::TileTagsController < ClientAdminBaseController
+  def index
+    respond_to do |format|
+      @tags = TileTag.order(:title)
+      format.js do
+        render :inline => search_results_as_json
+      end
+    end
+  end
+
+  def add
+    tag = TileTag.find_or_create_by_title(normalized_title)
+    render :json => tag.id
+  end
+    
+  protected
+
+  def normalized_title
+    params[:tag_name].strip.capitalize.gsub(/\s+/, ' ')
+  end
+  
+  def search_results_as_json
+    normalized_term = params[:term].downcase.strip.gsub(/\s+/, ' ')
+    tags = name_like(normalized_term).order(:title).limit(10)
+
+    if tags.empty?
+      add_tag_json(normalized_term)
+    else
+      tags.map{|tag| search_result(tag)}.to_json
+    end
+  end
+
+  def search_result(tag)
+    {
+      label: ERB::Util.h(tag.title), 
+      value: {
+        id: tag.id,
+        found: true,
+      }
+    } 
+  end
+
+  def add_tag_json(normalized_name)
+    name = normalized_name.split.map(&:capitalize).join(' ')
+    label = ERB::Util.h(%{Tag doesn't exist. Click to add.})
+    [{
+        label: label,
+        value: {
+          found: false,
+          name: name,
+          url:   add_client_admin_tile_tags_url(name)
+        }
+      }].to_json
+  end
+  
+  def name_like(text)
+    TileTag.where("title ILIKE ?", "%#{text}%")  
+  end
+end

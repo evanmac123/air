@@ -53,6 +53,9 @@ class Tile < ActiveRecord::Base
 
   has_alphabetical_column :headline
 
+  validate do
+    errors.add(:tile_tags, 'must exist for public tile') if is_public? && tile_taggings.size < 1
+  end
   # The ":default_url => ~~~" option was not needed for Capy 1.x, but then Capy2 came along and started skipping
   # cucumber features without giving a reason. Specifically, one scenario in a feature file would pass, but
   # all subsequent ones would just be skipped. No reason was given - just a "Skipped step" output for each step.

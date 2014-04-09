@@ -110,7 +110,7 @@ class ApplicationController < ActionController::Base
   def yell_name
     puts [params[:controller], params[:action]].join('#')
   end
-
+  
   private
 
   alias authenticate_without_game_begun_check authorize

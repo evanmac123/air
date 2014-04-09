@@ -27,7 +27,7 @@ header {
   .small_cap {margin-bottom:.25em;}
   #logo a {height: 2.875em;}
   #logo a:hover {img {visibility: hidden;}}
-  #manage_board, #user_info #me_toggle {&:after {font-family:'Lucida Sans Unicode', 'Arial Unicode MS', Arial;}}
+  #explore_board, #manage_board, #user_info #me_toggle {&:after {font-family:'Lucida Sans Unicode', 'Arial Unicode MS', Arial;}}
 
   .admin_options #admin_toggle {
     font-family:'Lucida Sans Unicode', 'Arial Unicode MS', Arial!important;

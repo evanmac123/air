@@ -167,19 +167,19 @@ module TileHelpers
   end
   
   def click_make_public
-    check("tile_builder_form[is_public]")
+    choose("share_on")
   end
 
   def click_make_copyable
-    check("tile_builder_form[is_copyable]")
+    choose('allow_copying_on')
   end
 
   def click_make_nonpublic
-    uncheck("tile_builder_form[is_public]")
+    choose("share_off")
   end
 
   def click_make_noncopyable
-    uncheck("tile_builder_form[is_copyable]")
+    choose('allow_copying_off')
   end
 
   def select_correct_answer(index)
@@ -207,8 +207,6 @@ module TileHelpers
 
     if with_public_and_copyable
       click_make_public
-      page.find('#tile_builder_form_is_copyable', visible: true)
-      click_make_copyable
     end
   end
   

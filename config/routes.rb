@@ -7,9 +7,10 @@ Health::Application.routes.draw do
   match "join"          => "invitations#new"
 
   # moved these to top level but don't want to break old links  
+  #### TODO commented out routes
   match "client_admin/explore"     => "explores#show"
   match "client_admin/explore_new" => "explores#show"
-
+  ############ END of commented routes##########3
   match "ard/:public_slug" => "public_boards#show", :as => "public_board", :via => :get
   match "ard/:public_slug/activity" => "acts#index", :as => "public_activity", :via => :get
   match "ard/:public_slug/tiles" => "tiles#index", :as => "public_tiles", :via => :get
@@ -75,11 +76,15 @@ Health::Application.routes.draw do
 
   resources :boards, only: [:new, :create]
 
-  resource :current_board, only: [:update]
-
+  resource :current_board, only: [:update]  
   resource :explore, only: [:show] do
     resources :tile_previews, only: [:show]
     resource :copy_tile, only: [:create]
+    member do
+      get 'tile_tag_show'
+      get 'tile_preview'
+      get 'copy_to_my_board'
+    end
   end
 
   namespace :client_admin do
@@ -149,8 +154,18 @@ Health::Application.routes.draw do
     resource :tiles_report, only: :show
 
     resources :public_boards, only: [:create, :destroy]
-
-    resources :tags
+    resource :explore, only: :show do
+      member do
+        get 'tile_tag_show'
+        get 'tile_preview'
+      end
+    end
+    
+    resources :tile_tags, only: [:index] do
+      collection do
+        get 'add'
+      end
+    end
   end
 
   resources :pages, :only => :show

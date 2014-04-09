@@ -13,6 +13,34 @@ feature 'Creates tile' do
     visit new_client_admin_tile_path(as: client_admin)
     choose_question_type_and_subtype Tile::QUIZ, Tile::MULTIPLE_CHOICE
   end
+  
+  context "share to explore" do
+    scenario "by default, share button in off" do
+      page.find('#share_off')['checked'].should be_present
+    end
+    scenario "clicking the share button should display allow copy button and add tag field", js: true do
+      page.should_not have_css('.allow_copying', visible: true)
+      page.should_not have_css('.add_tag', visible: true)
+
+      page.find('#share_on').click
+      
+      page.should have_css('.allow_copying', visible: true)
+      page.should have_css('.add_tag', visible: true)
+    end
+    scenario "tag is displayed after adding", js: :webkit do
+      page.find('#share_on').click
+      fill_in 'add-tag', with: 'random tag'
+      page.should have_content("Tag doesn't exist. Click to add.")
+      page.find('.ui-autocomplete').click
+      page.should have_css('.tile_tags li')
+      within('.tile_tags li') do
+        page.should have_content("Random Tag")
+        #clicking cross button to remove tag
+        page.find('.fa-times').click
+      end
+      page.should_not have_css('.tile_tags li')
+    end
+  end
 
   scenario 'by uploading an image and supplying some information', js: true do
     demo.tiles.should be_empty
@@ -216,7 +244,7 @@ feature 'Creates tile' do
       create_good_tile(false)
       new_tile = MultipleChoiceTile.last
       new_tile.is_public.should be_false
-      new_tile.is_copyable.should be_false
+      new_tile.is_copyable.should be_true #by default, its value is set to true
     end
   end
   

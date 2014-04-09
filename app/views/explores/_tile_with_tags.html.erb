@@ -1,0 +1,19 @@
+<div class="tiles">
+  <% @tiles.each do |tile| %>
+    <%= link_to tile_preview_explore_path(tile: tile) do  %>
+      <div class="explore_tiles">
+        <div class="organization"><%= tile.demo.name %></div>
+        <div class="creator"><%= tile.creator.name %></div>
+        <div class="created_at"><%= tile.created_at.to_date %></div>
+        <div class="tile_image"><%= image_tag tile.image.url %></div>
+        <div class="supporting_content"><%= tile.supporting_content %></div>
+        <div class="all_tile_tags">
+          <% tile.tile_tags.each do |tile_tag| %>
+            <div class="tile_tags"><%= tile_tag.title %></div>
+          <% end %>          
+        </div>
+        <ul class="extra_tags_list"></ul>
+      </div>
+    <% end %>
+  <% end %>
+</div>
