@@ -24,6 +24,9 @@ class Tile < ActiveRecord::Base
 
   validates_inclusion_of :status, in: STATUS
 
+  validates_length_of :supporting_content, maximum: 300, message: "supporting content is too long (maximum is 300 characters)"
+  validates_length_of :headline, maximum: 75, message: "headline is too long (maximum is 75 characters)"
+
   validates_with AttachmentPresenceValidator, :attributes => [:image], :if => :require_images, :message => "image is missing"
   validates_with AttachmentPresenceValidator, :attributes => [:thumbnail], :if => :require_images
 

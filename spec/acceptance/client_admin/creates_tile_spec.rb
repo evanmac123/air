@@ -92,6 +92,23 @@ feature 'Creates tile' do
     expect_content "Sorry, we couldn't save this tile: headline can't be blank, supporting content can't be blank, question can't be blank, image is missing, points can't be blank, must have at least one answer."
   end
 
+  scenario "with overlong headline or supporting content should have a reasonable error" do
+    # We don't use a JS-based driver to test this as a quick and dirty way of 
+    # simulating the behavior of certain browsers that don't respect the 
+    # character counters that are supposed to keep these fields to the proper
+    # length. No names, but it rhymes with Finternet Fexplorer. Thanks,
+    # Ficrosoft.
+
+    fill_in "Headline", with: ("x" * 76)
+    fill_in "Supporting content", with: ("x" * 301)
+    click_button "Save tile"
+
+    demo.tiles.reload.should be_empty
+    expect_content "Sorry, we couldn't save this tile"
+    expect_content "headline is too long"
+    expect_content "supporting content is too long"
+  end
+
   scenario "should see character (not byte) counters on each text field", js: true do
     expect_character_counter_for      '#tile_builder_form_headline', 75
     expect_character_counter_for      '#tile_builder_form_supporting_content', 300
