@@ -75,7 +75,7 @@ module RaffleHelpers
   end
 
   def click_cancel_raffle
-    click_link "Cancel"
+    page.find('#cancel_raffle').click
     click_link "Confirm?"
   end
 

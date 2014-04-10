@@ -9,7 +9,7 @@ body.client_admin-tiles-update {
     width:600px;
     padding: 0 !important;
   }
-  form {
+  .content form {
     #publish { margin-top: 2em; }
     #publish * {vertical-align: top;}
     #publish input[type="submit"] {@include app-button($dark-green);}
@@ -497,6 +497,7 @@ body.client_admin-tiles-update {
     margin-left: 46px;
   }
 }
+
 body.client_admin-tiles-new, 
 body.client_admin-tiles-create,
 body.client_admin-tiles-edit,

@@ -154,6 +154,8 @@ header {
   }
   
   .other_boards {
+    z-index: 5000; // so it goes over top of the image picker in the new tiles page
+
     a, #no_other_boards {
       width: 22em;
       padding-left: 1.1em;
