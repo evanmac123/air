@@ -4,6 +4,7 @@
     <%= form.input :client_name %>
     <%= form.input :phone_number %>
     <%= form.input :email %>
+    <%= form.input :custom_reply_email_name, label: "Email mask" %>
     <%= form.input :seed_points, :label => "Starting player score" %>
     <%= form.input :custom_welcome_message, {:maxlength => 160} %>
     <%= add_byte_counter_for 'Custom welcome message' %>

@@ -229,6 +229,12 @@
     - else 
       Talking chicken will use old-school sample tile
 
+  %p
+    - if @demo.custom_reply_email_name.present?
+      Email mask is
+      = @demo.custom_reply_email_name
+    - else
+      No custom email mask, using default
   %p 
     = "Game will#{' not' unless @demo.uses_tickets} use tickets"
     -if @demo.uses_tickets
