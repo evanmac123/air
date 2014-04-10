@@ -295,6 +295,7 @@ body.explores {
 #new_board_creation {
   width: 40%;
   left: 75%;
+  z-index: 5000;
 
   h1, h3, input, #cancel_board_creation {
     width: 100%;
