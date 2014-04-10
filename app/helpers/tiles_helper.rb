@@ -8,18 +8,21 @@ module TilesHelper
   # without spaces
   # have at least one letter
   # no two dots together
-  #starts with letter, ends with not dot
+  # starts with letter, ends with not dot
   def is_url? str
-    (!str.nil? && \
-      str.include?(".") && \
-      !str.include?(" ") && \
-      str[/[a-zA-Z]+/] && \
-      !str[/\.{2,}/] && \
-      str[/^[\w].*[^.]$/]) ? true : false
+    !str.nil? && \
+    str.include?(".") && \
+    !str.include?(" ") && \
+    str[/[a-zA-Z]+/] && \
+    !str[/\.{2,}/] && \
+    str[/^[\w].*[^.]$/]
   end
 
   def make_full_url str
-    str = "" if str.nil?
-    (str.start_with?("http://", "https://") ? "" : "http://") + str
+    if is_url? str
+      (str.start_with?("http://", "https://") ? "" : "http://") + str
+    else
+      str
+    end
   end
 end
