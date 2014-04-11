@@ -223,6 +223,13 @@ feature 'Edits user' do
         click_button "Save edits"
         @user.reload.location.should == new_location
       end
+
+      it "should show the correct location after the update" do
+        new_location = @current_demo_locations.first
+        select new_location.name, from: 'user_location_id'
+        click_button "Save edits"
+        page.find('#user_location_id').value.should == new_location.id.to_s
+      end
     end
 
     context "of a user in a different board" do
