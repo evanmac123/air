@@ -6,7 +6,6 @@ $(document).ready ->
     extra_tags_lists = all_tile_tags.siblings('ul.extra_tags_list')
     
     children = extra_tags_lists.children()
-    show_extra_tags = false
     if use_parent_height
       all_tile_tags_height = all_tile_tags.parent().height()
     else
@@ -18,9 +17,8 @@ $(document).ready ->
         all_tile_tags_height = all_tile_tags.parent().height()
       else
         all_tile_tags_height = all_tile_tags.height()
-      show_extra_tags = true
 
-    if(show_extra_tags && all_tile_tags.children().length > 0) 
+    if(all_tile_tags_height > max_height) 
       all_tile_tags.children().last().appendTo(extra_tags_lists)
       all_tile_tags.children().last().appendTo(extra_tags_lists)
       $(all_tile_tags).append("<li class='tile_tag'><a class='extra_tags' href='#'>...</a></li>")
