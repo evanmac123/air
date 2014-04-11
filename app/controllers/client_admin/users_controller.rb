@@ -7,7 +7,7 @@ class ClientAdmin::UsersController < ClientAdminBaseController
   before_filter :normalize_characteristic_ids_to_integers, only: [:create, :update]
 
   # Attributes that admins are allowed to set
-  SETTABLE_USER_ATTRIBUTES = [:name, :email, :employee_id, :zip_code, :characteristics, :location_id, :"date_of_birth(1i)", :"date_of_birth(2i)", :"date_of_birth(3i)", :gender, :phone_number, :role]
+  SETTABLE_USER_ATTRIBUTES = [:name, :email, :employee_id, :zip_code, :characteristics, :location_id, :"date_of_birth(1i)", :"date_of_birth(2i)", :"date_of_birth(3i)", :gender, :phone_number]
 
   # number of users displayable on one page when browsing
   PAGE_SIZE = 50
@@ -45,7 +45,8 @@ class ClientAdmin::UsersController < ClientAdminBaseController
     end
 
     @user = existing_user || current_user.demo.users.new(user_params)
-
+    @user.role = params[:user].delete(:role)
+      
     if save_if_date_good(@user) # sigh
       make_this_board_current = existing_user.nil?
       @user.add_board(@demo.id, make_this_board_current)
@@ -76,16 +77,17 @@ class ClientAdmin::UsersController < ClientAdminBaseController
     @demo = current_user.demo
 
     user_in_current_demo = (@user.demo == @demo)
+    @new_role = params[:user].delete(:role)
     unless user_in_current_demo
       @new_location_id = params[:user].delete(:location_id)
-      @new_role = params[:user].delete(:role)
     end
 
     @user.attributes = params[:user].filter_by_key(*SETTABLE_USER_ATTRIBUTES)
     if @user.phone_number.present?
       @user.phone_number = PhoneNumber.normalize(@user.phone_number)
     end
-
+    @user.role = @new_role
+    
     if save_if_date_good(@user)
       unless user_in_current_demo
         @user.board_memberships.find_by_demo_id(@demo.id).
