@@ -3,7 +3,7 @@ class BoardNameValidationsController < ApplicationController
 
   def show
     board_name = normalize_board_name(params[:id])
-    existing_demo = Demo.find_by_name(board_name)
-    render json: {nameValid: existing_demo.nil?}
+    existing_demo = Demo.where("name ILIKE ?", board_name)
+    render json: {nameValid: existing_demo.empty?}
   end
 end

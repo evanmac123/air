@@ -74,11 +74,21 @@ feature 'Create new board' do
       open_board_menu
       click_create_board_link
       wait_for_board_modal
-
-      fill_in_new_board_name "Buttons"
     end
 
     it "should warn the user", js: true do
+      fill_in_new_board_name "Buttons"
+      page.should have_content "Sorry, that board name is already taken"
+    end
+
+    it "should ignore case when comparing names", js: true do
+      fill_in_new_board_name "buttons"
+      page.should have_content "Sorry, that board name is already taken"
+
+      fill_in_new_board_name "BUTTONS"
+      page.should have_content "Sorry, that board name is already taken"
+
+      fill_in_new_board_name "BuTtOnS"
       page.should have_content "Sorry, that board name is already taken"
     end
   end
