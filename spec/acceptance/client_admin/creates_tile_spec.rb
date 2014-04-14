@@ -217,14 +217,14 @@ feature 'Creates tile' do
     scenario "choose type Quiz, subtype true/false", js: true do
       choose_question_type_and_subtype Tile::QUIZ, Tile::TRUE_FALSE
       page.all(answer_link_selector).should have(2).links
-      page.find(".choose_answer").text.should == "Click an answer option and mark the right answer"
+      page.find(".choose_answer").text.should == "Correct answer not selected"
       page.all(".add_answer").should be_empty
     end
 
     scenario "choose type Quiz, subtype multiple choice", js: true do
       choose_question_type_and_subtype Tile::QUIZ, Tile::MULTIPLE_CHOICE
       page.all(answer_link_selector).should have(2).links
-      page.find(".choose_answer").text.should == "Click an answer option and mark the right answer"
+      page.find(".choose_answer").text.should == "Correct answer not selected"
       page.find(".add_answer").text.should == "Add another answer"
     end
 
