@@ -131,6 +131,7 @@ body.client_admin-tiles-update,
   .tile_headline, .tile_supporting_content, .tile_question, .multiple_choice_group, .tile_external_link {
     margin: 0 auto;
     width:86%;
+    word-wrap: break-word;
   }
 
   .tile_headline {

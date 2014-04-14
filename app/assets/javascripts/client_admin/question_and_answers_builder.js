@@ -156,7 +156,7 @@ function selectMessage() {
   }else {
     select_message.removeClass("have_answer").addClass("no_answer");
     icon = $('<i class="fa fa-info-circle"></i>');
-    meassage = "  Click an answer option and mark the right answer";
+    meassage = "  Correct answer not selected";
   }
   select_message.text(meassage).prepend(icon);
 }

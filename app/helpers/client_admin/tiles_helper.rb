@@ -82,8 +82,8 @@ module ClientAdmin::TilesHelper
         },
         Tile::CUSTOM => {
           name: "Custom...",
-          question: "Points for FILL IN",
-          answers: ["FILL IN ACTION"]
+          question: "Points for taking an action",
+          answers: ["Add Action"]
         }
       },
 
@@ -103,7 +103,7 @@ module ClientAdmin::TilesHelper
       Tile::SURVEY => {
         Tile::MULTIPLE_CHOICE.parameterize("_") => {
           name: "Multiple Choice",
-          question: "Select one of the following options",
+          question: "Add Question",
           answers: ["Add Answer Option", "Add Answer Option"]
         },
         Tile::RSVP_TO_EVENT.parameterize("_") => {
