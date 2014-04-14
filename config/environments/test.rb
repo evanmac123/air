@@ -79,6 +79,7 @@ Health::Application.configure do
   ##########################################################################################
   
   config.middleware.use ClearanceBackDoor
-    
+
+  config.action_mailer.asset_host = "//example.com"
 end
 

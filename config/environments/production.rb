@@ -35,9 +35,8 @@ Health::Application.configure do
   # Note that you must run 
   # heroku labs:enable user_env_compile --app <appname>
   # In order for assets to be compiled during push
-  # NOTE: If you change this, make the corresponding change to: /app/helpers/email_helper.rb#email_logo
   config.action_controller.asset_host = "//#{ENV['FOG_DIRECTORY']}.s3.amazonaws.com"
-
+  config.action_mailer.asset_host = "https:" + config.action_controller.asset_host
 
   # Disable delivery errors, bad email addresses will be ignored
   # config.action_mailer.raise_delivery_errors = false

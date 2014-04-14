@@ -16,33 +16,21 @@ module EmailHelper
     edit_account_settings_url(host: email_link_host, protocol: email_link_protocol)
   end
 
-  # If the customer wants their own logo the full url will be in the 'skins' table and we will use that.
-  # If not, we use our logo, which is served out of the 'assets/images' directory.
-  #
-  # For H.Engage, 'image_tag' spits out '/assets/logo.png' in Dev and Test modes, and something like
-  # 'assets/logo-580aed6750f34956244a346b8f34fa73.png' in Staging and Production.
-  #
-  # This means we won't see the logo in Dev and Test mode (because the path is wrong) - but we don't need to.
-  #
   def email_logo(demo)
-    hengage_logo         = 'logo.png'
+    logo_url = demo.custom_logo_url
     image_options        = { width: "150px", style: "display:block;" }
-    hengage_asset_server = "https://hengage-assets.s3.amazonaws.com"
 
-    # 'skinned_for_demo' checks for a skin being defined => can tell from its output whether or not a skin exists for this demo
-    logo = skinned_for_demo(demo, 'logo_url', hengage_logo)
-
-    if logo == hengage_logo
+    if logo_url.blank?
+      # Pretty asinine that we have to roll our own here. But hi. Here we are.
+      expanded_logo_path = ActionController::Base.helpers.asset_path('logo.png')
+      logo_url = ::Rails.application.config.action_mailer.asset_host + expanded_logo_path
       image_options.merge!(alt: 'Airbo')
     else
       # They are not forced to supply alt_text; if they don't, Rails will use the filename (without extension) as the alt-text
       image_options.merge!(alt: demo.skin.alt_logo_text) unless demo.skin.alt_logo_text.blank?
     end
 
-    url = image_tag logo, image_options
-    url.insert(url.index('/assets'), hengage_asset_server) if logo == hengage_logo
-
-    url
+    image_tag logo_url, image_options
   end
 
   # Had to define environment variables on Heroku so that SendGrid sends emails to the right place in staging and production

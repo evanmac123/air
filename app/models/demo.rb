@@ -388,6 +388,11 @@ class Demo < ActiveRecord::Base
   def has_normal_users?
     (self.users.non_admin.count > 0) || (self.guest_users.count > 0)
   end
+
+  def custom_logo_url
+    self.skin.try(:logo_url)
+  end
+
   protected
 
   def unless_within(cutoff_time, last_done_time)
